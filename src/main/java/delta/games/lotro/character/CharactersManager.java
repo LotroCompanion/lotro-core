@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import delta.common.utils.files.filter.FileTypePredicate;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 
 /**
  * Manages all known toons.
@@ -54,7 +54,7 @@ public class CharactersManager
 
   private void init()
   {
-    Config cfg=Config.getInstance();
+    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File toonsDir=cfg.getToonsDir();
     FileFilter fileFilter=new FileTypePredicate(FileTypePredicate.DIRECTORY);
     File[] serverDirs=toonsDir.listFiles(fileFilter);

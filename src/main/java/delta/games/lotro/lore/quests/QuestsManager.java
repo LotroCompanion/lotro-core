@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.cache.WeakReferencesCache;
 import delta.common.utils.files.archives.ArchiveManager;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.lore.quests.index.QuestsIndex;
 import delta.games.lotro.lore.quests.index.io.xml.QuestsIndexXMLParser;
 import delta.games.lotro.lore.quests.io.xml.QuestXMLParser;
@@ -42,7 +42,7 @@ public class QuestsManager
   private QuestsManager()
   {
     _cache=new WeakReferencesCache<Integer,QuestDescription>(100);
-    File loreDir=Config.getInstance().getLoreDir();
+    File loreDir=LotroCoreConfig.getInstance().getLoreDir();
     File questsArchive=new File(loreDir,"quests.zip");
     _archive=new ArchiveManager(questsArchive);
     _archive.open();
@@ -104,7 +104,7 @@ public class QuestsManager
 
   private void loadIndex()
   {
-    File dir=Config.getInstance().getIndexesDir();
+    File dir=LotroCoreConfig.getInstance().getIndexesDir();
     File questIndexFile=new File(dir,"questsIndex.xml");
     if (questIndexFile.exists())
     {

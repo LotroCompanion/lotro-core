@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.cache.WeakReferencesCache;
 import delta.common.utils.files.archives.ArchiveManager;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.lore.deeds.index.DeedsIndex;
 import delta.games.lotro.lore.deeds.index.io.xml.DeedsIndexXMLParser;
 import delta.games.lotro.lore.deeds.io.xml.DeedXMLParser;
@@ -42,7 +42,7 @@ public class DeedsManager
   private DeedsManager()
   {
     _cache=new WeakReferencesCache<Integer,DeedDescription>(100);
-    File loreDir=Config.getInstance().getLoreDir();
+    File loreDir=LotroCoreConfig.getInstance().getLoreDir();
     File deedsArchive=new File(loreDir,"deeds.zip");
     _archive=new ArchiveManager(deedsArchive);
     _archive.open();
@@ -104,7 +104,7 @@ public class DeedsManager
 
   private void loadIndex()
   {
-    File dir=Config.getInstance().getIndexesDir();
+    File dir=LotroCoreConfig.getInstance().getIndexesDir();
     File deedIndexFile=new File(dir,"deedsIndex.xml");
     if (deedIndexFile.exists())
     {

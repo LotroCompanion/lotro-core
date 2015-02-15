@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.cache.WeakReferencesCache;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.lore.recipes.io.xml.RecipeXMLParser;
 import delta.games.lotro.lore.recipes.io.xml.RecipeXMLWriter;
 import delta.games.lotro.utils.LotroLoggers;
@@ -116,7 +116,7 @@ public class RecipesManager
 
   private File getRecipeFile(int id)
   {
-    File recipesDir=Config.getInstance().getRecipesDir();
+    File recipesDir=LotroCoreConfig.getInstance().getRecipesDir();
     String fileName=id+".xml";
     File ret=new File(recipesDir,fileName);
     return ret;

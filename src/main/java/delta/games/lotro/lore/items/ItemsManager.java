@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import delta.common.utils.NumericTools;
 import delta.common.utils.cache.WeakReferencesCache;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 import delta.games.lotro.lore.items.io.xml.ItemsSetXMLParser;
@@ -264,7 +264,7 @@ public class ItemsManager
 
   private File getItemFile(int id)
   {
-    File itemsDir=Config.getInstance().getItemsDir();
+    File itemsDir=LotroCoreConfig.getInstance().getItemsDir();
     String fileName=id+".xml";
     File ret=new File(itemsDir,fileName);
     return ret;
@@ -272,7 +272,7 @@ public class ItemsManager
 
   private File getItemsSetFile(String id)
   {
-    File itemsDir=Config.getInstance().getItemsDir();
+    File itemsDir=LotroCoreConfig.getInstance().getItemsDir();
     File setsDir=new File(itemsDir,"sets");
     String fileName=id+".xml";
     File ret=new File(setsDir,fileName);

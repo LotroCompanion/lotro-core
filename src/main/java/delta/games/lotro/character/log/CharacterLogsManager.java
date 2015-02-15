@@ -10,7 +10,7 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLParser;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLWriter;
@@ -58,7 +58,7 @@ public class CharacterLogsManager
    */
   public void pruneLogFiles()
   {
-    TypedProperties props=Config.getInstance().getParameters();
+    TypedProperties props=LotroCoreConfig.getInstance().getParameters();
     int nbMax=props.getIntProperty("character.log.max.files",10);
     File[] files=getLogFiles();
     if ((files!=null) && (files.length>nbMax))

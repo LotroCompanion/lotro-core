@@ -9,7 +9,7 @@ import java.util.List;
 
 import delta.common.utils.files.FilesDeleter;
 import delta.common.utils.files.filter.FileTypePredicate;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 
 /**
  * Manages the characters of a single server.
@@ -35,7 +35,7 @@ public class ServerCharactersManager
 
   private void init()
   {
-    Config cfg=Config.getInstance();
+    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File toonsDir=cfg.getToonsDir();
     _serverDir=new File(toonsDir,_serverName);
     FileFilter fileFilter=new FileTypePredicate(FileTypePredicate.DIRECTORY);
@@ -128,7 +128,7 @@ public class ServerCharactersManager
   public void removeToon(String toonName)
   {
     _toons.remove(toonName);
-    Config config=Config.getInstance();
+    LotroCoreConfig config=LotroCoreConfig.getInstance();
     File toonDir=config.getToonDirectory(_serverName,toonName);
     if (toonDir.exists())
     {

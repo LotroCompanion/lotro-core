@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.lore.warbands.io.xml.WarbandsRegistryXMLParser;
 
 /**
@@ -34,7 +34,7 @@ public class WarbandsRegistry
   {
     if (_registry==null)
     {
-      Config cfg=Config.getInstance();
+      LotroCoreConfig cfg=LotroCoreConfig.getInstance();
       File loreDir=cfg.getLoreDir();
       File warbandsFile=new File(loreDir,"warbands.xml");
       WarbandsRegistryXMLParser parser=new WarbandsRegistryXMLParser();

@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import delta.common.utils.environment.FileSystem;
 import delta.common.utils.files.filter.ExtensionPredicate;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 import delta.games.lotro.utils.LotroLoggers;
@@ -27,7 +27,7 @@ public class MainTestItemXMLWriter
    */
   public static void main(String[] args)
   {
-    File itemsDir=Config.getInstance().getItemsDir();
+    File itemsDir=LotroCoreConfig.getInstance().getItemsDir();
     FileFilter fileFilter=new ExtensionPredicate("xml");
     File[] itemFiles=itemsDir.listFiles(fileFilter);
     if (itemFiles!=null)

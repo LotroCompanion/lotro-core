@@ -7,7 +7,7 @@ import java.util.List;
 
 import delta.common.utils.text.EncodingNames;
 import delta.common.utils.text.TextUtils;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 
 /**
  * Factions registry.
@@ -49,7 +49,7 @@ public class Factions
   private void initFactions()
   {
     List<Faction> factions=new ArrayList<Faction>();
-    File cfgDir=Config.getInstance().getConfigDir();
+    File cfgDir=LotroCoreConfig.getInstance().getConfigDir();
     File factionFiles=new File(cfgDir,"factions.txt"); 
     List<String> lines=TextUtils.readAsLines(factionFiles,EncodingNames.UTF_8);
     if (lines!=null)

@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Date;
 
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.Config;
+import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.level.LevelHistory;
 import delta.games.lotro.character.level.LevelHistoryComputer;
 import delta.games.lotro.character.level.io.xml.LevelHistoryXMLParser;
@@ -48,7 +48,7 @@ public class CharacterFile
     CharacterFile toon=new CharacterFile();
     toon.setName(toonName);
     toon.setServerName(serverName);
-    Config config=Config.getInstance();
+    LotroCoreConfig config=LotroCoreConfig.getInstance();
     File toonDir=config.getToonDirectory(serverName,toonName);
     toon.setRootDir(toonDir);
     return toon;
