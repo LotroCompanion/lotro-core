@@ -12,7 +12,11 @@ public class CharacterClass
   private static HashMap<String,CharacterClass> _instancesByKey=new HashMap<String,CharacterClass>();
   private String _key;
   private String _iconPath;
-  
+
+  /**
+   * Beorning.
+   */
+  public static final CharacterClass BEORNING=new CharacterClass("Beorning","beorning");
   /**
    * Burglar.
    */
@@ -49,6 +53,13 @@ public class CharacterClass
    * Warden.
    */
   public static final CharacterClass WARDEN=new CharacterClass("Warden","warden");
+
+  /**
+   * An array of all character classes.
+   */
+  public static final CharacterClass[] ALL_CLASSES = {
+    BEORNING, BURGLAR, CAPTAIN, CHAMPION, GUARDIAN, HUNTER, LORE_MASTER, MINSTREL, RUNE_KEEPER, WARDEN
+  };
 
   private CharacterClass(String label, String iconPath)
   {
