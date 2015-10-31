@@ -22,6 +22,7 @@ import delta.games.lotro.character.CharacterStat;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
@@ -138,8 +139,8 @@ public class CharacterXMLWriter
     if (stat!=null)
     {
       AttributesImpl statAtts=new AttributesImpl();
-      statAtts.addAttribute("","",CharacterXMLConstants.STAT_NAME_ATTR,CDATA,stat.name());
-      Integer value=characterStat.getValue();
+      statAtts.addAttribute("","",CharacterXMLConstants.STAT_NAME_ATTR,CDATA,stat.getKey());
+      FixedDecimalsInteger value=characterStat.getValue();
       if (value!=null)
       {
         statAtts.addAttribute("","",CharacterXMLConstants.STAT_VALUE_ATTR,CDATA,String.valueOf(value.intValue()));

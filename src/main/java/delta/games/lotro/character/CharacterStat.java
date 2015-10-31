@@ -1,11 +1,16 @@
 package delta.games.lotro.character;
 
+import java.util.HashMap;
+
+import delta.games.lotro.utils.FixedDecimalsInteger;
+
 /**
  * Represents a LOTRO character stat value.
  * @author DAM
  */
 public class CharacterStat
 {
+  private static HashMap<String,STAT> _map=new HashMap<String,STAT>();
   /**
    * A LOTRO character stat.
    * @author DAM
@@ -44,50 +49,112 @@ public class CharacterStat
      * Fate.
      */
     FATE("Fate"),
+    // Offence
     /**
-     * Critical hit.
+     * Critical rating.
      */
-    CRITICAL_HIT("Critical hit"),
+    CRITICAL_RATING("Critical Rating", "CRITICAL_HIT", "Critical hit"),
     /**
      * Finesse.
      */
     FINESSE("Finesse"),
     /**
-     * Block.
+     * Physical Mastery.
      */
-    BLOCK("Block"),
+    PHYSICAL_MASTERY("Physical Mastery"),
     /**
-     * Parry.
+     * Tactical Mastery.
      */
-    PARRY("Parry"),
-    /**
-     * Evade.
-     */
-    EVADE("Evade"),
+    TACTICAL_MASTERY("Tactical Mastery"),
+    // Defence
     /**
      * Resistance.
      */
     RESISTANCE("Resistance"),
     /**
-     * Critical avoidance.
+     * Critical Defence.
      */
-    CRITICAL_AVOID("Critical avoidance"),
+    CRITICAL_DEFENCE("Critical Defence", "CRITICAL_AVOID", "Critical avoidance"),
+    /**
+     * Incoming Healing.
+     */
+    INCOMING_HEALING("Incoming Healing"),
+    // Avoidance
+    /**
+     * Block.
+     */
+    BLOCK("Block", "Block Rating"),
+    /**
+     * Parry.
+     */
+    PARRY("Parry", "Parry Rating"),
+    /**
+     * Evade.
+     */
+    EVADE("Evade", "Evade Rating"),
+    // Mitigations
+    // Damage Source: Melee, Ranged, Tactical
+    // Damage Type: Physical Mitigation, Tactical Mitigation
     /**
      * Physical mitigation.
      */
-    PHYSICAL_MITIGATION("Physical mitigation"),
+    PHYSICAL_MITIGATION("Physical Mitigation", "Physical mitigation"),
     /**
      * Tactical mitigation.
      */
-    TACTICAL_MITIGATION("Tactical mitigation");
-    
+    TACTICAL_MITIGATION("Tactical Mitigation", "Tactical mitigation"),
+    /**
+     * In-Combat Morale Regeneration.
+     */
+    OCMR("Non-Combat Morale Regeneration"),
+    /**
+     * In-Combat Morale Regeneration.
+     */
+    ICMR("In-Combat Morale Regeneration"),
+    /**
+     * non-Combat Power Regeneration.
+     */
+    OPMR("Non-Combat Power Regeneration"),
+    /**
+     * In-Combat Power Regeneration.
+     */
+    IPMR("In-Combat Power Regeneration");
+
     private String _name;
 
-    private STAT(String name)
+    private STAT(String name, String... aliases)
     {
       _name=name;
+      _map.put(name,this);
+      _map.put(name(),this);
+      if (aliases!=null)
+      {
+        for(String alias : aliases)
+        {
+          _map.put(alias,this);
+        }
+      }
     }
-    
+
+    /**
+     * Get a stat by name.
+     * @param name Name to use.
+     * @return A stat instance or <code>null</code> if not found.
+     */
+    public static STAT getByName(String name)
+    {
+      return _map.get(name);
+    }
+
+    /**
+     * Get the name of this stat.
+     * @return a stat name.
+     */
+    public String getKey()
+    {
+      return name();
+    }
+
     /**
      * Get the name of this stat.
      * @return a stat name.
@@ -96,11 +163,16 @@ public class CharacterStat
     {
       return _name;
     }
-    
+
+    @Override
+    public String toString()
+    {
+      return _name;
+    }
   }
-  
+
   private STAT _stat;
-  private Integer _value;
+  private FixedDecimalsInteger _value;
 
   /**
    * Constructor.
@@ -109,6 +181,31 @@ public class CharacterStat
   public CharacterStat(STAT stat)
   {
     _stat=stat;
+  }
+
+  /**
+   * Constructor.
+   * @param stat Associated stat.
+   * @param value Value to set.
+   */
+  public CharacterStat(STAT stat, Integer value)
+  {
+    _stat=stat;
+    if (value!=null)
+    {
+      _value=new FixedDecimalsInteger(value.intValue());
+    }
+  }
+
+  /**
+   * Constructor.
+   * @param stat Associated stat.
+   * @param value Value to set.
+   */
+  public CharacterStat(STAT stat, FixedDecimalsInteger value)
+  {
+    _stat=stat;
+    _value=value;
   }
 
   /**
@@ -124,7 +221,7 @@ public class CharacterStat
    * Get the value of this stat.
    * @return A stat value or <code>null</code> if undefined.
    */
-  public Integer getValue()
+  public FixedDecimalsInteger getValue()
   {
     return _value;
   }
@@ -133,9 +230,25 @@ public class CharacterStat
    * Set the value of this stat.
    * @param value Value to set (<code>null</code> means undefined).
    */
-  public void setValue(Integer value)
+  public void setValue(FixedDecimalsInteger value)
   {
     _value=value;
+  }
+
+  /**
+   * Set the value of this stat.
+   * @param value Value to set (<code>null</code> means undefined).
+   */
+  public void setValue(Integer value)
+  {
+    if (value!=null)
+    {
+      _value=new FixedDecimalsInteger(value.intValue());
+    }
+    else
+    {
+      _value=null;
+    }
   }
 
   @Override

@@ -16,6 +16,7 @@ import delta.games.lotro.character.CharacterStat;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Parser for character infos stored in XML.
@@ -81,15 +82,15 @@ public class CharacterXMLParser
         NamedNodeMap attrs=statTag.getAttributes();
         // Stat name
         String name=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.STAT_NAME_ATTR,"");
-        STAT stat=STAT.valueOf(name);
+        STAT stat=STAT.getByName(name);
         if (stat!=null)
         {
           Node n=attrs.getNamedItem(CharacterXMLConstants.STAT_VALUE_ATTR);
-          Integer value=null;
+          FixedDecimalsInteger value=null;
           if (n!=null)
           {
             int v=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.STAT_VALUE_ATTR,0);
-            value=Integer.valueOf(v);
+            value=new FixedDecimalsInteger(v);
           }
           CharacterStat cStat=c.getStat(stat,true);
           cStat.setValue(value);
