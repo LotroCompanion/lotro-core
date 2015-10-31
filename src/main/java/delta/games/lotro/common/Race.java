@@ -10,8 +10,8 @@ public class Race
 {
   private static HashMap<String,Race> _instances=new HashMap<String,Race>();
   private String _label;
-  private String _iconPath;
-  
+  private String _key;
+
   /**
    * Dwarf.
    */
@@ -29,11 +29,28 @@ public class Race
    */
   public static final Race MAN=new Race("Race of Man","man");
 
-  private Race(String label, String iconPath)
+  /**
+   * An array of all races.
+   */
+  public static final Race[] ALL_RACES = {
+    DWARF, ELF, HOBBIT, MAN
+  };
+
+  private Race(String label, String key)
   {
     _label=label;
-    _iconPath=iconPath;
+    _key=key;
     _instances.put(label,this);
+    _instances.put(key,this);
+  }
+
+  /**
+   * Get a identifying key for this race.
+   * @return A key.
+   */
+  public String getKey()
+  {
+    return _key;
   }
 
   /**
@@ -51,7 +68,7 @@ public class Race
    */
   public String getIconPath()
   {
-    return _iconPath;
+    return _key;
   }
 
   /**
@@ -62,6 +79,17 @@ public class Race
   public static Race getByLabel(String label)
   {
     Race ret=_instances.get(label);
+    return ret;
+  }
+
+  /**
+   * Get a character race instance by its key.
+   * @param key Key to search.
+   * @return A character race or <code>null</code> if not found.
+   */
+  public static Race getByKey(String key)
+  {
+    Race ret=_instances.get(key);
     return ret;
   }
 
