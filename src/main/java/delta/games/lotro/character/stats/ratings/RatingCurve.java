@@ -1,4 +1,4 @@
-package delta.games.lotro.character.stats;
+package delta.games.lotro.character.stats.ratings;
 
 /**
  * Rating/percentage curve.

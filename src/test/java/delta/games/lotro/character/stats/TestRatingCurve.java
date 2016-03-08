@@ -1,5 +1,7 @@
 package delta.games.lotro.character.stats;
 
+import delta.games.lotro.character.stats.ratings.RatingCurve;
+
 /**
  * Test class for rating curves.
  * @author DAM

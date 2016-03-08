@@ -1,4 +1,4 @@
-package delta.games.lotro.character.stats.io.xml;
+package delta.games.lotro.character.stats.base.io.xml;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +16,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.StreamTools;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.StarterStatsManager;
+import delta.games.lotro.character.stats.base.StarterStatsManager;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.utils.FixedDecimalsInteger;

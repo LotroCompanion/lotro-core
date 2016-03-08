@@ -1,4 +1,4 @@
-package delta.games.lotro.character.stats.io.xml;
+package delta.games.lotro.character.stats.base.io.xml;
 
 /**
  * Constants for tags and attribute names used in the

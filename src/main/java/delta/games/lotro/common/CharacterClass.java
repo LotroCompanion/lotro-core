@@ -61,9 +61,9 @@ public class CharacterClass
     BEORNING, BURGLAR, CAPTAIN, CHAMPION, GUARDIAN, HUNTER, LORE_MASTER, MINSTREL, RUNE_KEEPER, WARDEN
   };
 
-  private CharacterClass(String label, String iconPath)
+  private CharacterClass(String key, String iconPath)
   {
-    this(label,iconPath,null);
+    this(key,iconPath,null);
   }
 
   private CharacterClass(String key, String iconPath, String[] aliases)

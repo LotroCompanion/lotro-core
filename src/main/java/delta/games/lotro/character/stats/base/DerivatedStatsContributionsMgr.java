@@ -1,10 +1,17 @@
-package delta.games.lotro.character.stats;
+package delta.games.lotro.character.stats.base;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import delta.common.utils.NumericTools;
+import delta.common.utils.files.TextFileReader;
+import delta.common.utils.text.EncodingNames;
+import delta.common.utils.text.TextUtils;
+import delta.common.utils.url.URLTools;
 import delta.games.lotro.character.CharacterStat.STAT;
+import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -76,6 +83,7 @@ public class DerivatedStatsContributionsMgr
   public DerivatedStatsContributionsMgr()
   {
     _allContribs=new HashMap<CharacterClass,ClassDerivedStats>();
+    init();
   }
 
   /**
@@ -124,5 +132,76 @@ public class DerivatedStatsContributionsMgr
       }
     }
     return result;
+  }
+
+  private void init()
+  {
+    URL url=URLTools.getFromClassPath("derivations.txt",DerivatedStatsContributionsMgr.class.getPackage());
+    TextFileReader r=new TextFileReader(url, EncodingNames.ISO8859_1);
+    List<String> lines=TextUtils.readAsLines(r);
+    CharacterClass[] classes = CharacterClass.ALL_CLASSES;
+    for(String line : lines)
+    {
+      line=removeDuplicateSpaces(line.trim());
+      String[] items=line.split(" ");
+      //System.out.println(Arrays.toString(items));
+      String primaryStatStr=items[0].replace('_',' ');
+      STAT primaryStat=STAT.getByName(primaryStatStr);
+      String impactedStatStr=items[1].replace('_',' ').trim();
+      STAT impactedStat=STAT.getByName(impactedStatStr);
+      if (impactedStat==null)
+      {
+        if (impactedStatStr.endsWith("Rating"))
+        {
+          impactedStatStr=impactedStatStr.substring(0,impactedStatStr.length()-6).trim();
+        }
+        impactedStat=STAT.getByName(impactedStatStr);
+      }
+      //System.out.println(primaryStat+"  =>  "+impactedStat);
+      int index=0;
+      for(CharacterClass cClass : classes)
+      {
+        String factorStr = items[2 + index];
+        //System.out.println("\t"+cClass+": "+factorStr);
+        index++;
+        FixedDecimalsInteger factor=getFactor(factorStr);
+        if (factor!=null)
+        {
+          setFactor(primaryStat,impactedStat,cClass,factor);
+        }
+      }
+    }
+  }
+
+
+  private static FixedDecimalsInteger getFactor(String factorStr)
+  {
+    FixedDecimalsInteger ret=null;
+    Integer factor=NumericTools.parseInteger(factorStr,false);
+    if (factor!=null)
+    {
+      ret=new FixedDecimalsInteger(factor.intValue());
+    }
+    else
+    {
+      Float fFactor=NumericTools.parseFloat(factorStr,false);
+      if (fFactor!=null)
+      {
+        ret=new FixedDecimalsInteger(fFactor.floatValue());
+      }
+    }
+    return ret;
+  }
+
+  private static String removeDuplicateSpaces(String line)
+  {
+    String oldLine=line;
+    while(true)
+    {
+      line=line.replace("  ", " ");
+      if (line.equals(oldLine)) break;
+      oldLine=line;
+    }
+    return line;
   }
 }

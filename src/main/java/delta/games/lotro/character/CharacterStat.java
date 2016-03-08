@@ -106,7 +106,7 @@ public class CharacterStat
     /**
      * In-Combat Morale Regeneration.
      */
-    OCMR("Non-Combat Morale Regeneration"),
+    OCMR("Non-Combat Morale Regeneration", "NCMR"),
     /**
      * In-Combat Morale Regeneration.
      */
@@ -114,11 +114,11 @@ public class CharacterStat
     /**
      * non-Combat Power Regeneration.
      */
-    OPMR("Non-Combat Power Regeneration"),
+    OCPR("Non-Combat Power Regeneration", "NCPR"),
     /**
      * In-Combat Power Regeneration.
      */
-    IPMR("In-Combat Power Regeneration");
+    ICPR("In-Combat Power Regeneration");
 
     private String _name;
 

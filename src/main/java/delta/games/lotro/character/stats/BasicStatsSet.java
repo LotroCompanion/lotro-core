@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.CharacterStat;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -48,6 +49,18 @@ public class BasicStatsSet
   {
     CharacterStat statValue=new CharacterStat(stat);
     statValue.setValue(value);
+    _stats.put(stat.getKey(), statValue);
+  }
+
+  /**
+   * Set stat value.
+   * @param stat Stat to set.
+   * @param value Value to set.
+   */
+  public void setStat(STAT stat, int value)
+  {
+    CharacterStat statValue=new CharacterStat(stat);
+    statValue.setValue(new FixedDecimalsInteger(value));
     _stats.put(stat.getKey(), statValue);
   }
 
@@ -111,7 +124,7 @@ public class BasicStatsSet
       if (cStat!=null)
       {
         sb.append(cStat);
-        sb.append(' ');
+        sb.append(EndOfLine.NATIVE_EOL);
       }
     }
     return sb.toString().trim();

@@ -1,8 +1,12 @@
-package delta.games.lotro.character.stats;
+package delta.games.lotro.character.stats.base;
 
+import java.net.URL;
 import java.util.HashMap;
 
+import delta.common.utils.url.URLTools;
 import delta.games.lotro.character.CharacterStat;
+import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.base.io.xml.StarterStatsParser;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
@@ -20,6 +24,18 @@ public class StarterStatsManager
   public StarterStatsManager()
   {
     _statsMap=new HashMap<String,BasicStatsSet>();
+  }
+
+  /**
+   * Build and initialize the starter stats manager from bundled data.
+   * @return a new starter stats manager.
+   */
+  public static StarterStatsManager build()
+  {
+    StarterStatsParser parser=new StarterStatsParser();
+    URL url=URLTools.getFromClassPath("starter.xml",StarterStatsManager.class.getPackage());
+    StarterStatsManager mgr=parser.parseXML(url);
+    return mgr;
   }
 
   private String buildKey(Race race, CharacterClass characterClass)

@@ -141,6 +141,7 @@ public class FixedDecimalsInteger extends Number
   @Override
   public String toString()
   {
+    // TODO remove .0 if not needed
     return String.valueOf(floatValue());
   }
 }

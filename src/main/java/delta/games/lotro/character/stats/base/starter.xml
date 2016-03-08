@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <starterStats>
+	<race name="beorning"/>
 	<race name="dwarf">
 		<class name="Champion">
 			<stat name="MORALE" value="16200"/>

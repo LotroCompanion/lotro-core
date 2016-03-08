@@ -1,6 +1,6 @@
-package delta.games.lotro.character.stats.io.xml;
+package delta.games.lotro.character.stats.base.io.xml;
 
-import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.CharacterStat;
 import delta.games.lotro.character.CharacterStat.STAT;
-import delta.games.lotro.character.stats.StarterStatsManager;
+import delta.games.lotro.character.stats.base.StarterStatsManager;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -21,10 +21,10 @@ public class StarterStatsParser
 {
   /**
    * Parse the XML file.
-   * @param source Source file.
+   * @param source Source URL.
    * @return Parsed data or <code>null</code>.
    */
-  public StarterStatsManager parseXML(File source)
+  public StarterStatsManager parseXML(URL source)
   {
     StarterStatsManager stats=null;
     Element root=DOMParsingTools.parse(source);
