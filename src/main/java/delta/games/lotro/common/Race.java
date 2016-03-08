@@ -13,6 +13,10 @@ public class Race
   private String _key;
 
   /**
+   * Beorning.
+   */
+  public static final Race BEORNING=new Race("Beorning","beorning");
+  /**
    * Dwarf.
    */
   public static final Race DWARF=new Race("Dwarf","dwarf");
@@ -33,7 +37,7 @@ public class Race
    * An array of all races.
    */
   public static final Race[] ALL_RACES = {
-    DWARF, ELF, HOBBIT, MAN
+    BEORNING, DWARF, ELF, HOBBIT, MAN
   };
 
   private Race(String label, String key)
