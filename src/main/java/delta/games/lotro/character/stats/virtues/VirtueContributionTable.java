@@ -21,35 +21,25 @@ public class VirtueContributionTable
   public VirtueContributionTable()
   {
     _contribs=new ArrayList<BasicStatsSet>();
+    // Rank 0
+    _contribs.add(new BasicStatsSet());
   }
 
   /**
-   * Initialize contributions.
-   * @param stats Contributed stats.
-   * @param values Contributions values.
+   * Add contributions.
+   * @param stat Targeted stat.
+   * @param values Values for ranks, starting at rank 1.
    */
-  public void setContribs(STAT[] stats, int[][] values)
+  public void addContrib(STAT stat, FixedDecimalsInteger[] values)
   {
-    _contribs.clear();
-    // Rank 0
-    _contribs.add(new BasicStatsSet());
-    int ranks=values.length;
-    for(int i=0;i<ranks;i++)
+    for(int i=_contribs.size();i<=values.length;i++)
     {
-      if (values[i].length==stats.length+1)
-      {
-        if (values[i][0]==i+1)
-        {
-          BasicStatsSet contrib=new BasicStatsSet();
-          int j=1;
-          for(STAT stat : stats)
-          {
-            contrib.addStat(stat, new FixedDecimalsInteger(values[i][j]));
-            j++;
-          }
-          _contribs.add(contrib);
-        }
-      }
+      _contribs.add(new BasicStatsSet());
+    }
+    for(int i=0;i<values.length;i++)
+    {
+      BasicStatsSet contrib=getContrib(i+1);
+      contrib.addStat(stat, values[i]);
     }
   }
 

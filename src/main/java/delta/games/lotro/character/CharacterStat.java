@@ -70,7 +70,7 @@ public class CharacterStat
     /**
      * Resistance.
      */
-    RESISTANCE("Resistance"),
+    RESISTANCE("Resistance", "Resist"),
     /**
      * Critical Defence.
      */
@@ -98,11 +98,11 @@ public class CharacterStat
     /**
      * Physical mitigation.
      */
-    PHYSICAL_MITIGATION("Physical Mitigation", "Physical mitigation"),
+    PHYSICAL_MITIGATION("Physical Mitigation", "Physical mitigation", "PhyMit"),
     /**
      * Tactical mitigation.
      */
-    TACTICAL_MITIGATION("Tactical Mitigation", "Tactical mitigation"),
+    TACTICAL_MITIGATION("Tactical Mitigation", "Tactical mitigation", "TacMit"),
     /**
      * In-Combat Morale Regeneration.
      */

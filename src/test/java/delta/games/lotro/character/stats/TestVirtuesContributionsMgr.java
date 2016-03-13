@@ -16,10 +16,14 @@ public class TestVirtuesContributionsMgr
   public static void main(String[] args)
   {
     VirtuesContributionsMgr mgr=new VirtuesContributionsMgr();
-    for(int i=1;i<=19;i++)
+    for(VirtueId id : VirtueId.values())
     {
-      BasicStatsSet stats=mgr.getContribution(VirtueId.IDEALISM, i);
-      System.out.println("Rank #" + i + ": " + stats);
+      System.out.println(id);
+      for(int i=0;i<=20;i++)
+      {
+        BasicStatsSet stats=mgr.getContribution(id, i);
+        System.out.println("Rank #" + i + ": " + stats);
+      }
     }
   }
 }
