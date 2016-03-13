@@ -12,8 +12,8 @@ import delta.games.lotro.character.Character;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
-import delta.games.lotro.character.CharacterStat;
 import delta.games.lotro.character.CharacterStat.STAT;
+import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -76,6 +76,7 @@ public class CharacterXMLParser
   {
     if (statsTag!=null)
     {
+      BasicStatsSet stats=c.getStats();
       List<Element> statTags=DOMParsingTools.getChildTagsByName(statsTag,CharacterXMLConstants.STAT_TAG);
       for(Element statTag : statTags)
       {
@@ -86,14 +87,12 @@ public class CharacterXMLParser
         if (stat!=null)
         {
           Node n=attrs.getNamedItem(CharacterXMLConstants.STAT_VALUE_ATTR);
-          FixedDecimalsInteger value=null;
           if (n!=null)
           {
             int v=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.STAT_VALUE_ATTR,0);
-            value=new FixedDecimalsInteger(v);
+            FixedDecimalsInteger value=new FixedDecimalsInteger(v);
+            stats.setStat(stat,value);
           }
-          CharacterStat cStat=c.getStat(stat,true);
-          cStat.setValue(value);
         }
       }
     }

@@ -28,7 +28,7 @@ public class BasicStatsSet
   /**
    * Get a stat value.
    * @param stat Stat to get.
-   * @return A stat vue or <code>null</code> if not found.
+   * @return A stat value or <code>null</code> if not found.
    */
   public FixedDecimalsInteger getStat(STAT stat)
   {

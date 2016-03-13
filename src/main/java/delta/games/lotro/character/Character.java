@@ -1,8 +1,6 @@
 package delta.games.lotro.character;
 
-import java.util.HashMap;
-
-import delta.games.lotro.character.CharacterStat.STAT;
+import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
@@ -19,7 +17,7 @@ public class Character
   private Race _race;
   private String _region;
   private int _level;
-  private HashMap<String,CharacterStat> _stats;
+  private BasicStatsSet _stats;
   private CharacterEquipment _equipment;
 
   /**
@@ -28,7 +26,7 @@ public class Character
   public Character()
   {
     _date=null;
-    _stats=new HashMap<String,CharacterStat>();
+    _stats=new BasicStatsSet();
     _equipment=new CharacterEquipment();
   }
 
@@ -159,26 +157,12 @@ public class Character
   }
 
   /**
-   * Get a stat.
-   * @param stat Stat to get.
-   * @param createIfNeeded <code>true</code> to create the stat if it does not exist,
-   * <code>false</code> otherwise.
-   * @return A stat or <code>null</code> if not found and <code>createIfNeeded</code> is <code>false</code>.
+   * Get character stats.
+   * @return The stats storage..
    */
-  public CharacterStat getStat(STAT stat, boolean createIfNeeded)
+  public BasicStatsSet getStats()
   {
-    CharacterStat charStat=null;
-    if (stat!=null)
-    {
-      String name=stat.name();
-      charStat=_stats.get(name);
-      if ((charStat==null) && (createIfNeeded))
-      {
-        charStat=new CharacterStat(stat);
-        _stats.put(stat.name(),charStat);
-      }
-    }
-    return charStat;
+    return _stats;
   }
 
   /**
