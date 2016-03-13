@@ -47,6 +47,7 @@ public class BaseStatsManager
     man.setStat(STAT.MIGHT, 15);
     man.setStat(STAT.WILL, -7);
     man.setStat(STAT.FATE, 15);
+    // TODO +5% incoming healing
     _raceContrib.put(Race.MAN,man);
     // Dwarf
     BasicStatsSet dwarf=new BasicStatsSet();
@@ -58,6 +59,7 @@ public class BaseStatsManager
     dwarf.setStat(STAT.OCMR, -60);
     dwarf.setStat(STAT.ICPR, 30);
     dwarf.setStat(STAT.OCPR, -30);
+    // TODO +1% Physical Mitigation (melee+ranged)
     _raceContrib.put(Race.DWARF,dwarf);
     // Elf
     BasicStatsSet elf=new BasicStatsSet();
@@ -70,7 +72,7 @@ public class BaseStatsManager
     BasicStatsSet hobbit=new BasicStatsSet();
     hobbit.setStat(STAT.MIGHT, -7);
     hobbit.setStat(STAT.VITALITY, 15);
-    hobbit.setStat(STAT.FATE, -7);
+    hobbit.setStat(STAT.OCMR, 60);
     _raceContrib.put(Race.HOBBIT,hobbit);
     // Beorning
     BasicStatsSet beorning=new BasicStatsSet();
@@ -150,14 +152,14 @@ public class BaseStatsManager
   private BasicStatsSet getBaseStatsBeorning(int level)
   {
     BasicStatsSet set = new BasicStatsSet();
-    set.setStat(STAT.MIGHT, ((level >= 51) ? 83 : 0));
-    set.setStat(STAT.AGILITY, ((level >= 51) ? 57 : 0));
-    set.setStat(STAT.VITALITY, ((level >= 51) ? 59 : 0));
-    set.setStat(STAT.WILL, ((level >= 51) ? 80 : 0));
-    set.setStat(STAT.FATE, ((level >= 51) ? 92 : 0));
+    set.setStat(STAT.MIGHT, 83);
+    set.setStat(STAT.AGILITY, 57);
+    set.setStat(STAT.VITALITY, 59);
+    set.setStat(STAT.WILL, 80);
+    set.setStat(STAT.FATE, 92);
     // Morale
     int morale = 0;
-    if ((level >=51) && (level <= 65)) morale = 22*level + 276;
+    if (level <= 65) morale = 22*level + 276;
     else if (level == 66) morale = 1733;
     else if (level == 67) morale = 1766;
     else if (level == 68) morale = 1804;
@@ -170,21 +172,21 @@ public class BaseStatsManager
     int icmr = (int)(80.5 + level * (2/3));
     set.setStat(STAT.ICMR, icmr);
     // NCMR
-    set.setStat(STAT.OCMR, ((level >= 51) ? 240 : 0));
+    set.setStat(STAT.OCMR, 240);
     return set;
   }
 
   private BasicStatsSet getBaseStatsBurglar(int level)
   {
     BasicStatsSet set = new BasicStatsSet();
-    set.setStat(STAT.MIGHT, ((level >= 51) ? 83 : 0));
-    set.setStat(STAT.AGILITY, ((level >= 51) ? 92 : 0));
-    set.setStat(STAT.VITALITY, ((level >= 51) ? 57 : 0));
-    set.setStat(STAT.WILL, ((level >= 51) ? 80 : 0));
-    set.setStat(STAT.FATE, ((level >= 51) ? 59 : 0));
+    set.setStat(STAT.MIGHT, 83);
+    set.setStat(STAT.AGILITY, 92);
+    set.setStat(STAT.VITALITY, 57);
+    set.setStat(STAT.WILL, 80);
+    set.setStat(STAT.FATE, 59);
     // Morale
     int morale = 0;
-    if ((level >=51) && (level <= 65)) morale = 22*level + 186;
+    if (level <= 65) morale = 22*level + 186;
     else if (level == 66) morale = 1643;
     else if (level == 67) morale = 1676;
     else if (level == 68) morale = 1714;
@@ -197,25 +199,25 @@ public class BaseStatsManager
     int icmr = (int)(71.1 + level * 0.6);
     set.setStat(STAT.ICMR, icmr);
     // OCMR
-    set.setStat(STAT.OCMR, ((level >= 51) ? 120 : 0));
+    set.setStat(STAT.OCMR, 120);
     // ICPR
-    set.setStat(STAT.ICPR, ((level >= 51) ? 240 : 0));
+    set.setStat(STAT.ICPR, 240);
     // OCPR
-    set.setStat(STAT.OCPR, ((level >= 51) ? 120 : 0));
+    set.setStat(STAT.OCPR, 120);
     return set;
   }
 
   private BasicStatsSet getBaseStatsChampion(int level)
   {
     BasicStatsSet set = new BasicStatsSet();
-    set.setStat(STAT.MIGHT, ((level >= 51) ? 92 : 0));
-    set.setStat(STAT.AGILITY, ((level >= 51) ? 83 : 0));
-    set.setStat(STAT.VITALITY, ((level >= 51) ? 59 : 0));
-    set.setStat(STAT.WILL, ((level >= 51) ? 58 : 0));
-    set.setStat(STAT.FATE, ((level >= 51) ? 81 : 0));
+    set.setStat(STAT.MIGHT, 92);
+    set.setStat(STAT.AGILITY, 83);
+    set.setStat(STAT.VITALITY, 59);
+    set.setStat(STAT.WILL, 58);
+    set.setStat(STAT.FATE, 81);
     // Morale
     int morale = 0;
-    if ((level >=51) && (level <= 65)) morale = 27*level + 274;
+    if (level <= 65) morale = 27*level + 274;
     else if (level == 66) morale = 2062;
     else if (level == 67) morale = 2102;
     else if (level == 68) morale = 2149;
@@ -228,11 +230,11 @@ public class BaseStatsManager
     int icmr = (int)(91.25 + level * 0.75);
     set.setStat(STAT.ICMR, icmr);
     // OCMR
-    set.setStat(STAT.OCMR, ((level >= 51) ? 300 : 0));
+    set.setStat(STAT.OCMR, 300);
     // ICPR
-    set.setStat(STAT.ICPR, ((level >= 51) ? 240 : 0));
+    set.setStat(STAT.ICPR, 240);
     // OCPR
-    set.setStat(STAT.OCPR, ((level >= 51) ? 120 : 0));
+    set.setStat(STAT.OCPR, 120);
     return set;
   }
 
