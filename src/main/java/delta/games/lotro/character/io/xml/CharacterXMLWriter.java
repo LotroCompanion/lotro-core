@@ -20,8 +20,10 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -114,6 +116,8 @@ public class CharacterXMLWriter
     {
       writeEquipment(hd,equipment);
     }
+    VirtuesSet virtues=character.getVirtues();
+    writeVirtues(hd,virtues);
     hd.endElement("","",CharacterXMLConstants.CHARACTER_TAG);
   }
 
@@ -181,5 +185,26 @@ public class CharacterXMLWriter
       hd.startElement("","",CharacterXMLConstants.SLOT_TAG,slotAtts);
       hd.endElement("","",CharacterXMLConstants.SLOT_TAG);
     }
+  }
+
+  private void writeVirtues(TransformerHandler hd, VirtuesSet virtues) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    hd.startElement("","",CharacterXMLConstants.VIRTUES_TAG,attrs);
+    for(VirtueId virtue : VirtueId.values())
+    {
+      AttributesImpl virtueAttrs=new AttributesImpl();
+      virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_ID,CDATA,virtue.name());
+      int rank=virtues.getVirtueRank(virtue);
+      virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_RANK,CDATA,String.valueOf(rank));
+      Integer index=virtues.getVirtueIndex(virtue);
+      if (index!=null)
+      {
+        virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_INDEX,CDATA,index.toString());
+      }
+      hd.startElement("","",CharacterXMLConstants.VIRTUE_TAG,virtueAttrs);
+      hd.endElement("","",CharacterXMLConstants.VIRTUE_TAG);
+    }
+    hd.endElement("","",CharacterXMLConstants.VIRTUES_TAG);
   }
 }

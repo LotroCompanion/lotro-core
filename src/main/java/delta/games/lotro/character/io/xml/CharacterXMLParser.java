@@ -14,8 +14,10 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -64,11 +66,15 @@ public class CharacterXMLParser
     int level=DOMParsingTools.getIntAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_LEVEL_ATTR,0);
     c.setLevel(level);
 
+    // Stats
     Element statsTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.STATS_TAG);
     parseStats(c,statsTag);
+    // Equipment
     Element equipmentTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.EQUIPMENT_TAG);
     parseEquipment(c,equipmentTag);
-    
+    // virtues
+    Element virtuesTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.VIRTUES_TAG);
+    parseVirtues(c,virtuesTag);
     return c;
   }
 
@@ -117,6 +123,31 @@ public class CharacterXMLParser
           SlotContents slotContents=equipment.getSlotContents(slot,true);
           slotContents.setObjectURL(objectURL);
           slotContents.setIconURL(iconURL);
+        }
+      }
+    }
+  }
+
+  private void parseVirtues(Character c, Element virtuesTag)
+  {
+    if (virtuesTag!=null)
+    {
+      VirtuesSet virtues=c.getVirtues();
+      List<Element> virtueTags=DOMParsingTools.getChildTagsByName(virtuesTag,CharacterXMLConstants.VIRTUE_TAG);
+      for(Element virtueTag : virtueTags)
+      {
+        NamedNodeMap attrs=virtueTag.getAttributes();
+        String virtueIdStr=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.VIRTUE_ID,"");
+        VirtueId virtue=VirtueId.valueOf(virtueIdStr);
+        if (virtue!=null)
+        {
+          int rank=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.VIRTUE_RANK,0);
+          virtues.setVirtueValue(virtue,rank);
+          int index=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.SLOT_ICON_URL_ATTR,-1);
+          if (index!=-1)
+          {
+            virtues.setSelectedVirtue(virtue,index);
+          }
         }
       }
     }

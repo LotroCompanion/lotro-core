@@ -73,4 +73,25 @@ public class CharacterXMLConstants
    * Tag 'slot', attribute 'iconURL'.
    */
   public static final String SLOT_ICON_URL_ATTR="iconURL";
+
+  /**
+   * Tag 'virtues'.
+   */
+  public static final String VIRTUES_TAG="virtues";
+  /**
+   * Tag 'virtue'.
+   */
+  public static final String VIRTUE_TAG="virtue";
+  /**
+   * Tag 'virtue', attribute 'id'.
+   */
+  public static final String VIRTUE_ID="id";
+  /**
+   * Tag 'virtue', attribute 'rank'.
+   */
+  public static final String VIRTUE_RANK="rank";
+  /**
+   * Tag 'virtue', attribute 'index'.
+   */
+  public static final String VIRTUE_INDEX="index";
 }
