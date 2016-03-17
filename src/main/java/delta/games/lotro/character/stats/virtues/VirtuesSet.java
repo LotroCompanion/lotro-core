@@ -11,7 +11,10 @@ import delta.games.lotro.common.VirtueId;
  */
 public class VirtuesSet
 {
-  private static final int MAX_VIRTUES=5;
+  /**
+   * Maximum number of selected virtues.
+   */
+  public static final int MAX_VIRTUES=5;
   private Map<VirtueId,Integer> _virtues;
   private VirtueId[] _selectedVirtues;
 
