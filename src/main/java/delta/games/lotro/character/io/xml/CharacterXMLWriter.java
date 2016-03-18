@@ -20,6 +20,7 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
@@ -110,14 +111,17 @@ public class CharacterXMLWriter
     characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_LEVEL_ATTR,CDATA,String.valueOf(level));
     
     hd.startElement("","",CharacterXMLConstants.CHARACTER_TAG,characterAttrs);
+    // Stats
     writeStats(hd,character);
+    // Equipment
     CharacterEquipment equipment=character.getEquipment();
-    if (equipment!=null)
-    {
-      writeEquipment(hd,equipment);
-    }
+    writeEquipment(hd,equipment);
+    // Virtues
     VirtuesSet virtues=character.getVirtues();
     writeVirtues(hd,virtues);
+    // Tomes
+    TomesSet tomes=character.getTomes();
+    writeTomes(hd,tomes);
     hd.endElement("","",CharacterXMLConstants.CHARACTER_TAG);
   }
 
@@ -206,5 +210,21 @@ public class CharacterXMLWriter
       hd.endElement("","",CharacterXMLConstants.VIRTUE_TAG);
     }
     hd.endElement("","",CharacterXMLConstants.VIRTUES_TAG);
+  }
+
+  private void writeTomes(TransformerHandler hd, TomesSet tomes) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    hd.startElement("","",CharacterXMLConstants.TOMES_TAG,attrs);
+    for(STAT stat : TomesSet.AVAILABLE_TOMES)
+    {
+      AttributesImpl tomeAttrs=new AttributesImpl();
+      tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_STAT,CDATA,stat.getKey());
+      int rank=tomes.getTomeRank(stat);
+      tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_RANK,CDATA,String.valueOf(rank));
+      hd.startElement("","",CharacterXMLConstants.TOME_TAG,tomeAttrs);
+      hd.endElement("","",CharacterXMLConstants.TOME_TAG);
+    }
+    hd.endElement("","",CharacterXMLConstants.TOMES_TAG);
   }
 }

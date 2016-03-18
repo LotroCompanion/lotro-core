@@ -94,4 +94,21 @@ public class CharacterXMLConstants
    * Tag 'virtue', attribute 'index'.
    */
   public static final String VIRTUE_INDEX="index";
+
+  /**
+   * Tag 'tomes'.
+   */
+  public static final String TOMES_TAG="tomes";
+  /**
+   * Tag 'tome'.
+   */
+  public static final String TOME_TAG="tome";
+  /**
+   * Tag 'tome', attribute 'stat'.
+   */
+  public static final String TOME_STAT="stat";
+  /**
+   * Tag 'tome', attribute 'rank'.
+   */
+  public static final String TOME_RANK="rank";
 }

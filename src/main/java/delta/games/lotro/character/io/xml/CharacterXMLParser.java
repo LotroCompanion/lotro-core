@@ -14,6 +14,7 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
@@ -72,9 +73,12 @@ public class CharacterXMLParser
     // Equipment
     Element equipmentTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.EQUIPMENT_TAG);
     parseEquipment(c,equipmentTag);
-    // virtues
+    // Virtues
     Element virtuesTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.VIRTUES_TAG);
     parseVirtues(c,virtuesTag);
+    // Tomes
+    Element tomesTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.TOMES_TAG);
+    parseTomes(c,tomesTag);
     return c;
   }
 
@@ -148,6 +152,26 @@ public class CharacterXMLParser
           {
             virtues.setSelectedVirtue(virtue,index);
           }
+        }
+      }
+    }
+  }
+
+  private void parseTomes(Character c, Element tomesTag)
+  {
+    if (tomesTag!=null)
+    {
+      TomesSet tomes=c.getTomes();
+      List<Element> tomeTags=DOMParsingTools.getChildTagsByName(tomesTag,CharacterXMLConstants.TOME_TAG);
+      for(Element tomeTag : tomeTags)
+      {
+        NamedNodeMap attrs=tomeTag.getAttributes();
+        String statKey=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.TOME_STAT,"");
+        STAT stat=STAT.getByName(statKey);
+        if (stat!=null)
+        {
+          int rank=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.TOME_RANK,0);
+          tomes.setTomeRank(stat,rank);
         }
       }
     }

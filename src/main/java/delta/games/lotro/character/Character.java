@@ -1,6 +1,7 @@
 package delta.games.lotro.character;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
@@ -21,6 +22,7 @@ public class Character
   private BasicStatsSet _stats;
   private CharacterEquipment _equipment;
   private VirtuesSet _virtues;
+  private TomesSet _tomes;
 
   /**
    * Constructor.
@@ -31,6 +33,7 @@ public class Character
     _stats=new BasicStatsSet();
     _equipment=new CharacterEquipment();
     _virtues=new VirtuesSet();
+    _tomes=new TomesSet();
   }
 
   /**
@@ -186,6 +189,15 @@ public class Character
     return _virtues;
   }
 
+  /**
+   * Get the character's tomes.
+   * @return the character's tomes.
+   */
+  public TomesSet getTomes()
+  {
+    return _tomes;
+  }
+
   @Override
   public String toString()
   {
@@ -200,6 +212,7 @@ public class Character
     sb.append("Stats: ").append(_stats).append(", ");
     sb.append("Equipment:").append(_equipment);
     sb.append("Virtues:").append(_virtues);
+    sb.append("Tomes:").append(_tomes);
     return sb.toString();
   }
 }
