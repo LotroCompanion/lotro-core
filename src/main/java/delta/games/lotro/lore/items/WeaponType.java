@@ -12,69 +12,69 @@ public class WeaponType
   private static HashMap<String,WeaponType> _keyMap=new HashMap<String,WeaponType>();
 
   /**
+   * One-handed Sword.
+   */
+  public static final WeaponType ONE_HANDED_SWORD=new WeaponType("ONE_HANDED_SWORD","One-handed Sword",false,false);
+  /**
    * Two-handed Sword.
    */
   public static final WeaponType TWO_HANDED_SWORD=new WeaponType("TWO_HANDED_SWORD","Two-handed Sword",false,true);
-  /**
-   * Staff.
-   */
-  public static final WeaponType STAFF=new WeaponType("STAFF","Staff",false,true);
-  /**
-   * Halberd.
-   */
-  public static final WeaponType HALBERD=new WeaponType("HALBERD","Halberd",false,true);
-  /**
-   * Two-handed Hammer.
-   */
-  public static final WeaponType TWO_HANDED_HAMMER=new WeaponType("TWO_HANDED_HAMMER","Two-handed Hammer",false,true);
-  /**
-   * Bow.
-   */
-  public static final WeaponType BOW=new WeaponType("BOW","Bow",false,false);
-  /**
-   * Javelin.
-   */
-  public static final WeaponType JAVELIN=new WeaponType("JAVELIN","Javelin",false,true); // TODO check
-  /**
-   * Two-handed Club.
-   */
-  public static final WeaponType TWO_HANDED_CLUB=new WeaponType("TWO_HANDED_CLUB","Two-handed Club",false,true);
-  /**
-   * One-handed Hammer.
-   */
-  public static final WeaponType ONE_HANDED_HAMMER=new WeaponType("ONE_HANDED_HAMMER","One-handed Hammer",false,false);
-  /**
-   * Spear.
-   */
-  public static final WeaponType SPEAR=new WeaponType("SPEAR","Spear",false,false); // TODO check
-  /**
-   * One-handed Club.
-   */
-  public static final WeaponType ONE_HANDED_CLUB=new WeaponType("ONE_HANDED_CLUB","One-handed Club",false,false);
-  /**
-   * One-handed Mace.
-   */
-  public static final WeaponType ONE_HANDED_MACE=new WeaponType("ONE_HANDED_MACE","One-handed Mace",false,false);
-  /**
-   * Crossbow.
-   */
-  public static final WeaponType CROSSBOW=new WeaponType("CROSSBOW","Crossbow",true,false);
-  /**
-   * Dagger.
-   */
-  public static final WeaponType DAGGER=new WeaponType("DAGGER","Dagger",false,false);
   /**
    * One-handed Axe.
    */
   public static final WeaponType ONE_HANDED_AXE=new WeaponType("ONE_HANDED_AXE","One-handed Axe",false,false);
   /**
-   * One-handed Sword.
-   */
-  public static final WeaponType ONE_HANDED_SWORD=new WeaponType("ONE_HANDED_SWORD","One-handed Sword",false,false);
-  /**
    * Two-handed Axe.
    */
   public static final WeaponType TWO_HANDED_AXE=new WeaponType("TWO_HANDED_AXE","Two-handed Axe",false,true);
+  /**
+   * One-handed Hammer.
+   */
+  public static final WeaponType ONE_HANDED_HAMMER=new WeaponType("ONE_HANDED_HAMMER","One-handed Hammer",false,false);
+  /**
+   * Two-handed Hammer.
+   */
+  public static final WeaponType TWO_HANDED_HAMMER=new WeaponType("TWO_HANDED_HAMMER","Two-handed Hammer",false,true);
+  /**
+   * One-handed Club.
+   */
+  public static final WeaponType ONE_HANDED_CLUB=new WeaponType("ONE_HANDED_CLUB","One-handed Club",false,false);
+  /**
+   * Two-handed Club.
+   */
+  public static final WeaponType TWO_HANDED_CLUB=new WeaponType("TWO_HANDED_CLUB","Two-handed Club",false,true);
+  /**
+   * One-handed Mace.
+   */
+  public static final WeaponType ONE_HANDED_MACE=new WeaponType("ONE_HANDED_MACE","One-handed Mace",false,false);
+  /**
+   * Dagger.
+   */
+  public static final WeaponType DAGGER=new WeaponType("DAGGER","Dagger",false,false);
+  /**
+   * Staff.
+   */
+  public static final WeaponType STAFF=new WeaponType("STAFF","Staff",false,false);
+  /**
+   * Halberd.
+   */
+  public static final WeaponType HALBERD=new WeaponType("HALBERD","Halberd",false,true);
+  /**
+   * Bow.
+   */
+  public static final WeaponType BOW=new WeaponType("BOW","Bow",true,false);
+  /**
+   * Crossbow.
+   */
+  public static final WeaponType CROSSBOW=new WeaponType("CROSSBOW","Crossbow",true,false);
+  /**
+   * Javelin.
+   */
+  public static final WeaponType JAVELIN=new WeaponType("JAVELIN","Javelin",true,false);
+  /**
+   * Spear.
+   */
+  public static final WeaponType SPEAR=new WeaponType("SPEAR","Spear",false,false);
   /**
    * Rune-stone.
    */
@@ -82,7 +82,7 @@ public class WeaponType
   /**
    * Thrown weapon.
    */
-  public static final WeaponType THROWN_WEAPON=new WeaponType("THROWN_WEAPON","Thrown Weapon",true,false); // TODO CHECK
+  public static final WeaponType THROWN_WEAPON=new WeaponType("THROWN_WEAPON","Thrown Weapon",true,false);
   
   private String _key;
   private String _name;
