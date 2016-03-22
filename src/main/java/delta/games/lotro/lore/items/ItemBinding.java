@@ -15,6 +15,10 @@ public enum ItemBinding
    */
   BIND_ON_ACQUIRE,
   /**
+   * Item is bound to account on acquire.
+   */
+  BOUND_TO_ACCOUNT_ON_ACQUIRE,
+  /**
    * Item is not bound at all.
    */
   NONE
