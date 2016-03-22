@@ -83,12 +83,12 @@ public class WeaponType
    * Thrown weapon.
    */
   public static final WeaponType THROWN_WEAPON=new WeaponType("THROWN_WEAPON","Thrown Weapon",true,false);
-  
+
   private String _key;
   private String _name;
   private boolean _ranged;
   private boolean _twoHanded;
-  
+
   private WeaponType(String key, String name, boolean ranged, boolean twoHanded)
   {
     _key=key;
@@ -98,7 +98,7 @@ public class WeaponType
     _keyMap.put(key,this);
     _map.put(name,this);
   }
-  
+
   /**
    * Get the weapon type key.
    * @return A key.

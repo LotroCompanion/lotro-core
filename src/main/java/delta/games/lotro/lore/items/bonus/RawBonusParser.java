@@ -97,7 +97,7 @@ public class RawBonusParser
       }
     }
   }
-  
+
   private Bonus parseBonus(String bonusStr)
   {
     List<BonusType> bonusTypes=BonusType.getAll();
@@ -125,7 +125,7 @@ public class RawBonusParser
     }
     return bonus;
   }
-  
+
   private List<String> normalizeBonuses(List<String> bonuses)
   {
     List<String> newList=new ArrayList<String>();

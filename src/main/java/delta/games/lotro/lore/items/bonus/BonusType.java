@@ -35,6 +35,7 @@ public class BonusType
      */
     PERCENTAGE
   }
+
   private static HashMap<String,BonusType> _instances=new HashMap<String,BonusType>();
   private static HashMap<String,BonusType> _instancesByKey=new HashMap<String,BonusType>();
   private static List<BonusType> _all=new ArrayList<BonusType>();
@@ -195,7 +196,7 @@ public class BonusType
   {
     this(key,label,null,valueClass);
   }
-  
+
   private BonusType(String key, String label, String[] aliases, VALUE_CLASS valueClass)
   {
     _key=key;
