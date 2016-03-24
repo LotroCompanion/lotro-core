@@ -65,6 +65,18 @@ public class BasicStatsSet
   }
 
   /**
+   * Set stat value.
+   * @param stat Stat to set.
+   * @param value Value to set.
+   */
+  public void setStat(STAT stat, float value)
+  {
+    CharacterStat statValue=new CharacterStat(stat);
+    statValue.setValue(new FixedDecimalsInteger(value));
+    _stats.put(stat.getKey(), statValue);
+  }
+
+  /**
    * Add stat value.
    * @param stat Stat to set.
    * @param value Value to set.
