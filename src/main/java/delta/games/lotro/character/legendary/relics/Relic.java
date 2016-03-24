@@ -10,28 +10,27 @@ public class Relic
 {
   private String _name;
   private RelicType _type;
-  private int _itemLevel;
-  private int _requiredLevel;
+  // TODO add category: tier 1..10, lvl55, mounted...
+  private Integer _requiredLevel;
   private BasicStatsSet _stats;
 
   /**
    * Constructor.
    * @param name Relic name.
    * @param type Type (setting/rune/gem/crafted).
-   * @param level Item level.
    * @param requiredLevel Required character level.
    */
-  public Relic(String name, RelicType type, int level, int requiredLevel)
+  public Relic(String name, RelicType type, Integer requiredLevel)
   {
     _name=name;
     _type=type;
-    _itemLevel=level;
     _requiredLevel=requiredLevel;
     _stats=new BasicStatsSet();
   }
 
   /**
-   * @return the name
+   * Get the relic name.
+   * @return the relic name.
    */
   public String getName()
   {
@@ -39,7 +38,8 @@ public class Relic
   }
 
   /**
-   * @return the type
+   * Get the relic type.
+   * @return the relic type.
    */
   public RelicType getType()
   {
@@ -47,26 +47,34 @@ public class Relic
   }
 
   /**
-   * @return the itemLevel
+   * Get the required item level for this relic.
+   * @return an item level.
    */
-  public int getItemLevel()
-  {
-    return _itemLevel;
-  }
-
-  /**
-   * @return the requiredLevel
-   */
-  public int getRequiredLevel()
+  public Integer getRequiredLevel()
   {
     return _requiredLevel;
   }
 
   /**
-   * @return the stats
+   * Get the stats of this relic.
+   * @return a set of stats.
    */
   public BasicStatsSet getStats()
   {
     return _stats;
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    sb.append(_name);
+    sb.append(" (").append(_type).append(") ");
+    if (_requiredLevel!=null)
+    {
+      sb.append("(min ").append(_requiredLevel).append(") ");
+    }
+    sb.append(_stats);
+    return sb.toString();
   }
 }
