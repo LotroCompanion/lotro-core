@@ -5,10 +5,12 @@ import java.util.List;
 
 import delta.common.framework.objects.data.Identifiable;
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Money;
 import delta.games.lotro.lore.items.bonus.BonusManager;
 import delta.games.lotro.lore.items.bonus.RawBonusParser;
+import delta.games.lotro.lore.items.essences.EssencesSet;
 
 /**
  * Item description.
@@ -49,6 +51,10 @@ public class Item implements Identifiable<Long>
   // Bonuses
   private List<String> _bonus;
   private BonusManager _bonusMgr;
+  // Stats
+  private BasicStatsSet _stats;
+  // Essences
+  private EssencesSet _essences;
   // Durability
   private Integer _durability;
   // Sturdiness (may be null)
@@ -95,6 +101,7 @@ public class Item implements Identifiable<Long>
     _unique=false;
     _bonus=new ArrayList<String>();
     _bonusMgr=new BonusManager();
+    _stats=new BasicStatsSet();
     _durability=null;
     _sturdiness=null;
     _minLevel=null;
@@ -361,6 +368,33 @@ public class Item implements Identifiable<Long>
   public BonusManager getBonusManager()
   {
     return _bonusMgr;
+  }
+
+  /**
+   * Get the item stats.
+   * @return a set of stats.
+   */
+  public BasicStatsSet getStats()
+  {
+    return _stats;
+  }
+
+  /**
+   * Set the essences for this item.
+   * @param essences Essences to set.
+   */
+  public void setEssences(EssencesSet essences)
+  {
+    _essences=essences;
+  }
+
+  /**
+   * Get the essence for this item.
+   * @return A set of essences, or <code>null</code> if not set.
+   */
+  public EssencesSet getEssences()
+  {
+    return _essences;
   }
 
   /**

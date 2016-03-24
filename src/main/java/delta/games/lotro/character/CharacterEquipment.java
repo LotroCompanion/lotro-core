@@ -3,6 +3,7 @@ package delta.games.lotro.character;
 import java.util.HashMap;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Equipment of a character.
@@ -126,7 +127,8 @@ public class CharacterEquipment
     private EQUIMENT_SLOT _slot;
     private String _objectPageURL;
     private String _objectIconURL;
-    
+    private Item _item;
+
     /**
      * Constructor.
      * @param slot Targeted equipment slot.
@@ -138,6 +140,7 @@ public class CharacterEquipment
       _slot=slot;
       _objectPageURL=objectURL;
       _objectIconURL=iconURL;
+      _item=null;
     }
 
     /**
@@ -183,6 +186,24 @@ public class CharacterEquipment
     public String getIconURL()
     {
       return _objectIconURL;
+    }
+
+    /**
+     * Get the item in this slot.
+     * @return an item or <code>null</code>.
+     */
+    public Item getItem()
+    {
+      return _item;
+    }
+
+    /**
+     * Set the item in this slot.
+     * @param item Item to set.
+     */
+    public void setItem(Item item)
+    {
+      _item=item;
     }
 
     @Override

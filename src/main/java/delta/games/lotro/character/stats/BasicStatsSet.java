@@ -117,14 +117,33 @@ public class BasicStatsSet
   @Override
   public String toString()
   {
+    return toString(" / ");
+  }
+
+  /**
+   * Dump the contents of this stats set.
+   * @return A string with one stat on each line.
+   */
+  public String dump()
+  {
+    return toString(EndOfLine.NATIVE_EOL);
+  }
+
+  private String toString(String separator)
+  {
     StringBuilder sb=new StringBuilder();
+    int index=0;
     for(CharacterStat.STAT stat : CharacterStat.STAT.values())
     {
       CharacterStat cStat=_stats.get(stat.getKey());
       if (cStat!=null)
       {
+        if (index>0)
+        {
+          sb.append(separator);
+        }
         sb.append(cStat);
-        sb.append(EndOfLine.NATIVE_EOL);
+        index++;
       }
     }
     return sb.toString().trim();
