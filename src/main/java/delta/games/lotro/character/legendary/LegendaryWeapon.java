@@ -1,20 +1,21 @@
 package delta.games.lotro.character.legendary;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.Weapon;
 
 /**
- * Legendary item description.
+ * Legendary weapon description.
  * @author DAM
  */
-public class LegendaryItem extends Item
+public class LegendaryWeapon extends Weapon
 {
   private LegendaryAttrs _attrs;
+  // TODO compute DPS based on stars
 
   /**
    * Constructor.
    */
-  public LegendaryItem()
+  public LegendaryWeapon()
   {
     _attrs=new LegendaryAttrs();
   }

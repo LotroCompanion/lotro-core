@@ -420,6 +420,15 @@ public class Item implements Identifiable<Long>
   }
 
   /**
+   * Get the total stats for this item.
+   * @return a set of stats.
+   */
+  public BasicStatsSet getTotalStats()
+  {
+    return _stats;
+  }
+
+  /**
    * Set the essences for this item.
    * @param essences Essences to set.
    */

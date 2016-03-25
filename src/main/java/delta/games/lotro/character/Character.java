@@ -1,6 +1,5 @@
 package delta.games.lotro.character;
 
-import delta.games.lotro.character.legendary.LegendaryItem;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
@@ -24,8 +23,6 @@ public class Character
   private CharacterEquipment _equipment;
   private VirtuesSet _virtues;
   private TomesSet _tomes;
-  private LegendaryItem _mainLI;
-  private LegendaryItem _classLI;
 
   /**
    * Constructor.
@@ -199,42 +196,6 @@ public class Character
   public TomesSet getTomes()
   {
     return _tomes;
-  }
-
-  /**
-   * Get the main legendary item.
-   * @return a legendary item or <code>null</code> if not set.
-   */
-  public LegendaryItem getMainLI()
-  {
-    return _mainLI;
-  }
-
-  /**
-   * Set the main legendary item.
-   * @param mainLI Item to set.
-   */
-  public void setMainLI(LegendaryItem mainLI)
-  {
-    _mainLI=mainLI;
-  }
-
-  /**
-   * Get the class legendary item.
-   * @return a legendary item or <code>null</code> if not set.
-   */
-  public LegendaryItem getClassLI()
-  {
-    return _classLI;
-  }
-
-  /**
-   * Set the class legendary item.
-   * @param classLI Item to set.
-   */
-  public void setClassLI(LegendaryItem classLI)
-  {
-    _classLI=classLI;
   }
 
   @Override

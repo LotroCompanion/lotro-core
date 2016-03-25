@@ -9,8 +9,10 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.io.xml.CharacterXMLWriter;
+import delta.games.lotro.character.legendary.LegendaryAttrs;
 import delta.games.lotro.character.legendary.LegendaryItem;
 import delta.games.lotro.character.legendary.LegendaryTitle;
+import delta.games.lotro.character.legendary.LegendaryWeapon;
 import delta.games.lotro.character.legendary.relics.Relic;
 import delta.games.lotro.character.legendary.relics.RelicType;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
@@ -26,8 +28,13 @@ import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
+import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemCategory;
+import delta.games.lotro.lore.items.ItemQuality;
+import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
+import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -77,10 +84,6 @@ public class TestCharacterStatsComputer
     tomes.setTomeRank(STAT.MIGHT,1);
     tomes.setTomeRank(STAT.FATE,2);
     // TODO Racial traits
-    LegendaryItem weapon=buildWeapon();
-    c.setMainLI(weapon);
-    LegendaryItem classItem=buildRune();
-    c.setClassLI(classItem);
     // TODO Equipment
     CharacterEquipment equipment=c.getEquipment();
     SlotContents head=equipment.getSlotContents(EQUIMENT_SLOT.HEAD,true);
@@ -99,10 +102,18 @@ public class TestCharacterStatsComputer
     gloves.setItem(buildGloves());
     SlotContents leggings=equipment.getSlotContents(EQUIMENT_SLOT.LEGS,true);
     leggings.setItem(buildLeggings());
+    // Weapons
+    SlotContents sword1=equipment.getSlotContents(EQUIMENT_SLOT.MAIN_MELEE,true);
+    sword1.setItem(buildWeapon());
     SlotContents sword2=equipment.getSlotContents(EQUIMENT_SLOT.OTHER_MELEE,true);
     sword2.setItem(build2ndSword());
     SlotContents bow=equipment.getSlotContents(EQUIMENT_SLOT.RANGED,true);
     bow.setItem(buildBow());
+    // Tools
+    // TODO
+    // Class slot
+    SlotContents rune=equipment.getSlotContents(EQUIMENT_SLOT.CLASS_ITEM,true);
+    rune.setItem(buildRune());
     // Jewels
     SlotContents earring1=equipment.getSlotContents(EQUIMENT_SLOT.LEFT_EAR,true);
     earring1.setItem(buildEarring1());
@@ -458,20 +469,34 @@ public class TestCharacterStatsComputer
     return ret;
   }
 
-  private LegendaryItem buildWeapon()
+  private Item buildWeapon()
   {
-    LegendaryItem weapon=new LegendaryItem();
-    weapon.setItemType("Reshaped Champion's Sword of the First Age");
-    weapon.setName("Ost Magol II");
+    LegendaryWeapon weapon=new LegendaryWeapon();
+    weapon.setName("Reshaped Champion's Sword of the First Age");
+    weapon.setBirthName("Ost Magol II");
     weapon.setCrafterName("Giswald");
+    weapon.setRequiredClass(CharacterClass.CHAMPION);
+    weapon.setCategory(ItemCategory.WEAPON);
+    weapon.setMinLevel(Integer.valueOf(100));
+    weapon.setDurability(Integer.valueOf(100));
+    weapon.setSturdiness(ItemSturdiness.NORMAL);
+    weapon.setEquipmentLocation(EquipmentLocation.HAND);
+    weapon.setQuality(ItemQuality.LEGENDARY);
+    // Weapon specifics
+    weapon.setWeaponType(WeaponType.ONE_HANDED_SWORD);
+    weapon.setDPS(255);
+    weapon.setMinDamage(363);
+    weapon.setMaxDamage(606);
+    weapon.setDamageType(DamageType.BELERIAND);
     // Passives
     //BasicStatsSet passives=weapon.getPassives();
     // TODO +1% parry chance
+    LegendaryAttrs attrs=weapon.getLegendaryAttrs();
     // Title
     LegendaryTitle title=new LegendaryTitle("Potency of Eldar Days III");
     BasicStatsSet titleStats=title.getStats();
     titleStats.setStat(STAT.CRITICAL_RATING,460);
-    weapon.setTitle(title);
+    attrs.setTitle(title);
     // Relics
     {
       // Setting
@@ -480,7 +505,7 @@ public class TestCharacterStatsComputer
       // TODO 7.5% devastate magnitude
       stats.setStat(STAT.CRITICAL_RATING,1454);
       stats.setStat(STAT.ICMR,182);
-      weapon.setSetting(setting);
+      attrs.setSetting(setting);
     }
     {
       // Gem
@@ -489,7 +514,7 @@ public class TestCharacterStatsComputer
       stats.setStat(STAT.ICPR,90);
       stats.setStat(STAT.CRITICAL_RATING,1212);
       stats.setStat(STAT.FATE,30);
-      weapon.setGem(gem);
+      attrs.setGem(gem);
     }
     {
       // Rune
@@ -499,7 +524,7 @@ public class TestCharacterStatsComputer
       stats.setStat(STAT.PHYSICAL_MASTERY,606);
       stats.setStat(STAT.TACTICAL_MASTERY,606);
       stats.setStat(STAT.FATE,27);
-      weapon.setRune(rune);
+      attrs.setRune(rune);
     }
     {
       // Crafted relic
@@ -508,7 +533,7 @@ public class TestCharacterStatsComputer
       stats.setStat(STAT.MIGHT,40);
       stats.setStat(STAT.CRITICAL_RATING,740);
       stats.setStat(STAT.PHYSICAL_MASTERY,740);
-      weapon.setCraftedRelic(craftedRelic);
+      attrs.setCraftedRelic(craftedRelic);
     }
     // Stat legacies
     // TODO
@@ -518,14 +543,23 @@ public class TestCharacterStatsComputer
   private LegendaryItem buildRune()
   {
     LegendaryItem classItem=new LegendaryItem();
-    classItem.setItemType("Reshaped Champion's Rune of the First Age");
-    classItem.setName("Gondorian Rune II");
+    classItem.setName("Reshaped Champion's Rune of the First Age");
+    classItem.setBirthName("Gondorian Rune II");
     classItem.setCrafterName("Ethell");
+    classItem.setRequiredClass(CharacterClass.CHAMPION);
+    classItem.setCategory(ItemCategory.ITEM);
+    classItem.setMinLevel(Integer.valueOf(100));
+    classItem.setDurability(Integer.valueOf(80));
+    classItem.setSturdiness(ItemSturdiness.NORMAL);
+    classItem.setEquipmentLocation(EquipmentLocation.CLASS_SLOT);
+    classItem.setQuality(ItemQuality.LEGENDARY);
+
     // Passives
     BasicStatsSet passives=classItem.getPassives();
     // TODO -1% Blade line AoE power cost
     // TODO -4% strike skill power cost
     passives.setStat(STAT.INCOMING_HEALING,6300);
+    LegendaryAttrs attrs=classItem.getLegendaryAttrs();
     // Title
     // .. none ..
     // Relics
@@ -536,7 +570,7 @@ public class TestCharacterStatsComputer
       // TODO 7.5% devastate magnitude
       stats.setStat(STAT.CRITICAL_RATING,1454);
       stats.setStat(STAT.ICMR,182);
-      classItem.setSetting(setting);
+      attrs.setSetting(setting);
     }
     {
       // Gem
@@ -545,7 +579,7 @@ public class TestCharacterStatsComputer
       stats.setStat(STAT.ICPR,90);
       stats.setStat(STAT.CRITICAL_RATING,1212);
       stats.setStat(STAT.FATE,30);
-      classItem.setGem(gem);
+      attrs.setGem(gem);
     }
     {
       // Rune
@@ -555,7 +589,7 @@ public class TestCharacterStatsComputer
       stats.setStat(STAT.PHYSICAL_MASTERY,646);
       stats.setStat(STAT.TACTICAL_MASTERY,646);
       stats.setStat(STAT.AGILITY,35);
-      classItem.setRune(rune);
+      attrs.setRune(rune);
     }
     {
       // Crafted relic
@@ -564,7 +598,7 @@ public class TestCharacterStatsComputer
       stats.setStat(STAT.MIGHT,40);
       stats.setStat(STAT.CRITICAL_RATING,740);
       stats.setStat(STAT.PHYSICAL_MASTERY,740);
-      classItem.setCraftedRelic(craftedRelic);
+      attrs.setCraftedRelic(craftedRelic);
     }
     // Stat legacies
     // None...
@@ -610,7 +644,7 @@ public class TestCharacterStatsComputer
   private BasicStatsSet getItemStats(Item item)
   {
     BasicStatsSet ret=new BasicStatsSet();
-    ret.addStats(item.getStats());
+    ret.addStats(item.getTotalStats());
     EssencesSet essences=item.getEssences();
     if (essences!=null)
     {
@@ -645,19 +679,6 @@ public class TestCharacterStatsComputer
     raw.addStats(baseStats);
     raw.addStats(virtuesStats);
     raw.addStats(tomesStats);
-    // Legendary Items
-    LegendaryItem mainLI=c.getMainLI();
-    if (mainLI!=null)
-    {
-      BasicStatsSet liStats=mainLI.getRawStats();
-      raw.addStats(liStats);
-    }
-    LegendaryItem classLI=c.getClassLI();
-    if (classLI!=null)
-    {
-      BasicStatsSet liStats=classLI.getRawStats();
-      raw.addStats(liStats);
-    }
     // Equipment
     BasicStatsSet equipmentStats=getEquipmentStats(c.getEquipment());
     raw.addStats(equipmentStats);

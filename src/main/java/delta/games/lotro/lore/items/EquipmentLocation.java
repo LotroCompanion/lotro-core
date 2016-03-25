@@ -76,7 +76,12 @@ public class EquipmentLocation
   /**
    * Rune-stone.
    */
+  // TODO check if needed
   public static final EquipmentLocation RUNE_STONE=new EquipmentLocation("RUNE_STONE","Rune-stone");
+  /**
+   * Class slot.
+   */
+  public static final EquipmentLocation CLASS_SLOT=new EquipmentLocation("CLASS_SLOT","Class Slot");
 
   private EquipmentLocation(String key, String label, String... aliases)
   {
