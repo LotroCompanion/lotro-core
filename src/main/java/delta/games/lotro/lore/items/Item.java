@@ -32,6 +32,10 @@ public class Item implements Identifiable<Long>
   private EquipmentLocation _equipmentLocation;
   // Item name "Jacket of the Impossible Shot"
   private String _name;
+  // Item birth name (given by the crafter) (may be <code>null</code>)
+  private String _birthName;
+  // Crafter name (may be <code>null</code>)
+  private String _crafterName;
   // Icon URL
   private String _iconURL;
   // Item category: Armour, Tool, ...
@@ -201,6 +205,42 @@ public class Item implements Identifiable<Long>
   public void setItemsSet(ItemsSet set)
   {
     _set=set;
+  }
+
+  /**
+   * Get the item birth name (the one given by the crafter, if any).
+   * @return a birth name or <code>null</code>.
+   */
+  public String getBirthName()
+  {
+    return _birthName;
+  }
+
+  /**
+   * Set the item birth name.
+   * @param birthName A birth name or <code>null</code> if none.
+   */
+  public void setBirthName(String birthName)
+  {
+    _birthName=birthName;
+  }
+
+  /**
+   * Get the name of the crafter of this item, if any.
+   * @return a crafter name or <code>null</code>.
+   */
+  public String getCrafterName()
+  {
+    return _crafterName;
+  }
+
+  /**
+   * Set the name of the crafter of this item, if any.
+   * @param crafterName a character name or <code>null</code>.
+   */
+  public void setCrafterName(String crafterName)
+  {
+    _crafterName=crafterName;
   }
 
   /**
