@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.warbands;
 
-import delta.games.lotro.common.SIZE;
+import delta.games.lotro.common.Size;
 
 /**
  * Definition of a warband.
@@ -15,7 +15,7 @@ public class WarbandDefinition
   private Integer _morale;
   private String _region;
   private String _description;
-  private SIZE _size;
+  private Size _size;
   
   /**
    * Constructor.
@@ -29,7 +29,7 @@ public class WarbandDefinition
     _morale=null;
     _region="";
     _description="";
-    _size=SIZE.SOLO;
+    _size=Size.SOLO;
   }
 
   /**
@@ -176,7 +176,7 @@ public class WarbandDefinition
    * Get the size of this warband.
    * @return A size.
    */
-  public SIZE getSize()
+  public Size getSize()
   {
     return _size;
   }
@@ -185,7 +185,7 @@ public class WarbandDefinition
    * Set the size of this warband.
    * @param size the size to set.
    */
-  public void setSize(SIZE size)
+  public void setSize(Size size)
   {
     _size=size;
   }

@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
-import delta.games.lotro.common.SIZE;
+import delta.games.lotro.common.Size;
 import delta.games.lotro.common.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
@@ -120,7 +120,7 @@ public class QuestXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_TYPE_ATTR,CDATA,type.name());
     }
-    SIZE size=quest.getSize();
+    Size size=quest.getSize();
     if (size!=null)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SIZE_ATTR,CDATA,size.name());

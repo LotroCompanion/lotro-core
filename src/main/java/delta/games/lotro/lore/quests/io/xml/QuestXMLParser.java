@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.SIZE;
+import delta.games.lotro.common.Size;
 import delta.games.lotro.common.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
@@ -93,7 +93,7 @@ public class QuestXMLParser
     q.setType(type);
     // Size
     String sizeStr=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SIZE_ATTR,null);
-    SIZE size=SIZE.valueOf(sizeStr);
+    Size size=Size.valueOf(sizeStr);
     q.setSize(size);
     // Faction
     String factionStr=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_FACTION_ATTR,null);

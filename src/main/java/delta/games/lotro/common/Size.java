@@ -4,7 +4,7 @@ package delta.games.lotro.common;
  * Quest size.
  * @author DAM
  */
-public enum SIZE
+public enum Size
 {
   /**
    * Solo quest.
@@ -24,7 +24,7 @@ public enum SIZE
   RAID("Raid");
 
   private String _label;
-  private SIZE(String label)
+  private Size(String label)
   {
     _label=label;
   }

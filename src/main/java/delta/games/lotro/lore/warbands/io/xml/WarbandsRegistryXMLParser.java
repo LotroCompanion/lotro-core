@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.SIZE;
+import delta.games.lotro.common.Size;
 import delta.games.lotro.lore.warbands.WarbandDefinition;
 import delta.games.lotro.lore.warbands.WarbandsRegistry;
 
@@ -51,11 +51,11 @@ public class WarbandsRegistryXMLParser
         int morale=DOMParsingTools.getIntAttribute(attrs,WarbandsRegistryXMLConstants.WARBAND_MORALE_ATTR,0);
         String region=DOMParsingTools.getStringAttribute(attrs,WarbandsRegistryXMLConstants.WARBAND_REGION_ATTR,null);
         String description=DOMParsingTools.getStringAttribute(attrs,WarbandsRegistryXMLConstants.WARBAND_DESCRIPTION_ATTR,null);
-        SIZE size=null;
+        Size size=null;
         String sizeStr=DOMParsingTools.getStringAttribute(attrs,WarbandsRegistryXMLConstants.WARBAND_SIZE_ATTR,null);
         if (sizeStr!=null)
         {
-          size=SIZE.valueOf(sizeStr);
+          size=Size.valueOf(sizeStr);
         }
         WarbandDefinition warband=new WarbandDefinition();
         warband.setName(name);

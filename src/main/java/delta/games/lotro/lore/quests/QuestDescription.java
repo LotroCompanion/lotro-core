@@ -5,7 +5,7 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Rewards;
-import delta.games.lotro.common.SIZE;
+import delta.games.lotro.common.Size;
 
 /**
  * LOTRO quest description.
@@ -56,7 +56,7 @@ public class QuestDescription
   private List<String> _requiredClasses;
   private List<String> _requiredRaces;
   private TYPE _type;
-  private SIZE _size;
+  private Size _size;
   private FACTION _faction;
   private boolean _repeatable;
   private boolean _instanced;
@@ -83,7 +83,7 @@ public class QuestDescription
     _maximumLevel=null;
     _requiredClasses=null;
     _type=TYPE.STANDARD;
-    _size=SIZE.SOLO;
+    _size=Size.SOLO;
     _faction=FACTION.FREE_PEOPLES;
     _repeatable=false;
     _instanced=false;
@@ -306,7 +306,7 @@ public class QuestDescription
    * Get the quest size.
    * @return the quest size.
    */
-  public SIZE getSize()
+  public Size getSize()
   {
     return _size;
   }
@@ -315,7 +315,7 @@ public class QuestDescription
    * Set the quest size.
    * @param size the size to set.
    */
-  public void setSize(SIZE size)
+  public void setSize(Size size)
   {
     _size=size;
   }
@@ -517,7 +517,7 @@ public class QuestDescription
       sb.append(_type);
       sb.append(')');
     }
-    if (_size!=SIZE.SOLO)
+    if (_size!=Size.SOLO)
     {
       sb.append(" (");
       sb.append(_size);

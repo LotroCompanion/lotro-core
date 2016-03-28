@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.warbands;
 
-import delta.games.lotro.common.SIZE;
+import delta.games.lotro.common.Size;
 
 /**
  * Filter for warband definitions.
@@ -9,7 +9,7 @@ import delta.games.lotro.common.SIZE;
 public class WarbandFilter
 {
   private String _region;
-  private SIZE _size;
+  private Size _size;
   private Integer _minLevel;
 
   /**
@@ -44,7 +44,7 @@ public class WarbandFilter
    * Get the size filter.
    * @return A size filter or <code>null</code> for no filter.
    */
-  public SIZE getSize()
+  public Size getSize()
   {
     return _size;
   }
@@ -53,7 +53,7 @@ public class WarbandFilter
    * Set the size of selected items.
    * @param size A size or <code>null</code>.
    */
-  public void setSize(SIZE size)
+  public void setSize(Size size)
   {
     _size=size;
   }
@@ -98,7 +98,7 @@ public class WarbandFilter
     }
     if (_size!=null)
     {
-      SIZE size=warband.getSize();
+      Size size=warband.getSize();
       ret=size==_size;
       if (!ret) return false;
     }

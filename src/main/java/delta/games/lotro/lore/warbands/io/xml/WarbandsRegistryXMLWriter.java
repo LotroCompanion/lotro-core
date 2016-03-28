@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
-import delta.games.lotro.common.SIZE;
+import delta.games.lotro.common.Size;
 import delta.games.lotro.lore.warbands.WarbandDefinition;
 import delta.games.lotro.lore.warbands.WarbandsRegistry;
 import delta.games.lotro.utils.LotroLoggers;
@@ -93,7 +93,7 @@ public class WarbandsRegistryXMLWriter
       if (region!=null) attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_REGION_ATTR,CDATA,region);
       String description=warband.getDescription();
       if (description!=null) attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_DESCRIPTION_ATTR,CDATA,description);
-      SIZE size=warband.getSize();
+      Size size=warband.getSize();
       if (size!=null) attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_SIZE_ATTR,CDATA,size.name());
       hd.startElement("","",WarbandsRegistryXMLConstants.WARBAND_TAG,attrs);
       hd.endElement("","",WarbandsRegistryXMLConstants.WARBAND_TAG);
