@@ -92,7 +92,7 @@ public class TomesSet
         }
         sb.append(AVAILABLE_TOMES[i].getName());
         sb.append(' ');
-        sb.append(LATINE[rank]);
+        sb.append(LATINE[rank-1]);
         index++;
         
       }
