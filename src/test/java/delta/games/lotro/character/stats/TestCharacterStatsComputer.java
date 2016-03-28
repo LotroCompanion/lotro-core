@@ -9,12 +9,6 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.io.xml.CharacterXMLWriter;
-import delta.games.lotro.character.legendary.LegendaryAttrs;
-import delta.games.lotro.character.legendary.LegendaryItem;
-import delta.games.lotro.character.legendary.LegendaryTitle;
-import delta.games.lotro.character.legendary.LegendaryWeapon;
-import delta.games.lotro.character.legendary.relics.Relic;
-import delta.games.lotro.character.legendary.relics.RelicType;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
 import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
@@ -37,6 +31,12 @@ import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSet;
+import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryItem;
+import delta.games.lotro.lore.items.legendary.LegendaryTitle;
+import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**

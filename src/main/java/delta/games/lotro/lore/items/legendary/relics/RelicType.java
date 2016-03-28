@@ -1,4 +1,4 @@
-package delta.games.lotro.character.legendary.relics;
+package delta.games.lotro.lore.items.legendary.relics;
 
 /**
  * Relic type.

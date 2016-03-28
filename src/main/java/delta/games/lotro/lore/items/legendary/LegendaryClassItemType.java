@@ -1,4 +1,4 @@
-package delta.games.lotro.character.legendary;
+package delta.games.lotro.lore.items.legendary;
 
 
 /**

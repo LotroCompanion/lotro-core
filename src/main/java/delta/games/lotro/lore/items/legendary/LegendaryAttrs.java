@@ -1,11 +1,11 @@
-package delta.games.lotro.character.legendary;
+package delta.games.lotro.lore.items.legendary;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.legendary.relics.Relic;
-import delta.games.lotro.character.legendary.relics.RelicType;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicType;
 
 /**
  * Legendary item description.
