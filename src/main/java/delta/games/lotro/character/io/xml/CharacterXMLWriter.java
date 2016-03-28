@@ -25,6 +25,8 @@ import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -187,6 +189,12 @@ public class CharacterXMLWriter
         slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_ICON_URL_ATTR,CDATA,iconURL);
       }
       hd.startElement("","",CharacterXMLConstants.SLOT_TAG,slotAtts);
+      Item item=slotContents.getItem();
+      if (item!=null)
+      {
+        ItemXMLWriter writer=new ItemXMLWriter();
+        writer.write(hd,item);
+      }
       hd.endElement("","",CharacterXMLConstants.SLOT_TAG);
     }
   }

@@ -1,5 +1,6 @@
 package delta.games.lotro.character;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
@@ -210,9 +211,9 @@ public class Character
     sb.append("Race [").append(_race).append("], ");
     sb.append("Level [").append(_level).append("], ");
     sb.append("Stats: ").append(_stats).append(", ");
-    sb.append("Equipment:").append(_equipment);
-    sb.append("Virtues:").append(_virtues);
-    sb.append("Tomes:").append(_tomes);
-    return sb.toString();
+    sb.append("Equipment:").append(_equipment).append(EndOfLine.NATIVE_EOL);
+    sb.append("Virtues:").append(_virtues).append(EndOfLine.NATIVE_EOL);
+    sb.append("Tomes:").append(_tomes).append(EndOfLine.NATIVE_EOL);
+    return sb.toString().trim();
   }
 }

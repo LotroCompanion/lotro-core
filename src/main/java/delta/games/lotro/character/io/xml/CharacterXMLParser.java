@@ -19,6 +19,9 @@ import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
+import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -122,11 +125,20 @@ public class CharacterXMLParser
         EQUIMENT_SLOT slot=EQUIMENT_SLOT.valueOf(name);
         if (slot!=null)
         {
+          // Slots attributes
           String objectURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_OBJECT_URL_ATTR,"");
           String iconURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_ICON_URL_ATTR,"");
           SlotContents slotContents=equipment.getSlotContents(slot,true);
           slotContents.setObjectURL(objectURL);
           slotContents.setIconURL(iconURL);
+          // Embedded item
+          ItemXMLParser itemParser=new ItemXMLParser();
+          Element itemTag=DOMParsingTools.getChildTagByName(slotTag,ItemXMLConstants.ITEM_TAG);
+          if (itemTag!=null)
+          {
+            Item item=itemParser.parseItem(itemTag);
+            slotContents.setItem(item);
+          }
         }
       }
     }
@@ -147,7 +159,7 @@ public class CharacterXMLParser
         {
           int rank=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.VIRTUE_RANK,0);
           virtues.setVirtueValue(virtue,rank);
-          int index=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.SLOT_ICON_URL_ATTR,-1);
+          int index=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.VIRTUE_INDEX,-1);
           if (index!=-1)
           {
             virtues.setSelectedVirtue(virtue,index);

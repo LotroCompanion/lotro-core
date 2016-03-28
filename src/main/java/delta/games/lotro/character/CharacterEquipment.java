@@ -209,7 +209,15 @@ public class CharacterEquipment
     @Override
     public String toString()
     {
-      return "Slot "+_slot+": object=["+_objectPageURL+"], icon=["+_objectIconURL+"]";
+      StringBuilder sb=new StringBuilder();
+      sb.append("Slot ").append(_slot).append(": ");
+      sb.append("object=[").append(_objectPageURL).append("], ");
+      sb.append("icon=[").append(_objectIconURL).append(']');
+      if (_item!=null)
+      {
+        sb.append(", item=[").append(_item).append(']');
+      }
+      return sb.toString().trim();
     }
   }
 
@@ -273,6 +281,6 @@ public class CharacterEquipment
         sb.append(EndOfLine.NATIVE_EOL);
       }
     }
-    return sb.toString();
+    return sb.toString().trim();
   }
 }

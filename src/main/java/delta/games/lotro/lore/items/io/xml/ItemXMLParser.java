@@ -8,6 +8,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
+import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.lore.items.Armour;
@@ -44,7 +47,12 @@ public class ItemXMLParser
     return item;
   }
 
-  private Item parseItem(Element root)
+  /**
+   * Build an item from an XML tag.
+   * @param root Root XML tag.
+   * @return An item.
+   */
+  public Item parseItem(Element root)
   {
     Item ret=null;
     NamedNodeMap attrs=root.getAttributes();
@@ -99,6 +107,13 @@ public class ItemXMLParser
       }
     }
     ret.setBonus(bonuses);
+    // Stats
+    Element statsTag=DOMParsingTools.getChildTagByName(root,BasicStatsSetXMLConstants.STATS_TAG);
+    if (statsTag!=null)
+    {
+      BasicStatsSet stats=BasicStatsSetXMLParser.parseStats(statsTag);
+      ret.getStats().addStats(stats);
+    }
     // Durability
     int durability=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_DURABILITY_ATTR,-1);
     if (durability!=-1)

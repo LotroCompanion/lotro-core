@@ -15,6 +15,8 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
+import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
@@ -83,8 +85,14 @@ public class ItemXMLWriter
     }
     return ret;
   }
-  
-  private void write(TransformerHandler hd, Item item) throws Exception
+
+  /**
+   * Write an item to the given XML stream.
+   * @param hd XML output stream.
+   * @param item Item to write.
+   * @throws Exception
+   */
+  public void write(TransformerHandler hd, Item item) throws Exception
   {
     AttributesImpl itemAttrs=new AttributesImpl();
 
@@ -228,6 +236,9 @@ public class ItemXMLWriter
         hd.endElement("","",ItemXMLConstants.BONUS_TAG);
       }
     }
+    // Stats
+    BasicStatsSet stats=item.getStats();
+    BasicStatsSetXMLWriter.write(hd,stats);
     hd.endElement("","",ItemXMLConstants.ITEM_TAG);
   }
 }
