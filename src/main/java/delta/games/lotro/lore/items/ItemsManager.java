@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.WeakHashMap;
 
 import org.apache.log4j.Logger;
@@ -223,6 +224,19 @@ public class ItemsManager
       item=loadItem(id);
     }
     return item;
+  }
+
+  /**
+   * Write a file with items.
+   * @param toFile Output file.
+   * @param items Items to write.
+   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
+   */
+  public boolean writeItemsFile(File toFile, List<Item> items)
+  {
+    ItemXMLWriter writer=new ItemXMLWriter();
+    boolean ok=writer.writeItems(toFile,items,EncodingNames.UTF_8);
+    return ok;
   }
 
   private void writeSetFile(ItemsSet set)

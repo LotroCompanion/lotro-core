@@ -8,9 +8,17 @@ package delta.games.lotro.lore.items.io.xml;
 public class ItemXMLConstants
 {
   /**
+   * Tag 'items'.
+   */
+  public static final String ITEMS_TAG="items";
+  /**
    * Tag 'item'.
    */
   public static final String ITEM_TAG="item";
+  /**
+   * Tag 'item', attribute 'key'.
+   */
+  public static final String ITEM_KEY_ATTR="key";
   /**
    * Tag 'item', attribute 'id'.
    */
@@ -23,6 +31,10 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'name'.
    */
   public static final String ITEM_NAME_ATTR="name";
+  /**
+   * Tag 'item', attribute 'level'.
+   */
+  public static final String ITEM_LEVEL_ATTR="level";
   /**
    * Tag 'item', attribute 'iconURL'.
    */
@@ -103,7 +115,7 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'weaponType'.
    */
   public static final String WEAPON_TYPE_ATTR="weaponType";
-  
+
   /**
    * Tag 'bonus'.
    */
@@ -112,4 +124,17 @@ public class ItemXMLConstants
    * Tag 'bonus', attribute 'value'.
    */
   public static final String BONUS_VALUE_ATTR="value";
+
+  /**
+   * Tag 'property'.
+   */
+  public static final String PROPERTY_TAG="property";
+  /**
+   * Tag 'property', attribute 'key'.
+   */
+  public static final String PROPERTY_KEY_ATTR="key";
+  /**
+   * Tag 'property', attribute 'value'.
+   */
+  public static final String PROPERTY_VALUE_ATTR="value";
 }

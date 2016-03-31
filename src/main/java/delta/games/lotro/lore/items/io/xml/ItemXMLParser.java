@@ -48,6 +48,27 @@ public class ItemXMLParser
   }
 
   /**
+   * Parse the XML file.
+   * @param source Source file.
+   * @return List of parsed items.
+   */
+  public List<Item> parseItemsFile(File source)
+  {
+    List<Item> items=new ArrayList<Item>();
+    Element root=DOMParsingTools.parse(source);
+    if (root!=null)
+    {
+      List<Element> itemTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.ITEM_TAG);
+      for(Element itemTag : itemTags)
+      {
+        Item item=parseItem(itemTag);
+        items.add(item);
+      }
+    }
+    return items;
+  }
+
+  /**
    * Build an item from an XML tag.
    * @param root Root XML tag.
    * @return An item.
@@ -69,12 +90,21 @@ public class ItemXMLParser
     // Key
     String key=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_ID_ATTR,null);
     ret.setKey(key);
+    // Identifier
+    int id=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_KEY_ATTR,-1);
+    ret.setIdentifier(id);
     // Set identifier
     String setId=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_SET_ID_ATTR,null);
     ret.setSetKey(setId);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_NAME_ATTR,null);
     ret.setName(name);
+    // Item level
+    int itemLevel=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_LEVEL_ATTR,-1);
+    if (itemLevel!=-1)
+    {
+      ret.setItemLevel(Integer.valueOf(itemLevel));
+    }
     // Icon URL
     String iconURL=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_ICON_URL_ATTR,null);
     ret.setIconURL(iconURL);
@@ -107,6 +137,19 @@ public class ItemXMLParser
       }
     }
     ret.setBonus(bonuses);
+    // Properties
+    List<Element> propertyTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.PROPERTY_TAG);
+    if ((propertyTags!=null) && (propertyTags.size()>0))
+    {
+      for(Element propertyTag : propertyTags)
+      {
+        NamedNodeMap propAttrs=propertyTag.getAttributes();
+
+        String propertyName=DOMParsingTools.getStringAttribute(propAttrs,ItemXMLConstants.PROPERTY_KEY_ATTR,null);
+        String propertyValue=DOMParsingTools.getStringAttribute(propAttrs,ItemXMLConstants.PROPERTY_VALUE_ATTR,null);
+        ret.setProperty(propertyName,propertyValue);
+      }
+    }
     // Stats
     Element statsTag=DOMParsingTools.getChildTagByName(root,BasicStatsSetXMLConstants.STATS_TAG);
     if (statsTag!=null)

@@ -1,7 +1,9 @@
 package delta.games.lotro.lore.items;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import delta.common.framework.objects.data.Identifiable;
 import delta.common.utils.text.EndOfLine;
@@ -86,6 +88,8 @@ public class Item implements Identifiable<Long>
   // TODO Missing attrs: quality="Incomparable" isItemAdvancement="0" consumedOnUse="0" cooldown="" decoration="" instrument=""
   private ItemQuality _quality;
 
+  private HashMap<String,String> _properties;
+
   /**
    * Constructor.
    */
@@ -115,6 +119,7 @@ public class Item implements Identifiable<Long>
     _value=new Money();
     _stackMax=null;
     _quality=ItemQuality.COMMON;
+    _properties=null;
   }
 
   /**
@@ -608,6 +613,29 @@ public class Item implements Identifiable<Long>
   public void setQuality(ItemQuality quality)
   {
     _quality=quality;
+  }
+
+  /**
+   * Set a property for this item.
+   * @param key Property key.
+   * @param value Property value.
+   */
+  public void setProperty(String key, String value)
+  {
+    if (_properties==null)
+    {
+      _properties=new HashMap<String,String>();
+    }
+    _properties.put(key,value);
+  }
+
+  /**
+   * Get all properties for this item.
+   * @return A properties map or <code>null</code>.
+   */
+  public Map<String,String> getProperties()
+  {
+    return _properties;
   }
 
   /**

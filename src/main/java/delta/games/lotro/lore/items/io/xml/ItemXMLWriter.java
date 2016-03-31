@@ -2,7 +2,10 @@ package delta.games.lotro.lore.items.io.xml;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -26,6 +29,7 @@ import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
+import delta.games.lotro.lore.items.ItemIdComparator;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
@@ -87,6 +91,56 @@ public class ItemXMLWriter
   }
 
   /**
+   * Write items to a XML file.
+   * @param outFile Output file.
+   * @param items Items to write.
+   * @param encoding Encoding to use.
+   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
+   */
+  public boolean writeItems(File outFile, List<Item> items, String encoding)
+  {
+    boolean ret;
+    FileOutputStream fos=null;
+    try
+    {
+      File parentFile=outFile.getParentFile();
+      if (!parentFile.exists())
+      {
+        parentFile.mkdirs();
+      }
+      fos=new FileOutputStream(outFile);
+      SAXTransformerFactory tf=(SAXTransformerFactory)TransformerFactory.newInstance();
+      TransformerHandler hd=tf.newTransformerHandler();
+      Transformer serializer=hd.getTransformer();
+      serializer.setOutputProperty(OutputKeys.ENCODING,encoding);
+      serializer.setOutputProperty(OutputKeys.INDENT,"yes");
+
+      StreamResult streamResult=new StreamResult(fos);
+      hd.setResult(streamResult);
+      hd.startDocument();
+      hd.startElement("","",ItemXMLConstants.ITEMS_TAG,new AttributesImpl());
+      Collections.sort(items,new ItemIdComparator());
+      for(Item item : items)
+      {
+        write(hd,item);
+      }
+      hd.endElement("","",ItemXMLConstants.ITEMS_TAG);
+      hd.endDocument();
+      ret=true;
+    }
+    catch (Exception exception)
+    {
+      _logger.error("",exception);
+      ret=false;
+    }
+    finally
+    {
+      StreamTools.close(fos);
+    }
+    return ret;
+  }
+
+  /**
    * Write an item to the given XML stream.
    * @param hd XML output stream.
    * @param item Item to write.
@@ -96,6 +150,12 @@ public class ItemXMLWriter
   {
     AttributesImpl itemAttrs=new AttributesImpl();
 
+    // Key
+    int id=item.getIdentifier();
+    if (id!=0)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_KEY_ATTR,CDATA,String.valueOf(id));
+    }
     // Key
     String key=item.getKey();
     if (key!=null)
@@ -113,6 +173,12 @@ public class ItemXMLWriter
     if (name!=null)
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_NAME_ATTR,CDATA,name);
+    }
+    // Item level
+    Integer itemLevel=item.getItemLevel();
+    if (itemLevel!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_ATTR,CDATA,String.valueOf(itemLevel.intValue()));
     }
     // Icon URL
     String iconURL=item.getIconURL();
@@ -234,6 +300,22 @@ public class ItemXMLWriter
         attrs.addAttribute("","",ItemXMLConstants.BONUS_VALUE_ATTR,CDATA,bonus);
         hd.startElement("","",ItemXMLConstants.BONUS_TAG,attrs);
         hd.endElement("","",ItemXMLConstants.BONUS_TAG);
+      }
+    }
+    // Properties
+    Map<String,String> properties=item.getProperties();
+    if (properties!=null)
+    {
+      List<String> propertyNames=new ArrayList<String>(properties.keySet());
+      Collections.sort(propertyNames);
+      for(String propertyName : propertyNames)
+      {
+        String propertyValue=properties.get(propertyName);
+        AttributesImpl attrs=new AttributesImpl();
+        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_KEY_ATTR,CDATA,propertyName);
+        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_VALUE_ATTR,CDATA,propertyValue);
+        hd.startElement("","",ItemXMLConstants.PROPERTY_TAG,attrs);
+        hd.endElement("","",ItemXMLConstants.PROPERTY_TAG);
       }
     }
     // Stats
