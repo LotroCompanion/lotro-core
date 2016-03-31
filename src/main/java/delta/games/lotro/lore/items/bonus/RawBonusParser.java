@@ -108,14 +108,17 @@ public class RawBonusParser
       if (bonusStr.endsWith(label))
       {
         String valueStr=bonusStr.substring(0,bonusStr.length()-label.length()).trim();
-        bonus=new Bonus(bonusType,_context);
         if (valueStr.startsWith(MAX))
         {
           valueStr=valueStr.substring(MAX.length()).trim();
         }
         Object value=bonusType.buildValueFromString(valueStr);
-        bonus.setValue(value);
-        break;
+        if (value!=null)
+        {
+          bonus=new Bonus(bonusType,_context);
+          bonus.setValue(value);
+          break;
+        }
       }
     }
     if (bonus==null)
