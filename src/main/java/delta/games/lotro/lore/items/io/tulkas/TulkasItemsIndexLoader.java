@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items.io.tulkas;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Set;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
+import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Items/sets loader for Tulkas DB index.
@@ -160,6 +162,7 @@ public class TulkasItemsIndexLoader extends TulkasItemsLoader
   {
     List<Integer> keys=new ArrayList<Integer>(items.keySet());
     Collections.sort(keys);
+    List<Item> itemsList=new ArrayList<Item>();
     int nbKeys=keys.size();
     System.out.println("Min: "+keys.get(0)+", max: "+keys.get(nbKeys-1));
     for(int i=0;i<nbKeys;i++)
@@ -169,14 +172,23 @@ public class TulkasItemsIndexLoader extends TulkasItemsLoader
       String name=(String)data.get(Integer.valueOf(1));
       String description=(String)data.get(Integer.valueOf(2));
       Integer categoryInt=(Integer)data.get(Integer.valueOf(3));
+      // 4..5: see below (quality, sturdiness)
+      // 6: isMagic is always false
       Boolean isUnique=(Boolean)data.get(Integer.valueOf(7));
       Integer iconID=(Integer)data.get(Integer.valueOf(8));
-      Integer backgroundIconid=(Integer)data.get(Integer.valueOf(9));
+      Integer backgroundIconId=(Integer)data.get(Integer.valueOf(9));
       Item item=new Item();
       item.setIdentifier(id.intValue());
       item.setName(name);
       item.setDescription(description);
-      item.setIconURL(iconID+" - "+backgroundIconid);
+      if (iconID!=null)
+      {
+        item.setProperty("iconId",iconID.toString());
+      }
+      if (backgroundIconId!=null)
+      {
+        item.setProperty("backgroundIconId",backgroundIconId.toString());
+      }
       if (isUnique!=null)
       {
         item.setUnique(isUnique.booleanValue());
@@ -217,13 +229,13 @@ public class TulkasItemsIndexLoader extends TulkasItemsLoader
         }
         item.setSturdiness(sturdiness);
       }
-      /*
-      ItemsManager mgr=ItemsManager.getInstance();
-      mgr.writeItemFile(item);
-      */
-      System.out.println(i);
-      System.out.println(item.dump());
-      writeItemToDB(item);
+      itemsList.add(item);
+      //System.out.println(i);
+      //System.out.println(item.dump());
+      //writeItemToDB(item);
     }
+    ItemsManager mgr=ItemsManager.getInstance();
+    File toFile=new File("itemsTulkasIndex.xml").getAbsoluteFile();
+    mgr.writeItemsFile(toFile,itemsList);
   }
 }
