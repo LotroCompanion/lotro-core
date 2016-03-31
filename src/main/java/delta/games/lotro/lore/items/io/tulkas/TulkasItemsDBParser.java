@@ -43,8 +43,8 @@ public class TulkasItemsDBParser
     }
     else if (version==INDEX)
     {
-      _inputFile=new File(new File("d:\\tmp"),"15_1_Items.lua");
-      _encoding=EncodingNames.WINDOWS;
+      _inputFile=new File(new File("d:\\tmp"),"17_1_Items.lua");
+      _encoding=EncodingNames.UTF_8;
     }
   }
 
