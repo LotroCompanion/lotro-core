@@ -47,7 +47,7 @@ public class BaseStatsManager
     man.setStat(STAT.MIGHT, 15);
     man.setStat(STAT.WILL, -7);
     man.setStat(STAT.FATE, 15);
-    // TODO +5% incoming healing
+    man.setStat(STAT.INCOMING_HEALING_PERCENTAGE,5);
     _raceContrib.put(Race.MAN,man);
     // Dwarf
     BasicStatsSet dwarf=new BasicStatsSet();
@@ -59,7 +59,7 @@ public class BaseStatsManager
     dwarf.setStat(STAT.OCMR, -60);
     dwarf.setStat(STAT.ICPR, 30);
     dwarf.setStat(STAT.OCPR, -30);
-    // TODO +1% Physical Mitigation (melee+ranged)
+    dwarf.setStat(STAT.PHYSICAL_MITIGATION_PERCENTAGE, 1);
     _raceContrib.put(Race.DWARF,dwarf);
     // Elf
     BasicStatsSet elf=new BasicStatsSet();

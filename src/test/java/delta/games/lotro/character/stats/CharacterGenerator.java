@@ -82,7 +82,6 @@ public class CharacterGenerator
     tomes.setTomeRank(STAT.MIGHT,1);
     tomes.setTomeRank(STAT.FATE,2);
     // TODO Racial traits
-    // TODO Equipment
     CharacterEquipment equipment=c.getEquipment();
     SlotContents head=equipment.getSlotContents(EQUIMENT_SLOT.HEAD,true);
     head.setItem(buildHelm());
@@ -108,7 +107,8 @@ public class CharacterGenerator
     SlotContents bow=equipment.getSlotContents(EQUIMENT_SLOT.RANGED,true);
     bow.setItem(buildBow());
     // Tools
-    // TODO
+    SlotContents tool=equipment.getSlotContents(EQUIMENT_SLOT.TOOL,true);
+    tool.setItem(buildCraftingTool());
     // Class slot
     SlotContents rune=equipment.getSlotContents(EQUIMENT_SLOT.CLASS_ITEM,true);
     rune.setItem(buildRune());
@@ -308,7 +308,7 @@ public class CharacterGenerator
     ret.setMaxDamage(556);
     ret.setValue(new Money(0,42,57));
     BasicStatsSet stats=ret.getStats();
-    // TODO +1% parry chance
+    stats.setStat(STAT.PARRY_PERCENTAGE,1);
     stats.setStat(STAT.MIGHT,239);
     stats.setStat(STAT.VITALITY,205);
     stats.setStat(STAT.FINESSE,1874);
@@ -330,7 +330,7 @@ public class CharacterGenerator
     ret.setMaxDamage(713);
     ret.setValue(new Money(0,42,57));
     BasicStatsSet stats=ret.getStats();
-    // TODO +1% critical chance to ranged auto attacks
+    stats.setStat(STAT.RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE,1);
     stats.setStat(STAT.MIGHT,239);
     stats.setStat(STAT.VITALITY,205);
     stats.setStat(STAT.FINESSE,1874);
@@ -487,8 +487,8 @@ public class CharacterGenerator
     weapon.setMaxDamage(606);
     weapon.setDamageType(DamageType.BELERIAND);
     // Passives
-    //BasicStatsSet passives=weapon.getPassives();
-    // TODO +1% parry chance
+    BasicStatsSet passives=weapon.getPassives();
+    passives.setStat(STAT.PARRY_PERCENTAGE,1);
     LegendaryAttrs attrs=weapon.getLegendaryAttrs();
     // Title
     LegendaryTitle title=new LegendaryTitle("Potency of Eldar Days III");
@@ -500,7 +500,7 @@ public class CharacterGenerator
       // Setting
       Relic setting=new Relic("Westemnet Setting of Endings", RelicType.SETTING, Integer.valueOf(90));
       BasicStatsSet stats=setting.getStats();
-      // TODO 7.5% devastate magnitude
+      stats.setStat(STAT.DEVASTATE_MAGNITUDE_PERCENTAGE, 7.5f);
       stats.setStat(STAT.CRITICAL_RATING,1454);
       stats.setStat(STAT.ICMR,182);
       attrs.setSetting(setting);
@@ -554,8 +554,8 @@ public class CharacterGenerator
 
     // Passives
     BasicStatsSet passives=classItem.getPassives();
-    // TODO -1% Blade line AoE power cost
-    // TODO -4% strike skill power cost
+    passives.setStat(STAT.BLADE_LINE_AOE_POWER_COST_PERCENTAGE,-1);
+    passives.setStat(STAT.STRIKE_SKILLS_POWER_COST_PERCENTAGE,-4);
     passives.setStat(STAT.INCOMING_HEALING,6300);
     LegendaryAttrs attrs=classItem.getLegendaryAttrs();
     // Title
@@ -565,7 +565,7 @@ public class CharacterGenerator
       // Setting
       Relic setting=new Relic("Westemnet Setting of Endings", RelicType.SETTING, Integer.valueOf(90));
       BasicStatsSet stats=setting.getStats();
-      // TODO 7.5% devastate magnitude
+      stats.setStat(STAT.DEVASTATE_MAGNITUDE_PERCENTAGE,7.5f);
       stats.setStat(STAT.CRITICAL_RATING,1454);
       stats.setStat(STAT.ICMR,182);
       attrs.setSetting(setting);
@@ -583,7 +583,7 @@ public class CharacterGenerator
       // Rune
       Relic rune=new Relic("True Rune of the White Mountains", RelicType.RUNE, Integer.valueOf(80));
       BasicStatsSet stats=rune.getStats();
-      // TODO -2.5% attack duration
+      stats.setStat(STAT.ATTACK_DURATION_PERCENTAGE, -2.5f);
       stats.setStat(STAT.PHYSICAL_MASTERY,646);
       stats.setStat(STAT.TACTICAL_MASTERY,646);
       stats.setStat(STAT.AGILITY,35);
@@ -601,5 +601,21 @@ public class CharacterGenerator
     // Stat legacies
     // None...
     return classItem;
+  }
+
+  private Item buildCraftingTool()
+  {
+    Item ret=new Item();
+    ret.setName("Superior Tools of the Westemnet Armsman");
+    ret.setItemLevel(Integer.valueOf(90));
+    ret.setMinLevel(Integer.valueOf(90));
+    ret.setDurability(Integer.valueOf(60));
+    ret.setSturdiness(ItemSturdiness.TOUGH);
+    ret.setValue(new Money(0,5,40));
+    BasicStatsSet stats=ret.getStats();
+    stats.setStat(STAT.WEAPONSMITH_CRIT_CHANCE_PERCENTAGE, 25);
+    stats.setStat(STAT.WOODWORKER_CRIT_CHANCE_PERCENTAGE, 25);
+    stats.setStat(STAT.PROSPECTOR_MINING_DURATION, -4);
+    return ret;
   }
 }

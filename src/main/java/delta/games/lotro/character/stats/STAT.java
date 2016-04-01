@@ -70,6 +70,10 @@ public enum STAT
    * Incoming Healing.
    */
   INCOMING_HEALING("Incoming Healing"),
+  /**
+   * Incoming Healing percentage.
+   */
+  INCOMING_HEALING_PERCENTAGE("Incoming Healing %"),
   // Avoidance
   /**
    * Block.
@@ -91,9 +95,17 @@ public enum STAT
    */
   PHYSICAL_MITIGATION("Physical Mitigation", "Physical mitigation", "PhyMit"),
   /**
+   * Physical mitigation percentage.
+   */
+  PHYSICAL_MITIGATION_PERCENTAGE("Physical Mitigation %"),
+  /**
    * Tactical mitigation.
    */
   TACTICAL_MITIGATION("Tactical Mitigation", "Tactical mitigation", "TacMit"),
+  /**
+   * Tactical mitigation percentage.
+   */
+  TACTICAL_MITIGATION_PERCENTAGE("Tactical Mitigation %"),
   /**
    * In-Combat Morale Regeneration.
    */
@@ -109,7 +121,55 @@ public enum STAT
   /**
    * In-Combat Power Regeneration.
    */
-  ICPR("In-Combat Power Regeneration");
+  ICPR("In-Combat Power Regeneration"),
+  /**
+   * Audacity.
+   */
+  AUDACITY("Audacity"),
+  /**
+   * Hope.
+   */
+  HOPE("Hope"),
+  /**
+   * Ranged Defence.
+   */
+  RANGED_DEFENCE_PERCENTAGE("Ranged Defence"),
+  /**
+   * Parry (percentage).
+   */
+  PARRY_PERCENTAGE("Parry %"),
+  /**
+   * Critical chance of ranged auto-attack (percentage).
+   */
+  RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE("Ranged Auto-attacks Critical Chance %"),
+  /**
+   * Devastate magnitude (percentage).
+   */
+  DEVASTATE_MAGNITUDE_PERCENTAGE("Devastate Magnitude %"),
+  /**
+   * Blade line AOE power cost (percentage).
+   */
+  BLADE_LINE_AOE_POWER_COST_PERCENTAGE("Blade Line AOE Power Cost %"),
+  /**
+   * Strike skills power cost (percentage).
+   */
+  STRIKE_SKILLS_POWER_COST_PERCENTAGE("Strike Skills Power Cost %"),
+  /**
+   * Attack duration (percentage).
+   */
+  ATTACK_DURATION_PERCENTAGE("Attack Duration %"),
+  /**
+   * Weaponsmith critical chance (percentage).
+   */
+  WEAPONSMITH_CRIT_CHANCE_PERCENTAGE("Weaponsmith Critical Chance %"),
+  /**
+   * Woodworker critical chance (percentage).
+   */
+  WOODWORKER_CRIT_CHANCE_PERCENTAGE("Woodworker Critical Chance %"),
+  /**
+   * Prospector mining duration (seconds).
+   */
+  PROSPECTOR_MINING_DURATION("Prospector Mining Duration (s)");
 
   private String _name;
   private String[] _aliases;
