@@ -1,7 +1,7 @@
 package delta.games.lotro.character.stats.tomes;
 
-import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -10,12 +10,6 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class TomesContributionsMgr
 {
-  /*
-  private static final int[] STAT_CONTRIBS_BY_RANK= {
-    0,15,15,15,15,15,15,30,40,40,40,
-    40,40,40,40,40,40,40,40,40,40
-  };
-  */
   private static final int[] CUMULATED_STAT_CONTRIBS_BY_RANK= {
     0,15,30,45,60,75,90,120,160,200,240,
     280,320,360,400,440,480,520,560,600,640

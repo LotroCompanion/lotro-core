@@ -1,6 +1,6 @@
 package delta.games.lotro.character.stats.tomes;
 
-import delta.games.lotro.character.CharacterStat.STAT;
+import delta.games.lotro.character.stats.STAT;
 
 /**
  * Storage for the stat tomes of a single character.

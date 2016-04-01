@@ -3,8 +3,8 @@ package delta.games.lotro.character.stats.virtues;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**

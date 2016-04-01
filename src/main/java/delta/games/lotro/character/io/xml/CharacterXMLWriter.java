@@ -18,8 +18,8 @@ import delta.games.lotro.character.Character;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
-import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
@@ -39,7 +39,7 @@ public class CharacterXMLWriter
   private static final Logger _logger=LotroLoggers.getLotroLogger();
 
   private static final String CDATA="CDATA";
-  
+
   /**
    * Write a character to a XML file.
    * @param outFile Output file.

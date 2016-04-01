@@ -10,8 +10,8 @@ import delta.common.utils.files.TextFileReader;
 import delta.common.utils.text.EncodingNames;
 import delta.common.utils.text.TextUtils;
 import delta.common.utils.url.URLTools;
-import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -146,6 +146,7 @@ public class BaseStatsManager
     if (cClass==CharacterClass.BEORNING) return getBaseStatsBeorning(level);
     if (cClass==CharacterClass.BURGLAR) return getBaseStatsBurglar(level);
     if (cClass==CharacterClass.CHAMPION) return getBaseStatsChampion(level);
+    // TODO other classes...
     return null;
   }
 

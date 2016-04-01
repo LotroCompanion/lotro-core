@@ -9,8 +9,8 @@ import delta.common.utils.files.TextFileReader;
 import delta.common.utils.text.EncodingNames;
 import delta.common.utils.text.TextUtils;
 import delta.common.utils.url.URLTools;
-import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 

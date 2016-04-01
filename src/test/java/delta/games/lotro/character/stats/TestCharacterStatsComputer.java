@@ -4,7 +4,6 @@ import delta.games.lotro.character.Character;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
-import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
 import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;

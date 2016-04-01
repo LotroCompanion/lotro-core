@@ -1,12 +1,9 @@
 package delta.games.lotro.character.stats;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.character.CharacterStat;
-import delta.games.lotro.character.CharacterStat.STAT;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -15,14 +12,14 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class BasicStatsSet
 {
-  private HashMap<String,CharacterStat> _stats;
+  private HashMap<STAT,FixedDecimalsInteger> _stats;
 
   /**
    * Constructor.
    */
   public BasicStatsSet()
   {
-    _stats=new HashMap<String,CharacterStat>();
+    _stats=new HashMap<STAT,FixedDecimalsInteger>();
   }
 
   /**
@@ -32,12 +29,8 @@ public class BasicStatsSet
    */
   public FixedDecimalsInteger getStat(STAT stat)
   {
-    CharacterStat statValue=_stats.get(stat.getKey());
-    if (statValue!=null)
-    {
-      return statValue.getValue();
-    }
-    return null;
+    FixedDecimalsInteger statValue=_stats.get(stat);
+    return statValue;
   }
 
   /**
@@ -47,9 +40,7 @@ public class BasicStatsSet
    */
   public void setStat(STAT stat, FixedDecimalsInteger value)
   {
-    CharacterStat statValue=new CharacterStat(stat);
-    statValue.setValue(value);
-    _stats.put(stat.getKey(), statValue);
+    _stats.put(stat, value);
   }
 
   /**
@@ -59,9 +50,7 @@ public class BasicStatsSet
    */
   public void setStat(STAT stat, int value)
   {
-    CharacterStat statValue=new CharacterStat(stat);
-    statValue.setValue(new FixedDecimalsInteger(value));
-    _stats.put(stat.getKey(), statValue);
+    _stats.put(stat, new FixedDecimalsInteger(value));
   }
 
   /**
@@ -71,9 +60,7 @@ public class BasicStatsSet
    */
   public void setStat(STAT stat, float value)
   {
-    CharacterStat statValue=new CharacterStat(stat);
-    statValue.setValue(new FixedDecimalsInteger(value));
-    _stats.put(stat.getKey(), statValue);
+    _stats.put(stat, new FixedDecimalsInteger(value));
   }
 
   /**
@@ -83,20 +70,18 @@ public class BasicStatsSet
    */
   public void addStat(STAT stat, FixedDecimalsInteger value)
   {
-    CharacterStat cStat=_stats.get(stat.getKey());
+    FixedDecimalsInteger currentStat=_stats.get(stat);
     FixedDecimalsInteger total;
-    if (cStat==null)
+    if (currentStat==null)
     {
-      cStat=new CharacterStat(stat);
-      _stats.put(stat.getKey(),cStat);
       total=new FixedDecimalsInteger(value);
     }
     else
     {
       total=new FixedDecimalsInteger(value);
-      total.add(cStat.getValue());
+      total.add(currentStat);
     }
-    cStat.setValue(total);
+    _stats.put(stat,total);
   }
 
   /**
@@ -105,25 +90,12 @@ public class BasicStatsSet
    */
   public void addStats(BasicStatsSet stats)
   {
-    for(CharacterStat stat : stats._stats.values())
+    for(Map.Entry<STAT,FixedDecimalsInteger> entry : stats._stats.entrySet())
     {
-      FixedDecimalsInteger value=stat.getValue();
-      if (value!=null)
-      {
-        addStat(stat.getStat(),value);
-      }
+      STAT stat=entry.getKey();
+      FixedDecimalsInteger value=entry.getValue();
+      addStat(stat,value);
     }
-  }
-
-  /**
-   * Get all stats.
-   * @return A list of character stats.
-   */
-  public List<CharacterStat> getAllStats()
-  {
-    List<CharacterStat> ret=new ArrayList<CharacterStat>();
-    ret.addAll(_stats.values());
-    return ret;
   }
 
   @Override
@@ -145,16 +117,17 @@ public class BasicStatsSet
   {
     StringBuilder sb=new StringBuilder();
     int index=0;
-    for(CharacterStat.STAT stat : CharacterStat.STAT.values())
+    for(STAT stat : STAT.values())
     {
-      CharacterStat cStat=_stats.get(stat.getKey());
-      if (cStat!=null)
+      FixedDecimalsInteger statValue=_stats.get(stat);
+      if (statValue!=null)
       {
         if (index>0)
         {
           sb.append(separator);
         }
-        sb.append(cStat);
+        sb.append(stat).append(": ");
+        sb.append((statValue!=null)?statValue:"N/A");
         index++;
       }
     }
