@@ -28,7 +28,7 @@ public enum Size
   {
     _label=label;
   }
-  
+
   @Override
   public String toString()
   {

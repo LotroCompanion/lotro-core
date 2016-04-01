@@ -40,7 +40,7 @@ public class Skill
     _identifier=identifier;
     _name=name;
   }
-  
+
   /**
    * Get the internal identifier.
    * @return the internal identifier.
