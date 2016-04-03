@@ -81,9 +81,9 @@ public class ItemQuality
    */
   public static ItemQuality fromCode(String code)
   {
-    return _mapFromMeaning.get(code);
+    return _mapFromCode.get(code);
   }
-  
+
   /**
    * Get an item quality from its color.
    * @param color Color to use.
@@ -93,7 +93,7 @@ public class ItemQuality
   {
     return _mapFromColor.get(color);
   }
-  
+
   @Override
   public String toString()
   {

@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,6 @@ public class Item implements Identifiable<Long>
   private Long _primaryKey;
   // Item private identifier
   private int _identifier;
-  // Item key: "Jacket_of_the_Impossible_Shot", ...
-  private String _key;
   // Items set identifier (may be null)
   private String _setKey;
   // Associated set (may be null)
@@ -38,8 +37,6 @@ public class Item implements Identifiable<Long>
   private String _birthName;
   // Crafter name (may be <code>null</code>)
   private String _crafterName;
-  // Icon URL
-  private String _iconURL;
   // Item category: Armour, Tool, ...
   private ItemCategory _category;
   // Item sub-category: "Medium Armour", "Craft Tool", "Light Armour"
@@ -98,11 +95,9 @@ public class Item implements Identifiable<Long>
     super();
     _primaryKey=null;
     _identifier=0;
-    _key=null;
     _setKey=null;
     _equipmentLocation=null;
     _name="";
-    _iconURL=null;
     _category=ItemCategory.ITEM;
     _subCategory=null;
     _binding=null;
@@ -119,7 +114,7 @@ public class Item implements Identifiable<Long>
     _value=new Money();
     _stackMax=null;
     _quality=ItemQuality.COMMON;
-    _properties=null;
+    _properties=new HashMap<String,String>();
   }
 
   /**
@@ -164,7 +159,7 @@ public class Item implements Identifiable<Long>
    */
   public String getKey()
   {
-    return _key;
+    return getProperty(ItemPropertyNames.ITEM_KEY);
   }
 
   /**
@@ -173,7 +168,10 @@ public class Item implements Identifiable<Long>
    */
   public void setKey(String key)
   {
-    _key=key;
+    if (key!=null)
+    {
+      setProperty(ItemPropertyNames.ITEM_KEY,key);
+    }
   }
 
   /**
@@ -289,7 +287,7 @@ public class Item implements Identifiable<Long>
    */
   public String getIconURL()
   {
-    return _iconURL;
+    return _properties.get(ItemPropertyNames.ICON_URL);
   }
 
   /**
@@ -298,7 +296,10 @@ public class Item implements Identifiable<Long>
    */
   public void setIconURL(String iconURL)
   {
-    _iconURL=iconURL;
+    if (iconURL!=null)
+    {
+      setProperty(ItemPropertyNames.ICON_URL,iconURL);
+    }
   }
 
   /**
@@ -622,11 +623,17 @@ public class Item implements Identifiable<Long>
    */
   public void setProperty(String key, String value)
   {
-    if (_properties==null)
-    {
-      _properties=new HashMap<String,String>();
-    }
     _properties.put(key,value);
+  }
+
+  /**
+   * Get the value of a property.
+   * @param key Property name.
+   * @return A value or <code>null</code> if not set.
+   */
+  public String getProperty(String key)
+  {
+    return _properties.get(key);
   }
 
   /**
@@ -650,12 +657,6 @@ public class Item implements Identifiable<Long>
     {
       sb.append(" (id=");
       sb.append(_identifier);
-      sb.append(')');
-    }
-    if (_key!=null)
-    {
-      sb.append(" (key=");
-      sb.append(_key);
       sb.append(')');
     }
     if (_equipmentLocation!=null)
@@ -735,16 +736,23 @@ public class Item implements Identifiable<Long>
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);
-    if (_iconURL!=null)
-    {
-      sb.append(_iconURL);
-      sb.append(EndOfLine.NATIVE_EOL);
-    }
+    // Bonus
     if ((_bonus!=null) && (_bonus.size()>0))
     {
       for(String bonus : _bonus)
       {
         sb.append(bonus).append(EndOfLine.NATIVE_EOL);
+      }
+    }
+    // Properties
+    if (_properties.size()>0)
+    {
+      List<String> propertyNames=new ArrayList<String>(_properties.keySet());
+      Collections.sort(propertyNames);
+      for(String propertyName : propertyNames)
+      {
+        String value=_properties.get(propertyName);
+        sb.append(propertyName).append(": ").append(value).append(EndOfLine.NATIVE_EOL);
       }
     }
     if (_description!=null)

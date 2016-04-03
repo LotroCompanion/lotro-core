@@ -156,12 +156,6 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_KEY_ATTR,CDATA,String.valueOf(id));
     }
-    // Key
-    String key=item.getKey();
-    if (key!=null)
-    {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ID_ATTR,CDATA,key);
-    }
     // Set identifier
     String setIdentifier=item.getSetKey();
     if (setIdentifier!=null)
@@ -180,12 +174,6 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_ATTR,CDATA,String.valueOf(itemLevel.intValue()));
     }
-    // Icon URL
-    String iconURL=item.getIconURL();
-    if (iconURL!=null)
-    {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ICON_URL_ATTR,CDATA,iconURL);
-    }
     // Category
     ItemCategory category=item.getCategory();
     if (category!=null)
@@ -198,6 +186,7 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SUBCATEGORY_ATTR,CDATA,subCategory);
     }
+    // TODO add slot?
     // Binding
     ItemBinding binding=item.getBinding();
     if (binding!=null)
@@ -304,19 +293,16 @@ public class ItemXMLWriter
     }
     // Properties
     Map<String,String> properties=item.getProperties();
-    if (properties!=null)
+    List<String> propertyNames=new ArrayList<String>(properties.keySet());
+    Collections.sort(propertyNames);
+    for(String propertyName : propertyNames)
     {
-      List<String> propertyNames=new ArrayList<String>(properties.keySet());
-      Collections.sort(propertyNames);
-      for(String propertyName : propertyNames)
-      {
-        String propertyValue=properties.get(propertyName);
-        AttributesImpl attrs=new AttributesImpl();
-        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_KEY_ATTR,CDATA,propertyName);
-        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_VALUE_ATTR,CDATA,propertyValue);
-        hd.startElement("","",ItemXMLConstants.PROPERTY_TAG,attrs);
-        hd.endElement("","",ItemXMLConstants.PROPERTY_TAG);
-      }
+      String propertyValue=properties.get(propertyName);
+      AttributesImpl attrs=new AttributesImpl();
+      attrs.addAttribute("","",ItemXMLConstants.PROPERTY_KEY_ATTR,CDATA,propertyName);
+      attrs.addAttribute("","",ItemXMLConstants.PROPERTY_VALUE_ATTR,CDATA,propertyValue);
+      hd.startElement("","",ItemXMLConstants.PROPERTY_TAG,attrs);
+      hd.endElement("","",ItemXMLConstants.PROPERTY_TAG);
     }
     // Stats
     BasicStatsSet stats=item.getStats();
