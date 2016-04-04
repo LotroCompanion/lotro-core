@@ -36,6 +36,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_LEVEL_ATTR="level";
   /**
+   * Tag 'item', attribute 'slot'.
+   */
+  public static final String ITEM_SLOT_ATTR="slot";
+  /**
    * Tag 'item', attribute 'iconURL'.
    */
   public static final String ITEM_ICON_URL_ATTR="iconURL";

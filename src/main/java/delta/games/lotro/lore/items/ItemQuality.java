@@ -17,7 +17,7 @@ public class ItemQuality
    */
   public static final ItemQuality COMMON=new ItemQuality("COMMON","Common","White");
   /**
-   * Unommon.
+   * Uncommon.
    */
   public static final ItemQuality UNCOMMON=new ItemQuality("UNCOMMON","Uncommon","Yellow");
   /**

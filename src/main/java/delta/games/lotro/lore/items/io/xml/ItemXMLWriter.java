@@ -26,6 +26,7 @@ import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
+import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
@@ -174,6 +175,12 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_ATTR,CDATA,String.valueOf(itemLevel.intValue()));
     }
+    // Slot
+    EquipmentLocation slot=item.getEquipmentLocation();
+    if (slot!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SLOT_ATTR,CDATA,String.valueOf(slot.getKey()));
+    }
     // Category
     ItemCategory category=item.getCategory();
     if (category!=null)
@@ -270,7 +277,7 @@ public class ItemXMLWriter
       WeaponType weaponType=weapon.getWeaponType();
       if (weaponType!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,CDATA,weaponType.getName());
+        itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,CDATA,weaponType.getKey());
       }
     }
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);

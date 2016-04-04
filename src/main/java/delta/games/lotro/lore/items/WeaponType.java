@@ -156,8 +156,23 @@ public class WeaponType
    * @param key Key of weapon type.
    * @return A weapon type instance or <code>null</code> if not found.
    */
-  public static WeaponType getDamageTypeByKey(String key)
+  public static WeaponType getWeaponTypeByKey(String key)
   {
     return _keyMap.get(key);
+  }
+
+  /**
+   * Get a weapon type using its key or name.
+   * @param id Identifier of weapon type (key or name).
+   * @return A weapon type instance or <code>null</code> if not found.
+   */
+  public static WeaponType getWeaponType(String id)
+  {
+    WeaponType type=_keyMap.get(id);
+    if (type==null)
+    {
+      type=_map.get(id);
+    }
+    return type;
   }
 }

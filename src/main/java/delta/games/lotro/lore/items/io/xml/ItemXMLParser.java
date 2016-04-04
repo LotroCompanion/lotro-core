@@ -16,6 +16,7 @@ import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
+import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
@@ -105,6 +106,14 @@ public class ItemXMLParser
     {
       ret.setItemLevel(Integer.valueOf(itemLevel));
     }
+    // Slot
+    EquipmentLocation slot=null;
+    String slotStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_SLOT_ATTR,null);
+    if (slotStr!=null)
+    {
+      slot=EquipmentLocation.getByKey(slotStr);
+    }
+    ret.setEquipmentLocation(slot);
     // Icon URL
     String iconURL=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_ICON_URL_ATTR,null);
     ret.setIconURL(iconURL);
@@ -236,7 +245,7 @@ public class ItemXMLParser
       String weaponTypeStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.WEAPON_TYPE_ATTR,null);
       if (weaponTypeStr!=null)
       {
-        WeaponType type=WeaponType.getWeaponTypeByName(weaponTypeStr);
+        WeaponType type=WeaponType.getWeaponType(weaponTypeStr);
         weapon.setWeaponType(type);
       }
     }

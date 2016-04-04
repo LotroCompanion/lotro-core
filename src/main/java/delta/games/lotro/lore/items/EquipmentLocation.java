@@ -18,45 +18,21 @@ public class EquipmentLocation
    */
   public static final EquipmentLocation HEAD=new EquipmentLocation("HEAD","Head");
   /**
-   * Hand (gloves).
+   * Shoulder.
    */
-  public static final EquipmentLocation HAND=new EquipmentLocation("HAND","Hand");
+  public static final EquipmentLocation SHOULDER=new EquipmentLocation("SHOULDER","Shoulder");
   /**
-   * Wrist.
+   * Back.
    */
-  public static final EquipmentLocation WRIST=new EquipmentLocation("WRIST","Wrist");
-  /**
-   * Melee Weapon.
-   */
-  public static final EquipmentLocation MELEE_WEAPON=new EquipmentLocation("MELEE_WEAPON","Melee Weapon");
-  /**
-   * Ranged Weapon.
-   */
-  public static final EquipmentLocation RANGED_WEAPON=new EquipmentLocation("RANGED_WEAPON","Ranged Weapon");
-  /**
-   * Pocket.
-   */
-  public static final EquipmentLocation POCKET=new EquipmentLocation("POCKET","Pocket");
-  /**
-   * Ear.
-   */
-  public static final EquipmentLocation EAR=new EquipmentLocation("EAR","Ear");
+  public static final EquipmentLocation BACK=new EquipmentLocation("BACK","Back");
   /**
    * Chest.
    */
   public static final EquipmentLocation CHEST=new EquipmentLocation("CHEST","Chest");
   /**
-   * Neck.
+   * Hand (gloves).
    */
-  public static final EquipmentLocation NECK=new EquipmentLocation("NECK","Neck");
-  /**
-   * Finger.
-   */
-  public static final EquipmentLocation FINGER=new EquipmentLocation("FINGER","Finger");
-  /**
-   * Back.
-   */
-  public static final EquipmentLocation BACK=new EquipmentLocation("BACK","Back");
+  public static final EquipmentLocation HAND=new EquipmentLocation("HAND","Hand");
   /**
    * Leg.
    */
@@ -65,19 +41,44 @@ public class EquipmentLocation
    * Feet.
    */
   public static final EquipmentLocation FEET=new EquipmentLocation("FEET","Feet");
+
   /**
-   * Shield.
+   * Ear.
    */
-  public static final EquipmentLocation SHIELD=new EquipmentLocation("SHIELD","Shield");
+  public static final EquipmentLocation EAR=new EquipmentLocation("EAR","Ear");
   /**
-   * Shoulder.
+   * Neck.
    */
-  public static final EquipmentLocation SHOULDER=new EquipmentLocation("SHOULDER","Shoulder");
+  public static final EquipmentLocation NECK=new EquipmentLocation("NECK","Neck");
   /**
-   * Rune-stone.
+   * Wrist.
    */
-  // TODO check if needed
-  public static final EquipmentLocation RUNE_STONE=new EquipmentLocation("RUNE_STONE","Rune-stone");
+  public static final EquipmentLocation WRIST=new EquipmentLocation("WRIST","Wrist");
+  /**
+   * Finger.
+   */
+  public static final EquipmentLocation FINGER=new EquipmentLocation("FINGER","Finger");
+  /**
+   * Pocket.
+   */
+  public static final EquipmentLocation POCKET=new EquipmentLocation("POCKET","Pocket");
+
+  /**
+   * Melee Weapon.
+   */
+  public static final EquipmentLocation MAIN_HAND=new EquipmentLocation("MAIN_HAND","Main hand", "Melee Weapon");
+  /**
+   * Shield or off-hand.
+   */
+  public static final EquipmentLocation OFF_HAND=new EquipmentLocation("OFF_HAND","Off-hand", "Shield");
+  /**
+   * Ranged Weapon.
+   */
+  public static final EquipmentLocation RANGED_ITEM=new EquipmentLocation("RANGED_ITEM","Ranged", "Ranged Weapon");
+  /**
+   * Tool.
+   */
+  public static final EquipmentLocation TOOL=new EquipmentLocation("TOOL","Tool");
   /**
    * Class slot.
    */
