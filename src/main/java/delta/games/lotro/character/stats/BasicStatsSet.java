@@ -23,6 +23,16 @@ public class BasicStatsSet
   }
 
   /**
+   * Copy constructor.
+   * @param source Source object.
+   */
+  public BasicStatsSet(BasicStatsSet source)
+  {
+    _stats=new HashMap<STAT,FixedDecimalsInteger>();
+    setStats(source);
+  }
+
+  /**
    * Get a stat value.
    * @param stat Stat to get.
    * @return A stat value or <code>null</code> if not found.
@@ -51,6 +61,19 @@ public class BasicStatsSet
   public void setStat(STAT stat, int value)
   {
     _stats.put(stat, new FixedDecimalsInteger(value));
+  }
+
+  /**
+   * Copy stats from a source.
+   * @param stats Source stats.
+   */
+  public void setStats(BasicStatsSet stats)
+  {
+    for(Map.Entry<STAT,FixedDecimalsInteger> entry : stats._stats.entrySet())
+    {
+      FixedDecimalsInteger value=new FixedDecimalsInteger(entry.getValue());
+      setStat(entry.getKey(),value);
+    }
   }
 
   /**

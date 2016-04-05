@@ -32,6 +32,11 @@ public class ItemPropertyNames
   public static final String LEGACY_NAME="legacyName";
 
   /**
+   * Old tulkas name.
+   */
+  public static final String OLD_TULKAS_NAME="tulkasName";
+
+  /**
    * Tulkas category (int value).
    */
   public static final String TULKAS_CATEGORY="tulkasCategory";

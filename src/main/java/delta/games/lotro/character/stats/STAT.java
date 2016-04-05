@@ -131,6 +131,10 @@ public enum STAT
    */
   HOPE("Hope"),
   /**
+   * Stealth level.
+   */
+  STEALTH_LEVEL("Stealth Level"),
+  /**
    * Ranged Defence.
    */
   RANGED_DEFENCE_PERCENTAGE("Ranged Defence"),
@@ -146,6 +150,10 @@ public enum STAT
    * Devastate magnitude (percentage).
    */
   DEVASTATE_MAGNITUDE_PERCENTAGE("Devastate Magnitude %"),
+  /**
+   * Tactical critical multiplier (percentage).
+   */
+  TACTICAL_CRITICAL_MULTIPLIER("Tactical Critical Multiplier %"),
   /**
    * Blade line AOE power cost (percentage).
    */

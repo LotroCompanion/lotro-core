@@ -113,7 +113,7 @@ public class Item implements Identifiable<Long>
     _description=null;
     _value=new Money();
     _stackMax=null;
-    _quality=ItemQuality.COMMON;
+    _quality=null;
     _properties=new HashMap<String,String>();
   }
 
@@ -643,6 +643,44 @@ public class Item implements Identifiable<Long>
   public Map<String,String> getProperties()
   {
     return _properties;
+  }
+
+  /**
+   * Copy item data from a source.
+   * @param item Source item.
+   */
+  public void copyFrom(Item item)
+  {
+    _primaryKey=item._primaryKey;
+    _identifier=item._identifier;
+    _setKey=item._setKey;
+    _set=item._set;
+    _equipmentLocation=item._equipmentLocation;
+    _name=item._name;
+    _birthName=item._birthName;
+    _crafterName=item._crafterName;
+    //_category=item._category;
+    _subCategory=item._subCategory;
+    _binding=item._binding;
+    _unique=item._unique;
+    _bonus.clear();
+    _bonus.addAll(item._bonus);
+    _bonusMgr=new RawBonusParser().build(_bonus);
+    _stats=new BasicStatsSet(item._stats);
+    // TODO
+    _essences=item._essences;
+    _durability=item._durability;
+    _sturdiness=item._sturdiness;
+    _itemLevel=item._itemLevel;
+    _minLevel=item._minLevel;
+    _class=item._class;
+    _description=item._description;
+    _value=new Money(item._value);
+    _stackMax=item._stackMax;
+    _stackMax=item._stackMax;
+    _quality=item._quality;
+    _properties.clear();
+    _properties.putAll(item._properties);
   }
 
   /**
