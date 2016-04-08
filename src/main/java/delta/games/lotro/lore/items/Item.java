@@ -627,6 +627,15 @@ public class Item implements Identifiable<Long>
   }
 
   /**
+   * Remove a property.
+   * @param key Property key.
+   */
+  public void removeProperty(String key)
+  {
+    _properties.remove(key);
+  }
+
+  /**
    * Get the value of a property.
    * @param key Property name.
    * @return A value or <code>null</code> if not set.
