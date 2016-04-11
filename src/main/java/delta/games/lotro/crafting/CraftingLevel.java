@@ -46,6 +46,22 @@ public class CraftingLevel
    * Eastemnet.
    */
   public static final CraftingLevel EASTEMNET=new CraftingLevel(8,"Eastemnet",760,"Eastemnet Master",1520);
+  /**
+   * Westemnet.
+   */
+  public static final CraftingLevel WESTEMNET=new CraftingLevel(9,"Westemnet",840,"Westemnet Master",1680);
+  /**
+   * Anórien.
+   */
+  public static final CraftingLevel ANORIEN=new CraftingLevel(10,"Anórien",840,"Anórien Master",1680);
+
+  /**
+   * All crafting tiers, sorted by level.
+   */
+  public static CraftingLevel[] ALL_TIERS = {
+    BEGINNER, APPRENTICE, JOURNEYMAN, EXPERT, ARTISAN, MASTER, SUPREME,
+    WESTFOLD, EASTEMNET, WESTEMNET, ANORIEN
+  };
 
   private int _tier;
   private String _label;
@@ -131,6 +147,6 @@ public class CraftingLevel
    */
   public static CraftingLevel getMaximumLevel()
   {
-    return EASTEMNET;
+    return ANORIEN;
   }
 }
