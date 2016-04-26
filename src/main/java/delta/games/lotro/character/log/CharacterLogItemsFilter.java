@@ -4,13 +4,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.log.CharacterLogItem.LogItemType;
 
 /**
  * Filter for character log items.
  * @author DAM
  */
-public class CharacterLogItemsFilter
+public class CharacterLogItemsFilter implements Filter<CharacterLogItem>
 {
   private Long _minDate;
   private Long _maxDate;
@@ -121,7 +122,7 @@ public class CharacterLogItemsFilter
    * @param item Item to test.
    * @return <code>true</code> if it passes the filter, <code>false</code> otherwise.
    */
-  public boolean filterItem(CharacterLogItem item)
+  public boolean accept(CharacterLogItem item)
   {
     boolean ret=true;
     if (_contains!=null)
