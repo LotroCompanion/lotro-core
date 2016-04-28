@@ -34,7 +34,6 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
-import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
