@@ -78,7 +78,7 @@ public class WeaponType
   /**
    * Rune-stone.
    */
-  public static final WeaponType RUNE_STONE=new WeaponType("RUNE_STONE","Rune-stone",false,false);
+  public static final WeaponType RUNE_STONE=new WeaponType("RUNE_STONE","Rune-stone",false,true);
   /**
    * Thrown weapon.
    */
