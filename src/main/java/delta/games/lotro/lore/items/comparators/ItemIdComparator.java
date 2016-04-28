@@ -1,9 +1,12 @@
-package delta.games.lotro.lore.items;
+package delta.games.lotro.lore.items.comparators;
 
 import java.util.Comparator;
 
+import delta.games.lotro.lore.items.Item;
+
 /**
- * @author dm
+ * Comparator for items, using their identifier.
+ * @author DAM
  */
 public class ItemIdComparator implements Comparator<Item>
 {

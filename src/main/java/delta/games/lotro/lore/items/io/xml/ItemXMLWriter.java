@@ -30,11 +30,11 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
-import delta.games.lotro.lore.items.ItemIdComparator;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
@@ -120,7 +120,6 @@ public class ItemXMLWriter
       hd.setResult(streamResult);
       hd.startDocument();
       hd.startElement("","",ItemXMLConstants.ITEMS_TAG,new AttributesImpl());
-      Collections.sort(items,new ItemIdComparator());
       for(Item item : items)
       {
         write(hd,item);
