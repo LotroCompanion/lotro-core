@@ -1,20 +1,21 @@
 package delta.games.lotro.lore.items;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.WeakHashMap;
 
 import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
-import delta.common.utils.cache.WeakReferencesCache;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.LotroCoreConfig;
+import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 import delta.games.lotro.lore.items.io.xml.ItemsSetXMLParser;
-import delta.games.lotro.lore.items.io.xml.ItemsSetXMLWriter;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
@@ -25,11 +26,10 @@ public class ItemsManager
 {
   private static final Logger _logger=LotroLoggers.getLotroLogger();
   private static final String URL_SEED="http://lorebook.lotro.com/wiki/Special:LotroResource?id=";
-  //private static final String REAL_URL_SEED="http://lorebook.lotro.com/wiki/";
 
   private static ItemsManager _instance=new ItemsManager();
-  
-  private WeakReferencesCache<Integer,Item> _cache;
+
+  private HashMap<Integer,Item> _cache;
   private WeakHashMap<String,ItemsSet> _setsCache;
   
   /**
@@ -46,8 +46,37 @@ public class ItemsManager
    */
   private ItemsManager()
   {
-    _cache=new WeakReferencesCache<Integer,Item>(20);
+    _cache=new HashMap<Integer,Item>(1000);
     _setsCache=new WeakHashMap<String,ItemsSet>();
+  }
+
+  /**
+   * Load all items (can take a while).
+   */
+  public void loadAllItems()
+  {
+    _cache.clear();
+    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
+    File itemsDir=cfg.getItemsDir();
+    File itemsFile=new File(itemsDir,"items.xml");
+    ItemXMLParser parser=new ItemXMLParser();
+    List<Item> items=parser.parseItemsFile(itemsFile);
+    for(Item item : items)
+    {
+      _cache.put(Integer.valueOf(item.getIdentifier()),item);
+    }
+  }
+
+  /**
+   * Get a list of all items, sorted by identifier.
+   * @return A list of items.
+   */
+  public List<Item> getAllItems()
+  {
+    ArrayList<Item> items=new ArrayList<Item>();
+    items.addAll(_cache.values());
+    Collections.sort(items,new ItemIdComparator());
+    return items;
   }
 
   /**
@@ -60,18 +89,7 @@ public class ItemsManager
     Item ret=null;
     if (id!=null)
     {
-      ret=(_cache!=null)?_cache.getObject(id):null;
-      if (ret==null)
-      {
-        ret=loadItem(id.intValue());
-        if (ret!=null)
-        {
-          if (_cache!=null)
-          {
-            _cache.registerObject(id,ret);
-          }
-        }
-      }
+      ret=_cache.get(id);
     }
     return ret;
   }
@@ -118,114 +136,6 @@ public class ItemsManager
     return ret;
   }
 
-  /*
-  private Item loadFromMyLotro(int id)
-  {
-    Item ret=null;
-    String url=urlFromIdentifier(id);
-    if (url!=null)
-    {
-      ItemPageParser parser=new ItemPageParser();
-      List<Item> items=parser.parseItemPage(url);
-      if ((items!=null) && (items.size()>0))
-      {
-        for(Item item : items)
-        {
-          int itemId=item.getIdentifier();
-          if (itemId==id)
-          {
-            ret=item;
-            break;
-          }
-        }
-      }
-      if (ret==null)
-      {
-        _logger.error("Cannot parse item ["+id+"] at URL ["+url+"]!");
-      }
-    }
-    else
-    {
-      _logger.error("Cannot parse item ["+id+"]. URL is null!");
-    }
-    return ret;
-  }
-  */
-
-  private Item loadItem(int id)
-  {
-    Item ret=null;
-    File itemFile=getItemFile(id);
-    if (!itemFile.exists())
-    {
-      //ret=loadFromMyLotro(id);
-      /*
-      if (ret!=null)
-      {
-        ret=writeItemFile(ret);
-      }
-      else
-      */
-      {
-        try
-        {
-          itemFile.createNewFile();
-        }
-        catch(IOException ioe)
-        {
-          _logger.error("Cannot create new file ["+itemFile+"]",ioe);
-        }
-      }
-    }
-    else
-    {
-      if (itemFile.length()>0)
-      {
-        ItemXMLParser parser=new ItemXMLParser();
-        ret=parser.parseXML(itemFile);
-        if (ret!=null)
-        {
-          ret.setIdentifier(id);
-        }
-        else
-        {
-          _logger.error("Cannot load item file ["+itemFile+"]!");
-        }
-      }
-    }
-    return ret;
-  }
-
-  /**
-   * Write an item file.
-   * @param item Item to write.
-   * @return An item.
-   */
-  public Item writeItemFile(Item item)
-  {
-    ItemXMLWriter writer=new ItemXMLWriter();
-    int id=item.getIdentifier();
-    File itemFile=getItemFile(id);
-    boolean ok=writer.write(itemFile,item,EncodingNames.UTF_8);
-    if (!ok)
-    {
-      String name=item.getName();
-      _logger.error("Write failed for item ["+name+"]!");
-      item=null;
-    }
-    else
-    {
-      ItemsSet set=item.getSet();
-      if (set!=null)
-      {
-        writeSetFile(set);
-      }
-      // Reload item to cleanup memory retention of web-loaded strings
-      item=loadItem(id);
-    }
-    return item;
-  }
-
   /**
    * Write a file with items.
    * @param toFile Output file.
@@ -235,26 +145,9 @@ public class ItemsManager
   public boolean writeItemsFile(File toFile, List<Item> items)
   {
     ItemXMLWriter writer=new ItemXMLWriter();
+    Collections.sort(items,new ItemIdComparator());
     boolean ok=writer.writeItems(toFile,items,EncodingNames.UTF_8);
     return ok;
-  }
-
-  private void writeSetFile(ItemsSet set)
-  {
-    if (set!=null)
-    {
-      String setKey=set.getKey();
-      File itemsSetFile=getItemsSetFile(setKey);
-      if (!itemsSetFile.exists())
-      {
-        ItemsSetXMLWriter setWriter=new ItemsSetXMLWriter();
-        boolean ok=setWriter.write(itemsSetFile,set,EncodingNames.UTF_8);
-        if (!ok)
-        {
-          _logger.error("Write failed for items set ["+setKey+"]!");
-        }
-      }
-    }
   }
 
   private ItemsSet loadItemsSet(String id)
@@ -276,14 +169,6 @@ public class ItemsManager
     return ret;
   }
 
-  private File getItemFile(int id)
-  {
-    File itemsDir=LotroCoreConfig.getInstance().getItemsDir();
-    String fileName=id+".xml";
-    File ret=new File(itemsDir,fileName);
-    return ret;
-  }
-
   private File getItemsSetFile(String id)
   {
     File itemsDir=LotroCoreConfig.getInstance().getItemsDir();
@@ -292,20 +177,4 @@ public class ItemsManager
     File ret=new File(setsDir,fileName);
     return ret;
   }
-
-  /*
-  private String urlFromIdentifier(int id)
-  {
-    String ret=null;
-    String baseURL=URL_SEED+id;
-    MyLotroURL2Identifier finder=new MyLotroURL2Identifier();
-    String idStr=finder.findIdentifier(baseURL,true);
-    if (idStr!=null)
-    {
-      idStr=Escapes.escapeIdentifier(idStr);
-      ret=REAL_URL_SEED+idStr;
-    }
-    return ret;
-  }
-  */
 }
