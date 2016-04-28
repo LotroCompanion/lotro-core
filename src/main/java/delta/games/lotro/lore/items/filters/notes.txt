@@ -1,0 +1,13 @@
+Class: =
+Item Level: <, >
+Required Level: <
+Type: Weapon, Armour, Other
+Melee/Ranged
+One hand/2 hands
+Weapon Type
+Damage Type
+Jewels: by slot
+Shields: heavy/medium/light
+Armour: by slot
+Armour: by type (heavy>medium>light)
+Name: see StringFilter
