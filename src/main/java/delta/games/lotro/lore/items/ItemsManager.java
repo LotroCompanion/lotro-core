@@ -31,7 +31,8 @@ public class ItemsManager
 
   private HashMap<Integer,Item> _cache;
   private WeakHashMap<String,ItemsSet> _setsCache;
-  
+  private boolean _loaded;
+
   /**
    * Get the sole instance of this class.
    * @return the sole instance of this class.
@@ -48,6 +49,7 @@ public class ItemsManager
   {
     _cache=new HashMap<Integer,Item>(1000);
     _setsCache=new WeakHashMap<String,ItemsSet>();
+    _loaded=false;
   }
 
   /**
@@ -65,6 +67,7 @@ public class ItemsManager
     {
       _cache.put(Integer.valueOf(item.getIdentifier()),item);
     }
+    _loaded=true;
   }
 
   /**
@@ -73,6 +76,10 @@ public class ItemsManager
    */
   public List<Item> getAllItems()
   {
+    if (!_loaded)
+    {
+      loadAllItems();
+    }
     ArrayList<Item> items=new ArrayList<Item>();
     items.addAll(_cache.values());
     Collections.sort(items,new ItemIdComparator());
@@ -89,6 +96,10 @@ public class ItemsManager
     Item ret=null;
     if (id!=null)
     {
+      if (!_loaded)
+      {
+        loadAllItems();
+      }
       ret=_cache.get(id);
     }
     return ret;
