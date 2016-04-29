@@ -24,6 +24,7 @@ public class Character
   private CharacterEquipment _equipment;
   private VirtuesSet _virtues;
   private TomesSet _tomes;
+  private BasicStatsSet _additionalStats;
 
   /**
    * Constructor.
@@ -35,6 +36,7 @@ public class Character
     _equipment=new CharacterEquipment();
     _virtues=new VirtuesSet();
     _tomes=new TomesSet();
+    _additionalStats=new BasicStatsSet();
   }
 
   /**
@@ -170,6 +172,16 @@ public class Character
   public BasicStatsSet getStats()
   {
     return _stats;
+  }
+
+  /**
+   * Get additional stats (stats to add to automatically
+   * computed stats: base/virtues/tomes/equipment).
+   * @return The additional stats storage.
+   */
+  public BasicStatsSet getAdditionalStats()
+  {
+    return _additionalStats;
   }
 
   /**

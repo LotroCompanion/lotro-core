@@ -32,6 +32,7 @@ import delta.games.lotro.lore.items.legendary.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Character generator for tests.
@@ -127,6 +128,17 @@ public class CharacterGenerator
     ring1.setItem(buildRing1());
     SlotContents ring2=equipment.getSlotContents(EQUIMENT_SLOT.RIGHT_FINGER,true);
     ring2.setItem(buildRing2());
+
+    // Additional stats
+    // - yellow line buffs
+    BasicStatsSet additionalStats=c.getAdditionalStats();
+    additionalStats.addStat(STAT.MIGHT, new FixedDecimalsInteger(158));
+    additionalStats.addStat(STAT.FINESSE, new FixedDecimalsInteger(2486));
+    // - Balance of Man
+    additionalStats.addStat(STAT.EVADE, new FixedDecimalsInteger(808));
+    additionalStats.addStat(STAT.PARRY, new FixedDecimalsInteger(808));
+    additionalStats.addStat(STAT.BLOCK, new FixedDecimalsInteger(808));
+
     CharacterXMLWriter w=new CharacterXMLWriter();
     w.write(new File("giswald.xml"),c,EncodingNames.UTF_8);
     return c;

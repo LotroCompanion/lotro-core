@@ -28,7 +28,7 @@ public class VirtuesContributionsMgr
   public VirtuesContributionsMgr()
   {
     _contribs=new HashMap<VirtueId,VirtueContributionTable>();
-    init2();
+    init();
   }
 
   /**
@@ -46,6 +46,27 @@ public class VirtuesContributionsMgr
       stats=table.getContrib(rank);
     }
     return stats;
+  }
+
+  /**
+   * Get stats contribution for a set of virtues.
+   * @param virtues Virtues set.
+   * @return A stats set.
+   */
+  public BasicStatsSet getContribution(VirtuesSet virtues)
+  {
+    BasicStatsSet ret=new BasicStatsSet();
+    for(int i=0;i<VirtuesSet.MAX_VIRTUES;i++)
+    {
+      VirtueId virtue=virtues.getSelectedVirtue(i);
+      if (virtue!=null)
+      {
+        int rank=virtues.getVirtueRank(virtue);
+        BasicStatsSet virtueContrib=getContribution(virtue,rank);
+        ret.addStats(virtueContrib);
+      }
+    }
+    return ret;
   }
 
   private HashMap<String,FixedDecimalsInteger[][]> loadStats()
@@ -79,7 +100,7 @@ public class VirtuesContributionsMgr
     return values;
   }
 
-  private void init2()
+  private void init()
   {
     HashMap<String,FixedDecimalsInteger[][]> values=loadStats();
     URL url=URLTools.getFromClassPath("virtues-stats.txt",VirtuesContributionsMgr.class.getPackage());
