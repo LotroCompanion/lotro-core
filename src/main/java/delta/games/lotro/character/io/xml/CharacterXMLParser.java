@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.Character;
@@ -14,6 +13,7 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
@@ -22,7 +22,6 @@ import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
 import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Parser for character infos stored in XML.
@@ -72,7 +71,11 @@ public class CharacterXMLParser
 
     // Stats
     Element statsTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.STATS_TAG);
-    parseStats(c,statsTag);
+    if (statsTag!=null)
+    {
+      BasicStatsSet stats=BasicStatsSetXMLParser.parseStats(statsTag);
+      c.getStats().setStats(stats);
+    }
     // Equipment
     Element equipmentTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.EQUIPMENT_TAG);
     parseEquipment(c,equipmentTag);
@@ -83,32 +86,6 @@ public class CharacterXMLParser
     Element tomesTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.TOMES_TAG);
     parseTomes(c,tomesTag);
     return c;
-  }
-
-  private void parseStats(Character c, Element statsTag)
-  {
-    if (statsTag!=null)
-    {
-      BasicStatsSet stats=c.getStats();
-      List<Element> statTags=DOMParsingTools.getChildTagsByName(statsTag,CharacterXMLConstants.STAT_TAG);
-      for(Element statTag : statTags)
-      {
-        NamedNodeMap attrs=statTag.getAttributes();
-        // Stat name
-        String name=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.STAT_NAME_ATTR,"");
-        STAT stat=STAT.getByName(name);
-        if (stat!=null)
-        {
-          Node n=attrs.getNamedItem(CharacterXMLConstants.STAT_VALUE_ATTR);
-          if (n!=null)
-          {
-            int v=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.STAT_VALUE_ATTR,0);
-            FixedDecimalsInteger value=new FixedDecimalsInteger(v);
-            stats.setStat(stat,value);
-          }
-        }
-      }
-    }
   }
 
   private void parseEquipment(Character c, Element equipmentTag)

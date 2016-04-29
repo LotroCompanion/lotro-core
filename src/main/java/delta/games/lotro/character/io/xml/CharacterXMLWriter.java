@@ -20,6 +20,7 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
@@ -27,7 +28,6 @@ import delta.games.lotro.common.Race;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
@@ -114,7 +114,8 @@ public class CharacterXMLWriter
     
     hd.startElement("","",CharacterXMLConstants.CHARACTER_TAG,characterAttrs);
     // Stats
-    writeStats(hd,character);
+    BasicStatsSet stats=character.getStats();
+    BasicStatsSetXMLWriter.write(hd,stats);
     // Equipment
     CharacterEquipment equipment=character.getEquipment();
     writeEquipment(hd,equipment);
@@ -125,34 +126,6 @@ public class CharacterXMLWriter
     TomesSet tomes=character.getTomes();
     writeTomes(hd,tomes);
     hd.endElement("","",CharacterXMLConstants.CHARACTER_TAG);
-  }
-
-  private void writeStats(TransformerHandler hd, Character character) throws Exception
-  {
-    AttributesImpl statsAttrs=new AttributesImpl();
-    hd.startElement("","",CharacterXMLConstants.STATS_TAG,statsAttrs);
-    BasicStatsSet stats=character.getStats();
-    for(STAT stat : STAT.values())
-    {
-      FixedDecimalsInteger value=stats.getStat(stat);
-      if (value!=null)
-      {
-        writeStat(hd,stat,value);
-      }
-    }
-    hd.endElement("","",CharacterXMLConstants.STATS_TAG);
-  }
-
-  private void writeStat(TransformerHandler hd, STAT stat, FixedDecimalsInteger value) throws Exception
-  {
-    AttributesImpl statAtts=new AttributesImpl();
-    statAtts.addAttribute("","",CharacterXMLConstants.STAT_NAME_ATTR,CDATA,stat.getKey());
-    if (value!=null)
-    {
-      statAtts.addAttribute("","",CharacterXMLConstants.STAT_VALUE_ATTR,CDATA,String.valueOf(value.intValue()));
-    }
-    hd.startElement("","",CharacterXMLConstants.STAT_TAG,statAtts);
-    hd.endElement("","",CharacterXMLConstants.STAT_TAG);
   }
 
   private void writeEquipment(TransformerHandler hd, CharacterEquipment equipment) throws Exception

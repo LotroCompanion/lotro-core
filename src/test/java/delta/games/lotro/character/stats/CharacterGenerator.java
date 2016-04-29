@@ -1,13 +1,9 @@
 package delta.games.lotro.character.stats;
 
-import java.io.File;
-
-import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.Character;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
-import delta.games.lotro.character.io.xml.CharacterXMLWriter;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
@@ -139,8 +135,6 @@ public class CharacterGenerator
     additionalStats.addStat(STAT.PARRY, new FixedDecimalsInteger(808));
     additionalStats.addStat(STAT.BLOCK, new FixedDecimalsInteger(808));
 
-    CharacterXMLWriter w=new CharacterXMLWriter();
-    w.write(new File("giswald.xml"),c,EncodingNames.UTF_8);
     return c;
   }
 
