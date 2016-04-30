@@ -218,4 +218,23 @@ public class CharacterProficiencies
     }
     return ret;
   }
+
+  /**
+   * Get the armour type to use for mitigations.
+   * @param cClass Character class.
+   * @return An armour type (light/medium/heavy).
+   */
+  public ArmourType getArmourTypeForMitigations(CharacterClass cClass)
+  {
+    if ((cClass==CharacterClass.HUNTER) || (cClass==CharacterClass.BURGLAR)
+        || (cClass==CharacterClass.BEORNING) || (cClass==CharacterClass.WARDEN))
+    {
+      return ArmourType.MEDIUM;
+    }
+    if ((cClass==CharacterClass.CHAMPION) || (cClass==CharacterClass.GUARDIAN) || (cClass==CharacterClass.CAPTAIN))
+    {
+      return ArmourType.HEAVY;
+    }
+    return ArmourType.LIGHT;
+  }
 }

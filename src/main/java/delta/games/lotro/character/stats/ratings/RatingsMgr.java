@@ -6,21 +6,21 @@ package delta.games.lotro.character.stats.ratings;
  */
 public class RatingsMgr
 {
-  private RatingCurve _critHit;
-  private RatingCurve _devHit;
-  private RatingCurve _critAndDevHitMagnitude;
-  private RatingCurve _finesse;
-  private RatingCurve _damage;
-  private RatingCurve _healing;
-  private RatingCurve _resistance;
-  private RatingCurve _criticalDefence;
-  private RatingCurve _incomingHealing;
-  private RatingCurve _avoidance; // Block/Parry/Evade
-  private RatingCurve _partialAvoidance; // Block/Parry/Evade
-  private RatingCurve _partialMitigation;
-  private RatingCurve _lightMigitation;
-  private RatingCurve _mediumMigitation;
-  private RatingCurve _heavyMigitation;
+  private CurvedRatingCurveImpl _critHit;
+  private CurvedRatingCurveImpl _devHit;
+  private CurvedRatingCurveImpl _critAndDevHitMagnitude;
+  private CurvedRatingCurveImpl _finesse;
+  private DamageRatingCurveImpl _damage;
+  private CurvedRatingCurveImpl _healing;
+  private CurvedRatingCurveImpl _resistance;
+  private CurvedRatingCurveImpl _criticalDefence;
+  private CurvedRatingCurveImpl _incomingHealing;
+  private CurvedRatingCurveImpl _avoidance; // Block/Parry/Evade
+  private CurvedRatingCurveImpl _partialAvoidance; // Block/Parry/Evade
+  private CurvedRatingCurveImpl _partialMitigation;
+  private CurvedRatingCurveImpl _lightMigitation;
+  private CurvedRatingCurveImpl _mediumMigitation;
+  private CurvedRatingCurveImpl _heavyMigitation;
 
   /**
    * Constructor.
@@ -29,87 +29,67 @@ public class RatingsMgr
   {
     // Critical hit chance
     double[][] critHitValues={{15.0,1190.0/3,70}, {5,794.8,794.8/19}, {5,1075.2,1075.2/19}};
-    _critHit=new RatingCurve(critHitValues);
+    _critHit=new CurvedRatingCurveImpl(critHitValues);
     // Devastate hit chance
     double[][] devHitValues={{10.0, 1330.0, 1330.0/9}};
-    _devHit=new RatingCurve(devHitValues);
+    _devHit=new CurvedRatingCurveImpl(devHitValues);
     // Critical and devastate hit magnitude increase %
-    double[][] critAndDevHitMagnitudeValues={{99.0, 300.0, 99*300}};
-    _critAndDevHitMagnitude=new RatingCurve(critAndDevHitMagnitudeValues);
+    double[][] critAndDevHitMagnitudeValues={{99.9, 300.0, 99.9*300}};
+    _critAndDevHitMagnitude=new CurvedRatingCurveImpl(critAndDevHitMagnitudeValues);
     // Finesse
-    double[][] finesseValues={{30.0,1190.0/3,170}, {20,2380.0/3,595.0/3}};
-    _finesse=new RatingCurve(finesseValues);
-    // Damage (melee, ranged or tactical)
-    double[][] damageValues={
-        { 20, 300, 75 }, { 20, 300, 75 }, { 20, 300, 75 }, { 20, 300, 75 },
-        { 40, 300, 200 },
-        { 20, 300, 75 }, { 20, 300, 75 }, { 20, 300, 75 }, { 20, 300, 75 }
-    };
-    _damage=new RatingCurve(damageValues);
+    double[][] finesseValues={{99.9, 1190.0/3.0, 99.9*1190.0/3.0}};
+    _finesse=new CurvedRatingCurveImpl(finesseValues);
+    _damage=new DamageRatingCurveImpl();
     // Outgoing healing
     double[][] healingValues={
         { 30, 1190.0/3, 170 }, { 20, 2380.0/3, 595.0/3 }, { 20, 1190, 297.5 }
     };
-    _healing=new RatingCurve(healingValues);
+    _healing=new CurvedRatingCurveImpl(healingValues);
     // Resistance
     double[][] resistanceValues={
         { 30, 1190.0/3, 170 }, { 20, 2380.0/3, 595.0/3 }
     };
-    _resistance=new RatingCurve(resistanceValues);
+    _resistance=new CurvedRatingCurveImpl(resistanceValues);
     // Critical defence
-    double[][] critDefValues={{99.0, 100.0, 99*100}};
-    _criticalDefence=new RatingCurve(critDefValues);
+    double[][] critDefValues={{99.9, 100.0, 99.9*100}};
+    _criticalDefence=new CurvedRatingCurveImpl(critDefValues);
     // Incoming healing
     double[][] incomingHealingValues={
         { 15, 1190.0/3, 70 }, { 10, 2380.0/3, 2380.0/27 }
     };
-    _incomingHealing=new RatingCurve(incomingHealingValues);
+    _incomingHealing=new CurvedRatingCurveImpl(incomingHealingValues);
     // BPE (avoidance)
-    double[][] avoidanceValues={
-        { 15, 396.7, 1190.1/17 }, { 2, 991.5, 991.5/49 },
-        { 3, 1984, 5952/97 }, { 5, 3968, 3968/19 }
-    };
-    _avoidance=new RatingCurve(avoidanceValues);
+    double[][] avoidanceValues={{ 13, 499.95, 43329.0/580 }};
+    _avoidance=new CurvedRatingCurveImpl(avoidanceValues);
     // Partial BPE (partial avoidance)
     double[][] partialAvoidanceValues={
-        { 10, 1330, 1330.0/9 }
+        { 15, 396.66, 59499.0/850 }, { 2, 991.66, 49583.0/2450 },
+        { 3, 1050, 3150.0/97 }, { 15, 1200, 3600.0/17 },
     };
-    _partialAvoidance=new RatingCurve(partialAvoidanceValues);
-    // Partial BPE (partial avoidance)
+    _partialAvoidance=new CurvedRatingCurveImpl(partialAvoidanceValues);
+    // Partial Mitigation
     double[][] partialMitigationValues={
-        { 15, 1190.0/3, 70 }
+        { 50, 396.66, 396.66 }
     };
-    _partialMitigation=new RatingCurve(partialMitigationValues);
+    _partialMitigation=new CurvedRatingCurveImpl(partialMitigationValues);
     // Mitigation (light armor)
     double[][] lightMitigationValues={
         { 20, 150, 37.5 }, { 20, 350, 87.5 }
     };
-    _lightMigitation=new RatingCurve(lightMitigationValues);
+    _lightMigitation=new CurvedRatingCurveImpl(lightMitigationValues);
     // Mitigation (medium armor)
     double[][] mediumMitigationValues={
-        { 20, 150, 37.5 }, { 30, 350, 150 }
+        { 20, 149.9175, 59967.0/1600 }, { 30, 253.003, 759009.0/7000 }
     };
-    _mediumMigitation=new RatingCurve(mediumMitigationValues);
+    _mediumMigitation=new CurvedRatingCurveImpl(mediumMitigationValues);
     // Mitigation (heavy armor)
     double[][] heavyMitigationValues={
         { 10, 5697.0/38, 633.0/38 }, { 50, 5697.0/38, 5697.0/38 }
     };
-    _heavyMigitation=new RatingCurve(heavyMitigationValues);
+    _heavyMigitation=new CurvedRatingCurveImpl(heavyMitigationValues);
 
-    /*
-Partially Block, Partially Parry & Partially Evade  Block, Parry & Evade  1   10  1330  1330/9  10  ∞   14778   
-Physical Mitigation, Orc-craft Mitigation, Fell-wrought Mitigation & Tactical Mitigation:   Physical Mitigation, Orc-craft Mitigation, Fell-wrought Mitigation & Tactical Mitigation                
-Light Armour    1   20  150   37.5  20    3750  
-    2   20  350   87.5  40  ∞   12500   
-    T2pen**   -   -   67.5  40  ∞   19250   U16
-Medium Armour     1   20  150   37.5  20    3750  
-    2   30  350   150   50  ∞   18750   
-    T2pen**   -   -   67.5  50  ∞   25500   U16
-Heavy Armour    1   10  5697/38   633/38  10    1666  U13
-    2   50  5697/38   5697/38   60  ∞   16658   U13
-    T2pen**   -   -   67.5  60  ∞   23408   U16 
-         * 
-     */
+    // TODO Cope with T2 penalty:
+    // If IsT2Zone Then RL = RL-67.5
   }
 
   /**

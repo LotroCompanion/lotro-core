@@ -50,7 +50,7 @@ public class BasicStatsSet
    */
   public void setStat(STAT stat, FixedDecimalsInteger value)
   {
-    _stats.put(stat, value);
+    _stats.put(stat,new FixedDecimalsInteger(value));
   }
 
   /**

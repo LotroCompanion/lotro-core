@@ -46,26 +46,98 @@ public enum STAT
    */
   CRITICAL_RATING("Critical Rating", "CRITICAL_HIT", "Critical hit"),
   /**
+   * Critical % (melee).
+   */
+  CRITICAL_MELEE_PERCENTAGE("Critical % (melee)"),
+  /**
+   * Critical % (ranged).
+   */
+  CRITICAL_RANGED_PERCENTAGE("Critical % (ranged)"),
+  /**
+   * Critical % (tactical).
+   */
+  CRITICAL_TACTICAL_PERCENTAGE("Critical % (tactical)"),
+  /**
+   * Devastate % (melee).
+   */
+  DEVASTATE_MELEE_PERCENTAGE("Devastate % (melee)"),
+  /**
+   * Critical % (ranged).
+   */
+  DEVASTATE_RANGED_PERCENTAGE("Devastate % (ranged)"),
+  /**
+   * Critical % (tactical).
+   */
+  DEVASTATE_TACTICAL_PERCENTAGE("Devastate % (tactical)"),
+  /**
+   * Cri&Devastate Magnitude % (melee).
+   */
+  CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE("Critical & Devastate Magnitude % (melee)"),
+  /**
+   * Cri&Devastate Magnitude % (ranged).
+   */
+  CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE("Critical & Devastate Magnitude % (ranged)"),
+  /**
+   * Cri&Devastate Magnitude % (tactical).
+   */
+  CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE("Critical & Devastate Magnitude % (tactical)"),
+  /**
    * Finesse.
    */
   FINESSE("Finesse"),
+  /**
+   * Finesse %.
+   */
+  FINESSE_PERCENTAGE("Finesse %"),
   /**
    * Physical Mastery.
    */
   PHYSICAL_MASTERY("Physical Mastery"),
   /**
+   * Melee Damage %.
+   */
+  MELEE_DAMAGE_PERCENTAGE("Melee Damage %"),
+  /**
+   * Ranged Damage %.
+   */
+  RANGED_DAMAGE_PERCENTAGE("Ranged Damage %"),
+  /**
    * Tactical Mastery.
    */
   TACTICAL_MASTERY("Tactical Mastery"),
+  /**
+   * Tactical Damage %.
+   */
+  TACTICAL_DAMAGE_PERCENTAGE("Tactical Damage %"),
+  /**
+   * Outgoing Healing %.
+   */
+  OUTGOING_HEALING_PERCENTAGE("Outgoing Healing %"),
   // Defence
   /**
    * Resistance.
    */
   RESISTANCE("Resistance", "Resist"),
   /**
+   * Resistance %.
+   */
+  RESISTANCE_PERCENTAGE("Resistance %"),
+  /**
    * Critical Defence.
    */
   CRITICAL_DEFENCE("Critical Defence", "CRITICAL_AVOID", "Critical avoidance"),
+  /**
+   * Critical Defence % (melee).
+   */
+  MELEE_CRITICAL_DEFENCE("Melee Critical Defence %"),
+  /**
+   * Critical Defence % (ranged).
+   */
+  RANGED_CRITICAL_DEFENCE("Ranged Critical Defence %"),
+  /**
+   * Critical Defence % (tactical).
+   */
+  TACTICAL_CRITICAL_DEFENCE("Tactical Critical Defence %"),
   /**
    * Incoming Healing.
    */
@@ -84,9 +156,33 @@ public enum STAT
    */
   PARRY("Parry", "Parry Rating"),
   /**
+   * Parry (percentage).
+   */
+  PARRY_PERCENTAGE("Parry %"),
+  /**
+   * Partial Parry (percentage).
+   */
+  PARTIAL_PARRY_PERCENTAGE("Partial Parry %"),
+  /**
+   * Partial Parry Mitigation (percentage).
+   */
+  PARTIAL_PARRY_MITIGATION_PERCENTAGE("Partial Parry Mitigation %"),
+  /**
    * Evade.
    */
   EVADE("Evade", "Evade Rating"),
+  /**
+   * Evade (percentage).
+   */
+  EVADE_PERCENTAGE("Evade %"),
+  /**
+   * Partial Evade (percentage).
+   */
+  PARTIAL_EVADE_PERCENTAGE("Partial Evade %"),
+  /**
+   * Partial Evade Mitigation (percentage).
+   */
+  PARTIAL_EVADE_MITIGATION_PERCENTAGE("Partial Evade Mitigation %"),
   // Mitigations
   // Damage Source: Melee, Ranged, Tactical
   // Damage Type: Physical Mitigation, Tactical Mitigation
@@ -138,10 +234,6 @@ public enum STAT
    * Ranged Defence.
    */
   RANGED_DEFENCE_PERCENTAGE("Ranged Defence"),
-  /**
-   * Parry (percentage).
-   */
-  PARRY_PERCENTAGE("Parry %"),
   /**
    * Critical chance of ranged auto-attack (percentage).
    */

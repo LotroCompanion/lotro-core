@@ -73,6 +73,15 @@ public class FixedDecimalsInteger extends Number
   }
 
   /**
+   * Set raw value.
+   * @param value Value to set.
+   */
+  public void setRawValue(int value)
+  {
+    _value=value;
+  }
+
+  /**
    * Build from an external representation string.
    * @param externalRepresentation External representation string.
    * @return A value.
