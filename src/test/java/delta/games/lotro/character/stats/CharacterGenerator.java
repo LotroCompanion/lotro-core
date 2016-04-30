@@ -426,7 +426,7 @@ public class CharacterGenerator
     stats.setStat(STAT.VITALITY,239);
     stats.setStat(STAT.MIGHT,205);
     stats.setStat(STAT.FATE,68);
-    stats.setStat(STAT.EVADE,461);
+    stats.setStat(STAT.EVADE,1037);
     stats.setStat(STAT.MORALE,219);
     return ret;
   }
