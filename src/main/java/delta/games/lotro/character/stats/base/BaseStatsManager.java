@@ -146,7 +146,13 @@ public class BaseStatsManager
     if (cClass==CharacterClass.BEORNING) return getBaseStatsBeorning(level);
     if (cClass==CharacterClass.BURGLAR) return getBaseStatsBurglar(level);
     if (cClass==CharacterClass.CHAMPION) return getBaseStatsChampion(level);
-    // TODO other classes...
+    if (cClass==CharacterClass.CAPTAIN) return getBaseStatsCaptain(level);
+    if (cClass==CharacterClass.GUARDIAN) return getBaseStatsGuardian(level);
+    if (cClass==CharacterClass.HUNTER) return getBaseStatsHunter(level);
+    if (cClass==CharacterClass.LORE_MASTER) return getBaseStatsLoreMaster(level);
+    if (cClass==CharacterClass.MINSTREL) return getBaseStatsMinstrel(level);
+    if (cClass==CharacterClass.RUNE_KEEPER) return getBaseStatsRuneKeeper(level);
+    if (cClass==CharacterClass.WARDEN) return getBaseStatsWarden(level);
     return null;
   }
 
@@ -208,6 +214,37 @@ public class BaseStatsManager
     return set;
   }
 
+  private BasicStatsSet getBaseStatsCaptain(int level)
+  {
+    BasicStatsSet set = new BasicStatsSet();
+    set.setStat(STAT.MIGHT, 83);
+    set.setStat(STAT.AGILITY, 57);
+    set.setStat(STAT.VITALITY, 59);
+    set.setStat(STAT.WILL, 80);
+    set.setStat(STAT.FATE, 92);
+    // Morale
+    int morale = 0;
+    if (level <= 65) morale = 22*level + 276;
+    else if (level == 66) morale = 1733;
+    else if (level == 67) morale = 1766;
+    else if (level == 68) morale = 1804;
+    else if (level == 69) morale = 1848;
+    else if (level == 70) morale = 1897;
+    else if (level == 71) morale = 1952;
+    else if (level >= 72) morale = 66*level - 2740; // level >= 72
+    set.setStat(STAT.MORALE, morale);
+    // ICMR
+    int icmr = (int)(80.5 + level * 0.66666);
+    set.setStat(STAT.ICMR, icmr);
+    // OCMR
+    set.setStat(STAT.OCMR, 240);
+    // ICPR
+    set.setStat(STAT.ICPR, 240);
+    // OCPR
+    set.setStat(STAT.OCPR, 120);
+    return set;
+  }
+
   private BasicStatsSet getBaseStatsChampion(int level)
   {
     BasicStatsSet set = new BasicStatsSet();
@@ -239,6 +276,192 @@ public class BaseStatsManager
     return set;
   }
 
+  private BasicStatsSet getBaseStatsGuardian(int level)
+  {
+    BasicStatsSet set = new BasicStatsSet();
+    set.setStat(STAT.MIGHT, 83);
+    set.setStat(STAT.AGILITY, 59);
+    set.setStat(STAT.VITALITY, 92);
+    set.setStat(STAT.WILL, 80);
+    set.setStat(STAT.FATE, 57);
+    // Morale
+    int morale = 0;
+    if (level <= 65) morale = 27*level + 301;
+    else if (level == 66) morale = 2089;
+    else if (level == 67) morale = 2129;
+    else if (level == 68) morale = 2176;
+    else if (level == 69) morale = 2230;
+    else if (level == 70) morale = 2290;
+    else if (level == 71) morale = 2357;
+    else if (level >= 72) morale = 81*level - 3401; // level >= 72
+    set.setStat(STAT.MORALE, morale);
+    // ICMR
+    int icmr = (int)(91.25 + level * 0.75);
+    set.setStat(STAT.ICMR, icmr);
+    // OCMR
+    set.setStat(STAT.OCMR, 300);
+    // ICPR
+    set.setStat(STAT.ICPR, 240);
+    // OCPR
+    set.setStat(STAT.OCPR, 120);
+    return set;
+  }
+
+  private BasicStatsSet getBaseStatsHunter(int level)
+  {
+    BasicStatsSet set = new BasicStatsSet();
+    set.setStat(STAT.MIGHT, 57);
+    set.setStat(STAT.AGILITY, 112);
+    set.setStat(STAT.VITALITY, 59);
+    set.setStat(STAT.WILL, 83);
+    set.setStat(STAT.FATE, 60);
+    // Morale
+    int morale = 0;
+    if (level <= 65) morale = 22*level + 186;
+    else if (level == 66) morale = 1643;
+    else if (level == 67) morale = 1676;
+    else if (level == 68) morale = 1714;
+    else if (level == 69) morale = 1758;
+    else if (level == 70) morale = 1807;
+    else if (level == 71) morale = 1862;
+    else if (level >= 72) morale = 66*level - 2830; // level >= 72
+    set.setStat(STAT.MORALE, morale);
+    // ICMR
+    int icmr = (int)(80.5 + level * 0.66666);
+    set.setStat(STAT.ICMR, icmr);
+    // OCMR
+    set.setStat(STAT.OCMR, 240);
+    // ICPR
+    set.setStat(STAT.ICPR, 240);
+    // OCPR
+    set.setStat(STAT.OCPR, 120);
+    return set;
+  }
+
+  private BasicStatsSet getBaseStatsLoreMaster(int level)
+  {
+    BasicStatsSet set = new BasicStatsSet();
+    set.setStat(STAT.MIGHT, 57);
+    set.setStat(STAT.AGILITY, 80);
+    set.setStat(STAT.VITALITY, 59);
+    set.setStat(STAT.WILL, 83);
+    set.setStat(STAT.FATE, 92);
+    // Morale
+    int morale = 0;
+    if (level <= 65) morale = 15*level + 193;
+    else if (level == 66) morale = 1186;
+    else if (level == 67) morale = 1208;
+    else if (level == 68) morale = 1234;
+    else if (level == 69) morale = 1264;
+    else if (level == 70) morale = 1297;
+    else if (level == 71) morale = 1334;
+    else if (level >= 72) morale = 45*level - 1865; // level >= 72
+    set.setStat(STAT.MORALE, morale);
+    // ICMR
+    int icmr = (int)(71.1 + level * 0.6);
+    set.setStat(STAT.ICMR, icmr);
+    // OCMR
+    set.setStat(STAT.OCMR, 120);
+    // ICPR
+    set.setStat(STAT.ICPR, 240);
+    // OCPR
+    set.setStat(STAT.OCPR, 120);
+    return set;
+  }
+
+  private BasicStatsSet getBaseStatsMinstrel(int level)
+  {
+    BasicStatsSet set = new BasicStatsSet();
+    set.setStat(STAT.MIGHT, 80);
+    set.setStat(STAT.AGILITY, 57);
+    set.setStat(STAT.VITALITY, 59);
+    set.setStat(STAT.WILL, 92);
+    set.setStat(STAT.FATE, 83);
+    // Morale
+    int morale = 0;
+    if (level <= 65) morale = 15*level + 193;
+    else if (level == 66) morale = 1186;
+    else if (level == 67) morale = 1208;
+    else if (level == 68) morale = 1234;
+    else if (level == 69) morale = 1264;
+    else if (level == 70) morale = 1297;
+    else if (level == 71) morale = 1334;
+    else if (level >= 72) morale = 45*level - 1865; // level >= 72
+    set.setStat(STAT.MORALE, morale);
+    // ICMR
+    int icmr = (int)(70.1 + level * 0.6);
+    set.setStat(STAT.ICMR, icmr);
+    // OCMR
+    set.setStat(STAT.OCMR, 120);
+    // ICPR
+    set.setStat(STAT.ICPR, 240);
+    // OCPR
+    set.setStat(STAT.OCPR, 120);
+    return set;
+  }
+
+  private BasicStatsSet getBaseStatsRuneKeeper(int level)
+  {
+    BasicStatsSet set = new BasicStatsSet();
+    set.setStat(STAT.MIGHT, 58);
+    set.setStat(STAT.AGILITY, 81);
+    set.setStat(STAT.VITALITY, 60);
+    set.setStat(STAT.WILL, 84);
+    set.setStat(STAT.FATE, 93);
+    // Morale
+    int morale = 0;
+    if (level <= 65) morale = 15*level + 193;
+    else if (level == 66) morale = 1186;
+    else if (level == 67) morale = 1208;
+    else if (level == 68) morale = 1234;
+    else if (level == 69) morale = 1264;
+    else if (level == 70) morale = 1297;
+    else if (level == 71) morale = 1334;
+    else if (level >= 72) morale = 45*level - 1865; // level >= 72
+    set.setStat(STAT.MORALE, morale);
+    // ICMR
+    int icmr = (int)(71.1 + level * 0.6);
+    set.setStat(STAT.ICMR, icmr);
+    // OCMR
+    set.setStat(STAT.OCMR, 120);
+    // ICPR
+    set.setStat(STAT.ICPR, 240);
+    // OCPR
+    set.setStat(STAT.OCPR, 120);
+    return set;
+  }
+
+  private BasicStatsSet getBaseStatsWarden(int level)
+  {
+    BasicStatsSet set = new BasicStatsSet();
+    set.setStat(STAT.MIGHT, 83);
+    set.setStat(STAT.AGILITY, 92);
+    set.setStat(STAT.VITALITY, 59);
+    set.setStat(STAT.WILL, 57);
+    set.setStat(STAT.FATE, 80);
+    // Morale
+    int morale = 0;
+    if (level <= 65) morale = 27*level + 301;
+    else if (level == 66) morale = 2089;
+    else if (level == 67) morale = 2129;
+    else if (level == 68) morale = 2176;
+    else if (level == 69) morale = 2230;
+    else if (level == 70) morale = 2290;
+    else if (level == 71) morale = 2357;
+    else if (level >= 72) morale = 81*level - 3401; // level >= 72
+    set.setStat(STAT.MORALE, morale);
+    // ICMR
+    int icmr = (int)(91.25 + level * 0.75);
+    set.setStat(STAT.ICMR, icmr);
+    // OCMR
+    set.setStat(STAT.OCMR, 300);
+    // ICPR
+    set.setStat(STAT.ICPR, 240);
+    // OCPR
+    set.setStat(STAT.OCPR, 120);
+    return set;
+  }
+
   private void loadLowLevelStatsTables()
   {
     _lowLevelStatsByClass=new HashMap<CharacterClass,HashMap<Integer,BasicStatsSet>>();
@@ -252,603 +475,46 @@ public class BaseStatsManager
     }
   }
 
-    private HashMap<Integer,BasicStatsSet> loadStatsTable(CharacterClass cClass)
+  private HashMap<Integer,BasicStatsSet> loadStatsTable(CharacterClass cClass)
+  {
+    HashMap<Integer,BasicStatsSet> ret=new HashMap<Integer,BasicStatsSet>();
+    URL url=URLTools.getFromClassPath(cClass.getKey()+".txt",BaseStatsManager.class.getPackage());
+    if (url!=null)
     {
-      HashMap<Integer,BasicStatsSet> ret=new HashMap<Integer,BasicStatsSet>();
-      URL url=URLTools.getFromClassPath(cClass.getKey()+".txt",BaseStatsManager.class.getPackage());
-      if (url!=null)
+      TextFileReader r=new TextFileReader(url, EncodingNames.ISO8859_1);
+      List<String> lines=TextUtils.readAsLines(r);
+      List<STAT> stats=new ArrayList<STAT>();
+      String[] statStrs=lines.get(0).split("\t");
+      for(String statStr : statStrs)
       {
-        TextFileReader r=new TextFileReader(url, EncodingNames.ISO8859_1);
-        List<String> lines=TextUtils.readAsLines(r);
-        List<STAT> stats=new ArrayList<STAT>();
-        String[] statStrs=lines.get(0).split("\t");
-        for(String statStr : statStrs)
+        if (!statStr.equals("Level"))
         {
-          if (!statStr.equals("Level"))
-          {
-            STAT stat=STAT.getByName(statStr);
-            stats.add(stat);
-          }
-        }
-        lines.remove(0);
-        for(String statLine : lines)
-        {
-          String[] items=statLine.split("\t");
-          int level=NumericTools.parseInt(items[0],-1);
-          if (level!=-1)
-          {
-            BasicStatsSet set=new BasicStatsSet();
-            int index=1;
-            for(STAT stat : stats)
-            {
-              if (index<items.length)
-              {
-                int value=NumericTools.parseInt(items[index],0);
-                set.setStat(stat,value);
-              }
-              index++;
-            }
-            ret.put(Integer.valueOf(level),set);
-          }
+          STAT stat=STAT.getByName(statStr);
+          stats.add(stat);
         }
       }
-      return ret;
+      lines.remove(0);
+      for(String statLine : lines)
+      {
+        String[] items=statLine.split("\t");
+        int level=NumericTools.parseInt(items[0],-1);
+        if (level!=-1)
+        {
+          BasicStatsSet set=new BasicStatsSet();
+          int index=1;
+          for(STAT stat : stats)
+          {
+            if (index<items.length)
+            {
+              int value=NumericTools.parseInt(items[index],0);
+              set.setStat(stat,value);
+            }
+            index++;
+          }
+          ret.put(Integer.valueOf(level),set);
+        }
+      }
     }
-  /*
-Function CalcBase(ByVal ClName As String, ByVal SName As String, ByVal CharLvl As Integer) As Double
-
-  ElseIf CN = "CAPTAIN" Then
-    If SN = "MIGHT" Then
-      If 51 <= L Then
-        Result = CDBL(INT(83+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "AGILITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(57+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "VITALITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(59+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "WILL" Then
-      If 51 <= L Then
-        Result = CDBL(INT(80+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "FATE" Then
-      If 51 <= L Then
-        Result = CDBL(INT(92+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "MORALE" Then
-      If 51 <= L AND L <= 65 Then
-        Result = CDBL(INT(22*L+276+0.500000000001))
-      ElseIf L = 66 Then
-        Result = CDBL(INT(1733+0.500000000001))
-      ElseIf L = 67 Then
-        Result = CDBL(INT(1766+0.500000000001))
-      ElseIf L = 68 Then
-        Result = CDBL(INT(1804+0.500000000001))
-      ElseIf L = 69 Then
-        Result = CDBL(INT(1848+0.500000000001))
-      ElseIf L = 70 Then
-        Result = CDBL(INT(1897+0.500000000001))
-      ElseIf L = 71 Then
-        Result = CDBL(INT(1952+0.500000000001))
-      ElseIf 72 <= L Then
-        Result = CDBL(INT(66*L-2740+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT((2/3)*L+80+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(240+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(240+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    Else
-      Result = 0
-    EndIf
-  ElseIf CN = "GUARDIAN" Then
-    If SN = "MIGHT" Then
-      If 51 <= L Then
-        Result = CDBL(INT(83+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "AGILITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(59+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "VITALITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(92+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "WILL" Then
-      If 51 <= L Then
-        Result = CDBL(INT(80+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "FATE" Then
-      If 51 <= L Then
-        Result = CDBL(INT(57+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "MORALE" Then
-      If 51 <= L AND L <= 65 Then
-        Result = CDBL(INT(27*L+301+0.500000000001))
-      ElseIf L = 66 Then
-        Result = CDBL(INT(2089+0.500000000001))
-      ElseIf L = 67 Then
-        Result = CDBL(INT(2129+0.500000000001))
-      ElseIf L = 68 Then
-        Result = CDBL(INT(2176+0.500000000001))
-      ElseIf L = 69 Then
-        Result = CDBL(INT(2230+0.500000000001))
-      ElseIf L = 70 Then
-        Result = CDBL(INT(2290+0.500000000001))
-      ElseIf L = 71 Then
-        Result = CDBL(INT(2357+0.500000000001))
-      ElseIf 72 <= L Then
-        Result = CDBL(INT(81*L-3401+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(0.75*L+90.75+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(300+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(240+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    Else
-      Result = 0
-    EndIf
-  ElseIf CN = "HUNTER" Then
-    If SN = "MIGHT" Then
-      If 51 <= L Then
-        Result = CDBL(INT(57+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "AGILITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(112+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "VITALITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(59+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "WILL" Then
-      If 51 <= L Then
-        Result = CDBL(INT(83+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "FATE" Then
-      If 51 <= L Then
-        Result = CDBL(INT(60+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "MORALE" Then
-      If 51 <= L AND L <= 65 Then
-        Result = CDBL(INT(22*L+186+0.500000000001))
-      ElseIf L = 66 Then
-        Result = CDBL(INT(1643+0.500000000001))
-      ElseIf L = 67 Then
-        Result = CDBL(INT(1676+0.500000000001))
-      ElseIf L = 68 Then
-        Result = CDBL(INT(1714+0.500000000001))
-      ElseIf L = 69 Then
-        Result = CDBL(INT(1758+0.500000000001))
-      ElseIf L = 70 Then
-        Result = CDBL(INT(1807+0.500000000001))
-      ElseIf L = 71 Then
-        Result = CDBL(INT(1862+0.500000000001))
-      ElseIf 72 <= L Then
-        Result = CDBL(INT(66*L-2830+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT((2/3)*L+80+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(240+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(240+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    Else
-      Result = 0
-    EndIf
-  ElseIf CN = "LOREMASTER" Then
-    If SN = "MIGHT" Then
-      If 51 <= L Then
-        Result = CDBL(INT(57+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "AGILITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(80+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "VITALITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(59+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "WILL" Then
-      If 51 <= L Then
-        Result = CDBL(INT(83+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "FATE" Then
-      If 51 <= L Then
-        Result = CDBL(INT(92+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "MORALE" Then
-      If 51 <= L AND L <= 65 Then
-        Result = CDBL(INT(15*L+193+0.500000000001))
-      ElseIf L = 66 Then
-        Result = CDBL(INT(1186+0.500000000001))
-      ElseIf L = 67 Then
-        Result = CDBL(INT(1208+0.500000000001))
-      ElseIf L = 68 Then
-        Result = CDBL(INT(1234+0.500000000001))
-      ElseIf L = 69 Then
-        Result = CDBL(INT(1264+0.500000000001))
-      ElseIf L = 70 Then
-        Result = CDBL(INT(1297+0.500000000001))
-      ElseIf L = 71 Then
-        Result = CDBL(INT(1334+0.500000000001))
-      ElseIf 72 <= L Then
-        Result = CDBL(INT(45*L-1865+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(0.6*L+69.6+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(240+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    Else
-      Result = 0
-    EndIf
-  ElseIf CN = "MINSTREL" Then
-    If SN = "MIGHT" Then
-      If 51 <= L Then
-        Result = CDBL(INT(80+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "AGILITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(57+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "VITALITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(59+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "WILL" Then
-      If 51 <= L Then
-        Result = CDBL(INT(92+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "FATE" Then
-      If 51 <= L Then
-        Result = CDBL(INT(83+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "MORALE" Then
-      If 51 <= L AND L <= 65 Then
-        Result = CDBL(INT(15*L+193+0.500000000001))
-      ElseIf L = 66 Then
-        Result = CDBL(INT(1186+0.500000000001))
-      ElseIf L = 67 Then
-        Result = CDBL(INT(1208+0.500000000001))
-      ElseIf L = 68 Then
-        Result = CDBL(INT(1234+0.500000000001))
-      ElseIf L = 69 Then
-        Result = CDBL(INT(1264+0.500000000001))
-      ElseIf L = 70 Then
-        Result = CDBL(INT(1297+0.500000000001))
-      ElseIf L = 71 Then
-        Result = CDBL(INT(1334+0.500000000001))
-      ElseIf 72 <= L Then
-        Result = CDBL(INT(45*L-1865+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(0.6*L+69.6+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(240+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    Else
-      Result = 0
-    EndIf
-  ElseIf CN = "RUNEKEEPER" Then
-    If SN = "MIGHT" Then
-      If 51 <= L Then
-        Result = CDBL(INT(58+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "AGILITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(81+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "VITALITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(60+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "WILL" Then
-      If 51 <= L Then
-        Result = CDBL(INT(84+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "FATE" Then
-      If 51 <= L Then
-        Result = CDBL(INT(93+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "MORALE" Then
-      If 51 <= L AND L <= 65 Then
-        Result = CDBL(INT(15*L+193+0.500000000001))
-      ElseIf L = 66 Then
-        Result = CDBL(INT(1186+0.500000000001))
-      ElseIf L = 67 Then
-        Result = CDBL(INT(1208+0.500000000001))
-      ElseIf L = 68 Then
-        Result = CDBL(INT(1234+0.500000000001))
-      ElseIf L = 69 Then
-        Result = CDBL(INT(1264+0.500000000001))
-      ElseIf L = 70 Then
-        Result = CDBL(INT(1297+0.500000000001))
-      ElseIf L = 71 Then
-        Result = CDBL(INT(1334+0.500000000001))
-      ElseIf 72 <= L Then
-        Result = CDBL(INT(45*L-1865+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(0.6*L+69.6+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(240+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    Else
-      Result = 0
-    EndIf
-  ElseIf CN = "WARDEN" Then
-    If SN = "MIGHT" Then
-      If 51 <= L Then
-        Result = CDBL(INT(83+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "AGILITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(92+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "VITALITY" Then
-      If 51 <= L Then
-        Result = CDBL(INT(59+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "WILL" Then
-      If 51 <= L Then
-        Result = CDBL(INT(57+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "FATE" Then
-      If 51 <= L Then
-        Result = CDBL(INT(80+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "MORALE" Then
-      If 51 <= L AND L <= 65 Then
-        Result = CDBL(INT(27*L+301+0.500000000001))
-      ElseIf L = 66 Then
-        Result = CDBL(INT(2089+0.500000000001))
-      ElseIf L = 67 Then
-        Result = CDBL(INT(2129+0.500000000001))
-      ElseIf L = 68 Then
-        Result = CDBL(INT(2176+0.500000000001))
-      ElseIf L = 69 Then
-        Result = CDBL(INT(2230+0.500000000001))
-      ElseIf L = 70 Then
-        Result = CDBL(INT(2290+0.500000000001))
-      ElseIf L = 71 Then
-        Result = CDBL(INT(2357+0.500000000001))
-      ElseIf 72 <= L Then
-        Result = CDBL(INT(81*L-3401+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(0.75*L+90.75+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCMR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(300+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "ICPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(240+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    ElseIf SN = "NCPR" Then
-      If 51 <= L Then
-        Result = CDBL(INT(120+0.500000000001))
-      Else
-        Result = 0
-      EndIf
-    Else
-      Result = 0
-    EndIf
-  Else
-    Result = 0
-  EndIf
-
-  CalcBase = Result
-
-End Function
- */
+    return ret;
+  }
 }
