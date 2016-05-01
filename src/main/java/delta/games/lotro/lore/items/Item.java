@@ -39,15 +39,9 @@ public class Item implements Identifiable<Long>
   private String _crafterName;
   // Item category: Armour, Tool, ...
   private ItemCategory _category;
-  // Item sub-category: "Medium Armour", "Craft Tool", "Light Armour"
-  // Weapon: Two-handed Sword, Staff, Halberd, Two-handed Hammer, Bow, Javelin,
-  // Two-handed Club, One-handed Hammer, Spear, One-handed Club, One-handed Mace,
-  // Crossbow, Dagger, One-handed Axe, One-handed Sword, Two-handed Axe
-  // ???: Heavy, Warden, Light 
-  // TODO "type" in data.lotro?
+  // TODO Enum or String constants for sub-categories
   private String _subCategory;
   // Item binding: "Bind on Acquire", ...
-  // TODO data.lotro uses flags: bindOnAcquire="1" bindOnEquip="0"
   private ItemBinding _binding;
   // Is item unique or not?
   private boolean _unique;
@@ -82,7 +76,7 @@ public class Item implements Identifiable<Long>
   // Stacking information
   private Integer _stackMax;
 
-  // TODO Missing attrs: quality="Incomparable" isItemAdvancement="0" consumedOnUse="0" cooldown="" decoration="" instrument=""
+  // TODO Missing attrs: isItemAdvancement="0" consumedOnUse="0" cooldown="" decoration="" instrument=""
   private ItemQuality _quality;
 
   private HashMap<String,String> _properties;

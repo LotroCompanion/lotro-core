@@ -191,7 +191,6 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SUBCATEGORY_ATTR,CDATA,subCategory);
     }
-    // TODO add slot?
     // Binding
     ItemBinding binding=item.getBinding();
     if (binding!=null)

@@ -88,7 +88,6 @@ public class FixedDecimalsInteger extends Number
    */
   public static FixedDecimalsInteger fromString(String externalRepresentation)
   {
-    // TODO smarter string I/O
     FixedDecimalsInteger ret=new FixedDecimalsInteger();
     ret._value=NumericTools.parseInt(externalRepresentation,0);
     return ret;
