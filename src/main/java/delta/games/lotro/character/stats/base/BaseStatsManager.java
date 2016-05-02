@@ -70,9 +70,15 @@ public class BaseStatsManager
     _raceContrib.put(Race.ELF,elf);
     // Hobbit
     BasicStatsSet hobbit=new BasicStatsSet();
+    // - TODO Hobbit Courage: +1% Fear Resistance. 
+    // - Small Size 
     hobbit.setStat(STAT.MIGHT, -7);
+    // - Hobbit-toughness
     hobbit.setStat(STAT.VITALITY, 15);
+    // - Rapid Recovery
     hobbit.setStat(STAT.OCMR, 60);
+    // - Resist Corruption
+    hobbit.setStat(STAT.SHADOW_MITIGATION_PERCENTAGE, 1);
     _raceContrib.put(Race.HOBBIT,hobbit);
     // Beorning
     BasicStatsSet beorning=new BasicStatsSet();

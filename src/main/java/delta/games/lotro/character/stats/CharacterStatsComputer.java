@@ -7,6 +7,7 @@ import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterProficiencies;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
+import delta.games.lotro.character.stats.base.HopeStatsContributionsMgr;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
 import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
@@ -28,6 +29,7 @@ public class CharacterStatsComputer
   private BaseStatsManager _baseStatsMgr;
   private VirtuesContributionsMgr _virtuesMgr;
   private TomesContributionsMgr _tomesMgr;
+  private HopeStatsContributionsMgr _hopeMgr;
   private RatingsMgr _ratingsMgr;
   private CharacterProficiencies _proficiencies;
 
@@ -39,6 +41,7 @@ public class CharacterStatsComputer
     _baseStatsMgr=new BaseStatsManager();
     _virtuesMgr=new VirtuesContributionsMgr();
     _tomesMgr=new TomesContributionsMgr();
+    _hopeMgr=new HopeStatsContributionsMgr();
     _ratingsMgr=new RatingsMgr();
     _proficiencies=new CharacterProficiencies();
   }
@@ -123,6 +126,10 @@ public class CharacterStatsComputer
     BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw);
     raw.addStats(derivedContrib);
 
+    // Hope
+    BasicStatsSet hopeContrib=_hopeMgr.getContribution(raw);
+    raw.addStats(hopeContrib);
+
     // Ratings
     BasicStatsSet ratings=computeRatings(c,raw);
     raw.addStats(ratings);
@@ -136,7 +143,7 @@ public class CharacterStatsComputer
     // Crit %
     FixedDecimalsInteger crit=stats.getStat(STAT.CRITICAL_RATING);
     FixedDecimalsInteger critPercentage=computeRating(_ratingsMgr.getCriticalHitCurve(),crit,level);
-    // TODO missing 5% in melee for champ
+    // TODO missing 5% in melee for champ, 5% melee/ranged/tactical for mini
     ret.setStat(STAT.CRITICAL_MELEE_PERCENTAGE,critPercentage);
     ret.setStat(STAT.CRITICAL_RANGED_PERCENTAGE,critPercentage);
     ret.setStat(STAT.CRITICAL_TACTICAL_PERCENTAGE,critPercentage);
@@ -179,7 +186,15 @@ public class CharacterStatsComputer
     FixedDecimalsInteger incomingHealing=stats.getStat(STAT.INCOMING_HEALING);
     FixedDecimalsInteger incomingHealingPercentage=computeRating(_ratingsMgr.getIncomingHealing(),incomingHealing,level);
     ret.setStat(STAT.INCOMING_HEALING_PERCENTAGE,incomingHealingPercentage);
-    // TODO Block
+    // Block %, Partial Block %, Block Mitigation %
+    FixedDecimalsInteger block=stats.getStat(STAT.BLOCK);
+    FixedDecimalsInteger blockPercentage=computeRating(_ratingsMgr.getAvoidance(),block,level);
+    ret.setStat(STAT.BLOCK_PERCENTAGE,blockPercentage);
+    FixedDecimalsInteger partialBlockPercentage=computeRating(_ratingsMgr.getPartialAvoidance(),block,level);
+    ret.setStat(STAT.PARTIAL_BLOCK_PERCENTAGE,partialBlockPercentage);
+    FixedDecimalsInteger partialBlockMitigationPercentage=computeRating(_ratingsMgr.getPartialMitigation(),block,level);
+    partialBlockMitigationPercentage.add(10);
+    ret.setStat(STAT.PARTIAL_BLOCK_MITIGATION_PERCENTAGE,partialBlockMitigationPercentage);
     // Parry %, Partial Parry %, Parry Mitigation %
     FixedDecimalsInteger parry=stats.getStat(STAT.PARRY);
     FixedDecimalsInteger parryPercentage=computeRating(_ratingsMgr.getAvoidance(),parry,level);
@@ -197,17 +212,27 @@ public class CharacterStatsComputer
     ret.setStat(STAT.PARTIAL_EVADE_PERCENTAGE,partialEvadePercentage);
     FixedDecimalsInteger partialEvadeMitigationPercentage=computeRating(_ratingsMgr.getPartialMitigation(),evade,level);
     partialEvadeMitigationPercentage.add(10);
+    // TODO Add 25% to partial evade mitigation for mini (why?)
     ret.setStat(STAT.PARTIAL_EVADE_MITIGATION_PERCENTAGE,partialEvadeMitigationPercentage);
     // Physical Mitigation %
-    FixedDecimalsInteger physicalMitigation=stats.getStat(STAT.PHYSICAL_MITIGATION);
     CharacterClass cClass=c.getCharacterClass();
     RatingCurve mitigation=getMitigationCurve(cClass);
+    FixedDecimalsInteger physicalMitigation=stats.getStat(STAT.PHYSICAL_MITIGATION);
     FixedDecimalsInteger physicalMitigationPercentage=computeRating(mitigation,physicalMitigation,level);
     ret.setStat(STAT.PHYSICAL_MITIGATION_PERCENTAGE,physicalMitigationPercentage);
-    // TODO Orc-craft and Fell-wrought mitigation
+    // Orc-craft and Fell-wrought mitigation %
+    FixedDecimalsInteger ocfwMitigation=stats.getStat(STAT.OCFW_MITIGATION);
+    FixedDecimalsInteger ocfwMitigationPercentage=computeRating(mitigation,ocfwMitigation,level);
+    ret.setStat(STAT.OCFW_MITIGATION_PERCENTAGE,ocfwMitigationPercentage);
+    // Tactical mitigation %
     FixedDecimalsInteger tacticalMitigation=stats.getStat(STAT.TACTICAL_MITIGATION);
     FixedDecimalsInteger tacticalMitigationPercentage=computeRating(mitigation,tacticalMitigation,level);
     ret.setStat(STAT.TACTICAL_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
+    ret.addStat(STAT.FIRE_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
+    ret.addStat(STAT.LIGHTNING_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
+    ret.addStat(STAT.FROST_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
+    ret.addStat(STAT.ACID_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
+    ret.addStat(STAT.SHADOW_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
     return ret;
   }
 
@@ -222,16 +247,19 @@ public class CharacterStatsComputer
 
   private FixedDecimalsInteger computeRating(RatingCurve curve, FixedDecimalsInteger rating, int level)
   {
-    FixedDecimalsInteger ret;
-    Double percentage=curve.getPercentage(rating.doubleValue(),level);
-    if (percentage!=null)
+    FixedDecimalsInteger ret=null;
+    if (rating!=null)
     {
-      // Round to 1 decimal
-      long roundedValue=Math.round(percentage.doubleValue()*10);
-      ret=new FixedDecimalsInteger();
-      ret.setRawValue((int)(roundedValue*10));
+      Double percentage=curve.getPercentage(rating.doubleValue(),level);
+      if (percentage!=null)
+      {
+        // Round to 1 decimal
+        long roundedValue=Math.round(percentage.doubleValue()*10);
+        ret=new FixedDecimalsInteger();
+        ret.setRawValue((int)(roundedValue*10));
+      }
     }
-    else
+    if (ret==null)
     {
       ret=new FixedDecimalsInteger();
     }

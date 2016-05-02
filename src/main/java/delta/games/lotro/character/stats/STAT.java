@@ -152,6 +152,18 @@ public enum STAT
    */
   BLOCK("Block", "Block Rating"),
   /**
+   * Block (percentage).
+   */
+  BLOCK_PERCENTAGE("Block %"),
+  /**
+   * Partial Block (percentage).
+   */
+  PARTIAL_BLOCK_PERCENTAGE("Partial Block %"),
+  /**
+   * Partial Block Mitigation (percentage).
+   */
+  PARTIAL_BLOCK_MITIGATION_PERCENTAGE("Partial Block Mitigation %"),
+  /**
    * Parry.
    */
   PARRY("Parry", "Parry Rating"),
@@ -195,6 +207,14 @@ public enum STAT
    */
   PHYSICAL_MITIGATION_PERCENTAGE("Physical Mitigation %"),
   /**
+   * Orc-craft and Fell-wrought mitigation.
+   */
+  OCFW_MITIGATION("Orc-craft/Fell-wrought Mitigation"),
+  /**
+   * Orc-craft and Fell-wrought mitigation percentage.
+   */
+  OCFW_MITIGATION_PERCENTAGE("Orc-craft/Fell-wrought Mitigation %"),
+  /**
    * Tactical mitigation.
    */
   TACTICAL_MITIGATION("Tactical Mitigation", "Tactical mitigation", "TacMit"),
@@ -202,6 +222,26 @@ public enum STAT
    * Tactical mitigation percentage.
    */
   TACTICAL_MITIGATION_PERCENTAGE("Tactical Mitigation %"),
+  /**
+   * Fire mitigation percentage.
+   */
+  FIRE_MITIGATION_PERCENTAGE("Fire Mitigation %"),
+  /**
+   * Lightning mitigation percentage.
+   */
+  LIGHTNING_MITIGATION_PERCENTAGE("Lightning Mitigation %"),
+  /**
+   * Frost mitigation percentage.
+   */
+  FROST_MITIGATION_PERCENTAGE("Frost Mitigation %"),
+  /**
+   * Acid mitigation percentage.
+   */
+  ACID_MITIGATION_PERCENTAGE("Acid Mitigation %"),
+  /**
+   * Shadow mitigation percentage.
+   */
+  SHADOW_MITIGATION_PERCENTAGE("Shadow Mitigation %"),
   /**
    * In-Combat Morale Regeneration.
    */
@@ -258,6 +298,14 @@ public enum STAT
    * Attack duration (percentage).
    */
   ATTACK_DURATION_PERCENTAGE("Attack Duration %"),
+  /**
+   * Jeweller critical chance (percentage).
+   */
+  JEWELLER_CRIT_CHANCE_PERCENTAGE("Jeweller Critical Chance %"),
+  /**
+   * Cook critical chance (percentage).
+   */
+  COOK_CRIT_CHANCE_PERCENTAGE("Cook Critical Chance %"),
   /**
    * Weaponsmith critical chance (percentage).
    */

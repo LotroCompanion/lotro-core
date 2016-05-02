@@ -14,14 +14,27 @@ public class TestCharacterStatsComputer
 {
   private void doIt()
   {
-    CharacterGenerator generator=new CharacterGenerator();
-    Character c=generator.buildCharacter();
     CharacterStatsComputer statsComputer=new CharacterStatsComputer();
-    BasicStatsSet stats=statsComputer.getStats(c);
-    c.getStats().setStats(stats);
-    CharacterXMLWriter w=new CharacterXMLWriter();
-    w.write(new File("giswald.xml"),c,EncodingNames.UTF_8);
-    System.out.println(stats.dump());
+    // Giswald
+    {
+      CharacterGenerator generator=new CharacterGenerator();
+      Character c=generator.buildCharacter();
+      BasicStatsSet stats=statsComputer.getStats(c);
+      c.getStats().setStats(stats);
+      CharacterXMLWriter w=new CharacterXMLWriter();
+      w.write(new File("giswald.xml"),c,EncodingNames.UTF_8);
+      System.out.println(stats.dump());
+    }
+    // Meva
+    {
+      CharacterGeneratorMeva generator=new CharacterGeneratorMeva();
+      Character c=generator.buildCharacter();
+      BasicStatsSet stats=statsComputer.getStats(c);
+      c.getStats().setStats(stats);
+      CharacterXMLWriter w=new CharacterXMLWriter();
+      w.write(new File("meva.xml"),c,EncodingNames.UTF_8);
+      System.out.println(stats.dump());
+    }
   }
 
   /**
