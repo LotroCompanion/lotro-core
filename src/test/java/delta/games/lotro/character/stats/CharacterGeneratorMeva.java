@@ -141,8 +141,8 @@ public class CharacterGeneratorMeva
     // Additional stats
     BasicStatsSet additionalStats=c.getAdditionalStats();
     // Buff
-    additionalStats.addStat(STAT.MIGHT, new FixedDecimalsInteger(20));
-    additionalStats.addStat(STAT.HOPE, new FixedDecimalsInteger(1));
+    //additionalStats.addStat(STAT.MIGHT, new FixedDecimalsInteger(20));
+    //additionalStats.addStat(STAT.HOPE, new FixedDecimalsInteger(1));
     // Red trait tree:
     {
       // Enduring Morale, Rank 2
