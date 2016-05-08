@@ -59,7 +59,7 @@ public class ItemsManager
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File itemsDir=cfg.getItemsDir();
+    File itemsDir=cfg.getLoreDir();
     File itemsFile=new File(itemsDir,"items.xml");
     ItemXMLParser parser=new ItemXMLParser();
     List<Item> items=parser.parseItemsFile(itemsFile);
