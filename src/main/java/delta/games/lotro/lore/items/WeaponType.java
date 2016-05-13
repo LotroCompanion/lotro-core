@@ -83,6 +83,10 @@ public class WeaponType
    * Thrown weapon.
    */
   public static final WeaponType THROWN_WEAPON=new WeaponType("THROWN_WEAPON","Thrown Weapon",true,false);
+  /**
+   * Other.
+   */
+  public static final WeaponType OTHER=new WeaponType("OTHER","Other",false,false);
 
   private String _key;
   private String _name;
