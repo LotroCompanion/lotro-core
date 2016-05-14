@@ -83,6 +83,10 @@ public class EquipmentLocation
    * Class slot.
    */
   public static final EquipmentLocation CLASS_SLOT=new EquipmentLocation("CLASS_SLOT","Class Slot");
+  /**
+   * Bridle.
+   */
+  public static final EquipmentLocation BRIDLE=new EquipmentLocation("BRIDLE","Bridle");
 
   private EquipmentLocation(String key, String label, String... aliases)
   {

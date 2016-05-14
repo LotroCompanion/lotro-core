@@ -227,7 +227,7 @@ public class ItemXMLParser
       }
     }
     // Weapon specific:
-    if (category==ItemCategory.WEAPON)
+    if ((category==ItemCategory.WEAPON) || (category==ItemCategory.LEGENDARY_WEAPON))
     {
       Weapon weapon=(Weapon)ret;
       float dps=DOMParsingTools.getFloatAttribute(attrs,ItemXMLConstants.DPS_ATTR,0.0f);

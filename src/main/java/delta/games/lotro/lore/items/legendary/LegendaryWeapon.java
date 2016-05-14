@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.legendary;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.lore.items.ItemCategory;
 import delta.games.lotro.lore.items.Weapon;
 
 /**
@@ -18,6 +19,7 @@ public class LegendaryWeapon extends Weapon
   public LegendaryWeapon()
   {
     _attrs=new LegendaryAttrs();
+    setCategory(ItemCategory.LEGENDARY_WEAPON);
   }
 
   /**

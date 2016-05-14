@@ -119,6 +119,24 @@ public class Weapon extends Item
   }
 
   /**
+   * Copy item data from a source.
+   * @param item Source item.
+   */
+  public void copyFrom(Item item)
+  {
+    super.copyFrom(item);
+    if (item instanceof Weapon)
+    {
+      Weapon weapon=(Weapon)item;
+      _minDamage=weapon._minDamage;
+      _maxDamage=weapon._maxDamage;
+      _damageType=weapon._damageType;
+      _dps=weapon._dps;
+      _type=weapon._type;
+    }
+  }
+
+  /**
    * Dump the contents of this quest as a string.
    * @return A readable string.
    */

@@ -257,7 +257,7 @@ public class ItemXMLWriter
       }
     }
     // Weapon specific:
-    else if (category==ItemCategory.WEAPON)
+    else if ((category==ItemCategory.WEAPON) || (category==ItemCategory.LEGENDARY_WEAPON))
     {
       Weapon weapon=(Weapon)item;
       float dps=weapon.getDPS();

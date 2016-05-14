@@ -17,6 +17,13 @@ public enum ItemCategory
   /**
    * Standard item.
    */
-  ITEM
-  // TODO to be completed
+  ITEM,
+  /**
+   * Legendary Weapon.
+   */
+  LEGENDARY_WEAPON,
+  /**
+   * Legendary item.
+   */
+  LEGENDARY_ITEM
 }
