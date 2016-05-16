@@ -11,8 +11,6 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Money;
-import delta.games.lotro.lore.items.bonus.BonusManager;
-import delta.games.lotro.lore.items.bonus.RawBonusParser;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 
 /**
@@ -47,7 +45,6 @@ public class Item implements Identifiable<Long>
   private boolean _unique;
   // Bonuses
   private List<String> _bonus;
-  private BonusManager _bonusMgr;
   // Stats
   private BasicStatsSet _stats;
   // Essences
@@ -97,7 +94,6 @@ public class Item implements Identifiable<Long>
     _binding=null;
     _unique=false;
     _bonus=new ArrayList<String>();
-    _bonusMgr=new BonusManager();
     _stats=new BasicStatsSet();
     _durability=null;
     _sturdiness=null;
@@ -389,25 +385,6 @@ public class Item implements Identifiable<Long>
     {
       _bonus.addAll(bonuses);
     }
-    RawBonusParser parser=new RawBonusParser();
-    _bonusMgr=parser.build(bonuses);
-    if (parser.hasWarn())
-    {
-      System.out.println("Item: "+_identifier+", name="+_name);
-      for(String bonus : bonuses)
-      {
-        System.out.println("\t"+bonus);
-      }
-    }
-  }
-
-  /**
-   * Get the bonus manager.
-   * @return the bonus manager.
-   */
-  public BonusManager getBonusManager()
-  {
-    return _bonusMgr;
   }
 
   /**
@@ -668,7 +645,6 @@ public class Item implements Identifiable<Long>
     _unique=item._unique;
     _bonus.clear();
     _bonus.addAll(item._bonus);
-    _bonusMgr=new RawBonusParser().build(_bonus);
     _stats=new BasicStatsSet(item._stats);
     // TODO
     _essences=item._essences;

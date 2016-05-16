@@ -26,8 +26,6 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
-import delta.games.lotro.lore.items.bonus.Bonus;
-import delta.games.lotro.lore.items.bonus.BonusManager;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
@@ -51,7 +49,7 @@ public class ItemsSqlDriver extends ObjectSqlDriver<Item>
   private PreparedStatement _psInsertWeapon;
   private PreparedStatement _psCount;
   private PreparedStatement _psGetItemBonuses;
-  private PreparedStatement _psInsertItemBonus;
+  //private PreparedStatement _psInsertItemBonus;
 
   @Override
   protected void buildPreparedStatements(Connection newConnection)
@@ -94,6 +92,7 @@ public class ItemsSqlDriver extends ObjectSqlDriver<Item>
       sql="SELECT "+bonusFields+" FROM "+ITEM_BONUS_TABLE_NAME+" WHERE internal_item_id = ? ORDER by order";
       _psGetItemBonuses=newConnection.prepareStatement(sql);
       // Insert bonus
+      /*
       sql="INSERT INTO "+ITEM_BONUS_TABLE_NAME+" ("+bonusFields+") VALUES (?,?,?,?,?,?)";
       if (usesHSQLDB())
       {
@@ -103,6 +102,7 @@ public class ItemsSqlDriver extends ObjectSqlDriver<Item>
       {
         _psInsertItemBonus=newConnection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
       }
+      */
     }
     catch (SQLException sqlException)
     {
@@ -460,7 +460,7 @@ public class ItemsSqlDriver extends ObjectSqlDriver<Item>
         }
         if (item instanceof Armour) createArmor(connection,(Armour)item);
         else if (item instanceof Weapon) createWeapon(connection,(Weapon)item);
-        writeBonuses(connection,item);
+        //writeBonuses(connection,item);
       }
       catch (SQLException sqlException)
       {
@@ -512,6 +512,7 @@ public class ItemsSqlDriver extends ObjectSqlDriver<Item>
     _psInsertWeapon.executeUpdate();
   }
 
+  /*
   private void writeBonuses(Connection c, Item item) throws SQLException
   {
     BonusManager mgr=item.getBonusManager();
@@ -545,6 +546,7 @@ public class ItemsSqlDriver extends ObjectSqlDriver<Item>
       order++;
     }
   }
+  */
 
   private int writeString(PreparedStatement ps, int n, String value) throws SQLException
   {
