@@ -295,6 +295,22 @@ public enum STAT
    */
   STRIKE_SKILLS_POWER_COST_PERCENTAGE("Strike Skills Power Cost %"),
   /**
+   * Blade line AOE skills power cost (percentage).
+   */
+  BLADE_AOE_SKILLS_POWER_COST_PERCENTAGE("Blade Line AOE Skills Power Cost %"),
+  /**
+   * Tricks power cost (percentage).
+   */
+  TRICKS_POWER_COST_PERCENTAGE("Tricks Power Cost %"),
+  /**
+   * Sign of the wild skills power cost (percentage).
+   */
+  SIGN_OF_THE_WILD_POWER_COST_PERCENTAGE("Sign of the Wild Skills Power Cost %"),
+  /**
+   * Ballad and coda damage (percentage).
+   */
+  BALLAD_AND_CODA_DAMAGE_PERCENTAGE("Ballad and Coda Damage %"),
+  /**
    * Attack duration (percentage).
    */
   ATTACK_DURATION_PERCENTAGE("Attack Duration %"),
@@ -307,6 +323,18 @@ public enum STAT
    */
   COOK_CRIT_CHANCE_PERCENTAGE("Cook Critical Chance %"),
   /**
+   * Scholar critical chance (percentage).
+   */
+  SCHOLAR_CRIT_CHANCE_PERCENTAGE("Scholar Critical Chance %"),
+  /**
+   * Tailor critical chance (percentage).
+   */
+  TAILOR_CRIT_CHANCE_PERCENTAGE("Tailor Critical Chance %"),
+  /**
+   * Metalsmith critical chance (percentage).
+   */
+  METALSMITH_CRIT_CHANCE_PERCENTAGE("Metalsmith Critical Chance %"),
+  /**
    * Weaponsmith critical chance (percentage).
    */
   WEAPONSMITH_CRIT_CHANCE_PERCENTAGE("Weaponsmith Critical Chance %"),
@@ -317,7 +345,23 @@ public enum STAT
   /**
    * Prospector mining duration (seconds).
    */
-  PROSPECTOR_MINING_DURATION("Prospector Mining Duration (s)");
+  PROSPECTOR_MINING_DURATION("Prospector Mining Duration (s)"),
+  /**
+   * Farmer harvesting duration (seconds).
+   */
+  FARMER_MINING_DURATION("Farmer Harvesting Duration (s)"),
+  /**
+   * Forester chopping duration (seconds).
+   */
+  FORESTER_CHOPPING_DURATION("Forester Chopping Duration (s)"),
+  /**
+   * Perceived threat (percentage).
+   */
+  PERCEIVED_THREAT("Perceived Threat (%)"),
+  /**
+   * All skill induction (%).
+   */
+  ALL_SKILL_INDUCTION("All Skill Induction (%)");
 
   private String _name;
   private String[] _aliases;
