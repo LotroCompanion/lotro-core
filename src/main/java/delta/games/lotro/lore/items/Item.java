@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import delta.common.framework.objects.data.Identifiable;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
@@ -17,11 +16,9 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
  * Item description.
  * @author DAM
  */
-public class Item implements Identifiable<Long>
+public class Item
 {
-  // Database primary key
-  private Long _primaryKey;
-  // Item private identifier
+  // Item identifier
   private int _identifier;
   // Items set identifier (may be null)
   private String _setKey;
@@ -84,7 +81,6 @@ public class Item implements Identifiable<Long>
   public Item()
   {
     super();
-    _primaryKey=null;
     _identifier=0;
     _setKey=null;
     _equipmentLocation=null;
@@ -105,24 +101,6 @@ public class Item implements Identifiable<Long>
     _stackMax=null;
     _quality=null;
     _properties=new HashMap<String,String>();
-  }
-
-  /**
-   * Get the primary key of this object.
-   * @return the primary key of this object.
-   */
-  public Long getPrimaryKey()
-  {
-    return _primaryKey;
-  }
-
-  /**
-   * Set the primary key of this object.
-   * @param primaryKey Primary key to set.
-   */
-  public void setPrimaryKey(Long primaryKey)
-  {
-    _primaryKey=primaryKey;
   }
 
   /**
@@ -631,7 +609,6 @@ public class Item implements Identifiable<Long>
    */
   public void copyFrom(Item item)
   {
-    _primaryKey=item._primaryKey;
     _identifier=item._identifier;
     _setKey=item._setKey;
     _set=item._set;

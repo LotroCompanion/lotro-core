@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.framework.objects.sql.ObjectSqlDriver;
 import delta.common.utils.jdbc.CleanupManager;
-import delta.common.utils.jdbc.JDBCTools;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Money;
 import delta.games.lotro.lore.items.Armour;
@@ -153,7 +152,6 @@ public class ItemsSqlDriver extends ObjectSqlDriver<Item>
     if (ItemCategory.ARMOUR.name().equals(itemType)) item=new Armour();
     else if (ItemCategory.WEAPON.name().equals(itemType)) item=new Weapon();
     else item=new Item();
-    item.setPrimaryKey(primaryKey);
 
     int n=2;
     // Lotro ID
@@ -441,23 +439,6 @@ public class ItemsSqlDriver extends ObjectSqlDriver<Item>
         String qualityStr=(quality!=null)?quality.getCode():null;
         n=writeString(_psInsert,n,qualityStr);
         _psInsert.executeUpdate();
-        if (key==null)
-        {
-          if (usesHSQLDB())
-          {
-            Long primaryKey=JDBCTools.getPrimaryKey(connection,1);
-            item.setPrimaryKey(primaryKey);
-          }
-          else
-          {
-            ResultSet rs=_psInsert.getGeneratedKeys();
-            if (rs.next())
-            {
-              long primaryKey=rs.getLong(1);
-              item.setPrimaryKey(Long.valueOf(primaryKey));
-            }
-          }
-        }
         if (item instanceof Armour) createArmor(connection,(Armour)item);
         else if (item instanceof Weapon) createWeapon(connection,(Weapon)item);
         //writeBonuses(connection,item);
