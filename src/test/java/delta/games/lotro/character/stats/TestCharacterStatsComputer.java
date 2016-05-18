@@ -15,9 +15,10 @@ public class TestCharacterStatsComputer
   private void doIt()
   {
     CharacterStatsComputer statsComputer=new CharacterStatsComputer();
+    CharacterGenerationTools tools=new CharacterGenerationTools();
     // Giswald
     {
-      CharacterGenerator generator=new CharacterGenerator();
+      CharacterGeneratorGiswald generator=new CharacterGeneratorGiswald(tools);
       Character c=generator.buildCharacter();
       BasicStatsSet stats=statsComputer.getStats(c);
       c.getStats().setStats(stats);
@@ -27,7 +28,7 @@ public class TestCharacterStatsComputer
     }
     // Meva
     {
-      CharacterGeneratorMeva generator=new CharacterGeneratorMeva();
+      CharacterGeneratorMeva generator=new CharacterGeneratorMeva(tools);
       Character c=generator.buildCharacter();
       BasicStatsSet stats=statsComputer.getStats(c);
       c.getStats().setStats(stats);

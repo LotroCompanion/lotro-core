@@ -6,7 +6,8 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.Character;
-import delta.games.lotro.character.stats.CharacterGenerator;
+import delta.games.lotro.character.stats.CharacterGenerationTools;
+import delta.games.lotro.character.stats.CharacterGeneratorGiswald;
 
 /**
  * Test character persistence in XML.
@@ -19,7 +20,8 @@ public class TestCharacterXMLPersistence extends TestCase
    */
   public void testWriteReadCharacter()
   {
-    CharacterGenerator generator=new CharacterGenerator();
+    CharacterGenerationTools tools=new CharacterGenerationTools();
+    CharacterGeneratorGiswald generator=new CharacterGeneratorGiswald(tools);
     Character c=generator.buildCharacter();
     System.out.println("Original: "+c);
     File tmpFile=new File("giswald.xml");

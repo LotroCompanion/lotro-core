@@ -1,8 +1,5 @@
 package delta.games.lotro.character.stats;
 
-import java.util.HashMap;
-import java.util.List;
-
 import delta.games.lotro.character.Character;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
@@ -18,9 +15,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemCategory;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
-import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.WeaponType;
-import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
@@ -36,16 +31,15 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class CharacterGeneratorMeva
 {
-  private HashMap<Long,Item> _items;
+  private CharacterGenerationTools _tools;
 
-  private void initItems()
+  /**
+   * Constructor.
+   * @param tools Tools.
+   */
+  public CharacterGeneratorMeva(CharacterGenerationTools tools)
   {
-    _items=new HashMap<Long,Item>();
-    List<Item> items=ItemsManager.getInstance().getAllItems();
-    for(Item item : items)
-    {
-      _items.put(Long.valueOf(item.getIdentifier()),item);
-    }
+    _tools=tools;
   }
 
   /**
@@ -54,7 +48,6 @@ public class CharacterGeneratorMeva
    */
   public Character buildCharacter()
   {
-    initItems();
     Character c=new Character();
     c.setName("Meva");
     c.setRace(Race.HOBBIT);
@@ -141,8 +134,8 @@ public class CharacterGeneratorMeva
     // Additional stats
     BasicStatsSet additionalStats=c.getAdditionalStats();
     // Buff
-    //additionalStats.addStat(STAT.MIGHT, new FixedDecimalsInteger(20));
-    //additionalStats.addStat(STAT.HOPE, new FixedDecimalsInteger(1));
+    additionalStats.addStat(STAT.MIGHT, new FixedDecimalsInteger(20));
+    additionalStats.addStat(STAT.HOPE, new FixedDecimalsInteger(1));
     // Red trait tree:
     {
       // Enduring Morale, Rank 2
@@ -157,19 +150,19 @@ public class CharacterGeneratorMeva
   private Item buildHelm()
   {
     // Light Nadhin Hood (level 192)
-    Item ret=getItemById(1879313783);
+    Item ret=_tools.getItemById(1879313783);
     EssencesSet essences=new EssencesSet(4);
-    Essence will=new Essence("Supreme Essence of Will"); // Tier 7
-    will.getStats().setStat(STAT.WILL,139);
-    will.getStats().setStat(STAT.VITALITY,17);
+    Item will=_tools.getEssenceByName(7,"Supreme Essence of Will");
+    //will.getStats().setStat(STAT.WILL,139);
+    //will.getStats().setStat(STAT.VITALITY,17);
     essences.setEssence(0,will);
     essences.setEssence(1,will);
-    Essence vitalityS=new Essence("Supreme Essence of Vitality"); // Tier 7
-    vitalityS.getStats().setStat(STAT.VITALITY,139);
-    vitalityS.getStats().setStat(STAT.FATE,17);
+    Item vitalityS=_tools.getEssenceByName(7,"Supreme Essence of Vitality");
+    //vitalityS.getStats().setStat(STAT.VITALITY,139);
+    //vitalityS.getStats().setStat(STAT.FATE,17);
     essences.setEssence(2,vitalityS);
-    Essence vitalityG=new Essence("Greater Essence of Vitality"); // Tier 7
-    vitalityG.getStats().setStat(STAT.VITALITY,136);
+    Item vitalityG=_tools.getEssenceByName(7,"Greater Essence of Vitality");
+    //vitalityG.getStats().setStat(STAT.VITALITY,136);
     essences.setEssence(3,vitalityG);
     ret.setEssences(essences);
     return ret;
@@ -178,17 +171,17 @@ public class CharacterGeneratorMeva
   private Item buildShoulders()
   {
     // Light Nadhin Shoulders
-    Item ret=getItemById(1879313778);
+    Item ret=_tools.getItemById(1879313778);
     EssencesSet essences=new EssencesSet(4);
-    Essence will=new Essence("Greater Essence of Will"); // Tier 7
-    will.getStats().setStat(STAT.WILL,136);
+    Item will=_tools.getEssenceByName(7,"Greater Essence of Will");
+    //will.getStats().setStat(STAT.WILL,136);
     essences.setEssence(0,will);
     essences.setEssence(1,will);
-    Essence critRating=new Essence("Major Essence of Critical Rating"); // Tier 7
-    critRating.getStats().setStat(STAT.CRITICAL_RATING,1075);
+    Item critRating=_tools.getEssenceByName(7,"Major Essence of Critical Rating");
+    //critRating.getStats().setStat(STAT.CRITICAL_RATING,1075);
     essences.setEssence(2,critRating);
-    Essence tacticalMastery=new Essence("Major Essence of Tactical Mastery"); // Tier 7
-    tacticalMastery.getStats().setStat(STAT.TACTICAL_MASTERY,1075);
+    Item tacticalMastery=_tools.getEssenceByName(7,"Major Essence of Tactical Mastery");
+    //tacticalMastery.getStats().setStat(STAT.TACTICAL_MASTERY,1075);
     essences.setEssence(3,tacticalMastery);
     ret.setEssences(essences);
     return ret;
@@ -197,98 +190,98 @@ public class CharacterGeneratorMeva
   private Item buildBoots()
   {
     // Boots of the Storied Mariner
-    return getItemById(1879313346);
+    return _tools.getItemById(1879313346);
   }
 
   private Item buildPocket()
   {
     // Second Exquisite Minstrel's Token of Helm Hammerhand
-    return getItemById(1879311026);
+    return _tools.getItemById(1879311026);
   }
 
   private Item buildCloak()
   {
     // Greater Resolute Cloak of Tactics
-    return getItemById(1879286095);
+    return _tools.getItemById(1879286095);
   }
 
   private Item buildChest()
   {
     // Jacket of the Storied Mariner
-    return getItemById(1879313353);
+    return _tools.getItemById(1879313353);
   }
 
   private Item buildGloves()
   {
     // Gloves of the Great Shore
-    return getItemById(1879310211);
+    return _tools.getItemById(1879310211);
   }
 
   private Item buildLeggings()
   {
     // Greater Resolute Leggings of Penetration
-    return getItemById(1879286081);
+    return _tools.getItemById(1879286081);
   }
 
   private Item buildShield()
   {
     // Blackroot Vibrant Shield
-    return getItemById(1879313707);
+    return _tools.getItemById(1879313707);
   }
 
   private Item buildRanged()
   {
     // Exquisite Walnut Theorbo of the Battle-singer
-    return getItemById(1879283354);
+    return _tools.getItemById(1879283354);
   }
 
   private Item buildEarring1()
   {
     // Third Exquisite Minstrel's Earring of Helm Hammerhand
-    return getItemById(1879311185);
+    return _tools.getItemById(1879311185);
   }
 
   private Item buildEarring2()
   {
     // First Exquisite Minstrel's Earring of Helm Hammerhand
-    return getItemById(1879311050);
+    return _tools.getItemById(1879311050);
   }
 
   private Item buildNecklace()
   {
     // First Exquisite Minstrel's Necklace of Helm Hammerhand
-    return getItemById(1879311004);
+    return _tools.getItemById(1879311004);
   }
 
   private Item buildBracelet1()
   {
     // Second Exquisite Minstrel's Bracelet of Helm Hammerhand
-    return getItemById(1879311011);
+    return _tools.getItemById(1879311011);
   }
 
   private Item buildBracelet2()
   {
     // Adept Officer's Persevering Bracelet
     // Level 100
-    Item ret=getItemById(1879310845);
+    Item ret=_tools.getItemById(1879310845);
     return ret;
   }
 
   private Item buildRing1()
   {
     // Second Exquisite Minstrel's Ring of Helm Hammerhand
-    return getItemById(1879311024);
+    return _tools.getItemById(1879311024);
   }
 
   private Item buildRing2()
   {
     // 1879318796" name="Advisor's Fateful Ring
-    Item ret=getItemById(1879318796);
+    Item ret=_tools.getItemById(1879318796);
     EssencesSet essences=new EssencesSet(1);
-    Essence supremeMight=new Essence("Supreme Essence of Tactical Mastery"); // Tier 6
-    supremeMight.getStats().setStat(STAT.TACTICAL_MASTERY,1165);
-    supremeMight.getStats().setStat(STAT.POWER,88);
-    essences.setEssence(0,supremeMight);
+    Item tacticalMastery=_tools.getEssenceByName(6,"Supreme Essence of Tactical Mastery");
+    tacticalMastery.getStats().setStat(STAT.TACTICAL_MASTERY,1165);
+    tacticalMastery.getStats().setStat(STAT.POWER,88);
+    essences.setEssence(0,tacticalMastery);
     ret.setEssences(essences);
     return ret;
   }
@@ -446,10 +439,5 @@ public class CharacterGeneratorMeva
     stats.setStat(STAT.COOK_CRIT_CHANCE_PERCENTAGE, 25);
     stats.setStat(STAT.PROSPECTOR_MINING_DURATION, -4);
     return ret;
-  }
-
-  private Item getItemById(long id)
-  {
-    return _items.get(Long.valueOf(id));
   }
 }

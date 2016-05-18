@@ -16,7 +16,6 @@ import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -76,7 +75,7 @@ public class CharacterStatsComputer
       int nbSlots=essences.getSize();
       for(int i=0;i<nbSlots;i++)
       {
-        Essence essence=essences.getEssence(i);
+        Item essence=essences.getEssence(i);
         if (essence!=null)
         {
           BasicStatsSet essenceStats=essence.getStats();

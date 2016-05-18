@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.essences;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Set of essences.
@@ -8,7 +9,7 @@ import delta.common.utils.text.EndOfLine;
  */
 public class EssencesSet
 {
-  private Essence[] _essences;
+  private Item[] _essences;
 
   /**
    * Constructor.
@@ -16,7 +17,7 @@ public class EssencesSet
    */
   public EssencesSet(int size)
   {
-    _essences=new Essence[size];
+    _essences=new Item[size];
   }
 
   /**
@@ -33,7 +34,7 @@ public class EssencesSet
    * @param index Index, starting at 0.
    * @return An essence or <code>null</code> if none set.
    */
-  public Essence getEssence(int index)
+  public Item getEssence(int index)
   {
     return _essences[index];
   }
@@ -43,7 +44,7 @@ public class EssencesSet
    * @param index Index, starting at 0.
    * @param essence Essence to set.
    */
-  public void setEssence(int index, Essence essence)
+  public void setEssence(int index, Item essence)
   {
     _essences[index]=essence;
   }
@@ -54,7 +55,7 @@ public class EssencesSet
     StringBuilder sb=new StringBuilder();
     for(int i=0;i<_essences.length;i++)
     {
-      Essence essence=getEssence(i);
+      Item essence=getEssence(i);
       if (essence!=null)
       {
         sb.append(essence);

@@ -20,7 +20,6 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
-import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
@@ -34,8 +33,19 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  * Character generator for tests.
  * @author DAM
  */
-public class CharacterGenerator
+public class CharacterGeneratorGiswald
 {
+  private CharacterGenerationTools _tools;
+
+  /**
+   * Constructor.
+   * @param tools Tools.
+   */
+  public CharacterGeneratorGiswald(CharacterGenerationTools tools)
+  {
+    _tools=tools;
+  }
+
   /**
    * Build a test character.
    * @return a character.
@@ -151,15 +161,15 @@ public class CharacterGenerator
     BasicStatsSet stats=ret.getStats();
     stats.setStat(STAT.MIGHT,119);
     EssencesSet essences=new EssencesSet(4);
-    Essence might=new Essence("Major Essence of Might");
-    might.getStats().setStat(STAT.MIGHT,119);
+    Item might=_tools.getEssenceByName(7,"Major Essence of Might");
+    //might.getStats().setStat(STAT.MIGHT,119);
     essences.setEssence(0,might);
     essences.setEssence(1,might);
-    Essence critDef=new Essence("Major Essence of Critical Defence");
-    critDef.getStats().setStat(STAT.CRITICAL_DEFENCE,2702);
+    Item critDef=_tools.getEssenceByName(7,"Major Essence of Critical Defence");
+    //critDef.getStats().setStat(STAT.CRITICAL_DEFENCE,2702);
     essences.setEssence(2,critDef);
-    Essence physicalMitigation=new Essence("Major Essence of Physical Mitigation");
-    physicalMitigation.getStats().setStat(STAT.PHYSICAL_MITIGATION,2420);
+    Item physicalMitigation=_tools.getEssenceByName(7,"Major Essence of Physical Mitigation");
+    //physicalMitigation.getStats().setStat(STAT.PHYSICAL_MITIGATION,2420);
     essences.setEssence(3,physicalMitigation);
     ret.setEssences(essences);
     return ret;
@@ -178,8 +188,8 @@ public class CharacterGenerator
     BasicStatsSet stats=ret.getStats();
     stats.setStat(STAT.MIGHT,119);
     EssencesSet essences=new EssencesSet(4);
-    Essence morale=new Essence("Major Essence of Morale");
-    morale.getStats().setStat(STAT.MORALE,765);
+    Item morale=_tools.getEssenceByName(7,"Major Essence of Morale");
+    //morale.getStats().setStat(STAT.MORALE,765);
     essences.setEssence(0,morale);
     essences.setEssence(1,morale);
     essences.setEssence(2,morale);
@@ -201,14 +211,14 @@ public class CharacterGenerator
     BasicStatsSet stats=ret.getStats();
     stats.setStat(STAT.MIGHT,119);
     EssencesSet essences=new EssencesSet(4);
-    Essence morale=new Essence("Greater Essence of Morale");
-    morale.getStats().setStat(STAT.MORALE,875);
+    Item morale=_tools.getEssenceByName(7,"Greater Essence of Morale");
+    //morale.getStats().setStat(STAT.MORALE,875);
     essences.setEssence(0,morale);
     essences.setEssence(1,morale);
     essences.setEssence(2,morale);
-    Essence supremeMorale=new Essence("Supreme Essence of Morale");
-    supremeMorale.getStats().setStat(STAT.MORALE,891);
-    supremeMorale.getStats().setStat(STAT.POWER,96);
+    Item supremeMorale=_tools.getEssenceByName(7,"Supreme Essence of Morale");
+    //supremeMorale.getStats().setStat(STAT.MORALE,891);
+    //supremeMorale.getStats().setStat(STAT.POWER,96);
     essences.setEssence(3,supremeMorale);
     ret.setEssences(essences);
     return ret;
@@ -444,9 +454,9 @@ public class CharacterGenerator
     stats.setStat(STAT.FATE,171);
     stats.setStat(STAT.FINESSE,2343);
     EssencesSet essences=new EssencesSet(1);
-    Essence supremeMight=new Essence("Supreme Essence of Might");
-    supremeMight.getStats().setStat(STAT.MIGHT,139);
-    supremeMight.getStats().setStat(STAT.VITALITY,17);
+    Item supremeMight=_tools.getEssenceByName(7,"Supreme Essence of Might");
+    //supremeMight.getStats().setStat(STAT.MIGHT,139);
+    //supremeMight.getStats().setStat(STAT.VITALITY,17);
     essences.setEssence(0,supremeMight);
     ret.setEssences(essences);
     return ret;
@@ -465,9 +475,9 @@ public class CharacterGenerator
     stats.setStat(STAT.VITALITY,256);
     stats.setStat(STAT.TACTICAL_MITIGATION,1037);
     EssencesSet essences=new EssencesSet(1);
-    Essence supremeMight=new Essence("Supreme Essence of Might");
-    supremeMight.getStats().setStat(STAT.MIGHT,139);
-    supremeMight.getStats().setStat(STAT.VITALITY,17);
+    Item supremeMight=_tools.getEssenceByName(7,"Supreme Essence of Might");
+    //supremeMight.getStats().setStat(STAT.MIGHT,139);
+    //supremeMight.getStats().setStat(STAT.VITALITY,17);
     essences.setEssence(0,supremeMight);
     ret.setEssences(essences);
     return ret;
