@@ -44,6 +44,14 @@ public class BasicStatsSet
   }
 
   /**
+   * Remove all stats.
+   */
+  public void clear()
+  {
+    _stats.clear();
+  }
+
+  /**
    * Set stat value.
    * @param stat Stat to set.
    * @param value Value to set.
