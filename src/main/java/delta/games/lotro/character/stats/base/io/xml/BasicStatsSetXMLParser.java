@@ -28,7 +28,7 @@ public class BasicStatsSetXMLParser
     {
       String statName=DOMParsingTools.getStringAttribute(statTag.getAttributes(),BasicStatsSetXMLConstants.STAT_NAME_ATTR,"");
       String statValue=DOMParsingTools.getStringAttribute(statTag.getAttributes(),BasicStatsSetXMLConstants.STAT_VALUE_ATTR,"");
-      STAT stat=STAT.valueOf(statName);
+      STAT stat=STAT.getByName(statName);
       FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
       ret.setStat(stat,value);
     }
