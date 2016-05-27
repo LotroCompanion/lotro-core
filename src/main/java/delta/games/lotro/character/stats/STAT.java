@@ -48,39 +48,39 @@ public enum STAT
   /**
    * Critical % (melee).
    */
-  CRITICAL_MELEE_PERCENTAGE("Critical % (melee)"),
+  CRITICAL_MELEE_PERCENTAGE("Critical % (melee)",true),
   /**
    * Critical % (ranged).
    */
-  CRITICAL_RANGED_PERCENTAGE("Critical % (ranged)"),
+  CRITICAL_RANGED_PERCENTAGE("Critical % (ranged)",true),
   /**
    * Critical % (tactical).
    */
-  CRITICAL_TACTICAL_PERCENTAGE("Critical % (tactical)"),
+  CRITICAL_TACTICAL_PERCENTAGE("Critical % (tactical)",true),
   /**
    * Devastate % (melee).
    */
-  DEVASTATE_MELEE_PERCENTAGE("Devastate % (melee)"),
+  DEVASTATE_MELEE_PERCENTAGE("Devastate % (melee)",true),
   /**
    * Critical % (ranged).
    */
-  DEVASTATE_RANGED_PERCENTAGE("Devastate % (ranged)"),
+  DEVASTATE_RANGED_PERCENTAGE("Devastate % (ranged)",true),
   /**
    * Critical % (tactical).
    */
-  DEVASTATE_TACTICAL_PERCENTAGE("Devastate % (tactical)"),
+  DEVASTATE_TACTICAL_PERCENTAGE("Devastate % (tactical)",true),
   /**
    * Cri&Devastate Magnitude % (melee).
    */
-  CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE("Critical & Devastate Magnitude % (melee)"),
+  CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE("Critical & Devastate Magnitude % (melee)",true),
   /**
    * Cri&Devastate Magnitude % (ranged).
    */
-  CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE("Critical & Devastate Magnitude % (ranged)"),
+  CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE("Critical & Devastate Magnitude % (ranged)",true),
   /**
    * Cri&Devastate Magnitude % (tactical).
    */
-  CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE("Critical & Devastate Magnitude % (tactical)"),
+  CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE("Critical & Devastate Magnitude % (tactical)",true),
   /**
    * Finesse.
    */
@@ -88,7 +88,7 @@ public enum STAT
   /**
    * Finesse %.
    */
-  FINESSE_PERCENTAGE("Finesse %"),
+  FINESSE_PERCENTAGE("Finesse %",true),
   /**
    * Physical Mastery.
    */
@@ -96,11 +96,11 @@ public enum STAT
   /**
    * Melee Damage %.
    */
-  MELEE_DAMAGE_PERCENTAGE("Melee Damage %"),
+  MELEE_DAMAGE_PERCENTAGE("Melee Damage %",true),
   /**
    * Ranged Damage %.
    */
-  RANGED_DAMAGE_PERCENTAGE("Ranged Damage %"),
+  RANGED_DAMAGE_PERCENTAGE("Ranged Damage %",true),
   /**
    * Tactical Mastery.
    */
@@ -108,11 +108,11 @@ public enum STAT
   /**
    * Tactical Damage %.
    */
-  TACTICAL_DAMAGE_PERCENTAGE("Tactical Damage %"),
+  TACTICAL_DAMAGE_PERCENTAGE("Tactical Damage %",true),
   /**
    * Outgoing Healing %.
    */
-  OUTGOING_HEALING_PERCENTAGE("Outgoing Healing %"),
+  OUTGOING_HEALING_PERCENTAGE("Outgoing Healing %",true),
   // Defence
   /**
    * Resistance.
@@ -121,7 +121,7 @@ public enum STAT
   /**
    * Resistance %.
    */
-  RESISTANCE_PERCENTAGE("Resistance %"),
+  RESISTANCE_PERCENTAGE("Resistance %",true),
   /**
    * Critical Defence.
    */
@@ -129,15 +129,15 @@ public enum STAT
   /**
    * Critical Defence % (melee).
    */
-  MELEE_CRITICAL_DEFENCE("Melee Critical Defence %"),
+  MELEE_CRITICAL_DEFENCE("Melee Critical Defence %",true),
   /**
    * Critical Defence % (ranged).
    */
-  RANGED_CRITICAL_DEFENCE("Ranged Critical Defence %"),
+  RANGED_CRITICAL_DEFENCE("Ranged Critical Defence %",true),
   /**
    * Critical Defence % (tactical).
    */
-  TACTICAL_CRITICAL_DEFENCE("Tactical Critical Defence %"),
+  TACTICAL_CRITICAL_DEFENCE("Tactical Critical Defence %",true),
   /**
    * Incoming Healing.
    */
@@ -145,7 +145,7 @@ public enum STAT
   /**
    * Incoming Healing percentage.
    */
-  INCOMING_HEALING_PERCENTAGE("Incoming Healing %"),
+  INCOMING_HEALING_PERCENTAGE("Incoming Healing %",true),
   // Avoidance
   /**
    * Block.
@@ -154,15 +154,15 @@ public enum STAT
   /**
    * Block (percentage).
    */
-  BLOCK_PERCENTAGE("Block %"),
+  BLOCK_PERCENTAGE("Block %",true),
   /**
    * Partial Block (percentage).
    */
-  PARTIAL_BLOCK_PERCENTAGE("Partial Block %"),
+  PARTIAL_BLOCK_PERCENTAGE("Partial Block %",true),
   /**
    * Partial Block Mitigation (percentage).
    */
-  PARTIAL_BLOCK_MITIGATION_PERCENTAGE("Partial Block Mitigation %"),
+  PARTIAL_BLOCK_MITIGATION_PERCENTAGE("Partial Block Mitigation %",true),
   /**
    * Parry.
    */
@@ -170,15 +170,15 @@ public enum STAT
   /**
    * Parry (percentage).
    */
-  PARRY_PERCENTAGE("Parry %"),
+  PARRY_PERCENTAGE("Parry %",true),
   /**
    * Partial Parry (percentage).
    */
-  PARTIAL_PARRY_PERCENTAGE("Partial Parry %"),
+  PARTIAL_PARRY_PERCENTAGE("Partial Parry %",true),
   /**
    * Partial Parry Mitigation (percentage).
    */
-  PARTIAL_PARRY_MITIGATION_PERCENTAGE("Partial Parry Mitigation %"),
+  PARTIAL_PARRY_MITIGATION_PERCENTAGE("Partial Parry Mitigation %",true),
   /**
    * Evade.
    */
@@ -186,15 +186,15 @@ public enum STAT
   /**
    * Evade (percentage).
    */
-  EVADE_PERCENTAGE("Evade %"),
+  EVADE_PERCENTAGE("Evade %",true),
   /**
    * Partial Evade (percentage).
    */
-  PARTIAL_EVADE_PERCENTAGE("Partial Evade %"),
+  PARTIAL_EVADE_PERCENTAGE("Partial Evade %",true),
   /**
    * Partial Evade Mitigation (percentage).
    */
-  PARTIAL_EVADE_MITIGATION_PERCENTAGE("Partial Evade Mitigation %"),
+  PARTIAL_EVADE_MITIGATION_PERCENTAGE("Partial Evade Mitigation %",true),
   // Mitigations
   // Damage Source: Melee, Ranged, Tactical
   // Damage Type: Physical Mitigation, Tactical Mitigation
@@ -205,7 +205,7 @@ public enum STAT
   /**
    * Physical mitigation percentage.
    */
-  PHYSICAL_MITIGATION_PERCENTAGE("Physical Mitigation %"),
+  PHYSICAL_MITIGATION_PERCENTAGE("Physical Mitigation %",true),
   /**
    * Orc-craft and Fell-wrought mitigation.
    */
@@ -213,7 +213,7 @@ public enum STAT
   /**
    * Orc-craft and Fell-wrought mitigation percentage.
    */
-  OCFW_MITIGATION_PERCENTAGE("Orc-craft/Fell-wrought Mitigation %"),
+  OCFW_MITIGATION_PERCENTAGE("Orc-craft/Fell-wrought Mitigation %",true),
   /**
    * Tactical mitigation.
    */
@@ -221,27 +221,27 @@ public enum STAT
   /**
    * Tactical mitigation percentage.
    */
-  TACTICAL_MITIGATION_PERCENTAGE("Tactical Mitigation %"),
+  TACTICAL_MITIGATION_PERCENTAGE("Tactical Mitigation %",true),
   /**
    * Fire mitigation percentage.
    */
-  FIRE_MITIGATION_PERCENTAGE("Fire Mitigation %"),
+  FIRE_MITIGATION_PERCENTAGE("Fire Mitigation %",true),
   /**
    * Lightning mitigation percentage.
    */
-  LIGHTNING_MITIGATION_PERCENTAGE("Lightning Mitigation %"),
+  LIGHTNING_MITIGATION_PERCENTAGE("Lightning Mitigation %",true),
   /**
    * Frost mitigation percentage.
    */
-  FROST_MITIGATION_PERCENTAGE("Frost Mitigation %"),
+  FROST_MITIGATION_PERCENTAGE("Frost Mitigation %",true),
   /**
    * Acid mitigation percentage.
    */
-  ACID_MITIGATION_PERCENTAGE("Acid Mitigation %"),
+  ACID_MITIGATION_PERCENTAGE("Acid Mitigation %",true),
   /**
    * Shadow mitigation percentage.
    */
-  SHADOW_MITIGATION_PERCENTAGE("Shadow Mitigation %"),
+  SHADOW_MITIGATION_PERCENTAGE("Shadow Mitigation %",true),
   /**
    * In-Combat Morale Regeneration.
    */
@@ -281,67 +281,67 @@ public enum STAT
   /**
    * Devastate magnitude (percentage).
    */
-  DEVASTATE_MAGNITUDE_PERCENTAGE("Devastate Magnitude %"),
+  DEVASTATE_MAGNITUDE_PERCENTAGE("Devastate Magnitude %",true),
   /**
    * Tactical critical multiplier (percentage).
    */
-  TACTICAL_CRITICAL_MULTIPLIER("Tactical Critical Multiplier %"),
+  TACTICAL_CRITICAL_MULTIPLIER("Tactical Critical Multiplier %",true),
   /**
    * Blade line AOE power cost (percentage).
    */
-  BLADE_LINE_AOE_POWER_COST_PERCENTAGE("Blade Line AOE Power Cost %"),
+  BLADE_LINE_AOE_POWER_COST_PERCENTAGE("Blade Line AOE Power Cost %",true),
   /**
    * Strike skills power cost (percentage).
    */
-  STRIKE_SKILLS_POWER_COST_PERCENTAGE("Strike Skills Power Cost %"),
+  STRIKE_SKILLS_POWER_COST_PERCENTAGE("Strike Skills Power Cost %",true),
   /**
    * Blade line AOE skills power cost (percentage).
    */
-  BLADE_AOE_SKILLS_POWER_COST_PERCENTAGE("Blade Line AOE Skills Power Cost %"),
+  BLADE_AOE_SKILLS_POWER_COST_PERCENTAGE("Blade Line AOE Skills Power Cost %",true),
   /**
    * Tricks power cost (percentage).
    */
-  TRICKS_POWER_COST_PERCENTAGE("Tricks Power Cost %"),
+  TRICKS_POWER_COST_PERCENTAGE("Tricks Power Cost %",true),
   /**
    * Sign of the wild skills power cost (percentage).
    */
-  SIGN_OF_THE_WILD_POWER_COST_PERCENTAGE("Sign of the Wild Skills Power Cost %"),
+  SIGN_OF_THE_WILD_POWER_COST_PERCENTAGE("Sign of the Wild Skills Power Cost %",true),
   /**
    * Ballad and coda damage (percentage).
    */
-  BALLAD_AND_CODA_DAMAGE_PERCENTAGE("Ballad and Coda Damage %"),
+  BALLAD_AND_CODA_DAMAGE_PERCENTAGE("Ballad and Coda Damage %",true),
   /**
    * Attack duration (percentage).
    */
-  ATTACK_DURATION_PERCENTAGE("Attack Duration %"),
+  ATTACK_DURATION_PERCENTAGE("Attack Duration %",true),
   /**
    * Jeweller critical chance (percentage).
    */
-  JEWELLER_CRIT_CHANCE_PERCENTAGE("Jeweller Critical Chance %"),
+  JEWELLER_CRIT_CHANCE_PERCENTAGE("Jeweller Critical Chance %",true),
   /**
    * Cook critical chance (percentage).
    */
-  COOK_CRIT_CHANCE_PERCENTAGE("Cook Critical Chance %"),
+  COOK_CRIT_CHANCE_PERCENTAGE("Cook Critical Chance %",true),
   /**
    * Scholar critical chance (percentage).
    */
-  SCHOLAR_CRIT_CHANCE_PERCENTAGE("Scholar Critical Chance %"),
+  SCHOLAR_CRIT_CHANCE_PERCENTAGE("Scholar Critical Chance %",true),
   /**
    * Tailor critical chance (percentage).
    */
-  TAILOR_CRIT_CHANCE_PERCENTAGE("Tailor Critical Chance %"),
+  TAILOR_CRIT_CHANCE_PERCENTAGE("Tailor Critical Chance %",true),
   /**
    * Metalsmith critical chance (percentage).
    */
-  METALSMITH_CRIT_CHANCE_PERCENTAGE("Metalsmith Critical Chance %"),
+  METALSMITH_CRIT_CHANCE_PERCENTAGE("Metalsmith Critical Chance %",true),
   /**
    * Weaponsmith critical chance (percentage).
    */
-  WEAPONSMITH_CRIT_CHANCE_PERCENTAGE("Weaponsmith Critical Chance %"),
+  WEAPONSMITH_CRIT_CHANCE_PERCENTAGE("Weaponsmith Critical Chance %",true),
   /**
    * Woodworker critical chance (percentage).
    */
-  WOODWORKER_CRIT_CHANCE_PERCENTAGE("Woodworker Critical Chance %"),
+  WOODWORKER_CRIT_CHANCE_PERCENTAGE("Woodworker Critical Chance %",true),
   /**
    * Prospector mining duration (seconds).
    */
@@ -357,14 +357,15 @@ public enum STAT
   /**
    * Perceived threat (percentage).
    */
-  PERCEIVED_THREAT("Perceived Threat (%)"),
+  PERCEIVED_THREAT("Perceived Threat (%)",true),
   /**
    * All skill induction (%).
    */
-  ALL_SKILL_INDUCTION("All Skill Induction (%)");
+  ALL_SKILL_INDUCTION("All Skill Induction (%)",true);
 
   private String _name;
   private String[] _aliases;
+  private boolean _isPercentage;
 
   private static HashMap<String,STAT> _map=new HashMap<String,STAT>();
 
@@ -377,6 +378,13 @@ public enum STAT
   private STAT(String name, String... aliases)
   {
     _name=name;
+    _aliases=aliases;
+  }
+
+  private STAT(String name, boolean isPercentage, String... aliases)
+  {
+    _name=name;
+    _isPercentage=true;
     _aliases=aliases;
   }
 
@@ -418,6 +426,15 @@ public enum STAT
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Indicates if this is a percentage or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isPercentage()
+  {
+    return _isPercentage;
   }
 
   @Override
