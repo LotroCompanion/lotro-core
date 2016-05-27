@@ -759,6 +759,6 @@ public class Item
   @Override
   public String toString()
   {
-    return _name;
+    return _identifier+": "+_name+" ("+_itemLevel+")";
   }
 }
