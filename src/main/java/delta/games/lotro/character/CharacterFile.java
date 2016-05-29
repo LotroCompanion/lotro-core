@@ -180,11 +180,6 @@ public class CharacterFile
    */
   public Character getLastCharacterInfo()
   {
-    File lastFile=_infosManager.getLastInfoFile();
-    if (lastFile==null)
-    {
-      _infosManager.updateCharacterDescription();
-    }
     Character c=_infosManager.getLastCharacterDescription();
     return c;
   }

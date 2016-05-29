@@ -114,42 +114,6 @@ public class CharacterInfosManager
   }
 
   /**
-   * Update character log.
-   * @return <code>true</code> if it was successfull, <code>false</code> otherwise.
-   */
-  public boolean updateCharacterDescription()
-  {
-    /*
-    String name=_toon.getName();
-    Character c;
-    if (USE_DATA_LOTRO)
-    {
-      String world=_toon.getServerName();
-      String url="http://data.lotro.com/valamar/a8ca0c5de7c466ecdd8e7f2df1d610ea/charactersheet/w/"+world+"/c/"+name+"/";
-      DataLotroCharacterPageParser parser=new DataLotroCharacterPageParser();
-      c=parser.parseMainPage(name,url);
-    }
-    else
-    {
-      String url=_toon.getBaseMyLotroURL();
-      CharacterPageParser parser=new CharacterPageParser();
-      c=parser.parseMainPage(name,url);
-    }
-    boolean ret=false;
-    if (c!=null)
-    {
-      ret=writeNewInfo(c);
-    }
-    if (!ret)
-    {
-      _logger.error("Update failed for toon ["+name+"]!");
-    }
-    return ret;
-    */
-    return false;
-  }
-
-  /**
    * Write a new info file for this toon.
    * @param info Character info to write.
    * @return <code>true</code> it it succeeds, <code>false</code> otherwise.
