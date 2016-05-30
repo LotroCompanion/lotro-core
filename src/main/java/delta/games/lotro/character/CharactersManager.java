@@ -127,49 +127,40 @@ public class CharactersManager
 
   /**
    * Add a new toon.
-   * @param serverName Server name.
-   * @param toonName Toon name.
+   * @param info Character description.
    * @return A character file or <code>null</code> if an error occurs.
    */
-  public CharacterFile addToon(String serverName, String toonName)
+  public Character addToon(Character info)
   {
+    String serverName=info.getServer();
     ServerCharactersManager server=_servers.get(serverName);
     if (server==null)
     {
       server=new ServerCharactersManager(serverName);
     }
     // Create character file
+    String toonName=info.getName();
     CharacterFile toon=server.addToon(toonName);
+    Character ret=null;
     if (toon!=null)
     {
-      // Update character info...
-      Character c=toon.getLastCharacterInfo();
-      if (c!=null)
+      toon.getInfosManager().writeNewInfo(info);
+      // Register toon...
+      ServerCharactersManager tmp=_servers.get(serverName);
+      if (tmp==null)
       {
-        // Register toon...
-        ServerCharactersManager tmp=_servers.get(serverName);
-        if (tmp==null)
-        {
-          _servers.put(serverName,server);
-        }
+        _servers.put(serverName,server);
       }
-      else
-      {
-        // Cannot grab toon info... cancel creation!
-        toon=null;
-      }
-    }
-    if (toon!=null)
-    {
       // Broadcast toon creation event...
       _listeners.firePropertyChange(TOON_ADDED,false,true);
+      ret=toon.getLastCharacterInfo();
     }
     else
     {
       // Delete newly created toon!
       server.removeToon(toonName);
     }
-    return toon;
+    return ret;
   }
 
   /**
