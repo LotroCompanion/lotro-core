@@ -3,6 +3,7 @@ package delta.games.lotro.character;
 import java.util.HashMap;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 
 /**
@@ -22,89 +23,91 @@ public class CharacterEquipment
     /**
      * Left ear.
      */
-    LEFT_EAR(14),
+    LEFT_EAR(14,EquipmentLocation.EAR),
     /**
      * Right ear.
      */
-    RIGHT_EAR(15),
+    RIGHT_EAR(15,EquipmentLocation.EAR),
     /**
      * Neck.
      */
-    NECK(11),
+    NECK(11,EquipmentLocation.NECK),
     /**
      * Pocket.
      */
-    POCKET(16),
+    POCKET(16,EquipmentLocation.POCKET),
     /**
      * Left wrist.
      */
-    LEFT_WRIST(9),
+    LEFT_WRIST(9,EquipmentLocation.WRIST),
     /**
      * Right wrist.
      */
-    RIGHT_WRIST(10),
+    RIGHT_WRIST(10,EquipmentLocation.WRIST),
     /**
      * Left finger.
      */
-    LEFT_FINGER(12),
+    LEFT_FINGER(12,EquipmentLocation.FINGER),
     /**
      * Right finger.
      */
-    RIGHT_FINGER(13),
+    RIGHT_FINGER(13,EquipmentLocation.FINGER),
     /**
      * Head.
      */
-    HEAD(2),
+    HEAD(2,EquipmentLocation.HEAD),
     /**
      * Shoulder.
      */
-    SHOULDER(7),
+    SHOULDER(7,EquipmentLocation.SHOULDER),
     /**
      * Breast.
      */
-    BREAST(3),
+    BREAST(3,EquipmentLocation.CHEST),
     /**
      * Back.
      */
-    BACK(8),
+    BACK(8,EquipmentLocation.BACK),
     /**
      * Hands.
      */
-    HANDS(5),
+    HANDS(5,EquipmentLocation.HAND),
     /**
      * Legs.
      */
-    LEGS(4),
+    LEGS(4,EquipmentLocation.LEGS),
     /**
      * Feet.
      */
-    FEET(6),
+    FEET(6,EquipmentLocation.FEET),
     /**
      * Main melee object.
      */
-    MAIN_MELEE(17),
+    MAIN_MELEE(17,EquipmentLocation.MAIN_HAND),
     /**
      * Other melee object.
      */
-    OTHER_MELEE(18),
+    OTHER_MELEE(18,EquipmentLocation.OFF_HAND),
     /**
      * Ranged object.
      */
-    RANGED(19),
+    RANGED(19,EquipmentLocation.RANGED_ITEM),
     /**
      * Tool object.
      */
-    TOOL(20),
+    TOOL(20,EquipmentLocation.TOOL),
     /**
      * Class object item.
      */
-    CLASS_ITEM(21);
-    
-    private int _position;
+    CLASS_ITEM(21,EquipmentLocation.CLASS_SLOT);
 
-    private EQUIMENT_SLOT(int position)
+    private int _position;
+    private EquipmentLocation _location;
+
+    private EQUIMENT_SLOT(int position, EquipmentLocation location)
     {
       _position=position;
+      _location=location;
       _positionToSlot.put(Integer.valueOf(position),this);
     }
 
@@ -115,6 +118,15 @@ public class CharacterEquipment
     public int getPosition()
     {
       return _position;
+    }
+
+    /**
+     * Get the associated location.
+     * @return the associated location.
+     */
+    public EquipmentLocation getLocation()
+    {
+      return _location;
     }
   }
 
