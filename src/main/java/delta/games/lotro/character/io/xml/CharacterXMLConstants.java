@@ -53,13 +53,13 @@ public class CharacterXMLConstants
    */
   public static final String SLOT_NAME_ATTR="name";
   /**
+   * Tag 'slot', attribute 'itemId'.
+   */
+  public static final String SLOT_ITEM_ID_ATTR="itemId";
+  /**
    * Tag 'slot', attribute 'objectURL'.
    */
   public static final String SLOT_OBJECT_URL_ATTR="objectURL";
-  /**
-   * Tag 'slot', attribute 'iconURL'.
-   */
-  public static final String SLOT_ICON_URL_ATTR="iconURL";
 
   /**
    * Tag 'virtues'.

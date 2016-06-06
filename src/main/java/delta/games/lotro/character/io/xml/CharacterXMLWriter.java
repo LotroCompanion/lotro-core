@@ -151,15 +151,10 @@ public class CharacterXMLWriter
     {
       AttributesImpl slotAtts=new AttributesImpl();
       slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_NAME_ATTR,CDATA,slot.name());
-      String objectURL=slotContents.getObjectURL();
-      if (objectURL!=null)
+      Integer itemId=slotContents.getItemId();
+      if (itemId!=null)
       {
-        slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_OBJECT_URL_ATTR,CDATA,objectURL);
-      }
-      String iconURL=slotContents.getIconURL();
-      if (iconURL!=null)
-      {
-        slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_ICON_URL_ATTR,CDATA,iconURL);
+        slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_ITEM_ID_ATTR,CDATA,itemId.toString());
       }
       hd.startElement("","",CharacterXMLConstants.SLOT_TAG,slotAtts);
       Item item=slotContents.getItem();

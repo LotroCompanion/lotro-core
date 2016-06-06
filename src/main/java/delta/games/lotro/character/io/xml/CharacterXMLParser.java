@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.Character;
 import delta.games.lotro.character.CharacterEquipment;
@@ -29,6 +30,8 @@ import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
  */
 public class CharacterXMLParser
 {
+  private static final String URL_SEED="http://lorebook.lotro.com/wiki/Special:LotroResource?id=";
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -104,10 +107,17 @@ public class CharacterXMLParser
         {
           // Slots attributes
           String objectURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_OBJECT_URL_ATTR,"");
-          String iconURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_ICON_URL_ATTR,"");
           SlotContents slotContents=equipment.getSlotContents(slot,true);
-          slotContents.setObjectURL(objectURL);
-          slotContents.setIconURL(iconURL);
+          if (objectURL!=null)
+          {
+            Integer itemId=idFromURL(objectURL);
+            slotContents.setItemId(itemId);
+          }
+          int itemId=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.SLOT_ITEM_ID_ATTR,-1);
+          if (itemId!=-1)
+          {
+            slotContents.setItemId(Integer.valueOf(itemId));
+          }
           // Embedded item
           ItemXMLParser itemParser=new ItemXMLParser();
           Element itemTag=DOMParsingTools.getChildTagByName(slotTag,ItemXMLConstants.ITEM_TAG);
@@ -119,6 +129,22 @@ public class CharacterXMLParser
         }
       }
     }
+  }
+
+  /**
+   * Extract item identifier from LOTRO resource URL.
+   * @param url URL to use.
+   * @return An item identifier or <code>null</code> if URL does not fit.
+   */
+  public static Integer idFromURL(String url)
+  {
+    Integer ret=null;
+    if ((url!=null) && (url.startsWith(URL_SEED)))
+    {
+      String idStr=url.substring(URL_SEED.length());
+      ret=NumericTools.parseInteger(idStr,true);
+    }
+    return ret;
   }
 
   private void parseVirtues(Character c, Element virtuesTag)

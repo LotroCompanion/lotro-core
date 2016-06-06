@@ -9,7 +9,6 @@ import java.util.WeakHashMap;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.NumericTools;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
@@ -25,7 +24,6 @@ import delta.games.lotro.utils.LotroLoggers;
 public class ItemsManager
 {
   private static final Logger _logger=LotroLoggers.getLotroLogger();
-  private static final String URL_SEED="http://lorebook.lotro.com/wiki/Special:LotroResource?id=";
 
   private static ItemsManager _instance=new ItemsManager();
 
@@ -127,22 +125,6 @@ public class ItemsManager
           }
         }
       }
-    }
-    return ret;
-  }
-
-  /**
-   * Extract item identifier from LOTRO resource URL.
-   * @param url URL to use.
-   * @return An item identifier or <code>null</code> if URL does not fit.
-   */
-  public Integer idFromURL(String url)
-  {
-    Integer ret=null;
-    if ((url!=null) && (url.startsWith(URL_SEED)))
-    {
-      String idStr=url.substring(URL_SEED.length());
-      ret=NumericTools.parseInteger(idStr,true);
     }
     return ret;
   }

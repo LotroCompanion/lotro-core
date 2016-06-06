@@ -137,21 +137,17 @@ public class CharacterEquipment
   public static class SlotContents
   {
     private EQUIMENT_SLOT _slot;
-    private String _objectPageURL;
-    private String _objectIconURL;
+    private Integer _itemId;
     private Item _item;
 
     /**
      * Constructor.
      * @param slot Targeted equipment slot.
-     * @param objectURL URL of the object in this slot.
-     * @param iconURL URL of the icon of object in this slot.
      */
-    public SlotContents(EQUIMENT_SLOT slot, String objectURL, String iconURL)
+    public SlotContents(EQUIMENT_SLOT slot)
     {
       _slot=slot;
-      _objectPageURL=objectURL;
-      _objectIconURL=iconURL;
+      _itemId=null;
       _item=null;
     }
 
@@ -164,40 +160,14 @@ public class CharacterEquipment
       return _slot;
     }
 
-    /**
-     * Set the URL of the object in this slot.
-     * @param objectPageURL URL to set.
-     */
-    public void setObjectURL(String objectPageURL)
+    public Integer getItemId()
     {
-      _objectPageURL=objectPageURL;
+      return _itemId;
     }
 
-    /**
-     * Set the URL of the icon of the object in this slot.
-     * @param objectIconURL URL to set.
-     */
-    public void setIconURL(String objectIconURL)
+    public void setItemId(Integer itemId)
     {
-      _objectIconURL=objectIconURL;
-    }
-    
-    /**
-     * Get the URL of the object in this slot.
-     * @return an URL.
-     */
-    public String getObjectURL()
-    {
-      return _objectPageURL;
-    }
-
-    /**
-     * Get the URL of the icon of the object in this slot.
-     * @return an URL.
-     */
-    public String getIconURL()
-    {
-      return _objectIconURL;
+      _itemId=itemId;
     }
 
     /**
@@ -223,8 +193,7 @@ public class CharacterEquipment
     {
       StringBuilder sb=new StringBuilder();
       sb.append("Slot ").append(_slot).append(": ");
-      sb.append("object=[").append(_objectPageURL).append("], ");
-      sb.append("icon=[").append(_objectIconURL).append(']');
+      sb.append("itemId=[").append(_itemId).append(']');
       if (_item!=null)
       {
         sb.append(", item=[").append(_item).append(']');
@@ -261,7 +230,7 @@ public class CharacterEquipment
       contents=_contents.get(Integer.valueOf(index));
       if ((contents==null) && (createIfNeeded))
       {
-        contents=new SlotContents(slot,null,null);
+        contents=new SlotContents(slot);
         _contents.put(Integer.valueOf(index),contents);
       }
     }
