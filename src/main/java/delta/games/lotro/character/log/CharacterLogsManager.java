@@ -129,64 +129,6 @@ public class CharacterLogsManager
   }
 
   /**
-   * Update character log.
-   * @return An integer value that indicates the number of new items, or <code>null</code> if it failed.
-   */
-  public Integer updateLog()
-  {
-    /*
-    Integer ret=null;
-    File lastLog=getLastLogFile();
-    String url=_toon.getBaseMyLotroURL();
-    CharacterLog log;
-    int nbItemsLastLog=0;
-    boolean updateOK;
-    boolean creation=false;
-    if (lastLog!=null)
-    {
-      CharacterLogXMLParser xmlLogParser=new CharacterLogXMLParser();
-      log=xmlLogParser.parseXML(lastLog);
-      nbItemsLastLog=log.getNbItems();
-      updateOK=updateCharacterLog(log,url);
-    }
-    else
-    {
-      creation=true;
-      CharacterLogPageParser parser=new CharacterLogPageParser();
-      log=parser.parseLogPages(url,null);
-      updateOK=(log!=null);
-    }
-    boolean result=updateOK;
-    if (updateOK)
-    {
-      int nbItems=log.getNbItems();
-      if ((creation) || (nbItems!=nbItemsLastLog))
-      {
-        result=writeNewLog(log);
-        int nbNewItems=nbItems-nbItemsLastLog;
-        ret=Integer.valueOf(nbNewItems);
-        //System.out.println("Added "+nbNewItems+" log item(s)!");
-      }
-      else
-      {
-        ret=Integer.valueOf(0);
-      }
-    }
-    if (result)
-    {
-      pruneLogFiles();
-    }
-    else
-    {
-      String name=_toon.getName();
-      _logger.error("Log update failed for toon ["+name+"]!");
-    }
-    return ret;
-    */
-    return null;
-  }
-
-  /**
    * Write a new log file for this toon.
    * @param log Log to write.
    * @return <code>true</code> it it succeeds, <code>false</code> otherwise.
