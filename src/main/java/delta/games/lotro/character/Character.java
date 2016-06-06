@@ -47,7 +47,7 @@ public class Character
   {
     return _date;
   }
-  
+
   /**
    * Set the date for this character data.
    * @param date Date to set.
@@ -215,6 +215,8 @@ public class Character
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
+    // TODO add date
+    // TODO add additional stats
     sb.append("Name [").append(_name).append("], ");
     sb.append("Server [").append(_server).append("], ");
     sb.append("Race [").append(_race).append("], ");

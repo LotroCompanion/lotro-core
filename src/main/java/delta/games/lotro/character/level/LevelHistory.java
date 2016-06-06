@@ -15,7 +15,7 @@ public class LevelHistory
 {
   private String _name;
   private HashMap<Integer,Long> _dates;
-  
+
   /**
    * Constructor.
    * @param name Character name.
@@ -63,7 +63,7 @@ public class LevelHistory
     for(int i=0;i<nb;i++) ret[i]=levels.get(i).intValue();
     return ret;
   }
-  
+
   /**
    * Get an array of dates sorted by level.
    * @return an array of dates.
@@ -107,7 +107,7 @@ public class LevelHistory
     }
     return ret;
   }
-  
+
   @Override
   public String toString()
   {

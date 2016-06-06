@@ -160,11 +160,19 @@ public class CharacterEquipment
       return _slot;
     }
 
+    /**
+     * Get the identifier of the item in this slot.
+     * @return An item identifier or <code>null</code> if none.
+     */
     public Integer getItemId()
     {
       return _itemId;
     }
 
+    /**
+     * Set the identifier of the item in this slot.
+     * @param itemId An item identifier or <code>null</code>.
+     */
     public void setItemId(Integer itemId)
     {
       _itemId=itemId;
