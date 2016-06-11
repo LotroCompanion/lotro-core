@@ -10,13 +10,11 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLParser;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLWriter;
 import delta.games.lotro.utils.Formats;
 import delta.games.lotro.utils.LotroLoggers;
-import delta.games.lotro.utils.TypedProperties;
 
 /**
  * Manages log files for a single toon.
@@ -58,8 +56,7 @@ public class CharacterLogsManager
    */
   public void pruneLogFiles()
   {
-    TypedProperties props=LotroCoreConfig.getInstance().getParameters();
-    int nbMax=props.getIntProperty("character.log.max.files",10);
+    int nbMax=1;
     File[] files=getLogFiles();
     if ((files!=null) && (files.length>nbMax))
     {
@@ -153,54 +150,6 @@ public class CharacterLogsManager
     }
     return ret;
   }
-
-  /*
-  private boolean updateCharacterLog(CharacterLog log, String url)
-  {
-    boolean ret=false;
-    int nbItems=log.getNbItems();
-    Long stopDate=null;
-    if (nbItems>0)
-    {
-      CharacterLogItem item=log.getLogItem(0);
-      long date=item.getDate();
-      stopDate=Long.valueOf(date);
-    }
-    CharacterLogPageParser parser=new CharacterLogPageParser();
-    CharacterLog newLog=parser.parseLogPages(url,stopDate);
-    if (newLog!=null)
-    {
-      int nbToRemove=0;
-      if (stopDate!=null)
-      {
-        List<CharacterLogItem> items=log.getItemsOfDay(stopDate.longValue());
-        nbToRemove=items.size();
-      }
-      
-      // Merge items
-      int nbNewItems=newLog.getNbItems();
-      if (nbNewItems>=nbToRemove)
-      {
-        int nbRemoved=log.removeItemsOfDay(stopDate.longValue());
-        if (_logger.isInfoEnabled())
-        {
-          _logger.info("Removed "+nbRemoved+" item(s)!");
-        }
-        for(int i=nbNewItems-1;i>=0;i--)
-        {
-          CharacterLogItem newItem=newLog.getLogItem(i);
-          log.addLogItem(newItem,0);
-        }
-        if (_logger.isInfoEnabled())
-        {
-          _logger.info("Added "+nbNewItems+" item(s)!");
-        }
-        ret=true;
-      }
-    }
-    return ret;
-  }
-  */
 
   private File getNewLogFile()
   {
