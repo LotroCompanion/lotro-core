@@ -1,6 +1,6 @@
 package delta.games.lotro.character.stats;
 
-import delta.games.lotro.character.Character;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
@@ -46,9 +46,9 @@ public class CharacterGeneratorMeva
    * Build a test character.
    * @return a character.
    */
-  public Character buildCharacter()
+  public CharacterData buildCharacter()
   {
-    Character c=new Character();
+    CharacterData c=new CharacterData();
     c.setName("Meva");
     c.setRace(Race.HOBBIT);
     c.setLevel(100);

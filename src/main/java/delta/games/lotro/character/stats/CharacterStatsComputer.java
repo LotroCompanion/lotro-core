@@ -1,6 +1,6 @@
 package delta.games.lotro.character.stats;
 
-import delta.games.lotro.character.Character;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
@@ -98,7 +98,7 @@ public class CharacterStatsComputer
    * @param c Character to use.
    * @return A set of stats.
    */
-  public BasicStatsSet getStats(Character c)
+  public BasicStatsSet getStats(CharacterData c)
   {
     // Base stats (from character class, race and level)
     BasicStatsSet baseStats=_baseStatsMgr.getBaseStats(c.getCharacterClass(),c.getRace(),c.getLevel());
@@ -135,7 +135,7 @@ public class CharacterStatsComputer
     return raw;
   }
 
-  private BasicStatsSet computeRatings(Character c, BasicStatsSet stats)
+  private BasicStatsSet computeRatings(CharacterData c, BasicStatsSet stats)
   {
     int level=c.getLevel();
     BasicStatsSet ret=new BasicStatsSet();

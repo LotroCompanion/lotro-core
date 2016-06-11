@@ -39,9 +39,9 @@ public class CharacterInfosManager
    * Get the most recent character description.
    * @return A character description or <code>null</code> if not found or error.
    */
-  public Character getLastCharacterDescription()
+  public CharacterData getLastCharacterDescription()
   {
-    Character c=null;
+    CharacterData c=null;
     File lastInfo=getLastInfoFile();
     if (lastInfo!=null)
     {
@@ -55,10 +55,10 @@ public class CharacterInfosManager
    * @param infoFile File to read.
    * @return A character data or <code>null</code> if a problem occurs.
    */
-  public Character getCharacterDescription(File infoFile)
+  public CharacterData getCharacterDescription(File infoFile)
   {
     CharacterXMLParser xmlInfoParser=new CharacterXMLParser();
-    Character c=xmlInfoParser.parseXML(infoFile);
+    CharacterData c=xmlInfoParser.parseXML(infoFile);
     if (c!=null)
     {
       Date date=getDateFromFilename(infoFile.getName());
@@ -118,7 +118,7 @@ public class CharacterInfosManager
    * @param info Character info to write.
    * @return <code>true</code> it it succeeds, <code>false</code> otherwise.
    */
-  public boolean writeNewInfo(Character info)
+  public boolean writeNewInfo(CharacterData info)
   {
     boolean ret=true;
     File logFile=getNewInfoFile();

@@ -3,7 +3,7 @@ package delta.games.lotro.character.stats;
 import java.io.File;
 
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.Character;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.io.xml.CharacterXMLWriter;
 
 /**
@@ -19,7 +19,7 @@ public class TestCharacterStatsComputer
     // Giswald
     {
       CharacterGeneratorGiswald generator=new CharacterGeneratorGiswald(tools);
-      Character c=generator.buildCharacter();
+      CharacterData c=generator.buildCharacter();
       BasicStatsSet stats=statsComputer.getStats(c);
       c.getStats().setStats(stats);
       CharacterXMLWriter w=new CharacterXMLWriter();
@@ -29,7 +29,7 @@ public class TestCharacterStatsComputer
     // Meva
     {
       CharacterGeneratorMeva generator=new CharacterGeneratorMeva(tools);
-      Character c=generator.buildCharacter();
+      CharacterData c=generator.buildCharacter();
       BasicStatsSet stats=statsComputer.getStats(c);
       c.getStats().setStats(stats);
       CharacterXMLWriter w=new CharacterXMLWriter();

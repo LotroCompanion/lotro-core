@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
-import delta.games.lotro.character.Character;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
@@ -47,7 +47,7 @@ public class CharacterXMLWriter
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, Character character, String encoding)
+  public boolean write(File outFile, CharacterData character, String encoding)
   {
     boolean ret;
     FileOutputStream fos=null;
@@ -79,7 +79,7 @@ public class CharacterXMLWriter
     return ret;
   }
   
-  private void write(TransformerHandler hd, Character character) throws Exception
+  private void write(TransformerHandler hd, CharacterData character) throws Exception
   {
     AttributesImpl characterAttrs=new AttributesImpl();
     String name=character.getName();

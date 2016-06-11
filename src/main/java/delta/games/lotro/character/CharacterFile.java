@@ -178,9 +178,9 @@ public class CharacterFile
    * Get latest character info.
    * @return A character description or <code>null</code> if an error occurs.
    */
-  public Character getLastCharacterInfo()
+  public CharacterData getLastCharacterInfo()
   {
-    Character c=_infosManager.getLastCharacterDescription();
+    CharacterData c=_infosManager.getLastCharacterDescription();
     return c;
   }
 

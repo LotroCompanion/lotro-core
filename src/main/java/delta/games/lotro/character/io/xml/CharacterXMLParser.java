@@ -8,7 +8,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.Character;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
@@ -37,9 +37,9 @@ public class CharacterXMLParser
    * @param source Source file.
    * @return Parsed character or <code>null</code>.
    */
-  public Character parseXML(File source)
+  public CharacterData parseXML(File source)
   {
-    Character c=null;
+    CharacterData c=null;
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
@@ -48,9 +48,9 @@ public class CharacterXMLParser
     return c;
   }
 
-  private Character parseCharacter(Element root)
+  private CharacterData parseCharacter(Element root)
   {
-    Character c=new Character();
+    CharacterData c=new CharacterData();
     // Name
     String name=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_NAME_ATTR,"");
     c.setName(name);
@@ -91,7 +91,7 @@ public class CharacterXMLParser
     return c;
   }
 
-  private void parseEquipment(Character c, Element equipmentTag)
+  private void parseEquipment(CharacterData c, Element equipmentTag)
   {
     if (equipmentTag!=null)
     {
@@ -147,7 +147,7 @@ public class CharacterXMLParser
     return ret;
   }
 
-  private void parseVirtues(Character c, Element virtuesTag)
+  private void parseVirtues(CharacterData c, Element virtuesTag)
   {
     if (virtuesTag!=null)
     {
@@ -172,7 +172,7 @@ public class CharacterXMLParser
     }
   }
 
-  private void parseTomes(Character c, Element tomesTag)
+  private void parseTomes(CharacterData c, Element tomesTag)
   {
     if (tomesTag!=null)
     {

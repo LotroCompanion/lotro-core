@@ -1,6 +1,6 @@
 package delta.games.lotro.character.stats;
 
-import delta.games.lotro.character.Character;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
@@ -50,9 +50,9 @@ public class CharacterGeneratorGiswald
    * Build a test character.
    * @return a character.
    */
-  public Character buildCharacter()
+  public CharacterData buildCharacter()
   {
-    Character c=new Character();
+    CharacterData c=new CharacterData();
     c.setName("Giswald");
     c.setRace(Race.MAN);
     c.setLevel(100);

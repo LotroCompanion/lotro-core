@@ -130,7 +130,7 @@ public class CharactersManager
    * @param info Character description.
    * @return A character file or <code>null</code> if an error occurs.
    */
-  public Character addToon(Character info)
+  public CharacterData addToon(CharacterData info)
   {
     String serverName=info.getServer();
     ServerCharactersManager server=_servers.get(serverName);
@@ -141,7 +141,7 @@ public class CharactersManager
     // Create character file
     String toonName=info.getName();
     CharacterFile toon=server.addToon(toonName);
-    Character ret=null;
+    CharacterData ret=null;
     if (toon!=null)
     {
       toon.getInfosManager().writeNewInfo(info);

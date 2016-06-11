@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.NumericTools;
-import delta.games.lotro.character.Character;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharacterInfosManager;
 import delta.games.lotro.character.log.CharacterLog;
@@ -44,7 +44,7 @@ public class LevelHistoryComputer
     {
       for(File infoFile : infoFiles)
       {
-        Character c=infosMgr.getCharacterDescription(infoFile);
+        CharacterData c=infosMgr.getCharacterDescription(infoFile);
         if (c!=null)
         {
           Long date=c.getDate();

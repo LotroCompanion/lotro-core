@@ -5,7 +5,7 @@ import java.io.File;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.Character;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.CharacterGenerationTools;
 import delta.games.lotro.character.stats.CharacterGeneratorGiswald;
 
@@ -22,19 +22,19 @@ public class TestCharacterXMLPersistence extends TestCase
   {
     CharacterGenerationTools tools=new CharacterGenerationTools();
     CharacterGeneratorGiswald generator=new CharacterGeneratorGiswald(tools);
-    Character c=generator.buildCharacter();
+    CharacterData c=generator.buildCharacter();
     System.out.println("Original: "+c);
     File tmpFile=new File("giswald.xml");
     tmpFile.deleteOnExit();
     CharacterXMLWriter writer=new CharacterXMLWriter();
     writer.write(tmpFile,c,EncodingNames.UTF_8);
     CharacterXMLParser parser=new CharacterXMLParser();
-    Character newCharacter=parser.parseXML(tmpFile);
+    CharacterData newCharacter=parser.parseXML(tmpFile);
     System.out.println("Reloaded: "+newCharacter);
     compareCharacters(c,newCharacter);
   }
 
-  private void compareCharacters(Character c1, Character c2)
+  private void compareCharacters(CharacterData c1, CharacterData c2)
   {
     Assert.assertEquals(c1.getName(),c2.getName());
   }
