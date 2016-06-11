@@ -11,7 +11,7 @@ import delta.games.lotro.common.Race;
  * Storage class for a LOTRO character definition.
  * @author DAM
  */
-public class Character
+public class CharacterData
 {
   private Long _date;
   private String _name;
@@ -29,7 +29,7 @@ public class Character
   /**
    * Constructor.
    */
-  public Character()
+  public CharacterData()
   {
     _date=null;
     _stats=new BasicStatsSet();
