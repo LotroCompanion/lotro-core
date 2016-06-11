@@ -310,7 +310,7 @@ public class ItemXMLWriter
     }
     // Stats
     BasicStatsSet stats=item.getStats();
-    BasicStatsSetXMLWriter.write(hd,stats);
+    BasicStatsSetXMLWriter.write(hd,ItemXMLConstants.STATS_TAG,stats);
     hd.endElement("","",ItemXMLConstants.ITEM_TAG);
   }
 }

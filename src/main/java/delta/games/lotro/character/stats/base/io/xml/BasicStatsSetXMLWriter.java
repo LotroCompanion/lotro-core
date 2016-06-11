@@ -19,14 +19,15 @@ public class BasicStatsSetXMLWriter
   /**
    * Write an set of stats to the given XML stream.
    * @param hd XML output stream.
+   * @param tagName Tag to use to wrap stat tags.
    * @param statsSet Stats to write.
    * @throws Exception
    */
-  public static void write(TransformerHandler hd, BasicStatsSet statsSet) throws Exception
+  public static void write(TransformerHandler hd, String tagName, BasicStatsSet statsSet) throws Exception
   {
     if (statsSet!=null)
     {
-      hd.startElement("","",BasicStatsSetXMLConstants.STATS_TAG,new AttributesImpl());
+      hd.startElement("","",tagName,new AttributesImpl());
       for(STAT stat : STAT.values())
       {
         AttributesImpl statAttrs=new AttributesImpl();
@@ -41,7 +42,7 @@ public class BasicStatsSetXMLWriter
           hd.endElement("","",BasicStatsSetXMLConstants.STAT_TAG);
         }
       }
-      hd.endElement("","",BasicStatsSetXMLConstants.STATS_TAG);
+      hd.endElement("","",tagName);
     }
   }
 }

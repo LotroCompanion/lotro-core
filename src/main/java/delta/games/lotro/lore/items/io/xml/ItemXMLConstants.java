@@ -121,6 +121,11 @@ public class ItemXMLConstants
   public static final String WEAPON_TYPE_ATTR="weaponType";
 
   /**
+   * Tag 'stats'.
+   */
+  public static final String STATS_TAG="stats";
+
+  /**
    * Tag 'bonus'.
    */
   public static final String BONUS_TAG="bonus";

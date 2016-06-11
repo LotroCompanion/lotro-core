@@ -12,6 +12,18 @@ public class CharacterXMLConstants
    */
   public static final String CHARACTER_TAG="character";
   /**
+   * Tag 'character', attribute 'date'.
+   */
+  public static final String CHARACTER_DATE_ATTR="date";
+  /**
+   * Tag 'character', attribute 'shortDescription'.
+   */
+  public static final String CHARACTER_SHORT_DESCRIPTION_ATTR="shortDescription";
+  /**
+   * Tag 'character', attribute 'description'.
+   */
+  public static final String CHARACTER_DESCRIPTION_ATTR="description";
+  /**
    * Tag 'character', attribute 'name'.
    */
   public static final String CHARACTER_NAME_ATTR="name";
@@ -98,4 +110,8 @@ public class CharacterXMLConstants
    * Tag 'tome', attribute 'rank'.
    */
   public static final String TOME_RANK="rank";
+  /**
+   * Tag 'additionalStats'.
+   */
+  public static final String ADDITIONAL_STATS_TAG="additionalStats";
 }

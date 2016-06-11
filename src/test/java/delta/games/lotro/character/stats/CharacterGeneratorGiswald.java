@@ -54,8 +54,12 @@ public class CharacterGeneratorGiswald
   {
     CharacterData c=new CharacterData();
     c.setName("Giswald");
+    c.setServer("Elendilmir");
     c.setRace(Race.MAN);
+    c.setRegion("Gondor");
     c.setLevel(100);
+    c.setShortDescription("Test for stats computation");
+    c.setDescription("This toon was generated from code, and stats were computed automatically.");
     c.setCharacterClass(CharacterClass.CHAMPION);
     // Virtues
     VirtuesSet virtues=c.getVirtues();

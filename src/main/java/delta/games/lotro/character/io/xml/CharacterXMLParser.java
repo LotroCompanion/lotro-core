@@ -71,6 +71,15 @@ public class CharacterXMLParser
     // Level
     int level=DOMParsingTools.getIntAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_LEVEL_ATTR,0);
     c.setLevel(level);
+    // Short description
+    String shortDescription=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,"");
+    c.setShortDescription(shortDescription);
+    // Description
+    String description=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_DESCRIPTION_ATTR,"");
+    c.setDescription(description);
+    // Date
+    long date=DOMParsingTools.getLongAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_DATE_ATTR,0);
+    c.setDate((date==0)?null:Long.valueOf(date));
 
     // Stats
     Element statsTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.STATS_TAG);
@@ -88,6 +97,13 @@ public class CharacterXMLParser
     // Tomes
     Element tomesTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.TOMES_TAG);
     parseTomes(c,tomesTag);
+    // Additional stats
+    Element additionalStatsTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.ADDITIONAL_STATS_TAG);
+    if (additionalStatsTag!=null)
+    {
+      BasicStatsSet additionalStats=BasicStatsSetXMLParser.parseStats(additionalStatsTag);
+      c.getAdditionalStats().setStats(additionalStats);
+    }
     return c;
   }
 

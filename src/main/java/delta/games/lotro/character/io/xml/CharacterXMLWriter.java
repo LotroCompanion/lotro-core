@@ -82,40 +82,64 @@ public class CharacterXMLWriter
   private void write(TransformerHandler hd, CharacterData character) throws Exception
   {
     AttributesImpl characterAttrs=new AttributesImpl();
+    // Name
     String name=character.getName();
-    if (name!=null)
+    if ((name!=null) && (name.length()>0))
     {
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_NAME_ATTR,CDATA,name);
     }
+    // Server
     String server=character.getServer();
-    if (server!=null)
+    if ((server!=null) && (server.length()>0))
     {
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SERVER_ATTR,CDATA,server);
     }
+    // Character class
     CharacterClass characterClass=character.getCharacterClass();
     if (characterClass!=null)
     {
       String cClass=characterClass.getKey();
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_CLASS_ATTR,CDATA,cClass);
     }
+    // Race
     Race race=character.getRace();
     if (race!=null)
     {
       String cRace=race.getLabel();
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_RACE_ATTR,CDATA,cRace);
     }
+    // Region
     String region=character.getRegion();
-    if (region!=null)
+    if ((region!=null) && (region.length()>0))
     {
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_REGION_ATTR,CDATA,region);
     }
+    // Level
     int level=character.getLevel();
     characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_LEVEL_ATTR,CDATA,String.valueOf(level));
-    
+    // Short description
+    String shortDescription=character.getShortDescription();
+    if ((shortDescription!=null) && (shortDescription.length()>0))
+    {
+      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,CDATA,shortDescription);
+    }
+    // Description
+    String description=character.getDescription();
+    if ((description!=null) && (description.length()>0))
+    {
+      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_DESCRIPTION_ATTR,CDATA,description);
+    }
+    // Date
+    Long date=character.getDate();
+    if (date!=null)
+    {
+      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_DATE_ATTR,CDATA,date.toString());
+    }
+
     hd.startElement("","",CharacterXMLConstants.CHARACTER_TAG,characterAttrs);
     // Stats
     BasicStatsSet stats=character.getStats();
-    BasicStatsSetXMLWriter.write(hd,stats);
+    BasicStatsSetXMLWriter.write(hd,CharacterXMLConstants.STATS_TAG,stats);
     // Equipment
     CharacterEquipment equipment=character.getEquipment();
     writeEquipment(hd,equipment);
@@ -125,6 +149,9 @@ public class CharacterXMLWriter
     // Tomes
     TomesSet tomes=character.getTomes();
     writeTomes(hd,tomes);
+    // Additional stats
+    BasicStatsSet additionalStats=character.getAdditionalStats();
+    BasicStatsSetXMLWriter.write(hd,CharacterXMLConstants.ADDITIONAL_STATS_TAG,additionalStats);
     hd.endElement("","",CharacterXMLConstants.CHARACTER_TAG);
   }
 

@@ -14,7 +14,9 @@ import delta.games.lotro.common.Race;
 public class CharacterData
 {
   private Long _date;
-  private String _name;
+  private String _shortDescription;
+  private String _description;
+  private String _characterName;
   private String _server;
   private CharacterClass _class;
   private Race _race;
@@ -32,6 +34,14 @@ public class CharacterData
   public CharacterData()
   {
     _date=null;
+    _shortDescription="";
+    _description="";
+    _characterName="";
+    _server="";
+    _class=null;
+    _race=null;
+    _region="";
+    _level=0;
     _stats=new BasicStatsSet();
     _equipment=new CharacterEquipment();
     _virtues=new VirtuesSet();
@@ -58,12 +68,56 @@ public class CharacterData
   }
 
   /**
+   * Get the short description.
+   * @return the short description.
+   */
+  public String getShortDescription()
+  {
+    return _shortDescription;
+  }
+
+  /**
+   * Set the short description.
+   * @param shortDescription the short description to set.
+   */
+  public void setShortDescription(String shortDescription)
+  {
+    if (shortDescription==null)
+    {
+      shortDescription="";
+    }
+    _shortDescription=shortDescription;
+  }
+
+  /**
+   * Get the description.
+   * @return the description.
+   */
+  public String getDescription()
+  {
+    return _description;
+  }
+
+  /**
+   * Set the description.
+   * @param description the description to set.
+   */
+  public void setDescription(String description)
+  {
+    if (description==null)
+    {
+      description="";
+    }
+    _description=description;
+  }
+
+  /**
    * Get the character's name.
    * @return the character's name.
    */
   public String getName()
   {
-    return _name;
+    return _characterName;
   }
 
   /**
@@ -72,7 +126,11 @@ public class CharacterData
    */
   public void setName(String name)
   {
-    _name=name;
+    if (name==null)
+    {
+      name="";
+    }
+    _characterName=name;
   }
 
   /**
@@ -90,6 +148,10 @@ public class CharacterData
    */
   public void setServer(String server)
   {
+    if (server==null)
+    {
+      server="";
+    }
     _server=server;
   }
 
@@ -144,6 +206,10 @@ public class CharacterData
    */
   public void setRegion(String region)
   {
+    if (region==null)
+    {
+      region="";
+    }
     _region=region;
   }
 
@@ -215,19 +281,21 @@ public class CharacterData
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    // TODO add date
-    // TODO add additional stats
-    sb.append("Name [").append(_name).append("], ");
+    sb.append("Name [").append(_characterName).append("], ");
     sb.append("Server [").append(_server).append("], ");
     sb.append("Race [").append(_race).append("], ");
     sb.append("Region [").append(_region).append("], ");
     sb.append("Class [").append(_class).append("], ");
     sb.append("Race [").append(_race).append("], ");
+    sb.append("Date [").append(_date).append("], ");
     sb.append("Level [").append(_level).append("], ");
+    sb.append("Short description: ").append(_shortDescription).append(", ");
+    sb.append("Description: ").append(_description).append(", ");
     sb.append("Stats: ").append(_stats).append(", ");
     sb.append("Equipment:").append(_equipment).append(EndOfLine.NATIVE_EOL);
     sb.append("Virtues:").append(_virtues).append(EndOfLine.NATIVE_EOL);
     sb.append("Tomes:").append(_tomes).append(EndOfLine.NATIVE_EOL);
+    sb.append("Additional stats:").append(_additionalStats).append(EndOfLine.NATIVE_EOL);
     return sb.toString().trim();
   }
 }
