@@ -26,6 +26,7 @@ public class Formats
   public static String FILE_DATE_PATTERN="yyyy-MM-dd HHmm";
 
   private static SimpleDateFormat _dateFormatter=new SimpleDateFormat(DATE_PATTERN);
+  private static SimpleDateFormat _dateTimeFormatter=new SimpleDateFormat(DATE_TIME_PATTERN);
 
   /**
    * Get the dates formatter.
@@ -55,6 +56,22 @@ public class Formats
     }
     return ret;
   }
+
+  /**
+   * Format a date.
+   * @param date Date to format.
+   * @return A string or <code>null</code> if <code>date</code> is <code>null</code>.
+   */
+  public static String getDateTimeString(Date date)
+  {
+    String ret=null;
+    if (date!=null)
+    {
+      ret=_dateTimeFormatter.format(date);
+    }
+    return ret;
+  }
+
   /**
    * Format a date.
    * @param date Date to format.

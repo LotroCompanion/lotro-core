@@ -4,14 +4,19 @@ import java.io.File;
 import java.io.FileFilter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.io.xml.CharacterXMLParser;
 import delta.games.lotro.character.io.xml.CharacterXMLWriter;
+import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.Formats;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -22,9 +27,9 @@ import delta.games.lotro.utils.LotroLoggers;
 public class CharacterInfosManager
 {
   private static final Logger _logger=LotroLoggers.getCharacterLogger();
-  //private static final boolean USE_DATA_LOTRO=true;
 
   private CharacterFile _toon;
+  private List<CharacterData> _datas;
 
   /**
    * Constructor.
@@ -33,6 +38,56 @@ public class CharacterInfosManager
   public CharacterInfosManager(CharacterFile toon)
   {
     _toon=toon;
+    _datas=new ArrayList<CharacterData>();
+  }
+
+  /**
+   * Initialize data.
+   */
+  public void init()
+  {
+    oldDataMigration();
+    loadAll();
+  }
+
+  private void loadAll()
+  {
+    File[] dataFiles=getDataFiles();
+    if (dataFiles!=null)
+    {
+      for(File dataFile : dataFiles)
+      {
+        CharacterData data=getCharacterDescription(dataFile);
+        _datas.add(data);
+      }
+    }
+  }
+
+  private File[] getDataFiles()
+  {
+    File[] files=null;
+    File characterDir=_toon.getRootDir();
+    if (characterDir.exists())
+    {
+      FileFilter filter=new FileFilter()
+      {
+        public boolean accept(File pathname)
+        {
+          String name=pathname.getName();
+          if ((name.startsWith("data-")) && (name.endsWith(".xml")))
+          {
+            return true;
+          }
+          return false;
+        }
+      };
+      files=characterDir.listFiles(filter);
+      if ((files!=null) && (files.length>0))
+      {
+        Arrays.sort(files);
+      }
+    }
+    return files;
   }
 
   /**
@@ -42,10 +97,22 @@ public class CharacterInfosManager
   public CharacterData getLastCharacterDescription()
   {
     CharacterData c=null;
-    File lastInfo=getLastInfoFile();
-    if (lastInfo!=null)
+    Long latestDate=null;
+    for(CharacterData data : _datas)
     {
-      c=getCharacterDescription(lastInfo);
+      Long date=data.getDate();
+      if (date!=null)
+      {
+        if (c==null)
+        {
+          c=data;
+        }
+        if ((latestDate==null) || (latestDate.longValue()<date.longValue()))
+        {
+          latestDate=date;
+          c=data;
+        }
+      }
     }
     return c;
   }
@@ -62,24 +129,12 @@ public class CharacterInfosManager
     if (c!=null)
     {
       Date date=getDateFromFilename(infoFile.getName());
-      c.setDate(Long.valueOf(date.getTime()));
+      if (date!=null)
+      {
+        c.setDate(Long.valueOf(date.getTime()));
+      }
     }
     return c;
-  }
-
-  /**
-   * Get the most recent info file.
-   * @return a file or <code>null</code> if there is no info file for this toon.
-   */
-  public File getLastInfoFile()
-  {
-    File lastInfo=null;
-    File[] infoFiles=getInfoFiles();
-    if ((infoFiles!=null) && (infoFiles.length>0))
-    {
-      lastInfo=infoFiles[infoFiles.length-1];
-    }
-    return lastInfo;
   }
 
   /**
@@ -114,15 +169,69 @@ public class CharacterInfosManager
   }
 
   /**
+   * Perform migration from old data file (LC<=3.0).
+   */
+  public void oldDataMigration()
+  {
+    File[] oldInfoFiles=getInfoFiles();
+    if (oldInfoFiles!=null)
+    {
+      for(File oldInfoFile : oldInfoFiles)
+      {
+        CharacterData data=getCharacterDescription(oldInfoFile);
+        if (data!=null)
+        {
+          File newFile=getNewInfoFile();
+          updateOldCharacterData(oldInfoFile,data);
+          saveInfo(newFile,data);
+          oldInfoFile.delete();
+        }
+      }
+    }
+  }
+
+  private void updateOldCharacterData(File oldFile, CharacterData data)
+  {
+    BasicStatsSet stats=data.getStats();
+    for(STAT statKey : stats.getStats())
+    {
+      FixedDecimalsInteger value=stats.getStat(statKey);
+      FixedDecimalsInteger newValue=value.multiply(100);
+      stats.setStat(statKey,newValue);
+    }
+    Date date=getDateFromFilename(oldFile.getName());
+    String dateTimeStr=Formats.getDateTimeString(date);
+    data.setShortDescription(dateTimeStr);
+    String description="Imported from mylotro. Generated: "+dateTimeStr;
+    data.setDescription(description);
+  }
+
+  /**
    * Write a new info file for this toon.
    * @param info Character info to write.
    * @return <code>true</code> it it succeeds, <code>false</code> otherwise.
    */
   public boolean writeNewInfo(CharacterData info)
   {
+    File infoFile=getNewInfoFile();
+    boolean ret=saveInfo(infoFile,info);
+    if (ret)
+    {
+      _datas.add(info);
+    }
+    return ret;
+  }
+
+  /**
+   * Write a new info file for this toon.
+   * @param toFile File to write to.
+   * @param info Character info to write.
+   * @return <code>true</code> it it succeeds, <code>false</code> otherwise.
+   */
+  public boolean saveInfo(File toFile, CharacterData info)
+  {
     boolean ret=true;
-    File logFile=getNewInfoFile();
-    File parentFile=logFile.getParentFile();
+    File parentFile=toFile.getParentFile();
     if (!parentFile.exists())
     {
       ret=parentFile.mkdirs();
@@ -134,18 +243,43 @@ public class CharacterInfosManager
     if (ret)
     {
       CharacterXMLWriter writer=new CharacterXMLWriter();
-      ret=writer.write(logFile,info,EncodingNames.UTF_8);
+      ret=writer.write(toFile,info,EncodingNames.UTF_8);
     }
     return ret;
   }
 
   private File getNewInfoFile()
   {
-    SimpleDateFormat sdf=new SimpleDateFormat(Formats.FILE_DATE_PATTERN);
-    String filename="info "+sdf.format(new Date())+".xml";
+    File ret=null;
     File characterDir=_toon.getRootDir();
-    File logFile=new File(characterDir,filename);
-    return logFile;
+    int index=0;
+    while (true)
+    {
+      String indexStr=String.format("%1$05d",Integer.valueOf(index));
+      File dataFile=new File(characterDir,"data-"+indexStr+".xml");
+      if (!dataFile.exists())
+      {
+        ret=dataFile;
+        break;
+      }
+      index++;
+    }
+    return ret;
+  }
+
+  /**
+   * Get the date of the lastest info file.
+   * @return A date or <code>null</code> if no info file.
+   */
+  public Date getLastInfoDate()
+  {
+    Date ret=null;
+    CharacterData lastData=getLastCharacterDescription();
+    if (lastData!=null)
+    {
+      ret=new Date(lastData.getDate().longValue());
+    }
+    return ret;
   }
 
   /**
@@ -153,7 +287,7 @@ public class CharacterInfosManager
    * @param filename Filename to use.
    * @return A date or <code>null</code> if it cannot be parsed!
    */
-  public static Date getDateFromFilename(String filename)
+  private Date getDateFromFilename(String filename)
   {
     Date ret=null;
     if ((filename.startsWith("info ")) && (filename.endsWith(".xml")))

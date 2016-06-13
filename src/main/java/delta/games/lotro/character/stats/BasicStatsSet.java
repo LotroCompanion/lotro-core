@@ -1,7 +1,9 @@
 package delta.games.lotro.character.stats;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -49,6 +51,15 @@ public class BasicStatsSet
   public void clear()
   {
     _stats.clear();
+  }
+
+  /**
+   * Get all registered stats keys.
+   * @return A set of stat keys.
+   */
+  public Set<STAT> getStats()
+  {
+    return new HashSet<STAT>(_stats.keySet());
   }
 
   /**

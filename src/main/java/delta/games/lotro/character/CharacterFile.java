@@ -51,6 +51,8 @@ public class CharacterFile
     LotroCoreConfig config=LotroCoreConfig.getInstance();
     File toonDir=config.getToonDirectory(serverName,toonName);
     toon.setRootDir(toonDir);
+    toon.getInfosManager().init();
+    toon.getLogsManager().pruneLogFiles();
     return toon;
   }
 
@@ -154,6 +156,7 @@ public class CharacterFile
     LevelHistoryXMLWriter writer=new LevelHistoryXMLWriter();
     writer.write(historyFile,_levelHistory,EncodingNames.ISO8859_1);
   }
+
   private File getLevelHistoryFile()
   {
     return new File(_rootDir,"levels.xml");
@@ -165,12 +168,7 @@ public class CharacterFile
    */
   public Date getLastInfoUpdate()
   {
-    Date ret=null;
-    File lastFile=_infosManager.getLastInfoFile();
-    if (lastFile!=null)
-    {
-      ret=CharacterInfosManager.getDateFromFilename(lastFile.getName());
-    }
+    Date ret=_infosManager.getLastInfoDate();
     return ret;
   }
 
