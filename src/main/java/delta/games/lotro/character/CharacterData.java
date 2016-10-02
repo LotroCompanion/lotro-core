@@ -13,15 +13,10 @@ import delta.games.lotro.common.Race;
  */
 public class CharacterData
 {
+  private CharacterSummary _summary;
   private Long _date;
   private String _shortDescription;
   private String _description;
-  private String _characterName;
-  private String _server;
-  private CharacterClass _class;
-  private Race _race;
-  private String _region;
-  private int _level;
   private BasicStatsSet _stats;
   private CharacterEquipment _equipment;
   private VirtuesSet _virtues;
@@ -33,20 +28,24 @@ public class CharacterData
    */
   public CharacterData()
   {
+    _summary=new CharacterSummary();
     _date=null;
     _shortDescription="";
     _description="";
-    _characterName="";
-    _server="";
-    _class=null;
-    _race=null;
-    _region="";
-    _level=0;
     _stats=new BasicStatsSet();
     _equipment=new CharacterEquipment();
     _virtues=new VirtuesSet();
     _tomes=new TomesSet();
     _additionalStats=new BasicStatsSet();
+  }
+
+  /**
+   * Get the character summary.
+   * @return the character summary.
+   */
+  public CharacterSummary getSummary()
+  {
+    return _summary;
   }
 
   /**
@@ -117,7 +116,7 @@ public class CharacterData
    */
   public String getName()
   {
-    return _characterName;
+    return _summary.getName();
   }
 
   /**
@@ -126,11 +125,7 @@ public class CharacterData
    */
   public void setName(String name)
   {
-    if (name==null)
-    {
-      name="";
-    }
-    _characterName=name;
+    _summary.setName(name);
   }
 
   /**
@@ -139,7 +134,7 @@ public class CharacterData
    */
   public String getServer()
   {
-    return _server;
+    return _summary.getServer();
   }
 
   /**
@@ -148,11 +143,7 @@ public class CharacterData
    */
   public void setServer(String server)
   {
-    if (server==null)
-    {
-      server="";
-    }
-    _server=server;
+    _summary.setServer(server);
   }
 
   /**
@@ -161,7 +152,7 @@ public class CharacterData
    */
   public CharacterClass getCharacterClass()
   {
-    return _class;
+    return _summary.getCharacterClass();
   }
 
   /**
@@ -170,7 +161,7 @@ public class CharacterData
    */
   public void setCharacterClass(CharacterClass characterClass)
   {
-    _class=characterClass;
+    _summary.setCharacterClass(characterClass);
   }
 
   /**
@@ -179,7 +170,7 @@ public class CharacterData
    */
   public Race getRace()
   {
-    return _race;
+    return _summary.getRace();
   }
 
   /**
@@ -188,7 +179,7 @@ public class CharacterData
    */
   public void setRace(Race race)
   {
-    _race=race;
+    _summary.setRace(race);
   }
 
   /**
@@ -197,7 +188,7 @@ public class CharacterData
    */
   public String getRegion()
   {
-    return _region;
+    return _summary.getRegion();
   }
 
   /**
@@ -206,11 +197,7 @@ public class CharacterData
    */
   public void setRegion(String region)
   {
-    if (region==null)
-    {
-      region="";
-    }
-    _region=region;
+    _summary.setRegion(region);
   }
 
   /**
@@ -219,7 +206,7 @@ public class CharacterData
    */
   public int getLevel()
   {
-    return _level;
+    return _summary.getLevel();
   }
 
   /**
@@ -228,7 +215,7 @@ public class CharacterData
    */
   public void setLevel(int level)
   {
-    _level=level;
+    _summary.setLevel(level);
   }
 
   /**
@@ -281,14 +268,8 @@ public class CharacterData
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Name [").append(_characterName).append("], ");
-    sb.append("Server [").append(_server).append("], ");
-    sb.append("Race [").append(_race).append("], ");
-    sb.append("Region [").append(_region).append("], ");
-    sb.append("Class [").append(_class).append("], ");
-    sb.append("Race [").append(_race).append("], ");
+    sb.append(_summary.toString()).append(", ");
     sb.append("Date [").append(_date).append("], ");
-    sb.append("Level [").append(_level).append("], ");
     sb.append("Short description: ").append(_shortDescription).append(", ");
     sb.append("Description: ").append(_description).append(", ");
     sb.append("Stats: ").append(_stats).append(", ");

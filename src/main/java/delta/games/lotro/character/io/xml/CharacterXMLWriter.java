@@ -23,8 +23,6 @@ import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
-import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
@@ -82,41 +80,7 @@ public class CharacterXMLWriter
   private void write(TransformerHandler hd, CharacterData character) throws Exception
   {
     AttributesImpl characterAttrs=new AttributesImpl();
-    // Name
-    String name=character.getName();
-    if ((name!=null) && (name.length()>0))
-    {
-      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_NAME_ATTR,CDATA,name);
-    }
-    // Server
-    String server=character.getServer();
-    if ((server!=null) && (server.length()>0))
-    {
-      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SERVER_ATTR,CDATA,server);
-    }
-    // Character class
-    CharacterClass characterClass=character.getCharacterClass();
-    if (characterClass!=null)
-    {
-      String cClass=characterClass.getKey();
-      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_CLASS_ATTR,CDATA,cClass);
-    }
-    // Race
-    Race race=character.getRace();
-    if (race!=null)
-    {
-      String cRace=race.getLabel();
-      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_RACE_ATTR,CDATA,cRace);
-    }
-    // Region
-    String region=character.getRegion();
-    if ((region!=null) && (region.length()>0))
-    {
-      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_REGION_ATTR,CDATA,region);
-    }
-    // Level
-    int level=character.getLevel();
-    characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_LEVEL_ATTR,CDATA,String.valueOf(level));
+    CharacterSummaryXMLWriter.write(characterAttrs, character.getSummary());
     // Short description
     String shortDescription=character.getShortDescription();
     if ((shortDescription!=null) && (shortDescription.length()>0))

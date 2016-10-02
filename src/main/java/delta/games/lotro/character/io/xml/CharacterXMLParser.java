@@ -17,8 +17,6 @@ import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
-import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
@@ -51,26 +49,7 @@ public class CharacterXMLParser
   private CharacterData parseCharacter(Element root)
   {
     CharacterData c=new CharacterData();
-    // Name
-    String name=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_NAME_ATTR,"");
-    c.setName(name);
-    // Server
-    String server=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SERVER_ATTR,"");
-    c.setServer(server);
-    // Class
-    String characterClass=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_CLASS_ATTR,"");
-    CharacterClass cClass=CharacterClass.getByKey(characterClass);
-    c.setCharacterClass(cClass);
-    // Race
-    String race=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_RACE_ATTR,"");
-    Race cRace=Race.getByLabel(race); 
-    c.setRace(cRace);
-    // Region
-    String region=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
-    c.setRegion(region);
-    // Level
-    int level=DOMParsingTools.getIntAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_LEVEL_ATTR,0);
-    c.setLevel(level);
+    CharacterSummaryXMLParser.parseCharacter(root,c.getSummary());
     // Short description
     String shortDescription=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,"");
     c.setShortDescription(shortDescription);
