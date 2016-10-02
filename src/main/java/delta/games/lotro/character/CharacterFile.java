@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.Date;
 
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.LotroCoreConfig;
+import delta.games.lotro.character.io.xml.CharacterSummaryXMLParser;
+import delta.games.lotro.character.io.xml.CharacterSummaryXMLWriter;
 import delta.games.lotro.character.level.LevelHistory;
 import delta.games.lotro.character.level.LevelHistoryComputer;
 import delta.games.lotro.character.level.io.xml.LevelHistoryXMLParser;
@@ -18,42 +19,77 @@ import delta.games.lotro.character.log.CharacterLogsManager;
  */
 public class CharacterFile
 {
-  private String _name;
-  private String _serverName;
   private File _rootDir;
   private CharacterInfosManager _infosManager;
   private CharacterLogsManager _logsManager;
   private LevelHistory _levelHistory;
+  private CharacterSummary _summary;
 
   /**
    * Constructor.
+   * @param rootDir Root directory for all toon files.
    */
-  public CharacterFile()
+  public CharacterFile(File rootDir)
   {
-    _name="";
-    _serverName="";
-    _rootDir=null;
+    _rootDir=rootDir;
     _infosManager=new CharacterInfosManager(this);
     _logsManager=new CharacterLogsManager(this);
   }
 
   /**
-   * Build a toon file using a toon name and server.
-   * @param serverName Server name.
-   * @param toonName Toon name.
-   * @return A character file.
+   * Get the summary for this toon.
+   * @return a summary or <code>null</code> if it could not be built!
    */
-  public static CharacterFile build(String serverName, String toonName)
+  public CharacterSummary getSummary()
   {
-    CharacterFile toon=new CharacterFile();
-    toon.setName(toonName);
-    toon.setServerName(serverName);
-    LotroCoreConfig config=LotroCoreConfig.getInstance();
-    File toonDir=config.getToonDirectory(serverName,toonName);
-    toon.setRootDir(toonDir);
-    toon.getInfosManager().init();
-    toon.getLogsManager().pruneLogFiles();
-    return toon;
+    if (_summary==null)
+    {
+      _summary=loadSummary();
+    }
+    if (_summary==null)
+    {
+      CharacterSummary summary=_infosManager.buildSummaryFromNewestData();
+      if (summary!=null)
+      {
+        boolean ok=saveSummary(summary);
+        if (ok)
+        {
+          _summary=summary;
+        }
+      }
+    }
+    return _summary;
+  }
+
+  private CharacterSummary loadSummary()
+  {
+    CharacterSummary summary=null;
+    File summaryFile=getSummaryFile();
+    if (summaryFile.exists())
+    {
+      CharacterSummaryXMLParser parser=new CharacterSummaryXMLParser();
+      summary=parser.parseXML(summaryFile);
+    }
+    return summary;
+  }
+
+  /**
+   * Save summary to file.
+   * @param summary Summary to write.
+   * @return <code>true</code> if it was successful, <code>false</code> otherwise.
+   */
+  public boolean saveSummary(CharacterSummary summary)
+  {
+    CharacterSummaryXMLWriter writer=new CharacterSummaryXMLWriter();
+    File summaryFile=getSummaryFile();
+    boolean ok=writer.write(summaryFile,summary,EncodingNames.UTF_8);
+    return ok;
+  }
+
+  private File getSummaryFile()
+  {
+    File summaryFile=new File(_rootDir,"summary.xml");
+    return summaryFile;
   }
 
   /**
@@ -62,16 +98,8 @@ public class CharacterFile
    */
   public String getName()
   {
-    return _name;
-  }
-
-  /**
-   * Set the name of this file.
-   * @param name the name to set.
-   */
-  public void setName(String name)
-  {
-    _name=name;
+    CharacterSummary summary=getSummary();
+    return (_summary!=null)?summary.getName():null;
   }
 
   /**
@@ -80,16 +108,8 @@ public class CharacterFile
    */
   public String getServerName()
   {
-    return _serverName;
-  }
-
-  /**
-   * Set the server name of this file.
-   * @param serverName the name to set.
-   */
-  public void setServerName(String serverName)
-  {
-    _serverName=serverName;
+    CharacterSummary summary=getSummary();
+    return (_summary!=null)?summary.getServer():null;
   }
 
   /**
@@ -98,7 +118,7 @@ public class CharacterFile
    */
   public String getIdentifier()
   {
-    return _serverName+"#"+_name;
+    return getServerName()+"#"+getName();
   }
 
   /**
@@ -108,15 +128,6 @@ public class CharacterFile
   public File getRootDir()
   {
     return _rootDir;
-  }
-
-  /**
-   * Set the root directory for this character file.
-   * @param rootDir the directory to set.
-   */
-  public void setRootDir(File rootDir)
-  {
-    _rootDir=rootDir;
   }
 
   /**

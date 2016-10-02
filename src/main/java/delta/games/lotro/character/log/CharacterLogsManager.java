@@ -33,6 +33,7 @@ public class CharacterLogsManager
   public CharacterLogsManager(CharacterFile toon)
   {
     _toon=toon;
+    pruneLogFiles();
   }
 
   /**

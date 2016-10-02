@@ -111,19 +111,6 @@ public class LotroCoreConfig
   }
 
   /**
-   * Get the root storage directory for a toon.
-   * @param serverName Server of toon.
-   * @param toonName Name of toon.
-   * @return a directory.
-   */
-  public File getToonDirectory(String serverName, String toonName)
-  {
-    File serverDir=new File(_toonsDir,serverName);
-    File toonDir=new File(serverDir,toonName);
-    return toonDir;
-  }
-
-  /**
    * Get the root directory for items data storage.
    * @return a directory.
    */

@@ -39,19 +39,23 @@ public class CharacterInfosManager
   {
     _toon=toon;
     _datas=new ArrayList<CharacterData>();
+    init();
   }
 
   /**
    * Initialize data.
    */
-  public void init()
+  private void init()
   {
     oldDataMigration();
-    loadAll();
   }
 
   private void loadAll()
   {
+    if (_datas.size()>0)
+    {
+      return;
+    }
     File[] dataFiles=getDataFiles();
     if (dataFiles!=null)
     {
@@ -96,6 +100,10 @@ public class CharacterInfosManager
    */
   public CharacterData getLastCharacterDescription()
   {
+    if (_datas.size()==0)
+    {
+      loadAll();
+    }
     CharacterData c=null;
     Long latestDate=null;
     for(CharacterData data : _datas)
@@ -304,5 +312,21 @@ public class CharacterInfosManager
       }
     }
     return ret;
+  }
+
+  /**
+   * Build a summary from newest character data.
+   * @return a summary or <code>null</code> if no data.
+   */
+  public CharacterSummary buildSummaryFromNewestData()
+  {
+    loadAll();
+    CharacterSummary summary=null;
+    CharacterData data=getLastCharacterDescription();
+    if (data!=null)
+    {
+      summary=new CharacterSummary(data.getSummary());
+    }
+    return summary;
   }
 }

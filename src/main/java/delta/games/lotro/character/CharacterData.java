@@ -49,6 +49,15 @@ public class CharacterData
   }
 
   /**
+   * Set summary data.
+   * @param summary Summary data to set.
+   */
+  public void setSummary(CharacterSummary summary)
+  {
+    _summary=new CharacterSummary(summary);
+  }
+
+  /**
    * Get the date for this character data.
    * @return a date or <code>null</code> if not set.
    */
