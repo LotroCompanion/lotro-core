@@ -50,6 +50,33 @@ public class CharacterInfosManager
     oldDataMigration();
   }
 
+  /**
+   * Get the number of data files.
+   * @return a number of data files.
+   */
+  public int getDataCount()
+  {
+    return _datas.size();
+  }
+
+  /**
+   * Get the character data at the given index.
+   * @param index Index of data to get, starting at 0.
+   * @return A character data.
+   */
+  public CharacterData getData(int index)
+  {
+    return _datas.get(index);
+  }
+
+  /**
+   * Ensure that internal data are synchronized with persisted data.
+   */
+  public void sync()
+  {
+    loadAll();
+  }
+
   private void loadAll()
   {
     if (_datas.size()>0)
