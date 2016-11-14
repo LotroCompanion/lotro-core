@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -101,5 +102,15 @@ public class DamageType
   public static DamageType getDamageTypeByKey(String key)
   {
     return _keyMap.get(key);
+  }
+
+  /**
+   * Get all instances of this class.
+   * @return an array of all instances of this class.
+   */
+  public static DamageType[] getAll()
+  {
+    Collection<DamageType> values=_keyMap.values();
+    return values.toArray(new DamageType[values.size()]);
   }
 }

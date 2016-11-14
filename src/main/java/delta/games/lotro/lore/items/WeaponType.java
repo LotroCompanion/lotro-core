@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -178,5 +179,15 @@ public class WeaponType
       type=_map.get(id);
     }
     return type;
+  }
+
+  /**
+   * Get all instances of this class.
+   * @return an array of all instances of this class.
+   */
+  public static WeaponType[] getAll()
+  {
+    Collection<WeaponType> values=_keyMap.values();
+    return values.toArray(new WeaponType[values.size()]);
   }
 }

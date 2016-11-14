@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -137,6 +138,16 @@ public class EquipmentLocation
   public static EquipmentLocation getByKey(String key)
   {
     return _keyMap.get(key);
+  }
+
+  /**
+   * Get all instances of this class.
+   * @return an array of all instances of this class.
+   */
+  public static EquipmentLocation[] getAll()
+  {
+    Collection<EquipmentLocation> values=_keyMap.values();
+    return values.toArray(new EquipmentLocation[values.size()]);
   }
 
   @Override
