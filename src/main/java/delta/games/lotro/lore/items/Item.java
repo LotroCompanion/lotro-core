@@ -749,9 +749,17 @@ public class Item
         sb.append(propertyName).append(": ").append(value).append(EndOfLine.NATIVE_EOL);
       }
     }
-    if (_description!=null)
+    // Description
+    if ((_description!=null) && (_description.length()>0))
     {
-      sb.append(_description);
+      sb.append(_description).append(EndOfLine.NATIVE_EOL);
+    }
+    // Stats
+    sb.append("Stats: ").append(_stats).append(EndOfLine.NATIVE_EOL);
+    // Essences
+    if ((_essences!=null) && (_essences.getSize()>0))
+    {
+      sb.append("Essences: ").append(_essences);
     }
     return sb.toString().trim();
   }
