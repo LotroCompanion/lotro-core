@@ -1,9 +1,11 @@
 package delta.games.lotro.character;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
+
+import delta.games.lotro.character.events.CharacterEvent;
+import delta.games.lotro.character.events.CharacterEventType;
+import delta.games.lotro.character.events.CharacterEventsManager;
 
 /**
  * Manages all known toons.
@@ -15,18 +17,6 @@ public class CharactersManager
 
   private CharactersStorageManager _storage;
   private List<CharacterFile> _toons;
-
-  private PropertyChangeSupport _listeners;
-
-  /**
-   * Constant for "toon added" event.
-   */
-  public static final String TOON_ADDED = "TOON_ADDED";
-
-  /**
-   * Constant for "toon updated" event.
-   */
-  public static final String TOON_UPDATED = "TOON_UPDATED";
 
   /**
    * Get the sole instance of this class.
@@ -45,25 +35,6 @@ public class CharactersManager
     _storage=new CharactersStorageManager();
     _toons=new ArrayList<CharacterFile>();
     _toons.addAll(_storage.getAllToons());
-    _listeners=new PropertyChangeSupport(this);
-  }
-
-  /**
-   * Add an event listener.
-   * @param listener Event listener to add.
-   */
-  public void addPropertyChangeListener(PropertyChangeListener listener)
-  {
-    _listeners.addPropertyChangeListener(listener);
-  }
-
-  /**
-   * Remove an event listener.
-   * @param listener Event listener to remove.
-   */
-  public void removePropertyChangeListener(PropertyChangeListener listener)
-  {
-    _listeners.removePropertyChangeListener(listener);
   }
 
   /**
@@ -125,17 +96,9 @@ public class CharactersManager
     {
       _toons.add(file);
       // Broadcast toon creation event...
-      _listeners.firePropertyChange(TOON_ADDED,false,true);
+      CharacterEvent event=new CharacterEvent(file,null);
+      CharacterEventsManager.invokeEvent(CharacterEventType.CHARACTER_ADDED,event);
     }
     return file;
-  }
-
-  /**
-   * Broadcast a toon update.
-   * @param toon Involved toon.
-   */
-  public void broadcastToonUpdate(CharacterFile toon)
-  {
-    _listeners.firePropertyChange(TOON_UPDATED,null,toon);
   }
 }

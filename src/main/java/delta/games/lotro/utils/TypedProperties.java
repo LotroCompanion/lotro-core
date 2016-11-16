@@ -93,6 +93,43 @@ public class TypedProperties
   }
 
   /**
+   * Get a typed property value.
+   * @param name Property name.
+   * @param valueClass Type of the desired value.
+   * @return A value or <code>null</code> if not found.
+   */
+  public <T> T getProperty(String name, Class<T> valueClass)
+  {
+    T ret=null;
+    Object value=_props.get(name);
+    if (value!=null)
+    {
+      if (valueClass.isAssignableFrom(value.getClass()))
+      {
+        ret=valueClass.cast(value);
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Set a typed property value.
+   * @param name Property name.
+   * @param value Value to set.
+   */
+  public <T> void setProperty(String name, T value)
+  {
+    if (value==null)
+    {
+      _props.remove(name);
+    }
+    else
+    {
+      _props.put(name,value);
+    }
+  }
+
+  /**
    * Get the value of an integer property.
    * @param name Property name.
    * @param defaultValue Default value, used if the property does not exist.
