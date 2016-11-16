@@ -7,7 +7,7 @@ import delta.games.lotro.lore.items.Item;
  * Legendary item description.
  * @author DAM
  */
-public class LegendaryItem extends Item
+public class LegendaryItem extends Item implements Legendary
 {
   private LegendaryAttrs _attrs;
 

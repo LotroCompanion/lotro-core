@@ -8,7 +8,7 @@ import delta.games.lotro.lore.items.Weapon;
  * Legendary weapon description.
  * @author DAM
  */
-public class LegendaryWeapon extends Weapon
+public class LegendaryWeapon extends Weapon implements Legendary
 {
   private LegendaryAttrs _attrs;
   // TODO compute DPS based on stars
