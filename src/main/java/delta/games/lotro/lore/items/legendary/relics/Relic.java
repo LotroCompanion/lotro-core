@@ -10,6 +10,7 @@ public class Relic
 {
   private String _name;
   private RelicType _type;
+  private String _iconFilename;
   // TODO add category: tier 1..10, lvl55, mounted...
   private Integer _requiredLevel;
   private BasicStatsSet _stats;
@@ -24,6 +25,7 @@ public class Relic
   {
     _name=name;
     _type=type;
+    _iconFilename=null;
     _requiredLevel=requiredLevel;
     _stats=new BasicStatsSet();
   }
@@ -64,6 +66,24 @@ public class Relic
     return _stats;
   }
 
+  /**
+   * Get the icon filename for this relic.
+   * @return a icon filename.
+   */
+  public String getIconFilename()
+  {
+    return _iconFilename;
+  }
+
+  /**
+   * Set icon filename.
+   * @param iconFilename Filename to set.
+   */
+  public void setIconFilename(String iconFilename)
+  {
+    _iconFilename=iconFilename;
+  }
+
   @Override
   public String toString()
   {
@@ -73,6 +93,10 @@ public class Relic
     if (_requiredLevel!=null)
     {
       sb.append("(min ").append(_requiredLevel).append(") ");
+    }
+    if (_iconFilename!=null)
+    {
+      sb.append("(icon=").append(_iconFilename).append(") ");
     }
     sb.append(_stats);
     return sb.toString();
