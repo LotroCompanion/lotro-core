@@ -11,11 +11,11 @@ public enum STAT
   /**
    * Morale.
    */
-  MORALE("Morale"),
+  MORALE("Morale","Maximum Morale"),
   /**
    * Power.
    */
-  POWER("Power"),
+  POWER("Power","Maximum Power"),
   /**
    * Armour.
    */
@@ -92,7 +92,7 @@ public enum STAT
   /**
    * Physical Mastery.
    */
-  PHYSICAL_MASTERY("Physical Mastery"),
+  PHYSICAL_MASTERY("Physical Mastery","Physical Mastery Rating"),
   /**
    * Melee Damage %.
    */
@@ -104,7 +104,7 @@ public enum STAT
   /**
    * Tactical Mastery.
    */
-  TACTICAL_MASTERY("Tactical Mastery"),
+  TACTICAL_MASTERY("Tactical Mastery","Tactical Mastery Rating"),
   /**
    * Tactical Damage %.
    */
@@ -125,7 +125,7 @@ public enum STAT
   /**
    * Critical Defence.
    */
-  CRITICAL_DEFENCE("Critical Defence", "CRITICAL_AVOID", "Critical avoidance"),
+  CRITICAL_DEFENCE("Critical Defence", "CRITICAL_AVOID", "Critical avoidance", "Critical Defense Rating"),
   /**
    * Critical Defence % (melee).
    */
@@ -141,7 +141,7 @@ public enum STAT
   /**
    * Incoming Healing.
    */
-  INCOMING_HEALING("Incoming Healing"),
+  INCOMING_HEALING("Incoming Healing","Incoming Healing Rating"),
   /**
    * Incoming Healing percentage.
    */
@@ -162,7 +162,7 @@ public enum STAT
   /**
    * Partial Block Mitigation (percentage).
    */
-  PARTIAL_BLOCK_MITIGATION_PERCENTAGE("Partial Block Mitigation %",true),
+  PARTIAL_BLOCK_MITIGATION_PERCENTAGE("Partial Block Mitigation %",true,"Partial Block Mitigation"),
   /**
    * Parry.
    */
@@ -178,7 +178,7 @@ public enum STAT
   /**
    * Partial Parry Mitigation (percentage).
    */
-  PARTIAL_PARRY_MITIGATION_PERCENTAGE("Partial Parry Mitigation %",true),
+  PARTIAL_PARRY_MITIGATION_PERCENTAGE("Partial Parry Mitigation %",true,"Partial Parry Mitigation"),
   /**
    * Evade.
    */
@@ -194,7 +194,7 @@ public enum STAT
   /**
    * Partial Evade Mitigation (percentage).
    */
-  PARTIAL_EVADE_MITIGATION_PERCENTAGE("Partial Evade Mitigation %",true),
+  PARTIAL_EVADE_MITIGATION_PERCENTAGE("Partial Evade Mitigation %",true,"Partial Evade Mitigation"),
   // Mitigations
   // Damage Source: Melee, Ranged, Tactical
   // Damage Type: Physical Mitigation, Tactical Mitigation
@@ -249,7 +249,7 @@ public enum STAT
   /**
    * In-Combat Morale Regeneration.
    */
-  ICMR("In-Combat Morale Regeneration"),
+  ICMR("In-Combat Morale Regeneration", "in-Combat Morale Regen"),
   /**
    * non-Combat Power Regeneration.
    */
@@ -257,7 +257,11 @@ public enum STAT
   /**
    * In-Combat Power Regeneration.
    */
-  ICPR("In-Combat Power Regeneration"),
+  ICPR("In-Combat Power Regeneration", "in-Combat Power Regen"),
+  /**
+   * Item Wear Chance on Hit.
+   */
+  ITEM_WEAR_CHANCE_ON_HIT("Item Wear Chance on Hit",true),
   /**
    * Audacity.
    */
@@ -281,7 +285,7 @@ public enum STAT
   /**
    * Devastate magnitude (percentage).
    */
-  DEVASTATE_MAGNITUDE_PERCENTAGE("Devastate Magnitude %",true),
+  DEVASTATE_MAGNITUDE_PERCENTAGE("Devastate Magnitude %",true,"Devastate Magnitude"),
   /**
    * Tactical critical multiplier (percentage).
    */
@@ -313,7 +317,7 @@ public enum STAT
   /**
    * Attack duration (percentage).
    */
-  ATTACK_DURATION_PERCENTAGE("Attack Duration %",true),
+  ATTACK_DURATION_PERCENTAGE("Attack Duration %",true,"Attack Duration"),
   /**
    * Jeweller critical chance (percentage).
    */
