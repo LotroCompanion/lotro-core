@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.LotroCoreConfig;
@@ -91,6 +92,20 @@ public class RelicsManager
     List<String> categories=new ArrayList<String>(_categories.keySet());
     Collections.sort(categories);
     return categories;
+  }
+
+  /**
+   * Get a list of all relics.
+   * @return a list of all relics.
+   */
+  public List<Relic> getAllRelics()
+  {
+    List<Relic> relics=new ArrayList<Relic>();
+    for(Map.Entry<String,RelicsCategory> entry : _categories.entrySet())
+    {
+      relics.addAll(entry.getValue().getAllRelics());
+    }
+    return relics;
   }
 
   /**
