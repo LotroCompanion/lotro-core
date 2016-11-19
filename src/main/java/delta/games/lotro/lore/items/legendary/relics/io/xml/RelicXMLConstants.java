@@ -35,7 +35,7 @@ public class RelicXMLConstants
    */
   public static final String RELIC_LEVEL_ATTR="level";
   /**
-   * Tag 'item', attribute 'iconFilename'.
+   * Tag 'relic', attribute 'iconFilename'.
    */
   public static final String RELIC_ICON_FILENAME_ATTR="icon";
 

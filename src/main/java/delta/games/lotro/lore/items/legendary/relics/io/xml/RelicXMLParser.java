@@ -58,6 +58,7 @@ public class RelicXMLParser
     for(Element relicTag:relicTags)
     {
       Relic relic=parseRelic(relicTag);
+      relic.setCategory(categoryStr);
       category.addRelic(relic);
     }
     return category;

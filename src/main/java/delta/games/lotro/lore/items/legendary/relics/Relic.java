@@ -10,6 +10,7 @@ public class Relic
 {
   private String _name;
   private RelicType _type;
+  private String _category;
   private String _iconFilename;
   // TODO add category: tier 1..10, lvl55, mounted...
   private Integer _requiredLevel;
@@ -25,6 +26,7 @@ public class Relic
   {
     _name=name;
     _type=type;
+    _category=null;
     _iconFilename=null;
     _requiredLevel=requiredLevel;
     _stats=new BasicStatsSet();
@@ -82,6 +84,24 @@ public class Relic
   public void setIconFilename(String iconFilename)
   {
     _iconFilename=iconFilename;
+  }
+
+  /**
+   * Get the category of this relic.
+   * @return a relic category name.
+   */
+  public String getCategory()
+  {
+    return _category;
+  }
+
+  /**
+   * Set category.
+   * @param category Category to set.
+   */
+  public void setCategory(String category)
+  {
+    _category=category;
   }
 
   @Override
