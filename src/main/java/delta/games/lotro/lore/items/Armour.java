@@ -58,7 +58,7 @@ public class Armour extends Item
   }
 
   /**
-   * Dump the contents of this quest as a string.
+   * Dump the contents of this armour as a string.
    * @return A readable string.
    */
   public String dump()

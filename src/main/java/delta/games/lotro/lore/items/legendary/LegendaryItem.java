@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items.legendary;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.lore.items.Item;
 
@@ -54,5 +55,19 @@ public class LegendaryItem extends Item implements Legendary
     ret.addStats(legendaryStats);
     ret.addStats(getPassives());
     return ret;
+  }
+
+  /**
+   * Dump the contents of this weapon as a string.
+   * @return A readable string.
+   */
+  public String dump()
+  {
+    StringBuilder sb=new StringBuilder();
+    String itemDump=super.dump();
+    sb.append(itemDump);
+    sb.append(EndOfLine.NATIVE_EOL);
+    sb.append(_attrs.dump());
+    return sb.toString();
   }
 }

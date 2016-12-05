@@ -137,7 +137,7 @@ public class Weapon extends Item
   }
 
   /**
-   * Dump the contents of this quest as a string.
+   * Dump the contents of this weapon as a string.
    * @return A readable string.
    */
   public String dump()
@@ -146,7 +146,7 @@ public class Weapon extends Item
     String itemDump=super.dump();
     sb.append(itemDump);
     sb.append(EndOfLine.NATIVE_EOL);
-    sb.append(' ').append(_type);
+    sb.append("Weapon: (type=").append(_type).append(')');
     sb.append(" (DPS=").append(_dps).append(')');
     sb.append(" (damage=").append(_minDamage).append('-').append(_maxDamage);
     sb.append(' ').append(_damageType).append(')');
