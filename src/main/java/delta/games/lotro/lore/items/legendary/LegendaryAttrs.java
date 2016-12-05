@@ -3,6 +3,7 @@ package delta.games.lotro.lore.items.legendary;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
@@ -62,23 +63,26 @@ public class LegendaryAttrs
   public List<Relic> getRelics()
   {
     List<Relic> relics=new ArrayList<Relic>();
-    if (_setting!=null)
-    {
-      relics.add(_setting);
-    }
-    if (_gem!=null)
-    {
-      relics.add(_gem);
-    }
-    if (_rune!=null)
-    {
-      relics.add(_rune);
-    }
-    if (_crafted!=null)
-    {
-      relics.add(_crafted);
-    }
+    relics.add(_setting);
+    relics.add(_gem);
+    relics.add(_rune);
+    relics.add(_crafted);
     return relics;
+  }
+
+  /**
+   * Slot a relic.
+   * @param relic Relic to set.
+   */
+  public void slotRelic(Relic relic)
+  {
+    if (relic!=null)
+    {
+      if (relic.getType()==RelicType.SETTING) _setting=relic;
+      else if (relic.getType()==RelicType.GEM) _gem=relic;
+      else if (relic.getType()==RelicType.RUNE) _rune=relic;
+      else if (relic.getType()==RelicType.CRAFTED_RELIC) _crafted=relic;
+    }
   }
 
   /**
@@ -178,9 +182,30 @@ public class LegendaryAttrs
     List<Relic> relics=getRelics();
     for(Relic relic : relics)
     {
-      BasicStatsSet relicStats=relic.getStats();
-      ret.addStats(relicStats);
+      if (relic!=null)
+      {
+        BasicStatsSet relicStats=relic.getStats();
+        ret.addStats(relicStats);
+      }
     }
     return ret;
+  }
+
+  /**
+   * Dump the contents of this quest as a string.
+   * @return A readable string.
+   */
+  public String dump()
+  {
+    StringBuilder sb=new StringBuilder();
+    sb.append("Relics:").append(EndOfLine.NATIVE_EOL);
+    for(Relic relic : getRelics())
+    {
+      if (relic!=null)
+      {
+        sb.append('\t').append(relic).append(EndOfLine.NATIVE_EOL);
+      }
+    }
+    return sb.toString();
   }
 }
