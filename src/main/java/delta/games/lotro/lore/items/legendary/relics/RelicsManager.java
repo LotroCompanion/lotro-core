@@ -62,6 +62,24 @@ public class RelicsManager
   }
 
   /**
+   * Get a relic by its name.
+   * @param name Name of the relic to get.
+   * @return A relic or <code>null</code> if not found.
+   */
+  public Relic getByName(String name)
+  {
+    for(RelicsCategory category : _categories.values())
+    {
+      Relic relic=category.getByName(name);
+      if (relic!=null)
+      {
+        return relic;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Load all relics.
    */
   private void loadAll()

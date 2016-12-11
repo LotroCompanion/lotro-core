@@ -32,6 +32,23 @@ public class RelicsCategory
   }
 
   /**
+   * Get a relic by its name.
+   * @param name Name of the relic to get.
+   * @return A relic or <code>null</code> if not found.
+   */
+  public Relic getByName(String name)
+  {
+    for(Relic relic : _relics)
+    {
+      if (relic.getName().equals(name))
+      {
+        return relic;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Add a relic.
    * @param relic Relic to add.
    */

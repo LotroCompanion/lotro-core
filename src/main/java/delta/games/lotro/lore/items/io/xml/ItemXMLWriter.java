@@ -34,6 +34,9 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLWriter;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
@@ -45,7 +48,7 @@ public class ItemXMLWriter
   private static final Logger _logger=LotroLoggers.getLotroLogger();
 
   private static final String CDATA="CDATA";
-  
+
   /**
    * Write an item to a XML file.
    * @param outFile Output file.
@@ -279,6 +282,12 @@ public class ItemXMLWriter
     }
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
 
+    // Handle legendary items
+    if (item instanceof Legendary)
+    {
+      LegendaryAttrs legAttrs=((Legendary)item).getLegendaryAttrs();
+      LegendaryAttrsXMLWriter.write(hd,legAttrs);
+    }
     // Money
     Money value=item.getValue();
     MoneyXMLWriter.writeMoney(hd,value);

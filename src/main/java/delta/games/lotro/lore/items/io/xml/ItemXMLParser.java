@@ -9,8 +9,8 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
+import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.lore.items.Armour;
@@ -25,6 +25,9 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLParser;
 
 /**
  * Parser for item descriptions stored in XML.
@@ -206,6 +209,14 @@ public class ItemXMLParser
     String description=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_DESCRIPTION_ATTR,null);
     ret.setDescription(description);
 
+    // Handle legendary items
+    if (ret instanceof Legendary)
+    {
+      LegendaryAttrs legAttrs=((Legendary)ret).getLegendaryAttrs();
+      LegendaryAttrsXMLParser.read(legAttrs,root);
+    }
+    
+    // Money
     MoneyXMLParser.loadMoney(root,ret.getValue());
     // Stack max
     int stackMax=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_STACK_MAX_ATTR,-1);
