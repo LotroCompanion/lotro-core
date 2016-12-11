@@ -37,13 +37,13 @@ public class LegendaryAttrsXMLWriter
 
   private static void writeRelic(TransformerHandler hd, Relic relic, RelicType type) throws Exception
   {
-    AttributesImpl relicAttrs=new AttributesImpl();
-    relicAttrs.addAttribute("","",LegendaryAttrsXMLConstants.RELIC_TYPE_ATTR,CDATA,type.name());
     if (relic!=null)
     {
+      AttributesImpl relicAttrs=new AttributesImpl();
+      relicAttrs.addAttribute("","",LegendaryAttrsXMLConstants.RELIC_TYPE_ATTR,CDATA,type.name());
       relicAttrs.addAttribute("","",LegendaryAttrsXMLConstants.RELIC_NAME_ATTR,CDATA,relic.getName());
+      hd.startElement("","",RelicXMLConstants.RELIC_TAG,relicAttrs);
+      hd.endElement("","",RelicXMLConstants.RELIC_TAG);
     }
-    hd.startElement("","",RelicXMLConstants.RELIC_TAG,relicAttrs);
-    hd.endElement("","",RelicXMLConstants.RELIC_TAG);
   }
 }
