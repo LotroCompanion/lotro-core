@@ -1,5 +1,6 @@
 package delta.games.lotro.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -85,5 +86,35 @@ public class Formats
       ret=getDateString(new Date(date.longValue()));
     }
     return ret;
+  }
+
+  /**
+   * Parse a date string.
+   * @param dateStr Input string.
+   * @return A date or <code>null</code> if bad format.
+   */
+  public static Date parseDate(String dateStr)
+  {
+    Date date=null;
+    try
+    {
+      date=_dateFormatter.parse(dateStr);
+    }
+    catch(ParseException parseException)
+    {
+      // Ignored
+    }
+    if (date==null)
+    {
+      try
+      {
+        date=_dateTimeFormatter.parse(dateStr);
+      }
+      catch(ParseException parseException)
+      {
+        // Ignored
+      }
+    }
+    return date;
   }
 }
