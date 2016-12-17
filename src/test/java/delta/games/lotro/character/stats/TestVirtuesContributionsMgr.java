@@ -15,7 +15,7 @@ public class TestVirtuesContributionsMgr
    */
   public static void main(String[] args)
   {
-    VirtuesContributionsMgr mgr=new VirtuesContributionsMgr();
+    VirtuesContributionsMgr mgr=VirtuesContributionsMgr.get();
     for(VirtueId id : VirtueId.values())
     {
       System.out.println(id);

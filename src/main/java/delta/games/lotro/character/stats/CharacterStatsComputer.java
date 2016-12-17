@@ -26,7 +26,6 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class CharacterStatsComputer
 {
   private BaseStatsManager _baseStatsMgr;
-  private VirtuesContributionsMgr _virtuesMgr;
   private TomesContributionsMgr _tomesMgr;
   private HopeStatsContributionsMgr _hopeMgr;
   private RatingsMgr _ratingsMgr;
@@ -38,7 +37,6 @@ public class CharacterStatsComputer
   public CharacterStatsComputer()
   {
     _baseStatsMgr=new BaseStatsManager();
-    _virtuesMgr=new VirtuesContributionsMgr();
     _tomesMgr=new TomesContributionsMgr();
     _hopeMgr=new HopeStatsContributionsMgr();
     _ratingsMgr=new RatingsMgr();
@@ -103,7 +101,8 @@ public class CharacterStatsComputer
     // Base stats (from character class, race and level)
     BasicStatsSet baseStats=_baseStatsMgr.getBaseStats(c.getCharacterClass(),c.getRace(),c.getLevel());
     // Virtues
-    BasicStatsSet virtuesStats=_virtuesMgr.getContribution(c.getVirtues());
+    VirtuesContributionsMgr virtuesMgr=VirtuesContributionsMgr.get();
+    BasicStatsSet virtuesStats=virtuesMgr.getContribution(c.getVirtues());
     // Tomes
     BasicStatsSet tomesStats=_tomesMgr.getContribution(c.getTomes());
     // Equipment

@@ -22,10 +22,21 @@ public class VirtuesContributionsMgr
 {
   private HashMap<VirtueId,VirtueContributionTable> _contribs;
 
+  private static final VirtuesContributionsMgr _instance=new VirtuesContributionsMgr();
+
+  /**
+   * Get the sole instance of this class.
+   * @return the sole instance of this class.
+   */
+  public static VirtuesContributionsMgr get()
+  {
+    return _instance;
+  }
+
   /**
    * Constructor.
    */
-  public VirtuesContributionsMgr()
+  private VirtuesContributionsMgr()
   {
     _contribs=new HashMap<VirtueId,VirtueContributionTable>();
     init();
