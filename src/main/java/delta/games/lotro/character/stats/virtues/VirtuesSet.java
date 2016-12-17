@@ -28,6 +28,17 @@ public class VirtuesSet
   }
 
   /**
+   * Set the contents of this object from a given source.
+   * @param source Source to copy.
+   */
+  public void copyFrom(VirtuesSet source)
+  {
+    _virtues.clear();
+    _virtues.putAll(source._virtues);
+    System.arraycopy(source._selectedVirtues,0,_selectedVirtues,0,MAX_VIRTUES);
+  }
+
+  /**
    * Set the value for a virtue.
    * @param id Virtue identifier.
    * @param rank Rank to set.
