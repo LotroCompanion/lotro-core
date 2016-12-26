@@ -17,7 +17,7 @@ public enum CharacterEventType
   /**
    * A toon was removed.
    */
-  //CHARACTER_REMOVED,
+  CHARACTER_REMOVED,
   /**
    * A new character data was added to an existing toon.
    */
@@ -25,9 +25,9 @@ public enum CharacterEventType
   /**
    * A new character data was removed from an existing toon.
    */
-  //CHARACTER_DATA_REMOVED,
+  CHARACTER_DATA_REMOVED,
   /**
    * A character data was updated.
    */
-  //CHARACTER_DATA_UPDATED
+  CHARACTER_DATA_UPDATED
 }
