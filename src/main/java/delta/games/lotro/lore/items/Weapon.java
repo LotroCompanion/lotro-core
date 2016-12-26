@@ -29,6 +29,16 @@ public class Weapon extends Item
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public Weapon(Weapon source)
+  {
+    this();
+    copyFrom(source);
+  }
+
+  /**
    * Get the minimum damage.
    * @return the minimum damage.
    */

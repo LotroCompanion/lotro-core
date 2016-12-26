@@ -9,9 +9,9 @@ import delta.common.utils.text.EndOfLine;
 public class Armour extends Item
 {
   private int _armourValue;
-  
+
   private ArmourType _type;
-  
+
   /**
    * Constructor.
    */
@@ -20,7 +20,17 @@ public class Armour extends Item
     super();
     setCategory(ItemCategory.ARMOUR);
   }
-  
+
+  /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public Armour(Armour source)
+  {
+    this();
+    copyFrom(source);
+  }
+
   /**
    * Get the armour value for this item.
    * @return an armour value.
@@ -55,6 +65,21 @@ public class Armour extends Item
   public void setArmourType(ArmourType type)
   {
     _type=type;
+  }
+
+  /**
+   * Copy item data from a source.
+   * @param item Source item.
+   */
+  public void copyFrom(Item item)
+  {
+    super.copyFrom(item);
+    if (item instanceof Armour)
+    {
+      Armour armour=(Armour)item;
+      _armourValue=armour._armourValue;
+      _type=armour._type;
+    }
   }
 
   /**

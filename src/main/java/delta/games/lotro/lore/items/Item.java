@@ -104,6 +104,16 @@ public class Item
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public Item(Item source)
+  {
+    this();
+    copyFrom(source);
+  }
+
+  /**
    * Get the identifier of this item.
    * @return an item identifier.
    */

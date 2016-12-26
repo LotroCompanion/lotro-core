@@ -19,7 +19,19 @@ public class LegendaryWeapon extends Weapon implements Legendary
    */
   public LegendaryWeapon()
   {
+    super();
     _attrs=new LegendaryAttrs();
+    setCategory(ItemCategory.LEGENDARY_WEAPON);
+  }
+
+  /**
+   * Copy constructor.
+   * @param weapon Source weapon.
+   */
+  public LegendaryWeapon(LegendaryWeapon weapon)
+  {
+    super(weapon);
+    _attrs=new LegendaryAttrs(weapon._attrs);
     setCategory(ItemCategory.LEGENDARY_WEAPON);
   }
 

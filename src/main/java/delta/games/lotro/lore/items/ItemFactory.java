@@ -39,4 +39,36 @@ public class ItemFactory
     }
     return ret;
   }
+
+  /**
+   * Clone an item.
+   * @param item Source item.
+   * @return Cloned item.
+   */
+  public static Item clone(Item item)
+  {
+    Item ret;
+    ItemCategory category=item.getCategory();
+    if (category==ItemCategory.ARMOUR)
+    {
+      ret=new Armour((Armour)item);
+    }
+    else if (category==ItemCategory.WEAPON)
+    {
+      ret=new Weapon((Weapon)item);
+    }
+    else if (category==ItemCategory.LEGENDARY_WEAPON)
+    {
+      ret=new LegendaryWeapon((LegendaryWeapon)item);
+    }
+    else if (category==ItemCategory.LEGENDARY_ITEM)
+    {
+      ret=new LegendaryItem((LegendaryItem)item);
+    }
+    else
+    {
+      ret=new Item(item);
+    }
+    return ret;
+  }
 }

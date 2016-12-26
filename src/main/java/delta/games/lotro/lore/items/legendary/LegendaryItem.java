@@ -3,6 +3,7 @@ package delta.games.lotro.lore.items.legendary;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemCategory;
 
 /**
  * Legendary item description.
@@ -17,7 +18,19 @@ public class LegendaryItem extends Item implements Legendary
    */
   public LegendaryItem()
   {
+    setCategory(ItemCategory.LEGENDARY_ITEM);
     _attrs=new LegendaryAttrs();
+  }
+
+  /**
+   * Copy constructor.
+   * @param item Source.
+   */
+  public LegendaryItem(LegendaryItem item)
+  {
+    this();
+    _attrs=new LegendaryAttrs(item._attrs);
+    copyFrom(item);
   }
 
   /**

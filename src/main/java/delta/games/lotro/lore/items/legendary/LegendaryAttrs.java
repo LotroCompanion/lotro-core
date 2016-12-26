@@ -39,6 +39,18 @@ public class LegendaryAttrs
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public LegendaryAttrs(LegendaryAttrs source)
+  {
+    _setting=source._setting;
+    _gem=source._gem;
+    _rune=source._rune;
+    _crafted=source._crafted;
+  }
+
+  /**
    * Get the legendary title.
    * @return a title or <code>null</code> if not set.
    */
