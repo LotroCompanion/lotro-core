@@ -17,7 +17,6 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
-import delta.games.lotro.lore.items.filters.ItemArmourTypeFilter;
 import delta.games.lotro.lore.items.filters.ItemFilter;
 import delta.games.lotro.lore.items.filters.ItemRequiredClassFilter;
 import delta.games.lotro.lore.items.filters.ItemSlotFilter;
@@ -30,7 +29,6 @@ public class ItemsSorter
 {
   private static final String WEAPON="weapon-";
   private static final String ARMOUR="armour-";
-  private static final String JEWELS="jewel-";
 
   private HashMap<String,List<Item>> _items;
 
@@ -40,6 +38,10 @@ public class ItemsSorter
   public ItemsSorter()
   {
     _items=new HashMap<String,List<Item>>();
+    for(EquipmentLocation slot : EquipmentLocation.getAll())
+    {
+      _items.put(slot.getKey(),new ArrayList<Item>());
+    }
   }
 
   private void filterWeapons(List<Item> weapons)
@@ -74,7 +76,7 @@ public class ItemsSorter
     }
     if (others.size()>0)
     {
-      System.out.println("\tOther: "+others.size());
+      System.out.println("\tOther weapons: "+others.size());
       for(Item other : others)
       {
         System.out.println(other.dump());
@@ -134,7 +136,7 @@ public class ItemsSorter
     */
     if (others.size()>0)
     {
-      System.out.println("\tOther: "+others.size());
+      System.out.println("\tOther armours: "+others.size());
       for(Item other : others)
       {
         System.out.println(other.dump());
@@ -142,45 +144,14 @@ public class ItemsSorter
     }
   }
 
-  private void filterJewels(List<Item> jewels)
-  {
-    List<Item> ears=new ArrayList<Item>();
-    List<Item> neck=new ArrayList<Item>();
-    List<Item> wrist=new ArrayList<Item>();
-    List<Item> finger=new ArrayList<Item>();
-    List<Item> pocket=new ArrayList<Item>();
-    for(Item jewel : jewels)
-    {
-      EquipmentLocation location=jewel.getEquipmentLocation();
-      if (location==EquipmentLocation.EAR) ears.add(jewel);
-      else if (location==EquipmentLocation.NECK) neck.add(jewel);
-      else if (location==EquipmentLocation.WRIST) wrist.add(jewel);
-      else if (location==EquipmentLocation.FINGER) finger.add(jewel);
-      else if (location==EquipmentLocation.POCKET) pocket.add(jewel);
-    }
-    _items.put(JEWELS+EquipmentLocation.EAR.getKey(),ears);
-    _items.put(JEWELS+EquipmentLocation.NECK.getKey(),neck);
-    _items.put(JEWELS+EquipmentLocation.WRIST.getKey(),wrist);
-    _items.put(JEWELS+EquipmentLocation.FINGER.getKey(),finger);
-    _items.put(JEWELS+EquipmentLocation.POCKET.getKey(),pocket);
-    /*
-    System.out.println("\tEar: "+ears.size());
-    System.out.println("\tNeck: "+neck.size());
-    System.out.println("\tWrist: "+wrist.size());
-    System.out.println("\tFinger: "+finger.size());
-    System.out.println("\tPocket: "+pocket.size());
-    */
-  }
-
   /**
-   * Get jewels for a given slot.
+   * Get items for a given slot.
    * @param location Targeted slot.
-   * @return A list of jewel items.
+   * @return A list of items.
    */
-  public List<Item> getJewels(EquipmentLocation location)
+  public List<Item> getBySlot(EquipmentLocation location)
   {
-    String key=JEWELS+location.getKey();
-    return _items.get(key);
+    return _items.get(location.getKey());
   }
 
   private void filterOthers(List<Item> items)
@@ -209,7 +180,6 @@ public class ItemsSorter
   {
     List<Item> weapons=new ArrayList<Item>();
     List<Item> armours=new ArrayList<Item>();
-    List<Item> jewels=new ArrayList<Item>();
     List<Item> others=new ArrayList<Item>();
 
     for(Item item : items)
@@ -227,11 +197,10 @@ public class ItemsSorter
         else
         {
           EquipmentLocation location=item.getEquipmentLocation();
-          if ((location==EquipmentLocation.EAR) || (location==EquipmentLocation.FINGER)
-              || (location==EquipmentLocation.WRIST) || (location==EquipmentLocation.POCKET)
-              || (location==EquipmentLocation.NECK))
+          if (location!=null)
           {
-            jewels.add(item);
+            List<Item> list=_items.get(location.getKey());
+            list.add(item);
           }
           else
           {
@@ -244,8 +213,6 @@ public class ItemsSorter
     filterWeapons(weapons);
     //System.out.println("Armours: "+armours.size());
     filterArmours(armours);
-    //System.out.println("Jewels: "+jewels.size());
-    filterJewels(jewels);
     //System.out.println("Others: "+others.size());
     filterOthers(others);
   }
@@ -260,15 +227,18 @@ public class ItemsSorter
   public List<Item> buildArmoursList(CharacterClass cClass, int level, EquipmentLocation slot)
   {
     List<Item> ret=new ArrayList<Item>();
-    CharacterProficiencies prof=new CharacterProficiencies();
-    Set<ArmourType> armourTypes=prof.getArmourProficiencies(cClass,level);
     List<Filter<Item>> filters=new ArrayList<Filter<Item>>();
     ItemFilter classFilter=new ItemRequiredClassFilter(cClass,false);
     filters.add(classFilter);
     ItemSlotFilter slotFilter=new ItemSlotFilter(slot);
     filters.add(slotFilter);
+    // Armour type
+    // TODO To be re-enabled once armour types are all set
+    /*
     Filter<Item> armourTypeFilter=null;
     {
+      CharacterProficiencies prof=new CharacterProficiencies();
+      Set<ArmourType> armourTypes=prof.getArmourProficiencies(cClass,level);
       List<Filter<Item>> armourTypeFilters=new ArrayList<Filter<Item>>();
       for(ArmourType armourType : armourTypes)
       {
@@ -278,6 +248,7 @@ public class ItemsSorter
       armourTypeFilter=new CompoundFilter<Item>(Operator.OR,armourTypeFilters);
     }
     filters.add(armourTypeFilter);
+    */
     // TODO required level
     Filter<Item> filter=new CompoundFilter<Item>(Operator.AND,filters);
 
