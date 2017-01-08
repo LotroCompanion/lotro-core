@@ -322,6 +322,25 @@ public class ItemsSorter
   }
 
   /**
+   * Build a list of all essences.
+   * @return a list of essence items.
+   */
+  public List<Item> buildEssencesList()
+  {
+    List<Item> ret=new ArrayList<Item>();
+    for(Map.Entry<String,List<Item>> entry : _items.entrySet())
+    {
+      String category=entry.getKey();
+      if (category.startsWith("Essence"))
+      {
+        List<Item> items=entry.getValue();
+        ret.addAll(items);
+      }
+    }
+    return ret;
+  }
+
+  /**
    * Write sorted items to files.
    * @param rootDir Root directory of files.
    */
