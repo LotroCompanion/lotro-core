@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items.sort;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Set;
 import delta.common.utils.collections.filters.CompoundFilter;
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.collections.filters.Operator;
+import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterProficiencies;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.lore.items.Armour;
@@ -20,6 +22,7 @@ import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.filters.ItemFilter;
 import delta.games.lotro.lore.items.filters.ItemRequiredClassFilter;
 import delta.games.lotro.lore.items.filters.ItemSlotFilter;
+import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 
 /**
  * Sort items.
@@ -315,6 +318,33 @@ public class ItemsSorter
         ret.add(shield);
       }
     }
+    return ret;
+  }
+
+  /**
+   * Write sorted items to files.
+   * @param rootDir Root directory of files.
+   */
+  public void writeToFiles(File rootDir)
+  {
+    for(Map.Entry<String,List<Item>> entry : _items.entrySet())
+    {
+      String category=entry.getKey();
+      List<Item> items=entry.getValue();
+      if (items.size()>0)
+      {
+        String filename=buildCategoryFilename(category);
+        File out=new File(rootDir,filename);
+        ItemXMLWriter writer=new ItemXMLWriter();
+        writer.writeItems(out,items,EncodingNames.UTF_8);
+      }
+    }
+  }
+
+  private String buildCategoryFilename(String category)
+  {
+    String ret=category+".xml";
+    ret=ret.replace(":","_");
     return ret;
   }
 }
