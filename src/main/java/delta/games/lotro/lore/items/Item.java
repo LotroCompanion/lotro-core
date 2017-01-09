@@ -46,6 +46,7 @@ public class Item
   private BasicStatsSet _stats;
   // Essences
   private EssencesSet _essences;
+  private int _essenceSlots;
   // Durability
   private Integer _durability;
   // Sturdiness (may be null)
@@ -91,6 +92,8 @@ public class Item
     _unique=false;
     _bonus=new ArrayList<String>();
     _stats=new BasicStatsSet();
+    _essences=null;
+    _essenceSlots=0;
     _durability=null;
     _sturdiness=null;
     _minLevel=null;
@@ -412,6 +415,24 @@ public class Item
   }
 
   /**
+   * Get the number of essence slots.
+   * @return the number of essence slots.
+   */
+  public int getEssenceSlots()
+  {
+    return _essenceSlots;
+  }
+
+  /**
+   * Set the number of available essence slots.
+   * @param essenceSlots Slot count.
+   */
+  public void setEssenceSlots(int essenceSlots)
+  {
+    _essenceSlots=essenceSlots;
+  }
+
+  /**
    * Get the durability of this item.
    * @return a durability value.
    */
@@ -635,6 +656,7 @@ public class Item
     _stats=new BasicStatsSet(item._stats);
     // TODO
     _essences=item._essences;
+    _essenceSlots=item._essenceSlots;
     _durability=item._durability;
     _sturdiness=item._sturdiness;
     _itemLevel=item._itemLevel;

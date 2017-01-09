@@ -87,6 +87,10 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'stackMax'.
    */
   public static final String ITEM_STACK_MAX_ATTR="stackMax";
+  /**
+   * Tag 'item', attribute 'slots'.
+   */
+  public static final String ITEM_ESSENCE_SLOTS="slots";
 
   // Armour
   /**

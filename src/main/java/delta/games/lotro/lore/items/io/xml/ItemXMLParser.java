@@ -215,7 +215,7 @@ public class ItemXMLParser
       LegendaryAttrs legAttrs=((Legendary)ret).getLegendaryAttrs();
       LegendaryAttrsXMLParser.read(legAttrs,root);
     }
-    
+
     // Money
     MoneyXMLParser.loadMoney(root,ret.getValue());
     // Stack max
@@ -224,6 +224,9 @@ public class ItemXMLParser
     {
       ret.setStackMax(Integer.valueOf(stackMax));
     }
+    // Essence slots
+    int nbEssenceSlots=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_ESSENCE_SLOTS,0);
+    ret.setEssenceSlots(nbEssenceSlots);
     // Armour specific:
     if (category==ItemCategory.ARMOUR)
     {

@@ -246,7 +246,12 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STACK_MAX_ATTR,CDATA,String.valueOf(stackMax.intValue()));
     }
-    
+    // Essence slot count
+    int nbEssenceSlots=item.getEssenceSlots();
+    if (nbEssenceSlots>0)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS,CDATA,String.valueOf(nbEssenceSlots));
+    }
     // Armor specific:
     if (category==ItemCategory.ARMOUR)
     {
