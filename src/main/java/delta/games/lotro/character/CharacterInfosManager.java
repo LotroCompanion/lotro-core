@@ -176,7 +176,7 @@ public class CharacterInfosManager
    * Get all the available character data files.
    * @return an array of files.
    */
-  public File[] getInfoFiles()
+  private File[] getInfoFiles()
   {
     File[] files=null;
     File characterDir=_toon.getRootDir();

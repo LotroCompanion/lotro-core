@@ -1,6 +1,5 @@
 package delta.games.lotro.character.level;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,20 +38,17 @@ public class LevelHistoryComputer
   private void loadInfos(LevelHistory history, CharacterFile toon)
   {
     CharacterInfosManager infosMgr=toon.getInfosManager();
-    File[] infoFiles=infosMgr.getInfoFiles();
-    if (infoFiles!=null)
+    int nb=infosMgr.getDataCount();
+    for(int i=0;i<nb;i++)
     {
-      for(File infoFile : infoFiles)
+      CharacterData c=infosMgr.getData(i);
+      if (c!=null)
       {
-        CharacterData c=infosMgr.getCharacterDescription(infoFile);
-        if (c!=null)
+        Long date=c.getDate();
+        if (date!=null)
         {
-          Long date=c.getDate();
-          if (date!=null)
-          {
-            int level=c.getLevel();
-            history.setLevel(level,date.longValue());
-          }
+          int level=c.getLevel();
+          history.setLevel(level,date.longValue());
         }
       }
     }
