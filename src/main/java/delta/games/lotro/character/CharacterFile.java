@@ -184,16 +184,6 @@ public class CharacterFile
   }
 
   /**
-   * Get latest character info.
-   * @return A character description or <code>null</code> if an error occurs.
-   */
-  public CharacterData getLastCharacterInfo()
-  {
-    CharacterData c=_infosManager.getLastCharacterDescription();
-    return c;
-  }
-
-  /**
    * Get the date of the last log update.
    * @return A date or <code>null</code> if there's no log.
    */
