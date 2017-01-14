@@ -1,6 +1,9 @@
 package delta.games.lotro.character;
 
+import java.io.File;
+
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
@@ -13,6 +16,7 @@ import delta.games.lotro.common.Race;
  */
 public class CharacterData
 {
+  private File _file;
   private CharacterSummary _summary;
   private Long _date;
   private String _shortDescription;
@@ -28,6 +32,7 @@ public class CharacterData
    */
   public CharacterData()
   {
+    _file=null;
     _summary=new CharacterSummary();
     _date=null;
     _shortDescription="";
@@ -37,6 +42,24 @@ public class CharacterData
     _virtues=new VirtuesSet();
     _tomes=new TomesSet();
     _additionalStats=new BasicStatsSet();
+  }
+
+  /**
+   * Get the file to use to load/save data.
+   * @return A file.
+   */
+  public File getFile()
+  {
+    return _file;
+  }
+
+  /**
+   * Set the file to use to load/save data.
+   * @param file File to use.
+   */
+  public void setFile(File file)
+  {
+    _file=file;
   }
 
   /**
@@ -271,6 +294,33 @@ public class CharacterData
   public TomesSet getTomes()
   {
     return _tomes;
+  }
+
+  /**
+   * Revert data from file storage.
+   */
+  public void revert()
+  {
+    clear();
+    if (_file!=null)
+    {
+      CharacterDataIO.loadCharacter(this);
+    }
+  }
+
+  /**
+   * Clear data.
+   */
+  public void clear()
+  {
+    _date=null;
+    _shortDescription="";
+    _description="";
+    getStats().clear();
+    getEquipment().clear();
+    getVirtues().clear();
+    getTomes().clear();
+    getAdditionalStats().clear();
   }
 
   @Override

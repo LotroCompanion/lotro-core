@@ -31,6 +31,17 @@ public class TomesSet
   }
 
   /**
+   * Clear data.
+   */
+  public void clear()
+  {
+    for(int i=0;i<AVAILABLE_TOMES.length;i++)
+    {
+      _ranks[i]=0;
+    }
+  }
+
+  /**
    * Set the rank for a tome kind.
    * @param stat Targeted stat.
    * @param rank Rank to set.

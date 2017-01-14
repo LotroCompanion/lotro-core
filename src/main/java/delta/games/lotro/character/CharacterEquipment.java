@@ -256,6 +256,14 @@ public class CharacterEquipment
     return slot;
   }
 
+  /**
+   * Clear data.
+   */
+  public void clear()
+  {
+    _contents.clear();
+  }
+
   @Override
   public String toString()
   {

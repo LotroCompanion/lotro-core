@@ -28,8 +28,7 @@ public class TestCharacterXMLPersistence extends TestCase
     tmpFile.deleteOnExit();
     CharacterXMLWriter writer=new CharacterXMLWriter();
     writer.write(tmpFile,c,EncodingNames.UTF_8);
-    CharacterXMLParser parser=new CharacterXMLParser();
-    CharacterData newCharacter=parser.parseXML(tmpFile);
+    CharacterData newCharacter=CharacterDataIO.getCharacterDescription(tmpFile);
     System.out.println("Reloaded: "+newCharacter);
     compareCharacters(c,newCharacter);
   }

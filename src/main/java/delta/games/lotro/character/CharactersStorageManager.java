@@ -43,7 +43,7 @@ public class CharactersStorageManager
     {
       return null;
     }
-    ok=file.getInfosManager().writeNewInfo(initialData);
+    ok=file.getInfosManager().writeNewCharacterData(initialData);
     if (!ok)
     {
       return null;

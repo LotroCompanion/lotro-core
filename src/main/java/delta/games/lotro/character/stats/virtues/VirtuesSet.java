@@ -28,6 +28,18 @@ public class VirtuesSet
   }
 
   /**
+   * Clear data.
+   */
+  public void clear()
+  {
+    _virtues.clear();
+    for(int i=0;i<MAX_VIRTUES;i++)
+    {
+      _selectedVirtues[i]=null;
+    }
+  }
+
+  /**
    * Set the contents of this object from a given source.
    * @param source Source to copy.
    */

@@ -11,9 +11,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.io.xml.CharacterXMLParser;
-import delta.games.lotro.character.io.xml.CharacterXMLWriter;
+import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -88,7 +86,7 @@ public class CharacterInfosManager
     {
       for(File dataFile : dataFiles)
       {
-        CharacterData data=getCharacterDescription(dataFile);
+        CharacterData data=CharacterDataIO.getCharacterDescription(dataFile);
         _datas.add(data);
       }
     }
@@ -153,26 +151,6 @@ public class CharacterInfosManager
   }
 
   /**
-   * Get the character data for a given file.
-   * @param infoFile File to read.
-   * @return A character data or <code>null</code> if a problem occurs.
-   */
-  public CharacterData getCharacterDescription(File infoFile)
-  {
-    CharacterXMLParser xmlInfoParser=new CharacterXMLParser();
-    CharacterData c=xmlInfoParser.parseXML(infoFile);
-    if (c!=null)
-    {
-      Date date=getDateFromFilename(infoFile.getName());
-      if (date!=null)
-      {
-        c.setDate(Long.valueOf(date.getTime()));
-      }
-    }
-    return c;
-  }
-
-  /**
    * Get all the available character data files.
    * @return an array of files.
    */
@@ -213,12 +191,12 @@ public class CharacterInfosManager
     {
       for(File oldInfoFile : oldInfoFiles)
       {
-        CharacterData data=getCharacterDescription(oldInfoFile);
+        CharacterData data=CharacterDataIO.getCharacterDescription(oldInfoFile);
         if (data!=null)
         {
           File newFile=getNewInfoFile();
           updateOldCharacterData(oldInfoFile,data);
-          saveInfo(newFile,data);
+          CharacterDataIO.saveInfo(newFile,data);
           oldInfoFile.delete();
         }
       }
@@ -243,42 +221,17 @@ public class CharacterInfosManager
 
   /**
    * Write a new info file for this toon.
-   * @param info Character info to write.
+   * @param data Character info to write.
    * @return <code>true</code> it it succeeds, <code>false</code> otherwise.
    */
-  public boolean writeNewInfo(CharacterData info)
+  public boolean writeNewCharacterData(CharacterData data)
   {
-    File infoFile=getNewInfoFile();
-    boolean ret=saveInfo(infoFile,info);
+    File dataFile=getNewInfoFile();
+    boolean ret=CharacterDataIO.saveInfo(dataFile,data);
     if (ret)
     {
-      _datas.add(info);
-    }
-    return ret;
-  }
-
-  /**
-   * Write a new info file for this toon.
-   * @param toFile File to write to.
-   * @param info Character info to write.
-   * @return <code>true</code> it it succeeds, <code>false</code> otherwise.
-   */
-  public boolean saveInfo(File toFile, CharacterData info)
-  {
-    boolean ret=true;
-    File parentFile=toFile.getParentFile();
-    if (!parentFile.exists())
-    {
-      ret=parentFile.mkdirs();
-      if (!ret)
-      {
-        _logger.error("Cannot create directory ["+parentFile+"]!");
-      }
-    }
-    if (ret)
-    {
-      CharacterXMLWriter writer=new CharacterXMLWriter();
-      ret=writer.write(toFile,info,EncodingNames.UTF_8);
+      data.setFile(dataFile);
+      _datas.add(data);
     }
     return ret;
   }

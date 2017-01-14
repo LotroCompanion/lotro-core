@@ -33,22 +33,22 @@ public class CharacterXMLParser
   /**
    * Parse the XML file.
    * @param source Source file.
+   * @param data Data to write to.
    * @return Parsed character or <code>null</code>.
    */
-  public CharacterData parseXML(File source)
+  public boolean parseXML(File source, CharacterData data)
   {
-    CharacterData c=null;
+    boolean ret=false;
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      c=parseCharacter(root);
+      ret=parseCharacter(root,data);
     }
-    return c;
+    return ret;
   }
 
-  private CharacterData parseCharacter(Element root)
+  private boolean parseCharacter(Element root, CharacterData c)
   {
-    CharacterData c=new CharacterData();
     CharacterSummaryXMLParser.parseCharacter(root,c.getSummary());
     // Short description
     String shortDescription=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,"");
@@ -83,7 +83,7 @@ public class CharacterXMLParser
       BasicStatsSet additionalStats=BasicStatsSetXMLParser.parseStats(additionalStatsTag);
       c.getAdditionalStats().setStats(additionalStats);
     }
-    return c;
+    return true;
   }
 
   private void parseEquipment(CharacterData c, Element equipmentTag)
