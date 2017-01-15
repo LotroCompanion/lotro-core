@@ -32,7 +32,7 @@ public class ItemsSetXMLConstants
    * Tag 'item', attribute 'itemId'.
    */
   public static final String ITEM_ID_ATTR="itemId";
-  
+
   /**
    * Tag 'bonus'.
    */

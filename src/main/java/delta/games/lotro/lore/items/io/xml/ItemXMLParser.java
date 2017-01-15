@@ -25,6 +25,7 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLParser;
@@ -62,7 +63,7 @@ public class ItemXMLParser
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      List<Element> itemTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.ITEM_TAG);
+      List<Element> itemTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.ITEM_TAG,false);
       for(Element itemTag : itemTags)
       {
         Item item=parseItem(itemTag);
@@ -135,7 +136,7 @@ public class ItemXMLParser
     boolean unique=DOMParsingTools.getBooleanAttribute(attrs,ItemXMLConstants.ITEM_UNIQUE_ATTR,false);
     ret.setUnique(unique);
     // Bonuses
-    List<Element> bonusTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.BONUS_TAG);
+    List<Element> bonusTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.BONUS_TAG,false);
     List<String> bonuses=new ArrayList<String>();
     if (bonusTags!=null)
     {
@@ -150,7 +151,7 @@ public class ItemXMLParser
     }
     ret.setBonus(bonuses);
     // Properties
-    List<Element> propertyTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.PROPERTY_TAG);
+    List<Element> propertyTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.PROPERTY_TAG,false);
     if ((propertyTags!=null) && (propertyTags.size()>0))
     {
       for(Element propertyTag : propertyTags)
@@ -227,6 +228,32 @@ public class ItemXMLParser
     // Essence slots
     int nbEssenceSlots=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_ESSENCE_SLOTS,0);
     ret.setEssenceSlots(nbEssenceSlots);
+
+    // Essences
+    Element essencesTag=DOMParsingTools.getChildTagByName(root,ItemXMLConstants.ESSENCES_TAG);
+    if (essencesTag!=null)
+    {
+      List<Element> essenceTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ITEM_TAG,false);
+      List<Item> essences=new ArrayList<Item>();
+      for(Element essenceTag : essenceTags)
+      {
+        Item essence=parseItem(essenceTag);
+        essences.add(essence);
+      }
+      if (essences.size()>0)
+      {
+        int slots=Math.max(ret.getEssenceSlots(),essences.size());
+        EssencesSet essencesSet=new EssencesSet(slots);
+        int index=0;
+        for(Item essence : essences)
+        {
+          essencesSet.setEssence(index,essence);
+          index++;
+        }
+        ret.setEssences(essencesSet);
+      }
+    }
+
     // Armour specific:
     if (category==ItemCategory.ARMOUR)
     {

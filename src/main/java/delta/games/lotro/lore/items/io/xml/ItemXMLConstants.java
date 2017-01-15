@@ -139,6 +139,11 @@ public class ItemXMLConstants
   public static final String BONUS_VALUE_ATTR="value";
 
   /**
+   * Tag 'essences'.
+   */
+  public static final String ESSENCES_TAG="essences";
+
+  /**
    * Tag 'property'.
    */
   public static final String PROPERTY_TAG="property";

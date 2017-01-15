@@ -34,6 +34,7 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLWriter;
@@ -325,6 +326,24 @@ public class ItemXMLWriter
     // Stats
     BasicStatsSet stats=item.getStats();
     BasicStatsSetXMLWriter.write(hd,ItemXMLConstants.STATS_TAG,stats);
+
+    // Essences
+    EssencesSet essences=item.getEssences();
+    if (essences!=null)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      hd.startElement("","",ItemXMLConstants.ESSENCES_TAG,attrs);
+      int nbEssences=essences.getSize();
+      for(int i=0;i<nbEssences;i++)
+      {
+        Item essence=essences.getEssence(i);
+        if (essence!=null)
+        {
+          write(hd,essence);
+        }
+      }
+      hd.endElement("","",ItemXMLConstants.ESSENCES_TAG);
+    }
     hd.endElement("","",ItemXMLConstants.ITEM_TAG);
   }
 }
