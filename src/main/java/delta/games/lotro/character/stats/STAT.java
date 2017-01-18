@@ -123,6 +123,18 @@ public enum STAT
    */
   RESISTANCE_PERCENTAGE("Resistance %",true),
   /**
+   * Melee Defence.
+   */
+  MELEE_DEFENCE("Melee Defence", "Melee Defence Rating"),
+  /**
+   * Ranged Defence.
+   */
+  RANGED_DEFENCE("Ranged Defence", "Ranged Defence Rating"),
+  /**
+   * Tactical Defence.
+   */
+  TACTICAL_DEFENCE("Tactical Defence", "Tactical Defence Rating"),
+  /**
    * Critical Defence.
    */
   CRITICAL_DEFENCE("Critical Defence", "CRITICAL_AVOID", "Critical avoidance", "Critical Defense Rating"),
