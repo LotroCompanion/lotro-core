@@ -243,7 +243,7 @@ public enum STAT
    */
   SHADOW_MITIGATION_PERCENTAGE("Shadow Mitigation %",true),
   /**
-   * In-Combat Morale Regeneration.
+   * non-Combat Morale Regeneration.
    */
   OCMR("Non-Combat Morale Regeneration", "NCMR"),
   /**
