@@ -21,7 +21,7 @@ Fate 	Tactical_Mitigation 	1 	1 	1 	1 	1 	1 	1 	1 	1 	1
 Fate 	In-Combat_Morale_Regeneration 	1.5 	1.5 	1.5 	1.5 	1.5 	1.5 	1.5 	1.5 	1.5 	1.5
 Fate 	In-Combat_Power_Regeneration 	N/A 	1.71 	1.71 	1.71 	1.71 	1.71 	1.71 	1.71 	1.71 	1.71
 Fate 	Non-Combat_Power_Regeneration 	N/A 	24 	24 	24 	24 	24 	24 	24 	24 	24
-Armour 	Physical_Mitigation 	0 	0 	0 	1 	0 	0 	0 	1 	0 	0
-Armour 	Tactical_Mitigation 	0 	0 	0 	0.2 	0 	0 	0 	0.2 	0 	0
+Armour 	Physical_Mitigation 	1 	1 	1 	1 	1 	1 	1 	1 	1 	1
+Armour 	Tactical_Mitigation 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2
 Physical_Mitigation 	Orc-craft/Fell-wrought_Mitigation 	1 	1 	1 	1 	1 	1 	1 	1 	1 	1
 Armour 	Orc-craft/Fell-wrought_Mitigation 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2 	0.2
