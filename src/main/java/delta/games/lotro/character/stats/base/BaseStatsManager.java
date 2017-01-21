@@ -105,6 +105,11 @@ public class BaseStatsManager
     global.addStats(raceSet);
     global.addStats(levelSet);
     global.addStats(_toAdd);
+    // Lore-master: Ancient Wisdom
+    if ((cClass==CharacterClass.LORE_MASTER) && (level>=28))
+    {
+      global.addStat(STAT.WILL,new FixedDecimalsInteger(1.1f*level));
+    }
     return global;
   }
 
