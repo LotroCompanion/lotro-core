@@ -66,7 +66,7 @@ public class BaseStatsManager
     elf.setStat(STAT.MORALE, -20);
     elf.setStat(STAT.AGILITY, 15);
     elf.setStat(STAT.FATE, -7);
-    dwarf.setStat(STAT.OCMR, -60);
+    elf.setStat(STAT.OCMR, -60);
     _raceContrib.put(Race.ELF,elf);
     // Hobbit
     BasicStatsSet hobbit=new BasicStatsSet();
