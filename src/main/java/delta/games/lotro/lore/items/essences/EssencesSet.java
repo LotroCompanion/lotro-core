@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.items.essences;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.Item;
 
@@ -9,7 +12,7 @@ import delta.games.lotro.lore.items.Item;
  */
 public class EssencesSet
 {
-  private Item[] _essences;
+  private List<Item> _essences;
 
   /**
    * Constructor.
@@ -17,7 +20,11 @@ public class EssencesSet
    */
   public EssencesSet(int size)
   {
-    _essences=new Item[size];
+    _essences=new ArrayList<Item>();
+    for(int i=0;i<size;i++)
+    {
+      _essences.add(null);
+    }
   }
 
   /**
@@ -26,7 +33,7 @@ public class EssencesSet
    */
   public int getSize()
   {
-    return _essences.length;
+    return _essences.size();
   }
 
   /**
@@ -36,7 +43,7 @@ public class EssencesSet
    */
   public Item getEssence(int index)
   {
-    return _essences[index];
+    return _essences.get(index);
   }
 
   /**
@@ -46,16 +53,24 @@ public class EssencesSet
    */
   public void setEssence(int index, Item essence)
   {
-    _essences[index]=essence;
+    _essences.set(index,essence);
+  }
+
+  /**
+   * Add an essence.
+   * @param essence Essence to add (may be <code>null</code>).
+   */
+  public void addEssence(Item essence)
+  {
+    _essences.add(essence);
   }
 
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    for(int i=0;i<_essences.length;i++)
+    for(Item essence : _essences)
     {
-      Item essence=getEssence(i);
       if (essence!=null)
       {
         sb.append(essence);

@@ -433,6 +433,34 @@ public class Item
   }
 
   /**
+   * Get essences count.
+   * @return a count.
+   */
+  public int getEssencesCount()
+  {
+    int nbEssences=(_essences!=null)?_essences.getSize():0;
+    return Math.max(nbEssences,_essenceSlots);
+  }
+
+  /**
+   * Get an essence.
+   * @param index Index of the targeted essence, starting at 0.
+   * @return An essence or <code>null</code>.
+   */
+  public Item getEssenceAt(int index)
+  {
+    Item essence=null;
+    if (_essences!=null)
+    {
+      if (index<_essences.getSize())
+      {
+        essence=_essences.getEssence(index);
+      }
+    }
+    return essence;
+  }
+
+  /**
    * Get the durability of this item.
    * @return a durability value.
    */
