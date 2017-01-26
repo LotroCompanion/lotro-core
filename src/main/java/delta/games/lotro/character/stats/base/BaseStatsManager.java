@@ -132,11 +132,12 @@ public class BaseStatsManager
       set.setStat(STAT.POWER,power);
     }
     // Critical defence
-    int critDef=0;
-    if (cClass==CharacterClass.CAPTAIN) critDef=6*level;
+    // TODO As a buff
+    float critDef=0;
+    if (cClass==CharacterClass.CAPTAIN) critDef=6.06f*level;
     else if (cClass==CharacterClass.GUARDIAN) critDef=10*level;
     else if (cClass==CharacterClass.WARDEN) critDef=20*level;
-    if (critDef!=0)
+    if (critDef>0)
     {
       set.setStat(STAT.CRITICAL_DEFENCE,critDef);
     }
