@@ -128,6 +128,13 @@ public class CharacterStatsComputer
     BasicStatsSet hopeContrib=_hopeMgr.getContribution(raw);
     raw.addStats(hopeContrib);
 
+    // Captain's motivation
+    if (c.getCharacterClass()==CharacterClass.CAPTAIN)
+    {
+      FixedDecimalsInteger morale=raw.getStat(STAT.MORALE);
+      raw.setStat(STAT.MORALE,new FixedDecimalsInteger(morale.floatValue()*1.1f));
+    }
+
     // Ratings
     BasicStatsSet ratings=computeRatings(c,raw);
     raw.addStats(ratings);
