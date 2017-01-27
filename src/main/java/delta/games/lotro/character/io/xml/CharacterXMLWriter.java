@@ -21,6 +21,8 @@ import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
+import delta.games.lotro.character.stats.buffs.BuffsManager;
+import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLWriter;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.VirtueId;
@@ -113,6 +115,9 @@ public class CharacterXMLWriter
     // Tomes
     TomesSet tomes=character.getTomes();
     writeTomes(hd,tomes);
+    // Buffs
+    BuffsManager buffs=character.getBuffs();
+    BuffsXMLWriter.write(hd,buffs);
     // Additional stats
     BasicStatsSet additionalStats=character.getAdditionalStats();
     BasicStatsSetXMLWriter.write(hd,CharacterXMLConstants.ADDITIONAL_STATS_TAG,additionalStats);

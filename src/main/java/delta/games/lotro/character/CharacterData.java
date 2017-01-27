@@ -5,6 +5,7 @@ import java.io.File;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
@@ -25,6 +26,7 @@ public class CharacterData
   private CharacterEquipment _equipment;
   private VirtuesSet _virtues;
   private TomesSet _tomes;
+  private BuffsManager _buffs;
   private BasicStatsSet _additionalStats;
 
   /**
@@ -41,6 +43,7 @@ public class CharacterData
     _equipment=new CharacterEquipment();
     _virtues=new VirtuesSet();
     _tomes=new TomesSet();
+    _buffs=new BuffsManager();
     _additionalStats=new BasicStatsSet();
   }
 
@@ -297,6 +300,15 @@ public class CharacterData
   }
 
   /**
+   * Get the character's buffs.
+   * @return the character's buffs.
+   */
+  public BuffsManager getBuffs()
+  {
+    return _buffs;
+  }
+
+  /**
    * Revert data from file storage.
    */
   public void revert()
@@ -321,6 +333,7 @@ public class CharacterData
     getVirtues().clear();
     getTomes().clear();
     getAdditionalStats().clear();
+    getBuffs().clear();
   }
 
   @Override
@@ -335,6 +348,7 @@ public class CharacterData
     sb.append("Equipment:").append(_equipment).append(EndOfLine.NATIVE_EOL);
     sb.append("Virtues:").append(_virtues).append(EndOfLine.NATIVE_EOL);
     sb.append("Tomes:").append(_tomes).append(EndOfLine.NATIVE_EOL);
+    sb.append("Buffs:").append(_buffs).append(EndOfLine.NATIVE_EOL);
     sb.append("Additional stats:").append(_additionalStats).append(EndOfLine.NATIVE_EOL);
     return sb.toString().trim();
   }

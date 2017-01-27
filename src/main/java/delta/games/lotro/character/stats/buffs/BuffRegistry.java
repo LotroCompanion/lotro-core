@@ -8,14 +8,26 @@ import java.util.HashMap;
  */
 public class BuffRegistry
 {
+  private static final BuffRegistry _instance=new BuffRegistry();
   private HashMap<String,Buff> _buffMap;
+
+  /**
+   * Get the global buffs registry.
+   * @return the global buffs registry.
+   */
+  public static BuffRegistry getInstance()
+  {
+    return _instance;
+  }
 
   /**
    * Constructor.
    */
-  public BuffRegistry()
+  private BuffRegistry()
   {
     _buffMap=new HashMap<String,Buff>();
+    BuffInitializer init=new BuffInitializer();
+    init.initBuffs(this);
   }
 
   /**

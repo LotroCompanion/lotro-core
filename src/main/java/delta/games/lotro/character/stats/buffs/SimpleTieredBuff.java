@@ -48,8 +48,12 @@ public class SimpleTieredBuff implements BuffComputer
 
   public BasicStatsSet getStats(CharacterData character, BuffInstance buff)
   {
-    int tier=buff.getTier();
-    BasicStatsSet stats=_stats.get(Integer.valueOf(tier));
+    Integer tier=buff.getTier();
+    BasicStatsSet stats=null;
+    if (tier!=null)
+    {
+      stats=_stats.get(tier);
+    }
     return stats;
   }
 }

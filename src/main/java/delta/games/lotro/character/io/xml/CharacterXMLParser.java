@@ -15,6 +15,8 @@ import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
+import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLConstants;
+import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLParser;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.VirtueId;
@@ -76,6 +78,9 @@ public class CharacterXMLParser
     // Tomes
     Element tomesTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.TOMES_TAG);
     parseTomes(c,tomesTag);
+    // Buffs
+    Element buffsTag=DOMParsingTools.getChildTagByName(root,BuffsXMLConstants.BUFFS_TAG);
+    BuffsXMLParser.parseBuffs(buffsTag,c.getBuffs());
     // Additional stats
     Element additionalStatsTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.ADDITIONAL_STATS_TAG);
     if (additionalStatsTag!=null)
