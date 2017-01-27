@@ -9,10 +9,11 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  * Buff 'In Defence of Middle Earth' for Captains.
  * @author DAM
  */
-public class InDefenceOfMiddleEarth implements BuffComputer
+public class InDefenceOfMiddleEarth extends AbstractBuffImpl
 {
   private static STAT[] TARGETS = { STAT.MIGHT, STAT.VITALITY, STAT.WILL, STAT.FATE, STAT.AGILITY };
 
+  @Override
   public BasicStatsSet getStats(CharacterData character, BuffInstance buff)
   {
     BasicStatsSet stats=new BasicStatsSet();

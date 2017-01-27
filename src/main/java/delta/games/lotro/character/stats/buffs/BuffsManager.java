@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.stats.BasicStatsSet;
 
 /**
  * Storage for all buffs put on a character.
@@ -47,6 +49,40 @@ public class BuffsManager
   public BuffInstance getBuffAt(int index)
   {
     return _buffs.get(index);
+  }
+
+  /**
+   * Get buffs to apply for a character.
+   * @param c Targeted character.
+   * @return Some stats.
+   */
+  public BasicStatsSet getBuffs(CharacterData c)
+  {
+    BasicStatsSet ret=new BasicStatsSet();
+    for(BuffInstance buff : _buffs)
+    {
+      AbstractBuffImpl impl=buff.getBuff().getImpl();
+      BasicStatsSet buffContrib=impl.getStats(c,buff);
+      if (buffContrib!=null)
+      {
+        ret.addStats(buffContrib);
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Get buffs to apply on raw stats.
+   * @param c Targeted character.
+   * @param raw Raw stats.
+   */
+  public void applyBuffs(CharacterData c,BasicStatsSet raw)
+  {
+    for(BuffInstance buff : _buffs)
+    {
+      AbstractBuffImpl impl=buff.getBuff().getImpl();
+      impl.apply(c,raw,buff);
+    }
   }
 
   /**

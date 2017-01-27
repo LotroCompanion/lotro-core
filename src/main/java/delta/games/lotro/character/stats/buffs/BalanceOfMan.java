@@ -9,10 +9,11 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  * Buff 'Balance of Man' for Men.
  * @author DAM
  */
-public class BalanceOfMan implements BuffComputer
+public class BalanceOfMan extends AbstractBuffImpl
 {
   private static STAT[] TARGETS = { STAT.EVADE, STAT.PARRY, STAT.BLOCK };
 
+  @Override
   public BasicStatsSet getStats(CharacterData character, BuffInstance buff)
   {
     BasicStatsSet stats=new BasicStatsSet();

@@ -17,9 +17,26 @@ public class BuffInitializer
    */
   public void initBuffs(BuffRegistry registry)
   {
+    initSharedBuffs(registry);
     initRacialBuffs(registry);
     initCaptainBuffs(registry);
     initChampionBuffs(registry);
+  }
+
+  private void initSharedBuffs(BuffRegistry registry)
+  {
+    // - Hope
+    {
+      Buff hope=new Buff("HOPE", "Hope");
+      hope.setIcon("Hope-icon");
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int tier=1;tier<=10;tier++)
+      {
+        buff.addTier(tier,buildBasicSet(STAT.HOPE,tier));
+      }
+      hope.setImpl(buff);
+      registry.registerBuff(hope);
+    }
   }
 
   private void initRacialBuffs(BuffRegistry registry)
@@ -30,7 +47,7 @@ public class BuffInitializer
       Buff bom=new Buff("BALANCE_OF_MAN", "Balance of Man");
       bom.setIcon("Balance_of_Man-icon");
       bom.setRequiredClass(CharacterClass.CAPTAIN);
-      bom.setComputer(new BalanceOfMan());
+      bom.setImpl(new BalanceOfMan());
       registry.registerBuff(bom);
     }
   }
@@ -43,8 +60,16 @@ public class BuffInitializer
       Buff idome=new Buff("IN_DEFENCE_OF_MIDDLE_EARTH", "In Defence of Middle-Earth");
       idome.setIcon("In_Defence_of_Middle-earth-icon");
       idome.setRequiredClass(CharacterClass.CAPTAIN);
-      idome.setComputer(new InDefenceOfMiddleEarth());
+      idome.setImpl(new InDefenceOfMiddleEarth());
       registry.registerBuff(idome);
+    }
+    // - Motivated
+    {
+      Buff motivated=new Buff("MOTIVATED", "Motivated");
+      motivated.setIcon("Motivating_Speech-icon");
+      motivated.setRequiredClass(CharacterClass.CAPTAIN);
+      motivated.setImpl(new Motivated());
+      registry.registerBuff(motivated);
     }
 
     // Red tree
@@ -58,7 +83,7 @@ public class BuffInitializer
       {
         buff.addTier(tier,buildBasicSet(STAT.CRITICAL_MELEE_PERCENTAGE,tier));
       }
-      arterialStrikes.setComputer(buff);
+      arterialStrikes.setImpl(buff);
       registry.registerBuff(arterialStrikes);
     }
     // - Martial Prowess
@@ -70,12 +95,20 @@ public class BuffInitializer
       for(int tier=1;tier<=3;tier++)
       {
         BasicStatsSet stats=new BasicStatsSet();
-        stats.addStat(STAT.MELEE_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(1));
+        stats.addStat(STAT.MELEE_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(tier));
         //ret.addStat(STAT.ATTACK_SPEED,new FixedDecimalsInteger(5*tier));
         buff.addTier(tier,stats);
       }
-      martialProwess.setComputer(buff);
+      martialProwess.setImpl(buff);
       registry.registerBuff(martialProwess);
+    }
+    // - Steeled resolve
+    {
+      Buff steeledResolve=new Buff("STEELED_RESOLVE", "Steeled Resolve");
+      steeledResolve.setIcon("Steeled_Resolve-icon");
+      steeledResolve.setRequiredClass(CharacterClass.CAPTAIN);
+      steeledResolve.setImpl(new SteeledResolve());
+      registry.registerBuff(steeledResolve);
     }
   }
 
@@ -97,7 +130,7 @@ public class BuffInitializer
       buff.addTier(3,buildBasicSet(STAT.MIGHT,126));
       buff.addTier(4,buildBasicSet(STAT.MIGHT,134));
       buff.addTier(5,buildBasicSet(STAT.MIGHT,168));
-      mightIncrease.setComputer(buff);
+      mightIncrease.setImpl(buff);
       registry.registerBuff(mightIncrease);
     }
     // - Finesse Increase
@@ -110,7 +143,7 @@ public class BuffInitializer
       {
         buff.addTier(tier,buildBasicSet(STAT.FINESSE,521.2f*tier));
       }
-      finesseIncrease.setComputer(buff);
+      finesseIncrease.setImpl(buff);
       registry.registerBuff(finesseIncrease);
     }
   }

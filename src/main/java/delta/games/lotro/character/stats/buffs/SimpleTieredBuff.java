@@ -12,7 +12,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
  * A buff that associates a tier to some predefined stats.
  * @author DAM
  */
-public class SimpleTieredBuff implements BuffComputer
+public class SimpleTieredBuff extends AbstractBuffImpl
 {
   private HashMap<Integer,BasicStatsSet> _stats;
 
@@ -46,6 +46,7 @@ public class SimpleTieredBuff implements BuffComputer
     _stats.put(Integer.valueOf(tier),tieredStats);
   }
 
+  @Override
   public BasicStatsSet getStats(CharacterData character, BuffInstance buff)
   {
     Integer tier=buff.getTier();

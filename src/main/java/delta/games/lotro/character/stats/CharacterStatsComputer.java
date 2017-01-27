@@ -91,6 +91,7 @@ public class CharacterStatsComputer
     return ret;
   }
 
+
   /**
    * Compute the stats of a character.
    * @param c Character to use.
@@ -107,6 +108,10 @@ public class CharacterStatsComputer
     BasicStatsSet tomesStats=_tomesMgr.getContribution(c.getTomes());
     // Equipment
     BasicStatsSet equipmentStats=getEquipmentStats(c.getEquipment());
+    // Buffs
+    BasicStatsSet buffs=c.getBuffs().getBuffs(c);
+    // Misc
+    BasicStatsSet additionalStats=c.getAdditionalStats();
 
     // Total
     BasicStatsSet raw=new BasicStatsSet();
@@ -114,9 +119,7 @@ public class CharacterStatsComputer
     raw.addStats(virtuesStats);
     raw.addStats(tomesStats);
     raw.addStats(equipmentStats);
-
-    // Misc
-    BasicStatsSet additionalStats=c.getAdditionalStats();
+    raw.addStats(buffs);
     raw.addStats(additionalStats);
 
     // Derivated contributions
@@ -124,16 +127,12 @@ public class CharacterStatsComputer
     BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw);
     raw.addStats(derivedContrib);
 
+    // Additional buff contributions
+    c.getBuffs().applyBuffs(c,raw);
+
     // Hope
     BasicStatsSet hopeContrib=_hopeMgr.getContribution(raw);
     raw.addStats(hopeContrib);
-
-    // Captain's motivation
-    if (c.getCharacterClass()==CharacterClass.CAPTAIN)
-    {
-      FixedDecimalsInteger morale=raw.getStat(STAT.MORALE);
-      raw.setStat(STAT.MORALE,new FixedDecimalsInteger(morale.floatValue()*1.1f));
-    }
 
     // Ratings
     BasicStatsSet ratings=computeRatings(c,raw);

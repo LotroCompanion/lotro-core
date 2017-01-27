@@ -14,7 +14,7 @@ public class Buff
   private String _icon;
   private CharacterClass _requiredClass;
   private Race _requiredRace;
-  private BuffComputer _computer;
+  private AbstractBuffImpl _impl;
 
   /**
    * Constructor.
@@ -100,20 +100,21 @@ public class Buff
   }
 
   /**
-   * Get the computer for this buff.
-   * @return the computer for this buff.
+   * Get the implementation of this buff.
+   * @return the implementation of this buff.
    */
-  public BuffComputer getComputer()
+  public AbstractBuffImpl getImpl()
   {
-    return _computer;
+    return _impl;
   }
 
   /**
-   * @param computer the computer to set
+   * Set implementation.
+   * @param impl Implementation to set.
    */
-  public void setComputer(BuffComputer computer)
+  public void setImpl(AbstractBuffImpl impl)
   {
-    _computer=computer;
+    _impl=impl;
   }
 
   @Override
