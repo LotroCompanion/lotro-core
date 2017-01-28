@@ -1,7 +1,9 @@
 package delta.games.lotro.character.stats.buffs;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.CharacterData;
@@ -49,6 +51,21 @@ public class BuffsManager
   public BuffInstance getBuffAt(int index)
   {
     return _buffs.get(index);
+  }
+
+  /**
+   * Get all ids of contained buffs.
+   * @return a set of buff ids.
+   */
+  public Set<String> getBuffId()
+  {
+    HashSet<String> buffIds=new HashSet<String>();
+    for(BuffInstance buff : _buffs)
+    {
+      String id=buff.getBuff().getId();
+      buffIds.add(id);
+    }
+    return buffIds;
   }
 
   /**

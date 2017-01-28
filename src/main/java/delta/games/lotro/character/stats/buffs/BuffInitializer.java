@@ -3,6 +3,7 @@ package delta.games.lotro.character.stats.buffs;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Race;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -11,6 +12,27 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class BuffInitializer
 {
+  /**
+   * Generic buffs (for all characters).
+   */
+  private static final String GENERIC="Generic";
+  /**
+   * Racial buffs.
+   */
+  private static final String RACIAL="Racial";
+  /**
+   * Class buffs.
+   */
+  private static final String CLASS="Class";
+  /**
+   * Red tree buffs.
+   */
+  private static final String RED_TREE="Red Tree";
+  /**
+   * Yellow tree buffs.
+   */
+  private static final String YELLOW_TREE="Yellow Tree";
+
   /**
    * Init buffs.
    * @param registry Registry to use.
@@ -27,7 +49,7 @@ public class BuffInitializer
   {
     // - Hope
     {
-      Buff hope=new Buff("HOPE", "Hope");
+      Buff hope=new Buff("HOPE", GENERIC, "Hope");
       hope.setIcon("Hope-icon");
       SimpleTieredBuff buff=new SimpleTieredBuff();
       for(int tier=1;tier<=10;tier++)
@@ -44,9 +66,9 @@ public class BuffInitializer
     // Man
     // - Balance of Man
     {
-      Buff bom=new Buff("BALANCE_OF_MAN", "Balance of Man");
+      Buff bom=new Buff("BALANCE_OF_MAN", RACIAL, "Balance of Man");
       bom.setIcon("Balance_of_Man-icon");
-      bom.setRequiredClass(CharacterClass.CAPTAIN);
+      bom.setRequiredRace(Race.MAN);
       bom.setImpl(new BalanceOfMan());
       registry.registerBuff(bom);
     }
@@ -57,7 +79,7 @@ public class BuffInitializer
     // Captain buffs
     // - In Defence of Middle Earth
     {
-      Buff idome=new Buff("IN_DEFENCE_OF_MIDDLE_EARTH", "In Defence of Middle-Earth");
+      Buff idome=new Buff("IN_DEFENCE_OF_MIDDLE_EARTH", CLASS, "In Defence of Middle-Earth");
       idome.setIcon("In_Defence_of_Middle-earth-icon");
       idome.setRequiredClass(CharacterClass.CAPTAIN);
       idome.setImpl(new InDefenceOfMiddleEarth());
@@ -65,7 +87,7 @@ public class BuffInitializer
     }
     // - Motivated
     {
-      Buff motivated=new Buff("MOTIVATED", "Motivated");
+      Buff motivated=new Buff("MOTIVATED", CLASS, "Motivated");
       motivated.setIcon("Motivating_Speech-icon");
       motivated.setRequiredClass(CharacterClass.CAPTAIN);
       motivated.setImpl(new Motivated());
@@ -75,7 +97,7 @@ public class BuffInitializer
     // Red tree
     // - Arterial Strikes
     {
-      Buff arterialStrikes=new Buff("ARTERIAL_STRIKES", "Arterial Strikes");
+      Buff arterialStrikes=new Buff("ARTERIAL_STRIKES", RED_TREE, "Arterial Strikes");
       arterialStrikes.setIcon("Arterial_Strikes-icon");
       arterialStrikes.setRequiredClass(CharacterClass.CAPTAIN);
       SimpleTieredBuff buff=new SimpleTieredBuff();
@@ -88,7 +110,7 @@ public class BuffInitializer
     }
     // - Martial Prowess
     {
-      Buff martialProwess=new Buff("MARTIAL_PROWESS", "Martial Prowess");
+      Buff martialProwess=new Buff("MARTIAL_PROWESS", RED_TREE, "Martial Prowess");
       martialProwess.setIcon("Martial_Prowess-icon");
       martialProwess.setRequiredClass(CharacterClass.CAPTAIN);
       SimpleTieredBuff buff=new SimpleTieredBuff();
@@ -104,7 +126,7 @@ public class BuffInitializer
     }
     // - Steeled resolve
     {
-      Buff steeledResolve=new Buff("STEELED_RESOLVE", "Steeled Resolve");
+      Buff steeledResolve=new Buff("STEELED_RESOLVE", YELLOW_TREE, "Steeled Resolve");
       steeledResolve.setIcon("Steeled_Resolve-icon");
       steeledResolve.setRequiredClass(CharacterClass.CAPTAIN);
       steeledResolve.setImpl(new SteeledResolve());
@@ -121,7 +143,7 @@ public class BuffInitializer
     // Yellow tree
     // - Might Increase
     {
-      Buff mightIncrease=new Buff("MIGHT_INCREASE", "Might Increase");
+      Buff mightIncrease=new Buff("MIGHT_INCREASE", YELLOW_TREE, "Might Increase");
       mightIncrease.setIcon("Might_Increase-icon");
       mightIncrease.setRequiredClass(CharacterClass.CHAMPION);
       SimpleTieredBuff buff=new SimpleTieredBuff();
@@ -135,7 +157,7 @@ public class BuffInitializer
     }
     // - Finesse Increase
     {
-      Buff finesseIncrease=new Buff("FINESSE_INCREASE", "Finesse Increase");
+      Buff finesseIncrease=new Buff("FINESSE_INCREASE", YELLOW_TREE, "Finesse Increase");
       finesseIncrease.setIcon("Finesse_Increase-icon");
       finesseIncrease.setRequiredClass(CharacterClass.CHAMPION);
       SimpleTieredBuff buff=new SimpleTieredBuff();
