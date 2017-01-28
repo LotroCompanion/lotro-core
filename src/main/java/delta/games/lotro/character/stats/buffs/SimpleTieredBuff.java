@@ -24,10 +24,7 @@ public class SimpleTieredBuff extends AbstractBuffImpl
     _stats=new HashMap<Integer,BasicStatsSet>();
   }
 
-  /**
-   * Get all managed tiers.
-   * @return a sorted list of all managed tiers.
-   */
+  @Override
   public List<Integer> getTiers()
   {
     List<Integer> ret=new ArrayList<Integer>(_stats.keySet());

@@ -1,5 +1,7 @@
 package delta.games.lotro.character.stats.buffs;
 
+import java.util.List;
+
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
@@ -127,6 +129,21 @@ public class Buff
   public void setImpl(AbstractBuffImpl impl)
   {
     _impl=impl;
+  }
+
+  /**
+   * Build a new instance of this buff.
+   * @return A new buff instance.
+   */
+  public BuffInstance buildInstance()
+  {
+    BuffInstance buff=new BuffInstance(this);
+    List<Integer> tiers=getImpl().getTiers();
+    if ((tiers!=null) && (tiers.size()>0))
+    {
+      buff.setTier(tiers.get(0));
+    }
+    return buff;
   }
 
   @Override

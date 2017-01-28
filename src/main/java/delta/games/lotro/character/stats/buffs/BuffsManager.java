@@ -54,6 +54,15 @@ public class BuffsManager
   }
 
   /**
+   * Remove buff.
+   * @param index Index of buff to remove (starting at 0).
+   */
+  public void removeBuffAt(int index)
+  {
+    _buffs.remove(index);
+  }
+
+  /**
    * Get all ids of contained buffs.
    * @return a set of buff ids.
    */

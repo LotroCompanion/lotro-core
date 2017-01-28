@@ -1,5 +1,8 @@
 package delta.games.lotro.character.stats.buffs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
@@ -21,5 +24,13 @@ public class SteeledResolve extends AbstractBuffImpl
       float factor=1+0.01f*tier.intValue();
       raw.setStat(STAT.MORALE,new FixedDecimalsInteger(morale.floatValue()*factor));
     }
+  }
+
+  @Override
+  public List<Integer> getTiers()
+  {
+    List<Integer> ret=new ArrayList<Integer>();
+    for(int tier=1;tier<=4;tier++) ret.add(Integer.valueOf(tier));
+    return ret;
   }
 }

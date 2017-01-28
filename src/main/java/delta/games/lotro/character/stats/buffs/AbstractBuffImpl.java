@@ -1,5 +1,7 @@
 package delta.games.lotro.character.stats.buffs;
 
+import java.util.List;
+
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 
@@ -29,5 +31,14 @@ public abstract class AbstractBuffImpl
   public void apply(CharacterData character, BasicStatsSet raw, BuffInstance buff)
   {
     // Nothing
+  }
+
+  /**
+   * Get all managed tiers.
+   * @return a sorted list of all managed tiers or <code>null</code> if tiers are not supported.
+   */
+  public List<Integer> getTiers()
+  {
+    return null;
   }
 }
