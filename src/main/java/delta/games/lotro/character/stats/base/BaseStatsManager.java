@@ -135,7 +135,7 @@ public class BaseStatsManager
     // TODO As a buff
     float critDef=0;
     if (cClass==CharacterClass.CAPTAIN) critDef=6.06f*level;
-    else if (cClass==CharacterClass.GUARDIAN) critDef=10*level;
+    else if (cClass==CharacterClass.GUARDIAN) critDef=10.1f*level;
     else if (cClass==CharacterClass.WARDEN) critDef=20*level;
     if (critDef>0)
     {

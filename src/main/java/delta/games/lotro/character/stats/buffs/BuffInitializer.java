@@ -43,6 +43,7 @@ public class BuffInitializer
     initRacialBuffs(registry);
     initCaptainBuffs(registry);
     initChampionBuffs(registry);
+    initGuardianBuffs(registry);
   }
 
   private void initSharedBuffs(BuffRegistry registry)
@@ -71,6 +72,15 @@ public class BuffInitializer
       bom.setRequiredRace(Race.MAN);
       bom.setImpl(new BalanceOfMan());
       registry.registerBuff(bom);
+    }
+    // Dwarf
+    // - Shield Browler
+    {
+      Buff shieldBrowler=new Buff("SHIELD_BRAWLER", RACIAL, "Shield Brawler");
+      shieldBrowler.setIcon("Shield_Brawler-icon");
+      shieldBrowler.setRequiredRace(Race.DWARF);
+      shieldBrowler.setImpl(new ShieldBrawler());
+      registry.registerBuff(shieldBrowler);
     }
   }
 
@@ -167,6 +177,53 @@ public class BuffInitializer
       }
       finesseIncrease.setImpl(buff);
       registry.registerBuff(finesseIncrease);
+    }
+  }
+
+  private void initGuardianBuffs(BuffRegistry registry)
+  {
+    // Guardian buffs
+    // Red tree
+    // - Overpower
+    {
+      Buff overpower=new Buff("OVERPOWER", RED_TREE, "Overpower");
+      overpower.setIcon("Overpower-icon");
+      overpower.setRequiredClass(CharacterClass.GUARDIAN);
+      BasicStatsSet stats=new BasicStatsSet();
+      stats.addStat(STAT.MELEE_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(5));
+      stats.addStat(STAT.PARTIAL_PARRY_PERCENTAGE,new FixedDecimalsInteger(2.5f));
+      stats.addStat(STAT.PARTIAL_PARRY_MITIGATION_PERCENTAGE,new FixedDecimalsInteger(2.5f));
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      // TODO: 10% crit damage x
+      overpower.setImpl(buff);
+      registry.registerBuff(overpower);
+    }
+    // - Heavy Blows
+    {
+      Buff heavyBlows=new Buff("HEAVY_BLOWS", RED_TREE, "Heavy Blows");
+      heavyBlows.setIcon("Heavy_Blows-icon");
+      heavyBlows.setRequiredClass(CharacterClass.GUARDIAN);
+      BasicStatsSet stats=new BasicStatsSet();
+      stats.addStat(STAT.MELEE_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(5));
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      // TODO: 10% crit damage x
+      heavyBlows.setImpl(buff);
+      registry.registerBuff(heavyBlows);
+    }
+    // - Skilled Deflection
+    {
+      Buff skilledDeflection=new Buff("SKILLED_DEFLECTION", RED_TREE, "Skilled Deflection");
+      skilledDeflection.setIcon("Skilled_Deflection-icon");
+      skilledDeflection.setRequiredClass(CharacterClass.GUARDIAN);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int tier=1;tier<=5;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.PARRY_PERCENTAGE,new FixedDecimalsInteger(tier));
+        buff.addTier(tier,stats);
+      }
+      skilledDeflection.setImpl(buff);
+      registry.registerBuff(skilledDeflection);
     }
   }
 
