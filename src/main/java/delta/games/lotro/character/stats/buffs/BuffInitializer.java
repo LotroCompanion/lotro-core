@@ -32,6 +32,10 @@ public class BuffInitializer
    * Yellow tree buffs.
    */
   private static final String YELLOW_TREE="Yellow Tree";
+  /**
+   * Blue tree buffs.
+   */
+  private static final String BLUE_TREE="Blue Tree";
 
   /**
    * Init buffs.
@@ -44,6 +48,7 @@ public class BuffInitializer
     initCaptainBuffs(registry);
     initChampionBuffs(registry);
     initGuardianBuffs(registry);
+    initRuneKeeperBuffs(registry);
   }
 
   private void initSharedBuffs(BuffRegistry registry)
@@ -81,6 +86,18 @@ public class BuffInitializer
       shieldBrowler.setRequiredRace(Race.DWARF);
       shieldBrowler.setImpl(new ShieldBrawler());
       registry.registerBuff(shieldBrowler);
+    }
+    // Elf
+    // - Friend of Man
+    {
+      Buff friendOfMan=new Buff("FRIEND_OF_MAN", RACIAL, "Friend of Man");
+      friendOfMan.setIcon("Friend_of_Man-icon");
+      friendOfMan.setRequiredRace(Race.ELF);
+      BasicStatsSet stats=new BasicStatsSet();
+      stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      friendOfMan.setImpl(buff);
+      registry.registerBuff(friendOfMan);
     }
   }
 
@@ -224,6 +241,94 @@ public class BuffInitializer
       }
       skilledDeflection.setImpl(buff);
       registry.registerBuff(skilledDeflection);
+    }
+  }
+
+  private void initRuneKeeperBuffs(BuffRegistry registry)
+  {
+    // Rune-keeper buffs
+    // Yellow tree
+    // - Exacting Wards
+    {
+      Buff exactingWards=new Buff("EXACTING_WARDS", YELLOW_TREE, "Exacting Wards");
+      exactingWards.setIcon("Exacting_Wards-icon");
+      exactingWards.setRequiredClass(CharacterClass.RUNE_KEEPER);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      int[] values={1,2,3,4,7};
+      for(int tier=0;tier<values.length;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.MELEE_CRITICAL_DEFENCE,new FixedDecimalsInteger(values[tier]));
+        stats.addStat(STAT.RANGED_CRITICAL_DEFENCE,new FixedDecimalsInteger(values[tier]));
+        stats.addStat(STAT.TACTICAL_CRITICAL_DEFENCE,new FixedDecimalsInteger(values[tier]));
+        buff.addTier(tier+1,stats);
+      }
+      exactingWards.setImpl(buff);
+      registry.registerBuff(exactingWards);
+    }
+    // - Fortune Smiles
+    {
+      Buff fortuneSmiles=new Buff("FORTUNE_SMILES", YELLOW_TREE, "Fortune Smiles");
+      fortuneSmiles.setIcon("Fortune_Smiles-icon");
+      fortuneSmiles.setRequiredClass(CharacterClass.RUNE_KEEPER);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      int[] values={79,94,118,126,158};
+      for(int tier=0;tier<values.length;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.FATE,new FixedDecimalsInteger(values[tier]));
+        buff.addTier(tier+1,stats);
+      }
+      fortuneSmiles.setImpl(buff);
+      registry.registerBuff(fortuneSmiles);
+    }
+    // - Cutting Remarks
+    {
+      Buff cuttingRemarks=new Buff("CUTTING_REMARKS", YELLOW_TREE, "Cutting Remarks");
+      cuttingRemarks.setIcon("Cutting_Remarks-icon");
+      cuttingRemarks.setRequiredClass(CharacterClass.RUNE_KEEPER);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int tier=1;tier<=5;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.CRITICAL_TACTICAL_PERCENTAGE,new FixedDecimalsInteger(tier));
+        buff.addTier(tier,stats);
+      }
+      cuttingRemarks.setImpl(buff);
+      registry.registerBuff(cuttingRemarks);
+    }
+    // Blue tree
+    // - Determination
+    {
+      Buff determination=new Buff("DETERMINATION", BLUE_TREE, "Determination");
+      determination.setIcon("Determination-icon");
+      determination.setRequiredClass(CharacterClass.RUNE_KEEPER);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      int[] values={79,94,118,126,158};
+      for(int tier=0;tier<values.length;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.WILL,new FixedDecimalsInteger(values[tier]));
+        buff.addTier(tier+1,stats);
+      }
+      determination.setImpl(buff);
+      registry.registerBuff(determination);
+    }
+    // Red tree
+    // - Deliberate Address
+    {
+      Buff deliberateAddress=new Buff("DELIBERATE_ADDRESS", RED_TREE, "Deliberate Address");
+      deliberateAddress.setIcon("Deliberate_Address-icon");
+      deliberateAddress.setRequiredClass(CharacterClass.RUNE_KEEPER);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int tier=1;tier<=5;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.TACTICAL_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(tier));
+        buff.addTier(tier,stats);
+      }
+      deliberateAddress.setImpl(buff);
+      registry.registerBuff(deliberateAddress);
     }
   }
 
