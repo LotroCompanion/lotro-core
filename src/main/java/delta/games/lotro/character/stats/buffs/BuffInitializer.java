@@ -2,6 +2,7 @@ package delta.games.lotro.character.stats.buffs;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.character.stats.Slice;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -48,6 +49,7 @@ public class BuffInitializer
     initCaptainBuffs(registry);
     initChampionBuffs(registry);
     initGuardianBuffs(registry);
+    initMinstrelBuffs(registry);
     initRuneKeeperBuffs(registry);
   }
 
@@ -244,6 +246,66 @@ public class BuffInitializer
     }
   }
 
+  private void initMinstrelBuffs(BuffRegistry registry)
+  {
+    // Minstrel buffs
+    // Yellow tree
+    // Blue tree
+    // Red tree
+    // - Enduring Morale
+    {
+      Buff enduringMorale=new Buff("ENDURING_MORALE", RED_TREE, "Enduring Morale");
+      enduringMorale.setIcon("Enduring_Morale-icon");
+      enduringMorale.setRequiredClass(CharacterClass.MINSTREL);
+      float[] sliceCounts=new float[]{2,2.4f,3,3.4f,4};
+      Formula formula=new Formula()
+      {
+        public float compute(int level, float sliceCount)
+        {
+          return Slice.getMorale(level,sliceCount);
+        }
+      };
+      FormulaBasedBuff buff=new FormulaBasedBuff(sliceCounts,STAT.MORALE,formula);
+      enduringMorale.setImpl(buff);
+      registry.registerBuff(enduringMorale);
+    }
+    // - Finesse
+    {
+      Buff finesse=new Buff("FINESSE_MINSTREL", RED_TREE, "Finesse");
+      finesse.setIcon("Finesse_(Minstrel_Trait)-icon");
+      finesse.setRequiredClass(CharacterClass.MINSTREL);
+      float[] sliceCounts=new float[]{0.4f,0.8f,1.2f,1.6f,2};
+      Formula formula=new Formula()
+      {
+        public float compute(int level, float sliceCount)
+        {
+          return Slice.getFinesse(level,sliceCount);
+        }
+      };
+      FormulaBasedBuff buff=new FormulaBasedBuff(sliceCounts,STAT.FINESSE,formula);
+      finesse.setImpl(buff);
+      registry.registerBuff(finesse);
+    }
+    // - Critical Strikes
+    {
+      Buff criticalStrikes=new Buff("CRITICAL_STRIKES", RED_TREE, "Critical Strikes");
+      criticalStrikes.setIcon("Critical_Strikes-icon");
+      criticalStrikes.setRequiredClass(CharacterClass.MINSTREL);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int tier=1;tier<=5;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.CRITICAL_MELEE_PERCENTAGE,new FixedDecimalsInteger(tier));
+        stats.addStat(STAT.CRITICAL_RANGED_PERCENTAGE,new FixedDecimalsInteger(tier));
+        stats.addStat(STAT.CRITICAL_TACTICAL_PERCENTAGE,new FixedDecimalsInteger(tier));
+        stats.addStat(STAT.TACTICAL_CRITICAL_MULTIPLIER,new FixedDecimalsInteger(tier));
+        buff.addTier(tier,stats);
+      }
+      criticalStrikes.setImpl(buff);
+      registry.registerBuff(criticalStrikes);
+    }
+  }
+
   private void initRuneKeeperBuffs(BuffRegistry registry)
   {
     // Rune-keeper buffs
@@ -313,6 +375,21 @@ public class BuffInitializer
       }
       determination.setImpl(buff);
       registry.registerBuff(determination);
+    }
+    // - Light on One's Feet
+    {
+      Buff lightOnOnesFeet=new Buff("LIGHT_ON_ONES_FEET", BLUE_TREE, "Light on One's Feet");
+      lightOnOnesFeet.setIcon("Light_on_One's_Feet-icon");
+      lightOnOnesFeet.setRequiredClass(CharacterClass.RUNE_KEEPER);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int tier=1;tier<=5;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.EVADE_PERCENTAGE,new FixedDecimalsInteger(tier));
+        buff.addTier(tier,stats);
+      }
+      lightOnOnesFeet.setImpl(buff);
+      registry.registerBuff(lightOnOnesFeet);
     }
     // Red tree
     // - Deliberate Address

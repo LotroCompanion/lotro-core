@@ -4,8 +4,6 @@ import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
-import delta.games.lotro.character.stats.buffs.BuffInstance;
-import delta.games.lotro.character.stats.buffs.BuffRegistry;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Money;
@@ -137,10 +135,8 @@ public class CharacterGeneratorMeva
     BasicStatsSet additionalStats=c.getAdditionalStats();
     // Buff
     additionalStats.addStat(STAT.MIGHT, new FixedDecimalsInteger(20));
-    BuffInstance hopeBuff=BuffRegistry.getInstance().newBuffInstance("HOPE");
-    hopeBuff.setTier(Integer.valueOf(1));
-    c.getBuffs().addBuff(hopeBuff);
-    //additionalStats.addStat(STAT.HOPE, new FixedDecimalsInteger(1));
+    additionalStats.addStat(STAT.HOPE, new FixedDecimalsInteger(1));
+
     // Red trait tree:
     {
       // Enduring Morale, Rank 2
