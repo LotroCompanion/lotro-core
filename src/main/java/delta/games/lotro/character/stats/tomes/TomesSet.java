@@ -14,7 +14,10 @@ public class TomesSet
   public static STAT[] AVAILABLE_TOMES={
     STAT.MIGHT, STAT.AGILITY, STAT.VITALITY, STAT.WILL, STAT.FATE
   };
-  private static final int MAX_RANK=20;
+  /**
+   * Maximum rank.
+   */
+  public static final int MAX_RANK=20;
   private static final String[] LATINE={
     "I","II","III","IV","V","VI","VII","VIII","IX","X",
     "XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX"
