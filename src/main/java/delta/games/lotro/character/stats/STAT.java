@@ -371,6 +371,11 @@ public enum STAT
    */
   FORESTER_CHOPPING_DURATION("Forester Chopping Duration (s)"),
   /**
+   * Scholar researching duration (seconds).
+   */
+  SCHOLAR_RESEARCHING_DURATION("Scholar Researching Duration (s)"),
+
+  /**
    * Perceived threat (percentage).
    */
   PERCEIVED_THREAT("Perceived Threat (%)",true),
