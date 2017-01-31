@@ -236,6 +236,22 @@ public class CharacterInfosManager
     return ret;
   }
 
+  /**
+   * Delete a character data.
+   * @param data Targeted data.
+   * @return <code>true</code> if successfull, <code>false</code> otherwise.
+   */
+  public boolean remove(CharacterData data)
+  {
+    File file=data.getFile();
+    boolean ok=file.delete();
+    if (ok)
+    {
+      _datas.remove(data);
+    }
+    return ok;
+  }
+
   private File getNewInfoFile()
   {
     File ret=null;
