@@ -6,7 +6,7 @@ import delta.common.utils.NumericTools;
  * An value with a fixed number of decimals (2).
  * @author DAM
  */
-public class FixedDecimalsInteger extends Number implements Comparable
+public class FixedDecimalsInteger extends Number implements Comparable<FixedDecimalsInteger>
 {
   private static final int DECIMALS = 2;
   private static final int FACTOR = (int)(Math.pow(10, DECIMALS));
@@ -146,14 +146,9 @@ public class FixedDecimalsInteger extends Number implements Comparable
     return _value;
   }
 
-  public int compareTo(Object o)
+  public int compareTo(FixedDecimalsInteger other)
   {
-    if (o instanceof FixedDecimalsInteger)
-    {
-      FixedDecimalsInteger other=(FixedDecimalsInteger)o;
-      return _value-other._value;
-    }
-    return -1;
+    return _value-other._value;
   }
 
   @Override
