@@ -109,6 +109,7 @@ public class ItemsSorter
       else if (location==EquipmentLocation.LEGS) leggings.add(armour);
       else if (location==EquipmentLocation.FEET) feet.add(armour);
       else if (location==EquipmentLocation.BACK) back.add(armour);
+      else if (location==EquipmentLocation.OFF_HAND) shields.add(armour);
       else
       {
         ArmourType type=armour.getArmourType();
