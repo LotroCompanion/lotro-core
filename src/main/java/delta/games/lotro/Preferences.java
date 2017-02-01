@@ -17,11 +17,12 @@ public class Preferences
 
   /**
    * Constructor.
-   * @param rootDir Root directorty for preferences files.
+   * @param rootDir Root directory for preferences files.
    */
   public Preferences(File rootDir)
   {
     _rootDir=rootDir;
+    _rootDir.mkdirs();
     _props=new HashMap<String,TypedProperties>();
   }
 
@@ -56,7 +57,7 @@ public class Preferences
 
   /**
    * Save all preferences.
-   * @return <code>true</code> if if was successfull, <code>false</code> otherwise.
+   * @return <code>true</code> if if was successful, <code>false</code> otherwise.
    */
   public boolean saveAllPreferences()
   {
@@ -75,7 +76,7 @@ public class Preferences
   /**
    * Save a preferences set.
    * @param properties Preferences to save.
-   * @return <code>true</code> if if was successfull, <code>false</code> otherwise.
+   * @return <code>true</code> if if was successful, <code>false</code> otherwise.
    */
   public boolean savePreferences(TypedProperties properties)
   {
