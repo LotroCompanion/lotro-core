@@ -154,7 +154,11 @@ public class FixedDecimalsInteger extends Number implements Comparable<FixedDeci
   @Override
   public String toString()
   {
-    // TODO remove .0 if not needed
-    return String.valueOf(floatValue());
+    String ret=String.valueOf(floatValue());
+    if (ret.endsWith(".0"))
+    {
+      ret=ret.substring(0,ret.length()-2);
+    }
+    return ret;
   }
 }
