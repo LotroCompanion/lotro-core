@@ -80,6 +80,17 @@ public class BuffInitializer
       bom.setImpl(new BalanceOfMan());
       registry.registerBuff(bom);
     }
+    // - Man of the Fourth Age
+    {
+      Buff manOfFourthAge=new Buff("MAN_OF_THE_FOURTH_AGE", RACIAL, "Man of the Fourth Age");
+      manOfFourthAge.setIcon("Man_of_the_Fourth_Age-icon");
+      manOfFourthAge.setRequiredRace(Race.MAN);
+      BasicStatsSet stats=new BasicStatsSet();
+      stats.addStat(STAT.WILL,new FixedDecimalsInteger(20));
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      manOfFourthAge.setImpl(buff);
+      registry.registerBuff(manOfFourthAge);
+    }
     // Dwarf
     // - Shield Browler
     {
