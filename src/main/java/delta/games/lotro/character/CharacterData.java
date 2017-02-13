@@ -48,6 +48,29 @@ public class CharacterData
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public CharacterData(CharacterData source)
+  {
+    _file=null;
+    _summary=new CharacterSummary(source.getSummary());
+    _date=source._date;
+    _shortDescription=source._shortDescription;
+    _description=source._description;
+    _stats=new BasicStatsSet(source.getStats());
+    _equipment=new CharacterEquipment();
+    _equipment.copyFrom(source._equipment);
+    _virtues=new VirtuesSet();
+    _virtues.copyFrom(source.getVirtues());
+    _tomes=new TomesSet();
+    _tomes.copyFrom(source._tomes);
+    _buffs=new BuffsManager();
+    _buffs.copyFrom(source._buffs);
+    _additionalStats=new BasicStatsSet(source.getAdditionalStats());
+  }
+
+  /**
    * Get the file to use to load/save data.
    * @return A file.
    */

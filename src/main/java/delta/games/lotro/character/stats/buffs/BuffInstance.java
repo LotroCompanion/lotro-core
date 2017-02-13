@@ -19,6 +19,16 @@ public class BuffInstance
   }
 
   /**
+   * Copy constructor.
+   * @param source Source data.
+   */
+  public BuffInstance(BuffInstance source)
+  {
+    _buff=source._buff;
+    _tier=source._tier;
+  }
+
+  /**
    * Get the associated buff.
    * @return the associated buff.
    */

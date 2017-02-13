@@ -35,6 +35,20 @@ public class BuffsManager
   }
 
   /**
+   * Set the contents of this object from a given source.
+   * @param source Source to copy.
+   */
+  public void copyFrom(BuffsManager source)
+  {
+    _buffs.clear();
+    for(BuffInstance buff : source._buffs)
+    {
+      BuffInstance newBuff=new BuffInstance(buff);
+      _buffs.add(newBuff);
+    }
+  }
+
+  /**
    * Get the number of buffs.
    * @return a buff count.
    */

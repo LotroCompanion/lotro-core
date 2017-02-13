@@ -1,10 +1,12 @@
 package delta.games.lotro.character;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemFactory;
 
 /**
  * Equipment of a character.
@@ -152,6 +154,20 @@ public class CharacterEquipment
     }
 
     /**
+     * Copy constructor.
+     * @param source Source data.
+     */
+    public SlotContents(SlotContents source)
+    {
+      _slot=source._slot;
+      _itemId=source._itemId;
+      if (source._item!=null)
+      {
+        _item=ItemFactory.clone(source._item);
+      }
+    }
+
+    /**
      * Get the managed slot.
      * @return the managed slot.
      */
@@ -254,6 +270,20 @@ public class CharacterEquipment
   {
     EQUIMENT_SLOT slot=_positionToSlot.get(Integer.valueOf(index));
     return slot;
+  }
+
+  /**
+   * Set the contents of this object from a given source.
+   * @param source Source to copy.
+   */
+  public void copyFrom(CharacterEquipment source)
+  {
+    _contents.clear();
+    for(Map.Entry<Integer,SlotContents> entry : source._contents.entrySet())
+    {
+      SlotContents newSlot=new SlotContents(entry.getValue());
+      _contents.put(entry.getKey(),newSlot);
+    }
   }
 
   /**

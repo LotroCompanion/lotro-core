@@ -34,6 +34,15 @@ public class TomesSet
   }
 
   /**
+   * Set the contents of this object from a given source.
+   * @param source Source to copy.
+   */
+  public void copyFrom(TomesSet source)
+  {
+    System.arraycopy(source._ranks,0,_ranks,0,AVAILABLE_TOMES.length);
+  }
+
+  /**
    * Clear data.
    */
   public void clear()
