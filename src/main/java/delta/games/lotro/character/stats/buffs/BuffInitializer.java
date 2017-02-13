@@ -100,6 +100,17 @@ public class BuffInitializer
       shieldBrowler.setImpl(new ShieldBrawler());
       registry.registerBuff(shieldBrowler);
     }
+    // - Fateful Dwarf
+    {
+      Buff fatefulDwarf=new Buff("FATEFUL_DWARF", RACIAL, "Fateful Dwarf");
+      fatefulDwarf.setIcon("Fateful_Dwarf-icon");
+      fatefulDwarf.setRequiredRace(Race.DWARF);
+      BasicStatsSet stats=new BasicStatsSet();
+      stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      fatefulDwarf.setImpl(buff);
+      registry.registerBuff(fatefulDwarf);
+    }
     // Elf
     // - Friend of Man
     {
@@ -111,6 +122,30 @@ public class BuffInitializer
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       friendOfMan.setImpl(buff);
       registry.registerBuff(friendOfMan);
+    }
+    // Beorning
+    // - Emissary
+    {
+      Buff emissary=new Buff("EMISSARY", RACIAL, "Emissary");
+      emissary.setIcon("Emissary_(Beorning_Trait)-icon");
+      emissary.setRequiredRace(Race.BEORNING);
+      BasicStatsSet stats=new BasicStatsSet();
+      stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      emissary.setImpl(buff);
+      registry.registerBuff(emissary);
+    }
+    // Hobbit
+    // - Hobbit-Stature
+    {
+      Buff hobbitStature=new Buff("HOBBIT_STATURE", RACIAL, "Hobbit-Stature");
+      hobbitStature.setIcon("Hobbit-stature-icon");
+      hobbitStature.setRequiredRace(Race.HOBBIT);
+      BasicStatsSet stats=new BasicStatsSet();
+      stats.addStat(STAT.MIGHT,new FixedDecimalsInteger(20));
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      hobbitStature.setImpl(buff);
+      registry.registerBuff(hobbitStature);
     }
   }
 
