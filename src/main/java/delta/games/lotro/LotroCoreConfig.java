@@ -23,7 +23,6 @@ public class LotroCoreConfig
   private File _itemsDir;
   private File _recipesDir;
   private TypedProperties _parameters;
-  private Preferences _preferences;
 
   /**
    * Get the sole instance of this class.
@@ -47,8 +46,6 @@ public class LotroCoreConfig
     File parametersFiles=new File(_configDir,"params.txt");
     _parameters=new TypedProperties();
     _parameters.loadFromFile(parametersFiles);
-    File preferencesDir=new File(_rootDataDir,"preferences");
-    _preferences=new Preferences(preferencesDir);
     _questsDir=new File(_rootDataDir,"quests");
     _deedsDir=new File(_rootDataDir,"deeds");
     _iconsDir=new File(_rootDataDir,"icons");
@@ -144,14 +141,5 @@ public class LotroCoreConfig
   public TypedProperties getParameters()
   {
     return _parameters;
-  }
-
-  /**
-   * Get the preferences manager.
-   * @return the preferences manager.
-   */
-  public Preferences getPreferences()
-  {
-    return _preferences;
   }
 }
