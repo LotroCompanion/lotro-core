@@ -112,7 +112,7 @@ public class CharactersStorageManager
           if (summary!=null)
           {
             toons.add(toon);
-            System.out.println("Loaded: "+summary);
+            //System.out.println("Loaded: "+summary);
           }
         }
       }
