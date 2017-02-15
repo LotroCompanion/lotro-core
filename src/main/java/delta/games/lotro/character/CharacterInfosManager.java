@@ -231,7 +231,14 @@ public class CharacterInfosManager
     if (ret)
     {
       data.setFile(dataFile);
-      _datas.add(data);
+      if (_datas.size()==0)
+      {
+        sync();
+      }
+      else
+      {
+        _datas.add(data);
+      }
     }
     return ret;
   }
