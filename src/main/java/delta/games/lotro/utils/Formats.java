@@ -98,7 +98,7 @@ public class Formats
     Date date=null;
     try
     {
-      date=_dateFormatter.parse(dateStr);
+      date=_dateTimeFormatter.parse(dateStr);
     }
     catch(ParseException parseException)
     {
@@ -108,7 +108,7 @@ public class Formats
     {
       try
       {
-        date=_dateTimeFormatter.parse(dateStr);
+        date=_dateFormatter.parse(dateStr);
       }
       catch(ParseException parseException)
       {
