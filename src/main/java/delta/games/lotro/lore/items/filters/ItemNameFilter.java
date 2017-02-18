@@ -50,6 +50,7 @@ public class ItemNameFilter implements ItemFilter
     {
       pattern="";
     }
+    _pattern=pattern;
     _filter=new StringFilter(pattern,MatchType.CONTAINS,true);
   }
 
