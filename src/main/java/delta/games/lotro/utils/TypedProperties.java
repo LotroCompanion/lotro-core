@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,13 +41,32 @@ public class TypedProperties
    */
   public boolean loadFromFile(File inFile)
   {
-    boolean ret;
-    Properties props=new Properties();
+    boolean ret=false;
     FileInputStream fis=null;
     try
     {
       fis=new FileInputStream(inFile);
-      props.load(fis);
+      ret=loadFromInputStream(fis);
+    }
+    catch(IOException ioe)
+    {
+      _logger.error("Cannot load properties from file ["+inFile+"]!",ioe);
+    }
+    return ret;
+  }
+
+  /**
+   * Load properties from an input stream.
+   * @param is Input stream.
+   * @return <code>true</code> if it was successfull, <code>false</code> otherwise.
+   */
+  public boolean loadFromInputStream(InputStream is)
+  {
+    boolean ret;
+    Properties props=new Properties();
+    try
+    {
+      props.load(is);
       for(Map.Entry<Object,Object> entry : props.entrySet())
       {
         _props.put(entry.getKey(),entry.getValue());
@@ -56,11 +76,11 @@ public class TypedProperties
     catch(IOException ioe)
     {
       ret=false;
-      _logger.error("Cannot load properties from file ["+inFile+"]!",ioe);
+      _logger.error("Cannot load properties!",ioe);
     }
     finally
     {
-      StreamTools.close(fis);
+      StreamTools.close(is);
     }
     return ret;
   }
@@ -152,6 +172,33 @@ public class TypedProperties
    * @param value Value to set.
    */
   public void setIntProperty(String name, int value)
+  {
+    _props.setProperty(name,String.valueOf(value));
+  }
+
+  /**
+   * Get the value of a long property.
+   * @param name Property name.
+   * @param defaultValue Default value, used if the property does not exist.
+   * @return An integer value.
+   */
+  public long getLongProperty(String name, long defaultValue)
+  {
+    long ret=defaultValue;
+    String value=_props.getProperty(name,null);
+    if (value!=null)
+    {
+      ret=NumericTools.parseLong(value,ret);
+    }
+    return ret;
+  }
+
+  /**
+   * Set the value of a long property.
+   * @param name Property name.
+   * @param value Value to set.
+   */
+  public void setLongProperty(String name, long value)
   {
     _props.setProperty(name,String.valueOf(value));
   }
