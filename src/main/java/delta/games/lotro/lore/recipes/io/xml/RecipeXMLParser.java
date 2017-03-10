@@ -9,11 +9,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.lore.recipes.CraftingResult;
+import delta.games.lotro.lore.recipes.Ingredient;
+import delta.games.lotro.lore.recipes.ItemReference;
 import delta.games.lotro.lore.recipes.Recipe;
-import delta.games.lotro.lore.recipes.Recipe.CraftingResult;
-import delta.games.lotro.lore.recipes.Recipe.Ingredient;
-import delta.games.lotro.lore.recipes.Recipe.ItemReference;
-import delta.games.lotro.lore.recipes.Recipe.RecipeVersion;
+import delta.games.lotro.lore.recipes.RecipeVersion;
 
 /**
  * Parser for quest descriptions stored in XML.

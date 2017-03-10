@@ -15,11 +15,11 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
+import delta.games.lotro.lore.recipes.CraftingResult;
+import delta.games.lotro.lore.recipes.Ingredient;
+import delta.games.lotro.lore.recipes.ItemReference;
 import delta.games.lotro.lore.recipes.Recipe;
-import delta.games.lotro.lore.recipes.Recipe.CraftingResult;
-import delta.games.lotro.lore.recipes.Recipe.Ingredient;
-import delta.games.lotro.lore.recipes.Recipe.ItemReference;
-import delta.games.lotro.lore.recipes.Recipe.RecipeVersion;
+import delta.games.lotro.lore.recipes.RecipeVersion;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
