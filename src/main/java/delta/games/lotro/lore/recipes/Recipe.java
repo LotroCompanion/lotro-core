@@ -15,7 +15,10 @@ public class Recipe
   private String _key;
   private String _name;
   private String _profession;
+  private String _category;
   private int _tier;
+  private int _xp;
+  private int _cooldown;
   private boolean _oneTimeUse;
   private List<Ingredient> _ingredients;
   private List<RecipeVersion> _versions;
@@ -30,7 +33,10 @@ public class Recipe
     _key=null;
     _name=null;
     _profession=null;
+    _category=null;
     _tier=1;
+    _xp=0;
+    _cooldown=-1;
     _oneTimeUse=false;
     _ingredients=new ArrayList<Ingredient>();
     _versions=new ArrayList<RecipeVersion>();
@@ -110,6 +116,24 @@ public class Recipe
   }
 
   /**
+   * Get the category of this recipe.
+   * @return a category identifier.
+   */
+  public String getCategory()
+  {
+    return _category;
+  }
+
+  /**
+   * Set the category of this recipe.
+   * @param category the category to set.
+   */
+  public void setCategory(String category)
+  {
+    _category=category;
+  }
+
+  /**
    * Get the recipe tier.
    * @return A tier.
    */
@@ -125,6 +149,42 @@ public class Recipe
   public void setTier(int tier)
   {
     _tier=tier;
+  }
+
+  /**
+   * Get the XP for this recipe.
+   * @return An XP amount.
+   */
+  public int getXP()
+  {
+    return _xp;
+  }
+
+  /**
+   * Set the XP for this recipe.
+   * @param xp the XP to set.
+   */
+  public void setXP(int xp)
+  {
+    _xp=xp;
+  }
+
+  /**
+   * Get the cooldown for this recipe.
+   * @return A cooldown value (seconds).
+   */
+  public int getCooldown()
+  {
+    return _cooldown;
+  }
+
+  /**
+   * Set the cooldown for this recipe.
+   * @param cooldown the cooldown to set (seconds or -1).
+   */
+  public void setCooldown(int cooldown)
+  {
+    _cooldown=cooldown;
   }
 
   /**
@@ -233,10 +293,28 @@ public class Recipe
       sb.append(_profession);
       sb.append(')');
     }
+    if (_category!=null)
+    {
+      sb.append(" (category=");
+      sb.append(_category);
+      sb.append(')');
+    }
     if (_tier!=0)
     {
       sb.append(" (tier=");
       sb.append(_tier);
+      sb.append(')');
+    }
+    if (_xp!=0)
+    {
+      sb.append(" (XP=");
+      sb.append(_xp);
+      sb.append(')');
+    }
+    if (_cooldown!=-1)
+    {
+      sb.append(" (cooldown=");
+      sb.append(_cooldown);
       sb.append(')');
     }
     if (_oneTimeUse)
