@@ -97,6 +97,19 @@ public class ItemReference
   @Override
   public String toString()
   {
-    return _name+" ("+_itemId+") ("+_itemKey+") ("+_icon+")";
+    StringBuilder sb=new StringBuilder(_name);
+    if (_itemId!=0)
+    {
+      sb.append(" (").append(_itemId).append(')');
+    }
+    if (_itemKey!=null)
+    {
+      sb.append(" (").append(_itemKey).append(')');
+    }
+    if (_icon!=null)
+    {
+      sb.append(" (").append(_icon).append(')');
+    }
+    return sb.toString();
   }
 }

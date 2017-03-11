@@ -140,6 +140,11 @@ public class LuaParser
       pushBackChar();
       ret=readBoolean();
     }
+    else
+    {
+      pushBackChar();
+      ret=readNumeric();
+    }
     //System.out.println("Read value: "+ret);
     return ret;
   }
@@ -150,12 +155,12 @@ public class LuaParser
     char c=readNextChar();
     if (c!='[') throwException("'[' expected");
     skipBlanks();
-    String name=readString();
+    Object name=readPropertyValue();
     skipBlanks();
     c=readNextChar();
     if (c!=']') throwException("'[' expected");
     //System.out.println("Read: "+name);
-    return name;
+    return name.toString();
   }
 
   private String readString()
@@ -267,6 +272,27 @@ public class LuaParser
     if ("false".equals(value)) return Boolean.FALSE;
     throwException("Expected a boolean value. Got: "+value);
     return null;
+  }
+
+  private Double readNumeric()
+  {
+    // Read numeric value
+    StringBuilder sb=new StringBuilder();
+    while(true)
+    {
+      char c=readNextChar();
+      if (((c>='0') && (c<='9')) || (c=='.') || (c=='-'))
+      {
+        sb.append(c);
+      }
+      else
+      {
+        pushBackChar();
+        break;
+      }
+    }
+    double ret=NumericTools.parseDouble(sb.toString(),0);
+    return Double.valueOf(ret);
   }
 
   private void throwException(String msg)
