@@ -86,6 +86,20 @@ public class PluginConstants
   }
 
   /**
+   * Get the directory for the plugin data for an account/server/character set.
+   * @param account Targeted account ID.
+   * @param server Server name.
+   * @param characterName Character name.
+   * @return A directory.
+   */
+  public static File getCharacterDir(String account, String server, String characterName)
+  {
+    File serverDir=getServerAccount(account,server);
+    File characterDir=new File(serverDir,characterName);
+    return characterDir;
+  }
+
+  /**
    * Get all the characters for a given account/server couple.
    * @param account Targeted account ID.
    * @param server Server name.
@@ -96,18 +110,21 @@ public class PluginConstants
   {
     List<String> ret=new ArrayList<String>();
     File dir=getServerAccount(account,server);
-    File[] characterDirs=dir.listFiles();
-    if (characterDirs!=null)
+    File[] files=dir.listFiles();
+    if (files!=null)
     {
-      for(File characterDir : characterDirs)
+      for(File file : files)
       {
-        String name=characterDir.getName();
-        if (!"AllCharacters".equals(name))
+        if (file.isDirectory())
         {
-          boolean isSessionPlay=(name.startsWith("~"));
-          if ((includeSessionPlay) || (!isSessionPlay))
+          String name=file.getName();
+          if (!"AllCharacters".equals(name))
           {
-            ret.add(name);
+            boolean isSessionPlay=(name.startsWith("~"));
+            if ((includeSessionPlay) || (!isSessionPlay))
+            {
+              ret.add(name);
+            }
           }
         }
       }
