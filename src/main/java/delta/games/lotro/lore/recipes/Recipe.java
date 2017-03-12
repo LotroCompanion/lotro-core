@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.Duration;
 
 /**
  * Recipe description.
@@ -314,7 +315,7 @@ public class Recipe
     if (_cooldown!=-1)
     {
       sb.append(" (cooldown=");
-      sb.append(_cooldown);
+      sb.append(Duration.getDurationString(_cooldown));
       sb.append(')');
     }
     if (_oneTimeUse)
