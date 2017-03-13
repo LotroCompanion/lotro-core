@@ -22,6 +22,7 @@ public class ItemsStash
 
   private int _nextId;
   private HashMap<Integer,Item> _items;
+  private List<Item> _itemsList;
 
   /**
    * Constructor.
@@ -30,6 +31,16 @@ public class ItemsStash
   {
     _nextId=1;
     _items=new HashMap<Integer,Item>();
+    _itemsList=new ArrayList<Item>();
+  }
+
+  /**
+   * Get the internal list of items.
+   * @return a list of items.
+   */
+  public List<Item> getItemsList()
+  {
+    return _itemsList;
   }
 
   /**
@@ -58,6 +69,7 @@ public class ItemsStash
       item.setStashIdentifier(stashId);
     }
     _items.put(Integer.valueOf(stashId),item);
+    _itemsList.add(item);
   }
 
   /**
@@ -70,6 +82,7 @@ public class ItemsStash
     if (old!=null)
     {
       old.setStashIdentifier(0);
+      _itemsList.remove(old);
     }
   }
 
@@ -84,6 +97,7 @@ public class ItemsStash
       item.setStashIdentifier(0);
     }
     _items.clear();
+    _itemsList.clear();
   }
 
   /**

@@ -12,6 +12,7 @@ import delta.games.lotro.character.level.io.xml.LevelHistoryXMLParser;
 import delta.games.lotro.character.level.io.xml.LevelHistoryXMLWriter;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogsManager;
+import delta.games.lotro.character.storage.ItemsStash;
 
 /**
  * Character file description.
@@ -24,6 +25,7 @@ public class CharacterFile
   private CharacterLogsManager _logsManager;
   private LevelHistory _levelHistory;
   private CharacterSummary _summary;
+  private ItemsStash _stash;
 
   /**
    * Constructor.
@@ -34,6 +36,7 @@ public class CharacterFile
     _rootDir=rootDir;
     _infosManager=new CharacterInfosManager(this);
     _logsManager=new CharacterLogsManager(this);
+    _stash=new ItemsStash();
   }
 
   /**
@@ -90,6 +93,15 @@ public class CharacterFile
   {
     File summaryFile=new File(_rootDir,"summary.xml");
     return summaryFile;
+  }
+
+  /**
+   * Get the items stash of this character.
+   * @return an items stash.
+   */
+  public ItemsStash getStash()
+  {
+    return _stash;
   }
 
   /**
