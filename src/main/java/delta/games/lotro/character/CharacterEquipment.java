@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
-import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
