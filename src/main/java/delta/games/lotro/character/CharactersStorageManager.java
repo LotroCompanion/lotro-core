@@ -30,7 +30,7 @@ public class CharactersStorageManager
   /**
    * Create a new toon.
    * @param initialData Character initial data.
-   * @return A new file or <code>null</code> if a problem occured.
+   * @return A new file or <code>null</code> if a problem occurred.
    */
   public CharacterFile newToon(CharacterData initialData)
   {

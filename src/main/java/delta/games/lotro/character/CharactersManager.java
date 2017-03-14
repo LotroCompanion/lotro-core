@@ -107,7 +107,7 @@ public class CharactersManager
   /**
    * Remove a character.
    * @param file Character file.
-   * @return <code>true</code> if successfull, <code>false</code> otherwise.
+   * @return <code>true</code> if successful, <code>false</code> otherwise.
    */
   public boolean removeToon(CharacterFile file)
   {
