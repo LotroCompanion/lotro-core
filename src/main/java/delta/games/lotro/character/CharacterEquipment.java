@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
+import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
+import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Equipment of a character.
@@ -284,6 +287,36 @@ public class CharacterEquipment
       SlotContents newSlot=new SlotContents(entry.getValue());
       _contents.put(entry.getKey(),newSlot);
     }
+  }
+
+  /**
+   * Get the item for a given slot.
+   * @param slot Targeted slot.
+   * @return An item or <code>null</code> if not found.
+   */
+  public Item getItemForSlot(EQUIMENT_SLOT slot)
+  {
+    SlotContents contents=getSlotContents(slot,false);
+    Item item=null;
+    if (contents!=null)
+    {
+      item=contents.getItem();
+      if (item==null)
+      {
+        Integer id=contents.getItemId();
+        if (id!=null)
+        {
+          ItemsManager itemsManager=ItemsManager.getInstance();
+          item=itemsManager.getItem(id);
+          if (item!=null)
+          {
+            item=ItemFactory.clone(item);
+          }
+          contents.setItem(item);
+        }
+      }
+    }
+    return item;
   }
 
   /**
