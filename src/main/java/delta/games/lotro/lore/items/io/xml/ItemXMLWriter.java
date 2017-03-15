@@ -159,6 +159,12 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_KEY_ATTR,CDATA,String.valueOf(id));
     }
+    // Stash ID
+    int stashId=item.getStashIdentifier();
+    if (stashId!=0)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STASH_ID_ATTR,CDATA,String.valueOf(stashId));
+    }
     // Set identifier
     String setIdentifier=item.getSetKey();
     if (setIdentifier!=null)

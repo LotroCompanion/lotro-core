@@ -13,6 +13,8 @@ import delta.games.lotro.character.level.io.xml.LevelHistoryXMLWriter;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogsManager;
 import delta.games.lotro.character.storage.ItemsStash;
+import delta.games.lotro.character.storage.io.xml.StashXMLParser;
+import delta.games.lotro.character.storage.io.xml.StashXMLWriter;
 
 /**
  * Character file description.
@@ -36,7 +38,7 @@ public class CharacterFile
     _rootDir=rootDir;
     _infosManager=new CharacterInfosManager(this);
     _logsManager=new CharacterLogsManager(this);
-    _stash=new ItemsStash();
+    _stash=null;
   }
 
   /**
@@ -101,7 +103,42 @@ public class CharacterFile
    */
   public ItemsStash getStash()
   {
+    if (_stash==null)
+    {
+      _stash=loadStash();
+    }
     return _stash;
+  }
+
+  private ItemsStash loadStash()
+  {
+    ItemsStash stash=new ItemsStash();
+    File stashFile=getStashFile();
+    if (stashFile.exists())
+    {
+      StashXMLParser parser=new StashXMLParser();
+      parser.parseXML(stashFile,stash);
+    }
+    return stash;
+  }
+
+  /**
+   * Save stash to file.
+   */
+  public void saveStash()
+  {
+    if (_stash!=null)
+    {
+      File stashFile=getStashFile();
+      StashXMLWriter writer=new StashXMLWriter();
+      writer.write(stashFile,_stash,EncodingNames.UTF_8);
+    }
+  }
+
+  private File getStashFile()
+  {
+    File stashFile=new File(getRootDir(),"stash.xml");
+    return stashFile;
   }
 
   /**

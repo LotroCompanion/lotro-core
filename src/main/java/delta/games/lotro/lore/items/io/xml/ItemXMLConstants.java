@@ -20,6 +20,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_KEY_ATTR="key";
   /**
+   * Tag 'item', attribute 'stashId'.
+   */
+  public static final String ITEM_STASH_ID_ATTR="stashId";
+  /**
    * Tag 'item', attribute 'id'.
    */
   public static final String ITEM_ID_ATTR="id";

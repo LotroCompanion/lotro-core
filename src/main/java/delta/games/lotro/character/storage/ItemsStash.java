@@ -44,6 +44,17 @@ public class ItemsStash
   }
 
   /**
+   * Register an item.
+   * @param item Item to register.
+   */
+  public void registerItem(Item item)
+  {
+    int stashId=item.getStashIdentifier();
+    _items.put(Integer.valueOf(stashId),item);
+    _itemsList.add(item);
+  }
+
+  /**
    * Add an item in this stash.
    * @param item Item to add.
    */
@@ -68,8 +79,7 @@ public class ItemsStash
       _nextId++;
       item.setStashIdentifier(stashId);
     }
-    _items.put(Integer.valueOf(stashId),item);
-    _itemsList.add(item);
+    registerItem(item);
   }
 
   /**
@@ -96,6 +106,14 @@ public class ItemsStash
     {
       item.setStashIdentifier(0);
     }
+    clear();
+  }
+
+  /**
+   * Clear contents.
+   */
+  public void clear()
+  {
     _items.clear();
     _itemsList.clear();
   }
