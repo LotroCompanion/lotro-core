@@ -28,6 +28,8 @@ public class StashXMLWriter
 {
   private static final Logger _logger=LotroLoggers.getLotroLogger();
 
+  private static final String CDATA="CDATA";
+
   /**
    * Write a character to a XML file.
    * @param outFile Output file.
@@ -69,8 +71,10 @@ public class StashXMLWriter
 
   private void write(TransformerHandler hd, ItemsStash stash) throws Exception
   {
-    AttributesImpl characterAttrs=new AttributesImpl();
-    hd.startElement("","",StashXMLConstants.STASH_TAG,characterAttrs);
+    AttributesImpl stashAttrs=new AttributesImpl();
+    int nextId=stash.getNextId();
+    stashAttrs.addAttribute("","",StashXMLConstants.NEXT_ID_ATTR,CDATA,String.valueOf(nextId));
+    hd.startElement("","",StashXMLConstants.STASH_TAG,stashAttrs);
     List<Item> items=stash.getAll();
     if (items.size()>0)
     {

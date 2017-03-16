@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.storage.ItemsStash;
@@ -37,6 +38,14 @@ public class StashXMLParser
   private boolean parseStash(Element root, ItemsStash stash)
   {
     stash.clear();
+    // Next ID
+    NamedNodeMap attrs=root.getAttributes();
+    int nextId=DOMParsingTools.getIntAttribute(attrs,StashXMLConstants.NEXT_ID_ATTR,-1);
+    if (nextId>0)
+    {
+      stash.setNextId(nextId);
+    }
+
     ItemXMLParser parser=new ItemXMLParser();
     List<Element> itemTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.ITEM_TAG,false);
     for(Element itemTag : itemTags)

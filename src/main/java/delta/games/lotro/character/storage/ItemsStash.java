@@ -35,6 +35,22 @@ public class ItemsStash
   }
 
   /**
+   * Get the value of the next ID.
+   * @return the value of the next ID.
+   */
+  public int getNextId() {
+    return _nextId;
+  }
+
+  /**
+   * Set the next ID.
+   * @param nextId Value to set.
+   */
+  public void setNextId(int nextId) {
+    _nextId=nextId;
+  }
+
+  /**
    * Get the internal list of items.
    * @return a list of items.
    */
@@ -80,6 +96,27 @@ public class ItemsStash
       item.setStashIdentifier(stashId);
     }
     registerItem(item);
+  }
+
+  /**
+   * Update an item in this stash.
+   * @param item Item to update.
+   */
+  public void updateItem(Item item)
+  {
+    int stashId=item.getStashIdentifier();
+    removeItem(stashId);
+    addItem(item);
+  }
+
+  /**
+   * Get an item using its stash identifier.
+   * @param stashId Stash identifier.
+   * @return An item or <code>null</code> if not found.
+   */
+  public Item getItemById(int stashId)
+  {
+    return _items.get(Integer.valueOf(stashId));
   }
 
   /**
