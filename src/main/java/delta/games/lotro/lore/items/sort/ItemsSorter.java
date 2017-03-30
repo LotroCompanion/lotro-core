@@ -150,12 +150,23 @@ public class ItemsSorter
 
   /**
    * Get items for a given slot.
+   * @param cClass Character class.
    * @param location Targeted slot.
    * @return A list of items.
    */
-  public List<Item> getBySlot(EquipmentLocation location)
+  public List<Item> getBySlot(CharacterClass cClass, EquipmentLocation location)
   {
-    return _items.get(location.getKey());
+    List<Item> ret=new ArrayList<Item>();
+    List<Item> slotItems=_items.get(location.getKey());
+    for(Item item : slotItems)
+    {
+      CharacterClass itemClass=item.getRequiredClass();
+      if ((itemClass==null) || (itemClass==cClass))
+      {
+        ret.add(item);
+      }
+    }
+    return ret;
   }
 
   private void filterOthers(List<Item> items)
