@@ -12,7 +12,6 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemPropertyNames;
 import delta.games.lotro.lore.items.ItemsManager;
-import delta.games.lotro.lore.recipes.Recipe;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.PluginConstants;
 
@@ -23,9 +22,8 @@ import delta.games.lotro.plugins.PluginConstants;
 public class GearParser
 {
   /**
-   * Parse/use data from the "Recipes" file of the LotroCompanion plugin.
+   * Parse/use data from the "Gear" file of the LotroCompanion plugin.
    * @param f Input file.
-   * @return A possibly empty list of recipes.
    * @throws Exception If an error occurs.
    */
   public void doIt(File f) throws Exception
@@ -47,7 +45,6 @@ public class GearParser
   @SuppressWarnings("unchecked")
   private void useData(Map<String,Object> data)
   {
-    List<Recipe> ret=new ArrayList<Recipe>();
     Map<String,Object> gearMap=(Map<String,Object>)data.get("gear");
     if (gearMap!=null)
     {
@@ -85,28 +82,39 @@ public class GearParser
   private Item findItem(String name, String iconId, String backgroundIconId, EquipmentLocation location)
   {
     List<Item> ret=new ArrayList<Item>();
+    List<Item> retWithRightIcons=new ArrayList<Item>();
     List<Item> items=ItemsManager.getInstance().getAllItems();
     for(Item item : items)
     {
-      if (name.equals(item.getName()))
+      String itemIconId=item.getProperty(ItemPropertyNames.ICON_ID);
+      String itemBackgroundIconId=item.getProperty(ItemPropertyNames.BACKGROUND_ICON_ID);
+      if ((itemIconId.equals(iconId)) && (itemBackgroundIconId.equals(backgroundIconId)))
       {
-        String itemIconId=item.getProperty(ItemPropertyNames.ICON_ID);
-        String itemBackgroundIconId=item.getProperty(ItemPropertyNames.BACKGROUND_ICON_ID);
-        if ((itemIconId.equals(iconId)) && (itemBackgroundIconId.equals(backgroundIconId)))
+        retWithRightIcons.add(item);
+        if (name.equals(item.getName()))
         {
           ret.add(item);
         }
       }
     }
+    if (ret.size()==0)
+    {
+      ret.addAll(retWithRightIcons);
+    }
     if (ret.size()>1)
     {
-      System.out.println("Ambiguity on " + name + ": " + ret.size());
+      System.err.println("Ambiguity on " + name + ": " + ret.size());
+      for(Item item : ret)
+      {
+        System.err.println("#" + item.dump());
+      }
     }
     if (ret.size()>0)
     {
       return ret.get(0);
     }
-    return null;
+    System.err.println("Not found:" + name);
+   return null;
   }
 
   /**
@@ -132,7 +140,7 @@ public class GearParser
         }
         else
         {
-          System.out.println("No recipes for: " + character);
+          System.out.println("No data for: " + character);
         }
       }
       catch(Exception e)
