@@ -45,4 +45,9 @@ public class ItemPropertyNames
    * Legacy category (string).
    */
   public static final String LEGACY_CATEGORY="legacyCategory";
+
+  /**
+   * Slice formulas parameters.
+   */
+  public static final String SLICED_STATS="slices";
 }

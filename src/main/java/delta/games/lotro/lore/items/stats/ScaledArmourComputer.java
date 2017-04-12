@@ -1,4 +1,4 @@
-package delta.games.lotro.common.stats;
+package delta.games.lotro.lore.items.stats;
 
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.EquipmentLocation;

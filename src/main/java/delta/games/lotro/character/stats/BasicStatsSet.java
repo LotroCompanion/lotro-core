@@ -63,6 +63,24 @@ public class BasicStatsSet
   }
 
   /**
+   * Get the number of defined stats in this set.
+   * @return a count.
+   */
+  public int getStatsCount()
+  {
+    return _stats.size();
+  }
+
+  /**
+   * Remove a stat.
+   * @param stat Targeted stat.
+   */
+  public void removeStat(STAT stat)
+  {
+    _stats.remove(stat);
+  }
+
+  /**
    * Set stat value.
    * @param stat Stat to set.
    * @param value Value to set.
