@@ -226,7 +226,7 @@ public class ItemXMLWriter
     ItemQuality quality=item.getQuality();
     if (quality!=null)
     {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_QUALITY_ATTR,CDATA,quality.getCode());
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_QUALITY_ATTR,CDATA,quality.getKey());
     }
     // Minimum level
     Integer minLevel=item.getMinLevel();

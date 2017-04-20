@@ -16,45 +16,56 @@ public class ItemQuality
   /**
    * Common.
    */
-  public static final ItemQuality COMMON=new ItemQuality("COMMON","Common","White");
+  public static final ItemQuality COMMON=new ItemQuality(0,"COMMON","Common","White");
   /**
    * Uncommon.
    */
-  public static final ItemQuality UNCOMMON=new ItemQuality("UNCOMMON","Uncommon","Yellow");
+  public static final ItemQuality UNCOMMON=new ItemQuality(1,"UNCOMMON","Uncommon","Yellow");
   /**
    * Rare.
    */
-  public static final ItemQuality RARE=new ItemQuality("RARE","Rare","Purple");
+  public static final ItemQuality RARE=new ItemQuality(2,"RARE","Rare","Purple");
   /**
    * Incomparable.
    */
-  public static final ItemQuality INCOMPARABLE=new ItemQuality("INCOMPARABLE","Incomparable","Teal");
+  public static final ItemQuality INCOMPARABLE=new ItemQuality(3,"INCOMPARABLE","Incomparable","Teal");
   /**
    * Epic.
    */
-  public static final ItemQuality LEGENDARY=new ItemQuality("LEGENDARY","Epic","Orange");
+  public static final ItemQuality LEGENDARY=new ItemQuality(4,"LEGENDARY","Epic","Orange");
 
-  private String _code;
+  private int _code;
+  private String _key;
   private String _meaning;
   private String _color;
 
-  private ItemQuality(String code, String meaning, String color)
+  private ItemQuality(int code, String key, String meaning, String color)
   {
     _code=code;
+    _key=key;
     _meaning=meaning;
     _color=color;
-    _mapFromCode.put(code,this);
+    _mapFromCode.put(key,this);
     _mapFromMeaning.put(meaning,this);
     _mapFromColor.put(color,this);
+  }
+
+  /**
+   * Get sort code.
+   * @return a integer value.
+   */
+  public int getCode()
+  {
+    return _code;
   }
 
   /**
    * Get the code for this object.
    * @return an internal identifying code.
    */
-  public String getCode()
+  public String getKey()
   {
-    return _code;
+    return _key;
   }
 
   /**

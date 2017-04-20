@@ -266,7 +266,7 @@ public class ItemXMLParser
       String armourTypeStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ARMOUR_TYPE_ATTR,null);
       if (armourTypeStr!=null)
       {
-        ArmourType type=ArmourType.getDamageTypeByKey(armourTypeStr);
+        ArmourType type=ArmourType.getArmourTypeByKey(armourTypeStr);
         armour.setArmourType(type);
       }
     }

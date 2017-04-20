@@ -15,40 +15,72 @@ public class ArmourType
   /**
    * Heavy.
    */
-  public static final ArmourType HEAVY=new ArmourType("HEAVY","Heavy Armour","Heavy");
+  public static final ArmourType HEAVY=new ArmourType(2, "HEAVY","Heavy Armour","Heavy");
   /**
    * Medium.
    */
-  public static final ArmourType MEDIUM=new ArmourType("MEDIUM","Medium Armour","Medium");
+  public static final ArmourType MEDIUM=new ArmourType(1, "MEDIUM","Medium Armour","Medium");
   /**
    * Light.
    */
-  public static final ArmourType LIGHT=new ArmourType("LIGHT","Light Armour","Light","Cloak");
+  public static final ArmourType LIGHT=new ArmourType(0, "LIGHT","Light Armour","Light","Cloak");
   /**
    * Warden's Shield.
    */
-  public static final ArmourType WARDEN_SHIELD=new ArmourType("WARDEN_SHIELD","Warden's Shield");
+  public static final ArmourType WARDEN_SHIELD=new ArmourType(5, "WARDEN_SHIELD","Warden's Shield");
   /**
    * Heavy Shield.
    */
-  public static final ArmourType HEAVY_SHIELD=new ArmourType("HEAVY_SHIELD","Heavy Shield");
+  public static final ArmourType HEAVY_SHIELD=new ArmourType(4, "HEAVY_SHIELD","Heavy Shield");
   /**
    * Shield.
    */
-  public static final ArmourType SHIELD=new ArmourType("SHIELD","Shield");
-  
+  public static final ArmourType SHIELD=new ArmourType(3, "SHIELD","Shield");
+
+  /**
+   * Ordered armour types.
+   */
+  public static final ArmourType[] ORDERED_ARMOUR_TYPES = {
+      LIGHT, MEDIUM, HEAVY, SHIELD, HEAVY_SHIELD, WARDEN_SHIELD
+  };
+
+  /**
+   * Ordered non-shield armour types.
+   */
+  public static final ArmourType[] ARMOUR_TYPES = {
+      LIGHT, MEDIUM, HEAVY,
+  };
+
+  /**
+   * Ordered shield armour types.
+   */
+  public static final ArmourType[] SHIELD_ARMOUR_TYPES = {
+      SHIELD, HEAVY_SHIELD, WARDEN_SHIELD
+  };
+
+  private int _code;
   private String _key;
   private String _name;
-  
-  private ArmourType(String key, String name, String... aliases)
+
+  private ArmourType(int code, String key, String name, String... aliases)
   {
+    _code=code;
     _key=key;
     _keyMap.put(key,this);
     _name=name;
     _map.put(name,this);
     for(String alias : aliases) _map.put(alias,this);
   }
-  
+
+  /**
+   * Get sort code.
+   * @return a integer value.
+   */
+  public int getCode()
+  {
+    return _code;
+  }
+
   /**
    * Get the armour type key.
    * @return A key.
@@ -57,7 +89,7 @@ public class ArmourType
   {
     return _key;
   }
-  
+
   /**
    * Get the armour type name.
    * @return A name.
@@ -88,7 +120,7 @@ public class ArmourType
    * @param key Key of armour type.
    * @return An armour type instance or <code>null</code> if not found.
    */
-  public static ArmourType getDamageTypeByKey(String key)
+  public static ArmourType getArmourTypeByKey(String key)
   {
     return _keyMap.get(key);
   }
