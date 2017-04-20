@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.common.utils.NumericTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.Slice;
@@ -213,8 +214,52 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
    */
   public static SlicesBasedItemStatsProvider fromPersistedString(String value)
   {
-    // TODO
-    return null;
+    SlicesBasedItemStatsProvider provider=new SlicesBasedItemStatsProvider();
+    String[] parts=value.split(";");
+    if (parts!=null)
+    {
+      for(String part : parts)
+      {
+        ItemStatSliceData data=parseSliceData(part);
+        if (data!=null)
+        {
+          provider.addSlice(data);
+        }
+      }
+    }
+    if (provider.getSlices()==0)
+    {
+      provider=null;
+    }
+    return provider;
+  }
+  private static ItemStatSliceData parseSliceData(String params)
+  {
+    ItemStatSliceData ret=null;
+    int index=params.indexOf(':');
+    if (index!=-1)
+    {
+      String sliceCountStr=params.substring(index+1);
+      String statStr=params.substring(0,index);
+      String additionalParameter=null;
+      int indexStartParenthesis=statStr.indexOf('(');
+      if (indexStartParenthesis!=-1)
+      {
+        int indexEndParenthesis=statStr.indexOf(')',indexStartParenthesis+1);
+        if (indexEndParenthesis!=-1)
+        {
+          additionalParameter=statStr.substring(indexStartParenthesis+1,indexEndParenthesis);
+          statStr=statStr.substring(0,indexStartParenthesis);
+        }
+      }
+      STAT stat=STAT.getByName(statStr);
+      Float sliceCount=NumericTools.parseFloat(sliceCountStr);
+      if ((stat!=null) && (sliceCount!=null))
+      {
+        ret=new ItemStatSliceData(stat,sliceCount,additionalParameter);
+      }
+    }
+    return ret;
   }
 
   /**
