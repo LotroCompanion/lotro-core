@@ -74,6 +74,15 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
     return _slices.size();
   }
 
+  /**
+   * Get the number of row stats.
+   * @return a count.
+   */
+  public int getStatsCount()
+  {
+    return _stats.getStatsCount();
+  }
+
   public BasicStatsSet getStats(int itemLevel)
   {
     BasicStatsSet stats=new BasicStatsSet();
@@ -220,19 +229,45 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
     {
       for(String part : parts)
       {
-        ItemStatSliceData data=parseSliceData(part);
-        if (data!=null)
+        boolean isSlice=(part.indexOf(':')!=-1);
+        if (isSlice)
         {
-          provider.addSlice(data);
+          ItemStatSliceData data=parseSliceData(part);
+          if (data!=null)
+          {
+            provider.addSlice(data);
+          }
+        }
+        boolean isStat=(part.indexOf('=')!=-1);
+        if (isStat)
+        {
+          provider.parseStatData(part);
         }
       }
     }
-    if (provider.getSlices()==0)
+    if ((provider.getSlices()==0) && (provider.getStatsCount()==0))
     {
       provider=null;
     }
     return provider;
   }
+
+  private void parseStatData(String params)
+  {
+    int index=params.indexOf('=');
+    if (index!=-1)
+    {
+      String internalValueStr=params.substring(index+1);
+      String statStr=params.substring(0,index);
+      STAT stat=STAT.getByName(statStr);
+      FixedDecimalsInteger value=FixedDecimalsInteger.fromString(internalValueStr);
+      if ((stat!=null) && (value!=null))
+      {
+        _stats.addStat(stat,value);
+      }
+    }
+  }
+
   private static ItemStatSliceData parseSliceData(String params)
   {
     ItemStatSliceData ret=null;
@@ -269,16 +304,35 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
   public String toPersistableString()
   {
     String ret="";
-    if (_slices.size()>0)
+    int nbSlices=_slices.size();
+    int nbStats=_stats.getStatsCount();
+    if ((nbSlices>0) || (nbStats>0))
     {
       StringBuilder sb=new StringBuilder();
-      for(ItemStatSliceData slice :_slices)
+      if (nbSlices>0)
       {
-        if (sb.length()>0)
+        for(ItemStatSliceData slice :_slices)
         {
-          sb.append(';');
+          if (sb.length()>0)
+          {
+            sb.append(';');
+          }
+          slice.toString(sb);
         }
-        slice.toString(sb);
+      }
+      if (nbStats>0)
+      {
+        for(STAT stat :_stats.getStats())
+        {
+          if (sb.length()>0)
+          {
+            sb.append(';');
+          }
+          FixedDecimalsInteger value=_stats.getStat(stat);
+          sb.append(stat.name());
+          sb.append('=');
+          sb.append(value.getInternalValue());
+        }
       }
       ret=sb.toString();
     }
