@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.stats;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -322,7 +323,9 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
       }
       if (nbStats>0)
       {
-        for(STAT stat :_stats.getStats())
+        List<STAT> stats=new ArrayList<STAT>(_stats.getStats());
+        Collections.sort(stats);
+        for(STAT stat : stats)
         {
           if (sb.length()>0)
           {
