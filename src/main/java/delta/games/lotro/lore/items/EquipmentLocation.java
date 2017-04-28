@@ -150,6 +150,37 @@ public class EquipmentLocation
     return values.toArray(new EquipmentLocation[values.size()]);
   }
 
+  /**
+   * Indicates if the given location is for a jewel.
+   * @param location Location to test.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public static boolean isJewelrySlot(EquipmentLocation location)
+  {
+    if (location==EquipmentLocation.NECK) return true;
+    if (location==EquipmentLocation.WRIST) return true;
+    if (location==EquipmentLocation.EAR) return true;
+    if (location==EquipmentLocation.FINGER) return true;
+    if (location==EquipmentLocation.POCKET) return true;
+    return false;
+  }
+
+  /**
+   * Indicates if the given location is for a jewel.
+   * @param location Location to test.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public static boolean isArmourSlot(EquipmentLocation location)
+  {
+    if (location==EquipmentLocation.HEAD) return true;
+    if (location==EquipmentLocation.SHOULDER) return true;
+    if (location==EquipmentLocation.CHEST) return true;
+    if (location==EquipmentLocation.BACK) return true;
+    if (location==EquipmentLocation.LEGS) return true;
+    if (location==EquipmentLocation.FEET) return true;
+    return false;
+  }
+
   @Override
   public String toString()
   {
