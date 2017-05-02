@@ -13,6 +13,7 @@ import delta.games.lotro.character.stats.Slice;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.ItemQuality;
+import delta.games.lotro.lore.items.stats.ItemStatSliceData.SliceComparator;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -23,7 +24,7 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
 {
   private static final Logger LOGGER=Logger.getLogger(SlicesBasedItemStatsProvider.class);
 
-  private ScaledArmourComputer _armorComputer;
+  private static ScaledArmourComputer _armorComputer=new ScaledArmourComputer();
   private List<ItemStatSliceData> _slices;
   private BasicStatsSet _stats;
 
@@ -32,7 +33,6 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
    */
   public SlicesBasedItemStatsProvider()
   {
-    _armorComputer=new ScaledArmourComputer();
     _slices=new ArrayList<ItemStatSliceData>();
     _stats=new BasicStatsSet();
   }
@@ -51,19 +51,9 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
    * @param stat Targeted stat.
    * @param value Stat value.
    */
-  public void setStat(STAT stat, float value)
+  public void setStat(STAT stat, FixedDecimalsInteger value)
   {
-    _stats.setStat(stat,new FixedDecimalsInteger(value));
-  }
-
-  /**
-   * Set a stat value.
-   * @param stat Targeted stat.
-   * @param value Stat value.
-   */
-  public void setStat(STAT stat, int value)
-  {
-    _stats.setStat(stat,new FixedDecimalsInteger(value));
+    _stats.setStat(stat,value);
   }
 
   /**
@@ -97,7 +87,13 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
     return stats;
   }
 
-  private float getStatValue(ItemStatSliceData slice, int itemLevel)
+  /**
+   * Get the value of a stat.
+   * @param slice Slice to use.
+   * @param itemLevel Item level.
+   * @return A stat value.
+   */
+  public static float getStatValue(ItemStatSliceData slice, int itemLevel)
   {
     double value=getSliceValue(itemLevel, slice);
     // For the moment, round value to keep computed values the same as old,
@@ -106,7 +102,7 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
     return statValue;
   }
 
-  private double getSliceValue(int itemLevel, ItemStatSliceData slice)
+  private static double getSliceValue(int itemLevel, ItemStatSliceData slice)
   {
     STAT stat=slice.getStat();
     Float sliceCountFloat=slice.getSliceCount();
@@ -172,7 +168,7 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
     return 0;
   }
 
-  private double getArmorStat(String armType, int itemLevel, float sliceCount)
+  private static double getArmorStat(String armType, int itemLevel, float sliceCount)
   {
     String armorClass=armType.substring(3,4);
     String armorType=armType.substring(4,5);
@@ -197,24 +193,60 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
     if ("B".equals(armorType)) slot=EquipmentLocation.FEET;
     if ("SH".equals(armorType)) slot=EquipmentLocation.OFF_HAND;
     if ("CL".equals(armorType)) slot=EquipmentLocation.BACK;
-  
+
     ArmourType type=null;
     if ("H".equals(armorClass)) type=ArmourType.HEAVY;
     if ("M".equals(armorClass)) type=ArmourType.MEDIUM;
     if ("L".equals(armorClass)) type=ArmourType.LIGHT;
-  
+
     ItemQuality quality=null;
     if ("G".equals(armorColor)) quality=ItemQuality.LEGENDARY;
     if ("P".equals(armorColor)) quality=ItemQuality.RARE;
     if ("T".equals(armorColor)) quality=ItemQuality.INCOMPARABLE;
     if ("Y".equals(armorColor)) quality=ItemQuality.UNCOMMON;
-  
+
     if ((slot!=null) && (type!=null) && (quality!=null))
     {
       return _armorComputer.getArmour(itemLevel,type,slot,quality,sliceCount);
     }
     LOGGER.warn("Unmanaged armor type:" + armType);
     return 0;
+  }
+
+  /**
+   * Build the armour description from location/quality and armour type.
+   * @param location Item location.
+   * @param quality Item quality.
+   * @param type Armour type.
+   * @return An armour description.
+   */
+  public static String getArmorLabel(EquipmentLocation location, ItemQuality quality, ArmourType type)
+  {
+    String locStr=null;
+    if (location==EquipmentLocation.HEAD) locStr="H";
+    else if (location==EquipmentLocation.SHOULDER) locStr="S";
+    else if (location==EquipmentLocation.CHEST) locStr="C";
+    else if (location==EquipmentLocation.HAND) locStr="G";
+    else if (location==EquipmentLocation.LEGS) locStr="L";
+    else if (location==EquipmentLocation.FEET) locStr="B";
+    else if (location==EquipmentLocation.OFF_HAND) locStr="Sh";
+    else if (location==EquipmentLocation.BACK) locStr="CL";
+
+    String typeStr=null;
+    if (type==ArmourType.HEAVY) typeStr="H";
+    else if (type==ArmourType.MEDIUM) typeStr="M";
+    else if (type==ArmourType.LIGHT) typeStr="L";
+    else if (type==ArmourType.HEAVY_SHIELD) { typeStr="H"; locStr="SH"; }
+    else if (type==ArmourType.WARDEN_SHIELD) { typeStr="M"; locStr="SH"; }
+    else if (type==ArmourType.SHIELD) { typeStr="L"; locStr="SH"; }
+    if (location==EquipmentLocation.BACK) typeStr="";
+
+    String qualityStr=null;
+    if (quality==ItemQuality.LEGENDARY) qualityStr="G";
+    else if (quality==ItemQuality.RARE) qualityStr="P";
+    else if (quality==ItemQuality.INCOMPARABLE) qualityStr="T";
+    else if (quality==ItemQuality.UNCOMMON) qualityStr="Y";
+    return "Arm"+typeStr+locStr+qualityStr;
   }
 
   /**
@@ -312,6 +344,7 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
       StringBuilder sb=new StringBuilder();
       if (nbSlices>0)
       {
+        Collections.sort(_slices,new SliceComparator());
         for(ItemStatSliceData slice :_slices)
         {
           if (sb.length()>0)
