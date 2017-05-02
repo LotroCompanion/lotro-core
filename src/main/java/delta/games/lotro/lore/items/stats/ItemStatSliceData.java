@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.items.stats;
 
+import java.util.Comparator;
+
 import delta.games.lotro.character.stats.STAT;
 
 /**
@@ -75,6 +77,18 @@ public class ItemStatSliceData
     {
       sb.append(':');
       sb.append(_sliceCount);
+    }
+  }
+
+  /**
+   * Comparator for slices.
+   * @author DAM
+   */
+  public static class SliceComparator implements Comparator<ItemStatSliceData>
+  {
+    public int compare(ItemStatSliceData slice1, ItemStatSliceData slice2)
+    {
+      return slice1.getStat().compareTo(slice2.getStat());
     }
   }
 }
