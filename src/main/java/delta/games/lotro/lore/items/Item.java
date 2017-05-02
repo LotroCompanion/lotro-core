@@ -746,6 +746,12 @@ public class Item
       sb.append(_equipmentLocation);
       sb.append(')');
     }
+    if (_essenceSlots!=0)
+    {
+      sb.append(" (");
+      sb.append(_essenceSlots);
+      sb.append(" slot(s))");
+    }
     if (_category!=null)
     {
       sb.append(" (");
