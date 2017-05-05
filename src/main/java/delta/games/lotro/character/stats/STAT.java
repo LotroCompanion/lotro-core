@@ -287,9 +287,9 @@ public enum STAT
    */
   STEALTH_LEVEL("Stealth Level"),
   /**
-   * Ranged Defence.
+   * Ranged Defence (%).
    */
-  RANGED_DEFENCE_PERCENTAGE("Ranged Defence"),
+  RANGED_DEFENCE_PERCENTAGE("Ranged Defence %", true, "Ranged Defence"),
   /**
    * Critical chance of ranged auto-attack (percentage).
    */
