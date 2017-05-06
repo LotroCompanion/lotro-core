@@ -138,10 +138,15 @@ public class ScaledArmourComputer
       }
       else if (quality==ItemQuality.UNCOMMON) // Yellow
       {
+        /*
         if (SliceILvl<=10) ret=Math.floor(6*SliceILvl*SliceCount+0.500000000001);
         else if ((SliceILvl>=11) && (SliceILvl<=79)) ret=Math.floor((8.45*SliceILvl-25)*SliceCount+0.500000000001);
         else if ((SliceILvl>=80) && (SliceILvl<=185)) ret=Math.floor((8.569*SliceILvl-32.972)*SliceCount+0.500000000001);
         else if (SliceILvl>=186) ret=Math.floor((6.765*SliceILvl+300.768)*SliceCount+0.500000000001);
+        */
+        if (SliceILvl<=79) ret=Math.floor(8.4645*SliceILvl*SliceCount+0.500000000001);
+        else if ((SliceILvl>=80) && (SliceILvl<=182)) ret=Math.floor((8.569*SliceILvl-7.265)*SliceCount+0.500000000001);
+        else if (SliceILvl>=183) ret=Math.floor((6.765*SliceILvl+321.063)*SliceCount+0.500000000001);
       }
     }
     else if (slot==EquipmentLocation.LEGS)
@@ -166,10 +171,15 @@ public class ScaledArmourComputer
       }
       else if (quality==ItemQuality.UNCOMMON) // Yellow
       {
+        /*
         if (SliceILvl<=10) ret=Math.floor(10*SliceILvl*SliceCount+0.50000000000);
         else if ((SliceILvl>=11) && (SliceILvl<=79)) ret=Math.floor((14.096*SliceILvl-42.1)*SliceCount+0.500000000001);
         else if ((SliceILvl>=80) && (SliceILvl<=185)) ret=Math.floor((14.25*SliceILvl-54.475)*SliceCount+0.500000000001);
         else if (SliceILvl>=186) ret=Math.floor((11.25*SliceILvl+500.525)*SliceCount+0.500000000001);
+        */
+        if (SliceILvl<=79) ret=Math.floor(14.1*SliceILvl*SliceCount+0.500000000001);
+        else if ((SliceILvl>=80) && (SliceILvl<=182)) ret=Math.floor((14.25*SliceILvl-11.725)*SliceCount+0.500000000001);
+        else if (SliceILvl>=183) ret=Math.floor((11.25*SliceILvl+534.275)*SliceCount+0.500000000001);
       }
     }
     else if (slot==EquipmentLocation.FEET)
@@ -195,10 +205,16 @@ public class ScaledArmourComputer
       }
       else if (quality==ItemQuality.UNCOMMON) // Yellow
       {
+        /*
         if (SliceILvl<=10) ret=Math.floor((4.75*SliceILvl+0.25)*SliceCount+0.500000000001);
         else if ((SliceILvl>=11) && (SliceILvl<=79)) ret=Math.floor((6.7675*SliceILvl-20.1)*SliceCount+0.500000000001);
         else if ((SliceILvl>=80) && (SliceILvl<=185)) ret=Math.floor((6.84*SliceILvl-26.394)*SliceCount+0.500000000001);
         else if (SliceILvl>=186) ret=Math.floor((5.4*SliceILvl+240.006)*SliceCount+0.500000000001);
+        */
+        if (SliceILvl<=10) ret=Math.floor(6.768*SliceILvl*SliceCount+0.500000000001);
+        else if ((SliceILvl>=11) && (SliceILvl<=79)) ret=Math.floor(6.768*SliceILvl*SliceCount+0.500000000001);
+        else if ((SliceILvl>=80) && (SliceILvl<=182)) ret=Math.floor((6.84*SliceILvl-5.874)*SliceCount+0.500000000001);
+        else if (SliceILvl>=183) ret=Math.floor((5.4*SliceILvl+256.206)*SliceCount+0.500000000001);
       }
     }
     else if (slot==EquipmentLocation.OFF_HAND) // Shield
@@ -311,10 +327,15 @@ public class ScaledArmourComputer
       }
       else if (quality==ItemQuality.UNCOMMON) // Yellow
       {
+        /*
         if (SliceILvl<=28) ret=Math.floor((4.9*SliceILvl-0.25)*SliceCount+0.500000000001);
         else if ((SliceILvl>=29) && (SliceILvl<=79)) ret=Math.floor((5.69*SliceILvl-20)*SliceCount+0.500000000001);
         else if ((SliceILvl>=80) && (SliceILvl<=185)) ret=Math.floor((6.3*SliceILvl-71.6)*SliceCount+0.500000000001);
         else if (SliceILvl>=186) ret=Math.floor((4.5*SliceILvl+261.4)*SliceCount+0.500000000001);
+        */
+        if (SliceILvl<=79) ret=Math.floor((5.64*SliceILvl-0.15)*SliceCount+0.500000000001);
+        else if ((SliceILvl>=80) && (SliceILvl<=182)) ret=Math.floor((6.3*SliceILvl-52.7)*SliceCount+0.500000000001);
+        else if (SliceILvl>=183) ret=Math.floor((4.5*SliceILvl+274.9)*SliceCount+0.500000000001);
       }
     }
     else if (slot==EquipmentLocation.CHEST)
@@ -511,10 +532,15 @@ public class ScaledArmourComputer
       }
       else if (quality==ItemQuality.UNCOMMON) // Yellow
       {
+        if (SliceILvl<=79) ret=Math.floor(3.922*SliceILvl*SliceCount+0.500000000001);
+        else if ((SliceILvl>=80) && (SliceILvl<=182)) ret=Math.floor((4.05*SliceILvl-10.468)*SliceCount+0.500000000001);
+        else if (SliceILvl>=183) ret=Math.floor((2.97*SliceILvl+186.092)*SliceCount+0.500000000001);
+        /*
         if (SliceILvl<=10) ret=Math.floor((2.9*SliceILvl-1)*SliceCount+0.500000000001);
         else if ((SliceILvl>=11) && (SliceILvl<=79)) ret=Math.floor((3.922*SliceILvl-11.7)*SliceCount+0.500000000001);
         else if ((SliceILvl>=80) && (SliceILvl<=185)) ret=Math.floor((4.05*SliceILvl-22.618)*SliceCount+0.500000000001);
         else if (SliceILvl>=186) ret=Math.floor((2.97*SliceILvl+177.182)*SliceCount+0.500000000001);
+        */
       }
     }
     else if (slot==EquipmentLocation.CHEST)
@@ -539,10 +565,15 @@ public class ScaledArmourComputer
       }
       else if (quality==ItemQuality.UNCOMMON) // Yellow
       {
+        /*
         if (SliceILvl<=10) ret=Math.floor((8.9*SliceILvl+2.4)*SliceCount+0.500000000001);
         else if ((SliceILvl>=11) && (SliceILvl<=79)) ret=Math.floor((13.084*SliceILvl-39.3)*SliceCount+0.500000000001);
         else if ((SliceILvl>=80) && (SliceILvl<=185)) ret=Math.floor((13.51485*SliceILvl-74.36055)*SliceCount+0.500000000001);
         else if (SliceILvl>=186) ret=Math.floor((9.91089*SliceILvl+592.37205)*SliceCount+0.500000000001);
+        */
+        if (SliceILvl<=79) ret=Math.floor(13.0815*SliceILvl*SliceCount+0.500000000001);
+        else if ((SliceILvl>=80) && (SliceILvl<=182)) ret=Math.floor((13.51485*SliceILvl-33.816)*SliceCount+0.500000000001);
+        else if (SliceILvl>=183) ret=Math.floor((9.91089*SliceILvl+622.10472)*SliceCount+0.500000000001);
       }
     }
     else if (slot==EquipmentLocation.HAND)
@@ -596,10 +627,16 @@ public class ScaledArmourComputer
       }
       else if (quality==ItemQuality.UNCOMMON) // Yellow
       {
+        /*
         if (SliceILvl<=10) ret=Math.floor((7.65*SliceILvl-0.4)*SliceCount+0.500000000001);
         else if ((SliceILvl>=11) && (SliceILvl<=79)) ret=Math.floor((10.9*SliceILvl-32.6)*SliceCount+0.500000000001);
         else if ((SliceILvl>=80) && (SliceILvl<=185)) ret=Math.floor((11.25*SliceILvl-61.97)*SliceCount+0.500000000001);
         else if (SliceILvl>=186) ret=Math.floor((8.25*SliceILvl+493.03)*SliceCount+0.500000000001);
+        */
+        if (SliceILvl<=10) ret=Math.floor(10.895*SliceILvl*SliceCount+0.500000000001);
+        else if ((SliceILvl>=11) && (SliceILvl<=79)) ret=Math.floor(10.895*SliceILvl*SliceCount+0.500000000001);
+        else if ((SliceILvl>=80) && (SliceILvl<=182)) ret=Math.floor((11.25*SliceILvl-28.22)*SliceCount+0.500000000001);
+        else if (SliceILvl>=183) ret=Math.floor((8.25*SliceILvl+517.78)*SliceCount+0.500000000001);
       }
     }
     else if (slot==EquipmentLocation.FEET)
@@ -624,10 +661,15 @@ public class ScaledArmourComputer
       }
       else if (quality==ItemQuality.UNCOMMON) // Yellow
       {
+        /*
         if (SliceILvl<=10) ret=Math.floor((3.65*SliceILvl+0.85)*SliceCount+0.500000000001);
         else if ((SliceILvl>=11) && (SliceILvl<=79)) ret=Math.floor((5.235*SliceILvl-15.5)*SliceCount+0.500000000001);
         else if ((SliceILvl>=80) && (SliceILvl<=185)) ret=Math.floor((5.4*SliceILvl-29.984)*SliceCount+0.500000000001);
         else if (SliceILvl>=186) ret=Math.floor((3.96*SliceILvl+236.416)*SliceCount+0.500000000001);
+        */
+        if (SliceILvl<=79) ret=Math.floor(5.229818182*SliceILvl*SliceCount+0.500000000001);
+        else if ((SliceILvl>=80) && (SliceILvl<=182)) ret=Math.floor((5.4*SliceILvl-13.784)*SliceCount+0.500000000001);
+        else if (SliceILvl>=183) ret=Math.floor((3.96*SliceILvl+248.296)*SliceCount+0.500000000001);
       }
     }
     else if (slot==EquipmentLocation.OFF_HAND) // Shield
