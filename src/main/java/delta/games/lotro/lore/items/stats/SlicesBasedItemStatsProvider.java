@@ -74,6 +74,26 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
     return _stats.getStatsCount();
   }
 
+  /**
+   * Get the slice data for a given stat.
+   * @param stat Stat to use.
+   * @return A slice data or <code>null</code> if not found.
+   */
+  public ItemStatSliceData getSliceForStat(STAT stat)
+  {
+    ItemStatSliceData ret=null;
+    for(ItemStatSliceData slice : _slices)
+    {
+      STAT sliceStat=slice.getStat();
+      if (sliceStat==stat)
+      {
+        ret=slice;
+        break;
+      }
+    }
+    return ret;
+  }
+
   public BasicStatsSet getStats(int itemLevel)
   {
     BasicStatsSet stats=new BasicStatsSet();
@@ -166,6 +186,30 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
       return getArmorStat(armType.toUpperCase(),itemLevel,sliceCount);
     }
     return 0;
+  }
+
+  /**
+   * Get armour type from armour description.
+   * @param armType Armour description.
+   * @return An armour type or <code>null</code> if not found.
+   */
+  public static ArmourType getArmorType(String armType)
+  {
+    String armorClass=armType.substring(3,4);
+    boolean isShield=armType.substring(4,6).toUpperCase().equals("SH");
+    if (isShield)
+    {
+      if ("H".equals(armorClass)) return ArmourType.HEAVY_SHIELD;
+      if ("M".equals(armorClass)) return ArmourType.WARDEN_SHIELD;
+      if ("L".equals(armorClass)) return ArmourType.SHIELD;
+    }
+    else
+    {
+      if ("H".equals(armorClass)) return ArmourType.HEAVY;
+      if ("M".equals(armorClass)) return ArmourType.MEDIUM;
+      if ("L".equals(armorClass)) return ArmourType.LIGHT;
+    }
+    return null;
   }
 
   private static double getArmorStat(String armType, int itemLevel, float sliceCount)
@@ -262,7 +306,7 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
     {
       for(String part : parts)
       {
-        boolean isSlice=(part.indexOf(':')!=-1);
+        boolean isSlice=((part.indexOf(':')!=-1) || (part.indexOf('(')!=-1));
         if (isSlice)
         {
           ItemStatSliceData data=parseSliceData(part);
@@ -305,27 +349,29 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
   {
     ItemStatSliceData ret=null;
     int index=params.indexOf(':');
+    Float sliceCount=null;
+    String statStr=params;
+    String additionalParameter=null;
     if (index!=-1)
     {
       String sliceCountStr=params.substring(index+1);
-      String statStr=params.substring(0,index);
-      String additionalParameter=null;
-      int indexStartParenthesis=statStr.indexOf('(');
-      if (indexStartParenthesis!=-1)
+      sliceCount=NumericTools.parseFloat(sliceCountStr);
+      statStr=params.substring(0,index);
+    }
+    int indexStartParenthesis=statStr.indexOf('(');
+    if (indexStartParenthesis!=-1)
+    {
+      int indexEndParenthesis=statStr.indexOf(')',indexStartParenthesis+1);
+      if (indexEndParenthesis!=-1)
       {
-        int indexEndParenthesis=statStr.indexOf(')',indexStartParenthesis+1);
-        if (indexEndParenthesis!=-1)
-        {
-          additionalParameter=statStr.substring(indexStartParenthesis+1,indexEndParenthesis);
-          statStr=statStr.substring(0,indexStartParenthesis);
-        }
+        additionalParameter=statStr.substring(indexStartParenthesis+1,indexEndParenthesis);
+        statStr=statStr.substring(0,indexStartParenthesis);
       }
-      STAT stat=STAT.getByName(statStr);
-      Float sliceCount=NumericTools.parseFloat(sliceCountStr);
-      if ((stat!=null) && (sliceCount!=null))
-      {
-        ret=new ItemStatSliceData(stat,sliceCount,additionalParameter);
-      }
+    }
+    STAT stat=STAT.getByName(statStr);
+    if ((stat!=null) && ((sliceCount!=null) || (additionalParameter!=null)))
+    {
+      ret=new ItemStatSliceData(stat,sliceCount,additionalParameter);
     }
     return ret;
   }
