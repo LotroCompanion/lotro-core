@@ -12,8 +12,20 @@ public class ItemStashIdComparator implements Comparator<Item>
 {
   public int compare(Item o1, Item o2)
   {
-    int id1=o1.getStashIdentifier();
-    int id2=o2.getStashIdentifier();
-    return id1-id2;
+    Integer id1=o1.getStashIdentifier();
+    Integer id2=o2.getStashIdentifier();
+    if (id1!=null)
+    {
+      if (id2!=null)
+      {
+        return id1.compareTo(id2);
+      }
+      return 1;
+    }
+    if (id2!=null)
+    {
+      return -1;
+    }
+    return 0;
   }
 }

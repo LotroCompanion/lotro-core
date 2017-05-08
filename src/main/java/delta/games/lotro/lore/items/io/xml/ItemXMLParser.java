@@ -98,9 +98,6 @@ public class ItemXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_KEY_ATTR,-1);
     ret.setIdentifier(id);
-    // Stash identifier
-    int stashId=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_STASH_ID_ATTR,0);
-    ret.setStashIdentifier(stashId);
     // Set identifier
     String setId=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_SET_ID_ATTR,null);
     ret.setSetKey(setId);

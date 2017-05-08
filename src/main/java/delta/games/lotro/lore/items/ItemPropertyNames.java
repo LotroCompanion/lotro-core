@@ -55,4 +55,9 @@ public class ItemPropertyNames
    * Levels.
    */
   public static final String LEVELS="levels";
+
+  /**
+   * Stash ID.
+   */
+  public static final String STASH_ID="stashId";
 }

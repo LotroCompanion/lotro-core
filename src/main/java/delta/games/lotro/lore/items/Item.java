@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
@@ -20,8 +21,6 @@ public class Item
 {
   // Item identifier
   private int _identifier;
-  // Item identifier in its stash (0 for no stash)
-  int _stashIdentifier;
   // Items set identifier (may be null)
   private String _setKey;
   // Associated set (may be null)
@@ -85,7 +84,6 @@ public class Item
   {
     super();
     _identifier=0;
-    _stashIdentifier=0;
     _setKey=null;
     _equipmentLocation=null;
     _name="";
@@ -141,18 +139,31 @@ public class Item
    * Get the stash identifier of this item.
    * @return an stash item identifier.
    */
-  public int getStashIdentifier()
+  public Integer getStashIdentifier()
   {
-    return _stashIdentifier;
+    String idStr=getProperty(ItemPropertyNames.STASH_ID);
+    Integer ret=null;
+    if (idStr!=null)
+    {
+      ret=NumericTools.parseInteger(idStr);
+    }
+    return ret;
   }
 
   /**
    * Set the stash identifier of this item.
    * @param stashIdentifier the stash identifier to set.
    */
-  public void setStashIdentifier(int stashIdentifier)
+  public void setStashIdentifier(Integer stashIdentifier)
   {
-    _stashIdentifier=stashIdentifier;
+    if (stashIdentifier==null)
+    {
+      removeProperty(ItemPropertyNames.STASH_ID);
+    }
+    else
+    {
+      setProperty(ItemPropertyNames.STASH_ID,stashIdentifier.toString());
+    }
   }
 
   /**
@@ -732,12 +743,6 @@ public class Item
     {
       sb.append(" (id=");
       sb.append(_identifier);
-      sb.append(')');
-    }
-    if (_stashIdentifier!=0)
-    {
-      sb.append(" (id(in stash)=");
-      sb.append(_stashIdentifier);
       sb.append(')');
     }
     if (_equipmentLocation!=null)

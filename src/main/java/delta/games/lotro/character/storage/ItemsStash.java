@@ -65,8 +65,8 @@ public class ItemsStash
    */
   public void registerItem(Item item)
   {
-    int stashId=item.getStashIdentifier();
-    _items.put(Integer.valueOf(stashId),item);
+    Integer stashId=item.getStashIdentifier();
+    _items.put(stashId,item);
     _itemsList.add(item);
   }
 
@@ -76,10 +76,10 @@ public class ItemsStash
    */
   public void addItem(Item item)
   {
-    int stashId=item.getStashIdentifier();
-    if (stashId!=0)
+    Integer stashId=item.getStashIdentifier();
+    if (stashId!=null)
     {
-      Item old=_items.get(Integer.valueOf(stashId));
+      Item old=_items.get(stashId);
       if (old!=null)
       {
         if (item!=old)
@@ -91,22 +91,11 @@ public class ItemsStash
     }
     else
     {
-      stashId=_nextId;
+      stashId=Integer.valueOf(_nextId);
       _nextId++;
       item.setStashIdentifier(stashId);
     }
     registerItem(item);
-  }
-
-  /**
-   * Update an item in this stash.
-   * @param item Item to update.
-   */
-  public void updateItem(Item item)
-  {
-    int stashId=item.getStashIdentifier();
-    removeItem(stashId);
-    addItem(item);
   }
 
   /**
@@ -123,12 +112,12 @@ public class ItemsStash
    * Remove an item using its stash identifier.
    * @param stashId Stash identifier.
    */
-  public void removeItem(int stashId)
+  public void removeItem(Integer stashId)
   {
-    Item old=_items.remove(Integer.valueOf(stashId));
+    Item old=_items.remove(stashId);
     if (old!=null)
     {
-      old.setStashIdentifier(0);
+      old.setStashIdentifier(null);
       _itemsList.remove(old);
     }
   }
@@ -141,7 +130,7 @@ public class ItemsStash
     _nextId=1;
     for(Item item : _items.values())
     {
-      item.setStashIdentifier(0);
+      item.setStashIdentifier(null);
     }
     clear();
   }
