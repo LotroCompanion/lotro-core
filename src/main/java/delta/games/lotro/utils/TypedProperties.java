@@ -7,9 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -108,6 +110,20 @@ public class TypedProperties
     finally
     {
       StreamTools.close(fos);
+    }
+    return ret;
+  }
+
+  /**
+   * Get all keys.
+   * @return a set of keys.
+   */
+  public Set<String> getAllKeys()
+  {
+    Set<String> ret=new HashSet<String>();
+    for(Object key : _props.keySet())
+    {
+      ret.add((String)key);
     }
     return ret;
   }
