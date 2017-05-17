@@ -57,6 +57,11 @@ public class ItemPropertyNames
   public static final String LEVELS="levels";
 
   /**
+   * Scaling type.
+   */
+  public static final String SCALING="scaling";
+
+  /**
    * Stash ID.
    */
   public static final String STASH_ID="stashId";

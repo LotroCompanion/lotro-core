@@ -98,6 +98,24 @@ public class ScalingRule
     return levels;
   }
 
+  /**
+   * Get the range of required levels.
+   * @return An array of 2 ints (min and max, inclusive).
+   */
+  public int[] getRequiredLevelRange()
+  {
+    return _requiredLevelRange;
+  }
+
+  /**
+   * Get the range of required levels.
+   * @return An array of 2 ints (min and max, inclusive).
+   */
+  public int[] getItemLevelRange()
+  {
+    return _itemLevelRange;
+  }
+
   private void load()
   {
     URL url=URLTools.getFromClassPath(_id+".properties",ScalingRule.class.getPackage());
