@@ -299,11 +299,14 @@ public class ItemsSorter
     for(WeaponType weaponType : weapons)
     {
       List<Item> items=_items.get(WEAPON+weaponType.getKey());
-      for(Item item : items)
+      if (items!=null)
       {
-        if (filter.accept(item))
+        for(Item item : items)
         {
-          ret.add(item);
+          if (filter.accept(item))
+          {
+            ret.add(item);
+          }
         }
       }
     }
