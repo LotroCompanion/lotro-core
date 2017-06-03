@@ -15,6 +15,10 @@ public enum CharacterEventType
    */
   CHARACTER_SUMMARY_UPDATED,
   /**
+   * The stash of a toon was updated.
+   */
+  CHARACTER_STASH_UPDATED,
+  /**
    * A toon was removed.
    */
   CHARACTER_REMOVED,
