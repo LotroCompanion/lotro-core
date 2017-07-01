@@ -142,8 +142,7 @@ public class DerivatedStatsContributionsMgr
     CharacterClass[] classes = CharacterClass.ALL_CLASSES;
     for(String line : lines)
     {
-      line=removeDuplicateSpaces(line.trim());
-      String[] items=line.split(" ");
+      String[] items=line.split("\t");
       //System.out.println(Arrays.toString(items));
       String primaryStatStr=items[0].replace('_',' ');
       STAT primaryStat=STAT.getByName(primaryStatStr);
@@ -191,17 +190,5 @@ public class DerivatedStatsContributionsMgr
       }
     }
     return ret;
-  }
-
-  private static String removeDuplicateSpaces(String line)
-  {
-    String oldLine=line;
-    while(true)
-    {
-      line=line.replace("  ", " ");
-      if (line.equals(oldLine)) break;
-      oldLine=line;
-    }
-    return line;
   }
 }
