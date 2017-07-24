@@ -2,7 +2,7 @@ package delta.games.lotro;
 
 import java.io.File;
 
-import delta.games.lotro.utils.TypedProperties;
+import delta.common.utils.misc.TypedProperties;
 
 /**
  * Configuration.

@@ -1,8 +1,8 @@
 package delta.games.lotro.character.events;
 
+import delta.common.utils.misc.TypedProperties;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterFile;
-import delta.games.lotro.utils.TypedProperties;
 
 /**
  * Data for a character event.

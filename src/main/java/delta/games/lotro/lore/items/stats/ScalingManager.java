@@ -10,8 +10,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.io.StreamTools;
+import delta.common.utils.misc.TypedProperties;
 import delta.common.utils.url.URLTools;
-import delta.games.lotro.utils.TypedProperties;
 
 /**
  * Manages all scaling rules.

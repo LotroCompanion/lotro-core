@@ -14,8 +14,8 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.io.StreamTools;
+import delta.common.utils.misc.TypedProperties;
 import delta.common.utils.url.URLTools;
-import delta.games.lotro.utils.TypedProperties;
 
 /**
  * Mapping rules between required levels and item levels.
