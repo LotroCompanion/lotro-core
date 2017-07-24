@@ -43,7 +43,11 @@ public class EssencesSet
    */
   public Item getEssence(int index)
   {
-    return _essences.get(index);
+    if (index<_essences.size())
+    {
+      return _essences.get(index);
+    }
+    return null;
   }
 
   /**
