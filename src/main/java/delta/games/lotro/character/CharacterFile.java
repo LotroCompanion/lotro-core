@@ -284,6 +284,15 @@ public class CharacterFile
     return _logsManager.hasLog();
   }
 
+  /**
+   * Release as much memory as possible.
+   */
+  public void gc()
+  {
+    _infosManager.gc();
+    _stash=null;
+  }
+
   @Override
   public String toString()
   {

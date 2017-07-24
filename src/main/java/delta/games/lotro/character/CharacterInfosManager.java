@@ -68,6 +68,14 @@ public class CharacterInfosManager
   }
 
   /**
+   * Release as much memory as possible.
+   */
+  public void gc()
+  {
+    _datas.clear();
+  }
+
+  /**
    * Ensure that internal data are synchronized with persisted data.
    */
   public void sync()
@@ -231,14 +239,8 @@ public class CharacterInfosManager
     if (ret)
     {
       data.setFile(dataFile);
-      if (_datas.size()==0)
-      {
-        sync();
-      }
-      else
-      {
-        _datas.add(data);
-      }
+      sync();
+      _datas.add(data);
     }
     return ret;
   }
