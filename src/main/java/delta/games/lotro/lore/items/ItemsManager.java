@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
-import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
+import delta.games.lotro.lore.items.io.xml.ItemSaxParser;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 import delta.games.lotro.lore.items.io.xml.ItemsSetXMLParser;
 import delta.games.lotro.utils.LotroLoggers;
@@ -59,12 +59,15 @@ public class ItemsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File itemsDir=cfg.getLoreDir();
     File itemsFile=new File(itemsDir,"items.xml");
-    ItemXMLParser parser=new ItemXMLParser();
-    List<Item> items=parser.parseItemsFile(itemsFile);
+    long now=System.currentTimeMillis();
+    List<Item> items=ItemSaxParser.parseItemsFile(itemsFile);
     for(Item item : items)
     {
       _cache.put(Integer.valueOf(item.getIdentifier()),item);
     }
+    long now2=System.currentTimeMillis();
+    long duration=now2-now;
+    _logger.info("Loaded "+_cache.size()+" items in "+duration+"ms.");
     _loaded=true;
   }
 
