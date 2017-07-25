@@ -15,6 +15,8 @@ import delta.common.utils.NumericTools;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Money;
+import delta.games.lotro.common.money.io.xml.MoneyXMLConstants;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
@@ -27,6 +29,12 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLConstants;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -172,17 +180,6 @@ public class ItemSaxParser extends DefaultHandler {
           String description=attributes.getValue(ItemXMLConstants.ITEM_DESCRIPTION_ATTR);
           _currentItem.setDescription(description);
 
-          // Handle legendary items
-          /*
-          if (_currentItem instanceof Legendary)
-          {
-            LegendaryAttrs legAttrs=((Legendary)ret).getLegendaryAttrs();
-            LegendaryAttrsXMLParser.read(legAttrs,root);
-          }
-          */
-
-          // Money
-          //MoneyXMLParser.loadMoney(root,ret.getValue());
           // Stack max
           String stackMaxStr=attributes.getValue(ItemXMLConstants.ITEM_STACK_MAX_ATTR);
           if (stackMaxStr!=null)
@@ -267,16 +264,54 @@ public class ItemSaxParser extends DefaultHandler {
               weapon.setWeaponType(type);
             }
           }
-        } else if ("property".equals(qualifiedName)) {
+        } else if (ItemXMLConstants.PROPERTY_TAG.equals(qualifiedName)) {
           String propertyName=attributes.getValue(ItemXMLConstants.PROPERTY_KEY_ATTR);
           String propertyValue=attributes.getValue(ItemXMLConstants.PROPERTY_VALUE_ATTR);
           _currentItem.setProperty(propertyName,propertyValue);
-        } else if ("stat".equals(qualifiedName)) {
+        } else if (BasicStatsSetXMLConstants.STAT_TAG.equals(qualifiedName)) {
           String statName=attributes.getValue(BasicStatsSetXMLConstants.STAT_NAME_ATTR);
           String statValue=attributes.getValue(BasicStatsSetXMLConstants.STAT_VALUE_ATTR);
           STAT stat=STAT.getByName(statName);
           FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
           _currentItem.getStats().setStat(stat,value);
+        } else if (MoneyXMLConstants.MONEY_TAG.equals(qualifiedName)) {
+          // Item value
+          Money money=_currentItem.getValue();
+          String goldStr=attributes.getValue(MoneyXMLConstants.MONEY_GOLD_ATTR);
+          money.setGoldCoins(NumericTools.parseInt(goldStr,0));
+          String silverStr=attributes.getValue(MoneyXMLConstants.MONEY_SILVER_ATTR);
+          money.setSilverCoins(NumericTools.parseInt(silverStr,0));
+          String copperStr=attributes.getValue(MoneyXMLConstants.MONEY_COPPER_ATTR);
+          money.setCopperCoins(NumericTools.parseInt(copperStr,0));
+        } else if (ItemXMLConstants.BONUS_TAG.equals(qualifiedName)) {
+          // Bonus
+          String bonus=attributes.getValue(ItemXMLConstants.BONUS_VALUE_ATTR);
+          if (bonus!=null)
+          {
+            _currentItem.addBonus(bonus);
+          }
+        } else if (LegendaryAttrsXMLConstants.RELIC_TAG.equals(qualifiedName)) {
+          // Relics
+          String typeStr=attributes.getValue(LegendaryAttrsXMLConstants.RELIC_TYPE_ATTR);
+          if (typeStr!=null)
+          {
+            RelicType type=RelicType.valueOf(typeStr);
+            Relic relic=null;
+            String name=attributes.getValue(LegendaryAttrsXMLConstants.RELIC_NAME_ATTR);
+            if (name!=null)
+            {
+              RelicsManager relicsMgr=RelicsManager.getInstance();
+              relic=relicsMgr.getByName(name);
+            }
+            if (_currentItem instanceof Legendary)
+            {
+              LegendaryAttrs legendaryAttrs=((Legendary)_currentItem).getLegendaryAttrs();
+              if (type==RelicType.SETTING) legendaryAttrs.setSetting(relic);
+              if (type==RelicType.RUNE) legendaryAttrs.setRune(relic);
+              if (type==RelicType.GEM) legendaryAttrs.setGem(relic);
+              if (type==RelicType.CRAFTED_RELIC) legendaryAttrs.setCraftedRelic(relic);
+            }
+          }
         } else {
           // ...
         }

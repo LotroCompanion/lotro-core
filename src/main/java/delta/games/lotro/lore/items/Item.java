@@ -388,6 +388,15 @@ public class Item
   }
 
   /**
+   * Add a bonus.
+   * @param bonus Bonus to add.
+   */
+  public void addBonus(String bonus)
+  {
+    _bonus.add(bonus);
+  }
+
+  /**
    * Get the list of bonus for this item.
    * @return a list of bonus.
    */
