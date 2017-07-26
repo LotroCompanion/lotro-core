@@ -53,27 +53,6 @@ public class ItemXMLParser
   }
 
   /**
-   * Parse the XML file.
-   * @param source Source file.
-   * @return List of parsed items.
-   */
-  public List<Item> parseItemsFile(File source)
-  {
-    List<Item> items=new ArrayList<Item>();
-    Element root=DOMParsingTools.parse(source);
-    if (root!=null)
-    {
-      List<Element> itemTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.ITEM_TAG,false);
-      for(Element itemTag : itemTags)
-      {
-        Item item=parseItem(itemTag);
-        items.add(item);
-      }
-    }
-    return items;
-  }
-
-  /**
    * Build an item from an XML tag.
    * @param root Root XML tag.
    * @return An item.

@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
+import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.common.CharacterClass;
@@ -34,6 +35,7 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
@@ -49,6 +51,20 @@ public class ItemXMLWriter
   private static final Logger _logger=LotroLoggers.getLotroLogger();
 
   private static final String CDATA="CDATA";
+
+  /**
+   * Write a file with items.
+   * @param toFile Output file.
+   * @param items Items to write.
+   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
+   */
+  public static boolean writeItemsFile(File toFile, List<Item> items)
+  {
+    ItemXMLWriter writer=new ItemXMLWriter();
+    Collections.sort(items,new ItemIdComparator());
+    boolean ok=writer.writeItems(toFile,items,EncodingNames.UTF_8);
+    return ok;
+  }
 
   /**
    * Write an item to a XML file.

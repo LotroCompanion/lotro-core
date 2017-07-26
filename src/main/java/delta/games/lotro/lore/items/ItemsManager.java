@@ -5,19 +5,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.WeakHashMap;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.items.io.xml.ItemSaxParser;
-import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
-import delta.games.lotro.lore.items.io.xml.ItemsSetXMLParser;
 import delta.games.lotro.lore.items.sort.ItemsSorter;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -33,7 +29,6 @@ public class ItemsManager
 
   private ItemsSorter _sorter;
   private HashMap<Integer,Item> _cache;
-  private WeakHashMap<String,ItemsSet> _setsCache;
 
   /**
    * Get the sole instance of this class.
@@ -55,7 +50,6 @@ public class ItemsManager
   private ItemsManager(boolean load)
   {
     _cache=new HashMap<Integer,Item>(1000);
-    _setsCache=new WeakHashMap<String,ItemsSet>();
     _sorter=new ItemsSorter();
     if (load)
     {
@@ -101,9 +95,9 @@ public class ItemsManager
   }
 
   /**
-   * Load all items (can take a while).
+   * Load all items.
    */
-  public void loadAllItems()
+  private void loadAllItems()
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
@@ -141,74 +135,6 @@ public class ItemsManager
   {
     Item ret=null;
     ret=_cache.get(Integer.valueOf(id));
-    return ret;
-  }
-
-  /**
-   * Get a set of items using its identifier.
-   * @param id Set of items identifier.
-   * @return A description of this set of items or <code>null</code> if not found.
-   */
-  public ItemsSet getItemsSet(String id)
-  {
-    ItemsSet ret=null;
-    if ((id!=null) && (id.length()>0))
-    {
-      ret=(_setsCache!=null)?_setsCache.get(id):null;
-      if (ret==null)
-      {
-        ret=loadItemsSet(id);
-        if (ret!=null)
-        {
-          if (_setsCache!=null)
-          {
-            _setsCache.put(id,ret);
-          }
-        }
-      }
-    }
-    return ret;
-  }
-
-  /**
-   * Write a file with items.
-   * @param toFile Output file.
-   * @param items Items to write.
-   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
-   */
-  public static boolean writeItemsFile(File toFile, List<Item> items)
-  {
-    ItemXMLWriter writer=new ItemXMLWriter();
-    Collections.sort(items,new ItemIdComparator());
-    boolean ok=writer.writeItems(toFile,items,EncodingNames.UTF_8);
-    return ok;
-  }
-
-  private ItemsSet loadItemsSet(String id)
-  {
-    ItemsSet ret=null;
-    File itemsSetFile=getItemsSetFile(id);
-    if (itemsSetFile.exists())
-    {
-      if (itemsSetFile.length()>0)
-      {
-        ItemsSetXMLParser parser=new ItemsSetXMLParser();
-        ret=parser.parseXML(itemsSetFile);
-        if (ret==null)
-        {
-          _logger.error("Cannot load items set file ["+itemsSetFile+"]!");
-        }
-      }
-    }
-    return ret;
-  }
-
-  private File getItemsSetFile(String id)
-  {
-    File itemsDir=LotroCoreConfig.getInstance().getItemsDir();
-    File setsDir=new File(itemsDir,"sets");
-    String fileName=id+".xml";
-    File ret=new File(setsDir,fileName);
     return ret;
   }
 }
