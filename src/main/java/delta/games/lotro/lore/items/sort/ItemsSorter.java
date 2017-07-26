@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items.sort;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,8 @@ import delta.common.utils.collections.filters.CompoundFilter;
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.collections.filters.Operator;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterProficiencies;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.lore.items.Armour;
@@ -45,6 +48,49 @@ public class ItemsSorter
     {
       _items.put(slot.getKey(),new ArrayList<Item>());
     }
+  }
+
+  /**
+   * Get items that fit a slot for a given character.
+   * @param c Character.
+   * @param slot Targeted slot.
+   * @return A list of items.
+   */
+  public List<Item> getItems(CharacterData c, EQUIMENT_SLOT slot)
+  {
+    CharacterClass cClass=c.getCharacterClass();
+    int level=c.getLevel();
+    EquipmentLocation location=slot.getLocation();
+    if ((location==EquipmentLocation.HEAD) || (location==EquipmentLocation.SHOULDER)
+        || (location==EquipmentLocation.CHEST) || (location==EquipmentLocation.BACK)
+        || (location==EquipmentLocation.LEGS) || (location==EquipmentLocation.FEET)
+        || (location==EquipmentLocation.HAND))
+    {
+      return buildArmoursList(cClass,level,location);
+    }
+    if ((location==EquipmentLocation.EAR) || (location==EquipmentLocation.NECK)
+        || (location==EquipmentLocation.WRIST) || (location==EquipmentLocation.FINGER)
+        || (location==EquipmentLocation.POCKET) || (location==EquipmentLocation.CLASS_SLOT)
+        || (location==EquipmentLocation.TOOL))
+    {
+      return getBySlot(cClass,location);
+    }
+    if ((location==EquipmentLocation.MAIN_HAND) || (location==EquipmentLocation.OFF_HAND)
+        || (location==EquipmentLocation.RANGED_ITEM))
+    {
+      EquipmentLocation weaponLoc=location;
+      if (location==EquipmentLocation.OFF_HAND) weaponLoc=EquipmentLocation.MAIN_HAND;
+      List<Item> items=buildWeaponsList(cClass,level,weaponLoc);
+      if (location==EquipmentLocation.OFF_HAND)
+      {
+        List<Item> shields=buildShieldsList(cClass,level);
+        items.addAll(shields);
+      }
+      List<Item> others=getBySlot(cClass,location);
+      items.addAll(others);
+      return items;
+    }
+    return new ArrayList<Item>();
   }
 
   private void filterWeapons(List<Item> weapons)
@@ -191,7 +237,7 @@ public class ItemsSorter
    * Sort items.
    * @param items Items to sort.
    */
-  public void sortItems(List<Item> items)
+  public void sortItems(Collection<Item> items)
   {
     List<Item> weapons=new ArrayList<Item>();
     List<Item> armours=new ArrayList<Item>();

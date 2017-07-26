@@ -305,7 +305,7 @@ public class CharacterEquipment
         if (id!=null)
         {
           ItemsManager itemsManager=ItemsManager.getInstance();
-          item=itemsManager.getItem(id);
+          item=itemsManager.getItem(id.intValue());
           if (item!=null)
           {
             item=ItemFactory.clone(item);
