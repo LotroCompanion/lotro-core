@@ -234,12 +234,12 @@ public class CharacterInfosManager
    */
   public boolean writeNewCharacterData(CharacterData data)
   {
+    sync();
     File dataFile=getNewInfoFile();
     boolean ret=CharacterDataIO.saveInfo(dataFile,data);
     if (ret)
     {
       data.setFile(dataFile);
-      sync();
       _datas.add(data);
     }
     return ret;
