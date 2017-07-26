@@ -12,16 +12,22 @@ public class LotroCoreConfig
 {
   private static LotroCoreConfig _instance=new LotroCoreConfig();
   
-  private File _rootDataDir;
+  // Root directory for constant data
+  private File _applicationDataDir;
+  // Configuration
   private File _configDir;
-  private File _toonsDir;
+  // Lore
   private File _loreDir;
   private File _indexesDir;
   private File _questsDir;
   private File _deedsDir;
-  private File _iconsDir;
-  private File _itemsDir;
   private File _recipesDir;
+
+  // Root directory for use data
+  private File _userDataDir;
+  // Character data
+  private File _toonsDir;
+
   private TypedProperties _parameters;
 
   /**
@@ -38,19 +44,64 @@ public class LotroCoreConfig
    */
   private LotroCoreConfig()
   {
-    _rootDataDir=new File("data");
-    _configDir=new File(_rootDataDir,"config");
-    _toonsDir=new File(_rootDataDir,"characters");
-    _loreDir=new File(_rootDataDir,"lore");
-    _indexesDir=new File(_loreDir,"indexes");
+    // Application data
+    _applicationDataDir=new File("data");
+
+    // Configuration
+    _configDir=new File(_applicationDataDir,"config");
+    // Parameters
     File parametersFiles=new File(_configDir,"params.txt");
     _parameters=new TypedProperties();
     _parameters.loadFromFile(parametersFiles);
-    _questsDir=new File(_rootDataDir,"quests");
-    _deedsDir=new File(_rootDataDir,"deeds");
-    _iconsDir=new File(_rootDataDir,"icons");
-    _itemsDir=new File(_rootDataDir,"items");
-    _recipesDir=new File(_rootDataDir,"recipes");
+
+    // Lore
+    _loreDir=new File(_applicationDataDir,"lore");
+    _indexesDir=new File(_loreDir,"indexes");
+    _questsDir=new File(_applicationDataDir,"quests");
+    _deedsDir=new File(_applicationDataDir,"deeds");
+    _recipesDir=new File(_applicationDataDir,"recipes");
+
+    // User data
+    File userHomeDir=new File(System.getProperty("user.home"));
+    File userApplicationDir=new File(userHomeDir,".lotrocompanion");
+    _userDataDir=new File(userApplicationDir,"data");
+    _toonsDir=new File(_userDataDir,"characters");
+  }
+
+  /**
+   * Get the directory for application data.
+   * @return the directory for application data.
+   */
+  public File getApplicationDataDir()
+  {
+    return _applicationDataDir;
+  }
+
+  /**
+   * Get the root storage directory for configuration files.
+   * @return a directory.
+   */
+  public File getConfigDir()
+  {
+    return _configDir;
+  }
+
+  /**
+   * Get the configuration parameters.
+   * @return the configuration parameters.
+   */
+  public TypedProperties getParameters()
+  {
+    return _parameters;
+  }
+
+  /**
+   * Get the root directory for lore data storage.
+   * @return a directory.
+   */
+  public File getLoreDir()
+  {
+    return _loreDir;
   }
 
   /**
@@ -72,48 +123,12 @@ public class LotroCoreConfig
   }
 
   /**
-   * Get the root directory for lore data storage.
-   * @return a directory.
-   */
-  public File getLoreDir()
-  {
-    return _loreDir;
-  }
-
-  /**
    * Get the root directory for deed data storage.
    * @return a directory.
    */
   public File getDeedsDir()
   {
     return _deedsDir;
-  }
-
-  /**
-   * Get the root directory for icons data storage.
-   * @return a directory.
-   */
-  public File getIconsDir()
-  {
-    return _iconsDir;
-  }
-
-  /**
-   * Get the root storage directory for toons.
-   * @return a directory.
-   */
-  public File getToonsDir()
-  {
-    return _toonsDir;
-  }
-
-  /**
-   * Get the root directory for items data storage.
-   * @return a directory.
-   */
-  public File getItemsDir()
-  {
-    return _itemsDir;
   }
 
   /**
@@ -126,20 +141,20 @@ public class LotroCoreConfig
   }
 
   /**
-   * Get the root storage directory for configuration files.
-   * @return a directory.
+   * Get the directory for user data.
+   * @return the directory for user data.
    */
-  public File getConfigDir()
+  public File getUserDataDir()
   {
-    return _configDir;
+    return _userDataDir;
   }
 
   /**
-   * Get the configuration parameters.
-   * @return the configuration parameters.
+   * Get the root storage directory for toons.
+   * @return a directory.
    */
-  public TypedProperties getParameters()
+  public File getToonsDir()
   {
-    return _parameters;
+    return _toonsDir;
   }
 }

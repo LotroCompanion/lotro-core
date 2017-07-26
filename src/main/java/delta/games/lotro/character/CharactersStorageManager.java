@@ -24,6 +24,7 @@ public class CharactersStorageManager
   {
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     _toonsDir=cfg.getToonsDir();
+    _toonsDir.mkdirs();
     init();
   }
 
