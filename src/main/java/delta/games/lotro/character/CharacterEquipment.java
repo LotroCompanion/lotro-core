@@ -313,6 +313,20 @@ public class CharacterEquipment
           contents.setItem(item);
         }
       }
+      // Fix scaling properties
+      if (item!=null)
+      {
+        ItemsManager itemsManager=ItemsManager.getInstance();
+        Item referenceItem=itemsManager.getItem(item.getIdentifier());
+        if (referenceItem!=null)
+        {
+          Map<String,String> props=referenceItem.getProperties();
+          for(Map.Entry<String,String> entry : props.entrySet())
+          {
+            item.setProperty(entry.getKey(),entry.getValue());
+          }
+        }
+      }
     }
     return item;
   }
