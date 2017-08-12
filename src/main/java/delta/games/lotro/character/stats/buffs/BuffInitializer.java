@@ -214,6 +214,19 @@ public class BuffInitializer
     // Blue tree
     // TODO
     // Red tree
+    // - Critical Chance Increase
+    {
+      Buff critChanceIncrease=new Buff("CRIT_CHANCE_INCREASE", RED_TREE, "Critical Chance Increase");
+      critChanceIncrease.setIcon("Critical_Chance_Increase-icon");
+      critChanceIncrease.setRequiredClass(CharacterClass.CHAMPION);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int i=1;i<=5;i++)
+      {
+        buff.addTier(i,buildBasicSet(STAT.CRITICAL_MELEE_PERCENTAGE,i));
+      }
+      critChanceIncrease.setImpl(buff);
+      registry.registerBuff(critChanceIncrease);
+    }
     // TODO
     // Yellow tree
     // - Might Increase
