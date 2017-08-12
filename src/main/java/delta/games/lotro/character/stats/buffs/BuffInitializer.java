@@ -234,12 +234,16 @@ public class BuffInitializer
       Buff mightIncrease=new Buff("MIGHT_INCREASE", YELLOW_TREE, "Might Increase");
       mightIncrease.setIcon("Might_Increase-icon");
       mightIncrease.setRequiredClass(CharacterClass.CHAMPION);
-      SimpleTieredBuff buff=new SimpleTieredBuff();
-      buff.addTier(1,buildBasicSet(STAT.MIGHT,84));
-      buff.addTier(2,buildBasicSet(STAT.MIGHT,100));
-      buff.addTier(3,buildBasicSet(STAT.MIGHT,126));
-      buff.addTier(4,buildBasicSet(STAT.MIGHT,134));
-      buff.addTier(5,buildBasicSet(STAT.MIGHT,168));
+
+      float[] sliceCounts=new float[]{2,2.4f,3,3.2f,4};
+      Formula formula=new Formula()
+      {
+        public float compute(int level, float sliceCount)
+        {
+          return (float)Slice.getBaseStat(level,sliceCount);
+        }
+      };
+      FormulaBasedBuff buff=new FormulaBasedBuff(sliceCounts,STAT.MIGHT,formula);
       mightIncrease.setImpl(buff);
       registry.registerBuff(mightIncrease);
     }
@@ -248,11 +252,16 @@ public class BuffInitializer
       Buff finesseIncrease=new Buff("FINESSE_INCREASE", YELLOW_TREE, "Finesse Increase");
       finesseIncrease.setIcon("Finesse_Increase-icon");
       finesseIncrease.setRequiredClass(CharacterClass.CHAMPION);
-      SimpleTieredBuff buff=new SimpleTieredBuff();
-      for(int tier=1;tier<=5;tier++)
+
+      float[] sliceCounts=new float[]{0.4f,0.8f,1.2f,1.6f,2};
+      Formula formula=new Formula()
       {
-        buff.addTier(tier,buildBasicSet(STAT.FINESSE,521.2f*tier));
-      }
+        public float compute(int level, float sliceCount)
+        {
+          return Slice.getFinesse(level,sliceCount);
+        }
+      };
+      FormulaBasedBuff buff=new FormulaBasedBuff(sliceCounts,STAT.FINESSE,formula);
       finesseIncrease.setImpl(buff);
       registry.registerBuff(finesseIncrease);
     }
@@ -425,6 +434,7 @@ public class BuffInitializer
       determination.setIcon("Determination-icon");
       determination.setRequiredClass(CharacterClass.RUNE_KEEPER);
       SimpleTieredBuff buff=new SimpleTieredBuff();
+      // TODO use formulas
       int[] values={79,94,118,126,158};
       for(int tier=0;tier<values.length;tier++)
       {
