@@ -86,6 +86,7 @@ public class BuffInitializer
       manOfFourthAge.setIcon("Man_of_the_Fourth_Age-icon");
       manOfFourthAge.setRequiredRace(Race.MAN);
       BasicStatsSet stats=new BasicStatsSet();
+      // TODO: Update 21: should scale with level
       stats.addStat(STAT.WILL,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       manOfFourthAge.setImpl(buff);
@@ -106,6 +107,7 @@ public class BuffInitializer
       fatefulDwarf.setIcon("Fateful_Dwarf-icon");
       fatefulDwarf.setRequiredRace(Race.DWARF);
       BasicStatsSet stats=new BasicStatsSet();
+      // TODO: Update 21: should scale with level
       stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       fatefulDwarf.setImpl(buff);
@@ -118,6 +120,7 @@ public class BuffInitializer
       friendOfMan.setIcon("Friend_of_Man-icon");
       friendOfMan.setRequiredRace(Race.ELF);
       BasicStatsSet stats=new BasicStatsSet();
+      // TODO: Update 21: should scale with level
       stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       friendOfMan.setImpl(buff);
@@ -130,6 +133,7 @@ public class BuffInitializer
       emissary.setIcon("Emissary_(Beorning_Trait)-icon");
       emissary.setRequiredRace(Race.BEORNING);
       BasicStatsSet stats=new BasicStatsSet();
+      // TODO: Update 21: should scale with level
       stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       emissary.setImpl(buff);
@@ -142,11 +146,33 @@ public class BuffInitializer
       hobbitStature.setIcon("Hobbit-stature-icon");
       hobbitStature.setRequiredRace(Race.HOBBIT);
       BasicStatsSet stats=new BasicStatsSet();
+      // TODO: Update 21: should scale with level
       stats.addStat(STAT.MIGHT,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       hobbitStature.setImpl(buff);
       registry.registerBuff(hobbitStature);
     }
+    // High Elf
+    // - Those Who Remain
+    {
+      Buff thoseWhoRemain=new Buff("THOSE_WHO_REMAIN", RACIAL, "Those Who Remain");
+      thoseWhoRemain.setIcon("Those_who_Remain-icon");
+      thoseWhoRemain.setRequiredRace(Race.HIGH_ELF);
+      BasicStatsSet stats=new BasicStatsSet();
+      // TODO: Update 21: should scale with level
+      stats.addStat(STAT.WILL,new FixedDecimalsInteger(20));
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      thoseWhoRemain.setImpl(buff);
+      registry.registerBuff(thoseWhoRemain);
+    }
+    // - Grace of the Firstborn: +10% Out of Combat Run Speed
+    // - Blade Dancer: +2.5% One-handed Sword, +2.5% Two-handed Sword
+    // - Virtuous High Elf: +1 Wisdom, Confidence, Justice
+    // - Enmity of Darkness: +5% Light-type damage
+    // - Wrath of the Firstborn: +5% damage (fellowship, 10s)
+    // - Grace of Valinor: Rez target with 50% morale, 40% power
+    // - Glory of the first age: 5s stun
+    // - Travel to Caras Galadhon in Lothlorien
   }
 
   private void initCaptainBuffs(BuffRegistry registry)

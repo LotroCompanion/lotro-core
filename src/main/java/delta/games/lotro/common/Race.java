@@ -29,6 +29,10 @@ public class Race
    */
   public static final Race HOBBIT=new Race("Hobbit","hobbit");
   /**
+   * High Elf.
+   */
+  public static final Race HIGH_ELF=new Race("High Elf","highelf");
+  /**
    * Man.
    */
   public static final Race MAN=new Race("Race of Man","man");
@@ -37,7 +41,7 @@ public class Race
    * An array of all races.
    */
   public static final Race[] ALL_RACES = {
-    BEORNING, DWARF, ELF, HOBBIT, MAN
+    BEORNING, DWARF, ELF, HIGH_ELF, HOBBIT, MAN
   };
 
   private Race(String label, String key)

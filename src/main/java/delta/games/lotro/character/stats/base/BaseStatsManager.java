@@ -68,6 +68,14 @@ public class BaseStatsManager
     elf.setStat(STAT.FATE, -7);
     elf.setStat(STAT.OCMR, -60);
     _raceContrib.put(Race.ELF,elf);
+    // High Elf
+    BasicStatsSet highElf=new BasicStatsSet();
+    highElf.setStat(STAT.WILL, -7);
+    highElf.setStat(STAT.FATE, -7);
+    highElf.setStat(STAT.MORALE, 20);
+    highElf.setStat(STAT.OCMR, 60);
+    // TODO Suffer No Illness: 1% Disease Resistance, 1% Poison Resistance
+    _raceContrib.put(Race.HIGH_ELF,highElf);
     // Hobbit
     BasicStatsSet hobbit=new BasicStatsSet();
     // - TODO Hobbit Courage: +1% Fear Resistance. 
