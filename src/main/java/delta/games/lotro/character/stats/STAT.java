@@ -283,6 +283,10 @@ public enum STAT
    */
   HOPE("Hope"),
   /**
+   * Light of Eärendil.
+   */
+  LIGHT_OF_EARENDIL("Light of Eärendil"),
+  /**
    * Stealth level.
    */
   STEALTH_LEVEL("Stealth Level"),
