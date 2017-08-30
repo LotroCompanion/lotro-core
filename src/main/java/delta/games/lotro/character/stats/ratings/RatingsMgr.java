@@ -258,7 +258,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(1,20,50,50,3500,0),
           new Update21RatingCurveSegment(21,49,50,50,3650,-3000),
           new Update21RatingCurveSegment(50,104,50,50,1950,82500),
-          new Update21RatingCurveSegment(105,105,50,50,57500.0/9,0),
+          new Update21RatingCurveSegment(105,105,50,50,57500.0/21,0),
           new Update21RatingCurveSegment(106,115,50,50,718750.0/9,-72306250.0/9)
       };
       // TODO T2 penalty: OppLvl*40
