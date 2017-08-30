@@ -19,7 +19,13 @@ public class BalanceOfMan extends AbstractBuffImpl
     BasicStatsSet stats=new BasicStatsSet();
     int level=character.getLevel();
     float value;
-    if (level>105) value=16f*level; else value=8.08f*level;
+    // 105: 848
+    // 106: 1696
+    // 107: 1880
+    // TODO find out formula
+    if (level<=105) value=8.08f*level;
+    else if (level==106) value=1696;
+    else /*if (level==107)*/ value=1880;
     for(STAT stat : TARGETS)
     {
       stats.addStat(stat,new FixedDecimalsInteger(value));
