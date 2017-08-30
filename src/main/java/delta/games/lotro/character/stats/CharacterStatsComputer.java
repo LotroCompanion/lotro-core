@@ -147,7 +147,6 @@ public class CharacterStatsComputer
     // Crit %
     FixedDecimalsInteger crit=stats.getStat(STAT.CRITICAL_RATING);
     FixedDecimalsInteger critPercentage=computeRating(_ratingsMgr.getCriticalHitCurve(),crit,level);
-    // TODO missing 5% in melee for champ, 5% melee/ranged/tactical for mini
     ret.setStat(STAT.CRITICAL_MELEE_PERCENTAGE,critPercentage);
     ret.setStat(STAT.CRITICAL_RANGED_PERCENTAGE,critPercentage);
     ret.setStat(STAT.CRITICAL_TACTICAL_PERCENTAGE,critPercentage);
