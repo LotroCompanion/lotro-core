@@ -144,8 +144,6 @@ public class CharacterGeneratorMeva
       // Finesse, Rank 5
       additionalStats.addStat(STAT.FINESSE, new FixedDecimalsInteger(2486));
     }
-    // TODO Weird... looks like the mini has a +1 Hope buff
-    // Seems this buff is because Meva was in Bree...
     return c;
   }
 
