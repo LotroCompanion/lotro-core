@@ -87,6 +87,8 @@ public class BuffInitializer
       manOfFourthAge.setRequiredRace(Race.MAN);
       BasicStatsSet stats=new BasicStatsSet();
       // TODO: Update 21: should scale with level
+      // level 105-> +99 Will
+      // level 106-> +100 Will
       stats.addStat(STAT.WILL,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       manOfFourthAge.setImpl(buff);
@@ -108,6 +110,7 @@ public class BuffInitializer
       fatefulDwarf.setRequiredRace(Race.DWARF);
       BasicStatsSet stats=new BasicStatsSet();
       // TODO: Update 21: should scale with level
+      // level 102-> +96 Fate
       stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       fatefulDwarf.setImpl(buff);
@@ -121,6 +124,9 @@ public class BuffInitializer
       friendOfMan.setRequiredRace(Race.ELF);
       BasicStatsSet stats=new BasicStatsSet();
       // TODO: Update 21: should scale with level
+      // level 100-> +94 Fate
+      // level 27-> +7 Fate
+      // level 16-> +2 Fate
       stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       friendOfMan.setImpl(buff);
@@ -134,11 +140,13 @@ public class BuffInitializer
       emissary.setRequiredRace(Race.BEORNING);
       BasicStatsSet stats=new BasicStatsSet();
       // TODO: Update 21: should scale with level
+      // level 11-> +2 Fate
       stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       emissary.setImpl(buff);
       registry.registerBuff(emissary);
     }
+    // TODO - Natural Diet: 1% Disease Resistance
     // Hobbit
     // - Hobbit-Stature
     {
@@ -147,6 +155,7 @@ public class BuffInitializer
       hobbitStature.setRequiredRace(Race.HOBBIT);
       BasicStatsSet stats=new BasicStatsSet();
       // TODO: Update 21: should scale with level
+      // level 31-> +8 Might
       stats.addStat(STAT.MIGHT,new FixedDecimalsInteger(20));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       hobbitStature.setImpl(buff);
@@ -502,6 +511,7 @@ public class BuffInitializer
       deliberateAddress.setImpl(buff);
       registry.registerBuff(deliberateAddress);
     }
+    // - TODO Thick Skin
   }
 
   private BasicStatsSet buildBasicSet(STAT stat, float value)
