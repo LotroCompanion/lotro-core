@@ -12,6 +12,10 @@ import delta.games.lotro.character.level.io.xml.LevelHistoryXMLParser;
 import delta.games.lotro.character.level.io.xml.LevelHistoryXMLWriter;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogsManager;
+import delta.games.lotro.character.reputation.ReputationComputer;
+import delta.games.lotro.character.reputation.ReputationData;
+import delta.games.lotro.character.reputation.io.xml.ReputationXMLParser;
+import delta.games.lotro.character.reputation.io.xml.ReputationXMLWriter;
 import delta.games.lotro.character.storage.ItemsStash;
 import delta.games.lotro.character.storage.io.xml.StashXMLParser;
 import delta.games.lotro.character.storage.io.xml.StashXMLWriter;
@@ -26,6 +30,7 @@ public class CharacterFile
   private CharacterInfosManager _infosManager;
   private CharacterLogsManager _logsManager;
   private LevelHistory _levelHistory;
+  private ReputationData _reputation;
   private CharacterSummary _summary;
   private ItemsStash _stash;
 
@@ -220,6 +225,49 @@ public class CharacterFile
   private File getLevelHistoryFile()
   {
     return new File(_rootDir,"levels.xml");
+  }
+
+  /**
+   * Get the reputation data for this toon.
+   * @return A reputation data.
+   */
+  public ReputationData getReputation()
+  {
+    if (_reputation==null)
+    {
+      _reputation=loadReputation();
+      if (_reputation==null)
+      {
+        ReputationComputer c=new ReputationComputer();
+        _reputation=c.buildReputationData(this);
+        writeReputation();
+      }
+    }
+    return _reputation;
+  }
+  
+  private ReputationData loadReputation()
+  {
+    ReputationData reputation=null;
+    File reputationFile=getReputationFile();
+    if ((reputationFile.exists()) && (reputationFile.canRead()))
+    {
+      ReputationXMLParser parser=new ReputationXMLParser();
+      reputation=parser.parseXML(reputationFile);
+    }
+    return reputation;
+  }
+
+  private void writeReputation()
+  {
+    File reputationFile=getReputationFile();
+    ReputationXMLWriter writer=new ReputationXMLWriter();
+    writer.write(reputationFile,_reputation,EncodingNames.ISO8859_1);
+  }
+
+  private File getReputationFile()
+  {
+    return new File(_rootDir,"reputation.xml");
   }
 
   /**

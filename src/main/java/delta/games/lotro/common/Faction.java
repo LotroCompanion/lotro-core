@@ -30,6 +30,16 @@ public class Faction
   }
 
   /**
+   * Get the identifying key for this faction.
+   * @return An identifying key.
+   */
+  public String getKey()
+  {
+    // TODO use a real key
+    return _name;
+  }
+
+  /**
    * Get the name of this faction.
    * @return the name of this faction.
    */

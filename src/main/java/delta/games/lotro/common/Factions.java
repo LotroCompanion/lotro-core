@@ -21,7 +21,8 @@ public class Factions
   private static final String ALE_ASSOCIATION="Ale Association";
   private static final String INN_LEAGUE="Inn League";
 
-  private HashMap<String,Faction> _registry;
+  private HashMap<String,Faction> _registryByKey;
+  private HashMap<String,Faction> _registryByName;
   private List<Faction> _factions;
 
   /**
@@ -38,7 +39,8 @@ public class Factions
    */
   private Factions()
   {
-    _registry=new HashMap<String,Faction>();
+    _registryByKey=new HashMap<String,Faction>();
+    _registryByName=new HashMap<String,Faction>();
     _factions=new ArrayList<Faction>();
     initFactions();
   }
@@ -85,12 +87,14 @@ public class Factions
    */
   private void registerFaction(Faction faction)
   {
+    String key=faction.getKey();
+    _registryByKey.put(key,faction);
     String name=faction.getName();
     String[] aliases=faction.getAliases();
-    _registry.put(name,faction);
+    _registryByName.put(name,faction);
     for(String alias : aliases)
     {
-      _registry.put(alias,faction);
+      _registryByName.put(alias,faction);
     }
     _factions.add(faction);
   }
@@ -141,6 +145,16 @@ public class Factions
   }
 
   /**
+   * Get a faction instance by key.
+   * @param key Key of the faction to get.
+   * @return A faction instance or <code>null</code> if not found.
+   */
+  public Faction getByKey(String key)
+  {
+    return _registryByKey.get(key);
+  }
+
+  /**
    * Get a faction instance by name.
    * @param name Name of the faction to get.
    * @return A faction instance or <code>null</code> if <code>name</code> is <code>null</code> or empty.
@@ -150,7 +164,7 @@ public class Factions
     Faction f=null;
     if ((name!=null) && (name.length()>0))
     {
-      f=_registry.get(name);
+      f=_registryByName.get(name);
     }
     return f;
   }

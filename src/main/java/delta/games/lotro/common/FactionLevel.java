@@ -1,11 +1,15 @@
 package delta.games.lotro.common;
 
+import java.util.HashMap;
+
 /**
  * Represents a level in a faction.
  * @author DAM
  */
 public class FactionLevel
 {
+  private static final HashMap<String,FactionLevel> _mapByKey=new HashMap<String,FactionLevel>();
+
   /**
    * Enemy.
    */
@@ -42,8 +46,19 @@ public class FactionLevel
   {
     _name=name;
     _value=value;
+    _mapByKey.put(name,this);
   }
-  
+
+  /**
+   * Get the identifying key for this faction.
+   * @return An identifying key.
+   */
+  public String getKey()
+  {
+    // TODO use a real key
+    return _name;
+  }
+
   /**
    * Get the name of this level.
    * @return A name.
@@ -66,6 +81,16 @@ public class FactionLevel
   public String toString()
   {
     return _name;
+  }
+
+  /**
+   * Get a faction level using its identifying key.
+   * @param key Key to use.
+   * @return A faction level or <code>null</code> if not found.
+   */
+  public static FactionLevel getByKey(String key)
+  {
+    return _mapByKey.get(key);
   }
 }
 
