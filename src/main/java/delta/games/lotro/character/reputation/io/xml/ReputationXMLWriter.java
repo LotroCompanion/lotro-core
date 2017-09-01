@@ -2,6 +2,7 @@ package delta.games.lotro.character.reputation.io.xml;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -16,9 +17,9 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.StreamTools;
 import delta.games.lotro.character.reputation.FactionData;
 import delta.games.lotro.character.reputation.ReputationData;
-import delta.games.lotro.common.Faction;
-import delta.games.lotro.common.FactionLevel;
-import delta.games.lotro.common.Factions;
+import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.lore.reputation.FactionLevel;
+import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
@@ -74,7 +75,7 @@ public class ReputationXMLWriter
   {
     AttributesImpl reputationAttrs=new AttributesImpl();
     hd.startElement("","",ReputationXMLConstants.REPUTATION_TAG,reputationAttrs);
-    Faction[] factions=Factions.getInstance().getAll();
+    List<Faction> factions=FactionsRegistry.getInstance().getAll();
     for(Faction faction : factions)
     {
       FactionData factionData=reputation.getFactionStat(faction);

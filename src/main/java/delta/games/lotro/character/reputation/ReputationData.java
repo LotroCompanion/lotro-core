@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import delta.games.lotro.common.Faction;
+import delta.games.lotro.lore.reputation.Faction;
 
 /**
  * Reputatution status for a single toon.

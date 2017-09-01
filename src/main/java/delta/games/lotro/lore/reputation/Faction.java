@@ -1,4 +1,4 @@
-package delta.games.lotro.common;
+package delta.games.lotro.lore.reputation;
 
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +10,7 @@ import java.util.Set;
  */
 public class Faction
 {
+  private String _key;
   private String _name;
   private Set<String> _aliases;
   private FactionLevel _initialLevel;
@@ -17,12 +18,14 @@ public class Faction
   
   /**
    * Constructor.
+   * @param key Identifying key.
    * @param name Name of faction.
    * @param levels Available levels.
    * @param initialLevel Initial level.
    */
-  public Faction(String name, List<FactionLevel> levels, FactionLevel initialLevel)
+  public Faction(String key, String name, List<FactionLevel> levels, FactionLevel initialLevel)
   {
+    _key=key;
     _name=name;
     _aliases=new HashSet<String>();
     _levels=levels.toArray(new FactionLevel[levels.size()]);
@@ -35,8 +38,7 @@ public class Faction
    */
   public String getKey()
   {
-    // TODO use a real key
-    return _name;
+    return _key;
   }
 
   /**

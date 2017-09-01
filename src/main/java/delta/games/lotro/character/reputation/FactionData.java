@@ -4,8 +4,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
 
-import delta.games.lotro.common.Faction;
-import delta.games.lotro.common.FactionLevel;
+import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.lore.reputation.FactionLevel;
 
 /**
  * Statistics about a single faction on a single toon.

@@ -12,9 +12,9 @@ import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogItem;
 import delta.games.lotro.character.log.CharacterLogItem.LogItemType;
-import delta.games.lotro.common.Faction;
-import delta.games.lotro.common.FactionLevel;
-import delta.games.lotro.common.Factions;
+import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.lore.reputation.FactionLevel;
+import delta.games.lotro.lore.reputation.FactionsRegistry;
 
 /**
  * Computes reputation status/history using the character log.
@@ -125,7 +125,7 @@ public class ReputationComputer
           factionName=factionName.substring(3).trim();
         }
         level=entry.getValue();
-        faction=Factions.getInstance().getByName(factionName);
+        faction=FactionsRegistry.getInstance().getByName(factionName);
         if (faction!=null)
         {
           break;
@@ -136,7 +136,7 @@ public class ReputationComputer
     // Handle "Ale Association" specificly
     if (label.startsWith(ALE_ASSOCIATION_SEED))
     {
-      faction=Factions.getInstance().getByName("Ale Association");
+      faction=FactionsRegistry.getInstance().getByName("Ale Association");
       String levelStr=label.substring(ALE_ASSOCIATION_SEED.length()).trim();
       if ("Acquaintance".equals(levelStr)) level=FactionLevel.ACQUAINTANCE;
       else if ("Ally".equals(levelStr)) level=FactionLevel.ALLY;
@@ -144,18 +144,18 @@ public class ReputationComputer
     }
     else if (label.equals("Kindred of Malevolence"))
     {
-      faction=Factions.getInstance().getByName("Ale Association");
+      faction=FactionsRegistry.getInstance().getByName("Ale Association");
       level=FactionLevel.KINDRED;
     }
     // Kindred with Eglain is "Eglan"
     else if (label.equals("Eglan"))
     {
-      faction=Factions.getInstance().getByName("Eglain");
+      faction=FactionsRegistry.getInstance().getByName("Eglain");
       level=FactionLevel.KINDRED;
     }
     else if (label.equals("Kindred to the Entwash"))
     {
-      faction=Factions.getInstance().getByName("Entwash Vale");
+      faction=FactionsRegistry.getInstance().getByName("Entwash Vale");
       level=FactionLevel.KINDRED;
     }
     // TODO Inn League

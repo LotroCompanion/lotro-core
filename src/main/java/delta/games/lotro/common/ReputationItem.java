@@ -1,5 +1,7 @@
 package delta.games.lotro.common;
 
+import delta.games.lotro.lore.reputation.Faction;
+
 /**
  * Reputation for a single faction.
  * @author DAM

@@ -1,4 +1,4 @@
-package delta.games.lotro.common;
+package delta.games.lotro.lore.reputation;
 
 import java.util.HashMap;
 
@@ -13,40 +13,61 @@ public class FactionLevel
   /**
    * Enemy.
    */
-  public static final FactionLevel ENEMY=new FactionLevel("Enemy",-1);
+  public static final FactionLevel ENEMY=new FactionLevel("ENEMY","Enemy",-1);
   /**
    * Outsider.
    */
-  public static final FactionLevel OUTSIDER=new FactionLevel("Outsider",-1);
+  public static final FactionLevel OUTSIDER=new FactionLevel("OUTSIDER","Outsider",-1);
   /**
    * Neutral.
    */
-  public static final FactionLevel NEUTRAL=new FactionLevel("Neutral",0);
+  public static final FactionLevel NEUTRAL=new FactionLevel("NEUTRAL","Neutral",0);
   /**
    * Acquaintance.
    */
-  public static final FactionLevel ACQUAINTANCE=new FactionLevel("Acquaintance",1);
+  public static final FactionLevel ACQUAINTANCE=new FactionLevel("ACQUAINTANCE","Acquaintance",1);
   /**
    * Friend.
    */
-  public static final FactionLevel FRIEND=new FactionLevel("Friend",2);
+  public static final FactionLevel FRIEND=new FactionLevel("FRIEND","Friend",2);
   /**
    * Ally.
    */
-  public static final FactionLevel ALLY=new FactionLevel("Ally",3);
+  public static final FactionLevel ALLY=new FactionLevel("ALLY","Ally",3);
   /**
    * Kindred.
    */
-  public static final FactionLevel KINDRED=new FactionLevel("Kindred",4);
+  public static final FactionLevel KINDRED=new FactionLevel("KINDRED","Kindred",4);
+  /**
+   * Respected.
+   */
+  public static final FactionLevel RESPECTED=new FactionLevel("RESPECTED","Respected",5);
+  /**
+   * Honoured.
+   */
+  public static final FactionLevel HONOURED=new FactionLevel("HONOURED","Honoured",6);
+  /**
+   * Celebrated.
+   */
+  public static final FactionLevel CELEBRATED=new FactionLevel("CELEBRATED","Celebrated",7);
 
+  private String _key;
   private String _name;
   private int _value;
 
-  private FactionLevel(String name, int value)
+  /**
+   * Constructor.
+   * @param key Identifying key.
+   * @param name Level name.
+   * @param value Level rank.
+   */
+  public FactionLevel(String key, String name, int value)
   {
+    _key=key;
     _name=name;
     _value=value;
     _mapByKey.put(name,this);
+    _mapByKey.put(key,this);
   }
 
   /**
@@ -55,8 +76,7 @@ public class FactionLevel
    */
   public String getKey()
   {
-    // TODO use a real key
-    return _name;
+    return _key;
   }
 
   /**

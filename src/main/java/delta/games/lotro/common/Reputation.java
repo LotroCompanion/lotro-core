@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.reputation.Faction;
 
 /**
  * Global reputation.

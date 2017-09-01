@@ -9,9 +9,9 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.reputation.FactionData;
 import delta.games.lotro.character.reputation.ReputationData;
-import delta.games.lotro.common.Faction;
-import delta.games.lotro.common.FactionLevel;
-import delta.games.lotro.common.Factions;
+import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.lore.reputation.FactionLevel;
+import delta.games.lotro.lore.reputation.FactionsRegistry;
 
 /**
  * Parser for character reputation stored in XML.
@@ -48,11 +48,15 @@ public class ReputationXMLParser
       String currentFactionLevelKey=DOMParsingTools.getStringAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_ATTR,null);
       if ((factionKey!=null) && (currentFactionLevelKey!=null))
       {
-        Faction faction=Factions.getInstance().getByKey(factionKey);
+        Faction faction=FactionsRegistry.getInstance().getByKey(factionKey);
+        if (faction==null)
+        {
+          faction=FactionsRegistry.getInstance().getByName(factionKey);
+        }
         if (faction!=null)
         {
           FactionData factionData=h.getOrCreateFactionStat(faction);
-          List<Element> levelTags=DOMParsingTools.getChildTagsByName(root,ReputationXMLConstants.FACTION_LEVEL_TAG);
+          List<Element> levelTags=DOMParsingTools.getChildTagsByName(factionTag,ReputationXMLConstants.FACTION_LEVEL_TAG);
           for(Element levelTag : levelTags)
           {
             NamedNodeMap levelAttrs=levelTag.getAttributes();
