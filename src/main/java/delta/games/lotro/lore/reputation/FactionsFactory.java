@@ -81,8 +81,7 @@ public class FactionsFactory
     }
     FactionLevelsTemplate factionTemplate=_templates.getByKey(template);
     List<FactionLevel> levels=factionTemplate.getLevels();
-    FactionLevel initialLevel=levels.get(0);
-    Faction faction=new Faction(key,name,levels,initialLevel);
+    Faction faction=new Faction(key,name,levels);
     if (aliases!=null)
     {
       for(String alias : aliases)
@@ -115,7 +114,7 @@ public class FactionsFactory
     String ambassador="Ambassador of the Elves";
 
     // ERIADOR
-    String category="ERIADOR";
+    String category="Eriador";
     Faction shire=initFaction(category,"SHIRE","Mathom Society",new String[]{"The Mathom Society"},FactionLevelsTemplates.CLASSIC);
     setupDeedForFaction(worldRenowned,shire);
     Faction bree=initFaction(category,"BREE","Men of Bree",null,FactionLevelsTemplates.CLASSIC);
@@ -141,7 +140,7 @@ public class FactionsFactory
     Faction greyCompany=initFaction(category,"GREY_COMPANY","Grey Company",new String[]{"The Grey Company"},FactionLevelsTemplates.CLASSIC);
     setupDeedForFaction(worldRenowned,greyCompany);
     initFaction(category,"DUNLAND","Men of Dunland",null,FactionLevelsTemplates.CLASSIC);
-    category="RHOVANION";
+    category="Rhovanion";
     initFaction(category,"MORIA_GUARDS","Iron Garrison Guards",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"MORIA_MINERS","Iron Garrison Miners",null,FactionLevelsTemplates.CLASSIC);
     Faction galadhrim=initFaction(category,"GALADHRIM","Galadhrim",null,FactionLevelsTemplates.CLASSIC);
@@ -160,12 +159,7 @@ public class FactionsFactory
     initFaction(category,"EORLINGAS","Eorlingas",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"HELMINGAS","Helmingas",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"FANGORN","Ents of Fangorn Forest",null,FactionLevelsTemplates.CLASSIC);
-    category="MISC";
-    initFaction(category,"ALE_ASSOCIATION","Ale Association",new String[]{"The Ale Association"},FactionLevelsTemplates.ALE_INN);
-    initFaction(category,"INN_LEAGUE","Inn League",new String[]{"The Inn League"},FactionLevelsTemplates.ALE_INN);
-    initFaction(category,"GUILD","Guild",null,FactionLevelsTemplates.GUILD);
-    // TODO Hobnanigans
-    category="GONDOR";
+    category="Gondor";
     initFaction(category,"DOL_AMROTH","Dol Amroth",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"DA_ARMOURY","Dol Amroth – Armoury",null,FactionLevelsTemplates.DOL_AMROTH);
     initFaction(category,"DA_BANK","Dol Amroth – Bank",null,FactionLevelsTemplates.DOL_AMROTH);
@@ -182,10 +176,17 @@ public class FactionsFactory
     initFaction(category,"RANGERS_ITHILIEN","Rangers of Ithilien",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"MINAS_TIRITH","Defenders of Minas Tirith",null,FactionLevelsTemplates.EXTENDED_CLASSIC);
     initFaction(category,"RIDERS_ROHAN","Riders of Rohan",null,FactionLevelsTemplates.CLASSIC);
-    category="MORDOR";
+    category="Mordor";
     initFaction(category,"HOST_OF_THE_WEST","Host of the West",null,FactionLevelsTemplates.EXTENDED_CLASSIC);
     initFaction(category,"HOW_ARMOUR","Host of the West: Armour",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"HOW_WEAPONS","Host of the West: Weapons",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"HOW_PROVISIONS","Host of the West: Provisions",null,FactionLevelsTemplates.CLASSIC);
+    category="Misc";
+    Faction aleAssociation=initFaction(category,"ALE_ASSOCIATION","Ale Association",new String[]{"The Ale Association"},FactionLevelsTemplates.ALE_INN);
+    aleAssociation.setInitialLevel(aleAssociation.getLevels()[1]);
+    Faction innLeague=initFaction(category,"INN_LEAGUE","Inn League",new String[]{"The Inn League"},FactionLevelsTemplates.ALE_INN);
+    innLeague.setInitialLevel(innLeague.getLevels()[1]);
+    initFaction(category,"HOBNANIGANS","Chicken Chasing League of Eriador",null,FactionLevelsTemplates.HOBNANIGANS);
+    initFaction(category,"GUILD","Guild",null,FactionLevelsTemplates.GUILD);
   }
 }

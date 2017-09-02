@@ -21,15 +21,14 @@ public class Faction
    * @param key Identifying key.
    * @param name Name of faction.
    * @param levels Available levels.
-   * @param initialLevel Initial level.
    */
-  public Faction(String key, String name, List<FactionLevel> levels, FactionLevel initialLevel)
+  public Faction(String key, String name, List<FactionLevel> levels)
   {
     _key=key;
     _name=name;
     _aliases=new HashSet<String>();
     _levels=levels.toArray(new FactionLevel[levels.size()]);
-    _initialLevel=initialLevel;
+    _initialLevel=levels.get(0);
   }
 
   /**
@@ -75,6 +74,15 @@ public class Faction
   public FactionLevel getInitialLevel()
   {
     return _initialLevel;
+  }
+
+  /**
+   * Set the initial level.
+   * @param level Level to set.
+   */
+  public void setInitialLevel(FactionLevel level)
+  {
+    _initialLevel=level;
   }
 
   /**
