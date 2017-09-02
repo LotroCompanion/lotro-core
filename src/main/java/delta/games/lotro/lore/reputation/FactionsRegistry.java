@@ -115,6 +115,15 @@ public class FactionsRegistry
   }
 
   /**
+   * Get the faction categories.
+   * @return A list of faction categories keys.
+   */
+  public List<String> getFactionCategories()
+  {
+    return _categories;
+  }
+
+  /**
    * Get the factions involved in a category.
    * @param category Key of the targeted category.
    * @return A list of factions.
