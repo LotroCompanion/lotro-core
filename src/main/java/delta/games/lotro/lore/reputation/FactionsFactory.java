@@ -140,6 +140,7 @@ public class FactionsFactory
     Faction greyCompany=initFaction(category,"GREY_COMPANY","Grey Company",new String[]{"The Grey Company"},FactionLevelsTemplates.CLASSIC);
     setupDeedForFaction(worldRenowned,greyCompany);
     initFaction(category,"DUNLAND","Men of Dunland",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"THEODRED_RIDERS","Théodred's Riders",new String[]{"Riders of Théodred"},FactionLevelsTemplates.CLASSIC);
     category="Rhovanion";
     initFaction(category,"MORIA_GUARDS","Iron Garrison Guards",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"MORIA_MINERS","Iron Garrison Miners",null,FactionLevelsTemplates.CLASSIC);
@@ -147,13 +148,12 @@ public class FactionsFactory
     setupDeedForFaction(ambassador,galadhrim);
     Faction malledhrim=initFaction(category,"MALLEDHRIM","Malledhrim",null,FactionLevelsTemplates.CLASSIC);
     setupDeedForFaction(ambassador,malledhrim);
-    initFaction(category,"THEODRED_RIDERS","Théodred's Riders",new String[]{"Riders of Théodred"},FactionLevelsTemplates.CLASSIC);
     initFaction(category,"STANGARD_RIDERS","Riders of Stangard",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"LIMLIGHT_GORGE","Heroes of Limlight Gorge",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"WOLD","Men of the Wold",new String[]{"Wold"},FactionLevelsTemplates.CLASSIC);
     initFaction(category,"NORCROFTS","Men of the Norcrofts",new String[]{"Norcrofts"},FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"SUTCROFTS","Men of the Sutcrofts",new String[]{"Sutcrofts"},FactionLevelsTemplates.CLASSIC);
     initFaction(category,"ENTWASH_VALE","Men of the Entwash Vale",new String[]{"Entwash Vale"},FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"LIMLIGHT_GORGE","Heroes of Limlight Gorge",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"SUTCROFTS","Men of the Sutcrofts",new String[]{"Sutcrofts"},FactionLevelsTemplates.CLASSIC);
     initFaction(category,"PEOPLE_WILDERMORE","People of Wildermore",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"SURVIVORS_WILDERMORE","Survivors of Wildermore",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"EORLINGAS","Eorlingas",null,FactionLevelsTemplates.CLASSIC);
@@ -179,8 +179,8 @@ public class FactionsFactory
     category="Mordor";
     initFaction(category,"HOST_OF_THE_WEST","Host of the West",null,FactionLevelsTemplates.EXTENDED_CLASSIC);
     initFaction(category,"HOW_ARMOUR","Host of the West: Armour",null,FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"HOW_WEAPONS","Host of the West: Weapons",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"HOW_PROVISIONS","Host of the West: Provisions",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"HOW_WEAPONS","Host of the West: Weapons",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"GORGOROTH","Conquest of Gorgoroth",null,FactionLevelsTemplates.CLASSIC);
     category="Misc";
     Faction aleAssociation=initFaction(category,"ALE_ASSOCIATION","Ale Association",new String[]{"The Ale Association"},FactionLevelsTemplates.ALE_INN);
