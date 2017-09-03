@@ -72,6 +72,11 @@ public class ReputationXMLParser
               // TODO warn
             }
           }
+          FactionLevel level=faction.getLevelByKey(currentFactionLevelKey);
+          if (level!=null)
+          {
+            factionData.setFactionLevel(level);
+          }
         }
         else
         {

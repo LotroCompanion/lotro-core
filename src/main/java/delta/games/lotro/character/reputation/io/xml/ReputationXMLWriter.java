@@ -86,16 +86,18 @@ public class ReputationXMLWriter
         factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_KEY_ATTR,CDATA,faction.getKey());
         factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_CURRENT_ATTR,CDATA,currentLevel.getKey());
         hd.startElement("","",ReputationXMLConstants.FACTION_TAG,factionAttrs);
-        int nbLevels=factionData.getNumberOfReputationEvents();
-        for(int i=0;i<nbLevels;i++)
+        FactionLevel[] levels=faction.getLevels();
+        for(FactionLevel level : levels)
         {
-          FactionLevel level=factionData.getLevelForEvent(i);
-          long date=factionData.getDateForEvent(i);
-          AttributesImpl factionLevelAttrs=new AttributesImpl();
-          factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,CDATA,level.getKey());
-          factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,CDATA,String.valueOf(date));
-          hd.startElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG,factionLevelAttrs);
-          hd.endElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG);
+          Long date=factionData.getDateForLevel(level);
+          if (date!=null)
+          {
+            AttributesImpl factionLevelAttrs=new AttributesImpl();
+            factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,CDATA,level.getKey());
+            factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,CDATA,date.toString());
+            hd.startElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG,factionLevelAttrs);
+            hd.endElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG);
+          }
         }
         hd.endElement("","",ReputationXMLConstants.FACTION_TAG);
       }

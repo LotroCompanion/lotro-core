@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.lore.reputation.FactionLevel;
 
 /**
  * Reputatution status for a single toon.
@@ -46,10 +47,51 @@ public class ReputationData
     if (stat==null)
     {
       stat=new FactionData(faction);
+      stat.setFactionLevel(faction.getInitialLevel());
       _stats.put(faction,stat);
     }
     return stat;
   }
+
+  /**
+   * Update current faction level for a given faction.
+   * @param faction Faction to use.
+   * @param increase Increase or decrease.
+   */
+  public void updateFaction(Faction faction, boolean increase)
+  {
+    FactionData factionData=getOrCreateFactionStat(faction);
+    FactionLevel currentLevel=factionData.getFactionLevel();
+    FactionLevel[] levels=faction.getLevels();
+    int index=0;
+    for(FactionLevel level : levels)
+    {
+      if (level.getKey().equals(currentLevel.getKey()))
+      {
+        int nbLevels=levels.length;
+        if (increase)
+        {
+          if (index+1<nbLevels)
+          {
+            FactionLevel newLevel=levels[index+1];
+            factionData.setFactionLevel(newLevel);
+            break;
+          }
+        }
+        else
+        {
+          if (index>0)
+          {
+            FactionLevel newLevel=levels[index-1];
+            factionData.setFactionLevel(newLevel);
+            break;
+          }
+        }
+      }
+      index++;
+    }
+  }
+
 
   /**
    * Dump the contents of this object to the given stream.

@@ -164,6 +164,7 @@ public class ReputationComputer
     {
       FactionData stat=reputation.getOrCreateFactionStat(faction);
       stat.addUpdate(level,date);
+      stat.setFactionLevel(level);
     }
   }
 }

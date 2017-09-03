@@ -1,8 +1,8 @@
 package delta.games.lotro.character.reputation;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
@@ -15,8 +15,7 @@ public class FactionData
 {
   private Faction _faction;
   private FactionLevel _level;
-  private ArrayList<FactionLevel> _levels;
-  private ArrayList<Long> _dates;
+  private HashMap<String,Long> _dates;
 
   /**
    * Constructor.
@@ -25,8 +24,7 @@ public class FactionData
   public FactionData(Faction faction)
   {
     _faction=faction;
-    _levels=new ArrayList<FactionLevel>();
-    _dates=new ArrayList<Long>();
+    _dates=new HashMap<String,Long>();
   }
 
   /**
@@ -45,38 +43,17 @@ public class FactionData
    */
   public void addUpdate(FactionLevel level, long date)
   {
-    _level=level;
-    _levels.add(level);
-    _dates.add(Long.valueOf(date));
+    _dates.put(level.getKey(),Long.valueOf(date));
   }
 
   /**
-   * Get the number of registered reputation events.
-   * @return A number of reputation events.
+   * Get the date for a given level.
+   * @param level Level to use.
+   * @return A date as a long or <code>null</code>.
    */
-  public int getNumberOfReputationEvents()
+  public Long getDateForLevel(FactionLevel level)
   {
-    return _dates.size();
-  }
-
-  /**
-   * Get the date for a given event.
-   * @param index Index of event, starting at zero.
-   * @return A date as a long.
-   */
-  public long getDateForEvent(int index)
-  {
-    return _dates.get(index).longValue();
-  }
-
-  /**
-   * Get the faction level for a given event.
-   * @param index Index of event, starting at zero.
-   * @return A faction level.
-   */
-  public FactionLevel getLevelForEvent(int index)
-  {
-    return _levels.get(index);
+    return _dates.get(level.getKey());
   }
 
   /**
@@ -89,6 +66,15 @@ public class FactionData
   }
 
   /**
+   * Set the current faction level.
+   * @param level Level to set.
+   */
+  public void setFactionLevel(FactionLevel level)
+  {
+    _level=level;
+  }
+
+  /**
    * Dump the contents of this object to the given stream.
    * @param ps Output stream to use.
    */
@@ -98,12 +84,15 @@ public class FactionData
     ps.println("Reputation history for faction ["+factionName+"]:");
     ps.println("\tLevel: "+_level);
 
-    int nbEvents=getNumberOfReputationEvents();
-    for(int i=0;i<nbEvents;i++)
+    FactionLevel[] levels=_faction.getLevels();
+    for(FactionLevel level : levels)
     {
-      Date date=new Date(_dates.get(i).longValue());
-      FactionLevel level=_levels.get(i);
-      ps.println("\t"+level+": "+date);
+      Long timestamp=_dates.get(level.getKey());
+      if (timestamp!=null)
+      {
+        Date date=new Date(timestamp.longValue());
+        ps.println("\t"+level+": "+date);
+      }
     }
   }
 

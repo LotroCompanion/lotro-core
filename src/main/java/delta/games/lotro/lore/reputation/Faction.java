@@ -94,6 +94,23 @@ public class Faction
     return _levels;
   }
 
+  /**
+   * Get a level of this faction using its key.
+   * @param levelKey Key of the level to get.
+   * @return A level or <code>null</code> if not found.
+   */
+  public FactionLevel getLevelByKey(String levelKey)
+  {
+    for(FactionLevel level : _levels)
+    {
+      if (levelKey.equals(level.getKey()))
+      {
+        return level;
+      }
+    }
+    return null;
+  }
+
   @Override
   public String toString()
   {
