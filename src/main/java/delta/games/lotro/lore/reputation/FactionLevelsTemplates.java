@@ -128,15 +128,15 @@ public class FactionLevelsTemplates
   private FactionLevelsTemplate buildGuild()
   {
     List<FactionLevel> levels=new ArrayList<FactionLevel>();
-    levels.add(new FactionLevel("NONE","-",0));
-    levels.add(new FactionLevel("INITIATE","Guild Initiate",1));
-    levels.add(new FactionLevel("APPRENTICE","Apprentice of the Guild",2));
-    levels.add(new FactionLevel("JOURNEYMAN","Journeyman of the Guild",3));
-    levels.add(new FactionLevel("EXPERT","Expert of the Guild",4));
-    levels.add(new FactionLevel("ARTISAN","Artisan of the Guild",5));
-    levels.add(new FactionLevel("MASTER","Master of the Guild",6));
-    levels.add(new FactionLevel("EASTEMNET MASTER","Eastemnet Master of the Guild",7));
-    levels.add(new FactionLevel("WESTEMNET MASTER","Westemnet Master of the Guild",8));
+    levels.add(new FactionLevel("NONE","-",0,0,0));
+    levels.add(new FactionLevel("INITIATE","Guild Initiate",1,0,10000));
+    levels.add(new FactionLevel("APPRENTICE","Apprentice of the Guild",2,0,20000));
+    levels.add(new FactionLevel("JOURNEYMAN","Journeyman of the Guild",3,0,25000));
+    levels.add(new FactionLevel("EXPERT","Expert of the Guild",4,0,30000));
+    levels.add(new FactionLevel("ARTISAN","Artisan of the Guild",5,0,45000));
+    levels.add(new FactionLevel("MASTER","Master of the Guild",6,0,60000));
+    levels.add(new FactionLevel("EASTEMNET MASTER","Eastemnet Master of the Guild",7,0,90000));
+    levels.add(new FactionLevel("WESTEMNET MASTER","Westemnet Master of the Guild",8,0,0));
     return new FactionLevelsTemplate(GUILD,levels);
   }
 
@@ -151,12 +151,12 @@ public class FactionLevelsTemplates
   private FactionLevelsTemplate buildHobnanigans()
   {
     List<FactionLevel> levels=new ArrayList<FactionLevel>();
-    levels.add(new FactionLevel("NONE","-",0));
-    levels.add(new FactionLevel("ROOKIE","Rookie",1));
-    levels.add(new FactionLevel("LEAGUER","Leaguer",2));
-    levels.add(new FactionLevel("MAJOR_LEAGUER","Major Leaguer",3));
-    levels.add(new FactionLevel("ALL_STAR","All-star",4));
-    levels.add(new FactionLevel("HALL_OF_FAMER","Hall of Famer",5));
+    levels.add(new FactionLevel("NONE","-",0,0,0));
+    levels.add(new FactionLevel("ROOKIE","Rookie",1,0,10000));
+    levels.add(new FactionLevel("LEAGUER","Leaguer",2,0,20000));
+    levels.add(new FactionLevel("MAJOR_LEAGUER","Major Leaguer",3,0,25000));
+    levels.add(new FactionLevel("ALL_STAR","All-star",4,0,30000));
+    levels.add(new FactionLevel("HALL_OF_FAMER","Hall of Famer",5,0,45000));
     return new FactionLevelsTemplate(HOBNANIGANS,levels);
   }
 }

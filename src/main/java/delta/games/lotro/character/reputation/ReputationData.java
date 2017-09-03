@@ -15,6 +15,8 @@ import delta.games.lotro.lore.reputation.FactionLevel;
 public class ReputationData
 {
   private HashMap<Faction,FactionData> _stats;
+  private ReputationDeedsData _deedsStatus;
+  private int _acquiredLotroPoints;
 
   /**
    * Constructor.
@@ -22,6 +24,26 @@ public class ReputationData
   public ReputationData()
   {
     _stats=new HashMap<Faction,FactionData>();
+    _deedsStatus=new ReputationDeedsData();
+  }
+
+  /**
+   * Update the data derivated from reputation data (deeds and LOTRO points count).
+   */
+  public void update()
+  {
+    _deedsStatus.update(this);
+    ReputationLotroPointsComputer lpComputer=new ReputationLotroPointsComputer();
+    _acquiredLotroPoints=lpComputer.compute(this);
+  }
+
+  /**
+   * Get the status of reputation deeds.
+   * @return the status of reputation deeds.
+   */
+  public ReputationDeedsData getDeedsStatus()
+  {
+    return _deedsStatus;
   }
 
   /**
@@ -92,6 +114,14 @@ public class ReputationData
     }
   }
 
+  /**
+   * Get the number of acquired LOTRO points.
+   * @return A LOTRO points count.
+   */
+  public int getAcquiredLotroPoints()
+  {
+    return _acquiredLotroPoints;
+  }
 
   /**
    * Dump the contents of this object to the given stream.

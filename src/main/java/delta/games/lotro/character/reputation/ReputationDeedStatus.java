@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.lore.reputation.ReputationDeed;
 
 /**
  * Status of a reputation deed.
@@ -11,19 +12,28 @@ import delta.games.lotro.lore.reputation.Faction;
  */
 public class ReputationDeedStatus
 {
-  private String _deedName;
+  private ReputationDeed _deed;
   private Set<Faction> _acquiredFactions;
   private Set<Faction> _missingFactions;
 
   /**
    * Constructor.
-   * @param deedName Name of the managed reputation deed.
+   * @param deed Managed reputation deed.
    */
-  public ReputationDeedStatus(String deedName)
+  public ReputationDeedStatus(ReputationDeed deed)
   {
-    _deedName=deedName;
+    _deed=deed;
     _acquiredFactions=new HashSet<Faction>();
     _missingFactions=new HashSet<Faction>();
+  }
+
+  /**
+   * Get the the managed deed.
+   * @return A deed .
+   */
+  public ReputationDeed getDeed()
+  {
+    return _deed;
   }
 
   /**
@@ -32,7 +42,16 @@ public class ReputationDeedStatus
    */
   public String getDeedName()
   {
-    return _deedName;
+    return _deed.getName();
+  }
+
+  /**
+   * Clear.
+   */
+  public void clear()
+  {
+    _acquiredFactions.clear();
+    _missingFactions.clear();
   }
 
   /**

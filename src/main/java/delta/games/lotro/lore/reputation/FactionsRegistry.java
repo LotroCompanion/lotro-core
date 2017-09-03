@@ -16,8 +16,7 @@ public class FactionsRegistry
   private HashMap<String,Faction> _registryByName;
   private List<String> _categories;
   private HashMap<String,List<Faction>> _factionsByCategory;
-  private List<String> _factionDeeds;
-  private HashMap<String,List<Faction>> _factionsByDeed;
+  private List<ReputationDeed> _factionDeeds;
   private List<Faction> _factions;
 
   /**
@@ -37,7 +36,6 @@ public class FactionsRegistry
     _registryByKey=new HashMap<String,Faction>();
     _registryByName=new HashMap<String,Faction>();
     _factionsByCategory=new HashMap<String,List<Faction>>();
-    _factionsByDeed=new HashMap<String,List<Faction>>();
     _factions=new ArrayList<Faction>();
     initFactions();
   }
@@ -61,11 +59,6 @@ public class FactionsRegistry
     }
     // Deeds
     _factionDeeds=factory.getDeeds();
-    for(String deed : _factionDeeds)
-    {
-      List<Faction> factions=factory.getByDeed(deed);
-      _factionsByDeed.put(deed,factions);
-    }
   }
 
   /**
@@ -99,19 +92,9 @@ public class FactionsRegistry
    * Get the faction deeds.
    * @return A list of faction deed keys.
    */
-  public List<String> getFactionDeeds()
+  public List<ReputationDeed> getReputationDeeds()
   {
     return _factionDeeds;
-  }
-
-  /**
-   * Get the factions involved in a faction deed.
-   * @param factionDeedKey Key of the targeted faction deed.
-   * @return A list of factions.
-   */
-  public List<Faction> getFactionsForDeed(String factionDeedKey)
-  {
-    return _factionsByDeed.get(factionDeedKey);
   }
 
   /**

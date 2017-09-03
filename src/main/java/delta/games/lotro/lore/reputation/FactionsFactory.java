@@ -12,9 +12,8 @@ public class FactionsFactory
 {
   private FactionLevelsTemplates _templates;
   private List<String> _categories;
-  private List<String> _deeds;
+  private List<ReputationDeed> _deeds;
   private HashMap<String,List<Faction>> _factionsByCategory;
-  private HashMap<String,List<Faction>> _factionsByDeed;
 
   /**
    * Constructor.
@@ -23,9 +22,8 @@ public class FactionsFactory
   {
     _templates=new FactionLevelsTemplates();
     _categories=new ArrayList<String>();
-    _deeds=new ArrayList<String>();
+    _deeds=new ArrayList<ReputationDeed>();
     _factionsByCategory=new HashMap<String,List<Faction>>();
-    _factionsByDeed=new HashMap<String,List<Faction>>();
     init();
   }
 
@@ -50,21 +48,11 @@ public class FactionsFactory
 
   /**
    * Get faction deeds.
-   * @return a list of deed names.
+   * @return a list of faction deeds.
    */
-  public List<String> getDeeds()
+  public List<ReputationDeed> getDeeds()
   {
     return _deeds;
-  }
-
-  /**
-   * Get the factions for a given deed.
-   * @param deed Deed to use.
-   * @return A list of factions.
-   */
-  public List<Faction> getByDeed(String deed)
-  {
-    return _factionsByDeed.get(deed);
   }
 
   private Faction initFaction(String region, String key, String name, String[] aliases, String template)
@@ -93,19 +81,26 @@ public class FactionsFactory
     return faction;
   }
 
-  private void setupDeedForFaction(String deed,Faction faction)
+  private ReputationDeed getFactionDeedByName(String name)
   {
-    if (!_deeds.contains(deed))
+    ReputationDeed ret=null;
+    for(ReputationDeed deed : _deeds)
     {
-      _deeds.add(deed);
+      if (name.equals(deed.getName()))
+      {
+        return deed;
+      }
     }
-    List<Faction> factions=_factionsByDeed.get(deed);
-    if (factions==null)
-    {
-      factions=new ArrayList<Faction>();
-      _factionsByDeed.put(deed,factions);
-    }
-    factions.add(faction);
+    ret=new ReputationDeed(name);
+    _deeds.add(ret);
+    return ret;
+  }
+
+  private ReputationDeed setupDeedForFaction(String deedName,Faction faction)
+  {
+    ReputationDeed deed=getFactionDeedByName(deedName);
+    deed.addFaction(faction);
+    return deed;
   }
 
   private void init()
@@ -116,7 +111,8 @@ public class FactionsFactory
     // ERIADOR
     String category="Eriador";
     Faction shire=initFaction(category,"SHIRE","Mathom Society",new String[]{"The Mathom Society"},FactionLevelsTemplates.CLASSIC);
-    setupDeedForFaction(worldRenowned,shire);
+    ReputationDeed wrDeed=setupDeedForFaction(worldRenowned,shire);
+    wrDeed.setLotroPoints(50);
     Faction bree=initFaction(category,"BREE","Men of Bree",null,FactionLevelsTemplates.CLASSIC);
     setupDeedForFaction(worldRenowned,bree);
     Faction dwarves=initFaction(category,"DWARVES","Thorin's Hall",null,FactionLevelsTemplates.CLASSIC);
@@ -127,7 +123,8 @@ public class FactionsFactory
     setupDeedForFaction(worldRenowned,esteldin);
     Faction rivendell=initFaction(category,"RIVENDELL","Elves of Rivendell",null,FactionLevelsTemplates.CLASSIC);
     setupDeedForFaction(worldRenowned,rivendell);
-    setupDeedForFaction(ambassador,rivendell);
+    ReputationDeed ambassadorDeed=setupDeedForFaction(ambassador,rivendell);
+    ambassadorDeed.setLotroPoints(20);
     Faction annuminas=initFaction(category,"ANNUMINAS","Wardens of Annúminas",new String[]{"The Wardens of Annúminas"},FactionLevelsTemplates.CLASSIC);
     setupDeedForFaction(worldRenowned,annuminas);
     Faction lossoth=initFaction(category,"LOSSOTH","Lossoth of Forochel",new String[]{"Lossoth"},FactionLevelsTemplates.FOROCHEL);

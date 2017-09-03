@@ -13,59 +13,65 @@ public class FactionLevel
   /**
    * Enemy.
    */
-  public static final FactionLevel ENEMY=new FactionLevel("ENEMY","Enemy",-1);
+  public static final FactionLevel ENEMY=new FactionLevel("ENEMY","Enemy",-1,0,10000);
   /**
    * Outsider.
    */
-  public static final FactionLevel OUTSIDER=new FactionLevel("OUTSIDER","Outsider",-1);
+  public static final FactionLevel OUTSIDER=new FactionLevel("OUTSIDER","Outsider",-1,0,10000);
   /**
    * Neutral.
    */
-  public static final FactionLevel NEUTRAL=new FactionLevel("NEUTRAL","Neutral",0);
+  public static final FactionLevel NEUTRAL=new FactionLevel("NEUTRAL","Neutral",0,0,10000);
   /**
    * Acquaintance.
    */
-  public static final FactionLevel ACQUAINTANCE=new FactionLevel("ACQUAINTANCE","Acquaintance",1);
+  public static final FactionLevel ACQUAINTANCE=new FactionLevel("ACQUAINTANCE","Acquaintance",1,5,20000);
   /**
    * Friend.
    */
-  public static final FactionLevel FRIEND=new FactionLevel("FRIEND","Friend",2);
+  public static final FactionLevel FRIEND=new FactionLevel("FRIEND","Friend",2,10,25000);
   /**
    * Ally.
    */
-  public static final FactionLevel ALLY=new FactionLevel("ALLY","Ally",3);
+  public static final FactionLevel ALLY=new FactionLevel("ALLY","Ally",3,15,30000);
   /**
    * Kindred.
    */
-  public static final FactionLevel KINDRED=new FactionLevel("KINDRED","Kindred",4);
+  public static final FactionLevel KINDRED=new FactionLevel("KINDRED","Kindred",4,20,45000);
   /**
    * Respected.
    */
-  public static final FactionLevel RESPECTED=new FactionLevel("RESPECTED","Respected",5);
+  public static final FactionLevel RESPECTED=new FactionLevel("RESPECTED","Respected",5,20,0); // TODO
   /**
    * Honoured.
    */
-  public static final FactionLevel HONOURED=new FactionLevel("HONOURED","Honoured",6);
+  public static final FactionLevel HONOURED=new FactionLevel("HONOURED","Honoured",6,20,0); // TODO
   /**
    * Celebrated.
    */
-  public static final FactionLevel CELEBRATED=new FactionLevel("CELEBRATED","Celebrated",7);
+  public static final FactionLevel CELEBRATED=new FactionLevel("CELEBRATED","Celebrated",7,50,0);
 
   private String _key;
   private String _name;
   private int _value;
+  private int _lotroPoints;
+  private int _requiredXp;
 
   /**
    * Constructor.
    * @param key Identifying key.
    * @param name Level name.
    * @param value Level rank.
+   * @param lotroPoints LOTRO points given when reaching this level.
+   * @param requiredXp XP points required to reach the next level.
    */
-  public FactionLevel(String key, String name, int value)
+  public FactionLevel(String key, String name, int value, int lotroPoints, int requiredXp)
   {
     _key=key;
     _name=name;
     _value=value;
+    _lotroPoints=lotroPoints;
+    _requiredXp=requiredXp;
     _mapByKey.put(name,this);
     _mapByKey.put(key,this);
   }
@@ -87,7 +93,7 @@ public class FactionLevel
   {
     return _name;
   }
-  
+
   /**
    * Get the value of this level.
    * @return the value of this level.
@@ -95,6 +101,24 @@ public class FactionLevel
   public int getValue()
   {
     return _value;
+  }
+
+  /**
+   * Get the LOTRO points given when reaching this level.
+   * @return a LOTRO points count.
+   */
+  public int getLotroPoints()
+  {
+    return _lotroPoints;
+  }
+
+  /**
+   * Get the XP points required to reach the next level.
+   * @return an XP points count.
+   */
+  public int getRequiredXp()
+  {
+    return _requiredXp;
   }
 
   @Override
