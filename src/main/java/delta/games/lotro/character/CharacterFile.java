@@ -240,7 +240,7 @@ public class CharacterFile
       {
         ReputationComputer c=new ReputationComputer();
         _reputation=c.buildReputationData(this);
-        writeReputation();
+        saveReputation();
       }
     }
     return _reputation;
@@ -258,11 +258,24 @@ public class CharacterFile
     return reputation;
   }
 
-  private void writeReputation()
+  /**
+   * Revert reputation data from disk.
+   */
+  public void revertReputation()
+  {
+    _reputation=loadReputation();
+  }
+
+  /**
+   * Save reputation to file.
+   * @return <code>true</code> if it was successful, <code>false</code> otherwise.
+   */
+  public boolean saveReputation()
   {
     File reputationFile=getReputationFile();
     ReputationXMLWriter writer=new ReputationXMLWriter();
-    writer.write(reputationFile,_reputation,EncodingNames.ISO8859_1);
+    boolean ok=writer.write(reputationFile,_reputation,EncodingNames.ISO8859_1);
+    return ok;
   }
 
   private File getReputationFile()
