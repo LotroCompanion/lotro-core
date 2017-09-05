@@ -166,6 +166,7 @@ public class FactionsFactory
     initFaction(category,"DA_MASON","Dol Amroth – Mason",null,FactionLevelsTemplates.DOL_AMROTH);
     initFaction(category,"DA_SWAN_KNIGHTS","Dol Amroth – Swan Knights",null,FactionLevelsTemplates.DOL_AMROTH);
     initFaction(category,"DA_WAREHOUSE","Dol Amroth – Warehouse",null,FactionLevelsTemplates.DOL_AMROTH);
+    // TODO Central gondor: 3 regions: all levels gives no LP
     initFaction(category,"RINGLO_VALE","Men of Ringló Vale",null,FactionLevelsTemplates.CLASSIC); 
     initFaction(category,"DOR_EN_ERNIL","Men of Dor-en-Ernil",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"LEBENNIN","Men of Lebennin",null,FactionLevelsTemplates.CLASSIC);
@@ -175,9 +176,9 @@ public class FactionsFactory
     initFaction(category,"RIDERS_ROHAN","Riders of Rohan",null,FactionLevelsTemplates.CLASSIC);
     category="Mordor";
     initFaction(category,"HOST_OF_THE_WEST","Host of the West",null,FactionLevelsTemplates.EXTENDED_CLASSIC);
-    initFaction(category,"HOW_ARMOUR","Host of the West: Armour",null,FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"HOW_PROVISIONS","Host of the West: Provisions",null,FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"HOW_WEAPONS","Host of the West: Weapons",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"HOW_ARMOUR","Host of the West: Armour",null,FactionLevelsTemplates.HOW);
+    initFaction(category,"HOW_PROVISIONS","Host of the West: Provisions",null,FactionLevelsTemplates.HOW);
+    initFaction(category,"HOW_WEAPONS","Host of the West: Weapons",null,FactionLevelsTemplates.HOW);
     initFaction(category,"GORGOROTH","Conquest of Gorgoroth",null,FactionLevelsTemplates.CLASSIC);
     category="Misc";
     Faction aleAssociation=initFaction(category,"ALE_ASSOCIATION","Ale Association",new String[]{"The Ale Association"},FactionLevelsTemplates.ALE_INN);

@@ -15,6 +15,10 @@ public class FactionLevelsTemplates
    */
   public static final String CLASSIC="CLASSIC";
   /**
+   * Host of the West.
+   */
+  public static final String HOW="HOW";
+  /**
    * Guild faction.
    */
   public static final String GUILD="GUILD";
@@ -63,6 +67,7 @@ public class FactionLevelsTemplates
   private void init()
   {
     register(buildClassic());
+    register(buildHostOfTheWest());
     register(buildForochel());
     register(buildExtendedClassic());
     register(buildGuild());
@@ -85,6 +90,17 @@ public class FactionLevelsTemplates
     levels.add(FactionLevel.ALLY);
     levels.add(FactionLevel.KINDRED);
     return new FactionLevelsTemplate(CLASSIC,levels);
+  }
+
+  private FactionLevelsTemplate buildHostOfTheWest()
+  {
+    List<FactionLevel> levels=new ArrayList<FactionLevel>();
+    levels.add(new FactionLevel("NONE","-",0,0,10000));
+    levels.add(new FactionLevel("INITIAL","Initial",1,0,20000));
+    levels.add(new FactionLevel("INTERMEDIATE","Intermediate",2,5,25000));
+    levels.add(new FactionLevel("ADVANCED","Advanced",3,10,30000));
+    levels.add(new FactionLevel("FINAL","Final",4,15,0));
+    return new FactionLevelsTemplate(HOW,levels);
   }
 
   private FactionLevelsTemplate buildAleInn()
@@ -144,7 +160,7 @@ public class FactionLevelsTemplates
   {
     List<FactionLevel> levels=new ArrayList<FactionLevel>();
     levels.add(FactionLevel.NEUTRAL);
-    levels.add(FactionLevel.ACQUAINTANCE);
+    levels.add(new FactionLevel("ACQUAINTANCE","Acquaintance",1,0,0));
     return new FactionLevelsTemplate(DOL_AMROTH,levels);
   }
 
