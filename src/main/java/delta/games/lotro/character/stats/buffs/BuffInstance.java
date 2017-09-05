@@ -1,5 +1,8 @@
 package delta.games.lotro.character.stats.buffs;
 
+import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.stats.BasicStatsSet;
+
 /**
  * Instance of a buff.
  * @author DAM
@@ -53,6 +56,18 @@ public class BuffInstance
   public void setTier(Integer tier)
   {
     _tier=tier;
+  }
+
+  /**
+   * Get the stats contributed by this buff on the given character.
+   * @param c Targeted character.
+   * @return Some stats.
+   */
+  public BasicStatsSet getStats(CharacterData c)
+  {
+    AbstractBuffImpl impl=_buff.getImpl();
+    BasicStatsSet buffContrib=impl.getStats(c,this);
+    return buffContrib;
   }
 
   @Override

@@ -101,8 +101,7 @@ public class BuffsManager
     BasicStatsSet ret=new BasicStatsSet();
     for(BuffInstance buff : _buffs)
     {
-      AbstractBuffImpl impl=buff.getBuff().getImpl();
-      BasicStatsSet buffContrib=impl.getStats(c,buff);
+      BasicStatsSet buffContrib=buff.getStats(c);
       if (buffContrib!=null)
       {
         ret.addStats(buffContrib);
