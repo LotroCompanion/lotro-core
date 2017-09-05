@@ -19,6 +19,10 @@ public class FactionLevelsTemplates
    */
   public static final String HOW="HOW";
   /**
+   * Central Gondor.
+   */
+  public static final String CENTRAL_GONDOR="CENTRAL_GONDOR";
+  /**
    * Guild faction.
    */
   public static final String GUILD="GUILD";
@@ -68,6 +72,7 @@ public class FactionLevelsTemplates
   {
     register(buildClassic());
     register(buildHostOfTheWest());
+    register(buildCentralGondor());
     register(buildForochel());
     register(buildExtendedClassic());
     register(buildGuild());
@@ -108,11 +113,22 @@ public class FactionLevelsTemplates
     List<FactionLevel> levels=new ArrayList<FactionLevel>();
     levels.add(FactionLevel.ENEMY);
     levels.add(FactionLevel.NEUTRAL);
-    levels.add(FactionLevel.ACQUAINTANCE);
-    levels.add(FactionLevel.FRIEND);
-    levels.add(FactionLevel.ALLY);
-    levels.add(FactionLevel.KINDRED);
+    levels.add(new FactionLevel("ACQUAINTANCE","Acquaintance",1,0,20000));
+    levels.add(new FactionLevel("FRIEND","Friend",2,0,25000));
+    levels.add(new FactionLevel("ALLY","Ally",3,0,30000));
+    levels.add(new FactionLevel("KINDRED","Kindred",4,0,0));
     return new FactionLevelsTemplate(ALE_INN,levels);
+  }
+
+  private FactionLevelsTemplate buildCentralGondor()
+  {
+    List<FactionLevel> levels=new ArrayList<FactionLevel>();
+    levels.add(FactionLevel.NEUTRAL);
+    levels.add(new FactionLevel("ACQUAINTANCE","Acquaintance",1,0,20000));
+    levels.add(new FactionLevel("FRIEND","Friend",2,0,25000));
+    levels.add(new FactionLevel("ALLY","Ally",3,0,30000));
+    levels.add(new FactionLevel("KINDRED","Kindred",4,0,0));
+    return new FactionLevelsTemplate(CENTRAL_GONDOR,levels);
   }
 
   private FactionLevelsTemplate buildForochel()

@@ -166,10 +166,10 @@ public class FactionsFactory
     initFaction(category,"DA_MASON","Dol Amroth – Mason",null,FactionLevelsTemplates.DOL_AMROTH);
     initFaction(category,"DA_SWAN_KNIGHTS","Dol Amroth – Swan Knights",null,FactionLevelsTemplates.DOL_AMROTH);
     initFaction(category,"DA_WAREHOUSE","Dol Amroth – Warehouse",null,FactionLevelsTemplates.DOL_AMROTH);
-    // TODO Central gondor: 3 regions: all levels gives no LP
-    initFaction(category,"RINGLO_VALE","Men of Ringló Vale",null,FactionLevelsTemplates.CLASSIC); 
-    initFaction(category,"DOR_EN_ERNIL","Men of Dor-en-Ernil",null,FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"LEBENNIN","Men of Lebennin",null,FactionLevelsTemplates.CLASSIC);
+    // For all 3 Central Gondor regions: all levels gives no LP
+    initFaction(category,"RINGLO_VALE","Men of Ringló Vale",null,FactionLevelsTemplates.CENTRAL_GONDOR); 
+    initFaction(category,"DOR_EN_ERNIL","Men of Dor-en-Ernil",null,FactionLevelsTemplates.CENTRAL_GONDOR);
+    initFaction(category,"LEBENNIN","Men of Lebennin",null,FactionLevelsTemplates.CENTRAL_GONDOR);
     initFaction(category,"PELARGIR","Pelargir",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"RANGERS_ITHILIEN","Rangers of Ithilien",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"MINAS_TIRITH","Defenders of Minas Tirith",null,FactionLevelsTemplates.EXTENDED_CLASSIC);
