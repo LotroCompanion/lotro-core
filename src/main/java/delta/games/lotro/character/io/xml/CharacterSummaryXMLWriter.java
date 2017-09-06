@@ -16,6 +16,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.StreamTools;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -104,6 +105,13 @@ public class CharacterSummaryXMLWriter
     {
       String cRace=race.getLabel();
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_RACE_ATTR,CDATA,cRace);
+    }
+    // Sex
+    CharacterSex sex=character.getCharacterSex();
+    if (sex!=null)
+    {
+      String sexKey=sex.getKey();
+      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SEX_ATTR,CDATA,sexKey);
     }
     // Region
     String region=character.getRegion();

@@ -1,6 +1,7 @@
 package delta.games.lotro.character;
 
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
 
 /**
@@ -11,6 +12,7 @@ public class CharacterSummary
 {
   private String _characterName;
   private String _server;
+  private CharacterSex _sex;
   private CharacterClass _class;
   private Race _race;
   private String _region;
@@ -23,6 +25,7 @@ public class CharacterSummary
   {
     _characterName="";
     _server="";
+    _sex=null;
     _class=null;
     _race=null;
     _region="";
@@ -37,6 +40,7 @@ public class CharacterSummary
   {
     _characterName=source._characterName;
     _server=source._server;
+    _sex=source._sex;
     _class=source._class;
     _race=source._race;
     _region=source._region;
@@ -85,6 +89,24 @@ public class CharacterSummary
       server="";
     }
     _server=server;
+  }
+
+  /**
+   * Get the character's sex.
+   * @return the character's sex.
+   */
+  public CharacterSex getCharacterSex()
+  {
+    return _sex;
+  }
+
+  /**
+   * Set the character's sex.
+   * @param characterSex the sex to set.
+   */
+  public void setCharacterSex(CharacterSex characterSex)
+  {
+    _sex=characterSex;
   }
 
   /**
@@ -171,6 +193,7 @@ public class CharacterSummary
     sb.append("Server [").append(_server).append("], ");
     sb.append("Race [").append(_race).append("], ");
     sb.append("Region [").append(_region).append("], ");
+    sb.append("Sex [").append(_sex).append("], ");
     sb.append("Class [").append(_class).append("], ");
     sb.append("Race [").append(_race).append("], ");
     sb.append("Level [").append(_level).append(']');

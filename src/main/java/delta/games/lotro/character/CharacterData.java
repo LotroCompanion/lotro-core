@@ -9,6 +9,7 @@ import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
 
 /**
@@ -220,6 +221,24 @@ public class CharacterData
   public void setCharacterClass(CharacterClass characterClass)
   {
     _summary.setCharacterClass(characterClass);
+  }
+
+  /**
+   * Get the character's sex.
+   * @return the character's sex.
+   */
+  public CharacterSex getCharacterSex()
+  {
+    return _summary.getCharacterSex();
+  }
+
+  /**
+   * Set the character's sex.
+   * @param characterSex the sex to set.
+   */
+  public void setCharacterSex(CharacterSex characterSex)
+  {
+    _summary.setCharacterSex(characterSex);
   }
 
   /**

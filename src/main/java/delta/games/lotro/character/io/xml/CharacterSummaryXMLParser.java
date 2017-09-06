@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
 
 /**
@@ -53,6 +54,13 @@ public class CharacterSummaryXMLParser
     String race=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_RACE_ATTR,"");
     Race cRace=Race.getByLabel(race); 
     summary.setRace(cRace);
+    // Sex
+    String sexKey=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SEX_ATTR,"");
+    if (sexKey!=null)
+    {
+      CharacterSex sex=CharacterSex.getByKey(sexKey); 
+      summary.setCharacterSex(sex);
+    }
     // Region
     String region=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
     summary.setRegion(region);

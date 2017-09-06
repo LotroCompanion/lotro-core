@@ -40,6 +40,10 @@ public class CharacterXMLConstants
    */
   public static final String CHARACTER_RACE_ATTR="race";
   /**
+   * Tag 'character', attribute 'sex'.
+   */
+  public static final String CHARACTER_SEX_ATTR="sex";
+  /**
    * Tag 'character', attribute 'region'.
    */
   public static final String CHARACTER_REGION_ATTR="region";
