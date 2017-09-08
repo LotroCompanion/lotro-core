@@ -48,7 +48,7 @@ public class LevelHistoryComputer
         if (date!=null)
         {
           int level=c.getLevel();
-          history.setLevel(level,date.longValue());
+          history.setLevelIfSooner(level,date.longValue());
         }
       }
     }
@@ -91,7 +91,7 @@ public class LevelHistoryComputer
         long date=item.getDate();
         if ((level!=0) && (date!=0))
         {
-          history.setLevel(level,date);
+          history.setLevelIfSooner(level,date);
         }
       }
     }

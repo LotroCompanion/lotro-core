@@ -31,7 +31,25 @@ public class LevelHistory
    * @param level Level to set.
    * @param date Date for this level.
    */
-  public void setLevel(int level, long date)
+  public void setLevel(int level, Long date)
+  {
+    Integer l=Integer.valueOf(level);
+    if (date!=null)
+    {
+      _dates.put(l,date);
+    }
+    else
+    {
+      _dates.remove(l);
+    }
+  }
+
+  /**
+   * Set a level.
+   * @param level Level to set.
+   * @param date Date for this level.
+   */
+  public void setLevelIfSooner(int level, long date)
   {
     Integer l=Integer.valueOf(level);
     Long currentDate=_dates.get(l);

@@ -197,7 +197,7 @@ public class CharacterFile
       {
         LevelHistoryComputer c=new LevelHistoryComputer();
         _levelHistory=c.buildLevelHistory(this);
-        writeLevelHistory();
+        saveLevelHistory();
       }
     }
     return _levelHistory;
@@ -215,11 +215,24 @@ public class CharacterFile
     return history;
   }
 
-  private void writeLevelHistory()
+  /**
+   * Revert level history data from disk.
+   */
+  public void revertLevelHistory()
+  {
+    _levelHistory=loadLevelHistory();
+  }
+
+  /**
+   * Save reputation to file.
+   * @return <code>true</code> if it was successful, <code>false</code> otherwise.
+   */
+  public boolean saveLevelHistory()
   {
     File historyFile=getLevelHistoryFile();
     LevelHistoryXMLWriter writer=new LevelHistoryXMLWriter();
-    writer.write(historyFile,_levelHistory,EncodingNames.ISO8859_1);
+    boolean ok=writer.write(historyFile,_levelHistory,EncodingNames.ISO8859_1);
+    return ok;
   }
 
   private File getLevelHistoryFile()
@@ -245,7 +258,7 @@ public class CharacterFile
     }
     return _reputation;
   }
-  
+
   private ReputationData loadReputation()
   {
     ReputationData reputation=null;

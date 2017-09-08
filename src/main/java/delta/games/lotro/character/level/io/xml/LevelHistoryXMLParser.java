@@ -44,7 +44,10 @@ public class LevelHistoryXMLParser
       // Level
       int level=DOMParsingTools.getIntAttribute(attrs,LevelHistoryXMLConstants.LEVEL_VALUE_ATTR,0);
       long date=DOMParsingTools.getLongAttribute(attrs,LevelHistoryXMLConstants.LEVEL_DATE_ATTR,0);
-      h.setLevel(level,date);
+      if (date!=0)
+      {
+        h.setLevel(level,Long.valueOf(date));
+      }
     }
     return h;
   }
