@@ -85,12 +85,7 @@ public class BuffInitializer
       Buff manOfFourthAge=new Buff("MAN_OF_THE_FOURTH_AGE", RACIAL, "Man of the Fourth Age");
       manOfFourthAge.setIcon("Man_of_the_Fourth_Age-icon");
       manOfFourthAge.setRequiredRace(Race.MAN);
-      BasicStatsSet stats=new BasicStatsSet();
-      // TODO: Update 21: should scale with level
-      // level 105-> +99 Will
-      // level 106-> +100 Will
-      stats.addStat(STAT.WILL,new FixedDecimalsInteger(20));
-      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      RacialStatBuff buff=new RacialStatBuff(STAT.WILL);
       manOfFourthAge.setImpl(buff);
       registry.registerBuff(manOfFourthAge);
     }
@@ -108,11 +103,7 @@ public class BuffInitializer
       Buff fatefulDwarf=new Buff("FATEFUL_DWARF", RACIAL, "Fateful Dwarf");
       fatefulDwarf.setIcon("Fateful_Dwarf-icon");
       fatefulDwarf.setRequiredRace(Race.DWARF);
-      BasicStatsSet stats=new BasicStatsSet();
-      // TODO: Update 21: should scale with level
-      // level 102-> +96 Fate
-      stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
-      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      RacialStatBuff buff=new RacialStatBuff(STAT.FATE);
       fatefulDwarf.setImpl(buff);
       registry.registerBuff(fatefulDwarf);
     }
@@ -122,13 +113,7 @@ public class BuffInitializer
       Buff friendOfMan=new Buff("FRIEND_OF_MAN", RACIAL, "Friend of Man");
       friendOfMan.setIcon("Friend_of_Man-icon");
       friendOfMan.setRequiredRace(Race.ELF);
-      BasicStatsSet stats=new BasicStatsSet();
-      // TODO: Update 21: should scale with level
-      // level 100-> +94 Fate
-      // level 27-> +7 Fate
-      // level 16-> +2 Fate
-      stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
-      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      RacialStatBuff buff=new RacialStatBuff(STAT.FATE);
       friendOfMan.setImpl(buff);
       registry.registerBuff(friendOfMan);
     }
@@ -138,11 +123,7 @@ public class BuffInitializer
       Buff emissary=new Buff("EMISSARY", RACIAL, "Emissary");
       emissary.setIcon("Emissary_(Beorning_Trait)-icon");
       emissary.setRequiredRace(Race.BEORNING);
-      BasicStatsSet stats=new BasicStatsSet();
-      // TODO: Update 21: should scale with level
-      // level 11-> +2 Fate
-      stats.addStat(STAT.FATE,new FixedDecimalsInteger(20));
-      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      RacialStatBuff buff=new RacialStatBuff(STAT.FATE);
       emissary.setImpl(buff);
       registry.registerBuff(emissary);
     }
@@ -153,11 +134,7 @@ public class BuffInitializer
       Buff hobbitStature=new Buff("HOBBIT_STATURE", RACIAL, "Hobbit-Stature");
       hobbitStature.setIcon("Hobbit-stature-icon");
       hobbitStature.setRequiredRace(Race.HOBBIT);
-      BasicStatsSet stats=new BasicStatsSet();
-      // TODO: Update 21: should scale with level
-      // level 31-> +8 Might
-      stats.addStat(STAT.MIGHT,new FixedDecimalsInteger(20));
-      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      RacialStatBuff buff=new RacialStatBuff(STAT.MIGHT);
       hobbitStature.setImpl(buff);
       registry.registerBuff(hobbitStature);
     }
@@ -167,10 +144,7 @@ public class BuffInitializer
       Buff thoseWhoRemain=new Buff("THOSE_WHO_REMAIN", RACIAL, "Those Who Remain");
       thoseWhoRemain.setIcon("Those_who_Remain-icon");
       thoseWhoRemain.setRequiredRace(Race.HIGH_ELF);
-      BasicStatsSet stats=new BasicStatsSet();
-      // TODO: Update 21: should scale with level
-      stats.addStat(STAT.WILL,new FixedDecimalsInteger(20));
-      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      RacialStatBuff buff=new RacialStatBuff(STAT.WILL);
       thoseWhoRemain.setImpl(buff);
       registry.registerBuff(thoseWhoRemain);
     }
