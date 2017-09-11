@@ -96,7 +96,7 @@ public class CraftingLevel
   {
     return _label;
   }
-  
+
   /**
    * Get the XP for proficiency.
    * @return an XP value.
@@ -105,7 +105,7 @@ public class CraftingLevel
   {
     return _proficiencyXP;
   }
-  
+
   /**
    * Get the title for proficiency in this level.
    * @return A title.
@@ -114,7 +114,7 @@ public class CraftingLevel
   {
     return _masteryLabel;
   }
-  
+
   /**
    * Get the XP for mastery.
    * @return an XP value.
@@ -140,7 +140,7 @@ public class CraftingLevel
     CraftingLevel level=_registry.get(Integer.valueOf(tier));
     return level;
   }
-  
+
   /**
    * Get the maximum level.
    * @return the maximum level.

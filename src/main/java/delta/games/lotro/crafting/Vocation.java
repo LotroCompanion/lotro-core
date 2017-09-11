@@ -1,7 +1,7 @@
 package delta.games.lotro.crafting;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Vocation.
@@ -10,18 +10,18 @@ import java.util.Set;
 public class Vocation
 {
   private String _name;
-  private Set<String> _professions;
-  
+  private List<Profession> _professions;
+
   /**
    * Constructor.
    * @param name
    * @param professions
    */
-  public Vocation(String name, String... professions)
+  public Vocation(String name, Profession... professions)
   {
     _name=name;
-    _professions=new HashSet<String>();
-    for(String profession : professions)
+    _professions=new ArrayList<Profession>();
+    for(Profession profession : professions)
     {
       _professions.add(profession);
     }
@@ -35,13 +35,13 @@ public class Vocation
   {
     return _name;
   }
-  
+
   /**
    * Get the professions of this vocation. 
-   * @return An array of profession names.
+   * @return An array of professions.
    */
-  public String[] getProfessions()
+  public Profession[] getProfessions()
   {
-    return _professions.toArray(new String[_professions.size()]);
+    return _professions.toArray(new Profession[_professions.size()]);
   }
 }

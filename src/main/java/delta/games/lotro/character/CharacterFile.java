@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Date;
 
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.character.crafting.CraftingStatus;
+import delta.games.lotro.character.crafting.CraftingStatusComputer;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLParser;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLWriter;
 import delta.games.lotro.character.level.LevelHistory;
@@ -31,6 +33,7 @@ public class CharacterFile
   private CharacterLogsManager _logsManager;
   private LevelHistory _levelHistory;
   private ReputationData _reputation;
+  private CraftingStatus _crafting;
   private CharacterSummary _summary;
   private ItemsStash _stash;
 
@@ -286,6 +289,59 @@ public class CharacterFile
   private File getReputationFile()
   {
     return new File(_rootDir,"reputation.xml");
+  }
+
+  /**
+   * Get the crafting status for this toon.
+   * @return A crafting status.
+   */
+  public CraftingStatus getCraftingStatus()
+  {
+    if (_crafting==null)
+    {
+      _crafting=loadCrafting();
+      if (_crafting==null)
+      {
+        CraftingStatusComputer c=new CraftingStatusComputer();
+        _crafting=c.buildCraftingStatus(this);
+        saveCrafting();
+      }
+    }
+    return _crafting;
+  }
+
+  private CraftingStatus loadCrafting()
+  {
+    CraftingStatus crafting=null;
+    File craftingFile=getCraftingFile();
+    if ((craftingFile.exists()) && (craftingFile.canRead()))
+    {
+      /*
+      ReputationXMLParser parser=new ReputationXMLParser();
+      crafting=parser.parseXML(craftingFile);
+      */
+    }
+    return crafting;
+  }
+
+  /**
+   * Save crafting status to file.
+   * @return <code>true</code> if it was successful, <code>false</code> otherwise.
+   */
+  public boolean saveCrafting()
+  {
+    /*
+    File craftingFile=getCraftingFile();
+    ReputationXMLWriter writer=new ReputationXMLWriter();
+    boolean ok=writer.write(craftingFile,_crafting,EncodingNames.ISO8859_1);
+    return ok;
+    */
+    return false;
+  }
+
+  private File getCraftingFile()
+  {
+    return new File(_rootDir,"crafting.xml");
   }
 
   /**
