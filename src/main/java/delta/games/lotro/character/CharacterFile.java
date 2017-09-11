@@ -202,7 +202,7 @@ public class CharacterFile
     }
     return _levelHistory;
   }
-  
+
   private LevelHistory loadLevelHistory()
   {
     LevelHistory history=null;
@@ -213,14 +213,6 @@ public class CharacterFile
       history=parser.parseXML(historyFile);
     }
     return history;
-  }
-
-  /**
-   * Revert level history data from disk.
-   */
-  public void revertLevelHistory()
-  {
-    _levelHistory=loadLevelHistory();
   }
 
   /**
