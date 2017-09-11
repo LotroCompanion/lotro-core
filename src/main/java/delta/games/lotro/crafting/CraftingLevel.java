@@ -64,18 +64,14 @@ public class CraftingLevel
   };
 
   private int _tier;
-  private String _label;
-  private String _masteryLabel;
-  private int _proficiencyXP;
-  private int _masteryXP;
+  private CraftingLevelTier _proficiency;
+  private CraftingLevelTier _mastery;
 
   private CraftingLevel(int tier, String label, int proficiencyXP, String masteryLabel, int masteryXP)
   {
     _tier=tier;
-    _label=label;
-    _proficiencyXP=proficiencyXP;
-    _masteryLabel=masteryLabel;
-    _masteryXP=masteryXP;
+    _proficiency=new CraftingLevelTier(label,proficiencyXP);
+    _mastery=new CraftingLevelTier(masteryLabel,masteryXP);
     _registry.put(Integer.valueOf(tier),this);
   }
 
@@ -89,45 +85,27 @@ public class CraftingLevel
   }
 
   /**
-   * Get the title for proficiency in this level.
-   * @return A title.
+   * Get the proficiency tier.
+   * @return the proficiency tier.
    */
-  public String getProficiencyLabel()
+  public CraftingLevelTier getProficiency()
   {
-    return _label;
+    return _proficiency;
   }
 
   /**
-   * Get the XP for proficiency.
-   * @return an XP value.
+   * Get the mastery tier.
+   * @return the mastery tier.
    */
-  public int getProficiencyXP()
+  public CraftingLevelTier getMastery()
   {
-    return _proficiencyXP;
-  }
-
-  /**
-   * Get the title for proficiency in this level.
-   * @return A title.
-   */
-  public String getMasteryLabel()
-  {
-    return _masteryLabel;
-  }
-
-  /**
-   * Get the XP for mastery.
-   * @return an XP value.
-   */
-  public int getMasteryXP()
-  {
-    return _masteryXP;
+    return _mastery;
   }
 
   @Override
   public String toString()
   {
-    return _label;
+    return _proficiency.getLabel();
   }
 
   /**

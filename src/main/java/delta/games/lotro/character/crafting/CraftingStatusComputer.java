@@ -131,12 +131,22 @@ public class CraftingStatusComputer
       if ((profession!=null) && (mastery!=-1) && (proficiency!=-1))
       {
         ProfessionStatus stat=_status.getProfessionStatus(profession,true);
-        stat.addUpdate(mastery,proficiency,date);
+        updateLevelTierStatus(stat.getLevelStatus(mastery).getMastery(),date);
+        updateLevelTierStatus(stat.getLevelStatus(proficiency).getProficiency(),date);
       }
     }
     catch(Exception e)
     {
       _logger.error("Error when parsing profession item ["+label+"]",e);
+    }
+  }
+
+  private void updateLevelTierStatus(CraftingLevelTierStatus status, long completionDate)
+  {
+    long oldDate=status.getCompletionDate();
+    if ((oldDate==0) || (oldDate>completionDate))
+    {
+      status.setCompleted(completionDate);
     }
   }
 

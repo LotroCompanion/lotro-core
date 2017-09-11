@@ -3,6 +3,7 @@ package delta.games.lotro.character.crafting;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import delta.games.lotro.crafting.CraftingLevel;
 import delta.games.lotro.crafting.Profession;
@@ -14,11 +15,8 @@ import delta.games.lotro.crafting.Profession;
 public class ProfessionStatus
 {
   private Profession _profession;
-  private int _mastery;
-  private int _proficiency;
   private Long _lastLogItemDate;
-  private ArrayList<Long> _masteryUpdates;
-  private ArrayList<Long> _proficiencyUpdates;
+  private List<CraftingLevelStatus> _status;
 
   /**
    * Constructor.
@@ -27,6 +25,7 @@ public class ProfessionStatus
   public ProfessionStatus(Profession profession)
   {
     _profession=profession;
+    _status=new ArrayList<CraftingLevelStatus>();
     reset();
   }
 
@@ -46,27 +45,9 @@ public class ProfessionStatus
   public void initProfession(long date)
   {
     reset();
-    addUpdate(0,0,date);
-  }
-
-  /**
-   * Add a profession update event.
-   * @param mastery New mastery tier.
-   * @param proficiency New proficiency tier.
-   * @param date Event date.
-   */
-  public void addUpdate(int mastery, int proficiency, long date)
-  {
-    if (mastery>_mastery)
-    {
-      _mastery=mastery;
-    }
-    registerTier(date,mastery,_masteryUpdates);
-    if (proficiency>_proficiency)
-    {
-      _proficiency=proficiency;
-    }
-    registerTier(date,proficiency,_proficiencyUpdates);
+    CraftingLevelStatus status=getLevelStatus(CraftingLevel.BEGINNER);
+    status.getMastery().setCompleted(date);
+    status.getProficiency().setCompleted(date);
   }
 
   /**
@@ -87,75 +68,77 @@ public class ProfessionStatus
     _lastLogItemDate=Long.valueOf(date);
   }
 
-  private void registerTier(long date, int level, ArrayList<Long> updates)
-  {
-    updates.ensureCapacity(level+1);
-    while (level>=updates.size())
-    {
-      updates.add(null);
-    }
-    Long currentDate=updates.get(level);
-    if ((currentDate==null) || (currentDate.longValue()>date))
-    {
-      updates.set(level,Long.valueOf(date));
-    }
-  }
-
   /**
    * Reset data.
    */
   private void reset()
   {
-    _mastery=-1;
-    _proficiency=-1;
-    _masteryUpdates=new ArrayList<Long>();
-    _proficiencyUpdates=new ArrayList<Long>();
-  }
-
-  /**
-   * Get the proficiency tier.
-   * @return the proficiency tier.
-   */
-  public int getProficiencyTier()
-  {
-    return _proficiency;
-  }
-
-  /**
-   * Get the date of a proficiency tier acquisition.
-   * @param tier Tier to use.
-   * @return A date or <code>null</code< if not found.
-   */
-  public Long getProficiencyTierDate(int tier)
-  {
-    Long ret=null;
-    if ((tier>=0) && (tier<_proficiencyUpdates.size()))
+    _status.clear();
+    for(CraftingLevel level : CraftingLevel.ALL_TIERS)
     {
-      ret=_proficiencyUpdates.get(tier);
+      CraftingLevelStatus status=new CraftingLevelStatus(level);
+      _status.add(status);
+    }
+  }
+
+  /**
+   * Get the status of level.
+   * @param level Targeted level.
+   * @return A crafting level status.
+   */
+  public CraftingLevelStatus getLevelStatus(int level)
+  {
+    return _status.get(level);
+  }
+
+  /**
+   * Get the status of level.
+   * @param level Targeted level.
+   * @return A crafting level status.
+   */
+  public CraftingLevelStatus getLevelStatus(CraftingLevel level)
+  {
+    return _status.get(level.getTier());
+  }
+
+  /**
+   * Get the proficiency level.
+   * @return the proficiency level.
+   */
+  public CraftingLevel getProficiencyLevel()
+  {
+    CraftingLevel ret=null;
+    for(CraftingLevelStatus status : _status)
+    {
+      if (status.getProficiency().isCompleted())
+      {
+        ret=status.getLevel();
+      }
+      else
+      {
+        break;
+      }
     }
     return ret;
   }
 
   /**
-   * Get the mastery tier.
-   * @return the mastery tier.
+   * Get the mastery level.
+   * @return the mastery level.
    */
-  public int getMasteryTier()
+  public CraftingLevel getMasteryLevel()
   {
-    return _mastery;
-  }
-
-  /**
-   * Get the date of a mastery tier acquisition.
-   * @param tier Tier to use.
-   * @return A date or <code>null</code< if not found.
-   */
-  public Long getMasteryTierDate(int tier)
-  {
-    Long ret=null;
-    if ((tier>=0) && (tier<_masteryUpdates.size()))
+    CraftingLevel ret=null;
+    for(CraftingLevelStatus status : _status)
     {
-      ret=_masteryUpdates.get(tier);
+      if (status.getMastery().isCompleted())
+      {
+        ret=status.getLevel();
+      }
+      else
+      {
+        break;
+      }
     }
     return ret;
   }
@@ -167,31 +150,33 @@ public class ProfessionStatus
   public void dump(PrintStream ps)
   {
     ps.println("History for profession ["+_profession+"]:");
-    if (_proficiency>=0)
+    CraftingLevel proficiency=getProficiencyLevel();
+    if (proficiency!=null)
     {
       ps.println("Proficiency:");
-      for(int i=0;i<=_proficiency;i++)
+      for(int i=0;i<=proficiency.getTier();i++)
       {
-        Long date=getProficiencyTierDate(i);
-        if (date!=null)
+        long date=getLevelStatus(i).getProficiency().getCompletionDate();
+        if (date!=0)
         {
           CraftingLevel level=CraftingLevel.getByTier(i);
-          String label=(level!=null)?level.getProficiencyLabel():"???";
-          ps.println("\t"+label+": "+new Date(date.longValue()));
+          String label=(level!=null)?level.getProficiency().getLabel():"???";
+          ps.println("\t"+label+": "+new Date(date));
         }
       }
     }
-    if (_mastery>=0)
+    CraftingLevel mastery=getMasteryLevel();
+    if (mastery!=null)
     {
       ps.println("Mastery:");
-      for(int i=0;i<=_mastery;i++)
+      for(int i=0;i<=mastery.getTier();i++)
       {
-        Long date=getMasteryTierDate(i);
-        if (date!=null)
+        long date=getLevelStatus(i).getMastery().getCompletionDate();
+        if (date!=0)
         {
           CraftingLevel level=CraftingLevel.getByTier(i);
-          String label=(level!=null)?level.getMasteryLabel():"???";
-          ps.println("\t"+label+": "+new Date(date.longValue()));
+          String label=(level!=null)?level.getMastery().getLabel():"???";
+          ps.println("\t"+label+": "+new Date(date));
         }
       }
     }
@@ -203,12 +188,12 @@ public class ProfessionStatus
     StringBuilder sb=new StringBuilder();
     sb.append(_profession);
     sb.append(": mastery=");
-    CraftingLevel masteryLevel=CraftingLevel.getByTier(_mastery);
-    String masteryLabel=(masteryLevel!=null)?masteryLevel.getMasteryLabel():"???";
+    CraftingLevel masteryLevel=getMasteryLevel();
+    String masteryLabel=(masteryLevel!=null)?masteryLevel.getMastery().getLabel():"???";
     sb.append(masteryLabel);
     sb.append(", proficiency=");
-    CraftingLevel proficiencyLevel=CraftingLevel.getByTier(_proficiency);
-    String proficiencyLabel=(proficiencyLevel!=null)?proficiencyLevel.getProficiencyLabel():"???";
+    CraftingLevel proficiencyLevel=getProficiencyLevel();
+    String proficiencyLabel=(proficiencyLevel!=null)?proficiencyLevel.getProficiency().getLabel():"???";
     sb.append(proficiencyLabel);
     return sb.toString();
   }
