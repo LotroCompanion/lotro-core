@@ -6,6 +6,8 @@ import java.util.Date;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.crafting.CraftingStatus;
 import delta.games.lotro.character.crafting.CraftingStatusComputer;
+import delta.games.lotro.character.crafting.io.xml.CraftingStatusXMLParser;
+import delta.games.lotro.character.crafting.io.xml.CraftingStatusXMLWriter;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLParser;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLWriter;
 import delta.games.lotro.character.level.LevelHistory;
@@ -316,10 +318,8 @@ public class CharacterFile
     File craftingFile=getCraftingFile();
     if ((craftingFile.exists()) && (craftingFile.canRead()))
     {
-      /*
-      ReputationXMLParser parser=new ReputationXMLParser();
+      CraftingStatusXMLParser parser=new CraftingStatusXMLParser();
       crafting=parser.parseXML(craftingFile);
-      */
     }
     return crafting;
   }
@@ -330,13 +330,10 @@ public class CharacterFile
    */
   public boolean saveCrafting()
   {
-    /*
     File craftingFile=getCraftingFile();
-    ReputationXMLWriter writer=new ReputationXMLWriter();
+    CraftingStatusXMLWriter writer=new CraftingStatusXMLWriter();
     boolean ok=writer.write(craftingFile,_crafting,EncodingNames.ISO8859_1);
     return ok;
-    */
-    return false;
   }
 
   private File getCraftingFile()

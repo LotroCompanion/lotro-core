@@ -28,12 +28,15 @@ public class CraftingStatus
   public CraftingStatus(String toonName)
   {
     _name=toonName;
-    reset();
+    _stats=new HashMap<Profession,ProfessionStatus>();
   }
 
-  private void reset()
-  {
-    _stats=new HashMap<Profession,ProfessionStatus>();
+  /**
+   * Get the name of the managed toon.
+   * @return the name of the managed toon.
+   */
+  public String getName() {
+    return _name;
   }
 
   /**
@@ -77,7 +80,7 @@ public class CraftingStatus
    */
   public Profession[] getProfessions()
   {
-    return _vocation.getProfessions();
+    return (_vocation!=null)?_vocation.getProfessions():new Profession[0];
   }
 
   /**

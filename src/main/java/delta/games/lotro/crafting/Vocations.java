@@ -10,7 +10,8 @@ public class Vocations
 {
   private static Vocations _instance=new Vocations();
 
-  private HashMap<String,Vocation> _vocations;
+  private HashMap<String,Vocation> _vocationsByName;
+  private HashMap<String,Vocation> _vocationsById;
 
   /**
    * Get the sole instance of this class.
@@ -26,20 +27,32 @@ public class Vocations
    */
   private Vocations()
   {
-    _vocations=new HashMap<String,Vocation>();
-    addVocation("Armourer",Profession.PROSPECTOR,Profession.METALSMITH,Profession.TAILOR);
-    addVocation("Armsman",Profession.PROSPECTOR,Profession.WEAPONSMITH,Profession.WOODWORKER);
-    addVocation("Explorer",Profession.FORESTER,Profession.PROSPECTOR,Profession.TAILOR);
-    addVocation("Historian",Profession.FARMER,Profession.SCHOLAR,Profession.WEAPONSMITH);
-    addVocation("Tinker",Profession.PROSPECTOR,Profession.COOK,Profession.JEWELLER);
-    addVocation("Woodsman",Profession.FARMER,Profession.FORESTER,Profession.WOODWORKER);
-    addVocation("Yeoman",Profession.FARMER,Profession.COOK,Profession.TAILOR);
+    _vocationsByName=new HashMap<String,Vocation>();
+    _vocationsById=new HashMap<String,Vocation>();
+    addVocation("ARMOURER","Armourer",Profession.PROSPECTOR,Profession.METALSMITH,Profession.TAILOR);
+    addVocation("ARMSMAN","Armsman",Profession.PROSPECTOR,Profession.WEAPONSMITH,Profession.WOODWORKER);
+    addVocation("EXPLORER","Explorer",Profession.FORESTER,Profession.PROSPECTOR,Profession.TAILOR);
+    addVocation("HISTORIAN","Historian",Profession.FARMER,Profession.SCHOLAR,Profession.WEAPONSMITH);
+    addVocation("TINKER","Tinker",Profession.PROSPECTOR,Profession.COOK,Profession.JEWELLER);
+    addVocation("WOODSMAN","Woodsman",Profession.FARMER,Profession.FORESTER,Profession.WOODWORKER);
+    addVocation("YEAOMAN","Yeoman",Profession.FARMER,Profession.COOK,Profession.TAILOR);
   }
 
-  private void addVocation(String name, Profession... professions)
+  private void addVocation(String id, String name, Profession... professions)
   {
-    Vocation v=new Vocation(name,professions);
-    _vocations.put(name,v);
+    Vocation v=new Vocation(id,name,professions);
+    _vocationsById.put(id,v);
+    _vocationsByName.put(name,v);
+  }
+
+  /**
+   * Get a vocation by its identifier. 
+   * @param id Identifier of vocation to get.
+   * @return A vocation or <code>null</code> if not found.
+   */
+  public Vocation getVocationById(String id)
+  {
+    return _vocationsById.get(id);
   }
 
   /**
@@ -49,6 +62,6 @@ public class Vocations
    */
   public Vocation getVocationByName(String name)
   {
-    return _vocations.get(name);
+    return _vocationsByName.get(name);
   }
 }

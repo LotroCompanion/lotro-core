@@ -9,22 +9,34 @@ import java.util.List;
  */
 public class Vocation
 {
+  private String _id;
   private String _name;
   private List<Profession> _professions;
 
   /**
    * Constructor.
-   * @param name
-   * @param professions
+   * @param id Identifier.
+   * @param name Label.
+   * @param professions Involved professions.
    */
-  public Vocation(String name, Profession... professions)
+  public Vocation(String id, String name, Profession... professions)
   {
+    _id=id;
     _name=name;
     _professions=new ArrayList<Profession>();
     for(Profession profession : professions)
     {
       _professions.add(profession);
     }
+  }
+
+  /**
+   * Get the identifier of this vocation. 
+   * @return the identifier of this vocation.
+   */
+  public String getIdentifier()
+  {
+    return _id;
   }
 
   /**
