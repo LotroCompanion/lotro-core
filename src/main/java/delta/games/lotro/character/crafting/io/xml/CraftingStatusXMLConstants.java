@@ -33,6 +33,10 @@ public class CraftingStatusXMLConstants
    * Tag 'profession', attribute 'id'.
    */
   public static final String PROFESSION_ID_ATTR="id";
+  /**
+   * Tag 'profession', attribute 'validityDate'.
+   */
+  public static final String PROFESSION_VALIDITY_DATE_ATTR="validityDate";
 
   /**
    * Tag 'level'.

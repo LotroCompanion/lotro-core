@@ -61,6 +61,14 @@ public class CraftingStatusXMLParser
       if (profession!=null)
       {
         ProfessionStatus professionStatus=status.getProfessionStatus(profession,true);
+        // Validity date
+        String validityDateStr=DOMParsingTools.getStringAttribute(professionAttrs,CraftingStatusXMLConstants.PROFESSION_VALIDITY_DATE_ATTR,null);
+        if (validityDateStr!=null)
+        {
+          Long validityDate=NumericTools.parseLong(validityDateStr);
+          professionStatus.setValidityDate(validityDate);
+        }
+        // Status of each level
         List<Element> levelTags=DOMParsingTools.getChildTagsByName(professionTag,CraftingStatusXMLConstants.LEVEL_TAG);
         for(Element levelTag : levelTags)
         {

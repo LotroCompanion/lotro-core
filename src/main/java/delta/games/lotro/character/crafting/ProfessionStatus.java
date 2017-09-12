@@ -15,7 +15,7 @@ import delta.games.lotro.crafting.Profession;
 public class ProfessionStatus
 {
   private Profession _profession;
-  private Long _lastLogItemDate;
+  private Long _validityDate;
   private List<CraftingLevelStatus> _status;
 
   /**
@@ -51,21 +51,21 @@ public class ProfessionStatus
   }
 
   /**
-   * Get the date of the last item used to build this data.
+   * Get the validity date of this status (for instance, date of last log item used to build this data).
    * @return A date or <code>null</code> if not set.
    */
-  public Long getLastLogItemDate()
+  public Long getValidityDate()
   {
-    return _lastLogItemDate;
+    return _validityDate;
   }
 
   /**
-   * Set the date of the last item used to build this data.
-   * @param date Date to set or <code>null</code>.
+   * Set the validity date of this data.
+   * @param date Date to set.
    */
-  public void setLastLogItemDate(long date)
+  public void setValidityDate(Long date)
   {
-    _lastLogItemDate=Long.valueOf(date);
+    _validityDate=date;
   }
 
   /**

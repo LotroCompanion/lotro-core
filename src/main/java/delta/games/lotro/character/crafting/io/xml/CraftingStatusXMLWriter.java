@@ -111,6 +111,11 @@ public class CraftingStatusXMLWriter
     AttributesImpl professionAttrs=new AttributesImpl();
     String id=status.getProfession().getKey();
     professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_ID_ATTR,CDATA,id);
+    Long validityDate=status.getValidityDate();
+    if (validityDate!=null)
+    {
+      professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_VALIDITY_DATE_ATTR,CDATA,validityDate.toString());
+    }
     hd.startElement("","",CraftingStatusXMLConstants.PROFESSION_TAG,professionAttrs);
 
     for(CraftingLevel level : CraftingLevel.ALL_TIERS)

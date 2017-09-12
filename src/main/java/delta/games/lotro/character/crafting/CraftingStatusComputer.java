@@ -60,7 +60,7 @@ public class CraftingStatusComputer
         long date=lastItem.getDate();
         for(ProfessionStatus stat : _status.getProfessionStatus())
         {
-          stat.setLastLogItemDate(date);
+          stat.setValidityDate(Long.valueOf(date));
         }
       }
     }
