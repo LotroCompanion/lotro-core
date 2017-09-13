@@ -70,8 +70,8 @@ public class CraftingLevel
   private CraftingLevel(int tier, String label, int proficiencyXP, String masteryLabel, int masteryXP)
   {
     _tier=tier;
-    _proficiency=new CraftingLevelTier(label,proficiencyXP);
-    _mastery=new CraftingLevelTier(masteryLabel,masteryXP);
+    _proficiency=new CraftingLevelTier(this,label,proficiencyXP);
+    _mastery=new CraftingLevelTier(this,masteryLabel,masteryXP);
     _registry.put(Integer.valueOf(tier),this);
   }
 

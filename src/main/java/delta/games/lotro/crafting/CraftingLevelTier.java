@@ -6,18 +6,30 @@ package delta.games.lotro.crafting;
  */
 public class CraftingLevelTier
 {
+  private CraftingLevel _level;
   private String _label;
   private int _XP;
 
   /**
    * Constructor.
+   * @param level Level.
    * @param label Label.
    * @param XP XP amount.
    */
-  public CraftingLevelTier(String label, int XP)
+  public CraftingLevelTier(CraftingLevel level, String label, int XP)
   {
+    _level=level;
     _label=label;
     _XP=XP;
+  }
+
+  /**
+   * Get the parent crafting level.
+   * @return the parent crafting level.
+   */
+  public CraftingLevel getLevel()
+  {
+    return _level;
   }
 
   /**
