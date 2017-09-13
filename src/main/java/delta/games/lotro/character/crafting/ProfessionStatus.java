@@ -136,6 +136,61 @@ public class ProfessionStatus
   }
 
   /**
+   * Update a completion status.
+   * @param targetedLevel Targeted level.
+   * @param mastery Targeted tier.
+   * @param completed New completion status.
+   */
+  public void setCompletionStatus(CraftingLevel targetedLevel, boolean mastery, boolean completed)
+  {
+    CraftingLevelStatus levelStatus=getLevelStatus(targetedLevel);
+    CraftingLevelTierStatus tierStatus=mastery?levelStatus.getMastery():levelStatus.getProficiency();
+    boolean currentCompletionStatus=tierStatus.isCompleted();
+    if (currentCompletionStatus!=completed)
+    {
+      if (completed)
+      {
+        // Update the targeted level
+        tierStatus.setCompleted(true);
+        tierStatus.setAcquiredXP(tierStatus.getLevelTier().getXP());
+        // Set previous levels to 'completed'
+        for(CraftingLevel level : CraftingLevel.ALL_TIERS)
+        {
+          if (level==targetedLevel)
+          {
+            break;
+          }
+          setCompletionStatus(level,mastery,completed);
+        }
+        // If mastery, then proficiency is also completed
+        if (mastery)
+        {
+          setCompletionStatus(targetedLevel,false,true);
+        }
+      }
+      else
+      {
+        // Update the targeted level
+        tierStatus.setCompleted(false);
+        tierStatus.setCompletionDate(0);
+        // Set higher levels to 'not completed'
+        for(CraftingLevel level : CraftingLevel.ALL_TIERS)
+        {
+          if (level.getTier()>targetedLevel.getTier())
+          {
+            setCompletionStatus(level,mastery,false);
+          }
+        }
+        // If proficiency, then mastery is also 'not completed'
+        if (!mastery)
+        {
+          setCompletionStatus(targetedLevel,true,false);
+        }
+      }
+    }
+  }
+
+  /**
    * Dump the contents of this object to the given stream.
    * @param ps Output stream to use.
    */
