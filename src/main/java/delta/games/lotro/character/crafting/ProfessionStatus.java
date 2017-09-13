@@ -114,10 +114,6 @@ public class ProfessionStatus
       {
         ret=status.getLevel();
       }
-      else
-      {
-        break;
-      }
     }
     return ret;
   }
@@ -134,10 +130,6 @@ public class ProfessionStatus
       if (status.getMastery().isCompleted())
       {
         ret=status.getLevel();
-      }
-      else
-      {
-        break;
       }
     }
     return ret;
