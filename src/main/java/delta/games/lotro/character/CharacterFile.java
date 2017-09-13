@@ -410,6 +410,9 @@ public class CharacterFile
   {
     _infosManager.gc();
     _stash=null;
+    _crafting=null;
+    _levelHistory=null;
+    _reputation=null;
   }
 
   @Override
