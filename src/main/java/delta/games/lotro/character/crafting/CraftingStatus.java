@@ -66,11 +66,14 @@ public class CraftingStatus
   {
     setVocation(vocation);
     _stats.clear();
-    Profession[] professions=vocation.getProfessions();
-    for(Profession profession : professions)
+    if (vocation!=null)
     {
-      ProfessionStatus stat=getProfessionStatus(profession,true);
-      stat.initProfession(date);
+      Profession[] professions=vocation.getProfessions();
+      for(Profession profession : professions)
+      {
+        ProfessionStatus stat=getProfessionStatus(profession,true);
+        stat.initProfession(date);
+      }
     }
   }
 
