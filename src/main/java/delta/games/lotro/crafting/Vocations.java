@@ -1,6 +1,8 @@
 package delta.games.lotro.crafting;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Vocations registry.
@@ -43,6 +45,17 @@ public class Vocations
     Vocation v=new Vocation(id,name,professions);
     _vocationsById.put(id,v);
     _vocationsByName.put(name,v);
+  }
+
+  /**
+   * Get a list of all vocations.
+   * @return a list of all vocations.
+   */
+  public List<Vocation> getAll()
+  {
+    List<Vocation> ret=new ArrayList<Vocation>();
+    ret.addAll(_vocationsById.values());
+    return ret;
   }
 
   /**
