@@ -325,6 +325,14 @@ public class CharacterFile
   }
 
   /**
+   * Revert crafting data from disk.
+   */
+  public void revertCrafting()
+  {
+    _crafting=loadCrafting();
+  }
+
+  /**
    * Save crafting status to file.
    * @return <code>true</code> if it was successful, <code>false</code> otherwise.
    */
