@@ -54,13 +54,17 @@ public class CraftingLevel
    * Anórien.
    */
   public static final CraftingLevel ANORIEN=new CraftingLevel(10,"Anórien",840,"Anórien Master",1680);
+  /**
+   * Doomfold.
+   */
+  public static final CraftingLevel DOOMFOLD=new CraftingLevel(11,"Doomfold",840,"Doomfold Master",1680);
 
   /**
    * All crafting tiers, sorted by level.
    */
   public static CraftingLevel[] ALL_TIERS = {
     BEGINNER, APPRENTICE, JOURNEYMAN, EXPERT, ARTISAN, MASTER, SUPREME,
-    WESTFOLD, EASTEMNET, WESTEMNET, ANORIEN
+    WESTFOLD, EASTEMNET, WESTEMNET, ANORIEN, DOOMFOLD
   };
 
   private int _tier;
@@ -125,6 +129,6 @@ public class CraftingLevel
    */
   public static CraftingLevel getMaximumLevel()
   {
-    return ANORIEN;
+    return DOOMFOLD;
   }
 }
