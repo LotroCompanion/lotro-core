@@ -110,6 +110,10 @@ public enum STAT
    */
   TACTICAL_DAMAGE_PERCENTAGE("Tactical Damage %",true),
   /**
+   * Outgoing Healing Rating.
+   */
+  OUTGOING_HEALING("Outgoing Healing",false),
+  /**
    * Outgoing Healing %.
    */
   OUTGOING_HEALING_PERCENTAGE("Outgoing Healing %",true),
@@ -409,7 +413,7 @@ public enum STAT
   private STAT(String name, boolean isPercentage, String... aliases)
   {
     _name=name;
-    _isPercentage=true;
+    _isPercentage=isPercentage;
     _aliases=aliases;
   }
 

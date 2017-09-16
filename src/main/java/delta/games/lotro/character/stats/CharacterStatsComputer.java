@@ -146,74 +146,75 @@ public class CharacterStatsComputer
     BasicStatsSet ret=new BasicStatsSet();
     // Crit %
     FixedDecimalsInteger crit=stats.getStat(STAT.CRITICAL_RATING);
-    FixedDecimalsInteger critPercentage=computeRating(_ratingsMgr.getCriticalHitCurve(),crit,level);
+    FixedDecimalsInteger critPercentage=computePercentage(_ratingsMgr.getCriticalHitCurve(),crit,level);
     ret.setStat(STAT.CRITICAL_MELEE_PERCENTAGE,critPercentage);
     ret.setStat(STAT.CRITICAL_RANGED_PERCENTAGE,critPercentage);
     ret.setStat(STAT.CRITICAL_TACTICAL_PERCENTAGE,critPercentage);
     // Devastate %
-    FixedDecimalsInteger devPercentage=computeRating(_ratingsMgr.getDevastateHitCurve(),crit,level);
+    FixedDecimalsInteger devPercentage=computePercentage(_ratingsMgr.getDevastateHitCurve(),crit,level);
     ret.setStat(STAT.DEVASTATE_MELEE_PERCENTAGE,devPercentage);
     ret.setStat(STAT.DEVASTATE_RANGED_PERCENTAGE,devPercentage);
     ret.setStat(STAT.DEVASTATE_TACTICAL_PERCENTAGE,devPercentage);
     // Crit&Dev Magnitude %
-    FixedDecimalsInteger critDevMagnitudePercentage=computeRating(_ratingsMgr.getCritAndDevastateHitMagnitudeCurve(),crit,level);
+    FixedDecimalsInteger critDevMagnitudePercentage=computePercentage(_ratingsMgr.getCritAndDevastateHitMagnitudeCurve(),crit,level);
     ret.setStat(STAT.CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE,critDevMagnitudePercentage);
     ret.setStat(STAT.CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE,critDevMagnitudePercentage);
     ret.setStat(STAT.CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE,critDevMagnitudePercentage);
     // Finesse %
     FixedDecimalsInteger finesse=stats.getStat(STAT.FINESSE);
-    FixedDecimalsInteger finessePercentage=computeRating(_ratingsMgr.getFinesse(),finesse,level);
+    FixedDecimalsInteger finessePercentage=computePercentage(_ratingsMgr.getFinesse(),finesse,level);
     ret.setStat(STAT.FINESSE_PERCENTAGE,finessePercentage);
     // Physical Damage %
     FixedDecimalsInteger physicalMastery=stats.getStat(STAT.PHYSICAL_MASTERY);
-    FixedDecimalsInteger damagePercentage=computeRating(_ratingsMgr.getDamage(),physicalMastery,level);
+    FixedDecimalsInteger damagePercentage=computePercentage(_ratingsMgr.getDamage(),physicalMastery,level);
     ret.setStat(STAT.MELEE_DAMAGE_PERCENTAGE,damagePercentage);
     ret.setStat(STAT.RANGED_DAMAGE_PERCENTAGE,damagePercentage);
     // Tactical Damage / Outgoing healing %
     FixedDecimalsInteger tacticalMastery=stats.getStat(STAT.TACTICAL_MASTERY);
-    FixedDecimalsInteger tacticalDamagePercentage=computeRating(_ratingsMgr.getDamage(),tacticalMastery,level);
-    FixedDecimalsInteger outgoingHealingPercentage=computeRating(_ratingsMgr.getHealing(),tacticalMastery,level);
+    FixedDecimalsInteger tacticalDamagePercentage=computePercentage(_ratingsMgr.getDamage(),tacticalMastery,level);
+    FixedDecimalsInteger outgoingHealing=stats.getStat(STAT.OUTGOING_HEALING);
+    FixedDecimalsInteger outgoingHealingPercentage=computePercentage(_ratingsMgr.getHealing(),outgoingHealing,level);
     ret.setStat(STAT.TACTICAL_DAMAGE_PERCENTAGE,tacticalDamagePercentage);
     ret.setStat(STAT.OUTGOING_HEALING_PERCENTAGE,outgoingHealingPercentage);
     // Resistance %
     FixedDecimalsInteger resistance=stats.getStat(STAT.RESISTANCE);
-    FixedDecimalsInteger resistancePercentage=computeRating(_ratingsMgr.getResistance(),resistance,level);
+    FixedDecimalsInteger resistancePercentage=computePercentage(_ratingsMgr.getResistance(),resistance,level);
     ret.setStat(STAT.RESISTANCE_PERCENTAGE,resistancePercentage);
     // Critical Defence %
     FixedDecimalsInteger critDefence=stats.getStat(STAT.CRITICAL_DEFENCE);
-    FixedDecimalsInteger critDefencePercentage=computeRating(_ratingsMgr.getCriticalDefence(),critDefence,level);
+    FixedDecimalsInteger critDefencePercentage=computePercentage(_ratingsMgr.getCriticalDefence(),critDefence,level);
     ret.setStat(STAT.MELEE_CRITICAL_DEFENCE,critDefencePercentage);
     ret.setStat(STAT.RANGED_CRITICAL_DEFENCE,critDefencePercentage);
     ret.setStat(STAT.TACTICAL_CRITICAL_DEFENCE,critDefencePercentage);
     // Incoming healing %
     FixedDecimalsInteger incomingHealing=stats.getStat(STAT.INCOMING_HEALING);
-    FixedDecimalsInteger incomingHealingPercentage=computeRating(_ratingsMgr.getIncomingHealing(),incomingHealing,level);
+    FixedDecimalsInteger incomingHealingPercentage=computePercentage(_ratingsMgr.getIncomingHealing(),incomingHealing,level);
     ret.setStat(STAT.INCOMING_HEALING_PERCENTAGE,incomingHealingPercentage);
     // Block %, Partial Block %, Block Mitigation %
     FixedDecimalsInteger block=stats.getStat(STAT.BLOCK);
-    FixedDecimalsInteger blockPercentage=computeRating(_ratingsMgr.getAvoidance(),block,level);
+    FixedDecimalsInteger blockPercentage=computePercentage(_ratingsMgr.getAvoidance(),block,level);
     ret.setStat(STAT.BLOCK_PERCENTAGE,blockPercentage);
-    FixedDecimalsInteger partialBlockPercentage=computeRating(_ratingsMgr.getPartialAvoidance(),block,level);
+    FixedDecimalsInteger partialBlockPercentage=computePercentage(_ratingsMgr.getPartialAvoidance(),block,level);
     ret.setStat(STAT.PARTIAL_BLOCK_PERCENTAGE,partialBlockPercentage);
-    FixedDecimalsInteger partialBlockMitigationPercentage=computeRating(_ratingsMgr.getPartialMitigation(),block,level);
+    FixedDecimalsInteger partialBlockMitigationPercentage=computePercentage(_ratingsMgr.getPartialMitigation(),block,level);
     partialBlockMitigationPercentage.add(10);
     ret.setStat(STAT.PARTIAL_BLOCK_MITIGATION_PERCENTAGE,partialBlockMitigationPercentage);
     // Parry %, Partial Parry %, Parry Mitigation %
     FixedDecimalsInteger parry=stats.getStat(STAT.PARRY);
-    FixedDecimalsInteger parryPercentage=computeRating(_ratingsMgr.getAvoidance(),parry,level);
+    FixedDecimalsInteger parryPercentage=computePercentage(_ratingsMgr.getAvoidance(),parry,level);
     ret.setStat(STAT.PARRY_PERCENTAGE,parryPercentage);
-    FixedDecimalsInteger partialParryPercentage=computeRating(_ratingsMgr.getPartialAvoidance(),parry,level);
+    FixedDecimalsInteger partialParryPercentage=computePercentage(_ratingsMgr.getPartialAvoidance(),parry,level);
     ret.setStat(STAT.PARTIAL_PARRY_PERCENTAGE,partialParryPercentage);
-    FixedDecimalsInteger partialParryMitigationPercentage=computeRating(_ratingsMgr.getPartialMitigation(),parry,level);
+    FixedDecimalsInteger partialParryMitigationPercentage=computePercentage(_ratingsMgr.getPartialMitigation(),parry,level);
     partialParryMitigationPercentage.add(10);
     ret.setStat(STAT.PARTIAL_PARRY_MITIGATION_PERCENTAGE,partialParryMitigationPercentage);
     // Evade %, Partial Evade %, Evade Mitigation %
     FixedDecimalsInteger evade=stats.getStat(STAT.EVADE);
-    FixedDecimalsInteger evadePercentage=computeRating(_ratingsMgr.getAvoidance(),evade,level);
+    FixedDecimalsInteger evadePercentage=computePercentage(_ratingsMgr.getAvoidance(),evade,level);
     ret.setStat(STAT.EVADE_PERCENTAGE,evadePercentage);
-    FixedDecimalsInteger partialEvadePercentage=computeRating(_ratingsMgr.getPartialAvoidance(),evade,level);
+    FixedDecimalsInteger partialEvadePercentage=computePercentage(_ratingsMgr.getPartialAvoidance(),evade,level);
     ret.setStat(STAT.PARTIAL_EVADE_PERCENTAGE,partialEvadePercentage);
-    FixedDecimalsInteger partialEvadeMitigationPercentage=computeRating(_ratingsMgr.getPartialMitigation(),evade,level);
+    FixedDecimalsInteger partialEvadeMitigationPercentage=computePercentage(_ratingsMgr.getPartialMitigation(),evade,level);
     partialEvadeMitigationPercentage.add(10);
     // TODO Add 25% to partial evade mitigation for mini (why?)
     ret.setStat(STAT.PARTIAL_EVADE_MITIGATION_PERCENTAGE,partialEvadeMitigationPercentage);
@@ -221,15 +222,15 @@ public class CharacterStatsComputer
     CharacterClass cClass=c.getCharacterClass();
     RatingCurve mitigation=getMitigationCurve(cClass);
     FixedDecimalsInteger physicalMitigation=stats.getStat(STAT.PHYSICAL_MITIGATION);
-    FixedDecimalsInteger physicalMitigationPercentage=computeRating(mitigation,physicalMitigation,level);
+    FixedDecimalsInteger physicalMitigationPercentage=computePercentage(mitigation,physicalMitigation,level);
     ret.setStat(STAT.PHYSICAL_MITIGATION_PERCENTAGE,physicalMitigationPercentage);
     // Orc-craft and Fell-wrought mitigation %
     FixedDecimalsInteger ocfwMitigation=stats.getStat(STAT.OCFW_MITIGATION);
-    FixedDecimalsInteger ocfwMitigationPercentage=computeRating(mitigation,ocfwMitigation,level);
+    FixedDecimalsInteger ocfwMitigationPercentage=computePercentage(mitigation,ocfwMitigation,level);
     ret.setStat(STAT.OCFW_MITIGATION_PERCENTAGE,ocfwMitigationPercentage);
     // Tactical mitigation %
     FixedDecimalsInteger tacticalMitigation=stats.getStat(STAT.TACTICAL_MITIGATION);
-    FixedDecimalsInteger tacticalMitigationPercentage=computeRating(mitigation,tacticalMitigation,level);
+    FixedDecimalsInteger tacticalMitigationPercentage=computePercentage(mitigation,tacticalMitigation,level);
     ret.setStat(STAT.TACTICAL_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
     ret.addStat(STAT.FIRE_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
     ret.addStat(STAT.LIGHTNING_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
@@ -248,7 +249,7 @@ public class CharacterStatsComputer
     return null;
   }
 
-  private FixedDecimalsInteger computeRating(RatingCurve curve, FixedDecimalsInteger rating, int level)
+  private FixedDecimalsInteger computePercentage(RatingCurve curve, FixedDecimalsInteger rating, int level)
   {
     FixedDecimalsInteger ret=null;
     if (rating!=null)

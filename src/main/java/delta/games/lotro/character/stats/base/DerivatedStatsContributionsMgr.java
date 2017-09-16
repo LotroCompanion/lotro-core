@@ -172,7 +172,6 @@ public class DerivatedStatsContributionsMgr
     }
   }
 
-
   private static FixedDecimalsInteger getFactor(String factorStr)
   {
     FixedDecimalsInteger ret=null;
