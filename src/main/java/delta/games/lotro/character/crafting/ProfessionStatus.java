@@ -69,6 +69,37 @@ public class ProfessionStatus
   }
 
   /**
+   * Get the date range used in this status.
+   * @return A date range or <code>null</code> if not date specified.
+   */
+  public long[] getDateRange()
+  {
+    long minDate=Long.MAX_VALUE;
+    long maxDate=0;
+    for(CraftingLevel level : CraftingLevel.ALL_TIERS)
+    {
+      CraftingLevelStatus levelStatus=getLevelStatus(level);
+      // Mastery
+      CraftingLevelTierStatus mastery=levelStatus.getMastery();
+      long masteryDate=mastery.getCompletionDate();
+      if (masteryDate>0)
+      {
+        maxDate=Math.max(maxDate,masteryDate);
+        minDate=Math.min(minDate,masteryDate);
+      }
+      // Proficiency
+      CraftingLevelTierStatus proficiency=levelStatus.getProficiency();
+      long proficiencyDate=proficiency.getCompletionDate();
+      if (proficiencyDate>0)
+      {
+        maxDate=Math.max(maxDate,proficiencyDate);
+        minDate=Math.min(minDate,proficiencyDate);
+      }
+    }
+    return (maxDate>0)?new long[]{minDate,maxDate}:null;
+  }
+
+  /**
    * Reset data.
    */
   private void reset()
