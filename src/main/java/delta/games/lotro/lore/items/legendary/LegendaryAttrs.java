@@ -98,6 +98,15 @@ public class LegendaryAttrs
   }
 
   /**
+   * Get the 'setting' relic.
+   * @return A 'setting' relic or <code>null</code>.
+   */
+  public Relic getSetting()
+  {
+    return _setting;
+  }
+
+  /**
    * Set 'setting' relic.
    * @param relic Relic to set.
    */
@@ -114,6 +123,15 @@ public class LegendaryAttrs
     {
       _setting=null;
     }
+  }
+
+  /**
+   * Get the 'gem' relic.
+   * @return A 'gem' relic or <code>null</code>.
+   */
+  public Relic getGem()
+  {
+    return _gem;
   }
 
   /**
@@ -136,6 +154,15 @@ public class LegendaryAttrs
   }
 
   /**
+   * Get the 'rune' relic.
+   * @return A 'rune' relic or <code>null</code>.
+   */
+  public Relic getRune()
+  {
+    return _rune;
+  }
+
+  /**
    * Set 'rune' relic.
    * @param relic Relic to set.
    */
@@ -152,6 +179,15 @@ public class LegendaryAttrs
     {
       _rune=null;
     }
+  }
+
+  /**
+   * Get the 'crafted' relic.
+   * @return A 'crafted' relic or <code>null</code>.
+   */
+  public Relic getCraftedRelic()
+  {
+    return _crafted;
   }
 
   /**
