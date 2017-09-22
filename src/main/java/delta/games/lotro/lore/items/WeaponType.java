@@ -1,7 +1,11 @@
 package delta.games.lotro.lore.items;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+
+import delta.games.lotro.lore.items.comparators.WeaponTypeComparator;
 
 /**
  * Weapon type.
@@ -181,9 +185,10 @@ public class WeaponType
    * Get all instances of this class.
    * @return an array of all instances of this class.
    */
-  public static WeaponType[] getAll()
+  public static List<WeaponType> getAll()
   {
-    Collection<WeaponType> values=_keyMap.values();
-    return values.toArray(new WeaponType[values.size()]);
+    List<WeaponType> ret=new ArrayList<WeaponType>(_keyMap.values());
+    Collections.sort(ret,new WeaponTypeComparator());
+    return ret;
   }
 }
