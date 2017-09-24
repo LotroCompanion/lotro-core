@@ -2,6 +2,8 @@ package delta.games.lotro.plugins;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.character.storage.AccountServerStorage;
 import delta.games.lotro.plugins.altinventory.AltInventoryInterface;
 import delta.games.lotro.plugins.altinventory.CharListParser;
@@ -15,6 +17,8 @@ import delta.games.lotro.plugins.kikiinventory.WalletParser;
  */
 public class StorageLoader
 {
+  private static final Logger LOGGER=Logger.getLogger(StorageLoader.class);
+
   /**
    * Load storage data for an account/server couple.
    * @param account Targeted account ID.
@@ -24,6 +28,7 @@ public class StorageLoader
   public AccountServerStorage loadStorage(String account, String server)
   {
     AccountServerStorage storage=new AccountServerStorage(account,server);
+    File dataFile=null;
     try
     {
       // Use AltInventory data
@@ -32,7 +37,7 @@ public class StorageLoader
       CharListParser parser=new CharListParser();
       parser.doIt(storage,charListFile);
       DataParser dataParser=new DataParser();
-      File dataFile=altInventory.getDataFile();
+      dataFile=altInventory.getDataFile();
       dataParser.doIt(storage,dataFile);
       // Use KikiInventory dat
       KikiInterface kikiInventory=new KikiInterface(account,server);
@@ -42,6 +47,7 @@ public class StorageLoader
     }
     catch(Exception e)
     {
+      LOGGER.error("Parsing error with file: "+dataFile, e);
       storage=null;
     }
     return storage;
