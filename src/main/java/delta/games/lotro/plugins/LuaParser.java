@@ -246,7 +246,7 @@ public class LuaParser
         indexHolder.setInt(s.length());
         break;
       }
-      if (s.charAt(index)!='#')
+      if ((s.length()==index) || (s.charAt(index)!='#'))
       {
         break;
       }
