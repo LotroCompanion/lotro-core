@@ -3,6 +3,7 @@ package delta.games.lotro.character;
 import java.io.File;
 import java.util.Date;
 
+import delta.common.utils.misc.Preferences;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.crafting.CraftingStatus;
 import delta.games.lotro.character.crafting.CraftingStatusComputer;
@@ -38,6 +39,7 @@ public class CharacterFile
   private CraftingStatus _crafting;
   private CharacterSummary _summary;
   private ItemsStash _stash;
+  private Preferences _preferences;
 
   /**
    * Constructor.
@@ -49,6 +51,8 @@ public class CharacterFile
     _infosManager=new CharacterInfosManager(this);
     _logsManager=new CharacterLogsManager(this);
     _stash=null;
+    File preferencesDir=new File(_rootDir,"preferences");
+    _preferences=new Preferences(preferencesDir);
   }
 
   /**
@@ -400,6 +404,15 @@ public class CharacterFile
   public CharacterInfosManager getInfosManager()
   {
     return _infosManager;
+  }
+
+  /**
+   * Get the preferences for this toon.
+   * @return the preferences for this toon.
+   */
+  public Preferences getPreferences()
+  {
+    return _preferences;
   }
 
   /**
