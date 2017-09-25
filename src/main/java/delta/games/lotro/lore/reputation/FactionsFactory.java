@@ -179,7 +179,8 @@ public class FactionsFactory
     initFaction(category,"HOW_ARMOUR","Host of the West: Armour",null,FactionLevelsTemplates.HOW);
     initFaction(category,"HOW_PROVISIONS","Host of the West: Provisions",null,FactionLevelsTemplates.HOW);
     initFaction(category,"HOW_WEAPONS","Host of the West: Weapons",null,FactionLevelsTemplates.HOW);
-    initFaction(category,"GORGOROTH","Conquest of Gorgoroth",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"GORGOROTH","Conquest of Gorgoroth",null,FactionLevelsTemplates.GORGOROTH);
+    // 5, 10, 15, 20, 20, 20, 20
     category="Misc";
     Faction aleAssociation=initFaction(category,"ALE_ASSOCIATION","Ale Association",new String[]{"The Ale Association"},FactionLevelsTemplates.ALE_INN);
     aleAssociation.setInitialLevel(aleAssociation.getLevels()[1]);

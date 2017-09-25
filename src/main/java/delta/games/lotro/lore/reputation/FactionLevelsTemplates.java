@@ -43,6 +43,10 @@ public class FactionLevelsTemplates
    */
   public static final String ALE_INN="ALE_INN";
   /**
+   * Gorgoroth faction.
+   */
+  public static final String GORGOROTH="GORGOROTH";
+  /**
    * Extended-classic faction.
    */
   public static final String EXTENDED_CLASSIC="EXTENDED_CLASSIC";
@@ -75,6 +79,7 @@ public class FactionLevelsTemplates
     register(buildCentralGondor());
     register(buildForochel());
     register(buildExtendedClassic());
+    register(buildGorgoroth());
     register(buildGuild());
     register(buildDolAmroth());
     register(buildHobnanigans());
@@ -155,6 +160,20 @@ public class FactionLevelsTemplates
     levels.add(FactionLevel.HONOURED);
     levels.add(FactionLevel.CELEBRATED);
     return new FactionLevelsTemplate(EXTENDED_CLASSIC,levels);
+  }
+
+  private FactionLevelsTemplate buildGorgoroth()
+  {
+    List<FactionLevel> levels=new ArrayList<FactionLevel>();
+    levels.add(FactionLevel.NEUTRAL);
+    levels.add(FactionLevel.ACQUAINTANCE);
+    levels.add(FactionLevel.FRIEND);
+    levels.add(FactionLevel.ALLY);
+    levels.add(FactionLevel.KINDRED);
+    levels.add(FactionLevel.RESPECTED);
+    levels.add(FactionLevel.HONOURED);
+    levels.add(new FactionLevel("CELEBRATED_GORGOROTH","Celebrated",7,20,0));
+    return new FactionLevelsTemplate(GORGOROTH,levels);
   }
 
   private FactionLevelsTemplate buildGuild()
