@@ -8,6 +8,11 @@ import delta.games.lotro.lore.items.Item;
  */
 public class EssenceTierFilter implements ItemFilter
 {
+  /**
+   * Category prefix for essence tier.
+   */
+  public static final String ESSENCE_TIER_SEED="Essence:Tier";
+
   private Integer _tier;
   private String _expectedCategory;
 
@@ -37,7 +42,7 @@ public class EssenceTierFilter implements ItemFilter
   {
     if (tier!=null)
     {
-      _expectedCategory="Essence:Tier"+tier;
+      _expectedCategory=ESSENCE_TIER_SEED+tier;
     }
     else
     {
