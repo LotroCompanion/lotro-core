@@ -12,6 +12,8 @@ import delta.common.utils.text.TextUtils;
 import delta.common.utils.url.URLTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.character.stats.contribs.StatsContribution;
+import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -112,21 +114,40 @@ public class DerivatedStatsContributionsMgr
    */
   public BasicStatsSet getContribution(CharacterClass cClass, BasicStatsSet set)
   {
-    ClassDerivedStats derivedStats=_allContribs.get(cClass);
+    return getContribution(cClass,set,null);
+  }
+
+  /**
+   * Get stats contribution for a set of stats.
+   * @param cClass Targeted character class.
+   * @param set Set of raw stats.
+   * @param contribsMgr Optional contributions manager to store computed contributions.
+   * @return A set of stat contributions.
+   */
+  public BasicStatsSet getContribution(CharacterClass cClass, BasicStatsSet set, StatsContributionsManager contribsMgr)
+  {
+    ClassDerivedStats classDerivedStats=_allContribs.get(cClass);
     BasicStatsSet result=new BasicStatsSet();
     for(STAT stat : STAT.values())
     {
       FixedDecimalsInteger statValue=set.getStat(stat);
       if (statValue!=null)
       {
-        DerivedStatContributions contrib=derivedStats.getContrib(stat);
+        DerivedStatContributions contrib=classDerivedStats.getContrib(stat);
         if (contrib!=null)
         {
+          BasicStatsSet derivedStats=new BasicStatsSet();
           for(StatContributionFactor factor : contrib.getFactors())
           {
             FixedDecimalsInteger toAdd=new FixedDecimalsInteger(statValue);
             toAdd.multiply(factor._factor);
             result.addStat(factor._contributedStat,toAdd);
+            derivedStats.addStat(factor._contributedStat,toAdd);
+          }
+          if (contribsMgr!=null)
+          {
+            StatsContribution statContrib=StatsContribution.getStatContrib(stat,derivedStats);
+            contribsMgr.addContrib(statContrib);
           }
         }
       }

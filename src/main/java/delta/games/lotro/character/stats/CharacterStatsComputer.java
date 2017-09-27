@@ -8,11 +8,16 @@ import delta.games.lotro.character.CharacterProficiencies;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.HopeStatsContributionsMgr;
+import delta.games.lotro.character.stats.contribs.StatsContribution;
+import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
 import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
+import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
+import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
@@ -30,17 +35,28 @@ public class CharacterStatsComputer
   private HopeStatsContributionsMgr _hopeMgr;
   private RatingsMgr _ratingsMgr;
   private CharacterProficiencies _proficiencies;
+  private StatsContributionsManager _contribs;
 
   /**
    * Constructor.
    */
   public CharacterStatsComputer()
   {
+    this(null);
+  }
+
+  /**
+   * Constructor.
+   * @param contribs Optional contributions manager.
+   */
+  public CharacterStatsComputer(StatsContributionsManager contribs)
+  {
     _baseStatsMgr=new BaseStatsManager();
     _tomesMgr=new TomesContributionsMgr();
     _hopeMgr=new HopeStatsContributionsMgr();
     _ratingsMgr=new RatingsMgr();
     _proficiencies=new CharacterProficiencies();
+    _contribs=contribs;
   }
 
   private BasicStatsSet getEquipmentStats(CharacterEquipment equipment)
@@ -56,6 +72,11 @@ public class CharacterStatsComputer
         {
           BasicStatsSet itemStats=getItemStats(item);
           ret.addStats(itemStats);
+          if (_contribs!=null)
+          {
+            StatsContribution contrib=StatsContribution.getGearContrib(slot,item.getIdentifier(),itemStats);
+            _contribs.addContrib(contrib);
+          }
         }
       }
     }
@@ -101,11 +122,46 @@ public class CharacterStatsComputer
   {
     // Base stats (from character class, race and level)
     BasicStatsSet baseStats=_baseStatsMgr.getBaseStats(c.getCharacterClass(),c.getRace(),c.getLevel());
+    if (_contribs!=null)
+    {
+      StatsContribution contrib=StatsContribution.getBodyContrib(baseStats);
+      _contribs.addContrib(contrib);
+    }
     // Virtues
     VirtuesContributionsMgr virtuesMgr=VirtuesContributionsMgr.get();
-    BasicStatsSet virtuesStats=virtuesMgr.getContribution(c.getVirtues());
+    VirtuesSet virtues=c.getVirtues();
+    BasicStatsSet virtuesStats=virtuesMgr.getContribution(virtues);
+    if (_contribs!=null)
+    {
+      for(int i=0;i<VirtuesSet.MAX_VIRTUES;i++)
+      {
+        VirtueId virtue=virtues.getSelectedVirtue(i);
+        if (virtue!=null)
+        {
+          int rank=virtues.getVirtueRank(virtue);
+          BasicStatsSet virtueContrib=virtuesMgr.getContribution(virtue,rank);
+          StatsContribution contrib=StatsContribution.getVirtueContrib(virtue,virtueContrib);
+          _contribs.addContrib(contrib);
+        }
+      }
+    }
     // Tomes
-    BasicStatsSet tomesStats=_tomesMgr.getContribution(c.getTomes());
+    TomesSet tomes=c.getTomes();
+    BasicStatsSet tomesStats=_tomesMgr.getContribution(tomes);
+    if (_contribs!=null)
+    {
+      for(STAT stat : TomesSet.AVAILABLE_TOMES)
+      {
+        int rank=tomes.getTomeRank(stat);
+        if (rank>0)
+        {
+          BasicStatsSet tomeContrib=_tomesMgr.getContribution(stat,rank);
+          StatsContribution contrib=StatsContribution.getTomeContrib(stat,tomeContrib);
+          _contribs.addContrib(contrib);
+        }
+      }
+    }
+
     // Equipment
     BasicStatsSet equipmentStats=getEquipmentStats(c.getEquipment());
     // Buffs
@@ -124,7 +180,7 @@ public class CharacterStatsComputer
 
     // Derivated contributions
     DerivatedStatsContributionsMgr derivedStatsMgr=new DerivatedStatsContributionsMgr();
-    BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw);
+    BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw,_contribs);
     raw.addStats(derivedContrib);
 
     // Additional buff contributions

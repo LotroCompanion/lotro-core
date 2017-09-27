@@ -33,4 +33,17 @@ public class TomesContributionsMgr
     }
     return stats;
   }
+
+  /**
+   * Get the stats contribution for a tome.
+   * @param stat Stat of the targeted tome.
+   * @param rank Rank of the targeted tome.
+   * @return some contributed stats.
+   */
+  public BasicStatsSet getContribution(STAT stat, int rank)
+  {
+    BasicStatsSet ret=new BasicStatsSet();
+    ret.addStat(stat, new FixedDecimalsInteger(CUMULATED_STAT_CONTRIBS_BY_RANK[rank]));
+    return ret;
+  }
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.io.xml.CharacterXMLWriter;
+import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 
 /**
  * Test for the character stats computer.
@@ -14,10 +15,10 @@ public class TestCharacterStatsComputer
 {
   private void doIt()
   {
-    CharacterStatsComputer statsComputer=new CharacterStatsComputer();
     CharacterGenerationTools tools=new CharacterGenerationTools();
     // Giswald
     {
+      CharacterStatsComputer statsComputer=new CharacterStatsComputer();
       CharacterGeneratorGiswald generator=new CharacterGeneratorGiswald(tools);
       CharacterData c=generator.buildCharacter();
       BasicStatsSet stats=statsComputer.getStats(c);
@@ -28,6 +29,8 @@ public class TestCharacterStatsComputer
     }
     // Meva
     {
+      StatsContributionsManager contribs=new StatsContributionsManager();
+      CharacterStatsComputer statsComputer=new CharacterStatsComputer(contribs);
       CharacterGeneratorMeva generator=new CharacterGeneratorMeva(tools);
       CharacterData c=generator.buildCharacter();
       BasicStatsSet stats=statsComputer.getStats(c);
@@ -35,6 +38,7 @@ public class TestCharacterStatsComputer
       CharacterXMLWriter w=new CharacterXMLWriter();
       w.write(new File("meva.xml"),c,EncodingNames.UTF_8);
       System.out.println(stats.dump());
+      System.out.println(contribs);
     }
   }
 
