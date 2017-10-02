@@ -1,12 +1,13 @@
 package delta.games.lotro.lore.warbands;
 
+import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.common.Size;
 
 /**
  * Filter for warband definitions.
  * @author DAM
  */
-public class WarbandFilter
+public class WarbandFilter implements Filter<WarbandDefinition>
 {
   private String _region;
   private Size _size;
@@ -76,12 +77,7 @@ public class WarbandFilter
     _minLevel=minLevel;
   }
 
-  /**
-   * Filter a log item.
-   * @param warband Item to test.
-   * @return <code>true</code> if it passes the filter, <code>false</code> otherwise.
-   */
-  public boolean filterItem(WarbandDefinition warband)
+  public boolean accept(WarbandDefinition warband)
   {
     boolean ret=true;
     if (_region!=null)
