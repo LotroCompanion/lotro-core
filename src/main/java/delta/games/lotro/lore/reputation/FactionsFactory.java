@@ -55,21 +55,21 @@ public class FactionsFactory
     return _deeds;
   }
 
-  private Faction initFaction(String region, String key, String name, String[] aliases, String template)
+  private Faction initFaction(String category, String key, String name, String[] aliases, String template)
   {
-    if (!_categories.contains(region))
+    if (!_categories.contains(category))
     {
-      _categories.add(region);
+      _categories.add(category);
     }
-    List<Faction> factions=_factionsByCategory.get(region);
+    List<Faction> factions=_factionsByCategory.get(category);
     if (factions==null)
     {
       factions=new ArrayList<Faction>();
-      _factionsByCategory.put(region,factions);
+      _factionsByCategory.put(category,factions);
     }
     FactionLevelsTemplate factionTemplate=_templates.getByKey(template);
     List<FactionLevel> levels=factionTemplate.getLevels();
-    Faction faction=new Faction(key,name,levels);
+    Faction faction=new Faction(key,name,category,levels);
     if (aliases!=null)
     {
       for(String alias : aliases)

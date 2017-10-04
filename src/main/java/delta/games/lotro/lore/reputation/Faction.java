@@ -13,6 +13,7 @@ public class Faction
   private String _key;
   private String _name;
   private Set<String> _aliases;
+  private String _category;
   private FactionLevel _initialLevel;
   private FactionLevel[] _levels;
   
@@ -20,12 +21,14 @@ public class Faction
    * Constructor.
    * @param key Identifying key.
    * @param name Name of faction.
+   * @param category Category.
    * @param levels Available levels.
    */
-  public Faction(String key, String name, List<FactionLevel> levels)
+  public Faction(String key, String name, String category, List<FactionLevel> levels)
   {
     _key=key;
     _name=name;
+    _category=category;
     _aliases=new HashSet<String>();
     _levels=levels.toArray(new FactionLevel[levels.size()]);
     _initialLevel=levels.get(0);
@@ -47,6 +50,15 @@ public class Faction
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Get the category of this faction.
+   * @return the category of this faction.
+   */
+  public String getCategory()
+  {
+    return _category;
   }
 
   /**
