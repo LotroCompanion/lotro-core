@@ -1,6 +1,9 @@
 package delta.games.lotro.crafting;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Profession.
@@ -9,6 +12,7 @@ import java.util.HashMap;
 public class Profession
 {
   private static HashMap<String,Profession> _instances=new HashMap<String,Profession>();
+  private static HashMap<String,Profession> _instancesByKey=new HashMap<String,Profession>();
   private String _key;
   private String _label;
 
@@ -64,6 +68,7 @@ public class Profession
     _label=label;
     _instances.put(label,this);
     _instances.put(key,this);
+    _instancesByKey.put(key,this);
   }
 
   /**
@@ -102,7 +107,19 @@ public class Profession
    */
   public static Profession getByKey(String key)
   {
-    Profession ret=_instances.get(key);
+    Profession ret=_instancesByKey.get(key);
+    return ret;
+  }
+
+  /**
+   * Get all the professions.
+   * @return A sorted list of professions.
+   */
+  public static List<Profession> getAll()
+  {
+    List<Profession> ret=new ArrayList<Profession>();
+    ret.addAll(_instancesByKey.values());
+    Collections.sort(ret,new ProfessionComparator());
     return ret;
   }
 
