@@ -19,6 +19,10 @@ public enum CharacterEventType
    */
   CHARACTER_STASH_UPDATED,
   /**
+   * The crafting data of a toon was updated.
+   */
+  CHARACTER_CRAFTING_UPDATED,
+  /**
    * The reputation of a toon was updated.
    */
   CHARACTER_REPUTATION_UPDATED,
