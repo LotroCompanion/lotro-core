@@ -20,6 +20,7 @@ public class RelicsManager
 {
   private static RelicsManager _instance;
 
+  private List<RelicsCategory> _categoriesList;
   private HashMap<String,RelicsCategory> _categories;
 
   /**
@@ -41,6 +42,7 @@ public class RelicsManager
    */
   public RelicsManager()
   {
+    _categoriesList=new ArrayList<RelicsCategory>();
     _categories=new HashMap<String,RelicsCategory>();
   }
 
@@ -57,6 +59,7 @@ public class RelicsManager
     {
       category=new RelicsCategory(name);
       _categories.put(name,category);
+      _categoriesList.add(category);
     }
     return category;
   }
@@ -107,7 +110,11 @@ public class RelicsManager
    */
   public List<String> getCategories()
   {
-    List<String> categories=new ArrayList<String>(_categories.keySet());
+    List<String> categories=new ArrayList<String>();
+    for(RelicsCategory category : _categoriesList)
+    {
+      categories.add(category.getName());
+    }
     Collections.sort(categories);
     return categories;
   }

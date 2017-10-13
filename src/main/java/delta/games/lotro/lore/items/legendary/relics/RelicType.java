@@ -9,17 +9,33 @@ public enum RelicType
   /**
    * Rune.
    */
-  RUNE,
+  RUNE("Rune"),
   /**
    * Gem.
    */
-  GEM,
+  GEM("Gem"),
   /**
    * Setting.
    */
-  SETTING,
+  SETTING("Setting"),
   /**
    * Crafted relic.
    */
-  CRAFTED_RELIC
+  CRAFTED_RELIC("Crafted Relic");
+
+  private String _name;
+
+  private RelicType(String name)
+  {
+    _name=name;
+  }
+
+  /**
+   * Get a displayable name for this relic type.
+   * @return A displayable name.
+   */
+  public String getName()
+  {
+    return _name;
+  }
 }

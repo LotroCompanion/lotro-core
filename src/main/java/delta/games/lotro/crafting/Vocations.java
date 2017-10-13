@@ -1,6 +1,7 @@
 package delta.games.lotro.crafting;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class Vocations
   {
     List<Vocation> ret=new ArrayList<Vocation>();
     ret.addAll(_vocationsById.values());
+    Collections.sort(ret,new VocationComparator());
     return ret;
   }
 

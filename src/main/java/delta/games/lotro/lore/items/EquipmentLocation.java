@@ -1,7 +1,11 @@
 package delta.games.lotro.lore.items;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+
+import delta.games.lotro.lore.items.comparators.EquipmentLocationComparator;
 
 /**
  * Equipment location.
@@ -146,7 +150,8 @@ public class EquipmentLocation
    */
   public static EquipmentLocation[] getAll()
   {
-    Collection<EquipmentLocation> values=_keyMap.values();
+    List<EquipmentLocation> values=new ArrayList<EquipmentLocation>(_keyMap.values());
+    Collections.sort(values,new EquipmentLocationComparator());
     return values.toArray(new EquipmentLocation[values.size()]);
   }
 

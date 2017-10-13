@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.items;
 
-import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -33,6 +32,11 @@ public class ItemQuality
    * Epic.
    */
   public static final ItemQuality LEGENDARY=new ItemQuality(4,"LEGENDARY","Epic","Orange");
+
+  /**
+   * All qualities.
+   */
+  public static final ItemQuality[] ALL={ COMMON, UNCOMMON, RARE, INCOMPARABLE, LEGENDARY };
 
   private int _code;
   private String _key;
@@ -104,16 +108,6 @@ public class ItemQuality
   public static ItemQuality fromColor(String color)
   {
     return _mapFromColor.get(color);
-  }
-
-  /**
-   * Get all instances of this class.
-   * @return an array of all instances of this class.
-   */
-  public static ItemQuality[] getAll()
-  {
-    Collection<ItemQuality> values=_mapFromCode.values();
-    return values.toArray(new ItemQuality[values.size()]);
   }
 
   @Override

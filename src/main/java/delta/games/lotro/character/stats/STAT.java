@@ -1,6 +1,9 @@
 package delta.games.lotro.character.stats;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A LOTRO character stat.
@@ -464,6 +467,21 @@ public enum STAT
   public boolean isPercentage()
   {
     return _isPercentage;
+  }
+
+  /**
+   * Get a list of all stats, sorted by name.
+   * @return A list of stats.
+   */
+  public static List<STAT> getAll()
+  {
+    List<STAT> stats=new ArrayList<STAT>();
+    for(STAT stat : STAT.values())
+    {
+      stats.add(stat);
+    }
+    Collections.sort(stats,new StatNameComparator());
+    return stats;
   }
 
   @Override

@@ -1,7 +1,11 @@
 package delta.games.lotro.lore.items;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+
+import delta.games.lotro.lore.items.comparators.DamageTypeComparator;
 
 /**
  * Damage type.
@@ -48,10 +52,10 @@ public class DamageType
    * Frost.
    */
   public static final DamageType FROST=new DamageType("FROST","Frost");
-  
+
   private String _key;
   private String _name;
-  
+
   private DamageType(String key, String name)
   {
     _key=key;
@@ -59,7 +63,7 @@ public class DamageType
     _name=name;
     _map.put(name,this);
   }
-  
+
   /**
    * Get the damage type key.
    * @return A key.
@@ -110,7 +114,8 @@ public class DamageType
    */
   public static DamageType[] getAll()
   {
-    Collection<DamageType> values=_keyMap.values();
-    return values.toArray(new DamageType[values.size()]);
+    List<DamageType> types=new ArrayList<DamageType>(_keyMap.values());
+    Collections.sort(types,new DamageTypeComparator());
+    return types.toArray(new DamageType[types.size()]);
   }
 }
