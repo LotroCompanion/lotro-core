@@ -49,4 +49,27 @@ public class CraftingLevelStatus
   {
     return _mastery;
   }
+
+  /**
+   * Indicates if this level has been started or not.
+   * @return <code>true</code> if it has, <code>false</code> otherwise.
+   */
+  public boolean isStarted()
+  {
+    if (_proficiency.isCompleted()) return true;
+    if (_proficiency.getAcquiredXP()>0) return true;
+    if (_mastery.isCompleted()) return true;
+    if (_mastery.getAcquiredXP()>0) return true;
+    return false;
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    sb.append("Level: ").append(_level);
+    sb.append(", proficiency: ").append(_proficiency);
+    sb.append(", mastery: ").append(_mastery);
+    return sb.toString();
+  }
 }

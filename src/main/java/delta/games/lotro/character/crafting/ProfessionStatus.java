@@ -2,7 +2,6 @@ package delta.games.lotro.character.crafting;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import delta.games.lotro.crafting.CraftingLevel;
@@ -227,35 +226,13 @@ public class ProfessionStatus
    */
   public void dump(PrintStream ps)
   {
-    ps.println("History for profession ["+_profession+"]:");
-    CraftingLevel proficiency=getProficiencyLevel();
-    if (proficiency!=null)
+    ps.println("Status for profession ["+_profession+"]:");
+    for(CraftingLevel level : CraftingLevel.ALL_TIERS)
     {
-      ps.println("Proficiency:");
-      for(int i=0;i<=proficiency.getTier();i++)
+      CraftingLevelStatus status=getLevelStatus(level);
+      if ((status!=null) && (status.isStarted()))
       {
-        long date=getLevelStatus(i).getProficiency().getCompletionDate();
-        if (date!=0)
-        {
-          CraftingLevel level=CraftingLevel.getByTier(i);
-          String label=(level!=null)?level.getProficiency().getLabel():"???";
-          ps.println("\t"+label+": "+new Date(date));
-        }
-      }
-    }
-    CraftingLevel mastery=getMasteryLevel();
-    if (mastery!=null)
-    {
-      ps.println("Mastery:");
-      for(int i=0;i<=mastery.getTier();i++)
-      {
-        long date=getLevelStatus(i).getMastery().getCompletionDate();
-        if (date!=0)
-        {
-          CraftingLevel level=CraftingLevel.getByTier(i);
-          String label=(level!=null)?level.getMastery().getLabel():"???";
-          ps.println("\t"+label+": "+new Date(date));
-        }
+        ps.println("\t"+status);
       }
     }
   }

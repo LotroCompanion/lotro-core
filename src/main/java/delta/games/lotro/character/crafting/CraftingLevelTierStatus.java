@@ -110,8 +110,11 @@ public class CraftingLevelTierStatus
     sb.append(", completed=").append(_completed);
     if (_completed)
     {
-      sb.append(", date=").append(_completionDate);
-      sb.append(" (").append(new Date(_completionDate)).append(')');
+      if (_completionDate!=0)
+      {
+        sb.append(", date=").append(_completionDate);
+        sb.append(" (").append(new Date(_completionDate)).append(')');
+      }
     }
     return sb.toString();
   }

@@ -56,4 +56,10 @@ public class Vocation
   {
     return _professions.toArray(new Profession[_professions.size()]);
   }
+
+  @Override
+  public String toString()
+  {
+    return _name;
+  }
 }
