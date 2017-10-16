@@ -60,6 +60,7 @@ public class CraftingParser
       if (vocation!=null)
       {
         craftingStatus.setVocation(vocation);
+        craftingStatus.getGuildStatus().setProfesssion(Profession.COOK);
       }
       Map<String,Object> professionsMap=(Map<String,Object>)data.get("Professions");
       if (professionsMap!=null)

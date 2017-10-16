@@ -11,7 +11,10 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.crafting.CraftingLevelStatus;
 import delta.games.lotro.character.crafting.CraftingLevelTierStatus;
 import delta.games.lotro.character.crafting.CraftingStatus;
+import delta.games.lotro.character.crafting.GuildStatus;
 import delta.games.lotro.character.crafting.ProfessionStatus;
+import delta.games.lotro.character.reputation.io.xml.ReputationXMLConstants;
+import delta.games.lotro.character.reputation.io.xml.ReputationXMLParser;
 import delta.games.lotro.crafting.Profession;
 import delta.games.lotro.crafting.Vocation;
 import delta.games.lotro.crafting.Vocations;
@@ -44,6 +47,7 @@ public class CraftingStatusXMLParser
     String name=DOMParsingTools.getStringAttribute(root.getAttributes(),CraftingStatusXMLConstants.CRAFTING_NAME_ATTR,"");
     CraftingStatus status=new CraftingStatus(name);
 
+    // Vocation
     Element vocationTag=DOMParsingTools.getChildTagByName(root,CraftingStatusXMLConstants.VOCATION_TAG);
     if (vocationTag!=null)
     {
@@ -52,6 +56,7 @@ public class CraftingStatusXMLParser
       status.setVocation(vocation);
     }
 
+    // Professions
     List<Element> professionTags=DOMParsingTools.getChildTagsByName(root,CraftingStatusXMLConstants.PROFESSION_TAG);
     for(Element professionTag : professionTags)
     {
@@ -81,6 +86,25 @@ public class CraftingStatusXMLParser
             parseCraftingLevelTier(levelTag,CraftingStatusXMLConstants.PROFICIENCY_TAG,levelStatus.getProficiency());
             parseCraftingLevelTier(levelTag,CraftingStatusXMLConstants.MASTERY_TAG,levelStatus.getMastery());
           }
+        }
+      }
+    }
+
+    // Guild status
+    GuildStatus guildStatus=status.getGuildStatus();
+    Element guildTag=DOMParsingTools.getChildTagByName(root,CraftingStatusXMLConstants.GUILD_TAG);
+    if (guildTag!=null)
+    {
+      NamedNodeMap guildAttrs=guildTag.getAttributes();
+      String professionId=DOMParsingTools.getStringAttribute(guildAttrs,CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,null);
+      if (professionId!=null)
+      {
+        Profession profession=Profession.getByKey(professionId);
+        guildStatus.setProfesssion(profession);
+        Element guildFactionTag=DOMParsingTools.getChildTagByName(guildTag,ReputationXMLConstants.FACTION_TAG);
+        if (guildFactionTag!=null)
+        {
+          ReputationXMLParser.loadFactionData(guildFactionTag,guildStatus.getFactionData());
         }
       }
     }

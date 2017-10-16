@@ -14,6 +14,7 @@ public class FactionsFactory
   private List<String> _categories;
   private List<ReputationDeed> _deeds;
   private HashMap<String,List<Faction>> _factionsByCategory;
+  private Faction _guildFaction;
 
   /**
    * Constructor.
@@ -67,6 +68,13 @@ public class FactionsFactory
       factions=new ArrayList<Faction>();
       _factionsByCategory.put(category,factions);
     }
+    Faction faction=buildFaction(category,key,name,aliases,template);
+    factions.add(faction);
+    return faction;
+  }
+
+  private Faction buildFaction(String category, String key, String name, String[] aliases, String template)
+  {
     FactionLevelsTemplate factionTemplate=_templates.getByKey(template);
     List<FactionLevel> levels=factionTemplate.getLevels();
     Faction faction=new Faction(key,name,category,levels);
@@ -77,7 +85,6 @@ public class FactionsFactory
         faction.addAlias(alias);
       }
     }
-    factions.add(faction);
     return faction;
   }
 
@@ -187,6 +194,16 @@ public class FactionsFactory
     Faction innLeague=initFaction(category,"INN_LEAGUE","Inn League",new String[]{"The Inn League"},FactionLevelsTemplates.ALE_INN);
     innLeague.setInitialLevel(innLeague.getLevels()[1]);
     initFaction(category,"HOBNANIGANS","Chicken Chasing League of Eriador",null,FactionLevelsTemplates.HOBNANIGANS);
-    initFaction(category,"GUILD","Guild",null,FactionLevelsTemplates.GUILD);
+    // Guild
+    _guildFaction=buildFaction("Guild","GUILD","Guild",null,FactionLevelsTemplates.GUILD);
+  }
+
+  /**
+   * Get the guild faction.
+   * @return the guild faction.
+   */
+  public Faction getGuildFaction()
+  {
+    return _guildFaction;
   }
 }

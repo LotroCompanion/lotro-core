@@ -20,6 +20,7 @@ public class CraftingStatus
   private String _name;
   private Vocation _vocation;
   private HashMap<Profession,ProfessionStatus> _stats;
+  private GuildStatus _guildStatus;
 
   /**
    * Constructor.
@@ -29,6 +30,7 @@ public class CraftingStatus
   {
     _name=toonName;
     _stats=new HashMap<Profession,ProfessionStatus>();
+    _guildStatus=new GuildStatus();
   }
 
   /**
@@ -55,6 +57,15 @@ public class CraftingStatus
   public void setVocation(Vocation vocation)
   {
     _vocation=vocation;
+  }
+
+  /**
+   * Get guild status.
+   * @return guild status.
+   */
+  public GuildStatus getGuildStatus()
+  {
+    return _guildStatus;
   }
 
   /**
@@ -131,12 +142,23 @@ public class CraftingStatus
   public void dump(PrintStream ps)
   {
     ps.println("Crafting status for ["+_name+"]:");
+    // Vocation
+    ps.println("Vocation:"+_vocation);
+    // Professions
+    ps.println("Professions:");
     List<Profession> professions=new ArrayList<Profession>(_stats.keySet());
     Collections.sort(professions,new ProfessionComparator());
     for(Profession profession : professions)
     {
       ProfessionStatus stat=getProfessionStatus(profession);
       stat.dump(ps);
+    }
+    // Guild
+    Profession guildProfession=_guildStatus.getProfession();
+    if (guildProfession!=null)
+    {
+      ps.println("Guild:"+guildProfession);
+      _guildStatus.getFactionData().dump(ps);
     }
   }
 }

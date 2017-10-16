@@ -18,6 +18,7 @@ public class FactionsRegistry
   private HashMap<String,List<Faction>> _factionsByCategory;
   private List<ReputationDeed> _factionDeeds;
   private List<Faction> _factions;
+  private Faction _guildFaction;
 
   /**
    * Get the sole instance of this class.
@@ -57,6 +58,8 @@ public class FactionsRegistry
         registerFaction(faction);
       }
     }
+    // Guild faction
+    _guildFaction=factory.getGuildFaction();
     // Deeds
     _factionDeeds=factory.getDeeds();
   }
@@ -139,5 +142,14 @@ public class FactionsRegistry
       f=_registryByName.get(name);
     }
     return f;
+  }
+
+  /**
+   * Get the guild faction.
+   * @return the guild faction.
+   */
+  public Faction getGuildFaction()
+  {
+    return _guildFaction;
   }
 }

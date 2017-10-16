@@ -67,4 +67,13 @@ public class CraftingStatusXMLConstants
    * Tag 'proficiency/mastery', attribute 'completionDate'.
    */
   public static final String COMPLETION_DATE_ATTR="completionDate";
+
+  /**
+   * Tag 'guild'.
+   */
+  public static final String GUILD_TAG="guild";
+  /**
+   * Tag 'guild', attribute 'profession'.
+   */
+  public static final String GUILD_PROFESSION_ATTR="profession";
 }

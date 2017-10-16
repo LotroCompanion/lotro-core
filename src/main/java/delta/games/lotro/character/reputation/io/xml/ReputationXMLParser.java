@@ -56,27 +56,7 @@ public class ReputationXMLParser
         if (faction!=null)
         {
           FactionData factionData=h.getOrCreateFactionStat(faction);
-          List<Element> levelTags=DOMParsingTools.getChildTagsByName(factionTag,ReputationXMLConstants.FACTION_LEVEL_TAG);
-          for(Element levelTag : levelTags)
-          {
-            NamedNodeMap levelAttrs=levelTag.getAttributes();
-            String levelKey=DOMParsingTools.getStringAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,"");
-            FactionLevel level=FactionLevel.getByKey(levelKey);
-            long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
-            if ((level!=null) && (date!=0))
-            {
-              factionData.addUpdate(level,date);
-            }
-            else
-            {
-              // TODO warn
-            }
-          }
-          FactionLevel level=faction.getLevelByKey(currentFactionLevelKey);
-          if (level!=null)
-          {
-            factionData.setFactionLevel(level);
-          }
+          loadFactionData(factionTag,factionData);
         }
         else
         {
@@ -89,5 +69,39 @@ public class ReputationXMLParser
       }
     }
     return h;
+  }
+
+  /**
+   * Load faction data.
+   * @param factionTag Tag to read from.
+   * @param factionData Storage for faction data.
+   */
+  public static void loadFactionData(Element factionTag, FactionData factionData)
+  {
+    factionData.reset();
+    List<Element> levelTags=DOMParsingTools.getChildTagsByName(factionTag,ReputationXMLConstants.FACTION_LEVEL_TAG);
+    for(Element levelTag : levelTags)
+    {
+      NamedNodeMap levelAttrs=levelTag.getAttributes();
+      String levelKey=DOMParsingTools.getStringAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,"");
+      FactionLevel level=FactionLevel.getByKey(levelKey);
+      long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
+      if ((level!=null) && (date!=0))
+      {
+        factionData.addUpdate(level,date);
+      }
+      else
+      {
+        // TODO warn
+      }
+    }
+    NamedNodeMap factionAttrs=factionTag.getAttributes();
+    String currentFactionLevelKey=DOMParsingTools.getStringAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_ATTR,null);
+    Faction faction=factionData.getFaction();
+    FactionLevel level=faction.getLevelByKey(currentFactionLevelKey);
+    if (level!=null)
+    {
+      factionData.setFactionLevel(level);
+    }
   }
 }

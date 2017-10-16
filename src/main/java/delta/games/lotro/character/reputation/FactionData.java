@@ -75,6 +75,15 @@ public class FactionData
   }
 
   /**
+   * Reset data.
+   */
+  public void reset()
+  {
+    _dates.clear();
+    _level=null;
+  }
+
+  /**
    * Dump the contents of this object to the given stream.
    * @param ps Output stream to use.
    */
