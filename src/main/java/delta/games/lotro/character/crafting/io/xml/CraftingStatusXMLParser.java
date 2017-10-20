@@ -101,11 +101,11 @@ public class CraftingStatusXMLParser
       {
         Profession profession=Profession.getByKey(professionId);
         guildStatus.setProfesssion(profession);
-        Element guildFactionTag=DOMParsingTools.getChildTagByName(guildTag,ReputationXMLConstants.FACTION_TAG);
-        if (guildFactionTag!=null)
-        {
-          ReputationXMLParser.loadFactionData(guildFactionTag,guildStatus.getFactionData());
-        }
+      }
+      Element guildFactionTag=DOMParsingTools.getChildTagByName(guildTag,ReputationXMLConstants.FACTION_TAG);
+      if (guildFactionTag!=null)
+      {
+        ReputationXMLParser.loadFactionData(guildFactionTag,guildStatus.getFactionData());
       }
     }
     return status;

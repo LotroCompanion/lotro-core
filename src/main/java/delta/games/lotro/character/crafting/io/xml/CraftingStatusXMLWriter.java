@@ -107,11 +107,14 @@ public class CraftingStatusXMLWriter
 
       // Guild status
       GuildStatus guildStatus=status.getGuildStatus();
-      Profession guildProfession=guildStatus.getProfession();
-      if (guildProfession!=null)
+      if (guildStatus!=null)
       {
         AttributesImpl guildAttrs=new AttributesImpl();
-        guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,CDATA,guildProfession.getKey());
+        Profession guildProfession=guildStatus.getProfession();
+        if (guildProfession!=null)
+        {
+          guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,CDATA,guildProfession.getKey());
+        }
         hd.startElement("","",CraftingStatusXMLConstants.GUILD_TAG,guildAttrs);
         ReputationXMLWriter.writeFactionData(hd,guildStatus.getFactionData());
         hd.endElement("","",CraftingStatusXMLConstants.GUILD_TAG);
