@@ -38,7 +38,7 @@ public class GuildStatus
    * Set the profession of the guild.
    * @param profession Profession to set.
    */
-  public void setProfesssion(Profession profession)
+  public void setProfession(Profession profession)
   {
     _profession=profession;
   }

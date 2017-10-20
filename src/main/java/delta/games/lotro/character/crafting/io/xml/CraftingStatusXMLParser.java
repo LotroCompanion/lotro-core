@@ -100,7 +100,7 @@ public class CraftingStatusXMLParser
       if (professionId!=null)
       {
         Profession profession=Profession.getByKey(professionId);
-        guildStatus.setProfesssion(profession);
+        guildStatus.setProfession(profession);
       }
       Element guildFactionTag=DOMParsingTools.getChildTagByName(guildTag,ReputationXMLConstants.FACTION_TAG);
       if (guildFactionTag!=null)
