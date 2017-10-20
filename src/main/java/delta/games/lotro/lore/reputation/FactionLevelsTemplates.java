@@ -105,11 +105,11 @@ public class FactionLevelsTemplates
   private FactionLevelsTemplate buildHostOfTheWest()
   {
     List<FactionLevel> levels=new ArrayList<FactionLevel>();
-    levels.add(new FactionLevel("NONE","-",0,0,10000));
-    levels.add(new FactionLevel("INITIAL","Initial",1,0,20000));
-    levels.add(new FactionLevel("INTERMEDIATE","Intermediate",2,5,25000));
-    levels.add(new FactionLevel("ADVANCED","Advanced",3,10,30000));
-    levels.add(new FactionLevel("FINAL","Final",4,15,0));
+    levels.add(new FactionLevel("NONE","-",0,0,0));
+    levels.add(new FactionLevel("INITIAL","Initial",1,0,10000));
+    levels.add(new FactionLevel("INTERMEDIATE","Intermediate",2,5,20000));
+    levels.add(new FactionLevel("ADVANCED","Advanced",3,10,25000));
+    levels.add(new FactionLevel("FINAL","Final",4,15,30000));
     return new FactionLevelsTemplate(HOW,levels);
   }
 
@@ -118,10 +118,10 @@ public class FactionLevelsTemplates
     List<FactionLevel> levels=new ArrayList<FactionLevel>();
     levels.add(FactionLevel.ENEMY);
     levels.add(FactionLevel.NEUTRAL);
-    levels.add(new FactionLevel("ACQUAINTANCE","Acquaintance",1,0,20000));
-    levels.add(new FactionLevel("FRIEND","Friend",2,0,25000));
-    levels.add(new FactionLevel("ALLY","Ally",3,0,30000));
-    levels.add(new FactionLevel("KINDRED","Kindred",4,0,0));
+    levels.add(new FactionLevel("ACQUAINTANCE","Acquaintance",1,0,10000));
+    levels.add(new FactionLevel("FRIEND","Friend",2,0,20000));
+    levels.add(new FactionLevel("ALLY","Ally",3,0,25000));
+    levels.add(new FactionLevel("KINDRED","Kindred",4,0,30000));
     return new FactionLevelsTemplate(ALE_INN,levels);
   }
 
@@ -129,10 +129,10 @@ public class FactionLevelsTemplates
   {
     List<FactionLevel> levels=new ArrayList<FactionLevel>();
     levels.add(FactionLevel.NEUTRAL);
-    levels.add(new FactionLevel("ACQUAINTANCE","Acquaintance",1,0,20000));
-    levels.add(new FactionLevel("FRIEND","Friend",2,0,25000));
-    levels.add(new FactionLevel("ALLY","Ally",3,0,30000));
-    levels.add(new FactionLevel("KINDRED","Kindred",4,0,0));
+    levels.add(new FactionLevel("ACQUAINTANCE","Acquaintance",1,0,10000));
+    levels.add(new FactionLevel("FRIEND","Friend",2,0,20000));
+    levels.add(new FactionLevel("ALLY","Ally",3,0,25000));
+    levels.add(new FactionLevel("KINDRED","Kindred",4,0,30000));
     return new FactionLevelsTemplate(CENTRAL_GONDOR,levels);
   }
 
@@ -140,7 +140,7 @@ public class FactionLevelsTemplates
   {
     List<FactionLevel> levels=new ArrayList<FactionLevel>();
     levels.add(FactionLevel.OUTSIDER);
-    levels.add(FactionLevel.NEUTRAL);
+    levels.add(new FactionLevel("NEUTRAL","Neutral",0,0,10000));
     levels.add(FactionLevel.ACQUAINTANCE);
     levels.add(FactionLevel.FRIEND);
     levels.add(FactionLevel.ALLY);
@@ -172,7 +172,7 @@ public class FactionLevelsTemplates
     levels.add(FactionLevel.KINDRED);
     levels.add(FactionLevel.RESPECTED);
     levels.add(FactionLevel.HONOURED);
-    levels.add(new FactionLevel("CELEBRATED_GORGOROTH","Celebrated",7,20,0));
+    levels.add(new FactionLevel("CELEBRATED_GORGOROTH","Celebrated",7,20,90000));
     return new FactionLevelsTemplate(GORGOROTH,levels);
   }
 
@@ -194,7 +194,7 @@ public class FactionLevelsTemplates
   {
     List<FactionLevel> levels=new ArrayList<FactionLevel>();
     levels.add(FactionLevel.NEUTRAL);
-    levels.add(new FactionLevel("ACQUAINTANCE","Acquaintance",1,0,0));
+    levels.add(new FactionLevel("ACQUAINTANCE","Acquaintance",1,0,10000));
     return new FactionLevelsTemplate(DOL_AMROTH,levels);
   }
 

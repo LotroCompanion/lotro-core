@@ -17,7 +17,7 @@ public class FactionLevel
   /**
    * Outsider.
    */
-  public static final FactionLevel OUTSIDER=new FactionLevel("OUTSIDER","Outsider",-1,0,10000);
+  public static final FactionLevel OUTSIDER=new FactionLevel("OUTSIDER","Outsider",-1,0,0);
   /**
    * Neutral.
    */
@@ -25,31 +25,31 @@ public class FactionLevel
   /**
    * Acquaintance.
    */
-  public static final FactionLevel ACQUAINTANCE=new FactionLevel("ACQUAINTANCE","Acquaintance",1,5,20000);
+  public static final FactionLevel ACQUAINTANCE=new FactionLevel("ACQUAINTANCE","Acquaintance",1,5,10000);
   /**
    * Friend.
    */
-  public static final FactionLevel FRIEND=new FactionLevel("FRIEND","Friend",2,10,25000);
+  public static final FactionLevel FRIEND=new FactionLevel("FRIEND","Friend",2,10,20000);
   /**
    * Ally.
    */
-  public static final FactionLevel ALLY=new FactionLevel("ALLY","Ally",3,15,30000);
+  public static final FactionLevel ALLY=new FactionLevel("ALLY","Ally",3,15,25000);
   /**
    * Kindred.
    */
-  public static final FactionLevel KINDRED=new FactionLevel("KINDRED","Kindred",4,20,45000);
+  public static final FactionLevel KINDRED=new FactionLevel("KINDRED","Kindred",4,20,30000);
   /**
    * Respected.
    */
-  public static final FactionLevel RESPECTED=new FactionLevel("RESPECTED","Respected",5,20,0); // TODO
+  public static final FactionLevel RESPECTED=new FactionLevel("RESPECTED","Respected",5,20,45000);
   /**
    * Honoured.
    */
-  public static final FactionLevel HONOURED=new FactionLevel("HONOURED","Honoured",6,20,0); // TODO
+  public static final FactionLevel HONOURED=new FactionLevel("HONOURED","Honoured",6,20,60000);
   /**
    * Celebrated.
    */
-  public static final FactionLevel CELEBRATED=new FactionLevel("CELEBRATED","Celebrated",7,50,0);
+  public static final FactionLevel CELEBRATED=new FactionLevel("CELEBRATED","Celebrated",7,50,90000);
 
   private String _key;
   private String _name;
@@ -125,16 +125,6 @@ public class FactionLevel
   public String toString()
   {
     return _name;
-  }
-
-  /**
-   * Get a faction level using its identifying key.
-   * @param key Key to use.
-   * @return A faction level or <code>null</code> if not found.
-   */
-  public static FactionLevel getByKey(String key)
-  {
-    return _mapByKey.get(key);
   }
 }
 
