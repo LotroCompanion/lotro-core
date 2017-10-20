@@ -163,7 +163,8 @@ public class ReputationComputer
     if ((faction!=null) && (level!=null))
     {
       FactionData stat=reputation.getOrCreateFactionStat(faction);
-      stat.addUpdate(level,date);
+      FactionLevelStatus status=stat.getStatusForLevel(level);
+      status.setCompleted(date);
       stat.setFactionLevel(level);
     }
   }

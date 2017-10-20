@@ -1,7 +1,6 @@
 package delta.games.lotro.character.reputation;
 
 import java.io.PrintStream;
-import java.util.Date;
 import java.util.HashMap;
 
 import delta.games.lotro.lore.reputation.Faction;
@@ -15,7 +14,7 @@ public class FactionData
 {
   private Faction _faction;
   private FactionLevel _level;
-  private HashMap<String,Long> _dates;
+  private HashMap<String,FactionLevelStatus> _statusByLevel;
 
   /**
    * Constructor.
@@ -24,7 +23,8 @@ public class FactionData
   public FactionData(Faction faction)
   {
     _faction=faction;
-    _dates=new HashMap<String,Long>();
+    _level=null;
+    _statusByLevel=new HashMap<String,FactionLevelStatus>();
   }
 
   /**
@@ -37,23 +37,19 @@ public class FactionData
   }
 
   /**
-   * Add a reputation update event.
-   * @param level New reputation level.
-   * @param date Event date.
-   */
-  public void addUpdate(FactionLevel level, long date)
-  {
-    _dates.put(level.getKey(),Long.valueOf(date));
-  }
-
-  /**
-   * Get the date for a given level.
+   * Get the status for a given level.
    * @param level Level to use.
-   * @return A date as a long or <code>null</code>.
+   * @return A status as a long or <code>null</code>.
    */
-  public Long getDateForLevel(FactionLevel level)
+  public FactionLevelStatus getStatusForLevel(FactionLevel level)
   {
-    return _dates.get(level.getKey());
+    FactionLevelStatus ret=_statusByLevel.get(level.getKey());
+    if (ret==null)
+    {
+      ret=new FactionLevelStatus(level);
+      _statusByLevel.put(level.getKey(),ret);
+    }
+    return ret;
   }
 
   /**
@@ -72,6 +68,93 @@ public class FactionData
   public void setFactionLevel(FactionLevel level)
   {
     _level=level;
+    updateCompletion();
+  }
+
+  private void updateCompletion()
+  {
+    FactionLevel[] levels=_faction.getLevels();
+    for(FactionLevel level : levels)
+    {
+      FactionLevelStatus status=getStatusForLevel(level);
+      if ((_level==null) || (level.getValue()>_level.getValue()))
+      {
+        status.setCompleted(false);
+        if ((_level==null) || (level.getValue()>_level.getValue()+1))
+        {
+          status.setAcquiredXP(0);
+        }
+      }
+      else
+      {
+        status.setCompleted(true);
+        status.setAcquiredXP(level.getRequiredXp());
+      }
+    }
+  }
+
+  /**
+   * Compute current level from completion state of each level.
+   */
+  public void updateCurrentLevel()
+  {
+    FactionLevel currentLevel=null;
+    for(FactionLevel level : _faction.getLevels())
+    {
+      FactionLevelStatus levelStatus=getStatusForLevel(level);
+      if (levelStatus.isCompleted())
+      {
+        currentLevel=level;
+      }
+      else
+      {
+        break;
+      }
+    }
+    setFactionLevel(currentLevel);
+  }
+
+  /**
+   * Update a completion status.
+   * @param targetedLevel Targeted level.
+   * @param completed New completion status.
+   */
+  public void setCompletionStatus(FactionLevel targetedLevel, boolean completed)
+  {
+    FactionLevelStatus levelStatus=getStatusForLevel(targetedLevel);
+    boolean currentCompletionStatus=levelStatus.isCompleted();
+    if (currentCompletionStatus!=completed)
+    {
+      if (completed)
+      {
+        // Update the targeted level
+        levelStatus.setCompleted(true);
+        levelStatus.setAcquiredXP(targetedLevel.getRequiredXp());
+        // Set previous levels to 'completed'
+        for(FactionLevel level : _faction.getLevels())
+        {
+          if (level==targetedLevel)
+          {
+            break;
+          }
+          setCompletionStatus(level,completed);
+        }
+      }
+      else
+      {
+        // Update the targeted level
+        levelStatus.setCompleted(false);
+        levelStatus.setCompletionDate(0);
+        // Set higher levels to 'not completed'
+        for(FactionLevel level : _faction.getLevels())
+        {
+          if (level.getValue()>targetedLevel.getValue())
+          {
+            setCompletionStatus(level,false);
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -79,7 +162,7 @@ public class FactionData
    */
   public void reset()
   {
-    _dates.clear();
+    _statusByLevel.clear();
     _level=null;
   }
 
@@ -96,11 +179,10 @@ public class FactionData
     FactionLevel[] levels=_faction.getLevels();
     for(FactionLevel level : levels)
     {
-      Long timestamp=_dates.get(level.getKey());
-      if (timestamp!=null)
+      FactionLevelStatus status=_statusByLevel.get(level.getKey());
+      if (status!=null)
       {
-        Date date=new Date(timestamp.longValue());
-        ps.println("\t"+level+": "+date);
+        ps.println("\t"+status);
       }
     }
   }

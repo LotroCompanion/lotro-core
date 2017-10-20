@@ -8,6 +8,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.reputation.FactionData;
+import delta.games.lotro.character.reputation.FactionLevelStatus;
 import delta.games.lotro.character.reputation.ReputationData;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
@@ -45,8 +46,7 @@ public class ReputationXMLParser
       NamedNodeMap factionAttrs=factionTag.getAttributes();
       // Faction
       String factionKey=DOMParsingTools.getStringAttribute(factionAttrs,ReputationXMLConstants.FACTION_KEY_ATTR,null);
-      String currentFactionLevelKey=DOMParsingTools.getStringAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_ATTR,null);
-      if ((factionKey!=null) && (currentFactionLevelKey!=null))
+      if (factionKey!=null)
       {
         Faction faction=FactionsRegistry.getInstance().getByKey(factionKey);
         if (faction==null)
@@ -79,29 +79,29 @@ public class ReputationXMLParser
   public static void loadFactionData(Element factionTag, FactionData factionData)
   {
     factionData.reset();
+    Faction faction=factionData.getFaction();
+    // Level tags
     List<Element> levelTags=DOMParsingTools.getChildTagsByName(factionTag,ReputationXMLConstants.FACTION_LEVEL_TAG);
     for(Element levelTag : levelTags)
     {
       NamedNodeMap levelAttrs=levelTag.getAttributes();
       String levelKey=DOMParsingTools.getStringAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,"");
-      FactionLevel level=FactionLevel.getByKey(levelKey);
+      FactionLevel level=faction.getLevelByKey(levelKey);
+      FactionLevelStatus levelStatus=factionData.getStatusForLevel(level);
       long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
-      if ((level!=null) && (date!=0))
-      {
-        factionData.addUpdate(level,date);
-      }
-      else
-      {
-        // TODO warn
-      }
+      levelStatus.setCompletionDate(date);
+      int xp=DOMParsingTools.getIntAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,0);
+      levelStatus.setAcquiredXP(xp);
+      boolean completed=DOMParsingTools.getBooleanAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,false);
+      levelStatus.setCompleted(completed);
     }
+    // Current level
     NamedNodeMap factionAttrs=factionTag.getAttributes();
     String currentFactionLevelKey=DOMParsingTools.getStringAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_ATTR,null);
-    Faction faction=factionData.getFaction();
-    FactionLevel level=faction.getLevelByKey(currentFactionLevelKey);
-    if (level!=null)
+    FactionLevel currentLevel=faction.getLevelByKey(currentFactionLevelKey);
+    if (currentLevel!=null)
     {
-      factionData.setFactionLevel(level);
+      factionData.setFactionLevel(currentLevel);
     }
   }
 }

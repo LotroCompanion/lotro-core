@@ -16,6 +16,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
 import delta.games.lotro.character.reputation.FactionData;
+import delta.games.lotro.character.reputation.FactionLevelStatus;
 import delta.games.lotro.character.reputation.ReputationData;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
@@ -104,15 +105,17 @@ public class ReputationXMLWriter
     FactionLevel[] levels=faction.getLevels();
     for(FactionLevel level : levels)
     {
-      Long date=factionData.getDateForLevel(level);
-      if (date!=null)
-      {
-        AttributesImpl factionLevelAttrs=new AttributesImpl();
-        factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,CDATA,level.getKey());
-        factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,CDATA,date.toString());
-        hd.startElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG,factionLevelAttrs);
-        hd.endElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG);
-      }
+      FactionLevelStatus levelStatus=factionData.getStatusForLevel(level);
+      AttributesImpl factionLevelAttrs=new AttributesImpl();
+      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,CDATA,level.getKey());
+      boolean completed=levelStatus.isCompleted();
+      long date=levelStatus.getCompletionDate();
+      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,CDATA,String.valueOf(completed));
+      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,CDATA,String.valueOf(date));
+      int xp=levelStatus.getAcquiredXP();
+      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,CDATA,String.valueOf(xp));
+      hd.startElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG,factionLevelAttrs);
+      hd.endElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG);
     }
     hd.endElement("","",ReputationXMLConstants.FACTION_TAG);
   }

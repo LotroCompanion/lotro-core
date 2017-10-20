@@ -37,4 +37,12 @@ public class ReputationXMLConstants
    * Tag 'level', attribute 'date'.
    */
   public static final String FACTION_LEVEL_DATE_ATTR="date";
+  /**
+   * Tag 'level', attribute 'completed'.
+   */
+  public static final String FACTION_LEVEL_COMPLETED_ATTR="completed";
+  /**
+   * Tag 'level', attribute 'xp'.
+   */
+  public static final String FACTION_LEVEL_XP_ATTR="xp";
 }
