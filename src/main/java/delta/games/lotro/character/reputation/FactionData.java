@@ -167,6 +167,19 @@ public class FactionData
   }
 
   /**
+   * Initialize faction at a given date.
+   * @param date Date to set.
+   */
+  public void init(long date)
+  {
+    reset();
+    FactionLevel initialLevel=_faction.getInitialLevel();
+    FactionLevelStatus status=getStatusForLevel(initialLevel);
+    status.setCompleted(date);
+    _level=initialLevel;
+  }
+
+  /**
    * Dump the contents of this object to the given stream.
    * @param ps Output stream to use.
    */

@@ -113,6 +113,10 @@ public class Faction
    */
   public FactionLevel getLevelByKey(String levelKey)
   {
+    if (levelKey==null)
+    {
+      return null;
+    }
     for(FactionLevel level : _levels)
     {
       if (levelKey.equals(level.getKey()))

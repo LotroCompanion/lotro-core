@@ -44,6 +44,15 @@ public class GuildStatus
   }
 
   /**
+   * Initialize guild.
+   * @param date Event date.
+   */
+  public void initGuild(long date)
+  {
+    _factionData.init(date);
+  }
+
+  /**
    * Get the guild faction data.
    * @return the guild faction data.
    */

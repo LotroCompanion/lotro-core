@@ -100,7 +100,10 @@ public class ReputationXMLWriter
     AttributesImpl factionAttrs=new AttributesImpl();
     Faction faction=factionData.getFaction();
     factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_KEY_ATTR,CDATA,faction.getKey());
-    factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_CURRENT_ATTR,CDATA,currentLevel.getKey());
+    if (currentLevel!=null)
+    {
+      factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_CURRENT_ATTR,CDATA,currentLevel.getKey());
+    }
     hd.startElement("","",ReputationXMLConstants.FACTION_TAG,factionAttrs);
     FactionLevel[] levels=faction.getLevels();
     for(FactionLevel level : levels)
