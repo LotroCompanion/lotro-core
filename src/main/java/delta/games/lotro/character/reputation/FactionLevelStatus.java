@@ -28,6 +28,18 @@ public class FactionLevelStatus
   }
 
   /**
+   * Copy constructor.
+   * @param source Source status.
+   */
+  public FactionLevelStatus(FactionLevelStatus source)
+  {
+    _level=source._level;
+    _acquiredXP=source._acquiredXP;
+    _completed=source._completed;
+    _completionDate=source._completionDate;
+  }
+
+  /**
    * Get the associated level.
    * @return the associated level.
    */

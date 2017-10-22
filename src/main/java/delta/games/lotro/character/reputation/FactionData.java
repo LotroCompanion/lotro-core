@@ -7,7 +7,7 @@ import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
 
 /**
- * Statistics about a single faction on a single toon.
+ * Status of a single faction on a single toon.
  * @author DAM
  */
 public class FactionData
@@ -25,6 +25,32 @@ public class FactionData
     _faction=faction;
     _level=null;
     _statusByLevel=new HashMap<String,FactionLevelStatus>();
+  }
+
+  /**
+   * Copy constructor.
+   * @param source Source faction status.
+   */
+  public FactionData(FactionData source)
+  {
+    _statusByLevel=new HashMap<String,FactionLevelStatus>();
+    set(source);
+  }
+
+  /**
+   * Set contents from the given data.
+   * @param source Source data to copy.
+   */
+  public void set(FactionData source)
+  {
+    _faction=source._faction;
+    _level=source._level;
+    _statusByLevel.clear();
+    for(FactionLevelStatus status : source._statusByLevel.values())
+    {
+      FactionLevelStatus newStatus=new FactionLevelStatus(status);
+      _statusByLevel.put(newStatus.getLevel().getKey(),newStatus);
+    }
   }
 
   /**
@@ -68,29 +94,7 @@ public class FactionData
   public void setFactionLevel(FactionLevel level)
   {
     _level=level;
-    updateCompletion();
-  }
-
-  private void updateCompletion()
-  {
-    FactionLevel[] levels=_faction.getLevels();
-    for(FactionLevel level : levels)
-    {
-      FactionLevelStatus status=getStatusForLevel(level);
-      if ((_level==null) || (level.getValue()>_level.getValue()))
-      {
-        status.setCompleted(false);
-        if ((_level==null) || (level.getValue()>_level.getValue()+1))
-        {
-          status.setAcquiredXP(0);
-        }
-      }
-      else
-      {
-        status.setCompleted(true);
-        status.setAcquiredXP(level.getRequiredXp());
-      }
-    }
+    setCompletionStatus(_level,true);
   }
 
   /**
@@ -99,16 +103,21 @@ public class FactionData
   public void updateCurrentLevel()
   {
     FactionLevel currentLevel=null;
+    int initialTier=_faction.getInitialLevel().getValue();
     for(FactionLevel level : _faction.getLevels())
     {
       FactionLevelStatus levelStatus=getStatusForLevel(level);
       if (levelStatus.isCompleted())
       {
-        currentLevel=level;
-      }
-      else
-      {
-        break;
+        if (level.getValue()>=initialTier)
+        {
+          currentLevel=level;
+        }
+        else if (level.getValue()<initialTier)
+        {
+          currentLevel=level;
+          break;
+        }
       }
     }
     setFactionLevel(currentLevel);
@@ -125,35 +134,92 @@ public class FactionData
     boolean currentCompletionStatus=levelStatus.isCompleted();
     if (currentCompletionStatus!=completed)
     {
+      int initialTier=_faction.getInitialLevel().getValue();
+      int targetedTier=targetedLevel.getValue();
+      // Update the targeted level
+      updateCompletionStatus(targetedLevel,completed);
       if (completed)
       {
-        // Update the targeted level
-        levelStatus.setCompleted(true);
-        levelStatus.setAcquiredXP(targetedLevel.getRequiredXp());
-        // Set previous levels to 'completed'
-        for(FactionLevel level : _faction.getLevels())
+        if (targetedTier>initialTier)
         {
-          if (level==targetedLevel)
+          // Set a level above initial tier to completed...
+          // - set levels above initial tier and below the targeted level to 'completed'
+          for(FactionLevel level : _faction.getLevels())
           {
-            break;
+            if ((level.getValue()>initialTier) && (level.getValue()<targetedTier))
+            {
+              updateCompletionStatus(level,true);
+            }
           }
-          setCompletionStatus(level,completed);
+          // - set levels below initial level to 'not completed'
+          for(FactionLevel level : _faction.getLevels())
+          {
+            if (level.getValue()<initialTier)
+            {
+              updateCompletionStatus(level,false);
+            }
+          }
+        }
+        else
+        {
+          // - set levels between targeted tier and initial level to 'completed'
+          for(FactionLevel level : _faction.getLevels())
+          {
+            if ((level.getValue()>targetedTier) && (level.getValue()<initialTier))
+            {
+              updateCompletionStatus(level,true);
+            }
+          }
+          // Set all levels above the initial tier to 'not completed'
+          for(FactionLevel level : _faction.getLevels())
+          {
+            if (level.getValue()>initialTier)
+            {
+              updateCompletionStatus(level,false);
+            }
+          }
         }
       }
       else
       {
-        // Update the targeted level
-        levelStatus.setCompleted(false);
-        levelStatus.setCompletionDate(0);
-        // Set higher levels to 'not completed'
-        for(FactionLevel level : _faction.getLevels())
+        if (targetedTier>initialTier)
         {
-          if (level.getValue()>targetedLevel.getValue())
+          // Set all levels above the targeted tier to 'not completed'
+          for(FactionLevel level : _faction.getLevels())
           {
-            setCompletionStatus(level,false);
+            if (level.getValue()>targetedTier)
+            {
+              updateCompletionStatus(level,false);
+            }
+          }
+        }
+        else
+        {
+          // Set all levels below the targeted tier to 'not completed'
+          for(FactionLevel level : _faction.getLevels())
+          {
+            if (level.getValue()<targetedTier)
+            {
+              updateCompletionStatus(level,false);
+            }
           }
         }
       }
+    }
+  }
+
+  private void updateCompletionStatus(FactionLevel level, boolean completed)
+  {
+    FactionLevelStatus levelStatus=getStatusForLevel(level);
+    levelStatus.setCompleted(completed);
+    if (completed)
+    {
+      levelStatus.setAcquiredXP(level.getRequiredXp());
+    }
+    else
+    {
+      levelStatus.setCompletionDate(0);
+      levelStatus.setAcquiredXP(0);
     }
   }
 
