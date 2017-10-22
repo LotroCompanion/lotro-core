@@ -21,7 +21,7 @@ public class FactionLevel
   /**
    * Neutral.
    */
-  public static final FactionLevel NEUTRAL=new FactionLevel("NEUTRAL","Neutral",0,0,10000);
+  public static final FactionLevel NEUTRAL=new FactionLevel("NEUTRAL","Neutral",0,0,0);
   /**
    * Acquaintance.
    */
