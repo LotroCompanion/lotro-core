@@ -1,6 +1,6 @@
 package delta.games.lotro.character.crafting;
 
-import delta.games.lotro.character.reputation.FactionData;
+import delta.games.lotro.character.reputation.FactionStatus;
 import delta.games.lotro.crafting.Profession;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
@@ -13,7 +13,7 @@ public class GuildStatus
 {
   private Profession _profession;
 
-  private FactionData _factionData;
+  private FactionStatus _factionStatus;
 
   /**
    * Constructor.
@@ -22,7 +22,7 @@ public class GuildStatus
   {
     _profession=null;
     Faction guildFaction=FactionsRegistry.getInstance().getGuildFaction();
-    _factionData=new FactionData(guildFaction);
+    _factionStatus=new FactionStatus(guildFaction);
   }
 
   /**
@@ -49,15 +49,15 @@ public class GuildStatus
    */
   public void initGuild(long date)
   {
-    _factionData.init(date);
+    _factionStatus.init(date);
   }
 
   /**
-   * Get the guild faction data.
-   * @return the guild faction data.
+   * Get the guild faction status.
+   * @return the guild faction status.
    */
-  public FactionData getFactionData()
+  public FactionStatus getFactionStatus()
   {
-    return _factionData;
+    return _factionStatus;
   }
 }

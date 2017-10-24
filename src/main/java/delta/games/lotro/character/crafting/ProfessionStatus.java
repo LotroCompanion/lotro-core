@@ -50,7 +50,7 @@ public class ProfessionStatus
   }
 
   /**
-   * Get the validity date of this status (for instance, date of last log item used to build this data).
+   * Get the validity date of this status (for instance, date of last log item used to build this status).
    * @return A date or <code>null</code> if not set.
    */
   public Long getValidityDate()
@@ -59,7 +59,7 @@ public class ProfessionStatus
   }
 
   /**
-   * Set the validity date of this data.
+   * Set the validity date of this status.
    * @param date Date to set.
    */
   public void setValidityDate(Long date)

@@ -18,7 +18,7 @@ import delta.games.lotro.character.level.io.xml.LevelHistoryXMLWriter;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogsManager;
 import delta.games.lotro.character.reputation.ReputationComputer;
-import delta.games.lotro.character.reputation.ReputationData;
+import delta.games.lotro.character.reputation.ReputationStatus;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLParser;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLWriter;
 import delta.games.lotro.character.storage.ItemsStash;
@@ -35,7 +35,7 @@ public class CharacterFile
   private CharacterInfosManager _infosManager;
   private CharacterLogsManager _logsManager;
   private LevelHistory _levelHistory;
-  private ReputationData _reputation;
+  private ReputationStatus _reputation;
   private CraftingStatus _crafting;
   private CharacterSummary _summary;
   private ItemsStash _stash;
@@ -242,10 +242,10 @@ public class CharacterFile
   }
 
   /**
-   * Get the reputation data for this toon.
-   * @return A reputation data.
+   * Get the reputation status for this toon.
+   * @return A reputation status.
    */
-  public ReputationData getReputation()
+  public ReputationStatus getReputation()
   {
     if (_reputation==null)
     {
@@ -253,16 +253,16 @@ public class CharacterFile
       if (_reputation==null)
       {
         ReputationComputer c=new ReputationComputer();
-        _reputation=c.buildReputationData(this);
+        _reputation=c.buildReputationStatus(this);
         saveReputation();
       }
     }
     return _reputation;
   }
 
-  private ReputationData loadReputation()
+  private ReputationStatus loadReputation()
   {
-    ReputationData reputation=null;
+    ReputationStatus reputation=null;
     File reputationFile=getReputationFile();
     if ((reputationFile.exists()) && (reputationFile.canRead()))
     {
@@ -273,7 +273,7 @@ public class CharacterFile
   }
 
   /**
-   * Revert reputation data from disk.
+   * Revert reputation status from disk.
    */
   public void revertReputation()
   {
@@ -329,7 +329,7 @@ public class CharacterFile
   }
 
   /**
-   * Revert crafting data from disk.
+   * Revert crafting status from disk.
    */
   public void revertCrafting()
   {

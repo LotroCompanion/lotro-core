@@ -158,7 +158,7 @@ public class CraftingStatus
     if (guildProfession!=null)
     {
       ps.println("Guild:"+guildProfession);
-      _guildStatus.getFactionData().dump(ps);
+      _guildStatus.getFactionStatus().dump(ps);
     }
   }
 }

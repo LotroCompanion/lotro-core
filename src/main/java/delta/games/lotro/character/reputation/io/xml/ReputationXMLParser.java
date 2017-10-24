@@ -7,9 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.reputation.FactionData;
+import delta.games.lotro.character.reputation.FactionStatus;
 import delta.games.lotro.character.reputation.FactionLevelStatus;
-import delta.games.lotro.character.reputation.ReputationData;
+import delta.games.lotro.character.reputation.ReputationStatus;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
@@ -25,9 +25,9 @@ public class ReputationXMLParser
    * @param source Source file.
    * @return Parsed data or <code>null</code>.
    */
-  public ReputationData parseXML(File source)
+  public ReputationStatus parseXML(File source)
   {
-    ReputationData h=null;
+    ReputationStatus h=null;
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
@@ -36,9 +36,9 @@ public class ReputationXMLParser
     return h;
   }
 
-  private ReputationData parseReputation(Element root)
+  private ReputationStatus parseReputation(Element root)
   {
-    ReputationData h=new ReputationData();
+    ReputationStatus h=new ReputationStatus();
 
     List<Element> factionTags=DOMParsingTools.getChildTagsByName(root,ReputationXMLConstants.FACTION_TAG);
     for(Element factionTag : factionTags)
@@ -55,8 +55,8 @@ public class ReputationXMLParser
         }
         if (faction!=null)
         {
-          FactionData factionData=h.getOrCreateFactionStat(faction);
-          loadFactionData(factionTag,factionData);
+          FactionStatus factionStatus=h.getOrCreateFactionStat(faction);
+          loadFactionStatus(factionTag,factionStatus);
         }
         else
         {
@@ -72,14 +72,14 @@ public class ReputationXMLParser
   }
 
   /**
-   * Load faction data.
+   * Load faction status.
    * @param factionTag Tag to read from.
-   * @param factionData Storage for faction data.
+   * @param factionStatus Storage for faction status.
    */
-  public static void loadFactionData(Element factionTag, FactionData factionData)
+  public static void loadFactionStatus(Element factionTag, FactionStatus factionStatus)
   {
-    factionData.reset();
-    Faction faction=factionData.getFaction();
+    factionStatus.reset();
+    Faction faction=factionStatus.getFaction();
     // Level tags
     List<Element> levelTags=DOMParsingTools.getChildTagsByName(factionTag,ReputationXMLConstants.FACTION_LEVEL_TAG);
     for(Element levelTag : levelTags)
@@ -87,7 +87,7 @@ public class ReputationXMLParser
       NamedNodeMap levelAttrs=levelTag.getAttributes();
       String levelKey=DOMParsingTools.getStringAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,"");
       FactionLevel level=faction.getLevelByKey(levelKey);
-      FactionLevelStatus levelStatus=factionData.getStatusForLevel(level);
+      FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
       long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
       levelStatus.setCompletionDate(date);
       int xp=DOMParsingTools.getIntAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,0);
@@ -101,7 +101,7 @@ public class ReputationXMLParser
     FactionLevel currentLevel=faction.getLevelByKey(currentFactionLevelKey);
     if (currentLevel!=null)
     {
-      factionData.setFactionLevel(currentLevel);
+      factionStatus.setFactionLevel(currentLevel);
     }
   }
 }

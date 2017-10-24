@@ -28,14 +28,14 @@ public class ReputationComputer
   private HashMap<String,FactionLevel> _seeds;
 
   /**
-   * Build a reputation data for a toon.
+   * Build a reputation status for a toon.
    * @param toon Toon to use.
    * @return A reputation.
    */
-  public ReputationData buildReputationData(CharacterFile toon)
+  public ReputationStatus buildReputationStatus(CharacterFile toon)
   {
     initSeeds();
-    ReputationData reputation=new ReputationData();
+    ReputationStatus reputation=new ReputationStatus();
     CharacterLog log=toon.getLastCharacterLog();
     if (log!=null)
     {
@@ -58,11 +58,11 @@ public class ReputationComputer
   }
 
   /**
-   * Load data from a character log.
+   * Load reputation status from a character log.
    * @param reputation Reputation to fill.
    * @param log Log items to use.
    */
-  private void loadLog(ReputationData reputation, CharacterLog log)
+  private void loadLog(ReputationStatus reputation, CharacterLog log)
   {
     List<CharacterLogItem> items=getDeedItems(log);
     parseItems(reputation,items);
@@ -91,7 +91,7 @@ public class ReputationComputer
     return ret;
   }
 
-  private void parseItems(ReputationData reputation, List<CharacterLogItem> items)
+  private void parseItems(ReputationStatus reputation, List<CharacterLogItem> items)
   {
     for(CharacterLogItem item : items)
     {
@@ -108,7 +108,7 @@ public class ReputationComputer
     }
   }
 
-  private void handleItem(ReputationData reputation, long date, String label)
+  private void handleItem(ReputationStatus reputation, long date, String label)
   {
     Faction faction=null;
     FactionLevel level=null;
@@ -162,7 +162,7 @@ public class ReputationComputer
 
     if ((faction!=null) && (level!=null))
     {
-      FactionData stat=reputation.getOrCreateFactionStat(faction);
+      FactionStatus stat=reputation.getOrCreateFactionStat(faction);
       FactionLevelStatus status=stat.getStatusForLevel(level);
       status.setCompleted(date);
       stat.setFactionLevel(level);

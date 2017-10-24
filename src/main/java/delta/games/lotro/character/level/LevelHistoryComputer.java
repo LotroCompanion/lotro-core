@@ -55,7 +55,7 @@ public class LevelHistoryComputer
   }
 
   /**
-   * Load data from a character log.
+   * Load level history from a character log.
    * @param history History to fill.
    * @param log Log items to use.
    */

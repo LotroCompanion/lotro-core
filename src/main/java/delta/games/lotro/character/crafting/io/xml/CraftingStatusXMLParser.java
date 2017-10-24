@@ -105,7 +105,7 @@ public class CraftingStatusXMLParser
       Element guildFactionTag=DOMParsingTools.getChildTagByName(guildTag,ReputationXMLConstants.FACTION_TAG);
       if (guildFactionTag!=null)
       {
-        ReputationXMLParser.loadFactionData(guildFactionTag,guildStatus.getFactionData());
+        ReputationXMLParser.loadFactionStatus(guildFactionTag,guildStatus.getFactionStatus());
       }
     }
     return status;

@@ -44,7 +44,7 @@ public class CraftingStatusComputer
   }
 
   /**
-   * Load data from a character log.
+   * Load crafting status from a character log.
    * @param log Character log to use.
    */
   private void loadLog(CharacterLog log)

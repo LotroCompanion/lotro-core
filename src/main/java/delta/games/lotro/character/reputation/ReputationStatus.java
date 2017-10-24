@@ -12,23 +12,23 @@ import delta.games.lotro.lore.reputation.FactionLevel;
  * Reputatution status for a single toon.
  * @author DAM
  */
-public class ReputationData
+public class ReputationStatus
 {
-  private HashMap<Faction,FactionData> _stats;
-  private ReputationDeedsData _deedsStatus;
+  private HashMap<Faction,FactionStatus> _stats;
+  private ReputationDeedsStatus _deedsStatus;
   private int _acquiredLotroPoints;
 
   /**
    * Constructor.
    */
-  public ReputationData()
+  public ReputationStatus()
   {
-    _stats=new HashMap<Faction,FactionData>();
-    _deedsStatus=new ReputationDeedsData();
+    _stats=new HashMap<Faction,FactionStatus>();
+    _deedsStatus=new ReputationDeedsStatus();
   }
 
   /**
-   * Update the data derivated from reputation data (deeds and LOTRO points count).
+   * Update the data derivated from reputation status (deeds and LOTRO points count).
    */
   public void update()
   {
@@ -41,7 +41,7 @@ public class ReputationData
    * Get the status of reputation deeds.
    * @return the status of reputation deeds.
    */
-  public ReputationDeedsData getDeedsStatus()
+  public ReputationDeedsStatus getDeedsStatus()
   {
     return _deedsStatus;
   }
@@ -52,9 +52,9 @@ public class ReputationData
    * @return A reputation status object, or <code>null</code> if the toon does not
    * have the given faction status.
    */
-  public FactionData getFactionStat(Faction faction)
+  public FactionStatus getFactionStatus(Faction faction)
   {
-    FactionData stat=_stats.get(faction);
+    FactionStatus stat=_stats.get(faction);
     return stat;
   }
 
@@ -63,12 +63,12 @@ public class ReputationData
    * @param faction Targeted faction.
    * @return A reputation status object.
    */
-  public FactionData getOrCreateFactionStat(Faction faction)
+  public FactionStatus getOrCreateFactionStat(Faction faction)
   {
-    FactionData stat=_stats.get(faction);
+    FactionStatus stat=_stats.get(faction);
     if (stat==null)
     {
-      stat=new FactionData(faction);
+      stat=new FactionStatus(faction);
       stat.setFactionLevel(faction.getInitialLevel());
       _stats.put(faction,stat);
     }
@@ -82,8 +82,8 @@ public class ReputationData
    */
   public void updateFaction(Faction faction, boolean increase)
   {
-    FactionData factionData=getOrCreateFactionStat(faction);
-    FactionLevel currentLevel=factionData.getFactionLevel();
+    FactionStatus factionStatus=getOrCreateFactionStat(faction);
+    FactionLevel currentLevel=factionStatus.getFactionLevel();
     FactionLevel[] levels=faction.getLevels();
     int index=0;
     for(FactionLevel level : levels)
@@ -96,7 +96,7 @@ public class ReputationData
           if (index+1<nbLevels)
           {
             FactionLevel newLevel=levels[index+1];
-            factionData.setFactionLevel(newLevel);
+            factionStatus.setFactionLevel(newLevel);
             break;
           }
         }
@@ -105,7 +105,7 @@ public class ReputationData
           if (index>0)
           {
             FactionLevel newLevel=levels[index-1];
-            factionData.setFactionLevel(newLevel);
+            factionStatus.setFactionLevel(newLevel);
             break;
           }
         }
@@ -134,7 +134,7 @@ public class ReputationData
     //Collections.sort(factions);
     for(Faction faction : factions)
     {
-      FactionData stat=getFactionStat(faction);
+      FactionStatus stat=getFactionStatus(faction);
       stat.dump(ps);
     }
   }

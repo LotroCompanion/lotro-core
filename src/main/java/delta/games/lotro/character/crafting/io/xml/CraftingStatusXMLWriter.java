@@ -115,7 +115,7 @@ public class CraftingStatusXMLWriter
         {
           guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,CDATA,guildProfession.getKey());
           hd.startElement("","",CraftingStatusXMLConstants.GUILD_TAG,guildAttrs);
-          ReputationXMLWriter.writeFactionData(hd,guildStatus.getFactionData());
+          ReputationXMLWriter.writeFactionStatus(hd,guildStatus.getFactionStatus());
           hd.endElement("","",CraftingStatusXMLConstants.GUILD_TAG);
         }
       }

@@ -14,27 +14,27 @@ public class ReputationLotroPointsComputer
 {
   /**
    * Get the lotro points for a given reputation.
-   * @param data Input reputation data.
+   * @param status Input reputation status.
    * @return A lotro points count.
    */
-  public int compute(ReputationData data)
+  public int compute(ReputationStatus status)
   {
-    int fromFactionLevels=getPointFromFactionLevels(data);
-    int fromDeeds=getPointFromReputationDeeds(data.getDeedsStatus());
+    int fromFactionLevels=getPointFromFactionLevels(status);
+    int fromDeeds=getPointFromReputationDeeds(status.getDeedsStatus());
     return fromFactionLevels+fromDeeds;
   }
 
-  private int getPointFromFactionLevels(ReputationData data)
+  private int getPointFromFactionLevels(ReputationStatus status)
   {
     int ret=0;
     FactionsRegistry registry=FactionsRegistry.getInstance();
     List<Faction> factions=registry.getAll();
     for(Faction faction : factions)
     {
-      FactionData factionData=data.getFactionStat(faction);
-      if (factionData!=null)
+      FactionStatus factionStatus=status.getFactionStatus(faction);
+      if (factionStatus!=null)
       {
-        FactionLevel currentLevel=factionData.getFactionLevel();
+        FactionLevel currentLevel=factionStatus.getFactionLevel();
         int points=0;
         FactionLevel[] levels=faction.getLevels();
         for(FactionLevel level : levels)
@@ -50,16 +50,16 @@ public class ReputationLotroPointsComputer
     return ret;
   }
 
-  private int getPointFromReputationDeeds(ReputationDeedsData data)
+  private int getPointFromReputationDeeds(ReputationDeedsStatus status)
   {
     int ret=0;
-    List<ReputationDeedStatus> deedStatuses=data.getStatus();
-    for(ReputationDeedStatus status : deedStatuses)
+    List<ReputationDeedStatus> deedStatuses=status.getAllDeedStatuses();
+    for(ReputationDeedStatus deedStatus : deedStatuses)
     {
-      boolean done=status.isDone();
+      boolean done=deedStatus.isDone();
       if (done)
       {
-        ret+=status.getDeed().getLotroPoints();
+        ret+=deedStatus.getDeed().getLotroPoints();
       }
     }
     return ret;

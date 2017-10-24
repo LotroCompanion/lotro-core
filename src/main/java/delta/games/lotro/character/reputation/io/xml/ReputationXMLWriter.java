@@ -15,9 +15,9 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
-import delta.games.lotro.character.reputation.FactionData;
+import delta.games.lotro.character.reputation.FactionStatus;
 import delta.games.lotro.character.reputation.FactionLevelStatus;
-import delta.games.lotro.character.reputation.ReputationData;
+import delta.games.lotro.character.reputation.ReputationStatus;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
@@ -36,11 +36,11 @@ public class ReputationXMLWriter
   /**
    * Write the reputation of a character to a XML file.
    * @param outFile Output file.
-   * @param reputation Data to write.
+   * @param reputationStatus Data to write.
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, ReputationData reputation, String encoding)
+  public boolean write(File outFile, ReputationStatus reputationStatus, String encoding)
   {
     boolean ret;
     FileOutputStream fos=null;
@@ -56,7 +56,7 @@ public class ReputationXMLWriter
       StreamResult streamResult=new StreamResult(fos);
       hd.setResult(streamResult);
       hd.startDocument();
-      write(hd,reputation);
+      write(hd,reputationStatus);
       hd.endDocument();
       ret=true;
     }
@@ -72,33 +72,33 @@ public class ReputationXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, ReputationData reputation) throws Exception
+  private void write(TransformerHandler hd, ReputationStatus reputation) throws Exception
   {
     AttributesImpl reputationAttrs=new AttributesImpl();
     hd.startElement("","",ReputationXMLConstants.REPUTATION_TAG,reputationAttrs);
     List<Faction> factions=FactionsRegistry.getInstance().getAll();
     for(Faction faction : factions)
     {
-      FactionData factionData=reputation.getFactionStat(faction);
-      if (factionData!=null)
+      FactionStatus factionStatus=reputation.getFactionStatus(faction);
+      if (factionStatus!=null)
       {
-        writeFactionData(hd,factionData);
+        writeFactionStatus(hd,factionStatus);
       }
     }
     hd.endElement("","",ReputationXMLConstants.REPUTATION_TAG);
   }
 
   /**
-   * Write faction data.
+   * Write faction status.
    * @param hd Output stream.
-   * @param factionData Data to write.
+   * @param factionStatus Data to write.
    * @throws Exception If an error occurs.
    */
-  public static void writeFactionData(TransformerHandler hd, FactionData factionData) throws Exception
+  public static void writeFactionStatus(TransformerHandler hd, FactionStatus factionStatus) throws Exception
   {
-    FactionLevel currentLevel=factionData.getFactionLevel();
+    FactionLevel currentLevel=factionStatus.getFactionLevel();
     AttributesImpl factionAttrs=new AttributesImpl();
-    Faction faction=factionData.getFaction();
+    Faction faction=factionStatus.getFaction();
     factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_KEY_ATTR,CDATA,faction.getKey());
     if (currentLevel!=null)
     {
@@ -108,7 +108,7 @@ public class ReputationXMLWriter
     FactionLevel[] levels=faction.getLevels();
     for(FactionLevel level : levels)
     {
-      FactionLevelStatus levelStatus=factionData.getStatusForLevel(level);
+      FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
       AttributesImpl factionLevelAttrs=new AttributesImpl();
       factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,CDATA,level.getKey());
       boolean completed=levelStatus.isCompleted();

@@ -12,22 +12,22 @@ import delta.games.lotro.lore.reputation.FactionsRegistry;
  * Maintains reputation deeds status.
  * @author DAM
  */
-public class ReputationDeedsData
+public class ReputationDeedsStatus
 {
-  private List<ReputationDeedStatus> _deedsStatus;
+  private List<ReputationDeedStatus> _deedStatuses;
 
   /**
    * Constructor.
    */
-  public ReputationDeedsData()
+  public ReputationDeedsStatus()
   {
-    _deedsStatus=new ArrayList<ReputationDeedStatus>();
+    _deedStatuses=new ArrayList<ReputationDeedStatus>();
     FactionsRegistry registry=FactionsRegistry.getInstance();
     List<ReputationDeed> deeds=registry.getReputationDeeds();
     for(ReputationDeed deed : deeds)
     {
-      ReputationDeedStatus deedData=new ReputationDeedStatus(deed);
-      _deedsStatus.add(deedData);
+      ReputationDeedStatus deedStatus=new ReputationDeedStatus(deed);
+      _deedStatuses.add(deedStatus);
     }
   }
 
@@ -35,31 +35,31 @@ public class ReputationDeedsData
    * Get the current status of reputation deeds
    * @return a list of reputation deed statuses.
    */
-  public List<ReputationDeedStatus> getStatus()
+  public List<ReputationDeedStatus> getAllDeedStatuses()
   {
-    return _deedsStatus;
+    return _deedStatuses;
   }
 
   /**
    * Update the status of reputation deeds.
-   * @param data Input reputation data.
+   * @param status Input reputation status.
    */
-  public void update(ReputationData data)
+  public void update(ReputationStatus status)
   {
-    for(ReputationDeedStatus status : _deedsStatus)
+    for(ReputationDeedStatus deedStatus : _deedStatuses)
     {
-      status.clear();
-      ReputationDeed deed=status.getDeed();
+      deedStatus.clear();
+      ReputationDeed deed=deedStatus.getDeed();
       List<Faction> factions=deed.getFactions();
       for(Faction faction : factions)
       {
         boolean acquired=false;
-        FactionData factionData=data.getFactionStat(faction);
-        if ((factionData!=null) && (factionData.getFactionLevel()==FactionLevel.KINDRED))
+        FactionStatus factionStatus=status.getFactionStatus(faction);
+        if ((factionStatus!=null) && (factionStatus.getFactionLevel()==FactionLevel.KINDRED))
         {
           acquired=true;
         }
-        status.setFactionStatus(faction,acquired);
+        deedStatus.setFactionStatus(faction,acquired);
       }
     }
   }

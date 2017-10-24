@@ -10,7 +10,7 @@ import delta.games.lotro.lore.reputation.FactionLevel;
  * Status of a single faction on a single toon.
  * @author DAM
  */
-public class FactionData
+public class FactionStatus
 {
   private Faction _faction;
   private FactionLevel _level;
@@ -20,7 +20,7 @@ public class FactionData
    * Constructor.
    * @param faction Faction.
    */
-  public FactionData(Faction faction)
+  public FactionStatus(Faction faction)
   {
     _faction=faction;
     _level=null;
@@ -31,7 +31,7 @@ public class FactionData
    * Copy constructor.
    * @param source Source faction status.
    */
-  public FactionData(FactionData source)
+  public FactionStatus(FactionStatus source)
   {
     _statusByLevel=new HashMap<String,FactionLevelStatus>();
     set(source);
@@ -41,7 +41,7 @@ public class FactionData
    * Set contents from the given data.
    * @param source Source data to copy.
    */
-  public void set(FactionData source)
+  public void set(FactionStatus source)
   {
     _faction=source._faction;
     _level=source._level;
