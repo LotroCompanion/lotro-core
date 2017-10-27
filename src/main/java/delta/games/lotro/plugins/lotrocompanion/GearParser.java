@@ -74,12 +74,12 @@ public class GearParser
       String name=(String)slotMap.get("Name");
       EQUIMENT_SLOT slot=SLOTS[slotIndex-1];
       EquipmentLocation location=slot.getLocation();
-      Item item=findItem(name,String.valueOf(iconId.intValue()),String.valueOf(backgroundIconId.intValue()),location);
-      System.out.println(item);
+      Item item=findItem(name,String.valueOf(iconId.intValue()),String.valueOf(backgroundIconId.intValue()));
+      System.out.println(location+": "+item);
     }
   }
 
-  private Item findItem(String name, String iconId, String backgroundIconId, EquipmentLocation location)
+  private Item findItem(String name, String iconId, String backgroundIconId)
   {
     List<Item> ret=new ArrayList<Item>();
     List<Item> retWithRightIcons=new ArrayList<Item>();
