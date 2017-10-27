@@ -176,6 +176,11 @@ public class RewardsXMLWriter
   private static void writeObject(TransformerHandler hd, ObjectItem object, int quantity) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
+    int id=object.getItemId();
+    if (id!=0)
+    {
+      attrs.addAttribute("","",RewardsXMLConstants.OBJECT_ID_ATTR,CDATA,String.valueOf(id));
+    }
     String name=object.getName();
     if (name!=null)
     {

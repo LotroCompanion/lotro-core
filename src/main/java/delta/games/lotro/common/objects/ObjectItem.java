@@ -6,6 +6,7 @@ package delta.games.lotro.common.objects;
  */
 public class ObjectItem
 {
+  private int _itemId;
   private String _name;
   private String _iconURL;
   private String _objectURL;
@@ -26,6 +27,24 @@ public class ObjectItem
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Get the identifier of this object.
+   * @return the identifier of this object (0 if not set).
+   */
+  public int getItemId()
+  {
+    return _itemId;
+  }
+
+  /**
+   * Set the identifier of this object.
+   * @param itemId Identifier to set.
+   */
+  public void setItemId(int itemId)
+  {
+    _itemId=itemId;
   }
 
   /**
@@ -63,7 +82,7 @@ public class ObjectItem
   {
     _objectURL=objectURL;
   }
-  
+
   @Override
   public String toString()
   {

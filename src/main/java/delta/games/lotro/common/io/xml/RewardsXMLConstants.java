@@ -121,6 +121,10 @@ public class RewardsXMLConstants
    */
   public static final String OBJECT_TAG="object";
   /**
+   * Tag 'object', attribute 'id'.
+   */
+  public static final String OBJECT_ID_ATTR="id";
+  /**
    * Tag 'object', attribute 'name'.
    */
   public static final String OBJECT_NAME_ATTR="name";
@@ -129,7 +133,7 @@ public class RewardsXMLConstants
    */
   public static final String OBJECT_ICON_URL_ATTR="iconURL";
   /**
-   * Tag 'object', attribute 'pageuRL'.
+   * Tag 'object', attribute 'pageURL'.
    */
   public static final String OBJECT_PAGE_URL_ATTR="pageURL";
   /**
