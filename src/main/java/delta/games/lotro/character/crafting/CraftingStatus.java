@@ -69,32 +69,62 @@ public class CraftingStatus
   }
 
   /**
-   * Reset vocation.
-   * @param vocation Vocation to use.
-   * @param date Start date for the given vocation.
+   * Change vocation.
+   * @param vocation New vocation.
+   * @param date Date of new vocation.
    */
-  public void resetVocation(Vocation vocation, long date)
+  public void changeVocation(Vocation vocation, long date)
   {
-    setVocation(vocation);
-    _stats.clear();
-    if (vocation!=null)
+    // Check if vocation has changed...
+    if (vocation==_vocation)
     {
-      Profession[] professions=vocation.getProfessions();
-      for(Profession profession : professions)
+      return;
+    }
+    if (_vocation==null)
+    {
+      // Vocation creation
+      for(Profession profession : vocation.getProfessions())
       {
         ProfessionStatus stat=getProfessionStatus(profession,true);
         stat.initProfession(date);
       }
     }
+    else if (vocation==null)
+    {
+      // Vocation removal
+      _stats.clear();
+    }
+    else
+    {
+      // Vocation change!
+      // Remove obsolete professions
+      List<Profession> professionsToRemove=_vocation.getProfessions();
+      professionsToRemove.removeAll(vocation.getProfessions());
+      for(Profession professionToRemove : professionsToRemove)
+      {
+        _stats.remove(professionToRemove);
+      }
+      // Add new professions
+      for(Profession profession : vocation.getProfessions())
+      {
+        ProfessionStatus stat=getProfessionStatus(profession);
+        if (stat==null)
+        {
+          stat=getProfessionStatus(profession,true);
+          stat.initProfession(date);
+        }
+      }
+    }
+    setVocation(vocation);
   }
 
   /**
    * Get all managed professions.
-   * @return A array of sorted profession names.
+   * @return A list of sorted profession names.
    */
-  public Profession[] getProfessions()
+  public List<Profession> getProfessions()
   {
-    return (_vocation!=null)?_vocation.getProfessions():new Profession[0];
+    return (_vocation!=null)?_vocation.getProfessions():new ArrayList<Profession>();
   }
 
   /**

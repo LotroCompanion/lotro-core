@@ -44,12 +44,17 @@ public class GuildStatus
   }
 
   /**
-   * Initialize guild.
-   * @param date Event date.
+   * Change guild profession.
+   * @param profession Profession to use.
+   * @param date Date of change.
    */
-  public void initGuild(long date)
+  public void changeProfession(Profession profession, long date)
   {
-    _factionStatus.init(date);
+    if (_profession!=profession)
+    {
+      _factionStatus.init(date);
+      setProfession(profession);
+    }
   }
 
   /**

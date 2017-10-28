@@ -95,8 +95,7 @@ public class CraftingStatusXMLWriter
       hd.endElement("","",CraftingStatusXMLConstants.VOCATION_TAG);
 
       // Professions
-      Profession[] professions=vocation.getProfessions();
-      for(Profession profession : professions)
+      for(Profession profession : vocation.getProfessions())
       {
         ProfessionStatus professionStatus=status.getProfessionStatus(profession);
         if (professionStatus!=null)

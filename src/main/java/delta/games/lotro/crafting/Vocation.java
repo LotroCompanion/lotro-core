@@ -50,11 +50,11 @@ public class Vocation
 
   /**
    * Get the professions of this vocation. 
-   * @return An array of professions.
+   * @return A list of professions.
    */
-  public Profession[] getProfessions()
+  public List<Profession> getProfessions()
   {
-    return _professions.toArray(new Profession[_professions.size()]);
+    return new ArrayList<Profession>(_professions);
   }
 
   @Override

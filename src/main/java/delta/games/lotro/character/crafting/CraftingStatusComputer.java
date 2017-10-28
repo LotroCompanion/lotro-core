@@ -157,7 +157,7 @@ public class CraftingStatusComputer
     Vocation v=Vocations.getInstance().getVocationByName(vocationName);
     if (v!=null)
     {
-      _status.resetVocation(v,date);
+      _status.changeVocation(v,date);
     }
   }
 }
