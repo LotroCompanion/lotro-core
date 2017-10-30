@@ -130,9 +130,9 @@ public class FactionStatus
    */
   public void setCompletionStatus(FactionLevel targetedLevel, boolean completed)
   {
-    FactionLevelStatus levelStatus=getStatusForLevel(targetedLevel);
-    boolean currentCompletionStatus=levelStatus.isCompleted();
-    if (currentCompletionStatus!=completed)
+    //FactionLevelStatus levelStatus=getStatusForLevel(targetedLevel);
+    //boolean currentCompletionStatus=levelStatus.isCompleted();
+    //if (currentCompletionStatus!=completed)
     {
       int initialTier=_faction.getInitialLevel().getValue();
       int targetedTier=targetedLevel.getValue();
