@@ -3,7 +3,10 @@ package delta.games.lotro.character.stats.contribs;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.character.stats.buffs.Buff;
+import delta.games.lotro.character.stats.buffs.BuffInstance;
 import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Gathers all contributions of a single source.
@@ -45,17 +48,18 @@ public class StatsContribution
    */
   public static final String HOPE="Hope";
 
-  private String _source;
+  private StatContributionSource _source;
   private BasicStatsSet _stats;
 
   /**
    * Constructor.
-   * @param id Source identifier.
+   * @param sourceId Source identifier.
+   * @param label Label.
    * @param stats Contributed stats.
    */
-  public StatsContribution(String id, BasicStatsSet stats)
+  public StatsContribution(String sourceId, String label, BasicStatsSet stats)
   {
-    _source=id;
+    _source=new StatContributionSource(sourceId,label);
     _stats=stats;
   }
 
@@ -66,7 +70,7 @@ public class StatsContribution
    */
   public static StatsContribution getBodyContrib(BasicStatsSet stats)
   {
-    return new StatsContribution(BODY,stats);
+    return new StatsContribution(BODY,"Body",stats);
   }
 
   /**
@@ -78,63 +82,70 @@ public class StatsContribution
   public static StatsContribution getStatContrib(STAT stat, BasicStatsSet stats)
   {
     String source=STAT_SEED+stat.name();
-    return new StatsContribution(source,stats);
+    return new StatsContribution(source,stat.getName(),stats);
   }
 
   /**
    * Build a stat contribution for a virtue.
    * @param virtueId Source virtue.
+   * @param rank Rank.
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getVirtueContrib(VirtueId virtueId, BasicStatsSet stats)
+  public static StatsContribution getVirtueContrib(VirtueId virtueId, int rank, BasicStatsSet stats)
   {
     String source=VIRTUE_SEED+virtueId.name();
-    return new StatsContribution(source,stats);
+    String label=virtueId.getLabel()+", tier "+rank;
+    return new StatsContribution(source,label,stats);
   }
 
   /**
    * Build a stat contribution for a stat tome.
    * @param stat Stat of tome.
+   * @param rank Rank.
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getTomeContrib(STAT stat, BasicStatsSet stats)
+  public static StatsContribution getTomeContrib(STAT stat, int rank, BasicStatsSet stats)
   {
     String source=TOME_SEED+stat.name();
-    return new StatsContribution(source,stats);
+    String label="Tome of "+stat.getName()+" "+rank;
+    return new StatsContribution(source,label,stats);
   }
 
   /**
    * Build a stat contribution for a buff.
-   * @param buffId Source buff.
+   * @param buffInstance Source buff.
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getBuffContrib(String buffId, BasicStatsSet stats)
+  public static StatsContribution getBuffContrib(BuffInstance buffInstance, BasicStatsSet stats)
   {
-    String source=BUFF_SEED+buffId;
-    return new StatsContribution(source,stats);
+    Buff buff=buffInstance.getBuff();
+    String source=BUFF_SEED+buff.getId();
+    String label="Buff '"+buff.getLabel()+"'";
+    return new StatsContribution(source,label,stats);
   }
 
   /**
    * Build a stat contribution for a buff.
    * @param slot Source slot.
-   * @param itemId Identifier of the source item.
+   * @param item Source item.
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getGearContrib(EQUIMENT_SLOT slot, int itemId, BasicStatsSet stats)
+  public static StatsContribution getGearContrib(EQUIMENT_SLOT slot, Item item, BasicStatsSet stats)
   {
-    String source=EQUIPMENT+slot.name()+":"+itemId;
-    return new StatsContribution(source,stats);
+    String source=EQUIPMENT+slot.name()+":"+item.getIdentifier();
+    String label=slot.getLabel()+": "+item.getName();
+    return new StatsContribution(source,label,stats);
   }
 
   /**
-   * Get the source identifier.
-   * @return the source identifier.
+   * Get the source.
+   * @return the source.
    */
-  public String getSource()
+  public StatContributionSource getSource()
   {
     return _source;
   }

@@ -124,7 +124,7 @@ public class BuffsManager
       BasicStatsSet buffContrib=buff.getStats(c);
       if (buffContrib!=null)
       {
-        StatsContribution statsContrib=StatsContribution.getBuffContrib(buff.getBuff().getId(),buffContrib);
+        StatsContribution statsContrib=StatsContribution.getBuffContrib(buff,buffContrib);
         ret.add(statsContrib);
       }
     }

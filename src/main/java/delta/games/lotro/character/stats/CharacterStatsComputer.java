@@ -74,7 +74,7 @@ public class CharacterStatsComputer
           ret.addStats(itemStats);
           if (_contribs!=null)
           {
-            StatsContribution contrib=StatsContribution.getGearContrib(slot,item.getIdentifier(),itemStats);
+            StatsContribution contrib=StatsContribution.getGearContrib(slot,item,itemStats);
             _contribs.addContrib(contrib);
           }
         }
@@ -140,7 +140,7 @@ public class CharacterStatsComputer
         {
           int rank=virtues.getVirtueRank(virtue);
           BasicStatsSet virtueContrib=virtuesMgr.getContribution(virtue,rank);
-          StatsContribution contrib=StatsContribution.getVirtueContrib(virtue,virtueContrib);
+          StatsContribution contrib=StatsContribution.getVirtueContrib(virtue,rank,virtueContrib);
           _contribs.addContrib(contrib);
         }
       }
@@ -156,7 +156,7 @@ public class CharacterStatsComputer
         if (rank>0)
         {
           BasicStatsSet tomeContrib=_tomesMgr.getContribution(stat,rank);
-          StatsContribution contrib=StatsContribution.getTomeContrib(stat,tomeContrib);
+          StatsContribution contrib=StatsContribution.getTomeContrib(stat,rank,tomeContrib);
           _contribs.addContrib(contrib);
         }
       }

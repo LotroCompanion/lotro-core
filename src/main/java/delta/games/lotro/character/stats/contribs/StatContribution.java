@@ -6,9 +6,9 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  * Contribution of a source to a stat.
  * @author DAM
  */
-public class SourceContribution
+public class StatContribution
 {
-  private String _source;
+  private StatContributionSource _source;
   private FixedDecimalsInteger _value;
 
   /**
@@ -16,7 +16,7 @@ public class SourceContribution
    * @param source Source.
    * @param value Stat contribution.
    */
-  public SourceContribution(String source, FixedDecimalsInteger value)
+  public StatContribution(StatContributionSource source, FixedDecimalsInteger value)
   {
     _source=source;
     _value=value;
@@ -26,7 +26,7 @@ public class SourceContribution
    * Get the source.
    * @return the source.
    */
-  public String getSource()
+  public StatContributionSource getSource()
   {
     return _source;
   }

@@ -30,29 +30,29 @@ public class StatsContributionsManager
    */
   public void addContrib(StatsContribution contrib)
   {
-    _contribs.put(contrib.getSource(),contrib);
+    _contribs.put(contrib.getSource().getId(),contrib);
   }
 
   /**
    * Sort contributions by stat.
    * @return A map from stats to contributions.
    */
-  public Map<STAT,List<SourceContribution>> sortByStat()
+  public Map<STAT,List<StatContribution>> sortByStat()
   {
-    Map<STAT,List<SourceContribution>> ret=new HashMap<STAT,List<SourceContribution>>();
+    Map<STAT,List<StatContribution>> ret=new HashMap<STAT,List<StatContribution>>();
     for(StatsContribution contrib :_contribs.values())
     {
-      String source=contrib.getSource();
+      StatContributionSource sourceId=contrib.getSource();
       BasicStatsSet stats=contrib.getStats();
       for(STAT stat : stats.getStats())
       {
-        List<SourceContribution> contribs=ret.get(stat);
+        List<StatContribution> contribs=ret.get(stat);
         if (contribs==null)
         {
-          contribs=new ArrayList<SourceContribution>();
+          contribs=new ArrayList<StatContribution>();
           ret.put(stat,contribs);
         }
-        SourceContribution sourceContrib=new SourceContribution(source,stats.getStat(stat));
+        StatContribution sourceContrib=new StatContribution(sourceId,stats.getStat(stat));
         contribs.add(sourceContrib);
       }
     }
