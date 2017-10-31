@@ -84,5 +84,23 @@ public enum VirtueId {
   /**
    * Zeal.
    */
-  ZEAL
+  ZEAL;
+
+  private String _label;
+
+  private VirtueId()
+  {
+    String virtueLabel=name().toLowerCase();
+    virtueLabel=virtueLabel.substring(0,1).toUpperCase()+virtueLabel.substring(1);
+    _label=virtueLabel;
+  }
+
+  /**
+   * Get a displayable label for this virtue.
+   * @return a label.
+   */
+  public String getLabel()
+  {
+    return _label;
+  }
 }
