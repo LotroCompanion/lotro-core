@@ -26,90 +26,92 @@ public class CharacterEquipment
     /**
      * Left ear.
      */
-    LEFT_EAR(14,EquipmentLocation.EAR),
+    LEFT_EAR(14,"Left ear",EquipmentLocation.EAR),
     /**
      * Right ear.
      */
-    RIGHT_EAR(15,EquipmentLocation.EAR),
+    RIGHT_EAR(15,"Right ear",EquipmentLocation.EAR),
     /**
      * Neck.
      */
-    NECK(11,EquipmentLocation.NECK),
+    NECK(11,"Neck",EquipmentLocation.NECK),
     /**
      * Pocket.
      */
-    POCKET(16,EquipmentLocation.POCKET),
+    POCKET(16,"Pocket",EquipmentLocation.POCKET),
     /**
      * Left wrist.
      */
-    LEFT_WRIST(9,EquipmentLocation.WRIST),
+    LEFT_WRIST(9,"Left wrist",EquipmentLocation.WRIST),
     /**
      * Right wrist.
      */
-    RIGHT_WRIST(10,EquipmentLocation.WRIST),
+    RIGHT_WRIST(10,"Right wrist",EquipmentLocation.WRIST),
     /**
      * Left finger.
      */
-    LEFT_FINGER(12,EquipmentLocation.FINGER),
+    LEFT_FINGER(12,"Left finger",EquipmentLocation.FINGER),
     /**
      * Right finger.
      */
-    RIGHT_FINGER(13,EquipmentLocation.FINGER),
+    RIGHT_FINGER(13,"Right finger",EquipmentLocation.FINGER),
     /**
      * Head.
      */
-    HEAD(2,EquipmentLocation.HEAD),
+    HEAD(2,"Head",EquipmentLocation.HEAD),
     /**
      * Shoulder.
      */
-    SHOULDER(7,EquipmentLocation.SHOULDER),
+    SHOULDER(7,"Shoulder",EquipmentLocation.SHOULDER),
     /**
      * Breast.
      */
-    BREAST(3,EquipmentLocation.CHEST),
+    BREAST(3,"Breast",EquipmentLocation.CHEST),
     /**
      * Back.
      */
-    BACK(8,EquipmentLocation.BACK),
+    BACK(8,"Back",EquipmentLocation.BACK),
     /**
      * Hands.
      */
-    HANDS(5,EquipmentLocation.HAND),
+    HANDS(5,"Hands",EquipmentLocation.HAND),
     /**
      * Legs.
      */
-    LEGS(4,EquipmentLocation.LEGS),
+    LEGS(4,"Legs",EquipmentLocation.LEGS),
     /**
      * Feet.
      */
-    FEET(6,EquipmentLocation.FEET),
+    FEET(6,"Feet",EquipmentLocation.FEET),
     /**
      * Main melee object.
      */
-    MAIN_MELEE(17,EquipmentLocation.MAIN_HAND),
+    MAIN_MELEE(17,"Main hand",EquipmentLocation.MAIN_HAND),
     /**
      * Other melee object.
      */
-    OTHER_MELEE(18,EquipmentLocation.OFF_HAND),
+    OTHER_MELEE(18,"Off-hand",EquipmentLocation.OFF_HAND),
     /**
      * Ranged object.
      */
-    RANGED(19,EquipmentLocation.RANGED_ITEM),
+    RANGED(19,"Ranged",EquipmentLocation.RANGED_ITEM),
     /**
      * Tool object.
      */
-    TOOL(20,EquipmentLocation.TOOL),
+    TOOL(20,"Tool",EquipmentLocation.TOOL),
     /**
      * Class object item.
      */
-    CLASS_ITEM(21,EquipmentLocation.CLASS_SLOT);
+    CLASS_ITEM(21,"Class slot",EquipmentLocation.CLASS_SLOT);
 
     private int _position;
+    private String _label;
     private EquipmentLocation _location;
 
-    private EQUIMENT_SLOT(int position, EquipmentLocation location)
+    private EQUIMENT_SLOT(int position, String label, EquipmentLocation location)
     {
       _position=position;
+      _label=label;
       _location=location;
       _positionToSlot.put(Integer.valueOf(position),this);
     }
@@ -121,6 +123,15 @@ public class CharacterEquipment
     public int getPosition()
     {
       return _position;
+    }
+
+    /**
+     * Get a displayable label for this slot.
+     * @return a label.
+     */
+    public String getLabel()
+    {
+      return _label;
     }
 
     /**
