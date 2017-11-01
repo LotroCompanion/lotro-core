@@ -23,6 +23,15 @@ public class StatContribution
   }
 
   /**
+   * Add a contribution.
+   * @param value Value to add.
+   */
+  public void add(FixedDecimalsInteger value)
+  {
+    _value.add(value);
+  }
+
+  /**
    * Get the source.
    * @return the source.
    */

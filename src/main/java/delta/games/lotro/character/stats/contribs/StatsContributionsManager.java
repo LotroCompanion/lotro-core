@@ -1,8 +1,6 @@
 package delta.games.lotro.character.stats.contribs;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
@@ -37,23 +35,23 @@ public class StatsContributionsManager
    * Sort contributions by stat.
    * @return A map from stats to contributions.
    */
-  public Map<STAT,List<StatContribution>> sortByStat()
+  public Map<STAT,ContribsByStat> sortByStat()
   {
-    Map<STAT,List<StatContribution>> ret=new HashMap<STAT,List<StatContribution>>();
-    for(StatsContribution contrib :_contribs.values())
+    Map<STAT,ContribsByStat> ret=new HashMap<STAT,ContribsByStat>();
+    for(StatsContribution contrib : _contribs.values())
     {
       StatContributionSource sourceId=contrib.getSource();
       BasicStatsSet stats=contrib.getStats();
       for(STAT stat : stats.getStats())
       {
-        List<StatContribution> contribs=ret.get(stat);
+        ContribsByStat contribs=ret.get(stat);
         if (contribs==null)
         {
-          contribs=new ArrayList<StatContribution>();
+          contribs=new ContribsByStat(stat);
           ret.put(stat,contribs);
         }
         StatContribution sourceContrib=new StatContribution(sourceId,stats.getStat(stat));
-        contribs.add(sourceContrib);
+        contribs.addContrib(sourceContrib);
       }
     }
     return ret;
