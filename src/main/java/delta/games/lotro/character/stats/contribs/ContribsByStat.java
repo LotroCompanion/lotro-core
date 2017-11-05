@@ -10,7 +10,8 @@ import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
- * @author dm
+ * Contributions for a single stat.
+ * @author DAM
  */
 public class ContribsByStat
 {
@@ -50,6 +51,15 @@ public class ContribsByStat
       _contribs.put(source.getId(),old);
     }
     old.add(contrib.getValue());
+  }
+
+  /**
+   * Remove a contribution using its identifier.
+   * @param sourceId Source identifier.
+   */
+  public void remove(String sourceId)
+  {
+    _contribs.remove(sourceId);
   }
 
   /**

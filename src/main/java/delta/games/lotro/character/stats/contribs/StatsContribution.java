@@ -7,6 +7,7 @@ import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Gathers all contributions of a single source.
@@ -47,6 +48,10 @@ public class StatsContribution
    * Source identifier seed: hope.
    */
   public static final String HOPE="Hope";
+  /**
+   * Source identifier seed: additional stats.
+   */
+  public static final String ADDITIONAL_STATS="Additional:";
 
   private StatContributionSource _source;
   private BasicStatsSet _stats;
@@ -75,14 +80,15 @@ public class StatsContribution
 
   /**
    * Build a stat contribution for a source stat.
-   * @param stat Source stat.
+   * @param sourceStat Source stat.
+   * @param factor Factor used to build contribution.
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getStatContrib(STAT stat, BasicStatsSet stats)
+  public static StatsContribution getStatContrib(STAT sourceStat, FixedDecimalsInteger factor, BasicStatsSet stats)
   {
-    String source=STAT_SEED+stat.name();
-    return new StatsContribution(source,stat.getName(),stats);
+    String source=STAT_SEED+sourceStat.name()+":"+factor.getInternalValue();
+    return new StatsContribution(source,sourceStat.getName(),stats);
   }
 
   /**
@@ -138,6 +144,18 @@ public class StatsContribution
   {
     String source=EQUIPMENT+slot.name()+":"+item.getIdentifier();
     String label=slot.getLabel()+": "+item.getName();
+    return new StatsContribution(source,label,stats);
+  }
+
+  /**
+   * Build an 'additional stats' contribution.
+   * @param stats Contributed stats.
+   * @return A stat contribution.
+   */
+  public static StatsContribution getAdditionalContrib(BasicStatsSet stats)
+  {
+    String source=ADDITIONAL_STATS;
+    String label="Additional stats";
     return new StatsContribution(source,label,stats);
   }
 

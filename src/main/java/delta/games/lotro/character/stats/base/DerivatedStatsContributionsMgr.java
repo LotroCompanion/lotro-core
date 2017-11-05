@@ -143,11 +143,13 @@ public class DerivatedStatsContributionsMgr
             toAdd.multiply(factor._factor);
             result.addStat(factor._contributedStat,toAdd);
             derivedStats.addStat(factor._contributedStat,toAdd);
-          }
-          if (contribsMgr!=null)
-          {
-            StatsContribution statContrib=StatsContribution.getStatContrib(stat,derivedStats);
-            contribsMgr.addContrib(statContrib);
+            if (contribsMgr!=null)
+            {
+              BasicStatsSet stats=new BasicStatsSet();
+              stats.addStat(factor._contributedStat,toAdd);
+              StatsContribution statContrib=StatsContribution.getStatContrib(stat,factor._factor,stats);
+              contribsMgr.addContrib(statContrib);
+            }
           }
         }
       }

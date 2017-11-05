@@ -1,5 +1,7 @@
 package delta.games.lotro.character.stats;
 
+import java.util.List;
+
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
@@ -166,8 +168,24 @@ public class CharacterStatsComputer
     BasicStatsSet equipmentStats=getEquipmentStats(c.getEquipment());
     // Buffs
     BasicStatsSet buffs=c.getBuffs().getBuffs(c);
+    if (_contribs!=null)
+    {
+      List<StatsContribution> contribs=c.getBuffs().getContributions(c);
+      for(StatsContribution contrib : contribs)
+      {
+        _contribs.addContrib(contrib);
+      }
+    }
     // Misc
     BasicStatsSet additionalStats=c.getAdditionalStats();
+    if (_contribs!=null)
+    {
+      if (additionalStats.getStatsCount()>0)
+      {
+        StatsContribution contrib=StatsContribution.getAdditionalContrib(additionalStats);
+        _contribs.addContrib(contrib);
+      }
+    }
 
     // Total
     BasicStatsSet raw=new BasicStatsSet();
