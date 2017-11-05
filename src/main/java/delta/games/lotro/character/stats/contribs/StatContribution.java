@@ -20,6 +20,10 @@ public class StatContribution
   {
     _source=source;
     _value=value;
+    if (value.getInternalValue()<0)
+    {
+      value.setRawValue(-_value.getInternalValue());
+    }
   }
 
   /**
