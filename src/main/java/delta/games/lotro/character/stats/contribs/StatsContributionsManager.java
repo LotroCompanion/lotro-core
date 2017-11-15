@@ -16,6 +16,8 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class StatsContributionsManager
 {
   private List<StatsContribution> _contribs;
+  private Map<STAT,ContribsByStat> _sortedContribs;
+  private boolean _resolveIndirectContributions;
 
   /**
    * Constructor.
@@ -23,6 +25,7 @@ public class StatsContributionsManager
   public StatsContributionsManager()
   {
     _contribs=new ArrayList<StatsContribution>();
+    _resolveIndirectContributions=false;
   }
 
   /**
@@ -35,10 +38,41 @@ public class StatsContributionsManager
   }
 
   /**
+   * Set the valie of the 'resolve indirect contributions' flag.
+   * @param enabled Value to set.
+   */
+  public void setResolveIndirectContributions(boolean enabled)
+  {
+    _resolveIndirectContributions=enabled;
+  }
+
+  /**
+   * Compute contributions.
+   */
+  public void compute()
+  {
+    _sortedContribs=sortByStat();
+    if (_resolveIndirectContributions)
+    {
+      resolveIndirectContributions(_sortedContribs);
+    }
+  }
+
+  /**
+   * Get the contributions for a given stat.
+   * @param stat Targeted stat.
+   * @return A contribs storage or <code>null</code> if no contribs for this stat.
+   */
+  public ContribsByStat getContribs(STAT stat)
+  {
+    return _sortedContribs.get(stat);
+  }
+
+  /**
    * Sort contributions by stat.
    * @return A map from stats to contributions.
    */
-  public Map<STAT,ContribsByStat> sortByStat()
+  private Map<STAT,ContribsByStat> sortByStat()
   {
     Map<STAT,ContribsByStat> ret=new HashMap<STAT,ContribsByStat>();
     for(StatsContribution contrib : _contribs)
@@ -64,7 +98,7 @@ public class StatsContributionsManager
    * Resolve derivated contributions.
    * @param contribs Contributions to resolve.
    */
-  public void resolveDerivatedContributions(Map<STAT,ContribsByStat> contribs)
+  public void resolveIndirectContributions(Map<STAT,ContribsByStat> contribs)
   {
     //System.out.println("Resolving derivated contributions");
     // Iterating in the STAT enum order implies that 'primary' stats are resolved
@@ -113,6 +147,14 @@ public class StatsContributionsManager
         //System.out.println("\tFound source:"+statContrib);
       }
     }
+  }
+
+  /**
+   * Remove all contributions.
+   */
+  public void clear()
+  {
+    _contribs.clear();
   }
 
   @Override

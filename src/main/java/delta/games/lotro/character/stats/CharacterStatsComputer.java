@@ -122,6 +122,10 @@ public class CharacterStatsComputer
    */
   public BasicStatsSet getStats(CharacterData c)
   {
+    if (_contribs!=null)
+    {
+      _contribs.clear();
+    }
     // Base stats (from character class, race and level)
     BasicStatsSet baseStats=_baseStatsMgr.getBaseStats(c.getCharacterClass(),c.getRace(),c.getLevel());
     if (_contribs!=null)
