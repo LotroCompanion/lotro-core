@@ -98,7 +98,7 @@ public class StatsContributionsManager
    * Resolve derivated contributions.
    * @param contribs Contributions to resolve.
    */
-  public void resolveIndirectContributions(Map<STAT,ContribsByStat> contribs)
+  private void resolveIndirectContributions(Map<STAT,ContribsByStat> contribs)
   {
     //System.out.println("Resolving derivated contributions");
     // Iterating in the STAT enum order implies that 'primary' stats are resolved
