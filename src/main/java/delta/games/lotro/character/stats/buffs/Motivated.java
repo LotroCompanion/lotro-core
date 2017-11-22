@@ -12,9 +12,11 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class Motivated extends AbstractBuffImpl
 {
   @Override
-  public void apply(CharacterData character, BasicStatsSet raw, BuffInstance buff)
+  public BasicStatsSet getStats(CharacterData character, BasicStatsSet raw, BuffInstance buff)
   {
     FixedDecimalsInteger morale=raw.getStat(STAT.MORALE);
-    raw.setStat(STAT.MORALE,new FixedDecimalsInteger(morale.floatValue()*1.1f));
+    BasicStatsSet stats=new BasicStatsSet();
+    stats.addStat(STAT.MORALE,new FixedDecimalsInteger(morale.floatValue()*0.1f));
+    return stats;
   }
 }

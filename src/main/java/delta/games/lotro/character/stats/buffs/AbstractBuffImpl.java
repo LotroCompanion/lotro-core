@@ -27,10 +27,11 @@ public abstract class AbstractBuffImpl
    * @param character Targeted character.
    * @param buff Buff to use.
    * @param raw Raw stats.
+   * @return A stats set or <code>null</code> if not supported.
    */
-  public void apply(CharacterData character, BasicStatsSet raw, BuffInstance buff)
+  public BasicStatsSet getStats(CharacterData character, BasicStatsSet raw, BuffInstance buff)
   {
-    // Nothing
+    return null;
   }
 
   /**

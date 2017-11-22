@@ -206,7 +206,7 @@ public class CharacterStatsComputer
     raw.addStats(derivedContrib);
 
     // Additional buff contributions
-    c.getBuffs().applyBuffs(c,raw);
+    c.getBuffs().applyBuffs(c,raw,_contribs);
 
     // Hope
     BasicStatsSet hopeContrib=_hopeMgr.getContribution(raw);

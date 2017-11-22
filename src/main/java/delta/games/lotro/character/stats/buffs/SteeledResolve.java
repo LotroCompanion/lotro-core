@@ -15,15 +15,17 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class SteeledResolve extends AbstractBuffImpl
 {
   @Override
-  public void apply(CharacterData character, BasicStatsSet raw, BuffInstance buff)
+  public BasicStatsSet getStats(CharacterData character, BasicStatsSet raw, BuffInstance buff)
   {
     FixedDecimalsInteger morale=raw.getStat(STAT.MORALE);
+    BasicStatsSet stats=new BasicStatsSet();
     Integer tier=buff.getTier();
     if (tier!=null)
     {
-      float factor=1+0.01f*tier.intValue();
-      raw.setStat(STAT.MORALE,new FixedDecimalsInteger(morale.floatValue()*factor));
+      float factor=0.01f*tier.intValue();
+      stats.addStat(STAT.MORALE,new FixedDecimalsInteger(morale.floatValue()*factor));
     }
+    return stats;
   }
 
   @Override

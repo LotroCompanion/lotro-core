@@ -9,6 +9,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
+import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 
 /**
  * Storage for all buffs put on a character.
@@ -135,13 +136,23 @@ public class BuffsManager
    * Get buffs to apply on raw stats.
    * @param c Targeted character.
    * @param raw Raw stats.
+   * @param contribs Contributions manager (may be <code>null</code>).
    */
-  public void applyBuffs(CharacterData c,BasicStatsSet raw)
+  public void applyBuffs(CharacterData c, BasicStatsSet raw, StatsContributionsManager contribs)
   {
     for(BuffInstance buff : _buffs)
     {
       AbstractBuffImpl impl=buff.getBuff().getImpl();
-      impl.apply(c,raw,buff);
+      BasicStatsSet stats=impl.getStats(c,raw,buff);
+      if (stats!=null)
+      {
+        raw.addStats(stats);
+        if (contribs!=null)
+        {
+          StatsContribution statsContrib=StatsContribution.getBuffContrib(buff,stats);
+          contribs.addContrib(statsContrib);
+        }
+      }
     }
   }
 
