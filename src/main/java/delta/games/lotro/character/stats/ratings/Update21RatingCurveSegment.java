@@ -47,6 +47,26 @@ public class Update21RatingCurveSegment
   }
 
   /**
+   * Get the rating for the percentage cap at the given level.
+   * @param level Level to use.
+   * @return A rating value.
+   */
+  public double getRatingForCap(int level)
+  {
+    double rCap=_rCapF*level+_rCapC;
+    return rCap;
+  }
+
+  /**
+   * Get the percentage cap for this curve segment.
+   * @return A percentage value.
+   */
+  public double getPercentageCap()
+  {
+    return _pCap;
+  }
+
+  /**
    * Indicates if this segment manages the specified level.
    * @param level Level to test.
    * @return <code>true</code> if the given level is managed.

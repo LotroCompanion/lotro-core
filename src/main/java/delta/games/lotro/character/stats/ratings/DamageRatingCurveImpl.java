@@ -6,6 +6,17 @@ package delta.games.lotro.character.stats.ratings;
  */
 public class DamageRatingCurveImpl implements RatingCurve
 {
+  public Double getRatingForCap(int level)
+  {
+    // TODO This is for level>100 only
+    return Double.valueOf(400/0.0027);
+  }
+
+  public Double getPercentageCap(int level)
+  {
+    return Double.valueOf(400);
+  }
+
   /**
    * Get the percentage for a given rating and level.
    * @param rating Rating.
