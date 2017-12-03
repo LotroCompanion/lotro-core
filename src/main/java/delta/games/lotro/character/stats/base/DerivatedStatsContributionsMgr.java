@@ -187,7 +187,7 @@ public class DerivatedStatsContributionsMgr
         //System.out.println("\t"+cClass+": "+factorStr);
         index++;
         FixedDecimalsInteger factor=getFactor(factorStr);
-        if (factor!=null)
+        if ((factor!=null) && (factor.intValue()!=0))
         {
           setFactor(primaryStat,impactedStat,cClass,factor);
         }
