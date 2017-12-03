@@ -54,7 +54,7 @@ public class VirtuesContributionsMgr
     VirtueContributionTable table=_contribs.get(virtueId);
     if (table!=null)
     {
-      stats=table.getContrib(rank);
+      stats=new BasicStatsSet(table.getContrib(rank));
     }
     return stats;
   }
