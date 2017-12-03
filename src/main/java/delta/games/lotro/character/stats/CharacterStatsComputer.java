@@ -340,10 +340,7 @@ public class CharacterStatsComputer
       Double percentage=curve.getPercentage(rating.doubleValue(),level);
       if (percentage!=null)
       {
-        // Round to 1 decimal
-        long roundedValue=Math.round(percentage.doubleValue()*10);
-        ret=new FixedDecimalsInteger();
-        ret.setRawValue((int)(roundedValue*10));
+        ret=new FixedDecimalsInteger(percentage.floatValue());
       }
     }
     if (ret==null)
