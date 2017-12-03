@@ -7,7 +7,8 @@ import java.util.Map;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
+import delta.games.lotro.common.CharacterClass;
 
 /**
  * Manager for a collection of stats contributions.
@@ -18,14 +19,17 @@ public class StatsContributionsManager
   private List<StatsContribution> _contribs;
   private Map<STAT,ContribsByStat> _sortedContribs;
   private boolean _resolveIndirectContributions;
+  private CharacterClass _characterClass;
 
   /**
    * Constructor.
+   * @param characterClass Character class to use.
    */
-  public StatsContributionsManager()
+  public StatsContributionsManager(CharacterClass characterClass)
   {
     _contribs=new ArrayList<StatsContribution>();
     _resolveIndirectContributions=false;
+    _characterClass=characterClass;
   }
 
   /**
@@ -35,6 +39,15 @@ public class StatsContributionsManager
   public void addContrib(StatsContribution contrib)
   {
     _contribs.add(contrib);
+  }
+
+  /**
+   * Indicates if indirect contributions resolution is enabled or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isResolveIndirectContributions()
+  {
+    return _resolveIndirectContributions;
   }
 
   /**
@@ -51,11 +64,17 @@ public class StatsContributionsManager
    */
   public void compute()
   {
-    _sortedContribs=sortByStat();
+    DerivatedStatsContributionsMgr derivatedMgr=new DerivatedStatsContributionsMgr();
     if (_resolveIndirectContributions)
     {
-      resolveIndirectContributions(_sortedContribs);
+      for(StatsContribution contrib : _contribs)
+      {
+        BasicStatsSet stats=contrib.getStats();
+        BasicStatsSet derivated=derivatedMgr.getContribution(_characterClass,stats);
+        stats.addStats(derivated);
+      }
     }
+    _sortedContribs=sortByStat();
   }
 
   /**
@@ -92,61 +111,6 @@ public class StatsContributionsManager
       }
     }
     return ret;
-  }
-
-  /**
-   * Resolve derivated contributions.
-   * @param contribs Contributions to resolve.
-   */
-  private void resolveIndirectContributions(Map<STAT,ContribsByStat> contribs)
-  {
-    //System.out.println("Resolving derivated contributions");
-    // Iterating in the STAT enum order implies that 'primary' stats are resolved
-    // before the ones that may reference them...
-    for(STAT stat : STAT.values())
-    {
-      resolveSingleStat(contribs,stat);
-    }
-  }
-
-  private void resolveSingleStat(Map<STAT,ContribsByStat> contribs, STAT stat)
-  {
-    ContribsByStat contribsForStat=contribs.get(stat);
-    if (contribsForStat==null)
-    {
-      return;
-    }
-    //System.out.println("stat="+stat);
-    List<StatContribution> statContribs=contribsForStat.getContribs();
-    for(StatContribution statContrib : statContribs)
-    {
-      String id=statContrib.getSource().getId();
-      if (id.startsWith(StatsContribution.STAT_SEED))
-      {
-        String[] idParts=id.split(":");
-        STAT sourceStat=STAT.valueOf(idParts[1]);
-        FixedDecimalsInteger factor=FixedDecimalsInteger.fromString(idParts[2]);
-        //System.out.println("\tFound source stat:"+sourceStat);
-        //System.out.println("\t\tFactor: "+factor);
-        ContribsByStat contribsForSourceStat=contribs.get(sourceStat);
-        if (contribsForSourceStat!=null)
-        {
-          for(StatContribution sourceStatContrib : contribsForSourceStat.getContribs())
-          {
-            FixedDecimalsInteger value=new FixedDecimalsInteger(sourceStatContrib.getValue());
-            value.multiply(factor);
-            StatContribution toAdd=new StatContribution(sourceStatContrib.getSource(),value);
-            contribsForStat.addContrib(toAdd);
-            //System.out.println("\t\tAdd contrib: "+sourceStatContrib+" -> "+value);
-          }
-        }
-        contribsForStat.remove(id);
-      }
-      else
-      {
-        //System.out.println("\tFound source:"+statContrib);
-      }
-    }
   }
 
   /**

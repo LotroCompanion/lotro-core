@@ -72,4 +72,10 @@ public class ContribsByStat
     Collections.sort(ret,new StatContributionComparator());
     return ret;
   }
+
+  @Override
+  public String toString()
+  {
+    return _contribs.toString();
+  }
 }

@@ -29,10 +29,10 @@ public class TestCharacterStatsComputer
     }
     // Meva
     {
-      StatsContributionsManager contribs=new StatsContributionsManager();
-      CharacterStatsComputer statsComputer=new CharacterStatsComputer(contribs);
       CharacterGeneratorMeva generator=new CharacterGeneratorMeva(tools);
       CharacterData c=generator.buildCharacter();
+      StatsContributionsManager contribs=new StatsContributionsManager(c.getCharacterClass());
+      CharacterStatsComputer statsComputer=new CharacterStatsComputer(contribs);
       BasicStatsSet stats=statsComputer.getStats(c);
       c.getStats().setStats(stats);
       CharacterXMLWriter w=new CharacterXMLWriter();

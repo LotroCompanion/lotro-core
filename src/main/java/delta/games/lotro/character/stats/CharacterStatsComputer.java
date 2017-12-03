@@ -202,7 +202,12 @@ public class CharacterStatsComputer
 
     // Derivated contributions
     DerivatedStatsContributionsMgr derivedStatsMgr=new DerivatedStatsContributionsMgr();
-    BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw,_contribs);
+    StatsContributionsManager contribsMgr=_contribs;
+    if ((_contribs!=null) && (_contribs.isResolveIndirectContributions()))
+    {
+      contribsMgr=null;
+    }
+    BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw,contribsMgr);
     raw.addStats(derivedContrib);
 
     // Additional buff contributions
