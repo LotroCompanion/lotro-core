@@ -49,6 +49,7 @@ public class BuffInitializer
     initCaptainBuffs(registry);
     initChampionBuffs(registry);
     initGuardianBuffs(registry);
+    initHunterBuffs(registry);
     initMinstrelBuffs(registry);
     initRuneKeeperBuffs(registry);
   }
@@ -321,6 +322,44 @@ public class BuffInitializer
       skilledDeflection.setImpl(buff);
       registry.registerBuff(skilledDeflection);
     }
+  }
+
+  private void initHunterBuffs(BuffRegistry registry)
+  {
+    // Hunter buffs
+    // Red tree
+    // - Critical Eye
+    {
+      Buff criticalEye=new Buff("CRITICAL_EYE", RED_TREE, "Critical Eye");
+      criticalEye.setIcon("Critical_Eye-icon");
+      criticalEye.setRequiredClass(CharacterClass.HUNTER);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int tier=1;tier<=5;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.CRITICAL_RANGED_PERCENTAGE,new FixedDecimalsInteger(tier));
+        buff.addTier(tier,stats);
+      }
+      criticalEye.setImpl(buff);
+      registry.registerBuff(criticalEye);
+    }
+    // Blue tree
+    // - Impact arrows
+    {
+      Buff impactArrows=new Buff("IMPACT_ARROWS", BLUE_TREE, "Impact Arrows");
+      impactArrows.setIcon("Impact_Arrows-icon");
+      impactArrows.setRequiredClass(CharacterClass.HUNTER);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int tier=1;tier<=5;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.RANGED_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(tier));
+        buff.addTier(tier,stats);
+      }
+      impactArrows.setImpl(buff);
+      registry.registerBuff(impactArrows);
+    }
+
   }
 
   private void initMinstrelBuffs(BuffRegistry registry)
