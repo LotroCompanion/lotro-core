@@ -11,7 +11,7 @@ import delta.games.lotro.lore.items.comparators.ArmourTypeComparator;
  * Armour type.
  * @author DAM
  */
-public class ArmourType
+public final class ArmourType
 {
   private static HashMap<String,ArmourType> _map=new HashMap<String,ArmourType>();
   private static HashMap<String,ArmourType> _keyMap=new HashMap<String,ArmourType>();

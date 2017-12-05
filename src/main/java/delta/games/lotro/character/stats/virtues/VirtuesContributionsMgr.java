@@ -18,7 +18,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  * Manager for contributions of virtues to player stats.
  * @author DAM
  */
-public class VirtuesContributionsMgr
+public final class VirtuesContributionsMgr
 {
   private HashMap<VirtueId,VirtueContributionTable> _contribs;
 

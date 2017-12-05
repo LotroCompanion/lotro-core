@@ -10,21 +10,21 @@ public class RatingCurveSegment
   private double _endP;
   private double _startRL;
   private double _endRL;
-  private double _K;
+  private double _k;
 
   /**
    * Constructor.
    * @param startP Start percentage.
    * @param dp Delta percentage.
-   * @param K Factor/slope.
+   * @param k Factor/slope.
    * @param startRL Start of rating/level value.
    * @param dRL Delta for rating/level.
    */
-  public RatingCurveSegment(double startP, double dp, double K, double startRL, double dRL)
+  public RatingCurveSegment(double startP, double dp, double k, double startRL, double dRL)
   {
     _startP=startP;
     _endP=startP+dp;
-    _K=K;
+    _k=k;
     _startRL=startRL;
     _endRL=startRL+dRL;
   }
@@ -48,7 +48,7 @@ public class RatingCurveSegment
   {
     if (doesManage(rating,level))
     {
-      double p=_startP+100/(1+_K/((rating/level)-_startRL));
+      double p=_startP+100/(1+_k/((rating/level)-_startRL));
       return Double.valueOf(p);
     }
     return null;
@@ -78,7 +78,7 @@ public class RatingCurveSegment
   {
     if (doesManage(percentage))
     {
-      double rl=_startRL+_K*(percentage-_startP)/(1-(percentage-_startP));
+      double rl=_startRL+_k*(percentage-_startP)/(1-(percentage-_startP));
       return Double.valueOf(rl*level);
     }
     return null;

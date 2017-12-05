@@ -20,7 +20,7 @@ public class BuffsXMLWriter
    * Write some buffs to the given XML stream.
    * @param hd XML output stream.
    * @param buffs Buffs to write.
-   * @throws Exception
+   * @throws Exception If an error occurs.
    */
   public static void write(TransformerHandler hd, BuffsManager buffs) throws Exception
   {

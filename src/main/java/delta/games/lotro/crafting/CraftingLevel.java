@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Represents a level in a crafting profession.
  * @author DAM
  */
-public class CraftingLevel
+public final class CraftingLevel
 {
   private static HashMap<Integer,CraftingLevel> _registry=new HashMap<Integer,CraftingLevel>();
 
@@ -62,7 +62,7 @@ public class CraftingLevel
   /**
    * All crafting tiers, sorted by level.
    */
-  public static CraftingLevel[] ALL_TIERS = {
+  public static final CraftingLevel[] ALL_TIERS = {
     BEGINNER, APPRENTICE, JOURNEYMAN, EXPERT, ARTISAN, MASTER, SUPREME,
     WESTFOLD, EASTEMNET, WESTEMNET, ANORIEN, DOOMFOLD
   };

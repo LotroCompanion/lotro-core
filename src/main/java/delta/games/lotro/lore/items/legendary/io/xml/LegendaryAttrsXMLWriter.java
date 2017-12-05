@@ -23,7 +23,7 @@ public class LegendaryAttrsXMLWriter
    * Write legendary attrs to the given XML stream.
    * @param hd XML output stream.
    * @param legendaryAttrs Legendary data to write.
-   * @throws Exception
+   * @throws Exception If an error occurs.
    */
   public static void write(TransformerHandler hd, LegendaryAttrs legendaryAttrs) throws Exception
   {

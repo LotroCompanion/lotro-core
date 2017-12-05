@@ -17,7 +17,7 @@ import delta.games.lotro.utils.LotroLoggers;
  * Facade for quests access.
  * @author DAM
  */
-public class QuestsManager
+public final class QuestsManager
 {
   private static final Logger _logger=LotroLoggers.getLotroLogger();
 

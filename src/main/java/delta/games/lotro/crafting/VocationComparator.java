@@ -9,7 +9,10 @@ import java.util.Comparator;
 public class VocationComparator implements Comparator<Vocation>
 {
   /**
-   * Compare 2 vocations using their label. 
+   * Compare 2 vocations using their label.
+   * @param vocation1 First vocation.
+   * @param vocation2 Second vocation.
+   * @return Result of the comparison of the names of the given vocations.
    */
   public int compare(Vocation vocation1, Vocation vocation2)
   {

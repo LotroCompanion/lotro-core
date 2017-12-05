@@ -15,7 +15,7 @@ import delta.games.lotro.common.Race;
  * Registry for buffs.
  * @author DAM
  */
-public class BuffRegistry
+public final class BuffRegistry
 {
   private static final BuffRegistry _instance=new BuffRegistry();
   private HashMap<String,Buff> _buffMap;

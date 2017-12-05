@@ -17,7 +17,7 @@ import delta.games.lotro.utils.LotroLoggers;
  * Facade for deeds access.
  * @author DAM
  */
-public class DeedsManager
+public final class DeedsManager
 {
   private static final Logger _logger=LotroLoggers.getLotroLogger();
 

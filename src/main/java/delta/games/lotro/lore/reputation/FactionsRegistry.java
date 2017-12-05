@@ -8,7 +8,7 @@ import java.util.List;
  * Factions registry.
  * @author DAM
  */
-public class FactionsRegistry
+public final class FactionsRegistry
 {
   private static FactionsRegistry _instance=new FactionsRegistry();
 

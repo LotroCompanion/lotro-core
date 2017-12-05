@@ -11,7 +11,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class BalanceOfMan extends AbstractBuffImpl
 {
-  private static STAT[] TARGETS = { STAT.EVADE, STAT.PARRY, STAT.BLOCK };
+  private static final STAT[] TARGETS = { STAT.EVADE, STAT.PARRY, STAT.BLOCK };
 
   @Override
   public BasicStatsSet getStats(CharacterData character, BuffInstance buff)

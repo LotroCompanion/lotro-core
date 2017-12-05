@@ -21,7 +21,7 @@ public class BasicStatsSetXMLWriter
    * @param hd XML output stream.
    * @param tagName Tag to use to wrap stat tags.
    * @param statsSet Stats to write.
-   * @throws Exception
+   * @throws Exception If an error occurs.
    */
   public static void write(TransformerHandler hd, String tagName, BasicStatsSet statsSet) throws Exception
   {

@@ -15,7 +15,7 @@ import delta.games.lotro.utils.LotroLoggers;
  * Facade for recipes access.
  * @author DAM
  */
-public class RecipesManager
+public final class RecipesManager
 {
   private static final Logger _logger=LotroLoggers.getLotroLogger();
 

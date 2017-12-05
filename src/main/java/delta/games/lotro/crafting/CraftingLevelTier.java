@@ -8,19 +8,19 @@ public class CraftingLevelTier
 {
   private CraftingLevel _level;
   private String _label;
-  private int _XP;
+  private int _xp;
 
   /**
    * Constructor.
    * @param level Level.
    * @param label Label.
-   * @param XP XP amount.
+   * @param xp XP amount.
    */
-  public CraftingLevelTier(CraftingLevel level, String label, int XP)
+  public CraftingLevelTier(CraftingLevel level, String label, int xp)
   {
     _level=level;
     _label=label;
-    _XP=XP;
+    _xp=xp;
   }
 
   /**
@@ -47,7 +47,7 @@ public class CraftingLevelTier
    */
   public int getXP()
   {
-    return _XP;
+    return _xp;
   }
 
   @Override

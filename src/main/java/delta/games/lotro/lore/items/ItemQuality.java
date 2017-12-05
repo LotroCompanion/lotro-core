@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Item quality.
  * @author DAM
  */
-public class ItemQuality
+public final class ItemQuality
 {
   private static HashMap<String,ItemQuality> _mapFromCode=new HashMap<String,ItemQuality>();
   private static HashMap<String,ItemQuality> _mapFromColor=new HashMap<String,ItemQuality>();

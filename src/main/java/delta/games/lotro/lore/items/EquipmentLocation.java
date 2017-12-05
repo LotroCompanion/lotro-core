@@ -11,7 +11,7 @@ import delta.games.lotro.lore.items.comparators.EquipmentLocationComparator;
  * Equipment location.
  * @author DAM
  */
-public class EquipmentLocation
+public final class EquipmentLocation
 {
   private static HashMap<String,EquipmentLocation> _instances=new HashMap<String,EquipmentLocation>();
   private static HashMap<String,EquipmentLocation> _keyMap=new HashMap<String,EquipmentLocation>();

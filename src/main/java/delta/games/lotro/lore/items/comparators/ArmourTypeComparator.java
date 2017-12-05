@@ -10,6 +10,17 @@ import delta.games.lotro.lore.items.ArmourType;
  */
 public class ArmourTypeComparator implements Comparator<ArmourType>
 {
+  /**
+   * Compare two armour types.
+   * @param type1 First type.
+   * @param type2 Second type.
+   * @return <ul>
+   * <li><code>-1</code> if type1 is lighter than type2,
+   * <li><code>0</code> if both types are equal or both are <code>null</code>,
+   * <li><code>1</code> if type1 is heavier than type2.
+   * </ul>
+   * Note that shield armour types are considered higher than regular armour types.
+   */
   public int compare(ArmourType type1, ArmourType type2)
   {
     if (type1!=null)

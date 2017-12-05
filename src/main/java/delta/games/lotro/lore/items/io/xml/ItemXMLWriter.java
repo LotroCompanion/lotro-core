@@ -163,7 +163,7 @@ public class ItemXMLWriter
    * Write an item to the given XML stream.
    * @param hd XML output stream.
    * @param item Item to write.
-   * @throws Exception
+   * @throws Exception If an error occurs.
    */
   public void write(TransformerHandler hd, Item item) throws Exception
   {

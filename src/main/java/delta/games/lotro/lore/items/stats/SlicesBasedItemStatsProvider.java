@@ -127,8 +127,8 @@ public class SlicesBasedItemStatsProvider implements ItemStatsProvider
     STAT stat=slice.getStat();
     Float sliceCountFloat=slice.getSliceCount();
     float sliceCount=(sliceCountFloat!=null)?sliceCountFloat.floatValue():1;
-    if ((stat==STAT.MIGHT) || (stat==STAT.AGILITY) || (stat==STAT.WILL) ||
-        (stat==STAT.VITALITY) || (stat==STAT.FATE))
+    if ((stat==STAT.MIGHT) || (stat==STAT.AGILITY) || (stat==STAT.WILL)
+        || (stat==STAT.VITALITY) || (stat==STAT.FATE))
     {
       return Slice.getBaseStat(itemLevel,sliceCount);
     }

@@ -48,5 +48,5 @@ public enum ItemBinding
   /**
    * All.
    */
-  public static ItemBinding[] ALL={ BIND_ON_ACQUIRE, BOUND_TO_ACCOUNT_ON_ACQUIRE, BIND_ON_EQUIP, NONE };
+  public static final ItemBinding[] ALL={ BIND_ON_ACQUIRE, BOUND_TO_ACCOUNT_ON_ACQUIRE, BIND_ON_EQUIP, NONE };
 }

@@ -11,7 +11,7 @@ public class TomesSet
   /**
    * Stats of available tomes.
    */
-  public static STAT[] AVAILABLE_TOMES={
+  public static final STAT[] AVAILABLE_TOMES={
     STAT.MIGHT, STAT.AGILITY, STAT.VITALITY, STAT.WILL, STAT.FATE
   };
   /**

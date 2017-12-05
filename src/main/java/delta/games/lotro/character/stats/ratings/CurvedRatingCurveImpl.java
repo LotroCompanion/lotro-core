@@ -25,9 +25,9 @@ public class CurvedRatingCurveImpl implements RatingCurve
     for(int i=0;i<nbSegments;i++)
     {
       double dp=data[i][0];
-      double K=data[i][1];
+      double k=data[i][1];
       double dRL=data[i][2];
-      RatingCurveSegment segment=new RatingCurveSegment(startP,dp,K,startRL,dRL);
+      RatingCurveSegment segment=new RatingCurveSegment(startP,dp,k,startRL,dRL);
       _segments[i]=segment;
       _maxP=startP+dp;
       startP=_maxP;

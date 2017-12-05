@@ -13,7 +13,7 @@ import delta.games.lotro.character.events.CharacterEventsManager;
  * Manages all known toons.
  * @author DAM
  */
-public class CharactersManager
+public final class CharactersManager
 {
   private static CharactersManager _instance=new CharactersManager();
 

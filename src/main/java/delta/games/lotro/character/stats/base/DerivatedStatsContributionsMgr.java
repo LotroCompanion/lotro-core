@@ -21,7 +21,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  * Manager for derived statistics contributions.
  * @author DAM
  */
-public class DerivatedStatsContributionsMgr
+public final class DerivatedStatsContributionsMgr
 {
   private static class StatContributionFactor
   {
@@ -29,7 +29,7 @@ public class DerivatedStatsContributionsMgr
     private FixedDecimalsInteger _factor;
   }
 
-  private static class DerivedStatContributions
+  private static final class DerivedStatContributions
   {
     private List<StatContributionFactor> _factors;
 
@@ -52,7 +52,7 @@ public class DerivatedStatsContributionsMgr
     }
   }
 
-  private static class ClassDerivedStats
+  private static final class ClassDerivedStats
   {
     private HashMap<STAT,DerivedStatContributions> _contributions;
     private ClassDerivedStats()

@@ -128,9 +128,8 @@ public class BaseStatsManager
     if (cClass!=CharacterClass.BEORNING)
     {
       int power;
-      if ((cClass==CharacterClass.MINSTREL) ||
-          (cClass==CharacterClass.LORE_MASTER) ||
-          (cClass==CharacterClass.RUNE_KEEPER)) {
+      if ((cClass==CharacterClass.MINSTREL) || (cClass==CharacterClass.LORE_MASTER) || (cClass==CharacterClass.RUNE_KEEPER))
+      {
         power=level*65;
       }
       else

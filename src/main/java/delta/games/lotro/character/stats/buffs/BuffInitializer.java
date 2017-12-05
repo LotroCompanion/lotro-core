@@ -291,7 +291,7 @@ public class BuffInitializer
       stats.addStat(STAT.PARTIAL_PARRY_PERCENTAGE,new FixedDecimalsInteger(2.5f));
       stats.addStat(STAT.PARTIAL_PARRY_MITIGATION_PERCENTAGE,new FixedDecimalsInteger(2.5f));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
-      // TODO: 10% crit damage x
+      // TODO 10% crit damage x
       overpower.setImpl(buff);
       registry.registerBuff(overpower);
     }
@@ -303,7 +303,7 @@ public class BuffInitializer
       BasicStatsSet stats=new BasicStatsSet();
       stats.addStat(STAT.MELEE_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(5));
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
-      // TODO: 10% crit damage x
+      // TODO 10% crit damage x
       heavyBlows.setImpl(buff);
       registry.registerBuff(heavyBlows);
     }

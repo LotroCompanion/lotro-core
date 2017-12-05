@@ -11,7 +11,7 @@ import delta.games.lotro.lore.items.comparators.WeaponTypeComparator;
  * Weapon type.
  * @author DAM
  */
-public class WeaponType
+public final class WeaponType
 {
   private static HashMap<String,WeaponType> _map=new HashMap<String,WeaponType>();
   private static HashMap<String,WeaponType> _keyMap=new HashMap<String,WeaponType>();

@@ -32,7 +32,7 @@ public class ReputationDeedsStatus
   }
 
   /**
-   * Get the current status of reputation deeds
+   * Get the current status of reputation deeds.
    * @return a list of reputation deed statuses.
    */
   public List<ReputationDeedStatus> getAllDeedStatuses()

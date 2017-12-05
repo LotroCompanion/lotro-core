@@ -76,7 +76,7 @@ public class CharacterSummaryXMLWriter
    * Write character summary attributes.
    * @param characterAttrs Attributes to write to.
    * @param character Source data.
-   * @throws Exception
+   * @throws Exception If an error occurs.
    */
   public static void write(AttributesImpl characterAttrs, CharacterSummary character) throws Exception
   {

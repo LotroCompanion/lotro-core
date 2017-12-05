@@ -44,7 +44,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  * @author DAM
  */
 
-public class ItemSaxParser extends DefaultHandler {
+public final class ItemSaxParser extends DefaultHandler {
 
     private static final Logger LOGGER=Logger.getLogger(ItemSaxParser.class);
 

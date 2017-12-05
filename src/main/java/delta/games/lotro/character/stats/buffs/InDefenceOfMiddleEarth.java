@@ -11,7 +11,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class InDefenceOfMiddleEarth extends AbstractBuffImpl
 {
-  private static STAT[] TARGETS = { STAT.MIGHT, STAT.VITALITY, STAT.WILL, STAT.FATE, STAT.AGILITY };
+  private static final STAT[] TARGETS = { STAT.MIGHT, STAT.VITALITY, STAT.WILL, STAT.FATE, STAT.AGILITY };
 
   @Override
   public BasicStatsSet getStats(CharacterData character, BuffInstance buff)

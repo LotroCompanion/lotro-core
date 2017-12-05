@@ -11,7 +11,7 @@ import delta.games.lotro.lore.items.comparators.DamageTypeComparator;
  * Damage type.
  * @author DAM
  */
-public class DamageType
+public final class DamageType
 {
   private static HashMap<String,DamageType> _map=new HashMap<String,DamageType>();
   private static HashMap<String,DamageType> _keyMap=new HashMap<String,DamageType>();

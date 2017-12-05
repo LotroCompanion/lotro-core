@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Character race.
  * @author DAM
  */
-public class Race
+public final class Race
 {
   private static HashMap<String,Race> _instances=new HashMap<String,Race>();
   private String _label;

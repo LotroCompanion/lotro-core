@@ -213,7 +213,7 @@ public class LegendaryAttrs
    * Get the total stats for these legendary attributes, including:
    * <ul>
    * <li>title stats,
-   * <li>relics stats
+   * <li>relics stats.
    * </ul>
    * @return a set of stats.
    */

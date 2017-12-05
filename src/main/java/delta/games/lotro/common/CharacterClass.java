@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Character class.
  * @author DAM
  */
-public class CharacterClass
+public final class CharacterClass
 {
   private static HashMap<String,CharacterClass> _instances=new HashMap<String,CharacterClass>();
   private static HashMap<String,CharacterClass> _instancesByKey=new HashMap<String,CharacterClass>();

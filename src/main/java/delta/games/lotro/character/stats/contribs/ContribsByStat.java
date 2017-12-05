@@ -20,7 +20,7 @@ public class ContribsByStat
 
   /**
    * Constructor.
-   * @param stat
+   * @param stat Targeted stat.
    */
   public ContribsByStat(STAT stat)
   {
@@ -39,7 +39,7 @@ public class ContribsByStat
 
   /**
    * Add a contribution.
-   * @param contrib
+   * @param contrib Contribution to add.
    */
   public void addContrib(StatContribution contrib)
   {

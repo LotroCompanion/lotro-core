@@ -8,7 +8,7 @@ import delta.common.utils.misc.TypedProperties;
  * Configuration.
  * @author DAM
  */
-public class LotroCoreConfig
+public final class LotroCoreConfig
 {
   private static LotroCoreConfig _instance=new LotroCoreConfig();
   

@@ -9,7 +9,7 @@ import java.util.List;
  * Vocations registry.
  * @author DAM
  */
-public class Vocations
+public final class Vocations
 {
   private static Vocations _instance=new Vocations();
 

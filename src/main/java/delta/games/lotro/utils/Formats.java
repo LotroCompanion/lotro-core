@@ -14,17 +14,17 @@ public class Formats
   /**
    * Date pattern.
    */
-  public static String DATE_PATTERN="dd/MM/yyyy";
+  public static final String DATE_PATTERN="dd/MM/yyyy";
 
   /**
    * Date pattern with time.
    */
-  public static String DATE_TIME_PATTERN="dd/MM/yyyy HH:mm";
+  public static final String DATE_TIME_PATTERN="dd/MM/yyyy HH:mm";
 
   /**
    * File date pattern.
    */
-  public static String FILE_DATE_PATTERN="yyyy-MM-dd HHmm";
+  public static final String FILE_DATE_PATTERN="yyyy-MM-dd HHmm";
 
   private static SimpleDateFormat _dateFormatter=new SimpleDateFormat(DATE_PATTERN);
   private static SimpleDateFormat _dateTimeFormatter=new SimpleDateFormat(DATE_TIME_PATTERN);

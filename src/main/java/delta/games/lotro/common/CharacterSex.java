@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Character sex.
  * @author DAM
  */
-public class CharacterSex
+public final class CharacterSex
 {
   private static HashMap<String,CharacterSex> _instancesByKey=new HashMap<String,CharacterSex>();
   private String _key;

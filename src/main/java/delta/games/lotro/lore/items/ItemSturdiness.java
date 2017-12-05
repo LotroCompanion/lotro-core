@@ -52,5 +52,5 @@ public enum ItemSturdiness
   /**
    * All.
    */
-  public static ItemSturdiness[] ALL={ WEAK, BRITTLE, NORMAL, TOUGH, SUBSTANTIAL };
+  public static final ItemSturdiness[] ALL={ WEAK, BRITTLE, NORMAL, TOUGH, SUBSTANTIAL };
 }

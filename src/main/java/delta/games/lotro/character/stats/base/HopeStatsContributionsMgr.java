@@ -10,7 +10,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class HopeStatsContributionsMgr
 {
-  private float[] MORALE_FRACTION = {
+  private static final float[] MORALE_FRACTION = {
       // Dread: -15 -> -1
       -0.99f, -0.97f, -0.95f, -0.90f, -0.85f, -0.80f, -0.65f,
       -0.60f, -0.50f, -0.40f, -0.30f, -0.20f, -0.15f, -0.10f, -0.05f,

@@ -9,10 +9,13 @@ import java.util.Comparator;
 public class ProfessionComparator implements Comparator<Profession>
 {
   /**
-   * Compare 2 professions using their label. 
+   * Compare 2 professions using their label.
+   * @param profession1 First profession.
+   * @param profession2 Second profession.
+   * @return Result of the comparison of the labels of the given professions.
    */
-  public int compare(Profession p1, Profession p2)
+  public int compare(Profession profession1, Profession profession2)
   {
-    return p1.getLabel().compareTo(p2.getLabel());
+    return profession1.getLabel().compareTo(profession2.getLabel());
   }
 }

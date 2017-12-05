@@ -3,11 +3,6 @@ package delta.games.lotro.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.common.Money;
-import delta.games.lotro.common.Reputation;
-import delta.games.lotro.common.Skill;
-import delta.games.lotro.common.Title;
-import delta.games.lotro.common.Trait;
 import delta.games.lotro.common.objects.ObjectsSet;
 
 /**
