@@ -343,6 +343,7 @@ public class BuffInitializer
       criticalEye.setImpl(buff);
       registry.registerBuff(criticalEye);
     }
+    // - Strength TODO
     // Blue tree
     // - Impact arrows
     {
@@ -359,7 +360,11 @@ public class BuffInitializer
       impactArrows.setImpl(buff);
       registry.registerBuff(impactArrows);
     }
-
+    // Yellow tree TODO
+    // - Elusive
+    // - Endurance
+    // - Survival Gear
+    // Stance related buffs
   }
 
   private void initMinstrelBuffs(BuffRegistry registry)
