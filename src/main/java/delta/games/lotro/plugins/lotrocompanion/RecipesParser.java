@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.lore.recipes.CraftingResult;
 import delta.games.lotro.lore.recipes.Ingredient;
 import delta.games.lotro.lore.recipes.ItemReference;
@@ -21,6 +23,8 @@ import delta.games.lotro.plugins.PluginConstants;
  */
 public class RecipesParser
 {
+  private static final Logger LOGGER=Logger.getLogger(RecipesParser.class);
+
   /**
    * Parse/use data from the "Recipes" file of the LotroCompanion plugin.
    * @param f Input file.
@@ -194,24 +198,24 @@ public class RecipesParser
     List<String> characters=PluginConstants.getCharacters(account,server,false);
     for(String character : characters)
     {
-      try
+      File dataDir=PluginConstants.getCharacterDir("glorfindel666","Landroval",character);
+      File dataFile=new File(dataDir,"LotroCompanionData.plugindata");
+      if (dataFile.exists())
       {
-        File dataFile=PluginConstants.getCharacterDir("glorfindel666","Landroval",character);
-        File recipesFile=new File(dataFile,"LotroCompanionData.plugindata");
-        if (recipesFile.exists())
+        try
         {
           System.out.println("Doing: " + character);
           RecipesParser parser=new RecipesParser();
-          parser.doIt(recipesFile);
+          parser.doIt(dataFile);
         }
-        else
+        catch(Exception e)
         {
-          System.out.println("No recipes for: " + character);
+          LOGGER.error("Error when loading recipes from file "+dataFile, e);
         }
       }
-      catch(Exception e)
+      else
       {
-        e.printStackTrace();
+        System.out.println("No recipes for: " + character);
       }
     }
   }

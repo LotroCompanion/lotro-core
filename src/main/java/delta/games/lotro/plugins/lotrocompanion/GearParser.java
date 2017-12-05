@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -21,6 +23,8 @@ import delta.games.lotro.plugins.PluginConstants;
  */
 public class GearParser
 {
+  private static final Logger LOGGER=Logger.getLogger(GearParser.class);
+
   /**
    * Parse/use data from the "Gear" file of the LotroCompanion plugin.
    * @param f Input file.
@@ -128,24 +132,24 @@ public class GearParser
     List<String> characters=PluginConstants.getCharacters(account,server,false);
     for(String character : characters)
     {
-      try
+      File dataDir=PluginConstants.getCharacterDir("glorfindel666","Landroval",character);
+      File dataFile=new File(dataDir,"LotroCompanionData.plugindata");
+      if (dataFile.exists())
       {
-        File dataFile=PluginConstants.getCharacterDir("glorfindel666","Landroval",character);
-        File recipesFile=new File(dataFile,"LotroCompanionData.plugindata");
-        if (recipesFile.exists())
+        try
         {
           System.out.println("Doing: " + character);
           GearParser parser=new GearParser();
-          parser.doIt(recipesFile);
+          parser.doIt(dataFile);
         }
-        else
+        catch(Exception e)
         {
-          System.out.println("No data for: " + character);
+          LOGGER.error("Error when loading gear from file "+dataFile, e);
         }
       }
-      catch(Exception e)
+      else
       {
-        e.printStackTrace();
+        System.out.println("No data for: " + character);
       }
     }
   }

@@ -62,7 +62,7 @@ public class PluginConstants
     {
       for(String file : files)
       {
-        if (!"AllServers".equals(files))
+        if (!"AllServers".equals(file))
         {
           ret.add(file);
         }

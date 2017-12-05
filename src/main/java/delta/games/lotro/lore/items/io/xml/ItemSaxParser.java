@@ -7,6 +7,7 @@ import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -38,12 +39,14 @@ import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
- * Parser XML to grab the registered subscriber from response.
+ * SAX parser for item files.
  * 
- * @author Patrick TESSIER
+ * @author DAM
  */
 
 public class ItemSaxParser extends DefaultHandler {
+
+    private static final Logger LOGGER=Logger.getLogger(ItemSaxParser.class);
 
     private List<Item> _parsedItems;
     private Item _currentItem;
@@ -66,19 +69,13 @@ public class ItemSaxParser extends DefaultHandler {
   
         // Use the default (non-validating) parser
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        SAXParser saxParser =  null;
-        try {
-            saxParser = factory.newSAXParser();
-        } catch (Exception ignored) {
-            // Ignored!
-        }
-  
+        SAXParser saxParser = factory.newSAXParser();
         saxParser.parse(source, handler);
         saxParser.reset();
         return handler._parsedItems;
       }
       catch(Exception e) {
-        e.printStackTrace();
+        LOGGER.error("Error when loading items file " + source, e);
       }
       return null;
     }
