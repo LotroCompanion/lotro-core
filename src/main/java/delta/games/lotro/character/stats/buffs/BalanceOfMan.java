@@ -22,10 +22,10 @@ public class BalanceOfMan extends AbstractBuffImpl
     // 105: 848
     // 106: 1696
     // 107: 1880
-    // 108: 2070?
+    // 108: 2070
     // 109: 2260
-    // 110: 2440?
-    // 111: 2630?
+    // 110: 2450
+    // 111: 2640
     // 112: 2820?
     // 113: 3010?
     // 114: 3200?
@@ -42,7 +42,7 @@ public class BalanceOfMan extends AbstractBuffImpl
       value=848*factor;
       if ((level>=107) && (level<=114))
       {
-        value=10*(int)(value/10);
+        value=10*Math.round(value/10);
       }
     }
     else
