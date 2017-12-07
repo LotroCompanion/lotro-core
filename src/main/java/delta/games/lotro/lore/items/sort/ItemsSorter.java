@@ -336,8 +336,7 @@ public class ItemsSorter
   public List<Item> buildWeaponsList(CharacterClass cClass, int level, EquipmentLocation slot)
   {
     List<Item> ret=new ArrayList<Item>();
-    CharacterProficiencies prof=new CharacterProficiencies();
-    Set<WeaponType> weapons=prof.getWeaponProficiencies(cClass,level);
+    Set<WeaponType> weapons=CharacterProficiencies.getWeaponProficiencies(cClass,level);
     List<Filter<Item>> filters=new ArrayList<Filter<Item>>();
     ItemFilter classFilter=new ItemRequiredClassFilter(cClass,false);
     filters.add(classFilter);
@@ -370,8 +369,7 @@ public class ItemsSorter
   public List<Item> buildShieldsList(CharacterClass cClass, int level)
   {
     List<Item> ret=new ArrayList<Item>();
-    CharacterProficiencies prof=new CharacterProficiencies();
-    Set<ArmourType> armourTypes=prof.getArmourProficiencies(cClass,level);
+    Set<ArmourType> armourTypes=CharacterProficiencies.getArmourProficiencies(cClass,level);
     List<Item> shields=_items.get(ARMOUR+"SHIELD");
     for(Item shield : shields)
     {

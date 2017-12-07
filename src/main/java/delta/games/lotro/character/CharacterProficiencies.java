@@ -26,7 +26,7 @@ public class CharacterProficiencies
    * @param level Level.
    * @return A set of weapons.
    */
-  public Set<WeaponType> getWeaponProficiencies(CharacterClass cClass, int level)
+  public static Set<WeaponType> getWeaponProficiencies(CharacterClass cClass, int level)
   {
     HashSet<WeaponType> ret=new HashSet<WeaponType>();
     if (cClass==CharacterClass.CHAMPION)
@@ -184,7 +184,7 @@ public class CharacterProficiencies
    * @param level Level.
    * @return A set of armour types.
    */
-  public Set<ArmourType> getArmourProficiencies(CharacterClass cClass, int level)
+  public static Set<ArmourType> getArmourProficiencies(CharacterClass cClass, int level)
   {
     HashSet<ArmourType> ret=new HashSet<ArmourType>();
     ret.add(ArmourType.LIGHT);
@@ -224,7 +224,7 @@ public class CharacterProficiencies
    * @param cClass Character class.
    * @return An armour type (light/medium/heavy).
    */
-  public ArmourType getArmourTypeForMitigations(CharacterClass cClass)
+  public static ArmourType getArmourTypeForMitigations(CharacterClass cClass)
   {
     if ((cClass==CharacterClass.HUNTER) || (cClass==CharacterClass.BURGLAR)
         || (cClass==CharacterClass.BEORNING) || (cClass==CharacterClass.WARDEN))

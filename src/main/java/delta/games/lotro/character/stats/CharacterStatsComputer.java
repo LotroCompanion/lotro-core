@@ -36,7 +36,6 @@ public class CharacterStatsComputer
   private TomesContributionsMgr _tomesMgr;
   private HopeStatsContributionsMgr _hopeMgr;
   private RatingsMgr _ratingsMgr;
-  private CharacterProficiencies _proficiencies;
   private StatsContributionsManager _contribs;
 
   /**
@@ -57,7 +56,6 @@ public class CharacterStatsComputer
     _tomesMgr=new TomesContributionsMgr();
     _hopeMgr=new HopeStatsContributionsMgr();
     _ratingsMgr=new RatingsMgr();
-    _proficiencies=new CharacterProficiencies();
     _contribs=contribs;
   }
 
@@ -325,7 +323,7 @@ public class CharacterStatsComputer
 
   private RatingCurve getMitigationCurve(CharacterClass cClass)
   {
-    ArmourType type=_proficiencies.getArmourTypeForMitigations(cClass);
+    ArmourType type=CharacterProficiencies.getArmourTypeForMitigations(cClass);
     if (type==ArmourType.LIGHT) return _ratingsMgr.getLightArmorMitigation();
     if (type==ArmourType.MEDIUM) return _ratingsMgr.getMediumArmorMitigation();
     if (type==ArmourType.HEAVY) return _ratingsMgr.getHeavyArmorMitigation();
