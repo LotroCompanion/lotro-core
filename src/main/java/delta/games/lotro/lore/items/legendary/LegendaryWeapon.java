@@ -76,6 +76,7 @@ public class LegendaryWeapon extends Weapon implements Legendary
    * Dump the contents of this weapon as a string.
    * @return A readable string.
    */
+  @Override
   public String dump()
   {
     StringBuilder sb=new StringBuilder();

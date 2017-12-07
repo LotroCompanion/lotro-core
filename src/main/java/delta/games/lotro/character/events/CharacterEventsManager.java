@@ -44,7 +44,7 @@ public class CharacterEventsManager
     {
       try
       {
-        listener.eventOccured(type,event);
+        listener.eventOccurred(type,event);
       }
       catch(Throwable t)
       {

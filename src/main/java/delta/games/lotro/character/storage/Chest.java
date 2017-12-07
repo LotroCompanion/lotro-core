@@ -39,6 +39,7 @@ public class Chest extends ItemsContainer
    * Dump contents.
    * @param level Indentation level.
    */
+  @Override
   public void dump(int level)
   {
     for(int i=0;i<level;i++) System.out.print('\t');

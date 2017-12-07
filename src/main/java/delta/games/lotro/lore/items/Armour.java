@@ -71,6 +71,7 @@ public class Armour extends Item
    * Copy item data from a source.
    * @param item Source item.
    */
+  @Override
   public void copyFrom(Item item)
   {
     super.copyFrom(item);
@@ -86,6 +87,7 @@ public class Armour extends Item
    * Dump the contents of this armour as a string.
    * @return A readable string.
    */
+  @Override
   public String dump()
   {
     StringBuilder sb=new StringBuilder();

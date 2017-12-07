@@ -7,9 +7,9 @@ package delta.games.lotro.character.events;
 public interface CharacterEventListener
 {
   /**
-   * Called when an event occured.
+   * Called when an event occurred.
    * @param type Type of event.
    * @param event Event data.
    */
-  void eventOccured(CharacterEventType type, CharacterEvent event);
+  void eventOccurred(CharacterEventType type, CharacterEvent event);
 }
