@@ -1,14 +1,15 @@
-package delta.games.lotro.character.stats.base;
+package delta.games.lotro.character.stats.buffs;
 
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
- * Stats contributions from hope.
+ * Stats contributions from hope/dread.
  * @author DAM
  */
-public class HopeStatsContributionsMgr
+public class MoraleFromHopeOrDread extends AbstractBuffImpl
 {
   private static final float[] MORALE_FRACTION = {
       // Dread: -15 -> -1
@@ -21,18 +22,14 @@ public class HopeStatsContributionsMgr
       0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f
   };
 
-  /**
-   * Get contribution.
-   * @param stats Raw stats.
-   * @return Contributed stats.
-   */
-  public BasicStatsSet getContribution(BasicStatsSet stats)
+  @Override
+  public BasicStatsSet getStats(CharacterData character, BasicStatsSet raw, BuffInstance buff)
   {
     BasicStatsSet ret=new BasicStatsSet();
-    FixedDecimalsInteger hopeStat=stats.getStat(STAT.HOPE);
+    FixedDecimalsInteger hopeStat=raw.getStat(STAT.HOPE);
     if (hopeStat != null)
     {
-      FixedDecimalsInteger morale=stats.getStat(STAT.MORALE);
+      FixedDecimalsInteger morale=raw.getStat(STAT.MORALE);
       int hope=hopeStat.intValue();
       if (hope!=0)
       {

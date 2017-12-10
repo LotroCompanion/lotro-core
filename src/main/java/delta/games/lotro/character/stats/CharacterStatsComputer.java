@@ -9,7 +9,9 @@ import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterProficiencies;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
-import delta.games.lotro.character.stats.base.HopeStatsContributionsMgr;
+import delta.games.lotro.character.stats.buffs.Buff;
+import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.stats.buffs.MoraleFromHopeOrDread;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
@@ -34,7 +36,7 @@ public class CharacterStatsComputer
 {
   private BaseStatsManager _baseStatsMgr;
   private TomesContributionsMgr _tomesMgr;
-  private HopeStatsContributionsMgr _hopeMgr;
+  private BuffInstance _hopeDread;
   private RatingsMgr _ratingsMgr;
   private StatsContributionsManager _contribs;
 
@@ -54,9 +56,17 @@ public class CharacterStatsComputer
   {
     _baseStatsMgr=new BaseStatsManager();
     _tomesMgr=new TomesContributionsMgr();
-    _hopeMgr=new HopeStatsContributionsMgr();
+    _hopeDread=buildMoraleBuffFromHopeOrDread();
     _ratingsMgr=new RatingsMgr();
     _contribs=contribs;
+  }
+
+  private BuffInstance buildMoraleBuffFromHopeOrDread()
+  {
+    Buff buff=new Buff("MORALE_HOPE_DREAD", "", "Morale from Hope/Dread");
+    buff.setImpl(new MoraleFromHopeOrDread());
+    BuffInstance buffInstance=new BuffInstance(buff);
+    return buffInstance;
   }
 
   private BasicStatsSet getEquipmentStats(CharacterEquipment equipment)
@@ -212,8 +222,7 @@ public class CharacterStatsComputer
     c.getBuffs().applyBuffs(c,raw,_contribs);
 
     // Hope
-    BasicStatsSet hopeContrib=_hopeMgr.getContribution(raw);
-    raw.addStats(hopeContrib);
+    c.getBuffs().applyBuff(c,raw,_contribs,_hopeDread);
 
     // Ratings
     BasicStatsSet ratings=computeRatings(c,raw);
