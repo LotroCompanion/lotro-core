@@ -50,6 +50,7 @@ public class BuffInitializer
     initChampionBuffs(registry);
     initGuardianBuffs(registry);
     initHunterBuffs(registry);
+    initLoremasterBuffs(registry);
     initMinstrelBuffs(registry);
     initRuneKeeperBuffs(registry);
   }
@@ -365,6 +366,29 @@ public class BuffInitializer
     // - Endurance
     // - Survival Gear
     // Stance related buffs
+  }
+
+  private void initLoremasterBuffs(BuffRegistry registry)
+  {
+    // Loremaster buffs
+    // Yellow tree
+    // Blue tree
+    // Red tree
+    // - Critical Strikes
+    {
+      Buff tacticalDamage=new Buff("TACTICAL_DAMAGE", RED_TREE, "Tactical Damage");
+      tacticalDamage.setIcon("Tactical_Mastery_(Lore-master_Trait)-icon");
+      tacticalDamage.setRequiredClass(CharacterClass.LORE_MASTER);
+      SimpleTieredBuff buff=new SimpleTieredBuff();
+      for(int tier=1;tier<=5;tier++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.TACTICAL_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(tier*2));
+        buff.addTier(tier,stats);
+      }
+      tacticalDamage.setImpl(buff);
+      registry.registerBuff(tacticalDamage);
+    }
   }
 
   private void initMinstrelBuffs(BuffRegistry registry)
