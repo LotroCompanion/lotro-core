@@ -12,7 +12,6 @@ public class Relic
   private RelicType _type;
   private String _category;
   private String _iconFilename;
-  // TODO add category: tier 1..10, lvl55, mounted...
   private Integer _requiredLevel;
   private BasicStatsSet _stats;
 
