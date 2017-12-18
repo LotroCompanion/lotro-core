@@ -7,9 +7,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import delta.games.lotro.crafting.Profession;
-import delta.games.lotro.crafting.ProfessionComparator;
-import delta.games.lotro.crafting.Vocation;
+import delta.games.lotro.lore.crafting.Profession;
+import delta.games.lotro.lore.crafting.ProfessionComparator;
+import delta.games.lotro.lore.crafting.Vocation;
 
 /**
  * Crafting status for a single toon.

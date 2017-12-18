@@ -4,8 +4,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.crafting.CraftingLevel;
-import delta.games.lotro.crafting.Profession;
+import delta.games.lotro.lore.crafting.CraftingLevel;
+import delta.games.lotro.lore.crafting.Profession;
 
 /**
  * Statistics about a single profession on a single toon.

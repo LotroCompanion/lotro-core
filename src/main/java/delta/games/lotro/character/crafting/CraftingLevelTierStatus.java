@@ -2,7 +2,7 @@ package delta.games.lotro.character.crafting;
 
 import java.util.Date;
 
-import delta.games.lotro.crafting.CraftingLevelTier;
+import delta.games.lotro.lore.crafting.CraftingLevelTier;
 
 /**
  * Crafting status for a tier of a level of a profession.

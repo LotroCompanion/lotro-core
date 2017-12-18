@@ -9,11 +9,11 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.lore.recipes.CraftingResult;
-import delta.games.lotro.lore.recipes.Ingredient;
-import delta.games.lotro.lore.recipes.ItemReference;
-import delta.games.lotro.lore.recipes.Recipe;
-import delta.games.lotro.lore.recipes.RecipeVersion;
+import delta.games.lotro.lore.crafting.recipes.CraftingResult;
+import delta.games.lotro.lore.crafting.recipes.Ingredient;
+import delta.games.lotro.lore.crafting.recipes.ItemReference;
+import delta.games.lotro.lore.crafting.recipes.Recipe;
+import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.PluginConstants;
 

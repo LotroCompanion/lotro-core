@@ -1,7 +1,7 @@
 package delta.games.lotro.character.crafting;
 
 import delta.games.lotro.character.reputation.FactionStatus;
-import delta.games.lotro.crafting.Profession;
+import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 

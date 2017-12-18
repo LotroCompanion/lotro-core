@@ -15,9 +15,9 @@ import delta.games.lotro.character.crafting.GuildStatus;
 import delta.games.lotro.character.crafting.ProfessionStatus;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLConstants;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLParser;
-import delta.games.lotro.crafting.Profession;
-import delta.games.lotro.crafting.Vocation;
-import delta.games.lotro.crafting.Vocations;
+import delta.games.lotro.lore.crafting.Profession;
+import delta.games.lotro.lore.crafting.Vocation;
+import delta.games.lotro.lore.crafting.Vocations;
 
 /**
  * Parser for the crafting status of a character stored in XML.

@@ -1,6 +1,6 @@
 package delta.games.lotro.character.crafting;
 
-import delta.games.lotro.crafting.CraftingLevel;
+import delta.games.lotro.lore.crafting.CraftingLevel;
 
 /**
  * Crafting status for a given level on a given profession.

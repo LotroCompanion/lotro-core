@@ -11,7 +11,7 @@ public class Duration
    */
   public static final int MINUTE=60;
   /**
-   * Hour durationin seconds.
+   * Hour duration in seconds.
    */
   public static final int HOUR=MINUTE*60;
   /**
