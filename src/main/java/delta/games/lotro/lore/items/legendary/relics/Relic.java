@@ -59,6 +59,15 @@ public class Relic
   }
 
   /**
+   * Set the required level.
+   * @param requiredLevel Level to set or <code>null</code>.
+   */
+  public void setRequiredLevel(Integer requiredLevel)
+  {
+    _requiredLevel=requiredLevel;
+  }
+
+  /**
    * Get the stats of this relic.
    * @return a set of stats.
    */
