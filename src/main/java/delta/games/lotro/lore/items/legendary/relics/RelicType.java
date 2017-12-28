@@ -7,17 +7,17 @@ package delta.games.lotro.lore.items.legendary.relics;
 public enum RelicType
 {
   /**
-   * Rune.
+   * Setting.
    */
-  RUNE("Rune"),
+  SETTING("Setting"),
   /**
    * Gem.
    */
   GEM("Gem"),
   /**
-   * Setting.
+   * Rune.
    */
-  SETTING("Setting"),
+  RUNE("Rune"),
   /**
    * Crafted relic.
    */

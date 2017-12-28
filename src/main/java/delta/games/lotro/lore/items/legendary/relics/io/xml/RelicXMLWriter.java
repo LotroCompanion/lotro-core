@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items.legendary.relics.io.xml;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.transform.OutputKeys;
@@ -18,6 +19,7 @@ import delta.common.utils.io.StreamTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicComparator;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicsCategory;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
@@ -102,6 +104,8 @@ public class RelicXMLWriter
     }
     hd.startElement("","",RelicXMLConstants.CATEGORY_TAG,attrs);
     List<Relic> relics=category.getAllRelics();
+    RelicComparator comparator=new RelicComparator();
+    Collections.sort(relics,comparator);
     for(Relic relic:relics)
     {
       write(hd,relic);
