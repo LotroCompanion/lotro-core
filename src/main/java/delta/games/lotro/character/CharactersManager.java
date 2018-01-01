@@ -1,10 +1,8 @@
 package delta.games.lotro.character;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.common.utils.files.FilesDeleter;
 import delta.games.lotro.character.events.CharacterEvent;
 import delta.games.lotro.character.events.CharacterEventType;
 import delta.games.lotro.character.events.CharacterEventsManager;
@@ -114,9 +112,7 @@ public final class CharactersManager
     boolean ret=_toons.remove(file);
     if (ret)
     {
-      File rootDir=file.getRootDir();
-      FilesDeleter deleter=new FilesDeleter(rootDir,null,true);
-      deleter.doIt();
+      _storage.removeToon(file);
       // Broadcast toon deletion event...
       CharacterEvent event=new CharacterEvent(file,null);
       CharacterEventsManager.invokeEvent(CharacterEventType.CHARACTER_REMOVED,event);
