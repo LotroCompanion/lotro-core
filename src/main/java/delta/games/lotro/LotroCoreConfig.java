@@ -25,6 +25,8 @@ public final class LotroCoreConfig
 
   // Root directory for use data
   private File _userDataDir;
+  // Account data
+  private File _accountsDir;
   // Character data
   private File _toonsDir;
 
@@ -66,6 +68,7 @@ public final class LotroCoreConfig
     File userApplicationDir=new File(userHomeDir,".lotrocompanion");
     _userDataDir=new File(userApplicationDir,"data");
     _toonsDir=new File(_userDataDir,"characters");
+    _accountsDir=new File(_userDataDir,"accounts");
   }
 
   /**
@@ -156,5 +159,14 @@ public final class LotroCoreConfig
   public File getToonsDir()
   {
     return _toonsDir;
+  }
+
+  /**
+   * Get the root storage directory for accounts.
+   * @return a directory.
+   */
+  public File getAccountsDir()
+  {
+    return _accountsDir;
   }
 }
