@@ -2,12 +2,16 @@ package delta.games.lotro.lore.deeds;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import delta.common.utils.cache.WeakReferencesCache;
 import delta.common.utils.files.archives.ArchiveManager;
 import delta.games.lotro.LotroCoreConfig;
+import delta.games.lotro.lore.deeds.index.DeedCategory;
+import delta.games.lotro.lore.deeds.index.DeedSummary;
 import delta.games.lotro.lore.deeds.index.DeedsIndex;
 import delta.games.lotro.lore.deeds.index.io.xml.DeedsIndexXMLParser;
 import delta.games.lotro.lore.deeds.io.xml.DeedXMLParser;
@@ -115,5 +119,26 @@ public final class DeedsManager
     {
       _index=new DeedsIndex();
     }
+  }
+
+  /**
+   * Get all deeds.
+   * @return a list of all deeds.
+   */
+  public List<DeedDescription> getAll()
+  {
+    List<DeedDescription> ret=new ArrayList<DeedDescription>();
+    String[] categories=_index.getCategories();
+    for(String categoryName : categories)
+    {
+      DeedCategory category=_index.getCategory(categoryName);
+      DeedSummary[] summaries=category.getDeeds();
+      for(DeedSummary summary : summaries)
+      {
+        DeedDescription deed=loadDeed(summary.getIdentifier());
+        ret.add(deed);
+      }
+    }
+    return ret;
   }
 }
