@@ -8,6 +8,10 @@ package delta.games.lotro.lore.deeds.io.xml;
 public class DeedXMLConstants
 {
   /**
+   * Tag 'deeds'.
+   */
+  public static final String DEEDS_TAG="deeds";
+  /**
    * Tag 'deed'.
    */
   public static final String DEED_TAG="deed";

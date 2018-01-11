@@ -2,6 +2,8 @@ package delta.games.lotro.lore.deeds.io.xml;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -22,15 +24,29 @@ public class DeedXMLParser
    * @param source Source file.
    * @return Parsed deed or <code>null</code>.
    */
-  public DeedDescription parseXML(File source)
+  public List<DeedDescription> parseXML(File source)
   {
-    DeedDescription c=null;
+    List<DeedDescription> ret=new ArrayList<DeedDescription>();
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      c=parseDeed(root);
+      String tagName=root.getTagName();
+      if (DeedXMLConstants.DEED_TAG.equals(tagName))
+      {
+        DeedDescription deed=parseDeed(root);
+        ret.add(deed);
+      }
+      else
+      {
+        List<Element> deedTags=DOMParsingTools.getChildTagsByName(root,DeedXMLConstants.DEED_TAG);
+        for(Element deedTag : deedTags)
+        {
+          DeedDescription deed=parseDeed(deedTag);
+          ret.add(deed);
+        }
+      }
     }
-    return c;
+    return ret;
   }
 
   /**

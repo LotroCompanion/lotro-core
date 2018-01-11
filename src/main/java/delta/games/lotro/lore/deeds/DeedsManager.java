@@ -1,21 +1,13 @@
 package delta.games.lotro.lore.deeds;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.log4j.Logger;
-
-import delta.common.utils.cache.WeakReferencesCache;
-import delta.common.utils.files.archives.ArchiveManager;
 import delta.games.lotro.LotroCoreConfig;
-import delta.games.lotro.lore.deeds.index.DeedCategory;
-import delta.games.lotro.lore.deeds.index.DeedSummary;
-import delta.games.lotro.lore.deeds.index.DeedsIndex;
-import delta.games.lotro.lore.deeds.index.io.xml.DeedsIndexXMLParser;
 import delta.games.lotro.lore.deeds.io.xml.DeedXMLParser;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Facade for deeds access.
@@ -23,14 +15,11 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public final class DeedsManager
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
-
   private static DeedsManager _instance=new DeedsManager();
-  
-  private DeedsIndex _index;
-  private ArchiveManager _archive;
-  private WeakReferencesCache<Integer,DeedDescription> _cache;
-  
+
+  private List<DeedDescription> _deeds;
+  private Map<Integer,DeedDescription> _deedsMap;
+
   /**
    * Get the sole instance of this class.
    * @return the sole instance of this class.
@@ -45,21 +34,27 @@ public final class DeedsManager
    */
   private DeedsManager()
   {
-    _cache=new WeakReferencesCache<Integer,DeedDescription>(100);
+    _deeds=new ArrayList<DeedDescription>();
+    _deedsMap=new HashMap<Integer,DeedDescription>();
     File loreDir=LotroCoreConfig.getInstance().getLoreDir();
-    File deedsArchive=new File(loreDir,"deeds.zip");
-    _archive=new ArchiveManager(deedsArchive);
-    _archive.open();
-    loadIndex();
+    File deedFile=new File(loreDir,"deeds.xml");
+    DeedXMLParser parser=new DeedXMLParser();
+    List<DeedDescription> deeds=parser.parseXML(deedFile);
+    _deeds.addAll(deeds);
+    for(DeedDescription deed : _deeds)
+    {
+      _deedsMap.put(Integer.valueOf(deed.getIdentifier()),deed);
+    }
   }
 
   /**
-   * Get the deeds index.
-   * @return the deeds index.
+   * Get a list of all deeds.
+   * @return A list of all deeds.
    */
-  public DeedsIndex getIndex()
+  public List<DeedDescription> getAll()
   {
-    return _index;
+    List<DeedDescription> ret=new ArrayList<DeedDescription>(_deeds);
+    return ret;
   }
 
   /**
@@ -69,76 +64,7 @@ public final class DeedsManager
    */
   public DeedDescription getDeed(int id)
   {
-    DeedDescription ret=null;
-    if (id>0)
-    {
-      Integer idKey=Integer.valueOf(id);
-      ret=(_cache!=null)?_cache.getObject(idKey):null;
-      if (ret==null)
-      {
-        ret=loadDeed(id);
-        if (ret!=null)
-        {
-          if (_cache!=null)
-          {
-            _cache.registerObject(idKey,ret);
-          }
-        }
-      }
-    }
-    return ret;
-  }
-
-  private DeedDescription loadDeed(int id)
-  {
-    DeedDescription ret=null;
-    String fileName=String.valueOf(id)+".xml";
-    InputStream is=_archive.getEntry(fileName);
-    if (is!=null)
-    {
-      DeedXMLParser parser=new DeedXMLParser();
-      ret=parser.parseXML(is);
-      if (ret==null)
-      {
-        _logger.error("Cannot load deed ["+fileName+"]!");
-      }
-    }
-    return ret;
-  }
-
-  private void loadIndex()
-  {
-    File dir=LotroCoreConfig.getInstance().getIndexesDir();
-    File deedIndexFile=new File(dir,"deedsIndex.xml");
-    if (deedIndexFile.exists())
-    {
-      DeedsIndexXMLParser parser=new DeedsIndexXMLParser();
-      _index=parser.parseXML(deedIndexFile);
-    }
-    else
-    {
-      _index=new DeedsIndex();
-    }
-  }
-
-  /**
-   * Get all deeds.
-   * @return a list of all deeds.
-   */
-  public List<DeedDescription> getAll()
-  {
-    List<DeedDescription> ret=new ArrayList<DeedDescription>();
-    String[] categories=_index.getCategories();
-    for(String categoryName : categories)
-    {
-      DeedCategory category=_index.getCategory(categoryName);
-      DeedSummary[] summaries=category.getDeeds();
-      for(DeedSummary summary : summaries)
-      {
-        DeedDescription deed=loadDeed(summary.getIdentifier());
-        ret.add(deed);
-      }
-    }
+    DeedDescription ret=_deedsMap.get(Integer.valueOf(id));
     return ret;
   }
 }
