@@ -9,7 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.deeds.DeedDescription;
-import delta.games.lotro.lore.deeds.DeedDescription.TYPE;
+import delta.games.lotro.lore.deeds.DeedType;
 
 /**
  * Parser for deed descriptions stored in XML.
@@ -65,11 +65,11 @@ public class DeedXMLParser
     String title=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_NAME_ATTR,null);
     deed.setName(title);
     // Type
-    TYPE type=null;
+    DeedType type=null;
     String typeStr=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_TYPE_ATTR,null);
     if (typeStr!=null)
     {
-      type=TYPE.valueOf(typeStr);
+      type=DeedType.valueOf(typeStr);
     }
     deed.setType(type);
     // Class

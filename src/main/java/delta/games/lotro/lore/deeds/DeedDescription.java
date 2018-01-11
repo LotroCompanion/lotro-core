@@ -9,46 +9,10 @@ import delta.games.lotro.common.Rewards;
  */
 public class DeedDescription
 {
-  /**
-   * Quest type.
-   * @author DAM
-   */
-  public enum TYPE
-  {
-    /**
-     * Class deed.
-     */
-    CLASS,
-    /**
-     * Exploration deed.
-     */
-    EXPLORER,
-    /**
-     * Lore-related deed.
-     */
-    LORE,
-    /**
-     * Racial deed.
-     */
-    RACE,
-    /**
-     * Reputation deed.
-     */
-    REPUTATION,
-    /**
-     * Slayer deed.
-     */
-    SLAYER,
-    /**
-     * Event deed.
-     */
-    EVENT
-  }
-
   private int _identifier;
   private String _key;
   private String _name;
-  private TYPE _type;
+  private DeedType _type;
   private String _class;
   private Integer _minLevel;
   private String _description;
@@ -63,7 +27,7 @@ public class DeedDescription
     _identifier=0;
     _key=null;
     _name="";
-    _type=TYPE.SLAYER;
+    _type=DeedType.SLAYER;
     _class=null;
     _minLevel=null;
     _description="";
@@ -129,7 +93,7 @@ public class DeedDescription
    * Get the type of this deed.
    * @return the type of this deed.
    */
-  public TYPE getType()
+  public DeedType getType()
   {
     return _type;
   }
@@ -138,7 +102,7 @@ public class DeedDescription
    * Set the type of this deed. 
    * @param type the type to set.
    */
-  public void setType(TYPE type)
+  public void setType(DeedType type)
   {
     _type=type;
   }

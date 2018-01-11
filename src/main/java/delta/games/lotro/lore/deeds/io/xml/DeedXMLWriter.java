@@ -16,7 +16,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.StreamTools;
 import delta.games.lotro.common.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
-import delta.games.lotro.lore.deeds.DeedDescription.TYPE;
+import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
@@ -87,7 +87,7 @@ public class DeedXMLWriter
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_NAME_ATTR,CDATA,name);
     }
-    TYPE type=deed.getType();
+    DeedType type=deed.getType();
     if (type!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_TYPE_ATTR,CDATA,type.name());
