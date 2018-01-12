@@ -164,6 +164,11 @@ public class DeedXMLWriter
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CLASS_ATTR,CDATA,className);
     }
+    String category=deed.getCategory();
+    if (category!=null)
+    {
+      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CATEGORY_ATTR,CDATA,category);
+    }
     Integer minLevel=deed.getMinLevel();
     if (minLevel!=null)
     {

@@ -13,6 +13,7 @@ public class DeedDescription
   private String _key;
   private String _name;
   private DeedType _type;
+  private String _category;
   private String _class;
   private Integer _minLevel;
   private String _description;
@@ -29,6 +30,7 @@ public class DeedDescription
     _name="";
     _type=DeedType.SLAYER;
     _class=null;
+    _category=null;
     _minLevel=null;
     _description="";
     _objectives="";
@@ -105,6 +107,24 @@ public class DeedDescription
   public void setType(DeedType type)
   {
     _type=type;
+  }
+
+  /**
+   * Get the category of this deed.
+   * @return the category of this deed.
+   */
+  public String getCategory()
+  {
+    return _category;
+  }
+
+  /**
+   * Set the category of this deed.
+   * @param category the category to set.
+   */
+  public void setCategory(String category)
+  {
+    _category=category;
   }
 
   /**
@@ -217,6 +237,12 @@ public class DeedDescription
         sb.append(" ");
         sb.append(_class);
       }
+      sb.append(')');
+    }
+    if (_category!=null)
+    {
+      sb.append(" (");
+      sb.append(_category);
       sb.append(')');
     }
     if (_minLevel!=null)

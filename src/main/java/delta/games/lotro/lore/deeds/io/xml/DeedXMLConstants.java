@@ -36,6 +36,10 @@ public class DeedXMLConstants
    */
   public static final String DEED_CLASS_ATTR="class";
   /**
+   * Tag 'deed', attribute 'category'.
+   */
+  public static final String DEED_CATEGORY_ATTR="category";
+  /**
    * Tag 'deed', attribute 'minimumLevel'.
    */
   public static final String DEED_MIN_LEVEL_ATTR="minimumLevel";

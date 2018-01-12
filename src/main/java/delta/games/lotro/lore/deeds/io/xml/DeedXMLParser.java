@@ -91,6 +91,9 @@ public class DeedXMLParser
     // Class
     String className=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_CLASS_ATTR,null);
     deed.setClassName(className);
+    // Category
+    String category=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_CATEGORY_ATTR,null);
+    deed.setCategory(category);
     // Minimum level
     int minimumLevel=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_MIN_LEVEL_ATTR,-1);
     if (minimumLevel!=-1)
