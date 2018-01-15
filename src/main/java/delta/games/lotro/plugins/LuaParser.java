@@ -3,8 +3,11 @@ package delta.games.lotro.plugins;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.io.FileIO;
@@ -19,18 +22,53 @@ public class LuaParser
 {
   private String _body;
   private int _index;
+  private Stack<Integer> _marks;
+
+  /**
+   * Constructor.
+   */
+  public LuaParser()
+  {
+    _marks=new Stack<Integer>();
+  }
+
+  /**
+   * Reset.
+   */
+  public void reset()
+  {
+    _marks.clear();
+    _index=0;
+  }
+
+  /**
+   * Store a mark.
+   */
+  private void pushMark()
+  {
+    _marks.add(Integer.valueOf(_index));
+  }
+
+  /**
+   * Re-use mark.
+   */
+  private void popMark()
+  {
+    _index=_marks.pop().intValue();
+  }
 
   /**
    * Read data from the given string.
    * @param body String to read.
-   * @return A map of data.
+   * @return Some data.
    */
-  public Map<String,Object> read(String body)
+  public Object read(String body)
   {
     if (body.startsWith("return")) body=body.substring(6);
     _body=body;
-    _index=0;
-    Map<String,Object> value=readPropertiesMap();
+    reset();
+    Object value=readValue();
+    //System.out.println("Read: "+value);
     return value;
   }
 
@@ -40,7 +78,27 @@ public class LuaParser
    * @return A map of data.
    * @throws Exception if an error occurs.
    */
+  @SuppressWarnings("unchecked")
   public Map<String,Object> read(File file) throws Exception
+  {
+    Map<String,Object> ret=null;
+    byte[] b=FileIO.readFile(file);
+    String body=new String(b,EncodingNames.UTF_8);
+    Object data=read(body);
+    if (data instanceof Map)
+    {
+      ret=(Map<String,Object>)data;
+    }
+    return ret;
+  }
+
+  /**
+   * Read data from the given file.
+   * @param file File to read.
+   * @return Some data.
+   * @throws Exception if an error occurs.
+   */
+  public Object readObject(File file) throws Exception
   {
     byte[] b=FileIO.readFile(file);
     String body=new String(b,EncodingNames.UTF_8);
@@ -69,6 +127,42 @@ public class LuaParser
     char c=_body.charAt(_index);
     _index++;
     return c;
+  }
+
+  private List<Object> readArray()
+  {
+    List<Object> ret=new ArrayList<Object>();
+    skipBlanks();
+    char c=readNextChar();
+    if (c!='{') throwException("'{' expected");
+    skipBlanks();
+    c=readNextChar();
+    if (c=='}')
+    {
+      return ret;
+    }
+    pushBackChar();
+    Object value=readValue();
+    ret.add(value);
+    while (true)
+    {
+      skipBlanks();
+      c=readNextChar();
+      if (c=='}')
+      {
+        break;
+      }
+      if (c==',')
+      {
+        value=readValue();
+        ret.add(value);
+      }
+      else
+      {
+        throwException("Unexpected char '" + c + '\'');
+      }
+    }
+    return ret;
   }
 
   private Map<String,Object> readPropertiesMap()
@@ -113,14 +207,14 @@ public class LuaParser
     skipBlanks();
     char c=readNextChar();
     if (c!='=') throwException("'=' expected");
-    Object value=readPropertyValue();
+    Object value=readValue();
     Object[] ret=new Object[2];
     ret[0]=name;
     ret[1]=value;
     return ret;
   }
 
-  private Object readPropertyValue()
+  private Object readValue()
   {
     Object ret=null;
     skipBlanks();
@@ -128,24 +222,68 @@ public class LuaParser
     if (c=='{')
     {
       pushBackChar();
-      ret=readPropertiesMap();
+      ret=readCompound();
+      //System.out.println("Read: "+ret);
     }
     else if (c=='\"')
     {
       pushBackChar();
       ret=readString();
     }
-    else if ((c=='t') || (c=='f'))
-    {
-      pushBackChar();
-      ret=readBoolean();
-    }
     else
     {
       pushBackChar();
-      ret=readNumeric();
+      ret=readBasicValue();
+      if ("true".equals(ret)) ret=Boolean.TRUE;
+      if ("false".equals(ret)) ret=Boolean.FALSE;
     }
     //System.out.println("Read value: "+ret);
+    return ret;
+  }
+
+  private Object readCompound()
+  {
+    pushMark();
+    Object ret=null;
+    try
+    {
+      ret=readPropertiesMap();
+    }
+    catch(Exception e)
+    {
+      popMark();
+    }
+    if (ret==null)
+    {
+      try
+      {
+        ret=readArray();
+      }
+      catch(Exception e)
+      {
+        popMark();
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Read numeric or string value.
+   * @return a value.
+   */
+  private Object readBasicValue()
+  {
+    Object ret=null;
+    char c=readNextChar();
+    pushBackChar();
+    if ((Character.isDigit(c)) || (c=='-'))
+    {
+      ret=readNumeric();
+    }
+    else
+    {
+      ret=readBasicString();
+    }
     return ret;
   }
 
@@ -153,12 +291,20 @@ public class LuaParser
   {
     skipBlanks();
     char c=readNextChar();
-    if (c!='[') throwException("'[' expected");
+    if (c=='{')
+    {
+      throwException("'{' not expected");
+    }
+    boolean useBrackets=false;
+    if (c=='[') useBrackets=true; else pushBackChar();
     skipBlanks();
-    Object name=readPropertyValue();
+    Object name=readValue();
     skipBlanks();
-    c=readNextChar();
-    if (c!=']') throwException("'[' expected");
+    if (useBrackets)
+    {
+      c=readNextChar();
+      if (c!=']') throwException("'[' expected");
+    }
     //System.out.println("Read: "+name);
     return name.toString();
   }
@@ -171,7 +317,14 @@ public class LuaParser
     while (true)
     {
       c=readNextChar();
-      if (c!='\"')
+      if (c=='\\')
+      {
+        // Escape
+        c=readNextChar();
+        if (c=='n') sb.append('\n');
+        else sb.append(c);
+      }
+      else if (c!='\"')
       {
         sb.append(c);
       }
@@ -182,6 +335,26 @@ public class LuaParser
     }
     String ret=sb.toString();
     ret=resolveEscapes(ret);
+    return ret;
+  }
+
+  private String readBasicString()
+  {
+    StringBuilder sb=new StringBuilder();
+    while (true)
+    {
+      char c=readNextChar();
+      if (((c>='a') && (c<='z')) || ((c>='A') && (c<='Z')))
+      {
+        sb.append(c);
+      }
+      else
+      {
+        pushBackChar();
+        break;
+      }
+    }
+    String ret=sb.toString();
     return ret;
   }
 
@@ -253,25 +426,6 @@ public class LuaParser
     }
     byte[] byteBuffer=bos.toByteArray();
     return byteBuffer;
-  }
-
-  private Boolean readBoolean()
-  {
-    StringBuilder sb=new StringBuilder();
-    char c=readNextChar();
-    int nbChars=0;
-    if (c=='t') nbChars=4;
-    if (c=='f') nbChars=5;
-    pushBackChar();
-    for(int i=0;i<nbChars;i++)
-    {
-      sb.append(readNextChar());
-    }
-    String value=sb.toString();
-    if ("true".equals(value)) return Boolean.TRUE;
-    if ("false".equals(value)) return Boolean.FALSE;
-    throwException("Expected a boolean value. Got: "+value);
-    return null;
   }
 
   private Double readNumeric()
