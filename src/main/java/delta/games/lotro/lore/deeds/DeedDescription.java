@@ -268,6 +268,29 @@ public class DeedDescription
   @Override
   public String toString()
   {
-    return _name;
+    StringBuilder sb=new StringBuilder();
+    sb.append("Deed id=").append(_identifier);
+    if (_key!=null)
+    {
+      sb.append(", key=").append(_key);
+    }
+    sb.append(", name=").append(_name);
+    sb.append(", type=").append(_type);
+    if (_category!=null)
+    {
+      sb.append(", category=").append(_category);
+    }
+    if (_class!=null)
+    {
+      sb.append(", class=").append(_class);
+    }
+    if (_minLevel!=null)
+    {
+      sb.append(", min level=").append(_minLevel);
+    }
+    sb.append(", description=").append(_description);
+    sb.append(", objectives=").append(_objectives);
+    sb.append(", rewards=").append(_rewards);
+    return sb.toString();
   }
 }

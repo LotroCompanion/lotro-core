@@ -86,6 +86,6 @@ public class ObjectItem
   @Override
   public String toString()
   {
-    return _name;
+    return _itemId+":"+_name;
   }
 }
