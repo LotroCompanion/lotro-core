@@ -75,8 +75,8 @@ public class RewardsXMLWriter
       for(Trait trait : traits)
       {
         AttributesImpl attrs=new AttributesImpl();
-        String id=trait.getIdentifier();
-        attrs.addAttribute("","",RewardsXMLConstants.TRAIT_ID_ATTR,CDATA,id);
+        //String id=trait.getIdentifier();
+        //attrs.addAttribute("","",RewardsXMLConstants.TRAIT_ID_ATTR,CDATA,id);
         String name=trait.getName();
         attrs.addAttribute("","",RewardsXMLConstants.TRAIT_NAME_ATTR,CDATA,name);
         hd.startElement("","",RewardsXMLConstants.TRAIT_TAG,attrs);
@@ -107,8 +107,8 @@ public class RewardsXMLWriter
       for(Title title : titles)
       {
         AttributesImpl attrs=new AttributesImpl();
-        String id=title.getIdentifier();
-        attrs.addAttribute("","",RewardsXMLConstants.TITLE_ID_ATTR,CDATA,id);
+        //String id=title.getIdentifier();
+        //attrs.addAttribute("","",RewardsXMLConstants.TITLE_ID_ATTR,CDATA,id);
         String name=title.getName();
         attrs.addAttribute("","",RewardsXMLConstants.TITLE_NAME_ATTR,CDATA,name);
         hd.startElement("","",RewardsXMLConstants.TITLE_TAG,attrs);
@@ -124,8 +124,6 @@ public class RewardsXMLWriter
         AttributesImpl attrs=new AttributesImpl();
         String id=virtue.getIdentifier();
         attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_ID_ATTR,CDATA,id);
-        String name=virtue.getName();
-        attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_NAME_ATTR,CDATA,name);
         hd.startElement("","",RewardsXMLConstants.VIRTUE_TAG,attrs);
         hd.endElement("","",RewardsXMLConstants.VIRTUE_TAG);
       }

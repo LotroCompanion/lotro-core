@@ -12,6 +12,7 @@ import delta.games.lotro.common.Reputation;
 import delta.games.lotro.common.ReputationItem;
 import delta.games.lotro.common.Rewards;
 import delta.games.lotro.common.Skill;
+import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.Skill.SkillType;
 import delta.games.lotro.common.Title;
 import delta.games.lotro.common.Trait;
@@ -79,13 +80,10 @@ public class RewardsXMLParser
       for(Element traitTag : traitTags)
       {
         NamedNodeMap attrs=traitTag.getAttributes();
-        String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TRAIT_ID_ATTR,null);
+        //String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TRAIT_ID_ATTR,null);
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TRAIT_NAME_ATTR,"");
-        if (id!=null)
-        {
-          Trait trait=new Trait(id,name);
-          rewards.addTrait(trait);
-        }
+        Trait trait=new Trait(null,name);
+        rewards.addTrait(trait);
       }
       // Skills
       List<Element> skillTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.SKILL_TAG);
@@ -107,13 +105,10 @@ public class RewardsXMLParser
       for(Element titleTag : titleTags)
       {
         NamedNodeMap attrs=titleTag.getAttributes();
-        String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TITLE_ID_ATTR,null);
+        //String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TITLE_ID_ATTR,null);
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TITLE_NAME_ATTR,"");
-        if (id!=null)
-        {
-          Title title=new Title(id,name);
-          rewards.addTitle(title);
-        }
+        Title title=new Title(null,name);
+        rewards.addTitle(title);
       }
       // Virtues
       List<Element> virtueTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.VIRTUE_TAG);
@@ -121,10 +116,10 @@ public class RewardsXMLParser
       {
         NamedNodeMap attrs=virtueTag.getAttributes();
         String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.VIRTUE_ID_ATTR,null);
-        String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.VIRTUE_NAME_ATTR,"");
         if (id!=null)
         {
-          Virtue virtue=new Virtue(id,name);
+          VirtueId virtueId=VirtueId.valueOf(id.toUpperCase());
+          Virtue virtue=new Virtue(virtueId.name(),virtueId.getLabel());
           rewards.addVirtue(virtue);
         }
       }

@@ -94,10 +94,6 @@ public class RewardsXMLConstants
    * Tag 'virtue', attribute 'id'.
    */
   public static final String VIRTUE_ID_ATTR="id";
-  /**
-   * Tag 'virtue', attribute 'name'.
-   */
-  public static final String VIRTUE_NAME_ATTR="name";
 
   /**
    * Tag 'emote'.
