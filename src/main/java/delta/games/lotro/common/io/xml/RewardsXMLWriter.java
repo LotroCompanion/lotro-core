@@ -53,7 +53,7 @@ public class RewardsXMLWriter
       }
       hd.endElement("","",RewardsXMLConstants.REPUTATION_TAG);
     }
-    // Destiny points XP
+    // Destiny points
     int destinyPoints=rewards.getDestinyPoints();
     if (destinyPoints>0)
     {
@@ -61,6 +61,15 @@ public class RewardsXMLWriter
       attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_DESTINY_POINTS_ATTR,CDATA,String.valueOf(destinyPoints));
       hd.startElement("","",RewardsXMLConstants.DESTINY_POINTS_TAG,attrs);
       hd.endElement("","",RewardsXMLConstants.DESTINY_POINTS_TAG);
+    }
+    // LOTRO points
+    int lotroPoints=rewards.getLotroPoints();
+    if (lotroPoints>0)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_LOTRO_POINTS_ATTR,CDATA,String.valueOf(lotroPoints));
+      hd.startElement("","",RewardsXMLConstants.LOTRO_POINTS_TAG,attrs);
+      hd.endElement("","",RewardsXMLConstants.LOTRO_POINTS_TAG);
     }
     // Item XP
     boolean hasItemXP=rewards.hasItemXP();

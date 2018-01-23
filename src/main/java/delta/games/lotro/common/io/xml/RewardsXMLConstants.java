@@ -44,6 +44,15 @@ public class RewardsXMLConstants
   public static final String QUANTITY_DESTINY_POINTS_ATTR="quantity";
 
   /**
+   * Tag 'lotroPoints'.
+   */
+  public static final String LOTRO_POINTS_TAG="lotroPoints";
+  /**
+   * Tag 'lotroPoints', attribute 'quantity'.
+   */
+  public static final String QUANTITY_LOTRO_POINTS_ATTR="quantity";
+
+  /**
    * Tag 'trait'.
    */
   public static final String TRAIT_TAG="trait";

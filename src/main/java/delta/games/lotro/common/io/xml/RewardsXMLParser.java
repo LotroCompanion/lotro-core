@@ -71,6 +71,14 @@ public class RewardsXMLParser
         int destinyPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_DESTINY_POINTS_ATTR,0);
         rewards.setDestinyPoints(destinyPoints);
       }
+      // LOTRO points
+      Element lotroPointsTag=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.LOTRO_POINTS_TAG);
+      if (lotroPointsTag!=null)
+      {
+        NamedNodeMap attrs=lotroPointsTag.getAttributes();
+        int lotroPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_LOTRO_POINTS_ATTR,0);
+        rewards.setLotroPoints(lotroPoints);
+      }
       // Item XP
       Element itemXP=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.ITEM_XP_TAG);
       rewards.setHasItemXP(itemXP!=null);
@@ -158,7 +166,7 @@ public class RewardsXMLParser
       parseObject(objectTag,set);
     }
   }
-  
+
   private static void parseObject(Element objectTag, ObjectsSet set)
   {
     NamedNodeMap attrs=objectTag.getAttributes();
