@@ -9,7 +9,6 @@ import java.util.Comparator;
  */
 public class RelicComparator implements Comparator<Relic>
 {
-  @Override
   public int compare(Relic r1, Relic r2)
   {
     RelicType type1=r1.getType();
