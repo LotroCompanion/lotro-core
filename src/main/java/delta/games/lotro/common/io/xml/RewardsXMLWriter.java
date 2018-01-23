@@ -13,6 +13,7 @@ import delta.games.lotro.common.Skill;
 import delta.games.lotro.common.Title;
 import delta.games.lotro.common.Trait;
 import delta.games.lotro.common.Virtue;
+import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.common.objects.ObjectItem;
 import delta.games.lotro.common.objects.ObjectsSet;
@@ -122,8 +123,13 @@ public class RewardsXMLWriter
       for(Virtue virtue : virtues)
       {
         AttributesImpl attrs=new AttributesImpl();
-        String id=virtue.getIdentifier();
-        attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_ID_ATTR,CDATA,id);
+        VirtueId id=virtue.getIdentifier();
+        attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_ID_ATTR,CDATA,id.toString());
+        int count=virtue.getCount();
+        if (count!=1)
+        {
+          attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_COUNT_ATTR,CDATA,String.valueOf(count));
+        }
         hd.startElement("","",RewardsXMLConstants.VIRTUE_TAG,attrs);
         hd.endElement("","",RewardsXMLConstants.VIRTUE_TAG);
       }

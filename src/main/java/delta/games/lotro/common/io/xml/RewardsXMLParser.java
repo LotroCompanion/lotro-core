@@ -116,10 +116,11 @@ public class RewardsXMLParser
       {
         NamedNodeMap attrs=virtueTag.getAttributes();
         String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.VIRTUE_ID_ATTR,null);
+        int count=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.VIRTUE_COUNT_ATTR,1);
         if (id!=null)
         {
           VirtueId virtueId=VirtueId.valueOf(id.toUpperCase());
-          Virtue virtue=new Virtue(virtueId.name(),virtueId.getLabel());
+          Virtue virtue=new Virtue(virtueId,count);
           rewards.addVirtue(virtue);
         }
       }

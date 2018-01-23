@@ -3,41 +3,41 @@ package delta.games.lotro.common;
 import delta.common.utils.text.EndOfLine;
 
 /**
- * Virtue.
+ * Virtue points reward.
  * @author DAM
  */
 public class Virtue
 {
-  private String _identifier;
-  private String _name;
+  private VirtueId _identifier;
+  private int _count;
 
   /**
    * Constructor.
-   * @param identifier Internal identifier.
-   * @param name Virtue's name.
+   * @param id Virtue identifier.
+   * @param count Virtue points count.
    */
-  public Virtue(String identifier, String name)
+  public Virtue(VirtueId id, int count)
   {
-    _identifier=identifier;
-    _name=name;
+    _identifier=id;
+    _count=count;
   }
-  
+
   /**
    * Get the internal identifier.
    * @return the internal identifier.
    */
-  public String getIdentifier()
+  public VirtueId getIdentifier()
   {
     return _identifier;
   }
 
   /**
-   * Get the virtue's name.
-   * @return the virtue's name.
+   * Get the count of virtue points.
+   * @return a count.
    */
-  public String getName()
+  public int getCount()
   {
-    return _name;
+    return _count;
   }
 
   /**
@@ -47,8 +47,7 @@ public class Virtue
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Virtue: ").append(_name);
-    sb.append(" (").append(_identifier).append(')');
+    sb.append("Virtue: +").append(_count).append(' ').append(_identifier);
     sb.append(EndOfLine.NATIVE_EOL);
     return sb.toString();
   }
@@ -56,6 +55,6 @@ public class Virtue
   @Override
   public String toString()
   {
-    return _name;
+    return _identifier.toString()+'('+_count+')';
   }
 }
