@@ -19,6 +19,7 @@ import delta.common.utils.io.StreamTools;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
+import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.comparators.DeedIdComparator;
 import delta.games.lotro.utils.LotroLoggers;
@@ -173,6 +174,24 @@ public class DeedXMLWriter
     if (minLevel!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_MIN_LEVEL_ATTR,CDATA,String.valueOf(minLevel));
+    }
+    DeedProxy previous=deed.getPreviousDeedProxy();
+    if (previous!=null)
+    {
+      int previousId=previous.getId();
+      if (previousId!=0)
+      {
+        deedAttrs.addAttribute("","",DeedXMLConstants.DEED_PREVIOUS_ATTR,CDATA,String.valueOf(previousId));
+      }
+    }
+    DeedProxy next=deed.getNextDeedProxy();
+    if (next!=null)
+    {
+      int nextId=next.getId();
+      if (nextId!=0)
+      {
+        deedAttrs.addAttribute("","",DeedXMLConstants.DEED_NEXT_ATTR,CDATA,String.valueOf(nextId));
+      }
     }
     String description=deed.getDescription();
     if (description!=null)

@@ -44,6 +44,14 @@ public class DeedXMLConstants
    */
   public static final String DEED_MIN_LEVEL_ATTR="minimumLevel";
   /**
+   * Tag 'deed', attribute 'previous'.
+   */
+  public static final String DEED_PREVIOUS_ATTR="previous";
+  /**
+   * Tag 'deed', attribute 'next'.
+   */
+  public static final String DEED_NEXT_ATTR="next";
+  /**
    * Tag 'deed', attribute 'description'.
    */
   public static final String DEED_DESCRIPTION_ATTR="description";

@@ -11,6 +11,7 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.deeds.DeedDescription;
+import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 
 /**
@@ -99,6 +100,22 @@ public class DeedXMLParser
     if (minimumLevel!=-1)
     {
       deed.setMinLevel(Integer.valueOf(minimumLevel));
+    }
+    // Previous deed
+    int previousId=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_PREVIOUS_ATTR,0);
+    if (previousId!=0)
+    {
+      DeedProxy previous=new DeedProxy();
+      previous.setId(previousId);
+      deed.setPreviousDeedProxy(previous);
+    }
+    // Next deed
+    int nextId=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_NEXT_ATTR,0);
+    if (nextId!=0)
+    {
+      DeedProxy next=new DeedProxy();
+      next.setId(nextId);
+      deed.setNextDeedProxy(next);
     }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_DESCRIPTION_ATTR,null);

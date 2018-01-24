@@ -19,6 +19,8 @@ public class DeedDescription
   private String _description;
   private String _objectives;
   private Rewards _rewards;
+  private DeedProxy _previous;
+  private DeedProxy _next;
 
   /**
    * Constructor.
@@ -35,6 +37,8 @@ public class DeedDescription
     _description="";
     _objectives="";
     _rewards=new Rewards();
+    _previous=null;
+    _next=null;
   }
 
   /**
@@ -206,6 +210,42 @@ public class DeedDescription
   public Rewards getRewards()
   {
     return _rewards;
+  }
+
+  /**
+   * Get a proxy for the previous deed, if any.
+   * @return a deed proxy or <code>null</code>.
+   */
+  public DeedProxy getPreviousDeedProxy()
+  {
+    return _previous;
+  }
+
+  /**
+   * Set a proxy for the previous deed.
+   * @param previous A proxy or <code>null</code>.
+   */
+  public void setPreviousDeedProxy(DeedProxy previous)
+  {
+    _previous=previous;
+  }
+
+  /**
+   * Get a proxy for the next deed, if any.
+   * @return a deed proxy or <code>null</code>.
+   */
+  public DeedProxy getNextDeedProxy()
+  {
+    return _next;
+  }
+
+  /**
+   * Set a proxy for the next deed.
+   * @param next A proxy or <code>null</code>.
+   */
+  public void setNextDeedProxy(DeedProxy next)
+  {
+    _next=next;
   }
 
   /**
