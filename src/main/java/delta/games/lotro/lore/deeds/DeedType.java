@@ -31,7 +31,19 @@ public enum DeedType
    */
   SLAYER,
   /**
+   * Hobby deed (such as fishing).
+   */
+  HOBBY,
+  /**
    * Event deed.
    */
-  EVENT
+  EVENT,
+  /**
+   * Quest deed.
+   */
+  QUEST,
+  /**
+   * Meta deed.
+   */
+  META
 }
