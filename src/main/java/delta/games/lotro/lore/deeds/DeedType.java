@@ -19,10 +19,6 @@ public enum DeedType
    */
   LORE,
   /**
-   * Racial deed.
-   */
-  RACE,
-  /**
    * Reputation deed.
    */
   REPUTATION,
@@ -41,9 +37,5 @@ public enum DeedType
   /**
    * Quest deed.
    */
-  QUEST,
-  /**
-   * Meta deed.
-   */
-  META
+  QUEST
 }
