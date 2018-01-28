@@ -70,14 +70,6 @@ public class RewardsXMLConstants
    */
   public static final String SKILL_TAG="skill";
   /**
-   * Tag 'skill', attribute 'id'.
-   */
-  public static final String SKILL_ID_ATTR="id";
-  /**
-   * Tag 'skill', attribute 'type'.
-   */
-  public static final String SKILL_TYPE_ATTR="type";
-  /**
    * Tag 'skill', attribute 'name'.
    */
   public static final String SKILL_NAME_ATTR="name";
@@ -86,10 +78,6 @@ public class RewardsXMLConstants
    * Tag 'title'.
    */
   public static final String TITLE_TAG="title";
-  /**
-   * Tag 'title', attribute 'id'.
-   */
-  public static final String TITLE_ID_ATTR="id";
   /**
    * Tag 'title', attribute 'name'.
    */
@@ -112,10 +100,6 @@ public class RewardsXMLConstants
    * Tag 'emote'.
    */
   public static final String EMOTE_TAG="emote";
-  /**
-   * Tag 'emote', attribute 'id'.
-   */
-  public static final String EMOTE_ID_ATTR="id";
   /**
    * Tag 'emote', attribute 'name'.
    */

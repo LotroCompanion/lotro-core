@@ -12,11 +12,10 @@ import delta.games.lotro.common.Reputation;
 import delta.games.lotro.common.ReputationItem;
 import delta.games.lotro.common.Rewards;
 import delta.games.lotro.common.Skill;
-import delta.games.lotro.common.VirtueId;
-import delta.games.lotro.common.Skill.SkillType;
 import delta.games.lotro.common.Title;
 import delta.games.lotro.common.Trait;
 import delta.games.lotro.common.Virtue;
+import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.common.objects.ObjectItem;
 import delta.games.lotro.common.objects.ObjectsSet;
@@ -88,9 +87,8 @@ public class RewardsXMLParser
       for(Element traitTag : traitTags)
       {
         NamedNodeMap attrs=traitTag.getAttributes();
-        //String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TRAIT_ID_ATTR,null);
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TRAIT_NAME_ATTR,"");
-        Trait trait=new Trait(null,name);
+        Trait trait=new Trait(name);
         rewards.addTrait(trait);
       }
       // Skills
@@ -98,22 +96,15 @@ public class RewardsXMLParser
       for(Element skillTag : skillTags)
       {
         NamedNodeMap attrs=skillTag.getAttributes();
-        String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.SKILL_ID_ATTR,null);
-        String typeStr=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.SKILL_TYPE_ATTR,"");
-        SkillType type=SkillType.valueOf(typeStr);
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.SKILL_NAME_ATTR,"");
-        if (id!=null)
-        {
-          Skill skill=new Skill(type,id,name);
-          rewards.addSkill(skill);
-        }
+        Skill skill=new Skill(name);
+        rewards.addSkill(skill);
       }
       // Titles
       List<Element> titleTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.TITLE_TAG);
       for(Element titleTag : titleTags)
       {
         NamedNodeMap attrs=titleTag.getAttributes();
-        //String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TITLE_ID_ATTR,null);
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TITLE_NAME_ATTR,"");
         Title title=new Title(null,name);
         rewards.addTitle(title);
@@ -137,13 +128,9 @@ public class RewardsXMLParser
       for(Element emoteTag : emoteTags)
       {
         NamedNodeMap attrs=emoteTag.getAttributes();
-        String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.EMOTE_ID_ATTR,null);
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.EMOTE_NAME_ATTR,"");
-        if (id!=null)
-        {
-          Emote emote=new Emote(id,name);
-          rewards.addEmote(emote);
-        }
+        Emote emote=new Emote(name);
+        rewards.addEmote(emote);
       }
 
       // Objects

@@ -100,10 +100,10 @@ public class RewardsXMLWriter
       for(Skill skill : skills)
       {
         AttributesImpl attrs=new AttributesImpl();
-        String id=skill.getIdentifier();
-        attrs.addAttribute("","",RewardsXMLConstants.SKILL_ID_ATTR,CDATA,id);
-        String type=skill.getType().toString();
-        attrs.addAttribute("","",RewardsXMLConstants.SKILL_TYPE_ATTR,CDATA,type);
+        //String id=skill.getIdentifier();
+        //attrs.addAttribute("","",RewardsXMLConstants.SKILL_ID_ATTR,CDATA,id);
+        //String type=skill.getType().toString();
+        //attrs.addAttribute("","",RewardsXMLConstants.SKILL_TYPE_ATTR,CDATA,type);
         String name=skill.getName();
         attrs.addAttribute("","",RewardsXMLConstants.SKILL_NAME_ATTR,CDATA,name);
         hd.startElement("","",RewardsXMLConstants.SKILL_TAG,attrs);
@@ -150,8 +150,8 @@ public class RewardsXMLWriter
       for(Emote emote : emotes)
       {
         AttributesImpl attrs=new AttributesImpl();
-        String id=emote.getIdentifier();
-        attrs.addAttribute("","",RewardsXMLConstants.EMOTE_ID_ATTR,CDATA,id);
+        //String id=emote.getIdentifier();
+        //attrs.addAttribute("","",RewardsXMLConstants.EMOTE_ID_ATTR,CDATA,id);
         String name=emote.getName();
         attrs.addAttribute("","",RewardsXMLConstants.EMOTE_NAME_ATTR,CDATA,name);
         hd.startElement("","",RewardsXMLConstants.EMOTE_TAG,attrs);

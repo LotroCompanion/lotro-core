@@ -8,27 +8,15 @@ import delta.common.utils.text.EndOfLine;
  */
 public class Trait
 {
-  private String _identifier;
   private String _name;
 
   /**
    * Constructor.
-   * @param identifier Internal identifier.
    * @param name Trait's name.
    */
-  public Trait(String identifier, String name)
+  public Trait(String name)
   {
-    _identifier=identifier;
     _name=name;
-  }
-  
-  /**
-   * Get the internal identifier.
-   * @return the internal identifier.
-   */
-  public String getIdentifier()
-  {
-    return _identifier;
   }
 
   /**
@@ -48,7 +36,6 @@ public class Trait
   {
     StringBuilder sb=new StringBuilder();
     sb.append("Trait: ").append(_name);
-    sb.append(" (").append(_identifier).append(')');
     sb.append(EndOfLine.NATIVE_EOL);
     return sb.toString();
   }
