@@ -44,14 +44,6 @@ public class DeedXMLConstants
    */
   public static final String DEED_MIN_LEVEL_ATTR="minimumLevel";
   /**
-   * Tag 'deed', attribute 'previous'.
-   */
-  public static final String DEED_PREVIOUS_ATTR="previous";
-  /**
-   * Tag 'deed', attribute 'next'.
-   */
-  public static final String DEED_NEXT_ATTR="next";
-  /**
    * Tag 'deed', attribute 'description'.
    */
   public static final String DEED_DESCRIPTION_ATTR="description";
@@ -59,4 +51,33 @@ public class DeedXMLConstants
    * Tag 'deed', attribute 'objectives'.
    */
   public static final String DEED_OBJECTIVES_ATTR="objectives";
+
+  /**
+   * Tag 'previous'.
+   */
+  public static final String PREVIOUS_TAG="previous";
+  /**
+   * Tag 'next'.
+   */
+  public static final String NEXT_TAG="next";
+  /**
+   * Tag 'parent'.
+   */
+  public static final String PARENT_TAG="parent";
+  /**
+   * Tag 'child'.
+   */
+  public static final String CHILD_TAG="child";
+  /**
+   * 'deed proxy' tag, attribute 'id'.
+   */
+  public static final String DEED_PROXY_ID_ATTR="id";
+  /**
+   * 'deed proxy' tag, attribute 'key'.
+   */
+  public static final String DEED_PROXY_KEY_ATTR="key";
+  /**
+   * 'deed proxy' tag, attribute 'name'.
+   */
+  public static final String DEED_PROXY_NAME_ATTR="name";
 }

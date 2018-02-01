@@ -175,24 +175,6 @@ public class DeedXMLWriter
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_MIN_LEVEL_ATTR,CDATA,String.valueOf(minLevel));
     }
-    DeedProxy previous=deed.getPreviousDeedProxy();
-    if (previous!=null)
-    {
-      int previousId=previous.getId();
-      if (previousId!=0)
-      {
-        deedAttrs.addAttribute("","",DeedXMLConstants.DEED_PREVIOUS_ATTR,CDATA,String.valueOf(previousId));
-      }
-    }
-    DeedProxy next=deed.getNextDeedProxy();
-    if (next!=null)
-    {
-      int nextId=next.getId();
-      if (nextId!=0)
-      {
-        deedAttrs.addAttribute("","",DeedXMLConstants.DEED_NEXT_ATTR,CDATA,String.valueOf(nextId));
-      }
-    }
     String description=deed.getDescription();
     if (description!=null)
     {
@@ -204,7 +186,41 @@ public class DeedXMLWriter
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_OBJECTIVES_ATTR,CDATA,objectives);
     }
     hd.startElement("","",DeedXMLConstants.DEED_TAG,deedAttrs);
+    writeDeedProxy(hd,DeedXMLConstants.PREVIOUS_TAG,deed.getPreviousDeedProxy());
+    writeDeedProxy(hd,DeedXMLConstants.NEXT_TAG,deed.getNextDeedProxy());
+    writeDeedProxy(hd,DeedXMLConstants.PARENT_TAG,deed.getParentDeedProxy());
+    for(DeedProxy childProxy : deed.getChildDeeds())
+    {
+      writeDeedProxy(hd,DeedXMLConstants.CHILD_TAG,childProxy);
+    }
     RewardsXMLWriter.write(hd,deed.getRewards());
     hd.endElement("","",DeedXMLConstants.DEED_TAG);
+  }
+
+  private void writeDeedProxy(TransformerHandler hd, String tagName, DeedProxy proxy) throws Exception
+  {
+    if (proxy==null)
+    {
+      return;
+    }
+    AttributesImpl deedProxyAttrs=new AttributesImpl();
+
+    int id=proxy.getId();
+    if (id!=0)
+    {
+      deedProxyAttrs.addAttribute("","",DeedXMLConstants.DEED_PROXY_ID_ATTR,CDATA,String.valueOf(id));
+    }
+    String key=proxy.getKey();
+    if (key!=null)
+    {
+      deedProxyAttrs.addAttribute("","",DeedXMLConstants.DEED_PROXY_KEY_ATTR,CDATA,key);
+    }
+    String name=proxy.getName();
+    if (name!=null)
+    {
+      deedProxyAttrs.addAttribute("","",DeedXMLConstants.DEED_PROXY_NAME_ATTR,CDATA,name);
+    }
+    hd.startElement("","",tagName,deedProxyAttrs);
+    hd.endElement("","",tagName);
   }
 }

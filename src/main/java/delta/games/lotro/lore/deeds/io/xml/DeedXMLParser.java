@@ -101,22 +101,6 @@ public class DeedXMLParser
     {
       deed.setMinLevel(Integer.valueOf(minimumLevel));
     }
-    // Previous deed
-    int previousId=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_PREVIOUS_ATTR,0);
-    if (previousId!=0)
-    {
-      DeedProxy previous=new DeedProxy();
-      previous.setId(previousId);
-      deed.setPreviousDeedProxy(previous);
-    }
-    // Next deed
-    int nextId=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_NEXT_ATTR,0);
-    if (nextId!=0)
-    {
-      DeedProxy next=new DeedProxy();
-      next.setId(nextId);
-      deed.setNextDeedProxy(next);
-    }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_DESCRIPTION_ATTR,null);
     deed.setDescription(description);
@@ -124,7 +108,51 @@ public class DeedXMLParser
     String objectives=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_OBJECTIVES_ATTR,null);
     deed.setObjectives(objectives);
 
+    // Previous deed
+    Element previousTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.PREVIOUS_TAG);
+    DeedProxy previous=parseDeedProxy(previousTag);
+    deed.setPreviousDeedProxy(previous);
+    // Next deed
+    Element nextTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.NEXT_TAG);
+    DeedProxy next=parseDeedProxy(nextTag);
+    deed.setNextDeedProxy(next);
+    // Parent deed
+    Element parentTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.PARENT_TAG);
+    DeedProxy parent=parseDeedProxy(parentTag);
+    deed.setParentDeedProxy(parent);
+    // Child deeds
+    List<Element> childDeedTags=DOMParsingTools.getChildTagsByName(root,DeedXMLConstants.CHILD_TAG);
+    List<DeedProxy> childDeeds=deed.getChildDeeds();
+    for(Element childDeedTag : childDeedTags)
+    {
+      DeedProxy childDeed=parseDeedProxy(childDeedTag);
+      childDeeds.add(childDeed);
+    }
+
+    // Rewards
     RewardsXMLParser.loadRewards(root,deed.getRewards());
     return deed;
+  }
+
+  private DeedProxy parseDeedProxy(Element root)
+  {
+    if (root==null)
+    {
+      return null;
+    }
+    DeedProxy proxy=new DeedProxy();
+
+    NamedNodeMap attrs=root.getAttributes();
+
+    // Identifier
+    int id=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_PROXY_ID_ATTR,0);
+    proxy.setId(id);
+    // Key
+    String key=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_PROXY_KEY_ATTR,null);
+    proxy.setKey(key);
+    // Name
+    String title=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_PROXY_NAME_ATTR,null);
+    proxy.setName(title);
+    return proxy;
   }
 }
