@@ -5,7 +5,7 @@ import java.util.List;
 
 import delta.games.lotro.character.events.CharacterEvent;
 import delta.games.lotro.character.events.CharacterEventType;
-import delta.games.lotro.character.events.CharacterEventsManager;
+import delta.games.lotro.utils.events.EventsManager;
 
 /**
  * Manages all known toons.
@@ -96,8 +96,8 @@ public final class CharactersManager
     {
       _toons.add(file);
       // Broadcast toon creation event...
-      CharacterEvent event=new CharacterEvent(file,null);
-      CharacterEventsManager.invokeEvent(CharacterEventType.CHARACTER_ADDED,event);
+      CharacterEvent event=new CharacterEvent(CharacterEventType.CHARACTER_ADDED,file,null);
+      EventsManager.invokeEvent(event);
     }
     return file;
   }
@@ -114,8 +114,8 @@ public final class CharactersManager
     {
       _storage.removeToon(file);
       // Broadcast toon deletion event...
-      CharacterEvent event=new CharacterEvent(file,null);
-      CharacterEventsManager.invokeEvent(CharacterEventType.CHARACTER_REMOVED,event);
+      CharacterEvent event=new CharacterEvent(CharacterEventType.CHARACTER_REMOVED,file,null);
+      EventsManager.invokeEvent(event);
     }
     return ret;
   }
