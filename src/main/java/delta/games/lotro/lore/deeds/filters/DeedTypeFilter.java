@@ -25,7 +25,7 @@ public class DeedTypeFilter implements Filter<DeedDescription>
    * Get the deed type to use.
    * @return A deed type or <code>null</code>.
    */
-  public DeedType getDeedtype()
+  public DeedType getDeedType()
   {
     return _deedType;
   }
