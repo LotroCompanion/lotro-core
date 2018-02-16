@@ -141,6 +141,17 @@ public class DeedRewardsExplorer
   }
 
   /**
+   * Get all titles.
+   * @return a sorted list of titles.
+   */
+  public List<String> getTitles()
+  {
+    List<String> ret=new ArrayList<String>(_titles);
+    Collections.sort(ret);
+    return ret;
+  }
+
+  /**
    * Main method for this tool.
    * @param args Not used.
    */
