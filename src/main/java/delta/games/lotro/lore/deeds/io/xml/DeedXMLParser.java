@@ -9,6 +9,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Race;
 import delta.games.lotro.common.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedProxy;
@@ -90,8 +92,13 @@ public class DeedXMLParser
     }
     deed.setType(type);
     // Class
-    String className=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_CLASS_ATTR,null);
-    deed.setClassName(className);
+    String characterClass=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_CLASS_ATTR,"");
+    CharacterClass cClass=CharacterClass.getByKey(characterClass);
+    deed.setRequiredClass(cClass);
+    // Race
+    String race=DOMParsingTools.getStringAttribute(root.getAttributes(),DeedXMLConstants.DEED_RACE_ATTR,"");
+    Race cRace=Race.getByKey(race); 
+    deed.setRequiredRace(cRace);
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_CATEGORY_ATTR,null);
     deed.setCategory(category);

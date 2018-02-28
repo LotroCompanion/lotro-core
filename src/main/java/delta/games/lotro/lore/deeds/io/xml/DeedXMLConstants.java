@@ -36,6 +36,10 @@ public class DeedXMLConstants
    */
   public static final String DEED_CLASS_ATTR="class";
   /**
+   * Tag 'deed', attribute 'race'.
+   */
+  public static final String DEED_RACE_ATTR="race";
+  /**
    * Tag 'deed', attribute 'category'.
    */
   public static final String DEED_CATEGORY_ATTR="category";

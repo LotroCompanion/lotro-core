@@ -17,6 +17,8 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Race;
 import delta.games.lotro.common.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedProxy;
@@ -140,46 +142,63 @@ public class DeedXMLWriter
   {
     AttributesImpl deedAttrs=new AttributesImpl();
 
+    // In-game identifier
     int id=deed.getIdentifier();
     if (id!=0)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_ID_ATTR,CDATA,String.valueOf(id));
     }
+    // String key (from lotro-wiki)
     String key=deed.getKey();
     if (key!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_KEY_ATTR,CDATA,key);
     }
+    // Name
     String name=deed.getName();
     if (name!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_NAME_ATTR,CDATA,name);
     }
+    // Type
     DeedType type=deed.getType();
     if (type!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_TYPE_ATTR,CDATA,type.name());
     }
-    String className=deed.getClassName();
-    if (className!=null)
+    // Character class
+    CharacterClass characterClass=deed.getRequiredClass();
+    if (characterClass!=null)
     {
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CLASS_ATTR,CDATA,className);
+      String cClass=characterClass.getKey();
+      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CLASS_ATTR,CDATA,cClass);
     }
+    // Race
+    Race race=deed.getRequiredRace();
+    if (race!=null)
+    {
+      String cRace=race.getKey();
+      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_RACE_ATTR,CDATA,cRace);
+    }
+    // Category
     String category=deed.getCategory();
     if (category!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CATEGORY_ATTR,CDATA,category);
     }
+    // Required level
     Integer minLevel=deed.getMinLevel();
     if (minLevel!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_MIN_LEVEL_ATTR,CDATA,String.valueOf(minLevel));
     }
+    // Description
     String description=deed.getDescription();
     if (description!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_DESCRIPTION_ATTR,CDATA,description);
     }
+    // Objectives
     String objectives=deed.getObjectives();
     if (objectives!=null)
     {

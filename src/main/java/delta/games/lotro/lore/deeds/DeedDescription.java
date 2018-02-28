@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Race;
 import delta.games.lotro.common.Rewards;
 
 /**
@@ -17,11 +19,15 @@ public class DeedDescription
   private String _name;
   private DeedType _type;
   private String _category;
-  private String _class;
-  private Integer _minLevel;
   private String _description;
   private String _objectives;
+  // Requirements
+  private Race _race;
+  private CharacterClass _class;
+  private Integer _minLevel;
+  // Rewards
   private Rewards _rewards;
+  // Links
   private DeedProxy _previous;
   private DeedProxy _next;
   private DeedProxy _parent;
@@ -36,11 +42,12 @@ public class DeedDescription
     _key=null;
     _name="";
     _type=DeedType.SLAYER;
-    _class=null;
     _category=null;
-    _minLevel=null;
     _description="";
     _objectives="";
+    _race=null;
+    _class=null;
+    _minLevel=null;
     _rewards=new Rewards();
     _previous=null;
     _next=null;
@@ -139,21 +146,39 @@ public class DeedDescription
   }
 
   /**
-   * Get the class name of this deed.
-   * @return the class name of this deed.
+   * Get the required race for this deed.
+   * @return a race or <code>null</code>.
    */
-  public String getClassName()
+  public Race getRequiredRace()
+  {
+    return _race;
+  }
+
+  /**
+   * Set the required race for this deed.
+   * @param race the race to set (or <code>null</code>).
+   */
+  public void setRequiredRace(Race race)
+  {
+    _race=race;
+  }
+
+  /**
+   * Get the required class for this deed.
+   * @return a character class or <code>null</code>.
+   */
+  public CharacterClass getRequiredClass()
   {
     return _class;
   }
 
   /**
-   * Set the class name of this deed.
-   * @param className the class name to set.
+   * Set the required class for this deed.
+   * @param characterClass the class to set (or <code>null</code>).
    */
-  public void setClassName(String className)
+  public void setRequiredClass(CharacterClass characterClass)
   {
-    _class=className;
+    _class=characterClass;
   }
 
   /**
@@ -306,11 +331,6 @@ public class DeedDescription
     {
       sb.append(" (");
       sb.append(_type);
-      if (_class!=null)
-      {
-        sb.append(" ");
-        sb.append(_class);
-      }
       sb.append(')');
     }
     if (_category!=null)
@@ -318,6 +338,16 @@ public class DeedDescription
       sb.append(" (");
       sb.append(_category);
       sb.append(')');
+    }
+    if (_race!=null)
+    {
+      sb.append(" race=");
+      sb.append(_race);
+    }
+    if (_class!=null)
+    {
+      sb.append(" class=");
+      sb.append(_class);
     }
     if (_minLevel!=null)
     {
