@@ -71,6 +71,15 @@ public class RewardsXMLWriter
       hd.startElement("","",RewardsXMLConstants.LOTRO_POINTS_TAG,attrs);
       hd.endElement("","",RewardsXMLConstants.LOTRO_POINTS_TAG);
     }
+    // Class points
+    int classPoints=rewards.getClassPoints();
+    if (classPoints>0)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_CLASS_POINTS_ATTR,CDATA,String.valueOf(classPoints));
+      hd.startElement("","",RewardsXMLConstants.CLASS_POINTS_TAG,attrs);
+      hd.endElement("","",RewardsXMLConstants.CLASS_POINTS_TAG);
+    }
     // Item XP
     boolean hasItemXP=rewards.hasItemXP();
     if (hasItemXP)

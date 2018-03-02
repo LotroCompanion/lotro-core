@@ -53,6 +53,15 @@ public class RewardsXMLConstants
   public static final String QUANTITY_LOTRO_POINTS_ATTR="quantity";
 
   /**
+   * Tag 'classPoints'.
+   */
+  public static final String CLASS_POINTS_TAG="classPoints";
+  /**
+   * Tag 'classPoints', attribute 'quantity'.
+   */
+  public static final String QUANTITY_CLASS_POINTS_ATTR="quantity";
+
+  /**
    * Tag 'trait'.
    */
   public static final String TRAIT_TAG="trait";

@@ -78,6 +78,14 @@ public class RewardsXMLParser
         int lotroPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_LOTRO_POINTS_ATTR,0);
         rewards.setLotroPoints(lotroPoints);
       }
+      // Class points
+      Element classPointsTag=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.CLASS_POINTS_TAG);
+      if (classPointsTag!=null)
+      {
+        NamedNodeMap attrs=classPointsTag.getAttributes();
+        int classPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_CLASS_POINTS_ATTR,0);
+        rewards.setClassPoints(classPoints);
+      }
       // Item XP
       Element itemXP=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.ITEM_XP_TAG);
       rewards.setHasItemXP(itemXP!=null);

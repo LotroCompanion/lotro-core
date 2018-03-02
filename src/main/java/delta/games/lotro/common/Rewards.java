@@ -16,6 +16,7 @@ public class Rewards
   private Reputation _reputation;
   private int _destinyPoints;
   private int _lotroPoints;
+  private int _classPoints;
   private List<Trait> _traits;
   private List<Skill> _skills;
   private List<Title> _titles;
@@ -34,6 +35,7 @@ public class Rewards
     _reputation=new Reputation();
     _destinyPoints=0;
     _lotroPoints=0;
+    _classPoints=0;
     _traits=null;
     _skills=null;
     _titles=null;
@@ -95,6 +97,24 @@ public class Rewards
   public void setLotroPoints(int lotroPoints)
   {
     _lotroPoints=lotroPoints;
+  }
+
+  /**
+   * Get the class points.
+   * @return the class points.
+   */
+  public int getClassPoints()
+  {
+    return _classPoints;
+  }
+
+  /**
+   * Set the class points.
+   * @param classPoints Class points to set.
+   */
+  public void setClassPoints(int classPoints)
+  {
+    _classPoints=classPoints;
   }
 
   /**
@@ -299,6 +319,12 @@ public class Rewards
     {
       if (firstDone) sb.append(" / ");
       sb.append(_lotroPoints).append(" LOTRO points");
+      firstDone=true;
+    }
+    if (_classPoints>0)
+    {
+      if (firstDone) sb.append(" / ");
+      sb.append(_classPoints).append(" class points");
       firstDone=true;
     }
     int nbObjects=_objects.getNbObjectItems();
