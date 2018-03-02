@@ -53,7 +53,7 @@ public class DeedRewardsExplorer
       exploreDeed(deed);
     }
     resolveItems();
-    showResults();
+    //showResults();
   }
 
   private void exploreDeed(DeedDescription deed)
@@ -120,6 +120,7 @@ public class DeedRewardsExplorer
     }
   }
 
+  /*
   private void showResults()
   {
     showList("Emotes",_emotes);
@@ -139,6 +140,29 @@ public class DeedRewardsExplorer
       System.out.println("\t"+item);
     }
   }
+  */
+
+  /**
+   * Get all traits.
+   * @return a sorted list of traits.
+   */
+  public List<String> getTraits()
+  {
+    List<String> ret=new ArrayList<String>(_traits);
+    Collections.sort(ret);
+    return ret;
+  }
+
+  /**
+   * Get all skills.
+   * @return a sorted list of skills.
+   */
+  public List<String> getSkills()
+  {
+    List<String> ret=new ArrayList<String>(_skills);
+    Collections.sort(ret);
+    return ret;
+  }
 
   /**
    * Get all titles.
@@ -147,6 +171,28 @@ public class DeedRewardsExplorer
   public List<String> getTitles()
   {
     List<String> ret=new ArrayList<String>(_titles);
+    Collections.sort(ret);
+    return ret;
+  }
+
+  /**
+   * Get all emotes.
+   * @return a sorted list of emotes.
+   */
+  public List<String> getEmotes()
+  {
+    List<String> ret=new ArrayList<String>(_emotes);
+    Collections.sort(ret);
+    return ret;
+  }
+
+  /**
+   * Get all items.
+   * @return a sorted list of item names.
+   */
+  public List<String> getItemNames()
+  {
+    List<String> ret=new ArrayList<String>(_itemNames);
     Collections.sort(ret);
     return ret;
   }

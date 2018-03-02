@@ -19,6 +19,7 @@ public final class DeedsManager
 
   private List<DeedDescription> _deeds;
   private Map<Integer,DeedDescription> _deedsMap;
+  private DeedRewardsExplorer _rewardsExplorer;
 
   /**
    * Get the sole instance of this class.
@@ -45,6 +46,8 @@ public final class DeedsManager
     {
       _deedsMap.put(Integer.valueOf(deed.getIdentifier()),deed);
     }
+    _rewardsExplorer=new DeedRewardsExplorer();
+    _rewardsExplorer.doIt(deeds);
   }
 
   /**
@@ -55,6 +58,15 @@ public final class DeedsManager
   {
     List<DeedDescription> ret=new ArrayList<DeedDescription>(_deeds);
     return ret;
+  }
+
+  /**
+   * Get the rewards explorer.
+   * @return the rewards explorer.
+   */
+  public DeedRewardsExplorer getRewardsExplorer()
+  {
+    return _rewardsExplorer;
   }
 
   /**
