@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.LotroCoreConfig;
+import delta.games.lotro.lore.deeds.io.xml.DeedProxiesResolver;
 import delta.games.lotro.lore.deeds.io.xml.DeedXMLParser;
 
 /**
@@ -41,6 +42,7 @@ public final class DeedsManager
     File deedFile=new File(loreDir,"deeds.xml");
     DeedXMLParser parser=new DeedXMLParser();
     List<DeedDescription> deeds=parser.parseXML(deedFile);
+    new DeedProxiesResolver(deeds).doIt();
     _deeds.addAll(deeds);
     for(DeedDescription deed : _deeds)
     {
