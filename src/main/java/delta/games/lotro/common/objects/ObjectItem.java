@@ -30,6 +30,15 @@ public class ObjectItem
   }
 
   /**
+   * Set the name of the referenced item.
+   * @param name Name to set.
+   */
+  public void setName(String name)
+  {
+    _name=name;
+  }
+
+  /**
    * Get the identifier of this object.
    * @return the identifier of this object (0 if not set).
    */
