@@ -15,6 +15,7 @@ import delta.games.lotro.common.objects.ObjectItem;
 import delta.games.lotro.common.objects.ObjectsSet;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 
 /**
  * Tool to explore deed rewards.
@@ -25,7 +26,7 @@ public class DeedRewardsExplorer
   private Set<String> _emotes;
   private Set<String> _titles;
   private Set<Integer> _itemIds;
-  private Set<String> _itemNames;
+  private List<Item> _items;
   private Set<String> _skills;
   private Set<String> _traits;
 
@@ -36,7 +37,7 @@ public class DeedRewardsExplorer
   {
     _titles=new HashSet<String>();
     _itemIds=new HashSet<Integer>();
-    _itemNames=new HashSet<String>();
+    _items=new ArrayList<Item>();
     _emotes=new HashSet<String>();
     _skills=new HashSet<String>();
     _traits=new HashSet<String>();
@@ -116,7 +117,7 @@ public class DeedRewardsExplorer
     for(Integer id : _itemIds)
     {
       Item item=items.getItem(id.intValue());
-      _itemNames.add(item.getName());
+      _items.add(item);
     }
   }
 
@@ -188,12 +189,12 @@ public class DeedRewardsExplorer
 
   /**
    * Get all items.
-   * @return a sorted list of item names.
+   * @return a list of items, sorted by name.
    */
-  public List<String> getItemNames()
+  public List<Item> getItems()
   {
-    List<String> ret=new ArrayList<String>(_itemNames);
-    Collections.sort(ret);
+    List<Item> ret=new ArrayList<Item>(_items);
+    Collections.sort(ret,new ItemNameComparator());
     return ret;
   }
 

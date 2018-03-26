@@ -11,38 +11,38 @@ import delta.games.lotro.common.objects.ObjectsSet;
  */
 public class ItemRewardFilter implements Filter<Rewards>
 {
-  private String _itemName;
+  private Integer _itemId;
 
   /**
    * Constructor.
-   * @param itemName Name of item to select (may be <code>null</code>).
+   * @param itemId ID of item to select (may be <code>null</code>).
    */
-  public ItemRewardFilter(String itemName)
+  public ItemRewardFilter(Integer itemId)
   {
-    _itemName=itemName;
+    _itemId=itemId;
   }
 
   /**
-   * Get the item name to use.
-   * @return An item name or <code>null</code>.
+   * Get the item ID to use.
+   * @return An item ID or <code>null</code>.
    */
-  public String getItemName()
+  public Integer getItemId()
   {
-    return _itemName;
+    return _itemId;
   }
 
   /**
-   * Set the item name to select.
-   * @param itemName Item name to use, may be <code>null</code>.
+   * Set the item ID to select.
+   * @param itemId Item ID to use, may be <code>null</code>.
    */
-  public void setItemName(String itemName)
+  public void setItemId(Integer itemId)
   {
-    _itemName=itemName;
+    _itemId=itemId;
   }
 
   public boolean accept(Rewards rewards)
   {
-    if (_itemName==null)
+    if (_itemId==null)
     {
       return true;
     }
@@ -51,7 +51,7 @@ public class ItemRewardFilter implements Filter<Rewards>
     for(int i=0;i<nbObjects;i++)
     {
       ObjectItem objectItem=objects.getItem(i);
-      if (_itemName.equals(objectItem.getName()))
+      if (_itemId.intValue()==objectItem.getItemId())
       {
         return true;
       }
