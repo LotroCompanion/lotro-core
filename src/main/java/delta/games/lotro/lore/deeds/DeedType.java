@@ -9,33 +9,46 @@ public enum DeedType
   /**
    * Class deed.
    */
-  CLASS,
-  /**
-   * Exploration deed.
-   */
-  EXPLORER,
-  /**
-   * Lore-related deed.
-   */
-  LORE,
-  /**
-   * Reputation deed.
-   */
-  REPUTATION,
-  /**
-   * Slayer deed.
-   */
-  SLAYER,
-  /**
-   * Hobby deed (such as fishing).
-   */
-  HOBBY,
+  CLASS("Class"),
   /**
    * Event deed.
    */
-  EVENT,
+  EVENT("Event"),
+  /**
+   * Exploration deed.
+   */
+  EXPLORER("Explorer"),
+  /**
+   * Hobby deed (such as fishing).
+   */
+  HOBBY("Hobby"),
+  /**
+   * Lore-related deed.
+   */
+  LORE("Lore"),
   /**
    * Quest deed.
    */
-  QUEST
+  QUEST("Quest"),
+  /**
+   * Reputation deed.
+   */
+  REPUTATION("Reputation"),
+  /**
+   * Slayer deed.
+   */
+  SLAYER("Slayer");
+
+  private String _label;
+
+  private DeedType(String label)
+  {
+    _label=label;
+  }
+
+  @Override
+  public String toString()
+  {
+    return _label;
+  }
 }
