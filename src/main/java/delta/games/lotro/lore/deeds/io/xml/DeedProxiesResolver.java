@@ -53,10 +53,13 @@ public class DeedProxiesResolver
 
   private void resolveDeed(DeedDescription deed)
   {
-    resolveDeedProxy(deed.getParentDeedProxy());
+    for(DeedProxy parentProxy : deed.getParentDeedProxies().getDeedProxies())
+    {
+      resolveDeedProxy(parentProxy);
+    }
     resolveDeedProxy(deed.getNextDeedProxy());
     resolveDeedProxy(deed.getPreviousDeedProxy());
-    for(DeedProxy childProxy : deed.getChildDeeds())
+    for(DeedProxy childProxy : deed.getChildDeedProxies().getDeedProxies())
     {
       resolveDeedProxy(childProxy);
     }

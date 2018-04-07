@@ -13,6 +13,7 @@ import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.deeds.DeedDescription;
+import delta.games.lotro.lore.deeds.DeedProxies;
 import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 
@@ -123,17 +124,21 @@ public class DeedXMLParser
     Element nextTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.NEXT_TAG);
     DeedProxy next=parseDeedProxy(nextTag);
     deed.setNextDeedProxy(next);
-    // Parent deed
-    Element parentTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.PARENT_TAG);
-    DeedProxy parent=parseDeedProxy(parentTag);
-    deed.setParentDeedProxy(parent);
+    // Parent deeds
+    List<Element> parentTags=DOMParsingTools.getChildTagsByName(root,DeedXMLConstants.PARENT_TAG);
+    DeedProxies parents=deed.getParentDeedProxies();
+    for(Element parentDeedTag : parentTags)
+    {
+      DeedProxy parentDeedProxy=parseDeedProxy(parentDeedTag);
+      parents.add(parentDeedProxy);
+    }
     // Child deeds
     List<Element> childDeedTags=DOMParsingTools.getChildTagsByName(root,DeedXMLConstants.CHILD_TAG);
-    List<DeedProxy> childDeeds=deed.getChildDeeds();
+    DeedProxies children=deed.getChildDeedProxies();
     for(Element childDeedTag : childDeedTags)
     {
-      DeedProxy childDeed=parseDeedProxy(childDeedTag);
-      childDeeds.add(childDeed);
+      DeedProxy childDeedProxy=parseDeedProxy(childDeedTag);
+      children.add(childDeedProxy);
     }
 
     // Rewards

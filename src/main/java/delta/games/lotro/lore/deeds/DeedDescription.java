@@ -1,8 +1,5 @@
 package delta.games.lotro.lore.deeds;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
@@ -30,8 +27,8 @@ public class DeedDescription
   // Links
   private DeedProxy _previous;
   private DeedProxy _next;
-  private DeedProxy _parent;
-  private List<DeedProxy> _children;
+  private DeedProxies _parents;
+  private DeedProxies _children;
 
   /**
    * Constructor.
@@ -51,8 +48,8 @@ public class DeedDescription
     _rewards=new Rewards();
     _previous=null;
     _next=null;
-    _parent=null;
-    _children=new ArrayList<DeedProxy>();
+    _parents=new DeedProxies();
+    _children=new DeedProxies();
   }
 
   /**
@@ -281,28 +278,19 @@ public class DeedDescription
   }
 
   /**
-   * Get a proxy for the parent deed, if any.
-   * @return a deed proxy or <code>null</code>.
+   * Get the parent deed proxies, if any.
+   * @return a deed proxies collection.
    */
-  public DeedProxy getParentDeedProxy()
+  public DeedProxies getParentDeedProxies()
   {
-    return _parent;
-  }
-
-  /**
-   * Set a proxy for the parent deed.
-   * @param parent A proxy or <code>null</code>.
-   */
-  public void setParentDeedProxy(DeedProxy parent)
-  {
-    _parent=parent;
+    return _parents;
   }
 
   /**
    * Get the child deeds.
-   * @return a possibly empty, but not <code>null</code> list of deed proxies.
+   * @return a deed proxies collection.
    */
-  public List<DeedProxy> getChildDeeds()
+  public DeedProxies getChildDeedProxies()
   {
     return _children;
   }

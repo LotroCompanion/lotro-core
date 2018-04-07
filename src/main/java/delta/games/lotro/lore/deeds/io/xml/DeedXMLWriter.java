@@ -207,8 +207,11 @@ public class DeedXMLWriter
     hd.startElement("","",DeedXMLConstants.DEED_TAG,deedAttrs);
     writeDeedProxy(hd,DeedXMLConstants.PREVIOUS_TAG,deed.getPreviousDeedProxy());
     writeDeedProxy(hd,DeedXMLConstants.NEXT_TAG,deed.getNextDeedProxy());
-    writeDeedProxy(hd,DeedXMLConstants.PARENT_TAG,deed.getParentDeedProxy());
-    for(DeedProxy childProxy : deed.getChildDeeds())
+    for(DeedProxy parentProxy : deed.getParentDeedProxies().getDeedProxies())
+    {
+      writeDeedProxy(hd,DeedXMLConstants.PARENT_TAG,parentProxy);
+    }
+    for(DeedProxy childProxy : deed.getChildDeedProxies().getDeedProxies())
     {
       writeDeedProxy(hd,DeedXMLConstants.CHILD_TAG,childProxy);
     }
