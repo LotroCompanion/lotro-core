@@ -44,6 +44,15 @@ public class DeedCategoryFilter implements Filter<DeedDescription>
     {
       return true;
     }
-    return _category.equals(deed.getCategory());
+    String deedCategory=deed.getCategory();
+    if (_category.equals(deedCategory))
+    {
+      return true;
+    }
+    if ((deedCategory!=null) && (deedCategory.startsWith(_category+":")))
+    {
+      return true;
+    }
+    return false;
   }
 }
