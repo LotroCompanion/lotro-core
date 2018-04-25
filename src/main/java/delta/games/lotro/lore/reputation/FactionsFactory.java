@@ -139,12 +139,6 @@ public class FactionsFactory
     Faction angmar=initFaction(category,"COUNCIL_OF_THE_NORTH","Council of the North",new String[]{"Council of North"},FactionLevelsTemplates.CLASSIC);
     setupDeedForFaction(worldRenowned,angmar);
     initFaction(category,"ELDGANG","Eldgang",new String[]{"The Eldgang"},FactionLevelsTemplates.CLASSIC);
-    Faction algraig=initFaction(category,"ALGRAIG","Algraig, Men of Enedwaith",new String[]{"Algraig"},FactionLevelsTemplates.CLASSIC);
-    setupDeedForFaction(worldRenowned,algraig);
-    Faction greyCompany=initFaction(category,"GREY_COMPANY","Grey Company",new String[]{"The Grey Company"},FactionLevelsTemplates.CLASSIC);
-    setupDeedForFaction(worldRenowned,greyCompany);
-    initFaction(category,"DUNLAND","Men of Dunland",null,FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"THEODRED_RIDERS","Théodred's Riders",new String[]{"Riders of Théodred"},FactionLevelsTemplates.CLASSIC);
     category="Rhovanion";
     initFaction(category,"MORIA_GUARDS","Iron Garrison Guards",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"MORIA_MINERS","Iron Garrison Miners",null,FactionLevelsTemplates.CLASSIC);
@@ -152,6 +146,17 @@ public class FactionsFactory
     setupDeedForFaction(ambassador,galadhrim);
     Faction malledhrim=initFaction(category,"MALLEDHRIM","Malledhrim",null,FactionLevelsTemplates.CLASSIC);
     setupDeedForFaction(ambassador,malledhrim);
+    initFaction(category,"ELVES_OF_FELEGOTH","Elves of Felegoth",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"MEN_OF_DALE","Men of Dale",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"DWARVES_OF_EREBOR","Dwarves of Erebor",null,FactionLevelsTemplates.CLASSIC);
+    category="Dunland";
+    Faction algraig=initFaction(category,"ALGRAIG","Algraig, Men of Enedwaith",new String[]{"Algraig"},FactionLevelsTemplates.CLASSIC);
+    setupDeedForFaction(worldRenowned,algraig);
+    Faction greyCompany=initFaction(category,"GREY_COMPANY","Grey Company",new String[]{"The Grey Company"},FactionLevelsTemplates.CLASSIC);
+    setupDeedForFaction(worldRenowned,greyCompany);
+    initFaction(category,"DUNLAND","Men of Dunland",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"THEODRED_RIDERS","Théodred's Riders",new String[]{"Riders of Théodred"},FactionLevelsTemplates.CLASSIC);
+    category="Rohan";
     initFaction(category,"STANGARD_RIDERS","Riders of Stangard",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"LIMLIGHT_GORGE","Heroes of Limlight Gorge",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"WOLD","Men of the Wold",new String[]{"Wold"},FactionLevelsTemplates.CLASSIC);
@@ -163,7 +168,7 @@ public class FactionsFactory
     initFaction(category,"EORLINGAS","Eorlingas",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"HELMINGAS","Helmingas",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"FANGORN","Ents of Fangorn Forest",null,FactionLevelsTemplates.CLASSIC);
-    category="Gondor";
+    category="Dol Amroth";
     initFaction(category,"DOL_AMROTH","Dol Amroth",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"DA_ARMOURY","Dol Amroth – Armoury",null,FactionLevelsTemplates.DOL_AMROTH);
     initFaction(category,"DA_BANK","Dol Amroth – Bank",null,FactionLevelsTemplates.DOL_AMROTH);
@@ -173,6 +178,7 @@ public class FactionsFactory
     initFaction(category,"DA_MASON","Dol Amroth – Mason",null,FactionLevelsTemplates.DOL_AMROTH);
     initFaction(category,"DA_SWAN_KNIGHTS","Dol Amroth – Swan Knights",null,FactionLevelsTemplates.DOL_AMROTH);
     initFaction(category,"DA_WAREHOUSE","Dol Amroth – Warehouse",null,FactionLevelsTemplates.DOL_AMROTH);
+    category="Gondor";
     // For all 3 Central Gondor regions: all levels gives no LP
     initFaction(category,"RINGLO_VALE","Men of Ringló Vale",null,FactionLevelsTemplates.CENTRAL_GONDOR); 
     initFaction(category,"DOR_EN_ERNIL","Men of Dor-en-Ernil",null,FactionLevelsTemplates.CENTRAL_GONDOR);
@@ -187,7 +193,6 @@ public class FactionsFactory
     initFaction(category,"HOW_PROVISIONS","Host of the West: Provisions",null,FactionLevelsTemplates.HOW);
     initFaction(category,"HOW_WEAPONS","Host of the West: Weapons",null,FactionLevelsTemplates.HOW);
     initFaction(category,"GORGOROTH","Conquest of Gorgoroth",null,FactionLevelsTemplates.GORGOROTH);
-    // 5, 10, 15, 20, 20, 20, 20
     category="Misc";
     Faction aleAssociation=initFaction(category,"ALE_ASSOCIATION","Ale Association",new String[]{"The Ale Association"},FactionLevelsTemplates.ALE_INN);
     aleAssociation.setInitialLevel(aleAssociation.getLevels()[1]);
