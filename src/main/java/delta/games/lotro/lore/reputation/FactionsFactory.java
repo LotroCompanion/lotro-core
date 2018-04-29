@@ -157,7 +157,7 @@ public class FactionsFactory
     initFaction(category,"DUNLAND","Men of Dunland",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"THEODRED_RIDERS","Théodred's Riders",new String[]{"Riders of Théodred"},FactionLevelsTemplates.CLASSIC);
     category="Rohan";
-    initFaction(category,"STANGARD_RIDERS","Riders of Stangard",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"STANGARD_RIDERS","Riders of Stangard",new String[]{"The Riders of Stangard"},FactionLevelsTemplates.CLASSIC);
     initFaction(category,"LIMLIGHT_GORGE","Heroes of Limlight Gorge",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"WOLD","Men of the Wold",new String[]{"Wold"},FactionLevelsTemplates.CLASSIC);
     initFaction(category,"NORCROFTS","Men of the Norcrofts",new String[]{"Norcrofts"},FactionLevelsTemplates.CLASSIC);
@@ -165,9 +165,9 @@ public class FactionsFactory
     initFaction(category,"SUTCROFTS","Men of the Sutcrofts",new String[]{"Sutcrofts"},FactionLevelsTemplates.CLASSIC);
     initFaction(category,"PEOPLE_WILDERMORE","People of Wildermore",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"SURVIVORS_WILDERMORE","Survivors of Wildermore",null,FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"EORLINGAS","Eorlingas",null,FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"HELMINGAS","Helmingas",null,FactionLevelsTemplates.CLASSIC);
-    initFaction(category,"FANGORN","Ents of Fangorn Forest",null,FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"EORLINGAS","Eorlingas",new String[]{"The Eorlingas"},FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"HELMINGAS","Helmingas",new String[]{"The Helmingas"},FactionLevelsTemplates.CLASSIC);
+    initFaction(category,"FANGORN","Ents of Fangorn Forest",new String[]{"The Ents of Fangorn Forest"},FactionLevelsTemplates.CLASSIC);
     category="Dol Amroth";
     initFaction(category,"DOL_AMROTH","Dol Amroth",null,FactionLevelsTemplates.CLASSIC);
     initFaction(category,"DA_ARMOURY","Dol Amroth – Armoury",null,FactionLevelsTemplates.DOL_AMROTH);
