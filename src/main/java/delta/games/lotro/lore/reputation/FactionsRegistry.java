@@ -1,8 +1,12 @@
 package delta.games.lotro.lore.reputation;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import delta.games.lotro.LotroCoreConfig;
+import delta.games.lotro.lore.reputation.io.xml.FactionsXMLParser;
 
 /**
  * Factions registry.
@@ -10,7 +14,12 @@ import java.util.List;
  */
 public final class FactionsRegistry
 {
-  private static FactionsRegistry _instance=new FactionsRegistry();
+  private static FactionsRegistry _instance;
+
+  /**
+   * Faction key for the guild faction.
+   */
+  public static final String GUILD_FACTION_KEY="GUILD";
 
   private HashMap<String,Faction> _registryByKey;
   private HashMap<String,Faction> _registryByName;
@@ -26,52 +35,68 @@ public final class FactionsRegistry
    */
   public static FactionsRegistry getInstance()
   {
+    synchronized(FactionsRegistry.class)
+    {
+      if (_instance==null)
+      {
+        _instance=loadRegistry();
+      }
+    }
     return _instance;
   }
 
-  /**
-   * Private constructor.
-   */
-  private FactionsRegistry()
+  private static FactionsRegistry loadRegistry()
   {
-    _registryByKey=new HashMap<String,Faction>();
-    _registryByName=new HashMap<String,Faction>();
-    _factionsByCategory=new HashMap<String,List<Faction>>();
-    _factions=new ArrayList<Faction>();
-    initFactions();
+    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
+    File loreDir=cfg.getLoreDir();
+    File registryFile=new File(loreDir,"factions.xml");
+    FactionsXMLParser parser=new FactionsXMLParser();
+    FactionsRegistry registry=parser.parseXML(registryFile);
+    if (registry==null)
+    {
+      registry=new FactionsRegistry();
+    }
+    return registry;
   }
 
   /**
-   * Initialize and register all the factions.
+   * Constructor.
    */
-  private void initFactions()
+  public FactionsRegistry()
   {
-    FactionsFactory factory=new FactionsFactory();
-    // Categories
-    _categories=factory.getCategories();
-    for(String category : _categories)
-    {
-      List<Faction> factions=factory.getByCategory(category);
-      _factionsByCategory.put(category,factions);
-      for(Faction faction : factions)
-      {
-        registerFaction(faction);
-      }
-    }
-    // Guild faction
-    _guildFaction=factory.getGuildFaction();
-    // Deeds
-    _factionDeeds=factory.getDeeds();
+    _registryByKey=new HashMap<String,Faction>();
+    _registryByName=new HashMap<String,Faction>();
+    _categories=new ArrayList<String>();
+    _factionsByCategory=new HashMap<String,List<Faction>>();
+    _factionDeeds=new ArrayList<ReputationDeed>();
+    _factions=new ArrayList<Faction>();
   }
 
   /**
    * Register a new faction.
    * @param faction Faction to register.
    */
-  private void registerFaction(Faction faction)
+  public void registerFaction(Faction faction)
   {
-    String key=faction.getKey();
-    _registryByKey.put(key,faction);
+    String factionKey=faction.getKey();
+    if (GUILD_FACTION_KEY.equals(factionKey))
+    {
+      _guildFaction=faction;
+      return;
+    }
+    // Category
+    String category=faction.getCategory();
+    List<Faction> factionsForCategory=_factionsByCategory.get(category);
+    if (factionsForCategory==null)
+    {
+      _categories.add(category);
+      factionsForCategory=new ArrayList<Faction>();
+      _factionsByCategory.put(category,factionsForCategory);
+    }
+    factionsForCategory.add(faction);
+    // Map by key
+    _registryByKey.put(factionKey,faction);
+    // Map by name/aliases
     String name=faction.getName();
     String[] aliases=faction.getAliases();
     _registryByName.put(name,faction);
@@ -79,6 +104,7 @@ public final class FactionsRegistry
     {
       _registryByName.put(alias,faction);
     }
+    // Register
     _factions.add(faction);
   }
 
@@ -88,7 +114,8 @@ public final class FactionsRegistry
    */
   public List<Faction> getAll()
   {
-    return _factions;
+    List<Faction> ret=new ArrayList<Faction>(_factions);
+    return ret;
   }
 
   /**
@@ -98,6 +125,15 @@ public final class FactionsRegistry
   public List<ReputationDeed> getReputationDeeds()
   {
     return _factionDeeds;
+  }
+
+  /**
+   * Register a reputation deed.
+   * @param deed Deed to add.
+   */
+  public void addDeed(ReputationDeed deed)
+  {
+    _factionDeeds.add(deed);
   }
 
   /**

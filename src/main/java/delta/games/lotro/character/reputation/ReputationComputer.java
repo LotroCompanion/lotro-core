@@ -25,7 +25,8 @@ public class ReputationComputer
   private static final Logger _logger=Logger.getLogger(ReputationComputer.class);
 
   private static final String ALE_ASSOCIATION_SEED="Ale Association";
-  private HashMap<String,FactionLevel> _seeds;
+  // Map seeds to well-known faction level keys
+  private HashMap<String,String> _seeds;
 
   /**
    * Build a reputation status for a toon.
@@ -46,15 +47,15 @@ public class ReputationComputer
 
   private void initSeeds()
   {
-    _seeds=new HashMap<String,FactionLevel>();
-    _seeds.put("Known to",FactionLevel.ACQUAINTANCE);
-    _seeds.put("Friend to",FactionLevel.FRIEND);
-    _seeds.put("Friend of",FactionLevel.FRIEND);
-    _seeds.put("Ally to",FactionLevel.ALLY);
-    _seeds.put("Ally of",FactionLevel.ALLY);
-    _seeds.put("Kindred to",FactionLevel.KINDRED);
-    _seeds.put("Kindred with",FactionLevel.KINDRED);
-    _seeds.put("Kindred of",FactionLevel.KINDRED);
+    _seeds=new HashMap<String,String>();
+    _seeds.put("Known to",FactionLevels.ACQUAINTANCE);
+    _seeds.put("Friend to",FactionLevels.FRIEND);
+    _seeds.put("Friend of",FactionLevels.FRIEND);
+    _seeds.put("Ally to",FactionLevels.ALLY);
+    _seeds.put("Ally of",FactionLevels.ALLY);
+    _seeds.put("Kindred to",FactionLevels.KINDRED);
+    _seeds.put("Kindred with",FactionLevels.KINDRED);
+    _seeds.put("Kindred of",FactionLevels.KINDRED);
   }
 
   /**
@@ -111,10 +112,10 @@ public class ReputationComputer
   private void handleItem(ReputationStatus reputation, long date, String label)
   {
     Faction faction=null;
-    FactionLevel level=null;
+    String levelKey=null;
 
     // Handle generic seeds
-    for(Map.Entry<String,FactionLevel> entry : _seeds.entrySet())
+    for(Map.Entry<String,String> entry : _seeds.entrySet())
     {
       String seed=entry.getKey();
       if (label.startsWith(seed))
@@ -124,7 +125,7 @@ public class ReputationComputer
         {
           factionName=factionName.substring(3).trim();
         }
-        level=entry.getValue();
+        levelKey=entry.getValue();
         faction=FactionsRegistry.getInstance().getByName(factionName);
         if (faction!=null)
         {
@@ -138,34 +139,35 @@ public class ReputationComputer
     {
       faction=FactionsRegistry.getInstance().getByName("Ale Association");
       String levelStr=label.substring(ALE_ASSOCIATION_SEED.length()).trim();
-      if ("Acquaintance".equals(levelStr)) level=FactionLevel.ACQUAINTANCE;
-      else if ("Ally".equals(levelStr)) level=FactionLevel.ALLY;
-      else if ("Friend".equals(levelStr)) level=FactionLevel.FRIEND;
+      if ("Acquaintance".equals(levelStr)) levelKey=FactionLevels.ACQUAINTANCE;
+      else if ("Ally".equals(levelStr)) levelKey=FactionLevels.ALLY;
+      else if ("Friend".equals(levelStr)) levelKey=FactionLevels.FRIEND;
     }
     else if (label.equals("Kindred of Malevolence"))
     {
       faction=FactionsRegistry.getInstance().getByName("Ale Association");
-      level=FactionLevel.KINDRED;
+      levelKey=FactionLevels.KINDRED;
     }
     // Kindred with Eglain is "Eglan"
     else if (label.equals("Eglan"))
     {
       faction=FactionsRegistry.getInstance().getByName("Eglain");
-      level=FactionLevel.KINDRED;
+      levelKey=FactionLevels.KINDRED;
     }
     else if (label.equals("Kindred to the Entwash"))
     {
       faction=FactionsRegistry.getInstance().getByName("Entwash Vale");
-      level=FactionLevel.KINDRED;
+      levelKey=FactionLevels.KINDRED;
     }
     // TODO Inn League
 
-    if ((faction!=null) && (level!=null))
+    if ((faction!=null) && (levelKey!=null))
     {
       FactionStatus stat=reputation.getOrCreateFactionStat(faction);
-      FactionLevelStatus status=stat.getStatusForLevel(level);
+      FactionLevel factionLevel=faction.getLevelByKey(levelKey);
+      FactionLevelStatus status=stat.getStatusForLevel(factionLevel);
       status.setCompleted(date);
-      stat.setFactionLevel(level);
+      stat.setFactionLevel(factionLevel);
     }
   }
 }

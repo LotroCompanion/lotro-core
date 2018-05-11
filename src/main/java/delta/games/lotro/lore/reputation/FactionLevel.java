@@ -1,56 +1,11 @@
 package delta.games.lotro.lore.reputation;
 
-import java.util.HashMap;
-
 /**
  * Represents a level in a faction.
  * @author DAM
  */
 public class FactionLevel
 {
-  private static final HashMap<String,FactionLevel> _mapByKey=new HashMap<String,FactionLevel>();
-
-  /**
-   * Enemy.
-   */
-  public static final FactionLevel ENEMY=new FactionLevel("ENEMY","Enemy",-1,0,10000);
-  /**
-   * Outsider.
-   */
-  public static final FactionLevel OUTSIDER=new FactionLevel("OUTSIDER","Outsider",-1,0,0);
-  /**
-   * Neutral.
-   */
-  public static final FactionLevel NEUTRAL=new FactionLevel("NEUTRAL","Neutral",0,0,0);
-  /**
-   * Acquaintance.
-   */
-  public static final FactionLevel ACQUAINTANCE=new FactionLevel("ACQUAINTANCE","Acquaintance",1,5,10000);
-  /**
-   * Friend.
-   */
-  public static final FactionLevel FRIEND=new FactionLevel("FRIEND","Friend",2,10,20000);
-  /**
-   * Ally.
-   */
-  public static final FactionLevel ALLY=new FactionLevel("ALLY","Ally",3,15,25000);
-  /**
-   * Kindred.
-   */
-  public static final FactionLevel KINDRED=new FactionLevel("KINDRED","Kindred",4,20,30000);
-  /**
-   * Respected.
-   */
-  public static final FactionLevel RESPECTED=new FactionLevel("RESPECTED","Respected",5,20,45000);
-  /**
-   * Honoured.
-   */
-  public static final FactionLevel HONOURED=new FactionLevel("HONOURED","Honoured",6,20,60000);
-  /**
-   * Celebrated.
-   */
-  public static final FactionLevel CELEBRATED=new FactionLevel("CELEBRATED","Celebrated",7,50,90000);
-
   private String _key;
   private String _name;
   private int _value;
@@ -72,8 +27,6 @@ public class FactionLevel
     _value=value;
     _lotroPoints=lotroPoints;
     _requiredXp=requiredXp;
-    _mapByKey.put(name,this);
-    _mapByKey.put(key,this);
   }
 
   /**

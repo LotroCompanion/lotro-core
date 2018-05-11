@@ -55,9 +55,16 @@ public class ReputationDeedsStatus
       {
         boolean acquired=false;
         FactionStatus factionStatus=status.getFactionStatus(faction);
-        if ((factionStatus!=null) && (factionStatus.getFactionLevel()==FactionLevel.KINDRED))
+        if (factionStatus!=null)
         {
-          acquired=true;
+          FactionLevel level=factionStatus.getFactionLevel();
+          if (level!=null)
+          {
+            if (FactionLevels.KINDRED.equals(level.getKey()))
+            {
+              acquired=true;
+            }
+          }
         }
         deedStatus.setFactionStatus(faction,acquired);
       }
