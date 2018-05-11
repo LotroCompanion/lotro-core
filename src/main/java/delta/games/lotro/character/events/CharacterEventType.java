@@ -41,5 +41,9 @@ public enum CharacterEventType
   /**
    * A character data was updated.
    */
-  CHARACTER_DATA_UPDATED
+  CHARACTER_DATA_UPDATED,
+  /**
+   * Deeds status updated.
+   */
+  DEEDS_STATUS_UPDATED
 }
