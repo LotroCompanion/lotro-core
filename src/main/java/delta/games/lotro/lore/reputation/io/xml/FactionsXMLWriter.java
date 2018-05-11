@@ -130,6 +130,12 @@ public class FactionsXMLWriter
       // Required XP
       int requiredXp=level.getRequiredXp();
       levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_REQUIRED_XP_ATTR,CDATA,String.valueOf(requiredXp));
+      // Deed key
+      String deedKey=level.getDeedKey();
+      if (deedKey!=null)
+      {
+        levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_DEED_KEY_ATTR,CDATA,deedKey);
+      }
       hd.startElement("","",FactionsXMLConstants.LEVEL_TAG,levelAttrs);
       hd.endElement("","",FactionsXMLConstants.LEVEL_TAG);
     }

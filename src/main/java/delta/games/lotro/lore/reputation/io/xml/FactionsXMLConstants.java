@@ -63,6 +63,10 @@ public class FactionsXMLConstants
    * Tag 'level', attribute 'requiredXp'.
    */
   public static final String FACTION_LEVEL_REQUIRED_XP_ATTR="requiredXp";
+  /**
+   * Tag 'level', attribute 'deedKey'.
+   */
+  public static final String FACTION_LEVEL_DEED_KEY_ATTR="deedKey";
 
   /**
    * Tag 'deed'.

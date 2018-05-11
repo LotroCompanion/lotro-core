@@ -94,6 +94,9 @@ public class FactionsXMLParser
       // Required XP
       int requiredXp=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_REQUIRED_XP_ATTR,0);
       FactionLevel level=new FactionLevel(levelKey,levelName,levelCode,lotroPoints,requiredXp);
+      // Deed key
+      String deedKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_DEED_KEY_ATTR,null);
+      level.setDeedKey(deedKey);
       levels.add(level);
     }
     return levels;

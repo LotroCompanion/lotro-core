@@ -11,6 +11,7 @@ public class FactionLevel
   private int _value;
   private int _lotroPoints;
   private int _requiredXp;
+  private String _deedKey;
 
   /**
    * Constructor.
@@ -74,21 +75,27 @@ public class FactionLevel
     return _requiredXp;
   }
 
+  /**
+   * Get the key of the associated deed.
+   * @return A deed key or <code>null</code> if none.
+   */
+  public String getDeedKey()
+  {
+    return _deedKey;
+  }
+
+  /**
+   * Set the key of the associated deed.
+   * @param deedKey A deed key or <code>null</code>.
+   */
+  public void setDeedKey(String deedKey)
+  {
+    _deedKey=deedKey;
+  }
+
   @Override
   public String toString()
   {
     return _name;
   }
 }
-
-/*
-
-Enemy   10,000      * Only currently possible with The Ale Association and The Inn League
-Outsider  10,000      * Starting level for Lossoth of Forochel
-Neutral / Guild Initiate  0     0     * Starting level for most factions
-Acquaintance / Apprentice of the Guild  10,000    10,000    Access to reputation areas & their vendors / Access to Guild Expert Recipes
-Friend / Journeyman of the Guild  20,000    30,000    10% Travel discount from faction stables / Access to Guild Artisan Recipes
-Ally / Expert of the Guild  25,000    55,000    Discounted repair costs (approx 20-25%) and discount (5%) from reputation vendors / Access to Guild Master Recipes
-Kindred / Artisan of the Guild  30,000    85,000    Reputation mounts; bonus repair discount (22.5%) / Access to Guild Supreme Recipes
-– / Master of the Guild   45,000    130,000     – / Access to Guild Westfold Recipes 
-*/
