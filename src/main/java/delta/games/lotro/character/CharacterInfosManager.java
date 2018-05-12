@@ -221,10 +221,19 @@ public class CharacterInfosManager
       stats.setStat(statKey,newValue);
     }
     Date date=getDateFromFilename(oldFile.getName());
-    String dateTimeStr=Formats.getDateTimeString(date);
-    data.setShortDescription(dateTimeStr);
-    String description="Imported from mylotro. Generated: "+dateTimeStr;
-    data.setDescription(description);
+    if (date!=null)
+    {
+      String dateTimeStr=Formats.getDateTimeString(date);
+      data.setShortDescription(dateTimeStr);
+      String description="Imported from mylotro. Generated: "+dateTimeStr;
+      data.setDescription(description);
+      data.setDate(Long.valueOf(date.getTime()));
+    }
+    else
+    {
+      long fileDate=oldFile.lastModified();
+      data.setDate(Long.valueOf(fileDate));
+    }
   }
 
   /**
