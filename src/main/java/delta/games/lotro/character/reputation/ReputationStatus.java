@@ -9,7 +9,7 @@ import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
 
 /**
- * Reputatution status for a single toon.
+ * Reputation status for a single toon.
  * @author DAM
  */
 public class ReputationStatus

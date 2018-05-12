@@ -150,6 +150,12 @@ public class FactionStatus
             {
               updateCompletionStatus(level,true);
             }
+            // Set levels above the targeted level to 'not completed' (keep dates/XP)
+            if (level.getValue()>targetedTier)
+            {
+              FactionLevelStatus levelStatus=getStatusForLevel(level);
+              levelStatus.setCompleted(false);
+            }
           }
           // - set levels below initial level to 'not completed'
           for(FactionLevel level : _faction.getLevels())
