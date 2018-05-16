@@ -19,7 +19,8 @@ public final class DeedsManager
   private static DeedsManager _instance=new DeedsManager();
 
   private List<DeedDescription> _deeds;
-  private Map<Integer,DeedDescription> _deedsMap;
+  private Map<Integer,DeedDescription> _deedsMapById;
+  private Map<String,DeedDescription> _deedsMapByKey;
   private DeedRewardsExplorer _rewardsExplorer;
 
   /**
@@ -37,7 +38,8 @@ public final class DeedsManager
   private DeedsManager()
   {
     _deeds=new ArrayList<DeedDescription>();
-    _deedsMap=new HashMap<Integer,DeedDescription>();
+    _deedsMapById=new HashMap<Integer,DeedDescription>();
+    _deedsMapByKey=new HashMap<String,DeedDescription>();
     File loreDir=LotroCoreConfig.getInstance().getLoreDir();
     File deedFile=new File(loreDir,"deeds.xml");
     DeedXMLParser parser=new DeedXMLParser();
@@ -46,7 +48,8 @@ public final class DeedsManager
     _deeds.addAll(deeds);
     for(DeedDescription deed : _deeds)
     {
-      _deedsMap.put(Integer.valueOf(deed.getIdentifier()),deed);
+      _deedsMapById.put(Integer.valueOf(deed.getIdentifier()),deed);
+      _deedsMapByKey.put(deed.getKey(),deed);
     }
     _rewardsExplorer=new DeedRewardsExplorer();
     _rewardsExplorer.doIt(deeds);
@@ -78,7 +81,18 @@ public final class DeedsManager
    */
   public DeedDescription getDeed(int id)
   {
-    DeedDescription ret=_deedsMap.get(Integer.valueOf(id));
+    DeedDescription ret=_deedsMapById.get(Integer.valueOf(id));
+    return ret;
+  }
+
+  /**
+   * Get a deed using its key.
+   * @param key Deed key.
+   * @return A deed description or <code>null</code> if not found.
+   */
+  public DeedDescription getDeed(String key)
+  {
+    DeedDescription ret=_deedsMapByKey.get(key);
     return ret;
   }
 }
