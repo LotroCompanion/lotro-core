@@ -12,6 +12,16 @@ public class ItemPropertyNames
   public static final String ITEM_KEY="itemKey";
 
   /**
+   * Factory comment.
+   */
+  public static final String FACTORY_COMMENT="FactoryComment";
+
+  /**
+   * User comment.
+   */
+  public static final String USER_COMMENT="UserComment";
+
+  /**
    * Icon ID.
    */
   public static final String ICON_ID="iconId";
