@@ -16,6 +16,8 @@ import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedProxies;
 import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
+import delta.games.lotro.lore.deeds.geo.DeedGeoData;
+import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
 
 /**
  * Parser for deed descriptions stored in XML.
@@ -140,7 +142,9 @@ public class DeedXMLParser
       DeedProxy childDeedProxy=parseDeedProxy(childDeedTag);
       children.add(childDeedProxy);
     }
-
+    // Geographic data
+    DeedGeoData data=parseGeoData(root);
+    deed.setGeoData(data);
     // Rewards
     RewardsXMLParser.loadRewards(root,deed.getRewards());
     return deed;
@@ -166,5 +170,32 @@ public class DeedXMLParser
     String title=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_PROXY_NAME_ATTR,null);
     proxy.setName(title);
     return proxy;
+  }
+
+  private DeedGeoData parseGeoData(Element root)
+  {
+    Element geoTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.GEO_TAG);
+    if (geoTag==null)
+    {
+      return null;
+    }
+    // Geo deed data
+    NamedNodeMap attrs=root.getAttributes();
+    int nbPoints=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.GEO_REQUIRED_POINTS_ATTR,0);
+    DeedGeoData data=new DeedGeoData(nbPoints);
+    // Geo points
+    List<Element> geoPointTags=DOMParsingTools.getChildTagsByName(root,DeedXMLConstants.POINT_TAG);
+    for(Element geoPointTag : geoPointTags)
+    {
+      NamedNodeMap geoPointAttr=geoPointTag.getAttributes();
+      int pointId=DOMParsingTools.getIntAttribute(geoPointAttr,DeedXMLConstants.POINT_ID_ATTR,0);
+      String mapKey=DOMParsingTools.getStringAttribute(geoPointAttr,DeedXMLConstants.POINT_MAP_KEY_ATTR,null);
+      if ((mapKey!=null) && (pointId!=0))
+      {
+        DeedGeoPoint point=new DeedGeoPoint(mapKey,pointId);
+        data.addPoint(point);
+      }
+    }
+    return data;
   }
 }

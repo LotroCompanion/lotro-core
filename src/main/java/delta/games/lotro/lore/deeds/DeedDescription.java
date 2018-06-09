@@ -4,6 +4,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.Rewards;
+import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 
 /**
  * LOTRO deed description.
@@ -29,6 +30,8 @@ public class DeedDescription
   private DeedProxy _next;
   private DeedProxies _parents;
   private DeedProxies _children;
+  // Geographic data
+  private DeedGeoData _geo;
 
   /**
    * Constructor.
@@ -293,6 +296,24 @@ public class DeedDescription
   public DeedProxies getChildDeedProxies()
   {
     return _children;
+  }
+
+  /**
+   * Get the geographic data for this deed.
+   * @return Some data, or <code>null</code> if none.
+   */
+  public DeedGeoData getGeoData()
+  {
+    return _geo;
+  }
+
+  /**
+   * Set the geographic data for this deed.
+   * @param geo Data to set.
+   */
+  public void setGeoData(DeedGeoData geo)
+  {
+    _geo=geo;
   }
 
   /**

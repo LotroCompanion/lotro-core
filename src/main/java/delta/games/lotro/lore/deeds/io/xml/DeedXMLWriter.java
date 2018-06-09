@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
+import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
@@ -24,6 +25,8 @@ import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.comparators.DeedIdComparator;
+import delta.games.lotro.lore.deeds.geo.DeedGeoData;
+import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
 import delta.games.lotro.utils.LotroLoggers;
 
 /**
@@ -216,6 +219,12 @@ public class DeedXMLWriter
       writeDeedProxy(hd,DeedXMLConstants.CHILD_TAG,childProxy);
     }
     RewardsXMLWriter.write(hd,deed.getRewards());
+    // Geographic data
+    DeedGeoData data=deed.getGeoData();
+    if (data!=null)
+    {
+      writeGeoData(hd,data);
+    }
     hd.endElement("","",DeedXMLConstants.DEED_TAG);
   }
 
@@ -244,5 +253,31 @@ public class DeedXMLWriter
     }
     hd.startElement("","",tagName,deedProxyAttrs);
     hd.endElement("","",tagName);
+  }
+
+  /**
+   * Write geo deed data.
+   * @param hd
+   * @param data
+   * @throws Exception
+   */
+  private void writeGeoData(TransformerHandler hd, DeedGeoData data) throws Exception
+  {
+    AttributesImpl geoDeedAttrs=new AttributesImpl();
+    int nbPoints=data.getRequiredPoints();
+    geoDeedAttrs.addAttribute("","",DeedXMLConstants.GEO_REQUIRED_POINTS_ATTR,XmlWriter.CDATA,String.valueOf(nbPoints));
+    hd.startElement("","",DeedXMLConstants.GEO_TAG,geoDeedAttrs);
+
+    for(DeedGeoPoint point : data.getPoints())
+    {
+      AttributesImpl pointAttrs=new AttributesImpl();
+      String mapKey=point.getMapKey();
+      pointAttrs.addAttribute("","",DeedXMLConstants.POINT_MAP_KEY_ATTR,XmlWriter.CDATA,mapKey);
+      int pointId=point.getPointId();
+      pointAttrs.addAttribute("","",DeedXMLConstants.POINT_ID_ATTR,XmlWriter.CDATA,String.valueOf(pointId));
+      hd.startElement("","",DeedXMLConstants.POINT_TAG,pointAttrs);
+      hd.endElement("","",DeedXMLConstants.POINT_TAG);
+    }
+    hd.endElement("","",DeedXMLConstants.GEO_TAG);
   }
 }
