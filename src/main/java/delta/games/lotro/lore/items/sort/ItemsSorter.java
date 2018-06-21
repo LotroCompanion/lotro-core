@@ -7,16 +7,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import delta.common.utils.collections.filters.CompoundFilter;
-import delta.common.utils.collections.filters.Filter;
-import delta.common.utils.collections.filters.Operator;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
-import delta.games.lotro.character.CharacterProficiencies;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -24,8 +17,6 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
-import delta.games.lotro.lore.items.filters.ItemFilter;
-import delta.games.lotro.lore.items.filters.ItemRequiredClassFilter;
 import delta.games.lotro.lore.items.filters.ItemSlotFilter;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 
@@ -53,42 +44,39 @@ public class ItemsSorter
   }
 
   /**
-   * Get items that fit a slot for a given character.
-   * @param c Character.
+   * Get items that fit a slot.
    * @param slot Targeted slot.
    * @return A list of items.
    */
-  public List<Item> getItems(CharacterData c, EQUIMENT_SLOT slot)
+  public List<Item> getItems(EQUIMENT_SLOT slot)
   {
-    CharacterClass cClass=c.getCharacterClass();
-    int level=c.getLevel();
     EquipmentLocation location=slot.getLocation();
     if ((location==EquipmentLocation.HEAD) || (location==EquipmentLocation.SHOULDER)
         || (location==EquipmentLocation.CHEST) || (location==EquipmentLocation.BACK)
         || (location==EquipmentLocation.LEGS) || (location==EquipmentLocation.FEET)
         || (location==EquipmentLocation.HAND))
     {
-      return buildArmoursList(cClass,level,location);
+      return buildArmoursList(location);
     }
     if ((location==EquipmentLocation.EAR) || (location==EquipmentLocation.NECK)
         || (location==EquipmentLocation.WRIST) || (location==EquipmentLocation.FINGER)
         || (location==EquipmentLocation.POCKET) || (location==EquipmentLocation.CLASS_SLOT)
         || (location==EquipmentLocation.TOOL))
     {
-      return getBySlot(cClass,location);
+      return getBySlot(location);
     }
     if ((location==EquipmentLocation.MAIN_HAND) || (location==EquipmentLocation.OFF_HAND)
         || (location==EquipmentLocation.RANGED_ITEM))
     {
       EquipmentLocation weaponLoc=location;
       if (location==EquipmentLocation.OFF_HAND) weaponLoc=EquipmentLocation.MAIN_HAND;
-      List<Item> items=buildWeaponsList(cClass,level,weaponLoc);
+      List<Item> items=buildWeaponsList(weaponLoc);
       if (location==EquipmentLocation.OFF_HAND)
       {
-        List<Item> shields=buildShieldsList(cClass,level);
+        List<Item> shields=buildShieldsList();
         items.addAll(shields);
       }
-      List<Item> others=getBySlot(cClass,location);
+      List<Item> others=getBySlot(location);
       items.addAll(others);
       return items;
     }
@@ -198,21 +186,16 @@ public class ItemsSorter
 
   /**
    * Get items for a given slot.
-   * @param cClass Character class.
    * @param location Targeted slot.
    * @return A list of items.
    */
-  public List<Item> getBySlot(CharacterClass cClass, EquipmentLocation location)
+  public List<Item> getBySlot(EquipmentLocation location)
   {
     List<Item> ret=new ArrayList<Item>();
     List<Item> slotItems=_items.get(location.getKey());
     for(Item item : slotItems)
     {
-      CharacterClass itemClass=item.getRequiredClass();
-      if ((itemClass==null) || (itemClass==cClass))
-      {
-        ret.add(item);
-      }
+      ret.add(item);
     }
     return ret;
   }
@@ -281,44 +264,19 @@ public class ItemsSorter
   }
 
   /**
-   * Build a list of armour items for a given class/level and slot.
-   * @param cClass Character class.
-   * @param level Level.
+   * Build a list of armour items for a given slot.
    * @param slot Slot.
    * @return A list of items.
    */
-  public List<Item> buildArmoursList(CharacterClass cClass, int level, EquipmentLocation slot)
+  public List<Item> buildArmoursList(EquipmentLocation slot)
   {
     List<Item> ret=new ArrayList<Item>();
-    List<Filter<Item>> filters=new ArrayList<Filter<Item>>();
-    ItemFilter classFilter=new ItemRequiredClassFilter(cClass,false);
-    filters.add(classFilter);
     ItemSlotFilter slotFilter=new ItemSlotFilter(slot);
-    filters.add(slotFilter);
-    // Armour type
-    // TODO To be re-enabled once armour types are all set
-    /*
-    Filter<Item> armourTypeFilter=null;
-    {
-      CharacterProficiencies prof=new CharacterProficiencies();
-      Set<ArmourType> armourTypes=prof.getArmourProficiencies(cClass,level);
-      List<Filter<Item>> armourTypeFilters=new ArrayList<Filter<Item>>();
-      for(ArmourType armourType : armourTypes)
-      {
-        Filter<Item> singleArmourTypeFilter=new ItemArmourTypeFilter(armourType);
-        armourTypeFilters.add(singleArmourTypeFilter);
-      }
-      armourTypeFilter=new CompoundFilter<Item>(Operator.OR,armourTypeFilters);
-    }
-    filters.add(armourTypeFilter);
-    */
-    // TODO required level
-    Filter<Item> filter=new CompoundFilter<Item>(Operator.AND,filters);
 
     List<Item> items=_items.get(ARMOUR+slot.getKey());
     for(Item item : items)
     {
-      if (filter.accept(item))
+      if (slotFilter.accept(item))
       {
         ret.add(item);
       }
@@ -327,30 +285,22 @@ public class ItemsSorter
   }
 
   /**
-   * Build a list of weapon items for a given class/level and slot.
-   * @param cClass Character class.
-   * @param level Level.
+   * Build a list of weapon items for a given slot.
    * @param slot Slot.
    * @return A list of items.
    */
-  public List<Item> buildWeaponsList(CharacterClass cClass, int level, EquipmentLocation slot)
+  public List<Item> buildWeaponsList(EquipmentLocation slot)
   {
     List<Item> ret=new ArrayList<Item>();
-    Set<WeaponType> weapons=CharacterProficiencies.getWeaponProficiencies(cClass,level);
-    List<Filter<Item>> filters=new ArrayList<Filter<Item>>();
-    ItemFilter classFilter=new ItemRequiredClassFilter(cClass,false);
-    filters.add(classFilter);
     ItemSlotFilter slotFilter=new ItemSlotFilter(slot);
-    filters.add(slotFilter);
-    Filter<Item> filter=new CompoundFilter<Item>(Operator.AND,filters);
-    for(WeaponType weaponType : weapons)
+    for(WeaponType weaponType : WeaponType.getAll())
     {
       List<Item> items=_items.get(WEAPON+weaponType.getKey());
       if (items!=null)
       {
         for(Item item : items)
         {
-          if (filter.accept(item))
+          if (slotFilter.accept(item))
           {
             ret.add(item);
           }
@@ -361,25 +311,13 @@ public class ItemsSorter
   }
 
   /**
-   * Build a list of shield items for a given class/level and slot.
-   * @param cClass Character class.
-   * @param level Level.
+   * Build a list of shield items.
    * @return A list of items.
    */
-  public List<Item> buildShieldsList(CharacterClass cClass, int level)
+  public List<Item> buildShieldsList()
   {
-    List<Item> ret=new ArrayList<Item>();
-    Set<ArmourType> armourTypes=CharacterProficiencies.getArmourProficiencies(cClass,level);
     List<Item> shields=_items.get(ARMOUR+"SHIELD");
-    for(Item shield : shields)
-    {
-      Armour armour=(Armour)shield;
-      if (armourTypes.contains(armour.getArmourType()))
-      {
-        ret.add(shield);
-      }
-    }
-    return ret;
+    return shields;
   }
 
   /**
