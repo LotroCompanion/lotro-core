@@ -9,6 +9,7 @@ import delta.games.lotro.lore.items.Item;
  */
 public class ItemRequiredClassFilter implements ItemFilter
 {
+  private boolean _enabled;
   private CharacterClass _characterClass;
   private boolean _strict;
 
@@ -21,10 +22,24 @@ public class ItemRequiredClassFilter implements ItemFilter
   {
     _characterClass=characterClass;
     _strict=strict;
+    _enabled=true;
+  }
+
+  /**
+   * Enable this filter or not.
+   * @param enabled <code>true</code> to enable filtering, <code>false</code> to disable filtering.
+   */
+  public void setEnabled(boolean enabled)
+  {
+    _enabled=enabled;
   }
 
   public boolean accept(Item item)
   {
+    if (!_enabled)
+    {
+      return true;
+    }
     CharacterClass required=item.getRequiredClass();
     if (((!_strict) && (required==null)) || (required==_characterClass))
     {
