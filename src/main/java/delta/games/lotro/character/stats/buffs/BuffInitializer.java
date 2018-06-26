@@ -69,6 +69,15 @@ public class BuffInitializer
       hope.setImpl(buff);
       registry.registerBuff(hope);
     }
+    // - Hope (House of Celeborn)
+    {
+      Buff hope=new Buff("HOPE_CELEBORN", GENERIC, "Hope House of Celeborn (Tier 10)");
+      hope.setIcon("Hope_4-icon");
+      BasicStatsSet stats=buildBasicSet(STAT.HOPE,10);
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      hope.setImpl(buff);
+      registry.registerBuff(hope);
+    }
   }
 
   private void initRacialBuffs(BuffRegistry registry)
