@@ -241,41 +241,75 @@ public class BuffInitializer
     // TODO
     // Yellow tree
     // - Might Increase
-    {
-      Buff mightIncrease=new Buff("MIGHT_INCREASE", YELLOW_TREE, "Might Increase");
-      mightIncrease.setIcon("Might_Increase-icon");
-      mightIncrease.setRequiredClass(CharacterClass.CHAMPION);
-
-      float[] sliceCounts=new float[]{2,2.4f,3,3.2f,4};
-      Formula formula=new Formula()
-      {
-        public float compute(int level, float sliceCount)
-        {
-          return (float)Slice.getBaseStat(level,sliceCount);
-        }
-      };
-      FormulaBasedBuff buff=new FormulaBasedBuff(sliceCounts,STAT.MIGHT,formula);
-      mightIncrease.setImpl(buff);
-      registry.registerBuff(mightIncrease);
-    }
+    mightIncrease(registry);
     // - Finesse Increase
-    {
-      Buff finesseIncrease=new Buff("FINESSE_INCREASE", YELLOW_TREE, "Finesse Increase");
-      finesseIncrease.setIcon("Finesse_Increase-icon");
-      finesseIncrease.setRequiredClass(CharacterClass.CHAMPION);
+    finesseIncrease(registry);
+  }
 
-      float[] sliceCounts=new float[]{0.4f,0.8f,1.2f,1.6f,2};
-      Formula formula=new Formula()
+  private void mightIncrease(BuffRegistry registry)
+  {
+    Buff mightIncrease=new Buff("MIGHT_INCREASE", YELLOW_TREE, "Might Increase");
+    mightIncrease.setIcon("Might_Increase-icon");
+    mightIncrease.setRequiredClass(CharacterClass.CHAMPION);
+
+    // 1-114
+    float[] sliceCounts=new float[]{2,2.4f,3,3.2f,4};
+    Formula formula=new Formula()
+    {
+      public float compute(int level, float sliceCount)
       {
-        public float compute(int level, float sliceCount)
-        {
-          return Slice.getFinesse(level,sliceCount);
-        }
-      };
-      FormulaBasedBuff buff=new FormulaBasedBuff(sliceCounts,STAT.FINESSE,formula);
-      finesseIncrease.setImpl(buff);
-      registry.registerBuff(finesseIncrease);
+        return (float)Slice.getBaseStat(level,sliceCount);
+      }
+    };
+    FormulaBasedBuff buff1=new FormulaBasedBuff(sliceCounts,STAT.MIGHT,formula);
+    // 115
+    SimpleTieredBuff buff2=new SimpleTieredBuff();
+    int[] mightBuff={783,939,1096,1252,1566};
+    for(int i=0;i<mightBuff.length;i++)
+    {
+      BasicStatsSet stats=new BasicStatsSet();
+      stats.addStat(STAT.MIGHT,new FixedDecimalsInteger(mightBuff[i]));
+      buff2.addTier(i+1,stats);
     }
+    // Buff
+    LevelBasedBuff buff=new LevelBasedBuff();
+    buff.defineBuff(1,114,buff1);
+    buff.defineBuff(115,115,buff2);
+    mightIncrease.setImpl(buff);
+    registry.registerBuff(mightIncrease);
+  }
+
+  private void finesseIncrease(BuffRegistry registry)
+  {
+    Buff finesseIncrease=new Buff("FINESSE_INCREASE", YELLOW_TREE, "Finesse Increase");
+    finesseIncrease.setIcon("Finesse_Increase-icon");
+    finesseIncrease.setRequiredClass(CharacterClass.CHAMPION);
+
+    // 1-114
+    float[] sliceCounts=new float[]{0.4f,0.8f,1.2f,1.6f,2};
+    Formula formula=new Formula()
+    {
+      public float compute(int level, float sliceCount)
+      {
+        return Slice.getFinesse(level,sliceCount);
+      }
+    };
+    FormulaBasedBuff buff1=new FormulaBasedBuff(sliceCounts,STAT.FINESSE,formula);
+    // 115
+    SimpleTieredBuff buff2=new SimpleTieredBuff();
+    int[] mightBuff={4102,8204,12307,16409,20511};
+    for(int i=0;i<mightBuff.length;i++)
+    {
+      BasicStatsSet stats=new BasicStatsSet();
+      stats.addStat(STAT.FINESSE,new FixedDecimalsInteger(mightBuff[i]));
+      buff2.addTier(i+1,stats);
+    }
+    // Buff
+    LevelBasedBuff buff=new LevelBasedBuff();
+    buff.defineBuff(1,114,buff1);
+    buff.defineBuff(115,115,buff2);
+    finesseIncrease.setImpl(buff);
+    registry.registerBuff(finesseIncrease);
   }
 
   private void initGuardianBuffs(BuffRegistry registry)
