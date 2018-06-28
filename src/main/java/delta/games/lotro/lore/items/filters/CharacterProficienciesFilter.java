@@ -34,6 +34,15 @@ public class CharacterProficienciesFilter implements Filter<Item>
   }
 
   /**
+   * Indicates if this filter is enabled or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isEnabled()
+  {
+    return _enabled;
+  }
+
+  /**
    * Enable this filter or not.
    * @param enabled <code>true</code> to enable filtering, <code>false</code> to disable filtering.
    */

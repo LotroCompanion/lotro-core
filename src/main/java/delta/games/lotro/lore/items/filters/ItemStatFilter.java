@@ -32,8 +32,27 @@ public class ItemStatFilter implements ItemFilter
   }
 
   /**
+   * Get the number of stats in this filter.
+   * @return A stats count.
+   */
+  public int getNbItems()
+  {
+    return _stats.size();
+  }
+
+  /**
+   * Get the stat set for the given index.
+   * @param index Index to use, starting at 0.
+   * @return A stat or <code>null</code>.
+   */
+  public STAT getStat(int index)
+  {
+    return _stats.get(index);
+  }
+
+  /**
    * Set the stat to search.
-   * @param index Stat index.
+   * @param index Stat index, starting at 0.
    * @param stat Stat to search.
    */
   public void setStat(int index, STAT stat)

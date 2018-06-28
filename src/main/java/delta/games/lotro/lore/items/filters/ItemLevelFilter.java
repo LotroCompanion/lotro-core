@@ -21,6 +21,24 @@ public class ItemLevelFilter implements ItemFilter
   }
 
   /**
+   * Get the minimum item level.
+   * @return an item level or <code>null</code> if not set.
+   */
+  public Integer getMinItemLevel()
+  {
+    return _minItemLevel;
+  }
+
+  /**
+   * Get the maximum item level.
+   * @return an item level or <code>null</code> if not set.
+   */
+  public Integer getMaxItemLevel()
+  {
+    return _maxItemLevel;
+  }
+
+  /**
    * Set the range to use.
    * @param min Min value (may be <code>null</code>).
    * @param max Max value (may be <code>null</code>).
