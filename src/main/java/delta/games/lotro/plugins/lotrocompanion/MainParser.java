@@ -7,7 +7,17 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.character.CharacterFile;
+import delta.games.lotro.character.CharactersManager;
 import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.character.storage.currencies.Currencies;
+import delta.games.lotro.character.storage.currencies.CurrenciesSummary;
+import delta.games.lotro.character.storage.currencies.Currency;
+import delta.games.lotro.character.storage.currencies.CurrencyHistory;
+import delta.games.lotro.character.storage.currencies.CurrencyKeys;
+import delta.games.lotro.character.storage.currencies.CurrencyStatus;
+import delta.games.lotro.character.storage.currencies.io.CurrenciesIo;
+import delta.games.lotro.common.money.Money;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.PluginConstants;
 
@@ -19,15 +29,33 @@ public class MainParser
 {
   private static final Logger LOGGER=Logger.getLogger(MainParser.class);
 
+  private String _account;
+  private String _server;
+  private String _character;
+
+  /**
+   * Constructor.
+   * @param account Account name.
+   * @param server Server name.
+   * @param character Character name.
+   */
+  public MainParser(String account, String server, String character)
+  {
+    _account=account;
+    _server=server;
+    _character=character;
+  }
+
   /**
    * Parse/use data from the "Main" file of the LotroCompanion plugin.
-   * @param f Input file.
    * @throws Exception If an error occurs.
    */
-  public void doIt(File f) throws Exception
+  public void doIt() throws Exception
   {
+    File dataDir=PluginConstants.getCharacterDir(_account,_server,_character);
+    File dataFile=new File(dataDir,"LotroCompanionData.plugindata");
     LuaParser parser=new LuaParser();
-    Map<String,Object> data=parser.read(f);
+    Map<String,Object> data=parser.read(dataFile);
     useData(data);
   }
 
@@ -94,6 +122,12 @@ public class MainParser
       System.out.println("\tGold: "+gold);
       System.out.println("\tSilver: "+silver);
       System.out.println("\tCopper: "+copper);
+      Money money=new Money();
+      money.setGoldCoins(gold.intValue());
+      money.setSilverCoins(silver.intValue());
+      money.setCopperCoins(copper.intValue());
+      int value=money.getInternalValue();
+      updateMoney(value);
     }
     // Infos
     Map<String,Object> infosMap=(Map<String,Object>)data.get("infos");
@@ -107,6 +141,30 @@ public class MainParser
       System.out.println("\tLevel: "+level);
       Double destinyPoints=(Double)infosMap.get("DestinyPoints");
       System.out.println("\tDestiny points: "+destinyPoints);
+    }
+  }
+
+  private void updateMoney(int value)
+  {
+    long now=System.currentTimeMillis();
+    CharactersManager charsManager=CharactersManager.getInstance();
+    CharacterFile character=charsManager.getToonById(_server,_character);
+    CurrenciesSummary summary=CurrenciesIo.load(character);
+    CurrencyStatus goldStatus=summary.getCurrency(CurrencyKeys.GOLD,true);
+    goldStatus.setDate(now);
+    goldStatus.setValue(value);
+    CurrenciesIo.save(character,summary);
+    //boolean keepHistory=goldStatus.isKeepHistory();
+    //if (keepHistory)
+    {
+      Currency currency=Currencies.get().getByKey(CurrencyKeys.GOLD);
+      CurrencyHistory history=CurrenciesIo.load(character,currency);
+      if (history==null)
+      {
+        history=new CurrencyHistory(currency);
+      }
+      history.getStorage().setValueAt(now,value);
+      CurrenciesIo.save(character,history);
     }
   }
 
@@ -128,8 +186,8 @@ public class MainParser
         try
         {
           System.out.println("Doing: " + character);
-          MainParser parser=new MainParser();
-          parser.doIt(dataFile);
+          MainParser parser=new MainParser(account,server,character);
+          parser.doIt();
         }
         catch(Exception e)
         {

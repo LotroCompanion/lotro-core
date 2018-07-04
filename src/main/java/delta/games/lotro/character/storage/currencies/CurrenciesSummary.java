@@ -71,10 +71,21 @@ public class CurrenciesSummary
   /**
    * Get a currency status.
    * @param key Key of the currency to get.
+   * @param createIfNecessary Create a new status if needed.
    * @return A currency status or <code>null</code> if not found.
    */
-  public CurrencyStatus getCurrency(String key)
+  public CurrencyStatus getCurrency(String key, boolean createIfNecessary)
   {
-    return _status.get(key);
+    CurrencyStatus status=_status.get(key);
+    if ((createIfNecessary) && (status==null))
+    {
+      Currency currency=Currencies.get().getByKey(key);
+      if (currency!=null)
+      {
+        status=new CurrencyStatus(currency);
+        _status.put(key,status);
+      }
+    }
+    return status;
   }
 }

@@ -39,7 +39,7 @@ public class Currencies
   private void init()
   {
     // Gold
-    Currency gold=new Currency("gold","Gold",Scope.CHARACTER,"World");
+    Currency gold=new Currency(CurrencyKeys.GOLD,"Gold",Scope.CHARACTER,"World");
     registerCurrency(gold);
     // Marks
     Currency marks=new Currency("marks","Marks",Scope.SERVER,"World");
@@ -47,6 +47,12 @@ public class Currencies
     // Medallions
     Currency medallions=new Currency("medallions","Medallions",Scope.SERVER,"World");
     registerCurrency(medallions);
+    // Destiny points
+    Currency destinyPoints=new Currency("destinyPoints","Destiny Points",Scope.SERVER,"World");
+    registerCurrency(destinyPoints);
+    // LOTRO points
+    Currency lotroPoints=new Currency("lotroPoints","Destiny Points",Scope.ACCOUNT,"World");
+    registerCurrency(lotroPoints);
   }
 
   private void registerCurrency(Currency currency)

@@ -146,6 +146,15 @@ public class Money
     return ret;
   }
 
+  /**
+   * Get the internal value for this money amount.
+   * @return An internal value (silvers).
+   */
+  public int getInternalValue()
+  {
+    return ((_goldCoins*1000)+_silverCoins)*100+_copperCoins;
+  }
+
   @Override
   public String toString()
   {
