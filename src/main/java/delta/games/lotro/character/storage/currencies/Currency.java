@@ -1,4 +1,4 @@
-package delta.games.lotro.character.currency;
+package delta.games.lotro.character.storage.currencies;
 
 import delta.games.lotro.common.Scope;
 

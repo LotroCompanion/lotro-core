@@ -1,5 +1,6 @@
-package delta.games.lotro.character.currency;
+package delta.games.lotro.character.storage.currencies;
 
+import delta.games.lotro.character.storage.currencies.CurrencyStorage;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 

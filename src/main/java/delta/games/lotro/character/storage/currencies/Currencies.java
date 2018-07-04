@@ -1,4 +1,4 @@
-package delta.games.lotro.character.currency;
+package delta.games.lotro.character.storage.currencies;
 
 import java.util.ArrayList;
 import java.util.List;
