@@ -114,9 +114,9 @@ public class Money
       _copperCoins-=100;
       _silverCoins++;
     }
-    while (_silverCoins>=100)
+    while (_silverCoins>=1000)
     {
-      _silverCoins-=100;
+      _silverCoins-=1000;
       _goldCoins++;
     }
   }
