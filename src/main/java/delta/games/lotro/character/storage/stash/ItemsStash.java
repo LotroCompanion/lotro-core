@@ -1,4 +1,4 @@
-package delta.games.lotro.character.storage;
+package delta.games.lotro.character.storage.stash;
 
 import java.util.ArrayList;
 import java.util.Collections;

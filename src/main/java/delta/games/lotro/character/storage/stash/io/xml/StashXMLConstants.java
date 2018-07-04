@@ -1,4 +1,4 @@
-package delta.games.lotro.character.storage.io.xml;
+package delta.games.lotro.character.storage.stash.io.xml;
 
 /**
  * Constants for tags and attribute names used in the

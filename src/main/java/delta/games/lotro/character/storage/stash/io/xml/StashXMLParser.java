@@ -1,4 +1,4 @@
-package delta.games.lotro.character.storage.io.xml;
+package delta.games.lotro.character.storage.stash.io.xml;
 
 import java.io.File;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.storage.ItemsStash;
+import delta.games.lotro.character.storage.stash.ItemsStash;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
 import delta.games.lotro.lore.items.io.xml.ItemXMLParser;

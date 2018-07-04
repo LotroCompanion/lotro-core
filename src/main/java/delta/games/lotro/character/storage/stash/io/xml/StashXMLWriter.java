@@ -1,4 +1,4 @@
-package delta.games.lotro.character.storage.io.xml;
+package delta.games.lotro.character.storage.stash.io.xml;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
-import delta.games.lotro.character.storage.ItemsStash;
+import delta.games.lotro.character.storage.stash.ItemsStash;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 import delta.games.lotro.utils.LotroLoggers;

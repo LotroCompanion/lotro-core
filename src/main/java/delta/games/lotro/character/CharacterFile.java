@@ -21,9 +21,9 @@ import delta.games.lotro.character.reputation.ReputationComputer;
 import delta.games.lotro.character.reputation.ReputationStatus;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLParser;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLWriter;
-import delta.games.lotro.character.storage.ItemsStash;
-import delta.games.lotro.character.storage.io.xml.StashXMLParser;
-import delta.games.lotro.character.storage.io.xml.StashXMLWriter;
+import delta.games.lotro.character.storage.stash.ItemsStash;
+import delta.games.lotro.character.storage.stash.io.xml.StashXMLParser;
+import delta.games.lotro.character.storage.stash.io.xml.StashXMLWriter;
 
 /**
  * Character file description.
