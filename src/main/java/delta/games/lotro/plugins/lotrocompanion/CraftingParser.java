@@ -149,7 +149,7 @@ public class CraftingParser
     {
       try
       {
-        File dataFile=PluginConstants.getCharacterDir("glorfindel666","Landroval",character);
+        File dataFile=PluginConstants.getCharacterDir(account,server,character);
         File inputFile=new File(dataFile,"LotroCompanionData.plugindata");
         if (inputFile.exists())
         {

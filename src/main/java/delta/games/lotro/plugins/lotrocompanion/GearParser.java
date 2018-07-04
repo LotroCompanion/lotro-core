@@ -132,7 +132,7 @@ public class GearParser
     List<String> characters=PluginConstants.getCharacters(account,server,false);
     for(String character : characters)
     {
-      File dataDir=PluginConstants.getCharacterDir("glorfindel666","Landroval",character);
+      File dataDir=PluginConstants.getCharacterDir(account,server,character);
       File dataFile=new File(dataDir,"LotroCompanionData.plugindata");
       if (dataFile.exists())
       {
