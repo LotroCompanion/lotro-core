@@ -28,11 +28,19 @@ public class Scope
     _label=label;
   }
 
+  /**
+   * Get the identifying key for this scope.
+   * @return A scope key.
+   */
   public String getKey()
   {
     return _key;
   }
 
+  /**
+   * Get the displayable label for this scope.
+   * @return A displayable label.
+   */
   public String getLabel()
   {
     return _label;
