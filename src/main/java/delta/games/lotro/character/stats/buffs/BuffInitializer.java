@@ -252,7 +252,11 @@ public class BuffInitializer
     // - Might Increase
     mightIncrease(registry);
     // - Finesse Increase
-    finesseIncrease(registry);
+    Buff finesseIncrease=new Buff("FINESSE_INCREASE", YELLOW_TREE, "Finesse Increase");
+    finesseIncrease.setIcon("Finesse_Increase-icon");
+    finesseIncrease.setRequiredClass(CharacterClass.CHAMPION);
+    setupFinesseIncrease(finesseIncrease);
+    registry.registerBuff(finesseIncrease);
   }
 
   private void mightIncrease(BuffRegistry registry)
@@ -288,12 +292,8 @@ public class BuffInitializer
     registry.registerBuff(mightIncrease);
   }
 
-  private void finesseIncrease(BuffRegistry registry)
+  private void setupFinesseIncrease(Buff finesseIncrease)
   {
-    Buff finesseIncrease=new Buff("FINESSE_INCREASE", YELLOW_TREE, "Finesse Increase");
-    finesseIncrease.setIcon("Finesse_Increase-icon");
-    finesseIncrease.setRequiredClass(CharacterClass.CHAMPION);
-
     // 1-114
     float[] sliceCounts=new float[]{0.4f,0.8f,1.2f,1.6f,2};
     Formula formula=new Formula()
@@ -303,6 +303,7 @@ public class BuffInitializer
         return Slice.getFinesse(level,sliceCount);
       }
     };
+
     FormulaBasedBuff buff1=new FormulaBasedBuff(sliceCounts,STAT.FINESSE,formula);
     // 115
     SimpleTieredBuff buff2=new SimpleTieredBuff();
@@ -318,7 +319,6 @@ public class BuffInitializer
     buff.defineBuff(1,114,buff1);
     buff.defineBuff(115,115,buff2);
     finesseIncrease.setImpl(buff);
-    registry.registerBuff(finesseIncrease);
   }
 
   private void initGuardianBuffs(BuffRegistry registry)
@@ -458,22 +458,11 @@ public class BuffInitializer
       registry.registerBuff(enduringMorale);
     }
     // - Finesse
-    {
-      Buff finesse=new Buff("FINESSE_MINSTREL", RED_TREE, "Finesse");
-      finesse.setIcon("Finesse_(Minstrel_Trait)-icon");
-      finesse.setRequiredClass(CharacterClass.MINSTREL);
-      float[] sliceCounts=new float[]{0.4f,0.8f,1.2f,1.6f,2};
-      Formula formula=new Formula()
-      {
-        public float compute(int level, float sliceCount)
-        {
-          return Slice.getFinesse(level,sliceCount);
-        }
-      };
-      FormulaBasedBuff buff=new FormulaBasedBuff(sliceCounts,STAT.FINESSE,formula);
-      finesse.setImpl(buff);
-      registry.registerBuff(finesse);
-    }
+    Buff finesseIncrease=new Buff("FINESSE_MINSTREL", RED_TREE, "Finesse");
+    finesseIncrease.setIcon("Finesse_(Minstrel_Trait)-icon");
+    finesseIncrease.setRequiredClass(CharacterClass.MINSTREL);
+    setupFinesseIncrease(finesseIncrease);
+    registry.registerBuff(finesseIncrease);
     // - Critical Strikes
     {
       Buff criticalStrikes=new Buff("CRITICAL_STRIKES", RED_TREE, "Critical Strikes");
