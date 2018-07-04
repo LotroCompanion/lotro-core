@@ -1,4 +1,4 @@
-package delta.games.lotro.common;
+package delta.games.lotro.common.money;
 
 /**
  * Represents an amount of money.

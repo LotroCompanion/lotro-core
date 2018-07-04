@@ -10,7 +10,7 @@ import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Money;
+import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 
 /**

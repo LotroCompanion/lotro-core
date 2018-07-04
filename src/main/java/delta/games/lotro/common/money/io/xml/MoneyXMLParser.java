@@ -4,7 +4,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.Money;
+import delta.games.lotro.common.money.Money;
 
 /**
  * Parser for money stored in XML.

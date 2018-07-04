@@ -4,7 +4,7 @@ import javax.xml.transform.sax.TransformerHandler;
 
 import org.xml.sax.helpers.AttributesImpl;
 
-import delta.games.lotro.common.Money;
+import delta.games.lotro.common.money.Money;
 
 /**
  * Writes LOTRO money to XML documents.

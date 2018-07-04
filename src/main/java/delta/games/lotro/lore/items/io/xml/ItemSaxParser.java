@@ -16,7 +16,7 @@ import delta.common.utils.NumericTools;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Money;
+import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLConstants;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;

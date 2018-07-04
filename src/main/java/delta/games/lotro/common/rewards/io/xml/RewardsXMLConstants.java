@@ -1,4 +1,4 @@
-package delta.games.lotro.common.io.xml;
+package delta.games.lotro.common.rewards.io.xml;
 
 /**
  * Constants for tags and attribute names used in the

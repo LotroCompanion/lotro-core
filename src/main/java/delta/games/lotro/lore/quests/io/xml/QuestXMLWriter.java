@@ -16,7 +16,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
 import delta.games.lotro.common.Size;
-import delta.games.lotro.common.io.xml.RewardsXMLWriter;
+import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
 import delta.games.lotro.lore.quests.QuestDescription.TYPE;

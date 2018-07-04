@@ -3,6 +3,7 @@ package delta.games.lotro.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.objects.ObjectsSet;
 
 /**

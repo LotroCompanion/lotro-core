@@ -22,7 +22,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Money;
+import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
