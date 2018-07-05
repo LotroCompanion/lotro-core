@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.account.Account;
+import delta.games.lotro.account.AccountsManager;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
 import delta.games.lotro.character.stats.STAT;
@@ -141,6 +143,11 @@ public class MainParser
       System.out.println("\tLevel: "+level);
       Double destinyPoints=(Double)infosMap.get("DestinyPoints");
       System.out.println("\tDestiny points: "+destinyPoints);
+      String mostRecentCharacter=PluginConstants.getMostRecentLoggedInCharacter(_account,_server);
+      if (_character.equals(mostRecentCharacter))
+      {
+        updateDestinyPoints(destinyPoints.intValue());
+      }
     }
   }
 
@@ -149,22 +156,51 @@ public class MainParser
     long now=System.currentTimeMillis();
     CharactersManager charsManager=CharactersManager.getInstance();
     CharacterFile character=charsManager.getToonById(_server,_character);
-    CurrenciesSummary summary=CurrenciesIo.load(character);
-    CurrencyStatus goldStatus=summary.getCurrency(CurrencyKeys.GOLD,true);
-    goldStatus.setDate(now);
-    goldStatus.setValue(value);
-    CurrenciesIo.save(character,summary);
-    //boolean keepHistory=goldStatus.isKeepHistory();
-    //if (keepHistory)
+    if (character!=null)
     {
-      Currency currency=Currencies.get().getByKey(CurrencyKeys.GOLD);
-      CurrencyHistory history=CurrenciesIo.load(character,currency);
-      if (history==null)
+      CurrenciesSummary summary=CurrenciesIo.load(character);
+      CurrencyStatus goldStatus=summary.getCurrency(CurrencyKeys.GOLD,true);
+      goldStatus.setDate(now);
+      goldStatus.setValue(value);
+      CurrenciesIo.save(character,summary);
+      //boolean keepHistory=goldStatus.isKeepHistory();
+      //if (keepHistory)
       {
-        history=new CurrencyHistory(currency);
+        Currency currency=Currencies.get().getByKey(CurrencyKeys.GOLD);
+        CurrencyHistory history=CurrenciesIo.load(character,currency);
+        if (history==null)
+        {
+          history=new CurrencyHistory(currency);
+        }
+        history.getStorage().setValueAt(now,value);
+        CurrenciesIo.save(character,history);
       }
-      history.getStorage().setValueAt(now,value);
-      CurrenciesIo.save(character,history);
+    }
+  }
+
+  private void updateDestinyPoints(int value)
+  {
+    Account account=AccountsManager.getInstance().getAccountByName(_account);
+    if (account!=null)
+    {
+      long now=System.currentTimeMillis();
+      CurrenciesSummary summary=CurrenciesIo.load(account,_server);
+      CurrencyStatus destinyPointsStatus=summary.getCurrency(CurrencyKeys.DESTINY_POINTS,true);
+      destinyPointsStatus.setDate(now);
+      destinyPointsStatus.setValue(value);
+      CurrenciesIo.save(account,_server,summary);
+      //boolean keepHistory=goldStatus.isKeepHistory();
+      //if (keepHistory)
+      {
+        Currency currency=Currencies.get().getByKey(CurrencyKeys.DESTINY_POINTS);
+        CurrencyHistory history=CurrenciesIo.load(account,_server,currency);
+        if (history==null)
+        {
+          history=new CurrencyHistory(currency);
+        }
+        history.getStorage().setValueAt(now,value);
+        CurrenciesIo.save(account,_server,history);
+      }
     }
   }
 
@@ -174,8 +210,12 @@ public class MainParser
    */
   public static void main(String[] args)
   {
-    String account="glorfindel666";
-    String server="Landroval";
+    doAccountServer("glorfindel666","Landroval");
+    doAccountServer("meva666","Landroval");
+  }
+
+  private static void doAccountServer(String account, String server)
+  {
     List<String> characters=PluginConstants.getCharacters(account,server,false);
     for(String character : characters)
     {

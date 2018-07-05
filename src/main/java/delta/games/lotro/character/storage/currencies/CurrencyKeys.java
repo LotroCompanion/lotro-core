@@ -10,4 +10,9 @@ public class CurrencyKeys
    * Gold.
    */
   public static final String GOLD="gold";
+
+  /**
+   * Destiny points.
+   */
+  public static final String DESTINY_POINTS="destinyPoints";
 }

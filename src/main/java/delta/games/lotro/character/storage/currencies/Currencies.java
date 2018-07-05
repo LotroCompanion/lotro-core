@@ -48,10 +48,10 @@ public class Currencies
     Currency medallions=new Currency("medallions","Medallions",Scope.SERVER,"World");
     registerCurrency(medallions);
     // Destiny points
-    Currency destinyPoints=new Currency("destinyPoints","Destiny Points",Scope.SERVER,"World");
+    Currency destinyPoints=new Currency(CurrencyKeys.DESTINY_POINTS,"Destiny Points",Scope.SERVER,"World");
     registerCurrency(destinyPoints);
     // LOTRO points
-    Currency lotroPoints=new Currency("lotroPoints","Destiny Points",Scope.ACCOUNT,"World");
+    Currency lotroPoints=new Currency("lotroPoints","LOTRO Points",Scope.ACCOUNT,"World");
     registerCurrency(lotroPoints);
   }
 
