@@ -116,7 +116,17 @@ public class BaseStatsManager
     // Lore-master: Ancient Wisdom
     if ((cClass==CharacterClass.LORE_MASTER) && (level>=28))
     {
-      global.addStat(STAT.WILL,new FixedDecimalsInteger(1.1f*level));
+      float willContrib;
+      if (level<=105)
+      {
+        willContrib=1.1f*level;
+      }
+      else
+      {
+        // From LotroPlan 3.12.2
+        willContrib=0.225f*level*level-41.4f*level+1982.375f;
+      }
+      global.addStat(STAT.WILL,new FixedDecimalsInteger(willContrib));
     }
     return global;
   }
