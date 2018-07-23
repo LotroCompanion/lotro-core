@@ -13,7 +13,7 @@ import delta.games.lotro.lore.items.ItemsManager;
  */
 public class CharacterGenerationTools
 {
-  private HashMap<Long,Item> _items;
+  private static final String ESSENCE_SEED="Essence:Tier";
   private HashMap<Integer,HashMap<String,Item>> _essencesMap;
 
   /**
@@ -21,29 +21,19 @@ public class CharacterGenerationTools
    */
   public CharacterGenerationTools()
   {
-    initItems();
     init();
-  }
-
-  private void initItems()
-  {
-    _items=new HashMap<Long,Item>();
-    List<Item> items=ItemsManager.getInstance().getAllItems();
-    for(Item item : items)
-    {
-      _items.put(Long.valueOf(item.getIdentifier()),item);
-    }
   }
 
   private void init()
   {
     _essencesMap=new HashMap<Integer,HashMap<String,Item>>();
-    for(Item item : _items.values())
+    List<Item> items=ItemsManager.getInstance().getEssences();
+    for(Item item : items)
     {
       String category=item.getSubCategory();
-      if ((category!=null) && (category.startsWith("Essence:")))
+      if (category.startsWith(ESSENCE_SEED))
       {
-        String tierStr=category.substring(category.length()-1);
+        String tierStr=category.substring(ESSENCE_SEED.length());
         Integer tier=NumericTools.parseInteger(tierStr);
         HashMap<String,Item> mapbyTier=_essencesMap.get(tier);
         if (mapbyTier==null)
@@ -62,9 +52,9 @@ public class CharacterGenerationTools
    * @param id Identifier.
    * @return An item or <code>null</code> if not found.
    */
-  public Item getItemById(long id)
+  public Item getItemById(int id)
   {
-    return _items.get(Long.valueOf(id));
+    return ItemsManager.getInstance().getItem(id);
   }
 
   /**
