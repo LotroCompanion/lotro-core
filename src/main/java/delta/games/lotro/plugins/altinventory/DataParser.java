@@ -91,8 +91,8 @@ public class DataParser
               }
               Chest chest=container.getChest(id);
               StoredItem item=new StoredItem(itemName);
-              item.setIconId(iconId);
-              item.setBackgroundIconId(backgroundIconId);
+              item.setIconId(NumericTools.parseInteger(iconId));
+              item.setBackgroundIconId(NumericTools.parseInteger(backgroundIconId));
               item.setQuantity(quantity);
               chest.addItem(item);
             }

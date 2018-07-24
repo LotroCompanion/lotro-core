@@ -39,7 +39,7 @@ public class StorageLoader
       DataParser dataParser=new DataParser();
       dataFile=altInventory.getDataFile();
       dataParser.doIt(storage,dataFile);
-      // Use KikiInventory dat
+      // Use KikiInventory data
       KikiInterface kikiInventory=new KikiInterface(account,server);
       File walletFile=kikiInventory.getWalletFile();
       WalletParser walletParser=new WalletParser();

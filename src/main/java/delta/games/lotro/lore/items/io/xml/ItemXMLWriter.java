@@ -187,6 +187,12 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_NAME_ATTR,CDATA,name);
     }
+    // Icon
+    String icon=item.getIcon();
+    if (icon!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ICON_ATTR,CDATA,icon);
+    }
     // Item level
     Integer itemLevel=item.getItemLevel();
     if (itemLevel!=null)

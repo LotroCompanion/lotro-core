@@ -100,6 +100,9 @@ public final class ItemSaxParser extends DefaultHandler {
           String idStr=attributes.getValue(ItemXMLConstants.ITEM_KEY_ATTR);
           int id=NumericTools.parseInt(idStr,-1);
           _currentItem.setIdentifier(id);
+          // Icon
+          String icon=attributes.getValue(ItemXMLConstants.ITEM_ICON_ATTR);
+          _currentItem.setIcon(icon);
           // Set identifier
           String setId=attributes.getValue(ItemXMLConstants.ITEM_SET_ID_ATTR);
           _currentItem.setSetKey(setId);

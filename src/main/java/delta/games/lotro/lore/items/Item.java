@@ -21,6 +21,8 @@ public class Item
 {
   // Item identifier
   private int _identifier;
+  // Icon name: iconID-backgroundIconID
+  private String _icon;
   // Items set identifier (may be null)
   private String _setKey;
   // Associated set (may be null)
@@ -74,7 +76,6 @@ public class Item
 
   // TODO Missing attrs: isItemAdvancement="0" consumedOnUse="0" cooldown="" decoration="" instrument=""
   private ItemQuality _quality;
-
   private HashMap<String,String> _properties;
 
   /**
@@ -84,6 +85,7 @@ public class Item
   {
     super();
     _identifier=0;
+    _icon=null;
     _setKey=null;
     _equipmentLocation=null;
     _name="";
@@ -133,6 +135,52 @@ public class Item
   public void setIdentifier(int identifier)
   {
     _identifier=identifier;
+  }
+
+  /**
+   * Get the icon for this item.
+   * @return an icon name.
+   */
+  public String getIcon()
+  {
+    return _icon;
+  }
+
+  /**
+   * Set the icon for this item.
+   * @param icon Icon name to set.
+   */
+  public void setIcon(String icon)
+  {
+    _icon=icon;
+  }
+
+  /**
+   * Get the icon ID for this item.
+   * @return an icon ID.
+   */
+  public int getIconId()
+  {
+    int ret=0;
+    if (_icon!=null)
+    {
+      ret=NumericTools.parseInt(_icon.substring(0,_icon.indexOf('-')),0);
+    }
+    return ret;
+  }
+
+  /**
+   * Get the background icon ID for this item.
+   * @return an icon ID.
+   */
+  public int getBackgroundIconId()
+  {
+    int ret=0;
+    if (_icon!=null)
+    {
+      ret=NumericTools.parseInt(_icon.substring(_icon.indexOf('-')+1),0);
+    }
+    return ret;
   }
 
   /**
@@ -710,6 +758,7 @@ public class Item
   public void copyFrom(Item item)
   {
     _identifier=item._identifier;
+    _icon=item._icon;
     _setKey=item._setKey;
     _set=item._set;
     _equipmentLocation=item._equipmentLocation;
@@ -752,6 +801,12 @@ public class Item
     {
       sb.append(" (id=");
       sb.append(_identifier);
+      sb.append(')');
+    }
+    if (_icon!=null)
+    {
+      sb.append(" (icon=");
+      sb.append(_icon);
       sb.append(')');
     }
     if (_equipmentLocation!=null)

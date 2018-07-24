@@ -77,7 +77,7 @@ public class WalletParser
           }
           if (iconId!=null)
           {
-            item.setIconId(iconId.toString());
+            item.setIconId(iconId);
           }
 
           // Shared?

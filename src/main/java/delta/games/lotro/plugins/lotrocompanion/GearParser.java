@@ -12,7 +12,6 @@ import delta.common.utils.NumericTools;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemPropertyNames;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.PluginConstants;
@@ -78,21 +77,20 @@ public class GearParser
       String name=(String)slotMap.get("Name");
       EQUIMENT_SLOT slot=SLOTS[slotIndex-1];
       EquipmentLocation location=slot.getLocation();
-      Item item=findItem(name,String.valueOf(iconId.intValue()),String.valueOf(backgroundIconId.intValue()));
+      Item item=findItem(name,iconId.intValue()+"-"+backgroundIconId.intValue());
       System.out.println(location+": "+item);
     }
   }
 
-  private Item findItem(String name, String iconId, String backgroundIconId)
+  private Item findItem(String name, String icon)
   {
     List<Item> ret=new ArrayList<Item>();
     List<Item> retWithRightIcons=new ArrayList<Item>();
     List<Item> items=ItemsManager.getInstance().getAllItems();
     for(Item item : items)
     {
-      String itemIconId=item.getProperty(ItemPropertyNames.ICON_ID);
-      String itemBackgroundIconId=item.getProperty(ItemPropertyNames.BACKGROUND_ICON_ID);
-      if ((itemIconId.equals(iconId)) && (itemBackgroundIconId.equals(backgroundIconId)))
+      String itemIcon=item.getIcon();
+      if (itemIcon.equals(icon))
       {
         retWithRightIcons.add(item);
         if (name.equals(item.getName()))

@@ -21,6 +21,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
 import delta.games.lotro.lore.items.ItemFactory;
+import delta.games.lotro.lore.items.ItemPropertyNames;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
@@ -74,6 +75,9 @@ public class ItemXMLParser
     // Key
     String key=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_ID_ATTR,null);
     ret.setKey(key);
+    // Icon
+    String icon=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_ICON_ATTR,null);
+    ret.setIcon(icon);
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_KEY_ATTR,-1);
     ret.setIdentifier(id);
@@ -140,6 +144,18 @@ public class ItemXMLParser
         String propertyName=DOMParsingTools.getStringAttribute(propAttrs,ItemXMLConstants.PROPERTY_KEY_ATTR,null);
         String propertyValue=DOMParsingTools.getStringAttribute(propAttrs,ItemXMLConstants.PROPERTY_VALUE_ATTR,null);
         ret.setProperty(propertyName,propertyValue);
+      }
+      if (icon==null)
+      {
+        String iconId=ret.getProperty(ItemPropertyNames.ICON_ID);
+        String backgroundIconId=ret.getProperty(ItemPropertyNames.BACKGROUND_ICON_ID);
+        if ((iconId!=null) && (backgroundIconId!=null))
+        {
+          icon=iconId+"-"+backgroundIconId;
+          ret.setIcon(icon);
+          ret.removeProperty(ItemPropertyNames.ICON_ID);
+          ret.removeProperty(ItemPropertyNames.BACKGROUND_ICON_ID);
+        }
       }
     }
     // Stats

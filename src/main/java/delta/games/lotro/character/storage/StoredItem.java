@@ -8,8 +8,8 @@ public class StoredItem
 {
   private String _name;
   private int _quantity;
-  private String _iconId;
-  private String _backgroundIconId;
+  private Integer _iconId;
+  private Integer _backgroundIconId;
 
   /**
    * Constructor.
@@ -54,7 +54,7 @@ public class StoredItem
    * Get the foreground icon ID.
    * @return an icon ID or <code>null</code> if not set.
    */
-  public String getIconId()
+  public Integer getIconId()
   {
     return _iconId;
   }
@@ -63,7 +63,7 @@ public class StoredItem
    * Set the foreground icon ID.
    * @param iconId the ID to set (may be <code>null</code>).
    */
-  public void setIconId(String iconId)
+  public void setIconId(Integer iconId)
   {
     _iconId=iconId;
   }
@@ -72,7 +72,7 @@ public class StoredItem
    * Get the backgrund icon ID.
    * @return an icon ID or <code>null</code> if not set.
    */
-  public String getBackgroundIconId()
+  public Integer getBackgroundIconId()
   {
     return _backgroundIconId;
   }
@@ -81,7 +81,7 @@ public class StoredItem
    * Set the background icon ID.
    * @param backgroundIconId the ID to set (may be <code>null</code>).
    */
-  public void setBackgroundIconId(String backgroundIconId)
+  public void setBackgroundIconId(Integer backgroundIconId)
   {
     _backgroundIconId=backgroundIconId;
   }
