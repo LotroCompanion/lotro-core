@@ -56,6 +56,10 @@ public class ItemNameFilter implements ItemFilter
 
   public boolean accept(Item item)
   {
+    if (item==null)
+    {
+      return false;
+    }
     String name=item.getName();
     if (name!=null)
     {

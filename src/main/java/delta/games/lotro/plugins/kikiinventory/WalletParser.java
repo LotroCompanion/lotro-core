@@ -11,6 +11,9 @@ import delta.games.lotro.character.storage.AccountServerStorage;
 import delta.games.lotro.character.storage.CharacterStorage;
 import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.Wallet;
+import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.ItemsFinder;
+import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.LuaUtils;
 import delta.games.lotro.plugins.PluginConstants;
@@ -39,6 +42,8 @@ public class WalletParser
     String account=storage.getAccount();
     String server=storage.getServer();
     String mostRecentCharacter=PluginConstants.getMostRecentLoggedInCharacter(account,server);
+
+    ItemsFinder finder=ItemsManager.getInstance().getFinder();
     Set<String> keys=data.keySet();
     for(String key : keys)
     {
@@ -69,16 +74,15 @@ public class WalletParser
           // Icon ID
           String iconIdStr=(String)itemDef.get("iconId");
           Integer iconId=LuaUtils.parseIntValue(iconIdStr);
+          // No background icon...
 
-          StoredItem item=new StoredItem(itemName);
-          if (qty!=null)
+          if (iconId==null)
           {
-            item.setQuantity(qty.intValue());
+            continue;
           }
-          if (iconId!=null)
-          {
-            item.setIconId(iconId);
-          }
+          ItemProxy proxy=finder.buildProxy(itemName,iconId.intValue());
+          int quantity=(qty!=null)?qty.intValue():1;
+          StoredItem item=new StoredItem(proxy,quantity);
 
           // Shared?
           Boolean shared=(Boolean)itemDef.get("acc");

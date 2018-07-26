@@ -1,7 +1,6 @@
 package delta.games.lotro.plugins.lotrocompanion;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +10,8 @@ import org.apache.log4j.Logger;
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.lore.items.EquipmentLocation;
-import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.ItemsFinder;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.PluginConstants;
@@ -77,46 +77,10 @@ public class GearParser
       String name=(String)slotMap.get("Name");
       EQUIMENT_SLOT slot=SLOTS[slotIndex-1];
       EquipmentLocation location=slot.getLocation();
-      Item item=findItem(name,iconId.intValue()+"-"+backgroundIconId.intValue());
-      System.out.println(location+": "+item);
+      ItemsFinder finder=ItemsManager.getInstance().getFinder();
+      ItemProxy proxy=finder.buildProxy(name,iconId.intValue(),backgroundIconId.intValue());
+      System.out.println(location+": "+proxy);
     }
-  }
-
-  private Item findItem(String name, String icon)
-  {
-    List<Item> ret=new ArrayList<Item>();
-    List<Item> retWithRightIcons=new ArrayList<Item>();
-    List<Item> items=ItemsManager.getInstance().getAllItems();
-    for(Item item : items)
-    {
-      String itemIcon=item.getIcon();
-      if (itemIcon.equals(icon))
-      {
-        retWithRightIcons.add(item);
-        if (name.equals(item.getName()))
-        {
-          ret.add(item);
-        }
-      }
-    }
-    if (ret.size()==0)
-    {
-      ret.addAll(retWithRightIcons);
-    }
-    if (ret.size()>1)
-    {
-      System.err.println("Ambiguity on " + name + ": " + ret.size());
-      for(Item item : ret)
-      {
-        System.err.println("#" + item.dump());
-      }
-    }
-    if (ret.size()>0)
-    {
-      return ret.get(0);
-    }
-    System.err.println("Not found:" + name);
-   return null;
   }
 
   /**

@@ -8,6 +8,7 @@ public class ItemProxy
 {
   private int _id;
   private String _name;
+  // Icon: either "iconId" or "iconId-backgroundIconId"
   private String _icon;
   private Item _item;
 
@@ -104,11 +105,28 @@ public class ItemProxy
   public void setItem(Item item)
   {
     _item=item;
+    if (item!=null)
+    {
+      _id=item.getIdentifier();
+      _name=item.getName();
+      _icon=item.getIcon();
+    }
   }
 
   @Override
   public String toString()
   {
-    return "Item proxy: id="+getId()+", icon="+getIcon()+", name="+getName()+", resolved="+(_item!=null);
+    StringBuilder sb=new StringBuilder();
+    sb.append(getName());
+    sb.append(" (");
+    sb.append(getIcon());
+    sb.append(')');
+    if (_id!=0)
+    {
+      sb.append(" (id=");
+      sb.append(_id);
+      sb.append(')');
+    }
+    return sb.toString();
   }
 }

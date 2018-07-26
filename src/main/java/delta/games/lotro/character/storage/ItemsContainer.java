@@ -80,7 +80,7 @@ public class ItemsContainer
     for(StoredItem item : items)
     {
       for(int i=0;i<level;i++) System.out.print('\t');
-      System.out.println(item.getQuantity()+" "+item.getName()+" ("+item.getIconId()+'-'+item.getBackgroundIconId()+')');
+      System.out.println(item);
     }
   }
 }

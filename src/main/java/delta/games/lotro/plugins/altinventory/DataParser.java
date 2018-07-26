@@ -12,6 +12,9 @@ import delta.games.lotro.character.storage.CharacterStorage;
 import delta.games.lotro.character.storage.Chest;
 import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.Vault;
+import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.ItemsFinder;
+import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.plugins.LuaParser;
 
 /**
@@ -40,8 +43,8 @@ public class DataParser
     for(String itemName : keys)
     {
       Map<String,Object> itemData=(Map<String,Object>)data.get(itemName);
-      String iconId=(String)itemData.get("IconImageID");
-      String backgroundIconId=(String)itemData.get("BackgroundImageID");
+      String iconImageId=(String)itemData.get("IconImageID");
+      String backgroundImageIconId=(String)itemData.get("BackgroundImageID");
       Map<String,Object> itemDataPerCharacter=(Map<String,Object>)itemData.get("Qty");
       for(String key : itemDataPerCharacter.keySet())
       {
@@ -76,6 +79,7 @@ public class DataParser
         }
         if (container!=null)
         {
+          ItemsFinder finder=ItemsManager.getInstance().getFinder();
           Map<String,Object> characterData=(Map<String,Object>)itemDataPerCharacter.get(key);
           List<String> ids=new ArrayList<String>(characterData.keySet());
           ids.remove("Subtotal");
@@ -90,10 +94,10 @@ public class DataParser
                 id=id-1;
               }
               Chest chest=container.getChest(id);
-              StoredItem item=new StoredItem(itemName);
-              item.setIconId(NumericTools.parseInteger(iconId));
-              item.setBackgroundIconId(NumericTools.parseInteger(backgroundIconId));
-              item.setQuantity(quantity);
+              int iconId=NumericTools.parseInt(iconImageId,0);
+              int backgroundIconId=NumericTools.parseInt(backgroundImageIconId,0);
+              ItemProxy proxy=finder.buildProxy(itemName,iconId,backgroundIconId);
+              StoredItem item=new StoredItem(proxy,quantity);
               chest.addItem(item);
             }
           }

@@ -1,26 +1,26 @@
 package delta.games.lotro.character.storage;
 
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemProxy;
+
 /**
  * Stored item.
  * @author DAM
  */
 public class StoredItem
 {
-  private String _name;
+  private ItemProxy _proxy;
   private int _quantity;
-  private Integer _iconId;
-  private Integer _backgroundIconId;
 
   /**
    * Constructor.
-   * @param name Item name.
+   * @param itemProxy Item proxy.
+   * @param quantity Quantity.
    */
-  public StoredItem(String name)
+  public StoredItem(ItemProxy itemProxy, int quantity)
   {
-    _name=name;
-    _quantity=0;
-    _iconId=null;
-    _backgroundIconId=null;
+    _proxy=itemProxy;
+    _quantity=quantity;
   }
 
   /**
@@ -29,7 +29,7 @@ public class StoredItem
    */
   public String getName()
   {
-    return _name;
+    return _proxy.getName();
   }
 
   /**
@@ -42,47 +42,38 @@ public class StoredItem
   }
 
   /**
-   * Set the item quantity.
-   * @param quantity the quantity to set.
+   * Add a quantity of this item.
+   * @param quantity Quantity to add.
    */
-  public void setQuantity(int quantity)
+  public void add(int quantity)
   {
-    _quantity=quantity;
+    _quantity+=quantity;
   }
 
   /**
-   * Get the foreground icon ID.
-   * @return an icon ID or <code>null</code> if not set.
+   * Get the icon.
+   * @return an icon or <code>null</code> if not set.
    */
-  public Integer getIconId()
+  public String getIcon()
   {
-    return _iconId;
+    return _proxy.getIcon();
   }
 
   /**
-   * Set the foreground icon ID.
-   * @param iconId the ID to set (may be <code>null</code>).
+   * Get the managed item.
+   * @return an item.
    */
-  public void setIconId(Integer iconId)
+  public Item getItem()
   {
-    _iconId=iconId;
+    return _proxy.getItem();
   }
 
-  /**
-   * Get the backgrund icon ID.
-   * @return an icon ID or <code>null</code> if not set.
-   */
-  public Integer getBackgroundIconId()
+  @Override
+  public String toString()
   {
-    return _backgroundIconId;
-  }
-
-  /**
-   * Set the background icon ID.
-   * @param backgroundIconId the ID to set (may be <code>null</code>).
-   */
-  public void setBackgroundIconId(Integer backgroundIconId)
-  {
-    _backgroundIconId=backgroundIconId;
+    StringBuilder sb=new StringBuilder();
+    sb.append(_quantity).append(' ');
+    sb.append(_proxy);
+    return sb.toString();
   }
 }
