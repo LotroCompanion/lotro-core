@@ -24,6 +24,15 @@ public class CountedItem
   }
 
   /**
+   * Get the managed item proxy.
+   * @return the managed item proxy.
+   */
+  public ItemProxy getProxy()
+  {
+    return _proxy;
+  }
+
+  /**
    * Get the name of the item.
    * @return an item name.
    */
