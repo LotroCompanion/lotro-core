@@ -14,6 +14,29 @@ import delta.games.lotro.character.storage.Wallet;
 public class StorageIO
 {
   /**
+   * Load character storage.
+   * @param character Parent character.
+   * @return the loaded storage.
+   */
+  public static CharacterStorage loadCharacterStorage(CharacterFile character)
+  {
+    CharacterStorage storage=new CharacterStorage(null,null);
+    // Vault
+    File vaultFile=getVaultFile(character);
+    Vault ownVault=storage.getOwnVault();
+    StorageXMLParser.parseVaultXML(vaultFile,ownVault);
+    // Bags
+    File bagsFile=getBagsFile(character);
+    Vault bags=storage.getBags();
+    StorageXMLParser.parseVaultXML(bagsFile,bags);
+    // Wallet
+    File walletFile=getWalletFile(character);
+    Wallet wallet=storage.getWallet();
+    StorageXMLParser.parseWalletXML(walletFile,wallet);
+    return storage;
+  }
+
+  /**
    * Write character storage.
    * @param storage Storage to use.
    * @param character Parent character.
