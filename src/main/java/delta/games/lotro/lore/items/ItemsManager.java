@@ -12,6 +12,7 @@ import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
+import delta.games.lotro.lore.items.finder.ItemsFinder;
 import delta.games.lotro.lore.items.io.xml.ItemSaxParser;
 import delta.games.lotro.lore.items.sort.ItemsSorter;
 import delta.games.lotro.utils.LotroLoggers;

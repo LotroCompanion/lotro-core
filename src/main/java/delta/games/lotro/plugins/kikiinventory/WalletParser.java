@@ -12,8 +12,9 @@ import delta.games.lotro.character.storage.CharacterStorage;
 import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.Wallet;
 import delta.games.lotro.lore.items.ItemProxy;
-import delta.games.lotro.lore.items.ItemsFinder;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.finder.ItemSelector;
+import delta.games.lotro.lore.items.finder.ItemsFinder;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.LuaUtils;
 import delta.games.lotro.plugins.PluginConstants;
@@ -44,6 +45,7 @@ public class WalletParser
     String mostRecentCharacter=PluginConstants.getMostRecentLoggedInCharacter(account,server);
 
     ItemsFinder finder=ItemsManager.getInstance().getFinder();
+    ItemSelector selector=new BarterItemSelector();
     Set<String> keys=data.keySet();
     for(String key : keys)
     {
@@ -80,7 +82,7 @@ public class WalletParser
           {
             continue;
           }
-          ItemProxy proxy=finder.buildProxy(itemName,iconId.intValue());
+          ItemProxy proxy=finder.buildProxy(itemName,iconId.intValue(),selector);
           int quantity=(qty!=null)?qty.intValue():1;
           StoredItem item=new StoredItem(proxy,quantity);
 

@@ -1,10 +1,14 @@
-package delta.games.lotro.lore.items;
+package delta.games.lotro.lore.items.finder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Find items using their name/icons.
@@ -28,11 +32,12 @@ public class ItemsFinder
    * Build a proxy for an item.
    * @param itemName Item name.
    * @param iconId Item icon id.
+   * @param selector Selector to choose among candidates, may be <code>null</code>.
    * @return A proxy.
    */
-  public ItemProxy buildProxy(String itemName, int iconId)
+  public ItemProxy buildProxy(String itemName, int iconId, ItemSelector selector)
   {
-    Item item=resolve(itemName,iconId);
+    Item item=resolve(itemName,iconId,selector);
     String icon=String.valueOf(iconId);
     return buildProxy(item,itemName,icon);
   }
@@ -42,11 +47,12 @@ public class ItemsFinder
    * @param itemName Item name.
    * @param iconId Icon id of the item.
    * @param backgroundIconId Background icon id of the item.
+   * @param selector Selector to choose among candidates, may be <code>null</code>.
    * @return A proxy.
    */
-  public ItemProxy buildProxy(String itemName, int iconId, int backgroundIconId)
+  public ItemProxy buildProxy(String itemName, int iconId, int backgroundIconId, ItemSelector selector)
   {
-    Item item=resolve(itemName,iconId,backgroundIconId);
+    Item item=resolve(itemName,iconId,backgroundIconId,selector);
     String icon=iconId+"-"+backgroundIconId;
     return buildProxy(item,itemName,icon);
   }
@@ -66,19 +72,19 @@ public class ItemsFinder
     return proxy;
   }
 
-  private Item resolve(String name, int iconId)
+  private Item resolve(String name, int iconId, ItemSelector selector)
   {
     String icon=String.valueOf(iconId);
-    return resolve(name,icon);
+    return resolve(name,icon,selector);
   }
 
-  private Item resolve(String name, int iconId, int backgroundIconId)
+  private Item resolve(String name, int iconId, int backgroundIconId, ItemSelector selector)
   {
     String icon=iconId+"-"+backgroundIconId;
-    return resolve(name,icon);
+    return resolve(name,icon,selector);
   }
 
-  private Item resolve(String name, String iconKey)
+  private Item resolve(String name, String iconKey, ItemSelector selector)
   {
     List<Item> ret=new ArrayList<Item>();
     List<Item> itemsWithRightIcon=getItems(iconKey);
@@ -99,12 +105,24 @@ public class ItemsFinder
 
     if (ret.size()>1)
     {
-      LOGGER.warn("Ambiguity on " + name + ": " + ret.size());
-      for(Item item : ret)
+      Item selected=null;
+      if (selector!=null)
       {
-        String itemName=item.getName();
-        String subCategory=item.getSubCategory();
-        LOGGER.warn("\t#" + itemName + " - " + subCategory);
+        selected=selector.chooseItem(ret);
+      }
+      if (selected==null)
+      {
+        LOGGER.warn("Ambiguity on " + name + ": " + ret.size());
+        for(Item item : ret)
+        {
+          String itemName=item.getName();
+          String subCategory=item.getSubCategory();
+          LOGGER.warn("\t#" + itemName + " - " + subCategory);
+        }
+      }
+      else
+      {
+        return selected;
       }
     }
     if (ret.size()>0)

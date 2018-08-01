@@ -3,7 +3,9 @@ package delta.games.lotro.character.storage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Storage for an account on a server.
@@ -46,6 +48,15 @@ public class AccountServerStorage
       _storages.put(characterName,storage);
     }
     return storage;
+  }
+
+  /**
+   * Get all managed characters.
+   * @return A set of character names.
+   */
+  public Set<String> getCharacters()
+  {
+    return new HashSet<String>(_storages.keySet());
   }
 
   /**

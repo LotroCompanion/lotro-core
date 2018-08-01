@@ -11,8 +11,8 @@ import delta.common.utils.NumericTools;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.ItemProxy;
-import delta.games.lotro.lore.items.ItemsFinder;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.finder.ItemsFinder;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.PluginConstants;
 
@@ -78,7 +78,7 @@ public class GearParser
       EQUIMENT_SLOT slot=SLOTS[slotIndex-1];
       EquipmentLocation location=slot.getLocation();
       ItemsFinder finder=ItemsManager.getInstance().getFinder();
-      ItemProxy proxy=finder.buildProxy(name,iconId.intValue(),backgroundIconId.intValue());
+      ItemProxy proxy=finder.buildProxy(name,iconId.intValue(),backgroundIconId.intValue(),null);
       System.out.println(location+": "+proxy);
     }
   }
