@@ -9,9 +9,9 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.storage.Chest;
 import delta.games.lotro.character.storage.ItemsContainer;
-import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.Vault;
 import delta.games.lotro.character.storage.Wallet;
+import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.ItemsManager;
@@ -96,7 +96,7 @@ public class StorageXMLParser
       proxy.setId(id);
       proxy.setName(name);
       proxy.setIcon(icon);
-      StoredItem item=new StoredItem(proxy,quantity);
+      CountedItem item=new CountedItem(proxy,quantity);
       container.addItem(item);
     }
   }

@@ -26,4 +26,19 @@ public class VaultLocation extends StorageLocation
   {
     return _chestName.isEmpty()?"Chest":"Chest '"+_chestName+"'";
   }
+
+  @Override
+  public boolean equals(Object object)
+  {
+    if (this == object)
+    {
+      return true;
+    }
+    if (!(object instanceof VaultLocation))
+    {
+      return false;
+    }
+    VaultLocation other=(VaultLocation)object;
+    return _chestName.equals(other._chestName);
+  }
 }

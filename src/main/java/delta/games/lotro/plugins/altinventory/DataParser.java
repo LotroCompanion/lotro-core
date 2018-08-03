@@ -10,8 +10,8 @@ import delta.common.utils.NumericTools;
 import delta.games.lotro.character.storage.AccountServerStorage;
 import delta.games.lotro.character.storage.CharacterStorage;
 import delta.games.lotro.character.storage.Chest;
-import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.Vault;
+import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.finder.ItemsFinder;
@@ -97,7 +97,7 @@ public class DataParser
               int iconId=NumericTools.parseInt(iconImageId,0);
               int backgroundIconId=NumericTools.parseInt(backgroundImageIconId,0);
               ItemProxy proxy=finder.buildProxy(itemName,iconId,backgroundIconId,null);
-              StoredItem item=new StoredItem(proxy,quantity);
+              CountedItem item=new CountedItem(proxy,quantity);
               chest.addItem(item);
             }
           }

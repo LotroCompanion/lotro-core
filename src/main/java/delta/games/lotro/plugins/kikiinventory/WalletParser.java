@@ -9,8 +9,8 @@ import java.util.Set;
 
 import delta.games.lotro.character.storage.AccountServerStorage;
 import delta.games.lotro.character.storage.CharacterStorage;
-import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.Wallet;
+import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.finder.ItemSelector;
@@ -84,7 +84,7 @@ public class WalletParser
           }
           ItemProxy proxy=finder.buildProxy(itemName,iconId.intValue(),selector);
           int quantity=(qty!=null)?qty.intValue():1;
-          StoredItem item=new StoredItem(proxy,quantity);
+          CountedItem item=new CountedItem(proxy,quantity);
 
           // Shared?
           Boolean shared=(Boolean)itemDef.get("acc");
@@ -92,7 +92,7 @@ public class WalletParser
           {
             if (key.equals(mostRecentCharacter))
             {
-              StoredItem oldItem=sharedWallet.getByName(itemName);
+              CountedItem oldItem=sharedWallet.getByName(itemName);
               if (oldItem!=null)
               {
                 if (oldItem.getQuantity()!=item.getQuantity())

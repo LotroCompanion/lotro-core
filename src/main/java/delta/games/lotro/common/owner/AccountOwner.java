@@ -25,4 +25,25 @@ public class AccountOwner extends Owner
   {
     return _accountName;
   }
+
+  @Override
+  public String getLabel()
+  {
+    return _accountName;
+  }
+
+  @Override
+  public boolean equals(Object object)
+  {
+    if (this == object)
+    {
+      return true;
+    }
+    if (!(object instanceof AccountOwner))
+    {
+      return false;
+    }
+    AccountOwner other=(AccountOwner)object;
+    return _accountName.equals(other._accountName);
+  }
 }

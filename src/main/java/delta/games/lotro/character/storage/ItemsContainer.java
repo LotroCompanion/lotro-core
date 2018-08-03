@@ -5,30 +5,32 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import delta.games.lotro.lore.items.CountedItem;
+
 /**
  * Items container.
  * @author DAM
  */
 public class ItemsContainer
 {
-  private HashMap<String,StoredItem> _items;
+  private HashMap<String,CountedItem> _items;
 
   /**
    * Constructor.
    */
   public ItemsContainer()
   {
-    _items=new HashMap<String,StoredItem>();
+    _items=new HashMap<String,CountedItem>();
   }
 
   /**
    * Add an item.
    * @param item Item to add.
    */
-  public void addItem(StoredItem item)
+  public void addItem(CountedItem item)
   {
     String name=item.getName();
-    StoredItem old=_items.put(name,item);
+    CountedItem old=_items.put(name,item);
     if (old!=null)
     {
       // TODO Warn for item removal
@@ -40,7 +42,7 @@ public class ItemsContainer
    * @param name Name of the item to get.
    * @return An item or <code>null</code> if not found.
    */
-  public StoredItem getByName(String name)
+  public CountedItem getByName(String name)
   {
     return _items.get(name);
   }
@@ -49,11 +51,11 @@ public class ItemsContainer
    * Get all items in this wallet, sorted by name.
    * @return A list of items.
    */
-  public List<StoredItem> getAllItemsByName()
+  public List<CountedItem> getAllItemsByName()
   {
     List<String> names=new ArrayList<String>(_items.keySet());
     Collections.sort(names);
-    List<StoredItem> ret=new ArrayList<StoredItem>();
+    List<CountedItem> ret=new ArrayList<CountedItem>();
     for(String name : names)
     {
       ret.add(_items.get(name));
@@ -76,8 +78,8 @@ public class ItemsContainer
    */
   public void dump(int level)
   {
-    List<StoredItem> items=getAllItemsByName();
-    for(StoredItem item : items)
+    List<CountedItem> items=getAllItemsByName();
+    for(CountedItem item : items)
     {
       for(int i=0;i<level;i++) System.out.print('\t');
       System.out.println(item);

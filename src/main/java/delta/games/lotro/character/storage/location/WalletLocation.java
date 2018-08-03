@@ -11,4 +11,14 @@ public class WalletLocation extends StorageLocation
   {
     return "Wallet";
   }
+
+  @Override
+  public boolean equals(Object object)
+  {
+    if (this == object)
+    {
+      return true;
+    }
+    return (object instanceof WalletLocation);
+  }
 }

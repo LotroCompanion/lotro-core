@@ -12,9 +12,9 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.storage.Chest;
 import delta.games.lotro.character.storage.ItemsContainer;
-import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.Vault;
 import delta.games.lotro.character.storage.Wallet;
+import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.ItemProxy;
 
 /**
@@ -144,8 +144,8 @@ public class StorageXMLWriter
 
   private void writeContainer(TransformerHandler hd, ItemsContainer container) throws Exception
   {
-    List<StoredItem> items=container.getAllItemsByName();
-    for(StoredItem storedItem : items)
+    List<CountedItem> items=container.getAllItemsByName();
+    for(CountedItem storedItem : items)
     {
       AttributesImpl itemAttrs=new AttributesImpl();
       ItemProxy proxy=storedItem.getProxy();

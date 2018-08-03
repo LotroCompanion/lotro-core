@@ -4,7 +4,17 @@ package delta.games.lotro.common.owner;
  * Base class for owners.
  * @author DAM
  */
-public class Owner
+public abstract class Owner
 {
-  // Nothing
+  /**
+   * Get a displayable label for this location.
+   * @return a displayable label.
+   */
+  public abstract String getLabel();
+
+  @Override
+  public String toString()
+  {
+    return getLabel();
+  }
 }

@@ -26,4 +26,19 @@ public class BagLocation extends StorageLocation
   {
     return _bagName.isEmpty()?"Bag":"Bag '"+_bagName+"'";
   }
+
+  @Override
+  public boolean equals(Object object)
+  {
+    if (this == object)
+    {
+      return true;
+    }
+    if (!(object instanceof BagLocation))
+    {
+      return false;
+    }
+    BagLocation other=(BagLocation)object;
+    return _bagName.equals(other._bagName);
+  }
 }
