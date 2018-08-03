@@ -125,7 +125,7 @@ public class ItemsFinder
         return selected;
       }
     }
-    if (ret.size()>0)
+    if (ret.size()==1)
     {
       return ret.get(0);
     }

@@ -33,6 +33,15 @@ public class CountedItem
   }
 
   /**
+   * Get the identifier of the item.
+   * @return an identifier.
+   */
+  public int getId()
+  {
+    return _proxy.getId();
+  }
+
+  /**
    * Get the name of the item.
    * @return an item name.
    */
