@@ -2,7 +2,9 @@ package delta.games.lotro.character.storage.io.xml;
 
 import java.io.File;
 
+import delta.games.lotro.account.Account;
 import delta.games.lotro.character.CharacterFile;
+import delta.games.lotro.character.storage.AccountServerStorage;
 import delta.games.lotro.character.storage.CharacterStorage;
 import delta.games.lotro.character.storage.Vault;
 import delta.games.lotro.character.storage.Wallet;
@@ -58,6 +60,52 @@ public class StorageIO
     writer.writeWallet(walletFile,wallet);
   }
 
+  /**
+   * Load shared vault for an account.
+   * @param account Parent account.
+   * @param server Targeted server.
+   * @return A vault.
+   */
+  public static Vault loadAccountSharedVault(Account account, String server)
+  {
+    Vault vault=new Vault();
+    File sharedVaultFile=getSharedVaultFile(account,server);
+    StorageXMLParser.parseVaultXML(sharedVaultFile,vault);
+    return vault;
+  }
+
+  /**
+   * Load shared wallet for an account.
+   * @param account Parent account.
+   * @param server Targeted server.
+   * @return A wallet.
+   */
+  public static Wallet loadAccountSharedWallet(Account account, String server)
+  {
+    Wallet wallet=new Wallet();
+    File sharedWalletFile=getSharedWalletFile(account,server);
+    StorageXMLParser.parseWalletXML(sharedWalletFile,wallet);
+    return wallet;
+  }
+
+  /**
+   * Write account/server storage.
+   * @param storage Storage to use.
+   * @param account Parent account.
+   */
+  public static void writeAccountStorage(AccountServerStorage storage, Account account)
+  {
+    StorageXMLWriter writer=new StorageXMLWriter();
+    // Shared vault
+    File sharedVaultFile=getSharedVaultFile(account,storage.getServer());
+    Vault sharedVault=storage.getSharedVault();
+    writer.writeVault(sharedVaultFile,sharedVault);
+    // Shared wallet
+    File sharedWalletFile=getSharedWalletFile(account,storage.getServer());
+    Wallet sharedWallet=storage.getSharedWallet();
+    writer.writeWallet(sharedWalletFile,sharedWallet);
+  }
+
   private static File getWalletFile(CharacterFile character)
   {
     File rootDir=character.getRootDir();
@@ -74,5 +122,19 @@ public class StorageIO
   {
     File rootDir=character.getRootDir();
     return new File(rootDir,"bags.xml");
+  }
+
+  private static File getSharedVaultFile(Account account, String server)
+  {
+    File rootDir=account.getRootDir();
+    File serverDir=new File(rootDir,server);
+    return new File(serverDir,"sharedVault.xml");
+  }
+
+  private static File getSharedWalletFile(Account account, String server)
+  {
+    File rootDir=account.getRootDir();
+    File serverDir=new File(rootDir,server);
+    return new File(serverDir,"sharedWallet.xml");
   }
 }
