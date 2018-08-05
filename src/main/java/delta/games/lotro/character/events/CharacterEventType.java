@@ -27,6 +27,10 @@ public enum CharacterEventType
    */
   CHARACTER_REPUTATION_UPDATED,
   /**
+   * The storage of a toon was updated.
+   */
+  CHARACTER_STORAGE_UPDATED,
+  /**
    * A toon was removed.
    */
   CHARACTER_REMOVED,
