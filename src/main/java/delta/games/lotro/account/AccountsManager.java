@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import delta.games.lotro.account.events.AccountEvent;
+import delta.games.lotro.account.events.AccountEventType;
+import delta.games.lotro.utils.events.EventsManager;
+
 /**
  * Manages all known accounts.
  * @author DAM
@@ -69,14 +73,15 @@ public final class AccountsManager
    */
   public Account addAccount(String accountName)
   {
-    Account file=_storage.newAccount(accountName);
-    if (file!=null)
+    Account account=_storage.newAccount(accountName);
+    if (account!=null)
     {
-      _accounts.add(file);
+      _accounts.add(account);
       // Broadcast account creation event...
-      // TODO
+      AccountEvent event=new AccountEvent(AccountEventType.ACCOUNT_ADDED,account);
+      EventsManager.invokeEvent(event);
     }
-    return file;
+    return account;
   }
 
   /**
@@ -91,7 +96,8 @@ public final class AccountsManager
     {
       _storage.removeAccount(account);
       // Broadcast account deletion event...
-      // TODO
+      AccountEvent event=new AccountEvent(AccountEventType.ACCOUNT_REMOVED,account);
+      EventsManager.invokeEvent(event);
     }
     return ret;
   }
