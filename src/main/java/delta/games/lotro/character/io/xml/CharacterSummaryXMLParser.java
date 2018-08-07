@@ -46,6 +46,9 @@ public class CharacterSummaryXMLParser
     // Server
     String server=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SERVER_ATTR,"");
     summary.setServer(server);
+    // Account name
+    String accountName=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ACCOUNT_ATTR,"");
+    summary.setAccountName(accountName);
     // Class
     String characterClass=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_CLASS_ATTR,"");
     CharacterClass cClass=CharacterClass.getByKey(characterClass);

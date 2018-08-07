@@ -167,12 +167,22 @@ public class CharacterFile
 
   /**
    * Get the server name of the character file.
-   * @return a character file name.
+   * @return a server name.
    */
   public String getServerName()
   {
     CharacterSummary summary=getSummary();
     return (_summary!=null)?summary.getServer():null;
+  }
+
+  /**
+   * Get the account name of the character file.
+   * @return an account name.
+   */
+  public String getAccountName()
+  {
+    CharacterSummary summary=getSummary();
+    return (_summary!=null)?summary.getAccountName():null;
   }
 
   /**

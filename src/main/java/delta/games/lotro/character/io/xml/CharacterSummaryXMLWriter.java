@@ -92,6 +92,12 @@ public class CharacterSummaryXMLWriter
     {
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SERVER_ATTR,CDATA,server);
     }
+    // Account
+    String accountName=character.getAccountName();
+    if ((accountName!=null) && (accountName.length()>0))
+    {
+      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_ACCOUNT_ATTR,CDATA,accountName);
+    }
     // Character class
     CharacterClass characterClass=character.getCharacterClass();
     if (characterClass!=null)

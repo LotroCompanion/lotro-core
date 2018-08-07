@@ -206,6 +206,24 @@ public class CharacterData
   }
 
   /**
+   * Get the character's account.
+   * @return the character's account.
+   */
+  public String getAccountName()
+  {
+    return _summary.getAccountName();
+  }
+
+  /**
+   * Set the character's account.
+   * @param accountName the account to set. 
+   */
+  public void setAccountName(String accountName)
+  {
+    _summary.setAccountName(accountName);
+  }
+
+  /**
    * Get the character's class.
    * @return the character's class.
    */

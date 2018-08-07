@@ -32,6 +32,10 @@ public class CharacterXMLConstants
    */
   public static final String CHARACTER_SERVER_ATTR="server";
   /**
+   * Tag 'character', attribute 'account'.
+   */
+  public static final String CHARACTER_ACCOUNT_ATTR="account";
+  /**
    * Tag 'character', attribute 'class'.
    */
   public static final String CHARACTER_CLASS_ATTR="class";

@@ -12,6 +12,7 @@ public class CharacterSummary
 {
   private String _characterName;
   private String _server;
+  private String _accountName;
   private CharacterSex _sex;
   private CharacterClass _class;
   private Race _race;
@@ -25,6 +26,7 @@ public class CharacterSummary
   {
     _characterName="";
     _server="";
+    _accountName=null;
     _sex=null;
     _class=null;
     _race=null;
@@ -40,6 +42,7 @@ public class CharacterSummary
   {
     _characterName=source._characterName;
     _server=source._server;
+    _accountName=source._accountName;
     _sex=source._sex;
     _class=source._class;
     _race=source._race;
@@ -89,6 +92,28 @@ public class CharacterSummary
       server="";
     }
     _server=server;
+  }
+
+  /**
+   * Get the character's account.
+   * @return the character's account.
+   */
+  public String getAccountName()
+  {
+    return _accountName;
+  }
+
+  /**
+   * Set the character's account.
+   * @param accountName the account name to set. 
+   */
+  public void setAccountName(String accountName)
+  {
+    if (accountName==null)
+    {
+      accountName="";
+    }
+    _accountName=accountName;
   }
 
   /**
@@ -191,6 +216,7 @@ public class CharacterSummary
     StringBuilder sb=new StringBuilder();
     sb.append("Name [").append(_characterName).append("], ");
     sb.append("Server [").append(_server).append("], ");
+    sb.append("Account [").append(_accountName).append("], ");
     sb.append("Race [").append(_race).append("], ");
     sb.append("Region [").append(_region).append("], ");
     sb.append("Sex [").append(_sex).append("], ");
