@@ -40,9 +40,9 @@ public class ItemQualityFilter implements ItemFilter
 
   public boolean accept(Item item)
   {
-    ItemQuality quality=item.getQuality();
     if (_quality!=null)
     {
+      ItemQuality quality=(item!=null)?item.getQuality():null;
       return quality==_quality;
     }
     return true;
