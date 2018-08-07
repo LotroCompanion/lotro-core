@@ -73,4 +73,14 @@ public class AccountServerOwner extends Owner
     }
     return Objects.equals(_account,other._account);
   }
+
+  @Override
+  public int hashCode()
+  {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + _serverName.hashCode();
+    result = prime * result + _account.hashCode();
+    return result;
+  }
 }

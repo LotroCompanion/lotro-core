@@ -41,4 +41,10 @@ public class BagLocation extends StorageLocation
     BagLocation other=(BagLocation)object;
     return _bagName.equals(other._bagName);
   }
+
+  @Override
+  public int hashCode()
+  {
+    return _bagName.hashCode();
+  }
 }

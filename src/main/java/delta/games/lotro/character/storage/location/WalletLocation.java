@@ -21,4 +21,10 @@ public class WalletLocation extends StorageLocation
     }
     return (object instanceof WalletLocation);
   }
+
+  @Override
+  public int hashCode()
+  {
+    return 31;
+  }
 }

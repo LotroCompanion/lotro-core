@@ -71,7 +71,7 @@ public class CharacterOwner extends Owner
     {
       return true;
     }
-    if (!(object instanceof AccountServerOwner))
+    if (!(object instanceof CharacterOwner))
     {
       return false;
     }
@@ -81,5 +81,15 @@ public class CharacterOwner extends Owner
       return false;
     }
     return Objects.equals(_server,other._server);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + _characterName.hashCode();
+    result = prime * result + _server.hashCode();
+    return result;
   }
 }

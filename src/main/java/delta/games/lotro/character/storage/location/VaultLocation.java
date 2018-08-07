@@ -41,4 +41,10 @@ public class VaultLocation extends StorageLocation
     VaultLocation other=(VaultLocation)object;
     return _chestName.equals(other._chestName);
   }
+
+  @Override
+  public int hashCode()
+  {
+    return _chestName.hashCode();
+  }
 }

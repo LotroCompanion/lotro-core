@@ -35,13 +35,13 @@ public class CompoundOwner extends Owner
   public String getLabel()
   {
     StringBuilder sb=new StringBuilder();
-    for(Owner location : _owners)
+    for(Owner owner : _owners)
     {
       if (sb.length()>0)
       {
         sb.append(" / ");
       }
-      sb.append(location.getLabel());
+      sb.append(owner.getLabel());
     }
     return sb.toString();
   }
@@ -63,13 +63,25 @@ public class CompoundOwner extends Owner
     {
       return false;
     }
-    for(Owner location : _owners)
+    for(Owner owner : _owners)
     {
-      if (!other._owners.contains(location))
+      if (!other._owners.contains(owner))
       {
         return false;
       }
     }
     return true;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    final int prime = 31;
+    int result = 1;
+    for(Owner owner : _owners)
+    {
+      result = prime * result + owner.hashCode();
+    }
+    return result;
   }
 }

@@ -72,4 +72,16 @@ public class CompoundStorage extends StorageLocation
     }
     return true;
   }
+
+  @Override
+  public int hashCode()
+  {
+    final int prime = 31;
+    int result = 1;
+    for(StorageLocation location : _locations)
+    {
+      result = prime * result + location.hashCode();
+    }
+    return result;
+  }
 }

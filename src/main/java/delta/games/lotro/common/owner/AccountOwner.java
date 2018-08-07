@@ -46,4 +46,10 @@ public class AccountOwner extends Owner
     AccountOwner other=(AccountOwner)object;
     return _accountName.equals(other._accountName);
   }
+
+  @Override
+  public int hashCode()
+  {
+    return _accountName.hashCode();
+  }
 }
