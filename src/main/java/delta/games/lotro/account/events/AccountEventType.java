@@ -14,4 +14,8 @@ public enum AccountEventType
    * An account was removed.
    */
   ACCOUNT_REMOVED,
+  /**
+   * Storage update.
+   */
+  STORAGE_UPDATED
 }
