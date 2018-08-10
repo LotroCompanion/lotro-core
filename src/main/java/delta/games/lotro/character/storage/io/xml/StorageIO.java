@@ -25,16 +25,25 @@ public class StorageIO
     CharacterStorage storage=new CharacterStorage(null,null);
     // Vault
     File vaultFile=getVaultFile(character);
-    Vault ownVault=storage.getOwnVault();
-    StorageXMLParser.parseVaultXML(vaultFile,ownVault);
+    if (vaultFile.exists())
+    {
+      Vault ownVault=storage.getOwnVault();
+      StorageXMLParser.parseVaultXML(vaultFile,ownVault);
+    }
     // Bags
     File bagsFile=getBagsFile(character);
-    Vault bags=storage.getBags();
-    StorageXMLParser.parseVaultXML(bagsFile,bags);
+    if (bagsFile.exists())
+    {
+      Vault bags=storage.getBags();
+      StorageXMLParser.parseVaultXML(bagsFile,bags);
+    }
     // Wallet
     File walletFile=getWalletFile(character);
-    Wallet wallet=storage.getWallet();
-    StorageXMLParser.parseWalletXML(walletFile,wallet);
+    if (walletFile.exists())
+    {
+      Wallet wallet=storage.getWallet();
+      StorageXMLParser.parseWalletXML(walletFile,wallet);
+    }
     return storage;
   }
 
