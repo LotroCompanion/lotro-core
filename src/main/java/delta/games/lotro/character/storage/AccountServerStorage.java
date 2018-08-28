@@ -44,10 +44,20 @@ public class AccountServerStorage
     CharacterStorage storage=_storages.get(characterName);
     if ((storage==null) && (createIfNeeded))
     {
-      storage=new CharacterStorage(_sharedVault,_sharedWallet);
+      storage=new CharacterStorage();
       _storages.put(characterName,storage);
     }
     return storage;
+  }
+
+  /**
+   * Register a character storage.
+   * @param characterName Character name for this storage.
+   * @param storage Storage to add.
+   */
+  public void addStorage(String characterName, CharacterStorage storage)
+  {
+    _storages.put(characterName,storage);
   }
 
   /**
@@ -87,12 +97,30 @@ public class AccountServerStorage
   }
 
   /**
+   * Set the shared vault.
+   * @param sharedVault Vault to use.
+   */
+  public void setSharedVault(Vault sharedVault)
+  {
+    _sharedVault=sharedVault;
+  }
+
+  /**
    * Get the shared wallet.
    * @return the shared wallet.
    */
   public Wallet getSharedWallet()
   {
     return _sharedWallet;
+  }
+
+  /**
+   * Set the shared wallet.
+   * @param sharedWallet Wallet to use.
+   */
+  public void setSharedWallet(Wallet sharedWallet)
+  {
+    _sharedWallet=sharedWallet;
   }
 
   /**

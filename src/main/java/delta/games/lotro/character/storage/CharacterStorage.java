@@ -7,10 +7,6 @@ package delta.games.lotro.character.storage;
 public class CharacterStorage
 {
   /**
-   * Associated shared vault.
-   */
-  private Vault _sharedVault;
-  /**
    * Own vault.
    */
   private Vault _ownVault;
@@ -22,32 +18,15 @@ public class CharacterStorage
    * Own wallet.
    */
   private Wallet _wallet;
-  /**
-   * Shared wallet.
-   */
-  private Wallet _sharedWallet;
 
   /**
    * Constructor.
-   * @param sharedVault Associated shared vault.
-   * @param sharedWallet Associated shared wallet.
    */
-  public CharacterStorage(Vault sharedVault, Wallet sharedWallet)
+  public CharacterStorage()
   {
-    _sharedVault=sharedVault;
     _ownVault=new Vault();
     _bags=new Vault();
     _wallet=new Wallet();
-    _sharedWallet=sharedWallet;
-  }
-
-  /**
-   * Get the associated shared vault.
-   * @return the shared vault.
-   */
-  public Vault getSharedVault()
-  {
-    return _sharedVault;
   }
 
   /**
@@ -75,15 +54,6 @@ public class CharacterStorage
   public Wallet getWallet()
   {
     return _wallet;
-  }
-
-  /**
-   * Get the associated shared wallet.
-   * @return the shared wallet.
-   */
-  public Wallet getSharedWallet()
-  {
-    return _sharedWallet;
   }
 
   /**

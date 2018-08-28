@@ -1,9 +1,9 @@
 package delta.games.lotro.plugins.updates;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.account.Account;
+import delta.games.lotro.account.AccountUtils;
 import delta.games.lotro.account.AccountsManager;
 import delta.games.lotro.account.events.AccountEvent;
 import delta.games.lotro.account.events.AccountEventType;
@@ -73,20 +73,7 @@ public class StorageUpdater
   public static boolean updateAccountServerStorage(Account account, String serverName)
   {
     String accountName=account.getName();
-    List<CharacterFile> allToons=CharactersManager.getInstance().getAllToons();
-    List<CharacterFile> toonsToUse=new ArrayList<CharacterFile>();
-    for(CharacterFile toon : allToons)
-    {
-      String characterAccountName=toon.getAccountName();
-      if (accountName.equals(characterAccountName))
-      {
-        String characterServerName=toon.getServerName();
-        if (serverName.equals(characterServerName))
-        {
-          toonsToUse.add(toon);
-        }
-      }
-    }
+    List<CharacterFile> toonsToUse=AccountUtils.getCharacters(accountName,serverName);
     boolean ret=false;
     if (toonsToUse.size()>0)
     {

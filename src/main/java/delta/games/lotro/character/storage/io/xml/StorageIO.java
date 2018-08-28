@@ -22,7 +22,7 @@ public class StorageIO
    */
   public static CharacterStorage loadCharacterStorage(CharacterFile character)
   {
-    CharacterStorage storage=new CharacterStorage(null,null);
+    CharacterStorage storage=new CharacterStorage();
     // Vault
     File vaultFile=getVaultFile(character);
     if (vaultFile.exists())

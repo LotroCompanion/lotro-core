@@ -65,7 +65,7 @@ public class WalletParser
       if (englishItems!=null)
       {
         Wallet wallet=characterStorage.getWallet();
-        Wallet sharedWallet=characterStorage.getSharedWallet();
+        Wallet sharedWallet=storage.getSharedWallet();
         for(String itemName : englishItems.keySet())
         {
           @SuppressWarnings("unchecked")
