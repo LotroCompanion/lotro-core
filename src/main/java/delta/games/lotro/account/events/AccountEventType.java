@@ -11,6 +11,10 @@ public enum AccountEventType
    */
   ACCOUNT_ADDED,
   /**
+   * An account summary was updated.
+   */
+  ACCOUNT_SUMMARY_UPDATED,
+  /**
    * An account was removed.
    */
   ACCOUNT_REMOVED,
