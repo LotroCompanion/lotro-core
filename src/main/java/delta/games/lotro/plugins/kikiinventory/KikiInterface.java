@@ -5,6 +5,7 @@ import java.io.File;
 import delta.games.lotro.plugins.PluginConstants;
 
 /**
+ * Interface with the data of the 'Kiki Inventory' plugin.
  * @author DAM
  */
 public class KikiInterface

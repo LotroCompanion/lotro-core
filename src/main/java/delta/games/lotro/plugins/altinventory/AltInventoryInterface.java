@@ -5,6 +5,7 @@ import java.io.File;
 import delta.games.lotro.plugins.PluginConstants;
 
 /**
+ * Interface with the data of the 'Alt Inventory' plugin.
  * @author DAM
  */
 public class AltInventoryInterface
