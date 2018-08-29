@@ -79,7 +79,10 @@ public class StorageIO
   {
     Vault vault=new Vault();
     File sharedVaultFile=getSharedVaultFile(account,server);
-    StorageXMLParser.parseVaultXML(sharedVaultFile,vault);
+    if (sharedVaultFile.canRead())
+    {
+      StorageXMLParser.parseVaultXML(sharedVaultFile,vault);
+    }
     return vault;
   }
 
@@ -93,7 +96,10 @@ public class StorageIO
   {
     Wallet wallet=new Wallet();
     File sharedWalletFile=getSharedWalletFile(account,server);
-    StorageXMLParser.parseWalletXML(sharedWalletFile,wallet);
+    if (sharedWalletFile.canRead())
+    {
+      StorageXMLParser.parseWalletXML(sharedWalletFile,wallet);
+    }
     return wallet;
   }
 

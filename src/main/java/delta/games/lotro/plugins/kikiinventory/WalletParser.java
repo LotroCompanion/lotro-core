@@ -35,7 +35,10 @@ public class WalletParser
   {
     LuaParser parser=new LuaParser();
     Map<String,Object> data=parser.read(f);
-    useData(storage,data);
+    if (data!=null)
+    {
+      useData(storage,data);
+    }
   }
 
   private void useData(AccountServerStorage storage, Map<String,Object> data)

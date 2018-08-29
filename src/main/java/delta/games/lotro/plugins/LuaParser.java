@@ -82,12 +82,15 @@ public class LuaParser
   public Map<String,Object> read(File file) throws Exception
   {
     Map<String,Object> ret=null;
-    byte[] b=FileIO.readFile(file);
-    String body=new String(b,EncodingNames.UTF_8);
-    Object data=read(body);
-    if (data instanceof Map)
+    if (file.canRead())
     {
-      ret=(Map<String,Object>)data;
+      byte[] b=FileIO.readFile(file);
+      String body=new String(b,EncodingNames.UTF_8);
+      Object data=read(body);
+      if (data instanceof Map)
+      {
+        ret=(Map<String,Object>)data;
+      }
     }
     return ret;
   }
