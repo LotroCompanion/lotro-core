@@ -81,8 +81,29 @@ public class PluginConstants
   {
     File pluginDataDir=getPluginsDataDir();
     File accountDir=new File(pluginDataDir,account);
-    File serverDir=new File(accountDir,server);
+    File serverDir=findOutServerDir(accountDir,server);
     return serverDir;
+  }
+
+  private static File findOutServerDir(File rootDir, String server)
+  {
+    File ret=null;
+    File[] files=rootDir.listFiles();
+    if ((files!=null) && (files.length>0))
+    {
+      for(File file : files)
+      {
+        if (file.getName().toLowerCase().endsWith(server.toLowerCase()))
+        {
+          ret=file;
+        }
+      }
+    }
+    if (ret==null)
+    {
+      ret=new File(rootDir,server);
+    }
+    return ret;
   }
 
   /**
