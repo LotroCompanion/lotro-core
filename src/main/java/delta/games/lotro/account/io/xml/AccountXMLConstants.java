@@ -15,4 +15,12 @@ public class AccountXMLConstants
    * Tag 'account', attribute 'name'.
    */
   public static final String ACCOUNT_NAME_ATTR="name";
+  /**
+   * Tag 'account', attribute 'signupDate'.
+   */
+  public static final String ACCOUNT_SIGNUP_DATE_ATTR="signupDate";
+  /**
+   * Tag 'account', attribute 'type'.
+   */
+  public static final String ACCOUNT_TYPE_ATTR="type";
 }

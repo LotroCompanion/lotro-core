@@ -15,7 +15,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.StreamTools;
 import delta.games.lotro.account.AccountSummary;
-import delta.games.lotro.utils.LotroLoggers;
+import delta.games.lotro.account.AccountType;
 
 /**
  * Writes LOTRO account summaries to XML files.
@@ -23,7 +23,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class AccountSummaryXMLWriter
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
+  private static final Logger LOGGER=Logger.getLogger(AccountSummaryXMLWriter.class);
 
   private static final String CDATA="CDATA";
 
@@ -59,7 +59,7 @@ public class AccountSummaryXMLWriter
     }
     catch (Exception exception)
     {
-      _logger.error("",exception);
+      LOGGER.error("",exception);
       ret=false;
     }
     finally
@@ -82,6 +82,18 @@ public class AccountSummaryXMLWriter
     if ((name!=null) && (name.length()>0))
     {
       accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_NAME_ATTR,CDATA,name);
+    }
+    // Signup date
+    Long signupDate=account.getSignupDate();
+    if (signupDate!=null)
+    {
+      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_SIGNUP_DATE_ATTR,CDATA,signupDate.toString());
+    }
+    // Account type
+    AccountType accountType=account.getAccountType();
+    if (accountType!=null)
+    {
+      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_TYPE_ATTR,CDATA,accountType.name());
     }
   }
 }
