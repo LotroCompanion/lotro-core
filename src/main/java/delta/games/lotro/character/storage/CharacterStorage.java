@@ -1,5 +1,6 @@
 package delta.games.lotro.character.storage;
 
+
 /**
  * Storage data for a single character.
  * @author DAM

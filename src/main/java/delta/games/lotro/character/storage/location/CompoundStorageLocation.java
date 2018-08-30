@@ -1,22 +1,33 @@
 package delta.games.lotro.character.storage.location;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import delta.games.lotro.character.storage.location.comparators.LocationComparator;
 
 /**
  * Compound storage location.
  * @author DAM
  */
-public class CompoundStorage extends StorageLocation
+public class CompoundStorageLocation extends StorageLocation
 {
   private List<StorageLocation> _locations;
 
   /**
    * Constructor.
    */
-  public CompoundStorage()
+  public CompoundStorageLocation()
   {
     _locations=new ArrayList<StorageLocation>();
+  }
+
+  /**
+   * Sort locations.
+   */
+  public void sortLocations()
+  {
+    Collections.sort(_locations,new LocationComparator());
   }
 
   /**
@@ -46,6 +57,25 @@ public class CompoundStorage extends StorageLocation
     return sb.toString();
   }
 
+  /**
+   * Get the number of storage locations.
+   * @return a count of storage locations.
+   */
+  public int getStorageLocationsCount()
+  {
+    return _locations.size();
+  }
+
+  /**
+   * Get the storage location at the specified index.
+   * @param index Index of the storage location to get.
+   * @return A storage location.
+   */
+  public StorageLocation getStorageLocationAt(int index)
+  {
+    return _locations.get(index);
+  }
+
   @Override
   public boolean equals(Object object)
   {
@@ -53,11 +83,11 @@ public class CompoundStorage extends StorageLocation
     {
       return true;
     }
-    if (!(object instanceof CompoundStorage))
+    if (!(object instanceof CompoundStorageLocation))
     {
       return false;
     }
-    CompoundStorage other=(CompoundStorage)object;
+    CompoundStorageLocation other=(CompoundStorageLocation)object;
     int nbItems=_locations.size();
     if (nbItems != other._locations.size())
     {
