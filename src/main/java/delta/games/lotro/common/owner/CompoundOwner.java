@@ -1,7 +1,10 @@
 package delta.games.lotro.common.owner;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import delta.games.lotro.common.owner.comparators.OwnerComparator;
 
 /**
  * Compound storage owner.
@@ -31,6 +34,14 @@ public class CompoundOwner extends Owner
     }
   }
 
+  /**
+   * Sort owners.
+   */
+  public void sortOwners()
+  {
+    Collections.sort(_owners,new OwnerComparator());
+  }
+
   @Override
   public String getLabel()
   {
@@ -44,6 +55,25 @@ public class CompoundOwner extends Owner
       sb.append(owner.getLabel());
     }
     return sb.toString();
+  }
+
+  /**
+   * Get the number of owners.
+   * @return a count of owners.
+   */
+  public int getOwnersCount()
+  {
+    return _owners.size();
+  }
+
+  /**
+   * Get the owner at the specified index.
+   * @param index Index of the owner to get.
+   * @return A owner.
+   */
+  public Owner getOwnerAt(int index)
+  {
+    return _owners.get(index);
   }
 
   @Override
