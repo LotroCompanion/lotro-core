@@ -8,6 +8,10 @@ package delta.games.lotro.lore.crafting.recipes.io.xml;
 public class RecipeXMLConstants
 {
   /**
+   * Tag 'recipes'.
+   */
+  public static final String RECIPES_TAG="recipes";
+  /**
    * Tag 'recipe'.
    */
   public static final String RECIPE_TAG="recipe";

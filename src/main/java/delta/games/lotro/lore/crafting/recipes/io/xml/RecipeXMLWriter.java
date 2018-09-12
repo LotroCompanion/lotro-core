@@ -42,6 +42,32 @@ public class RecipeXMLWriter
     return helper.write(outFile,encoding,writer);
   }
 
+  /**
+   * Write recipes to a XML file.
+   * @param outFile Output file.
+   * @param recipes Recipes to write.
+   * @param encoding Encoding to use.
+   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
+   */
+  public boolean write(File outFile, final List<Recipe> recipes, String encoding)
+  {
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    XmlWriter writer=new XmlWriter()
+    {
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
+      {
+        hd.startElement("","",RecipeXMLConstants.RECIPES_TAG,new AttributesImpl());
+        for(Recipe recipe : recipes)
+        {
+          write(hd,recipe);
+        }
+        hd.endElement("","",RecipeXMLConstants.RECIPES_TAG);
+      }
+    };
+    return helper.write(outFile,encoding,writer);
+  }
+
   private void write(TransformerHandler hd, Recipe recipe) throws Exception
   {
     AttributesImpl recipeAttrs=new AttributesImpl();
