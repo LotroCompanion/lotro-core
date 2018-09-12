@@ -72,28 +72,58 @@ public class RecipeXMLWriter
   {
     AttributesImpl recipeAttrs=new AttributesImpl();
 
+    // ID
     int id=recipe.getIdentifier();
     if (id!=0)
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
+    // Lorebook wiki key
     String key=recipe.getKey();
     if (key!=null)
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_KEY_ATTR,XmlWriter.CDATA,key);
     }
+    // Name
     String name=recipe.getName();
     if (name!=null)
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_NAME_ATTR,XmlWriter.CDATA,name);
     }
+    // Profession
     String profession=recipe.getProfession();
     if (profession!=null)
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_PROFESSION_ATTR,XmlWriter.CDATA,profession);
     }
+    // Tier
     int tier=recipe.getTier();
     recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
+    // Category
+    String category=recipe.getCategory();
+    if (category!=null)
+    {
+      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_CATEGORY_ATTR,XmlWriter.CDATA,category);
+    }
+    // XP
+    int xp=recipe.getXP();
+    if (xp!=0)
+    {
+      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_XP_ATTR,XmlWriter.CDATA,String.valueOf(xp));
+    }
+    // Cooldown
+    int cooldown=recipe.getCooldown();
+    if (cooldown>0)
+    {
+      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_COOLDOWN_ATTR,XmlWriter.CDATA,String.valueOf(cooldown));
+    }
+    // Single use
+    boolean singleUse=recipe.isOneTimeUse();
+    if (singleUse)
+    {
+      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_SINGLE_USE_ATTR,XmlWriter.CDATA,String.valueOf(singleUse));
+    }
+
     hd.startElement("","",RecipeXMLConstants.RECIPE_TAG,recipeAttrs);
     ItemProxy ref=recipe.getRecipeScroll();
     if (ref!=null)

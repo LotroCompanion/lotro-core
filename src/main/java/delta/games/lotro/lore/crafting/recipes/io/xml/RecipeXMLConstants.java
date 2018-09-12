@@ -40,6 +40,19 @@ public class RecipeXMLConstants
    */
   public static final String RECIPE_SINGLE_USE_ATTR="singleUse";
   /**
+   * Tag 'recipe', attribute 'category'.
+   */
+  public static final String RECIPE_CATEGORY_ATTR="category";
+  /**
+   * Tag 'recipe', attribute 'xp'.
+   */
+  public static final String RECIPE_XP_ATTR="xp";
+  /**
+   * Tag 'recipe', attribute 'xp'.
+   */
+  public static final String RECIPE_COOLDOWN_ATTR="cooldown";
+
+  /**
    * Tag 'scrollItem'.
    */
   public static final String SCROLL_ITEM_TAG="scrollItem";

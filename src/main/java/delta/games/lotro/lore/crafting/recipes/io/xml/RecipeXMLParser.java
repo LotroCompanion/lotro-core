@@ -56,6 +56,18 @@ public class RecipeXMLParser
     // Tier
     int tier=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_TIER_ATTR,0);
     r.setTier(tier);
+    // Category
+    String category=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_CATEGORY_ATTR,null);
+    r.setCategory(category);
+    // XP
+    int xp=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_XP_ATTR,0);
+    r.setXP(xp);
+    // Cooldown
+    int cooldown=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_COOLDOWN_ATTR,-1);
+    r.setCooldown(cooldown);
+    // Single use
+    boolean singleUse=DOMParsingTools.getBooleanAttribute(attrs,RecipeXMLConstants.RECIPE_SINGLE_USE_ATTR,false);
+    r.setOneTimeUse(singleUse);
 
     Element scrollItemElement=DOMParsingTools.getChildTagByName(root,RecipeXMLConstants.SCROLL_ITEM_TAG);
     if (scrollItemElement!=null)
