@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.crafting.recipes;
 
+import delta.games.lotro.lore.items.ItemProxy;
+
 /**
  * Ingredient of a recipe.
  * @author DAM
@@ -8,7 +10,7 @@ public class Ingredient
 {
   private int _quantity;
   private boolean _optional;
-  private ItemReference _item;
+  private ItemProxy _item;
 
   /**
    * Constructor.
@@ -57,19 +59,19 @@ public class Ingredient
   }
 
   /**
-   * Get the ingredient item reference.
-   * @return an item reference.
+   * Get the ingredient item proxy.
+   * @return an item proxy.
    */
-  public ItemReference getItem()
+  public ItemProxy getItem()
   {
     return _item;
   }
 
   /**
-   * Set the ingredient item reference.
-   * @param item the item reference to set.
+   * Set the ingredient item proxy.
+   * @param item the item proxy to set.
    */
-  public void setItem(ItemReference item)
+  public void setItem(ItemProxy item)
   {
     _item=item;
   }
@@ -80,4 +82,3 @@ public class Ingredient
     return _item+" x"+_quantity+(_optional?" (optional)":"");
   }
 }
-

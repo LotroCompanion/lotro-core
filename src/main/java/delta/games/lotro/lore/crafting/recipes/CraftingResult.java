@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.crafting.recipes;
 
+import delta.games.lotro.lore.items.ItemProxy;
+
 /**
  * Result of a recipe version.
  * @author DAM
@@ -7,7 +9,7 @@ package delta.games.lotro.lore.crafting.recipes;
 public class CraftingResult
 {
   private int _quantity;
-  private ItemReference _item;
+  private ItemProxy _item;
   private boolean _isCriticalResult;
 
   /**
@@ -29,19 +31,19 @@ public class CraftingResult
   }
 
   /**
-   * Get the result item reference.
-   * @return an item reference.
+   * Get the result item.
+   * @return an item proxy.
    */
-  public ItemReference getItem()
+  public ItemProxy getItem()
   {
     return _item;
   }
 
   /**
-   * Set the result item reference.
-   * @param item the item reference to set.
+   * Set the result item.
+   * @param item the item to set.
    */
-  public void setItem(ItemReference item)
+  public void setItem(ItemProxy item)
   {
     _item=item;
   }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Duration;
+import delta.games.lotro.lore.items.ItemProxy;
 
 /**
  * Recipe description.
@@ -23,7 +24,7 @@ public class Recipe
   private boolean _oneTimeUse;
   private List<Ingredient> _ingredients;
   private List<RecipeVersion> _versions;
-  private ItemReference _recipeScroll;
+  private ItemProxy _recipeScroll;
 
   /**
    * Constructor.
@@ -254,7 +255,7 @@ public class Recipe
    * Get the reference to the recipe scroll item.
    * @return an item reference or <code>null</code>.
    */
-  public ItemReference getRecipeScroll()
+  public ItemProxy getRecipeScroll()
   {
     return _recipeScroll;
   }
@@ -263,7 +264,7 @@ public class Recipe
    * Set the recipe scroll item reference.
    * @param recipeScroll the reference to set.
    */
-  public void setRecipeScroll(ItemReference recipeScroll)
+  public void setRecipeScroll(ItemProxy recipeScroll)
   {
     _recipeScroll=recipeScroll;
   }

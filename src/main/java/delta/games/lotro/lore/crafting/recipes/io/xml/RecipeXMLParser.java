@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.crafting.recipes.io.xml;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +10,9 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
-import delta.games.lotro.lore.crafting.recipes.ItemReference;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
+import delta.games.lotro.lore.items.ItemProxy;
 
 /**
  * Parser for quest descriptions stored in XML.
@@ -27,22 +26,6 @@ public class RecipeXMLParser
    * @return Parsed recipe or <code>null</code>.
    */
   public Recipe parseXML(File source)
-  {
-    Recipe recipe=null;
-    Element root=DOMParsingTools.parse(source);
-    if (root!=null)
-    {
-      recipe=parseRecipe(root);
-    }
-    return recipe;
-  }
-
-  /**
-   * Parse the XML stream.
-   * @param source Source stream.
-   * @return Parsed recipe or <code>null</code>.
-   */
-  public Recipe parseXML(InputStream source)
   {
     Recipe recipe=null;
     Element root=DOMParsingTools.parse(source);
@@ -77,7 +60,7 @@ public class RecipeXMLParser
     Element scrollItemElement=DOMParsingTools.getChildTagByName(root,RecipeXMLConstants.SCROLL_ITEM_TAG);
     if (scrollItemElement!=null)
     {
-      ItemReference ref=parseItemRef(scrollItemElement);
+      ItemProxy ref=parseItemRef(scrollItemElement);
       r.setRecipeScroll(ref);
     }
 
@@ -98,7 +81,7 @@ public class RecipeXMLParser
       Element ingredientItemRef=DOMParsingTools.getChildTagByName(ingredientElement,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
       if (ingredientItemRef!=null)
       {
-        ItemReference ingredientRef=parseItemRef(ingredientItemRef);
+        ItemProxy ingredientRef=parseItemRef(ingredientItemRef);
         ingredient.setItem(ingredientRef);
       }
       ingredients.add(ingredient);
@@ -148,19 +131,19 @@ public class RecipeXMLParser
     Element resultItemRefElement=DOMParsingTools.getChildTagByName(resultElement,RecipeXMLConstants.RESULT_ITEM_TAG);
     if (resultItemRefElement!=null)
     {
-      ItemReference resultItemRef=parseItemRef(resultItemRefElement);
+      ItemProxy resultItemRef=parseItemRef(resultItemRefElement);
       result.setItem(resultItemRef);
     }
     return result;
   }
 
-  private ItemReference parseItemRef(Element itemRef)
+  private ItemProxy parseItemRef(Element itemRef)
   {
     NamedNodeMap attrs=itemRef.getAttributes();
-    ItemReference ref=new ItemReference();
+    ItemProxy ref=new ItemProxy();
     // Item id
     int id=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_ID_ATTR,0);
-    ref.setItemId(id);
+    ref.setId(id);
     // Item key
     String key=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_KEY_ATTR,null);
     ref.setItemKey(key);

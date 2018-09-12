@@ -10,6 +10,7 @@ public class ItemProxy
   private String _name;
   // Icon: either "iconId" or "iconId-backgroundIconId"
   private String _icon;
+  private String _key;
   private Item _item;
 
   /**
@@ -20,6 +21,7 @@ public class ItemProxy
     _id=0;
     _name=null;
     _icon=null;
+    _key=null;
     _item=null;
   }
 
@@ -68,7 +70,7 @@ public class ItemProxy
   }
 
   /**
-   * Get the name of the proxied deed.
+   * Get the name of the proxied item.
    * @return the name
    */
   public String getName()
@@ -81,12 +83,30 @@ public class ItemProxy
   }
 
   /**
-   * Set the name of the proxied deed.
+   * Set the name of the proxied item.
    * @param name the name to set.
    */
   public void setName(String name)
   {
     _name=name;
+  }
+
+  /**
+   * Get the key.
+   * @return the key
+   */
+  public String getItemKey()
+  {
+    return _key;
+  }
+
+  /**
+   * Set the key.
+   * @param key the key to set.
+   */
+  public void setItemKey(String key)
+  {
+    _key=key;
   }
 
   /**
