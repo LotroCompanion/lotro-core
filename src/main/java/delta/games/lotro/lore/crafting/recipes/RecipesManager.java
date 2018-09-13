@@ -1,15 +1,16 @@
 package delta.games.lotro.lore.crafting.recipes;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.cache.WeakReferencesCache;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLParser;
 import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLWriter;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Facade for recipes access.
@@ -17,12 +18,12 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public final class RecipesManager
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
+  private static final Logger LOGGER=Logger.getLogger(RecipesManager.class);
 
   private static RecipesManager _instance=new RecipesManager();
-  
-  private WeakReferencesCache<Integer,Recipe> _cache;
-  
+
+  private Map<String,Map<Integer,Map<String,Recipe>>> _recipes;
+
   /**
    * Get the sole instance of this class.
    * @return the sole instance of this class.
@@ -33,92 +34,90 @@ public final class RecipesManager
   }
 
   /**
-   * Private constructor.
+   * Constructor.
    */
-  private RecipesManager()
+  public RecipesManager()
   {
-    _cache=new WeakReferencesCache<Integer,Recipe>(100);
+    _recipes=new HashMap<String,Map<Integer,Map<String,Recipe>>>();
   }
 
   /**
-   * Get a recipe using its identifier.
-   * @param id Recipe identifier.
-   * @return A recipe description or <code>null</code> if not found.
+   * Load all recipes from a file.
+   * @param inputFile Input file.
    */
-  public Recipe getRecipe(Integer id)
+  public void loadRecipesFromFile(File inputFile)
   {
-    Recipe ret=null;
-    if (id!=null)
+    RecipeXMLParser parser=new RecipeXMLParser();
+    List<Recipe> recipes=parser.loadRecipes(inputFile);
+    _recipes.clear();
+    for(Recipe recipe : recipes)
     {
-      ret=(_cache!=null)?_cache.getObject(id):null;
-      if (ret==null)
-      {
-        ret=loadRecipe(id.intValue());
-        if (ret!=null)
-        {
-          if (_cache!=null)
-          {
-            _cache.registerObject(id,ret);
-          }
-        }
-      }
+      registerRecipe(recipe);
     }
-    return ret;
-  }
-
-  private Recipe loadRecipe(int id)
-  {
-    Recipe ret=null;
-    File recipeFile=getRecipeFile(id);
-    if (recipeFile.exists())
-    {
-      if (recipeFile.length()>0)
-      {
-        RecipeXMLParser parser=new RecipeXMLParser();
-        ret=parser.parseXML(recipeFile);
-        if (ret!=null)
-        {
-          ret.setIdentifier(id);
-        }
-        else
-        {
-          _logger.error("Cannot load recipe file ["+recipeFile+"]!");
-        }
-      }
-    }
-    return ret;
   }
 
   /**
-   * Write a recipe file.
-   * @param recipe Recipe to write.
-   * @return A recipe.
+   * Register a new recipe.
+   * @param recipe Recipe to add.
    */
-  public Recipe writeItemFile(Recipe recipe)
+  public void registerRecipe(Recipe recipe)
   {
-    RecipeXMLWriter writer=new RecipeXMLWriter();
-    int id=recipe.getIdentifier();
-    File recipeFile=getRecipeFile(id);
-    boolean ok=writer.write(recipeFile,recipe,EncodingNames.UTF_8);
-    if (!ok)
+    String profession=recipe.getProfession();
+    Map<Integer,Map<String,Recipe>> recipesForProfession=_recipes.get(profession);
+    if (recipesForProfession==null)
     {
-      String name=recipe.getName();
-      _logger.error("Write failed for recipe ["+name+"]!");
-      recipe=null;
+      recipesForProfession=new HashMap<Integer,Map<String,Recipe>>();
+      _recipes.put(recipe.getProfession(),recipesForProfession);
+    }
+    Integer tier=Integer.valueOf(recipe.getTier());
+    Map<String,Recipe> recipesForTier=recipesForProfession.get(tier);
+    if (recipesForTier==null)
+    {
+      recipesForTier=new HashMap<String,Recipe>();
+      recipesForProfession.put(tier,recipesForTier);
+    }
+    String name=recipe.getName();
+    Recipe old=recipesForTier.get(name);
+    if (old!=null)
+    {
+      if (recipe.getTier()!=old.getTier())
+      {
+        LOGGER.warn("Recipes with the same profession [" + profession + "], tier [" + tier + "] and name [" + name +"]");
+      }
     }
     else
     {
-      // Reload recipe to cleanup memory retention of web-loaded strings
-      recipe=loadRecipe(id);
+      recipesForTier.put(name,recipe);
     }
-    return recipe;
   }
 
-  private File getRecipeFile(int id)
+  /**
+   * Get all recipes.
+   * @return a list of all recipes.
+   */
+  public List<Recipe> getAll()
   {
-    File recipesDir=LotroCoreConfig.getInstance().getRecipesDir();
-    String fileName=id+".xml";
-    File ret=new File(recipesDir,fileName);
+    List<Recipe> ret=new ArrayList<Recipe>();
+    for(String profession : _recipes.keySet())
+    {
+      for(Integer tier : _recipes.get(profession).keySet())
+      {
+        ret.addAll(_recipes.get(profession).get(tier).values());
+      }
+    }
     return ret;
+  }
+
+  /**
+   * Write the managed recipes to the specified file.
+   * @param toFile File to write to.
+   */
+  public void writeToFile(File toFile)
+  {
+    List<Recipe> recipes=getAll();
+    System.out.println(recipes.size());
+    RecipeUtils.sort(recipes);
+    RecipeXMLWriter writer=new RecipeXMLWriter();
+    writer.write(toFile,recipes,EncodingNames.UTF_8);
   }
 }
