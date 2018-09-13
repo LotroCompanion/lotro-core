@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.ItemsManager;
@@ -16,16 +14,15 @@ import delta.games.lotro.lore.items.ItemsManager;
  */
 public class ItemsFinder
 {
-  private static final Logger LOGGER=Logger.getLogger(ItemsFinder.class);
-
   private HashMap<String,List<Item>> _icons;
+  private HashMap<String,List<Item>> _names;
 
   /**
    * Constructor.
    */
   public ItemsFinder()
   {
-    _icons=loadItemsMap();
+    loadItemsMaps();
   }
 
   /**
@@ -72,6 +69,17 @@ public class ItemsFinder
     return proxy;
   }
 
+  /**
+   * Resolve an item using its name.
+   * @param name Name of the item to get.
+   * @return An item or <code>null</code> if not found or ambiguous.
+   */
+  public Item resolveByName(String name)
+  {
+    List<Item> items=_names.get(name);
+    return resolveAmbiguity(name,items,null);
+  }
+
   private Item resolve(String name, int iconId, ItemSelector selector)
   {
     String icon=String.valueOf(iconId);
@@ -87,7 +95,7 @@ public class ItemsFinder
   private Item resolve(String name, String iconKey, ItemSelector selector)
   {
     List<Item> ret=new ArrayList<Item>();
-    List<Item> itemsWithRightIcon=getItems(iconKey);
+    List<Item> itemsWithRightIcon=_icons.get(iconKey);
     if (itemsWithRightIcon!=null)
     {
       for(Item item : itemsWithRightIcon)
@@ -102,65 +110,64 @@ public class ItemsFinder
         ret.addAll(itemsWithRightIcon);
       }
     }
+    return resolveAmbiguity(name,ret,selector);
+  }
 
-    if (ret.size()>1)
+  private Item resolveAmbiguity(String name, List<Item> items, ItemSelector selector)
+  {
+    if (items==null)
+    {
+      return null;
+    }
+    if (items.size()>1)
     {
       Item selected=null;
       if (selector!=null)
       {
-        selected=selector.chooseItem(ret);
+        selected=selector.chooseItem(items);
       }
       if (selected==null)
       {
-        LOGGER.warn("Ambiguity on " + name + ": " + ret.size());
-        for(Item item : ret)
+        /*
+        LOGGER.warn("Ambiguity on " + name + ": " + items.size());
+        for(Item item : items)
         {
           String itemName=item.getName();
           String subCategory=item.getSubCategory();
           LOGGER.warn("\t#" + itemName + " - " + subCategory);
         }
+        */
       }
       else
       {
         return selected;
       }
     }
-    if (ret.size()==1)
+    if (items.size()==1)
     {
-      return ret.get(0);
+      return items.get(0);
     }
-    LOGGER.warn("Not found:" + name);
+    //LOGGER.warn("Not found:" + name);
     return null;
   }
 
   /**
-   * Get an item using a 'key' (name, lorebook key, icon path).
-   * @param key Key to use.
-   * @return An item or <code>null</code> if not found.
+   * Load items maps (key->list of item) where key is the item iconID/iconID-backgroundIconID or the item name.
    */
-  private List<Item> getItems(String key)
+  private void loadItemsMaps()
   {
-    List<Item> items=_icons.get(key);
-    return items;
-  }
-
-  /**
-   * Load map (keys/names)->list of item ids
-   * @return a map.
-   */
-  private HashMap<String,List<Item>> loadItemsMap()
-  {
-    HashMap<String,List<Item>> idStr2Id=new HashMap<String,List<Item>>(); 
+    _icons=new HashMap<String,List<Item>>(); 
+    _names=new HashMap<String,List<Item>>(); 
     List<Item> items=ItemsManager.getInstance().getAllItems();
     for(Item item : items)
     {
       String icon=item.getIcon();
-      registerMapping(idStr2Id,icon,item);
+      registerMapping(_icons,icon,item);
       String mainIconId=icon.substring(0,icon.indexOf('-'));
-      registerMapping(idStr2Id,mainIconId,item);
+      registerMapping(_icons,mainIconId,item);
+      String name=item.getName();
+      registerMapping(_names,name,item);
     }
-    System.out.println(idStr2Id.size());
-    return idStr2Id;
   }
 
   private void registerMapping(HashMap<String,List<Item>> map, String key, Item item)
