@@ -55,7 +55,7 @@ public class MainParser
   public void doIt() throws Exception
   {
     File dataDir=PluginConstants.getCharacterDir(_account,_server,_character);
-    File dataFile=new File(dataDir,"LotroCompanionData.plugindata");
+    File dataFile=new File(dataDir,"LotroCompanionCharacter.plugindata");
     LuaParser parser=new LuaParser();
     Map<String,Object> data=parser.read(dataFile);
     useData(data);
