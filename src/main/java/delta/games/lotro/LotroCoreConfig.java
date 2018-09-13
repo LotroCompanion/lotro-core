@@ -20,8 +20,6 @@ public final class LotroCoreConfig
   private File _loreDir;
   private File _indexesDir;
   private File _questsDir;
-  private File _deedsDir;
-  private File _recipesDir;
 
   // Root directory for use data
   private File _userDataDir;
@@ -60,8 +58,6 @@ public final class LotroCoreConfig
     _loreDir=new File(_applicationDataDir,"lore");
     _indexesDir=new File(_loreDir,"indexes");
     _questsDir=new File(_applicationDataDir,"quests");
-    _deedsDir=new File(_applicationDataDir,"deeds");
-    _recipesDir=new File(_applicationDataDir,"recipes");
 
     // User data
     File userHomeDir=new File(System.getProperty("user.home"));
@@ -123,24 +119,6 @@ public final class LotroCoreConfig
   public File getQuestsDir()
   {
     return _questsDir;
-  }
-
-  /**
-   * Get the root directory for deed data storage.
-   * @return a directory.
-   */
-  public File getDeedsDir()
-  {
-    return _deedsDir;
-  }
-
-  /**
-   * Get the root directory for recipes data storage.
-   * @return a directory.
-   */
-  public File getRecipesDir()
-  {
-    return _recipesDir;
   }
 
   /**
