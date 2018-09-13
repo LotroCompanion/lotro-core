@@ -7,15 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
-
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
-import delta.games.lotro.lore.crafting.recipes.ItemReference;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
+import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.plugins.LuaParser;
-import delta.games.lotro.plugins.PluginConstants;
 
 /**
  * Parser for the recipes as found in LotroCompanion plugin data.
@@ -23,8 +20,6 @@ import delta.games.lotro.plugins.PluginConstants;
  */
 public class RecipesParser
 {
-  private static final Logger LOGGER=Logger.getLogger(RecipesParser.class);
-
   /**
    * Parse/use data from the "Recipes" file of the LotroCompanion plugin.
    * @param f Input file.
@@ -35,29 +30,25 @@ public class RecipesParser
   {
     LuaParser parser=new LuaParser();
     Map<String,Object> data=parser.read(f);
-    List<Recipe> ret=useData(data);
-    return ret;
+    List<Recipe> recipes=useData(data);
+    return recipes;
   }
 
   @SuppressWarnings("unchecked")
   private List<Recipe> useData(Map<String,Object> data)
   {
     List<Recipe> ret=new ArrayList<Recipe>();
-    Map<String,Object> recipesMap=(Map<String,Object>)data.get("Recipes");
-    if (recipesMap!=null)
+    Set<String> professions=data.keySet();
+    List<String> sortedProfessions=new ArrayList<String>(professions);
+    Collections.sort(sortedProfessions);
+    for(String profession : sortedProfessions)
     {
-      Set<String> professions=recipesMap.keySet();
-      List<String> sortedProfessions=new ArrayList<String>(professions);
-      Collections.sort(sortedProfessions);
-      for(String profession : sortedProfessions)
+      Map<String,Object> recipesForProfessionMap=(Map<String,Object>)data.get(profession);
+      List<Map<String,Object>> recipeDatas=getOrderedRecipes(recipesForProfessionMap);
+      for(Map<String,Object> recipeData : recipeDatas)
       {
-        Map<String,Object> recipesForProfessionMap=(Map<String,Object>)recipesMap.get(profession);
-        List<Map<String,Object>> recipeDatas=getOrderedRecipes(recipesForProfessionMap);
-        for(Map<String,Object> recipeData : recipeDatas)
-        {
-          Recipe recipe=parseRecipe(recipeData,profession);
-          ret.add(recipe);
-        }
+        Recipe recipe=parseRecipe(recipeData,profession);
+        ret.add(recipe);
       }
     }
     return ret;
@@ -107,14 +98,13 @@ public class RecipesParser
     RecipeVersion version=new RecipeVersion();
     // Regular result
     {
-      ItemReference regularResultItem=new ItemReference();
       String resultName=(String)data.get("ResultItemName");
-      regularResultItem.setName(resultName);
       Double resultIconId=(Double)data.get("ResultItemIconID");
       Double resultBackgroundIconId=(Double)data.get("ResultItemBackgroundIconID");
-      regularResultItem.setIcon(resultIconId.intValue()+"-"+resultBackgroundIconId.intValue());
       CraftingResult regularResult=new CraftingResult();
+      ItemProxy regularResultItem=buildProxy(resultName,resultIconId,resultBackgroundIconId);
       regularResult.setItem(regularResultItem);
+
       regularResult.setCriticalResult(false);
       Double quantity=(Double)data.get("ResultItemQuantity");
       regularResult.setQuantity(quantity.intValue());
@@ -124,13 +114,11 @@ public class RecipesParser
     Boolean hasCriticalResult=(Boolean)data.get("HasCriticalResultItem");
     if ((hasCriticalResult!=null) && (hasCriticalResult.booleanValue()))
     {
-      ItemReference criticalResultItem=new ItemReference();
       String resultName=(String)data.get("CriticalResultItemName");
-      criticalResultItem.setName(resultName);
       Double resultIconId=(Double)data.get("CriticalResultItemIconId");
       Double resultBackgroundIconId=(Double)data.get("CriticalResultItemBackgroundIconId");
-      criticalResultItem.setIcon(resultIconId.intValue()+"-"+resultBackgroundIconId.intValue());
       CraftingResult criticalResult=new CraftingResult();
+      ItemProxy criticalResultItem=buildProxy(resultName,resultIconId,resultBackgroundIconId);
       criticalResult.setItem(criticalResultItem);
       criticalResult.setCriticalResult(true);
       Double quantity=(Double)data.get("CriticalSuccessItemQuantity");
@@ -162,11 +150,10 @@ public class RecipesParser
         Map<String,Object> ingredientData=(Map<String,Object>)ingredientsData.get(key);
         Ingredient ingredient=parseIngredient(ingredientData);
         ingredient.setOptional(true);
-        // TODO ["CriticaChanceBonus"] = 0.350000,
+        // TODO ["CriticalChanceBonus"] = 0.350000,
         recipe.getIngredients().add(ingredient);
       }
     }
-    System.out.println(recipe.dump());
     return recipe;
   }
 
@@ -174,11 +161,9 @@ public class RecipesParser
   {
     String name=(String)ingredientData.get("Name");
     Ingredient ingredient=new Ingredient();
-    ItemReference item=new ItemReference();
-    item.setName(name);
     Double resultIconId=(Double)ingredientData.get("IconID");
     Double resultBackgroundIconId=(Double)ingredientData.get("BackgroundIconID");
-    item.setIcon(resultIconId.intValue()+"-"+resultBackgroundIconId.intValue());
+    ItemProxy item=buildProxy(name,resultIconId,resultBackgroundIconId);
     ingredient.setItem(item);
     // Quantity
     Double quantity=(Double)ingredientData.get("RequiredQuantity");
@@ -187,36 +172,12 @@ public class RecipesParser
     return ingredient;
   }
 
-  /**
-   * Main method for this test.
-   * @param args Not used.
-   */
-  public static void main(String[] args)
+  private ItemProxy buildProxy(String name, Double iconId, Double backgroundIconId)
   {
-    String account="glorfindel666";
-    String server="Landroval";
-    List<String> characters=PluginConstants.getCharacters(account,server,false);
-    for(String character : characters)
-    {
-      File dataDir=PluginConstants.getCharacterDir(account,server,character);
-      File dataFile=new File(dataDir,"LotroCompanionData.plugindata");
-      if (dataFile.exists())
-      {
-        try
-        {
-          System.out.println("Doing: " + character);
-          RecipesParser parser=new RecipesParser();
-          parser.doIt(dataFile);
-        }
-        catch(Exception e)
-        {
-          LOGGER.error("Error when loading recipes from file "+dataFile, e);
-        }
-      }
-      else
-      {
-        System.out.println("No recipes for: " + character);
-      }
-    }
+    ItemProxy proxy=new ItemProxy();
+    proxy.setName(name);
+    String icon=iconId.intValue()+"-"+backgroundIconId.intValue();
+    proxy.setIcon(icon);
+    return proxy;
   }
 }
