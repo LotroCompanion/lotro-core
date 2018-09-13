@@ -36,6 +36,27 @@ public class RecipeXMLParser
     return recipe;
   }
 
+  /**
+   * Load some recipes from an XML file.
+   * @param source Source file.
+   * @return A possibly empty but not <code>null</code> list of recipes.
+   */
+  public List<Recipe> loadRecipes(File source)
+  {
+    List<Recipe> recipes=new ArrayList<Recipe>();
+    Element root=DOMParsingTools.parse(source);
+    if (root!=null)
+    {
+      List<Element> recipeTags=DOMParsingTools.getChildTagsByName(root,RecipeXMLConstants.RECIPE_TAG);
+      for(Element recipeTag : recipeTags)
+      {
+        Recipe recipe=parseRecipe(recipeTag);
+        recipes.add(recipe);
+      }
+    }
+    return recipes;
+  }
+
   private Recipe parseRecipe(Element root)
   {
     Recipe r=new Recipe();
