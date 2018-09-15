@@ -2,11 +2,10 @@ package delta.games.lotro.lore.crafting.recipes;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLParser;
@@ -18,11 +17,9 @@ import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLWriter;
  */
 public final class RecipesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(RecipesManager.class);
-
   private static RecipesManager _instance=new RecipesManager();
 
-  private Map<String,Map<Integer,Map<String,Recipe>>> _recipes;
+  private Map<String,Map<Integer,List<Recipe>>> _recipes;
 
   /**
    * Get the sole instance of this class.
@@ -38,7 +35,57 @@ public final class RecipesManager
    */
   public RecipesManager()
   {
-    _recipes=new HashMap<String,Map<Integer,Map<String,Recipe>>>();
+    _recipes=new HashMap<String,Map<Integer,List<Recipe>>>();
+  }
+
+  /**
+   * Get the managed professions.
+   * @return the managed professions.
+   */
+  public List<String> getProfessions()
+  {
+    List<String> ret=new ArrayList<String>(_recipes.keySet());
+    Collections.sort(ret);
+    return ret;
+  }
+
+  /**
+   * Get the managed tiers for a profession.
+   * @param profession Profession to use.
+   * @return the managed tiers.
+   */
+  public List<Integer> getTiers(String profession)
+  {
+    List<Integer> ret=new ArrayList<Integer>();
+    Map<Integer,List<Recipe>> tierMap=_recipes.get(profession);
+    if (tierMap!=null)
+    {
+      ret.addAll(tierMap.keySet());
+    }
+    Collections.sort(ret);
+    return ret;
+  }
+
+  /**
+   * Get the managed recipes for a profession and a tier.
+   * @param profession Profession to use.
+   * @param tier Tier to use.
+   * @return the managed recipes.
+   */
+  public List<Recipe> getRecipes(String profession, int tier)
+  {
+    List<Recipe> ret=new ArrayList<Recipe>();
+    Map<Integer,List<Recipe>> tierMap=_recipes.get(profession);
+    if (tierMap!=null)
+    {
+      List<Recipe> recipes=tierMap.get(Integer.valueOf(tier));
+      if (recipes!=null)
+      {
+        ret.addAll(recipes);
+      }
+    }
+    RecipeUtils.sort(ret);
+    return ret;
   }
 
   /**
@@ -63,32 +110,20 @@ public final class RecipesManager
   public void registerRecipe(Recipe recipe)
   {
     String profession=recipe.getProfession();
-    Map<Integer,Map<String,Recipe>> recipesForProfession=_recipes.get(profession);
+    Map<Integer,List<Recipe>> recipesForProfession=_recipes.get(profession);
     if (recipesForProfession==null)
     {
-      recipesForProfession=new HashMap<Integer,Map<String,Recipe>>();
+      recipesForProfession=new HashMap<Integer,List<Recipe>>();
       _recipes.put(recipe.getProfession(),recipesForProfession);
     }
     Integer tier=Integer.valueOf(recipe.getTier());
-    Map<String,Recipe> recipesForTier=recipesForProfession.get(tier);
+    List<Recipe> recipesForTier=recipesForProfession.get(tier);
     if (recipesForTier==null)
     {
-      recipesForTier=new HashMap<String,Recipe>();
+      recipesForTier=new ArrayList<Recipe>();
       recipesForProfession.put(tier,recipesForTier);
     }
-    String name=recipe.getName();
-    Recipe old=recipesForTier.get(name);
-    if (old!=null)
-    {
-      if (recipe.getTier()!=old.getTier())
-      {
-        LOGGER.warn("Recipes with the same profession [" + profession + "], tier [" + tier + "] and name [" + name +"]");
-      }
-    }
-    else
-    {
-      recipesForTier.put(name,recipe);
-    }
+    recipesForTier.add(recipe);
   }
 
   /**
@@ -102,7 +137,24 @@ public final class RecipesManager
     {
       for(Integer tier : _recipes.get(profession).keySet())
       {
-        ret.addAll(_recipes.get(profession).get(tier).values());
+        ret.addAll(_recipes.get(profession).get(tier));
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Get the number of recipes.
+   * @return the number of recipes.
+   */
+  public int getRecipesCount()
+  {
+    int ret=0;
+    for(String profession : _recipes.keySet())
+    {
+      for(Integer tier : _recipes.get(profession).keySet())
+      {
+        ret+=_recipes.get(profession).get(tier).size();
       }
     }
     return ret;
@@ -115,7 +167,6 @@ public final class RecipesManager
   public void writeToFile(File toFile)
   {
     List<Recipe> recipes=getAll();
-    System.out.println(recipes.size());
     RecipeUtils.sort(recipes);
     RecipeXMLWriter writer=new RecipeXMLWriter();
     writer.write(toFile,recipes,EncodingNames.UTF_8);
