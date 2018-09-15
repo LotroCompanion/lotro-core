@@ -15,12 +15,6 @@ public class RecipeProfessionComparator implements Comparator<Recipe>
   {
     String profession1=o1.getProfession();
     String profession2=o2.getProfession();
-    if (profession1==null)
-    {
-      if (profession2==null) return 0;
-      return -1;
-    }
-    if (profession2==null) return 1;
     return profession1.compareTo(profession2);
   }
 }

@@ -80,19 +80,19 @@ public class RecipeXMLWriter
     }
     // Lorebook wiki key
     String key=recipe.getKey();
-    if (key!=null)
+    if (key.length()>0)
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_KEY_ATTR,XmlWriter.CDATA,key);
     }
     // Name
     String name=recipe.getName();
-    if (name!=null)
+    if (name.length()>0)
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Profession
     String profession=recipe.getProfession();
-    if (profession!=null)
+    if (profession.length()>0)
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_PROFESSION_ATTR,XmlWriter.CDATA,profession);
     }
@@ -101,7 +101,7 @@ public class RecipeXMLWriter
     recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
     // Category
     String category=recipe.getCategory();
-    if (category!=null)
+    if (category.length()>0)
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_CATEGORY_ATTR,XmlWriter.CDATA,category);
     }

@@ -32,10 +32,10 @@ public class Recipe
   public Recipe()
   {
     _identifier=0;
-    _key=null;
-    _name=null;
-    _profession=null;
-    _category=null;
+    _key="";
+    _name="";
+    _profession="";
+    _category="";
     _tier=1;
     _xp=0;
     _cooldown=-1;
@@ -78,7 +78,7 @@ public class Recipe
    */
   public void setKey(String key)
   {
-    _key=key;
+    _key=(key==null)?"":key;
   }
 
   /**
@@ -96,7 +96,7 @@ public class Recipe
    */
   public void setName(String name)
   {
-    _name=name;
+    _name=(name==null)?"":name;
   }
 
   /**
@@ -114,7 +114,7 @@ public class Recipe
    */
   public void setProfession(String profession)
   {
-    _profession=profession;
+    _profession=(profession==null)?"":profession;
   }
 
   /**
@@ -132,7 +132,7 @@ public class Recipe
    */
   public void setCategory(String category)
   {
-    _category=category;
+    _category=(category==null)?"":category;
   }
 
   /**
@@ -283,19 +283,19 @@ public class Recipe
       sb.append(_identifier);
       sb.append(')');
     }
-    if (_key!=null)
+    if (_key.length()>0)
     {
       sb.append(" (key=");
       sb.append(_key);
       sb.append(')');
     }
-    if (_profession!=null)
+    if (_profession.length()>0)
     {
       sb.append(" (profession=");
       sb.append(_profession);
       sb.append(')');
     }
-    if (_category!=null)
+    if (_category.length()>0)
     {
       sb.append(" (category=");
       sb.append(_category);
