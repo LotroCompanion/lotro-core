@@ -75,7 +75,21 @@ public class Ingredient
   {
     _item=item;
   }
-  
+
+  /**
+   * Get the ingredient name.
+   * @return a name or <code>null</code>.
+   */
+  public String getName()
+  {
+    String ret=null;
+    if (_item!=null)
+    {
+      ret=_item.getName();
+    }
+    return ret;
+  }
+
   @Override
   public String toString()
   {
