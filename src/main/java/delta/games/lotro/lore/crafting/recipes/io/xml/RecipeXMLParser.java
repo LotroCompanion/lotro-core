@@ -126,13 +126,18 @@ public class RecipeXMLParser
       ingredients.add(ingredient);
     }
     r.setIngredients(ingredients);
-    
+
     // Results
     List<RecipeVersion> versions=new ArrayList<RecipeVersion>();
     List<Element> versionElements=DOMParsingTools.getChildTagsByName(root,RecipeXMLConstants.RECIPE_RESULT_TAG);
     for(Element versionElement : versionElements)
     {
       RecipeVersion version=new RecipeVersion();
+      NamedNodeMap versionAttrs=versionElement.getAttributes();
+      // Base critical chance
+      int baseCriticalChance=DOMParsingTools.getIntAttribute(versionAttrs,RecipeXMLConstants.RECIPE_RESULT_BASE_CRITICAL_CHANCE_ATTR,0);
+      version.setBaseCriticalChance((baseCriticalChance!=0)?Integer.valueOf(baseCriticalChance):null);
+
       List<Element> resultElements=DOMParsingTools.getChildTagsByName(versionElement,RecipeXMLConstants.RESULT_TAG);
       for(Element resultElement : resultElements)
       {

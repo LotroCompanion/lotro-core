@@ -160,14 +160,20 @@ public class RecipeXMLWriter
         hd.endElement("","",RecipeXMLConstants.INGREDIENT_TAG);
       }
     }
-    
+
     // Results
     List<RecipeVersion> results=recipe.getVersions();
     if (results!=null)
     {
       for(RecipeVersion result : results)
       {
-        hd.startElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG,new AttributesImpl());
+        AttributesImpl attrs=new AttributesImpl();
+        Integer baseCriticalChance=result.getBaseCriticalChance();
+        if (baseCriticalChance!=null)
+        {
+          attrs.addAttribute("","",RecipeXMLConstants.RECIPE_RESULT_BASE_CRITICAL_CHANCE_ATTR,XmlWriter.CDATA,baseCriticalChance.toString());
+        }
+        hd.startElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG,attrs);
         CraftingResult regular=result.getRegular();
         if (regular!=null)
         {

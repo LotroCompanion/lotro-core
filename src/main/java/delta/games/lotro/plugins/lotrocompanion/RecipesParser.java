@@ -124,7 +124,13 @@ public class RecipesParser
       Double quantity=(Double)data.get("CriticalSuccessItemQuantity");
       criticalResult.setQuantity(quantity.intValue());
       version.setCritical(criticalResult);
-      // TODO ["BaseCriticalSuccessChance"] = 0.050000,
+      // Base critical chance bonus
+      Double baseCriticalChanceValue=(Double)data.get("BaseCriticalSuccessChance");
+      if (baseCriticalChanceValue!=null)
+      {
+        int baseCriticalChance=(int)Math.round(baseCriticalChanceValue.doubleValue()*100);
+        version.setBaseCriticalChance((baseCriticalChance!=0)?Integer.valueOf(baseCriticalChance):null);
+      }
     }
     recipe.getVersions().add(version);
 

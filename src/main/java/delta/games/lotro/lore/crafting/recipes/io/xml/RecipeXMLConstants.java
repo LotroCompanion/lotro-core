@@ -93,11 +93,15 @@ public class RecipeXMLConstants
    * Tag 'ingredientItem'.
    */
   public static final String INGREDIENT_ITEM_TAG="ingredientItem";
-  
+
   /**
    * Tag 'recipeResult'.
    */
   public static final String RECIPE_RESULT_TAG="recipeResult";
+  /**
+   * Tag 'recipeResult', attribute 'baseCriticalChance'.
+   */
+  public static final String RECIPE_RESULT_BASE_CRITICAL_CHANCE_ATTR="baseCriticalChance";
   /**
    * Tag 'result'.
    */

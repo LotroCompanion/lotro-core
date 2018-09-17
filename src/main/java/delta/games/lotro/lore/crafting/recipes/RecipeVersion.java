@@ -8,6 +8,7 @@ public class RecipeVersion
 {
   private CraftingResult _regular;
   private CraftingResult _critical;
+  private Integer _baseCriticalChance;
 
   /**
    * Get the regular result of this recipe version.
@@ -45,6 +46,24 @@ public class RecipeVersion
     _critical=critical;
   }
 
+  /**
+   * Get the base percentage for critical success.
+   * @return a percentage value (1..100) or <code>null</code>.
+   */
+  public Integer getBaseCriticalChance()
+  {
+    return _baseCriticalChance;
+  }
+
+  /**
+   * Set the base percentage for critical success.
+   * @param baseCriticalChance a percentage value (1..100) or <code>null</code>.
+   */
+  public void setBaseCriticalChance(Integer baseCriticalChance)
+  {
+    _baseCriticalChance=baseCriticalChance;
+  }
+
   @Override
   public String toString()
   {
@@ -57,6 +76,10 @@ public class RecipeVersion
     {
       if (sb.length()>0) sb.append(" / ");
       sb.append("Critical: ").append(_critical);
+      if (_baseCriticalChance!=null)
+      {
+        sb.append(" (").append(_baseCriticalChance).append("%)");
+      }
     }
     return sb.toString();
   }
