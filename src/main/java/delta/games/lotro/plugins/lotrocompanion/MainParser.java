@@ -220,7 +220,7 @@ public class MainParser
     for(String character : characters)
     {
       File dataDir=PluginConstants.getCharacterDir(account,server,character);
-      File dataFile=new File(dataDir,"LotroCompanionData.plugindata");
+      File dataFile=new File(dataDir,"LotroCompanionCharacter.plugindata");
       if (dataFile.exists())
       {
         try
