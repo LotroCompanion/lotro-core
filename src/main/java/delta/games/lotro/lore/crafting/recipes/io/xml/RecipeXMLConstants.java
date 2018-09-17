@@ -86,6 +86,10 @@ public class RecipeXMLConstants
    */
   public static final String INGREDIENT_OPTIONAL_ATTR="optional";
   /**
+   * Tag 'ingredient', attribute 'criticalChanceBonus'.
+   */
+  public static final String INGREDIENT_CRITICAL_CHANCE_BONUS_ATTR="criticalChanceBonus";
+  /**
    * Tag 'ingredientItem'.
    */
   public static final String INGREDIENT_ITEM_TAG="ingredientItem";

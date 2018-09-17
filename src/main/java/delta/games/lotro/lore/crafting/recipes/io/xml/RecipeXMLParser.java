@@ -110,6 +110,12 @@ public class RecipeXMLParser
       // Optional
       boolean optional=DOMParsingTools.getBooleanAttribute(ingredientAttrs,RecipeXMLConstants.INGREDIENT_OPTIONAL_ATTR,false);
       ingredient.setOptional(optional);
+      if (optional)
+      {
+        // Critical chance bonus
+        int criticalChanceBonus=DOMParsingTools.getIntAttribute(ingredientAttrs,RecipeXMLConstants.INGREDIENT_CRITICAL_CHANCE_BONUS_ATTR,0);
+        ingredient.setCriticalChanceBonus((criticalChanceBonus!=0)?Integer.valueOf(criticalChanceBonus):null);
+      }
       // Item reference
       Element ingredientItemRef=DOMParsingTools.getChildTagByName(ingredientElement,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
       if (ingredientItemRef!=null)

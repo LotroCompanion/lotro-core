@@ -11,6 +11,7 @@ public class Ingredient
   private int _quantity;
   private boolean _optional;
   private ItemProxy _item;
+  private Integer _criticalChanceBonus;
 
   /**
    * Constructor.
@@ -20,6 +21,7 @@ public class Ingredient
     _quantity=1;
     _optional=false;
     _item=null;
+    _criticalChanceBonus=null;
   }
 
   /**
@@ -90,9 +92,43 @@ public class Ingredient
     return ret;
   }
 
+  /**
+   * Get the bonus percentage for critical success.
+   * @return a percentage value (1..100) or <code>null</code>.
+   */
+  public Integer getCriticalChanceBonus()
+  {
+    return _criticalChanceBonus;
+  }
+
+  /**
+   * Set the bonus percentage for critical success.
+   * @param criticalChanceBonus a percentage value (1..100) or <code>null</code>.
+   */
+  public void setCriticalChanceBonus(Integer criticalChanceBonus)
+  {
+    _criticalChanceBonus=criticalChanceBonus;
+  }
+
   @Override
   public String toString()
   {
-    return _item+" x"+_quantity+(_optional?" (optional)":"");
+    StringBuilder sb=new StringBuilder();
+    sb.append(_item);
+    if (_quantity!=1)
+    {
+      sb.append(" x");
+      sb.append(_quantity);
+    }
+    if (_optional)
+    {
+      sb.append(" (optional");
+      if (_criticalChanceBonus!=null)
+      {
+        sb.append(" ").append(_criticalChanceBonus).append('%');
+      }
+      sb.append(')');
+    }
+    return sb.toString();
   }
 }

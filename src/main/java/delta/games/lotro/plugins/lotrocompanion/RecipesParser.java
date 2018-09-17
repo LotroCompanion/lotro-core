@@ -150,7 +150,6 @@ public class RecipesParser
         Map<String,Object> ingredientData=(Map<String,Object>)ingredientsData.get(key);
         Ingredient ingredient=parseIngredient(ingredientData);
         ingredient.setOptional(true);
-        // TODO ["CriticalChanceBonus"] = 0.350000,
         recipe.getIngredients().add(ingredient);
       }
     }
@@ -168,7 +167,13 @@ public class RecipesParser
     // Quantity
     Double quantity=(Double)ingredientData.get("RequiredQuantity");
     ingredient.setQuantity(quantity.intValue());
-    //["CriticalChanceBonus"] = 0.000000,
+    // Critical chance bonus
+    Double criticalChanceBonusValue=(Double)ingredientData.get("CriticalChanceBonus");
+    if (criticalChanceBonusValue!=null)
+    {
+      int criticalChanceBonus=(int)Math.round(criticalChanceBonusValue.doubleValue()*100);
+      ingredient.setCriticalChanceBonus((criticalChanceBonus!=0)?Integer.valueOf(criticalChanceBonus):null);
+    }
     return ingredient;
   }
 

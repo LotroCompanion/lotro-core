@@ -145,6 +145,11 @@ public class RecipeXMLWriter
         if (ingredient.isOptional())
         {
           attrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_OPTIONAL_ATTR,XmlWriter.CDATA,"true");
+          Integer criticalChanceBonus=ingredient.getCriticalChanceBonus();
+          if (criticalChanceBonus!=null)
+          {
+            attrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_CRITICAL_CHANCE_BONUS_ATTR,XmlWriter.CDATA,criticalChanceBonus.toString());
+          }
         }
         hd.startElement("","",RecipeXMLConstants.INGREDIENT_TAG,attrs);
         ItemProxy item=ingredient.getItem();
