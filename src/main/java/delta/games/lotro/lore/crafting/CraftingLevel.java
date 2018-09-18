@@ -89,6 +89,15 @@ public final class CraftingLevel
   }
 
   /**
+   * Get the label of this level.
+   * @return a displayable label.
+   */
+  public String getLabel()
+  {
+    return _proficiency.getLabel();
+  }
+
+  /**
    * Get the proficiency tier.
    * @return the proficiency tier.
    */
