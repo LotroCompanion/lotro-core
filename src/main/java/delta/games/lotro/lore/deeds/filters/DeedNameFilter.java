@@ -6,7 +6,7 @@ import delta.common.utils.text.StringFilter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 
 /**
- * Filter for item name.
+ * Filter for deed name.
  * @author DAM
  */
 public class DeedNameFilter implements Filter<DeedDescription>

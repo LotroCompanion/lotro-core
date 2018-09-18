@@ -13,7 +13,7 @@ public class DeedCategoryFilter implements Filter<DeedDescription>
 
   /**
    * Constructor.
-   * @param category Deed category to select (may be <code>null</code>).
+   * @param category Category to select (may be <code>null</code>).
    */
   public DeedCategoryFilter(String category)
   {
@@ -21,8 +21,8 @@ public class DeedCategoryFilter implements Filter<DeedDescription>
   }
 
   /**
-   * Get the deed type to use.
-   * @return A deed type or <code>null</code>.
+   * Get the category to use.
+   * @return A category or <code>null</code>.
    */
   public String getDeedCategory()
   {
@@ -30,8 +30,8 @@ public class DeedCategoryFilter implements Filter<DeedDescription>
   }
 
   /**
-   * Set the deed category to select.
-   * @param category Deed category to use, may be <code>null</code>.
+   * Set the category to select.
+   * @param category Category to use, may be <code>null</code>.
    */
   public void setDeedCategory(String category)
   {
