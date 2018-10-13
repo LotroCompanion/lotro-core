@@ -58,13 +58,17 @@ public final class CraftingLevel
    * Doomfold.
    */
   public static final CraftingLevel DOOMFOLD=new CraftingLevel(11,"Doomfold",840,"Doomfold Master",1680);
+  /**
+   * Ironfold.
+   */
+  public static final CraftingLevel IRONFOLD=new CraftingLevel(12,"Ironfold",840,"Ironfold Master",1680);
 
   /**
    * All crafting tiers, sorted by level.
    */
   public static final CraftingLevel[] ALL_TIERS = {
     BEGINNER, APPRENTICE, JOURNEYMAN, EXPERT, ARTISAN, MASTER, SUPREME,
-    WESTFOLD, EASTEMNET, WESTEMNET, ANORIEN, DOOMFOLD
+    WESTFOLD, EASTEMNET, WESTEMNET, ANORIEN, DOOMFOLD, IRONFOLD
   };
 
   private int _tier;
@@ -138,6 +142,6 @@ public final class CraftingLevel
    */
   public static CraftingLevel getMaximumLevel()
   {
-    return DOOMFOLD;
+    return IRONFOLD;
   }
 }
