@@ -53,19 +53,20 @@ public class DeedProxiesResolver
 
   private void resolveDeed(DeedDescription deed)
   {
+    String name=deed.getName();
     for(DeedProxy parentProxy : deed.getParentDeedProxies().getDeedProxies())
     {
-      resolveDeedProxy(parentProxy);
+      resolveDeedProxy(name,parentProxy);
     }
-    resolveDeedProxy(deed.getNextDeedProxy());
-    resolveDeedProxy(deed.getPreviousDeedProxy());
+    resolveDeedProxy(name,deed.getNextDeedProxy());
+    resolveDeedProxy(name,deed.getPreviousDeedProxy());
     for(DeedProxy childProxy : deed.getChildDeedProxies().getDeedProxies())
     {
-      resolveDeedProxy(childProxy);
+      resolveDeedProxy(name,childProxy);
     }
   }
 
-  private void resolveDeedProxy(DeedProxy proxy)
+  private void resolveDeedProxy(String deedName, DeedProxy proxy)
   {
     if (proxy==null) return;
     String key=proxy.getKey();
@@ -77,7 +78,7 @@ public class DeedProxiesResolver
     }
     else
     {
-      System.out.println("Deed not found for key: "+key);
+      System.out.println("Deed ["+deedName+"]: reference not found to key: "+key+", name: "+proxy.getName());
     }
   }
 }
