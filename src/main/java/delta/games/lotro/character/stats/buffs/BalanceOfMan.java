@@ -29,7 +29,7 @@ public class BalanceOfMan extends AbstractBuffImpl
     // 112: 2820?
     // 113: 3010?
     // 114: 3200?
-    // 115: 3392?
+    // 115: 3392
     // Giseldah:
     // For lvl106-115, Balance of Man and Shield Brawler follow
     // the 2-4x lvl105 scheme with rounded to a precision of 10 for in
@@ -44,6 +44,10 @@ public class BalanceOfMan extends AbstractBuffImpl
       {
         value=10*Math.round(value/10);
       }
+    }
+    else if (level==116)
+    {
+      value=4070;
     }
     else
     {

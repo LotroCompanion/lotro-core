@@ -18,7 +18,13 @@ public class InDefenceOfMiddleEarth extends AbstractBuffImpl
   {
     BasicStatsSet stats=new BasicStatsSet();
     int level=character.getLevel();
+    // TODO Formula is probably wrong
     int value=Math.min(level,85)+Math.max(level-85,0)*3;
+    // Level 115: 247 (Update 23)
+    if (level==115)
+    {
+      value=247;
+    }
     for(STAT stat : TARGETS)
     {
       stats.addStat(stat,new FixedDecimalsInteger(value));

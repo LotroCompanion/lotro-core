@@ -22,7 +22,8 @@ public class SteeledResolve extends AbstractBuffImpl
     Integer tier=buff.getTier();
     if (tier!=null)
     {
-      float factor=0.01f*tier.intValue();
+      // Was 1%, then 2% in Update 23
+      float factor=0.02f*tier.intValue();
       stats.addStat(STAT.MORALE,new FixedDecimalsInteger(morale.floatValue()*factor));
     }
     return stats;

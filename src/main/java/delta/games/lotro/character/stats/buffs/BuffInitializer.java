@@ -91,7 +91,7 @@ public class BuffInitializer
       bom.setImpl(new BalanceOfMan());
       registry.registerBuff(bom);
     }
-    // - Man of the Fourth Age
+    // - Man of the Fourth Age (OK Update 23)
     {
       Buff manOfFourthAge=new Buff("MAN_OF_THE_FOURTH_AGE", RACIAL, "Man of the Fourth Age");
       manOfFourthAge.setIcon("Man_of_the_Fourth_Age-icon");
@@ -109,7 +109,7 @@ public class BuffInitializer
       shieldBrowler.setImpl(new ShieldBrawler());
       registry.registerBuff(shieldBrowler);
     }
-    // - Fateful Dwarf
+    // - Fateful Dwarf (OK Update 23)
     {
       Buff fatefulDwarf=new Buff("FATEFUL_DWARF", RACIAL, "Fateful Dwarf");
       fatefulDwarf.setIcon("Fateful_Dwarf-icon");
@@ -119,7 +119,7 @@ public class BuffInitializer
       registry.registerBuff(fatefulDwarf);
     }
     // Elf
-    // - Friend of Man
+    // - Friend of Man (OK Update 23)
     {
       Buff friendOfMan=new Buff("FRIEND_OF_MAN", RACIAL, "Friend of Man");
       friendOfMan.setIcon("Friend_of_Man-icon");
@@ -129,7 +129,7 @@ public class BuffInitializer
       registry.registerBuff(friendOfMan);
     }
     // Beorning
-    // - Emissary
+    // - Emissary (OK Update 23)
     {
       Buff emissary=new Buff("EMISSARY", RACIAL, "Emissary");
       emissary.setIcon("Emissary_(Beorning_Trait)-icon");
@@ -140,7 +140,7 @@ public class BuffInitializer
     }
     // TODO - Natural Diet: 1% Disease Resistance
     // Hobbit
-    // - Hobbit-Stature
+    // - Hobbit-Stature (OK Update 23)
     {
       Buff hobbitStature=new Buff("HOBBIT_STATURE", RACIAL, "Hobbit-Stature");
       hobbitStature.setIcon("Hobbit-stature-icon");
@@ -172,7 +172,7 @@ public class BuffInitializer
   private void initCaptainBuffs(BuffRegistry registry)
   {
     // Captain buffs
-    // - In Defence of Middle Earth
+    // - In Defence of Middle Earth (OK Update 23)
     {
       Buff idome=new Buff("IN_DEFENCE_OF_MIDDLE_EARTH", CLASS, "In Defence of Middle-Earth");
       idome.setIcon("In_Defence_of_Middle-earth-icon");
@@ -180,7 +180,7 @@ public class BuffInitializer
       idome.setImpl(new InDefenceOfMiddleEarth());
       registry.registerBuff(idome);
     }
-    // - Motivated
+    // - Motivated (OK Update 23)
     {
       Buff motivated=new Buff("MOTIVATED", CLASS, "Motivated");
       motivated.setIcon("Motivating_Speech-icon");
@@ -190,7 +190,7 @@ public class BuffInitializer
     }
 
     // Red tree
-    // - Arterial Strikes
+    // - Arterial Strikes (OK Update 23)
     {
       Buff arterialStrikes=new Buff("ARTERIAL_STRIKES", RED_TREE, "Arterial Strikes");
       arterialStrikes.setIcon("Arterial_Strikes-icon");
@@ -200,10 +200,11 @@ public class BuffInitializer
       {
         buff.addTier(tier,buildBasicSet(STAT.CRITICAL_MELEE_PERCENTAGE,tier));
       }
+      // TODO +20% melee skills critical magnitude at tier 4
       arterialStrikes.setImpl(buff);
       registry.registerBuff(arterialStrikes);
     }
-    // - Martial Prowess
+    // - Martial Prowess (OK Update 23)
     {
       Buff martialProwess=new Buff("MARTIAL_PROWESS", RED_TREE, "Martial Prowess");
       martialProwess.setIcon("Martial_Prowess-icon");
@@ -213,13 +214,13 @@ public class BuffInitializer
       {
         BasicStatsSet stats=new BasicStatsSet();
         stats.addStat(STAT.MELEE_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(tier));
-        //ret.addStat(STAT.ATTACK_SPEED,new FixedDecimalsInteger(5*tier));
+        //ret.addStat(STAT.ATTACK_SPEED,new FixedDecimalsInteger(5*tier)); ; 3%,-6%,-10% attack duration
         buff.addTier(tier,stats);
       }
       martialProwess.setImpl(buff);
       registry.registerBuff(martialProwess);
     }
-    // - Steeled resolve
+    // - Steeled resolve (OK Update 23)
     {
       Buff steeledResolve=new Buff("STEELED_RESOLVE", YELLOW_TREE, "Steeled Resolve");
       steeledResolve.setIcon("Steeled_Resolve-icon");
@@ -234,7 +235,7 @@ public class BuffInitializer
     // Blue tree
     // TODO
     // Red tree
-    // - Critical Chance Increase
+    // - Critical Chance Increase (OK Update 23)
     {
       Buff critChanceIncrease=new Buff("CRIT_CHANCE_INCREASE", RED_TREE, "Critical Chance Increase");
       critChanceIncrease.setIcon("Critical_Chance_Increase-icon");
@@ -276,18 +277,32 @@ public class BuffInitializer
     };
     FormulaBasedBuff buff1=new FormulaBasedBuff(sliceCounts,STAT.MIGHT,formula);
     // 115
-    SimpleTieredBuff buff2=new SimpleTieredBuff();
-    int[] mightBuff={783,939,1096,1252,1566};
-    for(int i=0;i<mightBuff.length;i++)
+    SimpleTieredBuff buff115=new SimpleTieredBuff();
     {
-      BasicStatsSet stats=new BasicStatsSet();
-      stats.addStat(STAT.MIGHT,new FixedDecimalsInteger(mightBuff[i]));
-      buff2.addTier(i+1,stats);
+      int[] mightBuff={783,939,1096,1252,1566};
+      for(int i=0;i<mightBuff.length;i++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.MIGHT,new FixedDecimalsInteger(mightBuff[i]));
+        buff115.addTier(i+1,stats);
+      }
+    }
+    // 116 (OK Update 23)
+    SimpleTieredBuff buff116=new SimpleTieredBuff();
+    {
+      int[] mightBuff={1200,1440,1680,1920,2400};
+      for(int i=0;i<mightBuff.length;i++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.MIGHT,new FixedDecimalsInteger(mightBuff[i]));
+        buff116.addTier(i+1,stats);
+      }
     }
     // Buff
     LevelBasedBuff buff=new LevelBasedBuff();
     buff.defineBuff(1,114,buff1);
-    buff.defineBuff(115,115,buff2);
+    buff.defineBuff(115,115,buff115);
+    buff.defineBuff(116,116,buff116);
     mightIncrease.setImpl(buff);
     registry.registerBuff(mightIncrease);
   }
@@ -306,18 +321,35 @@ public class BuffInitializer
 
     FormulaBasedBuff buff1=new FormulaBasedBuff(sliceCounts,STAT.FINESSE,formula);
     // 115
-    SimpleTieredBuff buff2=new SimpleTieredBuff();
-    int[] mightBuff={4102,8204,12307,16409,20511};
-    for(int i=0;i<mightBuff.length;i++)
+    SimpleTieredBuff buff115=new SimpleTieredBuff();
     {
-      BasicStatsSet stats=new BasicStatsSet();
-      stats.addStat(STAT.FINESSE,new FixedDecimalsInteger(mightBuff[i]));
-      buff2.addTier(i+1,stats);
+      //int[] finesseBuff={4102,8204,12307,16409,20511};
+      // Update 23:
+      int[] finesseBuff={1836,3672,5508,7344,9180};
+      for(int i=0;i<finesseBuff.length;i++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.FINESSE,new FixedDecimalsInteger(finesseBuff[i]));
+        buff115.addTier(i+1,stats);
+      }
+    }
+    // 116
+    SimpleTieredBuff buff116=new SimpleTieredBuff();
+    {
+      // Update 23:
+      int[] finesseBuff={2020,4039,6059,8078,10098};
+      for(int i=0;i<finesseBuff.length;i++)
+      {
+        BasicStatsSet stats=new BasicStatsSet();
+        stats.addStat(STAT.FINESSE,new FixedDecimalsInteger(finesseBuff[i]));
+        buff116.addTier(i+1,stats);
+      }
     }
     // Buff
     LevelBasedBuff buff=new LevelBasedBuff();
     buff.defineBuff(1,114,buff1);
-    buff.defineBuff(115,115,buff2);
+    buff.defineBuff(115,115,buff115);
+    buff.defineBuff(116,116,buff116);
     finesseIncrease.setImpl(buff);
   }
 
@@ -325,21 +357,19 @@ public class BuffInitializer
   {
     // Guardian buffs
     // Red tree
-    // - Overpower
+    // - Overpower (renamed "Valorous Strength in Update 22.2) (OK Update 23)
     {
-      Buff overpower=new Buff("OVERPOWER", RED_TREE, "Overpower");
+      Buff overpower=new Buff("OVERPOWER", RED_TREE, "Valorous Strength");
       overpower.setIcon("Overpower-icon");
       overpower.setRequiredClass(CharacterClass.GUARDIAN);
       BasicStatsSet stats=new BasicStatsSet();
-      stats.addStat(STAT.MELEE_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(5));
-      stats.addStat(STAT.PARTIAL_PARRY_PERCENTAGE,new FixedDecimalsInteger(2.5f));
-      stats.addStat(STAT.PARTIAL_PARRY_MITIGATION_PERCENTAGE,new FixedDecimalsInteger(2.5f));
-      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
+      stats.addStat(STAT.MELEE_DAMAGE_PERCENTAGE,new FixedDecimalsInteger(10));
       // TODO 10% crit damage x
+      SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       overpower.setImpl(buff);
       registry.registerBuff(overpower);
     }
-    // - Heavy Blows
+    // - Heavy Blows (OK Update 23)
     {
       Buff heavyBlows=new Buff("HEAVY_BLOWS", RED_TREE, "Heavy Blows");
       heavyBlows.setIcon("Heavy_Blows-icon");
@@ -351,7 +381,7 @@ public class BuffInitializer
       heavyBlows.setImpl(buff);
       registry.registerBuff(heavyBlows);
     }
-    // - Skilled Deflection
+    // - Skilled Deflection (OK Update 23)
     {
       Buff skilledDeflection=new Buff("SKILLED_DEFLECTION", RED_TREE, "Skilled Deflection");
       skilledDeflection.setIcon("Skilled_Deflection-icon");
@@ -372,7 +402,7 @@ public class BuffInitializer
   {
     // Hunter buffs
     // Red tree
-    // - Critical Eye
+    // - Critical Eye (OK Update 23)
     {
       Buff criticalEye=new Buff("CRITICAL_EYE", RED_TREE, "Critical Eye");
       criticalEye.setIcon("Critical_Eye-icon");
@@ -389,7 +419,7 @@ public class BuffInitializer
     }
     // - Strength TODO
     // Blue tree
-    // - Impact arrows
+    // - Impact arrows (OK Update 23)
     {
       Buff impactArrows=new Buff("IMPACT_ARROWS", BLUE_TREE, "Impact Arrows");
       impactArrows.setIcon("Impact_Arrows-icon");
@@ -417,7 +447,7 @@ public class BuffInitializer
     // Yellow tree
     // Blue tree
     // Red tree
-    // - Critical Strikes
+    // - Critical Strikes (OK Update 23)
     {
       Buff tacticalDamage=new Buff("TACTICAL_DAMAGE", RED_TREE, "Tactical Damage");
       tacticalDamage.setIcon("Tactical_Mastery_(Lore-master_Trait)-icon");
@@ -450,20 +480,37 @@ public class BuffInitializer
       {
         public float compute(int level, float sliceCount)
         {
+          // TODO Probably wrong with Update 23
+          // Level 115: 553.04, 663.64, 829.56, 940.17, 1106.08
           return Slice.getMorale(level,sliceCount);
         }
       };
-      FormulaBasedBuff buff=new FormulaBasedBuff(sliceCounts,STAT.MORALE,formula);
+      FormulaBasedBuff buff1=new FormulaBasedBuff(sliceCounts,STAT.MORALE,formula);
+      // 115 (OK Update 23)
+      SimpleTieredBuff buff115=new SimpleTieredBuff();
+      {
+        int[] moraleBuff={557, 669, 836, 948, 1115};
+        for(int i=0;i<moraleBuff.length;i++)
+        {
+          BasicStatsSet stats=new BasicStatsSet();
+          stats.addStat(STAT.MORALE,new FixedDecimalsInteger(moraleBuff[i]));
+          buff115.addTier(i+1,stats);
+        }
+      }
+      // Buff
+      LevelBasedBuff buff=new LevelBasedBuff();
+      buff.defineBuff(1,114,buff1);
+      buff.defineBuff(115,115,buff115);
       enduringMorale.setImpl(buff);
       registry.registerBuff(enduringMorale);
     }
-    // - Finesse
+    // - Finesse (OK Update 23)
     Buff finesseIncrease=new Buff("FINESSE_MINSTREL", RED_TREE, "Finesse");
     finesseIncrease.setIcon("Finesse_(Minstrel_Trait)-icon");
     finesseIncrease.setRequiredClass(CharacterClass.MINSTREL);
     setupFinesseIncrease(finesseIncrease);
     registry.registerBuff(finesseIncrease);
-    // - Critical Strikes
+    // - Critical Strikes (OK Update 23)
     {
       Buff criticalStrikes=new Buff("CRITICAL_STRIKES", RED_TREE, "Critical Strikes");
       criticalStrikes.setIcon("Critical_Strikes-icon");
@@ -487,7 +534,7 @@ public class BuffInitializer
   {
     // Rune-keeper buffs
     // Yellow tree
-    // - Exacting Wards
+    // - Exacting Wards (OK Update 23)
     {
       Buff exactingWards=new Buff("EXACTING_WARDS", YELLOW_TREE, "Exacting Wards");
       exactingWards.setIcon("Exacting_Wards-icon");
@@ -511,7 +558,10 @@ public class BuffInitializer
       fortuneSmiles.setIcon("Fortune_Smiles-icon");
       fortuneSmiles.setRequiredClass(CharacterClass.RUNE_KEEPER);
       SimpleTieredBuff buff=new SimpleTieredBuff();
-      int[] values={79,94,118,126,158};
+      // TODO use formulas
+      //int[] values={79,94,118,126,158};
+      // Update 23, level 100:
+      int[] values={424,509,594,679,849};
       for(int tier=0;tier<values.length;tier++)
       {
         BasicStatsSet stats=new BasicStatsSet();
@@ -521,7 +571,7 @@ public class BuffInitializer
       fortuneSmiles.setImpl(buff);
       registry.registerBuff(fortuneSmiles);
     }
-    // - Cutting Remarks
+    // - Cutting Remarks (OK Update 23)
     {
       Buff cuttingRemarks=new Buff("CUTTING_REMARKS", YELLOW_TREE, "Cutting Remarks");
       cuttingRemarks.setIcon("Cutting_Remarks-icon");
@@ -544,7 +594,9 @@ public class BuffInitializer
       determination.setRequiredClass(CharacterClass.RUNE_KEEPER);
       SimpleTieredBuff buff=new SimpleTieredBuff();
       // TODO use formulas
-      int[] values={79,94,118,126,158};
+      //int[] values={79,94,118,126,158};
+      // Update 23, level 100:
+      int[] values={424,509,594,679,849};
       for(int tier=0;tier<values.length;tier++)
       {
         BasicStatsSet stats=new BasicStatsSet();
@@ -554,7 +606,7 @@ public class BuffInitializer
       determination.setImpl(buff);
       registry.registerBuff(determination);
     }
-    // - Light on One's Feet
+    // - Light on One's Feet (OK Update 23)
     {
       Buff lightOnOnesFeet=new Buff("LIGHT_ON_ONES_FEET", BLUE_TREE, "Light on One's Feet");
       lightOnOnesFeet.setIcon("Light_on_One's_Feet-icon");
@@ -570,7 +622,7 @@ public class BuffInitializer
       registry.registerBuff(lightOnOnesFeet);
     }
     // Red tree
-    // - Deliberate Address
+    // - Deliberate Address (OK Update 23)
     {
       Buff deliberateAddress=new Buff("DELIBERATE_ADDRESS", RED_TREE, "Deliberate Address");
       deliberateAddress.setIcon("Deliberate_Address-icon");

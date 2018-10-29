@@ -34,6 +34,7 @@ public class ShieldBrawler extends AbstractBuffImpl
       {
         value=10*(int)(value/10);
       }
+      // 115: 8484 (OK Update 23)
     }
     else
     {
