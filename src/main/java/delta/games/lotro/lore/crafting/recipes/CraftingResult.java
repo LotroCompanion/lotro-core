@@ -13,6 +13,16 @@ public class CraftingResult
   private boolean _isCriticalResult;
 
   /**
+   * Constructor.
+   */
+  public CraftingResult()
+  {
+    _quantity=1;
+    _item=null;
+    _isCriticalResult=false;
+  }
+
+  /**
    * Get the quantity of result items.
    * @return A quantity.
    */
