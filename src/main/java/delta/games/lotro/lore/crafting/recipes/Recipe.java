@@ -22,6 +22,7 @@ public class Recipe
   private int _xp;
   private int _cooldown;
   private boolean _oneTimeUse;
+  private boolean _guildRecipe;
   private List<RecipeVersion> _versions;
   private ItemProxy _recipeScroll;
 
@@ -39,6 +40,7 @@ public class Recipe
     _xp=0;
     _cooldown=-1;
     _oneTimeUse=false;
+    _guildRecipe=false;
     _versions=new ArrayList<RecipeVersion>();
     _recipeScroll=null;
   }
@@ -206,6 +208,24 @@ public class Recipe
   }
 
   /**
+   * Indicates if this recipe requires guild access or not.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean isGuildRequired()
+  {
+    return _guildRecipe;
+  }
+
+  /**
+   * Set the 'guild required' flag for this recipe.
+   * @param guildRecipe the value to set.
+   */
+  public void setGuildRequired(boolean guildRecipe)
+  {
+    _guildRecipe=guildRecipe;
+  }
+
+  /**
    * Get the versions of this recipe.
    * @return a list of recipe versions.
    */
@@ -298,6 +318,10 @@ public class Recipe
     if (_oneTimeUse)
     {
       sb.append(" (one time use)");
+    }
+    if (_guildRecipe)
+    {
+      sb.append(" (guild)");
     }
     if (_recipeScroll!=null)
     {

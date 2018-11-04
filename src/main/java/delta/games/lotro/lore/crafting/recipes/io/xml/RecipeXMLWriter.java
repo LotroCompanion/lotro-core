@@ -123,6 +123,12 @@ public class RecipeXMLWriter
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_SINGLE_USE_ATTR,XmlWriter.CDATA,String.valueOf(singleUse));
     }
+    // Guild
+    boolean guildRequired=recipe.isGuildRequired();
+    if (guildRequired)
+    {
+      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_GUILD_ATTR,XmlWriter.CDATA,String.valueOf(guildRequired));
+    }
 
     hd.startElement("","",RecipeXMLConstants.RECIPE_TAG,recipeAttrs);
     ItemProxy ref=recipe.getRecipeScroll();

@@ -40,6 +40,10 @@ public class RecipeXMLConstants
    */
   public static final String RECIPE_SINGLE_USE_ATTR="singleUse";
   /**
+   * Tag 'recipe', attribute 'guild'.
+   */
+  public static final String RECIPE_GUILD_ATTR="guild";
+  /**
    * Tag 'recipe', attribute 'category'.
    */
   public static final String RECIPE_CATEGORY_ATTR="category";

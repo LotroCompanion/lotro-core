@@ -89,6 +89,9 @@ public class RecipeXMLParser
     // Single use
     boolean singleUse=DOMParsingTools.getBooleanAttribute(attrs,RecipeXMLConstants.RECIPE_SINGLE_USE_ATTR,false);
     r.setOneTimeUse(singleUse);
+    // Guild required
+    boolean guildRequired=DOMParsingTools.getBooleanAttribute(attrs,RecipeXMLConstants.RECIPE_GUILD_ATTR,false);
+    r.setGuildRequired(guildRequired);
 
     Element scrollItemElement=DOMParsingTools.getChildTagByName(root,RecipeXMLConstants.SCROLL_ITEM_TAG);
     if (scrollItemElement!=null)
