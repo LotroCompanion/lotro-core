@@ -1,14 +1,50 @@
 package delta.games.lotro.lore.crafting.recipes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import delta.common.utils.text.EndOfLine;
+
 /**
  * Version of a recipe.
  * @author DAM
  */
 public class RecipeVersion
 {
+  private List<Ingredient> _ingredients;
   private CraftingResult _regular;
   private CraftingResult _critical;
   private Integer _baseCriticalChance;
+
+  /**
+   * Constructor.
+   */
+  public RecipeVersion()
+  {
+    _ingredients=new ArrayList<Ingredient>();
+  }
+
+  /**
+   * Get the ingredients for this recipes.
+   * @return a list of ingredients.
+   */
+  public List<Ingredient> getIngredients()
+  {
+    return _ingredients;
+  }
+
+  /**
+   * Set the ingredients for this recipe.
+   * @param ingredients the ingredients to set.
+   */
+  public void setIngredients(List<Ingredient> ingredients)
+  {
+    _ingredients.clear();
+    if (ingredients!=null)
+    {
+      _ingredients.addAll(ingredients);
+    }
+  }
 
   /**
    * Get the regular result of this recipe version.
@@ -64,10 +100,41 @@ public class RecipeVersion
     _baseCriticalChance=baseCriticalChance;
   }
 
+  /**
+   * Clone data.
+   * @return a cloned instance.
+   */
+  public RecipeVersion cloneData()
+  {
+    RecipeVersion ret=new RecipeVersion();
+    ret.setBaseCriticalChance(_baseCriticalChance);
+    for(Ingredient ingredient : _ingredients)
+    {
+      Ingredient newIngredient=ingredient.cloneData();
+      ret._ingredients.add(newIngredient);
+    }
+    if (_regular!=null)
+    {
+      ret._regular=_regular.cloneData();
+    }
+    if (_critical!=null)
+    {
+      ret._critical=_critical.cloneData();
+    }
+    return ret;
+  }
+
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
+    sb.append("Ingredients:");
+    sb.append(EndOfLine.NATIVE_EOL);
+    for(Ingredient ingredient : _ingredients)
+    {
+      sb.append('\t').append(ingredient);
+      sb.append(EndOfLine.NATIVE_EOL);
+    }
     if (_regular!=null)
     {
       sb.append("Regular: ").append(_regular);

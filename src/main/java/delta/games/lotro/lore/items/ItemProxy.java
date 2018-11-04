@@ -133,6 +133,20 @@ public class ItemProxy
     }
   }
 
+  /**
+   * Clone data.
+   * @return a cloned instance.
+   */
+  public ItemProxy cloneData()
+  {
+    ItemProxy ret=new ItemProxy();
+    ret.setId(_id);
+    ret.setIcon(_icon);
+    ret.setItem(_item);
+    ret.setItemKey(_key);
+    return ret;
+  }
+
   @Override
   public String toString()
   {

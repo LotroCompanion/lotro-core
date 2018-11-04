@@ -143,7 +143,7 @@ public class RecipesParser
       {
         Map<String,Object> ingredientData=(Map<String,Object>)ingredientsData.get(key);
         Ingredient ingredient=parseIngredient(ingredientData);
-        recipe.getIngredients().add(ingredient);
+        version.getIngredients().add(ingredient);
       }
     }
     // Optional ingredients
@@ -156,7 +156,7 @@ public class RecipesParser
         Map<String,Object> ingredientData=(Map<String,Object>)ingredientsData.get(key);
         Ingredient ingredient=parseIngredient(ingredientData);
         ingredient.setOptional(true);
-        recipe.getIngredients().add(ingredient);
+        version.getIngredients().add(ingredient);
       }
     }
     return recipe;

@@ -97,37 +97,7 @@ public class RecipeXMLParser
       r.setRecipeScroll(ref);
     }
 
-    // Ingredients
-    List<Ingredient> ingredients=new ArrayList<Ingredient>();
-    List<Element> ingredientElements=DOMParsingTools.getChildTagsByName(root,RecipeXMLConstants.INGREDIENT_TAG);
-    for(Element ingredientElement : ingredientElements)
-    {
-      Ingredient ingredient=new Ingredient();
-      NamedNodeMap ingredientAttrs=ingredientElement.getAttributes();
-      // Quantity
-      int quantity=DOMParsingTools.getIntAttribute(ingredientAttrs,RecipeXMLConstants.INGREDIENT_QUANTITY_ATTR,1);
-      ingredient.setQuantity(quantity);
-      // Optional
-      boolean optional=DOMParsingTools.getBooleanAttribute(ingredientAttrs,RecipeXMLConstants.INGREDIENT_OPTIONAL_ATTR,false);
-      ingredient.setOptional(optional);
-      if (optional)
-      {
-        // Critical chance bonus
-        int criticalChanceBonus=DOMParsingTools.getIntAttribute(ingredientAttrs,RecipeXMLConstants.INGREDIENT_CRITICAL_CHANCE_BONUS_ATTR,0);
-        ingredient.setCriticalChanceBonus((criticalChanceBonus!=0)?Integer.valueOf(criticalChanceBonus):null);
-      }
-      // Item reference
-      Element ingredientItemRef=DOMParsingTools.getChildTagByName(ingredientElement,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
-      if (ingredientItemRef!=null)
-      {
-        ItemProxy ingredientRef=parseItemRef(ingredientItemRef);
-        ingredient.setItem(ingredientRef);
-      }
-      ingredients.add(ingredient);
-    }
-    r.setIngredients(ingredients);
-
-    // Results
+    // Versions
     List<RecipeVersion> versions=new ArrayList<RecipeVersion>();
     List<Element> versionElements=DOMParsingTools.getChildTagsByName(root,RecipeXMLConstants.RECIPE_RESULT_TAG);
     for(Element versionElement : versionElements)
@@ -138,6 +108,37 @@ public class RecipeXMLParser
       int baseCriticalChance=DOMParsingTools.getIntAttribute(versionAttrs,RecipeXMLConstants.RECIPE_RESULT_BASE_CRITICAL_CHANCE_ATTR,0);
       version.setBaseCriticalChance((baseCriticalChance!=0)?Integer.valueOf(baseCriticalChance):null);
 
+      // Ingredients
+      List<Ingredient> ingredients=new ArrayList<Ingredient>();
+      List<Element> ingredientElements=DOMParsingTools.getChildTagsByName(versionElement,RecipeXMLConstants.INGREDIENT_TAG);
+      for(Element ingredientElement : ingredientElements)
+      {
+        Ingredient ingredient=new Ingredient();
+        NamedNodeMap ingredientAttrs=ingredientElement.getAttributes();
+        // Quantity
+        int quantity=DOMParsingTools.getIntAttribute(ingredientAttrs,RecipeXMLConstants.INGREDIENT_QUANTITY_ATTR,1);
+        ingredient.setQuantity(quantity);
+        // Optional
+        boolean optional=DOMParsingTools.getBooleanAttribute(ingredientAttrs,RecipeXMLConstants.INGREDIENT_OPTIONAL_ATTR,false);
+        ingredient.setOptional(optional);
+        if (optional)
+        {
+          // Critical chance bonus
+          int criticalChanceBonus=DOMParsingTools.getIntAttribute(ingredientAttrs,RecipeXMLConstants.INGREDIENT_CRITICAL_CHANCE_BONUS_ATTR,0);
+          ingredient.setCriticalChanceBonus((criticalChanceBonus!=0)?Integer.valueOf(criticalChanceBonus):null);
+        }
+        // Item reference
+        Element ingredientItemRef=DOMParsingTools.getChildTagByName(ingredientElement,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
+        if (ingredientItemRef!=null)
+        {
+          ItemProxy ingredientRef=parseItemRef(ingredientItemRef);
+          ingredient.setItem(ingredientRef);
+        }
+        ingredients.add(ingredient);
+      }
+      version.setIngredients(ingredients);
+
+      // Results
       List<Element> resultElements=DOMParsingTools.getChildTagsByName(versionElement,RecipeXMLConstants.RESULT_TAG);
       for(Element resultElement : resultElements)
       {

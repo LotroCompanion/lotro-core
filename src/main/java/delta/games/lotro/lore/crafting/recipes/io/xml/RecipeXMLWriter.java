@@ -130,62 +130,61 @@ public class RecipeXMLWriter
     {
       writeItemRef(hd,ref,RecipeXMLConstants.SCROLL_ITEM_TAG);
     }
-    // Ingredients
-    List<Ingredient> ingredients=recipe.getIngredients();
-    if (ingredients!=null)
-    {
-      for(Ingredient ingredient : ingredients)
-      {
-        AttributesImpl attrs=new AttributesImpl();
-        int quantity=ingredient.getQuantity();
-        if (quantity!=1)
-        {
-          attrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_QUANTITY_ATTR,XmlWriter.CDATA,String.valueOf(quantity));
-        }
-        if (ingredient.isOptional())
-        {
-          attrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_OPTIONAL_ATTR,XmlWriter.CDATA,"true");
-          Integer criticalChanceBonus=ingredient.getCriticalChanceBonus();
-          if (criticalChanceBonus!=null)
-          {
-            attrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_CRITICAL_CHANCE_BONUS_ATTR,XmlWriter.CDATA,criticalChanceBonus.toString());
-          }
-        }
-        hd.startElement("","",RecipeXMLConstants.INGREDIENT_TAG,attrs);
-        ItemProxy item=ingredient.getItem();
-        if (item!=null)
-        {
-          writeItemRef(hd,item,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
-        }
-        hd.endElement("","",RecipeXMLConstants.INGREDIENT_TAG);
-      }
-    }
 
-    // Results
-    List<RecipeVersion> results=recipe.getVersions();
-    if (results!=null)
+    // Versions
+    List<RecipeVersion> versions=recipe.getVersions();
+    for(RecipeVersion version : versions)
     {
-      for(RecipeVersion result : results)
+      AttributesImpl attrs=new AttributesImpl();
+      Integer baseCriticalChance=version.getBaseCriticalChance();
+      if (baseCriticalChance!=null)
       {
-        AttributesImpl attrs=new AttributesImpl();
-        Integer baseCriticalChance=result.getBaseCriticalChance();
-        if (baseCriticalChance!=null)
-        {
-          attrs.addAttribute("","",RecipeXMLConstants.RECIPE_RESULT_BASE_CRITICAL_CHANCE_ATTR,XmlWriter.CDATA,baseCriticalChance.toString());
-        }
-        hd.startElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG,attrs);
-        CraftingResult regular=result.getRegular();
-        if (regular!=null)
-        {
-          writeCraftingResult(hd,regular);
-        }
-        CraftingResult critical=result.getCritical();
-        if (critical!=null)
-        {
-          writeCraftingResult(hd,critical);
-        }
-        hd.endElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG);
+        attrs.addAttribute("","",RecipeXMLConstants.RECIPE_RESULT_BASE_CRITICAL_CHANCE_ATTR,XmlWriter.CDATA,baseCriticalChance.toString());
       }
+      hd.startElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG,attrs);
+      // Ingredients
+      List<Ingredient> ingredients=version.getIngredients();
+      if (ingredients!=null)
+      {
+        for(Ingredient ingredient : ingredients)
+        {
+          AttributesImpl ingredientsAttrs=new AttributesImpl();
+          int quantity=ingredient.getQuantity();
+          if (quantity!=1)
+          {
+            ingredientsAttrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_QUANTITY_ATTR,XmlWriter.CDATA,String.valueOf(quantity));
+          }
+          if (ingredient.isOptional())
+          {
+            ingredientsAttrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_OPTIONAL_ATTR,XmlWriter.CDATA,"true");
+            Integer criticalChanceBonus=ingredient.getCriticalChanceBonus();
+            if (criticalChanceBonus!=null)
+            {
+              ingredientsAttrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_CRITICAL_CHANCE_BONUS_ATTR,XmlWriter.CDATA,criticalChanceBonus.toString());
+            }
+          }
+          hd.startElement("","",RecipeXMLConstants.INGREDIENT_TAG,ingredientsAttrs);
+          ItemProxy item=ingredient.getItem();
+          if (item!=null)
+          {
+            writeItemRef(hd,item,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
+          }
+          hd.endElement("","",RecipeXMLConstants.INGREDIENT_TAG);
+        }
+      }
+      // Regular result
+      CraftingResult regular=version.getRegular();
+      if (regular!=null)
+      {
+        writeCraftingResult(hd,regular);
+      }
+      // Critical result
+      CraftingResult critical=version.getCritical();
+      if (critical!=null)
+      {
+        writeCraftingResult(hd,critical);
+      }
+      hd.endElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG);
     }
     hd.endElement("","",RecipeXMLConstants.RECIPE_TAG);
   }

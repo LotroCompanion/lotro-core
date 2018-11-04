@@ -68,8 +68,8 @@ public class RecipeUtils
       ret=false;
     }
     // Ingredients
-    List<Ingredient> ingredients1=recipe1.getIngredients();
-    List<Ingredient> ingredients2=recipe2.getIngredients();
+    List<Ingredient> ingredients1=recipe1.getVersions().get(0).getIngredients();
+    List<Ingredient> ingredients2=recipe2.getVersions().get(0).getIngredients();
     int nbIngredients1=ingredients1.size();
     int nbIngredients2=ingredients2.size();
     if (nbIngredients1!=nbIngredients2)

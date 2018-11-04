@@ -77,7 +77,23 @@ public class CraftingResult
   {
     _isCriticalResult=isCriticalResult;
   }
-  
+
+  /**
+   * Clone data.
+   * @return a cloned instance.
+   */
+  public CraftingResult cloneData()
+  {
+    CraftingResult ret=new CraftingResult();
+    if (_item!=null)
+    {
+      ret._item=_item.cloneData();
+    }
+    ret._isCriticalResult=_isCriticalResult;
+    ret._quantity=_quantity;
+    return ret;
+  }
+
   @Override
   public String toString()
   {

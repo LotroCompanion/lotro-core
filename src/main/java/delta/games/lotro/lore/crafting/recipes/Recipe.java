@@ -22,7 +22,6 @@ public class Recipe
   private int _xp;
   private int _cooldown;
   private boolean _oneTimeUse;
-  private List<Ingredient> _ingredients;
   private List<RecipeVersion> _versions;
   private ItemProxy _recipeScroll;
 
@@ -40,7 +39,6 @@ public class Recipe
     _xp=0;
     _cooldown=-1;
     _oneTimeUse=false;
-    _ingredients=new ArrayList<Ingredient>();
     _versions=new ArrayList<RecipeVersion>();
     _recipeScroll=null;
   }
@@ -208,28 +206,6 @@ public class Recipe
   }
 
   /**
-   * Get the ingredients for this recipes.
-   * @return a list of ingredients.
-   */
-  public List<Ingredient> getIngredients()
-  {
-    return _ingredients;
-  }
-
-  /**
-   * Set the ingredients for this recipe.
-   * @param ingredients the ingredients to set.
-   */
-  public void setIngredients(List<Ingredient> ingredients)
-  {
-    _ingredients.clear();
-    if (ingredients!=null)
-    {
-      _ingredients.addAll(ingredients);
-    }
-  }
-
-  /**
    * Get the versions of this recipe.
    * @return a list of recipe versions.
    */
@@ -330,18 +306,11 @@ public class Recipe
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);
-    sb.append("Ingredients:");
+    sb.append("Versions:");
     sb.append(EndOfLine.NATIVE_EOL);
-    for(Ingredient ingredient : _ingredients)
+    for(RecipeVersion version : _versions)
     {
-      sb.append('\t').append(ingredient);
-      sb.append(EndOfLine.NATIVE_EOL);
-    }
-    sb.append("Results:");
-    sb.append(EndOfLine.NATIVE_EOL);
-    for(RecipeVersion results : _versions)
-    {
-      sb.append('\t').append(results);
+      sb.append('\t').append(version);
       sb.append(EndOfLine.NATIVE_EOL);
     }
     return sb.toString().trim();

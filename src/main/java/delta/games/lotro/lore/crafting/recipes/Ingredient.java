@@ -110,6 +110,23 @@ public class Ingredient
     _criticalChanceBonus=criticalChanceBonus;
   }
 
+  /**
+   * Clone data.
+   * @return a cloned instance.
+   */
+  public Ingredient cloneData()
+  {
+    Ingredient ret=new Ingredient();
+    if (_item!=null)
+    {
+      ret._item=_item.cloneData();
+    }
+    ret._criticalChanceBonus=_criticalChanceBonus;
+    ret._optional=_optional;
+    ret._quantity=_quantity;
+    return ret;
+  }
+
   @Override
   public String toString()
   {
