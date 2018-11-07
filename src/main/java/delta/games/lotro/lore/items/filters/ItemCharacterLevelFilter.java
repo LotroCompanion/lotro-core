@@ -6,18 +6,18 @@ import delta.games.lotro.lore.items.Item;
  * Filter items that can be used by a character, because of its level.
  * @author DAM
  */
-public class ItemRequiredLevelFilter implements ItemFilter
+public class ItemCharacterLevelFilter implements ItemFilter
 {
   private boolean _enabled;
-  private int _level;
+  private int _characterLevel;
 
   /**
    * Constructor.
-   * @param level Level to use.
+   * @param characterLevel Character level to use.
    */
-  public ItemRequiredLevelFilter(int level)
+  public ItemCharacterLevelFilter(int characterLevel)
   {
-    _level=level;
+    _characterLevel=characterLevel;
     _enabled=true;
   }
 
@@ -45,11 +45,17 @@ public class ItemRequiredLevelFilter implements ItemFilter
     {
       return true;
     }
+    boolean useable=true;
     Integer itemMinLevel=item.getMinLevel();
-    if (itemMinLevel!=null)
+    if ((itemMinLevel!=null) && (itemMinLevel.intValue()>_characterLevel))
     {
-      return (itemMinLevel.intValue()<=_level);
+      useable=false;
     }
-    return true;
+    Integer itemMaxLevel=item.getMaxLevel();
+    if ((itemMaxLevel!=null) && (itemMaxLevel.intValue()<_characterLevel))
+    {
+      useable=false;
+    }
+    return useable;
   }
 }
