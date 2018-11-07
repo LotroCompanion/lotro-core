@@ -80,6 +80,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_MINLEVEL_ATTR="minLevel";
   /**
+   * Tag 'item', attribute 'maxLevel'.
+   */
+  public static final String ITEM_MAXLEVEL_ATTR="maxLevel";
+  /**
    * Tag 'item', attribute 'requiredClass'.
    */
   public static final String ITEM_REQUIRED_CLASS_ATTR="requiredClass";

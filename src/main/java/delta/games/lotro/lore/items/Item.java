@@ -60,6 +60,8 @@ public class Item
   // Requirements:
   // Minimum level (may be null)
   private Integer _minLevel;
+  // Maximum level (may be null)
+  private Integer _maxLevel;
   // Class (may be null)
   // TODO list of classes
   private CharacterClass _class;
@@ -100,6 +102,7 @@ public class Item
     _durability=null;
     _sturdiness=null;
     _minLevel=null;
+    _maxLevel=null;
     _itemLevel=null;
     _class=null;
     _description=null;
@@ -605,6 +608,25 @@ public class Item
   }
 
   /**
+   * Get the maximum level to use this item.
+   * @return a maximum level value or <code>null</code>.
+   */
+  public Integer getMaxLevel()
+  {
+    return _maxLevel;
+  }
+
+  /**
+   * Set the maximum level to use this item.
+   * @param maxLevel the maximum level as an integer value,
+   * or <code>null</code> for no restriction.
+   */
+  public void setMaxLevel(Integer maxLevel)
+  {
+    _maxLevel=maxLevel;
+  }
+
+  /**
    * Get the item level.
    * @return a level value or <code>null</code>.
    */
@@ -779,6 +801,7 @@ public class Item
     _sturdiness=item._sturdiness;
     _itemLevel=item._itemLevel;
     _minLevel=item._minLevel;
+    _maxLevel=item._maxLevel;
     _class=item._class;
     _description=item._description;
     _value=new Money(item._value);
@@ -865,6 +888,12 @@ public class Item
     {
       sb.append(" (Min level=");
       sb.append(_minLevel);
+      sb.append(')');
+    }
+    if (_maxLevel!=null)
+    {
+      sb.append(" (Max level=");
+      sb.append(_maxLevel);
       sb.append(')');
     }
     if (_itemLevel!=null)

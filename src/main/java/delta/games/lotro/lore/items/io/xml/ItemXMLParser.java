@@ -193,6 +193,12 @@ public class ItemXMLParser
     {
       ret.setMinLevel(Integer.valueOf(minimumLevel));
     }
+    // Maximum level
+    int maximumLevel=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_MAXLEVEL_ATTR,-1);
+    if (maximumLevel!=-1)
+    {
+      ret.setMaxLevel(Integer.valueOf(maximumLevel));
+    }
     // Required class
     CharacterClass cClass=null;
     String requiredClass=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_REQUIRED_CLASS_ATTR,null);

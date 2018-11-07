@@ -250,6 +250,12 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_MINLEVEL_ATTR,CDATA,String.valueOf(minLevel.intValue()));
     }
+    // Maximum level
+    Integer maxLevel=item.getMaxLevel();
+    if (maxLevel!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_MAXLEVEL_ATTR,CDATA,String.valueOf(maxLevel.intValue()));
+    }
     // Required class
     CharacterClass requiredClass=item.getRequiredClass();
     if (requiredClass!=null)
