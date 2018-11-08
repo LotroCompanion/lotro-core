@@ -195,7 +195,7 @@ public class ItemXMLWriter
     }
     // Item level
     Integer itemLevel=item.getItemLevel();
-    if (itemLevel!=null)
+    if ((itemLevel!=null) && (itemLevel.intValue()>1))
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_ATTR,CDATA,String.valueOf(itemLevel.intValue()));
     }
