@@ -31,6 +31,7 @@ public class ArrayProgression implements Progression
     _yValues[index]=y;
   }
 
+  @Override
   public Float getValue(int x)
   {
     for(int i=0;i<_xValues.length;i++)

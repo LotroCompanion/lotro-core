@@ -31,6 +31,28 @@ public class LinearInterpolatingProgression implements Progression
     _yValues[index]=y;
   }
 
+  /**
+   * Reverse interpolation: get the X value for a given y value.
+   * @param y Y value.
+   * @return A X value or <code>null</code> if not supported.
+   */
+  public Float getXValue(float y)
+  {
+    if (y<_yValues[0])
+    {
+      return null;
+    }
+    for(int i=0;i<_yValues.length-1;i++)
+    {
+      if ((y>=_yValues[i]) && (y<=_yValues[i+1]))
+      {
+        float result=_xValues[i]+(_xValues[i+1]-_xValues[i])*(y-_yValues[i])/(_yValues[i+1]-_yValues[i]);
+        return Float.valueOf(result);
+      }
+    }
+    return null;
+  }
+
   @Override
   public Float getValue(int x)
   {
