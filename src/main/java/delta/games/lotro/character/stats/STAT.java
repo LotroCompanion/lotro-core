@@ -242,6 +242,10 @@ public enum STAT
    */
   TACTICAL_MITIGATION_PERCENTAGE("Tactical Mitigation %",true),
   /**
+   * Fire mitigation.
+   */
+  FIRE_MITIGATION("Fire Mitigation"),
+  /**
    * Fire mitigation percentage.
    */
   FIRE_MITIGATION_PERCENTAGE("Fire Mitigation %",true),
@@ -250,13 +254,25 @@ public enum STAT
    */
   LIGHTNING_MITIGATION_PERCENTAGE("Lightning Mitigation %",true),
   /**
+   * Frost mitigation rating.
+   */
+  FROST_MITIGATION("Frost Mitigation"),
+  /**
    * Frost mitigation percentage.
    */
   FROST_MITIGATION_PERCENTAGE("Frost Mitigation %",true),
   /**
+   * Acid mitigation rating.
+   */
+  ACID_MITIGATION("Acid Mitigation"),
+  /**
    * Acid mitigation percentage.
    */
   ACID_MITIGATION_PERCENTAGE("Acid Mitigation %",true),
+  /**
+   * Shadow mitigation percentage.
+   */
+  SHADOW_MITIGATION("Shadow Mitigation"),
   /**
    * Shadow mitigation percentage.
    */
