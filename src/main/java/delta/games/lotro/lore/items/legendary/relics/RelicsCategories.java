@@ -20,18 +20,15 @@ public class RelicsCategories
     "Tier 8",
     "Tier 9",
     "Tier 10",
-    "Unique relics (55)",
-    "Singular relics (60)",
-    "Extraordinary Relics (Level 65)",
-    "Westfold Relics (Level 70)",
-    "Great River Relics (Level 75)",
-    "Eastemnet Relics (Level 80)",
-    "Wildermore Relics (Level 85)",
-    "Westemnet Relics (Level 90)",
-    "Gorgoroth (Last Alliance) (Level 100)",
-    "Crafted",
-    "Retired Settings",
-    "Retired Gems",
-    "Retired Runes"
+    "Unique",
+    "Singular",
+    "Extraordinary",
+    "Westfold",
+    "Great River",
+    "Eastemnet",
+    "Wildermore",
+    "Westemnet",
+    "Gorgoroth",
+    "Crafted"
   };
 }
