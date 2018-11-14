@@ -72,6 +72,8 @@ public class RelicXMLParser
   private Relic parseRelic(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
+    // Identifier
+    int id=DOMParsingTools.getIntAttribute(attrs,RelicXMLConstants.RELIC_ID_ATTR,0);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,RelicXMLConstants.RELIC_NAME_ATTR,null);
     // Type
@@ -80,7 +82,7 @@ public class RelicXMLParser
     // Item level
     int level=DOMParsingTools.getIntAttribute(attrs,RelicXMLConstants.RELIC_LEVEL_ATTR,-1);
     Integer relicLevel=(level!=-1)?Integer.valueOf(level):null;
-    Relic relic=new Relic(name,type,relicLevel);
+    Relic relic=new Relic(id,name,type,relicLevel);
     // Icon filename
     String iconFilename=DOMParsingTools.getStringAttribute(attrs,RelicXMLConstants.RELIC_ICON_FILENAME_ATTR,null);
     relic.setIconFilename(iconFilename);

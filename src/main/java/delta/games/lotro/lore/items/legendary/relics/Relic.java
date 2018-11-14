@@ -8,6 +8,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
  */
 public class Relic
 {
+  private int _identifier;
   private String _name;
   private RelicType _type;
   private String _category;
@@ -17,18 +18,38 @@ public class Relic
 
   /**
    * Constructor.
+   * @param identifier Identifier.
    * @param name Relic name.
    * @param type Type (setting/rune/gem/crafted).
    * @param requiredLevel Required character level.
    */
-  public Relic(String name, RelicType type, Integer requiredLevel)
+  public Relic(int identifier, String name, RelicType type, Integer requiredLevel)
   {
+    _identifier=identifier;
     _name=name;
     _type=type;
     _category=null;
     _iconFilename=null;
     _requiredLevel=requiredLevel;
     _stats=new BasicStatsSet();
+  }
+
+  /**
+   * Get the identifier of this relic.
+   * @return a relic identifier.
+   */
+  public int getIdentifier()
+  {
+    return _identifier;
+  }
+
+  /**
+   * Set the identifier of this relic.
+   * @param identifier the identifier to set.
+   */
+  public void setIdentifier(int identifier)
+  {
+    _identifier=identifier;
   }
 
   /**
@@ -118,6 +139,10 @@ public class Relic
     StringBuilder sb=new StringBuilder();
     sb.append(_name);
     sb.append(" (").append(_type).append(") ");
+    if (_identifier!=0)
+    {
+      sb.append("(ID=").append(_identifier).append(") ");
+    }
     if (_requiredLevel!=null)
     {
       sb.append("(min ").append(_requiredLevel).append(") ");

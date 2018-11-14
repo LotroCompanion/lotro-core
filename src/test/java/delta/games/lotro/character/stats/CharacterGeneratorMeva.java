@@ -318,7 +318,7 @@ public class CharacterGeneratorMeva
     // Relics
     {
       // Setting
-      Relic setting=new Relic("True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
+      Relic setting=new Relic(0,"True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
       BasicStatsSet stats=setting.getStats();
       stats.setStat(STAT.MORALE, 330);
       stats.setStat(STAT.CRITICAL_RATING,1293);
@@ -327,7 +327,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Gem
-      Relic gem=new Relic("True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
+      Relic gem=new Relic(0,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
       BasicStatsSet stats=gem.getStats();
       stats.setStat(STAT.ICPR,90);
       stats.setStat(STAT.CRITICAL_RATING,1212);
@@ -336,7 +336,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Rune
-      Relic rune=new Relic("Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
+      Relic rune=new Relic(0,"Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
       BasicStatsSet stats=rune.getStats();
       stats.setStat(STAT.PHYSICAL_MITIGATION,170);
       stats.setStat(STAT.PHYSICAL_MASTERY,606);
@@ -346,7 +346,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Crafted relic
-      Relic craftedRelic=new Relic("Westemnet Device of Tactics", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
+      Relic craftedRelic=new Relic(0,"Westemnet Device of Tactics", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
       BasicStatsSet stats=craftedRelic.getStats();
       stats.setStat(STAT.WILL,40);
       stats.setStat(STAT.CRITICAL_RATING,740);
@@ -385,7 +385,7 @@ public class CharacterGeneratorMeva
     // Relics
     {
       // Setting
-      Relic setting=new Relic("True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
+      Relic setting=new Relic(0,"True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
       BasicStatsSet stats=setting.getStats();
       stats.setStat(STAT.MORALE, 330);
       stats.setStat(STAT.CRITICAL_RATING,1293);
@@ -394,7 +394,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Gem
-      Relic gem=new Relic("True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
+      Relic gem=new Relic(0,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
       BasicStatsSet stats=gem.getStats();
       stats.setStat(STAT.ICPR,90);
       stats.setStat(STAT.CRITICAL_RATING,1212);
@@ -403,7 +403,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Rune
-      Relic rune=new Relic("Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
+      Relic rune=new Relic(0,"Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
       BasicStatsSet stats=rune.getStats();
       stats.setStat(STAT.PHYSICAL_MITIGATION,170);
       stats.setStat(STAT.PHYSICAL_MASTERY,606);
@@ -413,7 +413,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Crafted relic
-      Relic craftedRelic=new Relic("Westemnet Device of Tactics", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
+      Relic craftedRelic=new Relic(0,"Westemnet Device of Tactics", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
       BasicStatsSet stats=craftedRelic.getStats();
       stats.setStat(STAT.WILL,40);
       stats.setStat(STAT.CRITICAL_RATING,740);

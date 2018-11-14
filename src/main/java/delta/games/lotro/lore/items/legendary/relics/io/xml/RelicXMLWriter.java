@@ -123,6 +123,12 @@ public class RelicXMLWriter
   {
     AttributesImpl relicAttrs=new AttributesImpl();
 
+    // ID
+    int id=relic.getIdentifier();
+    if (id!=0)
+    {
+      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_ID_ATTR,CDATA,String.valueOf(id));
+    }
     // Name
     String name=relic.getName();
     if (name!=null)

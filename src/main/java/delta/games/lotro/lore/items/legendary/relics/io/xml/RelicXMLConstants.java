@@ -23,6 +23,10 @@ public class RelicXMLConstants
    */
   public static final String RELIC_TAG="relic";
   /**
+   * Tag 'relic', attribute 'id'.
+   */
+  public static final String RELIC_ID_ATTR="id";
+  /**
    * Tag 'relic', attribute 'name'.
    */
   public static final String RELIC_NAME_ATTR="name";
