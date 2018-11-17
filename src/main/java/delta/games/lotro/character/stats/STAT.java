@@ -409,7 +409,23 @@ public enum STAT
   /**
    * All skill induction (%).
    */
-  ALL_SKILL_INDUCTION("All Skill Induction (%)",true);
+  ALL_SKILL_INDUCTION("All Skill Induction (%)",true),
+  /**
+   * War-steed Endurance.
+   */
+  WARSTEED_ENDURANCE("War-steed Endurance"),
+  /**
+   * War-steed Power.
+   */
+  WARSTEED_POWER("War-steed Power"),
+  /**
+   * War-steed Agility.
+   */
+  WARSTEED_AGILITY("War-steed Agility"),
+  /**
+   * War-steed Strength.
+   */
+  WARSTEED_STRENGTH("War-steed Strength");
 
   private String _name;
   private String[] _aliases;
