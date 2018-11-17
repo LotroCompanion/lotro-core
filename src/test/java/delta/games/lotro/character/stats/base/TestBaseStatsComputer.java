@@ -3,7 +3,7 @@ package delta.games.lotro.character.stats.base;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
-import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
+import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -20,7 +20,7 @@ public class TestBaseStatsComputer
    */
   public static void main(String[] args)
   {
-    DerivatedStatsContributionsMgr mgr=new DerivatedStatsContributionsMgr();
+    DerivedStatsContributionsMgr mgr=new DerivedStatsContributionsMgr();
     // Test
     BasicStatsSet stats=new BasicStatsSet();
     stats.addStat(STAT.MIGHT,new FixedDecimalsInteger(100));

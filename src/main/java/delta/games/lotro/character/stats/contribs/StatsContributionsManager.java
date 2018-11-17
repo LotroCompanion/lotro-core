@@ -7,7 +7,7 @@ import java.util.Map;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
-import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
+import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.common.CharacterClass;
 
 /**
@@ -64,14 +64,14 @@ public class StatsContributionsManager
    */
   public void compute()
   {
-    DerivatedStatsContributionsMgr derivatedMgr=new DerivatedStatsContributionsMgr();
+    DerivedStatsContributionsMgr derivatedMgr=new DerivedStatsContributionsMgr();
     if (_resolveIndirectContributions)
     {
       for(StatsContribution contrib : _contribs)
       {
         BasicStatsSet stats=contrib.getStats();
-        BasicStatsSet derivated=derivatedMgr.getContribution(_characterClass,stats);
-        stats.addStats(derivated);
+        BasicStatsSet derivedStats=derivatedMgr.getContribution(_characterClass,stats);
+        stats.addStats(derivedStats);
       }
     }
     _sortedContribs=sortByStat();

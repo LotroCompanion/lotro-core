@@ -8,7 +8,8 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterProficiencies;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
-import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
+import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
+import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
 import delta.games.lotro.character.stats.buffs.MoraleFromHopeOrDread;
@@ -208,8 +209,8 @@ public class CharacterStatsComputer
     raw.addStats(buffs);
     raw.addStats(additionalStats);
 
-    // Derivated contributions
-    DerivatedStatsContributionsMgr derivedStatsMgr=new DerivatedStatsContributionsMgr();
+    // Derived contributions
+    DerivedStatsContributionsMgr derivedStatsMgr=DerivedStatContributionsIO.load();
     StatsContributionsManager contribsMgr=_contribs;
     if ((_contribs!=null) && (_contribs.isResolveIndirectContributions()))
     {

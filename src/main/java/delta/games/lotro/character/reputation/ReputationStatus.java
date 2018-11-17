@@ -28,7 +28,7 @@ public class ReputationStatus
   }
 
   /**
-   * Update the data derivated from reputation status (deeds and LOTRO points count).
+   * Update the data derived from reputation status (deeds and LOTRO points count).
    */
   public void update()
   {

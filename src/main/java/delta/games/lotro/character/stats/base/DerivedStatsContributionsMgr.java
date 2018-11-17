@@ -1,15 +1,10 @@
 package delta.games.lotro.character.stats.base;
 
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import delta.common.utils.NumericTools;
-import delta.common.utils.files.TextFileReader;
-import delta.common.utils.text.EncodingNames;
-import delta.common.utils.text.TextUtils;
-import delta.common.utils.url.URLTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
@@ -21,59 +16,109 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  * Manager for derived statistics contributions.
  * @author DAM
  */
-public final class DerivatedStatsContributionsMgr
+public final class DerivedStatsContributionsMgr
 {
-  private static class StatContributionFactor
+  /**
+   * Contribution for a derived stat.
+   * @author DAM
+   */
+  public static class DerivedStatContribution
   {
     private STAT _contributedStat;
     private FixedDecimalsInteger _factor;
+
+    /**
+     * Get the target stat.
+     * @return the target stat.
+     */
+    public STAT getTargetStat()
+    {
+      return _contributedStat;
+    }
+
+    /**
+     * Get the factor.
+     * @return the factor.
+     */
+    public FixedDecimalsInteger getFactor()
+    {
+      return _factor;
+    }
   }
 
-  private static final class DerivedStatContributions
+  /**
+   * Contributions for a single source stat.
+   * @author DAM
+   */
+  public static final class StatContributions
   {
-    private List<StatContributionFactor> _factors;
+    private List<DerivedStatContribution> _factors;
 
-    private DerivedStatContributions()
+    private StatContributions()
     {
-      _factors=new ArrayList<StatContributionFactor>();
+      _factors=new ArrayList<DerivedStatContribution>();
     }
 
     private void addStatContribution(STAT contributedStat, FixedDecimalsInteger factor)
     {
-      StatContributionFactor contrib=new StatContributionFactor();
+      DerivedStatContribution contrib=new DerivedStatContribution();
       contrib._contributedStat=contributedStat;
       contrib._factor=factor;
       _factors.add(contrib);
     }
 
-    private List<StatContributionFactor> getFactors()
+    /**
+     * Get contributions.
+     * @return a list of contributions.
+     */
+    public List<DerivedStatContribution> getFactors()
     {
       return _factors;
     }
   }
 
-  private static final class ClassDerivedStats
+  /**
+   * Derived stats contributions for a single class.
+   * @author DAM
+   */
+  public static final class ClassDerivedStats
   {
-    private HashMap<STAT,DerivedStatContributions> _contributions;
+    private HashMap<STAT,StatContributions> _contributions;
     private ClassDerivedStats()
     {
-      _contributions=new HashMap<STAT,DerivedStatContributions>();
+      _contributions=new HashMap<STAT,StatContributions>();
     }
 
-    private void addStatContribution(STAT primaryStat, STAT contributedStat, FixedDecimalsInteger factor)
+    private void addStatContribution(STAT sourceStat, STAT contributedStat, FixedDecimalsInteger factor)
     {
-      DerivedStatContributions contribs=_contributions.get(primaryStat);
+      StatContributions contribs=_contributions.get(sourceStat);
       if (contribs==null)
       {
-        contribs=new DerivedStatContributions();
-        _contributions.put(primaryStat,contribs);
+        contribs=new StatContributions();
+        _contributions.put(sourceStat,contribs);
       }
       contribs.addStatContribution(contributedStat,factor);
     }
 
-    private DerivedStatContributions getContrib(STAT primaryStat)
+    /**
+     * Get a list of source stats.
+     * @return a list of source stats.
+     */
+    public List<STAT> getSourceStats()
     {
-      return _contributions.get(primaryStat);
+      List<STAT> stats=new ArrayList<STAT>(_contributions.keySet());
+      Collections.sort(stats);
+      return stats;
+    }
+
+    /**
+     * Get the contributions for a single source stat.
+     * @param sourceStat Source stat.
+     * @return Stat contributions.
+     */
+    public StatContributions getContribsForStat(STAT sourceStat)
+    {
+      return _contributions.get(sourceStat);
     }
   }
 
@@ -82,10 +127,19 @@ public final class DerivatedStatsContributionsMgr
   /**
    * Constructor.
    */
-  public DerivatedStatsContributionsMgr()
+  public DerivedStatsContributionsMgr()
   {
     _allContribs=new HashMap<CharacterClass,ClassDerivedStats>();
-    init();
+  }
+
+  /**
+   * Get the derived stats contributions for a single class.
+   * @param characterClass Targeted class.
+   * @return some derived stats contributions.
+   */
+  public ClassDerivedStats getDerivatedStats(CharacterClass characterClass)
+  {
+    return _allContribs.get(characterClass);
   }
 
   /**
@@ -133,11 +187,11 @@ public final class DerivatedStatsContributionsMgr
       FixedDecimalsInteger statValue=set.getStat(stat);
       if (statValue!=null)
       {
-        DerivedStatContributions contrib=classDerivedStats.getContrib(stat);
+        StatContributions contrib=classDerivedStats.getContribsForStat(stat);
         if (contrib!=null)
         {
           BasicStatsSet derivedStats=new BasicStatsSet();
-          for(StatContributionFactor factor : contrib.getFactors())
+          for(DerivedStatContribution factor : contrib.getFactors())
           {
             FixedDecimalsInteger toAdd=new FixedDecimalsInteger(statValue);
             toAdd.multiply(factor._factor);
@@ -155,62 +209,5 @@ public final class DerivatedStatsContributionsMgr
       }
     }
     return result;
-  }
-
-  private void init()
-  {
-    URL url=URLTools.getFromClassPath("derivations.txt",DerivatedStatsContributionsMgr.class.getPackage());
-    TextFileReader r=new TextFileReader(url, EncodingNames.ISO8859_1);
-    List<String> lines=TextUtils.readAsLines(r);
-    CharacterClass[] classes = CharacterClass.ALL_CLASSES;
-    for(String line : lines)
-    {
-      String[] items=line.split("\t");
-      //System.out.println(Arrays.toString(items));
-      String primaryStatStr=items[0].replace('_',' ');
-      STAT primaryStat=STAT.getByName(primaryStatStr);
-      String impactedStatStr=items[1].replace('_',' ').trim();
-      STAT impactedStat=STAT.getByName(impactedStatStr);
-      if (impactedStat==null)
-      {
-        if (impactedStatStr.endsWith("Rating"))
-        {
-          impactedStatStr=impactedStatStr.substring(0,impactedStatStr.length()-6).trim();
-        }
-        impactedStat=STAT.getByName(impactedStatStr);
-      }
-      //System.out.println(primaryStat+"  =>  "+impactedStat);
-      int index=0;
-      for(CharacterClass cClass : classes)
-      {
-        String factorStr = items[2 + index];
-        //System.out.println("\t"+cClass+": "+factorStr);
-        index++;
-        FixedDecimalsInteger factor=getFactor(factorStr);
-        if ((factor!=null) && (factor.getInternalValue()!=0))
-        {
-          setFactor(primaryStat,impactedStat,cClass,factor);
-        }
-      }
-    }
-  }
-
-  private static FixedDecimalsInteger getFactor(String factorStr)
-  {
-    FixedDecimalsInteger ret=null;
-    Integer factor=NumericTools.parseInteger(factorStr,false);
-    if (factor!=null)
-    {
-      ret=new FixedDecimalsInteger(factor.intValue());
-    }
-    else
-    {
-      Float fFactor=NumericTools.parseFloat(factorStr,false);
-      if (fFactor!=null)
-      {
-        ret=new FixedDecimalsInteger(fFactor.floatValue());
-      }
-    }
-    return ret;
   }
 }

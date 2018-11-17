@@ -2,7 +2,7 @@ package delta.games.lotro.character.stats.base;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
-import delta.games.lotro.character.stats.base.DerivatedStatsContributionsMgr;
+import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
@@ -20,9 +20,9 @@ public class TestBaseStatsManager
   {
     BaseStatsManager mgr = new BaseStatsManager();
     BasicStatsSet set = mgr.getBaseStats(CharacterClass.WARDEN, Race.ELF, 1);
-    DerivatedStatsContributionsMgr derivatedMgr = new DerivatedStatsContributionsMgr();
-    BasicStatsSet derivated = derivatedMgr.getContribution(CharacterClass.WARDEN, set);
-    set.addStats(derivated);
+    DerivedStatsContributionsMgr derivatedMgr = new DerivedStatsContributionsMgr();
+    BasicStatsSet derivedStats = derivatedMgr.getContribution(CharacterClass.WARDEN, set);
+    set.addStats(derivedStats);
     System.out.println(set);
     /*
     for(int i=1;i<=100;i++) {
