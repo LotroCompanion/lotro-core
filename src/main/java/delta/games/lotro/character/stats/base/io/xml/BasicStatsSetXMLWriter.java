@@ -17,7 +17,7 @@ public class BasicStatsSetXMLWriter
   private static final String CDATA="CDATA";
 
   /**
-   * Write an set of stats to the given XML stream.
+   * Write a set of stats to the given XML stream.
    * @param hd XML output stream.
    * @param tagName Tag to use to wrap stat tags.
    * @param statsSet Stats to write.
@@ -28,6 +28,21 @@ public class BasicStatsSetXMLWriter
     if (statsSet!=null)
     {
       hd.startElement("","",tagName,new AttributesImpl());
+      writeStats(hd,statsSet);
+      hd.endElement("","",tagName);
+    }
+  }
+
+  /**
+   * Write a set of stats to the given XML stream.
+   * @param hd XML output stream.
+   * @param statsSet Stats to write.
+   * @throws Exception If an error occurs.
+   */
+  public static void writeStats(TransformerHandler hd, BasicStatsSet statsSet) throws Exception
+  {
+    if (statsSet!=null)
+    {
       for(STAT stat : STAT.values())
       {
         AttributesImpl statAttrs=new AttributesImpl();
@@ -42,7 +57,6 @@ public class BasicStatsSetXMLWriter
           hd.endElement("","",BasicStatsSetXMLConstants.STAT_TAG);
         }
       }
-      hd.endElement("","",tagName);
     }
   }
 }
