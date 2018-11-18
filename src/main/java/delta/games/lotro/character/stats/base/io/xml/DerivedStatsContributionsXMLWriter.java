@@ -25,7 +25,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class DerivedStatsContributionsXMLWriter
 {
   /**
-   * Write a start stats manager to a XML file.
+   * Write a derived stats contributions manager to a XML file.
    * @param toFile File to write to.
    * @param statsManager Data to save.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.

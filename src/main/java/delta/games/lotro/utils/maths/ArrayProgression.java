@@ -4,19 +4,50 @@ package delta.games.lotro.utils.maths;
  * Progression that uses predefined Y values for all supported X values.
  * @author DAM
  */
-public class ArrayProgression implements Progression
+public class ArrayProgression extends AbstractProgression implements Progression
 {
   private int[] _xValues;
   private float[] _yValues;
 
   /**
    * Constructor.
+   * @param identifier Identifier.
    * @param size Number of supported points.
    */
-  public ArrayProgression(int size)
+  public ArrayProgression(int identifier, int size)
   {
+    super(identifier);
     _xValues=new int[size];
     _yValues=new float[size];
+  }
+
+  /**
+   * Get the number of points.
+   * @return the number of points.
+   */
+  public int getNumberOfPoints()
+  {
+    return _xValues.length;
+  }
+
+  /**
+   * Get the X value at the specified index.
+   * @param index Point index, starting at 0.
+   * @return A X value.
+   */
+  public int getX(int index)
+  {
+    return _xValues[index];
+  }
+
+  /**
+   * Get the Y value at the specified index.
+   * @param index Point index, starting at 0.
+   * @return A Y value.
+   */
+  public float getY(int index)
+  {
+    return _yValues[index];
   }
 
   /**
