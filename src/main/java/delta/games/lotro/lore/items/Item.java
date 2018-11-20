@@ -10,6 +10,7 @@ import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 
@@ -17,7 +18,7 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
  * Item description.
  * @author DAM
  */
-public class Item
+public class Item implements Identifiable
 {
   // Item identifier
   private int _identifier;

@@ -1,9 +1,13 @@
 package delta.games.lotro.utils.maths.io.xml;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.utils.maths.ArrayProgression;
@@ -17,11 +21,37 @@ import delta.games.lotro.utils.maths.Progression;
 public class ProgressionsXMLParser
 {
   /**
+   * Parse a progressions XML file.
+   * @param source Source file.
+   * @return List of parsed progressions.
+   */
+  public static List<Progression> parseProgressions(File source)
+  {
+    List<Progression> progressions=new ArrayList<Progression>();
+    Element root=DOMParsingTools.parse(source);
+    if (root!=null)
+    {
+      NodeList list=root.getChildNodes();
+      int nbNodes=list.getLength();
+      for(int i=0;i<nbNodes;i++)
+      {
+        Node node=list.item(i);
+        if (node instanceof Element)
+        {
+          Progression progression=parseProgression((Element)node);
+          progressions.add(progression);
+        }
+      }
+    }
+    return progressions;
+  }
+
+  /**
    * Read a progression from an XML tag.
    * @param root Tag to use.
    * @return Parsed data or <code>null</code>.
    */
-  public Progression parseXML(Element root)
+  public static Progression parseProgression(Element root)
   {
     String tagName=root.getTagName();
     if (ProgressionsXMLConstants.ARRAY_PROGRESSION_TAG.equals(tagName))
@@ -35,7 +65,7 @@ public class ProgressionsXMLParser
     return null;
   }
 
-  private ArrayProgression parseArrayProgression(Element root)
+  private static ArrayProgression parseArrayProgression(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     int identifier=DOMParsingTools.getIntAttribute(attrs,ProgressionsXMLConstants.IDENTIFIER_ATTR,0);
@@ -55,7 +85,7 @@ public class ProgressionsXMLParser
     return progression;
   }
 
-  private LinearInterpolatingProgression parseLinearInterpolatingProgression(Element root)
+  private static LinearInterpolatingProgression parseLinearInterpolatingProgression(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     int identifier=DOMParsingTools.getIntAttribute(attrs,ProgressionsXMLConstants.IDENTIFIER_ATTR,0);

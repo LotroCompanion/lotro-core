@@ -8,6 +8,10 @@ package delta.games.lotro.utils.maths.io.xml;
 public class ProgressionsXMLConstants
 {
   /**
+   * Tag 'progressions'.
+   */
+  public static final String PROGRESSIONS_TAG="progressions";
+  /**
    * Tag 'linearInterpolationProgression'.
    */
   public static final String LINEAR_INTERPOLATION_PROGRESSION_TAG="linearInterpolationProgression";
@@ -23,7 +27,6 @@ public class ProgressionsXMLConstants
    * Tag 'arrayProgression' or 'linearInterpolationProgression', attribute 'nbPoints'.
    */
   public static final String NB_POINTS_ATTR="nbPoints";
-  
   /**
    * Tag 'point'.
    */

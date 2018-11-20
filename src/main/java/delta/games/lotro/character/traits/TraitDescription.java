@@ -1,23 +1,24 @@
 package delta.games.lotro.character.traits;
 
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
  * Trait.
  * @author DAM
  */
-public class TraitDescription
+public class TraitDescription implements Identifiable
 {
   /**
    * Trait identifier.
    */
   private int _identifier;
   /**
-   * Trait name (nevel <code>null</code>).
+   * Trait name (never <code>null</code>).
    */
   private String _name;
   /**
-   * Trait description (nevel <code>null</code>).
+   * Trait description (never <code>null</code>).
    */
   private String _description;
   /**
@@ -125,7 +126,7 @@ public class TraitDescription
    * Set the icon ID for this trait.
    * @param iconId Icon ID to set.
    */
-  public void setIcon(int iconId)
+  public void setIconId(int iconId)
   {
     _iconId=iconId;
   }

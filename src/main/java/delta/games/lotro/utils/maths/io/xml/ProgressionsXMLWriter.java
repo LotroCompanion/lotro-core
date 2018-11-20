@@ -1,11 +1,16 @@
 package delta.games.lotro.utils.maths.io.xml;
 
+import java.io.File;
+import java.util.List;
+
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
+import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.utils.maths.ArrayProgression;
 import delta.games.lotro.utils.maths.LinearInterpolatingProgression;
 import delta.games.lotro.utils.maths.Progression;
@@ -16,6 +21,32 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class ProgressionsXMLWriter
 {
+  /**
+   * Write some progressions to a XML file.
+   * @param toFile File to write to.
+   * @param progressions Data to save.
+   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
+   */
+  public static boolean write(File toFile, final List<Progression> progressions)
+  {
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    XmlWriter writer=new XmlWriter()
+    {
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
+      {
+        hd.startElement("","",ProgressionsXMLConstants.PROGRESSIONS_TAG,new AttributesImpl());
+        for(Progression progression : progressions)
+        {
+          write(hd,progression);
+        }
+        hd.endElement("","",ProgressionsXMLConstants.PROGRESSIONS_TAG);
+      }
+    };
+    boolean ret=helper.write(toFile,EncodingNames.UTF_8,writer);
+    return ret;
+  }
+
   /**
    * Write a progression to a XML document.
    * @param hd Transformer handler.
