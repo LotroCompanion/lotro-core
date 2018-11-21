@@ -34,6 +34,12 @@ public class ScalableStatProvider extends AbstractStatProvider
   @Override
   public Float getStatValue(int tier, int level)
   {
-    return _progression.getValue(level);
+    Float ret=_progression.getValue(level);
+    if (ret!=null)
+    {
+      // Fix values if needed
+      ret=Float.valueOf(StatUtils.fixStatValue(getStat(),ret.floatValue()));
+    }
+    return ret;
   }
 }
