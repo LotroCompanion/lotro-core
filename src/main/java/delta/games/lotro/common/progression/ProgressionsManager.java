@@ -34,7 +34,8 @@ public class ProgressionsManager
   {
     if (_instance==null)
     {
-      _instance=new ProgressionsManager(true);
+      _instance=new ProgressionsManager();
+      _instance.loadAll();
     }
     return _instance;
   }
@@ -45,19 +46,6 @@ public class ProgressionsManager
   public ProgressionsManager()
   {
     _map=new HashMap<Integer,Progression>();
-  }
-
-  /**
-   * Private constructor.
-   * @param load Indicates if the traits database shall be loaded or not.
-   */
-  private ProgressionsManager(boolean load)
-  {
-    _map=new HashMap<Integer,Progression>(100);
-    if (load)
-    {
-      loadAll();
-    }
   }
 
   /**

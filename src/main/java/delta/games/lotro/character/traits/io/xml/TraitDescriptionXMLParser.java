@@ -9,6 +9,10 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.stats.StatProvider;
+import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.io.xml.StatsProviderXMLConstants;
+import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 
 /**
  * Parser for trait descriptions stored in XML.
@@ -66,14 +70,13 @@ public class TraitDescriptionXMLParser
     trait.setDescription(description);
 
     // Stats
-    /*
-    Element statsTag=DOMParsingTools.getChildTagByName(root,TraitDescriptionXMLConstants.TRAIT_TIERS_ATTR);
-    if (statsTag!=null)
+    StatsProvider statsProvider=trait.getStatsProvider();
+    List<Element> statTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.STAT_TAG);
+    for(Element statTag : statTags)
     {
-      BasicStatsSet stats=BasicStatsSetXMLParser.parseStats(statsTag);
-      relic.getStats().addStats(stats);
+      StatProvider statProvider=StatsProviderXMLParser.parseStatProvider(statTag);
+      statsProvider.addStatProvider(statProvider);
     }
-    */
     return trait;
   }
 }

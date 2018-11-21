@@ -6,9 +6,11 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.StatProvider;
+import delta.games.lotro.common.stats.TieredScalableStatProvider;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -22,9 +24,8 @@ public class StatsProviderXMLParser
    * @param root Root XML tag.
    * @return A stat provider.
    */
-  private static StatProvider parseStatProvider(Element root)
+  public static StatProvider parseStatProvider(Element root)
   {
-    StatProvider ret=null;
     NamedNodeMap attrs=root.getAttributes();
     // Stat name
     String statName=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_NAME_ATTR,null);
@@ -43,8 +44,25 @@ public class StatsProviderXMLParser
     if (progressionStr!=null)
     {
       int progressionId=NumericTools.parseInt(progressionStr,-1);
-      Progression progression=null;
+      Progression progression=ProgressionsManager.getInstance().getProgression(progressionId);
       return new ScalableStatProvider(stat,progression);
+    }
+    // Tiered scalable stat provider?
+    String tieredProgressionStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_TIERED_SCALING_ATTR,null);
+    if (tieredProgressionStr!=null)
+    {
+      String[] progressionIdStrs=tieredProgressionStr.split(";");
+      int nbTiers=progressionIdStrs.length;
+      TieredScalableStatProvider provider=new TieredScalableStatProvider(stat,nbTiers);
+      int tier=1;
+      for(String progressionIdStr : progressionIdStrs)
+      {
+        int progressionId=NumericTools.parseInt(progressionIdStr,-1);
+        Progression progression=ProgressionsManager.getInstance().getProgression(progressionId);
+        provider.setProgression(tier,progression);
+        tier++;
+      }
+      return provider;
     }
     return null;
   }

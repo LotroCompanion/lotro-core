@@ -32,22 +32,18 @@ public class TraitsManager
   {
     if (_instance==null)
     {
-      _instance=new TraitsManager(true);
+      _instance=new TraitsManager();
+      _instance.loadAll();
     }
     return _instance;
   }
 
   /**
-   * Private constructor.
-   * @param load Indicates if the traits database shall be loaded or not.
+   * Constructor.
    */
-  private TraitsManager(boolean load)
+  public TraitsManager()
   {
     _cache=new HashMap<Integer,TraitDescription>(100);
-    if (load)
-    {
-      loadAll();
-    }
   }
 
   /**
@@ -69,6 +65,15 @@ public class TraitsManager
     long now2=System.currentTimeMillis();
     long duration=now2-now;
     LOGGER.info("Loaded "+_cache.size()+" traits in "+duration+"ms.");
+  }
+
+  /**
+   * Register a new trait.
+   * @param trait Trait to register.
+   */
+  public void registerTrait(TraitDescription trait)
+  {
+    _cache.put(Integer.valueOf(trait.getIdentifier()),trait);
   }
 
   /**

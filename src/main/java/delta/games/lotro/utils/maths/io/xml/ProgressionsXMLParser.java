@@ -78,7 +78,7 @@ public class ProgressionsXMLParser
     {
       NamedNodeMap pointAttrs=pointTag.getAttributes();
       int x=DOMParsingTools.getIntAttribute(pointAttrs,ProgressionsXMLConstants.X_ATTR,0);
-      int y=DOMParsingTools.getIntAttribute(pointAttrs,ProgressionsXMLConstants.Y_ATTR,0);
+      float y=DOMParsingTools.getFloatAttribute(pointAttrs,ProgressionsXMLConstants.Y_ATTR,0);
       progression.set(index,x,y);
       index++;
     }
@@ -98,7 +98,7 @@ public class ProgressionsXMLParser
     {
       NamedNodeMap pointAttrs=pointTag.getAttributes();
       int x=DOMParsingTools.getIntAttribute(pointAttrs,ProgressionsXMLConstants.X_ATTR,0);
-      int y=DOMParsingTools.getIntAttribute(pointAttrs,ProgressionsXMLConstants.Y_ATTR,0);
+      float y=DOMParsingTools.getFloatAttribute(pointAttrs,ProgressionsXMLConstants.Y_ATTR,0);
       progression.set(index,x,y);
       index++;
     }
