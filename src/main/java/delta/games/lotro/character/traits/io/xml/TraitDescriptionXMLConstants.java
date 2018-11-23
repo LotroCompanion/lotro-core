@@ -32,7 +32,7 @@ public class TraitDescriptionXMLConstants
    */
   public static final String TRAIT_ICON_ID_ATTR="iconId";
   /**
-   * Tag 'trait', attribute 'iconId'.
+   * Tag 'trait', attribute 'minLevel'.
    */
   public static final String TRAIT_MIN_LEVEL_ATTR="minLevel";
   /**

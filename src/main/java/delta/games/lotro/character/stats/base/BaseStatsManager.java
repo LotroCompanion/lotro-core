@@ -1,12 +1,17 @@
 package delta.games.lotro.character.stats.base;
 
 import java.util.HashMap;
+import java.util.List;
 
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.StartStatsManagerIO;
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -100,43 +105,32 @@ public class BaseStatsManager
   {
     BasicStatsSet classSet=_startStatsManager.getStats(cClass,level);
     BasicStatsSet raceSet=_raceContrib.get(race);
-    BasicStatsSet levelSet=getLevelContrib(cClass,level);
+    BasicStatsSet classTraitsSet=getClassTraitsContrib(cClass,level);
     BasicStatsSet global=new BasicStatsSet();
     global.addStats(classSet);
     global.addStats(raceSet);
-    global.addStats(levelSet);
+    global.addStats(classTraitsSet);
     global.addStats(_toAdd);
-    // Lore-master: Ancient Wisdom
-    if ((cClass==CharacterClass.LORE_MASTER) && (level>=28))
-    {
-      float willContrib;
-      if (level<=105)
-      {
-        willContrib=1.1f*level;
-      }
-      else
-      {
-        // From LotroPlan 3.12.2
-        willContrib=0.225f*level*level-41.4f*level+1982.375f;
-      }
-      global.addStat(STAT.WILL,new FixedDecimalsInteger(willContrib));
-    }
     return global;
   }
 
-  private BasicStatsSet getLevelContrib(CharacterClass cClass, int level)
+  private BasicStatsSet getClassTraitsContrib(CharacterClass cClass, int level)
   {
-    BasicStatsSet set=new BasicStatsSet();
-    // Critical defence
-    // TODO As a buff
-    float critDef=0;
-    if (cClass==CharacterClass.CAPTAIN) critDef=6.06f*level;
-    else if (cClass==CharacterClass.GUARDIAN) critDef=10.1f*level;
-    else if (cClass==CharacterClass.WARDEN) critDef=20*level;
-    if (critDef>0)
+    ClassesManager classesManager=ClassesManager.getInstance();
+    ClassDescription description=classesManager.getClassDescription(cClass);
+    BasicStatsSet stats=new BasicStatsSet();
+    List<TraitDescription> traits=description.getTraitsForLevel(level);
+    for(TraitDescription trait : traits)
     {
-      set.setStat(STAT.CRITICAL_DEFENCE,critDef);
+      if ("Audacity".equals(trait.getName())) continue;
+      StatsProvider provider=trait.getStatsProvider();
+      BasicStatsSet statsForTrait=provider.getStats(1,level);
+      int nbStats=statsForTrait.getStatsCount();
+      if (nbStats>0)
+      {
+        stats.addStats(statsForTrait);
+      }
     }
-    return set;
+    return stats;
   }
 }

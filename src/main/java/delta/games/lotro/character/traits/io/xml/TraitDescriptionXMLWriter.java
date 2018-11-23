@@ -21,7 +21,7 @@ import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 public class TraitDescriptionXMLWriter
 {
   /**
-   * Write the traits manager to a XML file.
+   * Write some traits to a XML file.
    * @param toFile File to write to.
    * @param traits Data to save.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
@@ -67,7 +67,6 @@ public class TraitDescriptionXMLWriter
     // Description
     String description=trait.getDescription();
     attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
-    trait.getTiersCount();
 
     hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_TAG,attrs);
     // Stats
