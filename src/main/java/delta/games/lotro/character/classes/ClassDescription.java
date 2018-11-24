@@ -93,7 +93,7 @@ public class ClassDescription
   }
 
   /**
-   * Get the class trait for a given character level.
+   * Get the class traits for a given character level.
    * @param level Character level.
    * @return A possibly empty but not <code>null</code> list of traits.
    */

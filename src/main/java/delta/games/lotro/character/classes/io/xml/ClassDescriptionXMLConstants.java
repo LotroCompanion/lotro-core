@@ -36,7 +36,7 @@ public class ClassDescriptionXMLConstants
    */
   public static final String CLASS_TRAIT_MIN_LEVEL_ATTR="minLevel";
   /**
-   * Tag 'classTrait', attribute 'minLevel'.
+   * Tag 'classTrait', attribute 'traitId'.
    */
   public static final String CLASS_TRAIT_ID_ATTR="traitId";
 }
