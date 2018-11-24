@@ -51,4 +51,12 @@ public class RaceDescriptionXMLConstants
    * Tag 'raceTrait', attribute 'traitId'.
    */
   public static final String RACE_TRAIT_ID_ATTR="traitId";
+  /**
+   * Tag 'earnableTrait'.
+   */
+  public static final String EARNABLE_TRAIT_TAG="earnableTrait";
+  /**
+   * Tag 'earnableTrait', attribute 'traitId'.
+   */
+  public static final String EARNABLE_TRAIT_ID_ATTR="traitId";
 }

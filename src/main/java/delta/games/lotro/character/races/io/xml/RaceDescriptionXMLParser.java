@@ -79,6 +79,16 @@ public class RaceDescriptionXMLParser
       RaceTrait raceTrait=new RaceTrait(minLevel,trait);
       description.addTrait(raceTrait);
     }
+    // Earnable traits
+    List<Element> earnableTraitTags=DOMParsingTools.getChildTagsByName(root,RaceDescriptionXMLConstants.EARNABLE_TRAIT_TAG);
+    for(Element earnableTraitTag : earnableTraitTags)
+    {
+      NamedNodeMap traitAttrs=earnableTraitTag.getAttributes();
+      // Trait ID
+      int traitId=DOMParsingTools.getIntAttribute(traitAttrs,RaceDescriptionXMLConstants.EARNABLE_TRAIT_ID_ATTR,0);
+      TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
+      description.addEarnableTrait(trait);
+    }
     return description;
   }
 

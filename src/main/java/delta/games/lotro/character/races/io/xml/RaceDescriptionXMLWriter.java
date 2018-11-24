@@ -14,6 +14,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceGender;
 import delta.games.lotro.character.races.RaceTrait;
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.Race;
 
 /**
@@ -71,6 +72,17 @@ public class RaceDescriptionXMLWriter
       traitAttrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
       hd.startElement("","",RaceDescriptionXMLConstants.RACE_TRAIT_TAG,traitAttrs);
       hd.endElement("","",RaceDescriptionXMLConstants.RACE_TRAIT_TAG);
+    }
+    // Earnable traits
+    List<TraitDescription> earnableTraits=description.getEarnableTraits();
+    for(TraitDescription trait : earnableTraits)
+    {
+      AttributesImpl traitAttrs=new AttributesImpl();
+      // Trait identifier
+      int traitId=trait.getIdentifier();
+      traitAttrs.addAttribute("","",RaceDescriptionXMLConstants.EARNABLE_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
+      hd.startElement("","",RaceDescriptionXMLConstants.EARNABLE_TRAIT_TAG,traitAttrs);
+      hd.endElement("","",RaceDescriptionXMLConstants.EARNABLE_TRAIT_TAG);
     }
     hd.endElement("","",RaceDescriptionXMLConstants.RACE_TAG);
   }

@@ -16,6 +16,7 @@ public class RaceDescription
   private RaceGender _male;
   private RaceGender _female;
   private List<RaceTrait> _traits;
+  private List<TraitDescription> _earnableTraits;
 
   /**
    * Constructor.
@@ -27,6 +28,7 @@ public class RaceDescription
     _male=null;
     _female=null;
     _traits=new ArrayList<RaceTrait>();
+    _earnableTraits=new ArrayList<TraitDescription>();
   }
 
   /**
@@ -90,6 +92,24 @@ public class RaceDescription
   public List<RaceTrait> getTraits()
   {
     return _traits;
+  }
+
+  /**
+   * Add an earnable race trait.
+   * @param trait Trait to add.
+   */
+  public void addEarnableTrait(TraitDescription trait)
+  {
+    _earnableTraits.add(trait);
+  }
+
+  /**
+   * Get all the earnable traits of this race.
+   * @return A list of traits.
+   */
+  public List<TraitDescription> getEarnableTraits()
+  {
+    return _earnableTraits;
   }
 
   /**
