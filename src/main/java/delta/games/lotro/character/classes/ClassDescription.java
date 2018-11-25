@@ -16,6 +16,7 @@ public class ClassDescription
   private int _iconId;
   private int _smallIconId;
   private List<ClassTrait> _traits;
+  private TraitTree _traitTree;
 
   /**
    * Constructor.
@@ -109,5 +110,23 @@ public class ClassDescription
       }
     }
     return traits;
+  }
+
+  /**
+   * Get the trait tree for this class.
+   * @return a trait tree.
+   */
+  public TraitTree getTraitTree()
+  {
+    return _traitTree;
+  }
+
+  /**
+   * Set the trait tree for this class.
+   * @param traitTree Trait tree to set.
+   */
+  public void setTraitTree(TraitTree traitTree)
+  {
+    _traitTree=traitTree;
   }
 }

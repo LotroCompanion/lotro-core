@@ -13,6 +13,10 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassTrait;
+import delta.games.lotro.character.classes.TraitTree;
+import delta.games.lotro.character.classes.TraitTreeBranch;
+import delta.games.lotro.character.classes.TraitTreeProgression;
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 
 /**
@@ -75,6 +79,61 @@ public class ClassDescriptionXMLWriter
       hd.startElement("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TAG,traitAttrs);
       hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TAG);
     }
+    // Trait tree
+    TraitTree tree=description.getTraitTree();
+    if (tree!=null)
+    {
+      hd.startElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_TAG,new AttributesImpl());
+      List<TraitTreeBranch> branches=tree.getBranches();
+      for(TraitTreeBranch branch : branches)
+      {
+        writeTraitTreeBranch(hd,branch);
+      }
+      hd.endElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_TAG);
+    }
     hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TAG);
+  }
+
+  private static void writeTraitTreeBranch(TransformerHandler hd, TraitTreeBranch branch) throws SAXException
+  {
+    AttributesImpl branchAttrs=new AttributesImpl();
+    // Name
+    String name=branch.getName();
+    branchAttrs.addAttribute("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,XmlWriter.CDATA,name);
+    hd.startElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG,branchAttrs);
+    // Progression
+    TraitTreeProgression progression=branch.getProgression();
+    hd.startElement("","",ClassDescriptionXMLConstants.PROGRESSION_TAG,new AttributesImpl());
+    List<Integer> steps=progression.getSteps();
+    List<TraitDescription> traits=progression.getTraits();
+    int nbItems=Math.min(steps.size(),traits.size());
+    for(int i=0;i<nbItems;i++)
+    {
+      AttributesImpl stepAttrs=new AttributesImpl();
+      // Required points
+      stepAttrs.addAttribute("","",ClassDescriptionXMLConstants.STEP_REQUIRED_POINTS_ATTR,XmlWriter.CDATA,steps.get(i).toString());
+      // Trait ID
+      int traitId=traits.get(i).getIdentifier();
+      stepAttrs.addAttribute("","",ClassDescriptionXMLConstants.STEP_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
+      hd.startElement("","",ClassDescriptionXMLConstants.STEP_TAG,stepAttrs);
+      hd.endElement("","",ClassDescriptionXMLConstants.STEP_TAG);
+    }
+    hd.endElement("","",ClassDescriptionXMLConstants.PROGRESSION_TAG);
+    // Cells
+    hd.startElement("","",ClassDescriptionXMLConstants.CELLS_TAG,new AttributesImpl());
+    List<String> cellIds=branch.getCells();
+    for(String cellId : cellIds)
+    {
+      AttributesImpl cellAttrs=new AttributesImpl();
+      // Required points
+      cellAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_ID_ATTR,XmlWriter.CDATA,cellId);
+      // Trait ID
+      int traitId=branch.getTraitForCell(cellId).getIdentifier();
+      cellAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
+      hd.startElement("","",ClassDescriptionXMLConstants.CELL_TAG,cellAttrs);
+      hd.endElement("","",ClassDescriptionXMLConstants.CELL_TAG);
+    }
+    hd.endElement("","",ClassDescriptionXMLConstants.CELLS_TAG);
+    hd.endElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG);
   }
 }

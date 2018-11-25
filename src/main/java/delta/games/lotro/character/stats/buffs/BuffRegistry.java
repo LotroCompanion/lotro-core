@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.buffs.comparators.BuffNameComparator;
 import delta.games.lotro.common.CharacterClass;
@@ -18,6 +20,8 @@ import delta.games.lotro.common.Race;
  */
 public final class BuffRegistry
 {
+  private static final Logger LOGGER=Logger.getLogger(BuffRegistry.class);
+
   private static final BuffRegistry _instance=new BuffRegistry();
   private HashMap<String,Buff> _buffMap;
 
@@ -57,7 +61,11 @@ public final class BuffRegistry
    */
   public void registerBuff(String id, Buff buff)
   {
-    _buffMap.put(id,buff);
+    Buff old=_buffMap.put(id,buff);
+    if (old!=null)
+    {
+      LOGGER.warn("Duplicate buff registration: "+id);
+    }
   }
 
   /**

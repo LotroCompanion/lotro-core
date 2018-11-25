@@ -10,6 +10,9 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassTrait;
+import delta.games.lotro.character.classes.TraitTree;
+import delta.games.lotro.character.classes.TraitTreeBranch;
+import delta.games.lotro.character.classes.TraitTreeProgression;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.CharacterClass;
@@ -73,6 +76,59 @@ public class ClassDescriptionXMLParser
       ClassTrait classTrait=new ClassTrait(minLevel,trait);
       description.addTrait(classTrait);
     }
+    // Traits tree
+    Element traitTreeTag=DOMParsingTools.getChildTagByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_TAG);
+    if (traitTreeTag!=null)
+    {
+      TraitTree tree=parseTraitTree(traitTreeTag);
+      description.setTraitTree(tree);
+    }
     return description;
+  }
+
+  private static TraitTree parseTraitTree(Element root)
+  {
+    TraitTree tree=new TraitTree();
+    List<Element> branchTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG);
+    for(Element branchTag : branchTags)
+    {
+      String name=DOMParsingTools.getStringAttribute(branchTag.getAttributes(),ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,null);
+      TraitTreeBranch branch=new TraitTreeBranch(name);
+      tree.addBranch(branch);
+      // Progression
+      Element progressionTag=DOMParsingTools.getChildTagByName(branchTag,ClassDescriptionXMLConstants.PROGRESSION_TAG);
+      if (progressionTag!=null)
+      {
+        TraitTreeProgression progression=branch.getProgression();
+        List<Element> stepTags=DOMParsingTools.getChildTagsByName(progressionTag,ClassDescriptionXMLConstants.STEP_TAG);
+        for(Element stepTag : stepTags)
+        {
+          NamedNodeMap stepAttrs=stepTag.getAttributes();
+          // Required points
+          int requiredPoints=DOMParsingTools.getIntAttribute(stepAttrs,ClassDescriptionXMLConstants.STEP_REQUIRED_POINTS_ATTR,0);
+          // Trait ID
+          int traitId=DOMParsingTools.getIntAttribute(stepAttrs,ClassDescriptionXMLConstants.STEP_TRAIT_ID_ATTR,0);
+          TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
+          progression.addStep(requiredPoints,trait);
+        }
+      }
+      // Cells
+      Element cellsTag=DOMParsingTools.getChildTagByName(branchTag,ClassDescriptionXMLConstants.CELLS_TAG);
+      if (cellsTag!=null)
+      {
+        List<Element> cellTags=DOMParsingTools.getChildTagsByName(cellsTag,ClassDescriptionXMLConstants.CELL_TAG);
+        for(Element cellTag : cellTags)
+        {
+          NamedNodeMap cellAttrs=cellTag.getAttributes();
+          // Cell ID
+          String cellId=DOMParsingTools.getStringAttribute(cellAttrs,ClassDescriptionXMLConstants.CELL_ID_ATTR,null);
+          // Trait ID
+          int traitId=DOMParsingTools.getIntAttribute(cellAttrs,ClassDescriptionXMLConstants.CELL_TRAIT_ID_ATTR,0);
+          TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
+          branch.setCell(cellId,trait);
+        }
+      }
+    }
+    return tree;
   }
 }
