@@ -3,6 +3,7 @@ package delta.games.lotro.character.stats.buffs;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,6 +47,16 @@ public final class BuffRegistry
   public void registerBuff(Buff buff)
   {
     String id=buff.getId();
+    registerBuff(id,buff);
+  }
+
+  /**
+   * Register a new buff.
+   * @param id Buff ID.
+   * @param buff Buff to register.
+   */
+  public void registerBuff(String id, Buff buff)
+  {
     _buffMap.put(id,buff);
   }
 
@@ -53,9 +64,9 @@ public final class BuffRegistry
    * Get all buffs.
    * @return a list of all buffs.
    */
-  public List<Buff> getAllBuffs()
+  private Set<Buff> getAllBuffs()
   {
-    return new ArrayList<Buff>(_buffMap.values());
+    return new HashSet<Buff>(_buffMap.values());
   }
 
   /**
@@ -69,7 +80,7 @@ public final class BuffRegistry
     List<Buff> ret=new ArrayList<Buff>();
     Set<String> ids=buffs.getBuffId();
     BuffRegistry buffsRegistry=BuffRegistry.getInstance();
-    List<Buff> allBuffs=buffsRegistry.getAllBuffs();
+    Set<Buff> allBuffs=buffsRegistry.getAllBuffs();
     CharacterClass cClass=c.getCharacterClass();
     Race race=c.getRace();
     for(Buff buff : allBuffs)

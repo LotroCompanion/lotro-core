@@ -1,8 +1,13 @@
 package delta.games.lotro.character.stats.buffs;
 
+import java.util.List;
+
+import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.Slice;
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -82,91 +87,29 @@ public class BuffInitializer
 
   private void initRacialBuffs(BuffRegistry registry)
   {
-    // Man
-    // - Balance of Man
+    RacesManager racesManager=RacesManager.getInstance();
+    for(Race race : Race.ALL_RACES)
     {
-      Buff bom=new Buff("BALANCE_OF_MAN", RACIAL, "Balance of Man");
-      bom.setIcon("Balance_of_Man-icon");
-      bom.setRequiredRace(Race.MAN);
-      bom.setImpl(new BalanceOfMan());
-      registry.registerBuff(bom);
+      RaceDescription description=racesManager.getRaceDescription(race);
+      List<TraitDescription> traits=description.getEarnableTraits();
+      for(TraitDescription trait : traits)
+      {
+        int identifier=trait.getIdentifier();
+        String name=trait.getName();
+        Buff buff=new Buff(String.valueOf(identifier),RACIAL,name);
+        int iconId=trait.getIconId();
+        buff.setIcon("/icons/traits/"+iconId+".png");
+        buff.setRequiredRace(race);
+        TraitBuff buffImpl=new TraitBuff(trait);
+        buff.setImpl(buffImpl);
+        registry.registerBuff(buff);
+        String key=trait.getKey();
+        if (key.length()>0)
+        {
+          registry.registerBuff(key,buff);
+        }
+      }
     }
-    // - Man of the Fourth Age (OK Update 23)
-    {
-      Buff manOfFourthAge=new Buff("MAN_OF_THE_FOURTH_AGE", RACIAL, "Man of the Fourth Age");
-      manOfFourthAge.setIcon("Man_of_the_Fourth_Age-icon");
-      manOfFourthAge.setRequiredRace(Race.MAN);
-      RacialStatBuff buff=new RacialStatBuff(STAT.WILL);
-      manOfFourthAge.setImpl(buff);
-      registry.registerBuff(manOfFourthAge);
-    }
-    // Dwarf
-    // - Shield Browler
-    {
-      Buff shieldBrowler=new Buff("SHIELD_BRAWLER", RACIAL, "Shield Brawler");
-      shieldBrowler.setIcon("Shield_Brawler-icon");
-      shieldBrowler.setRequiredRace(Race.DWARF);
-      shieldBrowler.setImpl(new ShieldBrawler());
-      registry.registerBuff(shieldBrowler);
-    }
-    // - Fateful Dwarf (OK Update 23)
-    {
-      Buff fatefulDwarf=new Buff("FATEFUL_DWARF", RACIAL, "Fateful Dwarf");
-      fatefulDwarf.setIcon("Fateful_Dwarf-icon");
-      fatefulDwarf.setRequiredRace(Race.DWARF);
-      RacialStatBuff buff=new RacialStatBuff(STAT.FATE);
-      fatefulDwarf.setImpl(buff);
-      registry.registerBuff(fatefulDwarf);
-    }
-    // Elf
-    // - Friend of Man (OK Update 23)
-    {
-      Buff friendOfMan=new Buff("FRIEND_OF_MAN", RACIAL, "Friend of Man");
-      friendOfMan.setIcon("Friend_of_Man-icon");
-      friendOfMan.setRequiredRace(Race.ELF);
-      RacialStatBuff buff=new RacialStatBuff(STAT.FATE);
-      friendOfMan.setImpl(buff);
-      registry.registerBuff(friendOfMan);
-    }
-    // Beorning
-    // - Emissary (OK Update 23)
-    {
-      Buff emissary=new Buff("EMISSARY", RACIAL, "Emissary");
-      emissary.setIcon("Emissary_(Beorning_Trait)-icon");
-      emissary.setRequiredRace(Race.BEORNING);
-      RacialStatBuff buff=new RacialStatBuff(STAT.FATE);
-      emissary.setImpl(buff);
-      registry.registerBuff(emissary);
-    }
-    // TODO - Natural Diet: 1% Disease Resistance
-    // Hobbit
-    // - Hobbit-Stature (OK Update 23)
-    {
-      Buff hobbitStature=new Buff("HOBBIT_STATURE", RACIAL, "Hobbit-Stature");
-      hobbitStature.setIcon("Hobbit-stature-icon");
-      hobbitStature.setRequiredRace(Race.HOBBIT);
-      RacialStatBuff buff=new RacialStatBuff(STAT.MIGHT);
-      hobbitStature.setImpl(buff);
-      registry.registerBuff(hobbitStature);
-    }
-    // High Elf
-    // - Those Who Remain
-    {
-      Buff thoseWhoRemain=new Buff("THOSE_WHO_REMAIN", RACIAL, "Those Who Remain");
-      thoseWhoRemain.setIcon("Those_who_Remain-icon");
-      thoseWhoRemain.setRequiredRace(Race.HIGH_ELF);
-      RacialStatBuff buff=new RacialStatBuff(STAT.WILL);
-      thoseWhoRemain.setImpl(buff);
-      registry.registerBuff(thoseWhoRemain);
-    }
-    // - Grace of the Firstborn: +10% Out of Combat Run Speed
-    // - Blade Dancer: +2.5% One-handed Sword, +2.5% Two-handed Sword
-    // - Virtuous High Elf: +1 Wisdom, Confidence, Justice
-    // - Enmity of Darkness: +5% Light-type damage
-    // - Wrath of the Firstborn: +5% damage (fellowship, 10s)
-    // - Grace of Valinor: Rez target with 50% morale, 40% power
-    // - Glory of the first age: 5s stun
-    // - Travel to Caras Galadhon in Lothlorien
   }
 
   private void initCaptainBuffs(BuffRegistry registry)

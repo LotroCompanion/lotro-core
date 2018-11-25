@@ -1,6 +1,5 @@
 package delta.games.lotro.character.traits;
 
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.stats.StatsProvider;
 
