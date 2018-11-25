@@ -53,6 +53,9 @@ public class TraitDescriptionXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_IDENTIFIER_ATTR,0);
     trait.setIdentifier(id);
+    // Key
+    String key=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_KEY_ATTR,"");
+    trait.setKey(key);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_NAME_ATTR,null);
     trait.setName(name);

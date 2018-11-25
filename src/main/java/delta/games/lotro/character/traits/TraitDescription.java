@@ -1,5 +1,6 @@
 package delta.games.lotro.character.traits;
 
+import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.stats.StatsProvider;
 
@@ -13,6 +14,10 @@ public class TraitDescription implements Identifiable
    * Trait identifier.
    */
   private int _identifier;
+  /**
+   * Trait/buff internal key (for compatibility with versions<=9.0).
+   */
+  private String _key;
   /**
    * Trait name (never <code>null</code>).
    */
@@ -51,6 +56,7 @@ public class TraitDescription implements Identifiable
   {
     super();
     _identifier=0;
+    _key="";
     _name="";
     _description="";
     _iconId=0;
@@ -75,6 +81,24 @@ public class TraitDescription implements Identifiable
   public void setIdentifier(int identifier)
   {
     _identifier=identifier;
+  }
+
+  /**
+   * Get the key of this trait.
+   * @return a trait key.
+   */
+  public String getKey()
+  {
+    return _key;
+  }
+
+  /**
+   * Set the key of this trait.
+   * @param key the key to set.
+   */
+  public void setKey(String key)
+  {
+    _key=key;
   }
 
   /**

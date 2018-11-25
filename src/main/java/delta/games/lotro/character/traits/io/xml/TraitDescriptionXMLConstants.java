@@ -20,6 +20,10 @@ public class TraitDescriptionXMLConstants
    */
   public static final String TRAIT_IDENTIFIER_ATTR="identifier";
   /**
+   * Tag 'trait', attribute 'key'.
+   */
+  public static final String TRAIT_KEY_ATTR="key";
+  /**
    * Tag 'trait', attribute 'name'.
    */
   public static final String TRAIT_NAME_ATTR="name";

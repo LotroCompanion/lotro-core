@@ -52,6 +52,12 @@ public class TraitDescriptionXMLWriter
     // Identifier
     int id=trait.getIdentifier();
     attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_IDENTIFIER_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Key
+    String key=trait.getKey();
+    if (key.length()>0)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_KEY_ATTR,XmlWriter.CDATA,key);
+    }
     // Name
     String name=trait.getName();
     attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_NAME_ATTR,XmlWriter.CDATA,name);
