@@ -8,6 +8,7 @@ import java.util.Map;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
+import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
 import delta.games.lotro.common.CharacterClass;
 
 /**
@@ -64,7 +65,7 @@ public class StatsContributionsManager
    */
   public void compute()
   {
-    DerivedStatsContributionsMgr derivatedMgr=new DerivedStatsContributionsMgr();
+    DerivedStatsContributionsMgr derivatedMgr=DerivedStatContributionsIO.load();
     if (_resolveIndirectContributions)
     {
       for(StatsContribution contrib : _contribs)
