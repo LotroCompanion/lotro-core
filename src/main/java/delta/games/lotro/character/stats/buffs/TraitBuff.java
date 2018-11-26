@@ -5,8 +5,13 @@ import java.util.List;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.TieredScalableStatProvider;
+import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Buff based on a trait.
@@ -31,7 +36,40 @@ public class TraitBuff extends AbstractBuffImpl
     Integer tier=buff.getTier();
     StatsProvider statsProvider=_trait.getStatsProvider();
     int level=character.getLevel();
-    BasicStatsSet stats=statsProvider.getStats(tier!=null?tier.intValue():1,level);
+    int nbTiers=_trait.getTiersCount();
+    BasicStatsSet stats=new BasicStatsSet();
+    int nbStats=statsProvider.getNumberOfStatProviders();
+    for(int i=0;i<nbStats;i++)
+    {
+      StatProvider provider=statsProvider.getStatProvider(i);
+      int tierValue=(tier!=null)?tier.intValue():1;
+      Float value=null;
+      if (provider instanceof TieredScalableStatProvider)
+      {
+        value=provider.getStatValue(tierValue,level);
+      }
+      else if (provider instanceof ScalableStatProvider)
+      {
+        ScalableStatProvider scalableStatProvider=(ScalableStatProvider)provider;
+        if (nbTiers>1)
+        {
+          value=scalableStatProvider.getStatValue(1,tierValue);
+        }
+        else
+        {
+          value=scalableStatProvider.getStatValue(1,level);
+        }
+      }
+      else
+      {
+        value=provider.getStatValue(1,level);
+      }
+      if (value!=null)
+      {
+        STAT stat=provider.getStat();
+        stats.setStat(stat,new FixedDecimalsInteger(value.floatValue()));
+      }
+    }
     return stats;
   }
 
