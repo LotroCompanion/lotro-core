@@ -24,6 +24,8 @@ import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
+import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
@@ -52,6 +54,25 @@ public class ItemXMLWriter
 
   private static final String CDATA="CDATA";
 
+  private boolean _referenceMode;
+
+  /**
+   * Constructor.
+   */
+  public ItemXMLWriter()
+  {
+    this(false);
+  }
+
+  /**
+   * Constructor.
+   * @param referenceMode Mode to use.
+   */
+  public ItemXMLWriter(boolean referenceMode)
+  {
+    _referenceMode=referenceMode;
+  }
+
   /**
    * Write a file with items.
    * @param toFile Output file.
@@ -64,50 +85,6 @@ public class ItemXMLWriter
     Collections.sort(items,new ItemIdComparator());
     boolean ok=writer.writeItems(toFile,items,EncodingNames.UTF_8);
     return ok;
-  }
-
-  /**
-   * Write an item to a XML file.
-   * @param outFile Output file.
-   * @param item Item to write.
-   * @param encoding Encoding to use.
-   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
-   */
-  public boolean write(File outFile, Item item, String encoding)
-  {
-    boolean ret;
-    FileOutputStream fos=null;
-    try
-    {
-      File parentFile=outFile.getParentFile();
-      if (!parentFile.exists())
-      {
-        parentFile.mkdirs();
-      }
-      fos=new FileOutputStream(outFile);
-      SAXTransformerFactory tf=(SAXTransformerFactory)TransformerFactory.newInstance();
-      TransformerHandler hd=tf.newTransformerHandler();
-      Transformer serializer=hd.getTransformer();
-      serializer.setOutputProperty(OutputKeys.ENCODING,encoding);
-      serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-
-      StreamResult streamResult=new StreamResult(fos);
-      hd.setResult(streamResult);
-      hd.startDocument();
-      write(hd,item);
-      hd.endDocument();
-      ret=true;
-    }
-    catch (Exception exception)
-    {
-      _logger.error("",exception);
-      ret=false;
-    }
-    finally
-    {
-      StreamTools.close(fos);
-    }
-    return ret;
   }
 
   /**
@@ -353,7 +330,15 @@ public class ItemXMLWriter
     }
     // Stats
     BasicStatsSet stats=item.getStats();
-    BasicStatsSetXMLWriter.write(hd,ItemXMLConstants.STATS_TAG,stats);
+    StatsProvider statsProvider=item.getStatsProvider();
+    if ((statsProvider!=null) && (_referenceMode))
+    {
+      StatsProviderXMLWriter.writeXml(hd,ItemXMLConstants.STATS_TAG,statsProvider,stats);
+    }
+    else
+    {
+      BasicStatsSetXMLWriter.write(hd,ItemXMLConstants.STATS_TAG,stats);
+    }
 
     // Essences
     EssencesSet essences=item.getEssences();
