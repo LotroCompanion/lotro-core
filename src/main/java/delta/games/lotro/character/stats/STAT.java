@@ -146,6 +146,10 @@ public enum STAT
    */
   CRITICAL_DEFENCE("Critical Defence", "CRITICAL_AVOID", "Critical avoidance", "Critical Defense Rating"),
   /**
+   * Critical Defence % (melee/ranged/tactical).
+   */
+  CRITICAL_DEFENCE_PERCENTAGE("Critical Defence %",true),
+  /**
    * Critical Defence % (melee).
    */
   MELEE_CRITICAL_DEFENCE("Melee Critical Defence %",true),
@@ -314,9 +318,17 @@ public enum STAT
    */
   STEALTH_LEVEL("Stealth Level"),
   /**
+   * Melee Defence (%).
+   */
+  MELEE_DEFENCE_PERCENTAGE("Melee Defence %", true), // Incoming Melee Damage
+  /**
+   * Tactical Defence (%).
+   */
+  TACTICAL_DEFENCE_PERCENTAGE("Tactical Defence %", true), // Incoming Tactical Damage
+  /**
    * Ranged Defence (%).
    */
-  RANGED_DEFENCE_PERCENTAGE("Ranged Defence %", true, "Ranged Defence"),
+  RANGED_DEFENCE_PERCENTAGE("Ranged Defence %", true, "Ranged Defence"), // Incoming Ranged Damage
   /**
    * Critical chance of ranged auto-attack (percentage).
    */
