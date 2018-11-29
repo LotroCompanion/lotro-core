@@ -45,7 +45,7 @@ public class StatsProviderXMLWriter
     {
       ConstantStatProvider constantProvider=(ConstantStatProvider)provider;
       float value=constantProvider.getValue();
-      attrs.addAttribute("","",StatsProviderXMLConstants.STAT_VALUE_ATTR,XmlWriter.CDATA,String.valueOf(value));
+      attrs.addAttribute("","",StatsProviderXMLConstants.STAT_CONSTANT_ATTR,XmlWriter.CDATA,String.valueOf(value));
     }
     else if (provider instanceof ScalableStatProvider)
     {

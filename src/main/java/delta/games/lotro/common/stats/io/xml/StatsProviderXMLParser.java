@@ -32,10 +32,10 @@ public class StatsProviderXMLParser
     STAT stat=STAT.getByName(statName);
 
     // Constant stat provider?
-    String valueStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_VALUE_ATTR,null);
-    if (valueStr!=null)
+    String constantStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_CONSTANT_ATTR,null);
+    if (constantStr!=null)
     {
-      float value=NumericTools.parseFloat(valueStr,0);
+      float value=NumericTools.parseFloat(constantStr,0);
       ConstantStatProvider constantStatProvider=new ConstantStatProvider(stat,value);
       return constantStatProvider;
     }

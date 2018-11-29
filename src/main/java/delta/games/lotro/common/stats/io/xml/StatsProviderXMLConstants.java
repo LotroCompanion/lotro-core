@@ -20,6 +20,10 @@ public class StatsProviderXMLConstants
    */
   public static final String STAT_VALUE_ATTR="value";
   /**
+   * Tag 'stat', attribute 'constant'.
+   */
+  public static final String STAT_CONSTANT_ATTR="constant";
+  /**
    * Tag 'stat', attribute 'progression'.
    */
   public static final String STAT_SCALING_ATTR="scaling";
