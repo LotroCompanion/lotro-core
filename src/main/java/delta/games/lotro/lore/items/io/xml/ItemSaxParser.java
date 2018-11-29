@@ -18,6 +18,13 @@ import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLConstants;
+import delta.games.lotro.common.progression.ProgressionsManager;
+import delta.games.lotro.common.stats.ConstantStatProvider;
+import delta.games.lotro.common.stats.RangedStatProvider;
+import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.StatProvider;
+import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.io.xml.StatsProviderXMLConstants;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
@@ -37,6 +44,7 @@ import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.maths.Progression;
 
 /**
  * SAX parser for item files.
@@ -269,11 +277,25 @@ public final class ItemSaxParser extends DefaultHandler {
           String propertyValue=attributes.getValue(ItemXMLConstants.PROPERTY_VALUE_ATTR);
           _currentItem.setProperty(propertyName,propertyValue);
         } else if (BasicStatsSetXMLConstants.STAT_TAG.equals(qualifiedName)) {
+          // Stat nale
           String statName=attributes.getValue(BasicStatsSetXMLConstants.STAT_NAME_ATTR);
-          String statValue=attributes.getValue(BasicStatsSetXMLConstants.STAT_VALUE_ATTR);
           STAT stat=STAT.getByName(statName);
+          // Stat value
+          String statValue=attributes.getValue(BasicStatsSetXMLConstants.STAT_VALUE_ATTR);
           FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
           _currentItem.getStats().setStat(stat,value);
+          // Stat provider
+          StatProvider statProvider=parseStatProvider(stat,attributes);
+          if (statProvider!=null)
+          {
+            StatsProvider statsProvider=_currentItem.getStatsProvider();
+            if (statsProvider==null)
+            {
+              statsProvider=new StatsProvider();
+              _currentItem.setStatsProvider(statsProvider);
+            }
+            statsProvider.addStatProvider(statProvider);
+          }
         } else if (MoneyXMLConstants.MONEY_TAG.equals(qualifiedName)) {
           // Item value
           Money money=_currentItem.getValue();
@@ -315,6 +337,60 @@ public final class ItemSaxParser extends DefaultHandler {
         } else {
           // ...
         }
+    }
+
+    private StatProvider parseStatProvider(STAT stat, Attributes attributes)
+    {
+      String constantStr=attributes.getValue(StatsProviderXMLConstants.STAT_CONSTANT_ATTR);
+      if (constantStr!=null)
+      {
+        float value=NumericTools.parseFloat(constantStr,0);
+        ConstantStatProvider constantStatProvider=new ConstantStatProvider(stat,value);
+        return constantStatProvider;
+      }
+      // Scalable stat provider?
+      String progressionStr=attributes.getValue(StatsProviderXMLConstants.STAT_SCALING_ATTR);
+      if (progressionStr!=null)
+      {
+        int progressionId=NumericTools.parseInt(progressionStr,-1);
+        Progression progression=ProgressionsManager.getInstance().getProgression(progressionId);
+        return new ScalableStatProvider(stat,progression);
+      }
+      // Ranged stat provider?
+      String rangedStr=attributes.getValue(StatsProviderXMLConstants.STAT_RANGED_ATTR);
+      if (rangedStr!=null)
+      {
+        return parseRangedStatProvider(stat,rangedStr);
+      }
+      return null;
+    }
+
+    private RangedStatProvider parseRangedStatProvider(STAT stat, String rangedStr)
+    {
+      RangedStatProvider provider=new RangedStatProvider(stat);
+      ProgressionsManager progressionsMgr=ProgressionsManager.getInstance();
+      String[] rangeStrs=rangedStr.split(",");
+      for(String rangeStr : rangeStrs)
+      {
+        int separator=rangeStr.indexOf(':');
+        // Levels
+        String levels=rangeStr.substring(0,separator);
+        int separatorLevels=levels.indexOf('-');
+        String minLevelStr=levels.substring(0,separatorLevels);
+        Integer minLevel=NumericTools.parseInteger(minLevelStr);
+        String maxLevelStr=levels.substring(separatorLevels+1);
+        Integer maxLevel=NumericTools.parseInteger(maxLevelStr);
+        // Progression
+        String progressionStr=rangeStr.substring(separator+1);
+        int progressionId=NumericTools.parseInt(progressionStr,0);
+        Progression progression=progressionsMgr.getProgression(progressionId);
+        if (((minLevel!=null) || (maxLevel!=null)) && (progression!=null))
+        {
+          ScalableStatProvider scalableProvider=new ScalableStatProvider(stat,progression);
+          provider.addRange(minLevel,maxLevel,scalableProvider);
+        }
+      }
+      return provider;
     }
 
     /**
