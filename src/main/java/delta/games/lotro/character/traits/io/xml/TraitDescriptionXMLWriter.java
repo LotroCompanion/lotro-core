@@ -76,7 +76,7 @@ public class TraitDescriptionXMLWriter
 
     hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_TAG,attrs);
     // Stats
-    StatsProviderXMLWriter.writeXml(hd,trait.getStatsProvider());
+    StatsProviderXMLWriter.writeXml(hd,null,trait.getStatsProvider(),null);
     hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_TAG);
   }
 }

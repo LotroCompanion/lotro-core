@@ -31,4 +31,8 @@ public class StatsProviderXMLConstants
    * Tag 'stat', attribute 'tieredScaling'.
    */
   public static final String STAT_TIERED_SCALING_ATTR="tieredScaling";
+  /**
+   * Tag 'stat', attribute 'ranged'.
+   */
+  public static final String STAT_RANGED_ATTR="ranged";
 }
