@@ -13,6 +13,7 @@ import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.utils.maths.Progression;
 import delta.games.lotro.utils.maths.io.xml.ProgressionsXMLParser;
+import delta.games.lotro.utils.maths.io.xml.ProgressionsXMLWriter;
 
 /**
  * Manager for progression curves.
@@ -57,15 +58,24 @@ public class ProgressionsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File loreDir=cfg.getLoreDir();
     File progressionsFile=new File(loreDir,"progressions.xml");
+    loadFromFile(progressionsFile);
+  }
+
+  /**
+   * Load progression from a file.
+   * @param from Source file.
+   */
+  public void loadFromFile(File from)
+  {
     long now=System.currentTimeMillis();
-    List<Progression> progressions=ProgressionsXMLParser.parseProgressions(progressionsFile);
+    List<Progression> progressions=ProgressionsXMLParser.parseProgressions(from);
     for(Progression progression : progressions)
     {
       _map.put(Integer.valueOf(progression.getIdentifier()),progression);
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_map.size()+" progressions in "+duration+"ms.");
+    LOGGER.info("Loaded "+_map.size()+" progressions from file "+from+" in "+duration+"ms.");
   }
 
   /**
@@ -98,5 +108,19 @@ public class ProgressionsManager
     progressions.addAll(_map.values());
     Collections.sort(progressions,new IdentifiableComparator<Progression>());
     return progressions;
+  }
+
+  /**
+   * Write the managed progressions to a XML file.
+   * @param toFile File to write to.
+   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
+   */
+  public boolean writeToFile(File toFile)
+  {
+    int nbProgressions=_map.size();
+    LOGGER.info("Writing "+nbProgressions+" progressions to: "+toFile);
+    List<Progression> progressions=new ArrayList<Progression>(_map.values());
+    Collections.sort(progressions,new IdentifiableComparator<Progression>());
+    return ProgressionsXMLWriter.write(toFile,progressions);
   }
 }
