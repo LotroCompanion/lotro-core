@@ -198,4 +198,13 @@ public class TraitDescription implements Identifiable
   {
     return _stats;
   }
+
+  /**
+   * Set the stats provider.
+   * @param stats Stats to set.
+   */
+  public void setStatsProvider(StatsProvider stats)
+  {
+    _stats=stats;
+  }
 }
