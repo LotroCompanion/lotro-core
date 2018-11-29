@@ -12,6 +12,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 
 /**
@@ -48,6 +49,7 @@ public class Item implements Identifiable
   private List<String> _bonus;
   // Stats
   private BasicStatsSet _stats;
+  private StatsProvider _statsProvider;
   // Essences
   private EssencesSet _essences;
   private int _essenceSlots;
@@ -98,6 +100,7 @@ public class Item implements Identifiable
     _unique=false;
     _bonus=new ArrayList<String>();
     _stats=new BasicStatsSet();
+    _statsProvider=null;
     _essences=null;
     _essenceSlots=0;
     _durability=null;
@@ -490,6 +493,24 @@ public class Item implements Identifiable
   }
 
   /**
+   * Get the stats provider.
+   * @return the stats provider (may be <code>null</code>).
+   */
+  public StatsProvider getStatsProvider()
+  {
+    return _statsProvider;
+  }
+
+  /**
+   * Set the stats provider.
+   * @param statsProvider Provider to set.
+   */
+  public void setStatsProvider(StatsProvider statsProvider)
+  {
+    _statsProvider=statsProvider;
+  }
+
+  /**
    * Set the essences for this item.
    * @param essences Essences to set.
    */
@@ -795,6 +816,7 @@ public class Item implements Identifiable
     _bonus.clear();
     _bonus.addAll(item._bonus);
     _stats=new BasicStatsSet(item._stats);
+    _statsProvider=item._statsProvider;
     // TODO
     _essences=item._essences;
     _essenceSlots=item._essenceSlots;
