@@ -262,8 +262,6 @@ public class ItemXMLWriter
     if (category==ItemCategory.ARMOUR)
     {
       Armour armour=(Armour)item;
-      int armourValue=armour.getArmourValue();
-      itemAttrs.addAttribute("","",ItemXMLConstants.ARMOUR_ATTR,CDATA,String.valueOf(armourValue));
       ArmourType type=armour.getArmourType();
       if (type!=null)
       {

@@ -231,11 +231,6 @@ public final class ItemSaxParser extends DefaultHandler {
           if (category==ItemCategory.ARMOUR)
           {
             Armour armour=(Armour)_currentItem;
-            String armourValueStr=attributes.getValue(ItemXMLConstants.ARMOUR_ATTR);
-            if (armourValueStr!=null)
-            {
-              armour.setArmourValue(Integer.parseInt(armourValueStr));
-            }
             String armourTypeStr=attributes.getValue(ItemXMLConstants.ARMOUR_TYPE_ATTR);
             if (armourTypeStr!=null)
             {

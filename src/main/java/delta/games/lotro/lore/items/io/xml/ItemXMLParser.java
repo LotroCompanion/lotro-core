@@ -9,6 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.common.CharacterClass;
@@ -30,6 +31,7 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLParser;
+import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Parser for item descriptions stored in XML.
@@ -260,7 +262,10 @@ public class ItemXMLParser
     {
       Armour armour=(Armour)ret;
       int armourValue=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ARMOUR_ATTR,0);
-      armour.setArmourValue(armourValue);
+      if (armourValue!=0)
+      {
+        ret.getStats().addStat(STAT.ARMOUR,new FixedDecimalsInteger(armourValue));
+      }
       String armourTypeStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ARMOUR_TYPE_ATTR,null);
       if (armourTypeStr!=null)
       {

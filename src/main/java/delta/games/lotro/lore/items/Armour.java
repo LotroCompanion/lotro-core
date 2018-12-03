@@ -8,8 +8,6 @@ import delta.common.utils.text.EndOfLine;
  */
 public class Armour extends Item
 {
-  private int _armourValue;
-
   private ArmourType _type;
 
   /**
@@ -31,24 +29,6 @@ public class Armour extends Item
     copyFrom(source);
   }
 
-  /**
-   * Get the armour value for this item.
-   * @return an armour value.
-   */
-  public int getArmourValue()
-  {
-    return _armourValue;
-  }
-
-  /**
-   * Set the armour value for this item.
-   * @param armourValue Armour value to set.
-   */
-  public void setArmourValue(int armourValue)
-  {
-    _armourValue=armourValue;
-  }
-  
   /**
    * Get armour type.
    * @return an armour type.
@@ -78,7 +58,6 @@ public class Armour extends Item
     if (item instanceof Armour)
     {
       Armour armour=(Armour)item;
-      _armourValue=armour._armourValue;
       _type=armour._type;
     }
   }
@@ -94,9 +73,7 @@ public class Armour extends Item
     String itemDump=super.dump();
     sb.append(itemDump);
     sb.append(EndOfLine.NATIVE_EOL);
-    sb.append("Armour value=");
-    sb.append(_armourValue);
-    sb.append(", Armour type=");
+    sb.append("Armour type=");
     sb.append(_type);
     return sb.toString();
   }

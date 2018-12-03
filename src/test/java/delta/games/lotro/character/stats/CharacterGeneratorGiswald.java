@@ -159,11 +159,11 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(90));
-    ret.setArmourValue(1024);
     ret.setValue(new Money(0,54,18));
     ret.setArmourType(ArmourType.HEAVY);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(STAT.MIGHT,119);
+    stats.setStat(STAT.ARMOUR,1024);
     EssencesSet essences=new EssencesSet(4);
     Item might=_tools.getEssenceByName(7,"Major Essence of Might");
     //might.getStats().setStat(STAT.MIGHT,119);
@@ -186,11 +186,11 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(80));
-    ret.setArmourValue(1024);
     ret.setValue(new Money(0,53,91));
     ret.setArmourType(ArmourType.HEAVY);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(STAT.MIGHT,119);
+    stats.setStat(STAT.ARMOUR,1024);
     EssencesSet essences=new EssencesSet(4);
     Item morale=_tools.getEssenceByName(7,"Major Essence of Morale");
     //morale.getStats().setStat(STAT.MORALE,765);
@@ -209,11 +209,11 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(65));
-    ret.setArmourValue(1365);
     ret.setArmourType(ArmourType.HEAVY);
     ret.setValue(new Money(0,54,0));
     BasicStatsSet stats=ret.getStats();
     stats.setStat(STAT.MIGHT,119);
+    stats.setStat(STAT.ARMOUR,1365);
     EssencesSet essences=new EssencesSet(4);
     Item morale=_tools.getEssenceByName(7,"Greater Essence of Morale");
     //morale.getStats().setStat(STAT.MORALE,875);
@@ -251,7 +251,6 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(182));
     ret.setMinLevel(Integer.valueOf(95));
     ret.setDurability(Integer.valueOf(40));
-    ret.setArmourValue(1151);
     ret.setArmourType(ArmourType.LIGHT);
     ret.setValue(new Money(0,42,93));
     BasicStatsSet stats=ret.getStats();
@@ -259,6 +258,7 @@ public class CharacterGeneratorGiswald
     stats.setStat(STAT.VITALITY,193);
     stats.setStat(STAT.CRITICAL_RATING,1165);
     stats.setStat(STAT.PHYSICAL_MASTERY,145);
+    stats.setStat(STAT.ARMOUR,1151);
     return ret;
   }
 
@@ -269,13 +269,13 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(201));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(95));
-    ret.setArmourValue(3534);
     ret.setArmourType(ArmourType.HEAVY);
     ret.setValue(new Money(0,0,0));
     BasicStatsSet stats=ret.getStats();
     stats.setStat(STAT.MIGHT,360);
     stats.setStat(STAT.VITALITY,90);
     stats.setStat(STAT.PHYSICAL_MASTERY,1608);
+    stats.setStat(STAT.ARMOUR,3534);
     return ret;
   }
 
@@ -286,7 +286,6 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(201));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(65));
-    ret.setArmourValue(1767);
     ret.setArmourType(ArmourType.HEAVY);
     ret.setValue(new Money(0,0,0));
     BasicStatsSet stats=ret.getStats();
@@ -294,6 +293,7 @@ public class CharacterGeneratorGiswald
     stats.setStat(STAT.VITALITY,90);
     stats.setStat(STAT.MORALE,578);
     stats.setStat(STAT.FINESSE,2450);
+    stats.setStat(STAT.ARMOUR,1767);
     return ret;
   }
 
@@ -304,7 +304,6 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(90));
-    ret.setArmourValue(2838);
     ret.setArmourType(ArmourType.HEAVY);
     ret.setValue(new Money(0,0,0));
     BasicStatsSet stats=ret.getStats();
@@ -312,6 +311,7 @@ public class CharacterGeneratorGiswald
     stats.setStat(STAT.VITALITY,205);
     stats.setStat(STAT.FATE,85);
     stats.setStat(STAT.POWER,377);
+    stats.setStat(STAT.ARMOUR,2838);
     return ret;
   }
 

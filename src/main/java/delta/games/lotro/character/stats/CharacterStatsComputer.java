@@ -23,7 +23,6 @@ import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.VirtueId;
-import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.essences.EssencesSet;
@@ -112,13 +111,6 @@ public class CharacterStatsComputer
           ret.addStats(essenceStats);
         }
       }
-    }
-    // If its an armour, add Armour value
-    if (item instanceof Armour)
-    {
-      Armour armour=(Armour)item;
-      int armourValue=armour.getArmourValue();
-      ret.addStat(STAT.ARMOUR,new FixedDecimalsInteger(armourValue));
     }
     return ret;
   }
