@@ -59,14 +59,42 @@ public class StatsProvider
    */
   public BasicStatsSet getStats(int tier, int level)
   {
+    return getStats(tier,level,false);
+  }
+
+  /**
+   * Compute stats for a given tier and level.
+   * @param tier Tier to use, starting at 1.
+   * @param level Level to use, starting at 1.
+   * @param round Perform rounding to integer values or not.
+   * @return A set of stats.
+   */
+  public BasicStatsSet getStats(int tier, int level, boolean round)
+  {
     BasicStatsSet stats=new BasicStatsSet();
     for(StatProvider provider : _stats)
     {
       Float value=provider.getStatValue(tier,level);
       if (value!=null)
       {
+        FixedDecimalsInteger statValue=null;
         STAT stat=provider.getStat();
-        stats.setStat(stat,new FixedDecimalsInteger(value.floatValue()));
+        float floatValue=value.floatValue();
+        if (round) {
+          if (!stat.isPercentage()) {
+            int intValue;
+            if (stat!=STAT.VITALITY) {
+              intValue=Math.round(floatValue);
+            } else {
+              intValue=(int)(floatValue);
+            }
+            statValue=new FixedDecimalsInteger(intValue);
+          }
+        }
+        if (statValue==null) {
+          statValue=new FixedDecimalsInteger(floatValue);
+        }
+        stats.setStat(stat,statValue);
       }
     }
     return stats;
