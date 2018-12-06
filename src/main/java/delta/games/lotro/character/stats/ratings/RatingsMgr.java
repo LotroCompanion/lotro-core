@@ -130,7 +130,7 @@ public class RatingsMgr
         new Update21RatingCurveSegment(76,76,1,25,4125.0/19,0),
         new Update21RatingCurveSegment(77,100,1,25,540,-24000),
         new Update21RatingCurveSegment(101,105,1,25,3000,-270000),
-        new Update21RatingCurveSegment(106,115,1,25,4000,-270000),
+        new Update21RatingCurveSegment(106,115,1,25,4000,-370000),
         new Update21RatingCurveSegment(116,120,1,25,31500,-3555000)
       };
       _critHit=new Update21RatingCurveImpl(segments);
@@ -279,7 +279,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(76,76,1.6,40,3080.0/19,0),
           new Update21RatingCurveSegment(77,100,1.6,40,403.2,-17920),
           new Update21RatingCurveSegment(101,105,1.6,40,2240,-201600),
-          new Update21RatingCurveSegment(106,115,1.6,40,8960.03,-828800.0/3),
+          new Update21RatingCurveSegment(106,115,1.6,40,8960.0/3,-828800.0/3),
           new Update21RatingCurveSegment(116,120,1.6,40,23520,-2654400)
       };
       // TODO T2 penalty: Floor(OppLvl*13.5)*5
