@@ -81,22 +81,38 @@ public class StatsProvider
         STAT stat=provider.getStat();
         float floatValue=value.floatValue();
         if (round) {
-          if (!stat.isPercentage()) {
+          if (!stat.isPercentage())
+          {
             int intValue;
-            if (stat!=STAT.VITALITY) {
+            if (shallRound(stat))
+            {
               intValue=Math.round(floatValue);
-            } else {
+            }
+            else
+            {
               intValue=(int)(floatValue);
             }
             statValue=new FixedDecimalsInteger(intValue);
           }
         }
-        if (statValue==null) {
+        if (statValue==null)
+        {
           statValue=new FixedDecimalsInteger(floatValue);
         }
         stats.setStat(stat,statValue);
       }
     }
     return stats;
+  }
+
+  private boolean shallRound(STAT stat)
+  {
+    if (stat==STAT.ARMOUR) return false;
+    if (stat==STAT.MIGHT) return false;
+    if (stat==STAT.AGILITY) return false;
+    if (stat==STAT.VITALITY) return false;
+    if (stat==STAT.WILL) return false;
+    if (stat==STAT.FATE) return false;
+    return true;
   }
 }
