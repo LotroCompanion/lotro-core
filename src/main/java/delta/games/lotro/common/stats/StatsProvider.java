@@ -74,13 +74,20 @@ public class StatsProvider
     BasicStatsSet stats=new BasicStatsSet();
     for(StatProvider provider : _stats)
     {
+      StatOperator operator=provider.getOperator();
+      // Ignore multiplicative stats
+      if (operator==StatOperator.MULTIPLY)
+      {
+        continue;
+      }
       Float value=provider.getStatValue(tier,level);
       if (value!=null)
       {
         FixedDecimalsInteger statValue=null;
         STAT stat=provider.getStat();
         float floatValue=value.floatValue();
-        if (round) {
+        if (round)
+        {
           if (!stat.isPercentage())
           {
             int intValue;
@@ -92,11 +99,19 @@ public class StatsProvider
             {
               intValue=(int)(floatValue);
             }
+            if (operator==StatOperator.SUBSTRACT)
+            {
+              intValue=-intValue;
+            }
             statValue=new FixedDecimalsInteger(intValue);
           }
         }
         if (statValue==null)
         {
+          if (operator==StatOperator.SUBSTRACT)
+          {
+            floatValue=-floatValue;
+          }
           statValue=new FixedDecimalsInteger(floatValue);
         }
         stats.setStat(stat,statValue);
