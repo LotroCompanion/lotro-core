@@ -9,6 +9,7 @@ import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
 import delta.games.lotro.utils.maths.Progression;
@@ -31,12 +32,21 @@ public class StatsProviderXMLParser
     String statName=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_NAME_ATTR,null);
     STAT stat=STAT.getByName(statName);
 
+    // Stat operator
+    String operatorStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_OPERATOR_ATTR,null);
+    StatOperator operator=StatOperator.getByName(operatorStr);
+    if (operator==null)
+    {
+      operator=StatOperator.ADD;
+    }
+
     // Constant stat provider?
     String constantStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_CONSTANT_ATTR,null);
     if (constantStr!=null)
     {
       float value=NumericTools.parseFloat(constantStr,0);
       ConstantStatProvider constantStatProvider=new ConstantStatProvider(stat,value);
+      constantStatProvider.setOperator(operator);
       return constantStatProvider;
     }
     // Scalable stat provider?
@@ -45,7 +55,9 @@ public class StatsProviderXMLParser
     {
       int progressionId=NumericTools.parseInt(progressionStr,-1);
       Progression progression=ProgressionsManager.getInstance().getProgression(progressionId);
-      return new ScalableStatProvider(stat,progression);
+      ScalableStatProvider provider=new ScalableStatProvider(stat,progression);
+      provider.setOperator(operator);
+      return provider;
     }
     // Tiered scalable stat provider?
     String tieredProgressionStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_TIERED_SCALING_ATTR,null);
@@ -62,6 +74,7 @@ public class StatsProviderXMLParser
         provider.setProgression(tier,progression);
         tier++;
       }
+      provider.setOperator(operator);
       return provider;
     }
     return null;

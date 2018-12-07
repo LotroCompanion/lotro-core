@@ -22,6 +22,7 @@ import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLConstants;
@@ -284,6 +285,14 @@ public final class ItemSaxParser extends DefaultHandler {
           if (statProvider!=null)
           {
             StatsProvider statsProvider=_currentItem.getStatsProvider();
+            // Stat operator
+            String operatorStr=attributes.getValue(StatsProviderXMLConstants.STAT_OPERATOR_ATTR,null);
+            StatOperator operator=StatOperator.getByName(operatorStr);
+            if (operator==null)
+            {
+              operator=StatOperator.ADD;
+            }
+            statProvider.setOperator(operator);
             if (statsProvider==null)
             {
               statsProvider=new StatsProvider();

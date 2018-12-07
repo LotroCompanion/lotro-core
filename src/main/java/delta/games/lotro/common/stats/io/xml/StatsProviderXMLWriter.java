@@ -12,6 +12,7 @@ import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
@@ -68,6 +69,11 @@ public class StatsProviderXMLWriter
     {
       String valueStr=String.valueOf(statValue.getInternalValue());
       attrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,XmlWriter.CDATA,valueStr);
+    }
+    StatOperator operator=provider.getOperator();
+    if (operator!=StatOperator.ADD)
+    {
+      attrs.addAttribute("","",StatsProviderXMLConstants.STAT_OPERATOR_ATTR,XmlWriter.CDATA,operator.name());
     }
     if (provider instanceof ConstantStatProvider)
     {

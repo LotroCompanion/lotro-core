@@ -20,6 +20,10 @@ public class StatsProviderXMLConstants
    */
   public static final String STAT_VALUE_ATTR="value";
   /**
+   * Tag 'stat', attribute 'operator'.
+   */
+  public static final String STAT_OPERATOR_ATTR="operator";
+  /**
    * Tag 'stat', attribute 'constant'.
    */
   public static final String STAT_CONSTANT_ATTR="constant";

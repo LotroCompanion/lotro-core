@@ -21,4 +21,16 @@ public interface StatProvider
    * @return A value or <code>null</code> if not supported.
    */
   Float getStatValue(int tier, int level);
+
+  /**
+   * Get the operator.
+   * @return the operator.
+   */
+  StatOperator getOperator();
+
+  /**
+   * Set the operator.
+   * @param operator Operator to set.
+   */
+  void setOperator(StatOperator operator);
 }
