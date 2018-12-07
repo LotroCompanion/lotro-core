@@ -71,7 +71,7 @@ public class BaseStatsManager
     for(TraitDescription trait : traits)
     {
       StatsProvider provider=trait.getStatsProvider();
-      BasicStatsSet statsForTrait=provider.getStats(1,level);
+      BasicStatsSet statsForTrait=provider.getStats(1,level,true);
       int nbStats=statsForTrait.getStatsCount();
       if (nbStats>0)
       {
@@ -91,7 +91,7 @@ public class BaseStatsManager
     {
       if ("Audacity".equals(trait.getName())) continue;
       StatsProvider provider=trait.getStatsProvider();
-      BasicStatsSet statsForTrait=provider.getStats(1,level);
+      BasicStatsSet statsForTrait=provider.getStats(1,level,true);
       int nbStats=statsForTrait.getStatsCount();
       if (nbStats>0)
       {
