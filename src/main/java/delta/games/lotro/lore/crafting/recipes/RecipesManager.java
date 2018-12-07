@@ -163,12 +163,13 @@ public final class RecipesManager
   /**
    * Write the managed recipes to the specified file.
    * @param toFile File to write to.
+   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public void writeToFile(File toFile)
+  public boolean  writeToFile(File toFile)
   {
     List<Recipe> recipes=getAll();
     RecipeUtils.sort(recipes);
     RecipeXMLWriter writer=new RecipeXMLWriter();
-    writer.write(toFile,recipes,EncodingNames.UTF_8);
+    return writer.write(toFile,recipes,EncodingNames.UTF_8);
   }
 }
