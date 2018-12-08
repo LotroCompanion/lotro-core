@@ -18,7 +18,7 @@ public class BarterItemSelector implements ItemSelector
     for(Item item : items)
     {
       String subCategory=item.getSubCategory();
-      if ("Barter Item".equals(subCategory))
+      if ("Barter".equals(subCategory))
       {
         selected=item;
       }
