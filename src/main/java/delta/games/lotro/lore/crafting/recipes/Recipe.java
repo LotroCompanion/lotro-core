@@ -5,13 +5,14 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Duration;
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.items.ItemProxy;
 
 /**
  * Recipe description.
  * @author DAM
  */
-public class Recipe
+public class Recipe implements Identifiable
 {
   private int _identifier;
   private String _key;
