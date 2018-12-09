@@ -12,6 +12,11 @@ public class ItemPropertyNames
   public static final String FACTORY_COMMENT="FactoryComment";
 
   /**
+   * Munging.
+   */
+  public static final String MUNGING="Munging";
+
+  /**
    * User comment.
    */
   public static final String USER_COMMENT="UserComment";
@@ -25,11 +30,6 @@ public class ItemPropertyNames
    * Background icon ID.
    */
   public static final String BACKGROUND_ICON_ID="backgroundIconId";
-
-  /**
-   * Icon URL.
-   */
-  public static final String ICON_URL="iconURL";
 
   /**
    * Stash ID.
