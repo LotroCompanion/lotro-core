@@ -74,9 +74,6 @@ public class ItemXMLParser
     }
     ret=ItemFactory.buildItem(category);
     ret.setCategory(category);
-    // Key
-    String key=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_ID_ATTR,null);
-    ret.setKey(key);
     // Icon
     String icon=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_ICON_ATTR,null);
     ret.setIcon(icon);
@@ -103,9 +100,6 @@ public class ItemXMLParser
       slot=EquipmentLocation.getByKey(slotStr);
     }
     ret.setEquipmentLocation(slot);
-    // Icon URL
-    String iconURL=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_ICON_URL_ATTR,null);
-    ret.setIconURL(iconURL);
     // Sub-category
     String subCategory=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_SUBCATEGORY_ATTR,null);
     ret.setSubCategory(subCategory);

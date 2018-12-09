@@ -7,11 +7,6 @@ package delta.games.lotro.lore.items;
 public class ItemPropertyNames
 {
   /**
-   * Item key: "Jacket_of_the_Impossible_Shot", ...
-   */
-  public static final String ITEM_KEY="itemKey";
-
-  /**
    * Factory comment.
    */
   public static final String FACTORY_COMMENT="FactoryComment";
@@ -35,41 +30,6 @@ public class ItemPropertyNames
    * Icon URL.
    */
   public static final String ICON_URL="iconURL";
-
-  /**
-   * Legacy name.
-   */
-  public static final String LEGACY_NAME="legacyName";
-
-  /**
-   * Old tulkas name.
-   */
-  public static final String OLD_TULKAS_NAME="tulkasName";
-
-  /**
-   * Tulkas category (int value).
-   */
-  public static final String TULKAS_CATEGORY="tulkasCategory";
-
-  /**
-   * Legacy category (string).
-   */
-  public static final String LEGACY_CATEGORY="legacyCategory";
-
-  /**
-   * Formulas parameters.
-   */
-  public static final String FORMULAS="formulas";
-
-  /**
-   * Levels.
-   */
-  public static final String LEVELS="levels";
-
-  /**
-   * Scaling type.
-   */
-  public static final String SCALING="scaling";
 
   /**
    * Stash ID.

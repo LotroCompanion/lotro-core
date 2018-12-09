@@ -102,9 +102,6 @@ public final class ItemSaxParser extends DefaultHandler {
           String categoryStr=attributes.getValue(ItemXMLConstants.ITEM_CATEGORY_ATTR);
           ItemCategory category=ItemCategory.valueOf(categoryStr);
           _currentItem=ItemFactory.buildItem(category);
-          // Key
-          String key=attributes.getValue(ItemXMLConstants.ITEM_ID_ATTR);
-          _currentItem.setKey(key);
           // Identifier
           String idStr=attributes.getValue(ItemXMLConstants.ITEM_KEY_ATTR);
           int id=NumericTools.parseInt(idStr,-1);
@@ -132,9 +129,6 @@ public final class ItemSaxParser extends DefaultHandler {
             slot=EquipmentLocation.getByKey(slotStr);
           }
           _currentItem.setEquipmentLocation(slot);
-          // Icon URL
-          String iconURL=attributes.getValue(ItemXMLConstants.ITEM_ICON_URL_ATTR);
-          _currentItem.setIconURL(iconURL);
           // Sub-category
           String subCategory=attributes.getValue(ItemXMLConstants.ITEM_SUBCATEGORY_ATTR);
           _currentItem.setSubCategory(subCategory);

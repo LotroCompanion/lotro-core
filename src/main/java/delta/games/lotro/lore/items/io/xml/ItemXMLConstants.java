@@ -20,10 +20,6 @@ public class ItemXMLConstants
    */
   public static final String ITEM_KEY_ATTR="key";
   /**
-   * Tag 'item', attribute 'id'.
-   */
-  public static final String ITEM_ID_ATTR="id";
-  /**
    * Tag 'item', attribute 'icon'.
    */
   public static final String ITEM_ICON_ATTR="icon";
@@ -43,10 +39,6 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'slot'.
    */
   public static final String ITEM_SLOT_ATTR="slot";
-  /**
-   * Tag 'item', attribute 'iconURL'.
-   */
-  public static final String ITEM_ICON_URL_ATTR="iconURL";
   /**
    * Tag 'item', attribute 'category'.
    */

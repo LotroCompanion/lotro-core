@@ -222,27 +222,6 @@ public class Item implements Identifiable
   }
 
   /**
-   * Get the key of this item.
-   * @return an item key.
-   */
-  public String getKey()
-  {
-    return getProperty(ItemPropertyNames.ITEM_KEY);
-  }
-
-  /**
-   * Set the key of the item.
-   * @param key the key to set.
-   */
-  public void setKey(String key)
-  {
-    if (key!=null)
-    {
-      setProperty(ItemPropertyNames.ITEM_KEY,key);
-    }
-  }
-
-  /**
    * Set the key of the set this item belongs to.
    * @param setKey the set key to set (<code>null</code> if item belongs to no set).
    */
@@ -347,27 +326,6 @@ public class Item implements Identifiable
   public void setName(String name)
   {
     _name=name;
-  }
-
-  /**
-   * Get the URL of the icon for this item.
-   * @return an URL or <code>null</code>.
-   */
-  public String getIconURL()
-  {
-    return _properties.get(ItemPropertyNames.ICON_URL);
-  }
-
-  /**
-   * Set the URL for the icon of this item.
-   * @param iconURL the URL to set.
-   */
-  public void setIconURL(String iconURL)
-  {
-    if (iconURL!=null)
-    {
-      setProperty(ItemPropertyNames.ICON_URL,iconURL);
-    }
   }
 
   /**
