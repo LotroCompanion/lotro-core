@@ -105,4 +105,17 @@ public class LinearInterpolatingProgression extends AbstractProgression implemen
     }
     return null;
   }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    int nbPoints=_xValues.length;
+    for(int i=0;i<nbPoints;i++)
+    {
+      if (i>0) sb.append(", ");
+      sb.append(_xValues[i]).append(':').append(_yValues[i]);
+    }
+    return sb.toString();
+  }
 }
