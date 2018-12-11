@@ -157,7 +157,7 @@ public class CharacterXMLWriter
       if (item!=null)
       {
         ItemXMLWriter writer=new ItemXMLWriter();
-        writer.write(hd,item);
+        writer.writeItemInstance(hd,item);
       }
       hd.endElement("","",CharacterXMLConstants.SLOT_TAG);
     }

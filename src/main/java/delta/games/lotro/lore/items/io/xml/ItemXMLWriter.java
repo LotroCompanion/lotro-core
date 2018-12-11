@@ -54,23 +54,12 @@ public class ItemXMLWriter
 
   private static final String CDATA="CDATA";
 
-  private boolean _referenceMode;
-
   /**
    * Constructor.
    */
   public ItemXMLWriter()
   {
-    this(false);
-  }
-
-  /**
-   * Constructor.
-   * @param referenceMode Mode to use.
-   */
-  public ItemXMLWriter(boolean referenceMode)
-  {
-    _referenceMode=referenceMode;
+    // Nothing!
   }
 
   /**
@@ -142,7 +131,30 @@ public class ItemXMLWriter
    * @param item Item to write.
    * @throws Exception If an error occurs.
    */
+  public void writeItemInstance(TransformerHandler hd, Item item) throws Exception
+  {
+    write(hd,item,true);
+  }
+
+  /**
+   * Write an item to the given XML stream.
+   * @param hd XML output stream.
+   * @param item Item to write.
+   * @throws Exception If an error occurs.
+   */
   public void write(TransformerHandler hd, Item item) throws Exception
+  {
+    write(hd,item,false);
+  }
+
+  /**
+   * Write an item to the given XML stream.
+   * @param hd XML output stream.
+   * @param item Item to write.
+   * @param instance Write an instance or a model.
+   * @throws Exception If an error occurs.
+   */
+  private void write(TransformerHandler hd, Item item, boolean instance) throws Exception
   {
     AttributesImpl itemAttrs=new AttributesImpl();
 
@@ -329,7 +341,7 @@ public class ItemXMLWriter
     // Stats
     BasicStatsSet stats=item.getStats();
     StatsProvider statsProvider=item.getStatsProvider();
-    if ((statsProvider!=null) && (_referenceMode))
+    if ((statsProvider!=null) && (!instance))
     {
       StatsProviderXMLWriter.writeXml(hd,ItemXMLConstants.STATS_TAG,statsProvider,stats);
     }

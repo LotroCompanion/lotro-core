@@ -81,7 +81,7 @@ public class StashXMLWriter
       ItemXMLWriter writer=new ItemXMLWriter();
       for(Item item : items)
       {
-        writer.write(hd,item);
+        writer.writeItemInstance(hd,item);
       }
     }
     hd.endElement("","",StashXMLConstants.STASH_TAG);
