@@ -336,6 +336,7 @@ public class CharacterEquipment
           {
             item.setProperty(entry.getKey(),entry.getValue());
           }
+          item.setStatsProvider(referenceItem.getStatsProvider());
         }
       }
     }
