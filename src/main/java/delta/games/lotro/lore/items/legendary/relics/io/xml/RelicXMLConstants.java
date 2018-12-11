@@ -35,6 +35,10 @@ public class RelicXMLConstants
    */
   public static final String RELIC_TYPE_ATTR="type";
   /**
+   * Tag 'relic', attribute 'bridle'.
+   */
+  public static final String RELIC_BRIDLE_ATTR="bridle";
+  /**
    * Tag 'relic', attribute 'level'.
    */
   public static final String RELIC_LEVEL_ATTR="level";

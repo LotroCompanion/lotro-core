@@ -83,6 +83,9 @@ public class RelicXMLParser
     int level=DOMParsingTools.getIntAttribute(attrs,RelicXMLConstants.RELIC_LEVEL_ATTR,-1);
     Integer relicLevel=(level!=-1)?Integer.valueOf(level):null;
     Relic relic=new Relic(id,name,type,relicLevel);
+    // Bridle?
+    boolean isBridleRelic=DOMParsingTools.getBooleanAttribute(attrs,RelicXMLConstants.RELIC_BRIDLE_ATTR,false);
+    relic.setBridleRelic(isBridleRelic);
     // Icon filename
     String iconFilename=DOMParsingTools.getStringAttribute(attrs,RelicXMLConstants.RELIC_ICON_FILENAME_ATTR,null);
     relic.setIconFilename(iconFilename);

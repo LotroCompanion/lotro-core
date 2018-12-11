@@ -121,14 +121,22 @@ public class RelicsManager
 
   /**
    * Get a list of all relics.
+   * @param bridle Bridle relics or standard relics.
    * @return a list of all relics.
    */
-  public List<Relic> getAllRelics()
+  public List<Relic> getAllRelics(boolean bridle)
   {
     List<Relic> relics=new ArrayList<Relic>();
     for(Map.Entry<String,RelicsCategory> entry : _categories.entrySet())
     {
-      relics.addAll(entry.getValue().getAllRelics());
+      List<Relic> categoryRelics=entry.getValue().getAllRelics();
+      for(Relic relic : categoryRelics)
+      {
+        if (relic.isBridleRelic()==bridle)
+        {
+          relics.add(relic);
+        }
+      }
     }
     return relics;
   }

@@ -11,6 +11,7 @@ public class Relic
   private int _identifier;
   private String _name;
   private RelicType _type;
+  private boolean _bridleRelic;
   private String _category;
   private String _iconFilename;
   private Integer _requiredLevel;
@@ -28,6 +29,7 @@ public class Relic
     _identifier=identifier;
     _name=name;
     _type=type;
+    _bridleRelic=false;
     _category=null;
     _iconFilename=null;
     _requiredLevel=requiredLevel;
@@ -41,15 +43,6 @@ public class Relic
   public int getIdentifier()
   {
     return _identifier;
-  }
-
-  /**
-   * Set the identifier of this relic.
-   * @param identifier the identifier to set.
-   */
-  public void setIdentifier(int identifier)
-  {
-    _identifier=identifier;
   }
 
   /**
@@ -68,6 +61,24 @@ public class Relic
   public RelicType getType()
   {
     return _type;
+  }
+
+  /**
+   * Indicates if this is a relic for a bridle or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isBridleRelic()
+  {
+    return _bridleRelic;
+  }
+
+  /**
+   * Set the 'bridle relic' flag.
+   * @param bridleRelic Indicates if it is a relic for a bridle or not.
+   */
+  public void setBridleRelic(boolean bridleRelic)
+  {
+    _bridleRelic=bridleRelic;
   }
 
   /**
@@ -146,6 +157,10 @@ public class Relic
     if (_requiredLevel!=null)
     {
       sb.append("(min ").append(_requiredLevel).append(") ");
+    }
+    if (_bridleRelic)
+    {
+      sb.append("(bridle) ");
     }
     if (_iconFilename!=null)
     {

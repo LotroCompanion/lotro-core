@@ -141,6 +141,12 @@ public class RelicXMLWriter
     {
       relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_TYPE_ATTR,CDATA,type.name());
     }
+    // Bridle?
+    boolean isBridleRelic=relic.isBridleRelic();
+    if (isBridleRelic)
+    {
+      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_BRIDLE_ATTR,CDATA,String.valueOf(isBridleRelic));
+    }
     // Item level
     Integer level=relic.getRequiredLevel();
     if (level!=null)
