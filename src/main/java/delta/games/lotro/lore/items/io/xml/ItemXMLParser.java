@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.items.io.xml;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,22 +38,6 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class ItemXMLParser
 {
-  /**
-   * Parse the XML file.
-   * @param source Source file.
-   * @return Parsed item or <code>null</code>.
-   */
-  public Item parseXML(File source)
-  {
-    Item item=null;
-    Element root=DOMParsingTools.parse(source);
-    if (root!=null)
-    {
-      item=parseItem(root);
-    }
-    return item;
-  }
-
   /**
    * Build an item from an XML tag.
    * @param root Root XML tag.
