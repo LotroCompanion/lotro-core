@@ -159,6 +159,18 @@ public class BasicStatsSet
   }
 
   @Override
+  public boolean equals(Object object)
+  {
+    if (this==object) return true;
+    if (!(object instanceof BasicStatsSet))
+    {
+      return false;
+    }
+    BasicStatsSet other=(BasicStatsSet)object;
+    return _stats.equals(other._stats);
+  }
+
+  @Override
   public String toString()
   {
     return toString(" / ");

@@ -152,6 +152,17 @@ public class FixedDecimalsInteger extends Number implements Comparable<FixedDeci
   }
 
   @Override
+  public boolean equals(Object object)
+  {
+    if (this==object) return true;
+    if (!(object instanceof FixedDecimalsInteger))
+    {
+      return false;
+    }
+    return ((FixedDecimalsInteger)object)._value==_value;
+  }
+
+  @Override
   public String toString()
   {
     String ret=String.valueOf(floatValue());
