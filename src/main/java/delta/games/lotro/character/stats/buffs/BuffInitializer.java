@@ -14,6 +14,7 @@ import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -81,20 +82,28 @@ public class BuffInitializer
       List<TraitDescription> traits=description.getEarnableTraits();
       for(TraitDescription trait : traits)
       {
-        int identifier=trait.getIdentifier();
-        String name=trait.getName();
-        Buff buff=new Buff(String.valueOf(identifier),RACIAL,name);
-        int iconId=trait.getIconId();
-        buff.setIcon("/traitIcons/"+iconId+".png");
-        buff.setRequiredRace(race);
-        TraitBuff buffImpl=new TraitBuff(trait);
-        buff.setImpl(buffImpl);
-        registry.registerBuff(buff);
-        String key=trait.getKey();
-        if (key.length()>0)
-        {
-          registry.registerBuff(key,buff);
-        }
+        initRaceBuff(race,registry,trait);
+      }
+    }
+  }
+
+  private void initRaceBuff(Race race, BuffRegistry registry, TraitDescription trait)
+  {
+    if (useTrait(trait))
+    {
+      int identifier=trait.getIdentifier();
+      String name=trait.getName();
+      Buff buff=new Buff(String.valueOf(identifier),RACIAL,name);
+      int iconId=trait.getIconId();
+      buff.setIcon("/traitIcons/"+iconId+".png");
+      buff.setRequiredRace(race);
+      TraitBuff buffImpl=new TraitBuff(trait);
+      buff.setImpl(buffImpl);
+      registry.registerBuff(buff);
+      String key=trait.getKey();
+      if (key.length()>0)
+      {
+        registry.registerBuff(key,buff);
       }
     }
   }
@@ -130,23 +139,32 @@ public class BuffInitializer
     }
   }
 
-  private Buff initClassBuff(CharacterClass characterClass, BuffRegistry registry, TraitDescription trait, String category)
+  private void initClassBuff(CharacterClass characterClass, BuffRegistry registry, TraitDescription trait, String category)
   {
-    int identifier=trait.getIdentifier();
-    String name=trait.getName();
-    Buff buff=new Buff(String.valueOf(identifier),category,name);
-    int iconId=trait.getIconId();
-    buff.setIcon("/traitIcons/"+iconId+".png");
-    buff.setRequiredClass(characterClass);
-    TraitBuff buffImpl=new TraitBuff(trait);
-    buff.setImpl(buffImpl);
-    registry.registerBuff(buff);
-    String key=trait.getKey();
-    if (key.length()>0)
+    if (useTrait(trait))
     {
-      registry.registerBuff(key,buff);
+      int identifier=trait.getIdentifier();
+      String name=trait.getName();
+      Buff buff=new Buff(String.valueOf(identifier),category,name);
+      int iconId=trait.getIconId();
+      buff.setIcon("/traitIcons/"+iconId+".png");
+      buff.setRequiredClass(characterClass);
+      TraitBuff buffImpl=new TraitBuff(trait);
+      buff.setImpl(buffImpl);
+      registry.registerBuff(buff);
+      String key=trait.getKey();
+      if (key.length()>0)
+      {
+        registry.registerBuff(key,buff);
+      }
     }
-    return buff;
+  }
+
+  private boolean useTrait(TraitDescription trait)
+  {
+    StatsProvider statsProvider=trait.getStatsProvider();
+    int nbStats=statsProvider.getNumberOfStatProviders();
+    return nbStats>0;
   }
 
   private void initCaptainBuffs(BuffRegistry registry)
