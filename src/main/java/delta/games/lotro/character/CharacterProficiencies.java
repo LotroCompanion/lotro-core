@@ -208,6 +208,10 @@ public class CharacterProficiencies
       ret.add(ArmourType.SHIELD);
       ret.add(ArmourType.WARDEN_SHIELD);
     }
+    if ((cClass==CharacterClass.BEORNING) && (level>=15))
+    {
+      ret.add(ArmourType.HEAVY);
+    }
     if ((cClass==CharacterClass.CAPTAIN) && (level>=10))
     {
       ret.add(ArmourType.SHIELD);
