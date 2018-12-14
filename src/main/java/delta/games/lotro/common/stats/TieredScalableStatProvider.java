@@ -62,7 +62,12 @@ public class TieredScalableStatProvider extends AbstractStatProvider
   @Override
   public Float getStatValue(int tier, int level)
   {
-    Progression progression=_progressions.get(tier-1);
+    int index=tier-1;
+    if (index>=_progressions.size())
+    {
+      index=_progressions.size()-1;
+    }
+    Progression progression=_progressions.get(index);
     Float value=progression.getValue(level);
     return value;
   }
