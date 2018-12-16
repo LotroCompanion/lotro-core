@@ -69,6 +69,10 @@ public class ArrayProgression extends AbstractProgression implements Progression
     {
       if (x==_xValues[i]) return Float.valueOf(_yValues[i]);
     }
+    if (x>_xValues[_xValues.length-1])
+    {
+      return Float.valueOf(_yValues[_xValues.length-1]);
+    }
     return null;
   }
 
