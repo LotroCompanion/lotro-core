@@ -299,7 +299,6 @@ public class CharacterStatsComputer
     ret.setStat(STAT.PARTIAL_EVADE_PERCENTAGE,partialEvadePercentage);
     FixedDecimalsInteger partialEvadeMitigationPercentage=computePercentage(_ratingsMgr.getPartialMitigation(),evade,level);
     partialEvadeMitigationPercentage.add(10);
-    // TODO Add 25% to partial evade mitigation for mini (why?)
     ret.setStat(STAT.PARTIAL_EVADE_MITIGATION_PERCENTAGE,partialEvadeMitigationPercentage);
     // Physical Mitigation %
     CharacterClass cClass=c.getCharacterClass();
