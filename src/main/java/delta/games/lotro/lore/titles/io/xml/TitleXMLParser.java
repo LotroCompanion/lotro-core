@@ -30,14 +30,14 @@ public class TitleXMLParser
       List<Element> titleTags=DOMParsingTools.getChildTagsByName(root,TitleXMLConstants.TITLE_TAG);
       for(Element titleTag : titleTags)
       {
-        TitleDescription title=parseDeed(titleTag);
+        TitleDescription title=parseTitle(titleTag);
         ret.add(title);
       }
     }
     return ret;
   }
 
-  private TitleDescription parseDeed(Element root)
+  private TitleDescription parseTitle(Element root)
   {
     TitleDescription title=new TitleDescription();
 
