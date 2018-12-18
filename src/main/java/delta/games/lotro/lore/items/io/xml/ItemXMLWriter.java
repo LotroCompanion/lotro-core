@@ -254,7 +254,7 @@ public class ItemXMLWriter
     }
     // Description
     String description=item.getDescription();
-    if (description!=null)
+    if ((description!=null) && (description.length()>0))
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DESCRIPTION_ATTR,CDATA,description);
     }

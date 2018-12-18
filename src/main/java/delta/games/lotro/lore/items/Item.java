@@ -72,7 +72,7 @@ public class Item implements Identifiable
   // TODO list of factions
   // TODO <gloryRank/>
   // TODO <traits/>
-  // Full description
+  // Full description (may be empty but not <code>null</code>)
   private String _description;
   // Value
   private Money _value;
@@ -109,7 +109,7 @@ public class Item implements Identifiable
     _maxLevel=null;
     _itemLevel=null;
     _class=null;
-    _description=null;
+    _description="";
     _value=new Money();
     _stackMax=null;
     _quality=null;
@@ -657,6 +657,7 @@ public class Item implements Identifiable
    */
   public void setDescription(String description)
   {
+    if (description==null) description="";
     _description=description;
   }
 
