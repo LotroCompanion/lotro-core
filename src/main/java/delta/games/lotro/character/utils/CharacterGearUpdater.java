@@ -11,9 +11,6 @@ import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.Legendary;
-import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
-import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 
 /**
  * Character gear updater.
@@ -36,7 +33,10 @@ public class CharacterGearUpdater
       {
         Item item=contents.getItem();
         Item updatedItem=updateItem(item);
-        contents.setItem(updatedItem);
+        if (updatedItem!=null)
+        {
+          contents.setItem(updatedItem);
+        }
       }
     }
   }
@@ -54,7 +54,12 @@ public class CharacterGearUpdater
     {
       return null;
     }
-    Item clonedItem=ItemFactory.clone(item);
+    boolean oldIsLegendary=(item instanceof Legendary);
+    if (oldIsLegendary)
+    {
+      return null;
+    }
+    Item clonedItem=ItemFactory.clone(refItem);
     // Item level
     Integer itemLevel=item.getItemLevel();
     if (itemLevel!=null)
@@ -65,6 +70,7 @@ public class CharacterGearUpdater
         BasicStatsSet stats=provider.getStats(1,itemLevel.intValue(),true);
         clonedItem.getStats().setStats(stats);
       }
+      clonedItem.setItemLevel(itemLevel);
     }
     // Essences
     EssencesSet essences=item.getEssences();
@@ -91,35 +97,6 @@ public class CharacterGearUpdater
     // Crafting data
     clonedItem.setCrafterName(item.getCrafterName());
     clonedItem.setBirthName(item.getBirthName());
-    // Legendary attributes
-    boolean isLegendary=(refItem instanceof Legendary);
-    boolean oldIsLegendary=(item instanceof Legendary);
-    if ((isLegendary) && (oldIsLegendary))
-    {
-      LegendaryAttrs oldLegAttrs=((Legendary)item).getLegendaryAttrs();
-      LegendaryAttrs newLegAttrs=((Legendary)clonedItem).getLegendaryAttrs();
-      // Setting
-      newLegAttrs.setSetting(getRelic(oldLegAttrs.getSetting()));
-      // Gem
-      newLegAttrs.setGem(getRelic(oldLegAttrs.getGem()));
-      // Rune
-      newLegAttrs.setRune(getRelic(oldLegAttrs.getRune()));
-      // Crafted
-      newLegAttrs.setCraftedRelic(getRelic(oldLegAttrs.getCraftedRelic()));
-    }
     return clonedItem;
   }
-
-  private Relic getRelic(Relic ref)
-  {
-    if (ref==null)
-    {
-      return null;
-    }
-    // TODO Use ID
-    String refName=ref.getName();
-    Relic ret=RelicsManager.getInstance().getByName(refName);
-    return ret;
-  }
 }
-
