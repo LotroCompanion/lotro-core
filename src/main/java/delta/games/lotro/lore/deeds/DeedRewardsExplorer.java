@@ -107,7 +107,10 @@ public class DeedRewardsExplorer
     {
       ObjectItem object=objects.getItem(i);
       int id=object.getItemId();
-      _itemIds.add(Integer.valueOf(id));
+      if (id!=0)
+      {
+        _itemIds.add(Integer.valueOf(id));
+      }
     }
   }
 
@@ -117,7 +120,10 @@ public class DeedRewardsExplorer
     for(Integer id : _itemIds)
     {
       Item item=items.getItem(id.intValue());
-      _items.add(item);
+      if (item!=null)
+      {
+        _items.add(item);
+      }
     }
   }
 
