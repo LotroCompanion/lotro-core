@@ -23,6 +23,7 @@ public class TraitsManager
   private static TraitsManager _instance=null;
 
   private HashMap<Integer,TraitDescription> _cache;
+  private HashMap<String,TraitDescription> _mapByKey;
 
   /**
    * Get the sole instance of this class.
@@ -44,6 +45,7 @@ public class TraitsManager
   public TraitsManager()
   {
     _cache=new HashMap<Integer,TraitDescription>(100);
+    _mapByKey=new HashMap<String,TraitDescription>();
   }
 
   /**
@@ -60,7 +62,7 @@ public class TraitsManager
     List<TraitDescription> traits=TraitDescriptionXMLParser.parseTraitsFile(traitsFile);
     for(TraitDescription trait : traits)
     {
-      _cache.put(Integer.valueOf(trait.getIdentifier()),trait);
+      registerTrait(trait);
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
@@ -74,6 +76,11 @@ public class TraitsManager
   public void registerTrait(TraitDescription trait)
   {
     _cache.put(Integer.valueOf(trait.getIdentifier()),trait);
+    String key=trait.getKey();
+    if (key.length()>0)
+    {
+      _mapByKey.put(key,trait);
+    }
   }
 
   /**
@@ -98,5 +105,15 @@ public class TraitsManager
     TraitDescription ret=null;
     ret=_cache.get(Integer.valueOf(id));
     return ret;
+  }
+
+  /**
+   * Get a trait using its key.
+   * @param key Trait key.
+   * @return A trait description or <code>null</code> if not found.
+   */
+  public TraitDescription getTraitByKey(String key)
+  {
+    return _mapByKey.get(key);
   }
 }
