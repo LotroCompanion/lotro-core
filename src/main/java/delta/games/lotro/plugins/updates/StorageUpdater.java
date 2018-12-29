@@ -6,6 +6,7 @@ import delta.games.lotro.account.Account;
 import delta.games.lotro.account.AccountUtils;
 import delta.games.lotro.account.AccountsManager;
 import delta.games.lotro.account.events.AccountEvent;
+import delta.games.lotro.account.events.AccountEventProperties;
 import delta.games.lotro.account.events.AccountEventType;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
@@ -93,6 +94,7 @@ public class StorageUpdater
         // Handle account/server storage
         StorageIO.writeAccountStorage(storage,account);
         AccountEvent event=new AccountEvent(AccountEventType.STORAGE_UPDATED,account);
+        event.getProperties().setStringProperty(AccountEventProperties.SERVER_NAME,serverName);
         EventsManager.invokeEvent(event);
       }
     }

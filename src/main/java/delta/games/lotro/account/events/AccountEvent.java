@@ -1,5 +1,6 @@
 package delta.games.lotro.account.events;
 
+import delta.common.utils.misc.TypedProperties;
 import delta.games.lotro.account.Account;
 import delta.games.lotro.utils.events.Event;
 
@@ -11,6 +12,7 @@ public class AccountEvent extends Event
 {
   private AccountEventType _type;
   private Account _account;
+  private TypedProperties _props;
 
   /**
    * Constructor.
@@ -39,5 +41,18 @@ public class AccountEvent extends Event
   public Account getAccount()
   {
     return _account;
+  }
+
+  /**
+   * Get the properties associated with this event.
+   * @return some typed properties.
+   */
+  public TypedProperties getProperties()
+  {
+    if (_props==null)
+    {
+      _props=new TypedProperties();
+    }
+    return _props;
   }
 }
