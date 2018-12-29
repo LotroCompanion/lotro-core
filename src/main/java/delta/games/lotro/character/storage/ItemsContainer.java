@@ -48,6 +48,24 @@ public class ItemsContainer
   }
 
   /**
+   * Get an item by identifier.
+   * @param itemId Identifier of the item to get.
+   * @return An item or <code>null</code> if not found.
+   */
+  public CountedItem getById(int itemId)
+  {
+    for(CountedItem item : _items.values())
+    {
+      int id=item.getId();
+      if (id==itemId)
+      {
+        return item;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get all items in this wallet, sorted by name.
    * @return A list of items.
    */
