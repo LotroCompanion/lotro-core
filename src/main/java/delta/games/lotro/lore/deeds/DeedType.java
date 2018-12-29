@@ -11,6 +11,10 @@ public enum DeedType
    */
   CLASS("Class"),
   /**
+   * Race deed.
+   */
+  RACE("Race"),
+  /**
    * Event deed.
    */
   EVENT("Event"),
@@ -21,7 +25,7 @@ public enum DeedType
   /**
    * Hobby deed (such as fishing).
    */
-  HOBBY("Hobby"),
+  HOBBY("Hobby"), // TO REMOVE
   /**
    * Lore-related deed.
    */
@@ -29,7 +33,7 @@ public enum DeedType
   /**
    * Quest deed.
    */
-  QUEST("Quest"),
+  QUEST("Quest"), // TO REMOVE
   /**
    * Reputation deed.
    */
