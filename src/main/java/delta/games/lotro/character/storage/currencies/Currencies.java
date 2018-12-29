@@ -42,11 +42,14 @@ public class Currencies
     Currency gold=new Currency(CurrencyKeys.GOLD,"Gold",Scope.CHARACTER,"World");
     registerCurrency(gold);
     // Marks
-    Currency marks=new Currency("marks","Marks",Scope.SERVER,"World");
+    Currency marks=new Currency(CurrencyKeys.MARKS,"Marks",Scope.SERVER,"World");
     registerCurrency(marks);
     // Medallions
-    Currency medallions=new Currency("medallions","Medallions",Scope.SERVER,"World");
+    Currency medallions=new Currency(CurrencyKeys.MEDALLIONS,"Medallions",Scope.SERVER,"World");
     registerCurrency(medallions);
+    // Seals
+    Currency seals=new Currency(CurrencyKeys.SEALS,"Seals",Scope.SERVER,"World");
+    registerCurrency(seals);
     // Destiny points
     Currency destinyPoints=new Currency(CurrencyKeys.DESTINY_POINTS,"Destiny Points",Scope.SERVER,"World");
     registerCurrency(destinyPoints);

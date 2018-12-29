@@ -15,4 +15,17 @@ public class CurrencyKeys
    * Destiny points.
    */
   public static final String DESTINY_POINTS="destinyPoints";
+
+  /**
+   * Marks.
+   */
+  public static final String MARKS="marks";
+  /**
+   * Medallions.
+   */
+  public static final String MEDALLIONS="medallions";
+  /**
+   * Seals.
+   */
+  public static final String SEALS="seals";
 }
