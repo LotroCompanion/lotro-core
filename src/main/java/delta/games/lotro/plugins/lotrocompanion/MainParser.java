@@ -7,18 +7,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.account.Account;
-import delta.games.lotro.account.AccountsManager;
-import delta.games.lotro.character.CharacterFile;
-import delta.games.lotro.character.CharactersManager;
 import delta.games.lotro.character.stats.STAT;
-import delta.games.lotro.character.storage.currencies.Currencies;
-import delta.games.lotro.character.storage.currencies.CurrenciesSummary;
-import delta.games.lotro.character.storage.currencies.Currency;
-import delta.games.lotro.character.storage.currencies.CurrencyHistory;
+import delta.games.lotro.character.storage.currencies.CurrenciesFacade;
 import delta.games.lotro.character.storage.currencies.CurrencyKeys;
-import delta.games.lotro.character.storage.currencies.CurrencyStatus;
-import delta.games.lotro.character.storage.currencies.io.CurrenciesIo;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.PluginConstants;
@@ -153,55 +144,12 @@ public class MainParser
 
   private void updateMoney(int value)
   {
-    long now=System.currentTimeMillis();
-    CharactersManager charsManager=CharactersManager.getInstance();
-    CharacterFile character=charsManager.getToonById(_server,_character);
-    if (character!=null)
-    {
-      CurrenciesSummary summary=CurrenciesIo.load(character);
-      CurrencyStatus goldStatus=summary.getCurrency(CurrencyKeys.GOLD,true);
-      goldStatus.setDate(now);
-      goldStatus.setValue(value);
-      CurrenciesIo.save(character,summary);
-      //boolean keepHistory=goldStatus.isKeepHistory();
-      //if (keepHistory)
-      {
-        Currency currency=Currencies.get().getByKey(CurrencyKeys.GOLD);
-        CurrencyHistory history=CurrenciesIo.load(character,currency);
-        if (history==null)
-        {
-          history=new CurrencyHistory(currency);
-        }
-        history.getStorage().setValueAt(now,value);
-        CurrenciesIo.save(character,history);
-      }
-    }
+    CurrenciesFacade.updateToonCurrency(_server,_character,CurrencyKeys.GOLD,value,true);
   }
 
   private void updateDestinyPoints(int value)
   {
-    Account account=AccountsManager.getInstance().getAccountByName(_account);
-    if (account!=null)
-    {
-      long now=System.currentTimeMillis();
-      CurrenciesSummary summary=CurrenciesIo.load(account,_server);
-      CurrencyStatus destinyPointsStatus=summary.getCurrency(CurrencyKeys.DESTINY_POINTS,true);
-      destinyPointsStatus.setDate(now);
-      destinyPointsStatus.setValue(value);
-      CurrenciesIo.save(account,_server,summary);
-      //boolean keepHistory=goldStatus.isKeepHistory();
-      //if (keepHistory)
-      {
-        Currency currency=Currencies.get().getByKey(CurrencyKeys.DESTINY_POINTS);
-        CurrencyHistory history=CurrenciesIo.load(account,_server,currency);
-        if (history==null)
-        {
-          history=new CurrencyHistory(currency);
-        }
-        history.getStorage().setValueAt(now,value);
-        CurrenciesIo.save(account,_server,history);
-      }
-    }
+    CurrenciesFacade.updateAccountServerCurrency(_server,_account,CurrencyKeys.DESTINY_POINTS,value,true);
   }
 
   /**
