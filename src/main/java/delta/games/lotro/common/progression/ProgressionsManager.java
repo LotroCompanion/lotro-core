@@ -67,15 +67,18 @@ public class ProgressionsManager
    */
   public void loadFromFile(File from)
   {
-    long now=System.currentTimeMillis();
-    List<Progression> progressions=ProgressionsXMLParser.parseProgressions(from);
-    for(Progression progression : progressions)
+    if (from.canRead())
     {
-      _map.put(Integer.valueOf(progression.getIdentifier()),progression);
+      long now=System.currentTimeMillis();
+      List<Progression> progressions=ProgressionsXMLParser.parseProgressions(from);
+      for(Progression progression : progressions)
+      {
+        _map.put(Integer.valueOf(progression.getIdentifier()),progression);
+      }
+      long now2=System.currentTimeMillis();
+      long duration=now2-now;
+      LOGGER.info("Loaded "+_map.size()+" progressions from file "+from+" in "+duration+"ms.");
     }
-    long now2=System.currentTimeMillis();
-    long duration=now2-now;
-    LOGGER.info("Loaded "+_map.size()+" progressions from file "+from+" in "+duration+"ms.");
   }
 
   /**

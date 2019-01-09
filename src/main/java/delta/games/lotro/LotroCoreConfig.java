@@ -52,7 +52,10 @@ public final class LotroCoreConfig
     // Parameters
     File parametersFiles=new File(_configDir,"params.txt");
     _parameters=new TypedProperties();
-    _parameters.loadFromFile(parametersFiles);
+    if (parametersFiles.canRead())
+    {
+      _parameters.loadFromFile(parametersFiles);
+    }
 
     // Lore
     _loreDir=new File(_applicationDataDir,"lore");
