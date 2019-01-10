@@ -267,7 +267,7 @@ public final class ItemSaxParser extends DefaultHandler {
           String propertyValue=attributes.getValue(ItemXMLConstants.PROPERTY_VALUE_ATTR);
           _currentItem.setProperty(propertyName,propertyValue);
         } else if (BasicStatsSetXMLConstants.STAT_TAG.equals(qualifiedName)) {
-          // Stat nale
+          // Stat name
           String statName=attributes.getValue(BasicStatsSetXMLConstants.STAT_NAME_ATTR);
           STAT stat=STAT.getByName(statName);
           // Stat value
