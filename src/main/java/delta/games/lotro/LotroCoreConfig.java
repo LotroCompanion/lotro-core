@@ -11,7 +11,9 @@ import delta.common.utils.misc.TypedProperties;
 public final class LotroCoreConfig
 {
   private static LotroCoreConfig _instance=new LotroCoreConfig();
-  
+
+  // Root directory
+  private File _rootDir;
   // Root directory for constant data
   private File _applicationDataDir;
   // Configuration
@@ -44,8 +46,11 @@ public final class LotroCoreConfig
    */
   private LotroCoreConfig()
   {
+    // Root dir
+    _rootDir=computeRootDir();
+
     // Application data
-    _applicationDataDir=new File("data");
+    _applicationDataDir=new File(_rootDir,"data");
 
     // Configuration
     _configDir=new File(_applicationDataDir,"config");
@@ -68,6 +73,21 @@ public final class LotroCoreConfig
     _userDataDir=new File(userApplicationDir,"data");
     _toonsDir=new File(_userDataDir,"characters");
     _accountsDir=new File(_userDataDir,"accounts");
+  }
+
+  private File computeRootDir()
+  {
+    File ret=null;
+    String systemProperty=System.getProperty("companion.home",null);
+    if (systemProperty!=null)
+    {
+      ret=new File(systemProperty).getAbsoluteFile();
+    }
+    else
+    {
+      ret=new File("").getAbsoluteFile();
+    }
+    return ret;
   }
 
   /**
