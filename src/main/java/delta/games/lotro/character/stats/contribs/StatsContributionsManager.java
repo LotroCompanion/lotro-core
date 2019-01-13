@@ -1,15 +1,17 @@
 package delta.games.lotro.character.stats.contribs;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.stats.StatDescription;
 
 /**
  * Manager for a collection of stats contributions.
@@ -18,7 +20,7 @@ import delta.games.lotro.common.CharacterClass;
 public class StatsContributionsManager
 {
   private List<StatsContribution> _contribs;
-  private Map<STAT,ContribsByStat> _sortedContribs;
+  private Map<StatDescription,ContribsByStat> _sortedContribs;
   private boolean _resolveIndirectContributions;
   private CharacterClass _characterClass;
 
@@ -83,23 +85,34 @@ public class StatsContributionsManager
    * @param stat Targeted stat.
    * @return A contribs storage or <code>null</code> if no contribs for this stat.
    */
-  public ContribsByStat getContribs(STAT stat)
+  public ContribsByStat getContribs(StatDescription stat)
   {
     return _sortedContribs.get(stat);
+  }
+
+  /**
+   * Get a list of all contributing stats.
+   * @return a sorted list of stats.
+   */
+  public List<StatDescription> getContributingStats()
+  {
+    List<StatDescription> stats=new ArrayList<StatDescription>(_sortedContribs.keySet());
+    Collections.sort(stats,new IdentifiableComparator<StatDescription>());
+    return stats;
   }
 
   /**
    * Sort contributions by stat.
    * @return A map from stats to contributions.
    */
-  private Map<STAT,ContribsByStat> sortByStat()
+  private Map<StatDescription,ContribsByStat> sortByStat()
   {
-    Map<STAT,ContribsByStat> ret=new HashMap<STAT,ContribsByStat>();
+    Map<StatDescription,ContribsByStat> ret=new HashMap<StatDescription,ContribsByStat>();
     for(StatsContribution contrib : _contribs)
     {
       StatContributionSource sourceId=contrib.getSource();
       BasicStatsSet stats=contrib.getStats();
-      for(STAT stat : stats.getStats())
+      for(StatDescription stat : stats.getStats())
       {
         ContribsByStat contribs=ret.get(stat);
         if (contribs==null)

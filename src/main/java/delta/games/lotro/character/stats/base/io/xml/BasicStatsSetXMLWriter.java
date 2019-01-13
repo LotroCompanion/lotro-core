@@ -5,7 +5,7 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -43,19 +43,16 @@ public class BasicStatsSetXMLWriter
   {
     if (statsSet!=null)
     {
-      for(STAT stat : STAT.values())
+      for(StatDescription stat : statsSet.getSortedStats())
       {
         AttributesImpl statAttrs=new AttributesImpl();
         FixedDecimalsInteger value=statsSet.getStat(stat);
-        if (value!=null)
-        {
-          String key=stat.getKey();
-          statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_NAME_ATTR,CDATA,key);
-          String valueStr=String.valueOf(value.getInternalValue());
-          statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,CDATA,valueStr);
-          hd.startElement("","",BasicStatsSetXMLConstants.STAT_TAG,statAttrs);
-          hd.endElement("","",BasicStatsSetXMLConstants.STAT_TAG);
-        }
+        String key=stat.getKey();
+        statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_NAME_ATTR,CDATA,key);
+        String valueStr=String.valueOf(value.getInternalValue());
+        statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,CDATA,valueStr);
+        hd.startElement("","",BasicStatsSetXMLConstants.STAT_TAG,statAttrs);
+        hd.endElement("","",BasicStatsSetXMLConstants.STAT_TAG);
       }
     }
   }

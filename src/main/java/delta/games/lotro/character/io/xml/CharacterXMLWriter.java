@@ -19,13 +19,13 @@ import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLWriter;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 import delta.games.lotro.utils.LotroLoggers;
@@ -188,7 +188,7 @@ public class CharacterXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",CharacterXMLConstants.TOMES_TAG,attrs);
-    for(STAT stat : TomesSet.AVAILABLE_TOMES)
+    for(StatDescription stat : TomesSet.AVAILABLE_TOMES)
     {
       AttributesImpl tomeAttrs=new AttributesImpl();
       tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_STAT,CDATA,stat.getKey());

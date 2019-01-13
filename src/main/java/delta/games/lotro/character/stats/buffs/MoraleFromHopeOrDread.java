@@ -2,7 +2,7 @@ package delta.games.lotro.character.stats.buffs;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -26,17 +26,17 @@ public class MoraleFromHopeOrDread extends AbstractBuffImpl
   public BasicStatsSet getStats(CharacterData character, BasicStatsSet raw, BuffInstance buff)
   {
     BasicStatsSet ret=new BasicStatsSet();
-    FixedDecimalsInteger hopeStat=raw.getStat(STAT.HOPE);
+    FixedDecimalsInteger hopeStat=raw.getStat(WellKnownStat.HOPE);
     if (hopeStat != null)
     {
-      FixedDecimalsInteger morale=raw.getStat(STAT.MORALE);
+      FixedDecimalsInteger morale=raw.getStat(WellKnownStat.MORALE);
       int hope=hopeStat.intValue();
       if (hope!=0)
       {
         float factor=MORALE_FRACTION[hope+15];
         FixedDecimalsInteger moraleContrib=new FixedDecimalsInteger(morale);
         moraleContrib.multiply(new FixedDecimalsInteger(factor));
-        ret.setStat(STAT.MORALE,moraleContrib);
+        ret.setStat(WellKnownStat.MORALE,moraleContrib);
       }
     }
     return ret;

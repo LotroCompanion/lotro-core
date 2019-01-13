@@ -9,6 +9,7 @@ import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
@@ -134,15 +135,15 @@ public class CharacterGeneratorMeva
     // Additional stats
     BasicStatsSet additionalStats=c.getAdditionalStats();
     // Buff
-    additionalStats.addStat(STAT.MIGHT, new FixedDecimalsInteger(20));
-    additionalStats.addStat(STAT.HOPE, new FixedDecimalsInteger(1));
+    additionalStats.addStat(WellKnownStat.MIGHT, new FixedDecimalsInteger(20));
+    additionalStats.addStat(WellKnownStat.HOPE, new FixedDecimalsInteger(1));
 
     // Red trait tree:
     {
       // Enduring Morale, Rank 2
-      additionalStats.addStat(STAT.MORALE, new FixedDecimalsInteger(537));
+      additionalStats.addStat(WellKnownStat.MORALE, new FixedDecimalsInteger(537));
       // Finesse, Rank 5
-      additionalStats.addStat(STAT.FINESSE, new FixedDecimalsInteger(2486));
+      additionalStats.addStat(WellKnownStat.FINESSE, new FixedDecimalsInteger(2486));
     }
     return c;
   }
@@ -279,8 +280,8 @@ public class CharacterGeneratorMeva
     Item ret=_tools.getItemById(1879318796);
     EssencesSet essences=new EssencesSet(1);
     Item tacticalMastery=_tools.getEssenceByName(6,"Supreme Essence of Tactical Mastery");
-    tacticalMastery.getStats().setStat(STAT.TACTICAL_MASTERY,1165);
-    tacticalMastery.getStats().setStat(STAT.POWER,88);
+    tacticalMastery.getStats().setStat(WellKnownStat.TACTICAL_MASTERY,1165);
+    tacticalMastery.getStats().setStat(WellKnownStat.POWER,88);
     essences.setEssence(0,tacticalMastery);
     ret.setEssences(essences);
     return ret;
@@ -320,37 +321,37 @@ public class CharacterGeneratorMeva
       // Setting
       Relic setting=new Relic(0,"True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
       BasicStatsSet stats=setting.getStats();
-      stats.setStat(STAT.MORALE, 330);
-      stats.setStat(STAT.CRITICAL_RATING,1293);
-      stats.setStat(STAT.INCOMING_HEALING,1616);
+      stats.setStat(WellKnownStat.MORALE, 330);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,1293);
+      stats.setStat(WellKnownStat.INCOMING_HEALING,1616);
       attrs.setSetting(setting);
     }
     {
       // Gem
       Relic gem=new Relic(0,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
       BasicStatsSet stats=gem.getStats();
-      stats.setStat(STAT.ICPR,90);
-      stats.setStat(STAT.CRITICAL_RATING,1212);
-      stats.setStat(STAT.FATE,30);
+      stats.setStat(WellKnownStat.ICPR,90);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
+      stats.setStat(WellKnownStat.FATE,30);
       attrs.setGem(gem);
     }
     {
       // Rune
       Relic rune=new Relic(0,"Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
       BasicStatsSet stats=rune.getStats();
-      stats.setStat(STAT.PHYSICAL_MITIGATION,170);
-      stats.setStat(STAT.PHYSICAL_MASTERY,606);
-      stats.setStat(STAT.TACTICAL_MASTERY,606);
-      stats.setStat(STAT.FATE,27);
+      stats.setStat(WellKnownStat.PHYSICAL_MITIGATION,170);
+      stats.setStat(WellKnownStat.PHYSICAL_MASTERY,606);
+      stats.setStat(WellKnownStat.TACTICAL_MASTERY,606);
+      stats.setStat(WellKnownStat.FATE,27);
       attrs.setRune(rune);
     }
     {
       // Crafted relic
       Relic craftedRelic=new Relic(0,"Westemnet Device of Tactics", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
       BasicStatsSet stats=craftedRelic.getStats();
-      stats.setStat(STAT.WILL,40);
-      stats.setStat(STAT.CRITICAL_RATING,740);
-      stats.setStat(STAT.TACTICAL_MASTERY,740);
+      stats.setStat(WellKnownStat.WILL,40);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,740);
+      stats.setStat(WellKnownStat.TACTICAL_MASTERY,740);
       attrs.setCraftedRelic(craftedRelic);
     }
     // Stat legacies
@@ -387,37 +388,37 @@ public class CharacterGeneratorMeva
       // Setting
       Relic setting=new Relic(0,"True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
       BasicStatsSet stats=setting.getStats();
-      stats.setStat(STAT.MORALE, 330);
-      stats.setStat(STAT.CRITICAL_RATING,1293);
-      stats.setStat(STAT.INCOMING_HEALING,1616);
+      stats.setStat(WellKnownStat.MORALE, 330);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,1293);
+      stats.setStat(WellKnownStat.INCOMING_HEALING,1616);
       attrs.setSetting(setting);
     }
     {
       // Gem
       Relic gem=new Relic(0,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
       BasicStatsSet stats=gem.getStats();
-      stats.setStat(STAT.ICPR,90);
-      stats.setStat(STAT.CRITICAL_RATING,1212);
-      stats.setStat(STAT.FATE,30);
+      stats.setStat(WellKnownStat.ICPR,90);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
+      stats.setStat(WellKnownStat.FATE,30);
       attrs.setGem(gem);
     }
     {
       // Rune
       Relic rune=new Relic(0,"Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
       BasicStatsSet stats=rune.getStats();
-      stats.setStat(STAT.PHYSICAL_MITIGATION,170);
-      stats.setStat(STAT.PHYSICAL_MASTERY,606);
-      stats.setStat(STAT.TACTICAL_MASTERY,606);
-      stats.setStat(STAT.FATE,27);
+      stats.setStat(WellKnownStat.PHYSICAL_MITIGATION,170);
+      stats.setStat(WellKnownStat.PHYSICAL_MASTERY,606);
+      stats.setStat(WellKnownStat.TACTICAL_MASTERY,606);
+      stats.setStat(WellKnownStat.FATE,27);
       attrs.setRune(rune);
     }
     {
       // Crafted relic
       Relic craftedRelic=new Relic(0,"Westemnet Device of Tactics", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
       BasicStatsSet stats=craftedRelic.getStats();
-      stats.setStat(STAT.WILL,40);
-      stats.setStat(STAT.CRITICAL_RATING,740);
-      stats.setStat(STAT.TACTICAL_MASTERY,740);
+      stats.setStat(WellKnownStat.WILL,40);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,740);
+      stats.setStat(WellKnownStat.TACTICAL_MASTERY,740);
       attrs.setCraftedRelic(craftedRelic);
     }
     // Stat legacies
@@ -435,9 +436,9 @@ public class CharacterGeneratorMeva
     ret.setSturdiness(ItemSturdiness.TOUGH);
     ret.setValue(new Money(0,5,40));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.JEWELLER_CRIT_CHANCE_PERCENTAGE, 25);
-    stats.setStat(STAT.COOK_CRIT_CHANCE_PERCENTAGE, 25);
-    stats.setStat(STAT.PROSPECTOR_MINING_DURATION, -4);
+    stats.setStat(WellKnownStat.get("JEWELLER_CRIT_CHANCE_PERCENTAGE"), 25);
+    stats.setStat(WellKnownStat.get("COOK_CRIT_CHANCE_PERCENTAGE"), 25);
+    stats.setStat(WellKnownStat.get("PROSPECTOR_MINING_DURATION"), -4);
     return ret;
   }
 }

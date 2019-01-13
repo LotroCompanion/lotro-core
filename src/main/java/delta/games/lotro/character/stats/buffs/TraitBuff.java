@@ -5,9 +5,9 @@ import java.util.List;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -53,7 +53,7 @@ public class TraitBuff extends AbstractBuffImpl
         {
           statValue=-statValue;
         }
-        STAT stat=provider.getStat();
+        StatDescription stat=provider.getStat();
         stats.setStat(stat,new FixedDecimalsInteger(statValue));
       }
     }
@@ -75,7 +75,7 @@ public class TraitBuff extends AbstractBuffImpl
         Float value=getStatValue(character,buff,provider);
         if (value!=null)
         {
-          STAT stat=provider.getStat();
+          StatDescription stat=provider.getStat();
           FixedDecimalsInteger rawStat=raw.getStat(stat);
           FixedDecimalsInteger contrib=new FixedDecimalsInteger(rawStat.floatValue()*(value.floatValue()-1));
           if (stats==null)

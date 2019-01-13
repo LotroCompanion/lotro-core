@@ -10,11 +10,12 @@ import delta.games.lotro.character.classes.TraitTreeProgression;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -57,7 +58,7 @@ public class BuffInitializer
       SimpleTieredBuff buff=new SimpleTieredBuff();
       for(int tier=1;tier<=10;tier++)
       {
-        buff.addTier(tier,buildBasicSet(STAT.HOPE,tier));
+        buff.addTier(tier,buildBasicSet(WellKnownStat.HOPE,tier));
       }
       hope.setImpl(buff);
       registry.registerBuff(hope);
@@ -66,7 +67,7 @@ public class BuffInitializer
     {
       Buff hope=new Buff("HOPE_CELEBORN", GENERIC, "Hope House of Celeborn (Tier 10)");
       hope.setIcon("Hope_4-icon");
-      BasicStatsSet stats=buildBasicSet(STAT.HOPE,10);
+      BasicStatsSet stats=buildBasicSet(WellKnownStat.HOPE,10);
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       hope.setImpl(buff);
       registry.registerBuff(hope);
@@ -188,7 +189,7 @@ public class BuffInitializer
     }
   }
 
-  private BasicStatsSet buildBasicSet(STAT stat, float value)
+  private BasicStatsSet buildBasicSet(StatDescription stat, float value)
   {
     BasicStatsSet ret=new BasicStatsSet();
     ret.addStat(stat,new FixedDecimalsInteger(value));

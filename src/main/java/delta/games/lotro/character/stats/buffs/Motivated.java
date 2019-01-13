@@ -2,7 +2,7 @@ package delta.games.lotro.character.stats.buffs;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -14,9 +14,9 @@ public class Motivated extends AbstractBuffImpl
   @Override
   public BasicStatsSet getStats(CharacterData character, BasicStatsSet raw, BuffInstance buff)
   {
-    FixedDecimalsInteger morale=raw.getStat(STAT.MORALE);
+    FixedDecimalsInteger morale=raw.getStat(WellKnownStat.MORALE);
     BasicStatsSet stats=new BasicStatsSet();
-    stats.addStat(STAT.MORALE,new FixedDecimalsInteger(morale.floatValue()*0.1f));
+    stats.addStat(WellKnownStat.MORALE,new FixedDecimalsInteger(morale.floatValue()*0.1f));
     return stats;
   }
 }

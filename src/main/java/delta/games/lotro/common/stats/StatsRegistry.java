@@ -127,7 +127,7 @@ public class StatsRegistry
    */
   public StatDescription getByKey(String key)
   {
-    return _mapById.get(key);
+    return _mapByKey.get(key);
   }
 
   /**

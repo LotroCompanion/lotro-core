@@ -1,7 +1,5 @@
 package delta.games.lotro.common.stats;
 
-import delta.games.lotro.character.stats.STAT;
-
 /**
  * Constant stat value provider.
  * @author DAM
@@ -15,7 +13,7 @@ public class ConstantStatProvider extends AbstractStatProvider
    * @param stat Targeted stat.
    * @param value Stat value.
    */
-  public ConstantStatProvider(STAT stat, float value)
+  public ConstantStatProvider(StatDescription stat, float value)
   {
     super(stat);
     _value=Float.valueOf(value);

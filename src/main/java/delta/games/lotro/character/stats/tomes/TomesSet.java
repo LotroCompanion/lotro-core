@@ -1,6 +1,7 @@
 package delta.games.lotro.character.stats.tomes;
 
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.WellKnownStat;
 
 /**
  * Storage for the stat tomes of a single character.
@@ -11,8 +12,8 @@ public class TomesSet
   /**
    * Stats of available tomes.
    */
-  public static final STAT[] AVAILABLE_TOMES={
-    STAT.MIGHT, STAT.AGILITY, STAT.VITALITY, STAT.WILL, STAT.FATE
+  public static final StatDescription[] AVAILABLE_TOMES={
+    WellKnownStat.MIGHT, WellKnownStat.AGILITY, WellKnownStat.VITALITY, WellKnownStat.WILL, WellKnownStat.FATE
   };
   /**
    * Maximum rank.
@@ -58,7 +59,7 @@ public class TomesSet
    * @param stat Targeted stat.
    * @param rank Rank to set.
    */
-  public void setTomeRank(STAT stat, int rank)
+  public void setTomeRank(StatDescription stat, int rank)
   {
     Integer index=getIndexForStat(stat);
     if ((rank>=0) && (rank<=MAX_RANK))
@@ -70,7 +71,7 @@ public class TomesSet
     }
   }
 
-  private Integer getIndexForStat(STAT stat)
+  private Integer getIndexForStat(StatDescription stat)
   {
     Integer ret=null;
     for(int i=0;i<AVAILABLE_TOMES.length;i++)
@@ -89,7 +90,7 @@ public class TomesSet
    * @param stat Targeted stat.
    * @return A rank value (starting at 0).
    */
-  public int getTomeRank(STAT stat)
+  public int getTomeRank(StatDescription stat)
   {
     Integer index=getIndexForStat(stat);
     if (index!=null)

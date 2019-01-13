@@ -2,7 +2,8 @@ package delta.games.lotro.character.stats.buffs;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -11,7 +12,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class InDefenceOfMiddleEarth extends AbstractBuffImpl
 {
-  private static final STAT[] TARGETS = { STAT.MIGHT, STAT.VITALITY, STAT.WILL, STAT.FATE, STAT.AGILITY };
+  private static final StatDescription[] TARGETS = { WellKnownStat.MIGHT, WellKnownStat.VITALITY, WellKnownStat.WILL, WellKnownStat.FATE, WellKnownStat.AGILITY };
 
   @Override
   public BasicStatsSet getStats(CharacterData character, BuffInstance buff)
@@ -25,7 +26,7 @@ public class InDefenceOfMiddleEarth extends AbstractBuffImpl
     {
       value=247;
     }
-    for(STAT stat : TARGETS)
+    for(StatDescription stat : TARGETS)
     {
       stats.addStat(stat,new FixedDecimalsInteger(value));
     }

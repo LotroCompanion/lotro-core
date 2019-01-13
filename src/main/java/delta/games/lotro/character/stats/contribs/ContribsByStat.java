@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -15,14 +15,14 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class ContribsByStat
 {
-  private STAT _stat;
+  private StatDescription _stat;
   private Map<String,StatContribution> _contribs;
 
   /**
    * Constructor.
    * @param stat Targeted stat.
    */
-  public ContribsByStat(STAT stat)
+  public ContribsByStat(StatDescription stat)
   {
     _stat=stat;
     _contribs=new HashMap<String,StatContribution>();
@@ -32,7 +32,7 @@ public class ContribsByStat
    * Get the targeted stat.
    * @return A stat.
    */
-  public STAT getStat()
+  public StatDescription getStat()
   {
     return _stat;
   }

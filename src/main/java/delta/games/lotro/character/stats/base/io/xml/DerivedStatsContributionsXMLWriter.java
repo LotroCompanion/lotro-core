@@ -10,12 +10,12 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr.ClassDerivedStats;
-import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr.StatContributions;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr.DerivedStatContribution;
+import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr.StatContributions;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -45,8 +45,8 @@ public class DerivedStatsContributionsXMLWriter
           classAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.CLASS_CONTRIBS_CLASS_ATTR,CDATA,characterClass.getKey());
           hd.startElement("","",DerivedStatsContributionsXMLConstants.CLASS_CONTRIBS_TAG,classAttrs);
           ClassDerivedStats derivatedStats=statsManager.getDerivatedStats(characterClass);
-          List<STAT> sourceStats=derivatedStats.getSourceStats();
-          for(STAT sourceStat : sourceStats)
+          List<StatDescription> sourceStats=derivatedStats.getSourceStats();
+          for(StatDescription sourceStat : sourceStats)
           {
             AttributesImpl sourceStatAttrs=new AttributesImpl();
             sourceStatAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIBS_SOURCE_STAT_ATTR,CDATA,sourceStat.getKey());
@@ -56,7 +56,7 @@ public class DerivedStatsContributionsXMLWriter
             for(DerivedStatContribution contributionFactor : contributionFactors)
             {
               FixedDecimalsInteger factor=contributionFactor.getFactor();
-              STAT targetStat=contributionFactor.getTargetStat();
+              StatDescription targetStat=contributionFactor.getTargetStat();
               AttributesImpl contributionFactorAttrs=new AttributesImpl();
               contributionFactorAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIB_TARGET_STAT_ATTR,CDATA,targetStat.getKey());
               contributionFactorAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIB_FACTOR_ATTR,CDATA,String.valueOf(factor.floatValue()));

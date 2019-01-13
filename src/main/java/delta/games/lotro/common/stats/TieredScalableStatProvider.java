@@ -3,7 +3,6 @@ package delta.games.lotro.common.stats;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -19,7 +18,7 @@ public class TieredScalableStatProvider extends AbstractStatProvider
    * @param stat Targeted stat.
    * @param nbTiers Number of tiers.
    */
-  public TieredScalableStatProvider(STAT stat, int nbTiers)
+  public TieredScalableStatProvider(StatDescription stat, int nbTiers)
   {
     super(stat);
     _progressions=new ArrayList<Progression>(nbTiers);

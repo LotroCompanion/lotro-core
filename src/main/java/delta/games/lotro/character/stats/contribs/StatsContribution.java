@@ -2,10 +2,10 @@ package delta.games.lotro.character.stats.contribs;
 
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
 import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -85,9 +85,9 @@ public class StatsContribution
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getStatContrib(STAT sourceStat, FixedDecimalsInteger factor, BasicStatsSet stats)
+  public static StatsContribution getStatContrib(StatDescription sourceStat, FixedDecimalsInteger factor, BasicStatsSet stats)
   {
-    String source=STAT_SEED+sourceStat.name()+":"+factor.getInternalValue();
+    String source=STAT_SEED+sourceStat.getIdentifier()+":"+factor.getInternalValue();
     return new StatsContribution(source,sourceStat.getName(),stats);
   }
 
@@ -112,9 +112,9 @@ public class StatsContribution
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getTomeContrib(STAT stat, int rank, BasicStatsSet stats)
+  public static StatsContribution getTomeContrib(StatDescription stat, int rank, BasicStatsSet stats)
   {
-    String source=TOME_SEED+stat.name();
+    String source=TOME_SEED+stat.getIdentifier();
     String label="Tome of "+stat.getName()+" "+rank;
     return new StatsContribution(source,label,stats);
   }

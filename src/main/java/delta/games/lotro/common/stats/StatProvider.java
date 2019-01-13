@@ -1,7 +1,5 @@
 package delta.games.lotro.common.stats;
 
-import delta.games.lotro.character.stats.STAT;
-
 /**
  * Interface of a stat provider.
  * @author DAM
@@ -12,7 +10,7 @@ public interface StatProvider
    * Get the targeted stat.
    * @return the targeted stat.
    */
-  STAT getStat();
+  StatDescription getStat();
 
   /**
    * Get the stat value for the given tier and level.

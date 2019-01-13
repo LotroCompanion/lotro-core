@@ -1,6 +1,5 @@
 package delta.games.lotro.common.stats;
 
-import delta.games.lotro.character.stats.STAT;
 
 /**
  * Utility methods for stats.
@@ -18,13 +17,13 @@ public class StatUtils
    * @param statValue Raw value.
    * @return the fixed value.
    */
-  public static float fixStatValue(STAT stat, float statValue)
+  public static float fixStatValue(StatDescription stat, float statValue)
   {
     if (stat.isPercentage())
     {
       statValue=statValue*100;
     }
-    if ((stat==STAT.ICMR) || (stat==STAT.ICPR) || (stat==STAT.OCMR) || (stat==STAT.OCPR))
+    if ((stat==WellKnownStat.ICMR) || (stat==WellKnownStat.ICPR) || (stat==WellKnownStat.OCMR) || (stat==WellKnownStat.OCPR))
     {
       statValue=statValue*60;
     }

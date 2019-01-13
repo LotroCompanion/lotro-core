@@ -10,6 +10,7 @@ import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
@@ -90,8 +91,8 @@ public class CharacterGeneratorGiswald
     virtues.setSelectedVirtue(VirtueId.HONOUR,4);
     // Tomes
     TomesSet tomes=c.getTomes();
-    tomes.setTomeRank(STAT.MIGHT,1);
-    tomes.setTomeRank(STAT.FATE,2);
+    tomes.setTomeRank(WellKnownStat.MIGHT,1);
+    tomes.setTomeRank(WellKnownStat.FATE,2);
     // TODO Racial traits
     CharacterEquipment equipment=c.getEquipment();
     SlotContents head=equipment.getSlotContents(EQUIMENT_SLOT.HEAD,true);
@@ -142,12 +143,12 @@ public class CharacterGeneratorGiswald
     // Additional stats
     // - yellow line buffs
     BasicStatsSet additionalStats=c.getAdditionalStats();
-    additionalStats.addStat(STAT.MIGHT, new FixedDecimalsInteger(158));
-    additionalStats.addStat(STAT.FINESSE, new FixedDecimalsInteger(2486));
+    additionalStats.addStat(WellKnownStat.MIGHT, new FixedDecimalsInteger(158));
+    additionalStats.addStat(WellKnownStat.FINESSE, new FixedDecimalsInteger(2486));
     // - Balance of Man
-    additionalStats.addStat(STAT.EVADE, new FixedDecimalsInteger(808));
-    additionalStats.addStat(STAT.PARRY, new FixedDecimalsInteger(808));
-    additionalStats.addStat(STAT.BLOCK, new FixedDecimalsInteger(808));
+    additionalStats.addStat(WellKnownStat.EVADE, new FixedDecimalsInteger(808));
+    additionalStats.addStat(WellKnownStat.PARRY, new FixedDecimalsInteger(808));
+    additionalStats.addStat(WellKnownStat.BLOCK, new FixedDecimalsInteger(808));
 
     return c;
   }
@@ -162,8 +163,8 @@ public class CharacterGeneratorGiswald
     ret.setValue(new Money(0,54,18));
     ret.setArmourType(ArmourType.HEAVY);
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,119);
-    stats.setStat(STAT.ARMOUR,1024);
+    stats.setStat(WellKnownStat.MIGHT,119);
+    stats.setStat(WellKnownStat.ARMOUR,1024);
     EssencesSet essences=new EssencesSet(4);
     Item might=_tools.getEssenceByName(7,"Major Essence of Might");
     //might.getStats().setStat(STAT.MIGHT,119);
@@ -189,8 +190,8 @@ public class CharacterGeneratorGiswald
     ret.setValue(new Money(0,53,91));
     ret.setArmourType(ArmourType.HEAVY);
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,119);
-    stats.setStat(STAT.ARMOUR,1024);
+    stats.setStat(WellKnownStat.MIGHT,119);
+    stats.setStat(WellKnownStat.ARMOUR,1024);
     EssencesSet essences=new EssencesSet(4);
     Item morale=_tools.getEssenceByName(7,"Major Essence of Morale");
     //morale.getStats().setStat(STAT.MORALE,765);
@@ -212,8 +213,8 @@ public class CharacterGeneratorGiswald
     ret.setArmourType(ArmourType.HEAVY);
     ret.setValue(new Money(0,54,0));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,119);
-    stats.setStat(STAT.ARMOUR,1365);
+    stats.setStat(WellKnownStat.MIGHT,119);
+    stats.setStat(WellKnownStat.ARMOUR,1365);
     EssencesSet essences=new EssencesSet(4);
     Item morale=_tools.getEssenceByName(7,"Greater Essence of Morale");
     //morale.getStats().setStat(STAT.MORALE,875);
@@ -237,10 +238,10 @@ public class CharacterGeneratorGiswald
     ret.setDurability(Integer.valueOf(100));
     ret.setValue(new Money(0,72,9));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,270);
-    stats.setStat(STAT.VITALITY,180);
-    stats.setStat(STAT.MORALE,578);
-    stats.setStat(STAT.CRITICAL_RATING,804);
+    stats.setStat(WellKnownStat.MIGHT,270);
+    stats.setStat(WellKnownStat.VITALITY,180);
+    stats.setStat(WellKnownStat.MORALE,578);
+    stats.setStat(WellKnownStat.CRITICAL_RATING,804);
     return ret;
   }
 
@@ -254,11 +255,11 @@ public class CharacterGeneratorGiswald
     ret.setArmourType(ArmourType.LIGHT);
     ret.setValue(new Money(0,42,93));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,225);
-    stats.setStat(STAT.VITALITY,193);
-    stats.setStat(STAT.CRITICAL_RATING,1165);
-    stats.setStat(STAT.PHYSICAL_MASTERY,145);
-    stats.setStat(STAT.ARMOUR,1151);
+    stats.setStat(WellKnownStat.MIGHT,225);
+    stats.setStat(WellKnownStat.VITALITY,193);
+    stats.setStat(WellKnownStat.CRITICAL_RATING,1165);
+    stats.setStat(WellKnownStat.PHYSICAL_MASTERY,145);
+    stats.setStat(WellKnownStat.ARMOUR,1151);
     return ret;
   }
 
@@ -272,10 +273,10 @@ public class CharacterGeneratorGiswald
     ret.setArmourType(ArmourType.HEAVY);
     ret.setValue(new Money(0,0,0));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,360);
-    stats.setStat(STAT.VITALITY,90);
-    stats.setStat(STAT.PHYSICAL_MASTERY,1608);
-    stats.setStat(STAT.ARMOUR,3534);
+    stats.setStat(WellKnownStat.MIGHT,360);
+    stats.setStat(WellKnownStat.VITALITY,90);
+    stats.setStat(WellKnownStat.PHYSICAL_MASTERY,1608);
+    stats.setStat(WellKnownStat.ARMOUR,3534);
     return ret;
   }
 
@@ -289,11 +290,11 @@ public class CharacterGeneratorGiswald
     ret.setArmourType(ArmourType.HEAVY);
     ret.setValue(new Money(0,0,0));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,360);
-    stats.setStat(STAT.VITALITY,90);
-    stats.setStat(STAT.MORALE,578);
-    stats.setStat(STAT.FINESSE,2450);
-    stats.setStat(STAT.ARMOUR,1767);
+    stats.setStat(WellKnownStat.MIGHT,360);
+    stats.setStat(WellKnownStat.VITALITY,90);
+    stats.setStat(WellKnownStat.MORALE,578);
+    stats.setStat(WellKnownStat.FINESSE,2450);
+    stats.setStat(WellKnownStat.ARMOUR,1767);
     return ret;
   }
 
@@ -307,11 +308,11 @@ public class CharacterGeneratorGiswald
     ret.setArmourType(ArmourType.HEAVY);
     ret.setValue(new Money(0,0,0));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,239);
-    stats.setStat(STAT.VITALITY,205);
-    stats.setStat(STAT.FATE,85);
-    stats.setStat(STAT.POWER,377);
-    stats.setStat(STAT.ARMOUR,2838);
+    stats.setStat(WellKnownStat.MIGHT,239);
+    stats.setStat(WellKnownStat.VITALITY,205);
+    stats.setStat(WellKnownStat.FATE,85);
+    stats.setStat(WellKnownStat.POWER,377);
+    stats.setStat(WellKnownStat.ARMOUR,2838);
     return ret;
   }
 
@@ -328,12 +329,12 @@ public class CharacterGeneratorGiswald
     ret.setMaxDamage(556);
     ret.setValue(new Money(0,42,57));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.PARRY_PERCENTAGE,1);
-    stats.setStat(STAT.MIGHT,239);
-    stats.setStat(STAT.VITALITY,205);
-    stats.setStat(STAT.FINESSE,1874);
-    stats.setStat(STAT.PHYSICAL_MASTERY,461);
-    stats.setStat(STAT.CRITICAL_RATING,307);
+    stats.setStat(WellKnownStat.PARRY_PERCENTAGE,1);
+    stats.setStat(WellKnownStat.MIGHT,239);
+    stats.setStat(WellKnownStat.VITALITY,205);
+    stats.setStat(WellKnownStat.FINESSE,1874);
+    stats.setStat(WellKnownStat.PHYSICAL_MASTERY,461);
+    stats.setStat(WellKnownStat.CRITICAL_RATING,307);
     return ret;
   }
 
@@ -350,12 +351,12 @@ public class CharacterGeneratorGiswald
     ret.setMaxDamage(713);
     ret.setValue(new Money(0,42,57));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE,1);
-    stats.setStat(STAT.MIGHT,239);
-    stats.setStat(STAT.VITALITY,205);
-    stats.setStat(STAT.FINESSE,1874);
-    stats.setStat(STAT.PHYSICAL_MASTERY,461);
-    stats.setStat(STAT.CRITICAL_RATING,307);
+    stats.setStat(WellKnownStat.get("RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE"),1);
+    stats.setStat(WellKnownStat.MIGHT,239);
+    stats.setStat(WellKnownStat.VITALITY,205);
+    stats.setStat(WellKnownStat.FINESSE,1874);
+    stats.setStat(WellKnownStat.PHYSICAL_MASTERY,461);
+    stats.setStat(WellKnownStat.CRITICAL_RATING,307);
     return ret;
   }
 
@@ -368,11 +369,11 @@ public class CharacterGeneratorGiswald
     ret.setDurability(Integer.valueOf(60));
     ret.setValue(new Money(0,16,53));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,239);
-    stats.setStat(STAT.VITALITY,205);
-    stats.setStat(STAT.CRITICAL_RATING,614);
-    stats.setStat(STAT.PHYSICAL_MASTERY,461);
-    stats.setStat(STAT.MORALE,219);
+    stats.setStat(WellKnownStat.MIGHT,239);
+    stats.setStat(WellKnownStat.VITALITY,205);
+    stats.setStat(WellKnownStat.CRITICAL_RATING,614);
+    stats.setStat(WellKnownStat.PHYSICAL_MASTERY,461);
+    stats.setStat(WellKnownStat.MORALE,219);
     return ret;
   }
 
@@ -385,11 +386,11 @@ public class CharacterGeneratorGiswald
     ret.setDurability(Integer.valueOf(60));
     ret.setValue(new Money(0,22,4));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,273);
-    stats.setStat(STAT.VITALITY,239);
-    stats.setStat(STAT.CRITICAL_RATING,614);
-    stats.setStat(STAT.PHYSICAL_MASTERY,614);
-    stats.setStat(STAT.MORALE,219);
+    stats.setStat(WellKnownStat.MIGHT,273);
+    stats.setStat(WellKnownStat.VITALITY,239);
+    stats.setStat(WellKnownStat.CRITICAL_RATING,614);
+    stats.setStat(WellKnownStat.PHYSICAL_MASTERY,614);
+    stats.setStat(WellKnownStat.MORALE,219);
     // TODO Set effects
     return ret;
   }
@@ -403,11 +404,11 @@ public class CharacterGeneratorGiswald
     ret.setDurability(Integer.valueOf(60));
     ret.setValue(new Money(0,22,4));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,273);
-    stats.setStat(STAT.VITALITY,239);
-    stats.setStat(STAT.PHYSICAL_MASTERY,614);
-    stats.setStat(STAT.CRITICAL_RATING,614);
-    stats.setStat(STAT.POWER,189);
+    stats.setStat(WellKnownStat.MIGHT,273);
+    stats.setStat(WellKnownStat.VITALITY,239);
+    stats.setStat(WellKnownStat.PHYSICAL_MASTERY,614);
+    stats.setStat(WellKnownStat.CRITICAL_RATING,614);
+    stats.setStat(WellKnownStat.POWER,189);
     // TODO Set effects
     return ret;
   }
@@ -421,10 +422,10 @@ public class CharacterGeneratorGiswald
     ret.setDurability(Integer.valueOf(80));
     ret.setValue(new Money(0,17,55));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,261);
-    stats.setStat(STAT.VITALITY,174);
-    stats.setStat(STAT.PHYSICAL_MITIGATION,1756);
-    stats.setStat(STAT.TACTICAL_MITIGATION,1756);
+    stats.setStat(WellKnownStat.MIGHT,261);
+    stats.setStat(WellKnownStat.VITALITY,174);
+    stats.setStat(WellKnownStat.PHYSICAL_MITIGATION,1756);
+    stats.setStat(WellKnownStat.TACTICAL_MITIGATION,1756);
     return ret;
   }
 
@@ -437,11 +438,11 @@ public class CharacterGeneratorGiswald
     ret.setDurability(Integer.valueOf(80));
     ret.setValue(new Money(0,17,28));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.VITALITY,239);
-    stats.setStat(STAT.MIGHT,205);
-    stats.setStat(STAT.FATE,68);
-    stats.setStat(STAT.EVADE,1037);
-    stats.setStat(STAT.MORALE,219);
+    stats.setStat(WellKnownStat.VITALITY,239);
+    stats.setStat(WellKnownStat.MIGHT,205);
+    stats.setStat(WellKnownStat.FATE,68);
+    stats.setStat(WellKnownStat.EVADE,1037);
+    stats.setStat(WellKnownStat.MORALE,219);
     return ret;
   }
 
@@ -454,9 +455,9 @@ public class CharacterGeneratorGiswald
     ret.setDurability(Integer.valueOf(50));
     ret.setValue(new Money(0,22,4));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,307);
-    stats.setStat(STAT.FATE,171);
-    stats.setStat(STAT.FINESSE,2343);
+    stats.setStat(WellKnownStat.MIGHT,307);
+    stats.setStat(WellKnownStat.FATE,171);
+    stats.setStat(WellKnownStat.FINESSE,2343);
     EssencesSet essences=new EssencesSet(1);
     Item supremeMight=_tools.getEssenceByName(7,"Supreme Essence of Might");
     //supremeMight.getStats().setStat(STAT.MIGHT,139);
@@ -475,9 +476,9 @@ public class CharacterGeneratorGiswald
     ret.setDurability(Integer.valueOf(50));
     ret.setValue(new Money(0,22,4));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.MIGHT,256);
-    stats.setStat(STAT.VITALITY,256);
-    stats.setStat(STAT.TACTICAL_MITIGATION,1037);
+    stats.setStat(WellKnownStat.MIGHT,256);
+    stats.setStat(WellKnownStat.VITALITY,256);
+    stats.setStat(WellKnownStat.TACTICAL_MITIGATION,1037);
     EssencesSet essences=new EssencesSet(1);
     Item supremeMight=_tools.getEssenceByName(7,"Supreme Essence of Might");
     //supremeMight.getStats().setStat(STAT.MIGHT,139);
@@ -508,49 +509,49 @@ public class CharacterGeneratorGiswald
     weapon.setDamageType(DamageType.BELERIAND);
     // Passives
     BasicStatsSet passives=weapon.getPassives();
-    passives.setStat(STAT.PARRY_PERCENTAGE,1);
+    passives.setStat(WellKnownStat.PARRY_PERCENTAGE,1);
     LegendaryAttrs attrs=weapon.getLegendaryAttrs();
     // Title
     LegendaryTitle title=new LegendaryTitle("Potency of Eldar Days III");
     BasicStatsSet titleStats=title.getStats();
-    titleStats.setStat(STAT.CRITICAL_RATING,460);
+    titleStats.setStat(WellKnownStat.CRITICAL_RATING,460);
     attrs.setTitle(title);
     // Relics
     {
       // Setting
       Relic setting=new Relic(0,"Westemnet Setting of Endings", RelicType.SETTING, Integer.valueOf(90));
       BasicStatsSet stats=setting.getStats();
-      stats.setStat(STAT.DEVASTATE_MAGNITUDE_PERCENTAGE, 7.5f);
-      stats.setStat(STAT.CRITICAL_RATING,1454);
-      stats.setStat(STAT.ICMR,182);
+      stats.setStat(WellKnownStat.get("DEVASTATE_MAGNITUDE_PERCENTAGE"), 7.5f);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,1454);
+      stats.setStat(WellKnownStat.ICMR,182);
       attrs.setSetting(setting);
     }
     {
       // Gem
       Relic gem=new Relic(0,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
       BasicStatsSet stats=gem.getStats();
-      stats.setStat(STAT.ICPR,90);
-      stats.setStat(STAT.CRITICAL_RATING,1212);
-      stats.setStat(STAT.FATE,30);
+      stats.setStat(WellKnownStat.ICPR,90);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
+      stats.setStat(WellKnownStat.FATE,30);
       attrs.setGem(gem);
     }
     {
       // Rune
       Relic rune=new Relic(0,"Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
       BasicStatsSet stats=rune.getStats();
-      stats.setStat(STAT.PHYSICAL_MITIGATION,170);
-      stats.setStat(STAT.PHYSICAL_MASTERY,606);
-      stats.setStat(STAT.TACTICAL_MASTERY,606);
-      stats.setStat(STAT.FATE,27);
+      stats.setStat(WellKnownStat.PHYSICAL_MITIGATION,170);
+      stats.setStat(WellKnownStat.PHYSICAL_MASTERY,606);
+      stats.setStat(WellKnownStat.TACTICAL_MASTERY,606);
+      stats.setStat(WellKnownStat.FATE,27);
       attrs.setRune(rune);
     }
     {
       // Crafted relic
       Relic craftedRelic=new Relic(0,"Westemnet Device of Battle", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
       BasicStatsSet stats=craftedRelic.getStats();
-      stats.setStat(STAT.MIGHT,40);
-      stats.setStat(STAT.CRITICAL_RATING,740);
-      stats.setStat(STAT.PHYSICAL_MASTERY,740);
+      stats.setStat(WellKnownStat.MIGHT,40);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,740);
+      stats.setStat(WellKnownStat.PHYSICAL_MASTERY,740);
       attrs.setCraftedRelic(craftedRelic);
     }
     // Stat legacies
@@ -574,9 +575,9 @@ public class CharacterGeneratorGiswald
 
     // Passives
     BasicStatsSet passives=classItem.getPassives();
-    passives.setStat(STAT.BLADE_LINE_AOE_POWER_COST_PERCENTAGE,-1);
-    passives.setStat(STAT.STRIKE_SKILLS_POWER_COST_PERCENTAGE,-4);
-    passives.setStat(STAT.INCOMING_HEALING,6300);
+    passives.setStat(WellKnownStat.get("BLADE_LINE_AOE_POWER_COST_PERCENTAGE"),-1);
+    passives.setStat(WellKnownStat.get("STRIKE_SKILLS_POWER_COST_PERCENTAGE"),-4);
+    passives.setStat(WellKnownStat.INCOMING_HEALING,6300);
     LegendaryAttrs attrs=classItem.getLegendaryAttrs();
     // Title
     // .. none ..
@@ -585,37 +586,37 @@ public class CharacterGeneratorGiswald
       // Setting
       Relic setting=new Relic(0,"Westemnet Setting of Endings", RelicType.SETTING, Integer.valueOf(90));
       BasicStatsSet stats=setting.getStats();
-      stats.setStat(STAT.DEVASTATE_MAGNITUDE_PERCENTAGE,7.5f);
-      stats.setStat(STAT.CRITICAL_RATING,1454);
-      stats.setStat(STAT.ICMR,182);
+      stats.setStat(WellKnownStat.get("DEVASTATE_MAGNITUDE_PERCENTAGE"),7.5f);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,1454);
+      stats.setStat(WellKnownStat.ICMR,182);
       attrs.setSetting(setting);
     }
     {
       // Gem
       Relic gem=new Relic(0,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
       BasicStatsSet stats=gem.getStats();
-      stats.setStat(STAT.ICPR,90);
-      stats.setStat(STAT.CRITICAL_RATING,1212);
-      stats.setStat(STAT.FATE,30);
+      stats.setStat(WellKnownStat.ICPR,90);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
+      stats.setStat(WellKnownStat.FATE,30);
       attrs.setGem(gem);
     }
     {
       // Rune
       Relic rune=new Relic(0,"True Rune of the White Mountains", RelicType.RUNE, Integer.valueOf(80));
       BasicStatsSet stats=rune.getStats();
-      stats.setStat(STAT.ATTACK_DURATION_PERCENTAGE, -2.5f);
-      stats.setStat(STAT.PHYSICAL_MASTERY,646);
-      stats.setStat(STAT.TACTICAL_MASTERY,646);
-      stats.setStat(STAT.AGILITY,35);
+      stats.setStat(WellKnownStat.get("ATTACK_DURATION_PERCENTAGE"), -2.5f);
+      stats.setStat(WellKnownStat.PHYSICAL_MASTERY,646);
+      stats.setStat(WellKnownStat.TACTICAL_MASTERY,646);
+      stats.setStat(WellKnownStat.AGILITY,35);
       attrs.setRune(rune);
     }
     {
       // Crafted relic
       Relic craftedRelic=new Relic(0,"Westemnet Device of Battle", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
       BasicStatsSet stats=craftedRelic.getStats();
-      stats.setStat(STAT.MIGHT,40);
-      stats.setStat(STAT.CRITICAL_RATING,740);
-      stats.setStat(STAT.PHYSICAL_MASTERY,740);
+      stats.setStat(WellKnownStat.MIGHT,40);
+      stats.setStat(WellKnownStat.CRITICAL_RATING,740);
+      stats.setStat(WellKnownStat.PHYSICAL_MASTERY,740);
       attrs.setCraftedRelic(craftedRelic);
     }
     // Stat legacies
@@ -633,9 +634,9 @@ public class CharacterGeneratorGiswald
     ret.setSturdiness(ItemSturdiness.TOUGH);
     ret.setValue(new Money(0,5,40));
     BasicStatsSet stats=ret.getStats();
-    stats.setStat(STAT.WEAPONSMITH_CRIT_CHANCE_PERCENTAGE, 25);
-    stats.setStat(STAT.WOODWORKER_CRIT_CHANCE_PERCENTAGE, 25);
-    stats.setStat(STAT.PROSPECTOR_MINING_DURATION, -4);
+    stats.setStat(WellKnownStat.get("WEAPONSMITH_CRIT_CHANCE_PERCENTAGE"), 25);
+    stats.setStat(WellKnownStat.get("WOODWORKER_CRIT_CHANCE_PERCENTAGE"), 25);
+    stats.setStat(WellKnownStat.get("PROSPECTOR_MINING_DURATION"), -4);
     return ret;
   }
 }

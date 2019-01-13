@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -15,7 +15,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class ItemStatFilter implements ItemFilter
 {
   private boolean _hasStats;
-  private List<STAT> _stats;
+  private List<StatDescription> _stats;
 
   /**
    * Constructor.
@@ -23,7 +23,7 @@ public class ItemStatFilter implements ItemFilter
    */
   public ItemStatFilter(int nbItems)
   {
-    _stats=new ArrayList<STAT>();
+    _stats=new ArrayList<StatDescription>();
     for(int i=0;i<nbItems;i++)
     {
       _stats.add(null);
@@ -45,7 +45,7 @@ public class ItemStatFilter implements ItemFilter
    * @param index Index to use, starting at 0.
    * @return A stat or <code>null</code>.
    */
-  public STAT getStat(int index)
+  public StatDescription getStat(int index)
   {
     return _stats.get(index);
   }
@@ -55,11 +55,11 @@ public class ItemStatFilter implements ItemFilter
    * @param index Stat index, starting at 0.
    * @param stat Stat to search.
    */
-  public void setStat(int index, STAT stat)
+  public void setStat(int index, StatDescription stat)
   {
     _stats.set(index,stat);
     _hasStats=false;
-    for(STAT selectedStat : _stats)
+    for(StatDescription selectedStat : _stats)
     {
       if (selectedStat!=null)
       {
@@ -73,7 +73,7 @@ public class ItemStatFilter implements ItemFilter
     if (_hasStats)
     {
       BasicStatsSet itemStats=item.getStats();
-      for(STAT stat : _stats)
+      for(StatDescription stat : _stats)
       {
         if (stat!=null)
         {

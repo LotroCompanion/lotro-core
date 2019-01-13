@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.Formats;
 import delta.games.lotro.utils.LotroLoggers;
@@ -214,7 +214,7 @@ public class CharacterInfosManager
   private void updateOldCharacterData(File oldFile, CharacterData data)
   {
     BasicStatsSet stats=data.getStats();
-    for(STAT statKey : stats.getStats())
+    for(StatDescription statKey : stats.getStats())
     {
       FixedDecimalsInteger value=stats.getStat(statKey);
       FixedDecimalsInteger newValue=value.multiply(100);

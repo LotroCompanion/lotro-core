@@ -3,6 +3,7 @@ package delta.games.lotro.common.stats;
 import delta.games.lotro.common.Identifiable;
 
 /**
+ * Stat description.
  * @author DAM
  */
 public class StatDescription implements Identifiable
@@ -23,7 +24,8 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * @return the id
+   * Get the stat identifier.
+   * @return an identifier.
    */
   public int getIdentifier()
   {
@@ -31,7 +33,8 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * @return the key
+   * Get the stat key.
+   * @return a string key or <code>null</code> if none.
    */
   public String getKey()
   {
@@ -39,7 +42,8 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * @param key the key to set
+   * Set the stat string key.
+   * @param key the key to set.
    */
   public void setKey(String key)
   {
@@ -47,7 +51,8 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * @return the legacyKey
+   * Get the legacy key for this stat.
+   * @return a string key or <code>null</code> if none.
    */
   public String getLegacyKey()
   {
@@ -55,7 +60,8 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * @param legacyKey the legacyKey to set
+   * Set the legacy key for this stat.
+   * @param legacyKey the legacy key to set (may be <code>null</code>).
    */
   public void setLegacyKey(String legacyKey)
   {
@@ -63,7 +69,18 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * @return the name
+   * Get the persistence key for this stat.
+   * @return a persistence key string.
+   */
+  public String getPersistenceKey()
+  {
+    if (_legacyKey!=null) return _legacyKey;
+    return /*_name + " / " + */_key;
+  }
+
+  /**
+   * Get the displayable name for this stat.
+   * @return a name.
    */
   public String getName()
   {
@@ -71,7 +88,8 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * @param name the name to set
+   * Set the name of this stat.
+   * @param name the name to set.
    */
   public void setName(String name)
   {
@@ -79,7 +97,8 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * @return the isPercentage
+   * Indicates if this stat represents a percentage or not.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
    */
   public boolean isPercentage()
   {
@@ -87,7 +106,8 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * @param isPercentage the isPercentage to set
+   * Set the 'is percentage' flag.
+   * @param isPercentage Value to set.
    */
   public void setPercentage(boolean isPercentage)
   {

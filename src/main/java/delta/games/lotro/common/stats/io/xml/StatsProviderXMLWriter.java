@@ -7,11 +7,11 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -43,7 +43,7 @@ public class StatsProviderXMLWriter
     for(int i=0;i<nbStats;i++)
     {
       StatProvider provider=statsProvider.getStatProvider(i);
-      STAT stat=provider.getStat();
+      StatDescription stat=provider.getStat();
       FixedDecimalsInteger statValue=(stats!=null)?stats.getStat(stat):null;
       writeProvider(hd,provider,statValue);
     }
@@ -62,16 +62,16 @@ public class StatsProviderXMLWriter
    */
   private static void writeProvider(TransformerHandler hd, StatProvider provider, FixedDecimalsInteger statValue) throws SAXException
   {
-    STAT stat=provider.getStat();
+    StatDescription stat=provider.getStat();
     AttributesImpl attrs=new AttributesImpl();
-    attrs.addAttribute("","",StatsProviderXMLConstants.STAT_NAME_ATTR,XmlWriter.CDATA,stat.getKey());
+    attrs.addAttribute("","",StatsProviderXMLConstants.STAT_NAME_ATTR,XmlWriter.CDATA,stat.getPersistenceKey());
     if (statValue!=null)
     {
       String valueStr=String.valueOf(statValue.getInternalValue());
       attrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,XmlWriter.CDATA,valueStr);
     }
     StatOperator operator=provider.getOperator();
-    if (operator!=StatOperator.ADD)
+    if ((operator!=null) && (operator!=StatOperator.ADD))
     {
       attrs.addAttribute("","",StatsProviderXMLConstants.STAT_OPERATOR_ATTR,XmlWriter.CDATA,operator.name());
     }

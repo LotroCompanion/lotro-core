@@ -1,7 +1,7 @@
 package delta.games.lotro.character.stats.tomes;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -23,7 +23,7 @@ public class TomesContributionsMgr
   public BasicStatsSet getContribution(TomesSet tomes)
   {
     BasicStatsSet stats=new BasicStatsSet();
-    for(STAT stat : TomesSet.AVAILABLE_TOMES)
+    for(StatDescription stat : TomesSet.AVAILABLE_TOMES)
     {
       int rank=tomes.getTomeRank(stat);
       if (rank>0)
@@ -40,7 +40,7 @@ public class TomesContributionsMgr
    * @param rank Rank of the targeted tome.
    * @return some contributed stats.
    */
-  public BasicStatsSet getContribution(STAT stat, int rank)
+  public BasicStatsSet getContribution(StatDescription stat, int rank)
   {
     BasicStatsSet ret=new BasicStatsSet();
     ret.addStat(stat, new FixedDecimalsInteger(CUMULATED_STAT_CONTRIBS_BY_RANK[rank]));

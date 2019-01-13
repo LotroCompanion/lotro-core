@@ -13,13 +13,14 @@ import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLConstants;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLParser;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
 import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
@@ -182,7 +183,7 @@ public class CharacterXMLParser
       {
         NamedNodeMap attrs=tomeTag.getAttributes();
         String statKey=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.TOME_STAT,"");
-        STAT stat=STAT.getByName(statKey);
+        StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
         if (stat!=null)
         {
           int rank=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.TOME_RANK,0);

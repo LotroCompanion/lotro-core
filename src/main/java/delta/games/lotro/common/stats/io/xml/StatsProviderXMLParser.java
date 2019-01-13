@@ -5,12 +5,13 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
+import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -30,7 +31,7 @@ public class StatsProviderXMLParser
     NamedNodeMap attrs=root.getAttributes();
     // Stat name
     String statName=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_NAME_ATTR,null);
-    STAT stat=STAT.getByName(statName);
+    StatDescription stat=StatsRegistry.getInstance().getByKey(statName);
 
     // Stat operator
     String operatorStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_OPERATOR_ATTR,null);

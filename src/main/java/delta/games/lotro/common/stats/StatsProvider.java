@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -84,7 +83,7 @@ public class StatsProvider
       if (value!=null)
       {
         FixedDecimalsInteger statValue=null;
-        STAT stat=provider.getStat();
+        StatDescription stat=provider.getStat();
         float floatValue=value.floatValue();
         if (round)
         {
@@ -120,14 +119,14 @@ public class StatsProvider
     return stats;
   }
 
-  private boolean shallRound(STAT stat)
+  private boolean shallRound(StatDescription stat)
   {
-    if (stat==STAT.ARMOUR) return false;
-    if (stat==STAT.MIGHT) return false;
-    if (stat==STAT.AGILITY) return false;
-    if (stat==STAT.VITALITY) return false;
-    if (stat==STAT.WILL) return false;
-    if (stat==STAT.FATE) return false;
+    if (stat==WellKnownStat.ARMOUR) return false;
+    if (stat==WellKnownStat.MIGHT) return false;
+    if (stat==WellKnownStat.AGILITY) return false;
+    if (stat==WellKnownStat.VITALITY) return false;
+    if (stat==WellKnownStat.WILL) return false;
+    if (stat==WellKnownStat.FATE) return false;
     return true;
   }
 }

@@ -5,11 +5,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -18,20 +21,22 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public final class DerivedStatsContributionsMgr
 {
+  private static final Logger LOGGER=Logger.getLogger(DerivedStatsContributionsMgr.class);
+
   /**
    * Contribution for a derived stat.
    * @author DAM
    */
   public static class DerivedStatContribution
   {
-    private STAT _contributedStat;
+    private StatDescription _contributedStat;
     private FixedDecimalsInteger _factor;
 
     /**
      * Get the target stat.
      * @return the target stat.
      */
-    public STAT getTargetStat()
+    public StatDescription getTargetStat()
     {
       return _contributedStat;
     }
@@ -59,7 +64,7 @@ public final class DerivedStatsContributionsMgr
       _factors=new ArrayList<DerivedStatContribution>();
     }
 
-    private void addStatContribution(STAT contributedStat, FixedDecimalsInteger factor)
+    private void addStatContribution(StatDescription contributedStat, FixedDecimalsInteger factor)
     {
       DerivedStatContribution contrib=new DerivedStatContribution();
       contrib._contributedStat=contributedStat;
@@ -83,13 +88,13 @@ public final class DerivedStatsContributionsMgr
    */
   public static final class ClassDerivedStats
   {
-    private HashMap<STAT,StatContributions> _contributions;
+    private HashMap<StatDescription,StatContributions> _contributions;
     private ClassDerivedStats()
     {
-      _contributions=new HashMap<STAT,StatContributions>();
+      _contributions=new HashMap<StatDescription,StatContributions>();
     }
 
-    private void addStatContribution(STAT sourceStat, STAT contributedStat, FixedDecimalsInteger factor)
+    private void addStatContribution(StatDescription sourceStat, StatDescription contributedStat, FixedDecimalsInteger factor)
     {
       StatContributions contribs=_contributions.get(sourceStat);
       if (contribs==null)
@@ -104,10 +109,10 @@ public final class DerivedStatsContributionsMgr
      * Get a list of source stats.
      * @return a list of source stats.
      */
-    public List<STAT> getSourceStats()
+    public List<StatDescription> getSourceStats()
     {
-      List<STAT> stats=new ArrayList<STAT>(_contributions.keySet());
-      Collections.sort(stats);
+      List<StatDescription> stats=new ArrayList<StatDescription>(_contributions.keySet());
+      Collections.sort(stats,new IdentifiableComparator<StatDescription>());
       return stats;
     }
 
@@ -116,7 +121,7 @@ public final class DerivedStatsContributionsMgr
      * @param sourceStat Source stat.
      * @return Stat contributions.
      */
-    public StatContributions getContribsForStat(STAT sourceStat)
+    public StatContributions getContribsForStat(StatDescription sourceStat)
     {
       return _contributions.get(sourceStat);
     }
@@ -149,7 +154,7 @@ public final class DerivedStatsContributionsMgr
    * @param cClass Character class;
    * @param factor Factor.
    */
-  public void setFactor(STAT primaryStat, STAT contributedStat, CharacterClass cClass, FixedDecimalsInteger factor)
+  public void setFactor(StatDescription primaryStat, StatDescription contributedStat, CharacterClass cClass, FixedDecimalsInteger factor)
   {
     ClassDerivedStats derivedStats=_allContribs.get(cClass);
     if (derivedStats==null)
@@ -157,7 +162,14 @@ public final class DerivedStatsContributionsMgr
       derivedStats=new ClassDerivedStats();
       _allContribs.put(cClass,derivedStats);
     }
-    derivedStats.addStatContribution(primaryStat,contributedStat,factor);
+    if ((primaryStat!=null) && (contributedStat!=null))
+    {
+      derivedStats.addStatContribution(primaryStat,contributedStat,factor);
+    }
+    else
+    {
+      LOGGER.warn("Could not register factor: source="+primaryStat+", target="+contributedStat);
+    }
   }
 
   /**
@@ -182,28 +194,25 @@ public final class DerivedStatsContributionsMgr
   {
     ClassDerivedStats classDerivedStats=_allContribs.get(cClass);
     BasicStatsSet result=new BasicStatsSet();
-    for(STAT stat : STAT.values())
+    for(StatDescription stat : set.getStats())
     {
       FixedDecimalsInteger statValue=set.getStat(stat);
-      if (statValue!=null)
+      StatContributions contrib=classDerivedStats.getContribsForStat(stat);
+      if (contrib!=null)
       {
-        StatContributions contrib=classDerivedStats.getContribsForStat(stat);
-        if (contrib!=null)
+        BasicStatsSet derivedStats=new BasicStatsSet();
+        for(DerivedStatContribution factor : contrib.getFactors())
         {
-          BasicStatsSet derivedStats=new BasicStatsSet();
-          for(DerivedStatContribution factor : contrib.getFactors())
+          FixedDecimalsInteger toAdd=new FixedDecimalsInteger(statValue);
+          toAdd.multiply(factor._factor);
+          result.addStat(factor._contributedStat,toAdd);
+          derivedStats.addStat(factor._contributedStat,toAdd);
+          if (contribsMgr!=null)
           {
-            FixedDecimalsInteger toAdd=new FixedDecimalsInteger(statValue);
-            toAdd.multiply(factor._factor);
-            result.addStat(factor._contributedStat,toAdd);
-            derivedStats.addStat(factor._contributedStat,toAdd);
-            if (contribsMgr!=null)
-            {
-              BasicStatsSet stats=new BasicStatsSet();
-              stats.addStat(factor._contributedStat,toAdd);
-              StatsContribution statContrib=StatsContribution.getStatContrib(stat,factor._factor,stats);
-              contribsMgr.addContrib(statContrib);
-            }
+            BasicStatsSet stats=new BasicStatsSet();
+            stats.addStat(factor._contributedStat,toAdd);
+            StatsContribution statContrib=StatsContribution.getStatContrib(stat,factor._factor,stats);
+            contribsMgr.addContrib(statContrib);
           }
         }
       }

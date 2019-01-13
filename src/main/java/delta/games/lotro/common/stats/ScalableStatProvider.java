@@ -1,6 +1,5 @@
 package delta.games.lotro.common.stats;
 
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -16,7 +15,7 @@ public class ScalableStatProvider extends AbstractStatProvider
    * @param stat Targeted stat.
    * @param progression Stat value.
    */
-  public ScalableStatProvider(STAT stat, Progression progression)
+  public ScalableStatProvider(StatDescription stat, Progression progression)
   {
     super(stat);
     _progression=progression;

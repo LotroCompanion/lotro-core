@@ -6,9 +6,10 @@ import java.util.List;
 import org.w3c.dom.Element;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -35,6 +36,7 @@ public class DerivedStatsContributionsXMLParser
 
   private DerivedStatsContributionsMgr parseContributions(Element root)
   {
+    StatsRegistry statsRegistry=StatsRegistry.getInstance();
     DerivedStatsContributionsMgr ret=new DerivedStatsContributionsMgr();
     List<Element> classContribsTags=DOMParsingTools.getChildTagsByName(root,DerivedStatsContributionsXMLConstants.CLASS_CONTRIBS_TAG);
     for(Element classContribsTag : classContribsTags)
@@ -47,14 +49,14 @@ public class DerivedStatsContributionsXMLParser
       {
         // Source stat
         String sourceStatStr=DOMParsingTools.getStringAttribute(statContribsTag.getAttributes(),DerivedStatsContributionsXMLConstants.STAT_CONTRIBS_SOURCE_STAT_ATTR,"");
-        STAT sourceStat=STAT.getByName(sourceStatStr);
+        StatDescription sourceStat=statsRegistry.getByKey(sourceStatStr);
         // Contributions
         List<Element> statContribTags=DOMParsingTools.getChildTagsByName(statContribsTag,DerivedStatsContributionsXMLConstants.STAT_CONTRIB_TAG);
         for(Element statContribTag : statContribTags)
         {
           // Target stat
           String targetStatStr=DOMParsingTools.getStringAttribute(statContribTag.getAttributes(),DerivedStatsContributionsXMLConstants.STAT_CONTRIB_TARGET_STAT_ATTR,"");
-          STAT targetStat=STAT.getByName(targetStatStr);
+          StatDescription targetStat=statsRegistry.getByKey(targetStatStr);
           float factor=DOMParsingTools.getFloatAttribute(statContribTag.getAttributes(),DerivedStatsContributionsXMLConstants.STAT_CONTRIB_FACTOR_ATTR,0.0f);
           ret.setFactor(sourceStat,targetStat,characterClass,new FixedDecimalsInteger(factor));
         }

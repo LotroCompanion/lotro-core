@@ -1,11 +1,16 @@
 package delta.games.lotro.character.stats;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -14,14 +19,14 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class BasicStatsSet
 {
-  private HashMap<STAT,FixedDecimalsInteger> _stats;
+  private HashMap<StatDescription,FixedDecimalsInteger> _stats;
 
   /**
    * Constructor.
    */
   public BasicStatsSet()
   {
-    _stats=new HashMap<STAT,FixedDecimalsInteger>();
+    _stats=new HashMap<StatDescription,FixedDecimalsInteger>();
   }
 
   /**
@@ -30,7 +35,7 @@ public class BasicStatsSet
    */
   public BasicStatsSet(BasicStatsSet source)
   {
-    _stats=new HashMap<STAT,FixedDecimalsInteger>();
+    _stats=new HashMap<StatDescription,FixedDecimalsInteger>();
     setStats(source);
   }
 
@@ -39,7 +44,7 @@ public class BasicStatsSet
    * @param stat Stat to get.
    * @return A stat value or <code>null</code> if not found.
    */
-  public FixedDecimalsInteger getStat(STAT stat)
+  public FixedDecimalsInteger getStat(StatDescription stat)
   {
     FixedDecimalsInteger statValue=_stats.get(stat);
     return statValue;
@@ -57,9 +62,20 @@ public class BasicStatsSet
    * Get all registered stats keys.
    * @return A set of stat keys.
    */
-  public Set<STAT> getStats()
+  public Set<StatDescription> getStats()
   {
-    return new HashSet<STAT>(_stats.keySet());
+    return new HashSet<StatDescription>(_stats.keySet());
+  }
+
+  /**
+   * Get a sorted list of all used stats.
+   * @return A sorted list of stats.
+   */
+  public List<StatDescription> getSortedStats()
+  {
+    List<StatDescription> stats=new ArrayList<StatDescription>(_stats.keySet());
+    Collections.sort(stats,new IdentifiableComparator<StatDescription>());
+    return stats;
   }
 
   /**
@@ -75,7 +91,7 @@ public class BasicStatsSet
    * Remove a stat.
    * @param stat Targeted stat.
    */
-  public void removeStat(STAT stat)
+  public void removeStat(StatDescription stat)
   {
     _stats.remove(stat);
   }
@@ -85,7 +101,7 @@ public class BasicStatsSet
    * @param stat Stat to set.
    * @param value Value to set.
    */
-  public void setStat(STAT stat, FixedDecimalsInteger value)
+  public void setStat(StatDescription stat, FixedDecimalsInteger value)
   {
     _stats.put(stat,new FixedDecimalsInteger(value));
   }
@@ -95,7 +111,7 @@ public class BasicStatsSet
    * @param stat Stat to set.
    * @param value Value to set.
    */
-  public void setStat(STAT stat, int value)
+  public void setStat(StatDescription stat, int value)
   {
     _stats.put(stat, new FixedDecimalsInteger(value));
   }
@@ -106,7 +122,7 @@ public class BasicStatsSet
    */
   public void setStats(BasicStatsSet stats)
   {
-    for(Map.Entry<STAT,FixedDecimalsInteger> entry : stats._stats.entrySet())
+    for(Map.Entry<StatDescription,FixedDecimalsInteger> entry : stats._stats.entrySet())
     {
       FixedDecimalsInteger value=new FixedDecimalsInteger(entry.getValue());
       setStat(entry.getKey(),value);
@@ -118,7 +134,7 @@ public class BasicStatsSet
    * @param stat Stat to set.
    * @param value Value to set.
    */
-  public void setStat(STAT stat, float value)
+  public void setStat(StatDescription stat, float value)
   {
     _stats.put(stat, new FixedDecimalsInteger(value));
   }
@@ -128,7 +144,7 @@ public class BasicStatsSet
    * @param stat Stat to set.
    * @param value Value to set.
    */
-  public void addStat(STAT stat, FixedDecimalsInteger value)
+  public void addStat(StatDescription stat, FixedDecimalsInteger value)
   {
     FixedDecimalsInteger currentStat=_stats.get(stat);
     FixedDecimalsInteger total;
@@ -150,9 +166,9 @@ public class BasicStatsSet
    */
   public void addStats(BasicStatsSet stats)
   {
-    for(Map.Entry<STAT,FixedDecimalsInteger> entry : stats._stats.entrySet())
+    for(Map.Entry<StatDescription,FixedDecimalsInteger> entry : stats._stats.entrySet())
     {
-      STAT stat=entry.getKey();
+      StatDescription stat=entry.getKey();
       FixedDecimalsInteger value=entry.getValue();
       addStat(stat,value);
     }
@@ -189,7 +205,7 @@ public class BasicStatsSet
   {
     StringBuilder sb=new StringBuilder();
     int index=0;
-    for(STAT stat : STAT.values())
+    for(StatDescription stat : getSortedStats())
     {
       FixedDecimalsInteger statValue=_stats.get(stat);
       if (statValue!=null)

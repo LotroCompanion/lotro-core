@@ -7,12 +7,12 @@ import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.StartStatsManagerIO;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -31,9 +31,9 @@ public class BaseStatsManager
   {
     _startStatsManager=StartStatsManagerIO.load();
     _toAdd=new BasicStatsSet();
-    _toAdd.setStat(STAT.PHYSICAL_MASTERY,1);
-    _toAdd.setStat(STAT.TACTICAL_MASTERY,1);
-    _toAdd.setStat(STAT.BLOCK,new FixedDecimalsInteger(1.5f));
+    _toAdd.setStat(WellKnownStat.PHYSICAL_MASTERY,1);
+    _toAdd.setStat(WellKnownStat.TACTICAL_MASTERY,1);
+    _toAdd.setStat(WellKnownStat.BLOCK,new FixedDecimalsInteger(1.5f));
   }
 
   /**

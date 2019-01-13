@@ -3,8 +3,6 @@ package delta.games.lotro.common.stats;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.stats.STAT;
-
 /**
  * Stat provider with level range constraints.
  * @author DAM
@@ -19,7 +17,7 @@ public class RangedStatProvider extends AbstractStatProvider
    * Constructor.
    * @param stat Targeted stat.
    */
-  public RangedStatProvider(STAT stat)
+  public RangedStatProvider(StatDescription stat)
   {
     super(stat);
     _minLevels=new ArrayList<Integer>();

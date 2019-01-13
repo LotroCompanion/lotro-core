@@ -7,10 +7,11 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.storage.currencies.CurrenciesFacade;
 import delta.games.lotro.character.storage.currencies.CurrencyKeys;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.PluginConstants;
 
@@ -52,40 +53,40 @@ public class MainParser
     useData(data);
   }
 
-  private Map<String,STAT> loadStatsMap()
+  private Map<String,StatDescription> loadStatsMap()
   {
-    Map<String,STAT> statMap=new HashMap<String,STAT>();
-    statMap.put("MAXMORALE",STAT.MORALE);
-    statMap.put("ICMR",STAT.ICMR);
-    statMap.put("OCMR",STAT.OCMR);
-    statMap.put("POWER",STAT.POWER);
-    statMap.put("ICPR",STAT.ICPR);
-    statMap.put("OCPR",STAT.OCPR);
+    Map<String,StatDescription> statMap=new HashMap<String,StatDescription>();
+    statMap.put("MAXMORALE",WellKnownStat.MORALE);
+    statMap.put("ICMR",WellKnownStat.ICMR);
+    statMap.put("OCMR",WellKnownStat.OCMR);
+    statMap.put("POWER",WellKnownStat.POWER);
+    statMap.put("ICPR",WellKnownStat.ICPR);
+    statMap.put("OCPR",WellKnownStat.OCPR);
 
-    statMap.put("ARMOR",STAT.ARMOUR);
+    statMap.put("ARMOR",WellKnownStat.ARMOUR);
 
-    statMap.put("MIGHT",STAT.MIGHT);
-    statMap.put("AGILITY",STAT.AGILITY);
-    statMap.put("VITALITY",STAT.VITALITY);
-    statMap.put("WILL",STAT.WILL);
-    statMap.put("FATE",STAT.FATE);
+    statMap.put("MIGHT",WellKnownStat.MIGHT);
+    statMap.put("AGILITY",WellKnownStat.AGILITY);
+    statMap.put("VITALITY",WellKnownStat.VITALITY);
+    statMap.put("WILL",WellKnownStat.WILL);
+    statMap.put("FATE",WellKnownStat.FATE);
 
-    statMap.put("MELEE_DAMAGE",STAT.PHYSICAL_MASTERY);
-    statMap.put("TACTICAL_DAMAGE",STAT.TACTICAL_MASTERY);
-    statMap.put("CRITICAL_RATING",STAT.CRITICAL_RATING);
-    statMap.put("FINESSE",STAT.FINESSE);
+    statMap.put("MELEE_DAMAGE",WellKnownStat.PHYSICAL_MASTERY);
+    statMap.put("TACTICAL_DAMAGE",WellKnownStat.TACTICAL_MASTERY);
+    statMap.put("CRITICAL_RATING",WellKnownStat.CRITICAL_RATING);
+    statMap.put("FINESSE",WellKnownStat.FINESSE);
 
-    statMap.put("CRITICAL_DEFENCE",STAT.CRITICAL_DEFENCE);
-    statMap.put("BLOCK",STAT.BLOCK);
-    statMap.put("PARRY",STAT.PARRY);
-    statMap.put("EVADE",STAT.EVADE);
+    statMap.put("CRITICAL_DEFENCE",WellKnownStat.CRITICAL_DEFENCE);
+    statMap.put("BLOCK",WellKnownStat.BLOCK);
+    statMap.put("PARRY",WellKnownStat.PARRY);
+    statMap.put("EVADE",WellKnownStat.EVADE);
 
-    statMap.put("RESISTANCE",STAT.RESISTANCE);
-    statMap.put("COMMON_MITIGATION",STAT.PHYSICAL_MITIGATION);
-    statMap.put("TACTICAL_MITIGATION",STAT.TACTICAL_MITIGATION);
+    statMap.put("RESISTANCE",WellKnownStat.RESISTANCE);
+    statMap.put("COMMON_MITIGATION",WellKnownStat.PHYSICAL_MITIGATION);
+    statMap.put("TACTICAL_MITIGATION",WellKnownStat.TACTICAL_MITIGATION);
 
-    statMap.put("INCOMING_HEALING",STAT.INCOMING_HEALING);
-    statMap.put("OUTGOING_HEALING",STAT.OUTGOING_HEALING);
+    statMap.put("INCOMING_HEALING",WellKnownStat.INCOMING_HEALING);
+    statMap.put("OUTGOING_HEALING",WellKnownStat.OUTGOING_HEALING);
     return statMap;
   }
 
@@ -96,12 +97,12 @@ public class MainParser
     Map<String,Object> statsMap=(Map<String,Object>)data.get("stats");
     if (statsMap!=null)
     {
-      Map<String,STAT> map=loadStatsMap();
-      for(Map.Entry<String,STAT> entry : map.entrySet())
+      Map<String,StatDescription> map=loadStatsMap();
+      for(Map.Entry<String,StatDescription> entry : map.entrySet())
       {
         Double statValue=(Double)statsMap.get(entry.getKey());
-        STAT stat=map.get(entry.getKey());
-        System.out.println("\t"+stat+": "+statValue);
+        StatDescription stat=map.get(entry.getKey());
+        System.out.println("\t"+stat.getName()+": "+statValue);
       }
     }
 

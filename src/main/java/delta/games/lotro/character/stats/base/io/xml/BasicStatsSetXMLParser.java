@@ -6,7 +6,8 @@ import org.w3c.dom.Element;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -28,7 +29,7 @@ public class BasicStatsSetXMLParser
     {
       String statName=DOMParsingTools.getStringAttribute(statTag.getAttributes(),BasicStatsSetXMLConstants.STAT_NAME_ATTR,"");
       String statValue=DOMParsingTools.getStringAttribute(statTag.getAttributes(),BasicStatsSetXMLConstants.STAT_VALUE_ATTR,"");
-      STAT stat=STAT.getByName(statName);
+      StatDescription stat=StatsRegistry.getInstance().getByKey(statName);
       FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
       ret.setStat(stat,value);
     }

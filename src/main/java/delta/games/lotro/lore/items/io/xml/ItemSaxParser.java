@@ -13,7 +13,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import delta.common.utils.NumericTools;
-import delta.games.lotro.character.stats.STAT;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.money.Money;
@@ -22,9 +21,11 @@ import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLConstants;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
@@ -269,7 +270,7 @@ public final class ItemSaxParser extends DefaultHandler {
         } else if (BasicStatsSetXMLConstants.STAT_TAG.equals(qualifiedName)) {
           // Stat name
           String statName=attributes.getValue(BasicStatsSetXMLConstants.STAT_NAME_ATTR);
-          STAT stat=STAT.getByName(statName);
+          StatDescription stat=StatsRegistry.getInstance().getByKey(statName);
           // Stat value
           String statValue=attributes.getValue(BasicStatsSetXMLConstants.STAT_VALUE_ATTR);
           FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
@@ -337,7 +338,7 @@ public final class ItemSaxParser extends DefaultHandler {
         }
     }
 
-    private StatProvider parseStatProvider(STAT stat, Attributes attributes)
+    private StatProvider parseStatProvider(StatDescription stat, Attributes attributes)
     {
       String constantStr=attributes.getValue(StatsProviderXMLConstants.STAT_CONSTANT_ATTR);
       if (constantStr!=null)
@@ -363,7 +364,7 @@ public final class ItemSaxParser extends DefaultHandler {
       return null;
     }
 
-    private RangedStatProvider parseRangedStatProvider(STAT stat, String rangedStr)
+    private RangedStatProvider parseRangedStatProvider(StatDescription stat, String rangedStr)
     {
       RangedStatProvider provider=new RangedStatProvider(stat);
       ProgressionsManager progressionsMgr=ProgressionsManager.getInstance();
