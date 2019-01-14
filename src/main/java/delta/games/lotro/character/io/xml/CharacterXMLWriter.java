@@ -191,7 +191,7 @@ public class CharacterXMLWriter
     for(StatDescription stat : TomesSet.AVAILABLE_TOMES)
     {
       AttributesImpl tomeAttrs=new AttributesImpl();
-      tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_STAT,CDATA,stat.getKey());
+      tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_STAT,CDATA,stat.getPersistenceKey());
       int rank=tomes.getTomeRank(stat);
       tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_RANK,CDATA,String.valueOf(rank));
       hd.startElement("","",CharacterXMLConstants.TOME_TAG,tomeAttrs);

@@ -84,7 +84,7 @@ public class StatDescription implements Identifiable
    */
   public String getName()
   {
-    return _name;
+    return _name==null?"":_name;
   }
 
   /**

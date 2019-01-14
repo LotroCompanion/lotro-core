@@ -47,7 +47,7 @@ public class BasicStatsSetXMLWriter
       {
         AttributesImpl statAttrs=new AttributesImpl();
         FixedDecimalsInteger value=statsSet.getStat(stat);
-        String key=stat.getKey();
+        String key=stat.getPersistenceKey();
         statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_NAME_ATTR,CDATA,key);
         String valueStr=String.valueOf(value.getInternalValue());
         statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,CDATA,valueStr);

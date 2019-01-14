@@ -49,7 +49,7 @@ public class DerivedStatsContributionsXMLWriter
           for(StatDescription sourceStat : sourceStats)
           {
             AttributesImpl sourceStatAttrs=new AttributesImpl();
-            sourceStatAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIBS_SOURCE_STAT_ATTR,CDATA,sourceStat.getKey());
+            sourceStatAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIBS_SOURCE_STAT_ATTR,CDATA,sourceStat.getPersistenceKey());
             hd.startElement("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIBS_TAG,sourceStatAttrs);
             StatContributions contribs=derivatedStats.getContribsForStat(sourceStat);
             List<DerivedStatContribution> contributionFactors=contribs.getFactors();
@@ -58,7 +58,7 @@ public class DerivedStatsContributionsXMLWriter
               FixedDecimalsInteger factor=contributionFactor.getFactor();
               StatDescription targetStat=contributionFactor.getTargetStat();
               AttributesImpl contributionFactorAttrs=new AttributesImpl();
-              contributionFactorAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIB_TARGET_STAT_ATTR,CDATA,targetStat.getKey());
+              contributionFactorAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIB_TARGET_STAT_ATTR,CDATA,targetStat.getPersistenceKey());
               contributionFactorAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIB_FACTOR_ATTR,CDATA,String.valueOf(factor.floatValue()));
               hd.startElement("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIB_TAG,contributionFactorAttrs);
               hd.endElement("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIB_TAG);
