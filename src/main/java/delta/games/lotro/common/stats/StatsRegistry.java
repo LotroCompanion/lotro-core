@@ -2,7 +2,6 @@ package delta.games.lotro.common.stats;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +9,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.LotroCoreConfig;
-import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.stats.io.xml.StatXMLParser;
-import delta.games.lotro.common.stats.io.xml.StatXMLWriter;
 
 /**
  * Registry for all stats.
@@ -24,6 +21,7 @@ public class StatsRegistry
 
   private static StatsRegistry _instance=null;
 
+  private List<StatDescription> _stats;
   private Map<Integer,StatDescription> _mapById;
   private Map<String,StatDescription> _mapByKey;
 
@@ -46,6 +44,7 @@ public class StatsRegistry
    */
   public StatsRegistry()
   {
+    _stats=new ArrayList<StatDescription>();
     _mapById=new HashMap<Integer,StatDescription>();
     _mapByKey=new HashMap<String,StatDescription>();
   }
@@ -90,8 +89,12 @@ public class StatsRegistry
     return _mapById.size();
   }
 
-  private void clear()
+  /**
+   * Remove all stats.
+   */
+  public void clear()
   {
+    _stats.clear();
     _mapById.clear();
     _mapByKey.clear();
   }
@@ -106,6 +109,7 @@ public class StatsRegistry
     StatDescription old=_mapById.get(id);
     if (old==null)
     {
+      _stats.add(stat);
       _mapById.put(id,stat);
       String key=stat.getKey();
       if (key!=null)
@@ -117,6 +121,27 @@ public class StatsRegistry
       {
         _mapByKey.put(legacyKey,stat);
       }
+    }
+  }
+
+  /**
+   * Remove a stat.
+   * @param stat Stat to remove.
+   */
+  public void removeStat(StatDescription stat)
+  {
+    _stats.remove(stat);
+    Integer id=Integer.valueOf(stat.getIdentifier());
+    _mapById.remove(id);
+    String key=stat.getKey();
+    if (key!=null)
+    {
+      _mapByKey.remove(key);
+    }
+    String legacyKey=stat.getLegacyKey();
+    if (legacyKey!=null)
+    {
+      _mapByKey.remove(legacyKey);
     }
   }
 
@@ -146,20 +171,6 @@ public class StatsRegistry
    */
   public List<StatDescription> getAll()
   {
-    return new ArrayList<StatDescription>(_mapById.values());
-  }
-
-  /**
-   * Write the managed stats to a XML file.
-   * @param toFile File to write to.
-   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
-   */
-  public boolean writeToFile(File toFile)
-  {
-    int nbStats=getNbStats();
-    LOGGER.info("Writing "+nbStats+" stats to: "+toFile);
-    List<StatDescription> stats=getAll();
-    Collections.sort(stats,new IdentifiableComparator<StatDescription>());
-    return StatXMLWriter.write(toFile,stats);
+    return new ArrayList<StatDescription>(_stats);
   }
 }
