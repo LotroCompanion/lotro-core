@@ -25,7 +25,7 @@ public class BasicStatsSetXMLWriter
    */
   public static void write(TransformerHandler hd, String tagName, BasicStatsSet statsSet) throws Exception
   {
-    if (statsSet!=null)
+    if ((statsSet!=null) && (statsSet.getStatsCount()>0))
     {
       hd.startElement("","",tagName,new AttributesImpl());
       writeStats(hd,statsSet);
