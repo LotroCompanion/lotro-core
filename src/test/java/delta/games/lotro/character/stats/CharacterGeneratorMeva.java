@@ -312,7 +312,8 @@ public class CharacterGeneratorMeva
     //passives.setStat(STAT.PARRY_PERCENTAGE,1);
     LegendaryAttrs attrs=weapon.getLegendaryAttrs();
     // Title
-    LegendaryTitle title=new LegendaryTitle("Elven Orc-Hewer");
+    LegendaryTitle title=new LegendaryTitle();
+    title.setName("Elven Orc-Hewer");
     //BasicStatsSet titleStats=title.getStats();
     //titleStats.setStat(STAT.CRITICAL_RATING,460);
     attrs.setTitle(title);

@@ -512,7 +512,8 @@ public class CharacterGeneratorGiswald
     passives.setStat(WellKnownStat.PARRY_PERCENTAGE,1);
     LegendaryAttrs attrs=weapon.getLegendaryAttrs();
     // Title
-    LegendaryTitle title=new LegendaryTitle("Potency of Eldar Days III");
+    LegendaryTitle title=new LegendaryTitle();
+    title.setName("Potency of Eldar Days III");
     BasicStatsSet titleStats=title.getStats();
     titleStats.setStat(WellKnownStat.CRITICAL_RATING,460);
     attrs.setTitle(title);
