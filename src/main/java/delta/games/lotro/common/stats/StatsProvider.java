@@ -129,4 +129,22 @@ public class StatsProvider
     if (stat==WellKnownStat.FATE) return false;
     return true;
   }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    int nbStats=getNumberOfStatProviders();
+    for(int i=0;i<nbStats;i++)
+    {
+      if (i>0)
+      {
+        sb.append(" / ");
+      }
+      StatProvider statProvider=getStatProvider(i);
+      StatDescription stat=statProvider.getStat();
+      sb.append(stat.getName());
+    }
+    return sb.toString();
+  }
 }
