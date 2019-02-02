@@ -56,7 +56,10 @@ public class LegacyXMLWriter
     attrs.addAttribute("","",LegacyXMLConstants.LEGACY_IDENTIFIER_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Type
     LegacyType type=legacy.getType();
-    attrs.addAttribute("","",LegacyXMLConstants.LEGACY_TYPE_ATTR,XmlWriter.CDATA,type.name());
+    if (type!=null)
+    {
+      attrs.addAttribute("","",LegacyXMLConstants.LEGACY_TYPE_ATTR,XmlWriter.CDATA,type.name());
+    }
     // Maximum initial level
     int maxInitialLevel=legacy.getMaxInitialLevel();
     attrs.addAttribute("","",LegacyXMLConstants.LEGACY_MAX_INITIAL_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(maxInitialLevel));
