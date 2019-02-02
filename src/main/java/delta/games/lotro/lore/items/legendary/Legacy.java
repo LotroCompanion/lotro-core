@@ -1,6 +1,8 @@
 package delta.games.lotro.lore.items.legendary;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
@@ -11,7 +13,7 @@ public class Legacy implements Identifiable
 {
   private int _id;
   private int _maxInitialLevel;
-  private int _maxTier;
+  private int _maxLevel;
   private LegacyType _type;
   //private CharacterClass _requiredClass;
   //private boolean _imbued;
@@ -38,7 +40,7 @@ public class Legacy implements Identifiable
    * Set the identifier of this legacy.
    * @param id the identifier to set.
    */
-  public void setId(int id)
+  public void setIdentifier(int id)
   {
     _id=id;
   }
@@ -62,21 +64,21 @@ public class Legacy implements Identifiable
   }
 
   /**
-   * Get the maximum tier.
-   * @return the maximum tier.
+   * Get the maximum level.
+   * @return the maximum level.
    */
-  public int getMaxTier()
+  public int getMaxLevel()
   {
-    return _maxTier;
+    return _maxLevel;
   }
 
   /**
-   * Set the maximum tier.
-   * @param maxTier the maximum tier to set.
+   * Set the maximum level.
+   * @param maxLevel the maximum level to set.
    */
-  public void setMaxTier(int maxTier)
+  public void setMaxLevel(int maxLevel)
   {
-    _maxTier=maxTier;
+    _maxLevel=maxLevel;
   }
 
   /**
@@ -115,13 +117,32 @@ public class Legacy implements Identifiable
     _statsProvider=statsProvider;
   }
 
+  /**
+   * Get a displayable label for this effect.
+   * @return a displayable label.
+   */
+  public String getLabel()
+  {
+    if (_statsProvider!=null)
+    {
+      int nbStats=_statsProvider.getNumberOfStatProviders();
+      if (nbStats>0)
+      {
+        StatProvider statProvider=_statsProvider.getStatProvider(0);
+        StatDescription stat=statProvider.getStat();
+        return stat.getName();
+      }
+    }
+    return "?";
+  }
+
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
     sb.append("Legacy: ID=").append(_id);
     sb.append(", type=").append(_type);
-    sb.append(", max tier=").append(_maxTier);
+    sb.append(", max tier=").append(_maxLevel);
     sb.append(", stats=").append(_statsProvider);
     return sb.toString();
   }
