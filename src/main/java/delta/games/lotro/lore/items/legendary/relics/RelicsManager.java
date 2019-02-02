@@ -83,6 +83,24 @@ public class RelicsManager
   }
 
   /**
+   * Get a relic using its identifier.
+   * @param id Identifier.
+   * @return A relic or <code>null</code> if not found.
+   */
+  public Relic getById(int id)
+  {
+    for(RelicsCategory category : _categories.values())
+    {
+      Relic relic=category.getById(id);
+      if (relic!=null)
+      {
+        return relic;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Load all relics.
    */
   private void loadAll()

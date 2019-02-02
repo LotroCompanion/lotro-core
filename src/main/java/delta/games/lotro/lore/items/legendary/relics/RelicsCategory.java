@@ -1,7 +1,9 @@
 package delta.games.lotro.lore.items.legendary.relics;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Manages all relics for a given category.
@@ -10,6 +12,7 @@ import java.util.List;
 public class RelicsCategory
 {
   private String _name;
+  private Map<Integer,Relic> _relicById;
   private List<Relic> _relics;
 
   /**
@@ -19,6 +22,7 @@ public class RelicsCategory
   public RelicsCategory(String name)
   {
     _name=name;
+    _relicById=new HashMap<Integer,Relic>();
     _relics=new ArrayList<Relic>();
   }
 
@@ -49,12 +53,24 @@ public class RelicsCategory
   }
 
   /**
+   * Get a relic using its identifier.
+   * @param id Identifier.
+   * @return A relic or <code>null</code> if not found.
+   */
+  public Relic getById(int id)
+  {
+    return _relicById.get(Integer.valueOf(id));
+  }
+
+  /**
    * Add a relic.
    * @param relic Relic to add.
    */
   public void addRelic(Relic relic)
   {
     _relics.add(relic);
+    Integer id=Integer.valueOf(relic.getIdentifier());
+    _relicById.put(id,relic);
   }
 
   /**
