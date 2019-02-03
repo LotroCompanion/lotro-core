@@ -353,6 +353,10 @@ public class LegendaryAttrs
     {
       sb.append("Name: ").append(_legendaryName).append(EndOfLine.NATIVE_EOL);
     }
+    if (_title!=null)
+    {
+      sb.append("Title: ").append(_title.getName()).append(EndOfLine.NATIVE_EOL);
+    }
     sb.append("Relics:").append(EndOfLine.NATIVE_EOL);
     for(Relic relic : getRelics())
     {

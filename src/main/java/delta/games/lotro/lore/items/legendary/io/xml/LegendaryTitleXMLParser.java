@@ -24,7 +24,7 @@ public class LegendaryTitleXMLParser
    * @param source Source file.
    * @return Parsed legendary titles.
    */
-  public List<LegendaryTitle> parseXML(File source)
+  public static List<LegendaryTitle> parseXML(File source)
   {
     List<LegendaryTitle> ret=new ArrayList<LegendaryTitle>();
     Element root=DOMParsingTools.parse(source);
@@ -40,7 +40,7 @@ public class LegendaryTitleXMLParser
     return ret;
   }
 
-  private LegendaryTitle parseTitle(Element root)
+  private static LegendaryTitle parseTitle(Element root)
   {
     LegendaryTitle title=new LegendaryTitle();
 

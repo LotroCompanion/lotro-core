@@ -76,8 +76,8 @@ public class LegaciesManager
   }
 
   /**
-   * Get a list of all legacy, sorted by identifier.
-   * @return A list of legacy.
+   * Get a list of all legacies, sorted by identifier.
+   * @return A list of legacies.
    */
   public List<Legacy> getAll()
   {
@@ -89,7 +89,7 @@ public class LegaciesManager
 
   /**
    * Get a legacy using its identifier.
-   * @param id Leagcy identifier.
+   * @param id Legacy identifier.
    * @return A legacy or <code>null</code> if not found.
    */
   public Legacy getLegacy(int id)
