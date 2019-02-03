@@ -5,6 +5,8 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.common.Effect;
+import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 
@@ -14,28 +16,34 @@ import delta.games.lotro.lore.items.legendary.relics.RelicType;
  */
 public class LegendaryAttrs
 {
-  /*
-  private boolean _imbued;
-  private int _stars;
-  */
+  // Name
+  private String _legendaryName;
+  // Title
   private LegendaryTitle _title;
-  // Legacies
-  // TODO
   // Relics
   private Relic _setting;
   private Relic _gem;
   private Relic _rune;
   private Relic _crafted;
+  // Passives
+  private List<Effect> _passives;
+  // Imbued attributes
+  private ImbuedLegendaryAttrs _imbuedAttrs;
+  // Non-imbued attributes
+  private NonImbuedLegendaryAttrs _nonImbuedAttrs;
 
   /**
    * Constructor.
    */
   public LegendaryAttrs()
   {
+    _legendaryName="";
     _setting=null;
     _gem=null;
     _rune=null;
     _crafted=null;
+    _passives=new ArrayList<Effect>();
+    _nonImbuedAttrs=new NonImbuedLegendaryAttrs();
   }
 
   /**
@@ -44,10 +52,33 @@ public class LegendaryAttrs
    */
   public LegendaryAttrs(LegendaryAttrs source)
   {
+    _legendaryName=source._legendaryName;
+    _title=source._title;
     _setting=source._setting;
     _gem=source._gem;
     _rune=source._rune;
     _crafted=source._crafted;
+    _passives.clear();
+    _passives.addAll(source._passives);
+  }
+
+  /**
+   * Get the name of this legendary item.
+   * @return a name (never <code>null</code>).
+   */
+  public String getLegendaryName()
+  {
+    return _legendaryName;
+  }
+
+  /**
+   * Set the name of this legendary item.
+   * @param legendaryName the name to set.
+   */
+  public void setLegendaryName(String legendaryName)
+  {
+    if (legendaryName==null) legendaryName="";
+    _legendaryName=legendaryName;
   }
 
   /**
@@ -210,14 +241,79 @@ public class LegendaryAttrs
   }
 
   /**
+   * Add a passive.
+   * @param effect Passive to add.
+   */
+  public void addPassive(Effect effect)
+  {
+    _passives.add(effect);
+  }
+
+  /**
+   * Remove a passive.
+   * @param effect Legacy to remove.
+   */
+  public void removePassive(Effect effect)
+  {
+    _passives.remove(effect);
+  }
+
+  /**
+   * Get a list of all passives.
+   * @return a list of all passives.
+   */
+  public List<Effect> getPassives()
+  {
+    return new ArrayList<Effect>(_passives);
+  }
+
+  /**
+   * Get the non-imbued attributes.
+   * @return the non-imbued attributes.
+   */
+  public NonImbuedLegendaryAttrs getNonImbuedAttrs()
+  {
+    return _nonImbuedAttrs;
+  }
+
+  /**
+   * Set the non-imbued attributes.
+   * @param nonImbuedAttrs Attributes to set.
+   */
+  public void setNonImbuedAttrs(NonImbuedLegendaryAttrs nonImbuedAttrs)
+  {
+    _nonImbuedAttrs=nonImbuedAttrs;
+  }
+
+  /**
+   * Get the imbued attributes.
+   * @return the imbued attributes.
+   */
+  public ImbuedLegendaryAttrs getImbuedAttrs()
+  {
+    return _imbuedAttrs;
+  }
+
+  /**
+   * Set the imbued attributes.
+   * @param imbuedAttrs Attributes to set.
+   */
+  public void setImbuedAttrs(ImbuedLegendaryAttrs imbuedAttrs)
+  {
+    _imbuedAttrs=imbuedAttrs;
+  }
+
+  /**
    * Get the total stats for these legendary attributes, including:
+   * @param itemLevel Item level.
    * <ul>
    * <li>title stats,
+   * <li>passive stats,
    * <li>relics stats.
    * </ul>
    * @return a set of stats.
    */
-  public BasicStatsSet getRawStats()
+  public BasicStatsSet getRawStats(int itemLevel)
   {
     BasicStatsSet ret=new BasicStatsSet();
     // Title
@@ -236,6 +332,13 @@ public class LegendaryAttrs
         ret.addStats(relicStats);
       }
     }
+    // Passives
+    for(Effect passive : _passives)
+    {
+      StatsProvider statsProvider=passive.getStatsProvider();
+      BasicStatsSet stats=statsProvider.getStats(1,itemLevel);
+      ret.addStats(stats);
+    }
     return ret;
   }
 
@@ -246,6 +349,10 @@ public class LegendaryAttrs
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
+    if (_legendaryName.length()>0)
+    {
+      sb.append("Name: ").append(_legendaryName).append(EndOfLine.NATIVE_EOL);
+    }
     sb.append("Relics:").append(EndOfLine.NATIVE_EOL);
     for(Relic relic : getRelics())
     {
@@ -253,6 +360,23 @@ public class LegendaryAttrs
       {
         sb.append('\t').append(relic).append(EndOfLine.NATIVE_EOL);
       }
+    }
+    int nbPassives=_passives.size();
+    if (nbPassives>0)
+    {
+      sb.append("Passives:").append(EndOfLine.NATIVE_EOL);
+      for(Effect passive : _passives)
+      {
+        sb.append('\t').append(passive).append(EndOfLine.NATIVE_EOL);
+      }
+    }
+    if (_nonImbuedAttrs!=null)
+    {
+      sb.append(_nonImbuedAttrs).append(EndOfLine.NATIVE_EOL);
+    }
+    if (_imbuedAttrs!=null)
+    {
+      sb.append(_imbuedAttrs).append(EndOfLine.NATIVE_EOL);
     }
     return sb.toString();
   }
