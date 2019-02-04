@@ -41,6 +41,22 @@ public class StatsProvider
   }
 
   /**
+   * Get a displayable label for this stats provider.
+   * @return a displayable label.
+   */
+  public String getLabel()
+  {
+    int nbStats=getNumberOfStatProviders();
+    if (nbStats>0)
+    {
+      StatProvider statProvider=getStatProvider(0);
+      StatDescription stat=statProvider.getStat();
+      return stat.getName();
+    }
+    return "?";
+  }
+
+  /**
    * Get the stat provider at the given index.
    * @param index Index of provider, starting at 0.
    * @return A stat provider.

@@ -1,8 +1,6 @@
 package delta.games.lotro.lore.items.legendary;
 
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
@@ -125,13 +123,7 @@ public class Legacy implements Identifiable
   {
     if (_statsProvider!=null)
     {
-      int nbStats=_statsProvider.getNumberOfStatProviders();
-      if (nbStats>0)
-      {
-        StatProvider statProvider=_statsProvider.getStatProvider(0);
-        StatDescription stat=statProvider.getStat();
-        return stat.getName();
-      }
+      return _statsProvider.getLabel();
     }
     return "?";
   }

@@ -1,7 +1,5 @@
 package delta.games.lotro.common;
 
-import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
@@ -66,12 +64,9 @@ public class Effect implements Identifiable
    */
   public String getLabel()
   {
-    int nbStats=_statsProvider.getNumberOfStatProviders();
-    if (nbStats>0)
+    if (_statsProvider!=null)
     {
-      StatProvider statProvider=_statsProvider.getStatProvider(0);
-      StatDescription stat=statProvider.getStat();
-      return stat.getName();
+      return _statsProvider.getLabel();
     }
     return "?";
   }
