@@ -11,8 +11,8 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatDescriptionComparator;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -112,7 +112,7 @@ public final class DerivedStatsContributionsMgr
     public List<StatDescription> getSourceStats()
     {
       List<StatDescription> stats=new ArrayList<StatDescription>(_contributions.keySet());
-      Collections.sort(stats,new IdentifiableComparator<StatDescription>());
+      Collections.sort(stats,new StatDescriptionComparator());
       return stats;
     }
 

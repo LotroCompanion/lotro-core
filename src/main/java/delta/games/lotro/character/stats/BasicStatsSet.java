@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatDescriptionComparator;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -74,7 +74,8 @@ public class BasicStatsSet
   public List<StatDescription> getSortedStats()
   {
     List<StatDescription> stats=new ArrayList<StatDescription>(_stats.keySet());
-    Collections.sort(stats,new IdentifiableComparator<StatDescription>());
+    //Collections.sort(stats,new IdentifiableComparator<StatDescription>());
+    Collections.sort(stats,new StatDescriptionComparator());
     return stats;
   }
 
