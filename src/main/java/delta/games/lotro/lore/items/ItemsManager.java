@@ -8,8 +8,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.items.finder.ItemsFinder;
@@ -101,8 +102,7 @@ public class ItemsManager
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File itemsDir=cfg.getLoreDir();
-    File itemsFile=new File(itemsDir,"items.xml");
+    File itemsFile=cfg.getFile(DataFiles.ITEMS);
     long now=System.currentTimeMillis();
     List<Item> items=ItemSaxParser.parseItemsFile(itemsFile);
     for(Item item : items)

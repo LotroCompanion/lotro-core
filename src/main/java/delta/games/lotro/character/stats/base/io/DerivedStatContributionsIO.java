@@ -2,9 +2,10 @@ package delta.games.lotro.character.stats.base.io;
 
 import java.io.File;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.xml.DerivedStatsContributionsXMLParser;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 
 /**
  * I/O methods for the derived stat contributions manager.
@@ -15,10 +16,7 @@ public class DerivedStatContributionsIO
   private static File getFile()
   {
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File charactersDir=new File(loreDir,"characters");
-    File ret=new File(charactersDir,"statContribs.xml");
-    return ret;
+    return cfg.getFile(DataFiles.STAT_CONTRIBS);
   }
 
   /**

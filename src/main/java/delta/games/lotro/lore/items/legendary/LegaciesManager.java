@@ -8,8 +8,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.legendary.io.xml.LegacyXMLParser;
 
 /**
@@ -53,8 +54,7 @@ public class LegaciesManager
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File legaciesFile=new File(loreDir,"legacies.xml");
+    File legaciesFile=cfg.getFile(DataFiles.LEGACIES);
     long now=System.currentTimeMillis();
     List<Legacy> legacies=LegacyXMLParser.parseLegaciesFile(legaciesFile);
     for(Legacy legacy : legacies)

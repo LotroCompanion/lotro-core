@@ -8,8 +8,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.common.stats.io.xml.StatXMLParser;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 
 /**
  * Registry for all stats.
@@ -56,8 +57,7 @@ public class StatsRegistry
   {
     clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File statsRegistryFile=new File(loreDir,"stats.xml");
+    File statsRegistryFile=cfg.getFile(DataFiles.STATS);
     loadFromFile(statsRegistryFile);
   }
 

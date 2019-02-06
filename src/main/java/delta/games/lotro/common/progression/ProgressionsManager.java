@@ -9,8 +9,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.utils.maths.Progression;
 import delta.games.lotro.utils.maths.io.xml.ProgressionsXMLParser;
 import delta.games.lotro.utils.maths.io.xml.ProgressionsXMLWriter;
@@ -56,8 +57,7 @@ public class ProgressionsManager
   {
     _map.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File progressionsFile=new File(loreDir,"progressions.xml");
+    File progressionsFile=cfg.getFile(DataFiles.PROGRESSIONS);
     loadFromFile(progressionsFile);
   }
 

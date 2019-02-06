@@ -10,8 +10,9 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.titles.io.xml.TitleXMLParser;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -73,8 +74,7 @@ public class TitlesManager
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File titlesFile=new File(loreDir,"titles.xml");
+    File titlesFile=cfg.getFile(DataFiles.TITLES);
     long now=System.currentTimeMillis();
     List<TitleDescription> titles=new TitleXMLParser().parseXML(titlesFile);
     for(TitleDescription title : titles)

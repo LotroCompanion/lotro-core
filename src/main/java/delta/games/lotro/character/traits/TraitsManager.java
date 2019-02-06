@@ -8,9 +8,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.traits.io.xml.TraitDescriptionXMLParser;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 
 /**
  * Facade for access to traits.
@@ -55,9 +56,7 @@ public class TraitsManager
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File charactersDir=new File(loreDir,"characters");
-    File traitsFile=new File(charactersDir,"traits.xml");
+    File traitsFile=cfg.getFile(DataFiles.TRAITS);
     long now=System.currentTimeMillis();
     List<TraitDescription> traits=TraitDescriptionXMLParser.parseTraitsFile(traitsFile);
     for(TraitDescription trait : traits)

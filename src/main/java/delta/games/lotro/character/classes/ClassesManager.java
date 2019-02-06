@@ -6,9 +6,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.classes.io.xml.ClassDescriptionXMLParser;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 
 /**
  * Facade for access to class descriptions.
@@ -51,9 +52,7 @@ public class ClassesManager
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File charactersDir=new File(loreDir,"characters");
-    File classesFile=new File(charactersDir,"classes.xml");
+    File classesFile=cfg.getFile(DataFiles.CLASSES);
     long now=System.currentTimeMillis();
     List<ClassDescription> classDescriptions=ClassDescriptionXMLParser.parseClassDescriptionsFile(classesFile);
     for(ClassDescription classDescription : classDescriptions)

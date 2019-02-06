@@ -8,8 +8,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryTitleXMLParser;
 
 /**
@@ -53,8 +54,7 @@ public class LegendaryTitlesManager
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File legendaryTitlesFile=new File(loreDir,"legendary_titles.xml");
+    File legendaryTitlesFile=cfg.getFile(DataFiles.LEGENDARY_TITLES);
     long now=System.currentTimeMillis();
     List<LegendaryTitle> legendaryTitles=LegendaryTitleXMLParser.parseXML(legendaryTitlesFile);
     for(LegendaryTitle legendaryTitle : legendaryTitles)

@@ -2,9 +2,10 @@ package delta.games.lotro.character.stats.base.io;
 
 import java.io.File;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.character.stats.base.StartStatsManager;
 import delta.games.lotro.character.stats.base.io.xml.StartStatsXMLParser;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 
 /**
  * I/O methods for the start stats manager.
@@ -15,10 +16,7 @@ public class StartStatsManagerIO
   private static File getFile()
   {
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File charactersDir=new File(loreDir,"characters");
-    File ret=new File(charactersDir,"startStats.xml");
-    return ret;
+    return cfg.getFile(DataFiles.START_STATS);
   }
 
   /**

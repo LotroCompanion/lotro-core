@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import delta.games.lotro.LotroCoreConfig;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.reputation.io.xml.FactionsXMLParser;
 
 /**
@@ -48,8 +49,7 @@ public final class FactionsRegistry
   private static FactionsRegistry loadRegistry()
   {
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File registryFile=new File(loreDir,"factions.xml");
+    File registryFile=cfg.getFile(DataFiles.FACTIONS);
     FactionsXMLParser parser=new FactionsXMLParser();
     FactionsRegistry registry=parser.parseXML(registryFile);
     if (registry==null)

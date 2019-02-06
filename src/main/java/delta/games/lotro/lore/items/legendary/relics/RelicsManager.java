@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.LotroCoreConfig;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.legendary.relics.io.xml.RelicXMLParser;
 import delta.games.lotro.lore.items.legendary.relics.io.xml.RelicXMLWriter;
 
@@ -107,8 +108,7 @@ public class RelicsManager
   {
     _categories.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File relicsFile=new File(loreDir,"relics.xml");
+    File relicsFile=cfg.getFile(DataFiles.RELICS);
     RelicXMLParser parser=new RelicXMLParser();
     List<RelicsCategory> categories=parser.parseRelicsFile(relicsFile);
     for(RelicsCategory category:categories)

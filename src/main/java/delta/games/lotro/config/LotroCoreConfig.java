@@ -1,8 +1,14 @@
-package delta.games.lotro;
+package delta.games.lotro.config;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 
+import org.apache.log4j.Logger;
+
+import delta.common.utils.io.StreamTools;
 import delta.common.utils.misc.TypedProperties;
+import delta.common.utils.url.URLTools;
 
 /**
  * Configuration.
@@ -10,18 +16,12 @@ import delta.common.utils.misc.TypedProperties;
  */
 public final class LotroCoreConfig
 {
+  private static final Logger LOGGER=Logger.getLogger(LotroCoreConfig.class);
+
   private static LotroCoreConfig _instance=new LotroCoreConfig();
 
-  // Root directory
-  private File _rootDir;
-  // Root directory for constant data
-  private File _applicationDataDir;
-  // Configuration
-  private File _configDir;
-  // Lore
-  private File _loreDir;
-  private File _indexesDir;
-  private File _questsDir;
+  // Locations
+  private TypedProperties _locations;
 
   // Root directory for use data
   private File _userDataDir;
@@ -29,7 +29,7 @@ public final class LotroCoreConfig
   private File _accountsDir;
   // Character data
   private File _toonsDir;
-
+  // Parameters
   private TypedProperties _parameters;
 
   /**
@@ -46,26 +46,15 @@ public final class LotroCoreConfig
    */
   private LotroCoreConfig()
   {
-    // Root dir
-    _rootDir=computeRootDir();
+    _locations=getLocations();
 
-    // Application data
-    _applicationDataDir=new File(_rootDir,"data");
-
-    // Configuration
-    _configDir=new File(_applicationDataDir,"config");
     // Parameters
-    File parametersFiles=new File(_configDir,"params.txt");
+    File parametersFiles=getFile(DataFiles.PARAMETERS);
     _parameters=new TypedProperties();
     if (parametersFiles.canRead())
     {
       _parameters.loadFromFile(parametersFiles);
     }
-
-    // Lore
-    _loreDir=new File(_applicationDataDir,"lore");
-    _indexesDir=new File(_loreDir,"indexes");
-    _questsDir=new File(_applicationDataDir,"quests");
 
     // User data
     File userHomeDir=new File(System.getProperty("user.home"));
@@ -75,37 +64,37 @@ public final class LotroCoreConfig
     _accountsDir=new File(_userDataDir,"accounts");
   }
 
-  private File computeRootDir()
+  private TypedProperties getLocations()
   {
-    File ret=null;
-    String systemProperty=System.getProperty("companion.home",null);
-    if (systemProperty!=null)
+    TypedProperties props=null;
+    URL url=URLTools.getFromClassPath("locations.properties",this);
+    InputStream is=null;
+    try
     {
-      ret=new File(systemProperty).getAbsoluteFile();
+      is=url.openStream();
+      props=new TypedProperties();
+      props.loadFromInputStream(is);
     }
-    else
+    catch(Throwable t)
     {
-      ret=new File("").getAbsoluteFile();
+      LOGGER.error("Could not load locations!",t);
     }
-    return ret;
+    finally
+    {
+      StreamTools.close(is);
+    }
+    return props;
   }
 
   /**
-   * Get the directory for application data.
-   * @return the directory for application data.
+   * Get a file path.
+   * @param id Location identifier.
+   * @return An absolute file or <code>null</code>.
    */
-  public File getApplicationDataDir()
+  public File getFile(String id)
   {
-    return _applicationDataDir;
-  }
-
-  /**
-   * Get the root storage directory for configuration files.
-   * @return a directory.
-   */
-  public File getConfigDir()
-  {
-    return _configDir;
+    String path=_locations.getStringProperty(id,null);
+    return path!=null?new File(path).getAbsoluteFile():null;
   }
 
   /**
@@ -115,33 +104,6 @@ public final class LotroCoreConfig
   public TypedProperties getParameters()
   {
     return _parameters;
-  }
-
-  /**
-   * Get the root directory for lore data storage.
-   * @return a directory.
-   */
-  public File getLoreDir()
-  {
-    return _loreDir;
-  }
-
-  /**
-   * Get the root directory for indexes storage.
-   * @return a directory.
-   */
-  public File getIndexesDir()
-  {
-    return _indexesDir;
-  }
-
-  /**
-   * Get the root directory for quest data storage.
-   * @return a directory.
-   */
-  public File getQuestsDir()
-  {
-    return _questsDir;
   }
 
   /**

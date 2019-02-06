@@ -7,7 +7,7 @@ import java.util.List;
 
 import delta.common.utils.files.FilesDeleter;
 import delta.common.utils.files.filter.FileTypePredicate;
-import delta.games.lotro.LotroCoreConfig;
+import delta.games.lotro.config.LotroCoreConfig;
 
 /**
  * Storage manage for all characters.

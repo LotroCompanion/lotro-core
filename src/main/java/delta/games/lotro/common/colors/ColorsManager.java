@@ -7,8 +7,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.LotroCoreConfig;
 import delta.games.lotro.common.colors.io.xml.ColorXMLParser;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 
 /**
  * Facade for access to colors.
@@ -53,8 +54,7 @@ public class ColorsManager
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File loreDir=cfg.getLoreDir();
-    File colorsFile=new File(loreDir,"colors.xml");
+    File colorsFile=cfg.getFile(DataFiles.COLORS);
     long now=System.currentTimeMillis();
     List<ColorDescription> colors=ColorXMLParser.parseXML(colorsFile);
     for(ColorDescription color : colors)
