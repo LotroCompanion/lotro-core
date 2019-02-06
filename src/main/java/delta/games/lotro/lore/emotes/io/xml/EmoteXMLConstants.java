@@ -2,7 +2,7 @@ package delta.games.lotro.lore.emotes.io.xml;
 
 /**
  * Constants for tags and attribute names used in the
- * titles XML documents.
+ * emotes XML documents.
  * @author DAM
  */
 public class EmoteXMLConstants
