@@ -28,7 +28,10 @@ public class StatsProvider
    */
   public void addStatProvider(StatProvider statProvider)
   {
-    _stats.add(statProvider);
+    if (statProvider!=null)
+    {
+      _stats.add(statProvider);
+    }
   }
 
   /**

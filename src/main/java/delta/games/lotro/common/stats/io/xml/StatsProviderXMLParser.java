@@ -32,6 +32,10 @@ public class StatsProviderXMLParser
     // Stat name
     String statName=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_NAME_ATTR,null);
     StatDescription stat=StatsRegistry.getInstance().getByKey(statName);
+    if (stat==null)
+    {
+      return null;
+    }
 
     // Stat operator
     String operatorStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_OPERATOR_ATTR,null);
