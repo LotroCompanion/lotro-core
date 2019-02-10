@@ -1,13 +1,14 @@
-package delta.games.lotro.lore.items.legendary;
+package delta.games.lotro.lore.items.legendary.imbued;
 
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.legendary.LegacyType;
 
 /**
- * Legacy description.
+ * Imbued legacy description.
  * @author DAM
  */
-public class Legacy implements Identifiable
+public class ImbuedLegacy implements Identifiable
 {
   private int _id;
   private int _maxInitialLevel;
@@ -20,7 +21,7 @@ public class Legacy implements Identifiable
   /**
    * Constructor.
    */
-  public Legacy()
+  public ImbuedLegacy()
   {
     // Nothing!
   }

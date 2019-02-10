@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.io.xml.LegacyXMLParser;
 
 /**
@@ -23,7 +24,7 @@ public class LegaciesManager
 
   private static LegaciesManager _instance=null;
 
-  private HashMap<Integer,Legacy> _cache;
+  private HashMap<Integer,ImbuedLegacy> _cache;
 
   /**
    * Get the sole instance of this class.
@@ -44,7 +45,7 @@ public class LegaciesManager
    */
   public LegaciesManager()
   {
-    _cache=new HashMap<Integer,Legacy>(100);
+    _cache=new HashMap<Integer,ImbuedLegacy>(100);
   }
 
   /**
@@ -56,8 +57,8 @@ public class LegaciesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File legaciesFile=cfg.getFile(DataFiles.LEGACIES);
     long now=System.currentTimeMillis();
-    List<Legacy> legacies=LegacyXMLParser.parseLegaciesFile(legaciesFile);
-    for(Legacy legacy : legacies)
+    List<ImbuedLegacy> legacies=LegacyXMLParser.parseLegaciesFile(legaciesFile);
+    for(ImbuedLegacy legacy : legacies)
     {
       registerLegacy(legacy);
     }
@@ -70,7 +71,7 @@ public class LegaciesManager
    * Register a new legacy.
    * @param legacy Legacy to register.
    */
-  public void registerLegacy(Legacy legacy)
+  public void registerLegacy(ImbuedLegacy legacy)
   {
     _cache.put(Integer.valueOf(legacy.getIdentifier()),legacy);
   }
@@ -79,11 +80,11 @@ public class LegaciesManager
    * Get a list of all legacies, sorted by identifier.
    * @return A list of legacies.
    */
-  public List<Legacy> getAll()
+  public List<ImbuedLegacy> getAll()
   {
-    ArrayList<Legacy> legacies=new ArrayList<Legacy>();
+    ArrayList<ImbuedLegacy> legacies=new ArrayList<ImbuedLegacy>();
     legacies.addAll(_cache.values());
-    Collections.sort(legacies,new IdentifiableComparator<Legacy>());
+    Collections.sort(legacies,new IdentifiableComparator<ImbuedLegacy>());
     return legacies;
   }
 
@@ -92,9 +93,9 @@ public class LegaciesManager
    * @param id Legacy identifier.
    * @return A legacy or <code>null</code> if not found.
    */
-  public Legacy getLegacy(int id)
+  public ImbuedLegacy getLegacy(int id)
   {
-    Legacy ret=null;
+    ImbuedLegacy ret=null;
     ret=_cache.get(Integer.valueOf(id));
     return ret;
   }

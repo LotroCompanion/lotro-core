@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items.legendary;
+package delta.games.lotro.lore.items.legendary.imbued;
 
 /**
  * Imbued legacy instance.
@@ -10,7 +10,7 @@ public class ImbuedLegacyInstance
    * XP amount for each tier.
    */
   private static final int XP_FOR_TIER=30000;
-  private Legacy _legacy;
+  private ImbuedLegacy _legacy;
   private int _xp;
   private int _unlockedLevels;
 
@@ -28,7 +28,7 @@ public class ImbuedLegacyInstance
    * Get the associated legacy.
    * @return the associated legacy.
    */
-  public Legacy getLegacy()
+  public ImbuedLegacy getLegacy()
   {
     return _legacy;
   }
@@ -37,7 +37,7 @@ public class ImbuedLegacyInstance
    * Set the associated legacy.
    * @param legacy the legacy to set.
    */
-  public void setLegacy(Legacy legacy)
+  public void setLegacy(ImbuedLegacy legacy)
   {
     _legacy=legacy;
   }

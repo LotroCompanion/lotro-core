@@ -1,9 +1,10 @@
-package delta.games.lotro.lore.items.legendary;
+package delta.games.lotro.lore.items.legendary.imbued;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 
 /**
  * Attributes of an imbued legendary item instance.

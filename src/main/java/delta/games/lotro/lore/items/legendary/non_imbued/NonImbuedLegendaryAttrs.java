@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items.legendary;
+package delta.games.lotro.lore.items.legendary.non_imbued;
 
 import java.util.ArrayList;
 import java.util.List;

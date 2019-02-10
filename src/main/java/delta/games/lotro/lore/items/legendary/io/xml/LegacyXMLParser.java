@@ -12,8 +12,8 @@ import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLConstants;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
-import delta.games.lotro.lore.items.legendary.Legacy;
 import delta.games.lotro.lore.items.legendary.LegacyType;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 
 /**
  * Parser for legacies descriptions stored in XML.
@@ -26,16 +26,16 @@ public class LegacyXMLParser
    * @param source Source file.
    * @return List of parsed legacies.
    */
-  public static List<Legacy> parseLegaciesFile(File source)
+  public static List<ImbuedLegacy> parseLegaciesFile(File source)
   {
-    List<Legacy> legacies=new ArrayList<Legacy>();
+    List<ImbuedLegacy> legacies=new ArrayList<ImbuedLegacy>();
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
       List<Element> legacyTags=DOMParsingTools.getChildTagsByName(root,LegacyXMLConstants.LEGACY_TAG);
       for(Element legacyTag : legacyTags)
       {
-        Legacy legacy=parseLegacy(legacyTag);
+        ImbuedLegacy legacy=parseLegacy(legacyTag);
         legacies.add(legacy);
       }
     }
@@ -47,10 +47,10 @@ public class LegacyXMLParser
    * @param root Root XML tag.
    * @return A legacy.
    */
-  private static Legacy parseLegacy(Element root)
+  private static ImbuedLegacy parseLegacy(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
-    Legacy legacy=new Legacy();
+    ImbuedLegacy legacy=new ImbuedLegacy();
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,LegacyXMLConstants.LEGACY_IDENTIFIER_ATTR,0);
     legacy.setIdentifier(id);

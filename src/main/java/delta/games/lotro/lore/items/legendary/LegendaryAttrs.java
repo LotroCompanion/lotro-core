@@ -7,6 +7,8 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Effect;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 

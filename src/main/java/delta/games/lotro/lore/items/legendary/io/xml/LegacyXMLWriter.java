@@ -13,8 +13,8 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
-import delta.games.lotro.lore.items.legendary.Legacy;
 import delta.games.lotro.lore.items.legendary.LegacyType;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 
 /**
  * Writes legacies to XML files.
@@ -28,7 +28,7 @@ public class LegacyXMLWriter
    * @param legacies Data to save.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public static boolean write(File toFile, final List<Legacy> legacies)
+  public static boolean write(File toFile, final List<ImbuedLegacy> legacies)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -37,7 +37,7 @@ public class LegacyXMLWriter
       public void writeXml(TransformerHandler hd) throws Exception
       {
         hd.startElement("","",LegacyXMLConstants.LEGACIES_TAG,new AttributesImpl());
-        for(Legacy legacy : legacies)
+        for(ImbuedLegacy legacy : legacies)
         {
           writeLegacy(hd,legacy);
         }
@@ -48,7 +48,7 @@ public class LegacyXMLWriter
     return ret;
   }
 
-  private static void writeLegacy(TransformerHandler hd, Legacy legacy) throws SAXException
+  private static void writeLegacy(TransformerHandler hd, ImbuedLegacy legacy) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Identifier

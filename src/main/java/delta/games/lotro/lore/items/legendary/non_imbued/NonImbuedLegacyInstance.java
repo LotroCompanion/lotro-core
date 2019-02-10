@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items.legendary;
+package delta.games.lotro.lore.items.legendary.non_imbued;
 
 import delta.games.lotro.common.Effect;
 
@@ -9,6 +9,7 @@ import delta.games.lotro.common.Effect;
 public class NonImbuedLegacyInstance
 {
   // Effect
+  // TODO: use legacy
   private Effect _effect;
   // Rank
   private int _rank;
@@ -84,6 +85,10 @@ public class NonImbuedLegacyInstance
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
+    if (_effect!=null)
+    {
+      sb.append("(non imbued) ID=").append(_effect.getIdentifier()).append(", ");
+    }
     String label=getLabel();
     sb.append(label);
     sb.append(", rank=").append(_rank);
