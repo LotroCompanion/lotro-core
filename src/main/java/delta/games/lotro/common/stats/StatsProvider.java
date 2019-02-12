@@ -49,14 +49,24 @@ public class StatsProvider
    */
   public String getLabel()
   {
+    StatDescription stat=getFirstStat();
+    return (stat!=null)?stat.getName():"?";
+  }
+
+  /**
+   * Get the first stat in this provider.
+   * @return A stat or <code>null</code> if no stat.
+   */
+  public StatDescription getFirstStat()
+  {
     int nbStats=getNumberOfStatProviders();
     if (nbStats>0)
     {
       StatProvider statProvider=getStatProvider(0);
       StatDescription stat=statProvider.getStat();
-      return stat.getName();
+      return stat;
     }
-    return "?";
+    return null;
   }
 
   /**

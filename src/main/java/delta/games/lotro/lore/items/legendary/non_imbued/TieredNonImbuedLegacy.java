@@ -12,29 +12,25 @@ import delta.games.lotro.lore.items.legendary.LegacyType;
  * Non-imbued legacy.
  * @author DAM
  */
-public class NonImbuedLegacy
+public class TieredNonImbuedLegacy extends AbstractNonImbuedLegacy
 {
   private StatDescription _stat;
   private boolean _major;
   private List<NonImbuedLegacyTier> _tiers;
-  private LegacyType _type;
 
   /**
    * Constructor.
    * @param stat Associated stat.
    */
-  public NonImbuedLegacy(StatDescription stat)
+  public TieredNonImbuedLegacy(StatDescription stat)
   {
+    super();
     _stat=stat;
     _major=false;
     _tiers=new ArrayList<NonImbuedLegacyTier>();
-    _type=LegacyType.STAT;
   }
 
-  /**
-   * Get the associated stat.
-   * @return a stat or <code>null</code> if not set.
-   */
+  @Override
   public StatDescription getStat()
   {
     return _stat;
@@ -88,32 +84,15 @@ public class NonImbuedLegacy
     return null;
   }
 
-  /**
-   * Get the legacy type.
-   * @return A legacy type.
-   */
-  public LegacyType getLegacyType()
-  {
-    return _type;
-  }
-
-  /**
-   * Set the legacy type.
-   * @param legacyType Type to set.
-   */
-  public void setLegacyType(LegacyType legacyType)
-  {
-    _type=legacyType;
-  }
-
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
     sb.append("Non imbued: ").append(_stat.getName());
-    if (_type!=null)
+    LegacyType type=getType();
+    if (type!=null)
     {
-      sb.append(" (").append(_type).append(')');
+      sb.append(" (").append(type).append(')');
     }
     if (_major)
     {

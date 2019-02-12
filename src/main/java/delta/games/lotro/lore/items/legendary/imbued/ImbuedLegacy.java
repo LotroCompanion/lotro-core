@@ -2,20 +2,17 @@ package delta.games.lotro.lore.items.legendary.imbued;
 
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.lore.items.legendary.LegacyType;
+import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 
 /**
  * Imbued legacy description.
  * @author DAM
  */
-public class ImbuedLegacy implements Identifiable
+public class ImbuedLegacy extends AbstractLegacy implements Identifiable 
 {
   private int _id;
   private int _maxInitialLevel;
   private int _maxLevel;
-  private LegacyType _type;
-  //private CharacterClass _requiredClass;
-  //private boolean _imbued;
   private StatsProvider _statsProvider;
 
   /**
@@ -81,24 +78,6 @@ public class ImbuedLegacy implements Identifiable
   }
 
   /**
-   * Get the legacy type.
-   * @return a legacy type.
-   */
-  public LegacyType getType()
-  {
-    return _type;
-  }
-
-  /**
-   * Set the legacy type.
-   * @param type the type to set.
-   */
-  public void setType(LegacyType type)
-  {
-    _type=type;
-  }
-
-  /**
    * Get the stats provider.
    * @return the stats provider.
    */
@@ -134,7 +113,7 @@ public class ImbuedLegacy implements Identifiable
   {
     StringBuilder sb=new StringBuilder();
     sb.append("Legacy: ID=").append(_id);
-    sb.append(", type=").append(_type);
+    sb.append(", type=").append(getType());
     sb.append(", max tier=").append(_maxLevel);
     sb.append(", stats=").append(_statsProvider);
     return sb.toString();

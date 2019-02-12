@@ -19,6 +19,10 @@ public enum LegacyType
    */
   DPS,
   /**
+   * Fury.
+   */
+  FURY,
+  /**
    * Outgoing healing legacy.
    */
   OUTGOING_HEALING,

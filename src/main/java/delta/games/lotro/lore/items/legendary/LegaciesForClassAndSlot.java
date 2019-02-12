@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items.legendary.non_imbued;
+package delta.games.lotro.lore.items.legendary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,30 +9,31 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 /**
  * Stores the available legacies for a given class and slot.
  * @author DAM
+ * @param <T> Legacy type.
  */
-public class LegaciesAvailableForClassAndSlot
+public class LegaciesForClassAndSlot<T extends AbstractLegacy>
 {
   private CharacterClass _characterClass;
   private EquipmentLocation _slot;
-  private List<NonImbuedLegacy> _legacies;
+  private List<T> _legacies;
 
   /**
    * Constructor.
    * @param characterClass Character class.
    * @param slot Slot.
    */
-  public LegaciesAvailableForClassAndSlot(CharacterClass characterClass, EquipmentLocation slot)
+  public LegaciesForClassAndSlot(CharacterClass characterClass, EquipmentLocation slot)
   {
     _characterClass=characterClass;
     _slot=slot;
-    _legacies=new ArrayList<NonImbuedLegacy>();
+    _legacies=new ArrayList<T>();
   }
 
   /**
    * Register a legacy usage.
    * @param legacy Legacy to use.
    */
-  public void addLegacyUsage(NonImbuedLegacy legacy)
+  public void addLegacyUsage(T legacy)
   {
     if (!_legacies.contains(legacy))
     {
@@ -62,8 +63,8 @@ public class LegaciesAvailableForClassAndSlot
    * Get all managed legacies.
    * @return A list of managed legacies.
    */
-  public List<NonImbuedLegacy> getAll()
+  public List<T> getAll()
   {
-    return new ArrayList<NonImbuedLegacy>(_legacies);
+    return new ArrayList<T>(_legacies);
   }
 }

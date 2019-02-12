@@ -10,6 +10,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.legendary.LegaciesForClassAndSlot;
 
 /**
  * Manager for non-imbued legacies.
@@ -17,23 +18,23 @@ import delta.games.lotro.lore.items.EquipmentLocation;
  */
 public class NonImbuedLegaciesManager
 {
-  private Map<StatDescription,NonImbuedLegacy> _legacies;
-  private Map<String,LegaciesAvailableForClassAndSlot> _legaciesUsage;
+  private Map<StatDescription,TieredNonImbuedLegacy> _legacies;
+  private Map<String,LegaciesForClassAndSlot<AbstractNonImbuedLegacy>> _legaciesUsage;
 
   /**
    * Constructor.
    */
   public NonImbuedLegaciesManager()
   {
-    _legacies=new HashMap<StatDescription,NonImbuedLegacy>();
-    _legaciesUsage=new HashMap<String,LegaciesAvailableForClassAndSlot>();
+    _legacies=new HashMap<StatDescription,TieredNonImbuedLegacy>();
+    _legaciesUsage=new HashMap<String,LegaciesForClassAndSlot<AbstractNonImbuedLegacy>>();
   }
 
   /**
    * Add a legacy.
    * @param legacy Legacy to add.
    */
-  public void addLegacy(NonImbuedLegacy legacy)
+  public void addLegacy(TieredNonImbuedLegacy legacy)
   {
     StatDescription stat=legacy.getStat();
     _legacies.put(stat,legacy);
@@ -44,7 +45,7 @@ public class NonImbuedLegaciesManager
    * @param stat Stat to use.
    * @return A legacy or <code>null</code> if not found.
    */
-  public NonImbuedLegacy getLegacy(StatDescription stat)
+  public TieredNonImbuedLegacy getLegacy(StatDescription stat)
   {
     return _legacies.get(stat);
   }
@@ -60,16 +61,33 @@ public class NonImbuedLegaciesManager
    * @param characterClass Involved character class.
    * @param slot Involved slot.
    */
-  public void addLegacyUsage(NonImbuedLegacy legacy, CharacterClass characterClass, EquipmentLocation slot)
+  public void registerLegacyUsage(AbstractNonImbuedLegacy legacy, CharacterClass characterClass, EquipmentLocation slot)
   {
     String key=buildKey(characterClass,slot);
-    LegaciesAvailableForClassAndSlot legacies=_legaciesUsage.get(key);
+    LegaciesForClassAndSlot<AbstractNonImbuedLegacy> legacies=_legaciesUsage.get(key);
     if (legacies==null)
     {
-      legacies=new LegaciesAvailableForClassAndSlot(characterClass,slot);
+      legacies=new LegaciesForClassAndSlot<AbstractNonImbuedLegacy>(characterClass,slot);
       _legaciesUsage.put(key,legacies);
     }
     legacies.addLegacyUsage(legacy);
+  }
+
+  /**
+   * Get all legacies for a given character class and slot.
+   * @param characterClass Targeted character class.
+   * @param slot Targeted slot.
+   * @return a possibly empty but not <code>null</code> list of legacies.
+   */
+  public List<AbstractNonImbuedLegacy> getLegacies(CharacterClass characterClass, EquipmentLocation slot)
+  {
+    String key=buildKey(characterClass,slot);
+    LegaciesForClassAndSlot<AbstractNonImbuedLegacy> legacies=_legaciesUsage.get(key);
+    if (legacies!=null)
+    {
+      return legacies.getAll();
+    }
+    return new ArrayList<AbstractNonImbuedLegacy>();
   }
 
   /**
@@ -79,7 +97,7 @@ public class NonImbuedLegaciesManager
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
-    for(NonImbuedLegacy legacy : _legacies.values())
+    for(TieredNonImbuedLegacy legacy : _legacies.values())
     {
       sb.append(legacy);
     }
@@ -88,8 +106,8 @@ public class NonImbuedLegaciesManager
     for(String key : keys)
     {
       sb.append(key).append(EndOfLine.NATIVE_EOL);
-      LegaciesAvailableForClassAndSlot availableLegacies=_legaciesUsage.get(key);
-      for(NonImbuedLegacy legacy : availableLegacies.getAll())
+      LegaciesForClassAndSlot<AbstractNonImbuedLegacy> availableLegacies=_legaciesUsage.get(key);
+      for(AbstractNonImbuedLegacy legacy : availableLegacies.getAll())
       {
         sb.append('\t').append(legacy.getStat().getName()).append(EndOfLine.NATIVE_EOL);
       }

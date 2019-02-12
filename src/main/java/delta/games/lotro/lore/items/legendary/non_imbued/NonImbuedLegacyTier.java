@@ -9,7 +9,7 @@ import delta.games.lotro.common.stats.StatDescription;
  */
 public class NonImbuedLegacyTier
 {
-  private NonImbuedLegacy _parent;
+  private TieredNonImbuedLegacy _parent;
   private int _tier;
   private Effect _effect;
 
@@ -19,7 +19,7 @@ public class NonImbuedLegacyTier
    * @param tier Tier (1 to 6).
    * @param effect Legadcy effect.
    */
-  public NonImbuedLegacyTier(NonImbuedLegacy legacy, int tier, Effect effect)
+  public NonImbuedLegacyTier(TieredNonImbuedLegacy legacy, int tier, Effect effect)
   {
     _parent=legacy;
     _tier=tier;
@@ -30,7 +30,7 @@ public class NonImbuedLegacyTier
    * Get the parent legacy.
    * @return the parent legacy.
    */
-  public NonImbuedLegacy getParentLegacy()
+  public TieredNonImbuedLegacy getParentLegacy()
   {
     return _parent;
   }
