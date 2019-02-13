@@ -1,5 +1,9 @@
 package delta.games.lotro.lore.items.legendary;
 
+import delta.common.utils.collections.filters.CompoundFilter;
+import delta.common.utils.collections.filters.Operator;
+import delta.games.lotro.common.constraints.ClassAndSlot;
+
 /**
  * Base class for all legacies.
  * @author DAM
@@ -7,6 +11,7 @@ package delta.games.lotro.lore.items.legendary;
 public class AbstractLegacy
 {
   private LegacyType _type;
+  private CompoundFilter<ClassAndSlot> _classAndSlotFilter;
 
   /**
    * Constructor.
@@ -14,6 +19,7 @@ public class AbstractLegacy
   public AbstractLegacy()
   {
     _type=LegacyType.STAT;
+    _classAndSlotFilter=new CompoundFilter<ClassAndSlot>(Operator.OR);
   }
 
   /**
@@ -32,5 +38,14 @@ public class AbstractLegacy
   public void setType(LegacyType type)
   {
     _type=type;
+  }
+
+  /**
+   * Get the class and slot filter.
+   * @return a class and slot filter.
+   */
+  public CompoundFilter<ClassAndSlot> getClassAndSlotFilter()
+  {
+    return _classAndSlotFilter;
   }
 }

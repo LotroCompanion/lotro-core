@@ -1,17 +1,21 @@
 package delta.games.lotro.lore.items.legendary.non_imbued;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.common.utils.collections.filters.CompoundFilter;
+import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Effect;
+import delta.games.lotro.common.constraints.ClassAndSlot;
+import delta.games.lotro.common.constraints.ClassAndSlotFilter;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.EquipmentLocation;
-import delta.games.lotro.lore.items.legendary.LegaciesForClassAndSlot;
+import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 
 /**
  * Manager for non-imbued legacies.
@@ -21,7 +25,6 @@ public class NonImbuedLegaciesManager
 {
   private Map<StatDescription,TieredNonImbuedLegacy> _tieredLegacies;
   private Map<Integer,DefaultNonImbuedLegacy> _defaultLegacies;
-  private Map<String,LegaciesForClassAndSlot<AbstractNonImbuedLegacy>> _legaciesUsage;
 
   /**
    * Constructor.
@@ -30,7 +33,6 @@ public class NonImbuedLegaciesManager
   {
     _tieredLegacies=new HashMap<StatDescription,TieredNonImbuedLegacy>();
     _defaultLegacies=new HashMap<Integer,DefaultNonImbuedLegacy>();
-    _legaciesUsage=new HashMap<String,LegaciesForClassAndSlot<AbstractNonImbuedLegacy>>();
   }
 
   /**
@@ -74,13 +76,6 @@ public class NonImbuedLegaciesManager
     return _defaultLegacies.get(Integer.valueOf(identifier));
   }
 
-  private String buildKey(CharacterClass characterClass, EquipmentLocation slot)
-  {
-    String characterClassKey=(characterClass!=null)?characterClass.getKey():"?";
-    String slotKey=(slot!=null)?slot.getKey():"?";
-    return characterClassKey+"-"+slotKey;
-  }
-
   /**
    * Register a legacy usage.
    * @param legacy Legacy to use.
@@ -89,31 +84,69 @@ public class NonImbuedLegaciesManager
    */
   public void registerLegacyUsage(AbstractNonImbuedLegacy legacy, CharacterClass characterClass, EquipmentLocation slot)
   {
-    String key=buildKey(characterClass,slot);
-    LegaciesForClassAndSlot<AbstractNonImbuedLegacy> legacies=_legaciesUsage.get(key);
-    if (legacies==null)
+    if (isAllowedCombinaison(characterClass,slot))
     {
-      legacies=new LegaciesForClassAndSlot<AbstractNonImbuedLegacy>(characterClass,slot);
-      _legaciesUsage.put(key,legacies);
+      CompoundFilter<ClassAndSlot> constraints=legacy.getClassAndSlotFilter();
+      Filter<ClassAndSlot> newConstraint=new ClassAndSlotFilter(characterClass,slot);
+      constraints.addFilter(newConstraint);
     }
-    legacies.addLegacyUsage(legacy);
+  }
+
+  private boolean isAllowedCombinaison(CharacterClass characterClass, EquipmentLocation slot)
+  {
+    if (slot==EquipmentLocation.RANGED_ITEM)
+    {
+      if ((characterClass!=CharacterClass.HUNTER) && (characterClass!=CharacterClass.WARDEN))
+      {
+        return false;
+      }
+    }
+    if (slot==EquipmentLocation.CLASS_SLOT)
+    {
+      if ((characterClass==CharacterClass.HUNTER) || (characterClass==CharacterClass.WARDEN))
+      {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
-   * Get all legacies for a given character class and slot.
+   * Get all tiered legacies for a given character class and slot.
    * @param characterClass Targeted character class.
    * @param slot Targeted slot.
    * @return a possibly empty but not <code>null</code> list of legacies.
    */
-  public List<AbstractNonImbuedLegacy> getLegacies(CharacterClass characterClass, EquipmentLocation slot)
+  public List<TieredNonImbuedLegacy> getTieredLegacies(CharacterClass characterClass, EquipmentLocation slot)
   {
-    String key=buildKey(characterClass,slot);
-    LegaciesForClassAndSlot<AbstractNonImbuedLegacy> legacies=_legaciesUsage.get(key);
-    if (legacies!=null)
+    return filterLegacies(characterClass,slot,_tieredLegacies.values());
+  }
+
+  /**
+   * Get all tiered legacies for a given character class and slot.
+   * @param characterClass Targeted character class.
+   * @param slot Targeted slot.
+   * @return a possibly empty but not <code>null</code> list of legacies.
+   */
+  public List<DefaultNonImbuedLegacy> getDefaultLegacies(CharacterClass characterClass, EquipmentLocation slot)
+  {
+    return filterLegacies(characterClass,slot,_defaultLegacies.values());
+  }
+
+  private <T extends AbstractLegacy> List<T> filterLegacies(CharacterClass characterClass, EquipmentLocation slot, Collection<T> legacies)
+  {
+    List<T> ret=new ArrayList<T>();
+    ClassAndSlot classAndSlot=new ClassAndSlot(characterClass,slot);
+    for(T legacy : legacies)
     {
-      return legacies.getAll();
+      Filter<ClassAndSlot> constraint=legacy.getClassAndSlotFilter();
+      boolean ok=((constraint!=null) && (constraint.accept(classAndSlot)));
+      if (ok)
+      {
+        ret.add(legacy);
+      }
     }
-    return new ArrayList<AbstractNonImbuedLegacy>();
+    return ret;
   }
 
   /**
@@ -127,16 +160,9 @@ public class NonImbuedLegaciesManager
     {
       sb.append(legacy.dump());
     }
-    List<String> keys=new ArrayList<String>(_legaciesUsage.keySet());
-    Collections.sort(keys);
-    for(String key : keys)
+    for(DefaultNonImbuedLegacy legacy : _defaultLegacies.values())
     {
-      sb.append(key).append(EndOfLine.NATIVE_EOL);
-      LegaciesForClassAndSlot<AbstractNonImbuedLegacy> availableLegacies=_legaciesUsage.get(key);
-      for(AbstractNonImbuedLegacy legacy : availableLegacies.getAll())
-      {
-        sb.append('\t').append(legacy).append(EndOfLine.NATIVE_EOL);
-      }
+      sb.append(legacy).append(EndOfLine.NATIVE_EOL);
     }
     return sb.toString();
   }
