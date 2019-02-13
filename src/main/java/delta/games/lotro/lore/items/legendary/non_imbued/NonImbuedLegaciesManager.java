@@ -8,6 +8,7 @@ import java.util.Map;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Effect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.legendary.LegaciesForClassAndSlot;
@@ -18,7 +19,8 @@ import delta.games.lotro.lore.items.legendary.LegaciesForClassAndSlot;
  */
 public class NonImbuedLegaciesManager
 {
-  private Map<StatDescription,TieredNonImbuedLegacy> _legacies;
+  private Map<StatDescription,TieredNonImbuedLegacy> _tieredLegacies;
+  private Map<Integer,DefaultNonImbuedLegacy> _defaultLegacies;
   private Map<String,LegaciesForClassAndSlot<AbstractNonImbuedLegacy>> _legaciesUsage;
 
   /**
@@ -26,7 +28,8 @@ public class NonImbuedLegaciesManager
    */
   public NonImbuedLegaciesManager()
   {
-    _legacies=new HashMap<StatDescription,TieredNonImbuedLegacy>();
+    _tieredLegacies=new HashMap<StatDescription,TieredNonImbuedLegacy>();
+    _defaultLegacies=new HashMap<Integer,DefaultNonImbuedLegacy>();
     _legaciesUsage=new HashMap<String,LegaciesForClassAndSlot<AbstractNonImbuedLegacy>>();
   }
 
@@ -34,10 +37,21 @@ public class NonImbuedLegaciesManager
    * Add a legacy.
    * @param legacy Legacy to add.
    */
-  public void addLegacy(TieredNonImbuedLegacy legacy)
+  public void addTieredLegacy(TieredNonImbuedLegacy legacy)
   {
     StatDescription stat=legacy.getStat();
-    _legacies.put(stat,legacy);
+    _tieredLegacies.put(stat,legacy);
+  }
+
+  /**
+   * Add a legacy.
+   * @param legacy Legacy to add.
+   */
+  public void addDefaultLegacy(DefaultNonImbuedLegacy legacy)
+  {
+    Effect effect=legacy.getEffect();
+    Integer identifier=Integer.valueOf(effect.getIdentifier());
+    _defaultLegacies.put(identifier,legacy);
   }
 
   /**
@@ -47,12 +61,24 @@ public class NonImbuedLegaciesManager
    */
   public TieredNonImbuedLegacy getLegacy(StatDescription stat)
   {
-    return _legacies.get(stat);
+    return _tieredLegacies.get(stat);
+  }
+
+  /**
+   * Get a default legacy by its identifier.
+   * @param identifier Identifier to use.
+   * @return A legacy or <code>null</code> if not found.
+   */
+  public DefaultNonImbuedLegacy getDefaultLegacy(int identifier)
+  {
+    return _defaultLegacies.get(Integer.valueOf(identifier));
   }
 
   private String buildKey(CharacterClass characterClass, EquipmentLocation slot)
   {
-    return characterClass.getKey()+"-"+slot.getKey();
+    String characterClassKey=(characterClass!=null)?characterClass.getKey():"?";
+    String slotKey=(slot!=null)?slot.getKey():"?";
+    return characterClassKey+"-"+slotKey;
   }
 
   /**
@@ -97,9 +123,9 @@ public class NonImbuedLegaciesManager
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
-    for(TieredNonImbuedLegacy legacy : _legacies.values())
+    for(TieredNonImbuedLegacy legacy : _tieredLegacies.values())
     {
-      sb.append(legacy);
+      sb.append(legacy.dump());
     }
     List<String> keys=new ArrayList<String>(_legaciesUsage.keySet());
     Collections.sort(keys);
@@ -109,7 +135,7 @@ public class NonImbuedLegaciesManager
       LegaciesForClassAndSlot<AbstractNonImbuedLegacy> availableLegacies=_legaciesUsage.get(key);
       for(AbstractNonImbuedLegacy legacy : availableLegacies.getAll())
       {
-        sb.append('\t').append(legacy.getStat().getName()).append(EndOfLine.NATIVE_EOL);
+        sb.append('\t').append(legacy).append(EndOfLine.NATIVE_EOL);
       }
     }
     return sb.toString();

@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.items.legendary.non_imbued;
 
-import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Effect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -57,12 +56,16 @@ public class DefaultNonImbuedLegacy extends AbstractNonImbuedLegacy
     StringBuilder sb=new StringBuilder();
     String name=(_effect!=null)?_effect.getLabel():"?";
     sb.append("Default non imbued: ").append(name);
+    int id=(_effect!=null)?_effect.getIdentifier():0;
+    if (id!=0)
+    {
+      sb.append(" (id=").append(id).append(')');
+    }
     LegacyType type=getType();
     if (type!=null)
     {
       sb.append(" (").append(type).append(')');
     }
-    sb.append(EndOfLine.NATIVE_EOL);
     return sb.toString();
   }
 }

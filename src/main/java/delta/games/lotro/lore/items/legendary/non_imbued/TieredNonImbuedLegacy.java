@@ -84,8 +84,11 @@ public class TieredNonImbuedLegacy extends AbstractNonImbuedLegacy
     return null;
   }
 
-  @Override
-  public String toString()
+  /**
+   * Get a detailed presentation of this legacy.
+   * @return a detailed displayable string.
+   */
+  public String dump()
   {
     StringBuilder sb=new StringBuilder();
     sb.append("Non imbued: ").append(_stat.getName());
@@ -103,6 +106,26 @@ public class TieredNonImbuedLegacy extends AbstractNonImbuedLegacy
     {
       sb.append('\t').append(tier).append(EndOfLine.NATIVE_EOL);
     }
+    return sb.toString();
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    String name=_stat.getName();
+    sb.append("Non imbued: ").append(name);
+    LegacyType type=getType();
+    if (type!=null)
+    {
+      sb.append(" (").append(type).append(')');
+    }
+    if (_major)
+    {
+      sb.append(" (major)");
+    }
+    int nbTiers=_tiers.size();
+    sb.append(" (").append(nbTiers).append(" tiers)");
     return sb.toString();
   }
 }
