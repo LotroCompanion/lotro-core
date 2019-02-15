@@ -68,6 +68,15 @@ public class TieredNonImbuedLegacy extends AbstractNonImbuedLegacy
   }
 
   /**
+   * Get a list of all managed tiers.
+   * @return a list of all managed tiers.
+   */
+  public List<NonImbuedLegacyTier> getTiers()
+  {
+    return new ArrayList<NonImbuedLegacyTier>(_tiers);
+  }
+
+  /**
    * Get a legacy tier.
    * @param tier Tier to get.
    * @return A legacy tier or <code>null</code> if not found.

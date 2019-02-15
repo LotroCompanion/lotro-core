@@ -57,10 +57,10 @@ public class LegaciesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File legaciesFile=cfg.getFile(DataFiles.LEGACIES);
     long now=System.currentTimeMillis();
-    List<ImbuedLegacy> legacies=LegacyXMLParser.parseLegaciesFile(legaciesFile);
-    for(ImbuedLegacy legacy : legacies)
+    List<AbstractLegacy> legacies=LegacyXMLParser.parseLegaciesFile(legaciesFile);
+    for(AbstractLegacy legacy : legacies)
     {
-      registerLegacy(legacy);
+      registerLegacy((ImbuedLegacy)legacy);
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;

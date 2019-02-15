@@ -95,6 +95,10 @@ public class DataFiles
    */
   public static final String LEGACIES="legacies";
   /**
+   * Non-imbued legacies file.
+   */
+  public static final String NON_IMBUED_LEGACIES="nonImbuedLegacies";
+  /**
    * Legendary titles file.
    */
   public static final String LEGENDARY_TITLES="legendaryTitles";

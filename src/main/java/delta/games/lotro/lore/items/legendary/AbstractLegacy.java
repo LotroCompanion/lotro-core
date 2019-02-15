@@ -48,4 +48,13 @@ public class AbstractLegacy
   {
     return _classAndSlotFilter;
   }
+
+  /**
+   * Set the class and slot filter.
+   * @param classAndSlotFilter class and slot filter to set.
+   */
+  public void setClassAndSlotFilter(CompoundFilter<ClassAndSlot> classAndSlotFilter)
+  {
+    _classAndSlotFilter=classAndSlotFilter;
+  }
 }

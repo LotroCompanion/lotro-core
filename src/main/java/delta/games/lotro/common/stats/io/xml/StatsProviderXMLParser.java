@@ -1,5 +1,7 @@
 package delta.games.lotro.common.stats.io.xml;
 
+import java.util.List;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -11,6 +13,7 @@ import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
+import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
 import delta.games.lotro.utils.maths.Progression;
@@ -21,6 +24,27 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class StatsProviderXMLParser
 {
+  /**
+   * Build a stats provider from an XML tag.
+   * @param root Root XML tag.
+   * @return A stats provider.
+   */
+  public static StatsProvider parseStatsProvider(Element root)
+  {
+    StatsProvider statsProvider=new StatsProvider();
+    List<Element> statTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.STAT_TAG);
+    int nbStatsTags=statTags.size();
+    if (nbStatsTags>0)
+    {
+      for(Element statTag : statTags)
+      {
+        StatProvider statProvider=StatsProviderXMLParser.parseStatProvider(statTag);
+        statsProvider.addStatProvider(statProvider);
+      }
+    }
+    return statsProvider;
+  }
+
   /**
    * Build a stat provider from an XML tag.
    * @param root Root XML tag.
