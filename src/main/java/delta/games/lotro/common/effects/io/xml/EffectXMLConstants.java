@@ -7,6 +7,10 @@ package delta.games.lotro.common.effects.io.xml;
 public class EffectXMLConstants
 {
   /**
+   * Tag 'effects'.
+   */
+  public static final String EFFECTS_TAG="effects";
+  /**
    * Tag 'effect'.
    */
   public static final String EFFECT_TAG="effect";

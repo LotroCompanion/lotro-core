@@ -99,6 +99,10 @@ public class DataFiles
    */
   public static final String NON_IMBUED_LEGACIES="nonImbuedLegacies";
   /**
+   * Passives file.
+   */
+  public static final String PASSIVES="passives";
+  /**
    * Legendary titles file.
    */
   public static final String LEGENDARY_TITLES="legendaryTitles";

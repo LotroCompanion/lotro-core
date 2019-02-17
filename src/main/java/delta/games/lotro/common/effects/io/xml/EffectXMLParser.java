@@ -1,5 +1,9 @@
 package delta.games.lotro.common.effects.io.xml;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -14,6 +18,27 @@ import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
  */
 public class EffectXMLParser
 {
+  /**
+   * Parse an effects XML file.
+   * @param source Source file.
+   * @return List of parsed effects.
+   */
+  public static List<Effect> parseEffectsFile(File source)
+  {
+    List<Effect> effects=new ArrayList<Effect>();
+    Element root=DOMParsingTools.parse(source);
+    if (root!=null)
+    {
+      List<Element> effectTags=DOMParsingTools.getChildTags(root);
+      for(Element effectTag : effectTags)
+      {
+        Effect effect=parseEffect(effectTag);
+        effects.add(effect);
+      }
+    }
+    return effects;
+  }
+
   /**
    * Build an effect from an XML tag.
    * @param root Root XML tag.
