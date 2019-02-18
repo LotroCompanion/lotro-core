@@ -296,6 +296,10 @@ public class WellKnownStat
    * War-steed Strength.
    */
   public static StatDescription WARSTEED_STRENGTH=get("WARSTEED_STRENGTH");
+  /**
+   * DPS.
+   */
+  public static StatDescription DPS=get("DPS");
 
   /**
    * Get a well-known stat using its legacy key.
