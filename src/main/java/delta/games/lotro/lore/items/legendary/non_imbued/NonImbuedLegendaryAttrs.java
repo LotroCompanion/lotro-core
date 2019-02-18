@@ -25,11 +25,11 @@ public class NonImbuedLegendaryAttrs
    * - Belt: Shield Use Rank (Combat_TacticalDPS_Modifier)
    * - Satchel: Tactical Healing Rating (Combat_TacticalHPS_Modifier)
    */
-  private NonImbuedLegacyInstance _defaultLegacy;
+  private DefaultNonImbuedLegacyInstance _defaultLegacy;
   /**
    * Non-imbued legacy instances.
    */
-  private List<NonImbuedLegacyInstance> _legacies;
+  private List<TieredNonImbuedLegacyInstance> _legacies;
   /**
    * Points spent.
    */
@@ -47,7 +47,7 @@ public class NonImbuedLegendaryAttrs
    */
   public NonImbuedLegendaryAttrs()
   {
-    _legacies=new ArrayList<NonImbuedLegacyInstance>();
+    _legacies=new ArrayList<TieredNonImbuedLegacyInstance>();
   }
 
   /**
@@ -90,7 +90,7 @@ public class NonImbuedLegendaryAttrs
    * Get the default legacy.
    * @return the default legacy.
    */
-  public NonImbuedLegacyInstance getDefaultLegacy()
+  public DefaultNonImbuedLegacyInstance getDefaultLegacy()
   {
     return _defaultLegacy;
   }
@@ -99,7 +99,7 @@ public class NonImbuedLegendaryAttrs
    * Set the default legacy.
    * @param defaultLegacy Legacy to set.
    */
-  public void setDefaultLegacy(NonImbuedLegacyInstance defaultLegacy)
+  public void setDefaultLegacy(DefaultNonImbuedLegacyInstance defaultLegacy)
   {
     _defaultLegacy=defaultLegacy;
   }
@@ -108,7 +108,7 @@ public class NonImbuedLegendaryAttrs
    * Add a legacy.
    * @param legacy Legacy to add.
    */
-  public void addLegacy(NonImbuedLegacyInstance legacy)
+  public void addLegacy(TieredNonImbuedLegacyInstance legacy)
   {
     _legacies.add(legacy);
   }
@@ -117,7 +117,7 @@ public class NonImbuedLegendaryAttrs
    * Remove a legacy.
    * @param legacy Legacy to remove.
    */
-  public void removeLegacy(NonImbuedLegacyInstance legacy)
+  public void removeLegacy(TieredNonImbuedLegacyInstance legacy)
   {
     _legacies.remove(legacy);
   }
@@ -126,9 +126,9 @@ public class NonImbuedLegendaryAttrs
    * Get a list of all legacies.
    * @return a list of all legacies.
    */
-  public List<NonImbuedLegacyInstance> getLegacies()
+  public List<TieredNonImbuedLegacyInstance> getLegacies()
   {
-    return new ArrayList<NonImbuedLegacyInstance>(_legacies);
+    return new ArrayList<TieredNonImbuedLegacyInstance>(_legacies);
   }
 
   /**
