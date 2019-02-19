@@ -33,6 +33,9 @@ public class LegendaryAttrsXMLWriter
     writeRelic(hd,relics.get(1),RelicType.GEM);
     writeRelic(hd,relics.get(2),RelicType.RUNE);
     writeRelic(hd,relics.get(3),RelicType.CRAFTED_RELIC);
+    // TODO Add passives
+    // TODO Add legacies
+    // TODO Add other attributes
   }
 
   private static void writeRelic(TransformerHandler hd, Relic relic, RelicType type) throws Exception

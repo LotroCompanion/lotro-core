@@ -1,12 +1,16 @@
 package delta.games.lotro.lore.items;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 
 /**
  * Base class for item instances.
- * @param <T> Type of reference item.
+ * @param <T> Type of the reference item.
  * @author DAM
  */
 public class ItemInstance<T extends Item>
@@ -33,6 +37,8 @@ public class ItemInstance<T extends Item>
   // TODO
   // Bound to (2x32 bits)
   // TODO
+  // Properties
+  private HashMap<String,String> _properties;
 
   /**
    * Constructor.
@@ -47,6 +53,7 @@ public class ItemInstance<T extends Item>
     _itemLevel=null;
     _minLevel=null;
     _value=null;
+    _properties=new HashMap<String,String>();
   }
 
   /**
@@ -84,6 +91,24 @@ public class ItemInstance<T extends Item>
   public String getRefToString()
   {
     return (_reference!=null)?_reference.toString():"?";
+  }
+
+  /**
+   * Get the item identifier of this item instance.
+   * @return an item identifier.
+   */
+  public int getIdentifier()
+  {
+    return _reference!=null?_reference.getIdentifier():0;
+  }
+
+  /**
+   * Get the item name of this item instance.
+   * @return an item name.
+   */
+  public String getName()
+  {
+    return _reference!=null?_reference.getName():null;
   }
 
   /**
@@ -238,6 +263,75 @@ public class ItemInstance<T extends Item>
   public void setValue(Money value)
   {
     _value=value;
+  }
+
+  /**
+   * Get the stash identifier of this item.
+   * @return an stash item identifier.
+   */
+  public Integer getStashIdentifier()
+  {
+    String idStr=getProperty(ItemPropertyNames.STASH_ID);
+    Integer ret=null;
+    if (idStr!=null)
+    {
+      ret=NumericTools.parseInteger(idStr);
+    }
+    return ret;
+  }
+
+  /**
+   * Set the stash identifier of this item.
+   * @param stashIdentifier the stash identifier to set.
+   */
+  public void setStashIdentifier(Integer stashIdentifier)
+  {
+    if (stashIdentifier==null)
+    {
+      removeProperty(ItemPropertyNames.STASH_ID);
+    }
+    else
+    {
+      setProperty(ItemPropertyNames.STASH_ID,stashIdentifier.toString());
+    }
+  }
+
+  /**
+   * Set a property for this item.
+   * @param key Property key.
+   * @param value Property value.
+   */
+  public void setProperty(String key, String value)
+  {
+    _properties.put(key,value);
+  }
+
+  /**
+   * Remove a property.
+   * @param key Property key.
+   */
+  public void removeProperty(String key)
+  {
+    _properties.remove(key);
+  }
+
+  /**
+   * Get the value of a property.
+   * @param key Property name.
+   * @return A value or <code>null</code> if not set.
+   */
+  public String getProperty(String key)
+  {
+    return _properties.get(key);
+  }
+
+  /**
+   * Get all properties for this item.
+   * @return A properties map or <code>null</code>.
+   */
+  public Map<String,String> getProperties()
+  {
+    return _properties;
   }
 
   /**

@@ -46,5 +46,8 @@ public class LegendaryAttrsXMLParser
         if (type==RelicType.CRAFTED_RELIC) legendaryAttrs.setCraftedRelic(relic);
       }
     }
+    // TODO Passives
+    // TODO Legacies
+    // TODO Other attributes
   }
 }

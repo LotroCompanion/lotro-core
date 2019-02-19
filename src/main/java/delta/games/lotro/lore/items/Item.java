@@ -13,7 +13,6 @@ import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.lore.items.essences.EssencesSet;
 
 /**
  * Item description.
@@ -33,10 +32,6 @@ public class Item implements Identifiable
   private EquipmentLocation _equipmentLocation;
   // Item name "Jacket of the Impossible Shot"
   private String _name;
-  // Item birth name (given by the crafter) (may be <code>null</code>)
-  private String _birthName;
-  // Crafter name (may be <code>null</code>)
-  private String _crafterName;
   // Item category: Armour, Tool, ...
   private ItemCategory _category;
   // TODO Enum or String constants for sub-categories
@@ -51,7 +46,6 @@ public class Item implements Identifiable
   private BasicStatsSet _stats;
   private StatsProvider _statsProvider;
   // Essences
-  private EssencesSet _essences;
   private int _essenceSlots;
   // Durability
   private Integer _durability;
@@ -101,7 +95,6 @@ public class Item implements Identifiable
     _bonus=new ArrayList<String>();
     _stats=new BasicStatsSet();
     _statsProvider=null;
-    _essences=null;
     _essenceSlots=0;
     _durability=null;
     _sturdiness=null;
@@ -191,37 +184,6 @@ public class Item implements Identifiable
   }
 
   /**
-   * Get the stash identifier of this item.
-   * @return an stash item identifier.
-   */
-  public Integer getStashIdentifier()
-  {
-    String idStr=getProperty(ItemPropertyNames.STASH_ID);
-    Integer ret=null;
-    if (idStr!=null)
-    {
-      ret=NumericTools.parseInteger(idStr);
-    }
-    return ret;
-  }
-
-  /**
-   * Set the stash identifier of this item.
-   * @param stashIdentifier the stash identifier to set.
-   */
-  public void setStashIdentifier(Integer stashIdentifier)
-  {
-    if (stashIdentifier==null)
-    {
-      removeProperty(ItemPropertyNames.STASH_ID);
-    }
-    else
-    {
-      setProperty(ItemPropertyNames.STASH_ID,stashIdentifier.toString());
-    }
-  }
-
-  /**
    * Set the key of the set this item belongs to.
    * @param setKey the set key to set (<code>null</code> if item belongs to no set).
    */
@@ -255,42 +217,6 @@ public class Item implements Identifiable
   public void setItemsSet(ItemsSet set)
   {
     _set=set;
-  }
-
-  /**
-   * Get the item birth name (the one given by the crafter, if any).
-   * @return a birth name or <code>null</code>.
-   */
-  public String getBirthName()
-  {
-    return _birthName;
-  }
-
-  /**
-   * Set the item birth name.
-   * @param birthName A birth name or <code>null</code> if none.
-   */
-  public void setBirthName(String birthName)
-  {
-    _birthName=birthName;
-  }
-
-  /**
-   * Get the name of the crafter of this item, if any.
-   * @return a crafter name or <code>null</code>.
-   */
-  public String getCrafterName()
-  {
-    return _crafterName;
-  }
-
-  /**
-   * Set the name of the crafter of this item, if any.
-   * @param crafterName a character name or <code>null</code>.
-   */
-  public void setCrafterName(String crafterName)
-  {
-    _crafterName=crafterName;
   }
 
   /**
@@ -442,15 +368,6 @@ public class Item implements Identifiable
   }
 
   /**
-   * Get the total stats for this item.
-   * @return a set of stats.
-   */
-  public BasicStatsSet getTotalStats()
-  {
-    return _stats;
-  }
-
-  /**
    * Get the stats provider.
    * @return the stats provider (may be <code>null</code>).
    */
@@ -469,24 +386,6 @@ public class Item implements Identifiable
   }
 
   /**
-   * Set the essences for this item.
-   * @param essences Essences to set.
-   */
-  public void setEssences(EssencesSet essences)
-  {
-    _essences=essences;
-  }
-
-  /**
-   * Get the essence for this item.
-   * @return A set of essences, or <code>null</code> if not set.
-   */
-  public EssencesSet getEssences()
-  {
-    return _essences;
-  }
-
-  /**
    * Get the number of essence slots.
    * @return the number of essence slots.
    */
@@ -502,34 +401,6 @@ public class Item implements Identifiable
   public void setEssenceSlots(int essenceSlots)
   {
     _essenceSlots=essenceSlots;
-  }
-
-  /**
-   * Get essences count.
-   * @return a count.
-   */
-  public int getEssencesCount()
-  {
-    int nbEssences=(_essences!=null)?_essences.getSize():0;
-    return Math.max(nbEssences,_essenceSlots);
-  }
-
-  /**
-   * Get an essence.
-   * @param index Index of the targeted essence, starting at 0.
-   * @return An essence or <code>null</code>.
-   */
-  public Item getEssenceAt(int index)
-  {
-    Item essence=null;
-    if (_essences!=null)
-    {
-      if (index<_essences.getSize())
-      {
-        essence=_essences.getEssence(index);
-      }
-    }
-    return essence;
   }
 
   /**
@@ -766,8 +637,6 @@ public class Item implements Identifiable
     _set=item._set;
     _equipmentLocation=item._equipmentLocation;
     _name=item._name;
-    _birthName=item._birthName;
-    _crafterName=item._crafterName;
     //_category=item._category;
     _subCategory=item._subCategory;
     _binding=item._binding;
@@ -776,8 +645,6 @@ public class Item implements Identifiable
     _bonus.addAll(item._bonus);
     _stats=new BasicStatsSet(item._stats);
     _statsProvider=item._statsProvider;
-    // TODO
-    _essences=item._essences;
     _essenceSlots=item._essenceSlots;
     _durability=item._durability;
     _sturdiness=item._sturdiness;
@@ -929,11 +796,6 @@ public class Item implements Identifiable
     }
     // Stats
     sb.append("Stats: ").append(_stats).append(EndOfLine.NATIVE_EOL);
-    // Essences
-    if ((_essences!=null) && (_essences.getSize()>0))
-    {
-      sb.append("Essences: ").append(_essences);
-    }
     return sb.toString().trim();
   }
 

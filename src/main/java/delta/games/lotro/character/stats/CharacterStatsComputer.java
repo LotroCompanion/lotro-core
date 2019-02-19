@@ -27,6 +27,7 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -79,7 +80,7 @@ public class CharacterStatsComputer
       SlotContents slotContents=equipment.getSlotContents(slot,false);
       if (slotContents!=null)
       {
-        Item item=slotContents.getItem();
+        ItemInstance<?> item=slotContents.getItem();
         if (item!=null)
         {
           BasicStatsSet itemStats=getItemStats(item);
@@ -95,10 +96,11 @@ public class CharacterStatsComputer
     return ret;
   }
 
-  private BasicStatsSet getItemStats(Item item)
+  private BasicStatsSet getItemStats(ItemInstance<? extends Item> item)
   {
     BasicStatsSet ret=new BasicStatsSet();
-    ret.addStats(item.getTotalStats());
+    Item ref=item.getReference();
+    ret.addStats(ref.getStats());
     // If the item has essences, use them
     EssencesSet essences=item.getEssences();
     if (essences!=null)

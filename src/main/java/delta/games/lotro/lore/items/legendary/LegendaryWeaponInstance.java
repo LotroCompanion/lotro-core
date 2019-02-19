@@ -1,15 +1,24 @@
 package delta.games.lotro.lore.items.legendary;
 
+import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.lore.items.WeaponInstance;
 
 /**
  * Instance of the legendary weapon.
  * @author DAM
  */
-public class LegendaryWeaponInstance extends WeaponInstance
+public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> implements LegendaryInstance
 {
   // Legendary attributes.
   private LegendaryAttrs _attrs;
+
+  /**
+   * Constructor.
+   */
+  public LegendaryWeaponInstance()
+  {
+    _attrs=new LegendaryAttrs();
+  }
 
   /**
    * Get the legendary attributes.
@@ -27,5 +36,24 @@ public class LegendaryWeaponInstance extends WeaponInstance
   public void setLegendaryAttributes(LegendaryAttrs attrs)
   {
     _attrs=attrs;
+  }
+
+  /**
+   * Get the total stats for this item, including:
+   * <ul>
+   * <li>passives,
+   * <li>title stats,
+   * <li>relics stats.
+   * </ul>
+   * @return a set of stats.
+   */
+  public BasicStatsSet getTotalStats()
+  {
+    BasicStatsSet ret=new BasicStatsSet();
+    Integer itemLevel=getItemLevel();
+    int itemLevelValue=(itemLevel!=null)?itemLevel.intValue():0;
+    BasicStatsSet legendaryStats=_attrs.getRawStats(itemLevelValue);
+    ret.addStats(legendaryStats);
+    return ret;
   }
 }

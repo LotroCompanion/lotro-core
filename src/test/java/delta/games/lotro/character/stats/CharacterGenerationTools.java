@@ -5,6 +5,8 @@ import java.util.List;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemFactory;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
 
 /**
@@ -48,13 +50,14 @@ public class CharacterGenerationTools
   }
 
   /**
-   * Get an item using its identifier.
+   * Get an item instance using its identifier.
    * @param id Identifier.
-   * @return An item or <code>null</code> if not found.
+   * @return An item instance or <code>null</code> if not found.
    */
-  public Item getItemById(int id)
+  public ItemInstance<? extends Item> getItemById(int id)
   {
-    return ItemsManager.getInstance().getItem(id);
+    Item item=ItemsManager.getInstance().getItem(id);
+    return ItemFactory.buildInstance(item);
   }
 
   /**

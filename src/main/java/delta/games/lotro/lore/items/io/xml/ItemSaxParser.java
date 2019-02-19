@@ -39,12 +39,6 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
-import delta.games.lotro.lore.items.legendary.Legendary;
-import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
-import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLConstants;
-import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.lore.items.legendary.relics.RelicType;
-import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -196,32 +190,6 @@ public final class ItemSaxParser extends DefaultHandler {
           {
             _currentItem.setEssenceSlots(Integer.parseInt(nbEssenceSlotsStr));
           }
-          // Essences
-          /*
-          Element essencesTag=DOMParsingTools.getChildTagByName(root,ItemXMLConstants.ESSENCES_TAG);
-          if (essencesTag!=null)
-          {
-            List<Element> essenceTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ITEM_TAG,false);
-            List<Item> essences=new ArrayList<Item>();
-            for(Element essenceTag : essenceTags)
-            {
-              Item essence=parseItem(essenceTag);
-              essences.add(essence);
-            }
-            if (essences.size()>0)
-            {
-              int slots=Math.max(ret.getEssenceSlots(),essences.size());
-              EssencesSet essencesSet=new EssencesSet(slots);
-              int index=0;
-              for(Item essence : essences)
-              {
-                essencesSet.setEssence(index,essence);
-                index++;
-              }
-              ret.setEssences(essencesSet);
-            }
-          }
-          */
 
           // Armour specific:
           if (category==ItemCategory.ARMOUR)
@@ -310,28 +278,6 @@ public final class ItemSaxParser extends DefaultHandler {
           if (bonus!=null)
           {
             _currentItem.addBonus(bonus);
-          }
-        } else if (LegendaryAttrsXMLConstants.RELIC_TAG.equals(qualifiedName)) {
-          // Relics
-          String typeStr=attributes.getValue(LegendaryAttrsXMLConstants.RELIC_TYPE_ATTR);
-          if (typeStr!=null)
-          {
-            RelicType type=RelicType.valueOf(typeStr);
-            Relic relic=null;
-            String name=attributes.getValue(LegendaryAttrsXMLConstants.RELIC_NAME_ATTR);
-            if (name!=null)
-            {
-              RelicsManager relicsMgr=RelicsManager.getInstance();
-              relic=relicsMgr.getByName(name);
-            }
-            if (_currentItem instanceof Legendary)
-            {
-              LegendaryAttrs legendaryAttrs=((Legendary)_currentItem).getLegendaryAttrs();
-              if (type==RelicType.SETTING) legendaryAttrs.setSetting(relic);
-              if (type==RelicType.RUNE) legendaryAttrs.setRune(relic);
-              if (type==RelicType.GEM) legendaryAttrs.setGem(relic);
-              if (type==RelicType.CRAFTED_RELIC) legendaryAttrs.setCraftedRelic(relic);
-            }
           }
         } else {
           // ...

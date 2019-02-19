@@ -14,14 +14,17 @@ import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemCategory;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
+import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
+import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -148,10 +151,11 @@ public class CharacterGeneratorMeva
     return c;
   }
 
-  private Item buildHelm()
+  private ItemInstance<? extends Item> buildHelm()
   {
     // Light Nadhin Hood (level 192)
-    Item ret=_tools.getItemById(1879313783);
+    ItemInstance<? extends Item> instance=_tools.getItemById(1879313783);
+
     EssencesSet essences=new EssencesSet(4);
     Item will=_tools.getEssenceByName(7,"Supreme Essence of Will");
     //will.getStats().setStat(STAT.WILL,139);
@@ -165,14 +169,15 @@ public class CharacterGeneratorMeva
     Item vitalityG=_tools.getEssenceByName(7,"Greater Essence of Vitality");
     //vitalityG.getStats().setStat(STAT.VITALITY,136);
     essences.setEssence(3,vitalityG);
-    ret.setEssences(essences);
-    return ret;
+    instance.setEssences(essences);
+    return instance;
   }
 
-  private Item buildShoulders()
+  private ItemInstance<? extends Item> buildShoulders()
   {
     // Light Nadhin Shoulders
-    Item ret=_tools.getItemById(1879313778);
+    ItemInstance<? extends Item> instance=_tools.getItemById(1879313778);
+
     EssencesSet essences=new EssencesSet(4);
     Item will=_tools.getEssenceByName(7,"Greater Essence of Will");
     //will.getStats().setStat(STAT.WILL,136);
@@ -184,100 +189,100 @@ public class CharacterGeneratorMeva
     Item tacticalMastery=_tools.getEssenceByName(7,"Major Essence of Tactical Mastery");
     //tacticalMastery.getStats().setStat(STAT.TACTICAL_MASTERY,1075);
     essences.setEssence(3,tacticalMastery);
-    ret.setEssences(essences);
-    return ret;
+    instance.setEssences(essences);
+    return instance;
   }
 
-  private Item buildBoots()
+  private ItemInstance<? extends Item> buildBoots()
   {
     // Boots of the Storied Mariner
     return _tools.getItemById(1879313346);
   }
 
-  private Item buildPocket()
+  private ItemInstance<? extends Item> buildPocket()
   {
     // Second Exquisite Minstrel's Token of Helm Hammerhand
     return _tools.getItemById(1879311026);
   }
 
-  private Item buildCloak()
+  private ItemInstance<? extends Item> buildCloak()
   {
     // Greater Resolute Cloak of Tactics
     return _tools.getItemById(1879286095);
   }
 
-  private Item buildChest()
+  private ItemInstance<? extends Item> buildChest()
   {
     // Jacket of the Storied Mariner
     return _tools.getItemById(1879313353);
   }
 
-  private Item buildGloves()
+  private ItemInstance<? extends Item> buildGloves()
   {
     // Gloves of the Great Shore
     return _tools.getItemById(1879310211);
   }
 
-  private Item buildLeggings()
+  private ItemInstance<? extends Item> buildLeggings()
   {
     // Greater Resolute Leggings of Penetration
     return _tools.getItemById(1879286081);
   }
 
-  private Item buildShield()
+  private ItemInstance<? extends Item> buildShield()
   {
     // Blackroot Vibrant Shield
     return _tools.getItemById(1879313707);
   }
 
-  private Item buildRanged()
+  private ItemInstance<? extends Item> buildRanged()
   {
     // Exquisite Walnut Theorbo of the Battle-singer
     return _tools.getItemById(1879283354);
   }
 
-  private Item buildEarring1()
+  private ItemInstance<? extends Item> buildEarring1()
   {
     // Third Exquisite Minstrel's Earring of Helm Hammerhand
     return _tools.getItemById(1879311185);
   }
 
-  private Item buildEarring2()
+  private ItemInstance<? extends Item> buildEarring2()
   {
     // First Exquisite Minstrel's Earring of Helm Hammerhand
     return _tools.getItemById(1879311050);
   }
 
-  private Item buildNecklace()
+  private ItemInstance<? extends Item> buildNecklace()
   {
     // First Exquisite Minstrel's Necklace of Helm Hammerhand
     return _tools.getItemById(1879311004);
   }
 
-  private Item buildBracelet1()
+  private ItemInstance<? extends Item> buildBracelet1()
   {
     // Second Exquisite Minstrel's Bracelet of Helm Hammerhand
     return _tools.getItemById(1879311011);
   }
 
-  private Item buildBracelet2()
+  private ItemInstance<? extends Item> buildBracelet2()
   {
     // Adept Officer's Persevering Bracelet
     // Level 100
-    Item ret=_tools.getItemById(1879310845);
+    ItemInstance<? extends Item> ret=_tools.getItemById(1879310845);
     return ret;
   }
 
-  private Item buildRing1()
+  private ItemInstance<? extends Item> buildRing1()
   {
     // Second Exquisite Minstrel's Ring of Helm Hammerhand
     return _tools.getItemById(1879311024);
   }
 
-  private Item buildRing2()
+  private ItemInstance<? extends Item> buildRing2()
   {
     // 1879318796" name="Advisor's Fateful Ring
-    Item ret=_tools.getItemById(1879318796);
+    ItemInstance<? extends Item> ret=_tools.getItemById(1879318796);
     EssencesSet essences=new EssencesSet(1);
     Item tacticalMastery=_tools.getEssenceByName(6,"Supreme Essence of Tactical Mastery");
     tacticalMastery.getStats().setStat(WellKnownStat.TACTICAL_MASTERY,1165);
@@ -287,12 +292,10 @@ public class CharacterGeneratorMeva
     return ret;
   }
 
-  private Item buildWeapon()
+  private LegendaryWeaponInstance buildWeapon()
   {
     LegendaryWeapon weapon=new LegendaryWeapon();
     weapon.setName("Reshaped Minstrel's Club of the First Age");
-    weapon.setBirthName("Cavern Club");
-    weapon.setCrafterName("Glumlug");
     weapon.setRequiredClass(CharacterClass.MINSTREL);
     weapon.setCategory(ItemCategory.WEAPON);
     weapon.setMinLevel(Integer.valueOf(100));
@@ -306,11 +309,18 @@ public class CharacterGeneratorMeva
     weapon.setMinDamage(345);
     weapon.setMaxDamage(575);
     weapon.setDamageType(DamageType.BELERIAND);
+
+    // Instance
+    LegendaryWeaponInstance instance=new LegendaryWeaponInstance();
+    instance.setReference(weapon);
+    instance.setBirthName("Cavern Club");
+    instance.setCrafterName("Glumlug");
+
     // Passives
     //BasicStatsSet passives=weapon.getPassives();
     // -40% attack speed
     //passives.setStat(STAT.PARRY_PERCENTAGE,1);
-    LegendaryAttrs attrs=weapon.getLegendaryAttrs();
+    LegendaryAttrs attrs=instance.getLegendaryAttributes();
     // Title
     LegendaryTitle title=new LegendaryTitle();
     title.setName("Elven Orc-Hewer");
@@ -357,15 +367,13 @@ public class CharacterGeneratorMeva
     }
     // Stat legacies
     // TODO
-    return weapon;
+    return instance;
   }
 
-  private LegendaryItem buildBook()
+  private LegendaryItemInstance buildBook()
   {
     LegendaryItem classItem=new LegendaryItem();
     classItem.setName("Reforged Minstrel's Songbook of the Second Age");
-    classItem.setBirthName("Small blue book");
-    classItem.setCrafterName("Utharr");
     classItem.setRequiredClass(CharacterClass.MINSTREL);
     classItem.setCategory(ItemCategory.ITEM);
     classItem.setMinLevel(Integer.valueOf(95));
@@ -374,6 +382,11 @@ public class CharacterGeneratorMeva
     classItem.setEquipmentLocation(EquipmentLocation.CLASS_SLOT);
     classItem.setQuality(ItemQuality.LEGENDARY);
 
+    LegendaryItemInstance instance=new LegendaryItemInstance();
+    instance.setReference(classItem);
+    instance.setBirthName("Small blue book");
+    instance.setCrafterName("Utharr");
+
     // Passives
     //BasicStatsSet passives=classItem.getPassives();
     //passives.setStat(STAT.BLADE_LINE_AOE_POWER_COST_PERCENTAGE,-1);
@@ -381,7 +394,7 @@ public class CharacterGeneratorMeva
     //passives.setStat(STAT.INCOMING_HEALING,6300);
     // -1% perceived threat
     // +95.24 Tactical Healing Rating
-    LegendaryAttrs attrs=classItem.getLegendaryAttrs();
+    LegendaryAttrs attrs=instance.getLegendaryAttributes();
     // Title
     // 5% light-type damage
     // Relics
@@ -424,10 +437,10 @@ public class CharacterGeneratorMeva
     }
     // Stat legacies
     // None...
-    return classItem;
+    return instance;
   }
 
-  private Item buildCraftingTool()
+  private ItemInstance<Item> buildCraftingTool()
   {
     Item ret=new Item();
     ret.setName("Superior Tools of the Westemnet Tinker");
@@ -440,6 +453,8 @@ public class CharacterGeneratorMeva
     stats.setStat(WellKnownStat.get("JEWELLER_CRIT_CHANCE_PERCENTAGE"), 25);
     stats.setStat(WellKnownStat.get("COOK_CRIT_CHANCE_PERCENTAGE"), 25);
     stats.setStat(WellKnownStat.get("PROSPECTOR_MINING_DURATION"), -4);
-    return ret;
+    ItemInstance<Item> instance=new ItemInstance<Item>();
+    instance.setReference(ret);
+    return instance;
   }
 }

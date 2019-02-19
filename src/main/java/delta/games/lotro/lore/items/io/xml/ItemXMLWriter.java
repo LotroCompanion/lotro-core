@@ -27,20 +27,23 @@ import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.Armour;
+import delta.games.lotro.lore.items.ArmourInstance;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
+import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.essences.EssencesSet;
-import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLWriter;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -131,9 +134,9 @@ public class ItemXMLWriter
    * @param item Item to write.
    * @throws Exception If an error occurs.
    */
-  public void writeItemInstance(TransformerHandler hd, Item item) throws Exception
+  public void writeItemInstance(TransformerHandler hd, ItemInstance<? extends Item> item) throws Exception
   {
-    write(hd,item,true);
+    write(hd,item,null);
   }
 
   /**
@@ -144,7 +147,7 @@ public class ItemXMLWriter
    */
   public void write(TransformerHandler hd, Item item) throws Exception
   {
-    write(hd,item,false);
+    write(hd,null,item);
   }
 
   /**
@@ -154,7 +157,7 @@ public class ItemXMLWriter
    * @param instance Write an instance or a model.
    * @throws Exception If an error occurs.
    */
-  private void write(TransformerHandler hd, Item item, boolean instance) throws Exception
+  private void write(TransformerHandler hd, ItemInstance<? extends Item> instance, Item item) throws Exception
   {
     AttributesImpl itemAttrs=new AttributesImpl();
 
@@ -279,6 +282,10 @@ public class ItemXMLWriter
       {
         itemAttrs.addAttribute("","",ItemXMLConstants.ARMOUR_TYPE_ATTR,CDATA,type.getKey());
       }
+      if (instance instanceof ArmourInstance)
+      {
+        // Nothing!
+      }
     }
     // Weapon specific:
     else if ((category==ItemCategory.WEAPON) || (category==ItemCategory.LEGENDARY_WEAPON))
@@ -300,18 +307,23 @@ public class ItemXMLWriter
       {
         itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,CDATA,weaponType.getKey());
       }
+      if (instance instanceof WeaponInstance)
+      {
+        // Nothing!
+      }
     }
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
 
-    // Handle legendary items
-    if (item instanceof Legendary)
+    // Handle legendary instances
+    if (instance instanceof LegendaryInstance)
     {
-      LegendaryAttrs legAttrs=((Legendary)item).getLegendaryAttrs();
+      LegendaryAttrs legAttrs=((LegendaryInstance)item).getLegendaryAttributes();
       LegendaryAttrsXMLWriter.write(hd,legAttrs);
     }
     // Money
     Money value=item.getValue();
     MoneyXMLWriter.writeMoney(hd,value);
+
     // Bonuses
     // TODO better
     List<String> bonuses=item.getBonus();
@@ -338,10 +350,11 @@ public class ItemXMLWriter
       hd.startElement("","",ItemXMLConstants.PROPERTY_TAG,attrs);
       hd.endElement("","",ItemXMLConstants.PROPERTY_TAG);
     }
+    boolean isInstance=(instance!=null);
     // Stats
     BasicStatsSet stats=item.getStats();
     StatsProvider statsProvider=item.getStatsProvider();
-    if ((statsProvider!=null) && (!instance))
+    if ((statsProvider!=null) && (!isInstance))
     {
       StatsProviderXMLWriter.writeXml(hd,ItemXMLConstants.STATS_TAG,statsProvider,stats);
     }
@@ -350,22 +363,25 @@ public class ItemXMLWriter
       BasicStatsSetXMLWriter.write(hd,ItemXMLConstants.STATS_TAG,stats);
     }
 
-    // Essences
-    EssencesSet essences=item.getEssences();
-    if (essences!=null)
+    if (isInstance)
     {
-      AttributesImpl attrs=new AttributesImpl();
-      hd.startElement("","",ItemXMLConstants.ESSENCES_TAG,attrs);
-      int nbEssences=essences.getSize();
-      for(int i=0;i<nbEssences;i++)
+      // Essences
+      EssencesSet essences=instance.getEssences();
+      if (essences!=null)
       {
-        Item essence=essences.getEssence(i);
-        if (essence!=null)
+        AttributesImpl attrs=new AttributesImpl();
+        hd.startElement("","",ItemXMLConstants.ESSENCES_TAG,attrs);
+        int nbEssences=essences.getSize();
+        for(int i=0;i<nbEssences;i++)
         {
-          write(hd,essence);
+          Item essence=essences.getEssence(i);
+          if (essence!=null)
+          {
+            write(hd,essence);
+          }
         }
+        hd.endElement("","",ItemXMLConstants.ESSENCES_TAG);
       }
-      hd.endElement("","",ItemXMLConstants.ESSENCES_TAG);
     }
     hd.endElement("","",ItemXMLConstants.ITEM_TAG);
   }

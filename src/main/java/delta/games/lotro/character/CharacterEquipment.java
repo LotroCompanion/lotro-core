@@ -7,6 +7,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
 
 /**
@@ -152,7 +153,7 @@ public class CharacterEquipment
   {
     private EQUIMENT_SLOT _slot;
     private Integer _itemId;
-    private Item _item;
+    private ItemInstance<? extends Item> _item;
 
     /**
      * Constructor.
@@ -175,7 +176,7 @@ public class CharacterEquipment
       _itemId=source._itemId;
       if (source._item!=null)
       {
-        _item=ItemFactory.clone(source._item);
+        _item=ItemFactory.cloneInstance(source._item);
       }
     }
 
@@ -207,19 +208,19 @@ public class CharacterEquipment
     }
 
     /**
-     * Get the item in this slot.
-     * @return an item or <code>null</code>.
+     * Get the item instance in this slot.
+     * @return an item instance or <code>null</code>.
      */
-    public Item getItem()
+    public ItemInstance<? extends Item> getItem()
     {
       return _item;
     }
 
     /**
-     * Set the item in this slot.
-     * @param item Item to set.
+     * Set the item instance in this slot.
+     * @param item Item instance to set.
      */
-    public void setItem(Item item)
+    public void setItem(ItemInstance<? extends Item> item)
     {
       _item=item;
     }
@@ -303,44 +304,29 @@ public class CharacterEquipment
    * @param slot Targeted slot.
    * @return An item or <code>null</code> if not found.
    */
-  public Item getItemForSlot(EQUIMENT_SLOT slot)
+  public ItemInstance<? extends Item> getItemForSlot(EQUIMENT_SLOT slot)
   {
     SlotContents contents=getSlotContents(slot,false);
-    Item item=null;
+    ItemInstance<? extends Item> itemInstance=null;
     if (contents!=null)
     {
-      item=contents.getItem();
-      if (item==null)
+      itemInstance=contents.getItem();
+      if (itemInstance==null)
       {
         Integer id=contents.getItemId();
         if (id!=null)
         {
           ItemsManager itemsManager=ItemsManager.getInstance();
-          item=itemsManager.getItem(id.intValue());
-          if (item!=null)
+          Item itemRef=itemsManager.getItem(id.intValue());
+          if (itemRef!=null)
           {
-            item=ItemFactory.clone(item);
+            itemInstance=ItemFactory.buildInstance(itemRef);
           }
-          contents.setItem(item);
-        }
-      }
-      // Fix scaling properties
-      if (item!=null)
-      {
-        ItemsManager itemsManager=ItemsManager.getInstance();
-        Item referenceItem=itemsManager.getItem(item.getIdentifier());
-        if (referenceItem!=null)
-        {
-          Map<String,String> props=referenceItem.getProperties();
-          for(Map.Entry<String,String> entry : props.entrySet())
-          {
-            item.setProperty(entry.getKey(),entry.getValue());
-          }
-          item.setStatsProvider(referenceItem.getStatsProvider());
+          contents.setItem(itemInstance);
         }
       }
     }
-    return item;
+    return itemInstance;
   }
 
   /**

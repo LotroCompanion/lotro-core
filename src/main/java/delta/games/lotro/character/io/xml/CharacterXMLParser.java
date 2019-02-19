@@ -22,6 +22,7 @@ import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
 import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
 
@@ -124,7 +125,7 @@ public class CharacterXMLParser
           Element itemTag=DOMParsingTools.getChildTagByName(slotTag,ItemXMLConstants.ITEM_TAG);
           if (itemTag!=null)
           {
-            Item item=itemParser.parseItem(itemTag);
+            ItemInstance<? extends Item> item=itemParser.parseItemInstance(itemTag);
             slotContents.setItem(item);
           }
         }

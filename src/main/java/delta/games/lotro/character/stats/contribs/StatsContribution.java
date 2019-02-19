@@ -7,6 +7,7 @@ import delta.games.lotro.character.stats.buffs.BuffInstance;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -140,7 +141,7 @@ public class StatsContribution
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getGearContrib(EQUIMENT_SLOT slot, Item item, BasicStatsSet stats)
+  public static StatsContribution getGearContrib(EQUIMENT_SLOT slot, ItemInstance<? extends Item> item, BasicStatsSet stats)
   {
     String source=EQUIPMENT+slot.name()+":"+item.getIdentifier();
     String label=slot.getLabel()+": "+item.getName();

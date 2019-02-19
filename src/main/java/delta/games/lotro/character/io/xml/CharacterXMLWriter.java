@@ -27,6 +27,7 @@ import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -153,7 +154,7 @@ public class CharacterXMLWriter
         slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_ITEM_ID_ATTR,CDATA,itemId.toString());
       }
       hd.startElement("","",CharacterXMLConstants.SLOT_TAG,slotAtts);
-      Item item=slotContents.getItem();
+      ItemInstance<? extends Item> item=slotContents.getItem();
       if (item!=null)
       {
         ItemXMLWriter writer=new ItemXMLWriter();

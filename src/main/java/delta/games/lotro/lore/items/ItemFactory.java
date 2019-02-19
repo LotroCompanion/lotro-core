@@ -1,7 +1,9 @@
 package delta.games.lotro.lore.items;
 
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
+import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
+import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
 
 /**
  * Item builder.
@@ -70,5 +72,61 @@ public class ItemFactory
       ret=new Item(item);
     }
     return ret;
+  }
+
+  /**
+   * Build an item instance for an item.
+   * @param item Item to use.
+   * @return A new item instance.
+   */
+  public static ItemInstance<? extends Item> buildInstance(Item item)
+  {
+    ItemInstance<? extends Item> ret;
+    if (item instanceof Armour)
+    {
+      Armour reference=(Armour)item;
+      ArmourInstance instance=new ArmourInstance();
+      instance.setReference(reference);
+      ret=instance;
+    }
+    else if (item instanceof LegendaryWeapon)
+    {
+      LegendaryWeapon reference=(LegendaryWeapon)item;
+      LegendaryWeaponInstance instance=new LegendaryWeaponInstance();
+      instance.setReference(reference);
+      ret=instance;
+    }
+    else if (item instanceof Weapon)
+    {
+      Weapon reference=(Weapon)item;
+      WeaponInstance<Weapon> instance=new WeaponInstance<Weapon>();
+      instance.setReference(reference);
+      ret=instance;
+    }
+    else if (item instanceof LegendaryItem)
+    {
+      LegendaryItem reference=(LegendaryItem)item;
+      LegendaryItemInstance instance=new LegendaryItemInstance();
+      instance.setReference(reference);
+      ret=instance;
+    }
+    else
+    {
+      ItemInstance<Item> instance=new ItemInstance<Item>();
+      instance.setReference(item);
+      ret=instance;
+    }
+    return ret;
+  }
+
+  /**
+   * Clone an item instance.
+   * @param item Item instance to use.
+   * @return A new item instance.
+   */
+  public static ItemInstance<? extends Item> cloneInstance(ItemInstance<? extends Item> item)
+  {
+    // TODO
+    return null;
   }
 }

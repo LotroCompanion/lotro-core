@@ -17,6 +17,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.StreamTools;
 import delta.games.lotro.character.storage.stash.ItemsStash;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -75,11 +76,11 @@ public class StashXMLWriter
     int nextId=stash.getNextId();
     stashAttrs.addAttribute("","",StashXMLConstants.NEXT_ID_ATTR,CDATA,String.valueOf(nextId));
     hd.startElement("","",StashXMLConstants.STASH_TAG,stashAttrs);
-    List<Item> items=stash.getAll();
+    List<ItemInstance<? extends Item>> items=stash.getAll();
     if (items.size()>0)
     {
       ItemXMLWriter writer=new ItemXMLWriter();
-      for(Item item : items)
+      for(ItemInstance<? extends Item> item : items)
       {
         writer.writeItemInstance(hd,item);
       }

@@ -21,14 +21,15 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
 import delta.games.lotro.lore.items.ItemFactory;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemPropertyNames;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.EssencesSet;
-import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLParser;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -190,13 +191,6 @@ public class ItemXMLParser
     String description=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_DESCRIPTION_ATTR,null);
     ret.setDescription(description);
 
-    // Handle legendary items
-    if (ret instanceof Legendary)
-    {
-      LegendaryAttrs legAttrs=((Legendary)ret).getLegendaryAttrs();
-      LegendaryAttrsXMLParser.read(legAttrs,root);
-    }
-
     // Money
     MoneyXMLParser.loadMoney(root,ret.getValue());
     // Stack max
@@ -208,31 +202,6 @@ public class ItemXMLParser
     // Essence slots
     int nbEssenceSlots=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_ESSENCE_SLOTS,0);
     ret.setEssenceSlots(nbEssenceSlots);
-
-    // Essences
-    Element essencesTag=DOMParsingTools.getChildTagByName(root,ItemXMLConstants.ESSENCES_TAG);
-    if (essencesTag!=null)
-    {
-      List<Element> essenceTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ITEM_TAG,false);
-      List<Item> essences=new ArrayList<Item>();
-      for(Element essenceTag : essenceTags)
-      {
-        Item essence=parseItem(essenceTag);
-        essences.add(essence);
-      }
-      if (essences.size()>0)
-      {
-        int slots=Math.max(ret.getEssenceSlots(),essences.size());
-        EssencesSet essencesSet=new EssencesSet(slots);
-        int index=0;
-        for(Item essence : essences)
-        {
-          essencesSet.setEssence(index,essence);
-          index++;
-        }
-        ret.setEssences(essencesSet);
-      }
-    }
 
     // Armour specific:
     if (category==ItemCategory.ARMOUR)
@@ -274,5 +243,54 @@ public class ItemXMLParser
       }
     }
     return ret;
+  }
+
+  /**
+   * Build an item instance from an XML tag.
+   * @param root Root XML tag.
+   * @return An item instance.
+   */
+  public ItemInstance<? extends Item> parseItemInstance(Element root)
+  {
+    ItemInstance<? extends Item> itemInstance=null;
+    Item item=parseItem(root);
+    if (item!=null)
+    {
+      itemInstance=ItemFactory.buildInstance(item);
+
+      // Essences
+      Element essencesTag=DOMParsingTools.getChildTagByName(root,ItemXMLConstants.ESSENCES_TAG);
+      if (essencesTag!=null)
+      {
+        List<Element> essenceTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ITEM_TAG,false);
+        List<Item> essences=new ArrayList<Item>();
+        for(Element essenceTag : essenceTags)
+        {
+          Item essence=parseItem(essenceTag);
+          essences.add(essence);
+        }
+        if (essences.size()>0)
+        {
+          int nbMaxSlots=item.getEssenceSlots();
+          int slots=Math.max(nbMaxSlots,essences.size());
+          EssencesSet essencesSet=new EssencesSet(slots);
+          int index=0;
+          for(Item essence : essences)
+          {
+            essencesSet.setEssence(index,essence);
+            index++;
+          }
+          itemInstance.setEssences(essencesSet);
+        }
+      }
+
+      // Handle legendary items
+      if (itemInstance instanceof LegendaryInstance)
+      {
+        LegendaryAttrs legAttrs=((LegendaryInstance)itemInstance).getLegendaryAttributes();
+        LegendaryAttrsXMLParser.read(legAttrs,root);
+      }
+    }
+    return itemInstance;
   }
 }

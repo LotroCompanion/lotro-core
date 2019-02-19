@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.comparators.ItemStashIdComparator;
 import delta.games.lotro.utils.LotroLoggers;
 
@@ -21,8 +22,8 @@ public class ItemsStash
   private static final Logger _logger=LotroLoggers.getCharacterLogger();
 
   private int _nextId;
-  private HashMap<Integer,Item> _items;
-  private List<Item> _itemsList;
+  private HashMap<Integer,ItemInstance<? extends Item>> _items;
+  private List<ItemInstance<? extends Item>> _itemsList;
 
   /**
    * Constructor.
@@ -30,8 +31,8 @@ public class ItemsStash
   public ItemsStash()
   {
     _nextId=1;
-    _items=new HashMap<Integer,Item>();
-    _itemsList=new ArrayList<Item>();
+    _items=new HashMap<Integer,ItemInstance<? extends Item>>();
+    _itemsList=new ArrayList<ItemInstance<? extends Item>>();
   }
 
   /**
@@ -54,7 +55,7 @@ public class ItemsStash
    * Get the internal list of items.
    * @return a list of items.
    */
-  public List<Item> getItemsList()
+  public List<ItemInstance<? extends Item>> getItemsList()
   {
     return _itemsList;
   }
@@ -63,7 +64,7 @@ public class ItemsStash
    * Register an item.
    * @param item Item to register.
    */
-  public void registerItem(Item item)
+  public void registerItem(ItemInstance<? extends Item> item)
   {
     Integer stashId=item.getStashIdentifier();
     _items.put(stashId,item);
@@ -74,12 +75,12 @@ public class ItemsStash
    * Add an item in this stash.
    * @param item Item to add.
    */
-  public void addItem(Item item)
+  public void addItem(ItemInstance<? extends Item> item)
   {
     Integer stashId=item.getStashIdentifier();
     if (stashId!=null)
     {
-      Item old=_items.get(stashId);
+      ItemInstance<? extends Item> old=_items.get(stashId);
       if (old!=null)
       {
         if (item!=old)
@@ -103,7 +104,7 @@ public class ItemsStash
    * @param stashId Stash identifier.
    * @return An item or <code>null</code> if not found.
    */
-  public Item getItemById(int stashId)
+  public ItemInstance<? extends Item> getItemById(int stashId)
   {
     return _items.get(Integer.valueOf(stashId));
   }
@@ -114,7 +115,7 @@ public class ItemsStash
    */
   public void removeItem(Integer stashId)
   {
-    Item old=_items.remove(stashId);
+    ItemInstance<? extends Item> old=_items.remove(stashId);
     if (old!=null)
     {
       old.setStashIdentifier(null);
@@ -128,7 +129,7 @@ public class ItemsStash
   public void removeAll()
   {
     _nextId=1;
-    for(Item item : _items.values())
+    for(ItemInstance<? extends Item> item : _items.values())
     {
       item.setStashIdentifier(null);
     }
@@ -149,9 +150,9 @@ public class ItemsStash
    * @return A possibly empty but not <code>null</code> list of items,
    * sorted by stash identifier.
    */
-  public List<Item> getAll()
+  public List<ItemInstance<? extends Item>> getAll()
   {
-    List<Item> ret=new ArrayList<Item>(_items.values());
+    List<ItemInstance<? extends Item>> ret=new ArrayList<ItemInstance<? extends Item>>(_items.values());
     Collections.sort(ret,new ItemStashIdComparator());
     return ret;
   }
@@ -164,8 +165,8 @@ public class ItemsStash
   public String dump(int level)
   {
     StringBuilder sb=new StringBuilder();
-    List<Item> items=getAll();
-    for(Item item : items)
+    List<ItemInstance<? extends Item>> items=getAll();
+    for(ItemInstance<? extends Item> item : items)
     {
       for(int i=0;i<level;i++) sb.append('\t');
       sb.append(item).append(EndOfLine.NATIVE_EOL);

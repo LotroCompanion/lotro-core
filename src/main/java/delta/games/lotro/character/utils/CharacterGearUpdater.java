@@ -4,13 +4,8 @@ import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
-import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemFactory;
-import delta.games.lotro.lore.items.ItemsManager;
-import delta.games.lotro.lore.items.essences.EssencesSet;
-import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.ItemInstance;
 
 /**
  * Character gear updater.
@@ -31,35 +26,27 @@ public class CharacterGearUpdater
       SlotContents contents=gear.getSlotContents(slot,false);
       if (contents!=null)
       {
-        Item item=contents.getItem();
-        Item updatedItem=updateItem(item);
-        if (updatedItem!=null)
-        {
-          contents.setItem(updatedItem);
-        }
+        ItemInstance<? extends Item> item=contents.getItem();
+        updateItem(item);
       }
     }
   }
 
-  private Item updateItem(Item item)
+  private void updateItem(ItemInstance<? extends Item> item)
   {
+    /*
     if (item==null)
     {
-      return null;
+      return;
     }
     ItemsManager manager=ItemsManager.getInstance();
     int id=item.getIdentifier();
     Item refItem=manager.getItem(id);
     if (refItem==null)
     {
-      return null;
+      return;
     }
-    boolean oldIsLegendary=(item instanceof Legendary);
-    if (oldIsLegendary)
-    {
-      return null;
-    }
-    Item clonedItem=ItemFactory.clone(refItem);
+    item.setReference(refItem);
     // Item level
     Integer itemLevel=item.getItemLevel();
     if (itemLevel!=null)
@@ -94,9 +81,7 @@ public class CharacterGearUpdater
       }
       clonedItem.setEssences(newEssences);
     }
-    // Crafting data
-    clonedItem.setCrafterName(item.getCrafterName());
-    clonedItem.setBirthName(item.getBirthName());
     return clonedItem;
+    */
   }
 }
