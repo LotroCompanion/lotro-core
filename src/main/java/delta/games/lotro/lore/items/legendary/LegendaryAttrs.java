@@ -60,7 +60,7 @@ public class LegendaryAttrs
     _gem=source._gem;
     _rune=source._rune;
     _crafted=source._crafted;
-    _passives.clear();
+    _passives=new ArrayList<Effect>();
     _passives.addAll(source._passives);
   }
 
