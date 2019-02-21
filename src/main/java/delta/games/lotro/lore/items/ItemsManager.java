@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
@@ -75,13 +74,13 @@ public class ItemsManager
   }
 
   /**
-   * Get items that fit a slot.
-   * @param slot Targeted slot.
+   * Get items that fit a location.
+   * @param location Targeted location.
    * @return A list of items.
    */
-  public List<Item> getItems(EQUIMENT_SLOT slot)
+  public List<Item> getItems(EquipmentLocation location)
   {
-    List<Item> items=_sorter.getItems(slot);
+    List<Item> items=_sorter.getItems(location);
     Collections.sort(items,new ItemNameComparator());
     return items;
   }
@@ -92,7 +91,9 @@ public class ItemsManager
    */
   public List<Item> getEssences()
   {
-    return _sorter.buildEssencesList();
+    List<Item> items=_sorter.buildEssencesList();
+    Collections.sort(items,new ItemNameComparator());
+    return items;
   }
 
   /**
