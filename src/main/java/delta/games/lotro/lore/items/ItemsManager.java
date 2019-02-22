@@ -60,20 +60,6 @@ public class ItemsManager
   }
 
   /**
-   * Constructor.
-   * @param items Items to use.
-   */
-  public ItemsManager(List<Item> items)
-  {
-    this(false);
-    for(Item item : items)
-    {
-      _cache.put(Integer.valueOf(item.getIdentifier()),item);
-    }
-    _sorter.sortItems(items);
-  }
-
-  /**
    * Get items that fit a location.
    * @param location Targeted location.
    * @return A list of items.
