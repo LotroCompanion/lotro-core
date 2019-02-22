@@ -152,7 +152,7 @@ public class ItemsStash
    */
   public List<ItemInstance<? extends Item>> getAll()
   {
-    List<ItemInstance<? extends Item>> ret=new ArrayList<ItemInstance<? extends Item>>(_items.values());
+    List<ItemInstance<? extends Item>> ret=new ArrayList<ItemInstance<? extends Item>>(_itemsList);
     Collections.sort(ret,new ItemStashIdComparator());
     return ret;
   }

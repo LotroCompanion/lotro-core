@@ -127,6 +127,6 @@ public class ItemFactory
   public static ItemInstance<? extends Item> cloneInstance(ItemInstance<? extends Item> item)
   {
     // TODO
-    return null;
+    return item;
   }
 }

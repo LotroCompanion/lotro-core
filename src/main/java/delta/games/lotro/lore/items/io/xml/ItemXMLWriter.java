@@ -136,7 +136,7 @@ public class ItemXMLWriter
    */
   public void writeItemInstance(TransformerHandler hd, ItemInstance<? extends Item> item) throws Exception
   {
-    write(hd,item,null);
+    write(hd,item,item.getReference());
   }
 
   /**
