@@ -40,8 +40,6 @@ public class Item implements Identifiable
   private ItemBinding _binding;
   // Is item unique or not?
   private boolean _unique;
-  // Bonuses
-  private List<String> _bonus;
   // Stats
   private BasicStatsSet _stats;
   private StatsProvider _statsProvider;
@@ -92,7 +90,6 @@ public class Item implements Identifiable
     _subCategory=null;
     _binding=null;
     _unique=false;
-    _bonus=new ArrayList<String>();
     _stats=new BasicStatsSet();
     _statsProvider=null;
     _essenceSlots=0;
@@ -324,38 +321,6 @@ public class Item implements Identifiable
   public void setUnique(boolean unique)
   {
     _unique=unique;
-  }
-
-  /**
-   * Add a bonus.
-   * @param bonus Bonus to add.
-   */
-  public void addBonus(String bonus)
-  {
-    _bonus.add(bonus);
-  }
-
-  /**
-   * Get the list of bonus for this item.
-   * @return a list of bonus.
-   */
-  public List<String> getBonus()
-  {
-    // TODO encapsulation
-    return _bonus;
-  }
-
-  /**
-   * Set the list of bonus for this item.
-   * @param bonuses the bonus to set.
-   */
-  public void setBonus(List<String> bonuses)
-  {
-    _bonus.clear();
-    if (bonuses!=null)
-    {
-      _bonus.addAll(bonuses);
-    }
   }
 
   /**
@@ -641,8 +606,6 @@ public class Item implements Identifiable
     _subCategory=item._subCategory;
     _binding=item._binding;
     _unique=item._unique;
-    _bonus.clear();
-    _bonus.addAll(item._bonus);
     _stats=new BasicStatsSet(item._stats);
     _statsProvider=item._statsProvider;
     _essenceSlots=item._essenceSlots;
@@ -770,14 +733,6 @@ public class Item implements Identifiable
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);
-    // Bonus
-    if ((_bonus!=null) && (_bonus.size()>0))
-    {
-      for(String bonus : _bonus)
-      {
-        sb.append(bonus).append(EndOfLine.NATIVE_EOL);
-      }
-    }
     // Properties
     if (_properties.size()>0)
     {

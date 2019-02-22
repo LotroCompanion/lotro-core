@@ -272,13 +272,6 @@ public final class ItemSaxParser extends DefaultHandler {
           money.setSilverCoins(NumericTools.parseInt(silverStr,0));
           String copperStr=attributes.getValue(MoneyXMLConstants.MONEY_COPPER_ATTR);
           money.setCopperCoins(NumericTools.parseInt(copperStr,0));
-        } else if (ItemXMLConstants.BONUS_TAG.equals(qualifiedName)) {
-          // Bonus
-          String bonus=attributes.getValue(ItemXMLConstants.BONUS_VALUE_ATTR);
-          if (bonus!=null)
-          {
-            _currentItem.addBonus(bonus);
-          }
         } else {
           // ...
         }

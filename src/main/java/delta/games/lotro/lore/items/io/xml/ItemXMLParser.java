@@ -98,21 +98,6 @@ public class ItemXMLParser
     // Uniqueness
     boolean unique=DOMParsingTools.getBooleanAttribute(attrs,ItemXMLConstants.ITEM_UNIQUE_ATTR,false);
     ret.setUnique(unique);
-    // Bonuses
-    List<Element> bonusTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.BONUS_TAG,false);
-    List<String> bonuses=new ArrayList<String>();
-    if (bonusTags!=null)
-    {
-      for(Element bonusTag : bonusTags)
-      {
-        String value=DOMParsingTools.getStringAttribute(bonusTag.getAttributes(),ItemXMLConstants.BONUS_VALUE_ATTR,null);
-        if (value!=null)
-        {
-          bonuses.add(value);
-        }
-      }
-    }
-    ret.setBonus(bonuses);
     // Properties
     List<Element> propertyTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.PROPERTY_TAG,false);
     if ((propertyTags!=null) && (propertyTags.size()>0))

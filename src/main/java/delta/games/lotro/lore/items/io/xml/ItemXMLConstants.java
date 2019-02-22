@@ -130,15 +130,6 @@ public class ItemXMLConstants
   public static final String STATS_TAG="stats";
 
   /**
-   * Tag 'bonus'.
-   */
-  public static final String BONUS_TAG="bonus";
-  /**
-   * Tag 'bonus', attribute 'value'.
-   */
-  public static final String BONUS_VALUE_ATTR="value";
-
-  /**
    * Tag 'essences'.
    */
   public static final String ESSENCES_TAG="essences";

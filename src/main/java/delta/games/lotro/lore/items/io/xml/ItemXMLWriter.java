@@ -324,19 +324,6 @@ public class ItemXMLWriter
     Money value=item.getValue();
     MoneyXMLWriter.writeMoney(hd,value);
 
-    // Bonuses
-    // TODO better
-    List<String> bonuses=item.getBonus();
-    if (bonuses!=null)
-    {
-      for(String bonus : bonuses)
-      {
-        AttributesImpl attrs=new AttributesImpl();
-        attrs.addAttribute("","",ItemXMLConstants.BONUS_VALUE_ATTR,CDATA,bonus);
-        hd.startElement("","",ItemXMLConstants.BONUS_TAG,attrs);
-        hd.endElement("","",ItemXMLConstants.BONUS_TAG);
-      }
-    }
     // Properties
     Map<String,String> properties=item.getProperties();
     List<String> propertyNames=new ArrayList<String>(properties.keySet());
