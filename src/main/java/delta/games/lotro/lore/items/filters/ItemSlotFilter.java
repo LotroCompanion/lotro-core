@@ -1,7 +1,9 @@
 package delta.games.lotro.lore.items.filters;
 
+import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.Weapon;
 
 /**
  * Filter items that can go in a given slot.
@@ -13,7 +15,16 @@ public class ItemSlotFilter implements ItemFilter
 
   /**
    * Constructor.
-   * @param location Slot to use.
+   * @param slot Slot to use.
+   */
+  public ItemSlotFilter(EQUIMENT_SLOT slot)
+  {
+    _location=slot.getLocation();
+  }
+
+  /**
+   * Constructor.
+   * @param location Location to use.
    */
   public ItemSlotFilter(EquipmentLocation location)
   {
@@ -23,6 +34,18 @@ public class ItemSlotFilter implements ItemFilter
   public boolean accept(Item item)
   {
     EquipmentLocation location=item.getEquipmentLocation();
-    return _location==location;
+    if (_location==location)
+    {
+      return true;
+    }
+    if (_location==EquipmentLocation.OFF_HAND)
+    {
+      // If off-hand, allow main hand weapons
+      if (item instanceof Weapon)
+      {
+        return location==EquipmentLocation.MAIN_HAND;
+      }
+    }
+    return false;
   }
 }
