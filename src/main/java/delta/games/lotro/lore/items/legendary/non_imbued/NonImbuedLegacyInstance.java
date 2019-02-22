@@ -18,6 +18,16 @@ public abstract class NonImbuedLegacyInstance
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public NonImbuedLegacyInstance(NonImbuedLegacyInstance source)
+  {
+    super();
+    _rank=source._rank;
+  }
+
+  /**
    * Get the rank.
    * @return the rank.
    */

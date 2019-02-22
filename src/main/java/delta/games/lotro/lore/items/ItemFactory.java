@@ -126,7 +126,8 @@ public class ItemFactory
    */
   public static ItemInstance<? extends Item> cloneInstance(ItemInstance<? extends Item> item)
   {
-    // TODO
-    return item;
+    ItemInstance<? extends Item> clone=buildInstance(item.getReference());
+    clone.copyFrom(item);
+    return clone;
   }
 }

@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 
 /**
  * Attributes of an imbued legendary item instance.
  * @author DAM
  */
-public class ImbuedLegendaryAttrs extends LegendaryAttrs
+public class ImbuedLegendaryAttrs
 {
   /**
    * Imbued legacy instances.
@@ -23,6 +22,20 @@ public class ImbuedLegendaryAttrs extends LegendaryAttrs
   public ImbuedLegendaryAttrs()
   {
     _legacies=new ArrayList<ImbuedLegacyInstance>();
+  }
+
+  /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public ImbuedLegendaryAttrs(ImbuedLegendaryAttrs source)
+  {
+    _legacies=new ArrayList<ImbuedLegacyInstance>();
+    for(ImbuedLegacyInstance legacyInstance : source._legacies)
+    {
+      ImbuedLegacyInstance copy=new ImbuedLegacyInstance(legacyInstance);
+      _legacies.add(copy);
+    }
   }
 
   /**

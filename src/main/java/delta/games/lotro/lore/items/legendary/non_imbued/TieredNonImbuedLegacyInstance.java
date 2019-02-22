@@ -9,6 +9,24 @@ public class TieredNonImbuedLegacyInstance extends NonImbuedLegacyInstance
   private NonImbuedLegacyTier _legacyTier;
 
   /**
+   * Constructor.
+   */
+  public TieredNonImbuedLegacyInstance()
+  {
+    super();
+  }
+
+  /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public TieredNonImbuedLegacyInstance(TieredNonImbuedLegacyInstance source)
+  {
+    super(source);
+    _legacyTier=source._legacyTier;
+  }
+
+  /**
    * Get the associated legacy tier.
    * @return the associated legacy tier.
    */

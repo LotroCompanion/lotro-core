@@ -62,6 +62,11 @@ public class LegendaryAttrs
     _crafted=source._crafted;
     _passives=new ArrayList<Effect>();
     _passives.addAll(source._passives);
+    if (source._imbuedAttrs!=null)
+    {
+      _imbuedAttrs=new ImbuedLegendaryAttrs(source._imbuedAttrs);
+    }
+    _nonImbuedAttrs=new NonImbuedLegendaryAttrs(source._nonImbuedAttrs);
   }
 
   /**

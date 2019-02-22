@@ -17,7 +17,18 @@ public class LegendaryItemInstance extends ItemInstance<LegendaryItem> implement
    */
   public LegendaryItemInstance()
   {
+    super();
     _attrs=new LegendaryAttrs();
+  }
+
+  /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public LegendaryItemInstance(LegendaryItemInstance source)
+  {
+    this();
+    copyFrom(source);
   }
 
   /**
@@ -36,6 +47,21 @@ public class LegendaryItemInstance extends ItemInstance<LegendaryItem> implement
   public void setLegendaryAttributes(LegendaryAttrs attrs)
   {
     _attrs=attrs;
+  }
+
+  /**
+   * Copy item instance data from a source.
+   * @param itemInstance Source item instance.
+   */
+  @Override
+  public void copyFrom(ItemInstance<?> itemInstance)
+  {
+    super.copyFrom(itemInstance);
+    if (itemInstance instanceof LegendaryItemInstance)
+    {
+      LegendaryItemInstance legendaryItemInstance=(LegendaryItemInstance)itemInstance;
+      _attrs=new LegendaryAttrs(legendaryItemInstance._attrs);
+    }
   }
 
   /**

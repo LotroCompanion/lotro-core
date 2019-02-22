@@ -28,6 +28,15 @@ public class EssencesSet
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public EssencesSet(EssencesSet source)
+  {
+    _essences=new ArrayList<Item>(source._essences);
+  }
+
+  /**
    * Get the maximum number of essences in this set.
    * @return a number of essences.
    */

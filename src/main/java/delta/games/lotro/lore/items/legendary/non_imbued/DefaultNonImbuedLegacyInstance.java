@@ -9,6 +9,24 @@ public class DefaultNonImbuedLegacyInstance extends NonImbuedLegacyInstance
   private DefaultNonImbuedLegacy _legacy;
 
   /**
+   * Constructor.
+   */
+  public DefaultNonImbuedLegacyInstance()
+  {
+    super();
+  }
+
+  /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public DefaultNonImbuedLegacyInstance(DefaultNonImbuedLegacyInstance source)
+  {
+    super();
+    _legacy=source._legacy;
+  }
+
+  /**
    * Get the associated legacy.
    * @return the associated legacy.
    */

@@ -51,6 +51,28 @@ public class NonImbuedLegendaryAttrs
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public NonImbuedLegendaryAttrs(NonImbuedLegendaryAttrs source)
+  {
+    _legendaryItemLevel=source._legendaryItemLevel;
+    _nbUpgrades=source._nbUpgrades;
+    if (source._defaultLegacy!=null)
+    {
+      _defaultLegacy=new DefaultNonImbuedLegacyInstance(source._defaultLegacy);
+    }
+    _legacies=new ArrayList<TieredNonImbuedLegacyInstance>();
+    for(TieredNonImbuedLegacyInstance tieredLegacyInstance : source._legacies)
+    {
+      TieredNonImbuedLegacyInstance copy=new TieredNonImbuedLegacyInstance(tieredLegacyInstance);
+      _legacies.add(copy);
+    }
+    _pointsSpent=source._pointsSpent;
+    _pointsLeft=source._pointsLeft;
+  }
+
+  /**
    * Get the legendary item level.
    * @return a legendary item level (max 60 or 70).
    */

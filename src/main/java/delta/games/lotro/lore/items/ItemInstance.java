@@ -335,19 +335,21 @@ public class ItemInstance<T extends Item>
   }
 
   /**
-   * Copy item data from a source.
-   * @param item Source item.
+   * Copy item instance data from a source.
+   * @param itemInstance Source item instance.
    */
-  public void copyFrom(ItemInstance<T> item)
+  @SuppressWarnings("unchecked")
+  public void copyFrom(ItemInstance<?> itemInstance)
   {
-    _birthName=item._birthName;
-    _crafterName=item._crafterName;
-    // TODO
-    _essences=item._essences;
-    _durability=item._durability;
-    _itemLevel=item._itemLevel;
-    _minLevel=item._minLevel;
-    _value=new Money(item._value);
+    _reference=(T)itemInstance._reference;
+    _birthName=itemInstance._birthName;
+    _crafterName=itemInstance._crafterName;
+    _essences=new EssencesSet(itemInstance._essences);
+    _durability=itemInstance._durability;
+    _itemLevel=itemInstance._itemLevel;
+    _minLevel=itemInstance._minLevel;
+    _value=new Money(itemInstance._value);
+    _properties=new HashMap<String,String>(itemInstance._properties);
   }
 
   /**

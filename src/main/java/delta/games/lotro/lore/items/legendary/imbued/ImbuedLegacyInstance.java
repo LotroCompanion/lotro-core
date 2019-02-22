@@ -25,6 +25,17 @@ public class ImbuedLegacyInstance
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public ImbuedLegacyInstance(ImbuedLegacyInstance source)
+  {
+    _legacy=source._legacy;
+    _xp=source._xp;
+    _unlockedLevels=source._unlockedLevels;
+  }
+
+  /**
    * Get the associated legacy.
    * @return the associated legacy.
    */

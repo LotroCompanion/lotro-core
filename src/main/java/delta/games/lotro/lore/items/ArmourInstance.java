@@ -6,5 +6,31 @@ package delta.games.lotro.lore.items;
  */
 public class ArmourInstance extends ItemInstance<Armour>
 {
-  // Nothing
+  /**
+   * Constructor.
+   */
+  public ArmourInstance()
+  {
+    super();
+  }
+
+  /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public ArmourInstance(ArmourInstance source)
+  {
+    this();
+    copyFrom(source);
+  }
+
+  /**
+   * Copy item instance data from a source.
+   * @param itemInstance Source item instance.
+   */
+  @Override
+  public void copyFrom(ItemInstance<?> itemInstance)
+  {
+    super.copyFrom(itemInstance);
+  }
 }

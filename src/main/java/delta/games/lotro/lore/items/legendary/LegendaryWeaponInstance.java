@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.legendary;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.WeaponInstance;
 
 /**
@@ -17,7 +18,18 @@ public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> imp
    */
   public LegendaryWeaponInstance()
   {
+    super();
     _attrs=new LegendaryAttrs();
+  }
+
+  /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public LegendaryWeaponInstance(LegendaryWeaponInstance source)
+  {
+    this();
+    copyFrom(source);
   }
 
   /**
@@ -36,6 +48,21 @@ public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> imp
   public void setLegendaryAttributes(LegendaryAttrs attrs)
   {
     _attrs=attrs;
+  }
+
+  /**
+   * Copy item instance data from a source.
+   * @param itemInstance Source item instance.
+   */
+  @Override
+  public void copyFrom(ItemInstance<?> itemInstance)
+  {
+    super.copyFrom(itemInstance);
+    if (itemInstance instanceof LegendaryWeaponInstance)
+    {
+      LegendaryWeaponInstance weapon=(LegendaryWeaponInstance)itemInstance;
+      _attrs=new LegendaryAttrs(weapon._attrs);
+    }
   }
 
   /**
