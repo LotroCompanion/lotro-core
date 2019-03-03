@@ -8,9 +8,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.constraints.ClassAndSlot;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.io.xml.LegacyXMLParser;
 
@@ -87,6 +91,29 @@ public class LegaciesManager
     Collections.sort(legacies,new IdentifiableComparator<ImbuedLegacy>());
     return legacies;
   }
+
+  /**
+   * Get all legacies for a given character class and equipment slot.
+   * @param characterClass Character class.
+   * @param slot Equipment slot.
+   * @return A possibly empty but not <code>null</code> list of legacies.
+   */
+  public List<ImbuedLegacy> get(CharacterClass characterClass, EquipmentLocation slot)
+  {
+    List<ImbuedLegacy> ret=new ArrayList<ImbuedLegacy>();
+    ClassAndSlot classAndSlot=new ClassAndSlot(characterClass,slot);
+    for(ImbuedLegacy legacy : _cache.values())
+    {
+      Filter<ClassAndSlot> constraint=legacy.getClassAndSlotFilter();
+      boolean ok=((constraint!=null) && (constraint.accept(classAndSlot)));
+      if (ok)
+      {
+        ret.add(legacy);
+      }
+    }
+    return ret;
+  }
+
 
   /**
    * Get a legacy using its identifier.
