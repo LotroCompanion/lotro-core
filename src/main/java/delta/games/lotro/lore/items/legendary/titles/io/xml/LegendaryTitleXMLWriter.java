@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items.legendary.io.xml;
+package delta.games.lotro.lore.items.legendary.titles.io.xml;
 
 import java.io.File;
 import java.util.Collections;
@@ -15,7 +15,8 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.lore.items.DamageType;
-import delta.games.lotro.lore.items.legendary.LegendaryTitle;
+import delta.games.lotro.lore.items.legendary.io.xml.LegendaryTitleXMLConstants;
+import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 
 /**
  * Writes legendary titles to XML files.

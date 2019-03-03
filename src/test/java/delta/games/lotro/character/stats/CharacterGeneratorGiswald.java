@@ -28,11 +28,11 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
 import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
-import delta.games.lotro.lore.items.legendary.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
 import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**

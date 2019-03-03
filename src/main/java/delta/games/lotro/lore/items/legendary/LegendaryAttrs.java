@@ -11,6 +11,7 @@ import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 
 /**
  * Legendary item description.

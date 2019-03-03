@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items.legendary;
+package delta.games.lotro.lore.items.legendary.titles;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Identifiable;

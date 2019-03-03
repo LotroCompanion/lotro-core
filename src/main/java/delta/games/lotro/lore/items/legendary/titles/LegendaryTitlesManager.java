@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items.legendary;
+package delta.games.lotro.lore.items.legendary.titles;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.items.legendary.io.xml.LegendaryTitleXMLParser;
+import delta.games.lotro.lore.items.legendary.titles.io.xml.LegendaryTitleXMLParser;
 
 /**
  * Facade for access to legendary titles.
