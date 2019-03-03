@@ -9,29 +9,42 @@ public enum LegacyType
   /**
    * Stat legacy.
    */
-  STAT,
+  STAT("Stat"),
   /**
    * Class skill legacy.
    */
-  CLASS,
+  CLASS("Class"),
   /**
    * DPS legacy.
    */
-  DPS,
+  DPS("DPS"),
   /**
    * Fury.
    */
-  FURY,
+  FURY("Fury"),
   /**
    * Outgoing healing legacy.
    */
-  OUTGOING_HEALING,
+  OUTGOING_HEALING("Tactical Healing Rating"),
   /**
    * Incoming healing legacy.
    */
-  INCOMING_HEALING,
+  INCOMING_HEALING("Incoming Healing Rating"),
   /**
    * Tactical DPS legacy.
    */
-  TACTICAL_DPS
+  TACTICAL_DPS("Tactical Damage Rating");
+
+  private String _label;
+
+  private LegacyType(String label)
+  {
+    _label=label;
+  }
+
+  @Override
+  public String toString()
+  {
+    return _label;
+  }
 }
