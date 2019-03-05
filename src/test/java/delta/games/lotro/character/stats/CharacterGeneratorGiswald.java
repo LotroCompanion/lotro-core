@@ -1,5 +1,7 @@
 package delta.games.lotro.character.stats;
 
+import java.util.List;
+
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
@@ -25,11 +27,22 @@ import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.EssencesSet;
+import delta.games.lotro.lore.items.legendary.LegaciesManager;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
 import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
 import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
@@ -572,14 +585,17 @@ public class CharacterGeneratorGiswald
     LegendaryAttrs attrs=instance.getLegendaryAttributes();
     // Title
     LegendaryTitle title=new LegendaryTitle();
+    title.setIdentifier(1000);
     title.setName("Potency of Eldar Days III");
     BasicStatsSet titleStats=title.getStats();
     titleStats.setStat(WellKnownStat.CRITICAL_RATING,460);
     attrs.setTitle(title);
+    // Legendary name
+    attrs.setLegendaryName("Stormbringer");
     // Relics
     {
       // Setting
-      Relic setting=new Relic(0,"Westemnet Setting of Endings", RelicType.SETTING, Integer.valueOf(90));
+      Relic setting=new Relic(1,"Westemnet Setting of Endings", RelicType.SETTING, Integer.valueOf(90));
       BasicStatsSet stats=setting.getStats();
       stats.setStat(WellKnownStat.get("DEVASTATE_MAGNITUDE_PERCENTAGE"), 7.5f);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1454);
@@ -588,7 +604,7 @@ public class CharacterGeneratorGiswald
     }
     {
       // Gem
-      Relic gem=new Relic(0,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
+      Relic gem=new Relic(2,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
       BasicStatsSet stats=gem.getStats();
       stats.setStat(WellKnownStat.ICPR,90);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
@@ -597,7 +613,7 @@ public class CharacterGeneratorGiswald
     }
     {
       // Rune
-      Relic rune=new Relic(0,"Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
+      Relic rune=new Relic(3,"Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
       BasicStatsSet stats=rune.getStats();
       stats.setStat(WellKnownStat.PHYSICAL_MITIGATION,170);
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,606);
@@ -607,15 +623,65 @@ public class CharacterGeneratorGiswald
     }
     {
       // Crafted relic
-      Relic craftedRelic=new Relic(0,"Westemnet Device of Battle", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
+      Relic craftedRelic=new Relic(4,"Westemnet Device of Battle", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
       BasicStatsSet stats=craftedRelic.getStats();
       stats.setStat(WellKnownStat.MIGHT,40);
       stats.setStat(WellKnownStat.CRITICAL_RATING,740);
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,740);
       attrs.setCraftedRelic(craftedRelic);
     }
-    // Stat legacies
-    // TODO
+    // Non-imbued data
+    {
+      NonImbuedLegendaryAttrs nonImbuedAttrs=attrs.getNonImbuedAttrs();
+      // - attributes
+      nonImbuedAttrs.setNbUpgrades(2);
+      nonImbuedAttrs.setLegendaryItemLevel(70);
+      nonImbuedAttrs.setPointsSpent(100);
+      nonImbuedAttrs.setPointsLeft(500);
+      // - legacies
+      NonImbuedLegaciesManager nonImbuedLegaciesMgr=NonImbuedLegaciesManager.getInstance();
+      // - default legacy
+      List<DefaultNonImbuedLegacy> possibleDefaultLegacies=nonImbuedLegaciesMgr.getDefaultLegacies(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND);
+      if (possibleDefaultLegacies.size()>0)
+      {
+        DefaultNonImbuedLegacy defaultLegacy=possibleDefaultLegacies.get(0);
+        DefaultNonImbuedLegacyInstance defaultLegacyInstance=new DefaultNonImbuedLegacyInstance();
+        defaultLegacyInstance.setLegacy(defaultLegacy);
+        defaultLegacyInstance.setRank(100);
+        nonImbuedAttrs.setDefaultLegacy(defaultLegacyInstance);
+      }
+      // - other legacies
+      List<TieredNonImbuedLegacy> possibleLegacies=nonImbuedLegaciesMgr.getTieredLegacies(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND);
+      int nbLegacies=Math.min(possibleLegacies.size(),6);
+      for(int i=0;i<nbLegacies;i++)
+      {
+        TieredNonImbuedLegacy legacy=possibleLegacies.get(i);
+        TieredNonImbuedLegacyInstance legacyInstance=new TieredNonImbuedLegacyInstance();
+        NonImbuedLegacyTier legacyTier=legacy.getTier(i+1);
+        legacyInstance.setLegacyTier(legacyTier);
+        legacyInstance.setRank(100);
+        nonImbuedAttrs.addLegacy(legacyInstance);
+      }
+    }
+    // Imbued data
+    {
+      ImbuedLegendaryAttrs imbuedAttrs=new ImbuedLegendaryAttrs();
+      instance.getLegendaryAttributes().setImbuedAttrs(imbuedAttrs);
+      // - legacies
+      LegaciesManager legaciesMgr=LegaciesManager.getInstance();
+      List<ImbuedLegacy> possibleLegacies=legaciesMgr.get(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND);
+      int nbLegacies=Math.min(possibleLegacies.size(),6);
+      for(int i=0;i<nbLegacies;i++)
+      {
+        ImbuedLegacy legacy=possibleLegacies.get(i);
+        ImbuedLegacyInstance legacyInstance=new ImbuedLegacyInstance();
+        legacyInstance.setLegacy(legacy);
+        legacyInstance.setXp(134567*i);
+        legacyInstance.setUnlockedLevels(30);
+        imbuedAttrs.addLegacy(legacyInstance);
+      }
+    }
+    System.out.println(instance.getLegendaryAttributes().dump());
     return instance;
   }
 

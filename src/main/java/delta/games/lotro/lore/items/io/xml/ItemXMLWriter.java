@@ -317,7 +317,7 @@ public class ItemXMLWriter
     // Handle legendary instances
     if (instance instanceof LegendaryInstance)
     {
-      LegendaryAttrs legAttrs=((LegendaryInstance)item).getLegendaryAttributes();
+      LegendaryAttrs legAttrs=((LegendaryInstance)instance).getLegendaryAttributes();
       LegendaryAttrsXMLWriter.write(hd,legAttrs);
     }
     // Money
