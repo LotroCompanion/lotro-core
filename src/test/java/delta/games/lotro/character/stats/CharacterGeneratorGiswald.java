@@ -9,6 +9,7 @@ import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Effect;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
@@ -33,6 +34,7 @@ import delta.games.lotro.lore.items.legendary.LegendaryItem;
 import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
 import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
+import delta.games.lotro.lore.items.legendary.PassivesManager;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
@@ -46,6 +48,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyIn
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
+import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -562,7 +565,7 @@ public class CharacterGeneratorGiswald
     LegendaryWeapon weapon=new LegendaryWeapon();
     weapon.setName("Reshaped Champion's Sword of the First Age");
     weapon.setRequiredClass(CharacterClass.CHAMPION);
-    weapon.setCategory(ItemCategory.WEAPON);
+    weapon.setCategory(ItemCategory.LEGENDARY_WEAPON);
     weapon.setMinLevel(Integer.valueOf(100));
     weapon.setDurability(Integer.valueOf(100));
     weapon.setSturdiness(ItemSturdiness.NORMAL);
@@ -584,11 +587,8 @@ public class CharacterGeneratorGiswald
 
     LegendaryAttrs attrs=instance.getLegendaryAttributes();
     // Title
-    LegendaryTitle title=new LegendaryTitle();
-    title.setIdentifier(1000);
-    title.setName("Potency of Eldar Days III");
-    BasicStatsSet titleStats=title.getStats();
-    titleStats.setStat(WellKnownStat.CRITICAL_RATING,460);
+    LegendaryTitlesManager titlesMgr=LegendaryTitlesManager.getInstance();
+    LegendaryTitle title=titlesMgr.getLegendaryTitle(1879269422);
     attrs.setTitle(title);
     // Legendary name
     attrs.setLegendaryName("Stormbringer");
@@ -629,6 +629,15 @@ public class CharacterGeneratorGiswald
       stats.setStat(WellKnownStat.CRITICAL_RATING,740);
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,740);
       attrs.setCraftedRelic(craftedRelic);
+    }
+    // Passives
+    {
+      PassivesManager passivesMgr=PassivesManager.getInstance();
+      List<Effect> passives=passivesMgr.getAll();
+      for(int i=0;i<2;i++)
+      {
+        attrs.addPassive(passives.get(i));
+      }
     }
     // Non-imbued data
     {
