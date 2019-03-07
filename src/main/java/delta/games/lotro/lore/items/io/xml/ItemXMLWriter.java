@@ -1,23 +1,17 @@
 package delta.games.lotro.lore.items.io.xml;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
-import delta.common.utils.io.StreamTools;
+import delta.common.utils.io.xml.XmlFileWriterHelper;
+import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
@@ -45,7 +39,6 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLWriter;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Writes LOTRO items to XML files.
@@ -53,8 +46,6 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class ItemXMLWriter
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
-
   private static final String CDATA="CDATA";
 
   /**
@@ -86,45 +77,23 @@ public class ItemXMLWriter
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean writeItems(File outFile, List<Item> items, String encoding)
+  public boolean writeItems(File outFile, final List<Item> items, String encoding)
   {
-    boolean ret;
-    FileOutputStream fos=null;
-    try
+    XmlWriter writer=new XmlWriter()
     {
-      File parentFile=outFile.getParentFile();
-      if (!parentFile.exists())
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
       {
-        parentFile.mkdirs();
+        hd.startElement("","",ItemXMLConstants.ITEMS_TAG,new AttributesImpl());
+        for(Item item : items)
+        {
+          write(hd,item);
+        }
+        hd.endElement("","",ItemXMLConstants.ITEMS_TAG);
       }
-      fos=new FileOutputStream(outFile);
-      SAXTransformerFactory tf=(SAXTransformerFactory)TransformerFactory.newInstance();
-      TransformerHandler hd=tf.newTransformerHandler();
-      Transformer serializer=hd.getTransformer();
-      serializer.setOutputProperty(OutputKeys.ENCODING,encoding);
-      serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-
-      StreamResult streamResult=new StreamResult(fos);
-      hd.setResult(streamResult);
-      hd.startDocument();
-      hd.startElement("","",ItemXMLConstants.ITEMS_TAG,new AttributesImpl());
-      for(Item item : items)
-      {
-        write(hd,item);
-      }
-      hd.endElement("","",ItemXMLConstants.ITEMS_TAG);
-      hd.endDocument();
-      ret=true;
-    }
-    catch (Exception exception)
-    {
-      _logger.error("",exception);
-      ret=false;
-    }
-    finally
-    {
-      StreamTools.close(fos);
-    }
+    };
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    boolean ret=helper.write(outFile,encoding,writer);
     return ret;
   }
 

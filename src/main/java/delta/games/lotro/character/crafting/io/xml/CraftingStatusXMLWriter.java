@@ -1,19 +1,13 @@
 package delta.games.lotro.character.crafting.io.xml;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
-import delta.common.utils.io.StreamTools;
+import delta.common.utils.io.xml.XmlFileWriterHelper;
+import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.crafting.CraftingLevelStatus;
 import delta.games.lotro.character.crafting.CraftingLevelTierStatus;
 import delta.games.lotro.character.crafting.CraftingStatus;
@@ -23,7 +17,6 @@ import delta.games.lotro.character.reputation.io.xml.ReputationXMLWriter;
 import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.Vocation;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Writes crafting status of LOTRO characters to XML files.
@@ -31,10 +24,6 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class CraftingStatusXMLWriter
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
-
-  private static final String CDATA="CDATA";
-
   /**
    * Write the crafting status of a character to a XML file.
    * @param outFile Output file.
@@ -42,35 +31,18 @@ public class CraftingStatusXMLWriter
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, CraftingStatus status, String encoding)
+  public boolean write(File outFile, final CraftingStatus status, String encoding)
   {
-    boolean ret;
-    FileOutputStream fos=null;
-    try
+    XmlWriter writer=new XmlWriter()
     {
-      fos=new FileOutputStream(outFile);
-      SAXTransformerFactory tf=(SAXTransformerFactory)TransformerFactory.newInstance();
-      TransformerHandler hd=tf.newTransformerHandler();
-      Transformer serializer=hd.getTransformer();
-      serializer.setOutputProperty(OutputKeys.ENCODING,encoding);
-      serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-
-      StreamResult streamResult=new StreamResult(fos);
-      hd.setResult(streamResult);
-      hd.startDocument();
-      write(hd,status);
-      hd.endDocument();
-      ret=true;
-    }
-    catch (Exception exception)
-    {
-      _logger.error("",exception);
-      ret=false;
-    }
-    finally
-    {
-      StreamTools.close(fos);
-    }
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
+      {
+        write(hd,status);
+      }
+    };
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    boolean ret=helper.write(outFile,encoding,writer);
     return ret;
   }
 
@@ -80,7 +52,7 @@ public class CraftingStatusXMLWriter
     String name=status.getName();
     if (name!=null)
     {
-      craftingAttrs.addAttribute("","",CraftingStatusXMLConstants.CRAFTING_NAME_ATTR,CDATA,name);
+      craftingAttrs.addAttribute("","",CraftingStatusXMLConstants.CRAFTING_NAME_ATTR,XmlWriter.CDATA,name);
     }
     hd.startElement("","",CraftingStatusXMLConstants.CRAFTING_TAG,craftingAttrs);
     // Vocation
@@ -90,7 +62,7 @@ public class CraftingStatusXMLWriter
       // Vocation tag
       AttributesImpl vocationAttrs=new AttributesImpl();
       String id=vocation.getIdentifier();
-      vocationAttrs.addAttribute("","",CraftingStatusXMLConstants.VOCATION_ID_ATTR,CDATA,id);
+      vocationAttrs.addAttribute("","",CraftingStatusXMLConstants.VOCATION_ID_ATTR,XmlWriter.CDATA,id);
       hd.startElement("","",CraftingStatusXMLConstants.VOCATION_TAG,vocationAttrs);
       hd.endElement("","",CraftingStatusXMLConstants.VOCATION_TAG);
 
@@ -112,7 +84,7 @@ public class CraftingStatusXMLWriter
         Profession guildProfession=guildStatus.getProfession();
         if (guildProfession!=null)
         {
-          guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,CDATA,guildProfession.getKey());
+          guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,XmlWriter.CDATA,guildProfession.getKey());
           hd.startElement("","",CraftingStatusXMLConstants.GUILD_TAG,guildAttrs);
           ReputationXMLWriter.writeFactionStatus(hd,guildStatus.getFactionStatus());
           hd.endElement("","",CraftingStatusXMLConstants.GUILD_TAG);
@@ -126,11 +98,11 @@ public class CraftingStatusXMLWriter
   {
     AttributesImpl professionAttrs=new AttributesImpl();
     String id=status.getProfession().getKey();
-    professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_ID_ATTR,CDATA,id);
+    professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_ID_ATTR,XmlWriter.CDATA,id);
     Long validityDate=status.getValidityDate();
     if (validityDate!=null)
     {
-      professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_VALIDITY_DATE_ATTR,CDATA,validityDate.toString());
+      professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_VALIDITY_DATE_ATTR,XmlWriter.CDATA,validityDate.toString());
     }
     hd.startElement("","",CraftingStatusXMLConstants.PROFESSION_TAG,professionAttrs);
 
@@ -141,7 +113,7 @@ public class CraftingStatusXMLWriter
       {
         AttributesImpl levelAttrs=new AttributesImpl();
         int tier=levelStatus.getLevel().getTier();
-        levelAttrs.addAttribute("","",CraftingStatusXMLConstants.LEVEL_TIER_ATTR,CDATA,String.valueOf(tier));
+        levelAttrs.addAttribute("","",CraftingStatusXMLConstants.LEVEL_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
         hd.startElement("","",CraftingStatusXMLConstants.LEVEL_TAG,levelAttrs);
 
         // Proficiency
@@ -160,11 +132,11 @@ public class CraftingStatusXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     int xp=status.getAcquiredXP();
-    attrs.addAttribute("","",CraftingStatusXMLConstants.XP_ATTR,CDATA,String.valueOf(xp));
+    attrs.addAttribute("","",CraftingStatusXMLConstants.XP_ATTR,XmlWriter.CDATA,String.valueOf(xp));
     boolean completed=status.isCompleted();
-    attrs.addAttribute("","",CraftingStatusXMLConstants.COMPLETED_ATTR,CDATA,String.valueOf(completed));
+    attrs.addAttribute("","",CraftingStatusXMLConstants.COMPLETED_ATTR,XmlWriter.CDATA,String.valueOf(completed));
     long completionDate=status.getCompletionDate();
-    attrs.addAttribute("","",CraftingStatusXMLConstants.COMPLETION_DATE_ATTR,CDATA,String.valueOf(completionDate));
+    attrs.addAttribute("","",CraftingStatusXMLConstants.COMPLETION_DATE_ATTR,XmlWriter.CDATA,String.valueOf(completionDate));
     hd.startElement("","",tagName,attrs);
     hd.endElement("","",tagName);
   }

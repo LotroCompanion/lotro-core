@@ -1,19 +1,13 @@
 package delta.games.lotro.account.io.xml;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
-import delta.common.utils.io.StreamTools;
+import delta.common.utils.io.xml.XmlFileWriterHelper;
+import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.account.AccountSummary;
 import delta.games.lotro.account.AccountType;
 
@@ -23,10 +17,6 @@ import delta.games.lotro.account.AccountType;
  */
 public class AccountSummaryXMLWriter
 {
-  private static final Logger LOGGER=Logger.getLogger(AccountSummaryXMLWriter.class);
-
-  private static final String CDATA="CDATA";
-
   /**
    * Write an account summary to a XML file.
    * @param outFile Output file.
@@ -34,38 +24,21 @@ public class AccountSummaryXMLWriter
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, AccountSummary summary, String encoding)
+  public boolean write(File outFile, final AccountSummary summary, String encoding)
   {
-    boolean ret;
-    FileOutputStream fos=null;
-    try
+    XmlWriter writer=new XmlWriter()
     {
-      fos=new FileOutputStream(outFile);
-      SAXTransformerFactory tf=(SAXTransformerFactory)TransformerFactory.newInstance();
-      TransformerHandler hd=tf.newTransformerHandler();
-      Transformer serializer=hd.getTransformer();
-      serializer.setOutputProperty(OutputKeys.ENCODING,encoding);
-      serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-
-      StreamResult streamResult=new StreamResult(fos);
-      hd.setResult(streamResult);
-      hd.startDocument();
-      AttributesImpl accountAttrs=new AttributesImpl();
-      write(accountAttrs,summary);
-      hd.startElement("","",AccountXMLConstants.ACCOUNT_TAG,accountAttrs);
-      hd.endElement("","",AccountXMLConstants.ACCOUNT_TAG);
-      hd.endDocument();
-      ret=true;
-    }
-    catch (Exception exception)
-    {
-      LOGGER.error("",exception);
-      ret=false;
-    }
-    finally
-    {
-      StreamTools.close(fos);
-    }
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
+      {
+        AttributesImpl accountAttrs=new AttributesImpl();
+        write(accountAttrs,summary);
+        hd.startElement("","",AccountXMLConstants.ACCOUNT_TAG,accountAttrs);
+        hd.endElement("","",AccountXMLConstants.ACCOUNT_TAG);
+      }
+    };
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    boolean ret=helper.write(outFile,encoding,writer);
     return ret;
   }
 
@@ -81,19 +54,19 @@ public class AccountSummaryXMLWriter
     String name=account.getName();
     if ((name!=null) && (name.length()>0))
     {
-      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_NAME_ATTR,CDATA,name);
+      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Signup date
     Long signupDate=account.getSignupDate();
     if (signupDate!=null)
     {
-      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_SIGNUP_DATE_ATTR,CDATA,signupDate.toString());
+      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_SIGNUP_DATE_ATTR,XmlWriter.CDATA,signupDate.toString());
     }
     // Account type
     AccountType accountType=account.getAccountType();
     if (accountType!=null)
     {
-      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_TYPE_ATTR,CDATA,accountType.name());
+      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_TYPE_ATTR,XmlWriter.CDATA,accountType.name());
     }
   }
 }

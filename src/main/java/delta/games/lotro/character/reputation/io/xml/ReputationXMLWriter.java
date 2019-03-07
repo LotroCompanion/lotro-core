@@ -1,27 +1,20 @@
 package delta.games.lotro.character.reputation.io.xml;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
-import delta.common.utils.io.StreamTools;
-import delta.games.lotro.character.reputation.FactionStatus;
+import delta.common.utils.io.xml.XmlFileWriterHelper;
+import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.reputation.FactionLevelStatus;
+import delta.games.lotro.character.reputation.FactionStatus;
 import delta.games.lotro.character.reputation.ReputationStatus;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Writes reputation of LOTRO characters to XML files.
@@ -29,10 +22,6 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class ReputationXMLWriter
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
-
-  private static final String CDATA="CDATA";
-
   /**
    * Write the reputation of a character to a XML file.
    * @param outFile Output file.
@@ -40,35 +29,18 @@ public class ReputationXMLWriter
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, ReputationStatus reputationStatus, String encoding)
+  public boolean write(File outFile, final ReputationStatus reputationStatus, String encoding)
   {
-    boolean ret;
-    FileOutputStream fos=null;
-    try
+    XmlWriter writer=new XmlWriter()
     {
-      fos=new FileOutputStream(outFile);
-      SAXTransformerFactory tf=(SAXTransformerFactory)TransformerFactory.newInstance();
-      TransformerHandler hd=tf.newTransformerHandler();
-      Transformer serializer=hd.getTransformer();
-      serializer.setOutputProperty(OutputKeys.ENCODING,encoding);
-      serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-
-      StreamResult streamResult=new StreamResult(fos);
-      hd.setResult(streamResult);
-      hd.startDocument();
-      write(hd,reputationStatus);
-      hd.endDocument();
-      ret=true;
-    }
-    catch (Exception exception)
-    {
-      _logger.error("",exception);
-      ret=false;
-    }
-    finally
-    {
-      StreamTools.close(fos);
-    }
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
+      {
+        write(hd,reputationStatus);
+      }
+    };
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    boolean ret=helper.write(outFile,encoding,writer);
     return ret;
   }
 
@@ -99,10 +71,10 @@ public class ReputationXMLWriter
     FactionLevel currentLevel=factionStatus.getFactionLevel();
     AttributesImpl factionAttrs=new AttributesImpl();
     Faction faction=factionStatus.getFaction();
-    factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_KEY_ATTR,CDATA,faction.getKey());
+    factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_KEY_ATTR,XmlWriter.CDATA,faction.getKey());
     if (currentLevel!=null)
     {
-      factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_CURRENT_ATTR,CDATA,currentLevel.getKey());
+      factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_CURRENT_ATTR,XmlWriter.CDATA,currentLevel.getKey());
     }
     hd.startElement("","",ReputationXMLConstants.FACTION_TAG,factionAttrs);
     FactionLevel[] levels=faction.getLevels();
@@ -110,13 +82,13 @@ public class ReputationXMLWriter
     {
       FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
       AttributesImpl factionLevelAttrs=new AttributesImpl();
-      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,CDATA,level.getKey());
+      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,XmlWriter.CDATA,level.getKey());
       boolean completed=levelStatus.isCompleted();
       long date=levelStatus.getCompletionDate();
-      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,CDATA,String.valueOf(completed));
-      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,CDATA,String.valueOf(date));
+      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,XmlWriter.CDATA,String.valueOf(completed));
+      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,XmlWriter.CDATA,String.valueOf(date));
       int xp=levelStatus.getAcquiredXP();
-      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,CDATA,String.valueOf(xp));
+      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,XmlWriter.CDATA,String.valueOf(xp));
       hd.startElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG,factionLevelAttrs);
       hd.endElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG);
     }

@@ -1,21 +1,15 @@
 package delta.games.lotro.lore.items.legendary.relics.io.xml;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
-import delta.common.utils.io.StreamTools;
+import delta.common.utils.io.xml.XmlFileWriterHelper;
+import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
@@ -23,7 +17,6 @@ import delta.games.lotro.lore.items.legendary.relics.RelicComparator;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicsCategory;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Writes LOTRO relics to XML files.
@@ -31,10 +24,6 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class RelicXMLWriter
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
-
-  private static final String CDATA="CDATA";
-
   /**
    * Write items to a XML file.
    * @param outFile Output file.
@@ -42,47 +31,25 @@ public class RelicXMLWriter
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean writeRelics(File outFile, RelicsManager relicsMgr, String encoding)
+  public boolean writeRelics(File outFile, final RelicsManager relicsMgr, String encoding)
   {
-    boolean ret;
-    FileOutputStream fos=null;
-    try
+    XmlWriter writer=new XmlWriter()
     {
-      File parentFile=outFile.getParentFile();
-      if (!parentFile.exists())
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
       {
-        parentFile.mkdirs();
+        hd.startElement("","",RelicXMLConstants.RELICS_TAG,new AttributesImpl());
+        List<String> categoryNames=relicsMgr.getCategories();
+        for(String categoryName:categoryNames)
+        {
+          RelicsCategory category=relicsMgr.getRelicCategory(categoryName,false);
+          write(hd,category);
+        }
+        hd.endElement("","",RelicXMLConstants.RELICS_TAG);
       }
-      fos=new FileOutputStream(outFile);
-      SAXTransformerFactory tf=(SAXTransformerFactory)TransformerFactory.newInstance();
-      TransformerHandler hd=tf.newTransformerHandler();
-      Transformer serializer=hd.getTransformer();
-      serializer.setOutputProperty(OutputKeys.ENCODING,encoding);
-      serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-
-      StreamResult streamResult=new StreamResult(fos);
-      hd.setResult(streamResult);
-      hd.startDocument();
-      hd.startElement("","",RelicXMLConstants.RELICS_TAG,new AttributesImpl());
-      List<String> categoryNames=relicsMgr.getCategories();
-      for(String categoryName:categoryNames)
-      {
-        RelicsCategory category=relicsMgr.getRelicCategory(categoryName,false);
-        write(hd,category);
-      }
-      hd.endElement("","",RelicXMLConstants.RELICS_TAG);
-      hd.endDocument();
-      ret=true;
-    }
-    catch (Exception exception)
-    {
-      _logger.error("",exception);
-      ret=false;
-    }
-    finally
-    {
-      StreamTools.close(fos);
-    }
+    };
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    boolean ret=helper.write(outFile,encoding,writer);
     return ret;
   }
 
@@ -100,7 +67,7 @@ public class RelicXMLWriter
     String name=category.getName();
     if (name!=null)
     {
-      attrs.addAttribute("","",RelicXMLConstants.CATEGORY_NAME_ATTR,CDATA,name);
+      attrs.addAttribute("","",RelicXMLConstants.CATEGORY_NAME_ATTR,XmlWriter.CDATA,name);
     }
     hd.startElement("","",RelicXMLConstants.CATEGORY_TAG,attrs);
     List<Relic> relics=category.getAllRelics();
@@ -127,37 +94,37 @@ public class RelicXMLWriter
     int id=relic.getIdentifier();
     if (id!=0)
     {
-      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_ID_ATTR,CDATA,String.valueOf(id));
+      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
     // Name
     String name=relic.getName();
     if (name!=null)
     {
-      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_NAME_ATTR,CDATA,name);
+      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Type
     RelicType type=relic.getType();
     if (type!=null)
     {
-      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_TYPE_ATTR,CDATA,type.name());
+      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_TYPE_ATTR,XmlWriter.CDATA,type.name());
     }
     // Bridle?
     boolean isBridleRelic=relic.isBridleRelic();
     if (isBridleRelic)
     {
-      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_BRIDLE_ATTR,CDATA,String.valueOf(isBridleRelic));
+      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_BRIDLE_ATTR,XmlWriter.CDATA,String.valueOf(isBridleRelic));
     }
     // Item level
     Integer level=relic.getRequiredLevel();
     if (level!=null)
     {
-      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_LEVEL_ATTR,CDATA,String.valueOf(level.intValue()));
+      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level.intValue()));
     }
     // Icon filename
     String icon=relic.getIconFilename();
     if (icon!=null)
     {
-      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_ICON_FILENAME_ATTR,CDATA,icon);
+      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_ICON_FILENAME_ATTR,XmlWriter.CDATA,icon);
     }
     hd.startElement("","",RelicXMLConstants.RELIC_TAG,relicAttrs);
     // Stats

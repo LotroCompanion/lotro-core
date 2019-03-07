@@ -1,19 +1,13 @@
 package delta.games.lotro.character.io.xml;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
-import delta.common.utils.io.StreamTools;
+import delta.common.utils.io.xml.XmlFileWriterHelper;
+import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
@@ -29,7 +23,6 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Writes LOTRO characters to XML files.
@@ -37,46 +30,25 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class CharacterXMLWriter
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
-
-  private static final String CDATA="CDATA";
-
-  /**
+    /**
    * Write a character to a XML file.
    * @param outFile Output file.
    * @param character Character to write.
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, CharacterData character, String encoding)
+  public boolean write(File outFile, final CharacterData character, String encoding)
   {
-    boolean ret;
-    FileOutputStream fos=null;
-    try
+    XmlWriter writer=new XmlWriter()
     {
-      fos=new FileOutputStream(outFile);
-      SAXTransformerFactory tf=(SAXTransformerFactory)TransformerFactory.newInstance();
-      TransformerHandler hd=tf.newTransformerHandler();
-      Transformer serializer=hd.getTransformer();
-      serializer.setOutputProperty(OutputKeys.ENCODING,encoding);
-      serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-
-      StreamResult streamResult=new StreamResult(fos);
-      hd.setResult(streamResult);
-      hd.startDocument();
-      write(hd,character);
-      hd.endDocument();
-      ret=true;
-    }
-    catch (Exception exception)
-    {
-      _logger.error("",exception);
-      ret=false;
-    }
-    finally
-    {
-      StreamTools.close(fos);
-    }
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
+      {
+        write(hd,character);
+      }
+    };
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    boolean ret=helper.write(outFile,encoding,writer);
     return ret;
   }
   
@@ -88,19 +60,19 @@ public class CharacterXMLWriter
     String shortDescription=character.getShortDescription();
     if ((shortDescription!=null) && (shortDescription.length()>0))
     {
-      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,CDATA,shortDescription);
+      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,XmlWriter.CDATA,shortDescription);
     }
     // Description
     String description=character.getDescription();
     if ((description!=null) && (description.length()>0))
     {
-      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_DESCRIPTION_ATTR,CDATA,description);
+      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
     // Date
     Long date=character.getDate();
     if (date!=null)
     {
-      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_DATE_ATTR,CDATA,date.toString());
+      characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_DATE_ATTR,XmlWriter.CDATA,date.toString());
     }
 
     hd.startElement("","",CharacterXMLConstants.CHARACTER_TAG,characterAttrs);
@@ -147,11 +119,11 @@ public class CharacterXMLWriter
     if (slot!=null)
     {
       AttributesImpl slotAtts=new AttributesImpl();
-      slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_NAME_ATTR,CDATA,slot.name());
+      slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_NAME_ATTR,XmlWriter.CDATA,slot.name());
       Integer itemId=slotContents.getItemId();
       if (itemId!=null)
       {
-        slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_ITEM_ID_ATTR,CDATA,itemId.toString());
+        slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_ITEM_ID_ATTR,XmlWriter.CDATA,itemId.toString());
       }
       hd.startElement("","",CharacterXMLConstants.SLOT_TAG,slotAtts);
       ItemInstance<? extends Item> item=slotContents.getItem();
@@ -171,13 +143,13 @@ public class CharacterXMLWriter
     for(VirtueId virtue : VirtueId.values())
     {
       AttributesImpl virtueAttrs=new AttributesImpl();
-      virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_ID,CDATA,virtue.name());
+      virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_ID,XmlWriter.CDATA,virtue.name());
       int rank=virtues.getVirtueRank(virtue);
-      virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_RANK,CDATA,String.valueOf(rank));
+      virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_RANK,XmlWriter.CDATA,String.valueOf(rank));
       Integer index=virtues.getVirtueIndex(virtue);
       if (index!=null)
       {
-        virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_INDEX,CDATA,index.toString());
+        virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_INDEX,XmlWriter.CDATA,index.toString());
       }
       hd.startElement("","",CharacterXMLConstants.VIRTUE_TAG,virtueAttrs);
       hd.endElement("","",CharacterXMLConstants.VIRTUE_TAG);
@@ -192,9 +164,9 @@ public class CharacterXMLWriter
     for(StatDescription stat : TomesSet.AVAILABLE_TOMES)
     {
       AttributesImpl tomeAttrs=new AttributesImpl();
-      tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_STAT,CDATA,stat.getPersistenceKey());
+      tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_STAT,XmlWriter.CDATA,stat.getPersistenceKey());
       int rank=tomes.getTomeRank(stat);
-      tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_RANK,CDATA,String.valueOf(rank));
+      tomeAttrs.addAttribute("","",CharacterXMLConstants.TOME_RANK,XmlWriter.CDATA,String.valueOf(rank));
       hd.startElement("","",CharacterXMLConstants.TOME_TAG,tomeAttrs);
       hd.endElement("","",CharacterXMLConstants.TOME_TAG);
     }

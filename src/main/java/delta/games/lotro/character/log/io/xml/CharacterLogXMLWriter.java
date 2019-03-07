@@ -1,23 +1,16 @@
 package delta.games.lotro.character.log.io.xml;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
-import delta.common.utils.io.StreamTools;
+import delta.common.utils.io.xml.XmlFileWriterHelper;
+import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogItem;
 import delta.games.lotro.character.log.CharacterLogItem.LogItemType;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Writes LOTRO character log to XML documents.
@@ -25,10 +18,6 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class CharacterLogXMLWriter
 {
-  private static final Logger _logger=LotroLoggers.getCharacterLogLogger();
-
-  private static final String CDATA="CDATA";
-  
   /**
    * Write a character log to a XML file.
    * @param outFile Output file.
@@ -36,35 +25,18 @@ public class CharacterLogXMLWriter
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, CharacterLog log, String encoding)
+  public boolean write(File outFile, final CharacterLog log, String encoding)
   {
-    boolean ret;
-    FileOutputStream fos=null;
-    try
+    XmlWriter writer=new XmlWriter()
     {
-      fos=new FileOutputStream(outFile);
-      SAXTransformerFactory tf=(SAXTransformerFactory)TransformerFactory.newInstance();
-      TransformerHandler hd=tf.newTransformerHandler();
-      Transformer serializer=hd.getTransformer();
-      serializer.setOutputProperty(OutputKeys.ENCODING,encoding);
-      serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-
-      StreamResult streamResult=new StreamResult(fos);
-      hd.setResult(streamResult);
-      hd.startDocument();
-      write(hd,log);
-      hd.endDocument();
-      ret=true;
-    }
-    catch (Exception exception)
-    {
-      _logger.error("",exception);
-      ret=false;
-    }
-    finally
-    {
-      StreamTools.close(fos);
-    }
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
+      {
+        write(hd,log);
+      }
+    };
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    boolean ret=helper.write(outFile,encoding,writer);
     return ret;
   }
   
@@ -75,7 +47,7 @@ public class CharacterLogXMLWriter
     String name=log.getName();
     if (name!=null)
     {
-      questAttrs.addAttribute("","",CharacterLogXMLConstants.CHARACTER_LOG_NAME_ATTR,CDATA,name);
+      questAttrs.addAttribute("","",CharacterLogXMLConstants.CHARACTER_LOG_NAME_ATTR,XmlWriter.CDATA,name);
     }
     hd.startElement("","",CharacterLogXMLConstants.CHARACTER_LOG_TAG,questAttrs);
     int nb=log.getNbItems();
@@ -91,21 +63,21 @@ public class CharacterLogXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     long date=item.getDate();
-    attrs.addAttribute("","",CharacterLogXMLConstants.LOG_ITEM_DATE_ATTR,CDATA,String.valueOf(date));
+    attrs.addAttribute("","",CharacterLogXMLConstants.LOG_ITEM_DATE_ATTR,XmlWriter.CDATA,String.valueOf(date));
     LogItemType type=item.getLogItemType();
     if (type!=null)
     {
-      attrs.addAttribute("","",CharacterLogXMLConstants.LOG_ITEM_TYPE_ATTR,CDATA,type.name());
+      attrs.addAttribute("","",CharacterLogXMLConstants.LOG_ITEM_TYPE_ATTR,XmlWriter.CDATA,type.name());
     }
     String label=item.getLabel();
     if (label!=null)
     {
-      attrs.addAttribute("","",CharacterLogXMLConstants.LOG_ITEM_LABEL_ATTR,CDATA,label);
+      attrs.addAttribute("","",CharacterLogXMLConstants.LOG_ITEM_LABEL_ATTR,XmlWriter.CDATA,label);
     }
     String url=item.getAssociatedUrl();
     if (url!=null)
     {
-      attrs.addAttribute("","",CharacterLogXMLConstants.LOG_ITEM_URL_ATTR,CDATA,url);
+      attrs.addAttribute("","",CharacterLogXMLConstants.LOG_ITEM_URL_ATTR,XmlWriter.CDATA,url);
     }
     hd.startElement("","",CharacterLogXMLConstants.LOG_ITEM_TAG,attrs);
     hd.endElement("","",CharacterLogXMLConstants.LOG_ITEM_TAG);
