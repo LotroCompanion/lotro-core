@@ -235,6 +235,15 @@ public class ItemInstance<T extends Item>
   }
 
   /**
+   * Get the effective durability.
+   * @return a durability value or <code>null</code>.
+   */
+  public Integer getEffectiveDurability()
+  {
+    return (_durability!=null?_durability:(_reference!=null)?_reference.getDurability():null);
+  }
+
+  /**
    * Get the item level.
    * @return a level value or <code>null</code>.
    */
@@ -250,6 +259,15 @@ public class ItemInstance<T extends Item>
   public void setItemLevel(Integer itemLevel)
   {
     _itemLevel=itemLevel;
+  }
+
+  /**
+   * Get the effective item level.
+   * @return an item level or <code>null</code>.
+   */
+  public Integer getEffectiveItemLevel()
+  {
+    return (_itemLevel!=null?_itemLevel:(_reference!=null)?_reference.getItemLevel():null);
   }
 
   /**
@@ -272,6 +290,15 @@ public class ItemInstance<T extends Item>
   }
 
   /**
+   * Get the effective min level.
+   * @return a minimum level or <code>null</code>.
+   */
+  public Integer getEffectiveMinLevel()
+  {
+    return (_minLevel!=null?_minLevel:(_reference!=null)?_reference.getMinLevel():null);
+  }
+
+  /**
    * Get the value of this item.
    * @return an amount of money.
    */
@@ -287,6 +314,15 @@ public class ItemInstance<T extends Item>
   public void setValue(Money value)
   {
     _value=value;
+  }
+
+  /**
+   * Get the effective value.
+   * @return a value or <code>null</code>.
+   */
+  public Money getEffectiveValue()
+  {
+    return (_value!=null?_value:(_reference!=null)?_reference.getValue():null);
   }
 
   /**
@@ -392,6 +428,21 @@ public class ItemInstance<T extends Item>
   public Map<String,String> getProperties()
   {
     return _properties;
+  }
+
+  /**
+   * Get the value of a property (using instance properties, then reference properties if not found).
+   * @param key Property name.
+   * @return A value or <code>null</code> if not found.
+   */
+  public String getEffectiveProperty(String key)
+  {
+    String ret=getProperty(key);
+    if ((ret==null) && (_reference!=null))
+    {
+      ret=_reference.getProperty(key);
+    }
+    return ret;
   }
 
   /**
