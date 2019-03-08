@@ -5,6 +5,9 @@ import java.util.Map;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.colors.ColorDescription;
+import delta.games.lotro.common.id.EntityId;
+import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 
@@ -17,8 +20,8 @@ public class ItemInstance<T extends Item>
 {
   // Reference item
   private T _reference;
-  // Instance ID (2x32 bits)
-  // TODO
+  // Instance ID
+  private ItemInstanceId _id;
   // Item birth name (given by the crafter) (may be <code>null</code>)
   private String _birthName;
   // Crafter name (may be <code>null</code>)
@@ -34,9 +37,9 @@ public class ItemInstance<T extends Item>
   // Value
   private Money _value;
   // Color
-  // TODO
-  // Bound to (2x32 bits)
-  // TODO
+  private ColorDescription _color;
+  // Bound to
+  private EntityId _boundTo;
   // Properties
   private HashMap<String,String> _properties;
 
@@ -45,7 +48,8 @@ public class ItemInstance<T extends Item>
    */
   public ItemInstance()
   {
-    super();
+    _reference=null;
+    _id=null;
     _birthName=null;
     _crafterName=null;
     _essences=null;
@@ -53,6 +57,8 @@ public class ItemInstance<T extends Item>
     _itemLevel=null;
     _minLevel=null;
     _value=null;
+    _color=null;
+    _boundTo=null;
     _properties=new HashMap<String,String>();
   }
 
@@ -109,6 +115,24 @@ public class ItemInstance<T extends Item>
   public String getName()
   {
     return _reference!=null?_reference.getName():null;
+  }
+
+  /**
+   * Get the item instance identifier.
+   * @return An item instance identifier or <code>null</code> if not set.
+   */
+  public ItemInstanceId getInstanceId()
+  {
+    return _id;
+  }
+
+  /**
+   * Set the item instance identifier.
+   * @param id Identifier to set (may be <code>null</code>).
+   */
+  public void setInstanceId(ItemInstanceId id)
+  {
+    _id=id;
   }
 
   /**
@@ -266,6 +290,42 @@ public class ItemInstance<T extends Item>
   }
 
   /**
+   * Get the color of this item.
+   * @return a color or <code>null</code>.
+   */
+  public ColorDescription getColor()
+  {
+    return _color;
+  }
+
+  /**
+   * Set the color of this item.
+   * @param color the value to set.
+   */
+  public void setColor(ColorDescription color)
+  {
+    _color=color;
+  }
+
+  /**
+   * Get the 'bound to' identifier.
+   * @return An entity identifier or <code>null</code> if not set.
+   */
+  public EntityId getBoundTo()
+  {
+    return _boundTo;
+  }
+
+  /**
+   * Set the 'bound to' identifier.
+   * @param boundTo Identifier to set (may be <code>null</code>).
+   */
+  public void setBoundTo(EntityId boundTo)
+  {
+    _boundTo=boundTo;
+  }
+
+  /**
    * Get the stash identifier of this item.
    * @return an stash item identifier.
    */
@@ -342,6 +402,7 @@ public class ItemInstance<T extends Item>
   public void copyFrom(ItemInstance<?> itemInstance)
   {
     _reference=(T)itemInstance._reference;
+    _id=itemInstance._id;
     _birthName=itemInstance._birthName;
     _crafterName=itemInstance._crafterName;
     _essences=new EssencesSet(itemInstance._essences);
@@ -349,6 +410,8 @@ public class ItemInstance<T extends Item>
     _itemLevel=itemInstance._itemLevel;
     _minLevel=itemInstance._minLevel;
     _value=new Money(itemInstance._value);
+    _color=itemInstance._color;
+    _boundTo=itemInstance._boundTo;
     _properties=new HashMap<String,String>(itemInstance._properties);
   }
 
@@ -359,6 +422,12 @@ public class ItemInstance<T extends Item>
   public String dumpInstanceData()
   {
     StringBuilder sb=new StringBuilder();
+    if (_id!=null)
+    {
+      sb.append(" (instance ID=");
+      sb.append(_id);
+      sb.append(')');
+    }
     if (_birthName!=null)
     {
       sb.append(" (Given name=");
@@ -398,6 +467,18 @@ public class ItemInstance<T extends Item>
     {
       sb.append(" (Value=");
       sb.append(_value);
+      sb.append(')');
+    }
+    if (_color!=null)
+    {
+      sb.append(" (Color=");
+      sb.append(_color.getName());
+      sb.append(')');
+    }
+    if (_boundTo!=null)
+    {
+      sb.append(" (bound to=");
+      sb.append(_boundTo);
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);
