@@ -82,8 +82,10 @@ public class EssencesSet
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
+    sb.append("Essences:").append(EndOfLine.NATIVE_EOL);
     for(Item essence : _essences)
     {
+      sb.append('\t');
       if (essence!=null)
       {
         sb.append(essence);

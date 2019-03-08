@@ -99,7 +99,7 @@ public class ImbuedLegendaryAttrs
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Total tiers=").append(getTotalTiers());
+    sb.append("Imbued: Total tiers=").append(getTotalTiers());
     sb.append(", max total tiers=").append(getMaxTotalTiers());
     sb.append(EndOfLine.NATIVE_EOL);
     int index=1;
@@ -109,6 +109,6 @@ public class ImbuedLegendaryAttrs
       sb.append(legacy).append(EndOfLine.NATIVE_EOL);
       index++;
     }
-    return sb.toString();
+    return sb.toString().trim();
   }
 }

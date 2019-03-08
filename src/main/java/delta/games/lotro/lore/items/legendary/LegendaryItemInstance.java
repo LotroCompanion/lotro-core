@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items.legendary;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.lore.items.ItemInstance;
 
@@ -81,5 +82,21 @@ public class LegendaryItemInstance extends ItemInstance<LegendaryItem> implement
     BasicStatsSet legendaryStats=_attrs.getRawStats(itemLevelValue);
     ret.addStats(legendaryStats);
     return ret;
+  }
+
+  /**
+   * Dump the contents of this legendary item instance as a string.
+   * @return A readable string.
+   */
+  @Override
+  public String dump()
+  {
+    StringBuilder sb=new StringBuilder();
+    String itemDump=super.dump();
+    sb.append(itemDump);
+    sb.append(EndOfLine.NATIVE_EOL);
+    sb.append("Legendary attrs: ");
+    sb.append(_attrs.dump());
+    return sb.toString();
   }
 }

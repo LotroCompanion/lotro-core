@@ -419,9 +419,15 @@ public class ItemInstance<T extends Item>
    * Dump the contents of this item instance as a string.
    * @return A readable string.
    */
-  public String dumpInstanceData()
+  public String dump()
   {
     StringBuilder sb=new StringBuilder();
+    if (_reference!=null)
+    {
+      sb.append(_reference.dump());
+      sb.append(EndOfLine.NATIVE_EOL);
+    }
+    sb.append("Instance:");
     if (_id!=null)
     {
       sb.append(" (instance ID=");
@@ -439,11 +445,6 @@ public class ItemInstance<T extends Item>
       sb.append(" (Crafter=");
       sb.append(_crafterName);
       sb.append(')');
-    }
-    // Essences
-    if ((_essences!=null) && (_essences.getSize()>0))
-    {
-      sb.append("Essences: ").append(_essences);
     }
     if (_durability!=null)
     {
@@ -482,6 +483,11 @@ public class ItemInstance<T extends Item>
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);
+    // Essences
+    if ((_essences!=null) && (_essences.getSize()>0))
+    {
+      sb.append(_essences);
+    }
     return sb.toString().trim();
   }
 

@@ -202,7 +202,7 @@ public class NonImbuedLegendaryAttrs
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Legendary level=").append(_legendaryItemLevel);
+    sb.append("Non-imbued: Legendary level=").append(_legendaryItemLevel);
     sb.append(", upgrades=").append(_nbUpgrades);
     sb.append(", points: left=").append(_pointsLeft);
     sb.append(",spent=").append(_pointsSpent);
@@ -219,6 +219,6 @@ public class NonImbuedLegendaryAttrs
       sb.append(legacy).append(EndOfLine.NATIVE_EOL);
       index++;
     }
-    return sb.toString();
+    return sb.toString().trim();
   }
 }

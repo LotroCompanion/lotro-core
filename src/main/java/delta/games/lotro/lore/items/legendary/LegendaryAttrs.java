@@ -357,10 +357,7 @@ public class LegendaryAttrs
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
-    if (_legendaryName.length()>0)
-    {
-      sb.append("Name: ").append(_legendaryName).append(EndOfLine.NATIVE_EOL);
-    }
+    sb.append("Name: ").append(_legendaryName).append(EndOfLine.NATIVE_EOL);
     if (_title!=null)
     {
       sb.append("Title: ").append(_title.getName()).append(EndOfLine.NATIVE_EOL);
@@ -390,6 +387,6 @@ public class LegendaryAttrs
     {
       sb.append(_imbuedAttrs).append(EndOfLine.NATIVE_EOL);
     }
-    return sb.toString();
+    return sb.toString().trim();
   }
 }
