@@ -49,7 +49,7 @@ public class AccountSummaryXMLParser
     Long signupDate=(signupDateValue!=0)?Long.valueOf(signupDateValue):null;
     summary.setSignupDate(signupDate);
     // Account Type
-    String accountTypeStr=DOMParsingTools.getStringAttribute(root.getAttributes(),AccountXMLConstants.ACCOUNT_TYPE_ATTR,"");
+    String accountTypeStr=DOMParsingTools.getStringAttribute(root.getAttributes(),AccountXMLConstants.ACCOUNT_TYPE_ATTR,null);
     AccountType accountType=null;
     if (accountTypeStr!=null)
     {
