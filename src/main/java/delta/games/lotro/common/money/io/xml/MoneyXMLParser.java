@@ -15,23 +15,24 @@ public class MoneyXMLParser
   /**
    * Load money from XML.
    * @param root Quest description tag.
-   * @param money Storage for loaded data.
+   * @param money Storage for loaded data (<code>null</code> to create if needed).
+   * @return a money instance or <code>null</code> if no money tag.
    */
-  public static void loadMoney(Element root, Money money)
+  public static Money loadMoney(Element root, Money money)
   {
-    if (money!=null)
+    Money ret=null;
+    Element moneyTag=DOMParsingTools.getChildTagByName(root,MoneyXMLConstants.MONEY_TAG);
+    if (moneyTag!=null)
     {
-      Element moneyTag=DOMParsingTools.getChildTagByName(root,MoneyXMLConstants.MONEY_TAG);
-      if (moneyTag!=null)
-      {
-        NamedNodeMap attrs=moneyTag.getAttributes();
-        int gold=DOMParsingTools.getIntAttribute(attrs,MoneyXMLConstants.MONEY_GOLD_ATTR,0);
-        money.setGoldCoins(gold);
-        int silver=DOMParsingTools.getIntAttribute(attrs,MoneyXMLConstants.MONEY_SILVER_ATTR,0);
-        money.setSilverCoins(silver);
-        int copper=DOMParsingTools.getIntAttribute(attrs,MoneyXMLConstants.MONEY_COPPER_ATTR,0);
-        money.setCopperCoins(copper);
-      }
+      ret=(money!=null)?money:new Money();
+      NamedNodeMap attrs=moneyTag.getAttributes();
+      int gold=DOMParsingTools.getIntAttribute(attrs,MoneyXMLConstants.MONEY_GOLD_ATTR,0);
+      ret.setGoldCoins(gold);
+      int silver=DOMParsingTools.getIntAttribute(attrs,MoneyXMLConstants.MONEY_SILVER_ATTR,0);
+      ret.setSilverCoins(silver);
+      int copper=DOMParsingTools.getIntAttribute(attrs,MoneyXMLConstants.MONEY_COPPER_ATTR,0);
+      ret.setCopperCoins(copper);
     }
+    return ret;
   }
 }

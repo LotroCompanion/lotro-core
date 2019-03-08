@@ -35,4 +35,16 @@ public class ItemPropertyNames
    * Stash ID.
    */
   public static final String STASH_ID="stashId";
+
+  /**
+   * Indicates if the given property name is used for an item reference or not.
+   * @param key Key to use.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public static boolean isItemReferenceProperty(String key) 
+  {
+    if (FACTORY_COMMENT.equals(key)) return true;
+    if (MUNGING.equals(key)) return true;
+    return false;
+  }
 }
