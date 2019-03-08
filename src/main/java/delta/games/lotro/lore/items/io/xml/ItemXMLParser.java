@@ -49,7 +49,11 @@ public class ItemXMLParser
     int itemLevel=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_LEVEL_ATTR,-1);
     if (itemLevel!=-1)
     {
-      itemInstance.setItemLevel(Integer.valueOf(itemLevel));
+      Integer instanceItemLevel=Integer.valueOf(itemLevel);
+      if (!instanceItemLevel.equals(item.getItemLevel()))
+      {
+        itemInstance.setItemLevel(instanceItemLevel);
+      }
     }
     // Properties
     List<Element> propertyTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.PROPERTY_TAG,false);
@@ -76,13 +80,21 @@ public class ItemXMLParser
     int durability=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_DURABILITY_ATTR,-1);
     if (durability!=-1)
     {
-      itemInstance.setDurability(Integer.valueOf(durability));
+      Integer instanceDurability=Integer.valueOf(durability);
+      if (!instanceDurability.equals(item.getDurability()))
+      {
+        itemInstance.setDurability(instanceDurability);
+      }
     }
     // Minimum level
     int minimumLevel=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_MINLEVEL_ATTR,-1);
     if (minimumLevel!=-1)
     {
-      itemInstance.setMinLevel(Integer.valueOf(minimumLevel));
+      Integer instanceMinLevel=Integer.valueOf(minimumLevel);
+      if (!instanceMinLevel.equals(item.getMinLevel()))
+      {
+        itemInstance.setMinLevel(instanceMinLevel);
+      }
     }
     // TODO add instance specific attributes
     // Money
