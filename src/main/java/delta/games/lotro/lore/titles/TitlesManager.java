@@ -55,19 +55,6 @@ public class TitlesManager
   }
 
   /**
-   * Constructor.
-   * @param titles Titles to use.
-   */
-  public TitlesManager(List<TitleDescription> titles)
-  {
-    this(false);
-    for(TitleDescription title : titles)
-    {
-      _cache.put(Integer.valueOf(title.getIdentifier()),title);
-    }
-  }
-
-  /**
    * Load all titles.
    */
   private void loadAll()
