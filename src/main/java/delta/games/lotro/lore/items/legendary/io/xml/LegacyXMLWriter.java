@@ -161,25 +161,28 @@ public class LegacyXMLWriter
   private static void writeFilter(TransformerHandler hd, AbstractLegacy legacy) throws SAXException
   {
     CompoundFilter<ClassAndSlot> filters=legacy.getClassAndSlotFilter();
-    for(Filter<ClassAndSlot> filter : filters.getFilters())
+    if (filters!=null)
     {
-      ClassAndSlotFilter classAndSlotFilter=(ClassAndSlotFilter)filter;
-      AttributesImpl filterAttrs=new AttributesImpl();
+      for(Filter<ClassAndSlot> filter : filters.getFilters())
+      {
+        ClassAndSlotFilter classAndSlotFilter=(ClassAndSlotFilter)filter;
+        AttributesImpl filterAttrs=new AttributesImpl();
 
-      // Character class
-      CharacterClass characterClass=classAndSlotFilter.getCharacterClass();
-      if (characterClass!=null)
-      {
-        filterAttrs.addAttribute("","",LegacyXMLConstants.FILTER_CHARACTER_CLASS_ATTR,XmlWriter.CDATA,characterClass.getKey());
+        // Character class
+        CharacterClass characterClass=classAndSlotFilter.getCharacterClass();
+        if (characterClass!=null)
+        {
+          filterAttrs.addAttribute("","",LegacyXMLConstants.FILTER_CHARACTER_CLASS_ATTR,XmlWriter.CDATA,characterClass.getKey());
+        }
+        // Slot
+        EquipmentLocation slot=classAndSlotFilter.getSlot();
+        if (slot!=null)
+        {
+          filterAttrs.addAttribute("","",LegacyXMLConstants.FILTER_SLOT_ATTR,XmlWriter.CDATA,slot.getKey());
+        }
+        hd.startElement("","",LegacyXMLConstants.FILTER_TAG,filterAttrs);
+        hd.endElement("","",LegacyXMLConstants.FILTER_TAG);
       }
-      // Slot
-      EquipmentLocation slot=classAndSlotFilter.getSlot();
-      if (slot!=null)
-      {
-        filterAttrs.addAttribute("","",LegacyXMLConstants.FILTER_SLOT_ATTR,XmlWriter.CDATA,slot.getKey());
-      }
-      hd.startElement("","",LegacyXMLConstants.FILTER_TAG,filterAttrs);
-      hd.endElement("","",LegacyXMLConstants.FILTER_TAG);
     }
   }
 }

@@ -105,7 +105,7 @@ public class LegaciesManager
     for(ImbuedLegacy legacy : _cache.values())
     {
       Filter<ClassAndSlot> constraint=legacy.getClassAndSlotFilter();
-      boolean ok=((constraint!=null) && (constraint.accept(classAndSlot)));
+      boolean ok=((constraint==null) || (constraint.accept(classAndSlot)));
       if (ok)
       {
         ret.add(legacy);

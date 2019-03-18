@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.items.legendary;
 
 import delta.common.utils.collections.filters.CompoundFilter;
-import delta.common.utils.collections.filters.Operator;
 import delta.games.lotro.common.constraints.ClassAndSlot;
 
 /**
@@ -19,7 +18,6 @@ public class AbstractLegacy
   public AbstractLegacy()
   {
     _type=LegacyType.STAT;
-    _classAndSlotFilter=new CompoundFilter<ClassAndSlot>(Operator.OR);
   }
 
   /**

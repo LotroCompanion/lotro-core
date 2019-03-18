@@ -7,9 +7,12 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.collections.filters.CompoundFilter;
+import delta.common.utils.collections.filters.Operator;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Effect;
+import delta.games.lotro.common.constraints.ClassAndSlot;
 import delta.games.lotro.common.constraints.ClassAndSlotFilter;
 import delta.games.lotro.common.effects.io.xml.EffectXMLConstants;
 import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
@@ -181,8 +184,15 @@ public class LegacyXMLParser
       {
         slot=EquipmentLocation.getByKey(slotStr);
       }
-      ClassAndSlotFilter filter=new ClassAndSlotFilter(characterClass,slot);
-      legacy.getClassAndSlotFilter().addFilter(filter);
+      // Filter
+      ClassAndSlotFilter filterItem=new ClassAndSlotFilter(characterClass,slot);
+      CompoundFilter<ClassAndSlot> filter=legacy.getClassAndSlotFilter();
+      if (filter==null)
+      {
+        filter=new CompoundFilter<ClassAndSlot>(Operator.OR);
+        legacy.setClassAndSlotFilter(filter);
+      }
+      filter.addFilter(filterItem);
     }
   }
 }
