@@ -39,6 +39,25 @@ public class ImbuedLegendaryAttrs
   }
 
   /**
+   * Get the number of legacies.
+   * @return a legacies count.
+   */
+  public int getNumberOfLegacies()
+  {
+    return _legacies.size();
+  }
+
+  /**
+   * Get the legacy at the given index.
+   * @param index An index, starting at 0.
+   * @return A legacy or <code>null</code> if not set.
+   */
+  public ImbuedLegacyInstance getLegacy(int index)
+  {
+    return _legacies.get(index);
+  }
+
+  /**
    * Add a legacy.
    * @param legacy Legacy to add.
    */
@@ -74,7 +93,7 @@ public class ImbuedLegendaryAttrs
     int ret=0;
     for(ImbuedLegacyInstance legacy : _legacies)
     {
-      int currentTier=legacy.getCurrentTier();
+      int currentTier=legacy.getCurrentLevel();
       ret+=currentTier;
     }
     return ret;

@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.items.legendary.imbued;
 
+import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.common.stats.StatsProvider;
+
 /**
  * Imbued legacy instance.
  * @author DAM
@@ -90,13 +93,23 @@ public class ImbuedLegacyInstance
   }
 
   /**
-   * Get the current tier for this legacy.
-   * @return a tier value.
+   * Get the current level for this legacy.
+   * @return a level value.
    */
-  public int getCurrentTier()
+  public int getCurrentLevel()
   {
-    int tier=1+(_xp/XP_FOR_TIER);
-    return tier;
+    int level=(_xp/XP_FOR_TIER)+1;
+    return level;
+  }
+
+  /**
+   * Get the minimum XP value for the given level.
+   * @param level Level to use.
+   * @return An XP value.
+   */
+  public static int getMinXpForLevel(int level)
+  {
+    return (level-1)*XP_FOR_TIER;
   }
 
   /**
@@ -105,9 +118,13 @@ public class ImbuedLegacyInstance
    */
   public int getCurrentMaxTier()
   {
-    int initialMaxLevel=_legacy.getMaxInitialLevel();
-    int currentMaxTiers=initialMaxLevel+_unlockedLevels;
-    return currentMaxTiers;
+    if (_legacy!=null)
+    {
+      int initialMaxLevel=_legacy.getMaxInitialLevel();
+      int currentMaxTiers=initialMaxLevel+_unlockedLevels;
+      return currentMaxTiers;
+    }
+    return 0;
   }
 
   /**
@@ -123,6 +140,20 @@ public class ImbuedLegacyInstance
     return "?";
   }
 
+  /**
+   * Compute the stats for this legacy instance.
+   * @return some stats.
+   */
+  public BasicStatsSet getStats()
+  {
+    if (_legacy!=null)
+    {
+      StatsProvider statsProvider=_legacy.getStatsProvider();
+      return statsProvider.getStats(1,getCurrentLevel());
+    }
+    return new BasicStatsSet();
+  }
+
   @Override
   public String toString()
   {
@@ -131,7 +162,7 @@ public class ImbuedLegacyInstance
     sb.append(label);
     sb.append(", XP=").append(_xp);
     sb.append(", unlocked levels=").append(_unlockedLevels);
-    sb.append(", current tier=").append(getCurrentTier());
+    sb.append(", current tier=").append(getCurrentLevel());
     sb.append(", current max tier=").append(getCurrentMaxTier());
     // Add tier?
     return sb.toString();
