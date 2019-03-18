@@ -64,7 +64,7 @@ public class ItemXMLConstants
    */
   public static final String ITEM_STURDINESS_ATTR="sturdiness";
   /**
-   * Tag 'item', attribute 'ITEM_QUALITY_ATTR'.
+   * Tag 'item', attribute 'quality'.
    */
   public static final String ITEM_QUALITY_ATTR="quality";
   /**

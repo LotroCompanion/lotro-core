@@ -457,7 +457,7 @@ public class Item implements Identifiable
    */
   public void setItemLevel(Integer itemLevel)
   {
-	  _itemLevel=itemLevel;
+    _itemLevel=itemLevel;
   }
 
   /**
