@@ -111,11 +111,11 @@ public class LegendaryAttrsXMLParser
       int pointsLeft=DOMParsingTools.getIntAttribute(attrs,LegendaryAttrsXMLConstants.NON_IMBUED_POINTS_LEFT_ATTR,0);
       nonImbuedData.setPointsLeft(pointsLeft);
 
-      NonImbuedLegaciesManager nonImbuedMgr=NonImbuedLegaciesManager.getInstance();
       // Default legacy
       Element defaultLegacyTag=DOMParsingTools.getChildTagByName(nonImbuedTag,LegendaryAttrsXMLConstants.DEFAULT_LEGACY_TAG);
       if (defaultLegacyTag!=null)
       {
+        NonImbuedLegaciesManager nonImbuedMgr=NonImbuedLegaciesManager.getInstance();
         NamedNodeMap defaultLegacyAttrs=defaultLegacyTag.getAttributes();
         // Default legacy ID
         int id=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryAttrsXMLConstants.DEFAULT_LEGACY_ID_ATTR,0);
@@ -137,6 +137,7 @@ public class LegendaryAttrsXMLParser
       List<Element> tieredLegacyTags=DOMParsingTools.getChildTagsByName(nonImbuedTag,LegendaryAttrsXMLConstants.TIERED_LEGACY_TAG);
       for(Element tieredLegacyTag : tieredLegacyTags)
       {
+        NonImbuedLegaciesManager nonImbuedMgr=NonImbuedLegaciesManager.getInstance();
         NamedNodeMap tieredLegacyAttrs=tieredLegacyTag.getAttributes();
         // Legacy ID
         int id=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryAttrsXMLConstants.TIERED_LEGACY_ID_ATTR,0);
@@ -159,10 +160,10 @@ public class LegendaryAttrsXMLParser
 
   private static void readImbuedData(LegendaryAttrs legendaryAttrs, Element legendaryElement)
   {
-    LegaciesManager legaciesMgr=LegaciesManager.getInstance();
     Element imbuedTag=DOMParsingTools.getChildTagByName(legendaryElement,LegendaryAttrsXMLConstants.IMBUED_TAG);
     if (imbuedTag!=null)
     {
+      LegaciesManager legaciesMgr=LegaciesManager.getInstance();
       ImbuedLegendaryAttrs imbuedData=new ImbuedLegendaryAttrs();
       legendaryAttrs.setImbuedAttrs(imbuedData);
       // Legacies
