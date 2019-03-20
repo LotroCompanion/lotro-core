@@ -70,6 +70,25 @@ public class StatsProvider
   }
 
   /**
+   * Get the stat provider for a given stat.
+   * @param stat Stat to use.
+   * @return A stat provider or <code>null</code> if not found.
+   */
+  public StatProvider getStat(StatDescription stat)
+  {
+    StatProvider ret=null;
+    for(StatProvider provider : _stats)
+    {
+      if (stat==provider.getStat())
+      {
+        ret=provider;
+        break;
+      }
+    }
+    return ret;
+  }
+
+  /**
    * Get the stat provider at the given index.
    * @param index Index of provider, starting at 0.
    * @return A stat provider.
@@ -77,6 +96,19 @@ public class StatsProvider
   public StatProvider getStatProvider(int index)
   {
     return _stats.get(index);
+  }
+
+  /**
+   * Remove a stat provider.
+   * @param stat Stat to use.
+   */
+  public void removeStat(StatDescription stat)
+  {
+    StatProvider provider=getStat(stat);
+    if (provider!=null)
+    {
+      _stats.remove(provider);
+    }
   }
 
   /**
