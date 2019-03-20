@@ -292,6 +292,10 @@ public final class ItemSaxParser extends DefaultHandler {
       {
         int progressionId=NumericTools.parseInt(progressionStr,-1);
         Progression progression=ProgressionsManager.getInstance().getProgression(progressionId);
+        if (progression==null)
+        {
+          LOGGER.warn("Progression not found: "+progressionId);
+        }
         return new ScalableStatProvider(stat,progression);
       }
       // Ranged stat provider?
@@ -322,10 +326,17 @@ public final class ItemSaxParser extends DefaultHandler {
         String progressionStr=rangeStr.substring(separator+1);
         int progressionId=NumericTools.parseInt(progressionStr,0);
         Progression progression=progressionsMgr.getProgression(progressionId);
-        if (((minLevel!=null) || (maxLevel!=null)) && (progression!=null))
+        if ((minLevel!=null) || (maxLevel!=null))
         {
-          ScalableStatProvider scalableProvider=new ScalableStatProvider(stat,progression);
-          provider.addRange(minLevel,maxLevel,scalableProvider);
+          if (progression!=null)
+          {
+            ScalableStatProvider scalableProvider=new ScalableStatProvider(stat,progression);
+            provider.addRange(minLevel,maxLevel,scalableProvider);
+          }
+          else
+          {
+            LOGGER.warn("Progression not found: "+progressionId);
+          }
         }
       }
       return provider;

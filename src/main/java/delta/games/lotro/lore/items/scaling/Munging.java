@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.items.scaling;
 
+import org.apache.log4j.Logger;
+
 import delta.common.utils.NumericTools;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.utils.maths.Progression;
@@ -10,6 +12,8 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class Munging
 {
+  private static final Logger LOGGER=Logger.getLogger(Munging.class);
+
   private Integer _min;
   private Integer _max;
   private Progression _progression;
@@ -102,6 +106,10 @@ public class Munging
     if (progressionId!=null)
     {
       progression=ProgressionsManager.getInstance().getProgression(progressionId.intValue());
+      if (progression==null)
+      {
+        LOGGER.warn("Progression not found: "+progressionId);
+      }
     }
     return new Munging(min,max,progression);
   }
