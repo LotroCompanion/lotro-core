@@ -8,10 +8,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.comparators.ItemStashIdComparator;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Stash for items.
@@ -19,7 +19,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class ItemsStash
 {
-  private static final Logger _logger=LotroLoggers.getCharacterLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   private int _nextId;
   private HashMap<Integer,ItemInstance<? extends Item>> _items;
@@ -85,7 +85,7 @@ public class ItemsStash
       {
         if (item!=old)
         {
-          _logger.warn("Trying to replace a stash item. Ignored.");
+          LOGGER.warn("Trying to replace a stash item. Ignored.");
         }
         return;
       }

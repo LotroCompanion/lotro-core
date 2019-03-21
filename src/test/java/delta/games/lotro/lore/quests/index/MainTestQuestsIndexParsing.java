@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.lore.quests.QuestsManager;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Quests index parsing from XML.
@@ -15,7 +15,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class MainTestQuestsIndexParsing
 {
-  private static final Logger _logger=LotroLoggers.getWebInputLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   /**
    * Basic main method for test.
@@ -55,7 +55,7 @@ public class MainTestQuestsIndexParsing
     }
     else
     {
-      _logger.error("Cannot gets quests index file!");
+      LOGGER.error("Cannot gets quests index file!");
     }
   }
 }

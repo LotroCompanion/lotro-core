@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
@@ -15,7 +16,6 @@ import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.items.finder.ItemsFinder;
 import delta.games.lotro.lore.items.io.xml.ItemSaxParser;
 import delta.games.lotro.lore.items.sort.ItemsSorter;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Facade for items access.
@@ -23,7 +23,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class ItemsManager
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   private static ItemsManager _instance=null;
 
@@ -98,7 +98,7 @@ public class ItemsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    _logger.info("Loaded "+_cache.size()+" items in "+duration+"ms.");
+    LOGGER.info("Loaded "+_cache.size()+" items in "+duration+"ms.");
   }
 
   /**

@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterData;
-import delta.games.lotro.utils.LotroLoggers;
+import delta.games.lotro.common.progression.ProgressionsManager;
 
 /**
  * I/O methods for character data.
@@ -14,7 +14,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class CharacterDataIO
 {
-  private static final Logger _logger=LotroLoggers.getCharacterLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   /**
    * Get the character data for a given file.
@@ -57,7 +57,7 @@ public class CharacterDataIO
       ret=parentFile.mkdirs();
       if (!ret)
       {
-        _logger.error("Cannot create directory ["+parentFile+"]!");
+        LOGGER.error("Cannot create directory ["+parentFile+"]!");
       }
     }
     if (ret)

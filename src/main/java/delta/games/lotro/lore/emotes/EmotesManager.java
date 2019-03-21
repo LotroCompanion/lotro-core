@@ -9,10 +9,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.emotes.io.xml.EmoteXMLParser;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Facade for emotes access.
@@ -20,7 +20,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class EmotesManager
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   private static EmotesManager _instance=null;
 
@@ -68,7 +68,7 @@ public class EmotesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    _logger.info("Loaded "+_cache.size()+" emotes in "+duration+"ms.");
+    LOGGER.info("Loaded "+_cache.size()+" emotes in "+duration+"ms.");
   }
 
   /**

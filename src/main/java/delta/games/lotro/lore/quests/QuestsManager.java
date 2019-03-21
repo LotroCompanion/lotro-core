@@ -7,12 +7,12 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.cache.WeakReferencesCache;
 import delta.common.utils.files.archives.ArchiveManager;
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.quests.index.QuestsIndex;
 import delta.games.lotro.lore.quests.index.io.xml.QuestsIndexXMLParser;
 import delta.games.lotro.lore.quests.io.xml.QuestXMLParser;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Facade for quests access.
@@ -20,7 +20,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public final class QuestsManager
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   private static QuestsManager _instance=new QuestsManager();
   
@@ -97,7 +97,7 @@ public final class QuestsManager
       ret=parser.parseXML(is);
       if (ret==null)
       {
-        _logger.error("Cannot load quest ["+fileName+"]!");
+        LOGGER.error("Cannot load quest ["+fileName+"]!");
       }
     }
     return ret;

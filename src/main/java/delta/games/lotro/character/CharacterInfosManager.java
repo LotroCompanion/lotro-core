@@ -13,10 +13,10 @@ import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.Formats;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Manages info files for a single toon.
@@ -24,7 +24,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class CharacterInfosManager
 {
-  private static final Logger _logger=LotroLoggers.getCharacterLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   private CharacterFile _toon;
   private List<CharacterData> _datas;
@@ -322,7 +322,7 @@ public class CharacterInfosManager
       }
       catch(ParseException pe)
       {
-        _logger.error("Cannot parse filename ["+filename+"]!",pe);
+        LOGGER.error("Cannot parse filename ["+filename+"]!",pe);
       }
     }
     return ret;

@@ -11,10 +11,10 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.titles.io.xml.TitleXMLParser;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Facade for titles access.
@@ -22,7 +22,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class TitlesManager
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   private static TitlesManager _instance=null;
 
@@ -70,7 +70,7 @@ public class TitlesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    _logger.info("Loaded "+_cache.size()+" titles in "+duration+"ms.");
+    LOGGER.info("Loaded "+_cache.size()+" titles in "+duration+"ms.");
   }
 
   /**

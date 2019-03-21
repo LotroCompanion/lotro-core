@@ -13,8 +13,8 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLParser;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLWriter;
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.utils.Formats;
-import delta.games.lotro.utils.LotroLoggers;
 
 /**
  * Manages log files for a single toon.
@@ -22,7 +22,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class CharacterLogsManager
 {
-  private static final Logger _logger=LotroLoggers.getCharacterLogLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   private CharacterFile _toon;
 
@@ -68,7 +68,7 @@ public class CharacterLogsManager
         boolean ok=toRemove.delete();
         if (!ok)
         {
-          _logger.warn("Cannot delete file ["+toRemove+"]!");
+          LOGGER.warn("Cannot delete file ["+toRemove+"]!");
         }
       }
     }
@@ -141,7 +141,7 @@ public class CharacterLogsManager
       ret=parentFile.mkdirs();
       if (!ret)
       {
-        _logger.error("Cannot create directory ["+parentFile+"]!");
+        LOGGER.error("Cannot create directory ["+parentFile+"]!");
       }
     }
     if (ret)
@@ -179,7 +179,7 @@ public class CharacterLogsManager
       }
       catch(ParseException pe)
       {
-        _logger.error("Cannot parse filename ["+filename+"]!",pe);
+        LOGGER.error("Cannot parse filename ["+filename+"]!",pe);
       }
     }
     return ret;

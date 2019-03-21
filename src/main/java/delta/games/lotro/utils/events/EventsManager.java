@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.utils.LotroLoggers;
+import delta.games.lotro.common.progression.ProgressionsManager;
 
 /**
  * Global manager for events and associated listeners.
@@ -13,7 +13,7 @@ import delta.games.lotro.utils.LotroLoggers;
  */
 public class EventsManager
 {
-  private static final Logger _logger=LotroLoggers.getLotroLogger();
+  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
 
   private static Map<String,GenericListenersManager<? extends Event>> _listeners=new HashMap<String,GenericListenersManager<? extends Event>>();
 
@@ -65,7 +65,7 @@ public class EventsManager
       }
       catch(Throwable t)
       {
-        _logger.error("Exception in an event listener",t);
+        LOGGER.error("Exception in an event listener",t);
       }
     }
   }
