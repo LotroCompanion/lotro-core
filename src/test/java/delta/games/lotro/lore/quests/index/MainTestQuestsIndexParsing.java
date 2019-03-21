@@ -6,7 +6,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.lore.quests.QuestsManager;
 
 /**
@@ -15,7 +14,7 @@ import delta.games.lotro.lore.quests.QuestsManager;
  */
 public class MainTestQuestsIndexParsing
 {
-  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
+  private static final Logger LOGGER=Logger.getLogger(MainTestQuestsIndexParsing.class);
 
   /**
    * Basic main method for test.

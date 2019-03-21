@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterData;
-import delta.games.lotro.common.progression.ProgressionsManager;
 
 /**
  * I/O methods for character data.
@@ -14,7 +13,7 @@ import delta.games.lotro.common.progression.ProgressionsManager;
  */
 public class CharacterDataIO
 {
-  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
+  private static final Logger LOGGER=Logger.getLogger(CharacterDataIO.class);
 
   /**
    * Get the character data for a given file.

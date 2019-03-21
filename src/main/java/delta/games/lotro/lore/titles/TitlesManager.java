@@ -11,7 +11,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.titles.io.xml.TitleXMLParser;
@@ -22,7 +21,7 @@ import delta.games.lotro.lore.titles.io.xml.TitleXMLParser;
  */
 public class TitlesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
+  private static final Logger LOGGER=Logger.getLogger(TitlesManager.class);
 
   private static TitlesManager _instance=null;
 

@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.cache.WeakReferencesCache;
 import delta.common.utils.files.archives.ArchiveManager;
-import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.quests.index.QuestsIndex;
@@ -20,7 +19,7 @@ import delta.games.lotro.lore.quests.io.xml.QuestXMLParser;
  */
 public final class QuestsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
+  private static final Logger LOGGER=Logger.getLogger(QuestsManager.class);
 
   private static QuestsManager _instance=new QuestsManager();
   

@@ -9,7 +9,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.emotes.io.xml.EmoteXMLParser;
@@ -20,7 +19,7 @@ import delta.games.lotro.lore.emotes.io.xml.EmoteXMLParser;
  */
 public class EmotesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
+  private static final Logger LOGGER=Logger.getLogger(EmotesManager.class);
 
   private static EmotesManager _instance=null;
 

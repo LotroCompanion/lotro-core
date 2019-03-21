@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.Formats;
@@ -24,7 +23,7 @@ import delta.games.lotro.utils.Formats;
  */
 public class CharacterInfosManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
+  private static final Logger LOGGER=Logger.getLogger(CharacterInfosManager.class);
 
   private CharacterFile _toon;
   private List<CharacterData> _datas;

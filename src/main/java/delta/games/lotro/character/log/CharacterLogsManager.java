@@ -13,7 +13,6 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLParser;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLWriter;
-import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.utils.Formats;
 
 /**
@@ -22,7 +21,7 @@ import delta.games.lotro.utils.Formats;
  */
 public class CharacterLogsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
+  private static final Logger LOGGER=Logger.getLogger(CharacterLogsManager.class);
 
   private CharacterFile _toon;
 

@@ -5,15 +5,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.common.progression.ProgressionsManager;
-
 /**
  * Global manager for events and associated listeners.
  * @author DAM
  */
 public class EventsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
+  private static final Logger LOGGER=Logger.getLogger(EventsManager.class);
 
   private static Map<String,GenericListenersManager<? extends Event>> _listeners=new HashMap<String,GenericListenersManager<? extends Event>>();
 

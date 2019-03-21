@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.comparators.ItemStashIdComparator;
@@ -19,7 +18,7 @@ import delta.games.lotro.lore.items.comparators.ItemStashIdComparator;
  */
 public class ItemsStash
 {
-  private static final Logger LOGGER=Logger.getLogger(ProgressionsManager.class);
+  private static final Logger LOGGER=Logger.getLogger(ItemsStash.class);
 
   private int _nextId;
   private HashMap<Integer,ItemInstance<? extends Item>> _items;
