@@ -13,7 +13,7 @@ import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.utils.maths.Progression;
-import delta.games.lotro.utils.maths.io.xml.ProgressionsXMLParser;
+import delta.games.lotro.utils.maths.io.xml.ProgressionSaxParser;
 import delta.games.lotro.utils.maths.io.xml.ProgressionsXMLWriter;
 
 /**
@@ -70,7 +70,8 @@ public class ProgressionsManager
     if (from.canRead())
     {
       long now=System.currentTimeMillis();
-      List<Progression> progressions=ProgressionsXMLParser.parseProgressions(from);
+      //List<Progression> progressions=ProgressionsXMLParser.parseProgressions(from);
+      List<Progression> progressions=ProgressionSaxParser.parseProgressionsFile(from);
       for(Progression progression : progressions)
       {
         _map.put(Integer.valueOf(progression.getIdentifier()),progression);
