@@ -1,14 +1,19 @@
 package delta.games.lotro.common.stats;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 /**
- * A LOTRO character stat.
+ * Registry for 'well known' stats, used in code.
  * @author DAM
  */
 public class WellKnownStat
 {
   private static final Logger LOGGER=Logger.getLogger(WellKnownStat.class);
+
+  private static List<StatDescription> _allWellKnownStats=new ArrayList<StatDescription>();
 
   /**
    * Morale.
@@ -309,10 +314,23 @@ public class WellKnownStat
   public static final StatDescription get(String legacyKey)
   {
     StatDescription ret=StatsRegistry.getInstance().getByKey(legacyKey);
-    if (ret==null)
+    if (ret!=null)
+    {
+      _allWellKnownStats.add(ret);
+    }
+    else
     {
       LOGGER.warn("Well-known stat not found! Key="+legacyKey);
     }
     return ret;
+  }
+
+  /**
+   * Get a list of all well-known stats.
+   * @return a list of stats.
+   */
+  public static final List<StatDescription> getAllWellKnownStats()
+  {
+    return _allWellKnownStats;
   }
 }
