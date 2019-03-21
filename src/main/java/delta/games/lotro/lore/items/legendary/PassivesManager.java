@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.common.Effect;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;

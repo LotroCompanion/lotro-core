@@ -1,5 +1,6 @@
-package delta.games.lotro.common;
+package delta.games.lotro.common.effects;
 
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**

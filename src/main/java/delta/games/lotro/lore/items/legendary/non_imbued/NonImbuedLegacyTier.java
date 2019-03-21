@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.items.legendary.non_imbued;
 
-import delta.games.lotro.common.Effect;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
 
 /**

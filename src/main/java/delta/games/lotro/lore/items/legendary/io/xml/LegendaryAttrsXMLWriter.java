@@ -7,7 +7,7 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
-import delta.games.lotro.common.Effect;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
