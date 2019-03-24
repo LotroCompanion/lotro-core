@@ -98,8 +98,12 @@ public class ImbuedLegacyInstance
    */
   public int getCurrentLevel()
   {
-    int level=(_xp/XP_FOR_TIER)+1;
-    return level;
+    if (_legacy!=null)
+    {
+      int level=(_xp/XP_FOR_TIER)+1;
+      return level;
+    }
+    return 0;
   }
 
   /**
