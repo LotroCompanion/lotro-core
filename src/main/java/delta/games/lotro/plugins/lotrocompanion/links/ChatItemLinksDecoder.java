@@ -30,6 +30,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
+import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
 import delta.games.lotro.plugins.lotrocompanion.BufferUtils;
@@ -131,6 +132,7 @@ public class ChatItemLinksDecoder
     int nbRelics=BufferUtils.readUInt8(bis);
     if (nbRelics>0)
     {
+      RelicsSet relics=attrs.getRelicsSet();
       RelicsManager relicsMgr=RelicsManager.getInstance();
       for(int i=0;i<nbRelics;i++)
       {
@@ -141,10 +143,10 @@ public class ChatItemLinksDecoder
         Relic relic=relicsMgr.getById(relicID);
         if (relic!=null)
         {
-          if (slot==1) attrs.setSetting(relic);
-          else if (slot==2) attrs.setGem(relic);
-          else if (slot==3) attrs.setRune(relic);
-          else if (slot==4) attrs.setCraftedRelic(relic);
+          if (slot==1) relics.setSetting(relic);
+          else if (slot==2) relics.setGem(relic);
+          else if (slot==3) relics.setRune(relic);
+          else if (slot==4) relics.setCraftedRelic(relic);
         }
       }
     }

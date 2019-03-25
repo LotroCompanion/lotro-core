@@ -53,7 +53,7 @@ public class LegendaryAttrsXMLWriter
     // Write legacies
     writeLegacies(hd,legendaryData);
     // Write relics
-    List<Relic> relics=legendaryData.getRelics();
+    List<Relic> relics=legendaryData.getRelicsSet().getRelics();
     writeRelic(hd,relics.get(0),RelicType.SETTING);
     writeRelic(hd,relics.get(1),RelicType.GEM);
     writeRelic(hd,relics.get(2),RelicType.RUNE);

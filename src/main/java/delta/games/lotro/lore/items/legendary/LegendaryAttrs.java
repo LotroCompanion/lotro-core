@@ -10,7 +10,7 @@ import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 
 /**
@@ -24,10 +24,7 @@ public class LegendaryAttrs
   // Title
   private LegendaryTitle _title;
   // Relics
-  private Relic _setting;
-  private Relic _gem;
-  private Relic _rune;
-  private Relic _crafted;
+  private RelicsSet _relics;
   // Passives
   private List<Effect> _passives;
   // Imbued attributes
@@ -41,10 +38,7 @@ public class LegendaryAttrs
   public LegendaryAttrs()
   {
     _legendaryName="";
-    _setting=null;
-    _gem=null;
-    _rune=null;
-    _crafted=null;
+    _relics=new RelicsSet();
     _passives=new ArrayList<Effect>();
     _nonImbuedAttrs=new NonImbuedLegendaryAttrs();
   }
@@ -57,10 +51,7 @@ public class LegendaryAttrs
   {
     _legendaryName=source._legendaryName;
     _title=source._title;
-    _setting=source._setting;
-    _gem=source._gem;
-    _rune=source._rune;
-    _crafted=source._crafted;
+    _relics=new RelicsSet(source._relics);
     _passives=new ArrayList<Effect>();
     _passives.addAll(source._passives);
     if (source._imbuedAttrs!=null)
@@ -108,144 +99,12 @@ public class LegendaryAttrs
   }
 
   /**
-   * Get the list of all relics put on this legendary item.
-   * @return A possibly empty list of relics.
+   * Get the relics set.
+   * @return the relics set.
    */
-  public List<Relic> getRelics()
+  public RelicsSet getRelicsSet()
   {
-    List<Relic> relics=new ArrayList<Relic>();
-    relics.add(_setting);
-    relics.add(_gem);
-    relics.add(_rune);
-    relics.add(_crafted);
-    return relics;
-  }
-
-  /**
-   * Slot a relic.
-   * @param relic Relic to set.
-   */
-  public void slotRelic(Relic relic)
-  {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.SETTING) _setting=relic;
-      else if (relic.getType()==RelicType.GEM) _gem=relic;
-      else if (relic.getType()==RelicType.RUNE) _rune=relic;
-      else if (relic.getType()==RelicType.CRAFTED_RELIC) _crafted=relic;
-    }
-  }
-
-  /**
-   * Get the 'setting' relic.
-   * @return A 'setting' relic or <code>null</code>.
-   */
-  public Relic getSetting()
-  {
-    return _setting;
-  }
-
-  /**
-   * Set 'setting' relic.
-   * @param relic Relic to set.
-   */
-  public void setSetting(Relic relic)
-  {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.SETTING)
-      {
-        _setting=relic;
-      }
-    }
-    else
-    {
-      _setting=null;
-    }
-  }
-
-  /**
-   * Get the 'gem' relic.
-   * @return A 'gem' relic or <code>null</code>.
-   */
-  public Relic getGem()
-  {
-    return _gem;
-  }
-
-  /**
-   * Set 'gem' relic.
-   * @param relic Relic to set.
-   */
-  public void setGem(Relic relic)
-  {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.GEM)
-      {
-        _gem=relic;
-      }
-    }
-    else
-    {
-      _gem=null;
-    }
-  }
-
-  /**
-   * Get the 'rune' relic.
-   * @return A 'rune' relic or <code>null</code>.
-   */
-  public Relic getRune()
-  {
-    return _rune;
-  }
-
-  /**
-   * Set 'rune' relic.
-   * @param relic Relic to set.
-   */
-  public void setRune(Relic relic)
-  {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.RUNE)
-      {
-        _rune=relic;
-      }
-    }
-    else
-    {
-      _rune=null;
-    }
-  }
-
-  /**
-   * Get the 'crafted' relic.
-   * @return A 'crafted' relic or <code>null</code>.
-   */
-  public Relic getCraftedRelic()
-  {
-    return _crafted;
-  }
-
-  /**
-   * Set 'crafted' relic.
-   * @param relic Relic to set.
-   */
-  public void setCraftedRelic(Relic relic)
-  {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.CRAFTED_RELIC)
-      {
-        _crafted=relic;
-      }
-    }
-    else
-    {
-      _crafted=null;
-    }
+    return _relics;
   }
 
   /**
@@ -331,7 +190,7 @@ public class LegendaryAttrs
       ret.addStats(titleStats);
     }
     // Relics
-    List<Relic> relics=getRelics();
+    List<Relic> relics=_relics.getRelics();
     for(Relic relic : relics)
     {
       if (relic!=null)
@@ -363,7 +222,7 @@ public class LegendaryAttrs
       sb.append("Title: ").append(_title.getName()).append(EndOfLine.NATIVE_EOL);
     }
     sb.append("Relics:").append(EndOfLine.NATIVE_EOL);
-    for(Relic relic : getRelics())
+    for(Relic relic : _relics.getRelics())
     {
       if (relic!=null)
       {

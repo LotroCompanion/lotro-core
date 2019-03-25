@@ -22,6 +22,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyIn
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
+import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
 
@@ -211,10 +212,11 @@ public class LegendaryAttrsXMLParser
         {
           relic=relicsMgr.getByName(name);
         }
-        if (type==RelicType.SETTING) legendaryAttrs.setSetting(relic);
-        if (type==RelicType.RUNE) legendaryAttrs.setRune(relic);
-        if (type==RelicType.GEM) legendaryAttrs.setGem(relic);
-        if (type==RelicType.CRAFTED_RELIC) legendaryAttrs.setCraftedRelic(relic);
+        RelicsSet relics=legendaryAttrs.getRelicsSet();
+        if (type==RelicType.SETTING) relics.setSetting(relic);
+        if (type==RelicType.RUNE) relics.setRune(relic);
+        if (type==RelicType.GEM) relics.setGem(relic);
+        if (type==RelicType.CRAFTED_RELIC) relics.setCraftedRelic(relic);
       }
     }
   }

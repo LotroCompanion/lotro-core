@@ -47,6 +47,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -593,6 +594,7 @@ public class CharacterGeneratorGiswald
     // Legendary name
     attrs.setLegendaryName("Stormbringer");
     // Relics
+    RelicsSet relics=attrs.getRelicsSet();
     {
       // Setting
       Relic setting=new Relic(1,"Westemnet Setting of Endings", RelicType.SETTING, Integer.valueOf(90));
@@ -600,7 +602,7 @@ public class CharacterGeneratorGiswald
       stats.setStat(WellKnownStat.get("DEVASTATE_MAGNITUDE_PERCENTAGE"), 7.5f);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1454);
       stats.setStat(WellKnownStat.ICMR,182);
-      attrs.setSetting(setting);
+      relics.setSetting(setting);
     }
     {
       // Gem
@@ -609,7 +611,7 @@ public class CharacterGeneratorGiswald
       stats.setStat(WellKnownStat.ICPR,90);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
       stats.setStat(WellKnownStat.FATE,30);
-      attrs.setGem(gem);
+      relics.setGem(gem);
     }
     {
       // Rune
@@ -619,7 +621,7 @@ public class CharacterGeneratorGiswald
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,606);
       stats.setStat(WellKnownStat.TACTICAL_MASTERY,606);
       stats.setStat(WellKnownStat.FATE,27);
-      attrs.setRune(rune);
+      relics.setRune(rune);
     }
     {
       // Crafted relic
@@ -628,7 +630,7 @@ public class CharacterGeneratorGiswald
       stats.setStat(WellKnownStat.MIGHT,40);
       stats.setStat(WellKnownStat.CRITICAL_RATING,740);
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,740);
-      attrs.setCraftedRelic(craftedRelic);
+      relics.setCraftedRelic(craftedRelic);
     }
     // Passives
     {
@@ -720,6 +722,7 @@ public class CharacterGeneratorGiswald
     // Title
     // .. none ..
     // Relics
+    RelicsSet relics=attrs.getRelicsSet();
     {
       // Setting
       Relic setting=new Relic(0,"Westemnet Setting of Endings", RelicType.SETTING, Integer.valueOf(90));
@@ -727,7 +730,7 @@ public class CharacterGeneratorGiswald
       stats.setStat(WellKnownStat.get("DEVASTATE_MAGNITUDE_PERCENTAGE"),7.5f);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1454);
       stats.setStat(WellKnownStat.ICMR,182);
-      attrs.setSetting(setting);
+      relics.setSetting(setting);
     }
     {
       // Gem
@@ -736,7 +739,7 @@ public class CharacterGeneratorGiswald
       stats.setStat(WellKnownStat.ICPR,90);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
       stats.setStat(WellKnownStat.FATE,30);
-      attrs.setGem(gem);
+      relics.setGem(gem);
     }
     {
       // Rune
@@ -746,7 +749,7 @@ public class CharacterGeneratorGiswald
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,646);
       stats.setStat(WellKnownStat.TACTICAL_MASTERY,646);
       stats.setStat(WellKnownStat.AGILITY,35);
-      attrs.setRune(rune);
+      relics.setRune(rune);
     }
     {
       // Crafted relic
@@ -755,7 +758,7 @@ public class CharacterGeneratorGiswald
       stats.setStat(WellKnownStat.MIGHT,40);
       stats.setStat(WellKnownStat.CRITICAL_RATING,740);
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,740);
-      attrs.setCraftedRelic(craftedRelic);
+      relics.setCraftedRelic(craftedRelic);
     }
     // Stat legacies
     // None...

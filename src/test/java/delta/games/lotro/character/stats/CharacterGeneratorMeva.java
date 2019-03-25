@@ -26,6 +26,7 @@ import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
 import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -328,6 +329,7 @@ public class CharacterGeneratorMeva
     //titleStats.setStat(STAT.CRITICAL_RATING,460);
     attrs.setTitle(title);
     // Relics
+    RelicsSet relics=attrs.getRelicsSet();
     {
       // Setting
       Relic setting=new Relic(0,"True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
@@ -335,7 +337,7 @@ public class CharacterGeneratorMeva
       stats.setStat(WellKnownStat.MORALE, 330);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1293);
       stats.setStat(WellKnownStat.INCOMING_HEALING,1616);
-      attrs.setSetting(setting);
+      relics.setSetting(setting);
     }
     {
       // Gem
@@ -344,7 +346,7 @@ public class CharacterGeneratorMeva
       stats.setStat(WellKnownStat.ICPR,90);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
       stats.setStat(WellKnownStat.FATE,30);
-      attrs.setGem(gem);
+      relics.setGem(gem);
     }
     {
       // Rune
@@ -354,7 +356,7 @@ public class CharacterGeneratorMeva
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,606);
       stats.setStat(WellKnownStat.TACTICAL_MASTERY,606);
       stats.setStat(WellKnownStat.FATE,27);
-      attrs.setRune(rune);
+      relics.setRune(rune);
     }
     {
       // Crafted relic
@@ -363,7 +365,7 @@ public class CharacterGeneratorMeva
       stats.setStat(WellKnownStat.WILL,40);
       stats.setStat(WellKnownStat.CRITICAL_RATING,740);
       stats.setStat(WellKnownStat.TACTICAL_MASTERY,740);
-      attrs.setCraftedRelic(craftedRelic);
+      relics.setCraftedRelic(craftedRelic);
     }
     // Stat legacies
     // TODO
@@ -398,6 +400,7 @@ public class CharacterGeneratorMeva
     // Title
     // 5% light-type damage
     // Relics
+    RelicsSet relics=attrs.getRelicsSet();
     {
       // Setting
       Relic setting=new Relic(0,"True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
@@ -405,7 +408,7 @@ public class CharacterGeneratorMeva
       stats.setStat(WellKnownStat.MORALE, 330);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1293);
       stats.setStat(WellKnownStat.INCOMING_HEALING,1616);
-      attrs.setSetting(setting);
+      relics.setSetting(setting);
     }
     {
       // Gem
@@ -414,7 +417,7 @@ public class CharacterGeneratorMeva
       stats.setStat(WellKnownStat.ICPR,90);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
       stats.setStat(WellKnownStat.FATE,30);
-      attrs.setGem(gem);
+      relics.setGem(gem);
     }
     {
       // Rune
@@ -424,7 +427,7 @@ public class CharacterGeneratorMeva
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,606);
       stats.setStat(WellKnownStat.TACTICAL_MASTERY,606);
       stats.setStat(WellKnownStat.FATE,27);
-      attrs.setRune(rune);
+      relics.setRune(rune);
     }
     {
       // Crafted relic
@@ -433,7 +436,7 @@ public class CharacterGeneratorMeva
       stats.setStat(WellKnownStat.WILL,40);
       stats.setStat(WellKnownStat.CRITICAL_RATING,740);
       stats.setStat(WellKnownStat.TACTICAL_MASTERY,740);
-      attrs.setCraftedRelic(craftedRelic);
+      relics.setCraftedRelic(craftedRelic);
     }
     // Stat legacies
     // None...
