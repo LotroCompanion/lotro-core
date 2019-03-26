@@ -11,7 +11,10 @@ public class Effect implements Identifiable
 {
   // Identifier
   private int _id;
-  // Name?
+  // Name
+  private String _name;
+  // Duration
+  private Float _duration;
   // Stats
   private StatsProvider _statsProvider;
 
@@ -39,6 +42,42 @@ public class Effect implements Identifiable
   public void setId(int id)
   {
     _id=id;
+  }
+
+  /**
+   * Get the effect name.
+   * @return a name or <code>null</code>.
+   */
+  public String getName()
+  {
+    return _name;
+  }
+
+  /**
+   * Set the effect name.
+   * @param name Name to set (may be <code>null</code>).
+   */
+  public void setName(String name)
+  {
+    _name=name;
+  }
+
+  /**
+   * Get the effect duration.
+   * @return a duration (seconds) or <code>null</code>.
+   */
+  public Float getDuration()
+  {
+    return _duration;
+  }
+
+  /**
+   * Set the effect duration.
+   * @param duration Duration to set (seconds) (may be <code>null</code>).
+   */
+  public void setDuration(Float duration)
+  {
+    _duration=duration;
   }
 
   /**
@@ -77,6 +116,14 @@ public class Effect implements Identifiable
   {
     StringBuilder sb=new StringBuilder();
     sb.append("Effect: ID=").append(_id);
+    if (_name!=null)
+    {
+      sb.append(", (name=").append(_name).append(')');
+    }
+    if (_duration!=null)
+    {
+      sb.append(", (duration=").append(_duration).append("s)");
+    }
     sb.append(", stats=").append(_statsProvider);
     return sb.toString();
   }

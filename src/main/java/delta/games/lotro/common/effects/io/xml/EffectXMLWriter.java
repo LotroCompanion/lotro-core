@@ -59,7 +59,18 @@ public class EffectXMLWriter
     // Identifier
     int id=effect.getIdentifier();
     attrs.addAttribute("","",EffectXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-
+    // Name
+    String name=effect.getName();
+    if (name!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    // Duration
+    Float duration=effect.getDuration();
+    if (duration!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.EFFECT_DURATION_ATTR,XmlWriter.CDATA,duration.toString());
+    }
     hd.startElement("","",EffectXMLConstants.EFFECT_TAG,attrs);
     // Stats
     StatsProvider statsProvider=effect.getStatsProvider();

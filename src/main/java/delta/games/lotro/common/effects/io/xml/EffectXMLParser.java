@@ -51,7 +51,15 @@ public class EffectXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_ID_ATTR,0);
     effect.setId(id);
-
+    // Name
+    String name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_NAME_ATTR,null);
+    effect.setName(name);
+    // Duration
+    float duration=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.EFFECT_DURATION_ATTR,-1);
+    if (duration>=0)
+    {
+      effect.setDuration(Float.valueOf(duration));
+    }
     // Stats
     StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root);
     effect.setStatsProvider(statsProvider);

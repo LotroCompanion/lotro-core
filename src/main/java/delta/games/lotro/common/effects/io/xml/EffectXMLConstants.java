@@ -18,4 +18,12 @@ public class EffectXMLConstants
    * Tag 'effect', attribute 'id'.
    */
   public static final String EFFECT_ID_ATTR="id";
+  /**
+   * Tag 'effect', attribute 'name'.
+   */
+  public static final String EFFECT_NAME_ATTR="name";
+  /**
+   * Tag 'effect', attribute 'duration'.
+   */
+  public static final String EFFECT_DURATION_ATTR="duration";
 }
