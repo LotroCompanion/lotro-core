@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.quests.io.xml;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
@@ -9,6 +10,8 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.QuestDescription;
@@ -22,20 +25,39 @@ import delta.games.lotro.lore.quests.QuestDescription.TYPE;
 public class QuestXMLWriter
 {
   /**
-   * Write a quest to a XML file.
+   * Write a file with quests.
+   * @param toFile Output file.
+   * @param quests Quests to write.
+   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
+   */
+  public static boolean writeQuestsFile(File toFile, List<QuestDescription> quests)
+  {
+    QuestXMLWriter writer=new QuestXMLWriter();
+    Collections.sort(quests,new IdentifiableComparator<QuestDescription>());
+    boolean ok=writer.writeQuests(toFile,quests,EncodingNames.UTF_8);
+    return ok;
+  }
+
+  /**
+   * Write quests to a XML file.
    * @param outFile Output file.
-   * @param quest Quest to write.
+   * @param quests Quests to write.
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, final QuestDescription quest, String encoding)
+  public boolean writeQuests(File outFile, final List<QuestDescription> quests, String encoding)
   {
     XmlWriter writer=new XmlWriter()
     {
       @Override
       public void writeXml(TransformerHandler hd) throws Exception
       {
-        write(hd,quest);
+        hd.startElement("","",QuestXMLConstants.QUESTS_TAG,new AttributesImpl());
+        for(QuestDescription quest : quests)
+        {
+          write(hd,quest);
+        }
+        hd.endElement("","",QuestXMLConstants.QUESTS_TAG);
       }
     };
     XmlFileWriterHelper helper=new XmlFileWriterHelper();

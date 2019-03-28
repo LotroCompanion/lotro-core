@@ -8,6 +8,10 @@ package delta.games.lotro.lore.quests.io.xml;
 public class QuestXMLConstants
 {
   /**
+   * Tag 'questq'.
+   */
+  public static final String QUESTS_TAG="quests";
+  /**
    * Tag 'quest'.
    */
   public static final String QUEST_TAG="quest";

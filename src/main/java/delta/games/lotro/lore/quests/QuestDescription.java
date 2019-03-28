@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Rewards;
 import delta.games.lotro.common.Size;
 
@@ -11,7 +12,7 @@ import delta.games.lotro.common.Size;
  * LOTRO quest description.
  * @author DAM
  */
-public class QuestDescription
+public class QuestDescription implements Identifiable
 {
   /**
    * Quest type.

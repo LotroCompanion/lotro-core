@@ -70,6 +70,10 @@ public class DataFiles
    */
   public static final String ITEMS="items";
   /**
+   * Quests file.
+   */
+  public static final String QUESTS="quests";
+  /**
    * Maps directory.
    */
   public static final String MAPS="maps";
