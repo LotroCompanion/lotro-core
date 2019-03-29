@@ -1,12 +1,16 @@
 package delta.games.lotro.lore.quests;
 
 import java.io.File;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.cache.WeakReferencesCache;
-import delta.common.utils.files.archives.ArchiveManager;
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.quests.io.xml.QuestXMLParser;
@@ -19,10 +23,9 @@ public final class QuestsManager
 {
   private static final Logger LOGGER=Logger.getLogger(QuestsManager.class);
 
-  private static QuestsManager _instance=new QuestsManager();
+  private static QuestsManager _instance=null;
 
-  private ArchiveManager _archive;
-  private WeakReferencesCache<Integer,QuestDescription> _cache;
+  private HashMap<Integer,QuestDescription> _cache;
 
   /**
    * Get the sole instance of this class.
@@ -30,6 +33,10 @@ public final class QuestsManager
    */
   public static QuestsManager getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=new QuestsManager();
+    }
     return _instance;
   }
 
@@ -38,11 +45,40 @@ public final class QuestsManager
    */
   private QuestsManager()
   {
-    _cache=new WeakReferencesCache<Integer,QuestDescription>(100);
-    File dir=LotroCoreConfig.getInstance().getFile(DataFiles.ROOT);
-    File questsArchive=new File(dir,"data/lore/quests.zip");
-    _archive=new ArchiveManager(questsArchive);
-    _archive.open();
+    _cache=new HashMap<Integer,QuestDescription>(1000);
+    loadAll();
+  }
+
+
+  /**
+   * Load all quests.
+   */
+  private void loadAll()
+  {
+    _cache.clear();
+    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
+    File questsFile=cfg.getFile(DataFiles.QUESTS);
+    long now=System.currentTimeMillis();
+    List<QuestDescription> quests=new QuestXMLParser().parseXML(questsFile);
+    for(QuestDescription quest : quests)
+    {
+      _cache.put(Integer.valueOf(quest.getIdentifier()),quest);
+    }
+    long now2=System.currentTimeMillis();
+    long duration=now2-now;
+    LOGGER.info("Loaded "+_cache.size()+" quests in "+duration+"ms.");
+  }
+
+  /**
+   * Get a list of all quests, sorted by identifier.
+   * @return A list of quests.
+   */
+  public List<QuestDescription> getAll()
+  {
+    ArrayList<QuestDescription> quests=new ArrayList<QuestDescription>();
+    quests.addAll(_cache.values());
+    Collections.sort(quests,new IdentifiableComparator<QuestDescription>());
+    return quests;
   }
 
   /**
@@ -53,39 +89,23 @@ public final class QuestsManager
   public QuestDescription getQuest(int id)
   {
     QuestDescription ret=null;
-    if (id>0)
-    {
-      Integer idKey=Integer.valueOf(id);
-      ret=(_cache!=null)?_cache.getObject(idKey):null;
-      if (ret==null)
-      {
-        ret=loadQuest(id);
-        if (ret!=null)
-        {
-          if (_cache!=null)
-          {
-            _cache.registerObject(idKey,ret);
-          }
-        }
-      }
-    }
+    ret=_cache.get(Integer.valueOf(id));
     return ret;
   }
 
-  private QuestDescription loadQuest(int id)
+  /**
+   * Get all quest categories.
+   * @return a sorted list of quest categories.
+   */
+  public List<String> getCategories()
   {
-    QuestDescription ret=null;
-    String fileName=String.valueOf(id)+".xml";
-    InputStream is=_archive.getEntry(fileName);
-    if (is!=null)
+    Set<String> categories=new HashSet<String>();
+    for(QuestDescription quest : _cache.values())
     {
-      QuestXMLParser parser=new QuestXMLParser();
-      ret=parser.parseXML(is);
-      if (ret==null)
-      {
-        LOGGER.error("Cannot load quest ["+fileName+"]!");
-      }
+      categories.add(quest.getCategory());
     }
+    List<String> ret=new ArrayList<String>(categories);
+    Collections.sort(ret);
     return ret;
   }
 }

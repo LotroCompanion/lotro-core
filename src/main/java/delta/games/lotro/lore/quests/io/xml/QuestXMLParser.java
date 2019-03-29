@@ -1,7 +1,7 @@
 package delta.games.lotro.lore.quests.io.xml;
 
 import java.io.File;
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -23,33 +23,22 @@ public class QuestXMLParser
   /**
    * Parse the XML file.
    * @param source Source file.
-   * @return Parsed quest or <code>null</code>.
+   * @return Parsed quests.
    */
-  public QuestDescription parseXML(File source)
+  public List<QuestDescription> parseXML(File source)
   {
-    QuestDescription c=null;
+    List<QuestDescription> ret=new ArrayList<QuestDescription>();
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      c=parseQuest(root);
+      List<Element> questTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.QUEST_TAG);
+      for(Element questTag : questTags)
+      {
+        QuestDescription quest=parseQuest(questTag);
+        ret.add(quest);
+      }
     }
-    return c;
-  }
-
-  /**
-   * Parse the XML stream.
-   * @param source Source stream.
-   * @return Parsed quest or <code>null</code>.
-   */
-  public QuestDescription parseXML(InputStream source)
-  {
-    QuestDescription quest=null;
-    Element root=DOMParsingTools.parse(source);
-    if (root!=null)
-    {
-      quest=parseQuest(root);
-    }
-    return quest;
+    return ret;
   }
 
   private QuestDescription parseQuest(Element root)
