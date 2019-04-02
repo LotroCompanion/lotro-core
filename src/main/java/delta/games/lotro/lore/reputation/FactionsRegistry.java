@@ -22,6 +22,7 @@ public final class FactionsRegistry
    */
   public static final String GUILD_FACTION_KEY="GUILD";
 
+  private HashMap<Integer,Faction> _registryById;
   private HashMap<String,Faction> _registryByKey;
   private HashMap<String,Faction> _registryByName;
   private List<String> _categories;
@@ -64,6 +65,7 @@ public final class FactionsRegistry
    */
   public FactionsRegistry()
   {
+    _registryById=new HashMap<Integer,Faction>();
     _registryByKey=new HashMap<String,Faction>();
     _registryByName=new HashMap<String,Faction>();
     _categories=new ArrayList<String>();
@@ -94,6 +96,12 @@ public final class FactionsRegistry
       _factionsByCategory.put(category,factionsForCategory);
     }
     factionsForCategory.add(faction);
+    // Map by ID
+    int id=faction.getIdentifier();
+    if (id!=0)
+    {
+      _registryById.put(Integer.valueOf(id),faction);
+    }
     // Map by key
     _registryByKey.put(factionKey,faction);
     // Map by name/aliases
@@ -153,6 +161,16 @@ public final class FactionsRegistry
   public List<Faction> getFactionsForCategory(String category)
   {
     return _factionsByCategory.get(category);
+  }
+
+  /**
+   * Get a faction instance using its identifier.
+   * @param identifier Identifier of the faction to get.
+   * @return A faction instance or <code>null</code> if not found.
+   */
+  public Faction getById(int identifier)
+  {
+    return _registryById.get(Integer.valueOf(identifier));
   }
 
   /**

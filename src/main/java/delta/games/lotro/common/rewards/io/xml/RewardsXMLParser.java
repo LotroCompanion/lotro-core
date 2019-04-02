@@ -89,7 +89,7 @@ public class RewardsXMLParser
       // Item XP
       Element itemXP=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.ITEM_XP_TAG);
       rewards.setHasItemXP(itemXP!=null);
-      
+
       // Traits
       List<Element> traitTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.TRAIT_TAG);
       for(Element traitTag : traitTags)
