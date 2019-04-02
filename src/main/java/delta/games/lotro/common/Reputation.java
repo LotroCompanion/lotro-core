@@ -83,18 +83,6 @@ public class Reputation
   }
 
   /**
-   * Add reputation.
-   * @param reputation Reputation to add.
-   */
-  public void add(Reputation reputation)
-  {
-    for(ReputationItem item : reputation._reputations.values())
-    {
-      add(item);
-    }
-  }
-
-  /**
    * Get an array of all reputation items.
    * @return A possibly empty array or reputation items.
    */
