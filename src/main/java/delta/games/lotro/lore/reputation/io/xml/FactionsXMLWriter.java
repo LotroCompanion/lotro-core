@@ -81,6 +81,12 @@ public class FactionsXMLWriter
   private void writeFaction(TransformerHandler hd, Faction faction) throws Exception
   {
     AttributesImpl factionAttrs=new AttributesImpl();
+    // Identifier
+    int id=faction.getIdentifier();
+    if (id!=0)
+    {
+      factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_ID_ATTR,CDATA,String.valueOf(id));
+    }
     // Faction key
     String key=faction.getKey();
     factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_KEY_ATTR,CDATA,key);

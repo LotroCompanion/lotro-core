@@ -16,6 +16,10 @@ public class FactionsXMLConstants
    */
   public static final String FACTION_TAG="faction";
   /**
+   * Tag 'faction', attribute 'id'.
+   */
+  public static final String FACTION_ID_ATTR="id";
+  /**
    * Tag 'faction', attribute 'key'.
    */
   public static final String FACTION_KEY_ATTR="key";

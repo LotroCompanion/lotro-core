@@ -4,19 +4,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import delta.games.lotro.common.Identifiable;
+
 /**
  * Represents a faction in the LOTRO world.
  * @author DAM
  */
-public class Faction
+public class Faction implements Identifiable
 {
+  private int _identifier;
   private String _key;
   private String _name;
   private Set<String> _aliases;
   private String _category;
   private FactionLevel _initialLevel;
   private FactionLevel[] _levels;
-  
+
   /**
    * Constructor.
    * @param key Identifying key.
@@ -26,12 +29,31 @@ public class Faction
    */
   public Faction(String key, String name, String category, List<FactionLevel> levels)
   {
+    _identifier=0;
     _key=key;
     _name=name;
     _category=category;
     _aliases=new HashSet<String>();
     _levels=levels.toArray(new FactionLevel[levels.size()]);
     _initialLevel=levels.get(0);
+  }
+
+  /**
+   * Get the identifier of this faction.
+   * @return the identifier of this faction.
+   */
+  public int getIdentifier()
+  {
+    return _identifier;
+  }
+
+  /**
+   * Set the identifier of this faction.
+   * @param identifier the identifier to set.
+   */
+  public void setIdentifier(int identifier)
+  {
+    _identifier=identifier;
   }
 
   /**
@@ -130,6 +152,6 @@ public class Faction
   @Override
   public String toString()
   {
-    return _name;
+    return _name+" ("+_identifier+")";
   }
 }

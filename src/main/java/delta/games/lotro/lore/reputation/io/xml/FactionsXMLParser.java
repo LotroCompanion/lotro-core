@@ -52,7 +52,9 @@ public class FactionsXMLParser
   {
     NamedNodeMap attrs=root.getAttributes();
 
-    // Faction key
+    // Identifier
+    int id=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_ID_ATTR,0);
+    // Key
     String factionKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_KEY_ATTR,null);
     // Name
     String factionName=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_NAME_ATTR,null);
@@ -61,6 +63,7 @@ public class FactionsXMLParser
     // Levels
     List<FactionLevel> levels=parseLevels(root);
     Faction faction=new Faction(factionKey,factionName,category,levels);
+    faction.setIdentifier(id);
     // Aliases
     List<Element> aliasTags=DOMParsingTools.getChildTagsByName(root,FactionsXMLConstants.ALIAS_TAG);
     for(Element aliasTag : aliasTags)
