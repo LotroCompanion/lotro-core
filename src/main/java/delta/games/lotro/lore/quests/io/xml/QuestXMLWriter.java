@@ -74,11 +74,6 @@ public class QuestXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
-    String key=quest.getKey();
-    if (key!=null)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_KEY_ATTR,XmlWriter.CDATA,key);
-    }
     String title=quest.getTitle();
     if (title!=null)
     {

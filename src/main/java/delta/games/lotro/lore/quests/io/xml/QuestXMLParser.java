@@ -49,16 +49,13 @@ public class QuestXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_ID_ATTR,0);
     q.setIdentifier(id);
-    // Key
-    String key=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_KEY_ATTR,null);
-    q.setKey(key);
     // Title
     String title=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_TITLE_ATTR,null);
     q.setTitle(title);
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_CATEGORY_ATTR,null);
     q.setCategory(category);
-    // Score
+    // Scope
     String scope=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SCOPE_ATTR,null);
     q.setQuestScope(scope);
     // Quest arc

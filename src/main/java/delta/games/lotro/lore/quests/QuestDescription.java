@@ -47,7 +47,6 @@ public class QuestDescription implements Identifiable
   }
 
   private int _identifier;
-  private String _key;
   private String _title;
   private String _category;
   private String _scope;
@@ -75,7 +74,6 @@ public class QuestDescription implements Identifiable
   public QuestDescription()
   {
     _identifier=0;
-    _key=null;
     _title="";
     _category="";
     _scope="";
@@ -113,24 +111,6 @@ public class QuestDescription implements Identifiable
   public void setIdentifier(int identifier)
   {
     _identifier=identifier;
-  }
-
-  /**
-   * Get the key of this quest.
-   * @return the key of this quest.
-   */
-  public String getKey()
-  {
-    return _key;
-  }
-
-  /**
-   * Set the key of this quest.
-   * @param key the key to set.
-   */
-  public void setKey(String key)
-  {
-    _key=key;
   }
 
   /**
@@ -504,12 +484,6 @@ public class QuestDescription implements Identifiable
     {
       sb.append(" (");
       sb.append(_identifier);
-      sb.append(')');
-    }
-    if (_key!=null)
-    {
-      sb.append(" (");
-      sb.append(_key);
       sb.append(')');
     }
     if (_type!=TYPE.STANDARD)
