@@ -16,7 +16,6 @@ import delta.games.lotro.common.Size;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
-import delta.games.lotro.lore.quests.QuestDescription.TYPE;
 
 /**
  * Writes LOTRO quests to XML files.
@@ -103,11 +102,6 @@ public class QuestXMLWriter
     if (maxLevel!=null)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_MAX_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(maxLevel));
-    }
-    TYPE type=quest.getType();
-    if (type!=null)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_TYPE_ATTR,XmlWriter.CDATA,type.name());
     }
     Size size=quest.getSize();
     if (size!=null)

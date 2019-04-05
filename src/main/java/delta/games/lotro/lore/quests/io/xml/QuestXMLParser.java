@@ -12,7 +12,6 @@ import delta.games.lotro.common.Size;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
-import delta.games.lotro.lore.quests.QuestDescription.TYPE;
 
 /**
  * Parser for quest descriptions stored in XML.
@@ -73,10 +72,6 @@ public class QuestXMLParser
     {
       q.setMaximumLevel(Integer.valueOf(maximumLevel));
     }
-    // Type
-    String typeStr=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_TYPE_ATTR,null);
-    TYPE type=TYPE.valueOf(typeStr);
-    q.setType(type);
     // Size
     String sizeStr=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SIZE_ATTR,null);
     Size size=Size.valueOf(sizeStr);

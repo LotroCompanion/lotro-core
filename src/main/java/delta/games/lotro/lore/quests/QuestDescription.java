@@ -15,22 +15,6 @@ import delta.games.lotro.common.Size;
 public class QuestDescription implements Identifiable
 {
   /**
-   * Quest type.
-   * @author DAM
-   */
-  public enum TYPE
-  {
-    /**
-     * Standard non-epic quest.
-     */
-    STANDARD,
-    /**
-     * Epic quest.
-     */
-    EPIC
-  }
-
-  /**
    * Faction.
    * @author DAM
    */
@@ -55,7 +39,6 @@ public class QuestDescription implements Identifiable
   private Integer _maximumLevel;
   private List<String> _requiredClasses;
   private List<String> _requiredRaces;
-  private TYPE _type;
   private Size _size;
   private FACTION _faction;
   private boolean _repeatable;
@@ -81,7 +64,6 @@ public class QuestDescription implements Identifiable
     _minimumLevel=null;
     _maximumLevel=null;
     _requiredClasses=null;
-    _type=TYPE.STANDARD;
     _size=Size.SOLO;
     _faction=FACTION.FREE_PEOPLES;
     _repeatable=false;
@@ -263,24 +245,6 @@ public class QuestDescription implements Identifiable
       _requiredRaces=new ArrayList<String>();
     }
     _requiredRaces.add(race);
-  }
-
-  /**
-   * Get quest type.
-   * @return the quest type.
-   */
-  public TYPE getType()
-  {
-    return _type;
-  }
-
-  /**
-   * Set the quest type.
-   * @param type the type to set.
-   */
-  public void setType(TYPE type)
-  {
-    _type=type;
   }
 
   /**
@@ -484,12 +448,6 @@ public class QuestDescription implements Identifiable
     {
       sb.append(" (");
       sb.append(_identifier);
-      sb.append(')');
-    }
-    if (_type!=TYPE.STANDARD)
-    {
-      sb.append(" (");
-      sb.append(_type);
       sb.append(')');
     }
     if (_size!=Size.SOLO)
