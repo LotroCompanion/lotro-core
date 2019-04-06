@@ -93,30 +93,22 @@ public class QuestXMLConstants
   public static final String QUEST_OBJECTIVES_ATTR="objectives";
 
   /**
-   * Tag 'prerequisites'.
-   */
-  public static final String PREREQUISITES_TAG="prerequisites";
-  /**
    * Tag 'prerequisite'.
    */
   public static final String PREREQUISITE_TAG="prerequisite";
   /**
-   * Tag 'prerequisite', attribute 'name'.
-   */
-  public static final String PREREQUISITE_NAME_ATTR="name";
-
-  /**
-   * Tag 'nextQuests'.
-   */
-  public static final String NEXT_QUESTS_TAG="nextQuests";
-  /**
    * Tag 'nextQuest'.
    */
   public static final String NEXT_QUEST_TAG="nextQuest";
+
   /**
-   * Tag 'nextQuest', attribute 'name'.
+   * 'quest proxy' tag, attribute 'id'.
    */
-  public static final String NEXT_QUEST_NAME_ATTR="name";
+  public static final String QUEST_PROXY_ID_ATTR="id";
+  /**
+   * 'quest proxy' tag, attribute 'name'.
+   */
+  public static final String QUEST_PROXY_NAME_ATTR="name";
 
   /**
    * Tag 'required class'.

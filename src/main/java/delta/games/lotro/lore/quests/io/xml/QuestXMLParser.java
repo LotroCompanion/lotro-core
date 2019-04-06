@@ -12,6 +12,7 @@ import delta.games.lotro.common.Size;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Parser for quest descriptions stored in XML.
@@ -118,7 +119,6 @@ public class QuestXMLParser
         q.addRequiredClass(className);
       }
     }
-    
     // Required races
     List<Element> requiredRaceTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.REQUIRED_RACE_TAG);
     if (requiredRaceTags!=null)
@@ -129,30 +129,40 @@ public class QuestXMLParser
         q.addRequiredRace(raceName);
       }
     }
-    
+
     // Prerequisite quests
     List<Element> prerequisiteTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.PREREQUISITE_TAG);
-    if (prerequisiteTags!=null)
+    for(Element prerequisiteTag : prerequisiteTags)
     {
-      for(Element prerequisiteTag : prerequisiteTags)
+      Proxy<QuestDescription> proxy=buildProxy(prerequisiteTag);
+      if (proxy!=null)
       {
-        String questKey=DOMParsingTools.getStringAttribute(prerequisiteTag.getAttributes(),QuestXMLConstants.PREREQUISITE_NAME_ATTR,null);
-        q.addPrerequisiteQuest(questKey);
+        q.addPrerequisiteQuest(proxy);
       }
     }
-    
-    // Next quests
-    List<Element> nextQuestTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.NEXT_QUEST_TAG);
-    if (nextQuestTags!=null)
-    {
-      for(Element nextQuestTag : nextQuestTags)
-      {
-        String questKey=DOMParsingTools.getStringAttribute(nextQuestTag.getAttributes(),QuestXMLConstants.NEXT_QUEST_NAME_ATTR,null);
-        q.addNextQuest(questKey);
-      }
-    }
+    // Next quest
+    Element nextQuestTag=DOMParsingTools.getChildTagByName(root,QuestXMLConstants.NEXT_QUEST_TAG);
+    q.setNextQuest(buildProxy(nextQuestTag));
 
     RewardsXMLParser.loadRewards(root,q.getQuestRewards());
     return q;
+  }
+
+  private Proxy<QuestDescription> buildProxy(Element tag)
+  {
+    Proxy<QuestDescription> ret=null;
+    if (tag!=null)
+    {
+      NamedNodeMap attrs=tag.getAttributes();
+      int id=DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_PROXY_ID_ATTR,0);
+      String name=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_PROXY_NAME_ATTR,null);
+      if ((id!=0) && (name!=null))
+      {
+        ret=new Proxy<QuestDescription>();
+        ret.setId(id);
+        ret.setName(name);
+      }
+    }
+    return ret;
   }
 }

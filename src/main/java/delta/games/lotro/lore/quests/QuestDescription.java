@@ -7,6 +7,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Rewards;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * LOTRO quest description.
@@ -62,10 +63,8 @@ public class QuestDescription implements Identifiable
   private String _bestowerText;
   // TODO Structured!
   private String _objectives;
-  // TODO Use proxies
-  private List<String> _prerequisiteQuests;
-  // TODO Use proxies, single quest...
-  private List<String> _nextQuests;
+  private List<Proxy<QuestDescription>> _prerequisiteQuests;
+  private Proxy<QuestDescription> _nextQuest;
   private Rewards _rewards;
 
   /**
@@ -92,8 +91,8 @@ public class QuestDescription implements Identifiable
     _bestower="";
     _bestowerText="";
     _objectives="";
-    _prerequisiteQuests=new ArrayList<String>();
-    _nextQuests=new ArrayList<String>();
+    _prerequisiteQuests=new ArrayList<Proxy<QuestDescription>>();
+    _nextQuest=null;
     _rewards=new Rewards();
   }
 
@@ -468,38 +467,38 @@ public class QuestDescription implements Identifiable
 
   /**
    * Get the list of the 'pre-requisite' quests for this quest. 
-   * @return a possibly empty list of quest names.
+   * @return a possibly empty list of quest proxies.
    */
-  public List<String> getPrerequisiteQuests()
+  public List<Proxy<QuestDescription>> getPrerequisiteQuests()
   {
     return _prerequisiteQuests;
   }
 
   /**
    * Add a 'pre-requisite' quest.
-   * @param prerequisiteQuest name of quest to add as a 'pre-requisite' quest.
+   * @param prerequisiteQuest quest proxy to add as a 'pre-requisite' quest.
    */
-  public void addPrerequisiteQuest(String prerequisiteQuest)
+  public void addPrerequisiteQuest(Proxy<QuestDescription> prerequisiteQuest)
   {
     _prerequisiteQuests.add(prerequisiteQuest);
   }
 
   /**
-   * Get the list of the 'next' quests for this quest. 
-   * @return a possibly empty list of quest names.
+   * Get the 'next' quest for this quest. 
+   * @return a proxy or <code>null</code>.
    */
-  public List<String> getNextQuests()
+  public Proxy<QuestDescription> getNextQuest()
   {
-    return _nextQuests;
+    return _nextQuest;
   }
 
   /**
-   * Add a 'next' quest.
-   * @param nextQuest name of quest to add as a 'next' quest.
+   * Set the 'next' quest.
+   * @param nextQuest proxy to set as a 'next' quest.
    */
-  public void addNextQuest(String nextQuest)
+  public void setNextQuest(Proxy<QuestDescription> nextQuest)
   {
-    _nextQuests.add(nextQuest);
+    _nextQuest=nextQuest;
   }
 
   /**
@@ -590,9 +589,9 @@ public class QuestDescription implements Identifiable
     {
       sb.append("Prerequisites: ").append(_prerequisiteQuests).append(EndOfLine.NATIVE_EOL);
     }
-    if (_nextQuests.size()>0)
+    if (_nextQuest!=null)
     {
-      sb.append("Next quests: ").append(_nextQuests).append(EndOfLine.NATIVE_EOL);
+      sb.append("Next quest: ").append(_nextQuest).append(EndOfLine.NATIVE_EOL);
     }
     sb.append("Rewards: ").append(_rewards).append(EndOfLine.NATIVE_EOL);
     sb.append("Description: ").append(_description).append(EndOfLine.NATIVE_EOL);

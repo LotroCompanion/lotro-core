@@ -16,6 +16,7 @@ import delta.games.lotro.common.Size;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Writes LOTRO quests to XML files.
@@ -185,27 +186,33 @@ public class QuestXMLWriter
         hd.endElement("","",QuestXMLConstants.REQUIRED_RACE_TAG);
       }
     }
-    
-    writeQuestsList(hd,quest.getPrerequisiteQuests(),QuestXMLConstants.PREREQUISITES_TAG,QuestXMLConstants.PREREQUISITE_TAG,QuestXMLConstants.PREREQUISITE_NAME_ATTR);
-    writeQuestsList(hd,quest.getNextQuests(),QuestXMLConstants.NEXT_QUESTS_TAG,QuestXMLConstants.NEXT_QUEST_TAG,QuestXMLConstants.NEXT_QUEST_NAME_ATTR);
+    // Pre-requisite quests
+    List<Proxy<QuestDescription>> prerequisiteQuests=quest.getPrerequisiteQuests();
+    for(Proxy<QuestDescription> prerequisiteQuest : prerequisiteQuests)
+    {
+      writeQuestProxy(hd,prerequisiteQuest,QuestXMLConstants.PREREQUISITE_TAG);
+    }
+    // Next quest
+    Proxy<QuestDescription> nextQuest=quest.getNextQuest();
+    writeQuestProxy(hd,nextQuest,QuestXMLConstants.NEXT_QUEST_TAG);
     RewardsXMLWriter.write(hd,quest.getQuestRewards());
     hd.endElement("","",QuestXMLConstants.QUEST_TAG);
   }
 
-  private void writeQuestsList(TransformerHandler hd, List<String> questNames, String mainTag, String tag, String attrName) throws Exception
+  private void writeQuestProxy(TransformerHandler hd, Proxy<QuestDescription> proxy, String tag) throws Exception
   {
-    if ((questNames!=null) && (questNames.size()>0))
+    if (proxy!=null)
     {
-      AttributesImpl attrs=new AttributesImpl();
-      hd.startElement("","",mainTag,attrs);
-      for(String questName : questNames)
+      AttributesImpl questAttrs=new AttributesImpl();
+      int id=proxy.getId();
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_PROXY_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      String name=proxy.getName();
+      if (name!=null)
       {
-        AttributesImpl questAttrs=new AttributesImpl();
-        questAttrs.addAttribute("","",attrName,XmlWriter.CDATA,questName);
-        hd.startElement("","",tag,questAttrs);
-        hd.endElement("","",tag);
+        questAttrs.addAttribute("","",QuestXMLConstants.QUEST_PROXY_NAME_ATTR,XmlWriter.CDATA,name);
       }
-      hd.endElement("","",mainTag);
+      hd.startElement("","",tag,questAttrs);
+      hd.endElement("","",tag);
     }
   }
 }
