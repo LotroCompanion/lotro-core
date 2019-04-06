@@ -73,10 +73,10 @@ public class QuestXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
-    String title=quest.getTitle();
-    if (title!=null)
+    String name=quest.getName();
+    if (name.length()>0)
     {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_TITLE_ATTR,XmlWriter.CDATA,title);
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_NAME_ATTR,XmlWriter.CDATA,name);
     }
     String category=quest.getCategory();
     if (category!=null)
@@ -115,8 +115,30 @@ public class QuestXMLWriter
     }
     boolean repeatable=quest.isRepeatable();
     questAttrs.addAttribute("","",QuestXMLConstants.QUEST_REPEATABLE_ATTR,XmlWriter.CDATA,String.valueOf(repeatable));
+    // Instanced?
     boolean instanced=quest.isInstanced();
-    questAttrs.addAttribute("","",QuestXMLConstants.QUEST_INSTANCED_ATTR,XmlWriter.CDATA,String.valueOf(instanced));
+    if (instanced)
+    {
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_INSTANCED_ATTR,XmlWriter.CDATA,String.valueOf(instanced));
+    }
+    // Shareable?
+    boolean shareable=quest.isShareable();
+    if (!shareable)
+    {
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SHAREABLE_ATTR,XmlWriter.CDATA,String.valueOf(shareable));
+    }
+    // Session play?
+    boolean sessionPlay=quest.isSessionPlay();
+    if (sessionPlay)
+    {
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SESSION_PLAY_ATTR,XmlWriter.CDATA,String.valueOf(sessionPlay));
+    }
+    // Auto-bestowed?
+    boolean autoBestowed=quest.isAutoBestowed();
+    if (autoBestowed)
+    {
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,XmlWriter.CDATA,String.valueOf(autoBestowed));
+    }
     String description=quest.getDescription();
     if (description!=null)
     {

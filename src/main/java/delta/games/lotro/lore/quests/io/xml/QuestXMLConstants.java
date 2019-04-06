@@ -20,9 +20,9 @@ public class QuestXMLConstants
    */
   public static final String QUEST_ID_ATTR="id";
   /**
-   * Tag 'quest', attribute 'title'.
+   * Tag 'quest', attribute 'name'.
    */
-  public static final String QUEST_TITLE_ATTR="title";
+  public static final String QUEST_NAME_ATTR="name";
   /**
    * Tag 'quest', attribute 'category'.
    */
@@ -63,6 +63,18 @@ public class QuestXMLConstants
    * Tag 'quest', attribute 'instanced'.
    */
   public static final String QUEST_INSTANCED_ATTR="instanced";
+  /**
+   * Tag 'quest', attribute 'shareable'.
+   */
+  public static final String QUEST_SHAREABLE_ATTR="shareable";
+  /**
+   * Tag 'quest', attribute 'sessionPlay'.
+   */
+  public static final String QUEST_SESSION_PLAY_ATTR="sessionPlay";
+  /**
+   * Tag 'quest', attribute 'autoBestowed'.
+   */
+  public static final String QUEST_AUTO_BESTOWED_ATTR="autoBestowed";
   /**
    * Tag 'quest', attribute 'description'.
    */

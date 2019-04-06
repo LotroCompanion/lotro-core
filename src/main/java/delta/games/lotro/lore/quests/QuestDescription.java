@@ -31,23 +31,40 @@ public class QuestDescription implements Identifiable
   }
 
   private int _identifier;
-  private String _title;
+  /**
+   * Quest name. Can be empty be not <code>null</code>.
+   */
+  private String _name;
   private String _category;
   private String _scope;
   private String _questArc;
+
+  // Requirements
   private Integer _minimumLevel;
   private Integer _maximumLevel;
   private List<String> _requiredClasses;
   private List<String> _requiredRaces;
+
   private Size _size;
   private FACTION _faction;
+  // TODO Use int? cases are: false, xN=3, repeatable
   private boolean _repeatable;
+
+  // Flags
   private boolean _instanced;
+  private boolean _shareable;
+  private boolean _sessionPlay;
+  private boolean _autoBestowed;
+
   private String _description;
+  // TODO Structured!
   private String _bestower;
   private String _bestowerText;
+  // TODO Structured!
   private String _objectives;
+  // TODO Use proxies
   private List<String> _prerequisiteQuests;
+  // TODO Use proxies, single quest...
   private List<String> _nextQuests;
   private Rewards _rewards;
 
@@ -57,7 +74,7 @@ public class QuestDescription implements Identifiable
   public QuestDescription()
   {
     _identifier=0;
-    _title="";
+    _name="";
     _category="";
     _scope="";
     _questArc="";
@@ -68,6 +85,9 @@ public class QuestDescription implements Identifiable
     _faction=FACTION.FREE_PEOPLES;
     _repeatable=false;
     _instanced=false;
+    _shareable=true;
+    _sessionPlay=false;
+    _autoBestowed=false;
     _description="";
     _bestower="";
     _bestowerText="";
@@ -96,21 +116,22 @@ public class QuestDescription implements Identifiable
   }
 
   /**
-   * Get the title of this quest.
-   * @return the title of this quest.
+   * Get the name of this quest.
+   * @return the name of this quest.
    */
-  public String getTitle()
+  public String getName()
   {
-    return _title;
+    return _name;
   }
 
   /**
-   * Set the title of this quest.
-   * @param title the title to set.
+   * Set the name of this quest.
+   * @param name the name to set.
    */
-  public void setTitle(String title)
+  public void setName(String name)
   {
-    _title=title;
+    if (name==null) name="";
+    _name=name;
   }
 
   /**
@@ -320,6 +341,60 @@ public class QuestDescription implements Identifiable
   }
 
   /**
+   * Indicates if this quest is shareable or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isShareable()
+  {
+    return _shareable;
+  }
+
+  /**
+   * Set the 'shareable' flag.
+   * @param shareable value to set.
+   */
+  public void setShareable(boolean shareable)
+  {
+    _shareable=shareable;
+  }
+
+  /**
+   * Indicates if this quest is a session play or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isSessionPlay()
+  {
+    return _sessionPlay;
+  }
+
+  /**
+   * Set the 'session play' flag.
+   * @param sessionPlay value to set.
+   */
+  public void setSessionPlay(boolean sessionPlay)
+  {
+    _sessionPlay=sessionPlay;
+  }
+
+  /**
+   * Indicates if this quest is automatically bestowed or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isAutoBestowed()
+  {
+    return _autoBestowed;
+  }
+
+  /**
+   * Set the 'auto bestowed' flag.
+   * @param autoBestowed value to set.
+   */
+  public void setAutoBestowed(boolean autoBestowed)
+  {
+    _autoBestowed=autoBestowed;
+  }
+
+  /**
    * Get the description of this quest.
    * @return the description of this quest.
    */
@@ -443,7 +518,7 @@ public class QuestDescription implements Identifiable
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Title: ").append(_title);
+    sb.append("Name: ").append(_name);
     if (_identifier!=0)
     {
       sb.append(" (");
@@ -469,6 +544,18 @@ public class QuestDescription implements Identifiable
     if (_instanced)
     {
       sb.append(" (instanced)");
+    }
+    if (!_shareable)
+    {
+      sb.append(" (not shareable)");
+    }
+    if (_sessionPlay)
+    {
+      sb.append(" (session play)");
+    }
+    if (_autoBestowed)
+    {
+      sb.append(" (auto-bestowed)");
     }
     sb.append(EndOfLine.NATIVE_EOL);
     if (_category.length()>0)
@@ -518,6 +605,6 @@ public class QuestDescription implements Identifiable
   @Override
   public String toString()
   {
-    return _title;
+    return _name;
   }
 }

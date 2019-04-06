@@ -48,9 +48,9 @@ public class QuestXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_ID_ATTR,0);
     q.setIdentifier(id);
-    // Title
-    String title=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_TITLE_ATTR,null);
-    q.setTitle(title);
+    // Name
+    String name=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_NAME_ATTR,"");
+    q.setName(name);
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_CATEGORY_ATTR,null);
     q.setCategory(category);
@@ -86,6 +86,15 @@ public class QuestXMLParser
     // Instanced
     boolean instanced=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_INSTANCED_ATTR,false);
     q.setInstanced(instanced);
+    // Shareable
+    boolean shareable=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_SHAREABLE_ATTR,true);
+    q.setShareable(shareable);
+    // Session play
+    boolean sessionPlay=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_SESSION_PLAY_ATTR,false);
+    q.setSessionPlay(sessionPlay);
+    // Auto-bestowed
+    boolean autoBestowed=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,false);
+    q.setAutoBestowed(autoBestowed);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_DESCRIPTION_ATTR,null);
     q.setDescription(description);
@@ -127,8 +136,8 @@ public class QuestXMLParser
     {
       for(Element prerequisiteTag : prerequisiteTags)
       {
-        String name=DOMParsingTools.getStringAttribute(prerequisiteTag.getAttributes(),QuestXMLConstants.PREREQUISITE_NAME_ATTR,null);
-        q.addPrerequisiteQuest(name);
+        String questKey=DOMParsingTools.getStringAttribute(prerequisiteTag.getAttributes(),QuestXMLConstants.PREREQUISITE_NAME_ATTR,null);
+        q.addPrerequisiteQuest(questKey);
       }
     }
     
@@ -138,8 +147,8 @@ public class QuestXMLParser
     {
       for(Element nextQuestTag : nextQuestTags)
       {
-        String name=DOMParsingTools.getStringAttribute(nextQuestTag.getAttributes(),QuestXMLConstants.NEXT_QUEST_NAME_ATTR,null);
-        q.addNextQuest(name);
+        String questKey=DOMParsingTools.getStringAttribute(nextQuestTag.getAttributes(),QuestXMLConstants.NEXT_QUEST_NAME_ATTR,null);
+        q.addNextQuest(questKey);
       }
     }
 
