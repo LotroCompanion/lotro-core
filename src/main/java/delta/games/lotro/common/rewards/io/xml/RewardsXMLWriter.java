@@ -208,16 +208,6 @@ public class RewardsXMLWriter
     {
       attrs.addAttribute("","",RewardsXMLConstants.OBJECT_NAME_ATTR,CDATA,name);
     }
-    String pageURL=object.getObjectURL();
-    if (pageURL!=null)
-    {
-      attrs.addAttribute("","",RewardsXMLConstants.OBJECT_PAGE_URL_ATTR,CDATA,pageURL);
-    }
-    String iconURL=object.getIconURL();
-    if (iconURL!=null)
-    {
-      attrs.addAttribute("","",RewardsXMLConstants.OBJECT_ICON_URL_ATTR,CDATA,iconURL);
-    }
     attrs.addAttribute("","",RewardsXMLConstants.OBJECT_QUANTITY_ATTR,CDATA,String.valueOf(quantity));
     hd.startElement("","",RewardsXMLConstants.OBJECT_TAG,attrs);
     hd.endElement("","",RewardsXMLConstants.OBJECT_TAG);

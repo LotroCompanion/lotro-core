@@ -131,14 +131,6 @@ public class RewardsXMLConstants
    */
   public static final String OBJECT_NAME_ATTR="name";
   /**
-   * Tag 'object', attribute 'iconURL'.
-   */
-  public static final String OBJECT_ICON_URL_ATTR="iconURL";
-  /**
-   * Tag 'object', attribute 'pageURL'.
-   */
-  public static final String OBJECT_PAGE_URL_ATTR="pageURL";
-  /**
    * Tag 'object', attribute 'quantity'.
    */
   public static final String OBJECT_QUANTITY_ATTR="quantity";

@@ -167,15 +167,11 @@ public class RewardsXMLParser
     NamedNodeMap attrs=objectTag.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.OBJECT_ID_ATTR,0);
     String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.OBJECT_NAME_ATTR,null);
-    String pageURL=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.OBJECT_PAGE_URL_ATTR,null);
-    String iconURL=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.OBJECT_ICON_URL_ATTR,null);
     int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.OBJECT_QUANTITY_ATTR,0);
     if (((name!=null) || (id!=0)) && (quantity!=0))
     {
       ObjectItem item=new ObjectItem(name);
       item.setItemId(id);
-      item.setObjectURL(pageURL);
-      item.setIconURL(iconURL);
       set.addObject(item,quantity);
     }
   }
