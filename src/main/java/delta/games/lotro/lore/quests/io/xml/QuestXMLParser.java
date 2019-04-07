@@ -9,6 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
@@ -61,18 +62,6 @@ public class QuestXMLParser
     // Quest arc
     String arc=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_ARC_ATTR,null);
     q.setQuestArc(arc);
-    // Minimum level
-    int minimumLevel=DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_MIN_LEVEL_ATTR,-1);
-    if (minimumLevel!=-1)
-    {
-      q.setMinimumLevel(Integer.valueOf(minimumLevel));
-    }
-    // Maximum level
-    int maximumLevel=DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_MAX_LEVEL_ATTR,-1);
-    if (maximumLevel!=-1)
-    {
-      q.setMaximumLevel(Integer.valueOf(maximumLevel));
-    }
     // Size
     String sizeStr=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SIZE_ATTR,null);
     Size size=Size.valueOf(sizeStr);
@@ -109,26 +98,8 @@ public class QuestXMLParser
     String objectives=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_OBJECTIVES_ATTR,null);
     q.setObjectives(objectives);
 
-    // Required classes
-    List<Element> requiredClassTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.REQUIRED_CLASS_TAG);
-    if (requiredClassTags!=null)
-    {
-      for(Element requiredClassTag : requiredClassTags)
-      {
-        String className=DOMParsingTools.getStringAttribute(requiredClassTag.getAttributes(),QuestXMLConstants.REQUIRED_CLASS_NAME_ATTR,null);
-        q.addRequiredClass(className);
-      }
-    }
-    // Required races
-    List<Element> requiredRaceTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.REQUIRED_RACE_TAG);
-    if (requiredRaceTags!=null)
-    {
-      for(Element requiredRaceTag : requiredRaceTags)
-      {
-        String raceName=DOMParsingTools.getStringAttribute(requiredRaceTag.getAttributes(),QuestXMLConstants.REQUIRED_RACE_NAME_ATTR,null);
-        q.addRequiredRace(raceName);
-      }
-    }
+    // Requirements
+    UsageRequirementsXMLParser.parseRequirements(q.getUsageRequirement(),root);
 
     // Prerequisite quests
     List<Element> prerequisiteTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.PREREQUISITE_TAG);

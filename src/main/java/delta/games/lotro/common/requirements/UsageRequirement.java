@@ -80,6 +80,19 @@ public class UsageRequirement
   }
 
   /**
+   * Add an allowed class.
+   * @param characterClass Class to add.
+   */
+  public void addAllowedClass(CharacterClass characterClass)
+  {
+    if (_classRequirement==null)
+    {
+      _classRequirement=new ClassRequirement();
+    }
+    _classRequirement.addAllowedClass(characterClass);
+  }
+
+  /**
    * Get the race requirement.
    * @return A race requirement or <code>null</code>.
    */
@@ -95,6 +108,19 @@ public class UsageRequirement
   public void setRaceRequirement(RaceRequirement raceRequirement)
   {
     _raceRequirement=raceRequirement;
+  }
+
+  /**
+   * Add an allowed race.
+   * @param race Race to add.
+   */
+  public void addAllowedRace(Race race)
+  {
+    if (_raceRequirement==null)
+    {
+      _raceRequirement=new RaceRequirement();
+    }
+    _raceRequirement.addAllowedRace(race);
   }
 
   /**
@@ -129,6 +155,15 @@ public class UsageRequirement
       }
     }
     return true;
+  }
+
+  /**
+   * Indicates if this requirement is empty or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isEmpty()
+  {
+    return ((_minLevel==null) && (_maxLevel==null) && (_classRequirement==null) && (_raceRequirement==null));
   }
 
   @Override

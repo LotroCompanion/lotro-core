@@ -13,6 +13,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
@@ -94,16 +95,6 @@ public class QuestXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_ARC_ATTR,XmlWriter.CDATA,arc);
     }
-    Integer minLevel=quest.getMinimumLevel();
-    if (minLevel!=null)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel));
-    }
-    Integer maxLevel=quest.getMaximumLevel();
-    if (maxLevel!=null)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_MAX_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(maxLevel));
-    }
     Size size=quest.getSize();
     if (size!=null)
     {
@@ -140,6 +131,9 @@ public class QuestXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,XmlWriter.CDATA,String.valueOf(autoBestowed));
     }
+    // Requirements
+    UsageRequirementsXMLWriter.write(questAttrs,quest.getUsageRequirement());
+    // Description
     String description=quest.getDescription();
     if (description!=null)
     {
@@ -163,29 +157,6 @@ public class QuestXMLWriter
 
     hd.startElement("","",QuestXMLConstants.QUEST_TAG,questAttrs);
 
-    List<String> requiredClasses=quest.getRequiredClasses();
-    if (requiredClasses!=null)
-    {
-      for(String requiredClass : requiredClasses)
-      {
-        AttributesImpl attrs=new AttributesImpl();
-        attrs.addAttribute("","",QuestXMLConstants.REQUIRED_CLASS_NAME_ATTR,XmlWriter.CDATA,requiredClass);
-        hd.startElement("","",QuestXMLConstants.REQUIRED_CLASS_TAG,attrs);
-        hd.endElement("","",QuestXMLConstants.REQUIRED_CLASS_TAG);
-      }
-    }
-    
-    List<String> requiredRaces=quest.getRequiredRaces();
-    if (requiredRaces!=null)
-    {
-      for(String requiredRace : requiredRaces)
-      {
-        AttributesImpl attrs=new AttributesImpl();
-        attrs.addAttribute("","",QuestXMLConstants.REQUIRED_RACE_NAME_ATTR,XmlWriter.CDATA,requiredRace);
-        hd.startElement("","",QuestXMLConstants.REQUIRED_RACE_TAG,attrs);
-        hd.endElement("","",QuestXMLConstants.REQUIRED_RACE_TAG);
-      }
-    }
     // Pre-requisite quests
     List<Proxy<QuestDescription>> prerequisiteQuests=quest.getPrerequisiteQuests();
     for(Proxy<QuestDescription> prerequisiteQuest : prerequisiteQuests)

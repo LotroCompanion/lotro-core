@@ -7,6 +7,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Rewards;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -41,10 +42,7 @@ public class QuestDescription implements Identifiable
   private String _questArc;
 
   // Requirements
-  private Integer _minimumLevel;
-  private Integer _maximumLevel;
-  private List<String> _requiredClasses;
-  private List<String> _requiredRaces;
+  private UsageRequirement _requirement;
 
   private Size _size;
   private FACTION _faction;
@@ -77,9 +75,7 @@ public class QuestDescription implements Identifiable
     _category="";
     _scope="";
     _questArc="";
-    _minimumLevel=null;
-    _maximumLevel=null;
-    _requiredClasses=null;
+    _requirement=new UsageRequirement();
     _size=Size.SOLO;
     _faction=FACTION.FREE_PEOPLES;
     _repeatable=false;
@@ -193,7 +189,7 @@ public class QuestDescription implements Identifiable
    */
   public Integer getMinimumLevel()
   {
-    return _minimumLevel;
+    return _requirement.getMinLevel();
   }
 
   /**
@@ -202,7 +198,7 @@ public class QuestDescription implements Identifiable
    */
   public void setMinimumLevel(Integer minimumLevel)
   {
-    _minimumLevel=minimumLevel;
+    _requirement.setMinLevel(minimumLevel);
   }
 
   /**
@@ -211,7 +207,7 @@ public class QuestDescription implements Identifiable
    */
   public Integer getMaximumLevel()
   {
-    return _maximumLevel;
+    return _requirement.getMaxLevel();
   }
 
   /**
@@ -220,51 +216,16 @@ public class QuestDescription implements Identifiable
    */
   public void setMaximumLevel(Integer maximumLevel)
   {
-    _maximumLevel=maximumLevel;
+    _requirement.setMaxLevel(maximumLevel);
   }
 
   /**
-   * Get a list of required classes.
-   * @return a list of class names or <code>null</code> if none.
+   * Get the usage requirement.
+   * @return the usage requirement.
    */
-  public List<String> getRequiredClasses()
+  public UsageRequirement getUsageRequirement()
   {
-    return _requiredClasses;
-  }
-
-  /**
-   * Add a required class.
-   * @param className Name of class to add.
-   */
-  public void addRequiredClass(String className)
-  {
-    if (_requiredClasses==null)
-    {
-      _requiredClasses=new ArrayList<String>();
-    }
-    _requiredClasses.add(className);
-  }
-
-  /**
-   * Get a list of required races.
-   * @return a list of class names or <code>null</code> if none.
-   */
-  public List<String> getRequiredRaces()
-  {
-    return _requiredRaces;
-  }
-
-  /**
-   * Add a required race.
-   * @param race Name of race to add.
-   */
-  public void addRequiredRace(String race)
-  {
-    if (_requiredRaces==null)
-    {
-      _requiredRaces=new ArrayList<String>();
-    }
-    _requiredRaces.add(race);
+    return _requirement;
   }
 
   /**
@@ -569,21 +530,9 @@ public class QuestDescription implements Identifiable
     {
       sb.append("Arc: ").append(_questArc).append(EndOfLine.NATIVE_EOL);
     }
-    if (_minimumLevel!=null)
+    if (!_requirement.isEmpty())
     {
-      sb.append("Minimum level: ").append(_minimumLevel).append(EndOfLine.NATIVE_EOL);
-    }
-    if (_maximumLevel!=null)
-    {
-      sb.append("Maximum level: ").append(_maximumLevel).append(EndOfLine.NATIVE_EOL);
-    }
-    if (_requiredClasses!=null)
-    {
-      sb.append("Required class(es): ").append(_requiredClasses).append(EndOfLine.NATIVE_EOL);
-    }
-    if (_requiredRaces!=null)
-    {
-      sb.append("Required race(s): ").append(_requiredRaces).append(EndOfLine.NATIVE_EOL);
+      sb.append("Requirements: ").append(_requirement).append(EndOfLine.NATIVE_EOL);
     }
     if (_prerequisiteQuests.size()>0)
     {

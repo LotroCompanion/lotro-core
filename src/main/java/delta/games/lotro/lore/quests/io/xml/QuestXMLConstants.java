@@ -36,14 +36,6 @@ public class QuestXMLConstants
    */
   public static final String QUEST_ARC_ATTR="questArc";
   /**
-   * Tag 'quest', attribute 'minimumLevel'.
-   */
-  public static final String QUEST_MIN_LEVEL_ATTR="minimumLevel";
-  /**
-   * Tag 'quest', attribute 'maximumLevel'.
-   */
-  public static final String QUEST_MAX_LEVEL_ATTR="maximumLevel";
-  /**
    * Tag 'quest', attribute 'type'.
    */
   public static final String QUEST_TYPE_ATTR="type";
@@ -109,22 +101,4 @@ public class QuestXMLConstants
    * 'quest proxy' tag, attribute 'name'.
    */
   public static final String QUEST_PROXY_NAME_ATTR="name";
-
-  /**
-   * Tag 'required class'.
-   */
-  public static final String REQUIRED_CLASS_TAG="requiredClass";
-  /**
-   * Tag 'required class', attribute 'name'.
-   */
-  public static final String REQUIRED_CLASS_NAME_ATTR="name";
-
-  /**
-   * Tag 'required race'.
-   */
-  public static final String REQUIRED_RACE_TAG="requiredRace";
-  /**
-   * Tag 'required race', attribute 'name'.
-   */
-  public static final String REQUIRED_RACE_NAME_ATTR="name";
 }
