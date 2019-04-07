@@ -17,10 +17,11 @@ import delta.games.lotro.common.Virtue;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
-import delta.games.lotro.common.objects.ObjectItem;
 import delta.games.lotro.common.objects.ObjectsSet;
+import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Parser for rewards stored in XML.
@@ -170,8 +171,9 @@ public class RewardsXMLParser
     int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.OBJECT_QUANTITY_ATTR,0);
     if (((name!=null) || (id!=0)) && (quantity!=0))
     {
-      ObjectItem item=new ObjectItem(name);
-      item.setItemId(id);
+      Proxy<Item> item=new Proxy<Item>();
+      item.setName(name);
+      item.setId(id);
       set.addObject(item,quantity);
     }
   }

@@ -15,8 +15,9 @@ import delta.games.lotro.common.Virtue;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
-import delta.games.lotro.common.objects.ObjectItem;
 import delta.games.lotro.common.objects.ObjectsSet;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Writes LOTRO rewards to XML documents.
@@ -184,7 +185,7 @@ public class RewardsXMLWriter
       }
       for(int i=0;i<nb;i++)
       {
-        ObjectItem item=objects.getItem(i);
+        Proxy<Item> item=objects.getItem(i);
         int quantity=objects.getQuantity(i);
         writeObject(hd,item,quantity);
       }
@@ -195,10 +196,10 @@ public class RewardsXMLWriter
     }
   }
 
-  private static void writeObject(TransformerHandler hd, ObjectItem object, int quantity) throws Exception
+  private static void writeObject(TransformerHandler hd, Proxy<Item> object, int quantity) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
-    int id=object.getItemId();
+    int id=object.getId();
     if (id!=0)
     {
       attrs.addAttribute("","",RewardsXMLConstants.OBJECT_ID_ATTR,CDATA,String.valueOf(id));

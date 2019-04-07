@@ -11,11 +11,11 @@ import delta.games.lotro.common.Rewards;
 import delta.games.lotro.common.Skill;
 import delta.games.lotro.common.Title;
 import delta.games.lotro.common.Trait;
-import delta.games.lotro.common.objects.ObjectItem;
 import delta.games.lotro.common.objects.ObjectsSet;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Tool to explore deed rewards.
@@ -105,8 +105,8 @@ public class DeedRewardsExplorer
     int nbItems=objects.getNbObjectItems();
     for(int i=0;i<nbItems;i++)
     {
-      ObjectItem object=objects.getItem(i);
-      int id=object.getItemId();
+      Proxy<Item> object=objects.getItem(i);
+      int id=object.getId();
       if (id!=0)
       {
         _itemIds.add(Integer.valueOf(id));

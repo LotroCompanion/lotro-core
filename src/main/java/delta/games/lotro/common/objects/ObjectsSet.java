@@ -3,13 +3,16 @@ package delta.games.lotro.common.objects;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.utils.Proxy;
+
 /**
  * A set of object items.
  * @author DAM
  */
 public class ObjectsSet
 {
-  private List<ObjectItem> _items;
+  private List<Proxy<Item>> _items;
   private List<Integer> _quantities;
 
   /**
@@ -17,16 +20,16 @@ public class ObjectsSet
    */
   public ObjectsSet()
   {
-    _items=new ArrayList<ObjectItem>();
+    _items=new ArrayList<Proxy<Item>>();
     _quantities=new ArrayList<Integer>();
   }
 
   /**
-   * Add an object item in this set.
-   * @param item Item to add.
+   * Add an item in this set.
+   * @param item Proxy for the item to add.
    * @param quantity Quantity.
    */
-  public void addObject(ObjectItem item, int quantity)
+  public void addObject(Proxy<Item> item, int quantity)
   {
     if ((item!=null) && (quantity>0))
     {
@@ -36,7 +39,7 @@ public class ObjectsSet
   }
 
   /**
-   * Get the number of object items.
+   * Get the number of items.
    * @return a positive integer. 
    */
   public int getNbObjectItems()
@@ -45,8 +48,8 @@ public class ObjectsSet
   }
 
   /**
-   * Get the quantity of a given object item.
-   * @param index Index of the targeted object item.
+   * Get the quantity of a given item.
+   * @param index Index of the targeted item.
    * @return a strictly positive integer.
    */
   public int getQuantity(int index)
@@ -55,11 +58,11 @@ public class ObjectsSet
   }
 
   /**
-   * Get the object item at specified index.
-   * @param index Index of the targeted object item.
-   * @return An object item.
+   * Get the item proxy at specified index.
+   * @param index Index of the targeted item.
+   * @return An item proxy.
    */
-  public ObjectItem getItem(int index)
+  public Proxy<Item> getItem(int index)
   {
     return _items.get(index);
   }
@@ -78,7 +81,7 @@ public class ObjectsSet
         {
           sb.append(", ");
         }
-        ObjectItem item=getItem(i);
+        Proxy<Item> item=getItem(i);
         sb.append(item);
         int quantity=getQuantity(i);
         if (quantity>1)
