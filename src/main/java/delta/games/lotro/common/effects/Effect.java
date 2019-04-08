@@ -15,6 +15,8 @@ public class Effect implements Identifiable
   private String _name;
   // Duration
   private Float _duration;
+  // Icon
+  private Integer _iconId;
   // Stats
   private StatsProvider _statsProvider;
 
@@ -81,6 +83,24 @@ public class Effect implements Identifiable
   }
 
   /**
+   * Get the icon ID.
+   * @return an icon ID or <code>null</code> if none.
+   */
+  public Integer getIconId()
+  {
+    return _iconId;
+  }
+
+  /**
+   * Set the icon ID.
+   * @param iconId Icon ID to set.
+   */
+  public void setIconId(Integer iconId)
+  {
+    _iconId=iconId;
+  }
+
+  /**
    * Get the stats provider.
    * @return the stats provider.
    */
@@ -119,6 +139,10 @@ public class Effect implements Identifiable
     if (_name!=null)
     {
       sb.append(", (name=").append(_name).append(')');
+    }
+    if (_iconId!=null)
+    {
+      sb.append(", (icon=").append(_iconId);
     }
     if (_duration!=null)
     {
