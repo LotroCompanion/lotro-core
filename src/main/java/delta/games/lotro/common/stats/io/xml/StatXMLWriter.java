@@ -52,8 +52,8 @@ public class StatXMLWriter
     int id=description.getIdentifier();
     attrs.addAttribute("","",StatXMLConstants.STAT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Name
-    String name=description.getName();
-    if (name!=null)
+    String name=description.getInternalName();
+    if (name.length()>0)
     {
       attrs.addAttribute("","",StatXMLConstants.STAT_NAME_ATTR,XmlWriter.CDATA,name);
     }

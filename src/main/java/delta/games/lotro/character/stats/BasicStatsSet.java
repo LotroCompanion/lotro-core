@@ -215,7 +215,7 @@ public class BasicStatsSet
         {
           sb.append(separator);
         }
-        sb.append(stat).append(": ");
+        sb.append(stat.getName()).append(": ");
         sb.append((statValue!=null)?statValue:"N/A");
         index++;
       }

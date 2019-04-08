@@ -50,7 +50,7 @@ public class StatXMLParser
     StatDescription description=new StatDescription(id);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_NAME_ATTR,null);
-    description.setName(name);
+    description.setInternalName(name);
     // Key
     String key=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_KEY_ATTR,null);
     description.setKey(key);

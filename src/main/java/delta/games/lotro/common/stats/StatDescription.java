@@ -12,7 +12,7 @@ public class StatDescription implements Identifiable
   private Integer _index;
   private String _key;
   private String _legacyKey;
-  private String _name;
+  private String _internalName;
   private String _legacyName;
   private boolean _isPercentage;
 
@@ -26,7 +26,7 @@ public class StatDescription implements Identifiable
     _index=null;
     _key=null;
     _legacyKey=null;
-    _name="";
+    _internalName="";
     _legacyName=null;
     _isPercentage=false;
   }
@@ -104,22 +104,22 @@ public class StatDescription implements Identifiable
   }
 
   /**
-   * Get the displayable name for this stat.
+   * Get the internal name for this stat.
    * @return a name.
    */
-  public String getName()
+  public String getInternalName()
   {
-    return _name;
+    return _internalName;
   }
 
   /**
-   * Set the name of this stat.
+   * Set the internal name of this stat.
    * @param name the name to set.
    */
-  public void setName(String name)
+  public void setInternalName(String name)
   {
     if (name==null) name="";
-    _name=name;
+    _internalName=name;
   }
 
   /**
@@ -138,6 +138,15 @@ public class StatDescription implements Identifiable
   public void setLegacyName(String legacyName)
   {
     _legacyName=legacyName;
+  }
+
+  /**
+   * Get a displayable name for this stat.
+   * @return a displayable name.
+   */
+  public String getName()
+  {
+    return (_legacyName!=null)?_legacyName:_internalName;
   }
 
   /**
@@ -179,7 +188,8 @@ public class StatDescription implements Identifiable
     {
       sb.append(", index=").append(_index);
     }
-    sb.append(", name=").append(_name);
+    sb.append(", name=").append(_internalName);
+    sb.append(", display name=").append(getName());
     return sb.toString();
   }
 }
