@@ -9,9 +9,11 @@ import delta.games.lotro.common.Identifiable;
 public class StatDescription implements Identifiable
 {
   private int _id;
+  private Integer _index;
   private String _key;
   private String _legacyKey;
   private String _name;
+  private String _legacyName;
   private boolean _isPercentage;
 
   /**
@@ -21,6 +23,12 @@ public class StatDescription implements Identifiable
   public StatDescription(int id)
   {
     _id=id;
+    _index=null;
+    _key=null;
+    _legacyKey=null;
+    _name="";
+    _legacyName=null;
+    _isPercentage=false;
   }
 
   /**
@@ -30,6 +38,24 @@ public class StatDescription implements Identifiable
   public int getIdentifier()
   {
     return _id;
+  }
+
+  /**
+   * Get the stat index.
+   * @return an index or <code>null</code> if none.
+   */
+  public Integer getIndex()
+  {
+    return _index;
+  }
+
+  /**
+   * Set the index for this stat.
+   * @param index the index to set.
+   */
+  public void setIndex(Integer index)
+  {
+    _index=index;
   }
 
   /**
@@ -74,8 +100,7 @@ public class StatDescription implements Identifiable
    */
   public String getPersistenceKey()
   {
-    if (_legacyKey!=null) return _legacyKey;
-    return /*_name + " / " + */_key;
+    return (_legacyKey!=null)?_legacyKey:_key;
   }
 
   /**
@@ -84,7 +109,7 @@ public class StatDescription implements Identifiable
    */
   public String getName()
   {
-    return _name==null?"":_name;
+    return _name;
   }
 
   /**
@@ -93,7 +118,26 @@ public class StatDescription implements Identifiable
    */
   public void setName(String name)
   {
+    if (name==null) name="";
     _name=name;
+  }
+
+  /**
+   * Get the displayable legacy name for this stat.
+   * @return a legacy name or <code>null</code> if none.
+   */
+  public String getLegacyName()
+  {
+    return _legacyName;
+  }
+
+  /**
+   * Set the legacy name of this stat.
+   * @param legacyName the legacy name to set (may be <code>null</code>).
+   */
+  public void setLegacyName(String legacyName)
+  {
+    _legacyName=legacyName;
   }
 
   /**
@@ -117,6 +161,25 @@ public class StatDescription implements Identifiable
   @Override
   public String toString()
   {
-    return "STAT: id="+_id+",key="+_key+", legacyKey="+_legacyKey+", name="+_name;
+    StringBuilder sb=new StringBuilder("STAT: id=");
+    sb.append(_id);
+    if (_key!=null)
+    {
+      sb.append(", key=").append(_key);
+    }
+    if (_legacyKey!=null)
+    {
+      sb.append(", legacyKey=").append(_legacyKey);
+    }
+    if (_legacyName!=null)
+    {
+      sb.append(", legacyName=").append(_legacyName);
+    }
+    if (_index!=null)
+    {
+      sb.append(", index=").append(_index);
+    }
+    sb.append(", name=").append(_name);
+    return sb.toString();
   }
 }
