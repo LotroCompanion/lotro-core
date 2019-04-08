@@ -146,7 +146,7 @@ public class DeedXMLWriter
     }
     // Description
     String description=deed.getDescription();
-    if (description!=null)
+    if (description.length()>0)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }

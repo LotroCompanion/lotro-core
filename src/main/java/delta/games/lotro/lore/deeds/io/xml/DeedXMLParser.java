@@ -112,7 +112,7 @@ public class DeedXMLParser
       deed.setMinLevel(Integer.valueOf(minimumLevel));
     }
     // Description
-    String description=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_DESCRIPTION_ATTR,null);
+    String description=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_DESCRIPTION_ATTR,"");
     deed.setDescription(description);
     // Objectives
     String objectives=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_OBJECTIVES_ATTR,null);

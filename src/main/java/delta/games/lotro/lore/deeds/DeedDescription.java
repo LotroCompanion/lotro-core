@@ -215,6 +215,7 @@ public class DeedDescription implements Identifiable
    */
   public void setDescription(String description)
   {
+    if (description==null) description="";
     _description=description;
   }
 
