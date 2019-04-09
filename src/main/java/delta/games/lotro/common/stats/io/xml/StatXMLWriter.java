@@ -51,11 +51,17 @@ public class StatXMLWriter
     // ID
     int id=description.getIdentifier();
     attrs.addAttribute("","",StatXMLConstants.STAT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Index
+    Integer index=description.getIndex();
+    if (index!=null)
+    {
+      attrs.addAttribute("","",StatXMLConstants.STAT_INDEX_ATTR,XmlWriter.CDATA,index.toString());
+    }
     // Name
     String name=description.getInternalName();
     if (name.length()>0)
     {
-      attrs.addAttribute("","",StatXMLConstants.STAT_NAME_ATTR,XmlWriter.CDATA,name);
+      attrs.addAttribute("","",StatXMLConstants.STAT_INTERNAL_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Key
     String key=description.getKey();
@@ -68,6 +74,12 @@ public class StatXMLWriter
     if (legacyKey!=null)
     {
       attrs.addAttribute("","",StatXMLConstants.STAT_LEGACY_KEY_ATTR,XmlWriter.CDATA,legacyKey);
+    }
+    // Legacy name
+    String legacyName=description.getLegacyName();
+    if (legacyName!=null)
+    {
+      attrs.addAttribute("","",StatXMLConstants.STAT_LEGACY_NAME_ATTR,XmlWriter.CDATA,legacyName);
     }
     // Is percentage
     boolean isPercentage=description.isPercentage();

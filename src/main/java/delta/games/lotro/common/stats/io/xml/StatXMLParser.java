@@ -48,8 +48,14 @@ public class StatXMLParser
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,StatXMLConstants.STAT_ID_ATTR,0);
     StatDescription description=new StatDescription(id);
+    // Index
+    int index=DOMParsingTools.getIntAttribute(attrs,StatXMLConstants.STAT_INDEX_ATTR,-1);
+    if (index>=0)
+    {
+      description.setIndex(Integer.valueOf(index));
+    }
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_NAME_ATTR,null);
+    String name=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_INTERNAL_NAME_ATTR,null);
     description.setInternalName(name);
     // Key
     String key=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_KEY_ATTR,null);
@@ -57,6 +63,9 @@ public class StatXMLParser
     // Legacy key
     String legacyKey=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_LEGACY_KEY_ATTR,null);
     description.setLegacyKey(legacyKey);
+    // Legacy name
+    String legacyName=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_LEGACY_NAME_ATTR,null);
+    description.setLegacyName(legacyName);
     // Is percentage
     boolean isPercentage=DOMParsingTools.getBooleanAttribute(attrs,StatXMLConstants.STAT_IS_PERCENTAGE_ATTR,false);
     description.setPercentage(isPercentage);

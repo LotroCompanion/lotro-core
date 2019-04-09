@@ -20,6 +20,10 @@ public class StatXMLConstants
    */
   public static final String STAT_ID_ATTR="id";
   /**
+   * Tag 'stat', attribute 'index'.
+   */
+  public static final String STAT_INDEX_ATTR="index";
+  /**
    * Tag 'stat', attribute 'key'.
    */
   public static final String STAT_KEY_ATTR="key";
@@ -28,9 +32,13 @@ public class StatXMLConstants
    */
   public static final String STAT_LEGACY_KEY_ATTR="legacyKey";
   /**
+   * Tag 'stat', attribute 'legacyName'.
+   */
+  public static final String STAT_LEGACY_NAME_ATTR="legacyName";
+  /**
    * Tag 'stat', attribute 'name'.
    */
-  public static final String STAT_NAME_ATTR="name";
+  public static final String STAT_INTERNAL_NAME_ATTR="name";
   /**
    * Tag 'stat', attribute 'isPercentage'.
    */
