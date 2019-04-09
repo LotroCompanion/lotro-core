@@ -74,7 +74,6 @@ public class BasicStatsSet
   public List<StatDescription> getSortedStats()
   {
     List<StatDescription> stats=new ArrayList<StatDescription>(_stats.keySet());
-    //Collections.sort(stats,new IdentifiableComparator<StatDescription>());
     Collections.sort(stats,new StatDescriptionComparator());
     return stats;
   }

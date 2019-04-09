@@ -2,6 +2,7 @@ package delta.games.lotro.common.stats;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class StatsRegistry
   private static StatsRegistry _instance=null;
 
   private List<StatDescription> _stats;
+  private List<StatDescription> _indexedStats;
   private Map<Integer,StatDescription> _mapById;
   private Map<String,StatDescription> _mapByKey;
 
@@ -46,6 +48,7 @@ public class StatsRegistry
   public StatsRegistry()
   {
     _stats=new ArrayList<StatDescription>();
+    _indexedStats=new ArrayList<StatDescription>();
     _mapById=new HashMap<Integer,StatDescription>();
     _mapByKey=new HashMap<String,StatDescription>();
   }
@@ -59,13 +62,14 @@ public class StatsRegistry
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File statsRegistryFile=cfg.getFile(DataFiles.STATS);
     loadFromFile(statsRegistryFile);
+    Collections.sort(_indexedStats,new StatDescriptionComparator());
   }
 
   /**
    * Load some stats from a file.
    * @param inputFile Input file.
    */
-  public void loadFromFile(File inputFile)
+  private void loadFromFile(File inputFile)
   {
     long now=System.currentTimeMillis();
     int nbStats=0;
@@ -121,6 +125,11 @@ public class StatsRegistry
       {
         _mapByKey.put(legacyKey,stat);
       }
+      Integer index=stat.getIndex();
+      if (index!=null)
+      {
+        _indexedStats.add(stat);
+      }
     }
   }
 
@@ -172,5 +181,14 @@ public class StatsRegistry
   public List<StatDescription> getAll()
   {
     return new ArrayList<StatDescription>(_stats);
+  }
+
+  /**
+   * Get a list of indexed stats.
+   * @return a list of stats.
+   */
+  public List<StatDescription> getIndexedStats()
+  {
+    return _indexedStats;
   }
 }
