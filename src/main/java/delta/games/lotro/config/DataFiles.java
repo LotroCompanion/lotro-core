@@ -107,6 +107,10 @@ public class DataFiles
    */
   public static final String PASSIVES="passives";
   /**
+   * Passives file.
+   */
+  public static final String CONSUMABLES="consumables";
+  /**
    * Legendary titles file.
    */
   public static final String LEGENDARY_TITLES="legendaryTitles";
