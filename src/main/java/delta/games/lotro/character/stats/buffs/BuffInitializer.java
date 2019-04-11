@@ -1,5 +1,6 @@
 package delta.games.lotro.character.stats.buffs;
 
+import java.io.File;
 import java.util.List;
 
 import delta.games.lotro.character.classes.ClassDescription;
@@ -16,6 +17,10 @@ import delta.games.lotro.common.Race;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.consumables.Consumable;
+import delta.games.lotro.lore.consumables.io.xml.ConsumableXMLParser;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -47,6 +52,7 @@ public class BuffInitializer
     initRacialBuffs(registry);
     initClassBuffs(registry);
     initCaptainBuffs(registry);
+    initConsumableBuffs(registry);
   }
 
   private void initSharedBuffs(BuffRegistry registry)
@@ -98,7 +104,7 @@ public class BuffInitializer
       int iconId=trait.getIconId();
       buff.setIcon("/traitIcons/"+iconId+".png");
       buff.setRequiredRace(race);
-      TraitBuff buffImpl=new TraitBuff(trait);
+      StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
       buff.setImpl(buffImpl);
       registry.registerBuff(buff);
       String key=trait.getKey();
@@ -150,7 +156,7 @@ public class BuffInitializer
       int iconId=trait.getIconId();
       buff.setIcon("/traitIcons/"+iconId+".png");
       buff.setRequiredClass(characterClass);
-      TraitBuff buffImpl=new TraitBuff(trait);
+      StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
       buff.setImpl(buffImpl);
       registry.registerBuff(buff);
       String key=trait.getKey();
@@ -189,6 +195,26 @@ public class BuffInitializer
     }
   }
 
+  private void initConsumableBuffs(BuffRegistry registry)
+  {
+    File consumablesFile=LotroCoreConfig.getInstance().getFile(DataFiles.CONSUMABLES);
+    List<Consumable> consumables=ConsumableXMLParser.parseConsumablesFile(consumablesFile);
+    for(Consumable consumable : consumables)
+    {
+      String id=String.valueOf(consumable.getIdentifier());
+      String category="Consumable: "+consumable.getCategory();
+      String name=consumable.getName();
+      Buff buff=new Buff(id,category,name);
+      String icon="/icons/"+consumable.getIcon()+".png";
+      buff.setIcon(icon);
+      StatsProvider statsProvider=consumable.getProvider();
+      StatsProviderBuffImpl impl=new StatsProviderBuffImpl(statsProvider,1);
+      buff.setImpl(impl);
+      registry.registerBuff(buff);
+    }
+  }
+
+  
   private BasicStatsSet buildBasicSet(StatDescription stat, float value)
   {
     BasicStatsSet ret=new BasicStatsSet();
