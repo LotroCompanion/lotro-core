@@ -1,7 +1,7 @@
 package delta.games.lotro.lore.deeds.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.Rewards;
+import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.deeds.DeedDescription;
 
 /**

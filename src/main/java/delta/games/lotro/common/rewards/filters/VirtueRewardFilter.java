@@ -1,9 +1,9 @@
 package delta.games.lotro.common.rewards.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.Rewards;
 import delta.games.lotro.common.Virtue;
 import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.common.rewards.Rewards;
 
 /**
  * Filter for rewards that contain a virtue.

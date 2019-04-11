@@ -4,7 +4,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Race;
-import delta.games.lotro.common.Rewards;
+import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 
 /**

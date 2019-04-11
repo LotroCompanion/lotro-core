@@ -3,7 +3,7 @@ package delta.games.lotro.common.rewards.filters;
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.common.Reputation;
 import delta.games.lotro.common.ReputationItem;
-import delta.games.lotro.common.Rewards;
+import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.reputation.Faction;
 
 /**

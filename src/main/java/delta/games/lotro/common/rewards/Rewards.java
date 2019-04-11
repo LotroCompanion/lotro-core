@@ -1,8 +1,14 @@
-package delta.games.lotro.common;
+package delta.games.lotro.common.rewards;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.common.Emote;
+import delta.games.lotro.common.Reputation;
+import delta.games.lotro.common.Skill;
+import delta.games.lotro.common.Title;
+import delta.games.lotro.common.Trait;
+import delta.games.lotro.common.Virtue;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.objects.ObjectsSet;
 

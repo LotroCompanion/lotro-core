@@ -1,7 +1,7 @@
 package delta.games.lotro.common.rewards.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.Rewards;
+import delta.games.lotro.common.rewards.Rewards;
 
 /**
  * Filter for rewards that give a class point, or that do NOT give a class point.

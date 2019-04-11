@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import delta.games.lotro.common.Emote;
-import delta.games.lotro.common.Rewards;
 import delta.games.lotro.common.Skill;
 import delta.games.lotro.common.Title;
 import delta.games.lotro.common.Trait;
 import delta.games.lotro.common.objects.ObjectsSet;
+import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
