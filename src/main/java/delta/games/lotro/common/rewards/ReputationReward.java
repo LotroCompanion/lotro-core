@@ -1,4 +1,4 @@
-package delta.games.lotro.common;
+package delta.games.lotro.common.rewards;
 
 import delta.games.lotro.lore.reputation.Faction;
 
@@ -6,7 +6,7 @@ import delta.games.lotro.lore.reputation.Faction;
  * Reputation for a single faction.
  * @author DAM
  */
-public class ReputationItem
+public class ReputationReward
 {
   private int _amount;
   private Faction _faction;
@@ -15,7 +15,7 @@ public class ReputationItem
    * Constructor.
    * @param faction Associated faction.
    */
-  public ReputationItem(Faction faction)
+  public ReputationReward(Faction faction)
   {
     _amount=0;
     _faction=faction;

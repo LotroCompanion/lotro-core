@@ -1,4 +1,4 @@
-package delta.games.lotro.common.objects;
+package delta.games.lotro.common.rewards;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import delta.games.lotro.utils.Proxy;
  * A set of object items.
  * @author DAM
  */
-public class ObjectsSet
+public class ItemsSetReward
 {
   private List<Proxy<Item>> _items;
   private List<Integer> _quantities;
@@ -18,7 +18,7 @@ public class ObjectsSet
   /**
    * Constructor.
    */
-  public ObjectsSet()
+  public ItemsSetReward()
   {
     _items=new ArrayList<Proxy<Item>>();
     _quantities=new ArrayList<Integer>();

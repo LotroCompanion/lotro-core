@@ -4,18 +4,18 @@ import javax.xml.transform.sax.TransformerHandler;
 
 import org.xml.sax.helpers.AttributesImpl;
 
-import delta.games.lotro.common.Emote;
-import delta.games.lotro.common.Reputation;
-import delta.games.lotro.common.ReputationItem;
-import delta.games.lotro.common.Skill;
-import delta.games.lotro.common.Title;
-import delta.games.lotro.common.Trait;
-import delta.games.lotro.common.Virtue;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
-import delta.games.lotro.common.objects.ObjectsSet;
+import delta.games.lotro.common.rewards.EmoteReward;
+import delta.games.lotro.common.rewards.ItemsSetReward;
+import delta.games.lotro.common.rewards.Reputation;
+import delta.games.lotro.common.rewards.ReputationReward;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SkillReward;
+import delta.games.lotro.common.rewards.TitleReward;
+import delta.games.lotro.common.rewards.TraitReward;
+import delta.games.lotro.common.rewards.VirtueReward;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.utils.Proxy;
 
@@ -42,8 +42,8 @@ public class RewardsXMLWriter
     if (!reputation.isEmpty())
     {
       hd.startElement("","",RewardsXMLConstants.REPUTATION_TAG,new AttributesImpl());
-      ReputationItem[] items=reputation.getItems();
-      for(ReputationItem item : items)
+      ReputationReward[] items=reputation.getItems();
+      for(ReputationReward item : items)
       {
         AttributesImpl reputationAttrs=new AttributesImpl();
         String factionName=item.getFaction().getName();
@@ -89,10 +89,10 @@ public class RewardsXMLWriter
       hd.endElement("","",RewardsXMLConstants.ITEM_XP_TAG);
     }
     // Traits
-    Trait[] traits=rewards.getTraits();
+    TraitReward[] traits=rewards.getTraits();
     if (traits!=null)
     {
-      for(Trait trait : traits)
+      for(TraitReward trait : traits)
       {
         AttributesImpl attrs=new AttributesImpl();
         //String id=trait.getIdentifier();
@@ -104,10 +104,10 @@ public class RewardsXMLWriter
       }
     }
     // Skills
-    Skill[] skills=rewards.getSkills();
+    SkillReward[] skills=rewards.getSkills();
     if (skills!=null)
     {
-      for(Skill skill : skills)
+      for(SkillReward skill : skills)
       {
         AttributesImpl attrs=new AttributesImpl();
         //String id=skill.getIdentifier();
@@ -121,10 +121,10 @@ public class RewardsXMLWriter
       }
     }
     // Titles
-    Title[] titles=rewards.getTitles();
+    TitleReward[] titles=rewards.getTitles();
     if (titles!=null)
     {
-      for(Title title : titles)
+      for(TitleReward title : titles)
       {
         AttributesImpl attrs=new AttributesImpl();
         //String id=title.getIdentifier();
@@ -136,10 +136,10 @@ public class RewardsXMLWriter
       }
     }
     // Virtues
-    Virtue[] virtues=rewards.getVirtues();
+    VirtueReward[] virtues=rewards.getVirtues();
     if (virtues!=null)
     {
-      for(Virtue virtue : virtues)
+      for(VirtueReward virtue : virtues)
       {
         AttributesImpl attrs=new AttributesImpl();
         VirtueId id=virtue.getIdentifier();
@@ -154,10 +154,10 @@ public class RewardsXMLWriter
       }
     }
     // Emotes
-    Emote[] emotes=rewards.getEmotes();
+    EmoteReward[] emotes=rewards.getEmotes();
     if (emotes!=null)
     {
-      for(Emote emote : emotes)
+      for(EmoteReward emote : emotes)
       {
         AttributesImpl attrs=new AttributesImpl();
         //String id=emote.getIdentifier();
@@ -174,7 +174,7 @@ public class RewardsXMLWriter
     hd.endElement("","",RewardsXMLConstants.REWARDS_TAG);
   }
 
-  private static void writeObjectsList(TransformerHandler hd, ObjectsSet objects, String mainTag) throws Exception
+  private static void writeObjectsList(TransformerHandler hd, ItemsSetReward objects, String mainTag) throws Exception
   {
     int nb=objects.getNbObjectItems();
     if (nb>0)

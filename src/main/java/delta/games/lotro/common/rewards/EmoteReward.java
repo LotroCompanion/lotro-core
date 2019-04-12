@@ -1,27 +1,27 @@
-package delta.games.lotro.common;
+package delta.games.lotro.common.rewards;
 
 import delta.common.utils.text.EndOfLine;
 
 /**
- * Skill.
+ * Emote.
  * @author DAM
  */
-public class Skill
+public class EmoteReward
 {
   private String _name;
 
   /**
    * Constructor.
-   * @param name Skill's name.
+   * @param name Emote's name.
    */
-  public Skill(String name)
+  public EmoteReward(String name)
   {
     _name=name;
   }
 
   /**
-   * Get the skill's name.
-   * @return the skill's name.
+   * Get the emote's name.
+   * @return the emote's name.
    */
   public String getName()
   {
@@ -29,13 +29,13 @@ public class Skill
   }
 
   /**
-   * Dump the contents of this trait as a string.
+   * Dump the contents of this emote as a string.
    * @return A readable string.
    */
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Skill: ").append(_name);
+    sb.append("Emote: ").append(_name);
     sb.append(EndOfLine.NATIVE_EOL);
     return sb.toString();
   }

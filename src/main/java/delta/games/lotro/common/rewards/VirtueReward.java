@@ -1,12 +1,13 @@
-package delta.games.lotro.common;
+package delta.games.lotro.common.rewards;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.VirtueId;
 
 /**
  * Virtue points reward.
  * @author DAM
  */
-public class Virtue
+public class VirtueReward
 {
   private VirtueId _identifier;
   private int _count;
@@ -16,7 +17,7 @@ public class Virtue
    * @param id Virtue identifier.
    * @param count Virtue points count.
    */
-  public Virtue(VirtueId id, int count)
+  public VirtueReward(VirtueId id, int count)
   {
     _identifier=id;
     _count=count;

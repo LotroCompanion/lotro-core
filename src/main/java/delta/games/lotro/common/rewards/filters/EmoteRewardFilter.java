@@ -1,7 +1,7 @@
 package delta.games.lotro.common.rewards.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.Emote;
+import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.Rewards;
 
 /**
@@ -45,10 +45,10 @@ public class EmoteRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    Emote[] emotes=rewards.getEmotes();
+    EmoteReward[] emotes=rewards.getEmotes();
     if (emotes!=null)
     {
-      for(Emote emote : emotes)
+      for(EmoteReward emote : emotes)
       {
         if (_emote.equals(emote.getName()))
         {

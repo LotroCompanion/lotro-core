@@ -1,8 +1,8 @@
 package delta.games.lotro.common.rewards.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.Skill;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SkillReward;
 
 /**
  * Filter for rewards that contain a skill.
@@ -45,10 +45,10 @@ public class SkillRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    Skill[] skills=rewards.getSkills();
+    SkillReward[] skills=rewards.getSkills();
     if (skills!=null)
     {
-      for(Skill skill : skills)
+      for(SkillReward skill : skills)
       {
         if (_skill.equals(skill.getName()))
         {

@@ -1,4 +1,4 @@
-package delta.games.lotro.common;
+package delta.games.lotro.common.rewards;
 
 import delta.common.utils.text.EndOfLine;
 
@@ -6,7 +6,7 @@ import delta.common.utils.text.EndOfLine;
  * Trait.
  * @author DAM
  */
-public class Trait
+public class TraitReward
 {
   private String _name;
 
@@ -14,7 +14,7 @@ public class Trait
    * Constructor.
    * @param name Trait's name.
    */
-  public Trait(String name)
+  public TraitReward(String name)
   {
     _name=name;
   }

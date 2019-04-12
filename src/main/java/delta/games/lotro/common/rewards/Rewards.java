@@ -3,14 +3,7 @@ package delta.games.lotro.common.rewards;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.common.Emote;
-import delta.games.lotro.common.Reputation;
-import delta.games.lotro.common.Skill;
-import delta.games.lotro.common.Title;
-import delta.games.lotro.common.Trait;
-import delta.games.lotro.common.Virtue;
 import delta.games.lotro.common.money.Money;
-import delta.games.lotro.common.objects.ObjectsSet;
 
 /**
  * Rewards description.
@@ -24,13 +17,13 @@ public class Rewards
   private int _destinyPoints;
   private int _lotroPoints;
   private int _classPoints;
-  private List<Trait> _traits;
-  private List<Skill> _skills;
-  private List<Title> _titles;
-  private List<Virtue> _virtues;
-  private List<Emote> _emotes;
-  private ObjectsSet _objects;
-  private ObjectsSet _selectObjects;
+  private List<TraitReward> _traits;
+  private List<SkillReward> _skills;
+  private List<TitleReward> _titles;
+  private List<VirtueReward> _virtues;
+  private List<EmoteReward> _emotes;
+  private ItemsSetReward _objects;
+  private ItemsSetReward _selectObjects;
 
   /**
    * Constructor.
@@ -48,8 +41,8 @@ public class Rewards
     _titles=null;
     _virtues=null;
     _emotes=null;
-    _objects=new ObjectsSet();
-    _selectObjects=new ObjectsSet();
+    _objects=new ItemsSetReward();
+    _selectObjects=new ItemsSetReward();
   }
 
   /**
@@ -128,7 +121,7 @@ public class Rewards
    * Get the objects reward.
    * @return the objects reward.
    */
-  public ObjectsSet getObjects()
+  public ItemsSetReward getObjects()
   {
     return _objects;
   }
@@ -137,7 +130,7 @@ public class Rewards
    * Get the objects reward.
    * @return the objects reward.
    */
-  public ObjectsSet getSelectObjects()
+  public ItemsSetReward getSelectObjects()
   {
     return _selectObjects;
   }
@@ -164,11 +157,11 @@ public class Rewards
    * Add a trait.
    * @param trait Trait to add.
    */
-  public void addTrait(Trait trait)
+  public void addTrait(TraitReward trait)
   {
     if (_traits==null)
     {
-      _traits=new ArrayList<Trait>();
+      _traits=new ArrayList<TraitReward>();
     }
     _traits.add(trait);
   }
@@ -177,12 +170,12 @@ public class Rewards
    * Get all traits.
    * @return An array of traits or <code>null</code> if there's none.
    */
-  public Trait[] getTraits()
+  public TraitReward[] getTraits()
   {
-    Trait[] ret=null;
+    TraitReward[] ret=null;
     if (_traits!=null)
     {
-      ret=new Trait[_traits.size()];
+      ret=new TraitReward[_traits.size()];
       ret=_traits.toArray(ret);
     }
     return ret;
@@ -192,11 +185,11 @@ public class Rewards
    * Add a skill.
    * @param skill Skill to add.
    */
-  public void addSkill(Skill skill)
+  public void addSkill(SkillReward skill)
   {
     if (_skills==null)
     {
-      _skills=new ArrayList<Skill>();
+      _skills=new ArrayList<SkillReward>();
     }
     _skills.add(skill);
   }
@@ -205,12 +198,12 @@ public class Rewards
    * Get all skills.
    * @return An array of skills or <code>null</code> if there's none.
    */
-  public Skill[] getSkills()
+  public SkillReward[] getSkills()
   {
-    Skill[] ret=null;
+    SkillReward[] ret=null;
     if (_skills!=null)
     {
-      ret=new Skill[_skills.size()];
+      ret=new SkillReward[_skills.size()];
       ret=_skills.toArray(ret);
     }
     return ret;
@@ -220,11 +213,11 @@ public class Rewards
    * Add a title.
    * @param title Title to add.
    */
-  public void addTitle(Title title)
+  public void addTitle(TitleReward title)
   {
     if (_titles==null)
     {
-      _titles=new ArrayList<Title>();
+      _titles=new ArrayList<TitleReward>();
     }
     _titles.add(title);
   }
@@ -233,12 +226,12 @@ public class Rewards
    * Get all titles.
    * @return An array of titles or <code>null</code> if there's none.
    */
-  public Title[] getTitles()
+  public TitleReward[] getTitles()
   {
-    Title[] ret=null;
+    TitleReward[] ret=null;
     if (_titles!=null)
     {
-      ret=new Title[_titles.size()];
+      ret=new TitleReward[_titles.size()];
       ret=_titles.toArray(ret);
     }
     return ret;
@@ -248,11 +241,11 @@ public class Rewards
    * Add a virtue.
    * @param virtue Virtue to add.
    */
-  public void addVirtue(Virtue virtue)
+  public void addVirtue(VirtueReward virtue)
   {
     if (_virtues==null)
     {
-      _virtues=new ArrayList<Virtue>();
+      _virtues=new ArrayList<VirtueReward>();
     }
     _virtues.add(virtue);
   }
@@ -261,12 +254,12 @@ public class Rewards
    * Get all virtues.
    * @return An array of virtues or <code>null</code> if there's none.
    */
-  public Virtue[] getVirtues()
+  public VirtueReward[] getVirtues()
   {
-    Virtue[] ret=null;
+    VirtueReward[] ret=null;
     if (_virtues!=null)
     {
-      ret=new Virtue[_virtues.size()];
+      ret=new VirtueReward[_virtues.size()];
       ret=_virtues.toArray(ret);
     }
     return ret;
@@ -276,11 +269,11 @@ public class Rewards
    * Add a emote.
    * @param emote Emote to add.
    */
-  public void addEmote(Emote emote)
+  public void addEmote(EmoteReward emote)
   {
     if (_emotes==null)
     {
-      _emotes=new ArrayList<Emote>();
+      _emotes=new ArrayList<EmoteReward>();
     }
     _emotes.add(emote);
   }
@@ -289,12 +282,12 @@ public class Rewards
    * Get all titles.
    * @return An array of titles or <code>null</code> if there's none.
    */
-  public Emote[] getEmotes()
+  public EmoteReward[] getEmotes()
   {
-    Emote[] ret=null;
+    EmoteReward[] ret=null;
     if (_emotes!=null)
     {
-      ret=new Emote[_emotes.size()];
+      ret=new EmoteReward[_emotes.size()];
       ret=_emotes.toArray(ret);
     }
     return ret;

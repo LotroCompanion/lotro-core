@@ -1,9 +1,9 @@
 package delta.games.lotro.common.rewards.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.Virtue;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.VirtueReward;
 
 /**
  * Filter for rewards that contain a virtue.
@@ -46,10 +46,10 @@ public class VirtueRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    Virtue[] virtues=rewards.getVirtues();
+    VirtueReward[] virtues=rewards.getVirtues();
     if (virtues!=null)
     {
-      for(Virtue virtue : virtues)
+      for(VirtueReward virtue : virtues)
       {
         if (_virtueId==virtue.getIdentifier())
         {

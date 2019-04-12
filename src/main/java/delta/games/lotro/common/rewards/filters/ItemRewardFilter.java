@@ -1,7 +1,7 @@
 package delta.games.lotro.common.rewards.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.objects.ObjectsSet;
+import delta.games.lotro.common.rewards.ItemsSetReward;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.utils.Proxy;
@@ -47,7 +47,7 @@ public class ItemRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    ObjectsSet objects=rewards.getObjects();
+    ItemsSetReward objects=rewards.getObjects();
     int nbObjects=objects.getNbObjectItems();
     for(int i=0;i<nbObjects;i++)
     {

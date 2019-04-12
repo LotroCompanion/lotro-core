@@ -6,18 +6,18 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.Emote;
-import delta.games.lotro.common.Reputation;
-import delta.games.lotro.common.ReputationItem;
-import delta.games.lotro.common.Skill;
-import delta.games.lotro.common.Title;
-import delta.games.lotro.common.Trait;
-import delta.games.lotro.common.Virtue;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
-import delta.games.lotro.common.objects.ObjectsSet;
+import delta.games.lotro.common.rewards.EmoteReward;
+import delta.games.lotro.common.rewards.ItemsSetReward;
+import delta.games.lotro.common.rewards.Reputation;
+import delta.games.lotro.common.rewards.ReputationReward;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SkillReward;
+import delta.games.lotro.common.rewards.TitleReward;
+import delta.games.lotro.common.rewards.TraitReward;
+import delta.games.lotro.common.rewards.VirtueReward;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
@@ -57,7 +57,7 @@ public class RewardsXMLParser
           Faction faction=FactionsRegistry.getInstance().getByName(factionName);
           if ((faction!=null) && (amount!=0))
           {
-            ReputationItem item=new ReputationItem(faction);
+            ReputationReward item=new ReputationReward(faction);
             item.setAmount(amount);
             reputation.add(item);
           }
@@ -97,7 +97,7 @@ public class RewardsXMLParser
       {
         NamedNodeMap attrs=traitTag.getAttributes();
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TRAIT_NAME_ATTR,"");
-        Trait trait=new Trait(name);
+        TraitReward trait=new TraitReward(name);
         rewards.addTrait(trait);
       }
       // Skills
@@ -106,7 +106,7 @@ public class RewardsXMLParser
       {
         NamedNodeMap attrs=skillTag.getAttributes();
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.SKILL_NAME_ATTR,"");
-        Skill skill=new Skill(name);
+        SkillReward skill=new SkillReward(name);
         rewards.addSkill(skill);
       }
       // Titles
@@ -115,7 +115,7 @@ public class RewardsXMLParser
       {
         NamedNodeMap attrs=titleTag.getAttributes();
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TITLE_NAME_ATTR,"");
-        Title title=new Title(null,name);
+        TitleReward title=new TitleReward(null,name);
         rewards.addTitle(title);
       }
       // Virtues
@@ -128,7 +128,7 @@ public class RewardsXMLParser
         if (id!=null)
         {
           VirtueId virtueId=VirtueId.valueOf(id.toUpperCase());
-          Virtue virtue=new Virtue(virtueId,count);
+          VirtueReward virtue=new VirtueReward(virtueId,count);
           rewards.addVirtue(virtue);
         }
       }
@@ -138,7 +138,7 @@ public class RewardsXMLParser
       {
         NamedNodeMap attrs=emoteTag.getAttributes();
         String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.EMOTE_NAME_ATTR,"");
-        Emote emote=new Emote(name);
+        EmoteReward emote=new EmoteReward(name);
         rewards.addEmote(emote);
       }
 
@@ -155,7 +155,7 @@ public class RewardsXMLParser
     }
   }
 
-  private static void parseObjectsList(List<Element> objectTags, ObjectsSet set)
+  private static void parseObjectsList(List<Element> objectTags, ItemsSetReward set)
   {
     for(Element objectTag : objectTags)
     {
@@ -163,7 +163,7 @@ public class RewardsXMLParser
     }
   }
 
-  private static void parseObject(Element objectTag, ObjectsSet set)
+  private static void parseObject(Element objectTag, ItemsSetReward set)
   {
     NamedNodeMap attrs=objectTag.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.OBJECT_ID_ATTR,0);

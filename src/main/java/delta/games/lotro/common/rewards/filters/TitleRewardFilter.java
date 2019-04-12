@@ -1,8 +1,8 @@
 package delta.games.lotro.common.rewards.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.Title;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.TitleReward;
 
 /**
  * Filter for rewards that contain a title.
@@ -45,10 +45,10 @@ public class TitleRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    Title[] titles=rewards.getTitles();
+    TitleReward[] titles=rewards.getTitles();
     if (titles!=null)
     {
-      for(Title title : titles)
+      for(TitleReward title : titles)
       {
         if (_title.equals(title.getName()))
         {

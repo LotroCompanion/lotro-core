@@ -1,8 +1,8 @@
 package delta.games.lotro.common.rewards.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.Trait;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.TraitReward;
 
 /**
  * Filter for rewards that contain a trait.
@@ -45,10 +45,10 @@ public class TraitRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    Trait[] traits=rewards.getTraits();
+    TraitReward[] traits=rewards.getTraits();
     if (traits!=null)
     {
-      for(Trait trait : traits)
+      for(TraitReward trait : traits)
       {
         if (_trait.equals(trait.getName()))
         {

@@ -1,4 +1,4 @@
-package delta.games.lotro.common;
+package delta.games.lotro.common.rewards;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,14 +14,14 @@ import delta.games.lotro.lore.reputation.Faction;
  */
 public class Reputation
 {
-  private HashMap<String,ReputationItem> _reputations;
+  private HashMap<String,ReputationReward> _reputations;
 
   /**
    * Constructor.
    */
   public Reputation()
   {
-    _reputations=new HashMap<String,ReputationItem>();
+    _reputations=new HashMap<String,ReputationReward>();
   }
 
   /**
@@ -33,7 +33,7 @@ public class Reputation
     boolean ret=true;
     if (_reputations.size()>0)
     {
-      for(ReputationItem item : _reputations.values())
+      for(ReputationReward item : _reputations.values())
       {
         if (item.getAmount()!=0)
         {
@@ -52,16 +52,16 @@ public class Reputation
    * if it does not exist. 
    * @return A reputation item or <code>null</code>.
    */
-  public ReputationItem getReputation(Faction faction, boolean createIfNeeded)
+  public ReputationReward getReputation(Faction faction, boolean createIfNeeded)
   {
-    ReputationItem ret=null;
+    ReputationReward ret=null;
     if (faction!=null)
     {
       String name=faction.getName();
       ret=_reputations.get(name);
       if ((ret==null) && (createIfNeeded))
       {
-        ret=new ReputationItem(faction);
+        ret=new ReputationReward(faction);
         _reputations.put(name,ret);
       }
     }
@@ -72,12 +72,12 @@ public class Reputation
    * Add a reputation item.
    * @param item Reputation item to add.
    */
-  public void add(ReputationItem item)
+  public void add(ReputationReward item)
   {
     if (item!=null)
     {
       Faction faction=item.getFaction();
-      ReputationItem localItem=getReputation(faction,true);
+      ReputationReward localItem=getReputation(faction,true);
       localItem.setAmount(localItem.getAmount()+item.getAmount());
     }
   }
@@ -86,10 +86,10 @@ public class Reputation
    * Get an array of all reputation items.
    * @return A possibly empty array or reputation items.
    */
-  public ReputationItem[] getItems()
+  public ReputationReward[] getItems()
   {
     int nb=_reputations.size();
-    ReputationItem[] ret=new ReputationItem[nb];
+    ReputationReward[] ret=new ReputationReward[nb];
     ret=_reputations.values().toArray(ret);
     return ret;
   }
@@ -105,7 +105,7 @@ public class Reputation
       Collections.sort(factions);
       for(String factionName : factions)
       {
-        ReputationItem reputation=_reputations.get(factionName);
+        ReputationReward reputation=_reputations.get(factionName);
         if (reputation!=null)
         {
           sb.append(reputation);

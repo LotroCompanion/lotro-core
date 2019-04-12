@@ -1,4 +1,4 @@
-package delta.games.lotro.common;
+package delta.games.lotro.common.rewards;
 
 import delta.common.utils.text.EndOfLine;
 
@@ -6,7 +6,7 @@ import delta.common.utils.text.EndOfLine;
  * Title.
  * @author DAM
  */
-public class Title
+public class TitleReward
 {
   private String _identifier;
   private String _name;
@@ -16,7 +16,7 @@ public class Title
    * @param identifier Internal identifier.
    * @param name Title's name.
    */
-  public Title(String identifier, String name)
+  public TitleReward(String identifier, String name)
   {
     _identifier=identifier;
     _name=name;

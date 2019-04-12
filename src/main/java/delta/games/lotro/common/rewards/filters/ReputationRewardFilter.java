@@ -1,8 +1,8 @@
 package delta.games.lotro.common.rewards.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.Reputation;
-import delta.games.lotro.common.ReputationItem;
+import delta.games.lotro.common.rewards.Reputation;
+import delta.games.lotro.common.rewards.ReputationReward;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.reputation.Faction;
 
@@ -48,8 +48,8 @@ public class ReputationRewardFilter implements Filter<Rewards>
       return true;
     }
     Reputation reputation=rewards.getReputation();
-    ReputationItem[] reputationItems=reputation.getItems();
-    for(ReputationItem reputationItem : reputationItems)
+    ReputationReward[] reputationItems=reputation.getItems();
+    for(ReputationReward reputationItem : reputationItems)
     {
       if (_faction==reputationItem.getFaction())
       {

@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import delta.games.lotro.common.Emote;
-import delta.games.lotro.common.Skill;
-import delta.games.lotro.common.Title;
-import delta.games.lotro.common.Trait;
-import delta.games.lotro.common.objects.ObjectsSet;
+import delta.games.lotro.common.rewards.EmoteReward;
+import delta.games.lotro.common.rewards.ItemsSetReward;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SkillReward;
+import delta.games.lotro.common.rewards.TitleReward;
+import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
@@ -61,47 +61,47 @@ public class DeedRewardsExplorer
   {
     Rewards rewards=deed.getRewards();
     // Emotes
-    Emote[] emotes=rewards.getEmotes();
+    EmoteReward[] emotes=rewards.getEmotes();
     if (emotes!=null)
     {
-      for(Emote emote : emotes)
+      for(EmoteReward emote : emotes)
       {
         String emoteName=emote.getName();
         _emotes.add(emoteName);
       }
     }
     // Skills
-    Skill[] skills=rewards.getSkills();
+    SkillReward[] skills=rewards.getSkills();
     if (skills!=null)
     {
-      for(Skill skill : skills)
+      for(SkillReward skill : skills)
       {
         String skillName=skill.getName();
         _skills.add(skillName);
       }
     }
     // Titles
-    Title[] titles=rewards.getTitles();
+    TitleReward[] titles=rewards.getTitles();
     if (titles!=null)
     {
-      for(Title title : titles)
+      for(TitleReward title : titles)
       {
         String titleName=title.getName();
         _titles.add(titleName);
       }
     }
     // Traits
-    Trait[] traits=rewards.getTraits();
+    TraitReward[] traits=rewards.getTraits();
     if (traits!=null)
     {
-      for(Trait trait : traits)
+      for(TraitReward trait : traits)
       {
         String traitName=trait.getName();
         _traits.add(traitName);
       }
     }
     // Items
-    ObjectsSet objects=rewards.getObjects();
+    ItemsSetReward objects=rewards.getObjects();
     int nbItems=objects.getNbObjectItems();
     for(int i=0;i<nbItems;i++)
     {
