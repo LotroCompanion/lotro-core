@@ -10,10 +10,11 @@ import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.common.rewards.EmoteReward;
-import delta.games.lotro.common.rewards.ItemsSetReward;
-import delta.games.lotro.common.rewards.Reputation;
+import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.ReputationReward;
+import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.SkillReward;
 import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
@@ -43,129 +44,169 @@ public class RewardsXMLParser
       Money money=rewards.getMoney();
       MoneyXMLParser.loadMoney(root,money);
 
-      // Reputation
-      Element reputationTag=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.REPUTATION_TAG);
-      if (reputationTag!=null)
+      List<Element> childTags=DOMParsingTools.getChildTags(rewardsTag);
+      for(Element childTag : childTags)
       {
-        Reputation reputation=rewards.getReputation();
-        List<Element> reputationItemsTags=DOMParsingTools.getChildTagsByName(reputationTag,RewardsXMLConstants.REPUTATION_ITEM_TAG);
-        for(Element reputationItemsTag : reputationItemsTags)
-        {
-          NamedNodeMap attrs=reputationItemsTag.getAttributes();
-          String factionName=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_FACTION_ATTR,null);
-          int amount=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_AMOUNT_ATTR,0);
-          Faction faction=FactionsRegistry.getInstance().getByName(factionName);
-          if ((faction!=null) && (amount!=0))
-          {
-            ReputationReward item=new ReputationReward(faction);
-            item.setAmount(amount);
-            reputation.add(item);
-          }
-        }
-      }
-      // Destiny points
-      Element destinyPointsTag=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.DESTINY_POINTS_TAG);
-      if (destinyPointsTag!=null)
-      {
-        NamedNodeMap attrs=destinyPointsTag.getAttributes();
-        int destinyPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_DESTINY_POINTS_ATTR,0);
-        rewards.setDestinyPoints(destinyPoints);
-      }
-      // LOTRO points
-      Element lotroPointsTag=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.LOTRO_POINTS_TAG);
-      if (lotroPointsTag!=null)
-      {
-        NamedNodeMap attrs=lotroPointsTag.getAttributes();
-        int lotroPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_LOTRO_POINTS_ATTR,0);
-        rewards.setLotroPoints(lotroPoints);
-      }
-      // Class points
-      Element classPointsTag=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.CLASS_POINTS_TAG);
-      if (classPointsTag!=null)
-      {
-        NamedNodeMap attrs=classPointsTag.getAttributes();
-        int classPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_CLASS_POINTS_ATTR,0);
-        rewards.setClassPoints(classPoints);
-      }
-      // Item XP
-      Element itemXP=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.ITEM_XP_TAG);
-      rewards.setHasItemXP(itemXP!=null);
-
-      // Traits
-      List<Element> traitTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.TRAIT_TAG);
-      for(Element traitTag : traitTags)
-      {
-        NamedNodeMap attrs=traitTag.getAttributes();
-        String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TRAIT_NAME_ATTR,"");
-        TraitReward trait=new TraitReward(name);
-        rewards.addTrait(trait);
-      }
-      // Skills
-      List<Element> skillTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.SKILL_TAG);
-      for(Element skillTag : skillTags)
-      {
-        NamedNodeMap attrs=skillTag.getAttributes();
-        String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.SKILL_NAME_ATTR,"");
-        SkillReward skill=new SkillReward(name);
-        rewards.addSkill(skill);
-      }
-      // Titles
-      List<Element> titleTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.TITLE_TAG);
-      for(Element titleTag : titleTags)
-      {
-        NamedNodeMap attrs=titleTag.getAttributes();
-        String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TITLE_NAME_ATTR,"");
-        TitleReward title=new TitleReward(null,name);
-        rewards.addTitle(title);
-      }
-      // Virtues
-      List<Element> virtueTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.VIRTUE_TAG);
-      for(Element virtueTag : virtueTags)
-      {
-        NamedNodeMap attrs=virtueTag.getAttributes();
-        String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.VIRTUE_ID_ATTR,null);
-        int count=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.VIRTUE_COUNT_ATTR,1);
-        if (id!=null)
-        {
-          VirtueId virtueId=VirtueId.valueOf(id.toUpperCase());
-          VirtueReward virtue=new VirtueReward(virtueId,count);
-          rewards.addVirtue(virtue);
-        }
-      }
-      // Emotes
-      List<Element> emoteTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.EMOTE_TAG);
-      for(Element emoteTag : emoteTags)
-      {
-        NamedNodeMap attrs=emoteTag.getAttributes();
-        String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.EMOTE_NAME_ATTR,"");
-        EmoteReward emote=new EmoteReward(name);
-        rewards.addEmote(emote);
-      }
-
-      // Objects
-      List<Element> objectTags=DOMParsingTools.getChildTagsByName(rewardsTag,RewardsXMLConstants.OBJECT_TAG,false);
-      parseObjectsList(objectTags,rewards.getObjects());
-      // Select one of objects
-      Element selectOneOf=DOMParsingTools.getChildTagByName(rewardsTag,RewardsXMLConstants.SELECT_ONE_OF_TAG);
-      if (selectOneOf!=null)
-      {
-        List<Element> selectOneOfObjectTags=DOMParsingTools.getChildTagsByName(selectOneOf,RewardsXMLConstants.OBJECT_TAG,false);
-        parseObjectsList(selectOneOfObjectTags,rewards.getSelectObjects());
+        parseRewardTag(rewards, childTag);
       }
     }
   }
 
-  private static void parseObjectsList(List<Element> objectTags, ItemsSetReward set)
+  private static void parseRewardTag(Rewards rewards, Element rewardTag)
   {
-    for(Element objectTag : objectTags)
+    String tagName=rewardTag.getTagName();
+    // Destiny points
+    if (RewardsXMLConstants.DESTINY_POINTS_TAG.equals(tagName))
     {
-      parseObject(objectTag,set);
+      NamedNodeMap attrs=rewardTag.getAttributes();
+      int destinyPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_DESTINY_POINTS_ATTR,0);
+      rewards.setDestinyPoints(destinyPoints);
+    }
+    // LOTRO points
+    else if (RewardsXMLConstants.LOTRO_POINTS_TAG.equals(tagName))
+    {
+      NamedNodeMap attrs=rewardTag.getAttributes();
+      int lotroPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_LOTRO_POINTS_ATTR,0);
+      rewards.setLotroPoints(lotroPoints);
+    }
+    // Class points
+    else if (RewardsXMLConstants.CLASS_POINTS_TAG.equals(tagName))
+    {
+      NamedNodeMap attrs=rewardTag.getAttributes();
+      int classPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_CLASS_POINTS_ATTR,0);
+      rewards.setClassPoints(classPoints);
+    }
+    // Item XP
+    else if (RewardsXMLConstants.ITEM_XP_TAG.equals(tagName))
+    {
+      rewards.setHasItemXP(true);
+    }
+    else
+    {
+      parseRewardElementTag(rewards.getRewardElements(),rewardTag);
     }
   }
 
-  private static void parseObject(Element objectTag, ItemsSetReward set)
+  private static void parseRewardElementTag(List<RewardElement> rewards, Element rewardTag)
   {
-    NamedNodeMap attrs=objectTag.getAttributes();
+    String tagName=rewardTag.getTagName();
+    // Reputation
+    if (RewardsXMLConstants.REPUTATION_TAG.equals(tagName))
+    {
+      for(Element repItemTag : DOMParsingTools.getChildTags(rewardTag))
+      {
+        parseReputationReward(rewards,repItemTag);
+      }
+    }
+    else if (RewardsXMLConstants.REPUTATION_ITEM_TAG.equals(tagName))
+    {
+      parseReputationReward(rewards,rewardTag);
+    }
+    // Trait
+    else if (RewardsXMLConstants.TRAIT_TAG.equals(tagName))
+    {
+      parseTraitReward(rewards,rewardTag);
+    }
+    // Skill
+    else if (RewardsXMLConstants.SKILL_TAG.equals(tagName))
+    {
+      parseSkillReward(rewards,rewardTag);
+    }
+    // Title
+    else if (RewardsXMLConstants.TITLE_TAG.equals(tagName))
+    {
+      parseTitleReward(rewards,rewardTag);
+    }
+    // Virtue
+    else if (RewardsXMLConstants.VIRTUE_TAG.equals(tagName))
+    {
+      parseVirtueReward(rewards,rewardTag);
+    }
+    // Emote
+    else if (RewardsXMLConstants.EMOTE_TAG.equals(tagName))
+    {
+      parseEmoteReward(rewards,rewardTag);
+    }
+    // Item
+    else if (RewardsXMLConstants.OBJECT_TAG.equals(tagName))
+    {
+      parseItemReward(rewards,rewardTag);
+    }
+    // Selectable
+    else if (RewardsXMLConstants.SELECT_ONE_OF_TAG.equals(tagName))
+    {
+      SelectableRewardElement selectableReward=new SelectableRewardElement();
+      List<RewardElement> selectableRewardElements=selectableReward.getElements();
+      List<Element> selectableRewardTags=DOMParsingTools.getChildTags(rewardTag);
+      for(Element selectableRewardTag : selectableRewardTags)
+      {
+        parseRewardElementTag(selectableRewardElements,selectableRewardTag);
+      }
+    }
+  }
+
+  private static void parseReputationReward(List<RewardElement> rewards, Element reputationTag)
+  {
+    NamedNodeMap attrs=reputationTag.getAttributes();
+    String factionName=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_FACTION_ATTR,null);
+    int amount=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_AMOUNT_ATTR,0);
+    Faction faction=FactionsRegistry.getInstance().getByName(factionName);
+    if ((faction!=null) && (amount!=0))
+    {
+      ReputationReward reputationReward=new ReputationReward(faction);
+      reputationReward.setAmount(amount);
+      rewards.add(reputationReward);
+    }
+  }
+
+  private static void parseTraitReward(List<RewardElement> rewards, Element traitTag)
+  {
+    NamedNodeMap attrs=traitTag.getAttributes();
+    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TRAIT_NAME_ATTR,"");
+    TraitReward traitReward=new TraitReward(name);
+    rewards.add(traitReward);
+  }
+
+  private static void parseSkillReward(List<RewardElement> rewards, Element skillTag)
+  {
+    NamedNodeMap attrs=skillTag.getAttributes();
+    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.SKILL_NAME_ATTR,"");
+    SkillReward skillReward=new SkillReward(name);
+    rewards.add(skillReward);
+  }
+
+  private static void parseTitleReward(List<RewardElement> rewards, Element titleTag)
+  {
+    NamedNodeMap attrs=titleTag.getAttributes();
+    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TITLE_NAME_ATTR,"");
+    TitleReward titleReward=new TitleReward(null,name);
+    rewards.add(titleReward);
+  }
+
+  private static void parseVirtueReward(List<RewardElement> rewards, Element virtueTag)
+  {
+    NamedNodeMap attrs=virtueTag.getAttributes();
+    String id=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.VIRTUE_ID_ATTR,null);
+    int count=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.VIRTUE_COUNT_ATTR,1);
+    if (id!=null)
+    {
+      VirtueId virtueId=VirtueId.valueOf(id.toUpperCase());
+      VirtueReward virtueReward=new VirtueReward(virtueId,count);
+      rewards.add(virtueReward);
+    }
+  }
+
+  private static void parseEmoteReward(List<RewardElement> rewards, Element emoteTag)
+  {
+    NamedNodeMap attrs=emoteTag.getAttributes();
+    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.EMOTE_NAME_ATTR,"");
+    EmoteReward emoteReward=new EmoteReward(name);
+    rewards.add(emoteReward);
+  }
+
+  private static void parseItemReward(List<RewardElement> rewards, Element itemTag)
+  {
+    NamedNodeMap attrs=itemTag.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.OBJECT_ID_ATTR,0);
     String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.OBJECT_NAME_ATTR,null);
     int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.OBJECT_QUANTITY_ATTR,0);
@@ -174,7 +215,8 @@ public class RewardsXMLParser
       Proxy<Item> item=new Proxy<Item>();
       item.setName(name);
       item.setId(id);
-      set.addObject(item,quantity);
+      ItemReward itemReward=new ItemReward(item,quantity);
+      rewards.add(itemReward);
     }
   }
 }

@@ -1,7 +1,11 @@
 package delta.games.lotro.common.rewards.filters;
 
+import java.util.List;
+
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.TraitReward;
 
 /**
@@ -45,17 +49,35 @@ public class TraitRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    TraitReward[] traits=rewards.getTraits();
-    if (traits!=null)
+    return accept(rewards.getRewardElements());
+  }
+
+  private boolean accept(List<RewardElement> elements)
+  {
+    for(RewardElement rewardElement : elements)
     {
-      for(TraitReward trait : traits)
+      if (rewardElement instanceof TraitReward)
       {
-        if (_trait.equals(trait.getName()))
+        TraitReward traitReward=(TraitReward)rewardElement;
+        if (accept(traitReward))
+        {
+          return true;
+        }
+      }
+      else if (rewardElement instanceof SelectableRewardElement)
+      {
+        SelectableRewardElement selectable=(SelectableRewardElement)rewardElement;
+        if (accept(selectable.getElements()))
         {
           return true;
         }
       }
     }
     return false;
+  }
+
+  private boolean accept(TraitReward traitReward)
+  {
+    return (_trait.equals(traitReward.getName()));
   }
 }

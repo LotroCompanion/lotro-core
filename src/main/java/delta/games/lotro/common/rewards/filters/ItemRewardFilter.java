@@ -1,8 +1,12 @@
 package delta.games.lotro.common.rewards.filters;
 
+import java.util.List;
+
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.rewards.ItemsSetReward;
+import delta.games.lotro.common.rewards.ItemReward;
+import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.utils.Proxy;
 
@@ -47,15 +51,39 @@ public class ItemRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    ItemsSetReward objects=rewards.getObjects();
-    int nbObjects=objects.getNbObjectItems();
-    for(int i=0;i<nbObjects;i++)
+    return accept(rewards.getRewardElements());
+  }
+
+  private boolean accept(List<RewardElement> elements)
+  {
+    for(RewardElement rewardElement : elements)
     {
-      Proxy<Item> objectItem=objects.getItem(i);
-      if (_itemId.intValue()==objectItem.getId())
+      if (rewardElement instanceof ItemReward)
       {
-        return true;
+        ItemReward titleReward=(ItemReward)rewardElement;
+        if (accept(titleReward))
+        {
+          return true;
+        }
       }
+      else if (rewardElement instanceof SelectableRewardElement)
+      {
+        SelectableRewardElement selectable=(SelectableRewardElement)rewardElement;
+        if (accept(selectable.getElements()))
+        {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private boolean accept(ItemReward itemReward)
+  {
+    Proxy<Item> itemProxy=itemReward.getItemProxy();
+    if (itemProxy!=null)
+    {
+      return (_itemId.intValue()==itemProxy.getId());
     }
     return false;
   }

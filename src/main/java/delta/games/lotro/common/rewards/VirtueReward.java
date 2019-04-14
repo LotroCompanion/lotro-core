@@ -7,7 +7,7 @@ import delta.games.lotro.common.VirtueId;
  * Virtue points reward.
  * @author DAM
  */
-public class VirtueReward
+public class VirtueReward extends RewardElement
 {
   private VirtueId _identifier;
   private int _count;

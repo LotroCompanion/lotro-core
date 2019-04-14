@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import delta.games.lotro.common.rewards.EmoteReward;
-import delta.games.lotro.common.rewards.ItemsSetReward;
+import delta.games.lotro.common.rewards.ItemReward;
+import delta.games.lotro.common.rewards.RewardElement;
+import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SkillReward;
 import delta.games.lotro.common.rewards.TitleReward;
@@ -60,56 +62,57 @@ public class DeedRewardsExplorer
   private void exploreDeed(DeedDescription deed)
   {
     Rewards rewards=deed.getRewards();
-    // Emotes
-    EmoteReward[] emotes=rewards.getEmotes();
-    if (emotes!=null)
+    handleRewardElements(rewards.getRewardElements());
+  }
+
+  private void handleRewardElements(List<RewardElement> rewardElements)
+  {
+    for(RewardElement rewardElement : rewardElements)
     {
-      for(EmoteReward emote : emotes)
+      // Emotes
+      if (rewardElement instanceof EmoteReward)
       {
-        String emoteName=emote.getName();
+        EmoteReward emoteReward=(EmoteReward)rewardElement;
+        String emoteName=emoteReward.getName();
         _emotes.add(emoteName);
       }
-    }
-    // Skills
-    SkillReward[] skills=rewards.getSkills();
-    if (skills!=null)
-    {
-      for(SkillReward skill : skills)
+      // Skills
+      else if (rewardElement instanceof SkillReward)
       {
-        String skillName=skill.getName();
+        SkillReward skillReward=(SkillReward)rewardElement;
+        String skillName=skillReward.getName();
         _skills.add(skillName);
       }
-    }
-    // Titles
-    TitleReward[] titles=rewards.getTitles();
-    if (titles!=null)
-    {
-      for(TitleReward title : titles)
+      // Titles
+      else if (rewardElement instanceof TitleReward)
       {
-        String titleName=title.getName();
+        TitleReward titleReward=(TitleReward)rewardElement;
+        String titleName=titleReward.getName();
         _titles.add(titleName);
       }
-    }
-    // Traits
-    TraitReward[] traits=rewards.getTraits();
-    if (traits!=null)
-    {
-      for(TraitReward trait : traits)
+      // Traits
+      else if (rewardElement instanceof TraitReward)
       {
-        String traitName=trait.getName();
+        TraitReward traitReward=(TraitReward)rewardElement;
+        String traitName=traitReward.getName();
         _traits.add(traitName);
       }
-    }
-    // Items
-    ItemsSetReward objects=rewards.getObjects();
-    int nbItems=objects.getNbObjectItems();
-    for(int i=0;i<nbItems;i++)
-    {
-      Proxy<Item> object=objects.getItem(i);
-      int id=object.getId();
-      if (id!=0)
+      // Items
+      else if (rewardElement instanceof ItemReward)
       {
-        _itemIds.add(Integer.valueOf(id));
+        ItemReward itemReward=(ItemReward)rewardElement;
+        Proxy<Item> object=itemReward.getItemProxy();
+        int id=object.getId();
+        if (id!=0)
+        {
+          _itemIds.add(Integer.valueOf(id));
+        }
+      }
+      // Selectable
+      else if (rewardElement instanceof SelectableRewardElement)
+      {
+        SelectableRewardElement selectableReward=(SelectableRewardElement)rewardElement;
+        handleRewardElements(selectableReward.getElements());
       }
     }
   }

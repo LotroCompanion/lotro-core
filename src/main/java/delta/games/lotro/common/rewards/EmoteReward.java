@@ -3,10 +3,10 @@ package delta.games.lotro.common.rewards;
 import delta.common.utils.text.EndOfLine;
 
 /**
- * Emote.
+ * Emote reward.
  * @author DAM
  */
-public class EmoteReward
+public class EmoteReward extends RewardElement
 {
   private String _name;
 

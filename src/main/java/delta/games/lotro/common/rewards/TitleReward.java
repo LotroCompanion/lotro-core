@@ -3,10 +3,10 @@ package delta.games.lotro.common.rewards;
 import delta.common.utils.text.EndOfLine;
 
 /**
- * Title.
+ * Title reward.
  * @author DAM
  */
-public class TitleReward
+public class TitleReward extends RewardElement
 {
   private String _identifier;
   private String _name;
@@ -21,7 +21,7 @@ public class TitleReward
     _identifier=identifier;
     _name=name;
   }
-  
+
   /**
    * Get the internal identifier.
    * @return the internal identifier.

@@ -1,9 +1,12 @@
 package delta.games.lotro.common.rewards.filters;
 
+import java.util.List;
+
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.rewards.Reputation;
 import delta.games.lotro.common.rewards.ReputationReward;
+import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.lore.reputation.Faction;
 
 /**
@@ -47,15 +50,35 @@ public class ReputationRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    Reputation reputation=rewards.getReputation();
-    ReputationReward[] reputationItems=reputation.getItems();
-    for(ReputationReward reputationItem : reputationItems)
+    return accept(rewards.getRewardElements());
+  }
+
+  private boolean accept(List<RewardElement> elements)
+  {
+    for(RewardElement rewardElement : elements)
     {
-      if (_faction==reputationItem.getFaction())
+      if (rewardElement instanceof ReputationReward)
       {
-        return true;
+        ReputationReward reputationReward=(ReputationReward)rewardElement;
+        if (accept(reputationReward))
+        {
+          return true;
+        }
+      }
+      else if (rewardElement instanceof SelectableRewardElement)
+      {
+        SelectableRewardElement selectable=(SelectableRewardElement)rewardElement;
+        if (accept(selectable.getElements()))
+        {
+          return true;
+        }
       }
     }
     return false;
+  }
+
+  private boolean accept(ReputationReward reputationReward)
+  {
+    return (_faction==reputationReward.getFaction());
   }
 }

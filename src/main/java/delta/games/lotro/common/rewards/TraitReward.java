@@ -3,10 +3,10 @@ package delta.games.lotro.common.rewards;
 import delta.common.utils.text.EndOfLine;
 
 /**
- * Trait.
+ * Trait reward.
  * @author DAM
  */
-public class TraitReward
+public class TraitReward extends RewardElement
 {
   private String _name;
 

@@ -1,8 +1,12 @@
 package delta.games.lotro.common.rewards.filters;
 
+import java.util.List;
+
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.VirtueReward;
 
 /**
@@ -46,17 +50,35 @@ public class VirtueRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    VirtueReward[] virtues=rewards.getVirtues();
-    if (virtues!=null)
+    return accept(rewards.getRewardElements());
+  }
+
+  private boolean accept(List<RewardElement> elements)
+  {
+    for(RewardElement rewardElement : elements)
     {
-      for(VirtueReward virtue : virtues)
+      if (rewardElement instanceof VirtueReward)
       {
-        if (_virtueId==virtue.getIdentifier())
+        VirtueReward virtueReward=(VirtueReward)rewardElement;
+        if (accept(virtueReward))
+        {
+          return true;
+        }
+      }
+      else if (rewardElement instanceof SelectableRewardElement)
+      {
+        SelectableRewardElement selectable=(SelectableRewardElement)rewardElement;
+        if (accept(selectable.getElements()))
         {
           return true;
         }
       }
     }
     return false;
+  }
+
+  private boolean accept(VirtueReward virtueReward)
+  {
+    return (_virtueId==virtueReward.getIdentifier());
   }
 }

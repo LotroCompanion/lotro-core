@@ -1,8 +1,12 @@
 package delta.games.lotro.common.rewards.filters;
 
+import java.util.List;
+
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.common.rewards.EmoteReward;
+import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.common.rewards.SelectableRewardElement;
 
 /**
  * Filter for rewards that contain an emote.
@@ -45,17 +49,35 @@ public class EmoteRewardFilter implements Filter<Rewards>
     {
       return true;
     }
-    EmoteReward[] emotes=rewards.getEmotes();
-    if (emotes!=null)
+    return accept(rewards.getRewardElements());
+  }
+
+  private boolean accept(List<RewardElement> elements)
+  {
+    for(RewardElement rewardElement : elements)
     {
-      for(EmoteReward emote : emotes)
+      if (rewardElement instanceof EmoteReward)
       {
-        if (_emote.equals(emote.getName()))
+        EmoteReward emoteReward=(EmoteReward)rewardElement;
+        if (accept(emoteReward))
+        {
+          return true;
+        }
+      }
+      else if (rewardElement instanceof SelectableRewardElement)
+      {
+        SelectableRewardElement selectable=(SelectableRewardElement)rewardElement;
+        if (accept(selectable.getElements()))
         {
           return true;
         }
       }
     }
     return false;
+  }
+
+  private boolean accept(EmoteReward emoteReward)
+  {
+    return (_emote.equals(emoteReward.getName()));
   }
 }

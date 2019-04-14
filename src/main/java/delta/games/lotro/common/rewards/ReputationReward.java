@@ -6,7 +6,7 @@ import delta.games.lotro.lore.reputation.Faction;
  * Reputation for a single faction.
  * @author DAM
  */
-public class ReputationReward
+public class ReputationReward extends RewardElement
 {
   private int _amount;
   private Faction _faction;
