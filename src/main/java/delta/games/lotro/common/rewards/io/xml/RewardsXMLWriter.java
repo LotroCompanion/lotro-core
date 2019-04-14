@@ -28,7 +28,7 @@ import delta.games.lotro.utils.Proxy;
 public class RewardsXMLWriter
 {
   private static final String CDATA="CDATA";
-  
+
   /**
    * Write a rewards object to an XML document.
    * @param hd Output transformer.
@@ -78,7 +78,9 @@ public class RewardsXMLWriter
     {
       writeRewardElement(hd,rewardElement);
     }
+    hd.endElement("","",RewardsXMLConstants.REWARDS_TAG);
   }
+
   private static void writeRewardElement(TransformerHandler hd, RewardElement rewardElement) throws SAXException
   {
     // Reputation
@@ -120,7 +122,6 @@ public class RewardsXMLWriter
     {
       writeSelectableRewardElement(hd,(SelectableRewardElement)rewardElement);
     }
-    hd.endElement("","",RewardsXMLConstants.REWARDS_TAG);
   }
 
   private static void writeReputationReward(TransformerHandler hd, ReputationReward reputationReward) throws SAXException
@@ -224,6 +225,6 @@ public class RewardsXMLWriter
     {
       writeRewardElement(hd,element);
     }
-    hd.endElement("","",RewardsXMLConstants.OBJECT_TAG);
+    hd.endElement("","",RewardsXMLConstants.SELECT_ONE_OF_TAG);
   }
 }
