@@ -11,6 +11,7 @@ import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.ItemReward;
+import delta.games.lotro.common.rewards.RelicReward;
 import delta.games.lotro.common.rewards.ReputationReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
@@ -20,6 +21,7 @@ import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.utils.Proxy;
@@ -132,6 +134,11 @@ public class RewardsXMLParser
     {
       parseItemReward(rewards,rewardTag);
     }
+    // Relic
+    else if (RewardsXMLConstants.RELIC_TAG.equals(tagName))
+    {
+      parseRelicReward(rewards,rewardTag);
+    }
     // Selectable
     else if (RewardsXMLConstants.SELECT_ONE_OF_TAG.equals(tagName))
     {
@@ -207,9 +214,9 @@ public class RewardsXMLParser
   private static void parseItemReward(List<RewardElement> rewards, Element itemTag)
   {
     NamedNodeMap attrs=itemTag.getAttributes();
-    int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.OBJECT_ID_ATTR,0);
-    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.OBJECT_NAME_ATTR,null);
-    int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.OBJECT_QUANTITY_ATTR,0);
+    int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.PROXY_ID_ATTR,0);
+    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.PROXY_NAME_ATTR,null);
+    int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
     if (((name!=null) || (id!=0)) && (quantity!=0))
     {
       Proxy<Item> item=new Proxy<Item>();
@@ -217,6 +224,22 @@ public class RewardsXMLParser
       item.setId(id);
       ItemReward itemReward=new ItemReward(item,quantity);
       rewards.add(itemReward);
+    }
+  }
+
+  private static void parseRelicReward(List<RewardElement> rewards, Element itemTag)
+  {
+    NamedNodeMap attrs=itemTag.getAttributes();
+    int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.PROXY_ID_ATTR,0);
+    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.PROXY_NAME_ATTR,null);
+    int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
+    if (((name!=null) || (id!=0)) && (quantity!=0))
+    {
+      Proxy<Relic> relic=new Proxy<Relic>();
+      relic.setName(name);
+      relic.setId(id);
+      RelicReward relicReward=new RelicReward(relic,quantity);
+      rewards.add(relicReward);
     }
   }
 }

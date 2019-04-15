@@ -123,15 +123,19 @@ public class RewardsXMLConstants
    */
   public static final String OBJECT_TAG="object";
   /**
-   * Tag 'object', attribute 'id'.
+   * Tag 'relic'.
    */
-  public static final String OBJECT_ID_ATTR="id";
+  public static final String RELIC_TAG="relic";
   /**
-   * Tag 'object', attribute 'name'.
+   * Tag 'object'/'relic', attribute 'id'.
    */
-  public static final String OBJECT_NAME_ATTR="name";
+  public static final String PROXY_ID_ATTR="id";
   /**
-   * Tag 'object', attribute 'quantity'.
+   * Tag 'object'/'relic', attribute 'name'.
    */
-  public static final String OBJECT_QUANTITY_ATTR="quantity";
+  public static final String PROXY_NAME_ATTR="name";
+  /**
+   * Tag 'object'/'relic', attribute 'quantity'.
+   */
+  public static final String QUANTITY_ATTR="quantity";
 }

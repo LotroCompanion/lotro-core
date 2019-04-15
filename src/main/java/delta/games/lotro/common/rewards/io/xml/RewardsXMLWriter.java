@@ -10,6 +10,7 @@ import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.ItemReward;
+import delta.games.lotro.common.rewards.RelicReward;
 import delta.games.lotro.common.rewards.ReputationReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
@@ -19,6 +20,7 @@ import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -118,6 +120,12 @@ public class RewardsXMLWriter
     {
       writeItemReward(hd,(ItemReward)rewardElement);
     }
+    // Relic
+    else if (rewardElement instanceof RelicReward)
+    {
+      writeRelicReward(hd,(RelicReward)rewardElement);
+    }
+    // Selectable
     else if (rewardElement instanceof SelectableRewardElement)
     {
       writeSelectableRewardElement(hd,(SelectableRewardElement)rewardElement);
@@ -196,25 +204,39 @@ public class RewardsXMLWriter
 
   private static void writeItemReward(TransformerHandler hd, ItemReward itemReward) throws SAXException
   {
-    AttributesImpl attrs=new AttributesImpl();
     Proxy<Item> item=itemReward.getItemProxy();
     int id=item.getId();
+    String name=item.getName();
+    int quantity=itemReward.getQuantity();
+    writeQuantifiedReward(hd,RewardsXMLConstants.OBJECT_TAG,id,name,quantity);
+  }
+
+  private static void writeRelicReward(TransformerHandler hd, RelicReward relicReward) throws SAXException
+  {
+    Proxy<Relic> relic=relicReward.getRelicProxy();
+    int id=relic.getId();
+    String name=relic.getName();
+    int quantity=relicReward.getQuantity();
+    writeQuantifiedReward(hd,RewardsXMLConstants.RELIC_TAG,id,name,quantity);
+  }
+
+  private static void writeQuantifiedReward(TransformerHandler hd, String tagName, int id, String name, int quantity) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
     if (id!=0)
     {
-      attrs.addAttribute("","",RewardsXMLConstants.OBJECT_ID_ATTR,CDATA,String.valueOf(id));
+      attrs.addAttribute("","",RewardsXMLConstants.PROXY_ID_ATTR,CDATA,String.valueOf(id));
     }
-    String name=item.getName();
     if (name!=null)
     {
-      attrs.addAttribute("","",RewardsXMLConstants.OBJECT_NAME_ATTR,CDATA,name);
+      attrs.addAttribute("","",RewardsXMLConstants.PROXY_NAME_ATTR,CDATA,name);
     }
-    int quantity=itemReward.getQuantity();
     if (quantity!=1)
     {
-      attrs.addAttribute("","",RewardsXMLConstants.OBJECT_QUANTITY_ATTR,CDATA,String.valueOf(quantity));
+      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_ATTR,CDATA,String.valueOf(quantity));
     }
-    hd.startElement("","",RewardsXMLConstants.OBJECT_TAG,attrs);
-    hd.endElement("","",RewardsXMLConstants.OBJECT_TAG);
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
   }
 
   private static void writeSelectableRewardElement(TransformerHandler hd, SelectableRewardElement selectableReward) throws SAXException

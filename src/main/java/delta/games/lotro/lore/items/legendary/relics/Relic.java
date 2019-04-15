@@ -1,12 +1,13 @@
 package delta.games.lotro.lore.items.legendary.relics;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.common.Identifiable;
 
 /**
  * Relic description.
  * @author DAM
  */
-public class Relic
+public class Relic implements Identifiable
 {
   private int _identifier;
   private String _name;
