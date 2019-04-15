@@ -115,7 +115,8 @@ public class RewardsXMLWriter
     // Emote
     else if (rewardElement instanceof EmoteReward)
     {
-      writeEmoteReward(hd,(EmoteReward)rewardElement);
+      EmoteReward emoteReward=(EmoteReward)rewardElement;
+      writeProxy(hd,RewardsXMLConstants.EMOTE_TAG,emoteReward.getEmoteProxy());
     }
     // Item
     else if (rewardElement instanceof ItemReward)
@@ -180,17 +181,6 @@ public class RewardsXMLWriter
     }
     hd.startElement("","",RewardsXMLConstants.VIRTUE_TAG,attrs);
     hd.endElement("","",RewardsXMLConstants.VIRTUE_TAG);
-  }
-
-  private static void writeEmoteReward(TransformerHandler hd, EmoteReward emoteReward) throws SAXException
-  {
-    AttributesImpl attrs=new AttributesImpl();
-    //String id=emote.getIdentifier();
-    //attrs.addAttribute("","",RewardsXMLConstants.EMOTE_ID_ATTR,CDATA,id);
-    String name=emoteReward.getName();
-    attrs.addAttribute("","",RewardsXMLConstants.EMOTE_NAME_ATTR,CDATA,name);
-    hd.startElement("","",RewardsXMLConstants.EMOTE_TAG,attrs);
-    hd.endElement("","",RewardsXMLConstants.EMOTE_TAG);
   }
 
   private static void writeItemReward(TransformerHandler hd, ItemReward itemReward) throws SAXException

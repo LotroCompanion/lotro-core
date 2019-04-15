@@ -21,6 +21,7 @@ import delta.games.lotro.common.rewards.SkillReward;
 import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
+import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.reputation.Faction;
@@ -207,9 +208,9 @@ public class RewardsXMLParser
 
   private static void parseEmoteReward(List<RewardElement> rewards, Element emoteTag)
   {
-    NamedNodeMap attrs=emoteTag.getAttributes();
-    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.EMOTE_NAME_ATTR,"");
-    EmoteReward emoteReward=new EmoteReward(name);
+    Proxy<EmoteDescription> proxy=new Proxy<EmoteDescription>();
+    parseProxy(emoteTag.getAttributes(),proxy);
+    EmoteReward emoteReward=new EmoteReward(proxy);
     rewards.add(emoteReward);
   }
 

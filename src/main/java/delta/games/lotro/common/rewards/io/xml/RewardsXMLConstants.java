@@ -82,7 +82,6 @@ public class RewardsXMLConstants
    * Tag 'skill', attribute 'name'.
    */
   public static final String SKILL_NAME_ATTR="name";
-
   /**
    * Tag 'title'.
    */
@@ -99,15 +98,10 @@ public class RewardsXMLConstants
    * Tag 'virtue', attribute 'count'.
    */
   public static final String VIRTUE_COUNT_ATTR="count";
-
   /**
    * Tag 'emote'.
    */
   public static final String EMOTE_TAG="emote";
-  /**
-   * Tag 'emote', attribute 'name'.
-   */
-  public static final String EMOTE_NAME_ATTR="name";
 
   /**
    * Tag 'selectOneOf'.

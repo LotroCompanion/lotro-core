@@ -1,6 +1,7 @@
 package delta.games.lotro.common.rewards;
 
-import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.emotes.EmoteDescription;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Emote reward.
@@ -8,41 +9,47 @@ import delta.common.utils.text.EndOfLine;
  */
 public class EmoteReward extends RewardElement
 {
-  private String _name;
+  private Proxy<EmoteDescription> _emote;
 
   /**
    * Constructor.
-   * @param name Emote's name.
+   * @param emoteProxy Emote proxy.
    */
-  public EmoteReward(String name)
+  public EmoteReward(Proxy<EmoteDescription> emoteProxy)
   {
-    _name=name;
+    _emote=emoteProxy;
   }
 
   /**
-   * Get the emote's name.
-   * @return the emote's name.
+   * Get the emote proxy.
+   * @return an emote proxy or <code>null</code> if not set.
+   */
+  public Proxy<EmoteDescription> getEmoteProxy()
+  {
+    return _emote;
+  }
+
+  /**
+   * Get the name of the rewarded emote.
+   * @return an emote name.
    */
   public String getName()
   {
-    return _name;
-  }
-
-  /**
-   * Dump the contents of this emote as a string.
-   * @return A readable string.
-   */
-  public String dump()
-  {
-    StringBuilder sb=new StringBuilder();
-    sb.append("Emote: ").append(_name);
-    sb.append(EndOfLine.NATIVE_EOL);
-    return sb.toString();
+    return _emote.getName();
   }
 
   @Override
   public String toString()
   {
-    return _name;
+    StringBuilder sb=new StringBuilder();
+    if (_emote!=null)
+    {
+      sb.append(_emote.getName());
+    }
+    else
+    {
+      sb.append('?');
+    }
+    return sb.toString();
   }
 }
