@@ -1,6 +1,7 @@
 package delta.games.lotro.common.rewards;
 
-import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Trait reward.
@@ -8,41 +9,47 @@ import delta.common.utils.text.EndOfLine;
  */
 public class TraitReward extends RewardElement
 {
-  private String _name;
+  private Proxy<TraitDescription> _trait;
 
   /**
    * Constructor.
-   * @param name Trait's name.
+   * @param traitProxy Trait proxy.
    */
-  public TraitReward(String name)
+  public TraitReward(Proxy<TraitDescription> traitProxy)
   {
-    _name=name;
+    _trait=traitProxy;
   }
 
   /**
-   * Get the trait's name.
-   * @return the trait's name.
+   * Get the trait proxy.
+   * @return a trait proxy or <code>null</code> if not set.
+   */
+  public Proxy<TraitDescription> getTraitProxy()
+  {
+    return _trait;
+  }
+
+  /**
+   * Get the name of the rewarded trait.
+   * @return a trait name.
    */
   public String getName()
   {
-    return _name;
-  }
-
-  /**
-   * Dump the contents of this trait as a string.
-   * @return A readable string.
-   */
-  public String dump()
-  {
-    StringBuilder sb=new StringBuilder();
-    sb.append("Trait: ").append(_name);
-    sb.append(EndOfLine.NATIVE_EOL);
-    return sb.toString();
+    return _trait.getName();
   }
 
   @Override
   public String toString()
   {
-    return _name;
+    StringBuilder sb=new StringBuilder();
+    if (_trait!=null)
+    {
+      sb.append(_trait.getName());
+    }
+    else
+    {
+      sb.append('?');
+    }
+    return sb.toString();
   }
 }

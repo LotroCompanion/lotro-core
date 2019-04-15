@@ -94,7 +94,8 @@ public class RewardsXMLWriter
     // Trait
     else if (rewardElement instanceof TraitReward)
     {
-      writeTraitReward(hd,(TraitReward)rewardElement);
+      TraitReward traitReward=(TraitReward)rewardElement;
+      writeProxy(hd,RewardsXMLConstants.TRAIT_TAG,traitReward.getTraitProxy());
     }
     // Skill
     else if (rewardElement instanceof SkillReward)
@@ -143,17 +144,6 @@ public class RewardsXMLWriter
     reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_AMOUNT_ATTR,CDATA,String.valueOf(reputationReward.getAmount()));
     hd.startElement("","",RewardsXMLConstants.REPUTATION_ITEM_TAG,reputationAttrs);
     hd.endElement("","",RewardsXMLConstants.REPUTATION_ITEM_TAG);
-  }
-
-  private static void writeTraitReward(TransformerHandler hd, TraitReward traitReward) throws SAXException
-  {
-    AttributesImpl attrs=new AttributesImpl();
-    //String id=trait.getIdentifier();
-    //attrs.addAttribute("","",RewardsXMLConstants.TRAIT_ID_ATTR,CDATA,id);
-    String name=traitReward.getName();
-    attrs.addAttribute("","",RewardsXMLConstants.TRAIT_NAME_ATTR,CDATA,name);
-    hd.startElement("","",RewardsXMLConstants.TRAIT_TAG,attrs);
-    hd.endElement("","",RewardsXMLConstants.TRAIT_TAG);
   }
 
   private static void writeSkillReward(TransformerHandler hd, SkillReward skillReward) throws SAXException

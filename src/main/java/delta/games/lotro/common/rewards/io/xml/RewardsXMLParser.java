@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
@@ -171,9 +172,9 @@ public class RewardsXMLParser
 
   private static void parseTraitReward(List<RewardElement> rewards, Element traitTag)
   {
-    NamedNodeMap attrs=traitTag.getAttributes();
-    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TRAIT_NAME_ATTR,"");
-    TraitReward traitReward=new TraitReward(name);
+    Proxy<TraitDescription> proxy=new Proxy<TraitDescription>();
+    parseProxy(traitTag.getAttributes(),proxy);
+    TraitReward traitReward=new TraitReward(proxy);
     rewards.add(traitReward);
   }
 
