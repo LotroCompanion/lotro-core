@@ -88,11 +88,6 @@ public class RewardsXMLConstants
    */
   public static final String TITLE_TAG="title";
   /**
-   * Tag 'title', attribute 'name'.
-   */
-  public static final String TITLE_NAME_ATTR="name";
-
-  /**
    * Tag 'virtue'.
    */
   public static final String VIRTUE_TAG="virtue";
@@ -101,7 +96,7 @@ public class RewardsXMLConstants
    */
   public static final String VIRTUE_ID_ATTR="id";
   /**
-   * Tag 'virtue', attribute 'id'.
+   * Tag 'virtue', attribute 'count'.
    */
   public static final String VIRTUE_COUNT_ATTR="count";
 

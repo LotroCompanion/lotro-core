@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
@@ -24,6 +25,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
+import delta.games.lotro.lore.titles.TitleDescription;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -184,9 +186,9 @@ public class RewardsXMLParser
 
   private static void parseTitleReward(List<RewardElement> rewards, Element titleTag)
   {
-    NamedNodeMap attrs=titleTag.getAttributes();
-    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.TITLE_NAME_ATTR,"");
-    TitleReward titleReward=new TitleReward(null,name);
+    Proxy<TitleDescription> proxy=new Proxy<TitleDescription>();
+    parseProxy(titleTag.getAttributes(),proxy);
+    TitleReward titleReward=new TitleReward(proxy);
     rewards.add(titleReward);
   }
 
@@ -241,5 +243,13 @@ public class RewardsXMLParser
       RelicReward relicReward=new RelicReward(relic,quantity);
       rewards.add(relicReward);
     }
+  }
+
+  private static void parseProxy(NamedNodeMap attrs, Proxy<? extends Identifiable> proxy)
+  {
+    int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.PROXY_ID_ATTR,0);
+    proxy.setId(id);
+    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.PROXY_NAME_ATTR,null);
+    proxy.setName(name);
   }
 }

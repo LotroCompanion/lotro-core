@@ -5,6 +5,7 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
@@ -103,7 +104,8 @@ public class RewardsXMLWriter
     // Title
     else if (rewardElement instanceof TitleReward)
     {
-      writeTitleReward(hd,(TitleReward)rewardElement);
+      TitleReward titleReward=(TitleReward)rewardElement;
+      writeProxy(hd,RewardsXMLConstants.TITLE_TAG,titleReward.getTitleProxy());
     }
     // Virtue
     else if (rewardElement instanceof VirtueReward)
@@ -166,17 +168,6 @@ public class RewardsXMLWriter
     hd.endElement("","",RewardsXMLConstants.SKILL_TAG);
   }
 
-  private static void writeTitleReward(TransformerHandler hd, TitleReward titleReward) throws SAXException
-  {
-    AttributesImpl attrs=new AttributesImpl();
-    //String id=title.getIdentifier();
-    //attrs.addAttribute("","",RewardsXMLConstants.TITLE_ID_ATTR,CDATA,id);
-    String name=titleReward.getName();
-    attrs.addAttribute("","",RewardsXMLConstants.TITLE_NAME_ATTR,CDATA,name);
-    hd.startElement("","",RewardsXMLConstants.TITLE_TAG,attrs);
-    hd.endElement("","",RewardsXMLConstants.TITLE_TAG);
-  }
-
   private static void writeVirtueReward(TransformerHandler hd, VirtueReward virtueReward) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
@@ -218,6 +209,23 @@ public class RewardsXMLWriter
     String name=relic.getName();
     int quantity=relicReward.getQuantity();
     writeQuantifiedReward(hd,RewardsXMLConstants.RELIC_TAG,id,name,quantity);
+  }
+
+  private static void writeProxy(TransformerHandler hd, String tagName, Proxy<? extends Identifiable> proxy) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    int id=proxy.getId();
+    if (id!=0)
+    {
+      attrs.addAttribute("","",RewardsXMLConstants.PROXY_ID_ATTR,CDATA,String.valueOf(id));
+    }
+    String name=proxy.getName();
+    if (name!=null)
+    {
+      attrs.addAttribute("","",RewardsXMLConstants.PROXY_NAME_ATTR,CDATA,name);
+    }
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
   }
 
   private static void writeQuantifiedReward(TransformerHandler hd, String tagName, int id, String name, int quantity) throws SAXException

@@ -1,6 +1,7 @@
 package delta.games.lotro.common.rewards;
 
-import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.titles.TitleDescription;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Title reward.
@@ -8,54 +9,47 @@ import delta.common.utils.text.EndOfLine;
  */
 public class TitleReward extends RewardElement
 {
-  private String _identifier;
-  private String _name;
+  private Proxy<TitleDescription> _title;
 
   /**
    * Constructor.
-   * @param identifier Internal identifier.
-   * @param name Title's name.
+   * @param titleProxy Title proxy.
    */
-  public TitleReward(String identifier, String name)
+  public TitleReward(Proxy<TitleDescription> titleProxy)
   {
-    _identifier=identifier;
-    _name=name;
+    _title=titleProxy;
   }
 
   /**
-   * Get the internal identifier.
-   * @return the internal identifier.
+   * Get the title proxy.
+   * @return a title proxy or <code>null</code> if not set.
    */
-  public String getIdentifier()
+  public Proxy<TitleDescription> getTitleProxy()
   {
-    return _identifier;
+    return _title;
   }
 
   /**
-   * Get the title's name.
-   * @return the title's name.
+   * Get the name of the rewarded title.
+   * @return a title name.
    */
   public String getName()
   {
-    return _name;
-  }
-
-  /**
-   * Dump the contents of this title as a string.
-   * @return A readable string.
-   */
-  public String dump()
-  {
-    StringBuilder sb=new StringBuilder();
-    sb.append("Title: ").append(_name);
-    sb.append(" (").append(_identifier).append(')');
-    sb.append(EndOfLine.NATIVE_EOL);
-    return sb.toString();
+    return _title.getName();
   }
 
   @Override
   public String toString()
   {
-    return _name;
+    StringBuilder sb=new StringBuilder();
+    if (_title!=null)
+    {
+      sb.append(_title.getName());
+    }
+    else
+    {
+      sb.append('?');
+    }
+    return sb.toString();
   }
 }
