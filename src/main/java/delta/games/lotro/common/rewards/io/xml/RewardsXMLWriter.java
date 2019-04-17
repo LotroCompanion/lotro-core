@@ -1,5 +1,8 @@
 package delta.games.lotro.common.rewards.io.xml;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.xml.sax.SAXException;
@@ -14,6 +17,7 @@ import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RelicReward;
 import delta.games.lotro.common.rewards.ReputationReward;
 import delta.games.lotro.common.rewards.RewardElement;
+import delta.games.lotro.common.rewards.RewardElementComparator;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.SkillReward;
@@ -43,6 +47,15 @@ public class RewardsXMLWriter
     hd.startElement("","",RewardsXMLConstants.REWARDS_TAG,new AttributesImpl());
     Money money=rewards.getMoney();
     MoneyXMLWriter.writeMoney(hd,money);
+    // Reputation rewards
+    List<ReputationReward> reputationRewards=rewards.getRewardElementsOfClass(ReputationReward.class);
+    if (reputationRewards.size()>0)
+    {
+      for(RewardElement rewardElement : reputationRewards)
+      {
+        writeRewardElement(hd,rewardElement);
+      }
+    }
     // Destiny points
     int destinyPoints=rewards.getDestinyPoints();
     if (destinyPoints>0)
@@ -77,9 +90,14 @@ public class RewardsXMLWriter
       hd.startElement("","",RewardsXMLConstants.ITEM_XP_TAG,new AttributesImpl());
       hd.endElement("","",RewardsXMLConstants.ITEM_XP_TAG);
     }
+    // Other rewards
+    Collections.sort(rewards.getRewardElements(),new RewardElementComparator());
     for(RewardElement rewardElement : rewards.getRewardElements())
     {
-      writeRewardElement(hd,rewardElement);
+      if (!(rewardElement instanceof ReputationReward))
+      {
+        writeRewardElement(hd,rewardElement);
+      }
     }
     hd.endElement("","",RewardsXMLConstants.REWARDS_TAG);
   }
