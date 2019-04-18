@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.deeds.io.xml.DeedProxiesResolver;
@@ -22,7 +23,6 @@ public final class DeedsManager
   private List<DeedDescription> _deeds;
   private Map<Integer,DeedDescription> _deedsMapById;
   private Map<String,DeedDescription> _deedsMapByKey;
-  private DeedRewardsExplorer _rewardsExplorer;
 
   /**
    * Get the sole instance of this class.
@@ -51,8 +51,6 @@ public final class DeedsManager
       _deedsMapById.put(Integer.valueOf(deed.getIdentifier()),deed);
       _deedsMapByKey.put(deed.getKey(),deed);
     }
-    _rewardsExplorer=new DeedRewardsExplorer();
-    _rewardsExplorer.doIt(deeds);
   }
 
   /**
@@ -69,9 +67,16 @@ public final class DeedsManager
    * Get the rewards explorer.
    * @return the rewards explorer.
    */
-  public DeedRewardsExplorer getRewardsExplorer()
+  public RewardsExplorer buildRewardsExplorer()
   {
-    return _rewardsExplorer;
+    RewardsExplorer rewardsExplorer=new RewardsExplorer();
+    List<DeedDescription> deeds=getAll();
+    for(DeedDescription deed : deeds)
+    {
+      rewardsExplorer.doIt(deed.getRewards());
+    }
+    rewardsExplorer.resolveProxies();
+    return rewardsExplorer;
   }
 
   /**

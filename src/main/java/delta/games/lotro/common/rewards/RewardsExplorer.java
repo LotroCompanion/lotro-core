@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.deeds;
+package delta.games.lotro.common.rewards;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,24 +6,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import delta.games.lotro.common.rewards.EmoteReward;
-import delta.games.lotro.common.rewards.ItemReward;
-import delta.games.lotro.common.rewards.RewardElement;
-import delta.games.lotro.common.rewards.SelectableRewardElement;
-import delta.games.lotro.common.rewards.Rewards;
-import delta.games.lotro.common.rewards.SkillReward;
-import delta.games.lotro.common.rewards.TitleReward;
-import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.utils.Proxy;
 
 /**
- * Tool to explore deed rewards.
+ * Tool to explore rewards.
  * @author DAM
  */
-public class DeedRewardsExplorer
+public class RewardsExplorer
 {
   private Set<String> _emotes;
   private Set<String> _titles;
@@ -35,7 +27,7 @@ public class DeedRewardsExplorer
   /**
    * Constructor.
    */
-  public DeedRewardsExplorer()
+  public RewardsExplorer()
   {
     _titles=new HashSet<String>();
     _itemIds=new HashSet<Integer>();
@@ -47,21 +39,10 @@ public class DeedRewardsExplorer
 
   /**
    * Perform exploration.
-   * @param deeds Deeds to use.
+   * @param rewards Rewards to use.
    */
-  public void doIt(List<DeedDescription> deeds)
+  public void doIt(Rewards rewards)
   {
-    for(DeedDescription deed : deeds)
-    {
-      exploreDeed(deed);
-    }
-    resolveItems();
-    //showResults();
-  }
-
-  private void exploreDeed(DeedDescription deed)
-  {
-    Rewards rewards=deed.getRewards();
     handleRewardElements(rewards.getRewardElements());
   }
 
@@ -115,6 +96,14 @@ public class DeedRewardsExplorer
         handleRewardElements(selectableReward.getElements());
       }
     }
+  }
+
+  /**
+   * Resolve proxies.
+   */
+  public void resolveProxies()
+  {
+    resolveItems();
   }
 
   private void resolveItems()
@@ -205,15 +194,5 @@ public class DeedRewardsExplorer
     List<Item> ret=new ArrayList<Item>(_items);
     Collections.sort(ret,new ItemNameComparator());
     return ret;
-  }
-
-  /**
-   * Main method for this tool.
-   * @param args Not used.
-   */
-  public static void main(String[] args)
-  {
-    List<DeedDescription> deeds=DeedsManager.getInstance().getAll();
-    new DeedRewardsExplorer().doIt(deeds);
   }
 }
