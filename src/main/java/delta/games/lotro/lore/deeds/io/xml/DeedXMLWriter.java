@@ -11,8 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedProxy;
@@ -118,31 +117,13 @@ public class DeedXMLWriter
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_TYPE_ATTR,XmlWriter.CDATA,type.name());
     }
-    // Character class
-    CharacterClass characterClass=deed.getRequiredClass();
-    if (characterClass!=null)
-    {
-      String cClass=characterClass.getKey();
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CLASS_ATTR,XmlWriter.CDATA,cClass);
-    }
-    // Race
-    Race race=deed.getRequiredRace();
-    if (race!=null)
-    {
-      String cRace=race.getKey();
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_RACE_ATTR,XmlWriter.CDATA,cRace);
-    }
+    // Requirements
+    UsageRequirementsXMLWriter.write(deedAttrs,deed.getUsageRequirement());
     // Category
     String category=deed.getCategory();
     if (category!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CATEGORY_ATTR,XmlWriter.CDATA,category);
-    }
-    // Required level
-    Integer minLevel=deed.getMinLevel();
-    if (minLevel!=null)
-    {
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel));
     }
     // Description
     String description=deed.getDescription();

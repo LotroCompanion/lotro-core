@@ -1,9 +1,14 @@
 package delta.games.lotro.lore.deeds;
 
+import java.util.List;
+
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.requirements.ClassRequirement;
+import delta.games.lotro.common.requirements.RaceRequirement;
+import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 
@@ -21,9 +26,7 @@ public class DeedDescription implements Identifiable
   private String _description;
   private String _objectives;
   // Requirements
-  private Race _race;
-  private CharacterClass _class;
-  private Integer _minLevel;
+  private UsageRequirement _requirement;
   // Rewards
   private Rewards _rewards;
   // Links
@@ -46,9 +49,7 @@ public class DeedDescription implements Identifiable
     _category=null;
     _description="";
     _objectives="";
-    _race=null;
-    _class=null;
-    _minLevel=null;
+    _requirement=new UsageRequirement();
     _rewards=new Rewards();
     _previous=null;
     _next=null;
@@ -147,12 +148,30 @@ public class DeedDescription implements Identifiable
   }
 
   /**
+   * Get the usage requirement.
+   * @return the usage requirement.
+   */
+  public UsageRequirement getUsageRequirement()
+  {
+    return _requirement;
+  }
+
+  /**
    * Get the required race for this deed.
    * @return a race or <code>null</code>.
    */
   public Race getRequiredRace()
   {
-    return _race;
+    RaceRequirement raceReq=_requirement.getRaceRequirement();
+    if (raceReq!=null)
+    {
+      List<Race> races=raceReq.getAllowedRaces();
+      if (races.size()>0)
+      {
+        return races.get(0);
+      }
+    }
+    return null;
   }
 
   /**
@@ -161,7 +180,7 @@ public class DeedDescription implements Identifiable
    */
   public void setRequiredRace(Race race)
   {
-    _race=race;
+    _requirement.addAllowedRace(race);
   }
 
   /**
@@ -170,7 +189,16 @@ public class DeedDescription implements Identifiable
    */
   public CharacterClass getRequiredClass()
   {
-    return _class;
+    ClassRequirement classReq=_requirement.getClassRequirement();
+    if (classReq!=null)
+    {
+      List<CharacterClass> classes=classReq.getAllowedClasses();
+      if (classes.size()>0)
+      {
+        return classes.get(0);
+      }
+    }
+    return null;
   }
 
   /**
@@ -179,7 +207,7 @@ public class DeedDescription implements Identifiable
    */
   public void setRequiredClass(CharacterClass characterClass)
   {
-    _class=characterClass;
+    _requirement.addAllowedClass(characterClass);
   }
 
   /**
@@ -188,7 +216,7 @@ public class DeedDescription implements Identifiable
    */
   public Integer getMinLevel()
   {
-    return _minLevel;
+    return _requirement.getMinLevel();
   }
 
   /**
@@ -197,7 +225,7 @@ public class DeedDescription implements Identifiable
    */
   public void setMinLevel(Integer minLevel)
   {
-    _minLevel=minLevel;
+    _requirement.setMinLevel(minLevel);
   }
 
   /**
@@ -350,62 +378,27 @@ public class DeedDescription implements Identifiable
       sb.append(_category);
       sb.append(')');
     }
-    if (_race!=null)
+    sb.append(EndOfLine.NATIVE_EOL);
+    if (!_requirement.isEmpty())
     {
-      sb.append(" race=");
-      sb.append(_race);
-    }
-    if (_class!=null)
-    {
-      sb.append(" class=");
-      sb.append(_class);
-    }
-    if (_minLevel!=null)
-    {
-      sb.append(" level=");
-      sb.append(_minLevel);
+      sb.append("Requirements: ").append(_requirement).append(EndOfLine.NATIVE_EOL);
     }
     if ((_description!=null) && (_description.length()>0))
     {
-      sb.append(EndOfLine.NATIVE_EOL);
-      sb.append("Description: ").append(_description);
+      sb.append("Description: ").append(_description).append(EndOfLine.NATIVE_EOL);
     }
     if (_objectives.length()>0)
     {
-      sb.append(EndOfLine.NATIVE_EOL);
-      sb.append("Objectives: ").append(_objectives);
+      sb.append("Objectives: ").append(_objectives).append(EndOfLine.NATIVE_EOL);
     }
-    sb.append(EndOfLine.NATIVE_EOL);
     sb.append("Rewards: ").append(_rewards);
+    // TODO Previous, next, parents, children
     return sb.toString();
   }
 
   @Override
   public String toString()
   {
-    StringBuilder sb=new StringBuilder();
-    sb.append("Deed id=").append(_identifier);
-    if (_key!=null)
-    {
-      sb.append(", key=").append(_key);
-    }
-    sb.append(", name=").append(_name);
-    sb.append(", type=").append(_type);
-    if (_category!=null)
-    {
-      sb.append(", category=").append(_category);
-    }
-    if (_class!=null)
-    {
-      sb.append(", class=").append(_class);
-    }
-    if (_minLevel!=null)
-    {
-      sb.append(", min level=").append(_minLevel);
-    }
-    sb.append(", description=").append(_description);
-    sb.append(", objectives=").append(_objectives);
-    sb.append(", rewards=").append(_rewards);
-    return sb.toString();
+    return _name;
   }
 }

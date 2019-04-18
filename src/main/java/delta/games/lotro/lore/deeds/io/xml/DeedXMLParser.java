@@ -9,8 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedProxies;
@@ -94,23 +93,11 @@ public class DeedXMLParser
       type=DeedType.valueOf(typeStr);
     }
     deed.setType(type);
-    // Class
-    String characterClass=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_CLASS_ATTR,"");
-    CharacterClass cClass=CharacterClass.getByKey(characterClass);
-    deed.setRequiredClass(cClass);
-    // Race
-    String race=DOMParsingTools.getStringAttribute(root.getAttributes(),DeedXMLConstants.DEED_RACE_ATTR,"");
-    Race cRace=Race.getByKey(race); 
-    deed.setRequiredRace(cRace);
+    // Requirements
+    UsageRequirementsXMLParser.parseRequirements(deed.getUsageRequirement(),root);
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_CATEGORY_ATTR,null);
     deed.setCategory(category);
-    // Minimum level
-    int minimumLevel=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_MIN_LEVEL_ATTR,-1);
-    if (minimumLevel!=-1)
-    {
-      deed.setMinLevel(Integer.valueOf(minimumLevel));
-    }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_DESCRIPTION_ATTR,"");
     deed.setDescription(description);
