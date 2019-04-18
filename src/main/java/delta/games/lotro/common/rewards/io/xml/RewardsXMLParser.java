@@ -62,30 +62,53 @@ public class RewardsXMLParser
   {
     String tagName=rewardTag.getTagName();
     // Destiny points
-    if (RewardsXMLConstants.DESTINY_POINTS_TAG.equals(tagName))
+    if (RewardsXMLConstants.DESTINY_POINTS.equals(tagName))
     {
       NamedNodeMap attrs=rewardTag.getAttributes();
-      int destinyPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_DESTINY_POINTS_ATTR,0);
+      int destinyPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       rewards.setDestinyPoints(destinyPoints);
     }
     // LOTRO points
-    else if (RewardsXMLConstants.LOTRO_POINTS_TAG.equals(tagName))
+    else if (RewardsXMLConstants.LOTRO_POINTS.equals(tagName))
     {
       NamedNodeMap attrs=rewardTag.getAttributes();
-      int lotroPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_LOTRO_POINTS_ATTR,0);
+      int lotroPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       rewards.setLotroPoints(lotroPoints);
     }
     // Class points
-    else if (RewardsXMLConstants.CLASS_POINTS_TAG.equals(tagName))
+    else if (RewardsXMLConstants.CLASS_POINTS.equals(tagName))
     {
       NamedNodeMap attrs=rewardTag.getAttributes();
-      int classPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_CLASS_POINTS_ATTR,0);
+      int classPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       rewards.setClassPoints(classPoints);
     }
-    // Item XP
-    else if (RewardsXMLConstants.ITEM_XP_TAG.equals(tagName))
+    // XP
+    else if (RewardsXMLConstants.XP.equals(tagName))
     {
-      rewards.setHasItemXP(true);
+      NamedNodeMap attrs=rewardTag.getAttributes();
+      int XP=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
+      rewards.setXp(XP);
+    }
+    // Item XP
+    else if (RewardsXMLConstants.ITEM_XP.equals(tagName))
+    {
+      NamedNodeMap attrs=rewardTag.getAttributes();
+      int itemXP=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
+      rewards.setItemXp(itemXP);
+    }
+    // Mount XP
+    else if (RewardsXMLConstants.MOUNT_XP.equals(tagName))
+    {
+      NamedNodeMap attrs=rewardTag.getAttributes();
+      int mountXP=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
+      rewards.setMountXp(mountXP);
+    }
+    // Glory
+    else if (RewardsXMLConstants.GLORY.equals(tagName))
+    {
+      NamedNodeMap attrs=rewardTag.getAttributes();
+      int glory=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
+      rewards.setGlory(glory);
     }
     else
     {

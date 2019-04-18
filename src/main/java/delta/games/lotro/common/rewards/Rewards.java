@@ -11,8 +11,11 @@ import delta.games.lotro.common.money.Money;
  */
 public class Rewards
 {
-  private boolean _itemXP;
   private Money _money;
+  private int _xp;
+  private int _itemXp;
+  private int _mountXp;
+  private int _glory;
   private int _destinyPoints;
   private int _lotroPoints;
   private int _classPoints;
@@ -23,12 +26,15 @@ public class Rewards
    */
   public Rewards()
   {
-    _itemXP=false;
     _money=new Money();
-    _rewardElements=new ArrayList<RewardElement>();
+    _xp=0;
+    _itemXp=0;
+    _mountXp=0;
+    _glory=0;
     _destinyPoints=0;
     _lotroPoints=0;
     _classPoints=0;
+    _rewardElements=new ArrayList<RewardElement>();
   }
 
   /**
@@ -38,6 +44,78 @@ public class Rewards
   public Money getMoney()
   {
     return _money;
+  }
+
+  /**
+   * Get the rewarded XP.
+   * @return an XP amount.
+   */
+  public int getXp()
+  {
+    return _xp;
+  }
+
+  /**
+   * Set the rewarded XP.
+   * @param xp XP amount to set.
+   */
+  public void setXp(int xp)
+  {
+    _xp=xp;
+  }
+
+  /**
+   * Get the rewarded item XP.
+   * @return an item XP amount.
+   */
+  public int getItemXp()
+  {
+    return _itemXp;
+  }
+
+  /**
+   * Set the rewarded item XP.
+   * @param itemXp Item XP amount to set.
+   */
+  public void setItemXp(int itemXp)
+  {
+    _itemXp=itemXp;
+  }
+
+  /**
+   * Get the rewarded mount XP.
+   * @return a mount XP amount.
+   */
+  public int getMountXp()
+  {
+    return _mountXp;
+  }
+
+  /**
+   * Set the rewarded mount XP.
+   * @param mountXp Mount XP amount to set.
+   */
+  public void setMountXp(int mountXp)
+  {
+    _mountXp=mountXp;
+  }
+
+  /**
+   * Get the rewarded glory amount.
+   * @return a glory (renown/infamy) amount.
+   */
+  public int getGlory()
+  {
+    return _glory;
+  }
+
+  /**
+   * Set the rewarded glory amount.
+   * @param glory glory amount to set.
+   */
+  public void setGlory(int glory)
+  {
+    _glory=glory;
   }
 
   /**
@@ -92,24 +170,6 @@ public class Rewards
   public void setClassPoints(int classPoints)
   {
     _classPoints=classPoints;
-  }
-
-  /**
-   * Indicates if this reward includes item XP.
-   * @return <code>true</code> if it does, <code>false</code> otherwise.
-   */
-  public boolean hasItemXP()
-  {
-    return _itemXP;
-  }
-
-  /**
-   * Set the 'item XP' flag.
-   * @param itemXP Value to set.
-   */
-  public void setHasItemXP(boolean itemXP)
-  {
-    _itemXP=itemXP;
   }
 
   /**
@@ -168,6 +228,30 @@ public class Rewards
       sb.append(_money);
       firstDone=true;
     }
+    if (_xp>0)
+    {
+      if (firstDone) sb.append(" / ");
+      sb.append("XP=").append(_xp);
+      firstDone=true;
+    }
+    if (_itemXp>0)
+    {
+      if (firstDone) sb.append(" / ");
+      sb.append("Item XP=").append(_itemXp);
+      firstDone=true;
+    }
+    if (_mountXp>0)
+    {
+      if (firstDone) sb.append(" / ");
+      sb.append("Mount XP=").append(_mountXp);
+      firstDone=true;
+    }
+    if (_glory>0)
+    {
+      if (firstDone) sb.append(" / ");
+      sb.append("Glory=").append(_glory);
+      firstDone=true;
+    }
     if (_destinyPoints>0)
     {
       if (firstDone) sb.append(" / ");
@@ -184,12 +268,6 @@ public class Rewards
     {
       if (firstDone) sb.append(" / ");
       sb.append(_classPoints).append(" class points");
-      firstDone=true;
-    }
-    if (_itemXP)
-    {
-      if (firstDone) sb.append(" / ");
-      sb.append("Item XP");
       firstDone=true;
     }
     for(RewardElement rewardElement : _rewardElements)

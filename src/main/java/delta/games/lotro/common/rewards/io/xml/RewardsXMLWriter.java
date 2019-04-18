@@ -58,38 +58,25 @@ public class RewardsXMLWriter
     }
     // Destiny points
     int destinyPoints=rewards.getDestinyPoints();
-    if (destinyPoints>0)
-    {
-      AttributesImpl attrs=new AttributesImpl();
-      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_DESTINY_POINTS_ATTR,CDATA,String.valueOf(destinyPoints));
-      hd.startElement("","",RewardsXMLConstants.DESTINY_POINTS_TAG,attrs);
-      hd.endElement("","",RewardsXMLConstants.DESTINY_POINTS_TAG);
-    }
+    writeAmount(hd,RewardsXMLConstants.DESTINY_POINTS,destinyPoints);
     // LOTRO points
     int lotroPoints=rewards.getLotroPoints();
-    if (lotroPoints>0)
-    {
-      AttributesImpl attrs=new AttributesImpl();
-      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_LOTRO_POINTS_ATTR,CDATA,String.valueOf(lotroPoints));
-      hd.startElement("","",RewardsXMLConstants.LOTRO_POINTS_TAG,attrs);
-      hd.endElement("","",RewardsXMLConstants.LOTRO_POINTS_TAG);
-    }
+    writeAmount(hd,RewardsXMLConstants.LOTRO_POINTS,lotroPoints);
     // Class points
     int classPoints=rewards.getClassPoints();
-    if (classPoints>0)
-    {
-      AttributesImpl attrs=new AttributesImpl();
-      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_CLASS_POINTS_ATTR,CDATA,String.valueOf(classPoints));
-      hd.startElement("","",RewardsXMLConstants.CLASS_POINTS_TAG,attrs);
-      hd.endElement("","",RewardsXMLConstants.CLASS_POINTS_TAG);
-    }
+    writeAmount(hd,RewardsXMLConstants.CLASS_POINTS,classPoints);
+    // XP
+    int xp=rewards.getXp();
+    writeAmount(hd,RewardsXMLConstants.XP,xp);
     // Item XP
-    boolean hasItemXP=rewards.hasItemXP();
-    if (hasItemXP)
-    {
-      hd.startElement("","",RewardsXMLConstants.ITEM_XP_TAG,new AttributesImpl());
-      hd.endElement("","",RewardsXMLConstants.ITEM_XP_TAG);
-    }
+    int itemXP=rewards.getItemXp();
+    writeAmount(hd,RewardsXMLConstants.ITEM_XP,itemXP);
+    // Mount XP
+    int mountXP=rewards.getMountXp();
+    writeAmount(hd,RewardsXMLConstants.MOUNT_XP,mountXP);
+    // Glory
+    int glory=rewards.getGlory();
+    writeAmount(hd,RewardsXMLConstants.GLORY,glory);
     // Other rewards
     Collections.sort(rewards.getRewardElements(),new RewardElementComparator());
     for(RewardElement rewardElement : rewards.getRewardElements())
@@ -100,6 +87,17 @@ public class RewardsXMLWriter
       }
     }
     hd.endElement("","",RewardsXMLConstants.REWARDS_TAG);
+  }
+
+  private static void writeAmount(TransformerHandler hd, String tagName, int value) throws Exception
+  {
+    if (value>0)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_ATTR,CDATA,String.valueOf(value));
+      hd.startElement("","",tagName,attrs);
+      hd.endElement("","",tagName);
+    }
   }
 
   private static void writeRewardElement(TransformerHandler hd, RewardElement rewardElement) throws SAXException

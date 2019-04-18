@@ -107,6 +107,16 @@ public class Money
     _copperCoins=copperCoins;
   }
 
+  /**
+   * Set raw value.
+   * @param copperCoins Copper coins count.
+   */
+  public void setRawValue(int copperCoins)
+  {
+    setCopperCoins(copperCoins);
+    simplify();
+  }
+
   private void simplify()
   {
     while (_copperCoins>=100)

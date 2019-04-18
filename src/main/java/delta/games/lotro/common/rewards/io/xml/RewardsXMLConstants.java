@@ -30,36 +30,33 @@ public class RewardsXMLConstants
   public static final String REPUTATION_ITEM_AMOUNT_ATTR="amount";
 
   /**
-   * Tag 'itemXP'.
+   * Tag/attribute 'XP'.
    */
-  public static final String ITEM_XP_TAG="itemXP";
-
+  public static final String XP="XP";
   /**
-   * Tag 'destinyPoints'.
+   * Tag/attribute 'itemXP'.
    */
-  public static final String DESTINY_POINTS_TAG="destinyPoints";
+  public static final String ITEM_XP="itemXP";
   /**
-   * Tag 'destinyPoints', attribute 'quantity'.
+   * Tag/attribute 'mountXP'.
    */
-  public static final String QUANTITY_DESTINY_POINTS_ATTR="quantity";
-
+  public static final String MOUNT_XP="mountXP";
   /**
-   * Tag 'lotroPoints'.
+   * Tag/attribute 'destinyPoints'.
    */
-  public static final String LOTRO_POINTS_TAG="lotroPoints";
+  public static final String DESTINY_POINTS="destinyPoints";
   /**
-   * Tag 'lotroPoints', attribute 'quantity'.
+   * Tag/attribute 'lotroPoints'.
    */
-  public static final String QUANTITY_LOTRO_POINTS_ATTR="quantity";
-
+  public static final String LOTRO_POINTS="lotroPoints";
   /**
-   * Tag 'classPoints'.
+   * Tag/attribute 'classPoints'.
    */
-  public static final String CLASS_POINTS_TAG="classPoints";
+  public static final String CLASS_POINTS="classPoints";
   /**
-   * Tag 'classPoints', attribute 'quantity'.
+   * Tag/attribute 'glory'.
    */
-  public static final String QUANTITY_CLASS_POINTS_ATTR="quantity";
+  public static final String GLORY="glory";
 
   /**
    * Tag 'trait'.
@@ -114,8 +111,9 @@ public class RewardsXMLConstants
    * Tag 'object'/'relic', attribute 'name'.
    */
   public static final String PROXY_NAME_ATTR="name";
+
   /**
-   * Tag 'object'/'relic', attribute 'quantity'.
+   * Attribute 'quantity'.
    */
   public static final String QUANTITY_ATTR="quantity";
 }
