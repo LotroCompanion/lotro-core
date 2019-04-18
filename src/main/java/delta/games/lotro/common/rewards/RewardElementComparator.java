@@ -26,6 +26,7 @@ public class RewardElementComparator implements Comparator<RewardElement>
     _classes.add(EmoteReward.class);
     _classes.add(ItemReward.class);
     _classes.add(SelectableRewardElement.class);
+    _classes.add(RelicReward.class);
   }
 
   @Override
