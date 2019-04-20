@@ -157,48 +157,12 @@ public class DeedDescription implements Identifiable
   }
 
   /**
-   * Get the required race for this deed.
-   * @return a race or <code>null</code>.
-   */
-  public Race getRequiredRace()
-  {
-    RaceRequirement raceReq=_requirement.getRaceRequirement();
-    if (raceReq!=null)
-    {
-      List<Race> races=raceReq.getAllowedRaces();
-      if (races.size()>0)
-      {
-        return races.get(0);
-      }
-    }
-    return null;
-  }
-
-  /**
    * Set the required race for this deed.
    * @param race the race to set (or <code>null</code>).
    */
   public void setRequiredRace(Race race)
   {
     _requirement.addAllowedRace(race);
-  }
-
-  /**
-   * Get the required class for this deed.
-   * @return a character class or <code>null</code>.
-   */
-  public CharacterClass getRequiredClass()
-  {
-    ClassRequirement classReq=_requirement.getClassRequirement();
-    if (classReq!=null)
-    {
-      List<CharacterClass> classes=classReq.getAllowedClasses();
-      if (classes.size()>0)
-      {
-        return classes.get(0);
-      }
-    }
-    return null;
   }
 
   /**
