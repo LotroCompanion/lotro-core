@@ -11,12 +11,12 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
-import delta.games.lotro.lore.deeds.comparators.DeedIdComparator;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
 
@@ -35,7 +35,7 @@ public class DeedXMLWriter
   public static boolean writeDeedsFile(File toFile, List<DeedDescription> deeds)
   {
     DeedXMLWriter writer=new DeedXMLWriter();
-    Collections.sort(deeds,new DeedIdComparator());
+    Collections.sort(deeds,new IdentifiableComparator<DeedDescription>());
     boolean ok=writer.writeDeeds(toFile,deeds,EncodingNames.UTF_8);
     return ok;
   }

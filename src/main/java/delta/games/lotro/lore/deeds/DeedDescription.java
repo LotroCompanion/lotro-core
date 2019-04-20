@@ -1,13 +1,9 @@
 package delta.games.lotro.lore.deeds;
 
-import java.util.List;
-
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Race;
-import delta.games.lotro.common.requirements.ClassRequirement;
-import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
