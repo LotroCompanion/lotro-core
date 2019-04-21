@@ -11,8 +11,10 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.io.xml.QuestXMLParser;
 
 /**
@@ -79,6 +81,22 @@ public final class QuestsManager
     quests.addAll(_cache.values());
     Collections.sort(quests,new IdentifiableComparator<QuestDescription>());
     return quests;
+  }
+
+  /**
+   * Get the rewards explorer.
+   * @return the rewards explorer.
+   */
+  public RewardsExplorer buildRewardsExplorer()
+  {
+    RewardsExplorer rewardsExplorer=new RewardsExplorer();
+    List<QuestDescription> quests=getAll();
+    for(QuestDescription quest : quests)
+    {
+      rewardsExplorer.doIt(quest.getQuestRewards());
+    }
+    rewardsExplorer.resolveProxies();
+    return rewardsExplorer;
   }
 
   /**
