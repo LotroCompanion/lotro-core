@@ -14,7 +14,6 @@ import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.io.xml.QuestXMLParser;
 
 /**
@@ -66,6 +65,8 @@ public final class QuestsManager
     {
       _cache.put(Integer.valueOf(quest.getIdentifier()),quest);
     }
+    QuestProxiesResolver resolver=new QuestProxiesResolver(quests);
+    resolver.doIt();
     long now2=System.currentTimeMillis();
     long duration=now2-now;
     LOGGER.info("Loaded "+_cache.size()+" quests in "+duration+"ms.");
