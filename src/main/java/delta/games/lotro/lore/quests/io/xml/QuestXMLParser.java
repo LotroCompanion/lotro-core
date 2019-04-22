@@ -127,7 +127,7 @@ public class QuestXMLParser
       NamedNodeMap attrs=tag.getAttributes();
       int id=DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_PROXY_ID_ATTR,0);
       String name=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_PROXY_NAME_ATTR,null);
-      if ((id!=0) && (name!=null))
+      if (id!=0)
       {
         ret=new Proxy<QuestDescription>();
         ret.setId(id);
