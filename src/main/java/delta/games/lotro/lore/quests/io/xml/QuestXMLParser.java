@@ -95,8 +95,10 @@ public class QuestXMLParser
     String bestowerText=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,null);
     q.setBestowerText(bestowerText);
     // Objectives
+    /*
     String objectives=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_OBJECTIVES_ATTR,null);
     q.setObjectives(objectives);
+    */
 
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(q.getUsageRequirement(),root);

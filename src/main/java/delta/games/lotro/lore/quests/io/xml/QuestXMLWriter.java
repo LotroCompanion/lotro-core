@@ -149,11 +149,14 @@ public class QuestXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,XmlWriter.CDATA,bestowerText);
     }
+    // Objectives
+    /*
     String objectives=quest.getObjectives();
     if (objectives!=null)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_OBJECTIVES_ATTR,XmlWriter.CDATA,objectives);
     }
+    */
 
     hd.startElement("","",QuestXMLConstants.QUEST_TAG,questAttrs);
 

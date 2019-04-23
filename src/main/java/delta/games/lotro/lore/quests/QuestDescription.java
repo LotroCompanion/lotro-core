@@ -8,6 +8,7 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -59,10 +60,12 @@ public class QuestDescription implements Identifiable
   // TODO Structured!
   private String _bestower;
   private String _bestowerText;
-  // TODO Structured!
-  private String _objectives;
+  // Objectives
+  private ObjectivesManager _objectives;
+  // Links
   private List<Proxy<QuestDescription>> _prerequisiteQuests;
   private Proxy<QuestDescription> _nextQuest;
+  // Rewards
   private Rewards _rewards;
 
   /**
@@ -86,7 +89,7 @@ public class QuestDescription implements Identifiable
     _description="";
     _bestower="";
     _bestowerText="";
-    _objectives="";
+    _objectives=new ObjectivesManager();
     _prerequisiteQuests=new ArrayList<Proxy<QuestDescription>>();
     _nextQuest=null;
     _rewards=new Rewards();
@@ -409,21 +412,12 @@ public class QuestDescription implements Identifiable
   }
 
   /**
-   * Get the objectives of this quest.
-   * @return the objectives of this quest.
+   * Get the objectives manager for this quest.
+   * @return the objectives manager for this quest.
    */
-  public String getObjectives()
+  public ObjectivesManager getObjectives()
   {
     return _objectives;
-  }
-
-  /**
-   * Set the objectives of this quest.
-   * @param objectives the objectives to set.
-   */
-  public void setObjectives(String objectives)
-  {
-    _objectives=objectives;
   }
 
   /**
