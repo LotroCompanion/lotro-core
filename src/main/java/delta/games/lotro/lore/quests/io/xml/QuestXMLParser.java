@@ -13,6 +13,7 @@ import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
+import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -95,11 +96,7 @@ public class QuestXMLParser
     String bestowerText=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,null);
     q.setBestowerText(bestowerText);
     // Objectives
-    /*
-    String objectives=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_OBJECTIVES_ATTR,null);
-    q.setObjectives(objectives);
-    */
-
+    ObjectivesXMLParser.loadObjectives(root,q.getObjectives());
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(q.getUsageRequirement(),root);
 

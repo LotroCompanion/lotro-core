@@ -58,6 +58,7 @@ public class Objective
    */
   public void setText(String text)
   {
+    if (text==null) text="";
     _text=text;
   }
 

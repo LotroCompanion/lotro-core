@@ -17,6 +17,7 @@ import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
+import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -150,13 +151,7 @@ public class QuestXMLWriter
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,XmlWriter.CDATA,bestowerText);
     }
     // Objectives
-    /*
-    String objectives=quest.getObjectives();
-    if (objectives!=null)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_OBJECTIVES_ATTR,XmlWriter.CDATA,objectives);
-    }
-    */
+    ObjectivesXMLWriter.write(hd,quest.getObjectives());
 
     hd.startElement("","",QuestXMLConstants.QUEST_TAG,questAttrs);
 
