@@ -150,10 +150,10 @@ public class QuestXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,XmlWriter.CDATA,bestowerText);
     }
+    hd.startElement("","",QuestXMLConstants.QUEST_TAG,questAttrs);
+
     // Objectives
     ObjectivesXMLWriter.write(hd,quest.getObjectives());
-
-    hd.startElement("","",QuestXMLConstants.QUEST_TAG,questAttrs);
 
     // Pre-requisite quests
     List<Proxy<QuestDescription>> prerequisiteQuests=quest.getPrerequisiteQuests();
