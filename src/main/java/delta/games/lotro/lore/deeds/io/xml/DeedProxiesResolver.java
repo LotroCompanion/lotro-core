@@ -74,7 +74,7 @@ public class DeedProxiesResolver
     if (proxiedDeed!=null)
     {
       proxy.setName(proxiedDeed.getName());
-      proxy.setDeed(proxiedDeed);
+      proxy.setObject(proxiedDeed);
     }
     else
     {
