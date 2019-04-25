@@ -259,7 +259,7 @@ public class RewardsXMLParser
     NamedNodeMap attrs=itemTag.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.PROXY_ID_ATTR,0);
     String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.PROXY_NAME_ATTR,null);
-    int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
+    int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,1);
     if (((name!=null) || (id!=0)) && (quantity!=0))
     {
       Proxy<Relic> relic=new Proxy<Relic>();
