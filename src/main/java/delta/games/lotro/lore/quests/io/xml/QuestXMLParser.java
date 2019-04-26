@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
@@ -80,8 +81,8 @@ public class QuestXMLParser
     }
     q.setFaction(faction);
     // Repeatable
-    boolean repeatable=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_REPEATABLE_ATTR,false);
-    q.setRepeatable(repeatable);
+    byte repeatable=(byte)DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_REPEATABLE_ATTR,0);
+    q.setRepeatability(Repeatability.getByCode(repeatable));
     // Instanced
     boolean instanced=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_INSTANCED_ATTR,false);
     q.setInstanced(instanced);

@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
@@ -107,10 +108,10 @@ public class QuestXMLWriter
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_FACTION_ATTR,XmlWriter.CDATA,faction.name());
     }
     // Repeatable
-    boolean repeatable=quest.isRepeatable();
-    if (repeatable)
+    Repeatability repeatability=quest.getRepeatability();
+    if (repeatability!=Repeatability.NOT_REPEATABLE)
     {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_REPEATABLE_ATTR,XmlWriter.CDATA,String.valueOf(repeatable));
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_REPEATABLE_ATTR,XmlWriter.CDATA,String.valueOf(repeatability.getCode()));
     }
     // Instanced?
     boolean instanced=quest.isInstanced();

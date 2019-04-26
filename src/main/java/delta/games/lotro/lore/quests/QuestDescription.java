@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
@@ -38,17 +39,31 @@ public class QuestDescription implements Identifiable
    * Quest name. Can be empty be not <code>null</code>.
    */
   private String _name;
+  /**
+   * Quest category. Can be empty be not <code>null</code>.
+   */
   private String _category;
   private String _scope;
+  /**
+   * Quest arc. Can be empty be not <code>null</code>.
+   */
   private String _questArc;
 
   // Requirements
   private UsageRequirement _requirement;
 
+  /**
+   * Recommended size: solo, small felloship, fellowship or raid.
+   */
   private Size _size;
+  /**
+   * Free Peoples or Monster Play.
+   */
   private FACTION _faction;
-  // TODO Use int? cases are: false, xN=3, repeatable
-  private boolean _repeatable;
+  /**
+   * Repeatability (never null).
+   */
+  private Repeatability _repeatability;
 
   // Flags
   private boolean _instanced;
@@ -81,7 +96,7 @@ public class QuestDescription implements Identifiable
     _requirement=new UsageRequirement();
     _size=Size.SOLO;
     _faction=FACTION.FREE_PEOPLES;
-    _repeatable=false;
+    _repeatability=Repeatability.NOT_REPEATABLE;
     _instanced=false;
     _shareable=true;
     _sessionPlay=false;
@@ -271,21 +286,21 @@ public class QuestDescription implements Identifiable
   }
 
   /**
-   * Indicates if this quest is repeatable or not.
-   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   * Get the repeatability.
+   * @return A repeatability.
    */
-  public boolean isRepeatable()
+  public Repeatability getRepeatability()
   {
-    return _repeatable;
+    return _repeatability;
   }
 
   /**
-   * Set the 'repeatable' flag.
-   * @param repeatable value to set.
+   * Set the repeatability.
+   * @param repeatability value to set.
    */
-  public void setRepeatable(boolean repeatable)
+  public void setRepeatability(Repeatability repeatability)
   {
-    _repeatable=repeatable;
+    _repeatability=repeatability;
   }
 
   /**
@@ -497,9 +512,9 @@ public class QuestDescription implements Identifiable
       sb.append(_faction);
       sb.append(')');
     }
-    if (_repeatable)
+    if (_repeatability!=Repeatability.NOT_REPEATABLE)
     {
-      sb.append(" (repeatable)");
+      sb.append(" (").append(_repeatability).append(")");
     }
     if (_instanced)
     {
