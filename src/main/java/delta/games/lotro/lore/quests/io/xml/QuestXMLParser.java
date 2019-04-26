@@ -55,21 +55,29 @@ public class QuestXMLParser
     String name=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_NAME_ATTR,"");
     q.setName(name);
     // Category
-    String category=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_CATEGORY_ATTR,null);
+    String category=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_CATEGORY_ATTR,"");
     q.setCategory(category);
     // Scope
-    String scope=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SCOPE_ATTR,null);
+    String scope=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SCOPE_ATTR,"");
     q.setQuestScope(scope);
     // Quest arc
-    String arc=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_ARC_ATTR,null);
+    String arc=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_ARC_ATTR,"");
     q.setQuestArc(arc);
     // Size
     String sizeStr=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SIZE_ATTR,null);
-    Size size=Size.valueOf(sizeStr);
+    Size size=Size.SOLO;
+    if (sizeStr!=null)
+    {
+      size=Size.valueOf(sizeStr);
+    }
     q.setSize(size);
     // Faction
+    FACTION faction=FACTION.FREE_PEOPLES;
     String factionStr=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_FACTION_ATTR,null);
-    FACTION faction=FACTION.valueOf(factionStr);
+    if (factionStr!=null)
+    {
+      faction=FACTION.valueOf(factionStr);
+    }
     q.setFaction(faction);
     // Repeatable
     boolean repeatable=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_REPEATABLE_ATTR,false);
@@ -87,13 +95,13 @@ public class QuestXMLParser
     boolean autoBestowed=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,false);
     q.setAutoBestowed(autoBestowed);
     // Description
-    String description=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_DESCRIPTION_ATTR,null);
+    String description=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_DESCRIPTION_ATTR,"");
     q.setDescription(description);
     // Bestower
-    String bestower=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_BESTOWER_ATTR,null);
+    String bestower=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_BESTOWER_ATTR,"");
     q.setBestower(bestower);
     // Bestower text
-    String bestowerText=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,null);
+    String bestowerText=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,"");
     q.setBestowerText(bestowerText);
     // Objectives
     ObjectivesXMLParser.loadObjectives(root,q.getObjectives());

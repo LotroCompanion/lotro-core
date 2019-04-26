@@ -147,6 +147,7 @@ public class QuestDescription implements Identifiable
    */
   public void setCategory(String category)
   {
+    if (category==null) category="";
     _category=category;
   }
 
@@ -165,6 +166,7 @@ public class QuestDescription implements Identifiable
    */
   public void setQuestScope(String scope)
   {
+    if (scope==null) scope="";
     _scope=scope;
   }
 
@@ -183,6 +185,7 @@ public class QuestDescription implements Identifiable
    */
   public void setQuestArc(String questArc)
   {
+    if (questArc==null) questArc="";
     _questArc=questArc;
   }
 
@@ -372,6 +375,7 @@ public class QuestDescription implements Identifiable
    */
   public void setDescription(String description)
   {
+    if (description==null) description="";
     _description=description;
   }
 
@@ -390,6 +394,7 @@ public class QuestDescription implements Identifiable
    */
   public void setBestower(String bestower)
   {
+    if (bestower==null) bestower="";
     _bestower=bestower;
   }
 
@@ -408,6 +413,7 @@ public class QuestDescription implements Identifiable
    */
   public void setBestowerText(String bestowerText)
   {
+    if (bestowerText==null) bestowerText="";
     _bestowerText=bestowerText;
   }
 

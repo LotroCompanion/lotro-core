@@ -82,32 +82,36 @@ public class QuestXMLWriter
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_NAME_ATTR,XmlWriter.CDATA,name);
     }
     String category=quest.getCategory();
-    if (category!=null)
+    if (category.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_CATEGORY_ATTR,XmlWriter.CDATA,category);
     }
     String scope=quest.getQuestScope();
-    if (scope!=null)
+    if (scope.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SCOPE_ATTR,XmlWriter.CDATA,scope);
     }
     String arc=quest.getQuestArc();
-    if (arc!=null)
+    if (arc.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_ARC_ATTR,XmlWriter.CDATA,arc);
     }
     Size size=quest.getSize();
-    if (size!=null)
+    if (size!=Size.SOLO)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SIZE_ATTR,XmlWriter.CDATA,size.name());
     }
     FACTION faction=quest.getFaction();
-    if (faction!=null)
+    if (faction==FACTION.MONSTER_PLAY)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_FACTION_ATTR,XmlWriter.CDATA,faction.name());
     }
+    // Repeatable
     boolean repeatable=quest.isRepeatable();
-    questAttrs.addAttribute("","",QuestXMLConstants.QUEST_REPEATABLE_ATTR,XmlWriter.CDATA,String.valueOf(repeatable));
+    if (repeatable)
+    {
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_REPEATABLE_ATTR,XmlWriter.CDATA,String.valueOf(repeatable));
+    }
     // Instanced?
     boolean instanced=quest.isInstanced();
     if (instanced)
@@ -136,17 +140,19 @@ public class QuestXMLWriter
     UsageRequirementsXMLWriter.write(questAttrs,quest.getUsageRequirement());
     // Description
     String description=quest.getDescription();
-    if (description!=null)
+    if (description.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
+    // Bestower
     String bestower=quest.getBestower();
-    if (bestower!=null)
+    if (bestower.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_BESTOWER_ATTR,XmlWriter.CDATA,bestower);
     }
+    // Bestower text
     String bestowerText=quest.getBestowerText();
-    if (bestowerText!=null)
+    if (bestowerText.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,XmlWriter.CDATA,bestowerText);
     }
