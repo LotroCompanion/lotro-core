@@ -11,6 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
@@ -72,36 +73,46 @@ public class QuestXMLWriter
   {
     AttributesImpl questAttrs=new AttributesImpl();
 
+    // Identifier
     int id=quest.getIdentifier();
     if (id!=0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
+    // Name
     String name=quest.getName();
     if (name.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_NAME_ATTR,XmlWriter.CDATA,name);
     }
+    // Category
     String category=quest.getCategory();
     if (category.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_CATEGORY_ATTR,XmlWriter.CDATA,category);
     }
+    // Challenge level
+    ChallengeLevel challengeLevel=quest.getChallengeLevel();
+    questAttrs.addAttribute("","",QuestXMLConstants.QUEST_CHALLENGE_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
+    // Scope
     String scope=quest.getQuestScope();
     if (scope.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SCOPE_ATTR,XmlWriter.CDATA,scope);
     }
+    // Quest arc
     String arc=quest.getQuestArc();
     if (arc.length()>0)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_ARC_ATTR,XmlWriter.CDATA,arc);
     }
+    // Size
     Size size=quest.getSize();
     if (size!=Size.SOLO)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SIZE_ATTR,XmlWriter.CDATA,size.name());
     }
+    // Faction
     FACTION faction=quest.getFaction();
     if (faction==FACTION.MONSTER_PLAY)
     {

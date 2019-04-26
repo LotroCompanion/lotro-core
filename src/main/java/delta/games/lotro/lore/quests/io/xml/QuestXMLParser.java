@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
@@ -58,6 +59,9 @@ public class QuestXMLParser
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_CATEGORY_ATTR,"");
     q.setCategory(category);
+    // Challenge level
+    byte challengeLevel=(byte)DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_CHALLENGE_LEVEL_ATTR,0);
+    q.setChallengeLevel(ChallengeLevel.getByCode(challengeLevel));
     // Scope
     String scope=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SCOPE_ATTR,"");
     q.setQuestScope(scope);

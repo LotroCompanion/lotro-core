@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
@@ -64,6 +65,10 @@ public class QuestDescription implements Identifiable
    * Repeatability (never null).
    */
   private Repeatability _repeatability;
+  /**
+   * Challenge level (never null).
+   */
+  private ChallengeLevel _challengeLevel;
 
   // Flags
   private boolean _instanced;
@@ -97,6 +102,7 @@ public class QuestDescription implements Identifiable
     _size=Size.SOLO;
     _faction=FACTION.FREE_PEOPLES;
     _repeatability=Repeatability.NOT_REPEATABLE;
+    _challengeLevel=ChallengeLevel.ONE;
     _instanced=false;
     _shareable=true;
     _sessionPlay=false;
@@ -301,6 +307,24 @@ public class QuestDescription implements Identifiable
   public void setRepeatability(Repeatability repeatability)
   {
     _repeatability=repeatability;
+  }
+
+  /**
+   * Get the challenge level.
+   * @return A challenge level.
+   */
+  public ChallengeLevel getChallengeLevel()
+  {
+    return _challengeLevel;
+  }
+
+  /**
+   * Set the challenge level.
+   * @param challengeLevel value to set.
+   */
+  public void setChallengeLevel(ChallengeLevel challengeLevel)
+  {
+    _challengeLevel=challengeLevel;
   }
 
   /**
@@ -516,6 +540,7 @@ public class QuestDescription implements Identifiable
     {
       sb.append(" (").append(_repeatability).append(")");
     }
+    sb.append(" (challenge level=").append(_challengeLevel).append(")");
     if (_instanced)
     {
       sb.append(" (instanced)");

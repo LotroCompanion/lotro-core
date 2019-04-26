@@ -28,6 +28,10 @@ public class QuestXMLConstants
    */
   public static final String QUEST_CATEGORY_ATTR="category";
   /**
+   * Tag 'quest', attribute 'level'.
+   */
+  public static final String QUEST_CHALLENGE_LEVEL_ATTR="level";
+  /**
    * Tag 'quest', attribute 'scope'.
    */
   public static final String QUEST_SCOPE_ATTR="scope";
