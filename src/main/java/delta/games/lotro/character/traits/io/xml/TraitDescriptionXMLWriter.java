@@ -72,7 +72,10 @@ public class TraitDescriptionXMLWriter
     attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_TIERS_ATTR,XmlWriter.CDATA,String.valueOf(tiers));
     // Description
     String description=trait.getDescription();
-    attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+    if (description.length()>0)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+    }
 
     hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_TAG,attrs);
     // Stats

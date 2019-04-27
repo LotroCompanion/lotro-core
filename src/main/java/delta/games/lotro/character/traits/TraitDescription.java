@@ -133,6 +133,7 @@ public class TraitDescription implements Identifiable
    */
   public void setDescription(String description)
   {
+    if (description==null) description="";
     _description=description;
   }
 
