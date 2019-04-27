@@ -57,13 +57,6 @@ public class RewardsExplorer
         String emoteName=emoteReward.getName();
         _emotes.add(emoteName);
       }
-      // Skills
-      else if (rewardElement instanceof SkillReward)
-      {
-        SkillReward skillReward=(SkillReward)rewardElement;
-        String skillName=skillReward.getName();
-        _skills.add(skillName);
-      }
       // Titles
       else if (rewardElement instanceof TitleReward)
       {

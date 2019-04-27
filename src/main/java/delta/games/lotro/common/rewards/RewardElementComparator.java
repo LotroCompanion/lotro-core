@@ -20,7 +20,6 @@ public class RewardElementComparator implements Comparator<RewardElement>
     _classes=new ArrayList<Class<? extends RewardElement>>();
     _classes.add(ReputationReward.class);
     _classes.add(TraitReward.class);
-    _classes.add(SkillReward.class);
     _classes.add(TitleReward.class);
     _classes.add(VirtueReward.class);
     _classes.add(EmoteReward.class);

@@ -18,7 +18,6 @@ import delta.games.lotro.common.rewards.ReputationReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
-import delta.games.lotro.common.rewards.SkillReward;
 import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
@@ -203,10 +202,10 @@ public class RewardsXMLParser
 
   private static void parseSkillReward(List<RewardElement> rewards, Element skillTag)
   {
-    NamedNodeMap attrs=skillTag.getAttributes();
-    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.SKILL_NAME_ATTR,"");
-    SkillReward skillReward=new SkillReward(name);
-    rewards.add(skillReward);
+    Proxy<TraitDescription> proxy=new Proxy<TraitDescription>();
+    parseProxy(skillTag.getAttributes(),proxy);
+    TraitReward traitReward=new TraitReward(proxy);
+    rewards.add(traitReward);
   }
 
   private static void parseTitleReward(List<RewardElement> rewards, Element titleTag)

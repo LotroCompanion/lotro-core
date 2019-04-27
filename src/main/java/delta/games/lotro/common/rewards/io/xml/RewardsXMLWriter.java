@@ -20,7 +20,6 @@ import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.RewardElementComparator;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
-import delta.games.lotro.common.rewards.SkillReward;
 import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
@@ -113,11 +112,6 @@ public class RewardsXMLWriter
       TraitReward traitReward=(TraitReward)rewardElement;
       writeProxy(hd,RewardsXMLConstants.TRAIT_TAG,traitReward.getTraitProxy());
     }
-    // Skill
-    else if (rewardElement instanceof SkillReward)
-    {
-      writeSkillReward(hd,(SkillReward)rewardElement);
-    }
     // Title
     else if (rewardElement instanceof TitleReward)
     {
@@ -160,19 +154,6 @@ public class RewardsXMLWriter
     reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_AMOUNT_ATTR,CDATA,String.valueOf(reputationReward.getAmount()));
     hd.startElement("","",RewardsXMLConstants.REPUTATION_ITEM_TAG,reputationAttrs);
     hd.endElement("","",RewardsXMLConstants.REPUTATION_ITEM_TAG);
-  }
-
-  private static void writeSkillReward(TransformerHandler hd, SkillReward skillReward) throws SAXException
-  {
-    AttributesImpl attrs=new AttributesImpl();
-    //String id=skill.getIdentifier();
-    //attrs.addAttribute("","",RewardsXMLConstants.SKILL_ID_ATTR,CDATA,id);
-    //String type=skill.getType().toString();
-    //attrs.addAttribute("","",RewardsXMLConstants.SKILL_TYPE_ATTR,CDATA,type);
-    String name=skillReward.getName();
-    attrs.addAttribute("","",RewardsXMLConstants.SKILL_NAME_ATTR,CDATA,name);
-    hd.startElement("","",RewardsXMLConstants.SKILL_TAG,attrs);
-    hd.endElement("","",RewardsXMLConstants.SKILL_TAG);
   }
 
   private static void writeVirtueReward(TransformerHandler hd, VirtueReward virtueReward) throws SAXException
