@@ -456,11 +456,25 @@ public class ItemInstance<T extends Item>
     _id=itemInstance._id;
     _birthName=itemInstance._birthName;
     _crafterName=itemInstance._crafterName;
-    _essences=new EssencesSet(itemInstance._essences);
+    if (itemInstance._essences!=null)
+    {
+      _essences=new EssencesSet(itemInstance._essences);
+    }
+    else
+    {
+      _essences=null;
+    }
     _durability=itemInstance._durability;
     _itemLevel=itemInstance._itemLevel;
     _minLevel=itemInstance._minLevel;
-    _value=new Money(itemInstance._value);
+    if (itemInstance._value!=null)
+    {
+      _value=new Money(itemInstance._value);
+    }
+    else
+    {
+      _value=null;
+    }
     _color=itemInstance._color;
     _boundTo=itemInstance._boundTo;
     _properties=new HashMap<String,String>(itemInstance._properties);
