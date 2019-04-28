@@ -99,6 +99,9 @@ public class QuestXMLParser
     // Auto-bestowed
     boolean autoBestowed=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,false);
     q.setAutoBestowed(autoBestowed);
+    // Obsolete
+    boolean obsolete=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_OBSOLETE_ATTR,false);
+    q.setObsolete(obsolete);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_DESCRIPTION_ATTR,"");
     q.setDescription(description);

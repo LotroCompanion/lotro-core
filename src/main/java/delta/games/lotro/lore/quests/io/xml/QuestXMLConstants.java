@@ -72,6 +72,10 @@ public class QuestXMLConstants
    */
   public static final String QUEST_AUTO_BESTOWED_ATTR="autoBestowed";
   /**
+   * Tag 'quest', attribute 'obsolete'.
+   */
+  public static final String QUEST_OBSOLETE_ATTR="obsolete";
+  /**
    * Tag 'quest', attribute 'description'.
    */
   public static final String QUEST_DESCRIPTION_ATTR="description";

@@ -75,6 +75,7 @@ public class QuestDescription implements Identifiable
   private boolean _shareable;
   private boolean _sessionPlay;
   private boolean _autoBestowed;
+  private boolean _obsolete;
 
   private String _description;
   // TODO Structured!
@@ -107,6 +108,7 @@ public class QuestDescription implements Identifiable
     _shareable=true;
     _sessionPlay=false;
     _autoBestowed=false;
+    _obsolete=false;
     _description="";
     _bestower="";
     _bestowerText="";
@@ -400,6 +402,24 @@ public class QuestDescription implements Identifiable
   }
 
   /**
+   * Indicates if this quest is obsolete/hidden or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isObsolete()
+  {
+    return _obsolete;
+  }
+
+  /**
+   * Set the 'obsolete' flag.
+   * @param obsolete value to set.
+   */
+  public void setObsolete(boolean obsolete)
+  {
+    _obsolete=obsolete;
+  }
+
+  /**
    * Get the description of this quest.
    * @return the description of this quest.
    */
@@ -556,6 +576,10 @@ public class QuestDescription implements Identifiable
     if (_autoBestowed)
     {
       sb.append(" (auto-bestowed)");
+    }
+    if (_obsolete)
+    {
+      sb.append(" (obsolete)");
     }
     sb.append(EndOfLine.NATIVE_EOL);
     if (_category.length()>0)

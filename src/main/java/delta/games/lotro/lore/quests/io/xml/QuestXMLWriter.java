@@ -148,6 +148,12 @@ public class QuestXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,XmlWriter.CDATA,String.valueOf(autoBestowed));
     }
+    // Obsolete?
+    boolean obsolete=quest.isObsolete();
+    if (obsolete)
+    {
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_OBSOLETE_ATTR,XmlWriter.CDATA,String.valueOf(obsolete));
+    }
     // Requirements
     UsageRequirementsXMLWriter.write(questAttrs,quest.getUsageRequirement());
     // Description
