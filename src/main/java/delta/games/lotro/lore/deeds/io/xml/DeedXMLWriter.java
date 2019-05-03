@@ -19,6 +19,7 @@ import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
+import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
 
 /**
  * Writes LOTRO deeds to XML files.
@@ -138,6 +139,11 @@ public class DeedXMLWriter
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_OBJECTIVES_ATTR,XmlWriter.CDATA,objectives);
     }
     hd.startElement("","",DeedXMLConstants.DEED_TAG,deedAttrs);
+
+    // Objectives
+    ObjectivesXMLWriter.write(hd,deed.getObjectives());
+
+    // Links
     writeDeedProxy(hd,DeedXMLConstants.PREVIOUS_TAG,deed.getPreviousDeedProxy());
     writeDeedProxy(hd,DeedXMLConstants.NEXT_TAG,deed.getNextDeedProxy());
     for(DeedProxy parentProxy : deed.getParentDeedProxies().getDeedProxies())
@@ -148,6 +154,7 @@ public class DeedXMLWriter
     {
       writeDeedProxy(hd,DeedXMLConstants.CHILD_TAG,childProxy);
     }
+    // Rewards
     RewardsXMLWriter.write(hd,deed.getRewards());
     // Geographic data
     DeedGeoData data=deed.getGeoData();

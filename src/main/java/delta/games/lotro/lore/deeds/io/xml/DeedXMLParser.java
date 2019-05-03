@@ -17,6 +17,7 @@ import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
+import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
 
 /**
  * Parser for deed descriptions stored in XML.
@@ -101,9 +102,11 @@ public class DeedXMLParser
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_DESCRIPTION_ATTR,"");
     deed.setDescription(description);
-    // Objectives
+    // Objectives string
     String objectives=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_OBJECTIVES_ATTR,null);
     deed.setObjectivesString(objectives);
+    // Objectives
+    ObjectivesXMLParser.loadObjectives(root,deed.getObjectives());
 
     // Previous deed
     Element previousTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.PREVIOUS_TAG);
