@@ -130,7 +130,7 @@ public class QuestXMLParser
     Element nextQuestTag=DOMParsingTools.getChildTagByName(root,QuestXMLConstants.NEXT_QUEST_TAG);
     q.setNextQuest(buildProxy(nextQuestTag));
 
-    RewardsXMLParser.loadRewards(root,q.getQuestRewards());
+    RewardsXMLParser.loadRewards(root,q.getRewards());
     return q;
   }
 

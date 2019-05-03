@@ -4,20 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.common.ChallengeLevel;
-import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
-import delta.games.lotro.common.requirements.UsageRequirement;
-import delta.games.lotro.common.rewards.Rewards;
-import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.utils.Proxy;
 
 /**
  * LOTRO quest description.
  * @author DAM
  */
-public class QuestDescription implements Identifiable
+public class QuestDescription extends Achievable
 {
   /**
    * Faction.
@@ -35,24 +30,14 @@ public class QuestDescription implements Identifiable
     MONSTER_PLAY
   }
 
-  private int _identifier;
   /**
-   * Quest name. Can be empty be not <code>null</code>.
+   * Scope.
    */
-  private String _name;
-  /**
-   * Quest category. Can be empty be not <code>null</code>.
-   */
-  private String _category;
   private String _scope;
   /**
    * Quest arc. Can be empty be not <code>null</code>.
    */
   private String _questArc;
-
-  // Requirements
-  private UsageRequirement _requirement;
-
   /**
    * Recommended size: solo, small felloship, fellowship or raid.
    */
@@ -65,113 +50,39 @@ public class QuestDescription implements Identifiable
    * Repeatability (never null).
    */
   private Repeatability _repeatability;
-  /**
-   * Challenge level (never null).
-   */
-  private ChallengeLevel _challengeLevel;
 
   // Flags
   private boolean _instanced;
   private boolean _shareable;
   private boolean _sessionPlay;
   private boolean _autoBestowed;
-  private boolean _obsolete;
 
-  private String _description;
   // TODO Structured!
   private String _bestower;
   private String _bestowerText;
-  // Objectives
-  private ObjectivesManager _objectives;
   // Links
   private List<Proxy<QuestDescription>> _prerequisiteQuests;
   private Proxy<QuestDescription> _nextQuest;
-  // Rewards
-  private Rewards _rewards;
 
   /**
    * Constructor.
    */
   public QuestDescription()
   {
-    _identifier=0;
-    _name="";
-    _category="";
+    super();
     _scope="";
     _questArc="";
-    _requirement=new UsageRequirement();
     _size=Size.SOLO;
     _faction=FACTION.FREE_PEOPLES;
     _repeatability=Repeatability.NOT_REPEATABLE;
-    _challengeLevel=ChallengeLevel.ONE;
     _instanced=false;
     _shareable=true;
     _sessionPlay=false;
     _autoBestowed=false;
-    _obsolete=false;
-    _description="";
     _bestower="";
     _bestowerText="";
-    _objectives=new ObjectivesManager();
     _prerequisiteQuests=new ArrayList<Proxy<QuestDescription>>();
     _nextQuest=null;
-    _rewards=new Rewards();
-  }
-
-  /**
-   * Get the identifier of this quest.
-   * @return the identifier of this quest.
-   */
-  public int getIdentifier()
-  {
-    return _identifier;
-  }
-
-  /**
-   * Set the identifier of this quest.
-   * @param identifier the identifier to set.
-   */
-  public void setIdentifier(int identifier)
-  {
-    _identifier=identifier;
-  }
-
-  /**
-   * Get the name of this quest.
-   * @return the name of this quest.
-   */
-  public String getName()
-  {
-    return _name;
-  }
-
-  /**
-   * Set the name of this quest.
-   * @param name the name to set.
-   */
-  public void setName(String name)
-  {
-    if (name==null) name="";
-    _name=name;
-  }
-
-  /**
-   * Get the category of this quest.
-   * @return the category of this quest.
-   */
-  public String getCategory()
-  {
-    return _category;
-  }
-
-  /**
-   * Set the category of this quest. 
-   * @param category the category to set.
-   */
-  public void setCategory(String category)
-  {
-    if (category==null) category="";
-    _category=category;
   }
 
   /**
@@ -210,51 +121,6 @@ public class QuestDescription implements Identifiable
   {
     if (questArc==null) questArc="";
     _questArc=questArc;
-  }
-
-  /**
-   * Get the minimum level for this quest.
-   * @return the minimumLevel for this quest.
-   */
-  public Integer getMinimumLevel()
-  {
-    return _requirement.getMinLevel();
-  }
-
-  /**
-   * Set the minimum level for this quest.
-   * @param minimumLevel the minimum level to set.
-   */
-  public void setMinimumLevel(Integer minimumLevel)
-  {
-    _requirement.setMinLevel(minimumLevel);
-  }
-
-  /**
-   * Get the maximum level for this quest.
-   * @return the maximumLevel for this quest.
-   */
-  public Integer getMaximumLevel()
-  {
-    return _requirement.getMaxLevel();
-  }
-
-  /**
-   * Set the maximum level for this quest.
-   * @param maximumLevel the maxiimum level to set.
-   */
-  public void setMaximumLevel(Integer maximumLevel)
-  {
-    _requirement.setMaxLevel(maximumLevel);
-  }
-
-  /**
-   * Get the usage requirement.
-   * @return the usage requirement.
-   */
-  public UsageRequirement getUsageRequirement()
-  {
-    return _requirement;
   }
 
   /**
@@ -309,24 +175,6 @@ public class QuestDescription implements Identifiable
   public void setRepeatability(Repeatability repeatability)
   {
     _repeatability=repeatability;
-  }
-
-  /**
-   * Get the challenge level.
-   * @return A challenge level.
-   */
-  public ChallengeLevel getChallengeLevel()
-  {
-    return _challengeLevel;
-  }
-
-  /**
-   * Set the challenge level.
-   * @param challengeLevel value to set.
-   */
-  public void setChallengeLevel(ChallengeLevel challengeLevel)
-  {
-    _challengeLevel=challengeLevel;
   }
 
   /**
@@ -402,43 +250,6 @@ public class QuestDescription implements Identifiable
   }
 
   /**
-   * Indicates if this quest is obsolete/hidden or not.
-   * @return <code>true</code> if it is, <code>false</code> otherwise.
-   */
-  public boolean isObsolete()
-  {
-    return _obsolete;
-  }
-
-  /**
-   * Set the 'obsolete' flag.
-   * @param obsolete value to set.
-   */
-  public void setObsolete(boolean obsolete)
-  {
-    _obsolete=obsolete;
-  }
-
-  /**
-   * Get the description of this quest.
-   * @return the description of this quest.
-   */
-  public String getDescription()
-  {
-    return _description;
-  }
-
-  /**
-   * Set the description of this quest.
-   * @param description the description to set.
-   */
-  public void setDescription(String description)
-  {
-    if (description==null) description="";
-    _description=description;
-  }
-
-  /**
    * Get the bestower of this quest.
    * @return the bestower of this quest.
    */
@@ -474,15 +285,6 @@ public class QuestDescription implements Identifiable
   {
     if (bestowerText==null) bestowerText="";
     _bestowerText=bestowerText;
-  }
-
-  /**
-   * Get the objectives manager for this quest.
-   * @return the objectives manager for this quest.
-   */
-  public ObjectivesManager getObjectives()
-  {
-    return _objectives;
   }
 
   /**
@@ -522,28 +324,13 @@ public class QuestDescription implements Identifiable
   }
 
   /**
-   * Get the rewards for this quest.
-   * @return the rewards.
-   */
-  public Rewards getQuestRewards()
-  {
-    return _rewards;
-  }
-
-  /**
    * Dump the contents of this quest as a string.
    * @return A readable string.
    */
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Name: ").append(_name);
-    if (_identifier!=0)
-    {
-      sb.append(" (");
-      sb.append(_identifier);
-      sb.append(')');
-    }
+    super.dumpFirstLine(sb);
     if (_size!=Size.SOLO)
     {
       sb.append(" (");
@@ -560,7 +347,6 @@ public class QuestDescription implements Identifiable
     {
       sb.append(" (").append(_repeatability).append(")");
     }
-    sb.append(" (challenge level=").append(_challengeLevel).append(")");
     if (_instanced)
     {
       sb.append(" (instanced)");
@@ -577,15 +363,8 @@ public class QuestDescription implements Identifiable
     {
       sb.append(" (auto-bestowed)");
     }
-    if (_obsolete)
-    {
-      sb.append(" (obsolete)");
-    }
     sb.append(EndOfLine.NATIVE_EOL);
-    if (_category.length()>0)
-    {
-      sb.append("Category: ").append(_category).append(EndOfLine.NATIVE_EOL);
-    }
+    super.dumpOtherLines(sb);
     if (_scope.length()>0)
     {
       sb.append("Scope: ").append(_scope).append(EndOfLine.NATIVE_EOL);
@@ -593,10 +372,6 @@ public class QuestDescription implements Identifiable
     if (_questArc.length()>0)
     {
       sb.append("Arc: ").append(_questArc).append(EndOfLine.NATIVE_EOL);
-    }
-    if (!_requirement.isEmpty())
-    {
-      sb.append("Requirements: ").append(_requirement).append(EndOfLine.NATIVE_EOL);
     }
     if (_prerequisiteQuests.size()>0)
     {
@@ -606,17 +381,8 @@ public class QuestDescription implements Identifiable
     {
       sb.append("Next quest: ").append(_nextQuest).append(EndOfLine.NATIVE_EOL);
     }
-    sb.append("Rewards: ").append(_rewards).append(EndOfLine.NATIVE_EOL);
-    sb.append("Description: ").append(_description).append(EndOfLine.NATIVE_EOL);
     sb.append("Bestower: ").append(_bestower).append(EndOfLine.NATIVE_EOL);
     sb.append("Bestower text: ").append(_bestowerText).append(EndOfLine.NATIVE_EOL);
-    sb.append("Objectives: ").append(_objectives).append(EndOfLine.NATIVE_EOL);
     return sb.toString();
-  }
-
-  @Override
-  public String toString()
-  {
-    return _name;
   }
 }

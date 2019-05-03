@@ -188,7 +188,7 @@ public class QuestXMLWriter
     // Next quest
     Proxy<QuestDescription> nextQuest=quest.getNextQuest();
     writeQuestProxy(hd,nextQuest,QuestXMLConstants.NEXT_QUEST_TAG);
-    RewardsXMLWriter.write(hd,quest.getQuestRewards());
+    RewardsXMLWriter.write(hd,quest.getRewards());
     hd.endElement("","",QuestXMLConstants.QUEST_TAG);
   }
 

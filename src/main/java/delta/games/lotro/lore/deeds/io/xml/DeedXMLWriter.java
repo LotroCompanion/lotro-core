@@ -132,7 +132,7 @@ public class DeedXMLWriter
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
     // Objectives
-    String objectives=deed.getObjectives();
+    String objectives=deed.getObjectivesString();
     if (objectives!=null)
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_OBJECTIVES_ATTR,XmlWriter.CDATA,objectives);

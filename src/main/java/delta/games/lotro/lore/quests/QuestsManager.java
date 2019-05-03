@@ -94,7 +94,7 @@ public final class QuestsManager
     List<QuestDescription> quests=getAll();
     for(QuestDescription quest : quests)
     {
-      rewardsExplorer.doIt(quest.getQuestRewards());
+      rewardsExplorer.doIt(quest.getRewards());
     }
     rewardsExplorer.resolveProxies();
     return rewardsExplorer;

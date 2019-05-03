@@ -103,7 +103,7 @@ public class DeedXMLParser
     deed.setDescription(description);
     // Objectives
     String objectives=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_OBJECTIVES_ATTR,null);
-    deed.setObjectives(objectives);
+    deed.setObjectivesString(objectives);
 
     // Previous deed
     Element previousTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.PREVIOUS_TAG);
