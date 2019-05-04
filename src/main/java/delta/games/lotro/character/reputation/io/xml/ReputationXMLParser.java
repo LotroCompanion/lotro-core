@@ -87,13 +87,16 @@ public class ReputationXMLParser
       NamedNodeMap levelAttrs=levelTag.getAttributes();
       String levelKey=DOMParsingTools.getStringAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,"");
       FactionLevel level=faction.getLevelByKey(levelKey);
-      FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
-      long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
-      levelStatus.setCompletionDate(date);
-      int xp=DOMParsingTools.getIntAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,0);
-      levelStatus.setAcquiredXP(xp);
-      boolean completed=DOMParsingTools.getBooleanAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,false);
-      levelStatus.setCompleted(completed);
+      if (level!=null)
+      {
+        FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
+        long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
+        levelStatus.setCompletionDate(date);
+        int xp=DOMParsingTools.getIntAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,0);
+        levelStatus.setAcquiredXP(xp);
+        boolean completed=DOMParsingTools.getBooleanAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,false);
+        levelStatus.setCompleted(completed);
+      }
     }
     // Current level
     NamedNodeMap factionAttrs=factionTag.getAttributes();
