@@ -17,6 +17,7 @@ import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
@@ -179,20 +180,20 @@ public class QuestXMLWriter
     // Objectives
     ObjectivesXMLWriter.write(hd,quest.getObjectives());
 
-    // Pre-requisite quests
-    List<Proxy<QuestDescription>> prerequisiteQuests=quest.getPrerequisiteQuests();
-    for(Proxy<QuestDescription> prerequisiteQuest : prerequisiteQuests)
+    // Pre-requisites
+    List<Proxy<Achievable>> prerequisites=quest.getPrerequisites();
+    for(Proxy<Achievable> prerequisite : prerequisites)
     {
-      writeQuestProxy(hd,prerequisiteQuest,QuestXMLConstants.PREREQUISITE_TAG);
+      writeAchievableProxy(hd,prerequisite,QuestXMLConstants.PREREQUISITE_TAG);
     }
     // Next quest
-    Proxy<QuestDescription> nextQuest=quest.getNextQuest();
-    writeQuestProxy(hd,nextQuest,QuestXMLConstants.NEXT_QUEST_TAG);
+    Proxy<Achievable> nextQuest=quest.getNextQuest();
+    writeAchievableProxy(hd,nextQuest,QuestXMLConstants.NEXT_QUEST_TAG);
     RewardsXMLWriter.write(hd,quest.getRewards());
     hd.endElement("","",QuestXMLConstants.QUEST_TAG);
   }
 
-  private void writeQuestProxy(TransformerHandler hd, Proxy<QuestDescription> proxy, String tag) throws Exception
+  private void writeAchievableProxy(TransformerHandler hd, Proxy<Achievable> proxy, String tag) throws Exception
   {
     if (proxy!=null)
     {

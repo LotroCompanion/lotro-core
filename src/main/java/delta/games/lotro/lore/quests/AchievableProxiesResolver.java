@@ -2,10 +2,12 @@ package delta.games.lotro.lore.quests;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.lore.deeds.DeedDescription;
+import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
@@ -21,6 +23,18 @@ public class AchievableProxiesResolver
   private static final Logger LOGGER=Logger.getLogger(AchievableProxiesResolver.class);
 
   private HashMap<Integer,Achievable> _mapByKey;
+
+  /**
+   * Static method to resolve a quest.
+   * @param quest Quest to resolve.
+   */
+  public static void resolve(QuestDescription quest)
+  {
+    List<QuestDescription> quests=QuestsManager.getInstance().getAll();
+    List<DeedDescription> deeds=DeedsManager.getInstance().getAll();
+    AchievableProxiesResolver resolver=new AchievableProxiesResolver(quests,deeds);
+    resolver.resolveQuest(quest);
+  }
 
   /**
    * Constructor.
@@ -46,6 +60,14 @@ public class AchievableProxiesResolver
    */
   public void resolveQuest(QuestDescription quest)
   {
+    // Pre-requisites
+    for(Proxy<Achievable> prerequisite : quest.getPrerequisites())
+    {
+      resolveProxy(prerequisite);
+    }
+    // Next quest
+    resolveProxy(quest.getNextQuest());
+    // Objectives
     resolveObjectives(quest.getObjectives());
   }
 
@@ -58,21 +80,25 @@ public class AchievableProxiesResolver
         if (condition instanceof QuestCompleteCondition)
         {
           QuestCompleteCondition completeCondition=(QuestCompleteCondition)condition;
-          Proxy<Achievable> proxy=completeCondition.getProxy();
-          if (proxy!=null)
-          {
-            int id=proxy.getId();
-            Achievable target=findAchievable(id);
-            if (target!=null)
-            {
-              proxy.setObject(target);
-            }
-            else
-            {
-              LOGGER.warn("Could not find achievable with ID="+id);
-            }
-          }
+          resolveProxy(completeCondition.getProxy());
         }
+      }
+    }
+  }
+
+  private void resolveProxy(Proxy<Achievable> proxy)
+  {
+    if (proxy!=null)
+    {
+      int id=proxy.getId();
+      Achievable target=findAchievable(id);
+      if (target!=null)
+      {
+        proxy.setObject(target);
+      }
+      else
+      {
+        LOGGER.warn("Could not find achievable with ID="+id);
       }
     }
   }

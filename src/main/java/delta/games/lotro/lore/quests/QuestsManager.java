@@ -65,8 +65,6 @@ public final class QuestsManager
     {
       _cache.put(Integer.valueOf(quest.getIdentifier()),quest);
     }
-    QuestProxiesResolver resolver=new QuestProxiesResolver(quests);
-    resolver.doIt();
     long now2=System.currentTimeMillis();
     long duration=now2-now;
     LOGGER.info("Loaded "+_cache.size()+" quests in "+duration+"ms.");

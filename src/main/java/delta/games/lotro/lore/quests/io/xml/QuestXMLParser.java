@@ -13,6 +13,7 @@ import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
@@ -120,10 +121,10 @@ public class QuestXMLParser
     List<Element> prerequisiteTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.PREREQUISITE_TAG);
     for(Element prerequisiteTag : prerequisiteTags)
     {
-      Proxy<QuestDescription> proxy=buildProxy(prerequisiteTag);
+      Proxy<Achievable> proxy=buildProxy(prerequisiteTag);
       if (proxy!=null)
       {
-        q.addPrerequisiteQuest(proxy);
+        q.addPrerequisite(proxy);
       }
     }
     // Next quest
@@ -134,9 +135,9 @@ public class QuestXMLParser
     return q;
   }
 
-  private Proxy<QuestDescription> buildProxy(Element tag)
+  private Proxy<Achievable> buildProxy(Element tag)
   {
-    Proxy<QuestDescription> ret=null;
+    Proxy<Achievable> ret=null;
     if (tag!=null)
     {
       NamedNodeMap attrs=tag.getAttributes();
@@ -144,7 +145,7 @@ public class QuestXMLParser
       String name=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_PROXY_NAME_ATTR,null);
       if (id!=0)
       {
-        ret=new Proxy<QuestDescription>();
+        ret=new Proxy<Achievable>();
         ret.setId(id);
         ret.setName(name);
       }

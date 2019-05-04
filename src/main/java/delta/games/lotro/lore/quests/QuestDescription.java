@@ -61,8 +61,8 @@ public class QuestDescription extends Achievable
   private String _bestower;
   private String _bestowerText;
   // Links
-  private List<Proxy<QuestDescription>> _prerequisiteQuests;
-  private Proxy<QuestDescription> _nextQuest;
+  private List<Proxy<Achievable>> _prerequisiteAchievables;
+  private Proxy<Achievable> _nextQuest;
 
   /**
    * Constructor.
@@ -81,7 +81,7 @@ public class QuestDescription extends Achievable
     _autoBestowed=false;
     _bestower="";
     _bestowerText="";
-    _prerequisiteQuests=new ArrayList<Proxy<QuestDescription>>();
+    _prerequisiteAchievables=new ArrayList<Proxy<Achievable>>();
     _nextQuest=null;
   }
 
@@ -291,25 +291,25 @@ public class QuestDescription extends Achievable
    * Get the list of the 'pre-requisite' quests for this quest. 
    * @return a possibly empty list of quest proxies.
    */
-  public List<Proxy<QuestDescription>> getPrerequisiteQuests()
+  public List<Proxy<Achievable>> getPrerequisites()
   {
-    return _prerequisiteQuests;
+    return _prerequisiteAchievables;
   }
 
   /**
-   * Add a 'pre-requisite' quest.
-   * @param prerequisiteQuest quest proxy to add as a 'pre-requisite' quest.
+   * Add a 'pre-requisite' achievable.
+   * @param prerequisite proxy to add as a 'pre-requisite'.
    */
-  public void addPrerequisiteQuest(Proxy<QuestDescription> prerequisiteQuest)
+  public void addPrerequisite(Proxy<Achievable> prerequisite)
   {
-    _prerequisiteQuests.add(prerequisiteQuest);
+    _prerequisiteAchievables.add(prerequisite);
   }
 
   /**
    * Get the 'next' quest for this quest. 
    * @return a proxy or <code>null</code>.
    */
-  public Proxy<QuestDescription> getNextQuest()
+  public Proxy<Achievable> getNextQuest()
   {
     return _nextQuest;
   }
@@ -318,7 +318,7 @@ public class QuestDescription extends Achievable
    * Set the 'next' quest.
    * @param nextQuest proxy to set as a 'next' quest.
    */
-  public void setNextQuest(Proxy<QuestDescription> nextQuest)
+  public void setNextQuest(Proxy<Achievable> nextQuest)
   {
     _nextQuest=nextQuest;
   }
@@ -373,9 +373,9 @@ public class QuestDescription extends Achievable
     {
       sb.append("Arc: ").append(_questArc).append(EndOfLine.NATIVE_EOL);
     }
-    if (_prerequisiteQuests.size()>0)
+    if (_prerequisiteAchievables.size()>0)
     {
-      sb.append("Prerequisites: ").append(_prerequisiteQuests).append(EndOfLine.NATIVE_EOL);
+      sb.append("Prerequisites: ").append(_prerequisiteAchievables).append(EndOfLine.NATIVE_EOL);
     }
     if (_nextQuest!=null)
     {
