@@ -6,8 +6,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.lore.deeds.DeedDescription;
-import delta.games.lotro.lore.quests.QuestDescription;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
@@ -78,21 +77,14 @@ public class ObjectivesXMLParser
   private static QuestCompleteCondition parseQuestCompleteCondition(NamedNodeMap attrs, Element conditionTag)
   {
     QuestCompleteCondition condition=new QuestCompleteCondition();
-    // Quest
-    int questId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_ID_ATTR,0);
-    if (questId>0)
+    // Achievable
+    int achievableId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_ID_ATTR,0);
+    achievableId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_DEED_ID_ATTR,achievableId);
+    if (achievableId>0)
     {
-      Proxy<QuestDescription> questProxy=new Proxy<QuestDescription>();
-      questProxy.setId(questId);
-      condition.setQuest(questProxy);
-    }
-    // Deed
-    int deedId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_DEED_ID_ATTR,0);
-    if (deedId>0)
-    {
-      Proxy<DeedDescription> deedProxy=new Proxy<DeedDescription>();
-      deedProxy.setId(deedId);
-      condition.setDeed(deedProxy);
+      Proxy<Achievable> proxy=new Proxy<Achievable>();
+      proxy.setId(achievableId);
+      condition.setProxy(proxy);
     }
     // Quest category
     String questCategory=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_CATEGORY_ATTR,null);

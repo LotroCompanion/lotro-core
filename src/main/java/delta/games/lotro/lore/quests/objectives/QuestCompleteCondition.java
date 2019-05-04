@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
-import delta.games.lotro.lore.deeds.DeedDescription;
-import delta.games.lotro.lore.quests.QuestDescription;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -10,8 +9,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class QuestCompleteCondition extends ObjectiveCondition
 {
-  private Proxy<QuestDescription> _quest;
-  private Proxy<DeedDescription> _deed;
+  private Proxy<Achievable> _achievable;
   private String _questCategory;
   private int _completionCount;
 
@@ -20,8 +18,7 @@ public class QuestCompleteCondition extends ObjectiveCondition
    */
   public QuestCompleteCondition()
   {
-    _quest=null;
-    _deed=null;
+    _achievable=null;
     _questCategory=null;
     _completionCount=1;
   }
@@ -33,39 +30,21 @@ public class QuestCompleteCondition extends ObjectiveCondition
   }
 
   /**
-   * Get the targeted quest.
-   * @return a quest proxy or <code>null</code>.
+   * Get the proxy to the targeted achievable.
+   * @return a proxy or <code>null</code>.
    */
-  public Proxy<QuestDescription> getQuest()
+  public Proxy<Achievable> getProxy()
   {
-    return _quest;
+    return _achievable;
   }
 
   /**
-   * Set the targeted quest.
-   * @param quest the quest proxy to set (may be <code>null</code>).
+   * Set the proxy to the targeted achievable.
+   * @param proxy the proxy to set (may be <code>null</code>).
    */
-  public void setQuest(Proxy<QuestDescription> quest)
+  public void setProxy(Proxy<Achievable> proxy)
   {
-    _quest=quest;
-  }
-
-  /**
-   * Get the targeted deed.
-   * @return a deed proxy or <code>null</code>.
-   */
-  public Proxy<DeedDescription> getDeed()
-  {
-    return _deed;
-  }
-
-  /**
-   * Set the targeted deed.
-   * @param deed the deed proxy to set (may be <code>null</code>).
-   */
-  public void setDeed(Proxy<DeedDescription> deed)
-  {
-    _deed=deed;
+    _achievable=proxy;
   }
 
   /**
@@ -96,7 +75,7 @@ public class QuestCompleteCondition extends ObjectiveCondition
   }
 
   /**
-   * Set the quest/deed completion count.
+   * Set the quest completion count.
    * @param completionCount the completion count to set.
    */
   public void setCompletionCount(int completionCount)
@@ -114,13 +93,9 @@ public class QuestCompleteCondition extends ObjectiveCondition
     {
       sb.append(_completionCount).append("x ");
     }
-    if (_quest!=null)
+    if (_achievable!=null)
     {
-      sb.append("quest: ").append(_quest);
-    }
-    else if (_deed!=null)
-    {
-      sb.append("deed: ").append(_deed);
+      sb.append("quest/deed: ").append(_achievable);
     }
     else if (_questCategory!=null)
     {

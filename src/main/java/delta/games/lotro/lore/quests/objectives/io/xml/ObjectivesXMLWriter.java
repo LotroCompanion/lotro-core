@@ -7,7 +7,7 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
-import delta.games.lotro.lore.deeds.DeedDescription;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
@@ -77,19 +77,17 @@ public class ObjectivesXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(hd,attrs,condition);
-    // Quest?
-    Proxy<QuestDescription> quest=condition.getQuest();
-    if (quest!=null)
+    // Quest/Deed?
+    Proxy<? extends Achievable> proxy=condition.getProxy();
+    if (proxy!=null)
     {
-      int questId=quest.getId();
-      attrs.addAttribute("","",ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_ID_ATTR,XmlWriter.CDATA,String.valueOf(questId));
-    }
-    // Deed?
-    Proxy<DeedDescription> deed=condition.getDeed();
-    if (deed!=null)
-    {
-      int deedId=deed.getId();
-      attrs.addAttribute("","",ObjectivesXMLConstants.QUEST_COMPLETE_DEED_ID_ATTR,XmlWriter.CDATA,String.valueOf(deedId));
+      int id=proxy.getId();
+      Achievable achievable=proxy.getObject();
+      if (achievable!=null)
+      {
+        String attrName=(achievable instanceof QuestDescription)?ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_ID_ATTR:ObjectivesXMLConstants.QUEST_COMPLETE_DEED_ID_ATTR;
+        attrs.addAttribute("","",attrName,XmlWriter.CDATA,String.valueOf(id));
+      }
     }
     // Quest category?
     String questCategory=condition.getQuestCategory();
