@@ -22,7 +22,24 @@ public class AchievableProxiesResolver
 {
   private static final Logger LOGGER=Logger.getLogger(AchievableProxiesResolver.class);
 
+  private static final AchievableProxiesResolver _instance=new AchievableProxiesResolver();
   private HashMap<Integer,Achievable> _mapByKey;
+
+  private AchievableProxiesResolver()
+  {
+    List<QuestDescription> quests=QuestsManager.getInstance().getAll();
+    List<DeedDescription> deeds=DeedsManager.getInstance().getAll();
+    init(quests,deeds);
+  }
+
+  /**
+   * Get the main instance of this class.
+   * @return an instance.
+   */
+  public static AchievableProxiesResolver getInstance()
+  {
+    return _instance;
+  }
 
   /**
    * Static method to resolve a quest.
@@ -30,10 +47,7 @@ public class AchievableProxiesResolver
    */
   public static void resolve(QuestDescription quest)
   {
-    List<QuestDescription> quests=QuestsManager.getInstance().getAll();
-    List<DeedDescription> deeds=DeedsManager.getInstance().getAll();
-    AchievableProxiesResolver resolver=new AchievableProxiesResolver(quests,deeds);
-    resolver.resolveQuest(quest);
+    getInstance().resolveQuest(quest);
   }
 
   /**
@@ -42,10 +56,7 @@ public class AchievableProxiesResolver
    */
   public static void resolve(DeedDescription deed)
   {
-    List<QuestDescription> quests=QuestsManager.getInstance().getAll();
-    List<DeedDescription> deeds=DeedsManager.getInstance().getAll();
-    AchievableProxiesResolver resolver=new AchievableProxiesResolver(quests,deeds);
-    resolver.resolveDeed(deed);
+    getInstance().resolveDeed(deed);
   }
 
   /**
@@ -54,6 +65,11 @@ public class AchievableProxiesResolver
    * @param deeds Known deeds.
    */
   public AchievableProxiesResolver(Collection<QuestDescription> quests, Collection<DeedDescription> deeds)
+  {
+    init(quests,deeds);
+  }
+
+  private void init(Collection<QuestDescription> quests, Collection<DeedDescription> deeds)
   {
     _mapByKey=new HashMap<Integer,Achievable>();
     for(DeedDescription deed : deeds)
@@ -125,7 +141,12 @@ public class AchievableProxiesResolver
     }
   }
 
-  private Achievable findAchievable(int id)
+  /**
+   * Find an achievable using its identifier.
+   * @param id Achievable identifier.
+   * @return An achievable or <code>null</code> if not found.
+   */
+  public Achievable findAchievable(int id)
   {
     return _mapByKey.get(Integer.valueOf(id));
   }
