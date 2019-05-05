@@ -37,6 +37,18 @@ public class AchievableProxiesResolver
   }
 
   /**
+   * Static method to resolve a deed.
+   * @param deed Deed to resolve.
+   */
+  public static void resolve(DeedDescription deed)
+  {
+    List<QuestDescription> quests=QuestsManager.getInstance().getAll();
+    List<DeedDescription> deeds=DeedsManager.getInstance().getAll();
+    AchievableProxiesResolver resolver=new AchievableProxiesResolver(quests,deeds);
+    resolver.resolveDeed(deed);
+  }
+
+  /**
    * Constructor.
    * @param quests Known quests.
    * @param deeds Known deeds.
@@ -52,6 +64,16 @@ public class AchievableProxiesResolver
     {
       _mapByKey.put(Integer.valueOf(quest.getIdentifier()),quest);
     }
+  }
+
+  /**
+   * Resolve the proxies of a deed.
+   * @param deed Deed to update.
+   */
+  public void resolveDeed(DeedDescription deed)
+  {
+    // Objectives
+    resolveObjectives(deed.getObjectives());
   }
 
   /**
