@@ -2,6 +2,7 @@ package delta.games.lotro.common.stats.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
@@ -25,6 +26,8 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class StatsProviderXMLWriter
 {
+  private static final Logger LOGGER=Logger.getLogger(StatsProviderXMLWriter.class);
+
   /**
    * Write a stats provider to a XML document.
    * @param hd Output.
@@ -85,8 +88,15 @@ public class StatsProviderXMLWriter
     {
       ScalableStatProvider scalableProvider=(ScalableStatProvider)provider;
       Progression progression=scalableProvider.getProgression();
-      int progressionId=progression.getIdentifier();
-      attrs.addAttribute("","",StatsProviderXMLConstants.STAT_SCALING_ATTR,XmlWriter.CDATA,String.valueOf(progressionId));
+      if (progression!=null)
+      {
+        int progressionId=progression.getIdentifier();
+        attrs.addAttribute("","",StatsProviderXMLConstants.STAT_SCALING_ATTR,XmlWriter.CDATA,String.valueOf(progressionId));
+      }
+      else
+      {
+        LOGGER.warn("Progression not found for a scalable stats provider!");
+      }
     }
     else if (provider instanceof TieredScalableStatProvider)
     {
@@ -96,8 +106,15 @@ public class StatsProviderXMLWriter
       for(int i=1;i<=nbTiers;i++)
       {
         Progression progression=tieredStatProvider.getProgression(i);
-        if (sb.length()>0) sb.append(";");
-        sb.append(progression.getIdentifier());
+        if (progression!=null)
+        {
+          if (sb.length()>0) sb.append(";");
+          sb.append(progression.getIdentifier());
+        }
+        else
+        {
+          LOGGER.warn("Progression not found for a tiered scalable stats provider!");
+        }
       }
       attrs.addAttribute("","",StatsProviderXMLConstants.STAT_TIERED_SCALING_ATTR,XmlWriter.CDATA,sb.toString());
     }
