@@ -174,6 +174,7 @@ public abstract class Achievable implements Identifiable
    */
   public void setRequiredClass(CharacterClass characterClass)
   {
+    _requirement.removeClassRequirement();
     _requirement.addAllowedClass(characterClass);
   }
 

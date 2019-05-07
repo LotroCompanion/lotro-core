@@ -28,7 +28,10 @@ public class ClassRequirement
    */
   public void addAllowedClass(CharacterClass characterClass)
   {
-    _allowedClasses.add(characterClass);
+    if (!_allowedClasses.contains(characterClass))
+    {
+      _allowedClasses.add(characterClass);
+    }
   }
 
   /**
@@ -38,6 +41,14 @@ public class ClassRequirement
   public List<CharacterClass> getAllowedClasses()
   {
     return _allowedClasses;
+  }
+
+  /**
+   * Remove all allowed classes.
+   */
+  public void removeAll()
+  {
+    _allowedClasses.clear();
   }
 
   /**

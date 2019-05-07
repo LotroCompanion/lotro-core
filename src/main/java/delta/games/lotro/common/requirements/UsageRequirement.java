@@ -95,6 +95,17 @@ public class UsageRequirement
   }
 
   /**
+   * Remove class requirement.
+   */
+  public void removeClassRequirement()
+  {
+    if (_classRequirement!=null)
+    {
+      _classRequirement.removeAll();
+    }
+  }
+
+  /**
    * Get the required class for this deed.
    * @return a character class or <code>null</code>.
    */
