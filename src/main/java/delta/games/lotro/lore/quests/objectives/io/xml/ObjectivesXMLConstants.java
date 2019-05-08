@@ -32,13 +32,9 @@ public class ObjectivesXMLConstants
    */
   public static final String QUEST_COMPLETE_TAG="questComplete";
   /**
-   * Tag 'questComplete', attribute 'questId'.
+   * Tag 'questComplete', attribute 'achievableId'.
    */
-  public static final String QUEST_COMPLETE_QUEST_ID_ATTR="questId";
-  /**
-   * Tag 'questComplete', attribute 'deedId'.
-   */
-  public static final String QUEST_COMPLETE_DEED_ID_ATTR="deedId";
+  public static final String QUEST_COMPLETE_ACHIEVABLE_ID_ATTR="achievableId";
   /**
    * Tag 'questComplete', attribute 'questCategory'.
    */

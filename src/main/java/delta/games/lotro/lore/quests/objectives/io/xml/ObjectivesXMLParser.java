@@ -78,8 +78,7 @@ public class ObjectivesXMLParser
   {
     QuestCompleteCondition condition=new QuestCompleteCondition();
     // Achievable
-    int achievableId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_ID_ATTR,0);
-    achievableId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_DEED_ID_ATTR,achievableId);
+    int achievableId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_ACHIEVABLE_ID_ATTR,0);
     if (achievableId>0)
     {
       Proxy<Achievable> proxy=new Proxy<Achievable>();
