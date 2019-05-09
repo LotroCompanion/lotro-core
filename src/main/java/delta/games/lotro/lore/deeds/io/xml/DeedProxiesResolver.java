@@ -3,6 +3,8 @@ package delta.games.lotro.lore.deeds.io.xml;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedProxy;
 
@@ -12,6 +14,8 @@ import delta.games.lotro.lore.deeds.DeedProxy;
  */
 public class DeedProxiesResolver
 {
+  private static final Logger LOGGER=Logger.getLogger(DeedProxiesResolver.class);
+
   private List<DeedDescription> _deeds;
   private HashMap<String,DeedDescription> _mapByKey;
 
@@ -30,10 +34,13 @@ public class DeedProxiesResolver
     for(DeedDescription deed : _deeds)
     {
       String key=deed.getKey();
-      DeedDescription old=_mapByKey.put(key,deed);
-      if (old!=null)
+      if (key!=null)
       {
-        System.out.println("Multiple instances of deed key: "+key);
+        DeedDescription old=_mapByKey.put(key,deed);
+        if (old!=null)
+        {
+          LOGGER.warn("Multiple instances of deed key: "+key);
+        }
       }
     }
   }
@@ -78,7 +85,7 @@ public class DeedProxiesResolver
     }
     else
     {
-      System.out.println("Deed ["+deedName+"]: reference not found to key: "+key+", name: "+proxy.getName());
+      LOGGER.warn("Deed ["+deedName+"]: reference not found to key: "+key+", name: "+proxy.getName());
     }
   }
 }
