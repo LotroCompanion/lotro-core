@@ -11,6 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
@@ -19,6 +20,7 @@ import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
+import delta.games.lotro.lore.quests.io.xml.QuestXMLConstants;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
 
 /**
@@ -126,6 +128,9 @@ public class DeedXMLWriter
     {
       deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CATEGORY_ATTR,XmlWriter.CDATA,category);
     }
+    // Challenge level
+    ChallengeLevel challengeLevel=deed.getChallengeLevel();
+    deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CHALLENGE_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
     // Description
     String description=deed.getDescription();
     if (description.length()>0)

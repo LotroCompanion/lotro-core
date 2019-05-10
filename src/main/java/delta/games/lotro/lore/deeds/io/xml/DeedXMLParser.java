@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.deeds.DeedDescription;
@@ -17,6 +18,7 @@ import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
+import delta.games.lotro.lore.quests.io.xml.QuestXMLConstants;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
 
 /**
@@ -99,6 +101,9 @@ public class DeedXMLParser
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_CATEGORY_ATTR,null);
     deed.setCategory(category);
+    // Challenge level
+    byte challengeLevel=(byte)DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_CHALLENGE_LEVEL_ATTR,0);
+    deed.setChallengeLevel(ChallengeLevel.getByCode(challengeLevel));
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_DESCRIPTION_ATTR,"");
     deed.setDescription(description);
