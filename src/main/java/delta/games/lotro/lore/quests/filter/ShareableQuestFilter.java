@@ -25,7 +25,7 @@ public class ShareableQuestFilter implements Filter<QuestDescription>
    * Get the value of the 'is shareable' flag.
    * @return A boolean value or <code>null</code>.
    */
-  public Boolean getIsSharableFlag()
+  public Boolean getIsShareableFlag()
   {
     return _isShareable;
   }
