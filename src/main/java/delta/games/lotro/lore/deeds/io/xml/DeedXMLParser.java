@@ -18,7 +18,6 @@ import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
-import delta.games.lotro.lore.quests.io.xml.QuestXMLConstants;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
 
 /**

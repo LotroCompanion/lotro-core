@@ -9,6 +9,9 @@ import java.util.Set;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicComparator;
+import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -21,6 +24,8 @@ public class RewardsExplorer
   private Set<String> _titles;
   private Set<Integer> _itemIds;
   private List<Item> _items;
+  private Set<Integer> _relicIds;
+  private List<Relic> _relics;
   private Set<String> _skills;
   private Set<String> _traits;
 
@@ -32,6 +37,8 @@ public class RewardsExplorer
     _titles=new HashSet<String>();
     _itemIds=new HashSet<Integer>();
     _items=new ArrayList<Item>();
+    _relicIds=new HashSet<Integer>();
+    _relics=new ArrayList<Relic>();
     _emotes=new HashSet<String>();
     _skills=new HashSet<String>();
     _traits=new HashSet<String>();
@@ -82,6 +89,17 @@ public class RewardsExplorer
           _itemIds.add(Integer.valueOf(id));
         }
       }
+      // Relics
+      else if (rewardElement instanceof RelicReward)
+      {
+        RelicReward relicReward=(RelicReward)rewardElement;
+        Proxy<Relic> object=relicReward.getRelicProxy();
+        int id=object.getId();
+        if (id!=0)
+        {
+          _relicIds.add(Integer.valueOf(id));
+        }
+      }
       // Selectable
       else if (rewardElement instanceof SelectableRewardElement)
       {
@@ -97,6 +115,7 @@ public class RewardsExplorer
   public void resolveProxies()
   {
     resolveItems();
+    resolveRelics();
   }
 
   private void resolveItems()
@@ -108,6 +127,19 @@ public class RewardsExplorer
       if (item!=null)
       {
         _items.add(item);
+      }
+    }
+  }
+
+  private void resolveRelics()
+  {
+    RelicsManager relics=RelicsManager.getInstance();
+    for(Integer id : _relicIds)
+    {
+      Relic relic=relics.getById(id.intValue());
+      if (relic!=null)
+      {
+        _relics.add(relic);
       }
     }
   }
@@ -186,6 +218,17 @@ public class RewardsExplorer
   {
     List<Item> ret=new ArrayList<Item>(_items);
     Collections.sort(ret,new ItemNameComparator());
+    return ret;
+  }
+
+  /**
+   * Get all relics.
+   * @return a list of relics, sorted by type and name.
+   */
+  public List<Relic> getRelics()
+  {
+    List<Relic> ret=new ArrayList<Relic>(_relics);
+    Collections.sort(ret,new RelicComparator());
     return ret;
   }
 }
