@@ -3,51 +3,51 @@ package delta.games.lotro.common.rewards.filters;
 import java.util.List;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.rewards.ItemReward;
+import delta.games.lotro.common.rewards.RelicReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
-import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.utils.Proxy;
 
 /**
- * Filter for rewards that contain an item.
+ * Filter for rewards that contain a relic.
  * @author DAM
  */
-public class ItemRewardFilter implements Filter<Rewards>
+public class RelicRewardFilter implements Filter<Rewards>
 {
-  private Integer _itemId;
+  private Integer _relicId;
 
   /**
    * Constructor.
-   * @param itemId ID of item to select (may be <code>null</code>).
+   * @param relicId ID of relic to select (may be <code>null</code>).
    */
-  public ItemRewardFilter(Integer itemId)
+  public RelicRewardFilter(Integer relicId)
   {
-    _itemId=itemId;
+    _relicId=relicId;
   }
 
   /**
-   * Get the item ID to use.
-   * @return An item ID or <code>null</code>.
+   * Get the relic ID to use.
+   * @return A relic ID or <code>null</code>.
    */
-  public Integer getItemId()
+  public Integer getRelicId()
   {
-    return _itemId;
+    return _relicId;
   }
 
   /**
-   * Set the item ID to select.
-   * @param itemId Item ID to use, may be <code>null</code>.
+   * Set the relic ID to select.
+   * @param relicId Relic ID to use, may be <code>null</code>.
    */
-  public void setItemId(Integer itemId)
+  public void setRelicId(Integer relicId)
   {
-    _itemId=itemId;
+    _relicId=relicId;
   }
 
   public boolean accept(Rewards rewards)
   {
-    if (_itemId==null)
+    if (_relicId==null)
     {
       return true;
     }
@@ -58,10 +58,10 @@ public class ItemRewardFilter implements Filter<Rewards>
   {
     for(RewardElement rewardElement : elements)
     {
-      if (rewardElement instanceof ItemReward)
+      if (rewardElement instanceof RelicReward)
       {
-        ItemReward itemReward=(ItemReward)rewardElement;
-        if (accept(itemReward))
+        RelicReward relicReward=(RelicReward)rewardElement;
+        if (accept(relicReward))
         {
           return true;
         }
@@ -78,12 +78,12 @@ public class ItemRewardFilter implements Filter<Rewards>
     return false;
   }
 
-  private boolean accept(ItemReward itemReward)
+  private boolean accept(RelicReward relicReward)
   {
-    Proxy<Item> itemProxy=itemReward.getItemProxy();
-    if (itemProxy!=null)
+    Proxy<Relic> relicProxy=relicReward.getRelicProxy();
+    if (relicProxy!=null)
     {
-      return (_itemId.intValue()==itemProxy.getId());
+      return (_relicId.intValue()==relicProxy.getId());
     }
     return false;
   }
