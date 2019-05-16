@@ -23,11 +23,24 @@ public class QuestDescription extends Achievable
     /**
      * Free peoples.
      */
-    FREE_PEOPLES,
+    FREE_PEOPLES("Free Peoples"),
     /**
      * Monster play.
      */
-    MONSTER_PLAY
+    MONSTER_PLAY("Monster Play");
+
+    private String _label;
+
+    private FACTION(String label)
+    {
+      _label=label;
+    }
+
+    @Override
+    public String toString()
+    {
+      return _label;
+    }
   }
 
   /**
@@ -39,7 +52,7 @@ public class QuestDescription extends Achievable
    */
   private String _questArc;
   /**
-   * Recommended size: solo, small felloship, fellowship or raid.
+   * Recommended size: solo, small fellowship, fellowship or raid.
    */
   private Size _size;
   /**
