@@ -55,9 +55,6 @@ public class RewardsXMLWriter
         writeRewardElement(hd,rewardElement);
       }
     }
-    // Destiny points
-    int destinyPoints=rewards.getDestinyPoints();
-    writeAmount(hd,RewardsXMLConstants.DESTINY_POINTS,destinyPoints);
     // LOTRO points
     int lotroPoints=rewards.getLotroPoints();
     writeAmount(hd,RewardsXMLConstants.LOTRO_POINTS,lotroPoints);

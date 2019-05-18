@@ -16,7 +16,6 @@ public class Rewards
   private int _itemXp;
   private int _mountXp;
   private int _glory;
-  private int _destinyPoints;
   private int _lotroPoints;
   private int _classPoints;
   private List<RewardElement> _rewardElements;
@@ -31,7 +30,6 @@ public class Rewards
     _itemXp=0;
     _mountXp=0;
     _glory=0;
-    _destinyPoints=0;
     _lotroPoints=0;
     _classPoints=0;
     _rewardElements=new ArrayList<RewardElement>();
@@ -116,24 +114,6 @@ public class Rewards
   public void setGlory(int glory)
   {
     _glory=glory;
-  }
-
-  /**
-   * Get the destiny points.
-   * @return the destiny points.
-   */
-  public int getDestinyPoints()
-  {
-    return _destinyPoints;
-  }
-
-  /**
-   * Set the destiny points.
-   * @param destinyPoints Destiny points to set.
-   */
-  public void setDestinyPoints(int destinyPoints)
-  {
-    _destinyPoints=destinyPoints;
   }
 
   /**
@@ -250,12 +230,6 @@ public class Rewards
     {
       if (firstDone) sb.append(" / ");
       sb.append("Glory=").append(_glory);
-      firstDone=true;
-    }
-    if (_destinyPoints>0)
-    {
-      if (firstDone) sb.append(" / ");
-      sb.append(_destinyPoints).append(" destiny points");
       firstDone=true;
     }
     if (_lotroPoints>0)

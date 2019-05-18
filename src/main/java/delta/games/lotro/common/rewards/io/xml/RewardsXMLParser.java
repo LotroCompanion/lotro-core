@@ -60,15 +60,8 @@ public class RewardsXMLParser
   private static void parseRewardTag(Rewards rewards, Element rewardTag)
   {
     String tagName=rewardTag.getTagName();
-    // Destiny points
-    if (RewardsXMLConstants.DESTINY_POINTS.equals(tagName))
-    {
-      NamedNodeMap attrs=rewardTag.getAttributes();
-      int destinyPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
-      rewards.setDestinyPoints(destinyPoints);
-    }
     // LOTRO points
-    else if (RewardsXMLConstants.LOTRO_POINTS.equals(tagName))
+    if (RewardsXMLConstants.LOTRO_POINTS.equals(tagName))
     {
       NamedNodeMap attrs=rewardTag.getAttributes();
       int lotroPoints=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);

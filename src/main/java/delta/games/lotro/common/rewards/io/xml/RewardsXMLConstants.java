@@ -42,10 +42,6 @@ public class RewardsXMLConstants
    */
   public static final String MOUNT_XP="mountXP";
   /**
-   * Tag/attribute 'destinyPoints'.
-   */
-  public static final String DESTINY_POINTS="destinyPoints";
-  /**
    * Tag/attribute 'lotroPoints'.
    */
   public static final String LOTRO_POINTS="lotroPoints";
