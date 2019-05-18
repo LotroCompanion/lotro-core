@@ -34,7 +34,7 @@ public class MountXpRewardFilter implements Filter<Rewards>
    * Set the value of the 'has mount XP' flag.
    * @param hasMountXp Flag to set, may be <code>null</code>.
    */
-  public void setHasItemXpFlag(Boolean hasMountXp)
+  public void setHasMountXpFlag(Boolean hasMountXp)
   {
     _hasMountXp=hasMountXp;
   }
