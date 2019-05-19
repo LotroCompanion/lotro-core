@@ -20,13 +20,15 @@ import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
+import delta.games.lotro.lore.quests.io.xml.AchievableXMLConstants;
+import delta.games.lotro.lore.quests.io.xml.AchievableXMLWriter;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
 
 /**
  * Writes LOTRO deeds to XML files.
  * @author DAM
  */
-public class DeedXMLWriter
+public class DeedXMLWriter extends AchievableXMLWriter
 {
   /**
    * Write a file with deeds.
@@ -99,7 +101,7 @@ public class DeedXMLWriter
     int id=deed.getIdentifier();
     if (id!=0)
     {
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      deedAttrs.addAttribute("","",AchievableXMLConstants.ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
     // String key (from lotro-wiki)
     String key=deed.getKey();
@@ -111,7 +113,7 @@ public class DeedXMLWriter
     String name=deed.getName();
     if (name!=null)
     {
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_NAME_ATTR,XmlWriter.CDATA,name);
+      deedAttrs.addAttribute("","",AchievableXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Type
     DeedType type=deed.getType();
@@ -125,16 +127,22 @@ public class DeedXMLWriter
     String category=deed.getCategory();
     if (category!=null)
     {
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CATEGORY_ATTR,XmlWriter.CDATA,category);
+      deedAttrs.addAttribute("","",AchievableXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,category);
     }
     // Challenge level
     ChallengeLevel challengeLevel=deed.getChallengeLevel();
-    deedAttrs.addAttribute("","",DeedXMLConstants.DEED_CHALLENGE_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
+    deedAttrs.addAttribute("","",AchievableXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
+    // Obsolete?
+    boolean obsolete=deed.isObsolete();
+    if (obsolete)
+    {
+      deedAttrs.addAttribute("","",AchievableXMLConstants.OBSOLETE_ATTR,XmlWriter.CDATA,String.valueOf(obsolete));
+    }
     // Description
     String description=deed.getDescription();
     if (description.length()>0)
     {
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+      deedAttrs.addAttribute("","",AchievableXMLConstants.DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
     // Objectives
     String objectives=deed.getObjectivesString();
@@ -146,6 +154,9 @@ public class DeedXMLWriter
 
     // Objectives
     ObjectivesXMLWriter.write(hd,deed.getObjectives());
+
+    // Pre-requisites
+    writePrerequisites(hd,deed);
 
     // Links
     writeDeedProxy(hd,DeedXMLConstants.PREVIOUS_TAG,deed.getPreviousDeedProxy());

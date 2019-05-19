@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.deeds.DeedDescription;
@@ -18,13 +17,14 @@ import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
+import delta.games.lotro.lore.quests.io.xml.AchievableXMLParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
 
 /**
  * Parser for deed descriptions stored in XML.
  * @author DAM
  */
-public class DeedXMLParser
+public class DeedXMLParser extends AchievableXMLParser
 {
   /**
    * Parse the XML file.
@@ -78,15 +78,11 @@ public class DeedXMLParser
 
     NamedNodeMap attrs=root.getAttributes();
 
-    // Identifier
-    int id=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_ID_ATTR,0);
-    deed.setIdentifier(id);
+    // Shared attributes
+    parseAchievableAttributes(attrs,deed);
     // Key
     String key=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_KEY_ATTR,null);
     deed.setKey(key);
-    // Name
-    String title=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_NAME_ATTR,null);
-    deed.setName(title);
     // Type
     DeedType type=null;
     String typeStr=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_TYPE_ATTR,null);
@@ -97,21 +93,13 @@ public class DeedXMLParser
     deed.setType(type);
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(deed.getUsageRequirement(),root);
-    // Category
-    String category=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_CATEGORY_ATTR,null);
-    deed.setCategory(category);
-    // Challenge level
-    byte challengeLevel=(byte)DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_CHALLENGE_LEVEL_ATTR,0);
-    deed.setChallengeLevel(ChallengeLevel.getByCode(challengeLevel));
-    // Description
-    String description=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_DESCRIPTION_ATTR,"");
-    deed.setDescription(description);
+    // Prerequisites
+    parsePrerequisites(root,deed);
     // Objectives string
     String objectives=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_OBJECTIVES_ATTR,null);
     deed.setObjectivesString(objectives);
     // Objectives
     ObjectivesXMLParser.loadObjectives(root,deed.getObjectives());
-
     // Previous deed
     Element previousTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.PREVIOUS_TAG);
     DeedProxy previous=parseDeedProxy(previousTag);

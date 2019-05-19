@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.quests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.CharacterClass;
@@ -8,6 +11,7 @@ import delta.games.lotro.common.Race;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Base class for quests and deeds.
@@ -50,6 +54,10 @@ public abstract class Achievable implements Identifiable
    * Reward.
    */
   private Rewards _rewards;
+  /**
+   * Pre-requisites.
+   */
+  private List<Proxy<Achievable>> _prerequisiteAchievables;
 
   /**
    * Constructor.
@@ -65,6 +73,7 @@ public abstract class Achievable implements Identifiable
     _description="";
     _objectives=new ObjectivesManager();
     _rewards=new Rewards();
+    _prerequisiteAchievables=new ArrayList<Proxy<Achievable>>();
   }
 
   /**
@@ -261,6 +270,24 @@ public abstract class Achievable implements Identifiable
   }
 
   /**
+   * Get the list of the 'pre-requisite' achievables for this achievable. 
+   * @return a possibly empty list of achievables proxies.
+   */
+  public List<Proxy<Achievable>> getPrerequisites()
+  {
+    return _prerequisiteAchievables;
+  }
+
+  /**
+   * Add a 'pre-requisite' achievable.
+   * @param prerequisite proxy to add as a 'pre-requisite'.
+   */
+  public void addPrerequisite(Proxy<Achievable> prerequisite)
+  {
+    _prerequisiteAchievables.add(prerequisite);
+  }
+
+  /**
    * Dump the contents of this achievable as a string.
    * @return A readable string.
    */
@@ -294,6 +321,10 @@ public abstract class Achievable implements Identifiable
     sb.append("Rewards: ").append(_rewards).append(EndOfLine.NATIVE_EOL);
     sb.append("Description: ").append(_description).append(EndOfLine.NATIVE_EOL);
     sb.append("Objectives: ").append(_objectives).append(EndOfLine.NATIVE_EOL);
+    if (_prerequisiteAchievables.size()>0)
+    {
+      sb.append("Prerequisites: ").append(_prerequisiteAchievables).append(EndOfLine.NATIVE_EOL);
+    }
   }
 
   @Override

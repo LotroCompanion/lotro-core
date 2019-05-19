@@ -1,8 +1,5 @@
 package delta.games.lotro.lore.quests;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
@@ -74,7 +71,6 @@ public class QuestDescription extends Achievable
   private String _bestower;
   private String _bestowerText;
   // Links
-  private List<Proxy<Achievable>> _prerequisiteAchievables;
   private Proxy<Achievable> _nextQuest;
 
   /**
@@ -94,7 +90,6 @@ public class QuestDescription extends Achievable
     _autoBestowed=false;
     _bestower="";
     _bestowerText="";
-    _prerequisiteAchievables=new ArrayList<Proxy<Achievable>>();
     _nextQuest=null;
   }
 
@@ -301,24 +296,6 @@ public class QuestDescription extends Achievable
   }
 
   /**
-   * Get the list of the 'pre-requisite' quests for this quest. 
-   * @return a possibly empty list of quest proxies.
-   */
-  public List<Proxy<Achievable>> getPrerequisites()
-  {
-    return _prerequisiteAchievables;
-  }
-
-  /**
-   * Add a 'pre-requisite' achievable.
-   * @param prerequisite proxy to add as a 'pre-requisite'.
-   */
-  public void addPrerequisite(Proxy<Achievable> prerequisite)
-  {
-    _prerequisiteAchievables.add(prerequisite);
-  }
-
-  /**
    * Get the 'next' quest for this quest. 
    * @return a proxy or <code>null</code>.
    */
@@ -385,10 +362,6 @@ public class QuestDescription extends Achievable
     if (_questArc.length()>0)
     {
       sb.append("Arc: ").append(_questArc).append(EndOfLine.NATIVE_EOL);
-    }
-    if (_prerequisiteAchievables.size()>0)
-    {
-      sb.append("Prerequisites: ").append(_prerequisiteAchievables).append(EndOfLine.NATIVE_EOL);
     }
     if (_nextQuest!=null)
     {

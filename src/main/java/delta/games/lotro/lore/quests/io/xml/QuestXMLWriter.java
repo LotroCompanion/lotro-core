@@ -11,7 +11,6 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
@@ -27,7 +26,7 @@ import delta.games.lotro.utils.Proxy;
  * Writes LOTRO quests to XML files.
  * @author DAM
  */
-public class QuestXMLWriter
+public class QuestXMLWriter extends AchievableXMLWriter
 {
   /**
    * Write a file with quests.
@@ -74,27 +73,8 @@ public class QuestXMLWriter
   {
     AttributesImpl questAttrs=new AttributesImpl();
 
-    // Identifier
-    int id=quest.getIdentifier();
-    if (id!=0)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-    }
-    // Name
-    String name=quest.getName();
-    if (name.length()>0)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_NAME_ATTR,XmlWriter.CDATA,name);
-    }
-    // Category
-    String category=quest.getCategory();
-    if (category.length()>0)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_CATEGORY_ATTR,XmlWriter.CDATA,category);
-    }
-    // Challenge level
-    ChallengeLevel challengeLevel=quest.getChallengeLevel();
-    questAttrs.addAttribute("","",QuestXMLConstants.QUEST_CHALLENGE_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
+    // Shared achievable attributes
+    writeAttributes(hd,questAttrs,quest);
     // Scope
     String scope=quest.getQuestScope();
     if (scope.length()>0)
@@ -153,7 +133,7 @@ public class QuestXMLWriter
     boolean obsolete=quest.isObsolete();
     if (obsolete)
     {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_OBSOLETE_ATTR,XmlWriter.CDATA,String.valueOf(obsolete));
+      questAttrs.addAttribute("","",AchievableXMLConstants.OBSOLETE_ATTR,XmlWriter.CDATA,String.valueOf(obsolete));
     }
     // Requirements
     UsageRequirementsXMLWriter.write(questAttrs,quest.getUsageRequirement());
@@ -161,7 +141,7 @@ public class QuestXMLWriter
     String description=quest.getDescription();
     if (description.length()>0)
     {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+      questAttrs.addAttribute("","",AchievableXMLConstants.DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
     // Bestower
     String bestower=quest.getBestower();
@@ -181,32 +161,12 @@ public class QuestXMLWriter
     ObjectivesXMLWriter.write(hd,quest.getObjectives());
 
     // Pre-requisites
-    List<Proxy<Achievable>> prerequisites=quest.getPrerequisites();
-    for(Proxy<Achievable> prerequisite : prerequisites)
-    {
-      writeAchievableProxy(hd,prerequisite,QuestXMLConstants.PREREQUISITE_TAG);
-    }
+    writePrerequisites(hd,quest);
+
     // Next quest
     Proxy<Achievable> nextQuest=quest.getNextQuest();
     writeAchievableProxy(hd,nextQuest,QuestXMLConstants.NEXT_QUEST_TAG);
     RewardsXMLWriter.write(hd,quest.getRewards());
     hd.endElement("","",QuestXMLConstants.QUEST_TAG);
-  }
-
-  private void writeAchievableProxy(TransformerHandler hd, Proxy<Achievable> proxy, String tag) throws Exception
-  {
-    if (proxy!=null)
-    {
-      AttributesImpl questAttrs=new AttributesImpl();
-      int id=proxy.getId();
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_PROXY_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-      String name=proxy.getName();
-      if (name!=null)
-      {
-        questAttrs.addAttribute("","",QuestXMLConstants.QUEST_PROXY_NAME_ATTR,XmlWriter.CDATA,name);
-      }
-      hd.startElement("","",tag,questAttrs);
-      hd.endElement("","",tag);
-    }
   }
 }

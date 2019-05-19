@@ -16,33 +16,13 @@ public class DeedXMLConstants
    */
   public static final String DEED_TAG="deed";
   /**
-   * Tag 'deed', attribute 'id'.
-   */
-  public static final String DEED_ID_ATTR="id";
-  /**
    * Tag 'deed', attribute 'key'.
    */
   public static final String DEED_KEY_ATTR="key";
   /**
-   * Tag 'deed', attribute 'name'.
-   */
-  public static final String DEED_NAME_ATTR="name";
-  /**
    * Tag 'deed', attribute 'type'.
    */
   public static final String DEED_TYPE_ATTR="type";
-  /**
-   * Tag 'deed', attribute 'category'.
-   */
-  public static final String DEED_CATEGORY_ATTR="category";
-  /**
-   * Tag 'deed', attribute 'level'.
-   */
-  public static final String DEED_CHALLENGE_LEVEL_ATTR="level";
-  /**
-   * Tag 'deed', attribute 'description'.
-   */
-  public static final String DEED_DESCRIPTION_ATTR="description";
   /**
    * Tag 'deed', attribute 'objectives'.
    */

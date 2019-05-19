@@ -8,22 +8,19 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
-import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Parser for quest descriptions stored in XML.
  * @author DAM
  */
-public class QuestXMLParser
+public class QuestXMLParser extends AchievableXMLParser
 {
   /**
    * Parse the XML file.
@@ -51,18 +48,9 @@ public class QuestXMLParser
     QuestDescription q=new QuestDescription();
 
     NamedNodeMap attrs=root.getAttributes();
-    // Identifier
-    int id=DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_ID_ATTR,0);
-    q.setIdentifier(id);
-    // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_NAME_ATTR,"");
-    q.setName(name);
-    // Category
-    String category=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_CATEGORY_ATTR,"");
-    q.setCategory(category);
-    // Challenge level
-    byte challengeLevel=(byte)DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_CHALLENGE_LEVEL_ATTR,0);
-    q.setChallengeLevel(ChallengeLevel.getByCode(challengeLevel));
+
+    // Shared attributes
+    parseAchievableAttributes(attrs,q);
     // Scope
     String scope=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SCOPE_ATTR,"");
     q.setQuestScope(scope);
@@ -100,12 +88,6 @@ public class QuestXMLParser
     // Auto-bestowed
     boolean autoBestowed=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,false);
     q.setAutoBestowed(autoBestowed);
-    // Obsolete
-    boolean obsolete=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_OBSOLETE_ATTR,false);
-    q.setObsolete(obsolete);
-    // Description
-    String description=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_DESCRIPTION_ATTR,"");
-    q.setDescription(description);
     // Bestower
     String bestower=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_BESTOWER_ATTR,"");
     q.setBestower(bestower);
@@ -116,40 +98,13 @@ public class QuestXMLParser
     ObjectivesXMLParser.loadObjectives(root,q.getObjectives());
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(q.getUsageRequirement(),root);
-
-    // Prerequisite quests
-    List<Element> prerequisiteTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.PREREQUISITE_TAG);
-    for(Element prerequisiteTag : prerequisiteTags)
-    {
-      Proxy<Achievable> proxy=buildProxy(prerequisiteTag);
-      if (proxy!=null)
-      {
-        q.addPrerequisite(proxy);
-      }
-    }
+    // Prerequisites
+    parsePrerequisites(root,q);
     // Next quest
     Element nextQuestTag=DOMParsingTools.getChildTagByName(root,QuestXMLConstants.NEXT_QUEST_TAG);
     q.setNextQuest(buildProxy(nextQuestTag));
 
     RewardsXMLParser.loadRewards(root,q.getRewards());
     return q;
-  }
-
-  private Proxy<Achievable> buildProxy(Element tag)
-  {
-    Proxy<Achievable> ret=null;
-    if (tag!=null)
-    {
-      NamedNodeMap attrs=tag.getAttributes();
-      int id=DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_PROXY_ID_ATTR,0);
-      String name=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_PROXY_NAME_ATTR,null);
-      if (id!=0)
-      {
-        ret=new Proxy<Achievable>();
-        ret.setId(id);
-        ret.setName(name);
-      }
-    }
-    return ret;
   }
 }
