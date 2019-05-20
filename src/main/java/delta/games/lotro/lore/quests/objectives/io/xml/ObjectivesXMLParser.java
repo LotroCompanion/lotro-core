@@ -7,6 +7,8 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.lore.quests.objectives.ConditionType;
+import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
@@ -62,14 +64,27 @@ public class ObjectivesXMLParser
     ObjectiveCondition ret=null;
     String tagName=conditionTag.getTagName();
     NamedNodeMap attrs=conditionTag.getAttributes();
+    // Index
     int index=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.CONDITION_INDEX_ATTR,0);
+    // Lore info
+    String loreInfo=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_LORE_INFO_ATTR,null);
+    // Progress override
+    String progressOverride=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_PROGRESS_OVERRIDE_ATTR,null);
+
+    // Specifics
     if (ObjectivesXMLConstants.QUEST_COMPLETE_TAG.equals(tagName))
     {
       ret=parseQuestCompleteCondition(attrs,conditionTag);
     }
+    else
+    {
+      ret=parseDefaultCondition(attrs,conditionTag);
+    }
     if (ret!=null)
     {
       ret.setIndex(index);
+      ret.setLoreInfo(loreInfo);
+      ret.setProgressOverride(progressOverride);
     }
     return ret;
   }
@@ -91,6 +106,19 @@ public class ObjectivesXMLParser
     // Count
     int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_COUNT_ATTR,1);
     condition.setCompletionCount(count);
+    return condition;
+  }
+
+  private static DefaultObjectiveCondition parseDefaultCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    // Type
+    String typeStr=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_TYPE_ATTR,null);
+    ConditionType type=null;
+    if (typeStr!=null)
+    {
+      type=ConditionType.valueOf(typeStr);
+    }
+    DefaultObjectiveCondition condition=new DefaultObjectiveCondition(type);
     return condition;
   }
 }

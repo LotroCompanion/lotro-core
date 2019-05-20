@@ -8,6 +8,8 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.lore.quests.objectives.ConditionType;
+import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
@@ -63,12 +65,29 @@ public class ObjectivesXMLWriter
     {
       writeQuestCompleteCondition(hd,(QuestCompleteCondition)condition);
     }
+    else
+    {
+      writeDefaultCondition(hd,(DefaultObjectiveCondition)condition);
+    }
   }
 
   private static void writeSharedConditionAttributes(TransformerHandler hd, AttributesImpl attrs, ObjectiveCondition condition)
   {
+    // Index
     int index=condition.getIndex();
     attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
+    // Lore Info
+    String loreInfo=condition.getLoreInfo();
+    if (loreInfo!=null)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_LORE_INFO_ATTR,XmlWriter.CDATA,loreInfo);
+    }
+    // Progress override
+    String progressOverride=condition.getProgressOverride();
+    if (progressOverride!=null)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_PROGRESS_OVERRIDE_ATTR,XmlWriter.CDATA,progressOverride);
+    }
   }
 
   private static void writeQuestCompleteCondition(TransformerHandler hd, QuestCompleteCondition condition) throws Exception
@@ -97,5 +116,20 @@ public class ObjectivesXMLWriter
     }
     hd.startElement("","",ObjectivesXMLConstants.QUEST_COMPLETE_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.QUEST_COMPLETE_TAG);
+  }
+
+  private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Type
+    ConditionType type=condition.getType();
+    if (type!=null)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_TYPE_ATTR,XmlWriter.CDATA,type.name());
+    }
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    hd.startElement("","",ObjectivesXMLConstants.CONDITION_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.CONDITION_TAG);
   }
 }

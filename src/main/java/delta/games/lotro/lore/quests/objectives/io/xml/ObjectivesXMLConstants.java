@@ -23,10 +23,28 @@ public class ObjectivesXMLConstants
    * Tag 'objective', attribute 'text'.
    */
   public static final String OBJECTIVE_TEXT_ATTR="text";
+  
+  /**
+   * Tag 'condition'.
+   */
+  public static final String CONDITION_TAG="condition";
   /**
    * Tag 'condition', attribute 'index'.
    */
   public static final String CONDITION_INDEX_ATTR="index";
+  /**
+   * Tag 'condition', attribute 'loreInfo'.
+   */
+  public static final String CONDITION_LORE_INFO_ATTR="loreInfo";
+  /**
+   * Tag 'condition', attribute 'progressOverride'.
+   */
+  public static final String CONDITION_PROGRESS_OVERRIDE_ATTR="progressOverride";
+  /**
+   * Tag 'condition', attribute 'type'.
+   */
+  public static final String CONDITION_TYPE_ATTR="type";
+
   /**
    * Tag 'questComplete'.
    */
