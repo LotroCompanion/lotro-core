@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.quests.objectives;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
@@ -78,6 +79,14 @@ public class Objective
   public List<ObjectiveCondition> getConditions()
   {
     return _conditions;
+  }
+
+  /**
+   * Sort conditions.
+   */
+  public void sort()
+  {
+    Collections.sort(_conditions,new ObjectiveConditionComparator());
   }
 
   @Override

@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.quests.objectives;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,6 +45,18 @@ public class ObjectivesManager
   public List<Objective> getObjectives()
   {
     return _objectives;
+  }
+
+  /**
+   * Sort objectives.
+   */
+  public void sort()
+  {
+    Collections.sort(_objectives,new ObjectiveIndexComparator());
+    for(Objective objective : _objectives)
+    {
+      objective.sort();
+    }
   }
 
   @Override
