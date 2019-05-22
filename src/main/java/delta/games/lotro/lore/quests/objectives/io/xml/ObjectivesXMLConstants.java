@@ -61,4 +61,33 @@ public class ObjectivesXMLConstants
    * Tag 'questComplete', attribute 'count'.
    */
   public static final String QUEST_COMPLETE_COUNT_ATTR="count";
+
+  /**
+   * Tag 'monsterDie'.
+   */
+  public static final String MONSTER_DIE_TAG="monsterDie";
+  /**
+   * Tag 'monsterDie', attribute 'mobId'.
+   */
+  public static final String MONSTER_DIE_MOB_ID_ATTR="mobId";
+  /**
+   * Tag 'monsterDie', attribute 'mobName'.
+   */
+  public static final String MONSTER_DIE_MOB_NAME_ATTR="mobName";
+  /**
+   * Tag 'monsterDie', attribute 'count'.
+   */
+  public static final String MONSTER_DIE_COUNT_ATTR="count";
+  /**
+   * Tag 'monsterSelection'.
+   */
+  public static final String MONSTER_SELECTION_TAG="monsterSelection";
+  /**
+   * Tag 'monsterSelection', attribute 'where'.
+   */
+  public static final String MONSTER_SELECTION_WHERE_ATTR="where";
+  /**
+   * Tag 'monsterSelection', attribute 'what'.
+   */
+  public static final String MONSTER_SELECTION_WHAT_ATTR="what";
 }

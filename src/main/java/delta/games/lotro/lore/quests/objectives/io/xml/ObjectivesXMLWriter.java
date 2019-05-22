@@ -10,6 +10,8 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
+import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
@@ -65,6 +67,10 @@ public class ObjectivesXMLWriter
     {
       writeQuestCompleteCondition(hd,(QuestCompleteCondition)condition);
     }
+    else if (condition instanceof MonsterDiedCondition)
+    {
+      writeMonsterDiedCondition(hd,(MonsterDiedCondition)condition);
+    }
     else
     {
       writeDefaultCondition(hd,(DefaultObjectiveCondition)condition);
@@ -116,6 +122,52 @@ public class ObjectivesXMLWriter
     }
     hd.startElement("","",ObjectivesXMLConstants.QUEST_COMPLETE_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.QUEST_COMPLETE_TAG);
+  }
+
+  private static void writeMonsterDiedCondition(TransformerHandler hd, MonsterDiedCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Mob ID
+    Integer mobId=condition.getMobId();
+    if (mobId!=null)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_MOB_ID_ATTR,XmlWriter.CDATA,mobId.toString());
+    }
+    // Mob Name
+    String mobName=condition.getMobName();
+    if (mobName!=null)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_MOB_NAME_ATTR,XmlWriter.CDATA,mobName.toString());
+    }
+    // Count
+    int count=condition.getCount();
+    if (count>1)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+    }
+    hd.startElement("","",ObjectivesXMLConstants.MONSTER_DIE_TAG,attrs);
+    // Selections
+    for(MobSelection selection : condition.getMobSelections())
+    {
+      AttributesImpl selectionAttrs=new AttributesImpl();
+      // Where
+      String where=selection.getWhere();
+      if (where!=null)
+      {
+        selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_WHERE_ATTR,XmlWriter.CDATA,where);
+      }
+      // What
+      String what=selection.getWhat();
+      if (what!=null)
+      {
+        selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_WHAT_ATTR,XmlWriter.CDATA,what);
+      }
+      hd.startElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG,selectionAttrs);
+      hd.endElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG);
+    }
+    hd.endElement("","",ObjectivesXMLConstants.MONSTER_DIE_TAG);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception
