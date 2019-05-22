@@ -147,7 +147,7 @@ public class ObjectivesXMLWriter
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
-    hd.startElement("","",ObjectivesXMLConstants.MONSTER_DIE_TAG,attrs);
+    hd.startElement("","",ObjectivesXMLConstants.MONSTER_DIED_TAG,attrs);
     // Selections
     for(MobSelection selection : condition.getMobSelections())
     {
@@ -167,7 +167,7 @@ public class ObjectivesXMLWriter
       hd.startElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG,selectionAttrs);
       hd.endElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG);
     }
-    hd.endElement("","",ObjectivesXMLConstants.MONSTER_DIE_TAG);
+    hd.endElement("","",ObjectivesXMLConstants.MONSTER_DIED_TAG);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception

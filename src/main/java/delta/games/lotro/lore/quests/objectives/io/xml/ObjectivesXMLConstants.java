@@ -65,7 +65,7 @@ public class ObjectivesXMLConstants
   /**
    * Tag 'monsterDie'.
    */
-  public static final String MONSTER_DIE_TAG="monsterDie";
+  public static final String MONSTER_DIED_TAG="monsterDied";
   /**
    * Tag 'monsterDie', attribute 'mobId'.
    */

@@ -9,6 +9,8 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
+import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
@@ -76,6 +78,10 @@ public class ObjectivesXMLParser
     {
       ret=parseQuestCompleteCondition(attrs,conditionTag);
     }
+    else if (ObjectivesXMLConstants.MONSTER_DIED_TAG.equals(tagName))
+    {
+      ret=parseMonsterDiedCondition(attrs,conditionTag);
+    }
     else
     {
       ret=parseDefaultCondition(attrs,conditionTag);
@@ -106,6 +112,38 @@ public class ObjectivesXMLParser
     // Count
     int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_COUNT_ATTR,1);
     condition.setCompletionCount(count);
+    return condition;
+  }
+
+  private static MonsterDiedCondition parseMonsterDiedCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    MonsterDiedCondition condition=new MonsterDiedCondition();
+    // Mob ID
+    int mobId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.MONSTER_DIE_MOB_ID_ATTR,0);
+    if (mobId>0)
+    {
+      condition.setMobId(Integer.valueOf(mobId));
+    }
+    // Mob name
+    String mobName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.MONSTER_DIE_MOB_NAME_ATTR,null);
+    condition.setMobName(mobName);
+    // Count
+    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.MONSTER_DIE_COUNT_ATTR,1);
+    condition.setCount(count);
+    // Mob selections
+    List<Element> monsterSelectionTags=DOMParsingTools.getChildTagsByName(conditionTag,ObjectivesXMLConstants.MONSTER_SELECTION_TAG);
+    for(Element monsterSelectionTag : monsterSelectionTags)
+    {
+      NamedNodeMap selectionAttrs=monsterSelectionTag.getAttributes();
+      MobSelection selection=new MobSelection();
+      // Where
+      String where=DOMParsingTools.getStringAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_WHERE_ATTR,null);
+      selection.setWhere(where);
+      // What
+      String what=DOMParsingTools.getStringAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_WHAT_ATTR,null);
+      selection.setWhat(what);
+      condition.getMobSelections().add(selection);
+    }
     return condition;
   }
 
