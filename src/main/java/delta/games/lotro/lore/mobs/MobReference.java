@@ -107,13 +107,17 @@ public class MobReference
       String mobName=_mobProxy.getName();
       return mobName;
     }
-    if (_subSpecies!=null)
+    if ((_subSpecies!=null) || (_species!=null))
     {
-      return _subSpecies;
-    }
-    if (_species!=null)
-    {
-      return _species;
+      if (_species==null)
+      {
+        return _subSpecies;
+      }
+      if (_subSpecies==null)
+      {
+        return _species;
+      }
+      return _species+"/"+_subSpecies;
     }
     if (_genus!=null)
     {
