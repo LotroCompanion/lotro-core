@@ -6,9 +6,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.Objective;
@@ -82,6 +84,10 @@ public class ObjectivesXMLParser
     {
       ret=parseMonsterDiedCondition(attrs,conditionTag);
     }
+    else if (ObjectivesXMLConstants.LANDMARK_DETECTION_TAG.equals(tagName))
+    {
+      ret=parseLandmarkDetectionCondition(attrs,conditionTag);
+    }
     else
     {
       ret=parseDefaultCondition(attrs,conditionTag);
@@ -144,6 +150,21 @@ public class ObjectivesXMLParser
       selection.setWhat(what);
       condition.getMobSelections().add(selection);
     }
+    return condition;
+  }
+
+  private static LandmarkDetectionCondition parseLandmarkDetectionCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    LandmarkDetectionCondition condition=new LandmarkDetectionCondition();
+    // Landmark proxy
+    // - id
+    int landmarkId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.LANDMARK_DETECTION_ID_ATTR,0);
+    // - name
+    String landmarkName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.LANDMARK_DETECTION_NAME_ATTR,"?");
+    Proxy<LandmarkDescription> proxy=new Proxy<LandmarkDescription>();
+    proxy.setId(landmarkId);
+    proxy.setName(landmarkName);
+    condition.setLandmarkProxy(proxy);
     return condition;
   }
 

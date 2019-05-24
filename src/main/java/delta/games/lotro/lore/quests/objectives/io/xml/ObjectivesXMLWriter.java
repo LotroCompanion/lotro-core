@@ -7,9 +7,11 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.Objective;
@@ -70,6 +72,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof MonsterDiedCondition)
     {
       writeMonsterDiedCondition(hd,(MonsterDiedCondition)condition);
+    }
+    else if (condition instanceof LandmarkDetectionCondition)
+    {
+      writeLandmarkDetectionCondition(hd,(LandmarkDetectionCondition)condition);
     }
     else
     {
@@ -168,6 +174,29 @@ public class ObjectivesXMLWriter
       hd.endElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG);
     }
     hd.endElement("","",ObjectivesXMLConstants.MONSTER_DIED_TAG);
+  }
+
+  private static void writeLandmarkDetectionCondition(TransformerHandler hd, LandmarkDetectionCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Landmark proxy
+    Proxy<LandmarkDescription> proxy=condition.getLandmarkProxy();
+    if (proxy!=null)
+    {
+      // ID
+      int id=proxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.LANDMARK_DETECTION_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=proxy.getName();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",ObjectivesXMLConstants.LANDMARK_DETECTION_NAME_ATTR,XmlWriter.CDATA,name);
+      }
+    }
+    hd.startElement("","",ObjectivesXMLConstants.LANDMARK_DETECTION_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.LANDMARK_DETECTION_TAG);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception

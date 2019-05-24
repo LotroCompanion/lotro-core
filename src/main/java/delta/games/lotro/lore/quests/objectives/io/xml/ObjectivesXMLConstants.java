@@ -90,4 +90,17 @@ public class ObjectivesXMLConstants
    * Tag 'monsterSelection', attribute 'what'.
    */
   public static final String MONSTER_SELECTION_WHAT_ATTR="what";
+
+  /**
+   * Tag 'landmarkDetection'.
+   */
+  public static final String LANDMARK_DETECTION_TAG="landmarkDetection";
+  /**
+   * Tag 'landmarkDetection', attribute 'landmarkId'.
+   */
+  public static final String LANDMARK_DETECTION_ID_ATTR="landmarkId";
+  /**
+   * Tag 'landmarkDetection', attribute 'landmarkName'.
+   */
+  public static final String LANDMARK_DETECTION_NAME_ATTR="landmarkName";
 }
