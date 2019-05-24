@@ -70,7 +70,6 @@ public class ProgressionsManager
     if (from.canRead())
     {
       long now=System.currentTimeMillis();
-      //List<Progression> progressions=ProgressionsXMLParser.parseProgressions(from);
       List<Progression> progressions=ProgressionSaxParser.parseProgressionsFile(from);
       for(Progression progression : progressions)
       {

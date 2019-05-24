@@ -79,17 +79,41 @@ public class ProgressionsXMLWriter
     int nbPoints=progression.getNumberOfPoints();
     attrs.addAttribute("","",ProgressionsXMLConstants.NB_POINTS_ATTR,XmlWriter.CDATA,String.valueOf(nbPoints));
     hd.startElement("","",ProgressionsXMLConstants.ARRAY_PROGRESSION_TAG,attrs);
-    for(int i=0;i<nbPoints;i++)
+
+    float previousValue=progression.getY(0);
+    int minX=progression.getX(0);
+    int maxX=progression.getX(0);
+    for(int i=1;i<nbPoints;i++)
     {
-      AttributesImpl pointAttrs=new AttributesImpl();
       int x=progression.getX(i);
-      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(x));
       float y=progression.getY(i);
-      pointAttrs.addAttribute("","",ProgressionsXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(y));
-      hd.startElement("","",ProgressionsXMLConstants.POINT_TAG,pointAttrs);
-      hd.endElement("","",ProgressionsXMLConstants.POINT_TAG);
+      if (y!=previousValue)
+      {
+        writeArrayProgressionItem(hd,minX,maxX,previousValue);
+        minX=x;
+        previousValue=y;
+      }
+      maxX=x;
     }
+    writeArrayProgressionItem(hd,minX,maxX,previousValue);
     hd.endElement("","",ProgressionsXMLConstants.ARRAY_PROGRESSION_TAG);
+  }
+
+  private static void writeArrayProgressionItem(TransformerHandler hd, int xMin, int xMax, float value) throws SAXException
+  {
+    AttributesImpl pointAttrs=new AttributesImpl();
+    if (xMin==xMax)
+    {
+      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(xMin));
+    }
+    else
+    {
+      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_MIN_ATTR,XmlWriter.CDATA,String.valueOf(xMin));
+      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_MAX_ATTR,XmlWriter.CDATA,String.valueOf(xMax));
+    }
+    pointAttrs.addAttribute("","",ProgressionsXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(value));
+    hd.startElement("","",ProgressionsXMLConstants.POINT_TAG,pointAttrs);
+    hd.endElement("","",ProgressionsXMLConstants.POINT_TAG);
   }
 
   /**

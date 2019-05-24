@@ -90,19 +90,35 @@ public final class ProgressionSaxParser extends DefaultHandler
     }
     else if (ProgressionsXMLConstants.POINT_TAG.equals(qualifiedName))
     {
-      String xStr=attributes.getValue(ProgressionsXMLConstants.X_ATTR);
-      int x=NumericTools.parseInt(xStr,0);
       String yStr=attributes.getValue(ProgressionsXMLConstants.Y_ATTR);
       float y=NumericTools.parseFloat(yStr,0);
+      String xStr=attributes.getValue(ProgressionsXMLConstants.X_ATTR);
+      int x=NumericTools.parseInt(xStr,0);
       if (_arrayProgression!=null)
       {
-        _arrayProgression.set(_index,x,y);
+        if (xStr==null)
+        {
+          String xMinStr=attributes.getValue(ProgressionsXMLConstants.X_MIN_ATTR);
+          int xMin=NumericTools.parseInt(xMinStr,0);
+          String xMaxStr=attributes.getValue(ProgressionsXMLConstants.X_MAX_ATTR);
+          int xMax=NumericTools.parseInt(xMaxStr,0);
+          for(int i=xMin;i<=xMax;i++)
+          {
+            _arrayProgression.set(_index,i,y);
+            _index++;
+          }
+        }
+        else
+        {
+          _arrayProgression.set(_index,x,y);
+          _index++;
+        }
       }
       else if (_linearInterpolatingProgression!=null)
       {
         _linearInterpolatingProgression.set(_index,x,y);
+        _index++;
       }
-      _index++;
     }
     else
     {
