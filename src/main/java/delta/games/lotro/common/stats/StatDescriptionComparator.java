@@ -19,11 +19,11 @@ public class StatDescriptionComparator implements Comparator<StatDescription>
       {
         return Integer.compare(index1.intValue(),index2.intValue());
       }
-      return 1;
+      return -1;
     }
     if (index2!=null)
     {
-      return -1;
+      return 1;
     }
     int id1=o1.getIdentifier();
     int id2=o2.getIdentifier();
