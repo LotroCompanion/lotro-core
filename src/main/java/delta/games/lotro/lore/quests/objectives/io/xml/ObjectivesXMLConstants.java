@@ -103,4 +103,21 @@ public class ObjectivesXMLConstants
    * Tag 'landmarkDetection', attribute 'landmarkName'.
    */
   public static final String LANDMARK_DETECTION_NAME_ATTR="landmarkName";
+
+  /**
+   * Tag 'inventoryItem'.
+   */
+  public static final String INVENTORY_ITEM_TAG="inventoryItem";
+  /**
+   * Tag 'inventoryItem', attribute 'itemId'.
+   */
+  public static final String INVENTORY_ITEM_ID_ATTR="itemId";
+  /**
+   * Tag 'inventoryItem', attribute 'itemName'.
+   */
+  public static final String INVENTORY_ITEM_NAME_ATTR="itemName";
+  /**
+   * Tag 'inventoryItem', attribute 'count'.
+   */
+  public static final String INVENTORY_ITEM_COUNT_ATTR="count";
 }

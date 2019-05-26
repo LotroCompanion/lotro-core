@@ -8,9 +8,11 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.lore.geo.LandmarkDescription;
+import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
@@ -76,6 +78,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof LandmarkDetectionCondition)
     {
       writeLandmarkDetectionCondition(hd,(LandmarkDetectionCondition)condition);
+    }
+    else if (condition instanceof InventoryItemCondition)
+    {
+      writeInventoryItemCondition(hd,(InventoryItemCondition)condition);
     }
     else
     {
@@ -197,6 +203,35 @@ public class ObjectivesXMLWriter
     }
     hd.startElement("","",ObjectivesXMLConstants.LANDMARK_DETECTION_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.LANDMARK_DETECTION_TAG);
+  }
+
+  private static void writeInventoryItemCondition(TransformerHandler hd, InventoryItemCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Item proxy
+    Proxy<Item> proxy=condition.getProxy();
+    if (proxy!=null)
+    {
+      // ID
+      int id=proxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.INVENTORY_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=proxy.getName();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",ObjectivesXMLConstants.INVENTORY_ITEM_NAME_ATTR,XmlWriter.CDATA,name);
+      }
+    }
+    // Count
+    int count=condition.getCount();
+    if (count>1)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.INVENTORY_ITEM_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+    }
+    hd.startElement("","",ObjectivesXMLConstants.INVENTORY_ITEM_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.INVENTORY_ITEM_TAG);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception

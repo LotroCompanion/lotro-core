@@ -7,9 +7,11 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.geo.LandmarkDescription;
+import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
@@ -88,6 +90,10 @@ public class ObjectivesXMLParser
     {
       ret=parseLandmarkDetectionCondition(attrs,conditionTag);
     }
+    else if (ObjectivesXMLConstants.INVENTORY_ITEM_TAG.equals(tagName))
+    {
+      ret=parseInventoryItemCondition(attrs,conditionTag);
+    }
     else
     {
       ret=parseDefaultCondition(attrs,conditionTag);
@@ -165,6 +171,24 @@ public class ObjectivesXMLParser
     proxy.setId(landmarkId);
     proxy.setName(landmarkName);
     condition.setLandmarkProxy(proxy);
+    return condition;
+  }
+
+  private static InventoryItemCondition parseInventoryItemCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    InventoryItemCondition condition=new InventoryItemCondition();
+    // Item proxy
+    // - id
+    int itemId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_ID_ATTR,0);
+    // - name
+    String landmarkName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_NAME_ATTR,"?");
+    Proxy<Item> proxy=new Proxy<Item>();
+    proxy.setId(itemId);
+    proxy.setName(landmarkName);
+    condition.setProxy(proxy);
+    // Count
+    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_COUNT_ATTR,1);
+    condition.setCount(count);
     return condition;
   }
 
