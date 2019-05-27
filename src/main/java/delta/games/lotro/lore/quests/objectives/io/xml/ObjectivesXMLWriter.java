@@ -12,6 +12,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
@@ -20,6 +21,7 @@ import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.lore.quests.objectives.QuestCompleteCondition;
+import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -82,6 +84,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof InventoryItemCondition)
     {
       writeInventoryItemCondition(hd,(InventoryItemCondition)condition);
+    }
+    else if (condition instanceof FactionLevelCondition)
+    {
+      writeFactionLevelCondition(hd,(FactionLevelCondition)condition);
     }
     else
     {
@@ -232,6 +238,32 @@ public class ObjectivesXMLWriter
     }
     hd.startElement("","",ObjectivesXMLConstants.INVENTORY_ITEM_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.INVENTORY_ITEM_TAG);
+  }
+
+  private static void writeFactionLevelCondition(TransformerHandler hd, FactionLevelCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Faction proxy
+    Proxy<Faction> proxy=condition.getProxy();
+    if (proxy!=null)
+    {
+      // ID
+      int id=proxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.FACTION_LEVEL_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=proxy.getName();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",ObjectivesXMLConstants.FACTION_LEVEL_NAME_ATTR,XmlWriter.CDATA,name);
+      }
+    }
+    // Tier
+    int tier=condition.getTier();
+    attrs.addAttribute("","",ObjectivesXMLConstants.FACTION_LEVEL_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
+    hd.startElement("","",ObjectivesXMLConstants.FACTION_LEVEL_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.FACTION_LEVEL_TAG);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception

@@ -120,4 +120,21 @@ public class ObjectivesXMLConstants
    * Tag 'inventoryItem', attribute 'count'.
    */
   public static final String INVENTORY_ITEM_COUNT_ATTR="count";
+
+  /**
+   * Tag 'factionLevel'.
+   */
+  public static final String FACTION_LEVEL_TAG="factionLevel";
+  /**
+   * Tag 'factionLevel', attribute 'factionId'.
+   */
+  public static final String FACTION_LEVEL_ID_ATTR="factionId";
+  /**
+   * Tag 'factionLevel', attribute 'factionName'.
+   */
+  public static final String FACTION_LEVEL_NAME_ATTR="factionName";
+  /**
+   * Tag 'factionLevel', attribute 'tier'.
+   */
+  public static final String FACTION_LEVEL_TIER_ATTR="tier";
 }

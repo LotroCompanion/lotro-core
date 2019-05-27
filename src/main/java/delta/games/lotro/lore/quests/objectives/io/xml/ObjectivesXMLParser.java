@@ -11,6 +11,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
@@ -19,6 +20,7 @@ import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.lore.quests.objectives.QuestCompleteCondition;
+import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -93,6 +95,10 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.INVENTORY_ITEM_TAG.equals(tagName))
     {
       ret=parseInventoryItemCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.FACTION_LEVEL_TAG.equals(tagName))
+    {
+      ret=parseFactionLevelCondition(attrs,conditionTag);
     }
     else
     {
@@ -181,14 +187,32 @@ public class ObjectivesXMLParser
     // - id
     int itemId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_ID_ATTR,0);
     // - name
-    String landmarkName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_NAME_ATTR,"?");
+    String itemName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_NAME_ATTR,"?");
     Proxy<Item> proxy=new Proxy<Item>();
     proxy.setId(itemId);
-    proxy.setName(landmarkName);
+    proxy.setName(itemName);
     condition.setProxy(proxy);
     // Count
     int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_COUNT_ATTR,1);
     condition.setCount(count);
+    return condition;
+  }
+
+  private static FactionLevelCondition parseFactionLevelCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    FactionLevelCondition condition=new FactionLevelCondition();
+    // Faction proxy
+    // - id
+    int factionId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.FACTION_LEVEL_ID_ATTR,0);
+    // - name
+    String factionName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.FACTION_LEVEL_NAME_ATTR,"?");
+    Proxy<Faction> proxy=new Proxy<Faction>();
+    proxy.setId(factionId);
+    proxy.setName(factionName);
+    condition.setProxy(proxy);
+    // Tier
+    int tier=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.FACTION_LEVEL_TIER_ATTR,1);
+    condition.setTier(tier);
     return condition;
   }
 
