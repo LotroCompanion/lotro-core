@@ -37,7 +37,11 @@ public class DataFiles
    */
   public static final String TRAITS="traits";
   /**
-   * Colors file.
+   * Skills file.
+   */
+  public static final String SKILLS="skills";
+  /**
+   * Classes file.
    */
   public static final String CLASSES="classes";
   /**
