@@ -11,6 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 
@@ -80,6 +81,18 @@ public class TraitDescriptionXMLWriter
     hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_TAG,attrs);
     // Stats
     StatsProviderXMLWriter.writeXml(hd,null,trait.getStatsProvider(),null);
+    // Skills
+    for(SkillDescription skill : trait.getSkills())
+    {
+      AttributesImpl skillAttrs=new AttributesImpl();
+      int skillId=skill.getIdentifier();
+      skillAttrs.addAttribute("","",TraitDescriptionXMLConstants.SKILL_ID_ATTR,XmlWriter.CDATA,String.valueOf(skillId));
+      // Name
+      String skillName=skill.getName();
+      skillAttrs.addAttribute("","",TraitDescriptionXMLConstants.SKILL_NAME_ATTR,XmlWriter.CDATA,skillName);
+      hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_SKILL_TAG,skillAttrs);
+      hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_SKILL_TAG);
+    }
     hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_TAG);
   }
 }

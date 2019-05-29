@@ -43,4 +43,16 @@ public class TraitDescriptionXMLConstants
    * Tag 'trait', attribute 'tiers'.
    */
   public static final String TRAIT_TIERS_ATTR="tiers";
+  /**
+   * Tag 'skill'.
+   */
+  public static final String TRAIT_SKILL_TAG="skill";
+  /**
+   * Tag 'skill', attribute 'id'.
+   */
+  public static final String SKILL_ID_ATTR="id";
+  /**
+   * Tag 'skill', attribute 'name'.
+   */
+  public static final String SKILL_NAME_ATTR="name";
 }

@@ -1,5 +1,9 @@
 package delta.games.lotro.character.traits;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.stats.StatsProvider;
 
@@ -47,6 +51,7 @@ public class TraitDescription implements Identifiable
   // Tooltip
   // Cost to slot
   // Cosmetic (boolean?)
+  private List<SkillDescription> _skills;
 
   /**
    * Constructor.
@@ -62,6 +67,7 @@ public class TraitDescription implements Identifiable
     _minLevel=1;
     _tiers=1;
     _stats=new StatsProvider();
+    _skills=new ArrayList<SkillDescription>();
   }
 
   /**
@@ -207,5 +213,23 @@ public class TraitDescription implements Identifiable
   public void setStatsProvider(StatsProvider stats)
   {
     _stats=stats;
+  }
+
+  /**
+   * Add a skill.
+   * @param skill Skill to add.
+   */
+  public void addSkill(SkillDescription skill)
+  {
+    _skills.add(skill);
+  }
+
+  /**
+   * Get all the skills of this trait.
+   * @return A list of skills.
+   */
+  public List<SkillDescription> getSkills()
+  {
+    return _skills;
   }
 }

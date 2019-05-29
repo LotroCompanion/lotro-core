@@ -4,10 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -20,6 +23,8 @@ import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
  */
 public class TraitDescriptionXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(TraitDescriptionXMLParser.class);
+
   /**
    * Parse a traits XML file.
    * @param source Source file.
@@ -71,7 +76,6 @@ public class TraitDescriptionXMLParser
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_DESCRIPTION_ATTR,"");
     trait.setDescription(description);
-
     // Stats
     StatsProvider statsProvider=trait.getStatsProvider();
     List<Element> statTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.STAT_TAG);
@@ -79,6 +83,24 @@ public class TraitDescriptionXMLParser
     {
       StatProvider statProvider=StatsProviderXMLParser.parseStatProvider(statTag);
       statsProvider.addStatProvider(statProvider);
+    }
+    // Skills
+    List<Element> skillTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_SKILL_TAG);
+    for(Element skillTag : skillTags)
+    {
+      NamedNodeMap skillAttrs=skillTag.getAttributes();
+      int skillId=DOMParsingTools.getIntAttribute(skillAttrs,TraitDescriptionXMLConstants.SKILL_ID_ATTR,0);
+      String skillName=DOMParsingTools.getStringAttribute(skillAttrs,TraitDescriptionXMLConstants.SKILL_NAME_ATTR,null);
+      SkillsManager skillsMgr=SkillsManager.getInstance();
+      SkillDescription skill=skillsMgr.getSkill(skillId);
+      if (skill!=null)
+      {
+        trait.addSkill(skill);
+      }
+      else
+      {
+        LOGGER.warn("Skill not found: ID="+skillId+", name="+skillName);
+      }
     }
     return trait;
   }
