@@ -83,4 +83,20 @@ public class ClassDescriptionXMLConstants
    * Tag 'cell', attribute 'traitId'.
    */
   public static final String CELL_TRAIT_ID_ATTR="traitId";
+  /**
+   * Tag 'classSkill'.
+   */
+  public static final String CLASS_SKILL_TAG="classSkill";
+  /**
+   * Tag 'classSkill', attribute 'minLevel'.
+   */
+  public static final String CLASS_SKILL_MIN_LEVEL_ATTR="minLevel";
+  /**
+   * Tag 'classSkill', attribute 'skillId'.
+   */
+  public static final String CLASS_SKILL_ID_ATTR="skillId";
+  /**
+   * Tag 'classSkill', attribute 'skillName'.
+   */
+  public static final String CLASS_SKILL_NAME_ATTR="skillName";
 }

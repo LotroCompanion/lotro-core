@@ -17,6 +17,7 @@ public class ClassDescription
   private int _smallIconId;
   private List<ClassTrait> _traits;
   private TraitTree _traitTree;
+  private List<ClassSkill> _skills;
 
   /**
    * Constructor.
@@ -28,6 +29,7 @@ public class ClassDescription
     _iconId=0;
     _smallIconId=0;
     _traits=new ArrayList<ClassTrait>();
+    _skills=new ArrayList<ClassSkill>();
   }
 
   /**
@@ -128,5 +130,23 @@ public class ClassDescription
   public void setTraitTree(TraitTree traitTree)
   {
     _traitTree=traitTree;
+  }
+
+  /**
+   * Add a class skill.
+   * @param skill Skill to add.
+   */
+  public void addSkill(ClassSkill skill)
+  {
+    _skills.add(skill);
+  }
+
+  /**
+   * Get all the skills of this class.
+   * @return A list of class skills.
+   */
+  public List<ClassSkill> getSkills()
+  {
+    return _skills;
   }
 }

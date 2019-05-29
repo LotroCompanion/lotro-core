@@ -12,10 +12,12 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.TraitTree;
 import delta.games.lotro.character.classes.TraitTreeBranch;
 import delta.games.lotro.character.classes.TraitTreeProgression;
+import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 
@@ -90,6 +92,24 @@ public class ClassDescriptionXMLWriter
         writeTraitTreeBranch(hd,branch);
       }
       hd.endElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_TAG);
+    }
+    // Skills
+    List<ClassSkill> skills=description.getSkills();
+    for(ClassSkill classSkill : skills)
+    {
+      AttributesImpl skillAttrs=new AttributesImpl();
+      // Min level
+      int minLevel=classSkill.getRequiredLevel();
+      skillAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_SKILL_MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel));
+      // Skill identifier
+      SkillDescription skill=classSkill.getSkill();
+      int skillId=skill.getIdentifier();
+      skillAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_SKILL_ID_ATTR,XmlWriter.CDATA,String.valueOf(skillId));
+      // Skill name
+      String skillName=skill.getName();
+      skillAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_SKILL_NAME_ATTR,XmlWriter.CDATA,skillName);
+      hd.startElement("","",ClassDescriptionXMLConstants.CLASS_SKILL_TAG,skillAttrs);
+      hd.endElement("","",ClassDescriptionXMLConstants.CLASS_SKILL_TAG);
     }
     hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TAG);
   }
