@@ -137,4 +137,25 @@ public class ObjectivesXMLConstants
    * Tag 'factionLevel', attribute 'tier'.
    */
   public static final String FACTION_LEVEL_TIER_ATTR="tier";
+
+  /**
+   * Tag 'skillUsed'.
+   */
+  public static final String SKILL_USED_TAG="skillUsed";
+  /**
+   * Tag 'skillUsed', attribute 'skillId'.
+   */
+  public static final String SKILL_USED_SKILL_ID_ATTR="skillId";
+  /**
+   * Tag 'skillUsed', attribute 'skillName'.
+   */
+  public static final String SKILL_USED_SKILL_NAME_ATTR="skillName";
+  /**
+   * Tag 'skillUsed', attribute 'count'.
+   */
+  public static final String SKILL_USED_COUNT_ATTR="count";
+  /**
+   * Tag 'skillUsed', attribute 'maxPerDay'.
+   */
+  public static final String SKILL_USED_MAX_PER_DAY_ATTR="maxPerDay";
 }

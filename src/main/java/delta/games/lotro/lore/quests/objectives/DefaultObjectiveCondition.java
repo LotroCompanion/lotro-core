@@ -22,4 +22,13 @@ public class DefaultObjectiveCondition extends ObjectiveCondition
   {
     return _type;
   }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    sb.append("#").append(getIndex());
+    sb.append(" type=").append(_type);
+    return sb.toString();
+  }
 }

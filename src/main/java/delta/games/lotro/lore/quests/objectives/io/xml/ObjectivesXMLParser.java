@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.Achievable;
@@ -15,6 +16,7 @@ import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
+import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
@@ -99,6 +101,10 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.FACTION_LEVEL_TAG.equals(tagName))
     {
       ret=parseFactionLevelCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.SKILL_USED_TAG.equals(tagName))
+    {
+      ret=parseSkillUsedCondition(attrs,conditionTag);
     }
     else
     {
@@ -213,6 +219,30 @@ public class ObjectivesXMLParser
     // Tier
     int tier=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.FACTION_LEVEL_TIER_ATTR,1);
     condition.setTier(tier);
+    return condition;
+  }
+
+  private static SkillUsedCondition parseSkillUsedCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    SkillUsedCondition condition=new SkillUsedCondition();
+    // Skill proxy
+    // - id
+    int skillId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_SKILL_ID_ATTR,0);
+    // - name
+    String skillName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_SKILL_NAME_ATTR,"?");
+    Proxy<SkillDescription> proxy=new Proxy<SkillDescription>();
+    proxy.setId(skillId);
+    proxy.setName(skillName);
+    condition.setProxy(proxy);
+    // Count
+    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_COUNT_ATTR,1);
+    condition.setCount(count);
+    // Max per day
+    int maxPerDay=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_MAX_PER_DAY_ATTR,-1);
+    if (maxPerDay!=-1)
+    {
+      condition.setMaxPerDay(Integer.valueOf(maxPerDay));
+    }
     return condition;
   }
 

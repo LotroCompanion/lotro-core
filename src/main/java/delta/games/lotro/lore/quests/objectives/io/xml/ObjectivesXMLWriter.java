@@ -7,6 +7,7 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.Achievable;
@@ -16,6 +17,7 @@ import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
+import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
@@ -88,6 +90,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof FactionLevelCondition)
     {
       writeFactionLevelCondition(hd,(FactionLevelCondition)condition);
+    }
+    else if (condition instanceof SkillUsedCondition)
+    {
+      writeSkillUsedCondition(hd,(SkillUsedCondition)condition);
     }
     else
     {
@@ -264,6 +270,41 @@ public class ObjectivesXMLWriter
     attrs.addAttribute("","",ObjectivesXMLConstants.FACTION_LEVEL_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
     hd.startElement("","",ObjectivesXMLConstants.FACTION_LEVEL_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.FACTION_LEVEL_TAG);
+  }
+
+  private static void writeSkillUsedCondition(TransformerHandler hd, SkillUsedCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Skill proxy
+    Proxy<SkillDescription> proxy=condition.getProxy();
+    if (proxy!=null)
+    {
+      // ID
+      int id=proxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.SKILL_USED_SKILL_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=proxy.getName();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",ObjectivesXMLConstants.SKILL_USED_SKILL_NAME_ATTR,XmlWriter.CDATA,name);
+      }
+    }
+    // Count
+    int count=condition.getCount();
+    if (count>1)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.SKILL_USED_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+    }
+    // Max per day
+    Integer maxPerDay=condition.getMaxPerDay();
+    if (maxPerDay!=null)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.SKILL_USED_MAX_PER_DAY_ATTR,XmlWriter.CDATA,maxPerDay.toString());
+    }
+    hd.startElement("","",ObjectivesXMLConstants.SKILL_USED_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.SKILL_USED_TAG);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception
