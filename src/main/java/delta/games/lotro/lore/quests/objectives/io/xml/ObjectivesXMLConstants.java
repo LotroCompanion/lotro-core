@@ -158,4 +158,17 @@ public class ObjectivesXMLConstants
    * Tag 'skillUsed', attribute 'maxPerDay'.
    */
   public static final String SKILL_USED_MAX_PER_DAY_ATTR="maxPerDay";
+
+  /**
+   * Tag 'npcTalk'.
+   */
+  public static final String NPC_TALK_TAG="npcTalk";
+  /**
+   * Tag 'npcTalk', attribute 'npcId'.
+   */
+  public static final String NPC_TALK_NPC_ID_ATTR="npcId";
+  /**
+   * Tag 'npcTalk', attribute 'npcName'.
+   */
+  public static final String NPC_TALK_NPC_NAME_ATTR="npcName";
 }

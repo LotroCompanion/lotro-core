@@ -9,6 +9,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
@@ -16,6 +17,7 @@ import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
+import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
 import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.Objective;
@@ -105,6 +107,10 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.SKILL_USED_TAG.equals(tagName))
     {
       ret=parseSkillUsedCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.NPC_TALK_TAG.equals(tagName))
+    {
+      ret=parseNpcTalkCondition(attrs,conditionTag);
     }
     else
     {
@@ -243,6 +249,21 @@ public class ObjectivesXMLParser
     {
       condition.setMaxPerDay(Integer.valueOf(maxPerDay));
     }
+    return condition;
+  }
+
+  private static NpcTalkCondition parseNpcTalkCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    NpcTalkCondition condition=new NpcTalkCondition();
+    // NPC proxy
+    // - id
+    int npcId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.NPC_TALK_NPC_ID_ATTR,0);
+    // - name
+    String npcName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.NPC_TALK_NPC_NAME_ATTR,"?");
+    Proxy<NpcDescription> proxy=new Proxy<NpcDescription>();
+    proxy.setId(npcId);
+    proxy.setName(npcName);
+    condition.setProxy(proxy);
     return condition;
   }
 

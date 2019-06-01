@@ -10,6 +10,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
@@ -17,6 +18,7 @@ import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
+import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
 import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.Objective;
@@ -94,6 +96,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof SkillUsedCondition)
     {
       writeSkillUsedCondition(hd,(SkillUsedCondition)condition);
+    }
+    else if (condition instanceof NpcTalkCondition)
+    {
+      writeNpcTalkCondition(hd,(NpcTalkCondition)condition);
     }
     else
     {
@@ -305,6 +311,29 @@ public class ObjectivesXMLWriter
     }
     hd.startElement("","",ObjectivesXMLConstants.SKILL_USED_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.SKILL_USED_TAG);
+  }
+
+  private static void writeNpcTalkCondition(TransformerHandler hd, NpcTalkCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // NPC proxy
+    Proxy<NpcDescription> proxy=condition.getProxy();
+    if (proxy!=null)
+    {
+      // ID
+      int id=proxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.NPC_TALK_NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=proxy.getName();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_TALK_NPC_NAME_ATTR,XmlWriter.CDATA,name);
+      }
+    }
+    hd.startElement("","",ObjectivesXMLConstants.NPC_TALK_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.NPC_TALK_TAG);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception
