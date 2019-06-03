@@ -15,6 +15,10 @@ public enum ConditionType
    */
   LEAVE_DETECTION,
   /**
+   * Monster player died.
+   */
+  MONSTER_PLAYER_DIED,
+  /**
    * NPC used.
    */
   NPC_USED,
