@@ -117,4 +117,34 @@ public class Formats
     }
     return date;
   }
+
+  /**
+   * Format a position.
+   * @param longitude Longitude (degrees).
+   * @param latitude Latitude (degrees).
+   * @return A formatted string.
+   */
+  public static String formatPosition(float longitude, float latitude)
+  {
+      StringBuilder sb=new StringBuilder();
+      // Latitude
+      int lat10=(int)(latitude*10);
+      boolean south=lat10<0;
+      if (lat10<0) lat10=-lat10;
+      sb.append(lat10/10);
+      sb.append('.');
+      sb.append(lat10%10);
+      sb.append(south?'S':'N');
+      // Separator
+      sb.append(' ');
+      // Longitude
+      int lon10=(int)(longitude*10);
+      boolean west=lon10<0;
+      if (lon10<0) lon10=-lon10;
+      sb.append(lon10/10);
+      sb.append('.');
+      sb.append(lon10%10);
+      sb.append(west?'W':'E');
+      return sb.toString();
+  }
 }
