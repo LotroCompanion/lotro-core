@@ -53,6 +53,10 @@ public class StatsContribution
    * Source identifier seed: additional stats.
    */
   public static final String ADDITIONAL_STATS="Additional:";
+  /**
+   * Source identifier for passive stats of virtues.
+   */
+  public static final String PASSIVE_VIRTUES="PassiveVirtues";
 
   private StatContributionSource _source;
   private BasicStatsSet _stats;
@@ -104,6 +108,16 @@ public class StatsContribution
     String source=VIRTUE_SEED+virtueId.name();
     String label=virtueId.getLabel()+", tier "+rank;
     return new StatsContribution(source,label,stats);
+  }
+
+  /**
+   * Build a stat contribution for passive virtues.
+   * @param stats Contributed stats.
+   * @return A stat contribution.
+   */
+  public static StatsContribution getPassiveVirtuesContrib(BasicStatsSet stats)
+  {
+    return new StatsContribution(PASSIVE_VIRTUES,"Passive virtues",stats);
   }
 
   /**

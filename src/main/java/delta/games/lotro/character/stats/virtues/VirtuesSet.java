@@ -19,7 +19,7 @@ public class VirtuesSet
   /**
    * Maximum virtue tier.
    */
-  public static final int MAX_TIER=20;
+  public static final int MAX_TIER=70;
 
   private Map<VirtueId,Integer> _virtues;
   private VirtueId[] _selectedVirtues;

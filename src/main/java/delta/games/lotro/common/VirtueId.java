@@ -82,6 +82,10 @@ public enum VirtueId {
    */
   WISDOM,
   /**
+   * Wit.
+   */
+  WIT,
+  /**
    * Zeal.
    */
   ZEAL;
