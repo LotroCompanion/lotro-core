@@ -1,5 +1,6 @@
 package delta.games.lotro.common.stats.io.xml;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -20,6 +21,8 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class StatsProviderXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(StatsProviderXMLParser.class);
+
   /**
    * Build a stat provider from an XML tag.
    * @param root Root XML tag.
@@ -55,6 +58,10 @@ public class StatsProviderXMLParser
     {
       int progressionId=NumericTools.parseInt(progressionStr,-1);
       Progression progression=ProgressionsManager.getInstance().getProgression(progressionId);
+      if (progression==null)
+      {
+        LOGGER.warn("Could not load progression "+progressionId);
+      }
       ScalableStatProvider provider=new ScalableStatProvider(stat,progression);
       provider.setOperator(operator);
       return provider;

@@ -1,18 +1,14 @@
 package delta.games.lotro.character.stats.virtues;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
+import org.apache.log4j.Logger;
 
-import delta.common.utils.NumericTools;
-import delta.common.utils.files.TextFileReader;
-import delta.common.utils.text.EncodingNames;
-import delta.common.utils.text.TextUtils;
-import delta.common.utils.url.URLTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.STAT;
+import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.VirtueId;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.common.progression.ProgressionsManager;
+import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.utils.maths.Progression;
 
 /**
  * Manager for contributions of virtues to player stats.
@@ -20,7 +16,11 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public final class VirtuesContributionsMgr
 {
-  private HashMap<VirtueId,VirtueContributionTable> _contribs;
+  private static final Logger LOGGER=Logger.getLogger(VirtuesContributionsMgr.class);
+
+  private static final int RANK_TO_LEVEL_PROGRESSION_ID=1879387583;
+
+  private Progression _rankToLevelProgression;
 
   private static final VirtuesContributionsMgr _instance=new VirtuesContributionsMgr();
 
@@ -38,23 +38,49 @@ public final class VirtuesContributionsMgr
    */
   private VirtuesContributionsMgr()
   {
-    _contribs=new HashMap<VirtueId,VirtueContributionTable>();
-    init();
+    _rankToLevelProgression=ProgressionsManager.getInstance().getProgression(RANK_TO_LEVEL_PROGRESSION_ID);
+    if (_rankToLevelProgression==null)
+    {
+      LOGGER.warn("Could not load progression "+RANK_TO_LEVEL_PROGRESSION_ID+" (virtue rank to level)");
+    }
   }
 
   /**
    * Get the contribution for a given virtue and rank.
    * @param virtueId Virtue identifier.
    * @param rank Rank (starting at 1).
+   * @param passive Passive stats or active stats?
    * @return A stats set or <code>null</code> if not found.
    */
-  public BasicStatsSet getContribution(VirtueId virtueId, int rank)
+  public BasicStatsSet getContribution(VirtueId virtueId, int rank, boolean passive)
   {
     BasicStatsSet stats=null;
-    VirtueContributionTable table=_contribs.get(virtueId);
-    if (table!=null)
+    VirtuesManager virtuesMgr=VirtuesManager.getInstance();
+    VirtueDescription virtue=virtuesMgr.getVirtueByKey(virtueId.name());
+    if (virtue!=null)
     {
-      stats=new BasicStatsSet(table.getContrib(rank));
+      if (rank>0)
+      {
+        int level=_rankToLevelProgression.getValue(rank).intValue();
+        StatsProvider statsProvider;
+        if (passive)
+        {
+          statsProvider=virtue.getPassiveStatsProvider();
+        }
+        else
+        {
+          statsProvider=virtue.getStatsProvider();
+        }
+        stats=statsProvider.getStats(1,level);
+      }
+    }
+    else
+    {
+      LOGGER.warn("Virtue description not found: "+virtueId);
+    }
+    if (stats==null)
+    {
+      stats=new BasicStatsSet();
     }
     return stats;
   }
@@ -62,90 +88,27 @@ public final class VirtuesContributionsMgr
   /**
    * Get stats contribution for a set of virtues.
    * @param virtues Virtues set.
+   * @param includeActive Include stats for active virtues or not.
    * @return A stats set.
    */
-  public BasicStatsSet getContribution(VirtuesSet virtues)
+  public BasicStatsSet getContribution(VirtuesSet virtues, boolean includeActive)
   {
     BasicStatsSet ret=new BasicStatsSet();
-    for(int i=0;i<VirtuesSet.MAX_VIRTUES;i++)
+    for(VirtueId virtue : VirtueId.values())
     {
-      VirtueId virtue=virtues.getSelectedVirtue(i);
-      if (virtue!=null)
+      int rank=virtues.getVirtueRank(virtue);
+      BasicStatsSet passiveContrib=getContribution(virtue,rank,true);
+      ret.addStats(passiveContrib);
+      if (includeActive)
       {
-        int rank=virtues.getVirtueRank(virtue);
-        BasicStatsSet virtueContrib=getContribution(virtue,rank);
-        ret.addStats(virtueContrib);
+        boolean selected=virtues.isSelected(virtue);
+        if (selected)
+        {
+          BasicStatsSet activeContrib=getContribution(virtue,rank,false);
+          ret.addStats(activeContrib);
+        }
       }
     }
     return ret;
-  }
-
-  private HashMap<String,FixedDecimalsInteger[][]> loadStats()
-  {
-    HashMap<String,FixedDecimalsInteger[][]> values=null;
-    URL url=URLTools.getFromClassPath("virtues-values.txt",VirtuesContributionsMgr.class.getPackage());
-    if (url!=null)
-    {
-      TextFileReader r=new TextFileReader(url, EncodingNames.ISO8859_1);
-      List<String> lines=TextUtils.readAsLines(r);
-      values=new HashMap<String,FixedDecimalsInteger[][]>();
-      int index=0;
-      for(int i=0;i<12;i++) {
-        String statName=lines.get(index).trim();
-        index++;
-        FixedDecimalsInteger[][] valuesTable=new FixedDecimalsInteger[3][];
-        for(int j=0;j<3;j++) {
-          String line=lines.get(index);
-          String[] items=line.split("\t");
-          FixedDecimalsInteger[] valuesLines=new FixedDecimalsInteger[items.length];
-          for(int k=0;k<items.length;k++) {
-            Float value=NumericTools.parseFloat(items[k]);
-            valuesLines[k]=new FixedDecimalsInteger(value.floatValue());
-          }
-          valuesTable[j]=valuesLines;
-          index++;
-        }
-        values.put(statName,valuesTable);
-      }
-    }
-    return values;
-  }
-
-  private void init()
-  {
-    HashMap<String,FixedDecimalsInteger[][]> values=loadStats();
-    URL url=URLTools.getFromClassPath("virtues-stats.txt",VirtuesContributionsMgr.class.getPackage());
-    if (url!=null)
-    {
-      TextFileReader r=new TextFileReader(url, EncodingNames.ISO8859_1);
-      List<String> lines=TextUtils.readAsLines(r);
-      for(String line : lines)
-      {
-        VirtueContributionTable table=new VirtueContributionTable();
-        String[] items=line.split("\t");
-        VirtueId id=VirtueId.valueOf(items[0].toUpperCase());
-        for(int i=1;i<items.length;i++)
-        {
-          String item=items[i];
-          int index=item.indexOf('/');
-          String statName,tableName;
-          if (index!=-1)
-          {
-            tableName=item.substring(0,index);
-            statName=item.substring(index+1);
-          }
-          else
-          {
-            tableName=item;
-            statName=item;
-          }
-          FixedDecimalsInteger[][] valuesTable=values.get(tableName);
-          FixedDecimalsInteger[] valuesLine=valuesTable[i-1];
-          STAT stat=STAT.getByName(statName);
-          table.addContrib(stat,valuesLine);
-          _contribs.put(id,table);
-        }
-      }
-    }
   }
 }

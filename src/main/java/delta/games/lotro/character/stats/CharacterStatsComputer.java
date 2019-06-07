@@ -137,20 +137,25 @@ public class CharacterStatsComputer
     // Virtues
     VirtuesContributionsMgr virtuesMgr=VirtuesContributionsMgr.get();
     VirtuesSet virtues=c.getVirtues();
-    BasicStatsSet virtuesStats=virtuesMgr.getContribution(virtues);
+    BasicStatsSet virtuesStats=virtuesMgr.getContribution(virtues,true);
     if (_contribs!=null)
     {
+      // Active virtues
       for(int i=0;i<VirtuesSet.MAX_VIRTUES;i++)
       {
         VirtueId virtue=virtues.getSelectedVirtue(i);
         if (virtue!=null)
         {
           int rank=virtues.getVirtueRank(virtue);
-          BasicStatsSet virtueContrib=virtuesMgr.getContribution(virtue,rank);
+          BasicStatsSet virtueContrib=virtuesMgr.getContribution(virtue,rank,false);
           StatsContribution contrib=StatsContribution.getVirtueContrib(virtue,rank,virtueContrib);
           _contribs.addContrib(contrib);
         }
       }
+      // Passive virtues
+      BasicStatsSet passiveStats=virtuesMgr.getContribution(virtues,false);
+      StatsContribution contrib=StatsContribution.getPassiveVirtuesContrib(passiveStats);
+      _contribs.addContrib(contrib);
     }
     // Tomes
     TomesSet tomes=c.getTomes();

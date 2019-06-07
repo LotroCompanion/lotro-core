@@ -21,7 +21,7 @@ public class TestVirtuesContributionsMgr
       System.out.println(id);
       for(int i=0;i<=20;i++)
       {
-        BasicStatsSet stats=mgr.getContribution(id, i);
+        BasicStatsSet stats=mgr.getContribution(id, i, false);
         System.out.println("Rank #" + i + ": " + stats);
       }
     }
