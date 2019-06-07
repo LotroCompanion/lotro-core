@@ -122,7 +122,8 @@ public class FixedDecimalsInteger extends Number implements Comparable<FixedDeci
    */
   public FixedDecimalsInteger multiply(FixedDecimalsInteger factor)
   {
-    _value = (_value * factor._value) / FACTOR;
+    long product = (((long)_value) * factor._value);
+    _value = (int) (product / FACTOR);
     return this;
   }
 
