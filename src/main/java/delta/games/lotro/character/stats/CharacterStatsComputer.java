@@ -211,6 +211,9 @@ public class CharacterStatsComputer
     raw.addStats(buffs);
     raw.addStats(additionalStats);
 
+    // Additional buff contributions
+    c.getBuffs().applyBuffs(c,raw,_contribs);
+
     // Derived contributions
     DerivedStatsContributionsMgr derivedStatsMgr=DerivedStatContributionsIO.load();
     StatsContributionsManager contribsMgr=_contribs;
@@ -220,9 +223,6 @@ public class CharacterStatsComputer
     }
     BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw,contribsMgr);
     raw.addStats(derivedContrib);
-
-    // Additional buff contributions
-    c.getBuffs().applyBuffs(c,raw,_contribs);
 
     // Hope
     c.getBuffs().applyBuff(c,raw,_contribs,_hopeDread);
