@@ -50,6 +50,10 @@ public enum VirtueId {
    */
   IDEALISM,
   /**
+   * Innocence.
+   */
+  INNOCENCE,
+  /**
    * Justice.
    */
   JUSTICE,
@@ -65,10 +69,6 @@ public enum VirtueId {
    * Patience.
    */
   PATIENCE,
-  /**
-   * Innocence.
-   */
-  INNOCENCE,
   /**
    * Tolerance.
    */
