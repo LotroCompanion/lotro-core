@@ -51,7 +51,7 @@ public class AccountSummaryXMLParser
     // Account Type
     String accountTypeStr=DOMParsingTools.getStringAttribute(root.getAttributes(),AccountXMLConstants.ACCOUNT_TYPE_ATTR,"");
     AccountType accountType=null;
-    if (accountTypeStr!=null)
+    if (accountTypeStr.length()>0)
     {
       try
       {
