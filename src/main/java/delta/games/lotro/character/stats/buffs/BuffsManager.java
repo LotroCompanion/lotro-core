@@ -133,27 +133,14 @@ public class BuffsManager
   }
 
   /**
-   * Apply buffs that apply on raw stats.
-   * @param c Targeted character.
-   * @param raw Raw stats.
-   * @param contribs Contributions manager (may be <code>null</code>).
-   */
-  public void applyBuffs(CharacterData c, BasicStatsSet raw, StatsContributionsManager contribs)
-  {
-    for(BuffInstance buff : _buffs)
-    {
-      applyBuff(c,raw,contribs,buff);
-    }
-  }
-
-  /**
    * Apply a buff that apply on raw stats.
    * @param c Targeted character.
    * @param raw Raw stats.
    * @param contribs Contributions manager (may be <code>null</code>).
    * @param buff Buff to apply.
+   * @return the added stats.
    */
-  public void applyBuff(CharacterData c, BasicStatsSet raw, StatsContributionsManager contribs, BuffInstance buff)
+  public static BasicStatsSet applyBuff(CharacterData c, BasicStatsSet raw, StatsContributionsManager contribs, BuffInstance buff)
   {
     AbstractBuffImpl impl=buff.getBuff().getImpl();
     BasicStatsSet stats=impl.getStats(c,raw,buff);
@@ -166,6 +153,7 @@ public class BuffsManager
         contribs.addContrib(statsContrib);
       }
     }
+    return stats;
   }
 
   /**
