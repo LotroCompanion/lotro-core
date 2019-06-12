@@ -3,12 +3,13 @@ package delta.games.lotro.character.reputation.io.xml;
 import java.io.File;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.reputation.FactionStatus;
 import delta.games.lotro.character.reputation.FactionLevelStatus;
+import delta.games.lotro.character.reputation.FactionStatus;
 import delta.games.lotro.character.reputation.ReputationStatus;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
@@ -20,6 +21,8 @@ import delta.games.lotro.lore.reputation.FactionsRegistry;
  */
 public class ReputationXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(ReputationXMLParser.class);
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -87,13 +90,20 @@ public class ReputationXMLParser
       NamedNodeMap levelAttrs=levelTag.getAttributes();
       String levelKey=DOMParsingTools.getStringAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,"");
       FactionLevel level=faction.getLevelByKey(levelKey);
-      FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
-      long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
-      levelStatus.setCompletionDate(date);
-      int xp=DOMParsingTools.getIntAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,0);
-      levelStatus.setAcquiredXP(xp);
-      boolean completed=DOMParsingTools.getBooleanAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,false);
-      levelStatus.setCompleted(completed);
+      if (level!=null)
+      {
+        FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
+        long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
+        levelStatus.setCompletionDate(date);
+        int xp=DOMParsingTools.getIntAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,0);
+        levelStatus.setAcquiredXP(xp);
+        boolean completed=DOMParsingTools.getBooleanAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,false);
+        levelStatus.setCompleted(completed);
+      }
+      else
+      {
+        LOGGER.warn("Unknown faction level ["+levelKey+"] for faction ["+faction.getName()+"]");
+      }
     }
     // Current level
     NamedNodeMap factionAttrs=factionTag.getAttributes();
