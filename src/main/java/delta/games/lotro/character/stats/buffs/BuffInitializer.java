@@ -181,7 +181,8 @@ public class BuffInitializer
     {
       Buff idome=new Buff("IN_DEFENCE_OF_MIDDLE_EARTH", CLASS, "In Defence of Middle-Earth");
       idome.setIcon("In_Defence_of_Middle-earth-icon");
-      idome.setRequiredClass(CharacterClass.CAPTAIN);
+      // This buff is fellowship-wide... allow it for all classes
+      //idome.setRequiredClass(CharacterClass.CAPTAIN);
       idome.setImpl(new InDefenceOfMiddleEarth());
       registry.registerBuff(idome);
     }
@@ -189,7 +190,8 @@ public class BuffInitializer
     {
       Buff motivated=new Buff("MOTIVATED", CLASS, "Motivated");
       motivated.setIcon("Motivating_Speech-icon");
-      motivated.setRequiredClass(CharacterClass.CAPTAIN);
+      // This buff is fellowship-wide... allow it for all classes
+      //motivated.setRequiredClass(CharacterClass.CAPTAIN);
       motivated.setImpl(new Motivated());
       registry.registerBuff(motivated);
     }
