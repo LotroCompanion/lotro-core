@@ -183,7 +183,7 @@ public class BuffInitializer
     {
       Buff motivated=new Buff("MOTIVATED", CLASS, "Motivated");
       motivated.setIcon("Motivating_Speech-icon");
-      motivated.setRequiredClass(CharacterClass.CAPTAIN);
+      //motivated.setRequiredClass(CharacterClass.CAPTAIN);
       motivated.setImpl(new Motivated());
       registry.registerBuff(motivated);
     }
