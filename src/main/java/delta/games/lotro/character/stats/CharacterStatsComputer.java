@@ -12,6 +12,7 @@ import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.buffs.MoraleFromHopeOrDread;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
@@ -206,9 +207,6 @@ public class CharacterStatsComputer
     raw.addStats(buffs);
     raw.addStats(additionalStats);
 
-    // Additional buff contributions
-    c.getBuffs().applyBuffs(c,raw,_contribs);
-
     // Derived contributions
     DerivedStatsContributionsMgr derivedStatsMgr=DerivedStatContributionsIO.load();
     StatsContributionsManager contribsMgr=_contribs;
@@ -216,11 +214,28 @@ public class CharacterStatsComputer
     {
       contribsMgr=null;
     }
-    BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw,contribsMgr);
-    raw.addStats(derivedContrib);
+    {
+      BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw,contribsMgr);
+      raw.addStats(derivedContrib);
+    }
+
+    // Additional buff contributions
+    BuffsManager buffsMgr=c.getBuffs();
+    int nbBuffs=buffsMgr.getBuffsCount();
+    for(int i=0;i<nbBuffs;i++)
+    {
+      BuffInstance buff=buffsMgr.getBuffAt(i);
+      BasicStatsSet addedStats=BuffsManager.applyBuff(c,raw,_contribs,buff);
+      if ((addedStats!=null) && (addedStats.getStatsCount()>0))
+      {
+        // Some of these buff may imply some derived stats (e.g armour gives mitigations)
+        BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),addedStats,contribsMgr);
+        raw.addStats(derivedContrib);
+      }
+    }
 
     // Hope
-    c.getBuffs().applyBuff(c,raw,_contribs,_hopeDread);
+    BuffsManager.applyBuff(c,raw,_contribs,_hopeDread);
 
     // Ratings
     BasicStatsSet ratings=computeRatings(c,raw);
