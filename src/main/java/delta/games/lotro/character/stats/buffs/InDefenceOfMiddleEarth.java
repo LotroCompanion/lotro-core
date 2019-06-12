@@ -22,10 +22,9 @@ public class InDefenceOfMiddleEarth extends AbstractBuffImpl
     // TODO Formula is probably wrong
     int value=Math.min(level,85)+Math.max(level-85,0)*3;
     // Level 115: 247 (Update 23)
-    if (level==115)
-    {
-      value=247;
-    }
+    if (level==115) value=247;
+    // Level 120: 366 (Update 24)
+    if (level==120) value=366;
     for(StatDescription stat : TARGETS)
     {
       stats.addStat(stat,new FixedDecimalsInteger(value));
