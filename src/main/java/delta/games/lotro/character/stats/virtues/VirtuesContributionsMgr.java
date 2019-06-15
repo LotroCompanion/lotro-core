@@ -93,13 +93,28 @@ public final class VirtuesContributionsMgr
    */
   public BasicStatsSet getContribution(VirtuesSet virtues, boolean includeActive)
   {
+    return getContribution(virtues,includeActive,true);
+  }
+
+  /**
+   * Get stats contribution for a set of virtues.
+   * @param virtues Virtues set.
+   * @param includeActives Include stats for active virtues or not.
+   * @param includePassives Include stats for passive virtues or not.
+   * @return A stats set.
+   */
+  public BasicStatsSet getContribution(VirtuesSet virtues, boolean includeActives, boolean includePassives)
+  {
     BasicStatsSet ret=new BasicStatsSet();
     for(VirtueId virtue : VirtueId.values())
     {
       int rank=virtues.getVirtueRank(virtue);
-      BasicStatsSet passiveContrib=getContribution(virtue,rank,true);
-      ret.addStats(passiveContrib);
-      if (includeActive)
+      if (includePassives)
+      {
+        BasicStatsSet passiveContrib=getContribution(virtue,rank,true);
+        ret.addStats(passiveContrib);
+      }
+      if (includeActives)
       {
         boolean selected=virtues.isSelected(virtue);
         if (selected)
