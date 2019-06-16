@@ -330,7 +330,7 @@ public class ChatItemLinksDecoder
             itemInstance.setBirthName(inscription);
             BufferUtils.skip(bis,6);
           }
-          else if (subHeader==0x10000AC1)
+          else if (subHeader==0x10000AC1) // 268438209 - Inventory_BoundToID
           {
             // Bound to
             int boundToLowId=BufferUtils.readUInt32(bis);
@@ -428,7 +428,6 @@ public class ChatItemLinksDecoder
           {
             // Indigo: 0.15; Umber: 0.5/3F000000 ; Orange: 0.75/3F400000
             float dye=BufferUtils.readFloat(bis);
-            //int dye=BufferUtils.readUInt32(bis);
             LOGGER.debug("Dye: "+dye);
             ColorsManager colorsMgr=ColorsManager.getInstance();
             ColorDescription color=colorsMgr.getColor(dye);
@@ -438,6 +437,21 @@ public class ChatItemLinksDecoder
           {
             int armorValue=BufferUtils.readUInt32(bis);
             LOGGER.debug("Armour: "+armorValue);
+          }
+          else if (subHeader==0x100038A7) // 268449959 - Inventory_BindToAccount
+          {
+            int bindToAccount=BufferUtils.readUInt8(bis);
+            LOGGER.debug("bindToAccount: "+bindToAccount);
+          }
+          else if (subHeader==0x10001426) // 268440614 - Quest_DataID
+          {
+            int questId=BufferUtils.readUInt32(bis);
+            LOGGER.debug("questId: "+questId);
+          }
+          else if (subHeader==0x1000389D) // 268449949 - Item_IsPurchasedWebStoreItem
+          {
+            int purchasedFromStore=BufferUtils.readUInt8(bis);
+            LOGGER.debug("purchasedFromStore: "+purchasedFromStore);
           }
           else
           {
