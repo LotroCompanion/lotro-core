@@ -1,5 +1,7 @@
 package delta.games.lotro.plugins;
 
+import java.util.Map;
+
 import delta.common.utils.NumericTools;
 
 /**
@@ -31,5 +33,33 @@ public class LuaUtils
       ret=NumericTools.parseInteger(value);
     }
     return ret;
+  }
+
+  /**
+   * Load a buffer from raw LUA data
+   * @param data Input data.
+   * @param dataKey Map key (usually "rawData").
+   * @return the loaded buffer.
+   */
+  @SuppressWarnings("unchecked")
+  public static byte[] loadBuffer(Map<String,Object> data, String dataKey)
+  {
+    byte[] buffer=null;
+    Map<String,Double> rawData=(Map<String,Double>)data.get(dataKey);
+    if (rawData!=null)
+    {
+      int nb=rawData.size();
+      buffer=new byte[nb];
+      for(int i=0;i<nb;i++)
+      {
+        String key=(i+1)+".0";
+        Double value=rawData.get(key);
+        if (value!=null)
+        {
+          buffer[i]=value.byteValue();
+        }
+      }
+    }
+    return buffer;
   }
 }
