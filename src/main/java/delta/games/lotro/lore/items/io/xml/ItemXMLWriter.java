@@ -16,6 +16,9 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.colors.ColorDescription;
+import delta.games.lotro.common.id.EntityId;
+import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -257,7 +260,7 @@ public class ItemXMLWriter
       int nbEssenceSlots=item.getEssenceSlots();
       if (nbEssenceSlots>0)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS,CDATA,String.valueOf(nbEssenceSlots));
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR,CDATA,String.valueOf(nbEssenceSlots));
       }
       // Armor specific:
       if (category==ItemCategory.ARMOUR)
@@ -301,7 +304,38 @@ public class ItemXMLWriter
     }
     if (isInstance)
     {
-      // TODO add instance specific attributes
+      // Instance ID
+      ItemInstanceId instanceId=instance.getInstanceId();
+      if (instanceId!=null)
+      {
+        String instanceIdStr=buildCompoundId(instanceId.getId1(),instanceId.getId2());
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_INSTANCE_ID_ATTR,CDATA,instanceIdStr);
+      }
+      // Birth name
+      String birthName=instance.getBirthName();
+      if (birthName!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BIRTH_NAME_ATTR,CDATA,birthName);
+      }
+      // Crafter name
+      String crafterName=instance.getCrafterName();
+      if (crafterName!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CRAFTER_NAME_ATTR,CDATA,crafterName);
+      }
+      // Color
+      ColorDescription color=instance.getColor();
+      if (color!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_COLOR_CODE_ATTR,CDATA,String.valueOf(color.getCode()));
+      }
+      // Bound to
+      EntityId boundTo=instance.getBoundTo();
+      if (boundTo!=null)
+      {
+        String boundToStr=boundTo.asString();
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BOUND_TO_ATTR,CDATA,boundToStr);
+      }
     }
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
 
@@ -375,5 +409,10 @@ public class ItemXMLWriter
       }
     }
     hd.endElement("","",ItemXMLConstants.ITEM_TAG);
+  }
+
+  private String buildCompoundId(int id1, int id2)
+  {
+    return id1+":"+id2;
   }
 }

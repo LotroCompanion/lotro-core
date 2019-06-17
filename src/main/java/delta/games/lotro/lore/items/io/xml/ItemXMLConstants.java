@@ -90,7 +90,27 @@ public class ItemXMLConstants
   /**
    * Tag 'item', attribute 'slots'.
    */
-  public static final String ITEM_ESSENCE_SLOTS="slots";
+  public static final String ITEM_ESSENCE_SLOTS_ATTR="slots";
+  /**
+   * Tag 'item', attribute 'instanceId'.
+   */
+  public static final String ITEM_INSTANCE_ID_ATTR="instanceId";
+  /**
+   * Tag 'item', attribute 'birthName'.
+   */
+  public static final String ITEM_BIRTH_NAME_ATTR="birthName";
+  /**
+   * Tag 'item', attribute 'crafterName'.
+   */
+  public static final String ITEM_CRAFTER_NAME_ATTR="crafterName";
+  /**
+   * Tag 'item', attribute 'colorCode'.
+   */
+  public static final String ITEM_COLOR_CODE_ATTR="colorCode";
+  /**
+   * Tag 'item', attribute 'boundTo'.
+   */
+  public static final String ITEM_BOUND_TO_ATTR="boundTo";
 
   // Armour
   /**

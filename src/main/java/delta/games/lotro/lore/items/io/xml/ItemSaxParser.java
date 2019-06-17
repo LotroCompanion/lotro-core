@@ -92,7 +92,7 @@ public final class ItemSaxParser extends DefaultHandler {
     public void startElement(String uri, String localName, String qualifiedName, Attributes attributes)
             throws SAXException {
 
-        if ("item".equals(qualifiedName)) {
+        if (ItemXMLConstants.ITEM_TAG.equals(qualifiedName)) {
           // Category
           String categoryStr=attributes.getValue(ItemXMLConstants.ITEM_CATEGORY_ATTR);
           ItemCategory category=ItemCategory.valueOf(categoryStr);
@@ -185,7 +185,7 @@ public final class ItemSaxParser extends DefaultHandler {
             _currentItem.setStackMax(Integer.valueOf(stackMaxStr));
           }
           // Essence slots
-          String nbEssenceSlotsStr=attributes.getValue(ItemXMLConstants.ITEM_ESSENCE_SLOTS);
+          String nbEssenceSlotsStr=attributes.getValue(ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR);
           if (nbEssenceSlotsStr!=null)
           {
             _currentItem.setEssenceSlots(Integer.parseInt(nbEssenceSlotsStr));

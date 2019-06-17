@@ -335,7 +335,7 @@ public class ChatItemLinksDecoder
             // Bound to
             int boundToLowId=BufferUtils.readUInt32(bis);
             int boundToHighId=BufferUtils.readUInt32(bis);
-            // Assume character ID
+            // TODO Assume character ID
             CharacterId id=new CharacterId(boundToLowId,boundToHighId);
             LOGGER.debug("Bound to: "+id);
             itemInstance.setBoundTo(id);

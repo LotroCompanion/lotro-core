@@ -17,6 +17,12 @@ public class CharacterId extends EntityId
   }
 
   @Override
+  public String asString()
+  {
+    return EntityId.characterType+EntityId.TYPE_SEPARATOR+_id1+EntityId.VALUE_SEPARATOR+_id2;
+  }
+
+  @Override
   public String toString()
   {
     return "Character ID: "+_id1+"/"+_id2;

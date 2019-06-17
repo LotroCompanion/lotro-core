@@ -6,7 +6,12 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.colors.ColorDescription;
+import delta.games.lotro.common.colors.ColorsManager;
+import delta.games.lotro.common.id.EntityId;
+import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.lore.items.Item;
@@ -96,7 +101,34 @@ public class ItemXMLParser
         itemInstance.setMinLevel(instanceMinLevel);
       }
     }
-    // TODO add instance specific attributes
+    // Instance specific attributes
+    // - Instance ID
+    String instanceIdStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_INSTANCE_ID_ATTR,null);
+    if (instanceIdStr!=null)
+    {
+      int id1=NumericTools.parseInt(instanceIdStr.substring(0,instanceIdStr.indexOf('/')),0);
+      int id2=NumericTools.parseInt(instanceIdStr.substring(instanceIdStr.indexOf('/')+1),0);
+      ItemInstanceId instanceId=new ItemInstanceId(id1,id2);
+      itemInstance.setInstanceId(instanceId);
+    }
+    // - Birth name
+    String birthName=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_BIRTH_NAME_ATTR,null);
+    itemInstance.setBirthName(birthName);
+    // - Crafter name
+    String crafterName=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_CRAFTER_NAME_ATTR,null);
+    itemInstance.setCrafterName(crafterName);
+    // - Color
+    float colorCode=DOMParsingTools.getFloatAttribute(attrs,ItemXMLConstants.ITEM_COLOR_CODE_ATTR,0);
+    ColorDescription color=ColorsManager.getInstance().getColor(colorCode);
+    itemInstance.setColor(color);
+    // - Bound to
+    String boundToStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_BOUND_TO_ATTR,null);
+    if (boundToStr!=null)
+    {
+      EntityId boundTo=EntityId.fromString(boundToStr);
+      itemInstance.setBoundTo(boundTo);
+    }
+
     // Money
     Money value=MoneyXMLParser.loadMoney(root,null);
     itemInstance.setValue(value);
