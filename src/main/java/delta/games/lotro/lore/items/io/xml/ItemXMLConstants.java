@@ -111,6 +111,10 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'boundTo'.
    */
   public static final String ITEM_BOUND_TO_ATTR="boundTo";
+  /**
+   * Tag 'item', attribute 'time'.
+   */
+  public static final String ITEM_TIME_ATTR="time";
 
   // Armour
   /**

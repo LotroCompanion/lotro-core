@@ -128,6 +128,12 @@ public class ItemXMLParser
       EntityId boundTo=EntityId.fromString(boundToStr);
       itemInstance.setBoundTo(boundTo);
     }
+    // Time
+    long time=DOMParsingTools.getLongAttribute(attrs,ItemXMLConstants.ITEM_TIME_ATTR,-1);
+    if (time>0)
+    {
+      itemInstance.setTime(Long.valueOf(time));
+    }
 
     // Money
     Money value=MoneyXMLParser.loadMoney(root,null);

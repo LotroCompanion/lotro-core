@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,8 @@ public class ItemInstance<T extends Item>
   private T _reference;
   // Instance ID
   private ItemInstanceId _id;
+  // Validity date
+  private Long _time;
   // Item birth name (given by the crafter) (may be <code>null</code>)
   private String _birthName;
   // Crafter name (may be <code>null</code>)
@@ -50,6 +53,7 @@ public class ItemInstance<T extends Item>
   {
     _reference=null;
     _id=null;
+    _time=null;
     _birthName=null;
     _crafterName=null;
     _essences=null;
@@ -133,6 +137,24 @@ public class ItemInstance<T extends Item>
   public void setInstanceId(ItemInstanceId id)
   {
     _id=id;
+  }
+
+  /**
+   * Get the validity time for this instance.
+   * @return a time or <code>null</code> if not set.
+   */
+  public Long getTime()
+  {
+    return _time;
+  }
+
+  /**
+   * Set the validity time for this instance.
+   * @param time Time to set (may be <code>null</code>).
+   */
+  public void setTime(Long time)
+  {
+    _time=time;
   }
 
   /**
@@ -454,6 +476,7 @@ public class ItemInstance<T extends Item>
   {
     _reference=(T)itemInstance._reference;
     _id=itemInstance._id;
+    _time=itemInstance._time;
     _birthName=itemInstance._birthName;
     _crafterName=itemInstance._crafterName;
     if (itemInstance._essences!=null)
@@ -497,6 +520,14 @@ public class ItemInstance<T extends Item>
     {
       sb.append(" (instance ID=");
       sb.append(_id);
+      sb.append(')');
+    }
+    if (_time!=null)
+    {
+      sb.append(" (validity time=");
+      sb.append(_time);
+      sb.append(": ");
+      sb.append(new Date(_time.longValue()));
       sb.append(')');
     }
     if (_birthName!=null)

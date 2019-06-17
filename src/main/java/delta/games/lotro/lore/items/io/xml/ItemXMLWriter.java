@@ -336,6 +336,12 @@ public class ItemXMLWriter
         String boundToStr=boundTo.asString();
         itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BOUND_TO_ATTR,CDATA,boundToStr);
       }
+      // Time
+      Long time=instance.getTime();
+      if (time!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_TIME_ATTR,CDATA,time.toString());
+      }
     }
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
 
