@@ -1,7 +1,8 @@
 package delta.games.lotro.plugins.lotrocompanion.links;
 
 import java.io.File;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -35,18 +36,21 @@ public class ItemsFileParser
   /**
    * Parse/use data from the "Items" file of the LotroCompanion plugin.
    * @param inputString Input string.
+   * @return the list of decoded item instances.
    */
-  public void doIt(String inputString)
+  public List<ItemInstance<? extends Item>> doIt(String inputString)
   {
     LuaParser parser=new LuaParser();
     @SuppressWarnings("unchecked")
     Map<String,Object> data=(Map<String,Object>)parser.read(inputString);
-    useData(data);
+    List<ItemInstance<? extends Item>> ret=useData(data);
+    return ret;
   }
 
   @SuppressWarnings("unchecked")
-  private void useData(Map<String,Object> data)
+  private List<ItemInstance<? extends Item>> useData(Map<String,Object> data)
   {
+    List<ItemInstance<? extends Item>> ret=new ArrayList<ItemInstance<? extends Item>>();
     Double counter=(Double)data.get("counter");
     int nb=(counter!=null)?counter.intValue():100;
     for(int i=1;i<nb;i++)
@@ -55,9 +59,14 @@ public class ItemsFileParser
       Map<String,Object> itemData=(Map<String,Object>)data.get(key);
       if (itemData!=null)
       {
-        decodeItem(itemData);
+        ItemInstance<? extends Item> decodedItem=decodeItem(itemData);
+        if (decodedItem!=null)
+        {
+          ret.add(decodedItem);
+        }
       }
     }
+    return ret;
   }
 
   private ItemInstance<? extends Item> decodeItem(Map<String,Object> itemData)
@@ -65,15 +74,18 @@ public class ItemsFileParser
     ItemInstance<? extends Item> ret=null;
     @SuppressWarnings("unchecked")
     Map<String,Object> itemRawData=(Map<String,Object>)itemData.get("item");
-    Double timestamp=(Double)itemData.get("timestamp");
-    long itemTime=timestamp.longValue()*1000;
-    System.out.println(new Date(itemTime));
     byte[] buffer=LuaUtils.loadBuffer(itemRawData,"rawData");
     ChatItemLinksDecoder decoder=new ChatItemLinksDecoder();
     try
     {
       ret=decoder.decodeBuffer(buffer);
-      System.out.println(ret.dump());
+      Double timestamp=(Double)itemData.get("timestamp");
+      if (timestamp!=null)
+      {
+        long itemTime=timestamp.longValue()*1000;
+        ret.setTime(Long.valueOf(itemTime));
+      }
+      //System.out.println(ret.dump());
     }
     catch(LinkDecodingException e)
     {
