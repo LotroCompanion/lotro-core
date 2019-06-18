@@ -57,7 +57,7 @@ public class TestItemsFileParser extends TestCase
         for(ItemInstance<? extends Item> itemInstance : items)
         {
           writer2.writeItemInstance(hd,itemInstance);
-          writer2.write(hd,itemInstance.getReference());
+          //writer2.write(hd,itemInstance.getReference());
         }
         hd.endElement("","",ItemXMLConstants.ITEMS_TAG);
       }
