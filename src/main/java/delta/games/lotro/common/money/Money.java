@@ -165,6 +165,28 @@ public class Money
     return ((_goldCoins*1000)+_silverCoins)*100+_copperCoins;
   }
 
+  /**
+   * Get a short label for this value.
+   * @return a displayable label.
+   */
+  public String getShortLabel()
+  {
+    StringBuilder sb=new StringBuilder();
+    if (_goldCoins>0)
+    {
+      sb.append(_goldCoins).append("g");
+    }
+    if (_silverCoins>0)
+    {
+      sb.append(_silverCoins).append("s");
+    }
+    if (_copperCoins>0)
+    {
+      sb.append(_copperCoins).append("c");
+    }
+    return sb.toString();
+  }
+
   @Override
   public String toString()
   {
