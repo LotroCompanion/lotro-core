@@ -12,7 +12,6 @@ public abstract class EntityId extends InternalGameId
   protected static final String accountType="account";
 
   protected static final char TYPE_SEPARATOR=':';
-  protected static final char VALUE_SEPARATOR='/';
 
   /**
    * Constructor.
@@ -23,12 +22,6 @@ public abstract class EntityId extends InternalGameId
   {
     super(id1,id2);
   }
-
-  /**
-   * Build a string representation of this entity identifier.
-   * @return a string.
-   */
-  public abstract String asString();
 
   /**
    * Build an entity identifier from a string.

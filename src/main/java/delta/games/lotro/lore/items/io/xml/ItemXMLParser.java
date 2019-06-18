@@ -6,7 +6,6 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
-import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.colors.ColorsManager;
@@ -106,9 +105,7 @@ public class ItemXMLParser
     String instanceIdStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_INSTANCE_ID_ATTR,null);
     if (instanceIdStr!=null)
     {
-      int id1=NumericTools.parseInt(instanceIdStr.substring(0,instanceIdStr.indexOf('/')),0);
-      int id2=NumericTools.parseInt(instanceIdStr.substring(instanceIdStr.indexOf('/')+1),0);
-      ItemInstanceId instanceId=new ItemInstanceId(id1,id2);
+      ItemInstanceId instanceId=ItemInstanceId.fromString(instanceIdStr);
       itemInstance.setInstanceId(instanceId);
     }
     // - Birth name

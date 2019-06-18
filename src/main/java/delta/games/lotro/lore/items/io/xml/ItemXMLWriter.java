@@ -50,8 +50,6 @@ import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLWriter;
  */
 public class ItemXMLWriter
 {
-  private static final String CDATA="CDATA";
-
   /**
    * Constructor.
    */
@@ -140,7 +138,7 @@ public class ItemXMLWriter
     int id=item.getIdentifier();
     if (id!=0)
     {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_KEY_ATTR,CDATA,String.valueOf(id));
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_KEY_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
     if (!isInstance)
     {
@@ -148,14 +146,14 @@ public class ItemXMLWriter
       String setIdentifier=item.getSetKey();
       if (setIdentifier!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SET_ID_ATTR,CDATA,setIdentifier);
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SET_ID_ATTR,XmlWriter.CDATA,setIdentifier);
       }
     }
     // Name
     String name=item.getName();
     if (name!=null)
     {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_NAME_ATTR,CDATA,name);
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,name);
     }
     if (!isInstance)
     {
@@ -163,14 +161,14 @@ public class ItemXMLWriter
       String icon=item.getIcon();
       if (icon!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ICON_ATTR,CDATA,icon);
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ICON_ATTR,XmlWriter.CDATA,icon);
       }
     }
     // Item level
     Integer itemLevel=(isInstance?instance.getItemLevel():item.getItemLevel());
     if ((itemLevel!=null) && (itemLevel.intValue()>1))
     {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_ATTR,CDATA,String.valueOf(itemLevel.intValue()));
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(itemLevel.intValue()));
     }
     ItemCategory category=item.getCategory();
     if (!isInstance)
@@ -179,34 +177,34 @@ public class ItemXMLWriter
       EquipmentLocation slot=item.getEquipmentLocation();
       if (slot!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SLOT_ATTR,CDATA,String.valueOf(slot.getKey()));
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SLOT_ATTR,XmlWriter.CDATA,String.valueOf(slot.getKey()));
       }
       // Category
       if (category!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CATEGORY_ATTR,CDATA,category.name());
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CATEGORY_ATTR,XmlWriter.CDATA,category.name());
       }
       // Sub-category
       String subCategory=item.getSubCategory();
       if (subCategory!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SUBCATEGORY_ATTR,CDATA,subCategory);
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SUBCATEGORY_ATTR,XmlWriter.CDATA,subCategory);
       }
       // Binding
       ItemBinding binding=item.getBinding();
       if (binding!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BINDING_ATTR,CDATA,binding.name());
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BINDING_ATTR,XmlWriter.CDATA,binding.name());
       }
       // Unique
       boolean unique=item.isUnique();
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_UNIQUE_ATTR,CDATA,String.valueOf(unique));
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_UNIQUE_ATTR,XmlWriter.CDATA,String.valueOf(unique));
     }
     // Durability
     Integer durability=(isInstance?instance.getDurability():item.getDurability());
     if (durability!=null)
     {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DURABILITY_ATTR,CDATA,String.valueOf(durability.intValue()));
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DURABILITY_ATTR,XmlWriter.CDATA,String.valueOf(durability.intValue()));
     }
     if (!isInstance)
     {
@@ -214,20 +212,20 @@ public class ItemXMLWriter
       ItemSturdiness sturdiness=item.getSturdiness();
       if (sturdiness!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STURDINESS_ATTR,CDATA,sturdiness.name());
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STURDINESS_ATTR,XmlWriter.CDATA,sturdiness.name());
       }
       // Quality
       ItemQuality quality=item.getQuality();
       if (quality!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_QUALITY_ATTR,CDATA,quality.getKey());
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_QUALITY_ATTR,XmlWriter.CDATA,quality.getKey());
       }
     }
     // Minimum level
     Integer minLevel=(isInstance?instance.getMinLevel():item.getMinLevel());
     if (minLevel!=null)
     {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_MINLEVEL_ATTR,CDATA,String.valueOf(minLevel.intValue()));
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_MINLEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel.intValue()));
     }
     if (!isInstance)
     {
@@ -235,32 +233,32 @@ public class ItemXMLWriter
       Integer maxLevel=item.getMaxLevel();
       if (maxLevel!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_MAXLEVEL_ATTR,CDATA,String.valueOf(maxLevel.intValue()));
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_MAXLEVEL_ATTR,XmlWriter.CDATA,String.valueOf(maxLevel.intValue()));
       }
       // Required class
       CharacterClass requiredClass=item.getRequiredClass();
       if (requiredClass!=null)
       {
         String className=requiredClass.getKey();
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_REQUIRED_CLASS_ATTR,CDATA,className);
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_REQUIRED_CLASS_ATTR,XmlWriter.CDATA,className);
       }
       // Description
       String description=item.getDescription();
       if ((description!=null) && (description.length()>0))
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DESCRIPTION_ATTR,CDATA,description);
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
       }
       // Stack max
       Integer stackMax=item.getStackMax();
       if (stackMax!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STACK_MAX_ATTR,CDATA,String.valueOf(stackMax.intValue()));
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STACK_MAX_ATTR,XmlWriter.CDATA,String.valueOf(stackMax.intValue()));
       }
       // Essence slot count
       int nbEssenceSlots=item.getEssenceSlots();
       if (nbEssenceSlots>0)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR,CDATA,String.valueOf(nbEssenceSlots));
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR,XmlWriter.CDATA,String.valueOf(nbEssenceSlots));
       }
       // Armor specific:
       if (category==ItemCategory.ARMOUR)
@@ -269,7 +267,7 @@ public class ItemXMLWriter
         ArmourType type=armour.getArmourType();
         if (type!=null)
         {
-          itemAttrs.addAttribute("","",ItemXMLConstants.ARMOUR_TYPE_ATTR,CDATA,type.getKey());
+          itemAttrs.addAttribute("","",ItemXMLConstants.ARMOUR_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
         }
         if (instance instanceof ArmourInstance)
         {
@@ -281,20 +279,20 @@ public class ItemXMLWriter
       {
         Weapon weapon=(Weapon)item;
         float dps=weapon.getDPS();
-        itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,CDATA,String.valueOf(dps));
+        itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,XmlWriter.CDATA,String.valueOf(dps));
         int minDamage=weapon.getMinDamage();
-        itemAttrs.addAttribute("","",ItemXMLConstants.MIN_DAMAGE_ATTR,CDATA,String.valueOf(minDamage));
+        itemAttrs.addAttribute("","",ItemXMLConstants.MIN_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(minDamage));
         int maxDamage=weapon.getMaxDamage();
-        itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,CDATA,String.valueOf(maxDamage));
+        itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamage));
         DamageType type=weapon.getDamageType();
         if (type!=null)
         {
-          itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,CDATA,type.getKey());
+          itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
         }
         WeaponType weaponType=weapon.getWeaponType();
         if (weaponType!=null)
         {
-          itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,CDATA,weaponType.getKey());
+          itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,XmlWriter.CDATA,weaponType.getKey());
         }
         if (instance instanceof WeaponInstance)
         {
@@ -308,39 +306,39 @@ public class ItemXMLWriter
       ItemInstanceId instanceId=instance.getInstanceId();
       if (instanceId!=null)
       {
-        String instanceIdStr=buildCompoundId(instanceId.getId1(),instanceId.getId2());
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_INSTANCE_ID_ATTR,CDATA,instanceIdStr);
+        String instanceIdStr=instanceId.asString();
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_INSTANCE_ID_ATTR,XmlWriter.CDATA,instanceIdStr);
       }
       // Birth name
       String birthName=instance.getBirthName();
       if (birthName!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BIRTH_NAME_ATTR,CDATA,birthName);
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BIRTH_NAME_ATTR,XmlWriter.CDATA,birthName);
       }
       // Crafter name
       String crafterName=instance.getCrafterName();
       if (crafterName!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CRAFTER_NAME_ATTR,CDATA,crafterName);
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CRAFTER_NAME_ATTR,XmlWriter.CDATA,crafterName);
       }
       // Color
       ColorDescription color=instance.getColor();
       if (color!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_COLOR_CODE_ATTR,CDATA,String.valueOf(color.getCode()));
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_COLOR_CODE_ATTR,XmlWriter.CDATA,String.valueOf(color.getCode()));
       }
       // Bound to
       EntityId boundTo=instance.getBoundTo();
       if (boundTo!=null)
       {
         String boundToStr=boundTo.asString();
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BOUND_TO_ATTR,CDATA,boundToStr);
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BOUND_TO_ATTR,XmlWriter.CDATA,boundToStr);
       }
       // Time
       Long time=instance.getTime();
       if (time!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_TIME_ATTR,CDATA,time.toString());
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_TIME_ATTR,XmlWriter.CDATA,time.toString());
       }
     }
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
@@ -367,8 +365,8 @@ public class ItemXMLWriter
       {
         String propertyValue=properties.get(propertyName);
         AttributesImpl attrs=new AttributesImpl();
-        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_KEY_ATTR,CDATA,propertyName);
-        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_VALUE_ATTR,CDATA,propertyValue);
+        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_KEY_ATTR,XmlWriter.CDATA,propertyName);
+        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_VALUE_ATTR,XmlWriter.CDATA,propertyValue);
         hd.startElement("","",ItemXMLConstants.PROPERTY_TAG,attrs);
         hd.endElement("","",ItemXMLConstants.PROPERTY_TAG);
       }
@@ -405,8 +403,8 @@ public class ItemXMLWriter
             int essenceId=essence.getIdentifier();
             String essenceName=essence.getName();
             AttributesImpl essenceAttrs=new AttributesImpl();
-            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_ID_ATTR,CDATA,String.valueOf(essenceId));
-            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_NAME_ATTR,CDATA,essenceName);
+            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_ID_ATTR,XmlWriter.CDATA,String.valueOf(essenceId));
+            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_NAME_ATTR,XmlWriter.CDATA,essenceName);
             hd.startElement("","",ItemXMLConstants.ESSENCE_TAG,essenceAttrs);
             hd.endElement("","",ItemXMLConstants.ESSENCE_TAG);
           }
@@ -415,10 +413,5 @@ public class ItemXMLWriter
       }
     }
     hd.endElement("","",ItemXMLConstants.ITEM_TAG);
-  }
-
-  private String buildCompoundId(int id1, int id2)
-  {
-    return id1+":"+id2;
   }
 }

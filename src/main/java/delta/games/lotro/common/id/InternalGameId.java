@@ -4,8 +4,10 @@ package delta.games.lotro.common.id;
  * Internal in-game identifier.
  * @author DAM
  */
-public class InternalGameId
+public abstract class InternalGameId
 {
+  protected static final String VALUE_SEPARATOR="/";
+
   protected int _id1;
   protected int _id2;
 
@@ -35,6 +37,12 @@ public class InternalGameId
   public int getId2() {
     return _id2;
   }
+
+  /**
+   * Build a string representation of this identifier.
+   * @return a string.
+   */
+  public abstract String asString();
 
   @Override
   public String toString()
