@@ -115,7 +115,7 @@ public class ItemXMLParser
     String crafterName=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_CRAFTER_NAME_ATTR,null);
     itemInstance.setCrafterName(crafterName);
     // - Color
-    float colorCode=DOMParsingTools.getFloatAttribute(attrs,ItemXMLConstants.ITEM_COLOR_CODE_ATTR,0);
+    float colorCode=DOMParsingTools.getFloatAttribute(attrs,ItemXMLConstants.ITEM_COLOR_CODE_ATTR,Float.NaN);
     ColorDescription color=ColorsManager.getInstance().getColor(colorCode);
     itemInstance.setColor(color);
     // - Bound to
