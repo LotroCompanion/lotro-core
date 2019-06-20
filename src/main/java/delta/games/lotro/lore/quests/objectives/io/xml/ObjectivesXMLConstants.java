@@ -109,17 +109,21 @@ public class ObjectivesXMLConstants
    */
   public static final String INVENTORY_ITEM_TAG="inventoryItem";
   /**
-   * Tag 'inventoryItem', attribute 'itemId'.
+   * Tag 'itemUsed'.
    */
-  public static final String INVENTORY_ITEM_ID_ATTR="itemId";
+  public static final String ITEM_USED_TAG="itemUsed";
   /**
-   * Tag 'inventoryItem', attribute 'itemName'.
+   * Tag 'inventoryItem' and 'useItem', attribute 'itemId'.
    */
-  public static final String INVENTORY_ITEM_NAME_ATTR="itemName";
+  public static final String ITEM_ID_ATTR="itemId";
   /**
-   * Tag 'inventoryItem', attribute 'count'.
+   * Tag 'inventoryItem' and 'useItem', attribute 'itemName'.
    */
-  public static final String INVENTORY_ITEM_COUNT_ATTR="count";
+  public static final String ITEM_NAME_ATTR="itemName";
+  /**
+   * Tag 'inventoryItem' and 'useItem', attribute 'count'.
+   */
+  public static final String ITEM_COUNT_ATTR="count";
 
   /**
    * Tag 'factionLevel'.

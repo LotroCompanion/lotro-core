@@ -16,6 +16,8 @@ import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
+import delta.games.lotro.lore.quests.objectives.ItemCondition;
+import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
@@ -88,6 +90,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof InventoryItemCondition)
     {
       writeInventoryItemCondition(hd,(InventoryItemCondition)condition);
+    }
+    else if (condition instanceof ItemUsedCondition)
+    {
+      writeItemUsedCondition(hd,(ItemUsedCondition)condition);
     }
     else if (condition instanceof FactionLevelCondition)
     {
@@ -225,6 +231,16 @@ public class ObjectivesXMLWriter
 
   private static void writeInventoryItemCondition(TransformerHandler hd, InventoryItemCondition condition) throws Exception
   {
+    writeItemCondition(hd,condition,ObjectivesXMLConstants.INVENTORY_ITEM_TAG);
+  }
+
+  private static void writeItemUsedCondition(TransformerHandler hd, ItemUsedCondition condition) throws Exception
+  {
+    writeItemCondition(hd,condition,ObjectivesXMLConstants.ITEM_USED_TAG);
+  }
+
+  private static void writeItemCondition(TransformerHandler hd, ItemCondition condition, String tagName) throws Exception
+  {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(hd,attrs,condition);
@@ -234,22 +250,22 @@ public class ObjectivesXMLWriter
     {
       // ID
       int id=proxy.getId();
-      attrs.addAttribute("","",ObjectivesXMLConstants.INVENTORY_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // Name
       String name=proxy.getName();
       if (name!=null)
       {
-        attrs.addAttribute("","",ObjectivesXMLConstants.INVENTORY_ITEM_NAME_ATTR,XmlWriter.CDATA,name);
+        attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,name);
       }
     }
     // Count
     int count=condition.getCount();
     if (count>1)
     {
-      attrs.addAttribute("","",ObjectivesXMLConstants.INVENTORY_ITEM_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+      attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
-    hd.startElement("","",ObjectivesXMLConstants.INVENTORY_ITEM_TAG,attrs);
-    hd.endElement("","",ObjectivesXMLConstants.INVENTORY_ITEM_TAG);
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
   }
 
   private static void writeFactionLevelCondition(TransformerHandler hd, FactionLevelCondition condition) throws Exception

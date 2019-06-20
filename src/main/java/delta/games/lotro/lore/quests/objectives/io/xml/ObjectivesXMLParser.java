@@ -15,6 +15,8 @@ import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
+import delta.games.lotro.lore.quests.objectives.ItemCondition;
+import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
@@ -99,6 +101,10 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.INVENTORY_ITEM_TAG.equals(tagName))
     {
       ret=parseInventoryItemCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.ITEM_USED_TAG.equals(tagName))
+    {
+      ret=parseItemUsedCondition(attrs,conditionTag);
     }
     else if (ObjectivesXMLConstants.FACTION_LEVEL_TAG.equals(tagName))
     {
@@ -195,19 +201,31 @@ public class ObjectivesXMLParser
   private static InventoryItemCondition parseInventoryItemCondition(NamedNodeMap attrs, Element conditionTag)
   {
     InventoryItemCondition condition=new InventoryItemCondition();
+    parseItemCondition(condition,attrs,conditionTag);
+    return condition;
+  }
+
+  private static ItemUsedCondition parseItemUsedCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    ItemUsedCondition condition=new ItemUsedCondition();
+    parseItemCondition(condition,attrs,conditionTag);
+    return condition;
+  }
+
+  private static void parseItemCondition(ItemCondition condition, NamedNodeMap attrs, Element conditionTag)
+  {
     // Item proxy
     // - id
-    int itemId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_ID_ATTR,0);
+    int itemId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.ITEM_ID_ATTR,0);
     // - name
-    String itemName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_NAME_ATTR,"?");
+    String itemName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.ITEM_NAME_ATTR,"?");
     Proxy<Item> proxy=new Proxy<Item>();
     proxy.setId(itemId);
     proxy.setName(itemName);
     condition.setProxy(proxy);
     // Count
-    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.INVENTORY_ITEM_COUNT_ATTR,1);
+    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.ITEM_COUNT_ATTR,1);
     condition.setCount(count);
-    return condition;
   }
 
   private static FactionLevelCondition parseFactionLevelCondition(NamedNodeMap attrs, Element conditionTag)
