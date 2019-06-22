@@ -19,18 +19,19 @@ import delta.games.lotro.plugins.lotrocompanion.GearParser;
  */
 public class ItemsFileParser
 {
-  private static final Logger LOGGER=Logger.getLogger(GearParser.class);
+  private static final Logger LOGGER=Logger.getLogger(ItemsFileParser.class);
 
   /**
    * Parse/use data from the "Items" file of the LotroCompanion plugin.
    * @param f Input file.
+   * @return the list of decoded item instances.
    * @throws Exception If an error occurs.
    */
-  public void doIt(File f) throws Exception
+  public List<ItemInstance<? extends Item>> doIt(File f) throws Exception
   {
     LuaParser parser=new LuaParser();
     Map<String,Object> data=parser.read(f);
-    useData(data);
+    return useData(data);
   }
 
   /**
