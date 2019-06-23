@@ -11,7 +11,6 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.LuaUtils;
-import delta.games.lotro.plugins.lotrocompanion.GearParser;
 
 /**
  * Parser for the items file.

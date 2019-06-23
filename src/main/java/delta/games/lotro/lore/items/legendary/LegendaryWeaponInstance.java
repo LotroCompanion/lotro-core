@@ -67,7 +67,7 @@ public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> imp
   }
 
   /**
-   * Get the total stats for this item, including:
+   * Get the stats for this item, including:
    * <ul>
    * <li>passives,
    * <li>title stats,
@@ -75,9 +75,10 @@ public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> imp
    * </ul>
    * @return a set of stats.
    */
-  public BasicStatsSet getTotalStats()
+  public BasicStatsSet getStats()
   {
     BasicStatsSet ret=new BasicStatsSet();
+    ret.addStats(super.getStats());
     Integer itemLevel=getItemLevel();
     int itemLevelValue=(itemLevel!=null)?itemLevel.intValue():0;
     BasicStatsSet legendaryStats=_attrs.getRawStats(itemLevelValue);

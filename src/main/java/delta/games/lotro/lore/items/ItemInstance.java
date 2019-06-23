@@ -6,10 +6,12 @@ import java.util.Map;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.id.EntityId;
 import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 
 /**
@@ -29,6 +31,8 @@ public class ItemInstance<T extends Item>
   private String _birthName;
   // Crafter name (may be <code>null</code>)
   private String _crafterName;
+  // Stats (if overriden over reference stats)
+  private BasicStatsSet _ownStats;
   // Essences
   private EssencesSet _essences;
   // Durability
@@ -56,6 +60,7 @@ public class ItemInstance<T extends Item>
     _time=null;
     _birthName=null;
     _crafterName=null;
+    _ownStats=null;
     _essences=null;
     _durability=null;
     _itemLevel=null;
@@ -191,6 +196,24 @@ public class ItemInstance<T extends Item>
   public void setCrafterName(String crafterName)
   {
     _crafterName=crafterName;
+  }
+
+  /**
+   * Get the own stats of this item.
+   * @return some stats.
+   */
+  public BasicStatsSet getOwnStats()
+  {
+    return _ownStats;
+  }
+
+  /**
+   * Set the own stats of this item.
+   * @param stats Stats to set.
+   */
+  public void setOwnStats(BasicStatsSet stats)
+  {
+    _ownStats=stats;
   }
 
   /**
@@ -479,6 +502,14 @@ public class ItemInstance<T extends Item>
     _time=itemInstance._time;
     _birthName=itemInstance._birthName;
     _crafterName=itemInstance._crafterName;
+    if (itemInstance._ownStats!=null)
+    {
+      _ownStats=new BasicStatsSet(itemInstance._ownStats);
+    }
+    else
+    {
+      _ownStats=null;
+    }
     if (itemInstance._essences!=null)
     {
       _essences=new EssencesSet(itemInstance._essences);
@@ -501,6 +532,84 @@ public class ItemInstance<T extends Item>
     _color=itemInstance._color;
     _boundTo=itemInstance._boundTo;
     _properties=new HashMap<String,String>(itemInstance._properties);
+  }
+
+  /**
+   * Get the stats of this item.
+   * This includes:
+   * <ul>
+   * <li>its own stats,
+   * <li>essences stats,
+   * <li>stats of legendary stuff if applicable.
+   * </ul>
+   * @return some stats.
+   */
+  public BasicStatsSet getStats()
+  {
+    BasicStatsSet ret=new BasicStatsSet();
+    BasicStatsSet ownStats=getEffectiveOwnStats();
+    ret.addStats(ownStats);
+    BasicStatsSet essencesStats=getEssencesStats();
+    ret.addStats(essencesStats);
+    return ret;
+  }
+
+  /**
+   * Get the effective own stats.
+   * @return some stats.
+   */
+  public BasicStatsSet getEffectiveOwnStats()
+  {
+    BasicStatsSet ret=null;
+    if (_ownStats!=null)
+    {
+      ret=new BasicStatsSet(_ownStats);
+    }
+    else
+    {
+      Item item=getReference();
+      if (item!=null)
+      {
+        StatsProvider provider=item.getStatsProvider();
+        if (provider!=null)
+        {
+          Integer effectiveLevel=getEffectiveItemLevel();
+          if (effectiveLevel!=null)
+          {
+            BasicStatsSet stats=provider.getStats(1,effectiveLevel.intValue(),true);
+            ret=new BasicStatsSet(stats);
+          }
+        }
+      }
+    }
+    if (ret==null)
+    {
+      ret=new BasicStatsSet();
+    }
+    return ret;
+  }
+
+  /**
+   * Get the stats from essences.
+   * @return some stats.
+   */
+  public BasicStatsSet getEssencesStats()
+  {
+    BasicStatsSet ret=new BasicStatsSet();
+    if (_essences!=null)
+    {
+      int nbSlots=_essences.getSize();
+      for(int i=0;i<nbSlots;i++)
+      {
+        Item essence=_essences.getEssence(i);
+        if (essence!=null)
+        {
+          BasicStatsSet essenceStats=essence.getStats();
+          ret.addStats(essenceStats);
+        }
+      }
+    }
+    return ret;
   }
 
   /**
@@ -579,6 +688,8 @@ public class ItemInstance<T extends Item>
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);
+    // Stats
+    sb.append(_ownStats);
     // Essences
     if ((_essences!=null) && (_essences.getSize()>0))
     {
