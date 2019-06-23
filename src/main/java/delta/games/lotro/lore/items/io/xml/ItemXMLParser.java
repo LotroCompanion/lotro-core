@@ -143,7 +143,7 @@ public class ItemXMLParser
       List<Element> allEssenceTags=new ArrayList<Element>();
       List<Element> itemTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ITEM_TAG,false);
       allEssenceTags.addAll(itemTags);
-      List<Element> essenceTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ITEM_TAG,false);
+      List<Element> essenceTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ESSENCE_TAG,false);
       allEssenceTags.addAll(essenceTags);
       List<Item> essences=new ArrayList<Item>();
       for(Element essenceTag : essenceTags)
