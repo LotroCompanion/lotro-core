@@ -7,6 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
+import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.colors.ColorsManager;
 import delta.games.lotro.common.id.EntityId;
@@ -72,14 +75,12 @@ public class ItemXMLParser
       }
     }
     // Stats
-    /*
     Element statsTag=DOMParsingTools.getChildTagByName(root,BasicStatsSetXMLConstants.STATS_TAG);
     if (statsTag!=null)
     {
       BasicStatsSet stats=BasicStatsSetXMLParser.parseStats(statsTag);
-      ret.getStats().addStats(stats);
+      itemInstance.setOwnStats(stats);
     }
-    */
     // Durability
     int durability=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_DURABILITY_ATTR,-1);
     if (durability!=-1)

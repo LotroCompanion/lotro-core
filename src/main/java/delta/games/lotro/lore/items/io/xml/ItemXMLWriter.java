@@ -374,15 +374,19 @@ public class ItemXMLWriter
     // Stats
     if (!isInstance)
     {
-      BasicStatsSet stats=item.getStats();
       StatsProvider statsProvider=item.getStatsProvider();
-      if ((statsProvider!=null) && (!isInstance))
+      if (statsProvider!=null)
       {
+        BasicStatsSet stats=item.getStats();
         StatsProviderXMLWriter.writeXml(hd,ItemXMLConstants.STATS_TAG,statsProvider,stats);
       }
-      else
+    }
+    else
+    {
+      BasicStatsSet ownStats=instance.getOwnStats();
+      if (ownStats!=null)
       {
-        BasicStatsSetXMLWriter.write(hd,ItemXMLConstants.STATS_TAG,stats);
+        BasicStatsSetXMLWriter.write(hd,ItemXMLConstants.STATS_TAG,ownStats);
       }
     }
 
