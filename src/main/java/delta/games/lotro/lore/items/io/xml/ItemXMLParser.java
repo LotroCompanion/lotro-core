@@ -147,7 +147,7 @@ public class ItemXMLParser
       List<Element> essenceTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ESSENCE_TAG,false);
       allEssenceTags.addAll(essenceTags);
       List<Item> essences=new ArrayList<Item>();
-      for(Element essenceTag : essenceTags)
+      for(Element essenceTag : allEssenceTags)
       {
         NamedNodeMap essenceAttrs=essenceTag.getAttributes();
         // Essence ID
