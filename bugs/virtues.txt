@@ -1,0 +1,23 @@
+Virtues:
+If a racial trait gives a virtue bonus, it applies only on active virtue, not on passive virtue...
+
+1) Example on glumlug:
+Fidelity is: 45
+Virtuous Dwarf gives +1 Fidelity, Loyalty, Honesty
+
+Fidelity is selected in the active virtues.
+Its active stats match rank 45+1=46: 156 Vitality, 2032 Tactical Mitigation, 610 Physical Mitigation
+Its passive stats match rank 45: 145 Morale.
+LC uses 46 for both => 151.56 Morale
+
+Loyalty not selected in the active virtues.
+Its active stats match rank 53+1=54: 639 Vitality, 2049 Armour, 1564.272 Incoming Healing
+Its passive stats match rank 53: 295 Morale.
+Stats are OK if we select rank 53.
+
+Same for honesty.
+
+2) Same on Ethell with Virtuous Man
+(Patience and Justice)
+Using +1 rank to match active stats will lead to resp 1.75 and 1.98 additional morale.
+Total: 3.93 (+ Steeled Resolve and Motivated morale buffs). This explain part of the +12 additional morale.
