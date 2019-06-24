@@ -293,7 +293,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(77,100,10.0/7,50,3440.0/7,-153000.0/7),
           new Update21RatingCurveSegment(101,105,10.0/7,50,19100.0/7,-1719000.0/7),
           new Update21RatingCurveSegment(106,115,10.0/7,50,76400.0/21,-7067000.0/21),
-          new Update21RatingCurveSegment(116,120,10.0/7,50,200550.0/7,-26633500.0/7)
+          new Update21RatingCurveSegment(116,120,10.0/7,50,200550.0/7,-22633500.0/7)
       };
       // TODO T2 penalty: Floor(OppLvl*13.5)*5
       _mediumMigitation=new Update21RatingCurveImpl(segments);
