@@ -22,16 +22,6 @@ public class ItemPropertyNames
   public static final String USER_COMMENT="UserComment";
 
   /**
-   * Icon ID.
-   */
-  public static final String ICON_ID="iconId";
-
-  /**
-   * Background icon ID.
-   */
-  public static final String BACKGROUND_ICON_ID="backgroundIconId";
-
-  /**
    * Stash ID.
    */
   public static final String STASH_ID="stashId";
