@@ -311,6 +311,7 @@ public class ChatItemLinksDecoder
             // Container slot
             int bitsSet=BufferUtils.readUInt32(bis);
             LOGGER.debug("Container slots: "+bitsSet);
+            // TODO Check if this gives the slot in case of an equipped item (e.g left/right ear)
           }
           else if(subHeader==0x10000E20)
           {
@@ -351,12 +352,14 @@ public class ChatItemLinksDecoder
             // Quantity
             int quantity=BufferUtils.readUInt32(bis);
             LOGGER.debug("Quantity: "+quantity);
+            // TODO Use
           }
           else if (subHeader==0x100031A4)
           {
             // Default legacy rank
             int defaultLegacyRank=BufferUtils.readUInt32(bis);
             LOGGER.debug("Default legacy rank: "+defaultLegacyRank);
+            // TODO Duplicate?
           }
           else if (subHeader==0x10001D5F)
           {
@@ -387,12 +390,14 @@ public class ChatItemLinksDecoder
             // ItemAdvancement_Imbued
             int iaImbued=BufferUtils.readUInt8(bis);
             LOGGER.debug("Imbued: "+iaImbued);
+            // TODO Duplicate?
           }
           else if (subHeader==0x10001042)
           {
             // Combat_Damage (Max Damage)
             float damage=BufferUtils.readFloat(bis);
             LOGGER.debug("Max Damage: "+damage);
+            // TODO Use
           }
           else if (subHeader==0x10000835)
           {
@@ -437,6 +442,7 @@ public class ChatItemLinksDecoder
           {
             int armorValue=BufferUtils.readUInt32(bis);
             LOGGER.debug("Armour: "+armorValue);
+            // TODO Use
           }
           else if (subHeader==0x100038A7) // 268449959 - Inventory_BindToAccount
           {
@@ -473,18 +479,6 @@ public class ChatItemLinksDecoder
         LOGGER.debug("Instance ID: low="+lowInstanceId+", high="+highInstanceId);
       }
     }
-    // Properties
-    /*
-        elseif header == 0x100026BC then // ItemAdvancement_SelectedEffect_Array
-          -- legacies, we have them already
-          local nLegs = ins:GetLongLE();
-          ins:Consume( 8 * nLegs );
-        elseif header == 0x100038A7 then -- Inventory_BindToAccount
-          result.itemBindToAccount = ins:Get();
-        end
-      end
-  end
-     */
   }
 
   private Money parseItemValue(int itemValue)
