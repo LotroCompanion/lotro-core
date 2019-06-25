@@ -3,6 +3,7 @@ package delta.games.lotro.lore.items.io.xml;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -355,6 +356,12 @@ public class ItemXMLWriter
 
     // Properties
     Map<String,String> properties=item.getProperties();
+    if (isInstance)
+    {
+      Map<String,String> allProperties=new HashMap<String,String>(properties);
+      allProperties.putAll(instance.getProperties());
+      properties=allProperties;
+    }
     List<String> propertyNames=new ArrayList<String>(properties.keySet());
     Collections.sort(propertyNames);
     for(String propertyName : propertyNames)
