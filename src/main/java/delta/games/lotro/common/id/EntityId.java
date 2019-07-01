@@ -6,21 +6,43 @@ import delta.common.utils.NumericTools;
  * Base class for entity identifiers (characters, accounts).
  * @author DAM
  */
-public abstract class EntityId extends InternalGameId
+public class EntityId extends InternalGameId
 {
-  protected static final String characterType="character";
-  protected static final String accountType="account";
-
   protected static final char TYPE_SEPARATOR=':';
+
+  private EntityType _type;
 
   /**
    * Constructor.
+   * @param type Entity type.
    * @param id1 Identifier 1 (32 bits).
    * @param id2 Identifier 2 (32 bits).
    */
-  public EntityId(int id1, int id2)
+  public EntityId(EntityType type, int id1, int id2)
   {
     super(id1,id2);
+    _type=type;
+  }
+
+  /**
+   * Get the entity type.
+   * @return the entity type.
+   */
+  public EntityType getType()
+  {
+    return _type;
+  }
+
+  @Override
+  public String asString()
+  {
+    return _type.name()+EntityId.TYPE_SEPARATOR+_id1+EntityId.VALUE_SEPARATOR+_id2;
+  }
+
+  @Override
+  public String toString()
+  {
+    return _type+": "+_id1+"/"+_id2;
   }
 
   /**
@@ -42,14 +64,8 @@ public abstract class EntityId extends InternalGameId
         Integer id2=NumericTools.parseInteger(value.substring(index2+1));
         if ((id1!=null) && (id2!=null))
         {
-          if (characterType.contentEquals(type))
-          {
-            return new CharacterId(id1.intValue(),id2.intValue());
-          }
-          else if (accountType.contentEquals(type))
-          {
-            return new AccountId(id1.intValue(),id2.intValue());
-          }
+          EntityType entityType=EntityType.fromString(type);
+          return new EntityId(entityType,id1.intValue(),id2.intValue());
         }
       }
     }

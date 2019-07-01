@@ -32,7 +32,7 @@ public class Item implements Identifiable
   private EquipmentLocation _equipmentLocation;
   // Item name "Jacket of the Impossible Shot"
   private String _name;
-  // Item category: Armour, Tool, ...
+  // Item category: Armour, Weapon, ...
   private ItemCategory _category;
   // TODO Enum or String constants for sub-categories
   private String _subCategory;

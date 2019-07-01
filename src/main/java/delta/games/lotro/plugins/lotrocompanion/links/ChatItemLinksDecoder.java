@@ -7,7 +7,8 @@ import org.apache.log4j.Logger;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.colors.ColorsManager;
 import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.id.CharacterId;
+import delta.games.lotro.common.id.EntityId;
+import delta.games.lotro.common.id.EntityType;
 import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.items.Item;
@@ -336,8 +337,7 @@ public class ChatItemLinksDecoder
             // Bound to
             int boundToLowId=BufferUtils.readUInt32(bis);
             int boundToHighId=BufferUtils.readUInt32(bis);
-            // TODO Assume character ID
-            CharacterId id=new CharacterId(boundToLowId,boundToHighId);
+            EntityId id=new EntityId(EntityType.UNKNOWN,boundToLowId,boundToHighId);
             LOGGER.debug("Bound to: "+id);
             itemInstance.setBoundTo(id);
           }
