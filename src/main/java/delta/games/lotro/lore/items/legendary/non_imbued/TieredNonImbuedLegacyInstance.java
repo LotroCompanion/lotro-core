@@ -27,6 +27,19 @@ public class TieredNonImbuedLegacyInstance extends NonImbuedLegacyInstance
   }
 
   /**
+   * Get the associated legacy.
+   * @return a legacy or <code>null</code> if not defined.
+   */
+  public TieredNonImbuedLegacy getLegacy()
+  {
+    if (_legacyTier!=null)
+    {
+      return _legacyTier.getParentLegacy();
+    }
+    return null;
+  }
+
+  /**
    * Get the associated legacy tier.
    * @return the associated legacy tier.
    */
