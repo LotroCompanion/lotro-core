@@ -21,13 +21,14 @@ import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
-import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
-import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
+import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
+import delta.games.lotro.lore.quests.objectives.QuestBestowedCondition;
 import delta.games.lotro.lore.quests.objectives.QuestCompleteCondition;
+import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
 
@@ -111,6 +112,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof LevelCondition)
     {
       writeLevelCondition(hd,(LevelCondition)condition);
+    }
+    else if (condition instanceof QuestBestowedCondition)
+    {
+      writeQuestBestowedCondition(hd,(QuestBestowedCondition)condition);
     }
     else
     {
@@ -367,6 +372,22 @@ public class ObjectivesXMLWriter
     attrs.addAttribute("","",ObjectivesXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
     hd.startElement("","",ObjectivesXMLConstants.LEVEL_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.LEVEL_TAG);
+  }
+
+  private static void writeQuestBestowedCondition(TransformerHandler hd, QuestBestowedCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Achievable?
+    Proxy<? extends Achievable> proxy=condition.getProxy();
+    if (proxy!=null)
+    {
+      int id=proxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.QUEST_BESTOWED_ACHIEVABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    hd.startElement("","",ObjectivesXMLConstants.QUEST_BESTOWED_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.QUEST_BESTOWED_TAG);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception

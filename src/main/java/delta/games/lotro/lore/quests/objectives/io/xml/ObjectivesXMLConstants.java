@@ -184,4 +184,13 @@ public class ObjectivesXMLConstants
    * Tag 'level', attribute 'level'.
    */
   public static final String LEVEL_ATTR="level";
+
+  /**
+   * Tag 'questBestowed'.
+   */
+  public static final String QUEST_BESTOWED_TAG="questBestowed";
+  /**
+   * Tag 'questBestowed', attribute 'achievableId'.
+   */
+  public static final String QUEST_BESTOWED_ACHIEVABLE_ID_ATTR="achievableId";
 }

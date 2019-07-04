@@ -26,6 +26,7 @@ import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelectio
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
+import delta.games.lotro.lore.quests.objectives.QuestBestowedCondition;
 import delta.games.lotro.lore.quests.objectives.QuestCompleteCondition;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
@@ -122,6 +123,10 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.LEVEL_TAG.equals(tagName))
     {
       ret=parseLevelCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.QUEST_BESTOWED_TAG.equals(tagName))
+    {
+      ret=parseQuestBestowedCondition(attrs,conditionTag);
     }
     else
     {
@@ -296,6 +301,20 @@ public class ObjectivesXMLParser
     // Level
     int level=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.LEVEL_ATTR,1);
     condition.setLevel(level);
+    return condition;
+  }
+
+  private static QuestBestowedCondition parseQuestBestowedCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    QuestBestowedCondition condition=new QuestBestowedCondition();
+    // Achievable
+    int achievableId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_BESTOWED_ACHIEVABLE_ID_ATTR,0);
+    if (achievableId>0)
+    {
+      Proxy<Achievable> proxy=new Proxy<Achievable>();
+      proxy.setId(achievableId);
+      condition.setProxy(proxy);
+    }
     return condition;
   }
 

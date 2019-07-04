@@ -11,6 +11,7 @@ import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
+import delta.games.lotro.lore.quests.objectives.QuestBestowedCondition;
 import delta.games.lotro.lore.quests.objectives.QuestCompleteCondition;
 import delta.games.lotro.utils.Proxy;
 
@@ -118,6 +119,11 @@ public class AchievableProxiesResolver
         if (condition instanceof QuestCompleteCondition)
         {
           QuestCompleteCondition completeCondition=(QuestCompleteCondition)condition;
+          resolveProxy(completeCondition.getProxy());
+        }
+        else if (condition instanceof QuestBestowedCondition)
+        {
+          QuestBestowedCondition completeCondition=(QuestBestowedCondition)condition;
           resolveProxy(completeCondition.getProxy());
         }
       }
