@@ -175,4 +175,13 @@ public class ObjectivesXMLConstants
    * Tag 'npcTalk', attribute 'npcName'.
    */
   public static final String NPC_TALK_NPC_NAME_ATTR="npcName";
+
+  /**
+   * Tag 'level'.
+   */
+  public static final String LEVEL_TAG="level";
+  /**
+   * Tag 'level', attribute 'level'.
+   */
+  public static final String LEVEL_ATTR="level";
 }

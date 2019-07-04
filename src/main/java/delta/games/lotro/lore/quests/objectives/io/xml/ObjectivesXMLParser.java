@@ -18,6 +18,7 @@ import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
+import delta.games.lotro.lore.quests.objectives.LevelCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
 import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
@@ -117,6 +118,10 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.NPC_TALK_TAG.equals(tagName))
     {
       ret=parseNpcTalkCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.LEVEL_TAG.equals(tagName))
+    {
+      ret=parseLevelCondition(attrs,conditionTag);
     }
     else
     {
@@ -282,6 +287,15 @@ public class ObjectivesXMLParser
     proxy.setId(npcId);
     proxy.setName(npcName);
     condition.setProxy(proxy);
+    return condition;
+  }
+
+  private static LevelCondition parseLevelCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    LevelCondition condition=new LevelCondition();
+    // Level
+    int level=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.LEVEL_ATTR,1);
+    condition.setLevel(level);
     return condition;
   }
 

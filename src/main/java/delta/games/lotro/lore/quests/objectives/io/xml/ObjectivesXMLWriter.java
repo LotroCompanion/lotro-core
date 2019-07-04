@@ -19,6 +19,7 @@ import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
+import delta.games.lotro.lore.quests.objectives.LevelCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
 import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
@@ -106,6 +107,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof NpcTalkCondition)
     {
       writeNpcTalkCondition(hd,(NpcTalkCondition)condition);
+    }
+    else if (condition instanceof LevelCondition)
+    {
+      writeLevelCondition(hd,(LevelCondition)condition);
     }
     else
     {
@@ -350,6 +355,18 @@ public class ObjectivesXMLWriter
     }
     hd.startElement("","",ObjectivesXMLConstants.NPC_TALK_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.NPC_TALK_TAG);
+  }
+
+  private static void writeLevelCondition(TransformerHandler hd, LevelCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Level
+    int level=condition.getLevel();
+    attrs.addAttribute("","",ObjectivesXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
+    hd.startElement("","",ObjectivesXMLConstants.LEVEL_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.LEVEL_TAG);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception
