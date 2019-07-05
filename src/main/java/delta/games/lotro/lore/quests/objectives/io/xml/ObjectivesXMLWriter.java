@@ -18,6 +18,7 @@ import delta.games.lotro.lore.quests.objectives.ExternalInventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemCondition;
+import delta.games.lotro.lore.quests.objectives.ItemTalkCondition;
 import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
@@ -101,6 +102,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof ExternalInventoryItemCondition)
     {
       writeExternalInventoryItemCondition(hd,(ExternalInventoryItemCondition)condition);
+    }
+    else if (condition instanceof ItemTalkCondition)
+    {
+      writeItemTalkCondition(hd,(ItemTalkCondition)condition);
     }
     else if (condition instanceof FactionLevelCondition)
     {
@@ -257,6 +262,11 @@ public class ObjectivesXMLWriter
   private static void writeExternalInventoryItemCondition(TransformerHandler hd, ExternalInventoryItemCondition condition) throws Exception
   {
     writeItemCondition(hd,condition,ObjectivesXMLConstants.EXTERNAL_INVENTORY_TAG);
+  }
+
+  private static void writeItemTalkCondition(TransformerHandler hd, ItemTalkCondition condition) throws Exception
+  {
+    writeItemCondition(hd,condition,ObjectivesXMLConstants.ITEM_TALK_TAG);
   }
 
   private static void writeItemCondition(TransformerHandler hd, ItemCondition condition, String tagName) throws Exception

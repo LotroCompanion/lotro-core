@@ -117,15 +117,19 @@ public class ObjectivesXMLConstants
    */
   public static final String EXTERNAL_INVENTORY_TAG="externalInventoryItem";
   /**
-   * Tag 'inventoryItem' and 'useItem', attribute 'itemId'.
+   * Tag 'itemTalk'.
+   */
+  public static final String ITEM_TALK_TAG="itemTalk";
+  /**
+   * Item related tags, attribute 'itemId'.
    */
   public static final String ITEM_ID_ATTR="itemId";
   /**
-   * Tag 'inventoryItem' and 'useItem', attribute 'itemName'.
+   * Item related tags, attribute 'itemName'.
    */
   public static final String ITEM_NAME_ATTR="itemName";
   /**
-   * Tag 'inventoryItem' and 'useItem', attribute 'count'.
+   * Item related tags, attribute 'count'.
    */
   public static final String ITEM_COUNT_ATTR="count";
 
