@@ -113,6 +113,10 @@ public class ObjectivesXMLConstants
    */
   public static final String ITEM_USED_TAG="itemUsed";
   /**
+   * Tag 'externalInventoryItem'.
+   */
+  public static final String EXTERNAL_INVENTORY_TAG="externalInventoryItem";
+  /**
    * Tag 'inventoryItem' and 'useItem', attribute 'itemId'.
    */
   public static final String ITEM_ID_ATTR="itemId";

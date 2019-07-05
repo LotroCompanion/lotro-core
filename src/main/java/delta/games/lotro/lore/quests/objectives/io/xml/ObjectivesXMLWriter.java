@@ -14,6 +14,7 @@ import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.ExternalInventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemCondition;
@@ -96,6 +97,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof ItemUsedCondition)
     {
       writeItemUsedCondition(hd,(ItemUsedCondition)condition);
+    }
+    else if (condition instanceof ExternalInventoryItemCondition)
+    {
+      writeExternalInventoryItemCondition(hd,(ExternalInventoryItemCondition)condition);
     }
     else if (condition instanceof FactionLevelCondition)
     {
@@ -247,6 +252,11 @@ public class ObjectivesXMLWriter
   private static void writeItemUsedCondition(TransformerHandler hd, ItemUsedCondition condition) throws Exception
   {
     writeItemCondition(hd,condition,ObjectivesXMLConstants.ITEM_USED_TAG);
+  }
+
+  private static void writeExternalInventoryItemCondition(TransformerHandler hd, ExternalInventoryItemCondition condition) throws Exception
+  {
+    writeItemCondition(hd,condition,ObjectivesXMLConstants.EXTERNAL_INVENTORY_TAG);
   }
 
   private static void writeItemCondition(TransformerHandler hd, ItemCondition condition, String tagName) throws Exception

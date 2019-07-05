@@ -13,6 +13,7 @@ import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.ExternalInventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemCondition;
@@ -107,6 +108,10 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.ITEM_USED_TAG.equals(tagName))
     {
       ret=parseItemUsedCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.EXTERNAL_INVENTORY_TAG.equals(tagName))
+    {
+      ret=parseExternalInventoryItemCondition(attrs,conditionTag);
     }
     else if (ObjectivesXMLConstants.FACTION_LEVEL_TAG.equals(tagName))
     {
@@ -218,6 +223,13 @@ public class ObjectivesXMLParser
   private static ItemUsedCondition parseItemUsedCondition(NamedNodeMap attrs, Element conditionTag)
   {
     ItemUsedCondition condition=new ItemUsedCondition();
+    parseItemCondition(condition,attrs,conditionTag);
+    return condition;
+  }
+
+  private static ExternalInventoryItemCondition parseExternalInventoryItemCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    ExternalInventoryItemCondition condition=new ExternalInventoryItemCondition();
     parseItemCondition(condition,attrs,conditionTag);
     return condition;
   }
