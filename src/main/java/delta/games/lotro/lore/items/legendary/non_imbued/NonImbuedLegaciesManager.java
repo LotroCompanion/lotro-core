@@ -3,6 +3,7 @@ package delta.games.lotro.lore.items.legendary.non_imbued;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import delta.games.lotro.common.constraints.ClassAndSlot;
 import delta.games.lotro.common.constraints.ClassAndSlotFilter;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatDescriptionComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -142,8 +144,15 @@ public class NonImbuedLegaciesManager
    */
   public List<TieredNonImbuedLegacy> getTieredLegacies()
   {
-    // TODO sort?
-    return new ArrayList<TieredNonImbuedLegacy>(_tieredLegacies.values());
+    List<TieredNonImbuedLegacy> ret=new ArrayList<TieredNonImbuedLegacy>();
+    List<StatDescription> stats=new ArrayList<StatDescription>(_tieredLegacies.keySet());
+    Collections.sort(stats,new StatDescriptionComparator());
+    for(StatDescription stat : stats)
+    {
+      TieredNonImbuedLegacy legacy=_tieredLegacies.get(stat);
+      ret.add(legacy);
+    }
+    return ret;
   }
 
   /**
@@ -162,8 +171,15 @@ public class NonImbuedLegaciesManager
    */
   public List<DefaultNonImbuedLegacy> getDefaultLegacies()
   {
-    // TODO sort?
-    return new ArrayList<DefaultNonImbuedLegacy>(_defaultLegacies.values());
+    List<DefaultNonImbuedLegacy> ret=new ArrayList<DefaultNonImbuedLegacy>();
+    List<Integer> ids=new ArrayList<Integer>(_defaultLegacies.keySet());
+    Collections.sort(ids);
+    for(Integer id : ids)
+    {
+      DefaultNonImbuedLegacy legacy=_defaultLegacies.get(id);
+      ret.add(legacy);
+    }
+    return ret;
   }
 
   /**
