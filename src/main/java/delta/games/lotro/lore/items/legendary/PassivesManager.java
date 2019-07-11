@@ -13,6 +13,9 @@ import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.items.legendary.passives.PassivesGroup;
+import delta.games.lotro.lore.items.legendary.passives.PassivesGroupsManager;
+import delta.games.lotro.lore.items.legendary.passives.io.xml.PassivesGroupsXMLParser;
 
 /**
  * Facade for access to passives.
@@ -25,6 +28,7 @@ public class PassivesManager
   private static PassivesManager _instance=null;
 
   private HashMap<Integer,Effect> _cache;
+  private PassivesGroupsManager _passivesUsage;
 
   /**
    * Get the sole instance of this class.
@@ -35,7 +39,7 @@ public class PassivesManager
     if (_instance==null)
     {
       _instance=new PassivesManager();
-      _instance.loadAll();
+      _instance.loadData();
     }
     return _instance;
   }
@@ -46,12 +50,21 @@ public class PassivesManager
   public PassivesManager()
   {
     _cache=new HashMap<Integer,Effect>(100);
+    _passivesUsage=new PassivesGroupsManager();
+  }
+
+  private void loadData()
+  {
+    // Passives
+    loadPassives();
+    // Passives usage
+    loadPassivesUsage();
   }
 
   /**
-   * Load all.
+   * Load passives.
    */
-  private void loadAll()
+  private void loadPassives()
   {
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
@@ -64,7 +77,25 @@ public class PassivesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" effects in "+duration+"ms.");
+    LOGGER.info("Loaded "+_cache.size()+" passives in "+duration+"ms.");
+  }
+
+  /**
+   * Load passives usage.
+   */
+  private void loadPassivesUsage()
+  {
+    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
+    File passivesUsageFile=cfg.getFile(DataFiles.PASSIVES_USAGE);
+    long now=System.currentTimeMillis();
+    List<PassivesGroup> groups=PassivesGroupsXMLParser.parsePassivesUsageFile(passivesUsageFile);
+    for(PassivesGroup group : groups)
+    {
+      _passivesUsage.addPassivesGroup(group);
+    }
+    long now2=System.currentTimeMillis();
+    long duration=now2-now;
+    LOGGER.info("Loaded passives usage in "+duration+"ms.");
   }
 
   /**
@@ -98,5 +129,26 @@ public class PassivesManager
     Effect ret=null;
     ret=_cache.get(Integer.valueOf(id));
     return ret;
+  }
+
+  /**
+   * Get all possible passives for an item.
+   * @param itemId Item identifier.
+   * @return A list of passives, sorted by their identifier.
+   */
+  public List<Effect> getPassivesForItem(int itemId)
+  {
+    List<Effect> passives=new ArrayList<Effect>();
+    List<Integer> passiveIds=new ArrayList<Integer>(_passivesUsage.getPassiveIdsForItem(itemId));
+    Collections.sort(passiveIds);
+    for(Integer passiveId : passiveIds)
+    {
+      Effect passive=getEffect(passiveId.intValue());
+      if (passive!=null)
+      {
+        passives.add(passive);
+      }
+    }
+    return passives;
   }
 }

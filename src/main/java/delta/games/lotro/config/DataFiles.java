@@ -115,7 +115,11 @@ public class DataFiles
    */
   public static final String PASSIVES="passives";
   /**
-   * Passives file.
+   * Passives usage file.
+   */
+  public static final String PASSIVES_USAGE="passivesUsage";
+  /**
+   * Consumables file.
    */
   public static final String CONSUMABLES="consumables";
   /**
