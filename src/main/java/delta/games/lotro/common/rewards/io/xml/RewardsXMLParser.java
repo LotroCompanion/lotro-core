@@ -168,6 +168,7 @@ public class RewardsXMLParser
       {
         parseRewardElementTag(selectableRewardElements,selectableRewardTag);
       }
+      rewards.add(selectableReward);
     }
   }
 
