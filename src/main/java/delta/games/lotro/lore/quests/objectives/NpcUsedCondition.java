@@ -1,16 +1,15 @@
 package delta.games.lotro.lore.quests.objectives;
 
-
 /**
- * 'NPC talk' condition.
+ * 'NPC used' condition.
  * @author DAM
  */
-public class NpcTalkCondition extends NpcCondition
+public class NpcUsedCondition extends NpcCondition
 {
   /**
    * Constructor.
    */
-  public NpcTalkCondition()
+  public NpcUsedCondition()
   {
     // Nothing
   }
@@ -18,12 +17,12 @@ public class NpcTalkCondition extends NpcCondition
   @Override
   public ConditionType getType()
   {
-    return ConditionType.NPC_TALK;
+    return ConditionType.NPC_USED;
   }
 
   @Override
   public String getAction()
   {
-    return "Talk to";
+    return "Use";
   }
 }

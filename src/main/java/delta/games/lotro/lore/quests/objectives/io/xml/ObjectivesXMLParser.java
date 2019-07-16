@@ -22,14 +22,16 @@ import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
-import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
-import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
+import delta.games.lotro.lore.quests.objectives.NpcCondition;
+import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
+import delta.games.lotro.lore.quests.objectives.NpcUsedCondition;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.lore.quests.objectives.QuestBestowedCondition;
 import delta.games.lotro.lore.quests.objectives.QuestCompleteCondition;
+import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
 
@@ -129,6 +131,10 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.NPC_TALK_TAG.equals(tagName))
     {
       ret=parseNpcTalkCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.NPC_USED_TAG.equals(tagName))
+    {
+      ret=parseNpcUsedCondition(attrs,conditionTag);
     }
     else if (ObjectivesXMLConstants.LEVEL_TAG.equals(tagName))
     {
@@ -307,16 +313,28 @@ public class ObjectivesXMLParser
   private static NpcTalkCondition parseNpcTalkCondition(NamedNodeMap attrs, Element conditionTag)
   {
     NpcTalkCondition condition=new NpcTalkCondition();
+    parseNpcCondition(condition,attrs,conditionTag);
+    return condition;
+  }
+
+  private static NpcUsedCondition parseNpcUsedCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    NpcUsedCondition condition=new NpcUsedCondition();
+    parseNpcCondition(condition,attrs,conditionTag);
+    return condition;
+  }
+
+  private static void parseNpcCondition(NpcCondition condition, NamedNodeMap attrs, Element conditionTag)
+  {
     // NPC proxy
     // - id
-    int npcId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.NPC_TALK_NPC_ID_ATTR,0);
+    int npcId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.NPC_CONDITION_NPC_ID_ATTR,0);
     // - name
-    String npcName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.NPC_TALK_NPC_NAME_ATTR,"?");
+    String npcName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.NPC_CONDITION_NPC_NAME_ATTR,"?");
     Proxy<NpcDescription> proxy=new Proxy<NpcDescription>();
     proxy.setId(npcId);
     proxy.setName(npcName);
     condition.setProxy(proxy);
-    return condition;
   }
 
   private static LevelCondition parseLevelCondition(NamedNodeMap attrs, Element conditionTag)

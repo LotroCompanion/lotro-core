@@ -176,13 +176,17 @@ public class ObjectivesXMLConstants
    */
   public static final String NPC_TALK_TAG="npcTalk";
   /**
-   * Tag 'npcTalk', attribute 'npcId'.
+   * Tag 'npcUsed'.
    */
-  public static final String NPC_TALK_NPC_ID_ATTR="npcId";
+  public static final String NPC_USED_TAG="npcUsed";
   /**
-   * Tag 'npcTalk', attribute 'npcName'.
+   * Tag 'npcTalk'/'npcUsed', attribute 'npcId'.
    */
-  public static final String NPC_TALK_NPC_NAME_ATTR="npcName";
+  public static final String NPC_CONDITION_NPC_ID_ATTR="npcId";
+  /**
+   * Tag 'npcTalk'/'npcUsed', attribute 'npcName'.
+   */
+  public static final String NPC_CONDITION_NPC_NAME_ATTR="npcName";
 
   /**
    * Tag 'level'.

@@ -24,7 +24,9 @@ import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
+import delta.games.lotro.lore.quests.objectives.NpcCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
+import delta.games.lotro.lore.quests.objectives.NpcUsedCondition;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
@@ -118,6 +120,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof NpcTalkCondition)
     {
       writeNpcTalkCondition(hd,(NpcTalkCondition)condition);
+    }
+    else if (condition instanceof NpcUsedCondition)
+    {
+      writeNpcUsedCondition(hd,(NpcUsedCondition)condition);
     }
     else if (condition instanceof LevelCondition)
     {
@@ -361,6 +367,16 @@ public class ObjectivesXMLWriter
 
   private static void writeNpcTalkCondition(TransformerHandler hd, NpcTalkCondition condition) throws Exception
   {
+    writeNpcCondition(hd,ObjectivesXMLConstants.NPC_TALK_TAG,condition);
+  }
+
+  private static void writeNpcUsedCondition(TransformerHandler hd, NpcUsedCondition condition) throws Exception
+  {
+    writeNpcCondition(hd,ObjectivesXMLConstants.NPC_USED_TAG,condition);
+  }
+
+  private static void writeNpcCondition(TransformerHandler hd, String tagName, NpcCondition condition) throws Exception
+  {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(hd,attrs,condition);
@@ -370,16 +386,16 @@ public class ObjectivesXMLWriter
     {
       // ID
       int id=proxy.getId();
-      attrs.addAttribute("","",ObjectivesXMLConstants.NPC_TALK_NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      attrs.addAttribute("","",ObjectivesXMLConstants.NPC_CONDITION_NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // Name
       String name=proxy.getName();
       if (name!=null)
       {
-        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_TALK_NPC_NAME_ATTR,XmlWriter.CDATA,name);
+        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_CONDITION_NPC_NAME_ATTR,XmlWriter.CDATA,name);
       }
     }
-    hd.startElement("","",ObjectivesXMLConstants.NPC_TALK_TAG,attrs);
-    hd.endElement("","",ObjectivesXMLConstants.NPC_TALK_TAG);
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
   }
 
   private static void writeLevelCondition(TransformerHandler hd, LevelCondition condition) throws Exception
