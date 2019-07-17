@@ -47,6 +47,10 @@ public enum ConditionType
    */
   CHANNELING,
   /**
+   * Channeling failed.
+   */
+  CHANNELING_FAILED,
+  /**
    * Time expired.
    */
   TIME_EXPIRED,
