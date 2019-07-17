@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.quests.objectives;
 
-
 /**
  * 'NPC talk' condition.
  * @author DAM

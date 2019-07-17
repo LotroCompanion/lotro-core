@@ -9,10 +9,14 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.mobs.MobDescription;
 import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.DetectingCondition;
+import delta.games.lotro.lore.quests.objectives.DetectionCondition;
+import delta.games.lotro.lore.quests.objectives.EnterDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.ExternalInventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
@@ -143,6 +147,14 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.QUEST_BESTOWED_TAG.equals(tagName))
     {
       ret=parseQuestBestowedCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.DETECTING_TAG.equals(tagName))
+    {
+      ret=parseDetectingCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.ENTER_DETECTION_TAG.equals(tagName))
+    {
+      ret=parseEnterDetectionCondition(attrs,conditionTag);
     }
     else
     {
@@ -326,15 +338,8 @@ public class ObjectivesXMLParser
 
   private static void parseNpcCondition(NpcCondition condition, NamedNodeMap attrs, Element conditionTag)
   {
-    // NPC proxy
-    // - id
-    int npcId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.NPC_CONDITION_NPC_ID_ATTR,0);
-    // - name
-    String npcName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.NPC_CONDITION_NPC_NAME_ATTR,"?");
-    Proxy<NpcDescription> proxy=new Proxy<NpcDescription>();
-    proxy.setId(npcId);
-    proxy.setName(npcName);
-    condition.setProxy(proxy);
+    Proxy<NpcDescription> npcProxy=parseNpcProxy(attrs);
+    condition.setProxy(npcProxy);
   }
 
   private static LevelCondition parseLevelCondition(NamedNodeMap attrs, Element conditionTag)
@@ -360,6 +365,30 @@ public class ObjectivesXMLParser
     return condition;
   }
 
+  private static DetectingCondition parseDetectingCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    DetectingCondition condition=new DetectingCondition();
+    parseDetectionCondition(condition,attrs,conditionTag);
+    return condition;
+  }
+
+  private static EnterDetectionCondition parseEnterDetectionCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    EnterDetectionCondition condition=new EnterDetectionCondition();
+    parseDetectionCondition(condition,attrs,conditionTag);
+    return condition;
+  }
+
+  private static void parseDetectionCondition(DetectionCondition condition, NamedNodeMap attrs, Element conditionTag)
+  {
+    // NPC proxy
+    Proxy<NpcDescription> npcProxy=parseNpcProxy(attrs);
+    condition.setNpcProxy(npcProxy);
+    // Mob proxy
+    Proxy<MobDescription> mobProxy=parseMobProxy(attrs);
+    condition.setMobProxy(mobProxy);
+  }
+
   private static DefaultObjectiveCondition parseDefaultCondition(NamedNodeMap attrs, Element conditionTag)
   {
     // Type
@@ -371,5 +400,39 @@ public class ObjectivesXMLParser
     }
     DefaultObjectiveCondition condition=new DefaultObjectiveCondition(type);
     return condition;
+  }
+
+  private static Proxy<NpcDescription> parseNpcProxy(NamedNodeMap attrs)
+  {
+    Proxy<NpcDescription> proxy=null;
+    // NPC proxy
+    // - id
+    int npcId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.NPC_ID_ATTR,0);
+    if (npcId!=0)
+    {
+      // - name
+      String npcName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.NPC_NAME_ATTR,"?");
+      proxy=new Proxy<NpcDescription>();
+      proxy.setId(npcId);
+      proxy.setName(npcName);
+    }
+    return proxy;
+  }
+
+  private static Proxy<MobDescription> parseMobProxy(NamedNodeMap attrs)
+  {
+    Proxy<MobDescription> proxy=null;
+    // Mob proxy
+    // - id
+    int mobId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.MOB_ID_ATTR,0);
+    if (mobId!=0)
+    {
+      // - name
+      String mobName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.MOB_NAME_ATTR,"?");
+      proxy=new Proxy<MobDescription>();
+      proxy.setId(mobId);
+      proxy.setName(mobName);
+    }
+    return proxy;
   }
 }

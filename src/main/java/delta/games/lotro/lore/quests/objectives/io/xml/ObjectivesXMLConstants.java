@@ -179,14 +179,6 @@ public class ObjectivesXMLConstants
    * Tag 'npcUsed'.
    */
   public static final String NPC_USED_TAG="npcUsed";
-  /**
-   * Tag 'npcTalk'/'npcUsed', attribute 'npcId'.
-   */
-  public static final String NPC_CONDITION_NPC_ID_ATTR="npcId";
-  /**
-   * Tag 'npcTalk'/'npcUsed', attribute 'npcName'.
-   */
-  public static final String NPC_CONDITION_NPC_NAME_ATTR="npcName";
 
   /**
    * Tag 'level'.
@@ -205,4 +197,31 @@ public class ObjectivesXMLConstants
    * Tag 'questBestowed', attribute 'achievableId'.
    */
   public static final String QUEST_BESTOWED_ACHIEVABLE_ID_ATTR="achievableId";
+
+  /**
+   * Tag 'enterDetection'.
+   */
+  public static final String ENTER_DETECTION_TAG="enterDetection";
+  /**
+   * Tag 'detecting'.
+   */
+  public static final String DETECTING_TAG="detecting";
+
+  // Shared attributes
+  /**
+   * Tag 'npcTalk'/'npcUsed'/'enterDetection'/'detecting', attribute 'npcId'.
+   */
+  public static final String NPC_ID_ATTR="npcId";
+  /**
+   * Tag 'npcTalk'/'npcUsed'/'enterDetection'/'detecting', attribute 'npcName'.
+   */
+  public static final String NPC_NAME_ATTR="npcName";
+  /**
+   * Tag 'enterDetection'/'detecting', attribute 'mobId'.
+   */
+  public static final String MOB_ID_ATTR="mobId";
+  /**
+   * Tag 'enterDetection'/'detecting', attribute 'npcName'.
+   */
+  public static final String MOB_NAME_ATTR="mobName";
 }

@@ -10,10 +10,14 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.mobs.MobDescription;
 import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.DetectingCondition;
+import delta.games.lotro.lore.quests.objectives.DetectionCondition;
+import delta.games.lotro.lore.quests.objectives.EnterDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.ExternalInventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
@@ -132,6 +136,14 @@ public class ObjectivesXMLWriter
     else if (condition instanceof QuestBestowedCondition)
     {
       writeQuestBestowedCondition(hd,(QuestBestowedCondition)condition);
+    }
+    else if (condition instanceof DetectingCondition)
+    {
+      writeDetectingCondition(hd,(DetectingCondition)condition);
+    }
+    else if (condition instanceof EnterDetectionCondition)
+    {
+      writeEnterDetectionCondition(hd,(EnterDetectionCondition)condition);
     }
     else
     {
@@ -386,12 +398,12 @@ public class ObjectivesXMLWriter
     {
       // ID
       int id=proxy.getId();
-      attrs.addAttribute("","",ObjectivesXMLConstants.NPC_CONDITION_NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      attrs.addAttribute("","",ObjectivesXMLConstants.NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // Name
       String name=proxy.getName();
       if (name!=null)
       {
-        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_CONDITION_NPC_NAME_ATTR,XmlWriter.CDATA,name);
+        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_NAME_ATTR,XmlWriter.CDATA,name);
       }
     }
     hd.startElement("","",tagName,attrs);
@@ -424,6 +436,53 @@ public class ObjectivesXMLWriter
     }
     hd.startElement("","",ObjectivesXMLConstants.QUEST_BESTOWED_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.QUEST_BESTOWED_TAG);
+  }
+
+  private static void writeDetectingCondition(TransformerHandler hd, DetectingCondition condition) throws Exception
+  {
+    writeDetectCondition(hd,ObjectivesXMLConstants.DETECTING_TAG,condition);
+  }
+
+  private static void writeEnterDetectionCondition(TransformerHandler hd, EnterDetectionCondition condition) throws Exception
+  {
+    writeDetectCondition(hd,ObjectivesXMLConstants.ENTER_DETECTION_TAG,condition);
+  }
+
+  private static void writeDetectCondition(TransformerHandler hd, String tagName, DetectionCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // NPC proxy
+    Proxy<NpcDescription> npcProxy=condition.getNpcProxy();
+    if (npcProxy!=null)
+    {
+      // ID
+      int id=npcProxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=npcProxy.getName();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_NAME_ATTR,XmlWriter.CDATA,name);
+      }
+    }
+    // Mob proxy
+    Proxy<MobDescription> mobProxy=condition.getMobProxy();
+    if (mobProxy!=null)
+    {
+      // ID
+      int id=mobProxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.MOB_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=mobProxy.getName();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",ObjectivesXMLConstants.MOB_NAME_ATTR,XmlWriter.CDATA,name);
+      }
+    }
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception
