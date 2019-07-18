@@ -1,25 +1,19 @@
 package delta.games.lotro.lore.quests.objectives;
 
-import delta.games.lotro.lore.mobs.MobDescription;
-import delta.games.lotro.lore.npc.NpcDescription;
-import delta.games.lotro.utils.Proxy;
-
 /**
  * Base class for 'Detection' conditions.
  * @author DAM
  */
 public abstract class DetectionCondition extends ObjectiveCondition
 {
-  private Proxy<NpcDescription> _npc;
-  private Proxy<MobDescription> _mob;
+  private ConditionTarget _target;
 
   /**
    * Constructor.
    */
   public DetectionCondition()
   {
-    _npc=null;
-    _mob=null;
+    _target=null;
   }
 
   /**
@@ -29,39 +23,21 @@ public abstract class DetectionCondition extends ObjectiveCondition
   public abstract String getAction();
 
   /**
-   * Get the proxy to the targeted NPC.
-   * @return a proxy or <code>null</code>.
+   * Get the target.
+   * @return a target or <code>null</code>.
    */
-  public Proxy<NpcDescription> getNpcProxy()
+  public ConditionTarget getTarget()
   {
-    return _npc;
+    return _target;
   }
 
   /**
-   * Set the proxy to the targeted NPC.
-   * @param proxy the proxy to set (may be <code>null</code>).
+   * Set the target.
+   * @param target the target to set (may be <code>null</code>).
    */
-  public void setNpcProxy(Proxy<NpcDescription> proxy)
+  public void setTarget(ConditionTarget target)
   {
-    _npc=proxy;
-  }
-
-  /**
-   * Get the proxy to the targeted mob.
-   * @return a proxy or <code>null</code>.
-   */
-  public Proxy<MobDescription> getMobProxy()
-  {
-    return _mob;
-  }
-
-  /**
-   * Set the proxy to the targeted NPC.
-   * @param proxy the proxy to set (may be <code>null</code>).
-   */
-  public void setMobProxy(Proxy<MobDescription> proxy)
-  {
-    _mob=proxy;
+    _target=target;
   }
 
   @Override
@@ -71,13 +47,9 @@ public abstract class DetectionCondition extends ObjectiveCondition
     sb.append("#").append(getIndex());
     String action=getAction();
     sb.append(": ").append(action).append(' ');
-    if (_npc!=null)
+    if (_target!=null)
     {
-      sb.append("NPC ").append(_npc.getName());
-    }
-    else if (_mob!=null)
-    {
-      sb.append("mob ").append(_mob.getName());
+      sb.append(_target);
     }
     else
     {

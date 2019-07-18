@@ -224,4 +224,25 @@ public class ObjectivesXMLConstants
    * Tag 'enterDetection'/'detecting', attribute 'npcName'.
    */
   public static final String MOB_NAME_ATTR="mobName";
+
+  /**
+   * Tag 'emote'.
+   */
+  public static final String EMOTE_TAG="emote";
+  /**
+   * Tag 'emote', attribute 'emoteId'.
+   */
+  public static final String EMOTE_ID_ATTR="emoteId";
+  /**
+   * Tag 'emote', attribute 'command'.
+   */
+  public static final String EMOTE_COMMAND_ATTR="command";
+  /**
+   * Tag 'emote', attribute 'count'.
+   */
+  public static final String EMOTE_COUNT_ATTR="count";
+  /**
+   * Tag 'emote', attribute 'maxDaily'.
+   */
+  public static final String EMOTE_MAX_DAILY_ATTR="maxDaily";
 }

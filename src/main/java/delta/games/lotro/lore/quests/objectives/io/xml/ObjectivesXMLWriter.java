@@ -8,15 +8,18 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.mobs.MobDescription;
 import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.lore.quests.objectives.ConditionTarget;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.DetectingCondition;
 import delta.games.lotro.lore.quests.objectives.DetectionCondition;
+import delta.games.lotro.lore.quests.objectives.EmoteCondition;
 import delta.games.lotro.lore.quests.objectives.EnterDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.ExternalInventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
@@ -144,6 +147,10 @@ public class ObjectivesXMLWriter
     else if (condition instanceof EnterDetectionCondition)
     {
       writeEnterDetectionCondition(hd,(EnterDetectionCondition)condition);
+    }
+    else if (condition instanceof EmoteCondition)
+    {
+      writeEmoteCondition(hd,(EmoteCondition)condition);
     }
     else
     {
@@ -453,36 +460,77 @@ public class ObjectivesXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(hd,attrs,condition);
-    // NPC proxy
-    Proxy<NpcDescription> npcProxy=condition.getNpcProxy();
-    if (npcProxy!=null)
-    {
-      // ID
-      int id=npcProxy.getId();
-      attrs.addAttribute("","",ObjectivesXMLConstants.NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-      // Name
-      String name=npcProxy.getName();
-      if (name!=null)
-      {
-        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_NAME_ATTR,XmlWriter.CDATA,name);
-      }
-    }
-    // Mob proxy
-    Proxy<MobDescription> mobProxy=condition.getMobProxy();
-    if (mobProxy!=null)
-    {
-      // ID
-      int id=mobProxy.getId();
-      attrs.addAttribute("","",ObjectivesXMLConstants.MOB_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-      // Name
-      String name=mobProxy.getName();
-      if (name!=null)
-      {
-        attrs.addAttribute("","",ObjectivesXMLConstants.MOB_NAME_ATTR,XmlWriter.CDATA,name);
-      }
-    }
+    // Target
+    writeTarget(hd,attrs,condition.getTarget());
     hd.startElement("","",tagName,attrs);
     hd.endElement("","",tagName);
+  }
+
+  private static void writeEmoteCondition(TransformerHandler hd, EmoteCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Emote
+    Proxy<EmoteDescription> proxy=condition.getProxy();
+    if (proxy!=null)
+    {
+      int id=proxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      String command=proxy.getObject().getCommand();
+      attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_COMMAND_ATTR,XmlWriter.CDATA,command);
+    }
+    // Count
+    int count=condition.getCount();
+    if (count>1)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+    }
+    // Max daily
+    Integer maxDaily=condition.getMaxDaily();
+    if (maxDaily!=null)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_MAX_DAILY_ATTR,XmlWriter.CDATA,maxDaily.toString());
+    }
+    // Target
+    writeTarget(hd,attrs,condition.getTarget());
+    hd.startElement("","",ObjectivesXMLConstants.EMOTE_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.EMOTE_TAG);
+  }
+
+  private static void writeTarget(TransformerHandler hd, AttributesImpl attrs, ConditionTarget target)
+  {
+    if (target!=null)
+    {
+      // NPC proxy
+      Proxy<NpcDescription> npcProxy=target.getNpcProxy();
+      if (npcProxy!=null)
+      {
+        // ID
+        int id=npcProxy.getId();
+        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+        // Name
+        String name=npcProxy.getName();
+        if (name!=null)
+        {
+          attrs.addAttribute("","",ObjectivesXMLConstants.NPC_NAME_ATTR,XmlWriter.CDATA,name);
+        }
+      }
+      // Mob proxy
+      Proxy<MobDescription> mobProxy=target.getMobProxy();
+      if (mobProxy!=null)
+      {
+        // ID
+        int id=mobProxy.getId();
+        attrs.addAttribute("","",ObjectivesXMLConstants.MOB_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+        // Name
+        String name=mobProxy.getName();
+        if (name!=null)
+        {
+          attrs.addAttribute("","",ObjectivesXMLConstants.MOB_NAME_ATTR,XmlWriter.CDATA,name);
+        }
+      }
+    }
   }
 
   private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception

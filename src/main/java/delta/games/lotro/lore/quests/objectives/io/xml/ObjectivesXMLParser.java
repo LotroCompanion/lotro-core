@@ -7,15 +7,18 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.mobs.MobDescription;
 import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.lore.quests.objectives.ConditionTarget;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.DetectingCondition;
 import delta.games.lotro.lore.quests.objectives.DetectionCondition;
+import delta.games.lotro.lore.quests.objectives.EmoteCondition;
 import delta.games.lotro.lore.quests.objectives.EnterDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.ExternalInventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
@@ -155,6 +158,10 @@ public class ObjectivesXMLParser
     else if (ObjectivesXMLConstants.ENTER_DETECTION_TAG.equals(tagName))
     {
       ret=parseEnterDetectionCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.EMOTE_TAG.equals(tagName))
+    {
+      ret=parseEmoteCondition(attrs,conditionTag);
     }
     else
     {
@@ -381,12 +388,51 @@ public class ObjectivesXMLParser
 
   private static void parseDetectionCondition(DetectionCondition condition, NamedNodeMap attrs, Element conditionTag)
   {
+    ConditionTarget target=parseTarget(attrs);
+    condition.setTarget(target);
+  }
+
+  private static EmoteCondition parseEmoteCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    EmoteCondition condition=new EmoteCondition();
+    // Emote proxy
+    // - id
+    int emoteId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.EMOTE_ID_ATTR,0);
+    // - command
+    String command=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.EMOTE_COMMAND_ATTR,"?");
+    Proxy<EmoteDescription> proxy=new Proxy<EmoteDescription>();
+    proxy.setId(emoteId);
+    proxy.setName(command);
+    condition.setProxy(proxy);
+    // Count
+    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.EMOTE_COUNT_ATTR,1);
+    condition.setCount(count);
+    // Max per day
+    int maxPerDay=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.EMOTE_MAX_DAILY_ATTR,-1);
+    if (maxPerDay!=-1)
+    {
+      condition.setMaxDaily(Integer.valueOf(maxPerDay));
+    }
+    // Target
+    ConditionTarget target=parseTarget(attrs);
+    condition.setTarget(target);
+    return condition;
+  }
+
+  private static ConditionTarget parseTarget(NamedNodeMap attrs)
+  {
+    ConditionTarget target=null;
     // NPC proxy
     Proxy<NpcDescription> npcProxy=parseNpcProxy(attrs);
-    condition.setNpcProxy(npcProxy);
     // Mob proxy
     Proxy<MobDescription> mobProxy=parseMobProxy(attrs);
-    condition.setMobProxy(mobProxy);
+    if ((npcProxy!=null) || (mobProxy!=null))
+    {
+      target=new ConditionTarget();
+      target.setNpcProxy(npcProxy);
+      target.setMobProxy(mobProxy);
+    }
+    return target;
   }
 
   private static DefaultObjectiveCondition parseDefaultCondition(NamedNodeMap attrs, Element conditionTag)
