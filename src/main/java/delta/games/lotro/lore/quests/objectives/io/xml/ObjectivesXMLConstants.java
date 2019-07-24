@@ -245,4 +245,22 @@ public class ObjectivesXMLConstants
    * Tag 'emote', attribute 'maxDaily'.
    */
   public static final String EMOTE_MAX_DAILY_ATTR="maxDaily";
+
+  /**
+   * Tag 'hobby'.
+   */
+  public static final String HOBBY_TAG="hobby";
+  /**
+   * Tag 'hobby', attribute 'count'.
+   */
+  public static final String HOBBY_COUNT_ATTR="count";
+
+  /**
+   * Tag 'timeExpired'.
+   */
+  public static final String TIME_EXPIRED_TAG="timeExpired";
+  /**
+   * Tag 'timeExpired', attribute 'duration'.
+   */
+  public static final String TIME_EXPIRED_DURATION_ATTR="duration";
 }

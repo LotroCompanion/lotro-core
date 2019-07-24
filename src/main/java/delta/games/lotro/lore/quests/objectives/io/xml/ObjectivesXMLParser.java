@@ -22,6 +22,7 @@ import delta.games.lotro.lore.quests.objectives.EmoteCondition;
 import delta.games.lotro.lore.quests.objectives.EnterDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.ExternalInventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
+import delta.games.lotro.lore.quests.objectives.HobbyCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemTalkCondition;
@@ -39,6 +40,7 @@ import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.lore.quests.objectives.QuestBestowedCondition;
 import delta.games.lotro.lore.quests.objectives.QuestCompleteCondition;
 import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
+import delta.games.lotro.lore.quests.objectives.TimeExpiredCondition;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
 
@@ -163,6 +165,14 @@ public class ObjectivesXMLParser
     {
       ret=parseEmoteCondition(attrs,conditionTag);
     }
+    else if (ObjectivesXMLConstants.HOBBY_TAG.equals(tagName))
+    {
+      ret=parseHobbyCondition(attrs,conditionTag);
+    }
+    else if (ObjectivesXMLConstants.TIME_EXPIRED_TAG.equals(tagName))
+    {
+      ret=parseTimeExpiredCondition(attrs,conditionTag);
+    }
     else
     {
       ret=parseDefaultCondition(attrs,conditionTag);
@@ -274,14 +284,8 @@ public class ObjectivesXMLParser
   private static void parseItemCondition(ItemCondition condition, NamedNodeMap attrs, Element conditionTag)
   {
     // Item proxy
-    // - id
-    int itemId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.ITEM_ID_ATTR,0);
-    // - name
-    String itemName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.ITEM_NAME_ATTR,"?");
-    Proxy<Item> proxy=new Proxy<Item>();
-    proxy.setId(itemId);
-    proxy.setName(itemName);
-    condition.setProxy(proxy);
+    Proxy<Item> itemProxy=parseItemProxy(attrs);
+    condition.setProxy(itemProxy);
     // Count
     int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.ITEM_COUNT_ATTR,1);
     condition.setCount(count);
@@ -419,6 +423,27 @@ public class ObjectivesXMLParser
     return condition;
   }
 
+  private static HobbyCondition parseHobbyCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    HobbyCondition condition=new HobbyCondition();
+    // Item proxy
+    Proxy<Item> itemProxy=parseItemProxy(attrs);
+    condition.setProxy(itemProxy);
+    // Count
+    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.HOBBY_COUNT_ATTR,1);
+    condition.setCount(count);
+    return condition;
+  }
+
+  private static TimeExpiredCondition parseTimeExpiredCondition(NamedNodeMap attrs, Element conditionTag)
+  {
+    TimeExpiredCondition condition=new TimeExpiredCondition();
+    // Duration
+    int duration=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.TIME_EXPIRED_DURATION_ATTR,0);
+    condition.setDuration(duration);
+    return condition;
+  }
+
   private static ConditionTarget parseTarget(NamedNodeMap attrs)
   {
     ConditionTarget target=null;
@@ -478,6 +503,23 @@ public class ObjectivesXMLParser
       proxy=new Proxy<MobDescription>();
       proxy.setId(mobId);
       proxy.setName(mobName);
+    }
+    return proxy;
+  }
+
+  private static Proxy<Item> parseItemProxy(NamedNodeMap attrs)
+  {
+    Proxy<Item> proxy=null;
+    // Item proxy
+    // - id
+    int itemId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.ITEM_ID_ATTR,0);
+    if (itemId!=0)
+    {
+      // - name
+      String itemName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.ITEM_NAME_ATTR,"?");
+      proxy=new Proxy<Item>();
+      proxy.setId(itemId);
+      proxy.setName(itemName);
     }
     return proxy;
   }

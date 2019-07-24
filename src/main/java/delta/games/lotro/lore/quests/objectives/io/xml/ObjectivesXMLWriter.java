@@ -23,6 +23,7 @@ import delta.games.lotro.lore.quests.objectives.EmoteCondition;
 import delta.games.lotro.lore.quests.objectives.EnterDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.ExternalInventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
+import delta.games.lotro.lore.quests.objectives.HobbyCondition;
 import delta.games.lotro.lore.quests.objectives.InventoryItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemCondition;
 import delta.games.lotro.lore.quests.objectives.ItemTalkCondition;
@@ -30,6 +31,7 @@ import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
+import delta.games.lotro.lore.quests.objectives.TimeExpiredCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.NpcCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
@@ -151,6 +153,14 @@ public class ObjectivesXMLWriter
     else if (condition instanceof EmoteCondition)
     {
       writeEmoteCondition(hd,(EmoteCondition)condition);
+    }
+    else if (condition instanceof HobbyCondition)
+    {
+      writeHobbyCondition(hd,(HobbyCondition)condition);
+    }
+    else if (condition instanceof TimeExpiredCondition)
+    {
+      writeTimeExpiredCondition(hd,(TimeExpiredCondition)condition);
     }
     else
     {
@@ -301,18 +311,7 @@ public class ObjectivesXMLWriter
     writeSharedConditionAttributes(hd,attrs,condition);
     // Item proxy
     Proxy<Item> proxy=condition.getProxy();
-    if (proxy!=null)
-    {
-      // ID
-      int id=proxy.getId();
-      attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-      // Name
-      String name=proxy.getName();
-      if (name!=null)
-      {
-        attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,name);
-      }
-    }
+    writeItemProxy(hd,attrs,proxy);
     // Count
     int count=condition.getCount();
     if (count>1)
@@ -498,6 +497,39 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.EMOTE_TAG);
   }
 
+  private static void writeHobbyCondition(TransformerHandler hd, HobbyCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Item proxy
+    Proxy<Item> proxy=condition.getProxy();
+    writeItemProxy(hd,attrs,proxy);
+    // Count
+    int count=condition.getCount();
+    if (count>1)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.HOBBY_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+    }
+    hd.startElement("","",ObjectivesXMLConstants.HOBBY_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.HOBBY_TAG);
+  }
+
+  private static void writeTimeExpiredCondition(TransformerHandler hd, TimeExpiredCondition condition) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Shared attributes
+    writeSharedConditionAttributes(hd,attrs,condition);
+    // Duration
+    int duration=condition.getDuration();
+    if (duration>0)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.TIME_EXPIRED_DURATION_ATTR,XmlWriter.CDATA,String.valueOf(duration));
+    }
+    hd.startElement("","",ObjectivesXMLConstants.TIME_EXPIRED_TAG,attrs);
+    hd.endElement("","",ObjectivesXMLConstants.TIME_EXPIRED_TAG);
+  }
+
   private static void writeTarget(TransformerHandler hd, AttributesImpl attrs, ConditionTarget target)
   {
     if (target!=null)
@@ -529,6 +561,22 @@ public class ObjectivesXMLWriter
         {
           attrs.addAttribute("","",ObjectivesXMLConstants.MOB_NAME_ATTR,XmlWriter.CDATA,name);
         }
+      }
+    }
+  }
+
+  private static void writeItemProxy(TransformerHandler hd, AttributesImpl attrs, Proxy<Item> proxy)
+  {
+    if (proxy!=null)
+    {
+      // ID
+      int id=proxy.getId();
+      attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=proxy.getName();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,name);
       }
     }
   }
