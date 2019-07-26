@@ -16,12 +16,11 @@ public class ClassAndSlotFilter implements Filter<ClassAndSlot>
 
   /**
    * Constructor.
-   * @param characterClass Required class, may be <code>null</code>.
-   * @param slot Required slot, may be <code>null</code>.
+   * @param spec Spec.
    */
-  public ClassAndSlotFilter(CharacterClass characterClass, EquipmentLocation slot)
+  public ClassAndSlotFilter(ClassAndSlot spec)
   {
-    _spec=new ClassAndSlot(characterClass,slot);
+    _spec=spec;
   }
 
   /**

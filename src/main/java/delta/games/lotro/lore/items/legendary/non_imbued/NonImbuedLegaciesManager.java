@@ -10,13 +10,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.collections.filters.CompoundFilter;
 import delta.common.utils.collections.filters.Filter;
-import delta.common.utils.collections.filters.Operator;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.constraints.ClassAndSlot;
-import delta.games.lotro.common.constraints.ClassAndSlotFilter;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatDescriptionComparator;
@@ -192,14 +189,8 @@ public class NonImbuedLegaciesManager
   {
     if (isAllowedCombinaison(characterClass,slot))
     {
-      CompoundFilter<ClassAndSlot> constraints=legacy.getClassAndSlotFilter();
-      if (constraints==null)
-      {
-        constraints=new CompoundFilter<ClassAndSlot>(Operator.OR);
-        legacy.setClassAndSlotFilter(constraints);
-      }
-      Filter<ClassAndSlot> newConstraint=new ClassAndSlotFilter(characterClass,slot);
-      constraints.addFilter(newConstraint);
+      ClassAndSlot spec=new ClassAndSlot(characterClass,slot);
+      legacy.addAllowedClassAndSlot(spec);
     }
   }
 

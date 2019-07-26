@@ -1,7 +1,10 @@
 package delta.games.lotro.lore.items.legendary;
 
 import delta.common.utils.collections.filters.CompoundFilter;
+import delta.common.utils.collections.filters.Filter;
+import delta.common.utils.collections.filters.Operator;
 import delta.games.lotro.common.constraints.ClassAndSlot;
+import delta.games.lotro.common.constraints.ClassAndSlotFilter;
 
 /**
  * Base class for all legacies.
@@ -54,5 +57,19 @@ public class AbstractLegacy
   public void setClassAndSlotFilter(CompoundFilter<ClassAndSlot> classAndSlotFilter)
   {
     _classAndSlotFilter=classAndSlotFilter;
+  }
+
+  /**
+   * Add an allowed class and slot spec.
+   * @param spec the spec to add.
+   */
+  public void addAllowedClassAndSlot(ClassAndSlot spec)
+  {
+    if (_classAndSlotFilter==null)
+    {
+      _classAndSlotFilter=new CompoundFilter<ClassAndSlot>(Operator.OR);
+    }
+    Filter<ClassAndSlot> newConstraint=new ClassAndSlotFilter(spec);
+    _classAndSlotFilter.addFilter(newConstraint);
   }
 }
