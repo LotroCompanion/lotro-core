@@ -12,6 +12,7 @@ import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
@@ -124,9 +125,13 @@ public class LegendaryAttrsXMLWriter
     if (defaultLegacyInstance!=null)
     {
       AttributesImpl defaultLegacyAttrs=new AttributesImpl();
-      // ID
-      int legacyId=defaultLegacyInstance.getLegacy().getEffect().getIdentifier();
-      defaultLegacyAttrs.addAttribute("","",LegendaryAttrsXMLConstants.DEFAULT_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(legacyId));
+      DefaultNonImbuedLegacy defaultLegacy=defaultLegacyInstance.getLegacy();
+      if (defaultLegacy!=null)
+      {
+        // ID
+        int legacyId=defaultLegacy.getEffect().getIdentifier();
+        defaultLegacyAttrs.addAttribute("","",LegendaryAttrsXMLConstants.DEFAULT_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(legacyId));
+      }
       // Rank
       int rank=defaultLegacyInstance.getRank();
       defaultLegacyAttrs.addAttribute("","",LegendaryAttrsXMLConstants.DEFAULT_LEGACY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
