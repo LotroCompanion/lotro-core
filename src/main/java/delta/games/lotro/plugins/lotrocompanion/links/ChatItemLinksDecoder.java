@@ -181,25 +181,30 @@ public class ChatItemLinksDecoder
     if (!imbued)
     {
       NonImbuedLegendaryAttrs nonImbuedAttrs=attrs.getNonImbuedAttrs();
-      // points spent / left (only for non imbued ones)
+      // Points spent / left (only for non imbued ones)
       int nbPointsLeft=BufferUtils.readUInt32(bis);
       nonImbuedAttrs.setPointsLeft(nbPointsLeft);
       int nbPointsSpent=BufferUtils.readUInt32(bis);
       nonImbuedAttrs.setPointsSpent(nbPointsSpent);
       LOGGER.debug("Left: "+nbPointsLeft+" / Spent: "+nbPointsSpent);
 
-      /*int n2=*/BufferUtils.readUInt32(bis); // Got 0, 62, 83, 189, 192...
+      // Rank of the DPS legacy
+      int dpsLegacyRank=BufferUtils.readUInt32(bis); // Got 0, 62, 83, 189, 192...
 
       // Default legacy
+      DefaultNonImbuedLegacyInstance defaultLegacy=new DefaultNonImbuedLegacyInstance();
+      nonImbuedAttrs.setDefaultLegacy(defaultLegacy);
       int defaultLegacyRank=BufferUtils.readUInt32(bis);
       int defaultLegacyID=BufferUtils.readUInt32(bis);
       if (defaultLegacyID!=0)
       {
         DefaultNonImbuedLegacy legacy=nonImbuedMgr.getDefaultLegacy(defaultLegacyID);
-        DefaultNonImbuedLegacyInstance defaultLegacy=new DefaultNonImbuedLegacyInstance();
         defaultLegacy.setLegacy(legacy);
         defaultLegacy.setRank(defaultLegacyRank);
-        nonImbuedAttrs.setDefaultLegacy(defaultLegacy);
+      }
+      else
+      {
+        defaultLegacy.setRank(dpsLegacyRank);
       }
     }
     else
