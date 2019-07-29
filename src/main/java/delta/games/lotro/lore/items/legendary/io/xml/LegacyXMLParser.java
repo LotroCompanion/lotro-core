@@ -2,7 +2,9 @@ package delta.games.lotro.lore.items.legendary.io.xml;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -18,6 +20,7 @@ import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 import delta.games.lotro.lore.items.legendary.LegacyType;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
@@ -149,6 +152,24 @@ public class LegacyXMLParser
     // Stats
     StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root);
     legacy.setStatsProvider(statsProvider);
+
+    // Types
+    Set<WeaponType> types=null;
+    List<Element> typeTags=DOMParsingTools.getChildTagsByName(root,LegacyXMLConstants.ALLOWED_WEAPON_TYPE_TAG);
+    for(Element typeTag : typeTags)
+    {
+      String weaponTypeKey=DOMParsingTools.getStringAttribute(typeTag.getAttributes(),LegacyXMLConstants.WEAPON_TYPE_ATTR,null);
+      WeaponType weaponType=WeaponType.getWeaponTypeByKey(weaponTypeKey);
+      if (weaponType!=null)
+      {
+        if (types==null)
+        {
+          types=new HashSet<WeaponType>();
+        }
+        types.add(weaponType);
+      }
+    }
+    legacy.setAllowedWeaponTypes(types);
     return legacy;
   }
 

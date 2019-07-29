@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items.legendary.io.xml;
 
 import java.io.File;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.transform.sax.TransformerHandler;
 
@@ -21,6 +22,7 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 import delta.games.lotro.lore.items.legendary.LegacyType;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
@@ -135,8 +137,20 @@ public class LegacyXMLWriter
     // Maximum level
     int maxLevel=legacy.getMaxLevel();
     attrs.addAttribute("","",LegacyXMLConstants.LEGACY_MAX_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(maxLevel));
-
     hd.startElement("","",LegacyXMLConstants.LEGACY_TAG,attrs);
+
+    // Allowed types
+    Set<WeaponType> types=legacy.getAllowedWeaponTypes();
+    if (types!=null)
+    {
+      for(WeaponType type : WeaponType.getAll())
+      {
+        if (types.contains(type))
+        {
+          writeWeaponType(hd,type);
+        }
+      }
+    }
     // Filter
     writeFilter(hd,legacy);
     // Stats
@@ -146,6 +160,15 @@ public class LegacyXMLWriter
       StatsProviderXMLWriter.writeXml(hd,null,statsProvider,null);
     }
     hd.endElement("","",LegacyXMLConstants.LEGACY_TAG);
+  }
+
+  private static void writeWeaponType(TransformerHandler hd, WeaponType type) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Type
+    attrs.addAttribute("","",LegacyXMLConstants.WEAPON_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
+    hd.startElement("","",LegacyXMLConstants.ALLOWED_WEAPON_TYPE_TAG,attrs);
+    hd.endElement("","",LegacyXMLConstants.ALLOWED_WEAPON_TYPE_TAG);
   }
 
   private static void writeSharedAttributes(TransformerHandler hd, AttributesImpl attrs, AbstractLegacy legacy)

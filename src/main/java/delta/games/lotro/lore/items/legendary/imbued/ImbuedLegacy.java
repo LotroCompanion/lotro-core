@@ -1,7 +1,10 @@
 package delta.games.lotro.lore.items.legendary.imbued;
 
+import java.util.Set;
+
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 
 /**
@@ -14,6 +17,7 @@ public class ImbuedLegacy extends AbstractLegacy implements Identifiable
   private int _maxInitialLevel;
   private int _maxLevel;
   private StatsProvider _statsProvider;
+  private Set<WeaponType> _types;
 
   /**
    * Constructor.
@@ -108,6 +112,24 @@ public class ImbuedLegacy extends AbstractLegacy implements Identifiable
     return "?";
   }
 
+  /**
+   * Get the allowed weapon types for this legacy.
+   * @return A set of weapon types or <code>null</code> if not defined.
+   */
+  public Set<WeaponType> getAllowedWeaponTypes()
+  {
+    return _types;
+  }
+
+  /**
+   * Set the allowed weapon types for this legacy.
+   * @param types Weapon types to set.
+   */
+  public void setAllowedWeaponTypes(Set<WeaponType> types)
+  {
+    _types=types;
+  }
+
   @Override
   public String toString()
   {
@@ -116,6 +138,10 @@ public class ImbuedLegacy extends AbstractLegacy implements Identifiable
     sb.append(", type=").append(getType());
     sb.append(", max tier=").append(_maxLevel);
     sb.append(", stats=").append(_statsProvider);
+    if (_types!=null)
+    {
+      sb.append(", types=").append(_types);
+    }
     return sb.toString();
   }
 }

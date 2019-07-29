@@ -45,6 +45,14 @@ public class LegacyXMLConstants
    * Tag 'legacy', attribute 'maxLevel'.
    */
   public static final String LEGACY_MAX_LEVEL_ATTR="maxLevel";
+  /**
+   * Tag 'allowedWeaponType'.
+   */
+  public static final String ALLOWED_WEAPON_TYPE_TAG="allowedWeaponType";
+  /**
+   * Tag 'allowedWeaponType', attribute 'type'.
+   */
+  public static final String WEAPON_TYPE_ATTR="type";
 
   /**
    * Tag 'defaultNonImbuedLegacy'.
