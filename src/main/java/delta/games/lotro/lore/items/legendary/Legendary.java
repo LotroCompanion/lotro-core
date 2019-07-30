@@ -6,5 +6,9 @@ package delta.games.lotro.lore.items.legendary;
  */
 public interface Legendary
 {
-  // Nothing!
+  /**
+   * Get the attributes of this legendary item.
+   * @return some legendary attributes.
+   */
+  LegendaryAttrs getLegendaryAttrs();
 }

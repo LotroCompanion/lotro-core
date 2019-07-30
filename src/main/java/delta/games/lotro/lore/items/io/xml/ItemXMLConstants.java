@@ -125,7 +125,7 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'armourType'.
    */
   public static final String ARMOUR_TYPE_ATTR="armourType";
-  
+
   // Weapon
   /**
    * Tag 'item', attribute 'dps'.
@@ -147,6 +147,12 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'weaponType'.
    */
   public static final String WEAPON_TYPE_ATTR="weaponType";
+
+  // Legendary
+  /**
+   * Tag 'item', attribute 'mainLegacyId'.
+   */
+  public static final String MAIN_LEGACY_ID_ATTR="mainLegacyId";
 
   /**
    * Tag 'stats'.

@@ -9,6 +9,8 @@ import delta.games.lotro.lore.items.Weapon;
  */
 public class LegendaryWeapon extends Weapon implements Legendary
 {
+  private LegendaryAttrs _attrs;
+
   /**
    * Constructor.
    */
@@ -16,6 +18,7 @@ public class LegendaryWeapon extends Weapon implements Legendary
   {
     super();
     setCategory(ItemCategory.LEGENDARY_WEAPON);
+    _attrs=new LegendaryAttrs();
   }
 
   /**
@@ -26,5 +29,11 @@ public class LegendaryWeapon extends Weapon implements Legendary
   {
     super(weapon);
     setCategory(ItemCategory.LEGENDARY_WEAPON);
+  }
+
+  @Override
+  public LegendaryAttrs getLegendaryAttrs()
+  {
+    return _attrs;
   }
 }

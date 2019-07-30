@@ -39,6 +39,8 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -192,7 +194,7 @@ public final class ItemSaxParser extends DefaultHandler {
           }
 
           // Armour specific:
-          if (category==ItemCategory.ARMOUR)
+          if (_currentItem instanceof Armour)
           {
             Armour armour=(Armour)_currentItem;
             String armourTypeStr=attributes.getValue(ItemXMLConstants.ARMOUR_TYPE_ATTR);
@@ -203,7 +205,7 @@ public final class ItemSaxParser extends DefaultHandler {
             }
           }
           // Weapon specific:
-          if ((category==ItemCategory.WEAPON) || (category==ItemCategory.LEGENDARY_WEAPON))
+          if (_currentItem instanceof Weapon)
           {
             Weapon weapon=(Weapon)_currentItem;
             String dpsStr=attributes.getValue(ItemXMLConstants.DPS_ATTR);
@@ -229,6 +231,17 @@ public final class ItemSaxParser extends DefaultHandler {
             {
               WeaponType type=WeaponType.getWeaponType(weaponTypeStr);
               weapon.setWeaponType(type);
+            }
+          }
+          // Legendary specifics
+          if (_currentItem instanceof Legendary)
+          {
+            Legendary legendary=(Legendary)_currentItem;
+            LegendaryAttrs attrs=legendary.getLegendaryAttrs();
+            String mainLegacyIdStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_ID_ATTR);
+            if (mainLegacyIdStr!=null)
+            {
+              attrs.setMainLegacyId(NumericTools.parseInteger(mainLegacyIdStr));
             }
           }
         } else if (ItemXMLConstants.PROPERTY_TAG.equals(qualifiedName)) {

@@ -41,6 +41,8 @@ import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.essences.EssencesSet;
+import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryInstanceAttrsXMLWriter;
@@ -262,7 +264,7 @@ public class ItemXMLWriter
         itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR,XmlWriter.CDATA,String.valueOf(nbEssenceSlots));
       }
       // Armor specific:
-      if (category==ItemCategory.ARMOUR)
+      if (item instanceof Armour)
       {
         Armour armour=(Armour)item;
         ArmourType type=armour.getArmourType();
@@ -276,7 +278,7 @@ public class ItemXMLWriter
         }
       }
       // Weapon specific:
-      else if ((category==ItemCategory.WEAPON) || (category==ItemCategory.LEGENDARY_WEAPON))
+      else if (item instanceof Weapon)
       {
         Weapon weapon=(Weapon)item;
         float dps=weapon.getDPS();
@@ -298,6 +300,16 @@ public class ItemXMLWriter
         if (instance instanceof WeaponInstance)
         {
           // Nothing!
+        }
+      }
+      if (item instanceof Legendary)
+      {
+        Legendary legendary=(Legendary)item;
+        LegendaryAttrs attrs=legendary.getLegendaryAttrs();
+        Integer mainLegacyId=attrs.getMainLegacyId();
+        if (mainLegacyId!=null)
+        {
+          itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_ID_ATTR,XmlWriter.CDATA,mainLegacyId.toString());
         }
       }
     }
