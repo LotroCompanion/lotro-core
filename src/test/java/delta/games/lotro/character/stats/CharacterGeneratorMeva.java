@@ -19,7 +19,7 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.EssencesSet;
-import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
 import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
@@ -321,7 +321,7 @@ public class CharacterGeneratorMeva
     //BasicStatsSet passives=weapon.getPassives();
     // -40% attack speed
     //passives.setStat(STAT.PARRY_PERCENTAGE,1);
-    LegendaryAttrs attrs=instance.getLegendaryAttributes();
+    LegendaryInstanceAttrs attrs=instance.getLegendaryAttributes();
     // Title
     LegendaryTitle title=new LegendaryTitle();
     title.setName("Elven Orc-Hewer");
@@ -396,7 +396,7 @@ public class CharacterGeneratorMeva
     //passives.setStat(STAT.INCOMING_HEALING,6300);
     // -1% perceived threat
     // +95.24 Tactical Healing Rating
-    LegendaryAttrs attrs=instance.getLegendaryAttributes();
+    LegendaryInstanceAttrs attrs=instance.getLegendaryAttributes();
     // Title
     // 5% light-type damage
     // Relics

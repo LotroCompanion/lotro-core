@@ -17,7 +17,7 @@ import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
-import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.PassivesManager;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
@@ -86,7 +86,7 @@ public class ChatItemLinksDecoder
   private void decodeLegendary(ByteArrayInputStream bis, ItemInstance<? extends Item> instance) throws LinkDecodingException
   {
     LegendaryInstance legendary=(LegendaryInstance)instance;
-    LegendaryAttrs attrs=legendary.getLegendaryAttributes();
+    LegendaryInstanceAttrs attrs=legendary.getLegendaryAttributes();
     // Name
     int hasName=BufferUtils.readUInt8(bis);
     if (hasName==1)
@@ -287,7 +287,7 @@ public class ChatItemLinksDecoder
 
   private void decodeShared(ByteArrayInputStream bis, ItemInstance<? extends Item> itemInstance) throws LinkDecodingException
   {
-    LegendaryAttrs attrs=null;
+    LegendaryInstanceAttrs attrs=null;
     if (itemInstance instanceof LegendaryInstance)
     {
       LegendaryInstance legendary=(LegendaryInstance)itemInstance;

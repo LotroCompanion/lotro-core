@@ -14,10 +14,10 @@ import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 
 /**
- * Legendary item description.
+ * Legendary item instance description.
  * @author DAM
  */
-public class LegendaryAttrs
+public class LegendaryInstanceAttrs
 {
   // Name
   private String _legendaryName;
@@ -35,7 +35,7 @@ public class LegendaryAttrs
   /**
    * Constructor.
    */
-  public LegendaryAttrs()
+  public LegendaryInstanceAttrs()
   {
     _legendaryName="";
     _relics=new RelicsSet();
@@ -47,7 +47,7 @@ public class LegendaryAttrs
    * Copy constructor.
    * @param source Source.
    */
-  public LegendaryAttrs(LegendaryAttrs source)
+  public LegendaryInstanceAttrs(LegendaryInstanceAttrs source)
   {
     _legendaryName=source._legendaryName;
     _title=source._title;

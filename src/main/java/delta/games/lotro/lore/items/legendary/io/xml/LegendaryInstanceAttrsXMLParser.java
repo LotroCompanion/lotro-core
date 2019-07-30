@@ -8,7 +8,7 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
-import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.PassivesManager;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
@@ -27,20 +27,20 @@ import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
 
 /**
- * Parser for legendary attributes stored in XML.
+ * Parser for legendary instance attributes stored in XML.
  * @author DAM
  */
-public class LegendaryAttrsXMLParser
+public class LegendaryInstanceAttrsXMLParser
 {
   /**
-   * Read legendary attributes for an item.
+   * Read legendary instance attributes for an item.
    * @param legendaryAttrs Data to write to.
    * @param itemElement Root XML tag.
    */
-  public static void read(LegendaryAttrs legendaryAttrs, Element itemElement)
+  public static void read(LegendaryInstanceAttrs legendaryAttrs, Element itemElement)
   {
     readRelics(legendaryAttrs,itemElement);
-    Element legendaryElement=DOMParsingTools.getChildTagByName(itemElement,LegendaryAttrsXMLConstants.LEGENDARY_TAG);
+    Element legendaryElement=DOMParsingTools.getChildTagByName(itemElement,LegendaryInstanceAttrsXMLConstants.LEGENDARY_TAG);
     if (legendaryElement!=null)
     {
       // Read legendary attributes
@@ -54,17 +54,17 @@ public class LegendaryAttrsXMLParser
     }
   }
 
-  private static void readLegendaryAttributes(LegendaryAttrs legendaryAttrs, Element legendaryElement)
+  private static void readLegendaryAttributes(LegendaryInstanceAttrs legendaryAttrs, Element legendaryElement)
   {
     NamedNodeMap attrs=legendaryElement.getAttributes();
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,LegendaryAttrsXMLConstants.LEGENDARY_NAME_ATTR,null);
+    String name=DOMParsingTools.getStringAttribute(attrs,LegendaryInstanceAttrsXMLConstants.LEGENDARY_NAME_ATTR,null);
     if (name!=null)
     {
       legendaryAttrs.setLegendaryName(name);
     }
     // Title
-    int titleId=DOMParsingTools.getIntAttribute(attrs,LegendaryAttrsXMLConstants.LEGENDARY_TITLE_ID_ATTR,0);
+    int titleId=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.LEGENDARY_TITLE_ID_ATTR,0);
     if (titleId!=0)
     {
       LegendaryTitlesManager titlesMgr=LegendaryTitlesManager.getInstance();
@@ -73,16 +73,16 @@ public class LegendaryAttrsXMLParser
     }
   }
 
-  private static void readPassives(LegendaryAttrs legendaryAttrs, Element legendaryElement)
+  private static void readPassives(LegendaryInstanceAttrs legendaryAttrs, Element legendaryElement)
   {
-    List<Element> passiveTags=DOMParsingTools.getChildTagsByName(legendaryElement,LegendaryAttrsXMLConstants.PASSIVE_TAG);
+    List<Element> passiveTags=DOMParsingTools.getChildTagsByName(legendaryElement,LegendaryInstanceAttrsXMLConstants.PASSIVE_TAG);
     if (passiveTags.size()>0)
     {
       PassivesManager passivesMgr=PassivesManager.getInstance();
       for(Element passiveTag : passiveTags)
       {
         NamedNodeMap attrs=passiveTag.getAttributes();
-        int passiveId=DOMParsingTools.getIntAttribute(attrs,LegendaryAttrsXMLConstants.PASSIVE_ID_ATTR,0);
+        int passiveId=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.PASSIVE_ID_ATTR,0);
         if (passiveId!=0)
         {
           Effect passive=passivesMgr.getEffect(passiveId);
@@ -92,34 +92,34 @@ public class LegendaryAttrsXMLParser
     }
   }
 
-  private static void readNonImbuedData(LegendaryAttrs legendaryAttrs, Element legendaryElement)
+  private static void readNonImbuedData(LegendaryInstanceAttrs legendaryAttrs, Element legendaryElement)
   {
-    Element nonImbuedTag=DOMParsingTools.getChildTagByName(legendaryElement,LegendaryAttrsXMLConstants.NON_IMBUED_TAG);
+    Element nonImbuedTag=DOMParsingTools.getChildTagByName(legendaryElement,LegendaryInstanceAttrsXMLConstants.NON_IMBUED_TAG);
     if (nonImbuedTag!=null)
     {
       NonImbuedLegendaryAttrs nonImbuedData=legendaryAttrs.getNonImbuedAttrs();
       NamedNodeMap attrs=nonImbuedTag.getAttributes();
       // Legendary level
-      int legendaryLevel=DOMParsingTools.getIntAttribute(attrs,LegendaryAttrsXMLConstants.NON_IMBUED_LEGENDARY_LEVEL_ATTR,0);
+      int legendaryLevel=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.NON_IMBUED_LEGENDARY_LEVEL_ATTR,0);
       nonImbuedData.setLegendaryItemLevel(legendaryLevel);
       // Number of upgrades
-      int upgrades=DOMParsingTools.getIntAttribute(attrs,LegendaryAttrsXMLConstants.NON_IMBUED_UPGRADES_ATTR,0);
+      int upgrades=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.NON_IMBUED_UPGRADES_ATTR,0);
       nonImbuedData.setNbUpgrades(upgrades);
       // Points spent
-      int pointsSpent=DOMParsingTools.getIntAttribute(attrs,LegendaryAttrsXMLConstants.NON_IMBUED_POINTS_SPENT_ATTR,0);
+      int pointsSpent=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.NON_IMBUED_POINTS_SPENT_ATTR,0);
       nonImbuedData.setPointsSpent(pointsSpent);
       // Points left
-      int pointsLeft=DOMParsingTools.getIntAttribute(attrs,LegendaryAttrsXMLConstants.NON_IMBUED_POINTS_LEFT_ATTR,0);
+      int pointsLeft=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.NON_IMBUED_POINTS_LEFT_ATTR,0);
       nonImbuedData.setPointsLeft(pointsLeft);
 
       // Default legacy
-      Element defaultLegacyTag=DOMParsingTools.getChildTagByName(nonImbuedTag,LegendaryAttrsXMLConstants.DEFAULT_LEGACY_TAG);
+      Element defaultLegacyTag=DOMParsingTools.getChildTagByName(nonImbuedTag,LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_TAG);
       if (defaultLegacyTag!=null)
       {
         NonImbuedLegaciesManager nonImbuedMgr=NonImbuedLegaciesManager.getInstance();
         NamedNodeMap defaultLegacyAttrs=defaultLegacyTag.getAttributes();
         // Default legacy ID
-        int id=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryAttrsXMLConstants.DEFAULT_LEGACY_ID_ATTR,0);
+        int id=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_ID_ATTR,0);
         if (id!=0)
         {
           DefaultNonImbuedLegacy defaultLegacy=nonImbuedMgr.getDefaultLegacy(id);
@@ -128,20 +128,20 @@ public class LegendaryAttrsXMLParser
             DefaultNonImbuedLegacyInstance instance=new DefaultNonImbuedLegacyInstance();
             instance.setLegacy(defaultLegacy);
             // Default legacy rank
-            int rank=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryAttrsXMLConstants.DEFAULT_LEGACY_RANK_ATTR,0);
+            int rank=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_RANK_ATTR,0);
             instance.setRank(rank);
             nonImbuedData.setDefaultLegacy(instance);
           }
         }
       }
       // Tiered legacies
-      List<Element> tieredLegacyTags=DOMParsingTools.getChildTagsByName(nonImbuedTag,LegendaryAttrsXMLConstants.TIERED_LEGACY_TAG);
+      List<Element> tieredLegacyTags=DOMParsingTools.getChildTagsByName(nonImbuedTag,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_TAG);
       for(Element tieredLegacyTag : tieredLegacyTags)
       {
         NonImbuedLegaciesManager nonImbuedMgr=NonImbuedLegaciesManager.getInstance();
         NamedNodeMap tieredLegacyAttrs=tieredLegacyTag.getAttributes();
         // Legacy ID
-        int id=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryAttrsXMLConstants.TIERED_LEGACY_ID_ATTR,0);
+        int id=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_ID_ATTR,0);
         if (id!=0)
         {
           NonImbuedLegacyTier legacyTier=nonImbuedMgr.getLegacyTier(id);
@@ -150,7 +150,7 @@ public class LegendaryAttrsXMLParser
             TieredNonImbuedLegacyInstance instance=new TieredNonImbuedLegacyInstance();
             instance.setLegacyTier(legacyTier);
             // Legacy rank
-            int rank=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryAttrsXMLConstants.TIERED_LEGACY_RANK_ATTR,0);
+            int rank=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_RANK_ATTR,0);
             instance.setRank(rank);
             nonImbuedData.addLegacy(instance);
           }
@@ -159,21 +159,21 @@ public class LegendaryAttrsXMLParser
     }
   }
 
-  private static void readImbuedData(LegendaryAttrs legendaryAttrs, Element legendaryElement)
+  private static void readImbuedData(LegendaryInstanceAttrs legendaryAttrs, Element legendaryElement)
   {
-    Element imbuedTag=DOMParsingTools.getChildTagByName(legendaryElement,LegendaryAttrsXMLConstants.IMBUED_TAG);
+    Element imbuedTag=DOMParsingTools.getChildTagByName(legendaryElement,LegendaryInstanceAttrsXMLConstants.IMBUED_TAG);
     if (imbuedTag!=null)
     {
       LegaciesManager legaciesMgr=LegaciesManager.getInstance();
       ImbuedLegendaryAttrs imbuedData=new ImbuedLegendaryAttrs();
       legendaryAttrs.setImbuedAttrs(imbuedData);
       // Legacies
-      List<Element> legacyTags=DOMParsingTools.getChildTagsByName(imbuedTag,LegendaryAttrsXMLConstants.IMBUED_LEGACY_TAG);
+      List<Element> legacyTags=DOMParsingTools.getChildTagsByName(imbuedTag,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_TAG);
       for(Element legacyTag : legacyTags)
       {
         NamedNodeMap legacyAttrs=legacyTag.getAttributes();
         // Legacy ID
-        int id=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryAttrsXMLConstants.IMBUED_LEGACY_ID_ATTR,0);
+        int id=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_ID_ATTR,0);
         if (id!=0)
         {
           ImbuedLegacy legacy=legaciesMgr.getLegacy(id);
@@ -182,10 +182,10 @@ public class LegendaryAttrsXMLParser
             ImbuedLegacyInstance instance=new ImbuedLegacyInstance();
             instance.setLegacy(legacy);
             // XP
-            int xp=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryAttrsXMLConstants.IMBUED_LEGACY_XP_ATTR,0);
+            int xp=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_XP_ATTR,0);
             instance.setXp(xp);
             // Unlocked levels
-            int unlockedLevels=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryAttrsXMLConstants.IMBUED_LEGACY_UNLOCKED_LEVEL_ATTR,0);
+            int unlockedLevels=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_UNLOCKED_LEVEL_ATTR,0);
             instance.setUnlockedLevels(unlockedLevels);
             imbuedData.addLegacy(instance);
           }
@@ -194,20 +194,20 @@ public class LegendaryAttrsXMLParser
     }
   }
 
-  private static void readRelics(LegendaryAttrs legendaryAttrs, Element itemElement)
+  private static void readRelics(LegendaryInstanceAttrs legendaryAttrs, Element itemElement)
   {
     // Read relics
     RelicsManager relicsMgr=RelicsManager.getInstance();
-    List<Element> relicTags=DOMParsingTools.getChildTagsByName(itemElement,LegendaryAttrsXMLConstants.RELIC_TAG,true);
+    List<Element> relicTags=DOMParsingTools.getChildTagsByName(itemElement,LegendaryInstanceAttrsXMLConstants.RELIC_TAG,true);
     for(Element relicTag : relicTags)
     {
       NamedNodeMap attrs=relicTag.getAttributes();
-      String typeStr=DOMParsingTools.getStringAttribute(attrs,LegendaryAttrsXMLConstants.RELIC_TYPE_ATTR,null);
+      String typeStr=DOMParsingTools.getStringAttribute(attrs,LegendaryInstanceAttrsXMLConstants.RELIC_TYPE_ATTR,null);
       if (typeStr!=null)
       {
         RelicType type=RelicType.valueOf(typeStr);
         Relic relic=null;
-        String name=DOMParsingTools.getStringAttribute(attrs,LegendaryAttrsXMLConstants.RELIC_NAME_ATTR,null);
+        String name=DOMParsingTools.getStringAttribute(attrs,LegendaryInstanceAttrsXMLConstants.RELIC_NAME_ATTR,null);
         if (name!=null)
         {
           relic=relicsMgr.getByName(name);

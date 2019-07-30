@@ -11,7 +11,7 @@ import delta.games.lotro.lore.items.ItemInstance;
 public class LegendaryItemInstance extends ItemInstance<LegendaryItem> implements LegendaryInstance
 {
   // Legendary attributes.
-  private LegendaryAttrs _attrs;
+  private LegendaryInstanceAttrs _attrs;
 
   /**
    * Constructor.
@@ -19,7 +19,7 @@ public class LegendaryItemInstance extends ItemInstance<LegendaryItem> implement
   public LegendaryItemInstance()
   {
     super();
-    _attrs=new LegendaryAttrs();
+    _attrs=new LegendaryInstanceAttrs();
   }
 
   /**
@@ -36,7 +36,7 @@ public class LegendaryItemInstance extends ItemInstance<LegendaryItem> implement
    * Get the legendary attributes.
    * @return the legendary attributes.
    */
-  public LegendaryAttrs getLegendaryAttributes()
+  public LegendaryInstanceAttrs getLegendaryAttributes()
   {
     return _attrs;
   }
@@ -45,7 +45,7 @@ public class LegendaryItemInstance extends ItemInstance<LegendaryItem> implement
    * Set the legendary attributes.
    * @param attrs Attributes to set.
    */
-  public void setLegendaryAttributes(LegendaryAttrs attrs)
+  public void setLegendaryAttributes(LegendaryInstanceAttrs attrs)
   {
     _attrs=attrs;
   }
@@ -61,7 +61,7 @@ public class LegendaryItemInstance extends ItemInstance<LegendaryItem> implement
     if (itemInstance instanceof LegendaryItemInstance)
     {
       LegendaryItemInstance legendaryItemInstance=(LegendaryItemInstance)itemInstance;
-      _attrs=new LegendaryAttrs(legendaryItemInstance._attrs);
+      _attrs=new LegendaryInstanceAttrs(legendaryItemInstance._attrs);
     }
   }
 

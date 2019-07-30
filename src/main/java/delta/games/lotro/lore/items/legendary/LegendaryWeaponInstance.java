@@ -12,7 +12,7 @@ import delta.games.lotro.lore.items.WeaponInstance;
 public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> implements LegendaryInstance
 {
   // Legendary attributes.
-  private LegendaryAttrs _attrs;
+  private LegendaryInstanceAttrs _attrs;
 
   /**
    * Constructor.
@@ -20,7 +20,7 @@ public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> imp
   public LegendaryWeaponInstance()
   {
     super();
-    _attrs=new LegendaryAttrs();
+    _attrs=new LegendaryInstanceAttrs();
   }
 
   /**
@@ -37,7 +37,7 @@ public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> imp
    * Get the legendary attributes.
    * @return the legendary attributes.
    */
-  public LegendaryAttrs getLegendaryAttributes()
+  public LegendaryInstanceAttrs getLegendaryAttributes()
   {
     return _attrs;
   }
@@ -46,7 +46,7 @@ public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> imp
    * Set the legendary attributes.
    * @param attrs Attributes to set.
    */
-  public void setLegendaryAttributes(LegendaryAttrs attrs)
+  public void setLegendaryAttributes(LegendaryInstanceAttrs attrs)
   {
     _attrs=attrs;
   }
@@ -62,7 +62,7 @@ public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> imp
     if (itemInstance instanceof LegendaryWeaponInstance)
     {
       LegendaryWeaponInstance weapon=(LegendaryWeaponInstance)itemInstance;
-      _attrs=new LegendaryAttrs(weapon._attrs);
+      _attrs=new LegendaryInstanceAttrs(weapon._attrs);
     }
   }
 

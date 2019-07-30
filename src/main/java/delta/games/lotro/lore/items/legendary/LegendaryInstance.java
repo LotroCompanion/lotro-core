@@ -10,5 +10,5 @@ public interface LegendaryInstance
    * Get the legendary attributes.
    * @return the legendary attributes.
    */
-  public LegendaryAttrs getLegendaryAttributes();
+  public LegendaryInstanceAttrs getLegendaryAttributes();
 }

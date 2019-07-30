@@ -1,10 +1,10 @@
 package delta.games.lotro.lore.items.legendary.io.xml;
 
 /**
- * Constants for tags and attribute names used in the legendary attrs XML documents.
+ * Constants for tags and attribute names used in the legendary instance attrs XML documents.
  * @author DAM
  */
-public class LegendaryAttrsXMLConstants
+public class LegendaryInstanceAttrsXMLConstants
 {
   /**
    * Tag 'legendary'.

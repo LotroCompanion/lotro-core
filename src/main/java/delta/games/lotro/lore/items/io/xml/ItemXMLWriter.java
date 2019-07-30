@@ -41,9 +41,9 @@ import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.essences.EssencesSet;
-import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
-import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLWriter;
+import delta.games.lotro.lore.items.legendary.io.xml.LegendaryInstanceAttrsXMLWriter;
 
 /**
  * Writes LOTRO items to XML files.
@@ -347,8 +347,8 @@ public class ItemXMLWriter
     // Handle legendary instances
     if (instance instanceof LegendaryInstance)
     {
-      LegendaryAttrs legAttrs=((LegendaryInstance)instance).getLegendaryAttributes();
-      LegendaryAttrsXMLWriter.write(hd,legAttrs);
+      LegendaryInstanceAttrs legAttrs=((LegendaryInstance)instance).getLegendaryAttributes();
+      LegendaryInstanceAttrsXMLWriter.write(hd,legAttrs);
     }
     // Money
     Money value=(isInstance?instance.getValue():item.getValue());

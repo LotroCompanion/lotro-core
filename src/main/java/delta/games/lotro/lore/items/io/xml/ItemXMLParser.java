@@ -21,9 +21,9 @@ import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.essences.EssencesSet;
-import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
-import delta.games.lotro.lore.items.legendary.io.xml.LegendaryAttrsXMLParser;
+import delta.games.lotro.lore.items.legendary.io.xml.LegendaryInstanceAttrsXMLParser;
 
 /**
  * Parser for item instance descriptions stored in XML.
@@ -180,8 +180,8 @@ public class ItemXMLParser
     // Handle legendary items
     if (itemInstance instanceof LegendaryInstance)
     {
-      LegendaryAttrs legAttrs=((LegendaryInstance)itemInstance).getLegendaryAttributes();
-      LegendaryAttrsXMLParser.read(legAttrs,root);
+      LegendaryInstanceAttrs legAttrs=((LegendaryInstance)itemInstance).getLegendaryAttributes();
+      LegendaryInstanceAttrsXMLParser.read(legAttrs,root);
     }
     return itemInstance;
   }

@@ -29,7 +29,7 @@ import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
-import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
 import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
@@ -586,7 +586,7 @@ public class CharacterGeneratorGiswald
     instance.setBirthName("Ost Magol II");
     instance.setCrafterName("Giswald");
 
-    LegendaryAttrs attrs=instance.getLegendaryAttributes();
+    LegendaryInstanceAttrs attrs=instance.getLegendaryAttributes();
     // Title
     LegendaryTitlesManager titlesMgr=LegendaryTitlesManager.getInstance();
     LegendaryTitle title=titlesMgr.getLegendaryTitle(1879269422);
@@ -718,7 +718,7 @@ public class CharacterGeneratorGiswald
     itemStats.setStat(WellKnownStat.get("BLADE_LINE_AOE_POWER_COST_PERCENTAGE"),-1);
     itemStats.setStat(WellKnownStat.get("STRIKE_SKILLS_POWER_COST_PERCENTAGE"),-4);
     itemStats.setStat(WellKnownStat.INCOMING_HEALING,6300);
-    LegendaryAttrs attrs=instance.getLegendaryAttributes();
+    LegendaryInstanceAttrs attrs=instance.getLegendaryAttributes();
     // Title
     // .. none ..
     // Relics
