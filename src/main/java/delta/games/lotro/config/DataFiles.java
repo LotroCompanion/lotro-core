@@ -78,6 +78,10 @@ public class DataFiles
    */
   public static final String ITEMS="items";
   /**
+   * Sets file.
+   */
+  public static final String SETS="sets";
+  /**
    * Quests file.
    */
   public static final String QUESTS="quests";
