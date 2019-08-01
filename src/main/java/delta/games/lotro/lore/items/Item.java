@@ -13,6 +13,7 @@ import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.sets.ItemsSet;
 
 /**
  * Item description.
