@@ -111,6 +111,10 @@ public class DataFiles
    */
   public static final String LEGACIES="legacies";
   /**
+   * Default non-imbued legacies file.
+   */
+  public static final String DEFAULT_NON_IMBUED_LEGACIES="defaultNonImbuedLegacies";
+  /**
    * Non-imbued legacies file.
    */
   public static final String NON_IMBUED_LEGACIES="nonImbuedLegacies";
