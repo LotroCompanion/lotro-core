@@ -22,7 +22,7 @@ public class DefaultNonImbuedLegacyInstance extends NonImbuedLegacyInstance
    */
   public DefaultNonImbuedLegacyInstance(DefaultNonImbuedLegacyInstance source)
   {
-    super();
+    super(source);
     _legacy=source._legacy;
   }
 
