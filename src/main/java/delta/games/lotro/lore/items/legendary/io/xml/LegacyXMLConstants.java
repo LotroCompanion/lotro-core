@@ -17,6 +17,10 @@ public class LegacyXMLConstants
    */
   public static final String LEGACY_TYPE_ATTR="type";
   /**
+   * Legacy tags, attribute 'iconId'.
+   */
+  public static final String LEGACY_ICON_ID_ATTR="iconId";
+  /**
    * Tag 'filter'.
    */
   public static final String FILTER_TAG="filter";

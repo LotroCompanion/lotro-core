@@ -14,6 +14,7 @@ public class AbstractLegacy
 {
   private LegacyType _type;
   private CompoundFilter<ClassAndSlot> _classAndSlotFilter;
+  private int _iconId;
 
   /**
    * Constructor.
@@ -21,6 +22,7 @@ public class AbstractLegacy
   public AbstractLegacy()
   {
     _type=LegacyType.STAT;
+    _iconId=0;
   }
 
   /**
@@ -71,5 +73,23 @@ public class AbstractLegacy
     }
     Filter<ClassAndSlot> newConstraint=new ClassAndSlotFilter(spec);
     _classAndSlotFilter.addFilter(newConstraint);
+  }
+
+  /**
+   * Get the identifier of the associated icon.
+   * @return an icon identifier or <code>0</code> if none.
+   */
+  public int getIconId()
+  {
+    return _iconId;
+  }
+
+  /**
+   * Set the identifier of the associated icon.
+   * @param iconId Icon identifier (may be 0).
+   */
+  public void setIconId(int iconId)
+  {
+    _iconId=iconId;
   }
 }

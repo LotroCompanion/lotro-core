@@ -179,6 +179,12 @@ public class LegacyXMLWriter
     {
       attrs.addAttribute("","",LegacyXMLConstants.LEGACY_TYPE_ATTR,XmlWriter.CDATA,type.name());
     }
+    // Icon ID
+    int iconId=legacy.getIconId();
+    if (iconId!=0)
+    {
+      attrs.addAttribute("","",LegacyXMLConstants.LEGACY_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
+    }
   }
 
   private static void writeFilter(TransformerHandler hd, AbstractLegacy legacy) throws SAXException

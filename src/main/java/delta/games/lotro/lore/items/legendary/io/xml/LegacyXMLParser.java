@@ -183,6 +183,9 @@ public class LegacyXMLParser
       LegacyType type=LegacyType.valueOf(typeStr);
       legacy.setType(type);
     }
+    // Icon ID
+    int iconId=DOMParsingTools.getIntAttribute(attrs,LegacyXMLConstants.LEGACY_ICON_ID_ATTR,0);
+    legacy.setIconId(iconId);
     // Filter
     List<Element> filterTags=DOMParsingTools.getChildTagsByName(root,LegacyXMLConstants.FILTER_TAG);
     for(Element filterTag : filterTags)
