@@ -17,8 +17,8 @@ import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
-import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.PassivesManager;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
@@ -463,6 +463,22 @@ public class ChatItemLinksDecoder
           {
             int purchasedFromStore=BufferUtils.readUInt8(bis);
             LOGGER.debug("purchasedFromStore: "+purchasedFromStore);
+          }
+          else if (subHeader==0x100026BC) // 268445372 - ItemAdvancement_SelectedEffect_Array
+          {
+            int nb=BufferUtils.readUInt32(bis);
+            for(int i2=0;i2<nb;i2++)
+            {
+              int did=BufferUtils.readUInt32(bis);
+              if (did==0x100026BD) // 268445373 - ItemAdvancement_SelectedEffect
+              {
+                /*int legacyId=*/BufferUtils.readUInt32(bis);
+              }
+              else
+              {
+                throw new LinkDecodingException("Unexpected DID value: "+did);
+              }
+            }
           }
           else
           {
