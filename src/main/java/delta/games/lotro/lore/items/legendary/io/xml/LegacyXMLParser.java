@@ -24,6 +24,7 @@ import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 import delta.games.lotro.lore.items.legendary.LegacyType;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.non_imbued.AbstractNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
 
@@ -82,6 +83,8 @@ public class LegacyXMLParser
     DefaultNonImbuedLegacy legacy=new DefaultNonImbuedLegacy();
     // Shared data
     parseSharedData(root,legacy);
+    // Shared, non-imbued data
+    parseSharedNonImbuedData(root,legacy);
     // Effect
     Element effectTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants.EFFECT_TAG);
     if (effectTag!=null)
@@ -106,6 +109,8 @@ public class LegacyXMLParser
     TieredNonImbuedLegacy legacy=new TieredNonImbuedLegacy(stat);
     // Shared data
     parseSharedData(root,legacy);
+    // Shared, non-imbued data
+    parseSharedNonImbuedData(root,legacy);
     // Major
     boolean major=DOMParsingTools.getBooleanAttribute(attrs,LegacyXMLConstants.TNIL_MAJOR_ATTR,false);
     legacy.setMajor(major);
@@ -209,5 +214,13 @@ public class LegacyXMLParser
       ClassAndSlot spec=new ClassAndSlot(characterClass,slot);
       legacy.addAllowedClassAndSlot(spec);
     }
+  }
+
+  private static void parseSharedNonImbuedData(Element root, AbstractNonImbuedLegacy legacy)
+  {
+    NamedNodeMap attrs=root.getAttributes();
+    // Imbued legacy ID
+    int imbuedLegacyId=DOMParsingTools.getIntAttribute(attrs,LegacyXMLConstants.IMBUED_LEGACY_ID_ATTR,0);
+    legacy.setImbuedLegacyId(imbuedLegacyId);
   }
 }

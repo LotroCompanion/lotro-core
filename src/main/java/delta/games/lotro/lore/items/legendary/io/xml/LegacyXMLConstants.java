@@ -82,4 +82,9 @@ public class LegacyXMLConstants
    * Tag 'legacyTier', attribute 'tier'.
    */
   public static final String LEGACY_TIER_TIER_ATTR="tier";
+
+  /**
+   * Non-imbued legacy tags, attribute 'imbuedLegacyId'.
+   */
+  public static final String IMBUED_LEGACY_ID_ATTR="imbuedLegacyId";
 }

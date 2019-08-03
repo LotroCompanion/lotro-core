@@ -26,6 +26,7 @@ import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 import delta.games.lotro.lore.items.legendary.LegacyType;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.non_imbued.AbstractNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
@@ -78,6 +79,8 @@ public class LegacyXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedAttributes(hd,attrs,legacy);
+    // Shared non-imbued attributes
+    writeSharedNonImbuedAttributes(hd,attrs,legacy);
 
     hd.startElement("","",LegacyXMLConstants.DEFAULT_NON_IMBUED_LEGACY_TAG,attrs);
     // Filter
@@ -92,6 +95,8 @@ public class LegacyXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedAttributes(hd,attrs,legacy);
+    // Shared non-imbued attributes
+    writeSharedNonImbuedAttributes(hd,attrs,legacy);
     // Stat
     StatDescription stat=legacy.getStat();
     if (stat!=null)
@@ -184,6 +189,16 @@ public class LegacyXMLWriter
     if (iconId!=0)
     {
       attrs.addAttribute("","",LegacyXMLConstants.LEGACY_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
+    }
+  }
+
+  private static void writeSharedNonImbuedAttributes(TransformerHandler hd, AttributesImpl attrs, AbstractNonImbuedLegacy legacy)
+  {
+    // Imbued legacy ID
+    int imbuedLegacyId=legacy.getImbuedLegacyId();
+    if (imbuedLegacyId!=0)
+    {
+      attrs.addAttribute("","",LegacyXMLConstants.IMBUED_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(imbuedLegacyId));
     }
   }
 
