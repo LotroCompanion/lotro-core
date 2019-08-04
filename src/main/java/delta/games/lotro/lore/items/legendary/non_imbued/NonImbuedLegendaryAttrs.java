@@ -39,9 +39,6 @@ public class NonImbuedLegendaryAttrs
    */
   private int _pointsLeft;
 
-  // Weapons:
-  // - max damage
-
   /**
    * Constructor.
    */

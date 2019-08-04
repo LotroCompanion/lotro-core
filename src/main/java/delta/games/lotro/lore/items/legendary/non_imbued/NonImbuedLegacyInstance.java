@@ -54,4 +54,10 @@ public abstract class NonImbuedLegacyInstance
     // TODO mapping rank<->tier.
     return 0;
   }
+
+  /**
+   * Get the associated legacy.
+   * @return a legacy or <code>null</code> if not defined.
+   */
+  public abstract AbstractNonImbuedLegacy getLegacy();
 }

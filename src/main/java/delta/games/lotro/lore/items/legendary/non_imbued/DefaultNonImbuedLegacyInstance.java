@@ -30,6 +30,7 @@ public class DefaultNonImbuedLegacyInstance extends NonImbuedLegacyInstance
    * Get the associated legacy.
    * @return the associated legacy.
    */
+  @Override
   public DefaultNonImbuedLegacy getLegacy()
   {
     return _legacy;
