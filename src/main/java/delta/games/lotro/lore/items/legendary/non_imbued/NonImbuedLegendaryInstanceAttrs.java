@@ -9,7 +9,7 @@ import delta.common.utils.text.EndOfLine;
  * Attributes of a non-imbued legendary item instance.
  * @author DAM
  */
-public class NonImbuedLegendaryAttrs
+public class NonImbuedLegendaryInstanceAttrs
 {
   /**
    * Legendary level (max 60 or 70).
@@ -42,7 +42,7 @@ public class NonImbuedLegendaryAttrs
   /**
    * Constructor.
    */
-  public NonImbuedLegendaryAttrs()
+  public NonImbuedLegendaryInstanceAttrs()
   {
     _legacies=new ArrayList<TieredNonImbuedLegacyInstance>();
   }
@@ -51,7 +51,7 @@ public class NonImbuedLegendaryAttrs
    * Copy constructor.
    * @param source Source.
    */
-  public NonImbuedLegendaryAttrs(NonImbuedLegendaryAttrs source)
+  public NonImbuedLegendaryInstanceAttrs(NonImbuedLegendaryInstanceAttrs source)
   {
     _legendaryItemLevel=source._legendaryItemLevel;
     _nbUpgrades=source._nbUpgrades;

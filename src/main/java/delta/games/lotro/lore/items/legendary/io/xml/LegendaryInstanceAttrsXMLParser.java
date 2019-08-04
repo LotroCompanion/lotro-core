@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items.legendary.io.xml;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -12,12 +13,12 @@ import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.PassivesManager;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
-import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
-import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
@@ -32,6 +33,8 @@ import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
  */
 public class LegendaryInstanceAttrsXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(LegendaryInstanceAttrsXMLParser.class);
+
   /**
    * Read legendary instance attributes for an item.
    * @param legendaryAttrs Data to write to.
@@ -97,7 +100,7 @@ public class LegendaryInstanceAttrsXMLParser
     Element nonImbuedTag=DOMParsingTools.getChildTagByName(legendaryElement,LegendaryInstanceAttrsXMLConstants.NON_IMBUED_TAG);
     if (nonImbuedTag!=null)
     {
-      NonImbuedLegendaryAttrs nonImbuedData=legendaryAttrs.getNonImbuedAttrs();
+      NonImbuedLegendaryInstanceAttrs nonImbuedData=legendaryAttrs.getNonImbuedAttrs();
       NamedNodeMap attrs=nonImbuedTag.getAttributes();
       // Legendary level
       int legendaryLevel=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.NON_IMBUED_LEGENDARY_LEVEL_ATTR,0);
@@ -165,7 +168,7 @@ public class LegendaryInstanceAttrsXMLParser
     if (imbuedTag!=null)
     {
       LegaciesManager legaciesMgr=LegaciesManager.getInstance();
-      ImbuedLegendaryAttrs imbuedData=new ImbuedLegendaryAttrs();
+      ImbuedLegendaryInstanceAttrs imbuedData=new ImbuedLegendaryInstanceAttrs();
       legendaryAttrs.setImbuedAttrs(imbuedData);
       // Legacies
       List<Element> legacyTags=DOMParsingTools.getChildTagsByName(imbuedTag,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_TAG);
@@ -188,6 +191,10 @@ public class LegendaryInstanceAttrsXMLParser
             int unlockedLevels=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_UNLOCKED_LEVEL_ATTR,0);
             instance.setUnlockedLevels(unlockedLevels);
             imbuedData.addLegacy(instance);
+          }
+          else
+          {
+            LOGGER.warn("Imbued legacy not found: "+id);
           }
         }
       }

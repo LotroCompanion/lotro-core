@@ -11,10 +11,10 @@ import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
-import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
-import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
@@ -103,7 +103,7 @@ public class LegendaryInstanceAttrsXMLWriter
   private static void writeNonImbuedData(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws Exception
   {
     // Non imbued data
-    NonImbuedLegendaryAttrs nonImbuedData=legendaryAttrs.getNonImbuedAttrs();
+    NonImbuedLegendaryInstanceAttrs nonImbuedData=legendaryAttrs.getNonImbuedAttrs();
 
     AttributesImpl nonImbuedAttrs=new AttributesImpl();
     // Legendary item level
@@ -158,7 +158,7 @@ public class LegendaryInstanceAttrsXMLWriter
   private static void writeImbuedData(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws Exception
   {
     // Imbued data
-    ImbuedLegendaryAttrs imbuedData=legendaryAttrs.getImbuedAttrs();
+    ImbuedLegendaryInstanceAttrs imbuedData=legendaryAttrs.getImbuedAttrs();
     if (imbuedData!=null)
     {
       AttributesImpl imbuedAttrs=new AttributesImpl();

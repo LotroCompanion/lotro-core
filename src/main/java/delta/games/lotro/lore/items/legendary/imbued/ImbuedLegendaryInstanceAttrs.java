@@ -9,7 +9,7 @@ import delta.common.utils.text.EndOfLine;
  * Attributes of an imbued legendary item instance.
  * @author DAM
  */
-public class ImbuedLegendaryAttrs
+public class ImbuedLegendaryInstanceAttrs
 {
   /**
    * Imbued legacy instances.
@@ -19,7 +19,7 @@ public class ImbuedLegendaryAttrs
   /**
    * Constructor.
    */
-  public ImbuedLegendaryAttrs()
+  public ImbuedLegendaryInstanceAttrs()
   {
     _legacies=new ArrayList<ImbuedLegacyInstance>();
   }
@@ -28,7 +28,7 @@ public class ImbuedLegendaryAttrs
    * Copy constructor.
    * @param source Source.
    */
-  public ImbuedLegendaryAttrs(ImbuedLegendaryAttrs source)
+  public ImbuedLegendaryInstanceAttrs(ImbuedLegendaryInstanceAttrs source)
   {
     _legacies=new ArrayList<ImbuedLegacyInstance>();
     for(ImbuedLegacyInstance legacyInstance : source._legacies)

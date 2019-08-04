@@ -22,12 +22,12 @@ import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.PassivesManager;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
-import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
-import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
@@ -180,7 +180,7 @@ public class ChatItemLinksDecoder
     // If non imbued
     if (!imbued)
     {
-      NonImbuedLegendaryAttrs nonImbuedAttrs=attrs.getNonImbuedAttrs();
+      NonImbuedLegendaryInstanceAttrs nonImbuedAttrs=attrs.getNonImbuedAttrs();
       // Points spent / left (only for non imbued ones)
       int nbPointsLeft=BufferUtils.readUInt32(bis);
       nonImbuedAttrs.setPointsLeft(nbPointsLeft);
@@ -209,7 +209,7 @@ public class ChatItemLinksDecoder
     }
     else
     {
-      ImbuedLegendaryAttrs imbuedAttrs=new ImbuedLegendaryAttrs();
+      ImbuedLegendaryInstanceAttrs imbuedAttrs=new ImbuedLegendaryInstanceAttrs();
       attrs.setImbuedAttrs(imbuedAttrs);
 
       int nbImbuedLegacies=BufferUtils.readUInt32(bis);

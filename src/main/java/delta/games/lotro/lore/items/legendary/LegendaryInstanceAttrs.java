@@ -7,8 +7,8 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
-import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryInstanceAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
@@ -28,9 +28,9 @@ public class LegendaryInstanceAttrs
   // Passives
   private List<Effect> _passives;
   // Imbued attributes
-  private ImbuedLegendaryAttrs _imbuedAttrs;
+  private ImbuedLegendaryInstanceAttrs _imbuedAttrs;
   // Non-imbued attributes
-  private NonImbuedLegendaryAttrs _nonImbuedAttrs;
+  private NonImbuedLegendaryInstanceAttrs _nonImbuedAttrs;
 
   /**
    * Constructor.
@@ -40,7 +40,7 @@ public class LegendaryInstanceAttrs
     _legendaryName="";
     _relics=new RelicsSet();
     _passives=new ArrayList<Effect>();
-    _nonImbuedAttrs=new NonImbuedLegendaryAttrs();
+    _nonImbuedAttrs=new NonImbuedLegendaryInstanceAttrs();
   }
 
   /**
@@ -56,9 +56,9 @@ public class LegendaryInstanceAttrs
     _passives.addAll(source._passives);
     if (source._imbuedAttrs!=null)
     {
-      _imbuedAttrs=new ImbuedLegendaryAttrs(source._imbuedAttrs);
+      _imbuedAttrs=new ImbuedLegendaryInstanceAttrs(source._imbuedAttrs);
     }
-    _nonImbuedAttrs=new NonImbuedLegendaryAttrs(source._nonImbuedAttrs);
+    _nonImbuedAttrs=new NonImbuedLegendaryInstanceAttrs(source._nonImbuedAttrs);
   }
 
   /**
@@ -138,7 +138,7 @@ public class LegendaryInstanceAttrs
    * Get the non-imbued attributes.
    * @return the non-imbued attributes.
    */
-  public NonImbuedLegendaryAttrs getNonImbuedAttrs()
+  public NonImbuedLegendaryInstanceAttrs getNonImbuedAttrs()
   {
     return _nonImbuedAttrs;
   }
@@ -147,7 +147,7 @@ public class LegendaryInstanceAttrs
    * Set the non-imbued attributes.
    * @param nonImbuedAttrs Attributes to set.
    */
-  public void setNonImbuedAttrs(NonImbuedLegendaryAttrs nonImbuedAttrs)
+  public void setNonImbuedAttrs(NonImbuedLegendaryInstanceAttrs nonImbuedAttrs)
   {
     _nonImbuedAttrs=nonImbuedAttrs;
   }
@@ -156,7 +156,7 @@ public class LegendaryInstanceAttrs
    * Get the imbued attributes.
    * @return the imbued attributes.
    */
-  public ImbuedLegendaryAttrs getImbuedAttrs()
+  public ImbuedLegendaryInstanceAttrs getImbuedAttrs()
   {
     return _imbuedAttrs;
   }
@@ -165,7 +165,7 @@ public class LegendaryInstanceAttrs
    * Set the imbued attributes.
    * @param imbuedAttrs Attributes to set.
    */
-  public void setImbuedAttrs(ImbuedLegendaryAttrs imbuedAttrs)
+  public void setImbuedAttrs(ImbuedLegendaryInstanceAttrs imbuedAttrs)
   {
     _imbuedAttrs=imbuedAttrs;
   }

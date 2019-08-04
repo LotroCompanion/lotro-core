@@ -37,12 +37,12 @@ import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
 import delta.games.lotro.lore.items.legendary.PassivesManager;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
-import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
-import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
@@ -643,7 +643,7 @@ public class CharacterGeneratorGiswald
     }
     // Non-imbued data
     {
-      NonImbuedLegendaryAttrs nonImbuedAttrs=attrs.getNonImbuedAttrs();
+      NonImbuedLegendaryInstanceAttrs nonImbuedAttrs=attrs.getNonImbuedAttrs();
       // - attributes
       nonImbuedAttrs.setNbUpgrades(2);
       nonImbuedAttrs.setLegendaryItemLevel(70);
@@ -676,7 +676,7 @@ public class CharacterGeneratorGiswald
     }
     // Imbued data
     {
-      ImbuedLegendaryAttrs imbuedAttrs=new ImbuedLegendaryAttrs();
+      ImbuedLegendaryInstanceAttrs imbuedAttrs=new ImbuedLegendaryInstanceAttrs();
       instance.getLegendaryAttributes().setImbuedAttrs(imbuedAttrs);
       // - legacies
       LegaciesManager legaciesMgr=LegaciesManager.getInstance();
