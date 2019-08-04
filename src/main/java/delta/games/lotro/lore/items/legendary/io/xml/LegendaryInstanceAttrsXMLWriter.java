@@ -14,6 +14,7 @@ import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
@@ -122,7 +123,6 @@ public class LegendaryInstanceAttrsXMLWriter
 
     // Default legacy
     DefaultNonImbuedLegacyInstance defaultLegacyInstance=nonImbuedData.getDefaultLegacy();
-    if (defaultLegacyInstance!=null)
     {
       AttributesImpl defaultLegacyAttrs=new AttributesImpl();
       DefaultNonImbuedLegacy defaultLegacy=defaultLegacyInstance.getLegacy();
@@ -143,17 +143,21 @@ public class LegendaryInstanceAttrsXMLWriter
     int index=0;
     for(TieredNonImbuedLegacyInstance legacyInstance : legacyInstances)
     {
-      AttributesImpl legacyAttrs=new AttributesImpl();
-      // Index
-      legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
-      // ID
-      int legacyId=legacyInstance.getLegacyTier().getEffect().getIdentifier();
-      legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(legacyId));
-      // Rank
-      int rank=legacyInstance.getRank();
-      legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
-      hd.startElement("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_TAG,legacyAttrs);
-      hd.endElement("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_TAG);
+      NonImbuedLegacyTier tier=legacyInstance.getLegacyTier();
+      if (tier!=null)
+      {
+        AttributesImpl legacyAttrs=new AttributesImpl();
+        // Index
+        legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
+        // ID
+        int legacyId=tier.getEffect().getIdentifier();
+        legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(legacyId));
+        // Rank
+        int rank=legacyInstance.getRank();
+        legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
+        hd.startElement("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_TAG,legacyAttrs);
+        hd.endElement("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_TAG);
+      }
       index++;
     }
     hd.endElement("","",LegendaryInstanceAttrsXMLConstants.NON_IMBUED_TAG);
