@@ -656,22 +656,20 @@ public class CharacterGeneratorGiswald
       if (possibleDefaultLegacies.size()>0)
       {
         DefaultNonImbuedLegacy defaultLegacy=possibleDefaultLegacies.get(0);
-        DefaultNonImbuedLegacyInstance defaultLegacyInstance=new DefaultNonImbuedLegacyInstance();
+        DefaultNonImbuedLegacyInstance defaultLegacyInstance=nonImbuedAttrs.getDefaultLegacy();
         defaultLegacyInstance.setLegacy(defaultLegacy);
         defaultLegacyInstance.setRank(100);
-        nonImbuedAttrs.setDefaultLegacy(defaultLegacyInstance);
       }
       // - other legacies
       List<TieredNonImbuedLegacy> possibleLegacies=nonImbuedLegaciesMgr.getTieredLegacies(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND);
       int nbLegacies=Math.min(possibleLegacies.size(),6);
       for(int i=0;i<nbLegacies;i++)
       {
+        TieredNonImbuedLegacyInstance legacyInstance=nonImbuedAttrs.getLegacy(i);
         TieredNonImbuedLegacy legacy=possibleLegacies.get(i);
-        TieredNonImbuedLegacyInstance legacyInstance=new TieredNonImbuedLegacyInstance();
         NonImbuedLegacyTier legacyTier=legacy.getTier(i+1);
         legacyInstance.setLegacyTier(legacyTier);
         legacyInstance.setRank(100);
-        nonImbuedAttrs.addLegacy(legacyInstance);
       }
     }
     // Imbued data

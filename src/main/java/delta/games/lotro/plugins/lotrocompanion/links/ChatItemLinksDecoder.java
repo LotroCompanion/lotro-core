@@ -117,15 +117,15 @@ public class ChatItemLinksDecoder
     NonImbuedLegaciesManager nonImbuedMgr=NonImbuedLegaciesManager.getInstance();
     BufferUtils.skip(bis,1); // Usually 0
     int nbLegacies=BufferUtils.readUInt8(bis);
+    NonImbuedLegendaryInstanceAttrs nonImbuedAttrs=attrs.getNonImbuedAttrs();
     for(int i=0;i<nbLegacies;i++)
     {
       int legacyID=BufferUtils.readUInt32(bis);
       int rank=BufferUtils.readUInt32(bis);
       NonImbuedLegacyTier legacyTier=nonImbuedMgr.getLegacyTier(legacyID);
-      TieredNonImbuedLegacyInstance legacyInstance=new TieredNonImbuedLegacyInstance();
+      TieredNonImbuedLegacyInstance legacyInstance=nonImbuedAttrs.getLegacy(i);
       legacyInstance.setLegacyTier(legacyTier);
       legacyInstance.setRank(rank);
-      attrs.getNonImbuedAttrs().addLegacy(legacyInstance);
     }
 
     // Relics
@@ -180,7 +180,6 @@ public class ChatItemLinksDecoder
     // If non imbued
     if (!imbued)
     {
-      NonImbuedLegendaryInstanceAttrs nonImbuedAttrs=attrs.getNonImbuedAttrs();
       // Points spent / left (only for non imbued ones)
       int nbPointsLeft=BufferUtils.readUInt32(bis);
       nonImbuedAttrs.setPointsLeft(nbPointsLeft);
@@ -192,8 +191,7 @@ public class ChatItemLinksDecoder
       int dpsLegacyRank=BufferUtils.readUInt32(bis); // Got 0, 62, 83, 189, 192...
 
       // Default legacy
-      DefaultNonImbuedLegacyInstance defaultLegacy=new DefaultNonImbuedLegacyInstance();
-      nonImbuedAttrs.setDefaultLegacy(defaultLegacy);
+      DefaultNonImbuedLegacyInstance defaultLegacy=nonImbuedAttrs.getDefaultLegacy();
       int defaultLegacyRank=BufferUtils.readUInt32(bis);
       int defaultLegacyID=BufferUtils.readUInt32(bis);
       if (defaultLegacyID!=0)

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.items.legendary.LegendaryConstants;
 
 /**
  * Attributes of a non-imbued legendary item instance.
@@ -45,6 +46,7 @@ public class NonImbuedLegendaryInstanceAttrs
   public NonImbuedLegendaryInstanceAttrs()
   {
     _legacies=new ArrayList<TieredNonImbuedLegacyInstance>();
+    init();
   }
 
   /**
@@ -55,10 +57,7 @@ public class NonImbuedLegendaryInstanceAttrs
   {
     _legendaryItemLevel=source._legendaryItemLevel;
     _nbUpgrades=source._nbUpgrades;
-    if (source._defaultLegacy!=null)
-    {
-      _defaultLegacy=new DefaultNonImbuedLegacyInstance(source._defaultLegacy);
-    }
+    _defaultLegacy=new DefaultNonImbuedLegacyInstance(source._defaultLegacy);
     _legacies=new ArrayList<TieredNonImbuedLegacyInstance>();
     for(TieredNonImbuedLegacyInstance tieredLegacyInstance : source._legacies)
     {
@@ -67,6 +66,16 @@ public class NonImbuedLegendaryInstanceAttrs
     }
     _pointsSpent=source._pointsSpent;
     _pointsLeft=source._pointsLeft;
+  }
+
+  private void init()
+  {
+    _defaultLegacy=new DefaultNonImbuedLegacyInstance();
+    for(int i=0;i<LegendaryConstants.MAX_LEGACIES;i++)
+    {
+      TieredNonImbuedLegacyInstance legacy=new TieredNonImbuedLegacyInstance();
+      _legacies.add(legacy);
+    }
   }
 
   /**
@@ -115,30 +124,13 @@ public class NonImbuedLegendaryInstanceAttrs
   }
 
   /**
-   * Set the default legacy.
-   * @param defaultLegacy Legacy to set.
+   * Get the legacy instance at the given index.
+   * @param index Index of legacy, starting at 0.
+   * @return A legacy instance.
    */
-  public void setDefaultLegacy(DefaultNonImbuedLegacyInstance defaultLegacy)
+  public TieredNonImbuedLegacyInstance getLegacy(int index)
   {
-    _defaultLegacy=defaultLegacy;
-  }
-
-  /**
-   * Add a legacy.
-   * @param legacy Legacy to add.
-   */
-  public void addLegacy(TieredNonImbuedLegacyInstance legacy)
-  {
-    _legacies.add(legacy);
-  }
-
-  /**
-   * Remove a legacy.
-   * @param legacy Legacy to remove.
-   */
-  public void removeLegacy(TieredNonImbuedLegacyInstance legacy)
-  {
-    _legacies.remove(legacy);
+    return _legacies.get(index);
   }
 
   /**

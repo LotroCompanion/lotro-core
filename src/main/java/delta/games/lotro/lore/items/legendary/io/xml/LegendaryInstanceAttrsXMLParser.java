@@ -122,27 +122,38 @@ public class LegendaryInstanceAttrsXMLParser
         NonImbuedLegaciesManager nonImbuedMgr=NonImbuedLegaciesManager.getInstance();
         NamedNodeMap defaultLegacyAttrs=defaultLegacyTag.getAttributes();
         // Default legacy ID
+        DefaultNonImbuedLegacyInstance instance=nonImbuedData.getDefaultLegacy();
         int id=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_ID_ATTR,0);
         if (id!=0)
         {
           DefaultNonImbuedLegacy defaultLegacy=nonImbuedMgr.getDefaultLegacy(id);
           if (defaultLegacy!=null)
           {
-            DefaultNonImbuedLegacyInstance instance=new DefaultNonImbuedLegacyInstance();
             instance.setLegacy(defaultLegacy);
-            // Default legacy rank
-            int rank=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_RANK_ATTR,0);
-            instance.setRank(rank);
-            nonImbuedData.setDefaultLegacy(instance);
+          }
+          else
+          {
+            LOGGER.warn("Default non-imbued legacy not found: "+id);
           }
         }
+        else
+        {
+          instance.setLegacy(null);
+        }
+        // Default legacy rank
+        int rank=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_RANK_ATTR,0);
+        instance.setRank(rank);
       }
       // Tiered legacies
       List<Element> tieredLegacyTags=DOMParsingTools.getChildTagsByName(nonImbuedTag,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_TAG);
+      int currentIndex=0;
       for(Element tieredLegacyTag : tieredLegacyTags)
       {
         NonImbuedLegaciesManager nonImbuedMgr=NonImbuedLegaciesManager.getInstance();
         NamedNodeMap tieredLegacyAttrs=tieredLegacyTag.getAttributes();
+        // Index
+        int index=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_INDEX_ATTR,currentIndex);
+        TieredNonImbuedLegacyInstance instance=nonImbuedData.getLegacy(index);
         // Legacy ID
         int id=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_ID_ATTR,0);
         if (id!=0)
@@ -150,14 +161,21 @@ public class LegendaryInstanceAttrsXMLParser
           NonImbuedLegacyTier legacyTier=nonImbuedMgr.getLegacyTier(id);
           if (legacyTier!=null)
           {
-            TieredNonImbuedLegacyInstance instance=new TieredNonImbuedLegacyInstance();
             instance.setLegacyTier(legacyTier);
-            // Legacy rank
-            int rank=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_RANK_ATTR,0);
-            instance.setRank(rank);
-            nonImbuedData.addLegacy(instance);
+          }
+          else
+          {
+            LOGGER.warn("Tiered non-imbued legacy not found: "+id);
           }
         }
+        else
+        {
+          instance.setLegacyTier(null);
+        }
+        // Legacy rank
+        int rank=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_RANK_ATTR,0);
+        instance.setRank(rank);
+        currentIndex++;
       }
     }
   }

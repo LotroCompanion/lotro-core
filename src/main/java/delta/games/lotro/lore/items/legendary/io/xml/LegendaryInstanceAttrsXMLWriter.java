@@ -140,9 +140,12 @@ public class LegendaryInstanceAttrsXMLWriter
     }
     // Other legacies (tiered legacies)
     List<TieredNonImbuedLegacyInstance> legacyInstances=nonImbuedData.getLegacies();
+    int index=0;
     for(TieredNonImbuedLegacyInstance legacyInstance : legacyInstances)
     {
       AttributesImpl legacyAttrs=new AttributesImpl();
+      // Index
+      legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
       // ID
       int legacyId=legacyInstance.getLegacyTier().getEffect().getIdentifier();
       legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(legacyId));
@@ -151,6 +154,7 @@ public class LegendaryInstanceAttrsXMLWriter
       legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
       hd.startElement("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_TAG,legacyAttrs);
       hd.endElement("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_TAG);
+      index++;
     }
     hd.endElement("","",LegendaryInstanceAttrsXMLConstants.NON_IMBUED_TAG);
   }

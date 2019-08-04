@@ -85,6 +85,10 @@ public class LegendaryInstanceAttrsXMLConstants
    */
   public static final String TIERED_LEGACY_ID_ATTR="id";
   /**
+   * Tag 'tieredLegacy', attribute 'index'.
+   */
+  public static final String TIERED_LEGACY_INDEX_ATTR="index";
+  /**
    * Tag 'tieredLegacy', attribute 'rank'.
    */
   public static final String TIERED_LEGACY_RANK_ATTR="rank";
