@@ -190,9 +190,12 @@ public class LegendaryInstanceAttrsXMLParser
       legendaryAttrs.setImbuedAttrs(imbuedData);
       // Legacies
       List<Element> legacyTags=DOMParsingTools.getChildTagsByName(imbuedTag,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_TAG);
+      int currentIndex=0;
       for(Element legacyTag : legacyTags)
       {
         NamedNodeMap legacyAttrs=legacyTag.getAttributes();
+        // Index
+        int index=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_INDEX_ATTR,currentIndex);
         // Legacy ID
         int id=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_ID_ATTR,0);
         if (id!=0)
@@ -200,7 +203,7 @@ public class LegendaryInstanceAttrsXMLParser
           ImbuedLegacy legacy=legaciesMgr.getLegacy(id);
           if (legacy!=null)
           {
-            ImbuedLegacyInstance instance=new ImbuedLegacyInstance();
+            ImbuedLegacyInstance instance=imbuedData.getLegacy(index);
             instance.setLegacy(legacy);
             // XP
             int xp=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_XP_ATTR,0);
@@ -208,13 +211,13 @@ public class LegendaryInstanceAttrsXMLParser
             // Unlocked levels
             int unlockedLevels=DOMParsingTools.getIntAttribute(legacyAttrs,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_UNLOCKED_LEVEL_ATTR,0);
             instance.setUnlockedLevels(unlockedLevels);
-            imbuedData.addLegacy(instance);
           }
           else
           {
             LOGGER.warn("Imbued legacy not found: "+id);
           }
         }
+        currentIndex++;
       }
     }
   }

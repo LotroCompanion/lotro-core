@@ -106,6 +106,10 @@ public class LegendaryInstanceAttrsXMLConstants
    */
   public static final String IMBUED_LEGACY_ID_ATTR="imbuedLegacyId";
   /**
+   * Tag 'imbuedLegacy', attribute 'index'.
+   */
+  public static final String IMBUED_LEGACY_INDEX_ATTR="index";
+  /**
    * Tag 'imbuedLegacy', attribute 'unlockedLevels'.
    */
   public static final String IMBUED_LEGACY_UNLOCKED_LEVEL_ATTR="unlockedLevels";

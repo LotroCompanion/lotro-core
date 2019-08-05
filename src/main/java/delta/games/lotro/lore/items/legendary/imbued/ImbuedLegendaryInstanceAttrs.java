@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.items.legendary.LegendaryConstants;
 
 /**
  * Attributes of an imbued legendary item instance.
@@ -22,6 +23,7 @@ public class ImbuedLegendaryInstanceAttrs
   public ImbuedLegendaryInstanceAttrs()
   {
     _legacies=new ArrayList<ImbuedLegacyInstance>();
+    init();
   }
 
   /**
@@ -35,6 +37,15 @@ public class ImbuedLegendaryInstanceAttrs
     {
       ImbuedLegacyInstance copy=new ImbuedLegacyInstance(legacyInstance);
       _legacies.add(copy);
+    }
+  }
+
+  private void init()
+  {
+    for(int i=0;i<LegendaryConstants.MAX_LEGACIES+1;i++)
+    {
+      ImbuedLegacyInstance legacy=new ImbuedLegacyInstance();
+      _legacies.add(legacy);
     }
   }
 
@@ -55,24 +66,6 @@ public class ImbuedLegendaryInstanceAttrs
   public ImbuedLegacyInstance getLegacy(int index)
   {
     return _legacies.get(index);
-  }
-
-  /**
-   * Add a legacy.
-   * @param legacy Legacy to add.
-   */
-  public void addLegacy(ImbuedLegacyInstance legacy)
-  {
-    _legacies.add(legacy);
-  }
-
-  /**
-   * Remove a legacy.
-   * @param legacy Legacy to remove.
-   */
-  public void removeLegacy(ImbuedLegacyInstance legacy)
-  {
-    _legacies.remove(legacy);
   }
 
   /**

@@ -683,11 +683,10 @@ public class CharacterGeneratorGiswald
       for(int i=0;i<nbLegacies;i++)
       {
         ImbuedLegacy legacy=possibleLegacies.get(i);
-        ImbuedLegacyInstance legacyInstance=new ImbuedLegacyInstance();
+        ImbuedLegacyInstance legacyInstance=imbuedAttrs.getLegacy(i);
         legacyInstance.setLegacy(legacy);
         legacyInstance.setXp(134567*i);
         legacyInstance.setUnlockedLevels(30);
-        imbuedAttrs.addLegacy(legacyInstance);
       }
     }
     System.out.println(instance.getLegendaryAttributes().dump());

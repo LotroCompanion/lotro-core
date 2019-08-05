@@ -253,12 +253,12 @@ public class ChatItemLinksDecoder
             BufferUtils.skip(bis,4);
           }
         }
-        ImbuedLegacyInstance legacy=loadImbuedLegacy(legacyId);
+        ImbuedLegacyInstance legacy=imbuedAttrs.getLegacy(i);
+        loadImbuedLegacy(legacy,legacyId);
         if (legacy!=null)
         {
           legacy.setUnlockedLevels(unlockedLevels);
           legacy.setXp(legacyXp);
-          imbuedAttrs.addLegacy(legacy);
         }
       }
       /*
@@ -564,21 +564,18 @@ public class ChatItemLinksDecoder
     return ret;
   }
 
-  private ImbuedLegacyInstance loadImbuedLegacy(int legacyId)
+  private void loadImbuedLegacy(ImbuedLegacyInstance ret, int legacyId)
   {
-    ImbuedLegacyInstance ret=null;
     LegaciesManager legaciesMgr=LegaciesManager.getInstance();
     ImbuedLegacy legacy=legaciesMgr.getLegacy(legacyId);
     if (legacy!=null)
     {
-      ret=new ImbuedLegacyInstance();
       ret.setLegacy(legacy);
     }
     else
     {
       LOGGER.warn("Legacy not found: "+legacyId);
     }
-    return ret;
   }
 
   private String decodeName(ByteArrayInputStream bis)
