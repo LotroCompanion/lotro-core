@@ -14,4 +14,8 @@ public class LegendaryConstants
    * Maximum level for a legendary weapon.
    */
   public static final int MAX_LEVEL=70;
+  /**
+   * Maximum number of passives.
+   */
+  public static final int NB_PASSIVES_MAX=3;
 }
