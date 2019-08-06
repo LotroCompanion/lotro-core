@@ -207,8 +207,7 @@ public class ChatItemLinksDecoder
     }
     else
     {
-      ImbuedLegendaryInstanceAttrs imbuedAttrs=new ImbuedLegendaryInstanceAttrs();
-      attrs.setImbuedAttrs(imbuedAttrs);
+      ImbuedLegendaryInstanceAttrs imbuedAttrs=attrs.getImbuedAttrs();
 
       int nbImbuedLegacies=BufferUtils.readUInt32(bis);
       LOGGER.debug("Found "+nbImbuedLegacies+" legacies");

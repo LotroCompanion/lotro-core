@@ -40,6 +40,7 @@ public class LegendaryInstanceAttrs
     _legendaryName="";
     _relics=new RelicsSet();
     _passives=new ArrayList<Effect>();
+    _imbuedAttrs=new ImbuedLegendaryInstanceAttrs();
     _nonImbuedAttrs=new NonImbuedLegendaryInstanceAttrs();
   }
 
@@ -54,10 +55,7 @@ public class LegendaryInstanceAttrs
     _relics=new RelicsSet(source._relics);
     _passives=new ArrayList<Effect>();
     _passives.addAll(source._passives);
-    if (source._imbuedAttrs!=null)
-    {
-      _imbuedAttrs=new ImbuedLegendaryInstanceAttrs(source._imbuedAttrs);
-    }
+    _imbuedAttrs=new ImbuedLegendaryInstanceAttrs(source._imbuedAttrs);
     _nonImbuedAttrs=new NonImbuedLegendaryInstanceAttrs(source._nonImbuedAttrs);
   }
 
@@ -144,30 +142,12 @@ public class LegendaryInstanceAttrs
   }
 
   /**
-   * Set the non-imbued attributes.
-   * @param nonImbuedAttrs Attributes to set.
-   */
-  public void setNonImbuedAttrs(NonImbuedLegendaryInstanceAttrs nonImbuedAttrs)
-  {
-    _nonImbuedAttrs=nonImbuedAttrs;
-  }
-
-  /**
    * Get the imbued attributes.
    * @return the imbued attributes.
    */
   public ImbuedLegendaryInstanceAttrs getImbuedAttrs()
   {
     return _imbuedAttrs;
-  }
-
-  /**
-   * Set the imbued attributes.
-   * @param imbuedAttrs Attributes to set.
-   */
-  public void setImbuedAttrs(ImbuedLegendaryInstanceAttrs imbuedAttrs)
-  {
-    _imbuedAttrs=imbuedAttrs;
   }
 
   /**
@@ -247,5 +227,11 @@ public class LegendaryInstanceAttrs
       sb.append(_imbuedAttrs).append(EndOfLine.NATIVE_EOL);
     }
     return sb.toString().trim();
+  }
+
+  @Override
+  public String toString()
+  {
+    return dump();
   }
 }

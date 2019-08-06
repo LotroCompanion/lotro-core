@@ -674,8 +674,8 @@ public class CharacterGeneratorGiswald
     }
     // Imbued data
     {
-      ImbuedLegendaryInstanceAttrs imbuedAttrs=new ImbuedLegendaryInstanceAttrs();
-      instance.getLegendaryAttributes().setImbuedAttrs(imbuedAttrs);
+      LegendaryInstanceAttrs legendaryAttrs=instance.getLegendaryAttributes();
+      ImbuedLegendaryInstanceAttrs imbuedAttrs=legendaryAttrs.getImbuedAttrs();
       // - legacies
       LegaciesManager legaciesMgr=LegaciesManager.getInstance();
       List<ImbuedLegacy> possibleLegacies=legaciesMgr.get(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND);
@@ -689,7 +689,7 @@ public class CharacterGeneratorGiswald
         legacyInstance.setUnlockedLevels(30);
       }
     }
-    System.out.println(instance.getLegendaryAttributes().dump());
+    System.out.println(legendaryAttrs.dump());
     return instance;
   }
 

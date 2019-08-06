@@ -186,8 +186,7 @@ public class LegendaryInstanceAttrsXMLParser
     if (imbuedTag!=null)
     {
       LegaciesManager legaciesMgr=LegaciesManager.getInstance();
-      ImbuedLegendaryInstanceAttrs imbuedData=new ImbuedLegendaryInstanceAttrs();
-      legendaryAttrs.setImbuedAttrs(imbuedData);
+      ImbuedLegendaryInstanceAttrs imbuedData=legendaryAttrs.getImbuedAttrs();
       // Legacies
       List<Element> legacyTags=DOMParsingTools.getChildTagsByName(imbuedTag,LegendaryInstanceAttrsXMLConstants.IMBUED_LEGACY_TAG);
       int currentIndex=0;
