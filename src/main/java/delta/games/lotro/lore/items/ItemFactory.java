@@ -1,9 +1,23 @@
 package delta.games.lotro.lore.items;
 
+import org.apache.log4j.Logger;
+
+import delta.games.lotro.lore.items.legendary.LegaciesManager;
+import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary.LegendaryInstance;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
 import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
 import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryInstanceAttrs;
+import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 
 /**
  * Item builder.
@@ -11,6 +25,8 @@ import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
  */
 public class ItemFactory
 {
+  private static final Logger LOGGER=Logger.getLogger(ItemFactory.class);
+
   /**
    * Build a new item of the right class.
    * @param category Item category.
@@ -129,5 +145,65 @@ public class ItemFactory
     ItemInstance<? extends Item> clone=buildInstance(item.getReference());
     clone.copyFrom(item);
     return clone;
+  }
+
+  /**
+   * Initialize the contents of an item instance.
+   * @param itemInstance Instance to initialize.
+   */
+  public static void initInstance(ItemInstance<? extends Item> itemInstance)
+  {
+    if (itemInstance instanceof LegendaryInstance)
+    {
+      Item item=itemInstance.getReference();
+      Legendary legendary=(Legendary)item;
+      LegendaryAttrs legendaryAttrs=legendary.getLegendaryAttrs();
+      Integer mainLegacyId=legendaryAttrs.getMainLegacyId();
+      if (mainLegacyId!=null)
+      {
+        DefaultNonImbuedLegacy defaultLegacy=NonImbuedLegaciesManager.getInstance().getDefaultLegacy(mainLegacyId.intValue());
+        if (defaultLegacy!=null)
+        {
+          setupDefaultLegacy(itemInstance,defaultLegacy);
+        }
+        else
+        {
+          LOGGER.warn("Could not find default legacy: "+mainLegacyId);
+        }
+      }
+      else
+      {
+        LOGGER.warn("No main legacy for: "+item);
+      }
+    }
+    else
+    {
+      LOGGER.warn("Not a legendary instance: "+itemInstance);
+    }
+  }
+
+  private static void setupDefaultLegacy(ItemInstance<? extends Item> itemInstance, DefaultNonImbuedLegacy defaultLegacy)
+  {
+    LegendaryInstance legendaryInstance=(LegendaryInstance)itemInstance;
+    LegendaryInstanceAttrs legendaryInstanceAttrs=legendaryInstance.getLegendaryAttributes();
+    NonImbuedLegendaryInstanceAttrs nonImbuedAttrs=legendaryInstanceAttrs.getNonImbuedAttrs();
+    DefaultNonImbuedLegacyInstance defaultLegacyInstance=nonImbuedAttrs.getDefaultLegacy();
+    defaultLegacyInstance.setLegacy(defaultLegacy);
+    // TODO For some items, we may have a different default legacy depending on the item level
+    // (seen on 3rd age Champion's Rune). Then the model gives the legacy for the default item level (e.g. 75)
+
+    int mainImbuedLegacy=defaultLegacy.getImbuedLegacyId();
+    if (mainImbuedLegacy!=0)
+    {
+      ImbuedLegacy mainLegacy=LegaciesManager.getInstance().getLegacy(mainImbuedLegacy);
+      ImbuedLegendaryInstanceAttrs imbuedAttrs=legendaryInstanceAttrs.getImbuedAttrs();
+      ImbuedLegacyInstance mainLegacyInstance=imbuedAttrs.getLegacy(0);
+      mainLegacyInstance.setLegacy(mainLegacy);
+    }
+    else
+    {
+      LOGGER.warn("No imbued legacy associated to default legacy: "+defaultLegacy);
+    }
+    
   }
 }

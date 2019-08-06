@@ -689,7 +689,10 @@ public class ItemInstance<T extends Item>
     }
     sb.append(EndOfLine.NATIVE_EOL);
     // Stats
-    sb.append(_ownStats);
+    if (_ownStats!=null)
+    {
+      sb.append("Own stats: ").append(_ownStats);
+    }
     // Essences
     if ((_essences!=null) && (_essences.getSize()>0))
     {
