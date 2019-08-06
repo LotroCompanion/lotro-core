@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items.legendary.io.xml;
+package delta.games.lotro.lore.items.legendary.titles.io.xml;
 
 /**
  * Constants for tags and attribute names used in the legendary attrs XML documents.

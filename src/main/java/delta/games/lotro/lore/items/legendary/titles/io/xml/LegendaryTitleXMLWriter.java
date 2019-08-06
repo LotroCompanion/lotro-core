@@ -15,7 +15,6 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.lore.items.DamageType;
-import delta.games.lotro.lore.items.legendary.io.xml.LegendaryTitleXMLConstants;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 
 /**
