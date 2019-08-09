@@ -19,6 +19,10 @@ public class LegendaryInstanceAttrsXMLConstants
    */
   public static final String LEGENDARY_NAME_ATTR="name";
   /**
+   * Tag 'legendary', attribute 'imbued'.
+   */
+  public static final String LEGENDARY_IMBUED_ATTR="imbued";
+  /**
    * Tag 'relic'.
    */
   public static final String RELIC_TAG="relic";

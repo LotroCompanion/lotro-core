@@ -27,6 +27,8 @@ public class LegendaryInstanceAttrs
   private RelicsSet _relics;
   // Passives
   private List<Effect> _passives;
+  // Imbued or not?
+  private boolean _imbued;
   // Imbued attributes
   private ImbuedLegendaryInstanceAttrs _imbuedAttrs;
   // Non-imbued attributes
@@ -40,6 +42,7 @@ public class LegendaryInstanceAttrs
     _legendaryName="";
     _relics=new RelicsSet();
     _passives=new ArrayList<Effect>();
+    _imbued=false;
     _imbuedAttrs=new ImbuedLegendaryInstanceAttrs();
     _nonImbuedAttrs=new NonImbuedLegendaryInstanceAttrs();
   }
@@ -55,6 +58,7 @@ public class LegendaryInstanceAttrs
     _relics=new RelicsSet(source._relics);
     _passives=new ArrayList<Effect>();
     _passives.addAll(source._passives);
+    _imbued=source._imbued;
     _imbuedAttrs=new ImbuedLegendaryInstanceAttrs(source._imbuedAttrs);
     _nonImbuedAttrs=new NonImbuedLegendaryInstanceAttrs(source._nonImbuedAttrs);
   }
@@ -130,6 +134,24 @@ public class LegendaryInstanceAttrs
   public List<Effect> getPassives()
   {
     return new ArrayList<Effect>(_passives);
+  }
+
+  /**
+   * Indicates if this legendary instance is imbued or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isImbued()
+  {
+    return _imbued;
+  }
+
+  /**
+   * Set the imbued state for this legendary instance.
+   * @param imbued <code>true</code> if imbued, <code>false</code> otherwise.
+   */
+  public void setImbued(boolean imbued)
+  {
+    _imbued=imbued;
   }
 
   /**

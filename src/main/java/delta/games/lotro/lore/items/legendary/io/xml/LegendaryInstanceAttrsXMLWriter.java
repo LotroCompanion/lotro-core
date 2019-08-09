@@ -49,6 +49,9 @@ public class LegendaryInstanceAttrsXMLWriter
       int titleId=title.getIdentifier();
       legendaryAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.LEGENDARY_TITLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(titleId));
     }
+    // Imbued
+    boolean imbued=legendaryData.isImbued();
+    legendaryAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.LEGENDARY_IMBUED_ATTR,XmlWriter.CDATA,String.valueOf(imbued));
     hd.startElement("","",LegendaryInstanceAttrsXMLConstants.LEGENDARY_TAG,legendaryAttrs);
     // Write passives
     writePassives(hd,legendaryData);

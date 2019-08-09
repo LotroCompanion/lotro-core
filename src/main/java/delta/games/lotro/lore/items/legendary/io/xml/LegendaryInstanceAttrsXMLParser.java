@@ -74,6 +74,9 @@ public class LegendaryInstanceAttrsXMLParser
       LegendaryTitle title=titlesMgr.getLegendaryTitle(titleId);
       legendaryAttrs.setTitle(title);
     }
+    // Imbued or not?
+    boolean imbued=DOMParsingTools.getBooleanAttribute(attrs,LegendaryInstanceAttrsXMLConstants.LEGENDARY_IMBUED_ATTR,false);
+    legendaryAttrs.setImbued(imbued);
   }
 
   private static void readPassives(LegendaryInstanceAttrs legendaryAttrs, Element legendaryElement)
