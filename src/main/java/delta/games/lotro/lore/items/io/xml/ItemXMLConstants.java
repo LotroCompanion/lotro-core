@@ -153,6 +153,10 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'mainLegacyId'.
    */
   public static final String MAIN_LEGACY_ID_ATTR="mainLegacyId";
+  /**
+   * Tag 'item', attribute 'mainLegacyBaseRank'.
+   */
+  public static final String MAIN_LEGACY_BASE_RANK_ATTR="mainLegacyBaseRank";
 
   /**
    * Tag 'stats'.

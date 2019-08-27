@@ -306,10 +306,17 @@ public class ItemXMLWriter
       {
         Legendary legendary=(Legendary)item;
         LegendaryAttrs attrs=legendary.getLegendaryAttrs();
-        Integer mainLegacyId=attrs.getMainLegacyId();
-        if (mainLegacyId!=null)
+        // Main legacy ID
+        int mainLegacyId=attrs.getMainLegacyId();
+        if (mainLegacyId!=0)
         {
-          itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_ID_ATTR,XmlWriter.CDATA,mainLegacyId.toString());
+          itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyId));
+        }
+        // Main legacy base rank
+        int mainLegacyBaseRank=attrs.getMainLegacyBaseRank();
+        if (mainLegacyBaseRank!=0)
+        {
+          itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_BASE_RANK_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyBaseRank));
         }
       }
     }

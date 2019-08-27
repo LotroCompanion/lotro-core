@@ -238,11 +238,14 @@ public final class ItemSaxParser extends DefaultHandler {
           {
             Legendary legendary=(Legendary)_currentItem;
             LegendaryAttrs attrs=legendary.getLegendaryAttrs();
+            // - Main legacy ID
             String mainLegacyIdStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_ID_ATTR);
-            if (mainLegacyIdStr!=null)
-            {
-              attrs.setMainLegacyId(NumericTools.parseInteger(mainLegacyIdStr));
-            }
+            int mainLegacyId=NumericTools.parseInt(mainLegacyIdStr,0);
+            attrs.setMainLegacyId(mainLegacyId);
+            // - Main legacy base rank
+            String mainLegacyBaseRankStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_BASE_RANK_ATTR);
+            int mainLegacyBaseRank=NumericTools.parseInt(mainLegacyBaseRankStr,0);
+            attrs.setMainLegacyBaseRank(mainLegacyBaseRank);
           }
         } else if (ItemXMLConstants.PROPERTY_TAG.equals(qualifiedName)) {
           String propertyName=attributes.getValue(ItemXMLConstants.PROPERTY_KEY_ATTR);

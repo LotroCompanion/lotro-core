@@ -158,23 +158,7 @@ public class ItemFactory
       Item item=itemInstance.getReference();
       Legendary legendary=(Legendary)item;
       LegendaryAttrs legendaryAttrs=legendary.getLegendaryAttrs();
-      Integer mainLegacyId=legendaryAttrs.getMainLegacyId();
-      if (mainLegacyId!=null)
-      {
-        DefaultNonImbuedLegacy defaultLegacy=NonImbuedLegaciesManager.getInstance().getDefaultLegacy(mainLegacyId.intValue());
-        if (defaultLegacy!=null)
-        {
-          setupDefaultLegacy(itemInstance,defaultLegacy);
-        }
-        else
-        {
-          LOGGER.warn("Could not find default legacy: "+mainLegacyId);
-        }
-      }
-      else
-      {
-        LOGGER.warn("No main legacy for: "+item);
-      }
+      setupDefaultLegacy(itemInstance,legendaryAttrs);
     }
     else
     {
@@ -182,16 +166,31 @@ public class ItemFactory
     }
   }
 
-  private static void setupDefaultLegacy(ItemInstance<? extends Item> itemInstance, DefaultNonImbuedLegacy defaultLegacy)
+  private static void setupDefaultLegacy(ItemInstance<? extends Item> itemInstance, LegendaryAttrs legendaryAttrs)
   {
     LegendaryInstance legendaryInstance=(LegendaryInstance)itemInstance;
     LegendaryInstanceAttrs legendaryInstanceAttrs=legendaryInstance.getLegendaryAttributes();
     NonImbuedLegendaryInstanceAttrs nonImbuedAttrs=legendaryInstanceAttrs.getNonImbuedAttrs();
     DefaultNonImbuedLegacyInstance defaultLegacyInstance=nonImbuedAttrs.getDefaultLegacy();
-    defaultLegacyInstance.setLegacy(defaultLegacy);
+
+    // Main legacy
+    int mainLegacyId=legendaryAttrs.getMainLegacyId();
+    DefaultNonImbuedLegacy defaultLegacy=NonImbuedLegaciesManager.getInstance().getDefaultLegacy(mainLegacyId);
+    if (defaultLegacy!=null)
+    {
+      defaultLegacyInstance.setLegacy(defaultLegacy);
+    }
+    else
+    {
+      LOGGER.warn("Could not find default legacy: "+mainLegacyId);
+    }
+    // - rank 
+    int baseRank=legendaryAttrs.getMainLegacyBaseRank();
+    defaultLegacyInstance.setRank(baseRank);
     // TODO For some items, we may have a different default legacy depending on the item level
     // (seen on 3rd age Champion's Rune). Then the model gives the legacy for the default item level (e.g. 75)
 
+    // Imbued data
     int mainImbuedLegacy=defaultLegacy.getImbuedLegacyId();
     if (mainImbuedLegacy!=0)
     {
@@ -204,6 +203,5 @@ public class ItemFactory
     {
       LOGGER.warn("No imbued legacy associated to default legacy: "+defaultLegacy);
     }
-    
   }
 }
