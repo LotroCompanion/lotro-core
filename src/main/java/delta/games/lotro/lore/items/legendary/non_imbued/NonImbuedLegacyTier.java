@@ -11,6 +11,7 @@ public class NonImbuedLegacyTier
 {
   private TieredNonImbuedLegacy _parent;
   private int _tier;
+  private Integer _startRank;
   private Effect _effect;
 
   /**
@@ -45,6 +46,24 @@ public class NonImbuedLegacyTier
   }
 
   /**
+   * Get the start rank (if any).
+   * @return A rank value or <code>null</code>.
+   */
+  public Integer getStartRank()
+  {
+    return _startRank;
+  }
+
+  /**
+   * Set the start rank.
+   * @param startRank A rank value or <code>null</code>.
+   */
+  public void setStartRank(Integer startRank)
+  {
+    _startRank=startRank;
+  }
+
+  /**
    * Get the legacy effect.
    * @return the legacy effect.
    */
@@ -76,6 +95,12 @@ public class NonImbuedLegacyTier
     sb.append(" (tier ");
     sb.append(_tier);
     sb.append(')');
+    if (_startRank!=null)
+    {
+      sb.append(" (start rank ");
+      sb.append(_startRank);
+      sb.append(')');
+    }
     return sb.toString();
   }
 }

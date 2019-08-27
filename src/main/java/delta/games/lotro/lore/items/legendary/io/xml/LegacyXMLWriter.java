@@ -118,8 +118,15 @@ public class LegacyXMLWriter
     for(NonImbuedLegacyTier legacyTier : legacy.getTiers())
     {
       AttributesImpl tierAttrs=new AttributesImpl();
+      // Tier
       int tier=legacyTier.getTier();
       tierAttrs.addAttribute("","",LegacyXMLConstants.LEGACY_TIER_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
+      // Start rank
+      Integer startRank=legacyTier.getStartRank();
+      if (startRank!=null)
+      {
+        tierAttrs.addAttribute("","",LegacyXMLConstants.LEGACY_TIER_START_RANK_ATTR,XmlWriter.CDATA,startRank.toString());
+      }
       hd.startElement("","",LegacyXMLConstants.LEGACY_TIER_TAG,tierAttrs);
       // Effect
       EffectXMLWriter.writeEffect(hd,legacyTier.getEffect());

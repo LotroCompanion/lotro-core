@@ -26,6 +26,7 @@ import delta.games.lotro.lore.items.legendary.LegacyType;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.AbstractNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
 
 /**
@@ -128,7 +129,13 @@ public class LegacyXMLParser
       {
         effect=EffectXMLParser.parseEffect(effectTag);
       }
-      legacy.addTier(tier,effect);
+      NonImbuedLegacyTier legacyTier=legacy.addTier(tier,effect);
+      // Start rank
+      int startRankInt=DOMParsingTools.getIntAttribute(tierAttrs,LegacyXMLConstants.LEGACY_TIER_START_RANK_ATTR,-1);
+      if (startRankInt!=-1)
+      {
+        legacyTier.setStartRank(Integer.valueOf(startRankInt));
+      }
     }
     return legacy;
   }
