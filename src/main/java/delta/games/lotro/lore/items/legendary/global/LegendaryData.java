@@ -24,12 +24,13 @@ public class LegendaryData
   /**
    * Get the data for a quality.
    * @param quality Quality to use.
-   * @return the data for this quality.
+   * @param createIfNeeded Indicates if the quality data shall be created if not found.
+   * @return the data for this quality or <code>null</code> if not found and not created.
    */
-  public QualityBasedData getQualityData(ItemQuality quality)
+  public QualityBasedData getQualityData(ItemQuality quality, boolean createIfNeeded)
   {
     QualityBasedData data=_data.get(quality);
-    if (data==null)
+    if ((data==null) && (createIfNeeded))
     {
       data=new QualityBasedData(quality);
       _data.put(quality,data);

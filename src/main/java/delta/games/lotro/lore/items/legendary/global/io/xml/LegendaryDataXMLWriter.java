@@ -51,8 +51,11 @@ public class LegendaryDataXMLWriter
     hd.startElement("","",LegendaryDataXMLConstants.LEGENDARY_TAG,new AttributesImpl());
     for(ItemQuality quality : ItemQuality.ALL)
     {
-      QualityBasedData qualityData=data.getQualityData(quality);
-      writeQualityData(hd,qualityData);
+      QualityBasedData qualityData=data.getQualityData(quality,false);
+      if (qualityData!=null)
+      {
+        writeQualityData(hd,qualityData);
+      }
     }
     hd.endElement("","",LegendaryDataXMLConstants.LEGENDARY_TAG);
   }
