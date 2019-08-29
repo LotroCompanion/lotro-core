@@ -23,6 +23,7 @@ public class QualityBasedData
    */
   public QualityBasedData(ItemQuality quality)
   {
+    _quality=quality;
     _startProgressionLevels=new HashMap<Integer,Integer>();
     _pointsTables=new HashMap<EquipmentLocation,int[]>();
   }
@@ -44,6 +45,15 @@ public class QualityBasedData
   public void addStartProgressionLevel(int itemLevel, int startLevel)
   {
     _startProgressionLevels.put(Integer.valueOf(itemLevel),Integer.valueOf(startLevel));
+  }
+
+  /**
+   * Get all start levels.
+   * @return a map of item level to start progression levels.
+   */
+  public Map<Integer,Integer> getStartLevels()
+  {
+    return _startProgressionLevels;
   }
 
   /**

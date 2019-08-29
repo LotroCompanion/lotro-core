@@ -127,6 +127,10 @@ public class DataFiles
    */
   public static final String PASSIVES_USAGE="passivesUsage";
   /**
+   * Legendary system data file.
+   */
+  public static final String LEGENDARY_DATA="legendaryData";
+  /**
    * Consumables file.
    */
   public static final String CONSUMABLES="consumables";
