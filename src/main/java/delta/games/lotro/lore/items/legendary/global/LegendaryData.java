@@ -11,6 +11,7 @@ import delta.games.lotro.lore.items.ItemQuality;
  */
 public class LegendaryData
 {
+  private int _maxUiRank;
   private Map<ItemQuality,QualityBasedData> _data;
 
   /**
@@ -18,7 +19,17 @@ public class LegendaryData
    */
   public LegendaryData()
   {
+    _maxUiRank=9; // TODO load is from XML
     _data=new HashMap<ItemQuality,QualityBasedData>();
+  }
+
+  /**
+   * Get the maximum legacy rank in UI.
+   * @return A value.
+   */
+  public int getMaxUiRank()
+  {
+    return _maxUiRank;
   }
 
   /**
