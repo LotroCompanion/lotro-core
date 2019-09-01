@@ -48,7 +48,10 @@ public class LegendaryDataXMLWriter
 
   private static void writeLegendaryData(TransformerHandler hd, LegendaryData data) throws SAXException
   {
-    hd.startElement("","",LegendaryDataXMLConstants.LEGENDARY_TAG,new AttributesImpl());
+    AttributesImpl attrs=new AttributesImpl();
+    int maxUiRank=data.getMaxUiRank();
+    attrs.addAttribute("","",LegendaryDataXMLConstants.MAX_UI_RANK_ATTR,XmlWriter.CDATA,String.valueOf(maxUiRank));
+    hd.startElement("","",LegendaryDataXMLConstants.LEGENDARY_TAG,attrs);
     for(ItemQuality quality : ItemQuality.ALL)
     {
       QualityBasedData qualityData=data.getQualityData(quality,false);

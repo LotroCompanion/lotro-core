@@ -29,6 +29,8 @@ public class LegendaryDataXMLParser
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
+      int maxUiRank=DOMParsingTools.getIntAttribute(root.getAttributes(),LegendaryDataXMLConstants.MAX_UI_RANK_ATTR,0);
+      ret.setMaxUiRank(maxUiRank);
       List<Element> qualityTags=DOMParsingTools.getChildTagsByName(root,LegendaryDataXMLConstants.QUALITY_TAG);
       for(Element qualityTag : qualityTags)
       {

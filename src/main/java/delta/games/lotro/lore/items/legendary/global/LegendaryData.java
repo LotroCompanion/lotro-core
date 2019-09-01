@@ -33,6 +33,15 @@ public class LegendaryData
   }
 
   /**
+   * Set the maximum legacy rank in UI.
+   * @param maxUiRank Value to set.
+   */
+  public void setMaxUiRank(int maxUiRank)
+  {
+    _maxUiRank=maxUiRank;
+  }
+
+  /**
    * Get the data for a quality.
    * @param quality Quality to use.
    * @param createIfNeeded Indicates if the quality data shall be created if not found.

@@ -12,6 +12,10 @@ public class LegendaryDataXMLConstants
    */
   public static final String LEGENDARY_TAG="legendary";
   /**
+   * Tag 'legendary', attribute 'maxUiRank'.
+   */
+  public static final String MAX_UI_RANK_ATTR="maxUiRank";
+  /**
    * Tag 'quality'.
    */
   public static final String QUALITY_TAG="quality";
@@ -29,7 +33,7 @@ public class LegendaryDataXMLConstants
    */
   public static final String START_PROGRESSION_ITEM_LEVEL_ATTR="itemLevel";
   /**
-   * Tag 'startProgression', attribute 'itemLevel'.
+   * Tag 'startProgression', attribute 'startLevel'.
    */
   public static final String START_PROGRESSION_START_LEVEL_ATTR="startLevel";
 
