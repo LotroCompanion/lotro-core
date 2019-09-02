@@ -6,6 +6,8 @@ import java.util.Set;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
@@ -13,9 +15,14 @@ import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.legendary.LegendaryInstance;
+import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
+import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Test class for the legendary system.
@@ -50,7 +57,39 @@ public class MainTestLegendarySystem
 
   private void doItem(int itemId)
   {
+    System.out.println("Item ID: "+itemId);
     Item item=ItemsManager.getInstance().getItem(itemId);
+
+    ItemInstance<? extends Item> itemInstance=ItemFactory.buildInstance(item);
+    ItemFactory.initInstance(itemInstance);
+
+    if (itemId==1879213368)
+    {
+      itemInstance.setItemLevel(Integer.valueOf(192));
+    }
+    // 1) Main legacy
+    int[] mainLegacyRanks=_legendarySystem.getRanks(itemInstance);
+    if (mainLegacyRanks!=null)
+    {
+      LegendaryInstance legendaryInstance=(LegendaryInstance)itemInstance;
+      NonImbuedLegendaryInstanceAttrs nonImbuedAttrs=legendaryInstance.getLegendaryAttributes().getNonImbuedAttrs();
+      DefaultNonImbuedLegacyInstance defaultLegacyInstance=nonImbuedAttrs.getDefaultLegacy();
+      DefaultNonImbuedLegacy defaultLegacy=defaultLegacyInstance.getLegacy();
+      StatsProvider statsProvider=defaultLegacy.getEffect().getStatsProvider();
+      for(int i=0;i<mainLegacyRanks.length;i++)
+      {
+        BasicStatsSet stats=statsProvider.getStats(1,mainLegacyRanks[i]);
+        FixedDecimalsInteger dpsValue=stats.getStat(WellKnownStat.DPS);
+        if (dpsValue!=null)
+        {
+          float dpsFactor=getDpsFactor(item.getQuality());
+          float dps=dpsValue.floatValue()*dpsFactor;
+          stats.setStat(WellKnownStat.DPS,new FixedDecimalsInteger(dps));
+        }
+        System.out.println("Main Rank "+(i+1)+": "+stats);
+      }
+    }
+
     CharacterClass characterClass=item.getRequiredClass();
     if (characterClass==null) return; // Skip bridles
     EquipmentLocation slot=item.getEquipmentLocation();
@@ -62,7 +101,7 @@ public class MainTestLegendarySystem
       return;
     }
     done.add(key);
-    ItemInstance<? extends Item> itemInstance=ItemFactory.buildInstance(item);
+    // 2) Other legacies
     NonImbuedLegaciesManager legaciesMgr=NonImbuedLegaciesManager.getInstance();
     List<TieredNonImbuedLegacy> legacies=legaciesMgr.getTieredLegacies(characterClass,slot);
     for(TieredNonImbuedLegacy legacy : legacies)
@@ -89,6 +128,14 @@ public class MainTestLegendarySystem
         }
       }
     }
+  }
+
+  private float getDpsFactor(ItemQuality quality)
+  {
+    if (quality==ItemQuality.RARE) return 1.04f;
+    if (quality==ItemQuality.INCOMPARABLE) return 1.08f;
+    if (quality==ItemQuality.LEGENDARY) return 1.12f;
+    return 0;
   }
 
   /**

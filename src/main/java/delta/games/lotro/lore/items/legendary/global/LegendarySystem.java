@@ -13,7 +13,11 @@ import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQuality;
+import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.global.io.xml.LegendaryDataXMLParser;
+import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
 import delta.games.lotro.utils.maths.ArrayProgression;
 import delta.games.lotro.utils.maths.Progression;
@@ -37,18 +41,48 @@ public class LegendarySystem
     _data=LegendaryDataXMLParser.parseLegendaryDataFile(inputFile);
   }
 
-  private Integer getStartRank(int itemLevel, ItemQuality quality, NonImbuedLegacyTier legacy)
+  /**
+   * Get the possible internal ranks for the main legacy of an item instance.
+   * @param itemInstance Item instance.
+   * @return An array of rank values (usually 7) or <code>null</code> if computation fails.
+   */
+  public int[] getRanks(ItemInstance<? extends Item> itemInstance)
   {
-    Integer rank=legacy.getStartRank();
-    if (rank==null)
+    if (itemInstance==null)
     {
-      QualityBasedData qualityData=_data.getQualityData(quality,false);
-      if (qualityData!=null)
+      return null;
+    }
+    Item item=itemInstance.getReference();
+    if (!(item instanceof Legendary))
+    {
+      return null;
+    }
+    Legendary legendary=(Legendary)item;
+    LegendaryAttrs legendaryAttrs=legendary.getLegendaryAttrs();
+    int baseRank=legendaryAttrs.getMainLegacyBaseRank();
+
+    // Adjust with item level if needed
+    Integer itemLevel=itemInstance.getItemLevel();
+    if (itemLevel!=null)
+    {
+      Integer refItemLevel=item.getItemLevel();
+      if (refItemLevel!=null)
       {
-        rank=qualityData.getStartLevel(itemLevel);
+        int itemLevelDelta=itemLevel.intValue()-refItemLevel.intValue();
+        baseRank+=itemLevelDelta;
       }
     }
-    return rank;
+    // TODO Adjust with item upgrades if needed
+    int mainLegacyId=legendaryAttrs.getMainLegacyId();
+    NonImbuedLegaciesManager legaciesMgr=NonImbuedLegaciesManager.getInstance();
+    DefaultNonImbuedLegacy legacy=legaciesMgr.getDefaultLegacy(mainLegacyId);
+    if (legacy==null)
+    {
+      return null;
+    }
+    StatProvider provider=legacy.getEffect().getStatsProvider().getStatProvider(0);
+    int maxRanks=7; // TODO Fetch constant from DAT file
+    return getRanks(baseRank,provider,maxRanks);
   }
 
   /**
@@ -100,12 +134,32 @@ public class LegendarySystem
       return null;
     }
     StatProvider provider=legacy.getEffect().getStatsProvider().getStatProvider(0);
+    int maxRanks=_data.getMaxUiRank();
+    return getRanks(startRank.intValue(),provider,maxRanks);
+  }
+
+  private Integer getStartRank(int itemLevel, ItemQuality quality, NonImbuedLegacyTier legacy)
+  {
+    Integer rank=legacy.getStartRank();
+    if (rank==null)
+    {
+      QualityBasedData qualityData=_data.getQualityData(quality,false);
+      if (qualityData!=null)
+      {
+        rank=qualityData.getStartLevel(itemLevel);
+      }
+    }
+    return rank;
+  }
+
+  private int[] getRanks(int baseRank, StatProvider provider, int maxRanks)
+  {
     ArrayProgression progression=getProgression(provider);
     if (progression==null)
     {
       return null;
     }
-    List<Integer> ranks=getValuesFromRank(startRank.intValue(),progression);
+    List<Integer> ranks=getValuesFromRank(baseRank,progression,maxRanks);
     if (ranks==null)
     {
       return null;
@@ -118,13 +172,12 @@ public class LegendarySystem
     return ret;
   }
 
-  private List<Integer> getValuesFromRank(int startRank, ArrayProgression progression)
+  private List<Integer> getValuesFromRank(int startRank, ArrayProgression progression, int maxRanks)
   {
     if (LOGGER.isDebugEnabled())
     {
       LOGGER.debug("Values for progression: "+progression.getIdentifier()+": "+progression);
     }
-    int maxUiRank=_data.getMaxUiRank();
     List<Float> values=new ArrayList<Float>();
     List<Integer> ranks=new ArrayList<Integer>();
     int nbPoints=progression.getNumberOfPoints();
@@ -141,7 +194,7 @@ public class LegendarySystem
         values.add(value);
         ranks.add(Integer.valueOf(x));
         lastValue=value.floatValue();
-        if (ranks.size()==maxUiRank) break;
+        if (ranks.size()==maxRanks) break;
       }
       x++;
     }
