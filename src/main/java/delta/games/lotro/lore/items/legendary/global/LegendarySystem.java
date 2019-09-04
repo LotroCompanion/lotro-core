@@ -46,7 +46,7 @@ public class LegendarySystem
    * @param itemInstance Item instance.
    * @return An array of rank values (usually 7) or <code>null</code> if computation fails.
    */
-  public int[] getRanks(ItemInstance<? extends Item> itemInstance)
+  public int[] getRanksForMainLegacy(ItemInstance<? extends Item> itemInstance)
   {
     if (itemInstance==null)
     {
@@ -57,20 +57,29 @@ public class LegendarySystem
     {
       return null;
     }
+    Integer itemLevelInt=itemInstance.getEffectiveItemLevel();
+    int itemLevel=(itemLevelInt!=null)?itemLevelInt.intValue():1;
+    return getRanksForMainLegacy(item,itemLevel);
+  }
+
+  /**
+   * Get the possible internal ranks for the main legacy of an item instance.
+   * @param item Reference item.
+   * @param itemLevel Effective item level of the instance.
+   * @return An array of rank values (usually 7) or <code>null</code> if computation fails.
+   */
+  public int[] getRanksForMainLegacy(Item item, int itemLevel)
+  {
     Legendary legendary=(Legendary)item;
     LegendaryAttrs legendaryAttrs=legendary.getLegendaryAttrs();
     int baseRank=legendaryAttrs.getMainLegacyBaseRank();
 
     // Adjust with item level if needed
-    Integer itemLevel=itemInstance.getItemLevel();
-    if (itemLevel!=null)
+    Integer refItemLevel=item.getItemLevel();
+    if (refItemLevel!=null)
     {
-      Integer refItemLevel=item.getItemLevel();
-      if (refItemLevel!=null)
-      {
-        int itemLevelDelta=itemLevel.intValue()-refItemLevel.intValue();
-        baseRank+=itemLevelDelta;
-      }
+      int itemLevelDelta=itemLevel-refItemLevel.intValue();
+      baseRank+=itemLevelDelta;
     }
     // TODO Adjust with item upgrades if needed
     int mainLegacyId=legendaryAttrs.getMainLegacyId();
@@ -95,7 +104,7 @@ public class LegendarySystem
   public Integer getRankForUiRank(ItemInstance<? extends Item> itemInstance, NonImbuedLegacyTier legacy, int uiRank)
   {
     Integer ret=null;
-    int[] ranks=getRanks(itemInstance,legacy);
+    int[] ranks=getRanksForLegacyTier(itemInstance,legacy);
     if ((uiRank>0) && (ranks!=null) && (uiRank<=ranks.length))
     {
       ret=Integer.valueOf(ranks[uiRank-1]);
@@ -109,7 +118,7 @@ public class LegendarySystem
    * @param legacy Legacy.
    * @return An array of rank values (usually 9) or <code>null</code> if computation fails.
    */
-  public int[] getRanks(ItemInstance<? extends Item> itemInstance, NonImbuedLegacyTier legacy)
+  public int[] getRanksForLegacyTier(ItemInstance<? extends Item> itemInstance, NonImbuedLegacyTier legacy)
   {
     if (itemInstance==null)
     {
@@ -123,10 +132,17 @@ public class LegendarySystem
     // TODO Use item upgrades to tune item level
     Item item=itemInstance.getReference();
     ItemQuality quality=item.getQuality();
-    return getRanks(itemLevel.intValue(),quality,legacy);
+    return getRanksForLegacyTier(itemLevel.intValue(),quality,legacy);
   }
 
-  private int[] getRanks(int itemLevel, ItemQuality quality, NonImbuedLegacyTier legacy)
+  /**
+   * Get the possible internal ranks for a legacy on an item instance.
+   * @param itemLevel Effective item level of the item instance.
+   * @param quality Item quality.
+   * @param legacy Legacy.
+   * @return An array of rank values (usually 9) or <code>null</code> if computation fails.
+   */
+  public int[] getRanksForLegacyTier(int itemLevel, ItemQuality quality, NonImbuedLegacyTier legacy)
   {
     Integer startRank=getStartRank(itemLevel,quality,legacy);
     if (startRank==null)

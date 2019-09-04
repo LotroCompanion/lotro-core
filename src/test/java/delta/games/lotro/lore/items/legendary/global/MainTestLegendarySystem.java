@@ -68,7 +68,7 @@ public class MainTestLegendarySystem
       itemInstance.setItemLevel(Integer.valueOf(192));
     }
     // 1) Main legacy
-    int[] mainLegacyRanks=_legendarySystem.getRanks(itemInstance);
+    int[] mainLegacyRanks=_legendarySystem.getRanksForMainLegacy(itemInstance);
     if (mainLegacyRanks!=null)
     {
       LegendaryInstance legendaryInstance=(LegendaryInstance)itemInstance;
@@ -117,7 +117,7 @@ public class MainTestLegendarySystem
         BasicStatsSet stats=tier.getEffect().getStatsProvider().getStats(1,rank.intValue());
         System.out.println("\t\t"+stats);
         */
-        int[] ranks=_legendarySystem.getRanks(itemInstance,tier);
+        int[] ranks=_legendarySystem.getRanksForLegacyTier(itemInstance,tier);
         if (ranks!=null)
         {
           for(int i=0;i<ranks.length;i++)
