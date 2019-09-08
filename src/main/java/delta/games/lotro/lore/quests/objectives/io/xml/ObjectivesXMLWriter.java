@@ -476,7 +476,7 @@ public class ObjectivesXMLWriter
     {
       int id=proxy.getId();
       attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-      String command=proxy.getObject().getCommand();
+      String command=proxy.getName();
       attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_COMMAND_ATTR,XmlWriter.CDATA,command);
     }
     // Count

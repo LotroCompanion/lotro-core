@@ -315,12 +315,15 @@ public class ObjectivesXMLParser
     // Skill proxy
     // - id
     int skillId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_SKILL_ID_ATTR,0);
-    // - name
-    String skillName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_SKILL_NAME_ATTR,"?");
-    Proxy<SkillDescription> proxy=new Proxy<SkillDescription>();
-    proxy.setId(skillId);
-    proxy.setName(skillName);
-    condition.setProxy(proxy);
+    if (skillId!=0)
+    {
+      // - name
+      String skillName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_SKILL_NAME_ATTR,"?");
+      Proxy<SkillDescription> proxy=new Proxy<SkillDescription>();
+      proxy.setId(skillId);
+      proxy.setName(skillName);
+      condition.setProxy(proxy);
+    }
     // Count
     int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_COUNT_ATTR,1);
     condition.setCount(count);
