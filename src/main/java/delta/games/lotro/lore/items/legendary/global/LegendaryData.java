@@ -19,7 +19,7 @@ public class LegendaryData
    */
   public LegendaryData()
   {
-    _maxUiRank=9; // TODO load is from XML
+    _maxUiRank=9;
     _data=new HashMap<ItemQuality,QualityBasedData>();
   }
 

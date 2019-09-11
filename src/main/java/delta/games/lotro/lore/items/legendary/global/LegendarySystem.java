@@ -42,6 +42,15 @@ public class LegendarySystem
   }
 
   /**
+   * Get data for the legendary items system.
+   * @return some data.
+   */
+  public LegendaryData getData()
+  {
+    return _data;
+  }
+
+  /**
    * Get the possible internal ranks for the main legacy of an item instance.
    * @param itemInstance Item instance.
    * @return An array of rank values (usually 7) or <code>null</code> if computation fails.
