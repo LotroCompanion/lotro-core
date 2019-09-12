@@ -31,7 +31,6 @@ import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
-import delta.games.lotro.lore.quests.objectives.TimeExpiredCondition;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.NpcCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
@@ -42,8 +41,10 @@ import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.lore.quests.objectives.QuestBestowedCondition;
 import delta.games.lotro.lore.quests.objectives.QuestCompleteCondition;
 import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
+import delta.games.lotro.lore.quests.objectives.TimeExpiredCondition;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
  * Writes quests/deeds objectives to XML documents.
@@ -398,20 +399,9 @@ public class ObjectivesXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(hd,attrs,condition);
-    // NPC proxy
+    // Write NPC proxy
     Proxy<NpcDescription> proxy=condition.getProxy();
-    if (proxy!=null)
-    {
-      // ID
-      int id=proxy.getId();
-      attrs.addAttribute("","",ObjectivesXMLConstants.NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-      // Name
-      String name=proxy.getName();
-      if (name!=null)
-      {
-        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_NAME_ATTR,XmlWriter.CDATA,name);
-      }
-    }
+    SharedXMLUtils.writeNpcProxy(proxy,attrs);
     hd.startElement("","",tagName,attrs);
     hd.endElement("","",tagName);
   }
@@ -536,18 +526,7 @@ public class ObjectivesXMLWriter
     {
       // NPC proxy
       Proxy<NpcDescription> npcProxy=target.getNpcProxy();
-      if (npcProxy!=null)
-      {
-        // ID
-        int id=npcProxy.getId();
-        attrs.addAttribute("","",ObjectivesXMLConstants.NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-        // Name
-        String name=npcProxy.getName();
-        if (name!=null)
-        {
-          attrs.addAttribute("","",ObjectivesXMLConstants.NPC_NAME_ATTR,XmlWriter.CDATA,name);
-        }
-      }
+      SharedXMLUtils.writeNpcProxy(npcProxy,attrs);
       // Mob proxy
       Proxy<MobDescription> mobProxy=target.getMobProxy();
       if (mobProxy!=null)

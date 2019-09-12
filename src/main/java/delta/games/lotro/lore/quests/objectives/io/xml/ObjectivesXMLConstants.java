@@ -209,14 +209,6 @@ public class ObjectivesXMLConstants
 
   // Shared attributes
   /**
-   * Tag 'npcTalk'/'npcUsed'/'enterDetection'/'detecting', attribute 'npcId'.
-   */
-  public static final String NPC_ID_ATTR="npcId";
-  /**
-   * Tag 'npcTalk'/'npcUsed'/'enterDetection'/'detecting', attribute 'npcName'.
-   */
-  public static final String NPC_NAME_ATTR="npcName";
-  /**
    * Tag 'enterDetection'/'detecting', attribute 'mobId'.
    */
   public static final String MOB_ID_ATTR="mobId";

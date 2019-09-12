@@ -16,11 +16,14 @@ import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
+import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
+import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
  * Writes LOTRO quests to XML files.
@@ -143,20 +146,24 @@ public class QuestXMLWriter extends AchievableXMLWriter
     {
       questAttrs.addAttribute("","",AchievableXMLConstants.DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
-    // Bestower
-    String bestower=quest.getBestower();
-    if (bestower.length()>0)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_BESTOWER_ATTR,XmlWriter.CDATA,bestower);
-    }
-    // Bestower text
-    String bestowerText=quest.getBestowerText();
-    if (bestowerText.length()>0)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,XmlWriter.CDATA,bestowerText);
-    }
     hd.startElement("","",QuestXMLConstants.QUEST_TAG,questAttrs);
 
+    // Bestowers
+    for(DialogElement bestower : quest.getBestowers())
+    {
+      AttributesImpl bestowerAttrs=new AttributesImpl();
+      // NPC
+      Proxy<NpcDescription> npcProxy=bestower.getWho();
+      SharedXMLUtils.writeNpcProxy(npcProxy,bestowerAttrs);
+      // Text
+      String text=bestower.getWhat();
+      if (text.length()>0)
+      {
+        bestowerAttrs.addAttribute("","",QuestXMLConstants.TEXT_ATTR,XmlWriter.CDATA,text);
+      }
+      hd.startElement("","",QuestXMLConstants.BESTOWER_TAG,bestowerAttrs);
+      hd.endElement("","",QuestXMLConstants.BESTOWER_TAG);
+    }
     // Objectives
     ObjectivesXMLWriter.write(hd,quest.getObjectives());
 

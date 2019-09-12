@@ -56,13 +56,14 @@ public class QuestXMLConstants
    */
   public static final String QUEST_AUTO_BESTOWED_ATTR="autoBestowed";
   /**
-   * Tag 'quest', attribute 'bestower'.
+   * Tag 'bestower'.
    */
-  public static final String QUEST_BESTOWER_ATTR="bestower";
+  public static final String BESTOWER_TAG="bestower";
   /**
-   * Tag 'quest', attribute 'bestowerText'.
+   * Dialog element tags, attribute 'text'.
    */
-  public static final String QUEST_BESTOWER_TEXT_ATTR="bestowerText";
+  public static final String TEXT_ATTR="text";
+
   /**
    * Tag 'quest', attribute 'objectives'.
    */

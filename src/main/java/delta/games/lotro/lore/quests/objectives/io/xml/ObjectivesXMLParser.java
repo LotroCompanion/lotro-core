@@ -43,6 +43,7 @@ import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.quests.objectives.TimeExpiredCondition;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
  * Parser for quests/deeds objectives stored in XML.
@@ -352,7 +353,7 @@ public class ObjectivesXMLParser
 
   private static void parseNpcCondition(NpcCondition condition, NamedNodeMap attrs, Element conditionTag)
   {
-    Proxy<NpcDescription> npcProxy=parseNpcProxy(attrs);
+    Proxy<NpcDescription> npcProxy=SharedXMLUtils.parseNpcProxy(attrs);
     condition.setProxy(npcProxy);
   }
 
@@ -451,7 +452,7 @@ public class ObjectivesXMLParser
   {
     ConditionTarget target=null;
     // NPC proxy
-    Proxy<NpcDescription> npcProxy=parseNpcProxy(attrs);
+    Proxy<NpcDescription> npcProxy=SharedXMLUtils.parseNpcProxy(attrs);
     // Mob proxy
     Proxy<MobDescription> mobProxy=parseMobProxy(attrs);
     if ((npcProxy!=null) || (mobProxy!=null))
@@ -474,23 +475,6 @@ public class ObjectivesXMLParser
     }
     DefaultObjectiveCondition condition=new DefaultObjectiveCondition(type);
     return condition;
-  }
-
-  private static Proxy<NpcDescription> parseNpcProxy(NamedNodeMap attrs)
-  {
-    Proxy<NpcDescription> proxy=null;
-    // NPC proxy
-    // - id
-    int npcId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.NPC_ID_ATTR,0);
-    if (npcId!=0)
-    {
-      // - name
-      String npcName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.NPC_NAME_ATTR,"?");
-      proxy=new Proxy<NpcDescription>();
-      proxy.setId(npcId);
-      proxy.setName(npcName);
-    }
-    return proxy;
   }
 
   private static Proxy<MobDescription> parseMobProxy(NamedNodeMap attrs)

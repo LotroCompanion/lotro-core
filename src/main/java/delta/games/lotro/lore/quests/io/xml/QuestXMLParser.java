@@ -12,9 +12,13 @@ import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
+import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
+import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
+import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
  * Parser for quest descriptions stored in XML.
@@ -88,12 +92,20 @@ public class QuestXMLParser extends AchievableXMLParser
     // Auto-bestowed
     boolean autoBestowed=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,false);
     q.setAutoBestowed(autoBestowed);
-    // Bestower
-    String bestower=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_BESTOWER_ATTR,"");
-    q.setBestower(bestower);
-    // Bestower text
-    String bestowerText=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_BESTOWER_TEXT_ATTR,"");
-    q.setBestowerText(bestowerText);
+    // Bestowers
+    List<Element> bestowerTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.BESTOWER_TAG);
+    for(Element bestowerTag : bestowerTags)
+    {
+      DialogElement bestower=new DialogElement();
+      NamedNodeMap bestowerAttrs=bestowerTag.getAttributes();
+      // NPC
+      Proxy<NpcDescription> npc=SharedXMLUtils.parseNpcProxy(bestowerAttrs);
+      bestower.setWho(npc);
+      // Text
+      String text=DOMParsingTools.getStringAttribute(bestowerAttrs,QuestXMLConstants.TEXT_ATTR,"");
+      bestower.setWhat(text);
+      q.addBestower(bestower);
+    }
     // Objectives
     ObjectivesXMLParser.loadObjectives(root,q.getObjectives());
     // Requirements

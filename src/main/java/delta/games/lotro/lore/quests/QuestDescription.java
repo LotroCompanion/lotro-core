@@ -1,8 +1,12 @@
 package delta.games.lotro.lore.quests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -67,9 +71,7 @@ public class QuestDescription extends Achievable
   private boolean _sessionPlay;
   private boolean _autoBestowed;
 
-  // TODO Structured!
-  private String _bestower;
-  private String _bestowerText;
+  private List<DialogElement> _bestowers;
   // Links
   private Proxy<Achievable> _nextQuest;
 
@@ -88,8 +90,7 @@ public class QuestDescription extends Achievable
     _shareable=true;
     _sessionPlay=false;
     _autoBestowed=false;
-    _bestower="";
-    _bestowerText="";
+    _bestowers=new ArrayList<DialogElement>();
     _nextQuest=null;
   }
 
@@ -258,41 +259,21 @@ public class QuestDescription extends Achievable
   }
 
   /**
-   * Get the bestower of this quest.
-   * @return the bestower of this quest.
+   * Get the bestowers of this quest.
+   * @return the bestowers of this quest.
    */
-  public String getBestower()
+  public List<DialogElement> getBestowers()
   {
-    return _bestower;
+    return _bestowers;
   }
 
   /**
-   * Set the bestower of this quest.
-   * @param bestower the bestower to set.
+   * Add a bestower.
+   * @param bestower Bestower to add.
    */
-  public void setBestower(String bestower)
+  public void addBestower(DialogElement bestower)
   {
-    if (bestower==null) bestower="";
-    _bestower=bestower;
-  }
-
-  /**
-   * Get the bestower text of this quest.
-   * @return the bestower text of this quest.
-   */
-  public String getBestowerText()
-  {
-    return _bestowerText;
-  }
-
-  /**
-   * Set the bestower text of this quest.
-   * @param bestowerText the bestower text to set.
-   */
-  public void setBestowerText(String bestowerText)
-  {
-    if (bestowerText==null) bestowerText="";
-    _bestowerText=bestowerText;
+    _bestowers.add(bestower);
   }
 
   /**
@@ -367,8 +348,17 @@ public class QuestDescription extends Achievable
     {
       sb.append("Next quest: ").append(_nextQuest).append(EndOfLine.NATIVE_EOL);
     }
-    sb.append("Bestower: ").append(_bestower).append(EndOfLine.NATIVE_EOL);
-    sb.append("Bestower text: ").append(_bestowerText).append(EndOfLine.NATIVE_EOL);
+    int nbBestowers=_bestowers.size();
+    if (nbBestowers>0)
+    {
+      for(DialogElement bestower : _bestowers)
+      {
+        String name=bestower.getWhoName();
+        sb.append("Bestower: ").append(name).append(EndOfLine.NATIVE_EOL);
+        String text=bestower.getWhat();
+        sb.append("Bestower text: ").append(text).append(EndOfLine.NATIVE_EOL);
+      }
+    }
     return sb.toString();
   }
 }
