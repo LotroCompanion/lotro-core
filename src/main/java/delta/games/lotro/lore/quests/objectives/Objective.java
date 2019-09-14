@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.quests.dialogs.DialogElement;
 
 /**
  * Quest/deed objective.
@@ -14,6 +15,7 @@ public class Objective
 {
   private int _index;
   private String _text;
+  private List<DialogElement> _dialogs;
   private List<ObjectiveCondition> _conditions;
 
   /**
@@ -23,6 +25,7 @@ public class Objective
   {
     _index=1;
     _text="";
+    _dialogs=new ArrayList<DialogElement>();
     _conditions=new ArrayList<ObjectiveCondition>();
   }
 
@@ -64,6 +67,24 @@ public class Objective
   }
 
   /**
+   * Add a dialog.
+   * @param dialog Dialog to add.
+   */
+  public void addDialog(DialogElement dialog)
+  {
+    _dialogs.add(dialog);
+  }
+
+  /**
+   * Get all the dialogs of the objective.
+   * @return A list of dialogs.
+   */
+  public List<DialogElement> getDialogs()
+  {
+    return _dialogs;
+  }
+
+  /**
    * Add an objective condition.
    * @param condition Condition to add.
    */
@@ -95,6 +116,12 @@ public class Objective
     StringBuilder sb=new StringBuilder();
     sb.append("Objective #").append(_index);
     sb.append(": ").append(_text).append(EndOfLine.NATIVE_EOL);
+    sb.append("Dialogs:").append(EndOfLine.NATIVE_EOL);
+    for(DialogElement dialog : _dialogs)
+    {
+      sb.append('\t').append(dialog).append(EndOfLine.NATIVE_EOL);
+    }
+    sb.append("Conditions:").append(EndOfLine.NATIVE_EOL);
     for(ObjectiveCondition condition : _conditions)
     {
       sb.append('\t').append(condition).append(EndOfLine.NATIVE_EOL);

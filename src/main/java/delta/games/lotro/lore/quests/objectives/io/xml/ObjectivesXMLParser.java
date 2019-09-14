@@ -13,6 +13,8 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.mobs.MobDescription;
 import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.lore.quests.dialogs.DialogElement;
+import delta.games.lotro.lore.quests.io.xml.QuestXMLConstants;
 import delta.games.lotro.lore.quests.objectives.ConditionTarget;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
@@ -79,12 +81,21 @@ public class ObjectivesXMLParser
     // Text
     String text=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_TEXT_ATTR,"");
     objective.setText(text);
-
-    List<Element> conditionTags=DOMParsingTools.getChildTags(objectiveTag);
-    for(Element conditionTag : conditionTags)
+    // Dialogs & conditions
+    List<Element> childTags=DOMParsingTools.getChildTags(objectiveTag);
+    for(Element childTag : childTags)
     {
-      ObjectiveCondition condition=parseConditionTag(conditionTag);
-      objective.addCondition(condition);
+      String tagName=childTag.getTagName();
+      if (ObjectivesXMLConstants.DIALOG_TAG.equals(tagName))
+      {
+        DialogElement dialog=ObjectivesXMLParser.parseDialog(childTag);
+        objective.addDialog(dialog);
+      }
+      else
+      {
+        ObjectiveCondition condition=parseConditionTag(childTag);
+        objective.addCondition(condition);
+      }
     }
     objectives.addObjective(objective);
   }
@@ -509,5 +520,23 @@ public class ObjectivesXMLParser
       proxy.setName(itemName);
     }
     return proxy;
+  }
+
+  /**
+   * Build a dialog element from a tag.
+   * @param dialogTag Input tag.
+   * @return the new dialog.
+   */
+  public static DialogElement parseDialog(Element dialogTag)
+  {
+    DialogElement ret=new DialogElement();
+    NamedNodeMap bestowerAttrs=dialogTag.getAttributes();
+    // NPC
+    Proxy<NpcDescription> npc=SharedXMLUtils.parseNpcProxy(bestowerAttrs);
+    ret.setWho(npc);
+    // Text
+    String text=DOMParsingTools.getStringAttribute(bestowerAttrs,QuestXMLConstants.TEXT_ATTR,"");
+    ret.setWhat(text);
+    return ret;
   }
 }

@@ -23,7 +23,12 @@ public class ObjectivesXMLConstants
    * Tag 'objective', attribute 'text'.
    */
   public static final String OBJECTIVE_TEXT_ATTR="text";
-  
+
+  /**
+   * Tag 'dialog'.
+   */
+  public static final String DIALOG_TAG="dialog";
+
   /**
    * Tag 'condition'.
    */
