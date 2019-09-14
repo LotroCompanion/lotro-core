@@ -60,6 +60,10 @@ public class QuestXMLConstants
    */
   public static final String BESTOWER_TAG="bestower";
   /**
+   * Tag 'endDialog'.
+   */
+  public static final String END_DIALOG_TAG="endDialog";
+  /**
    * Dialog element tags, attribute 'text'.
    */
   public static final String TEXT_ATTR="text";

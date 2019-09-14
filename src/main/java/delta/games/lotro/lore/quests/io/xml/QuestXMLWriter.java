@@ -153,10 +153,13 @@ public class QuestXMLWriter extends AchievableXMLWriter
     }
     // Objectives
     ObjectivesXMLWriter.write(hd,quest.getObjectives());
-
+    // End dialogs
+    for(DialogElement endDialog : quest.getEndDialogs())
+    {
+      ObjectivesXMLWriter.writeDialogElement(hd,QuestXMLConstants.END_DIALOG_TAG,endDialog);
+    }
     // Pre-requisites
     writePrerequisites(hd,quest);
-
     // Next quest
     Proxy<Achievable> nextQuest=quest.getNextQuest();
     writeAchievableProxy(hd,nextQuest,QuestXMLConstants.NEXT_QUEST_TAG);

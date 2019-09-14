@@ -98,6 +98,13 @@ public class QuestXMLParser extends AchievableXMLParser
     }
     // Objectives
     ObjectivesXMLParser.loadObjectives(root,q.getObjectives());
+    // End dialogs
+    List<Element> endDialogTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.END_DIALOG_TAG);
+    for(Element endDialogTag : endDialogTags)
+    {
+      DialogElement endDialog=ObjectivesXMLParser.parseDialog(endDialogTag);
+      q.addEndDialog(endDialog);
+    }
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(q.getUsageRequirement(),root);
     // Prerequisites

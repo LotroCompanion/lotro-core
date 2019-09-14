@@ -71,9 +71,12 @@ public class QuestDescription extends Achievable
   private boolean _sessionPlay;
   private boolean _autoBestowed;
 
+  // Bestowers
   private List<DialogElement> _bestowers;
   // Links
   private Proxy<Achievable> _nextQuest;
+  // End of quest dialogs
+  private List<DialogElement> _endDialogs;
 
   /**
    * Constructor.
@@ -92,6 +95,7 @@ public class QuestDescription extends Achievable
     _autoBestowed=false;
     _bestowers=new ArrayList<DialogElement>();
     _nextQuest=null;
+    _endDialogs=new ArrayList<DialogElement>();
   }
 
   /**
@@ -295,6 +299,24 @@ public class QuestDescription extends Achievable
   }
 
   /**
+   * Get the end dialogs for this quest.
+   * @return the end dialogs for this quest.
+   */
+  public List<DialogElement> getEndDialogs()
+  {
+    return _endDialogs;
+  }
+
+  /**
+   * Add an end dialog.
+   * @param dialog Dialog to add.
+   */
+  public void addEndDialog(DialogElement dialog)
+  {
+    _endDialogs.add(dialog);
+  }
+
+  /**
    * Dump the contents of this quest as a string.
    * @return A readable string.
    */
@@ -357,6 +379,21 @@ public class QuestDescription extends Achievable
         sb.append("Bestower: ").append(name).append(EndOfLine.NATIVE_EOL);
         String text=bestower.getWhat();
         sb.append("Bestower text: ").append(text).append(EndOfLine.NATIVE_EOL);
+      }
+    }
+    int nbEndDialogs=_endDialogs.size();
+    if (nbEndDialogs>0)
+    {
+      for(DialogElement endDialog : _endDialogs)
+      {
+        String name=endDialog.getWhoName();
+        sb.append("End dialog: ");
+        if (name!=null)
+        {
+          sb.append(name).append(" says: ");
+        }
+        String text=endDialog.getWhat();
+        sb.append(text).append(EndOfLine.NATIVE_EOL);
       }
     }
     return sb.toString();
