@@ -82,6 +82,22 @@ public class RewardsXMLConstants
    * Tag 'emote'.
    */
   public static final String EMOTE_TAG="emote";
+  /**
+   * Tag 'craftingXp'.
+   */
+  public static final String CRAFTING_XP_TAG="craftingXp";
+  /**
+   * Tag 'craftingXp', attribute 'profession'.
+   */
+  public static final String CRAFTING_PROFESSION_ATTR="profession";
+  /**
+   * Tag 'craftingXp', attribute 'tier'.
+   */
+  public static final String CRAFTING_TIER_ATTR="tier";
+  /**
+   * Tag 'craftingXp', attribute 'XP'.
+   */
+  public static final String CRAFTING_XP_ATTR="XP";
 
   /**
    * Tag 'selectOneOf'.

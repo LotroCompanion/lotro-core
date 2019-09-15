@@ -11,6 +11,7 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
+import delta.games.lotro.common.rewards.CraftingXpReward;
 import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RelicReward;
@@ -21,6 +22,7 @@ import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
+import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
@@ -158,6 +160,11 @@ public class RewardsXMLParser
     {
       parseRelicReward(rewards,rewardTag);
     }
+    // Crafting XP
+    else if (RewardsXMLConstants.CRAFTING_XP_TAG.equals(tagName))
+    {
+      parseCraftingXpReward(rewards,rewardTag);
+    }
     // Selectable
     else if (RewardsXMLConstants.SELECT_ONE_OF_TAG.equals(tagName))
     {
@@ -247,9 +254,9 @@ public class RewardsXMLParser
     }
   }
 
-  private static void parseRelicReward(List<RewardElement> rewards, Element itemTag)
+  private static void parseRelicReward(List<RewardElement> rewards, Element relicTag)
   {
-    NamedNodeMap attrs=itemTag.getAttributes();
+    NamedNodeMap attrs=relicTag.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.PROXY_ID_ATTR,0);
     String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.PROXY_NAME_ATTR,null);
     int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,1);
@@ -261,6 +268,17 @@ public class RewardsXMLParser
       RelicReward relicReward=new RelicReward(relic,quantity);
       rewards.add(relicReward);
     }
+  }
+
+  private static void parseCraftingXpReward(List<RewardElement> rewards, Element craftingXpTag)
+  {
+    NamedNodeMap attrs=craftingXpTag.getAttributes();
+    String professionKey=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.CRAFTING_PROFESSION_ATTR,null);
+    Profession profession=Profession.getByKey(professionKey);
+    int tier=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.CRAFTING_TIER_ATTR,1);
+    int xp=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.CRAFTING_XP_ATTR,1);
+    CraftingXpReward craftingXpReward=new CraftingXpReward(profession,tier,xp);
+    rewards.add(craftingXpReward);
   }
 
   private static void parseProxy(NamedNodeMap attrs, Proxy<? extends Identifiable> proxy)

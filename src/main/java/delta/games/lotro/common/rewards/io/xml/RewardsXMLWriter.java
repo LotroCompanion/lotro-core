@@ -12,6 +12,7 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
+import delta.games.lotro.common.rewards.CraftingXpReward;
 import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RelicReward;
@@ -23,6 +24,7 @@ import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
+import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.utils.Proxy;
@@ -136,6 +138,11 @@ public class RewardsXMLWriter
     {
       writeRelicReward(hd,(RelicReward)rewardElement);
     }
+    // Crafting XP
+    else if (rewardElement instanceof CraftingXpReward)
+    {
+      writeCraftingXpReward(hd,(CraftingXpReward)rewardElement);
+    }
     // Selectable
     else if (rewardElement instanceof SelectableRewardElement)
     {
@@ -183,6 +190,22 @@ public class RewardsXMLWriter
     String name=relic.getName();
     int quantity=relicReward.getQuantity();
     writeQuantifiedReward(hd,RewardsXMLConstants.RELIC_TAG,id,name,quantity);
+  }
+
+  private static void writeCraftingXpReward(TransformerHandler hd, CraftingXpReward craftingXpReward) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Profession
+    Profession profession=craftingXpReward.getProfession();
+    attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_PROFESSION_ATTR,CDATA,profession.getKey());
+    // Tier
+    int tier=craftingXpReward.getTier();
+    attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_TIER_ATTR,CDATA,String.valueOf(tier));
+    // XP value
+    int xpValue=craftingXpReward.getXp();
+    attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_XP_ATTR,CDATA,String.valueOf(xpValue));
+    hd.startElement("","",RewardsXMLConstants.CRAFTING_XP_TAG,attrs);
+    hd.endElement("","",RewardsXMLConstants.CRAFTING_XP_TAG);
   }
 
   private static void writeProxy(TransformerHandler hd, String tagName, Proxy<? extends Identifiable> proxy) throws SAXException
