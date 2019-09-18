@@ -61,12 +61,7 @@ public class MainTestLegendarySystem
     Item item=ItemsManager.getInstance().getItem(itemId);
 
     ItemInstance<? extends Item> itemInstance=ItemFactory.buildInstance(item);
-    ItemFactory.initInstance(itemInstance);
 
-    if (itemId==1879213368)
-    {
-      itemInstance.setItemLevel(Integer.valueOf(192));
-    }
     // 1) Main legacy
     int[] mainLegacyRanks=_legendarySystem.getRanksForMainLegacy(itemInstance);
     if (mainLegacyRanks!=null)

@@ -93,9 +93,21 @@ public class ItemFactory
   /**
    * Build an item instance for an item.
    * @param item Item to use.
-   * @return A new item instance.
+   * @return A new, initialized item instance.
    */
   public static ItemInstance<? extends Item> buildInstance(Item item)
+  {
+    ItemInstance<? extends Item> itemInstance=createItemInstance(item);
+    initInstance(itemInstance);
+    return itemInstance;
+  }
+
+  /**
+   * Create an item instance for an item.
+   * @param item Item to use.
+   * @return A new item instance.
+   */
+  public static ItemInstance<? extends Item> createItemInstance(Item item)
   {
     ItemInstance<? extends Item> ret;
     if (item instanceof Armour)
@@ -137,13 +149,13 @@ public class ItemFactory
 
   /**
    * Clone an item instance.
-   * @param item Item instance to use.
+   * @param itemInstance Item instance to use.
    * @return A new item instance.
    */
-  public static ItemInstance<? extends Item> cloneInstance(ItemInstance<? extends Item> item)
+  public static ItemInstance<? extends Item> cloneInstance(ItemInstance<? extends Item> itemInstance)
   {
-    ItemInstance<? extends Item> clone=buildInstance(item.getReference());
-    clone.copyFrom(item);
+    ItemInstance<? extends Item> clone=createItemInstance(itemInstance.getReference());
+    clone.copyFrom(itemInstance);
     return clone;
   }
 
@@ -151,7 +163,7 @@ public class ItemFactory
    * Initialize the contents of an item instance.
    * @param itemInstance Instance to initialize.
    */
-  public static void initInstance(ItemInstance<? extends Item> itemInstance)
+  private static void initInstance(ItemInstance<? extends Item> itemInstance)
   {
     if (itemInstance instanceof LegendaryInstance)
     {

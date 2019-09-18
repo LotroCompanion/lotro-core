@@ -57,7 +57,8 @@ public class CharacterGenerationTools
   public ItemInstance<? extends Item> getItemById(int id)
   {
     Item item=ItemsManager.getInstance().getItem(id);
-    return ItemFactory.buildInstance(item);
+    ItemInstance<? extends Item> itemInstance=ItemFactory.buildInstance(item);
+    return itemInstance;
   }
 
   /**

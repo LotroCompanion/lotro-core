@@ -14,7 +14,6 @@ public class MainTestLegendaryItemsInstanciation
   {
     System.out.println(item.dump());
     ItemInstance<? extends Item> itemInstance=ItemFactory.buildInstance(item);
-    ItemFactory.initInstance(itemInstance);
     System.out.println(itemInstance.dump());
   }
 
