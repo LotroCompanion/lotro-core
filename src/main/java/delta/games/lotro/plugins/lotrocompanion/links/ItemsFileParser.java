@@ -51,8 +51,8 @@ public class ItemsFileParser
   private List<ItemInstance<? extends Item>> useData(Map<String,Object> data)
   {
     List<ItemInstance<? extends Item>> ret=new ArrayList<ItemInstance<? extends Item>>();
-    Double counter=(Double)data.get("counter");
-    int nb=(counter!=null)?counter.intValue():100;
+    //Double counter=(Double)data.get("counter");
+    int nb=100;
     for(int i=1;i<nb;i++)
     {
       String key=String.valueOf(i)+".0";
