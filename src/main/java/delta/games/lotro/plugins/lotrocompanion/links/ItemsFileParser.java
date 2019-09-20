@@ -7,10 +7,12 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.plugins.LuaParser;
 import delta.games.lotro.plugins.LuaUtils;
+import delta.games.lotro.plugins.PluginConstants;
 
 /**
  * Parser for the items file.
@@ -19,6 +21,35 @@ import delta.games.lotro.plugins.LuaUtils;
 public class ItemsFileParser
 {
   private static final Logger LOGGER=Logger.getLogger(ItemsFileParser.class);
+
+  /**
+   * Get the item instances from game for a toon.
+   * @param toon Targeted toon.
+   * @return A possibly empty but never <code>null</code> list of item instances.
+   */
+  public List<ItemInstance<? extends Item>> getItemsForToon(CharacterFile toon)
+  {
+    List<ItemInstance<? extends Item>> ret=new ArrayList<ItemInstance<? extends Item>>();
+    String account=toon.getAccountName();
+    String server=toon.getServerName();
+    String character=toon.getName();
+    File dataDir=PluginConstants.getCharacterDir(account,server,character);
+    File dataFile=new File(dataDir,"LotroCompanionItems.plugindata");
+    if (dataFile.exists())
+    {
+      ItemsFileParser parser=new ItemsFileParser();
+      try
+      {
+        List<ItemInstance<? extends Item>> items=parser.doIt(dataFile);
+        ret.addAll(items);
+      }
+      catch(Exception e)
+      {
+        LOGGER.warn("Could not parse items file: "+dataFile,e);
+      }
+    }
+    return ret;
+  }
 
   /**
    * Parse/use data from the "Items" file of the LotroCompanion plugin.
