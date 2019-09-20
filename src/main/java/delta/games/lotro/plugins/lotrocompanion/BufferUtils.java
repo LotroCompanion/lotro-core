@@ -106,7 +106,7 @@ public class BufferUtils
     }
     catch(Exception e)
     {
-      e.printStackTrace();
+      LOGGER.warn("Could not read 8 bytes!",e);
     }
     return (((long)buffer[7] << 56) +
             ((long)(buffer[6] & 0xff) << 48) +
@@ -214,7 +214,7 @@ public class BufferUtils
     }
     catch(Exception e)
     {
-      e.printStackTrace();
+      LOGGER.warn("Could not read an ASCII string!",e);
     }
     return null;
   }
@@ -235,7 +235,7 @@ public class BufferUtils
     }
     catch(Exception e)
     {
-      e.printStackTrace();
+      LOGGER.warn("Could not read a Pascal string!",e);
     }
     return null;
   }
@@ -270,7 +270,7 @@ public class BufferUtils
     }
     catch(Exception e)
     {
-      e.printStackTrace();
+      LOGGER.warn("Could not read a prefixed UTF-16 string!",e);
       line=null;
     }
     return line;
