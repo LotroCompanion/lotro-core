@@ -174,7 +174,7 @@ public class ItemFactory
     }
     else
     {
-      LOGGER.warn("Not a legendary instance: "+itemInstance);
+      // Nothing to do if it is not a legendary instance
     }
   }
 
