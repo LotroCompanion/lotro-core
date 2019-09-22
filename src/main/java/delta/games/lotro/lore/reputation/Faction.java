@@ -1,8 +1,6 @@
 package delta.games.lotro.lore.reputation;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import delta.games.lotro.common.Identifiable;
 
@@ -15,7 +13,6 @@ public class Faction implements Identifiable
   private int _identifier;
   private String _key;
   private String _name;
-  private Set<String> _aliases;
   private String _category;
   private FactionLevel _initialLevel;
   private FactionLevel[] _levels;
@@ -33,7 +30,6 @@ public class Faction implements Identifiable
     _key=key;
     _name=name;
     _category=category;
-    _aliases=new HashSet<String>();
     _levels=levels.toArray(new FactionLevel[levels.size()]);
     _initialLevel=levels.get(0);
   }
@@ -81,24 +77,6 @@ public class Faction implements Identifiable
   public String getCategory()
   {
     return _category;
-  }
-
-  /**
-   * Get the aliases for this faction.
-   * @return A possibly empty array of strings.
-   */
-  public String[] getAliases()
-  {
-    return _aliases.toArray(new String[_aliases.size()]);
-  }
-
-  /**
-   * Add an alias to this faction.
-   * @param alias Alias to add.
-   */
-  public void addAlias(String alias)
-  {
-    _aliases.add(alias);
   }
 
   /**

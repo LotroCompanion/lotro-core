@@ -106,12 +106,7 @@ public final class FactionsRegistry
     _registryByKey.put(factionKey,faction);
     // Map by name/aliases
     String name=faction.getName();
-    String[] aliases=faction.getAliases();
     _registryByName.put(name,faction);
-    for(String alias : aliases)
-    {
-      _registryByName.put(alias,faction);
-    }
     // Register
     _factions.add(faction);
   }

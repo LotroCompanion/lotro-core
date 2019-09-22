@@ -19,7 +19,7 @@ import delta.games.lotro.plugins.StorageLoader;
 import delta.games.lotro.utils.events.EventsManager;
 
 /**
- * Updated for character or account/server storage data.
+ * Updater for character or account/server storage data.
  * @author DAM
  */
 public class StorageUpdater

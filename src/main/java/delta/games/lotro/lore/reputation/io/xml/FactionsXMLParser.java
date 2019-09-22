@@ -64,14 +64,6 @@ public class FactionsXMLParser
     List<FactionLevel> levels=parseLevels(root);
     Faction faction=new Faction(factionKey,factionName,category,levels);
     faction.setIdentifier(id);
-    // Aliases
-    List<Element> aliasTags=DOMParsingTools.getChildTagsByName(root,FactionsXMLConstants.ALIAS_TAG);
-    for(Element aliasTag : aliasTags)
-    {
-      NamedNodeMap aliasAttrs=aliasTag.getAttributes();
-      String alias=DOMParsingTools.getStringAttribute(aliasAttrs,FactionsXMLConstants.FACTION_ALIAS_ATTR,null);
-      faction.addAlias(alias);
-    }
     // Initial level
     String initialLevelKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_INITIAL_LEVEL_ATTR,null);
     FactionLevel initialLevel=faction.getLevelByKey(initialLevelKey);

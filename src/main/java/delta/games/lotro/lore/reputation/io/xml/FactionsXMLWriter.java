@@ -104,18 +104,6 @@ public class FactionsXMLWriter
     String initialLevelKey=initialLevel.getKey();
     factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_INITIAL_LEVEL_ATTR,CDATA,initialLevelKey);
     hd.startElement("","",FactionsXMLConstants.FACTION_TAG,factionAttrs);
-    // Aliases
-    String[] aliases=faction.getAliases();
-    if ((aliases!=null) && (aliases.length>0))
-    {
-      for(String alias : aliases)
-      {
-        AttributesImpl aliasAttrs=new AttributesImpl();
-        aliasAttrs.addAttribute("","",FactionsXMLConstants.FACTION_ALIAS_ATTR,CDATA,alias);
-        hd.startElement("","",FactionsXMLConstants.ALIAS_TAG,aliasAttrs);
-        hd.endElement("","",FactionsXMLConstants.ALIAS_TAG);
-      }
-    }
     // Levels
     FactionLevel[] levels=faction.getLevels();
     for(FactionLevel level : levels)

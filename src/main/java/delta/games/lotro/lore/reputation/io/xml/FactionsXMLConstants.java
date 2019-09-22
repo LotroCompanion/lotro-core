@@ -36,14 +36,6 @@ public class FactionsXMLConstants
    */
   public static final String FACTION_INITIAL_LEVEL_ATTR="initialLevel";
   /**
-   * Tag 'alias'.
-   */
-  public static final String ALIAS_TAG="alias";
-  /**
-   * Tag 'alias', attribute 'name'.
-   */
-  public static final String FACTION_ALIAS_ATTR="name";
-  /**
    * Tag 'level'.
    */
   public static final String LEVEL_TAG="level";
