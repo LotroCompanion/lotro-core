@@ -12,8 +12,6 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.deeds.DeedDescription;
-import delta.games.lotro.lore.deeds.DeedProxies;
-import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
@@ -95,63 +93,14 @@ public class DeedXMLParser extends AchievableXMLParser
     UsageRequirementsXMLParser.parseRequirements(deed.getUsageRequirement(),root);
     // Prerequisites
     parsePrerequisites(root,deed);
-    // Objectives string
-    String objectives=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_OBJECTIVES_ATTR,null);
-    deed.setObjectivesString(objectives);
     // Objectives
     ObjectivesXMLParser.loadObjectives(root,deed.getObjectives());
-    // Previous deed
-    Element previousTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.PREVIOUS_TAG);
-    DeedProxy previous=parseDeedProxy(previousTag);
-    deed.setPreviousDeedProxy(previous);
-    // Next deed
-    Element nextTag=DOMParsingTools.getChildTagByName(root,DeedXMLConstants.NEXT_TAG);
-    DeedProxy next=parseDeedProxy(nextTag);
-    deed.setNextDeedProxy(next);
-    // Parent deeds
-    List<Element> parentTags=DOMParsingTools.getChildTagsByName(root,DeedXMLConstants.PARENT_TAG);
-    DeedProxies parents=deed.getParentDeedProxies();
-    for(Element parentDeedTag : parentTags)
-    {
-      DeedProxy parentDeedProxy=parseDeedProxy(parentDeedTag);
-      parents.add(parentDeedProxy);
-    }
-    // Child deeds
-    List<Element> childDeedTags=DOMParsingTools.getChildTagsByName(root,DeedXMLConstants.CHILD_TAG);
-    DeedProxies children=deed.getChildDeedProxies();
-    for(Element childDeedTag : childDeedTags)
-    {
-      DeedProxy childDeedProxy=parseDeedProxy(childDeedTag);
-      children.add(childDeedProxy);
-    }
     // Geographic data
     DeedGeoData data=parseGeoData(root);
     deed.setGeoData(data);
     // Rewards
     RewardsXMLParser.loadRewards(root,deed.getRewards());
     return deed;
-  }
-
-  private DeedProxy parseDeedProxy(Element root)
-  {
-    if (root==null)
-    {
-      return null;
-    }
-    DeedProxy proxy=new DeedProxy();
-
-    NamedNodeMap attrs=root.getAttributes();
-
-    // Identifier
-    int id=DOMParsingTools.getIntAttribute(attrs,DeedXMLConstants.DEED_PROXY_ID_ATTR,0);
-    proxy.setId(id);
-    // Key
-    String key=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_PROXY_KEY_ATTR,null);
-    proxy.setKey(key);
-    // Name
-    String title=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_PROXY_NAME_ATTR,null);
-    proxy.setName(title);
-    return proxy;
   }
 
   private DeedGeoData parseGeoData(Element root)

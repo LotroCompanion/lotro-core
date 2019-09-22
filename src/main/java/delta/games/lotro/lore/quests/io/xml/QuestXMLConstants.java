@@ -69,11 +69,6 @@ public class QuestXMLConstants
   public static final String TEXT_ATTR="text";
 
   /**
-   * Tag 'quest', attribute 'objectives'.
-   */
-  public static final String QUEST_OBJECTIVES_ATTR="objectives";
-
-  /**
    * Tag 'nextQuest'.
    */
   public static final String NEXT_QUEST_TAG="nextQuest";

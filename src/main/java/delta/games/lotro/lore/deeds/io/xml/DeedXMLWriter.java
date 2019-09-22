@@ -16,7 +16,6 @@ import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
-import delta.games.lotro.lore.deeds.DeedProxy;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
@@ -144,12 +143,6 @@ public class DeedXMLWriter extends AchievableXMLWriter
     {
       deedAttrs.addAttribute("","",AchievableXMLConstants.DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
-    // Objectives
-    String objectives=deed.getObjectivesString();
-    if (objectives!=null)
-    {
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_OBJECTIVES_ATTR,XmlWriter.CDATA,objectives);
-    }
     hd.startElement("","",DeedXMLConstants.DEED_TAG,deedAttrs);
 
     // Objectives
@@ -158,17 +151,6 @@ public class DeedXMLWriter extends AchievableXMLWriter
     // Pre-requisites
     writePrerequisites(hd,deed);
 
-    // Links
-    writeDeedProxy(hd,DeedXMLConstants.PREVIOUS_TAG,deed.getPreviousDeedProxy());
-    writeDeedProxy(hd,DeedXMLConstants.NEXT_TAG,deed.getNextDeedProxy());
-    for(DeedProxy parentProxy : deed.getParentDeedProxies().getDeedProxies())
-    {
-      writeDeedProxy(hd,DeedXMLConstants.PARENT_TAG,parentProxy);
-    }
-    for(DeedProxy childProxy : deed.getChildDeedProxies().getDeedProxies())
-    {
-      writeDeedProxy(hd,DeedXMLConstants.CHILD_TAG,childProxy);
-    }
     // Rewards
     RewardsXMLWriter.write(hd,deed.getRewards());
     // Geographic data
@@ -178,33 +160,6 @@ public class DeedXMLWriter extends AchievableXMLWriter
       writeGeoData(hd,data);
     }
     hd.endElement("","",DeedXMLConstants.DEED_TAG);
-  }
-
-  private void writeDeedProxy(TransformerHandler hd, String tagName, DeedProxy proxy) throws Exception
-  {
-    if (proxy==null)
-    {
-      return;
-    }
-    AttributesImpl deedProxyAttrs=new AttributesImpl();
-
-    int id=proxy.getId();
-    if (id!=0)
-    {
-      deedProxyAttrs.addAttribute("","",DeedXMLConstants.DEED_PROXY_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-    }
-    String key=proxy.getKey();
-    if (key!=null)
-    {
-      deedProxyAttrs.addAttribute("","",DeedXMLConstants.DEED_PROXY_KEY_ATTR,XmlWriter.CDATA,key);
-    }
-    String name=proxy.getName();
-    if (name!=null)
-    {
-      deedProxyAttrs.addAttribute("","",DeedXMLConstants.DEED_PROXY_NAME_ATTR,XmlWriter.CDATA,name);
-    }
-    hd.startElement("","",tagName,deedProxyAttrs);
-    hd.endElement("","",tagName);
   }
 
   /**
