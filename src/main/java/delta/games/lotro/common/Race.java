@@ -36,12 +36,16 @@ public final class Race
    * Man.
    */
   public static final Race MAN=new Race("Race of Man","man");
+  /**
+   * Stout-axe Dwarf.
+   */
+  public static final Race STOUT_AXE_DWARF=new Race("Stout-axe Dwarf","stoutaxedwarf");
 
   /**
    * An array of all races.
    */
   public static final Race[] ALL_RACES = {
-    BEORNING, DWARF, ELF, HIGH_ELF, HOBBIT, MAN
+    BEORNING, DWARF, ELF, HIGH_ELF, HOBBIT, MAN, STOUT_AXE_DWARF
   };
 
   private Race(String label, String key)
