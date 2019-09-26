@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
 /**
@@ -13,8 +14,10 @@ import delta.games.lotro.common.Race;
 public class RaceDescription
 {
   private Race _race;
+  private String _description;
   private RaceGender _male;
   private RaceGender _female;
+  private List<CharacterClass> _classes;
   private List<RaceTrait> _traits;
   private List<TraitDescription> _earnableTraits;
 
@@ -25,8 +28,10 @@ public class RaceDescription
   public RaceDescription(Race race)
   {
     _race=race;
+    _description="";
     _male=null;
     _female=null;
+    _classes=new ArrayList<CharacterClass>();
     _traits=new ArrayList<RaceTrait>();
     _earnableTraits=new ArrayList<TraitDescription>();
   }
@@ -38,6 +43,25 @@ public class RaceDescription
   public Race getRace()
   {
     return _race;
+  }
+
+  /**
+   * Get the race description.
+   * @return a description.
+   */
+  public String getDescription()
+  {
+    return _description;
+  }
+
+  /**
+   * Set the race description.
+   * @param description Description to set.
+   */
+  public void setDescription(String description)
+  {
+    if (description==null) description="";
+    _description=description;
   }
 
   /**
@@ -74,6 +98,24 @@ public class RaceDescription
   public void setFemaleGender(RaceGender female)
   {
     _female=female;
+  }
+
+  /**
+   * Add an allowed class.
+   * @param characterClass Class to add.
+   */
+  public void addAllowedClass(CharacterClass characterClass)
+  {
+    _classes.add(characterClass);
+  }
+
+  /**
+   * Get all the allowed classes of this race.
+   * @return A list of character classes.
+   */
+  public List<CharacterClass> getAllowedClasses()
+  {
+    return _classes;
   }
 
   /**

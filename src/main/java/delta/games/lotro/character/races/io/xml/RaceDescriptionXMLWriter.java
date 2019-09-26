@@ -15,6 +15,7 @@ import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceGender;
 import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
 /**
@@ -49,18 +50,33 @@ public class RaceDescriptionXMLWriter
     return ret;
   }
 
-  private static void writeRaceDescription(TransformerHandler hd, RaceDescription description) throws SAXException
+  private static void writeRaceDescription(TransformerHandler hd, RaceDescription raceDescription) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Key
-    Race race=description.getRace();
+    Race race=raceDescription.getRace();
     attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_KEY_ATTR,XmlWriter.CDATA,race.getKey());
+    // Description
+    String description=raceDescription.getDescription();
+    if (description.length()>0)
+    {
+      attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+    }
     hd.startElement("","",RaceDescriptionXMLConstants.RACE_TAG,attrs);
     // Genders
-    writeGender(hd,description.getMaleGender());
-    writeGender(hd,description.getFemaleGender());
+    writeGender(hd,raceDescription.getMaleGender());
+    writeGender(hd,raceDescription.getFemaleGender());
+    // Allowed classes
+    List<CharacterClass> characterClasses=raceDescription.getAllowedClasses();
+    for(CharacterClass characterClass : characterClasses)
+    {
+      AttributesImpl allowedClassAttrs=new AttributesImpl();
+      allowedClassAttrs.addAttribute("","",RaceDescriptionXMLConstants.ALLOWED_CLASS_ID_ATTR,XmlWriter.CDATA,characterClass.getKey());
+      hd.startElement("","",RaceDescriptionXMLConstants.ALLOWED_CLASS_TAG,allowedClassAttrs);
+      hd.endElement("","",RaceDescriptionXMLConstants.ALLOWED_CLASS_TAG);
+    }
     // Traits
-    List<RaceTrait> traits=description.getTraits();
+    List<RaceTrait> traits=raceDescription.getTraits();
     for(RaceTrait trait : traits)
     {
       AttributesImpl traitAttrs=new AttributesImpl();
@@ -74,7 +90,7 @@ public class RaceDescriptionXMLWriter
       hd.endElement("","",RaceDescriptionXMLConstants.RACE_TRAIT_TAG);
     }
     // Earnable traits
-    List<TraitDescription> earnableTraits=description.getEarnableTraits();
+    List<TraitDescription> earnableTraits=raceDescription.getEarnableTraits();
     for(TraitDescription trait : earnableTraits)
     {
       AttributesImpl traitAttrs=new AttributesImpl();

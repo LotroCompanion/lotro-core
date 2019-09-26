@@ -20,6 +20,10 @@ public class RaceDescriptionXMLConstants
    */
   public static final String RACE_KEY_ATTR="key";
   /**
+   * Tag 'race', attribute 'description'.
+   */
+  public static final String RACE_DESCRIPTION_ATTR="description";
+  /**
    * Tag 'gender'.
    */
   public static final String GENDER_TAG="gender";
@@ -39,6 +43,14 @@ public class RaceDescriptionXMLConstants
    * Tag 'gender', attribute 'smallIconId'.
    */
   public static final String GENDER_SMALL_ICON_ID_ATTR="smallIconId";
+  /**
+   * Tag 'allowedClass'.
+   */
+  public static final String ALLOWED_CLASS_TAG="allowedClass";
+  /**
+   * Tag 'allowedClass', attribute 'id'.
+   */
+  public static final String ALLOWED_CLASS_ID_ATTR="id";
   /**
    * Tag 'raceTrait'.
    */

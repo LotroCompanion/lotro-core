@@ -13,6 +13,7 @@ import delta.games.lotro.character.races.RaceGender;
 import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
 /**
@@ -53,19 +54,30 @@ public class RaceDescriptionXMLParser
     // Key
     String raceKeyStr=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_KEY_ATTR,null);
     Race race=Race.getByKey(raceKeyStr);
-    RaceDescription description=new RaceDescription(race);
-
+    RaceDescription raceDescription=new RaceDescription(race);
+    // Description
+    String description=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_DESCRIPTION_ATTR,"");
+    raceDescription.setDescription(description);
     // Genders
     List<Element> genderTags=DOMParsingTools.getChildTagsByName(root,RaceDescriptionXMLConstants.GENDER_TAG);
     RaceGender male=parseGenderDescription(genderTags.get(0));
-    description.setMaleGender(male);
+    raceDescription.setMaleGender(male);
     RaceGender female=null;
     if (genderTags.size()>1)
     {
       female=parseGenderDescription(genderTags.get(1));
-      description.setFemaleGender(female);
+      raceDescription.setFemaleGender(female);
     }
-
+    // Allowed classes
+    List<Element> allowedClassTags=DOMParsingTools.getChildTagsByName(root,RaceDescriptionXMLConstants.ALLOWED_CLASS_TAG);
+    for(Element allowedClassTag : allowedClassTags)
+    {
+      NamedNodeMap allowedClassAttrs=allowedClassTag.getAttributes();
+      // Key
+      String classKey=DOMParsingTools.getStringAttribute(allowedClassAttrs,RaceDescriptionXMLConstants.ALLOWED_CLASS_ID_ATTR,"");
+      CharacterClass characterClass=CharacterClass.getByKey(classKey);
+      raceDescription.addAllowedClass(characterClass);
+    }
     // Traits
     List<Element> classTraitTags=DOMParsingTools.getChildTagsByName(root,RaceDescriptionXMLConstants.RACE_TRAIT_TAG);
     for(Element classTraitTag : classTraitTags)
@@ -77,7 +89,7 @@ public class RaceDescriptionXMLParser
       int traitId=DOMParsingTools.getIntAttribute(traitAttrs,RaceDescriptionXMLConstants.RACE_TRAIT_ID_ATTR,0);
       TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
       RaceTrait raceTrait=new RaceTrait(minLevel,trait);
-      description.addTrait(raceTrait);
+      raceDescription.addTrait(raceTrait);
     }
     // Earnable traits
     List<Element> earnableTraitTags=DOMParsingTools.getChildTagsByName(root,RaceDescriptionXMLConstants.EARNABLE_TRAIT_TAG);
@@ -87,9 +99,9 @@ public class RaceDescriptionXMLParser
       // Trait ID
       int traitId=DOMParsingTools.getIntAttribute(traitAttrs,RaceDescriptionXMLConstants.EARNABLE_TRAIT_ID_ATTR,0);
       TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
-      description.addEarnableTrait(trait);
+      raceDescription.addEarnableTrait(trait);
     }
-    return description;
+    return raceDescription;
   }
 
   /**
