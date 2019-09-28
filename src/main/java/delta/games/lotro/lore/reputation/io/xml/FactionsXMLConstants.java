@@ -28,13 +28,29 @@ public class FactionsXMLConstants
    */
   public static final String FACTION_NAME_ATTR="name";
   /**
-   * Tag 'faction', attribute 'name'.
+   * Tag 'faction', attribute 'category'.
    */
   public static final String FACTION_CATEGORY_ATTR="category";
+  /**
+   * Tag 'faction', attribute 'lowestTier'.
+   */
+  public static final String FACTION_LOWEST_TIER_ATTR="lowestTier";
+  /**
+   * Tag 'faction', attribute 'initialTier'.
+   */
+  public static final String FACTION_INITIAL_TIER_ATTR="initialTier";
+  /**
+   * Tag 'faction', attribute 'highestTier'.
+   */
+  public static final String FACTION_HIGHEST_TIER_ATTR="highestTier";
   /**
    * Tag 'faction', attribute 'initialLevel'.
    */
   public static final String FACTION_INITIAL_LEVEL_ATTR="initialLevel";
+  /**
+   * Tag 'faction', attribute 'description'.
+   */
+  public static final String FACTION_DESCRIPTION_ATTR="description";
   /**
    * Tag 'level'.
    */
@@ -51,6 +67,10 @@ public class FactionsXMLConstants
    * Tag 'level', attribute 'code'.
    */
   public static final String FACTION_LEVEL_CODE_ATTR="code";
+  /**
+   * Tag 'level', attribute 'tier'.
+   */
+  public static final String FACTION_LEVEL_TIER_ATTR="tier";
   /**
    * Tag 'level', attribute 'lotroPoints'.
    */

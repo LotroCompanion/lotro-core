@@ -68,6 +68,18 @@ public class FactionsXMLParser
     String initialLevelKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_INITIAL_LEVEL_ATTR,null);
     FactionLevel initialLevel=faction.getLevelByKey(initialLevelKey);
     faction.setInitialLevel(initialLevel);
+    // Description
+    String description=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_DESCRIPTION_ATTR,"");
+    faction.setDescription(description);
+    // Lowest tier
+    int lowestTier=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LOWEST_TIER_ATTR,0);
+    faction.setLowestTier(lowestTier);
+    // Initial tier
+    int initialTier=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_INITIAL_TIER_ATTR,0);
+    faction.setInitialTier(initialTier);
+    // Highest tier
+    int highestTier=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_HIGHEST_TIER_ATTR,0);
+    faction.setHighestTier(highestTier);
     return faction;
   }
 
@@ -89,6 +101,9 @@ public class FactionsXMLParser
       // Required XP
       int requiredXp=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_REQUIRED_XP_ATTR,0);
       FactionLevel level=new FactionLevel(levelKey,levelName,levelCode,lotroPoints,requiredXp);
+      // Tier
+      int tier=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_TIER_ATTR,0);
+      level.setTier(tier);
       // Deed key
       String deedKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_DEED_KEY_ATTR,null);
       level.setDeedKey(deedKey);
