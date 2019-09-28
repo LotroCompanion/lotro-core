@@ -50,6 +50,16 @@ public class DeedDescription extends Achievable
   }
 
   /**
+   * Get an identifying key for this deed.
+   * @return an identifying key.
+   */
+  public String getIdentifyingKey()
+  {
+    if (_key!=null) return _key;
+    return String.valueOf(getIdentifier());
+  }
+
+  /**
    * Get the type of this deed.
    * @return the type of this deed.
    */
