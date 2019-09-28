@@ -109,9 +109,11 @@ public class ReputationXMLParser
     NamedNodeMap factionAttrs=factionTag.getAttributes();
     String currentFactionLevelKey=DOMParsingTools.getStringAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_ATTR,null);
     FactionLevel currentLevel=faction.getLevelByKey(currentFactionLevelKey);
-    if (currentLevel!=null)
+    if (currentLevel==null)
     {
-      factionStatus.setFactionLevel(currentLevel);
+      LOGGER.warn("No current level for faction: "+faction.getName()+". Using initial level.");
+      currentLevel=faction.getInitialLevel();
     }
+    factionStatus.setFactionLevel(currentLevel);
   }
 }

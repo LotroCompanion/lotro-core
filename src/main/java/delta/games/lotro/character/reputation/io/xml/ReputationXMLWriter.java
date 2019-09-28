@@ -71,7 +71,8 @@ public class ReputationXMLWriter
     FactionLevel currentLevel=factionStatus.getFactionLevel();
     AttributesImpl factionAttrs=new AttributesImpl();
     Faction faction=factionStatus.getFaction();
-    factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_KEY_ATTR,XmlWriter.CDATA,faction.getKey());
+    String factionKey=faction.getIdentifyingKey();
+    factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_KEY_ATTR,XmlWriter.CDATA,factionKey);
     if (currentLevel!=null)
     {
       factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_CURRENT_ATTR,XmlWriter.CDATA,currentLevel.getKey());
@@ -82,11 +83,16 @@ public class ReputationXMLWriter
     {
       FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
       AttributesImpl factionLevelAttrs=new AttributesImpl();
-      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,XmlWriter.CDATA,level.getKey());
+      // Level key
+      String levelKey=level.getKey();
+      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,XmlWriter.CDATA,levelKey);
+      // Completed?
       boolean completed=levelStatus.isCompleted();
-      long date=levelStatus.getCompletionDate();
       factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,XmlWriter.CDATA,String.valueOf(completed));
+      // Date
+      long date=levelStatus.getCompletionDate();
       factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,XmlWriter.CDATA,String.valueOf(date));
+      // XP
       int xp=levelStatus.getAcquiredXP();
       factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,XmlWriter.CDATA,String.valueOf(xp));
       hd.startElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG,factionLevelAttrs);

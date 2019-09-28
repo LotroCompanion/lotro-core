@@ -80,7 +80,7 @@ public final class FactionsRegistry
    */
   public void registerFaction(Faction faction)
   {
-    String factionKey=faction.getKey();
+    String factionKey=faction.getIdentifyingKey();
     if (GUILD_FACTION_KEY.equals(factionKey))
     {
       _guildFaction=faction;

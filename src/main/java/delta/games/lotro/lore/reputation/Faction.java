@@ -91,6 +91,16 @@ public class Faction implements Identifiable
   }
 
   /**
+   * Get an identifying key for this faction.
+   * @return an identifying key.
+   */
+  public String getIdentifyingKey()
+  {
+    if (_key!=null) return _key;
+    return String.valueOf(_identifier);
+  }
+
+  /**
    * Get the name of this faction.
    * @return the name of this faction.
    */

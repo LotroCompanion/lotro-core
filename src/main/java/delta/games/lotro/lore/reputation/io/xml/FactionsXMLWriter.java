@@ -196,7 +196,7 @@ public class FactionsXMLWriter
       for(Faction faction : factions)
       {
         AttributesImpl deedFactionAttrs=new AttributesImpl();
-        String factionKey=faction.getKey();
+        String factionKey=faction.getIdentifyingKey();
         deedFactionAttrs.addAttribute("","",FactionsXMLConstants.DEED_FACTION_KEY_ATTR,CDATA,factionKey);
         hd.startElement("","",FactionsXMLConstants.DEED_FACTION_TAG,deedFactionAttrs);
         hd.endElement("","",FactionsXMLConstants.DEED_FACTION_TAG);
