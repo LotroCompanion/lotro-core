@@ -182,9 +182,13 @@ public class RewardsXMLParser
   private static void parseReputationReward(List<RewardElement> rewards, Element reputationTag)
   {
     NamedNodeMap attrs=reputationTag.getAttributes();
-    String factionName=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_FACTION_ATTR,null);
+    // Identifier
+    int factionId=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_FACTION_ID_ATTR,0);
+    // Name
+    //String factionName=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_FACTION_ATTR,null);
+    // Amount
     int amount=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_AMOUNT_ATTR,0);
-    Faction faction=FactionsRegistry.getInstance().getByName(factionName);
+    Faction faction=FactionsRegistry.getInstance().getById(factionId);
     if ((faction!=null) && (amount!=0))
     {
       ReputationReward reputationReward=new ReputationReward(faction);

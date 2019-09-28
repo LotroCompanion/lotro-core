@@ -27,6 +27,7 @@ import delta.games.lotro.common.rewards.VirtueReward;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -153,8 +154,14 @@ public class RewardsXMLWriter
   private static void writeReputationReward(TransformerHandler hd, ReputationReward reputationReward) throws SAXException
   {
     AttributesImpl reputationAttrs=new AttributesImpl();
-    String factionName=reputationReward.getFaction().getName();
+    // ID
+    Faction faction=reputationReward.getFaction();
+    int factionId=faction.getIdentifier();
+    reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_FACTION_ID_ATTR,CDATA,String.valueOf(factionId));
+    // Name
+    String factionName=faction.getName();
     reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_FACTION_ATTR,CDATA,factionName);
+    // Amount
     reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_AMOUNT_ATTR,CDATA,String.valueOf(reputationReward.getAmount()));
     hd.startElement("","",RewardsXMLConstants.REPUTATION_ITEM_TAG,reputationAttrs);
     hd.endElement("","",RewardsXMLConstants.REPUTATION_ITEM_TAG);

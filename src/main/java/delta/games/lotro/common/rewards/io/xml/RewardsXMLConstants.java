@@ -21,6 +21,10 @@ public class RewardsXMLConstants
    */
   public static final String REPUTATION_ITEM_TAG="reputationItem";
   /**
+   * Tag 'reputationItem', attribute 'factionId'.
+   */
+  public static final String REPUTATION_ITEM_FACTION_ID_ATTR="factionId";
+  /**
    * Tag 'reputationItem', attribute 'faction'.
    */
   public static final String REPUTATION_ITEM_FACTION_ATTR="faction";
