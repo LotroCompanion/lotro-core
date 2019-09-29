@@ -113,6 +113,8 @@ public class ReputationXMLParser
     {
       LOGGER.warn("No current level for faction: "+faction.getName()+". Using initial level.");
       currentLevel=faction.getInitialLevel();
+      FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(currentLevel);
+      levelStatus.setCompleted(true);
     }
     factionStatus.setFactionLevel(currentLevel);
   }
