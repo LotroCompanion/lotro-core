@@ -267,6 +267,23 @@ public class Faction implements Identifiable
     return null;
   }
 
+  /**
+   * Get a level of this faction using its tier.
+   * @param tier Tier of the level to get.
+   * @return A level or <code>null</code> if not found.
+   */
+  public FactionLevel getLevelByTier(int tier)
+  {
+    for(FactionLevel level : _levels)
+    {
+      if (level.getTier()==tier)
+      {
+        return level;
+      }
+    }
+    return null;
+  }
+
   @Override
   public String toString()
   {
