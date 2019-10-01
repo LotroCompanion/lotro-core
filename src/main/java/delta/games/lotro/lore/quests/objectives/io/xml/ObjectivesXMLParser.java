@@ -44,6 +44,7 @@ import delta.games.lotro.lore.quests.objectives.QuestCompleteCondition;
 import delta.games.lotro.lore.quests.objectives.SkillUsedCondition;
 import delta.games.lotro.lore.quests.objectives.TimeExpiredCondition;
 import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
@@ -314,6 +315,9 @@ public class ObjectivesXMLParser
     Proxy<Faction> proxy=new Proxy<Faction>();
     proxy.setId(factionId);
     proxy.setName(factionName);
+    // - object
+    Faction faction=FactionsRegistry.getInstance().getById(factionId);
+    proxy.setObject(faction);
     condition.setProxy(proxy);
     // Tier
     int tier=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.FACTION_LEVEL_TIER_ATTR,1);
