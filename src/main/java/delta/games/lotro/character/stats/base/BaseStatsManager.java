@@ -58,12 +58,6 @@ public class BaseStatsManager
 
   private BasicStatsSet getRaceTraitsContrib(Race race, int level)
   {
-    // Missing:
-    // High Elf
-    // TODO Suffer No Illness: 1% Disease Resistance, 1% Poison Resistance
-    // Hobbit
-    // - TODO Hobbit Courage: +1% Fear Resistance. 
-
     RacesManager racesManager=RacesManager.getInstance();
     RaceDescription description=racesManager.getRaceDescription(race);
     BasicStatsSet stats=new BasicStatsSet();
