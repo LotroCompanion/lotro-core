@@ -172,6 +172,10 @@ public class ItemXMLConstants
    */
   public static final String ESSENCE_TAG="essence";
   /**
+   * Tag 'essence', attribute 'index'.
+   */
+  public static final String ESSENCE_INDEX_ATTR="index";
+  /**
    * Tag 'essence', attribute 'id'.
    */
   public static final String ESSENCE_ID_ATTR="id";

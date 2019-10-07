@@ -66,16 +66,10 @@ public class EssencesSet
    */
   public void setEssence(int index, Item essence)
   {
-    _essences.set(index,essence);
-  }
-
-  /**
-   * Add an essence.
-   * @param essence Essence to add (may be <code>null</code>).
-   */
-  public void addEssence(Item essence)
-  {
-    _essences.add(essence);
+    if ((index>=0) && (index<_essences.size()))
+    {
+      _essences.set(index,essence);
+    }
   }
 
   @Override

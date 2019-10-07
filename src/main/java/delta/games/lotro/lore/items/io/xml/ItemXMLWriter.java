@@ -433,6 +433,7 @@ public class ItemXMLWriter
             int essenceId=essence.getIdentifier();
             String essenceName=essence.getName();
             AttributesImpl essenceAttrs=new AttributesImpl();
+            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(i));
             essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_ID_ATTR,XmlWriter.CDATA,String.valueOf(essenceId));
             essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_NAME_ATTR,XmlWriter.CDATA,essenceName);
             hd.startElement("","",ItemXMLConstants.ESSENCE_TAG,essenceAttrs);
