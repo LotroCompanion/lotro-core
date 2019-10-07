@@ -177,4 +177,18 @@ public class RelicsSet
       _crafted=null;
     }
   }
+
+  /**
+   * Get a list of all managed relics.
+   * @return A list of 4 relics. Each relic may be <code>null</code>.
+   */
+  public List<Relic> getAll()
+  {
+    List<Relic> ret=new ArrayList<Relic>();
+    ret.add(_setting);
+    ret.add(_gem);
+    ret.add(_rune);
+    ret.add(_crafted);
+    return ret;
+  }
 }
