@@ -30,15 +30,34 @@ public class LegendarySystem
 {
   private static final Logger LOGGER=Logger.getLogger(LegendarySystem.class);
 
+  private static LegendarySystem _instance=null;
+
   private LegendaryData _data;
+
+  /**
+   * Get the sole instance of this class.
+   * @return the sole instance of this class.
+   */
+  public static LegendarySystem getInstance()
+  {
+    if (_instance==null)
+    {
+      _instance=new LegendarySystem();
+    }
+    return _instance;
+  }
 
   /**
    * Constructor.
    */
-  public LegendarySystem()
+  private LegendarySystem()
   {
     File inputFile=LotroCoreConfig.getInstance().getFile(DataFiles.LEGENDARY_DATA);
+    long now=System.currentTimeMillis();
     _data=LegendaryDataXMLParser.parseLegendaryDataFile(inputFile);
+    long now2=System.currentTimeMillis();
+    long duration=now2-now;
+    LOGGER.info("Loaded legendary system in "+duration+"ms.");
   }
 
   /**

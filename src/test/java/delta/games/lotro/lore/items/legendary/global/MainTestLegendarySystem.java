@@ -30,11 +30,8 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class MainTestLegendarySystem
 {
-  private LegendarySystem _legendarySystem;
-
   private void doIt()
   {
-    _legendarySystem=new LegendarySystem();
     //doItem(1879219224); // Reshaped Hunter's Crossbow of the First Age (75)
     //doItem(1879311761); // Reshaped Hunter's Axe of the First Age (100)
     doAllItems();
@@ -57,13 +54,19 @@ public class MainTestLegendarySystem
 
   private void doItem(int itemId)
   {
-    System.out.println("Item ID: "+itemId);
+    // Get reference item
     Item item=ItemsManager.getInstance().getItem(itemId);
+    String name=item.getName();
+    System.out.println("Item ID: "+itemId+": "+name);
 
+    // Build an instance of it
     ItemInstance<? extends Item> itemInstance=ItemFactory.buildInstance(item);
 
+    // Load legendary system
+    LegendarySystem legendarySystem=LegendarySystem.getInstance();
+
     // 1) Main legacy
-    int[] mainLegacyRanks=_legendarySystem.getRanksForMainLegacy(itemInstance);
+    int[] mainLegacyRanks=legendarySystem.getRanksForMainLegacy(itemInstance);
     if (mainLegacyRanks!=null)
     {
       LegendaryInstance legendaryInstance=(LegendaryInstance)itemInstance;
@@ -103,16 +106,10 @@ public class MainTestLegendarySystem
     {
       System.out.println("Legacy: "+legacy.getStat().getName());
       List<NonImbuedLegacyTier> tiers=legacy.getTiers();
-      //for(NonImbuedLegacyTier tier : tiers)
       NonImbuedLegacyTier tier=tiers.get(0);
       {
         System.out.println("\tTier "+tier.getTier()+": ");
-        /*
-        Integer rank=_legendarySystem.getRankForUiRank(itemInstance,tier,1);
-        BasicStatsSet stats=tier.getEffect().getStatsProvider().getStats(1,rank.intValue());
-        System.out.println("\t\t"+stats);
-        */
-        int[] ranks=_legendarySystem.getRanksForLegacyTier(itemInstance,tier);
+        int[] ranks=legendarySystem.getRanksForLegacyTier(itemInstance,tier);
         if (ranks!=null)
         {
           for(int i=0;i<ranks.length;i++)
