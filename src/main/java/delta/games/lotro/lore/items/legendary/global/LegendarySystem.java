@@ -17,8 +17,10 @@ import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary.global.io.xml.LegendaryDataXMLParser;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
+import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
+import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.utils.maths.ArrayProgression;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -115,29 +117,12 @@ public class LegendarySystem
     DefaultNonImbuedLegacy legacy=legaciesMgr.getDefaultLegacy(mainLegacyId);
     if (legacy==null)
     {
+      LOGGER.warn("Main legacy not found. ID: "+mainLegacyId+" for item: "+item);
       return null;
     }
     StatProvider provider=legacy.getEffect().getStatsProvider().getStatProvider(0);
     int maxRanks=7; // TODO Fetch constant from DAT file
     return getRanks(baseRank,provider,maxRanks);
-  }
-
-  /**
-   * Get the internal rank for a UI rank.
-   * @param itemInstance Item instance.
-   * @param legacy Legacy.
-   * @param uiRank UI rank (starting at 1).
-   * @return An internal rank or <code>null</code> if computation fails.
-   */
-  public Integer getRankForUiRank(ItemInstance<? extends Item> itemInstance, NonImbuedLegacyTier legacy, int uiRank)
-  {
-    Integer ret=null;
-    int[] ranks=getRanksForLegacyTier(itemInstance,legacy);
-    if ((uiRank>0) && (ranks!=null) && (uiRank<=ranks.length))
-    {
-      ret=Integer.valueOf(ranks[uiRank-1]);
-    }
-    return ret;
   }
 
   /**
@@ -267,5 +252,53 @@ public class LegendarySystem
       LOGGER.warn("Not a scalable provider!");
     }
     return null;
+  }
+
+  /**
+   * Compute the UI rank for a non-imbued tiered legacy of an item instance.
+   * @param itemInstance Item instance.
+   * @param legacyInstance Legacy instance.
+   * @return A UI rank or <code>null</code> if not found.
+   */
+  public Integer computeUiRankForTieredLegacy(ItemInstance<? extends Item> itemInstance, TieredNonImbuedLegacyInstance legacyInstance)
+  {
+    NonImbuedLegacyTier legacyTier=legacyInstance.getLegacyTier();
+    int[] ranks=getRanksForLegacyTier(itemInstance,legacyTier);
+    int rank=legacyInstance.getRank();
+    Integer ret=findUiRankFromRanks(rank,ranks);
+    return ret;
+  }
+
+
+  /**
+   * Compute the UI rank for a non-imbued tiered legacy of an item instance.
+   * @param itemInstance Item instance.
+   * @param legacyInstance Legacy instance.
+   * @return A UI rank or <code>null</code> if not found.
+   */
+  public Integer computeUiRankForMainLegacy(ItemInstance<? extends Item> itemInstance, DefaultNonImbuedLegacyInstance legacyInstance)
+  {
+    int[] ranks=getRanksForMainLegacy(itemInstance);
+    int rank=legacyInstance.getRank();
+    Integer ret=findUiRankFromRanks(rank,ranks);
+    return ret;
+  }
+
+  private Integer findUiRankFromRanks(int rank, int[] ranks)
+  {
+    Integer ret=null;
+    if (ranks!=null)
+    {
+      int nbRanks=ranks.length;
+      for(int i=0;i<nbRanks;i++)
+      {
+        if (ranks[i]==rank)
+        {
+          ret=Integer.valueOf(i+1);
+          break;
+        }
+      }
+    }
+    return ret;
   }
 }
