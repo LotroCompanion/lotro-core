@@ -51,6 +51,7 @@ public class DefaultNonImbuedLegacyInstance extends NonImbuedLegacyInstance
     StringBuilder sb=new StringBuilder();
     sb.append(_legacy!=null?_legacy.toString():"?");
     sb.append(", rank=").append(getRank());
+    sb.append(", UI rank=").append(getUiRank());
     return sb.toString();
   }
 }

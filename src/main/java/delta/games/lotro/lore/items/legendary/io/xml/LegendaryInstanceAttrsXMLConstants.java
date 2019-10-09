@@ -81,6 +81,10 @@ public class LegendaryInstanceAttrsXMLConstants
    */
   public static final String DEFAULT_LEGACY_RANK_ATTR="rank";
   /**
+   * Tag 'defaultLegacy', attribute 'uiRank'.
+   */
+  public static final String DEFAULT_LEGACY_UI_RANK_ATTR="uiRank";
+  /**
    * Tag 'tieredLegacy'.
    */
   public static final String TIERED_LEGACY_TAG="tieredLegacy";
@@ -96,6 +100,10 @@ public class LegendaryInstanceAttrsXMLConstants
    * Tag 'tieredLegacy', attribute 'rank'.
    */
   public static final String TIERED_LEGACY_RANK_ATTR="rank";
+  /**
+   * Tag 'tieredLegacy', attribute 'uiRank'.
+   */
+  public static final String TIERED_LEGACY_UI_RANK_ATTR="uiRank";
 
   /**
    * Tag 'imbued'.

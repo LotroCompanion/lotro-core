@@ -8,6 +8,8 @@ public abstract class NonImbuedLegacyInstance
 {
   // Rank
   private int _rank;
+  // Tier (UI rank)
+  private Integer _uiRank;
 
   /**
    * Constructor.
@@ -25,6 +27,7 @@ public abstract class NonImbuedLegacyInstance
   {
     super();
     _rank=source._rank;
+    _uiRank=source._uiRank;
   }
 
   /**
@@ -46,13 +49,21 @@ public abstract class NonImbuedLegacyInstance
   }
 
   /**
-   * Assess the tier using the rank value.
-   * @return A tier value.
+   * Get the UI rank.
+   * @return the UI rank or <code>null</code> if not set.
    */
-  public int getTier()
+  public Integer getUiRank()
   {
-    // TODO mapping rank<->tier.
-    return 0;
+    return _uiRank;
+  }
+
+  /**
+   * Set the UI rank.
+   * @param uiRank the value to set.
+   */
+  public void setUiRank(Integer uiRank)
+  {
+    _uiRank=uiRank;
   }
 
   /**

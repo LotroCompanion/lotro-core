@@ -146,6 +146,12 @@ public class LegendaryInstanceAttrsXMLParser
         // Default legacy rank
         int rank=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_RANK_ATTR,0);
         instance.setRank(rank);
+        // Default legacy UI rank
+        int uiRank=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_UI_RANK_ATTR,0);
+        if (uiRank>0)
+        {
+          instance.setUiRank(Integer.valueOf(uiRank));
+        }
       }
       // Tiered legacies
       List<Element> tieredLegacyTags=DOMParsingTools.getChildTagsByName(nonImbuedTag,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_TAG);
@@ -178,6 +184,12 @@ public class LegendaryInstanceAttrsXMLParser
         // Legacy rank
         int rank=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_RANK_ATTR,0);
         instance.setRank(rank);
+        // Legacy UI rank
+        int uiRank=DOMParsingTools.getIntAttribute(tieredLegacyAttrs,LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_UI_RANK_ATTR,0);
+        if (uiRank>0)
+        {
+          instance.setUiRank(Integer.valueOf(uiRank));
+        }
         currentIndex++;
       }
     }

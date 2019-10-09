@@ -60,6 +60,7 @@ public class TieredNonImbuedLegacyInstance extends NonImbuedLegacyInstance
     StringBuilder sb=new StringBuilder();
     sb.append(_legacyTier!=null?_legacyTier.toString():"?");
     sb.append(", rank=").append(getRank());
+    sb.append(", UI rank=").append(getUiRank());
     return sb.toString();
   }
 }
