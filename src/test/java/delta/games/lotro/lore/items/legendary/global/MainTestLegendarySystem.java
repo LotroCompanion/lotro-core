@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -30,6 +32,8 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class MainTestLegendarySystem
 {
+  private static final Logger LOGGER=Logger.getLogger(MainTestLegendarySystem.class);
+
   private void doIt()
   {
     //doItem(1879219224); // Reshaped Hunter's Crossbow of the First Age (75)
@@ -117,6 +121,10 @@ public class MainTestLegendarySystem
             BasicStatsSet stats=tier.getEffect().getStatsProvider().getStats(1,ranks[i]);
             System.out.println("Rank "+(i+1)+": "+stats);
           }
+        }
+        else
+        {
+          LOGGER.warn("No ranks defined for item instance: "+itemInstance+", tier: "+tier);
         }
       }
     }
