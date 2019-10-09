@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.items.legendary.non_imbued;
 
+import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.common.stats.StatsProvider;
+
 /**
  * Tiered, non-imbued legacy instance.
  * @author DAM
@@ -52,6 +55,26 @@ public class TieredNonImbuedLegacyInstance extends NonImbuedLegacyInstance
   public void setLegacyTier(NonImbuedLegacyTier legacyTier)
   {
     _legacyTier=legacyTier;
+  }
+
+  /**
+   * Get the stats contribution for this legacy instance.
+   * @return some stats.
+   */
+  public BasicStatsSet getStats()
+  {
+    BasicStatsSet stats;
+    if (_legacyTier!=null)
+    {
+      StatsProvider statsProvider=_legacyTier.getEffect().getStatsProvider();
+      int rank=getRank();
+      stats=statsProvider.getStats(1,rank);
+    }
+    else
+    {
+      stats=new BasicStatsSet();
+    }
+    return stats;
   }
 
   @Override
