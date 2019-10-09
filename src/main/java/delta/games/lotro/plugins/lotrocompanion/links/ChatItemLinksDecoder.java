@@ -477,6 +477,23 @@ public class ChatItemLinksDecoder
               }
             }
           }
+          else if (subHeader==0x10002818) // 268445720 - ItemAdvancement_StaticEffect_Array
+          {
+            // Passives (loaded somewhere else, so ignored here)
+            int nb=BufferUtils.readUInt32(bis);
+            for(int i2=0;i2<nb;i2++)
+            {
+              int did=BufferUtils.readUInt32(bis);
+              if (did==0x100026BD) // 268445373 - ItemAdvancement_SelectedEffect
+              {
+                /*int legacyId=*/BufferUtils.readUInt32(bis);
+              }
+              else
+              {
+                throw new LinkDecodingException("Unexpected DID value: "+did);
+              }
+            }
+          }
           else
           {
             throw new LinkDecodingException("Unmanaged header: "+subHeader);
