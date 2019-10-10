@@ -59,6 +59,15 @@ public class ImbuedLegendaryInstanceAttrs
   }
 
   /**
+   * Get the main legacy.
+   * @return the main legacy.
+   */
+  public ImbuedLegacyInstance getMainLegacy()
+  {
+    return _legacies.get(0);
+  }
+
+  /**
    * Get the legacy at the given index.
    * @param index An index, starting at 0.
    * @return A legacy or <code>null</code> if not set.
