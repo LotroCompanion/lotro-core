@@ -179,6 +179,19 @@ public class BufferUtils
   }
 
   /**
+   * Read some bytes as a buffer.
+   * @param is Input stream.
+   * @param size Number of bytes to read.
+   * @return the loaded buffer.
+   */
+  public static byte[] readBuffer(ByteArrayInputStream is, int size)
+  {
+    byte[] ret=new byte[size];
+    for(int i=0;i<size;i++) ret[i]=(byte)is.read();
+    return ret;
+  }
+
+  /**
    * Read 'VLE' (variable length).
    * @param is Input stream.
    * @return An integer.
