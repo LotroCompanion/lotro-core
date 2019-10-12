@@ -139,10 +139,6 @@ public class LegendaryInstanceAttrsXMLParser
             LOGGER.warn("Default non-imbued legacy not found: "+id);
           }
         }
-        else
-        {
-          instance.setLegacy(null);
-        }
         // Default legacy rank
         int rank=DOMParsingTools.getIntAttribute(defaultLegacyAttrs,LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_RANK_ATTR,0);
         instance.setRank(rank);
