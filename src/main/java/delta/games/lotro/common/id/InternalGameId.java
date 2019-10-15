@@ -1,5 +1,7 @@
 package delta.games.lotro.common.id;
 
+import java.util.Locale;
+
 /**
  * Internal in-game identifier.
  * @author DAM
@@ -36,6 +38,17 @@ public abstract class InternalGameId
    */
   public int getId2() {
     return _id2;
+  }
+
+  /**
+   * Get a representation of this ID as a single hexadecimal value string.
+   * @return a displayable ID string.
+   */
+  public String asSingleHexString()
+  {
+    String hex=Integer.toHexString(_id2)+"-"+Integer.toHexString(_id1);
+    hex=hex.toUpperCase(Locale.ROOT);
+    return hex;
   }
 
   /**
