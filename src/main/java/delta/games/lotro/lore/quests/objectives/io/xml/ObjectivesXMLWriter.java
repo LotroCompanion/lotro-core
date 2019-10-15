@@ -15,7 +15,6 @@ import delta.games.lotro.lore.mobs.MobDescription;
 import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
-import delta.games.lotro.lore.quests.io.xml.QuestXMLConstants;
 import delta.games.lotro.lore.quests.objectives.ConditionTarget;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
@@ -87,7 +86,7 @@ public class ObjectivesXMLWriter
     List<DialogElement> dialogs=objective.getDialogs();
     for(DialogElement dialog : dialogs)
     {
-      writeDialogElement(hd,ObjectivesXMLConstants.DIALOG_TAG,dialog);
+      DialogsXMLWriter.writeDialogElement(hd,ObjectivesXMLConstants.DIALOG_TAG,dialog);
     }
     // Conditions
     List<ObjectiveCondition> conditions=objective.getConditions();
@@ -582,28 +581,5 @@ public class ObjectivesXMLWriter
     writeSharedConditionAttributes(hd,attrs,condition);
     hd.startElement("","",ObjectivesXMLConstants.CONDITION_TAG,attrs);
     hd.endElement("","",ObjectivesXMLConstants.CONDITION_TAG);
-  }
-
-  /**
-   * Write a dialog element.
-   * @param hd Output transformer.
-   * @param tag Tag to use.
-   * @param dialog Data to write.
-   * @throws Exception If an error occurs.
-   */
-  public static void writeDialogElement(TransformerHandler hd, String tag, DialogElement dialog) throws Exception
-  {
-    AttributesImpl dialogAttrs=new AttributesImpl();
-    // NPC
-    Proxy<NpcDescription> npcProxy=dialog.getWho();
-    SharedXMLUtils.writeNpcProxy(npcProxy,dialogAttrs);
-    // Text
-    String text=dialog.getWhat();
-    if (text.length()>0)
-    {
-      dialogAttrs.addAttribute("","",QuestXMLConstants.TEXT_ATTR,XmlWriter.CDATA,text);
-    }
-    hd.startElement("","",tag,dialogAttrs);
-    hd.endElement("","",tag);
   }
 }

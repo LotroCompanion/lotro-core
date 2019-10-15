@@ -7,6 +7,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
+import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -77,6 +78,8 @@ public class QuestDescription extends Achievable
   private Proxy<Achievable> _nextQuest;
   // End of quest dialogs
   private List<DialogElement> _endDialogs;
+  // Completion comments
+  private List<QuestCompletionComment> _completionComments;
 
   /**
    * Constructor.
@@ -96,6 +99,7 @@ public class QuestDescription extends Achievable
     _bestowers=new ArrayList<DialogElement>();
     _nextQuest=null;
     _endDialogs=new ArrayList<DialogElement>();
+    _completionComments=new ArrayList<QuestCompletionComment>();
   }
 
   /**
@@ -317,6 +321,24 @@ public class QuestDescription extends Achievable
   }
 
   /**
+   * Get completion comments for this quest.
+   * @return the completion comments for this quest.
+   */
+  public List<QuestCompletionComment> getCompletionComments()
+  {
+    return _completionComments;
+  }
+
+  /**
+   * Add a quest completion comment.
+   * @param comment Comment to add.
+   */
+  public void addCompletionComment(QuestCompletionComment comment)
+  {
+    _completionComments.add(comment);
+  }
+
+  /**
    * Dump the contents of this quest as a string.
    * @return A readable string.
    */
@@ -370,6 +392,7 @@ public class QuestDescription extends Achievable
     {
       sb.append("Next quest: ").append(_nextQuest).append(EndOfLine.NATIVE_EOL);
     }
+    // Bestowers
     int nbBestowers=_bestowers.size();
     if (nbBestowers>0)
     {
@@ -381,6 +404,7 @@ public class QuestDescription extends Achievable
         sb.append("Bestower text: ").append(text).append(EndOfLine.NATIVE_EOL);
       }
     }
+    // End dialogs
     int nbEndDialogs=_endDialogs.size();
     if (nbEndDialogs>0)
     {
@@ -396,6 +420,17 @@ public class QuestDescription extends Achievable
         sb.append(text).append(EndOfLine.NATIVE_EOL);
       }
     }
-    return sb.toString();
+    // Quest completion comments
+    int nbComments=_completionComments.size();
+    if (nbComments>0)
+    {
+      sb.append("Completion comments:");
+      for(QuestCompletionComment comment : _completionComments)
+      {
+        sb.append(comment);
+        sb.append(EndOfLine.NATIVE_EOL);
+      }
+    }
+    return sb.toString().trim();
   }
 }

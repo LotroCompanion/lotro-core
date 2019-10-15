@@ -67,6 +67,18 @@ public class QuestXMLConstants
    * Dialog element tags, attribute 'text'.
    */
   public static final String TEXT_ATTR="text";
+  /**
+   * Tag 'completionComment'.
+   */
+  public static final String QUEST_COMPLETION_COMMENT_TAG="completionComment";
+  /**
+   * Tag 'npc'.
+   */
+  public static final String NPC_TAG="npc";
+  /**
+   * Tag 'text'.
+   */
+  public static final String TEXT_TAG="text";
 
   /**
    * Tag 'nextQuest'.

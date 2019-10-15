@@ -15,6 +15,8 @@ import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
+import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
+import delta.games.lotro.lore.quests.objectives.io.xml.DialogsXMLParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
 
 /**
@@ -93,7 +95,7 @@ public class QuestXMLParser extends AchievableXMLParser
     List<Element> bestowerTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.BESTOWER_TAG);
     for(Element bestowerTag : bestowerTags)
     {
-      DialogElement bestower=ObjectivesXMLParser.parseDialog(bestowerTag);
+      DialogElement bestower=DialogsXMLParser.parseDialog(bestowerTag);
       q.addBestower(bestower);
     }
     // Objectives
@@ -102,8 +104,15 @@ public class QuestXMLParser extends AchievableXMLParser
     List<Element> endDialogTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.END_DIALOG_TAG);
     for(Element endDialogTag : endDialogTags)
     {
-      DialogElement endDialog=ObjectivesXMLParser.parseDialog(endDialogTag);
+      DialogElement endDialog=DialogsXMLParser.parseDialog(endDialogTag);
       q.addEndDialog(endDialog);
+    }
+    // Completion comments
+    List<Element> commentTags=DOMParsingTools.getChildTagsByName(root,QuestXMLConstants.QUEST_COMPLETION_COMMENT_TAG);
+    for(Element commentTag : commentTags)
+    {
+      QuestCompletionComment comment=DialogsXMLParser.parseQuestCompletionComment(commentTag);
+      q.addCompletionComment(comment);
     }
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(q.getUsageRequirement(),root);

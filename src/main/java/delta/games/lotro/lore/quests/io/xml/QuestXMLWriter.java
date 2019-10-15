@@ -20,6 +20,8 @@ import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestDescription.FACTION;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
+import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
+import delta.games.lotro.lore.quests.objectives.io.xml.DialogsXMLWriter;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
 import delta.games.lotro.utils.Proxy;
 
@@ -149,14 +151,19 @@ public class QuestXMLWriter extends AchievableXMLWriter
     // Bestowers
     for(DialogElement bestower : quest.getBestowers())
     {
-      ObjectivesXMLWriter.writeDialogElement(hd,QuestXMLConstants.BESTOWER_TAG,bestower);
+      DialogsXMLWriter.writeDialogElement(hd,QuestXMLConstants.BESTOWER_TAG,bestower);
     }
     // Objectives
     ObjectivesXMLWriter.write(hd,quest.getObjectives());
     // End dialogs
     for(DialogElement endDialog : quest.getEndDialogs())
     {
-      ObjectivesXMLWriter.writeDialogElement(hd,QuestXMLConstants.END_DIALOG_TAG,endDialog);
+      DialogsXMLWriter.writeDialogElement(hd,QuestXMLConstants.END_DIALOG_TAG,endDialog);
+    }
+    // Completion comments
+    for(QuestCompletionComment comment : quest.getCompletionComments())
+    {
+      DialogsXMLWriter.writeCompletionComment(hd,comment);
     }
     // Pre-requisites
     writePrerequisites(hd,quest);

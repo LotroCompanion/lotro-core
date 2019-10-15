@@ -14,7 +14,6 @@ import delta.games.lotro.lore.mobs.MobDescription;
 import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
-import delta.games.lotro.lore.quests.io.xml.QuestXMLConstants;
 import delta.games.lotro.lore.quests.objectives.ConditionTarget;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
@@ -89,7 +88,7 @@ public class ObjectivesXMLParser
       String tagName=childTag.getTagName();
       if (ObjectivesXMLConstants.DIALOG_TAG.equals(tagName))
       {
-        DialogElement dialog=ObjectivesXMLParser.parseDialog(childTag);
+        DialogElement dialog=DialogsXMLParser.parseDialog(childTag);
         objective.addDialog(dialog);
       }
       else
@@ -524,23 +523,5 @@ public class ObjectivesXMLParser
       proxy.setName(itemName);
     }
     return proxy;
-  }
-
-  /**
-   * Build a dialog element from a tag.
-   * @param dialogTag Input tag.
-   * @return the new dialog.
-   */
-  public static DialogElement parseDialog(Element dialogTag)
-  {
-    DialogElement ret=new DialogElement();
-    NamedNodeMap bestowerAttrs=dialogTag.getAttributes();
-    // NPC
-    Proxy<NpcDescription> npc=SharedXMLUtils.parseNpcProxy(bestowerAttrs);
-    ret.setWho(npc);
-    // Text
-    String text=DOMParsingTools.getStringAttribute(bestowerAttrs,QuestXMLConstants.TEXT_ATTR,"");
-    ret.setWhat(text);
-    return ret;
   }
 }
