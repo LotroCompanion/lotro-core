@@ -78,6 +78,18 @@ public class ImbuedLegendaryInstanceAttrs
   }
 
   /**
+   * Get a list of all standard legacies.
+   * @return a list of all standard legacies.
+   */
+  public List<ImbuedLegacyInstance> getStandardLegacies()
+  {
+    List<ImbuedLegacyInstance> legacies=new ArrayList<ImbuedLegacyInstance>(_legacies);
+    // Remove main legacy
+    legacies.remove(0);
+    return legacies;
+  }
+
+  /**
    * Get a list of all legacies.
    * @return a list of all legacies.
    */
