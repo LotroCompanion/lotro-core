@@ -101,7 +101,6 @@ public class CharacterStatsComputer
     return item.getStats();
   }
 
-
   /**
    * Compute the stats of a character.
    * @param c Character to use.

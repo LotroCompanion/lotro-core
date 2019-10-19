@@ -1,11 +1,16 @@
 package delta.games.lotro.character.stats.ratings;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Ratings manager.
  * @author DAM
  */
 public class RatingsMgr
 {
+  private Map<RatingCurveId,RatingCurve> _curves;
+
   /**
    * Percentage computation policies.
    * @author DAM
@@ -44,6 +49,7 @@ public class RatingsMgr
    */
   public RatingsMgr()
   {
+    _curves=new HashMap<RatingCurveId,RatingCurve>();
     if (_policy==Policy.UPDATE21)
     {
       initForUpdate21();
@@ -134,6 +140,7 @@ public class RatingsMgr
         new Update21RatingCurveSegment(116,120,1,25,31500,-3555000)
       };
       _critHit=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.CRITICAL_HIT,_critHit);
     }
     // Devastate hit chance
     {
@@ -146,6 +153,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(116,120,1,10,63000,-7110000)
       };
       _devHit=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.DEVASTATE_HIT,_devHit);
     }
     // Critical and devastate hit magnitude increase %
     {
@@ -158,6 +166,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(116,120,1,100,78750,-8887500)
       };
       _critAndDevHitMagnitude=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.CRIT_DEVASTATE_MAGNITUDE,_critAndDevHitMagnitude);
     }
     // Finesse
     {
@@ -170,6 +179,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(116,120,1,50,31500,-3555000)
       };
       _finesse=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.FINESSE,_finesse);
     }
     // Damage
     {
@@ -182,6 +192,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(116,120,1,200,42525,-4799250)
       };
       _damage=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.DAMAGE,_damage);
     }
     // Outgoing healing
     {
@@ -194,6 +205,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(116,120,1,70,31500,-3555000)
       };
       _healing=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.HEALING,_healing);
     }
     // Resistance
     {
@@ -207,6 +219,7 @@ public class RatingsMgr
       };
       // TODO T2 penalty: OppLvl*90
       _resistance=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.RESISTANCE,_resistance);
     }
     // Critical defence
     {
@@ -219,6 +232,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(116,120,1,80,31500,-3555000)
       };
       _criticalDefence=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.CRITICAL_DEFENCE,_criticalDefence);
     }
     // Incoming healing
     {
@@ -231,6 +245,7 @@ public class RatingsMgr
           new Update21RatingCurveSegment(116,120,1,25,31500,-3555000)
       };
       _incomingHealing=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.INCOMING_HEALING,_incomingHealing);
     }
     // BPE (avoidance)
     {
@@ -244,6 +259,7 @@ public class RatingsMgr
       };
       // TODO T2 penalty: OppLvl*40
       _avoidance=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.AVOIDANCE,_avoidance);
     }
     // Partial BPE (partial avoidance)
     {
@@ -257,6 +273,7 @@ public class RatingsMgr
       };
       // TODO T2 penalty: OppLvl*40
       _partialAvoidance=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.PARTIAL_AVOIDANCE,_partialAvoidance);
     }
     // Partial Mitigation
     {
@@ -271,6 +288,7 @@ public class RatingsMgr
       // TODO T2 penalty: OppLvl*40
       // Base 10% added later
       _partialMitigation=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.PARTIAL_MITIGATION,_partialMitigation);
     }
     // Mitigation (light armor)
     {
@@ -284,6 +302,7 @@ public class RatingsMgr
       };
       // TODO T2 penalty: Floor(OppLvl*13.5)*5
       _lightMigitation=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.LIGHT_MITIGATION,_lightMigitation);
     }
     // Mitigation (medium armor)
     {
@@ -297,6 +316,7 @@ public class RatingsMgr
       };
       // TODO T2 penalty: Floor(OppLvl*13.5)*5
       _mediumMigitation=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.MEDIUM_MITIGATION,_mediumMigitation);
     }
     // Mitigation (heavy armor)
     {
@@ -310,10 +330,21 @@ public class RatingsMgr
       };
       // TODO T2 penalty Floor(OppLvl*13.5)*5
       _heavyMigitation=new Update21RatingCurveImpl(segments);
+      _curves.put(RatingCurveId.HEAVY_MITIGATION,_heavyMigitation);
     }
 
     // TODO Cope with T2 penalty:
     // If IsT2Zone Then RL = RL-67.5
+  }
+
+  /**
+   * Get the curve for the given identifier.
+   * @param id Curve identifier.
+   * @return A curve or <code>null</code> if not found.
+   */
+  public RatingCurve getCurve(RatingCurveId id)
+  {
+    return _curves.get(id);
   }
 
   /**
