@@ -41,11 +41,6 @@ public class CurvedRatingCurveImpl implements RatingCurve
     return Double.valueOf(_maxRL*level);
   }
 
-  public Double getPercentageCap(int level)
-  {
-    return Double.valueOf(_maxP);
-  }
-
   /**
    * Get the percentage for a given rating and level.
    * @param rating Rating.

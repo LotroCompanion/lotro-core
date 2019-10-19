@@ -20,11 +20,4 @@ public interface RatingCurve
    * @return A rating value or <code>null</code> if not available.
    */
   public Double getRatingForCap(int level);
-
-  /**
-   * Get the percentage cap at the given level.
-   * @param level Level to use.
-   * @return A percentage value or <code>null</code> if not available.
-   */
-  public Double getPercentageCap(int level);
 }

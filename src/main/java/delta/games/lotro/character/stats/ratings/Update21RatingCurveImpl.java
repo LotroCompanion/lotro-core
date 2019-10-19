@@ -33,20 +33,6 @@ public class Update21RatingCurveImpl implements RatingCurve
     return null;
   }
 
-  public Double getPercentageCap(int level)
-  {
-    for(Update21RatingCurveSegment segment : _segments)
-    {
-      boolean managed=segment.manages(level);
-      if (managed)
-      {
-        double percentage=segment.getPercentageCap();
-        return Double.valueOf(percentage);
-      }
-    }
-    return null;
-  }
-
   /**
    * Get the percentage for a given rating and level.
    * @param rating Rating.

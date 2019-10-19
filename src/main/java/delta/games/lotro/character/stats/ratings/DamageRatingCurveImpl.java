@@ -12,11 +12,6 @@ public class DamageRatingCurveImpl implements RatingCurve
     return Double.valueOf(400/0.0027);
   }
 
-  public Double getPercentageCap(int level)
-  {
-    return Double.valueOf(400);
-  }
-
   /**
    * Get the percentage for a given rating and level.
    * @param rating Rating.
