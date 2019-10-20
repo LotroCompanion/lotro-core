@@ -25,6 +25,7 @@ import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.ArmourType;
@@ -61,7 +62,7 @@ public class CharacterStatsComputer
     _baseStatsMgr=new BaseStatsManager();
     _tomesMgr=new TomesContributionsMgr();
     _hopeDread=buildMoraleBuffFromHopeOrDread();
-    _ratingsMgr=new RatingsMgr();
+    _ratingsMgr=CombatSystem.getInstance().getRatingsMgr();
     _contribs=contribs;
   }
 

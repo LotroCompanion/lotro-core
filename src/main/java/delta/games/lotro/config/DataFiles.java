@@ -142,4 +142,8 @@ public class DataFiles
    * Relics file.
    */
   public static final String RELICS="relics";
+  /**
+   * Combat system data file.
+   */
+  public static final String COMBAT_DATA="combatData";
 }

@@ -3,8 +3,7 @@ package delta.games.lotro.character.stats.ratings;
 import java.util.HashMap;
 import java.util.Map;
 
-import delta.games.lotro.character.stats.ratings.before21.RatingsInitializerBeforeUpdate21;
-import delta.games.lotro.character.stats.ratings.update21.RatingsInitializerUpdate21;
+import org.apache.log4j.Logger;
 
 /**
  * Ratings manager.
@@ -12,6 +11,8 @@ import delta.games.lotro.character.stats.ratings.update21.RatingsInitializerUpda
  */
 public class RatingsMgr
 {
+  private static final Logger LOGGER=Logger.getLogger(RatingsMgr.class);
+
   private Map<RatingCurveId,RatingCurve> _curves;
 
   /**
@@ -20,7 +21,6 @@ public class RatingsMgr
   public RatingsMgr()
   {
     _curves=new HashMap<RatingCurveId,RatingCurve>();
-    RatingsInitializerUpdate21.init(this);
   }
 
   /**
@@ -30,7 +30,12 @@ public class RatingsMgr
    */
   public RatingCurve getCurve(RatingCurveId id)
   {
-    return _curves.get(id);
+    RatingCurve curve=_curves.get(id);
+    if (curve==null)
+    {
+      LOGGER.warn("Curve not found: "+id);
+    }
+    return curve;
   }
 
   /**
