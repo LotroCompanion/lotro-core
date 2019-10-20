@@ -1,4 +1,6 @@
-package delta.games.lotro.character.stats.ratings;
+package delta.games.lotro.character.stats.ratings.before21;
+
+import delta.games.lotro.character.stats.ratings.RatingCurve;
 
 /**
  * Linear rating/percentage curve for damage.

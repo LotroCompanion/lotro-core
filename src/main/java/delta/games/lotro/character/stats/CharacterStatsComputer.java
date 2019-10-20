@@ -17,6 +17,7 @@ import delta.games.lotro.character.stats.buffs.MoraleFromHopeOrDread;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
+import delta.games.lotro.character.stats.ratings.RatingCurveId;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
 import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
 import delta.games.lotro.character.stats.tomes.TomesSet;
@@ -233,75 +234,75 @@ public class CharacterStatsComputer
     BasicStatsSet ret=new BasicStatsSet();
     // Crit %
     FixedDecimalsInteger crit=stats.getStat(WellKnownStat.CRITICAL_RATING);
-    FixedDecimalsInteger critPercentage=computePercentage(_ratingsMgr.getCriticalHitCurve(),crit,level);
+    FixedDecimalsInteger critPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.CRITICAL_HIT),crit,level);
     ret.setStat(WellKnownStat.CRITICAL_MELEE_PERCENTAGE,critPercentage);
     ret.setStat(WellKnownStat.CRITICAL_RANGED_PERCENTAGE,critPercentage);
     ret.setStat(WellKnownStat.CRITICAL_TACTICAL_PERCENTAGE,critPercentage);
     // Devastate %
-    FixedDecimalsInteger devPercentage=computePercentage(_ratingsMgr.getDevastateHitCurve(),crit,level);
+    FixedDecimalsInteger devPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DEVASTATE_HIT),crit,level);
     ret.setStat(WellKnownStat.DEVASTATE_MELEE_PERCENTAGE,devPercentage);
     ret.setStat(WellKnownStat.DEVASTATE_RANGED_PERCENTAGE,devPercentage);
     ret.setStat(WellKnownStat.DEVASTATE_TACTICAL_PERCENTAGE,devPercentage);
     // Crit&Dev Magnitude %
-    FixedDecimalsInteger critDevMagnitudePercentage=computePercentage(_ratingsMgr.getCritAndDevastateHitMagnitudeCurve(),crit,level);
+    FixedDecimalsInteger critDevMagnitudePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.CRIT_DEVASTATE_MAGNITUDE),crit,level);
     ret.setStat(WellKnownStat.CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE,critDevMagnitudePercentage);
     ret.setStat(WellKnownStat.CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE,critDevMagnitudePercentage);
     ret.setStat(WellKnownStat.CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE,critDevMagnitudePercentage);
     // Finesse %
     FixedDecimalsInteger finesse=stats.getStat(WellKnownStat.FINESSE);
-    FixedDecimalsInteger finessePercentage=computePercentage(_ratingsMgr.getFinesse(),finesse,level);
+    FixedDecimalsInteger finessePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.FINESSE),finesse,level);
     ret.setStat(WellKnownStat.FINESSE_PERCENTAGE,finessePercentage);
     // Physical Damage %
     FixedDecimalsInteger physicalMastery=stats.getStat(WellKnownStat.PHYSICAL_MASTERY);
-    FixedDecimalsInteger damagePercentage=computePercentage(_ratingsMgr.getDamage(),physicalMastery,level);
+    FixedDecimalsInteger damagePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DAMAGE),physicalMastery,level);
     ret.setStat(WellKnownStat.MELEE_DAMAGE_PERCENTAGE,damagePercentage);
     ret.setStat(WellKnownStat.RANGED_DAMAGE_PERCENTAGE,damagePercentage);
     // Tactical Damage / Outgoing healing %
     FixedDecimalsInteger tacticalMastery=stats.getStat(WellKnownStat.TACTICAL_MASTERY);
-    FixedDecimalsInteger tacticalDamagePercentage=computePercentage(_ratingsMgr.getDamage(),tacticalMastery,level);
+    FixedDecimalsInteger tacticalDamagePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DAMAGE),tacticalMastery,level);
     FixedDecimalsInteger outgoingHealing=stats.getStat(WellKnownStat.OUTGOING_HEALING);
-    FixedDecimalsInteger outgoingHealingPercentage=computePercentage(_ratingsMgr.getHealing(),outgoingHealing,level);
+    FixedDecimalsInteger outgoingHealingPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.HEALING),outgoingHealing,level);
     ret.setStat(WellKnownStat.TACTICAL_DAMAGE_PERCENTAGE,tacticalDamagePercentage);
     ret.setStat(WellKnownStat.OUTGOING_HEALING_PERCENTAGE,outgoingHealingPercentage);
     // Resistance %
     FixedDecimalsInteger resistance=stats.getStat(WellKnownStat.RESISTANCE);
-    FixedDecimalsInteger resistancePercentage=computePercentage(_ratingsMgr.getResistance(),resistance,level);
+    FixedDecimalsInteger resistancePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.RESISTANCE),resistance,level);
     ret.setStat(WellKnownStat.RESISTANCE_PERCENTAGE,resistancePercentage);
     // Critical Defence %
     FixedDecimalsInteger critDefence=stats.getStat(WellKnownStat.CRITICAL_DEFENCE);
-    FixedDecimalsInteger critDefencePercentage=computePercentage(_ratingsMgr.getCriticalDefence(),critDefence,level);
+    FixedDecimalsInteger critDefencePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.CRITICAL_DEFENCE),critDefence,level);
     ret.setStat(WellKnownStat.MELEE_CRITICAL_DEFENCE,critDefencePercentage);
     ret.setStat(WellKnownStat.RANGED_CRITICAL_DEFENCE,critDefencePercentage);
     ret.setStat(WellKnownStat.TACTICAL_CRITICAL_DEFENCE,critDefencePercentage);
     // Incoming healing %
     FixedDecimalsInteger incomingHealing=stats.getStat(WellKnownStat.INCOMING_HEALING);
-    FixedDecimalsInteger incomingHealingPercentage=computePercentage(_ratingsMgr.getIncomingHealing(),incomingHealing,level);
+    FixedDecimalsInteger incomingHealingPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.INCOMING_HEALING),incomingHealing,level);
     ret.setStat(WellKnownStat.INCOMING_HEALING_PERCENTAGE,incomingHealingPercentage);
     // Block %, Partial Block %, Block Mitigation %
     FixedDecimalsInteger block=stats.getStat(WellKnownStat.BLOCK);
-    FixedDecimalsInteger blockPercentage=computePercentage(_ratingsMgr.getAvoidance(),block,level);
+    FixedDecimalsInteger blockPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.AVOIDANCE),block,level);
     ret.setStat(WellKnownStat.BLOCK_PERCENTAGE,blockPercentage);
-    FixedDecimalsInteger partialBlockPercentage=computePercentage(_ratingsMgr.getPartialAvoidance(),block,level);
+    FixedDecimalsInteger partialBlockPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),block,level);
     ret.setStat(WellKnownStat.PARTIAL_BLOCK_PERCENTAGE,partialBlockPercentage);
-    FixedDecimalsInteger partialBlockMitigationPercentage=computePercentage(_ratingsMgr.getPartialMitigation(),block,level);
+    FixedDecimalsInteger partialBlockMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),block,level);
     partialBlockMitigationPercentage.add(10);
     ret.setStat(WellKnownStat.PARTIAL_BLOCK_MITIGATION_PERCENTAGE,partialBlockMitigationPercentage);
     // Parry %, Partial Parry %, Parry Mitigation %
     FixedDecimalsInteger parry=stats.getStat(WellKnownStat.PARRY);
-    FixedDecimalsInteger parryPercentage=computePercentage(_ratingsMgr.getAvoidance(),parry,level);
+    FixedDecimalsInteger parryPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.AVOIDANCE),parry,level);
     ret.setStat(WellKnownStat.PARRY_PERCENTAGE,parryPercentage);
-    FixedDecimalsInteger partialParryPercentage=computePercentage(_ratingsMgr.getPartialAvoidance(),parry,level);
+    FixedDecimalsInteger partialParryPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),parry,level);
     ret.setStat(WellKnownStat.PARTIAL_PARRY_PERCENTAGE,partialParryPercentage);
-    FixedDecimalsInteger partialParryMitigationPercentage=computePercentage(_ratingsMgr.getPartialMitigation(),parry,level);
+    FixedDecimalsInteger partialParryMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),parry,level);
     partialParryMitigationPercentage.add(10);
     ret.setStat(WellKnownStat.PARTIAL_PARRY_MITIGATION_PERCENTAGE,partialParryMitigationPercentage);
     // Evade %, Partial Evade %, Evade Mitigation %
     FixedDecimalsInteger evade=stats.getStat(WellKnownStat.EVADE);
-    FixedDecimalsInteger evadePercentage=computePercentage(_ratingsMgr.getAvoidance(),evade,level);
+    FixedDecimalsInteger evadePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.AVOIDANCE),evade,level);
     ret.setStat(WellKnownStat.EVADE_PERCENTAGE,evadePercentage);
-    FixedDecimalsInteger partialEvadePercentage=computePercentage(_ratingsMgr.getPartialAvoidance(),evade,level);
+    FixedDecimalsInteger partialEvadePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),evade,level);
     ret.setStat(WellKnownStat.PARTIAL_EVADE_PERCENTAGE,partialEvadePercentage);
-    FixedDecimalsInteger partialEvadeMitigationPercentage=computePercentage(_ratingsMgr.getPartialMitigation(),evade,level);
+    FixedDecimalsInteger partialEvadeMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),evade,level);
     partialEvadeMitigationPercentage.add(10);
     ret.setStat(WellKnownStat.PARTIAL_EVADE_MITIGATION_PERCENTAGE,partialEvadeMitigationPercentage);
     // Physical Mitigation %
@@ -329,9 +330,9 @@ public class CharacterStatsComputer
   private RatingCurve getMitigationCurve(CharacterClass cClass)
   {
     ArmourType type=CharacterProficiencies.getArmourTypeForMitigations(cClass);
-    if (type==ArmourType.LIGHT) return _ratingsMgr.getLightArmorMitigation();
-    if (type==ArmourType.MEDIUM) return _ratingsMgr.getMediumArmorMitigation();
-    if (type==ArmourType.HEAVY) return _ratingsMgr.getHeavyArmorMitigation();
+    if (type==ArmourType.LIGHT) return _ratingsMgr.getCurve(RatingCurveId.LIGHT_MITIGATION);
+    if (type==ArmourType.MEDIUM) return _ratingsMgr.getCurve(RatingCurveId.MEDIUM_MITIGATION);
+    if (type==ArmourType.HEAVY) return _ratingsMgr.getCurve(RatingCurveId.HEAVY_MITIGATION);
     return null;
   }
 

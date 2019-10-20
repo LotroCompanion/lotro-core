@@ -1,4 +1,4 @@
-package delta.games.lotro.character.stats.ratings;
+package delta.games.lotro.character.stats.ratings.update21;
 
 /**
  * Data for a rating curve segment.

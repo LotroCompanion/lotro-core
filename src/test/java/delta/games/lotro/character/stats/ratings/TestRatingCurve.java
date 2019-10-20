@@ -18,7 +18,7 @@ public class TestRatingCurve
     // Critical hit / critical rating
     {
       System.out.println("Critical %");
-      RatingCurve curve=mgr.getCriticalHitCurve();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.CRITICAL_HIT);
       System.out.println(curve.getPercentage(10000,LEVEL_CAP));
       System.out.println(curve.getPercentage(7350,LEVEL_CAP));
       System.out.println(curve.getPercentage(11743,LEVEL_CAP));
@@ -29,7 +29,7 @@ public class TestRatingCurve
     // Devastate hit / critical rating
     {
       System.out.println("Devastate %");
-      RatingCurve curve=mgr.getDevastateHitCurve();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.DEVASTATE_HIT);
       System.out.println(curve.getPercentage(10000,LEVEL_CAP));
       System.out.println(curve.getPercentage(13299,LEVEL_CAP));
       System.out.println(curve.getPercentage(15517,LEVEL_CAP));
@@ -38,7 +38,7 @@ public class TestRatingCurve
     // Critical and devastate hit magnitude
     {
       System.out.println("Crit/dev magnitude %");
-      RatingCurve curve=mgr.getCritAndDevastateHitMagnitudeCurve();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.CRIT_DEVASTATE_MAGNITUDE);
       System.out.println(curve.getPercentage(10000,LEVEL_CAP));
       System.out.println(curve.getPercentage(13299,LEVEL_CAP));
       System.out.println(curve.getPercentage(20000,LEVEL_CAP));
@@ -48,7 +48,7 @@ public class TestRatingCurve
     // Finesse
     {
       System.out.println("Finesse");
-      RatingCurve curve=mgr.getFinesse();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.FINESSE);
       System.out.println(curve.getPercentage(17000,LEVEL_CAP));
       System.out.println(curve.getPercentage(36833,LEVEL_CAP));
       System.out.println(curve.getPercentage(36834,LEVEL_CAP));
@@ -58,7 +58,7 @@ public class TestRatingCurve
     // Damage
     {
       System.out.println("Damage");
-      RatingCurve curve=mgr.getDamage();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.DAMAGE);
       System.out.println(curve.getPercentage(7500,LEVEL_CAP));
       System.out.println(curve.getPercentage(15000,LEVEL_CAP));
       System.out.println(curve.getPercentage(22500,LEVEL_CAP));
@@ -73,7 +73,7 @@ public class TestRatingCurve
     // Healing
     {
       System.out.println("Healing");
-      RatingCurve curve=mgr.getHealing();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.HEALING);
       System.out.println(curve.getPercentage(17000,LEVEL_CAP));
       System.out.println(curve.getPercentage(36834,LEVEL_CAP));
       System.out.println(curve.getPercentage(66584,LEVEL_CAP));
@@ -82,7 +82,7 @@ public class TestRatingCurve
     // Resistance
     {
       System.out.println("Resistance");
-      RatingCurve curve=mgr.getResistance();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.RESISTANCE);
       System.out.println(curve.getPercentage(10000,LEVEL_CAP));
       System.out.println(curve.getPercentage(17850,LEVEL_CAP));
       System.out.println(curve.getPercentage(38674,LEVEL_CAP));
@@ -91,7 +91,7 @@ public class TestRatingCurve
     // Critical defence
     {
       System.out.println("Critical defence");
-      RatingCurve curve=mgr.getCriticalDefence();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.CRITICAL_DEFENCE);
       System.out.println(curve.getPercentage(5000,LEVEL_CAP));
       System.out.println(curve.getPercentage(10000,LEVEL_CAP));
       System.out.println(curve.getPercentage(20000,LEVEL_CAP));
@@ -101,7 +101,7 @@ public class TestRatingCurve
     // Incoming healing
     {
       System.out.println("Incoming healing");
-      RatingCurve curve=mgr.getIncomingHealing();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.INCOMING_HEALING);
       System.out.println(curve.getPercentage(2000,LEVEL_CAP));
       System.out.println(curve.getPercentage(5000,LEVEL_CAP));
       System.out.println(curve.getPercentage(7350,LEVEL_CAP));
@@ -111,14 +111,14 @@ public class TestRatingCurve
     // Avoidance
     {
       System.out.println("Avoidance");
-      RatingCurve curve=mgr.getAvoidance();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.AVOIDANCE);
       System.out.println(curve.getPercentage(7844,LEVEL_CAP));
       System.out.println(curve.getPercentage(7845,LEVEL_CAP));
     }
     // Partial avoidance
     {
       System.out.println("Partial avoidance");
-      RatingCurve curve=mgr.getPartialAvoidance();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE);
       System.out.println(curve.getPercentage(7350,LEVEL_CAP));
       System.out.println(curve.getPercentage(9475,LEVEL_CAP));
       System.out.println(curve.getPercentage(12885,LEVEL_CAP));
@@ -128,7 +128,7 @@ public class TestRatingCurve
     // Partial mitigation
     {
       System.out.println("Partial mitigation");
-      RatingCurve curve=mgr.getPartialMitigation();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.PARTIAL_MITIGATION);
       System.out.println(curve.getPercentage(10000,LEVEL_CAP));
       System.out.println(curve.getPercentage(20000,LEVEL_CAP));
       System.out.println(curve.getPercentage(30000,LEVEL_CAP));
@@ -139,7 +139,7 @@ public class TestRatingCurve
     // Light armor mitigation
     {
       System.out.println("Light armor mitigation");
-      RatingCurve curve=mgr.getLightArmorMitigation();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.LIGHT_MITIGATION);
       System.out.println(curve.getPercentage(3938,LEVEL_CAP));
       System.out.println(curve.getPercentage(13124,LEVEL_CAP));
       System.out.println(curve.getPercentage(13125,LEVEL_CAP));
@@ -147,7 +147,7 @@ public class TestRatingCurve
     // Medium armor mitigation
     {
       System.out.println("Medium armor mitigation");
-      RatingCurve curve=mgr.getMediumArmorMitigation();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.MEDIUM_MITIGATION);
       System.out.println(curve.getPercentage(3936,LEVEL_CAP));
       System.out.println(curve.getPercentage(15320,LEVEL_CAP));
       System.out.println(curve.getPercentage(15321,LEVEL_CAP));
@@ -155,7 +155,7 @@ public class TestRatingCurve
     // Heavy armor mitigation
     {
       System.out.println("Heavy armor mitigation");
-      RatingCurve curve=mgr.getHeavyArmorMitigation();
+      RatingCurve curve=mgr.getCurve(RatingCurveId.HEAVY_MITIGATION);
       System.out.println(curve.getPercentage(1750,LEVEL_CAP));
       System.out.println(curve.getPercentage(17490,LEVEL_CAP));
       System.out.println(curve.getPercentage(17491,LEVEL_CAP));

@@ -1,4 +1,6 @@
-package delta.games.lotro.character.stats.ratings;
+package delta.games.lotro.character.stats.ratings.update21;
+
+import delta.games.lotro.character.stats.ratings.RatingCurve;
 
 /**
  * Rating/percentage curve for Update 21.
