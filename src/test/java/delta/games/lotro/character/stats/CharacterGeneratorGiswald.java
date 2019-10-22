@@ -29,6 +29,7 @@ import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
+import delta.games.lotro.lore.items.legendary.LegacyType;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
 import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
@@ -677,7 +678,7 @@ public class CharacterGeneratorGiswald
       ImbuedLegendaryInstanceAttrs imbuedAttrs=attrs.getImbuedAttrs();
       // - legacies
       LegaciesManager legaciesMgr=LegaciesManager.getInstance();
-      List<ImbuedLegacy> possibleLegacies=legaciesMgr.get(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND);
+      List<ImbuedLegacy> possibleLegacies=legaciesMgr.get(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND,LegacyType.CLASS);
       int nbLegacies=Math.min(possibleLegacies.size(),6);
       for(int i=0;i<nbLegacies;i++)
       {

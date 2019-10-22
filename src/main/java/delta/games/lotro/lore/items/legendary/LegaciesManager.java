@@ -96,19 +96,24 @@ public class LegaciesManager
    * Get all legacies for a given character class and equipment slot.
    * @param characterClass Character class.
    * @param slot Equipment slot.
+   * @param type Legacy type (<code>null</code> to skip this filter).
    * @return A possibly empty but not <code>null</code> list of legacies.
    */
-  public List<ImbuedLegacy> get(CharacterClass characterClass, EquipmentLocation slot)
+  public List<ImbuedLegacy> get(CharacterClass characterClass, EquipmentLocation slot, LegacyType type)
   {
     List<ImbuedLegacy> ret=new ArrayList<ImbuedLegacy>();
     ClassAndSlot classAndSlot=new ClassAndSlot(characterClass,slot);
     for(ImbuedLegacy legacy : _cache.values())
     {
       Filter<ClassAndSlot> constraint=legacy.getClassAndSlotFilter();
-      boolean ok=((constraint==null) || (constraint.accept(classAndSlot)));
-      if (ok)
+      boolean okType=((type==null) || (type==legacy.getType()));
+      if (okType)
       {
-        ret.add(legacy);
+        boolean okClassAndSlot=((constraint==null) || (constraint.accept(classAndSlot)));
+        if (okClassAndSlot)
+        {
+          ret.add(legacy);
+        }
       }
     }
     return ret;
