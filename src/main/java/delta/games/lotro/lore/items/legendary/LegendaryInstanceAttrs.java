@@ -128,6 +128,14 @@ public class LegendaryInstanceAttrs
   }
 
   /**
+   * Remove all passives.
+   */
+  public void removeAllPassvies()
+  {
+    _passives.clear();
+  }
+
+  /**
    * Get a list of all passives.
    * @return a list of all passives.
    */
@@ -240,6 +248,7 @@ public class LegendaryInstanceAttrs
         sb.append('\t').append(passive).append(EndOfLine.NATIVE_EOL);
       }
     }
+    sb.append("Imbued: ").append(_imbued).append(EndOfLine.NATIVE_EOL);
     if (_nonImbuedAttrs!=null)
     {
       sb.append(_nonImbuedAttrs).append(EndOfLine.NATIVE_EOL);
