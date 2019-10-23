@@ -11,6 +11,6 @@ public class ChallengeLevelComparator implements Comparator<ChallengeLevel>
   @Override
   public int compare(ChallengeLevel c1, ChallengeLevel c2)
   {
-    return Byte.compare(c1.getCode(),c2.getCode());
+    return Integer.compare(c1.getCode(),c2.getCode());
   }
 }

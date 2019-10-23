@@ -9,21 +9,21 @@ import java.util.Map;
  */
 public class ChallengeLevel
 {
-  private static Map<Byte,ChallengeLevel> _mapByCode=new HashMap<Byte,ChallengeLevel>();
+  private static Map<Integer,ChallengeLevel> _mapByCode=new HashMap<Integer,ChallengeLevel>();
 
   /**
    * Level 1.
    */
-  public static ChallengeLevel ONE=getByCode((byte)1);
+  public static ChallengeLevel ONE=getByCode(1);
   /**
    * Character level.
    */
-  public static ChallengeLevel CHARACTER_LEVEL=new ChallengeLevel((byte)-1,0,"Character Level");
+  public static ChallengeLevel CHARACTER_LEVEL=new ChallengeLevel(-1,0,"Character Level");
   /**
    * Skirmish level.
    */
-  public static ChallengeLevel SKIRMISH_LEVEL=new ChallengeLevel((byte)-2,0,"Skirmish Level");
-  private byte _code;
+  public static ChallengeLevel SKIRMISH_LEVEL=new ChallengeLevel(-2,0,"Skirmish Level");
+  private int _code;
   private int _level;
   private String _label;
 
@@ -33,12 +33,12 @@ public class ChallengeLevel
    * @param level Effective level.
    * @param label Displayable label.
    */
-  private ChallengeLevel(byte code, int level, String label)
+  private ChallengeLevel(int code, int level, String label)
   {
     _code=code;
     _level=level;
     _label=label;
-    _mapByCode.put(Byte.valueOf(code),this);
+    _mapByCode.put(Integer.valueOf(code),this);
   }
 
   /**
@@ -46,9 +46,9 @@ public class ChallengeLevel
    * @param code Code to use (>=1:level,-1:character level, -2:skirmish level).
    * @return A challenge level instance (immutable, shared).
    */
-  public static ChallengeLevel getByCode(byte code)
+  public static ChallengeLevel getByCode(int code)
   {
-    ChallengeLevel challengeLevel=_mapByCode.get(Byte.valueOf(code));
+    ChallengeLevel challengeLevel=_mapByCode.get(Integer.valueOf(code));
     if (challengeLevel==null)
     {
       String label=String.valueOf(code);
@@ -59,9 +59,9 @@ public class ChallengeLevel
 
   /**
    * Get the internal code for this repeatability.
-   * @return A byte code.
+   * @return A code.
    */
-  public byte getCode()
+  public int getCode()
   {
     return _code;
   }

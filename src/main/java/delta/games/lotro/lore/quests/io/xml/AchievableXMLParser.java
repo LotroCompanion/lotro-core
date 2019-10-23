@@ -28,7 +28,7 @@ public class AchievableXMLParser
     String category=DOMParsingTools.getStringAttribute(attrs,AchievableXMLConstants.CATEGORY_ATTR,"");
     achievable.setCategory(category);
     // Challenge level
-    byte challengeLevel=(byte)DOMParsingTools.getIntAttribute(attrs,AchievableXMLConstants.LEVEL_ATTR,0);
+    int challengeLevel=DOMParsingTools.getIntAttribute(attrs,AchievableXMLConstants.LEVEL_ATTR,0);
     achievable.setChallengeLevel(ChallengeLevel.getByCode(challengeLevel));
     // Obsolete
     boolean obsolete=DOMParsingTools.getBooleanAttribute(attrs,AchievableXMLConstants.OBSOLETE_ATTR,false);
