@@ -1,7 +1,9 @@
 package delta.games.lotro.lore.items.legendary.passives;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,14 +13,14 @@ import java.util.Set;
  */
 public class PassivesGroupsManager
 {
-  private Map<Integer,PassivesGroup> _passivesByItem;
+  private Map<Integer,List<PassivesGroup>> _passivesByItem;
 
   /**
    * Constructor.
    */
   public PassivesGroupsManager()
   {
-    _passivesByItem=new HashMap<Integer,PassivesGroup>();
+    _passivesByItem=new HashMap<Integer,List<PassivesGroup>>();
   }
 
   /**
@@ -29,7 +31,13 @@ public class PassivesGroupsManager
   {
     for(Integer itemId : group.getItemIds())
     {
-      _passivesByItem.put(itemId,group);
+      List<PassivesGroup> groups=_passivesByItem.get(itemId);
+      if (groups==null)
+      {
+        groups=new ArrayList<PassivesGroup>();
+        _passivesByItem.put(itemId,groups);
+      }
+      groups.add(group);
     }
   }
 
@@ -41,10 +49,13 @@ public class PassivesGroupsManager
   public Set<Integer> getPassiveIdsForItem(int itemId)
   {
     Set<Integer> ret=new HashSet<Integer>();
-    PassivesGroup group=_passivesByItem.get(Integer.valueOf(itemId));
-    if (group!=null)
+    List<PassivesGroup> groups=_passivesByItem.get(Integer.valueOf(itemId));
+    if (groups!=null)
     {
-      ret.addAll(group.getPassiveIds());
+      for(PassivesGroup group : groups)
+      {
+        ret.addAll(group.getPassiveIds());
+      }
     }
     return ret;
   }
