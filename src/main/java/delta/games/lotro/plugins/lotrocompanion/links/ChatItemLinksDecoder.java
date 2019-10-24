@@ -69,6 +69,11 @@ public class ChatItemLinksDecoder
     LOGGER.debug("Item ID: "+itemId);
     ItemsManager itemsMgr=ItemsManager.getInstance();
     Item item=itemsMgr.getItem(itemId);
+    if (item==null)
+    {
+      LOGGER.warn("Unknown item id: "+itemId);
+      return null;
+    }
     ItemInstance<? extends Item> instance=ItemFactory.buildInstance(item);
     instance.setInstanceId(instanceId);
     boolean itemIsLegendary=(instance instanceof LegendaryInstance);

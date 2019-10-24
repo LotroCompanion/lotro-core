@@ -110,11 +110,18 @@ public class ItemsFileParser
     try
     {
       ret=decoder.decodeBuffer(buffer);
-      Double timestamp=(Double)itemData.get("timestamp");
-      if (timestamp!=null)
+      if (ret!=null)
       {
-        long itemTime=timestamp.longValue()*1000;
-        ret.setTime(Long.valueOf(itemTime));
+        Double timestamp=(Double)itemData.get("timestamp");
+        if (timestamp!=null)
+        {
+          long itemTime=timestamp.longValue()*1000;
+          ret.setTime(Long.valueOf(itemTime));
+        }
+        else
+        {
+          ret.setTime(Long.valueOf(System.currentTimeMillis()));
+        }
       }
       //System.out.println(ret.dump());
     }
