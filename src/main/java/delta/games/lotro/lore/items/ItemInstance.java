@@ -11,6 +11,7 @@ import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.id.EntityId;
 import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.stats.StatsManager;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 
@@ -31,8 +32,8 @@ public class ItemInstance<T extends Item>
   private String _birthName;
   // Crafter name (may be <code>null</code>)
   private String _crafterName;
-  // Stats (if overriden over reference stats)
-  private BasicStatsSet _ownStats;
+  // Stats manager
+  private StatsManager _statsManager;
   // Essences
   private EssencesSet _essences;
   // Durability
@@ -60,7 +61,7 @@ public class ItemInstance<T extends Item>
     _time=null;
     _birthName=null;
     _crafterName=null;
-    _ownStats=null;
+    _statsManager=new StatsManager();
     _essences=null;
     _durability=null;
     _itemLevel=null;
@@ -199,21 +200,12 @@ public class ItemInstance<T extends Item>
   }
 
   /**
-   * Get the own stats of this item.
-   * @return some stats.
+   * Get the stats manager.
+   * @return the stats manager.
    */
-  public BasicStatsSet getOwnStats()
+  public StatsManager getStatsManager()
   {
-    return _ownStats;
-  }
-
-  /**
-   * Set the own stats of this item.
-   * @param stats Stats to set.
-   */
-  public void setOwnStats(BasicStatsSet stats)
-  {
-    _ownStats=stats;
+    return _statsManager;
   }
 
   /**
@@ -502,14 +494,7 @@ public class ItemInstance<T extends Item>
     _time=itemInstance._time;
     _birthName=itemInstance._birthName;
     _crafterName=itemInstance._crafterName;
-    if (itemInstance._ownStats!=null)
-    {
-      _ownStats=new BasicStatsSet(itemInstance._ownStats);
-    }
-    else
-    {
-      _ownStats=null;
-    }
+    _statsManager=new StatsManager(itemInstance._statsManager);
     if (itemInstance._essences!=null)
     {
       _essences=new EssencesSet(itemInstance._essences);
@@ -547,7 +532,7 @@ public class ItemInstance<T extends Item>
   public BasicStatsSet getStats()
   {
     BasicStatsSet ret=new BasicStatsSet();
-    BasicStatsSet ownStats=getEffectiveOwnStats();
+    BasicStatsSet ownStats=_statsManager.getResult();
     ret.addStats(ownStats);
     BasicStatsSet essencesStats=getEssencesStats();
     ret.addStats(essencesStats);
@@ -555,38 +540,24 @@ public class ItemInstance<T extends Item>
   }
 
   /**
-   * Get the effective own stats.
-   * @return some stats.
+   * Update automatic stats
    */
-  public BasicStatsSet getEffectiveOwnStats()
+  public void updateAutoStats()
   {
-    BasicStatsSet ret=null;
-    if (_ownStats!=null)
+    if (_reference!=null)
     {
-      ret=new BasicStatsSet(_ownStats);
-    }
-    else
-    {
-      Item item=getReference();
-      if (item!=null)
+      StatsProvider provider=_reference.getStatsProvider();
+      if (provider!=null)
       {
-        StatsProvider provider=item.getStatsProvider();
-        if (provider!=null)
+        Integer effectiveLevel=getEffectiveItemLevel();
+        if (effectiveLevel!=null)
         {
-          Integer effectiveLevel=getEffectiveItemLevel();
-          if (effectiveLevel!=null)
-          {
-            BasicStatsSet stats=provider.getStats(1,effectiveLevel.intValue(),true);
-            ret=new BasicStatsSet(stats);
-          }
+          BasicStatsSet stats=provider.getStats(1,effectiveLevel.intValue(),true);
+          _statsManager.getDefault().setStats(stats);
+          _statsManager.apply();
         }
       }
     }
-    if (ret==null)
-    {
-      ret=new BasicStatsSet();
-    }
-    return ret;
   }
 
   /**
@@ -689,10 +660,7 @@ public class ItemInstance<T extends Item>
     }
     sb.append(EndOfLine.NATIVE_EOL);
     // Stats
-    if (_ownStats!=null)
-    {
-      sb.append("Own stats: ").append(_ownStats);
-    }
+    sb.append("Stats manager: ").append(_statsManager);
     // Essences
     if ((_essences!=null) && (_essences.getSize()>0))
     {

@@ -122,6 +122,7 @@ public class BasicStatsSet
    */
   public void setStats(BasicStatsSet stats)
   {
+    _stats.clear();
     for(Map.Entry<StatDescription,FixedDecimalsInteger> entry : stats._stats.entrySet())
     {
       FixedDecimalsInteger value=new FixedDecimalsInteger(entry.getValue());

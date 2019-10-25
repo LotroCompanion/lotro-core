@@ -24,7 +24,7 @@ public class BasicStatsSetXMLParser
   public static BasicStatsSet parseStats(Element root)
   {
     BasicStatsSet ret=new BasicStatsSet();
-    List<Element> statTags=DOMParsingTools.getChildTagsByName(root,BasicStatsSetXMLConstants.STAT_TAG,true);
+    List<Element> statTags=DOMParsingTools.getChildTagsByName(root,BasicStatsSetXMLConstants.STAT_TAG,false);
     for(Element statTag : statTags)
     {
       String statName=DOMParsingTools.getStringAttribute(statTag.getAttributes(),BasicStatsSetXMLConstants.STAT_NAME_ATTR,"");

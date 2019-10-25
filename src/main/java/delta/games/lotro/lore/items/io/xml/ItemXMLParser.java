@@ -7,9 +7,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
-import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
+import delta.games.lotro.character.stats.base.io.xml.StatsManagerXMLParser;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.colors.ColorsManager;
 import delta.games.lotro.common.id.EntityId;
@@ -21,8 +20,8 @@ import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.essences.EssencesSet;
-import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryInstanceAttrsXMLParser;
 
 /**
@@ -78,8 +77,7 @@ public class ItemXMLParser
     Element statsTag=DOMParsingTools.getChildTagByName(root,BasicStatsSetXMLConstants.STATS_TAG);
     if (statsTag!=null)
     {
-      BasicStatsSet stats=BasicStatsSetXMLParser.parseStats(statsTag);
-      itemInstance.setOwnStats(stats);
+      StatsManagerXMLParser.parseStats(statsTag,itemInstance.getStatsManager());
     }
     // Durability
     int durability=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_DURABILITY_ATTR,-1);

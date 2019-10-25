@@ -31,6 +31,18 @@ public class StatsManager
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public StatsManager(StatsManager source)
+  {
+    _mode=source._mode;
+    _default=new BasicStatsSet(source._default);
+    _custom=new BasicStatsSet(source._custom);
+    _result=new BasicStatsSet(source._result);
+  }
+
+  /**
    * Get the merge mode.
    * @return the merge mode.
    */
@@ -89,8 +101,7 @@ public class StatsManager
     else if (_mode==CustomStatsMergeMode.SET)
     {
       // Ignore default stats
-      _result.clear();
-      _result.addStats(_custom);
+      _result.setStats(_custom);
     }
     else if (_mode==CustomStatsMergeMode.ADD)
     {

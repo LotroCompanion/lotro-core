@@ -172,10 +172,8 @@ public class ItemFactory
       LegendaryAttrs legendaryAttrs=legendary.getLegendaryAttrs();
       setupDefaultLegacy(itemInstance,legendaryAttrs);
     }
-    else
-    {
-      // Nothing to do if it is not a legendary instance
-    }
+    // Compute automatic stats
+    itemInstance.updateAutoStats();
   }
 
   private static void setupDefaultLegacy(ItemInstance<? extends Item> itemInstance, LegendaryAttrs legendaryAttrs)

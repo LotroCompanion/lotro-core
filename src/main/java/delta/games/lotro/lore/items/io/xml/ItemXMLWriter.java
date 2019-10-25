@@ -15,7 +15,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
+import delta.games.lotro.character.stats.base.io.xml.StatsManagerXMLWriter;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.id.EntityId;
@@ -43,8 +43,8 @@ import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
-import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
+import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryInstanceAttrsXMLWriter;
 
 /**
@@ -409,11 +409,7 @@ public class ItemXMLWriter
     }
     else
     {
-      BasicStatsSet ownStats=instance.getOwnStats();
-      if (ownStats!=null)
-      {
-        BasicStatsSetXMLWriter.write(hd,ItemXMLConstants.STATS_TAG,ownStats);
-      }
+      StatsManagerXMLWriter.write(hd,instance.getStatsManager());
     }
 
     if (isInstance)
