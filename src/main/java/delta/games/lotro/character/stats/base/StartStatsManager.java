@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 
@@ -14,6 +16,8 @@ import delta.games.lotro.common.CharacterClass;
  */
 public class StartStatsManager
 {
+  private static final Logger LOGGER=Logger.getLogger(StartStatsManager.class);
+
   private HashMap<CharacterClass,HashMap<Integer,BasicStatsSet>> _startStatsByClass;
 
   /**
@@ -57,8 +61,17 @@ public class StartStatsManager
    */
   public BasicStatsSet getStats(CharacterClass characterClass, int level)
   {
+    BasicStatsSet ret=null;
     HashMap<Integer,BasicStatsSet> mapForClass=getMapForClass(characterClass);
-    BasicStatsSet ret=mapForClass.get(Integer.valueOf(level));
+    if (mapForClass!=null)
+    {
+      ret=mapForClass.get(Integer.valueOf(level));
+    }
+    if (ret==null)
+    {
+      LOGGER.warn("Could not find start stats for class="+characterClass+", level="+level);
+      ret=new BasicStatsSet();
+    }
     return ret;
   }
 
