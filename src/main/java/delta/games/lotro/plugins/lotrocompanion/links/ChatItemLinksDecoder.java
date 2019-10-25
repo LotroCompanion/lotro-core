@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.colors.ColorsManager;
 import delta.games.lotro.common.effects.Effect;
@@ -11,6 +12,7 @@ import delta.games.lotro.common.id.EntityId;
 import delta.games.lotro.common.id.EntityType;
 import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -317,9 +319,15 @@ public class ChatItemLinksDecoder
           if(subHeader==0x34E)
           {
             // Container slot
-            int bitsSet=BufferUtils.readUInt32(bis);
-            LOGGER.debug("Container slots: "+bitsSet);
-            // TODO Check if this gives the slot in case of an equipped item (e.g left/right ear)
+            long bitsSet=BufferUtils.readLong32(bis);
+            Item ref=itemInstance.getReference();
+            EquipmentLocation loc=ref.getEquipmentLocation();
+            if (loc!=null)
+            {
+              EQUIMENT_SLOT slot=getSlotFromContainer(bitsSet);
+              //System.out.println(itemInstance+": loc="+loc+", slot="+slot);
+              LOGGER.debug("Container slots: "+bitsSet+" => "+slot);
+            }
           }
           else if(subHeader==0x10000E20)
           {
@@ -499,6 +507,44 @@ public class ChatItemLinksDecoder
               }
             }
           }
+          else if (subHeader==0x10000747) // 268437319 - Item_BaseActionDuration
+          {
+            float value=BufferUtils.readFloat(bis);
+            LOGGER.debug("Duration: "+value);
+          }
+          else if (subHeader==0x100001BE) // 268435902 - Item_BaseAnimDurationMultiplierMod
+          {
+            float value=BufferUtils.readFloat(bis);
+            LOGGER.debug("Base Anim Duration: "+value);
+          }
+          else if (subHeader==0x10001136) // 268439862 - Combat_DamageVariance
+          {
+            float value=BufferUtils.readFloat(bis);
+            LOGGER.debug("Combat damage variance: "+value);
+          }
+          else if (subHeader==0x100000B7) // 268435639 - Combat_BaseDPS
+          {
+            float value=BufferUtils.readFloat(bis);
+            LOGGER.debug("Combat base DPS: "+value);
+          }
+          else if (subHeader==0x10002A61) // 268446305 - Item_EncounterTemplateOrigin
+          {
+            int did=BufferUtils.readUInt32(bis);
+            LOGGER.debug("Item encounter template origin: "+did);
+          }
+          else if (subHeader==0x10000BA5) // 268438437 - Summon_ToSummonName
+          {
+            BufferUtils.readUInt8(bis);
+            String name=decodeName(bis);
+            LOGGER.debug("Summon name: "+name);
+            BufferUtils.skip(bis,6);
+          }
+          else if (subHeader==0x1000091C) // 268437788 - Summon_ToSummonID
+          {
+            int lowInstanceId=BufferUtils.readUInt32(bis);
+            int highInstanceId=BufferUtils.readUInt32(bis);
+            LOGGER.debug("Summon ID: "+lowInstanceId+" / "+highInstanceId);
+          }
           else
           {
             throw new LinkDecodingException("Unmanaged header: "+subHeader);
@@ -603,4 +649,53 @@ public class ChatItemLinksDecoder
   {
     return BufferUtils.readPrefixedUtf16String(bis);
   }
+
+  /**
+   * Find a equipment slot from a 'container slot' bit set.
+   * @param containerSlotBitSet Container slot bitset.
+   * @return an equipment slot or <code>null</code>.
+   */
+  private static EQUIMENT_SLOT getSlotFromContainer(long containerSlotBitSet)
+  {
+    boolean ignore=((containerSlotBitSet&1L<<30)!=0);
+    if (ignore)
+    {
+      return null;
+    }
+    EQUIMENT_SLOT slot=null;
+    // See Enum: ContainerSlot, (id=587202798)
+    if ((containerSlotBitSet&1L<<1)!=0) slot=EQUIMENT_SLOT.HEAD;
+    if ((containerSlotBitSet&1L<<2)!=0) slot=EQUIMENT_SLOT.BREAST;
+    if ((containerSlotBitSet&1L<<3)!=0) slot=EQUIMENT_SLOT.LEGS;
+    if ((containerSlotBitSet&1L<<4)!=0) slot=EQUIMENT_SLOT.HANDS;
+    if ((containerSlotBitSet&1L<<5)!=0) slot=EQUIMENT_SLOT.FEET;
+    if ((containerSlotBitSet&1L<<6)!=0) slot=EQUIMENT_SLOT.SHOULDER;
+    if ((containerSlotBitSet&1L<<7)!=0) slot=EQUIMENT_SLOT.BACK;
+    if ((containerSlotBitSet&1L<<8)!=0) slot=EQUIMENT_SLOT.LEFT_WRIST;
+    if ((containerSlotBitSet&1L<<9)!=0) slot=EQUIMENT_SLOT.RIGHT_WRIST;
+    if ((containerSlotBitSet&1L<<10)!=0) slot=EQUIMENT_SLOT.NECK;
+    if ((containerSlotBitSet&1L<<11)!=0) slot=EQUIMENT_SLOT.LEFT_FINGER;
+    if ((containerSlotBitSet&1L<<12)!=0) slot=EQUIMENT_SLOT.RIGHT_FINGER;
+    if ((containerSlotBitSet&1L<<13)!=0) slot=EQUIMENT_SLOT.LEFT_EAR;
+    if ((containerSlotBitSet&1L<<14)!=0) slot=EQUIMENT_SLOT.RIGHT_EAR;
+    if ((containerSlotBitSet&1L<<15)!=0) slot=EQUIMENT_SLOT.POCKET;
+    if ((containerSlotBitSet&1L<<16)!=0) slot=EQUIMENT_SLOT.MAIN_MELEE;
+    if ((containerSlotBitSet&1L<<17)!=0) slot=EQUIMENT_SLOT.OTHER_MELEE;
+    if ((containerSlotBitSet&1L<<18)!=0) slot=EQUIMENT_SLOT.RANGED;
+    if ((containerSlotBitSet&1L<<19)!=0) slot=EQUIMENT_SLOT.TOOL;
+    if ((containerSlotBitSet&1L<<20)!=0) slot=EQUIMENT_SLOT.CLASS_ITEM;
+    //if ((slotCode&1L<<21)!=0) slot=EQUIMENT_SLOT.BRIDLE);
+    /*
+      23 => Main-hand Aura
+      24 => Off-hand Aura
+      25 => Ranged Aura
+      26 => Last
+      29 => Mail
+      30 => Equipment
+      31 => Backpack
+      32 => Overflow
+     */
+    return slot;
+  }
+
 }

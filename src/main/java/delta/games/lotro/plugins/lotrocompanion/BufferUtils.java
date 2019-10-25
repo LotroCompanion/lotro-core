@@ -133,6 +133,20 @@ public class BufferUtils
   }
 
   /**
+   * Read an unsigned 32 bits value as a long.
+   * @param is Input stream.
+   * @return A long.
+   */
+  public static long readLong32(ByteArrayInputStream is)
+  {
+    long b4=is.read()&0xff;
+    long b3=is.read()&0xff;
+    long b2=is.read()&0xff;
+    long b1=is.read()&0xff;
+    return (((((b1<<8)+b2)<<8)+b3)<<8)+b4;
+  }
+
+  /**
    * Read an unsigned 24 bits value.
    * @param is Input stream.
    * @return An integer.
