@@ -87,6 +87,8 @@ public class ChatItemLinksDecoder
     {
       decodeNonLegendary(bis,instance);
     }
+    // Finalize
+    instance.updateAutoStats();
     return instance;
   }
 
