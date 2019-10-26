@@ -139,10 +139,10 @@ public class ItemXMLParser
     int nbSlots=item.getEssenceSlots();
     if (nbSlots>0)
     {
-      EssencesSet essencesSet=new EssencesSet(nbSlots);
       Element essencesTag=DOMParsingTools.getChildTagByName(root,ItemXMLConstants.ESSENCES_TAG);
       if (essencesTag!=null)
       {
+        EssencesSet essencesSet=itemInstance.getEssences();
         int currentIndex=0;
         List<Element> allEssenceTags=new ArrayList<Element>();
         List<Element> itemTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ITEM_TAG,false);
@@ -172,7 +172,6 @@ public class ItemXMLParser
           }
         }
       }
-      itemInstance.setEssences(essencesSet);
     }
 
     // Handle legendary items

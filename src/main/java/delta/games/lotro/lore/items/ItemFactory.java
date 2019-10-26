@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
@@ -165,12 +166,19 @@ public class ItemFactory
    */
   private static void initInstance(ItemInstance<? extends Item> itemInstance)
   {
+    Item item=itemInstance.getReference();
     if (itemInstance instanceof LegendaryInstance)
     {
-      Item item=itemInstance.getReference();
       Legendary legendary=(Legendary)item;
       LegendaryAttrs legendaryAttrs=legendary.getLegendaryAttrs();
       setupDefaultLegacy(itemInstance,legendaryAttrs);
+    }
+    // Essences
+    int nbEssenceSlots=item.getEssenceSlots();
+    if (nbEssenceSlots>0)
+    {
+      EssencesSet essences=new EssencesSet(nbEssenceSlots);
+      itemInstance.setEssences(essences);
     }
     // Compute automatic stats
     itemInstance.updateAutoStats();
