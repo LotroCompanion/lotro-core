@@ -7,6 +7,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
@@ -210,11 +211,45 @@ public class LegendaryInstanceAttrs
       }
     }
     // Passives
+    BasicStatsSet passivesStats=getPassivesStats(itemLevel);
+    ret.addStats(passivesStats);
+    return ret;
+  }
+
+  /**
+   * Get the stats provided by the passives.
+   * @param itemLevel Item level to use.
+   * @return some stats.
+   */
+  public BasicStatsSet getPassivesStats(int itemLevel)
+  {
+    BasicStatsSet ret=new BasicStatsSet();
+    int passivesLevel=findLevelForPassives(itemLevel);
     for(Effect passive : _passives)
     {
       StatsProvider statsProvider=passive.getStatsProvider();
-      BasicStatsSet stats=statsProvider.getStats(1,itemLevel);
+      BasicStatsSet stats=statsProvider.getStats(1,passivesLevel);
       ret.addStats(stats);
+    }
+    return ret;
+  }
+
+  /**
+   * Find the level to use for passive stats.
+   * @param itemLevel Item level.
+   * @return a level.
+   */
+  public int findLevelForPassives(int itemLevel)
+  {
+    int ret=itemLevel;
+    if (_imbued)
+    {
+      ImbuedLegacyInstance mainLegacyInstance=_imbuedAttrs.getMainLegacy();
+      if (mainLegacyInstance!=null)
+      {
+        int mainLegacyTier=mainLegacyInstance.getCurrentLevel();
+        ret+=mainLegacyTier;
+      }
     }
     return ret;
   }
