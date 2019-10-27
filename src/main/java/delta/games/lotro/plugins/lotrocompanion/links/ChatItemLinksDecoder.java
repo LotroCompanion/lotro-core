@@ -186,6 +186,7 @@ public class ChatItemLinksDecoder
     {
       throw new LinkDecodingException("Unexpected test value: "+test);
     }
+    attrs.setImbued(imbued);
     // If non imbued
     if (!imbued)
     {
