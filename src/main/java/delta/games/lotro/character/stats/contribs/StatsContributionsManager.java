@@ -10,8 +10,8 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatDescriptionComparator;
 
 /**
  * Manager for a collection of stats contributions.
@@ -96,8 +96,16 @@ public class StatsContributionsManager
    */
   public List<StatDescription> getContributingStats()
   {
-    List<StatDescription> stats=new ArrayList<StatDescription>(_sortedContribs.keySet());
-    Collections.sort(stats,new IdentifiableComparator<StatDescription>());
+    List<StatDescription> stats=new ArrayList<StatDescription>();
+    // Filter stats
+    for(StatDescription stat : _sortedContribs.keySet())
+    {
+      if (stat.getIndex()!=null)
+      {
+        stats.add(stat);
+      }
+    }
+    Collections.sort(stats,new StatDescriptionComparator());
     return stats;
   }
 
