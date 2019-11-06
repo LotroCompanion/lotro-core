@@ -11,8 +11,10 @@ import delta.games.lotro.character.crafting.CraftingLevelStatus;
 import delta.games.lotro.character.crafting.CraftingLevelTierStatus;
 import delta.games.lotro.character.crafting.CraftingStatus;
 import delta.games.lotro.character.crafting.ProfessionStatus;
-import delta.games.lotro.lore.crafting.CraftingLevel;
+import delta.games.lotro.lore.crafting.CraftingData;
+import delta.games.lotro.lore.crafting.CraftingSystem;
 import delta.games.lotro.lore.crafting.Profession;
+import delta.games.lotro.lore.crafting.Professions;
 import delta.games.lotro.lore.crafting.Vocation;
 import delta.games.lotro.lore.crafting.Vocations;
 import delta.games.lotro.plugins.LuaParser;
@@ -53,37 +55,46 @@ public class CraftingParser
   private void useData(Map<String,Object> data)
   {
     CraftingStatus craftingStatus=new CraftingStatus(_character);
+    CraftingData crafting=CraftingSystem.getInstance().getData();
+    // Vocation
     String vocationStr=(String)data.get("Vocation");
     if (vocationStr!=null)
     {
-      Vocation vocation=Vocations.getInstance().getVocationByName(vocationStr);
+      Vocations vocations=crafting.getVocationsRegistry();
+      Vocation vocation=vocations.getVocationByName(vocationStr);
       if (vocation!=null)
       {
         craftingStatus.setVocation(vocation);
-        craftingStatus.getGuildStatus().setProfession(Profession.COOK);
       }
-      Map<String,Object> professionsMap=(Map<String,Object>)data.get("Professions");
-      if (professionsMap!=null)
+    }
+    // Professions
+    Professions professions=crafting.getProfessionsRegistry();
+    Map<String,Object> professionsMap=(Map<String,Object>)data.get("Professions");
+    if (professionsMap!=null)
+    {
+      Set<String> keys=professionsMap.keySet();
+      for(String professionKey : keys)
       {
-        Set<String> keys=professionsMap.keySet();
-        for(String professionKey : keys)
+        Profession profession=professions.getProfessionByName(professionKey);
+        Map<String,Object> professionMap=(Map<String,Object>)professionsMap.get(professionKey);
+        if (professionMap!=null)
         {
-          Profession profession=Profession.getByLabel(professionKey);
-          Map<String,Object> professionMap=(Map<String,Object>)professionsMap.get(professionKey);
-          if (professionMap!=null)
-          {
-            ProfessionStatus status=craftingStatus.getProfessionStatus(profession,true);
-            parseProfession(status,professionMap);
-          }
+          ProfessionStatus status=craftingStatus.getProfessionStatus(profession,true);
+          parseProfession(status,professionMap);
         }
       }
     }
+    // Guild
+    // TODO Get guild and update guild status
+
+    // Show results
     craftingStatus.dump(System.out);
   }
 
   private void parseProfession(ProfessionStatus status, Map<String,Object> professionMap)
   {
-    int maxTier=CraftingLevel.getMaximumLevel().getTier();
+    Profession profession=status.getProfession();
+    int maxTier=profession.getMaximumLevel().getTier();
     // Proficiency
     Double proficiencyLevel=(Double)professionMap.get("ProficiencyLevel");
     if (proficiencyLevel!=null)

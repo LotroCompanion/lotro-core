@@ -12,7 +12,10 @@ import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogItem;
 import delta.games.lotro.character.log.CharacterLogItem.LogItemType;
+import delta.games.lotro.lore.crafting.CraftingData;
+import delta.games.lotro.lore.crafting.CraftingSystem;
 import delta.games.lotro.lore.crafting.Profession;
+import delta.games.lotro.lore.crafting.Professions;
 import delta.games.lotro.lore.crafting.Vocation;
 import delta.games.lotro.lore.crafting.Vocations;
 
@@ -119,8 +122,10 @@ public class CraftingStatusComputer
     // Advanced 'Woodworker' (Mastery 6 / Proficiency 5)
     try
     {
+      CraftingData crafting=CraftingSystem.getInstance().getData();
+      Professions professions=crafting.getProfessionsRegistry();
       String professionStr=TextTools.findBetween(label,"'","'").trim();
-      Profession profession=Profession.getByLabel(professionStr);
+      Profession profession=professions.getProfessionByName(professionStr);
       String masteryStr=TextTools.findBetween(label,"Mastery","/").trim();
       String proficiencyStr=TextTools.findBetween(label,"Proficiency",")").trim();
       // Labels are wrong in the character log
@@ -153,8 +158,10 @@ public class CraftingStatusComputer
   private void parseVocationItem(String label, long date)
   {
     // Learned 'Woodsman'
+    CraftingData crafting=CraftingSystem.getInstance().getData();
+    Vocations vocations=crafting.getVocationsRegistry();
     String vocationName=TextTools.findBetween(label,"'","'").trim();
-    Vocation v=Vocations.getInstance().getVocationByName(vocationName);
+    Vocation v=vocations.getVocationByName(vocationName);
     if (v!=null)
     {
       _status.changeVocation(v,date);

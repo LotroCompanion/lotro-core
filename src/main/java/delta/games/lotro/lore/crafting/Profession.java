@@ -5,73 +5,49 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import delta.games.lotro.common.Identifiable;
+
 /**
  * Profession.
  * @author DAM
  */
-public class Profession
+public class Profession implements Identifiable
 {
-  private static HashMap<String,Profession> _instances=new HashMap<String,Profession>();
-  private static HashMap<String,Profession> _instancesByKey=new HashMap<String,Profession>();
+  private int _id;
   private String _key;
-  private String _label;
+  private String _name;
+  private String _description;
   private boolean _hasGuild;
-
-  /**
-   * Prospector.
-   */
-  public static final Profession PROSPECTOR=new Profession("PROSPECTOR","Prospector",false);
-  /**
-   * Forester.
-   */
-  public static final Profession FORESTER=new Profession("FORESTER","Forester",false);
-  /**
-   * Farmer.
-   */
-  public static final Profession FARMER=new Profession("FARMER","Farmer",false);
-  /**
-   * Metalsmith.
-   */
-  public static final Profession METALSMITH=new Profession("METALSMITH","Metalsmith",true);
-  /**
-   * Tailor.
-   */
-  public static final Profession TAILOR=new Profession("TAILOR","Tailor",true);
-  /**
-   * Weaponsmith.
-   */
-  public static final Profession WEAPONSMITH=new Profession("WEAPONSMITH","Weaponsmith",true);
-  /**
-   * Woodworker.
-   */
-  public static final Profession WOODWORKER=new Profession("WOODWORKER","Woodworker",true);
-  /**
-   * Scholar.
-   */
-  public static final Profession SCHOLAR=new Profession("SCHOLAR","Scholar",true);
-  /**
-   * Cook.
-   */
-  public static final Profession COOK=new Profession("COOK","Cook",true);
-  /**
-   * Jeweller.
-   */
-  public static final Profession JEWELLER=new Profession("JEWELLER","Jeweller",true);
+  private HashMap<Integer,CraftingLevel> _levels;
 
   /**
    * Constructor.
-   * @param key Internal key.
-   * @param label Displayable label.
-   * @param hasGuild Indicates if this profession has a guild or not.
    */
-  public Profession(String key, String label, boolean hasGuild)
+  public Profession()
   {
-    _key=key;
-    _label=label;
-    _hasGuild=hasGuild;
-    _instances.put(label,this);
-    _instances.put(key,this);
-    _instancesByKey.put(key,this);
+    _id=0;
+    _key=null;
+    _name="";
+    _hasGuild=false;
+    _levels=new HashMap<Integer,CraftingLevel>();
+  }
+
+  /**
+   * Get the identifier of this object.
+   * @return an object identifier.
+   */
+  public int getIdentifier()
+  {
+    return _id;
+  }
+
+  /**
+   * Set the identifier of this object.
+   * @param id Identifier to set.
+   */
+  public void setIdentifier(int id)
+  {
+    _id=id;
   }
 
   /**
@@ -84,12 +60,52 @@ public class Profession
   }
 
   /**
-   * Get the displayable name of this profession.
-   * @return A displayable label.
+   * Set a identifying key for this profession.
+   * @param key Key to set.
    */
-  public String getLabel()
+  public void setKey(String key)
   {
-    return _label;
+    _key=key;
+  }
+
+  /**
+   * Get the displayable name of this profession.
+   * @return A displayable name.
+   */
+  public String getName()
+  {
+    return _name;
+  }
+
+  /**
+   * Set the name of this profession.
+   * @param name Name to set.
+   */
+  public void setName(String name)
+  {
+    _name=name;
+  }
+
+  /**
+   * Get the description of this profession.
+   * @return A description.
+   */
+  public String getDescription()
+  {
+    return _description;
+  }
+
+  /**
+   * Set the description of this profession.
+   * @param description Description to set.
+   */
+  public void setDescription(String description)
+  {
+    if (description==null)
+    {
+      description="";
+    }
+    _description=description;
   }
 
   /**
@@ -102,42 +118,63 @@ public class Profession
   }
 
   /**
-   * Get a profession instance by its label.
-   * @param label Label to search.
-   * @return A profession or <code>null</code> if not found.
+   * Add a crafting level.
+   * @param level Level to add.
    */
-  public static Profession getByLabel(String label)
+  public void addLevel(CraftingLevel level)
   {
-    Profession ret=_instances.get(label);
+    Integer key=Integer.valueOf(level.getTier());
+    _levels.put(key,level);
+  }
+
+  /**
+   * Get a crafting level by tier.
+   * @param tier Tier of the crafting level to get.
+   * @return A crafting level instance or <code>null</code> if <code>tier</code> is not known.
+   */
+  public CraftingLevel getByTier(int tier)
+  {
+    CraftingLevel level=_levels.get(Integer.valueOf(tier));
+    return level;
+  }
+
+  /**
+   * Get all known crafting levels for this profession.
+   * @return a list of crafting levels, ordered by tier.
+   */
+  public List<CraftingLevel> getLevels()
+  {
+    List<Integer> keys=new ArrayList<Integer>(_levels.keySet());
+    Collections.sort(keys);
+    List<CraftingLevel> ret=new ArrayList<CraftingLevel>();
+    for(Integer tier : keys)
+    {
+      ret.add(_levels.get(tier));
+    }
     return ret;
   }
 
   /**
-   * Get a profession instance by its key.
-   * @param key Key to search.
-   * @return A profession or <code>null</code> if not found.
+   * Get the maximum level.
+   * @return the maximum level.
    */
-  public static Profession getByKey(String key)
+  public CraftingLevel getMaximumLevel()
   {
-    Profession ret=_instancesByKey.get(key);
-    return ret;
+    return _levels.get(Integer.valueOf(_levels.size()-1));
   }
 
   /**
-   * Get all the professions.
-   * @return A sorted list of professions.
+   * Get the beginner level.
+   * @return the beginner level.
    */
-  public static List<Profession> getAll()
+  public CraftingLevel getBeginnerLevel()
   {
-    List<Profession> ret=new ArrayList<Profession>();
-    ret.addAll(_instancesByKey.values());
-    Collections.sort(ret,new ProfessionComparator());
-    return ret;
+    return _levels.get(Integer.valueOf(0));
   }
 
   @Override
   public String toString()
   {
-    return _label;
+    return _name;
   }
 }

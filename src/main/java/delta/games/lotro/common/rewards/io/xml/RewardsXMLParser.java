@@ -22,7 +22,10 @@ import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
+import delta.games.lotro.lore.crafting.CraftingData;
+import delta.games.lotro.lore.crafting.CraftingSystem;
 import delta.games.lotro.lore.crafting.Profession;
+import delta.games.lotro.lore.crafting.Professions;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
@@ -277,9 +280,15 @@ public class RewardsXMLParser
   private static void parseCraftingXpReward(List<RewardElement> rewards, Element craftingXpTag)
   {
     NamedNodeMap attrs=craftingXpTag.getAttributes();
+
+    // Profession
     String professionKey=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.CRAFTING_PROFESSION_ATTR,null);
-    Profession profession=Profession.getByKey(professionKey);
+    CraftingData crafting=CraftingSystem.getInstance().getData();
+    Professions professions=crafting.getProfessionsRegistry();
+    Profession profession=professions.getProfessionByKey(professionKey);
+    // Tier
     int tier=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.CRAFTING_TIER_ATTR,1);
+    // XP
     int xp=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.CRAFTING_XP_ATTR,1);
     CraftingXpReward craftingXpReward=new CraftingXpReward(profession,tier,xp);
     rewards.add(craftingXpReward);

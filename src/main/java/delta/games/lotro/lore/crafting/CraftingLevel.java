@@ -1,86 +1,31 @@
 package delta.games.lotro.lore.crafting;
 
-import java.util.HashMap;
-
 /**
  * Represents a level in a crafting profession.
  * @author DAM
  */
 public final class CraftingLevel
 {
-  private static HashMap<Integer,CraftingLevel> _registry=new HashMap<Integer,CraftingLevel>();
-
-  /**
-   * Beginner.
-   */
-  public static final CraftingLevel BEGINNER=new CraftingLevel(0,"Beginner",0,"Beginner",0);
-  /**
-   * Apprentice.
-   */
-  public static final CraftingLevel APPRENTICE=new CraftingLevel(1,"Apprentice",200,"Master Apprentice",400);
-  /**
-   * Journeyman.
-   */
-  public static final CraftingLevel JOURNEYMAN=new CraftingLevel(2,"Journeyman",280,"Master Journeyman",560);
-  /**
-   * Expert.
-   */
-  public static final CraftingLevel EXPERT=new CraftingLevel(3,"Expert",360,"Master Expert",720);
-  /**
-   * Artisan.
-   */
-  public static final CraftingLevel ARTISAN=new CraftingLevel(4,"Artisan",440,"Master Artisan",880);
-  /**
-   * Master.
-   */
-  public static final CraftingLevel MASTER=new CraftingLevel(5,"Master",520,"Grand Master",1040);
-  /**
-   * Supreme.
-   */
-  public static final CraftingLevel SUPREME=new CraftingLevel(6,"Supreme",600,"Supreme Master",1200);
-  /**
-   * Westfold.
-   */
-  public static final CraftingLevel WESTFOLD=new CraftingLevel(7,"Westfold",680,"Westfold Master",1360);
-  /**
-   * Eastemnet.
-   */
-  public static final CraftingLevel EASTEMNET=new CraftingLevel(8,"Eastemnet",760,"Eastemnet Master",1520);
-  /**
-   * Westemnet.
-   */
-  public static final CraftingLevel WESTEMNET=new CraftingLevel(9,"Westemnet",840,"Westemnet Master",1680);
-  /**
-   * Anórien.
-   */
-  public static final CraftingLevel ANORIEN=new CraftingLevel(10,"Anórien",840,"Anórien Master",1680);
-  /**
-   * Doomfold.
-   */
-  public static final CraftingLevel DOOMFOLD=new CraftingLevel(11,"Doomfold",840,"Doomfold Master",1680);
-  /**
-   * Ironfold.
-   */
-  public static final CraftingLevel IRONFOLD=new CraftingLevel(12,"Ironfold",840,"Ironfold Master",1680);
-
-  /**
-   * All crafting tiers, sorted by level.
-   */
-  public static final CraftingLevel[] ALL_TIERS = {
-    BEGINNER, APPRENTICE, JOURNEYMAN, EXPERT, ARTISAN, MASTER, SUPREME,
-    WESTFOLD, EASTEMNET, WESTEMNET, ANORIEN, DOOMFOLD, IRONFOLD
-  };
-
   private int _tier;
+  private String _name;
+  /**
+   * Icon name: iconID-backgroundIconID.
+   */
+  private String _icon;
   private CraftingLevelTier _proficiency;
   private CraftingLevelTier _mastery;
 
-  private CraftingLevel(int tier, String label, int proficiencyXP, String masteryLabel, int masteryXP)
+  /**
+   * Constructor.
+   * @param tier Tier.
+   */
+  public CraftingLevel(int tier)
   {
     _tier=tier;
-    _proficiency=new CraftingLevelTier(this,label,proficiencyXP);
-    _mastery=new CraftingLevelTier(this,masteryLabel,masteryXP);
-    _registry.put(Integer.valueOf(tier),this);
+    _name="";
+    _icon="";
+    _proficiency=new CraftingLevelTier();
+    _mastery=new CraftingLevelTier();
   }
 
   /**
@@ -93,12 +38,39 @@ public final class CraftingLevel
   }
 
   /**
-   * Get the label of this level.
+   * Get the name of this level.
    * @return a displayable label.
    */
-  public String getLabel()
+  public String getName()
   {
-    return _proficiency.getLabel();
+    return _name;
+  }
+
+  /**
+   * Set the name of this tier.
+   * @param name Name to set.
+   */
+  public void setName(String name)
+  {
+    _name=name;
+  }
+
+  /**
+   * Get the icon of this level.
+   * @return an icon path.
+   */
+  public String getIcon()
+  {
+    return _icon;
+  }
+
+  /**
+   * Set the icon of this tier.
+   * @param icon Icon to set.
+   */
+  public void setIcon(String icon)
+  {
+    _icon=icon;
   }
 
   /**
@@ -123,25 +95,5 @@ public final class CraftingLevel
   public String toString()
   {
     return _proficiency.getLabel();
-  }
-
-  /**
-   * Get a crafting level instance by tier.
-   * @param tier Tier of the crafting level to get.
-   * @return A crafting level instance or <code>null</code> if <code>tier</code> is not known.
-   */
-  public static CraftingLevel getByTier(int tier)
-  {
-    CraftingLevel level=_registry.get(Integer.valueOf(tier));
-    return level;
-  }
-
-  /**
-   * Get the maximum level.
-   * @return the maximum level.
-   */
-  public static CraftingLevel getMaximumLevel()
-  {
-    return IRONFOLD;
   }
 }

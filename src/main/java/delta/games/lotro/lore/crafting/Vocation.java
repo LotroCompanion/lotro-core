@@ -3,40 +3,66 @@ package delta.games.lotro.lore.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.common.Identifiable;
+
 /**
  * Vocation.
  * @author DAM
  */
-public class Vocation
+public class Vocation implements Identifiable
 {
-  private String _id;
+  private int _id;
+  private String _key;
   private String _name;
+  private String _description;
   private List<Profession> _professions;
 
   /**
    * Constructor.
-   * @param id Identifier.
-   * @param name Label.
-   * @param professions Involved professions.
    */
-  public Vocation(String id, String name, Profession... professions)
+  public Vocation()
   {
-    _id=id;
-    _name=name;
+    _id=0;
+    _key=null;
+    _name="";
+    _description="";
     _professions=new ArrayList<Profession>();
-    for(Profession profession : professions)
-    {
-      _professions.add(profession);
-    }
   }
 
   /**
-   * Get the identifier of this vocation. 
-   * @return the identifier of this vocation.
+   * Get the identifier of this object.
+   * @return an object identifier.
    */
-  public String getIdentifier()
+  public int getIdentifier()
   {
     return _id;
+  }
+
+  /**
+   * Set the identifier of this object.
+   * @param id Identifier to set.
+   */
+  public void setIdentifier(int id)
+  {
+    _id=id;
+  }
+
+  /**
+   * Get the identifying key for this vocation.
+   * @return the identifying key for this vocation.
+   */
+  public String getKey()
+  {
+    return _key;
+  }
+
+  /**
+   * Set the identifying key for this vocation. 
+   * @param key Key to set.
+   */
+  public void setKey(String key)
+  {
+    _key=key;
   }
 
   /**
@@ -46,6 +72,46 @@ public class Vocation
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Set the name of this vocation.
+   * @param name Name to set.
+   */
+  public void setName(String name)
+  {
+    _name=name;
+  }
+
+  /**
+   * Get the description of this vocation. 
+   * @return the description of this vocation.
+   */
+  public String getDescription()
+  {
+    return _description;
+  }
+
+  /**
+   * Set the description of this vocation.
+   * @param description Description to set.
+   */
+  public void setDescription(String description)
+  {
+    if (description==null)
+    {
+      description="";
+    }
+    _description=description;
+  }
+
+  /**
+   * Add a profession.
+   * @param profession Profession to add.
+   */
+  public void addProfession(Profession profession)
+  {
+    _professions.add(profession);
   }
 
   /**

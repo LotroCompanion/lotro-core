@@ -146,4 +146,8 @@ public class DataFiles
    * Combat system data file.
    */
   public static final String COMBAT_DATA="combatData";
+  /**
+   * Crafting system data file.
+   */
+  public static final String CRAFTING_DATA="craftingData";
 }

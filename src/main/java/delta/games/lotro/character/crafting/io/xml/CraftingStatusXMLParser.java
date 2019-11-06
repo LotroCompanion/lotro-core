@@ -15,7 +15,10 @@ import delta.games.lotro.character.crafting.GuildStatus;
 import delta.games.lotro.character.crafting.ProfessionStatus;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLConstants;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLParser;
+import delta.games.lotro.lore.crafting.CraftingData;
+import delta.games.lotro.lore.crafting.CraftingSystem;
 import delta.games.lotro.lore.crafting.Profession;
+import delta.games.lotro.lore.crafting.Professions;
 import delta.games.lotro.lore.crafting.Vocation;
 import delta.games.lotro.lore.crafting.Vocations;
 
@@ -47,22 +50,25 @@ public class CraftingStatusXMLParser
     String name=DOMParsingTools.getStringAttribute(root.getAttributes(),CraftingStatusXMLConstants.CRAFTING_NAME_ATTR,"");
     CraftingStatus status=new CraftingStatus(name);
 
+    CraftingData crafting=CraftingSystem.getInstance().getData();
     // Vocation
+    Vocations vocations=crafting.getVocationsRegistry();
     Element vocationTag=DOMParsingTools.getChildTagByName(root,CraftingStatusXMLConstants.VOCATION_TAG);
     if (vocationTag!=null)
     {
       String vocationId=DOMParsingTools.getStringAttribute(vocationTag.getAttributes(),CraftingStatusXMLConstants.VOCATION_ID_ATTR,"");
-      Vocation vocation=Vocations.getInstance().getVocationById(vocationId);
+      Vocation vocation=vocations.getVocationByKey(vocationId);
       status.setVocation(vocation);
     }
 
     // Professions
+    Professions professions=crafting.getProfessionsRegistry();
     List<Element> professionTags=DOMParsingTools.getChildTagsByName(root,CraftingStatusXMLConstants.PROFESSION_TAG);
     for(Element professionTag : professionTags)
     {
       NamedNodeMap professionAttrs=professionTag.getAttributes();
-      String professionId=DOMParsingTools.getStringAttribute(professionAttrs,CraftingStatusXMLConstants.PROFESSION_ID_ATTR,null);
-      Profession profession=Profession.getByKey(professionId);
+      String professionKey=DOMParsingTools.getStringAttribute(professionAttrs,CraftingStatusXMLConstants.PROFESSION_ID_ATTR,null);
+      Profession profession=professions.getProfessionByKey(professionKey);
       if (profession!=null)
       {
         ProfessionStatus professionStatus=status.getProfessionStatus(profession,true);
@@ -96,10 +102,10 @@ public class CraftingStatusXMLParser
     if (guildTag!=null)
     {
       NamedNodeMap guildAttrs=guildTag.getAttributes();
-      String professionId=DOMParsingTools.getStringAttribute(guildAttrs,CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,null);
-      if (professionId!=null)
+      String professionKey=DOMParsingTools.getStringAttribute(guildAttrs,CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,null);
+      if (professionKey!=null)
       {
-        Profession profession=Profession.getByKey(professionId);
+        Profession profession=professions.getProfessionByKey(professionKey);
         guildStatus.setProfession(profession);
       }
       Element guildFactionTag=DOMParsingTools.getChildTagByName(guildTag,ReputationXMLConstants.FACTION_TAG);

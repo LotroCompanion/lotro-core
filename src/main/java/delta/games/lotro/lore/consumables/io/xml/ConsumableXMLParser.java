@@ -31,10 +31,10 @@ public class ConsumableXMLParser
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      List<Element> traitTags=DOMParsingTools.getChildTagsByName(root,ConsumableXMLConstants.CONSUMABLE_TAG);
-      for(Element traitTag:traitTags)
+      List<Element> consumableTags=DOMParsingTools.getChildTagsByName(root,ConsumableXMLConstants.CONSUMABLE_TAG);
+      for(Element consumableTag : consumableTags)
       {
-        Consumable consumable=parseConsumable(traitTag);
+        Consumable consumable=parseConsumable(consumableTag);
         consumables.add(consumable);
       }
     }

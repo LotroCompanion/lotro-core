@@ -61,7 +61,7 @@ public class CraftingStatusXMLWriter
     {
       // Vocation tag
       AttributesImpl vocationAttrs=new AttributesImpl();
-      String id=vocation.getIdentifier();
+      String id=vocation.getKey();
       vocationAttrs.addAttribute("","",CraftingStatusXMLConstants.VOCATION_ID_ATTR,XmlWriter.CDATA,id);
       hd.startElement("","",CraftingStatusXMLConstants.VOCATION_TAG,vocationAttrs);
       hd.endElement("","",CraftingStatusXMLConstants.VOCATION_TAG);
@@ -97,7 +97,8 @@ public class CraftingStatusXMLWriter
   private void writeProfessionStatus(TransformerHandler hd, ProfessionStatus status) throws Exception
   {
     AttributesImpl professionAttrs=new AttributesImpl();
-    String id=status.getProfession().getKey();
+    Profession profession=status.getProfession();
+    String id=profession.getKey();
     professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_ID_ATTR,XmlWriter.CDATA,id);
     Long validityDate=status.getValidityDate();
     if (validityDate!=null)
@@ -106,7 +107,7 @@ public class CraftingStatusXMLWriter
     }
     hd.startElement("","",CraftingStatusXMLConstants.PROFESSION_TAG,professionAttrs);
 
-    for(CraftingLevel level : CraftingLevel.ALL_TIERS)
+    for(CraftingLevel level : profession.getLevels())
     {
       CraftingLevelStatus levelStatus=status.getLevelStatus(level);
       if (levelStatus!=null)

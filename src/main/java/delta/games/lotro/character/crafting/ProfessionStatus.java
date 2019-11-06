@@ -44,7 +44,7 @@ public class ProfessionStatus
   public void initProfession(long date)
   {
     reset();
-    CraftingLevelStatus status=getLevelStatus(CraftingLevel.BEGINNER);
+    CraftingLevelStatus status=getLevelStatus(_profession.getBeginnerLevel());
     status.getMastery().setCompleted(date);
     status.getProficiency().setCompleted(date);
   }
@@ -75,7 +75,7 @@ public class ProfessionStatus
   {
     long minDate=Long.MAX_VALUE;
     long maxDate=0;
-    for(CraftingLevel level : CraftingLevel.ALL_TIERS)
+    for(CraftingLevel level : _profession.getLevels())
     {
       CraftingLevelStatus levelStatus=getLevelStatus(level);
       // Mastery
@@ -104,7 +104,7 @@ public class ProfessionStatus
   private void reset()
   {
     _status.clear();
-    for(CraftingLevel level : CraftingLevel.ALL_TIERS)
+    for(CraftingLevel level : _profession.getLevels())
     {
       CraftingLevelStatus status=new CraftingLevelStatus(level);
       _status.add(status);
@@ -184,7 +184,7 @@ public class ProfessionStatus
         tierStatus.setCompleted(true);
         tierStatus.setAcquiredXP(tierStatus.getLevelTier().getXP());
         // Set previous levels to 'completed'
-        for(CraftingLevel level : CraftingLevel.ALL_TIERS)
+        for(CraftingLevel level : _profession.getLevels())
         {
           if (level==targetedLevel)
           {
@@ -204,7 +204,7 @@ public class ProfessionStatus
         tierStatus.setCompleted(false);
         tierStatus.setCompletionDate(0);
         // Set higher levels to 'not completed'
-        for(CraftingLevel level : CraftingLevel.ALL_TIERS)
+        for(CraftingLevel level : _profession.getLevels())
         {
           if (level.getTier()>targetedLevel.getTier())
           {
@@ -227,7 +227,7 @@ public class ProfessionStatus
   public void dump(PrintStream ps)
   {
     ps.println("Status for profession ["+_profession+"]:");
-    for(CraftingLevel level : CraftingLevel.ALL_TIERS)
+    for(CraftingLevel level : _profession.getLevels())
     {
       CraftingLevelStatus status=getLevelStatus(level);
       if ((status!=null) && (status.isStarted()))

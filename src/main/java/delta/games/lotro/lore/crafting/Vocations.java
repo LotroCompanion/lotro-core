@@ -5,47 +5,37 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import delta.games.lotro.common.IdentifiableComparator;
+
 /**
  * Vocations registry.
  * @author DAM
  */
 public final class Vocations
 {
-  private static Vocations _instance=new Vocations();
-
   private HashMap<String,Vocation> _vocationsByName;
-  private HashMap<String,Vocation> _vocationsById;
+  private HashMap<String,Vocation> _vocationsByKey;
+  private HashMap<Integer,Vocation> _vocationsById;
 
   /**
-   * Get the sole instance of this class.
-   * @return the sole instance of this class.
+   * Constructor.
    */
-  public static Vocations getInstance()
-  {
-    return _instance;
-  }
-
-  /**
-   * Private constructor.
-   */
-  private Vocations()
+  public Vocations()
   {
     _vocationsByName=new HashMap<String,Vocation>();
-    _vocationsById=new HashMap<String,Vocation>();
-    addVocation("ARMOURER","Armourer",Profession.PROSPECTOR,Profession.METALSMITH,Profession.TAILOR);
-    addVocation("ARMSMAN","Armsman",Profession.PROSPECTOR,Profession.WEAPONSMITH,Profession.WOODWORKER);
-    addVocation("EXPLORER","Explorer",Profession.FORESTER,Profession.PROSPECTOR,Profession.TAILOR);
-    addVocation("HISTORIAN","Historian",Profession.FARMER,Profession.SCHOLAR,Profession.WEAPONSMITH);
-    addVocation("TINKER","Tinker",Profession.PROSPECTOR,Profession.COOK,Profession.JEWELLER);
-    addVocation("WOODSMAN","Woodsman",Profession.FARMER,Profession.FORESTER,Profession.WOODWORKER);
-    addVocation("YEAOMAN","Yeoman",Profession.FARMER,Profession.COOK,Profession.TAILOR);
+    _vocationsByKey=new HashMap<String,Vocation>();
+    _vocationsById=new HashMap<Integer,Vocation>();
   }
 
-  private void addVocation(String id, String name, Profession... professions)
+  /**
+   * Register a vocation.
+   * @param vocation Vocation to add.
+   */
+  public void addVocation(Vocation vocation)
   {
-    Vocation v=new Vocation(id,name,professions);
-    _vocationsById.put(id,v);
-    _vocationsByName.put(name,v);
+    _vocationsById.put(Integer.valueOf(vocation.getIdentifier()),vocation);
+    _vocationsByKey.put(vocation.getKey(),vocation);
+    _vocationsByName.put(vocation.getName(),vocation);
   }
 
   /**
@@ -56,18 +46,28 @@ public final class Vocations
   {
     List<Vocation> ret=new ArrayList<Vocation>();
     ret.addAll(_vocationsById.values());
-    Collections.sort(ret,new VocationComparator());
+    Collections.sort(ret,new IdentifiableComparator<Vocation>());
     return ret;
   }
 
   /**
    * Get a vocation by its identifier. 
-   * @param id Identifier of vocation to get.
+   * @param identifier Identifier of the vocation to get.
    * @return A vocation or <code>null</code> if not found.
    */
-  public Vocation getVocationById(String id)
+  public Vocation getVocationById(int identifier)
   {
-    return _vocationsById.get(id);
+    return _vocationsById.get(Integer.valueOf(identifier));
+  }
+
+  /**
+   * Get a vocation by its identifying key. 
+   * @param key Identifying key of the vocation to get.
+   * @return A vocation or <code>null</code> if not found.
+   */
+  public Vocation getVocationByKey(String key)
+  {
+    return _vocationsByKey.get(key);
   }
 
   /**
