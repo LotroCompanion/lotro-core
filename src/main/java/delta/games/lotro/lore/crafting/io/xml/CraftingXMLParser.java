@@ -75,6 +75,9 @@ public class CraftingXMLParser
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_DESCRIPTION_ATTR,"");
     ret.setDescription(description);
+    // Has guild?
+    boolean hasGuild=DOMParsingTools.getBooleanAttribute(attrs,CraftingXMLConstants.PROFESSION_HAS_GUILD_ATTR,false);
+    ret.setHasGuild(hasGuild);
 
     List<Element> tierTags=DOMParsingTools.getChildTagsByName(root,CraftingXMLConstants.PROFESSION_TIER_TAG);
     for(Element tierTag : tierTags)

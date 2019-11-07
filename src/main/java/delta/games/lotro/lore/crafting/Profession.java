@@ -118,6 +118,15 @@ public class Profession implements Identifiable
   }
 
   /**
+   * Indicate if this profession has a guild or not.
+   * @param hasGuild <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public void setHasGuild(boolean hasGuild)
+  {
+    _hasGuild=hasGuild;
+  }
+
+  /**
    * Add a crafting level.
    * @param level Level to add.
    */

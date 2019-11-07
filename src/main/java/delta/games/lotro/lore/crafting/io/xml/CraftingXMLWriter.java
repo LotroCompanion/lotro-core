@@ -122,6 +122,12 @@ public class CraftingXMLWriter
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(description));
     }
+    // Has guild?
+    boolean hasGuild=profession.hasGuild();
+    if (hasGuild)
+    {
+      attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_HAS_GUILD_ATTR,XmlWriter.CDATA,String.valueOf(hasGuild));
+    }
     hd.startElement("","",CraftingXMLConstants.PROFESSION_TAG,attrs);
     // Levels
     List<CraftingLevel> levels=profession.getLevels();
