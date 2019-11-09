@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.lore.items.legendary.LegendaryConstants;
 
 /**
@@ -185,6 +186,21 @@ public class NonImbuedLegendaryInstanceAttrs
   public int getTotalPoints()
   {
     return _pointsSpent+_pointsLeft;
+  }
+
+  /**
+   * Get the total stats for the legacies.
+   * @return a set of stats.
+   */
+  public BasicStatsSet getRawStats()
+  {
+    BasicStatsSet ret=new BasicStatsSet();
+    ret.addStats(_defaultLegacy.getStats());
+    for(TieredNonImbuedLegacyInstance legacy : _legacies)
+    {
+      ret.addStats(legacy.getStats());
+    }
+    return ret;
   }
 
   @Override

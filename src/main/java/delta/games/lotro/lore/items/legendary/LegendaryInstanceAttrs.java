@@ -187,7 +187,8 @@ public class LegendaryInstanceAttrs
    * <ul>
    * <li>title stats,
    * <li>passive stats,
-   * <li>relics stats.
+   * <li>relics stats,
+   * <li>legacies stats.
    * </ul>
    * @return a set of stats.
    */
@@ -213,6 +214,17 @@ public class LegendaryInstanceAttrs
     // Passives
     BasicStatsSet passivesStats=getPassivesStats(itemLevel);
     ret.addStats(passivesStats);
+    // Legacies
+    if (_imbued)
+    {
+      BasicStatsSet legaciesStats=_imbuedAttrs.getRawStats();
+      ret.addStats(legaciesStats);
+    }
+    else
+    {
+      BasicStatsSet legaciesStats=_nonImbuedAttrs.getRawStats();
+      ret.addStats(legaciesStats);
+    }
     return ret;
   }
 
