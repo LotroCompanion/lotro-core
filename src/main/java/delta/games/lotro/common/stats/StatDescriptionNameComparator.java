@@ -1,14 +1,12 @@
-package delta.games.lotro.character.stats;
+package delta.games.lotro.common.stats;
 
 import java.util.Comparator;
-
-import delta.games.lotro.common.stats.StatDescription;
 
 /**
  * Stats comparator.
  * @author DAM
  */
-public class StatNameComparator implements Comparator<StatDescription>
+public class StatDescriptionNameComparator implements Comparator<StatDescription>
 {
   /**
    * Compare 2 stats using their label.
