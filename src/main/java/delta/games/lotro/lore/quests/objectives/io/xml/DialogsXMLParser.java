@@ -46,14 +46,14 @@ public class DialogsXMLParser
   {
     QuestCompletionComment ret=new QuestCompletionComment();
     // NPCs
-    List<Element> npcTags=DOMParsingTools.getChildTags(commentTag);
+    List<Element> npcTags=DOMParsingTools.getChildTagsByName(commentTag,QuestXMLConstants.NPC_TAG);
     for(Element npcTag : npcTags)
     {
       Proxy<NpcDescription> npcProxy=SharedXMLUtils.parseNpcProxy(npcTag.getAttributes());
       ret.addWho(npcProxy);
     }
     // Text
-    List<Element> textTags=DOMParsingTools.getChildTags(commentTag);
+    List<Element> textTags=DOMParsingTools.getChildTagsByName(commentTag,QuestXMLConstants.TEXT_TAG);
     for(Element textTag : textTags)
     {
       String text=DOMParsingTools.getStringAttribute(textTag.getAttributes(),QuestXMLConstants.TEXT_ATTR,null);
