@@ -15,6 +15,9 @@ import delta.games.lotro.common.id.EntityId;
 import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
+import delta.games.lotro.common.stats.CustomStatsMergeMode;
+import delta.games.lotro.common.stats.StatsManager;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -23,6 +26,7 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryInstanceAttrsXMLParser;
+import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Parser for item instance descriptions stored in XML.
@@ -78,6 +82,17 @@ public class ItemXMLParser
     if (statsTag!=null)
     {
       StatsManagerXMLParser.parseStats(statsTag,itemInstance.getStatsManager());
+    }
+    // Armour
+    int armour=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ARMOUR_ATTR,-1);
+    if (armour!=-1)
+    {
+      StatsManager statsManager=itemInstance.getStatsManager();
+      if (statsManager.getMode()==CustomStatsMergeMode.SET)
+      {
+        statsManager.getCustom().setStat(WellKnownStat.ARMOUR,new FixedDecimalsInteger(armour));
+        statsManager.getResult().setStat(WellKnownStat.ARMOUR,new FixedDecimalsInteger(armour));
+      }
     }
     // Durability
     int durability=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_DURABILITY_ATTR,-1);

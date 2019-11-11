@@ -203,6 +203,7 @@ public final class ItemSaxParser extends DefaultHandler {
               ArmourType type=ArmourType.getArmourTypeByKey(armourTypeStr);
               armour.setArmourType(type);
             }
+            // Armour value is loaded as a regular stat
           }
           // Weapon specific:
           if (_currentItem instanceof Weapon)
