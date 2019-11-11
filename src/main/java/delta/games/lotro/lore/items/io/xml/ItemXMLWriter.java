@@ -386,8 +386,8 @@ public class ItemXMLWriter
     for(String propertyName : propertyNames)
     {
       // Write reference item properties for items, and write instance properties for item instances...
-      boolean isReferenceItemProperty=ItemPropertyNames.isItemReferenceProperty(propertyName);
-      if (isReferenceItemProperty!=isInstance)
+      if ((!isInstance && ItemPropertyNames.isItemReferenceProperty(propertyName)) ||
+          (isInstance && ItemPropertyNames.isItemInstanceProperty(propertyName)))
       {
         String propertyValue=properties.get(propertyName);
         AttributesImpl attrs=new AttributesImpl();

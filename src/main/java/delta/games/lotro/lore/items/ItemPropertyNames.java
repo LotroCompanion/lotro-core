@@ -37,4 +37,16 @@ public class ItemPropertyNames
     if (MUNGING.equals(key)) return true;
     return false;
   }
+
+  /**
+   * Indicates if the given property name is used for an item instance or not.
+   * @param key Key to use.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public static boolean isItemInstanceProperty(String key) 
+  {
+    if (USER_COMMENT.equals(key)) return true;
+    if (STASH_ID.equals(key)) return true;
+    return false;
+  }
 }
