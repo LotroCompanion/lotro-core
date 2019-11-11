@@ -34,54 +34,10 @@ public class CharacterGearUpdater
 
   private void updateItem(ItemInstance<? extends Item> item)
   {
-    /*
     if (item==null)
     {
       return;
     }
-    ItemsManager manager=ItemsManager.getInstance();
-    int id=item.getIdentifier();
-    Item refItem=manager.getItem(id);
-    if (refItem==null)
-    {
-      return;
-    }
-    item.setReference(refItem);
-    // Item level
-    Integer itemLevel=item.getItemLevel();
-    if (itemLevel!=null)
-    {
-      StatsProvider provider=refItem.getStatsProvider();
-      if (provider!=null)
-      {
-        BasicStatsSet stats=provider.getStats(1,itemLevel.intValue(),true);
-        clonedItem.getStats().setStats(stats);
-      }
-      clonedItem.setItemLevel(itemLevel);
-    }
-    // Essences
-    EssencesSet essences=item.getEssences();
-    if (essences!=null)
-    {
-      int nbEssences=essences.getSize();
-      EssencesSet newEssences=new EssencesSet(nbEssences);
-      for(int i=0;i<nbEssences;i++)
-      {
-        Item newEssence=null;
-        Item oldEssence=essences.getEssence(i);
-        if (oldEssence!=null)
-        {
-          Item refEssence=manager.getItem(oldEssence.getIdentifier());
-          if (refEssence!=null)
-          {
-            newEssence=ItemFactory.clone(refEssence);
-          }
-        }
-        newEssences.setEssence(i,newEssence);
-      }
-      clonedItem.setEssences(newEssences);
-    }
-    return clonedItem;
-    */
+    item.updateAutoStats();
   }
 }
