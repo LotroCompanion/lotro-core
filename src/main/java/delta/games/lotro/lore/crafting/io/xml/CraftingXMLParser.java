@@ -82,18 +82,18 @@ public class CraftingXMLParser
     List<Element> tierTags=DOMParsingTools.getChildTagsByName(root,CraftingXMLConstants.PROFESSION_TIER_TAG);
     for(Element tierTag : tierTags)
     {
-      CraftingLevel level=parseCraftingLevel(tierTag);
+      CraftingLevel level=parseCraftingLevel(ret,tierTag);
       ret.addLevel(level);
     }
     return ret;
   }
 
-  private static CraftingLevel parseCraftingLevel(Element root)
+  private static CraftingLevel parseCraftingLevel(Profession profession, Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Tier
     int tier=DOMParsingTools.getIntAttribute(attrs,CraftingXMLConstants.PROFESSION_TIER_ATTR,0);
-    CraftingLevel ret=new CraftingLevel(tier);
+    CraftingLevel ret=new CraftingLevel(profession,tier);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_TIER_NAME_ATTR,"");
     ret.setName(name);

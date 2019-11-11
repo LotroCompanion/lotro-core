@@ -6,6 +6,7 @@ package delta.games.lotro.lore.crafting;
  */
 public final class CraftingLevel
 {
+  private Profession _profession;
   private int _tier;
   private String _name;
   /**
@@ -17,15 +18,26 @@ public final class CraftingLevel
 
   /**
    * Constructor.
+   * @param profession Profession.
    * @param tier Tier.
    */
-  public CraftingLevel(int tier)
+  public CraftingLevel(Profession profession, int tier)
   {
+    _profession=profession;
     _tier=tier;
     _name="";
     _icon="";
     _proficiency=new CraftingLevelTier();
     _mastery=new CraftingLevelTier();
+  }
+
+  /**
+   * Get the associated profession.
+   * @return the associated profession.
+   */
+  public Profession getProfession()
+  {
+    return _profession;
   }
 
   /**
