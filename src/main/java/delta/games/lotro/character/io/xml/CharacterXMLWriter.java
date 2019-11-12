@@ -23,6 +23,7 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
+import delta.games.lotro.utils.PersistenceVersions;
 
 /**
  * Writes LOTRO characters to XML files.
@@ -55,6 +56,10 @@ public class CharacterXMLWriter
   private void write(TransformerHandler hd, CharacterData character) throws Exception
   {
     AttributesImpl characterAttrs=new AttributesImpl();
+    // Version
+    String versionStr=String.valueOf(PersistenceVersions.CHARACTER_DATA);
+    characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_VERSION_ATTR,XmlWriter.CDATA,versionStr);
+    // Summary
     CharacterSummaryXMLWriter.write(characterAttrs, character.getSummary());
     // Short description
     String shortDescription=character.getShortDescription();

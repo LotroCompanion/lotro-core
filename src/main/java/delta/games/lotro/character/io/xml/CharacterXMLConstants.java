@@ -12,6 +12,10 @@ public class CharacterXMLConstants
    */
   public static final String CHARACTER_TAG="character";
   /**
+   * Tag 'character', attribute 'version'.
+   */
+  public static final String CHARACTER_VERSION_ATTR="version";
+  /**
    * Tag 'character', attribute 'date'.
    */
   public static final String CHARACTER_DATE_ATTR="date";

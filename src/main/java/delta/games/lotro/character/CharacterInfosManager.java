@@ -94,7 +94,10 @@ public class CharacterInfosManager
       for(File dataFile : dataFiles)
       {
         CharacterData data=CharacterDataIO.getCharacterDescription(dataFile);
-        _datas.add(data);
+        if (data!=null)
+        {
+          _datas.add(data);
+        }
       }
     }
   }

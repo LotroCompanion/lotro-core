@@ -25,6 +25,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
 import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
+import delta.games.lotro.utils.PersistenceVersions;
 
 /**
  * Parser for character infos stored in XML.
@@ -53,15 +54,23 @@ public class CharacterXMLParser
 
   private boolean parseCharacter(Element root, CharacterData c)
   {
+    NamedNodeMap attrs=root.getAttributes();
+    // Version
+    int version=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.CHARACTER_VERSION_ATTR,1000);
+    boolean versionOk=checkVersion(version);
+    if (!versionOk)
+    {
+      return false;
+    }
     CharacterSummaryXMLParser.parseCharacter(root,c.getSummary());
     // Short description
-    String shortDescription=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,"");
+    String shortDescription=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,"");
     c.setShortDescription(shortDescription);
     // Description
-    String description=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_DESCRIPTION_ATTR,"");
+    String description=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_DESCRIPTION_ATTR,"");
     c.setDescription(description);
     // Date
-    long date=DOMParsingTools.getLongAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_DATE_ATTR,0);
+    long date=DOMParsingTools.getLongAttribute(attrs,CharacterXMLConstants.CHARACTER_DATE_ATTR,0);
     c.setDate((date==0)?null:Long.valueOf(date));
 
     // Stats
@@ -192,5 +201,14 @@ public class CharacterXMLParser
         }
       }
     }
+  }
+
+  private boolean checkVersion(int version)
+  {
+    if (version<=PersistenceVersions.CHARACTER_DATA)
+    {
+      return true;
+    }
+    return false;
   }
 }
