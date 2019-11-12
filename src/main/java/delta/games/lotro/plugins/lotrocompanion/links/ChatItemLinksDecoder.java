@@ -37,6 +37,7 @@ import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
 import delta.games.lotro.plugins.lotrocompanion.BufferUtils;
+import delta.games.lotro.utils.StringUtils;
 
 /**
  * Parser for the main data as found in LotroCompanion plugin data.
@@ -337,6 +338,7 @@ public class ChatItemLinksDecoder
             // Crafted by
             BufferUtils.readUInt8(bis);
             String crafter=decodeName(bis);
+            crafter=StringUtils.fixName(crafter);
             LOGGER.debug("Crafter: "+crafter);
             itemInstance.setCrafterName(crafter);
             BufferUtils.skip(bis,6);
