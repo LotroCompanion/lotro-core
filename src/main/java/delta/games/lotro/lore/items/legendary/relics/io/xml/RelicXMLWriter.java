@@ -12,11 +12,12 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.lore.items.legendary.relics.RelicComparator;
-import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicsCategory;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
+import delta.games.lotro.lore.items.legendary.relics.comparators.RelicCategoryNameComparator;
+import delta.games.lotro.lore.items.legendary.relics.comparators.RelicsSorter;
 
 /**
  * Writes LOTRO relics to XML files.
@@ -39,10 +40,10 @@ public class RelicXMLWriter
       public void writeXml(TransformerHandler hd) throws Exception
       {
         hd.startElement("","",RelicXMLConstants.RELICS_TAG,new AttributesImpl());
-        List<String> categoryNames=relicsMgr.getCategories();
-        for(String categoryName:categoryNames)
+        List<RelicsCategory> categories=relicsMgr.getCategories();
+        Collections.sort(categories,new RelicCategoryNameComparator());
+        for(RelicsCategory category : categories)
         {
-          RelicsCategory category=relicsMgr.getRelicCategory(categoryName,false);
           write(hd,category);
         }
         hd.endElement("","",RelicXMLConstants.RELICS_TAG);
@@ -63,6 +64,9 @@ public class RelicXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
 
+    // Code
+    int code=category.getCategoryCode();
+    attrs.addAttribute("","",RelicXMLConstants.CATEGORY_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
     // Name
     String name=category.getName();
     if (name!=null)
@@ -71,9 +75,8 @@ public class RelicXMLWriter
     }
     hd.startElement("","",RelicXMLConstants.CATEGORY_TAG,attrs);
     List<Relic> relics=category.getAllRelics();
-    RelicComparator comparator=new RelicComparator();
-    Collections.sort(relics,comparator);
-    for(Relic relic:relics)
+    RelicsSorter.sortStatsForInternalUse(relics);
+    for(Relic relic : relics)
     {
       write(hd,relic);
     }
@@ -103,23 +106,13 @@ public class RelicXMLWriter
       relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Type
-    RelicType type=relic.getType();
-    if (type!=null)
-    {
-      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_TYPE_ATTR,XmlWriter.CDATA,type.name());
-    }
-    // Bridle?
-    boolean isBridleRelic=relic.isBridleRelic();
-    if (isBridleRelic)
-    {
-      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_BRIDLE_ATTR,XmlWriter.CDATA,String.valueOf(isBridleRelic));
-    }
-    // Item level
-    Integer level=relic.getRequiredLevel();
-    if (level!=null)
-    {
-      relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level.intValue()));
-    }
+    String typesStr=relic.getTypesStr();
+    relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_TYPES_ATTR,XmlWriter.CDATA,typesStr);
+    // Slots
+    String slotsStr=relic.getAllowedSlotsStr();
+    relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_SLOTS_ATTR,XmlWriter.CDATA,slotsStr);
+    // Requirements
+    UsageRequirementsXMLWriter.write(relicAttrs,relic.getUsageRequirement());
     // Icon filename
     String icon=relic.getIconFilename();
     if (icon!=null)

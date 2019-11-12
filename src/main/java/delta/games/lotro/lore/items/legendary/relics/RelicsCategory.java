@@ -11,19 +11,29 @@ import java.util.Map;
  */
 public class RelicsCategory
 {
+  private int _code;
   private String _name;
   private Map<Integer,Relic> _relicById;
   private List<Relic> _relics;
 
   /**
    * Constructor.
-   * @param name Category name.
+   * @param code Category code.
    */
-  public RelicsCategory(String name)
+  public RelicsCategory(int code)
   {
-    _name=name;
+    _code=code;
     _relicById=new HashMap<Integer,Relic>();
     _relics=new ArrayList<Relic>();
+  }
+
+  /**
+   * Get the category code.
+   * @return the category code.
+   */
+  public int getCategoryCode()
+  {
+    return _code;
   }
 
   /**
@@ -33,6 +43,15 @@ public class RelicsCategory
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Set the category name.
+   * @param name Name to set.
+   */
+  public void setName(String name)
+  {
+    _name=name;
   }
 
   /**
@@ -80,5 +99,11 @@ public class RelicsCategory
   public List<Relic> getAllRelics()
   {
     return new ArrayList<Relic>(_relics);
+  }
+
+  @Override
+  public String toString()
+  {
+    return _name;
   }
 }

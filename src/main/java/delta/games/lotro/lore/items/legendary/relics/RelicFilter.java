@@ -9,7 +9,7 @@ import delta.common.utils.collections.filters.Filter;
 public class RelicFilter implements Filter<Relic>
 {
   private RelicType _type;
-  private String _category;
+  private RelicsCategory _category;
   private String _nameContains;
   private String _statsContains;
 
@@ -72,7 +72,7 @@ public class RelicFilter implements Filter<Relic>
    * Set relic category.
    * @param category A category or <code>null</code> to accept all.
    */
-  public void setRelicCategory(String category)
+  public void setRelicCategory(RelicsCategory category)
   {
     _category=category;
   }
@@ -81,7 +81,7 @@ public class RelicFilter implements Filter<Relic>
    * Get the relic category.
    * @return a category or <code>null</code>.
    */
-  public String getRelicCategory()
+  public RelicsCategory getRelicCategory()
   {
     return _category;
   }
@@ -114,11 +114,16 @@ public class RelicFilter implements Filter<Relic>
     boolean ret=true;
     if (_type!=null)
     {
-      if (relic.getType()!=_type) return false;
+      if (!relic.hasType(_type)) return false;
     }
     if (_category!=null)
     {
-      if (!_category.equals(relic.getCategory())) return false;
+      int code=_category.getCategoryCode();
+      int relicCategoryCode=relic.getCategory().getCategoryCode();
+      if (relicCategoryCode!=code)
+      {
+        return false;
+      }
     }
     if (_nameContains!=null)
     {

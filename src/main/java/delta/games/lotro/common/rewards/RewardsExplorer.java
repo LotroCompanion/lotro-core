@@ -10,8 +10,8 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.lore.items.legendary.relics.RelicComparator;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
+import delta.games.lotro.lore.items.legendary.relics.comparators.RelicNameComparator;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -223,12 +223,12 @@ public class RewardsExplorer
 
   /**
    * Get all relics.
-   * @return a list of relics, sorted by type and name.
+   * @return a list of relics, sorted by name.
    */
   public List<Relic> getRelics()
   {
     List<Relic> ret=new ArrayList<Relic>(_relics);
-    Collections.sort(ret,new RelicComparator());
+    Collections.sort(ret,new RelicNameComparator());
     return ret;
   }
 }

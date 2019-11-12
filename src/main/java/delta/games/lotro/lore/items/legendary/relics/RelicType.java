@@ -21,15 +21,7 @@ public enum RelicType
   /**
    * Crafted relic.
    */
-  CRAFTED_RELIC("Crafted Relic"),
-  /**
-   * Class relic.
-   */
-  CLASS_RELIC("Warden Relic"),
-  /**
-   * Insignia.
-   */
-  INSIGNIA("Insignia");
+  CRAFTED_RELIC("Crafted Relic");
 
   private String _name;
 

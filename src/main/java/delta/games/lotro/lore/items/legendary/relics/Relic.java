@@ -1,7 +1,16 @@
 package delta.games.lotro.lore.items.legendary.relics;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.requirements.UsageRequirement;
+import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.comparators.EquipmentLocationComparator;
 
 /**
  * Relic description.
@@ -11,29 +20,27 @@ public class Relic implements Identifiable
 {
   private int _identifier;
   private String _name;
-  private RelicType _type;
-  private boolean _bridleRelic;
-  private String _category;
+  private Set<RelicType> _types;
+  private Set<EquipmentLocation> _allowedSlots;
+  private RelicsCategory _category;
   private String _iconFilename;
-  private Integer _requiredLevel;
+  private UsageRequirement _requirements; // contains min level and class
   private BasicStatsSet _stats;
 
   /**
    * Constructor.
    * @param identifier Identifier.
    * @param name Relic name.
-   * @param type Type (setting/rune/gem/crafted).
-   * @param requiredLevel Required character level.
    */
-  public Relic(int identifier, String name, RelicType type, Integer requiredLevel)
+  public Relic(int identifier, String name)
   {
     _identifier=identifier;
     _name=name;
-    _type=type;
-    _bridleRelic=false;
+    _types=new HashSet<RelicType>();
+    _allowedSlots=new HashSet<EquipmentLocation>();
     _category=null;
     _iconFilename=null;
-    _requiredLevel=requiredLevel;
+    _requirements=new UsageRequirement();
     _stats=new BasicStatsSet();
   }
 
@@ -56,30 +63,95 @@ public class Relic implements Identifiable
   }
 
   /**
-   * Get the relic type.
-   * @return the relic type.
+   * Indicates if this relic has the given type.
+   * @param type the relic type to check.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
    */
-  public RelicType getType()
+  public boolean hasType(RelicType type)
   {
-    return _type;
+    return _types.contains(type);
   }
 
   /**
-   * Indicates if this is a relic for a bridle or not.
-   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   * Add a supported type.
+   * @param type Type to add.
    */
-  public boolean isBridleRelic()
+  public void addType(RelicType type)
   {
-    return _bridleRelic;
+    _types.add(type);
   }
 
   /**
-   * Set the 'bridle relic' flag.
-   * @param bridleRelic Indicates if it is a relic for a bridle or not.
+   * Get all supported types.
+   * @return a list of types (usually 1 item).
    */
-  public void setBridleRelic(boolean bridleRelic)
+  public List<RelicType> getTypes()
   {
-    _bridleRelic=bridleRelic;
+    List<RelicType> types=new ArrayList<RelicType>();
+    types.addAll(_types);
+    Collections.sort(types);
+    return types;
+  }
+
+  /**
+   * Get all types as a ',' separated string.
+   * @return a string.
+   */
+  public String getTypesStr()
+  {
+    StringBuilder sb=new StringBuilder();
+    for(RelicType type : getTypes())
+    {
+      if (sb.length()>0) sb.append(',');
+      sb.append(type);
+    }
+    return sb.toString();
+  }
+
+  /**
+   * Indicates if this relic goes in the given slot.
+   * @param slot the slot to check.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean isSlotAllowed(EquipmentLocation slot)
+  {
+    return _allowedSlots.contains(slot);
+  }
+
+  /**
+   * Add an allowed slot.
+   * @param slot Slot to add.
+   */
+  public void addAllowedSlot(EquipmentLocation slot)
+  {
+    _allowedSlots.add(slot);
+  }
+
+  /**
+   * Get all supported slots.
+   * @return a list of slots .
+   */
+  public List<EquipmentLocation> getAllowedSlots()
+  {
+    List<EquipmentLocation> slots=new ArrayList<EquipmentLocation>();
+    slots.addAll(_allowedSlots);
+    Collections.sort(slots,new EquipmentLocationComparator());
+    return slots;
+  }
+
+  /**
+   * Get all allowed slots as a ',' separated string.
+   * @return a string.
+   */
+  public String getAllowedSlotsStr()
+  {
+    StringBuilder sb=new StringBuilder();
+    for(EquipmentLocation slot : getAllowedSlots())
+    {
+      if (sb.length()>0) sb.append(',');
+      sb.append(slot.getKey());
+    }
+    return sb.toString();
   }
 
   /**
@@ -88,7 +160,7 @@ public class Relic implements Identifiable
    */
   public Integer getRequiredLevel()
   {
-    return _requiredLevel;
+    return _requirements.getMinLevel();
   }
 
   /**
@@ -97,7 +169,16 @@ public class Relic implements Identifiable
    */
   public void setRequiredLevel(Integer requiredLevel)
   {
-    _requiredLevel=requiredLevel;
+    _requirements.setMinLevel(requiredLevel);
+  }
+
+  /**
+   * Get the usage requirements.
+   * @return the usage requirements.
+   */
+  public UsageRequirement getUsageRequirement()
+  {
+    return _requirements;
   }
 
   /**
@@ -129,9 +210,9 @@ public class Relic implements Identifiable
 
   /**
    * Get the category of this relic.
-   * @return a relic category name.
+   * @return a relic category.
    */
-  public String getCategory()
+  public RelicsCategory getCategory()
   {
     return _category;
   }
@@ -140,7 +221,7 @@ public class Relic implements Identifiable
    * Set category.
    * @param category Category to set.
    */
-  public void setCategory(String category)
+  public void setCategory(RelicsCategory category)
   {
     _category=category;
   }
@@ -150,19 +231,16 @@ public class Relic implements Identifiable
   {
     StringBuilder sb=new StringBuilder();
     sb.append(_name);
-    sb.append(" (").append(_type).append(") ");
+    sb.append(" (").append(_types).append(") ");
     if (_identifier!=0)
     {
       sb.append("(ID=").append(_identifier).append(") ");
     }
-    if (_requiredLevel!=null)
+    if (!_requirements.isEmpty())
     {
-      sb.append("(min ").append(_requiredLevel).append(") ");
+      sb.append("(requires ").append(_requirements).append(") ");
     }
-    if (_bridleRelic)
-    {
-      sb.append("(bridle) ");
-    }
+    sb.append("(slot(s)=").append(_allowedSlots);
     if (_iconFilename!=null)
     {
       sb.append("(icon=").append(_iconFilename).append(") ");

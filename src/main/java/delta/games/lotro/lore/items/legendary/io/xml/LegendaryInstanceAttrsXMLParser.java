@@ -245,10 +245,18 @@ public class LegendaryInstanceAttrsXMLParser
       {
         RelicType type=RelicType.valueOf(typeStr);
         Relic relic=null;
-        String name=DOMParsingTools.getStringAttribute(attrs,LegendaryInstanceAttrsXMLConstants.RELIC_NAME_ATTR,null);
-        if (name!=null)
+        int id=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.RELIC_ID_ATTR,0);
+        if (id!=0)
         {
-          relic=relicsMgr.getByName(name);
+          relic=relicsMgr.getById(id);
+        }
+        if (relic==null)
+        {
+          String name=DOMParsingTools.getStringAttribute(attrs,LegendaryInstanceAttrsXMLConstants.RELIC_NAME_ATTR,null);
+          if (name!=null)
+          {
+            relic=relicsMgr.getByName(name);
+          }
         }
         RelicsSet relics=legendaryAttrs.getRelicsSet();
         if (type==RelicType.SETTING) relics.setSetting(relic);

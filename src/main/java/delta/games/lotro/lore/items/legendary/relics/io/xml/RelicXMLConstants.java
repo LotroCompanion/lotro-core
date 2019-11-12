@@ -15,6 +15,10 @@ public class RelicXMLConstants
    */
   public static final String CATEGORY_TAG="category";
   /**
+   * Tag 'category', attribute 'code'.
+   */
+  public static final String CATEGORY_CODE_ATTR="code";
+  /**
    * Tag 'category', attribute 'name'.
    */
   public static final String CATEGORY_NAME_ATTR="name";
@@ -31,17 +35,13 @@ public class RelicXMLConstants
    */
   public static final String RELIC_NAME_ATTR="name";
   /**
-   * Tag 'relic', attribute 'type'.
+   * Tag 'relic', attribute 'types'.
    */
-  public static final String RELIC_TYPE_ATTR="type";
+  public static final String RELIC_TYPES_ATTR="types";
   /**
-   * Tag 'relic', attribute 'bridle'.
+   * Tag 'relic', attribute 'slots'.
    */
-  public static final String RELIC_BRIDLE_ATTR="bridle";
-  /**
-   * Tag 'relic', attribute 'level'.
-   */
-  public static final String RELIC_LEVEL_ATTR="level";
+  public static final String RELIC_SLOTS_ATTR="slots";
   /**
    * Tag 'relic', attribute 'iconFilename'.
    */

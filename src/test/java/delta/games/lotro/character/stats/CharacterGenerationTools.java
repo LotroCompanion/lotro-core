@@ -8,6 +8,8 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicType;
 
 /**
  * Tools for character generation.
@@ -76,5 +78,21 @@ public class CharacterGenerationTools
       ret=mapByTier.get(name);
     }
     return ret;
+  }
+
+  /**
+   * Build a relic.
+   * @param id Identifier.
+   * @param name Name.
+   * @param type Type.
+   * @param requiredLevel Required level, if any.
+   * @return a relic.
+   */
+  public Relic buildRelic(int id, String name, RelicType type, Integer requiredLevel)
+  {
+    Relic relic=new Relic(id,name);
+    relic.addType(type);
+    relic.setRequiredLevel(requiredLevel);
+    return relic;
   }
 }

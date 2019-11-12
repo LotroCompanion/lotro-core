@@ -1,7 +1,9 @@
 package delta.games.lotro.lore.items.legendary.relics;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Storage for a set of relics.
@@ -9,20 +11,14 @@ import java.util.List;
  */
 public class RelicsSet
 {
-  private Relic _setting;
-  private Relic _gem;
-  private Relic _rune;
-  private Relic _crafted;
+  private Map<RelicType,Relic> _relics;
 
   /**
    * Constructor.
    */
   public RelicsSet()
   {
-    _setting=null;
-    _gem=null;
-    _rune=null;
-    _crafted=null;
+    _relics=new HashMap<RelicType,Relic>();
   }
 
   /**
@@ -31,10 +27,7 @@ public class RelicsSet
    */
   public RelicsSet(RelicsSet source)
   {
-    _setting=source._setting;
-    _gem=source._gem;
-    _rune=source._rune;
-    _crafted=source._crafted;
+    _relics=new HashMap<RelicType,Relic>(source._relics);
   }
 
   /**
@@ -44,26 +37,22 @@ public class RelicsSet
   public List<Relic> getRelics()
   {
     List<Relic> relics=new ArrayList<Relic>();
-    relics.add(_setting);
-    relics.add(_gem);
-    relics.add(_rune);
-    relics.add(_crafted);
+    for(RelicType type : RelicType.values())
+    {
+      Relic relic=_relics.get(type);
+      relics.add(relic);
+    }
     return relics;
   }
 
   /**
    * Slot a relic.
    * @param relic Relic to set.
+   * @param type Type to use.
    */
-  public void slotRelic(Relic relic)
+  public void slotRelic(Relic relic, RelicType type)
   {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.SETTING) _setting=relic;
-      else if (relic.getType()==RelicType.GEM) _gem=relic;
-      else if (relic.getType()==RelicType.RUNE) _rune=relic;
-      else if (relic.getType()==RelicType.CRAFTED_RELIC) _crafted=relic;
-    }
+    _relics.put(type,relic);
   }
 
   /**
@@ -72,7 +61,7 @@ public class RelicsSet
    */
   public Relic getSetting()
   {
-    return _setting;
+    return _relics.get(RelicType.SETTING);
   }
 
   /**
@@ -81,17 +70,7 @@ public class RelicsSet
    */
   public void setSetting(Relic relic)
   {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.SETTING)
-      {
-        _setting=relic;
-      }
-    }
-    else
-    {
-      _setting=null;
-    }
+    _relics.put(RelicType.SETTING,relic);
   }
 
   /**
@@ -100,7 +79,7 @@ public class RelicsSet
    */
   public Relic getGem()
   {
-    return _gem;
+    return _relics.get(RelicType.GEM);
   }
 
   /**
@@ -109,17 +88,7 @@ public class RelicsSet
    */
   public void setGem(Relic relic)
   {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.GEM)
-      {
-        _gem=relic;
-      }
-    }
-    else
-    {
-      _gem=null;
-    }
+    _relics.put(RelicType.GEM,relic);
   }
 
   /**
@@ -128,7 +97,7 @@ public class RelicsSet
    */
   public Relic getRune()
   {
-    return _rune;
+    return _relics.get(RelicType.RUNE);
   }
 
   /**
@@ -137,17 +106,7 @@ public class RelicsSet
    */
   public void setRune(Relic relic)
   {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.RUNE)
-      {
-        _rune=relic;
-      }
-    }
-    else
-    {
-      _rune=null;
-    }
+    _relics.put(RelicType.RUNE,relic);
   }
 
   /**
@@ -156,7 +115,7 @@ public class RelicsSet
    */
   public Relic getCraftedRelic()
   {
-    return _crafted;
+    return _relics.get(RelicType.CRAFTED_RELIC);
   }
 
   /**
@@ -165,17 +124,7 @@ public class RelicsSet
    */
   public void setCraftedRelic(Relic relic)
   {
-    if (relic!=null)
-    {
-      if (relic.getType()==RelicType.CRAFTED_RELIC)
-      {
-        _crafted=relic;
-      }
-    }
-    else
-    {
-      _crafted=null;
-    }
+    _relics.put(RelicType.CRAFTED_RELIC,relic);
   }
 
   /**
@@ -185,10 +134,10 @@ public class RelicsSet
   public List<Relic> getAll()
   {
     List<Relic> ret=new ArrayList<Relic>();
-    ret.add(_setting);
-    ret.add(_gem);
-    ret.add(_rune);
-    ret.add(_crafted);
+    ret.add(getSetting());
+    ret.add(getGem());
+    ret.add(getRune());
+    ret.add(getCraftedRelic());
     return ret;
   }
 }

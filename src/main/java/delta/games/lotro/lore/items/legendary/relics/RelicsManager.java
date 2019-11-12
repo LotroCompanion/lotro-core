@@ -2,14 +2,13 @@ package delta.games.lotro.lore.items.legendary.relics;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.legendary.relics.io.xml.RelicXMLParser;
 import delta.games.lotro.lore.items.legendary.relics.io.xml.RelicXMLWriter;
 
@@ -21,8 +20,7 @@ public class RelicsManager
 {
   private static RelicsManager _instance;
 
-  private List<RelicsCategory> _categoriesList;
-  private HashMap<String,RelicsCategory> _categories;
+  private HashMap<Integer,RelicsCategory> _categories;
 
   /**
    * Get the sole instance of this class.
@@ -43,24 +41,23 @@ public class RelicsManager
    */
   public RelicsManager()
   {
-    _categoriesList=new ArrayList<RelicsCategory>();
-    _categories=new HashMap<String,RelicsCategory>();
+    _categories=new HashMap<Integer,RelicsCategory>();
   }
 
   /**
    * Get a relic category using its name.
-   * @param name Category name.
+   * @param code Category code.
    * @param doCreate Create category if it does not exist yet.
    * @return A category or <code>null</code>.
    */
-  public RelicsCategory getRelicCategory(String name, boolean doCreate)
+  public RelicsCategory getRelicCategory(int code, boolean doCreate)
   {
-    RelicsCategory category=_categories.get(name);
+    Integer key=Integer.valueOf(code);
+    RelicsCategory category=_categories.get(key);
     if ((doCreate)&&(category==null))
     {
-      category=new RelicsCategory(name);
-      _categories.put(name,category);
-      _categoriesList.add(category);
+      category=new RelicsCategory(code);
+      _categories.put(key,category);
     }
     return category;
   }
@@ -111,52 +108,55 @@ public class RelicsManager
     File relicsFile=cfg.getFile(DataFiles.RELICS);
     RelicXMLParser parser=new RelicXMLParser();
     List<RelicsCategory> categories=parser.parseRelicsFile(relicsFile);
-    for(RelicsCategory category:categories)
+    for(RelicsCategory category : categories)
     {
-      RelicsCategory ownCategory=getRelicCategory(category.getName(),true);
-      List<Relic> relics=category.getAllRelics();
-      for(Relic relic:relics)
-      {
-        ownCategory.addRelic(relic);
-      }
+      _categories.put(Integer.valueOf(category.getCategoryCode()),category);
     }
   }
 
   /**
-   * Get all relic category names.
-   * @return a list of category names.
+   * Get all relic categories.
+   * @return a list of categories.
    */
-  public List<String> getCategories()
+  public List<RelicsCategory> getCategories()
   {
-    List<String> categories=new ArrayList<String>();
-    for(RelicsCategory category : _categoriesList)
-    {
-      categories.add(category.getName());
-    }
-    Collections.sort(categories);
+    List<RelicsCategory> categories=new ArrayList<RelicsCategory>();
+    categories.addAll(_categories.values());
     return categories;
   }
 
   /**
    * Get a list of all relics.
-   * @param bridle Bridle relics or standard relics.
+   * @param type Relic type.
+   * @param slot Slot to use.
    * @return a list of all relics.
    */
-  public List<Relic> getAllRelics(boolean bridle)
+  public List<Relic> getAllRelics(RelicType type, EquipmentLocation slot)
   {
     List<Relic> relics=new ArrayList<Relic>();
-    for(Map.Entry<String,RelicsCategory> entry : _categories.entrySet())
+    for(RelicsCategory category : _categories.values())
     {
-      List<Relic> categoryRelics=entry.getValue().getAllRelics();
+      List<Relic> categoryRelics=category.getAllRelics();
       for(Relic relic : categoryRelics)
       {
-        if (relic.isBridleRelic()==bridle)
+        boolean match=match(relic,type,slot);
+        if (match)
         {
           relics.add(relic);
         }
       }
     }
     return relics;
+  }
+
+  private boolean match(Relic relic, RelicType type, EquipmentLocation slot)
+  {
+    boolean ret=relic.hasType(type);
+    if (ret)
+    {
+      ret=relic.isSlotAllowed(slot);
+    }
+    return ret;
   }
 
   /**
