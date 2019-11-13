@@ -14,11 +14,14 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.buffs.EffectBuff;
+import delta.games.lotro.lore.buffs.io.xml.EffectBuffXMLParser;
 import delta.games.lotro.lore.consumables.Consumable;
 import delta.games.lotro.lore.consumables.io.xml.ConsumableXMLParser;
 import delta.games.lotro.utils.FixedDecimalsInteger;
@@ -52,6 +55,7 @@ public class BuffInitializer
     initRacialBuffs(registry);
     initClassBuffs(registry);
     initCaptainBuffs(registry);
+    initEffectBasedBuffs(registry);
     initConsumableBuffs(registry);
   }
 
@@ -177,15 +181,6 @@ public class BuffInitializer
   private void initCaptainBuffs(BuffRegistry registry)
   {
     // Captain buffs
-    // - In Defence of Middle Earth (OK Update 23)
-    {
-      Buff idome=new Buff("IN_DEFENCE_OF_MIDDLE_EARTH", CLASS, "In Defence of Middle-Earth");
-      idome.setIcon("In_Defence_of_Middle-earth-icon");
-      // This buff is fellowship-wide... allow it for all classes
-      //idome.setRequiredClass(CharacterClass.CAPTAIN);
-      idome.setImpl(new InDefenceOfMiddleEarth());
-      registry.registerBuff(idome);
-    }
     // - Motivated (OK Update 23)
     {
       Buff motivated=new Buff("MOTIVATED", CLASS, "Motivated");
@@ -216,7 +211,31 @@ public class BuffInitializer
     }
   }
 
-  
+  private void initEffectBasedBuffs(BuffRegistry registry)
+  {
+    File effectsFile=LotroCoreConfig.getInstance().getFile(DataFiles.BUFFS);
+    List<EffectBuff> effectBuffs=EffectBuffXMLParser.parseEffectsFile(effectsFile);
+    for(EffectBuff effectBuff : effectBuffs)
+    {
+      String id=String.valueOf(effectBuff.getIdentifier());
+      String category="Misc";
+      Effect effect=effectBuff.getEffect();
+      String name=effect.getName();
+      Buff buff=new Buff(id,category,name);
+      String icon="/effectIcons/"+effect.getIconId()+".png";
+      buff.setIcon(icon);
+      StatsProvider statsProvider=effect.getStatsProvider();
+      StatsProviderBuffImpl impl=new StatsProviderBuffImpl(statsProvider,1);
+      buff.setImpl(impl);
+      registry.registerBuff(buff);
+      String key=effectBuff.getKey();
+      if (key.length()>0)
+      {
+        registry.registerBuff(key,buff);
+      }
+    }
+  }
+
   private BasicStatsSet buildBasicSet(StatDescription stat, float value)
   {
     BasicStatsSet ret=new BasicStatsSet();

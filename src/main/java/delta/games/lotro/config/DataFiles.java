@@ -150,4 +150,8 @@ public class DataFiles
    * Crafting system data file.
    */
   public static final String CRAFTING_DATA="craftingData";
+  /**
+   * Effect-based buffs file.
+   */
+  public static final String BUFFS="buffs";
 }
