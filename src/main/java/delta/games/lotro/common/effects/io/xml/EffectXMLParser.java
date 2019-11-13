@@ -54,6 +54,9 @@ public class EffectXMLParser
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_NAME_ATTR,null);
     effect.setName(name);
+    // Icon ID
+    int iconId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_ICON_ID_ATTR,-1);
+    effect.setIconId((iconId!=-1)?Integer.valueOf(iconId):null);
     // Duration
     float duration=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.EFFECT_DURATION_ATTR,-1);
     if (duration>=0)

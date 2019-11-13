@@ -65,6 +65,12 @@ public class EffectXMLWriter
     {
       attrs.addAttribute("","",EffectXMLConstants.EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
     }
+    // Icon
+    Integer iconId=effect.getIconId();
+    if (iconId!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.EFFECT_ICON_ID_ATTR,XmlWriter.CDATA,iconId.toString());
+    }
     // Duration
     Float duration=effect.getDuration();
     if (duration!=null)
