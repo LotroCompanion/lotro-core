@@ -4,7 +4,7 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
-import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -98,15 +98,15 @@ public class StatsContribution
 
   /**
    * Build a stat contribution for a virtue.
-   * @param virtueId Source virtue.
+   * @param virtue Source virtue.
    * @param rank Rank.
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getVirtueContrib(VirtueId virtueId, int rank, BasicStatsSet stats)
+  public static StatsContribution getVirtueContrib(VirtueDescription virtue, int rank, BasicStatsSet stats)
   {
-    String source=VIRTUE_SEED+virtueId.name();
-    String label=virtueId.getLabel()+", tier "+rank;
+    String source=VIRTUE_SEED+virtue.getPersistenceKey();
+    String label=virtue.getName()+", tier "+rank;
     return new StatsContribution(source,label,stats);
   }
 

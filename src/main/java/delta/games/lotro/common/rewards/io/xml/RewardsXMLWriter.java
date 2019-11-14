@@ -8,8 +8,8 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
+import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.common.rewards.CraftingXpReward;
@@ -170,8 +170,8 @@ public class RewardsXMLWriter
   private static void writeVirtueReward(TransformerHandler hd, VirtueReward virtueReward) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
-    VirtueId id=virtueReward.getIdentifier();
-    attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_ID_ATTR,CDATA,id.toString());
+    VirtueDescription virtue=virtueReward.getVirtue();
+    attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_ID_ATTR,CDATA,virtue.getPersistenceKey());
     int count=virtueReward.getCount();
     if (count!=1)
     {

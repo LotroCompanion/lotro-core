@@ -18,7 +18,8 @@ import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLConstants;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLParser;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
-import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.lore.items.Item;
@@ -162,13 +163,14 @@ public class CharacterXMLParser
   {
     if (virtuesTag!=null)
     {
+      VirtuesManager virtuesMgr=VirtuesManager.getInstance();
       VirtuesSet virtues=c.getVirtues();
       List<Element> virtueTags=DOMParsingTools.getChildTagsByName(virtuesTag,CharacterXMLConstants.VIRTUE_TAG);
       for(Element virtueTag : virtueTags)
       {
         NamedNodeMap attrs=virtueTag.getAttributes();
         String virtueIdStr=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.VIRTUE_ID,"");
-        VirtueId virtue=VirtueId.valueOf(virtueIdStr);
+        VirtueDescription virtue=virtuesMgr.getByKey(virtueIdStr);
         if (virtue!=null)
         {
           int rank=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.VIRTUE_RANK,0);

@@ -9,7 +9,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.virtues.io.xml.VirtueDescriptionXMLParser;
-import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 
@@ -75,11 +74,8 @@ public class VirtuesManager
   public void registerVirtue(VirtueDescription virtue)
   {
     _cache.put(Integer.valueOf(virtue.getIdentifier()),virtue);
-    String key=virtue.getKey();
-    if (key.length()>0)
-    {
-      _mapByKey.put(key,virtue);
-    }
+    String key=virtue.getPersistenceKey();
+    _mapByKey.put(key,virtue);
   }
 
   /**
@@ -90,7 +86,7 @@ public class VirtuesManager
   {
     ArrayList<VirtueDescription> virtues=new ArrayList<VirtueDescription>();
     virtues.addAll(_cache.values());
-    Collections.sort(virtues,new IdentifiableComparator<VirtueDescription>());
+    Collections.sort(virtues,new VirtueKeyComparator());
     return virtues;
   }
 
@@ -101,9 +97,7 @@ public class VirtuesManager
    */
   public VirtueDescription getVirtue(int id)
   {
-    VirtueDescription ret=null;
-    ret=_cache.get(Integer.valueOf(id));
-    return ret;
+    return _cache.get(Integer.valueOf(id));
   }
 
   /**
@@ -111,7 +105,7 @@ public class VirtuesManager
    * @param key Virtue key.
    * @return A virtue description or <code>null</code> if not found.
    */
-  public VirtueDescription getVirtueByKey(String key)
+  public VirtueDescription getByKey(String key)
   {
     return _mapByKey.get(key);
   }

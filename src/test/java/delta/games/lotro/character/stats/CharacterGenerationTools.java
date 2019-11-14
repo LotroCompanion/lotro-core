@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import delta.common.utils.NumericTools;
+import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -94,5 +96,15 @@ public class CharacterGenerationTools
     relic.addType(type);
     relic.setRequiredLevel(requiredLevel);
     return relic;
+  }
+
+  /**
+   * Get a virtue using its legacy identifier.
+   * @param key Identifier to use.
+   * @return A virtue or <code>null</code> if not found.
+   */
+  public VirtueDescription getVirtue(String key)
+  {
+    return VirtuesManager.getInstance().getByKey(key);
   }
 }

@@ -1,9 +1,11 @@
 package delta.games.lotro.character.stats.virtues;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.character.virtues.VirtuesManager;
 
 /**
  * Storage for the virtues of a single character.
@@ -21,16 +23,16 @@ public class VirtuesSet
    */
   public static final int MAX_TIER=70;
 
-  private Map<VirtueId,Integer> _virtues;
-  private VirtueId[] _selectedVirtues;
+  private Map<Integer,Integer> _virtues;
+  private VirtueDescription[] _selectedVirtues;
 
   /**
    * Constructor.
    */
   public VirtuesSet()
   {
-    _virtues=new HashMap<VirtueId,Integer>();
-    _selectedVirtues=new VirtueId[MAX_VIRTUES];
+    _virtues=new HashMap<Integer,Integer>();
+    _selectedVirtues=new VirtueDescription[MAX_VIRTUES];
   }
 
   /**
@@ -58,22 +60,22 @@ public class VirtuesSet
 
   /**
    * Set the value for a virtue.
-   * @param id Virtue identifier.
+   * @param virtue Virtue.
    * @param rank Rank to set.
    */
-  public void setVirtueValue(VirtueId id, int rank)
+  public void setVirtueValue(VirtueDescription virtue, int rank)
   {
-    _virtues.put(id,Integer.valueOf(rank));
+    _virtues.put(Integer.valueOf(virtue.getIdentifier()),Integer.valueOf(rank));
   }
 
   /**
    * Get rank of a given virtue.
-   * @param id Virtue identifier.
+   * @param virtue Virtue.
    * @return A rank value (starting at 0).
    */
-  public int getVirtueRank(VirtueId id)
+  public int getVirtueRank(VirtueDescription virtue)
   {
-    Integer ret=_virtues.get(id);
+    Integer ret=_virtues.get(Integer.valueOf(virtue.getIdentifier()));
     if (ret!=null)
     {
       return ret.intValue();
@@ -83,14 +85,14 @@ public class VirtuesSet
 
   /**
    * Indicates if the given virtue is selected or not.
-   * @param id Virtue identifier.
+   * @param virtue Virtue.
    * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
-  public boolean isSelected(VirtueId id)
+  public boolean isSelected(VirtueDescription virtue)
   {
     for(int i=0;i<MAX_VIRTUES;i++)
     {
-      if (_selectedVirtues[i]==id)
+      if (_selectedVirtues[i]==virtue)
       {
         return true;
       }
@@ -101,23 +103,23 @@ public class VirtuesSet
   /**
    * Get the virtue selected at the specified index.
    * @param index Targeted index, between 0 and <code>MAX_VIRTUES-1</code>.
-   * @return A virtue identifier or <code>null</code> if no virtue at the given index.
+   * @return A virtue or <code>null</code> if no virtue at the given index.
    */
-  public VirtueId getSelectedVirtue(int index)
+  public VirtueDescription getSelectedVirtue(int index)
   {
     return _selectedVirtues[index];
   }
 
   /**
    * Indicates the index of the given virtue.
-   * @param id Virtue identifier.
+   * @param virtue Virtue.
    * @return An index or <code>null</code> if it is not selected.
    */
-  public Integer getVirtueIndex(VirtueId id)
+  public Integer getVirtueIndex(VirtueDescription virtue)
   {
     for(int i=0;i<MAX_VIRTUES;i++)
     {
-      if (_selectedVirtues[i]==id)
+      if (_selectedVirtues[i]==virtue)
       {
         return Integer.valueOf(i);
       }
@@ -130,7 +132,7 @@ public class VirtuesSet
    * @param id Virtue identifier (may be <code>null</code>).
    * @param index Targeted index, between 0 and <code>MAX_VIRTUES-1</code>.
    */
-  public void setSelectedVirtue(VirtueId id, int index)
+  public void setSelectedVirtue(VirtueDescription id, int index)
   {
     _selectedVirtues[index]=id;
   }
@@ -140,17 +142,18 @@ public class VirtuesSet
   {
     StringBuilder sb=new StringBuilder();
     int index=0;
-    for(VirtueId id : VirtueId.values())
+    List<VirtueDescription> virtues=VirtuesManager.getInstance().getAll();
+    for(VirtueDescription virtue : virtues)
     {
-      int rank=getVirtueRank(id);
-      boolean isSelected=isSelected(id);
+      int rank=getVirtueRank(virtue);
+      boolean isSelected=isSelected(virtue);
       if ((rank>0) || isSelected)
       {
         if (index>0)
         {
           sb.append(',');
         }
-        sb.append(id);
+        sb.append(virtue.getPersistenceKey());
         sb.append('(');
         sb.append(rank);
         if (isSelected)

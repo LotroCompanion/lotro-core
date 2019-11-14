@@ -23,8 +23,8 @@ import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
+import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.WellKnownStat;
@@ -130,7 +130,7 @@ public class CharacterStatsComputer
       // Active virtues
       for(int i=0;i<VirtuesSet.MAX_VIRTUES;i++)
       {
-        VirtueId virtue=virtues.getSelectedVirtue(i);
+        VirtueDescription virtue=virtues.getSelectedVirtue(i);
         if (virtue!=null)
         {
           int rank=virtues.getVirtueRank(virtue);

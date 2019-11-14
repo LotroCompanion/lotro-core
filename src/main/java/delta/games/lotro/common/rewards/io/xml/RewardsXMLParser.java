@@ -7,8 +7,9 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.common.rewards.CraftingXpReward;
@@ -231,8 +232,8 @@ public class RewardsXMLParser
     int count=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.VIRTUE_COUNT_ATTR,1);
     if (id!=null)
     {
-      VirtueId virtueId=VirtueId.valueOf(id.toUpperCase());
-      VirtueReward virtueReward=new VirtueReward(virtueId,count);
+      VirtueDescription virtue=VirtuesManager.getInstance().getByKey(id);
+      VirtueReward virtueReward=new VirtueReward(virtue,count);
       rewards.add(virtueReward);
     }
   }

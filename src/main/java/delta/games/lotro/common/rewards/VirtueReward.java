@@ -1,7 +1,7 @@
 package delta.games.lotro.common.rewards;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.character.virtues.VirtueDescription;
 
 /**
  * Virtue points reward.
@@ -9,17 +9,17 @@ import delta.games.lotro.common.VirtueId;
  */
 public class VirtueReward extends RewardElement
 {
-  private VirtueId _identifier;
+  private VirtueDescription _virtue;
   private int _count;
 
   /**
    * Constructor.
-   * @param id Virtue identifier.
+   * @param virtue Virtue.
    * @param count Virtue points count.
    */
-  public VirtueReward(VirtueId id, int count)
+  public VirtueReward(VirtueDescription virtue, int count)
   {
-    _identifier=id;
+    _virtue=virtue;
     _count=count;
   }
 
@@ -27,9 +27,9 @@ public class VirtueReward extends RewardElement
    * Get the internal identifier.
    * @return the internal identifier.
    */
-  public VirtueId getIdentifier()
+  public VirtueDescription getVirtue()
   {
-    return _identifier;
+    return _virtue;
   }
 
   /**
@@ -48,7 +48,7 @@ public class VirtueReward extends RewardElement
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Virtue: +").append(_count).append(' ').append(_identifier);
+    sb.append("Virtue: +").append(_count).append(' ').append(_virtue.getName());
     sb.append(EndOfLine.NATIVE_EOL);
     return sb.toString();
   }
@@ -56,6 +56,6 @@ public class VirtueReward extends RewardElement
   @Override
   public String toString()
   {
-    return _identifier.toString()+'('+_count+')';
+    return _virtue.getPersistenceKey()+'('+_count+')';
   }
 }

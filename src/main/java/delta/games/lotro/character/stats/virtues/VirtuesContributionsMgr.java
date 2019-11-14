@@ -1,11 +1,12 @@
 package delta.games.lotro.character.stats.virtues;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
-import delta.games.lotro.common.VirtueId;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.utils.maths.Progression;
@@ -47,36 +48,27 @@ public final class VirtuesContributionsMgr
 
   /**
    * Get the contribution for a given virtue and rank.
-   * @param virtueId Virtue identifier.
+   * @param virtue Virtue to use.
    * @param rank Rank (starting at 1).
    * @param passive Passive stats or active stats?
    * @return A stats set or <code>null</code> if not found.
    */
-  public BasicStatsSet getContribution(VirtueId virtueId, int rank, boolean passive)
+  public BasicStatsSet getContribution(VirtueDescription virtue, int rank, boolean passive)
   {
     BasicStatsSet stats=null;
-    VirtuesManager virtuesMgr=VirtuesManager.getInstance();
-    VirtueDescription virtue=virtuesMgr.getVirtueByKey(virtueId.name());
-    if (virtue!=null)
+    if (rank>0)
     {
-      if (rank>0)
+      int level=_rankToLevelProgression.getValue(rank).intValue();
+      StatsProvider statsProvider;
+      if (passive)
       {
-        int level=_rankToLevelProgression.getValue(rank).intValue();
-        StatsProvider statsProvider;
-        if (passive)
-        {
-          statsProvider=virtue.getPassiveStatsProvider();
-        }
-        else
-        {
-          statsProvider=virtue.getStatsProvider();
-        }
-        stats=statsProvider.getStats(1,level);
+        statsProvider=virtue.getPassiveStatsProvider();
       }
-    }
-    else
-    {
-      LOGGER.warn("Virtue description not found: "+virtueId);
+      else
+      {
+        statsProvider=virtue.getStatsProvider();
+      }
+      stats=statsProvider.getStats(1,level);
     }
     if (stats==null)
     {
@@ -98,17 +90,18 @@ public final class VirtuesContributionsMgr
 
   /**
    * Get stats contribution for a set of virtues.
-   * @param virtues Virtues set.
+   * @param virtuesSet Virtues set.
    * @param includeActives Include stats for active virtues or not.
    * @param includePassives Include stats for passive virtues or not.
    * @return A stats set.
    */
-  public BasicStatsSet getContribution(VirtuesSet virtues, boolean includeActives, boolean includePassives)
+  public BasicStatsSet getContribution(VirtuesSet virtuesSet, boolean includeActives, boolean includePassives)
   {
     BasicStatsSet ret=new BasicStatsSet();
-    for(VirtueId virtue : VirtueId.values())
+    List<VirtueDescription> virtues=VirtuesManager.getInstance().getAll();
+    for(VirtueDescription virtue : virtues)
     {
-      int rank=virtues.getVirtueRank(virtue);
+      int rank=virtuesSet.getVirtueRank(virtue);
       if (includePassives)
       {
         // For passives, virtues with rank 0 seem to count as rank 1
@@ -121,7 +114,7 @@ public final class VirtuesContributionsMgr
       }
       if (includeActives)
       {
-        boolean selected=virtues.isSelected(virtue);
+        boolean selected=virtuesSet.isSelected(virtue);
         if (selected)
         {
           BasicStatsSet activeContrib=getContribution(virtue,rank,false);

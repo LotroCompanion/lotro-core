@@ -25,6 +25,20 @@ public class VirtueDescription extends TraitDescription
   }
 
   /**
+   * Get the persistence key for this virtue.
+   * @return a persistence key.
+   */
+  public String getPersistenceKey()
+  {
+    String key=getKey();
+    if (key==null)
+    {
+      key=String.valueOf(getIdentifier());
+    }
+    return key;
+  }
+
+  /**
    * Get the stats provider for passives.
    * @return the stats provider for passives.
    */

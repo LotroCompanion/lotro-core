@@ -1,6 +1,7 @@
 package delta.games.lotro.character.io.xml;
 
 import java.io.File;
+import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
@@ -18,7 +19,8 @@ import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLWriter;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
-import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -141,17 +143,18 @@ public class CharacterXMLWriter
     }
   }
 
-  private void writeVirtues(TransformerHandler hd, VirtuesSet virtues) throws Exception
+  private void writeVirtues(TransformerHandler hd, VirtuesSet virtuesSet) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",CharacterXMLConstants.VIRTUES_TAG,attrs);
-    for(VirtueId virtue : VirtueId.values())
+    List<VirtueDescription> virtues=VirtuesManager.getInstance().getAll();
+    for(VirtueDescription virtue : virtues)
     {
       AttributesImpl virtueAttrs=new AttributesImpl();
-      virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_ID,XmlWriter.CDATA,virtue.name());
-      int rank=virtues.getVirtueRank(virtue);
+      virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_ID,XmlWriter.CDATA,virtue.getPersistenceKey());
+      int rank=virtuesSet.getVirtueRank(virtue);
       virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_RANK,XmlWriter.CDATA,String.valueOf(rank));
-      Integer index=virtues.getVirtueIndex(virtue);
+      Integer index=virtuesSet.getVirtueIndex(virtue);
       if (index!=null)
       {
         virtueAttrs.addAttribute("","",CharacterXMLConstants.VIRTUE_INDEX,XmlWriter.CDATA,index.toString());

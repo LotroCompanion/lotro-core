@@ -3,7 +3,7 @@ package delta.games.lotro.common.rewards.filters;
 import java.util.List;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.VirtueId;
+import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
@@ -15,38 +15,38 @@ import delta.games.lotro.common.rewards.VirtueReward;
  */
 public class VirtueRewardFilter implements Filter<Rewards>
 {
-  private VirtueId _virtueId;
+  private VirtueDescription _virtue;
 
   /**
    * Constructor.
-   * @param virtueId Virtue to select (may be <code>null</code>).
+   * @param virtue Virtue to select (may be <code>null</code>).
    */
-  public VirtueRewardFilter(VirtueId virtueId)
+  public VirtueRewardFilter(VirtueDescription virtue)
   {
-    _virtueId=virtueId;
+    _virtue=virtue;
   }
 
   /**
    * Get the virtue to use.
    * @return A virtue or <code>null</code>.
    */
-  public VirtueId getVirtueId()
+  public VirtueDescription getVirtue()
   {
-    return _virtueId;
+    return _virtue;
   }
 
   /**
    * Set the virtue to select.
-   * @param virtueId Virtue to use, may be <code>null</code>.
+   * @param virtue Virtue to use, may be <code>null</code>.
    */
-  public void setVirtueId(VirtueId virtueId)
+  public void setVirtue(VirtueDescription virtue)
   {
-    _virtueId=virtueId;
+    _virtue=virtue;
   }
 
   public boolean accept(Rewards rewards)
   {
-    if (_virtueId==null)
+    if (_virtue==null)
     {
       return true;
     }
@@ -79,6 +79,6 @@ public class VirtueRewardFilter implements Filter<Rewards>
 
   private boolean accept(VirtueReward virtueReward)
   {
-    return (_virtueId==virtueReward.getIdentifier());
+    return (_virtue==virtueReward.getVirtue());
   }
 }
