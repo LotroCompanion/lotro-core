@@ -65,6 +65,12 @@ public class VirtueDescriptionXMLWriter
     // Icon ID
     int iconId=virtue.getIconId();
     attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
+    // Rank stat key
+    String rankStatKey=virtue.getRankStatKey();
+    if (rankStatKey!=null)
+    {
+      attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_RANK_STAT_KEY_ATTR,XmlWriter.CDATA,rankStatKey);
+    }
     // Max rank
     Progression progression=virtue.getMaxRankForCharacterLevelProgression();
     if (progression!=null)

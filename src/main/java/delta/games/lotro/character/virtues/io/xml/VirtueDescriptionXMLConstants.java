@@ -39,6 +39,10 @@ public class VirtueDescriptionXMLConstants
    * Tag 'virtue', attribute 'maxRankProgression'.
    */
   public static final String VIRTUE_MAX_RANK_ATTR="maxRankProgression";
+  /**
+   * Tag 'virtue', attribute 'rankStatKey'.
+   */
+  public static final String VIRTUE_RANK_STAT_KEY_ATTR="rankStatKey";
 
   /**
    * Tag 'activeStats'.

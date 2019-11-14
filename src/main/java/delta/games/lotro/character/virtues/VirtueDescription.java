@@ -12,6 +12,7 @@ public class VirtueDescription extends TraitDescription
 {
   private StatsProvider _passives;
   private Progression _maxRankForCharacterLevel;
+  private String _rankStatKey;
 
   /**
    * Constructor.
@@ -20,6 +21,7 @@ public class VirtueDescription extends TraitDescription
   {
     _passives=new StatsProvider();
     _maxRankForCharacterLevel=null;
+    _rankStatKey=null;
   }
 
   /**
@@ -56,5 +58,23 @@ public class VirtueDescription extends TraitDescription
   public void setMaxRankForCharacterLevelProgression(Progression progression)
   {
     _maxRankForCharacterLevel=progression;
+  }
+
+  /**
+   * Get the key of the stat used for virtue rank.
+   * @return a key.
+   */
+  public String getRankStatKey()
+  {
+    return _rankStatKey;
+  }
+
+  /**
+   * Set the key of the stat used for virtue rank.
+   * @param rankStatKey A key.
+   */
+  public void setRankStatKey(String rankStatKey)
+  {
+    _rankStatKey=rankStatKey;
   }
 }

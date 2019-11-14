@@ -67,6 +67,9 @@ public class VirtueDescriptionXMLParser
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_ICON_ID_ATTR,0);
     virtue.setIconId(iconId);
+    // Rank stat key
+    String rankStatKey=DOMParsingTools.getStringAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_RANK_STAT_KEY_ATTR,null);
+    virtue.setRankStatKey(rankStatKey);
     // Max rank progression
     int maxRankProgressionId=DOMParsingTools.getIntAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_MAX_RANK_ATTR,0);
     Progression maxRankProgression=ProgressionsManager.getInstance().getProgression(maxRankProgressionId);
