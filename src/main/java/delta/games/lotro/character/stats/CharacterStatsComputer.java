@@ -23,7 +23,6 @@ import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
-import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.stats.StatDescription;
@@ -121,29 +120,6 @@ public class CharacterStatsComputer
       StatsContribution contrib=StatsContribution.getBodyContrib(baseStats);
       _contribs.addContrib(contrib);
     }
-    // Virtues
-    VirtuesContributionsMgr virtuesMgr=VirtuesContributionsMgr.get();
-    VirtuesSet virtues=c.getVirtues();
-    BasicStatsSet virtuesStats=virtuesMgr.getContribution(virtues,true);
-    if (_contribs!=null)
-    {
-      // Active virtues
-      for(int i=0;i<VirtuesSet.MAX_VIRTUES;i++)
-      {
-        VirtueDescription virtue=virtues.getSelectedVirtue(i);
-        if (virtue!=null)
-        {
-          int rank=virtues.getVirtueRank(virtue);
-          BasicStatsSet virtueContrib=virtuesMgr.getContribution(virtue,rank,false);
-          StatsContribution contrib=StatsContribution.getVirtueContrib(virtue,rank,virtueContrib);
-          _contribs.addContrib(contrib);
-        }
-      }
-      // Passive virtues
-      BasicStatsSet passiveStats=virtuesMgr.getContribution(virtues,false);
-      StatsContribution contrib=StatsContribution.getPassiveVirtuesContrib(passiveStats);
-      _contribs.addContrib(contrib);
-    }
     // Tomes
     TomesSet tomes=c.getTomes();
     BasicStatsSet tomesStats=_tomesMgr.getContribution(tomes);
@@ -160,7 +136,6 @@ public class CharacterStatsComputer
         }
       }
     }
-
     // Equipment
     BasicStatsSet equipmentStats=getEquipmentStats(c.getEquipment());
     // Buffs
@@ -173,6 +148,10 @@ public class CharacterStatsComputer
         _contribs.addContrib(contrib);
       }
     }
+    // Virtues
+    VirtuesContributionsMgr virtuesMgr=VirtuesContributionsMgr.get();
+    VirtuesSet virtues=c.getVirtues();
+    BasicStatsSet virtuesStats=virtuesMgr.getContribution(virtues,buffs,_contribs,true,true);
     // Misc
     BasicStatsSet additionalStats=c.getAdditionalStats();
     if (_contribs!=null)
