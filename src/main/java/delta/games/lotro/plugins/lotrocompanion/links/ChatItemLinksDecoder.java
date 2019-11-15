@@ -271,18 +271,18 @@ public class ChatItemLinksDecoder
           legacy.setXp(legacyXp);
         }
       }
-      /*
-      3E  ...`...Rn......>
-      0x000001b0  03 00 00 00 00 00 00 00 00 00 00 21 00 00 00 29  ...........!...)
+      /* Sample 20 bytes:
+                                                                3E  ...`...Rn......>
+      0x000001b0  03 00 00  00 00 00 00 00 00 00 00 21 00 00 00 29  ...........!...)
       0x000001c0  3A 04 70 [EF 10 00 10 00 03 C5 12 00 10 C5 12 00  :.p.............
-           */
-    // 29 3A 04 70 is an effect that gives Tactical HPS
+      */
+      // 29 3A 04 70 is an effect that gives Tactical HPS
       BufferUtils.skip(bis,20);
     }
-    int marker=BufferUtils.readUInt32(bis); // Expected 0x100010EF
-    if (marker!=0x100010EF)
+    int marker=BufferUtils.readUInt32(bis);
+    if (marker!=0x100010EF) // 268439791 - UI_Examination_Tooltip_CharacteristicStruct
     {
-      throw new LinkDecodingException("Bad marker: "+marker);
+      throw new LinkDecodingException("Bad marker: "+marker+"! Expected: "+0x100010EF+", got: "+marker);
     }
 
     decodeShared(bis,instance);
@@ -313,14 +313,14 @@ public class ChatItemLinksDecoder
       {
         throw new LinkDecodingException("Decoding error: header="+header+", header2="+header2);
       }
-      if (header==0x100012C5)
+      if (header==0x100012C5) // 268440261 - UI_Examination_Tooltip_ArrayHelper
       {
         int nbExtras=BufferUtils.readUInt32(bis);
         LOGGER.debug("Extras: "+nbExtras);
         for(int j=0;j<nbExtras;j++)
         {
           int subHeader=BufferUtils.readUInt32(bis);
-          if(subHeader==0x34E)
+          if(subHeader==0x34E) // 846 - Container_Slot
           {
             // Container slot
             long bitsSet=BufferUtils.readLong32(bis);
@@ -329,11 +329,10 @@ public class ChatItemLinksDecoder
             if (loc!=null)
             {
               EQUIMENT_SLOT slot=getSlotFromContainer(bitsSet);
-              //System.out.println(itemInstance+": loc="+loc+", slot="+slot);
               LOGGER.debug("Container slots: "+bitsSet+" => "+slot);
             }
           }
-          else if(subHeader==0x10000E20)
+          else if(subHeader==0x10000E20) // 268439072 - CrafterName
           {
             // Crafted by
             BufferUtils.readUInt8(bis);
@@ -343,7 +342,7 @@ public class ChatItemLinksDecoder
             itemInstance.setCrafterName(crafter);
             BufferUtils.skip(bis,6);
           }
-          else if (subHeader==0x10000884)
+          else if (subHeader==0x10000884) // 268437636 - Craft_ItemInscription
           {
             // Crafted Item Inscription
             BufferUtils.readUInt8(bis);
@@ -361,27 +360,27 @@ public class ChatItemLinksDecoder
             LOGGER.debug("Bound to: "+id);
             itemInstance.setBoundTo(id);
           }
-          else if (subHeader==0x10000AC2)
+          else if (subHeader==0x10000AC2) // 268438210 - Inventory_BindOnAcquire
           {
             // Binds on acquire
             int boA=BufferUtils.readUInt8(bis);
             LOGGER.debug("Bind on acquire: "+boA);
           }
-          else if (subHeader==0x10000E7B)
+          else if (subHeader==0x10000E7B) // 268439163 - Inventory_Quantity
           {
             // Quantity
             int quantity=BufferUtils.readUInt32(bis);
             LOGGER.debug("Quantity: "+quantity);
             // TODO Use
           }
-          else if (subHeader==0x100031A4)
+          else if (subHeader==0x100031A4) // 268448164 - ItemAdvancement_CombatPropertyModLevel
           {
             // Default legacy rank
             int defaultLegacyRank=BufferUtils.readUInt32(bis);
             LOGGER.debug("Default legacy rank: "+defaultLegacyRank);
             // TODO Duplicate?
           }
-          else if (subHeader==0x10001D5F)
+          else if (subHeader==0x10001D5F) // 268442975 - ItemAdvancement_Level
           {
             // LI level (for a non imbued item. Max 60 or 70)
             int liLevel=BufferUtils.readUInt32(bis);
@@ -391,35 +390,35 @@ public class ChatItemLinksDecoder
             }
             LOGGER.debug("LI level: "+liLevel);
           }
-          else if (subHeader==0x100000C4)
+          else if (subHeader==0x100000C4) // 268435652 - Usage_MinLevel
           {
             // Usage min level
             int usageMinLevel=BufferUtils.readUInt32(bis);
             itemInstance.setMinLevel(Integer.valueOf(usageMinLevel));
             LOGGER.debug("Usage min level: "+usageMinLevel);
           }
-          else if (subHeader==0x1000132C)
+          else if (subHeader==0x1000132C) // 268440364 - Item_CurStructurePoints
           {
             // Current item durability
             int durability=BufferUtils.readUInt32(bis);
             itemInstance.setDurability(Integer.valueOf(durability));
             LOGGER.debug("Durability: "+durability);
           }
-          else if (subHeader==0x100060B5)
+          else if (subHeader==0x100060B5) // 268460213 - ItemAdvancement_Imbued
           {
-            // ItemAdvancement_Imbued
+            // Imbued?
             int iaImbued=BufferUtils.readUInt8(bis);
             LOGGER.debug("Imbued: "+iaImbued);
             // TODO Duplicate?
           }
-          else if (subHeader==0x10001042)
+          else if (subHeader==0x10001042) // 268439618 - Combat_Damage
           {
-            // Combat_Damage (Max Damage)
+            // Max Damage
             float damage=BufferUtils.readFloat(bis);
             LOGGER.debug("Max Damage: "+damage);
             // TODO Use
           }
-          else if (subHeader==0x10000835)
+          else if (subHeader==0x10000835) // 268437557 - Item_Value
           {
             // Item value
             int itemValue=BufferUtils.readUInt32(bis);
@@ -427,14 +426,14 @@ public class ChatItemLinksDecoder
             itemInstance.setValue(money);
             LOGGER.debug("Item value: "+itemValue);
           }
-          else if (subHeader==0x10000669)
+          else if (subHeader==0x10000669) // 268437097 - Item_Level
           {
             // Item level
             int itemLevel=BufferUtils.readUInt32(bis);
             itemInstance.setItemLevel(Integer.valueOf(itemLevel));
             LOGGER.debug("Item level: "+itemLevel);
           }
-          else if (subHeader==0x10004996)
+          else if (subHeader==0x10004996) // 268454294 - Item_LevelUpgradeTier
           {
             // Upgrades (crystals)
             int itemUpgrades=BufferUtils.readUInt32(bis);
@@ -556,13 +555,13 @@ public class ChatItemLinksDecoder
           }
         }
       }
-      else if (header==0x10000421) // UI_Examination_Tooltip_DID
+      else if (header==0x10000421) // 268436513 - UI_Examination_Tooltip_DID
       {
         // Item ID, reloaded
         int itemId=BufferUtils.readUInt32(bis);
         LOGGER.debug("Item ID: "+itemId);
       }
-      else if (header==0x10002897)
+      else if (header==0x10002897) // 268445847 - UI_Examination_Tooltip_AlternateSourceIID
       {
         // Instance ID, reloaded
         int lowInstanceId=BufferUtils.readUInt32(bis);
@@ -589,9 +588,9 @@ public class ChatItemLinksDecoder
     LOGGER.debug("Nb essences: "+nbEssences);
     for(int i=0;i<nbEssences;i++)
     {
-      // 0x10005F3D=268459837 - Item_Socket_Gem_Array_Entry
+      
       int propId=BufferUtils.readUInt32(bis);
-      if (propId!=268459837)
+      if (propId!=0x10005F3D) // 268459837 - Item_Socket_Gem_Array_Entry
       {
         throw new LinkDecodingException("Expected property ID: "+268459837+", got: "+propId);
       }
@@ -610,14 +609,12 @@ public class ChatItemLinksDecoder
         {
           throw new LinkDecodingException("Decoding error: header="+header+", header2="+header2);
         }
-        // 0x10005F05=268459781 - Item_Socket_GemDID
-        if (header==0x10005F05)
+        if (header==0x10005F05) // 268459781 - Item_Socket_GemDID
         {
           essenceId=BufferUtils.readUInt32(bis);
           LOGGER.debug("Essence #"+(i+1)+": "+essenceId);
         }
-        // 0x10005F3E=268459838 - Item_Socket_GemLevel
-        else if (header==0x10005F3E)
+        else if (header==0x10005F3E) // 268459838 - Item_Socket_GemLevel
         {
           essenceLevel=BufferUtils.readUInt32(bis);
           LOGGER.debug("Essence level: "+essenceLevel);
