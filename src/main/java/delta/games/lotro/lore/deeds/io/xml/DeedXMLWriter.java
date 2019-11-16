@@ -110,24 +110,15 @@ public class DeedXMLWriter extends AchievableXMLWriter
     }
     // Name
     String name=deed.getName();
-    if (name!=null)
-    {
-      deedAttrs.addAttribute("","",AchievableXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
-    }
+    deedAttrs.addAttribute("","",AchievableXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
     // Type
     DeedType type=deed.getType();
-    if (type!=null)
-    {
-      deedAttrs.addAttribute("","",DeedXMLConstants.DEED_TYPE_ATTR,XmlWriter.CDATA,type.name());
-    }
+    deedAttrs.addAttribute("","",DeedXMLConstants.DEED_TYPE_ATTR,XmlWriter.CDATA,type.name());
     // Requirements
     UsageRequirementsXMLWriter.write(deedAttrs,deed.getUsageRequirement());
     // Category
     String category=deed.getCategory();
-    if (category!=null)
-    {
-      deedAttrs.addAttribute("","",AchievableXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,category);
-    }
+    deedAttrs.addAttribute("","",AchievableXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,category);
     // Challenge level
     ChallengeLevel challengeLevel=deed.getChallengeLevel();
     deedAttrs.addAttribute("","",AchievableXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));

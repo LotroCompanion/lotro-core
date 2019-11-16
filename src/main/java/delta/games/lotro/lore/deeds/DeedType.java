@@ -23,17 +23,9 @@ public enum DeedType
    */
   EXPLORER("Explorer"),
   /**
-   * Hobby deed (such as fishing).
-   */
-  HOBBY("Hobby"), // TO REMOVE
-  /**
    * Lore-related deed.
    */
   LORE("Lore"),
-  /**
-   * Quest deed.
-   */
-  QUEST("Quest"), // TO REMOVE
   /**
    * Reputation deed.
    */

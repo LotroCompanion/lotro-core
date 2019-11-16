@@ -86,7 +86,14 @@ public class DeedXMLParser extends AchievableXMLParser
     String typeStr=DOMParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_TYPE_ATTR,null);
     if (typeStr!=null)
     {
-      type=DeedType.valueOf(typeStr);
+      try
+      {
+        type=DeedType.valueOf(typeStr);
+      }
+      catch(Exception e)
+      {
+        // Ignored
+      }
     }
     deed.setType(type);
     // Requirements
