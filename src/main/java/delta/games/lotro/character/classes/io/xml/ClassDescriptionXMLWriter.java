@@ -65,6 +65,15 @@ public class ClassDescriptionXMLWriter
     // Small icon ID
     int smallIconId=description.getSmallIconId();
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_SMALL_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(smallIconId));
+    // Abbreviation
+    String abbreviation=description.getAbbreviation();
+    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_ABBREVIATION_ATTR,XmlWriter.CDATA,abbreviation);
+    // Description
+    String descriptionText=description.getDescription();
+    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_DESCRIPTION_ATTR,XmlWriter.CDATA,descriptionText);
+    // Tactical DPS stat name
+    String tacticalDpsStatName=description.getTacticalDpsStatName();
+    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TACTICAL_DPS_STAT_NAME_ATTR,XmlWriter.CDATA,tacticalDpsStatName);
 
     hd.startElement("","",ClassDescriptionXMLConstants.CLASS_TAG,attrs);
     // Traits

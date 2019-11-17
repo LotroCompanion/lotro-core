@@ -15,6 +15,9 @@ public class ClassDescription
   private CharacterClass _class;
   private int _iconId;
   private int _smallIconId;
+  private String _abbreviation;
+  private String _description;
+  private String _tacticalDpsStatName;
   private List<ClassTrait> _traits;
   private TraitTree _traitTree;
   private List<ClassSkill> _skills;
@@ -75,6 +78,60 @@ public class ClassDescription
   public void setSmallIconId(int smallIconId)
   {
     _smallIconId=smallIconId;
+  }
+
+  /**
+   * Get the abbreviation for this class.
+   * @return an abbreviation.
+   */
+  public String getAbbreviation()
+  {
+    return _abbreviation;
+  }
+
+  /**
+   * Set the abbreviation for this class.
+   * @param abbreviation Abbreviation to set.
+   */
+  public void setAbbreviation(String abbreviation)
+  {
+    _abbreviation=abbreviation;
+  }
+
+  /**
+   * Get the description for this class.
+   * @return a description.
+   */
+  public String getDescription()
+  {
+    return _description;
+  }
+
+  /**
+   * Set the description for this class.
+   * @param description Description to set.
+   */
+  public void setDescription(String description)
+  {
+    _description=description;
+  }
+
+  /**
+   * Get the name of the tactical DPS stat.
+   * @return a stat name
+   */
+  public String getTacticalDpsStatName()
+  {
+    return _tacticalDpsStatName;
+  }
+
+  /**
+   * Set the name of the tactical DPS stat.
+   * @param tacticalDpsStatName name to use.
+   */
+  public void setTacticalDpsStatName(String tacticalDpsStatName)
+  {
+    _tacticalDpsStatName=tacticalDpsStatName;
   }
 
   /**

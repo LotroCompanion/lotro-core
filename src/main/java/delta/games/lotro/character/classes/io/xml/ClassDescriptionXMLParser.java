@@ -65,6 +65,15 @@ public class ClassDescriptionXMLParser
     // Small icon ID
     int smallIconId=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_SMALL_ICON_ID_ATTR,0);
     description.setSmallIconId(smallIconId);
+    // Abbreviation
+    String abbreviation=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_ABBREVIATION_ATTR,"");
+    description.setAbbreviation(abbreviation);
+    // Description
+    String descriptionText=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_DESCRIPTION_ATTR,"");
+    description.setDescription(descriptionText);
+    // Tactical DPS stat name
+    String tacticalDpsStatName=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_TACTICAL_DPS_STAT_NAME_ATTR,"");
+    description.setTacticalDpsStatName(tacticalDpsStatName);
 
     // Traits
     List<Element> classTraitTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.CLASS_TRAIT_TAG);

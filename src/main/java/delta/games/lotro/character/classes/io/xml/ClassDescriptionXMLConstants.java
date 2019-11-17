@@ -28,6 +28,18 @@ public class ClassDescriptionXMLConstants
    */
   public static final String CLASS_SMALL_ICON_ID_ATTR="smallIconId";
   /**
+   * Tag 'class', attribute 'abbreviation'.
+   */
+  public static final String CLASS_ABBREVIATION_ATTR="abbreviation";
+  /**
+   * Tag 'class', attribute 'description'.
+   */
+  public static final String CLASS_DESCRIPTION_ATTR="description";
+  /**
+   * Tag 'class', attribute 'tacticalDpsStatName'.
+   */
+  public static final String CLASS_TACTICAL_DPS_STAT_NAME_ATTR="tacticalDpsStatName";
+  /**
    * Tag 'classTrait'.
    */
   public static final String CLASS_TRAIT_TAG="classTrait";
