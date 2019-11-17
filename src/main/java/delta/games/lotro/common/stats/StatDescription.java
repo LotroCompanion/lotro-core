@@ -59,6 +59,15 @@ public class StatDescription implements Identifiable
   }
 
   /**
+   * Indicates if this stat is 'premium' (cannot be filtered).
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isPremium()
+  {
+    return (_index!=null);
+  }
+
+  /**
    * Get the stat key.
    * @return a string key or <code>null</code> if none.
    */

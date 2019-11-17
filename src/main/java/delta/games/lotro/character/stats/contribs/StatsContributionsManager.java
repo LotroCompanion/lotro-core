@@ -12,6 +12,7 @@ import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatDescriptionComparator;
+import delta.games.lotro.common.stats.StatDescriptionIndexComparator;
 
 /**
  * Manager for a collection of stats contributions.
@@ -100,12 +101,12 @@ public class StatsContributionsManager
     // Filter stats
     for(StatDescription stat : _sortedContribs.keySet())
     {
-      if (stat.getIndex()!=null)
+      if (stat.isPremium())
       {
         stats.add(stat);
       }
     }
-    Collections.sort(stats,new StatDescriptionComparator());
+    Collections.sort(stats,new StatDescriptionIndexComparator());
     return stats;
   }
 
