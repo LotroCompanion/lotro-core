@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 
@@ -23,8 +24,18 @@ public class VirtuesSet
    */
   public static final int MAX_TIER=70;
 
+  /**
+   * Rank for virtues (map indexed by virtue identifiers).
+   */
   private Map<Integer,Integer> _virtues;
+  /**
+   * Selected virtues.
+   */
   private VirtueDescription[] _selectedVirtues;
+  /**
+   * Buff stats that may give bonus to virtue ranks.
+   */
+  private BasicStatsSet _buffs;
 
   /**
    * Constructor.
@@ -33,6 +44,7 @@ public class VirtuesSet
   {
     _virtues=new HashMap<Integer,Integer>();
     _selectedVirtues=new VirtueDescription[MAX_VIRTUES];
+    _buffs=new BasicStatsSet();
   }
 
   /**
@@ -45,6 +57,7 @@ public class VirtuesSet
     {
       _selectedVirtues[i]=null;
     }
+    _buffs.clear();
   }
 
   /**
@@ -56,6 +69,17 @@ public class VirtuesSet
     _virtues.clear();
     _virtues.putAll(source._virtues);
     System.arraycopy(source._selectedVirtues,0,_selectedVirtues,0,MAX_VIRTUES);
+    _buffs=new BasicStatsSet(source._buffs);
+  }
+
+  /**
+   * Set the buffs to use.
+   * @param buffs Buffs to set.
+   */
+  public void setBuffs(BasicStatsSet buffs)
+  {
+    _buffs.clear();
+    _buffs.addStats(buffs);
   }
 
   /**
@@ -81,6 +105,16 @@ public class VirtuesSet
       return ret.intValue();
     }
     return 0;
+  }
+
+  /**
+   * Get the bonus rank for the given virtue.
+   * @param virtue Virtue.
+   * @return A bonus rank or 0 if none.
+   */
+  public int getVirtueBonusRank(VirtueDescription virtue)
+  {
+    return VirtueUtils.getVirtueRankBonus(_buffs,virtue);
   }
 
   /**

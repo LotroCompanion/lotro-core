@@ -10,10 +10,7 @@ import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.progression.ProgressionsManager;
-import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.common.stats.StatsRegistry;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -115,7 +112,7 @@ public final class VirtuesContributionsMgr
         boolean selected=virtuesSet.isSelected(virtue);
         if (selected)
         {
-          int bonus=getVirtueRankBonus(buffs,virtue);
+          int bonus=VirtueUtils.getVirtueRankBonus(buffs,virtue);
           int rankToUse=rank+bonus;
           BasicStatsSet activeContrib=getContribution(virtue,rankToUse,false);
           ret.addStats(activeContrib);
@@ -133,27 +130,5 @@ public final class VirtuesContributionsMgr
       contribs.addContrib(contrib);
     }
     return ret;
-  }
-
-  private int getVirtueRankBonus(BasicStatsSet buffs, VirtueDescription virtue)
-  {
-    int bonus=0;
-    if (buffs!=null)
-    {
-      String statKey=virtue.getRankStatKey();
-      if ((statKey!=null) && (statKey.length()>0))
-      {
-        StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
-        if (stat!=null)
-        {
-          FixedDecimalsInteger value=buffs.getStat(stat);
-          if (value!=null)
-          {
-            bonus=value.intValue();
-          }
-        }
-      }
-    }
-    return bonus;
   }
 }
