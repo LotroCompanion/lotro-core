@@ -167,6 +167,17 @@ public class StatDescription implements Identifiable
     _isPercentage=isPercentage;
   }
 
+  /**
+   * Indicates if this stat is visible in the UI or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isVisible()
+  {
+    if (_internalName.contains("DNT")) return false;
+    if (_internalName.contains("TBD")) return false;
+    return true;
+  }
+
   @Override
   public String toString()
   {
