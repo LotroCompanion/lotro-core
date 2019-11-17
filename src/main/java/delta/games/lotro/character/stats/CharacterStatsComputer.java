@@ -151,7 +151,8 @@ public class CharacterStatsComputer
     // Virtues
     VirtuesContributionsMgr virtuesMgr=VirtuesContributionsMgr.get();
     VirtuesSet virtues=c.getVirtues();
-    BasicStatsSet virtuesStats=virtuesMgr.getContribution(virtues,buffs,_contribs,true,true);
+    virtues.setBuffs(buffs);
+    BasicStatsSet virtuesStats=virtuesMgr.getContribution(virtues,_contribs,true,true);
     // Misc
     BasicStatsSet additionalStats=c.getAdditionalStats();
     if (_contribs!=null)

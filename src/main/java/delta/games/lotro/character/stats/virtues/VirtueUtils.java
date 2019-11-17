@@ -21,7 +21,7 @@ public class VirtueUtils
   public static int getVirtueRankBonus(BasicStatsSet buffs, VirtueDescription virtue)
   {
     int bonus=0;
-    if (buffs!=null)
+    if ((buffs!=null) && (virtue!=null))
     {
       String statKey=virtue.getRankStatKey();
       if ((statKey!=null) && (statKey.length()>0))

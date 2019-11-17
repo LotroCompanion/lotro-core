@@ -99,12 +99,16 @@ public class VirtuesSet
    */
   public int getVirtueRank(VirtueDescription virtue)
   {
-    Integer ret=_virtues.get(Integer.valueOf(virtue.getIdentifier()));
-    if (ret!=null)
+    int ret=0;
+    if (virtue!=null)
     {
-      return ret.intValue();
+      Integer rank=_virtues.get(Integer.valueOf(virtue.getIdentifier()));
+      if (rank!=null)
+      {
+        ret=rank.intValue();
+      }
     }
-    return 0;
+    return ret;
   }
 
   /**

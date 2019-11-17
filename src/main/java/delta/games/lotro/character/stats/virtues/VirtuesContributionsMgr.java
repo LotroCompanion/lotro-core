@@ -58,6 +58,11 @@ public final class VirtuesContributionsMgr
   public BasicStatsSet getContribution(VirtueDescription virtue, int rank, boolean passive)
   {
     BasicStatsSet stats=null;
+    // For passives, virtues with rank 0 seem to count as rank 1
+    if ((passive) && (rank==0))
+    {
+      rank=1;
+    }
     if (rank>0)
     {
       int level=_rankToLevelProgression.getValue(rank).intValue();
@@ -82,13 +87,12 @@ public final class VirtuesContributionsMgr
   /**
    * Get stats contribution for a set of virtues.
    * @param virtuesSet Virtues set.
-   * @param buffs Buffs (from racial traits that give virtues).
    * @param contribs Storage for contributions.
    * @param includeActives Include stats for active virtues or not.
    * @param includePassives Include stats for passive virtues or not.
    * @return A stats set.
    */
-  public BasicStatsSet getContribution(VirtuesSet virtuesSet, BasicStatsSet buffs, StatsContributionsManager contribs, boolean includeActives, boolean includePassives)
+  public BasicStatsSet getContribution(VirtuesSet virtuesSet, StatsContributionsManager contribs, boolean includeActives, boolean includePassives)
   {
     BasicStatsSet ret=new BasicStatsSet();
     BasicStatsSet passiveStats=new BasicStatsSet();
@@ -112,7 +116,7 @@ public final class VirtuesContributionsMgr
         boolean selected=virtuesSet.isSelected(virtue);
         if (selected)
         {
-          int bonus=VirtueUtils.getVirtueRankBonus(buffs,virtue);
+          int bonus=virtuesSet.getVirtueBonusRank(virtue);
           int rankToUse=rank+bonus;
           BasicStatsSet activeContrib=getContribution(virtue,rankToUse,false);
           ret.addStats(activeContrib);
