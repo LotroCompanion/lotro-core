@@ -75,6 +75,17 @@ public class VirtueDescription extends TraitDescription
   }
 
   /**
+   * Get the max rank for this virtue at the given character level.
+   * @param characterLevel Character level.
+   * @return a rank value.
+   */
+  public int getMaxRank(int characterLevel)
+  {
+    Float maxRank=_maxRankForCharacterLevel.getValue(characterLevel);
+    return (maxRank!=null)?maxRank.intValue():0;
+  }
+
+  /**
    * Get the key of the stat used for virtue rank.
    * @return a key.
    */

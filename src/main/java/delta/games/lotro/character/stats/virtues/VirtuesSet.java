@@ -20,11 +20,6 @@ public class VirtuesSet
   public static final int MAX_VIRTUES=5;
 
   /**
-   * Maximum virtue tier.
-   */
-  public static final int MAX_TIER=70;
-
-  /**
    * Rank for virtues (map indexed by virtue identifiers).
    */
   private Map<Integer,Integer> _virtues;

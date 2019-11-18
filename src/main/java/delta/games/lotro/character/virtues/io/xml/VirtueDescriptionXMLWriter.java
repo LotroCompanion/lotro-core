@@ -71,12 +71,12 @@ public class VirtueDescriptionXMLWriter
     {
       attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_RANK_STAT_KEY_ATTR,XmlWriter.CDATA,rankStatKey);
     }
-    // Max rank
+    // Max rank progression
     Progression progression=virtue.getMaxRankForCharacterLevelProgression();
     if (progression!=null)
     {
       int progressionId=progression.getIdentifier();
-      attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_MAX_RANK_ATTR,XmlWriter.CDATA,String.valueOf(progressionId));
+      attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_MAX_RANK_PROGRESSION_ATTR,XmlWriter.CDATA,String.valueOf(progressionId));
     }
     // Description
     String description=virtue.getDescription();
