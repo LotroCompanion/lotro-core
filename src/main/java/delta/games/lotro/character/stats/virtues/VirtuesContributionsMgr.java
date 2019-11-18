@@ -103,11 +103,12 @@ public final class VirtuesContributionsMgr
       if (includePassives)
       {
         // For passives, virtues with rank 0 seem to count as rank 1
-        if (rank==0)
+        int rankForPassives=rank;
+        if (rankForPassives==0)
         {
-          rank=1;
+          rankForPassives=1;
         }
-        BasicStatsSet passiveContrib=getContribution(virtue,rank,true);
+        BasicStatsSet passiveContrib=getContribution(virtue,rankForPassives,true);
         ret.addStats(passiveContrib);
         passiveStats.addStats(passiveContrib);
       }
