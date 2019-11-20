@@ -35,7 +35,7 @@ public final class DeedsManager
   /**
    * Private constructor.
    */
-  private DeedsManager()
+  public DeedsManager()
   {
     _deeds=new ArrayList<DeedDescription>();
     _deedsMapById=new HashMap<Integer,DeedDescription>();
