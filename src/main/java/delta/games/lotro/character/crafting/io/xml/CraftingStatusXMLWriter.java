@@ -77,17 +77,23 @@ public class CraftingStatusXMLWriter
       }
 
       // Guild status
-      GuildStatus guildStatus=status.getGuildStatus();
-      if (guildStatus!=null)
+      for(int i=0;i<CraftingStatus.NB_GUILDS;i++)
       {
-        AttributesImpl guildAttrs=new AttributesImpl();
-        Profession guildProfession=guildStatus.getProfession();
-        if (guildProfession!=null)
+        GuildStatus guildStatus=status.getGuildStatus(i);
+        if (guildStatus!=null)
         {
-          guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,XmlWriter.CDATA,guildProfession.getKey());
-          hd.startElement("","",CraftingStatusXMLConstants.GUILD_TAG,guildAttrs);
-          ReputationXMLWriter.writeFactionStatus(hd,guildStatus.getFactionStatus());
-          hd.endElement("","",CraftingStatusXMLConstants.GUILD_TAG);
+          AttributesImpl guildAttrs=new AttributesImpl();
+          Profession guildProfession=guildStatus.getProfession();
+          if (guildProfession!=null)
+          {
+            // Index
+            guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(i));
+            // Profession
+            guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,XmlWriter.CDATA,guildProfession.getKey());
+            hd.startElement("","",CraftingStatusXMLConstants.GUILD_TAG,guildAttrs);
+            ReputationXMLWriter.writeFactionStatus(hd,guildStatus.getFactionStatus());
+            hd.endElement("","",CraftingStatusXMLConstants.GUILD_TAG);
+          }
         }
       }
     }

@@ -17,10 +17,15 @@ import delta.games.lotro.lore.crafting.Vocation;
  */
 public class CraftingStatus
 {
+  /**
+   * Number of guilds.
+   */
+  public static final int NB_GUILDS = 2;
+
   private String _name;
   private Vocation _vocation;
   private HashMap<Profession,ProfessionStatus> _stats;
-  private GuildStatus _guildStatus;
+  private GuildStatus[] _guildStatuses;
 
   /**
    * Constructor.
@@ -30,7 +35,11 @@ public class CraftingStatus
   {
     _name=toonName;
     _stats=new HashMap<Profession,ProfessionStatus>();
-    _guildStatus=new GuildStatus();
+    _guildStatuses=new GuildStatus[NB_GUILDS];
+    for(int i=0;i<NB_GUILDS;i++)
+    {
+      _guildStatuses[i]=new GuildStatus();
+    }
   }
 
   /**
@@ -61,11 +70,30 @@ public class CraftingStatus
 
   /**
    * Get guild status.
+   * @param index Index of guild, starting at 0.
    * @return guild status.
    */
-  public GuildStatus getGuildStatus()
+  public GuildStatus getGuildStatus(int index)
   {
-    return _guildStatus;
+    return _guildStatuses[index];
+  }
+
+  /**
+   * Get the guild status for a given profession.
+   * @param profession Profession to use.
+   * @return A guild status or <code>null</code> if no guild for this profession.
+   */
+  public GuildStatus getGuildStatus(Profession profession)
+  {
+    for(GuildStatus guildStatus : _guildStatuses)
+    {
+      Profession guildProfession=guildStatus.getProfession();
+      if (guildProfession==profession)
+      {
+        return guildStatus;
+      }
+    }
+    return null;
   }
 
   /**
@@ -183,12 +211,16 @@ public class CraftingStatus
       ProfessionStatus stat=getProfessionStatus(profession);
       stat.dump(ps);
     }
-    // Guild
-    Profession guildProfession=_guildStatus.getProfession();
-    if (guildProfession!=null)
+    // Guilds
+    for(int i=0;i<NB_GUILDS;i++)
     {
-      ps.println("Guild:"+guildProfession);
-      _guildStatus.getFactionStatus().dump(ps);
+      GuildStatus guildStatus=_guildStatuses[i];
+      Profession guildProfession=guildStatus.getProfession();
+      if (guildProfession!=null)
+      {
+        ps.println("Guild #"+(i+1)+": "+guildProfession);
+        guildStatus.getFactionStatus().dump(ps);
+      }
     }
   }
 }

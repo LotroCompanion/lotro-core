@@ -73,6 +73,10 @@ public class CraftingStatusXMLConstants
    */
   public static final String GUILD_TAG="guild";
   /**
+   * Tag 'guild', attribute 'index'.
+   */
+  public static final String GUILD_INDEX_ATTR="index";
+  /**
    * Tag 'guild', attribute 'profession'.
    */
   public static final String GUILD_PROFESSION_ATTR="profession";

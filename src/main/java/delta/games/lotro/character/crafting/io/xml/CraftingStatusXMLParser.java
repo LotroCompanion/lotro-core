@@ -97,12 +97,14 @@ public class CraftingStatusXMLParser
     }
 
     // Guild status
-    GuildStatus guildStatus=status.getGuildStatus();
-    Element guildTag=DOMParsingTools.getChildTagByName(root,CraftingStatusXMLConstants.GUILD_TAG);
-    if (guildTag!=null)
+    List<Element> guildTags=DOMParsingTools.getChildTagsByName(root,CraftingStatusXMLConstants.GUILD_TAG);
+    for(Element guildTag : guildTags)
     {
       NamedNodeMap guildAttrs=guildTag.getAttributes();
+
+      int index=DOMParsingTools.getIntAttribute(guildAttrs,CraftingStatusXMLConstants.GUILD_INDEX_ATTR,0);
       String professionKey=DOMParsingTools.getStringAttribute(guildAttrs,CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,null);
+      GuildStatus guildStatus=status.getGuildStatus(index);
       if (professionKey!=null)
       {
         Profession profession=professions.getProfessionByKey(professionKey);
