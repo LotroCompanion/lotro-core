@@ -23,7 +23,7 @@ public final class LotroCoreConfig
   // Locations
   private TypedProperties _locations;
 
-  // Root directory for use data
+  // Root directory for user data
   private File _userDataDir;
   // Account data
   private File _accountsDir;

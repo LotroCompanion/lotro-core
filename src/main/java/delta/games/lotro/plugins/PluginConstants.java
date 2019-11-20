@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.config.LotroCoreConfig;
+
 /**
  * Access to some plugin constants.
  * @author DAM
@@ -17,7 +19,9 @@ public class PluginConstants
   public static File getPluginsDataDir()
   {
     File lotroDir=getLOTRODataDir();
-    return new File(lotroDir,"PluginData");
+    File pluginDataDir=new File(lotroDir,"PluginData");
+    String dirStr=LotroCoreConfig.getInstance().getParameters().getStringProperty("lotro.plugins.data.dir",pluginDataDir.getAbsolutePath());
+    return new File(dirStr);
   }
 
   private static File getLOTRODataDir()
@@ -25,7 +29,8 @@ public class PluginConstants
     File homeDir=new File(System.getProperty("user.home"));
     File documentsDir=new File(homeDir,"Documents");
     File lotroDir=new File(documentsDir,"The Lord of the Rings Online");
-    return lotroDir;
+    String dirStr=LotroCoreConfig.getInstance().getParameters().getStringProperty("lotro.data.dir",lotroDir.getAbsolutePath());
+    return new File(dirStr);
   }
 
   /**
