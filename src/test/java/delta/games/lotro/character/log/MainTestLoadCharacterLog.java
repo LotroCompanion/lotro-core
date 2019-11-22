@@ -3,6 +3,7 @@ package delta.games.lotro.character.log;
 import java.io.File;
 
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.LotroTestUtils;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLParser;
 import delta.games.lotro.character.log.io.xml.CharacterLogXMLWriter;

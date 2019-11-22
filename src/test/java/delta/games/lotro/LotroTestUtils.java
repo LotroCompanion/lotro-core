@@ -1,4 +1,4 @@
-package delta.games.lotro.character.log;
+package delta.games.lotro;
 
 import java.util.HashMap;
 import java.util.List;
