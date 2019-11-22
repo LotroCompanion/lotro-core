@@ -26,6 +26,12 @@ public abstract class AbstractStatProvider implements StatProvider
   }
 
   @Override
+  public void setStat(StatDescription stat)
+  {
+    _stat=stat;
+  }
+
+  @Override
   public StatOperator getOperator()
   {
     return _operator;

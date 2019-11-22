@@ -13,6 +13,12 @@ public interface StatProvider
   StatDescription getStat();
 
   /**
+   * Set stat.
+   * @param stat Stat to set.
+   */
+  void setStat(StatDescription stat);
+
+  /**
    * Get the stat value for the given tier and level.
    * @param tier Tier to use, starting at 1.
    * @param level Level to use, starting at 1.
