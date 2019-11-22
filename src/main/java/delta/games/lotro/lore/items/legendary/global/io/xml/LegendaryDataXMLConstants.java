@@ -16,6 +16,11 @@ public class LegendaryDataXMLConstants
    */
   public static final String MAX_UI_RANK_ATTR="maxUiRank";
   /**
+   * Tag 'legendary', attribute 'maxMainLegacyRank'.
+   */
+  public static final String MAX_MAIN_LEGACY_RANK_ATTR="maxMainLegacyRank";
+
+  /**
    * Tag 'quality'.
    */
   public static final String QUALITY_TAG="quality";

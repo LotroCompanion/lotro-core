@@ -29,8 +29,14 @@ public class LegendaryDataXMLParser
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      int maxUiRank=DOMParsingTools.getIntAttribute(root.getAttributes(),LegendaryDataXMLConstants.MAX_UI_RANK_ATTR,0);
+      NamedNodeMap attrs=root.getAttributes();
+      // Max main legacy rank
+      int maxMainLegacyRank=DOMParsingTools.getIntAttribute(attrs,LegendaryDataXMLConstants.MAX_MAIN_LEGACY_RANK_ATTR,0);
+      ret.setMaxMainLegacyRank(maxMainLegacyRank);
+      // Max legacy rank
+      int maxUiRank=DOMParsingTools.getIntAttribute(attrs,LegendaryDataXMLConstants.MAX_UI_RANK_ATTR,0);
       ret.setMaxUiRank(maxUiRank);
+      // Quality-based data
       List<Element> qualityTags=DOMParsingTools.getChildTagsByName(root,LegendaryDataXMLConstants.QUALITY_TAG);
       for(Element qualityTag : qualityTags)
       {

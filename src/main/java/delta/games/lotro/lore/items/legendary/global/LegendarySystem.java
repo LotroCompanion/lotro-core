@@ -121,7 +121,7 @@ public class LegendarySystem
       return null;
     }
     StatProvider provider=legacy.getEffect().getStatsProvider().getStatProvider(0);
-    int maxRanks=7; // TODO Fetch constant from DAT file
+    int maxRanks=_data.getMaxMainLegacyRank();
     return getRanks(baseRank,provider,maxRanks);
   }
 

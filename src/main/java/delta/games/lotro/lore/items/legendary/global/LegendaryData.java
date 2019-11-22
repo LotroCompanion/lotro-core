@@ -12,6 +12,7 @@ import delta.games.lotro.lore.items.ItemQuality;
 public class LegendaryData
 {
   private int _maxUiRank;
+  private int _maxMainLegacyRank;
   private Map<ItemQuality,QualityBasedData> _data;
 
   /**
@@ -20,6 +21,7 @@ public class LegendaryData
   public LegendaryData()
   {
     _maxUiRank=9;
+    _maxMainLegacyRank=7;
     _data=new HashMap<ItemQuality,QualityBasedData>();
   }
 
@@ -39,6 +41,24 @@ public class LegendaryData
   public void setMaxUiRank(int maxUiRank)
   {
     _maxUiRank=maxUiRank;
+  }
+
+  /**
+   * Get the maximum legacy rank for a main non-imbued legacy.
+   * @return A value.
+   */
+  public int getMaxMainLegacyRank()
+  {
+    return _maxMainLegacyRank;
+  }
+
+  /**
+   * Set the maximum legacy rank for a main non-imbued legacy.
+   * @param maxMainLegacyRank Rank to set.
+   */
+  public void setMaxMainLegacyRank(int maxMainLegacyRank)
+  {
+    _maxMainLegacyRank=maxMainLegacyRank;
   }
 
   /**
