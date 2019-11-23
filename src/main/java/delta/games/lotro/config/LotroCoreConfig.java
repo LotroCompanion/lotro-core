@@ -67,7 +67,11 @@ public final class LotroCoreConfig
   private TypedProperties getLocations()
   {
     TypedProperties props=null;
-    URL url=URLTools.getFromClassPath("locations.properties",this);
+    URL url=URLTools.getFromClassPath("locations.properties");
+    if (url==null)
+    {
+      url=URLTools.getFromClassPath("locations.properties",this);
+    }
     InputStream is=null;
     try
     {
