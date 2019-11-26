@@ -75,6 +75,14 @@ public class CraftingXMLConstants
    * Tag 'professionTier', attribute 'icon'.
    */
   public static final String PROFESSION_TIER_ICON_ATTR="icon";
+  /**
+   * Tag 'recipe'.
+   */
+  public static final String RECIPE_TAG="recipe";
+  /**
+   * Tag 'recipe', attribute 'id'.
+   */
+  public static final String RECIPE_ID_ATTR="id";
 
   /**
    * Tag 'proficiency'.

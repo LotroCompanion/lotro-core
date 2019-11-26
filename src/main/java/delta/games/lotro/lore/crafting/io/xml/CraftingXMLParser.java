@@ -100,6 +100,13 @@ public class CraftingXMLParser
     // Icon
     String icon=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_TIER_ICON_ATTR,"");
     ret.setIcon(icon);
+    // Recipes
+    List<Element> recipeTags=DOMParsingTools.getChildTagsByName(root,CraftingXMLConstants.RECIPE_TAG);
+    for(Element recipeTag : recipeTags)
+    {
+      int recipeId=DOMParsingTools.getIntAttribute(recipeTag.getAttributes(),CraftingXMLConstants.RECIPE_ID_ATTR,0);
+      ret.addRecipe(recipeId);
+    }
     // Proficiency
     Element proficiencyTag=DOMParsingTools.getChildTagByName(root,CraftingXMLConstants.PROFICIENCY_TAG);
     parseCraftingLevelStep(proficiencyTag,ret.getProficiency());

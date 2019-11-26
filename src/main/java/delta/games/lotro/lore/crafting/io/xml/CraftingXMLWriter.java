@@ -154,6 +154,15 @@ public class CraftingXMLWriter
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_TIER_ICON_ATTR,XmlWriter.CDATA,icon);
     }
     hd.startElement("","",CraftingXMLConstants.PROFESSION_TIER_TAG,attrs);
+    // Recipes
+    int[] recipeIds=level.getRecipes();
+    for(int recipeId : recipeIds)
+    {
+      AttributesImpl recipeAttrs=new AttributesImpl();
+      recipeAttrs.addAttribute("","",CraftingXMLConstants.RECIPE_ID_ATTR,XmlWriter.CDATA,String.valueOf(recipeId));
+      hd.startElement("","",CraftingXMLConstants.RECIPE_TAG,recipeAttrs);
+      hd.endElement("","",CraftingXMLConstants.RECIPE_TAG);
+    }
     // Proficiency
     writeCraftingLevelTier(hd,level.getProficiency(),CraftingXMLConstants.PROFICIENCY_TAG);
     // Mastery

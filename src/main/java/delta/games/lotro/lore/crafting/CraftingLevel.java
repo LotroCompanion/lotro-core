@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.crafting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a level in a crafting profession.
  * @author DAM
@@ -15,6 +18,7 @@ public final class CraftingLevel
   private String _icon;
   private CraftingLevelTier _proficiency;
   private CraftingLevelTier _mastery;
+  private List<Integer> _recipes;
 
   /**
    * Constructor.
@@ -29,6 +33,7 @@ public final class CraftingLevel
     _icon="";
     _proficiency=new CraftingLevelTier();
     _mastery=new CraftingLevelTier();
+    _recipes=new ArrayList<Integer>();
   }
 
   /**
@@ -101,6 +106,30 @@ public final class CraftingLevel
   public CraftingLevelTier getMastery()
   {
     return _mastery;
+  }
+
+  /**
+   * Add a recipe.
+   * @param recipeId Recipe identifier.
+   */
+  public void addRecipe(int recipeId)
+  {
+    _recipes.add(Integer.valueOf(recipeId));
+  }
+
+  /**
+   * Get the identifiers of the automatic recipes for the level.
+   * @return an array of recipe identifiers.
+   */
+  public int[] getRecipes()
+  {
+    int nbRecipes=_recipes.size();
+    int[] ret=new int[nbRecipes];
+    for(int i=0;i<nbRecipes;i++)
+    {
+      ret[i]=_recipes.get(i).intValue();
+    }
+    return ret;
   }
 
   @Override
