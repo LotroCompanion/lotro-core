@@ -11,6 +11,8 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassTrait;
+import delta.games.lotro.character.classes.InitialGearDefinition;
+import delta.games.lotro.character.classes.InitialGearElement;
 import delta.games.lotro.character.classes.TraitTree;
 import delta.games.lotro.character.classes.TraitTreeBranch;
 import delta.games.lotro.character.classes.TraitTreeProgression;
@@ -19,6 +21,7 @@ import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Race;
 
 /**
  * Parser for class descriptions stored in XML.
@@ -96,10 +99,10 @@ public class ClassDescriptionXMLParser
       description.setTraitTree(tree);
     }
     // Skills
-    List<Element> classSkillsTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.CLASS_SKILL_TAG);
-    for(Element classSkillTags : classSkillsTags)
+    List<Element> classSkillTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.CLASS_SKILL_TAG);
+    for(Element classSkillTag : classSkillTags)
     {
-      NamedNodeMap skillAttrs=classSkillTags.getAttributes();
+      NamedNodeMap skillAttrs=classSkillTag.getAttributes();
       // Min level
       int minLevel=DOMParsingTools.getIntAttribute(skillAttrs,ClassDescriptionXMLConstants.CLASS_SKILL_MIN_LEVEL_ATTR,1);
       // Skill ID
@@ -107,6 +110,26 @@ public class ClassDescriptionXMLParser
       SkillDescription skill=SkillsManager.getInstance().getSkill(skillId);
       ClassSkill classSkill=new ClassSkill(minLevel,skill);
       description.addSkill(classSkill);
+    }
+    // Initial gear
+    InitialGearDefinition initialGear=description.getInitialGear();
+    List<Element> gearTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.INITIAL_GEAR_ELEMENT_TAG);
+    for(Element gearTag : gearTags)
+    {
+      NamedNodeMap gearAttrs=gearTag.getAttributes();
+      InitialGearElement element=new InitialGearElement();
+      // Item ID
+      int itemId=DOMParsingTools.getIntAttribute(gearAttrs,ClassDescriptionXMLConstants.GEAR_ITEM_ID_ATTR,0);
+      element.setItemId(itemId);
+      // Race
+      Race requiredRace=null;
+      String raceKey=DOMParsingTools.getStringAttribute(gearAttrs,ClassDescriptionXMLConstants.GEAR_REQUIRED_RACE_ATTR,null);
+      if (raceKey!=null)
+      {
+        requiredRace=Race.getByKey(raceKey);
+        element.setRequiredRace(requiredRace);
+      }
+      initialGear.addGearElement(element);
     }
     return description;
   }

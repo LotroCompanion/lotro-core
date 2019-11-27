@@ -21,6 +21,7 @@ public class ClassDescription
   private List<ClassTrait> _traits;
   private TraitTree _traitTree;
   private List<ClassSkill> _skills;
+  private InitialGearDefinition _initialGear;
 
   /**
    * Constructor.
@@ -33,6 +34,7 @@ public class ClassDescription
     _smallIconId=0;
     _traits=new ArrayList<ClassTrait>();
     _skills=new ArrayList<ClassSkill>();
+    _initialGear=new InitialGearDefinition();
   }
 
   /**
@@ -205,5 +207,14 @@ public class ClassDescription
   public List<ClassSkill> getSkills()
   {
     return _skills;
+  }
+
+  /**
+   * Get the initial gear definition for this class.
+   * @return an definition of the initial gear.
+   */
+  public InitialGearDefinition getInitialGear()
+  {
+    return _initialGear;
   }
 }
