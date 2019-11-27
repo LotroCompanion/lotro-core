@@ -154,4 +154,8 @@ public class DataFiles
    * Effect-based buffs file.
    */
   public static final String BUFFS="buffs";
+  /**
+   * Mounts.
+   */
+  public static final String MOUNTS="mounts";
 }
