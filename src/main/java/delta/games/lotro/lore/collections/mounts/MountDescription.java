@@ -61,6 +61,7 @@ public class MountDescription implements Identifiable
    */
   public void setName(String name)
   {
+    if (name==null) name="";
     _name=name;
   }
 
@@ -79,6 +80,7 @@ public class MountDescription implements Identifiable
    */
   public void setInitialName(String initialName)
   {
+    if (initialName==null) initialName="";
     _initialName=initialName;
   }
 
@@ -97,6 +99,7 @@ public class MountDescription implements Identifiable
    */
   public void setMountType(String mountType)
   {
+    if (mountType==null) mountType="";
     _mountType=mountType;
   }
 
@@ -115,6 +118,7 @@ public class MountDescription implements Identifiable
    */
   public void setCategory(String category)
   {
+    if (category==null) category="";
     _category=category;
   }
 
@@ -133,6 +137,7 @@ public class MountDescription implements Identifiable
    */
   public void setDescription(String description)
   {
+    if (description==null) description="";
     _description=description;
   }
 
@@ -151,6 +156,7 @@ public class MountDescription implements Identifiable
    */
   public void setSourceDescription(String sourceDescription)
   {
+    if (sourceDescription==null) sourceDescription="";
     _sourceDescription=sourceDescription;
   }
 

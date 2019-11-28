@@ -49,22 +49,22 @@ public class MountXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_IDENTIFIER_ATTR,0);
     MountDescription ret=new MountDescription(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_NAME_ATTR,null);
+    String name=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_NAME_ATTR,"");
     ret.setName(name);
     // Initial Name
-    String initialName=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_INITIAL_NAME_ATTR,null);
+    String initialName=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_INITIAL_NAME_ATTR,"");
     ret.setInitialName(initialName);
     // Category
-    String category=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_CATEGORY_ATTR,null);
+    String category=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_CATEGORY_ATTR,"");
     ret.setCategory(category);
     // Mount type
-    String mountType=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,null);
+    String mountType=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,"");
     ret.setMountType(mountType);
     // Description
-    String description=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_DESCRIPTION_ATTR,null);
+    String description=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_DESCRIPTION_ATTR,"");
     ret.setDescription(description);
     // Source description
-    String sourceDescription=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_SOURCE_DESCRIPTION_ATTR,null);
+    String sourceDescription=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_SOURCE_DESCRIPTION_ATTR,"");
     ret.setSourceDescription(sourceDescription);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_ICON_ID_ATTR,0);

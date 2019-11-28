@@ -62,13 +62,22 @@ public class MountXMLWriter
     attrs.addAttribute("","",MountXMLConstants.MOUNT_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category));
     // Mount type
     String mountType=mount.getMountType();
-    attrs.addAttribute("","",MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(mountType));
+    if (mountType.length()>0)
+    {
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(mountType));
+    }
     // Description
     String description=mount.getDescription();
-    attrs.addAttribute("","",MountXMLConstants.MOUNT_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(description));
+    if (description.length()>0)
+    {
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(description));
+    }
     // Source Description
     String sourceDescription=mount.getSourceDescription();
-    attrs.addAttribute("","",MountXMLConstants.MOUNT_SOURCE_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(sourceDescription));
+    if (sourceDescription.length()>0)
+    {
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_SOURCE_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(sourceDescription));
+    }
     // Icon ID
     int iconId=mount.getIconId();
     attrs.addAttribute("","",MountXMLConstants.MOUNT_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
