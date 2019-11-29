@@ -158,4 +158,8 @@ public class DataFiles
    * Mounts.
    */
   public static final String MOUNTS="mounts";
+  /**
+   * Pets.
+   */
+  public static final String PETS="pets";
 }

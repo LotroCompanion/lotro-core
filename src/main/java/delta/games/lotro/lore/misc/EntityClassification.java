@@ -15,14 +15,14 @@ public class EntityClassification
    */
   public EntityClassification()
   {
-    _genus=null;
-    _species=null;
-    _subSpecies=null;
+    _genus="";
+    _species="";
+    _subSpecies="";
   }
 
   /**
    * Get the genus.
-   * @return the genus (may be <code>null</code>).
+   * @return the genus.
    */
   public String getGenus()
   {
@@ -31,16 +31,17 @@ public class EntityClassification
 
   /**
    * Set the genus.
-   * @param genus the genus to set (may be <code>null</code>).
+   * @param genus the genus to set.
    */
   public void setGenus(String genus)
   {
+    if (genus==null) genus="";
     _genus=genus;
   }
 
   /**
    * Get the species.
-   * @return the species (may be <code>null</code>).
+   * @return the species.
    */
   public String getSpecies()
   {
@@ -49,16 +50,17 @@ public class EntityClassification
 
   /**
    * Set the species.
-   * @param species the species to set (may be <code>null</code>).
+   * @param species the species to set.
    */
   public void setSpecies(String species)
   {
+    if (species==null) species="";
     _species=species;
   }
 
   /**
    * Get the sub-species.
-   * @return the sub-species (may be <code>null</code>).
+   * @return the sub-species .
    */
   public String getSubSpecies()
   {
@@ -67,10 +69,11 @@ public class EntityClassification
 
   /**
    * Set the sub-species.
-   * @param subSpecies the sub-species to set (may be <code>null</code>).
+   * @param subSpecies the sub-species to set.
    */
   public void setSubSpecies(String subSpecies)
   {
+    if (subSpecies==null) subSpecies="";
     _subSpecies=subSpecies;
   }
 
@@ -80,19 +83,19 @@ public class EntityClassification
    */
   public String getLabel()
   {
-    if ((_subSpecies!=null) || (_species!=null))
+    if ((_subSpecies.length()>0) || (_species.length()>0))
     {
-      if (_species==null)
+      if (_species.length()==0)
       {
         return _subSpecies;
       }
-      if (_subSpecies==null)
+      if (_subSpecies.length()==0)
       {
         return _species;
       }
       return _species+"/"+_subSpecies;
     }
-    if (_genus!=null)
+    if (_genus.length()>0)
     {
       return _genus;
     }
