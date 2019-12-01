@@ -78,10 +78,10 @@ public class MountsManager
    */
   public List<MountDescription> getAll()
   {
-    ArrayList<MountDescription> titles=new ArrayList<MountDescription>();
-    titles.addAll(_cache.values());
-    Collections.sort(titles,new IdentifiableComparator<MountDescription>());
-    return titles;
+    ArrayList<MountDescription> mounts=new ArrayList<MountDescription>();
+    mounts.addAll(_cache.values());
+    Collections.sort(mounts,new IdentifiableComparator<MountDescription>());
+    return mounts;
   }
 
   /**
@@ -89,7 +89,7 @@ public class MountsManager
    * @param id Mount identifier.
    * @return A mount description or <code>null</code> if not found.
    */
-  public MountDescription getTitle(int id)
+  public MountDescription getMount(int id)
   {
     MountDescription ret=null;
     ret=_cache.get(Integer.valueOf(id));
@@ -103,9 +103,9 @@ public class MountsManager
   public List<String> getCategories()
   {
     Set<String> categories=new HashSet<String>();
-    for(MountDescription title : _cache.values())
+    for(MountDescription mount : _cache.values())
     {
-      categories.add(title.getCategory());
+      categories.add(mount.getCategory());
     }
     List<String> ret=new ArrayList<String>(categories);
     Collections.sort(ret);
