@@ -1,12 +1,12 @@
-package delta.games.lotro.common.rewards;
+package delta.games.lotro.lore.trade.barter;
 
 import delta.games.lotro.lore.reputation.Faction;
 
 /**
- * Reputation for a single faction.
+ * Barter entry: reputation amount.
  * @author DAM
  */
-public class ReputationReward extends RewardElement
+public class ReputationBarterEntryElement extends BarterEntryElement
 {
   private int _amount;
   private Faction _faction;
@@ -15,7 +15,7 @@ public class ReputationReward extends RewardElement
    * Constructor.
    * @param faction Associated faction.
    */
-  public ReputationReward(Faction faction)
+  public ReputationBarterEntryElement(Faction faction)
   {
     _amount=0;
     _faction=faction;
