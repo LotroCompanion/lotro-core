@@ -55,4 +55,30 @@ public class BarterEntry
   {
     return _toGive;
   }
+
+  /**
+   * Get a displayable label for this entry.
+   * @return a displayable label.
+   */
+  public String getLabel()
+  {
+    StringBuilder sb=new StringBuilder();
+    for(ItemBarterEntryElement toGive : _toGive)
+    {
+      if (sb.length()>0) sb.append(" / ");
+      sb.append(toGive);
+    }
+    sb.append(" => ");
+    if (_toReceive!=null)
+    {
+      sb.append(_toReceive);
+    }
+    return sb.toString().trim();
+  }
+
+  @Override
+  public String toString()
+  {
+    return getLabel();
+  }
 }

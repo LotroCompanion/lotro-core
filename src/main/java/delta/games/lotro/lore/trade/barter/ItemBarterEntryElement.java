@@ -53,10 +53,7 @@ public class ItemBarterEntryElement extends BarterEntryElement
     StringBuilder sb=new StringBuilder();
     if (_item!=null)
     {
-      if (_quantity!=1)
-      {
-        sb.append(_quantity).append("x");
-      }
+      sb.append(_quantity).append(" ");
       sb.append(_item.getName());
     }
     else
