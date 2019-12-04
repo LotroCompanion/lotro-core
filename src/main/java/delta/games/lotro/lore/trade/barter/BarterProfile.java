@@ -3,11 +3,13 @@ package delta.games.lotro.lore.trade.barter;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.common.Identifiable;
+
 /**
  * A barter profile.
  * @author DAM
  */
-public class BarterProfile
+public class BarterProfile implements Identifiable
 {
   // Identifier
   private int _identifier;

@@ -162,4 +162,8 @@ public class DataFiles
    * Pets.
    */
   public static final String PETS="pets";
+  /**
+   * Barters.
+   */
+  public static final String BARTERS="barters";
 }

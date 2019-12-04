@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.Identifiable;
 
 /**
  * Barter data for a NPC.
  * @author DAM
  */
-public class BarterNpc
+public class BarterNpc implements Identifiable
 {
   private int _npcId;
   private String _name;
@@ -36,7 +37,7 @@ public class BarterNpc
    * Get the identifier of the parent NPC.
    * @return a NPC identifier.
    */
-  public int getNpcIdentifier()
+  public int getIdentifier()
   {
     return _npcId;
   }
