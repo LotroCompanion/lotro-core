@@ -106,8 +106,9 @@ public class BarterNpc implements Identifiable
     sb.append("NPC #").append(_npcId).append(": ").append(_name);
     if (_title!=null)
     {
-      sb.append(" (").append(_title).append(')').append(EndOfLine.NATIVE_EOL);
+      sb.append(" (").append(_title).append(')');
     }
+    sb.append(EndOfLine.NATIVE_EOL);
     for(BarterProfile profile : _profiles)
     {
       sb.append("\tProfile: ").append(profile.getName()).append(EndOfLine.NATIVE_EOL);

@@ -104,8 +104,8 @@ public class BarterXMLWriter
       // Identifier
       int profileId=profile.getIdentifier();
       profileAttrs.addAttribute("","",BarterXMLConstants.BARTER_PROFILE_ID,XmlWriter.CDATA,String.valueOf(profileId));
-      hd.startElement("","",BarterXMLConstants.BARTER_PROFILE_ID,profileAttrs);
-      hd.endElement("","",BarterXMLConstants.BARTER_PROFILE_ID);
+      hd.startElement("","",BarterXMLConstants.BARTER_PROFILE_TAG,profileAttrs);
+      hd.endElement("","",BarterXMLConstants.BARTER_PROFILE_TAG);
     }
     hd.endElement("","",BarterXMLConstants.BARTERER_TAG);
   }
