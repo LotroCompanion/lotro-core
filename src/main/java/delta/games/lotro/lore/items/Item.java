@@ -12,6 +12,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 
@@ -54,17 +55,7 @@ public class Item implements Identifiable
   private Integer _itemLevel;
 
   // Requirements:
-  // Minimum level (may be null)
-  private Integer _minLevel;
-  // Maximum level (may be null)
-  private Integer _maxLevel;
-  // Class (may be null)
-  // TODO list of classes
-  private CharacterClass _class;
-  // TODO list of races
-  // TODO list of factions
-  // TODO <gloryRank/>
-  // TODO <traits/>
+  private UsageRequirement _requirements;
   // Full description (may be empty but not <code>null</code>)
   private String _description;
   // Value
@@ -96,25 +87,13 @@ public class Item implements Identifiable
     _essenceSlots=0;
     _durability=null;
     _sturdiness=null;
-    _minLevel=null;
-    _maxLevel=null;
+    _requirements=new UsageRequirement();
     _itemLevel=null;
-    _class=null;
     _description="";
     _value=new Money();
     _stackMax=null;
     _quality=null;
     _properties=new HashMap<String,String>();
-  }
-
-  /**
-   * Copy constructor.
-   * @param source Source.
-   */
-  public Item(Item source)
-  {
-    this();
-    copyFrom(source);
   }
 
   /**
@@ -411,7 +390,7 @@ public class Item implements Identifiable
    */
   public Integer getMinLevel()
   {
-    return _minLevel;
+    return _requirements.getMinLevel();
   }
 
   /**
@@ -421,7 +400,7 @@ public class Item implements Identifiable
    */
   public void setMinLevel(Integer minLevel)
   {
-    _minLevel=minLevel;
+    _requirements.setMinLevel(minLevel);
   }
 
   /**
@@ -430,7 +409,7 @@ public class Item implements Identifiable
    */
   public Integer getMaxLevel()
   {
-    return _maxLevel;
+    return _requirements.getMaxLevel();
   }
 
   /**
@@ -440,7 +419,7 @@ public class Item implements Identifiable
    */
   public void setMaxLevel(Integer maxLevel)
   {
-    _maxLevel=maxLevel;
+    _requirements.setMaxLevel(maxLevel);
   }
 
   /**
@@ -467,16 +446,19 @@ public class Item implements Identifiable
    */
   public CharacterClass getRequiredClass()
   {
-    return _class;
+    return _requirements.getRequiredClass();
   }
 
   /**
    * Set the required class for this item.
-   * @param toonClass a character class or <code>null</code> for no restriction.
+   * @param characterClass a character class or <code>null</code> for no restriction.
    */
-  public void setRequiredClass(CharacterClass toonClass)
+  public void setRequiredClass(CharacterClass characterClass)
   {
-    _class=toonClass;
+    if (characterClass!=null)
+    {
+      _requirements.addAllowedClass(characterClass);
+    }
   }
 
   /**
@@ -592,40 +574,6 @@ public class Item implements Identifiable
   }
 
   /**
-   * Copy item data from a source.
-   * @param item Source item.
-   */
-  public void copyFrom(Item item)
-  {
-    _identifier=item._identifier;
-    _icon=item._icon;
-    _setKey=item._setKey;
-    _set=item._set;
-    _equipmentLocation=item._equipmentLocation;
-    _name=item._name;
-    //_category=item._category;
-    _subCategory=item._subCategory;
-    _binding=item._binding;
-    _unique=item._unique;
-    _stats=new BasicStatsSet(item._stats);
-    _statsProvider=item._statsProvider;
-    _essenceSlots=item._essenceSlots;
-    _durability=item._durability;
-    _sturdiness=item._sturdiness;
-    _itemLevel=item._itemLevel;
-    _minLevel=item._minLevel;
-    _maxLevel=item._maxLevel;
-    _class=item._class;
-    _description=item._description;
-    _value=new Money(item._value);
-    _stackMax=item._stackMax;
-    _stackMax=item._stackMax;
-    _quality=item._quality;
-    _properties.clear();
-    _properties.putAll(item._properties);
-  }
-
-  /**
    * Dump the contents of this item as a string.
    * @return A readable string.
    */
@@ -697,16 +645,10 @@ public class Item implements Identifiable
       sb.append(_binding);
       sb.append(')');
     }
-    if (_minLevel!=null)
+    if (!_requirements.isEmpty())
     {
-      sb.append(" (Min level=");
-      sb.append(_minLevel);
-      sb.append(')');
-    }
-    if (_maxLevel!=null)
-    {
-      sb.append(" (Max level=");
-      sb.append(_maxLevel);
+      sb.append(" (Requirements=");
+      sb.append(_requirements);
       sb.append(')');
     }
     if (_itemLevel!=null)
@@ -725,12 +667,6 @@ public class Item implements Identifiable
     {
       sb.append(" (Stacks=");
       sb.append(_stackMax);
-      sb.append(')');
-    }
-    if (_class!=null)
-    {
-      sb.append(" (Required class=");
-      sb.append(_class);
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);

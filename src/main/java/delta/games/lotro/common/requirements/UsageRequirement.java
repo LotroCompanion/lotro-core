@@ -6,15 +6,22 @@ import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
 /**
- * Usage requirement (for quests, deeds and items).
+ * Usage requirement (for quests, deeds, items and relics).
  * @author DAM
  */
 public class UsageRequirement
 {
+  // Minimum level (may be null)
   private Integer _minLevel;
+  // Maximum level (may be null)
   private Integer _maxLevel;
+  // Class requirement
   private ClassRequirement _classRequirement;
+  // Race requirement
   private RaceRequirement _raceRequirement;
+  // TODO Faction requirement
+  // TODO Glory rank requirement
+  // TODO Trait requirement
 
   /**
    * Constructor.

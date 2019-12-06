@@ -20,16 +20,6 @@ public class LegendaryItem extends Item implements Legendary
     _attrs=new LegendaryAttrs();
   }
 
-  /**
-   * Copy constructor.
-   * @param item Source.
-   */
-  public LegendaryItem(LegendaryItem item)
-  {
-    this();
-    copyFrom(item);
-  }
-
   @Override
   public LegendaryAttrs getLegendaryAttrs()
   {

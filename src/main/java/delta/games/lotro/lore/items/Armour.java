@@ -20,16 +20,6 @@ public class Armour extends Item
   }
 
   /**
-   * Copy constructor.
-   * @param source Source.
-   */
-  public Armour(Armour source)
-  {
-    this();
-    copyFrom(source);
-  }
-
-  /**
    * Get armour type.
    * @return an armour type.
    */
@@ -45,21 +35,6 @@ public class Armour extends Item
   public void setArmourType(ArmourType type)
   {
     _type=type;
-  }
-
-  /**
-   * Copy item data from a source.
-   * @param item Source item.
-   */
-  @Override
-  public void copyFrom(Item item)
-  {
-    super.copyFrom(item);
-    if (item instanceof Armour)
-    {
-      Armour armour=(Armour)item;
-      _type=armour._type;
-    }
   }
 
   /**

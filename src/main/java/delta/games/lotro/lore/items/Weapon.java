@@ -29,16 +29,6 @@ public class Weapon extends Item
   }
 
   /**
-   * Copy constructor.
-   * @param source Source.
-   */
-  public Weapon(Weapon source)
-  {
-    this();
-    copyFrom(source);
-  }
-
-  /**
    * Get the minimum damage.
    * @return the minimum damage.
    */
@@ -126,25 +116,6 @@ public class Weapon extends Item
   public void setWeaponType(WeaponType type)
   {
     _type=type;
-  }
-
-  /**
-   * Copy item data from a source.
-   * @param item Source item.
-   */
-  @Override
-  public void copyFrom(Item item)
-  {
-    super.copyFrom(item);
-    if (item instanceof Weapon)
-    {
-      Weapon weapon=(Weapon)item;
-      _minDamage=weapon._minDamage;
-      _maxDamage=weapon._maxDamage;
-      _damageType=weapon._damageType;
-      _dps=weapon._dps;
-      _type=weapon._type;
-    }
   }
 
   /**
