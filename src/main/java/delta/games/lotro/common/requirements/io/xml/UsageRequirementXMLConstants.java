@@ -9,15 +9,15 @@ public class UsageRequirementXMLConstants
   /**
    * Attribute 'minimumLevel'.
    */
-  public static final String MIN_LEVEL_ATTR="minimumLevel";
+  public static final String MIN_LEVEL_ATTR="minLevel";
   /**
    * Attribute 'maximumLevel'.
    */
-  public static final String MAX_LEVEL_ATTR="maximumLevel";
+  public static final String MAX_LEVEL_ATTR="maxLevel";
   /**
-   * Attribute 'required classes'.
+   * Attribute 'required class'.
    */
-  public static final String REQUIRED_CLASSES_ATTR="requiredClasses";
+  public static final String REQUIRED_CLASS_ATTR="requiredClass";
   /**
    * Attribute 'required classes'.
    */

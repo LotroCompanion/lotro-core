@@ -39,7 +39,7 @@ public class UsageRequirementsXMLWriter
     if (classRequirement!=null)
     {
       String classReqStr=classRequirement.asString();
-      attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_CLASSES_ATTR,XmlWriter.CDATA,classReqStr);
+      attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_CLASS_ATTR,XmlWriter.CDATA,classReqStr);
     }
     // Race requirement
     RaceRequirement raceRequirement=requirements.getRaceRequirement();

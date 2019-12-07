@@ -462,6 +462,15 @@ public class Item implements Identifiable
   }
 
   /**
+   * Get the usage requirements for this item.
+   * @return usage requirements.
+   */
+  public UsageRequirement getUsageRequirements()
+  {
+    return _requirements;
+  }
+
+  /**
    * Get description of this item.
    * @return an item description.
    */

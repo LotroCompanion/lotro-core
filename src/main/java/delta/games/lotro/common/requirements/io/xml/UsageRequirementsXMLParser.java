@@ -35,7 +35,7 @@ public class UsageRequirementsXMLParser
       requirements.setMaxLevel(Integer.valueOf(maximumLevel));
     }
     // Required classes
-    String classKeys=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_CLASSES_ATTR,null);
+    String classKeys=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_CLASS_ATTR,null);
     ClassRequirement classRequirement=ClassRequirement.fromString(classKeys);
     requirements.setClassRequirement(classRequirement);
     // Required races

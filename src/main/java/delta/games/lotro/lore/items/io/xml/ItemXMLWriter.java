@@ -16,12 +16,13 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.StatsManagerXMLWriter;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.id.EntityId;
 import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.Armour;
@@ -224,27 +225,21 @@ public class ItemXMLWriter
         itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_QUALITY_ATTR,XmlWriter.CDATA,quality.getKey());
       }
     }
-    // Minimum level
-    Integer minLevel=(isInstance?instance.getMinLevel():item.getMinLevel());
-    if (minLevel!=null)
+    if (isInstance)
     {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_MINLEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel.intValue()));
+      // Minimum level
+      Integer minLevel=(isInstance?instance.getMinLevel():item.getMinLevel());
+      if (minLevel!=null)
+      {
+        itemAttrs.addAttribute("","",UsageRequirementXMLConstants.MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel.intValue()));
+      }
+    }
+    else
+    {
+      UsageRequirementsXMLWriter.write(itemAttrs,item.getUsageRequirements());
     }
     if (!isInstance)
     {
-      // Maximum level
-      Integer maxLevel=item.getMaxLevel();
-      if (maxLevel!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_MAXLEVEL_ATTR,XmlWriter.CDATA,String.valueOf(maxLevel.intValue()));
-      }
-      // Required class
-      CharacterClass requiredClass=item.getRequiredClass();
-      if (requiredClass!=null)
-      {
-        String className=requiredClass.getKey();
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_REQUIRED_CLASS_ATTR,XmlWriter.CDATA,className);
-      }
       // Description
       String description=item.getDescription();
       if ((description!=null) && (description.length()>0))

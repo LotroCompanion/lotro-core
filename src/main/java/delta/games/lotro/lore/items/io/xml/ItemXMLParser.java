@@ -15,6 +15,7 @@ import delta.games.lotro.common.id.EntityId;
 import delta.games.lotro.common.id.ItemInstanceId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
 import delta.games.lotro.common.stats.CustomStatsMergeMode;
 import delta.games.lotro.common.stats.StatsManager;
 import delta.games.lotro.common.stats.WellKnownStat;
@@ -105,7 +106,7 @@ public class ItemXMLParser
       }
     }
     // Minimum level
-    int minimumLevel=DOMParsingTools.getIntAttribute(attrs,ItemXMLConstants.ITEM_MINLEVEL_ATTR,-1);
+    int minimumLevel=DOMParsingTools.getIntAttribute(attrs,UsageRequirementXMLConstants.MIN_LEVEL_ATTR,-1);
     if (minimumLevel!=-1)
     {
       Integer instanceMinLevel=Integer.valueOf(minimumLevel);

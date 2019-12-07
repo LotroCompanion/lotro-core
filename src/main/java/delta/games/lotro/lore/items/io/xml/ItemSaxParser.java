@@ -14,10 +14,12 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLConstants;
 import delta.games.lotro.common.progression.ProgressionsManager;
+import delta.games.lotro.common.requirements.ClassRequirement;
+import delta.games.lotro.common.requirements.UsageRequirement;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
@@ -162,20 +164,8 @@ public final class ItemSaxParser extends DefaultHandler {
             quality=ItemQuality.fromCode(qualityStr);
           }
           _currentItem.setQuality(quality);
-          // Minimum level
-          String minimumLevelStr=attributes.getValue(ItemXMLConstants.ITEM_MINLEVEL_ATTR);
-          if (minimumLevelStr!=null)
-          {
-            _currentItem.setMinLevel(Integer.valueOf(minimumLevelStr));
-          }
-          // Required class
-          CharacterClass cClass=null;
-          String requiredClass=attributes.getValue(ItemXMLConstants.ITEM_REQUIRED_CLASS_ATTR);
-          if (requiredClass!=null)
-          {
-            cClass=CharacterClass.getByKey(requiredClass);
-          }
-          _currentItem.setRequiredClass(cClass);
+          // Requirements
+          parseRequirements(_currentItem.getUsageRequirements(),attributes);
           // Full description
           String description=attributes.getValue(ItemXMLConstants.ITEM_DESCRIPTION_ATTR);
           _currentItem.setDescription(description);
@@ -292,6 +282,26 @@ public final class ItemSaxParser extends DefaultHandler {
         } else {
           // ...
         }
+    }
+
+    private void parseRequirements(UsageRequirement requirements, Attributes attributes)
+    {
+      // Minimum level
+      String minimumLevelStr=attributes.getValue(UsageRequirementXMLConstants.MIN_LEVEL_ATTR);
+      if (minimumLevelStr!=null)
+      {
+        requirements.setMinLevel(NumericTools.parseInteger(minimumLevelStr));
+      }
+      // Maximum level
+      String maximumLevelStr=attributes.getValue(UsageRequirementXMLConstants.MAX_LEVEL_ATTR);
+      if (maximumLevelStr!=null)
+      {
+        requirements.setMaxLevel(NumericTools.parseInteger(maximumLevelStr));
+      }
+      // Required class
+      String requiredClasses=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_CLASS_ATTR);
+      ClassRequirement classRequirements=ClassRequirement.fromString(requiredClasses);
+      requirements.setClassRequirement(classRequirements);
     }
 
     private StatProvider parseStatProvider(StatDescription stat, Attributes attributes)
