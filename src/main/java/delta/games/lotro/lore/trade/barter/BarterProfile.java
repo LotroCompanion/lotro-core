@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.requirements.UsageRequirement;
 
 /**
  * A barter profile.
@@ -16,9 +17,7 @@ public class BarterProfile implements Identifiable
   // Name (optional)
   private String _name;
   // Requirements
-  // - class
-  // - reputation
-  // - quest
+  private UsageRequirement _requirements;
   // Barter entries
   private List<BarterEntry> _entries;
 
@@ -30,6 +29,7 @@ public class BarterProfile implements Identifiable
   {
     _identifier=id;
     _name="";
+    _requirements=new UsageRequirement();
     _entries=new ArrayList<BarterEntry>();
   }
 
@@ -59,6 +59,15 @@ public class BarterProfile implements Identifiable
   {
     if (name==null) name="";
     _name=name;
+  }
+
+  /**
+   * Get the usage requirements for this profile.
+   * @return some requirements.
+   */
+  public UsageRequirement getRequirements()
+  {
+    return _requirements;
   }
 
   /**

@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.requirements.UsageRequirement;
 
 /**
  * Barter data for a NPC.
@@ -16,10 +17,7 @@ public class BarterNpc implements Identifiable
   private String _name;
   private String _title;
   // Requirements
-  // - class
-  // - reputation
-  // - quest
-  // World event
+  private UsageRequirement _requirements;
   // Profile(s)
   private List<BarterProfile> _profiles;
 
@@ -30,6 +28,7 @@ public class BarterNpc implements Identifiable
   public BarterNpc(int npcId)
   {
     _npcId=npcId;
+    _requirements=new UsageRequirement();
     _profiles=new ArrayList<BarterProfile>();
   }
 
@@ -76,6 +75,15 @@ public class BarterNpc implements Identifiable
   public void setNpcTitle(String title)
   {
     _title=title;
+  }
+
+  /**
+   * Get the usage requirements for this barterer.
+   * @return some requirements.
+   */
+  public UsageRequirement getRequirements()
+  {
+    return _requirements;
   }
 
   /**

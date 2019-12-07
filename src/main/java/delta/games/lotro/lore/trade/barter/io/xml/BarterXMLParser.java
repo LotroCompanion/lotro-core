@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.reputation.Faction;
@@ -68,6 +69,8 @@ public class BarterXMLParser
     // Title
     String title=DOMParsingTools.getStringAttribute(attrs,BarterXMLConstants.BARTERER_TITLE,null);
     ret.setNpcTitle(title);
+    // Requirements
+    UsageRequirementsXMLParser.parseRequirements(ret.getRequirements(),root);
     // Profiles
     List<Element> profileTags=DOMParsingTools.getChildTagsByName(root,BarterXMLConstants.BARTER_PROFILE_TAG);
     for(Element profileTag : profileTags)
@@ -88,7 +91,9 @@ public class BarterXMLParser
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,BarterXMLConstants.BARTER_PROFILE_NAME,null);
     profile.setName(name);
-
+    // Requirements
+    UsageRequirementsXMLParser.parseRequirements(profile.getRequirements(),root);
+    // Entries
     List<Element> barterEntryTags=DOMParsingTools.getChildTagsByName(root,BarterXMLConstants.BARTER_ENTRY_TAG);
     for(Element barterEntryTag : barterEntryTags)
     {

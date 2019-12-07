@@ -15,6 +15,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.trade.barter.BarterEntry;
@@ -96,6 +97,8 @@ public class BarterXMLWriter
     {
       attrs.addAttribute("","",BarterXMLConstants.BARTERER_TITLE,XmlWriter.CDATA,title);
     }
+    // Requirements
+    UsageRequirementsXMLWriter.write(attrs,barterer.getRequirements());
     hd.startElement("","",BarterXMLConstants.BARTERER_TAG,attrs);
     // Profiles
     for(BarterProfile profile : barterer.getBarterProfiles())
@@ -123,6 +126,8 @@ public class BarterXMLWriter
     {
       attrs.addAttribute("","",BarterXMLConstants.BARTER_PROFILE_NAME,XmlWriter.CDATA,name);
     }
+    // Requirements
+    UsageRequirementsXMLWriter.write(attrs,profile.getRequirements());
     hd.startElement("","",BarterXMLConstants.BARTER_PROFILE_TAG,attrs);
     // Entries
     for(BarterEntry entry : profile.getEntries())
