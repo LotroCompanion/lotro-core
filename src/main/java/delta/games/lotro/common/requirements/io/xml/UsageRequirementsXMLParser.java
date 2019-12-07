@@ -39,7 +39,7 @@ public class UsageRequirementsXMLParser
     ClassRequirement classRequirement=ClassRequirement.fromString(classKeys);
     requirements.setClassRequirement(classRequirement);
     // Required races
-    String raceKeys=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_RACES_ATTR,null);
+    String raceKeys=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_RACE_ATTR,null);
     RaceRequirement raceRequirement=RaceRequirement.fromString(raceKeys);
     requirements.setRaceRequirement(raceRequirement);
   }

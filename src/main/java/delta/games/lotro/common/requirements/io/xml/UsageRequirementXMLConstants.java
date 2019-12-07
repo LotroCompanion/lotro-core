@@ -19,7 +19,7 @@ public class UsageRequirementXMLConstants
    */
   public static final String REQUIRED_CLASS_ATTR="requiredClass";
   /**
-   * Attribute 'required classes'.
+   * Attribute 'required race'.
    */
-  public static final String REQUIRED_RACES_ATTR="requiredRaces";
+  public static final String REQUIRED_RACE_ATTR="requiredRace";
 }

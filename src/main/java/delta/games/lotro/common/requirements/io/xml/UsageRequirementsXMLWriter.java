@@ -46,7 +46,7 @@ public class UsageRequirementsXMLWriter
     if (raceRequirement!=null)
     {
       String raceReqStr=raceRequirement.asString();
-      attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_RACES_ATTR,XmlWriter.CDATA,raceReqStr);
+      attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_RACE_ATTR,XmlWriter.CDATA,raceReqStr);
     }
   }
 }
