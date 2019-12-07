@@ -19,7 +19,8 @@ public class UsageRequirement
   private ClassRequirement _classRequirement;
   // Race requirement
   private RaceRequirement _raceRequirement;
-  // TODO Faction requirement
+  // Faction requirement
+  private FactionRequirement _factionRequirement;
   // TODO Glory rank requirement
   // TODO Trait requirement
 
@@ -32,6 +33,7 @@ public class UsageRequirement
     _maxLevel=null;
     _classRequirement=null;
     _raceRequirement=null;
+    _factionRequirement=null;
   }
 
   /**
@@ -175,6 +177,24 @@ public class UsageRequirement
       }
     }
     return null;
+  }
+
+  /**
+   * Get the faction requirement.
+   * @return A faction requirement or <code>null</code>.
+   */
+  public FactionRequirement getFactionRequirement()
+  {
+    return _factionRequirement;
+  }
+
+  /**
+   * Set the faction requirement.
+   * @param factionRequirement Requirement to set, may be <code>null</code>.
+   */
+  public void setFactionRequirement(FactionRequirement factionRequirement)
+  {
+    _factionRequirement=factionRequirement;
   }
 
   /**

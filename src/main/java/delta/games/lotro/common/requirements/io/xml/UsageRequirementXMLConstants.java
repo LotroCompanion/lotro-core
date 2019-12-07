@@ -22,4 +22,8 @@ public class UsageRequirementXMLConstants
    * Attribute 'required race'.
    */
   public static final String REQUIRED_RACE_ATTR="requiredRace";
+  /**
+   * Attribute 'required faction'.
+   */
+  public static final String REQUIRED_FACTION_ATTR="requiredFaction";
 }

@@ -18,6 +18,7 @@ import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLConstants;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.requirements.ClassRequirement;
+import delta.games.lotro.common.requirements.FactionRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
@@ -307,6 +308,10 @@ public final class ItemSaxParser extends DefaultHandler {
       String requiredRaces=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_RACE_ATTR);
       RaceRequirement raceRequirements=RaceRequirement.fromString(requiredRaces);
       requirements.setRaceRequirement(raceRequirements);
+      // Required faction
+      String requiredFaction=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_FACTION_ATTR);
+      FactionRequirement factionRequirement=FactionRequirement.fromString(requiredFaction);
+      requirements.setFactionRequirement(factionRequirement);
     }
 
     private StatProvider parseStatProvider(StatDescription stat, Attributes attributes)
