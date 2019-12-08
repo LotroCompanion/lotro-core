@@ -6,6 +6,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
+import delta.games.lotro.common.requirements.QuestRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 
@@ -55,6 +56,13 @@ public class UsageRequirementsXMLWriter
     {
       String factionReqStr=factionRequirement.asString();
       attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_FACTION_ATTR,XmlWriter.CDATA,factionReqStr);
+    }
+    // Quest requirement
+    QuestRequirement questRequirement=requirements.getQuestRequirement();
+    if (questRequirement!=null)
+    {
+      String questReqStr=questRequirement.asString();
+      attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_QUEST_ATTR,XmlWriter.CDATA,questReqStr);
     }
   }
 }

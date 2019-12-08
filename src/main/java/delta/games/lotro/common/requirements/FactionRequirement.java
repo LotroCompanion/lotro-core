@@ -44,7 +44,6 @@ public class FactionRequirement
     return _tier;
   }
 
-
   /**
    * Get a string representation of this requirement.
    * @return A persistable string.

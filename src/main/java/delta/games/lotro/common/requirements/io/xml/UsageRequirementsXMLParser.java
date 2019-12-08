@@ -6,6 +6,7 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
+import delta.games.lotro.common.requirements.QuestRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 
@@ -47,5 +48,9 @@ public class UsageRequirementsXMLParser
     String factionReqStr=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_FACTION_ATTR,null);
     FactionRequirement factionRequirement=FactionRequirement.fromString(factionReqStr);
     requirements.setFactionRequirement(factionRequirement);
+    // Required quest
+    String questReqStr=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_QUEST_ATTR,null);
+    QuestRequirement questRequirement=QuestRequirement.fromString(questReqStr);
+    requirements.setQuestRequirement(questRequirement);
   }
 }

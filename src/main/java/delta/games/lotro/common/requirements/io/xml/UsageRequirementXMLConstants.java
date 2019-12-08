@@ -26,4 +26,8 @@ public class UsageRequirementXMLConstants
    * Attribute 'required faction'.
    */
   public static final String REQUIRED_FACTION_ATTR="requiredFaction";
+  /**
+   * Attribute 'required quest'.
+   */
+  public static final String REQUIRED_QUEST_ATTR="requiredQuest";
 }

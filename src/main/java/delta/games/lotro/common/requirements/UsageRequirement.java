@@ -21,6 +21,8 @@ public class UsageRequirement
   private RaceRequirement _raceRequirement;
   // Faction requirement
   private FactionRequirement _factionRequirement;
+  // Quest requirement
+  private QuestRequirement _questRequirement;
   // TODO Glory rank requirement
   // TODO Trait requirement
 
@@ -198,6 +200,24 @@ public class UsageRequirement
   }
 
   /**
+   * Get the quest requirement.
+   * @return A quest requirement or <code>null</code>.
+   */
+  public QuestRequirement getQuestRequirement()
+  {
+    return _questRequirement;
+  }
+
+  /**
+   * Set the quest requirement.
+   * @param questRequirement Requirement to set, may be <code>null</code>.
+   */
+  public void setQuestRequirement(QuestRequirement questRequirement)
+  {
+    _questRequirement=questRequirement;
+  }
+
+  /**
    * Indicates if the given parameter do pass this requirement.
    * @param level Level to test.
    * @param characterClass Character class to test.
@@ -259,6 +279,14 @@ public class UsageRequirement
     if (_raceRequirement!=null)
     {
       sb.append(" Race=").append(_raceRequirement);
+    }
+    if (_factionRequirement!=null)
+    {
+      sb.append(" Faction=").append(_factionRequirement);
+    }
+    if (_questRequirement!=null)
+    {
+      sb.append(" Quest=").append(_questRequirement);
     }
     return sb.toString().trim();
   }
