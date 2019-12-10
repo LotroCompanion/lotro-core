@@ -6,6 +6,7 @@ import java.util.List;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.requirements.UsageRequirement;
+import delta.games.lotro.lore.npc.NpcDescription;
 
 /**
  * Barter data for a NPC.
@@ -13,9 +14,8 @@ import delta.games.lotro.common.requirements.UsageRequirement;
  */
 public class BarterNpc implements Identifiable
 {
-  private int _npcId;
-  private String _name;
-  private String _title;
+  // Parent NPC
+  private NpcDescription _npc;
   // Requirements
   private UsageRequirement _requirements;
   // Profile(s)
@@ -23,11 +23,11 @@ public class BarterNpc implements Identifiable
 
   /**
    * Constructor.
-   * @param npcId NPC identifier.
+   * @param npc Associated NPC.
    */
-  public BarterNpc(int npcId)
+  public BarterNpc(NpcDescription npc)
   {
-    _npcId=npcId;
+    _npc=npc;
     _requirements=new UsageRequirement();
     _profiles=new ArrayList<BarterProfile>();
   }
@@ -38,43 +38,16 @@ public class BarterNpc implements Identifiable
    */
   public int getIdentifier()
   {
-    return _npcId;
+    return _npc.getIdentifier();
   }
 
   /**
-   * Get the NPC name.
-   * @return a NPC name.
+   * Get the associated NPC.
+   * @return a NPC.
    */
-  public String getNpcName()
+  public NpcDescription getNpc()
   {
-    return _name;
-  }
-
-  /**
-   * Set the NPC name.
-   * @param name Name to set.
-   */
-  public void setNpcName(String name)
-  {
-    _name=name;
-  }
-
-  /**
-   * Get the NPC title.
-   * @return title to set.
-   */
-  public String getNpcTitle()
-  {
-    return _title;
-  }
-
-  /**
-   * Set the NPC title.
-   * @param title Title to set.
-   */
-  public void setNpcTitle(String title)
-  {
-    _title=title;
+    return _npc;
   }
 
   /**
@@ -111,11 +84,7 @@ public class BarterNpc implements Identifiable
   public String dump()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("NPC #").append(_npcId).append(": ").append(_name);
-    if (_title!=null)
-    {
-      sb.append(" (").append(_title).append(')');
-    }
+    sb.append(_npc);
     sb.append(EndOfLine.NATIVE_EOL);
     for(BarterProfile profile : _profiles)
     {

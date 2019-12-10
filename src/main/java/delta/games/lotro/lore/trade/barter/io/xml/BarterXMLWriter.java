@@ -17,6 +17,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.trade.barter.BarterEntry;
 import delta.games.lotro.lore.trade.barter.BarterEntryElement;
@@ -88,12 +89,14 @@ public class BarterXMLWriter
     // Identifier
     int id=barterer.getIdentifier();
     attrs.addAttribute("","",BarterXMLConstants.BARTERER_ID,XmlWriter.CDATA,String.valueOf(id));
+    // NPC
+    NpcDescription npc=barterer.getNpc();
     // Name
-    String name=barterer.getNpcName();
+    String name=npc.getName();
     attrs.addAttribute("","",BarterXMLConstants.BARTERER_NAME,XmlWriter.CDATA,name);
     // Title
-    String title=barterer.getNpcTitle();
-    if (title!=null)
+    String title=npc.getTitle();
+    if (title.length()>0)
     {
       attrs.addAttribute("","",BarterXMLConstants.BARTERER_TITLE,XmlWriter.CDATA,title);
     }

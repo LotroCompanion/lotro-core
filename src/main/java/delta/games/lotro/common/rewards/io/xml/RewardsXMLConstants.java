@@ -115,14 +115,6 @@ public class RewardsXMLConstants
    * Tag 'relic'.
    */
   public static final String RELIC_TAG="relic";
-  /**
-   * Tag 'object'/'relic', attribute 'id'.
-   */
-  public static final String PROXY_ID_ATTR="id";
-  /**
-   * Tag 'object'/'relic', attribute 'name'.
-   */
-  public static final String PROXY_NAME_ATTR="name";
 
   /**
    * Attribute 'quantity'.

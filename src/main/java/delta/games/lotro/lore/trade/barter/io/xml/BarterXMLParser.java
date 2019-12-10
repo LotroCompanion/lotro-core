@@ -13,6 +13,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.lore.trade.barter.BarterEntry;
@@ -60,15 +61,16 @@ public class BarterXMLParser
   private BarterNpc parseBarterer(Element root, Map<Integer,BarterProfile> profiles)
   {
     NamedNodeMap attrs=root.getAttributes();
-    // Identifier
+    // NPC
+    // - Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,BarterXMLConstants.BARTERER_ID,0);
-    BarterNpc ret=new BarterNpc(id);
-    // Name
+    // - Name
     String name=DOMParsingTools.getStringAttribute(attrs,BarterXMLConstants.BARTERER_NAME,null);
-    ret.setNpcName(name);
-    // Title
+    NpcDescription npc=new NpcDescription(id,name);
+    BarterNpc ret=new BarterNpc(npc);
+    // - Title
     String title=DOMParsingTools.getStringAttribute(attrs,BarterXMLConstants.BARTERER_TITLE,null);
-    ret.setNpcTitle(title);
+    npc.setTitle(title);
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(ret.getRequirements(),root);
     // Profiles

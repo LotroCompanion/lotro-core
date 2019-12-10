@@ -8,8 +8,8 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
+import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.virtues.VirtueDescription;
-import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.common.rewards.CraftingXpReward;
@@ -29,6 +29,8 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.io.xml.SharedXMLConstants;
+import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
  * Writes LOTRO rewards to XML documents.
@@ -36,8 +38,6 @@ import delta.games.lotro.utils.Proxy;
  */
 public class RewardsXMLWriter
 {
-  private static final String CDATA="CDATA";
-
   /**
    * Write a rewards object to an XML document.
    * @param hd Output transformer.
@@ -93,7 +93,7 @@ public class RewardsXMLWriter
     if (value>0)
     {
       AttributesImpl attrs=new AttributesImpl();
-      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_ATTR,CDATA,String.valueOf(value));
+      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_ATTR,XmlWriter.CDATA,String.valueOf(value));
       hd.startElement("","",tagName,attrs);
       hd.endElement("","",tagName);
     }
@@ -110,13 +110,13 @@ public class RewardsXMLWriter
     else if (rewardElement instanceof TraitReward)
     {
       TraitReward traitReward=(TraitReward)rewardElement;
-      writeProxy(hd,RewardsXMLConstants.TRAIT_TAG,traitReward.getTraitProxy());
+      SharedXMLUtils.writeProxy(hd,RewardsXMLConstants.TRAIT_TAG,traitReward.getTraitProxy());
     }
     // Title
     else if (rewardElement instanceof TitleReward)
     {
       TitleReward titleReward=(TitleReward)rewardElement;
-      writeProxy(hd,RewardsXMLConstants.TITLE_TAG,titleReward.getTitleProxy());
+      SharedXMLUtils.writeProxy(hd,RewardsXMLConstants.TITLE_TAG,titleReward.getTitleProxy());
     }
     // Virtue
     else if (rewardElement instanceof VirtueReward)
@@ -127,7 +127,7 @@ public class RewardsXMLWriter
     else if (rewardElement instanceof EmoteReward)
     {
       EmoteReward emoteReward=(EmoteReward)rewardElement;
-      writeProxy(hd,RewardsXMLConstants.EMOTE_TAG,emoteReward.getEmoteProxy());
+      SharedXMLUtils.writeProxy(hd,RewardsXMLConstants.EMOTE_TAG,emoteReward.getEmoteProxy());
     }
     // Item
     else if (rewardElement instanceof ItemReward)
@@ -157,12 +157,12 @@ public class RewardsXMLWriter
     // ID
     Faction faction=reputationReward.getFaction();
     int factionId=faction.getIdentifier();
-    reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_FACTION_ID_ATTR,CDATA,String.valueOf(factionId));
+    reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_FACTION_ID_ATTR,XmlWriter.CDATA,String.valueOf(factionId));
     // Name
     String factionName=faction.getName();
-    reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_FACTION_ATTR,CDATA,factionName);
+    reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_FACTION_ATTR,XmlWriter.CDATA,factionName);
     // Amount
-    reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_AMOUNT_ATTR,CDATA,String.valueOf(reputationReward.getAmount()));
+    reputationAttrs.addAttribute("","",RewardsXMLConstants.REPUTATION_ITEM_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(reputationReward.getAmount()));
     hd.startElement("","",RewardsXMLConstants.REPUTATION_ITEM_TAG,reputationAttrs);
     hd.endElement("","",RewardsXMLConstants.REPUTATION_ITEM_TAG);
   }
@@ -171,11 +171,11 @@ public class RewardsXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     VirtueDescription virtue=virtueReward.getVirtue();
-    attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_ID_ATTR,CDATA,virtue.getPersistenceKey());
+    attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_ID_ATTR,XmlWriter.CDATA,virtue.getPersistenceKey());
     int count=virtueReward.getCount();
     if (count!=1)
     {
-      attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_COUNT_ATTR,CDATA,String.valueOf(count));
+      attrs.addAttribute("","",RewardsXMLConstants.VIRTUE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     hd.startElement("","",RewardsXMLConstants.VIRTUE_TAG,attrs);
     hd.endElement("","",RewardsXMLConstants.VIRTUE_TAG);
@@ -204,32 +204,15 @@ public class RewardsXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Profession
     Profession profession=craftingXpReward.getProfession();
-    attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_PROFESSION_ATTR,CDATA,profession.getKey());
+    attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_PROFESSION_ATTR,XmlWriter.CDATA,profession.getKey());
     // Tier
     int tier=craftingXpReward.getTier();
-    attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_TIER_ATTR,CDATA,String.valueOf(tier));
+    attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
     // XP value
     int xpValue=craftingXpReward.getXp();
-    attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_XP_ATTR,CDATA,String.valueOf(xpValue));
+    attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_XP_ATTR,XmlWriter.CDATA,String.valueOf(xpValue));
     hd.startElement("","",RewardsXMLConstants.CRAFTING_XP_TAG,attrs);
     hd.endElement("","",RewardsXMLConstants.CRAFTING_XP_TAG);
-  }
-
-  private static void writeProxy(TransformerHandler hd, String tagName, Proxy<? extends Identifiable> proxy) throws SAXException
-  {
-    AttributesImpl attrs=new AttributesImpl();
-    int id=proxy.getId();
-    if (id!=0)
-    {
-      attrs.addAttribute("","",RewardsXMLConstants.PROXY_ID_ATTR,CDATA,String.valueOf(id));
-    }
-    String name=proxy.getName();
-    if (name!=null)
-    {
-      attrs.addAttribute("","",RewardsXMLConstants.PROXY_NAME_ATTR,CDATA,name);
-    }
-    hd.startElement("","",tagName,attrs);
-    hd.endElement("","",tagName);
   }
 
   private static void writeQuantifiedReward(TransformerHandler hd, String tagName, int id, String name, int quantity) throws SAXException
@@ -237,15 +220,15 @@ public class RewardsXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     if (id!=0)
     {
-      attrs.addAttribute("","",RewardsXMLConstants.PROXY_ID_ATTR,CDATA,String.valueOf(id));
+      attrs.addAttribute("","",SharedXMLConstants.PROXY_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
     if (name!=null)
     {
-      attrs.addAttribute("","",RewardsXMLConstants.PROXY_NAME_ATTR,CDATA,name);
+      attrs.addAttribute("","",SharedXMLConstants.PROXY_NAME_ATTR,XmlWriter.CDATA,name);
     }
     if (quantity!=1)
     {
-      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_ATTR,CDATA,String.valueOf(quantity));
+      attrs.addAttribute("","",RewardsXMLConstants.QUANTITY_ATTR,XmlWriter.CDATA,String.valueOf(quantity));
     }
     hd.startElement("","",tagName,attrs);
     hd.endElement("","",tagName);

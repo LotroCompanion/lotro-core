@@ -34,6 +34,7 @@ import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.lore.titles.TitleDescription;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.io.xml.SharedXMLConstants;
 
 /**
  * Parser for rewards stored in XML.
@@ -249,8 +250,8 @@ public class RewardsXMLParser
   private static void parseItemReward(List<RewardElement> rewards, Element itemTag)
   {
     NamedNodeMap attrs=itemTag.getAttributes();
-    int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.PROXY_ID_ATTR,0);
-    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.PROXY_NAME_ATTR,null);
+    int id=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.PROXY_ID_ATTR,0);
+    String name=DOMParsingTools.getStringAttribute(attrs,SharedXMLConstants.PROXY_NAME_ATTR,null);
     int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,1);
     if (((name!=null) || (id!=0)) && (quantity!=0))
     {
@@ -265,8 +266,8 @@ public class RewardsXMLParser
   private static void parseRelicReward(List<RewardElement> rewards, Element relicTag)
   {
     NamedNodeMap attrs=relicTag.getAttributes();
-    int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.PROXY_ID_ATTR,0);
-    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.PROXY_NAME_ATTR,null);
+    int id=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.PROXY_ID_ATTR,0);
+    String name=DOMParsingTools.getStringAttribute(attrs,SharedXMLConstants.PROXY_NAME_ATTR,null);
     int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,1);
     if (((name!=null) || (id!=0)) && (quantity!=0))
     {
@@ -297,9 +298,9 @@ public class RewardsXMLParser
 
   private static void parseProxy(NamedNodeMap attrs, Proxy<? extends Identifiable> proxy)
   {
-    int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.PROXY_ID_ATTR,0);
+    int id=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.PROXY_ID_ATTR,0);
     proxy.setId(id);
-    String name=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.PROXY_NAME_ATTR,null);
+    String name=DOMParsingTools.getStringAttribute(attrs,SharedXMLConstants.PROXY_NAME_ATTR,null);
     proxy.setName(name);
   }
 }

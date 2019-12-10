@@ -166,4 +166,8 @@ public class DataFiles
    * Barters.
    */
   public static final String BARTERS="barters";
+  /**
+   * Vendors.
+   */
+  public static final String VENDORS="vendors";
 }
