@@ -12,7 +12,6 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
@@ -23,6 +22,7 @@ import delta.games.lotro.lore.trade.barter.BarterProfile;
 import delta.games.lotro.lore.trade.barter.ItemBarterEntryElement;
 import delta.games.lotro.lore.trade.barter.ReputationBarterEntryElement;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
  * Parser for barter data stored in XML.
@@ -106,10 +106,13 @@ public class BarterXMLParser
       for(Element giveTag : giveTags)
       {
         NamedNodeMap giveAttrs=giveTag.getAttributes();
-        Proxy<Item> item=buildItemProxy(giveAttrs);
-        int quantity=DOMParsingTools.getIntAttribute(giveAttrs,BarterXMLConstants.ITEM_QUANTITY_ATTR,1);
-        ItemBarterEntryElement entryElement=new ItemBarterEntryElement(item,quantity);
-        entry.addElementToGive(entryElement);
+        Proxy<Item> item=SharedXMLUtils.parseItemProxy(giveTag);
+        if (item!=null)
+        {
+          int quantity=DOMParsingTools.getIntAttribute(giveAttrs,BarterXMLConstants.ITEM_QUANTITY_ATTR,1);
+          ItemBarterEntryElement entryElement=new ItemBarterEntryElement(item,quantity);
+          entry.addElementToGive(entryElement);
+        }
       }
       // Receive
       BarterEntryElement receive=null;
@@ -132,7 +135,7 @@ public class BarterXMLParser
   {
     ItemBarterEntryElement element=null;
     NamedNodeMap attrs=tag.getAttributes();
-    Proxy<Item> item=buildItemProxy(attrs);
+    Proxy<Item> item=SharedXMLUtils.parseItemProxy(tag);
     if (item!=null)
     {
       int quantity=DOMParsingTools.getIntAttribute(attrs,BarterXMLConstants.ITEM_QUANTITY_ATTR,1);
@@ -154,21 +157,5 @@ public class BarterXMLParser
       element.setAmount(quantity);
     }
     return element;
-  }
-
-  private Proxy<Item> buildItemProxy(NamedNodeMap attrs)
-  {
-    Proxy<Item> itemProxy=null;
-    int itemId=DOMParsingTools.getIntAttribute(attrs,BarterXMLConstants.ITEM_ID_ATTR,0);
-    if (itemId!=0)
-    {
-      String itemName=DOMParsingTools.getStringAttribute(attrs,BarterXMLConstants.ITEM_NAME_ATTR,"");
-      itemProxy=new Proxy<Item>();
-      itemProxy.setId(itemId);
-      itemProxy.setName(itemName);
-      Item item=ItemsManager.getInstance().getItem(itemId);
-      itemProxy.setObject(item);
-    }
-    return itemProxy;
   }
 }

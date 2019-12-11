@@ -1,14 +1,24 @@
 package delta.games.lotro.utils.io.xml;
 
+import java.util.List;
+
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.apache.log4j.Logger;
+import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.account.io.xml.AccountSummaryXMLParser;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.rewards.ItemReward;
+import delta.games.lotro.common.rewards.RewardElement;
+import delta.games.lotro.common.rewards.io.xml.RewardsXMLConstants;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.utils.Proxy;
 
@@ -18,12 +28,43 @@ import delta.games.lotro.utils.Proxy;
  */
 public class SharedXMLUtils
 {
+  private static final Logger LOGGER=Logger.getLogger(SharedXMLUtils.class);
+
   /**
-   * Write a proxy
-   * @param hd
-   * @param tagName
-   * @param proxy
-   * @throws SAXException
+   * Parse an item proxy.
+   * @param itemTag Source tag.
+   * @return a proxy or <code>null</code> if not valid.
+   */
+  public static Proxy<Item> parseItemProxy(Element itemTag)
+  {
+    Proxy<Item> proxy=null;
+    NamedNodeMap attrs=itemTag.getAttributes();
+    int id=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.PROXY_ID_ATTR,0);
+    if (id!=0)
+    {
+      Item item=ItemsManager.getInstance().getItem(id);
+      if (item!=null)
+      {
+        proxy=new Proxy<Item>();
+        proxy.setId(id);
+        proxy.setName(item.getName());
+        proxy.setObject(item);
+      }
+    }
+    else
+    {
+      LOGGER.warn("Could not find item with ID: "+id);
+    }
+    return proxy;
+  }
+
+
+  /**
+   * Write a proxy.
+   * @param hd Output.
+   * @param tagName Tag to use.
+   * @param proxy Proxy data.
+   * @throws SAXException If an error occurs.
    */
   public static void writeProxy(TransformerHandler hd, String tagName, Proxy<? extends Identifiable> proxy) throws SAXException
   {
