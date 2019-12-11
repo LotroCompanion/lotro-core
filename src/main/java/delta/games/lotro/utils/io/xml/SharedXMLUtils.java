@@ -1,7 +1,5 @@
 package delta.games.lotro.utils.io.xml;
 
-import java.util.List;
-
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.apache.log4j.Logger;
@@ -12,11 +10,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.account.io.xml.AccountSummaryXMLParser;
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.rewards.ItemReward;
-import delta.games.lotro.common.rewards.RewardElement;
-import delta.games.lotro.common.rewards.io.xml.RewardsXMLConstants;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.npc.NpcDescription;
