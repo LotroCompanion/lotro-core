@@ -1,6 +1,7 @@
 package delta.games.lotro.common.money.io.xml;
 
 /**
+ * Constants used in the XML persistence of money values.
  * @author DAM
  */
 public class MoneyXMLConstants

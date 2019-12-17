@@ -170,4 +170,8 @@ public class DataFiles
    * Vendors.
    */
   public static final String VENDORS="vendors";
+  /**
+   * Value tables.
+   */
+  public static final String VALUE_TABLES="valueTables";
 }
