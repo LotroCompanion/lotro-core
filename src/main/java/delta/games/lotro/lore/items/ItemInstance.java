@@ -332,7 +332,7 @@ public class ItemInstance<T extends Item>
    */
   public Money getEffectiveValue()
   {
-    return (_value!=null?_value:(_reference!=null)?_reference.getValue():null);
+    return (_value!=null?_value:(_reference!=null)?_reference.getValueAsMoney():null);
   }
 
   /**

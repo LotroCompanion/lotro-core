@@ -6,12 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.sets.ItemsSet;
@@ -22,6 +25,8 @@ import delta.games.lotro.lore.items.sets.ItemsSet;
  */
 public class Item implements Identifiable
 {
+  private static final Logger LOGGER=Logger.getLogger(Item.class);
+
   // Item identifier
   private int _identifier;
   // Icon name: iconID-backgroundIconID
@@ -59,7 +64,7 @@ public class Item implements Identifiable
   // Full description (may be empty but not <code>null</code>)
   private String _description;
   // Value
-  private Money _value;
+  private QualityBasedValueLookupTable _value;
   // Stacking information
   private Integer _stackMax;
 
@@ -90,7 +95,7 @@ public class Item implements Identifiable
     _requirements=new UsageRequirement();
     _itemLevel=null;
     _description="";
-    _value=new Money();
+    _value=null;
     _stackMax=null;
     _quality=null;
     _properties=new HashMap<String,String>();
@@ -490,19 +495,45 @@ public class Item implements Identifiable
   }
 
   /**
-   * Get the value of this item.
-   * @return an amount of money.
+   * Get the value table of this item.
+   * @return a value table.
    */
-  public Money getValue()
+  public QualityBasedValueLookupTable getValueTable()
   {
     return _value;
   }
 
   /**
-   * Set the value of this item.
+   * Get the value of this item.
+   * @return a value or <code>null</code> if none.
+   */
+  public Money getValueAsMoney()
+  {
+    Money ret=null;
+    if (_value!=null)
+    {
+      if ((_quality!=null) && (_itemLevel!=null))
+      {
+        Integer valueFromTable=_value.getValue(_quality,_itemLevel.intValue());
+        if (valueFromTable!=null)
+        {
+          ret=new Money();
+          ret.setRawValue(valueFromTable.intValue());
+        }
+        else
+        {
+          LOGGER.warn("Could not build item value from table!");
+        }
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Set the value table of this item.
    * @param value the value to set.
    */
-  public void setValue(Money value)
+  public void setValueTable(QualityBasedValueLookupTable value)
   {
     _value=value;
   }

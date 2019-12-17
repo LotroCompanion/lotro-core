@@ -19,7 +19,7 @@ import delta.games.lotro.character.stats.base.io.xml.StatsManagerXMLWriter;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.id.EntityId;
 import delta.games.lotro.common.id.ItemInstanceId;
-import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
@@ -246,6 +246,13 @@ public class ItemXMLWriter
       {
         itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
       }
+      // Value table ID
+      QualityBasedValueLookupTable valueTable=item.getValueTable();
+      if (valueTable!=null)
+      {
+        int valueTableId=valueTable.getIdentifier();
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_VALUE_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(valueTableId));
+      }
       // Stack max
       Integer stackMax=item.getStackMax();
       if (stackMax!=null)
@@ -365,8 +372,10 @@ public class ItemXMLWriter
       LegendaryInstanceAttrsXMLWriter.write(hd,legAttrs);
     }
     // Money
-    Money value=(isInstance?instance.getValue():item.getValue());
-    MoneyXMLWriter.writeMoney(hd,value);
+    if (isInstance)
+    {
+      MoneyXMLWriter.writeMoney(hd,instance.getValue());
+    }
 
     // Properties
     Map<String,String> properties=item.getProperties();

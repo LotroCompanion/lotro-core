@@ -68,6 +68,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_QUALITY_ATTR="quality";
   /**
+   * Tag 'item', attribute 'valueTableId'.
+   */
+  public static final String ITEM_VALUE_TABLE_ID_ATTR="valueTableId";
+  /**
    * Tag 'item', attribute 'description'.
    */
   public static final String ITEM_DESCRIPTION_ATTR="description";

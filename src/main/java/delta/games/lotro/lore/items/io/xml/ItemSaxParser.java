@@ -14,8 +14,8 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
-import delta.games.lotro.common.money.Money;
-import delta.games.lotro.common.money.io.xml.MoneyXMLConstants;
+import delta.games.lotro.common.money.QualityBasedValueLookupTable;
+import delta.games.lotro.common.money.ValueTablesManager;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
@@ -171,7 +171,14 @@ public final class ItemSaxParser extends DefaultHandler {
           // Full description
           String description=attributes.getValue(ItemXMLConstants.ITEM_DESCRIPTION_ATTR);
           _currentItem.setDescription(description);
-
+          // Value table
+          String valueTableIdStr=attributes.getValue(ItemXMLConstants.ITEM_VALUE_TABLE_ID_ATTR);
+          if (valueTableIdStr!=null)
+          {
+            int valueTableId=NumericTools.parseInt(valueTableIdStr,0);
+            QualityBasedValueLookupTable table=ValueTablesManager.getInstance().getValueTable(valueTableId);
+            _currentItem.setValueTable(table);
+          }
           // Stack max
           String stackMaxStr=attributes.getValue(ItemXMLConstants.ITEM_STACK_MAX_ATTR);
           if (stackMaxStr!=null)
@@ -272,15 +279,6 @@ public final class ItemSaxParser extends DefaultHandler {
             }
             statsProvider.addStatProvider(statProvider);
           }
-        } else if (MoneyXMLConstants.MONEY_TAG.equals(qualifiedName)) {
-          // Item value
-          Money money=_currentItem.getValue();
-          String goldStr=attributes.getValue(MoneyXMLConstants.MONEY_GOLD_ATTR);
-          money.setGoldCoins(NumericTools.parseInt(goldStr,0));
-          String silverStr=attributes.getValue(MoneyXMLConstants.MONEY_SILVER_ATTR);
-          money.setSilverCoins(NumericTools.parseInt(silverStr,0));
-          String copperStr=attributes.getValue(MoneyXMLConstants.MONEY_COPPER_ATTR);
-          money.setCopperCoins(NumericTools.parseInt(copperStr,0));
         } else {
           // ...
         }

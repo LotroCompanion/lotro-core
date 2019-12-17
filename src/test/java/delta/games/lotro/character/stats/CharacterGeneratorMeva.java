@@ -7,7 +7,6 @@ import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
-import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -450,7 +449,6 @@ public class CharacterGeneratorMeva
     ret.setMinLevel(Integer.valueOf(90));
     ret.setDurability(Integer.valueOf(60));
     ret.setSturdiness(ItemSturdiness.TOUGH);
-    ret.setValue(new Money(0,5,40));
     BasicStatsSet stats=ret.getStats();
     stats.setStat(WellKnownStat.get("JEWELLER_CRIT_CHANCE_PERCENTAGE"), 25);
     stats.setStat(WellKnownStat.get("COOK_CRIT_CHANCE_PERCENTAGE"), 25);
