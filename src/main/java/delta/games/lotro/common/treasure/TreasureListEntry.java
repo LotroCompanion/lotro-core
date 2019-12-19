@@ -7,17 +7,17 @@ package delta.games.lotro.common.treasure;
 public class TreasureListEntry
 {
   private int _weight;
-  private TrophyList _trophyList;
+  private TreasureGroupProfile _treasureGroup;
 
   /**
    * Constructor.
    * @param weight Weight.
-   * @param trophyList Trophy list.
+   * @param treasureGroup Trophy list.
    */
-  public TreasureListEntry(int weight, TrophyList trophyList)
+  public TreasureListEntry(int weight, TreasureGroupProfile treasureGroup)
   {
     _weight=weight;
-    _trophyList=trophyList;
+    _treasureGroup=treasureGroup;
   }
 
   /**
@@ -30,11 +30,11 @@ public class TreasureListEntry
   }
 
   /**
-   * Get the trophy list.
-   * @return the trophy list.
+   * Get the treasure group.
+   * @return the treasure group.
    */
-  public TrophyList getTrophyList()
+  public TreasureGroupProfile getTreasureGroup()
   {
-    return _trophyList;
+    return _treasureGroup;
   }
 }

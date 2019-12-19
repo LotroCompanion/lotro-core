@@ -4,24 +4,24 @@ package delta.games.lotro.common.treasure;
  * Entry in a 'weighted treasure table':
  * <ul>
  * <li>weight,
- * <li>treasure group.
+ * <li>trophy list.
  * </ul>
  * @author DAM
  */
 public class WeightedTreasureTableEntry
 {
   private int _weight;
-  private TreasureGroupProfile _treasureGroup;
+  private TrophyList _trophyList;
 
   /**
    * Constructor.
    * @param weight Weight.
-   * @param treasureGroup Treasure group.
+   * @param trophyList Trophy list.
    */
-  public WeightedTreasureTableEntry(int weight, TreasureGroupProfile treasureGroup)
+  public WeightedTreasureTableEntry(int weight, TrophyList trophyList)
   {
     _weight=weight;
-    _treasureGroup=treasureGroup;
+    _trophyList=trophyList;
   }
 
   /**
@@ -34,11 +34,11 @@ public class WeightedTreasureTableEntry
   }
 
   /**
-   * Get the treasure group.
-   * @return the treasure group.
+   * Get the trophy list.
+   * @return the trophy list.
    */
-  public TreasureGroupProfile getTreasureGroup()
+  public TrophyList getTrophyList()
   {
-    return _treasureGroup;
+    return _trophyList;
   }
 }
