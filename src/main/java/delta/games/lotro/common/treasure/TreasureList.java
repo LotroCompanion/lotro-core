@@ -3,6 +3,7 @@ package delta.games.lotro.common.treasure;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
 
 /**
@@ -46,5 +47,28 @@ public class TreasureList implements Identifiable
   public List<TreasureListEntry> getEntries()
   {
     return _entries;
+  }
+
+  /**
+   * Dump contents.
+   * @param sb Output.
+   * @param level Indentation level.
+   */
+  public void dump(StringBuilder sb, int level)
+  {
+    for(int i=0;i<level;i++) sb.append('\t');
+    sb.append("Treasure list ID=").append(_id).append(EndOfLine.NATIVE_EOL);
+    for(TreasureListEntry entry : _entries)
+    {
+      entry.dump(sb,level+1);
+    }
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    dump(sb,0);
+    return sb.toString().trim();
   }
 }

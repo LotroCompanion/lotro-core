@@ -57,4 +57,17 @@ public class ItemsTableEntry
   {
     return _quantity;
   }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    sb.append('(').append(_weight).append(") ");
+    if (_quantity!=1)
+    {
+      sb.append(_quantity).append("x ");
+    }
+    sb.append(_item.getName());
+    return sb.toString();
+  }
 }

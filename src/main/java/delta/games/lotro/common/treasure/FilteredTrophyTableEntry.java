@@ -1,5 +1,6 @@
 package delta.games.lotro.common.treasure;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.requirements.UsageRequirement;
 
 /**
@@ -53,5 +54,32 @@ public class FilteredTrophyTableEntry
   public WeightedTreasureTable getTreasureTable()
   {
     return _treasureTable;
+  }
+
+  /**
+   * Dump contents.
+   * @param sb Output.
+   * @param level Indentation level.
+   */
+  public void dump(StringBuilder sb, int level)
+  {
+    for(int i=0;i<level;i++) sb.append('\t');
+    sb.append('(').append(_requirements).append(") ").append(EndOfLine.NATIVE_EOL);
+    if (_trophyList!=null)
+    {
+      _trophyList.dump(sb,level+1);
+    }
+    if (_treasureTable!=null)
+    {
+      _treasureTable.dump(sb,level+1);
+    }
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    dump(sb,0);
+    return sb.toString().trim();
   }
 }

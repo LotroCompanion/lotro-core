@@ -1,5 +1,6 @@
 package delta.games.lotro.common.treasure;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.utils.Proxy;
 
@@ -68,5 +69,50 @@ public class TrophyListEntry
   public int getQuantity()
   {
     return _quantity;
+  }
+
+  /**
+   * Get the probability label.
+   * @return a readable label for probability.
+   */
+  public String getProbabilityLabel() {
+    if (_probability==1.0)
+    {
+      return "Always";
+    }
+    return String.format("%.1f%%",Float.valueOf(_probability*100));
+  }
+
+  /**
+   * Dump contents.
+   * @param sb Output.
+   * @param level Indentation level.
+   */
+  public void dump(StringBuilder sb, int level)
+  {
+    for(int i=0;i<level;i++) sb.append('\t');
+    sb.append(getProbabilityLabel());
+    if (_quantity!=1)
+    {
+      sb.append(' ').append(_quantity).append('x');
+    }
+    if (_item!=null)
+    {
+      sb.append(' ').append(_item.getName());
+      sb.append(EndOfLine.NATIVE_EOL);
+    }
+    else if (_treasureGroup!=null)
+    {
+      sb.append(EndOfLine.NATIVE_EOL);
+      _treasureGroup.dump(sb,level+1);
+    }
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    dump(sb,0);
+    return sb.toString().trim();
   }
 }

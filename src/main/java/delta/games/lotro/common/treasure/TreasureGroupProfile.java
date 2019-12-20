@@ -1,5 +1,6 @@
 package delta.games.lotro.common.treasure;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
 
 /**
@@ -51,4 +52,31 @@ public class TreasureGroupProfile implements Identifiable
     return _treasureList;
   }
 
+
+  /**
+   * Dump contents.
+   * @param sb Output.
+   * @param level Indentation level.
+   */
+  public void dump(StringBuilder sb, int level)
+  {
+    for(int i=0;i<level;i++) sb.append('\t');
+    sb.append("Treasure group profile ID=").append(_id).append(EndOfLine.NATIVE_EOL);
+    if (_itemsTable!=null)
+    {
+      _itemsTable.dump(sb,level+1);
+    }
+    if (_treasureList!=null)
+    {
+      _treasureList.dump(sb,level+1);
+    }
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    dump(sb,0);
+    return sb.toString().trim();
+  }
 }
