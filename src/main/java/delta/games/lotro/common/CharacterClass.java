@@ -8,7 +8,6 @@ import java.util.HashMap;
  */
 public final class CharacterClass
 {
-  private static HashMap<String,CharacterClass> _instances=new HashMap<String,CharacterClass>();
   private static HashMap<String,CharacterClass> _instancesByKey=new HashMap<String,CharacterClass>();
   private String _key;
   private String _iconPath;
@@ -40,7 +39,7 @@ public final class CharacterClass
   /**
    * Lore master.
    */
-  public static final CharacterClass LORE_MASTER=new CharacterClass("Lore-master","loremaster",new String[]{"LoreMaster"});
+  public static final CharacterClass LORE_MASTER=new CharacterClass("Lore-master","loremaster");
   /**
    * Minstrel.
    */
@@ -48,7 +47,7 @@ public final class CharacterClass
   /**
    * Rune-keeper.
    */
-  public static final CharacterClass RUNE_KEEPER=new CharacterClass("Rune-keeper","runekeeper",new String[]{"RuneKeeper"});
+  public static final CharacterClass RUNE_KEEPER=new CharacterClass("Rune-keeper","runekeeper");
   /**
    * Warden.
    */
@@ -63,22 +62,9 @@ public final class CharacterClass
 
   private CharacterClass(String key, String iconPath)
   {
-    this(key,iconPath,null);
-  }
-
-  private CharacterClass(String key, String iconPath, String[] aliases)
-  {
     _key=key;
     _iconPath=iconPath;
-    _instances.put(key,this);
     _instancesByKey.put(key,this);
-    if (aliases!=null)
-    {
-      for(String alias : aliases)
-      {
-        _instances.put(alias,this);
-      }
-    }
   }
 
   /**
@@ -116,17 +102,6 @@ public final class CharacterClass
   public static CharacterClass getByKey(String key)
   {
     CharacterClass ret=_instancesByKey.get(key);
-    return ret;
-  }
-
-  /**
-   * Get a character class instance by a name.
-   * @param name Label to search.
-   * @return A character class or <code>null</code> if not found.
-   */
-  public static CharacterClass getByName(String name)
-  {
-    CharacterClass ret=_instances.get(name);
     return ret;
   }
 
