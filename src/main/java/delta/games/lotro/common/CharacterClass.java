@@ -56,8 +56,42 @@ public final class CharacterClass
   /**
    * An array of all character classes.
    */
-  public static final CharacterClass[] ALL_CLASSES = {
+  public static final CharacterClass[] ALL_CLASSES =
+  {
     BEORNING, BURGLAR, CAPTAIN, CHAMPION, GUARDIAN, HUNTER, LORE_MASTER, MINSTREL, RUNE_KEEPER, WARDEN
+  };
+
+  /**
+   * Reaver.
+   */
+  public static final CharacterClass REAVER=new CharacterClass("Reaver","reaver");
+  /**
+   * Defiler.
+   */
+  public static final CharacterClass DEFILER=new CharacterClass("Defiler","defiler");
+  /**
+   * Weaver.
+   */
+  public static final CharacterClass WEAVER=new CharacterClass("Weaver","weaver");
+  /**
+   * Blackarrow.
+   */
+  public static final CharacterClass BLACKARROW=new CharacterClass("Blackarrow","blackarrow");
+  /**
+   * Warleader.
+   */
+  public static final CharacterClass WARLEADER=new CharacterClass("Warleader","warleader");
+  /**
+   * Stalker.
+   */
+  public static final CharacterClass STALKER=new CharacterClass("Stalker","stalker");
+
+  /**
+   * An array of all monster classes.
+   */
+  public static final CharacterClass[] ALL_MONSTER_CLASSES =
+  {
+    REAVER, DEFILER, WEAVER, BLACKARROW, WARLEADER, STALKER
   };
 
   private CharacterClass(String key, String iconPath)
