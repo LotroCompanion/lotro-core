@@ -57,6 +57,15 @@ public class BarterEntry
   }
 
   /**
+   * Get the number of items to give.
+   * @return a items count.
+   */
+  public int getNumberOfItemsToGive()
+  {
+    return _toGive.size();
+  }
+
+  /**
    * Get a displayable label for this entry.
    * @return a displayable label.
    */

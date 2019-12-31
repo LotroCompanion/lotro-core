@@ -87,4 +87,22 @@ public class BarterProfile implements Identifiable
   {
     return _entries;
   }
+
+  /**
+   * Get the maximum number of items to give for an entry of this profile.
+   * @return a number of items.
+   */
+  public int getMaxNumberOfItemsToGive()
+  {
+    int max=0;
+    for(BarterEntry entry : _entries)
+    {
+      int nbItemsToGive=entry.getNumberOfItemsToGive();
+      if (nbItemsToGive>max)
+      {
+        max=nbItemsToGive;
+      }
+    }
+    return max;
+  }
 }
