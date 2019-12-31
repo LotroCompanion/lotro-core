@@ -20,10 +20,6 @@ public class RecipeXMLConstants
    */
   public static final String RECIPE_ID_ATTR="id";
   /**
-   * Tag 'recipe', attribute 'key'.
-   */
-  public static final String RECIPE_KEY_ATTR="key";
-  /**
    * Tag 'recipe', attribute 'name'.
    */
   public static final String RECIPE_NAME_ATTR="name";

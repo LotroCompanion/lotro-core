@@ -15,7 +15,6 @@ import delta.games.lotro.lore.items.ItemProxy;
 public class Recipe implements Identifiable
 {
   private int _identifier;
-  private String _key;
   private String _name;
   private String _profession;
   private String _category;
@@ -33,7 +32,6 @@ public class Recipe implements Identifiable
   public Recipe()
   {
     _identifier=0;
-    _key="";
     _name="";
     _profession="";
     _category="";
@@ -62,24 +60,6 @@ public class Recipe implements Identifiable
   public void setIdentifier(int identifier)
   {
     _identifier=identifier;
-  }
-
-  /**
-   * Get the key of this recipe.
-   * @return a recipe key.
-   */
-  public String getKey()
-  {
-    return _key;
-  }
-
-  /**
-   * Set the key of this recipe.
-   * @param key the key to set.
-   */
-  public void setKey(String key)
-  {
-    _key=(key==null)?"":key;
   }
 
   /**
@@ -278,12 +258,6 @@ public class Recipe implements Identifiable
     {
       sb.append(" (id=");
       sb.append(_identifier);
-      sb.append(')');
-    }
-    if (_key.length()>0)
-    {
-      sb.append(" (key=");
-      sb.append(_key);
       sb.append(')');
     }
     if (_profession.length()>0)

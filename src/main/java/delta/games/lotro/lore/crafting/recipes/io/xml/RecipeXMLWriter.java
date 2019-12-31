@@ -78,12 +78,6 @@ public class RecipeXMLWriter
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
-    // Lorebook wiki key
-    String key=recipe.getKey();
-    if (key.length()>0)
-    {
-      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_KEY_ATTR,XmlWriter.CDATA,key);
-    }
     // Name
     String name=recipe.getName();
     if (name.length()>0)

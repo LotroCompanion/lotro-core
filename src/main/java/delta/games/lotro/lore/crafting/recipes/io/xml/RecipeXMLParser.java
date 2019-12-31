@@ -65,9 +65,6 @@ public class RecipeXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_ID_ATTR,0);
     r.setIdentifier(id);
-    // Key
-    String key=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_KEY_ATTR,null);
-    r.setKey(key);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_NAME_ATTR,null);
     r.setName(name);
