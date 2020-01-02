@@ -218,11 +218,6 @@ public class RecipeXMLWriter
     {
       attrs.addAttribute("","",RecipeXMLConstants.RECIPE_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
-    String key=ref.getItemKey();
-    if (key!=null)
-    {
-      attrs.addAttribute("","",RecipeXMLConstants.RECIPE_ITEM_KEY_ATTR,XmlWriter.CDATA,key);
-    }
     String name=ref.getName();
     if (name!=null)
     {

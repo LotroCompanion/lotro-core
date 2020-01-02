@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLParser;
 import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLWriter;
 
@@ -17,7 +19,7 @@ import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLWriter;
  */
 public final class RecipesManager
 {
-  private static RecipesManager _instance=new RecipesManager();
+  private static RecipesManager _instance=new RecipesManager(true);
 
   private Map<String,Map<Integer,List<Recipe>>> _recipes;
 
@@ -32,10 +34,21 @@ public final class RecipesManager
 
   /**
    * Constructor.
+   * @param load Indicates if the recipes database shall be loaded or not.
    */
-  public RecipesManager()
+  public RecipesManager(boolean load)
   {
     _recipes=new HashMap<String,Map<Integer,List<Recipe>>>();
+    if (load)
+    {
+      loadAllRecipes();
+    }
+  }
+
+  private void loadAllRecipes()
+  {
+    File fromFile=LotroCoreConfig.getInstance().getFile(DataFiles.RECIPES);
+    loadRecipesFromFile(fromFile);
   }
 
   /**
@@ -92,7 +105,7 @@ public final class RecipesManager
    * Load all recipes from a file.
    * @param inputFile Input file.
    */
-  public void loadRecipesFromFile(File inputFile)
+  private void loadRecipesFromFile(File inputFile)
   {
     RecipeXMLParser parser=new RecipeXMLParser();
     List<Recipe> recipes=parser.loadRecipes(inputFile);

@@ -12,7 +12,9 @@ import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
+import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Parser for quest descriptions stored in XML.
@@ -188,16 +190,21 @@ public class RecipeXMLParser
     ItemProxy ref=new ItemProxy();
     // Item id
     int id=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_ID_ATTR,0);
-    ref.setId(id);
-    // Item key
-    String key=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_KEY_ATTR,null);
-    ref.setItemKey(key);
-    // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_NAME_ATTR,null);
-    ref.setName(name);
-    // Icon
-    String icon=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_ICON_ATTR,null);
-    ref.setIcon(icon);
+    Item item=ItemsManager.getInstance().getItem(id);
+    if (item!=null)
+    {
+      ref.setItem(item);
+    }
+    else
+    {
+      ref.setId(id);
+      // Name
+      String name=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_NAME_ATTR,null);
+      ref.setName(name);
+      // Icon
+      String icon=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_ICON_ATTR,null);
+      ref.setIcon(icon);
+    }
     return ref;
   }
 }
