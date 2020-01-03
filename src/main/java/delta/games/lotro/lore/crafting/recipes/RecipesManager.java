@@ -193,7 +193,7 @@ public final class RecipesManager
    * @param toFile File to write to.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean  writeToFile(File toFile)
+  public boolean writeToFile(File toFile)
   {
     List<Recipe> recipes=getAll();
     RecipeUtils.sort(recipes);

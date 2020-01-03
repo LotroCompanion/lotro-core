@@ -159,6 +159,23 @@ public class ItemsSet implements Identifiable
   }
 
   /**
+   * Indicates if this set contains the give item.
+   * @param itemId Item to use.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean hasMember(int itemId)
+  {
+    for(Proxy<Item> member : _members)
+    {
+      if (member.getId()==itemId)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Get all possible bonuses, ordered by number of pieces.
    * @return A list of bonuses.
    */
