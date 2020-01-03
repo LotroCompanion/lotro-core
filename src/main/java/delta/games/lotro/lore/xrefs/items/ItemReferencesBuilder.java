@@ -14,7 +14,10 @@ import delta.games.lotro.lore.crafting.recipes.RecipesManager;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.sets.ItemsSet;
+import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
@@ -41,6 +44,7 @@ public class ItemReferencesBuilder
     findInQuestRewards(itemId);
     findInDeedRewards(itemId);
     findInBarterers(itemId);
+    findInSets(itemId);
   }
 
   private void findInRecipes(int itemId)
@@ -82,6 +86,16 @@ public class ItemReferencesBuilder
         if (criticalResultId==itemId)
         {
           logFinding(itemId,"critical result in recipe: "+recipe.getName());
+        }
+      }
+      // Recipe item
+      ItemProxy recipeItem=recipe.getRecipeScroll();
+      if (recipeItem!=null)
+      {
+        int recipeItemId=recipeItem.getId();
+        if (recipeItemId==itemId)
+        {
+          logFinding(itemId,"provides recipe: "+recipe.getName());
         }
       }
     }
@@ -172,6 +186,18 @@ public class ItemReferencesBuilder
             logFinding(itemId,"barter from "+barterer.getNpc().getName()+" with profile "+profile.getName());
           }
         }
+      }
+    }
+  }
+
+  private void findInSets(int itemId)
+  {
+    ItemsSetsManager itemsSetsManager=ItemsSetsManager.getInstance();
+    for(ItemsSet itemsSet : itemsSetsManager.getAll())
+    {
+      if (itemsSet.hasMember(itemId))
+      {
+        logFinding(itemId,"member of set "+itemsSet.getName());
       }
     }
   }
