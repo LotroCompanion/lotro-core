@@ -118,6 +118,16 @@ public final class CraftingLevel
   }
 
   /**
+   * Indicates if the given recipe is auto-bestowed or not.
+   * @param recipeId Identifier of the recipe to use.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isAutobestowed(int recipeId)
+  {
+    return _recipes.contains(Integer.valueOf(recipeId));
+  }
+
+  /**
    * Get the identifiers of the automatic recipes for the level.
    * @return an array of recipe identifiers.
    */
