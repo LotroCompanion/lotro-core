@@ -22,6 +22,7 @@ public final class RecipesManager
   private static RecipesManager _instance=new RecipesManager(true);
 
   private Map<String,Map<Integer,List<Recipe>>> _recipes;
+  private Map<Integer,Recipe> _recipesById;
 
   /**
    * Get the sole instance of this class.
@@ -39,6 +40,7 @@ public final class RecipesManager
   public RecipesManager(boolean load)
   {
     _recipes=new HashMap<String,Map<Integer,List<Recipe>>>();
+    _recipesById=new HashMap<Integer,Recipe>();
     if (load)
     {
       loadAllRecipes();
@@ -122,6 +124,7 @@ public final class RecipesManager
    */
   public void registerRecipe(Recipe recipe)
   {
+    // Register in profession/tier map
     String profession=recipe.getProfession();
     Map<Integer,List<Recipe>> recipesForProfession=_recipes.get(profession);
     if (recipesForProfession==null)
@@ -137,6 +140,18 @@ public final class RecipesManager
       recipesForProfession.put(tier,recipesForTier);
     }
     recipesForTier.add(recipe);
+    // Register in id map
+    _recipesById.put(Integer.valueOf(recipe.getIdentifier()),recipe);
+  }
+
+  /**
+   * Get a recipe using its identifier.
+   * @param recipeId Identifier of the recipe to get.
+   * @return A recipe or <code>null</code> if not found.
+   */
+  public Recipe getRecipeById(int recipeId)
+  {
+    return _recipesById.get(Integer.valueOf(recipeId));
   }
 
   /**
