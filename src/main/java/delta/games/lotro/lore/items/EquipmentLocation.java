@@ -92,6 +92,18 @@ public final class EquipmentLocation
    * Bridle.
    */
   public static final EquipmentLocation BRIDLE=new EquipmentLocation("BRIDLE","Bridle");
+  /**
+   * Main-hand aura.
+   */
+  public static final EquipmentLocation MAIN_HAND_AURA=new EquipmentLocation("MAIN_HAND_AURA","Main-hand Aura");
+  /**
+   * Off-hand aura.
+   */
+  public static final EquipmentLocation OFF_HAND_AURA=new EquipmentLocation("OFF_HAND_AURA","Off-hand Aura");
+  /**
+   * Ranged aura.
+   */
+  public static final EquipmentLocation RANGED_AURA=new EquipmentLocation("RANGED_AURA","Ranged Aura");
 
   private EquipmentLocation(String key, String label, String... aliases)
   {

@@ -103,7 +103,23 @@ public class CharacterEquipment
     /**
      * Class object item.
      */
-    CLASS_ITEM(21,"Class slot",EquipmentLocation.CLASS_SLOT);
+    CLASS_ITEM(21,"Class slot",EquipmentLocation.CLASS_SLOT),
+    /**
+     * Bridle.
+     */
+    //BRIDLE(22,"Bridle",EquipmentLocation.BRIDLE),
+    /**
+     * Main hand aura.
+     */
+    MAIN_HAND_AURA(23,"Main Hand Aura",EquipmentLocation.MAIN_HAND_AURA),
+    /**
+     * Off-hand aura.
+     */
+    OFF_HAND_AURA(24,"Main Hand Aura",EquipmentLocation.OFF_HAND_AURA),
+    /**
+     * Ranged aura.
+     */
+    RANGED_AURA(25,"Main Hand Aura",EquipmentLocation.RANGED_AURA);
 
     private int _position;
     private String _label;

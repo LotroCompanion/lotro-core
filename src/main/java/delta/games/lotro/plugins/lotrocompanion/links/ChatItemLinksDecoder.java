@@ -686,11 +686,11 @@ public class ChatItemLinksDecoder
     if ((containerSlotBitSet&1L<<18)!=0) slot=EQUIMENT_SLOT.RANGED;
     if ((containerSlotBitSet&1L<<19)!=0) slot=EQUIMENT_SLOT.TOOL;
     if ((containerSlotBitSet&1L<<20)!=0) slot=EQUIMENT_SLOT.CLASS_ITEM;
-    //if ((slotCode&1L<<21)!=0) slot=EQUIMENT_SLOT.BRIDLE);
+    //if ((containerSlotBitSet&1L<<21)!=0) slot=EQUIMENT_SLOT.BRIDLE;
+    if ((containerSlotBitSet&1L<<22)!=0) slot=EQUIMENT_SLOT.MAIN_HAND_AURA;
+    if ((containerSlotBitSet&1L<<23)!=0) slot=EQUIMENT_SLOT.OFF_HAND_AURA;
+    if ((containerSlotBitSet&1L<<24)!=0) slot=EQUIMENT_SLOT.RANGED_AURA;
     /*
-      23 => Main-hand Aura
-      24 => Off-hand Aura
-      25 => Ranged Aura
       26 => Last
       29 => Mail
       30 => Equipment
