@@ -27,6 +27,10 @@ import delta.games.lotro.lore.trade.barter.BarterNpc;
 import delta.games.lotro.lore.trade.barter.BarterProfile;
 import delta.games.lotro.lore.trade.barter.BarterersManager;
 import delta.games.lotro.lore.trade.barter.ItemBarterEntryElement;
+import delta.games.lotro.lore.trade.vendor.SellList;
+import delta.games.lotro.lore.trade.vendor.VendorNpc;
+import delta.games.lotro.lore.trade.vendor.VendorsManager;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Finds references to items.
@@ -44,6 +48,7 @@ public class ItemReferencesBuilder
     findInQuestRewards(itemId);
     findInDeedRewards(itemId);
     findInBarterers(itemId);
+    findInVendors(itemId);
     findInSets(itemId);
   }
 
@@ -185,6 +190,33 @@ public class ItemReferencesBuilder
           {
             logFinding(itemId,"barter from "+barterer.getNpc().getName()+" with profile "+profile.getName());
           }
+        }
+      }
+    }
+  }
+
+  private void findInVendors(int itemId)
+  {
+    VendorsManager vendorsManager=VendorsManager.getInstance();
+    List<VendorNpc> vendors=vendorsManager.getAll();
+    for(VendorNpc vendor : vendors)
+    {
+      findInVendor(vendor, itemId);
+    }
+  }
+
+  private void findInVendor(VendorNpc vendor, int itemId)
+  {
+    List<SellList> sellLists=vendor.getSellLists();
+    for(SellList sellList : sellLists)
+    {
+      List<Proxy<Item>> entries=sellList.getItems();
+      for(Proxy<Item> entry : entries)
+      {
+        int itemToGetId=entry.getId();
+        if (itemToGetId==itemId)
+        {
+          logFinding(itemId,"sold by "+vendor.getNpc().getName());
         }
       }
     }
