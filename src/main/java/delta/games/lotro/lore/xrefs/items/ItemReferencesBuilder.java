@@ -1,6 +1,9 @@
 package delta.games.lotro.lore.xrefs.items;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RewardElement;
@@ -15,7 +18,6 @@ import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemProxy;
-import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 import delta.games.lotro.lore.quests.Achievable;
@@ -38,18 +40,33 @@ import delta.games.lotro.utils.Proxy;
  */
 public class ItemReferencesBuilder
 {
+  private List<ItemReference<?>> _storage;
+
+  /**
+   * Constructor.
+   */
+  public ItemReferencesBuilder()
+  {
+    _storage=new ArrayList<ItemReference<?>>();
+  }
+
   /**
    * Search for an item.
    * @param itemId Item identifier.
+   * @return the found references.
    */
-  public void inspectItem(int itemId)
+  public List<ItemReference<?>> inspectItem(int itemId)
   {
+    _storage.clear();
     findInRecipes(itemId);
     findInQuestRewards(itemId);
     findInDeedRewards(itemId);
     findInBarterers(itemId);
     findInVendors(itemId);
     findInSets(itemId);
+    List<ItemReference<?>> ret=new ArrayList<ItemReference<?>>(_storage);
+    _storage.clear();
+    return ret;
   }
 
   private void findInRecipes(int itemId)
@@ -64,6 +81,7 @@ public class ItemReferencesBuilder
 
   private void findInRecipe(Recipe recipe, int itemId)
   {
+    Set<ItemRole> roles=new HashSet<ItemRole>();
     for(RecipeVersion version : recipe.getVersions())
     {
       // Ingredient?
@@ -73,7 +91,9 @@ public class ItemReferencesBuilder
         int ingredientId=ingredient.getItem().getId();
         if (ingredientId==itemId)
         {
-          logFinding(itemId,"ingredient in recipe: "+recipe.getName());
+          ItemRole role=ingredient.isOptional()?ItemRole.RECIPE_CRITICAL_INGREDIENT:ItemRole.RECIPE_INGREDIENT;
+          roles.add(role);
+          //logFinding(itemId,"ingredient in recipe: "+recipe.getName());
           break;
         }
       }
@@ -82,7 +102,8 @@ public class ItemReferencesBuilder
       int regularResultId=regularResult.getItem().getId();
       if (regularResultId==itemId)
       {
-        logFinding(itemId,"result in recipe: "+recipe.getName());
+        roles.add(ItemRole.RECIPE_RESULT);
+        //logFinding(itemId,"result in recipe: "+recipe.getName());
       }
       CraftingResult criticalResult=version.getCritical();
       if (criticalResult!=null)
@@ -90,7 +111,8 @@ public class ItemReferencesBuilder
         int criticalResultId=criticalResult.getItem().getId();
         if (criticalResultId==itemId)
         {
-          logFinding(itemId,"critical result in recipe: "+recipe.getName());
+          roles.add(ItemRole.RECIPE_CRITICAL_RESULT);
+          //logFinding(itemId,"critical result in recipe: "+recipe.getName());
         }
       }
       // Recipe item
@@ -100,9 +122,14 @@ public class ItemReferencesBuilder
         int recipeItemId=recipeItem.getId();
         if (recipeItemId==itemId)
         {
-          logFinding(itemId,"provides recipe: "+recipe.getName());
+          roles.add(ItemRole.RECIPE_PROVIDES_RECIPE);
+          //logFinding(itemId,"provides recipe: "+recipe.getName());
         }
       }
+    }
+    if (roles.size()>0)
+    {
+      _storage.add(new ItemReference<Recipe>(recipe,roles));
     }
   }
 
@@ -152,7 +179,9 @@ public class ItemReferencesBuilder
         int itemRewardId=itemReward.getItemProxy().getId();
         if (itemRewardId==itemId)
         {
-          logFinding(itemId,"reward in: "+context.getName());
+          ItemRole role=(context instanceof QuestDescription)?ItemRole.QUEST_REWARD:ItemRole.DEED_REWARD;
+          _storage.add(new ItemReference<Achievable>(context,role));
+          //logFinding(itemId,"reward in: "+context.getName());
         }
       }
       else if (element instanceof SelectableRewardElement)
@@ -188,7 +217,8 @@ public class ItemReferencesBuilder
           int itemToReceiveId=itemToReceive.getItemProxy().getId();
           if (itemToReceiveId==itemId)
           {
-            logFinding(itemId,"barter from "+barterer.getNpc().getName()+" with profile "+profile.getName());
+            _storage.add(new ItemReference<BarterNpc>(barterer,ItemRole.BARTERER_BARTERED_BY));
+            //logFinding(itemId,"barter from "+barterer.getNpc().getName()+" with profile "+profile.getName());
           }
         }
       }
@@ -216,7 +246,8 @@ public class ItemReferencesBuilder
         int itemToGetId=entry.getId();
         if (itemToGetId==itemId)
         {
-          logFinding(itemId,"sold by "+vendor.getNpc().getName());
+          _storage.add(new ItemReference<VendorNpc>(vendor,ItemRole.VENDOR_SOLD_BY));
+          //logFinding(itemId,"sold by "+vendor.getNpc().getName());
         }
       }
     }
@@ -229,14 +260,17 @@ public class ItemReferencesBuilder
     {
       if (itemsSet.hasMember(itemId))
       {
-        logFinding(itemId,"member of set "+itemsSet.getName());
+        _storage.add(new ItemReference<ItemsSet>(itemsSet,ItemRole.SET_MEMBER_OF_SET));
+        //logFinding(itemId,"member of set "+itemsSet.getName());
       }
     }
   }
 
+  /*
   private void logFinding(int itemId, String log)
   {
     Item item=ItemsManager.getInstance().getItem(itemId);
     System.out.println("Found item: "+item.getName()+" as "+log);
   }
+  */
 }
