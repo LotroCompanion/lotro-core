@@ -78,6 +78,20 @@ public class BarterNpc implements Identifiable
   }
 
   /**
+   * Get the barter entries for this barterer.
+   * @return a list of barter entries.
+   */
+  public List<BarterEntry> getEntries()
+  {
+    List<BarterEntry> ret=new ArrayList<BarterEntry>();
+    for(BarterProfile list : _profiles)
+    {
+      ret.addAll(list.getEntries());
+    }
+    return ret;
+  }
+
+  /**
    * Dump the contents of this NPC barter data as a readable string.
    * @return A displayable string.
    */
