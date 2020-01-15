@@ -36,7 +36,7 @@ public class NpcDescription implements Identifiable
 
   /**
    * Get the NPC name.
-   * @return a name.
+   * @return a name (may be empty but not <code>null</code>)..
    */
   public String getName()
   {
@@ -45,7 +45,7 @@ public class NpcDescription implements Identifiable
 
   /**
    * Get the NPC title.
-   * @return a title.
+   * @return a title (may be empty but not <code>null</code>).
    */
   public String getTitle()
   {

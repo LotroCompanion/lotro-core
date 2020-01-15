@@ -204,6 +204,7 @@ public class ItemReferencesBuilder
 
   private void findInBarter(BarterNpc barterer, int itemId)
   {
+    Set<ItemRole> roles=new HashSet<ItemRole>();
     List<BarterProfile> profiles=barterer.getBarterProfiles();
     for(BarterProfile profile : profiles)
     {
@@ -217,11 +218,24 @@ public class ItemReferencesBuilder
           int itemToReceiveId=itemToReceive.getItemProxy().getId();
           if (itemToReceiveId==itemId)
           {
-            _storage.add(new ItemReference<BarterNpc>(barterer,ItemRole.BARTERER_BARTERED_BY));
+            roles.add(ItemRole.BARTERER_GIVEN);
+            //logFinding(itemId,"barter from "+barterer.getNpc().getName()+" with profile "+profile.getName());
+          }
+        }
+        for(ItemBarterEntryElement toGive : entry.getElementsToGive())
+        {
+          int itemToGiveId=toGive.getItemProxy().getId();
+          if (itemToGiveId==itemId)
+          {
+            roles.add(ItemRole.BARTERER_RECEIVED);
             //logFinding(itemId,"barter from "+barterer.getNpc().getName()+" with profile "+profile.getName());
           }
         }
       }
+    }
+    if (roles.size()>0)
+    {
+      _storage.add(new ItemReference<BarterNpc>(barterer,roles));
     }
   }
 

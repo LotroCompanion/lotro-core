@@ -30,9 +30,13 @@ public enum ItemRole
    */
   SET_MEMBER_OF_SET,
   /**
-   * Item is bartered by barterer.
+   * Item is given by barterer (received by the character).
    */
-  BARTERER_BARTERED_BY,
+  BARTERER_GIVEN,
+  /**
+   * Item is received by barterer (given by the character).
+   */
+  BARTERER_RECEIVED,
   /**
    * Item is sold by vendor.
    */
