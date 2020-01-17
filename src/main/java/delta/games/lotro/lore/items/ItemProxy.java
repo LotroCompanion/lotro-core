@@ -10,7 +10,6 @@ public class ItemProxy
   private String _name;
   // Icon: either "iconId" or "iconId-backgroundIconId"
   private String _icon;
-  private String _key;
   private Item _item;
 
   /**
@@ -21,7 +20,6 @@ public class ItemProxy
     _id=0;
     _name=null;
     _icon=null;
-    _key=null;
     _item=null;
   }
 
@@ -92,24 +90,6 @@ public class ItemProxy
   }
 
   /**
-   * Get the key.
-   * @return the key
-   */
-  public String getItemKey()
-  {
-    return _key;
-  }
-
-  /**
-   * Set the key.
-   * @param key the key to set.
-   */
-  public void setItemKey(String key)
-  {
-    _key=key;
-  }
-
-  /**
    * Get the proxied item, if resolved.
    * @return A item or <code>null</code> if not resolved or not found.
    */
@@ -143,7 +123,6 @@ public class ItemProxy
     ret.setId(_id);
     ret.setIcon(_icon);
     ret.setItem(_item);
-    ret.setItemKey(_key);
     return ret;
   }
 
