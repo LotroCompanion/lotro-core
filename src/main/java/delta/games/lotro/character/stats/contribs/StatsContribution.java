@@ -8,6 +8,7 @@ import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -40,6 +41,11 @@ public class StatsContribution
    * Source identifier seed: piece of equipment.
    */
   public static final String EQUIPMENT="Equipment:";
+  // ItemsSet:<setId>
+  /**
+   * Source identifier seed: items set.
+   */
+  public static final String ITEMS_SET="ItemsSet:";
   // Buff:<buffId>
   /**
    * Source identifier seed: buff.
@@ -159,6 +165,20 @@ public class StatsContribution
   {
     String source=EQUIPMENT+slot.name()+":"+item.getIdentifier();
     String label=slot.getLabel()+": "+item.getName();
+    return new StatsContribution(source,label,stats);
+  }
+
+  /**
+   * Build a stat contribution for an items set.
+   * @param set Source items set.
+   * @param count Number of equipped items for this set.
+   * @param stats Contributed stats.
+   * @return A stat contribution.
+   */
+  public static StatsContribution getItemsSetContrib(ItemsSet set, int count, BasicStatsSet stats)
+  {
+    String source=ITEMS_SET+set.getIdentifier();
+    String label="Items set: "+set.getName()+" ("+count+" pieces)";
     return new StatsContribution(source,label,stats);
   }
 

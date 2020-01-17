@@ -40,6 +40,7 @@ public class CharacterStatsComputer
 {
   private BaseStatsManager _baseStatsMgr;
   private TomesContributionsMgr _tomesMgr;
+  private ItemsSetStatsComputer _itemsSetsMgr;
   private BuffInstance _hopeDread;
   private RatingsMgr _ratingsMgr;
   private StatsContributionsManager _contribs;
@@ -60,6 +61,7 @@ public class CharacterStatsComputer
   {
     _baseStatsMgr=new BaseStatsManager();
     _tomesMgr=new TomesContributionsMgr();
+    _itemsSetsMgr=new ItemsSetStatsComputer();
     _hopeDread=buildMoraleBuffFromHopeOrDread();
     _ratingsMgr=CombatSystem.getInstance().getRatingsMgr();
     _contribs=contribs;
@@ -76,6 +78,7 @@ public class CharacterStatsComputer
   private BasicStatsSet getEquipmentStats(CharacterEquipment equipment)
   {
     BasicStatsSet ret=new BasicStatsSet();
+    // Iterate on slots
     for(EQUIMENT_SLOT slot : EQUIMENT_SLOT.values())
     {
       SlotContents slotContents=equipment.getSlotContents(slot,false);
@@ -93,6 +96,12 @@ public class CharacterStatsComputer
           }
         }
       }
+    }
+    // Items sets
+    BasicStatsSet itemsSetsStats=_itemsSetsMgr.getStats(equipment,_contribs);
+    if (itemsSetsStats.getStatsCount()>0)
+    {
+      ret.addStats(itemsSetsStats);
     }
     return ret;
   }
