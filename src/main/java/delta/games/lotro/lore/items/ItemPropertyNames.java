@@ -7,11 +7,6 @@ package delta.games.lotro.lore.items;
 public class ItemPropertyNames
 {
   /**
-   * Factory comment.
-   */
-  public static final String FACTORY_COMMENT="FactoryComment";
-
-  /**
    * Munging.
    */
   public static final String MUNGING="Munging";
@@ -33,7 +28,6 @@ public class ItemPropertyNames
    */
   public static boolean isItemReferenceProperty(String key) 
   {
-    if (FACTORY_COMMENT.equals(key)) return true;
     if (MUNGING.equals(key)) return true;
     return false;
   }
