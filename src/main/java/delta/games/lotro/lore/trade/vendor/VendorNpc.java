@@ -1,13 +1,23 @@
 package delta.games.lotro.lore.trade.vendor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.npc.NpcDescription;
+import delta.games.lotro.utils.DataProvider;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.comparators.DelegatingComparator;
 
 /**
  * Vendor aspect of an NPC.
@@ -15,6 +25,8 @@ import delta.games.lotro.utils.Proxy;
  */
 public class VendorNpc implements Identifiable
 {
+  private static final Logger LOGGER=Logger.getLogger(VendorNpc.class);
+
   // Parent NPC
   private NpcDescription _npc;
   private List<SellList> _sellLists;
@@ -163,6 +175,59 @@ public class VendorNpc implements Identifiable
   public void setSellFactor(float sellFactor)
   {
     _sellFactor=sellFactor;
+  }
+
+  /**
+   * Get a list of all items to sell (with value).
+   * @return A list of valued items.
+   */
+  public List<ValuedItem> getItemsList()
+  {
+    List<ValuedItem> ret=new ArrayList<ValuedItem>();
+    Set<Integer> knownItemIds=new HashSet<Integer>();
+    List<SellList> lists=getSellLists();
+    float factor=getSellFactor();
+    for(SellList list : lists)
+    {
+      for(Proxy<Item> itemProxy : list.getItems())
+      {
+        Item item=itemProxy.getObject();
+        if (item!=null)
+        {
+          Integer key=Integer.valueOf(item.getIdentifier());
+          if (!knownItemIds.contains(key))
+          {
+            Money value=item.getValueAsMoney();
+            int rawValue=value.getInternalValue();
+            int sellRawValue=(int)(rawValue*factor);
+            Money sellValue=new Money();
+            sellValue.setRawValue(sellRawValue);
+            ItemProxy proxy=new ItemProxy();
+            proxy.setItem(item);
+            ValuedItem valuedItem=new ValuedItem(proxy,sellValue);
+            ret.add(valuedItem);
+            knownItemIds.add(key);
+          }
+        }
+        else
+        {
+          LOGGER.warn("Could not find item: "+itemProxy);
+        }
+      }
+    }
+    // Sort by name
+    ItemNameComparator nameComparator=new ItemNameComparator();
+    DataProvider<ValuedItem,Item> provider=new DataProvider<ValuedItem,Item>()
+    {
+      @Override
+      public Item getData(ValuedItem p)
+      {
+        return p.getItem();
+      }
+    };
+    DelegatingComparator<ValuedItem,Item> c=new DelegatingComparator<ValuedItem,Item>(provider,nameComparator);
+    Collections.sort(ret,c);
+    return ret;
   }
 
   /**
