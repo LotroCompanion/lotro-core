@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -17,6 +19,8 @@ import delta.games.lotro.lore.deeds.io.xml.DeedXMLParser;
  */
 public final class DeedsManager
 {
+  private static final Logger LOGGER=Logger.getLogger(DeedsManager.class);
+
   private static DeedsManager _instance=new DeedsManager();
 
   private List<DeedDescription> _deeds;
@@ -33,13 +37,19 @@ public final class DeedsManager
   }
 
   /**
-   * Private constructor.
+   * Constructor.
    */
   public DeedsManager()
   {
     _deeds=new ArrayList<DeedDescription>();
     _deedsMapById=new HashMap<Integer,DeedDescription>();
     _deedsMapByKey=new HashMap<String,DeedDescription>();
+    loadAll();
+  }
+
+  private void loadAll()
+  {
+    long now=System.currentTimeMillis();
     File deedFile=LotroCoreConfig.getInstance().getFile(DataFiles.DEEDS);
     DeedXMLParser parser=new DeedXMLParser();
     List<DeedDescription> deeds=parser.parseXML(deedFile);
@@ -49,6 +59,9 @@ public final class DeedsManager
       _deedsMapById.put(Integer.valueOf(deed.getIdentifier()),deed);
       _deedsMapByKey.put(deed.getKey(),deed);
     }
+    long now2=System.currentTimeMillis();
+    long duration=now2-now;
+    LOGGER.info("Loaded "+deeds.size()+" deeds in "+duration+"ms.");
   }
 
   /**
