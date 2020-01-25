@@ -549,6 +549,10 @@ public class ChatItemLinksDecoder
             int highInstanceId=BufferUtils.readUInt32(bis);
             LOGGER.debug("Summon ID: "+lowInstanceId+" / "+highInstanceId);
           }
+          else if (subHeader==0x1000130C) // 268440332 - Combat_WeaponSlayerAddMod
+          {
+            /*float slayerValue=*/BufferUtils.readFloat(bis);
+          }
           else
           {
             throw new LinkDecodingException("Unmanaged header: "+subHeader);
