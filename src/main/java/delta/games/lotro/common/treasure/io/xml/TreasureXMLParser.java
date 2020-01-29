@@ -1,0 +1,298 @@
+package delta.games.lotro.common.treasure.io.xml;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+
+import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
+import delta.games.lotro.common.treasure.FilteredTrophyTable;
+import delta.games.lotro.common.treasure.FilteredTrophyTableEntry;
+import delta.games.lotro.common.treasure.ItemsTable;
+import delta.games.lotro.common.treasure.ItemsTableEntry;
+import delta.games.lotro.common.treasure.LootsManager;
+import delta.games.lotro.common.treasure.TreasureGroupProfile;
+import delta.games.lotro.common.treasure.TreasureList;
+import delta.games.lotro.common.treasure.TreasureListEntry;
+import delta.games.lotro.common.treasure.TrophyList;
+import delta.games.lotro.common.treasure.TrophyListEntry;
+import delta.games.lotro.common.treasure.WeightedTreasureTable;
+import delta.games.lotro.common.treasure.WeightedTreasureTableEntry;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.utils.Proxy;
+
+/**
+ * Parser for loot tables stored in XML.
+ * @author DAM
+ */
+public class TreasureXMLParser
+{
+  private HashMap<Integer,Element> _nodesMap;
+  private LootsManager _lootMgr;
+
+  /**
+   * Constructor.
+   */
+  public TreasureXMLParser()
+  {
+    _nodesMap=new HashMap<Integer,Element>();
+  }
+
+  /**
+   * Parse the XML file.
+   * @param source Source file.
+   * @return Parsed loot tables or <code>null</code>.
+   */
+  public LootsManager parseXML(File source)
+  {
+    _lootMgr=new LootsManager();
+    Element root=DOMParsingTools.parse(source);
+    if (root!=null)
+    {
+      // Fetch all tags
+      List<Element> tags=DOMParsingTools.getChildTags(root);
+      for(Element tag : tags)
+      {
+        int id=DOMParsingTools.getIntAttribute(tag.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+        _nodesMap.put(Integer.valueOf(id),tag);
+      }
+      // Decode tags
+      while(!_nodesMap.isEmpty())
+      {
+        Element tag=_nodesMap.entrySet().iterator().next().getValue();
+        decodeTag(tag);
+      }
+    }
+    return _lootMgr;
+  }
+
+  private void decodeTag(Element element)
+  {
+    int id=DOMParsingTools.getIntAttribute(element.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+    String tagName=element.getTagName();
+    if (TreasureXMLConstants.ITEMS_TABLE_TAG.equals(tagName))
+    {
+      parseItemsTable(element);
+    }
+    else if (TreasureXMLConstants.TREASURE_LIST_TAG.equals(tagName))
+    {
+      parseTreasureList(element);
+    }
+    else if (TreasureXMLConstants.TROPHY_LIST_TAG.equals(tagName))
+    {
+      parseTrophyList(element);
+    }
+    else if (TreasureXMLConstants.WEIGHTED_TREASURE_TABLE_TAG.equals(tagName))
+    {
+      parseWeightedTreasureTable(element);
+    }
+    else if (TreasureXMLConstants.FILTERED_TROPHY_TABLE_TAG.equals(tagName))
+    {
+      parseFilteredTrophyTable(element);
+    }
+    _nodesMap.remove(Integer.valueOf(id));
+  }
+
+  private void parseItemsTable(Element root)
+  {
+    int id=DOMParsingTools.getIntAttribute(root.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+    ItemsTable ret=new ItemsTable(id);
+    List<Element> entryTags=DOMParsingTools.getChildTagsByName(root,TreasureXMLConstants.ITEMS_TABLE_ENTRY_TAG);
+    for(Element entryTag : entryTags)
+    {
+      NamedNodeMap entryAttrs=entryTag.getAttributes();
+      // Weight
+      int weight=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.WEIGHT_ATTR,0);
+      // Item
+      Proxy<Item> item=parseItemProxy(entryAttrs);
+      // Quantity
+      int quantity=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.QUANTITY_ATTR,1);
+      ItemsTableEntry entry=new ItemsTableEntry(weight,item,quantity);
+      ret.addEntry(entry);
+    }
+    _lootMgr.getItemsTables().add(ret);
+  }
+
+  private void parseTreasureList(Element root)
+  {
+    int id=DOMParsingTools.getIntAttribute(root.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+    TreasureList ret=new TreasureList(id);
+    List<Element> entryTags=DOMParsingTools.getChildTagsByName(root,TreasureXMLConstants.TREASURE_LIST_ENTRY_TAG);
+    for(Element entryTag : entryTags)
+    {
+      NamedNodeMap entryAttrs=entryTag.getAttributes();
+      // Weight
+      int weight=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.WEIGHT_ATTR,0);
+      // Treasure group profile
+      int treasureGroupProfileId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.TREASURE_GROUP_PROFILE_ID_ATTR,0);
+      TreasureGroupProfile treasureGroupProfile=getTreasureGroupProfile(treasureGroupProfileId);
+      TreasureListEntry entry=new TreasureListEntry(weight,treasureGroupProfile);
+      ret.addEntry(entry);
+    }
+    _lootMgr.getTreasureLists().add(ret);
+  }
+
+  private TreasureGroupProfile getTreasureGroupProfile(int id)
+  {
+    TreasureGroupProfile ret=_lootMgr.getItemsTables().getItem(id);
+    if (ret==null)
+    {
+      ret=_lootMgr.getTreasureLists().getItem(id);
+    }
+    if (ret==null)
+    {
+      Element tag=_nodesMap.get(Integer.valueOf(id));
+      if (tag!=null)
+      {
+        decodeTag(tag);
+        ret=getTreasureGroupProfile(id);
+      }
+    }
+    return ret;
+  }
+
+  private void parseTrophyList(Element root)
+  {
+    int id=DOMParsingTools.getIntAttribute(root.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+    TrophyList ret=new TrophyList(id);
+    List<Element> entryTags=DOMParsingTools.getChildTagsByName(root,TreasureXMLConstants.TROPHY_LIST_ENTRY_TAG);
+    for(Element entryTag : entryTags)
+    {
+      NamedNodeMap entryAttrs=entryTag.getAttributes();
+      // Probability
+      float probability=DOMParsingTools.getFloatAttribute(entryAttrs,TreasureXMLConstants.DROP_PROBABILITY_ATTR,0);
+
+      // Item?
+      Proxy<Item> item=null;
+      TreasureGroupProfile treasureGroup=null;
+      int itemId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.ITEM_ID_ATTR,-1);
+      if (itemId>0)
+      {
+        item=parseItemProxy(entryAttrs);
+      }
+      else
+      {
+        // Treasure group profile?
+        int treasureGroupProfileId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.TREASURE_GROUP_PROFILE_ID_ATTR,-1);
+        treasureGroup=getTreasureGroupProfile(treasureGroupProfileId);
+      }
+      // Quantity
+      int quantity=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.QUANTITY_ATTR,1);
+      TrophyListEntry entry=new TrophyListEntry(probability,item,treasureGroup,quantity);
+      ret.addEntry(entry);
+    }
+    _lootMgr.getTrophyLists().add(ret);
+  }
+
+  private void parseWeightedTreasureTable(Element root)
+  {
+    int id=DOMParsingTools.getIntAttribute(root.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+    WeightedTreasureTable ret=new WeightedTreasureTable(id);
+    List<Element> entryTags=DOMParsingTools.getChildTagsByName(root,TreasureXMLConstants.WEIGHTED_TREASURE_TABLE_ENTRY_TAG);
+    for(Element entryTag : entryTags)
+    {
+      NamedNodeMap entryAttrs=entryTag.getAttributes();
+      // Weight
+      int weight=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.WEIGHT_ATTR,0);
+      // Trophy list
+      int trophyListId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.TROPHY_LIST_ID_ATTR,0);
+      TrophyList trophyList=getTrophyList(trophyListId);
+      WeightedTreasureTableEntry entry=new WeightedTreasureTableEntry(weight,trophyList);
+      ret.addEntry(entry);
+    }
+    _lootMgr.getWeightedTreasureTables().add(ret);
+  }
+
+  private TrophyList getTrophyList(int id)
+  {
+    TrophyList ret=_lootMgr.getTrophyLists().getItem(id);
+    if (ret==null)
+    {
+      Element tag=_nodesMap.get(Integer.valueOf(id));
+      if (tag!=null)
+      {
+        decodeTag(tag);
+        ret=getTrophyList(id);
+      }
+    }
+    return ret;
+  }
+
+  private FilteredTrophyTable parseFilteredTrophyTable(Element root)
+  {
+    int id=DOMParsingTools.getIntAttribute(root.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+    FilteredTrophyTable ret=new FilteredTrophyTable(id);
+    List<Element> entryTags=DOMParsingTools.getChildTagsByName(root,TreasureXMLConstants.FILTERED_TROPHY_TABLE_ENTRY_TAG);
+    for(Element entryTag : entryTags)
+    {
+      NamedNodeMap entryAttrs=entryTag.getAttributes();
+      // Trophy list?
+      TrophyList trophyList=null;
+      int trophyListId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.TROPHY_LIST_ID_ATTR,0);
+      if (trophyListId>0)
+      {
+        trophyList=getTrophyList(trophyListId);
+      }
+      // Weighted treasure table?
+      WeightedTreasureTable weightedTreasureTable=null;
+      int weightedTreasureTableId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.WEIGHTED_TREASURE_TABLE_ID_ATTR,0);
+      if (weightedTreasureTableId!=0)
+      {
+        weightedTreasureTable=getWeightedTreasureTable(weightedTreasureTableId);
+      }
+      FilteredTrophyTableEntry entry=new FilteredTrophyTableEntry(trophyList,weightedTreasureTable);
+      UsageRequirementsXMLParser.parseRequirements(entry.getUsageRequirement(),entryTag);
+      ret.addEntry(entry);
+    }
+    _lootMgr.getFilteredTrophyTables().add(ret);
+    return ret;
+  }
+
+  private WeightedTreasureTable getWeightedTreasureTable(int id)
+  {
+    WeightedTreasureTable ret=_lootMgr.getWeightedTreasureTables().getItem(id);
+    if (ret==null)
+    {
+      Element tag=_nodesMap.get(Integer.valueOf(id));
+      if (tag!=null)
+      {
+        decodeTag(tag);
+        ret=getWeightedTreasureTable(id);
+      }
+    }
+    return ret;
+  }
+
+  private Proxy<Item> parseItemProxy(NamedNodeMap attrs)
+  {
+    Proxy<Item> ret=null;
+    int id=DOMParsingTools.getIntAttribute(attrs,TreasureXMLConstants.ITEM_ID_ATTR,-1);
+    if (id>0)
+    {
+      Item item=ItemsManager.getInstance().getItem(id);
+      if (item!=null)
+      {
+        ret=new Proxy<Item>();
+        ret.setId(id);
+        ret.setName(item.getName());
+        ret.setObject(item);
+      }
+    }
+    return ret;
+  }
+
+  /*
+  public static void main(String[] args)
+  {
+    File in=LotroCoreConfig.getInstance().getFile(DataFiles.LOOTS);
+    LootsManager lootMgr=new TreasureXMLParser().parseXML(in);
+    File to=LotroCoreConfig.getInstance().getFile(DataFiles.LOOTS);
+    File to2=new File(to.getParentFile(),"newLoot.xml");
+    TreasureXMLWriter.writeLootsFile(to2,lootMgr);
+  }
+  */
+}

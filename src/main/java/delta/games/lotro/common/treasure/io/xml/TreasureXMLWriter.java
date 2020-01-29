@@ -150,7 +150,7 @@ public class TreasureXMLWriter
       entryAttrs.addAttribute("","",TreasureXMLConstants.WEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(weight));
       // Treasure group profile
       int treasureGroupProfileId=entry.getTreasureGroup().getIdentifier();
-      entryAttrs.addAttribute("","",TreasureXMLConstants.TREASURE_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(treasureGroupProfileId));
+      entryAttrs.addAttribute("","",TreasureXMLConstants.TREASURE_GROUP_PROFILE_ID_ATTR,XmlWriter.CDATA,String.valueOf(treasureGroupProfileId));
       hd.startElement("","",TreasureXMLConstants.TREASURE_LIST_ENTRY_TAG,entryAttrs);
       hd.endElement("","",TreasureXMLConstants.TREASURE_LIST_ENTRY_TAG);
     }
@@ -172,7 +172,7 @@ public class TreasureXMLWriter
       // Probability
       float probability=entry.getProbability();
       entryAttrs.addAttribute("","",TreasureXMLConstants.DROP_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(probability));
-      // Items table?
+      // Item?
       Proxy<Item> itemProxy=entry.getItem();
       if (itemProxy!=null)
       {
@@ -183,6 +183,12 @@ public class TreasureXMLWriter
       if (profile!=null)
       {
         entryAttrs.addAttribute("","",TreasureXMLConstants.TREASURE_GROUP_PROFILE_ID_ATTR,XmlWriter.CDATA,String.valueOf(profile.getIdentifier()));
+      }
+      // Quantity
+      int quantity=entry.getQuantity();
+      if (quantity>1)
+      {
+        entryAttrs.addAttribute("","",TreasureXMLConstants.QUANTITY_ATTR,XmlWriter.CDATA,String.valueOf(quantity));
       }
       hd.startElement("","",TreasureXMLConstants.TROPHY_LIST_ENTRY_TAG,entryAttrs);
       hd.endElement("","",TreasureXMLConstants.TROPHY_LIST_ENTRY_TAG);

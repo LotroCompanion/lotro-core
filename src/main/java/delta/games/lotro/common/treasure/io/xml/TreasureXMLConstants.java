@@ -77,10 +77,6 @@ public class TreasureXMLConstants
    */
   public static final String QUANTITY_ATTR="quantity";
   /**
-   * Attribute 'treasureListId'.
-   */
-  public static final String TREASURE_LIST_ID_ATTR="treasureListId";
-  /**
    * Attribute 'trophyListId'.
    */
   public static final String TROPHY_LIST_ID_ATTR="trophyListId";
