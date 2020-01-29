@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.common.Identifiable;
 
 /**
  * Treasure list.
  * @author DAM
  */
-public class TreasureList implements Identifiable
+public class TreasureList extends TreasureGroupProfile
 {
-  private int _id;
   private List<TreasureListEntry> _entries;
 
   /**
@@ -21,14 +19,8 @@ public class TreasureList implements Identifiable
    */
   public TreasureList(int identifier)
   {
-    _id=identifier;
+    super(identifier);
     _entries=new ArrayList<TreasureListEntry>();
-  }
-
-  @Override
-  public int getIdentifier()
-  {
-    return _id;
   }
 
   /**
@@ -57,7 +49,7 @@ public class TreasureList implements Identifiable
   public void dump(StringBuilder sb, int level)
   {
     for(int i=0;i<level;i++) sb.append('\t');
-    sb.append("Treasure list ID=").append(_id).append(EndOfLine.NATIVE_EOL);
+    sb.append("Treasure list ID=").append(getIdentifier()).append(EndOfLine.NATIVE_EOL);
     for(TreasureListEntry entry : _entries)
     {
       entry.dump(sb,level+1);

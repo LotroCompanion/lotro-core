@@ -10,7 +10,6 @@ public class LootsManager
 {
   private Registry<FilteredTrophyTable> _filteredTrophyTables;
   private Registry<ItemsTable> _itemTables;
-  private Registry<TreasureGroupProfile> _treasureGroupProfiles;
   private Registry<TreasureList> _treasureLists;
   private Registry<TrophyList> _trophyLists;
   private Registry<WeightedTreasureTable> _weightedTreasureTables;
@@ -22,7 +21,6 @@ public class LootsManager
   {
     _filteredTrophyTables=new Registry<FilteredTrophyTable>();
     _itemTables=new Registry<ItemsTable>();
-    _treasureGroupProfiles=new Registry<TreasureGroupProfile>();
     _treasureLists=new Registry<TreasureList>();
     _trophyLists=new Registry<TrophyList>();
     _weightedTreasureTables=new Registry<WeightedTreasureTable>();
@@ -44,15 +42,6 @@ public class LootsManager
   public Registry<ItemsTable> getItemsTables()
   {
     return _itemTables;
-  }
-
-  /**
-   * Get the registry for treasure group profiles.
-   * @return the registry for treasure group profiles.
-   */
-  public Registry<TreasureGroupProfile> getTreasureGroupProfiles()
-  {
-    return _treasureGroupProfiles;
   }
 
   /**
@@ -90,7 +79,6 @@ public class LootsManager
     System.out.println("Loots manager has:");
     System.out.println("\t"+_filteredTrophyTables.size()+" filtered trophy tables");
     System.out.println("\t"+_itemTables.size()+" items tables");
-    System.out.println("\t"+_treasureGroupProfiles.size()+" treasure group profiles");
     System.out.println("\t"+_treasureLists.size()+" treasure lists");
     System.out.println("\t"+_trophyLists.size()+" trophy lists");
     System.out.println("\t"+_weightedTreasureTables.size()+" weighted treasure tables");
