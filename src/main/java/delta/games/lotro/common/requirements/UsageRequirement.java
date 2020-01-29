@@ -257,7 +257,7 @@ public class UsageRequirement
    */
   public boolean isEmpty()
   {
-    return ((_minLevel==null) && (_maxLevel==null) && (_classRequirement==null) && (_raceRequirement==null));
+    return ((_minLevel==null) && (_maxLevel==null) && (_classRequirement==null) && (_raceRequirement==null) && (_factionRequirement==null) && (_questRequirement==null));
   }
 
   @Override
