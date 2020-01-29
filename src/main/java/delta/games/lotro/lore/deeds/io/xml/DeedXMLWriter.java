@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.deeds.io.xml;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
@@ -10,9 +9,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
-import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.ChallengeLevel;
-import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
@@ -29,42 +26,6 @@ import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
  */
 public class DeedXMLWriter extends AchievableXMLWriter
 {
-  /**
-   * Write a file with deeds.
-   * @param toFile Output file.
-   * @param deeds Deeds to write.
-   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
-   */
-  public static boolean writeDeedsFile(File toFile, List<DeedDescription> deeds)
-  {
-    DeedXMLWriter writer=new DeedXMLWriter();
-    Collections.sort(deeds,new IdentifiableComparator<DeedDescription>());
-    boolean ok=writer.writeDeeds(toFile,deeds,EncodingNames.UTF_8);
-    return ok;
-  }
-
-  /**
-   * Write a deed to a XML file.
-   * @param outFile Output file.
-   * @param deed Deed to write.
-   * @param encoding Encoding to use.
-   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
-   */
-  public boolean write(File outFile, final DeedDescription deed, String encoding)
-  {
-    XmlWriter writer=new XmlWriter()
-    {
-      @Override
-      public void writeXml(TransformerHandler hd) throws Exception
-      {
-        writeDeed(hd,deed);
-      }
-    };
-    XmlFileWriterHelper helper=new XmlFileWriterHelper();
-    boolean ret=helper.write(outFile,encoding,writer);
-    return ret;
-  }
-
   /**
    * Write deeds to a XML file.
    * @param outFile Output file.
