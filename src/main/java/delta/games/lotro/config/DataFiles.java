@@ -174,4 +174,8 @@ public class DataFiles
    * Value tables.
    */
   public static final String VALUE_TABLES="valueTables";
+  /**
+   * Loots.
+   */
+  public static final String LOOTS="loots";
 }
