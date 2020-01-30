@@ -9,15 +9,27 @@ import java.util.List;
  */
 public class BarterEntry
 {
+  private BarterProfile _profile;
   private BarterEntryElement _toReceive;
   private List<ItemBarterEntryElement> _toGive;
 
   /**
    * Constructor.
+   * @param profile Parent profile.
    */
-  public BarterEntry()
+  public BarterEntry(BarterProfile profile)
   {
+    _profile=profile;
     _toGive=new ArrayList<ItemBarterEntryElement>();
+  }
+
+  /**
+   * Get the parent profile.
+   * @return the parent profile.
+   */
+  public BarterProfile getBarterProfile()
+  {
+    return _profile;
   }
 
   /**

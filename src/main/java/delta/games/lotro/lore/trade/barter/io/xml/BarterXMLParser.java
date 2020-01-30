@@ -99,7 +99,7 @@ public class BarterXMLParser
     List<Element> barterEntryTags=DOMParsingTools.getChildTagsByName(root,BarterXMLConstants.BARTER_ENTRY_TAG);
     for(Element barterEntryTag : barterEntryTags)
     {
-      BarterEntry entry=new BarterEntry();
+      BarterEntry entry=new BarterEntry(profile);
       profile.addEntry(entry);
       // Give
       List<Element> giveTags=DOMParsingTools.getChildTagsByName(barterEntryTag,BarterXMLConstants.GIVE_TAG);
