@@ -2,7 +2,7 @@ package delta.games.lotro.common.treasure.io.xml;
 
 /**
  * Constants for tags and attribute names used in the
- * deed XML documents.
+ * treasures XML documents.
  * @author DAM
  */
 public class TreasureXMLConstants

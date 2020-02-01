@@ -1,5 +1,12 @@
 package delta.games.lotro.common.treasure;
 
+import java.io.File;
+
+import org.apache.log4j.Logger;
+
+import delta.games.lotro.common.treasure.io.xml.TreasureXMLParser;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.utils.Registry;
 
 /**
@@ -8,11 +15,28 @@ import delta.games.lotro.utils.Registry;
  */
 public class LootsManager
 {
+  private static final Logger LOGGER=Logger.getLogger(LootsManager.class);
+
+  private static LootsManager _instance;
+
   private Registry<FilteredTrophyTable> _filteredTrophyTables;
   private Registry<ItemsTable> _itemTables;
   private Registry<TreasureList> _treasureLists;
   private Registry<TrophyList> _trophyLists;
   private Registry<WeightedTreasureTable> _weightedTreasureTables;
+
+  /**
+   * Get the sole instance of this class.
+   * @return the sole instance of this class.
+   */
+  public static LootsManager getInstance()
+  {
+    if (_instance==null)
+    {
+      _instance=loadLootManager();
+    }
+    return _instance;
+  }
 
   /**
    * Constructor.
@@ -24,6 +48,18 @@ public class LootsManager
     _treasureLists=new Registry<TreasureList>();
     _trophyLists=new Registry<TrophyList>();
     _weightedTreasureTables=new Registry<WeightedTreasureTable>();
+  }
+
+  private static LootsManager loadLootManager()
+  {
+    long now=System.currentTimeMillis();
+    File lootsFile=LotroCoreConfig.getInstance().getFile(DataFiles.LOOTS);
+    TreasureXMLParser parser=new TreasureXMLParser();
+    LootsManager lootsManager=parser.parseXML(lootsFile);
+    long now2=System.currentTimeMillis();
+    long duration=now2-now;
+    LOGGER.info("Loaded loot tables in "+duration+"ms.");
+    return lootsManager;
   }
 
   /**

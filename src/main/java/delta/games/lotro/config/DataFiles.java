@@ -178,4 +178,8 @@ public class DataFiles
    * Loots.
    */
   public static final String LOOTS="loots";
+  /**
+   * Containers.
+   */
+  public static final String CONTAINERS="containers";
 }
