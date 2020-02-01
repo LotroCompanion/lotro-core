@@ -41,6 +41,21 @@ public class TreasureList extends TreasureGroupProfile
     return _entries;
   }
 
+  @Override
+  public boolean contains(int itemId)
+  {
+    for(TreasureListEntry entry : _entries)
+    {
+      TreasureGroupProfile treasureGroupProfile=entry.getTreasureGroup();
+      boolean found=treasureGroupProfile.contains(itemId);
+      if (found)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /**
    * Dump contents.
    * @param sb Output.

@@ -49,6 +49,25 @@ public class WeightedTreasureTable implements Identifiable
   }
 
   /**
+   * Indicates if this loot table may contain the given item.
+   * @param itemId Identifier of the item to search.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean contains(int itemId)
+  {
+    for(WeightedTreasureTableEntry entry : _entries)
+    {
+      TrophyList trophyList=entry.getTrophyList();
+      boolean found=trophyList.contains(itemId);
+      if (found)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Dump contents.
    * @param sb Output.
    * @param level Indentation level.

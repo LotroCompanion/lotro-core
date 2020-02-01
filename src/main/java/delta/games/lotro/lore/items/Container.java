@@ -104,4 +104,30 @@ public class Container implements Identifiable
   {
     _treasureList=treasureList;
   }
+
+  /**
+   * Indicates if this loot table may contain the given item.
+   * @param itemId Identifier of the item to search.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean contains(int itemId)
+  {
+    if ((_filteredTable!=null) && (_filteredTable.contains(itemId)))
+    {
+      return true;
+    }
+    if ((_weightedTable!=null) && (_weightedTable.contains(itemId)))
+    {
+      return true;
+    }
+    if ((_trophyList!=null) && (_trophyList.contains(itemId)))
+    {
+      return true;
+    }
+    if ((_treasureList!=null) && (_treasureList.contains(itemId)))
+    {
+      return true;
+    }
+    return false;
+  }
 }

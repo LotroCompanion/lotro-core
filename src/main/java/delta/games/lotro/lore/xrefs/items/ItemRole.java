@@ -48,5 +48,9 @@ public enum ItemRole
   /**
    * Item is a reward of deed.
    */
-  DEED_REWARD
+  DEED_REWARD,
+  /**
+   * Item may come from container.
+   */
+  CONTAINED_IN
 }

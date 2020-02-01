@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.xrefs.items;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +10,8 @@ import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
@@ -16,8 +19,10 @@ import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
 import delta.games.lotro.lore.crafting.recipes.RecipesManager;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
+import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.io.xml.ContainerXMLParser;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 import delta.games.lotro.lore.quests.Achievable;
@@ -64,6 +69,7 @@ public class ItemReferencesBuilder
     findInBarterers(itemId);
     findInVendors(itemId);
     findInSets(itemId);
+    findInContainers(itemId);
     List<ItemReference<?>> ret=new ArrayList<ItemReference<?>>(_storage);
     _storage.clear();
     return ret;
@@ -276,6 +282,20 @@ public class ItemReferencesBuilder
       {
         _storage.add(new ItemReference<ItemsSet>(itemsSet,ItemRole.SET_MEMBER_OF_SET));
         //logFinding(itemId,"member of set "+itemsSet.getName());
+      }
+    }
+  }
+
+  private void findInContainers(int itemId)
+  {
+    File containersFile=LotroCoreConfig.getInstance().getFile(DataFiles.CONTAINERS);
+    List<Container> containers=new ContainerXMLParser().parseXML(containersFile);
+    for(Container container : containers)
+    {
+      boolean found=container.contains(itemId);
+      if (found)
+      {
+        _storage.add(new ItemReference<Container>(container,ItemRole.CONTAINED_IN));
       }
     }
   }

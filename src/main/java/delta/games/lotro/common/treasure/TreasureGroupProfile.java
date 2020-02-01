@@ -30,6 +30,13 @@ public abstract class TreasureGroupProfile implements Identifiable
   }
 
   /**
+   * Indicates if this loot table may contain the given item.
+   * @param itemId Identifier of the item to search.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public abstract boolean contains(int itemId);
+
+  /**
    * Dump contents.
    * @param sb Output.
    * @param level Indentation level.

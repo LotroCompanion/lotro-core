@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Items table.
@@ -39,6 +41,20 @@ public class ItemsTable extends TreasureGroupProfile
   public List<ItemsTableEntry> getEntries()
   {
     return _entries;
+  }
+
+  @Override
+  public boolean contains(int itemId)
+  {
+    for(ItemsTableEntry entry : _entries)
+    {
+      Proxy<Item> item=entry.getItem();
+      if (item.getId()==itemId)
+      {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
