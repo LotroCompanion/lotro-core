@@ -48,6 +48,11 @@ public class ItemsFileParser
         LOGGER.warn("Could not parse items file: "+dataFile,e);
       }
     }
+    else
+    {
+      LOGGER.warn("File "+dataFile+" does not exist!");
+    }
+    LOGGER.info("Got "+ret.size()+" items from file: "+dataFile);
     return ret;
   }
 
