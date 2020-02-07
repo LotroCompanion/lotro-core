@@ -88,7 +88,7 @@ public class Container implements Identifiable
   }
 
   /**
-   * get the treasure list for this container.
+   * Get the treasure list for this container.
    * @return a treasure list or <code>null</code>.
    */
   public TreasureList getTreasureList()

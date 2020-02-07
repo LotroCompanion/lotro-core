@@ -182,4 +182,8 @@ public class DataFiles
    * Containers.
    */
   public static final String CONTAINERS="containers";
+  /**
+   * Disenchantment results.
+   */
+  public static final String DISENCHANTMENTS="disenchantments";
 }
