@@ -99,7 +99,6 @@ public class ItemReferencesBuilder
         {
           ItemRole role=ingredient.isOptional()?ItemRole.RECIPE_CRITICAL_INGREDIENT:ItemRole.RECIPE_INGREDIENT;
           roles.add(role);
-          //logFinding(itemId,"ingredient in recipe: "+recipe.getName());
           break;
         }
       }
@@ -109,7 +108,6 @@ public class ItemReferencesBuilder
       if (regularResultId==itemId)
       {
         roles.add(ItemRole.RECIPE_RESULT);
-        //logFinding(itemId,"result in recipe: "+recipe.getName());
       }
       CraftingResult criticalResult=version.getCritical();
       if (criticalResult!=null)
@@ -118,7 +116,6 @@ public class ItemReferencesBuilder
         if (criticalResultId==itemId)
         {
           roles.add(ItemRole.RECIPE_CRITICAL_RESULT);
-          //logFinding(itemId,"critical result in recipe: "+recipe.getName());
         }
       }
       // Recipe item
@@ -129,7 +126,6 @@ public class ItemReferencesBuilder
         if (recipeItemId==itemId)
         {
           roles.add(ItemRole.RECIPE_PROVIDES_RECIPE);
-          //logFinding(itemId,"provides recipe: "+recipe.getName());
         }
       }
     }
@@ -187,13 +183,12 @@ public class ItemReferencesBuilder
         {
           ItemRole role=(context instanceof QuestDescription)?ItemRole.QUEST_REWARD:ItemRole.DEED_REWARD;
           _storage.add(new ItemReference<Achievable>(context,role));
-          //logFinding(itemId,"reward in: "+context.getName());
         }
       }
       else if (element instanceof SelectableRewardElement)
       {
         SelectableRewardElement selectableReward=(SelectableRewardElement)element;
-       findInRewardsElements(context,selectableReward.getElements(),itemId);
+        findInRewardsElements(context,selectableReward.getElements(),itemId);
       }
     }
   }
@@ -225,7 +220,6 @@ public class ItemReferencesBuilder
           if (itemToReceiveId==itemId)
           {
             roles.add(ItemRole.BARTERER_GIVEN);
-            //logFinding(itemId,"barter from "+barterer.getNpc().getName()+" with profile "+profile.getName());
           }
         }
         for(ItemBarterEntryElement toGive : entry.getElementsToGive())
@@ -234,7 +228,6 @@ public class ItemReferencesBuilder
           if (itemToGiveId==itemId)
           {
             roles.add(ItemRole.BARTERER_RECEIVED);
-            //logFinding(itemId,"barter from "+barterer.getNpc().getName()+" with profile "+profile.getName());
           }
         }
       }
@@ -267,7 +260,6 @@ public class ItemReferencesBuilder
         if (itemToGetId==itemId)
         {
           _storage.add(new ItemReference<VendorNpc>(vendor,ItemRole.VENDOR_SOLD_BY));
-          //logFinding(itemId,"sold by "+vendor.getNpc().getName());
         }
       }
     }
@@ -281,7 +273,6 @@ public class ItemReferencesBuilder
       if (itemsSet.hasMember(itemId))
       {
         _storage.add(new ItemReference<ItemsSet>(itemsSet,ItemRole.SET_MEMBER_OF_SET));
-        //logFinding(itemId,"member of set "+itemsSet.getName());
       }
     }
   }
@@ -299,12 +290,4 @@ public class ItemReferencesBuilder
       }
     }
   }
-
-  /*
-  private void logFinding(int itemId, String log)
-  {
-    Item item=ItemsManager.getInstance().getItem(itemId);
-    System.out.println("Found item: "+item.getName()+" as "+log);
-  }
-  */
 }
