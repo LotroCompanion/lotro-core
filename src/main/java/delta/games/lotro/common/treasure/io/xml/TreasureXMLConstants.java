@@ -32,6 +32,14 @@ public class TreasureXMLConstants
    */
   public static final String TROPHY_LIST_TAG="trophyList";
   /**
+   * Tag 'trophyList', attribute 'description'.
+   */
+  public static final String DESCRIPTION_ATTR="description";
+  /**
+   * Tag 'trophyList', attribute 'imageId'.
+   */
+  public static final String IMAGE_ID_ATTR="imageId";
+  /**
    * Tag 'trophyListEntry'.
    */
   public static final String TROPHY_LIST_ENTRY_TAG="trophyListEntry";

@@ -164,6 +164,18 @@ public class TreasureXMLWriter
     // Identifier
     int id=list.getIdentifier();
     attrs.addAttribute("","",TreasureXMLConstants.ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Description
+    String description=list.getDescription();
+    if (description!=null)
+    {
+      attrs.addAttribute("","",TreasureXMLConstants.DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+    }
+    // Image ID
+    Integer imageId=list.getImageId();
+    if (imageId!=null)
+    {
+      attrs.addAttribute("","",TreasureXMLConstants.IMAGE_ID_ATTR,XmlWriter.CDATA,imageId.toString());
+    }
     hd.startElement("","",TreasureXMLConstants.TROPHY_LIST_TAG,attrs);
 
     for(TrophyListEntry entry : list.getEntries())

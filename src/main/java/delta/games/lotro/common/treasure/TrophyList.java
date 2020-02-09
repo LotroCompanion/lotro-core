@@ -15,6 +15,8 @@ import delta.games.lotro.utils.Proxy;
 public class TrophyList implements Identifiable
 {
   private int _id;
+  private String _description;
+  private Integer _imageId;
   private List<TrophyListEntry> _entries;
 
   /**
@@ -24,6 +26,8 @@ public class TrophyList implements Identifiable
   public TrophyList(int identifier)
   {
     _id=identifier;
+    _description=null;
+    _imageId=null;
     _entries=new ArrayList<TrophyListEntry>();
   }
 
@@ -31,6 +35,42 @@ public class TrophyList implements Identifiable
   public int getIdentifier()
   {
     return _id;
+  }
+
+  /**
+   * Get the description.
+   * @return a description (often <code>null</code>).
+   */
+  public String getDescription()
+  {
+    return _description;
+  }
+
+  /**
+   * Set description.
+   * @param description Description to set.
+   */
+  public void setDescription(String description)
+  {
+    _description=description;
+  }
+
+  /**
+   * Get the identifier of the associated image, if any.
+   * @return an image identifier or often <code>null</code.
+   */
+  public Integer getImageId()
+  {
+    return _imageId;
+  }
+
+  /**
+   * Set the identifier of the associated image, if any.
+   * @param imageId Identifier to set.
+   */
+  public void setImageId(Integer imageId)
+  {
+    _imageId=imageId;
   }
 
   /**
@@ -83,6 +123,10 @@ public class TrophyList implements Identifiable
   {
     for(int i=0;i<level;i++) sb.append('\t');
     sb.append("Trophy list ID=").append(_id).append(EndOfLine.NATIVE_EOL);
+    if ((_description!=null) || (_imageId!=null))
+    {
+      sb.append("Description: ").append(_description).append(", image ID=").append(_imageId).append(EndOfLine.NATIVE_EOL);
+    }
     for(TrophyListEntry entry : _entries)
     {
       entry.dump(sb,level+1);

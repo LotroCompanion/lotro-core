@@ -157,8 +157,20 @@ public class TreasureXMLParser
 
   private void parseTrophyList(Element root)
   {
-    int id=DOMParsingTools.getIntAttribute(root.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+    // ID
+    NamedNodeMap attrs=root.getAttributes();
+    int id=DOMParsingTools.getIntAttribute(attrs,TreasureXMLConstants.ID_ATTR,0);
     TrophyList ret=new TrophyList(id);
+    // Description
+    String description=DOMParsingTools.getStringAttribute(attrs,TreasureXMLConstants.DESCRIPTION_ATTR,null);
+    ret.setDescription(description);
+    // Image ID
+    int imageId=DOMParsingTools.getIntAttribute(attrs,TreasureXMLConstants.IMAGE_ID_ATTR,0);
+    if (imageId>0)
+    {
+      ret.setImageId(Integer.valueOf(imageId));
+    }
+    // Entries
     List<Element> entryTags=DOMParsingTools.getChildTagsByName(root,TreasureXMLConstants.TROPHY_LIST_ENTRY_TAG);
     for(Element entryTag : entryTags)
     {
