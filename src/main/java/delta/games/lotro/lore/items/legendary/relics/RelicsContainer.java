@@ -74,4 +74,10 @@ public class RelicsContainer extends Container
     }
     return false;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Relic container: id="+getIdentifier();
+  }
 }

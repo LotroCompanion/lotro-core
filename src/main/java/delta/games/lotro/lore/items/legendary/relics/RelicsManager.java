@@ -127,6 +127,24 @@ public class RelicsManager
 
   /**
    * Get a list of all relics.
+   * @return a list of all relics.
+   */
+  public List<Relic> getAll()
+  {
+    List<Relic> relics=new ArrayList<Relic>();
+    for(RelicsCategory category : _categories.values())
+    {
+      List<Relic> categoryRelics=category.getAllRelics();
+      for(Relic relic : categoryRelics)
+      {
+        relics.add(relic);
+      }
+    }
+    return relics;
+  }
+
+  /**
+   * Get a list of all relics.
    * @param type Relic type.
    * @param slot Slot to use.
    * @return a list of all relics.

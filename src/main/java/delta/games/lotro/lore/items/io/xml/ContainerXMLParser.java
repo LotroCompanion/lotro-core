@@ -10,11 +10,15 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.treasure.FilteredTrophyTable;
 import delta.games.lotro.common.treasure.LootsManager;
+import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TrophyList;
 import delta.games.lotro.common.treasure.WeightedTreasureTable;
 import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.ItemsContainer;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
+import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 
 /**
  * Parser for containers stored in XML.
@@ -46,14 +50,20 @@ public class ContainerXMLParser
       List<Element> tags=DOMParsingTools.getChildTagsByName(root,ContainerXMLConstants.CONTAINER_TAG);
       for(Element tag : tags)
       {
-        Container container=parseContainer(tag);
+        Container container=parseItemContainer(tag);
+        ret.add(container);
+      }
+      List<Element> relicContainerTags=DOMParsingTools.getChildTagsByName(root,ContainerXMLConstants.RELICS_CONTAINER_TAG);
+      for(Element relicContainerTag : relicContainerTags)
+      {
+        Container container=parseRelicContainer(relicContainerTag);
         ret.add(container);
       }
     }
     return ret;
   }
 
-  private Container parseContainer(Element root)
+  private Container parseItemContainer(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CONTAINER_ID_ATTR,0);
@@ -86,6 +96,31 @@ public class ContainerXMLParser
     {
       TreasureList treasureList=_lootsMgr.getTreasureLists().getItem(treasureListId);
       ret.setTreasureList(treasureList);
+    }
+    return ret;
+  }
+
+  private RelicsContainer parseRelicContainer(Element root)
+  {
+    NamedNodeMap attrs=root.getAttributes();
+    int id=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CONTAINER_ID_ATTR,0);
+    RelicsContainer ret=new RelicsContainer(id);
+
+    // Relic
+    Relic relic=null;
+    int relicId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.RELIC_ID_ATTR,0);
+    if (relicId!=0)
+    {
+      relic=RelicsManager.getInstance().getById(relicId);
+      ret.setRelic(relic);
+    }
+    // Relics list
+    RelicsList relicsList=null;
+    int relicsListId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.RELICS_LIST_ID_ATTR,0);
+    if (relicsListId!=0)
+    {
+      relicsList=_lootsMgr.getRelicsLists().getItem(relicsListId);
+      ret.setRelicsList(relicsList);
     }
     return ret;
   }

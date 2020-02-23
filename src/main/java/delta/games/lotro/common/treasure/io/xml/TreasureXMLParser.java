@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -14,6 +15,10 @@ import delta.games.lotro.common.treasure.FilteredTrophyTableEntry;
 import delta.games.lotro.common.treasure.ItemsTable;
 import delta.games.lotro.common.treasure.ItemsTableEntry;
 import delta.games.lotro.common.treasure.LootsManager;
+import delta.games.lotro.common.treasure.RelicsList;
+import delta.games.lotro.common.treasure.RelicsListEntry;
+import delta.games.lotro.common.treasure.RelicsTreasureGroup;
+import delta.games.lotro.common.treasure.RelicsTreasureGroupEntry;
 import delta.games.lotro.common.treasure.TreasureGroupProfile;
 import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TreasureListEntry;
@@ -23,6 +28,8 @@ import delta.games.lotro.common.treasure.WeightedTreasureTable;
 import delta.games.lotro.common.treasure.WeightedTreasureTableEntry;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -31,6 +38,8 @@ import delta.games.lotro.utils.Proxy;
  */
 public class TreasureXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(TreasureXMLParser.class);
+
   private HashMap<Integer,Element> _nodesMap;
   private LootsManager _lootMgr;
 
@@ -93,6 +102,14 @@ public class TreasureXMLParser
     else if (TreasureXMLConstants.FILTERED_TROPHY_TABLE_TAG.equals(tagName))
     {
       parseFilteredTrophyTable(element);
+    }
+    else if (TreasureXMLConstants.RELICS_LIST_TAG.equals(tagName))
+    {
+      parseRelicsList(element);
+    }
+    else if (TreasureXMLConstants.RELICS_TREASURE_GROUP_TAG.equals(tagName))
+    {
+      parseRelicsTreasureGroup(element);
     }
     _nodesMap.remove(Integer.valueOf(id));
   }
@@ -274,6 +291,94 @@ public class TreasureXMLParser
       {
         decodeTag(tag);
         ret=getWeightedTreasureTable(id);
+      }
+    }
+    return ret;
+  }
+
+  private RelicsTreasureGroup parseRelicsTreasureGroup(Element root)
+  {
+    int id=DOMParsingTools.getIntAttribute(root.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+    RelicsTreasureGroup ret=new RelicsTreasureGroup(id);
+    // Pull counts
+    List<Element> countTags=DOMParsingTools.getChildTagsByName(root,TreasureXMLConstants.PULL_TAG);
+    for(Element countTag : countTags)
+    {
+      NamedNodeMap countAttrs=countTag.getAttributes();
+      // Count
+      int count=DOMParsingTools.getIntAttribute(countAttrs,TreasureXMLConstants.COUNT_ATTR,0);
+      // Weight
+      int weight=DOMParsingTools.getIntAttribute(countAttrs,TreasureXMLConstants.WEIGHT_ATTR,0);
+      ret.addCount(count,weight);
+    }
+    // Entries
+    List<Element> entryTags=DOMParsingTools.getChildTagsByName(root,TreasureXMLConstants.RELICS_TREASURE_GROUP_ENTRY_TAG);
+    for(Element entryTag : entryTags)
+    {
+      NamedNodeMap entryAttrs=entryTag.getAttributes();
+      // Weight
+      int weight=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.WEIGHT_ATTR,0);
+      // Relic
+      int relicId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.RELIC_ID_ATTR,0);
+      RelicsManager relicsMgr=RelicsManager.getInstance();
+      Relic relic=relicsMgr.getById(relicId);
+      if (relic!=null)
+      {
+        RelicsTreasureGroupEntry entry=new RelicsTreasureGroupEntry(weight,relic);
+        ret.addEntry(entry);
+      }
+      else
+      {
+        LOGGER.warn("Relic not found: "+relicId);
+      }
+    }
+    _lootMgr.getRelicsTreasureGroups().add(ret);
+    return ret;
+  }
+
+  private RelicsList parseRelicsList(Element root)
+  {
+    int id=DOMParsingTools.getIntAttribute(root.getAttributes(),TreasureXMLConstants.ID_ATTR,0);
+    RelicsList ret=new RelicsList(id);
+    // Entries
+    List<Element> entryTags=DOMParsingTools.getChildTagsByName(root,TreasureXMLConstants.RELICS_LIST_ENTRY_TAG);
+    for(Element entryTag : entryTags)
+    {
+      NamedNodeMap entryAttrs=entryTag.getAttributes();
+      // Probability
+      float probability=DOMParsingTools.getFloatAttribute(entryAttrs,TreasureXMLConstants.DROP_PROBABILITY_ATTR,0);
+      // Relic?
+      Relic relic=null;
+      int relicId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.RELIC_ID_ATTR,0);
+      if (relicId!=0)
+      {
+        RelicsManager relicsMgr=RelicsManager.getInstance();
+        relic=relicsMgr.getById(relicId);
+      }
+      // Relics treasure group
+      RelicsTreasureGroup relicTreasureGroup=null;
+      int relicTreasureGroupId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.RELICS_TREASURE_GROUP_ID_ATTR,0);
+      if (relicTreasureGroupId!=0)
+      {
+        relicTreasureGroup=getRelicTreasureGroup(relicTreasureGroupId);
+      }
+      RelicsListEntry entry=new RelicsListEntry(probability,relic,relicTreasureGroup);
+      ret.addEntry(entry);
+    }
+    _lootMgr.getRelicsLists().add(ret);
+    return ret;
+  }
+
+  private RelicsTreasureGroup getRelicTreasureGroup(int id)
+  {
+    RelicsTreasureGroup ret=_lootMgr.getRelicsTreasureGroups().getItem(id);
+    if (ret==null)
+    {
+      Element tag=_nodesMap.get(Integer.valueOf(id));
+      if (tag!=null)
+      {
+        decodeTag(tag);
+        ret=getRelicTreasureGroup(id);
       }
     }
     return ret;
