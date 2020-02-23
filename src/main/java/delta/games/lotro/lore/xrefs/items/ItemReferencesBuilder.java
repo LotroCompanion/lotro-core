@@ -290,7 +290,7 @@ public class ItemReferencesBuilder
         boolean found=itemsContainer.contains(itemId);
         if (found)
         {
-          _storage.add(new ItemReference<Container>(container,ItemRole.CONTAINED_IN));
+          _storage.add(new ItemReference<ItemsContainer>(itemsContainer,ItemRole.CONTAINED_IN));
         }
       }
     }

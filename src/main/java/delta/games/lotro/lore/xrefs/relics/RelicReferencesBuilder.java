@@ -63,7 +63,7 @@ public class RelicReferencesBuilder
         boolean found=relicsContainer.contains(relicId);
         if (found)
         {
-          _storage.add(new RelicReference<Container>(container,RelicRole.CONTAINED_IN));
+          _storage.add(new RelicReference<RelicsContainer>(relicsContainer,RelicRole.CONTAINED_IN));
         }
       }
     }
