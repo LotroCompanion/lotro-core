@@ -22,6 +22,7 @@ import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.ItemsContainer;
 import delta.games.lotro.lore.items.io.xml.ContainerXMLParser;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSetsManager;
@@ -283,10 +284,14 @@ public class ItemReferencesBuilder
     List<Container> containers=new ContainerXMLParser().parseXML(containersFile);
     for(Container container : containers)
     {
-      boolean found=container.contains(itemId);
-      if (found)
+      if (container instanceof ItemsContainer)
       {
-        _storage.add(new ItemReference<Container>(container,ItemRole.CONTAINED_IN));
+        ItemsContainer itemsContainer=(ItemsContainer)container;
+        boolean found=itemsContainer.contains(itemId);
+        if (found)
+        {
+          _storage.add(new ItemReference<Container>(container,ItemRole.CONTAINED_IN));
+        }
       }
     }
   }

@@ -11,10 +11,14 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.treasure.FilteredTrophyTable;
+import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TrophyList;
 import delta.games.lotro.common.treasure.WeightedTreasureTable;
 import delta.games.lotro.lore.items.Container;
+import delta.games.lotro.lore.items.ItemsContainer;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
 
 /**
  * Writes containers to XML files.
@@ -75,6 +79,23 @@ public class ContainerXMLWriter
     int id=container.getIdentifier();
     attrs.addAttribute("","",ContainerXMLConstants.CONTAINER_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
 
+    String tag=null;
+    if (container instanceof ItemsContainer)
+    {
+      writeItemsContainer(attrs,(ItemsContainer)container);
+      tag=ContainerXMLConstants.CONTAINER_TAG;
+    }
+    else if (container instanceof RelicsContainer)
+    {
+      writeRelicsContainer(attrs,(RelicsContainer)container);
+      tag=ContainerXMLConstants.RELICS_CONTAINER_TAG;
+    }
+    hd.startElement("","",tag,attrs);
+    hd.endElement("","",tag);
+  }
+
+  private void writeItemsContainer(AttributesImpl attrs, ItemsContainer container) throws Exception
+  {
     // Filtered trophy table
     FilteredTrophyTable filteredTrophyTable=container.getFilteredTable();
     if (filteredTrophyTable!=null)
@@ -106,7 +127,23 @@ public class ContainerXMLWriter
       int treasureListId=treasureList.getIdentifier();
       attrs.addAttribute("","",ContainerXMLConstants.TREASURE_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(treasureListId));
     }
-    hd.startElement("","",ContainerXMLConstants.CONTAINER_TAG,attrs);
-    hd.endElement("","",ContainerXMLConstants.CONTAINER_TAG);
+  }
+
+  private void writeRelicsContainer(AttributesImpl attrs, RelicsContainer container) throws Exception
+  {
+    // Relics treasure group
+    RelicsList relicsList=container.getRelicsList();
+    if (relicsList!=null)
+    {
+      int id=relicsList.getIdentifier();
+      attrs.addAttribute("","",ContainerXMLConstants.RELICS_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    // Relic
+    Relic relic=container.getRelic();
+    if (relic!=null)
+    {
+      int id=relic.getIdentifier();
+      attrs.addAttribute("","",ContainerXMLConstants.RELIC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
   }
 }

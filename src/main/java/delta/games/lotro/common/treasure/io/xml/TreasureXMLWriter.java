@@ -17,6 +17,10 @@ import delta.games.lotro.common.treasure.FilteredTrophyTableEntry;
 import delta.games.lotro.common.treasure.ItemsTable;
 import delta.games.lotro.common.treasure.ItemsTableEntry;
 import delta.games.lotro.common.treasure.LootsManager;
+import delta.games.lotro.common.treasure.RelicsList;
+import delta.games.lotro.common.treasure.RelicsListEntry;
+import delta.games.lotro.common.treasure.RelicsTreasureGroup;
+import delta.games.lotro.common.treasure.RelicsTreasureGroupEntry;
 import delta.games.lotro.common.treasure.TreasureGroupProfile;
 import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TreasureListEntry;
@@ -25,6 +29,7 @@ import delta.games.lotro.common.treasure.TrophyListEntry;
 import delta.games.lotro.common.treasure.WeightedTreasureTable;
 import delta.games.lotro.common.treasure.WeightedTreasureTableEntry;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -101,6 +106,18 @@ public class TreasureXMLWriter
     for(FilteredTrophyTable filteredTrophyTable : filteredTrophyTables)
     {
       writeFilteredTrophyTable(hd,filteredTrophyTable);
+    }
+    // Relics lists
+    List<RelicsList> relicsLists=loots.getRelicsLists().getItems();
+    for(RelicsList relicsList : relicsLists)
+    {
+      writeRelicsList(hd,relicsList);
+    }
+    // Relics treasure groups
+    List<RelicsTreasureGroup> relicsTreasureGroups=loots.getRelicsTreasureGroups().getItems();
+    for(RelicsTreasureGroup relicsTreasureGroup : relicsTreasureGroups)
+    {
+      writeRelicsTreasureGroup(hd,relicsTreasureGroup);
     }
   }
 
@@ -266,6 +283,78 @@ public class TreasureXMLWriter
       hd.endElement("","",TreasureXMLConstants.FILTERED_TROPHY_TABLE_ENTRY_TAG);
     }
     hd.endElement("","",TreasureXMLConstants.FILTERED_TROPHY_TABLE_TAG);
+  }
+
+  private void writeRelicsList(TransformerHandler hd, RelicsList list) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+
+    // Identifier
+    int id=list.getIdentifier();
+    attrs.addAttribute("","",TreasureXMLConstants.ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    hd.startElement("","",TreasureXMLConstants.RELICS_LIST_TAG,attrs);
+
+    // Entries
+    for(RelicsListEntry entry : list.getEntries())
+    {
+      AttributesImpl entryAttrs=new AttributesImpl();
+      // Probability
+      float probability=entry.getProbability();
+      entryAttrs.addAttribute("","",TreasureXMLConstants.DROP_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(probability));
+      // Relic
+      Relic relic=entry.getRelic();
+      if (relic!=null)
+      {
+        int relicId=relic.getIdentifier();
+        entryAttrs.addAttribute("","",TreasureXMLConstants.RELIC_ID_ATTR,XmlWriter.CDATA,String.valueOf(relicId));
+      }
+      // Relics treasure group
+      RelicsTreasureGroup group=entry.getRelicsTreasureGroup();
+      if (group!=null)
+      {
+        entryAttrs.addAttribute("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_ID_ATTR,XmlWriter.CDATA,String.valueOf(group.getIdentifier()));
+      }
+      hd.startElement("","",TreasureXMLConstants.RELICS_LIST_ENTRY_TAG,entryAttrs);
+      hd.endElement("","",TreasureXMLConstants.RELICS_LIST_ENTRY_TAG);
+    }
+    hd.endElement("","",TreasureXMLConstants.RELICS_LIST_TAG);
+  }
+
+  private void writeRelicsTreasureGroup(TransformerHandler hd, RelicsTreasureGroup group) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+
+    // Identifier
+    int id=group.getIdentifier();
+    attrs.addAttribute("","",TreasureXMLConstants.ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    hd.startElement("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_TAG,attrs);
+
+    // Pulls
+    for(Integer pullCount : group.getCounts())
+    {
+      AttributesImpl entryAttrs=new AttributesImpl();
+      // Count
+      entryAttrs.addAttribute("","",TreasureXMLConstants.COUNT_ATTR,XmlWriter.CDATA,pullCount.toString());
+      // Weight
+      int weight=group.getWeightForCount(pullCount.intValue()).intValue();
+      entryAttrs.addAttribute("","",TreasureXMLConstants.WEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(weight));
+      hd.startElement("","",TreasureXMLConstants.PULL_TAG,entryAttrs);
+      hd.endElement("","",TreasureXMLConstants.PULL_TAG);
+    }
+    // Entries
+    for(RelicsTreasureGroupEntry entry : group.getEntries())
+    {
+      AttributesImpl entryAttrs=new AttributesImpl();
+      // Weight
+      int weight=entry.getWeight();
+      entryAttrs.addAttribute("","",TreasureXMLConstants.WEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(weight));
+      // Relic
+      int relicId=entry.getRelic().getIdentifier();
+      entryAttrs.addAttribute("","",TreasureXMLConstants.RELIC_ID_ATTR,XmlWriter.CDATA,String.valueOf(relicId));
+      hd.startElement("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_ENTRY_TAG,entryAttrs);
+      hd.endElement("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_ENTRY_TAG);
+    }
+    hd.endElement("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_TAG);
   }
 
   private void writeItemProxy(Proxy<Item> itemProxy, AttributesImpl attrs) throws Exception

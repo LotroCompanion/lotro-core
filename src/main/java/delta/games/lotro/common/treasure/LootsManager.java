@@ -24,6 +24,8 @@ public class LootsManager
   private Registry<TreasureList> _treasureLists;
   private Registry<TrophyList> _trophyLists;
   private Registry<WeightedTreasureTable> _weightedTreasureTables;
+  private Registry<RelicsList> _relicsLists;
+  private Registry<RelicsTreasureGroup> _relicsTreasureGroups;
 
   /**
    * Get the sole instance of this class.
@@ -48,6 +50,8 @@ public class LootsManager
     _treasureLists=new Registry<TreasureList>();
     _trophyLists=new Registry<TrophyList>();
     _weightedTreasureTables=new Registry<WeightedTreasureTable>();
+    _relicsLists=new Registry<RelicsList>();
+    _relicsTreasureGroups=new Registry<RelicsTreasureGroup>();
   }
 
   private static LootsManager loadLootManager()
@@ -108,6 +112,24 @@ public class LootsManager
   }
 
   /**
+   * Get the registry for relics lists.
+   * @return the registry for relics lists.
+   */
+  public Registry<RelicsList> getRelicsLists()
+  {
+    return _relicsLists;
+  }
+
+  /**
+   * Get the registry for relics treasure groups.
+   * @return the registry for relics treasure groups.
+   */
+  public Registry<RelicsTreasureGroup> getRelicsTreasureGroups()
+  {
+    return _relicsTreasureGroups;
+  }
+
+  /**
    * Dump some statistics about loots.
    */
   public void dump()
@@ -118,5 +140,7 @@ public class LootsManager
     System.out.println("\t"+_treasureLists.size()+" treasure lists");
     System.out.println("\t"+_trophyLists.size()+" trophy lists");
     System.out.println("\t"+_weightedTreasureTables.size()+" weighted treasure tables");
+    System.out.println("\t"+_relicsLists.size()+" relics lists");
+    System.out.println("\t"+_relicsTreasureGroups.size()+" relics treasure groups");
   }
 }

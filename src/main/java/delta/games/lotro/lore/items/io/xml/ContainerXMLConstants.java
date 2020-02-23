@@ -16,6 +16,10 @@ public class ContainerXMLConstants
    */
   public static final String CONTAINER_TAG="container";
   /**
+   * Tag 'container'/'relicsContainer'.
+   */
+  public static final String RELICS_CONTAINER_TAG="relicsContainer";
+  /**
    * Tag 'container', attribute 'id'.
    */
   public static final String CONTAINER_ID_ATTR="id";
@@ -35,4 +39,12 @@ public class ContainerXMLConstants
    * Tag 'container', attribute 'treasureListId'.
    */
   public static final String TREASURE_LIST_ID_ATTR="treasureListId";
+  /**
+   * Tag 'relicsContainer', attribute 'relicsList'.
+   */
+  public static final String RELICS_LIST_ID_ATTR="relicsListId";
+  /**
+   * Tag 'relicsContainer', attribute 'relicId'.
+   */
+  public static final String RELIC_ID_ATTR="relicId";
 }

@@ -14,6 +14,7 @@ import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TrophyList;
 import delta.games.lotro.common.treasure.WeightedTreasureTable;
 import delta.games.lotro.lore.items.Container;
+import delta.games.lotro.lore.items.ItemsContainer;
 
 /**
  * Parser for containers stored in XML.
@@ -56,7 +57,7 @@ public class ContainerXMLParser
   {
     NamedNodeMap attrs=root.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CONTAINER_ID_ATTR,0);
-    Container ret=new Container(id);
+    ItemsContainer ret=new ItemsContainer(id);
 
     // Filtered trophy table
     int filteredTrophyTableId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.FILTERED_TROPHY_TABLE_ID_ATTR,0);

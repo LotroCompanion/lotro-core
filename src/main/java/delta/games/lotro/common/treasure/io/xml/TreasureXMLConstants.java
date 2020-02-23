@@ -63,6 +63,26 @@ public class TreasureXMLConstants
    * Tag 'filteredTrophyTableEntry'.
    */
   public static final String FILTERED_TROPHY_TABLE_ENTRY_TAG="filteredTrophyTableEntry";
+  /**
+   * Tag 'relicsList'.
+   */
+  public static final String RELICS_LIST_TAG="relicsList";
+  /**
+   * Tag 'relicsListEntry'.
+   */
+  public static final String RELICS_LIST_ENTRY_TAG="relicsListEntry";
+  /**
+   * Tag 'relicsTreasureGroup'.
+   */
+  public static final String RELICS_TREASURE_GROUP_TAG="relicsTreasureGroup";
+  /**
+   * Tag 'relicsTreasureGroupEntry'.
+   */
+  public static final String RELICS_TREASURE_GROUP_ENTRY_TAG="relicsTreasureGroupEntry";
+  /**
+   * Tag 'pull'.
+   */
+  public static final String PULL_TAG="pull";
 
   /**
    * Attribute 'id'.
@@ -77,6 +97,10 @@ public class TreasureXMLConstants
    */
   public static final String ITEM_ID_ATTR="itemId";
   /**
+   * Attribute 'relicId'.
+   */
+  public static final String RELIC_ID_ATTR="relicId";
+  /**
    * Attribute 'name'.
    */
   public static final String NAME_ATTR="name";
@@ -84,6 +108,10 @@ public class TreasureXMLConstants
    * Attribute 'quantity'.
    */
   public static final String QUANTITY_ATTR="quantity";
+  /**
+   * Attribute 'count'.
+   */
+  public static final String COUNT_ATTR="count";
   /**
    * Attribute 'trophyListId'.
    */
@@ -96,4 +124,8 @@ public class TreasureXMLConstants
    * Attribute 'weightedTreasureTableId'.
    */
   public static final String WEIGHTED_TREASURE_TABLE_ID_ATTR="weightedTreasureTableId";
+  /**
+   * Attribute 'relicsTreasureGroupId'.
+   */
+  public static final String RELICS_TREASURE_GROUP_ID_ATTR="relicsTreasureGroupId";
 }
