@@ -58,7 +58,7 @@ public class VirtueDescription extends TraitDescription
 
   /**
    * Get the progression that gives the maximum virtue rank for a character level.
-   * @return A progression?.
+   * @return A progression.
    */
   public Progression getMaxRankForCharacterLevelProgression()
   {
