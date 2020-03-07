@@ -103,6 +103,24 @@ public final class CharactersManager
   }
 
   /**
+   * Add a new toon.
+   * @param summary Character summary.
+   * @return A character file or <code>null</code> if an error occurs.
+   */
+  public CharacterFile addToon(CharacterSummary summary)
+  {
+    CharacterFile file=_storage.newToon(summary);
+    if (file!=null)
+    {
+      _toons.add(file);
+      // Broadcast toon creation event...
+      CharacterEvent event=new CharacterEvent(CharacterEventType.CHARACTER_ADDED,file,null);
+      EventsManager.invokeEvent(event);
+    }
+    return file;
+  }
+
+  /**
    * Remove a character.
    * @param file Character file.
    * @return <code>true</code> if successful, <code>false</code> otherwise.

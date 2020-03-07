@@ -35,11 +35,9 @@ public class CharactersStorageManager
    */
   public CharacterFile newToon(CharacterData initialData)
   {
-    File newDir=getNewToonDirectory();
-    newDir.mkdirs();
-    CharacterFile file=new CharacterFile(newDir);
     CharacterSummary summary=initialData.getSummary();
-    boolean ok=file.saveSummary(summary);
+    CharacterFile file=newToon(summary);
+    boolean ok=(file!=null);
     if (!ok)
     {
       return null;
@@ -52,6 +50,23 @@ public class CharactersStorageManager
     return file;
   }
 
+  /**
+   * Create a new toon.
+   * @param summary Character initial data.
+   * @return A new file or <code>null</code> if a problem occurred.
+   */
+  public CharacterFile newToon(CharacterSummary summary)
+  {
+    File newDir=getNewToonDirectory();
+    newDir.mkdirs();
+    CharacterFile file=new CharacterFile(newDir);
+    boolean ok=file.saveSummary(summary);
+    if (!ok)
+    {
+      return null;
+    }
+    return file;
+  }
 
   /**
    * Remove a toon.
@@ -61,6 +76,11 @@ public class CharactersStorageManager
   public void removeToon(CharacterFile toon)
   {
     File toonDir=toon.getRootDir();
+    removeToonDir(toonDir);
+  }
+
+  private void removeToonDir(File toonDir)
+  {
     if (toonDir.exists())
     {
       FilesDeleter deleter=new FilesDeleter(toonDir,null,true);
