@@ -110,6 +110,19 @@ public class FactionsXMLWriter
     {
       factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_HIGHEST_TIER_ATTR,CDATA,String.valueOf(highestTier));
     }
+    // Property names:
+    // - current tier
+    String currentTierPropertyName=faction.getCurrentTierPropertyName();
+    if (currentTierPropertyName!=null)
+    {
+      factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_CURRENT_TIER_PROPERTY_ATTR,CDATA,currentTierPropertyName);
+    }
+    // - current reputation
+    String currentReputationPropertyName=faction.getCurrentReputationPropertyName();
+    if (currentReputationPropertyName!=null)
+    {
+      factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_CURRENT_REPUTATION_PROPERTY_ATTR,CDATA,currentReputationPropertyName);
+    }
     // Description
     String description=faction.getDescription();
     if (description.length()>0)

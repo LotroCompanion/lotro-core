@@ -73,6 +73,13 @@ public class FactionsXMLParser
     // Highest tier
     int highestTier=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_HIGHEST_TIER_ATTR,0);
     faction.setHighestTier(highestTier);
+    // Property names:
+    // - current tier
+    String currentTierPropertyName=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_CURRENT_TIER_PROPERTY_ATTR,null);
+    faction.setCurrentTierPropertyName(currentTierPropertyName);
+    // - current reputation
+    String currentReputationPropertyName=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_CURRENT_REPUTATION_PROPERTY_ATTR,null);
+    faction.setCurrentReputationPropertyName(currentReputationPropertyName);
     return faction;
   }
 

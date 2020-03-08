@@ -20,6 +20,8 @@ public class Faction implements Identifiable
   private int _highestTier;
   private FactionLevel _initialLevel;
   private List<FactionLevel> _levels;
+  private String _currentTierPropertyName;
+  private String _currentReputationPropertyName;
 
   /**
    * Constructor.
@@ -33,6 +35,8 @@ public class Faction implements Identifiable
     _category="";
     _levels=new ArrayList<FactionLevel>();
     _initialLevel=null;
+    _currentTierPropertyName=null;
+    _currentReputationPropertyName=null;
   }
 
   /**
@@ -231,6 +235,42 @@ public class Faction implements Identifiable
       }
     }
     return null;
+  }
+
+  /**
+   * Get the property name for the current tier.
+   * @return a property name.
+   */
+  public String getCurrentTierPropertyName()
+  {
+    return _currentTierPropertyName;
+  }
+
+  /**
+   * Set the property name for the current tier.
+   * @param currentTierPropertyName the property name to set.
+   */
+  public void setCurrentTierPropertyName(String currentTierPropertyName)
+  {
+    _currentTierPropertyName=currentTierPropertyName;
+  }
+
+  /**
+   * Get the property name for the current reputation value.
+   * @return a property name.
+   */
+  public String getCurrentReputationPropertyName()
+  {
+    return _currentReputationPropertyName;
+  }
+
+  /**
+   * Set the property name for the current reputation value.
+   * @param currentReputationPropertyName the property name to set.
+   */
+  public void setCurrentReputationPropertyName(String currentReputationPropertyName)
+  {
+    _currentReputationPropertyName=currentReputationPropertyName;
   }
 
   @Override

@@ -40,9 +40,18 @@ public class FactionsXMLConstants
    */
   public static final String FACTION_HIGHEST_TIER_ATTR="highestTier";
   /**
+   * Tag 'faction', attribute 'currentTierProperty'.
+   */
+  public static final String FACTION_CURRENT_TIER_PROPERTY_ATTR="currentTierProperty";
+  /**
+   * Tag 'faction', attribute 'currentReputationProperty'.
+   */
+  public static final String FACTION_CURRENT_REPUTATION_PROPERTY_ATTR="currentReputationProperty";
+  /**
    * Tag 'faction', attribute 'description'.
    */
   public static final String FACTION_DESCRIPTION_ATTR="description";
+
   /**
    * Tag 'level'.
    */
