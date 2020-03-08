@@ -88,7 +88,7 @@ public class ReputationStatus
     int index=0;
     for(FactionLevel level : levels)
     {
-      if (level.getKey().equals(currentLevel.getKey()))
+      if (level.getTier()==currentLevel.getTier())
       {
         int nbLevels=levels.length;
         if (increase)

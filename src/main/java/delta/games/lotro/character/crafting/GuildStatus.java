@@ -3,7 +3,6 @@ package delta.games.lotro.character.crafting;
 import delta.games.lotro.character.reputation.FactionStatus;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.reputation.Faction;
-import delta.games.lotro.lore.reputation.FactionsRegistry;
 
 /**
  * Guild status.
@@ -17,12 +16,12 @@ public class GuildStatus
 
   /**
    * Constructor.
+   * @param faction Guild faction.
    */
-  public GuildStatus()
+  public GuildStatus(Faction faction)
   {
     _profession=null;
-    Faction guildFaction=FactionsRegistry.getInstance().getGuildFaction();
-    _factionStatus=new FactionStatus(guildFaction);
+    _factionStatus=new FactionStatus(faction);
   }
 
   /**

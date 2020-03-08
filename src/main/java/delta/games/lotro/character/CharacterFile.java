@@ -17,7 +17,6 @@ import delta.games.lotro.character.level.io.xml.LevelHistoryXMLParser;
 import delta.games.lotro.character.level.io.xml.LevelHistoryXMLWriter;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogsManager;
-import delta.games.lotro.character.reputation.ReputationComputer;
 import delta.games.lotro.character.reputation.ReputationStatus;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLParser;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLWriter;
@@ -262,8 +261,7 @@ public class CharacterFile
       _reputation=loadReputation();
       if (_reputation==null)
       {
-        ReputationComputer c=new ReputationComputer();
-        _reputation=c.buildReputationStatus(this);
+        _reputation=new ReputationStatus();
         saveReputation();
       }
     }

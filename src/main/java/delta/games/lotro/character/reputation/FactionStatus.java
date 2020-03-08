@@ -13,8 +13,15 @@ import delta.games.lotro.lore.reputation.FactionLevel;
 public class FactionStatus
 {
   private Faction _faction;
-  private FactionLevel _level;
-  private HashMap<String,FactionLevelStatus> _statusByLevel;
+  /**
+   * Current level:
+   * <ul>
+   * <li>null: virgin faction (never ever got a point for it),
+   * <li>not null: indicates the current faction level.
+   * </ul>
+   */
+  private FactionLevel _currentLevel;
+  private HashMap<Integer,FactionLevelStatus> _statusByLevel;
 
   /**
    * Constructor.
@@ -23,8 +30,8 @@ public class FactionStatus
   public FactionStatus(Faction faction)
   {
     _faction=faction;
-    _level=null;
-    _statusByLevel=new HashMap<String,FactionLevelStatus>();
+    _currentLevel=null;
+    _statusByLevel=new HashMap<Integer,FactionLevelStatus>();
   }
 
   /**
@@ -33,7 +40,7 @@ public class FactionStatus
    */
   public FactionStatus(FactionStatus source)
   {
-    _statusByLevel=new HashMap<String,FactionLevelStatus>();
+    _statusByLevel=new HashMap<Integer,FactionLevelStatus>();
     set(source);
   }
 
@@ -44,12 +51,13 @@ public class FactionStatus
   public void set(FactionStatus source)
   {
     _faction=source._faction;
-    _level=source._level;
+    _currentLevel=source._currentLevel;
     _statusByLevel.clear();
     for(FactionLevelStatus status : source._statusByLevel.values())
     {
       FactionLevelStatus newStatus=new FactionLevelStatus(status);
-      _statusByLevel.put(newStatus.getLevel().getKey(),newStatus);
+      Integer key=Integer.valueOf(newStatus.getLevel().getTier());
+      _statusByLevel.put(key,newStatus);
     }
   }
 
@@ -65,15 +73,16 @@ public class FactionStatus
   /**
    * Get the status for a given level.
    * @param level Level to use.
-   * @return A status as a long or <code>null</code>.
+   * @return A status.
    */
   public FactionLevelStatus getStatusForLevel(FactionLevel level)
   {
-    FactionLevelStatus ret=_statusByLevel.get(level.getKey());
+    Integer key=Integer.valueOf(level.getTier());
+    FactionLevelStatus ret=_statusByLevel.get(key);
     if (ret==null)
     {
       ret=new FactionLevelStatus(level);
-      _statusByLevel.put(level.getKey(),ret);
+      _statusByLevel.put(key,ret);
     }
     return ret;
   }
@@ -84,7 +93,7 @@ public class FactionStatus
    */
   public FactionLevel getFactionLevel()
   {
-    return _level;
+    return _currentLevel;
   }
 
   /**
@@ -93,8 +102,8 @@ public class FactionStatus
    */
   public void setFactionLevel(FactionLevel level)
   {
-    _level=level;
-    setCompletionStatus(_level,true);
+    _currentLevel=level;
+    setCompletionStatus(_currentLevel,true);
   }
 
   /**
@@ -103,17 +112,17 @@ public class FactionStatus
   public void updateCurrentLevel()
   {
     FactionLevel currentLevel=null;
-    int initialTier=_faction.getInitialLevel().getValue();
+    int initialTier=_faction.getInitialLevel().getTier();
     for(FactionLevel level : _faction.getLevels())
     {
       FactionLevelStatus levelStatus=getStatusForLevel(level);
       if (levelStatus.isCompleted())
       {
-        if (level.getValue()>=initialTier)
+        if (level.getTier()>=initialTier)
         {
           currentLevel=level;
         }
-        else if (level.getValue()<initialTier)
+        else if (level.getTier()<initialTier)
         {
           currentLevel=level;
           break;
@@ -130,12 +139,9 @@ public class FactionStatus
    */
   public void setCompletionStatus(FactionLevel targetedLevel, boolean completed)
   {
-    //FactionLevelStatus levelStatus=getStatusForLevel(targetedLevel);
-    //boolean currentCompletionStatus=levelStatus.isCompleted();
-    //if (currentCompletionStatus!=completed)
     {
-      int initialTier=_faction.getInitialLevel().getValue();
-      int targetedTier=targetedLevel.getValue();
+      int initialTier=_faction.getInitialLevel().getTier();
+      int targetedTier=targetedLevel.getTier();
       // Update the targeted level
       updateCompletionStatus(targetedLevel,completed);
       if (completed)
@@ -146,12 +152,12 @@ public class FactionStatus
           // - set levels above initial tier and below the targeted level to 'completed'
           for(FactionLevel level : _faction.getLevels())
           {
-            if ((level.getValue()>initialTier) && (level.getValue()<targetedTier))
+            if ((level.getTier()>initialTier) && (level.getTier()<targetedTier))
             {
               updateCompletionStatus(level,true);
             }
             // Set levels above the targeted level to 'not completed' (keep dates/XP)
-            if (level.getValue()>targetedTier)
+            if (level.getTier()>targetedTier)
             {
               FactionLevelStatus levelStatus=getStatusForLevel(level);
               levelStatus.setCompleted(false);
@@ -160,7 +166,7 @@ public class FactionStatus
           // - set levels below initial level to 'not completed'
           for(FactionLevel level : _faction.getLevels())
           {
-            if (level.getValue()<initialTier)
+            if (level.getTier()<initialTier)
             {
               updateCompletionStatus(level,false);
             }
@@ -171,7 +177,7 @@ public class FactionStatus
           // - set levels between targeted tier and initial level to 'completed'
           for(FactionLevel level : _faction.getLevels())
           {
-            if ((level.getValue()>targetedTier) && (level.getValue()<initialTier))
+            if ((level.getTier()>targetedTier) && (level.getTier()<initialTier))
             {
               updateCompletionStatus(level,true);
             }
@@ -179,7 +185,7 @@ public class FactionStatus
           // Set all levels above the initial tier to 'not completed'
           for(FactionLevel level : _faction.getLevels())
           {
-            if (level.getValue()>initialTier)
+            if (level.getTier()>initialTier)
             {
               updateCompletionStatus(level,false);
             }
@@ -193,7 +199,7 @@ public class FactionStatus
           // Set all levels above the targeted tier to 'not completed'
           for(FactionLevel level : _faction.getLevels())
           {
-            if (level.getValue()>targetedTier)
+            if (level.getTier()>targetedTier)
             {
               updateCompletionStatus(level,false);
             }
@@ -204,7 +210,7 @@ public class FactionStatus
           // Set all levels below the targeted tier to 'not completed'
           for(FactionLevel level : _faction.getLevels())
           {
-            if (level.getValue()<targetedTier)
+            if (level.getTier()<targetedTier)
             {
               updateCompletionStatus(level,false);
             }
@@ -235,7 +241,7 @@ public class FactionStatus
   public void reset()
   {
     _statusByLevel.clear();
-    _level=null;
+    _currentLevel=null;
   }
 
   /**
@@ -248,7 +254,7 @@ public class FactionStatus
     FactionLevel initialLevel=_faction.getInitialLevel();
     FactionLevelStatus status=getStatusForLevel(initialLevel);
     status.setCompleted(date);
-    _level=initialLevel;
+    _currentLevel=initialLevel;
   }
 
   /**
@@ -259,12 +265,13 @@ public class FactionStatus
   {
     String factionName=_faction.getName();
     ps.println("Reputation history for faction ["+factionName+"]:");
-    ps.println("\tLevel: "+_level);
+    ps.println("\tLevel: "+_currentLevel);
 
     FactionLevel[] levels=_faction.getLevels();
     for(FactionLevel level : levels)
     {
-      FactionLevelStatus status=_statusByLevel.get(level.getKey());
+      Integer key=Integer.valueOf(level.getTier());
+      FactionLevelStatus status=_statusByLevel.get(key);
       if (status!=null)
       {
         ps.println("\t"+status);
@@ -279,7 +286,7 @@ public class FactionStatus
     String factionName=_faction.getName();
     sb.append(factionName);
     sb.append(": ");
-    sb.append(_level);
+    sb.append(_currentLevel);
     return sb.toString();
   }
 }

@@ -60,7 +60,7 @@ public class ReputationDeedsStatus
           FactionLevel level=factionStatus.getFactionLevel();
           if (level!=null)
           {
-            if (FactionLevels.KINDRED.equals(level.getKey()))
+            if (level.getTier()==7) // Kindred
             {
               acquired=true;
             }

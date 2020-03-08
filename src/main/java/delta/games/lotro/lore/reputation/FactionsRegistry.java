@@ -17,19 +17,11 @@ public final class FactionsRegistry
 {
   private static FactionsRegistry _instance;
 
-  /**
-   * Faction key for the guild faction.
-   */
-  public static final String GUILD_FACTION_KEY="GUILD";
-
   private HashMap<Integer,Faction> _registryById;
-  private HashMap<String,Faction> _registryByKey;
-  private HashMap<String,Faction> _registryByName;
   private List<String> _categories;
   private HashMap<String,List<Faction>> _factionsByCategory;
   private List<ReputationDeed> _factionDeeds;
   private List<Faction> _factions;
-  private Faction _guildFaction;
 
   /**
    * Get the sole instance of this class.
@@ -66,8 +58,6 @@ public final class FactionsRegistry
   public FactionsRegistry()
   {
     _registryById=new HashMap<Integer,Faction>();
-    _registryByKey=new HashMap<String,Faction>();
-    _registryByName=new HashMap<String,Faction>();
     _categories=new ArrayList<String>();
     _factionsByCategory=new HashMap<String,List<Faction>>();
     _factionDeeds=new ArrayList<ReputationDeed>();
@@ -80,12 +70,6 @@ public final class FactionsRegistry
    */
   public void registerFaction(Faction faction)
   {
-    String factionKey=faction.getIdentifyingKey();
-    if (GUILD_FACTION_KEY.equals(factionKey))
-    {
-      _guildFaction=faction;
-      return;
-    }
     // Category
     String category=faction.getCategory();
     List<Faction> factionsForCategory=_factionsByCategory.get(category);
@@ -102,11 +86,6 @@ public final class FactionsRegistry
     {
       _registryById.put(Integer.valueOf(id),faction);
     }
-    // Map by key
-    _registryByKey.put(factionKey,faction);
-    // Map by name/aliases
-    String name=faction.getName();
-    _registryByName.put(name,faction);
     // Register
     _factions.add(faction);
   }
@@ -166,39 +145,5 @@ public final class FactionsRegistry
   public Faction getById(int identifier)
   {
     return _registryById.get(Integer.valueOf(identifier));
-  }
-
-  /**
-   * Get a faction instance by key.
-   * @param key Key of the faction to get.
-   * @return A faction instance or <code>null</code> if not found.
-   */
-  public Faction getByKey(String key)
-  {
-    return _registryByKey.get(key);
-  }
-
-  /**
-   * Get a faction instance by name.
-   * @param name Name of the faction to get.
-   * @return A faction instance or <code>null</code> if <code>name</code> is <code>null</code> or empty.
-   */
-  public Faction getByName(String name)
-  {
-    Faction f=null;
-    if ((name!=null) && (name.length()>0))
-    {
-      f=_registryByName.get(name);
-    }
-    return f;
-  }
-
-  /**
-   * Get the guild faction.
-   * @return the guild faction.
-   */
-  public Faction getGuildFaction()
-  {
-    return _guildFaction;
   }
 }

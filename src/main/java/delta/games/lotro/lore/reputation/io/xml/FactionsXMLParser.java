@@ -54,20 +54,13 @@ public class FactionsXMLParser
 
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_ID_ATTR,0);
-    // Key
-    String factionKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_KEY_ATTR,null);
     // Name
     String factionName=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_NAME_ATTR,null);
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_CATEGORY_ATTR,null);
     // Levels
     List<FactionLevel> levels=parseLevels(root);
-    Faction faction=new Faction(factionKey,factionName,category,levels);
-    faction.setIdentifier(id);
-    // Initial level
-    String initialLevelKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_INITIAL_LEVEL_ATTR,null);
-    FactionLevel initialLevel=faction.getLevelByKey(initialLevelKey);
-    faction.setInitialLevel(initialLevel);
+    Faction faction=new Faction(id,factionName,category,levels);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_DESCRIPTION_ATTR,"");
     faction.setDescription(description);
@@ -90,20 +83,15 @@ public class FactionsXMLParser
     for(Element levelTag : levelTags)
     {
       NamedNodeMap attrs=levelTag.getAttributes();
-      // Level key
-      String levelKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_KEY_ATTR,null);
+      // Tier
+      int tier=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_TIER_ATTR,0);
       // Level name
       String levelName=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_NAME_ATTR,null);
-      // Code
-      int levelCode=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_CODE_ATTR,0);
       // LOTRO points
       int lotroPoints=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_LOTRO_POINTS_ATTR,0);
       // Required XP
       int requiredXp=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_REQUIRED_XP_ATTR,0);
-      FactionLevel level=new FactionLevel(levelKey,levelName,levelCode,lotroPoints,requiredXp);
-      // Tier
-      int tier=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_TIER_ATTR,0);
-      level.setTier(tier);
+      FactionLevel level=new FactionLevel(tier,levelName,lotroPoints,requiredXp);
       // Deed key
       String deedKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_DEED_KEY_ATTR,null);
       level.setDeedKey(deedKey);
@@ -127,8 +115,8 @@ public class FactionsXMLParser
     for(Element factionTag : factionTags)
     {
       NamedNodeMap factionAttrs=factionTag.getAttributes();
-      String factionKey=DOMParsingTools.getStringAttribute(factionAttrs,FactionsXMLConstants.DEED_FACTION_KEY_ATTR,null);
-      Faction faction=registry.getByKey(factionKey);
+      int factionId=DOMParsingTools.getIntAttribute(factionAttrs,FactionsXMLConstants.DEED_FACTION_ID_ATTR,0);
+      Faction faction=registry.getById(factionId);
       deed.addFaction(faction);
     }
     return deed;

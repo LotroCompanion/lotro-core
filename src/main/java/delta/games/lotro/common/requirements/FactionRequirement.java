@@ -51,7 +51,7 @@ public class FactionRequirement
   public String asString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append(_faction.getIdentifyingKey());
+    sb.append(_faction.getIdentifier());
     sb.append(SEPARATOR);
     sb.append(_tier);
     return sb.toString();
@@ -70,8 +70,8 @@ public class FactionRequirement
       String[] classStrs=input.split(SEPARATOR);
       if (classStrs.length==2)
       {
-        String factionKey=classStrs[0];
-        Faction faction=FactionsRegistry.getInstance().getByKey(factionKey);
+        int factionId=NumericTools.parseInt(classStrs[0],0);
+        Faction faction=FactionsRegistry.getInstance().getById(factionId);
         if (faction!=null)
         {
           int tier=NumericTools.parseInt(classStrs[1],1);

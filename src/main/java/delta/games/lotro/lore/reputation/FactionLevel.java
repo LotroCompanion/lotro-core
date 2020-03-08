@@ -6,74 +6,25 @@ package delta.games.lotro.lore.reputation;
  */
 public class FactionLevel
 {
-  private String _key;
-  private String _name;
-  private int _value;
   private int _tier;
+  private String _name;
   private int _lotroPoints;
   private int _requiredXp;
   private String _deedKey;
 
   /**
    * Constructor.
-   * @param key Identifying key.
+   * @param tier Tier.
    * @param name Level name.
-   * @param value Level rank.
    * @param lotroPoints LOTRO points given when reaching this level.
    * @param requiredXp XP points required to reach the next level.
    */
-  public FactionLevel(String key, String name, int value, int lotroPoints, int requiredXp)
+  public FactionLevel(int tier, String name, int lotroPoints, int requiredXp)
   {
-    _key=key;
+    _tier=tier;
     _name=name;
-    _value=value;
     _lotroPoints=lotroPoints;
     _requiredXp=requiredXp;
-  }
-
-  /**
-   * Get the identifying key for this level.
-   * @return An identifying key.
-   */
-  public String getKey()
-  {
-    return _key;
-  }
-
-  /**
-   * Set the identifying key for this level.
-   * @param key Key to set.
-   */
-  public void setKey(String key)
-  {
-    _key=key;
-  }
-
-  /**
-   * Get the name of this level.
-   * @return A name.
-   */
-  public String getName()
-  {
-    return _name;
-  }
-
-  /**
-   * Get the value of this level.
-   * @return the value of this level.
-   */
-  public int getValue()
-  {
-    return _value;
-  }
-
-  /**
-   * Set the value of this level.
-   * @param value Value to set.
-   */
-  public void setValue(int value)
-  {
-    _value=value;
   }
 
   /**
@@ -86,13 +37,14 @@ public class FactionLevel
   }
 
   /**
-   * Set the tier of this level.
-   * @param tier Tier to set.
+   * Get the name of this level.
+   * @return A name.
    */
-  public void setTier(int tier)
+  public String getName()
   {
-    _tier=tier;
+    return _name;
   }
+
   /**
    * Get the LOTRO points given when reaching this level.
    * @return a LOTRO points count.

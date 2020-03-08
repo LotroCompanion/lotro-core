@@ -38,7 +38,8 @@ public class CraftingStatus
     _guildStatuses=new GuildStatus[NB_GUILDS];
     for(int i=0;i<NB_GUILDS;i++)
     {
-      _guildStatuses[i]=new GuildStatus();
+      // TODO Use guild faction!
+      _guildStatuses[i]=new GuildStatus(null);
     }
   }
 

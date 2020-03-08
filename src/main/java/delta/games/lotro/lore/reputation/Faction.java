@@ -12,7 +12,6 @@ import delta.games.lotro.common.Identifiable;
 public class Faction implements Identifiable
 {
   private int _identifier;
-  private String _key;
   private String _name;
   private String _description;
   private String _category;
@@ -24,11 +23,11 @@ public class Faction implements Identifiable
 
   /**
    * Constructor.
+   * @param identifier Identifier.
    */
-  public Faction()
+  public Faction(int identifier)
   {
-    _identifier=0;
-    _key=null;
+    _identifier=identifier;
     _name="";
     _description="";
     _category="";
@@ -38,15 +37,14 @@ public class Faction implements Identifiable
 
   /**
    * Constructor.
-   * @param key Identifying key.
+   * @param id Identifier.
    * @param name Name of faction.
    * @param category Category.
    * @param levels Available levels.
    */
-  public Faction(String key, String name, String category, List<FactionLevel> levels)
+  public Faction(int id, String name, String category, List<FactionLevel> levels)
   {
-    _identifier=0;
-    _key=key;
+    _identifier=id;
     _name=name;
     _description="";
     _category=category;
@@ -64,39 +62,11 @@ public class Faction implements Identifiable
   }
 
   /**
-   * Set the identifier of this faction.
-   * @param identifier the identifier to set.
-   */
-  public void setIdentifier(int identifier)
-  {
-    _identifier=identifier;
-  }
-
-  /**
-   * Get the identifying key for this faction.
-   * @return An identifying key.
-   */
-  public String getKey()
-  {
-    return _key;
-  }
-
-  /**
-   * Set the identifying key for this faction.
-   * @param key Key to set.
-   */
-  public void setKey(String key)
-  {
-    _key=key;
-  }
-
-  /**
    * Get an identifying key for this faction.
    * @return an identifying key.
    */
   public String getIdentifyingKey()
   {
-    if (_key!=null) return _key;
     return String.valueOf(_identifier);
   }
 
@@ -244,27 +214,6 @@ public class Faction implements Identifiable
     FactionLevel[] ret=new FactionLevel[_levels.size()];
     ret=_levels.toArray(ret);
     return ret;
-  }
-
-  /**
-   * Get a level of this faction using its key.
-   * @param levelKey Key of the level to get.
-   * @return A level or <code>null</code> if not found.
-   */
-  public FactionLevel getLevelByKey(String levelKey)
-  {
-    if (levelKey==null)
-    {
-      return null;
-    }
-    for(FactionLevel level : _levels)
-    {
-      if (levelKey.equals(level.getKey()))
-      {
-        return level;
-      }
-    }
-    return null;
   }
 
   /**

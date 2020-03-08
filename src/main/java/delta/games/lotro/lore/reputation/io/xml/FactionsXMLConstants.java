@@ -20,10 +20,6 @@ public class FactionsXMLConstants
    */
   public static final String FACTION_ID_ATTR="id";
   /**
-   * Tag 'faction', attribute 'key'.
-   */
-  public static final String FACTION_KEY_ATTR="key";
-  /**
    * Tag 'faction', attribute 'name'.
    */
   public static final String FACTION_NAME_ATTR="name";
@@ -44,10 +40,6 @@ public class FactionsXMLConstants
    */
   public static final String FACTION_HIGHEST_TIER_ATTR="highestTier";
   /**
-   * Tag 'faction', attribute 'initialLevel'.
-   */
-  public static final String FACTION_INITIAL_LEVEL_ATTR="initialLevel";
-  /**
    * Tag 'faction', attribute 'description'.
    */
   public static final String FACTION_DESCRIPTION_ATTR="description";
@@ -56,21 +48,13 @@ public class FactionsXMLConstants
    */
   public static final String LEVEL_TAG="level";
   /**
-   * Tag 'level', attribute 'key'.
+   * Tag 'level', attribute 'tier'.
    */
-  public static final String FACTION_LEVEL_KEY_ATTR="key";
+  public static final String FACTION_LEVEL_TIER_ATTR="tier";
   /**
    * Tag 'level', attribute 'name'.
    */
   public static final String FACTION_LEVEL_NAME_ATTR="name";
-  /**
-   * Tag 'level', attribute 'code'.
-   */
-  public static final String FACTION_LEVEL_CODE_ATTR="code";
-  /**
-   * Tag 'level', attribute 'tier'.
-   */
-  public static final String FACTION_LEVEL_TIER_ATTR="tier";
   /**
    * Tag 'level', attribute 'lotroPoints'.
    */
@@ -101,7 +85,7 @@ public class FactionsXMLConstants
    */
   public static final String DEED_FACTION_TAG="deedFaction";
   /**
-   * Tag 'deedFaction', attribute 'key'.
+   * Tag 'deedFaction', attribute 'id'.
    */
-  public static final String DEED_FACTION_KEY_ATTR="key";
+  public static final String DEED_FACTION_ID_ATTR="id";
 }

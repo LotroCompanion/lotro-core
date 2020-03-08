@@ -64,11 +64,6 @@ public class FactionsXMLWriter
     hd.startElement("","",FactionsXMLConstants.FACTIONS_TAG,emptyAttrs);
     // Factions
     List<Faction> factions=registry.getAll();
-    Faction guildFaction=registry.getGuildFaction();
-    if (guildFaction!=null)
-    {
-      factions.add(registry.getGuildFaction());
-    }
     for(Faction faction : factions)
     {
       writeFaction(hd,faction);
@@ -87,16 +82,7 @@ public class FactionsXMLWriter
     AttributesImpl factionAttrs=new AttributesImpl();
     // Identifier
     int id=faction.getIdentifier();
-    if (id!=0)
-    {
-      factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_ID_ATTR,CDATA,String.valueOf(id));
-    }
-    // Faction key
-    String key=faction.getKey();
-    if (key!=null)
-    {
-      factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_KEY_ATTR,CDATA,key);
-    }
+    factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_ID_ATTR,CDATA,String.valueOf(id));
     // Faction name
     String name=faction.getName();
     factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_NAME_ATTR,CDATA,name);
@@ -105,13 +91,6 @@ public class FactionsXMLWriter
     if (category!=null)
     {
       factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_CATEGORY_ATTR,CDATA,category);
-    }
-    // Initial level
-    FactionLevel initialLevel=faction.getInitialLevel();
-    if (initialLevel!=null)
-    {
-      String initialLevelKey=initialLevel.getKey();
-      factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_INITIAL_LEVEL_ATTR,CDATA,initialLevelKey);
     }
     // Lowest tier
     int lowestTier=faction.getLowestTier();
@@ -143,24 +122,12 @@ public class FactionsXMLWriter
     for(FactionLevel level : levels)
     {
       AttributesImpl levelAttrs=new AttributesImpl();
-      // Level key
-      String levelKey=level.getKey();
-      if (levelKey!=null)
-      {
-        levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_KEY_ATTR,CDATA,levelKey);
-      }
+      // Tier
+      int tier=level.getTier();
+      levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_TIER_ATTR,CDATA,String.valueOf(tier));
       // Level name
       String levelName=level.getName();
       levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_NAME_ATTR,CDATA,levelName);
-      // Code
-      int value=level.getValue();
-      levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_CODE_ATTR,CDATA,String.valueOf(value));
-      // Tier
-      int tier=level.getTier();
-      if (tier!=0)
-      {
-        levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_TIER_ATTR,CDATA,String.valueOf(tier));
-      }
       // LOTRO points
       int lotroPoints=level.getLotroPoints();
       levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_LOTRO_POINTS_ATTR,CDATA,String.valueOf(lotroPoints));
@@ -196,8 +163,8 @@ public class FactionsXMLWriter
       for(Faction faction : factions)
       {
         AttributesImpl deedFactionAttrs=new AttributesImpl();
-        String factionKey=faction.getIdentifyingKey();
-        deedFactionAttrs.addAttribute("","",FactionsXMLConstants.DEED_FACTION_KEY_ATTR,CDATA,factionKey);
+        int factionId=faction.getIdentifier();
+        deedFactionAttrs.addAttribute("","",FactionsXMLConstants.DEED_FACTION_ID_ATTR,CDATA,String.valueOf(factionId));
         hd.startElement("","",FactionsXMLConstants.DEED_FACTION_TAG,deedFactionAttrs);
         hd.endElement("","",FactionsXMLConstants.DEED_FACTION_TAG);
       }
