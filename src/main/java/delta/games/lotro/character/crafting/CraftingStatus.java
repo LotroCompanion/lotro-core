@@ -47,7 +47,8 @@ public class CraftingStatus
    * Get the name of the managed toon.
    * @return the name of the managed toon.
    */
-  public String getName() {
+  public String getName()
+  {
     return _name;
   }
 

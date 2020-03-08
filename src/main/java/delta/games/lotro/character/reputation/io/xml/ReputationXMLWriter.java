@@ -87,15 +87,9 @@ public class ReputationXMLWriter
       // Tier
       int tier=level.getTier();
       factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
-      // Completed?
-      boolean completed=levelStatus.isCompleted();
-      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,XmlWriter.CDATA,String.valueOf(completed));
       // Date
       long date=levelStatus.getCompletionDate();
       factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,XmlWriter.CDATA,String.valueOf(date));
-      // XP
-      int xp=levelStatus.getAcquiredXP();
-      factionLevelAttrs.addAttribute("","",ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,XmlWriter.CDATA,String.valueOf(xp));
       hd.startElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG,factionLevelAttrs);
       hd.endElement("","",ReputationXMLConstants.FACTION_LEVEL_TAG);
     }

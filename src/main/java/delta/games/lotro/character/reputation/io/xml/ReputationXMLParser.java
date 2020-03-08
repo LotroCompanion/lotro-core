@@ -91,10 +91,6 @@ public class ReputationXMLParser
         FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
         long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
         levelStatus.setCompletionDate(date);
-        int xp=DOMParsingTools.getIntAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_XP_ATTR,0);
-        levelStatus.setAcquiredXP(xp);
-        boolean completed=DOMParsingTools.getBooleanAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_COMPLETED_ATTR,false);
-        levelStatus.setCompleted(completed);
       }
       else
       {

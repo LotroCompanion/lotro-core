@@ -103,136 +103,20 @@ public class FactionStatus
   public void setFactionLevel(FactionLevel level)
   {
     _currentLevel=level;
-    setCompletionStatus(_currentLevel,true);
   }
 
   /**
-   * Compute current level from completion state of each level.
+   * Indicates if the given level is completed or not.
+   * @param level Level to use.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
-  public void updateCurrentLevel()
+  public boolean isCompleted(FactionLevel level)
   {
-    FactionLevel currentLevel=null;
-    int initialTier=_faction.getInitialLevel().getTier();
-    for(FactionLevel level : _faction.getLevels())
+    if (_currentLevel!=null)
     {
-      FactionLevelStatus levelStatus=getStatusForLevel(level);
-      if (levelStatus.isCompleted())
-      {
-        if (level.getTier()>=initialTier)
-        {
-          currentLevel=level;
-        }
-        else if (level.getTier()<initialTier)
-        {
-          currentLevel=level;
-          break;
-        }
-      }
+      return (level.getTier()<=_currentLevel.getTier());
     }
-    setFactionLevel(currentLevel);
-  }
-
-  /**
-   * Update a completion status.
-   * @param targetedLevel Targeted level.
-   * @param completed New completion status.
-   */
-  public void setCompletionStatus(FactionLevel targetedLevel, boolean completed)
-  {
-    {
-      int initialTier=_faction.getInitialLevel().getTier();
-      int targetedTier=targetedLevel.getTier();
-      // Update the targeted level
-      updateCompletionStatus(targetedLevel,completed);
-      if (completed)
-      {
-        if (targetedTier>initialTier)
-        {
-          // Set a level above initial tier to completed...
-          // - set levels above initial tier and below the targeted level to 'completed'
-          for(FactionLevel level : _faction.getLevels())
-          {
-            if ((level.getTier()>initialTier) && (level.getTier()<targetedTier))
-            {
-              updateCompletionStatus(level,true);
-            }
-            // Set levels above the targeted level to 'not completed' (keep dates/XP)
-            if (level.getTier()>targetedTier)
-            {
-              FactionLevelStatus levelStatus=getStatusForLevel(level);
-              levelStatus.setCompleted(false);
-            }
-          }
-          // - set levels below initial level to 'not completed'
-          for(FactionLevel level : _faction.getLevels())
-          {
-            if (level.getTier()<initialTier)
-            {
-              updateCompletionStatus(level,false);
-            }
-          }
-        }
-        else
-        {
-          // - set levels between targeted tier and initial level to 'completed'
-          for(FactionLevel level : _faction.getLevels())
-          {
-            if ((level.getTier()>targetedTier) && (level.getTier()<initialTier))
-            {
-              updateCompletionStatus(level,true);
-            }
-          }
-          // Set all levels above the initial tier to 'not completed'
-          for(FactionLevel level : _faction.getLevels())
-          {
-            if (level.getTier()>initialTier)
-            {
-              updateCompletionStatus(level,false);
-            }
-          }
-        }
-      }
-      else
-      {
-        if (targetedTier>initialTier)
-        {
-          // Set all levels above the targeted tier to 'not completed'
-          for(FactionLevel level : _faction.getLevels())
-          {
-            if (level.getTier()>targetedTier)
-            {
-              updateCompletionStatus(level,false);
-            }
-          }
-        }
-        else
-        {
-          // Set all levels below the targeted tier to 'not completed'
-          for(FactionLevel level : _faction.getLevels())
-          {
-            if (level.getTier()<targetedTier)
-            {
-              updateCompletionStatus(level,false);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  private void updateCompletionStatus(FactionLevel level, boolean completed)
-  {
-    FactionLevelStatus levelStatus=getStatusForLevel(level);
-    levelStatus.setCompleted(completed);
-    if (completed)
-    {
-      levelStatus.setAcquiredXP(level.getRequiredXp());
-    }
-    else
-    {
-      levelStatus.setCompletionDate(0);
-      levelStatus.setAcquiredXP(0);
-    }
+    return false;
   }
 
   /**
@@ -253,7 +137,7 @@ public class FactionStatus
     reset();
     FactionLevel initialLevel=_faction.getInitialLevel();
     FactionLevelStatus status=getStatusForLevel(initialLevel);
-    status.setCompleted(date);
+    status.setCompletionDate(date);
     _currentLevel=initialLevel;
   }
 
