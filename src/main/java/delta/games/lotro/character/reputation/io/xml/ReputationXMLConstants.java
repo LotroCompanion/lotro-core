@@ -21,9 +21,13 @@ public class ReputationXMLConstants
    */
   public static final String FACTION_ID_ATTR="id";
   /**
-   * Tag 'faction', attribute 'current'.
+   * Tag 'faction', attribute 'currentTier'.
    */
-  public static final String FACTION_CURRENT_ATTR="current";
+  public static final String FACTION_CURRENT_TIER_ATTR="currentTier";
+  /**
+   * Tag 'faction', attribute 'currentReputation'.
+   */
+  public static final String FACTION_CURRENT_REPUTATION_ATTR="currentReputation";
 
   /**
    * Tag 'level'.

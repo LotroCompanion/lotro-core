@@ -97,7 +97,7 @@ public class FactionsXMLParser
       // LOTRO points
       int lotroPoints=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_LOTRO_POINTS_ATTR,0);
       // Required XP
-      int requiredXp=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_REQUIRED_XP_ATTR,0);
+      int requiredXp=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_REQUIRED_REPUTATION_ATTR,0);
       FactionLevel level=new FactionLevel(tier,levelName,lotroPoints,requiredXp);
       // Deed key
       String deedKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_DEED_KEY_ATTR,null);

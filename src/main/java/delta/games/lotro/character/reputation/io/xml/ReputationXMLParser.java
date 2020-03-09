@@ -97,14 +97,24 @@ public class ReputationXMLParser
         LOGGER.warn("Unknown faction tier ["+tier+"] for faction ["+faction.getName()+"]");
       }
     }
-    // Current level
     NamedNodeMap factionAttrs=factionTag.getAttributes();
+    // Current level
     FactionLevel currentLevel=null;
-    int currentTier=DOMParsingTools.getIntAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_ATTR,-1);
+    int currentTier=DOMParsingTools.getIntAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_TIER_ATTR,-1);
     if (currentTier>=0)
     {
       currentLevel=faction.getLevelByTier(currentTier);
     }
     factionStatus.setFactionLevel(currentLevel);
+    // Current reputation
+    // - initialize from faction level
+    factionStatus.setReputationFromFactionLevel();
+    // - load reputation amount if any
+    int currentReputationValue=DOMParsingTools.getIntAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_REPUTATION_ATTR,-1);
+    if (currentReputationValue>=0)
+    {
+      Integer currentReputation=Integer.valueOf(currentReputationValue);
+      factionStatus.setReputation(currentReputation);
+    }
   }
 }

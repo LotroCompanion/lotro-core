@@ -9,7 +9,7 @@ public class FactionLevel
   private int _tier;
   private String _name;
   private int _lotroPoints;
-  private int _requiredXp;
+  private int _requiredReputation;
   private String _deedKey;
 
   /**
@@ -17,14 +17,14 @@ public class FactionLevel
    * @param tier Tier.
    * @param name Level name.
    * @param lotroPoints LOTRO points given when reaching this level.
-   * @param requiredXp XP points required to reach the next level.
+   * @param requiredXp XP points required to reach this level.
    */
   public FactionLevel(int tier, String name, int lotroPoints, int requiredXp)
   {
     _tier=tier;
     _name=name;
     _lotroPoints=lotroPoints;
-    _requiredXp=requiredXp;
+    _requiredReputation=requiredXp;
   }
 
   /**
@@ -64,21 +64,21 @@ public class FactionLevel
   }
 
   /**
-   * Get the XP points required to reach the next level.
-   * @return an XP points count.
+   * Get the reputation points required to reach this level.
+   * @return a reputation points count.
    */
-  public int getRequiredXp()
+  public int getRequiredReputation()
   {
-    return _requiredXp;
+    return _requiredReputation;
   }
 
   /**
-   * Set the XP points required to reach the next level.
-   * @param requiredXp an XP points count.
+   * Set the reputation points required to reach this level.
+   * @param requiredReputation a reputation points count.
    */
-  public void setRequiredXp(int requiredXp)
+  public void setRequiredReputation(int requiredReputation)
   {
-    _requiredXp=requiredXp;
+    _requiredReputation=requiredReputation;
   }
 
   /**

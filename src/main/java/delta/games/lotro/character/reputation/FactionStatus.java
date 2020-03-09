@@ -21,6 +21,7 @@ public class FactionStatus
    * </ul>
    */
   private FactionLevel _currentLevel;
+  private Integer _reputation;
   private HashMap<Integer,FactionLevelStatus> _statusByLevel;
 
   /**
@@ -31,6 +32,7 @@ public class FactionStatus
   {
     _faction=faction;
     _currentLevel=null;
+    _reputation=null;
     _statusByLevel=new HashMap<Integer,FactionLevelStatus>();
   }
 
@@ -52,6 +54,7 @@ public class FactionStatus
   {
     _faction=source._faction;
     _currentLevel=source._currentLevel;
+    _reputation=source._reputation;
     _statusByLevel.clear();
     for(FactionLevelStatus status : source._statusByLevel.values())
     {
@@ -106,6 +109,39 @@ public class FactionStatus
   }
 
   /**
+   * Get the current reputation amount.
+   * @return A reputation amount or <code>null</code> if faction not touched.
+   */
+  public Integer getReputation()
+  {
+    return _reputation;
+  }
+
+  /**
+   * Set the current reputation amount.
+   * @param reputation Reputation to set.
+   */
+  public void setReputation(Integer reputation)
+  {
+    _reputation=reputation;
+  }
+
+  /**
+   * Set the reputation amount from the faction level.
+   */
+  public void setReputationFromFactionLevel()
+  {
+    if (_currentLevel==null)
+    {
+      _reputation=null;
+    }
+    else
+    {
+      _reputation=Integer.valueOf(_currentLevel.getRequiredReputation());
+    }
+  }
+
+  /**
    * Indicates if the given level is completed or not.
    * @param level Level to use.
    * @return <code>true</code> if it is, <code>false</code> otherwise.
@@ -139,6 +175,7 @@ public class FactionStatus
     FactionLevelStatus status=getStatusForLevel(initialLevel);
     status.setCompletionDate(date);
     _currentLevel=initialLevel;
+    _reputation=Integer.valueOf(initialLevel.getRequiredReputation());
   }
 
   /**
@@ -150,6 +187,7 @@ public class FactionStatus
     String factionName=_faction.getName();
     ps.println("Reputation history for faction ["+factionName+"]:");
     ps.println("\tLevel: "+_currentLevel);
+    ps.println("\tReputation: "+_reputation);
 
     FactionLevel[] levels=_faction.getLevels();
     for(FactionLevel level : levels)

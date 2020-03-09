@@ -145,8 +145,8 @@ public class FactionsXMLWriter
       int lotroPoints=level.getLotroPoints();
       levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_LOTRO_POINTS_ATTR,CDATA,String.valueOf(lotroPoints));
       // Required XP
-      int requiredXp=level.getRequiredXp();
-      levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_REQUIRED_XP_ATTR,CDATA,String.valueOf(requiredXp));
+      int requiredXp=level.getRequiredReputation();
+      levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_REQUIRED_REPUTATION_ATTR,CDATA,String.valueOf(requiredXp));
       // Deed key
       String deedKey=level.getDeedKey();
       if (deedKey!=null)

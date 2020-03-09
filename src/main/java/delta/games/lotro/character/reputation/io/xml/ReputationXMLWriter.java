@@ -68,17 +68,25 @@ public class ReputationXMLWriter
    */
   public static void writeFactionStatus(TransformerHandler hd, FactionStatus factionStatus) throws Exception
   {
-    FactionLevel currentLevel=factionStatus.getFactionLevel();
     AttributesImpl factionAttrs=new AttributesImpl();
     Faction faction=factionStatus.getFaction();
     int factionId=faction.getIdentifier();
     factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_ID_ATTR,XmlWriter.CDATA,String.valueOf(factionId));
+    // Current level
+    FactionLevel currentLevel=factionStatus.getFactionLevel();
     if (currentLevel!=null)
     {
       int currentTier=currentLevel.getTier();
-      factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_CURRENT_ATTR,XmlWriter.CDATA,String.valueOf(currentTier));
+      factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_CURRENT_TIER_ATTR,XmlWriter.CDATA,String.valueOf(currentTier));
+    }
+    // Current reputation
+    Integer reputation=factionStatus.getReputation();
+    if (reputation!=null)
+    {
+      factionAttrs.addAttribute("","",ReputationXMLConstants.FACTION_CURRENT_REPUTATION_ATTR,XmlWriter.CDATA,reputation.toString());
     }
     hd.startElement("","",ReputationXMLConstants.FACTION_TAG,factionAttrs);
+    // Levels
     FactionLevel[] levels=faction.getLevels();
     for(FactionLevel level : levels)
     {
