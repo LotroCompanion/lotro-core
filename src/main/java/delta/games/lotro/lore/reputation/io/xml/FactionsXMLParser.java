@@ -54,13 +54,22 @@ public class FactionsXMLParser
 
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_ID_ATTR,0);
+    Faction faction=new Faction(id);
     // Name
     String factionName=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_NAME_ATTR,null);
+    faction.setName(factionName);
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_CATEGORY_ATTR,null);
+    faction.setCategory(category);
+    // Is guild?
+    boolean isGuild=DOMParsingTools.getBooleanAttribute(attrs,FactionsXMLConstants.FACTION_GUILD_ATTR,false);
+    faction.setIsGuildFaction(isGuild);
     // Levels
     List<FactionLevel> levels=parseLevels(root);
-    Faction faction=new Faction(id,factionName,category,levels);
+    for(FactionLevel level : levels)
+    {
+      faction.addFactionLevel(level);
+    }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_DESCRIPTION_ATTR,"");
     faction.setDescription(description);

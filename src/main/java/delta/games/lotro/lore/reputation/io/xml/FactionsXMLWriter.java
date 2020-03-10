@@ -92,6 +92,12 @@ public class FactionsXMLWriter
     {
       factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_CATEGORY_ATTR,CDATA,category);
     }
+    // Is guild?
+    boolean isGuild=faction.isGuildFaction();
+    if (isGuild)
+    {
+      factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_GUILD_ATTR,CDATA,String.valueOf(isGuild));
+    }
     // Lowest tier
     int lowestTier=faction.getLowestTier();
     if (lowestTier!=0)

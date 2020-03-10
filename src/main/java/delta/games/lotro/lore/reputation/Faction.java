@@ -15,10 +15,10 @@ public class Faction implements Identifiable
   private String _name;
   private String _description;
   private String _category;
+  private boolean _isGuildFaction;
   private int _lowestTier;
   private int _initialTier;
   private int _highestTier;
-  private FactionLevel _initialLevel;
   private List<FactionLevel> _levels;
   private String _currentTierPropertyName;
   private String _currentReputationPropertyName;
@@ -33,27 +33,10 @@ public class Faction implements Identifiable
     _name="";
     _description="";
     _category="";
+    _isGuildFaction=false;
     _levels=new ArrayList<FactionLevel>();
-    _initialLevel=null;
     _currentTierPropertyName=null;
     _currentReputationPropertyName=null;
-  }
-
-  /**
-   * Constructor.
-   * @param id Identifier.
-   * @param name Name of faction.
-   * @param category Category.
-   * @param levels Available levels.
-   */
-  public Faction(int id, String name, String category, List<FactionLevel> levels)
-  {
-    _identifier=id;
-    _name=name;
-    _description="";
-    _category=category;
-    _levels=new ArrayList<FactionLevel>(levels);
-    _initialLevel=levels.get(0);
   }
 
   /**
@@ -129,6 +112,24 @@ public class Faction implements Identifiable
   }
 
   /**
+   * Indicates if this is a guild faction or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isGuildFaction()
+  {
+    return _isGuildFaction;
+  }
+
+  /**
+   * Set the 'guild faction' flag.
+   * @param isGuildFaction Value to set.
+   */
+  public void setIsGuildFaction(boolean isGuildFaction)
+  {
+    _isGuildFaction=isGuildFaction;
+  }
+
+  /**
    * Get the lowest tier.
    * @return the lowest tier.
    */
@@ -188,16 +189,14 @@ public class Faction implements Identifiable
    */
   public FactionLevel getInitialLevel()
   {
-    return _initialLevel;
-  }
-
-  /**
-   * Set the initial level.
-   * @param level Level to set.
-   */
-  public void setInitialLevel(FactionLevel level)
-  {
-    _initialLevel=level;
+    for(FactionLevel level : _levels)
+    {
+      if (level.getTier()==_initialTier)
+      {
+        return level;
+      }
+    }
+    return null;
   }
 
   /**

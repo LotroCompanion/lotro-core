@@ -28,6 +28,10 @@ public class FactionsXMLConstants
    */
   public static final String FACTION_CATEGORY_ATTR="category";
   /**
+   * Tag 'faction', attribute 'guild'.
+   */
+  public static final String FACTION_GUILD_ATTR="guild";
+  /**
    * Tag 'faction', attribute 'lowestTier'.
    */
   public static final String FACTION_LOWEST_TIER_ATTR="lowestTier";
