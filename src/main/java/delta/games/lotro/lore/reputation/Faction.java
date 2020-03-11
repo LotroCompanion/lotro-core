@@ -200,6 +200,44 @@ public class Faction implements Identifiable
   }
 
   /**
+   * Get the next level compared to the given one.
+   * @param level Input level.
+   * @return A level or <code>null</code> if none.
+   */
+  public FactionLevel getPrevious(FactionLevel level)
+  {
+    int index=_levels.indexOf(level);
+    if (index==-1)
+    {
+      return null;
+    }
+    if (index==0)
+    {
+      return null;
+    }
+    return _levels.get(index-1);
+  }
+
+  /**
+   * Get the next level compared to the given one.
+   * @param level Input level.
+   * @return A level or <code>null</code> if none.
+   */
+  public FactionLevel getNext(FactionLevel level)
+  {
+    int index=_levels.indexOf(level);
+    if (index==-1)
+    {
+      return null;
+    }
+    if (index==_levels.size()-1)
+    {
+      return null;
+    }
+    return _levels.get(index+1);
+  }
+
+  /**
    * Add a faction level.
    * @param level Level to add.
    */

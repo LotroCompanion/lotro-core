@@ -85,32 +85,35 @@ public class ReputationStatus
     FactionStatus factionStatus=getOrCreateFactionStat(faction);
     FactionLevel currentLevel=factionStatus.getFactionLevel();
     FactionLevel[] levels=faction.getLevels();
-    int index=0;
-    for(FactionLevel level : levels)
+    if (increase)
     {
-      if (level.getTier()==currentLevel.getTier())
+      if (currentLevel==null)
       {
-        int nbLevels=levels.length;
-        if (increase)
+        factionStatus.setFactionLevel(levels[0]);
+      }
+      else
+      {
+        FactionLevel nextLevel=faction.getNext(currentLevel);
+        if (nextLevel!=null)
         {
-          if (index+1<nbLevels)
-          {
-            FactionLevel newLevel=levels[index+1];
-            factionStatus.setFactionLevel(newLevel);
-            break;
-          }
-        }
-        else
-        {
-          if (index>0)
-          {
-            FactionLevel newLevel=levels[index-1];
-            factionStatus.setFactionLevel(newLevel);
-            break;
-          }
+          factionStatus.setFactionLevel(nextLevel);
         }
       }
-      index++;
+    }
+    else
+    {
+      if (currentLevel==levels[0])
+      {
+        factionStatus.setFactionLevel(null);
+      }
+      else if (currentLevel!=null)
+      {
+        FactionLevel previousLevel=faction.getPrevious(currentLevel);
+        if (previousLevel!=null)
+        {
+          factionStatus.setFactionLevel(previousLevel);
+        }
+      }
     }
   }
 
