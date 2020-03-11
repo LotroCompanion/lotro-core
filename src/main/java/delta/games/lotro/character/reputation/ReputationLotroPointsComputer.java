@@ -32,20 +32,26 @@ public class ReputationLotroPointsComputer
     for(Faction faction : factions)
     {
       FactionStatus factionStatus=status.getFactionStatus(faction);
-      if (factionStatus!=null)
+      if (factionStatus==null)
       {
-        FactionLevel currentLevel=factionStatus.getFactionLevel();
-        int points=0;
-        FactionLevel[] levels=faction.getLevels();
-        for(FactionLevel level : levels)
+        continue;
+      }
+      FactionLevel currentLevel=factionStatus.getFactionLevel();
+      if (currentLevel==null)
+      {
+        continue;
+      }
+      int points=0;
+      FactionLevel[] levels=faction.getLevels();
+      for(FactionLevel level : levels)
+      {
+        if (level.getTier()<=currentLevel.getTier())
         {
           int levelPoints=level.getLotroPoints();
           points+=levelPoints;
-          if (level==currentLevel) break;
         }
-        ret+=points;
-        //System.out.println("Points for "+faction.getName()+": "+points);
       }
+      ret+=points;
     }
     return ret;
   }
