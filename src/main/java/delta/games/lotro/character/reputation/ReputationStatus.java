@@ -69,7 +69,6 @@ public class ReputationStatus
     if (stat==null)
     {
       stat=new FactionStatus(faction);
-      stat.setFactionLevel(faction.getInitialLevel());
       _stats.put(faction,stat);
     }
     return stat;

@@ -184,22 +184,6 @@ public class Faction implements Identifiable
   }
 
   /**
-   * Get the initial reputation level in this faction.
-   * @return a faction level;
-   */
-  public FactionLevel getInitialLevel()
-  {
-    for(FactionLevel level : _levels)
-    {
-      if (level.getTier()==_initialTier)
-      {
-        return level;
-      }
-    }
-    return null;
-  }
-
-  /**
    * Get the next level compared to the given one.
    * @param level Input level.
    * @return A level or <code>null</code> if none.

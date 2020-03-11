@@ -171,7 +171,7 @@ public class FactionStatus
   public void init(long date)
   {
     reset();
-    FactionLevel initialLevel=_faction.getInitialLevel();
+    FactionLevel initialLevel=_faction.getLevelByTier(_faction.getInitialTier());
     FactionLevelStatus status=getStatusForLevel(initialLevel);
     status.setCompletionDate(date);
     _currentLevel=initialLevel;
