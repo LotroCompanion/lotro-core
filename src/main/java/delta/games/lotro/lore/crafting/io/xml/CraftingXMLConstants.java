@@ -32,8 +32,6 @@ public class CraftingXMLConstants
    */
   public static final String VOCATION_DESCRIPTION_ATTR="description";
 
-  // TODO: add professions referenced in a vocation
-
   /**
    * Tag 'profession'.
    */
@@ -58,6 +56,26 @@ public class CraftingXMLConstants
    * Tag 'profession', attribute 'hasGuild'.
    */
   public static final String PROFESSION_HAS_GUILD_ATTR="hasGuild";
+  /**
+   * Tag 'profession', attribute 'enabledProperty'.
+   */
+  public static final String PROFESSION_ENABLED_PROPERTY_ATTR="enabledProperty";
+  /**
+   * Tag 'profession', attribute 'masteryLevelProperty'.
+   */
+  public static final String PROFESSION_MASTERY_LEVEL_PROPERTY_ATTR="masteryLevelProperty";
+  /**
+   * Tag 'profession', attribute 'masteryXpProperty'.
+   */
+  public static final String PROFESSION_MASTERY_XP_PROPERTY_ATTR="masteryXpProperty";
+  /**
+   * Tag 'profession', attribute 'proficiencyLevelProperty'.
+   */
+  public static final String PROFESSION_PROFICIENCY_LEVEL_PROPERTY_ATTR="proficiencyLevelProperty";
+  /**
+   * Tag 'profession', attribute 'proficiencyXpProperty'.
+   */
+  public static final String PROFESSION_PROFICIENCY_XP_PROPERTY_ATTR="proficiencyXpProperty";
 
   /**
    * Tag 'professionTier'.
@@ -100,6 +118,4 @@ public class CraftingXMLConstants
    * Tag 'proficiency'/'mastery', attribute 'titleId'.
    */
   public static final String STEP_TITLE_ID_ATTR="titleId";
-
-  // TODO: add recipes referenced in a tier
 }

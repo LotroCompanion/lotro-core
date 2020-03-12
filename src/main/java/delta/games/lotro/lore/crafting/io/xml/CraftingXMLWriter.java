@@ -128,6 +128,37 @@ public class CraftingXMLWriter
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_HAS_GUILD_ATTR,XmlWriter.CDATA,String.valueOf(hasGuild));
     }
+    // Property names
+    // - enabled?
+    String enabledPropertyName=profession.getEnabledPropertyName();
+    if ((enabledPropertyName!=null) && (enabledPropertyName.length()>0))
+    {
+      attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_ENABLED_PROPERTY_ATTR,XmlWriter.CDATA,enabledPropertyName);
+    }
+    // Mastery level
+    String masteryLevelPropertyName=profession.getMasteryLevelPropertyName();
+    if ((masteryLevelPropertyName!=null) && (masteryLevelPropertyName.length()>0))
+    {
+      attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_MASTERY_LEVEL_PROPERTY_ATTR,XmlWriter.CDATA,masteryLevelPropertyName);
+    }
+    // Mastery XP
+    String masteryXpPropertyName=profession.getMasteryXpPropertyName();
+    if ((masteryXpPropertyName!=null) && (masteryXpPropertyName.length()>0))
+    {
+      attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_MASTERY_XP_PROPERTY_ATTR,XmlWriter.CDATA,masteryXpPropertyName);
+    }
+    // Proficiency level
+    String proficiencyLevelPropertyName=profession.getProficiencyLevelPropertyName();
+    if ((proficiencyLevelPropertyName!=null) && (proficiencyLevelPropertyName.length()>0))
+    {
+      attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_PROFICIENCY_LEVEL_PROPERTY_ATTR,XmlWriter.CDATA,proficiencyLevelPropertyName);
+    }
+    // Proficiency XP
+    String proficiencyXpPropertyName=profession.getProficiencyXpPropertyName();
+    if ((proficiencyXpPropertyName!=null) && (proficiencyXpPropertyName.length()>0))
+    {
+      attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_PROFICIENCY_XP_PROPERTY_ATTR,XmlWriter.CDATA,proficiencyXpPropertyName);
+    }
     hd.startElement("","",CraftingXMLConstants.PROFESSION_TAG,attrs);
     // Levels
     List<CraftingLevel> levels=profession.getLevels();

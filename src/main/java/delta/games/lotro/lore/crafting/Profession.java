@@ -19,6 +19,11 @@ public class Profession implements Identifiable
   private String _description;
   private boolean _hasGuild;
   private HashMap<Integer,CraftingLevel> _levels;
+  private String _enabledPropertyName;
+  private String _masteryLevelPropertyName;
+  private String _masteryXpPropertyName;
+  private String _proficiencyLevelPropertyName;
+  private String _proficiencyXpPropertyName;
 
   /**
    * Constructor.
@@ -30,6 +35,11 @@ public class Profession implements Identifiable
     _name="";
     _hasGuild=false;
     _levels=new HashMap<Integer,CraftingLevel>();
+    _enabledPropertyName="";
+    _masteryLevelPropertyName="";
+    _masteryXpPropertyName="";
+    _proficiencyLevelPropertyName="";
+    _proficiencyXpPropertyName="";
   }
 
   /**
@@ -179,6 +189,68 @@ public class Profession implements Identifiable
   public CraftingLevel getBeginnerLevel()
   {
     return _levels.get(Integer.valueOf(0));
+  }
+
+  /**
+   * Get the 'enabled' property name.
+   * @return a property name.
+   */
+  public String getEnabledPropertyName()
+  {
+    return _enabledPropertyName;
+  }
+
+  /**
+   * Get the 'mastery level' property name.
+   * @return a property name.
+   */
+  public String getMasteryLevelPropertyName()
+  {
+    return _masteryLevelPropertyName;
+  }
+
+  /**
+   * Get the 'mastery XP' property name.
+   * @return a property name.
+   */
+  public String getMasteryXpPropertyName()
+  {
+    return _masteryXpPropertyName;
+  }
+
+  /**
+   * Get the 'proficiency level' property name.
+   * @return a property name.
+   */
+  public String getProficiencyLevelPropertyName()
+  {
+    return _proficiencyLevelPropertyName;
+  }
+
+  /**
+   * Get the 'proficiency XP' property name.
+   * @return a property name.
+   */
+  public String getProficiencyXpPropertyName()
+  {
+    return _proficiencyXpPropertyName;
+  }
+
+  /**
+   * Set the property names.
+   * @param enabled 'Enabled' property name.
+   * @param masteryLevel 'Mastery level' property name.
+   * @param masteryXp 'Mastery XP' property name.
+   * @param proficiencyLevel 'Proficiency level' property name.
+   * @param proficiencyXp 'Proficiency XP' property name.
+   */
+  public void setPropertyNames(String enabled, String masteryLevel, String masteryXp, String proficiencyLevel, String proficiencyXp)
+  {
+    _enabledPropertyName=enabled;
+    _masteryLevelPropertyName=masteryLevel;
+    _masteryXpPropertyName=masteryXp;
+    _proficiencyLevelPropertyName=proficiencyLevel;
+    _proficiencyXpPropertyName=proficiencyXp;
   }
 
   @Override

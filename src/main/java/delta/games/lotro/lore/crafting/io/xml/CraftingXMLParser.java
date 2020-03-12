@@ -7,9 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.lore.crafting.CraftingData;
 import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.crafting.CraftingLevelTier;
-import delta.games.lotro.lore.crafting.CraftingData;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.Professions;
 import delta.games.lotro.lore.crafting.Vocation;
@@ -78,6 +78,18 @@ public class CraftingXMLParser
     // Has guild?
     boolean hasGuild=DOMParsingTools.getBooleanAttribute(attrs,CraftingXMLConstants.PROFESSION_HAS_GUILD_ATTR,false);
     ret.setHasGuild(hasGuild);
+    // Property names
+    // - enabled
+    String enabledPropertyName=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_ENABLED_PROPERTY_ATTR,"");
+    // - mastery level
+    String masteryLevelPropertyName=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_MASTERY_LEVEL_PROPERTY_ATTR,"");
+    // - mastery XP
+    String masteryXpPropertyName=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_MASTERY_XP_PROPERTY_ATTR,"");
+    // - proficiency level
+    String proficiencyLevelPropertyName=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_PROFICIENCY_LEVEL_PROPERTY_ATTR,"");
+    // - proficiency XP
+    String proficiencyXpPropertyName=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_PROFICIENCY_XP_PROPERTY_ATTR,"");
+    ret.setPropertyNames(enabledPropertyName,masteryLevelPropertyName,masteryXpPropertyName,proficiencyLevelPropertyName,proficiencyXpPropertyName);
 
     List<Element> tierTags=DOMParsingTools.getChildTagsByName(root,CraftingXMLConstants.PROFESSION_TIER_TAG);
     for(Element tierTag : tierTags)
