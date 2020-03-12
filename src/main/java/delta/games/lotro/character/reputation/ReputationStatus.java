@@ -89,6 +89,7 @@ public class ReputationStatus
       if (currentLevel==null)
       {
         factionStatus.setFactionLevel(levels[0]);
+        factionStatus.setReputation(Integer.valueOf(levels[0].getRequiredReputation()));
       }
       else
       {
@@ -96,6 +97,7 @@ public class ReputationStatus
         if (nextLevel!=null)
         {
           factionStatus.setFactionLevel(nextLevel);
+          factionStatus.setReputation(Integer.valueOf(nextLevel.getRequiredReputation()));
         }
       }
     }
@@ -104,6 +106,7 @@ public class ReputationStatus
       if (currentLevel==levels[0])
       {
         factionStatus.setFactionLevel(null);
+        factionStatus.setReputation(null);
       }
       else if (currentLevel!=null)
       {
@@ -111,6 +114,7 @@ public class ReputationStatus
         if (previousLevel!=null)
         {
           factionStatus.setFactionLevel(previousLevel);
+          factionStatus.setReputation(Integer.valueOf(previousLevel.getRequiredReputation()));
         }
       }
     }
