@@ -70,6 +70,9 @@ public class VirtueDescriptionXMLParser
     // Rank stat key
     String rankStatKey=DOMParsingTools.getStringAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_RANK_STAT_KEY_ATTR,null);
     virtue.setRankStatKey(rankStatKey);
+    // XP property
+    String xpPropertyName=DOMParsingTools.getStringAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_XP_PROPERTY_ATTR,"");
+    virtue.setXpPropertyName(xpPropertyName);
     // Max rank progression
     int maxRankProgressionId=DOMParsingTools.getIntAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_MAX_RANK_PROGRESSION_ATTR,0);
     Progression maxRankProgression=ProgressionsManager.getInstance().getProgression(maxRankProgressionId);

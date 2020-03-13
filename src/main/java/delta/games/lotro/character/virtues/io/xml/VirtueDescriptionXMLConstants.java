@@ -43,6 +43,10 @@ public class VirtueDescriptionXMLConstants
    * Tag 'virtue', attribute 'rankStatKey'.
    */
   public static final String VIRTUE_RANK_STAT_KEY_ATTR="rankStatKey";
+  /**
+   * Tag 'virtue', attribute 'xpProperty'.
+   */
+  public static final String VIRTUE_XP_PROPERTY_ATTR="xpProperty";
 
   /**
    * Tag 'activeStats'.

@@ -13,6 +13,7 @@ public class VirtueDescription extends TraitDescription
   private StatsProvider _passives;
   private Progression _maxRankForCharacterLevel;
   private String _rankStatKey;
+  private String _xpPropertyName;
 
   /**
    * Constructor.
@@ -22,6 +23,7 @@ public class VirtueDescription extends TraitDescription
     _passives=new StatsProvider();
     _maxRankForCharacterLevel=null;
     _rankStatKey=null;
+    _xpPropertyName=null;
   }
 
   /**
@@ -101,5 +103,23 @@ public class VirtueDescription extends TraitDescription
   public void setRankStatKey(String rankStatKey)
   {
     _rankStatKey=rankStatKey;
+  }
+
+  /**
+   * Get the property name for the XP property.
+   * @return a property name.
+   */
+  public String getXpPropertyName()
+  {
+    return _xpPropertyName;
+  }
+
+  /**
+   * Set the property name for the XP property.
+   * @param xpPropertyName Property name to set.
+   */
+  public void setXpPropertyName(String xpPropertyName)
+  {
+    _xpPropertyName=xpPropertyName;
   }
 }
