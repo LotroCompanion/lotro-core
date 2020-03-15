@@ -5,10 +5,7 @@ import java.util.Date;
 
 import delta.common.utils.misc.Preferences;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.crafting.CraftingStatus;
-import delta.games.lotro.character.crafting.CraftingStatusComputer;
-import delta.games.lotro.character.crafting.io.xml.CraftingStatusXMLParser;
-import delta.games.lotro.character.crafting.io.xml.CraftingStatusXMLWriter;
+import delta.games.lotro.character.crafting.CraftingStatusManager;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLParser;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLWriter;
 import delta.games.lotro.character.level.LevelHistory;
@@ -35,7 +32,7 @@ public class CharacterFile
   private CharacterLogsManager _logsManager;
   private LevelHistory _levelHistory;
   private ReputationStatus _reputation;
-  private CraftingStatus _crafting;
+  private CraftingStatusManager _craftingMgr;
   private CharacterSummary _summary;
   private ItemsStash _stash;
   private Preferences _preferences;
@@ -49,6 +46,7 @@ public class CharacterFile
     _rootDir=rootDir;
     _infosManager=new CharacterInfosManager(this);
     _logsManager=new CharacterLogsManager(this);
+    _craftingMgr=new CraftingStatusManager(this);
     _stash=null;
     File preferencesDir=new File(_rootDir,"preferences");
     _preferences=new Preferences(preferencesDir);
@@ -306,59 +304,12 @@ public class CharacterFile
   }
 
   /**
-   * Get the crafting status for this toon.
-   * @return A crafting status.
+   * Get the manager for the crafting status.
+   * @return the crafting status manager.
    */
-  public CraftingStatus getCraftingStatus()
+  public CraftingStatusManager getCraftingMgr()
   {
-    if (_crafting==null)
-    {
-      _crafting=loadCrafting();
-      if (_crafting==null)
-      {
-        CraftingStatusComputer c=new CraftingStatusComputer();
-        _crafting=c.buildCraftingStatus(this);
-        saveCrafting();
-      }
-    }
-    return _crafting;
-  }
-
-  private CraftingStatus loadCrafting()
-  {
-    CraftingStatus crafting=null;
-    File craftingFile=getCraftingFile();
-    if ((craftingFile.exists()) && (craftingFile.canRead()))
-    {
-      CraftingStatusXMLParser parser=new CraftingStatusXMLParser();
-      crafting=parser.parseXML(craftingFile);
-    }
-    return crafting;
-  }
-
-  /**
-   * Revert crafting status from disk.
-   */
-  public void revertCrafting()
-  {
-    _crafting=loadCrafting();
-  }
-
-  /**
-   * Save crafting status to file.
-   * @return <code>true</code> if it was successful, <code>false</code> otherwise.
-   */
-  public boolean saveCrafting()
-  {
-    File craftingFile=getCraftingFile();
-    CraftingStatusXMLWriter writer=new CraftingStatusXMLWriter();
-    boolean ok=writer.write(craftingFile,_crafting,EncodingNames.ISO8859_1);
-    return ok;
-  }
-
-  private File getCraftingFile()
-  {
-    return new File(_rootDir,"crafting.xml");
+    return _craftingMgr;
   }
 
   /**
@@ -439,7 +390,7 @@ public class CharacterFile
   {
     _infosManager.gc();
     _stash=null;
-    _crafting=null;
+    _craftingMgr=null;
     _levelHistory=null;
     _reputation=null;
   }
