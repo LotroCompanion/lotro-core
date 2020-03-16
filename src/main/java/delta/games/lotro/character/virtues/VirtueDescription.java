@@ -1,5 +1,11 @@
 package delta.games.lotro.character.virtues;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.utils.maths.Progression;
@@ -14,6 +20,7 @@ public class VirtueDescription extends TraitDescription
   private Progression _maxRankForCharacterLevel;
   private String _rankStatKey;
   private String _xpPropertyName;
+  private Map<Integer,Integer> _xpForTiers;
 
   /**
    * Constructor.
@@ -24,6 +31,7 @@ public class VirtueDescription extends TraitDescription
     _maxRankForCharacterLevel=null;
     _rankStatKey=null;
     _xpPropertyName=null;
+    _xpForTiers=new HashMap<Integer,Integer>();
   }
 
   /**
@@ -121,5 +129,56 @@ public class VirtueDescription extends TraitDescription
   public void setXpPropertyName(String xpPropertyName)
   {
     _xpPropertyName=xpPropertyName;
+  }
+
+  /**
+   * Get all available tiers.
+   * @return a sorted list of tiers.
+   */
+  public List<Integer> getTiers()
+  {
+    List<Integer> tiers=new ArrayList<Integer>(_xpForTiers.keySet());
+    Collections.sort(tiers);
+    return tiers;
+  }
+
+  /**
+   * Set the XP threshold for the given tier.
+   * @param tier Tier to use.
+   * @return A XP threshold or <code>null</code> if tier is not supported.
+   */
+  public Integer getXpForTier(int tier)
+  {
+    return _xpForTiers.get(Integer.valueOf(tier));
+  }
+
+  /**
+   * Set the XP threshold for the given tier.
+   * @param tier Tier to use.
+   * @param xp XP threshold to use.
+   */
+  public void setXpForTier(int tier, int xp)
+  {
+    _xpForTiers.put(Integer.valueOf(tier),Integer.valueOf(xp));
+  }
+
+  /**
+   * Get the tier for the given XP amount.
+   * @param xp XP amount.
+   * @return A tier.
+   */
+  public int getTierForXp(int xp)
+  {
+    int ret=0;
+    List<Integer> tiers=getTiers();
+    for(Integer tier : tiers)
+    {
+      int xpThreshold=getXpForTier(tier.intValue()).intValue();
+      if (xp>=xpThreshold)
+      {
+       ret=tier.intValue();
+      }
+    }
+    return ret;
   }
 }

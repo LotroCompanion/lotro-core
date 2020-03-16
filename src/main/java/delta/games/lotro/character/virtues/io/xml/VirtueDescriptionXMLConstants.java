@@ -49,6 +49,19 @@ public class VirtueDescriptionXMLConstants
   public static final String VIRTUE_XP_PROPERTY_ATTR="xpProperty";
 
   /**
+   * Tag 'xp'.
+   */
+  public static final String XP_TAG="xp";
+  /**
+   * Tag 'xp', attribute 'tier'.
+   */
+  public static final String XP_TIER_ATTR="tier";
+  /**
+   * Tag 'xp', attribute 'value'.
+   */
+  public static final String XP_VALUE_ATTR="value";
+
+  /**
    * Tag 'activeStats'.
    */
   public static final String ACTIVE_STATS_TAG="activeStats";

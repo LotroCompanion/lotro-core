@@ -96,6 +96,17 @@ public class VirtueDescriptionXMLWriter
     StatsProviderXMLWriter.writeXml(hd,VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG,virtue.getStatsProvider(),null);
     // Passive stats
     StatsProviderXMLWriter.writeXml(hd,VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG,virtue.getPassiveStatsProvider(),null);
+    // XP table
+    List<Integer> tiers=virtue.getTiers();
+    for(Integer tier : tiers)
+    {
+      AttributesImpl xpAttrs=new AttributesImpl();
+      xpAttrs.addAttribute("","",VirtueDescriptionXMLConstants.XP_TIER_ATTR,XmlWriter.CDATA,tier.toString());
+      Integer value=virtue.getXpForTier(tier.intValue());
+      xpAttrs.addAttribute("","",VirtueDescriptionXMLConstants.XP_VALUE_ATTR,XmlWriter.CDATA,value.toString());
+      hd.startElement("","",VirtueDescriptionXMLConstants.XP_TAG,xpAttrs);
+      hd.endElement("","",VirtueDescriptionXMLConstants.XP_TAG);
+    }
     hd.endElement("","",VirtueDescriptionXMLConstants.VIRTUE_TAG);
   }
 }

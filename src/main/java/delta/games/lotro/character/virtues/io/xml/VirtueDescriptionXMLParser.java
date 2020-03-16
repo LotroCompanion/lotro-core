@@ -90,6 +90,15 @@ public class VirtueDescriptionXMLParser
     // Passive stats
     Element passiveStatsTag=DOMParsingTools.getChildTagByName(root,VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG);
     loadStats(virtue.getPassiveStatsProvider(),passiveStatsTag);
+    // XP table
+    List<Element> xpTags=DOMParsingTools.getChildTagsByName(root,VirtueDescriptionXMLConstants.XP_TAG);
+    for(Element xpTag : xpTags)
+    {
+      NamedNodeMap xpAttrs=xpTag.getAttributes();
+      int tier=DOMParsingTools.getIntAttribute(xpAttrs,VirtueDescriptionXMLConstants.XP_TIER_ATTR,0);
+      int value=DOMParsingTools.getIntAttribute(xpAttrs,VirtueDescriptionXMLConstants.XP_VALUE_ATTR,0);
+      virtue.setXpForTier(tier,value);
+    }
     return virtue;
   }
 
