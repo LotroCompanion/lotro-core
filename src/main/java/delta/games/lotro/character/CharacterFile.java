@@ -390,7 +390,6 @@ public class CharacterFile
   {
     _infosManager.gc();
     _stash=null;
-    _craftingMgr=null;
     _levelHistory=null;
     _reputation=null;
   }
