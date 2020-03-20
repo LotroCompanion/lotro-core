@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.lore.reputation.Faction;
 
 /**
  * Profession.
@@ -17,7 +18,7 @@ public class Profession implements Identifiable
   private String _key;
   private String _name;
   private String _description;
-  private boolean _hasGuild;
+  private Faction _guildFaction;
   private HashMap<Integer,CraftingLevel> _levels;
   private String _enabledPropertyName;
   private String _masteryLevelPropertyName;
@@ -33,7 +34,7 @@ public class Profession implements Identifiable
     _id=0;
     _key=null;
     _name="";
-    _hasGuild=false;
+    _guildFaction=null;
     _levels=new HashMap<Integer,CraftingLevel>();
     _enabledPropertyName="";
     _masteryLevelPropertyName="";
@@ -124,16 +125,25 @@ public class Profession implements Identifiable
    */
   public boolean hasGuild()
   {
-    return _hasGuild;
+    return _guildFaction!=null;
   }
 
   /**
-   * Indicate if this profession has a guild or not.
-   * @param hasGuild <code>true</code> if it does, <code>false</code> otherwise.
+   * Get the associated guild faction.
+   * @return A faction or <code>null</code> if no associated guild.
    */
-  public void setHasGuild(boolean hasGuild)
+  public Faction getGuildFaction()
   {
-    _hasGuild=hasGuild;
+    return _guildFaction;
+  }
+
+  /**
+   * Set the associated guild faction, if any.
+   * @param guildFaction Associated guild faction.
+   */
+  public void setGuildFaction(Faction guildFaction)
+  {
+    _guildFaction=guildFaction;
   }
 
   /**

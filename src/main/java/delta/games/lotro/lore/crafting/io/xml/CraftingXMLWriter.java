@@ -16,6 +16,7 @@ import delta.games.lotro.lore.crafting.CraftingLevelTier;
 import delta.games.lotro.lore.crafting.CraftingData;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.Vocation;
+import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.titles.TitleDescription;
 
 /**
@@ -122,11 +123,12 @@ public class CraftingXMLWriter
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(description));
     }
-    // Has guild?
-    boolean hasGuild=profession.hasGuild();
-    if (hasGuild)
+    // Guild?
+    Faction guildFaction=profession.getGuildFaction();
+    if (guildFaction!=null)
     {
-      attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_HAS_GUILD_ATTR,XmlWriter.CDATA,String.valueOf(hasGuild));
+      int guildFactionId=guildFaction.getIdentifier();
+      attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_GUILD_FACTION_ATTR,XmlWriter.CDATA,String.valueOf(guildFactionId));
     }
     // Property names
     // - enabled?

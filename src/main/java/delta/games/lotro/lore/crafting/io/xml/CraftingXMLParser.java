@@ -14,6 +14,8 @@ import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.Professions;
 import delta.games.lotro.lore.crafting.Vocation;
 import delta.games.lotro.lore.crafting.Vocations;
+import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.lore.titles.TitleDescription;
 import delta.games.lotro.lore.titles.TitlesManager;
 
@@ -75,9 +77,14 @@ public class CraftingXMLParser
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_DESCRIPTION_ATTR,"");
     ret.setDescription(description);
-    // Has guild?
-    boolean hasGuild=DOMParsingTools.getBooleanAttribute(attrs,CraftingXMLConstants.PROFESSION_HAS_GUILD_ATTR,false);
-    ret.setHasGuild(hasGuild);
+    // Guild?
+    int guildFactionId=DOMParsingTools.getIntAttribute(attrs,CraftingXMLConstants.PROFESSION_GUILD_FACTION_ATTR,0);
+    if (guildFactionId!=0)
+    {
+      FactionsRegistry factions=FactionsRegistry.getInstance();
+      Faction guildFaction=factions.getById(guildFactionId);
+      ret.setGuildFaction(guildFaction);
+    }
     // Property names
     // - enabled
     String enabledPropertyName=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_ENABLED_PROPERTY_ATTR,"");

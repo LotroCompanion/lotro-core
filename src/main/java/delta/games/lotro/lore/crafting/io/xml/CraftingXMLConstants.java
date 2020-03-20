@@ -53,9 +53,9 @@ public class CraftingXMLConstants
    */
   public static final String PROFESSION_DESCRIPTION_ATTR="description";
   /**
-   * Tag 'profession', attribute 'hasGuild'.
+   * Tag 'profession', attribute 'guildFaction'.
    */
-  public static final String PROFESSION_HAS_GUILD_ATTR="hasGuild";
+  public static final String PROFESSION_GUILD_FACTION_ATTR="guildFaction";
   /**
    * Tag 'profession', attribute 'enabledProperty'.
    */
