@@ -17,15 +17,10 @@ import delta.games.lotro.lore.crafting.Vocation;
  */
 public class CraftingStatus
 {
-  /**
-   * Number of guilds.
-   */
-  public static final int NB_GUILDS = 2;
-
   private String _name;
   private Vocation _vocation;
   private HashMap<Profession,ProfessionStatus> _stats;
-  private GuildStatus[] _guildStatuses;
+  private HashMap<Profession,GuildStatus> _guildStatuses;
 
   /**
    * Constructor.
@@ -35,12 +30,7 @@ public class CraftingStatus
   {
     _name=toonName;
     _stats=new HashMap<Profession,ProfessionStatus>();
-    _guildStatuses=new GuildStatus[NB_GUILDS];
-    for(int i=0;i<NB_GUILDS;i++)
-    {
-      // TODO Use guild faction!
-      _guildStatuses[i]=new GuildStatus(null);
-    }
+    _guildStatuses=new HashMap<Profession,GuildStatus>();
   }
 
   /**
@@ -71,31 +61,23 @@ public class CraftingStatus
   }
 
   /**
-   * Get guild status.
-   * @param index Index of guild, starting at 0.
-   * @return guild status.
-   */
-  public GuildStatus getGuildStatus(int index)
-  {
-    return _guildStatuses[index];
-  }
-
-  /**
    * Get the guild status for a given profession.
    * @param profession Profession to use.
+   * @param createIfNecessary Create a status if needed.
    * @return A guild status or <code>null</code> if no guild for this profession.
    */
-  public GuildStatus getGuildStatus(Profession profession)
+  public GuildStatus getGuildStatus(Profession profession, boolean createIfNecessary)
   {
-    for(GuildStatus guildStatus : _guildStatuses)
+    GuildStatus status=_guildStatuses.get(profession);
+    if ((status==null) && (createIfNecessary))
     {
-      Profession guildProfession=guildStatus.getProfession();
-      if (guildProfession==profession)
+      if (profession.hasGuild())
       {
-        return guildStatus;
+        status=new GuildStatus(profession);
+        _guildStatuses.put(profession,status);
       }
     }
-    return null;
+    return status;
   }
 
   /**
@@ -121,19 +103,12 @@ public class CraftingStatus
     }
     else if (vocation==null)
     {
-      // Vocation removal
-      _stats.clear();
+      // No data removal to avoid losing history!
     }
     else
     {
       // Vocation change!
-      // Remove obsolete professions
-      List<Profession> professionsToRemove=_vocation.getProfessions();
-      professionsToRemove.removeAll(vocation.getProfessions());
-      for(Profession professionToRemove : professionsToRemove)
-      {
-        _stats.remove(professionToRemove);
-      }
+      // No data removal to avoid losing history!
       // Add new professions
       for(Profession profession : vocation.getProfessions())
       {
@@ -212,15 +187,11 @@ public class CraftingStatus
     {
       ProfessionStatus stat=getProfessionStatus(profession);
       stat.dump(ps);
-    }
-    // Guilds
-    for(int i=0;i<NB_GUILDS;i++)
-    {
-      GuildStatus guildStatus=_guildStatuses[i];
-      Profession guildProfession=guildStatus.getProfession();
-      if (guildProfession!=null)
+      // Guild?
+      GuildStatus guildStatus=getGuildStatus(profession,false);
+      if (guildStatus!=null)
       {
-        ps.println("Guild #"+(i+1)+": "+guildProfession);
+        ps.println("Guild: "+profession);
         guildStatus.getFactionStatus().dump(ps);
       }
     }

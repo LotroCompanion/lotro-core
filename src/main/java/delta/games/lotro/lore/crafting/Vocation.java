@@ -123,6 +123,23 @@ public class Vocation implements Identifiable
     return new ArrayList<Profession>(_professions);
   }
 
+  /**
+   * Get a list of available guilds.
+   * @return A list of available guilds (1 or 2).
+   */
+  public List<Profession> getAvailableGuilds()
+  {
+    List<Profession> ret=new ArrayList<Profession>();
+    for(Profession profession : _professions)
+    {
+      if (profession.hasGuild())
+      {
+        ret.add(profession);
+      }
+    }
+    return ret;
+  }
+
   @Override
   public String toString()
   {

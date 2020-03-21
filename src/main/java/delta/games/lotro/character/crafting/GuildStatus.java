@@ -2,7 +2,6 @@ package delta.games.lotro.character.crafting;
 
 import delta.games.lotro.character.reputation.FactionStatus;
 import delta.games.lotro.lore.crafting.Profession;
-import delta.games.lotro.lore.reputation.Faction;
 
 /**
  * Guild status.
@@ -11,17 +10,16 @@ import delta.games.lotro.lore.reputation.Faction;
 public class GuildStatus
 {
   private Profession _profession;
-
   private FactionStatus _factionStatus;
 
   /**
    * Constructor.
-   * @param faction Guild faction.
+   * @param profession Profession.
    */
-  public GuildStatus(Faction faction)
+  public GuildStatus(Profession profession)
   {
-    _profession=null;
-    _factionStatus=new FactionStatus(faction);
+    _profession=profession;
+    _factionStatus=new FactionStatus(profession.getGuildFaction());
   }
 
   /**
@@ -31,29 +29,6 @@ public class GuildStatus
   public Profession getProfession()
   {
     return _profession;
-  }
-
-  /**
-   * Set the profession of the guild.
-   * @param profession Profession to set.
-   */
-  public void setProfession(Profession profession)
-  {
-    _profession=profession;
-  }
-
-  /**
-   * Change guild profession.
-   * @param profession Profession to use.
-   * @param date Date of change.
-   */
-  public void changeProfession(Profession profession, long date)
-  {
-    if (_profession!=profession)
-    {
-      _factionStatus.init(date);
-      setProfession(profession);
-    }
   }
 
   /**

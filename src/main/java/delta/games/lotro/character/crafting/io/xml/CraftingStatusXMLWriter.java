@@ -15,7 +15,9 @@ import delta.games.lotro.character.crafting.GuildStatus;
 import delta.games.lotro.character.crafting.ProfessionStatus;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLWriter;
 import delta.games.lotro.lore.crafting.CraftingLevel;
+import delta.games.lotro.lore.crafting.CraftingSystem;
 import delta.games.lotro.lore.crafting.Profession;
+import delta.games.lotro.lore.crafting.Professions;
 import delta.games.lotro.lore.crafting.Vocation;
 
 /**
@@ -77,17 +79,16 @@ public class CraftingStatusXMLWriter
       }
 
       // Guild status
-      for(int i=0;i<CraftingStatus.NB_GUILDS;i++)
+      Professions professions=CraftingSystem.getInstance().getData().getProfessionsRegistry();
+      for(Profession profession : professions.getAll())
       {
-        GuildStatus guildStatus=status.getGuildStatus(i);
+        GuildStatus guildStatus=status.getGuildStatus(profession,false);
         if (guildStatus!=null)
         {
           AttributesImpl guildAttrs=new AttributesImpl();
           Profession guildProfession=guildStatus.getProfession();
           if (guildProfession!=null)
           {
-            // Index
-            guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(i));
             // Profession
             guildAttrs.addAttribute("","",CraftingStatusXMLConstants.GUILD_PROFESSION_ATTR,XmlWriter.CDATA,guildProfession.getKey());
             hd.startElement("","",CraftingStatusXMLConstants.GUILD_TAG,guildAttrs);
