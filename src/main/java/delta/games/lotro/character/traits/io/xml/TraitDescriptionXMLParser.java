@@ -73,6 +73,9 @@ public class TraitDescriptionXMLParser
     // Tiers
     int tiers=DOMParsingTools.getIntAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_TIERS_ATTR,1);
     trait.setTiersCount(tiers);
+    // Tier property
+    String tierPropertyName=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_TIER_PROPERTY_ATTR,null);
+    trait.setTierPropertyName(tierPropertyName);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_DESCRIPTION_ATTR,"");
     trait.setDescription(description);

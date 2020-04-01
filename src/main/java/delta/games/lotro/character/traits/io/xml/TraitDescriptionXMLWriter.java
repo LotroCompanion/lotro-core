@@ -71,6 +71,12 @@ public class TraitDescriptionXMLWriter
     // Tiers
     int tiers=trait.getTiersCount();
     attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_TIERS_ATTR,XmlWriter.CDATA,String.valueOf(tiers));
+    // Tier property
+    String tierPropertyName=trait.getTierPropertyName();
+    if (tierPropertyName!=null)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_TIER_PROPERTY_ATTR,XmlWriter.CDATA,tierPropertyName);
+    }
     // Description
     String description=trait.getDescription();
     if (description.length()>0)

@@ -42,6 +42,10 @@ public class TraitDescription implements Identifiable
    */
   private int _tiers;
   /**
+   * Tier property.
+   */
+  private String _tierPropertyName;
+  /**
    * Stats.
    */
   private StatsProvider _stats;
@@ -195,6 +199,24 @@ public class TraitDescription implements Identifiable
   public void setTiersCount(int tiers)
   {
     _tiers=tiers;
+  }
+
+  /**
+   * Set the tier property name.
+   * @param tierPropertyName Tier property name.
+   */
+  public void setTierPropertyName(String tierPropertyName)
+  {
+    _tierPropertyName=tierPropertyName;
+  }
+
+  /**
+   * Get the property name for the tier of this trait.
+   * @return A property name or <code>null</code>.
+   */
+  public String getTierPropertyName()
+  {
+    return _tierPropertyName;
   }
 
   /**
