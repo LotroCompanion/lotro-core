@@ -634,6 +634,7 @@ public class ItemInstance<T extends Item>
     sb.append(EndOfLine.NATIVE_EOL);
     // Stats
     sb.append("Stats manager: ").append(_statsManager);
+    sb.append(EndOfLine.NATIVE_EOL);
     // Essences
     if ((_essences!=null) && (_essences.getSize()>0))
     {
