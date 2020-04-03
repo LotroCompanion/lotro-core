@@ -126,8 +126,9 @@ public class DatEnumsUtils
    * @param slotCode Input code.
    * @return An equipment slot or <code>null</code> if not supported.
    */
-  public static EQUIMENT_SLOT getEquipmentSlot(int slotCode)
+  public static EQUIMENT_SLOT getEquipmentSlot(long slotCode)
   {
+    // See Enum: ContainerSlot, (id=587202798)
     if ((slotCode&1L<<1)!=0) return EQUIMENT_SLOT.HEAD;
     if ((slotCode&1L<<2)!=0) return EQUIMENT_SLOT.BREAST;
     if ((slotCode&1L<<3)!=0) return EQUIMENT_SLOT.LEGS;
@@ -152,6 +153,13 @@ public class DatEnumsUtils
     if ((slotCode&1L<<22)!=0) return EQUIMENT_SLOT.MAIN_HAND_AURA;
     if ((slotCode&1L<<23)!=0) return EQUIMENT_SLOT.OFF_HAND_AURA;
     if ((slotCode&1L<<24)!=0) return EQUIMENT_SLOT.RANGED_AURA;
+    /*
+    26 => Last
+    29 => Mail
+    30 => Equipment
+    31 => Backpack
+    32 => Overflow
+   */
     return null;
   }
 }

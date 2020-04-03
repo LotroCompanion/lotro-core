@@ -38,6 +38,7 @@ import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
 import delta.games.lotro.plugins.lotrocompanion.BufferUtils;
 import delta.games.lotro.utils.StringUtils;
+import delta.games.lotro.utils.dat.DatEnumsUtils;
 
 /**
  * Parser for the main data as found in LotroCompanion plugin data.
@@ -668,40 +669,6 @@ public class ChatItemLinksDecoder
     {
       return null;
     }
-    EQUIMENT_SLOT slot=null;
-    // See Enum: ContainerSlot, (id=587202798)
-    if ((containerSlotBitSet&1L<<1)!=0) slot=EQUIMENT_SLOT.HEAD;
-    if ((containerSlotBitSet&1L<<2)!=0) slot=EQUIMENT_SLOT.BREAST;
-    if ((containerSlotBitSet&1L<<3)!=0) slot=EQUIMENT_SLOT.LEGS;
-    if ((containerSlotBitSet&1L<<4)!=0) slot=EQUIMENT_SLOT.HANDS;
-    if ((containerSlotBitSet&1L<<5)!=0) slot=EQUIMENT_SLOT.FEET;
-    if ((containerSlotBitSet&1L<<6)!=0) slot=EQUIMENT_SLOT.SHOULDER;
-    if ((containerSlotBitSet&1L<<7)!=0) slot=EQUIMENT_SLOT.BACK;
-    if ((containerSlotBitSet&1L<<8)!=0) slot=EQUIMENT_SLOT.LEFT_WRIST;
-    if ((containerSlotBitSet&1L<<9)!=0) slot=EQUIMENT_SLOT.RIGHT_WRIST;
-    if ((containerSlotBitSet&1L<<10)!=0) slot=EQUIMENT_SLOT.NECK;
-    if ((containerSlotBitSet&1L<<11)!=0) slot=EQUIMENT_SLOT.LEFT_FINGER;
-    if ((containerSlotBitSet&1L<<12)!=0) slot=EQUIMENT_SLOT.RIGHT_FINGER;
-    if ((containerSlotBitSet&1L<<13)!=0) slot=EQUIMENT_SLOT.LEFT_EAR;
-    if ((containerSlotBitSet&1L<<14)!=0) slot=EQUIMENT_SLOT.RIGHT_EAR;
-    if ((containerSlotBitSet&1L<<15)!=0) slot=EQUIMENT_SLOT.POCKET;
-    if ((containerSlotBitSet&1L<<16)!=0) slot=EQUIMENT_SLOT.MAIN_MELEE;
-    if ((containerSlotBitSet&1L<<17)!=0) slot=EQUIMENT_SLOT.OTHER_MELEE;
-    if ((containerSlotBitSet&1L<<18)!=0) slot=EQUIMENT_SLOT.RANGED;
-    if ((containerSlotBitSet&1L<<19)!=0) slot=EQUIMENT_SLOT.TOOL;
-    if ((containerSlotBitSet&1L<<20)!=0) slot=EQUIMENT_SLOT.CLASS_ITEM;
-    //if ((containerSlotBitSet&1L<<21)!=0) slot=EQUIMENT_SLOT.BRIDLE;
-    if ((containerSlotBitSet&1L<<22)!=0) slot=EQUIMENT_SLOT.MAIN_HAND_AURA;
-    if ((containerSlotBitSet&1L<<23)!=0) slot=EQUIMENT_SLOT.OFF_HAND_AURA;
-    if ((containerSlotBitSet&1L<<24)!=0) slot=EQUIMENT_SLOT.RANGED_AURA;
-    /*
-      26 => Last
-      29 => Mail
-      30 => Equipment
-      31 => Backpack
-      32 => Overflow
-     */
-    return slot;
+    return DatEnumsUtils.getEquipmentSlot(containerSlotBitSet);
   }
-
 }
