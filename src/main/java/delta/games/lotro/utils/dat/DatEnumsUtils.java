@@ -10,6 +10,8 @@ import delta.games.lotro.common.Race;
  */
 public class DatEnumsUtils
 {
+  private static final String SLOT_PROPERTY_NAME_SEED="Inventory_SlotCache_Eq_";
+
   /**
    * Get a character class from a DAT enum code.
    * @param id Input code.
@@ -160,6 +162,41 @@ public class DatEnumsUtils
     31 => Backpack
     32 => Overflow
    */
+    return null;
+  }
+
+  /**
+   * Get the slot associated to the given property name.
+   * @param propertyName A property name.
+   * @return A slot, if any.
+   */
+  public static EQUIMENT_SLOT getSlotFromPropertyName(String propertyName)
+  {
+    if (propertyName.startsWith(SLOT_PROPERTY_NAME_SEED))
+    {
+      String slotKey=propertyName.substring(SLOT_PROPERTY_NAME_SEED.length());
+      if ("Earring1".equals(slotKey)) return EQUIMENT_SLOT.LEFT_EAR;
+      else if ("Earring2".equals(slotKey)) return EQUIMENT_SLOT.RIGHT_EAR;
+      else if ("Bracelet1".equals(slotKey)) return EQUIMENT_SLOT.LEFT_WRIST;
+      else if ("Bracelet2".equals(slotKey)) return EQUIMENT_SLOT.RIGHT_WRIST;
+      else if ("Ring1".equals(slotKey)) return EQUIMENT_SLOT.LEFT_FINGER;
+      else if ("Ring2".equals(slotKey)) return EQUIMENT_SLOT.RIGHT_FINGER;
+      else if ("Pocket1".equals(slotKey)) return EQUIMENT_SLOT.POCKET;
+      else if ("Necklace".equals(slotKey)) return EQUIMENT_SLOT.NECK;
+      else if ("Head".equals(slotKey)) return EQUIMENT_SLOT.HEAD;
+      else if ("Shoulder".equals(slotKey)) return EQUIMENT_SLOT.SHOULDER;
+      else if ("Chest".equals(slotKey)) return EQUIMENT_SLOT.BREAST;
+      else if ("Back".equals(slotKey)) return EQUIMENT_SLOT.BACK;
+      else if ("Gloves".equals(slotKey)) return EQUIMENT_SLOT.HANDS;
+      else if ("Legs".equals(slotKey)) return EQUIMENT_SLOT.LEGS;
+      else if ("Boots".equals(slotKey)) return EQUIMENT_SLOT.FEET;
+      else if ("Weapon_Primary".equals(slotKey)) return EQUIMENT_SLOT.MAIN_MELEE;
+      else if ("Weapon_Secondary".equals(slotKey)) return EQUIMENT_SLOT.OTHER_MELEE;
+      else if ("Weapon_Ranged".equals(slotKey)) return EQUIMENT_SLOT.RANGED;
+      else if ("CraftTool".equals(slotKey)) return EQUIMENT_SLOT.TOOL;
+      else if ("Class".equals(slotKey)) return EQUIMENT_SLOT.CLASS_ITEM;
+      //else if ("Mounted".equals(slotKey)) return EQUIMENT_SLOT.BRIDLE;
+    }
     return null;
   }
 }
