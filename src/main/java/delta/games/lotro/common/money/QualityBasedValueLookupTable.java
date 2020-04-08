@@ -113,4 +113,10 @@ public class QualityBasedValueLookupTable implements Identifiable
     }
     return ret;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Table:"+_id;
+  }
 }
