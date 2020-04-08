@@ -16,8 +16,6 @@ import delta.games.lotro.lore.items.ItemsManager;
  */
 public class CharacterEquipment
 {
-  private static HashMap<Integer,EQUIMENT_SLOT> _positionToSlot=new HashMap<Integer,EQUIMENT_SLOT>();
-
   /**
    * Equipment slot designators.
    * @author DAM
@@ -130,7 +128,6 @@ public class CharacterEquipment
       _position=position;
       _label=label;
       _location=location;
-      _positionToSlot.put(Integer.valueOf(position),this);
     }
 
     /**
@@ -288,17 +285,6 @@ public class CharacterEquipment
       }
     }
     return contents;
-  }
-
-  /**
-   * Get an equipment slot designator using its position index. 
-   * @param index Index to search.
-   * @return An equipment slot or <code>null</code> if not found.
-   */
-  public static EQUIMENT_SLOT getSlotByIndex(int index)
-  {
-    EQUIMENT_SLOT slot=_positionToSlot.get(Integer.valueOf(index));
-    return slot;
   }
 
   /**
