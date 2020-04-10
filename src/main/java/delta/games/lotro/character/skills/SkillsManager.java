@@ -42,7 +42,7 @@ public class SkillsManager
   /**
    * Constructor.
    */
-  public SkillsManager()
+  private SkillsManager()
   {
     _cache=new HashMap<Integer,SkillDescription>(100);
   }
