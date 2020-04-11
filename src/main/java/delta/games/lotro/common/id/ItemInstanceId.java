@@ -19,12 +19,6 @@ public class ItemInstanceId extends InternalGameId
   }
 
   @Override
-  public String asString()
-  {
-    return _id1+InternalGameId.VALUE_SEPARATOR+_id2;
-  }
-
-  @Override
   public String toString()
   {
     return "Item instance ID: "+_id1+VALUE_SEPARATOR+_id2;
