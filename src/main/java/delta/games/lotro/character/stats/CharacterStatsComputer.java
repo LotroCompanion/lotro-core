@@ -19,6 +19,7 @@ import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
 import delta.games.lotro.character.stats.ratings.RatingCurveId;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
+import delta.games.lotro.character.stats.tomes.StatTomesManager;
 import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
@@ -134,7 +135,7 @@ public class CharacterStatsComputer
     BasicStatsSet tomesStats=_tomesMgr.getContribution(tomes);
     if (_contribs!=null)
     {
-      for(StatDescription stat : TomesSet.AVAILABLE_TOMES)
+      for(StatDescription stat : StatTomesManager.getInstance().getStats())
       {
         int rank=tomes.getTomeRank(stat);
         if (rank>0)

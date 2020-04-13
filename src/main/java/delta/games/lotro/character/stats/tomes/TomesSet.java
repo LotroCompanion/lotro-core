@@ -1,7 +1,9 @@
 package delta.games.lotro.character.stats.tomes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.WellKnownStat;
 
 /**
  * Storage for the stat tomes of a single character.
@@ -9,29 +11,14 @@ import delta.games.lotro.common.stats.WellKnownStat;
  */
 public class TomesSet
 {
-  /**
-   * Stats of available tomes.
-   */
-  public static final StatDescription[] AVAILABLE_TOMES={
-    WellKnownStat.MIGHT, WellKnownStat.AGILITY, WellKnownStat.VITALITY, WellKnownStat.WILL, WellKnownStat.FATE
-  };
-  /**
-   * Maximum rank.
-   */
-  public static final int MAX_RANK=20;
-  private static final String[] LATINE={
-    "I","II","III","IV","V","VI","VII","VIII","IX","X",
-    "XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX"
-  };
-
-  private int[] _ranks;
+  private Map<StatDescription,Integer> _ranks;
 
   /**
    * Constructor.
    */
   public TomesSet()
   {
-    _ranks=new int[AVAILABLE_TOMES.length];
+    _ranks=new HashMap<StatDescription,Integer>();
   }
 
   /**
@@ -40,7 +27,8 @@ public class TomesSet
    */
   public void copyFrom(TomesSet source)
   {
-    System.arraycopy(source._ranks,0,_ranks,0,AVAILABLE_TOMES.length);
+    _ranks.clear();
+    _ranks.putAll(source._ranks);
   }
 
   /**
@@ -48,10 +36,7 @@ public class TomesSet
    */
   public void clear()
   {
-    for(int i=0;i<AVAILABLE_TOMES.length;i++)
-    {
-      _ranks[i]=0;
-    }
+    _ranks.clear();
   }
 
   /**
@@ -61,28 +46,7 @@ public class TomesSet
    */
   public void setTomeRank(StatDescription stat, int rank)
   {
-    Integer index=getIndexForStat(stat);
-    if ((rank>=0) && (rank<=MAX_RANK))
-    {
-      if (index!=null)
-      {
-        _ranks[index.intValue()]=rank;
-      }
-    }
-  }
-
-  private Integer getIndexForStat(StatDescription stat)
-  {
-    Integer ret=null;
-    for(int i=0;i<AVAILABLE_TOMES.length;i++)
-    {
-      if (stat==AVAILABLE_TOMES[i])
-      {
-        ret=Integer.valueOf(i);
-        break;
-      }
-    }
-    return ret;
+    _ranks.put(stat,Integer.valueOf(rank));
   }
 
   /**
@@ -92,12 +56,8 @@ public class TomesSet
    */
   public int getTomeRank(StatDescription stat)
   {
-    Integer index=getIndexForStat(stat);
-    if (index!=null)
-    {
-      return _ranks[index.intValue()];
-    }
-    return 0;
+    Integer rank=_ranks.get(stat);
+    return rank!=null?rank.intValue():0;
   }
 
   @Override
@@ -105,20 +65,19 @@ public class TomesSet
   {
     StringBuilder sb=new StringBuilder();
     int index=0;
-    for(int i=0;i<AVAILABLE_TOMES.length;i++)
+    for(StatDescription stat : StatTomesManager.getInstance().getStats())
     {
-      int rank=_ranks[i];
+      int rank=getTomeRank(stat);
       if (rank>0)
       {
         if (index>0)
         {
           sb.append(',');
         }
-        sb.append(AVAILABLE_TOMES[i].getName());
+        sb.append(stat.getName());
         sb.append(' ');
-        sb.append(LATINE[rank-1]);
+        sb.append(rank);
         index++;
-        
       }
     }
     return sb.toString();

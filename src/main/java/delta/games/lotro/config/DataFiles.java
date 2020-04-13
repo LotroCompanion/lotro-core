@@ -37,6 +37,10 @@ public class DataFiles
    */
   public static final String TRAITS="traits";
   /**
+   * Stat tomes file.
+   */
+  public static final String STAT_TOMES="statTomes";
+  /**
    * Virtues file.
    */
   public static final String VIRTUES="virtues";
