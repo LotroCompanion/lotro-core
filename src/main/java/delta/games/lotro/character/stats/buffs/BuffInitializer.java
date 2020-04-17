@@ -40,10 +40,6 @@ public class BuffInitializer
    * Racial buffs.
    */
   private static final String RACIAL="Racial";
-  /**
-   * Class buffs.
-   */
-  private static final String CLASS="Class";
 
   /**
    * Init buffs.
@@ -54,7 +50,6 @@ public class BuffInitializer
     initSharedBuffs(registry);
     initRacialBuffs(registry);
     initClassBuffs(registry);
-    initCaptainBuffs(registry);
     initEffectBasedBuffs(registry);
     initConsumableBuffs(registry);
   }
@@ -176,20 +171,6 @@ public class BuffInitializer
     StatsProvider statsProvider=trait.getStatsProvider();
     int nbStats=statsProvider.getNumberOfStatProviders();
     return nbStats>0;
-  }
-
-  private void initCaptainBuffs(BuffRegistry registry)
-  {
-    // Captain buffs
-    // - Motivated (OK Update 23)
-    {
-      Buff motivated=new Buff("MOTIVATED", CLASS, "Motivated");
-      motivated.setIcon("Motivating_Speech-icon");
-      // This buff is fellowship-wide... allow it for all classes
-      //motivated.setRequiredClass(CharacterClass.CAPTAIN);
-      motivated.setImpl(new Motivated());
-      registry.registerBuff(motivated);
-    }
   }
 
   private void initConsumableBuffs(BuffRegistry registry)
