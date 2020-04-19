@@ -20,7 +20,7 @@ import delta.games.lotro.character.classes.TraitTree;
 import delta.games.lotro.character.classes.TraitTreeBranch;
 import delta.games.lotro.character.classes.TraitTreeProgression;
 import delta.games.lotro.character.skills.SkillDescription;
-import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
@@ -143,12 +143,12 @@ public class ClassDescriptionXMLWriter
       hd.endElement("","",ClassDescriptionXMLConstants.INITIAL_GEAR_ELEMENT_TAG);
     }
     // Default buffs
-    List<BuffInstance> buffs=description.getDefaultBuffs();
-    for(BuffInstance buff : buffs)
+    List<BuffSpecification> buffs=description.getDefaultBuffs();
+    for(BuffSpecification buff : buffs)
     {
       AttributesImpl buffAttrs=new AttributesImpl();
       // Buff ID
-      String id=buff.getBuff().getId();
+      String id=buff.getBuffId();
       buffAttrs.addAttribute("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_ID_ATTR,XmlWriter.CDATA,id);
       // Tier
       Integer tier=buff.getTier();

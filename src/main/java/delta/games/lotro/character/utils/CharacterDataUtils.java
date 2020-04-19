@@ -4,6 +4,8 @@ import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.stats.buffs.BuffRegistry;
+import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.common.CharacterClass;
 
@@ -23,11 +25,13 @@ public class CharacterDataUtils
     ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(characterClass);
     if (classDescription!=null)
     {
+      BuffRegistry buffsRegistry=BuffRegistry.getInstance();
       BuffsManager buffsManager=data.getBuffs();
-      for(BuffInstance buff : classDescription.getDefaultBuffs())
+      for(BuffSpecification buffSpec : classDescription.getDefaultBuffs())
       {
-        BuffInstance clone=new BuffInstance(buff);
-        buffsManager.addBuff(clone);
+        BuffInstance buff=buffsRegistry.newBuffInstance(buffSpec.getBuffId());
+        buff.setTier(buffSpec.getTier());
+        buffsManager.addBuff(buff);
       }
     }
   }

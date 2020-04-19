@@ -3,7 +3,7 @@ package delta.games.lotro.character.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 
@@ -23,7 +23,7 @@ public class ClassDescription
   private TraitTree _traitTree;
   private List<ClassSkill> _skills;
   private InitialGearDefinition _initialGear;
-  private List<BuffInstance> _defaultBuffs;
+  private List<BuffSpecification> _defaultBuffs;
 
   /**
    * Constructor.
@@ -37,7 +37,7 @@ public class ClassDescription
     _traits=new ArrayList<ClassTrait>();
     _skills=new ArrayList<ClassSkill>();
     _initialGear=new InitialGearDefinition();
-    _defaultBuffs=new ArrayList<BuffInstance>();
+    _defaultBuffs=new ArrayList<BuffSpecification>();
   }
 
   /**
@@ -225,7 +225,7 @@ public class ClassDescription
    * Add default buff.
    * @param buff Buff to add.
    */
-  public void addDefaultBuff(BuffInstance buff)
+  public void addDefaultBuff(BuffSpecification buff)
   {
     _defaultBuffs.add(buff);
   }
@@ -234,7 +234,7 @@ public class ClassDescription
    * Get the default buffs for this class.
    * @return A possibly empty but never <code>null</code> list of buffs.
    */
-  public List<BuffInstance> getDefaultBuffs()
+  public List<BuffSpecification> getDefaultBuffs()
   {
     return _defaultBuffs;
   }
