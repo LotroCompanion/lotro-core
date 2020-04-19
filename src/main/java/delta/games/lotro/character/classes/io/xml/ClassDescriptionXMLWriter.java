@@ -20,6 +20,7 @@ import delta.games.lotro.character.classes.TraitTree;
 import delta.games.lotro.character.classes.TraitTreeBranch;
 import delta.games.lotro.character.classes.TraitTreeProgression;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.stats.buffs.BuffInstance;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
@@ -140,6 +141,23 @@ public class ClassDescriptionXMLWriter
       }
       hd.startElement("","",ClassDescriptionXMLConstants.INITIAL_GEAR_ELEMENT_TAG,gearAttrs);
       hd.endElement("","",ClassDescriptionXMLConstants.INITIAL_GEAR_ELEMENT_TAG);
+    }
+    // Default buffs
+    List<BuffInstance> buffs=description.getDefaultBuffs();
+    for(BuffInstance buff : buffs)
+    {
+      AttributesImpl buffAttrs=new AttributesImpl();
+      // Buff ID
+      String id=buff.getBuff().getId();
+      buffAttrs.addAttribute("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_ID_ATTR,XmlWriter.CDATA,id);
+      // Tier
+      Integer tier=buff.getTier();
+      if (tier!=null)
+      {
+        buffAttrs.addAttribute("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_TIER,XmlWriter.CDATA,tier.toString());
+      }
+      hd.startElement("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_TAG,buffAttrs);
+      hd.endElement("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_TAG);
     }
     hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TAG);
   }

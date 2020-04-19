@@ -123,4 +123,16 @@ public class ClassDescriptionXMLConstants
    * Tag 'initialGearElement', attribute 'race'.
    */
   public static final String GEAR_REQUIRED_RACE_ATTR="race";
+  /**
+   * Tag 'defaultBuff'.
+   */
+  public static final String DEFAULT_BUFF_TAG="defaultBuff";
+  /**
+   * Tag 'defaultBuff', attribute 'id'.
+   */
+  public static final String DEFAULT_BUFF_ID_ATTR="id";
+  /**
+   * Tag 'defaultBuff', attribute 'tier'.
+   */
+  public static final String DEFAULT_BUFF_TIER="tier";
 }
