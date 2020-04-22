@@ -206,15 +206,6 @@ public class CharacterData
   }
 
   /**
-   * Get the character's account.
-   * @return the character's account.
-   */
-  public String getAccountName()
-  {
-    return _summary.getAccountName();
-  }
-
-  /**
    * Set the character's account.
    * @param accountName the account to set. 
    */
@@ -242,15 +233,6 @@ public class CharacterData
   }
 
   /**
-   * Get the character's sex.
-   * @return the character's sex.
-   */
-  public CharacterSex getCharacterSex()
-  {
-    return _summary.getCharacterSex();
-  }
-
-  /**
    * Set the character's sex.
    * @param characterSex the sex to set.
    */
@@ -275,15 +257,6 @@ public class CharacterData
   public void setRace(Race race)
   {
     _summary.setRace(race);
-  }
-
-  /**
-   * Set the character's region.
-   * @return the character's region.
-   */
-  public String getRegion()
-  {
-    return _summary.getRegion();
   }
 
   /**
