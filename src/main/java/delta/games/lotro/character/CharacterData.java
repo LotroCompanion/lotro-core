@@ -9,7 +9,6 @@ import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
 
 /**
@@ -179,39 +178,12 @@ public class CharacterData
   }
 
   /**
-   * Set the character's name.
-   * @param name the name to set.
-   */
-  public void setName(String name)
-  {
-    _summary.setName(name);
-  }
-
-  /**
    * Get the character's server.
    * @return the character's server.
    */
   public String getServer()
   {
     return _summary.getServer();
-  }
-
-  /**
-   * Set the character's server.
-   * @param server the server to set. 
-   */
-  public void setServer(String server)
-  {
-    _summary.setServer(server);
-  }
-
-  /**
-   * Set the character's account.
-   * @param accountName the account to set. 
-   */
-  public void setAccountName(String accountName)
-  {
-    _summary.setAccountName(accountName);
   }
 
   /**
@@ -224,24 +196,6 @@ public class CharacterData
   }
 
   /**
-   * Set the character's class.
-   * @param characterClass the class to set.
-   */
-  public void setCharacterClass(CharacterClass characterClass)
-  {
-    _summary.setCharacterClass(characterClass);
-  }
-
-  /**
-   * Set the character's sex.
-   * @param characterSex the sex to set.
-   */
-  public void setCharacterSex(CharacterSex characterSex)
-  {
-    _summary.setCharacterSex(characterSex);
-  }
-
-  /**
    * Get the character's race.
    * @return the character's race.
    */
@@ -251,39 +205,12 @@ public class CharacterData
   }
 
   /**
-   * Set the character's race.
-   * @param race the race to set.
-   */
-  public void setRace(Race race)
-  {
-    _summary.setRace(race);
-  }
-
-  /**
-   * Set the character's region.
-   * @param region the region to set.
-   */
-  public void setRegion(String region)
-  {
-    _summary.setRegion(region);
-  }
-
-  /**
    * Get the character's level.
    * @return the character's level.
    */
   public int getLevel()
   {
     return _summary.getLevel();
-  }
-
-  /**
-   * Set the character's level.
-   * @param level the level to set.
-   */
-  public void setLevel(int level)
-  {
-    _summary.setLevel(level);
   }
 
   /**

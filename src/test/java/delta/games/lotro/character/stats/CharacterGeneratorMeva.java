@@ -2,6 +2,7 @@ package delta.games.lotro.character.stats;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
+import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
@@ -52,10 +53,11 @@ public class CharacterGeneratorMeva
   public CharacterData buildCharacter()
   {
     CharacterData c=new CharacterData();
-    c.setName("Meva");
-    c.setRace(Race.HOBBIT);
-    c.setLevel(100);
-    c.setCharacterClass(CharacterClass.MINSTREL);
+    CharacterSummary summary=c.getSummary();
+    summary.setName("Meva");
+    summary.setRace(Race.HOBBIT);
+    summary.setLevel(100);
+    summary.setCharacterClass(CharacterClass.MINSTREL);
     // Virtues
     VirtuesSet virtues=c.getVirtues();
     virtues.setVirtueValue(_tools.getVirtue("CHARITY"),19);
