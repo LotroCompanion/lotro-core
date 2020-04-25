@@ -8,7 +8,7 @@ import delta.games.lotro.common.Race;
  * Storage class for a LOTRO character summary.
  * @author DAM
  */
-public class CharacterSummary
+public class CharacterSummary implements BasicCharacterAttributes
 {
   private String _characterName;
   private String _server;

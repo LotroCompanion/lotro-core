@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.BasicCharacterAttributes;
 import delta.games.lotro.character.stats.buffs.comparators.BuffNameComparator;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
@@ -79,18 +79,18 @@ public final class BuffRegistry
 
   /**
    * Build a selection of buffs.
-   * @param c Targeted character.
+   * @param attrs Attributes of toon to use.
    * @param buffs Buffs to skip.
    * @return A list of buffs.
    */
-  public List<Buff> buildBuffSelection(CharacterData c, BuffsManager buffs)
+  public List<Buff> buildBuffSelection(BasicCharacterAttributes attrs, BuffsManager buffs)
   {
     List<Buff> ret=new ArrayList<Buff>();
     Set<String> ids=buffs.getBuffId();
     BuffRegistry buffsRegistry=BuffRegistry.getInstance();
     Set<Buff> allBuffs=buffsRegistry.getAllBuffs();
-    CharacterClass cClass=c.getCharacterClass();
-    Race race=c.getRace();
+    CharacterClass cClass=attrs.getCharacterClass();
+    Race race=attrs.getRace();
     for(Buff buff : allBuffs)
     {
       CharacterClass requiredClass=buff.getRequiredClass();
