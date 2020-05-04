@@ -26,7 +26,7 @@ public class CharacterSummary implements BasicCharacterAttributes
   {
     _characterName="";
     _server="";
-    _accountName=null;
+    _accountName="";
     _sex=null;
     _class=null;
     _race=null;

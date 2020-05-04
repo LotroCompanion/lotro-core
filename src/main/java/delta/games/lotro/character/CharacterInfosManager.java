@@ -100,6 +100,12 @@ public class CharacterInfosManager
         }
       }
     }
+    // Set parent summary on loaded data
+    CharacterSummary characterSummary=_toon.getSummary();
+    for(CharacterData data : _datas)
+    {
+      data.getSummary().setSummary(characterSummary);
+    }
   }
 
   private File[] getDataFiles()
@@ -341,7 +347,7 @@ public class CharacterInfosManager
     CharacterData data=getLastCharacterDescription();
     if (data!=null)
     {
-      summary=new CharacterSummary(data.getSummary());
+      summary=new CharacterSummary(data.getSummary().getSummary());
     }
     return summary;
   }

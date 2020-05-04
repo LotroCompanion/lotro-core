@@ -18,7 +18,7 @@ import delta.games.lotro.common.Race;
 public class CharacterData
 {
   private File _file;
-  private CharacterSummary _summary;
+  private CharacterDataSummary _summary;
   private Long _date;
   private String _shortDescription;
   private String _description;
@@ -35,7 +35,7 @@ public class CharacterData
   public CharacterData()
   {
     _file=null;
-    _summary=new CharacterSummary();
+    _summary=new CharacterDataSummary();
     _date=null;
     _shortDescription="";
     _description="";
@@ -54,7 +54,7 @@ public class CharacterData
   public CharacterData(CharacterData source)
   {
     _file=null;
-    _summary=new CharacterSummary(source.getSummary());
+    _summary=new CharacterDataSummary(source.getSummary());
     _date=source._date;
     _shortDescription=source._shortDescription;
     _description=source._description;
@@ -92,18 +92,9 @@ public class CharacterData
    * Get the character summary.
    * @return the character summary.
    */
-  public CharacterSummary getSummary()
+  public CharacterDataSummary getSummary()
   {
     return _summary;
-  }
-
-  /**
-   * Set summary data.
-   * @param summary Summary data to set.
-   */
-  public void setSummary(CharacterSummary summary)
-  {
-    _summary=new CharacterSummary(summary);
   }
 
   /**

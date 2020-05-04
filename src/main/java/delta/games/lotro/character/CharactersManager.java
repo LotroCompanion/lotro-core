@@ -86,24 +86,6 @@ public final class CharactersManager
 
   /**
    * Add a new toon.
-   * @param info Character description.
-   * @return A character file or <code>null</code> if an error occurs.
-   */
-  public CharacterFile addToon(CharacterData info)
-  {
-    CharacterFile file=_storage.newToon(info);
-    if (file!=null)
-    {
-      _toons.add(file);
-      // Broadcast toon creation event...
-      CharacterEvent event=new CharacterEvent(CharacterEventType.CHARACTER_ADDED,file,null);
-      EventsManager.invokeEvent(event);
-    }
-    return file;
-  }
-
-  /**
-   * Add a new toon.
    * @param summary Character summary.
    * @return A character file or <code>null</code> if an error occurs.
    */

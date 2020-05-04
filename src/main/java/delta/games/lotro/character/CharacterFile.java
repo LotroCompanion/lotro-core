@@ -98,7 +98,7 @@ public class CharacterFile
   {
     CharacterSummaryXMLWriter writer=new CharacterSummaryXMLWriter();
     File summaryFile=getSummaryFile();
-    boolean ok=writer.write(summaryFile,summary,EncodingNames.UTF_8);
+    boolean ok=writer.writeCharacterSummaryFile(summaryFile,summary,EncodingNames.UTF_8);
     return ok;
   }
 

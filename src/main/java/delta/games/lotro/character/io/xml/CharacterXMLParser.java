@@ -9,9 +9,11 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
+import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLConstants;
@@ -48,12 +50,12 @@ public class CharacterXMLParser
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      ret=parseCharacter(root,data);
+      ret=parseCharacterData(root,data);
     }
     return ret;
   }
 
-  private boolean parseCharacter(Element root, CharacterData c)
+  private boolean parseCharacterData(Element root, CharacterData c)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Version
@@ -63,7 +65,20 @@ public class CharacterXMLParser
     {
       return false;
     }
-    CharacterSummaryXMLParser.parseCharacter(root,c.getSummary());
+    // Summary
+    CharacterDataSummary dataSummary=c.getSummary();
+    CharacterSummaryXMLParser.parseCharacterDataSummary(root,dataSummary);
+    CharacterSummary summary=new CharacterSummary();
+    dataSummary.setSummary(summary);
+    Element characterSummaryTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.CHARACTER_SUMMARY_TAG);
+    if (characterSummaryTag!=null)
+    {
+      CharacterSummaryXMLParser.parseCharacterSummary(characterSummaryTag,summary);
+    }
+    else
+    {
+      CharacterSummaryXMLParser.parseCharacterSummary(root,summary);
+    }
     // Short description
     String shortDescription=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,"");
     c.setShortDescription(shortDescription);

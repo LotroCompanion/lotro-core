@@ -30,28 +30,6 @@ public class CharactersStorageManager
 
   /**
    * Create a new toon.
-   * @param initialData Character initial data.
-   * @return A new file or <code>null</code> if a problem occurred.
-   */
-  public CharacterFile newToon(CharacterData initialData)
-  {
-    CharacterSummary summary=initialData.getSummary();
-    CharacterFile file=newToon(summary);
-    boolean ok=(file!=null);
-    if (!ok)
-    {
-      return null;
-    }
-    ok=file.getInfosManager().writeNewCharacterData(initialData);
-    if (!ok)
-    {
-      return null;
-    }
-    return file;
-  }
-
-  /**
-   * Create a new toon.
    * @param summary Character initial data.
    * @return A new file or <code>null</code> if a problem occurred.
    */

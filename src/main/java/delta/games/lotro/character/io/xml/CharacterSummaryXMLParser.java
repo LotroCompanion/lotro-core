@@ -5,6 +5,7 @@ import java.io.File;
 import org.w3c.dom.Element;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
@@ -28,7 +29,7 @@ public class CharacterSummaryXMLParser
     if (root!=null)
     {
       summary=new CharacterSummary();
-      parseCharacter(root, summary);
+      parseCharacterSummary(root, summary);
     }
     return summary;
   }
@@ -38,7 +39,7 @@ public class CharacterSummaryXMLParser
    * @param root Tag to read.
    * @param summary Summary to write to.
    */
-  public static void parseCharacter(Element root, CharacterSummary summary)
+  public static void parseCharacterSummary(Element root, CharacterSummary summary)
   {
     // Name
     String name=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_NAME_ATTR,"");
@@ -67,6 +68,21 @@ public class CharacterSummaryXMLParser
     // Region
     String region=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
     summary.setRegion(region);
+    // Level
+    int level=DOMParsingTools.getIntAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_LEVEL_ATTR,0);
+    summary.setLevel(level);
+  }
+
+  /**
+   * Read character summary attributes from a tag.
+   * @param root Tag to read.
+   * @param summary Summary to write to.
+   */
+  public static void parseCharacterDataSummary(Element root, CharacterDataSummary summary)
+  {
+    // Name
+    String name=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_NAME_ATTR,"");
+    summary.setName(name);
     // Level
     int level=DOMParsingTools.getIntAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_LEVEL_ATTR,0);
     summary.setLevel(level);

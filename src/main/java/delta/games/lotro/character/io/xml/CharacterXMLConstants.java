@@ -59,6 +59,10 @@ public class CharacterXMLConstants
    * Tag 'character', attribute 'level'.
    */
   public static final String CHARACTER_LEVEL_ATTR="level";
+  /**
+   * Tag 'characterSummary'.
+   */
+  public static final String CHARACTER_SUMMARY_TAG="characterSummary";
 
   /**
    * Tag 'stats'.

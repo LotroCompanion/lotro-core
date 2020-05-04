@@ -6,6 +6,7 @@ import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
+import delta.games.lotro.character.CharacterFactory;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
@@ -75,16 +76,14 @@ public class CharacterGeneratorGiswald
    */
   public CharacterData buildCharacter()
   {
-    CharacterData c=new CharacterData();
-    CharacterSummary summary=c.getSummary();
+    CharacterSummary summary=new CharacterSummary();
     summary.setName("Giswald");
-    summary.setServer("Elendilmir");
     summary.setRace(Race.MAN);
-    summary.setRegion("Gondor");
     summary.setLevel(100);
+    summary.setCharacterClass(CharacterClass.CHAMPION);
+    CharacterData c=CharacterFactory.buildNewData(summary);
     c.setShortDescription("Test for stats computation");
     c.setDescription("This toon was generated from code, and stats were computed automatically.");
-    summary.setCharacterClass(CharacterClass.CHAMPION);
     // Virtues
     VirtuesSet virtues=c.getVirtues();
     virtues.setVirtueValue(_tools.getVirtue("CHARITY"),15);

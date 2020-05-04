@@ -10,9 +10,11 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
+import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
@@ -55,7 +57,7 @@ public class CharacterXMLWriter
     boolean ret=helper.write(outFile,encoding,writer);
     return ret;
   }
-  
+
   private void write(TransformerHandler hd, CharacterData character) throws Exception
   {
     AttributesImpl characterAttrs=new AttributesImpl();
@@ -63,7 +65,8 @@ public class CharacterXMLWriter
     String versionStr=String.valueOf(PersistenceVersions.CHARACTER_DATA);
     characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_VERSION_ATTR,XmlWriter.CDATA,versionStr);
     // Summary
-    CharacterSummaryXMLWriter.write(characterAttrs, character.getSummary());
+    CharacterDataSummary dataSummary=character.getSummary();
+    CharacterSummaryXMLWriter.writeDataSummary(characterAttrs,dataSummary);
     // Short description
     String shortDescription=character.getShortDescription();
     if ((shortDescription!=null) && (shortDescription.length()>0))
@@ -82,8 +85,18 @@ public class CharacterXMLWriter
     {
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_DATE_ATTR,XmlWriter.CDATA,date.toString());
     }
-
     hd.startElement("","",CharacterXMLConstants.CHARACTER_TAG,characterAttrs);
+
+    // Summary
+    CharacterSummary summary=dataSummary.getSummary();
+    if (summary!=null)
+    {
+      AttributesImpl summaryAttrs=new AttributesImpl();
+      CharacterSummaryXMLWriter.writeCharacterSummary(summaryAttrs, summary);
+      hd.startElement("","",CharacterXMLConstants.CHARACTER_SUMMARY_TAG,summaryAttrs);
+      hd.endElement("","",CharacterXMLConstants.CHARACTER_SUMMARY_TAG);
+    }
+
     // Stats
     BasicStatsSet stats=character.getStats();
     BasicStatsSetXMLWriter.write(hd,CharacterXMLConstants.STATS_TAG,stats);
