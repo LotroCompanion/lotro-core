@@ -11,11 +11,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.character.events.CharacterEvent;
+import delta.games.lotro.character.events.CharacterEventType;
 import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.Formats;
+import delta.games.lotro.utils.events.EventsManager;
 
 /**
  * Manages info files for a single toon.
@@ -258,6 +261,12 @@ public class CharacterInfosManager
     {
       data.setFile(dataFile);
       _datas.add(data);
+    }
+    if (ret)
+    {
+      // Notify
+      CharacterEvent event=new CharacterEvent(CharacterEventType.CHARACTER_DATA_ADDED,_toon,data);
+      EventsManager.invokeEvent(event);
     }
     return ret;
   }
