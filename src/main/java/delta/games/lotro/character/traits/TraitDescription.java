@@ -254,4 +254,10 @@ public class TraitDescription implements Identifiable
   {
     return _skills;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Trait: "+_name+" ("+_identifier+")";
+  }
 }
