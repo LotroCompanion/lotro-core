@@ -14,19 +14,31 @@ import delta.games.lotro.character.traits.TraitDescription;
  */
 public class TraitTreeBranch
 {
+  private int _code;
   private String _name;
   private TraitTreeProgression _progression;
   private Map<String,TraitDescription> _traitsByCell;
 
   /**
    * Constructor.
+   * @param code Code.
    * @param name Branch name.
    */
-  public TraitTreeBranch(String name)
+  public TraitTreeBranch(int code, String name)
   {
+    _code=code;
     _name=name;
     _traitsByCell=new HashMap<String,TraitDescription>();
     _progression=new TraitTreeProgression();
+  }
+
+  /**
+   * Get the internal code for this branch.
+   * @return A code.
+   */
+  public int getCode()
+  {
+    return _code;
   }
 
   /**
@@ -87,4 +99,3 @@ public class TraitTreeBranch
     return new ArrayList<TraitDescription>(_traitsByCell.values());
   }
 }
-

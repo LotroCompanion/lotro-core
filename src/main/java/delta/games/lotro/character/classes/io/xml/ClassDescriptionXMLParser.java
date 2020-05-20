@@ -154,8 +154,10 @@ public class ClassDescriptionXMLParser
     List<Element> branchTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG);
     for(Element branchTag : branchTags)
     {
-      String name=DOMParsingTools.getStringAttribute(branchTag.getAttributes(),ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,null);
-      TraitTreeBranch branch=new TraitTreeBranch(name);
+      NamedNodeMap branchAttrs=branchTag.getAttributes();
+      int code=DOMParsingTools.getIntAttribute(branchAttrs,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_CODE_ATTR,0);
+      String name=DOMParsingTools.getStringAttribute(branchAttrs,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,null);
+      TraitTreeBranch branch=new TraitTreeBranch(code,name);
       tree.addBranch(branch);
       // Progression
       Element progressionTag=DOMParsingTools.getChildTagByName(branchTag,ClassDescriptionXMLConstants.PROGRESSION_TAG);

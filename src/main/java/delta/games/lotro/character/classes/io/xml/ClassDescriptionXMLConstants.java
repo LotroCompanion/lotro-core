@@ -60,6 +60,10 @@ public class ClassDescriptionXMLConstants
    */
   public static final String TRAIT_TREE_BRANCH_TAG="traitTreeBranch";
   /**
+   * Tag 'traitTreeBranch', attribute 'code'.
+   */
+  public static final String TRAIT_TREE_BRANCH_CODE_ATTR="code";
+  /**
    * Tag 'traitTreeBranch', attribute 'name'.
    */
   public static final String TRAIT_TREE_BRANCH_NAME_ATTR="name";

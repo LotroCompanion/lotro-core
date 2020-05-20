@@ -165,6 +165,9 @@ public class ClassDescriptionXMLWriter
   private static void writeTraitTreeBranch(TransformerHandler hd, TraitTreeBranch branch) throws SAXException
   {
     AttributesImpl branchAttrs=new AttributesImpl();
+    // Code
+    int code=branch.getCode();
+    branchAttrs.addAttribute("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
     // Name
     String name=branch.getName();
     branchAttrs.addAttribute("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,XmlWriter.CDATA,name);
