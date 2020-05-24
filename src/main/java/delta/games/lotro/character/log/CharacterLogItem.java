@@ -50,7 +50,7 @@ public class CharacterLogItem
   private LogItemType _type;
   private String _label;
   private String _resourceUrl;
-  
+
   /**
    * Full constructor.
    * @param date Log item date.
@@ -65,7 +65,7 @@ public class CharacterLogItem
     _label=label;
     _resourceUrl=resourceUrl;
   }
-  
+
   /**
    * Get log item date.
    * @return a date (milliseconds since Epoch).

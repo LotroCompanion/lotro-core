@@ -8,8 +8,7 @@ import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.colors.ColorDescription;
-import delta.games.lotro.common.id.EntityId;
-import delta.games.lotro.common.id.ItemInstanceId;
+import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.stats.StatsManager;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -25,7 +24,7 @@ public class ItemInstance<T extends Item>
   // Reference item
   private T _reference;
   // Instance ID
-  private ItemInstanceId _id;
+  private InternalGameId _id;
   // Validity date
   private Long _time;
   // Item birth name (given by the crafter) (may be <code>null</code>)
@@ -47,7 +46,7 @@ public class ItemInstance<T extends Item>
   // Color
   private ColorDescription _color;
   // Bound to
-  private EntityId _boundTo;
+  private InternalGameId _boundTo;
   // Properties
   private HashMap<String,String> _properties;
 
@@ -131,7 +130,7 @@ public class ItemInstance<T extends Item>
    * Get the item instance identifier.
    * @return An item instance identifier or <code>null</code> if not set.
    */
-  public ItemInstanceId getInstanceId()
+  public InternalGameId getInstanceId()
   {
     return _id;
   }
@@ -140,7 +139,7 @@ public class ItemInstance<T extends Item>
    * Set the item instance identifier.
    * @param id Identifier to set (may be <code>null</code>).
    */
-  public void setInstanceId(ItemInstanceId id)
+  public void setInstanceId(InternalGameId id)
   {
     _id=id;
   }
@@ -357,7 +356,7 @@ public class ItemInstance<T extends Item>
    * Get the 'bound to' identifier.
    * @return An entity identifier or <code>null</code> if not set.
    */
-  public EntityId getBoundTo()
+  public InternalGameId getBoundTo()
   {
     return _boundTo;
   }
@@ -366,7 +365,7 @@ public class ItemInstance<T extends Item>
    * Set the 'bound to' identifier.
    * @param boundTo Identifier to set (may be <code>null</code>).
    */
-  public void setBoundTo(EntityId boundTo)
+  public void setBoundTo(InternalGameId boundTo)
   {
     _boundTo=boundTo;
   }
@@ -463,7 +462,14 @@ public class ItemInstance<T extends Item>
   public void copyFrom(ItemInstance<?> itemInstance)
   {
     _reference=(T)itemInstance._reference;
-    _id=itemInstance._id;
+    if (itemInstance._id!=null)
+    {
+      _id=new InternalGameId(itemInstance._id);
+    }
+    else
+    {
+      _id=null;
+    }
     _time=itemInstance._time;
     _birthName=itemInstance._birthName;
     _crafterName=itemInstance._crafterName;
@@ -488,7 +494,14 @@ public class ItemInstance<T extends Item>
       _value=null;
     }
     _color=itemInstance._color;
-    _boundTo=itemInstance._boundTo;
+    if (itemInstance._boundTo!=null)
+    {
+      _boundTo=new InternalGameId(itemInstance._boundTo);
+    }
+    else
+    {
+      _boundTo=null;
+    }
     _properties=new HashMap<String,String>(itemInstance._properties);
   }
 

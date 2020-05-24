@@ -17,8 +17,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.StatsManagerXMLWriter;
 import delta.games.lotro.common.colors.ColorDescription;
-import delta.games.lotro.common.id.EntityId;
-import delta.games.lotro.common.id.ItemInstanceId;
+import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
@@ -325,10 +324,10 @@ public class ItemXMLWriter
     if (isInstance)
     {
       // Instance ID
-      ItemInstanceId instanceId=instance.getInstanceId();
+      InternalGameId instanceId=instance.getInstanceId();
       if (instanceId!=null)
       {
-        String instanceIdStr=instanceId.asString();
+        String instanceIdStr=instanceId.asPersistedString();
         itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_INSTANCE_ID_ATTR,XmlWriter.CDATA,instanceIdStr);
       }
       // Birth name
@@ -350,10 +349,10 @@ public class ItemXMLWriter
         itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_COLOR_CODE_ATTR,XmlWriter.CDATA,String.valueOf(color.getCode()));
       }
       // Bound to
-      EntityId boundTo=instance.getBoundTo();
+      InternalGameId boundTo=instance.getBoundTo();
       if (boundTo!=null)
       {
-        String boundToStr=boundTo.asString();
+        String boundToStr=boundTo.asPersistedString();
         itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BOUND_TO_ATTR,XmlWriter.CDATA,boundToStr);
       }
       // Time

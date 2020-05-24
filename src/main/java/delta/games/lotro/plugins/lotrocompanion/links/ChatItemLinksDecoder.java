@@ -8,9 +8,7 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.colors.ColorsManager;
 import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.id.EntityId;
-import delta.games.lotro.common.id.EntityType;
-import delta.games.lotro.common.id.ItemInstanceId;
+import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
@@ -67,7 +65,7 @@ public class ChatItemLinksDecoder
     ByteArrayInputStream bis=new ByteArrayInputStream(buffer);
     int lowInstanceId=BufferUtils.readUInt32(bis);
     int highInstanceId=BufferUtils.readUInt32(bis);
-    ItemInstanceId instanceId=new ItemInstanceId(lowInstanceId,highInstanceId);
+    InternalGameId instanceId=new InternalGameId(lowInstanceId,highInstanceId);
     LOGGER.debug("Instance ID: "+instanceId);
     int itemId=BufferUtils.readUInt32(bis);
     LOGGER.debug("Item ID: "+itemId);
@@ -357,7 +355,7 @@ public class ChatItemLinksDecoder
             // Bound to
             int boundToLowId=BufferUtils.readUInt32(bis);
             int boundToHighId=BufferUtils.readUInt32(bis);
-            EntityId id=new EntityId(EntityType.UNKNOWN,boundToLowId,boundToHighId);
+            InternalGameId id=new InternalGameId(boundToLowId,boundToHighId);
             LOGGER.debug("Bound to: "+id);
             itemInstance.setBoundTo(id);
           }

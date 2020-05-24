@@ -11,8 +11,7 @@ import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.character.stats.base.io.xml.StatsManagerXMLParser;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.colors.ColorsManager;
-import delta.games.lotro.common.id.EntityId;
-import delta.games.lotro.common.id.ItemInstanceId;
+import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
@@ -120,7 +119,7 @@ public class ItemXMLParser
     String instanceIdStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_INSTANCE_ID_ATTR,null);
     if (instanceIdStr!=null)
     {
-      ItemInstanceId instanceId=ItemInstanceId.fromString(instanceIdStr);
+      InternalGameId instanceId=InternalGameId.fromString(instanceIdStr);
       itemInstance.setInstanceId(instanceId);
     }
     // - Birth name
@@ -137,7 +136,7 @@ public class ItemXMLParser
     String boundToStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.ITEM_BOUND_TO_ATTR,null);
     if (boundToStr!=null)
     {
-      EntityId boundTo=EntityId.fromString(boundToStr);
+      InternalGameId boundTo=InternalGameId.fromString(boundToStr);
       itemInstance.setBoundTo(boundTo);
     }
     // Time
