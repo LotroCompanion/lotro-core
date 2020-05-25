@@ -10,6 +10,7 @@ import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.id.InternalGameId;
 
 /**
  * Parser for character summary stored in XML.
@@ -41,6 +42,14 @@ public class CharacterSummaryXMLParser
    */
   public static void parseCharacterSummary(Element root, CharacterSummary summary)
   {
+    // ID
+    InternalGameId id=null;
+    String idStr=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ID_ATTR,null);
+    if (idStr!=null)
+    {
+      id=InternalGameId.fromString(idStr);
+      summary.setId(id);
+    }
     // Name
     String name=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_NAME_ATTR,"");
     summary.setName(name);

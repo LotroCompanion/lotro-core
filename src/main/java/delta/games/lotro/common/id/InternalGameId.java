@@ -26,6 +26,15 @@ public class InternalGameId
   }
 
   /**
+   * Constructor.
+   * @param id Long identifier.
+   */
+  public InternalGameId(long id)
+  {
+    setIdAsLong(id);
+  }
+
+  /**
    * Copy constructor.
    * @param source Source to copy.
    */
@@ -101,6 +110,21 @@ public class InternalGameId
   public String asPersistedString()
   {
     return asHexString();
+  }
+
+  @Override
+  public boolean equals(Object id)
+  {
+    if (id==this)
+    {
+      return true;
+    }
+    if (id instanceof InternalGameId)
+    {
+      InternalGameId otherId=(InternalGameId)id;
+      return (_id1==otherId._id1) && (_id2==otherId._id2);
+    }
+    return false;
   }
 
   @Override

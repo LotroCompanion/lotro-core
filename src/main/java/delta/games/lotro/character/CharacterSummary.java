@@ -3,6 +3,7 @@ package delta.games.lotro.character;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.id.InternalGameId;
 
 /**
  * Storage class for a LOTRO character summary.
@@ -10,6 +11,7 @@ import delta.games.lotro.common.Race;
  */
 public class CharacterSummary implements BasicCharacterAttributes
 {
+  private InternalGameId _id;
   private String _characterName;
   private String _server;
   private String _accountName;
@@ -24,6 +26,7 @@ public class CharacterSummary implements BasicCharacterAttributes
    */
   public CharacterSummary()
   {
+    _id=null;
     _characterName="";
     _server="";
     _accountName="";
@@ -40,6 +43,10 @@ public class CharacterSummary implements BasicCharacterAttributes
    */
   public CharacterSummary(CharacterSummary source)
   {
+    if (source._id!=null)
+    {
+      _id=new InternalGameId(source._id);
+    }
     _characterName=source._characterName;
     _server=source._server;
     _accountName=source._accountName;
@@ -48,6 +55,24 @@ public class CharacterSummary implements BasicCharacterAttributes
     _race=source._race;
     _region=source._region;
     _level=source._level;
+  }
+
+  /**
+   * Get the identififer for this character.
+   * @return an identifier or <code>null</code> if not set.
+   */
+  public InternalGameId getId()
+  {
+    return _id;
+  }
+
+  /**
+   * Set the identifier for this character.
+   * @param id Identifier to set.
+   */
+  public void setId(InternalGameId id)
+  {
+    _id=id;
   }
 
   /**
@@ -214,6 +239,7 @@ public class CharacterSummary implements BasicCharacterAttributes
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
+    sb.append("ID [").append(_id).append("], ");
     sb.append("Name [").append(_characterName).append("], ");
     sb.append("Server [").append(_server).append("], ");
     sb.append("Account [").append(_accountName).append("], ");

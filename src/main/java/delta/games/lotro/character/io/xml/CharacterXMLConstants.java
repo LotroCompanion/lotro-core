@@ -28,6 +28,10 @@ public class CharacterXMLConstants
    */
   public static final String CHARACTER_DESCRIPTION_ATTR="description";
   /**
+   * Tag 'character', attribute 'id'.
+   */
+  public static final String CHARACTER_ID_ATTR="id";
+  /**
    * Tag 'character', attribute 'name'.
    */
   public static final String CHARACTER_NAME_ATTR="name";

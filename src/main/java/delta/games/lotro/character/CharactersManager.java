@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.games.lotro.character.events.CharacterEvent;
 import delta.games.lotro.character.events.CharacterEventType;
+import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.utils.events.EventsManager;
 
 /**
@@ -76,6 +77,31 @@ public final class CharactersManager
       if (summary!=null)
       {
         if ((serverName.equals(summary.getServer())) && (toonName.equals(summary.getName())))
+        {
+          return toon;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Get a toon using its internal identifier.
+   * @param id Identifier to use.
+   * @return A toon or <code>null</code> if not found.
+   */
+  public CharacterFile getToonById(InternalGameId id)
+  {
+    if (id==null)
+    {
+      return null;
+    }
+    for(CharacterFile toon : _toons)
+    {
+      CharacterSummary summary=toon.getSummary();
+      if (summary!=null)
+      {
+        if (id.equals(summary.getId()))
         {
           return toon;
         }

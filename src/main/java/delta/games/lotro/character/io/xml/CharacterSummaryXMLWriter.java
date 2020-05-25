@@ -13,6 +13,7 @@ import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.id.InternalGameId;
 
 /**
  * Writes LOTRO character summaries to XML files.
@@ -53,6 +54,14 @@ public class CharacterSummaryXMLWriter
    */
   public static void writeCharacterSummary(AttributesImpl attrs, CharacterSummary summary) throws Exception
   {
+    // ID
+    InternalGameId id=summary.getId();
+    if (id!=null)
+    {
+      String idStr=id.asPersistedString();
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_ID_ATTR,XmlWriter.CDATA,idStr);
+      
+    }
     // Name
     String name=summary.getName();
     if (name.length()>0)
