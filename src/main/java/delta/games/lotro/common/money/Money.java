@@ -15,9 +15,7 @@ public class Money
    */
   public Money()
   {
-    _goldCoins=0;
-    _silverCoins=0;
-    _copperCoins=0;
+    reset();
   }
 
   /**
@@ -113,8 +111,19 @@ public class Money
    */
   public void setRawValue(int copperCoins)
   {
+    reset();
     setCopperCoins(copperCoins);
     simplify();
+  }
+
+  /**
+   * Reset.
+   */
+  public void reset()
+  {
+    _copperCoins=0;
+    _silverCoins=0;
+    _goldCoins=0;
   }
 
   private void simplify()
