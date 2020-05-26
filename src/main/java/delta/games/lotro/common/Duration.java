@@ -20,6 +20,18 @@ public class Duration
    * Day duration in seconds.
    */
   public static final int DAY=HOUR*24;
+  /**
+   * Week duration in seconds.
+   */
+  public static final int WEEK=DAY*7;
+  /**
+   * Month duration in seconds.
+   */
+  public static final int MONTH=DAY*30;
+  /**
+   * Year duration in seconds.
+   */
+  public static final int YEAR=MONTH*12;
 
   /**
    * Get a duration string from a duration input.
@@ -29,23 +41,48 @@ public class Duration
   public static String getDurationString(int duration)
   {
     StringBuilder sb=new StringBuilder();
+    // Years
+    int years=duration/YEAR;
+    if (years>0)
+    {
+      sb.append(years).append('y');
+    }
+    duration=duration%YEAR;
+    // Months
+    int months=duration/MONTH;
+    if (months>0)
+    {
+      sb.append(months).append('m');
+    }
+    duration=duration%MONTH;
+    // Weeks
+    int weeks=duration/WEEK;
+    if (weeks>0)
+    {
+      sb.append(weeks).append('w');
+    }
+    duration=duration%WEEK;
+    // Days
     int days=duration/DAY;
     if (days>0)
     {
       sb.append(days).append('d');
     }
     duration=duration%DAY;
+    // Hours
     int hours=duration/HOUR;
     if (hours>0)
     {
       sb.append(hours).append('h');
     }
     duration=duration%HOUR;
+    // Minutes
     int minutes=duration/MINUTE;
     if (minutes>0)
     {
       sb.append(minutes).append('m');
     }
+    // Seconds
     int seconds=duration%MINUTE;
     if (seconds>0)
     {
