@@ -20,6 +20,7 @@ public class CharacterSummary implements BasicCharacterAttributes
   private Race _race;
   private String _region;
   private int _level;
+  // TODO Add kinship ID
 
   /**
    * Constructor.

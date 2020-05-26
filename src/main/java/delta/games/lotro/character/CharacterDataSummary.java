@@ -13,6 +13,7 @@ public class CharacterDataSummary implements BasicCharacterAttributes
   private String _characterName;
   private int _level;
   private CharacterSummary _summary;
+  // TODO Add date and short description (from CharacterData)
 
   /**
    * Constructor.

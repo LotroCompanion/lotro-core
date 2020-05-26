@@ -15,6 +15,10 @@ public enum CharacterEventType
    */
   CHARACTER_SUMMARY_UPDATED,
   /**
+   * The details of a toon were updated.
+   */
+  CHARACTER_DETAILS_UPDATED,
+  /**
    * The stash of a toon was updated.
    */
   CHARACTER_STASH_UPDATED,

@@ -6,6 +6,9 @@ import java.util.Date;
 import delta.common.utils.misc.Preferences;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.crafting.CraftingStatusManager;
+import delta.games.lotro.character.details.CharacterDetails;
+import delta.games.lotro.character.details.io.xml.CharacterDetailsXMLParser;
+import delta.games.lotro.character.details.io.xml.CharacterDetailsXMLWriter;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLParser;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLWriter;
 import delta.games.lotro.character.level.LevelHistory;
@@ -33,6 +36,7 @@ public class CharacterFile
   private LevelHistory _levelHistory;
   private ReputationStatus _reputation;
   private CraftingStatusManager _craftingMgr;
+  private CharacterDetails _details;
   private CharacterSummary _summary;
   private ItemsStash _stash;
   private Preferences _preferences;
@@ -106,6 +110,47 @@ public class CharacterFile
   {
     File summaryFile=new File(_rootDir,"summary.xml");
     return summaryFile;
+  }
+
+  /**
+   * Get the details for this toon.
+   * @return some details.
+   */
+  public CharacterDetails getDetails()
+  {
+    if (_details==null)
+    {
+      _details=loadDetails();
+    }
+    return _details;
+  }
+
+  private CharacterDetails loadDetails()
+  {
+    CharacterDetails details=null;
+    File detailsFile=getDetailsFile();
+    CharacterDetailsXMLParser parser=new CharacterDetailsXMLParser();
+    details=parser.parseXML(detailsFile);
+    return details;
+  }
+
+  /**
+   * Save details to file.
+   * @param details Details to write.
+   * @return <code>true</code> if it was successful, <code>false</code> otherwise.
+   */
+  public boolean saveDetails(CharacterDetails details)
+  {
+    CharacterDetailsXMLWriter writer=new CharacterDetailsXMLWriter();
+    File detailsFile=getDetailsFile();
+    boolean ok=writer.write(detailsFile,details,EncodingNames.UTF_8);
+    return ok;
+  }
+
+  private File getDetailsFile()
+  {
+    File detailsFile=new File(_rootDir,"details.xml");
+    return detailsFile;
   }
 
   /**
