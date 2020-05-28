@@ -161,6 +161,12 @@ public class CraftingXMLWriter
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_PROFICIENCY_XP_PROPERTY_ATTR,XmlWriter.CDATA,proficiencyXpPropertyName);
     }
+    // Extra recipes
+    String extraRecipesPropertyName=profession.getExtraRecipesPropertyName();
+    if ((extraRecipesPropertyName!=null) && (extraRecipesPropertyName.length()>0))
+    {
+      attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_EXTRA_RECIPES_PROPERTY_ATTR,XmlWriter.CDATA,extraRecipesPropertyName);
+    }
     hd.startElement("","",CraftingXMLConstants.PROFESSION_TAG,attrs);
     // Levels
     List<CraftingLevel> levels=profession.getLevels();

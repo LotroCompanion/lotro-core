@@ -76,6 +76,10 @@ public class CraftingXMLConstants
    * Tag 'profession', attribute 'proficiencyXpProperty'.
    */
   public static final String PROFESSION_PROFICIENCY_XP_PROPERTY_ATTR="proficiencyXpProperty";
+  /**
+   * Tag 'profession', attribute 'extraRecipesProperty'.
+   */
+  public static final String PROFESSION_EXTRA_RECIPES_PROPERTY_ATTR="extraRecipesProperty";
 
   /**
    * Tag 'professionTier'.

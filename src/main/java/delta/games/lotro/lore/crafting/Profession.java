@@ -25,6 +25,7 @@ public class Profession implements Identifiable
   private String _masteryXpPropertyName;
   private String _proficiencyLevelPropertyName;
   private String _proficiencyXpPropertyName;
+  private String _extraRecipesPropertyName;
 
   /**
    * Constructor.
@@ -247,20 +248,33 @@ public class Profession implements Identifiable
   }
 
   /**
+   * Get the 'extra recipes' property name.
+   * @return a property name.
+   */
+  public String getExtraRecipesPropertyName()
+  {
+    return _extraRecipesPropertyName;
+  }
+
+  /**
    * Set the property names.
    * @param enabled 'Enabled' property name.
    * @param masteryLevel 'Mastery level' property name.
    * @param masteryXp 'Mastery XP' property name.
    * @param proficiencyLevel 'Proficiency level' property name.
    * @param proficiencyXp 'Proficiency XP' property name.
+   * @param extraRecipes 'Extra recipes' property name.
    */
-  public void setPropertyNames(String enabled, String masteryLevel, String masteryXp, String proficiencyLevel, String proficiencyXp)
+  public void setPropertyNames(String enabled, String masteryLevel, String masteryXp,
+      String proficiencyLevel, String proficiencyXp,
+      String extraRecipes)
   {
     _enabledPropertyName=enabled;
     _masteryLevelPropertyName=masteryLevel;
     _masteryXpPropertyName=masteryXp;
     _proficiencyLevelPropertyName=proficiencyLevel;
     _proficiencyXpPropertyName=proficiencyXp;
+    _extraRecipesPropertyName=extraRecipes;
   }
 
   @Override

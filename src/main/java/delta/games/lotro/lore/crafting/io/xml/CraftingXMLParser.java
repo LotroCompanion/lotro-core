@@ -96,7 +96,9 @@ public class CraftingXMLParser
     String proficiencyLevelPropertyName=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_PROFICIENCY_LEVEL_PROPERTY_ATTR,"");
     // - proficiency XP
     String proficiencyXpPropertyName=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_PROFICIENCY_XP_PROPERTY_ATTR,"");
-    ret.setPropertyNames(enabledPropertyName,masteryLevelPropertyName,masteryXpPropertyName,proficiencyLevelPropertyName,proficiencyXpPropertyName);
+    // - extra recipes
+    String extraRecipesPropertyName=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_EXTRA_RECIPES_PROPERTY_ATTR,"");
+    ret.setPropertyNames(enabledPropertyName,masteryLevelPropertyName,masteryXpPropertyName,proficiencyLevelPropertyName,proficiencyXpPropertyName,extraRecipesPropertyName);
 
     List<Element> tierTags=DOMParsingTools.getChildTagsByName(root,CraftingXMLConstants.PROFESSION_TIER_TAG);
     for(Element tierTag : tierTags)
