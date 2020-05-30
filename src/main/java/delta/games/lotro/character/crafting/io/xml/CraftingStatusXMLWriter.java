@@ -1,6 +1,10 @@
 package delta.games.lotro.character.crafting.io.xml;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import javax.xml.transform.sax.TransformerHandler;
 
@@ -114,6 +118,7 @@ public class CraftingStatusXMLWriter
     }
     hd.startElement("","",CraftingStatusXMLConstants.PROFESSION_TAG,professionAttrs);
 
+    // Levels status
     for(CraftingLevel level : profession.getLevels())
     {
       CraftingLevelStatus levelStatus=status.getLevelStatus(level);
@@ -132,7 +137,17 @@ public class CraftingStatusXMLWriter
         hd.endElement("","",CraftingStatusXMLConstants.LEVEL_TAG);
       }
     }
-
+    // Known recipes
+    Set<Integer> knownRecipes=status.getKnownRecipes().getKnownRecipes();
+    List<Integer> sortedRecipes=new ArrayList<Integer>(knownRecipes);
+    Collections.sort(sortedRecipes);
+    for(Integer recipeId : sortedRecipes)
+    {
+      AttributesImpl knownRecipeAttrs=new AttributesImpl();
+      knownRecipeAttrs.addAttribute("","",CraftingStatusXMLConstants.RECIPE_ID_ATTR,XmlWriter.CDATA,recipeId.toString());
+      hd.startElement("","",CraftingStatusXMLConstants.KNOWN_RECIPE_TAG,knownRecipeAttrs);
+      hd.endElement("","",CraftingStatusXMLConstants.KNOWN_RECIPE_TAG);
+    }
     hd.endElement("","",CraftingStatusXMLConstants.PROFESSION_TAG);
   }
 

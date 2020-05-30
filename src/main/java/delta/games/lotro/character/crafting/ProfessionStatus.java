@@ -16,6 +16,7 @@ public class ProfessionStatus
   private Profession _profession;
   private Long _validityDate;
   private List<CraftingLevelStatus> _status;
+  private KnownRecipes _knownRecipes;
 
   /**
    * Constructor.
@@ -25,6 +26,7 @@ public class ProfessionStatus
   {
     _profession=profession;
     _status=new ArrayList<CraftingLevelStatus>();
+    _knownRecipes=new KnownRecipes();
     reset();
   }
 
@@ -218,6 +220,15 @@ public class ProfessionStatus
         }
       }
     }
+  }
+
+  /**
+   * Get the known recipes manager.
+   * @return the known recipes manager.
+   */
+  public KnownRecipes getKnownRecipes()
+  {
+    return _knownRecipes;
   }
 
   /**

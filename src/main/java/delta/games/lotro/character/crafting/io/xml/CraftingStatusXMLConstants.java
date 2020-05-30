@@ -76,4 +76,13 @@ public class CraftingStatusXMLConstants
    * Tag 'guild', attribute 'profession'.
    */
   public static final String GUILD_PROFESSION_ATTR="profession";
+
+  /**
+   * Tag 'knownRecipe'.
+   */
+  public static final String KNOWN_RECIPE_TAG="knownRecipe";
+  /**
+   * Tag 'knownRecipe', attribute 'id'.
+   */
+  public static final String RECIPE_ID_ATTR="id";
 }

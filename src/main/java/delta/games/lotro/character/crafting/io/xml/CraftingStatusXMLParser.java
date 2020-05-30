@@ -12,6 +12,7 @@ import delta.games.lotro.character.crafting.CraftingLevelStatus;
 import delta.games.lotro.character.crafting.CraftingLevelTierStatus;
 import delta.games.lotro.character.crafting.CraftingStatus;
 import delta.games.lotro.character.crafting.GuildStatus;
+import delta.games.lotro.character.crafting.KnownRecipes;
 import delta.games.lotro.character.crafting.ProfessionStatus;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLConstants;
 import delta.games.lotro.character.reputation.io.xml.ReputationXMLParser;
@@ -92,6 +93,14 @@ public class CraftingStatusXMLParser
             parseCraftingLevelTier(levelTag,CraftingStatusXMLConstants.PROFICIENCY_TAG,levelStatus.getProficiency());
             parseCraftingLevelTier(levelTag,CraftingStatusXMLConstants.MASTERY_TAG,levelStatus.getMastery());
           }
+        }
+        // Known recipes
+        KnownRecipes knownRecipes=professionStatus.getKnownRecipes();
+        List<Element> knownRecipeTags=DOMParsingTools.getChildTagsByName(professionTag,CraftingStatusXMLConstants.KNOWN_RECIPE_TAG);
+        for(Element knownRecipeTag : knownRecipeTags)
+        {
+          int recipeId=DOMParsingTools.getIntAttribute(knownRecipeTag.getAttributes(),CraftingStatusXMLConstants.RECIPE_ID_ATTR,0);
+          knownRecipes.addRecipe(recipeId);
         }
       }
     }
