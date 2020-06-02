@@ -111,7 +111,12 @@ public final class BuffRegistry
     return ret;
   }
 
-  private Buff getBuffById(String buffId)
+  /**
+   * Get a buff using its identifier.
+   * @param buffId Identifier to use.
+   * @return A buff or <code>null</code> if not found.
+   */
+  public Buff getBuffById(String buffId)
   {
     return _buffMap.get(buffId);
   }
