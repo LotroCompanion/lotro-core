@@ -83,6 +83,12 @@ public class FactionsXMLWriter
     // Identifier
     int id=faction.getIdentifier();
     factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_ID_ATTR,CDATA,String.valueOf(id));
+    // Faction key
+    String key=faction.getLegacyKey();
+    if (key!=null)
+    {
+      factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_KEY_ATTR,CDATA,key);
+    }
     // Faction name
     String name=faction.getName();
     factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_NAME_ATTR,CDATA,name);
@@ -144,6 +150,12 @@ public class FactionsXMLWriter
       // Tier
       int tier=level.getTier();
       levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_TIER_ATTR,CDATA,String.valueOf(tier));
+      // Level key
+      String levelKey=level.getLegacyKey();
+      if (levelKey!=null)
+      {
+        levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_KEY_ATTR,CDATA,levelKey);
+      }
       // Level name
       String levelName=level.getName();
       levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_NAME_ATTR,CDATA,levelName);

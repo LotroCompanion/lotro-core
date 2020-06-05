@@ -12,6 +12,7 @@ import delta.games.lotro.common.Identifiable;
 public class Faction implements Identifiable
 {
   private int _identifier;
+  private String _key;
   private String _name;
   private String _description;
   private String _category;
@@ -30,6 +31,7 @@ public class Faction implements Identifiable
   public Faction(int identifier)
   {
     _identifier=identifier;
+    _key=null;
     _name="";
     _description="";
     _category="";
@@ -55,6 +57,24 @@ public class Faction implements Identifiable
   public String getIdentifyingKey()
   {
     return String.valueOf(_identifier);
+  }
+
+  /**
+   * Get the legacy key, if any.
+   * @return A string key or <code>null</code>.
+   */
+  public String getLegacyKey()
+  {
+    return _key;
+  }
+
+  /**
+   * Set the legacy key.
+   * @param key Legacy key to set.
+   */
+  public void setLegacyKey(String key)
+  {
+    _key=key;
   }
 
   /**

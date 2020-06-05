@@ -7,6 +7,7 @@ package delta.games.lotro.lore.reputation;
 public class FactionLevel
 {
   private int _tier;
+  private String _key;
   private String _name;
   private int _lotroPoints;
   private int _requiredReputation;
@@ -22,6 +23,7 @@ public class FactionLevel
   public FactionLevel(int tier, String name, int lotroPoints, int requiredXp)
   {
     _tier=tier;
+    _key=null;
     _name=name;
     _lotroPoints=lotroPoints;
     _requiredReputation=requiredXp;
@@ -34,6 +36,24 @@ public class FactionLevel
   public int getTier()
   {
     return _tier;
+  }
+
+  /**
+   * Get the legacy key, if any.
+   * @return A string key or <code>null</code>.
+   */
+  public String getLegacyKey()
+  {
+    return _key;
+  }
+
+  /**
+   * Set the legacy key.
+   * @param key Legacy key to set.
+   */
+  public void setLegacyKey(String key)
+  {
+    _key=key;
   }
 
   /**
