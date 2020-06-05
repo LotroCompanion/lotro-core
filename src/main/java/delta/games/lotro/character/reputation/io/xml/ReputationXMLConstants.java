@@ -21,6 +21,14 @@ public class ReputationXMLConstants
    */
   public static final String FACTION_ID_ATTR="id";
   /**
+   * Tag 'faction', attribute 'key'.
+   */
+  public static final String FACTION_KEY_ATTR="key";
+  /**
+   * Tag 'faction', attribute 'current' (legacy).
+   */
+  public static final String FACTION_CURRENT_ATTR="current";
+  /**
    * Tag 'faction', attribute 'currentTier'.
    */
   public static final String FACTION_CURRENT_TIER_ATTR="currentTier";
@@ -37,6 +45,10 @@ public class ReputationXMLConstants
    * Tag 'level', attribute 'tier'.
    */
   public static final String FACTION_LEVEL_TIER_ATTR="tier";
+  /**
+   * Tag 'level', attribute 'key'.
+   */
+  public static final String FACTION_LEVEL_KEY_ATTR="key";
   /**
    * Tag 'level', attribute 'date'.
    */

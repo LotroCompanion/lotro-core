@@ -262,6 +262,31 @@ public class Faction implements Identifiable
   }
 
   /**
+   * Get a level of this faction using its key.
+   * @param levelKey Key of the level to get.
+   * @return A level or <code>null</code> if not found.
+   */
+  public FactionLevel getLevelByKey(String levelKey)
+  {
+    if (levelKey==null)
+    {
+      return null;
+    }
+    for(FactionLevel level : _levels)
+    {
+      if (levelKey.equals(level.getLegacyKey()))
+      {
+        return level;
+      }
+      if (levelKey.equals(String.valueOf(level.getTier())))
+      {
+        return level;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get a level of this faction using its tier.
    * @param tier Tier of the level to get.
    * @return A level or <code>null</code> if not found.

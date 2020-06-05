@@ -48,23 +48,25 @@ public class ReputationXMLParser
     {
       NamedNodeMap factionAttrs=factionTag.getAttributes();
       // Faction
+      Faction faction=null;
       int factionId=DOMParsingTools.getIntAttribute(factionAttrs,ReputationXMLConstants.FACTION_ID_ATTR,0);
+      String factionKey=DOMParsingTools.getStringAttribute(factionAttrs,ReputationXMLConstants.FACTION_KEY_ATTR,null);
+      if (factionKey!=null)
+      {
+        faction=FactionsRegistry.getInstance().getByKey(factionKey);
+      }
       if (factionId!=0)
       {
-        Faction faction=FactionsRegistry.getInstance().getById(factionId);
-        if (faction!=null)
-        {
-          FactionStatus factionStatus=h.getOrCreateFactionStat(faction);
-          loadFactionStatus(factionTag,factionStatus);
-        }
-        else
-        {
-          LOGGER.warn("Could not find faction with ID="+factionId);
-        }
+        faction=FactionsRegistry.getInstance().getById(factionId);
+      }
+      if (faction!=null)
+      {
+        FactionStatus factionStatus=h.getOrCreateFactionStat(faction);
+        loadFactionStatus(factionTag,factionStatus);
       }
       else
       {
-        LOGGER.warn("Could not find faction ID in faction status tag!");
+        LOGGER.warn("Could not find faction with ID="+factionId+" and key="+factionKey);
       }
     }
     return h;
@@ -84,27 +86,21 @@ public class ReputationXMLParser
     for(Element levelTag : levelTags)
     {
       NamedNodeMap levelAttrs=levelTag.getAttributes();
-      int tier=DOMParsingTools.getIntAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_TIER_ATTR,0);
-      FactionLevel level=faction.getLevelByTier(tier);
+      int tier=DOMParsingTools.getIntAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_TIER_ATTR,-1);
+      String levelKey=DOMParsingTools.getStringAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_KEY_ATTR,null);
+      FactionLevel level=getLevelByTierOrKey(faction,tier,levelKey);
       if (level!=null)
       {
         FactionLevelStatus levelStatus=factionStatus.getStatusForLevel(level);
         long date=DOMParsingTools.getLongAttribute(levelAttrs,ReputationXMLConstants.FACTION_LEVEL_DATE_ATTR,0);
         levelStatus.setCompletionDate(date);
       }
-      else
-      {
-        LOGGER.warn("Unknown faction tier ["+tier+"] for faction ["+faction.getName()+"]");
-      }
     }
     NamedNodeMap factionAttrs=factionTag.getAttributes();
     // Current level
-    FactionLevel currentLevel=null;
     int currentTier=DOMParsingTools.getIntAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_TIER_ATTR,-1);
-    if (currentTier>=0)
-    {
-      currentLevel=faction.getLevelByTier(currentTier);
-    }
+    String currentLevelKey=DOMParsingTools.getStringAttribute(factionAttrs,ReputationXMLConstants.FACTION_CURRENT_ATTR,null);
+    FactionLevel currentLevel=getLevelByTierOrKey(faction,currentTier,currentLevelKey);
     factionStatus.setFactionLevel(currentLevel);
     // Current reputation
     // - initialize from faction level
@@ -116,5 +112,30 @@ public class ReputationXMLParser
       Integer currentReputation=Integer.valueOf(currentReputationValue);
       factionStatus.setReputation(currentReputation);
     }
+  }
+
+  private static FactionLevel getLevelByTierOrKey(Faction faction, int tier, String levelKey)
+  {
+    FactionLevel level=null;
+    if (tier>0)
+    {
+      level=faction.getLevelByTier(tier);
+      if (level==null)
+      {
+        LOGGER.warn("Unknown faction tier ["+tier+"] for faction ["+faction.getName()+"]");
+      }
+    }
+    if (level==null)
+    {
+      if ((levelKey!=null) && (!"NONE".equals(levelKey)))
+      {
+        level=faction.getLevelByKey(levelKey);
+        if (level==null)
+        {
+          LOGGER.warn("Unknown faction level key ["+levelKey+"] for faction ["+faction.getName()+"]");
+        }
+      }
+    }
+    return level;
   }
 }

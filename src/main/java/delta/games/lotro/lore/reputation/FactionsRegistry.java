@@ -18,6 +18,7 @@ public final class FactionsRegistry
   private static FactionsRegistry _instance;
 
   private HashMap<Integer,Faction> _registryById;
+  private HashMap<String,Faction> _registryByKey;
   private List<String> _categories;
   private HashMap<String,List<Faction>> _factionsByCategory;
   private List<ReputationDeed> _factionDeeds;
@@ -58,6 +59,7 @@ public final class FactionsRegistry
   public FactionsRegistry()
   {
     _registryById=new HashMap<Integer,Faction>();
+    _registryByKey=new HashMap<String,Faction>();
     _categories=new ArrayList<String>();
     _factionsByCategory=new HashMap<String,List<Faction>>();
     _factionDeeds=new ArrayList<ReputationDeed>();
@@ -85,6 +87,13 @@ public final class FactionsRegistry
     if (id!=0)
     {
       _registryById.put(Integer.valueOf(id),faction);
+      _registryByKey.put(String.valueOf(id),faction);
+    }
+    // Map by key
+    String factionKey=faction.getLegacyKey();
+    if (factionKey!=null)
+    {
+      _registryByKey.put(factionKey,faction);
     }
     // Register
     _factions.add(faction);
@@ -145,5 +154,15 @@ public final class FactionsRegistry
   public Faction getById(int identifier)
   {
     return _registryById.get(Integer.valueOf(identifier));
+  }
+
+  /**
+   * Get a faction instance using its legacy key.
+   * @param key Key of the faction to get.
+   * @return A faction instance or <code>null</code> if not found.
+   */
+  public Faction getByKey(String key)
+  {
+    return _registryByKey.get(key);
   }
 }
