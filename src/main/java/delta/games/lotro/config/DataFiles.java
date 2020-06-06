@@ -18,6 +18,10 @@ public class DataFiles
    * Servers file.
    */
   public static final String SERVERS="servers";
+  /**
+   * Servers description file.
+   */
+  public static final String SERVERS_DESCRIPTION="serversDescription";
 
   /**
    * Progressions file.
