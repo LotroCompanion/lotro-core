@@ -72,6 +72,22 @@ public class DeedsStatusManager
   }
 
   /**
+   * Cleanup un-needed entries.
+   */
+  public void cleanup()
+  {
+    List<String> keys=new ArrayList<String>(_status.keySet());
+    for(String key : keys)
+    {
+      DeedStatus deedStatus=_status.get(key);
+      if (deedStatus.isEmpty())
+      {
+        _status.remove(key);
+      }
+    }
+  }
+
+  /**
    * Get all managed deed statuses.
    * @return A list of deed statuses, ordered by deed key.
    */

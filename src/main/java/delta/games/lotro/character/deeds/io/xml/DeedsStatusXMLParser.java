@@ -48,12 +48,8 @@ public class DeedsStatusXMLParser
         // Create deed status
         DeedStatus deedStatus=status.get(key,true);
         // Completed
-        String completedStr=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_COMPLETED_ATTR,null);
-        if (completedStr!=null)
-        {
-          Boolean completed=Boolean.valueOf(completedStr);
-          deedStatus.setCompleted(completed);
-        }
+        boolean completed=DOMParsingTools.getBooleanAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_COMPLETED_ATTR,false);
+        deedStatus.setCompleted(completed);
         // Completion date
         String completionDateStr=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_COMPLETION_DATE_ATTR,null);
         if (completionDateStr!=null)
@@ -82,12 +78,8 @@ public class DeedsStatusXMLParser
         int pointId=DOMParsingTools.getIntAttribute(attrs,DeedStatusXMLConstants.GEO_POINT_STATUS_ID_ATTR,0);
         DeedGeoPointStatus pointStatus=status.getStatus(pointId,true);
         // Completed
-        String completedStr=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.GEO_POINT_STATUS_COMPLETED_ATTR,null);
-        if (completedStr!=null)
-        {
-          Boolean completed=Boolean.valueOf(completedStr);
-          pointStatus.setCompleted(completed);
-        }
+        boolean completed=DOMParsingTools.getBooleanAttribute(attrs,DeedStatusXMLConstants.GEO_POINT_STATUS_COMPLETED_ATTR,false);
+        pointStatus.setCompleted(completed);
         // Completion date
         String completionDateStr=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.GEO_POINT_STATUS_COMPLETION_DATE_ATTR,null);
         if (completionDateStr!=null)

@@ -9,7 +9,7 @@ import java.util.Date;
 public class DeedGeoPointStatus
 {
   private int _pointId;
-  private Boolean _completed;
+  private boolean _completed;
   private Long _completionDate;
 
   /**
@@ -31,10 +31,10 @@ public class DeedGeoPointStatus
   }
 
   /**
-   * Indicates if this deed geo point is completed or not, or if it is unknown.
-   * @return A 3-state boolean.
+   * Indicates if this deed geo point is completed or not.
+   * @return A boolean.
    */
-  public Boolean isCompleted()
+  public boolean isCompleted()
   {
     return _completed;
   }
@@ -43,7 +43,7 @@ public class DeedGeoPointStatus
    * Set the completion status.
    * @param completed Completion status to set.
    */
-  public void setCompleted(Boolean completed)
+  public void setCompleted(boolean completed)
   {
     _completed=completed;
   }
@@ -66,12 +66,21 @@ public class DeedGeoPointStatus
     _completionDate=completionDate;
   }
 
+  /**
+   * Indicates if this status is empty or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isEmpty()
+  {
+    return ((_completionDate==null) && (!_completed));
+  }
+
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
     sb.append("Point: ").append(_pointId).append(": ");
-    if (_completed==Boolean.TRUE)
+    if (_completed)
     {
       sb.append("completed");
       if (_completionDate!=null)
@@ -79,13 +88,9 @@ public class DeedGeoPointStatus
         sb.append(" (").append(new Date(_completionDate.longValue())).append(')');
       }
     }
-    else if (_completed==Boolean.FALSE)
-    {
-      sb.append("NOT completed");
-    }
     else
     {
-      sb.append("unknown status");
+      sb.append("NOT completed");
     }
     return sb.toString();
   }

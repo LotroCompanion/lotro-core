@@ -11,7 +11,7 @@ import delta.games.lotro.character.deeds.geo.DeedGeoStatus;
 public class DeedStatus
 {
   private String _deedKey;
-  private Boolean _completed;
+  private boolean _completed;
   private Long _completionDate;
   private DeedGeoStatus _geoStatus;
 
@@ -35,10 +35,10 @@ public class DeedStatus
   }
 
   /**
-   * Indicates if this deed is completed, or not, or if it is unknown.
-   * @return A 3-state boolean.
+   * Indicates if this deed is completed, or not.
+   * @return A boolean.
    */
-  public Boolean isCompleted()
+  public boolean isCompleted()
   {
     return _completed;
   }
@@ -47,7 +47,7 @@ public class DeedStatus
    * Set the completion status.
    * @param completed Completion status to set.
    */
-  public void setCompleted(Boolean completed)
+  public void setCompleted(boolean completed)
   {
     _completed=completed;
   }
@@ -88,12 +88,29 @@ public class DeedStatus
     _geoStatus=geoStatus;
   }
 
+  /**
+   * Indicates if this deed status is empty (contains no data).
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isEmpty()
+  {
+    if ((_completionDate!=null) || (_completed))
+    {
+      return false;
+    }
+    if ((_geoStatus==null) || (_geoStatus.isEmpty()))
+    {
+      return true;
+    }
+    return false;
+  }
+
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
     sb.append("Deed '").append(_deedKey).append("': ");
-    if (_completed==Boolean.TRUE)
+    if (_completed)
     {
       sb.append("completed");
       if (_completionDate!=null)
@@ -101,13 +118,9 @@ public class DeedStatus
         sb.append(" (").append(new Date(_completionDate.longValue())).append(')');
       }
     }
-    else if (_completed==Boolean.FALSE)
-    {
-      sb.append("NOT completed");
-    }
     else
     {
-      sb.append("unknown status");
+      sb.append("NOT completed");
     }
     if (_geoStatus!=null)
     {

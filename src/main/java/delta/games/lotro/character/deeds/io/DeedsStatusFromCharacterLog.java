@@ -68,7 +68,7 @@ public class DeedsStatusFromCharacterLog
             {
               deedStatus.setCompletionDate(Long.valueOf(item.getDate()));
             }
-            deedStatus.setCompleted(Boolean.TRUE);
+            deedStatus.setCompleted(true);
           }
         }
       }

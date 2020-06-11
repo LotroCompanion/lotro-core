@@ -52,6 +52,7 @@ public class DeedsStatusXMLWriter
    */
   private void writeDeedsStatus(TransformerHandler hd, DeedsStatusManager status) throws Exception
   {
+    status.cleanup();
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",DeedStatusXMLConstants.DEEDS_STATUS_TAG,attrs);
 
@@ -64,10 +65,10 @@ public class DeedsStatusXMLWriter
       String key=deedStatus.getDeedKey();
       deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_KEY_ATTR,CDATA,key);
       // Completed
-      Boolean completed=deedStatus.isCompleted();
-      if (completed!=null)
+      boolean completed=deedStatus.isCompleted();
+      if (completed)
       {
-        deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_COMPLETED_ATTR,CDATA,completed.toString());
+        deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_COMPLETED_ATTR,CDATA,String.valueOf(completed));
       }
       // Completion date
       Long completionDate=deedStatus.getCompletionDate();
@@ -96,15 +97,20 @@ public class DeedsStatusXMLWriter
       List<DeedGeoPointStatus> pointStatuses=geoStatus.getPointStatuses();
       for(DeedGeoPointStatus pointStatus : pointStatuses)
       {
+        boolean empty=pointStatus.isEmpty();
+        if (empty)
+        {
+          continue;
+        }
         AttributesImpl deedAttrs=new AttributesImpl();
         // PointID
         int pointId=pointStatus.getPointId();
         deedAttrs.addAttribute("","",DeedStatusXMLConstants.GEO_POINT_STATUS_ID_ATTR,CDATA,String.valueOf(pointId));
         // Completed
-        Boolean completed=pointStatus.isCompleted();
-        if (completed!=null)
+        boolean completed=pointStatus.isCompleted();
+        if (completed)
         {
-          deedAttrs.addAttribute("","",DeedStatusXMLConstants.GEO_POINT_STATUS_COMPLETED_ATTR,CDATA,completed.toString());
+          deedAttrs.addAttribute("","",DeedStatusXMLConstants.GEO_POINT_STATUS_COMPLETED_ATTR,CDATA,String.valueOf(completed));
         }
         // Completion date
         Long completionDate=pointStatus.getCompletionDate();

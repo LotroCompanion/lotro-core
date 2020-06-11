@@ -59,6 +59,26 @@ public class DeedGeoStatus
   }
 
   /**
+   * Indicates if this deed geo status is empty (contains no data).
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isEmpty()
+  {
+    if (_pointStatuses.size()==0)
+    {
+      return true;
+    }
+    for(DeedGeoPointStatus status : _pointStatuses.values())
+    {
+      if (!status.isEmpty())
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
    * Remove all stored data.
    */
   public void clear()
