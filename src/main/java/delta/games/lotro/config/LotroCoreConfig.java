@@ -49,11 +49,11 @@ public final class LotroCoreConfig
     _locations=getLocations();
 
     // Parameters
-    File parametersFiles=getFile(DataFiles.PARAMETERS);
+    File parametersFile=getFile(DataFiles.PARAMETERS);
     _parameters=new TypedProperties();
-    if (parametersFiles.canRead())
+    if (parametersFile.canRead())
     {
-      _parameters.loadFromFile(parametersFiles);
+      _parameters.loadFromFile(parametersFile);
     }
 
     // User data
