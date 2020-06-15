@@ -28,12 +28,33 @@ public class BuffsManager
   }
 
   /**
+   * Indicates if this buff manager has the given buff.
+   * @param buffId Identifier of the buff to use.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean hasBuff(String buffId)
+  {
+    for(BuffInstance buff : _buffs)
+    {
+      String id=buff.getBuff().getId();
+      if (id.equals(buffId))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Add a buff in this manager.
    * @param buffInstance Buff to add.
    */
   public void addBuff(BuffInstance buffInstance)
   {
-    _buffs.add(buffInstance);
+    if (!hasBuff(buffInstance.getBuff().getId()))
+    {
+      _buffs.add(buffInstance);
+    }
   }
 
   /**
@@ -82,7 +103,7 @@ public class BuffsManager
    * Get all ids of contained buffs.
    * @return a set of buff ids.
    */
-  public Set<String> getBuffId()
+  public Set<String> getBuffIds()
   {
     HashSet<String> buffIds=new HashSet<String>();
     for(BuffInstance buff : _buffs)

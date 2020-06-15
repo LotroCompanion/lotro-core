@@ -86,7 +86,7 @@ public final class BuffRegistry
   public List<Buff> buildBuffSelection(BasicCharacterAttributes attrs, BuffsManager buffs)
   {
     List<Buff> ret=new ArrayList<Buff>();
-    Set<String> ids=buffs.getBuffId();
+    Set<String> ids=buffs.getBuffIds();
     BuffRegistry buffsRegistry=BuffRegistry.getInstance();
     Set<Buff> allBuffs=buffsRegistry.getAllBuffs();
     CharacterClass cClass=attrs.getCharacterClass();
