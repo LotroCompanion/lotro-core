@@ -100,6 +100,18 @@ public class ClassDescriptionXMLConstants
    */
   public static final String CELL_TRAIT_ID_ATTR="traitId";
   /**
+   * Tag 'cellDependency'.
+   */
+  public static final String CELL_DEPENDENCY_TAG="cellDependency";
+  /**
+   * Tag 'cellDependency', attribute 'cellId'.
+   */
+  public static final String CELL_DEPENDENCY_CELL_ID_ATTR="cellId";
+  /**
+   * Tag 'cellDependency', attribute 'rank'.
+   */
+  public static final String CELL_DEPENDENCY_RANK_ATTR="rank";
+  /**
    * Tag 'classSkill'.
    */
   public static final String CLASS_SKILL_TAG="classSkill";

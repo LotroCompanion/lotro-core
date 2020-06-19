@@ -15,6 +15,8 @@ import delta.games.lotro.character.classes.InitialGearDefinition;
 import delta.games.lotro.character.classes.InitialGearElement;
 import delta.games.lotro.character.classes.TraitTree;
 import delta.games.lotro.character.classes.TraitTreeBranch;
+import delta.games.lotro.character.classes.TraitTreeCell;
+import delta.games.lotro.character.classes.TraitTreeCellDependency;
 import delta.games.lotro.character.classes.TraitTreeProgression;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
@@ -189,7 +191,18 @@ public class ClassDescriptionXMLParser
           // Trait ID
           int traitId=DOMParsingTools.getIntAttribute(cellAttrs,ClassDescriptionXMLConstants.CELL_TRAIT_ID_ATTR,0);
           TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
-          branch.setCell(cellId,trait);
+          TraitTreeCell cell=new TraitTreeCell(cellId,trait);
+          // Dependencies
+          List<Element> cellDependencyTags=DOMParsingTools.getChildTagsByName(cellTag,ClassDescriptionXMLConstants.CELL_DEPENDENCY_TAG);
+          for(Element cellDependencyTag : cellDependencyTags)
+          {
+            NamedNodeMap cellDependencyAttrs=cellDependencyTag.getAttributes();
+            String depCellId=DOMParsingTools.getStringAttribute(cellDependencyAttrs,ClassDescriptionXMLConstants.CELL_DEPENDENCY_CELL_ID_ATTR,null);
+            int rank=DOMParsingTools.getIntAttribute(cellDependencyAttrs,ClassDescriptionXMLConstants.CELL_DEPENDENCY_RANK_ATTR,0);
+            TraitTreeCellDependency cellDependency=new TraitTreeCellDependency(depCellId,rank);
+            cell.addDependency(cellDependency);
+          }
+          branch.setCell(cellId,cell);
         }
       }
     }

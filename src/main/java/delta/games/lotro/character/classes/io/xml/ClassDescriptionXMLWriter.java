@@ -18,6 +18,8 @@ import delta.games.lotro.character.classes.InitialGearDefinition;
 import delta.games.lotro.character.classes.InitialGearElement;
 import delta.games.lotro.character.classes.TraitTree;
 import delta.games.lotro.character.classes.TraitTreeBranch;
+import delta.games.lotro.character.classes.TraitTreeCell;
+import delta.games.lotro.character.classes.TraitTreeCellDependency;
 import delta.games.lotro.character.classes.TraitTreeProgression;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
@@ -196,12 +198,27 @@ public class ClassDescriptionXMLWriter
     for(String cellId : cellIds)
     {
       AttributesImpl cellAttrs=new AttributesImpl();
-      // Required points
+      // Cell ID
       cellAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_ID_ATTR,XmlWriter.CDATA,cellId);
+      TraitTreeCell cell=branch.getCell(cellId);
       // Trait ID
-      int traitId=branch.getTraitForCell(cellId).getIdentifier();
+      int traitId=cell.getTrait().getIdentifier();
       cellAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
       hd.startElement("","",ClassDescriptionXMLConstants.CELL_TAG,cellAttrs);
+      // Dependencies
+      List<TraitTreeCellDependency> dependencies=cell.getDependencies();
+      for(TraitTreeCellDependency dependency : dependencies)
+      {
+        AttributesImpl cellDepAttrs=new AttributesImpl();
+        // Cell ID
+        String depCellId=dependency.getCellId();
+        cellDepAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_DEPENDENCY_CELL_ID_ATTR,XmlWriter.CDATA,depCellId);
+        // Rank
+        int rank=dependency.getRank();
+        cellDepAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_DEPENDENCY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
+        hd.startElement("","",ClassDescriptionXMLConstants.CELL_DEPENDENCY_TAG,cellDepAttrs);
+        hd.endElement("","",ClassDescriptionXMLConstants.CELL_DEPENDENCY_TAG);
+      }
       hd.endElement("","",ClassDescriptionXMLConstants.CELL_TAG);
     }
     hd.endElement("","",ClassDescriptionXMLConstants.CELLS_TAG);

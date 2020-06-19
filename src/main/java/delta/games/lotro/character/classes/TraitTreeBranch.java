@@ -17,7 +17,7 @@ public class TraitTreeBranch
   private int _code;
   private String _name;
   private TraitTreeProgression _progression;
-  private Map<String,TraitDescription> _traitsByCell;
+  private Map<String,TraitTreeCell> _cells;
 
   /**
    * Constructor.
@@ -28,7 +28,7 @@ public class TraitTreeBranch
   {
     _code=code;
     _name=name;
-    _traitsByCell=new HashMap<String,TraitDescription>();
+    _cells=new HashMap<String,TraitTreeCell>();
     _progression=new TraitTreeProgression();
   }
 
@@ -65,7 +65,7 @@ public class TraitTreeBranch
    */
   public List<String> getCells()
   {
-    List<String> cells=new ArrayList<String>(_traitsByCell.keySet());
+    List<String> cells=new ArrayList<String>(_cells.keySet());
     Collections.sort(cells);
     return cells;
   }
@@ -77,17 +77,28 @@ public class TraitTreeBranch
    */
   public TraitDescription getTraitForCell(String cellId)
   {
-    return _traitsByCell.get(cellId);
+    TraitTreeCell cell=getCell(cellId);
+    return (cell!=null)?cell.getTrait():null;
   }
 
   /**
-   * Set the trait for a cell.
+   * Get the targeted cell.
    * @param cellId Identifier of the targeted cell.
-   * @param trait Trait to set.
+   * @return A cell or <code>null</code>.
    */
-  public void setCell(String cellId, TraitDescription trait)
+  public TraitTreeCell getCell(String cellId)
   {
-    _traitsByCell.put(cellId,trait);
+    return _cells.get(cellId);
+  }
+
+  /**
+   * Set a cell.
+   * @param cellId Identifier of the targeted cell.
+   * @param cell Cell to set.
+   */
+  public void setCell(String cellId, TraitTreeCell cell)
+  {
+    _cells.put(cellId,cell);
   }
 
   /**
@@ -96,6 +107,11 @@ public class TraitTreeBranch
    */
   public List<TraitDescription> getTraits()
   {
-    return new ArrayList<TraitDescription>(_traitsByCell.values());
+    List<TraitDescription> ret=new ArrayList<TraitDescription>();
+    for(TraitTreeCell cell : _cells.values())
+    {
+      ret.add(cell.getTrait());
+    }
+    return ret;
   }
 }
