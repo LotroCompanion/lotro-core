@@ -167,6 +167,20 @@ public class TraitTreeStatus
   }
 
   /**
+   * Set the rank for the specified cell.
+   * @param cellId Cell identifier.
+   * @param rank Rank to set.
+   */
+  public void setRankForCell(String cellId, int rank)
+  {
+    TraitTreeCell cell=getCellById(cellId);
+    TraitDescription trait=cell.getTrait();
+    Integer key=Integer.valueOf(trait.getIdentifier());
+    IntegerHolder intHolder=_treeRanks.get(key);
+    intHolder.setInt(rank);
+  }
+
+  /**
    * Indicates if a cell is enabled or not.
    * @param cellId Identifier of the cell to test.
    * @return <code>true</code> if enabled, <code>false</code> otherwise.
