@@ -8,9 +8,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.misc.IntegerHolder;
-import delta.games.lotro.character.stats.buffs.Buff;
-import delta.games.lotro.character.stats.buffs.BuffInstance;
-import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.traits.TraitDescription;
 
 /**
@@ -51,32 +48,22 @@ public class TraitTreeStatus
   }
 
   /**
-   * Initialize this trait tree status from a buffs manager.
-   * @param buffs Buffs manager to use.
+   * Get the managed trait tree.
+   * @return the managed trait tree.
    */
-  public void initFromBuffs(BuffsManager buffs)
+  public TraitTree getTraitTree()
   {
-    int nbBuffs=buffs.getBuffsCount();
-    for(int i=0;i<nbBuffs;i++)
+    return _tree;
+  }
+
+  /**
+   * Reset rank values.
+   */
+  public void reset()
+  {
+    for(IntegerHolder rankValue : _treeRanks.values())
     {
-      BuffInstance buffInstance=buffs.getBuffAt(i);
-      Buff buff=buffInstance.getBuff();
-      String buffId=buff.getId();
-      Integer traitId=NumericTools.parseInteger(buffId,false);
-      if (traitId!=null)
-      {
-        IntegerHolder intValue=_treeRanks.get(traitId);
-        if (intValue!=null)
-        {
-          Integer rank=buffInstance.getTier();
-          int value=rank!=null?rank.intValue():1;
-          intValue.setInt(value);
-        }
-      }
-    }
-    if (LOGGER.isDebugEnabled())
-    {
-      LOGGER.debug("Loaded tree from buffs: "+_treeRanks);
+      rankValue.setInt(0);
     }
   }
 
@@ -155,15 +142,44 @@ public class TraitTreeStatus
   /**
    * Get the rank for the given cell.
    * @param cellId Cell identifier.
-   * @return A rank value.
+   * @return A rank value or <code>null</code> if no such cell.
    */
-  public int getRankForCell(String cellId)
+  public Integer getRankForCell(String cellId)
   {
     TraitTreeCell cell=getCellById(cellId);
-    TraitDescription trait=cell.getTrait();
-    Integer key=Integer.valueOf(trait.getIdentifier());
+    if (cell!=null)
+    {
+      TraitDescription trait=cell.getTrait();
+      return getRankForTrait(trait.getIdentifier());
+    }
+    return null;
+  }
+
+  /**
+   * Get the rank for the given trait.
+   * @param traitId Trait identifier.
+   * @return A rank value.
+   */
+  public Integer getRankForTrait(int traitId)
+  {
+    Integer key=Integer.valueOf(traitId);
     IntegerHolder ret=_treeRanks.get(key);
-    return ret!=null?ret.getInt():0;
+    return ret!=null?Integer.valueOf(ret.getInt()):null;
+  }
+
+  /**
+   * Set the rank for the given trait.
+   * @param traitId Trait identifier.
+   * @param value Rank value to set.
+   */
+  public void setRankForTrait(int traitId, int value)
+  {
+    Integer key=Integer.valueOf(traitId);
+    IntegerHolder intHolder=_treeRanks.get(key);
+    if (intHolder!=null)
+    {
+      intHolder.setInt(value);
+    }
   }
 
   /**
@@ -175,9 +191,7 @@ public class TraitTreeStatus
   {
     TraitTreeCell cell=getCellById(cellId);
     TraitDescription trait=cell.getTrait();
-    Integer key=Integer.valueOf(trait.getIdentifier());
-    IntegerHolder intHolder=_treeRanks.get(key);
-    intHolder.setInt(rank);
+    setRankForTrait(trait.getIdentifier(),rank);
   }
 
   /**
@@ -281,5 +295,18 @@ public class TraitTreeStatus
     int index=cellId.indexOf('_');
     int y=NumericTools.parseInt(cellId.substring(0,index),0);
     return y;
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    sb.append("Trait tree status:");
+    if (_selectedBranch!=null)
+    {
+      sb.append(" selected branch=").append(_selectedBranch.getName());
+    }
+    sb.append(" ranks=").append(_treeRanks);
+    return sb.toString();
   }
 }
