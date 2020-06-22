@@ -181,6 +181,22 @@ public class TraitTreeStatus
   }
 
   /**
+   * Get the total cost for this tree.
+   * @return a cost in trait points.
+   */
+  public int getCost()
+  {
+    int total=0;
+    for(TraitTreeBranch branch : _tree.getBranches())
+    {
+      int ranks=getRanksForRows(branch,10); // Assume max 10 ranks
+      int factor=(branch==_selectedBranch)?1:2;
+      total+=factor*ranks;
+    }
+    return total;
+  }
+
+  /**
    * Indicates if a cell is enabled or not.
    * @param cellId Identifier of the cell to test.
    * @return <code>true</code> if enabled, <code>false</code> otherwise.
