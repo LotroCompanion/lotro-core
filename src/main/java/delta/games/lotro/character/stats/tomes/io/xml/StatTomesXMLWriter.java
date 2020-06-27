@@ -58,7 +58,7 @@ public class StatTomesXMLWriter
       hd.startElement("","",StatTomesXMLConstants.STAT_TAG,attrs);
       // Tomes
       int nbRanks=statTomesMgr.getNbOfRanks(stat);
-      for(int i=1;i<nbRanks;i++)
+      for(int i=1;i<=nbRanks;i++)
       {
         StatTome tome=statTomesMgr.getStatTome(stat,i);
         if (tome!=null)
