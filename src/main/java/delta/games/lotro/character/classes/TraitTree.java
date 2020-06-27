@@ -3,6 +3,8 @@ package delta.games.lotro.character.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.character.traits.TraitDescription;
+
 /**
  * Trait tree.
  * @author DAM
@@ -35,5 +37,20 @@ public class TraitTree
   public List<TraitTreeBranch> getBranches()
   {
     return _branches;
+  }
+
+  /**
+   * Get a list of all the referenced traits.
+   * @return A list of traits.
+   */
+  public List<TraitDescription> getAllTraits()
+  {
+    List<TraitDescription> ret=new ArrayList<TraitDescription>();
+    for(TraitTreeBranch branch : _branches)
+    {
+      ret.addAll(branch.getTraits());
+      ret.addAll(branch.getProgression().getTraits());
+    }
+    return ret;
   }
 }

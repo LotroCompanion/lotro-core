@@ -12,6 +12,7 @@ import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.stats.buffs.BuffType;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.buffs.MoraleFromHopeOrDread;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
@@ -70,7 +71,7 @@ public class CharacterStatsComputer
 
   private BuffInstance buildMoraleBuffFromHopeOrDread()
   {
-    Buff buff=new Buff("MORALE_HOPE_DREAD", "", "Morale from Hope/Dread");
+    Buff buff=new Buff("MORALE_HOPE_DREAD", BuffType.OTHER, "", "Morale from Hope/Dread");
     buff.setImpl(new MoraleFromHopeOrDread());
     BuffInstance buffInstance=new BuffInstance(buff);
     return buffInstance;

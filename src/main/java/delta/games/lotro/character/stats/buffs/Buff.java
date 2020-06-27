@@ -12,6 +12,7 @@ import delta.games.lotro.common.Race;
 public class Buff
 {
   private String _id;
+  private BuffType _type;
   private String _category;
   private String _label;
   private String _icon;
@@ -22,12 +23,14 @@ public class Buff
   /**
    * Constructor.
    * @param id Buff identifier.
+   * @param type Buff type.
    * @param category Category.
    * @param label Displayed label.
    */
-  public Buff(String id, String category, String label)
+  public Buff(String id, BuffType type, String category, String label)
   {
     _id=id;
+    _type=type;
     _category=category;
     _label=label;
   }
@@ -39,6 +42,15 @@ public class Buff
   public String getId()
   {
     return _id;
+  }
+
+  /**
+   * Get the buff type.
+   * @return the buff type.
+   */
+  public BuffType getType()
+  {
+    return _type;
   }
 
   /**
@@ -153,6 +165,11 @@ public class Buff
     sb.append(_id);
     sb.append(": ").append(_label);
     sb.append(" (").append(_icon).append(')');
+    sb.append(" ; type=").append(_type);
+    if ((_category!=null) && (_category.length()>0))
+    {
+      sb.append(" ; category=").append(_category);
+    }
     if (_requiredRace!=null)
     {
       sb.append(" ; race=").append(_requiredRace);

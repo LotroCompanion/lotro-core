@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.stats.buffs.BuffRegistry;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.traits.TraitDescription;
 
@@ -78,5 +79,64 @@ public class BuffsManagerToTraitTreeStatus
       selectedBranch=branches.get(0);
     }
     status.setSelectedBranch(selectedBranch);
+  }
+
+  /**
+   * Update a buffs manager from a trait tree status.
+   * @param status Trait tree status to use.
+   * @param buffs Buffs manager to update.
+   */
+  public static void updateBuffsFromTraitTreeStatus(TraitTreeStatus status, BuffsManager buffs)
+  {
+    // Remove buffs that come from the tree
+    TraitTree tree=status.getTraitTree();
+    List<TraitDescription> traits=tree.getAllTraits();
+    for(TraitDescription trait : traits)
+    {
+      String buffId=String.valueOf(trait.getIdentifier());
+      buffs.removeBuff(buffId);
+    }
+    // Push selected traits
+    BuffRegistry buffsRegistry=BuffRegistry.getInstance();
+    for(TraitDescription trait : tree.getAllTraits())
+    {
+      Integer rank=status.getRankForTrait(trait.getIdentifier());
+      if ((rank!=null) && (rank.intValue()>0))
+      {
+        String buffId=String.valueOf(trait.getIdentifier());
+        BuffInstance buffInstance=buffsRegistry.newBuffInstance(buffId);
+        if (buffInstance!=null)
+        {
+          buffInstance.setTier(rank);
+          buffs.addBuff(buffInstance);
+        }
+      }
+    }
+    // Handle progresssion in the selected branch
+    TraitTreeBranch selectedBranch=status.getSelectedBranch();
+    if (selectedBranch!=null)
+    {
+      int nbRanks=status.getTotalRanksInTree();
+      TraitTreeProgression progression=selectedBranch.getProgression();
+      List<Integer> steps=progression.getSteps();
+      List<TraitDescription> progressionTraits=progression.getTraits();
+      int nbSteps=steps.size();
+      for(int i=0;i<nbSteps;i++)
+      {
+        int requiredRanks=steps.get(i).intValue();
+        boolean enabled=(nbRanks>=requiredRanks);
+        if (enabled)
+        {
+          TraitDescription progressionTrait=progressionTraits.get(i);
+          String buffId=String.valueOf(progressionTrait.getIdentifier());
+          BuffInstance buffInstance=buffsRegistry.newBuffInstance(buffId);
+          if (buffInstance!=null)
+          {
+            buffInstance.setTier(Integer.valueOf(1));
+            buffs.addBuff(buffInstance);
+          }
+        }
+      }
+    }
   }
 }

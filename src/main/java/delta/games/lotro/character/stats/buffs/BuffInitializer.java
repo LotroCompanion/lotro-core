@@ -27,7 +27,7 @@ import delta.games.lotro.lore.consumables.io.xml.ConsumableXMLParser;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
- * Initializes a buff registry.
+ * Initializes the buff registry.
  * @author DAM
  */
 public class BuffInitializer
@@ -58,7 +58,7 @@ public class BuffInitializer
   {
     // - Hope
     {
-      Buff hope=new Buff("HOPE", GENERIC, "Hope");
+      Buff hope=new Buff("HOPE", BuffType.OTHER, GENERIC, "Hope");
       hope.setIcon("Hope-icon");
       SimpleTieredBuff buff=new SimpleTieredBuff();
       for(int tier=1;tier<=10;tier++)
@@ -70,7 +70,7 @@ public class BuffInitializer
     }
     // - Hope (House of Celeborn)
     {
-      Buff hope=new Buff("HOPE_CELEBORN", GENERIC, "Hope House of Celeborn (Tier 10)");
+      Buff hope=new Buff("HOPE_CELEBORN", BuffType.OTHER, GENERIC, "Hope House of Celeborn (Tier 10)");
       hope.setIcon("Hope_4-icon");
       BasicStatsSet stats=buildBasicSet(WellKnownStat.HOPE,10);
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
@@ -95,22 +95,19 @@ public class BuffInitializer
 
   private void initRaceBuff(Race race, BuffRegistry registry, TraitDescription trait)
   {
-    if (useTrait(trait))
+    int identifier=trait.getIdentifier();
+    String name=trait.getName();
+    Buff buff=new Buff(String.valueOf(identifier),BuffType.RACE, RACIAL,name);
+    int iconId=trait.getIconId();
+    buff.setIcon("/traitIcons/"+iconId+".png");
+    buff.setRequiredRace(race);
+    StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
+    buff.setImpl(buffImpl);
+    registry.registerBuff(buff);
+    String key=trait.getKey();
+    if (key.length()>0)
     {
-      int identifier=trait.getIdentifier();
-      String name=trait.getName();
-      Buff buff=new Buff(String.valueOf(identifier),RACIAL,name);
-      int iconId=trait.getIconId();
-      buff.setIcon("/traitIcons/"+iconId+".png");
-      buff.setRequiredRace(race);
-      StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
-      buff.setImpl(buffImpl);
-      registry.registerBuff(buff);
-      String key=trait.getKey();
-      if (key.length()>0)
-      {
-        registry.registerBuff(key,buff);
-      }
+      registry.registerBuff(key,buff);
     }
   }
 
@@ -147,30 +144,20 @@ public class BuffInitializer
 
   private void initClassBuff(CharacterClass characterClass, BuffRegistry registry, TraitDescription trait, String category)
   {
-    if (useTrait(trait))
+    int identifier=trait.getIdentifier();
+    String name=trait.getName();
+    Buff buff=new Buff(String.valueOf(identifier),BuffType.CLASS, category,name);
+    int iconId=trait.getIconId();
+    buff.setIcon("/traitIcons/"+iconId+".png");
+    buff.setRequiredClass(characterClass);
+    StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
+    buff.setImpl(buffImpl);
+    registry.registerBuff(buff);
+    String key=trait.getKey();
+    if (key.length()>0)
     {
-      int identifier=trait.getIdentifier();
-      String name=trait.getName();
-      Buff buff=new Buff(String.valueOf(identifier),category,name);
-      int iconId=trait.getIconId();
-      buff.setIcon("/traitIcons/"+iconId+".png");
-      buff.setRequiredClass(characterClass);
-      StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
-      buff.setImpl(buffImpl);
-      registry.registerBuff(buff);
-      String key=trait.getKey();
-      if (key.length()>0)
-      {
-        registry.registerBuff(key,buff);
-      }
+      registry.registerBuff(key,buff);
     }
-  }
-
-  private boolean useTrait(TraitDescription trait)
-  {
-    StatsProvider statsProvider=trait.getStatsProvider();
-    int nbStats=statsProvider.getNumberOfStatProviders();
-    return nbStats>0;
   }
 
   private void initConsumableBuffs(BuffRegistry registry)
@@ -182,7 +169,7 @@ public class BuffInitializer
       String id=String.valueOf(consumable.getIdentifier());
       String category="Consumable: "+consumable.getCategory();
       String name=consumable.getName();
-      Buff buff=new Buff(id,category,name);
+      Buff buff=new Buff(id,BuffType.CONSUMABLE,category,name);
       String icon="/icons/"+consumable.getIcon()+".png";
       buff.setIcon(icon);
       StatsProvider statsProvider=consumable.getProvider();
@@ -199,10 +186,10 @@ public class BuffInitializer
     for(EffectBuff effectBuff : effectBuffs)
     {
       String id=String.valueOf(effectBuff.getIdentifier());
-      String category="Misc";
+      String category="Effect";
       Effect effect=effectBuff.getEffect();
       String name=effect.getName();
-      Buff buff=new Buff(id,category,name);
+      Buff buff=new Buff(id,BuffType.EFFECT,category,name);
       String icon="/effectIcons/"+effect.getIconId()+".png";
       buff.setIcon(icon);
       StatsProvider statsProvider=effect.getStatsProvider();

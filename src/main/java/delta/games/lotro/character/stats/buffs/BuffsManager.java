@@ -100,6 +100,40 @@ public class BuffsManager
   }
 
   /**
+   * Get a buff using its identifier.
+   * @param buffId Buff identifier.
+   * @return A buff instance or <code>null</code> if not found.
+   */
+  public BuffInstance getBuffById(String buffId)
+  {
+    for(BuffInstance buff : _buffs)
+    {
+      String id=buff.getBuff().getId();
+      if (id.equals(buffId))
+      {
+        return buff;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Remove a buff using its identifier.
+   * @param buffId Buff identifier.
+   * @return <code>true</code> if a buff was removed, <code>false</code> otherwise.
+   */
+  public boolean removeBuff(String buffId)
+  {
+    boolean ret=false;
+    BuffInstance buff=getBuffById(buffId);
+    if (buff!=null)
+    {
+      ret=_buffs.remove(buff);
+    }
+    return ret;
+  }
+
+  /**
    * Get all ids of contained buffs.
    * @return a set of buff ids.
    */
