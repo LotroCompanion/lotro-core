@@ -18,7 +18,7 @@ public class ServerXMLConstants
   /**
    * Tag 'server', attribute 'name'.
    */
-  public static final String SERVER_NAME_ATTR="command";
+  public static final String SERVER_NAME_ATTR="name";
   /**
    * Tag 'server', attribute 'location'.
    */

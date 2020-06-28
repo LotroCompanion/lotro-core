@@ -146,7 +146,7 @@ public class BuffInitializer
   {
     int identifier=trait.getIdentifier();
     String name=trait.getName();
-    Buff buff=new Buff(String.valueOf(identifier),BuffType.CLASS, category,name);
+    Buff buff=new Buff(String.valueOf(identifier),BuffType.CLASS,category,name);
     int iconId=trait.getIconId();
     buff.setIcon("/traitIcons/"+iconId+".png");
     buff.setRequiredClass(characterClass);
