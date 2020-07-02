@@ -1,9 +1,10 @@
-package delta.games.lotro.character.classes;
+package delta.games.lotro.character.classes.traitTree;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.CharacterClass;
 
 /**
  * Trait tree.
@@ -11,14 +12,26 @@ import delta.games.lotro.character.traits.TraitDescription;
  */
 public class TraitTree
 {
+  private CharacterClass _class;
   private List<TraitTreeBranch> _branches;
 
   /**
    * Constructor.
+   * @param characterClass Associated class.
    */
-  public TraitTree()
+  public TraitTree(CharacterClass characterClass)
   {
+    _class=characterClass;
     _branches=new ArrayList<TraitTreeBranch>();
+  }
+
+  /**
+   * Get the associated class.
+   * @return a class.
+   */
+  public CharacterClass getCharacterClass()
+  {
+    return _class;
   }
 
   /**
@@ -28,6 +41,23 @@ public class TraitTree
   public void addBranch(TraitTreeBranch branch)
   {
     _branches.add(branch);
+  }
+
+  /**
+   * Get a branch using its code.
+   * @param branchCode A branch code.
+   * @return A branch or <code>null</code> if not found.
+   */
+  public TraitTreeBranch getBranchByCode(int branchCode)
+  {
+    for(TraitTreeBranch branch : _branches)
+    {
+      if (branch.getCode()==branchCode)
+      {
+        return branch;
+      }
+    }
+    return null;
   }
 
   /**

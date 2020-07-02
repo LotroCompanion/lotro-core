@@ -1,4 +1,4 @@
-package delta.games.lotro.character.classes;
+package delta.games.lotro.character.classes.traitTree;
 
 import java.util.HashMap;
 import java.util.List;

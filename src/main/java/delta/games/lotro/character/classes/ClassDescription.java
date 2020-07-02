@@ -3,6 +3,7 @@ package delta.games.lotro.character.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;

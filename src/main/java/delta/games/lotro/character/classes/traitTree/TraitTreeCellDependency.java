@@ -1,4 +1,4 @@
-package delta.games.lotro.character.classes;
+package delta.games.lotro.character.classes.traitTree;
 
 /**
  * Single dependency of a trait tree cell towards another cell.

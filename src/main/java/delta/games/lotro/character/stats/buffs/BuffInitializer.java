@@ -5,9 +5,9 @@ import java.util.List;
 
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassesManager;
-import delta.games.lotro.character.classes.TraitTree;
-import delta.games.lotro.character.classes.TraitTreeBranch;
-import delta.games.lotro.character.classes.TraitTreeProgression;
+import delta.games.lotro.character.classes.traitTree.TraitTree;
+import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
+import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;

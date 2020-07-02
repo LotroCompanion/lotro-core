@@ -13,11 +13,11 @@ import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.InitialGearDefinition;
 import delta.games.lotro.character.classes.InitialGearElement;
-import delta.games.lotro.character.classes.TraitTree;
-import delta.games.lotro.character.classes.TraitTreeBranch;
-import delta.games.lotro.character.classes.TraitTreeCell;
-import delta.games.lotro.character.classes.TraitTreeCellDependency;
-import delta.games.lotro.character.classes.TraitTreeProgression;
+import delta.games.lotro.character.classes.traitTree.TraitTree;
+import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
+import delta.games.lotro.character.classes.traitTree.TraitTreeCell;
+import delta.games.lotro.character.classes.traitTree.TraitTreeCellDependency;
+import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
@@ -98,7 +98,7 @@ public class ClassDescriptionXMLParser
     Element traitTreeTag=DOMParsingTools.getChildTagByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_TAG);
     if (traitTreeTag!=null)
     {
-      TraitTree tree=parseTraitTree(traitTreeTag);
+      TraitTree tree=parseTraitTree(characterClass,traitTreeTag);
       description.setTraitTree(tree);
     }
     // Skills
@@ -150,9 +150,9 @@ public class ClassDescriptionXMLParser
     return description;
   }
 
-  private static TraitTree parseTraitTree(Element root)
+  private static TraitTree parseTraitTree(CharacterClass characterClass, Element root)
   {
-    TraitTree tree=new TraitTree();
+    TraitTree tree=new TraitTree(characterClass);
     List<Element> branchTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG);
     for(Element branchTag : branchTags)
     {

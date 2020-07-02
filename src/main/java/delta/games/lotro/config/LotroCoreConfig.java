@@ -29,6 +29,8 @@ public final class LotroCoreConfig
   private File _accountsDir;
   // Character data
   private File _toonsDir;
+  // Trait tree setups
+  private File _traitTreeSetupDir;
   // Parameters
   private TypedProperties _parameters;
 
@@ -62,6 +64,7 @@ public final class LotroCoreConfig
     _userDataDir=new File(userApplicationDir,"data");
     _toonsDir=new File(_userDataDir,"characters");
     _accountsDir=new File(_userDataDir,"accounts");
+    _traitTreeSetupDir=new File(_userDataDir,"traitTrees");
   }
 
   private TypedProperties getLocations()
@@ -135,5 +138,14 @@ public final class LotroCoreConfig
   public File getAccountsDir()
   {
     return _accountsDir;
+  }
+
+  /**
+   * Get the root storage directory for trait tree setups.
+   * @return a directory.
+   */
+  public File getTraitTreeSetupDir()
+  {
+    return _traitTreeSetupDir;
   }
 }
