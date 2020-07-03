@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import delta.games.lotro.character.classes.traitTree.setup.events.TraitTreeSetupEvent;
 import delta.games.lotro.character.classes.traitTree.setup.events.TraitTreeSetupEventType;
 import delta.games.lotro.character.classes.traitTree.setup.io.xml.TraitTreeSetupsIO;
+import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.utils.events.EventsManager;
 
@@ -55,22 +57,31 @@ public class TraitTreeSetupsManager
   }
 
   /**
-   * Get the number of setup files.
-   * @return a number of setup files.
+   * Get the setups for a character class.
+   * @param characterClass Character class.
+   * @return A possibly empty but not <code>null</code> list of trait tree setups.
    */
-  public int getDataCount()
+  public List<TraitTreeSetup> getSetups(CharacterClass characterClass)
   {
-    return _datas.size();
+    List<TraitTreeSetup> ret=new ArrayList<TraitTreeSetup>();
+    for(TraitTreeSetup setup : _datas)
+    {
+      CharacterClass setupClass=setup.getCharacterClass();
+      if (setupClass==characterClass)
+      {
+        ret.add(setup);
+      }
+    }
+    return ret;
   }
 
   /**
-   * Get the setup at the given index.
-   * @param index Index of data to get, starting at 0.
-   * @return A trait tree setup.
+   * Get a list of all trait tree setups.
+   * @return an unmodifiable list.
    */
-  public TraitTreeSetup getData(int index)
+  public List<TraitTreeSetup> getAll()
   {
-    return _datas.get(index);
+    return Collections.unmodifiableList(_datas);
   }
 
   private void loadAll()

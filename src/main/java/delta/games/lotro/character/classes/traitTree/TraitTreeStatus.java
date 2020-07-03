@@ -297,6 +297,23 @@ public class TraitTreeStatus
     return y;
   }
 
+  /**
+   * Copy the contents of this status from the given source.
+   * @param source Source to use.
+   */
+  public void copyFrom(TraitTreeStatus source)
+  {
+    _selectedBranch=source._selectedBranch;
+    // Reset
+    reset();
+    for(Map.Entry<Integer,IntegerHolder> entry : source._treeRanks.entrySet())
+    {
+      int traitId=entry.getKey().intValue();
+      int rank=entry.getValue().getInt();
+      setRankForTrait(traitId,rank);
+    }
+  }
+
   @Override
   public String toString()
   {
