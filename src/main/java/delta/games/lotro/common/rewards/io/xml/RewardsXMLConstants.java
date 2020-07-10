@@ -46,6 +46,10 @@ public class RewardsXMLConstants
    */
   public static final String MOUNT_XP="mountXP";
   /**
+   * Tag/attribute 'virtueXP'.
+   */
+  public static final String VIRTUE_XP="virtueXP";
+  /**
    * Tag/attribute 'lotroPoints'.
    */
   public static final String LOTRO_POINTS="lotroPoints";

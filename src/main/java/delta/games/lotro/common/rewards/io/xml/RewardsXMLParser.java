@@ -102,6 +102,13 @@ public class RewardsXMLParser
       int mountXP=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       rewards.setMountXp(mountXP);
     }
+    // Virtue XP
+    else if (RewardsXMLConstants.VIRTUE_XP.equals(tagName))
+    {
+      NamedNodeMap attrs=rewardTag.getAttributes();
+      int virtueXP=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
+      rewards.setVirtueXp(virtueXP);
+    }
     // Glory
     else if (RewardsXMLConstants.GLORY.equals(tagName))
     {

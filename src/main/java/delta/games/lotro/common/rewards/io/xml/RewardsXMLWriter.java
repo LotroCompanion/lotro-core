@@ -73,6 +73,9 @@ public class RewardsXMLWriter
     // Mount XP
     int mountXP=rewards.getMountXp();
     writeAmount(hd,RewardsXMLConstants.MOUNT_XP,mountXP);
+    // Virtue XP
+    int virtueXP=rewards.getVirtueXp();
+    writeAmount(hd,RewardsXMLConstants.VIRTUE_XP,virtueXP);
     // Glory
     int glory=rewards.getGlory();
     writeAmount(hd,RewardsXMLConstants.GLORY,glory);

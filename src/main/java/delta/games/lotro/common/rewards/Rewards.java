@@ -15,6 +15,7 @@ public class Rewards
   private int _xp;
   private int _itemXp;
   private int _mountXp;
+  private int _virtueXp;
   private int _glory;
   private int _lotroPoints;
   private int _classPoints;
@@ -29,6 +30,7 @@ public class Rewards
     _xp=0;
     _itemXp=0;
     _mountXp=0;
+    _virtueXp=0;
     _glory=0;
     _lotroPoints=0;
     _classPoints=0;
@@ -96,6 +98,24 @@ public class Rewards
   public void setMountXp(int mountXp)
   {
     _mountXp=mountXp;
+  }
+
+  /**
+   * Get the rewarded virtue XP.
+   * @return a virtue XP amount.
+   */
+  public int getVirtueXp()
+  {
+    return _virtueXp;
+  }
+
+  /**
+   * Set the rewarded virtue XP.
+   * @param virtueXp Virtue XP amount to set.
+   */
+  public void setVirtueXp(int virtueXp)
+  {
+    _virtueXp=virtueXp;
   }
 
   /**
@@ -224,6 +244,12 @@ public class Rewards
     {
       if (firstDone) sb.append(" / ");
       sb.append("Mount XP=").append(_mountXp);
+      firstDone=true;
+    }
+    if (_virtueXp>0)
+    {
+      if (firstDone) sb.append(" / ");
+      sb.append("Virtue XP=").append(_virtueXp);
       firstDone=true;
     }
     if (_glory>0)
