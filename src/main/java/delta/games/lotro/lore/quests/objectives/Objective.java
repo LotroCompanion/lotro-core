@@ -103,6 +103,23 @@ public class Objective
   }
 
   /**
+   * Access to an objective condition using its index.
+   * @param index Index to use.
+   * @return An objective condition or <code>null</code> if not found.
+   */
+  public ObjectiveCondition getConditionByIndex(int index)
+  {
+    for(ObjectiveCondition condition : _conditions)
+    {
+      if (condition.getIndex()==index)
+      {
+        return condition;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Sort conditions.
    */
   public void sort()
