@@ -31,7 +31,8 @@ public class InternalGameId
    */
   public InternalGameId(long id)
   {
-    setIdAsLong(id);
+    _id1=(int)(id&0xFFFFFFFF);
+    _id2=(int)(id>>32);
   }
 
   /**
@@ -42,16 +43,6 @@ public class InternalGameId
   {
     _id1=source._id1;
     _id2=source._id2;
-  }
-
-  /**
-   * Set identifier value from a long value.
-   * @param id Input long value.
-   */
-  public void setIdAsLong(long id)
-  {
-    _id1=(int)(id&0xFFFFFFFF);
-    _id2=(int)(id>>32);
   }
 
   /**
@@ -167,8 +158,7 @@ public class InternalGameId
     try
     {
       long value=Long.parseLong(idStr,16);
-      ret=new InternalGameId(0,0);
-      ret.setIdAsLong(value);
+      ret=new InternalGameId(value);
     }
     catch(Exception e)
     {
