@@ -194,4 +194,9 @@ public class DataFiles
    * Disenchantment results.
    */
   public static final String DISENCHANTMENTS="disenchantments";
+
+  /**
+   * Geographic areas.
+   */
+  public static final String GEO_AREAS="geoAreas";
 }
