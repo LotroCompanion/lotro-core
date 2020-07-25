@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
@@ -79,6 +80,13 @@ public class QuestXMLParser extends AchievableXMLParser
     // Repeatable
     byte repeatable=(byte)DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_REPEATABLE_ATTR,0);
     q.setRepeatability(Repeatability.getByCode(repeatable));
+    // Lock type
+    String lockTypeStr=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_LOCK_TYPE_ATTR,null);
+    if (lockTypeStr!=null)
+    {
+      LockType lockType=LockType.valueOf(lockTypeStr);
+      q.setLockType(lockType);
+    }
     // Instanced
     boolean instanced=DOMParsingTools.getBooleanAttribute(attrs,QuestXMLConstants.QUEST_INSTANCED_ATTR,false);
     q.setInstanced(instanced);

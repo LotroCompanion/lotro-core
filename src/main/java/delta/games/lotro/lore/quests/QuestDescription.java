@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
@@ -65,6 +66,10 @@ public class QuestDescription extends Achievable
    * Repeatability (never null).
    */
   private Repeatability _repeatability;
+  /**
+   * Lock type.
+   */
+  private LockType _lockType;
 
   // Flags
   private boolean _instanced;
@@ -92,6 +97,7 @@ public class QuestDescription extends Achievable
     _size=Size.SOLO;
     _faction=FACTION.FREE_PEOPLES;
     _repeatability=Repeatability.NOT_REPEATABLE;
+    _lockType=null;
     _instanced=false;
     _shareable=true;
     _sessionPlay=false;
@@ -192,6 +198,24 @@ public class QuestDescription extends Achievable
   public void setRepeatability(Repeatability repeatability)
   {
     _repeatability=repeatability;
+  }
+
+  /**
+   * Get the lock type.
+   * @return A lock type.
+   */
+  public LockType getLockType()
+  {
+    return _lockType;
+  }
+
+  /**
+   * Set the lock type.
+   * @param lockType value to set.
+   */
+  public void setLockType(LockType lockType)
+  {
+    _lockType=lockType;
   }
 
   /**
@@ -361,6 +385,10 @@ public class QuestDescription extends Achievable
     if (_repeatability!=Repeatability.NOT_REPEATABLE)
     {
       sb.append(" (").append(_repeatability).append(")");
+    }
+    if (_lockType!=null)
+    {
+      sb.append(" (").append(_lockType).append(")");
     }
     if (_instanced)
     {

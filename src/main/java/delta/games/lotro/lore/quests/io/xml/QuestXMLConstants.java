@@ -40,6 +40,10 @@ public class QuestXMLConstants
    */
   public static final String QUEST_REPEATABLE_ATTR="repeatable";
   /**
+   * Tag 'quest', attribute 'lockType'.
+   */
+  public static final String QUEST_LOCK_TYPE_ATTR="lockType";
+  /**
    * Tag 'quest', attribute 'instanced'.
    */
   public static final String QUEST_INSTANCED_ATTR="instanced";

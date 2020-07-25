@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
@@ -107,6 +108,12 @@ public class QuestXMLWriter extends AchievableXMLWriter
     if (repeatability!=Repeatability.NOT_REPEATABLE)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_REPEATABLE_ATTR,XmlWriter.CDATA,String.valueOf(repeatability.getCode()));
+    }
+    // Lock type
+    LockType lockType=quest.getLockType();
+    if (lockType!=null)
+    {
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_LOCK_TYPE_ATTR,XmlWriter.CDATA,lockType.name());
     }
     // Instanced?
     boolean instanced=quest.isInstanced();
