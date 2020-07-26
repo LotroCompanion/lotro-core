@@ -87,6 +87,6 @@ public class Area implements Identifiable
   @Override
   public String toString()
   {
-    return _name;
+    return "Area: "+_name;
   }
 }
