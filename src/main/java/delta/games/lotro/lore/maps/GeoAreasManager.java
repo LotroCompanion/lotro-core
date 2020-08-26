@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.maps;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.maps.io.xml.GeoAreasXMLParser;
 
 /**
  * Manager for all geographic areas.
@@ -14,9 +18,25 @@ import delta.games.lotro.common.IdentifiableComparator;
  */
 public class GeoAreasManager
 {
+  private static final GeoAreasManager _instance=load();
   private Map<Integer,Region> _regions;
   private Map<Integer,Territory> _territories;
   private Map<Integer,Area> _areas;
+
+  /**
+   * Get the reference instance of this class.
+   * @return the reference instance of this class.
+   */
+  public static GeoAreasManager getInstance()
+  {
+    return _instance;
+  }
+
+  private static GeoAreasManager load()
+  {
+    File from=LotroCoreConfig.getInstance().getFile(DataFiles.GEO_AREAS);
+    return new GeoAreasXMLParser().parseXML(from);
+  }
 
   /**
    * Constructor.

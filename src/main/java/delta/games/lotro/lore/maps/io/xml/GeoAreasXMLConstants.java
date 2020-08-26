@@ -20,7 +20,7 @@ public class GeoAreasXMLConstants
    */
   public static final String TERRITORY_TAG="territory";
   /**
-   * Tag 'region'.
+   * Tag 'area'.
    */
   public static final String AREA_TAG="area";
   /**
