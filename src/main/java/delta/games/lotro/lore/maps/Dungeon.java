@@ -10,7 +10,6 @@ public class Dungeon implements Identifiable
 {
   private int _identifier;
   private String _name;
-  private Dungeon _parentDungeon;
   private int _imageId;
   // allowed mount types (Dungeon_Allowed_Mount_Types)
   // Music
@@ -47,24 +46,6 @@ public class Dungeon implements Identifiable
   }
 
   /**
-   * Get the parent dungeon.
-   * @return the parent dungeon.
-   */
-  public Dungeon getParentDungeon()
-  {
-    return _parentDungeon;
-  }
-
-  /**
-   * Set the parent dungeon.
-   * @param parentDungeon Parent dungeon to set.
-   */
-  public void setParentDungeon(Dungeon parentDungeon)
-  {
-    _parentDungeon=parentDungeon;
-  }
-
-  /**
    * Get the image for this dungeon.
    * @return an image identifier.
    */
@@ -91,10 +72,6 @@ public class Dungeon implements Identifiable
     StringBuilder sb=new StringBuilder();
     sb.append("Dungeon: ").append(_name);
     sb.append(" (").append(_identifier).append(')');
-    if (_parentDungeon!=null)
-    {
-      sb.append(" Parent: ").append(_parentDungeon.getName());
-    }
     return sb.toString();
   }
 
