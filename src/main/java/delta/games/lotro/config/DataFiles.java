@@ -202,4 +202,8 @@ public class DataFiles
    * Parchment maps.
    */
   public static final String PARCHMENT_MAPS="parchmentMaps";
+  /**
+   * Dungeons.
+   */
+  public static final String DUNGEONS="dungeons";
 }

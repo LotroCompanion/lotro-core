@@ -10,7 +10,7 @@ public class Dungeon implements Identifiable
 {
   private int _identifier;
   private String _name;
-  private int _imageId;
+  private int _basemapId;
   // allowed mount types (Dungeon_Allowed_Mount_Types)
   // Music
 
@@ -18,13 +18,13 @@ public class Dungeon implements Identifiable
    * Constructor.
    * @param identifier Internal identifier.
    * @param name Dungeon's name.
-   * @param imageId Dungeon map image.
+   * @param basemapId Dungeon basemap identifier.
    */
-  public Dungeon(int identifier, String name, int imageId)
+  public Dungeon(int identifier, String name, int basemapId)
   {
     _identifier=identifier;
     _name=name;
-    _imageId=imageId;
+    _basemapId=basemapId;
   }
 
   /**
@@ -46,21 +46,21 @@ public class Dungeon implements Identifiable
   }
 
   /**
-   * Get the image for this dungeon.
-   * @return an image identifier.
+   * Get the basemap identifier for this dungeon.
+   * @return a basemap identifier.
    */
-  public int getImageId()
+  public int getBasemapId()
   {
-    return _imageId;
+    return _basemapId;
   }
 
   /**
-   * Set the image identifier for this dungeon.
-   * @param imageId Image identifier to set.
+   * Set the basemap identifier for this dungeon.
+   * @param basemapId Basemap identifier to set.
    */
-  public void setImageId(int imageId)
+  public void setBasemapId(int basemapId)
   {
-    _imageId=imageId;
+    _basemapId=basemapId;
   }
 
   /**
