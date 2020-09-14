@@ -6,7 +6,7 @@ package delta.games.lotro.lore.deeds.geo;
  */
 public class DeedGeoPoint
 {
-  private String _mapKey;
+  private int _mapKey;
   private int _pointId;
 
   /**
@@ -14,7 +14,7 @@ public class DeedGeoPoint
    * @param mapKey Key of the map to use.
    * @param pointId Point identifier.
    */
-  public DeedGeoPoint(String mapKey, int pointId)
+  public DeedGeoPoint(int mapKey, int pointId)
   {
     _mapKey=mapKey;
     _pointId=pointId;
@@ -33,7 +33,7 @@ public class DeedGeoPoint
    * Get the key of the map to use.
    * @return A map key.
    */
-  public String getMapKey()
+  public int getMapKey()
   {
     return _mapKey;
   }

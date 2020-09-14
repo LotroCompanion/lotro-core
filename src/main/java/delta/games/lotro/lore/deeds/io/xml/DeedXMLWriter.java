@@ -130,8 +130,8 @@ public class DeedXMLWriter extends AchievableXMLWriter
     for(DeedGeoPoint point : data.getPoints())
     {
       AttributesImpl pointAttrs=new AttributesImpl();
-      String mapKey=point.getMapKey();
-      pointAttrs.addAttribute("","",DeedXMLConstants.POINT_MAP_KEY_ATTR,XmlWriter.CDATA,mapKey);
+      int mapKey=point.getMapKey();
+      pointAttrs.addAttribute("","",DeedXMLConstants.POINT_MAP_KEY_ATTR,XmlWriter.CDATA,String.valueOf(mapKey));
       int pointId=point.getPointId();
       pointAttrs.addAttribute("","",DeedXMLConstants.POINT_ID_ATTR,XmlWriter.CDATA,String.valueOf(pointId));
       hd.startElement("","",DeedXMLConstants.POINT_TAG,pointAttrs);

@@ -68,7 +68,7 @@ public class Item implements Identifiable
   // Stacking information
   private Integer _stackMax;
 
-  // TODO Missing attrs: isItemAdvancement="0" consumedOnUse="0" cooldown="" decoration="" instrument=""
+  // TODO Missing attrs: consumedOnUse="0" cooldown="" decoration="" instrument=""
   private ItemQuality _quality;
   private HashMap<String,String> _properties;
 

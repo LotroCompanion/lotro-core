@@ -127,10 +127,10 @@ public class DeedXMLParser extends AchievableXMLParser
     {
       NamedNodeMap geoPointAttr=geoPointTag.getAttributes();
       int pointId=DOMParsingTools.getIntAttribute(geoPointAttr,DeedXMLConstants.POINT_ID_ATTR,0);
-      String mapKey=DOMParsingTools.getStringAttribute(geoPointAttr,DeedXMLConstants.POINT_MAP_KEY_ATTR,null);
-      if ((mapKey!=null) && (pointId!=0))
+      int mapId=DOMParsingTools.getIntAttribute(geoPointAttr,DeedXMLConstants.POINT_MAP_KEY_ATTR,0);
+      if ((mapId!=0) && (pointId!=0))
       {
-        DeedGeoPoint point=new DeedGeoPoint(mapKey,pointId);
+        DeedGeoPoint point=new DeedGeoPoint(mapId,pointId);
         data.addPoint(point);
       }
     }
