@@ -16,6 +16,10 @@ public class ParchmentMapsXMLConstants
    */
   public static final String PARCHMENT_MAP_TAG="parchmentMap";
   /**
+   * Tag 'parchmentMap', attribute 'region'.
+   */
+  public static final String PARCHMENT_MAP_REGION_ATTR="region";
+  /**
    * Tag 'area'.
    */
   public static final String AREA_TAG="area";

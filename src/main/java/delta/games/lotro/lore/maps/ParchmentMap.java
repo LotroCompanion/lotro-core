@@ -13,6 +13,7 @@ public class ParchmentMap implements Identifiable
 {
   private int _identifier;
   private String _name;
+  private int _region;
   private List<Area> _areas;
 
   /**
@@ -43,6 +44,24 @@ public class ParchmentMap implements Identifiable
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Get the region code.
+   * @return a region code.
+   */
+  public int getRegion()
+  {
+    return _region;
+  }
+
+  /**
+   * Set the region code.
+   * @param region Region code to set.
+   */
+  public void setRegion(int region)
+  {
+    _region=region;
   }
 
   /**

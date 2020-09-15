@@ -62,6 +62,9 @@ public class ParchmentMapsXMLParser
     String name=DOMParsingTools.getStringAttribute(attrs,ParchmentMapsXMLConstants.NAME_ATTR,"");
 
     ParchmentMap ret=new ParchmentMap(id,name);
+    // Region
+    int region=DOMParsingTools.getIntAttribute(attrs,ParchmentMapsXMLConstants.PARCHMENT_MAP_REGION_ATTR,0);
+    ret.setRegion(region);
     // Areas
     List<Element> areaTags=DOMParsingTools.getChildTagsByName(parchmentMapTag,ParchmentMapsXMLConstants.AREA_TAG);
     for(Element areaTag : areaTags)

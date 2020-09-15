@@ -75,6 +75,9 @@ public class ParchmentMapsXMLWriter
     // Name
     String name=map.getName();
     attrs.addAttribute("","",ParchmentMapsXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
+    // Region
+    int region=map.getRegion();
+    attrs.addAttribute("","",ParchmentMapsXMLConstants.PARCHMENT_MAP_REGION_ATTR,XmlWriter.CDATA,String.valueOf(region));
     hd.startElement("","",ParchmentMapsXMLConstants.PARCHMENT_MAP_TAG,attrs);
     // Areas
     for(Area area : map.getAreas())
