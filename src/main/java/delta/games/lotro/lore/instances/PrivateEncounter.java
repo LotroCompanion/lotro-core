@@ -40,6 +40,8 @@ public class PrivateEncounter implements Identifiable
   public PrivateEncounter(int id)
   {
     _id=id;
+    _name="";
+    _description="";
     _blocks=new ArrayList<BlockReference>();
     _questsToBestow=new ArrayList<Integer>();
   }
@@ -65,6 +67,10 @@ public class PrivateEncounter implements Identifiable
    */
   public void setName(String name)
   {
+    if (name==null)
+    {
+      name="";
+    }
     _name=name;
   }
 
@@ -83,6 +89,10 @@ public class PrivateEncounter implements Identifiable
    */
   public void setDescription(String description)
   {
+    if (description==null)
+    {
+      description="";
+    }
     _description=description;
   }
 
@@ -150,6 +160,15 @@ public class PrivateEncounter implements Identifiable
   }
 
   /**
+   * Get the quests to bestow for this instance.
+   * @return a list of quest identifiers.
+   */
+  public List<Integer> getQuestsToBestow()
+  {
+    return _questsToBestow;
+  }
+
+  /**
    * Get the maximum number of players in the instance, if any.
    * @return A player count, or <code>null</code>.
    */
@@ -173,7 +192,10 @@ public class PrivateEncounter implements Identifiable
     sb.append(className).append(": ID=").append(_id);
     sb.append(", name=").append(_name);
     sb.append(", content layer=").append(_contentLayerId).append(EndOfLine.NATIVE_EOL);
-    sb.append("Description=").append(_description).append(EndOfLine.NATIVE_EOL);
+    if (_description.length()>0)
+    {
+      sb.append("Description=").append(_description).append(EndOfLine.NATIVE_EOL);
+    }
     sb.append("Blocks=").append(_blocks).append(EndOfLine.NATIVE_EOL);
     if (_questId!=null)
     {

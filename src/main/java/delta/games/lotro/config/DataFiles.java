@@ -206,4 +206,8 @@ public class DataFiles
    * Dungeons.
    */
   public static final String DUNGEONS="dungeons";
+  /**
+   * Private encounters.
+   */
+  public static final String PRIVATE_ENCOUNTERS="privateEncounters";
 }
