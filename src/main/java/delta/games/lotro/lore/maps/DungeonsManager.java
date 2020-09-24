@@ -59,7 +59,7 @@ public class DungeonsManager
    * @param dungeonId Dungeon identifier.
    * @return A dungeon or <code>null</code> if not found.
    */
-  public Dungeon getMapById(int dungeonId)
+  public Dungeon getDungeonById(int dungeonId)
   {
     return _dungeons.get(Integer.valueOf(dungeonId));
   }

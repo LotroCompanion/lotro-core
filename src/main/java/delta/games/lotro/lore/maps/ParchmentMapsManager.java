@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -18,6 +20,8 @@ import delta.games.lotro.lore.maps.io.xml.ParchmentMapsXMLParser;
  */
 public class ParchmentMapsManager
 {
+  private static final Logger LOGGER=Logger.getLogger(ParchmentMapsManager.class);
+
   private static final ParchmentMapsManager _instance=load();
   private Map<Integer,ParchmentMap> _maps;
 
@@ -73,6 +77,36 @@ public class ParchmentMapsManager
     List<ParchmentMap> ret=new ArrayList<ParchmentMap>();
     ret.addAll(_maps.values());
     Collections.sort(ret,new IdentifiableComparator<ParchmentMap>());
+    return ret;
+  }
+
+  /**
+   * Get the parchment map for an area.
+   * @param areaId Area identifier.
+   * @return A parchment map or <code>null</code> if not found.
+   */
+  public ParchmentMap getParchmentMapForArea(int areaId)
+  {
+    ParchmentMap ret=null;
+    int nbFinds=0;
+    ParchmentMapsManager mapsManager=ParchmentMapsManager.getInstance();
+    List<ParchmentMap> maps=mapsManager.getParchmentMaps();
+    for(ParchmentMap map : maps)
+    {
+      List<Area> areas=map.getAreas();
+      for(Area area : areas)
+      {
+        if (area.getIdentifier()==areaId)
+        {
+          ret=map;
+          nbFinds++;
+        }
+      }
+    }
+    if (nbFinds>1)
+    {
+      LOGGER.warn("Multiple maps for area: "+areaId);
+    }
     return ret;
   }
 
