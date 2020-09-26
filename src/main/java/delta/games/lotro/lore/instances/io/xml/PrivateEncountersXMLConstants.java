@@ -64,6 +64,18 @@ public class PrivateEncountersXMLConstants
    */
   public static final String QUEST_TO_BESTOW_TAG="questToBestow";
   /**
+   * Tag 'zoneAndMap'.
+   */
+  public static final String ZONE_AND_MAP_TAG="zoneAndMap";
+  /**
+   * Tag 'zoneAndMap', attribute 'zoneId'.
+   */
+  public static final String ZONE_ID_ATTR="zoneId";
+  /**
+   * Tag 'zoneAndMap', attribute 'basemapId'.
+   */
+  public static final String BASEMAP_ID_ATTR="basemapId";
+  /**
    * Tag 'skirmishPrivateEncounter', attribute 'levelScaling'.
    */
   public static final String LEVEL_SCALING_ATTR="levelScaling";

@@ -13,6 +13,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.lore.geo.BlockReference;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
+import delta.games.lotro.lore.instances.ZoneAndMap;
 
 /**
  * Writes private encounters to XML files.
@@ -124,6 +125,22 @@ public class PrivateEncountersXMLWriter
       blockAttrs.addAttribute("","",PrivateEncountersXMLConstants.BLOCK_Y_ATTR,XmlWriter.CDATA,String.valueOf(y));
       hd.startElement("","",PrivateEncountersXMLConstants.BLOCK_TAG,blockAttrs);
       hd.endElement("","",PrivateEncountersXMLConstants.BLOCK_TAG);
+    }
+    // Zone and map items
+    for(ZoneAndMap zoneAndMap : privateEncounter.getZoneAndMapItems())
+    {
+      AttributesImpl zoneAndMapAttrs=new AttributesImpl();
+      // Zone ID
+      int zoneId=zoneAndMap.getZoneId();
+      zoneAndMapAttrs.addAttribute("","",PrivateEncountersXMLConstants.ZONE_ID_ATTR,XmlWriter.CDATA,String.valueOf(zoneId));
+      // Basemap ID
+      Integer basemapId=zoneAndMap.getMapId();
+      if (basemapId!=null)
+      {
+        zoneAndMapAttrs.addAttribute("","",PrivateEncountersXMLConstants.BASEMAP_ID_ATTR,XmlWriter.CDATA,basemapId.toString());
+      }
+      hd.startElement("","",PrivateEncountersXMLConstants.ZONE_AND_MAP_TAG,zoneAndMapAttrs);
+      hd.endElement("","",PrivateEncountersXMLConstants.ZONE_AND_MAP_TAG);
     }
     // Quests to bestow
     for(Integer questToBestowId : privateEncounter.getQuestsToBestow())

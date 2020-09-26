@@ -59,7 +59,7 @@ public class PrivateEncountersManager
    * @param id Private encounter identifier.
    * @return A private encounter or <code>null</code> if not found.
    */
-  public PrivateEncounter getMapById(int id)
+  public PrivateEncounter getPrivateEncounterById(int id)
   {
     return _privateEncounters.get(Integer.valueOf(id));
   }

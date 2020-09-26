@@ -11,6 +11,7 @@ import delta.games.lotro.lore.geo.BlockReference;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
+import delta.games.lotro.lore.instances.ZoneAndMap;
 
 /**
  * Parser for the private encounters stored in XML.
@@ -110,6 +111,19 @@ public class PrivateEncountersXMLParser
       int y=DOMParsingTools.getIntAttribute(blockAttrs,PrivateEncountersXMLConstants.BLOCK_Y_ATTR,0);
       block.setBlock(x,y);
       ret.addBlock(block);
+    }
+    // Zone and map items
+    List<Element> zoneAndMapTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.ZONE_AND_MAP_TAG);
+    for(Element zoneAndMapTag : zoneAndMapTags)
+    {
+      NamedNodeMap zoneAndMapAttrs=zoneAndMapTag.getAttributes();
+      // Zone ID
+      int zoneId=DOMParsingTools.getIntAttribute(zoneAndMapAttrs,PrivateEncountersXMLConstants.ZONE_ID_ATTR,0);
+      // Basemap ID
+      int basemapIdInt=DOMParsingTools.getIntAttribute(zoneAndMapAttrs,PrivateEncountersXMLConstants.BASEMAP_ID_ATTR,0);
+      Integer basemapId=(basemapIdInt!=0)?Integer.valueOf(basemapIdInt):null;
+      ZoneAndMap zoneAndMap=new ZoneAndMap(zoneId,basemapId);
+      ret.addZoneAndMap(zoneAndMap);
     }
     // Quests to bestow
     List<Element> questToBestowTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.QUEST_TO_BESTOW_TAG);
