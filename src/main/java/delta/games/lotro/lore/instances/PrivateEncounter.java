@@ -5,7 +5,6 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.lore.geo.BlockReference;
 
 /**
  * Private encounter description.
@@ -17,8 +16,7 @@ public class PrivateEncounter implements Identifiable
   private String _name;
   private String _description;
   private int _contentLayerId;
-  private List<BlockReference> _blocks;
-  private List<ZoneAndMap> _geoData;
+  private List<InstanceMapDescription> _mapDescriptions;
   private Integer _questId;
   // Quests to bestow (array)
   private List<Integer> _questsToBestow;
@@ -43,8 +41,7 @@ public class PrivateEncounter implements Identifiable
     _id=id;
     _name="";
     _description="";
-    _blocks=new ArrayList<BlockReference>();
-    _geoData=new ArrayList<ZoneAndMap>();
+    _mapDescriptions=new ArrayList<InstanceMapDescription>();
     _questsToBestow=new ArrayList<Integer>();
   }
 
@@ -117,39 +114,21 @@ public class PrivateEncounter implements Identifiable
   }
 
   /**
-   * Add a block reference.
-   * @param block Block reference to add.
+   * Add a map description.
+   * @param mapDescription Map to add.
    */
-  public void addBlock(BlockReference block)
+  public void addMapDescription(InstanceMapDescription mapDescription)
   {
-    _blocks.add(block);
+    _mapDescriptions.add(mapDescription);
   }
 
   /**
-   * Get the blocks for this instance.
-   * @return a list of block references.
+   * Get the maps for this instance.
+   * @return a list of maps items.
    */
-  public List<BlockReference> getBlocks()
+  public List<InstanceMapDescription> getMapDescriptions()
   {
-    return _blocks;
-  }
-
-  /**
-   * Add a zone and map.
-   * @param zoneAndMap Zone and map data item.
-   */
-  public void addZoneAndMap(ZoneAndMap zoneAndMap)
-  {
-    _geoData.add(zoneAndMap);
-  }
-
-  /**
-   * Get the zone and map items for this instance.
-   * @return a list of zone and map items.
-   */
-  public List<ZoneAndMap> getZoneAndMapItems()
-  {
-    return _geoData;
+    return _mapDescriptions;
   }
 
   /**
@@ -216,7 +195,14 @@ public class PrivateEncounter implements Identifiable
     {
       sb.append("Description=").append(_description).append(EndOfLine.NATIVE_EOL);
     }
-    sb.append("Blocks=").append(_blocks).append(EndOfLine.NATIVE_EOL);
+    if (_mapDescriptions.size()>0)
+    {
+      sb.append("Maps=").append(EndOfLine.NATIVE_EOL);
+      for(InstanceMapDescription map : _mapDescriptions)
+      {
+        sb.append("\t").append(map).append(EndOfLine.NATIVE_EOL);
+      }
+    }
     if (_questId!=null)
     {
       sb.append("Quest=").append(_questId).append(EndOfLine.NATIVE_EOL);
