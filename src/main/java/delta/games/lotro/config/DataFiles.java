@@ -210,4 +210,8 @@ public class DataFiles
    * Private encounters.
    */
   public static final String PRIVATE_ENCOUNTERS="privateEncounters";
+  /**
+   * Mobs.
+   */
+  public static final String MOBS="mobs";
 }
