@@ -8,11 +8,11 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.mobs.MobDescription;
-import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.objectives.ConditionTarget;

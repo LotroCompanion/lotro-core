@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.quests.dialogs;
 
-import delta.games.lotro.lore.npc.NpcDescription;
+import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.utils.Proxy;
 
 /**

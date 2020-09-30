@@ -8,8 +8,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
-import delta.games.lotro.lore.misc.EntityClassification;
 
 /**
  * Parser for pets stored in XML.

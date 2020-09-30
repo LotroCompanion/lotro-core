@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.misc;
+package delta.games.lotro.lore.agents;
 
 /**
  * Classification of an entity.

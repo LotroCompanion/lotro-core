@@ -11,8 +11,8 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
-import delta.games.lotro.lore.misc.EntityClassification;
 
 /**
  * Writes pets to XML files.

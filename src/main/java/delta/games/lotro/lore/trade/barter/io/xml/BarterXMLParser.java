@@ -11,8 +11,8 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
+import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.lore.trade.barter.BarterEntry;

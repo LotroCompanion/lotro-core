@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.mobs.io.xml;
+package delta.games.lotro.lore.agents.mobs.io.xml;
 
 import java.io.File;
 import java.util.List;
@@ -10,7 +10,8 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.lore.mobs.MobDescription;
+import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
+import delta.games.lotro.lore.agents.mobs.MobDescription;
 
 /**
  * Writes mobs to XML files.
@@ -73,6 +74,8 @@ public class MobsXMLWriter
     // Name
     String name=mob.getName();
     attrs.addAttribute("","",MobsXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
+    // Classification
+    AgentsXMLIO.writeClassification(attrs,mob.getClassification());
     hd.startElement("","",MobsXMLConstants.MOB_TAG,attrs);
     hd.endElement("","",MobsXMLConstants.MOB_TAG);
   }

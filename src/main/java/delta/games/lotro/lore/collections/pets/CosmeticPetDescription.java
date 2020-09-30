@@ -1,7 +1,7 @@
 package delta.games.lotro.lore.collections.pets;
 
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.lore.misc.EntityClassification;
+import delta.games.lotro.lore.agents.EntityClassification;
 
 /**
  * Cosmetic pet.

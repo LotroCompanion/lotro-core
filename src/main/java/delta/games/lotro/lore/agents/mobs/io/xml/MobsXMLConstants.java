@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.mobs.io.xml;
+package delta.games.lotro.lore.agents.mobs.io.xml;
 
 /**
  * Constants for tags and attribute names used in the

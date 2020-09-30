@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.mobs;
+package delta.games.lotro.lore.agents.mobs;
 
 /**
  * Simple test class for mobs.

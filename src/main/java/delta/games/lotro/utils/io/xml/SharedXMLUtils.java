@@ -11,9 +11,9 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
-import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.utils.Proxy;
 
 /**

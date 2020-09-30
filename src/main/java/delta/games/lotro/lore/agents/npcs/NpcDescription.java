@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.npc;
+package delta.games.lotro.lore.agents.npcs;
 
 import delta.games.lotro.common.Identifiable;
 

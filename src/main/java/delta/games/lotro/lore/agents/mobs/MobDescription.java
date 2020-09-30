@@ -1,6 +1,7 @@
-package delta.games.lotro.lore.mobs;
+package delta.games.lotro.lore.agents.mobs;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.lore.agents.AgentClassification;
 
 /**
  * Mob description.
@@ -10,6 +11,7 @@ public class MobDescription implements Identifiable
 {
   private int _identifier;
   private String _name;
+  private AgentClassification _classification;
 
   /**
    * Constructor.
@@ -20,6 +22,7 @@ public class MobDescription implements Identifiable
   {
     _identifier=id;
     _name=name;
+    _classification=new AgentClassification();
   }
 
   /**
@@ -38,5 +41,14 @@ public class MobDescription implements Identifiable
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Get the mob classification.
+   * @return a classification.
+   */
+  public AgentClassification getClassification()
+  {
+    return _classification;
   }
 }

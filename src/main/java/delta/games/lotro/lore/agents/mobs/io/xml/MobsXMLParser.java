@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.mobs.io.xml;
+package delta.games.lotro.lore.agents.mobs.io.xml;
 
 import java.io.File;
 import java.util.List;
@@ -7,8 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.lore.mobs.MobDescription;
-import delta.games.lotro.lore.mobs.MobsManager;
+import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
+import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.mobs.MobsManager;
 
 /**
  * Parser for the mobs stored in XML.
@@ -58,6 +59,8 @@ public class MobsXMLParser
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,MobsXMLConstants.NAME_ATTR,"");
     MobDescription ret=new MobDescription(id,name);
+    // Classification
+    AgentsXMLIO.parseClassificationTag(mobTag,ret.getClassification());
     return ret;
   }
 }

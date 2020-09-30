@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.mobs;
+package delta.games.lotro.lore.agents.mobs;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Map;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.mobs.io.xml.MobsXMLParser;
+import delta.games.lotro.lore.agents.mobs.io.xml.MobsXMLParser;
 
 /**
  * Manager for all mobs.

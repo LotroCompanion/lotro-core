@@ -10,8 +10,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.npc.NpcDescription;
 import delta.games.lotro.lore.trade.vendor.SellList;
 import delta.games.lotro.lore.trade.vendor.VendorNpc;
 import delta.games.lotro.utils.Proxy;

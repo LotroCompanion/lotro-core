@@ -1,6 +1,6 @@
-package delta.games.lotro.lore.mobs;
+package delta.games.lotro.lore.agents.mobs;
 
-import delta.games.lotro.lore.misc.EntityClassification;
+import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.utils.Proxy;
 
 /**
