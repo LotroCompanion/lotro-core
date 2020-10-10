@@ -96,4 +96,24 @@ public class AgentClassification
   {
     return _classification;
   }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    sb.append(_classification);
+    if (_alignment.length()>0)
+    {
+      sb.append(',').append(_alignment);
+    }
+    if (_agentClass.length()>0)
+    {
+      sb.append(',').append(_agentClass);
+    }
+    if (_classFilter.length()>0)
+    {
+      sb.append(',').append(_classFilter);
+    }
+    return sb.toString();
+  }
 }
