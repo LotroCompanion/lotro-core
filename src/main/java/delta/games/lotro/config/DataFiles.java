@@ -214,4 +214,8 @@ public class DataFiles
    * Mobs.
    */
   public static final String MOBS="mobs";
+  /**
+   * Resources maps.
+   */
+  public static final String RESOURCES_MAPS="resourcesMaps";
 }
