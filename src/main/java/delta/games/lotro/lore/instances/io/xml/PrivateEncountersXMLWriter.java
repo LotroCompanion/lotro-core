@@ -96,6 +96,23 @@ public class PrivateEncountersXMLWriter
     if (isSkirmishPE)
     {
       SkirmishPrivateEncounter skirmishPE=(SkirmishPrivateEncounter)privateEncounter;
+      // Category
+      String category=skirmishPE.getCategory();
+      if (category!=null)
+      {
+        attrs.addAttribute("","",PrivateEncountersXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,category);
+      }
+      // Type
+      String type=skirmishPE.getType();
+      if (type!=null)
+      {
+        attrs.addAttribute("","",PrivateEncountersXMLConstants.TYPE_ATTR,XmlWriter.CDATA,type);
+      }
+      // Min/max level
+      int minLevel=skirmishPE.getMinLevelScale();
+      attrs.addAttribute("","",PrivateEncountersXMLConstants.MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel));
+      int maxLevel=skirmishPE.getMaxLevelScale();
+      attrs.addAttribute("","",PrivateEncountersXMLConstants.MAX_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(maxLevel));
       // Level scaling
       Integer levelScaling=skirmishPE.getLevelScaling();
       if (levelScaling!=null)
@@ -110,6 +127,28 @@ public class PrivateEncountersXMLWriter
       attrs.addAttribute("","",PrivateEncountersXMLConstants.DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
     hd.startElement("","",tagName,attrs);
+    if (isSkirmishPE)
+    {
+      SkirmishPrivateEncounter skirmishPE=(SkirmishPrivateEncounter)privateEncounter;
+      // Difficulty tiers
+      for(String difficultyTier : skirmishPE.getDifficultyTiers())
+      {
+        AttributesImpl difficultyTierAttrs=new AttributesImpl();
+        // Name
+        difficultyTierAttrs.addAttribute("","",PrivateEncountersXMLConstants.DIFFICULTY_TIER_NAME_ATTR,XmlWriter.CDATA,difficultyTier);
+        hd.startElement("","",PrivateEncountersXMLConstants.DIFFICULTY_TIER_TAG,difficultyTierAttrs);
+        hd.endElement("","",PrivateEncountersXMLConstants.DIFFICULTY_TIER_TAG);
+      }
+      // Group sizes
+      for(String groupSize : skirmishPE.getGroupSizes())
+      {
+        AttributesImpl groupSizeAttrs=new AttributesImpl();
+        // Name
+        groupSizeAttrs.addAttribute("","",PrivateEncountersXMLConstants.GROUP_SIZE_NAME_ATTR,XmlWriter.CDATA,groupSize);
+        hd.startElement("","",PrivateEncountersXMLConstants.GROUP_SIZE_TAG,groupSizeAttrs);
+        hd.endElement("","",PrivateEncountersXMLConstants.GROUP_SIZE_TAG);
+      }
+    }
     // Maps
     for(InstanceMapDescription map : privateEncounter.getMapDescriptions())
     {

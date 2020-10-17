@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.instances.io.xml;
 
+
 /**
  * Constants for tags and attribute names used in the
  * private encounters XML documents.
@@ -79,8 +80,43 @@ public class PrivateEncountersXMLConstants
    * Tag 'zone', attribute 'zoneId'.
    */
   public static final String ZONE_ID_ATTR="zoneId";
+
+  /**
+   * Tag 'skirmishPrivateEncounter', attribute 'category'.
+   */
+  public static final String CATEGORY_ATTR="category";
+  /**
+   * Tag 'skirmishPrivateEncounter', attribute 'type'.
+   */
+  public static final String TYPE_ATTR="type";
+  /**
+   * Tag 'skirmishPrivateEncounter', attribute 'minLevel'.
+   */
+  public static final String MIN_LEVEL_ATTR="minLevel";
+  /**
+   * Tag 'skirmishPrivateEncounter', attribute 'maxLevel'.
+   */
+  public static final String MAX_LEVEL_ATTR="maxLevel";
   /**
    * Tag 'skirmishPrivateEncounter', attribute 'levelScaling'.
    */
   public static final String LEVEL_SCALING_ATTR="levelScaling";
+
+  /**
+   * Tag 'difficultyTier'.
+   */
+  public static final String DIFFICULTY_TIER_TAG="difficultyTier";
+  /**
+   * Tag 'difficultyTier', attribute 'name'.
+   */
+  public static final String DIFFICULTY_TIER_NAME_ATTR="name";
+
+  /**
+   * Tag 'groupSize'.
+   */
+  public static final String GROUP_SIZE_TAG="groupSize";
+  /**
+   * Tag 'groupSize', attribute 'name'.
+   */
+  public static final String GROUP_SIZE_NAME_ATTR="name";
 }

@@ -85,6 +85,16 @@ public class PrivateEncountersXMLParser
     if (isSkirmishPE)
     {
       SkirmishPrivateEncounter skirmishPE=(SkirmishPrivateEncounter)ret;
+      // Category
+      String category=DOMParsingTools.getStringAttribute(attrs,PrivateEncountersXMLConstants.CATEGORY_ATTR,null);
+      skirmishPE.setCategory(category);
+      // Type
+      String type=DOMParsingTools.getStringAttribute(attrs,PrivateEncountersXMLConstants.TYPE_ATTR,null);
+      skirmishPE.setType(type);
+      // Min/max level
+      int minLevel=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.MIN_LEVEL_ATTR,0);
+      int maxLevel=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.MAX_LEVEL_ATTR,0);
+      skirmishPE.setLevelScale(minLevel,maxLevel);
       // Level scaling
       int levelScaling=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.LEVEL_SCALING_ATTR,0);
       if (levelScaling>0)
@@ -95,6 +105,25 @@ public class PrivateEncountersXMLParser
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,PrivateEncountersXMLConstants.DESCRIPTION_ATTR,"");
     ret.setDescription(description);
+
+    if (isSkirmishPE)
+    {
+      SkirmishPrivateEncounter skirmishPE=(SkirmishPrivateEncounter)ret;
+      // Difficulty tiers
+      List<Element> difficultyTierTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.DIFFICULTY_TIER_TAG);
+      for(Element difficultyTierTag : difficultyTierTags)
+      {
+        String difficultyTierName=DOMParsingTools.getStringAttribute(difficultyTierTag.getAttributes(),PrivateEncountersXMLConstants.DIFFICULTY_TIER_NAME_ATTR,"");
+        skirmishPE.addDifficultyTier(difficultyTierName);
+      }
+      // Group sizes
+      List<Element> groupSizeTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.GROUP_SIZE_TAG);
+      for(Element groupSizeTag : groupSizeTags)
+      {
+        String groupSizeName=DOMParsingTools.getStringAttribute(groupSizeTag.getAttributes(),PrivateEncountersXMLConstants.GROUP_SIZE_NAME_ATTR,"");
+        skirmishPE.addGroupSize(groupSizeName);
+      }
+    }
 
     // Maps
     List<Element> mapTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.MAP_TAG);
