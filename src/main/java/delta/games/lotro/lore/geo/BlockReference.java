@@ -9,14 +9,18 @@ public class BlockReference
   private int _region;
   private int _blockX;
   private int _blockY;
-  private int _cell;
 
   /**
    * Constructor.
+   * @param region Region.
+   * @param blockX Block X.
+   * @param blockY Block Y.
    */
-  public BlockReference()
+  public BlockReference(int region, int blockX, int blockY)
   {
-    _region=1; // Eriador
+    _region=region;
+    _blockX=blockX;
+    _blockY=blockY;
   }
 
   /**
@@ -26,33 +30,6 @@ public class BlockReference
   public int getRegion()
   {
     return _region;
-  }
-
-  /**
-   * Set the region code.
-   * @param region Region code to set.
-   */
-  public void setRegion(int region)
-  {
-    _region=region;
-  }
-
-  /**
-   * Get the cell.
-   * @return the cell.
-   */
-  public int getCell()
-  {
-    return _cell;
-  }
-
-  /**
-   * Set the cell.
-   * @param cell Cell value.
-   */
-  public void setCell(int cell)
-  {
-    _cell=cell;
   }
 
   /**
@@ -73,20 +50,9 @@ public class BlockReference
     return _blockY;
   }
 
-  /**
-   * Set block.
-   * @param blockX Block X.
-   * @param blockY Block Y.
-   */
-  public void setBlock(int blockX, int blockY)
-  {
-    _blockX=blockX;
-    _blockY=blockY;
-  }
-
   @Override
   public String toString()
   {
-    return "R="+_region+",C="+_cell+",bx="+_blockX+",by="+_blockY;
+    return "R="+_region+",bx="+_blockX+",by="+_blockY;
   }
 }

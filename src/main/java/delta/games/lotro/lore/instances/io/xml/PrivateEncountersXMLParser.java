@@ -148,15 +148,13 @@ public class PrivateEncountersXMLParser
       for(Element blockTag : blockTags)
       {
         NamedNodeMap blockAttrs=blockTag.getAttributes();
-        BlockReference block=new BlockReference();
         // Region
         int region=DOMParsingTools.getIntAttribute(blockAttrs,PrivateEncountersXMLConstants.BLOCK_REGION_ATTR,0);
-        block.setRegion(region);
         // X
         int x=DOMParsingTools.getIntAttribute(blockAttrs,PrivateEncountersXMLConstants.BLOCK_X_ATTR,0);
         // Y
         int y=DOMParsingTools.getIntAttribute(blockAttrs,PrivateEncountersXMLConstants.BLOCK_Y_ATTR,0);
-        block.setBlock(x,y);
+        BlockReference block=new BlockReference(region,x,y);
         map.addBlock(block);
       }
       ret.addMapDescription(map);
