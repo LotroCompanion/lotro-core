@@ -17,6 +17,10 @@ public final class CharacterClass
    */
   public static final CharacterClass BEORNING=new CharacterClass("Beorning","beorning");
   /**
+   * Brawler.
+   */
+  public static final CharacterClass BRAWLER=new CharacterClass("Brawler","brawler");
+  /**
    * Burglar.
    */
   public static final CharacterClass BURGLAR=new CharacterClass("Burglar","burglar");
@@ -58,7 +62,7 @@ public final class CharacterClass
    */
   public static final CharacterClass[] ALL_CLASSES =
   {
-    BEORNING, BURGLAR, CAPTAIN, CHAMPION, GUARDIAN, HUNTER, LORE_MASTER, MINSTREL, RUNE_KEEPER, WARDEN
+    BEORNING, BRAWLER, BURGLAR, CAPTAIN, CHAMPION, GUARDIAN, HUNTER, LORE_MASTER, MINSTREL, RUNE_KEEPER, WARDEN
   };
 
   /**

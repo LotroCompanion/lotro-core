@@ -21,6 +21,7 @@ public class DatEnumsUtils
   {
     if (id==214) return CharacterClass.BEORNING;
     if (id==40) return CharacterClass.BURGLAR;
+    if (id==215) return CharacterClass.BRAWLER;
     if (id==24) return CharacterClass.CAPTAIN;
     if (id==172) return CharacterClass.CHAMPION;
     if (id==23) return CharacterClass.GUARDIAN;
