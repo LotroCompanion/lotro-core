@@ -19,6 +19,15 @@ public class InstanceCategories
   }
 
   /**
+   * Get the root category.
+   * @return the root category.
+   */
+  public InstanceCategory getRoot()
+  {
+    return _rootCategory;
+  }
+
+  /**
    * Get/build a category from its path.
    * @param path Category path.
    * @return an instance category.
