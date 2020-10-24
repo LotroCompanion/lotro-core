@@ -55,4 +55,15 @@ public class BlockReference
   {
     return "R="+_region+",bx="+_blockX+",by="+_blockY;
   }
+
+  @Override
+  public boolean equals(Object other)
+  {
+    if (other instanceof BlockReference)
+    {
+      BlockReference otherBlock=(BlockReference)other;
+      return (_region==otherBlock._region) && (_blockX==otherBlock._blockX) && (_blockY==otherBlock._blockY);
+    }
+    return false;
+  }
 }
