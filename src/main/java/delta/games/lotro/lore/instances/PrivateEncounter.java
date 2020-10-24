@@ -221,7 +221,7 @@ public class PrivateEncounter implements Identifiable
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    dump(sb);
-    return sb.toString().trim();
+    sb.append("ID=").append(_id).append(", name=").append(_name);
+    return sb.toString();
   }
 }
