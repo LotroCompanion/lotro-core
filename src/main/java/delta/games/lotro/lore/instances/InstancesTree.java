@@ -1,6 +1,15 @@
 package delta.games.lotro.lore.instances;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.instances.io.xml.InstancesTreeXMLParser;
 
 /**
  * Manager for the instances tree.
@@ -8,7 +17,23 @@ import java.util.List;
  */
 public class InstancesTree
 {
+  private static final InstancesTree _instance=load();
   private InstanceCategory _rootCategory;
+
+  /**
+   * Get the reference instance of this class.
+   * @return the reference instance of this class.
+   */
+  public static InstancesTree getInstance()
+  {
+    return _instance;
+  }
+
+  private static InstancesTree load()
+  {
+    File from=LotroCoreConfig.getInstance().getFile(DataFiles.INSTANCES_TREE);
+    return new InstancesTreeXMLParser().parseXML(from);
+  }
 
   /**
    * Constructor.
@@ -46,6 +71,45 @@ public class InstancesTree
       parent=category;
     }
     return parent;
+  }
+
+  /**
+   * Get a list of all instances.
+   * @return a list of all instances.
+   */
+  public List<SkirmishPrivateEncounter> getInstances()
+  {
+    List<SkirmishPrivateEncounter> instances=new ArrayList<SkirmishPrivateEncounter>();
+    handleCategory(_rootCategory,instances);
+    return instances;
+  }
+
+  private void handleCategory(InstanceCategory category, List<SkirmishPrivateEncounter> instances)
+  {
+    for(SkirmishPrivateEncounter pe : category.getPrivateEncounters())
+    {
+      instances.add(pe);
+    }
+    for(InstanceCategory child : category.getChildCategories())
+    {
+      handleCategory(child,instances);
+    }
+  }
+
+  /**
+   * Get all instance categories.
+   * @return a sorted list of instance categories.
+   */
+  public List<String> getCategories()
+  {
+    Set<String> categories=new HashSet<String>();
+    for(SkirmishPrivateEncounter instance : getInstances())
+    {
+      categories.add(instance.getCategory());
+    }
+    List<String> ret=new ArrayList<String>(categories);
+    Collections.sort(ret);
+    return ret;
   }
 
   /**
