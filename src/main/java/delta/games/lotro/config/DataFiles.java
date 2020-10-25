@@ -211,6 +211,10 @@ public class DataFiles
    */
   public static final String PRIVATE_ENCOUNTERS="privateEncounters";
   /**
+   * Instances tree.
+   */
+  public static final String INSTANCES_TREE="instancesTree";
+  /**
    * Mobs.
    */
   public static final String MOBS="mobs";

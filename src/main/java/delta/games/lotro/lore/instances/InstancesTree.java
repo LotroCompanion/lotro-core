@@ -3,17 +3,17 @@ package delta.games.lotro.lore.instances;
 import java.util.List;
 
 /**
- * Manager for instance categories.
+ * Manager for the instances tree.
  * @author DAM
  */
-public class InstanceCategories
+public class InstancesTree
 {
   private InstanceCategory _rootCategory;
 
   /**
    * Constructor.
    */
-  public InstanceCategories()
+  public InstancesTree()
   {
     _rootCategory=new InstanceCategory(null,"");
   }
