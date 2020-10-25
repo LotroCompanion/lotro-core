@@ -46,7 +46,7 @@ public class InstancesTreeXMLParser
     Element rootCategoryTag=DOMParsingTools.getChildTagByName(rootTag,InstancesTreeXMLConstants.CATEGORY_TAG);
     if (rootCategoryTag!=null)
     {
-      List<Element> childCategoryTags=DOMParsingTools.getChildTagsByName(rootCategoryTag,InstancesTreeXMLConstants.CATEGORY_TAG);
+      List<Element> childCategoryTags=DOMParsingTools.getChildTagsByName(rootCategoryTag,InstancesTreeXMLConstants.CATEGORY_TAG,false);
       InstanceCategory rootCategory=mgr.getRoot();
       for(Element childCategoryTag : childCategoryTags)
       {
@@ -65,7 +65,7 @@ public class InstancesTreeXMLParser
     InstanceCategory ret=new InstanceCategory(parent,name);
     // Instances
     PrivateEncountersManager peMgr=PrivateEncountersManager.getInstance();
-    List<Element> instanceTags=DOMParsingTools.getChildTagsByName(categoryTag,InstancesTreeXMLConstants.INSTANCE_TAG);
+    List<Element> instanceTags=DOMParsingTools.getChildTagsByName(categoryTag,InstancesTreeXMLConstants.INSTANCE_TAG,false);
     for(Element instanceTag : instanceTags)
     {
       int instanceId=DOMParsingTools.getIntAttribute(instanceTag.getAttributes(),InstancesTreeXMLConstants.INSTANCE_ID_ATTR,0);
@@ -77,7 +77,7 @@ public class InstancesTreeXMLParser
       }
     }
     // Child categories
-    List<Element> childCategoryTags=DOMParsingTools.getChildTagsByName(categoryTag,InstancesTreeXMLConstants.CATEGORY_TAG);
+    List<Element> childCategoryTags=DOMParsingTools.getChildTagsByName(categoryTag,InstancesTreeXMLConstants.CATEGORY_TAG,false);
     for(Element childCategoryTag : childCategoryTags)
     {
       InstanceCategory childCategory=parseCategory(ret,childCategoryTag);
