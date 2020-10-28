@@ -16,6 +16,7 @@ public class PrivateEncounter implements Identifiable
   private String _name;
   private String _description;
   private int _contentLayerId;
+  private List<Integer> _additionalContentLayers;
   private List<InstanceMapDescription> _mapDescriptions;
   private Integer _questId;
   // Quests to bestow (array)
@@ -41,6 +42,7 @@ public class PrivateEncounter implements Identifiable
     _id=id;
     _name="";
     _description="";
+    _additionalContentLayers=new ArrayList<Integer>();
     _mapDescriptions=new ArrayList<InstanceMapDescription>();
     _questsToBestow=new ArrayList<Integer>();
   }
@@ -111,6 +113,24 @@ public class PrivateEncounter implements Identifiable
   public void setContentLayerId(int contentLayerId)
   {
     _contentLayerId=contentLayerId;
+  }
+
+  /**
+   * Add an additional content layer.
+   * @param contentLayerId Content layer identifier.
+   */
+  public void addAdditionalContentLayer(int contentLayerId)
+  {
+    _additionalContentLayers.add(Integer.valueOf(contentLayerId));
+  }
+
+  /**
+   * Get the additional content layers.
+   * @return A possibly empty but never <code>null</code> list of content layer identifiers.
+   */
+  public List<Integer> getAdditionalContentLayers()
+  {
+    return _additionalContentLayers;
   }
 
   /**

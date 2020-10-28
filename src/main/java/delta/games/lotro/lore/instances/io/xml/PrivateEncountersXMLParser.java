@@ -125,6 +125,16 @@ public class PrivateEncountersXMLParser
       }
     }
 
+    // Additional content layers
+    List<Element> additionalContentLayerTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.CONTENT_LAYER_TAG);
+    for(Element additionalContentLayerTag : additionalContentLayerTags)
+    {
+      NamedNodeMap clAttrs=additionalContentLayerTag.getAttributes();
+      // Content Layer ID
+      int clId=DOMParsingTools.getIntAttribute(clAttrs,PrivateEncountersXMLConstants.CONTENT_LAYER_ID_ATTR,0);
+      ret.addAdditionalContentLayer(clId);
+    }
+
     // Maps
     List<Element> mapTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.MAP_TAG);
     for(Element mapTag : mapTags)

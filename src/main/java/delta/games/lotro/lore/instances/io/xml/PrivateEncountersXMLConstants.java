@@ -29,7 +29,7 @@ public class PrivateEncountersXMLConstants
    */
   public static final String NAME_ATTR="name";
   /**
-   * Tag 'privateEncounter', attribute 'contentLayerId'.
+   * Tag 'privateEncounter','contentLayer' attribute 'contentLayerId'.
    */
   public static final String CONTENT_LAYER_ID_ATTR="contentLayerId";
   /**
@@ -44,6 +44,10 @@ public class PrivateEncountersXMLConstants
    * Tag 'privateEncounter', attribute 'description'.
    */
   public static final String DESCRIPTION_ATTR="description";
+  /**
+   * Tag 'contentLayer'.
+   */
+  public static final String CONTENT_LAYER_TAG="contentLayer";
   /**
    * Tag 'block'.
    */

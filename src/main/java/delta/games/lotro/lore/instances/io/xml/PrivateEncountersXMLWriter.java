@@ -149,6 +149,16 @@ public class PrivateEncountersXMLWriter
         hd.endElement("","",PrivateEncountersXMLConstants.GROUP_SIZE_TAG);
       }
     }
+    // Additional content layers
+    for(Integer additionalContentLayer : privateEncounter.getAdditionalContentLayers())
+    {
+      AttributesImpl clAttrs=new AttributesImpl();
+      // ID
+      clAttrs.addAttribute("","",PrivateEncountersXMLConstants.CONTENT_LAYER_ID_ATTR,XmlWriter.CDATA,additionalContentLayer.toString());
+      hd.startElement("","",PrivateEncountersXMLConstants.CONTENT_LAYER_TAG,clAttrs);
+      hd.endElement("","",PrivateEncountersXMLConstants.CONTENT_LAYER_TAG);
+    }
+
     // Maps
     for(InstanceMapDescription map : privateEncounter.getMapDescriptions())
     {
