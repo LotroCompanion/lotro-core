@@ -74,6 +74,32 @@ public class ParchmentMap implements Identifiable
   }
 
   /**
+   * Remove an area.
+   * @param areaId Area identifier.
+   */
+  public Area removeArea(int areaId)
+  {
+    Area area=getAreaById(areaId);
+    if (area!=null)
+    {
+      _areas.remove(area);
+    }
+    return area;
+  }
+
+  private Area getAreaById(int areaId)
+  {
+    for(Area area : _areas)
+    {
+      if (area.getIdentifier()==areaId)
+      {
+        return area;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get the child areas.
    * @return a list of areas.
    */
