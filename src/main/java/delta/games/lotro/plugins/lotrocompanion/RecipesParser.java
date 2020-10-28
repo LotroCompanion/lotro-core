@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import delta.games.lotro.lore.crafting.CraftingUtils;
+import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
@@ -41,8 +43,9 @@ public class RecipesParser
     Set<String> professions=data.keySet();
     List<String> sortedProfessions=new ArrayList<String>(professions);
     Collections.sort(sortedProfessions);
-    for(String profession : sortedProfessions)
+    for(String professionName : sortedProfessions)
     {
+      Profession profession=CraftingUtils.getProfessionByName(professionName);
       Map<String,Object> recipesForProfessionMap=(Map<String,Object>)data.get(profession);
       List<Map<String,Object>> recipeDatas=getOrderedRecipes(recipesForProfessionMap);
       for(Map<String,Object> recipeData : recipeDatas)
@@ -69,7 +72,7 @@ public class RecipesParser
   }
 
   @SuppressWarnings("unchecked")
-  private Recipe parseRecipe(Map<String,Object> data, String profession)
+  private Recipe parseRecipe(Map<String,Object> data, Profession profession)
   {
     Recipe recipe=new Recipe();
     // Profession

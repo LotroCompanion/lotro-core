@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.crafting.recipes.filters;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 
 /**
@@ -9,13 +10,13 @@ import delta.games.lotro.lore.crafting.recipes.Recipe;
  */
 public class RecipeProfessionFilter implements Filter<Recipe>
 {
-  private String _profession;
+  private Profession _profession;
 
   /**
    * Constructor.
    * @param profession Profession to select (may be <code>null</code>).
    */
-  public RecipeProfessionFilter(String profession)
+  public RecipeProfessionFilter(Profession profession)
   {
     _profession=profession;
   }
@@ -24,7 +25,7 @@ public class RecipeProfessionFilter implements Filter<Recipe>
    * Get the profession to use.
    * @return A profession or <code>null</code>.
    */
-  public String getProfession()
+  public Profession getProfession()
   {
     return _profession;
   }
@@ -33,7 +34,7 @@ public class RecipeProfessionFilter implements Filter<Recipe>
    * Set the profession to select.
    * @param profession Profession to use, may be <code>null</code>.
    */
-  public void setProfession(String profession)
+  public void setProfession(Profession profession)
   {
     _profession=profession;
   }
@@ -44,7 +45,7 @@ public class RecipeProfessionFilter implements Filter<Recipe>
     {
       return true;
     }
-    String profession=recipe.getProfession();
+    Profession profession=recipe.getProfession();
     if (_profession.equals(profession))
     {
       return true;

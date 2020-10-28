@@ -6,6 +6,7 @@ import java.util.List;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.items.ItemProxy;
 
 /**
@@ -16,7 +17,7 @@ public class Recipe implements Identifiable
 {
   private int _identifier;
   private String _name;
-  private String _profession;
+  private Profession _profession;
   private String _category;
   private int _tier;
   private int _xp;
@@ -33,7 +34,7 @@ public class Recipe implements Identifiable
   {
     _identifier=0;
     _name="";
-    _profession="";
+    _profession=null;
     _category="";
     _tier=1;
     _xp=0;
@@ -84,7 +85,7 @@ public class Recipe implements Identifiable
    * Get the profession of this recipe.
    * @return a profession identifier.
    */
-  public String getProfession()
+  public Profession getProfession()
   {
     return _profession;
   }
@@ -93,9 +94,9 @@ public class Recipe implements Identifiable
    * Set the profession of this recipe.
    * @param profession the profession to set.
    */
-  public void setProfession(String profession)
+  public void setProfession(Profession profession)
   {
-    _profession=(profession==null)?"":profession;
+    _profession=profession;
   }
 
   /**
@@ -260,7 +261,7 @@ public class Recipe implements Identifiable
       sb.append(_identifier);
       sb.append(')');
     }
-    if (_profession.length()>0)
+    if (_profession!=null)
     {
       sb.append(" (profession=");
       sb.append(_profession);

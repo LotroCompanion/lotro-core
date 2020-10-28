@@ -13,8 +13,8 @@ import delta.games.lotro.character.crafting.CraftingStatus;
 import delta.games.lotro.character.crafting.ProfessionStatus;
 import delta.games.lotro.lore.crafting.CraftingData;
 import delta.games.lotro.lore.crafting.CraftingSystem;
+import delta.games.lotro.lore.crafting.CraftingUtils;
 import delta.games.lotro.lore.crafting.Profession;
-import delta.games.lotro.lore.crafting.Professions;
 import delta.games.lotro.lore.crafting.Vocation;
 import delta.games.lotro.lore.crafting.Vocations;
 import delta.games.lotro.plugins.LuaParser;
@@ -68,14 +68,13 @@ public class CraftingParser
       }
     }
     // Professions
-    Professions professions=crafting.getProfessionsRegistry();
     Map<String,Object> professionsMap=(Map<String,Object>)data.get("Professions");
     if (professionsMap!=null)
     {
       Set<String> keys=professionsMap.keySet();
       for(String professionKey : keys)
       {
-        Profession profession=professions.getProfessionByName(professionKey);
+        Profession profession=CraftingUtils.getProfessionByName(professionKey);
         Map<String,Object> professionMap=(Map<String,Object>)professionsMap.get(professionKey);
         if (professionMap!=null)
         {

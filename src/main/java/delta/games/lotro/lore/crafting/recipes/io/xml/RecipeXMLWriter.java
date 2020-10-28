@@ -9,6 +9,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
@@ -85,10 +86,10 @@ public class RecipeXMLWriter
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Profession
-    String profession=recipe.getProfession();
-    if (profession.length()>0)
+    Profession profession=recipe.getProfession();
+    if (profession!=null)
     {
-      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_PROFESSION_ATTR,XmlWriter.CDATA,profession);
+      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_PROFESSION_ATTR,XmlWriter.CDATA,profession.getName());
     }
     // Tier
     int tier=recipe.getTier();

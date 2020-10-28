@@ -27,7 +27,7 @@ public class KnownRecipesComputer
     CraftingLevel level=profession.getByTier(tier);
     int[] autoRecipes=level.getRecipes();
     Set<Integer> extraRecipeIds=extraRecipes.getKnownRecipes();
-    List<Recipe> availableRecipes=RecipesManager.getInstance().getRecipes(profession.getName(),tier);
+    List<Recipe> availableRecipes=RecipesManager.getInstance().getRecipes(profession,tier);
     for(Recipe recipe : availableRecipes)
     {
       boolean known=false;

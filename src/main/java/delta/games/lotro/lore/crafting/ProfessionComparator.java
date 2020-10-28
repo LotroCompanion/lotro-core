@@ -16,6 +16,14 @@ public class ProfessionComparator implements Comparator<Profession>
    */
   public int compare(Profession profession1, Profession profession2)
   {
-    return profession1.getName().compareTo(profession2.getName());
+    if (profession1!=null)
+    {
+      if (profession2!=null)
+      {
+        return profession1.getName().compareTo(profession2.getName());
+      }
+      return 1;
+    }
+    return (profession2!=null)?-1:0;
   }
 }

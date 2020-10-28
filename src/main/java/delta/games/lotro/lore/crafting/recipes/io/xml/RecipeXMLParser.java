@@ -8,6 +8,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.lore.crafting.CraftingUtils;
+import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
@@ -71,7 +73,8 @@ public class RecipeXMLParser
     String name=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_NAME_ATTR,null);
     r.setName(name);
     // Profession
-    String profession=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_PROFESSION_ATTR,null);
+    String professionName=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_PROFESSION_ATTR,null);
+    Profession profession=CraftingUtils.getProfessionByName(professionName);
     r.setProfession(profession);
     // Tier
     int tier=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_TIER_ATTR,0);

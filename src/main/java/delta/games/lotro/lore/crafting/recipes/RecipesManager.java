@@ -10,6 +10,8 @@ import java.util.Map;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.crafting.Profession;
+import delta.games.lotro.lore.crafting.ProfessionComparator;
 import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLParser;
 import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLWriter;
 
@@ -21,7 +23,7 @@ public final class RecipesManager
 {
   private static RecipesManager _instance=new RecipesManager(true);
 
-  private Map<String,Map<Integer,List<Recipe>>> _recipes;
+  private Map<Profession,Map<Integer,List<Recipe>>> _recipes;
   private Map<Integer,Recipe> _recipesById;
 
   /**
@@ -39,7 +41,7 @@ public final class RecipesManager
    */
   public RecipesManager(boolean load)
   {
-    _recipes=new HashMap<String,Map<Integer,List<Recipe>>>();
+    _recipes=new HashMap<Profession,Map<Integer,List<Recipe>>>();
     _recipesById=new HashMap<Integer,Recipe>();
     if (load)
     {
@@ -57,10 +59,10 @@ public final class RecipesManager
    * Get the managed professions.
    * @return the managed professions.
    */
-  public List<String> getProfessions()
+  public List<Profession> getProfessions()
   {
-    List<String> ret=new ArrayList<String>(_recipes.keySet());
-    Collections.sort(ret);
+    List<Profession> ret=new ArrayList<Profession>(_recipes.keySet());
+    Collections.sort(ret,new ProfessionComparator());
     return ret;
   }
 
@@ -69,7 +71,7 @@ public final class RecipesManager
    * @param profession Profession to use.
    * @return the managed tiers.
    */
-  public List<Integer> getTiers(String profession)
+  public List<Integer> getTiers(Profession profession)
   {
     List<Integer> ret=new ArrayList<Integer>();
     Map<Integer,List<Recipe>> tierMap=_recipes.get(profession);
@@ -87,7 +89,7 @@ public final class RecipesManager
    * @param tier Tier to use.
    * @return the managed recipes.
    */
-  public List<Recipe> getRecipes(String profession, int tier)
+  public List<Recipe> getRecipes(Profession profession, int tier)
   {
     List<Recipe> ret=new ArrayList<Recipe>();
     Map<Integer,List<Recipe>> tierMap=_recipes.get(profession);
@@ -125,12 +127,12 @@ public final class RecipesManager
   public void registerRecipe(Recipe recipe)
   {
     // Register in profession/tier map
-    String profession=recipe.getProfession();
+    Profession profession=recipe.getProfession();
     Map<Integer,List<Recipe>> recipesForProfession=_recipes.get(profession);
     if (recipesForProfession==null)
     {
       recipesForProfession=new HashMap<Integer,List<Recipe>>();
-      _recipes.put(recipe.getProfession(),recipesForProfession);
+      _recipes.put(profession,recipesForProfession);
     }
     Integer tier=Integer.valueOf(recipe.getTier());
     List<Recipe> recipesForTier=recipesForProfession.get(tier);
@@ -161,7 +163,7 @@ public final class RecipesManager
   public List<Recipe> getAll()
   {
     List<Recipe> ret=new ArrayList<Recipe>();
-    for(String profession : _recipes.keySet())
+    for(Profession profession : _recipes.keySet())
     {
       for(Integer tier : _recipes.get(profession).keySet())
       {
@@ -178,7 +180,7 @@ public final class RecipesManager
   public int getRecipesCount()
   {
     int ret=0;
-    for(String profession : _recipes.keySet())
+    for(Profession profession : _recipes.keySet())
     {
       for(Integer tier : _recipes.get(profession).keySet())
       {
