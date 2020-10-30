@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.items;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import delta.games.lotro.common.treasure.FilteredTrophyTable;
 import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TrophyList;
@@ -121,5 +124,23 @@ public class ItemsContainer extends Container
       return true;
     }
     return false;
+  }
+
+  /**
+   * Get the identifiers of the reachable items.
+   * @return A set of item identifiers.
+   */
+  public Set<Integer> getItemIds()
+  {
+    Set<Integer> ret=new HashSet<Integer>();
+    if (_trophyList!=null)
+    {
+      ret.addAll(_trophyList.getItemIds());
+    }
+    if (_treasureList!=null)
+    {
+      ret.addAll(_trophyList.getItemIds());
+    }
+    return ret;
   }
 }

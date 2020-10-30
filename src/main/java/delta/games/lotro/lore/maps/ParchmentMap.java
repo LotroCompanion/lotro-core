@@ -76,6 +76,7 @@ public class ParchmentMap implements Identifiable
   /**
    * Remove an area.
    * @param areaId Area identifier.
+   * @return the remove Area, if any.
    */
   public Area removeArea(int areaId)
   {

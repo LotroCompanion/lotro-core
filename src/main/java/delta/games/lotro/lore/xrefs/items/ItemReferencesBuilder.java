@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.xrefs.items;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,8 +9,6 @@ import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
-import delta.games.lotro.config.DataFiles;
-import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
@@ -20,10 +17,10 @@ import delta.games.lotro.lore.crafting.recipes.RecipesManager;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.items.Container;
+import delta.games.lotro.lore.items.ContainersManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.ItemsContainer;
-import delta.games.lotro.lore.items.io.xml.ContainerXMLParser;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 import delta.games.lotro.lore.quests.Achievable;
@@ -280,8 +277,8 @@ public class ItemReferencesBuilder
 
   private void findInContainers(int itemId)
   {
-    File containersFile=LotroCoreConfig.getInstance().getFile(DataFiles.CONTAINERS);
-    List<Container> containers=new ContainerXMLParser().parseXML(containersFile);
+    ContainersManager containersMgr=ContainersManager.getInstance();
+    List<Container> containers=containersMgr.getContainers();
     for(Container container : containers)
     {
       if (container instanceof ItemsContainer)

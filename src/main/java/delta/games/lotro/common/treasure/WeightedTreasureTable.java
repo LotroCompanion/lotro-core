@@ -1,7 +1,9 @@
 package delta.games.lotro.common.treasure;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
@@ -65,6 +67,24 @@ public class WeightedTreasureTable implements Identifiable
       }
     }
     return false;
+  }
+
+  /**
+   * Get the identifiers of the reachable items.
+   * @return A set of item identifiers.
+   */
+  public Set<Integer> getItemIds()
+  {
+    Set<Integer> ret=new HashSet<Integer>();
+    for(WeightedTreasureTableEntry entry : _entries)
+    {
+      TrophyList trophyList=entry.getTrophyList();
+      if (trophyList!=null)
+      {
+        ret.addAll(trophyList.getItemIds());
+      }
+    }
+    return ret;
   }
 
   /**

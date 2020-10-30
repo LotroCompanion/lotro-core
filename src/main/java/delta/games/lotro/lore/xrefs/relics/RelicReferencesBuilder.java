@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.xrefs.relics;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +7,10 @@ import delta.games.lotro.common.rewards.RelicReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
-import delta.games.lotro.config.DataFiles;
-import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.items.Container;
-import delta.games.lotro.lore.items.io.xml.ContainerXMLParser;
+import delta.games.lotro.lore.items.ContainersManager;
 import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
@@ -53,8 +50,8 @@ public class RelicReferencesBuilder
 
   private void findInContainers(int relicId)
   {
-    File containersFile=LotroCoreConfig.getInstance().getFile(DataFiles.CONTAINERS);
-    List<Container> containers=new ContainerXMLParser().parseXML(containersFile);
+    ContainersManager containersMgr=ContainersManager.getInstance();
+    List<Container> containers=containersMgr.getContainers();
     for(Container container : containers)
     {
       if (container instanceof RelicsContainer)

@@ -1,9 +1,13 @@
 package delta.games.lotro.common.treasure;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Treasure list.
@@ -54,6 +58,21 @@ public class TreasureList extends TreasureGroupProfile
       }
     }
     return false;
+  }
+
+  /**
+   * Get the identifiers of the reachable items.
+   * @return A set of item identifiers.
+   */
+  public Set<Integer> getItemIds()
+  {
+    Set<Integer> ret=new HashSet<Integer>();
+    for(TreasureListEntry entry : _entries)
+    {
+      TreasureGroupProfile treasureGroupProfile=entry.getTreasureGroup();
+      ret.addAll(treasureGroupProfile.getItemIds());
+    }
+    return ret;
   }
 
   /**
