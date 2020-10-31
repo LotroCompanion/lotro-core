@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Treasure list.

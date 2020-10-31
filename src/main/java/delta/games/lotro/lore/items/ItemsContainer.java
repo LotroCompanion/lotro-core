@@ -133,6 +133,14 @@ public class ItemsContainer extends Container
   public Set<Integer> getItemIds()
   {
     Set<Integer> ret=new HashSet<Integer>();
+    if (_filteredTable!=null)
+    {
+      ret.addAll(_filteredTable.getItemIds());
+    }
+    if (_weightedTable!=null)
+    {
+      ret.addAll(_weightedTable.getItemIds());
+    }
     if (_trophyList!=null)
     {
       ret.addAll(_trophyList.getItemIds());
