@@ -93,7 +93,7 @@ public class LinearInterpolatingProgression extends AbstractProgression implemen
     }
     if (x>_xValues[_xValues.length-1])
     {
-      return null;
+      return Float.valueOf(_yValues[_xValues.length-1]);
     }
     for(int i=0;i<_xValues.length-1;i++)
     {
