@@ -152,6 +152,44 @@ public class PrivateEncounter implements Identifiable
   }
 
   /**
+   * Remove a map description.
+   * @param mapIdToRemove Identifier of the map to remove.
+   */
+  public void removeMapDescription(int mapIdToRemove)
+  {
+    InstanceMapDescription toRemove=getMapById(mapIdToRemove);
+    if (toRemove!=null)
+    {
+      _mapDescriptions.remove(toRemove);
+    }
+  }
+
+  /**
+   * Remove a zone.
+   * @param zoneId Zone identifier.
+   */
+  public void removeZone(int zoneId)
+  {
+    for(InstanceMapDescription map : _mapDescriptions)
+    {
+      map.removeZone(zoneId);
+    }
+  }
+
+  private InstanceMapDescription getMapById(int mapIdToSearch)
+  {
+    for(InstanceMapDescription map : _mapDescriptions)
+    {
+      Integer mapId=map.getMapId();
+      if ((mapId!=null) && (mapId.intValue()==mapIdToSearch))
+      {
+        return map;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get the identifier of the associated quest.
    * @return A quest identifier or <code>null</code>.
    */

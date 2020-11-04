@@ -45,6 +45,15 @@ public class InstanceMapDescription
   }
 
   /**
+   * Remove a zone ID for this map.
+   * @param zoneId Zone identifier (dungeon or area).
+   */
+  public void removeZone(int zoneId)
+  {
+    _zoneIds.remove(Integer.valueOf(zoneId));
+  }
+
+  /**
    * Get all zone identifiers for this map.
    * @return a list of zone identifiers. 
    */
