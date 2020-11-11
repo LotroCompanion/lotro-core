@@ -1,15 +1,12 @@
 package delta.games.lotro.lore.maps;
 
-import delta.games.lotro.common.Identifiable;
 
 /**
  * Dungeon.
  * @author DAM
  */
-public class Dungeon implements Identifiable
+public class Dungeon extends AbstractMap
 {
-  private int _identifier;
-  private String _name;
   private int _basemapId;
   // allowed mount types (Dungeon_Allowed_Mount_Types)
   // Music
@@ -22,27 +19,8 @@ public class Dungeon implements Identifiable
    */
   public Dungeon(int identifier, String name, int basemapId)
   {
-    _identifier=identifier;
-    _name=name;
+    super(identifier,name);
     _basemapId=basemapId;
-  }
-
-  /**
-   * Get the internal identifier.
-   * @return the internal identifier.
-   */
-  public int getIdentifier()
-  {
-    return _identifier;
-  }
-
-  /**
-   * Get the dungeon's name.
-   * @return the dungeon's name.
-   */
-  public String getName()
-  {
-    return _name;
   }
 
   /**
