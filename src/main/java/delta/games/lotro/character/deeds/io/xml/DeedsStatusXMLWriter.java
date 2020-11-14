@@ -9,8 +9,12 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.character.deeds.AchievableElementState;
+import delta.games.lotro.character.deeds.AchievableObjectiveStatus;
+import delta.games.lotro.character.deeds.AchievableStatus;
 import delta.games.lotro.character.deeds.DeedStatus;
 import delta.games.lotro.character.deeds.DeedsStatusManager;
+import delta.games.lotro.character.deeds.ObjectiveConditionStatus;
 import delta.games.lotro.character.deeds.geo.DeedGeoPointStatus;
 import delta.games.lotro.character.deeds.geo.DeedGeoStatus;
 
@@ -62,13 +66,13 @@ public class DeedsStatusXMLWriter
     {
       AttributesImpl deedAttrs=new AttributesImpl();
       // Key
-      String key=deedStatus.getDeedKey();
-      deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_KEY_ATTR,CDATA,key);
-      // Completed
-      boolean completed=deedStatus.isCompleted();
-      if (completed)
+      int achievableId=deedStatus.getAchievableId();
+      deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_KEY_ATTR,CDATA,String.valueOf(achievableId));
+      // Status
+      AchievableElementState state=deedStatus.getState();
+      if ((state!=null) && (state!=AchievableElementState.UNDEFINED))
       {
-        deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_COMPLETED_ATTR,CDATA,String.valueOf(completed));
+        deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_STATE_ATTR,CDATA,state.name());
       }
       // Completion date
       Long completionDate=deedStatus.getCompletionDate();
@@ -77,10 +81,93 @@ public class DeedsStatusXMLWriter
         deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_COMPLETION_DATE_ATTR,CDATA,completionDate.toString());
       }
       hd.startElement("","",DeedStatusXMLConstants.DEED_STATUS_TAG,deedAttrs);
+      // Write objectives status
+      writeObjectivesStatus(hd,deedStatus);
+      // Write geo status (TO REMOVE)
       writeGeoStatus(hd,deedStatus);
       hd.endElement("","",DeedStatusXMLConstants.DEED_STATUS_TAG);
     }
     hd.endElement("","",DeedStatusXMLConstants.DEEDS_STATUS_TAG);
+  }
+
+  /**
+   * Write achievable objectives status to the given XML stream.
+   * @param hd XML output stream.
+   * @param status Status to write.
+   * @throws Exception If an error occurs.
+   */
+  private void writeObjectivesStatus(TransformerHandler hd, AchievableStatus status) throws Exception
+  {
+    List<AchievableObjectiveStatus> objectiveStatuses=status.getObjectiveStatuses();
+
+    for(AchievableObjectiveStatus objectiveStatus : objectiveStatuses)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      // Index
+      int index=objectiveStatus.getObjective().getIndex();
+      attrs.addAttribute("","",DeedStatusXMLConstants.OBJECTIVE_STATUS_INDEX_ATTR,CDATA,String.valueOf(index));
+      // State
+      AchievableElementState state=objectiveStatus.getState();
+      if ((state!=null) && (state!=AchievableElementState.UNDEFINED))
+      {
+        attrs.addAttribute("","",DeedStatusXMLConstants.OBJECTIVE_STATUS_STATE_ATTR,CDATA,state.name());
+      }
+      hd.startElement("","",DeedStatusXMLConstants.OBJECTIVE_STATUS_TAG,attrs);
+      List<ObjectiveConditionStatus> conditionStatuses=objectiveStatus.getConditionStatuses();
+      for(ObjectiveConditionStatus conditionStatus : conditionStatuses)
+      {
+        writeObjectiveConditionStatus(hd,conditionStatus);
+      }
+      hd.endElement("","",DeedStatusXMLConstants.OBJECTIVE_STATUS_TAG);
+    }
+  }
+
+  /**
+   * Write objective condition status to the given XML stream.
+   * @param hd XML output stream.
+   * @param status Status to write.
+   * @throws Exception If an error occurs.
+   */
+  private void writeObjectiveConditionStatus(TransformerHandler hd, ObjectiveConditionStatus status) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Index
+    int index=status.getCondition().getIndex();
+    attrs.addAttribute("","",DeedStatusXMLConstants.CONDITION_STATUS_INDEX_ATTR,CDATA,String.valueOf(index));
+    // Status
+    AchievableElementState state=status.getState();
+    if ((state!=null) && (state!=AchievableElementState.UNDEFINED))
+    {
+      attrs.addAttribute("","",DeedStatusXMLConstants.CONDITION_STATUS_STATE_ATTR,CDATA,state.name());
+    }
+    // Count
+    Integer count=status.getCount();
+    if (count!=null)
+    {
+      attrs.addAttribute("","",DeedStatusXMLConstants.CONDITION_STATUS_COUNT_ATTR,CDATA,count.toString());
+    }
+    // Keys
+    List<String> keys=status.getKeys();
+    if ((keys!=null) && (keys.size()>0))
+    {
+      String keysStr=buildKeysString(keys);
+      attrs.addAttribute("","",DeedStatusXMLConstants.CONDITION_STATUS_KEYS_ATTR,CDATA,keysStr);
+    }
+    hd.startElement("","",DeedStatusXMLConstants.CONDITION_STATUS_TAG,attrs);
+    hd.endElement("","",DeedStatusXMLConstants.CONDITION_STATUS_TAG);
+  }
+
+  private String buildKeysString(List<String> keys)
+  {
+    StringBuilder sb=new StringBuilder();
+    boolean useComma=false;
+    for(String key : keys)
+    {
+      if (useComma) sb.append(",");
+      sb.append(key);
+      useComma=true;
+    }
+    return sb.toString();
   }
 
   /**

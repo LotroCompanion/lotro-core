@@ -3,53 +3,25 @@ package delta.games.lotro.character.deeds;
 import java.util.Date;
 
 import delta.games.lotro.character.deeds.geo.DeedGeoStatus;
+import delta.games.lotro.lore.deeds.DeedDescription;
 
 /**
  * Status of a single deed for a single character.
  * @author DAM
  */
-public class DeedStatus
+public class DeedStatus extends AchievableStatus
 {
-  private String _deedKey;
-  private boolean _completed;
   private Long _completionDate;
   private DeedGeoStatus _geoStatus;
 
   /**
    * Constructor.
-   * @param deedKey Key of the associated deed.
+   * @param deed Associated deed.
    */
-  public DeedStatus(String deedKey)
+  public DeedStatus(DeedDescription deed)
   {
-    _deedKey=deedKey;
+    super(deed);
     _geoStatus=null;
-  }
-
-  /**
-   * Get the key of the associated deed.
-   * @return a deed key.
-   */
-  public String getDeedKey()
-  {
-    return _deedKey;
-  }
-
-  /**
-   * Indicates if this deed is completed, or not.
-   * @return A boolean.
-   */
-  public boolean isCompleted()
-  {
-    return _completed;
-  }
-
-  /**
-   * Set the completion status.
-   * @param completed Completion status to set.
-   */
-  public void setCompleted(boolean completed)
-  {
-    _completed=completed;
   }
 
   /**
@@ -94,7 +66,7 @@ public class DeedStatus
    */
   public boolean isEmpty()
   {
-    if ((_completionDate!=null) || (_completed))
+    if ((_completionDate!=null) || (getState()!=AchievableElementState.UNDEFINED))
     {
       return false;
     }
@@ -109,18 +81,12 @@ public class DeedStatus
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Deed '").append(_deedKey).append("': ");
-    if (_completed)
+    int achievableId=getAchievableId();
+    sb.append("Deed ").append(achievableId).append(" (").append(getAchievable().getName()).append("): ");
+    sb.append(getState());
+    if (_completionDate!=null)
     {
-      sb.append("completed");
-      if (_completionDate!=null)
-      {
-        sb.append(" (").append(new Date(_completionDate.longValue())).append(')');
-      }
-    }
-    else
-    {
-      sb.append("NOT completed");
+      sb.append(" (").append(new Date(_completionDate.longValue())).append(')');
     }
     if (_geoStatus!=null)
     {

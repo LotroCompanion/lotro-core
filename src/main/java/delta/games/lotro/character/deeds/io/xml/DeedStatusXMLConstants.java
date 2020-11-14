@@ -24,9 +24,45 @@ public class DeedStatusXMLConstants
    */
   public static final String DEED_STATUS_COMPLETED_ATTR="completed";
   /**
+   * Tag 'deedStatus', attribute 'state'.
+   */
+  public static final String DEED_STATUS_STATE_ATTR="state";
+  /**
    * Tag 'deedStatus', attribute 'completionDate'.
    */
   public static final String DEED_STATUS_COMPLETION_DATE_ATTR="completionDate";
+  /**
+   * Tag 'objectiveStatus'.
+   */
+  public static final String OBJECTIVE_STATUS_TAG="objectiveStatus";
+  /**
+   * Tag 'objectiveStatus', attribute 'index'.
+   */
+  public static final String OBJECTIVE_STATUS_INDEX_ATTR="index";
+  /**
+   * Tag 'objectiveStatus', attribute 'state'.
+   */
+  public static final String OBJECTIVE_STATUS_STATE_ATTR="state";
+  /**
+   * Tag 'conditionStatus'.
+   */
+  public static final String CONDITION_STATUS_TAG="conditionStatus";
+  /**
+   * Tag 'conditionStatus', attribute 'index'.
+   */
+  public static final String CONDITION_STATUS_INDEX_ATTR="index";
+  /**
+   * Tag 'conditionStatus', attribute 'state'.
+   */
+  public static final String CONDITION_STATUS_STATE_ATTR="state";
+  /**
+   * Tag 'conditionStatus', attribute 'count'.
+   */
+  public static final String CONDITION_STATUS_COUNT_ATTR="count";
+  /**
+   * Tag 'conditionStatus', attribute 'keys'.
+   */
+  public static final String CONDITION_STATUS_KEYS_ATTR="keys";
 
   /**
    * Tag 'geoPointStatus'.

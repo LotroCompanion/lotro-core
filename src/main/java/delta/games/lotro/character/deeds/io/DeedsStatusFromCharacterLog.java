@@ -61,8 +61,7 @@ public class DeedsStatusFromCharacterLog
           DeedDescription deed=resolveDeedById(deedId.intValue(),label);
           if (deed!=null)
           {
-            String deedKey=deed.getIdentifyingKey();
-            DeedStatus deedStatus=status.get(deedKey,true);
+            DeedStatus deedStatus=status.get(deed,true);
             Long date=deedStatus.getCompletionDate();
             if (date==null)
             {

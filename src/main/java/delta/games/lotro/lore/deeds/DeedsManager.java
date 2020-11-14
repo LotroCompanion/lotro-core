@@ -57,7 +57,12 @@ public final class DeedsManager
     for(DeedDescription deed : _deeds)
     {
       _deedsMapById.put(Integer.valueOf(deed.getIdentifier()),deed);
-      _deedsMapByKey.put(deed.getKey(),deed);
+      String key=deed.getKey();
+      if (key!=null)
+      {
+        _deedsMapByKey.put(key,deed);
+      }
+      _deedsMapByKey.put(String.valueOf(deed.getIdentifier()),deed);
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
