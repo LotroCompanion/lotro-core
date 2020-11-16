@@ -14,6 +14,7 @@ import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
+import delta.games.lotro.lore.quests.geo.io.xml.AchievableGeoDataXMLParser;
 import delta.games.lotro.lore.quests.objectives.ConditionTarget;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
@@ -94,6 +95,7 @@ public class ObjectivesXMLParser
       else
       {
         ObjectiveCondition condition=parseConditionTag(childTag);
+        AchievableGeoDataXMLParser.parseGeoData(childTag,condition);
         objective.addCondition(condition);
       }
     }
@@ -410,6 +412,7 @@ public class ObjectivesXMLParser
 
   private static void parseDetectionCondition(DetectionCondition condition, NamedNodeMap attrs, Element conditionTag)
   {
+    // Target
     ConditionTarget target=parseTarget(attrs);
     condition.setTarget(target);
   }

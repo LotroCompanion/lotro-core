@@ -147,6 +147,9 @@ public class MonsterDiedCondition extends ObjectiveCondition
   @Override
   public String toString()
   {
-    return "MonsterDiedCondition: "+_mobId+", name="+_mobName+", selections="+_mobSelections;
+    StringBuilder sb=new StringBuilder();
+    sb.append("#").append(getIndex());
+    sb.append(": ").append("MonsterDiedCondition: "+_mobId+", name="+_mobName+", selections="+_mobSelections);
+    return sb.toString();
   }
 }

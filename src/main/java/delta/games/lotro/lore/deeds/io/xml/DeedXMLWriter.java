@@ -14,8 +14,6 @@ import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedType;
-import delta.games.lotro.lore.deeds.geo.DeedGeoData;
-import delta.games.lotro.lore.deeds.geo.DeedGeoPoint;
 import delta.games.lotro.lore.quests.io.xml.AchievableXMLConstants;
 import delta.games.lotro.lore.quests.io.xml.AchievableXMLWriter;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
@@ -105,38 +103,6 @@ public class DeedXMLWriter extends AchievableXMLWriter
 
     // Rewards
     RewardsXMLWriter.write(hd,deed.getRewards());
-    // Geographic data
-    DeedGeoData data=deed.getGeoData();
-    if (data!=null)
-    {
-      writeGeoData(hd,data);
-    }
     hd.endElement("","",DeedXMLConstants.DEED_TAG);
-  }
-
-  /**
-   * Write geo deed data.
-   * @param hd
-   * @param data
-   * @throws Exception
-   */
-  private void writeGeoData(TransformerHandler hd, DeedGeoData data) throws Exception
-  {
-    AttributesImpl geoDeedAttrs=new AttributesImpl();
-    int nbPoints=data.getRequiredPoints();
-    geoDeedAttrs.addAttribute("","",DeedXMLConstants.GEO_REQUIRED_POINTS_ATTR,XmlWriter.CDATA,String.valueOf(nbPoints));
-    hd.startElement("","",DeedXMLConstants.GEO_TAG,geoDeedAttrs);
-
-    for(DeedGeoPoint point : data.getPoints())
-    {
-      AttributesImpl pointAttrs=new AttributesImpl();
-      int mapKey=point.getMapKey();
-      pointAttrs.addAttribute("","",DeedXMLConstants.POINT_MAP_KEY_ATTR,XmlWriter.CDATA,String.valueOf(mapKey));
-      int pointId=point.getPointId();
-      pointAttrs.addAttribute("","",DeedXMLConstants.POINT_ID_ATTR,XmlWriter.CDATA,String.valueOf(pointId));
-      hd.startElement("","",DeedXMLConstants.POINT_TAG,pointAttrs);
-      hd.endElement("","",DeedXMLConstants.POINT_TAG);
-    }
-    hd.endElement("","",DeedXMLConstants.GEO_TAG);
   }
 }

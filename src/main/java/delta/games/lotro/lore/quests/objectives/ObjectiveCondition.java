@@ -1,5 +1,10 @@
 package delta.games.lotro.lore.quests.objectives;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
+
 /**
  * Condition of an objective.
  * @author DAM
@@ -9,6 +14,7 @@ public abstract class ObjectiveCondition
   private int _index;
   private String _loreInfo;
   private String _progressOverride;
+  private List<AchievableGeoPoint> _points;
 
   /**
    * Constructor.
@@ -16,6 +22,7 @@ public abstract class ObjectiveCondition
   public ObjectiveCondition()
   {
     _index=1;
+    _points=new ArrayList<AchievableGeoPoint>();
   }
 
   /**
@@ -77,4 +84,30 @@ public abstract class ObjectiveCondition
    * @return a condition type.
    */
   public abstract ConditionType getType();
+
+  /**
+   * Add a geo point.
+   * @param point Point to add.
+   */
+  public void addPoint(AchievableGeoPoint point)
+  {
+    _points.add(point);
+  }
+
+  /**
+   * Remove all points.
+   */
+  public void removeAllPoints()
+  {
+    _points.clear();
+  }
+
+  /**
+   * Get the geo points.
+   * @return a list of geo points.
+   */
+  public List<AchievableGeoPoint> getPoints()
+  {
+    return _points;
+  }
 }

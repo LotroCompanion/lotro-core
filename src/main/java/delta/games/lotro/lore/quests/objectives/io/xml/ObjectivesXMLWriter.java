@@ -15,6 +15,7 @@ import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
+import delta.games.lotro.lore.quests.geo.io.xml.AchievableGeoDataXMLWriter;
 import delta.games.lotro.lore.quests.objectives.ConditionTarget;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
@@ -221,6 +222,7 @@ public class ObjectivesXMLWriter
       attrs.addAttribute("","",ObjectivesXMLConstants.QUEST_COMPLETE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     hd.startElement("","",ObjectivesXMLConstants.QUEST_COMPLETE_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.QUEST_COMPLETE_TAG);
   }
 
@@ -267,6 +269,7 @@ public class ObjectivesXMLWriter
       hd.startElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG,selectionAttrs);
       hd.endElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG);
     }
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.MONSTER_DIED_TAG);
   }
 
@@ -290,6 +293,7 @@ public class ObjectivesXMLWriter
       }
     }
     hd.startElement("","",ObjectivesXMLConstants.LANDMARK_DETECTION_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.LANDMARK_DETECTION_TAG);
   }
 
@@ -328,6 +332,7 @@ public class ObjectivesXMLWriter
       attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     hd.startElement("","",tagName,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",tagName);
   }
 
@@ -354,6 +359,7 @@ public class ObjectivesXMLWriter
     int tier=condition.getTier();
     attrs.addAttribute("","",ObjectivesXMLConstants.FACTION_LEVEL_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
     hd.startElement("","",ObjectivesXMLConstants.FACTION_LEVEL_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.FACTION_LEVEL_TAG);
   }
 
@@ -389,6 +395,7 @@ public class ObjectivesXMLWriter
       attrs.addAttribute("","",ObjectivesXMLConstants.SKILL_USED_MAX_PER_DAY_ATTR,XmlWriter.CDATA,maxPerDay.toString());
     }
     hd.startElement("","",ObjectivesXMLConstants.SKILL_USED_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.SKILL_USED_TAG);
   }
 
@@ -411,6 +418,7 @@ public class ObjectivesXMLWriter
     Proxy<NpcDescription> proxy=condition.getProxy();
     SharedXMLUtils.writeNpcProxy(proxy,attrs);
     hd.startElement("","",tagName,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",tagName);
   }
 
@@ -423,6 +431,7 @@ public class ObjectivesXMLWriter
     int level=condition.getLevel();
     attrs.addAttribute("","",ObjectivesXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
     hd.startElement("","",ObjectivesXMLConstants.LEVEL_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.LEVEL_TAG);
   }
 
@@ -439,6 +448,7 @@ public class ObjectivesXMLWriter
       attrs.addAttribute("","",ObjectivesXMLConstants.QUEST_BESTOWED_ACHIEVABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
     hd.startElement("","",ObjectivesXMLConstants.QUEST_BESTOWED_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.QUEST_BESTOWED_TAG);
   }
 
@@ -460,6 +470,7 @@ public class ObjectivesXMLWriter
     // Target
     writeTarget(hd,attrs,condition.getTarget());
     hd.startElement("","",tagName,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",tagName);
   }
 
@@ -492,6 +503,7 @@ public class ObjectivesXMLWriter
     // Target
     writeTarget(hd,attrs,condition.getTarget());
     hd.startElement("","",ObjectivesXMLConstants.EMOTE_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.EMOTE_TAG);
   }
 
@@ -510,6 +522,7 @@ public class ObjectivesXMLWriter
       attrs.addAttribute("","",ObjectivesXMLConstants.HOBBY_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     hd.startElement("","",ObjectivesXMLConstants.HOBBY_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.HOBBY_TAG);
   }
 
@@ -525,6 +538,7 @@ public class ObjectivesXMLWriter
       attrs.addAttribute("","",ObjectivesXMLConstants.TIME_EXPIRED_DURATION_ATTR,XmlWriter.CDATA,String.valueOf(duration));
     }
     hd.startElement("","",ObjectivesXMLConstants.TIME_EXPIRED_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.TIME_EXPIRED_TAG);
   }
 
@@ -580,6 +594,7 @@ public class ObjectivesXMLWriter
     // Shared attributes
     writeSharedConditionAttributes(hd,attrs,condition);
     hd.startElement("","",ObjectivesXMLConstants.CONDITION_TAG,attrs);
+    AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.CONDITION_TAG);
   }
 }

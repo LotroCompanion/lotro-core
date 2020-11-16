@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.deeds;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.lore.deeds.geo.DeedGeoData;
 import delta.games.lotro.lore.quests.Achievable;
 
 /**
@@ -18,8 +17,6 @@ public class DeedDescription extends Achievable
    * Deed type.
    */
   private DeedType _type;
-  // Geographic data
-  private DeedGeoData _geo;
 
   /**
    * Constructor.
@@ -75,24 +72,6 @@ public class DeedDescription extends Achievable
   public void setType(DeedType type)
   {
     _type=type;
-  }
-
-  /**
-   * Get the geographic data for this deed.
-   * @return Some data, or <code>null</code> if none.
-   */
-  public DeedGeoData getGeoData()
-  {
-    return _geo;
-  }
-
-  /**
-   * Set the geographic data for this deed.
-   * @param geo Data to set.
-   */
-  public void setGeoData(DeedGeoData geo)
-  {
-    _geo=geo;
   }
 
   /**

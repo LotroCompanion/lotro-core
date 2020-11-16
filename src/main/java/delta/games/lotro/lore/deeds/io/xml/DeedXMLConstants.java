@@ -23,26 +23,4 @@ public class DeedXMLConstants
    * Tag 'deed', attribute 'type'.
    */
   public static final String DEED_TYPE_ATTR="type";
-
-  /**
-   * Tag 'geo'.
-   */
-  public static final String GEO_TAG="geo";
-  /**
-   * 'geo' tag, attribute 'requiredPoints'.
-   */
-  public static final String GEO_REQUIRED_POINTS_ATTR="requiredPoints";
-
-  /**
-   * Tag 'point'.
-   */
-  public static final String POINT_TAG="point";
-  /**
-   * 'point' tag, attribute 'id'.
-   */
-  public static final String POINT_ID_ATTR="id";
-  /**
-   * 'point' tag, attribute 'mapKey'.
-   */
-  public static final String POINT_MAP_KEY_ATTR="mapKey";
 }
