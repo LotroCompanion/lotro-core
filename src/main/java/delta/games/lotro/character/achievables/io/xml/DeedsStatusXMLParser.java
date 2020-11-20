@@ -1,4 +1,4 @@
-package delta.games.lotro.character.deeds.io.xml;
+package delta.games.lotro.character.achievables.io.xml;
 
 import java.io.File;
 import java.util.List;
@@ -9,14 +9,11 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.deeds.AchievableElementState;
-import delta.games.lotro.character.deeds.AchievableObjectiveStatus;
-import delta.games.lotro.character.deeds.AchievableStatus;
-import delta.games.lotro.character.deeds.DeedStatus;
-import delta.games.lotro.character.deeds.DeedsStatusManager;
-import delta.games.lotro.character.deeds.ObjectiveConditionStatus;
-import delta.games.lotro.character.deeds.geo.DeedGeoPointStatus;
-import delta.games.lotro.character.deeds.geo.DeedGeoStatus;
+import delta.games.lotro.character.achievables.AchievableElementState;
+import delta.games.lotro.character.achievables.AchievableObjectiveStatus;
+import delta.games.lotro.character.achievables.AchievableStatus;
+import delta.games.lotro.character.achievables.DeedsStatusManager;
+import delta.games.lotro.character.achievables.ObjectiveConditionStatus;
 
 /**
  * Parser for the deeds status stored in XML.
@@ -57,7 +54,7 @@ public class DeedsStatusXMLParser
         continue;
       }
       // Create deed status
-      DeedStatus deedStatus=status.get(key,true);
+      AchievableStatus deedStatus=status.get(key,true);
       if (deedStatus==null)
       {
         // Unknown deed!
@@ -85,9 +82,6 @@ public class DeedsStatusXMLParser
       }
       // Objectives status
       parseObjectivesStatus(deedStatusTag,deedStatus);
-      // Geo status
-      DeedGeoStatus geoStatus=parseGeoStatus(deedStatusTag);
-      deedStatus.setGeoStatus(geoStatus);
     }
     return status;
   }
@@ -179,33 +173,5 @@ public class DeedsStatusXMLParser
       ret=AchievableElementState.UNDEFINED;
     }
     return ret;
-  }
-
-  private DeedGeoStatus parseGeoStatus(Element root)
-  {
-    DeedGeoStatus status=null;
-    List<Element> geoPointStatusTags=DOMParsingTools.getChildTagsByName(root,DeedStatusXMLConstants.GEO_POINT_STATUS_TAG);
-    int nbPoints=geoPointStatusTags.size();
-    if (nbPoints>0)
-    {
-      status=new DeedGeoStatus();
-      for(Element geoPointStatusTag : geoPointStatusTags)
-      {
-        NamedNodeMap attrs=geoPointStatusTag.getAttributes();
-        int pointId=DOMParsingTools.getIntAttribute(attrs,DeedStatusXMLConstants.GEO_POINT_STATUS_ID_ATTR,0);
-        DeedGeoPointStatus pointStatus=status.getStatus(pointId,true);
-        // Completed
-        boolean completed=DOMParsingTools.getBooleanAttribute(attrs,DeedStatusXMLConstants.GEO_POINT_STATUS_COMPLETED_ATTR,false);
-        pointStatus.setCompleted(completed);
-        // Completion date
-        String completionDateStr=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.GEO_POINT_STATUS_COMPLETION_DATE_ATTR,null);
-        if (completionDateStr!=null)
-        {
-          Long completionDate=NumericTools.parseLong(completionDateStr);
-          pointStatus.setCompletionDate(completionDate);
-        }
-      }
-    }
-    return status;
   }
 }

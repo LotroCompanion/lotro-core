@@ -1,4 +1,4 @@
-package delta.games.lotro.character.deeds;
+package delta.games.lotro.character.achievables;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,7 @@ public class AchievableObjectiveStatus
 {
   private Objective _objective;
   private AchievableElementState _state;
+  //private Long _completionDate;
   private List<ObjectiveConditionStatus> _conditionStatuses;
 
   /**

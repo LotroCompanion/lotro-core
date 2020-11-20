@@ -86,6 +86,15 @@ public abstract class ObjectiveCondition
   public abstract ConditionType getType();
 
   /**
+   * Get the expected count.
+   * @return a count (default 1).
+   */
+  public int getCount()
+  {
+    return 1;
+  }
+
+  /**
    * Add a geo point.
    * @param point Point to add.
    */
@@ -109,5 +118,14 @@ public abstract class ObjectiveCondition
   public List<AchievableGeoPoint> getPoints()
   {
     return _points;
+  }
+
+  /**
+   * Indicates if this objective has geo data.
+   * @return <code>true</code> if it has geo data.
+   */
+  public boolean hasGeoData()
+  {
+    return _points.size()>0;
   }
 }

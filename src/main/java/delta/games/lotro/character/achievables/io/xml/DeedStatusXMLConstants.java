@@ -1,4 +1,4 @@
-package delta.games.lotro.character.deeds.io.xml;
+package delta.games.lotro.character.achievables.io.xml;
 
 /**
  * Constants for tags and attribute names used in the deed status XML file.

@@ -1,12 +1,12 @@
-package delta.games.lotro.character.deeds.io;
+package delta.games.lotro.character.achievables.io;
 
 import java.io.File;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
-import delta.games.lotro.character.deeds.DeedsStatusManager;
-import delta.games.lotro.character.deeds.io.xml.DeedsStatusXMLParser;
-import delta.games.lotro.character.deeds.io.xml.DeedsStatusXMLWriter;
+import delta.games.lotro.character.achievables.DeedsStatusManager;
+import delta.games.lotro.character.achievables.io.xml.DeedsStatusXMLParser;
+import delta.games.lotro.character.achievables.io.xml.DeedsStatusXMLWriter;
 
 /**
  * I/O methods for deeds status.

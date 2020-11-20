@@ -1,15 +1,15 @@
-package delta.games.lotro.character.deeds;
+package delta.games.lotro.character.achievables;
 
 import java.util.Comparator;
 
 /**
- * Comparator for deed statuses, using their date.
+ * Comparator for achievable statuses, using their date.
  * @author DAM
  */
-public class DeedStatusDateComparator implements Comparator<DeedStatus>
+public class AchievableStatusDateComparator implements Comparator<AchievableStatus>
 {
   @Override
-  public int compare(DeedStatus o1, DeedStatus o2)
+  public int compare(AchievableStatus o1, AchievableStatus o2)
   {
     Long date1=o1.getCompletionDate();
     Long date2=o2.getCompletionDate();

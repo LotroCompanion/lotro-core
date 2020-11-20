@@ -1,4 +1,4 @@
-package delta.games.lotro.character.deeds;
+package delta.games.lotro.character.achievables;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,14 +17,14 @@ public class DeedsStatusManager
 {
   private String _characterName;
   private String _server;
-  private Map<Integer,DeedStatus> _status;
+  private Map<Integer,AchievableStatus> _status;
 
   /**
    * Constructor.
    */
   public DeedsStatusManager()
   {
-    _status=new HashMap<Integer,DeedStatus>();
+    _status=new HashMap<Integer,AchievableStatus>();
   }
 
   /**
@@ -63,9 +63,9 @@ public class DeedsStatusManager
    * does not exist.
    * @return A deed status or <code>null</code>.
    */
-  public DeedStatus get(String deedKey, boolean createIfNecessary)
+  public AchievableStatus get(String deedKey, boolean createIfNecessary)
   {
-    DeedStatus ret=null;
+    AchievableStatus ret=null;
     DeedDescription deed=DeedsManager.getInstance().getDeed(deedKey);
     if (deed!=null)
     {
@@ -81,13 +81,13 @@ public class DeedsStatusManager
    * does not exist.
    * @return A deed status or <code>null</code>.
    */
-  public DeedStatus get(DeedDescription deed, boolean createIfNecessary)
+  public AchievableStatus get(DeedDescription deed, boolean createIfNecessary)
   {
     Integer key=Integer.valueOf(deed.getIdentifier());
-    DeedStatus ret=_status.get(key);
+    AchievableStatus ret=_status.get(key);
     if ((ret==null) && (createIfNecessary))
     {
-      ret=new DeedStatus(deed);
+      ret=new AchievableStatus(deed);
       _status.put(key,ret);
     }
     return ret;
@@ -101,7 +101,7 @@ public class DeedsStatusManager
     List<Integer> keys=new ArrayList<Integer>(_status.keySet());
     for(Integer key : keys)
     {
-      DeedStatus deedStatus=_status.get(key);
+      AchievableStatus deedStatus=_status.get(key);
       if (deedStatus.isEmpty())
       {
         _status.remove(key);
@@ -113,11 +113,11 @@ public class DeedsStatusManager
    * Get all managed deed statuses.
    * @return A list of deed statuses, ordered by deed key.
    */
-  public List<DeedStatus> getAll()
+  public List<AchievableStatus> getAll()
   {
     List<Integer> deedKeys=new ArrayList<Integer>(_status.keySet());
     Collections.sort(deedKeys);
-    List<DeedStatus> ret=new ArrayList<DeedStatus>();
+    List<AchievableStatus> ret=new ArrayList<AchievableStatus>();
     for(Integer deedKey : deedKeys)
     {
       ret.add(_status.get(deedKey));

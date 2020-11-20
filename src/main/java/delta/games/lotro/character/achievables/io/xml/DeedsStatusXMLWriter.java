@@ -1,4 +1,4 @@
-package delta.games.lotro.character.deeds.io.xml;
+package delta.games.lotro.character.achievables.io.xml;
 
 import java.io.File;
 import java.util.List;
@@ -9,14 +9,11 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
-import delta.games.lotro.character.deeds.AchievableElementState;
-import delta.games.lotro.character.deeds.AchievableObjectiveStatus;
-import delta.games.lotro.character.deeds.AchievableStatus;
-import delta.games.lotro.character.deeds.DeedStatus;
-import delta.games.lotro.character.deeds.DeedsStatusManager;
-import delta.games.lotro.character.deeds.ObjectiveConditionStatus;
-import delta.games.lotro.character.deeds.geo.DeedGeoPointStatus;
-import delta.games.lotro.character.deeds.geo.DeedGeoStatus;
+import delta.games.lotro.character.achievables.AchievableElementState;
+import delta.games.lotro.character.achievables.AchievableObjectiveStatus;
+import delta.games.lotro.character.achievables.AchievableStatus;
+import delta.games.lotro.character.achievables.DeedsStatusManager;
+import delta.games.lotro.character.achievables.ObjectiveConditionStatus;
 
 /**
  * Writes a deeds status to an XML file.
@@ -60,9 +57,9 @@ public class DeedsStatusXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",DeedStatusXMLConstants.DEEDS_STATUS_TAG,attrs);
 
-    List<DeedStatus> deedStatuses=status.getAll();
+    List<AchievableStatus> deedStatuses=status.getAll();
 
-    for(DeedStatus deedStatus : deedStatuses)
+    for(AchievableStatus deedStatus : deedStatuses)
     {
       AttributesImpl deedAttrs=new AttributesImpl();
       // Key
@@ -83,8 +80,6 @@ public class DeedsStatusXMLWriter
       hd.startElement("","",DeedStatusXMLConstants.DEED_STATUS_TAG,deedAttrs);
       // Write objectives status
       writeObjectivesStatus(hd,deedStatus);
-      // Write geo status (TO REMOVE)
-      writeGeoStatus(hd,deedStatus);
       hd.endElement("","",DeedStatusXMLConstants.DEED_STATUS_TAG);
     }
     hd.endElement("","",DeedStatusXMLConstants.DEEDS_STATUS_TAG);
@@ -168,46 +163,5 @@ public class DeedsStatusXMLWriter
       useComma=true;
     }
     return sb.toString();
-  }
-
-  /**
-   * Write a greographic deed status to the given XML stream.
-   * @param hd XML output stream.
-   * @param status Status to write.
-   * @throws Exception If an error occurs.
-   */
-  private void writeGeoStatus(TransformerHandler hd, DeedStatus status) throws Exception
-  {
-    DeedGeoStatus geoStatus=status.getGeoStatus();
-    if (geoStatus!=null)
-    {
-      List<DeedGeoPointStatus> pointStatuses=geoStatus.getPointStatuses();
-      for(DeedGeoPointStatus pointStatus : pointStatuses)
-      {
-        boolean empty=pointStatus.isEmpty();
-        if (empty)
-        {
-          continue;
-        }
-        AttributesImpl deedAttrs=new AttributesImpl();
-        // PointID
-        int pointId=pointStatus.getPointId();
-        deedAttrs.addAttribute("","",DeedStatusXMLConstants.GEO_POINT_STATUS_ID_ATTR,CDATA,String.valueOf(pointId));
-        // Completed
-        boolean completed=pointStatus.isCompleted();
-        if (completed)
-        {
-          deedAttrs.addAttribute("","",DeedStatusXMLConstants.GEO_POINT_STATUS_COMPLETED_ATTR,CDATA,String.valueOf(completed));
-        }
-        // Completion date
-        Long completionDate=pointStatus.getCompletionDate();
-        if (completionDate!=null)
-        {
-          deedAttrs.addAttribute("","",DeedStatusXMLConstants.GEO_POINT_STATUS_COMPLETION_DATE_ATTR,CDATA,completionDate.toString());
-        }
-        hd.startElement("","",DeedStatusXMLConstants.GEO_POINT_STATUS_TAG,deedAttrs);
-        hd.endElement("","",DeedStatusXMLConstants.GEO_POINT_STATUS_TAG);
-      }
-    }
   }
 }

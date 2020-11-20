@@ -1,8 +1,11 @@
-package delta.games.lotro.character.deeds;
+package delta.games.lotro.character.achievables;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
@@ -14,6 +17,7 @@ import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 public class AchievableStatus
 {
   private Achievable _achievable;
+  private Long _completionDate;
   private AchievableElementState _state;
   private List<AchievableObjectiveStatus> _objectiveStatuses;
 
@@ -126,5 +130,70 @@ public class AchievableStatus
   public List<AchievableObjectiveStatus> getObjectiveStatuses()
   {
     return _objectiveStatuses;
+  }
+
+  /**
+   * Get the completion date.
+   * @return A date or <code>null</code> if not completed or completion date is not known.
+   */
+  public Long getCompletionDate()
+  {
+    return _completionDate;
+  }
+
+  /**
+   * Set the completion date.
+   * @param completionDate Completion date to set.
+   */
+  public void setCompletionDate(Long completionDate)
+  {
+    _completionDate=completionDate;
+  }
+
+  /**
+   * Indicates if this deed status is empty (contains no data).
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isEmpty()
+  {
+    if ((_completionDate!=null) || (getState()!=AchievableElementState.UNDEFINED))
+    {
+      return false;
+    }
+    return true;
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    int achievableId=getAchievableId();
+    boolean isDeed=(_achievable instanceof DeedDescription);
+    String type=(isDeed?"Deed":"Quest");
+    sb.append(type).append(' ').append(_achievable.getName()).append(" (").append(achievableId).append("): ");
+    sb.append(getState());
+    if (_completionDate!=null)
+    {
+      sb.append(" (").append(new Date(_completionDate.longValue())).append(')');
+    }
+    sb.append(EndOfLine.NATIVE_EOL);
+    if (_state==AchievableElementState.UNDERWAY)
+    {
+      for(AchievableObjectiveStatus objectiveStatus : _objectiveStatuses)
+      {
+        Objective objective=objectiveStatus.getObjective();
+        int objectiveIndex=objective.getIndex();
+        AchievableElementState objectiveState=objectiveStatus.getState();
+        sb.append("\tObjective #").append(objectiveIndex).append(": ").append(objectiveState).append(EndOfLine.NATIVE_EOL);
+        if (objectiveState==AchievableElementState.UNDERWAY)
+        {
+          for(ObjectiveConditionStatus conditionStatus : objectiveStatus.getConditionStatuses())
+          {
+            sb.append("\t\t").append(conditionStatus).append(EndOfLine.NATIVE_EOL);
+          }
+        }
+      }
+    }
+    return sb.toString();
   }
 }

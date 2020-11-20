@@ -10,6 +10,7 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.utils.Proxy;
 
@@ -325,6 +326,22 @@ public abstract class Achievable implements Identifiable
     {
       sb.append("Prerequisites: ").append(_prerequisiteAchievables).append(EndOfLine.NATIVE_EOL);
     }
+  }
+
+  /**
+   * Indicates if this achievable has geo data.
+   * @return <code>true</code> if it has geo data.
+   */
+  public boolean hasGeoData()
+  {
+    for(Objective objective : _objectives.getObjectives())
+    {
+      if (objective.hasGeoData())
+      {
+        return true;
+      }
+    }
+    return false;
   }
 
   @Override

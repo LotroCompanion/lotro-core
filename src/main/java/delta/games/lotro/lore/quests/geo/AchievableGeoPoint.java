@@ -29,6 +29,15 @@ public class AchievableGeoPoint
   }
 
   /**
+   * Get the label for this point. 
+   * @return a label.
+   */
+  public String getLabel()
+  {
+    return "";
+  }
+
+  /**
    * Get the data identifier.
    * @return a data identifier.
    */

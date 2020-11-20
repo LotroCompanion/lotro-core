@@ -1,4 +1,4 @@
-package delta.games.lotro.character.deeds;
+package delta.games.lotro.character.achievables;
 
 /**
  * Achievable element status (achievable, objective, condition).

@@ -127,6 +127,22 @@ public class Objective
     Collections.sort(_conditions,new ObjectiveConditionComparator());
   }
 
+  /**
+   * Indicates if this objective has geo data.
+   * @return <code>true</code> if it has geo data.
+   */
+  public boolean hasGeoData()
+  {
+    for(ObjectiveCondition condition : _conditions)
+    {
+      if (condition.hasGeoData())
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @Override
   public String toString()
   {

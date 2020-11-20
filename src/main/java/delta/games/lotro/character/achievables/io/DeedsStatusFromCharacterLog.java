@@ -1,4 +1,4 @@
-package delta.games.lotro.character.deeds.io;
+package delta.games.lotro.character.achievables.io;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
-import delta.games.lotro.character.deeds.DeedStatus;
-import delta.games.lotro.character.deeds.DeedsStatusManager;
+import delta.games.lotro.character.achievables.AchievableStatus;
+import delta.games.lotro.character.achievables.DeedsStatusManager;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogItem;
 import delta.games.lotro.character.log.CharacterLogItem.LogItemType;
@@ -61,7 +61,7 @@ public class DeedsStatusFromCharacterLog
           DeedDescription deed=resolveDeedById(deedId.intValue(),label);
           if (deed!=null)
           {
-            DeedStatus deedStatus=status.get(deed,true);
+            AchievableStatus deedStatus=status.get(deed,true);
             Long date=deedStatus.getCompletionDate();
             if (date==null)
             {
