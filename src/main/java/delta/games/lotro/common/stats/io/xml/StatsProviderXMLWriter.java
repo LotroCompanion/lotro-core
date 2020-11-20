@@ -67,23 +67,33 @@ public class StatsProviderXMLWriter
   {
     StatDescription stat=provider.getStat();
     AttributesImpl attrs=new AttributesImpl();
+    // Stat ID
     attrs.addAttribute("","",StatsProviderXMLConstants.STAT_NAME_ATTR,XmlWriter.CDATA,stat.getPersistenceKey());
     if (statValue!=null)
     {
       String valueStr=String.valueOf(statValue.getInternalValue());
       attrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,XmlWriter.CDATA,valueStr);
     }
+    // Stat operator
     StatOperator operator=provider.getOperator();
     if ((operator!=null) && (operator!=StatOperator.ADD))
     {
       attrs.addAttribute("","",StatsProviderXMLConstants.STAT_OPERATOR_ATTR,XmlWriter.CDATA,operator.name());
     }
+    // Description override
+    String descriptionOverride=provider.getDescriptionOverride();
+    if ((descriptionOverride!=null) && (descriptionOverride.length()>0))
+    {
+      attrs.addAttribute("","",StatsProviderXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,XmlWriter.CDATA,descriptionOverride);
+    }
+    // Constant?
     if (provider instanceof ConstantStatProvider)
     {
       ConstantStatProvider constantProvider=(ConstantStatProvider)provider;
       float value=constantProvider.getValue();
       attrs.addAttribute("","",StatsProviderXMLConstants.STAT_CONSTANT_ATTR,XmlWriter.CDATA,String.valueOf(value));
     }
+    // Scalable?
     else if (provider instanceof ScalableStatProvider)
     {
       ScalableStatProvider scalableProvider=(ScalableStatProvider)provider;
@@ -98,6 +108,7 @@ public class StatsProviderXMLWriter
         LOGGER.warn("Progression not found for a scalable stats provider!");
       }
     }
+    // Tiered and scalable?
     else if (provider instanceof TieredScalableStatProvider)
     {
       TieredScalableStatProvider tieredStatProvider=(TieredScalableStatProvider)provider;
@@ -118,6 +129,7 @@ public class StatsProviderXMLWriter
       }
       attrs.addAttribute("","",StatsProviderXMLConstants.STAT_TIERED_SCALING_ATTR,XmlWriter.CDATA,sb.toString());
     }
+    // Ranged?
     else if (provider instanceof RangedStatProvider)
     {
       String providerDefinition=buildRangedStatProviderDefinition((RangedStatProvider)provider);

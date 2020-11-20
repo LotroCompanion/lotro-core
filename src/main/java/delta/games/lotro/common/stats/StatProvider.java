@@ -37,4 +37,17 @@ public interface StatProvider
    * @param operator Operator to set.
    */
   void setOperator(StatOperator operator);
+
+  /**
+   * Get an optional description override.
+   * @return a description override or <code>null</code>.
+   */
+  String getDescriptionOverride();
+
+  /**
+   * Set the description override.
+   * @param descriptionOverride Value to set.
+   */
+  void setDescriptionOverride(String descriptionOverride);
 }
+

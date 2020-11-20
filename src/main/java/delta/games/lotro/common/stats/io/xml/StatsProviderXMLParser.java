@@ -64,21 +64,33 @@ public class StatsProviderXMLParser
       return null;
     }
 
-    // Stat operator
-    String operatorStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_OPERATOR_ATTR,null);
-    StatOperator operator=StatOperator.getByName(operatorStr);
-    if (operator==null)
+    StatProvider provider=parseStatProvider(attrs,stat);
+    if (provider!=null)
     {
-      operator=StatOperator.ADD;
-    }
+      // Stat operator
+      String operatorStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_OPERATOR_ATTR,null);
+      StatOperator operator=StatOperator.getByName(operatorStr);
+      if (operator==null)
+      {
+        operator=StatOperator.ADD;
+      }
+      provider.setOperator(operator);
 
+      // Description override
+      String descriptionOverride=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,null);
+      provider.setDescriptionOverride(descriptionOverride);
+    }
+    return provider;
+  }
+
+  private static StatProvider parseStatProvider(NamedNodeMap attrs, StatDescription stat)
+  {
     // Constant stat provider?
     String constantStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_CONSTANT_ATTR,null);
     if (constantStr!=null)
     {
       float value=NumericTools.parseFloat(constantStr,0);
       ConstantStatProvider constantStatProvider=new ConstantStatProvider(stat,value);
-      constantStatProvider.setOperator(operator);
       return constantStatProvider;
     }
     // Scalable stat provider?
@@ -92,7 +104,6 @@ public class StatsProviderXMLParser
         LOGGER.warn("Progression not found: "+progressionId);
       }
       ScalableStatProvider provider=new ScalableStatProvider(stat,progression);
-      provider.setOperator(operator);
       return provider;
     }
     // Tiered scalable stat provider?
@@ -110,7 +121,6 @@ public class StatsProviderXMLParser
         provider.setProgression(tier,progression);
         tier++;
       }
-      provider.setOperator(operator);
       return provider;
     }
     return null;

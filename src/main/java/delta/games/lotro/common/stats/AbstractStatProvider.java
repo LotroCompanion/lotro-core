@@ -8,6 +8,7 @@ public abstract class AbstractStatProvider implements StatProvider
 {
   private StatOperator _operator;
   private StatDescription _stat;
+  private String _descriptionOverride;
 
   /**
    * Constructor.
@@ -41,5 +42,17 @@ public abstract class AbstractStatProvider implements StatProvider
   public void setOperator(StatOperator operator)
   {
     _operator=operator;
+  }
+
+  @Override
+  public String getDescriptionOverride()
+  {
+    return _descriptionOverride;
+  }
+
+  @Override
+  public void setDescriptionOverride(String descriptionOverride)
+  {
+    _descriptionOverride=descriptionOverride;
   }
 }
