@@ -33,4 +33,10 @@ public class ConstantStatProvider extends AbstractStatProvider
   {
     return _value;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Constant stat provider: stat="+getStat().getName()+", value="+_value;
+  }
 }

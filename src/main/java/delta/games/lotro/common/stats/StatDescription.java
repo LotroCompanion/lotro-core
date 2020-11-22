@@ -18,7 +18,7 @@ public class StatDescription implements Identifiable
 
   /**
    * Constructor.
-   * @param id
+   * @param id Stat identifier.
    */
   public StatDescription(int id)
   {
