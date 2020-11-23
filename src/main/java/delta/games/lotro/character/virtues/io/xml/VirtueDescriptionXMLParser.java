@@ -11,9 +11,6 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.progression.ProgressionsManager;
-import delta.games.lotro.common.stats.StatProvider;
-import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.common.stats.io.xml.StatsProviderXMLConstants;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -86,10 +83,10 @@ public class VirtueDescriptionXMLParser
     virtue.setDescription(description);
     // Active stats
     Element activeStatsTag=DOMParsingTools.getChildTagByName(root,VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG);
-    loadStats(virtue.getStatsProvider(),activeStatsTag);
+    StatsProviderXMLParser.parseStatsProvider(activeStatsTag,virtue.getStatsProvider());
     // Passive stats
     Element passiveStatsTag=DOMParsingTools.getChildTagByName(root,VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG);
-    loadStats(virtue.getPassiveStatsProvider(),passiveStatsTag);
+    StatsProviderXMLParser.parseStatsProvider(passiveStatsTag,virtue.getPassiveStatsProvider());
     // XP table
     List<Element> xpTags=DOMParsingTools.getChildTagsByName(root,VirtueDescriptionXMLConstants.XP_TAG);
     for(Element xpTag : xpTags)
@@ -100,15 +97,5 @@ public class VirtueDescriptionXMLParser
       virtue.setXpForTier(tier,value);
     }
     return virtue;
-  }
-
-  private static void loadStats(StatsProvider statsProvider, Element root)
-  {
-    List<Element> statTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.STAT_TAG);
-    for(Element statTag : statTags)
-    {
-      StatProvider statProvider=StatsProviderXMLParser.parseStatProvider(statTag);
-      statsProvider.addStatProvider(statProvider);
-    }
   }
 }

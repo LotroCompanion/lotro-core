@@ -1,5 +1,7 @@
 package delta.games.lotro.common.stats.io.xml;
 
+import java.util.List;
+
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.apache.log4j.Logger;
@@ -12,6 +14,7 @@ import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
@@ -49,6 +52,18 @@ public class StatsProviderXMLWriter
       StatDescription stat=provider.getStat();
       FixedDecimalsInteger statValue=(stats!=null)?stats.getStat(stat):null;
       writeProvider(hd,provider,statValue);
+    }
+    List<SpecialEffect> specialEffects=statsProvider.getSpecialEffects();
+    if (specialEffects.size()>0)
+    {
+      for(SpecialEffect specialEffect : specialEffects)
+      {
+        AttributesImpl attrs=new AttributesImpl();
+        String label=specialEffect.getLabel();
+        attrs.addAttribute("","",StatsProviderXMLConstants.SPECIAL_EFFECT_LABEL_ATTR,XmlWriter.CDATA,label);
+        hd.startElement("","",StatsProviderXMLConstants.SPECIAL_EFFECT_TAG,attrs);
+        hd.endElement("","",StatsProviderXMLConstants.SPECIAL_EFFECT_TAG);
+      }
     }
     if (tag!=null)
     {

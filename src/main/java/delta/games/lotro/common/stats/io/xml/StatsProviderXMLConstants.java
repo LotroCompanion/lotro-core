@@ -43,4 +43,12 @@ public class StatsProviderXMLConstants
    * Tag 'stat', attribute 'ranged'.
    */
   public static final String STAT_RANGED_ATTR="ranged";
+  /**
+   * Tag 'specialEffect'.
+   */
+  public static final String SPECIAL_EFFECT_TAG="specialEffect";
+  /**
+   * Tag 'specialEffect', attribute 'label'.
+   */
+  public static final String SPECIAL_EFFECT_LABEL_ATTR="label";
 }

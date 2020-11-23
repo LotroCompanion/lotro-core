@@ -8,9 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.common.stats.io.xml.StatsProviderXMLConstants;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.consumables.Consumable;
 
@@ -61,12 +59,7 @@ public class ConsumableXMLParser
     Consumable consumable=new Consumable(id,name,iconId,category);
     // Stats
     StatsProvider statsProvider=consumable.getProvider();
-    List<Element> statTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.STAT_TAG);
-    for(Element statTag : statTags)
-    {
-      StatProvider statProvider=StatsProviderXMLParser.parseStatProvider(statTag);
-      statsProvider.addStatProvider(statProvider);
-    }
+    StatsProviderXMLParser.parseStatsProvider(root,statsProvider);
     return consumable;
   }
 }

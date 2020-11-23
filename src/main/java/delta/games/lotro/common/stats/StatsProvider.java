@@ -13,6 +13,7 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class StatsProvider
 {
   private List<StatProvider> _stats;
+  private List<SpecialEffect> _effects;
 
   /**
    * Constructor.
@@ -20,6 +21,7 @@ public class StatsProvider
   public StatsProvider()
   {
     _stats=new ArrayList<StatProvider>();
+    _effects=new ArrayList<SpecialEffect>();
   }
 
   /**
@@ -31,6 +33,18 @@ public class StatsProvider
     if (statProvider!=null)
     {
       _stats.add(statProvider);
+    }
+  }
+
+  /**
+   * Add a special effect.
+   * @param effect Special effect to add.
+   */
+  public void addSpecialEffect(SpecialEffect effect)
+  {
+    if (effect!=null)
+    {
+      _effects.add(effect);
     }
   }
 
@@ -191,6 +205,15 @@ public class StatsProvider
     return true;
   }
 
+  /**
+   * Get the special effects.
+   * @return a possibly empty but never <code>null</code> list of special effects.
+   */
+  public List<SpecialEffect> getSpecialEffects()
+  {
+    return _effects;
+  }
+
   @Override
   public String toString()
   {
@@ -205,6 +228,10 @@ public class StatsProvider
       StatProvider statProvider=getStatProvider(i);
       StatDescription stat=statProvider.getStat();
       sb.append(stat.getName());
+    }
+    if (_effects.size()>0)
+    {
+      sb.append(", effects=").append(_effects);
     }
     return sb.toString();
   }

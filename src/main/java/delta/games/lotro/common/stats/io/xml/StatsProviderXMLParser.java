@@ -11,6 +11,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
@@ -35,6 +36,18 @@ public class StatsProviderXMLParser
   public static StatsProvider parseStatsProvider(Element root)
   {
     StatsProvider statsProvider=new StatsProvider();
+    parseStatsProvider(root,statsProvider);
+    return statsProvider;
+  }
+
+  /**
+   * Build a stats provider from an XML tag.
+   * @param root Root XML tag.
+   * @param statsProvider Storage.
+   */
+  public static void parseStatsProvider(Element root, StatsProvider statsProvider)
+  {
+    // Stats
     List<Element> statTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.STAT_TAG);
     int nbStatsTags=statTags.size();
     if (nbStatsTags>0)
@@ -45,7 +58,21 @@ public class StatsProviderXMLParser
         statsProvider.addStatProvider(statProvider);
       }
     }
-    return statsProvider;
+    // Special effects
+    List<Element> specialEffectsTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.SPECIAL_EFFECT_TAG);
+    int nbSpecialEffectTags=specialEffectsTags.size();
+    if (nbSpecialEffectTags>0)
+    {
+      for(Element specialEffectsTag : specialEffectsTags)
+      {
+        String label=DOMParsingTools.getStringAttribute(specialEffectsTag.getAttributes(),StatsProviderXMLConstants.SPECIAL_EFFECT_LABEL_ATTR,null);
+        if (label!=null)
+        {
+          SpecialEffect specialEffect=new SpecialEffect(label);
+          statsProvider.addSpecialEffect(specialEffect);
+        }
+      }
+    }
   }
 
   /**
@@ -53,7 +80,7 @@ public class StatsProviderXMLParser
    * @param root Root XML tag.
    * @return A stat provider.
    */
-  public static StatProvider parseStatProvider(Element root)
+  private static StatProvider parseStatProvider(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Stat name

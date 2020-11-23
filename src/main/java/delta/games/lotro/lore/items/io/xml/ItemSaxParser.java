@@ -25,6 +25,7 @@ import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
+import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
@@ -278,6 +279,18 @@ public final class ItemSaxParser extends DefaultHandler
         }
         statsProvider.addStatProvider(statProvider);
       }
+    }
+    else if (StatsProviderXMLConstants.SPECIAL_EFFECT_TAG.equals(qualifiedName))
+    {
+      String label=attributes.getValue(StatsProviderXMLConstants.SPECIAL_EFFECT_LABEL_ATTR);
+      SpecialEffect specialEffect=new SpecialEffect(label);
+      StatsProvider statsProvider=_currentItem.getStatsProvider();
+      if (statsProvider==null)
+      {
+        statsProvider=new StatsProvider();
+        _currentItem.setStatsProvider(statsProvider);
+      }
+      statsProvider.addSpecialEffect(specialEffect);
     }
     else
     {

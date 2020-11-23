@@ -12,9 +12,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.common.stats.io.xml.StatsProviderXMLConstants;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 
 /**
@@ -81,12 +79,7 @@ public class TraitDescriptionXMLParser
     trait.setDescription(description);
     // Stats
     StatsProvider statsProvider=trait.getStatsProvider();
-    List<Element> statTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.STAT_TAG);
-    for(Element statTag : statTags)
-    {
-      StatProvider statProvider=StatsProviderXMLParser.parseStatProvider(statTag);
-      statsProvider.addStatProvider(statProvider);
-    }
+    StatsProviderXMLParser.parseStatsProvider(root,statsProvider);
     // Skills
     List<Element> skillTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_SKILL_TAG);
     for(Element skillTag : skillTags)
