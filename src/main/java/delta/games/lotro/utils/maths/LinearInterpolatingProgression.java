@@ -91,9 +91,11 @@ public class LinearInterpolatingProgression extends AbstractProgression implemen
     {
       return null;
     }
-    if (x>_xValues[_xValues.length-1])
+    int maxIndex=_xValues.length-1;
+    if (x>=_xValues[maxIndex])
     {
-      return Float.valueOf(_yValues[_xValues.length-1]);
+      float slope=(_yValues[maxIndex]-_yValues[maxIndex-1])/(_xValues[maxIndex]-_xValues[maxIndex-1]);
+      return Float.valueOf(_yValues[maxIndex-1]+(x-_xValues[maxIndex-1])*slope);
     }
     for(int i=0;i<_xValues.length-1;i++)
     {
