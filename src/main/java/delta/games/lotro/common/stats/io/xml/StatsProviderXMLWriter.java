@@ -180,6 +180,10 @@ public class StatsProviderXMLWriter
         int progressionId=scalableProvider.getProgression().getIdentifier();
         sb.append(progressionId);
       }
+      else
+      {
+        LOGGER.warn("A ranged stat provider does not use a ScalableStatProvider: "+statProvider);
+      }
     }
     return sb.toString();
   }
