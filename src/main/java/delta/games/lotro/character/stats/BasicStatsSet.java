@@ -1,16 +1,16 @@
 package delta.games.lotro.character.stats;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.StatDescriptionComparator;
+import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -19,14 +19,16 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class BasicStatsSet
 {
-  private HashMap<StatDescription,FixedDecimalsInteger> _stats;
+  private static final Logger LOGGER=Logger.getLogger(BasicStatsSet.class);
+
+  private List<StatsSetElement> _elements;
 
   /**
    * Constructor.
    */
   public BasicStatsSet()
   {
-    _stats=new HashMap<StatDescription,FixedDecimalsInteger>();
+    _elements=new ArrayList<StatsSetElement>();
   }
 
   /**
@@ -35,7 +37,7 @@ public class BasicStatsSet
    */
   public BasicStatsSet(BasicStatsSet source)
   {
-    _stats=new HashMap<StatDescription,FixedDecimalsInteger>();
+    _elements=new ArrayList<StatsSetElement>();
     setStats(source);
   }
 
@@ -46,8 +48,8 @@ public class BasicStatsSet
    */
   public FixedDecimalsInteger getStat(StatDescription stat)
   {
-    FixedDecimalsInteger statValue=_stats.get(stat);
-    return statValue;
+    StatsSetElement existing=findElement(stat);
+    return (existing!=null)?existing.getValue():null;
   }
 
   /**
@@ -55,7 +57,7 @@ public class BasicStatsSet
    */
   public void clear()
   {
-    _stats.clear();
+    _elements.clear();
   }
 
   /**
@@ -64,18 +66,21 @@ public class BasicStatsSet
    */
   public Set<StatDescription> getStats()
   {
-    return new HashSet<StatDescription>(_stats.keySet());
+    Set<StatDescription> ret=new HashSet<StatDescription>();
+    for(StatsSetElement element : _elements)
+    {
+      ret.add(element.getStat());
+    }
+    return ret;
   }
 
   /**
-   * Get a sorted list of all used stats.
-   * @return A sorted list of stats.
+   * Get the managed elements.
+   * @return a list of stat elements.
    */
-  public List<StatDescription> getSortedStats()
+  public List<StatsSetElement> getStatElements()
   {
-    List<StatDescription> stats=new ArrayList<StatDescription>(_stats.keySet());
-    Collections.sort(stats,new StatDescriptionComparator());
-    return stats;
+    return _elements;
   }
 
   /**
@@ -84,7 +89,7 @@ public class BasicStatsSet
    */
   public int getStatsCount()
   {
-    return _stats.size();
+    return _elements.size();
   }
 
   /**
@@ -93,7 +98,18 @@ public class BasicStatsSet
    */
   public void removeStat(StatDescription stat)
   {
-    _stats.remove(stat);
+    int i=0;
+    while (i<_elements.size())
+    {
+      if (_elements.get(i).getStat()==stat)
+      {
+        _elements.remove(i);
+      }
+      else
+      {
+        i++;
+      }
+    }
   }
 
   /**
@@ -103,7 +119,7 @@ public class BasicStatsSet
    */
   public void setStat(StatDescription stat, FixedDecimalsInteger value)
   {
-    _stats.put(stat,new FixedDecimalsInteger(value));
+    setStat(stat,new FixedDecimalsInteger(value),null);
   }
 
   /**
@@ -113,21 +129,7 @@ public class BasicStatsSet
    */
   public void setStat(StatDescription stat, int value)
   {
-    _stats.put(stat, new FixedDecimalsInteger(value));
-  }
-
-  /**
-   * Copy stats from a source.
-   * @param stats Source stats.
-   */
-  public void setStats(BasicStatsSet stats)
-  {
-    _stats.clear();
-    for(Map.Entry<StatDescription,FixedDecimalsInteger> entry : stats._stats.entrySet())
-    {
-      FixedDecimalsInteger value=new FixedDecimalsInteger(entry.getValue());
-      setStat(entry.getKey(),value);
-    }
+    setStat(stat,new FixedDecimalsInteger(value),null);
   }
 
   /**
@@ -137,7 +139,53 @@ public class BasicStatsSet
    */
   public void setStat(StatDescription stat, float value)
   {
-    _stats.put(stat, new FixedDecimalsInteger(value));
+    setStat(stat,new FixedDecimalsInteger(value),null);
+  }
+
+  /**
+   * Set stat value.
+   * @param stat Stat to set.
+   * @param value Value to set.
+   * @param descriptionOverride Description override.
+   */
+  public void setStat(StatDescription stat, FixedDecimalsInteger value, String descriptionOverride)
+  {
+    StatsSetElement element=new StatsSetElement(stat,value,descriptionOverride);
+    internalSetStat(element);
+  }
+
+  private void internalSetStat(StatsSetElement elementToSet)
+  {
+    StatsSetElement existing=findElement(elementToSet.getStat());
+    if (existing!=null)
+    {
+      // Update this one
+      if (!Objects.equals(existing.getDescriptionOverride(),elementToSet.getDescriptionOverride()))
+      {
+        LOGGER.warn("Set stat will replace description!");
+      }
+      existing.setValue(elementToSet.getValue());
+      existing.setDescriptionOverride(elementToSet.getDescriptionOverride());
+    }
+    else
+    {
+      _elements.add(elementToSet);
+    }
+  }
+
+  /**
+   * Copy stats from a source.
+   * @param stats Source stats.
+   */
+  public void setStats(BasicStatsSet stats)
+  {
+    _elements.clear();
+    for(StatsSetElement element : stats._elements)
+    {
+      FixedDecimalsInteger value=new FixedDecimalsInteger(element.getValue());
+      StatsSetElement newElement=new StatsSetElement(element.getStat(),value,element.getDescriptionOverride());
+      _elements.add(newElement);
+    }
   }
 
   /**
@@ -147,18 +195,8 @@ public class BasicStatsSet
    */
   public void addStat(StatDescription stat, FixedDecimalsInteger value)
   {
-    FixedDecimalsInteger currentStat=_stats.get(stat);
-    FixedDecimalsInteger total;
-    if (currentStat==null)
-    {
-      total=new FixedDecimalsInteger(value);
-    }
-    else
-    {
-      total=new FixedDecimalsInteger(value);
-      total.add(currentStat);
-    }
-    _stats.put(stat,total);
+    StatsSetElement element=new StatsSetElement(stat,value,null);
+    addStat(element);
   }
 
   /**
@@ -167,12 +205,47 @@ public class BasicStatsSet
    */
   public void addStats(BasicStatsSet stats)
   {
-    for(Map.Entry<StatDescription,FixedDecimalsInteger> entry : stats._stats.entrySet())
+    for(StatsSetElement element : stats._elements)
     {
-      StatDescription stat=entry.getKey();
-      FixedDecimalsInteger value=entry.getValue();
-      addStat(stat,value);
+      addStat(element);
     }
+  }
+
+  /**
+   * Add a new stat element.
+   * @param elementToAdd Stat element to add.
+   */
+  public void addStat(StatsSetElement elementToAdd)
+  {
+    StatsSetElement existing=findElement(elementToAdd.getStat());
+    if (existing!=null)
+    {
+      FixedDecimalsInteger total=new FixedDecimalsInteger(existing.getValue());
+      total.add(elementToAdd.getValue());
+      // Update this one
+      if (!Objects.equals(existing.getDescriptionOverride(),elementToAdd.getDescriptionOverride()))
+      {
+        LOGGER.warn("Add stat will replace description!");
+      }
+      existing.setDescriptionOverride(elementToAdd.getDescriptionOverride());
+      existing.setValue(total);
+    }
+    else
+    {
+      _elements.add(new StatsSetElement(elementToAdd));
+    }
+  }
+
+  private StatsSetElement findElement(StatDescription stat)
+  {
+    for(StatsSetElement element : _elements)
+    {
+      if (element.getStat()==stat)
+      {
+        return element;
+      }
+    }
+    return null;
   }
 
   @Override
@@ -184,7 +257,7 @@ public class BasicStatsSet
       return false;
     }
     BasicStatsSet other=(BasicStatsSet)object;
-    return _stats.equals(other._stats);
+    return _elements.equals(other._elements);
   }
 
   @Override
@@ -206,19 +279,14 @@ public class BasicStatsSet
   {
     StringBuilder sb=new StringBuilder();
     int index=0;
-    for(StatDescription stat : getSortedStats())
+    for(StatsSetElement element : _elements)
     {
-      FixedDecimalsInteger statValue=_stats.get(stat);
-      if (statValue!=null)
+      if (index>0)
       {
-        if (index>0)
-        {
-          sb.append(separator);
-        }
-        sb.append(stat.getName()).append(": ");
-        sb.append((statValue!=null)?statValue:"N/A");
-        index++;
+        sb.append(separator);
       }
+      sb.append(StatUtils.getStatDisplay(element));
+      index++;
     }
     return sb.toString().trim();
   }

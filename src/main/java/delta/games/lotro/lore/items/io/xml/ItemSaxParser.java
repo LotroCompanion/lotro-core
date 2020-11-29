@@ -258,7 +258,9 @@ public final class ItemSaxParser extends DefaultHandler
       // Stat value
       String statValue=attributes.getValue(BasicStatsSetXMLConstants.STAT_VALUE_ATTR);
       FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
-      _currentItem.getStats().setStat(stat,value);
+      // Description override
+      String descriptionOverride=attributes.getValue(BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR);
+      _currentItem.getStats().setStat(stat,value,descriptionOverride);
       // Stat provider
       StatProvider statProvider=parseStatProvider(stat,attributes);
       if (statProvider!=null)
@@ -272,6 +274,8 @@ public final class ItemSaxParser extends DefaultHandler
           operator=StatOperator.ADD;
         }
         statProvider.setOperator(operator);
+        // Description
+        statProvider.setDescriptionOverride(descriptionOverride);
         if (statsProvider==null)
         {
           statsProvider=new StatsProvider();

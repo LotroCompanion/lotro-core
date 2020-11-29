@@ -188,7 +188,7 @@ public class StatsProvider
           }
           statValue=new FixedDecimalsInteger(floatValue);
         }
-        stats.setStat(stat,statValue);
+        stats.setStat(stat,statValue,provider.getDescriptionOverride());
       }
     }
     return stats;

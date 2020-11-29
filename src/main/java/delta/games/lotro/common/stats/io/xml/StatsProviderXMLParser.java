@@ -8,6 +8,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
@@ -104,7 +105,7 @@ public class StatsProviderXMLParser
       provider.setOperator(operator);
 
       // Description override
-      String descriptionOverride=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,null);
+      String descriptionOverride=DOMParsingTools.getStringAttribute(attrs,BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,null);
       provider.setDescriptionOverride(descriptionOverride);
     }
     return provider;

@@ -2,8 +2,9 @@ package delta.games.lotro.lore.items.sets;
 
 import java.util.List;
 
-import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.StatProvider;
+import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.common.stats.SpecialEffect;
+import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
@@ -29,31 +30,15 @@ public class MainTestItemSets
         int count=bonusSet.getPiecesCount();
         System.out.println("\tCount="+count);
         StatsProvider statsProvider=bonusSet.getStatsProvider();
-        int nbStatsProviders=statsProvider.getNumberOfStatProviders();
-        for(int i=0;i<nbStatsProviders;i++)
+        BasicStatsSet bonusStats=statsProvider.getStats(1,level);
+        String[] lines=StatUtils.getStatsDisplayLines(bonusStats);
+        for(String line : lines)
         {
-          StatProvider statProvider=statsProvider.getStatProvider(i);
-          Float value=statProvider.getStatValue(1,level);
-          String override=statProvider.getDescriptionOverride();
-          String display;
-          if (override!=null)
-          {
-            if (override.indexOf("{***}")!=-1)
-            {
-              display=override.replace("{***}",value.toString());
-            }
-            else
-            {
-              display=override;
-            }
-            display="OVERRIDE: "+display;
-          }
-          else
-          {
-            StatDescription stat=statProvider.getStat();
-            display=stat.getName()+": "+value;
-          }
-          System.out.println("\t\tSTAT="+display);
+          System.out.println("\t\t"+line);
+        }
+        for(SpecialEffect effect : statsProvider.getSpecialEffects())
+        {
+          System.out.println("\t\tEFFECT="+effect.getLabel());
         }
       }
     }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -13,6 +14,11 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class StatUtils
 {
+  /**
+   * Placeholder for value in description overrides.
+   */
+  public static final String VALUE_PLACE_HOLDER="{***}";
+
   /**
    * Get a displayable string for a stat value.
    * @param value Value to display.
@@ -26,7 +32,7 @@ public class StatUtils
     {
       if (percentage)
       {
-        valueStr=new DecimalFormat("#.#%").format(value.doubleValue()/100);
+        valueStr=new DecimalFormat("#.##%").format(value.doubleValue()/100);
       }
       else
       {
@@ -48,12 +54,22 @@ public class StatUtils
   public static String[] getStatsDisplayLines(BasicStatsSet stats)
   {
     List<String> lines=new ArrayList<String>();
-    for(StatDescription stat : stats.getSortedStats())
+    for(StatsSetElement element : stats.getStatElements())
     {
+      StatDescription stat=element.getStat();
       if (stat.isVisible())
       {
-        String line=getStatDisplay(stat,stats);
-        lines.add(line);
+        String line=getStatDisplay(element);
+        int hasLF=line.indexOf("\n");
+        if (hasLF!=-1)
+        {
+          lines.add(line.substring(0,hasLF));
+          lines.add(line.substring(hasLF+1));
+        }
+        else
+        {
+          lines.add(line);
+        }
       }
     }
     String[] ret=lines.toArray(new String[lines.size()]);
@@ -61,17 +77,31 @@ public class StatUtils
   }
 
   /**
-   * Get the display line for a single stat.
-   * @param stat Stat to display.
-   * @param stats Stats to get value from.
+   * Get the display line for a single stat element.
+   * @param element Stat element to display.
    * @return A displayable line.
    */
-  public static String getStatDisplay(StatDescription stat, BasicStatsSet stats)
+  public static String getStatDisplay(StatsSetElement element)
   {
+    String line=null;
+    StatDescription stat=element.getStat();
     String statName=stat.getName();
-    FixedDecimalsInteger value=stats.getStat(stat);
+    FixedDecimalsInteger value=element.getValue();
     String valueStr=getStatDisplay(value,stat.isPercentage());
-    String line=valueStr+" "+statName;
+    String descriptionOverride=element.getDescriptionOverride();
+    if (descriptionOverride!=null)
+    {
+      line=descriptionOverride;
+      int index=descriptionOverride.indexOf(VALUE_PLACE_HOLDER);
+      if (index!=-1)
+      {
+        line=descriptionOverride.replace(VALUE_PLACE_HOLDER,valueStr);
+      }
+    }
+    else
+    {
+      line=valueStr+" "+statName;
+    }
     return line;
   }
 

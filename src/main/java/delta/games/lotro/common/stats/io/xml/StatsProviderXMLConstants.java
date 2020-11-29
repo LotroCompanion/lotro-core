@@ -24,10 +24,6 @@ public class StatsProviderXMLConstants
    */
   public static final String STAT_OPERATOR_ATTR="operator";
   /**
-   * Tag 'stat', attribute 'descriptionOverride'.
-   */
-  public static final String STAT_DESCRIPTION_OVERRIDE_ATTR="descriptionOverride";
-  /**
    * Tag 'stat', attribute 'constant'.
    */
   public static final String STAT_CONSTANT_ATTR="constant";

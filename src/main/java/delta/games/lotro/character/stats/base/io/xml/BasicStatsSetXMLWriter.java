@@ -5,6 +5,7 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -43,12 +44,21 @@ public class BasicStatsSetXMLWriter
   {
     if (statsSet!=null)
     {
-      for(StatDescription stat : statsSet.getSortedStats())
+      for(StatsSetElement element : statsSet.getStatElements())
       {
         AttributesImpl statAttrs=new AttributesImpl();
-        FixedDecimalsInteger value=statsSet.getStat(stat);
+        // Stat
+        StatDescription stat=element.getStat();
         String key=stat.getPersistenceKey();
         statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_NAME_ATTR,CDATA,key);
+        // Description override
+        String descriptionOverride=element.getDescriptionOverride();
+        if ((descriptionOverride!=null) && (descriptionOverride.length()>0))
+        {
+          statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,CDATA,descriptionOverride);
+        }
+        // Value
+        FixedDecimalsInteger value=element.getValue();
         String valueStr=String.valueOf(value.getInternalValue());
         statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,CDATA,valueStr);
         hd.startElement("","",BasicStatsSetXMLConstants.STAT_TAG,statAttrs);
