@@ -49,6 +49,12 @@ public final class DerivedStatsContributionsMgr
     {
       return _factor;
     }
+
+    @Override
+    public String toString()
+    {
+      return _contributedStat.getName()+"x"+_factor;
+    }
   }
 
   /**
@@ -124,6 +130,12 @@ public final class DerivedStatsContributionsMgr
     public StatContributions getContribsForStat(StatDescription sourceStat)
     {
       return _contributions.get(sourceStat);
+    }
+
+    @Override
+    public String toString()
+    {
+      return _contributions.toString();
     }
   }
 
