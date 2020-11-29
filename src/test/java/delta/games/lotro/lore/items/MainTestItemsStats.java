@@ -3,7 +3,9 @@ package delta.games.lotro.lore.items;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatUtils;
+import delta.games.lotro.common.stats.StatsProvider;
 
 /**
  * Simple test class to show the stats of items.
@@ -27,6 +29,18 @@ public class MainTestItemsStats
       for(String line : lines)
       {
         System.out.println("\t"+line);
+      }
+      StatsProvider statsProvider=item.getStatsProvider();
+      if (statsProvider!=null)
+      {
+        List<SpecialEffect> specialEffects=statsProvider.getSpecialEffects();
+        if (specialEffects!=null)
+        {
+          for(SpecialEffect specialEffect : specialEffects)
+          {
+            System.out.println("\t"+specialEffect.getLabel());
+          }
+        }
       }
     }
   }

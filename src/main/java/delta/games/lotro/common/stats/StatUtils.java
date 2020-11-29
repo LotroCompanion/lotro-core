@@ -18,6 +18,10 @@ public class StatUtils
    * Placeholder for value in description overrides.
    */
   public static final String VALUE_PLACE_HOLDER="{***}";
+  /**
+   * Special value for "no description".
+   */
+  public static final String NO_DESCRIPTION="-";
 
   /**
    * Get a displayable string for a stat value.
@@ -57,19 +61,24 @@ public class StatUtils
     for(StatsSetElement element : stats.getStatElements())
     {
       StatDescription stat=element.getStat();
-      if (stat.isVisible())
+      if (!stat.isVisible())
       {
-        String line=getStatDisplay(element);
-        int hasLF=line.indexOf("\n");
-        if (hasLF!=-1)
-        {
-          lines.add(line.substring(0,hasLF));
-          lines.add(line.substring(hasLF+1));
-        }
-        else
-        {
-          lines.add(line);
-        }
+        continue;
+      }
+      String line=getStatDisplay(element);
+      if (line==null)
+      {
+        continue;
+      }
+      int hasLF=line.indexOf("\n");
+      if (hasLF!=-1)
+      {
+        lines.add(line.substring(0,hasLF));
+        lines.add(line.substring(hasLF+1));
+      }
+      else
+      {
+        lines.add(line);
       }
     }
     String[] ret=lines.toArray(new String[lines.size()]);
@@ -79,7 +88,7 @@ public class StatUtils
   /**
    * Get the display line for a single stat element.
    * @param element Stat element to display.
-   * @return A displayable line.
+   * @return A displayable line or <code>null</code> if display is to be avoided.
    */
   public static String getStatDisplay(StatsSetElement element)
   {
@@ -91,11 +100,14 @@ public class StatUtils
     String descriptionOverride=element.getDescriptionOverride();
     if (descriptionOverride!=null)
     {
-      line=descriptionOverride;
-      int index=descriptionOverride.indexOf(VALUE_PLACE_HOLDER);
-      if (index!=-1)
+      if (!NO_DESCRIPTION.equals(descriptionOverride))
       {
-        line=descriptionOverride.replace(VALUE_PLACE_HOLDER,valueStr);
+        line=descriptionOverride;
+        int index=descriptionOverride.indexOf(VALUE_PLACE_HOLDER);
+        if (index!=-1)
+        {
+          line=descriptionOverride.replace(VALUE_PLACE_HOLDER,valueStr);
+        }
       }
     }
     else
