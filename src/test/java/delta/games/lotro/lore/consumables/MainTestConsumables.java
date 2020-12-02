@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.buffs.Buff;
-import delta.games.lotro.character.stats.buffs.BuffType;
-import delta.games.lotro.character.stats.buffs.StatsProviderBuffImpl;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.config.DataFiles;

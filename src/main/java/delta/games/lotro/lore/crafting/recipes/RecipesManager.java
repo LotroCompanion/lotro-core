@@ -21,7 +21,7 @@ import delta.games.lotro.lore.crafting.recipes.io.xml.RecipeXMLWriter;
  */
 public final class RecipesManager
 {
-  private static RecipesManager _instance=new RecipesManager(true);
+  private static RecipesManager _instance=null;
 
   private Map<Profession,Map<Integer,List<Recipe>>> _recipes;
   private Map<Integer,Recipe> _recipesById;
@@ -32,6 +32,10 @@ public final class RecipesManager
    */
   public static RecipesManager getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=new RecipesManager(true);
+    }
     return _instance;
   }
 

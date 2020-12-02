@@ -33,7 +33,15 @@ public class StatTomesManager
   private static StatTomesManager load()
   {
     File input=LotroCoreConfig.getInstance().getFile(DataFiles.STAT_TOMES);
-    StatTomesManager tomesManager=StatTomesXMLParser.parseStatTomesFile(input);
+    StatTomesManager tomesManager;
+    if (input.canRead())
+    {
+      tomesManager=StatTomesXMLParser.parseStatTomesFile(input);
+    }
+    else
+    {
+      tomesManager=new StatTomesManager();
+    }
     return tomesManager;
   }
 

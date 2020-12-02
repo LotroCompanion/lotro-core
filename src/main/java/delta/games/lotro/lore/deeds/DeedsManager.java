@@ -51,6 +51,10 @@ public final class DeedsManager
   {
     long now=System.currentTimeMillis();
     File deedFile=LotroCoreConfig.getInstance().getFile(DataFiles.DEEDS);
+    if (!deedFile.canRead())
+    {
+      return;
+    }
     DeedXMLParser parser=new DeedXMLParser();
     List<DeedDescription> deeds=parser.parseXML(deedFile);
     _deeds.addAll(deeds);

@@ -23,7 +23,7 @@ public class AchievableProxiesResolver
 {
   private static final Logger LOGGER=Logger.getLogger(AchievableProxiesResolver.class);
 
-  private static final AchievableProxiesResolver _instance=new AchievableProxiesResolver();
+  private static AchievableProxiesResolver _instance=null;
   private HashMap<Integer,Achievable> _mapByKey;
 
   private AchievableProxiesResolver()
@@ -39,6 +39,10 @@ public class AchievableProxiesResolver
    */
   public static AchievableProxiesResolver getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=new AchievableProxiesResolver();
+    }
     return _instance;
   }
 

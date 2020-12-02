@@ -57,6 +57,10 @@ public class TraitsManager
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File traitsFile=cfg.getFile(DataFiles.TRAITS);
+    if (!traitsFile.canRead())
+    {
+      return;
+    }
     long now=System.currentTimeMillis();
     List<TraitDescription> traits=TraitDescriptionXMLParser.parseTraitsFile(traitsFile);
     for(TraitDescription trait : traits)
