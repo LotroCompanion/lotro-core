@@ -111,6 +111,40 @@ public class ParchmentMapsManager
   }
 
   /**
+   * Get the root map (Middle-Earth map).
+   * @return  the root map.
+   */
+  public ParchmentMap getRootMap()
+  {
+    for(ParchmentMap map : _maps.values())
+    {
+      if (map.getParentMapId()==0)
+      {
+        return map;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Get the child maps for the given map.
+   * @param parentMapId Parent map identifier.
+   * @return A possibly empty but never <code>null</code> list of maps.
+   */
+  public List<ParchmentMap> getChildMaps(int parentMapId)
+  {
+    List<ParchmentMap> ret=new ArrayList<ParchmentMap>();
+    for(ParchmentMap map : _maps.values())
+    {
+      if (map.getParentMapId()==parentMapId)
+      {
+        ret.add(map);
+      }
+    }
+    return ret;
+  }
+
+  /**
    * Dump the contents of this manager.
    */
   public void dump()

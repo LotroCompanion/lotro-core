@@ -78,6 +78,12 @@ public class ParchmentMapsXMLWriter
     // Region
     int region=map.getRegion();
     attrs.addAttribute("","",ParchmentMapsXMLConstants.PARCHMENT_MAP_REGION_ATTR,XmlWriter.CDATA,String.valueOf(region));
+    // Parent map
+    int parentMapId=map.getParentMapId();
+    if (parentMapId!=0)
+    {
+      attrs.addAttribute("","",ParchmentMapsXMLConstants.PARCHMENT_PARENT_MAP_ID_ATTR,XmlWriter.CDATA,String.valueOf(parentMapId));
+    }
     hd.startElement("","",ParchmentMapsXMLConstants.PARCHMENT_MAP_TAG,attrs);
     // Areas
     for(Area area : map.getAreas())

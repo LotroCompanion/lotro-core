@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class ParchmentMap extends AbstractMap
 {
+  private int _parentMapId;
   private int _region;
   private List<Area> _areas;
 
@@ -21,6 +22,24 @@ public class ParchmentMap extends AbstractMap
   {
     super(id,name);
     _areas=new ArrayList<Area>();
+  }
+
+  /**
+   * Get the parent map identifier.
+   * @return A map identifier (0 if no parent).
+   */
+  public int getParentMapId()
+  {
+    return _parentMapId;
+  }
+
+  /**
+   * Set the parent map identifier.
+   * @param parentMapId Parent map identifier to set.
+   */
+  public void setParentMapId(int parentMapId)
+  {
+    _parentMapId=parentMapId;
   }
 
   /**
