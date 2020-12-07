@@ -84,6 +84,14 @@ public class ParchmentMap extends AbstractMap
     return area;
   }
 
+  /**
+   * Remove all areas.
+   */
+  public void removeAllAreas()
+  {
+    _areas.clear();
+  }
+
   private Area getAreaById(int areaId)
   {
     for(Area area : _areas)
