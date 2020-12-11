@@ -85,6 +85,10 @@ public final class WeaponType
    */
   public static final WeaponType RUNE_STONE=new WeaponType("RUNE_STONE","Rune-stone",false,true);
   /**
+   * Battle gauntlets.
+   */
+  public static final WeaponType BATTLE_GAUNTLETS=new WeaponType("BATTLE_GAUNTLETS","Battle-gauntlets",false,true);
+  /**
    * Other.
    */
   public static final WeaponType OTHER=new WeaponType("OTHER","Other",false,false);
