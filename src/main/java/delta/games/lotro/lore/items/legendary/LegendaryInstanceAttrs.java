@@ -263,6 +263,8 @@ public class LegendaryInstanceAttrs
         ret+=mainLegacyTier;
       }
     }
+    int nbUpgrades=_nonImbuedAttrs.getNbUpgrades();
+    ret+=nbUpgrades;
     return ret;
   }
 
