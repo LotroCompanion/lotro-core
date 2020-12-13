@@ -196,23 +196,28 @@ public class TreasureXMLParser
       float probability=DOMParsingTools.getFloatAttribute(entryAttrs,TreasureXMLConstants.DROP_PROBABILITY_ATTR,0);
 
       // Item?
+      TrophyListEntry entry=null;
       Proxy<Item> item=null;
       TreasureGroupProfile treasureGroup=null;
       int itemId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.ITEM_ID_ATTR,-1);
       if (itemId>0)
       {
         item=parseItemProxy(entryAttrs);
+        // Quantity
+        int quantity=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.QUANTITY_ATTR,1);
+        entry=new TrophyListEntry(probability,item,quantity);
       }
       else
       {
         // Treasure group profile?
         int treasureGroupProfileId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.TREASURE_GROUP_PROFILE_ID_ATTR,-1);
         treasureGroup=getTreasureGroupProfile(treasureGroupProfileId);
+        entry=new TrophyListEntry(probability,treasureGroup);
       }
-      // Quantity
-      int quantity=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.QUANTITY_ATTR,1);
-      TrophyListEntry entry=new TrophyListEntry(probability,item,treasureGroup,quantity);
-      ret.addEntry(entry);
+      if (entry!=null)
+      {
+        ret.addEntry(entry);
+      }
     }
     _lootMgr.getTrophyLists().add(ret);
   }

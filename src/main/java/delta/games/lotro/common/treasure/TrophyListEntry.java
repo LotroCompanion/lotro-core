@@ -23,16 +23,25 @@ public class TrophyListEntry
   /**
    * Constructor.
    * @param probability Probability.
-   * @param item
-   * @param treasureGroup
-   * @param quantity
+   * @param item Item.
+   * @param quantity Quantity.
    */
-  public TrophyListEntry(float probability, Proxy<Item> item, TreasureGroupProfile treasureGroup, int quantity)
+  public TrophyListEntry(float probability, Proxy<Item> item, int quantity)
   {
     _probability=probability;
     _item=item;
-    _treasureGroup=treasureGroup;
     _quantity=quantity;
+  }
+
+  /**
+   * Constructor.
+   * @param probability Probability.
+   * @param treasureGroup Treasure group profile.
+   */
+  public TrophyListEntry(float probability, TreasureGroupProfile treasureGroup)
+  {
+    _probability=probability;
+    _treasureGroup=treasureGroup;
   }
 
   /**
