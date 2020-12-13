@@ -9,13 +9,25 @@ public enum AchievableElementState
   /**
    * Undefined.
    */
-  UNDEFINED,
+  UNDEFINED("Not started"),
   /**
    * Underway.
    */
-  UNDERWAY,
+  UNDERWAY("Underway"),
   /**
    * Completed.
    */
-  COMPLETED
+  COMPLETED("Completed");
+
+  private String _label;
+  private AchievableElementState(String label)
+  {
+    _label=label;
+  }
+
+  @Override
+  public String toString()
+  {
+    return _label;
+  }
 }
