@@ -65,6 +65,12 @@ public class QuestCompleteCondition extends ObjectiveCondition
     _questCategory=questCategory;
   }
 
+  @Override
+  public int getCount()
+  {
+    return _completionCount;
+  }
+
   /**
    * Get the quest/deed completion count.
    * @return a count.
