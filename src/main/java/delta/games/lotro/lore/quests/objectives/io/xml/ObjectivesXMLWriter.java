@@ -77,10 +77,28 @@ public class ObjectivesXMLWriter
     int index=objective.getIndex();
     attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
     // Text
-    String text=objective.getText();
+    String text=objective.getDescription();
     if (text.length()>0)
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_TEXT_ATTR,XmlWriter.CDATA,text);
+    }
+    // Lore override
+    String loreOverride=objective.getLoreOverride();
+    if (loreOverride.length()>0)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_LORE_OVERRIDE_ATTR,XmlWriter.CDATA,loreOverride);
+    }
+    // Progress override
+    String progressOverride=objective.getProgressOverride();
+    if (progressOverride.length()>0)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_PROGRESS_OVERRIDE_ATTR,XmlWriter.CDATA,progressOverride);
+    }
+    // Billboard override
+    String billboardOverride=objective.getBillboardOverride();
+    if (billboardOverride.length()>0)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_BILLBOARD_OVERRIDE_ATTR,XmlWriter.CDATA,billboardOverride);
     }
     hd.startElement("","",ObjectivesXMLConstants.OBJECTIVE_TAG,attrs);
     // Dialogs
@@ -189,11 +207,23 @@ public class ObjectivesXMLWriter
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_LORE_INFO_ATTR,XmlWriter.CDATA,loreInfo);
     }
+    // Show progress text
+    boolean showProgressText=condition.isShowProgressText();
+    if (!showProgressText)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_SHOW_PROGRESS_TEXT,XmlWriter.CDATA,"false");
+    }
     // Progress override
     String progressOverride=condition.getProgressOverride();
     if (progressOverride!=null)
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_PROGRESS_OVERRIDE_ATTR,XmlWriter.CDATA,progressOverride);
+    }
+    // Show billboard text
+    boolean showBillboardText=condition.isShowBillboardText();
+    if (!showBillboardText)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_SHOW_BILLBOARD_TEXT,XmlWriter.CDATA,"false");
     }
   }
 

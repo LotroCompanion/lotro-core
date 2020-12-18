@@ -23,6 +23,18 @@ public class ObjectivesXMLConstants
    * Tag 'objective', attribute 'text'.
    */
   public static final String OBJECTIVE_TEXT_ATTR="text";
+  /**
+   * Tag 'objective', attribute 'loreOverride'.
+   */
+  public static final String OBJECTIVE_LORE_OVERRIDE_ATTR="loreOverride";
+  /**
+   * Tag 'objective', attribute 'progressOverride'.
+   */
+  public static final String OBJECTIVE_PROGRESS_OVERRIDE_ATTR="progressOverride";
+  /**
+   * Tag 'objective', attribute 'billboardOverride'.
+   */
+  public static final String OBJECTIVE_BILLBOARD_OVERRIDE_ATTR="billboardOverride";
 
   /**
    * Tag 'dialog'.
@@ -41,6 +53,14 @@ public class ObjectivesXMLConstants
    * Tag 'condition', attribute 'loreInfo'.
    */
   public static final String CONDITION_LORE_INFO_ATTR="loreInfo";
+  /**
+   * Tag 'condition', attribute 'showProgressText'.
+   */
+  public static final String CONDITION_SHOW_PROGRESS_TEXT="showProgressText";
+  /**
+   * Tag 'condition', attribute 'showBillboardText'.
+   */
+  public static final String CONDITION_SHOW_BILLBOARD_TEXT="showBillboardText";
   /**
    * Tag 'condition', attribute 'progressOverride'.
    */

@@ -14,7 +14,10 @@ import delta.games.lotro.lore.quests.dialogs.DialogElement;
 public class Objective
 {
   private int _index;
-  private String _text;
+  private String _description;
+  private String _loreOverride;
+  private String _progressOverride;
+  private String _billboardOverride;
   private List<DialogElement> _dialogs;
   private List<ObjectiveCondition> _conditions;
 
@@ -24,7 +27,7 @@ public class Objective
   public Objective()
   {
     _index=1;
-    _text="";
+    _description="";
     _dialogs=new ArrayList<DialogElement>();
     _conditions=new ArrayList<ObjectiveCondition>();
   }
@@ -48,22 +51,79 @@ public class Objective
   }
 
   /**
-   * Get the displayable text for this objective.
-   * @return A displayable text (can be multiline).
+   * Get the displayable description for this objective.
+   * @return A displayable description (can be multiline).
    */
-  public String getText()
+  public String getDescription()
   {
-    return _text;
+    return _description;
   }
 
   /**
-   * Set the text for this objective.
-   * @param text Text to set.
+   * Set the description for this objective.
+   * @param description Description to set.
    */
-  public void setText(String text)
+  public void setDescription(String description)
   {
-    if (text==null) text="";
-    _text=text;
+    if (description==null) description="";
+    _description=description;
+  }
+
+  /**
+   * Get the lore override.
+   * @return A possibly empty string, but never <code>null</code>.
+   */
+  public String getLoreOverride()
+  {
+    return _loreOverride;
+  }
+
+  /**
+   * Set the lore override.
+   * @param loreOverride Value to set.
+   */
+  public void setLoreOverride(String loreOverride)
+  {
+    if (loreOverride==null) loreOverride="";
+    _loreOverride=loreOverride;
+  }
+
+  /**
+   * Get the progress override.
+   * @return A possibly empty string, but never <code>null</code>.
+   */
+  public String getProgressOverride()
+  {
+    return _progressOverride;
+  }
+
+  /**
+   * Set the progress override.
+   * @param progressOverride Value to set.
+   */
+  public void setProgressOverride(String progressOverride)
+  {
+    if (progressOverride==null) progressOverride="";
+    _progressOverride=progressOverride;
+  }
+
+  /**
+   * Get the billboard override.
+   * @return A possibly empty string, but never <code>null</code>.
+   */
+  public String getBillboardOverride()
+  {
+    return _billboardOverride;
+  }
+
+  /**
+   * Set the billboard override.
+   * @param billboardOverride Value to set.
+   */
+  public void setBillboardOverride(String billboardOverride)
+  {
+    if (billboardOverride==null) billboardOverride="";
+    _billboardOverride=billboardOverride;
   }
 
   /**
@@ -148,7 +208,19 @@ public class Objective
   {
     StringBuilder sb=new StringBuilder();
     sb.append("Objective #").append(_index);
-    sb.append(": ").append(_text).append(EndOfLine.NATIVE_EOL);
+    sb.append(": ").append(_description).append(EndOfLine.NATIVE_EOL);
+    if (_loreOverride.length()>0)
+    {
+      sb.append("Lore override: ").append(_loreOverride).append(EndOfLine.NATIVE_EOL);
+    }
+    if (_progressOverride.length()>0)
+    {
+      sb.append("Progress override: ").append(_progressOverride).append(EndOfLine.NATIVE_EOL);
+    }
+    if (_billboardOverride.length()>0)
+    {
+      sb.append("Billboard override: ").append(_billboardOverride).append(EndOfLine.NATIVE_EOL);
+    }
     sb.append("Dialogs:").append(EndOfLine.NATIVE_EOL);
     for(DialogElement dialog : _dialogs)
     {

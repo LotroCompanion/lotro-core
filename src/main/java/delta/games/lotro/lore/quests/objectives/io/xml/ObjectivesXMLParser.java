@@ -79,9 +79,18 @@ public class ObjectivesXMLParser
     // Index
     int objectiveIndex=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_INDEX_ATTR,1);
     objective.setIndex(objectiveIndex);
-    // Text
-    String text=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_TEXT_ATTR,"");
-    objective.setText(text);
+    // Description
+    String description=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_TEXT_ATTR,"");
+    objective.setDescription(description);
+    // Lore override
+    String loreOverride=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_LORE_OVERRIDE_ATTR,"");
+    objective.setLoreOverride(loreOverride);
+    // Progress override
+    String progressOverride=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_PROGRESS_OVERRIDE_ATTR,"");
+    objective.setProgressOverride(progressOverride);
+    // Billboard override
+    String billboardOverride=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_BILLBOARD_OVERRIDE_ATTR,"");
+    objective.setBillboardOverride(billboardOverride);
     // Dialogs & conditions
     List<Element> childTags=DOMParsingTools.getChildTags(objectiveTag);
     for(Element childTag : childTags)
@@ -111,6 +120,10 @@ public class ObjectivesXMLParser
     int index=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.CONDITION_INDEX_ATTR,0);
     // Lore info
     String loreInfo=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_LORE_INFO_ATTR,null);
+    // Show progress text
+    boolean showProgressText=DOMParsingTools.getBooleanAttribute(attrs,ObjectivesXMLConstants.CONDITION_SHOW_PROGRESS_TEXT,true);
+    // Show billboard text
+    boolean showBillboardText=DOMParsingTools.getBooleanAttribute(attrs,ObjectivesXMLConstants.CONDITION_SHOW_BILLBOARD_TEXT,true);
     // Progress override
     String progressOverride=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_PROGRESS_OVERRIDE_ATTR,null);
 
@@ -195,6 +208,8 @@ public class ObjectivesXMLParser
     {
       ret.setIndex(index);
       ret.setLoreInfo(loreInfo);
+      ret.setShowBillboardText(showBillboardText);
+      ret.setShowProgressText(showProgressText);
       ret.setProgressOverride(progressOverride);
     }
     return ret;

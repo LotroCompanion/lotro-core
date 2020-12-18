@@ -12,6 +12,8 @@ import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
 public abstract class ObjectiveCondition
 {
   private int _index;
+  private boolean _showProgressText;
+  private boolean _showBillboardText;
   private String _loreInfo;
   private String _progressOverride;
   private List<AchievableGeoPoint> _points;
@@ -22,6 +24,8 @@ public abstract class ObjectiveCondition
   public ObjectiveCondition()
   {
     _index=1;
+    _showProgressText=true;
+    _showBillboardText=true;
     _points=new ArrayList<AchievableGeoPoint>();
   }
 
@@ -41,6 +45,42 @@ public abstract class ObjectiveCondition
   public void setIndex(int index)
   {
     _index=index;
+  }
+
+  /**
+   * Indicats if the progress text is to be displayed or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isShowProgressText()
+  {
+    return _showProgressText;
+  }
+
+  /**
+   * Set the 'show progress text' flag.
+   * @param showProgressText Value to set.
+   */
+  public void setShowProgressText(boolean showProgressText)
+  {
+    _showProgressText=showProgressText;
+  }
+
+  /**
+   * Indicats if the billboard text is to be displayed or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isShowBillboardText()
+  {
+    return _showBillboardText;
+  }
+
+  /**
+   * Set the 'show billboard text' flag.
+   * @param showBillboardText Value to set.
+   */
+  public void setShowBillboardText(boolean showBillboardText)
+  {
+    _showBillboardText=showBillboardText;
   }
 
   /**
