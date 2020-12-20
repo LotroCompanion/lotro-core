@@ -147,7 +147,7 @@ public class ItemsContainer extends Container
     }
     if (_treasureList!=null)
     {
-      ret.addAll(_trophyList.getItemIds());
+      ret.addAll(_treasureList.getItemIds());
     }
     return ret;
   }
