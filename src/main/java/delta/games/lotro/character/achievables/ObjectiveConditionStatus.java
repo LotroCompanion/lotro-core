@@ -57,6 +57,25 @@ public class ObjectiveConditionStatus
   }
 
   /**
+   * Update internal state.
+   */
+  public void updateInternalState()
+  {
+    if (_state==AchievableElementState.COMPLETED)
+    {
+      int count=_condition.getCount();
+      setCount(Integer.valueOf(count));
+    }
+    else
+    {
+      if (_count==null)
+      {
+        _count=Integer.valueOf(0);
+      }
+    }
+  }
+
+  /**
    * Get the count.
    * @return a count or <code>null</code>.
    */

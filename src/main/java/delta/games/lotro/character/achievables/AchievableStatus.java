@@ -34,6 +34,7 @@ public class AchievableStatus
     _achievable=achievable;
     _state=AchievableElementState.UNDEFINED;
     initObjectiveStatuses();
+    updateInternalState();
   }
 
   private void initObjectiveStatuses()
@@ -82,6 +83,21 @@ public class AchievableStatus
   public void setState(AchievableElementState state)
   {
     _state=state;
+  }
+
+  /**
+   * Update internal state.
+   */
+  public void updateInternalState()
+  {
+    for(AchievableObjectiveStatus objectiveStatus : _objectiveStatuses)
+    {
+      if (_state==AchievableElementState.COMPLETED)
+      {
+        objectiveStatus.setState(AchievableElementState.COMPLETED);
+      }
+      objectiveStatus.updateInternalState();
+    }
   }
 
   /**

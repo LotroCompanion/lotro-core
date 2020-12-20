@@ -67,6 +67,21 @@ public class AchievableObjectiveStatus
   }
 
   /**
+   * Update internal state.
+   */
+  public void updateInternalState()
+  {
+    for(ObjectiveConditionStatus conditionStatus : _conditionStatuses)
+    {
+      if (_state==AchievableElementState.COMPLETED)
+      {
+        conditionStatus.setState(AchievableElementState.COMPLETED);
+      }
+      conditionStatus.updateInternalState();
+    }
+  }
+
+  /**
    * Get a condition status.
    * @param conditionIndex Index of condition, starting at 0.
    * @return a condition status or <code>null</code> if no such condition.

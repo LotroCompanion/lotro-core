@@ -6,7 +6,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- * @author dm
+ * Manages the status of a single achievable.
+ * @author DAM
  */
 public class AchievableStatusManager
 {

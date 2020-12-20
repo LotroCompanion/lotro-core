@@ -82,6 +82,8 @@ public class DeedsStatusXMLParser
       }
       // Objectives status
       parseObjectivesStatus(deedStatusTag,deedStatus);
+      // Update internal states
+      deedStatus.updateInternalState();
     }
     return status;
   }
