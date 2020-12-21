@@ -90,6 +90,13 @@ public class ContainerXMLParser
       TrophyList trophyList=_lootsMgr.getTrophyLists().getItem(trophyListId);
       ret.setTrophyList(trophyList);
     }
+    // Barter trophy list
+    int barterTrophyListId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.BARTER_TROPHY_LIST_ID_ATTR,0);
+    if (barterTrophyListId!=0)
+    {
+      TrophyList barterTrophyList=_lootsMgr.getTrophyLists().getItem(barterTrophyListId);
+      ret.setBarterTrophyList(barterTrophyList);
+    }
     // Treasure list
     int treasureListId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.TREASURE_LIST_ID_ATTR,0);
     if (treasureListId!=0)

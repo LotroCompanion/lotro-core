@@ -36,6 +36,10 @@ public class ContainerXMLConstants
    */
   public static final String TROPHY_LIST_ID_ATTR="trophyListId";
   /**
+   * Tag 'container', attribute 'barterTrophyListId'.
+   */
+  public static final String BARTER_TROPHY_LIST_ID_ATTR="barterTrophyListId";
+  /**
    * Tag 'container', attribute 'treasureListId'.
    */
   public static final String TREASURE_LIST_ID_ATTR="treasureListId";

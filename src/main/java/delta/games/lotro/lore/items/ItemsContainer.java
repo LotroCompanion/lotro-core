@@ -17,6 +17,7 @@ public class ItemsContainer extends Container
   private FilteredTrophyTable _filteredTable;
   private WeightedTreasureTable _weightedTable;
   private TrophyList _trophyList;
+  private TrophyList _barterTrophyList;
   private TreasureList _treasureList;
 
   /**
@@ -83,6 +84,24 @@ public class ItemsContainer extends Container
   }
 
   /**
+   * Get the barter trophy list for this container.
+   * @return a barter trophy list or <code>null</code>.
+   */
+  public TrophyList getBarterTrophyList()
+  {
+    return _barterTrophyList;
+  }
+
+  /**
+   * Set the barter trophy list for this container.
+   * @param barterTrophyList the barter trophy list to set.
+   */
+  public void setBarterTrophyList(TrophyList barterTrophyList)
+  {
+    _barterTrophyList=barterTrophyList;
+  }
+
+  /**
    * Get the treasure list for this container.
    * @return a treasure list or <code>null</code>.
    */
@@ -119,6 +138,10 @@ public class ItemsContainer extends Container
     {
       return true;
     }
+    if ((_barterTrophyList!=null) && (_barterTrophyList.contains(itemId)))
+    {
+      return true;
+    }
     if ((_treasureList!=null) && (_treasureList.contains(itemId)))
     {
       return true;
@@ -144,6 +167,10 @@ public class ItemsContainer extends Container
     if (_trophyList!=null)
     {
       ret.addAll(_trophyList.getItemIds());
+    }
+    if (_barterTrophyList!=null)
+    {
+      ret.addAll(_barterTrophyList.getItemIds());
     }
     if (_treasureList!=null)
     {

@@ -120,6 +120,14 @@ public class ContainerXMLWriter
       attrs.addAttribute("","",ContainerXMLConstants.TROPHY_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(trophyListId));
     }
 
+    // Barter trophy list
+    TrophyList barterTrophyList=container.getBarterTrophyList();
+    if (barterTrophyList!=null)
+    {
+      int barterTrophyListId=barterTrophyList.getIdentifier();
+      attrs.addAttribute("","",ContainerXMLConstants.BARTER_TROPHY_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(barterTrophyListId));
+    }
+
     // Treasure list
     TreasureList treasureList=container.getTreasureList();
     if (treasureList!=null)
