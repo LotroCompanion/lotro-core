@@ -17,6 +17,11 @@ import delta.games.lotro.lore.items.ItemsManager;
  */
 public class ContainerInspector
 {
+  /**
+   * Get the possible contents of a container. 
+   * @param sourceItem Source item.
+   * @return A possibly empty but never <code>null</code> list of items.
+   */
   public static List<Item> getContainerContents(Item sourceItem)
   {
     List<Item> ret=new ArrayList<Item>();

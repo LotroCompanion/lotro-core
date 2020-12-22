@@ -163,11 +163,14 @@ public class ItemsFinder
     for(Item item : items)
     {
       String icon=item.getIcon();
-      registerMapping(_icons,icon,item);
-      String mainIconId=icon.substring(0,icon.indexOf('-'));
-      registerMapping(_icons,mainIconId,item);
-      String name=item.getName();
-      registerMapping(_names,name,item);
+      if (icon!=null)
+      {
+        registerMapping(_icons,icon,item);
+        String mainIconId=icon.substring(0,icon.indexOf('-'));
+        registerMapping(_icons,mainIconId,item);
+        String name=item.getName();
+        registerMapping(_names,name,item);
+      }
     }
   }
 
