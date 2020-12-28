@@ -33,6 +33,24 @@ public class ObjectiveConditionStatus
   }
 
   /**
+   * Copy contents from the given source.
+   * @param source Source to use.
+   */
+  public void copyFrom(ObjectiveConditionStatus source)
+  {
+    _state=source._state;
+    _count=source._count;
+    if (source._keys!=null)
+    {
+      _keys=new ArrayList<String>(source._keys);
+    }
+    else
+    {
+      _keys=null;
+    }
+  }
+
+  /**
    * Get the parent status.
    * @return the parent status.
    */

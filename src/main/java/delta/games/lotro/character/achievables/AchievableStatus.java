@@ -37,6 +37,23 @@ public class AchievableStatus
     updateInternalState();
   }
 
+  /**
+   * Copy contents from the given source.
+   * @param source Source to use.
+   */
+  public void copyFrom(AchievableStatus source)
+  {
+    _completionDate=source._completionDate;
+    _state=source._state;
+    int nbObjectives=_objectiveStatuses.size();
+    for(int i=0;i<nbObjectives;i++)
+    {
+      AchievableObjectiveStatus to=_objectiveStatuses.get(i);
+      AchievableObjectiveStatus from=source._objectiveStatuses.get(i);
+      to.copyFrom(from);
+    }
+  }
+
   private void initObjectiveStatuses()
   {
     _objectiveStatuses=new ArrayList<AchievableObjectiveStatus>();

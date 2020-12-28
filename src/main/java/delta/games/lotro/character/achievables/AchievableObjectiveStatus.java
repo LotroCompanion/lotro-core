@@ -43,6 +43,22 @@ public class AchievableObjectiveStatus
   }
 
   /**
+   * Copy contents from the given source.
+   * @param source Source to use.
+   */
+  public void copyFrom(AchievableObjectiveStatus source)
+  {
+    _state=source._state;
+    int nbConditions=_conditionStatuses.size();
+    for(int i=0;i<nbConditions;i++)
+    {
+      ObjectiveConditionStatus to=_conditionStatuses.get(i);
+      ObjectiveConditionStatus from=source._conditionStatuses.get(i);
+      to.copyFrom(from);
+    }
+  }
+
+  /**
    * Get the parent status.
    * @return the parent status.
    */
