@@ -11,6 +11,7 @@ import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
  */
 public class ObjectiveConditionStatus
 {
+  private AchievableObjectiveStatus _parent;
   private ObjectiveCondition _condition;
   private AchievableElementState _state;
   //private Long _completionDate;
@@ -19,14 +20,25 @@ public class ObjectiveConditionStatus
 
   /**
    * Constructor.
+   * @param objectiveStatus Parent status.
    * @param condition Associated condition.
    */
-  public ObjectiveConditionStatus(ObjectiveCondition condition)
+  public ObjectiveConditionStatus(AchievableObjectiveStatus objectiveStatus, ObjectiveCondition condition)
   {
+    _parent=objectiveStatus;
     _condition=condition;
     _state=AchievableElementState.UNDEFINED;
     _count=null;
     _keys=null;
+  }
+
+  /**
+   * Get the parent status.
+   * @return the parent status.
+   */
+  public AchievableObjectiveStatus getParentStatus()
+  {
+    return _parent;
   }
 
   /**

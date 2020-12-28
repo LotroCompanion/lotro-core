@@ -44,9 +44,25 @@ public class AchievableStatus
     List<Objective> objectives=objectivesMgr.getObjectives();
     for(Objective objective : objectives)
     {
-      AchievableObjectiveStatus objectiveStatus=new AchievableObjectiveStatus(objective);
+      AchievableObjectiveStatus objectiveStatus=new AchievableObjectiveStatus(this,objective);
       _objectiveStatuses.add(objectiveStatus);
     }
+  }
+
+  /**
+   * Indicates if all objectives are completed.
+   * @return <code>true</code> if they are, <code>false</code> otherwise.
+   */
+  public boolean areObjectivesCompleted()
+  {
+    for(AchievableObjectiveStatus objectiveStatus : _objectiveStatuses)
+    {
+      if (objectiveStatus.getState()!=AchievableElementState.COMPLETED)
+      {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -177,6 +193,38 @@ public class AchievableStatus
       return false;
     }
     return true;
+  }
+
+  /**
+   * Get the previous objective status.
+   * @param objectiveStatus Reference objective.
+   * @return An objective status, or <code>null</code> if none.
+   */
+  public AchievableObjectiveStatus getPreviousStatus(AchievableObjectiveStatus objectiveStatus)
+  {
+    AchievableObjectiveStatus ret=null;
+    int index=_objectiveStatuses.indexOf(objectiveStatus);
+    if (index>=1)
+    {
+      ret=_objectiveStatuses.get(index-1);
+    }
+    return ret;
+  }
+
+  /**
+   * Get the next objective status.
+   * @param objectiveStatus Reference objective.
+   * @return An objective status, or <code>null</code> if none.
+   */
+  public AchievableObjectiveStatus getNextStatus(AchievableObjectiveStatus objectiveStatus)
+  {
+    AchievableObjectiveStatus ret=null;
+    int index=_objectiveStatuses.indexOf(objectiveStatus);
+    if ((index>=0) && (index<_objectiveStatuses.size()-1))
+    {
+      ret=_objectiveStatuses.get(index+1);
+    }
+    return ret;
   }
 
   @Override

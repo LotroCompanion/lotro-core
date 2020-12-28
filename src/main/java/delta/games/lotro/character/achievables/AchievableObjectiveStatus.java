@@ -12,6 +12,7 @@ import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
  */
 public class AchievableObjectiveStatus
 {
+  private AchievableStatus _parent;
   private Objective _objective;
   private AchievableElementState _state;
   //private Long _completionDate;
@@ -19,10 +20,12 @@ public class AchievableObjectiveStatus
 
   /**
    * Constructor.
+   * @param achievableStatus Parent status.
    * @param objective Associated objective.
    */
-  public AchievableObjectiveStatus(Objective objective)
+  public AchievableObjectiveStatus(AchievableStatus achievableStatus, Objective objective)
   {
+    _parent=achievableStatus;
     _objective=objective;
     _state=AchievableElementState.UNDEFINED;
     initConditionStatuses();
@@ -34,9 +37,34 @@ public class AchievableObjectiveStatus
     List<ObjectiveCondition> conditions=_objective.getConditions();
     for(ObjectiveCondition condition : conditions)
     {
-      ObjectiveConditionStatus conditionStatus=new ObjectiveConditionStatus(condition);
+      ObjectiveConditionStatus conditionStatus=new ObjectiveConditionStatus(this,condition);
       _conditionStatuses.add(conditionStatus);
     }
+  }
+
+  /**
+   * Get the parent status.
+   * @return the parent status.
+   */
+  public AchievableStatus getParentStatus()
+  {
+    return _parent;
+  }
+
+  /**
+   * Indicates if all conditions are completed.
+   * @return <code>true</code> if they are, <code>false</code> otherwise.
+   */
+  public boolean areConditionsCompleted()
+  {
+    for(ObjectiveConditionStatus conditionStatus : _conditionStatuses)
+    {
+      if (conditionStatus.getState()!=AchievableElementState.COMPLETED)
+      {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
