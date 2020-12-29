@@ -1,7 +1,9 @@
 package delta.games.lotro.character.achievables.io.xml;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
@@ -14,6 +16,7 @@ import delta.games.lotro.character.achievables.AchievableObjectiveStatus;
 import delta.games.lotro.character.achievables.AchievableStatus;
 import delta.games.lotro.character.achievables.DeedsStatusManager;
 import delta.games.lotro.character.achievables.ObjectiveConditionStatus;
+import delta.games.lotro.character.achievables.edition.OldMarkersStateUpdater;
 
 /**
  * Parser for the deeds status stored in XML.
@@ -45,47 +48,80 @@ public class DeedsStatusXMLParser
     List<Element> deedStatusTags=DOMParsingTools.getChildTagsByName(root,DeedStatusXMLConstants.DEED_STATUS_TAG,false);
     for(Element deedStatusTag : deedStatusTags)
     {
-      NamedNodeMap attrs=deedStatusTag.getAttributes();
-      String key=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_KEY_ATTR,null);
-      if (key==null)
-      {
-        // No deed key!
-        LOGGER.warn("No deed key!");
-        continue;
-      }
-      // Create deed status
-      AchievableStatus deedStatus=status.get(key,true);
-      if (deedStatus==null)
-      {
-        // Unknown deed!
-        LOGGER.warn("Unknown deed: "+key);
-        continue;
-      }
-      // State
-      String stateStr=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_STATE_ATTR,null);
-      if (stateStr!=null)
-      {
-        AchievableElementState state=parseState(stateStr);
-        deedStatus.setState(state);
-      }
-      else
-      {
-        boolean completed=DOMParsingTools.getBooleanAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_COMPLETED_ATTR,false);
-        deedStatus.setCompleted(completed);
-      }
-      // Completion date
-      String completionDateStr=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_COMPLETION_DATE_ATTR,null);
-      if (completionDateStr!=null)
-      {
-        Long completionDate=NumericTools.parseLong(completionDateStr);
-        deedStatus.setCompletionDate(completionDate);
-      }
-      // Objectives status
-      parseObjectivesStatus(deedStatusTag,deedStatus);
-      // Update internal states
-      deedStatus.updateInternalState();
+      parseDeedStatus(status,deedStatusTag);
     }
     return status;
+  }
+
+  private void parseDeedStatus(DeedsStatusManager status, Element deedStatusTag)
+  {
+    NamedNodeMap attrs=deedStatusTag.getAttributes();
+    String key=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_KEY_ATTR,null);
+    if (key==null)
+    {
+      // No deed key!
+      LOGGER.warn("No deed key!");
+      return;
+    }
+    // Create deed status
+    AchievableStatus deedStatus=status.get(key,true);
+    if (deedStatus==null)
+    {
+      // Unknown deed!
+      LOGGER.warn("Unknown deed: "+key);
+      return;
+    }
+    // State
+    String stateStr=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_STATE_ATTR,null);
+    if (stateStr!=null)
+    {
+      AchievableElementState state=parseState(stateStr);
+      deedStatus.setState(state);
+    }
+    else
+    {
+      boolean completed=DOMParsingTools.getBooleanAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_COMPLETED_ATTR,false);
+      deedStatus.setCompleted(completed);
+    }
+    // Completion date
+    String completionDateStr=DOMParsingTools.getStringAttribute(attrs,DeedStatusXMLConstants.DEED_STATUS_COMPLETION_DATE_ATTR,null);
+    if (completionDateStr!=null)
+    {
+      Long completionDate=NumericTools.parseLong(completionDateStr);
+      deedStatus.setCompletionDate(completionDate);
+    }
+    // Objectives status
+    parseObjectivesStatus(deedStatusTag,deedStatus);
+    // Old markers status
+    if (deedStatus.getState()!=AchievableElementState.COMPLETED)
+    {
+      parseOldMarkersStatus(deedStatusTag,deedStatus);
+    }
+    // Update internal states
+    deedStatus.updateInternalState();
+  }
+
+  private void parseOldMarkersStatus(Element deedStatusTag, AchievableStatus deedStatus)
+  {
+    Set<Integer> completedPointIds=new HashSet<Integer>();
+    List<Element> pointStatusTags=DOMParsingTools.getChildTagsByName(deedStatusTag,"geoPointStatus");
+    if (pointStatusTags.size()>0)
+    {
+      for(Element pointStatusTag : pointStatusTags)
+      {
+        NamedNodeMap pointAttrs=pointStatusTag.getAttributes();
+        int pointId=DOMParsingTools.getIntAttribute(pointAttrs,"pointId",0);
+        boolean completed=DOMParsingTools.getBooleanAttribute(pointAttrs,"completed",false);
+        if (completed)
+        {
+          completedPointIds.add(Integer.valueOf(pointId));
+        }
+      }
+    }
+    if (completedPointIds.size()>0)
+    {
+      OldMarkersStateUpdater.updateDeedStatus(deedStatus,completedPointIds);
+    }
   }
 
   /**
