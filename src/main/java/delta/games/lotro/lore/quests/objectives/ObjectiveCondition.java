@@ -17,6 +17,7 @@ public abstract class ObjectiveCondition
   private String _loreInfo;
   private String _progressOverride;
   private List<AchievableGeoPoint> _points;
+  private int _count;
 
   /**
    * Constructor.
@@ -27,6 +28,7 @@ public abstract class ObjectiveCondition
     _showProgressText=true;
     _showBillboardText=true;
     _points=new ArrayList<AchievableGeoPoint>();
+    _count=1;
   }
 
   /**
@@ -131,7 +133,16 @@ public abstract class ObjectiveCondition
    */
   public int getCount()
   {
-    return 1;
+    return _count;
+  }
+
+  /**
+   * Set the expected count.
+   * @param count Count to set.
+   */
+  public void setCount(int count)
+  {
+    _count=count;
   }
 
   /**

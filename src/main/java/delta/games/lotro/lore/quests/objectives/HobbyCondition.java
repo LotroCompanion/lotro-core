@@ -10,7 +10,6 @@ import delta.games.lotro.utils.Proxy;
 public class HobbyCondition extends ObjectiveCondition
 {
   private Proxy<Item> _item;
-  private int _count;
 
   /**
    * Constructor.
@@ -18,7 +17,6 @@ public class HobbyCondition extends ObjectiveCondition
   public HobbyCondition()
   {
     _item=null;
-    _count=1;
   }
 
   @Override
@@ -45,24 +43,6 @@ public class HobbyCondition extends ObjectiveCondition
     _item=proxy;
   }
 
-  /**
-   * Get the count.
-   * @return a count.
-   */
-  public int getCount()
-  {
-    return _count;
-  }
-
-  /**
-   * Set the count.
-   * @param count the count to set.
-   */
-  public void setCount(int count)
-  {
-    _count=count;
-  }
-
   @Override
   public String toString()
   {
@@ -73,9 +53,10 @@ public class HobbyCondition extends ObjectiveCondition
     {
       sb.append(_item);
     }
-    if (_count>1)
+    int count=getCount();
+    if (count>1)
     {
-      sb.append(" x").append(_count);
+      sb.append(" x").append(count);
     }
     return sb.toString();
   }

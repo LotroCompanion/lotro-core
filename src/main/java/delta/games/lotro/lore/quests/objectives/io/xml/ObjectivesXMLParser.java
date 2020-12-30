@@ -126,6 +126,8 @@ public class ObjectivesXMLParser
     boolean showBillboardText=DOMParsingTools.getBooleanAttribute(attrs,ObjectivesXMLConstants.CONDITION_SHOW_BILLBOARD_TEXT,true);
     // Progress override
     String progressOverride=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_PROGRESS_OVERRIDE_ATTR,null);
+    // Count
+    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.CONDITION_COUNT_ATTR,1);
 
     // Specifics
     if (ObjectivesXMLConstants.QUEST_COMPLETE_TAG.equals(tagName))
@@ -211,6 +213,7 @@ public class ObjectivesXMLParser
       ret.setShowBillboardText(showBillboardText);
       ret.setShowProgressText(showProgressText);
       ret.setProgressOverride(progressOverride);
+      ret.setCount(count);
     }
     return ret;
   }
@@ -229,9 +232,6 @@ public class ObjectivesXMLParser
     // Quest category
     String questCategory=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_CATEGORY_ATTR,null);
     condition.setQuestCategory(questCategory);
-    // Count
-    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_COUNT_ATTR,1);
-    condition.setCompletionCount(count);
     return condition;
   }
 
@@ -247,9 +247,6 @@ public class ObjectivesXMLParser
     // Mob name
     String mobName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.MONSTER_DIE_MOB_NAME_ATTR,null);
     condition.setMobName(mobName);
-    // Count
-    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.MONSTER_DIE_COUNT_ATTR,1);
-    condition.setCount(count);
     // Mob selections
     List<Element> monsterSelectionTags=DOMParsingTools.getChildTagsByName(conditionTag,ObjectivesXMLConstants.MONSTER_SELECTION_TAG);
     for(Element monsterSelectionTag : monsterSelectionTags)
@@ -315,9 +312,6 @@ public class ObjectivesXMLParser
     // Item proxy
     Proxy<Item> itemProxy=parseItemProxy(attrs);
     condition.setProxy(itemProxy);
-    // Count
-    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.ITEM_COUNT_ATTR,1);
-    condition.setCount(count);
   }
 
   private static FactionLevelCondition parseFactionLevelCondition(NamedNodeMap attrs, Element conditionTag)
@@ -356,9 +350,6 @@ public class ObjectivesXMLParser
       proxy.setName(skillName);
       condition.setProxy(proxy);
     }
-    // Count
-    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_COUNT_ATTR,1);
-    condition.setCount(count);
     // Max per day
     int maxPerDay=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_MAX_PER_DAY_ATTR,-1);
     if (maxPerDay!=-1)
@@ -444,9 +435,6 @@ public class ObjectivesXMLParser
     proxy.setId(emoteId);
     proxy.setName(command);
     condition.setProxy(proxy);
-    // Count
-    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.EMOTE_COUNT_ATTR,1);
-    condition.setCount(count);
     // Max per day
     int maxPerDay=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.EMOTE_MAX_DAILY_ATTR,-1);
     if (maxPerDay!=-1)
@@ -465,9 +453,6 @@ public class ObjectivesXMLParser
     // Item proxy
     Proxy<Item> itemProxy=parseItemProxy(attrs);
     condition.setProxy(itemProxy);
-    // Count
-    int count=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.HOBBY_COUNT_ATTR,1);
-    condition.setCount(count);
     return condition;
   }
 

@@ -69,6 +69,10 @@ public class ObjectivesXMLConstants
    * Tag 'condition', attribute 'type'.
    */
   public static final String CONDITION_TYPE_ATTR="type";
+  /**
+   * Tag 'condition', attribute 'count'.
+   */
+  public static final String CONDITION_COUNT_ATTR="count";
 
   /**
    * Tag 'questComplete'.
@@ -82,10 +86,6 @@ public class ObjectivesXMLConstants
    * Tag 'questComplete', attribute 'questCategory'.
    */
   public static final String QUEST_COMPLETE_QUEST_CATEGORY_ATTR="questCategory";
-  /**
-   * Tag 'questComplete', attribute 'count'.
-   */
-  public static final String QUEST_COMPLETE_COUNT_ATTR="count";
 
   /**
    * Tag 'monsterDie'.
@@ -99,10 +99,6 @@ public class ObjectivesXMLConstants
    * Tag 'monsterDie', attribute 'mobName'.
    */
   public static final String MONSTER_DIE_MOB_NAME_ATTR="mobName";
-  /**
-   * Tag 'monsterDie', attribute 'count'.
-   */
-  public static final String MONSTER_DIE_COUNT_ATTR="count";
   /**
    * Tag 'monsterSelection'.
    */
@@ -153,10 +149,6 @@ public class ObjectivesXMLConstants
    * Item related tags, attribute 'itemName'.
    */
   public static final String ITEM_NAME_ATTR="itemName";
-  /**
-   * Item related tags, attribute 'count'.
-   */
-  public static final String ITEM_COUNT_ATTR="count";
 
   /**
    * Tag 'factionLevel'.
@@ -187,10 +179,6 @@ public class ObjectivesXMLConstants
    * Tag 'skillUsed', attribute 'skillName'.
    */
   public static final String SKILL_USED_SKILL_NAME_ATTR="skillName";
-  /**
-   * Tag 'skillUsed', attribute 'count'.
-   */
-  public static final String SKILL_USED_COUNT_ATTR="count";
   /**
    * Tag 'skillUsed', attribute 'maxPerDay'.
    */
@@ -255,10 +243,6 @@ public class ObjectivesXMLConstants
    */
   public static final String EMOTE_COMMAND_ATTR="command";
   /**
-   * Tag 'emote', attribute 'count'.
-   */
-  public static final String EMOTE_COUNT_ATTR="count";
-  /**
    * Tag 'emote', attribute 'maxDaily'.
    */
   public static final String EMOTE_MAX_DAILY_ATTR="maxDaily";
@@ -267,10 +251,6 @@ public class ObjectivesXMLConstants
    * Tag 'hobby'.
    */
   public static final String HOBBY_TAG="hobby";
-  /**
-   * Tag 'hobby', attribute 'count'.
-   */
-  public static final String HOBBY_COUNT_ATTR="count";
 
   /**
    * Tag 'timeExpired'.

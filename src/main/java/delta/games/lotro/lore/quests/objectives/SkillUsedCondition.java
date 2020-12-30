@@ -10,7 +10,6 @@ import delta.games.lotro.utils.Proxy;
 public class SkillUsedCondition extends ObjectiveCondition
 {
   private Proxy<SkillDescription> _skill;
-  private int _count;
   private Integer _maxPerDay;
 
   /**
@@ -19,7 +18,6 @@ public class SkillUsedCondition extends ObjectiveCondition
   public SkillUsedCondition()
   {
     _skill=null;
-    _count=1;
     _maxPerDay=null;
   }
 
@@ -45,24 +43,6 @@ public class SkillUsedCondition extends ObjectiveCondition
   public void setProxy(Proxy<SkillDescription> proxy)
   {
     _skill=proxy;
-  }
-
-  /**
-   * Get the count.
-   * @return a count.
-   */
-  public int getCount()
-  {
-    return _count;
-  }
-
-  /**
-   * Set the count.
-   * @param count the count to set.
-   */
-  public void setCount(int count)
-  {
-    _count=count;
   }
 
   /**
@@ -97,9 +77,10 @@ public class SkillUsedCondition extends ObjectiveCondition
     {
       sb.append("Use ???");
     }
-    if (_count>1)
+    int count=getCount();
+    if (count>1)
     {
-      sb.append(_count).append(" x");
+      sb.append(count).append(" x");
     }
     if (_maxPerDay!=null)
     {

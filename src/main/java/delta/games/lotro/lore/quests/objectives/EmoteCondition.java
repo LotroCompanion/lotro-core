@@ -10,7 +10,6 @@ import delta.games.lotro.utils.Proxy;
 public class EmoteCondition extends ObjectiveCondition
 {
   private Proxy<EmoteDescription> _emote;
-  private int _count;
   private Integer _maxDaily;
   private ConditionTarget _target;
 
@@ -20,7 +19,6 @@ public class EmoteCondition extends ObjectiveCondition
   public EmoteCondition()
   {
     _emote=null;
-    _count=1;
     _maxDaily=null;
     _target=null;
   }
@@ -47,24 +45,6 @@ public class EmoteCondition extends ObjectiveCondition
   public void setProxy(Proxy<EmoteDescription> proxy)
   {
     _emote=proxy;
-  }
-
-  /**
-   * Get the emote count.
-   * @return a count.
-   */
-  public int getCount()
-  {
-    return _count;
-  }
-
-  /**
-   * Set the emote count.
-   * @param count the count to set.
-   */
-  public void setCount(int count)
-  {
-    _count=count;
   }
 
   /**
@@ -109,9 +89,10 @@ public class EmoteCondition extends ObjectiveCondition
     StringBuilder sb=new StringBuilder();
     sb.append("#").append(getIndex());
     sb.append(": Perform emote ").append(_emote);
-    if (_count>1)
+    int count=getCount();
+    if (count>1)
     {
-      sb.append(" x").append(_count);
+      sb.append(" x").append(count);
     }
     if (_maxDaily!=null)
     {

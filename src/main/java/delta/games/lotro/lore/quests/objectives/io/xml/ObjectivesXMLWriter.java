@@ -195,8 +195,12 @@ public class ObjectivesXMLWriter
       writeDefaultCondition(hd,(DefaultObjectiveCondition)condition);
     }
   }
-
   private static void writeSharedConditionAttributes(TransformerHandler hd, AttributesImpl attrs, ObjectiveCondition condition)
+  {
+    writeSharedConditionAttributes(hd,attrs,condition,true);
+  }
+
+  private static void writeSharedConditionAttributes(TransformerHandler hd, AttributesImpl attrs, ObjectiveCondition condition, boolean withCount)
   {
     // Index
     int index=condition.getIndex();
@@ -225,13 +229,22 @@ public class ObjectivesXMLWriter
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_SHOW_BILLBOARD_TEXT,XmlWriter.CDATA,"false");
     }
+    // Count
+    if (withCount)
+    {
+      int count=condition.getCount();
+      if (count>1)
+      {
+        attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+      }
+    }
   }
 
   private static void writeQuestCompleteCondition(TransformerHandler hd, QuestCompleteCondition condition) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(hd,attrs,condition,false);
     // Achievable?
     Proxy<? extends Achievable> proxy=condition.getProxy();
     if (proxy!=null)
@@ -246,10 +259,10 @@ public class ObjectivesXMLWriter
       attrs.addAttribute("","",ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_CATEGORY_ATTR,XmlWriter.CDATA,questCategory);
     }
     // Count
-    int count=condition.getCompletionCount();
+    int count=condition.getCount();
     if (count>1)
     {
-      attrs.addAttribute("","",ObjectivesXMLConstants.QUEST_COMPLETE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     hd.startElement("","",ObjectivesXMLConstants.QUEST_COMPLETE_TAG,attrs);
     AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
@@ -260,7 +273,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(hd,attrs,condition,false);
     // Mob ID
     Integer mobId=condition.getMobId();
     if (mobId!=null)
@@ -277,7 +290,7 @@ public class ObjectivesXMLWriter
     int count=condition.getCount();
     if (count>1)
     {
-      attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     hd.startElement("","",ObjectivesXMLConstants.MONSTER_DIED_TAG,attrs);
     // Selections
@@ -351,7 +364,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(hd,attrs,condition,false);
     // Item proxy
     Proxy<Item> proxy=condition.getProxy();
     writeItemProxy(hd,attrs,proxy);
@@ -359,7 +372,7 @@ public class ObjectivesXMLWriter
     int count=condition.getCount();
     if (count>1)
     {
-      attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     hd.startElement("","",tagName,attrs);
     AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
@@ -397,7 +410,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(hd,attrs,condition,false);
     // Skill proxy
     Proxy<SkillDescription> proxy=condition.getProxy();
     if (proxy!=null)
@@ -416,7 +429,7 @@ public class ObjectivesXMLWriter
     int count=condition.getCount();
     if (count>1)
     {
-      attrs.addAttribute("","",ObjectivesXMLConstants.SKILL_USED_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     // Max per day
     Integer maxPerDay=condition.getMaxPerDay();
@@ -508,7 +521,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(hd,attrs,condition,false);
     // Emote
     Proxy<EmoteDescription> proxy=condition.getProxy();
     if (proxy!=null)
@@ -522,7 +535,7 @@ public class ObjectivesXMLWriter
     int count=condition.getCount();
     if (count>1)
     {
-      attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     // Max daily
     Integer maxDaily=condition.getMaxDaily();
@@ -541,7 +554,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(hd,attrs,condition,false);
     // Item proxy
     Proxy<Item> proxy=condition.getProxy();
     writeItemProxy(hd,attrs,proxy);
@@ -549,7 +562,7 @@ public class ObjectivesXMLWriter
     int count=condition.getCount();
     if (count>1)
     {
-      attrs.addAttribute("","",ObjectivesXMLConstants.HOBBY_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
     }
     hd.startElement("","",ObjectivesXMLConstants.HOBBY_TAG,attrs);
     AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);

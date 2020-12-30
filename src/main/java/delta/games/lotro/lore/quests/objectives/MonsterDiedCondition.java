@@ -11,7 +11,6 @@ public class MonsterDiedCondition extends ObjectiveCondition
 {
   private Integer _mobId;
   private String _mobName;
-  private int _count;
   private List<MobSelection> _mobSelections;
 
   /**
@@ -19,7 +18,7 @@ public class MonsterDiedCondition extends ObjectiveCondition
    */
   public MonsterDiedCondition()
   {
-    _count=1;
+    super();
     _mobSelections=new ArrayList<MobSelection>();
   }
 
@@ -63,24 +62,6 @@ public class MonsterDiedCondition extends ObjectiveCondition
   public void setMobName(String mobName)
   {
     _mobName=mobName;
-  }
-
-  /**
-   * Get the dead count.
-   * @return a count.
-   */
-  public int getCount()
-  {
-    return _count;
-  }
-
-  /**
-   * Set the dead count.
-   * @param count the count to set.
-   */
-  public void setCount(int count)
-  {
-    _count=count;
   }
 
   /**

@@ -11,7 +11,6 @@ public class QuestCompleteCondition extends ObjectiveCondition
 {
   private Proxy<Achievable> _achievable;
   private String _questCategory;
-  private int _completionCount;
 
   /**
    * Constructor.
@@ -20,7 +19,6 @@ public class QuestCompleteCondition extends ObjectiveCondition
   {
     _achievable=null;
     _questCategory=null;
-    _completionCount=1;
   }
 
   @Override
@@ -66,38 +64,15 @@ public class QuestCompleteCondition extends ObjectiveCondition
   }
 
   @Override
-  public int getCount()
-  {
-    return _completionCount;
-  }
-
-  /**
-   * Get the quest/deed completion count.
-   * @return a count.
-   */
-  public int getCompletionCount()
-  {
-    return _completionCount;
-  }
-
-  /**
-   * Set the quest completion count.
-   * @param completionCount the completion count to set.
-   */
-  public void setCompletionCount(int completionCount)
-  {
-    _completionCount=completionCount;
-  }
-
-  @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
     sb.append("#").append(getIndex());
     sb.append(": Complete ");
-    if (_completionCount>1)
+    int completionCount=getCount();
+    if (completionCount>1)
     {
-      sb.append(_completionCount).append("x ");
+      sb.append(completionCount).append("x ");
     }
     if (_achievable!=null)
     {

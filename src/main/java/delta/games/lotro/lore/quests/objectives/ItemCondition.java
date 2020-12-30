@@ -10,7 +10,6 @@ import delta.games.lotro.utils.Proxy;
 public abstract class ItemCondition extends ObjectiveCondition
 {
   protected Proxy<Item> _item;
-  protected int _count;
 
   /**
    * Constructor.
@@ -18,7 +17,6 @@ public abstract class ItemCondition extends ObjectiveCondition
   public ItemCondition()
   {
     _item=null;
-    _count=1;
   }
 
   /**
@@ -37,23 +35,5 @@ public abstract class ItemCondition extends ObjectiveCondition
   public void setProxy(Proxy<Item> proxy)
   {
     _item=proxy;
-  }
-
-  /**
-   * Get the count.
-   * @return a count.
-   */
-  public int getCount()
-  {
-    return _count;
-  }
-
-  /**
-   * Set the count.
-   * @param count the count to set.
-   */
-  public void setCount(int count)
-  {
-    _count=count;
   }
 }

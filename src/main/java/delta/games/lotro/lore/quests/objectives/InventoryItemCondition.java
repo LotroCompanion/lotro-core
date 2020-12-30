@@ -20,9 +20,10 @@ public class InventoryItemCondition extends ItemCondition
     if (_item!=null)
     {
       sb.append(": Get item: ").append(_item);
-      if (_count>1)
+      int count=getCount();
+      if (count>1)
       {
-        sb.append(_count).append(" x");
+        sb.append(count).append(" x");
       }
     }
     return sb.toString();
