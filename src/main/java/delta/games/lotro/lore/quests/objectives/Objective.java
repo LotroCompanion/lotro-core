@@ -28,6 +28,8 @@ public class Objective
   {
     _index=1;
     _description="";
+    _loreOverride="";
+    _progressOverride="";
     _dialogs=new ArrayList<DialogElement>();
     _conditions=new ArrayList<ObjectiveCondition>();
   }
