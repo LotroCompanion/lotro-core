@@ -67,12 +67,31 @@ public class AchievableGeoPoint
   }
 
   /**
+   * Set the map identifier.
+   * @param mapId Map identifier to set.
+   */
+  public void setMapId(int mapId)
+  {
+    _mapId=mapId;
+  }
+
+  /**
    * Get the position as lon/lat.
    * @return a position.
    */
   public Point2D.Float getLonLat()
   {
     return _lonLat;
+  }
+
+  /**
+   * Set the position.
+   * @param lon Longitude.
+   * @param lat Latitude.
+   */
+  public void setPosition(float lon, float lat)
+  {
+    _lonLat=new Point2D.Float(lon,lat);
   }
 
   /**
