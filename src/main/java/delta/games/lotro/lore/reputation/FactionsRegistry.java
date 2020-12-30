@@ -74,14 +74,17 @@ public final class FactionsRegistry
   {
     // Category
     String category=faction.getCategory();
-    List<Faction> factionsForCategory=_factionsByCategory.get(category);
-    if (factionsForCategory==null)
+    if (category.length()>0)
     {
-      _categories.add(category);
-      factionsForCategory=new ArrayList<Faction>();
-      _factionsByCategory.put(category,factionsForCategory);
+      List<Faction> factionsForCategory=_factionsByCategory.get(category);
+      if (factionsForCategory==null)
+      {
+        _categories.add(category);
+        factionsForCategory=new ArrayList<Faction>();
+        _factionsByCategory.put(category,factionsForCategory);
+      }
+      factionsForCategory.add(faction);
     }
-    factionsForCategory.add(faction);
     // Map by ID
     int id=faction.getIdentifier();
     if (id!=0)
