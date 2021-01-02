@@ -141,8 +141,11 @@ public class StatUtils
   public static String[] getFullStatsDisplay(BasicStatsSet stats, StatsProvider provider)
   {
     List<String> lines=getStatsDisplayLinesAsList(stats);
-    List<String> specialEffectsLines=getSpecialEffects(provider);
-    lines.addAll(specialEffectsLines);
+    if (provider!=null)
+    {
+      List<String> specialEffectsLines=getSpecialEffects(provider);
+      lines.addAll(specialEffectsLines);
+    }
     lines=handleNewLines(lines);
     String[] ret=lines.toArray(new String[lines.size()]);
     return ret;
@@ -177,7 +180,7 @@ public class StatUtils
     {
       line=valueStr+" "+statName;
     }
-    line=line.replace(". ","\n");
+    line=line.replace(". ",".\n");
     return line;
   }
 
