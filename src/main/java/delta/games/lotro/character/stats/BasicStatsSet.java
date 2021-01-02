@@ -225,7 +225,7 @@ public class BasicStatsSet
       // Update this one
       if (!Objects.equals(existing.getDescriptionOverride(),elementToAdd.getDescriptionOverride()))
       {
-        LOGGER.warn("Add stat will replace description!");
+        //LOGGER.warn("Add stat will replace description!");
       }
       existing.setDescriptionOverride(elementToAdd.getDescriptionOverride());
       existing.setValue(total);
