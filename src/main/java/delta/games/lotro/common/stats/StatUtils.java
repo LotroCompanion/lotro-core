@@ -57,6 +57,19 @@ public class StatUtils
    */
   public static String[] getStatsDisplayLines(BasicStatsSet stats)
   {
+    List<String> lines=getStatsDisplayLinesAsList(stats);
+    lines=handleNewLines(lines);
+    String[] ret=lines.toArray(new String[lines.size()]);
+    return ret;
+  }
+
+  /**
+   * Get the display lines for some stats.
+   * @param stats Stats to display.
+   * @return A possibly empty but not <code>null</code> array of stat lines.
+   */
+  public static List<String> getStatsDisplayLinesAsList(BasicStatsSet stats)
+  {
     List<String> lines=new ArrayList<String>();
     for(StatsSetElement element : stats.getStatElements())
     {
@@ -70,17 +83,67 @@ public class StatUtils
       {
         continue;
       }
-      int hasLF=line.indexOf("\n");
-      if (hasLF!=-1)
+      lines.add(line);
+    }
+    return lines;
+  }
+
+  /**
+   * Gracefully handle new lines.
+   * @param lines Input lines.
+   * @return a list of lines, with no new line.
+   */
+  public static List<String> handleNewLines(List<String> lines)
+  {
+    List<String> ret=new ArrayList<String>();
+    for(String line : lines)
+    {
+      while(true)
       {
-        lines.add(line.substring(0,hasLF));
-        lines.add(line.substring(hasLF+1));
-      }
-      else
-      {
-        lines.add(line);
+        int hasLF=line.indexOf("\n");
+        if (hasLF!=-1)
+        {
+          ret.add(line.substring(0,hasLF));
+          line=line.substring(hasLF+1);
+        }
+        else
+        {
+          ret.add(line);
+          break;
+        }
       }
     }
+    return ret;
+  }
+
+  /**
+   * Get special effects.
+   * @param provider Stats provider.
+   * @return A list of special effect lines.
+   */
+  public static List<String> getSpecialEffects(StatsProvider provider)
+  {
+    List<String> lines=new ArrayList<String>();
+    for(SpecialEffect specialEffect : provider.getSpecialEffects())
+    {
+      String label=specialEffect.getLabel();
+      lines.add(label);
+    }
+    return lines;
+  }
+
+  /**
+   * Get a full stats display (including special effects).
+   * @param stats Stats to use.
+   * @param provider Stats provider (for special effects).
+   * @return A possibly empty but not <code>null</code> array of stat/effect lines.
+   */
+  public static String[] getFullStatsDisplay(BasicStatsSet stats, StatsProvider provider)
+  {
+    List<String> lines=getStatsDisplayLinesAsList(stats);
+    List<String> specialEffectsLines=getSpecialEffects(provider);
+    lines.addAll(specialEffectsLines);
+    lines=handleNewLines(lines);
     String[] ret=lines.toArray(new String[lines.size()]);
     return ret;
   }
@@ -114,6 +177,7 @@ public class StatUtils
     {
       line=valueStr+" "+statName;
     }
+    line=line.replace(". ","\n");
     return line;
   }
 
