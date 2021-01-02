@@ -77,12 +77,15 @@ public class StatsProviderBuffImpl extends AbstractBuffImpl
         {
           StatDescription stat=provider.getStat();
           FixedDecimalsInteger rawStat=raw.getStat(stat);
-          FixedDecimalsInteger contrib=new FixedDecimalsInteger(rawStat.floatValue()*(value.floatValue()-1));
-          if (stats==null)
+          if (rawStat!=null)
           {
-            stats=new BasicStatsSet();
+            FixedDecimalsInteger contrib=new FixedDecimalsInteger(rawStat.floatValue()*(value.floatValue()-1));
+            if (stats==null)
+            {
+              stats=new BasicStatsSet();
+            }
+            stats.setStat(stat,contrib);
           }
-          stats.setStat(stat,contrib);
         }
       }
     }
