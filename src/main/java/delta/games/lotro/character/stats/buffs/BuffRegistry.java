@@ -64,7 +64,7 @@ public final class BuffRegistry
     Buff old=_buffMap.put(id,buff);
     if (old!=null)
     {
-      LOGGER.warn("Duplicate buff registration: "+id);
+      //LOGGER.warn("Duplicate buff registration: "+id);
     }
   }
 
