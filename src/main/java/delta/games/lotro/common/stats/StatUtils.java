@@ -180,7 +180,10 @@ public class StatUtils
     {
       line=valueStr+" "+statName;
     }
-    line=line.replace(". ",".\n");
+    if (line!=null)
+    {
+      line=line.replace(". ",".\n");
+    }
     return line;
   }
 
