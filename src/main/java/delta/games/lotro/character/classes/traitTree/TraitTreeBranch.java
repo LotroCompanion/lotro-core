@@ -16,6 +16,7 @@ public class TraitTreeBranch
 {
   private int _code;
   private String _name;
+  private TraitDescription _trait;
   private TraitTreeProgression _progression;
   private Map<String,TraitTreeCell> _cells;
 
@@ -28,6 +29,7 @@ public class TraitTreeBranch
   {
     _code=code;
     _name=name;
+    _trait=null;
     _cells=new HashMap<String,TraitTreeCell>();
     _progression=new TraitTreeProgression();
   }
@@ -48,6 +50,24 @@ public class TraitTreeBranch
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Get the main trait for this branch.
+   * @return a trait.
+   */
+  public TraitDescription getMainTrait()
+  {
+    return _trait;
+  }
+
+  /**
+   * Set the main trait for this branch.
+   * @param trait Trait to set.
+   */
+  public void setMainTrait(TraitDescription trait)
+  {
+    _trait=trait;
   }
 
   /**

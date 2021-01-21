@@ -97,25 +97,25 @@ public class BuffsManagerToTraitTreeStatus
       buffs.removeBuff(buffId);
     }
     // Push selected traits
-    BuffRegistry buffsRegistry=BuffRegistry.getInstance();
     for(TraitDescription trait : tree.getAllTraits())
     {
       Integer rank=status.getRankForTrait(trait.getIdentifier());
       if ((rank!=null) && (rank.intValue()>0))
       {
-        String buffId=String.valueOf(trait.getIdentifier());
-        BuffInstance buffInstance=buffsRegistry.newBuffInstance(buffId);
-        if (buffInstance!=null)
-        {
-          buffInstance.setTier(rank);
-          buffs.addBuff(buffInstance);
-        }
+        addBuff(trait,rank.intValue(),buffs);
       }
     }
-    // Handle progresssion in the selected branch
+    // Handle main trait and progresssion in the selected branch
     TraitTreeBranch selectedBranch=status.getSelectedBranch();
     if (selectedBranch!=null)
     {
+      // Main trait
+      TraitDescription mainTrait=selectedBranch.getMainTrait();
+      if (mainTrait!=null)
+      {
+        addBuff(mainTrait,1,buffs);
+      }
+      // Progression
       int nbRanks=status.getTotalRanksInTree();
       TraitTreeProgression progression=selectedBranch.getProgression();
       List<Integer> steps=progression.getSteps();
@@ -128,15 +128,21 @@ public class BuffsManagerToTraitTreeStatus
         if (enabled)
         {
           TraitDescription progressionTrait=progressionTraits.get(i);
-          String buffId=String.valueOf(progressionTrait.getIdentifier());
-          BuffInstance buffInstance=buffsRegistry.newBuffInstance(buffId);
-          if (buffInstance!=null)
-          {
-            buffInstance.setTier(Integer.valueOf(1));
-            buffs.addBuff(buffInstance);
-          }
+          addBuff(progressionTrait,1,buffs);
         }
       }
+    }
+  }
+
+  private static void addBuff(TraitDescription trait, int rank, BuffsManager buffs)
+  {
+    String buffId=String.valueOf(trait.getIdentifier());
+    BuffRegistry buffsRegistry=BuffRegistry.getInstance();
+    BuffInstance buffInstance=buffsRegistry.newBuffInstance(buffId);
+    if (buffInstance!=null)
+    {
+      buffInstance.setTier(Integer.valueOf(rank));
+      buffs.addBuff(buffInstance);
     }
   }
 }

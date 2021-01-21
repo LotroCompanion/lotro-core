@@ -153,6 +153,7 @@ public class ClassDescriptionXMLParser
   private static TraitTree parseTraitTree(CharacterClass characterClass, Element root)
   {
     TraitTree tree=new TraitTree(characterClass);
+    TraitsManager traitsMgr=TraitsManager.getInstance();
     List<Element> branchTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG);
     for(Element branchTag : branchTags)
     {
@@ -161,6 +162,10 @@ public class ClassDescriptionXMLParser
       String name=DOMParsingTools.getStringAttribute(branchAttrs,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,null);
       TraitTreeBranch branch=new TraitTreeBranch(code,name);
       tree.addBranch(branch);
+      // Main trait
+      int mainTraitId=DOMParsingTools.getIntAttribute(branchAttrs,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TRAIT_ATTR,0);
+      TraitDescription mainTrait=traitsMgr.getTrait(mainTraitId);
+      branch.setMainTrait(mainTrait);
       // Progression
       Element progressionTag=DOMParsingTools.getChildTagByName(branchTag,ClassDescriptionXMLConstants.PROGRESSION_TAG);
       if (progressionTag!=null)
@@ -174,7 +179,7 @@ public class ClassDescriptionXMLParser
           int requiredPoints=DOMParsingTools.getIntAttribute(stepAttrs,ClassDescriptionXMLConstants.STEP_REQUIRED_POINTS_ATTR,0);
           // Trait ID
           int traitId=DOMParsingTools.getIntAttribute(stepAttrs,ClassDescriptionXMLConstants.STEP_TRAIT_ID_ATTR,0);
-          TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
+          TraitDescription trait=traitsMgr.getTrait(traitId);
           progression.addStep(requiredPoints,trait);
         }
       }

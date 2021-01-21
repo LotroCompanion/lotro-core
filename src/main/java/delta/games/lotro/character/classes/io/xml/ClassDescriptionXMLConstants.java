@@ -68,6 +68,10 @@ public class ClassDescriptionXMLConstants
    */
   public static final String TRAIT_TREE_BRANCH_NAME_ATTR="name";
   /**
+   * Tag 'traitTreeBranch', attribute 'name'.
+   */
+  public static final String TRAIT_TREE_BRANCH_TRAIT_ATTR="mainTraitId";
+  /**
    * Tag 'progression'.
    */
   public static final String PROGRESSION_TAG="progression";

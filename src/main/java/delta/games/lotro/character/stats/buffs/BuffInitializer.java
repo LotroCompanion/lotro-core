@@ -124,6 +124,12 @@ public class BuffInitializer
         for(TraitTreeBranch branch : branches)
         {
           String name=branch.getName();
+          // Main trait
+          TraitDescription mainTrait=branch.getMainTrait();
+          if (mainTrait!=null)
+          {
+            initClassBuff(characterClass,registry,mainTrait,name);
+          }
           // Progression
           TraitTreeProgression progression=branch.getProgression();
           for(TraitDescription trait : progression.getTraits())

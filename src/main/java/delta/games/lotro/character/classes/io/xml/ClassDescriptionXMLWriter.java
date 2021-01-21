@@ -173,6 +173,13 @@ public class ClassDescriptionXMLWriter
     // Name
     String name=branch.getName();
     branchAttrs.addAttribute("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,XmlWriter.CDATA,name);
+    // Main trait ID
+    TraitDescription mainTrait=branch.getMainTrait();
+    if (mainTrait!=null)
+    {
+      int mainTraitId=mainTrait.getIdentifier();
+      branchAttrs.addAttribute("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TRAIT_ATTR,XmlWriter.CDATA,String.valueOf(mainTraitId));
+    }
     hd.startElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG,branchAttrs);
     // Progression
     TraitTreeProgression progression=branch.getProgression();
