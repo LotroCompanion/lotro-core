@@ -70,7 +70,7 @@ public final class LotroCoreConfig
   private TypedProperties getLocations()
   {
     TypedProperties props=null;
-    URL url=URLTools.getFromClassPath("locations.properties");
+    URL url=URLTools.getFromClassPath("locations.properties", getClass().getClassLoader());
     if (url==null)
     {
       url=URLTools.getFromClassPath("locations.properties",this);
