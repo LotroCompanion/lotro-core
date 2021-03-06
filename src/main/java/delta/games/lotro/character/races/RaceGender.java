@@ -10,6 +10,7 @@ public class RaceGender
   private int _largeIconId;
   private int _iconId;
   private int _smallIconId;
+  private int _avatarId;
 
   /**
    * Constructor.
@@ -89,5 +90,23 @@ public class RaceGender
   public void setSmallIconId(int smallIconId)
   {
     _smallIconId=smallIconId;
+  }
+
+  /**
+   * Get the avatar ID for this gender.
+   * @return an avatar ID.
+   */
+  public int getAvatarId()
+  {
+    return _avatarId;
+  }
+
+  /**
+   * Set the avatar ID for this gender.
+   * @param avatarId the avatar ID to set.
+   */
+  public void setAvatarId(int avatarId)
+  {
+    _avatarId=avatarId;
   }
 }

@@ -125,6 +125,9 @@ public class RaceDescriptionXMLParser
     // Small icon ID
     int smallIconId=DOMParsingTools.getIntAttribute(attrs,RaceDescriptionXMLConstants.GENDER_SMALL_ICON_ID_ATTR,0);
     gender.setSmallIconId(smallIconId);
+    // Avatar ID
+    int avatarId=DOMParsingTools.getIntAttribute(attrs,RaceDescriptionXMLConstants.GENDER_AVATAR_ID_ATTR,0);
+    gender.setAvatarId(avatarId);
     return gender;
   }
 }

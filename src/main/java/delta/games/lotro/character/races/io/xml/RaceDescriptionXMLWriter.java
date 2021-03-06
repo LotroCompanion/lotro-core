@@ -120,6 +120,9 @@ public class RaceDescriptionXMLWriter
       // Small icon ID
       int smallIconId=gender.getSmallIconId();
       attrs.addAttribute("","",RaceDescriptionXMLConstants.GENDER_SMALL_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(smallIconId));
+      // Avatar ID
+      int avatarID=gender.getAvatarId();
+      attrs.addAttribute("","",RaceDescriptionXMLConstants.GENDER_AVATAR_ID_ATTR,XmlWriter.CDATA,String.valueOf(avatarID));
 
       hd.startElement("","",RaceDescriptionXMLConstants.GENDER_TAG,attrs);
       hd.endElement("","",RaceDescriptionXMLConstants.GENDER_TAG);

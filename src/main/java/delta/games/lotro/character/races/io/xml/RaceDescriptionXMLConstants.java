@@ -44,6 +44,10 @@ public class RaceDescriptionXMLConstants
    */
   public static final String GENDER_SMALL_ICON_ID_ATTR="smallIconId";
   /**
+   * Tag 'gender', attribute 'avatarId'.
+   */
+  public static final String GENDER_AVATAR_ID_ATTR="avatarId";
+  /**
    * Tag 'allowedClass'.
    */
   public static final String ALLOWED_CLASS_TAG="allowedClass";
