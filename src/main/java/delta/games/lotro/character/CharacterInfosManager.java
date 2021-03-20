@@ -87,6 +87,12 @@ public class CharacterInfosManager
 
   private void loadAll()
   {
+    loadAllData();
+    setSummary();
+  }
+
+  private void loadAllData()
+  {
     if (_datas.size()>0)
     {
       return;
@@ -103,7 +109,13 @@ public class CharacterInfosManager
         }
       }
     }
-    // Set parent summary on loaded data
+  }
+
+  /**
+   * Apply the parent summary to all loaded data.
+   */
+  public void setSummary()
+  {
     CharacterSummary characterSummary=_toon.getSummary();
     for(CharacterData data : _datas)
     {
@@ -146,7 +158,7 @@ public class CharacterInfosManager
   {
     if (_datas.size()==0)
     {
-      loadAll();
+      loadAllData();
     }
     CharacterData c=null;
     Long latestDate=null;
@@ -351,7 +363,7 @@ public class CharacterInfosManager
    */
   public CharacterSummary buildSummaryFromNewestData()
   {
-    loadAll();
+    loadAllData();
     CharacterSummary summary=null;
     CharacterData data=getLastCharacterDescription();
     if (data!=null)

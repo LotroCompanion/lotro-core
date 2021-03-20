@@ -75,6 +75,7 @@ public class CharacterFile
         if (ok)
         {
           _summary=summary;
+          _infosManager.setSummary();
         }
       }
     }
