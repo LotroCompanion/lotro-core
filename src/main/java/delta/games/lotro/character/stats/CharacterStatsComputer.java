@@ -110,6 +110,12 @@ public class CharacterStatsComputer
 
   private BasicStatsSet getItemStats(ItemInstance<? extends Item> item)
   {
+    Integer durability=item.getDurability();
+    if ((durability!=null) && (durability.intValue()==0))
+    {
+      // Broken => no contrib
+      return new BasicStatsSet();
+    }
     return item.getStats();
   }
 
