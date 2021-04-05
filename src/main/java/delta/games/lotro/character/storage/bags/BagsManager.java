@@ -59,6 +59,21 @@ public class BagsManager
   }
 
   /**
+   * Get a list of all managed item instances.
+   * @return a list of item instances.
+   */
+  public List<ItemInstance<? extends Item>> getAll()
+  {
+    List<ItemInstance<? extends Item>> ret=new ArrayList<ItemInstance<? extends Item>>();
+    for(Integer index : getIndexes())
+    {
+      CountedItemInstance countedItemInstance=getSlotContent(index.intValue());
+      ret.add(countedItemInstance.getItemInstance());
+    }
+    return ret;
+  }
+
+  /**
    * Find an item using its Instance Identifier.
    * @param itemIid Identifier to use.
    * @return An item instance or <code>null</code>.

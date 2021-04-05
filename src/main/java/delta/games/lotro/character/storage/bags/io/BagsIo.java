@@ -5,6 +5,7 @@ import java.io.File;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.storage.bags.BagsManager;
+import delta.games.lotro.character.storage.bags.io.xml.BagsXMLParser;
 import delta.games.lotro.character.storage.bags.io.xml.BagsXMLWriter;
 
 /**
@@ -13,6 +14,29 @@ import delta.games.lotro.character.storage.bags.io.xml.BagsXMLWriter;
  */
 public class BagsIo
 {
+  /**
+   * Load the bags for a character.
+   * @param character Targeted character.
+   * @return A bags manager.
+   */
+  public static BagsManager load(CharacterFile character)
+  {
+    File fromFile=getBagsFile(character);
+    BagsManager bags=null;
+    if (fromFile.exists())
+    {
+      BagsXMLParser parser=new BagsXMLParser();
+      bags=parser.parseXML(fromFile);
+    }
+    if (bags==null)
+    {
+      // Initialize from reputation status
+      bags=new BagsManager();
+      save(character,bags);
+    }
+    return bags;
+  }
+
   /**
    * Save the bags for a character.
    * @param character Targeted character.
