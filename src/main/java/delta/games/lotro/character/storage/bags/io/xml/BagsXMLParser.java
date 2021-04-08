@@ -30,13 +30,13 @@ public class BagsXMLParser
    */
   public BagsManager parseXML(File source)
   {
-    BagsManager status=null;
+    BagsManager bags=null;
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      status=parseBags(root);
+      bags=parseBags(root);
     }
-    return status;
+    return bags;
   }
 
   private BagsManager parseBags(Element root)

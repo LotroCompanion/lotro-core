@@ -30,7 +30,6 @@ public class BagsIo
     }
     if (bags==null)
     {
-      // Initialize from reputation status
       bags=new BagsManager();
       save(character,bags);
     }
