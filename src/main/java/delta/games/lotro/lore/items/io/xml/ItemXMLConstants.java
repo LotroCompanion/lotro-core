@@ -36,6 +36,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_LEVEL_ATTR="level";
   /**
+   * Tag 'item', attribute 'itemLevelOffset'.
+   */
+  public static final String ITEM_LEVEL_OFFSET_ATTR="itemLevelOffset";
+  /**
    * Tag 'item', attribute 'slot'.
    */
   public static final String ITEM_SLOT_ATTR="slot";

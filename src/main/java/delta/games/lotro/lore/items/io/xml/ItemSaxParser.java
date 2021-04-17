@@ -118,6 +118,12 @@ public final class ItemSaxParser extends DefaultHandler
       {
         _currentItem.setItemLevel(Integer.valueOf(itemLevel));
       }
+      // Item level offset
+      String itemLevelOffset=attributes.getValue(ItemXMLConstants.ITEM_LEVEL_OFFSET_ATTR);
+      if (itemLevelOffset!=null)
+      {
+        _currentItem.setItemLevelOffset(Integer.valueOf(itemLevelOffset));
+      }
       // Slot
       EquipmentLocation slot=null;
       String slotStr=attributes.getValue(ItemXMLConstants.ITEM_SLOT_ATTR);

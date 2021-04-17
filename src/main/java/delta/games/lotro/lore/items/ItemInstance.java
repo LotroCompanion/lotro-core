@@ -530,20 +530,43 @@ public class ItemInstance<T extends Item>
    */
   public void updateAutoStats()
   {
+    Integer effectiveLevel=getEffectiveItemLevel();
+    if (effectiveLevel!=null)
+    {
+      BasicStatsSet stats=getStats(effectiveLevel.intValue());
+      if (stats!=null)
+      {
+        _statsManager.getDefault().setStats(stats);
+        _statsManager.apply();
+      }
+    }
+  }
+
+  /**
+   * Get the "auto" stats for the given effective level.
+   * This takes into account the potential "item level offset"
+   * (for instance on Captain standards).
+   * @param effectiveItemLevel Item level to use.
+   * @return Some stats or <code>null</code> if computation is not possible.
+   */
+  public BasicStatsSet getStats(int effectiveItemLevel)
+  {
+    BasicStatsSet ret=null;
     if (_reference!=null)
     {
+      int levelForStats=effectiveItemLevel;
+      Integer offset=_reference.getItemLevelOffset();
+      if (offset!=null)
+      {
+        levelForStats+=offset.intValue();
+      }
       StatsProvider provider=_reference.getStatsProvider();
       if (provider!=null)
       {
-        Integer effectiveLevel=getEffectiveItemLevel();
-        if (effectiveLevel!=null)
-        {
-          BasicStatsSet stats=provider.getStats(1,effectiveLevel.intValue(),true);
-          _statsManager.getDefault().setStats(stats);
-          _statsManager.apply();
-        }
+        ret=provider.getStats(1,levelForStats,true);
       }
     }
+    return ret;
   }
 
   /**

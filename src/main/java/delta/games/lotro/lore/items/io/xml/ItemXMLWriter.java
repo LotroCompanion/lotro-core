@@ -173,6 +173,15 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(itemLevel.intValue()));
     }
+    // Item level offset
+    if (!isInstance)
+    {
+      Integer itemLevelOffset=item.getItemLevelOffset();
+      if ((itemLevelOffset!=null) && (itemLevelOffset.intValue()>0))
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_OFFSET_ATTR,XmlWriter.CDATA,String.valueOf(itemLevelOffset.intValue()));
+      }
+    }
     ItemCategory category=item.getCategory();
     if (!isInstance)
     {

@@ -56,6 +56,8 @@ public class Item implements Identifiable
   private ItemSturdiness _sturdiness;
   // Item level (may be null)
   private Integer _itemLevel;
+  // Item level offset (may be null)
+  private Integer _itemLevelOffset;
 
   // Requirements:
   private UsageRequirement _requirements;
@@ -91,6 +93,7 @@ public class Item implements Identifiable
     _sturdiness=null;
     _requirements=new UsageRequirement();
     _itemLevel=null;
+    _itemLevelOffset=null;
     _description="";
     _value=null;
     _stackMax=null;
@@ -434,6 +437,24 @@ public class Item implements Identifiable
   }
 
   /**
+   * Get the item level offset.
+   * @return a level offset value or <code>null</code>.
+   */
+  public Integer getItemLevelOffset()
+  {
+    return _itemLevelOffset;
+  }
+
+  /**
+   * Set the item level offset.
+   * @param itemLevelOffset the item level offset as an integer value, or <code>null</code>.
+   */
+  public void setItemLevelOffset(Integer itemLevelOffset)
+  {
+    _itemLevelOffset=itemLevelOffset;
+  }
+
+  /**
    * Get the required class to use this item.
    * @return a character class or <code>null</code>.
    */
@@ -682,6 +703,12 @@ public class Item implements Identifiable
     {
       sb.append(" (Item level=");
       sb.append(_itemLevel);
+      sb.append(')');
+    }
+    if (_itemLevelOffset!=null)
+    {
+      sb.append(" (Item level offset=");
+      sb.append(_itemLevelOffset);
       sb.append(')');
     }
     if (_value!=null)
