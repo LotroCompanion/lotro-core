@@ -16,8 +16,13 @@ public class LegendaryItem extends Item implements Legendary
    */
   public LegendaryItem()
   {
-    setCategory(ItemCategory.LEGENDARY_ITEM);
     _attrs=new LegendaryAttrs();
+  }
+
+  @Override
+  public ItemCategory getCategory()
+  {
+    return ItemCategory.LEGENDARY_ITEM;
   }
 
   @Override

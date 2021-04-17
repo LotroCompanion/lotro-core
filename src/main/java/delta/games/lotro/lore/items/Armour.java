@@ -16,7 +16,12 @@ public class Armour extends Item
   public Armour()
   {
     super();
-    setCategory(ItemCategory.ARMOUR);
+  }
+
+  @Override
+  public ItemCategory getCategory()
+  {
+    return ItemCategory.ARMOUR;
   }
 
   /**

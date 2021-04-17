@@ -13,7 +13,6 @@ import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemCategory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
@@ -300,7 +299,6 @@ public class CharacterGeneratorMeva
     LegendaryWeapon weapon=new LegendaryWeapon();
     weapon.setName("Reshaped Minstrel's Club of the First Age");
     weapon.setRequiredClass(CharacterClass.MINSTREL);
-    weapon.setCategory(ItemCategory.WEAPON);
     weapon.setMinLevel(Integer.valueOf(100));
     weapon.setDurability(Integer.valueOf(100));
     weapon.setSturdiness(ItemSturdiness.NORMAL);
@@ -379,7 +377,6 @@ public class CharacterGeneratorMeva
     LegendaryItem classItem=new LegendaryItem();
     classItem.setName("Reforged Minstrel's Songbook of the Second Age");
     classItem.setRequiredClass(CharacterClass.MINSTREL);
-    classItem.setCategory(ItemCategory.ITEM);
     classItem.setMinLevel(Integer.valueOf(95));
     classItem.setDurability(Integer.valueOf(80));
     classItem.setSturdiness(ItemSturdiness.NORMAL);

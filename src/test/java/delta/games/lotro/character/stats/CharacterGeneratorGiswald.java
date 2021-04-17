@@ -20,7 +20,6 @@ import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemCategory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
@@ -549,7 +548,6 @@ public class CharacterGeneratorGiswald
     LegendaryWeapon weapon=new LegendaryWeapon();
     weapon.setName("Reshaped Champion's Sword of the First Age");
     weapon.setRequiredClass(CharacterClass.CHAMPION);
-    weapon.setCategory(ItemCategory.LEGENDARY_WEAPON);
     weapon.setMinLevel(Integer.valueOf(100));
     weapon.setDurability(Integer.valueOf(100));
     weapon.setSturdiness(ItemSturdiness.NORMAL);
@@ -680,7 +678,6 @@ public class CharacterGeneratorGiswald
     LegendaryItem classItem=new LegendaryItem();
     classItem.setName("Reshaped Champion's Rune of the First Age");
     classItem.setRequiredClass(CharacterClass.CHAMPION);
-    classItem.setCategory(ItemCategory.ITEM);
     classItem.setMinLevel(Integer.valueOf(100));
     classItem.setDurability(Integer.valueOf(80));
     classItem.setSturdiness(ItemSturdiness.NORMAL);

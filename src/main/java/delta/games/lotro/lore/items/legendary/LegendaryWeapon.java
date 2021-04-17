@@ -17,8 +17,13 @@ public class LegendaryWeapon extends Weapon implements Legendary
   public LegendaryWeapon()
   {
     super();
-    setCategory(ItemCategory.LEGENDARY_WEAPON);
     _attrs=new LegendaryAttrs();
+  }
+
+  @Override
+  public ItemCategory getCategory()
+  {
+    return ItemCategory.LEGENDARY_WEAPON;
   }
 
   @Override

@@ -39,8 +39,6 @@ public class Item implements Identifiable
   private EquipmentLocation _equipmentLocation;
   // Item name "Jacket of the Impossible Shot"
   private String _name;
-  // Item category: Armour, Weapon, ...
-  private ItemCategory _category;
   // TODO Enum or String constants for sub-categories
   private String _subCategory;
   // Item binding: "Bind on Acquire", ...
@@ -83,7 +81,6 @@ public class Item implements Identifiable
     _setKey=null;
     _equipmentLocation=null;
     _name="";
-    _category=ItemCategory.ITEM;
     _subCategory=null;
     _binding=null;
     _unique=false;
@@ -242,16 +239,7 @@ public class Item implements Identifiable
    */
   public ItemCategory getCategory()
   {
-    return _category;
-  }
-
-  /**
-   * Set the category of this item.
-   * @param category the category to set.
-   */
-  public void setCategory(ItemCategory category)
-  {
-    _category=category;
+    return ItemCategory.ITEM;
   }
 
   /**
@@ -645,10 +633,9 @@ public class Item implements Identifiable
       sb.append(_essenceSlots);
       sb.append(" slot(s))");
     }
-    if (_category!=null)
     {
       sb.append(" (");
-      sb.append(_category);
+      sb.append(getCategory());
       sb.append(')');
     }
     if (_subCategory!=null)

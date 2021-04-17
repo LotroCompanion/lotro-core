@@ -21,11 +21,16 @@ public class Weapon extends Item
   public Weapon()
   {
     super();
-    setCategory(ItemCategory.WEAPON);
     _minDamage=0;
     _maxDamage=0;
     _damageType=DamageType.COMMON;
     _dps=0.0f;
+  }
+
+  @Override
+  public ItemCategory getCategory()
+  {
+    return ItemCategory.WEAPON;
   }
 
   /**
