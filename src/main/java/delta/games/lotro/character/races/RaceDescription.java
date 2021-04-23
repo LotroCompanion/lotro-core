@@ -164,10 +164,16 @@ public class RaceDescription
     List<TraitDescription> traits=new ArrayList<TraitDescription>();
     for(RaceTrait classTrait : _traits)
     {
+      TraitDescription trait=classTrait.getTrait();
+      if (_earnableTraits.contains(trait))
+      {
+        // Skip earnable traits
+        continue;
+      }
       int requiredLevel=classTrait.getRequiredLevel();
       if (level>=requiredLevel)
       {
-        traits.add(classTrait.getTrait());
+        traits.add(trait);
       }
     }
     return traits;
