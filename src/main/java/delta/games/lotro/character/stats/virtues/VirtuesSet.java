@@ -28,9 +28,9 @@ public class VirtuesSet
    */
   private VirtueDescription[] _selectedVirtues;
   /**
-   * Buff stats that may give bonus to virtue ranks.
+   * Stats that may give bonus to virtue ranks.
    */
-  private BasicStatsSet _buffs;
+  private BasicStatsSet _contributingStats;
 
   /**
    * Constructor.
@@ -39,7 +39,7 @@ public class VirtuesSet
   {
     _virtues=new HashMap<Integer,Integer>();
     _selectedVirtues=new VirtueDescription[MAX_VIRTUES];
-    _buffs=new BasicStatsSet();
+    _contributingStats=new BasicStatsSet();
   }
 
   /**
@@ -52,7 +52,7 @@ public class VirtuesSet
     {
       _selectedVirtues[i]=null;
     }
-    _buffs.clear();
+    _contributingStats.clear();
   }
 
   /**
@@ -64,17 +64,19 @@ public class VirtuesSet
     _virtues.clear();
     _virtues.putAll(source._virtues);
     System.arraycopy(source._selectedVirtues,0,_selectedVirtues,0,MAX_VIRTUES);
-    _buffs=new BasicStatsSet(source._buffs);
+    _contributingStats=new BasicStatsSet(source._contributingStats);
   }
 
   /**
-   * Set the buffs to use.
-   * @param buffs Buffs to set.
+   * Set the stats that may give bonus points.
+   * @param stats Stats to set.
    */
-  public void setBuffs(BasicStatsSet buffs)
+  public void setContributingStats(BasicStatsSet stats)
   {
-    _buffs.clear();
-    _buffs.addStats(buffs);
+    _contributingStats.clear();
+    BasicStatsSet usefullStats=VirtueUtils.extractVirtueRankStats(stats);
+    _contributingStats.clear();
+    _contributingStats.addStats(usefullStats);
   }
 
   /**
@@ -113,7 +115,7 @@ public class VirtuesSet
    */
   public int getVirtueBonusRank(VirtueDescription virtue)
   {
-    return VirtueUtils.getVirtueRankBonus(_buffs,virtue);
+    return VirtueUtils.getVirtueRankBonus(_contributingStats,virtue);
   }
 
   /**

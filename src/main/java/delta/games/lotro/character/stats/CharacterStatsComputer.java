@@ -130,6 +130,9 @@ public class CharacterStatsComputer
     {
       _contribs.clear();
     }
+    // Total
+    BasicStatsSet raw=new BasicStatsSet();
+
     // Base stats (from character class, race and level)
     BasicStatsSet baseStats=_baseStatsMgr.getBaseStats(c.getCharacterClass(),c.getRace(),c.getLevel());
     if (_contribs!=null)
@@ -137,6 +140,8 @@ public class CharacterStatsComputer
       StatsContribution contrib=StatsContribution.getBodyContrib(baseStats);
       _contribs.addContrib(contrib);
     }
+    raw.addStats(baseStats);
+
     // Tomes
     TomesSet tomes=c.getTomes();
     BasicStatsSet tomesStats=_tomesMgr.getContribution(tomes);
@@ -153,8 +158,12 @@ public class CharacterStatsComputer
         }
       }
     }
+    raw.addStats(tomesStats);
+
     // Equipment
     BasicStatsSet equipmentStats=getEquipmentStats(c.getEquipment());
+    raw.addStats(equipmentStats);
+
     // Buffs
     BasicStatsSet buffs=c.getBuffs().getBuffs(c);
     if (_contribs!=null)
@@ -165,11 +174,15 @@ public class CharacterStatsComputer
         _contribs.addContrib(contrib);
       }
     }
+    raw.addStats(buffs);
+
     // Virtues
     VirtuesContributionsMgr virtuesMgr=VirtuesContributionsMgr.get();
     VirtuesSet virtues=c.getVirtues();
-    virtues.setBuffs(buffs);
+    virtues.setContributingStats(raw);
     BasicStatsSet virtuesStats=virtuesMgr.getContribution(virtues,_contribs,true,true);
+    raw.addStats(virtuesStats);
+
     // Misc
     BasicStatsSet additionalStats=c.getAdditionalStats();
     if (_contribs!=null)
@@ -180,14 +193,6 @@ public class CharacterStatsComputer
         _contribs.addContrib(contrib);
       }
     }
-
-    // Total
-    BasicStatsSet raw=new BasicStatsSet();
-    raw.addStats(baseStats);
-    raw.addStats(virtuesStats);
-    raw.addStats(tomesStats);
-    raw.addStats(equipmentStats);
-    raw.addStats(buffs);
     raw.addStats(additionalStats);
 
     // Derived contributions
