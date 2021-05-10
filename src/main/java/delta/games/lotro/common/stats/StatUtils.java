@@ -15,10 +15,6 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class StatUtils
 {
   /**
-   * Placeholder for value in description overrides.
-   */
-  public static final String VALUE_PLACE_HOLDER="{***}";
-  /**
    * Special value for "no description".
    */
   public static final String NO_DESCRIPTION="-";
@@ -169,11 +165,9 @@ public class StatUtils
       if (!NO_DESCRIPTION.equals(descriptionOverride))
       {
         line=descriptionOverride;
-        int index=descriptionOverride.indexOf(VALUE_PLACE_HOLDER);
-        if (index!=-1)
-        {
-          line=descriptionOverride.replace(VALUE_PLACE_HOLDER,valueStr);
-        }
+        line=line.replace("{***}",valueStr);
+        line=line.replace("${VALUE}",valueStr);
+        line=line.replace("${PERCENTVALUE}",valueStr);
       }
     }
     else
