@@ -69,18 +69,6 @@ public class ItemsFinder
     return proxy;
   }
 
-  /**
-   * Resolve an item using its name.
-   * @param name Name of the item to get.
-   * @param selector Selector to choose among candidates, may be <code>null</code>.
-   * @return An item or <code>null</code> if not found or ambiguous.
-   */
-  public Item resolveByName(String name, ItemSelector selector)
-  {
-    List<Item> items=_names.get(name);
-    return resolveAmbiguity(name,items,selector);
-  }
-
   private Item resolve(String name, int iconId, ItemSelector selector)
   {
     String icon=String.valueOf(iconId);
