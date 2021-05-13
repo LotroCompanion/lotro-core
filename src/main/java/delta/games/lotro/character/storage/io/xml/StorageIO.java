@@ -64,9 +64,21 @@ public class StorageIO
     Vault bags=storage.getBags();
     writer.writeVault(bagsFile,bags);
     // Wallet
+    writeWallet(character,storage.getWallet());
+  }
+
+  /**
+   * Write wallet.
+   * @param character Character to use.
+   * @param wallet Wallet to write.
+   * @return <code>true</code> if successfull, <code>false</code> otherwise.
+   */
+  public static boolean writeWallet(CharacterFile character, Wallet wallet)
+  {
     File walletFile=getWalletFile(character);
-    Wallet wallet=storage.getWallet();
-    writer.writeWallet(walletFile,wallet);
+    StorageXMLWriter writer=new StorageXMLWriter();
+    boolean ok=writer.writeWallet(walletFile,wallet);
+    return ok;
   }
 
   /**
