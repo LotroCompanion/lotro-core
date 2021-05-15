@@ -222,4 +222,8 @@ public class DataFiles
    * Resources maps.
    */
   public static final String RESOURCES_MAPS="resourcesMaps";
+  /**
+   * Paper items.
+   */
+  public static final String PAPER_ITEMS="paperItems";
 }
