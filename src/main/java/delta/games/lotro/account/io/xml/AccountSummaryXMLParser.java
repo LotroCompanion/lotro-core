@@ -4,10 +4,12 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.account.AccountSummary;
 import delta.games.lotro.account.AccountType;
+import delta.games.lotro.common.id.InternalGameId;
 
 /**
  * Parser for account summary stored in XML.
@@ -41,15 +43,23 @@ public class AccountSummaryXMLParser
    */
   public static void parseAccount(Element root, AccountSummary summary)
   {
+    NamedNodeMap attrs=root.getAttributes();
+    // ID
+    String accountIdStr=DOMParsingTools.getStringAttribute(attrs,AccountXMLConstants.ACCOUNT_ID_ATTR,null);
+    if (accountIdStr!=null)
+    {
+      InternalGameId accountId=InternalGameId.fromString(accountIdStr);
+      summary.setAccountID(accountId);
+    }
     // Name
-    String name=DOMParsingTools.getStringAttribute(root.getAttributes(),AccountXMLConstants.ACCOUNT_NAME_ATTR,"");
+    String name=DOMParsingTools.getStringAttribute(attrs,AccountXMLConstants.ACCOUNT_NAME_ATTR,"");
     summary.setName(name);
     // Signup date
-    long signupDateValue=DOMParsingTools.getLongAttribute(root.getAttributes(),AccountXMLConstants.ACCOUNT_SIGNUP_DATE_ATTR,0);
+    long signupDateValue=DOMParsingTools.getLongAttribute(attrs,AccountXMLConstants.ACCOUNT_SIGNUP_DATE_ATTR,0);
     Long signupDate=(signupDateValue!=0)?Long.valueOf(signupDateValue):null;
     summary.setSignupDate(signupDate);
     // Account Type
-    String accountTypeStr=DOMParsingTools.getStringAttribute(root.getAttributes(),AccountXMLConstants.ACCOUNT_TYPE_ATTR,null);
+    String accountTypeStr=DOMParsingTools.getStringAttribute(attrs,AccountXMLConstants.ACCOUNT_TYPE_ATTR,null);
     AccountType accountType=null;
     if (accountTypeStr!=null)
     {

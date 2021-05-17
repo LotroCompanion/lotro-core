@@ -12,6 +12,10 @@ public class AccountXMLConstants
    */
   public static final String ACCOUNT_TAG="account";
   /**
+   * Tag 'account', attribute 'id'.
+   */
+  public static final String ACCOUNT_ID_ATTR="id";
+  /**
    * Tag 'account', attribute 'name'.
    */
   public static final String ACCOUNT_NAME_ATTR="name";

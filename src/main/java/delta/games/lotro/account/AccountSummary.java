@@ -1,11 +1,14 @@
 package delta.games.lotro.account;
 
+import delta.games.lotro.common.id.InternalGameId;
+
 /**
  * Storage class for a LOTRO account summary.
  * @author DAM
  */
 public class AccountSummary
 {
+  private InternalGameId _accountID;
   private String _accountName;
   private Long _signupDate;
   private AccountType _accountType;
@@ -15,16 +18,26 @@ public class AccountSummary
    */
   public AccountSummary()
   {
+    _accountID=null;
     _accountName="";
   }
 
   /**
-   * Copy constructor.
-   * @param source Source character.
+   * Get the account identifier.
+   * @return an account identifier.
    */
-  public AccountSummary(AccountSummary source)
+  public InternalGameId getAccountID()
   {
-    _accountName=source._accountName;
+    return _accountID;
+  }
+
+  /**
+   * Set the account identifier.
+   * @param accountID Account identifier to set.
+   */
+  public void setAccountID(InternalGameId accountID)
+  {
+    _accountID=accountID;
   }
 
   /**
@@ -89,6 +102,7 @@ public class AccountSummary
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
+    sb.append("ID [").append(_accountID).append("], ");
     sb.append("Name [").append(_accountName).append("], ");
     sb.append("Signup date [").append(_signupDate).append("], ");
     sb.append("Account type [").append(_accountType).append(']');
