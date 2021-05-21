@@ -128,10 +128,24 @@ public class StorageIO
     Vault sharedVault=storage.getSharedVault();
     writer.writeVault(sharedVaultFile,sharedVault);
     // Shared wallet
-    File sharedWalletFile=getSharedWalletFile(account,storage.getServer());
-    Wallet sharedWallet=storage.getSharedWallet();
-    writer.writeWallet(sharedWalletFile,sharedWallet);
+    writeSharedWallet(account,storage.getServer(),storage.getSharedWallet());
   }
+
+  /**
+   * Write shared wallet.
+   * @param account Account to use.
+   * @param serverName Server name.
+   * @param sharedWallet Wallet to write.
+   * @return <code>true</code> if successfull, <code>false</code> otherwise.
+   */
+  public static boolean writeSharedWallet(Account account, String serverName, Wallet sharedWallet)
+  {
+    File sharedWalletFile=getSharedWalletFile(account,serverName);
+    StorageXMLWriter writer=new StorageXMLWriter();
+    boolean ok=writer.writeWallet(sharedWalletFile,sharedWallet);
+    return ok;
+  }
+
 
   private static File getWalletFile(CharacterFile character)
   {

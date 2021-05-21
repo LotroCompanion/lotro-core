@@ -89,7 +89,7 @@ public class PaperItemsManager
    * @param id Paper item identifier.
    * @return A paper item or <code>null</code> if not found.
    */
-  public PaperItem getMount(int id)
+  public PaperItem getPaperItem(int id)
   {
     PaperItem ret=null;
     ret=_cache.get(Integer.valueOf(id));
