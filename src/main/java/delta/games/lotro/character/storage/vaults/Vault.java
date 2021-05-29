@@ -12,7 +12,6 @@ import java.util.Map;
  */
 public class Vault
 {
-  private VaultType _vaultType;
   private int _used;
   private int _capacity;
   private Map<Integer,Chest> _chests;
@@ -22,28 +21,9 @@ public class Vault
    */
   public Vault()
   {
-    _vaultType=null;
     _used=0;
     _capacity=0;
     _chests=new HashMap<Integer,Chest>();
-  }
-
-  /**
-   * Get the vault type.
-   * @return a vault type or <code>null</code> if not known.
-   */
-  public VaultType getVaultType()
-  {
-    return _vaultType;
-  }
-
-  /**
-   * Set the vault type.
-   * @param vaultType Vault type to set.
-   */
-  public void setVaultType(VaultType vaultType)
-  {
-    _vaultType=vaultType;
   }
 
   /**
