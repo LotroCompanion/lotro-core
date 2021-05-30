@@ -40,6 +40,14 @@ public class VaultsXMLParser
   private Vault parseVault(Element root)
   {
     Vault vault=new Vault();
+    NamedNodeMap attrs=root.getAttributes();
+    // Used
+    int used=DOMParsingTools.getIntAttribute(attrs,VaultsXMLConstants.VAULT_USED_ATTR,0);
+    vault.setUsed(used);
+    // Max
+    int max=DOMParsingTools.getIntAttribute(attrs,VaultsXMLConstants.VAULT_MAX_ATTR,0);
+    vault.setCapacity(max);
+    // Chests
     List<Element> chestTags=DOMParsingTools.getChildTagsByName(root,VaultsXMLConstants.CHEST_TAG,false);
     for(Element chestTag : chestTags)
     {

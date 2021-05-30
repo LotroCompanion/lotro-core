@@ -11,6 +11,14 @@ public class VaultsXMLConstants
    */
   public static final String VAULT_TAG="vault";
   /**
+   * Tag 'vault', attribute 'used'.
+   */
+  public static final String VAULT_USED_ATTR="used";
+  /**
+   * Tag 'vault', attribute 'max'.
+   */
+  public static final String VAULT_MAX_ATTR="max";
+  /**
    * Tag 'chest'.
    */
   public static final String CHEST_TAG="chest";

@@ -53,6 +53,9 @@ public class BagsXMLWriter
   private void writeBags(TransformerHandler hd, BagsManager bagsManager) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
+    // Max
+    int max=bagsManager.getCapacity();
+    attrs.addAttribute("","",BagsXMLConstants.BAGS_MAX_ATTR,XmlWriter.CDATA,String.valueOf(max));
     hd.startElement("","",BagsXMLConstants.BAGS_TAG,attrs);
 
     ItemXMLWriter writer=new ItemXMLWriter();

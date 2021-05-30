@@ -47,6 +47,12 @@ public class VaultsXMLWriter
   private void writeVault(TransformerHandler hd, Vault vault) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
+    // Used
+    int used=vault.getUsed();
+    attrs.addAttribute("","",VaultsXMLConstants.VAULT_USED_ATTR,XmlWriter.CDATA,String.valueOf(used));
+    // Max
+    int max=vault.getCapacity();
+    attrs.addAttribute("","",VaultsXMLConstants.VAULT_MAX_ATTR,XmlWriter.CDATA,String.valueOf(max));
     hd.startElement("","",VaultsXMLConstants.VAULT_TAG,attrs);
 
     List<Integer> chestIds=vault.getChestIds();

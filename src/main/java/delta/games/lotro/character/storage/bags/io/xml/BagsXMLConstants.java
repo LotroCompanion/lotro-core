@@ -10,6 +10,10 @@ public class BagsXMLConstants
    * Tag 'bags'.
    */
   public static final String BAGS_TAG="bags";
+  /**
+   * Tag 'bags', attribute 'max'.
+   */
+  public static final String BAGS_MAX_ATTR="max";
 
   /**
    * Tag 'slot'.

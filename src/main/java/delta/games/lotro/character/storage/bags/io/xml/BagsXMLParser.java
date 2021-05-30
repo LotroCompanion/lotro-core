@@ -42,6 +42,10 @@ public class BagsXMLParser
   private BagsManager parseBags(Element root)
   {
     BagsManager bags=new BagsManager();
+    // Max
+    int max=DOMParsingTools.getIntAttribute(root.getAttributes(),BagsXMLConstants.BAGS_MAX_ATTR,0);
+    bags.setCapacity(max);
+    // Slots
     List<Element> slotTags=DOMParsingTools.getChildTagsByName(root,BagsXMLConstants.SLOT_TAG,false);
     for(Element slotTag : slotTags)
     {
