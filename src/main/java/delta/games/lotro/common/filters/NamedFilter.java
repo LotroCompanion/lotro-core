@@ -1,15 +1,16 @@
-package delta.games.lotro.character.storage.filters;
+package delta.games.lotro.common.filters;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.text.MatchType;
 import delta.common.utils.text.StringFilter;
-import delta.games.lotro.character.storage.StoredItem;
+import delta.games.lotro.common.Named;
 
 /**
  * Filter on the name of stored items.
  * @author DAM
+ * @param <T> Type of named objects.
  */
-public class StoredItemNameFilter implements Filter<StoredItem>
+public class NamedFilter<T extends Named> implements Filter<T>
 {
   private StringFilter _filter;
   private String _pattern;
@@ -17,7 +18,7 @@ public class StoredItemNameFilter implements Filter<StoredItem>
   /**
    * Constructor.
    */
-  public StoredItemNameFilter()
+  public NamedFilter()
   {
     this("");
   }
@@ -26,7 +27,7 @@ public class StoredItemNameFilter implements Filter<StoredItem>
    * Constructor.
    * @param pattern String filter for name.
    */
-  public StoredItemNameFilter(String pattern)
+  public NamedFilter(String pattern)
   {
     _filter=new StringFilter("",MatchType.CONTAINS,true);
     _pattern=pattern;
@@ -55,9 +56,10 @@ public class StoredItemNameFilter implements Filter<StoredItem>
     _filter=new StringFilter(pattern,MatchType.CONTAINS,true);
   }
 
-  public boolean accept(StoredItem storedItem)
+  @Override
+  public boolean accept(T namedObject)
   {
-    String name=storedItem.getName();
+    String name=namedObject.getName();
     if (name!=null)
     {
       return _filter.accept(name);

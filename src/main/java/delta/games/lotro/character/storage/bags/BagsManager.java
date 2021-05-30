@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.character.storage.BaseStorage;
 import delta.games.lotro.common.id.InternalGameId;
-import delta.games.lotro.lore.items.CountedItemInstance;
+import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 
@@ -15,16 +16,17 @@ import delta.games.lotro.lore.items.ItemInstance;
  * Bags contents manager.
  * @author DAM
  */
-public class BagsManager
+public class BagsManager extends BaseStorage
 {
-  private Map<Integer,CountedItemInstance> _bag;
+  private int _capacity;
+  private Map<Integer,CountedItem<ItemInstance<? extends Item>>> _bag;
 
   /**
    * Constructor.
    */
   public BagsManager()
   {
-    _bag=new HashMap<Integer,CountedItemInstance>();
+    _bag=new HashMap<Integer,CountedItem<ItemInstance<? extends Item>>>();
   }
 
   /**
@@ -32,7 +34,7 @@ public class BagsManager
    * @param itemInstance Item to add in bag.
    * @param index Position in bag.
    */
-  public void addBagItem(CountedItemInstance itemInstance, int index)
+  public void addBagItem(CountedItem<ItemInstance<? extends Item>> itemInstance, int index)
   {
     _bag.put(Integer.valueOf(index),itemInstance);
   }
@@ -53,7 +55,7 @@ public class BagsManager
    * @param index Index of the targeted slot.
    * @return A counted item instance or <code>null</code>.
    */
-  public CountedItemInstance getSlotContent(int index)
+  public CountedItem<ItemInstance<? extends Item>> getSlotContent(int index)
   {
     return _bag.get(Integer.valueOf(index));
   }
@@ -62,13 +64,28 @@ public class BagsManager
    * Get a list of all managed item instances.
    * @return a list of item instances.
    */
-  public List<ItemInstance<? extends Item>> getAll()
+  public List<ItemInstance<? extends Item>> getAllItemInstances()
   {
     List<ItemInstance<? extends Item>> ret=new ArrayList<ItemInstance<? extends Item>>();
     for(Integer index : getIndexes())
     {
-      CountedItemInstance countedItemInstance=getSlotContent(index.intValue());
-      ret.add(countedItemInstance.getItemInstance());
+      CountedItem<ItemInstance<? extends Item>> countedItemInstance=getSlotContent(index.intValue());
+      ret.add(countedItemInstance.getManagedItem());
+    }
+    return ret;
+  }
+
+  /**
+   * Get a list of all managed item instances.
+   * @return a list of item instances.
+   */
+  public List<CountedItem<ItemInstance<? extends Item>>> getAll()
+  {
+    List<CountedItem<ItemInstance<? extends Item>>> ret=new ArrayList<CountedItem<ItemInstance<? extends Item>>>();
+    for(Integer index : getIndexes())
+    {
+      CountedItem<ItemInstance<? extends Item>> countedItemInstance=getSlotContent(index.intValue());
+      ret.add(countedItemInstance);
     }
     return ret;
   }
@@ -80,9 +97,9 @@ public class BagsManager
    */
   public ItemInstance<? extends Item> findItemByIid(long itemIid)
   {
-    for(CountedItemInstance countedItemInstance : _bag.values())
+    for(CountedItem<ItemInstance<? extends Item>> countedItemInstance : _bag.values())
     {
-      ItemInstance<? extends Item> itemInstance=countedItemInstance.getItemInstance();
+      ItemInstance<? extends Item> itemInstance=countedItemInstance.getManagedItem();
       InternalGameId instanceId=itemInstance.getInstanceId();
       if (instanceId!=null)
       {
@@ -95,6 +112,30 @@ public class BagsManager
     return null;
   }
 
+  @Override
+  public int getUsed()
+  {
+    return _bag.size();
+  }
+
+  /**
+   * Get the total number of slots in this bag.
+   * @return a slot count.
+   */
+  public int getCapacity()
+  {
+    return _capacity;
+  }
+
+  /**
+   * Set the total number of slots in this bag.
+   * @param capacity Number of slots.
+   */
+  public void setCapacity(int capacity)
+  {
+    _capacity=capacity;
+  }
+
   /**
    * Dump the contents of this aggregator.
    */
@@ -105,7 +146,7 @@ public class BagsManager
     Collections.sort(positions);
     for(Integer position : positions)
     {
-      CountedItemInstance itemInstance=_bag.get(position);
+      CountedItem<ItemInstance<? extends Item>> itemInstance=_bag.get(position);
       System.out.println("\t"+position+" => "+itemInstance);
     }
   }

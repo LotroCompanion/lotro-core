@@ -4,9 +4,10 @@ import delta.games.lotro.account.Account;
 import delta.games.lotro.account.events.AccountEvent;
 import delta.games.lotro.account.events.AccountEventProperties;
 import delta.games.lotro.account.events.AccountEventType;
-import delta.games.lotro.character.storage.Wallet;
-import delta.games.lotro.character.storage.io.xml.StorageIO;
+import delta.games.lotro.character.storage.wallet.Wallet;
+import delta.games.lotro.character.storage.wallet.io.xml.WalletsIO;
 import delta.games.lotro.lore.items.CountedItem;
+import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.WellKnownItems;
 import delta.games.lotro.utils.events.EventsManager;
 import delta.games.lotro.utils.events.GenericEventsListener;
@@ -47,23 +48,23 @@ public class CurrenciesUpdater
 
   private void updateCurrenciesForAccount(Account account, String serverName)
   {
-    Wallet sharedWallet=StorageIO.loadAccountSharedWallet(account,serverName);
+    Wallet sharedWallet=WalletsIO.loadAccountSharedWallet(account,serverName);
     // Marks
-    CountedItem marks=sharedWallet.getById(WellKnownItems.MARK);
+    CountedItem<Item> marks=sharedWallet.getById(WellKnownItems.MARK);
     if (marks!=null)
     {
       int quantity=marks.getQuantity();
       CurrenciesFacade.updateAccountServerCurrency(serverName,account.getName(),CurrencyKeys.MARKS,quantity,true);
     }
     // Medallions
-    CountedItem medallions=sharedWallet.getById(WellKnownItems.MEDALLION);
+    CountedItem<Item> medallions=sharedWallet.getById(WellKnownItems.MEDALLION);
     if (medallions!=null)
     {
       int quantity=medallions.getQuantity();
       CurrenciesFacade.updateAccountServerCurrency(serverName,account.getName(),CurrencyKeys.MEDALLIONS,quantity,true);
     }
     // Seals
-    CountedItem seals=sharedWallet.getById(WellKnownItems.SEAL);
+    CountedItem<Item> seals=sharedWallet.getById(WellKnownItems.SEAL);
     if (seals!=null)
     {
       int quantity=seals.getQuantity();

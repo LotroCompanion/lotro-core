@@ -11,7 +11,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.storage.vaults.Chest;
 import delta.games.lotro.character.storage.vaults.Vault;
-import delta.games.lotro.lore.items.CountedItemInstance;
+import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
@@ -70,8 +70,8 @@ public class VaultsXMLWriter
     hd.startElement("","",VaultsXMLConstants.CHEST_TAG,attrs);
     // Write contents
     ItemXMLWriter writer=new ItemXMLWriter();
-    List<CountedItemInstance> countedItemInstances=chest.getAllItemInstances();
-    for(CountedItemInstance countedItemInstance : countedItemInstances)
+    List<CountedItem<ItemInstance<? extends Item>>> countedItemInstances=chest.getAllItemInstances();
+    for(CountedItem<ItemInstance<? extends Item>> countedItemInstance : countedItemInstances)
     {
       AttributesImpl slotAttrs=new AttributesImpl();
       // Count
@@ -81,7 +81,7 @@ public class VaultsXMLWriter
         slotAttrs.addAttribute("","",VaultsXMLConstants.SLOT_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
       }
       hd.startElement("","",VaultsXMLConstants.SLOT_TAG,slotAttrs);
-      ItemInstance<? extends Item> itemInstance=countedItemInstance.getItemInstance();
+      ItemInstance<? extends Item> itemInstance=countedItemInstance.getManagedItem();
       writer.writeItemInstance(hd,itemInstance);
       hd.endElement("","",VaultsXMLConstants.SLOT_TAG);
     }

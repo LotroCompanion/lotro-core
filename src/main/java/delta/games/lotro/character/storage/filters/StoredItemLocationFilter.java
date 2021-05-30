@@ -39,6 +39,7 @@ public class StoredItemLocationFilter implements Filter<StoredItem>
     _location=location;
   }
 
+  @Override
   public boolean accept(StoredItem item)
   {
     if (_location==null)

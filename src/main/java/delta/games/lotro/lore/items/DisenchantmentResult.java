@@ -10,7 +10,7 @@ import delta.games.lotro.common.treasure.TrophyList;
 public class DisenchantmentResult implements Identifiable
 {
   private int _identifier;
-  private CountedItem _countedItem;
+  private CountedItem<Item> _countedItem;
   private TrophyList _trophyList;
 
   /**
@@ -32,7 +32,7 @@ public class DisenchantmentResult implements Identifiable
    * Get the counted item.
    * @return the counted item.
    */
-  public CountedItem getCountedItem()
+  public CountedItem<Item> getCountedItem()
   {
     return _countedItem;
   }
@@ -41,7 +41,7 @@ public class DisenchantmentResult implements Identifiable
    * Set the counted item.
    * @param countedItem Counted item to set.
    */
-  public void setCountedItem(CountedItem countedItem)
+  public void setCountedItem(CountedItem<Item> countedItem)
   {
     _countedItem=countedItem;
   }

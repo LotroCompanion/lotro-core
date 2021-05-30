@@ -44,6 +44,10 @@ public class Chest extends ItemInstancesContainer
    */
   public void setName(String name)
   {
+    if (name==null)
+    {
+      name="";
+    }
     _name=name;
   }
 

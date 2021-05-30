@@ -54,8 +54,31 @@ public class VaultsIo
   private static File getVaultFile(CharacterFile character)
   {
     File rootDir=character.getRootDir();
-    File bagsFile=new File(rootDir,"ownVault.xml");
-    return bagsFile;
+    File ownVaultFile=new File(rootDir,"ownVault.xml");
+    return ownVaultFile;
+  }
+
+  /**
+   * Load the shared vault for an account on a given server.
+   * @param account Targeted account.
+   * @param serverName Server name.
+   * @return A vault.
+   */
+  public static Vault load(Account account, String serverName)
+  {
+    File fromFile=getSharedVaultFile(account,serverName);
+    Vault vault=null;
+    if (fromFile.exists())
+    {
+      VaultsXMLParser parser=new VaultsXMLParser();
+      vault=parser.parseXML(fromFile);
+    }
+    if (vault==null)
+    {
+      vault=new Vault();
+      save(account,serverName,vault);
+    }
+    return vault;
   }
 
   /**
@@ -77,7 +100,6 @@ public class VaultsIo
   {
     File rootDir=account.getRootDir();
     File serverDir=new File(rootDir,server);
-    return new File(serverDir,"sharedVault2.xml");
+    return new File(serverDir,"sharedVault.xml");
   }
-
 }

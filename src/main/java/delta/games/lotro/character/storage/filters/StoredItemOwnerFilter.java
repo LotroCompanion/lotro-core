@@ -39,6 +39,7 @@ public class StoredItemOwnerFilter implements Filter<StoredItem>
     _owner=owner;
   }
 
+  @Override
   public boolean accept(StoredItem item)
   {
     if (_owner==null)

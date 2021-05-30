@@ -19,7 +19,7 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
  * @param <T> Type of the reference item.
  * @author DAM
  */
-public class ItemInstance<T extends Item>
+public class ItemInstance<T extends Item> implements ItemProvider
 {
   // Reference item
   private T _reference;
@@ -86,6 +86,15 @@ public class ItemInstance<T extends Item>
    * @return the reference item.
    */
   public T getReference()
+  {
+    return _reference;
+  }
+
+  /**
+   * Get the reference item.
+   * @return the reference item.
+   */
+  public T getItem()
   {
     return _reference;
   }

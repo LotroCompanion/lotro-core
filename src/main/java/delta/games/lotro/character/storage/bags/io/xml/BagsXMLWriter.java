@@ -9,7 +9,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.storage.bags.BagsManager;
-import delta.games.lotro.lore.items.CountedItemInstance;
+import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
@@ -58,7 +58,7 @@ public class BagsXMLWriter
     ItemXMLWriter writer=new ItemXMLWriter();
     for(Integer index : bagsManager.getIndexes())
     {
-      CountedItemInstance countedItemInstance=bagsManager.getSlotContent(index.intValue());
+      CountedItem<ItemInstance<? extends Item>> countedItemInstance=bagsManager.getSlotContent(index.intValue());
       AttributesImpl slotAttrs=new AttributesImpl();
       slotAttrs.addAttribute("","",BagsXMLConstants.SLOT_INDEX_ATTR,CDATA,index.toString());
       int count=countedItemInstance.getQuantity();
@@ -67,7 +67,7 @@ public class BagsXMLWriter
         slotAttrs.addAttribute("","",BagsXMLConstants.SLOT_COUNT_ATTR,CDATA,String.valueOf(count));
       }
       hd.startElement("","",BagsXMLConstants.SLOT_TAG,slotAttrs);
-      ItemInstance<? extends Item> itemInstance=countedItemInstance.getItemInstance();
+      ItemInstance<? extends Item> itemInstance=countedItemInstance.getManagedItem();
       writer.writeItemInstance(hd,itemInstance);
       hd.endElement("","",BagsXMLConstants.SLOT_TAG);
     }

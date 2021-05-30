@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import delta.games.lotro.character.storage.vaults.Vault;
+import delta.games.lotro.character.storage.wallet.Wallet;
+
 /**
  * Storage for an account on a server.
  * @author DAM
@@ -36,17 +39,11 @@ public class AccountServerStorage
   /**
    * Get the storage for a character.
    * @param characterName Name of the targeted character.
-   * @param createIfNeeded Indicates if it shall be created if not found.
    * @return A character storage or <code>null</code>.
    */
-  public CharacterStorage getStorage(String characterName, boolean createIfNeeded)
+  public CharacterStorage getStorage(String characterName)
   {
     CharacterStorage storage=_storages.get(characterName);
-    if ((storage==null) && (createIfNeeded))
-    {
-      storage=new CharacterStorage();
-      _storages.put(characterName,storage);
-    }
     return storage;
   }
 

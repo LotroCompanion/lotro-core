@@ -96,7 +96,7 @@ public class SimpleStorageLocation extends StorageLocation
     String ret="";
     if (_type==LocationType.VAULT)
     {
-      ret=_chestName.isEmpty()?"Chest":"Chest '"+_chestName+"'";
+      ret="Vault: Chest "+_chestName;
     }
     else if (_type==LocationType.BAG)
     {
@@ -104,7 +104,7 @@ public class SimpleStorageLocation extends StorageLocation
     }
     else if (_type==LocationType.SHARED_VAULT)
     {
-      ret="Shared Vault";
+      ret="Shared vault: Chest "+_chestName;
     }
     else if (_type==LocationType.WALLET)
     {

@@ -4,7 +4,7 @@ package delta.games.lotro.lore.items;
  * Proxy for an item.
  * @author DAM
  */
-public class ItemProxy
+public class ItemProxy implements ItemProvider
 {
   private int _id;
   private String _name;

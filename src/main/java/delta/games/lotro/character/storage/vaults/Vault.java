@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.character.storage.BaseStorage;
+
 /**
  * Storage vault (own vault or shared vault).
  * @author DAM
  */
-public class Vault
+public class Vault extends BaseStorage
 {
   private int _used;
   private int _capacity;

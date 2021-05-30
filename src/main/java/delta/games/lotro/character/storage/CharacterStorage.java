@@ -1,5 +1,8 @@
 package delta.games.lotro.character.storage;
 
+import delta.games.lotro.character.storage.bags.BagsManager;
+import delta.games.lotro.character.storage.vaults.Vault;
+import delta.games.lotro.character.storage.wallet.Wallet;
 
 /**
  * Storage data for a single character.
@@ -14,7 +17,7 @@ public class CharacterStorage
   /**
    * Bags.
    */
-  private Vault _bags;
+  private BagsManager _bags;
   /**
    * Own wallet.
    */
@@ -22,12 +25,15 @@ public class CharacterStorage
 
   /**
    * Constructor.
+   * @param ownVault Own vault.
+   * @param bags Bags.
+   * @param wallet Wallet.
    */
-  public CharacterStorage()
+  public CharacterStorage(Vault ownVault, BagsManager bags, Wallet wallet)
   {
-    _ownVault=new Vault();
-    _bags=new Vault();
-    _wallet=new Wallet();
+    _ownVault=ownVault;
+    _bags=bags;
+    _wallet=wallet;
   }
 
   /**
@@ -43,7 +49,7 @@ public class CharacterStorage
    * Get the bags of the associated character.
    * @return a vault.
    */
-  public Vault getBags()
+  public BagsManager getBags()
   {
     return _bags;
   }
@@ -71,6 +77,6 @@ public class CharacterStorage
     _wallet.dump(level+1);
     for(int i=0;i<level;i++) System.out.print('\t');
     System.out.println("Bags:");
-    _bags.dump(level+1);
+    _bags.dumpContents();
   }
 }

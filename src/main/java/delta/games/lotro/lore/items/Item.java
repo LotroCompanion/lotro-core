@@ -13,6 +13,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.requirements.UsageRequirement;
@@ -23,7 +24,7 @@ import delta.games.lotro.lore.items.sets.ItemsSet;
  * Item description.
  * @author DAM
  */
-public class Item implements Identifiable
+public class Item implements Identifiable,Named,ItemProvider
 {
   private static final Logger LOGGER=Logger.getLogger(Item.class);
 
@@ -99,6 +100,12 @@ public class Item implements Identifiable
     _stackMax=null;
     _quality=null;
     _properties=new HashMap<String,String>();
+  }
+
+  @Override
+  public Item getItem()
+  {
+    return this;
   }
 
   /**

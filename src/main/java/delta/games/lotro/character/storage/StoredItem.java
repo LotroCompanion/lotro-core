@@ -3,25 +3,25 @@ package delta.games.lotro.character.storage;
 import delta.games.lotro.character.storage.location.StorageLocation;
 import delta.games.lotro.common.owner.Owner;
 import delta.games.lotro.lore.items.CountedItem;
-import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.ItemProvider;
 
 /**
  * Stored item.
  * @author DAM
  */
-public class StoredItem extends CountedItem
+public class StoredItem
 {
   private StorageLocation _location;
   private Owner _owner;
+  private CountedItem<ItemProvider> _item;
 
   /**
    * Constructor.
-   * @param itemProxy Item proxy.
-   * @param quantity Quantity.
+   * @param item Wrapped item.
    */
-  public StoredItem(ItemProxy itemProxy, int quantity)
+  public StoredItem(CountedItem<ItemProvider> item)
   {
-    super(itemProxy,quantity);
+    _item=item;
   }
 
   /**
@@ -58,5 +58,14 @@ public class StoredItem extends CountedItem
   public void setOwner(Owner owner)
   {
     _owner=owner;
+  }
+
+  /**
+   * Get the managed item.
+   * @return the managed item.
+   */
+  public CountedItem<ItemProvider> getItem()
+  {
+    return _item;
   }
 }

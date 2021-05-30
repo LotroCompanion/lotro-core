@@ -1,35 +1,35 @@
 package delta.games.lotro.lore.items;
 
-import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.common.Named;
 
 /**
- * Item and count.
+ * Count and item provider (item or item instance).
  * @author DAM
+ * @param <T> Type of managed items.
  */
-public class CountedItem
+public class CountedItem<T extends ItemProvider> implements Named,ItemProvider
 {
-  private ItemProxy _proxy;
+  private T _item;
   private int _quantity;
 
   /**
    * Constructor.
-   * @param itemProxy Item proxy.
+   * @param item Item.
    * @param quantity Quantity.
    */
-  public CountedItem(ItemProxy itemProxy, int quantity)
+  public CountedItem(T item, int quantity)
   {
-    _proxy=itemProxy;
+    _item=item;
     _quantity=quantity;
   }
 
   /**
-   * Get the managed item proxy.
-   * @return the managed item proxy.
+   * Get the managed item.
+   * @return the managed item.
    */
-  public ItemProxy getProxy()
+  public T getManagedItem()
   {
-    return _proxy;
+    return _item;
   }
 
   /**
@@ -38,7 +38,15 @@ public class CountedItem
    */
   public int getId()
   {
-    return _proxy.getId();
+    if (_item!=null)
+    {
+      Item item=_item.getItem();
+      if (item!=null)
+      {
+        return item.getIdentifier();
+      }
+    }
+    return 0;
   }
 
   /**
@@ -47,7 +55,15 @@ public class CountedItem
    */
   public String getName()
   {
-    return _proxy.getName();
+    if (_item!=null)
+    {
+      Item item=_item.getItem();
+      if (item!=null)
+      {
+        return item.getName();
+      }
+    }
+    return null;
   }
 
   /**
@@ -74,7 +90,15 @@ public class CountedItem
    */
   public String getIcon()
   {
-    return _proxy.getIcon();
+    if (_item!=null)
+    {
+      Item item=_item.getItem();
+      if (item!=null)
+      {
+        return item.getIcon();
+      }
+    }
+    return null;
   }
 
   /**
@@ -83,7 +107,11 @@ public class CountedItem
    */
   public Item getItem()
   {
-    return _proxy.getItem();
+    if (_item!=null)
+    {
+      return _item.getItem();
+    }
+    return null;
   }
 
   @Override
@@ -91,7 +119,7 @@ public class CountedItem
   {
     StringBuilder sb=new StringBuilder();
     sb.append(_quantity).append(' ');
-    sb.append(_proxy);
+    sb.append(_item);
     return sb.toString();
   }
 }

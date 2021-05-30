@@ -9,7 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.storage.vaults.Chest;
 import delta.games.lotro.character.storage.vaults.Vault;
-import delta.games.lotro.lore.items.CountedItemInstance;
+import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
@@ -75,7 +75,7 @@ public class VaultsXMLParser
       ItemInstance<? extends Item> item=parser.parseItemInstance(itemTag);
       if (item!=null)
       {
-        CountedItemInstance countedItemInstance=new CountedItemInstance(item,count);
+        CountedItem<ItemInstance<? extends Item>> countedItemInstance=new CountedItem<ItemInstance<? extends Item>>(item,count);
         chest.addItem(countedItemInstance);
       }
     }

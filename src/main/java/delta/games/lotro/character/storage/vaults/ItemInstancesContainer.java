@@ -3,7 +3,9 @@ package delta.games.lotro.character.storage.vaults;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.lore.items.CountedItemInstance;
+import delta.games.lotro.lore.items.CountedItem;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
 
 /**
  * Item instances container.
@@ -11,21 +13,21 @@ import delta.games.lotro.lore.items.CountedItemInstance;
  */
 public class ItemInstancesContainer
 {
-  private List<CountedItemInstance> _items;
+  private List<CountedItem<ItemInstance<? extends Item>>> _items;
 
   /**
    * Constructor.
    */
   public ItemInstancesContainer()
   {
-    _items=new ArrayList<CountedItemInstance>();
+    _items=new ArrayList<CountedItem<ItemInstance<? extends Item>>>();
   }
 
   /**
    * Add an item.
    * @param item Item to add.
    */
-  public void addItem(CountedItemInstance item)
+  public void addItem(CountedItem<ItemInstance<? extends Item>> item)
   {
     _items.add(item);
   }
@@ -34,9 +36,9 @@ public class ItemInstancesContainer
    * Get all items, in insertion order.
    * @return A list of items.
    */
-  public List<CountedItemInstance> getAllItemInstances()
+  public List<CountedItem<ItemInstance<? extends Item>>> getAllItemInstances()
   {
-    List<CountedItemInstance> ret=new ArrayList<CountedItemInstance>(_items);
+    List<CountedItem<ItemInstance<? extends Item>>> ret=new ArrayList<CountedItem<ItemInstance<? extends Item>>>(_items);
     return ret;
   }
 
@@ -55,8 +57,8 @@ public class ItemInstancesContainer
    */
   public void dump(int level)
   {
-    List<CountedItemInstance> itemInstances=getAllItemInstances();
-    for(CountedItemInstance itemInstance : itemInstances)
+    List<CountedItem<ItemInstance<? extends Item>>> itemInstances=getAllItemInstances();
+    for(CountedItem<ItemInstance<? extends Item>> itemInstance : itemInstances)
     {
       for(int i=0;i<level;i++) System.out.print('\t');
       System.out.println(itemInstance);

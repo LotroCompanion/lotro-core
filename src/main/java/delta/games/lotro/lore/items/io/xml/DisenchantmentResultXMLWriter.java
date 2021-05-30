@@ -13,6 +13,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.treasure.TrophyList;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.DisenchantmentResult;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Writes disenchantment results to XML files.
@@ -74,7 +75,7 @@ public class DisenchantmentResultXMLWriter
     attrs.addAttribute("","",DisenchantmentResultXMLConstants.SOURCE_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
 
     // Counted item
-    CountedItem countedItem=disenchantment.getCountedItem();
+    CountedItem<Item> countedItem=disenchantment.getCountedItem();
     if (countedItem!=null)
     {
       // ID

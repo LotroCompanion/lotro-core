@@ -13,7 +13,6 @@ import delta.games.lotro.common.treasure.TrophyList;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.DisenchantmentResult;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.ItemsManager;
 
 /**
@@ -63,11 +62,9 @@ public class DisenchantmentResultXMLParser
     int itemId=DOMParsingTools.getIntAttribute(attrs,DisenchantmentResultXMLConstants.RESULT_ITEM_ID_ATTR,0);
     if (itemId!=0)
     {
-      ItemProxy proxy=new ItemProxy();
       Item item=ItemsManager.getInstance().getItem(itemId);
-      proxy.setItem(item);
       int quantity=DOMParsingTools.getIntAttribute(attrs,DisenchantmentResultXMLConstants.RESULT_QUANTITY_ATTR,0);
-      CountedItem countedItem=new CountedItem(proxy,quantity);
+      CountedItem<Item> countedItem=new CountedItem<Item>(item,quantity);
       ret.setCountedItem(countedItem);
     }
     // Trophy list

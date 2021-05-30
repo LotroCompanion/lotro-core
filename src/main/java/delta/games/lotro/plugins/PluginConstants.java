@@ -34,49 +34,6 @@ public class PluginConstants
   }
 
   /**
-   * Get the list of accounts as found in the plugins data.
-   * @return A list of account IDs.
-   */
-  public static List<String> getAccounts()
-  {
-    List<String> ret=new ArrayList<String>();
-    File pluginDataDir=getLOTRODataDir();
-    String[] files=pluginDataDir.list();
-    if (files!=null)
-    {
-      for(String file : files)
-      {
-        ret.add(file);
-      }
-    }
-    return ret;
-  }
-
-  /**
-   * Get the list of servers for an account.
-   * @param account Account ID.
-   * @return A list of servers.
-   */
-  public static List<String> getServersForAccount(String account)
-  {
-    List<String> ret=new ArrayList<String>();
-    File pluginDataDir=getLOTRODataDir();
-    File accountDir=new File(pluginDataDir,account);
-    String[] files=accountDir.list();
-    if (files!=null)
-    {
-      for(String file : files)
-      {
-        if (!"AllServers".equals(file))
-        {
-          ret.add(file);
-        }
-      }
-    }
-    return ret;
-  }
-
-  /**
    * Get the directory for the plugin data for an account/server couple.
    * @param account Targeted account ID.
    * @param server Server name.
