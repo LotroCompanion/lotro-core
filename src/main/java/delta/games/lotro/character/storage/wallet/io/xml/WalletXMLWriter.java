@@ -51,7 +51,7 @@ public class WalletXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",WalletXMLConstants.WALLET_TAG,attrs);
-    List<CountedItem<Item>> items=wallet.getAllItemsSortedByID();
+    List<CountedItem<Item>> items=wallet.getAllItemsSortedByName();
     for(CountedItem<Item> item : items)
     {
       writeItem(hd,item);

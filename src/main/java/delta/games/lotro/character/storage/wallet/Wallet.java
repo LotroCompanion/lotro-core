@@ -7,6 +7,9 @@ import java.util.List;
 
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.comparators.ItemNameComparator;
+import delta.games.lotro.utils.DataProvider;
+import delta.games.lotro.utils.comparators.DelegatingComparator;
 
 /**
  * Wallet.
@@ -66,6 +69,27 @@ public class Wallet
     {
       ret.add(_items.get(id));
     }
+    return ret;
+  }
+
+  /**
+   * Get all items in this wallet, sorted by name.
+   * @return A list of items.
+   */
+  public List<CountedItem<Item>> getAllItemsSortedByName()
+  {
+    List<CountedItem<Item>> ret=new ArrayList<CountedItem<Item>>(_items.values());
+    ItemNameComparator nameComparator=new ItemNameComparator();
+    DataProvider<CountedItem<Item>,Item> provider=new DataProvider<CountedItem<Item>,Item>()
+    {
+      @Override
+      public Item getData(CountedItem<Item> p)
+      {
+        return p.getItem();
+      }
+    };
+    DelegatingComparator<CountedItem<Item>,Item> c=new DelegatingComparator<CountedItem<Item>,Item>(provider,nameComparator);
+    Collections.sort(ret,c);
     return ret;
   }
 
