@@ -12,7 +12,6 @@ import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
-import delta.games.lotro.lore.items.finder.ItemsFinder;
 import delta.games.lotro.lore.items.io.xml.ItemSaxParser;
 import delta.games.lotro.lore.items.sort.ItemsSorter;
 
@@ -28,7 +27,6 @@ public class ItemsManager
 
   private ItemsSorter _sorter;
   private HashMap<Integer,Item> _cache;
-  private ItemsFinder _finder;
 
   /**
    * Get the sole instance of this class.
@@ -122,18 +120,5 @@ public class ItemsManager
     Item ret=null;
     ret=_cache.get(Integer.valueOf(id));
     return ret;
-  }
-
-  /**
-   * Get the items finder.
-   * @return the items finder.
-   */
-  public ItemsFinder getFinder()
-  {
-    if (_finder==null)
-    {
-      _finder=new ItemsFinder();
-    }
-    return _finder;
   }
 }
