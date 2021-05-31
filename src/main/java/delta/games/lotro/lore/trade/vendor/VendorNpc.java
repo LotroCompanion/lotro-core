@@ -13,7 +13,6 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.utils.DataProvider;
 import delta.games.lotro.utils.Proxy;
@@ -202,9 +201,7 @@ public class VendorNpc implements Identifiable
             int sellRawValue=(int)(rawValue*factor);
             Money sellValue=new Money();
             sellValue.setRawValue(sellRawValue);
-            ItemProxy proxy=new ItemProxy();
-            proxy.setItem(item);
-            ValuedItem valuedItem=new ValuedItem(proxy,sellValue);
+            ValuedItem valuedItem=new ValuedItem(item,sellValue);
             ret.add(valuedItem);
             knownItemIds.add(key);
           }

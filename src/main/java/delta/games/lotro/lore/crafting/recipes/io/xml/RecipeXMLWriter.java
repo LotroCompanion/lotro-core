@@ -14,7 +14,7 @@ import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
-import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Writes LOTRO recipes to XML files.
@@ -126,7 +126,7 @@ public class RecipeXMLWriter
     }
 
     hd.startElement("","",RecipeXMLConstants.RECIPE_TAG,recipeAttrs);
-    ItemProxy ref=recipe.getRecipeScroll();
+    Item ref=recipe.getRecipeScroll();
     if (ref!=null)
     {
       writeItemRef(hd,ref,RecipeXMLConstants.SCROLL_ITEM_TAG);
@@ -165,7 +165,7 @@ public class RecipeXMLWriter
             }
           }
           hd.startElement("","",RecipeXMLConstants.INGREDIENT_TAG,ingredientsAttrs);
-          ItemProxy item=ingredient.getItem();
+          Item item=ingredient.getItem();
           if (item!=null)
           {
             writeItemRef(hd,item,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
@@ -203,7 +203,7 @@ public class RecipeXMLWriter
       attrs.addAttribute("","",RecipeXMLConstants.RESULT_CRITICAL_ATTR,XmlWriter.CDATA,"true");
     }
     hd.startElement("","",RecipeXMLConstants.RESULT_TAG,attrs);
-    ItemProxy itemResult=result.getItem();
+    Item itemResult=result.getItem();
     if (itemResult!=null)
     {
       writeItemRef(hd,itemResult,RecipeXMLConstants.RESULT_ITEM_TAG);
@@ -211,10 +211,10 @@ public class RecipeXMLWriter
     hd.endElement("","",RecipeXMLConstants.RESULT_TAG);
   }
 
-  private void writeItemRef(TransformerHandler hd, ItemProxy ref, String tagName) throws Exception
+  private void writeItemRef(TransformerHandler hd, Item ref, String tagName) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
-    int id=ref.getId();
+    int id=ref.getIdentifier();
     if (id!=0)
     {
       attrs.addAttribute("","",RecipeXMLConstants.RECIPE_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));

@@ -19,7 +19,6 @@ import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.ContainersManager;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.ItemsContainer;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSetsManager;
@@ -92,7 +91,7 @@ public class ItemReferencesBuilder
       List<Ingredient> ingredients=version.getIngredients();
       for(Ingredient ingredient : ingredients)
       {
-        int ingredientId=ingredient.getItem().getId();
+        int ingredientId=ingredient.getItem().getIdentifier();
         if (ingredientId==itemId)
         {
           ItemRole role=ingredient.isOptional()?ItemRole.RECIPE_CRITICAL_INGREDIENT:ItemRole.RECIPE_INGREDIENT;
@@ -102,7 +101,7 @@ public class ItemReferencesBuilder
       }
       // Result
       CraftingResult regularResult=version.getRegular();
-      int regularResultId=regularResult.getItem().getId();
+      int regularResultId=regularResult.getItem().getIdentifier();
       if (regularResultId==itemId)
       {
         roles.add(ItemRole.RECIPE_RESULT);
@@ -110,17 +109,17 @@ public class ItemReferencesBuilder
       CraftingResult criticalResult=version.getCritical();
       if (criticalResult!=null)
       {
-        int criticalResultId=criticalResult.getItem().getId();
+        int criticalResultId=criticalResult.getItem().getIdentifier();
         if (criticalResultId==itemId)
         {
           roles.add(ItemRole.RECIPE_CRITICAL_RESULT);
         }
       }
       // Recipe item
-      ItemProxy recipeItem=recipe.getRecipeScroll();
+      Item recipeItem=recipe.getRecipeScroll();
       if (recipeItem!=null)
       {
-        int recipeItemId=recipeItem.getId();
+        int recipeItemId=recipeItem.getIdentifier();
         if (recipeItemId==itemId)
         {
           roles.add(ItemRole.RECIPE_PROVIDES_RECIPE);

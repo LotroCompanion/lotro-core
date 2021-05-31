@@ -2,7 +2,6 @@ package delta.games.lotro.lore.trade.vendor;
 
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemProxy;
 
 /**
  * Item and value.
@@ -10,27 +9,27 @@ import delta.games.lotro.lore.items.ItemProxy;
  */
 public class ValuedItem
 {
-  private ItemProxy _proxy;
+  private Item _item;
   private Money _value;
 
   /**
    * Constructor.
-   * @param itemProxy Item proxy.
+   * @param item Item.
    * @param value Value.
    */
-  public ValuedItem(ItemProxy itemProxy, Money value)
+  public ValuedItem(Item item, Money value)
   {
-    _proxy=itemProxy;
+    _item=item;
     _value=value;
   }
 
   /**
-   * Get the managed item proxy.
-   * @return the managed item proxy.
+   * Get the managed item.
+   * @return the managed item .
    */
-  public ItemProxy getProxy()
+  public Item getItem()
   {
-    return _proxy;
+    return _item;
   }
 
   /**
@@ -39,7 +38,7 @@ public class ValuedItem
    */
   public int getId()
   {
-    return _proxy.getId();
+    return _item.getIdentifier();
   }
 
   /**
@@ -48,7 +47,7 @@ public class ValuedItem
    */
   public String getName()
   {
-    return _proxy.getName();
+    return _item.getName();
   }
 
   /**
@@ -60,30 +59,12 @@ public class ValuedItem
     return _value;
   }
 
-  /**
-   * Get the icon.
-   * @return an icon or <code>null</code> if not set.
-   */
-  public String getIcon()
-  {
-    return _proxy.getIcon();
-  }
-
-  /**
-   * Get the managed item.
-   * @return an item.
-   */
-  public Item getItem()
-  {
-    return _proxy.getItem();
-  }
-
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
     sb.append(_value).append(' ');
-    sb.append(_proxy);
+    sb.append(_item);
     return sb.toString();
   }
 }

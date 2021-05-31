@@ -15,7 +15,6 @@ import delta.games.lotro.lore.crafting.recipes.Ingredient;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemProxy;
 import delta.games.lotro.lore.items.ItemsManager;
 
 /**
@@ -98,7 +97,7 @@ public class RecipeXMLParser
     Element scrollItemElement=DOMParsingTools.getChildTagByName(root,RecipeXMLConstants.SCROLL_ITEM_TAG);
     if (scrollItemElement!=null)
     {
-      ItemProxy ref=parseItemRef(scrollItemElement);
+      Item ref=parseItemRef(scrollItemElement);
       r.setRecipeScroll(ref);
     }
 
@@ -136,7 +135,7 @@ public class RecipeXMLParser
         Element ingredientItemRef=DOMParsingTools.getChildTagByName(ingredientElement,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
         if (ingredientItemRef!=null)
         {
-          ItemProxy ingredientRef=parseItemRef(ingredientItemRef);
+          Item ingredientRef=parseItemRef(ingredientItemRef);
           ingredient.setItem(ingredientRef);
         }
         ingredients.add(ingredient);
@@ -181,33 +180,18 @@ public class RecipeXMLParser
     Element resultItemRefElement=DOMParsingTools.getChildTagByName(resultElement,RecipeXMLConstants.RESULT_ITEM_TAG);
     if (resultItemRefElement!=null)
     {
-      ItemProxy resultItemRef=parseItemRef(resultItemRefElement);
+      Item resultItemRef=parseItemRef(resultItemRefElement);
       result.setItem(resultItemRef);
     }
     return result;
   }
 
-  private ItemProxy parseItemRef(Element itemRef)
+  private Item parseItemRef(Element itemRef)
   {
     NamedNodeMap attrs=itemRef.getAttributes();
-    ItemProxy ref=new ItemProxy();
     // Item id
     int id=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_ID_ATTR,0);
     Item item=ItemsManager.getInstance().getItem(id);
-    if (item!=null)
-    {
-      ref.setItem(item);
-    }
-    else
-    {
-      ref.setId(id);
-      // Name
-      String name=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_NAME_ATTR,null);
-      ref.setName(name);
-      // Icon
-      String icon=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_ICON_ATTR,null);
-      ref.setIcon(icon);
-    }
-    return ref;
+    return item;
   }
 }

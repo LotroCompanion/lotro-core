@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.crafting.recipes;
 
-import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Ingredient of a recipe.
@@ -10,7 +10,7 @@ public class Ingredient
 {
   private int _quantity;
   private boolean _optional;
-  private ItemProxy _item;
+  private Item _item;
   private Integer _criticalChanceBonus;
 
   /**
@@ -61,19 +61,19 @@ public class Ingredient
   }
 
   /**
-   * Get the ingredient item proxy.
-   * @return an item proxy.
+   * Get the ingredient item.
+   * @return an item.
    */
-  public ItemProxy getItem()
+  public Item getItem()
   {
     return _item;
   }
 
   /**
-   * Set the ingredient item proxy.
-   * @param item the item proxy to set.
+   * Set the ingredient item.
+   * @param item the item to set.
    */
-  public void setItem(ItemProxy item)
+  public void setItem(Item item)
   {
     _item=item;
   }
@@ -117,10 +117,7 @@ public class Ingredient
   public Ingredient cloneData()
   {
     Ingredient ret=new Ingredient();
-    if (_item!=null)
-    {
-      ret._item=_item.cloneData();
-    }
+    ret._item=_item;
     ret._criticalChanceBonus=_criticalChanceBonus;
     ret._optional=_optional;
     ret._quantity=_quantity;

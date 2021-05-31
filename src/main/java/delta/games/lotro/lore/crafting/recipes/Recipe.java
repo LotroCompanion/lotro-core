@@ -7,7 +7,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.crafting.Profession;
-import delta.games.lotro.lore.items.ItemProxy;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Recipe description.
@@ -25,7 +25,7 @@ public class Recipe implements Identifiable
   private boolean _oneTimeUse;
   private boolean _guildRecipe;
   private List<RecipeVersion> _versions;
-  private ItemProxy _recipeScroll;
+  private Item _recipeScroll;
 
   /**
    * Constructor.
@@ -230,19 +230,19 @@ public class Recipe implements Identifiable
   }
 
   /**
-   * Get the reference to the recipe scroll item.
-   * @return an item reference or <code>null</code>.
+   * Get the recipe scroll item.
+   * @return an item or <code>null</code>.
    */
-  public ItemProxy getRecipeScroll()
+  public Item getRecipeScroll()
   {
     return _recipeScroll;
   }
 
   /**
-   * Set the recipe scroll item reference.
-   * @param recipeScroll the reference to set.
+   * Set the recipe scroll item.
+   * @param recipeScroll the item to set.
    */
-  public void setRecipeScroll(ItemProxy recipeScroll)
+  public void setRecipeScroll(Item recipeScroll)
   {
     _recipeScroll=recipeScroll;
   }
