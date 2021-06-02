@@ -29,6 +29,8 @@ public final class LotroCoreConfig
   private File _accountsDir;
   // Character data
   private File _toonsDir;
+  // Kinship data
+  private File _kinshipsDir;
   // Trait tree setups
   private File _traitTreeSetupDir;
   // Parameters
@@ -64,6 +66,7 @@ public final class LotroCoreConfig
     _userDataDir=new File(userApplicationDir,"data");
     _toonsDir=new File(_userDataDir,"characters");
     _accountsDir=new File(_userDataDir,"accounts");
+    _kinshipsDir=new File(_userDataDir,"kinships");
     _traitTreeSetupDir=new File(_userDataDir,"traitTrees");
   }
 
@@ -138,6 +141,15 @@ public final class LotroCoreConfig
   public File getAccountsDir()
   {
     return _accountsDir;
+  }
+
+  /**
+   * Get the root storage directory for kinships.
+   * @return a directory.
+   */
+  public File getKinshipsDir()
+  {
+    return _kinshipsDir;
   }
 
   /**
