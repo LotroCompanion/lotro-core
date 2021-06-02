@@ -43,7 +43,7 @@ public final class KinshipsManager
    * Get a list of all managed kinships.
    * @return a list of kinships.
    */
-  public List<Kinship> getAllAccounts()
+  public List<Kinship> getAllKinships()
   {
     List<Kinship> kinships=new ArrayList<Kinship>(_kinships);
     return kinships;
@@ -71,7 +71,7 @@ public final class KinshipsManager
    * Add a new kinship.
    * @param kinshipID Kinship ID.
    * @param name Kinship name.
-   * @return An account or <code>null</code> if an error occurs.
+   * @return A kinship or <code>null</code> if an error occurs.
    */
   public Kinship addKinship(long kinshipID, String name)
   {
@@ -82,7 +82,7 @@ public final class KinshipsManager
     if (kinship!=null)
     {
       _kinships.add(kinship);
-      // Broadcast account creation event...
+      // Broadcast kinship creation event...
       KinshipEvent event=new KinshipEvent(KinshipEventType.KINSHIP_ADDED,kinship);
       EventsManager.invokeEvent(event);
     }
@@ -100,7 +100,7 @@ public final class KinshipsManager
     if (ret)
     {
       _storage.removeKinship(kinship);
-      // Broadcast account deletion event...
+      // Broadcast kinship deletion event...
       KinshipEvent event=new KinshipEvent(KinshipEventType.KINSHIP_REMOVED,kinship);
       EventsManager.invokeEvent(event);
     }
