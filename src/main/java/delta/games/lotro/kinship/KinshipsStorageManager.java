@@ -8,6 +8,7 @@ import java.util.List;
 import delta.common.utils.files.FilesDeleter;
 import delta.common.utils.files.filter.FileTypePredicate;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.kinship.io.xml.KinshipsIO;
 
 /**
  * Storage manager for all kinships.
@@ -40,8 +41,11 @@ public class KinshipsStorageManager
   {
     File newDir=getNewKinshipDirectory();
     newDir.mkdirs();
-    Kinship kinship=new Kinship(newDir);
-    boolean ok=kinship.saveSummary(summary);
+    Kinship kinship=new Kinship();
+    kinship.setSummary(summary);
+    kinship.setRootFile(newDir);
+    File summaryFile=KinshipsIO.getSummaryFile(newDir);
+    boolean ok=KinshipsIO.saveSummary(summaryFile,summary);
     if (!ok)
     {
       return null;
@@ -98,10 +102,13 @@ public class KinshipsStorageManager
         String dirName=kinshipDir.getName();
         if (dirName.startsWith(KINSHIP_SEED))
         {
-          Kinship kinship=new Kinship(kinshipDir);
-          KinshipSummary summary=kinship.getSummary();
+          Kinship kinship=new Kinship();
+          kinship.setRootFile(kinshipDir);
+          File summaryFile=KinshipsIO.getSummaryFile(kinshipDir);
+          KinshipSummary summary=KinshipsIO.loadSummary(summaryFile);
           if (summary!=null)
           {
+            kinship.setSummary(summary);
             kinships.add(kinship);
           }
         }

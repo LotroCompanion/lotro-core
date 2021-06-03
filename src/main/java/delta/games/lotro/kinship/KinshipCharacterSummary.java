@@ -38,6 +38,24 @@ public class KinshipCharacterSummary extends BaseCharacterSummary
   }
 
   /**
+   * Get the vocation ID;
+   * @return the vocation ID.
+   */
+  public Integer getVocationID()
+  {
+    return _vocationID;
+  }
+
+  /**
+   * Set the vocation ID.
+   * @param vocationID Vocation ID to set.
+   */
+  public void setVocationID(Integer vocationID)
+  {
+    _vocationID=vocationID;
+  }
+
+  /**
    * Get the last logout date for this character.
    * @return a timestamp (milliseconds since Epoch) or <code>null</code>.
    */
@@ -53,6 +71,24 @@ public class KinshipCharacterSummary extends BaseCharacterSummary
   public void setLastLogoutDate(Long lastLogoutDate)
   {
     _lastLogoutDate=lastLogoutDate;
+  }
+
+  /**
+   * Get the area ID;
+   * @return the area ID.
+   */
+  public Integer getAreaID()
+  {
+    return _areaID;
+  }
+
+  /**
+   * Set the area ID.
+   * @param areaID Area ID to set.
+   */
+  public void setAreaID(Integer areaID)
+  {
+    _areaID=areaID;
   }
 
   @Override

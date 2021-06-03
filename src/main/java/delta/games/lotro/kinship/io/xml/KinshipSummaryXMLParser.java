@@ -18,27 +18,27 @@ public class KinshipSummaryXMLParser
   /**
    * Parse the XML file.
    * @param source Source file.
-   * @return Parsed summary or <code>null</code>.
+   * @return the loaded summary or <code>null</code>.
    */
   public KinshipSummary parseXML(File source)
   {
-    KinshipSummary summary=null;
+    KinshipSummary ret=null;
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      summary=new KinshipSummary();
-      parseKinship(root, summary);
+      ret=parseKinship(root);
     }
-    return summary;
+    return ret;
   }
 
   /**
-   * Read kinship summary attributes from a tag.
+   * Read kinship summary from a tag.
    * @param root Tag to read.
-   * @param summary Summary to write to.
+   * @return the loaded summary or <code>null</code>.
    */
-  public static void parseKinship(Element root, KinshipSummary summary)
+  public static KinshipSummary parseKinship(Element root)
   {
+    KinshipSummary summary=new KinshipSummary();
     NamedNodeMap attrs=root.getAttributes();
     // ID
     String kinshipIdStr=DOMParsingTools.getStringAttribute(attrs,KinshipXMLConstants.KINSHIP_ID_ATTR,null);
@@ -57,5 +57,6 @@ public class KinshipSummaryXMLParser
       InternalGameId leaderID=InternalGameId.fromString(leaderIDStr);
       summary.setLeaderID(leaderID);
     }
+    return summary;
   }
 }

@@ -68,4 +68,24 @@ public class KinshipRoster
     ret.addAll(_members.values());
     return ret;
   }
+
+  /**
+   * Get a kinship rank using its code.
+   * @param code A code.
+   * @return A kinship rank or <code>null</code> if not found.
+   */
+  public KinshipRank getRankByCode(int code)
+  {
+    return _ranks.get(Integer.valueOf(code));
+  }
+
+  /**
+   * Get a kinship member using its identifier.
+   * @param characterID Character identifiier.
+   * @return A kinship member or <code>null</code> if not found.
+   */
+  public KinshipMember getMemberByID(long characterID)
+  {
+    return _members.get(Long.valueOf(characterID));
+  }
 }
