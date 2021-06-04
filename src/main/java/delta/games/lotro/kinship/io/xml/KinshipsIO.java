@@ -3,6 +3,7 @@ package delta.games.lotro.kinship.io.xml;
 import java.io.File;
 
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.kinship.KinshipRoster;
 import delta.games.lotro.kinship.KinshipSummary;
 
 /**
@@ -49,5 +50,29 @@ public class KinshipsIO
   {
     File summaryFile=new File(rootDir,"summary.xml");
     return summaryFile;
+  }
+
+  /**
+   * Save a kinship roster to file.
+   * @param rosterFile Roster file to write.
+   * @param roster Roster to write.
+   * @return <code>true</code> if it was successful, <code>false</code> otherwise.
+   */
+  public static boolean saveRoster(File rosterFile, KinshipRoster roster)
+  {
+    KinshipRosterXMLWriter writer=new KinshipRosterXMLWriter();
+    boolean ok=writer.write(rosterFile,roster,EncodingNames.UTF_8);
+    return ok;
+  }
+
+  /**
+   * Build a roster file.
+   * @param rootDir Root directory for a kinship.
+   * @return A kinship roster file.
+   */
+  public static File getRosterFile(File rootDir)
+  {
+    File rosterFile=new File(rootDir,"roster.xml");
+    return rosterFile;
   }
 }

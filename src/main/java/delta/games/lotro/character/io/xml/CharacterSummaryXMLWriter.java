@@ -8,6 +8,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.common.CharacterClass;
@@ -54,13 +55,29 @@ public class CharacterSummaryXMLWriter
    */
   public static void writeCharacterSummary(AttributesImpl attrs, CharacterSummary summary) throws Exception
   {
+    writeBaseCharacterSummary(attrs,summary);
+    // Region
+    String region=summary.getRegion();
+    if (region.length()>0)
+    {
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_REGION_ATTR,XmlWriter.CDATA,region);
+    }
+  }
+
+  /**
+   * Write base character summary attributes.
+   * @param attrs Attributes to write to.
+   * @param summary Source data.
+   * @throws Exception If an error occurs.
+   */
+  public static void writeBaseCharacterSummary(AttributesImpl attrs, BaseCharacterSummary summary) throws Exception
+  {
     // ID
     InternalGameId id=summary.getId();
     if (id!=null)
     {
       String idStr=id.asPersistedString();
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_ID_ATTR,XmlWriter.CDATA,idStr);
-      
     }
     // Name
     String name=summary.getName();
@@ -100,12 +117,6 @@ public class CharacterSummaryXMLWriter
     {
       String sexKey=sex.getKey();
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SEX_ATTR,XmlWriter.CDATA,sexKey);
-    }
-    // Region
-    String region=summary.getRegion();
-    if (region.length()>0)
-    {
-      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_REGION_ATTR,XmlWriter.CDATA,region);
     }
     // Level
     int level=summary.getLevel();

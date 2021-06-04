@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.kinship.events.KinshipEvent;
 import delta.games.lotro.kinship.events.KinshipEventType;
 import delta.games.lotro.utils.events.EventsManager;
@@ -54,7 +53,7 @@ public final class KinshipsManager
    * @param kinshipName Kinship name.
    * @return A kinship or <code>null</code> if not found.
    */
-  public Kinship getKInshipByName(String kinshipName)
+  public Kinship getKinshipByName(String kinshipName)
   {
     for(Kinship kinship : _kinships)
     {
@@ -68,16 +67,30 @@ public final class KinshipsManager
   }
 
   /**
-   * Add a new kinship.
+   * Get a kinship by ID.
    * @param kinshipID Kinship ID.
-   * @param name Kinship name.
+   * @return A kinship or <code>null</code> if not found.
+   */
+  public Kinship getKinshipByID(long kinshipID)
+  {
+    for(Kinship kinship : _kinships)
+    {
+      Long currentKinshipID=kinship.getID();
+      if ((currentKinshipID!=null) && (currentKinshipID.longValue()==kinshipID))
+      {
+        return kinship;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Add a new kinship.
+   * @param summary Kinship summary.
    * @return A kinship or <code>null</code> if an error occurs.
    */
-  public Kinship addKinship(long kinshipID, String name)
+  public Kinship addKinship(KinshipSummary summary)
   {
-    KinshipSummary summary=new KinshipSummary();
-    summary.setKinshipID(new InternalGameId(kinshipID));
-    summary.setName(name);
     Kinship kinship=_storage.newKinship(summary);
     if (kinship!=null)
     {

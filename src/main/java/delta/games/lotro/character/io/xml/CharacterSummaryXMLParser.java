@@ -5,6 +5,7 @@ import java.io.File;
 import org.w3c.dom.Element;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.common.CharacterClass;
@@ -42,6 +43,19 @@ public class CharacterSummaryXMLParser
    */
   public static void parseCharacterSummary(Element root, CharacterSummary summary)
   {
+    parseBaseCharacterSummary(root,summary);
+    // Region
+    String region=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
+    summary.setRegion(region);
+  }
+
+  /**
+   * Read character summary attributes from a tag.
+   * @param root Tag to read.
+   * @param summary Summary to write to.
+   */
+  public static void parseBaseCharacterSummary(Element root, BaseCharacterSummary summary)
+  {
     // ID
     InternalGameId id=null;
     String idStr=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ID_ATTR,null);
@@ -74,9 +88,6 @@ public class CharacterSummaryXMLParser
       CharacterSex sex=CharacterSex.getByKey(sexKey); 
       summary.setCharacterSex(sex);
     }
-    // Region
-    String region=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
-    summary.setRegion(region);
     // Level
     int level=DOMParsingTools.getIntAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_LEVEL_ATTR,0);
     summary.setLevel(level);

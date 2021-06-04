@@ -2,6 +2,8 @@ package delta.games.lotro.kinship;
 
 import java.io.File;
 
+import delta.games.lotro.common.id.InternalGameId;
+
 /**
  * Kinship description.
  * @author DAM
@@ -38,6 +40,16 @@ public class Kinship
   public void setRootFile(File rootDir)
   {
     _rootDir=rootDir;
+  }
+
+  /**
+   * Get the kinship ID.
+   * @return a kinship ID or <code>null</code>.
+   */
+  public Long getID()
+  {
+    InternalGameId id=_summary.getKinshipID();
+    return id!=null?Long.valueOf(id.asLong()):null;
   }
 
   /**
@@ -84,6 +96,15 @@ public class Kinship
   public KinshipRoster getRoster()
   {
     return _roster;
+  }
+
+  /**
+   * Set kinship roster.
+   * @param roster Roster to set.
+   */
+  public void setRoster(KinshipRoster roster)
+  {
+    _roster=roster;
   }
 
   @Override

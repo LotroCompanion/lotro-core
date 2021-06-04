@@ -15,6 +15,10 @@ public enum KinshipEventType
    */
   KINSHIP_SUMMARY_UPDATED,
   /**
+   * A kinship roster was updated.
+   */
+  KINSHIP_ROSTER_UPDATED,
+  /**
    * A kinship was removed.
    */
   KINSHIP_REMOVED
