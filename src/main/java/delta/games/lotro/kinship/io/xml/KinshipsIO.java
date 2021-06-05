@@ -3,6 +3,7 @@ package delta.games.lotro.kinship.io.xml;
 import java.io.File;
 
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.kinship.Kinship;
 import delta.games.lotro.kinship.KinshipRoster;
 import delta.games.lotro.kinship.KinshipSummary;
 
@@ -12,6 +13,17 @@ import delta.games.lotro.kinship.KinshipSummary;
  */
 public class KinshipsIO
 {
+  /**
+   * Fully load a kinship.
+   * @param kinship Kinship to load.
+   */
+  public static void fullyLoadKinship(Kinship kinship)
+  {
+    File rosterFile=KinshipsIO.getRosterFile(kinship.getRootDir());
+    KinshipRoster roster=loadRoster(rosterFile);
+    kinship.setRoster(roster);
+  }
+
   /**
    * Load a kinship summary from a file.
    * @param summaryFile Summary file.
@@ -50,6 +62,22 @@ public class KinshipsIO
   {
     File summaryFile=new File(rootDir,"summary.xml");
     return summaryFile;
+  }
+
+  /**
+   * Load a kinship roster from a file.
+   * @param rosterFile Roster file.
+   * @return A roster or <code>null</code> if an error occurred.
+   */
+  public static KinshipRoster loadRoster(File rosterFile)
+  {
+    KinshipRoster ret=null;
+    if (rosterFile.exists())
+    {
+      KinshipRosterXMLParser parser=new KinshipRosterXMLParser();
+      ret=parser.parseXML(rosterFile);
+    }
+    return ret;
   }
 
   /**

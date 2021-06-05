@@ -1,9 +1,12 @@
 package delta.games.lotro.kinship;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import delta.games.lotro.kinship.comparators.KinshipMemberIdComparator;
 
 /**
  * Kinship roster.
@@ -60,12 +63,13 @@ public class KinshipRoster
 
   /**
    * Get the members.
-   * @return a list of members (undefined order).
+   * @return a list of members (sorted by member ID).
    */
   public List<KinshipMember> getAllMembers()
   {
     List<KinshipMember> ret=new ArrayList<KinshipMember>();
     ret.addAll(_members.values());
+    Collections.sort(ret,new KinshipMemberIdComparator());
     return ret;
   }
 
