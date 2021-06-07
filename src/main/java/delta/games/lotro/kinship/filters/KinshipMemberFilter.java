@@ -21,6 +21,7 @@ public class KinshipMemberFilter implements Filter<KinshipMember>
   private Filter<KinshipMember> _filter;
 
   private CharacterSummaryFilter _summaryFilter;
+  private KinshipMemberNotesFilter _notesFilter;
   private KinshipRankFilter _rankFilter;
 
   /**
@@ -43,6 +44,9 @@ public class KinshipMemberFilter implements Filter<KinshipMember>
     // Rank
     _rankFilter=new KinshipRankFilter(null);
     filters.add(_rankFilter);
+    // Notes
+    _notesFilter=new KinshipMemberNotesFilter();
+    filters.add(_notesFilter);
     _filter=new CompoundFilter<KinshipMember>(Operator.AND,filters);
   }
 
@@ -62,6 +66,15 @@ public class KinshipMemberFilter implements Filter<KinshipMember>
   public KinshipRankFilter getRankFilter()
   {
     return _rankFilter;
+  }
+
+  /**
+   * Get the filter on notes.
+   * @return a member notes filter.
+   */
+  public KinshipMemberNotesFilter getNotesFilter()
+  {
+    return _notesFilter;
   }
 
   @Override
