@@ -46,7 +46,7 @@ public class KinshipMember
   }
 
   /**
-   * Get the joind date for this character.
+   * Get the join date for this character.
    * @return a timestamp (milliseconds since Epoch) or <code>null</code>.
    */
   public Long getJoinDate()

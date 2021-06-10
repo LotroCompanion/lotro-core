@@ -57,6 +57,22 @@ public class KinshipSummaryXMLParser
       InternalGameId leaderID=InternalGameId.fromString(leaderIDStr);
       summary.setLeaderID(leaderID);
     }
+    // Founder ID
+    String founderIDStr=DOMParsingTools.getStringAttribute(attrs,KinshipXMLConstants.KINSHIP_FOUNDER_ID_ATTR,null);
+    if (founderIDStr!=null)
+    {
+      InternalGameId founderID=InternalGameId.fromString(founderIDStr);
+      summary.setFounderID(founderID);
+    }
+    // Creation date
+    long creationDate=DOMParsingTools.getLongAttribute(attrs,KinshipXMLConstants.KINSHIP_CREATION_DATE_ATTR,0);
+    if (creationDate!=0)
+    {
+      summary.setCreationDate(Long.valueOf(creationDate));
+    }
+    // MOTD
+    String motd=DOMParsingTools.getStringAttribute(attrs,KinshipXMLConstants.KINSHIP_MOTD_ATTR,"");
+    summary.setMotd(motd);
     return summary;
   }
 }

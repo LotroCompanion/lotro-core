@@ -70,5 +70,24 @@ public class KinshipSummaryXMLWriter
       String leaderIDStr=leaderID.asPersistedString();
       kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_LEADER_ID_ATTR,XmlWriter.CDATA,leaderIDStr);
     }
+    // Founder ID
+    InternalGameId founderID=kinship.getFounderID();
+    if (founderID!=null)
+    {
+      String founderIDstr=founderID.asPersistedString();
+      kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_FOUNDER_ID_ATTR,XmlWriter.CDATA,founderIDstr);
+    }
+    // Creation date
+    Long creationDate=kinship.getCreationDate();
+    if (creationDate!=null)
+    {
+      kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_CREATION_DATE_ATTR,XmlWriter.CDATA,creationDate.toString());
+    }
+    // MOTD
+    String motd=kinship.getMotd();
+    if (motd.length()>0)
+    {
+      kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_MOTD_ATTR,XmlWriter.CDATA,motd);
+    }
   }
 }
