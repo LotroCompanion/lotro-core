@@ -19,6 +19,10 @@ public class WalletXMLConstants
    */
   public static final String ITEM_NAME_ATTR="name";
   /**
+   * Tag 'item', attribute 'icon'.
+   */
+  public static final String ITEM_ICON_ATTR="icon";
+  /**
    * Tag 'item', attribute 'quantity'.
    */
   public static final String ITEM_QUANTITY_ATTR="quantity";

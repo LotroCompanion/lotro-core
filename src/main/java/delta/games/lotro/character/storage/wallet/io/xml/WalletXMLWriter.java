@@ -74,6 +74,12 @@ public class WalletXMLWriter
     {
       itemAttrs.addAttribute("","",WalletXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,name);
     }
+    // Icon
+    String icon=item.getIcon();
+    if ((icon!=null) && (icon.length()>0))
+    {
+      itemAttrs.addAttribute("","",WalletXMLConstants.ITEM_ICON_ATTR,XmlWriter.CDATA,icon);
+    }
     // Quantity
     int quantity=item.getQuantity();
     itemAttrs.addAttribute("","",WalletXMLConstants.ITEM_QUANTITY_ATTR,XmlWriter.CDATA,String.valueOf(quantity));
