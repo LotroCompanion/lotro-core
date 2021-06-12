@@ -3,7 +3,6 @@ package delta.games.lotro.kinship.filters;
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.text.MatchType;
 import delta.common.utils.text.StringFilter;
-import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.kinship.KinshipMember;
 
 /**

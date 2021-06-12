@@ -16,6 +16,10 @@ public class KinshipXMLConstants
    */
   public static final String KINSHIP_ID_ATTR="id";
   /**
+   * Tag 'kinship', attribute 'statusDate'.
+   */
+  public static final String KINSHIP_STATUS_DATE_ATTR="statusDate";
+  /**
    * Tag 'kinship', attribute 'name'.
    */
   public static final String KINSHIP_NAME_ATTR="name";

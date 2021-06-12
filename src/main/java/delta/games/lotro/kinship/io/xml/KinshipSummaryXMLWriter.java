@@ -57,6 +57,9 @@ public class KinshipSummaryXMLWriter
       String kinshipIDStr=kinshipID.asPersistedString();
       kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_ID_ATTR,XmlWriter.CDATA,kinshipIDStr);
     }
+    // Status date
+    long statusDate=kinship.getStatusDate();
+    kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_STATUS_DATE_ATTR,XmlWriter.CDATA,String.valueOf(statusDate));
     // Name
     String name=kinship.getName();
     if ((name!=null) && (name.length()>0))

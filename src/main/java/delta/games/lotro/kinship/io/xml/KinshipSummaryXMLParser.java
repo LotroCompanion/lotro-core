@@ -47,6 +47,9 @@ public class KinshipSummaryXMLParser
       InternalGameId kinshipID=InternalGameId.fromString(kinshipIdStr);
       summary.setKinshipID(kinshipID);
     }
+    // Status date
+    long statusDate=DOMParsingTools.getLongAttribute(attrs,KinshipXMLConstants.KINSHIP_STATUS_DATE_ATTR,0);
+    summary.setStatusDate(statusDate);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,KinshipXMLConstants.KINSHIP_NAME_ATTR,"");
     summary.setName(name);

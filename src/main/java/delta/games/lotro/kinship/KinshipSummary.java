@@ -9,6 +9,7 @@ import delta.games.lotro.common.id.InternalGameId;
 public class KinshipSummary
 {
   private InternalGameId _kinshipID;
+  private long _statusDate;
   private String _name;
   private InternalGameId _leaderID;
   private InternalGameId _founderID;
@@ -44,6 +45,24 @@ public class KinshipSummary
   public void setKinshipID(InternalGameId kinshipID)
   {
     _kinshipID=kinshipID;
+  }
+
+  /**
+   * Get the status date.
+   * @return a timestamp (milliseconds since Epoch) or <code>null</code>.
+   */
+  public long getStatusDate()
+  {
+    return _statusDate;
+  }
+
+  /**
+   * Set the status date.
+   * @param statusDate the date to set.
+   */
+  public void setStatusDate(long statusDate)
+  {
+    _statusDate=statusDate;
   }
 
   /**
@@ -150,10 +169,11 @@ public class KinshipSummary
   {
     StringBuilder sb=new StringBuilder();
     sb.append("ID [").append(_kinshipID).append("], ");
+    sb.append("Status date [").append(_statusDate).append(']');
     sb.append("Name [").append(_name).append("], ");
     sb.append("Leader ID [").append(_leaderID).append(']');
     sb.append("Founder ID [").append(_founderID).append(']');
-    sb.append("Creation dates [").append(_creationDate).append(']');
+    sb.append("Creation date [").append(_creationDate).append(']');
     sb.append("MOTD [").append(_motd).append(']');
     return sb.toString();
   }
