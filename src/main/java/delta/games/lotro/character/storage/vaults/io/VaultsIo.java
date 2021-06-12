@@ -54,7 +54,7 @@ public class VaultsIo
   private static File getVaultFile(CharacterFile character)
   {
     File rootDir=character.getRootDir();
-    File ownVaultFile=new File(rootDir,"ownVault.xml");
+    File ownVaultFile=new File(rootDir,"characterVault.xml");
     return ownVaultFile;
   }
 
@@ -100,6 +100,6 @@ public class VaultsIo
   {
     File rootDir=account.getRootDir();
     File serverDir=new File(rootDir,server);
-    return new File(serverDir,"sharedVault.xml");
+    return new File(serverDir,"sharedStorage.xml");
   }
 }

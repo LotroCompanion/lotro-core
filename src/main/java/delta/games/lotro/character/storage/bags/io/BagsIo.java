@@ -53,7 +53,7 @@ public class BagsIo
   private static File getBagsFile(CharacterFile character)
   {
     File rootDir=character.getRootDir();
-    File bagsFile=new File(rootDir,"currentBag.xml");
+    File bagsFile=new File(rootDir,"inventory.xml");
     return bagsFile;
   }
 }
