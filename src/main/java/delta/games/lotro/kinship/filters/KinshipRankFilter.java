@@ -2,7 +2,6 @@ package delta.games.lotro.kinship.filters;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.kinship.KinshipMember;
-import delta.games.lotro.kinship.KinshipRank;
 
 /**
  * Filter for members of a given rank.
@@ -10,42 +9,42 @@ import delta.games.lotro.kinship.KinshipRank;
  */
 public class KinshipRankFilter implements Filter<KinshipMember>
 {
-  private KinshipRank _rank;
+  private Integer _rankID;
 
   /**
    * Constructor.
-   * @param rank Rank to select (may be <code>null</code>).
+   * @param rankID Rank to select (may be <code>null</code>).
    */
-  public KinshipRankFilter(KinshipRank rank)
+  public KinshipRankFilter(Integer rankID)
   {
-    _rank=rank;
+    _rankID=rankID;
   }
 
   /**
-   * Get the rank to use.
-   * @return A rank or <code>null</code>.
+   * Get the rank ID to use.
+   * @return A rank ID or <code>null</code>.
    */
-  public KinshipRank getRank()
+  public Integer getRankID()
   {
-    return _rank;
+    return _rankID;
   }
 
   /**
-   * Set the rank to select.
-   * @param rank Rank to use, may be <code>null</code>.
+   * Set the rank ID to select.
+   * @param rankID Rank ID to use, may be <code>null</code>.
    */
-  public void setRank(KinshipRank rank)
+  public void setRankID(Integer rankID)
   {
-    _rank=rank;
+    _rankID=rankID;
   }
 
   @Override
   public boolean accept(KinshipMember rank)
   {
-    if (_rank==null)
+    if (_rankID==null)
     {
       return true;
     }
-    return rank.getRank()==_rank;
+    return rank.getRank().getCode()==_rankID.intValue();
   }
 }
