@@ -25,6 +25,7 @@ import delta.games.lotro.lore.buffs.io.xml.EffectBuffXMLParser;
 import delta.games.lotro.lore.consumables.Consumable;
 import delta.games.lotro.lore.consumables.io.xml.ConsumableXMLParser;
 import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.IconsUtils;
 
 /**
  * Initializes the buff registry.
@@ -176,7 +177,7 @@ public class BuffInitializer
       String category="Consumable: "+consumable.getCategory();
       String name=consumable.getName();
       Buff buff=new Buff(id,BuffType.CONSUMABLE,category,name);
-      String icon="/icons/"+consumable.getIcon()+".png";
+      String icon=IconsUtils.ITEM_ICON_PREFIX+consumable.getIcon();
       buff.setIcon(icon);
       StatsProvider statsProvider=consumable.getProvider();
       StatsProviderBuffImpl impl=new StatsProviderBuffImpl(statsProvider,1);
