@@ -205,7 +205,7 @@ public class CharacterFile
   public String getName()
   {
     CharacterSummary summary=getSummary();
-    return (_summary!=null)?summary.getName():null;
+    return (_summary!=null)?summary.getName():"";
   }
 
   /**
@@ -215,7 +215,7 @@ public class CharacterFile
   public String getServerName()
   {
     CharacterSummary summary=getSummary();
-    return (_summary!=null)?summary.getServer():null;
+    return (_summary!=null)?summary.getServer():"";
   }
 
   /**
@@ -225,7 +225,7 @@ public class CharacterFile
   public String getAccountName()
   {
     CharacterSummary summary=getSummary();
-    return (_summary!=null)?summary.getAccountName():null;
+    return (_summary!=null)?summary.getAccountName():"";
   }
 
   /**
