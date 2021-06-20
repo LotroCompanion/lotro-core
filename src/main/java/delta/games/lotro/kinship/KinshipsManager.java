@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.kinship.events.KinshipEvent;
 import delta.games.lotro.kinship.events.KinshipEventType;
 import delta.games.lotro.utils.events.EventsManager;
@@ -76,7 +77,7 @@ public final class KinshipsManager
     for(Kinship kinship : _kinships)
     {
       Long currentKinshipID=kinship.getID();
-      if ((currentKinshipID!=null) && (currentKinshipID.longValue()==kinshipID))
+      if ((currentKinshipID!=null) && (InternalGameId.lightMatch(currentKinshipID.longValue(),kinshipID)))
       {
         return kinship;
       }
