@@ -3,6 +3,7 @@ package delta.games.lotro.character.io.xml;
 import java.io.File;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.BaseCharacterSummary;
@@ -44,9 +45,23 @@ public class CharacterSummaryXMLParser
   public static void parseCharacterSummary(Element root, CharacterSummary summary)
   {
     parseBaseCharacterSummary(root,summary);
+    NamedNodeMap attrs=root.getAttributes();
     // Region
-    String region=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
+    String region=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
     summary.setRegion(region);
+    // Kinship ID
+    String kinshipIDStr=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_KINSHIP_ID_ATTR,null);
+    if (kinshipIDStr!=null)
+    {
+      InternalGameId kinshipID=InternalGameId.fromString(kinshipIDStr);
+      summary.setKinshipID(kinshipID);
+    }
+    // Import date
+    long importDate=DOMParsingTools.getLongAttribute(attrs,CharacterXMLConstants.CHARACTER_IMPORT_DATE_ATTR,0);
+    if (importDate!=0)
+    {
+      summary.setImportDate(Long.valueOf(importDate));
+    }
   }
 
   /**

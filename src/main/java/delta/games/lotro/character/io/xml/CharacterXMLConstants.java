@@ -64,6 +64,14 @@ public class CharacterXMLConstants
    */
   public static final String CHARACTER_LEVEL_ATTR="level";
   /**
+   * Tag 'character', attribute 'kinshipID'.
+   */
+  public static final String CHARACTER_KINSHIP_ID_ATTR="kinshipID";
+  /**
+   * Tag 'character', attribute 'importDate'.
+   */
+  public static final String CHARACTER_IMPORT_DATE_ATTR="importDate";
+  /**
    * Tag 'characterSummary'.
    */
   public static final String CHARACTER_SUMMARY_TAG="characterSummary";

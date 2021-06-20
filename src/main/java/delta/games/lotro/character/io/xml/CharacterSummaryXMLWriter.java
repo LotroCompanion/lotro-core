@@ -62,6 +62,18 @@ public class CharacterSummaryXMLWriter
     {
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_REGION_ATTR,XmlWriter.CDATA,region);
     }
+    // Kinship ID
+    InternalGameId kinshipID=summary.getKinshipID();
+    if (kinshipID!=null)
+    {
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_KINSHIP_ID_ATTR,XmlWriter.CDATA,kinshipID.asPersistedString());
+    }
+    // Import date
+    Long importDate=summary.getImportDate();
+    if (importDate!=null)
+    {
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_IMPORT_DATE_ATTR,XmlWriter.CDATA,importDate.toString());
+    }
   }
 
   /**
