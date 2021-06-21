@@ -1,9 +1,7 @@
 package delta.games.lotro.character.achievables.io.xml;
 
 import java.io.File;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
@@ -16,7 +14,6 @@ import delta.games.lotro.character.achievables.AchievableObjectiveStatus;
 import delta.games.lotro.character.achievables.AchievableStatus;
 import delta.games.lotro.character.achievables.DeedsStatusManager;
 import delta.games.lotro.character.achievables.ObjectiveConditionStatus;
-import delta.games.lotro.character.achievables.edition.OldMarkersStateUpdater;
 
 /**
  * Parser for the deeds status stored in XML.
@@ -92,36 +89,8 @@ public class DeedsStatusXMLParser
     }
     // Objectives status
     parseObjectivesStatus(deedStatusTag,deedStatus);
-    // Old markers status
-    if (deedStatus.getState()!=AchievableElementState.COMPLETED)
-    {
-      parseOldMarkersStatus(deedStatusTag,deedStatus);
-    }
     // Update internal states
     deedStatus.updateInternalState();
-  }
-
-  private void parseOldMarkersStatus(Element deedStatusTag, AchievableStatus deedStatus)
-  {
-    Set<Integer> completedPointIds=new HashSet<Integer>();
-    List<Element> pointStatusTags=DOMParsingTools.getChildTagsByName(deedStatusTag,"geoPointStatus");
-    if (pointStatusTags.size()>0)
-    {
-      for(Element pointStatusTag : pointStatusTags)
-      {
-        NamedNodeMap pointAttrs=pointStatusTag.getAttributes();
-        int pointId=DOMParsingTools.getIntAttribute(pointAttrs,"pointId",0);
-        boolean completed=DOMParsingTools.getBooleanAttribute(pointAttrs,"completed",false);
-        if (completed)
-        {
-          completedPointIds.add(Integer.valueOf(pointId));
-        }
-      }
-    }
-    if (completedPointIds.size()>0)
-    {
-      OldMarkersStateUpdater.updateDeedStatus(deedStatus,completedPointIds);
-    }
   }
 
   /**

@@ -36,7 +36,6 @@ public class DeedsStatusIo
       //SyncDeedsStatusAndReputationStatus.syncDeedsStatus(repStatus,status);
       save(character,status);
     }
-    status.setCharacter(character.getName(),character.getServerName());
     return status;
   }
 

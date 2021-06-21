@@ -28,13 +28,13 @@ public class VaultsXMLParser
    */
   public Vault parseXML(File source)
   {
-    Vault status=null;
+    Vault vault=null;
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      status=parseVault(root);
+      vault=parseVault(root);
     }
-    return status;
+    return vault;
   }
 
   private Vault parseVault(Element root)
