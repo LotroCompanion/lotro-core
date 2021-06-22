@@ -1,10 +1,10 @@
 package delta.games.lotro.character.achievables.io.xml;
 
 /**
- * Constants for tags and attribute names used in the deed status XML file.
+ * Constants for tags and attribute names used in the achievables status XML files.
  * @author DAM
  */
-public class DeedStatusXMLConstants
+public class AchievablesStatusXMLConstants
 {
   /**
    * Tag 'deedsStatus'.
@@ -18,19 +18,19 @@ public class DeedStatusXMLConstants
   /**
    * Tag 'deedStatus', attribute 'key'.
    */
-  public static final String DEED_STATUS_KEY_ATTR="key";
+  public static final String STATUS_KEY_ATTR="key";
   /**
    * Tag 'deedStatus', attribute 'completed'.
    */
-  public static final String DEED_STATUS_COMPLETED_ATTR="completed";
+  public static final String STATUS_COMPLETED_ATTR="completed";
   /**
    * Tag 'deedStatus', attribute 'state'.
    */
-  public static final String DEED_STATUS_STATE_ATTR="state";
+  public static final String STATUS_STATE_ATTR="state";
   /**
    * Tag 'deedStatus', attribute 'completionDate'.
    */
-  public static final String DEED_STATUS_COMPLETION_DATE_ATTR="completionDate";
+  public static final String STATUS_COMPLETION_DATE_ATTR="completionDate";
   /**
    * Tag 'objectiveStatus'.
    */

@@ -12,25 +12,25 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.achievables.AchievableElementState;
 import delta.games.lotro.character.achievables.AchievableObjectiveStatus;
 import delta.games.lotro.character.achievables.AchievableStatus;
-import delta.games.lotro.character.achievables.DeedsStatusManager;
+import delta.games.lotro.character.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.achievables.ObjectiveConditionStatus;
 
 /**
- * Writes a deeds status to an XML file.
+ * Writes an achievables status to an XML file.
  * @author DAM
  */
-public class DeedsStatusXMLWriter
+public class AchievablesStatusXMLWriter
 {
   private static final String CDATA="CDATA";
 
   /**
-   * Write a deeds status to an XML file.
+   * Write a status to an XML file.
    * @param outFile Output file.
    * @param status Status to write.
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, final DeedsStatusManager status, String encoding)
+  public boolean write(File outFile, final AchievablesStatusManager status, String encoding)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -38,7 +38,7 @@ public class DeedsStatusXMLWriter
       @Override
       public void writeXml(TransformerHandler hd) throws Exception
       {
-        writeDeedsStatus(hd,status);
+        writeStatus(hd,status);
       }
     };
     boolean ret=helper.write(outFile,encoding,writer);
@@ -46,43 +46,43 @@ public class DeedsStatusXMLWriter
   }
 
   /**
-   * Write a deed status to the given XML stream.
+   * Write a status to the given XML stream.
    * @param hd XML output stream.
-   * @param status Status to write.
+   * @param statusMgr Status to write.
    * @throws Exception If an error occurs.
    */
-  private void writeDeedsStatus(TransformerHandler hd, DeedsStatusManager status) throws Exception
+  private void writeStatus(TransformerHandler hd, AchievablesStatusManager statusMgr) throws Exception
   {
-    status.cleanup();
+    statusMgr.cleanup();
     AttributesImpl attrs=new AttributesImpl();
-    hd.startElement("","",DeedStatusXMLConstants.DEEDS_STATUS_TAG,attrs);
+    hd.startElement("","",AchievablesStatusXMLConstants.DEEDS_STATUS_TAG,attrs);
 
-    List<AchievableStatus> deedStatuses=status.getAll();
+    List<AchievableStatus> status=statusMgr.getAll();
 
-    for(AchievableStatus deedStatus : deedStatuses)
+    for(AchievableStatus achievableStatus : status)
     {
-      AttributesImpl deedAttrs=new AttributesImpl();
+      AttributesImpl statusAttrs=new AttributesImpl();
       // Key
-      int achievableId=deedStatus.getAchievableId();
-      deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_KEY_ATTR,CDATA,String.valueOf(achievableId));
+      int achievableId=achievableStatus.getAchievableId();
+      statusAttrs.addAttribute("","",AchievablesStatusXMLConstants.STATUS_KEY_ATTR,CDATA,String.valueOf(achievableId));
       // Status
-      AchievableElementState state=deedStatus.getState();
+      AchievableElementState state=achievableStatus.getState();
       if ((state!=null) && (state!=AchievableElementState.UNDEFINED))
       {
-        deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_STATE_ATTR,CDATA,state.name());
+        statusAttrs.addAttribute("","",AchievablesStatusXMLConstants.STATUS_STATE_ATTR,CDATA,state.name());
       }
       // Completion date
-      Long completionDate=deedStatus.getCompletionDate();
+      Long completionDate=achievableStatus.getCompletionDate();
       if (completionDate!=null)
       {
-        deedAttrs.addAttribute("","",DeedStatusXMLConstants.DEED_STATUS_COMPLETION_DATE_ATTR,CDATA,completionDate.toString());
+        statusAttrs.addAttribute("","",AchievablesStatusXMLConstants.STATUS_COMPLETION_DATE_ATTR,CDATA,completionDate.toString());
       }
-      hd.startElement("","",DeedStatusXMLConstants.DEED_STATUS_TAG,deedAttrs);
+      hd.startElement("","",AchievablesStatusXMLConstants.DEED_STATUS_TAG,statusAttrs);
       // Write objectives status
-      writeObjectivesStatus(hd,deedStatus);
-      hd.endElement("","",DeedStatusXMLConstants.DEED_STATUS_TAG);
+      writeObjectivesStatus(hd,achievableStatus);
+      hd.endElement("","",AchievablesStatusXMLConstants.DEED_STATUS_TAG);
     }
-    hd.endElement("","",DeedStatusXMLConstants.DEEDS_STATUS_TAG);
+    hd.endElement("","",AchievablesStatusXMLConstants.DEEDS_STATUS_TAG);
   }
 
   /**
@@ -100,20 +100,20 @@ public class DeedsStatusXMLWriter
       AttributesImpl attrs=new AttributesImpl();
       // Index
       int index=objectiveStatus.getObjective().getIndex();
-      attrs.addAttribute("","",DeedStatusXMLConstants.OBJECTIVE_STATUS_INDEX_ATTR,CDATA,String.valueOf(index));
+      attrs.addAttribute("","",AchievablesStatusXMLConstants.OBJECTIVE_STATUS_INDEX_ATTR,CDATA,String.valueOf(index));
       // State
       AchievableElementState state=objectiveStatus.getState();
       if ((state!=null) && (state!=AchievableElementState.UNDEFINED))
       {
-        attrs.addAttribute("","",DeedStatusXMLConstants.OBJECTIVE_STATUS_STATE_ATTR,CDATA,state.name());
+        attrs.addAttribute("","",AchievablesStatusXMLConstants.OBJECTIVE_STATUS_STATE_ATTR,CDATA,state.name());
       }
-      hd.startElement("","",DeedStatusXMLConstants.OBJECTIVE_STATUS_TAG,attrs);
+      hd.startElement("","",AchievablesStatusXMLConstants.OBJECTIVE_STATUS_TAG,attrs);
       List<ObjectiveConditionStatus> conditionStatuses=objectiveStatus.getConditionStatuses();
       for(ObjectiveConditionStatus conditionStatus : conditionStatuses)
       {
         writeObjectiveConditionStatus(hd,conditionStatus);
       }
-      hd.endElement("","",DeedStatusXMLConstants.OBJECTIVE_STATUS_TAG);
+      hd.endElement("","",AchievablesStatusXMLConstants.OBJECTIVE_STATUS_TAG);
     }
   }
 
@@ -128,28 +128,28 @@ public class DeedsStatusXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Index
     int index=status.getCondition().getIndex();
-    attrs.addAttribute("","",DeedStatusXMLConstants.CONDITION_STATUS_INDEX_ATTR,CDATA,String.valueOf(index));
+    attrs.addAttribute("","",AchievablesStatusXMLConstants.CONDITION_STATUS_INDEX_ATTR,CDATA,String.valueOf(index));
     // Status
     AchievableElementState state=status.getState();
     if ((state!=null) && (state!=AchievableElementState.UNDEFINED))
     {
-      attrs.addAttribute("","",DeedStatusXMLConstants.CONDITION_STATUS_STATE_ATTR,CDATA,state.name());
+      attrs.addAttribute("","",AchievablesStatusXMLConstants.CONDITION_STATUS_STATE_ATTR,CDATA,state.name());
     }
     // Count
     Integer count=status.getCount();
     if (count!=null)
     {
-      attrs.addAttribute("","",DeedStatusXMLConstants.CONDITION_STATUS_COUNT_ATTR,CDATA,count.toString());
+      attrs.addAttribute("","",AchievablesStatusXMLConstants.CONDITION_STATUS_COUNT_ATTR,CDATA,count.toString());
     }
     // Keys
     List<String> keys=status.getKeys();
     if ((keys!=null) && (keys.size()>0))
     {
       String keysStr=buildKeysString(keys);
-      attrs.addAttribute("","",DeedStatusXMLConstants.CONDITION_STATUS_KEYS_ATTR,CDATA,keysStr);
+      attrs.addAttribute("","",AchievablesStatusXMLConstants.CONDITION_STATUS_KEYS_ATTR,CDATA,keysStr);
     }
-    hd.startElement("","",DeedStatusXMLConstants.CONDITION_STATUS_TAG,attrs);
-    hd.endElement("","",DeedStatusXMLConstants.CONDITION_STATUS_TAG);
+    hd.startElement("","",AchievablesStatusXMLConstants.CONDITION_STATUS_TAG,attrs);
+    hd.endElement("","",AchievablesStatusXMLConstants.CONDITION_STATUS_TAG);
   }
 
   private String buildKeysString(List<String> keys)

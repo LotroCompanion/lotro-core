@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
 import delta.games.lotro.character.achievables.AchievableStatus;
-import delta.games.lotro.character.achievables.DeedsStatusManager;
+import delta.games.lotro.character.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogItem;
 import delta.games.lotro.character.log.CharacterLogItem.LogItemType;
@@ -37,7 +37,7 @@ public class DeedsStatusFromCharacterLog
 
   private void doIt(CharacterFile character)
   {
-    DeedsStatusManager status=DeedsStatusIo.load(character);
+    AchievablesStatusManager status=DeedsStatusIo.load(character);
     CharacterLog log=character.getLastCharacterLog();
     if (log!=null)
     {
@@ -46,7 +46,7 @@ public class DeedsStatusFromCharacterLog
     }
   }
 
-  private void useCharacterLog(DeedsStatusManager status, CharacterLog log)
+  private void useCharacterLog(AchievablesStatusManager status, CharacterLog log)
   {
     int nbItems=log.getNbItems();
     for(int i=0;i<nbItems;i++)

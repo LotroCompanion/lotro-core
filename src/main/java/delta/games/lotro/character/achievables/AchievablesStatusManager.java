@@ -6,57 +6,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import delta.games.lotro.lore.deeds.DeedDescription;
-import delta.games.lotro.lore.deeds.DeedsManager;
+import delta.games.lotro.lore.quests.Achievable;
 
 /**
- * Storage for all deed statuses for a single character.
+ * Storage for all deed OR quest statuses for a single character.
  * @author DAM
  */
-public class DeedsStatusManager
+public class AchievablesStatusManager
 {
   private Map<Integer,AchievableStatus> _status;
 
   /**
    * Constructor.
    */
-  public DeedsStatusManager()
+  public AchievablesStatusManager()
   {
     _status=new HashMap<Integer,AchievableStatus>();
   }
 
   /**
-   * Get a deed status.
-   * @param deedKey Key of the targeted deed.
+   * Get the status of an achievable.
+   * @param achievable Targeted achievable.
    * @param createIfNecessary Indicates if the status shall be created if it
    * does not exist.
-   * @return A deed status or <code>null</code>.
+   * @return An achievable status or <code>null</code>.
    */
-  public AchievableStatus get(String deedKey, boolean createIfNecessary)
+  public AchievableStatus get(Achievable achievable, boolean createIfNecessary)
   {
-    AchievableStatus ret=null;
-    DeedDescription deed=DeedsManager.getInstance().getDeed(deedKey);
-    if (deed!=null)
-    {
-      ret=get(deed,createIfNecessary);
-    }
-    return ret;
-  }
-
-  /**
-   * Get a deed status.
-   * @param deed Targeted deed.
-   * @param createIfNecessary Indicates if the status shall be created if it
-   * does not exist.
-   * @return A deed status or <code>null</code>.
-   */
-  public AchievableStatus get(DeedDescription deed, boolean createIfNecessary)
-  {
-    Integer key=Integer.valueOf(deed.getIdentifier());
+    Integer key=Integer.valueOf(achievable.getIdentifier());
     AchievableStatus ret=_status.get(key);
     if ((ret==null) && (createIfNecessary))
     {
-      ret=new AchievableStatus(deed);
+      ret=new AchievableStatus(achievable);
       _status.put(key,ret);
     }
     return ret;

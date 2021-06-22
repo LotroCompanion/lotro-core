@@ -4,9 +4,9 @@ import java.io.File;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
-import delta.games.lotro.character.achievables.DeedsStatusManager;
-import delta.games.lotro.character.achievables.io.xml.DeedsStatusXMLParser;
-import delta.games.lotro.character.achievables.io.xml.DeedsStatusXMLWriter;
+import delta.games.lotro.character.achievables.AchievablesStatusManager;
+import delta.games.lotro.character.achievables.io.xml.AchievablesStatusXMLParser;
+import delta.games.lotro.character.achievables.io.xml.AchievablesStatusXMLWriter;
 
 /**
  * I/O methods for deeds status.
@@ -19,19 +19,19 @@ public class DeedsStatusIo
    * @param character Targeted character.
    * @return A deeds status.
    */
-  public static DeedsStatusManager load(CharacterFile character)
+  public static AchievablesStatusManager load(CharacterFile character)
   {
     File fromFile=getStatusFile(character);
-    DeedsStatusManager status=null;
+    AchievablesStatusManager status=null;
     if (fromFile.exists())
     {
-      DeedsStatusXMLParser parser=new DeedsStatusXMLParser();
+      AchievablesStatusXMLParser parser=new AchievablesStatusXMLParser();
       status=parser.parseXML(fromFile);
     }
     if (status==null)
     {
       // Initialize from reputation status
-      status=new DeedsStatusManager();
+      status=new AchievablesStatusManager();
       //ReputationStatus repStatus=character.getReputation();
       //SyncDeedsStatusAndReputationStatus.syncDeedsStatus(repStatus,status);
       save(character,status);
@@ -45,10 +45,10 @@ public class DeedsStatusIo
    * @param status Status to save.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public static boolean save(CharacterFile character, DeedsStatusManager status)
+  public static boolean save(CharacterFile character, AchievablesStatusManager status)
   {
     File toFile=getStatusFile(character);
-    DeedsStatusXMLWriter writer=new DeedsStatusXMLWriter();
+    AchievablesStatusXMLWriter writer=new AchievablesStatusXMLWriter();
     boolean ok=writer.write(toFile,status,EncodingNames.UTF_8);
     return ok;
   }

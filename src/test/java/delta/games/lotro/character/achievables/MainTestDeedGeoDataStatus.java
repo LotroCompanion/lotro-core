@@ -22,7 +22,7 @@ public class MainTestDeedGeoDataStatus
   {
     CharactersManager charsMgr=CharactersManager.getInstance();
     CharacterFile toon=charsMgr.getToonById("Landroval","Glumlug");
-    DeedsStatusManager deedsStatusMgr=DeedsStatusIo.load(toon);
+    AchievablesStatusManager deedsStatusMgr=DeedsStatusIo.load(toon);
     List<AchievableStatus> deedStatuses=deedsStatusMgr.getAll();
     for(AchievableStatus deedStatus : deedStatuses)
     {
