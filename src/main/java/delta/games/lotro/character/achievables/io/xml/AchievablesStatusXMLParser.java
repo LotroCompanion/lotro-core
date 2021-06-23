@@ -14,8 +14,9 @@ import delta.games.lotro.character.achievables.AchievableObjectiveStatus;
 import delta.games.lotro.character.achievables.AchievableStatus;
 import delta.games.lotro.character.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.achievables.ObjectiveConditionStatus;
-import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
+import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.lore.quests.QuestsManager;
 
 /**
  * Parser for the achievables status stored in XML.
@@ -63,8 +64,18 @@ public class AchievablesStatusXMLParser
       return;
     }
     // Create status
-    DeedDescription deed=DeedsManager.getInstance().getDeed(key);
-    AchievableStatus newStatus=status.get(deed,true);
+    Achievable achievable=DeedsManager.getInstance().getDeed(key);
+    if (achievable==null)
+    {
+      achievable=QuestsManager.getInstance().getQuest(Integer.parseInt(key));
+    }
+    if (achievable==null)
+    {
+      // Unknown achievable!
+      LOGGER.warn("Unknown achievable: "+key);
+      return;
+    }
+    AchievableStatus newStatus=status.get(achievable,true);
     if (newStatus==null)
     {
       // Unknown achievable!

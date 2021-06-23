@@ -51,8 +51,8 @@ public class AchievablesStatusManager
     List<Integer> keys=new ArrayList<Integer>(_status.keySet());
     for(Integer key : keys)
     {
-      AchievableStatus deedStatus=_status.get(key);
-      if (deedStatus.isEmpty())
+      AchievableStatus status=_status.get(key);
+      if (status.isEmpty())
       {
         _status.remove(key);
       }
@@ -60,17 +60,17 @@ public class AchievablesStatusManager
   }
 
   /**
-   * Get all managed deed statuses.
-   * @return A list of deed statuses, ordered by deed key.
+   * Get all managed statuses.
+   * @return A list of statuses, ordered by achievable ID.
    */
   public List<AchievableStatus> getAll()
   {
-    List<Integer> deedKeys=new ArrayList<Integer>(_status.keySet());
-    Collections.sort(deedKeys);
+    List<Integer> ids=new ArrayList<Integer>(_status.keySet());
+    Collections.sort(ids);
     List<AchievableStatus> ret=new ArrayList<AchievableStatus>();
-    for(Integer deedKey : deedKeys)
+    for(Integer id : ids)
     {
-      ret.add(_status.get(deedKey));
+      ret.add(_status.get(id));
     }
     return ret;
   }
