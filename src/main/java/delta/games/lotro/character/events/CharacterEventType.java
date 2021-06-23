@@ -53,5 +53,9 @@ public enum CharacterEventType
   /**
    * Deeds status updated.
    */
-  DEEDS_STATUS_UPDATED
+  DEEDS_STATUS_UPDATED,
+  /**
+   * Quests status updated.
+   */
+  QUESTS_STATUS_UPDATED
 }
