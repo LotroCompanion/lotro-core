@@ -79,7 +79,10 @@ public class AchievablesStatusXMLWriter
       }
       hd.startElement("","",AchievablesStatusXMLConstants.DEED_STATUS_TAG,statusAttrs);
       // Write objectives status
-      writeObjectivesStatus(hd,achievableStatus);
+      if (state==AchievableElementState.UNDERWAY)
+      {
+        writeObjectivesStatus(hd,achievableStatus);
+      }
       hd.endElement("","",AchievablesStatusXMLConstants.DEED_STATUS_TAG);
     }
     hd.endElement("","",AchievablesStatusXMLConstants.DEEDS_STATUS_TAG);

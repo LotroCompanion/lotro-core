@@ -101,8 +101,12 @@ public class AchievablesStatusXMLParser
       Long completionDate=NumericTools.parseLong(completionDateStr);
       newStatus.setCompletionDate(completionDate);
     }
-    // Objectives status
-    parseObjectivesStatus(deedStatusTag,newStatus);
+    AchievableElementState state=newStatus.getState();
+    if (state==AchievableElementState.UNDERWAY)
+    {
+      // Objectives status
+      parseObjectivesStatus(deedStatusTag,newStatus);
+    }
     // Update internal states
     newStatus.updateInternalState();
   }
