@@ -23,6 +23,19 @@ public class AchievablesStatusXMLWriter
 {
   private static final String CDATA="CDATA";
 
+  private String _mainTag;
+  private String _childTag;
+
+  /**
+   * Constructor.
+   * @param deeds Write deeds status or quests status.
+   */
+  public AchievablesStatusXMLWriter(boolean deeds)
+  {
+    _mainTag=deeds?AchievablesStatusXMLConstants.DEEDS_STATUS_TAG:AchievablesStatusXMLConstants.QUESTS_STATUS_TAG;
+    _childTag=deeds?AchievablesStatusXMLConstants.DEED_STATUS_TAG:AchievablesStatusXMLConstants.QUEST_STATUS_TAG;
+  }
+
   /**
    * Write a status to an XML file.
    * @param outFile Output file.
@@ -55,7 +68,7 @@ public class AchievablesStatusXMLWriter
   {
     statusMgr.cleanup();
     AttributesImpl attrs=new AttributesImpl();
-    hd.startElement("","",AchievablesStatusXMLConstants.DEEDS_STATUS_TAG,attrs);
+    hd.startElement("","",_mainTag,attrs);
 
     List<AchievableStatus> status=statusMgr.getAll();
 
@@ -77,15 +90,15 @@ public class AchievablesStatusXMLWriter
       {
         statusAttrs.addAttribute("","",AchievablesStatusXMLConstants.STATUS_COMPLETION_DATE_ATTR,CDATA,completionDate.toString());
       }
-      hd.startElement("","",AchievablesStatusXMLConstants.DEED_STATUS_TAG,statusAttrs);
+      hd.startElement("","",_childTag,statusAttrs);
       // Write objectives status
       if (state==AchievableElementState.UNDERWAY)
       {
         writeObjectivesStatus(hd,achievableStatus);
       }
-      hd.endElement("","",AchievablesStatusXMLConstants.DEED_STATUS_TAG);
+      hd.endElement("","",_childTag);
     }
-    hd.endElement("","",AchievablesStatusXMLConstants.DEEDS_STATUS_TAG);
+    hd.endElement("","",_mainTag);
   }
 
   /**

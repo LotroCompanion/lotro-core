@@ -26,7 +26,7 @@ public class QuestsStatusIo
     if (fromFile.exists())
     {
       AchievablesStatusXMLParser parser=new AchievablesStatusXMLParser();
-      status=parser.parseXML(fromFile);
+      status=parser.parseXML(fromFile,false);
     }
     if (status==null)
     {
@@ -46,7 +46,7 @@ public class QuestsStatusIo
   public static boolean save(CharacterFile character, AchievablesStatusManager status)
   {
     File toFile=getStatusFile(character);
-    AchievablesStatusXMLWriter writer=new AchievablesStatusXMLWriter();
+    AchievablesStatusXMLWriter writer=new AchievablesStatusXMLWriter(false);
     boolean ok=writer.write(toFile,status,EncodingNames.UTF_8);
     return ok;
   }

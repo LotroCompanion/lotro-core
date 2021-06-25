@@ -29,38 +29,40 @@ public class AchievablesStatusXMLParser
   /**
    * Parse the XML file.
    * @param source Source file.
+   * @param deeds Indicates if we load deeds status or quests status.
    * @return Parsed status or <code>null</code>.
    */
-  public AchievablesStatusManager parseXML(File source)
+  public AchievablesStatusManager parseXML(File source, boolean deeds)
   {
     AchievablesStatusManager status=null;
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
-      status=parseStatus(root);
+      String statusTagName=deeds?AchievablesStatusXMLConstants.DEED_STATUS_TAG:AchievablesStatusXMLConstants.QUEST_STATUS_TAG;
+      status=parseStatus(root,statusTagName);
     }
     return status;
   }
 
-  private AchievablesStatusManager parseStatus(Element root)
+  private AchievablesStatusManager parseStatus(Element root, String statusTagName)
   {
     AchievablesStatusManager status=new AchievablesStatusManager();
-    List<Element> deedStatusTags=DOMParsingTools.getChildTagsByName(root,AchievablesStatusXMLConstants.DEED_STATUS_TAG,false);
-    for(Element deedStatusTag : deedStatusTags)
+    List<Element> statusTags=DOMParsingTools.getChildTagsByName(root,statusTagName,false);
+    for(Element statusTag : statusTags)
     {
-      parseAchievableStatus(status,deedStatusTag);
+      parseAchievableStatus(status,statusTag);
     }
     return status;
   }
 
-  private void parseAchievableStatus(AchievablesStatusManager status, Element deedStatusTag)
+  private void parseAchievableStatus(AchievablesStatusManager status, Element statusTag)
   {
-    NamedNodeMap attrs=deedStatusTag.getAttributes();
+    NamedNodeMap attrs=statusTag.getAttributes();
     String key=DOMParsingTools.getStringAttribute(attrs,AchievablesStatusXMLConstants.STATUS_KEY_ATTR,null);
     if (key==null)
     {
-      // No deed key!
-      LOGGER.warn("No deed key!");
+      // No achievable key!
+      LOGGER.warn("No achievable key!");
       return;
     }
     // Create status
@@ -105,7 +107,7 @@ public class AchievablesStatusXMLParser
     if (state==AchievableElementState.UNDERWAY)
     {
       // Objectives status
-      parseObjectivesStatus(deedStatusTag,newStatus);
+      parseObjectivesStatus(statusTag,newStatus);
     }
     // Update internal states
     newStatus.updateInternalState();
@@ -113,12 +115,12 @@ public class AchievablesStatusXMLParser
 
   /**
    * Load achievable objectives status from the given XML stream.
-   * @param deedStatusTag Status tag.
+   * @param statusTag Status tag.
    * @param status Status to write.
    */
-  private void parseObjectivesStatus(Element deedStatusTag, AchievableStatus status)
+  private void parseObjectivesStatus(Element statusTag, AchievableStatus status)
   {
-    List<Element> objectiveStatusTags=DOMParsingTools.getChildTagsByName(deedStatusTag,AchievablesStatusXMLConstants.OBJECTIVE_STATUS_TAG);
+    List<Element> objectiveStatusTags=DOMParsingTools.getChildTagsByName(statusTag,AchievablesStatusXMLConstants.OBJECTIVE_STATUS_TAG);
     for(Element objectiveStatusTag : objectiveStatusTags)
     {
       NamedNodeMap objectiveAttrs=objectiveStatusTag.getAttributes();

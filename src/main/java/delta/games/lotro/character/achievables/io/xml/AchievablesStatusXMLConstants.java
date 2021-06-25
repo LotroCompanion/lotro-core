@@ -12,23 +12,32 @@ public class AchievablesStatusXMLConstants
   public static final String DEEDS_STATUS_TAG="deedsStatus";
 
   /**
+   * Tag 'questsStatus'.
+   */
+  public static final String QUESTS_STATUS_TAG="questsStatus";
+
+  /**
    * Tag 'deedStatus'.
    */
   public static final String DEED_STATUS_TAG="deedStatus";
   /**
-   * Tag 'deedStatus', attribute 'key'.
+   * Tag 'questStatus'.
+   */
+  public static final String QUEST_STATUS_TAG="questStatus";
+  /**
+   * Tag 'deedStatus'/'questStatus', attribute 'key'.
    */
   public static final String STATUS_KEY_ATTR="key";
   /**
-   * Tag 'deedStatus', attribute 'completed'.
+   * Tag 'deedStatus'/'questStatus', attribute 'completed'.
    */
   public static final String STATUS_COMPLETED_ATTR="completed";
   /**
-   * Tag 'deedStatus', attribute 'state'.
+   * Tag 'deedStatus'/'questStatus', attribute 'state'.
    */
   public static final String STATUS_STATE_ATTR="state";
   /**
-   * Tag 'deedStatus', attribute 'completionDate'.
+   * Tag 'deedStatus'/'questStatus', attribute 'completionDate'.
    */
   public static final String STATUS_COMPLETION_DATE_ATTR="completionDate";
   /**
