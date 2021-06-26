@@ -12,7 +12,6 @@ public class AchievableGeoPoint
   private String _key;
   private int _mapId;
   private Point2D.Float _lonLat;
-  private Integer _oldMarkerId;
 
   /**
    * Constructor.
@@ -27,7 +26,6 @@ public class AchievableGeoPoint
     _key=key;
     _mapId=mapId;
     _lonLat=lonLat;
-    _oldMarkerId=null;
   }
 
   /**
@@ -94,24 +92,6 @@ public class AchievableGeoPoint
     _lonLat=new Point2D.Float(lon,lat);
   }
 
-  /**
-   * Get the old marker identifier, if any.
-   * @return A marker identifier (old maps system) or <code>null</code>.
-   */
-  public Integer getOldMarkerId()
-  {
-    return _oldMarkerId;
-  }
-
-  /**
-   * Set the old marker identifier.
-   * @param oldMarkerId Marker to set.
-   */
-  public void setOldMarkerId(Integer oldMarkerId)
-  {
-    _oldMarkerId=oldMarkerId;
-  }
-
   @Override
   public String toString()
   {
@@ -128,10 +108,6 @@ public class AchievableGeoPoint
       sb.append(", key=").append(_key);
     }
     sb.append(", mapId=").append(_mapId);
-    if (_oldMarkerId!=null)
-    {
-      sb.append(", oldMarkerId=").append(_oldMarkerId);
-    }
     return sb.toString();
   }
 }

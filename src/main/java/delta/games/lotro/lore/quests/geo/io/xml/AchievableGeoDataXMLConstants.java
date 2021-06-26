@@ -24,10 +24,6 @@ public class AchievableGeoDataXMLConstants
    */
   public static final String POINT_MAP_ID_ATTR="mapId";
   /**
-   * 'point' tag, attribute 'oldMarkerId'.
-   */
-  public static final String POINT_OLD_MARKER_ID_ATTR="oldMarkerId";
-  /**
    * 'point' tag, attribute 'longitude'.
    */
   public static final String POINT_LONGITUDE_ATTR="longitude";

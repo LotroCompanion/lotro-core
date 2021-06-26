@@ -33,8 +33,6 @@ public class AchievableGeoDataXMLParser
       String key=DOMParsingTools.getStringAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_KEY_ATTR,null);
       // Map ID
       int mapId=DOMParsingTools.getIntAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_MAP_ID_ATTR,0);
-      // Old marker ID
-      int oldMarkerId=DOMParsingTools.getIntAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_OLD_MARKER_ID_ATTR,0);
       // Position
       // - longitude
       float longitude=DOMParsingTools.getFloatAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_LONGITUDE_ATTR,0);
@@ -42,10 +40,6 @@ public class AchievableGeoDataXMLParser
       float latitude=DOMParsingTools.getFloatAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_LATITUDE_ATTR,0);
       Point2D.Float lonLat=new Point2D.Float(longitude,latitude);
       AchievableGeoPoint point=new AchievableGeoPoint(did,key,mapId,lonLat);
-      if (oldMarkerId!=0)
-      {
-        point.setOldMarkerId(Integer.valueOf(oldMarkerId));
-      }
       condition.addPoint(point);
     }
   }
