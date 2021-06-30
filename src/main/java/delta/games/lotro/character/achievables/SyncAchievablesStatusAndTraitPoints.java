@@ -43,7 +43,7 @@ public class SyncAchievablesStatusAndTraitPoints
       }
       boolean completed=false;
       AchievableStatus deedStatus=deedsStatus.get(deed,false);
-      if (deedsStatus!=null)
+      if (deedStatus!=null)
       {
         AchievableElementState state=deedStatus.getState();
         if (state==AchievableElementState.COMPLETED)
@@ -81,7 +81,7 @@ public class SyncAchievablesStatusAndTraitPoints
       }
       boolean completed=false;
       AchievableStatus questStatus=questsStatus.get(quest,false);
-      if (questsStatus!=null)
+      if (questStatus!=null)
       {
         AchievableElementState state=questStatus.getState();
         if (state==AchievableElementState.COMPLETED)
