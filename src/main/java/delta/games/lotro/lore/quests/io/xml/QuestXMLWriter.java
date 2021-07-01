@@ -174,6 +174,8 @@ public class QuestXMLWriter extends AchievableXMLWriter
     }
     // Pre-requisites
     writePrerequisites(hd,quest);
+    // Maps
+    writeMaps(hd,quest);
     // Next quest
     Proxy<Achievable> nextQuest=quest.getNextQuest();
     writeAchievableProxy(hd,nextQuest,QuestXMLConstants.NEXT_QUEST_TAG);

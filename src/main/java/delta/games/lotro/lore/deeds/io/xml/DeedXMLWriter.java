@@ -101,6 +101,9 @@ public class DeedXMLWriter extends AchievableXMLWriter
     // Pre-requisites
     writePrerequisites(hd,deed);
 
+    // Maps
+    writeMaps(hd,deed);
+
     // Rewards
     RewardsXMLWriter.write(hd,deed.getRewards());
     hd.endElement("","",DeedXMLConstants.DEED_TAG);

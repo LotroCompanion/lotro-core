@@ -126,6 +126,8 @@ public class QuestXMLParser extends AchievableXMLParser
     UsageRequirementsXMLParser.parseRequirements(q.getUsageRequirement(),root);
     // Prerequisites
     parsePrerequisites(root,q);
+    // Maps
+    parseMaps(root,q);
     // Next quest
     Element nextQuestTag=DOMParsingTools.getChildTagByName(root,QuestXMLConstants.NEXT_QUEST_TAG);
     q.setNextQuest(buildProxy(nextQuestTag));

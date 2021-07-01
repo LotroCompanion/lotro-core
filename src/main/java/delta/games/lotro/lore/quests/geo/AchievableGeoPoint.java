@@ -10,21 +10,21 @@ public class AchievableGeoPoint
 {
   private int _did;
   private String _key;
-  private int _mapId;
+  private int _mapIndex;
   private Point2D.Float _lonLat;
 
   /**
    * Constructor.
    * @param did Data identifier.
    * @param key Associated key.
-   * @param mapId Map identifier.
+   * @param mapIndex Map index (index of associated map in the parent achievable).
    * @param lonLat Position.
    */
-  public AchievableGeoPoint(int did, String key, int mapId, Point2D.Float lonLat)
+  public AchievableGeoPoint(int did, String key, int mapIndex, Point2D.Float lonLat)
   {
     _did=did;
     _key=key;
-    _mapId=mapId;
+    _mapIndex=mapIndex;
     _lonLat=lonLat;
   }
 
@@ -56,21 +56,21 @@ public class AchievableGeoPoint
   }
 
   /**
-   * Get the identifier of the map to use.
-   * @return A map identifier.
+   * Get the index of the map to use.
+   * @return A map index.
    */
-  public int getMapId()
+  public int getMapIndex()
   {
-    return _mapId;
+    return _mapIndex;
   }
 
   /**
-   * Set the map identifier.
-   * @param mapId Map identifier to set.
+   * Set the map index.
+   * @param mapIndex Map index to set.
    */
-  public void setMapId(int mapId)
+  public void setMapIndex(int mapIndex)
   {
-    _mapId=mapId;
+    _mapIndex=mapIndex;
   }
 
   /**
@@ -107,7 +107,7 @@ public class AchievableGeoPoint
     {
       sb.append(", key=").append(_key);
     }
-    sb.append(", mapId=").append(_mapId);
+    sb.append(", mapIndex=").append(_mapIndex);
     return sb.toString();
   }
 }

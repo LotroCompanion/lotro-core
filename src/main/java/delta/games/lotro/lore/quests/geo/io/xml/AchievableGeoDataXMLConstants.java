@@ -20,9 +20,9 @@ public class AchievableGeoDataXMLConstants
    */
   public static final String POINT_KEY_ATTR="key";
   /**
-   * 'point' tag, attribute 'mapId'.
+   * 'point' tag, attribute 'mapIndex'.
    */
-  public static final String POINT_MAP_ID_ATTR="mapId";
+  public static final String POINT_MAP_INDEX_ATTR="mapIndex";
   /**
    * 'point' tag, attribute 'longitude'.
    */

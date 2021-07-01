@@ -8,6 +8,8 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.common.ChallengeLevel;
+import delta.games.lotro.lore.maps.MapDescription;
+import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLWriter;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.utils.Proxy;
 
@@ -65,6 +67,14 @@ public class AchievableXMLWriter
       }
       hd.startElement("","",tag,questAttrs);
       hd.endElement("","",tag);
+    }
+  }
+
+  protected void writeMaps(TransformerHandler hd, Achievable achievable) throws Exception
+  {
+    for(MapDescription map : achievable.getMaps())
+    {
+      MapDescriptionXMLWriter.writeMapDescription(hd,map);
     }
   }
 }

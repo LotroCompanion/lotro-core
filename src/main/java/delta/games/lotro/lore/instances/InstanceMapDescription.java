@@ -3,7 +3,7 @@ package delta.games.lotro.lore.instances;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.lore.geo.BlockReference;
+import delta.games.lotro.lore.maps.MapDescription;
 
 /**
  * Description of an instance map.
@@ -11,28 +11,35 @@ import delta.games.lotro.lore.geo.BlockReference;
  */
 public class InstanceMapDescription
 {
-  private Integer _mapId;
+  private MapDescription _map;
   private List<Integer> _zoneIds;
-  private List<BlockReference> _blocks;
 
   /**
    * Constructor.
-   * @param mapId Basemap identifier (optional).
    */
-  public InstanceMapDescription(Integer mapId)
+  public InstanceMapDescription()
   {
-    _mapId=mapId;
+    super();
+    _map=null;
     _zoneIds=new ArrayList<Integer>();
-    _blocks=new ArrayList<BlockReference>();
   }
 
   /**
-   * Get the basemap identifier.
-   * @return a basemap identifier (may be <code>null</code>).
+   * Get the associated basemap.
+   * @return a basemap or <code>null</code> if not set (should be...).
    */
-  public Integer getMapId()
+  public MapDescription getMap()
   {
-    return _mapId;
+    return _map;
+  }
+
+  /**
+   * Set the associated map.
+   * @param map Map to set.
+   */
+  public void setMap(MapDescription map)
+  {
+    _map=map;
   }
 
   /**
@@ -62,27 +69,9 @@ public class InstanceMapDescription
     return _zoneIds;
   }
 
-  /**
-   * Add a block reference.
-   * @param block Block reference to add.
-   */
-  public void addBlock(BlockReference block)
-  {
-    _blocks.add(block);
-  }
-
-  /**
-   * Get the blocks for this map.
-   * @return a list of block references.
-   */
-  public List<BlockReference> getBlocks()
-  {
-    return _blocks;
-  }
-
   @Override
   public String toString()
   {
-    return "Instance map: basemap="+_mapId+", zones="+_zoneIds+", blocks="+_blocks;
+    return "Instance map: "+_map+", zones="+_zoneIds;
   }
 }

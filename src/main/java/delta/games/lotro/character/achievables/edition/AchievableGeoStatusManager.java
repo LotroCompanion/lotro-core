@@ -6,6 +6,7 @@ import java.util.List;
 import delta.games.lotro.character.achievables.AchievableObjectiveStatus;
 import delta.games.lotro.character.achievables.AchievableStatus;
 import delta.games.lotro.character.achievables.ObjectiveConditionStatus;
+import delta.games.lotro.lore.quests.Achievable;
 
 /**
  * Achievable geo status manager.
@@ -13,6 +14,7 @@ import delta.games.lotro.character.achievables.ObjectiveConditionStatus;
  */
 public class AchievableGeoStatusManager implements GeoPointChangeListener
 {
+  private Achievable _achievable;
   private GeoPointChangeListener _listener;
   private List<AchievableConditionStatusManager> _conditionsMgr;
 
@@ -23,8 +25,18 @@ public class AchievableGeoStatusManager implements GeoPointChangeListener
    */
   public AchievableGeoStatusManager(AchievableStatus status, GeoPointChangeListener listener)
   {
+    _achievable=status.getAchievable();
     _listener=listener;
     buildManagers(status);
+  }
+
+  /**
+   * Get the associated achievable.
+   * @return an achievable.
+   */
+  public Achievable getAchievable()
+  {
+    return _achievable;
   }
 
   private void buildManagers(AchievableStatus status)
@@ -100,6 +112,8 @@ public class AchievableGeoStatusManager implements GeoPointChangeListener
    */
   public void dispose()
   {
+    _achievable=null;
     _listener=null;
+    _conditionsMgr=null;
   }
 }

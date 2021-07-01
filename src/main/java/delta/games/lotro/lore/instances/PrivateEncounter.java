@@ -180,7 +180,7 @@ public class PrivateEncounter implements Identifiable
   {
     for(InstanceMapDescription map : _mapDescriptions)
     {
-      Integer mapId=map.getMapId();
+      Integer mapId=map.getMap().getMapId();
       if ((mapId!=null) && (mapId.intValue()==mapIdToSearch))
       {
         return map;

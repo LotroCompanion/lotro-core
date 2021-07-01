@@ -7,6 +7,9 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.ChallengeLevel;
+import delta.games.lotro.lore.maps.MapDescription;
+import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLConstants;
+import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.utils.Proxy;
 
@@ -69,4 +72,13 @@ public class AchievableXMLParser
     return ret;
   }
 
+  protected void parseMaps(Element root, Achievable achievable)
+  {
+    List<Element> mapTags=DOMParsingTools.getChildTagsByName(root,MapDescriptionXMLConstants.MAP_TAG);
+    for(Element mapTag : mapTags)
+    {
+      MapDescription map=MapDescriptionXMLParser.parseMapDescription(mapTag);
+      achievable.addMap(map);
+    }
+  }
 }

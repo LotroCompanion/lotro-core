@@ -31,15 +31,15 @@ public class AchievableGeoDataXMLParser
       int did=DOMParsingTools.getIntAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_DID_ATTR,0);
       // Key
       String key=DOMParsingTools.getStringAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_KEY_ATTR,null);
-      // Map ID
-      int mapId=DOMParsingTools.getIntAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_MAP_ID_ATTR,0);
+      // Map index
+      int mapIndex=DOMParsingTools.getIntAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_MAP_INDEX_ATTR,0);
       // Position
       // - longitude
       float longitude=DOMParsingTools.getFloatAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_LONGITUDE_ATTR,0);
       // - latitude
       float latitude=DOMParsingTools.getFloatAttribute(pointAttrs,AchievableGeoDataXMLConstants.POINT_LATITUDE_ATTR,0);
       Point2D.Float lonLat=new Point2D.Float(longitude,latitude);
-      AchievableGeoPoint point=new AchievableGeoPoint(did,key,mapId,lonLat);
+      AchievableGeoPoint point=new AchievableGeoPoint(did,key,mapIndex,lonLat);
       condition.addPoint(point);
     }
   }

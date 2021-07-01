@@ -5,15 +5,17 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.lore.geo.BlockReference;
+import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
-import delta.games.lotro.lore.instances.InstanceMapDescription;
+import delta.games.lotro.lore.maps.MapDescription;
+import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLWriter;
 
 /**
  * Writes private encounters to XML files.
@@ -21,6 +23,8 @@ import delta.games.lotro.lore.instances.InstanceMapDescription;
  */
 public class PrivateEncountersXMLWriter
 {
+  private static final Logger LOGGER=Logger.getLogger(PrivateEncountersXMLWriter.class);
+
   /**
    * Write a file with private encounters.
    * @param toFile Output file.
@@ -162,14 +166,16 @@ public class PrivateEncountersXMLWriter
     // Maps
     for(InstanceMapDescription map : privateEncounter.getMapDescriptions())
     {
-      AttributesImpl mapAttrs=new AttributesImpl();
-      // Basemap ID
-      Integer basemapId=map.getMapId();
-      if (basemapId!=null)
+      hd.startElement("","",PrivateEncountersXMLConstants.INSTANCE_MAP_TAG,new AttributesImpl());
+      MapDescription basemap=map.getMap();
+      if (basemap!=null)
       {
-        mapAttrs.addAttribute("","",PrivateEncountersXMLConstants.BASEMAP_ID_ATTR,XmlWriter.CDATA,basemapId.toString());
+        MapDescriptionXMLWriter.writeMapDescription(hd,basemap);
       }
-      hd.startElement("","",PrivateEncountersXMLConstants.MAP_TAG,mapAttrs);
+      else
+      {
+        LOGGER.warn("No basemap for instance map!");
+      }
       // Zones
       for(Integer zoneId : map.getZoneIds())
       {
@@ -179,23 +185,7 @@ public class PrivateEncountersXMLWriter
         hd.startElement("","",PrivateEncountersXMLConstants.ZONE_TAG,zoneAttrs);
         hd.endElement("","",PrivateEncountersXMLConstants.ZONE_TAG);
       }
-      // Blocks
-      for(BlockReference block : map.getBlocks())
-      {
-        AttributesImpl blockAttrs=new AttributesImpl();
-        // Region
-        int region=block.getRegion();
-        blockAttrs.addAttribute("","",PrivateEncountersXMLConstants.BLOCK_REGION_ATTR,XmlWriter.CDATA,String.valueOf(region));
-        // X
-        int x=block.getBlockX();
-        blockAttrs.addAttribute("","",PrivateEncountersXMLConstants.BLOCK_X_ATTR,XmlWriter.CDATA,String.valueOf(x));
-        // Y
-        int y=block.getBlockY();
-        blockAttrs.addAttribute("","",PrivateEncountersXMLConstants.BLOCK_Y_ATTR,XmlWriter.CDATA,String.valueOf(y));
-        hd.startElement("","",PrivateEncountersXMLConstants.BLOCK_TAG,blockAttrs);
-        hd.endElement("","",PrivateEncountersXMLConstants.BLOCK_TAG);
-      }
-      hd.endElement("","",PrivateEncountersXMLConstants.MAP_TAG);
+      hd.endElement("","",PrivateEncountersXMLConstants.INSTANCE_MAP_TAG);
     }
     // Quests to bestow
     for(Integer questToBestowId : privateEncounter.getQuestsToBestow())

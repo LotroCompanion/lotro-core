@@ -57,6 +57,12 @@ public class BlockReference
   }
 
   @Override
+  public int hashCode()
+  {
+    return _region+_blockX+_blockY;
+  }
+
+  @Override
   public boolean equals(Object other)
   {
     if (other instanceof BlockReference)

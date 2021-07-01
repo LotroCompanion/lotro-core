@@ -49,33 +49,13 @@ public class PrivateEncountersXMLConstants
    */
   public static final String CONTENT_LAYER_TAG="contentLayer";
   /**
-   * Tag 'block'.
-   */
-  public static final String BLOCK_TAG="block";
-  /**
-   * Tag 'block', attribute 'region'.
-   */
-  public static final String BLOCK_REGION_ATTR="region";
-  /**
-   * Tag 'block', attribute 'x'.
-   */
-  public static final String BLOCK_X_ATTR="x";
-  /**
-   * Tag 'block', attribute 'y'.
-   */
-  public static final String BLOCK_Y_ATTR="y";
-  /**
    * Tag 'questToBestow'.
    */
   public static final String QUEST_TO_BESTOW_TAG="questToBestow";
   /**
    * Tag 'map'.
    */
-  public static final String MAP_TAG="map";
-  /**
-   * Tag 'map', attribute 'basemapId'.
-   */
-  public static final String BASEMAP_ID_ATTR="basemapId";
+  public static final String INSTANCE_MAP_TAG="instanceMap";
   /**
    * Tag 'zone'.
    */

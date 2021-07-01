@@ -10,6 +10,7 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
+import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.utils.Proxy;
@@ -59,6 +60,10 @@ public abstract class Achievable implements Identifiable
    * Pre-requisites.
    */
   private List<Proxy<Achievable>> _prerequisiteAchievables;
+  /**
+   * Maps.
+   */
+  private List<MapDescription> _maps;
 
   /**
    * Constructor.
@@ -75,6 +80,7 @@ public abstract class Achievable implements Identifiable
     _objectives=new ObjectivesManager();
     _rewards=new Rewards();
     _prerequisiteAchievables=new ArrayList<Proxy<Achievable>>();
+    _maps=new ArrayList<MapDescription>();
   }
 
   /**
@@ -289,6 +295,24 @@ public abstract class Achievable implements Identifiable
   }
 
   /**
+   * Add a map.
+   * @param map Map to add.
+   */
+  public void addMap(MapDescription map)
+  {
+    _maps.add(map);
+  }
+
+  /**
+   * Get the associated maps.
+   * @return a possibly empty but never <code>null</code> list of maps.
+   */
+  public List<MapDescription> getMaps()
+  {
+    return _maps;
+  }
+
+  /**
    * Dump the contents of this achievable as a string.
    * @return A readable string.
    */
@@ -325,6 +349,10 @@ public abstract class Achievable implements Identifiable
     if (_prerequisiteAchievables.size()>0)
     {
       sb.append("Prerequisites: ").append(_prerequisiteAchievables).append(EndOfLine.NATIVE_EOL);
+    }
+    if (_maps.size()>0)
+    {
+      sb.append("Maps: ").append(_maps).append(EndOfLine.NATIVE_EOL);
     }
   }
 

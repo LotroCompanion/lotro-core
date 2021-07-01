@@ -7,11 +7,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.lore.geo.BlockReference;
+import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
-import delta.games.lotro.lore.instances.InstanceMapDescription;
+import delta.games.lotro.lore.maps.MapDescription;
+import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLConstants;
+import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
 
 /**
  * Parser for the private encounters stored in XML.
@@ -136,36 +138,20 @@ public class PrivateEncountersXMLParser
     }
 
     // Maps
-    List<Element> mapTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.MAP_TAG);
-    for(Element mapTag : mapTags)
+    List<Element> instanceMapTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.INSTANCE_MAP_TAG);
+    for(Element instanceMapTag : instanceMapTags)
     {
-      NamedNodeMap zoneAndMapAttrs=mapTag.getAttributes();
-      // Basemap ID
-      int basemapIdInt=DOMParsingTools.getIntAttribute(zoneAndMapAttrs,PrivateEncountersXMLConstants.BASEMAP_ID_ATTR,0);
-      Integer basemapId=(basemapIdInt!=0)?Integer.valueOf(basemapIdInt):null;
-
-      InstanceMapDescription map=new InstanceMapDescription(basemapId);
+      InstanceMapDescription map=new InstanceMapDescription();
+      Element mapTag=DOMParsingTools.getChildTagByName(instanceMapTag,MapDescriptionXMLConstants.MAP_TAG);
+      MapDescription basemap=MapDescriptionXMLParser.parseMapDescription(mapTag);
+      map.setMap(basemap);
       // Zones
-      List<Element> zoneTags=DOMParsingTools.getChildTagsByName(mapTag,PrivateEncountersXMLConstants.ZONE_TAG);
+      List<Element> zoneTags=DOMParsingTools.getChildTagsByName(instanceMapTag,PrivateEncountersXMLConstants.ZONE_TAG);
       for(Element zoneTag : zoneTags)
       {
         // Zone ID
         int zoneId=DOMParsingTools.getIntAttribute(zoneTag.getAttributes(),PrivateEncountersXMLConstants.ZONE_ID_ATTR,0);
         map.addZoneId(zoneId);
-      }
-      // Blocks
-      List<Element> blockTags=DOMParsingTools.getChildTagsByName(mapTag,PrivateEncountersXMLConstants.BLOCK_TAG);
-      for(Element blockTag : blockTags)
-      {
-        NamedNodeMap blockAttrs=blockTag.getAttributes();
-        // Region
-        int region=DOMParsingTools.getIntAttribute(blockAttrs,PrivateEncountersXMLConstants.BLOCK_REGION_ATTR,0);
-        // X
-        int x=DOMParsingTools.getIntAttribute(blockAttrs,PrivateEncountersXMLConstants.BLOCK_X_ATTR,0);
-        // Y
-        int y=DOMParsingTools.getIntAttribute(blockAttrs,PrivateEncountersXMLConstants.BLOCK_Y_ATTR,0);
-        BlockReference block=new BlockReference(region,x,y);
-        map.addBlock(block);
       }
       ret.addMapDescription(map);
     }

@@ -43,9 +43,12 @@ public class AchievableGeoDataXMLWriter
         {
           pointAttrs.addAttribute("","",AchievableGeoDataXMLConstants.POINT_KEY_ATTR,XmlWriter.CDATA,key);
         }
-        // Map ID
-        int mapId=point.getMapId();
-        pointAttrs.addAttribute("","",AchievableGeoDataXMLConstants.POINT_MAP_ID_ATTR,XmlWriter.CDATA,String.valueOf(mapId));
+        // Map index
+        int mapIndex=point.getMapIndex();
+        if (mapIndex>0)
+        {
+          pointAttrs.addAttribute("","",AchievableGeoDataXMLConstants.POINT_MAP_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(mapIndex));
+        }
         // Position
         Point2D.Float lonLat=point.getLonLat();
         pointAttrs.addAttribute("","",AchievableGeoDataXMLConstants.POINT_LONGITUDE_ATTR,XmlWriter.CDATA,String.valueOf(lonLat.x));
