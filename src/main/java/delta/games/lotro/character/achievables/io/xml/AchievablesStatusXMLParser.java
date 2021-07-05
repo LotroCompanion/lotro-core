@@ -103,6 +103,13 @@ public class AchievablesStatusXMLParser
       Long completionDate=NumericTools.parseLong(completionDateStr);
       newStatus.setCompletionDate(completionDate);
     }
+    // Completion count
+    int completionCount=DOMParsingTools.getIntAttribute(attrs,AchievablesStatusXMLConstants.STATUS_COMPLETION_COUNT_ATTR,-1);
+    if (completionCount!=-1)
+    {
+      newStatus.setCompletionCount(Integer.valueOf(completionCount));
+    }
+    // Objectives
     AchievableElementState state=newStatus.getState();
     if (state==AchievableElementState.UNDERWAY)
     {

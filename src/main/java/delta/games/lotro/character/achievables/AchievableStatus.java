@@ -18,6 +18,7 @@ public class AchievableStatus
 {
   private Achievable _achievable;
   private Long _completionDate;
+  private Integer _completionCount;
   private AchievableElementState _state;
   private List<AchievableObjectiveStatus> _objectiveStatuses;
 
@@ -32,6 +33,8 @@ public class AchievableStatus
       throw new IllegalArgumentException("achievable is null");
     }
     _achievable=achievable;
+    _completionDate=null;
+    _completionCount=null;
     _state=AchievableElementState.UNDEFINED;
     initObjectiveStatuses();
     updateInternalState();
@@ -44,6 +47,7 @@ public class AchievableStatus
   public void copyFrom(AchievableStatus source)
   {
     _completionDate=source._completionDate;
+    _completionCount=source._completionCount;
     _state=source._state;
     int nbObjectives=_objectiveStatuses.size();
     for(int i=0;i<nbObjectives;i++)
@@ -200,6 +204,24 @@ public class AchievableStatus
   }
 
   /**
+   * Get the completion count.
+   * @return A completion count, or <code>null</code> if not set.
+   */
+  public Integer getCompletionCount()
+  {
+    return _completionCount;
+  }
+
+  /**
+   * Set the completion count.
+   * @param completionCount Completion count to set.
+   */
+  public void setCompletionCount(Integer completionCount)
+  {
+    _completionCount=completionCount;
+  }
+
+  /**
    * Indicates if this deed status is empty (contains no data).
    * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
@@ -256,6 +278,10 @@ public class AchievableStatus
     if (_completionDate!=null)
     {
       sb.append(" (").append(new Date(_completionDate.longValue())).append(')');
+    }
+    if ((_completionCount!=null) && (_completionCount.intValue()>1))
+    {
+      sb.append(" (x").append(_completionCount).append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);
     if (_state==AchievableElementState.UNDERWAY)

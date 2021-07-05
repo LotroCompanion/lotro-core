@@ -90,6 +90,12 @@ public class AchievablesStatusXMLWriter
       {
         statusAttrs.addAttribute("","",AchievablesStatusXMLConstants.STATUS_COMPLETION_DATE_ATTR,CDATA,completionDate.toString());
       }
+      // Completion count
+      Integer completionCount=achievableStatus.getCompletionCount();
+      if (completionCount!=null)
+      {
+        statusAttrs.addAttribute("","",AchievablesStatusXMLConstants.STATUS_COMPLETION_COUNT_ATTR,CDATA,completionCount.toString());
+      }
       hd.startElement("","",_childTag,statusAttrs);
       // Write objectives status
       if (state==AchievableElementState.UNDERWAY)

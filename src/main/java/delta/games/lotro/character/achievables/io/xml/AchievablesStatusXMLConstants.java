@@ -41,6 +41,10 @@ public class AchievablesStatusXMLConstants
    */
   public static final String STATUS_COMPLETION_DATE_ATTR="completionDate";
   /**
+   * Tag 'questStatus', attribute 'completionCount'.
+   */
+  public static final String STATUS_COMPLETION_COUNT_ATTR="completionCount";
+  /**
    * Tag 'objectiveStatus'.
    */
   public static final String OBJECTIVE_STATUS_TAG="objectiveStatus";
