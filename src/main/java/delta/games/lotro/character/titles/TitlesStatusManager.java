@@ -25,6 +25,14 @@ public class TitlesStatusManager
   }
 
   /**
+   * Remove all known titles.
+   */
+  public void clear()
+  {
+    _status.clear();
+  }
+
+  /**
    * Get the status of a title.
    * @param title Targeted title.
    * @param createIfNecessary Indicates if the status shall be created if it
