@@ -1,6 +1,10 @@
 package delta.games.lotro.character.achievables.filter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.character.achievables.AchievableElementState;
 import delta.games.lotro.character.achievables.AchievableStatus;
 
 /**
@@ -16,7 +20,12 @@ public abstract class AchievableStatusFilter implements Filter<AchievableStatus>
    */
   public AchievableStatusFilter()
   {
-    _stateFilter=new AchievableElementStateFilter(null);
+    Set<AchievableElementState> states=new HashSet<AchievableElementState>();
+    for(AchievableElementState state : AchievableElementState.values())
+    {
+      states.add(state);
+    }
+    _stateFilter=new AchievableElementStateFilter(states);
   }
 
   /**

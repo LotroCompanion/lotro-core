@@ -1,5 +1,7 @@
 package delta.games.lotro.character.achievables.filter;
 
+import java.util.Set;
+
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.achievables.AchievableElementState;
 import delta.games.lotro.character.achievables.AchievableStatus;
@@ -10,42 +12,38 @@ import delta.games.lotro.character.achievables.AchievableStatus;
  */
 public class AchievableElementStateFilter implements Filter<AchievableStatus>
 {
-  private AchievableElementState _state;
+  private Set<AchievableElementState> _states;
 
   /**
    * Constructor.
-   * @param state State to select (may be <code>null</code>).
+   * @param states States to select.
    */
-  public AchievableElementStateFilter(AchievableElementState state)
+  public AchievableElementStateFilter(Set<AchievableElementState> states)
   {
-    _state=state;
+    _states=states;
   }
 
   /**
-   * Get the state to use.
-   * @return A state or <code>null</code>.
+   * Get the selected states.
+   * @return A possibly empty but never <code>null</code> set of states.
    */
-  public AchievableElementState getState()
+  public Set<AchievableElementState> getSelectedStates()
   {
-    return _state;
+    return _states;
   }
 
   /**
-   * Set the state to select.
-   * @param state State to use, may be <code>null</code>.
+   * Set the states to select.
+   * @param states States to select.
    */
-  public void setState(AchievableElementState state)
+  public void setStates(Set<AchievableElementState> states)
   {
-    _state=state;
+    _states=states;
   }
 
   @Override
   public boolean accept(AchievableStatus achievable)
   {
-    if (_state==null)
-    {
-      return true;
-    }
-    return achievable.getState()==_state;
+    return _states.contains(achievable.getState());
   }
 }
