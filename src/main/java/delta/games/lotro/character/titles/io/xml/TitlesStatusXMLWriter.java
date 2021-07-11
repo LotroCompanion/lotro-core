@@ -11,6 +11,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.titles.TitleStatus;
 import delta.games.lotro.character.titles.TitlesStatusManager;
+import delta.games.lotro.lore.titles.TitleDescription;
 
 /**
  * Writes a titles status to an XML file.
@@ -59,11 +60,21 @@ public class TitlesStatusXMLWriter
       // ID
       int titleID=titleStatus.getTitleId();
       statusAttrs.addAttribute("","",TitlesStatusXMLConstants.TITLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(titleID));
+      // Name
+      TitleDescription title=titleStatus.getTitle();
+      String name=title.getName();
+      statusAttrs.addAttribute("","",TitlesStatusXMLConstants.TITLE_NAME_ATTR,XmlWriter.CDATA,name);
       // Acquisition date
       Long acquisitionDate=titleStatus.getAcquisitionDate();
       if (acquisitionDate!=null)
       {
         statusAttrs.addAttribute("","",TitlesStatusXMLConstants.ACQUISITION_DATE_ATTR,XmlWriter.CDATA,acquisitionDate.toString());
+      }
+      // Acquisition timestzamp
+      Double acquisitionTimestamp=titleStatus.getAcquisitionTimeStamp();
+      if (acquisitionTimestamp!=null)
+      {
+        statusAttrs.addAttribute("","",TitlesStatusXMLConstants.ACQUISITION_TIMESTAMP_ATTR,XmlWriter.CDATA,acquisitionTimestamp.toString());
       }
       hd.startElement("","",TitlesStatusXMLConstants.TITLE,statusAttrs);
       hd.endElement("","",TitlesStatusXMLConstants.TITLE);

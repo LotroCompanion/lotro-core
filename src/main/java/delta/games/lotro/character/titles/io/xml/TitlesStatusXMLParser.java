@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
+import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.titles.TitleStatus;
 import delta.games.lotro.character.titles.TitlesStatusManager;
@@ -66,6 +68,18 @@ public class TitlesStatusXMLParser
     if (acquisitionDate!=0)
     {
       newStatus.setAcquisitionDate(Long.valueOf(acquisitionDate));
+    }
+    // Acquisition timestamp
+    Node acquisitionTimestampNode=attrs.getNamedItem(TitlesStatusXMLConstants.ACQUISITION_TIMESTAMP_ATTR);
+    if (acquisitionTimestampNode!=null)
+    {
+      double acquisitionTimestampDouble=NumericTools.parseDouble(acquisitionTimestampNode.getNodeValue(),-1);
+      Double acquisitionTimestamp=null;
+      if (acquisitionTimestampDouble>0)
+      {
+        acquisitionTimestamp=Double.valueOf(acquisitionTimestampDouble);
+      }
+      newStatus.setAcquisitionTimeStamp(acquisitionTimestamp);
     }
   }
 }

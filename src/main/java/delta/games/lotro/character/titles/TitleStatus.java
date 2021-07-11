@@ -12,6 +12,7 @@ public class TitleStatus
 {
   private TitleDescription _title;
   private Long _acquisitionDate;
+  private Double _acquisitionTimestamp;
 
   /**
    * Constructor.
@@ -25,6 +26,7 @@ public class TitleStatus
     }
     _title=title;
     _acquisitionDate=null;
+    _acquisitionTimestamp=null;
   }
 
   /**
@@ -63,6 +65,24 @@ public class TitleStatus
     _acquisitionDate=acquisitionDate;
   }
 
+  /**
+   * Get the acquisition timestamp.
+   * @return A timestamp or <code>null</code> if not set.
+   */
+  public Double getAcquisitionTimeStamp()
+  {
+    return _acquisitionTimestamp;
+  }
+
+  /**
+   * Set the acquisition timestamp.
+   * @param acquisitionTimestamp Acquisition timestamp to set.
+   */
+  public void setAcquisitionTimeStamp(Double acquisitionTimestamp)
+  {
+    _acquisitionTimestamp=acquisitionTimestamp;
+  }
+  
   @Override
   public String toString()
   {
@@ -72,6 +92,10 @@ public class TitleStatus
     if (_acquisitionDate!=null)
     {
       sb.append(" (").append(new Date(_acquisitionDate.longValue())).append(')');
+    }
+    if (_acquisitionTimestamp!=null)
+    {
+      sb.append(" (").append(_acquisitionTimestamp).append(')');
     }
     return sb.toString();
   }
