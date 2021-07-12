@@ -11,6 +11,7 @@ import delta.games.lotro.lore.titles.TitleDescription;
 public class TitleStatus
 {
   private TitleDescription _title;
+  private boolean _acquired;
   private Long _acquisitionDate;
   private Double _acquisitionTimestamp;
 
@@ -45,6 +46,24 @@ public class TitleStatus
   public int getTitleId()
   {
     return _title.getIdentifier();
+  }
+
+  /**
+   * Indicates if this title is acquired or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isAcquired()
+  {
+    return _acquired;
+  }
+
+  /**
+   * Set the 'acquired' flag.
+   * @param acquired Value to set.
+   */
+  public void setAcquired(boolean acquired)
+  {
+    _acquired=acquired;
   }
 
   /**
@@ -89,13 +108,21 @@ public class TitleStatus
     StringBuilder sb=new StringBuilder();
     int titleId=_title.getIdentifier();
     sb.append("Title ").append(_title.getName()).append(" (").append(titleId).append("): ");
-    if (_acquisitionDate!=null)
+    if (_acquired)
     {
-      sb.append(" (").append(new Date(_acquisitionDate.longValue())).append(')');
+      sb.append("acquired");
+      if (_acquisitionDate!=null)
+      {
+        sb.append(" (").append(new Date(_acquisitionDate.longValue())).append(')');
+      }
+      if (_acquisitionTimestamp!=null)
+      {
+        sb.append(" (").append(_acquisitionTimestamp).append(')');
+      }
     }
-    if (_acquisitionTimestamp!=null)
+    else
     {
-      sb.append(" (").append(_acquisitionTimestamp).append(')');
+      sb.append("not acquired");
     }
     return sb.toString();
   }

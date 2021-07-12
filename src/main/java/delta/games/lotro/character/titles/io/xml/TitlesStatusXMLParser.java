@@ -63,6 +63,7 @@ public class TitlesStatusXMLParser
       return;
     }
     TitleStatus newStatus=status.get(title,true);
+    newStatus.setAcquired(true);
     // Acquisition date
     long acquisitionDate=DOMParsingTools.getLongAttribute(attrs,TitlesStatusXMLConstants.ACQUISITION_DATE_ATTR,0);
     if (acquisitionDate!=0)

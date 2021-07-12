@@ -56,6 +56,11 @@ public class TitlesStatusXMLWriter
 
     for(TitleStatus titleStatus : titleStatuses)
     {
+      boolean acquired=titleStatus.isAcquired();
+      if (!acquired)
+      {
+        continue;
+      }
       AttributesImpl statusAttrs=new AttributesImpl();
       // ID
       int titleID=titleStatus.getTitleId();
