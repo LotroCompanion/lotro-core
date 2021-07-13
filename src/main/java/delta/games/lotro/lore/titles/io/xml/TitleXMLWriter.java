@@ -94,6 +94,18 @@ public class TitleXMLWriter
     {
       titleAttrs.addAttribute("","",TitleXMLConstants.TITLE_CATEGORY_ATTR,XmlWriter.CDATA,category);
     }
+    // Exclusion group
+    String exclusionGroup=title.getExclusionGroup();
+    if (exclusionGroup!=null)
+    {
+      titleAttrs.addAttribute("","",TitleXMLConstants.TITLE_EXCLUSION_GROUP_ATTR,XmlWriter.CDATA,exclusionGroup);
+    }
+    // Priority
+    Integer priority=title.getPriority();
+    if (priority!=null)
+    {
+      titleAttrs.addAttribute("","",TitleXMLConstants.TITLE_PRIORITY_ATTR,XmlWriter.CDATA,priority.toString());
+    }
     // Description
     String description=title.getDescription();
     if (description!=null)

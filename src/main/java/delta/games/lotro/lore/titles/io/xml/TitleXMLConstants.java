@@ -32,6 +32,14 @@ public class TitleXMLConstants
    */
   public static final String TITLE_CATEGORY_ATTR="category";
   /**
+   * Tag 'title', attribute 'exclusionGroup'.
+   */
+  public static final String TITLE_EXCLUSION_GROUP_ATTR="exclusionGroup";
+  /**
+   * Tag 'title', attribute 'priority'.
+   */
+  public static final String TITLE_PRIORITY_ATTR="priority";
+  /**
    * Tag 'title', attribute 'description'.
    */
   public static final String TITLE_DESCRIPTION_ATTR="description";

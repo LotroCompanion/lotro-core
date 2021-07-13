@@ -13,6 +13,8 @@ public class TitleDescription implements Identifiable
   private int _iconId;
   private String _category;
   private String _description;
+  private String _exclusionGroup;
+  private Integer _priority;
 
   /**
    * Constructor.
@@ -24,6 +26,8 @@ public class TitleDescription implements Identifiable
     _category="";
     _description="";
     _iconId=0;
+    _exclusionGroup=null;
+    _priority=null;
   }
 
   /**
@@ -119,6 +123,42 @@ public class TitleDescription implements Identifiable
     _description=description;
   }
 
+  /**
+   * Get the exclusion group.
+   * @return An exclusion group or <code>null</code>.
+   */
+  public String getExclusionGroup()
+  {
+    return _exclusionGroup;
+  }
+
+  /**
+   * Set the exclusion group.
+   * @param exclusionGroup Exclusion group to set.
+   */
+  public void setExclusionGroup(String exclusionGroup)
+  {
+    _exclusionGroup=exclusionGroup;
+  }
+
+  /**
+   * Get the priority.
+   * @return A priority value or <code>null</code>.
+   */
+  public Integer getPriority()
+  {
+    return _priority;
+  }
+
+  /**
+   * Set the priority.
+   * @param priority Priority to set.
+   */
+  public void setPriority(Integer priority)
+  {
+    _priority=priority;
+  }
+
   @Override
   public String toString()
   {
@@ -131,6 +171,14 @@ public class TitleDescription implements Identifiable
     }
     sb.append(", category=").append(_category);
     sb.append(", description=").append(_description);
+    if (_exclusionGroup!=null)
+    {
+      sb.append(", exclusion group=").append(_exclusionGroup);
+    }
+    if (_priority!=null)
+    {
+      sb.append(", priority=").append(_priority);
+    }
     return sb.toString();
   }
 }

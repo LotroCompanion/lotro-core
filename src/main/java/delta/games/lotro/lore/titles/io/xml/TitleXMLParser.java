@@ -55,6 +55,12 @@ public class TitleXMLParser
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,TitleXMLConstants.TITLE_CATEGORY_ATTR,null);
     title.setCategory(category);
+    // Exclusion group
+    String exclusionGroup=DOMParsingTools.getStringAttribute(attrs,TitleXMLConstants.TITLE_EXCLUSION_GROUP_ATTR,null);
+    title.setExclusionGroup(exclusionGroup);
+    // Priority
+    int priority=DOMParsingTools.getIntAttribute(attrs,TitleXMLConstants.TITLE_PRIORITY_ATTR,-1);
+    title.setPriority(priority>=0?Integer.valueOf(priority):null);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,TitleXMLConstants.TITLE_DESCRIPTION_ATTR,null);
     title.setDescription(description);
