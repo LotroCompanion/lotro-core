@@ -111,4 +111,42 @@ public class TitlesManager
     Collections.sort(ret);
     return ret;
   }
+
+  private List<TitleDescription> getTitlesForExclusionGroup(String group)
+  {
+    ArrayList<TitleDescription> titles=new ArrayList<TitleDescription>();
+    for(TitleDescription title : _cache.values())
+    {
+      if (group.equals(title.getExclusionGroup()))
+      {
+        titles.add(title);
+      }
+    }
+    return titles;
+  }
+
+  /**
+   * Get the list of titles that are obsoleted by the provided one.
+   * @param title Title to use.
+   * @return A possibly empty but never <code>null</code> list of titles.
+   */
+  public List<TitleDescription> getObsoletedTitles(TitleDescription title)
+  {
+    List<TitleDescription> ret=new ArrayList<TitleDescription>();
+    String group=title.getExclusionGroup();
+    Integer priority=title.getPriority();
+    if ((group!=null) && (priority!=null))
+    {
+      List<TitleDescription> titlesOfGroup=getTitlesForExclusionGroup(group);
+      for(TitleDescription titleOfGroup : titlesOfGroup)
+      {
+        Integer currentPriority=titleOfGroup.getPriority();
+        if ((currentPriority!=null) && (currentPriority.intValue()<priority.intValue()))
+        {
+          ret.add(titleOfGroup);
+        }
+      }
+    }
+    return ret;
+  }
 }

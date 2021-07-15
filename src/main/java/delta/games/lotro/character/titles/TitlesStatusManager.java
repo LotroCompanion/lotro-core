@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.lore.titles.TitleDescription;
+import delta.games.lotro.lore.titles.TitlesManager;
 
 /**
  * Storage for all acquired titles for a single character.
@@ -65,5 +66,36 @@ public class TitlesStatusManager
       ret.add(_status.get(id));
     }
     return ret;
+  }
+
+  /**
+   * Mark the obsolete titles.
+   */
+  public void markObsoleteTitles()
+  {
+    TitlesManager titlesMgr=TitlesManager.getInstance();
+    List<TitleDescription> obsoleteTitles=new ArrayList<TitleDescription>();
+    for(TitleStatus status : _status.values())
+    {
+      if (status.getState()==TitleState.ACQUIRED)
+      {
+        TitleDescription title=status.getTitle();
+        String exclusionGroup=title.getExclusionGroup();
+        if (exclusionGroup!=null)
+        {
+          List<TitleDescription> obsoletedTitles=titlesMgr.getObsoletedTitles(title);
+          for(TitleDescription obsoletedTitle : obsoletedTitles)
+          {
+            obsoleteTitles.add(obsoletedTitle);
+          }
+        }
+      }
+    }
+    // Perform obsolete mark
+    for(TitleDescription title : obsoleteTitles)
+    {
+      get(title,true).setState(TitleState.SUPERSEDED);
+      //System.out.println(obsoletedTitle.getName()+" is obsolete");
+    }
   }
 }

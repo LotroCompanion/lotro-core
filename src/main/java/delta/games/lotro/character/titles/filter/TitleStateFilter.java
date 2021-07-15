@@ -3,6 +3,7 @@ package delta.games.lotro.character.titles.filter;
 import java.util.Set;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.character.titles.TitleState;
 import delta.games.lotro.character.titles.TitleStatus;
 
 /**
@@ -11,13 +12,13 @@ import delta.games.lotro.character.titles.TitleStatus;
  */
 public class TitleStateFilter implements Filter<TitleStatus>
 {
-  private Set<Boolean> _states;
+  private Set<TitleState> _states;
 
   /**
    * Constructor.
    * @param states States to select.
    */
-  public TitleStateFilter(Set<Boolean> states)
+  public TitleStateFilter(Set<TitleState> states)
   {
     _states=states;
   }
@@ -26,7 +27,7 @@ public class TitleStateFilter implements Filter<TitleStatus>
    * Get the selected states.
    * @return A possibly empty but never <code>null</code> set of states.
    */
-  public Set<Boolean> getSelectedStates()
+  public Set<TitleState> getSelectedStates()
   {
     return _states;
   }
@@ -35,7 +36,7 @@ public class TitleStateFilter implements Filter<TitleStatus>
    * Set the states to select.
    * @param states States to select.
    */
-  public void setStates(Set<Boolean> states)
+  public void setStates(Set<TitleState> states)
   {
     _states=states;
   }
@@ -43,6 +44,6 @@ public class TitleStateFilter implements Filter<TitleStatus>
   @Override
   public boolean accept(TitleStatus titleStatus)
   {
-    return _states.contains(Boolean.valueOf(titleStatus.isAcquired()));
+    return _states.contains(titleStatus.getState());
   }
 }

@@ -27,6 +27,7 @@ public class TitlesStatusIo
     {
       TitlesStatusXMLParser parser=new TitlesStatusXMLParser();
       status=parser.parseXML(fromFile);
+      status.markObsoleteTitles();
     }
     if (status==null)
     {

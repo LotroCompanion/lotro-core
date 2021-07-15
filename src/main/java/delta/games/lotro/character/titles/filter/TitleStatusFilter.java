@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.character.titles.TitleState;
 import delta.games.lotro.character.titles.TitleStatus;
 import delta.games.lotro.lore.titles.filters.TitleFilter;
 
@@ -22,9 +23,11 @@ public class TitleStatusFilter implements Filter<TitleStatus>
   public TitleStatusFilter()
   {
     _titleFilter=new TitleFilter();
-    Set<Boolean> states=new HashSet<Boolean>();
-    states.add(Boolean.TRUE);
-    states.add(Boolean.FALSE);
+    Set<TitleState> states=new HashSet<TitleState>();
+    for(TitleState state : TitleState.values())
+    {
+      states.add(state);
+    }
     _stateFilter=new TitleStateFilter(states);
   }
 

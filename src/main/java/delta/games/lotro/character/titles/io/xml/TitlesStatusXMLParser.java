@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.titles.TitleState;
 import delta.games.lotro.character.titles.TitleStatus;
 import delta.games.lotro.character.titles.TitlesStatusManager;
 import delta.games.lotro.lore.titles.TitleDescription;
@@ -63,7 +64,7 @@ public class TitlesStatusXMLParser
       return;
     }
     TitleStatus newStatus=status.get(title,true);
-    newStatus.setAcquired(true);
+    newStatus.setState(TitleState.ACQUIRED);
     // Acquisition date
     long acquisitionDate=DOMParsingTools.getLongAttribute(attrs,TitlesStatusXMLConstants.ACQUISITION_DATE_ATTR,0);
     if (acquisitionDate!=0)

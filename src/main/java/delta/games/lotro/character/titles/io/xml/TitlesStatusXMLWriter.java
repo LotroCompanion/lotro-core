@@ -9,6 +9,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.character.titles.TitleState;
 import delta.games.lotro.character.titles.TitleStatus;
 import delta.games.lotro.character.titles.TitlesStatusManager;
 import delta.games.lotro.lore.titles.TitleDescription;
@@ -56,8 +57,8 @@ public class TitlesStatusXMLWriter
 
     for(TitleStatus titleStatus : titleStatuses)
     {
-      boolean acquired=titleStatus.isAcquired();
-      if (!acquired)
+      TitleState state=titleStatus.getState();
+      if (state!=TitleState.ACQUIRED)
       {
         continue;
       }
@@ -75,7 +76,7 @@ public class TitlesStatusXMLWriter
       {
         statusAttrs.addAttribute("","",TitlesStatusXMLConstants.ACQUISITION_DATE_ATTR,XmlWriter.CDATA,acquisitionDate.toString());
       }
-      // Acquisition timestzamp
+      // Acquisition timestamp
       Double acquisitionTimestamp=titleStatus.getAcquisitionTimeStamp();
       if (acquisitionTimestamp!=null)
       {
