@@ -226,4 +226,8 @@ public class DataFiles
    * Paper items.
    */
   public static final String PAPER_ITEMS="paperItems";
+  /**
+   * Tasks.
+   */
+  public static final String TASKS="tasks";
 }
