@@ -14,6 +14,7 @@ public class TitleStatus
   private TitleState _state;
   private Long _acquisitionDate;
   private Double _acquisitionTimestamp;
+  private Integer _acquisitionOrder;
 
   /**
    * Constructor.
@@ -29,6 +30,7 @@ public class TitleStatus
     _state=TitleState.UNDEFINED;
     _acquisitionDate=null;
     _acquisitionTimestamp=null;
+    _acquisitionOrder=null;
   }
 
   /**
@@ -102,7 +104,25 @@ public class TitleStatus
   {
     _acquisitionTimestamp=acquisitionTimestamp;
   }
-  
+
+  /**
+   * Get the acquisition order.
+   * @return An index or <code>null</code> if not set.
+   */
+  public Integer getAcquisitionOrder()
+  {
+    return _acquisitionOrder;
+  }
+
+  /**
+   * Set the acquisition order.
+   * @param acquisitionOrder Acquisition order to set.
+   */
+  public void setAcquisitionOrder(Integer acquisitionOrder)
+  {
+    _acquisitionOrder=acquisitionOrder;
+  }
+
   @Override
   public String toString()
   {
