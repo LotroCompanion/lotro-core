@@ -2,6 +2,7 @@ package delta.games.lotro.character.traitPoints;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import delta.games.lotro.character.status.traitPoints.TraitPointsStatus;
 
 /**
  * Test class for trait points status.

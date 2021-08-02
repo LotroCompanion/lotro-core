@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import delta.games.lotro.character.crafting.KnownRecipes;
+import delta.games.lotro.character.status.crafting.KnownRecipes;
 import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.recipes.Recipe;

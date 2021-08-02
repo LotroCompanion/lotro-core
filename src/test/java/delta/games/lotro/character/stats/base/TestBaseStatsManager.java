@@ -1,8 +1,6 @@
 package delta.games.lotro.character.stats.base;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.base.BaseStatsManager;
-import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 

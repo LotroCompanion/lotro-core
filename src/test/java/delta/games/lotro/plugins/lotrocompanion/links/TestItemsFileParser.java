@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import junit.framework.TestCase;
+
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.files.TextFileReader;
@@ -18,7 +20,6 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
 import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
-import junit.framework.TestCase;
 
 /**
  * Test class for the ItemsFileParser.

@@ -4,7 +4,12 @@ import java.util.List;
 
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
-import delta.games.lotro.character.achievables.io.DeedsStatusIo;
+import delta.games.lotro.character.status.achievables.AchievableElementState;
+import delta.games.lotro.character.status.achievables.AchievableObjectiveStatus;
+import delta.games.lotro.character.status.achievables.AchievableStatus;
+import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
+import delta.games.lotro.character.status.achievables.ObjectiveConditionStatus;
+import delta.games.lotro.character.status.achievables.io.DeedsStatusIo;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
