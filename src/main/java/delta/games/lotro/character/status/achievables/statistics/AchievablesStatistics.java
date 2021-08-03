@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import delta.common.utils.misc.IntegerHolder;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.status.achievables.AchievableElementState;
@@ -21,7 +19,9 @@ import delta.games.lotro.character.status.achievables.statistics.traits.TraitEve
 import delta.games.lotro.character.status.achievables.statistics.traits.TraitEventNameComparator;
 import delta.games.lotro.character.status.achievables.statistics.virtues.VirtueStatsFromAchievables;
 import delta.games.lotro.character.status.achievables.statistics.virtues.VirtueXPStatsFromAchievables;
-import delta.games.lotro.character.status.statistics.reputation.FactionStatsFromAchievables;
+import delta.games.lotro.character.status.statistics.items.ItemsStats;
+import delta.games.lotro.character.status.statistics.reputation.FactionStats;
+import delta.games.lotro.character.status.statistics.reputation.ReputationStats;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.rewards.EmoteReward;
@@ -32,11 +32,8 @@ import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
-import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.WellKnownItems;
-import delta.games.lotro.lore.items.comparators.CountedItemNameComparator;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
@@ -48,8 +45,6 @@ import delta.games.lotro.utils.Proxy;
  */
 public class AchievablesStatistics
 {
-  private static final Logger LOGGER=Logger.getLogger(AchievablesStatistics.class);
-
   private Map<AchievableElementState,IntegerHolder> _countByState;
   private int _completionsCount;
   private int _total;
@@ -62,8 +57,8 @@ public class AchievablesStatistics
   private List<TraitEvent> _traits;
   private Map<VirtueDescription,VirtueStatsFromAchievables> _virtues;
   private VirtueXPStatsFromAchievables _virtueXP;
-  private Map<String,FactionStatsFromAchievables> _reputation;
-  private Map<Integer,CountedItem<Item>> _items;
+  private ReputationStats _reputation;
+  private ItemsStats _items;
 
   /**
    * Constructor.
@@ -80,8 +75,8 @@ public class AchievablesStatistics
     _traits=new ArrayList<TraitEvent>();
     _virtues=new HashMap<VirtueDescription,VirtueStatsFromAchievables>();
     _virtueXP=new VirtueXPStatsFromAchievables();
-    _reputation=new HashMap<String,FactionStatsFromAchievables>();
-    _items=new HashMap<Integer,CountedItem<Item>>();
+    _reputation=new ReputationStats();
+    _items=new ItemsStats();
     reset();
   }
 
@@ -105,8 +100,8 @@ public class AchievablesStatistics
     _traits.clear();
     _virtues.clear();
     _virtueXP.clear();
-    _reputation.clear();
-    _items.clear();
+    _reputation.reset();
+    _items.reset();
   }
 
   /**
@@ -179,22 +174,7 @@ public class AchievablesStatistics
           {
             _medallionsCount+=itemsCount;
           }
-          Item item=ItemsManager.getInstance().getItem(itemId);
-          if (item!=null)
-          {
-            Integer itemIdInteger=Integer.valueOf(itemId);
-            CountedItem<Item> count=_items.get(itemIdInteger);
-            if (count==null)
-            {
-              count=new CountedItem<Item>(item,0);
-              _items.put(itemIdInteger,count);
-            }
-            count.add(itemsCount);
-          }
-          else
-          {
-            LOGGER.warn("Item not found: "+itemId);
-          }
+          _items.add(itemId,itemsCount);
         }
         // Title
         else if (rewardElement instanceof TitleReward)
@@ -239,13 +219,7 @@ public class AchievablesStatistics
         {
           ReputationReward reputationReward=(ReputationReward)rewardElement;
           Faction faction=reputationReward.getFaction();
-          String factionKey=faction.getIdentifyingKey();
-          FactionStatsFromAchievables factionStats=_reputation.get(factionKey);
-          if (factionStats==null)
-          {
-            factionStats=new FactionStatsFromAchievables(faction);
-            _reputation.put(factionKey,factionStats);
-          }
+          FactionStats factionStats=_reputation.get(faction,true);
           int amount=reputationReward.getAmount();
           factionStats.addCompletions(completionCountInt,amount);
         }
@@ -379,37 +353,20 @@ public class AchievablesStatistics
 
   /**
    * Get the statistics about the acquired reputation.
-   * @return A map of faction statistics.
+   * @return Reputation statistics.
    */
-  public Map<String,FactionStatsFromAchievables> getReputation()
+  public ReputationStats getReputationStats()
   {
     return _reputation;
   }
 
   /**
-   * Get the total number of reputation points.
-   * @return A reputation points count.
+   * Get the statistics about the acquired items.
+   * @return Items statistics.
    */
-  public int getTotalReputationPoints()
+  public ItemsStats getItemsStats()
   {
-    int total=0;
-    for(FactionStatsFromAchievables factionStats : _reputation.values())
-    {
-      int points=factionStats.getPoints();
-      total+=points;
-    }
-    return total;
-  }
-
-  /**
-   * Get the acquired items.
-   * @return A list of counted items, sorted by name.
-   */
-  public List<CountedItem<Item>> getItems()
-  {
-    List<CountedItem<Item>> items=new ArrayList<CountedItem<Item>>(_items.values());
-    Collections.sort(items,new CountedItemNameComparator<Item>());
-    return items;
+    return _items;
   }
 
   /**
@@ -464,13 +421,13 @@ public class AchievablesStatistics
         }
       }
     }
-    if (_reputation.size()>0)
+    if (_reputation.getFactionsCount()>0)
     {
       sb.append("Reputation:").append(EndOfLine.NATIVE_EOL);
       List<Faction> factions=FactionsRegistry.getInstance().getAll();
       for(Faction faction : factions)
       {
-        FactionStatsFromAchievables factionStats=_reputation.get(faction.getIdentifyingKey());
+        FactionStats factionStats=_reputation.get(faction,false);
         if (factionStats!=null)
         {
           int points=factionStats.getPoints();

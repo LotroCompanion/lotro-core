@@ -6,7 +6,7 @@ import delta.games.lotro.lore.reputation.Faction;
  * Statistics for a single faction.
  * @author DAM
  */
-public class FactionStatsFromAchievables
+public class FactionStats
 {
   private Faction _faction;
   private int _points;
@@ -17,7 +17,7 @@ public class FactionStatsFromAchievables
    * Constructor.
    * @param faction Managed faction.
    */
-  public FactionStatsFromAchievables(Faction faction)
+  public FactionStats(Faction faction)
   {
     _faction=faction;
   }
