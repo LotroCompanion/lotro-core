@@ -31,14 +31,15 @@ public class TasksStatistics
   private ItemsStats _consumedItems;
   private Money _consumedItemsPrice;
   private ItemsStats _earnedItems;
+  private int _totalXP;
+  private int _totalItemXP;
+  private int _totalMountXP;
 
   /**
    * Constructor.
    */
   public TasksStatistics()
   {
-    _distinctCompletedTasks=0;
-    _taskCompletions=0;
     _reputation=new ReputationStats();
     _consumedItems=new ItemsStats();
     _consumedItemsPrice=new Money();
@@ -57,6 +58,9 @@ public class TasksStatistics
     _consumedItems.reset();
     _consumedItemsPrice.setRawValue(0);
     _earnedItems.reset();
+    _totalXP=0;
+    _totalItemXP=0;
+    _totalMountXP=0;
   }
 
   /**
@@ -90,6 +94,10 @@ public class TasksStatistics
       int completionCountInt=(completionCount!=null)?completionCount.intValue():1;
       _taskCompletions+=completionCountInt;
       Rewards rewards=quest.getRewards();
+      // XP
+      _totalXP+=rewards.getXp();
+      _totalItemXP+=rewards.getItemXp();
+      _totalMountXP+=rewards.getMountXp();
       // Other rewards
       for(RewardElement rewardElement : rewards.getRewardElements())
       {
@@ -180,5 +188,32 @@ public class TasksStatistics
   public ItemsStats getEarnedItemsStats()
   {
     return _earnedItems;
+  }
+
+  /**
+   * Get the total XP.
+   * @return an XP amount.
+   */
+  public int getTotalXP()
+  {
+    return _totalXP;
+  }
+
+  /**
+   * Get the total item XP.
+   * @return an item XP amount.
+   */
+  public int getTotalItemXP()
+  {
+    return _totalItemXP;
+  }
+
+  /**
+   * Get the total mount XP.
+   * @return a mount XP amount.
+   */
+  public int getTotalMountXP()
+  {
+    return _totalMountXP;
   }
 }
