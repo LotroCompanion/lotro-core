@@ -66,6 +66,20 @@ public class ItemsStats
   }
 
   /**
+   * Get the total number of items.
+   * @return A count.
+   */
+  public int getItemsCount()
+  {
+    int total=0;
+    for(CountedItem<Item> itemCount : _items.values())
+    {
+      total+=itemCount.getQuantity();
+    }
+    return total;
+  }
+
+  /**
    * Get the acquired items.
    * @return A list of counted items, sorted by name.
    */
