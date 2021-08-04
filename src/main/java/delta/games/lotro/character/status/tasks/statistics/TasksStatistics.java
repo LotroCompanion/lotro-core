@@ -95,9 +95,9 @@ public class TasksStatistics
       _taskCompletions+=completionCountInt;
       Rewards rewards=quest.getRewards();
       // XP
-      _totalXP+=rewards.getXp();
-      _totalItemXP+=rewards.getItemXp();
-      _totalMountXP+=rewards.getMountXp();
+      _totalXP+=(rewards.getXp()*completionCountInt);
+      _totalItemXP+=(rewards.getItemXp()*completionCountInt);
+      _totalMountXP+=(rewards.getMountXp()*completionCountInt);
       // Other rewards
       for(RewardElement rewardElement : rewards.getRewardElements())
       {
@@ -108,7 +108,7 @@ public class TasksStatistics
           Proxy<Item> itemProxy=itemReward.getItemProxy();
           int itemId=itemProxy.getId();
           int itemsCount=itemReward.getQuantity();
-          _earnedItems.add(itemId,itemsCount);
+          _earnedItems.add(itemId,itemsCount*completionCountInt);
         }
         // Reputation
         else if (rewardElement instanceof ReputationReward)
@@ -126,7 +126,7 @@ public class TasksStatistics
       int count=task.getItemCount();
       if ((item!=null) && (count>0))
       {
-        _consumedItems.add(item.getIdentifier(),count);
+        _consumedItems.add(item.getIdentifier(),count*completionCountInt);
         // Price of consumed items
         Money itemCost=item.getValueAsMoney();
         int copperValue=itemCost.getInternalValue();
