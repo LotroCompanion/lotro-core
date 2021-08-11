@@ -66,4 +66,38 @@ public class TaskDeedsManager
     }
     return ret;
   }
+
+  /**
+   * Get the maximum number of tasks used in deeds.
+   * @return A tasks count.
+   */
+  public int getMaxTasks()
+  {
+    int nbDeeds=_taskDeeds.size();
+    if (nbDeeds>0)
+    {
+      return _taskDeeds.get(nbDeeds-1).getTasksCount();
+    }
+    return 0;
+  }
+
+  /**
+   * Get the number of achieved tasks at the beginning of the given deed.
+   * @param taskDeed A task deed.
+   * @return A tasks count.
+   */
+  public int getBaseTasksCount(TaskDeed taskDeed)
+  {
+    int index=_taskDeeds.indexOf(taskDeed);
+    if (index<=0)
+    {
+      return 0;
+    }
+    int nbDeeds=_taskDeeds.size();
+    if (nbDeeds>0)
+    {
+      return _taskDeeds.get(index-1).getTasksCount();
+    }
+    return 0;
+  }
 }

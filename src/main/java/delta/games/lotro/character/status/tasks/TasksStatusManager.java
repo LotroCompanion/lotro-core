@@ -17,6 +17,7 @@ import delta.games.lotro.lore.tasks.TasksRegistry;
  */
 public class TasksStatusManager
 {
+  private int _completedTasks;
   private Map<Integer,TaskStatus> _statuses;
 
   /**
@@ -24,6 +25,7 @@ public class TasksStatusManager
    */
   public TasksStatusManager()
   {
+    _completedTasks=0;
     _statuses=new HashMap<Integer,TaskStatus>(); 
   }
 
@@ -42,7 +44,22 @@ public class TasksStatusManager
       TaskStatus taskStatus=new TaskStatus(task,status);
       int taskId=quest.getIdentifier();
       _statuses.put(Integer.valueOf(taskId),taskStatus);
+      if (status.isCompleted())
+      {
+        Integer count=status.getCompletionCount();
+        int countInt=(count!=null)?count.intValue():1;
+        _completedTasks+=countInt;
+      }
     }
+  }
+
+  /**
+   * Get the number of completed tasks.
+   * @return the number of completed tasks.
+   */
+  public int getCompletedTasksCount()
+  {
+    return _completedTasks;
   }
 
   /**
