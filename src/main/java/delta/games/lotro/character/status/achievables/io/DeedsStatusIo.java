@@ -30,10 +30,7 @@ public class DeedsStatusIo
     }
     if (status==null)
     {
-      // Initialize from reputation status
       status=new AchievablesStatusManager();
-      //ReputationStatus repStatus=character.getReputation();
-      //SyncDeedsStatusAndReputationStatus.syncDeedsStatus(repStatus,status);
       save(character,status);
     }
     return status;

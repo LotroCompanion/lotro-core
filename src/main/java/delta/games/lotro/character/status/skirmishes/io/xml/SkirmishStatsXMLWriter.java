@@ -86,13 +86,13 @@ public class SkirmishStatsXMLWriter
         SkirmishStats detailedStats=stats.getStats(size,level);
         if (detailedStats!=null)
         {
-          AttributesImpl attrs2=new AttributesImpl();
+          AttributesImpl skirmishAttrs=new AttributesImpl();
           // Group size
-          attrs.addAttribute("","",SkirmishStatsXMLConstants.GROUP_SIZE_ATTR,XmlWriter.CDATA,size.name());
+          skirmishAttrs.addAttribute("","",SkirmishStatsXMLConstants.GROUP_SIZE_ATTR,XmlWriter.CDATA,size.name());
           // Level
-          attrs.addAttribute("","",SkirmishStatsXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,level.name());
-          writeSkirmishStats(hd,detailedStats,attrs2);
-          hd.startElement("","",SkirmishStatsXMLConstants.SKIRMISH_STATS_TAG,attrs2);
+          skirmishAttrs.addAttribute("","",SkirmishStatsXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,level.name());
+          writeSkirmishStats(hd,detailedStats,skirmishAttrs);
+          hd.startElement("","",SkirmishStatsXMLConstants.SKIRMISH_STATS_TAG,skirmishAttrs);
           hd.endElement("","",SkirmishStatsXMLConstants.SKIRMISH_STATS_TAG);
         }
       }

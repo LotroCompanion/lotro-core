@@ -30,7 +30,6 @@ public class QuestsStatusIo
     }
     if (status==null)
     {
-      // Initialize from reputation status
       status=new AchievablesStatusManager();
       save(character,status);
     }

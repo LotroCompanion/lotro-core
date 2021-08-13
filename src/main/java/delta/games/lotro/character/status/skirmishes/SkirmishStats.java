@@ -78,11 +78,8 @@ public class SkirmishStats
   }
 
   /**
-   * Set the lieutenant kills.
-   * @param lieutenantKills Count to set.
-   */
-  /**
-   * @param controlPointsTaken the controlPointsTaken to set
+   * Set the number of control points taken.
+   * @param controlPointsTaken Count to set.
    */
   public void setControlPointsTaken(int controlPointsTaken)
   {
