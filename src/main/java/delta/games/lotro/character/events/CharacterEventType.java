@@ -35,6 +35,10 @@ public enum CharacterEventType
    */
   CHARACTER_TITLES_UPDATED,
   /**
+   * The skirmish stats of a toon were updated.
+   */
+  CHARACTER_SKIRMISH_STATS_UPDATED,
+  /**
    * The storage of a toon was updated.
    */
   CHARACTER_STORAGE_UPDATED,
