@@ -245,4 +245,22 @@ public class SkirmishStats
     }
     return _lieutenantKills/(_playTime/3600);
   }
+
+  /**
+   * Indicates if this object is empty or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isEmpty()
+  {
+    if (_monsterKills!=0) return false;
+    if (_lieutenantKills!=0) return false;
+    if (_controlPointsTaken!=0) return false;
+    if (_encountersCompleted!=0) return false;
+    if (_playTime>0) return false;
+    if (_skirmishesCompleted!=0) return false;
+    if (_skirmishesAttempted!=0) return false;
+    if (_bestTime>0) return false;
+    if (_totalMarksEarned!=0) return false;
+    return true;
+  }
 }

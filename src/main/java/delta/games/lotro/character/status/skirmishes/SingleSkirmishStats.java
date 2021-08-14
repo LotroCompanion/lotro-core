@@ -63,4 +63,20 @@ public class SingleSkirmishStats
   {
     return size.name()+"#"+level.name();
   }
+
+  /**
+   * Indicates if this object is empty or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isEmpty()
+  {
+    for(SkirmishStats stats : _stats.values())
+    {
+      if (!stats.isEmpty())
+      {
+        return false;
+      }
+    }
+    return true;
+  }
 }

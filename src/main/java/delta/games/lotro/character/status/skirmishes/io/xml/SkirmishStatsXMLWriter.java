@@ -70,6 +70,10 @@ public class SkirmishStatsXMLWriter
    */
   private void writeSingleSkirmishStats(TransformerHandler hd, SingleSkirmishStats stats) throws Exception
   {
+    if (stats.isEmpty())
+    {
+      return;
+    }
     AttributesImpl attrs=new AttributesImpl();
     SkirmishPrivateEncounter skirmish=stats.getSkirmish();
     // ID
@@ -84,7 +88,7 @@ public class SkirmishStatsXMLWriter
       for(SkirmishLevel level : SkirmishLevel.values())
       {
         SkirmishStats detailedStats=stats.getStats(size,level);
-        if (detailedStats!=null)
+        if ((detailedStats!=null) && (!detailedStats.isEmpty()))
         {
           AttributesImpl skirmishAttrs=new AttributesImpl();
           // Group size
@@ -111,30 +115,57 @@ public class SkirmishStatsXMLWriter
   {
     // Monster kills
     int monsterKills=stats.getMonsterKills();
-    attrs.addAttribute("","",SkirmishStatsXMLConstants.MONSTER_KILLS_ATTR,XmlWriter.CDATA,String.valueOf(monsterKills));
+    if (monsterKills!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.MONSTER_KILLS_ATTR,XmlWriter.CDATA,String.valueOf(monsterKills));
+    }
     // Lieutenant kills
     int lieutenantKills=stats.getLieutenantKills();
-    attrs.addAttribute("","",SkirmishStatsXMLConstants.LIEUTENANT_KILLS_ATTR,XmlWriter.CDATA,String.valueOf(lieutenantKills));
+    if (lieutenantKills!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.LIEUTENANT_KILLS_ATTR,XmlWriter.CDATA,String.valueOf(lieutenantKills));
+    }
     // Control points taken
     int controlPointsTaken=stats.getControlPointsTaken();
-    attrs.addAttribute("","",SkirmishStatsXMLConstants.CONTROL_POINTS_TAKEN_ATTR,XmlWriter.CDATA,String.valueOf(controlPointsTaken));
+    if (controlPointsTaken!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.CONTROL_POINTS_TAKEN_ATTR,XmlWriter.CDATA,String.valueOf(controlPointsTaken));
+    }
     // Encounters completed
     int encountersCompleted=stats.getEncountersCompleted();
-    attrs.addAttribute("","",SkirmishStatsXMLConstants.ENCOUNTERS_COMPLETED_ATTR,XmlWriter.CDATA,String.valueOf(encountersCompleted));
+    if (encountersCompleted!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.ENCOUNTERS_COMPLETED_ATTR,XmlWriter.CDATA,String.valueOf(encountersCompleted));
+    }
     // Play time
     float playTime=stats.getPlayTime();
-    attrs.addAttribute("","",SkirmishStatsXMLConstants.PLAY_TIME_ATTR,XmlWriter.CDATA,String.valueOf(playTime));
+    if (playTime>0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.PLAY_TIME_ATTR,XmlWriter.CDATA,String.valueOf(playTime));
+    }
     // Skirmishes completed
     int skirmishesCompleted=stats.getSkirmishesCompleted();
-    attrs.addAttribute("","",SkirmishStatsXMLConstants.SKIRMISHES_COMPLETED_ATTR,XmlWriter.CDATA,String.valueOf(skirmishesCompleted));
+    if (skirmishesCompleted!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.SKIRMISHES_COMPLETED_ATTR,XmlWriter.CDATA,String.valueOf(skirmishesCompleted));
+    }
     // Skirmishes attempted
     int skirmishesAttempted=stats.getSkirmishesAttempted();
-    attrs.addAttribute("","",SkirmishStatsXMLConstants.SKIRMISHES_ATTEMPTED_ATTR,XmlWriter.CDATA,String.valueOf(skirmishesAttempted));
+    if (skirmishesAttempted!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.SKIRMISHES_ATTEMPTED_ATTR,XmlWriter.CDATA,String.valueOf(skirmishesAttempted));
+    }
     // Best time
     float bestTime=stats.getBestTime();
-    attrs.addAttribute("","",SkirmishStatsXMLConstants.BEST_TIME_ATTR,XmlWriter.CDATA,String.valueOf(bestTime));
+    if (bestTime>0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.BEST_TIME_ATTR,XmlWriter.CDATA,String.valueOf(bestTime));
+    }
     // Total marks earned
     int totalMarksEarned=stats.getTotalMarksEarned();
-    attrs.addAttribute("","",SkirmishStatsXMLConstants.TOTAL_MARKS_EARNED_ATTR,XmlWriter.CDATA,String.valueOf(totalMarksEarned));
+    if (totalMarksEarned!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.TOTAL_MARKS_EARNED_ATTR,XmlWriter.CDATA,String.valueOf(totalMarksEarned));
+    }
   }
 }
