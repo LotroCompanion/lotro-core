@@ -1,9 +1,8 @@
-package delta.games.lotro.character.warbands;
+package delta.games.lotro.character.status.warbands;
 
 import delta.games.lotro.LotroTestUtils;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.log.CharacterLog;
-import delta.games.lotro.character.status.warbands.WarbandsStats;
 
 /**
  * Test for warband stats.

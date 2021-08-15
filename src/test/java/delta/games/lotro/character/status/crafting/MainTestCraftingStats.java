@@ -1,10 +1,9 @@
-package delta.games.lotro.character.crafting;
+package delta.games.lotro.character.status.crafting;
 
 import java.util.List;
 
 import delta.games.lotro.LotroTestUtils;
 import delta.games.lotro.character.CharacterFile;
-import delta.games.lotro.character.status.crafting.CraftingStatus;
 
 /**
  * Test for crafting stats.
