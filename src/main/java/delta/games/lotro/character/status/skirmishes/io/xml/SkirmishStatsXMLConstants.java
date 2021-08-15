@@ -43,6 +43,26 @@ public class SkirmishStatsXMLConstants
    */
   public static final String LIEUTENANT_KILLS_ATTR="lieutenantKills";
   /**
+   * Tag 'stats', attribute 'bossKills'.
+   */
+  public static final String BOSS_KILLS_ATTR="bossKills";
+  /**
+   * Tag 'stats', attribute 'bossResets'.
+   */
+  public static final String BOSS_RESETS_ATTR="bossResets";
+  /**
+   * Tag 'stats', attribute 'defendersLost'.
+   */
+  public static final String DEFENDER_LOST_ATTR="defendersLost";
+  /**
+   * Tag 'stats', attribute 'defendersSaved'.
+   */
+  public static final String DEFENDER_SAVED_ATTR="defendersSaved";
+  /**
+   * Tag 'stats', attribute 'soldierDeaths'.
+   */
+  public static final String SOLDIER_DEATHS_ATTR="soldierDeaths";
+  /**
    * Tag 'stats', attribute 'controlPointsTaken'.
    */
   public static final String CONTROL_POINTS_TAKEN_ATTR="controlPointsTaken";

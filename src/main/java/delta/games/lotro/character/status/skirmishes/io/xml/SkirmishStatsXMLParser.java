@@ -99,6 +99,21 @@ public class SkirmishStatsXMLParser
     // Lieutenant kills
     int lieutenantKills=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.LIEUTENANT_KILLS_ATTR,0);
     ss.setLieutenantKills(lieutenantKills);
+    // Boss kills
+    int bossKills=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.BOSS_KILLS_ATTR,0);
+    ss.setBossKills(bossKills);
+    // Boss resets
+    int bossResets=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.BOSS_RESETS_ATTR,0);
+    ss.setBossResets(bossResets);
+    // Defenders lost
+    int defendersLost=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.DEFENDER_LOST_ATTR,0);
+    ss.setDefendersLost(defendersLost);
+    // Defenders saved
+    int defendersSaved=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.DEFENDER_SAVED_ATTR,0);
+    ss.setLieutenantKills(defendersSaved);
+    // Soldier deaths
+    int soldierDeaths=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.SOLDIER_DEATHS_ATTR,0);
+    ss.setSoldiersDeaths(soldierDeaths);
     // Control points taken
     int cpTaken=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.CONTROL_POINTS_TAKEN_ATTR,0);
     ss.setControlPointsTaken(cpTaken);

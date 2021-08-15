@@ -125,6 +125,36 @@ public class SkirmishStatsXMLWriter
     {
       attrs.addAttribute("","",SkirmishStatsXMLConstants.LIEUTENANT_KILLS_ATTR,XmlWriter.CDATA,String.valueOf(lieutenantKills));
     }
+    // Boss kills
+    int bossKills=stats.getBossKills();
+    if (bossKills!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.BOSS_KILLS_ATTR,XmlWriter.CDATA,String.valueOf(bossKills));
+    }
+    // Boss resets
+    int bossResets=stats.getBossResets();
+    if (bossResets!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.BOSS_RESETS_ATTR,XmlWriter.CDATA,String.valueOf(bossResets));
+    }
+    // Defenders lost
+    int defendersLost=stats.getDefendersLost();
+    if (defendersLost!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.DEFENDER_LOST_ATTR,XmlWriter.CDATA,String.valueOf(defendersLost));
+    }
+    // Defenders saved
+    int defendersSaved=stats.getDefendersSaved();
+    if (defendersSaved!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.DEFENDER_SAVED_ATTR,XmlWriter.CDATA,String.valueOf(defendersSaved));
+    }
+    // Soldier deaths
+    int soldierDeaths=stats.getSoldiersDeaths();
+    if (soldierDeaths!=0)
+    {
+      attrs.addAttribute("","",SkirmishStatsXMLConstants.SOLDIER_DEATHS_ATTR,XmlWriter.CDATA,String.valueOf(soldierDeaths));
+    }
     // Control points taken
     int controlPointsTaken=stats.getControlPointsTaken();
     if (controlPointsTaken!=0)

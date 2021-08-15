@@ -8,6 +8,11 @@ public class SkirmishStats
 {
   private int _monsterKills;
   private int _lieutenantKills;
+  private int _bossKills;
+  private int _bossResets;
+  private int _defendersLost;
+  private int _defendersSaved;
+  private int _soldiersDeaths;
   private int _controlPointsTaken;
   private int _encountersCompleted;
   private float _playTime; // seconds
@@ -23,6 +28,11 @@ public class SkirmishStats
   {
     _monsterKills=0;
     _lieutenantKills=0;
+    _bossKills=0;
+    _bossResets=0;
+    _defendersLost=0;
+    _defendersSaved=0;
+    _soldiersDeaths=0;
     _controlPointsTaken=0;
     _encountersCompleted=0;
     _playTime=0.0f;
@@ -33,7 +43,7 @@ public class SkirmishStats
   }
 
   /**
-   * Get the monster kills.
+   * Get the number of monster kills.
    * @return a count.
    */
   public int getMonsterKills()
@@ -42,7 +52,7 @@ public class SkirmishStats
   }
 
   /**
-   * Set the monster kills.
+   * Set the number of monster kills.
    * @param monsterKills Count to set.
    */
   public void setMonsterKills(int monsterKills)
@@ -51,7 +61,7 @@ public class SkirmishStats
   }
 
   /**
-   * Get the lieutenant kills.
+   * Get the number of lieutenant kills.
    * @return a count.
    */
   public int getLieutenantKills()
@@ -60,12 +70,102 @@ public class SkirmishStats
   }
 
   /**
-   * Set the lieutenant kills.
+   * Set the number of lieutenant kills.
    * @param lieutenantKills Count to set.
    */
   public void setLieutenantKills(int lieutenantKills)
   {
     _lieutenantKills=lieutenantKills;
+  }
+
+  /**
+   * Get the number of boss kills.
+   * @return a count.
+   */
+  public int getBossKills()
+  {
+    return _bossKills;
+  }
+
+  /**
+   * Set the number of boss kills.
+   * @param bossKills Count to set.
+   */
+  public void setBossKills(int bossKills)
+  {
+    _bossKills=bossKills;
+  }
+
+  /**
+   * Get the number of boss resets.
+   * @return a count.
+   */
+  public int getBossResets()
+  {
+    return _bossResets;
+  }
+
+  /**
+   * Set the number of boss resets.
+   * @param bossResets Count to set.
+   */
+  public void setBossResets(int bossResets)
+  {
+    _bossResets=bossResets;
+  }
+
+  /**
+   * Get the number of defenders lost.
+   * @return a count.
+   */
+  public int getDefendersLost()
+  {
+    return _defendersLost;
+  }
+
+  /**
+   * Set the number of defenders lost.
+   * @param defendersLost Count to set.
+   */
+  public void setDefendersLost(int defendersLost)
+  {
+    _defendersLost=defendersLost;
+  }
+
+  /**
+   * Get the number of defenders saved.
+   * @return a count.
+   */
+  public int getDefendersSaved()
+  {
+    return _defendersSaved;
+  }
+
+  /**
+   * Set the number of defenders saved.
+   * @param defendersSaved Count to set.
+   */
+  public void setDefendersSaved(int defendersSaved)
+  {
+    _defendersSaved=defendersSaved;
+  }
+
+  /**
+   * Get the soldiers deaths.
+   * @return a count.
+   */
+  public int getSoldiersDeaths()
+  {
+    return _soldiersDeaths;
+  }
+
+  /**
+   * Set the number of soldier deaths.
+   * @param soldiersDeaths Count to set.
+   */
+  public void setSoldiersDeaths(int soldiersDeaths)
+  {
+    _soldiersDeaths=soldiersDeaths;
   }
 
   /**
@@ -254,6 +354,11 @@ public class SkirmishStats
   {
     if (_monsterKills!=0) return false;
     if (_lieutenantKills!=0) return false;
+    if (_bossKills!=0) return false;
+    if (_bossResets!=0) return false;
+    if (_defendersLost!=0) return false;
+    if (_defendersSaved!=0) return false;
+    if (_soldiersDeaths!=0) return false;
     if (_controlPointsTaken!=0) return false;
     if (_encountersCompleted!=0) return false;
     if (_playTime>0) return false;
