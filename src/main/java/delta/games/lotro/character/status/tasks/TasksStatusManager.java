@@ -7,6 +7,7 @@ import java.util.Map;
 
 import delta.games.lotro.character.status.achievables.AchievableStatus;
 import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
+import delta.games.lotro.character.status.tasks.comparators.TaskStatusSortUtils;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.tasks.Task;
 import delta.games.lotro.lore.tasks.TasksRegistry;
@@ -68,7 +69,9 @@ public class TasksStatusManager
    */
   public List<TaskStatus> getTasksStatuses()
   {
-    return new ArrayList<TaskStatus>(_statuses.values());
+    List<TaskStatus> ret=new ArrayList<TaskStatus>(_statuses.values());
+    TaskStatusSortUtils.sortByTaskItemName(ret);
+    return ret;
   }
 
   /**
