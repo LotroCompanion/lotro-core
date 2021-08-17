@@ -308,6 +308,29 @@ public class SkirmishStats
   }
 
   /**
+   * Add some stats.
+   * @param stats Stats to add.
+   */
+  public void add(SkirmishStats stats)
+  {
+    _monsterKills+=stats._monsterKills;
+    _lieutenantKills+=stats._lieutenantKills;
+    _bossKills+=stats._bossKills;
+    _bossResets+=stats._bossResets;
+    _defendersLost+=stats._defendersLost;
+    _defendersSaved+=stats._defendersSaved;
+    _soldiersDeaths+=stats._soldiersDeaths;
+    _controlPointsTaken+=stats._controlPointsTaken;
+    _encountersCompleted+=stats._encountersCompleted;
+    _playTime+=stats._playTime;
+    _skirmishesCompleted+=stats._skirmishesCompleted;
+    _skirmishesCompleted+=stats._skirmishesCompleted;
+    _skirmishesCompleted+=stats._skirmishesCompleted;
+    _bestTime+=stats._bestTime;
+    _totalMarksEarned+=stats._totalMarksEarned;
+  }
+
+  /**
    * Get the completion ratio.
    * @return a ratio (between 0 and 1).
    */

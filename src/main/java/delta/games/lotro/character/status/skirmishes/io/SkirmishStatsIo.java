@@ -5,6 +5,7 @@ import java.io.File;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.status.skirmishes.SkirmishStatsManager;
+import delta.games.lotro.character.status.skirmishes.io.xml.SkirmishStatsXMLParser;
 import delta.games.lotro.character.status.skirmishes.io.xml.SkirmishStatsXMLWriter;
 
 /**
@@ -24,8 +25,8 @@ public class SkirmishStatsIo
     SkirmishStatsManager stats=null;
     if (fromFile.exists())
     {
-      //AchievablesStatusXMLParser parser=new AchievablesStatusXMLParser();
-      //stats=parser.parseXML(fromFile,false);
+      SkirmishStatsXMLParser parser=new SkirmishStatsXMLParser();
+      stats=parser.parseXML(fromFile);
     }
     if (stats==null)
     {
