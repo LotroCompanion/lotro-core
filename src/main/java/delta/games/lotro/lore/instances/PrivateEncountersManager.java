@@ -10,6 +10,7 @@ import java.util.Map;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.instances.comparators.PrivateEncounterNameComparator;
 import delta.games.lotro.lore.instances.io.xml.PrivateEncountersXMLParser;
 
 /**
@@ -73,6 +74,24 @@ public class PrivateEncountersManager
     List<PrivateEncounter> ret=new ArrayList<PrivateEncounter>();
     ret.addAll(_privateEncounters.values());
     Collections.sort(ret,new IdentifiableComparator<PrivateEncounter>());
+    return ret;
+  }
+
+  /**
+   * Get all the skirmish private encounters.
+   * @return A list of skirmish private encounters, sorted by name.
+   */
+  public List<SkirmishPrivateEncounter> getSkirmishPrivateEncounters()
+  {
+    List<SkirmishPrivateEncounter> ret=new ArrayList<SkirmishPrivateEncounter>();
+    for(PrivateEncounter pe : _privateEncounters.values())
+    {
+      if (pe instanceof SkirmishPrivateEncounter)
+      {
+        ret.add((SkirmishPrivateEncounter)pe);
+      }
+    }
+    Collections.sort(ret,new PrivateEncounterNameComparator());
     return ret;
   }
 

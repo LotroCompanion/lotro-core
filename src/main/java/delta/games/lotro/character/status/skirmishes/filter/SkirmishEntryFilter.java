@@ -38,7 +38,7 @@ public class SkirmishEntryFilter implements Filter<SkirmishEntry>
    * Get the skirmish filter.
    * @return a skirmish filter.
    */
-  public SkirmishEntrySkirmishFilter getSkirmish()
+  public SkirmishEntrySkirmishFilter getSkirmishFilter()
   {
     return _skirmish;
   }
@@ -47,7 +47,7 @@ public class SkirmishEntryFilter implements Filter<SkirmishEntry>
    * Get the group size filter.
    * @return a group size filter.
    */
-  public SkirmishEntrySizeFilter getGroupSize()
+  public SkirmishEntrySizeFilter getGroupSizeFilter()
   {
     return _groupSize;
   }
@@ -56,7 +56,7 @@ public class SkirmishEntryFilter implements Filter<SkirmishEntry>
    * Get the level filter.
    * @return a level filter.
    */
-  public SkirmishEntryLevelFilter getLevel()
+  public SkirmishEntryLevelFilter getLevelFilter()
   {
     return _level;
   }

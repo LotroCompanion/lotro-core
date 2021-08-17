@@ -34,7 +34,7 @@ public class SkirmishEntrySkirmishFilter implements Filter<SkirmishEntry>
    * Set the skirmish to select.
    * @param skirmish Skirmish to use, may be <code>null</code>.
    */
-  public void setSex(SkirmishPrivateEncounter skirmish)
+  public void setSkirmish(SkirmishPrivateEncounter skirmish)
   {
     _skirmish=skirmish;
   }
