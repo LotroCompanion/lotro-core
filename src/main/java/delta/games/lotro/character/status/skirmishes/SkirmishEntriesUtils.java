@@ -60,30 +60,25 @@ public class SkirmishEntriesUtils
     return ret;
   }
 
-  private static List<SkirmishEntry> handleMerges(SkirmishEntriesPolicy policy, List<SkirmishEntry> input)
-  {
-    List<SkirmishEntry> ret=input;
-    if (policy.isMergeLevels())
-    {
-      ret=mergeLevels(ret);
-    }
-    if (policy.isMergeSizes())
-    {
-      ret=mergeGroups(ret);
-    }
-    return ret;
-  }
-
-  private static List<SkirmishEntry> mergeGroups(List<SkirmishEntry> entries)
+  private static List<SkirmishEntry> handleMerges(SkirmishEntriesPolicy policy, List<SkirmishEntry> entries)
   {
     Map<String,List<SkirmishEntry>> map=new HashMap<String,List<SkirmishEntry>>();
     for(SkirmishEntry entry : entries)
     {
       SkirmishPrivateEncounter skirmish=entry.getSkirmish();
-      String skirmishKey=(skirmish!=null)?String.valueOf(skirmish.getIdentifier()):"";
-      SkirmishLevel level=entry.getLevel();
-      String levelKey=(level!=null)?level.name():"";
-      String key=skirmishKey+"#"+levelKey;
+      String key=(skirmish!=null)?String.valueOf(skirmish.getIdentifier()):"";
+      if (!policy.isMergeLevels())
+      {
+        SkirmishLevel level=entry.getLevel();
+        String levelKey=(level!=null)?level.name():"";
+        key="#"+levelKey;
+      }
+      if (!policy.isMergeSizes())
+      {
+        SkirmishGroupSize size=entry.getSize();
+        String sizeKey=(size!=null)?size.name():"";
+        key=key+"#"+sizeKey;
+      }
       List<SkirmishEntry> list=map.get(key);
       if (list==null)
       {
@@ -93,54 +88,32 @@ public class SkirmishEntriesUtils
       list.add(entry);
     }
     List<SkirmishEntry> ret=new ArrayList<SkirmishEntry>();
-    for(List<SkirmishEntry> entry : map.values())
+    for(List<SkirmishEntry> entryList : map.values())
     {
-      if (entry.size()==1)
+      int nbEntries=entryList.size();
+      if (nbEntries==1)
       {
-        ret.add(entry.get(0));
+        ret.add(entryList.get(0));
       }
       else
       {
-        SkirmishEntry first=entry.get(0);
-        SkirmishPrivateEncounter skirmish=first.getSkirmish();
-        SkirmishLevel level=first.getLevel();
-        ret.add(merge(skirmish,null,level,entry));
-      }
-    }
-    return ret;
-  }
-
-  private static List<SkirmishEntry> mergeLevels(List<SkirmishEntry> entries)
-  {
-    Map<String,List<SkirmishEntry>> map=new HashMap<String,List<SkirmishEntry>>();
-    for(SkirmishEntry entry : entries)
-    {
-      SkirmishPrivateEncounter skirmish=entry.getSkirmish();
-      String skirmishKey=(skirmish!=null)?String.valueOf(skirmish.getIdentifier()):"";
-      SkirmishGroupSize size=entry.getSize();
-      String sizeKey=(size!=null)?size.name():"";
-      String key=skirmishKey+"#"+sizeKey;
-      List<SkirmishEntry> list=map.get(key);
-      if (list==null)
-      {
-        list=new ArrayList<SkirmishEntry>();
-        map.put(key,list);
-      }
-      list.add(entry);
-    }
-    List<SkirmishEntry> ret=new ArrayList<SkirmishEntry>();
-    for(List<SkirmishEntry> entry : map.values())
-    {
-      if (entry.size()==1)
-      {
-        ret.add(entry.get(0));
-      }
-      else
-      {
-        SkirmishEntry first=entry.get(0);
+        SkirmishEntry first=entryList.get(0);
         SkirmishPrivateEncounter skirmish=first.getSkirmish();
         SkirmishGroupSize size=first.getSize();
-        ret.add(merge(skirmish,size,null,entry));
+        SkirmishLevel level=first.getLevel();
+        for(int i=1;i<nbEntries;i++)
+        {
+          SkirmishEntry entry=entryList.get(i);
+          if (entry.getSize()!=size)
+          {
+            size=null;
+          }
+          if (entry.getLevel()!=level)
+          {
+            level=null;
+          }
+        }
+        ret.add(merge(skirmish,size,level,entryList));
       }
     }
     return ret;

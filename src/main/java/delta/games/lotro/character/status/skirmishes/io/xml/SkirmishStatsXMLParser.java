@@ -110,7 +110,7 @@ public class SkirmishStatsXMLParser
     ss.setDefendersLost(defendersLost);
     // Defenders saved
     int defendersSaved=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.DEFENDER_SAVED_ATTR,0);
-    ss.setLieutenantKills(defendersSaved);
+    ss.setDefendersSaved(defendersSaved);
     // Soldier deaths
     int soldierDeaths=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.SOLDIER_DEATHS_ATTR,0);
     ss.setSoldiersDeaths(soldierDeaths);
@@ -128,7 +128,7 @@ public class SkirmishStatsXMLParser
     ss.setSkirmishesCompleted(skirmishesCompleted);
     // Skirmishes attempted
     int skirmishesAttempted=DOMParsingTools.getIntAttribute(attrs,SkirmishStatsXMLConstants.SKIRMISHES_ATTEMPTED_ATTR,0);
-    ss.setSkirmishesCompleted(skirmishesAttempted);
+    ss.setSkirmishesAttempted(skirmishesAttempted);
     // Best time
     float bestTime=DOMParsingTools.getFloatAttribute(attrs,SkirmishStatsXMLConstants.BEST_TIME_ATTR,0.0f);
     ss.setBestTime(bestTime);

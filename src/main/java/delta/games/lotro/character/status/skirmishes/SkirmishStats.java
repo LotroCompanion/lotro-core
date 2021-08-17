@@ -324,8 +324,7 @@ public class SkirmishStats
     _encountersCompleted+=stats._encountersCompleted;
     _playTime+=stats._playTime;
     _skirmishesCompleted+=stats._skirmishesCompleted;
-    _skirmishesCompleted+=stats._skirmishesCompleted;
-    _skirmishesCompleted+=stats._skirmishesCompleted;
+    _skirmishesAttempted+=stats._skirmishesAttempted;
     _bestTime+=stats._bestTime;
     _totalMarksEarned+=stats._totalMarksEarned;
   }
