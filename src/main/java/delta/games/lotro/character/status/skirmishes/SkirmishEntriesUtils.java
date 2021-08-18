@@ -124,7 +124,10 @@ public class SkirmishEntriesUtils
     SkirmishStats stats=new SkirmishStats();
     for(SkirmishEntry entry : entries)
     {
-      stats.add(entry.getStats());
+      if (!entry.getStats().isEmpty())
+      {
+        stats.add(entry.getStats());
+      }
     }
     return new SkirmishEntry(skirmish,size,level,stats);
   }
