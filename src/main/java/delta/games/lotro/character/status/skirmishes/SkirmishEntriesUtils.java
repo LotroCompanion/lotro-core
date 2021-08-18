@@ -71,7 +71,7 @@ public class SkirmishEntriesUtils
       {
         SkirmishLevel level=entry.getLevel();
         String levelKey=(level!=null)?level.name():"";
-        key="#"+levelKey;
+        key=key+"#"+levelKey;
       }
       if (!policy.isMergeSizes())
       {

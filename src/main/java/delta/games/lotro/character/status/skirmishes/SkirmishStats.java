@@ -325,7 +325,10 @@ public class SkirmishStats
     _playTime+=stats._playTime;
     _skirmishesCompleted+=stats._skirmishesCompleted;
     _skirmishesAttempted+=stats._skirmishesAttempted;
-    _bestTime+=stats._bestTime;
+    if (stats._bestTime<_bestTime)
+    {
+      _bestTime=stats._bestTime;
+    }
     _totalMarksEarned+=stats._totalMarksEarned;
   }
 
