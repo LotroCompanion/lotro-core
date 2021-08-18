@@ -50,7 +50,7 @@ public class SkirmishEntriesUtils
       for(SkirmishLevel level : SkirmishLevel.values())
       {
         SkirmishStats skirmishStats=stats.getStats(size,level);
-        if (skirmishStats!=null)
+        if ((skirmishStats!=null) && (!skirmishStats.isEmpty()))
         {
           SkirmishEntry entry=new SkirmishEntry(skirmish,size,level,skirmishStats);
           ret.add(entry);
