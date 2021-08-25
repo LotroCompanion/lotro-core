@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.items.legendary.relics;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.lore.items.Container;
 
@@ -73,6 +76,25 @@ public class RelicsContainer extends Container
       return true;
     }
     return false;
+  }
+
+
+  /**
+   * Get the identifiers of the reachable relics.
+   * @return A set of relic identifiers.
+   */
+  public Set<Integer> getRelicds()
+  {
+    Set<Integer> ret=new HashSet<Integer>();
+    if (_relic!=null)
+    {
+      ret.add(Integer.valueOf(_relic.getIdentifier()));
+    }
+    if (_relicsList!=null)
+    {
+      ret.addAll(_relicsList.getRelicIds());
+    }
+    return ret;
   }
 
   @Override

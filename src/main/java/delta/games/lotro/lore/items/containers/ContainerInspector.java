@@ -10,6 +10,9 @@ import delta.games.lotro.lore.items.ContainersManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsContainer;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
+import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 
 /**
  * Containers inspector.
@@ -39,6 +42,33 @@ public class ContainerInspector
       if (item!=null)
       {
         ret.add(item);
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Get the possible contents of a container. 
+   * @param sourceItem Source item.
+   * @return A possibly empty but never <code>null</code> list of relics.
+   */
+  public static List<Relic> getContainerRelics(Item sourceItem)
+  {
+    List<Relic> ret=new ArrayList<Relic>();
+    Set<Integer> relicIds=new HashSet<Integer>();
+    ContainersManager containersMgr=ContainersManager.getInstance();
+    Container container=containersMgr.getContainerById(sourceItem.getIdentifier());
+    if (container instanceof RelicsContainer)
+    {
+      RelicsContainer relicsContainer=(RelicsContainer)container;
+      relicIds.addAll(relicsContainer.getRelicds());
+    }
+    for(Integer relicId : relicIds)
+    {
+      Relic relic=RelicsManager.getInstance().getById(relicId.intValue());
+      if (relic!=null)
+      {
+        ret.add(relic);
       }
     }
     return ret;

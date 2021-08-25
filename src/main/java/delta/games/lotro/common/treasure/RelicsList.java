@@ -1,7 +1,9 @@
 package delta.games.lotro.common.treasure;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
@@ -71,6 +73,31 @@ public class RelicsList implements Identifiable
       }
     }
     return false;
+  }
+
+
+  /**
+   * Get the identifiers of the reachable relics.
+   * @return A set of relic identifiers.
+   */
+  public Set<Integer> getRelicIds()
+  {
+    Set<Integer> ret=new HashSet<Integer>();
+    for(RelicsListEntry entry : _entries)
+    {
+      Relic relic=entry.getRelic();
+      if (relic!=null)
+      {
+        int relicId=relic.getIdentifier();
+        ret.add(Integer.valueOf(relicId));
+      }
+      RelicsTreasureGroup relicsTreasureGroup=entry.getRelicsTreasureGroup();
+      if (relicsTreasureGroup!=null)
+      {
+        ret.addAll(relicsTreasureGroup.getRelicIds());
+      }
+    }
+    return ret;
   }
 
   /**
