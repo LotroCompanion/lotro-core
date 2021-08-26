@@ -39,6 +39,10 @@ public enum CharacterEventType
    */
   CHARACTER_SKIRMISH_STATS_UPDATED,
   /**
+   * The relics inventory of a toon was updated.
+   */
+  CHARACTER_RELICS_UPDATED,
+  /**
    * The storage of a toon was updated.
    */
   CHARACTER_STORAGE_UPDATED,

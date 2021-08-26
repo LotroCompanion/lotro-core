@@ -66,7 +66,7 @@ public class RelicsInventoryXMLWriter
       int count=relicsInventory.getRelicCount(relicId.intValue());
       relicAttrs.addAttribute("","",RelicsInventoryXMLConstants.RELIC_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
 
-      hd.startElement("","",RelicsInventoryXMLConstants.RELIC_TAG,attrs);
+      hd.startElement("","",RelicsInventoryXMLConstants.RELIC_TAG,relicAttrs);
       hd.endElement("","",RelicsInventoryXMLConstants.RELIC_TAG);
     }
     hd.endElement("","",RelicsInventoryXMLConstants.MAIN_TAG);

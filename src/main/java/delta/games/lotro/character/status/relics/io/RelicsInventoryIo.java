@@ -53,7 +53,7 @@ public class RelicsInventoryIo
   private static File getRelicsInventoryFile(CharacterFile character)
   {
     File rootDir=character.getRootDir();
-    File statusFile=new File(rootDir,"skirmishStats.xml");
+    File statusFile=new File(rootDir,"relics.xml");
     return statusFile;
   }
 }
