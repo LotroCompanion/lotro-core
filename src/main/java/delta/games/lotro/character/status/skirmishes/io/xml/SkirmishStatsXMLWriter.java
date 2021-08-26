@@ -17,7 +17,7 @@ import delta.games.lotro.lore.instances.SkirmishGroupSize;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 
 /**
- * Writes skimirsh stats to an XML file.
+ * Writes skirmish stats to an XML file.
  * @author DAM
  */
 public class SkirmishStatsXMLWriter
