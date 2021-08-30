@@ -8,6 +8,7 @@ import java.util.Set;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.comparators.EquipmentLocationComparator;
@@ -16,7 +17,7 @@ import delta.games.lotro.lore.items.comparators.EquipmentLocationComparator;
  * Relic description.
  * @author DAM
  */
-public class Relic implements Identifiable
+public class Relic implements Identifiable,Named
 {
   private int _identifier;
   private String _name;

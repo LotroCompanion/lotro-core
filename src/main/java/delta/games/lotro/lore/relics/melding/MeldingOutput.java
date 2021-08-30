@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.comparators.RelicNameComparator;
-import delta.games.lotro.lore.relics.RelicAndWeight;
 
 /**
  * Output of a relic melding.
@@ -14,14 +14,14 @@ import delta.games.lotro.lore.relics.RelicAndWeight;
  */
 public class MeldingOutput
 {
-  private List<RelicAndWeight> _relics;
+  private List<RelicMeldingOutputEntry> _relics;
 
   /**
    * Constructor.
    */
   public MeldingOutput()
   {
-    _relics=new ArrayList<RelicAndWeight>();
+    _relics=new ArrayList<RelicMeldingOutputEntry>();
   }
 
   /**
@@ -31,8 +31,19 @@ public class MeldingOutput
    */
   public void addOutput(Relic relic, int weight)
   {
-    RelicAndWeight newRelic=new RelicAndWeight(weight,relic);
+    RelicMeldingOutputEntry newRelic=new RelicMeldingOutputEntry(weight,relic);
     _relics.add(newRelic);
+  }
+
+  /**
+   * Add an output.
+   * @param item Item to add.
+   * @param weight Weight.
+   */
+  public void addOutput(Item item, int weight)
+  {
+    RelicMeldingOutputEntry newItem=new RelicMeldingOutputEntry(weight,item);
+    _relics.add(newItem);
   }
 
   /**
@@ -55,7 +66,7 @@ public class MeldingOutput
   public List<Relic> getPossibleRelics()
   {
     List<Relic> ret=new ArrayList<Relic>();
-    for(RelicAndWeight relic : _relics)
+    for(RelicMeldingOutputEntry relic : _relics)
     {
       ret.add(relic.getRelic());
     }
@@ -67,8 +78,8 @@ public class MeldingOutput
    * Get the possible outputs.
    * @return A list of relic/weight pairs.
    */
-  public List<RelicAndWeight> getPossibleOutputs()
+  public List<RelicMeldingOutputEntry> getPossibleOutputs()
   {
-    return new ArrayList<RelicAndWeight>(_relics);
+    return new ArrayList<RelicMeldingOutputEntry>(_relics);
   }
 }

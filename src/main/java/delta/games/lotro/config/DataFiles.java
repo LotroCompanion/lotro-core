@@ -230,4 +230,8 @@ public class DataFiles
    * Tasks.
    */
   public static final String TASKS="tasks";
+  /**
+   * Relic melding recipes.
+   */
+  public static final String RELIC_MELDING_RECIPES="relicMeldingRecipes";
 }

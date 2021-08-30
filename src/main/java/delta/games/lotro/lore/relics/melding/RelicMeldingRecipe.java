@@ -1,10 +1,11 @@
 package delta.games.lotro.lore.relics.melding;
 
-import delta.common.utils.id.Identifiable;
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 
 /**
- * @author dmorcellet
+ * Relic melding recipe.
+ * @author DAM
  */
 public class RelicMeldingRecipe implements Identifiable
 {
