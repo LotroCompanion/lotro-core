@@ -1,28 +1,28 @@
 package delta.games.lotro.lore.items.filters;
 
-import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.requirements.ClassRequirement;
+import delta.games.lotro.common.Race;
+import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.lore.items.Item;
 
 /**
- * Filter items that can be used by a character class.
+ * Filter items that can be used by a character race.
  * @author DAM
  */
-public class ItemRequiredClassFilter implements ItemFilter
+public class ItemRequiredRaceFilter implements ItemFilter
 {
   private boolean _enabled;
-  private CharacterClass _characterClass;
+  private Race _race;
   private boolean _strict;
 
   /**
    * Constructor.
-   * @param characterClass Character class to use.
+   * @param race Character race to use.
    * @param strict Allow only class items, or allow all non class restricted items.
    */
-  public ItemRequiredClassFilter(CharacterClass characterClass, boolean strict)
+  public ItemRequiredRaceFilter(Race race, boolean strict)
   {
-    _characterClass=characterClass;
+    _race=race;
     _strict=strict;
     _enabled=true;
   }
@@ -46,21 +46,21 @@ public class ItemRequiredClassFilter implements ItemFilter
   }
 
   /**
-   * Get the character class.
-   * @return A character class or <code>null</code>.
+   * Get the character race.
+   * @return A character race or <code>null</code>.
    */
-  public CharacterClass getCharacterClass()
+  public Race getRace()
   {
-    return _characterClass;
+    return _race;
   }
 
   /**
-   * Set the character class to use.
-   * @param characterClass Character class (may be <code>null</code>).
+   * Set the character race to use.
+   * @param race Character race (may be <code>null</code>).
    */
-  public void setCharacterClass(CharacterClass characterClass)
+  public void setRace(Race race)
   {
-    _characterClass=characterClass;
+    _race=race;
   }
 
   @Override
@@ -70,16 +70,16 @@ public class ItemRequiredClassFilter implements ItemFilter
     {
       return true;
     }
-    if (_characterClass==null)
+    if (_race==null)
     {
       return true;
     }
     UsageRequirement requirements=item.getUsageRequirements();
-    ClassRequirement classRequirement=requirements.getClassRequirement();
-    if (classRequirement==null)
+    RaceRequirement raceRequirement=requirements.getRaceRequirement();
+    if (raceRequirement==null)
     {
       return !_strict;
     }
-    return classRequirement.accept(_characterClass);
+    return raceRequirement.accept(_race);
   }
 }

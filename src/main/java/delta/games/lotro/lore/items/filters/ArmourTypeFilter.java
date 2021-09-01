@@ -46,9 +46,9 @@ public class ArmourTypeFilter implements ItemFilter
       if (item instanceof Armour)
       {
         ArmourType type=((Armour)item).getArmourType();
-        return (type==null) || (type==_type);
+        return (type==_type);
       }
-      return true;
+      return false;
     }
     return true;
   }
