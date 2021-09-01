@@ -82,4 +82,22 @@ public class MeldingOutput
   {
     return new ArrayList<RelicMeldingOutputEntry>(_relics);
   }
+
+  /**
+   * Indicates if the given relic is a possible result or not.
+   * @param relicId Identifier of the relic to test.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isResultRelic(int relicId)
+  {
+    for(RelicMeldingOutputEntry entry : _relics)
+    {
+      Relic relic=entry.getRelic();
+      if ((relic!=null) && (relic.getIdentifier()==relicId))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
 }

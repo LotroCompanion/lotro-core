@@ -17,5 +17,13 @@ public enum RelicRole
   /**
    * Relic may come from container.
    */
-  CONTAINED_IN
+  CONTAINED_IN,
+  /**
+   * Relic found as ingredient in a melding recipe.
+   */
+  RECIPE_INGREDIENT,
+  /**
+   * Relic found as result in a melding recipe.
+   */
+  RECIPE_RESULT,
 }

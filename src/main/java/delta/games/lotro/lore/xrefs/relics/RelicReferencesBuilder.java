@@ -15,6 +15,10 @@ import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
+import delta.games.lotro.lore.relics.melding.MeldingInput;
+import delta.games.lotro.lore.relics.melding.MeldingOutput;
+import delta.games.lotro.lore.relics.melding.RelicMeldingRecipe;
+import delta.games.lotro.lore.relics.melding.RelicMeldingRecipesManager;
 
 /**
  * Finds references to relics.
@@ -43,9 +47,29 @@ public class RelicReferencesBuilder
     findInQuestRewards(relicId);
     findInDeedRewards(relicId);
     findInContainers(relicId);
+    findInMeldingRecipes(relicId);
     List<RelicReference<?>> ret=new ArrayList<RelicReference<?>>(_storage);
     _storage.clear();
     return ret;
+  }
+
+  private void findInMeldingRecipes(int relicId)
+  {
+    RelicMeldingRecipesManager recipesMgr=RelicMeldingRecipesManager.getInstance();
+    List<RelicMeldingRecipe> recipes=recipesMgr.getMeldingRecipes().getItems();
+    for(RelicMeldingRecipe recipe : recipes)
+    {
+      MeldingInput input=recipe.getInput();
+      if (input.isNeededRelic(relicId))
+      {
+        _storage.add(new RelicReference<RelicMeldingRecipe>(recipe,RelicRole.RECIPE_INGREDIENT));
+      }
+      MeldingOutput output=recipe.getOutput();
+      if (output.isResultRelic(relicId))
+      {
+        _storage.add(new RelicReference<RelicMeldingRecipe>(recipe,RelicRole.RECIPE_RESULT));
+      }
+    }
   }
 
   private void findInContainers(int relicId)

@@ -78,4 +78,21 @@ public class MeldingInput
   {
     return new ArrayList<CountedRelic>(_relics);
   }
+
+  /**
+   * Indicates if the given relic is needed or not.
+   * @param relicId Identifier of the relic to test.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isNeededRelic(int relicId)
+  {
+    for(CountedRelic relic : _relics)
+    {
+      if (relic.getRelic().getIdentifier()==relicId)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
 }
