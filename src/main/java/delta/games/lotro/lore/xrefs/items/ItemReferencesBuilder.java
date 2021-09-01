@@ -25,6 +25,9 @@ import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
+import delta.games.lotro.lore.relics.melding.MeldingOutput;
+import delta.games.lotro.lore.relics.melding.RelicMeldingRecipe;
+import delta.games.lotro.lore.relics.melding.RelicMeldingRecipesManager;
 import delta.games.lotro.lore.trade.barter.BarterEntry;
 import delta.games.lotro.lore.trade.barter.BarterEntryElement;
 import delta.games.lotro.lore.trade.barter.BarterNpc;
@@ -67,6 +70,7 @@ public class ItemReferencesBuilder
     findInVendors(itemId);
     findInSets(itemId);
     findInContainers(itemId);
+    findInMeldingRecipes(itemId);
     List<ItemReference<?>> ret=new ArrayList<ItemReference<?>>(_storage);
     _storage.clear();
     return ret;
@@ -288,6 +292,20 @@ public class ItemReferencesBuilder
         {
           _storage.add(new ItemReference<ItemsContainer>(itemsContainer,ItemRole.CONTAINED_IN));
         }
+      }
+    }
+  }
+
+  private void findInMeldingRecipes(int itemId)
+  {
+    RelicMeldingRecipesManager recipesMgr=RelicMeldingRecipesManager.getInstance();
+    List<RelicMeldingRecipe> recipes=recipesMgr.getMeldingRecipes().getItems();
+    for(RelicMeldingRecipe recipe : recipes)
+    {
+      MeldingOutput output=recipe.getOutput();
+      if (output.isResultItem(itemId))
+      {
+        _storage.add(new ItemReference<RelicMeldingRecipe>(recipe,ItemRole.RECIPE_RESULT));
       }
     }
   }

@@ -28,6 +28,15 @@ public class MeldingInput
   }
 
   /**
+   * Indicates if the input is empty or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean hasNoInput()
+  {
+    return ((_tier2Count.isEmpty()) && (_relics.isEmpty()));
+  }
+
+  /**
    * Set the number of relics needed for a tier.
    * @param tier Relic tier.
    * @param count Relic count.

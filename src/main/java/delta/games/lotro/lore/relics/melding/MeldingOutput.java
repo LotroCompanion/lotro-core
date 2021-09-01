@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import delta.games.lotro.common.Named;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.comparators.RelicNameComparator;
@@ -14,14 +15,14 @@ import delta.games.lotro.lore.items.legendary.relics.comparators.RelicNameCompar
  */
 public class MeldingOutput
 {
-  private List<RelicMeldingOutputEntry> _relics;
+  private List<RelicMeldingOutputEntry> _entries;
 
   /**
    * Constructor.
    */
   public MeldingOutput()
   {
-    _relics=new ArrayList<RelicMeldingOutputEntry>();
+    _entries=new ArrayList<RelicMeldingOutputEntry>();
   }
 
   /**
@@ -32,7 +33,7 @@ public class MeldingOutput
   public void addOutput(Relic relic, int weight)
   {
     RelicMeldingOutputEntry newRelic=new RelicMeldingOutputEntry(weight,relic);
-    _relics.add(newRelic);
+    _entries.add(newRelic);
   }
 
   /**
@@ -43,18 +44,32 @@ public class MeldingOutput
   public void addOutput(Item item, int weight)
   {
     RelicMeldingOutputEntry newItem=new RelicMeldingOutputEntry(weight,item);
-    _relics.add(newItem);
+    _entries.add(newItem);
+  }
+
+  /**
+   * Get the first output.
+   * @return A relic/item or <code>null</code> if no output defined.
+   */
+  public Named getFirstResult()
+  {
+    if (_entries.size()>0)
+    {
+      RelicMeldingOutputEntry entry=_entries.get(0);
+      return entry.getResult();
+    }
+    return null;
   }
 
   /**
    * Get the first relic output.
    * @return A relic or <code>null</code> if no output defined.
    */
-  public Relic getFirstRelic()
+  public Item getItemRelic()
   {
-    if (_relics.size()>0)
+    if (_entries.size()>0)
     {
-      return _relics.get(0).getRelic();
+      return _entries.get(0).getItem();
     }
     return null;
   }
@@ -66,7 +81,7 @@ public class MeldingOutput
   public List<Relic> getPossibleRelics()
   {
     List<Relic> ret=new ArrayList<Relic>();
-    for(RelicMeldingOutputEntry relic : _relics)
+    for(RelicMeldingOutputEntry relic : _entries)
     {
       ret.add(relic.getRelic());
     }
@@ -80,7 +95,7 @@ public class MeldingOutput
    */
   public List<RelicMeldingOutputEntry> getPossibleOutputs()
   {
-    return new ArrayList<RelicMeldingOutputEntry>(_relics);
+    return new ArrayList<RelicMeldingOutputEntry>(_entries);
   }
 
   /**
@@ -90,10 +105,28 @@ public class MeldingOutput
    */
   public boolean isResultRelic(int relicId)
   {
-    for(RelicMeldingOutputEntry entry : _relics)
+    for(RelicMeldingOutputEntry entry : _entries)
     {
       Relic relic=entry.getRelic();
       if ((relic!=null) && (relic.getIdentifier()==relicId))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Indicates if the given item is a possible result or not.
+   * @param itemId Identifier of the item to test.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isResultItem(int itemId)
+  {
+    for(RelicMeldingOutputEntry entry : _entries)
+    {
+      Item item=entry.getItem();
+      if ((item!=null) && (item.getIdentifier()==itemId))
       {
         return true;
       }

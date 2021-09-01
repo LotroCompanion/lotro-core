@@ -1,7 +1,7 @@
 package delta.games.lotro.lore.relics.melding;
 
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.common.Named;
 
 /**
  * Relic melding recipe.
@@ -44,8 +44,8 @@ public class RelicMeldingRecipe implements Identifiable
     String ret=getNameOverride();
     if (ret==null)
     {
-      Relic relic=_output.getFirstRelic();
-      return (relic!=null)?relic.getName():"?";
+      Named result=_output.getFirstResult();
+      return (result!=null)?result.getName():"?";
     }
     return ret;
   }
@@ -66,21 +66,6 @@ public class RelicMeldingRecipe implements Identifiable
   public void setNameOverride(String nameOverride)
   {
     _nameOverride=nameOverride;
-  }
-
-  /**
-   * Get the icon filename.
-   * @return An icon name.
-   */
-  public String getIconFilename()
-  {
-    int ret=getIconOverride();
-    if (ret==0)
-    {
-      Relic relic=_output.getFirstRelic();
-      return (relic!=null)?relic.getIconFilename():"?";
-    }
-    return ret+".png";
   }
 
   /**
@@ -110,8 +95,8 @@ public class RelicMeldingRecipe implements Identifiable
     String ret=getTooltipOverride();
     if (ret==null)
     {
-      Relic relic=_output.getFirstRelic();
-      return "Create a "+((relic!=null)?relic.getName():"?");
+      Named result=_output.getFirstResult();
+      return "Create a "+((result!=null)?result.getName():"?");
     }
     return ret;
   }
