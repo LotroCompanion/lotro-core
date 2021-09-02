@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.items.filters;
 
+import delta.games.lotro.lore.items.Armour;
+import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
 
 /**
@@ -19,6 +21,25 @@ public class ItemSubCategoryFilter implements ItemFilter
     _subCategory=subCategory;
   }
 
+  /**
+   * Get the managed subcategory.
+   * @return A name or <code>null</code>.
+   */
+  public String getSubCategory()
+  {
+    return _subCategory;
+  }
+
+  /**
+   * Set the subcategory to use.
+   * @param subCategory A name or <code>null</code>.
+   */
+  public void setSubCategory(String subCategory)
+  {
+    _subCategory=subCategory;
+  }
+
+  @Override
   public boolean accept(Item item)
   {
     if (item==null)
@@ -26,10 +47,6 @@ public class ItemSubCategoryFilter implements ItemFilter
       return false;
     }
     String subCategory=item.getSubCategory();
-    if (subCategory!=null)
-    {
-      return subCategory.equals(_subCategory);
-    }
-    return false;
+    return ((_subCategory==null) || (subCategory.equals(_subCategory)));
   }
 }
