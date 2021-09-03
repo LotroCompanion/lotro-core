@@ -19,10 +19,19 @@ import delta.games.lotro.lore.crafting.recipes.comparator.RecipeTierComparator;
 public class RecipeUtils
 {
   /**
-   * Sort some recipes by profession/tier/name.
+   * Sort some recipes by profession/tier/category/name.
    * @param recipes Recipes to sort.
    */
   public static void sort(List<Recipe> recipes)
+  {
+    Collections.sort(recipes,buildRecipeComparator());
+  }
+
+  /**
+   * Build a standard comparator for recipes (by profession/tier/category/name).
+   * @return A comparator for recipes.
+   */
+  public static Comparator<Recipe> buildRecipeComparator()
   {
     List<Comparator<Recipe>> comparators=new ArrayList<Comparator<Recipe>>();
     comparators.add(new RecipeProfessionComparator());
@@ -31,6 +40,6 @@ public class RecipeUtils
     comparators.add(new RecipeNameComparator());
     comparators.add(new IdentifiableComparator<Recipe>());
     CompoundComparator<Recipe> comparator=new CompoundComparator<Recipe>(comparators);
-    Collections.sort(recipes,comparator);
+    return comparator;
   }
 }

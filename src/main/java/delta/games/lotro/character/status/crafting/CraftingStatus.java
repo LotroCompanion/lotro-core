@@ -44,7 +44,7 @@ public class CraftingStatus
 
   /**
    * Get the current vocation.
-   * @return A vocation name.
+   * @return A vocation or <code>null</code>.
    */
   public Vocation getVocation()
   {

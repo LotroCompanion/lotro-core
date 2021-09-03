@@ -1,7 +1,5 @@
 package delta.games.lotro.lore.items.filters;
 
-import delta.games.lotro.lore.items.Armour;
-import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
 
 /**
