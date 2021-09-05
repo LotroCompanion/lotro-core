@@ -30,11 +30,11 @@ public class KnownRecipesComputer
     List<Recipe> availableRecipes=RecipesManager.getInstance().getRecipes(profession,tier);
     for(Recipe recipe : availableRecipes)
     {
-      boolean known=false;
+      String status="Not known";
       int autoIndex=Arrays.binarySearch(autoRecipes,recipe.getIdentifier());
       if (autoIndex>=0)
       {
-        known=true;
+        status="Auto";
       }
       else
       {
@@ -42,10 +42,10 @@ public class KnownRecipesComputer
         boolean hasExtra=extraRecipeIds.contains(recipeId);
         if (hasExtra)
         {
-          known=true;
+          status="Learnt";
         }
       }
-      System.out.println("\t\t"+(known?"Known":"Not known")+": "+recipe.getName());
+      System.out.println("\t\t"+status+": "+recipe.getName());
     }
   }
 
