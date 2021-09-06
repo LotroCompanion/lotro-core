@@ -22,15 +22,7 @@ public class ItemSlotFilter implements ItemFilter
     _location=slot.getLocation();
   }
 
-  /**
-   * Constructor.
-   * @param location Location to use.
-   */
-  public ItemSlotFilter(EquipmentLocation location)
-  {
-    _location=location;
-  }
-
+  @Override
   public boolean accept(Item item)
   {
     EquipmentLocation location=item.getEquipmentLocation();
