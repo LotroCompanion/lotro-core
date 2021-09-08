@@ -1,6 +1,8 @@
 package delta.games.lotro.character.status.recipes;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +17,7 @@ import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.Vocation;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
+import delta.games.lotro.lore.crafting.recipes.RecipeUtils;
 import delta.games.lotro.lore.crafting.recipes.RecipesManager;
 
 /**
@@ -81,6 +84,22 @@ public class RecipesStatusManager
         }
       }
     }
+  }
+
+  /**
+   * Get the list of managed recipes.
+   * @return A list of recipes.
+   */
+  public List<Recipe> getRecipes()
+  {
+    List<Recipe> ret=new ArrayList<Recipe>();
+    for(RecipeStatus status : _statuses.values())
+    {
+      ret.add(status.getRecipe());
+    }
+    Comparator<Recipe> recipesComparator=RecipeUtils.buildRecipeComparator();
+    Collections.sort(ret,recipesComparator);
+    return ret;
   }
 
   /**

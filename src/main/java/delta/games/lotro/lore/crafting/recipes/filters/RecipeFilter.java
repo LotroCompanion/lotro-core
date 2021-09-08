@@ -24,6 +24,7 @@ public class RecipeFilter implements Filter<Recipe>
   private RecipeProfessionFilter _professionFilter;
   private RecipeTierFilter _tierFilter;
   private RecipeCategoryFilter _categoryFilter;
+  private RecipeIngredientFilter _ingredientFilter;
 
   /**
    * Constructor.
@@ -43,6 +44,9 @@ public class RecipeFilter implements Filter<Recipe>
     // Category
     _categoryFilter=new RecipeCategoryFilter(null);
     filters.add(_categoryFilter);
+    // Ingredient
+    _ingredientFilter=new RecipeIngredientFilter(null);
+    filters.add(_ingredientFilter);
     _filter=new CompoundFilter<Recipe>(Operator.AND,filters);
   }
 
@@ -80,6 +84,15 @@ public class RecipeFilter implements Filter<Recipe>
   public RecipeCategoryFilter getCategoryFilter()
   {
     return _categoryFilter;
+  }
+
+  /**
+   * Get the filter on ingredient.
+   * @return a rcipe ingredient filter.
+   */
+  public RecipeIngredientFilter getIngredientFilter()
+  {
+    return _ingredientFilter;
   }
 
   @Override

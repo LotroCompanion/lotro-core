@@ -33,6 +33,4 @@ public class RecipeStatusSortUtils
     DelegatingComparator<RecipeStatus,Recipe> c=new DelegatingComparator<>(p,recipesComparator);
     Collections.sort(recipeStatuses,c);
   }
-
-
 }
