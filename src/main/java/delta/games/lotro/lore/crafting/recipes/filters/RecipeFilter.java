@@ -25,6 +25,9 @@ public class RecipeFilter implements Filter<Recipe>
   private RecipeTierFilter _tierFilter;
   private RecipeCategoryFilter _categoryFilter;
   private RecipeIngredientFilter _ingredientFilter;
+  private RecipeSingleUseFilter _singleUseFilter;
+  private RecipeHasCooldownFilter _hasCooldownFilter;
+  private RecipeIsGuildFilter _isGuildFilter;
 
   /**
    * Constructor.
@@ -47,6 +50,15 @@ public class RecipeFilter implements Filter<Recipe>
     // Ingredient
     _ingredientFilter=new RecipeIngredientFilter(null);
     filters.add(_ingredientFilter);
+    // Single Use
+    _singleUseFilter=new RecipeSingleUseFilter(null);
+    filters.add(_singleUseFilter);
+    // Cooldown
+    _hasCooldownFilter=new RecipeHasCooldownFilter(null);
+    filters.add(_hasCooldownFilter);
+    // Guild
+    _isGuildFilter=new RecipeIsGuildFilter(null);
+    filters.add(_isGuildFilter);
     _filter=new CompoundFilter<Recipe>(Operator.AND,filters);
   }
 
@@ -88,11 +100,38 @@ public class RecipeFilter implements Filter<Recipe>
 
   /**
    * Get the filter on ingredient.
-   * @return a rcipe ingredient filter.
+   * @return a recipe ingredient filter.
    */
   public RecipeIngredientFilter getIngredientFilter()
   {
     return _ingredientFilter;
+  }
+
+  /**
+   * Get the filter on 'single use'.
+   * @return a recipe single use filter.
+   */
+  public RecipeSingleUseFilter getSingleUseFilter()
+  {
+    return _singleUseFilter;
+  }
+
+  /**
+   * Get the filter on 'cooldown'.
+   * @return a recipe cooldown filter.
+   */
+  public RecipeHasCooldownFilter getCooldownFilter()
+  {
+    return _hasCooldownFilter;
+  }
+
+  /**
+   * Get the filter on 'guild'.
+   * @return a recipe guild filter.
+   */
+  public RecipeIsGuildFilter getGuildFilter()
+  {
+    return _isGuildFilter;
   }
 
   @Override
