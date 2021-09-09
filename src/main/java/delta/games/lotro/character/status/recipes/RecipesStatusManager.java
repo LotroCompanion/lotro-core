@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.status.crafting.CraftingStatus;
 import delta.games.lotro.character.status.crafting.KnownRecipes;
 import delta.games.lotro.character.status.crafting.ProfessionStatus;
@@ -27,13 +28,15 @@ import delta.games.lotro.lore.crafting.recipes.RecipesManager;
 public class RecipesStatusManager
 {
   private Map<Integer,RecipeStatus> _statuses;
+  private RecipesStatistics _statistics;
 
   /**
    * Constructor.
    */
   public RecipesStatusManager()
   {
-    _statuses=new HashMap<Integer,RecipeStatus>(); 
+    _statuses=new HashMap<Integer,RecipeStatus>();
+    _statistics=new RecipesStatistics();
   }
 
   /**
@@ -121,5 +124,30 @@ public class RecipesStatusManager
   public RecipeStatus getStatus(int recipeId)
   {
     return _statuses.get(Integer.valueOf(recipeId));
+  }
+
+  /**
+   * Get the managed statistics.
+   * @return some statistics.
+   */
+  public RecipesStatistics getStatistics()
+  {
+    return _statistics;
+  }
+
+  /**
+   * Update the statistics.
+   * @param recipeFilter Filter to use.
+   */
+  public void update(Filter<Recipe> recipeFilter)
+  {
+    _statistics.reset();
+    for(RecipeStatus status : _statuses.values())
+    {
+      if (recipeFilter.accept(status.getRecipe()))
+      {
+        _statistics.add(status.getState());
+      }
+    }
   }
 }
