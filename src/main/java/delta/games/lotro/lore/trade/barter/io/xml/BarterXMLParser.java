@@ -124,7 +124,10 @@ public class BarterXMLParser
       else
       {
         Element receiveReputationTag=DOMParsingTools.getChildTagByName(barterEntryTag,BarterXMLConstants.RECEIVE_REPUTATION_TAG);
-        receive=buildReputationElement(receiveReputationTag);
+        if (receiveReputationTag!=null)
+        {
+          receive=buildReputationElement(receiveReputationTag);
+        }
       }
       entry.setElementToReceive(receive);
     }
