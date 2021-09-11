@@ -234,4 +234,8 @@ public class DataFiles
    * Relic melding recipes.
    */
   public static final String RELIC_MELDING_RECIPES="relicMeldingRecipes";
+  /**
+   * Difficulties file.
+   */
+  public static final String DIFFICULTIES="difficulties";
 }

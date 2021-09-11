@@ -89,7 +89,7 @@ public class ColorsManager
   /**
    * Get a color using its code.
    * @param code Color code.
-   * @return A code or <code>null</code> if not found.
+   * @return A color or <code>null</code> if not found.
    */
   public ColorDescription getColor(float code)
   {
