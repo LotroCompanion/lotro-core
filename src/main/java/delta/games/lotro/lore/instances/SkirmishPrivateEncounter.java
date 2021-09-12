@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.difficulty.Difficulty;
+import delta.games.lotro.common.groupSize.GroupSize;
 
 /**
  * Private encounter of type 'Skirmish/Big battle/Classic instance'.
@@ -16,7 +17,7 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
   // Difficulty tiers
   private List<Difficulty> _difficultyTiers;
   // Group sizes
-  private List<String> _groupSizes;
+  private List<GroupSize> _groupSizes;
   // Min/max level scale
   private int _minLevelScale;
   private int _maxLevelScale;
@@ -35,7 +36,7 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
   {
     super(id);
     _difficultyTiers=new ArrayList<Difficulty>();
-    _groupSizes=new ArrayList<String>();
+    _groupSizes=new ArrayList<GroupSize>();
     _minLevelScale=0;
     _maxLevelScale=0;
     _category=null;
@@ -64,7 +65,7 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
    * Get the group sizes.
    * @return a list of group sizes.
    */
-  public List<String> getGroupSizes()
+  public List<GroupSize> getGroupSizes()
   {
     return _groupSizes;
   }
@@ -73,9 +74,12 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
    * Add a group size.
    * @param groupSize Group size to ad.
    */
-  public void addGroupSize(String groupSize)
+  public void addGroupSize(GroupSize groupSize)
   {
-    _groupSizes.add(groupSize);
+    if (groupSize!=null)
+    {
+      _groupSizes.add(groupSize);
+    }
   }
 
   /**

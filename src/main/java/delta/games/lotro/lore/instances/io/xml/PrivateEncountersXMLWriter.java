@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.difficulty.Difficulty;
+import delta.games.lotro.common.groupSize.GroupSize;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
@@ -149,11 +150,12 @@ public class PrivateEncountersXMLWriter
         hd.endElement("","",PrivateEncountersXMLConstants.DIFFICULTY_TIER_TAG);
       }
       // Group sizes
-      for(String groupSize : skirmishPE.getGroupSizes())
+      for(GroupSize groupSize : skirmishPE.getGroupSizes())
       {
         AttributesImpl groupSizeAttrs=new AttributesImpl();
-        // Name
-        groupSizeAttrs.addAttribute("","",PrivateEncountersXMLConstants.GROUP_SIZE_NAME_ATTR,XmlWriter.CDATA,groupSize);
+        // Key
+        String groupSizeKey=groupSize.getLegacyKey();
+        groupSizeAttrs.addAttribute("","",PrivateEncountersXMLConstants.GROUP_SIZE_KEY_ATTR,XmlWriter.CDATA,groupSizeKey);
         hd.startElement("","",PrivateEncountersXMLConstants.GROUP_SIZE_TAG,groupSizeAttrs);
         hd.endElement("","",PrivateEncountersXMLConstants.GROUP_SIZE_TAG);
       }

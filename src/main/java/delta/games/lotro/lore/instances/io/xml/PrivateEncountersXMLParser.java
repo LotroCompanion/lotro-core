@@ -9,6 +9,8 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.difficulty.DifficultiesManager;
 import delta.games.lotro.common.difficulty.Difficulty;
+import delta.games.lotro.common.groupSize.GroupSize;
+import delta.games.lotro.common.groupSize.GroupSizesManager;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
@@ -126,8 +128,9 @@ public class PrivateEncountersXMLParser
       List<Element> groupSizeTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.GROUP_SIZE_TAG);
       for(Element groupSizeTag : groupSizeTags)
       {
-        String groupSizeName=DOMParsingTools.getStringAttribute(groupSizeTag.getAttributes(),PrivateEncountersXMLConstants.GROUP_SIZE_NAME_ATTR,"");
-        skirmishPE.addGroupSize(groupSizeName);
+        String groupSizeKey=DOMParsingTools.getStringAttribute(groupSizeTag.getAttributes(),PrivateEncountersXMLConstants.GROUP_SIZE_KEY_ATTR,"");
+        GroupSize groupSize=GroupSizesManager.getInstance().getByKey(groupSizeKey);
+        skirmishPE.addGroupSize(groupSize);
       }
     }
 

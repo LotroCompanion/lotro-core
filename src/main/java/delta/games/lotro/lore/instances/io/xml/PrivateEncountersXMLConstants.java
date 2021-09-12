@@ -104,7 +104,7 @@ public class PrivateEncountersXMLConstants
    */
   public static final String GROUP_SIZE_TAG="groupSize";
   /**
-   * Tag 'groupSize', attribute 'name'.
+   * Tag 'groupSize', attribute 'key'.
    */
-  public static final String GROUP_SIZE_NAME_ATTR="name";
+  public static final String GROUP_SIZE_KEY_ATTR="key";
 }
