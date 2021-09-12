@@ -7,6 +7,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.difficulty.DifficultiesManager;
+import delta.games.lotro.common.difficulty.Difficulty;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
@@ -112,11 +114,13 @@ public class PrivateEncountersXMLParser
     {
       SkirmishPrivateEncounter skirmishPE=(SkirmishPrivateEncounter)ret;
       // Difficulty tiers
+      DifficultiesManager difficultiesMgr=DifficultiesManager.getInstance();
       List<Element> difficultyTierTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.DIFFICULTY_TIER_TAG);
       for(Element difficultyTierTag : difficultyTierTags)
       {
-        String difficultyTierName=DOMParsingTools.getStringAttribute(difficultyTierTag.getAttributes(),PrivateEncountersXMLConstants.DIFFICULTY_TIER_NAME_ATTR,"");
-        skirmishPE.addDifficultyTier(difficultyTierName);
+        int difficultyTierCode=DOMParsingTools.getIntAttribute(difficultyTierTag.getAttributes(),PrivateEncountersXMLConstants.DIFFICULTY_TIER_CODE_ATTR,0);
+        Difficulty difficulty=difficultiesMgr.getDifficulty(difficultyTierCode);
+        skirmishPE.addDifficultyTier(difficulty);
       }
       // Group sizes
       List<Element> groupSizeTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.GROUP_SIZE_TAG);

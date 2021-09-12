@@ -11,6 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.difficulty.Difficulty;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
@@ -135,11 +136,15 @@ public class PrivateEncountersXMLWriter
     {
       SkirmishPrivateEncounter skirmishPE=(SkirmishPrivateEncounter)privateEncounter;
       // Difficulty tiers
-      for(String difficultyTier : skirmishPE.getDifficultyTiers())
+      for(Difficulty difficultyTier : skirmishPE.getDifficultyTiers())
       {
         AttributesImpl difficultyTierAttrs=new AttributesImpl();
+        // Code
+        int code=difficultyTier.getCode();
+        difficultyTierAttrs.addAttribute("","",PrivateEncountersXMLConstants.DIFFICULTY_TIER_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
         // Name
-        difficultyTierAttrs.addAttribute("","",PrivateEncountersXMLConstants.DIFFICULTY_TIER_NAME_ATTR,XmlWriter.CDATA,difficultyTier);
+        String difficultyName=difficultyTier.getLabel();
+        difficultyTierAttrs.addAttribute("","",PrivateEncountersXMLConstants.DIFFICULTY_TIER_NAME_ATTR,XmlWriter.CDATA,difficultyName);
         hd.startElement("","",PrivateEncountersXMLConstants.DIFFICULTY_TIER_TAG,difficultyTierAttrs);
         hd.endElement("","",PrivateEncountersXMLConstants.DIFFICULTY_TIER_TAG);
       }

@@ -91,6 +91,10 @@ public class PrivateEncountersXMLConstants
    */
   public static final String DIFFICULTY_TIER_TAG="difficultyTier";
   /**
+   * Tag 'difficultyTier', attribute 'code'.
+   */
+  public static final String DIFFICULTY_TIER_CODE_ATTR="code";
+  /**
    * Tag 'difficultyTier', attribute 'name'.
    */
   public static final String DIFFICULTY_TIER_NAME_ATTR="name";
