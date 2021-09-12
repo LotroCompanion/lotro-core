@@ -7,7 +7,7 @@ import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.collections.filters.Operator;
 import delta.games.lotro.character.status.skirmishes.SkirmishEntry;
 import delta.games.lotro.character.status.skirmishes.SkirmishLevel;
-import delta.games.lotro.lore.instances.SkirmishGroupSize;
+import delta.games.lotro.common.groupSize.GroupSize;
 
 /**
  * Filter for skirmish entries.
@@ -26,7 +26,7 @@ public class SkirmishEntryFilter implements Filter<SkirmishEntry>
   public SkirmishEntryFilter()
   {
     _skirmish=new SkirmishEntrySkirmishFilter(null);
-    _groupSize=new SkirmishEntrySizeFilter(new HashSet<SkirmishGroupSize>());
+    _groupSize=new SkirmishEntrySizeFilter(new HashSet<GroupSize>());
     _level=new SkirmishEntryLevelFilter(new HashSet<SkirmishLevel>());
     _filter=new CompoundFilter<SkirmishEntry>(Operator.AND);
     _filter.addFilter(_skirmish);

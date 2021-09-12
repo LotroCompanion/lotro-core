@@ -1,6 +1,6 @@
 package delta.games.lotro.character.status.skirmishes;
 
-import delta.games.lotro.lore.instances.SkirmishGroupSize;
+import delta.games.lotro.common.groupSize.GroupSize;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 
 /**
@@ -12,7 +12,7 @@ import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 public class SkirmishEntry
 {
   private SkirmishPrivateEncounter _skirmish;
-  private SkirmishGroupSize _size;
+  private GroupSize _size;
   private SkirmishLevel _level;
   private SkirmishStats _stats;
 
@@ -23,7 +23,7 @@ public class SkirmishEntry
    * @param level Level (<code>null</code> means several level).
    * @param stats Statistics.
    */
-  public SkirmishEntry(SkirmishPrivateEncounter skirmish, SkirmishGroupSize size, SkirmishLevel level, SkirmishStats stats)
+  public SkirmishEntry(SkirmishPrivateEncounter skirmish, GroupSize size, SkirmishLevel level, SkirmishStats stats)
   {
     _skirmish=skirmish;
     _size=size;
@@ -44,7 +44,7 @@ public class SkirmishEntry
    * Get the associated size.
    * @return a size (or <code>null</code> if several sizes).
    */
-  public SkirmishGroupSize getSize()
+  public GroupSize getSize()
   {
     return _size;
   }

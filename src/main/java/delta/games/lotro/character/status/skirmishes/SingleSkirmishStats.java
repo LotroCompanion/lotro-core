@@ -3,7 +3,7 @@ package delta.games.lotro.character.status.skirmishes;
 import java.util.HashMap;
 import java.util.Map;
 
-import delta.games.lotro.lore.instances.SkirmishGroupSize;
+import delta.games.lotro.common.groupSize.GroupSize;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 
 /**
@@ -40,7 +40,7 @@ public class SingleSkirmishStats
    * @param level Level to use.
    * @param stats Stats to set.
    */
-  public void setStats(SkirmishGroupSize size, SkirmishLevel level, SkirmishStats stats)
+  public void setStats(GroupSize size, SkirmishLevel level, SkirmishStats stats)
   {
     String key=buildKey(size,level);
     _stats.put(key,stats);
@@ -52,16 +52,16 @@ public class SingleSkirmishStats
    * @param level Level to use.
    * @return Some stats or <code>null</code> if not found.
    */
-  public SkirmishStats getStats(SkirmishGroupSize size, SkirmishLevel level)
+  public SkirmishStats getStats(GroupSize size, SkirmishLevel level)
   {
     String key=buildKey(size,level);
     SkirmishStats ret=_stats.get(key);
     return ret;
   }
 
-  private String buildKey(SkirmishGroupSize size, SkirmishLevel level)
+  private String buildKey(GroupSize size, SkirmishLevel level)
   {
-    return size.name()+"#"+level.name();
+    return size.getCode()+"#"+level.name();
   }
 
   /**

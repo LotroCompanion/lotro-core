@@ -7,7 +7,8 @@ import java.util.Map;
 
 import delta.games.lotro.character.status.skirmishes.cfg.SkirmishEntriesPolicy;
 import delta.games.lotro.character.status.skirmishes.filter.SkirmishEntryFilter;
-import delta.games.lotro.lore.instances.SkirmishGroupSize;
+import delta.games.lotro.common.groupSize.GroupSize;
+import delta.games.lotro.common.groupSize.GroupSizesManager;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 
 /**
@@ -45,7 +46,7 @@ public class SkirmishEntriesUtils
   {
     List<SkirmishEntry> ret=new ArrayList<SkirmishEntry>();
     SkirmishPrivateEncounter skirmish=stats.getSkirmish();
-    for(SkirmishGroupSize size : SkirmishGroupSize.values())
+    for(GroupSize size : GroupSizesManager.getInstance().getAll())
     {
       for(SkirmishLevel level : SkirmishLevel.values())
       {
@@ -75,8 +76,8 @@ public class SkirmishEntriesUtils
       }
       if (!policy.isMergeSizes())
       {
-        SkirmishGroupSize size=entry.getSize();
-        String sizeKey=(size!=null)?size.name():"";
+        GroupSize size=entry.getSize();
+        String sizeKey=(size!=null)?String.valueOf(size.getCode()):"";
         key=key+"#"+sizeKey;
       }
       List<SkirmishEntry> list=map.get(key);
@@ -99,7 +100,7 @@ public class SkirmishEntriesUtils
       {
         SkirmishEntry first=entryList.get(0);
         SkirmishPrivateEncounter skirmish=first.getSkirmish();
-        SkirmishGroupSize size=first.getSize();
+        GroupSize size=first.getSize();
         SkirmishLevel level=first.getLevel();
         for(int i=1;i<nbEntries;i++)
         {
@@ -119,7 +120,7 @@ public class SkirmishEntriesUtils
     return ret;
   }
 
-  private static SkirmishEntry merge(SkirmishPrivateEncounter skirmish, SkirmishGroupSize size, SkirmishLevel level, List<SkirmishEntry> entries)
+  private static SkirmishEntry merge(SkirmishPrivateEncounter skirmish, GroupSize size, SkirmishLevel level, List<SkirmishEntry> entries)
   {
     SkirmishStats stats=new SkirmishStats();
     for(SkirmishEntry entry : entries)

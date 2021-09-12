@@ -6,9 +6,10 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.status.skirmishes.io.xml.SkirmishStatsXMLWriter;
+import delta.games.lotro.common.groupSize.GroupSize;
+import delta.games.lotro.common.groupSize.GroupSizesManager;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
-import delta.games.lotro.lore.instances.SkirmishGroupSize;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 
 /**
@@ -48,7 +49,7 @@ public class TestSkirmishStats extends TestCase
   private SingleSkirmishStats buildSingleSkirmishStats(SkirmishPrivateEncounter skirmish)
   {
     SingleSkirmishStats ret=new SingleSkirmishStats(skirmish);
-    for(SkirmishGroupSize size : SkirmishGroupSize.values())
+    for(GroupSize size : GroupSizesManager.getInstance().getAll())
     {
       for(SkirmishLevel level : SkirmishLevel.values())
       {

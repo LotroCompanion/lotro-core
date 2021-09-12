@@ -238,4 +238,8 @@ public class DataFiles
    * Difficulties file.
    */
   public static final String DIFFICULTIES="difficulties";
+  /**
+   * Group sizes file.
+   */
+  public static final String GROUP_SIZES="groupSizes";
 }
