@@ -215,6 +215,10 @@ public class DataFiles
    */
   public static final String INSTANCES_TREE="instancesTree";
   /**
+   * Instance loots.
+   */
+  public static final String INSTANCE_LOOTS="instanceLoots";
+  /**
    * Mobs.
    */
   public static final String MOBS="mobs";
