@@ -16,6 +16,7 @@ import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.loot.InstanceLootEntry;
 import delta.games.lotro.lore.instances.loot.InstanceLootParameters;
 import delta.games.lotro.lore.instances.loot.InstanceLoots;
+import delta.games.lotro.lore.instances.loot.InstanceLootsTable;
 
 /**
  * Writes instance loots to XML files.
@@ -29,7 +30,7 @@ public class InstanceLootXMLWriter
    * @param data Data to write.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public static boolean writeInstanceLootsFile(File toFile, List<InstanceLoots> data)
+  public static boolean writeInstanceLootsFile(File toFile, List<InstanceLootsTable> data)
   {
     InstanceLootXMLWriter writer=new InstanceLootXMLWriter();
     boolean ok=writer.writeInstanceLoots(toFile,data,EncodingNames.UTF_8);
@@ -37,13 +38,13 @@ public class InstanceLootXMLWriter
   }
 
   /**
-   * Write private encounter to a XML file.
+   * Write instance loot data to a XML file.
    * @param outFile Output file.
    * @param data Data to write.
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean writeInstanceLoots(File outFile, final List<InstanceLoots> data, String encoding)
+  public boolean writeInstanceLoots(File outFile, final List<InstanceLootsTable> data, String encoding)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -51,21 +52,35 @@ public class InstanceLootXMLWriter
       @Override
       public void writeXml(TransformerHandler hd) throws Exception
       {
-        writeInstanceLoots(hd,data);
+        writeInstanceLootsTables(hd,data);
       }
     };
     boolean ret=helper.write(outFile,encoding,writer);
     return ret;
   }
 
-  private void writeInstanceLoots(TransformerHandler hd, List<InstanceLoots> data) throws Exception
+  private void writeInstanceLootsTables(TransformerHandler hd, List<InstanceLootsTable> data) throws Exception
   {
     hd.startElement("","",InstanceLootXMLConstants.INSTANCE_LOOTS_TAG,new AttributesImpl());
-    for(InstanceLoots instanceLoots : data)
+    for(InstanceLootsTable table : data)
+    {
+      writeInstanceLootsTable(hd,table);
+    }
+    hd.endElement("","",InstanceLootXMLConstants.INSTANCE_LOOTS_TAG);
+  }
+
+  private void writeInstanceLootsTable(TransformerHandler hd, InstanceLootsTable data) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Identifier
+    int tableId=data.getIdentifier();
+    attrs.addAttribute("","",InstanceLootXMLConstants.TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(tableId));
+    hd.startElement("","",InstanceLootXMLConstants.TABLE_TAG,attrs);
+    for(InstanceLoots instanceLoots : data.getInstanceLoots())
     {
       writeInstanceLoot(hd,instanceLoots);
     }
-    hd.endElement("","",InstanceLootXMLConstants.INSTANCE_LOOTS_TAG);
+    hd.endElement("","",InstanceLootXMLConstants.TABLE_TAG);
   }
 
   private void writeInstanceLoot(TransformerHandler hd, InstanceLoots instanceLoot) throws Exception

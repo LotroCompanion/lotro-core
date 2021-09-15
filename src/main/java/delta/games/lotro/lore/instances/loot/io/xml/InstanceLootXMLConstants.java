@@ -13,6 +13,14 @@ public class InstanceLootXMLConstants
    */
   public static final String INSTANCE_LOOTS_TAG="instanceLoots";
   /**
+   * Tag 'table'.
+   */
+  public static final String TABLE_TAG="table";
+  /**
+   * Tag 'table', attribute 'tableId'.
+   */
+  public static final String TABLE_ID_ATTR="id";
+  /**
    * Tag 'instance'.
    */
   public static final String INSTANCE_TAG="instance";

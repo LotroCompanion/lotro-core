@@ -1,47 +1,37 @@
 package delta.games.lotro.lore.instances.loot;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.config.DataFiles;
-import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.instances.loot.io.xml.InstanceLootXMLParser;
 
 /**
- * Manager for all instance loot tables.
+ * Storage for a collection of instance loots.
  * @author DAM
  */
-public class InstanceLootsManager
+public class InstanceLootsTable implements Identifiable
 {
-  private static final InstanceLootsManager _instance=load();
+  private int _tableId;
   private Map<Integer,InstanceLoots> _instanceLoots;
 
   /**
-   * Get the reference instance of this class.
-   * @return the reference instance of this class.
-   */
-  public static InstanceLootsManager getInstance()
-  {
-    return _instance;
-  }
-
-  private static InstanceLootsManager load()
-  {
-    File from=LotroCoreConfig.getInstance().getFile(DataFiles.INSTANCE_LOOTS);
-    return new InstanceLootXMLParser().parseXML(from);
-  }
-
-  /**
    * Constructor.
+   * @param tableId Table identifier.
    */
-  public InstanceLootsManager()
+  public InstanceLootsTable(int tableId)
   {
+    _tableId=tableId;
     _instanceLoots=new HashMap<Integer,InstanceLoots>();
+  }
+
+  @Override
+  public int getIdentifier()
+  {
+    return _tableId;
   }
 
   /**

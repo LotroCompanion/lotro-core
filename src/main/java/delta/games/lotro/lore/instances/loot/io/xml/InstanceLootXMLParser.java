@@ -15,7 +15,8 @@ import delta.games.lotro.lore.instances.PrivateEncountersManager;
 import delta.games.lotro.lore.instances.loot.InstanceLootEntry;
 import delta.games.lotro.lore.instances.loot.InstanceLootParameters;
 import delta.games.lotro.lore.instances.loot.InstanceLoots;
-import delta.games.lotro.lore.instances.loot.InstanceLootsManager;
+import delta.games.lotro.lore.instances.loot.InstanceLootTablesManager;
+import delta.games.lotro.lore.instances.loot.InstanceLootsTable;
 
 /**
  * Parser for the instance loots stored in XML.
@@ -28,9 +29,9 @@ public class InstanceLootXMLParser
    * @param source Source file.
    * @return Parsed data or <code>null</code>.
    */
-  public InstanceLootsManager parseXML(File source)
+  public InstanceLootTablesManager parseXML(File source)
   {
-    InstanceLootsManager ret=null;
+    InstanceLootTablesManager ret=null;
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
@@ -40,21 +41,38 @@ public class InstanceLootXMLParser
   }
 
   /**
-   * Build a private encounters manager from an XML tag.
+   * Build an instance loots manager from an XML tag.
    * @param rootTag Root tag.
-   * @return A private encounters manager.
+   * @return An instance loots manager.
    */
-  private InstanceLootsManager parseInstanceLoots(Element rootTag)
+  private InstanceLootTablesManager parseInstanceLoots(Element rootTag)
   {
-    InstanceLootsManager mgr=new InstanceLootsManager();
+    InstanceLootTablesManager mgr=new InstanceLootTablesManager();
+    List<Element> tableTags=DOMParsingTools.getChildTagsByName(rootTag,InstanceLootXMLConstants.TABLE_TAG);
+    for(Element tableTag : tableTags)
+    {
+      InstanceLootsTable instance=parseTable(tableTag);
+      mgr.addTable(instance);
+    }
+    return mgr;
+  }
 
-    List<Element> instanceTags=DOMParsingTools.getChildTagsByName(rootTag,InstanceLootXMLConstants.INSTANCE_TAG);
+  /**
+   * Build a table from an XML tag.
+   * @param tableTag Root tag.
+   * @return A loots table.
+   */
+  private InstanceLootsTable parseTable(Element tableTag)
+  {
+    int tableId=DOMParsingTools.getIntAttribute(tableTag.getAttributes(),InstanceLootXMLConstants.TABLE_ID_ATTR,0);
+    InstanceLootsTable table=new InstanceLootsTable(tableId);
+    List<Element> instanceTags=DOMParsingTools.getChildTagsByName(tableTag,InstanceLootXMLConstants.INSTANCE_TAG);
     for(Element instanceTag : instanceTags)
     {
       InstanceLoots instance=parseInstance(instanceTag);
-      mgr.addInstanceLoots(instance);
+      table.addInstanceLoots(instance);
     }
-    return mgr;
+    return table;
   }
 
   private InstanceLoots parseInstance(Element instanceTag)
