@@ -11,6 +11,7 @@ public class KinshipSummary
   private InternalGameId _kinshipID;
   private long _statusDate;
   private String _name;
+  private String _serverName;
   private InternalGameId _leaderID;
   private InternalGameId _founderID;
   private Long _creationDate;
@@ -23,6 +24,7 @@ public class KinshipSummary
   {
     _kinshipID=null;
     _name="";
+    _serverName="";
     _leaderID=null;
     _founderID=null;
     _creationDate=null;
@@ -85,6 +87,28 @@ public class KinshipSummary
       name="";
     }
     _name=name;
+  }
+
+  /**
+   * Get the server name for this kinship.
+   * @return the server name for this kinship.
+   */
+  public String getServerName()
+  {
+    return _serverName;
+  }
+
+  /**
+   * Set the server name for this kinship.
+   * @param serverName the name to set.
+   */
+  public void setServerName(String serverName)
+  {
+    if (serverName==null)
+    {
+      serverName="";
+    }
+    _serverName=serverName;
   }
 
   /**
@@ -171,6 +195,7 @@ public class KinshipSummary
     sb.append("ID [").append(_kinshipID).append("], ");
     sb.append("Status date [").append(_statusDate).append(']');
     sb.append("Name [").append(_name).append("], ");
+    sb.append("Server [").append(_serverName).append("], ");
     sb.append("Leader ID [").append(_leaderID).append(']');
     sb.append("Founder ID [").append(_founderID).append(']');
     sb.append("Creation date [").append(_creationDate).append(']');

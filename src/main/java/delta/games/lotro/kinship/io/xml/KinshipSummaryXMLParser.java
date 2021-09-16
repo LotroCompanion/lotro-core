@@ -53,6 +53,9 @@ public class KinshipSummaryXMLParser
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,KinshipXMLConstants.KINSHIP_NAME_ATTR,"");
     summary.setName(name);
+    // Server
+    String server=DOMParsingTools.getStringAttribute(attrs,KinshipXMLConstants.KINSHIP_SERVER_ATTR,"");
+    summary.setServerName(server);
     // Leader ID
     String leaderIDStr=DOMParsingTools.getStringAttribute(attrs,KinshipXMLConstants.KINSHIP_LEADER_ID_ATTR,null);
     if (leaderIDStr!=null)

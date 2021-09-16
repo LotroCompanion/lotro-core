@@ -24,6 +24,10 @@ public class KinshipXMLConstants
    */
   public static final String KINSHIP_NAME_ATTR="name";
   /**
+   * Tag 'kinship', attribute 'server'.
+   */
+  public static final String KINSHIP_SERVER_ATTR="server";
+  /**
    * Tag 'kinship', attribute 'leaderID'.
    */
   public static final String KINSHIP_LEADER_ID_ATTR="leaderID";

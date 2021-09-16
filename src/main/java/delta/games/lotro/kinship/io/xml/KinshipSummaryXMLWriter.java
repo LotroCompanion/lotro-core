@@ -62,9 +62,15 @@ public class KinshipSummaryXMLWriter
     kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_STATUS_DATE_ATTR,XmlWriter.CDATA,String.valueOf(statusDate));
     // Name
     String name=kinship.getName();
-    if ((name!=null) && (name.length()>0))
+    if (name.length()>0)
     {
       kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    // Server
+    String server=kinship.getServerName();
+    if (server.length()>0)
+    {
+      kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_SERVER_ATTR,XmlWriter.CDATA,server);
     }
     // Leader ID
     InternalGameId leaderID=kinship.getLeaderID();
