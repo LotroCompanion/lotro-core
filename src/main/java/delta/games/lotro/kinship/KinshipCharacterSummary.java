@@ -3,6 +3,12 @@ package delta.games.lotro.kinship;
 import java.util.Date;
 
 import delta.games.lotro.character.BaseCharacterSummary;
+import delta.games.lotro.lore.crafting.CraftingData;
+import delta.games.lotro.lore.crafting.CraftingSystem;
+import delta.games.lotro.lore.crafting.Vocation;
+import delta.games.lotro.lore.crafting.Vocations;
+import delta.games.lotro.lore.maps.Area;
+import delta.games.lotro.lore.maps.GeoAreasManager;
 
 /**
  * Storage class for a LOTRO kinship character summary.
@@ -11,8 +17,10 @@ import delta.games.lotro.character.BaseCharacterSummary;
 public class KinshipCharacterSummary extends BaseCharacterSummary
 {
   private Integer _vocationID;
+  private String _vocation;
   private Long _lastLogoutDate;
   private Integer _areaID;
+  private String _area;
 
   /**
    * Constructor.
@@ -21,8 +29,10 @@ public class KinshipCharacterSummary extends BaseCharacterSummary
   {
     super();
     _vocationID=null;
+    _vocation=null;
     _lastLogoutDate=null;
     _areaID=null;
+    _area=null;
   }
 
   /**
@@ -53,6 +63,23 @@ public class KinshipCharacterSummary extends BaseCharacterSummary
   public void setVocationID(Integer vocationID)
   {
     _vocationID=vocationID;
+    _vocation=null;
+  }
+
+  /**
+   * Get the vocation label.
+   * @return A label or <code>null</code> if no vocation.
+   */
+  public String getVocation()
+  {
+    if ((_vocationID!=null) && (_vocation==null))
+    {
+      CraftingData craftingData=CraftingSystem.getInstance().getData();
+      Vocations vocations=craftingData.getVocationsRegistry();
+      Vocation vocation=vocations.getVocationById(_vocationID.intValue());
+      _vocation=(vocation!=null)?vocation.getName():"?";
+    }
+    return _vocation;
   }
 
   /**
@@ -89,6 +116,22 @@ public class KinshipCharacterSummary extends BaseCharacterSummary
   public void setAreaID(Integer areaID)
   {
     _areaID=areaID;
+    _area=null;
+  }
+
+  /**
+   * Get the vocation label.
+   * @return A label or <code>null</code> if no vocation.
+   */
+  public String getArea()
+  {
+    if ((_areaID!=null) && (_area==null))
+    {
+      GeoAreasManager areasMgr=GeoAreasManager.getInstance();
+      Area area=areasMgr.getAreaById(_areaID.intValue());
+      _area=(area!=null)?area.getName():"?";
+    }
+    return _area;
   }
 
   @Override
@@ -98,8 +141,7 @@ public class KinshipCharacterSummary extends BaseCharacterSummary
     sb.append(super.toString());
     if (_vocationID!=null)
     {
-      // TODO Vocation name display
-      sb.append(", Vocation ID [").append(_vocationID).append(']');
+      sb.append(", Vocation ID [").append(_vocationID).append("] (").append(getVocation()).append(')');
     }
     if (_lastLogoutDate!=null)
     {
@@ -108,7 +150,7 @@ public class KinshipCharacterSummary extends BaseCharacterSummary
     }
     if (_areaID!=null)
     {
-      sb.append(", Area ID [").append(_areaID).append(']');
+      sb.append(", Area ID [").append(_areaID).append("] (").append(getArea()).append(')');
     }
     return sb.toString();
   }
