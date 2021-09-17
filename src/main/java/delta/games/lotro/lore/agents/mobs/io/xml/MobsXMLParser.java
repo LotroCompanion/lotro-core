@@ -65,13 +65,8 @@ public class MobsXMLParser
     MobDescription ret=new MobDescription(id,name);
     // Classification
     AgentsXMLIO.parseClassificationTag(mobTag,ret.getClassification());
-    // Loot
-    Element mobLootTag=DOMParsingTools.getChildTagByName(mobTag,MobsXMLConstants.LOOT_TAG);
-    if (mobLootTag!=null)
-    {
-      MobLoot loot=parseMobLoot(mobLootTag);
-      ret.setMobLoot(loot);
-    }
+    MobLoot loot=parseMobLoot(mobTag);
+    ret.setMobLoot(loot);
     return ret;
   }
 
@@ -81,41 +76,49 @@ public class MobsXMLParser
     NamedNodeMap attrs=mobLootTag.getAttributes();
 
     LootsManager lootsMgr=LootsManager.getInstance();
-    MobLoot loot=new MobLoot();
     // Barter trophy list
+    TrophyList barterTrophyList=null;
     int barterTrophyListId=DOMParsingTools.getIntAttribute(attrs,MobsXMLConstants.BARTER_TROPHY_LIST_ID_ATTR,0);
     if (barterTrophyListId!=0)
     {
-      TrophyList trophyList=lootsMgr.getTrophyLists().getItem(barterTrophyListId);
-      loot.setBarterTrophy(trophyList);
+      barterTrophyList=lootsMgr.getTrophyLists().getItem(barterTrophyListId);
     }
     // Reputation trophy list
+    TrophyList reputationTrophyList=null;
     int reputationTrophyListId=DOMParsingTools.getIntAttribute(attrs,MobsXMLConstants.REPUTATION_TROPHY_LIST_ID_ATTR,0);
     if (reputationTrophyListId!=0)
     {
-      TrophyList trophyList=lootsMgr.getTrophyLists().getItem(reputationTrophyListId);
-      loot.setReputationTrophy(trophyList);
+      reputationTrophyList=lootsMgr.getTrophyLists().getItem(reputationTrophyListId);
     }
     // Treasure list override list
+    TreasureList treasureList=null;
     int treasureListId=DOMParsingTools.getIntAttribute(attrs,MobsXMLConstants.TREASURE_LIST_OVERRIDE_ID_ATTR,0);
     if (treasureListId!=0)
     {
-      TreasureList treasureList=lootsMgr.getTreasureLists().getItem(treasureListId);
-      loot.setTreasureListOverride(treasureList);
+      treasureList=lootsMgr.getTreasureLists().getItem(treasureListId);
     }
     // Trophy list override
+    TrophyList trophyListOverride=null;
     int trophyListOverrideId=DOMParsingTools.getIntAttribute(attrs,MobsXMLConstants.TROPHY_LIST_OVERRIDE_ID_ATTR,0);
     if (trophyListOverrideId!=0)
     {
-      TrophyList trophyList=lootsMgr.getTrophyLists().getItem(trophyListOverrideId);
-      loot.setTrophyListOverride(trophyList);
+      trophyListOverride=lootsMgr.getTrophyLists().getItem(trophyListOverrideId);
     }
-    // Generates trophy
-    boolean generatesTrophy=DOMParsingTools.getBooleanAttribute(attrs,MobsXMLConstants.GENERATES_TROPHY_ATTR,false);
-    loot.setGeneratesTrophy(generatesTrophy);
-    // Remote lootable
-    boolean remoteLootable=DOMParsingTools.getBooleanAttribute(attrs,MobsXMLConstants.REMOTE_LOOTABLE_ATTR,true);
-    loot.setRemoteLootable(remoteLootable);
+    MobLoot loot=null;
+    if ((barterTrophyList!=null) || (reputationTrophyList!=null) || (treasureList!=null) || (trophyListOverride!=null))
+    {
+      loot=new MobLoot();
+      loot.setBarterTrophy(barterTrophyList);
+      loot.setReputationTrophy(reputationTrophyList);
+      loot.setTreasureListOverride(treasureList);
+      loot.setTrophyListOverride(trophyListOverride);
+      // Generates trophy
+      boolean generatesTrophy=DOMParsingTools.getBooleanAttribute(attrs,MobsXMLConstants.GENERATES_TROPHY_ATTR,true);
+      loot.setGeneratesTrophy(generatesTrophy);
+      // Remote lootable
+      boolean remoteLootable=DOMParsingTools.getBooleanAttribute(attrs,MobsXMLConstants.REMOTE_LOOTABLE_ATTR,true);
+      loot.setRemoteLootable(remoteLootable);
+    }
     return loot;
   }
 }

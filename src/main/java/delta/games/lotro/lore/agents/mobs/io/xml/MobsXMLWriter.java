@@ -79,19 +79,18 @@ public class MobsXMLWriter
     attrs.addAttribute("","",MobsXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
     // Classification
     AgentsXMLIO.writeClassification(attrs,mob.getClassification());
-    hd.startElement("","",MobsXMLConstants.MOB_TAG,attrs);
+    // Loot
     MobLoot loot=mob.getLoot();
     if (loot!=null)
     {
-      writeMobLoot(hd,loot);
+      writeMobLoot(hd,attrs,loot);
     }
+    hd.startElement("","",MobsXMLConstants.MOB_TAG,attrs);
     hd.endElement("","",MobsXMLConstants.MOB_TAG);
   }
 
-  private void writeMobLoot(TransformerHandler hd, MobLoot loot) throws Exception
+  private void writeMobLoot(TransformerHandler hd, AttributesImpl attrs, MobLoot loot) throws Exception
   {
-    AttributesImpl attrs=new AttributesImpl();
-
     // Barter trophy list
     TrophyList barterTrophy=loot.getBarterTrophy();
     if (barterTrophy!=null)
@@ -122,7 +121,7 @@ public class MobsXMLWriter
     }
     // Generates trophy
     boolean generatesTrophy=loot.isGeneratesTrophy();
-    if (generatesTrophy)
+    if (!generatesTrophy)
     {
       attrs.addAttribute("","",MobsXMLConstants.GENERATES_TROPHY_ATTR,XmlWriter.CDATA,String.valueOf(generatesTrophy));
     }
@@ -130,9 +129,7 @@ public class MobsXMLWriter
     boolean remoteLootable=loot.isRemoteLootable();
     if (!remoteLootable)
     {
-      attrs.addAttribute("","",MobsXMLConstants.GENERATES_TROPHY_ATTR,XmlWriter.CDATA,String.valueOf(remoteLootable));
+      attrs.addAttribute("","",MobsXMLConstants.REMOTE_LOOTABLE_ATTR,XmlWriter.CDATA,String.valueOf(remoteLootable));
     }
-    hd.startElement("","",MobsXMLConstants.LOOT_TAG,attrs);
-    hd.endElement("","",MobsXMLConstants.LOOT_TAG);
   }
 }
