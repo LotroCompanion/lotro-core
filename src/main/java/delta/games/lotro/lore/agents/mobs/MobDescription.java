@@ -12,6 +12,7 @@ public class MobDescription implements Identifiable
   private int _identifier;
   private String _name;
   private AgentClassification _classification;
+  private MobLoot _loot;
 
   /**
    * Constructor.
@@ -50,5 +51,23 @@ public class MobDescription implements Identifiable
   public AgentClassification getClassification()
   {
     return _classification;
+  }
+
+  /**
+   * Get the loot data for this mob.
+   * @return Some loot data or <code>null</code> if not set.
+   */
+  public MobLoot getLoot()
+  {
+    return _loot;
+  }
+
+  /**
+   * Set the mob loot data.
+   * @param loot Data to set.
+   */
+  public void setMobLoot(MobLoot loot)
+  {
+    _loot=loot;
   }
 }

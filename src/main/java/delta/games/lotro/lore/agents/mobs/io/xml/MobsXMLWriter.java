@@ -10,8 +10,11 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.treasure.TreasureList;
+import delta.games.lotro.common.treasure.TrophyList;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.mobs.MobLoot;
 
 /**
  * Writes mobs to XML files.
@@ -77,6 +80,59 @@ public class MobsXMLWriter
     // Classification
     AgentsXMLIO.writeClassification(attrs,mob.getClassification());
     hd.startElement("","",MobsXMLConstants.MOB_TAG,attrs);
+    MobLoot loot=mob.getLoot();
+    if (loot!=null)
+    {
+      writeMobLoot(hd,loot);
+    }
     hd.endElement("","",MobsXMLConstants.MOB_TAG);
+  }
+
+  private void writeMobLoot(TransformerHandler hd, MobLoot loot) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+
+    // Barter trophy list
+    TrophyList barterTrophy=loot.getBarterTrophy();
+    if (barterTrophy!=null)
+    {
+      int id=barterTrophy.getIdentifier();
+      attrs.addAttribute("","",MobsXMLConstants.BARTER_TROPHY_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    // Reputation trophy list
+    TrophyList reputationTrophy=loot.getReputationTrophy();
+    if (reputationTrophy!=null)
+    {
+      int id=reputationTrophy.getIdentifier();
+      attrs.addAttribute("","",MobsXMLConstants.REPUTATION_TROPHY_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    // Treasure list override
+    TreasureList treasureList=loot.getTreasureListOverride();
+    if (treasureList!=null)
+    {
+      int id=treasureList.getIdentifier();
+      attrs.addAttribute("","",MobsXMLConstants.TREASURE_LIST_OVERRIDE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    // Trophy list override
+    TrophyList trophyList=loot.getTrophyListOverride();
+    if (trophyList!=null)
+    {
+      int id=trophyList.getIdentifier();
+      attrs.addAttribute("","",MobsXMLConstants.TROPHY_LIST_OVERRIDE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    // Generates trophy
+    boolean generatesTrophy=loot.isGeneratesTrophy();
+    if (generatesTrophy)
+    {
+      attrs.addAttribute("","",MobsXMLConstants.GENERATES_TROPHY_ATTR,XmlWriter.CDATA,String.valueOf(generatesTrophy));
+    }
+    // Remote lootable
+    boolean remoteLootable=loot.isRemoteLootable();
+    if (!remoteLootable)
+    {
+      attrs.addAttribute("","",MobsXMLConstants.GENERATES_TROPHY_ATTR,XmlWriter.CDATA,String.valueOf(remoteLootable));
+    }
+    hd.startElement("","",MobsXMLConstants.LOOT_TAG,attrs);
+    hd.endElement("","",MobsXMLConstants.LOOT_TAG);
   }
 }
