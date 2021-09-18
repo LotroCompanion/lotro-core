@@ -12,8 +12,9 @@ import delta.games.lotro.character.status.skirmishes.SingleSkirmishStats;
 import delta.games.lotro.character.status.skirmishes.SkirmishLevel;
 import delta.games.lotro.character.status.skirmishes.SkirmishStats;
 import delta.games.lotro.character.status.skirmishes.SkirmishStatsManager;
-import delta.games.lotro.common.groupSize.GroupSize;
-import delta.games.lotro.common.groupSize.GroupSizesManager;
+import delta.games.lotro.common.enums.GroupSize;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
@@ -78,7 +79,8 @@ public class SkirmishStatsXMLParser
     NamedNodeMap attrs=skirmishTag.getAttributes();
     // Group size
     String groupSizeKey=DOMParsingTools.getStringAttribute(attrs,SkirmishStatsXMLConstants.GROUP_SIZE_ATTR,null);
-    GroupSize groupSize=GroupSizesManager.getInstance().getByKey(groupSizeKey);
+    LotroEnum<GroupSize> groupSizesMgr=LotroEnumsRegistry.getInstance().get(GroupSize.class);
+    GroupSize groupSize=groupSizesMgr.getByKey(groupSizeKey);
     if (groupSize==null)
     {
       LOGGER.warn("Unmanaged group size: "+groupSizeKey);

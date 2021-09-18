@@ -13,8 +13,9 @@ import delta.games.lotro.character.status.skirmishes.SingleSkirmishStats;
 import delta.games.lotro.character.status.skirmishes.SkirmishLevel;
 import delta.games.lotro.character.status.skirmishes.SkirmishStats;
 import delta.games.lotro.character.status.skirmishes.SkirmishStatsManager;
-import delta.games.lotro.common.groupSize.GroupSize;
-import delta.games.lotro.common.groupSize.GroupSizesManager;
+import delta.games.lotro.common.enums.GroupSize;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 
 /**
@@ -84,7 +85,8 @@ public class SkirmishStatsXMLWriter
     String skirmishName=skirmish.getName();
     attrs.addAttribute("","",SkirmishStatsXMLConstants.SKIRMISH_NAME_ATTR,XmlWriter.CDATA,skirmishName);
     hd.startElement("","",SkirmishStatsXMLConstants.SKIRMISH_TAG,attrs);
-    for(GroupSize size : GroupSizesManager.getInstance().getAll())
+    LotroEnum<GroupSize> groupSizesMgr=LotroEnumsRegistry.getInstance().get(GroupSize.class);
+    for(GroupSize size : groupSizesMgr.getAll())
     {
       for(SkirmishLevel level : SkirmishLevel.values())
       {
@@ -93,7 +95,7 @@ public class SkirmishStatsXMLWriter
         {
           AttributesImpl skirmishAttrs=new AttributesImpl();
           // Group size
-          skirmishAttrs.addAttribute("","",SkirmishStatsXMLConstants.GROUP_SIZE_ATTR,XmlWriter.CDATA,size.getLegacyKey());
+          skirmishAttrs.addAttribute("","",SkirmishStatsXMLConstants.GROUP_SIZE_ATTR,XmlWriter.CDATA,size.getKey());
           // Level
           skirmishAttrs.addAttribute("","",SkirmishStatsXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,level.name());
           writeSkirmishStats(hd,detailedStats,skirmishAttrs);

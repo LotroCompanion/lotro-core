@@ -7,10 +7,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.difficulty.DifficultiesManager;
-import delta.games.lotro.common.difficulty.Difficulty;
-import delta.games.lotro.common.groupSize.GroupSize;
-import delta.games.lotro.common.groupSize.GroupSizesManager;
+import delta.games.lotro.common.enums.Difficulty;
+import delta.games.lotro.common.enums.GroupSize;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
@@ -116,20 +116,21 @@ public class PrivateEncountersXMLParser
     {
       SkirmishPrivateEncounter skirmishPE=(SkirmishPrivateEncounter)ret;
       // Difficulty tiers
-      DifficultiesManager difficultiesMgr=DifficultiesManager.getInstance();
+      LotroEnum<Difficulty> difficultiesMgr=LotroEnumsRegistry.getInstance().get(Difficulty.class);
       List<Element> difficultyTierTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.DIFFICULTY_TIER_TAG);
       for(Element difficultyTierTag : difficultyTierTags)
       {
         int difficultyTierCode=DOMParsingTools.getIntAttribute(difficultyTierTag.getAttributes(),PrivateEncountersXMLConstants.DIFFICULTY_TIER_CODE_ATTR,0);
-        Difficulty difficulty=difficultiesMgr.getDifficulty(difficultyTierCode);
+        Difficulty difficulty=difficultiesMgr.getEntry(difficultyTierCode);
         skirmishPE.addDifficultyTier(difficulty);
       }
       // Group sizes
+      LotroEnum<GroupSize> groupSizesMgr=LotroEnumsRegistry.getInstance().get(GroupSize.class);
       List<Element> groupSizeTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.GROUP_SIZE_TAG);
       for(Element groupSizeTag : groupSizeTags)
       {
         String groupSizeKey=DOMParsingTools.getStringAttribute(groupSizeTag.getAttributes(),PrivateEncountersXMLConstants.GROUP_SIZE_KEY_ATTR,"");
-        GroupSize groupSize=GroupSizesManager.getInstance().getByKey(groupSizeKey);
+        GroupSize groupSize=groupSizesMgr.getByKey(groupSizeKey);
         skirmishPE.addGroupSize(groupSize);
       }
     }

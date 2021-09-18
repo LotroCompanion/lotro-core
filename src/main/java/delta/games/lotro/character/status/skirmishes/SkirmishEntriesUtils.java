@@ -7,8 +7,9 @@ import java.util.Map;
 
 import delta.games.lotro.character.status.skirmishes.cfg.SkirmishEntriesPolicy;
 import delta.games.lotro.character.status.skirmishes.filter.SkirmishEntryFilter;
-import delta.games.lotro.common.groupSize.GroupSize;
-import delta.games.lotro.common.groupSize.GroupSizesManager;
+import delta.games.lotro.common.enums.GroupSize;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 
 /**
@@ -46,7 +47,8 @@ public class SkirmishEntriesUtils
   {
     List<SkirmishEntry> ret=new ArrayList<SkirmishEntry>();
     SkirmishPrivateEncounter skirmish=stats.getSkirmish();
-    for(GroupSize size : GroupSizesManager.getInstance().getAll())
+    LotroEnum<GroupSize> groupSizesMgr=LotroEnumsRegistry.getInstance().get(GroupSize.class);
+    for(GroupSize size : groupSizesMgr.getAll())
     {
       for(SkirmishLevel level : SkirmishLevel.values())
       {

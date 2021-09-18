@@ -239,11 +239,7 @@ public class DataFiles
    */
   public static final String RELIC_MELDING_RECIPES="relicMeldingRecipes";
   /**
-   * Difficulties file.
+   * Key for the enums directory.
    */
-  public static final String DIFFICULTIES="difficulties";
-  /**
-   * Group sizes file.
-   */
-  public static final String GROUP_SIZES="groupSizes";
+  public static final String ENUMS_DIR="enumsDir";
 }

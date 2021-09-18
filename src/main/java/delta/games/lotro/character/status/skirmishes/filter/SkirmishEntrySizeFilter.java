@@ -4,7 +4,7 @@ import java.util.Set;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.status.skirmishes.SkirmishEntry;
-import delta.games.lotro.common.groupSize.GroupSize;
+import delta.games.lotro.common.enums.GroupSize;
 
 /**
  * Filter for a skirmish entries for a given group size.

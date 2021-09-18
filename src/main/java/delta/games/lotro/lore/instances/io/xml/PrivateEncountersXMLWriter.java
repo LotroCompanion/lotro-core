@@ -11,8 +11,8 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.common.difficulty.Difficulty;
-import delta.games.lotro.common.groupSize.GroupSize;
+import delta.games.lotro.common.enums.Difficulty;
+import delta.games.lotro.common.enums.GroupSize;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
@@ -154,7 +154,7 @@ public class PrivateEncountersXMLWriter
       {
         AttributesImpl groupSizeAttrs=new AttributesImpl();
         // Key
-        String groupSizeKey=groupSize.getLegacyKey();
+        String groupSizeKey=groupSize.getKey();
         groupSizeAttrs.addAttribute("","",PrivateEncountersXMLConstants.GROUP_SIZE_KEY_ATTR,XmlWriter.CDATA,groupSizeKey);
         hd.startElement("","",PrivateEncountersXMLConstants.GROUP_SIZE_TAG,groupSizeAttrs);
         hd.endElement("","",PrivateEncountersXMLConstants.GROUP_SIZE_TAG);

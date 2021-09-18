@@ -1,6 +1,6 @@
 package delta.games.lotro.character.status.skirmishes;
 
-import delta.games.lotro.common.groupSize.GroupSize;
+import delta.games.lotro.common.enums.GroupSize;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 
 /**

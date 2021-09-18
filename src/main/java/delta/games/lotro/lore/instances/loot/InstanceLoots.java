@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.difficulty.Difficulty;
-import delta.games.lotro.common.groupSize.GroupSize;
+import delta.games.lotro.common.enums.Difficulty;
+import delta.games.lotro.common.enums.GroupSize;
 import delta.games.lotro.common.treasure.TrophyList;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 

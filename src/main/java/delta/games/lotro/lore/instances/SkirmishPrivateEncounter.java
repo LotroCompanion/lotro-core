@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.common.difficulty.Difficulty;
-import delta.games.lotro.common.groupSize.GroupSize;
+import delta.games.lotro.common.enums.Difficulty;
+import delta.games.lotro.common.enums.GroupSize;
 
 /**
  * Private encounter of type 'Skirmish/Big battle/Classic instance'.
