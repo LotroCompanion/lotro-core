@@ -1,41 +1,83 @@
 package delta.games.lotro.lore.agents;
 
+import java.util.List;
+
+import delta.games.lotro.common.enums.Genus;
+import delta.games.lotro.common.enums.Species;
+import delta.games.lotro.common.enums.SubSpecies;
+
 /**
  * Classification of an entity.
  * @author DAM
  */
 public class EntityClassification
 {
-  private String _genus;
-  private String _species;
-  private String _subSpecies;
+  private List<Genus> _genus;
+  private Species _species;
+  private SubSpecies _subSpecies;
 
   /**
    * Constructor.
    */
   public EntityClassification()
   {
-    _genus="";
-    _species="";
-    _subSpecies="";
+    _genus=null;
+    _species=null;
+    _subSpecies=null;
   }
 
   /**
-   * Get the genus.
-   * @return the genus.
+   * Get the genus label.
+   * @return a genus label or <code>null</code> if none.
    */
-  public String getGenus()
+  public String getGenusLabel()
   {
-    return _genus;
+    String ret=null;
+    if ((_genus!=null) && (_genus.size()>0))
+    {
+      StringBuilder sb=new StringBuilder();
+      for(Genus genus : _genus)
+      {
+        if (sb.length()>0)
+        {
+          sb.append('/');
+        }
+        sb.append(genus.getLabel());
+      }
+      ret=sb.toString();
+    }
+    return ret;
+  }
+
+  /**
+   * Get the genus persistence string.
+   * @return a genus string for persistence or <code>null</code> if none.
+   */
+  public String getGenusPersistenceString()
+  {
+    String ret=null;
+    if ((_genus!=null) && (_genus.size()>0))
+    {
+      StringBuilder sb=new StringBuilder();
+      for(Genus genus : _genus)
+      {
+        if (sb.length()>0)
+        {
+          sb.append(',');
+        }
+        sb.append(genus.getCode());
+      }
+      ret=sb.toString();
+    }
+    return ret;
   }
 
   /**
    * Set the genus.
    * @param genus the genus to set.
    */
-  public void setGenus(String genus)
+  public void setGenus(List<Genus> genus)
   {
-    if (genus==null) genus="";
     _genus=genus;
   }
 
@@ -43,18 +85,26 @@ public class EntityClassification
    * Get the species.
    * @return the species.
    */
-  public String getSpecies()
+  public Species getSpecies()
   {
     return _species;
+  }
+
+  /**
+   * Get the label for the species.
+   * @return A label or <code>null</code>.
+   */
+  public String getSpeciesLabel()
+  {
+    return _species!=null?_species.getLabel():null;
   }
 
   /**
    * Set the species.
    * @param species the species to set.
    */
-  public void setSpecies(String species)
+  public void setSpecies(Species species)
   {
-    if (species==null) species="";
     _species=species;
   }
 
@@ -62,18 +112,26 @@ public class EntityClassification
    * Get the sub-species.
    * @return the sub-species .
    */
-  public String getSubSpecies()
+  public SubSpecies getSubSpecies()
   {
     return _subSpecies;
+  }
+
+  /**
+   * Get the label for the sub-species.
+   * @return A label or <code>null</code>.
+   */
+  public String getSubSpeciesLabel()
+  {
+    return _subSpecies!=null?_subSpecies.getLabel():null;
   }
 
   /**
    * Set the sub-species.
    * @param subSpecies the sub-species to set.
    */
-  public void setSubSpecies(String subSpecies)
+  public void setSubSpecies(SubSpecies subSpecies)
   {
-    if (subSpecies==null) subSpecies="";
     _subSpecies=subSpecies;
   }
 
@@ -83,21 +141,21 @@ public class EntityClassification
    */
   public String getLabel()
   {
-    if ((_subSpecies.length()>0) || (_species.length()>0))
+    if ((_subSpecies!=null) || (_species!=null))
     {
-      if (_species.length()==0)
+      if (_species==null)
       {
-        return _subSpecies;
+        return _subSpecies.getLabel();
       }
-      if (_subSpecies.length()==0)
+      if (_subSpecies==null)
       {
-        return _species;
+        return _species.getLabel();
       }
       return _species+"/"+_subSpecies;
     }
-    if (_genus.length()>0)
+    if (_genus!=null)
     {
-      return _genus;
+      return getGenusLabel();
     }
     return "?";
   }

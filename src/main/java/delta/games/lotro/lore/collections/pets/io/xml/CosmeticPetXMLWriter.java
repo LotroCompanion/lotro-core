@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.lore.agents.EntityClassification;
+import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
 
 /**
@@ -74,24 +75,8 @@ public class CosmeticPetXMLWriter
     int iconId=pet.getIconId();
     attrs.addAttribute("","",CosmeticPetXMLConstants.PET_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
     EntityClassification classification=pet.getClassification();
-    // Genus
-    String genus=classification.getGenus();
-    if (genus.length()>0)
-    {
-      attrs.addAttribute("","",CosmeticPetXMLConstants.PET_GENUS_ATTR,XmlWriter.CDATA,String.valueOf(genus));
-    }
-    // Species
-    String species=classification.getSpecies();
-    if (species.length()>0)
-    {
-      attrs.addAttribute("","",CosmeticPetXMLConstants.PET_SPECIES_ATTR,XmlWriter.CDATA,String.valueOf(species));
-    }
-    // Sub-species
-    String subSpecies=classification.getSubSpecies();
-    if (subSpecies.length()>0)
-    {
-      attrs.addAttribute("","",CosmeticPetXMLConstants.PET_SUBSPECIES_ATTR,XmlWriter.CDATA,String.valueOf(subSpecies));
-    }
+    // Entity Classification
+    AgentsXMLIO.writeEntityClassification(attrs,classification);
     hd.startElement("","",CosmeticPetXMLConstants.PET_TAG,attrs);
     hd.endElement("","",CosmeticPetXMLConstants.PET_TAG);
   }

@@ -9,6 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.agents.EntityClassification;
+import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
 
 /**
@@ -64,17 +65,9 @@ public class CosmeticPetXMLParser
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,CosmeticPetXMLConstants.PET_ICON_ID_ATTR,0);
     ret.setIconId(iconId);
+    // Entity classification
     EntityClassification classification=ret.getClassification();
-    // Genus
-    String genus=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_GENUS_ATTR,"");
-    classification.setGenus(genus);
-    // Species
-    String species=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_SPECIES_ATTR,"");
-    classification.setSpecies(species);
-    // Sub-species
-    String subSpecies=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_SUBSPECIES_ATTR,"");
-    classification.setSubSpecies(subSpecies);
-
+    AgentsXMLIO.parseEntityClassification(classification,attrs);
     return ret;
   }
 }

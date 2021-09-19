@@ -107,10 +107,6 @@ public class ObjectivesXMLConstants
    * Tag 'monsterSelection', attribute 'where'.
    */
   public static final String MONSTER_SELECTION_WHERE_ATTR="where";
-  /**
-   * Tag 'monsterSelection', attribute 'what'.
-   */
-  public static final String MONSTER_SELECTION_WHAT_ATTR="what";
 
   /**
    * Tag 'landmarkDetection'.

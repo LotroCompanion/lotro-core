@@ -8,6 +8,8 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.lore.agents.EntityClassification;
+import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.emotes.EmoteDescription;
@@ -304,10 +306,10 @@ public class ObjectivesXMLWriter
         selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_WHERE_ATTR,XmlWriter.CDATA,where);
       }
       // What
-      String what=selection.getWhat();
+      EntityClassification what=selection.getWhat();
       if (what!=null)
       {
-        selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_WHAT_ATTR,XmlWriter.CDATA,what);
+        AgentsXMLIO.writeEntityClassification(selectionAttrs,what);
       }
       hd.startElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG,selectionAttrs);
       hd.endElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG);

@@ -1,6 +1,7 @@
 package delta.games.lotro.common.enums;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.List;
 
@@ -118,6 +119,32 @@ public class LotroEnum<T extends LotroEnumEntry> implements Identifiable,Named
     catch(Exception e)
     {
       LOGGER.warn("Could not build an instance of "+_entryImplClass);
+    }
+    return ret;
+  }
+
+  /**
+   * Build a list of entries from a bit set.
+   * @param data Bit set.
+   * @return A string or <code>null</code> if no bit set.
+   */
+  public List<T> getFromBitSet(BitSet data)
+  {
+    List<T> ret=new ArrayList<T>();
+    int length=data.length();
+    if (length>0)
+    {
+      for(int i=0;i<length;i++)
+      {
+        if (data.get(i))
+        {
+          T entry=getEntry(i+1);
+          if (entry!=null)
+          {
+            ret.add(entry);
+          }
+        }
+      }
     }
     return ret;
   }

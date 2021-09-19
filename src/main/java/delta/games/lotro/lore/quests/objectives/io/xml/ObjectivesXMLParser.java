@@ -7,6 +7,8 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.lore.agents.EntityClassification;
+import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.emotes.EmoteDescription;
@@ -257,7 +259,8 @@ public class ObjectivesXMLParser
       String where=DOMParsingTools.getStringAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_WHERE_ATTR,null);
       selection.setWhere(where);
       // What
-      String what=DOMParsingTools.getStringAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_WHAT_ATTR,null);
+      EntityClassification what=new EntityClassification();
+      AgentsXMLIO.parseEntityClassification(what,selectionAttrs);
       selection.setWhat(what);
       condition.getMobSelections().add(selection);
     }

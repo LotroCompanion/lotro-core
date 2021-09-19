@@ -39,16 +39,4 @@ public class CosmeticPetXMLConstants
    * Tag 'pet', attribute 'iconId'.
    */
   public static final String PET_ICON_ID_ATTR="iconId";
-  /**
-   * Tag 'pet', attribute 'genus'.
-   */
-  public static final String PET_GENUS_ATTR="genus";
-  /**
-   * Tag 'pet', attribute 'species'.
-   */
-  public static final String PET_SPECIES_ATTR="species";
-  /**
-   * Tag 'pet', attribute 'subSpecies'.
-   */
-  public static final String PET_SUBSPECIES_ATTR="subSpecies";
 }
