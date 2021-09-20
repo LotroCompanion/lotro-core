@@ -4,7 +4,8 @@ import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TrophyList;
 
 /**
- * @author dmorcellet
+ * Gathers loot data for a mob.
+ * @author DAM
  */
 public class MobLoot
 {
