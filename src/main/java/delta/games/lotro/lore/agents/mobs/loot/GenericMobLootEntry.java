@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.agents.mobs;
+package delta.games.lotro.lore.agents.mobs.loot;
 
 import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TrophyList;
@@ -7,7 +7,7 @@ import delta.games.lotro.common.treasure.TrophyList;
  * Entry in a species loot entry, dedicated to a single level.
  * @author DAM
  */
-public class SpeciesLootLevelEntry
+public class GenericMobLootEntry
 {
   private int _level;
   private TreasureList _treasureList;
@@ -17,7 +17,7 @@ public class SpeciesLootLevelEntry
    * Constructor.
    * @param level Level.
    */
-  public SpeciesLootLevelEntry(int level)
+  public GenericMobLootEntry(int level)
   {
     _level=level;
   }

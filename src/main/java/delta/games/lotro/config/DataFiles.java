@@ -223,6 +223,10 @@ public class DataFiles
    */
   public static final String MOBS="mobs";
   /**
+   * Generic mob loot.
+   */
+  public static final String GENERIC_MOB_LOOTS="genericMobLoots";
+  /**
    * Resources maps.
    */
   public static final String RESOURCES_MAPS="resourcesMaps";

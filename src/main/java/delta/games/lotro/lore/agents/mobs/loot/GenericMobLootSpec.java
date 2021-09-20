@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.agents.mobs;
+package delta.games.lotro.lore.agents.mobs.loot;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,14 +16,14 @@ import delta.games.lotro.common.enums.SubSpecies;
  * Gathers the loot entries for a given species/subspecies/mob type.
  * @author DAM
  */
-public class SpeciesLootSpec
+public class GenericMobLootSpec
 {
-  private static final Logger LOGGER=Logger.getLogger(SpeciesLootSpec.class);
+  private static final Logger LOGGER=Logger.getLogger(GenericMobLootSpec.class);
 
   private Species _species;
   private SubSpecies _subSpecies;
   private MobType _mobType;
-  private Map<Integer,SpeciesLootLevelEntry> _levelEntries;
+  private Map<Integer,GenericMobLootEntry> _levelEntries;
 
   /**
    * Constructor.
@@ -31,12 +31,12 @@ public class SpeciesLootSpec
    * @param subSpecies Subspecies (may be <code>null</code>).
    * @param mobType Mob type (may be <code>null</code>).
    */
-  public SpeciesLootSpec(Species species, SubSpecies subSpecies, MobType mobType)
+  public GenericMobLootSpec(Species species, SubSpecies subSpecies, MobType mobType)
   {
     _species=species;
     _subSpecies=subSpecies;
     _mobType=mobType;
-    _levelEntries=new HashMap<Integer,SpeciesLootLevelEntry>();
+    _levelEntries=new HashMap<Integer,GenericMobLootEntry>();
   }
 
   /**
@@ -70,10 +70,10 @@ public class SpeciesLootSpec
    * Add an entry.
    * @param entry Entry to add.
    */
-  public void addLevelEntry(SpeciesLootLevelEntry entry)
+  public void addLevelEntry(GenericMobLootEntry entry)
   {
     Integer key=Integer.valueOf(entry.getLevel());
-    SpeciesLootLevelEntry old=_levelEntries.put(key,entry);
+    GenericMobLootEntry old=_levelEntries.put(key,entry);
     if (old!=null)
     {
       LOGGER.warn("Override of a level entry: old="+old+", new="+entry);
@@ -85,7 +85,7 @@ public class SpeciesLootSpec
    * @param level Level to use.
    * @return An entry or <code>null</code> if not found.
    */
-  public SpeciesLootLevelEntry getEntryForLevel(int level)
+  public GenericMobLootEntry getEntryForLevel(int level)
   {
     return _levelEntries.get(Integer.valueOf(level));
   }
