@@ -13,6 +13,7 @@ import delta.games.lotro.common.enums.SubSpecies;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.agents.mobs.loot.io.xml.GenericMobLootSaxParser;
 
 /**
  * Manager for all species loot.
@@ -35,8 +36,7 @@ public class SpeciesLootsManager
   private static SpeciesLootsManager load()
   {
     File from=LotroCoreConfig.getInstance().getFile(DataFiles.GENERIC_MOB_LOOTS);
-    //return new MobsXMLParser().parseXML(from); TODO
-    return new SpeciesLootsManager();
+    return GenericMobLootSaxParser.parseFile(from);
   }
 
   /**
