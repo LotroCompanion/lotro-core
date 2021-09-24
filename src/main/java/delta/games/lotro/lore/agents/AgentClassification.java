@@ -1,14 +1,18 @@
 package delta.games.lotro.lore.agents;
 
+import delta.games.lotro.common.enums.AgentClass;
+import delta.games.lotro.common.enums.Alignment;
+import delta.games.lotro.common.enums.ClassificationFilter;
+
 /**
  * Agent classification.
  * @author DAM
  */
 public class AgentClassification
 {
-  private String _alignment;
-  private String _agentClass;
-  private String _classFilter;
+  private Alignment _alignment;
+  private AgentClass _agentClass;
+  private ClassificationFilter _classFilter;
   private EntityClassification _classification;
 
   /**
@@ -16,9 +20,9 @@ public class AgentClassification
    */
   public AgentClassification()
   {
-    _alignment="";
-    _agentClass="";
-    _classFilter="";
+    _alignment=null;
+    _agentClass=null;
+    _classFilter=null;
     _classification=new EntityClassification();
   }
 
@@ -26,7 +30,7 @@ public class AgentClassification
    * Get the alignment.
    * @return an alignement or an empty string.
    */
-  public String getAlignment()
+  public Alignment getAlignment()
   {
     return _alignment;
   }
@@ -35,12 +39,8 @@ public class AgentClassification
    * Set the alignment.
    * @param alignment Alignment to set.
    */
-  public void setAlignment(String alignment)
+  public void setAlignment(Alignment alignment)
   {
-    if (alignment==null)
-    {
-      alignment="";
-    }
     _alignment=alignment;
   }
 
@@ -48,7 +48,7 @@ public class AgentClassification
    * Get the agent class.
    * @return an agent class or an empty string.
    */
-  public String getAgentClass()
+  public AgentClass getAgentClass()
   {
     return _agentClass;
   }
@@ -57,12 +57,8 @@ public class AgentClassification
    * Set the agent class.
    * @param agentClass Agent class to set.
    */
-  public void setAgentClass(String agentClass)
+  public void setAgentClass(AgentClass agentClass)
   {
-    if (agentClass==null)
-    {
-      agentClass="";
-    }
     _agentClass=agentClass;
   }
 
@@ -70,7 +66,7 @@ public class AgentClassification
    * Get the classification filter.
    * @return a classification filter or an empty string.
    */
-  public String getClassificationFilter()
+  public ClassificationFilter getClassificationFilter()
   {
     return _classFilter;
   }
@@ -79,12 +75,8 @@ public class AgentClassification
    * Set the classification filter.
    * @param classFilter Classification filter to set.
    */
-  public void setClassificationFilter(String classFilter)
+  public void setClassificationFilter(ClassificationFilter classFilter)
   {
-    if (classFilter==null)
-    {
-      classFilter="";
-    }
     _classFilter=classFilter;
   }
 
@@ -102,15 +94,15 @@ public class AgentClassification
   {
     StringBuilder sb=new StringBuilder();
     sb.append(_classification);
-    if (_alignment.length()>0)
+    if (_alignment!=null)
     {
       sb.append(',').append(_alignment);
     }
-    if (_agentClass.length()>0)
+    if (_agentClass!=null)
     {
       sb.append(',').append(_agentClass);
     }
-    if (_classFilter.length()>0)
+    if (_classFilter!=null)
     {
       sb.append(',').append(_classFilter);
     }

@@ -10,6 +10,9 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.NumericTools;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.enums.AgentClass;
+import delta.games.lotro.common.enums.Alignment;
+import delta.games.lotro.common.enums.ClassificationFilter;
 import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
@@ -32,22 +35,22 @@ public class AgentsXMLIO
   public static void writeClassification(AttributesImpl attrs, AgentClassification classification)
   {
     // Alignment
-    String alignment=classification.getAlignment();
-    if (alignment.length()>0)
+    Alignment alignment=classification.getAlignment();
+    if (alignment!=null)
     {
-      attrs.addAttribute("","",AgentsXMLConstants.ALIGNMENT_ATTR,XmlWriter.CDATA,alignment);
+      attrs.addAttribute("","",AgentsXMLConstants.ALIGNMENT_ATTR,XmlWriter.CDATA,String.valueOf(alignment.getCode()));
     }
     // Agent class
-    String agentClass=classification.getAgentClass();
-    if (agentClass.length()>0)
+    AgentClass agentClass=classification.getAgentClass();
+    if (agentClass!=null)
     {
-      attrs.addAttribute("","",AgentsXMLConstants.CLASS_ATTR,XmlWriter.CDATA,agentClass);
+      attrs.addAttribute("","",AgentsXMLConstants.CLASS_ATTR,XmlWriter.CDATA,String.valueOf(agentClass.getCode()));
     }
     // Class filter
-    String classFilter=classification.getClassificationFilter();
-    if (classFilter.length()>0)
+    ClassificationFilter classFilter=classification.getClassificationFilter();
+    if (classFilter!=null)
     {
-      attrs.addAttribute("","",AgentsXMLConstants.CLASS_FILTER_ATTR,XmlWriter.CDATA,classFilter);
+      attrs.addAttribute("","",AgentsXMLConstants.CLASS_FILTER_ATTR,XmlWriter.CDATA,String.valueOf(classFilter.getCode()));
     }
     // Entity classification
     EntityClassification entityClassification=classification.getEntityClassification();
@@ -89,15 +92,31 @@ public class AgentsXMLIO
   public static void parseClassificationTag(Element classificationTag, AgentClassification classification)
   {
     NamedNodeMap attrs=classificationTag.getAttributes();
+    LotroEnumsRegistry registry=LotroEnumsRegistry.getInstance();
     // Alignment
-    String alignment=DOMParsingTools.getStringAttribute(attrs,AgentsXMLConstants.ALIGNMENT_ATTR,"");
-    classification.setAlignment(alignment);
+    int alignmentCode=DOMParsingTools.getIntAttribute(attrs,AgentsXMLConstants.ALIGNMENT_ATTR,0);
+    if (alignmentCode!=0)
+    {
+      LotroEnum<Alignment> alignmentMgr=registry.get(Alignment.class);
+      Alignment alignment=alignmentMgr.getEntry(alignmentCode);
+      classification.setAlignment(alignment);
+    }
     // Agent class
-    String agentClass=DOMParsingTools.getStringAttribute(attrs,AgentsXMLConstants.CLASS_ATTR,"");
-    classification.setAgentClass(agentClass);
+    int agentClassCode=DOMParsingTools.getIntAttribute(attrs,AgentsXMLConstants.CLASS_ATTR,0);
+    if (agentClassCode!=0)
+    {
+      LotroEnum<AgentClass> agentClassMgr=registry.get(AgentClass.class);
+      AgentClass agentClass=agentClassMgr.getEntry(agentClassCode);
+      classification.setAgentClass(agentClass);
+    }
     // Class filter
-    String classFilter=DOMParsingTools.getStringAttribute(attrs,AgentsXMLConstants.CLASS_FILTER_ATTR,"");
-    classification.setClassificationFilter(classFilter);
+    int classFilterCode=DOMParsingTools.getIntAttribute(attrs,AgentsXMLConstants.CLASS_FILTER_ATTR,0);
+    if (classFilterCode!=0)
+    {
+      LotroEnum<ClassificationFilter> classFilterMgr=registry.get(ClassificationFilter.class);
+      ClassificationFilter classFilter=classFilterMgr.getEntry(classFilterCode);
+      classification.setClassificationFilter(classFilter);
+    }
     // Entity classification
     EntityClassification entityClassification=classification.getEntityClassification();
     parseEntityClassification(entityClassification,attrs);
