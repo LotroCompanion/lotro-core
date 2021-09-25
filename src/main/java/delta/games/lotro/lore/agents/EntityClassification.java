@@ -27,6 +27,15 @@ public class EntityClassification
   }
 
   /**
+   * Get the genuses.
+   * @return A genus or <code>null</code> if not set.
+   */
+  public List<Genus> getGenuses()
+  {
+    return _genus;
+  }
+
+  /**
    * Get the genus label.
    * @return a genus label or <code>null</code> if none.
    */
