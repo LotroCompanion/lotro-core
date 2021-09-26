@@ -44,6 +44,10 @@ public class ContainerXMLConstants
    */
   public static final String TREASURE_LIST_ID_ATTR="treasureListId";
   /**
+   * Tag 'container', attribute 'customSkirmishLootTableId'.
+   */
+  public static final String CUSTOM_SKIRMISH_LOOT_TABLE_ID_ATTR="customSkirmishLootTableId";
+  /**
    * Tag 'relicsContainer', attribute 'relicsList'.
    */
   public static final String RELICS_LIST_ID_ATTR="relicsListId";

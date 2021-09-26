@@ -19,6 +19,7 @@ public class ItemsContainer extends Container
   private TrophyList _trophyList;
   private TrophyList _barterTrophyList;
   private TreasureList _treasureList;
+  private Integer _customSkirmishLootTableId;
 
   /**
    * Constructor.
@@ -117,6 +118,24 @@ public class ItemsContainer extends Container
   public void setTreasureList(TreasureList treasureList)
   {
     _treasureList=treasureList;
+  }
+
+  /**
+   * Get the identifier of the associated custom skirmish table, if any.
+   * @return An identifier, or <code>null</code>.
+   */
+  public Integer getCustomSkirmishLootTableId()
+  {
+    return _customSkirmishLootTableId;
+  }
+
+  /**
+   * Set the identifier of the associated custom skirmish table.
+   * @param customSkirmishLootTableId Identifier to set.
+   */
+  public void setCustomSkirmishLootTableId(Integer customSkirmishLootTableId)
+  {
+    _customSkirmishLootTableId=customSkirmishLootTableId;
   }
 
   /**

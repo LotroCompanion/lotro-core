@@ -135,6 +135,13 @@ public class ContainerXMLWriter
       int treasureListId=treasureList.getIdentifier();
       attrs.addAttribute("","",ContainerXMLConstants.TREASURE_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(treasureListId));
     }
+
+    // Custom skirmish loot table
+    Integer customSkirmishLootTableId=container.getCustomSkirmishLootTableId();
+    if (customSkirmishLootTableId!=null)
+    {
+      attrs.addAttribute("","",ContainerXMLConstants.CUSTOM_SKIRMISH_LOOT_TABLE_ID_ATTR,XmlWriter.CDATA,customSkirmishLootTableId.toString());
+    }
   }
 
   private void writeRelicsContainer(AttributesImpl attrs, RelicsContainer container) throws Exception
