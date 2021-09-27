@@ -69,10 +69,16 @@ public class TraitDescriptionXMLWriter
     attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
     // Min level
     int minLevel=trait.getMinLevel();
-    attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel));
+    if (minLevel!=1)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel));
+    }
     // Tiers
     int tiers=trait.getTiersCount();
-    attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_TIERS_ATTR,XmlWriter.CDATA,String.valueOf(tiers));
+    if (tiers!=1)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_TIERS_ATTR,XmlWriter.CDATA,String.valueOf(tiers));
+    }
     // Tier property
     String tierPropertyName=trait.getTierPropertyName();
     if (tierPropertyName!=null)
