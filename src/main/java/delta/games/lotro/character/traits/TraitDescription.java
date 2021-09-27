@@ -5,6 +5,8 @@ import java.util.List;
 
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.enums.SkillCategory;
+import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
@@ -49,12 +51,27 @@ public class TraitDescription implements Identifiable
    * Stats.
    */
   private StatsProvider _stats;
-  // Category (enum?)
-  // Nature (enum?)
-  // Priority
-  // Tooltip
-  // Cost to slot
-  // Cosmetic (boolean?)
+  /**
+   * Category.
+   */
+  private SkillCategory _category;
+  /**
+   * Nature.
+   */
+  private TraitNature _traitNature;
+  // Priority: int
+  /**
+   * Tooltip.
+   */
+  private String _tooltip;
+  // Cost to slot: int (cost in coppers?)
+  /**
+   * Cosmetic.
+   */
+  private boolean _cosmetic;
+  /**
+   * Skills.
+   */
   private List<SkillDescription> _skills;
 
   /**
@@ -71,6 +88,10 @@ public class TraitDescription implements Identifiable
     _minLevel=1;
     _tiers=1;
     _stats=new StatsProvider();
+    _category=null;
+    _traitNature=null;
+    _tooltip="";
+    _cosmetic=false;
     _skills=new ArrayList<SkillDescription>();
   }
 
@@ -235,6 +256,82 @@ public class TraitDescription implements Identifiable
   public void setStatsProvider(StatsProvider stats)
   {
     _stats=stats;
+  }
+
+  /**
+   * Get the category.
+   * @return a category.
+   */
+  public SkillCategory getCategory()
+  {
+    return _category;
+  }
+
+  /**
+   * Set the category.
+   * @param category Category to set.
+   */
+  public void setCategory(SkillCategory category)
+  {
+    _category=category;
+  }
+
+  /**
+   * Get the trait nature.
+   * @return a trait nature.
+   */
+  public TraitNature getNature()
+  {
+    return _traitNature;
+  }
+
+  /**
+   * Set the trait nature.
+   * @param traitNature Trait nature to set.
+   */
+  public void setNature(TraitNature traitNature)
+  {
+    _traitNature=traitNature;
+  }
+
+  /**
+   * Get the tooltip.
+   * @return a tooltip.
+   */
+  public String getTooltip()
+  {
+    return _tooltip;
+  }
+
+  /**
+   * Set the tooltip.
+   * @param tooltip Tooltip to set.
+   */
+  public void setTooltip(String tooltip)
+  {
+    if (tooltip==null)
+    {
+      tooltip="";
+    }
+    _tooltip=tooltip;
+  }
+
+  /**
+   * Indicates if this trait is cosmetic.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isCosmetic()
+  {
+    return _cosmetic;
+  }
+
+  /**
+   * Set the 'cosmetic' flag.
+   * @param cosmetic Value to set.
+   */
+  public void setCosmetic(boolean cosmetic)
+  {
+    _cosmetic=cosmetic;
   }
 
   /**

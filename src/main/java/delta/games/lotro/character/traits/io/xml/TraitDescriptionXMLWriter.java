@@ -13,6 +13,8 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.enums.SkillCategory;
+import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 
 /**
@@ -76,6 +78,27 @@ public class TraitDescriptionXMLWriter
     if (tierPropertyName!=null)
     {
       attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_TIER_PROPERTY_ATTR,XmlWriter.CDATA,tierPropertyName);
+    }
+    // Category
+    SkillCategory category=trait.getCategory();
+    if (category!=null)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category.getCode()));
+    }
+    // Nature
+    TraitNature nature=trait.getNature();
+    attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_NATURE_ATTR,XmlWriter.CDATA,String.valueOf(nature.getCode()));
+    // Cosmetic
+    boolean cosmetic=trait.isCosmetic();
+    if (cosmetic)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_COSMETIC_ATTR,XmlWriter.CDATA,String.valueOf(cosmetic));
+    }
+    // Tooltip
+    String tooltip=trait.getTooltip();
+    if (tooltip.length()>0)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_TOOLTIP_ATTR,XmlWriter.CDATA,tooltip);
     }
     // Description
     String description=trait.getDescription();

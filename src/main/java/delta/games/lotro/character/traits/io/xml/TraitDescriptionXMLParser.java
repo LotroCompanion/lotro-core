@@ -12,6 +12,10 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.SkillCategory;
+import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 
@@ -80,6 +84,29 @@ public class TraitDescriptionXMLParser
     // Stats
     StatsProvider statsProvider=trait.getStatsProvider();
     StatsProviderXMLParser.parseStatsProvider(root,statsProvider);
+    // Category
+    LotroEnumsRegistry registry=LotroEnumsRegistry.getInstance();
+    int categoryCode=DOMParsingTools.getIntAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_CATEGORY_ATTR,0);
+    if (categoryCode!=0)
+    {
+      LotroEnum<SkillCategory> categoryMgr=registry.get(SkillCategory.class);
+      SkillCategory category=categoryMgr.getEntry(categoryCode);
+      trait.setCategory(category);
+    }
+    // Nature
+    int natureCode=DOMParsingTools.getIntAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_NATURE_ATTR,0);
+    if (natureCode!=0)
+    {
+      LotroEnum<TraitNature> natureMgr=registry.get(TraitNature.class);
+      TraitNature nature=natureMgr.getEntry(natureCode);
+      trait.setNature(nature);
+    }
+    // Tooltip
+    String tooltip=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_TOOLTIP_ATTR,"");
+    trait.setTooltip(tooltip);
+    // Cosmetic
+    boolean cosmetic=DOMParsingTools.getBooleanAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_COSMETIC_ATTR,false);
+    trait.setCosmetic(cosmetic);
     // Skills
     List<Element> skillTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_SKILL_TAG);
     for(Element skillTag : skillTags)
