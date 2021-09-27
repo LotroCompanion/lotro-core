@@ -21,7 +21,7 @@ public class SkillDescription implements Identifiable
    */
   private String _description;
   /**
-   * Trait icon identifier.
+   * Skill icon identifier.
    */
   private int _iconId;
   /**

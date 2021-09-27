@@ -210,7 +210,10 @@ public class ItemXMLWriter
       }
       // Unique
       boolean unique=item.isUnique();
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_UNIQUE_ATTR,XmlWriter.CDATA,String.valueOf(unique));
+      if (unique)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_UNIQUE_ATTR,XmlWriter.CDATA,String.valueOf(unique));
+      }
     }
     // Durability
     Integer durability=(isInstance?instance.getDurability():item.getDurability());

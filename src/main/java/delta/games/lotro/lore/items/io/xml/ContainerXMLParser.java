@@ -108,7 +108,7 @@ public class ContainerXMLParser
     int customSkirmishLootTableId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CUSTOM_SKIRMISH_LOOT_TABLE_ID_ATTR,0);
     if (customSkirmishLootTableId!=0)
     {
-      ret.setCustomSkirmishLootTableId(Integer.valueOf(customSkirmishLootTableId);
+      ret.setCustomSkirmishLootTableId(Integer.valueOf(customSkirmishLootTableId));
     }
     return ret;
   }
