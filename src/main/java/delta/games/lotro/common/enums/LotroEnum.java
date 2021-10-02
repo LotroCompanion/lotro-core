@@ -148,4 +148,28 @@ public class LotroEnum<T extends LotroEnumEntry> implements Identifiable,Named
     }
     return ret;
   }
+
+  /**
+   * Build a list of entries from a flags value.
+   * @param data Flags value.
+   * @return A string or <code>null</code> if no bit set.
+   */
+  public List<T> getFromBitSet(int data)
+  {
+    List<T> ret=new ArrayList<T>();
+    int mask=1;
+    for(int i=1;i<=32;i++)
+    {
+      if ((data&mask)!=0)
+      {
+        T entry=getEntry(i);
+        if (entry!=null)
+        {
+          ret.add(entry);
+        }
+      }
+      mask<<=1;
+    }
+    return ret;
+  }
 }

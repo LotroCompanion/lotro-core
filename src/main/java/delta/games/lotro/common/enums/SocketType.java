@@ -1,10 +1,10 @@
 package delta.games.lotro.common.enums;
 
 /**
- * Difficulty.
+ * Socket Type.
  * @author DAM
  */
-public class Difficulty extends LotroEnumEntry
+public class SocketType extends LotroEnumEntry
 {
   @Override
   public String toString()
