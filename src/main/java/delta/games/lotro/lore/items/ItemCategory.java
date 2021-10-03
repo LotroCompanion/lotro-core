@@ -25,5 +25,13 @@ public enum ItemCategory
   /**
    * Legendary item.
    */
-  LEGENDARY_ITEM
+  LEGENDARY_ITEM,
+  /**
+   * Legendary Weapon (reloaded).
+   */
+  LEGENDARY_WEAPON2,
+  /**
+   * Legendary item (reloaded).
+   */
+  LEGENDARY_ITEM2
 }

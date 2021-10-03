@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items.traceries;
+package delta.games.lotro.lore.items.legendary2;
 
 import delta.games.lotro.common.enums.SocketType;
 

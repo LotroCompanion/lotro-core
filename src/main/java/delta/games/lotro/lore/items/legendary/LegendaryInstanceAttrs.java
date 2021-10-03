@@ -183,13 +183,13 @@ public class LegendaryInstanceAttrs
 
   /**
    * Get the total stats for these legendary attributes, including:
-   * @param itemLevel Item level.
    * <ul>
    * <li>title stats,
    * <li>passive stats,
    * <li>relics stats,
    * <li>legacies stats.
    * </ul>
+   * @param itemLevel Item level.
    * @return a set of stats.
    */
   public BasicStatsSet getRawStats(int itemLevel)
@@ -269,7 +269,7 @@ public class LegendaryInstanceAttrs
   }
 
   /**
-   * Dump the contents of this quest as a string.
+   * Dump the contents of these legendary attributes as a string.
    * @return A readable string.
    */
   public String dump()
