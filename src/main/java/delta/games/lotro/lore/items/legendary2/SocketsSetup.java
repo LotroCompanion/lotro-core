@@ -3,20 +3,31 @@ package delta.games.lotro.lore.items.legendary2;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.common.Identifiable;
+
 /**
  * Setup of sockets.
  * @author DAM
  */
-public class SocketsSetup
+public class SocketsSetup implements Identifiable
 {
+  private int _itemId;
   private List<SocketEntry> _entries;
 
   /**
    * Constructor.
+   * @param itemId Identifier of the parent item.
    */
-  public SocketsSetup()
+  public SocketsSetup(int itemId)
   {
+    _itemId=itemId;
     _entries=new ArrayList<SocketEntry>();
+  }
+
+  @Override
+  public int getIdentifier()
+  {
+    return _itemId;
   }
 
   /**

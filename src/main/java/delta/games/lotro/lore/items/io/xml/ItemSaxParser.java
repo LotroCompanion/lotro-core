@@ -46,6 +46,9 @@ import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.legendary2.Legendary2;
+import delta.games.lotro.lore.items.legendary2.LegendaryAttributes2Manager;
+import delta.games.lotro.lore.items.legendary2.LegendaryAttrs2;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -248,6 +251,13 @@ public final class ItemSaxParser extends DefaultHandler
         String mainLegacyBaseRankStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_BASE_RANK_ATTR);
         int mainLegacyBaseRank=NumericTools.parseInt(mainLegacyBaseRankStr,0);
         attrs.setMainLegacyBaseRank(mainLegacyBaseRank);
+      }
+      if (_currentItem instanceof Legendary2)
+      {
+        Legendary2 legendary=(Legendary2)_currentItem;
+        LegendaryAttributes2Manager mgr=LegendaryAttributes2Manager.getInstance();
+        LegendaryAttrs2 attrs=mgr.getLegendaryAttributes(id);
+        legendary.getLegendaryAttrs().setSockets(attrs.getSockets());
       }
     }
     else if (ItemXMLConstants.PROPERTY_TAG.equals(qualifiedName))

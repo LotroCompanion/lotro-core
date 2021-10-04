@@ -43,6 +43,6 @@ public class SocketEntry
   @Override
   public String toString()
   {
-    return _type+" (unlocked at item level "+_unlockItemLevel;
+    return _type+" (unlocked at item level "+_unlockItemLevel+")";
   }
 }

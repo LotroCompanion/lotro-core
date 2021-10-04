@@ -1,10 +1,12 @@
 package delta.games.lotro.lore.items.legendary2;
 
+import delta.games.lotro.common.Identifiable;
+
 /**
  * Attributes of a legendary item model (reloaded).
  * @author DAM
  */
-public class LegendaryAttrs2
+public class LegendaryAttrs2 implements Identifiable
 {
   private SocketsSetup _sockets;
 
@@ -13,7 +15,13 @@ public class LegendaryAttrs2
    */
   public LegendaryAttrs2()
   {
-    _sockets=new SocketsSetup();
+    _sockets=null;
+  }
+
+  @Override
+  public int getIdentifier()
+  {
+    return (_sockets!=null)?_sockets.getIdentifier():0;
   }
 
   /**
@@ -23,6 +31,15 @@ public class LegendaryAttrs2
   public SocketsSetup getSockets()
   {
     return _sockets;
+  }
+
+  /**
+   * Set the sockets setup.
+   * @param sockets Setup to set.
+   */
+  public void setSockets(SocketsSetup sockets)
+  {
+    _sockets=sockets;
   }
 
   @Override

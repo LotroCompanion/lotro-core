@@ -139,6 +139,10 @@ public class DataFiles
    */
   public static final String LEGENDARY_DATA="legendaryData";
   /**
+   * Legendary attributes file.
+   */
+  public static final String LEGENDARY_ATTRS="legendaryAttrs";
+  /**
    * Consumables file.
    */
   public static final String CONSUMABLES="consumables";

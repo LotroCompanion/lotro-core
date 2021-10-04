@@ -19,6 +19,10 @@ import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
+import delta.games.lotro.lore.items.legendary2.LegendaryItem2;
+import delta.games.lotro.lore.items.legendary2.LegendaryItemInstance2;
+import delta.games.lotro.lore.items.legendary2.LegendaryWeapon2;
+import delta.games.lotro.lore.items.legendary2.LegendaryWeaponInstance2;
 
 /**
  * Item builder.
@@ -51,6 +55,14 @@ public class ItemFactory
     else if (category==ItemCategory.LEGENDARY_ITEM)
     {
       ret=new LegendaryItem();
+    }
+    else if (category==ItemCategory.LEGENDARY_WEAPON2)
+    {
+      ret=new LegendaryWeapon2();
+    }
+    else if (category==ItemCategory.LEGENDARY_ITEM2)
+    {
+      ret=new LegendaryItem2();
     }
     else
     {
@@ -93,6 +105,13 @@ public class ItemFactory
       instance.setReference(reference);
       ret=instance;
     }
+    else if (item instanceof LegendaryWeapon2)
+    {
+      LegendaryWeapon2 reference=(LegendaryWeapon2)item;
+      LegendaryWeaponInstance2 instance=new LegendaryWeaponInstance2(reference.getLegendaryAttrs());
+      instance.setReference(reference);
+      ret=instance;
+    }
     else if (item instanceof Weapon)
     {
       Weapon reference=(Weapon)item;
@@ -104,6 +123,13 @@ public class ItemFactory
     {
       LegendaryItem reference=(LegendaryItem)item;
       LegendaryItemInstance instance=new LegendaryItemInstance();
+      instance.setReference(reference);
+      ret=instance;
+    }
+    else if (item instanceof LegendaryItem2)
+    {
+      LegendaryItem2 reference=(LegendaryItem2)item;
+      LegendaryItemInstance2 instance=new LegendaryItemInstance2(reference.getLegendaryAttrs());
       instance.setReference(reference);
       ret=instance;
     }
