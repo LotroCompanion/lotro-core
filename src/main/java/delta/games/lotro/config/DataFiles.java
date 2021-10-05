@@ -143,6 +143,10 @@ public class DataFiles
    */
   public static final String LEGENDARY_ATTRS="legendaryAttrs";
   /**
+   * Traceries file.
+   */
+  public static final String TRACERIES="traceries";
+  /**
    * Consumables file.
    */
   public static final String CONSUMABLES="consumables";
