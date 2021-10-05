@@ -26,6 +26,20 @@ public class SocketsSetupInstance
   }
 
   /**
+   * Get an entry.
+   * @param index Index of the entry.
+   * @return An entry or <code>null</code> if bad index.
+   */
+  public SocketEntryInstance getEntry(int index)
+  {
+    if ((index>=0) && (index<_entries.size()))
+    {
+      return _entries.get(index);
+    }
+    return null;
+  }
+
+  /**
    * Copy constructor.
    * @param source Source.
    */

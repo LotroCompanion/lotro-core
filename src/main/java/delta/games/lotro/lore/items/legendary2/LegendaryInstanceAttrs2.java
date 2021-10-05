@@ -29,6 +29,15 @@ public class LegendaryInstanceAttrs2
   }
 
   /**
+   * Get the sockets setup.
+   * @return the sockets setup.
+   */
+  public SocketsSetupInstance getSocketsSetup()
+  {
+    return _sockets;
+  }
+
+  /**
    * Get the total stats for these legendary attributes.
    * @return a set of stats.
    */

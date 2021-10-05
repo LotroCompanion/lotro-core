@@ -26,6 +26,9 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.io.xml.LegendaryInstanceAttrsXMLParser;
+import delta.games.lotro.lore.items.legendary2.LegendaryInstance2;
+import delta.games.lotro.lore.items.legendary2.LegendaryInstanceAttrs2;
+import delta.games.lotro.lore.items.legendary2.io.xml.LegendaryInstance2AttrsXMLParser;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
@@ -194,6 +197,11 @@ public class ItemXMLParser
     {
       LegendaryInstanceAttrs legAttrs=((LegendaryInstance)itemInstance).getLegendaryAttributes();
       LegendaryInstanceAttrsXMLParser.read(legAttrs,root);
+    }
+    if (itemInstance instanceof LegendaryInstance2)
+    {
+      LegendaryInstanceAttrs2 legAttrs=((LegendaryInstance2)itemInstance).getLegendaryAttributes();
+      LegendaryInstance2AttrsXMLParser.read(legAttrs,root);
     }
     return itemInstance;
   }
