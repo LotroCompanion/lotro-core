@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -21,6 +22,8 @@ import delta.games.lotro.lore.items.legendary2.Tracery;
  */
 public class TraceriesXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(TraceriesXMLParser.class);
+
   /**
    * Parse traceries from an XML file.
    * @param source Source file.
@@ -35,8 +38,11 @@ public class TraceriesXMLParser
       List<Element> traceryTags=DOMParsingTools.getChildTags(root);
       for(Element traceryTag : traceryTags)
       {
-        Tracery attributes=parseTracery(traceryTag);
-        ret.add(attributes);
+        Tracery tracery=parseTracery(traceryTag);
+        if (tracery!=null)
+        {
+          ret.add(tracery);
+        }
       }
     }
     return ret;
@@ -50,6 +56,7 @@ public class TraceriesXMLParser
     Item item=ItemsManager.getInstance().getItem(itemId);
     if (item==null)
     {
+      LOGGER.warn("Unknown item for tracery: "+itemId);
       return null;
     }
     // Socket type

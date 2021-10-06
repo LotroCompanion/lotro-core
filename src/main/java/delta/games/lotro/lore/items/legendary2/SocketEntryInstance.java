@@ -88,14 +88,17 @@ public class SocketEntryInstance
    */
   public BasicStatsSet getStats()
   {
-    BasicStatsSet ret;
+    BasicStatsSet ret=null;
     if (_tracery!=null)
     {
       Item item=_tracery.getItem();
       StatsProvider statsProvider=item.getStatsProvider();
-      ret=statsProvider.getStats(1,_itemLevel);
+      if (statsProvider!=null)
+      {
+        ret=statsProvider.getStats(1,_itemLevel);
+      }
     }
-    else
+    if (ret==null)
     {
       ret=new BasicStatsSet();
     }
