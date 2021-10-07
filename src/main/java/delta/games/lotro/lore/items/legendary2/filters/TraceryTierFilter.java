@@ -1,13 +1,14 @@
 package delta.games.lotro.lore.items.legendary2.filters;
 
+import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.filters.ItemFilter;
+import delta.games.lotro.lore.items.legendary2.Tracery;
 
 /**
  * Filter to select essences using their tier.
  * @author DAM
  */
-public class TraceryTierFilter implements ItemFilter
+public class TraceryTierFilter implements Filter<Tracery>
 {
   /**
    * Tier pattern.
@@ -52,10 +53,12 @@ public class TraceryTierFilter implements ItemFilter
     _tier=tier;
   }
 
-  public boolean accept(Item item)
+  @Override
+  public boolean accept(Tracery tracery)
   {
     if (_tier!=null)
     {
+      Item item=tracery.getItem();
       String category=item.getSubCategory();
       return ((category!=null) && (category.endsWith(_expectedCategoryPattern)));
     }

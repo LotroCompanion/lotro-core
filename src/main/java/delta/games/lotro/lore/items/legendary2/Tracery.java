@@ -37,7 +37,7 @@ public class Tracery implements Identifiable,Named
   @Override
   public int getIdentifier()
   {
-    return _item.getIdentifier();
+    return (_item!=null)?_item.getIdentifier():0;
   }
 
   /**
@@ -46,7 +46,7 @@ public class Tracery implements Identifiable,Named
    */
   public String getName()
   {
-    return _item.getName();
+    return (_item!=null)?_item.getName():"";
   }
 
   /**
@@ -92,5 +92,22 @@ public class Tracery implements Identifiable,Named
   public int getLevelUpIncrement()
   {
     return _increment;
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder("Tracery ID=").append(getIdentifier());
+    sb.append(", name=").append(getName());
+    sb.append(", type=").append(_type);
+    sb.append(", min Item Level=").append(_minItemLevel);
+    sb.append(", max Item Level=").append(_maxItemLevel);
+    sb.append(", increment=").append(_increment);
+    if (_item!=null)
+    {
+      sb.append(", min Char Level=").append(_item.getMinLevel());
+      sb.append(", max Char Level=").append(_item.getMaxLevel());
+    }
+    return sb.toString();
   }
 }
