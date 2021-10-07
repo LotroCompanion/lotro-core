@@ -1,22 +1,15 @@
 package delta.games.lotro.lore.items.legendary2.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary2.Tracery;
 
 /**
- * Filter to select essences using their tier.
+ * Filter to select traceries using their tier.
  * @author DAM
  */
 public class TraceryTierFilter implements Filter<Tracery>
 {
-  /**
-   * Tier pattern.
-   */
-  public static final String TIER_PATTERN=":Tier";
-
   private Integer _tier;
-  private String _expectedCategoryPattern;
 
   /**
    * Constructor.
@@ -24,7 +17,6 @@ public class TraceryTierFilter implements Filter<Tracery>
   public TraceryTierFilter()
   {
     _tier=null;
-    _expectedCategoryPattern=null;
   }
 
   /**
@@ -42,14 +34,6 @@ public class TraceryTierFilter implements Filter<Tracery>
    */
   public void setTier(Integer tier)
   {
-    if (tier!=null)
-    {
-      _expectedCategoryPattern=TIER_PATTERN+tier;
-    }
-    else
-    {
-      _expectedCategoryPattern=null;
-    }
     _tier=tier;
   }
 
@@ -58,9 +42,8 @@ public class TraceryTierFilter implements Filter<Tracery>
   {
     if (_tier!=null)
     {
-      Item item=tracery.getItem();
-      String category=item.getSubCategory();
-      return ((category!=null) && (category.endsWith(_expectedCategoryPattern)));
+      Integer tier=tracery.getTier();
+      return _tier.equals(tier);
     }
     return true;
   }
