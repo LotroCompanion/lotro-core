@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items.filters;
 
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.Legendary;
+import delta.games.lotro.lore.items.legendary2.Legendary2;
 
 /**
  * Filter legendary/non legendary items or both.
@@ -42,7 +43,8 @@ public class LegendaryItemFilter implements ItemFilter
   {
     if (_legendary!=null)
     {
-      return (item instanceof Legendary)==_legendary.booleanValue();
+      boolean isLegendary=((item instanceof Legendary) || (item instanceof Legendary2));
+      return (_legendary.booleanValue()==isLegendary);
     }
     return true;
   }
