@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.items.legendary2;
 
-import delta.common.utils.NumericTools;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 import delta.games.lotro.common.enums.SocketType;
@@ -12,11 +11,6 @@ import delta.games.lotro.lore.items.Item;
  */
 public class Tracery implements Identifiable,Named
 {
-  /**
-   * Tier pattern.
-   */
-  private static final String TIER_PATTERN=":Tier";
-
   private Item _item;
   private SocketType _type;
   private Integer _tier;
@@ -90,16 +84,7 @@ public class Tracery implements Identifiable,Named
     {
       return;
     }
-    String category=_item.getSubCategory();
-    if (category!=null)
-    {
-      int index=category.indexOf(TIER_PATTERN);
-      if (index!=-1)
-      {
-        String tierStr=category.substring(index+TIER_PATTERN.length());
-        _tier=NumericTools.parseInteger(tierStr);
-      }
-    }
+    _tier=_item.getTier();
   }
 
   /**

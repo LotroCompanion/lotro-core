@@ -28,6 +28,11 @@ public class Item implements Identifiable,Named,ItemProvider
 {
   private static final Logger LOGGER=Logger.getLogger(Item.class);
 
+  /**
+   * Tier pattern.
+   */
+  private static final String TIER_PATTERN=":Tier";
+
   // Item identifier
   private int _identifier;
   // Icon name: iconID-backgroundIconID
@@ -268,6 +273,24 @@ public class Item implements Identifiable,Named,ItemProvider
   public void setSubCategory(String subCategory)
   {
     _subCategory=subCategory;
+  }
+
+  /**
+   * Get the tier for this item.
+   * @return A tier or <code>null</code> if not found.
+   */
+  public Integer getTier()
+  {
+    if (_subCategory!=null)
+    {
+      int index=_subCategory.indexOf(TIER_PATTERN);
+      if (index!=-1)
+      {
+        String tierStr=_subCategory.substring(index+TIER_PATTERN.length());
+        return NumericTools.parseInteger(tierStr);
+      }
+    }
+    return null;
   }
 
   /**
