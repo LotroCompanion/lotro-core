@@ -155,6 +155,10 @@ public class CharacterProficiencies
       ret.add(WeaponType.SPEAR);
       ret.add(WeaponType.ONE_HANDED_SWORD);
     }
+    else if (cClass==CharacterClass.BRAWLER)
+    {
+      ret.add(WeaponType.BATTLE_GAUNTLETS);
+    }
     return ret;
   }
 
@@ -189,11 +193,13 @@ public class CharacterProficiencies
     HashSet<ArmourType> ret=new HashSet<ArmourType>();
     ret.add(ArmourType.LIGHT);
     if ((cClass==CharacterClass.HUNTER) || (cClass==CharacterClass.BURGLAR)
-        || (cClass==CharacterClass.BEORNING) || (cClass==CharacterClass.WARDEN))
+        || (cClass==CharacterClass.WARDEN))
     {
       ret.add(ArmourType.MEDIUM);
     }
-    if ((cClass==CharacterClass.CHAMPION) || (cClass==CharacterClass.GUARDIAN) || (cClass==CharacterClass.CAPTAIN))
+    if ((cClass==CharacterClass.CHAMPION) || (cClass==CharacterClass.GUARDIAN)
+        || (cClass==CharacterClass.CAPTAIN) || (cClass==CharacterClass.BEORNING)
+        || (cClass==CharacterClass.BRAWLER) )
     {
       ret.add(ArmourType.MEDIUM);
       ret.add(ArmourType.HEAVY);
@@ -231,11 +237,13 @@ public class CharacterProficiencies
   public static ArmourType getArmourTypeForMitigations(CharacterClass cClass)
   {
     if ((cClass==CharacterClass.HUNTER) || (cClass==CharacterClass.BURGLAR)
-        || (cClass==CharacterClass.BEORNING) || (cClass==CharacterClass.WARDEN))
+        || (cClass==CharacterClass.WARDEN))
     {
       return ArmourType.MEDIUM;
     }
-    if ((cClass==CharacterClass.CHAMPION) || (cClass==CharacterClass.GUARDIAN) || (cClass==CharacterClass.CAPTAIN))
+    if ((cClass==CharacterClass.CHAMPION) || (cClass==CharacterClass.GUARDIAN)
+        || (cClass==CharacterClass.CAPTAIN) || (cClass==CharacterClass.BEORNING)
+        || (cClass==CharacterClass.BRAWLER) )
     {
       return ArmourType.HEAVY;
     }
