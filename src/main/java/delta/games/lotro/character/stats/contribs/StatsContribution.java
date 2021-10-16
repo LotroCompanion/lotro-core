@@ -46,6 +46,11 @@ public class StatsContribution
    * Source identifier seed: items set.
    */
   public static final String ITEMS_SET="ItemsSet:";
+  // TraceriesSet:<setId>
+  /**
+   * Source identifier seed: traceries set.
+   */
+  public static final String TRACERIES_SET="TraceriesSet:";
   // Buff:<buffId>
   /**
    * Source identifier seed: buff.
@@ -179,6 +184,20 @@ public class StatsContribution
   {
     String source=ITEMS_SET+set.getIdentifier();
     String label="Items set: "+set.getName()+" ("+count+" pieces)";
+    return new StatsContribution(source,label,stats);
+  }
+
+  /**
+   * Build a stat contribution for a traceries set.
+   * @param set Source set.
+   * @param count Number of equipped traceries for this set.
+   * @param stats Contributed stats.
+   * @return A stat contribution.
+   */
+  public static StatsContribution getTraceriesSetContrib(ItemsSet set, int count, BasicStatsSet stats)
+  {
+    String source=TRACERIES_SET+set.getIdentifier();
+    String label="Traceries set: "+set.getName()+" ("+count+" pieces)";
     return new StatsContribution(source,label,stats);
   }
 

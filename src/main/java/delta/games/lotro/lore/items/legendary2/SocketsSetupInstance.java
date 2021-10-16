@@ -26,6 +26,20 @@ public class SocketsSetupInstance
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public SocketsSetupInstance(SocketsSetupInstance source)
+  {
+    _setup=source._setup;
+    _entries=new ArrayList<SocketEntryInstance>();
+    for(SocketEntryInstance entry : source._entries)
+    {
+      _entries.add(new SocketEntryInstance(entry));
+    }
+  }
+
+  /**
    * Get an entry.
    * @param index Index of the entry.
    * @return An entry or <code>null</code> if bad index.
@@ -40,17 +54,12 @@ public class SocketsSetupInstance
   }
 
   /**
-   * Copy constructor.
-   * @param source Source.
+   * Get the number of sockets.
+   * @return A sockets count.
    */
-  public SocketsSetupInstance(SocketsSetupInstance source)
+  public int getSocketsCount()
   {
-    _setup=source._setup;
-    _entries=new ArrayList<SocketEntryInstance>();
-    for(SocketEntryInstance entry : source._entries)
-    {
-      _entries.add(new SocketEntryInstance(entry));
-    }
+    return _entries.size();
   }
 
   private void init()

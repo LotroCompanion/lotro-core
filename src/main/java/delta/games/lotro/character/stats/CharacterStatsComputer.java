@@ -43,6 +43,7 @@ public class CharacterStatsComputer
   private BaseStatsManager _baseStatsMgr;
   private TomesContributionsMgr _tomesMgr;
   private ItemsSetStatsComputer _itemsSetsMgr;
+  private TraceriesSetStatsComputer _traceriesSetsMgr;
   private BuffInstance _hopeDread;
   private RatingsMgr _ratingsMgr;
   private StatsContributionsManager _contribs;
@@ -64,6 +65,7 @@ public class CharacterStatsComputer
     _baseStatsMgr=new BaseStatsManager();
     _tomesMgr=new TomesContributionsMgr();
     _itemsSetsMgr=new ItemsSetStatsComputer();
+    _traceriesSetsMgr=new TraceriesSetStatsComputer();
     _hopeDread=buildMoraleBuffFromHopeOrDread();
     _ratingsMgr=CombatSystem.getInstance().getRatingsMgr();
     _contribs=contribs;
@@ -104,6 +106,12 @@ public class CharacterStatsComputer
     if (itemsSetsStats.getStatsCount()>0)
     {
       ret.addStats(itemsSetsStats);
+    }
+    // Traceries sets
+    BasicStatsSet traceriesSetsStats=_traceriesSetsMgr.getStats(equipment,_contribs);
+    if (traceriesSetsStats.getStatsCount()>0)
+    {
+      ret.addStats(traceriesSetsStats);
     }
     return ret;
   }
