@@ -6,7 +6,7 @@ import delta.games.lotro.common.stats.StatsProvider;
  * Bonus of an items set.
  * @author DAM
  */
-public class ItemsSetBonus
+public class SetBonus
 {
   private int _piecesCount;
   private StatsProvider _stats;
@@ -15,7 +15,7 @@ public class ItemsSetBonus
    * Constructor.
    * @param piecesCount Number of pieces to activate the bonus.
    */
-  public ItemsSetBonus(int piecesCount)
+  public SetBonus(int piecesCount)
   {
     _piecesCount=piecesCount;
   }

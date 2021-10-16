@@ -23,10 +23,12 @@ public class ItemsSet implements Identifiable
   private int _id;
   private String _name;
   private String _description;
-  private int _level;
-  private int _requiredLevel;
+  private int _setLevel;
+  private boolean _useAverageItemLevelForSetLevel;
+  private int _requiredMinLevel;
+  private Integer _requiredMaxLevel;
   private List<Proxy<Item>> _members;
-  private Map<Integer,ItemsSetBonus> _bonuses;
+  private Map<Integer,SetBonus> _bonuses;
 
   /**
    * Constructor.
@@ -36,10 +38,12 @@ public class ItemsSet implements Identifiable
     _id=0;
     _name="";
     _description="";
-    _level=1;
-    _requiredLevel=1;
+    _setLevel=1;
+    _useAverageItemLevelForSetLevel=false;
+    _requiredMinLevel=1;
+    _requiredMaxLevel=null;
     _members=new ArrayList<Proxy<Item>>();
-    _bonuses=new HashMap<Integer,ItemsSetBonus>();
+    _bonuses=new HashMap<Integer,SetBonus>();
   }
 
   /**
@@ -108,36 +112,73 @@ public class ItemsSet implements Identifiable
    * Get the level of this set.
    * @return A level.
    */
-  public int getLevel()
+  public int getSetLevel()
   {
-    return _level;
+    return _setLevel;
   }
 
   /**
    * Set the level of this set.
    * @param level Level to set.
    */
-  public void setLevel(int level)
+  public void setSetLevel(int level)
   {
-    _level=level;
+    _setLevel=level;
   }
 
   /**
-   * Get the required level for this set.
-   * @return A level.
+   * Indicates if we shall use the average item level of set members
+   * or the set item level.
+   * @return <code>true</code> to use the average of item levels, <code>false</code> otherwise.
    */
-  public int getRequiredLevel()
+  public boolean useAverageItemLevelForSetLevel()
   {
-    return _requiredLevel;
+    return _useAverageItemLevelForSetLevel;
   }
 
   /**
-   * Set the required level for this set.
-   * @param requiredLevel Required level to set.
+   * Set the value of the 'Use average item level for set level' flag.
+   * @param useAverageItemLevelForSetLevel Value to set.
    */
-  public void setRequiredLevel(int requiredLevel)
+  public void setUseAverageItemLevelForSetLevel(boolean useAverageItemLevelForSetLevel)
   {
-    _requiredLevel=requiredLevel;
+    _useAverageItemLevelForSetLevel=useAverageItemLevelForSetLevel;
+  }
+
+  /**
+   * Get the required character level for this set.
+   * @return A level>=1.
+   */
+  public int getRequiredMinLevel()
+  {
+    return _requiredMinLevel;
+  }
+
+  /**
+   * Set the required character level for this set.
+   * @param requiredMinLevel Required level to set.
+   */
+  public void setRequiredMinLevel(int requiredMinLevel)
+  {
+    _requiredMinLevel=requiredMinLevel;
+  }
+
+  /**
+   * Get the required maximum character level for this set.
+   * @return A character level or <code>null</code>.
+   */
+  public Integer getRequiredMaxLevel()
+  {
+    return _requiredMaxLevel;
+  }
+
+  /**
+   * Set the required maximum character level for this set.
+   * @param requiredMaxLevel Level to set.
+   */
+  public void setRequiredMaxLevel(Integer requiredMaxLevel)
+  {
+    _requiredMaxLevel=requiredMaxLevel;
   }
 
   /**
@@ -179,11 +220,11 @@ public class ItemsSet implements Identifiable
    * Get all possible bonuses, ordered by number of pieces.
    * @return A list of bonuses.
    */
-  public List<ItemsSetBonus> getBonuses()
+  public List<SetBonus> getBonuses()
   {
     List<Integer> nbPieces=new ArrayList<Integer>(_bonuses.keySet());
     Collections.sort(nbPieces);
-    List<ItemsSetBonus> ret=new ArrayList<ItemsSetBonus>();
+    List<SetBonus> ret=new ArrayList<SetBonus>();
     for(Integer count : nbPieces)
     {
       ret.add(_bonuses.get(count));
@@ -195,7 +236,7 @@ public class ItemsSet implements Identifiable
    * Add a bonus.
    * @param bonus Bonus to add.
    */
-  public void addBonus(ItemsSetBonus bonus)
+  public void addBonus(SetBonus bonus)
   {
     int nbPieces=bonus.getPiecesCount();
     _bonuses.put(Integer.valueOf(nbPieces),bonus);
@@ -210,10 +251,21 @@ public class ItemsSet implements Identifiable
     StringBuilder sb=new StringBuilder();
     sb.append("Set ID=").append(_id);
     sb.append(", name=").append(_name);
-    sb.append(", level=").append(_level);
-    if (_requiredLevel!=1)
+    if (_useAverageItemLevelForSetLevel)
     {
-      sb.append(", required level=").append(_requiredLevel);
+      sb.append(", use average item level for set level");
+    }
+    else
+    {
+      sb.append(", level=").append(_setLevel);
+    }
+    if (_requiredMinLevel!=1)
+    {
+      sb.append(", required character level=").append(_requiredMinLevel);
+    }
+    if (_requiredMaxLevel!=null)
+    {
+      sb.append(", max character level=").append(_requiredMaxLevel);
     }
     sb.append(EndOfLine.NATIVE_EOL);
     for(Proxy<Item> itemProxy : _members)
@@ -221,8 +273,8 @@ public class ItemsSet implements Identifiable
       sb.append('\t').append(itemProxy);
       sb.append(EndOfLine.NATIVE_EOL);
     }
-    List<ItemsSetBonus> bonuses=getBonuses();
-    for(ItemsSetBonus bonus : bonuses)
+    List<SetBonus> bonuses=getBonuses();
+    for(SetBonus bonus : bonuses)
     {
       int nb=bonus.getPiecesCount();
       sb.append('\t').append(nb).append(" items: ");

@@ -13,7 +13,7 @@ import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.sets.ItemsSet;
-import delta.games.lotro.lore.items.sets.ItemsSetBonus;
+import delta.games.lotro.lore.items.sets.SetBonus;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -61,12 +61,20 @@ public class ItemsSetXMLParser
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_NAME_ATTR,"");
     ret.setName(name);
-    // Level
-    int level=DOMParsingTools.getIntAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_LEVEL_ATTR,0);
-    ret.setLevel(level);
+    // Set level
+    int setLevel=DOMParsingTools.getIntAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_LEVEL_ATTR,-1);
+    ret.setSetLevel(setLevel);
+    boolean useAverageItemLevelForSetLevel=DOMParsingTools.getBooleanAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_USE_AVERAGE_ITEM_LEVEL_ATTR,false);
+    ret.setUseAverageItemLevelForSetLevel(useAverageItemLevelForSetLevel);
     // Required level
     int requiredLevel=DOMParsingTools.getIntAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_REQUIRED_LEVEL_ATTR,1);
-    ret.setRequiredLevel(requiredLevel);
+    ret.setRequiredMinLevel(requiredLevel);
+    // Character max level
+    int characterMaxLevel=DOMParsingTools.getIntAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_MAX_LEVEL_ATTR,0);
+    if (characterMaxLevel!=0)
+    {
+      ret.setRequiredMaxLevel(Integer.valueOf(characterMaxLevel));
+    }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_DESCRIPTION_ATTR,"");
     ret.setDescription(description);
@@ -99,7 +107,7 @@ public class ItemsSetXMLParser
       StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(bonusTag);
       if ((piecesCount!=0) && (statsProvider!=null))
       {
-        ItemsSetBonus bonus=new ItemsSetBonus(piecesCount);
+        SetBonus bonus=new SetBonus(piecesCount);
         bonus.setStatsProvider(statsProvider);
         ret.addBonus(bonus);
       }

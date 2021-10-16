@@ -31,9 +31,17 @@ public class ItemsSetXMLConstants
    */
   public static final String ITEMS_SET_LEVEL_ATTR="level";
   /**
+   * Tag 'set', attribute 'useAverageItemLevel'.
+   */
+  public static final String ITEMS_SET_USE_AVERAGE_ITEM_LEVEL_ATTR="useAverageItemLevel";
+  /**
    * Tag 'set', attribute 'requiredLevel'.
    */
   public static final String ITEMS_SET_REQUIRED_LEVEL_ATTR="requiredLevel";
+  /**
+   * Tag 'set', attribute 'maxLevel'.
+   */
+  public static final String ITEMS_SET_MAX_LEVEL_ATTR="maxLevel";
 
   /**
    * Tag 'item'.

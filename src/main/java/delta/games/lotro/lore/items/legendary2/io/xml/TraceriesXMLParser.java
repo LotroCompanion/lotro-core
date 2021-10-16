@@ -69,7 +69,9 @@ public class TraceriesXMLParser
     int maxItemLevel=DOMParsingTools.getIntAttribute(attrs,TraceriesXMLConstants.MAX_ITEM_LEVEL_ATTR,0);
     // Increment
     int increment=DOMParsingTools.getIntAttribute(attrs,TraceriesXMLConstants.LEVEL_INCREMENT_ATTR,1);
-    Tracery ret=new Tracery(item,socketType,minItemLevel,maxItemLevel,increment);
+    // Set ID
+    int setID=DOMParsingTools.getIntAttribute(attrs,TraceriesXMLConstants.SET_ID_ATTR,0);
+    Tracery ret=new Tracery(item,socketType,minItemLevel,maxItemLevel,increment,setID);
     return ret;
   }
 }

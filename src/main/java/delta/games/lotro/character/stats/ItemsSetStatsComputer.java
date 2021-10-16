@@ -15,7 +15,7 @@ import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.sets.ItemsSet;
-import delta.games.lotro.lore.items.sets.ItemsSetBonus;
+import delta.games.lotro.lore.items.sets.SetBonus;
 import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 
 /**
@@ -51,13 +51,13 @@ public class ItemsSetStatsComputer
       int setId=entry.getKey().intValue();
       ItemsSet set=_itemsSetsManager.getSetById(setId);
       int count=entry.getValue().getInt();
-      for(ItemsSetBonus bonus : set.getBonuses())
+      for(SetBonus bonus : set.getBonuses())
       {
         int countForBonus=bonus.getPiecesCount();
         if (count>=countForBonus)
         {
           StatsProvider statsProvider=bonus.getStatsProvider();
-          int level=set.getLevel();
+          int level=set.getSetLevel();
           BasicStatsSet bonusStats=statsProvider.getStats(1,level);
           statsForSet.addStats(bonusStats);
         }

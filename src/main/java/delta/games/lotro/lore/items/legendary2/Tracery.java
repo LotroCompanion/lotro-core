@@ -17,6 +17,7 @@ public class Tracery implements Identifiable,Named
   private int _minItemLevel;
   private int _maxItemLevel;
   private int _increment;
+  private int _setId;
 
   /**
    * Constructor.
@@ -25,8 +26,9 @@ public class Tracery implements Identifiable,Named
    * @param minItemLevel Minimum item level.
    * @param maxItemLevel Maximum item level.
    * @param increment Level up increment.
+   * @param setId Identifier of the parent set (0 if none).
    */
-  public Tracery(Item item, SocketType type, int minItemLevel, int maxItemLevel, int increment)
+  public Tracery(Item item, SocketType type, int minItemLevel, int maxItemLevel, int increment, int setId)
   {
     _item=item;
     _type=type;
@@ -34,6 +36,7 @@ public class Tracery implements Identifiable,Named
     _minItemLevel=minItemLevel;
     _maxItemLevel=maxItemLevel;
     _increment=increment;
+    _setId=setId;
   }
 
   @Override
@@ -112,6 +115,15 @@ public class Tracery implements Identifiable,Named
   public int getLevelUpIncrement()
   {
     return _increment;
+  }
+
+  /**
+   * Get the associated set ID.
+   * @return A set ID or 0.
+   */
+  public int getSetId()
+  {
+    return _setId;
   }
 
   @Override

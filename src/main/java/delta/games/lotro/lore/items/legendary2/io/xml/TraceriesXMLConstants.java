@@ -38,4 +38,8 @@ public class TraceriesXMLConstants
    * Tag 'tracery', attribute 'levelIncrement'.
    */
   public static final String LEVEL_INCREMENT_ATTR="levelIncrement";
+  /**
+   * Tag 'tracery', attribute 'setId'.
+   */
+  public static final String SET_ID_ATTR="setId";
 }

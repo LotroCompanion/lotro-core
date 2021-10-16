@@ -86,6 +86,12 @@ public class TraceriesXMLWriter
     {
       traceryAttrs.addAttribute("","",TraceriesXMLConstants.LEVEL_INCREMENT_ATTR,XmlWriter.CDATA,String.valueOf(increment));
     }
+    // Set ID
+    int setId=tracery.getSetId();
+    if (setId!=0)
+    {
+      traceryAttrs.addAttribute("","",TraceriesXMLConstants.SET_ID_ATTR,XmlWriter.CDATA,String.valueOf(setId));
+    }
     hd.startElement("","",TraceriesXMLConstants.TRACERY_TAG,traceryAttrs);
     hd.endElement("","",TraceriesXMLConstants.TRACERY_TAG);
   }

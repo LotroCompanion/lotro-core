@@ -24,8 +24,8 @@ public class MainTestItemSets
     for(ItemsSet itemsSet : itemsSets)
     {
       System.out.println("Items set: "+itemsSet.getName());
-      int level=itemsSet.getLevel();
-      for(ItemsSetBonus bonusSet : itemsSet.getBonuses())
+      int level=itemsSet.getSetLevel();
+      for(SetBonus bonusSet : itemsSet.getBonuses())
       {
         int count=bonusSet.getPiecesCount();
         System.out.println("\tCount="+count);

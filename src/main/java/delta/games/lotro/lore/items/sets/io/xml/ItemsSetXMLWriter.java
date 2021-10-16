@@ -16,7 +16,7 @@ import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.sets.ItemsSet;
-import delta.games.lotro.lore.items.sets.ItemsSetBonus;
+import delta.games.lotro.lore.items.sets.SetBonus;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -89,13 +89,27 @@ public class ItemsSetXMLWriter
     String name=set.getName();
     itemAttrs.addAttribute("","",ItemsSetXMLConstants.ITEMS_SET_NAME_ATTR,XmlWriter.CDATA,name);
     // Level
-    int level=set.getLevel();
-    itemAttrs.addAttribute("","",ItemsSetXMLConstants.ITEMS_SET_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
+    boolean useAverageItemLevelForSetLevel=set.useAverageItemLevelForSetLevel();
+    if (useAverageItemLevelForSetLevel)
+    {
+      itemAttrs.addAttribute("","",ItemsSetXMLConstants.ITEMS_SET_USE_AVERAGE_ITEM_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(useAverageItemLevelForSetLevel));
+    }
+    int level=set.getSetLevel();
+    if (level!=-1)
+    {
+      itemAttrs.addAttribute("","",ItemsSetXMLConstants.ITEMS_SET_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
+    }
     // Required level
-    int requiredLevel=set.getRequiredLevel();
+    int requiredLevel=set.getRequiredMinLevel();
     if (requiredLevel!=1)
     {
       itemAttrs.addAttribute("","",ItemsSetXMLConstants.ITEMS_SET_REQUIRED_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(requiredLevel));
+    }
+    // Max character level
+    Integer maxCharacterLevel=set.getRequiredMaxLevel();
+    if (maxCharacterLevel!=null)
+    {
+      itemAttrs.addAttribute("","",ItemsSetXMLConstants.ITEMS_SET_MAX_LEVEL_ATTR,XmlWriter.CDATA,maxCharacterLevel.toString());
     }
     // Description
     String description=set.getDescription();
@@ -115,8 +129,8 @@ public class ItemsSetXMLWriter
       hd.endElement("","",ItemsSetXMLConstants.ITEM_TAG);
     }
     // Bonuses
-    List<ItemsSetBonus> bonuses=set.getBonuses();
-    for(ItemsSetBonus bonus : bonuses)
+    List<SetBonus> bonuses=set.getBonuses();
+    for(SetBonus bonus : bonuses)
     {
       AttributesImpl attrs=new AttributesImpl();
       int count=bonus.getPiecesCount();
