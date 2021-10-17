@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import delta.common.utils.misc.IntegerHolder;
 import delta.games.lotro.character.CharacterEquipment;
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.character.CharacterEquipment.SlotContents;
@@ -15,8 +14,8 @@ import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.sets.ItemsSet;
-import delta.games.lotro.lore.items.sets.SetBonus;
 import delta.games.lotro.lore.items.sets.ItemsSetsManager;
+import delta.games.lotro.lore.items.sets.SetBonus;
 
 /**
  * Computes stats contributions from items sets.
@@ -42,22 +41,22 @@ public class ItemsSetStatsComputer
    */
   public BasicStatsSet getStats(CharacterEquipment equipment, StatsContributionsManager contribs)
   {
-    List<Item> items=getItemsFromGear(equipment);
-    Map<Integer,IntegerHolder> itemsCountsBySet=getItemsCountsBySet(items);
+    List<ItemInstance<? extends Item>> itemInstances=getItemInstancesFromGear(equipment);
+    Map<Integer,List<ItemInstance<? extends Item>>> itemInstancesBySet=getItemInstancesBySet(itemInstances);
     BasicStatsSet stats=new BasicStatsSet();
-    for(Map.Entry<Integer,IntegerHolder> entry : itemsCountsBySet.entrySet())
+    for(Map.Entry<Integer,List<ItemInstance<? extends Item>>> entry : itemInstancesBySet.entrySet())
     {
       BasicStatsSet statsForSet=new BasicStatsSet();
       int setId=entry.getKey().intValue();
       ItemsSet set=_itemsSetsManager.getSetById(setId);
-      int count=entry.getValue().getInt();
+      int count=entry.getValue().size();
+      int level=getSetLevel(set,entry.getValue());
       for(SetBonus bonus : set.getBonuses())
       {
         int countForBonus=bonus.getPiecesCount();
         if (count>=countForBonus)
         {
           StatsProvider statsProvider=bonus.getStatsProvider();
-          int level=set.getSetLevel();
           BasicStatsSet bonusStats=statsProvider.getStats(1,level);
           statsForSet.addStats(bonusStats);
         }
@@ -75,32 +74,49 @@ public class ItemsSetStatsComputer
     return stats;
   }
 
-  private Map<Integer,IntegerHolder> getItemsCountsBySet(List<Item> items)
+  private int getSetLevel(ItemsSet set, List<ItemInstance<? extends Item>> itemInstances)
   {
-    Map<Integer,IntegerHolder> ret=new HashMap<Integer,IntegerHolder>();
-    for(Item item : items)
+    if (set.useAverageItemLevelForSetLevel())
     {
+      int totalItemLevels=0;
+      for(ItemInstance<? extends Item> itemInstance : itemInstances)
+      {
+        Integer itemLevel=itemInstance.getEffectiveItemLevel();
+        totalItemLevels+=((itemLevel!=null)?itemLevel.intValue():0);
+      }
+      int nbElements=itemInstances.size();
+      return totalItemLevels/nbElements;
+    }
+    return set.getSetLevel();
+  }
+
+  private Map<Integer,List<ItemInstance<? extends Item>>> getItemInstancesBySet(List<ItemInstance<? extends Item>> itemInstances)
+  {
+    Map<Integer,List<ItemInstance<? extends Item>>> ret=new HashMap<Integer,List<ItemInstance<? extends Item>>>();
+    for(ItemInstance<? extends Item> itemInstance : itemInstances)
+    {
+      Item item=itemInstance.getItem();
       int itemId=item.getIdentifier();
       List<ItemsSet> sets=_itemsSetsManager.getSetsForItem(itemId);
       for(ItemsSet set : sets)
       {
         int setId=set.getIdentifier();
         Integer setKey=Integer.valueOf(setId);
-        IntegerHolder intHolder=ret.get(setKey);
-        if (intHolder==null)
+        List<ItemInstance<? extends Item>> itemsForSet=ret.get(setKey);
+        if (itemsForSet==null)
         {
-          intHolder=new IntegerHolder();
-          ret.put(setKey,intHolder);
+          itemsForSet=new ArrayList<ItemInstance<? extends Item>>();
+          ret.put(setKey,itemsForSet);
         }
-        intHolder.increment();
+        itemsForSet.add(itemInstance);
       }
     }
     return ret;
   }
 
-  private List<Item> getItemsFromGear(CharacterEquipment equipment)
+  private List<ItemInstance<? extends Item>> getItemInstancesFromGear(CharacterEquipment equipment)
   {
-    List<Item> items=new ArrayList<Item>();
+    List<ItemInstance<? extends Item>> itemInstances=new ArrayList<ItemInstance<? extends Item>>();
     for(EQUIMENT_SLOT slot : EQUIMENT_SLOT.values())
     {
       SlotContents slotContents=equipment.getSlotContents(slot,false);
@@ -109,10 +125,10 @@ public class ItemsSetStatsComputer
         ItemInstance<?> itemInstance=slotContents.getItem();
         if (itemInstance!=null)
         {
-          items.add(itemInstance.getReference());
+          itemInstances.add(itemInstance);
         }
       }
     }
-    return items;
+    return itemInstances;
   }
 }
