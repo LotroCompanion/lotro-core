@@ -85,6 +85,15 @@ public class TraceriesManager
   }
 
   /**
+   * Get all traceries.
+   * @return a list of traceries.
+   */
+  public List<Tracery> getAll()
+  {
+    return new ArrayList<Tracery>(_cache.values());
+  }
+
+  /**
    * Get all the traceries for a given socket type.
    * @param type Socket type.
    * @return A list of traceries.
