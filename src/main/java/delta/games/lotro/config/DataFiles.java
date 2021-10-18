@@ -143,6 +143,10 @@ public class DataFiles
    */
   public static final String LEGENDARY_ATTRS="legendaryAttrs";
   /**
+   * Legendary system (reloaded) data file.
+   */
+  public static final String LEGENDARY_DATA2="legendaryData2";
+  /**
    * Traceries file.
    */
   public static final String TRACERIES="traceries";
