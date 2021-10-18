@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items.legendary2;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
 
 /**
@@ -8,6 +9,9 @@ import delta.games.lotro.character.stats.BasicStatsSet;
  */
 public class LegendaryInstanceAttrs2
 {
+  // Name
+  private String _legendaryName;
+  // Traceries
   private SocketsSetupInstance _sockets;
 
   /**
@@ -16,6 +20,7 @@ public class LegendaryInstanceAttrs2
    */
   public LegendaryInstanceAttrs2(SocketsSetup setup)
   {
+    _legendaryName="";
     _sockets=new SocketsSetupInstance(setup);
   }
 
@@ -25,7 +30,30 @@ public class LegendaryInstanceAttrs2
    */
   public LegendaryInstanceAttrs2(LegendaryInstanceAttrs2 source)
   {
+    _legendaryName=source._legendaryName;
     _sockets=new SocketsSetupInstance(source._sockets);
+  }
+
+  /**
+   * Get the name of this legendary item.
+   * @return a name (never <code>null</code>).
+   */
+  public String getLegendaryName()
+  {
+    return _legendaryName;
+  }
+
+  /**
+   * Set the name of this legendary item.
+   * @param legendaryName the name to set.
+   */
+  public void setLegendaryName(String legendaryName)
+  {
+    if (legendaryName==null)
+    {
+      legendaryName="";
+    }
+    _legendaryName=legendaryName;
   }
 
   /**
@@ -52,7 +80,10 @@ public class LegendaryInstanceAttrs2
    */
   public String dump()
   {
-    return _sockets.dump();
+    StringBuilder sb=new StringBuilder();
+    sb.append("Name: ").append(_legendaryName).append(EndOfLine.NATIVE_EOL);
+    sb.append(_sockets.dump());
+    return sb.toString().trim();
   }
 
   @Override

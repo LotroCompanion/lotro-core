@@ -26,7 +26,14 @@ public class LegendaryInstance2AttrsXMLWriter
   public static void write(TransformerHandler hd, LegendaryInstanceAttrs2 legendaryData) throws Exception
   {
     AttributesImpl legendaryAttrs=new AttributesImpl();
+    // Name
+    String legendaryName=legendaryData.getLegendaryName();
+    if (legendaryName.length()>0)
+    {
+      legendaryAttrs.addAttribute("","",LegendaryInstance2AttrsXMLConstants.LEGENDARY_NAME_ATTR,XmlWriter.CDATA,legendaryName);
+    }
     hd.startElement("","",LegendaryInstance2AttrsXMLConstants.LEGENDARY_TAG,legendaryAttrs);
+    // Traceries
     SocketsSetupInstance socketsSetupInstance=legendaryData.getSocketsSetup();
     SocketsSetup socketsSetup=socketsSetupInstance.getSetupTemplate();
     int nbSockets=socketsSetup.getSocketsCount();

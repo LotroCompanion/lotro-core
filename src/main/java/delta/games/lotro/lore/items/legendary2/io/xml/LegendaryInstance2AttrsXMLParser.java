@@ -31,6 +31,10 @@ public class LegendaryInstance2AttrsXMLParser
     Element legendaryElement=DOMParsingTools.getChildTagByName(itemElement,LegendaryInstance2AttrsXMLConstants.LEGENDARY_TAG);
     if (legendaryElement!=null)
     {
+      // Name
+      String name=DOMParsingTools.getStringAttribute(legendaryElement.getAttributes(),LegendaryInstance2AttrsXMLConstants.LEGENDARY_NAME_ATTR,null);
+      legendaryAttrs.setLegendaryName(name);
+      // Traceries
       SocketsSetupInstance sockets=legendaryAttrs.getSocketsSetup();
       List<Element> socketTags=DOMParsingTools.getChildTagsByName(legendaryElement,LegendaryInstance2AttrsXMLConstants.SOCKET_TAG);
       for(Element socketTag : socketTags)

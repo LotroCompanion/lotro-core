@@ -11,6 +11,10 @@ public class LegendaryInstance2AttrsXMLConstants
    */
   public static final String LEGENDARY_TAG="legendary2";
   /**
+   * Tag 'legendary2', attribute 'name'.
+   */
+  public static final String LEGENDARY_NAME_ATTR="name";
+  /**
    * Tag 'socket'.
    */
   public static final String SOCKET_TAG="socket";

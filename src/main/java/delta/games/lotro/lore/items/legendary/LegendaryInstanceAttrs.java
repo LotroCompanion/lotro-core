@@ -79,7 +79,10 @@ public class LegendaryInstanceAttrs
    */
   public void setLegendaryName(String legendaryName)
   {
-    if (legendaryName==null) legendaryName="";
+    if (legendaryName==null)
+    {
+      legendaryName="";
+    }
     _legendaryName=legendaryName;
   }
 
