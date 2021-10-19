@@ -13,6 +13,7 @@ import delta.games.lotro.common.enums.filter.LotroEnumValueFilter;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.filters.ItemNameFilter;
 import delta.games.lotro.lore.items.filters.ItemQualityFilter;
+import delta.games.lotro.lore.items.filters.ItemStatFilter;
 import delta.games.lotro.lore.items.legendary2.Tracery;
 import delta.games.lotro.utils.DataProvider;
 
@@ -28,6 +29,7 @@ public class TraceryFilter implements Filter<Tracery>
   private LotroEnumValueFilter<SocketType,Tracery> _typeFilter;
   private TraceryTierFilter _tierFilter;
   private ItemQualityFilter _qualityFilter;
+  private ItemStatFilter _statFilter;
 
   /**
    * Constructor.
@@ -62,6 +64,9 @@ public class TraceryFilter implements Filter<Tracery>
     // Tier
     _tierFilter=new TraceryTierFilter();
     filters.add(_tierFilter);
+    // Stat
+    _statFilter=new ItemStatFilter(1);
+    filters.add(new ProxyFilter<>(r,_statFilter));
     _filter=new CompoundFilter<Tracery>(Operator.AND,filters);
   }
 
@@ -99,6 +104,15 @@ public class TraceryFilter implements Filter<Tracery>
   public TraceryTierFilter getTierFilter()
   {
     return _tierFilter;
+  }
+
+  /**
+   * Get the stat filter.
+   * @return A stat filter.
+   */
+  public ItemStatFilter getStatFilter()
+  {
+    return _statFilter;
   }
 
   @Override
