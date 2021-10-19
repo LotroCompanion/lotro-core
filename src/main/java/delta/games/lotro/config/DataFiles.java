@@ -151,6 +151,10 @@ public class DataFiles
    */
   public static final String TRACERIES="traceries";
   /**
+   * Enhancement runes file.
+   */
+  public static final String ENHANCEMENT_RUNES="enhancementRunes";
+  /**
    * Consumables file.
    */
   public static final String CONSUMABLES="consumables";
