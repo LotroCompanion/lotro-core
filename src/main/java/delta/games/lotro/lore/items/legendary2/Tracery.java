@@ -126,6 +126,26 @@ public class Tracery implements Identifiable,Named
     return _setId;
   }
 
+  /**
+   * Indicates if this tracery is useable by a character at the given level.
+   * @param characterLevel Character level.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isTraceryApplicable(int characterLevel)
+  {
+    Integer minLevel=_item.getMinLevel();
+    if ((minLevel!=null) && (minLevel.intValue()>characterLevel))
+    {
+      return false;
+    }
+    Integer maxLevel=_item.getMaxLevel();
+    if ((maxLevel!=null) && (maxLevel.intValue()<characterLevel))
+    {
+      return false;
+    }
+    return true;
+  }
+
   @Override
   public String toString()
   {
