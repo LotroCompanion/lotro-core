@@ -127,11 +127,22 @@ public class Tracery implements Identifiable,Named
   }
 
   /**
-   * Indicates if this tracery is useable by a character at the given level.
+   * Indicates if this tracery is applicable for a given character level and item level.
+   * @param characterLevel Character level.
+   * @param itemLevel LI item level.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isApplicable(int characterLevel, int itemLevel)
+  {
+    return isApplicableForCharacterLevel(characterLevel) && isApplicableForItemLevel(itemLevel);
+  }
+
+  /**
+   * Indicates if this tracery is applicable for a character at the given level.
    * @param characterLevel Character level.
    * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
-  public boolean isTraceryApplicable(int characterLevel)
+  public boolean isApplicableForCharacterLevel(int characterLevel)
   {
     Integer minLevel=_item.getMinLevel();
     if ((minLevel!=null) && (minLevel.intValue()>characterLevel))
@@ -140,6 +151,24 @@ public class Tracery implements Identifiable,Named
     }
     Integer maxLevel=_item.getMaxLevel();
     if ((maxLevel!=null) && (maxLevel.intValue()<characterLevel))
+    {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Indicates if this tracery is applicable for a LI at the given item level.
+   * @param itemLevel LI item level.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isApplicableForItemLevel(int itemLevel)
+  {
+    if (_minItemLevel>itemLevel)
+    {
+      return false;
+    }
+    if (_maxItemLevel<itemLevel)
     {
       return false;
     }

@@ -110,4 +110,28 @@ public class TraceriesManager
     }
     return ret;
   }
+
+  /**
+   * Get all the traceries for a given socket type, character level and LI item level.
+   * @param type Socket type.
+   * @param characterLevel Parent character level.
+   * @param itemLevel Parent item level.
+   * @return A list of traceries.
+   */
+  public List<Tracery> getTracery(SocketType type, int characterLevel, int itemLevel)
+  {
+    List<Tracery> ret=new ArrayList<Tracery>();
+    for(Tracery tracery : _cache.values())
+    {
+      if (tracery.getType()==type)
+      {
+        boolean ok=tracery.isApplicable(characterLevel,itemLevel);
+        if (ok)
+        {
+          ret.add(tracery);
+        }
+      }
+    }
+    return ret;
+  }
 }
