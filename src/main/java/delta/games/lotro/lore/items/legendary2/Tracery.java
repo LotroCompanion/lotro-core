@@ -18,6 +18,7 @@ public class Tracery implements Identifiable,Named
   private int _maxItemLevel;
   private int _increment;
   private int _setId;
+  private String _uniquenessChannel;
 
   /**
    * Constructor.
@@ -27,8 +28,9 @@ public class Tracery implements Identifiable,Named
    * @param maxItemLevel Maximum item level.
    * @param increment Level up increment.
    * @param setId Identifier of the parent set (0 if none).
+   * @param uniquenessChannel Uniqueness channel.
    */
-  public Tracery(Item item, SocketType type, int minItemLevel, int maxItemLevel, int increment, int setId)
+  public Tracery(Item item, SocketType type, int minItemLevel, int maxItemLevel, int increment, int setId, String uniquenessChannel)
   {
     _item=item;
     _type=type;
@@ -37,6 +39,7 @@ public class Tracery implements Identifiable,Named
     _maxItemLevel=maxItemLevel;
     _increment=increment;
     _setId=setId;
+    _uniquenessChannel=uniquenessChannel;
   }
 
   @Override
@@ -124,6 +127,15 @@ public class Tracery implements Identifiable,Named
   public int getSetId()
   {
     return _setId;
+  }
+
+  /**
+   * Get the uniqueness channel.
+   * @return a uniqueness channel or <code>null</code>.
+   */
+  public String getUniquenessChannel()
+  {
+    return _uniquenessChannel;
   }
 
   /**

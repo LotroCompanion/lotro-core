@@ -42,4 +42,8 @@ public class TraceriesXMLConstants
    * Tag 'tracery', attribute 'setId'.
    */
   public static final String SET_ID_ATTR="setId";
+  /**
+   * Tag 'tracery', attribute 'uniquenessChannel'.
+   */
+  public static final String UNIQUENESS_CHANNEL_ATTR="uniquenessChannel";
 }

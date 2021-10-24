@@ -92,6 +92,12 @@ public class TraceriesXMLWriter
     {
       traceryAttrs.addAttribute("","",TraceriesXMLConstants.SET_ID_ATTR,XmlWriter.CDATA,String.valueOf(setId));
     }
+    // Uniqueness channel
+    String uniquenessChannel=tracery.getUniquenessChannel();
+    if (uniquenessChannel!=null)
+    {
+      traceryAttrs.addAttribute("","",TraceriesXMLConstants.UNIQUENESS_CHANNEL_ATTR,XmlWriter.CDATA,uniquenessChannel);
+    }
     hd.startElement("","",TraceriesXMLConstants.TRACERY_TAG,traceryAttrs);
     hd.endElement("","",TraceriesXMLConstants.TRACERY_TAG);
   }
