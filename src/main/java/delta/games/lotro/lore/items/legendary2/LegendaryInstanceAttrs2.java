@@ -67,11 +67,13 @@ public class LegendaryInstanceAttrs2
 
   /**
    * Get the total stats for these legendary attributes.
+   * @param itemLevel Item level of the parent LI.
+   * @param characterLevel Level of the parent character.
    * @return a set of stats.
    */
-  public BasicStatsSet getStats()
+  public BasicStatsSet getStats(int itemLevel, int characterLevel)
   {
-    return _sockets.getStats();
+    return _sockets.getStats(itemLevel,characterLevel);
   }
 
   /**

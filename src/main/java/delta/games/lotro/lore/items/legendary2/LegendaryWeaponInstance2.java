@@ -67,15 +67,14 @@ public class LegendaryWeaponInstance2 extends WeaponInstance<LegendaryWeapon2> i
     }
   }
 
-  /**
-   * Get the stats for this item.
-   * @return a set of stats.
-   */
+  @Override
   public BasicStatsSet getStats()
   {
     BasicStatsSet ret=new BasicStatsSet();
     ret.addStats(super.getStats());
-    BasicStatsSet legendaryStats=_attrs.getStats();
+    // Legendary stats
+    int itemLevel=getApplicableItemLevel();
+    BasicStatsSet legendaryStats=_attrs.getStats(itemLevel,characterLevel);
     ret.addStats(legendaryStats);
     return ret;
   }

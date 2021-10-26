@@ -70,11 +70,13 @@ public class LegendaryItemInstance2 extends ItemInstance<LegendaryItem2> impleme
    * Get the stats for this item.
    * @return a set of stats.
    */
+  @Override
   public BasicStatsSet getStats()
   {
     BasicStatsSet ret=new BasicStatsSet();
     ret.addStats(super.getStats());
-    BasicStatsSet legendaryStats=_attrs.getStats();
+    int itemLevel=getApplicableItemLevel();
+    BasicStatsSet legendaryStats=_attrs.getStats(itemLevel,characterLevel);
     ret.addStats(legendaryStats);
     return ret;
   }

@@ -79,7 +79,7 @@ public class CharacterStatsComputer
     return buffInstance;
   }
 
-  private BasicStatsSet getEquipmentStats(CharacterEquipment equipment)
+  private BasicStatsSet getEquipmentStats(int characterLevel, CharacterEquipment equipment)
   {
     BasicStatsSet ret=new BasicStatsSet();
     // Iterate on slots
@@ -91,7 +91,7 @@ public class CharacterStatsComputer
         ItemInstance<?> item=slotContents.getItem();
         if (item!=null)
         {
-          BasicStatsSet itemStats=getItemStats(item);
+          BasicStatsSet itemStats=getItemStats(characterLevel,item);
           ret.addStats(itemStats);
           if (_contribs!=null)
           {
@@ -116,12 +116,26 @@ public class CharacterStatsComputer
     return ret;
   }
 
-  private BasicStatsSet getItemStats(ItemInstance<? extends Item> item)
+  private BasicStatsSet getItemStats(int characterLevel, ItemInstance<? extends Item> item)
   {
+    // Check for broken items
     Integer durability=item.getDurability();
     if ((durability!=null) && (durability.intValue()==0))
     {
       // Broken => no contrib
+      return new BasicStatsSet();
+    }
+    // Check for level requirements
+    Integer minLevel=item.getEffectiveMinLevel();
+    if ((minLevel!=null) && (characterLevel<minLevel.intValue()))
+    {
+      // Character is too low level => no contrib
+      return new BasicStatsSet();
+    }
+    Integer maxLevel=item.getReference().getMaxLevel();
+    if ((maxLevel!=null) && (characterLevel>maxLevel.intValue()))
+    {
+      // Character is too high level => no contrib
       return new BasicStatsSet();
     }
     return item.getStats();
@@ -169,7 +183,7 @@ public class CharacterStatsComputer
     raw.addStats(tomesStats);
 
     // Equipment
-    BasicStatsSet equipmentStats=getEquipmentStats(c.getEquipment());
+    BasicStatsSet equipmentStats=getEquipmentStats(c.getLevel(),c.getEquipment());
     raw.addStats(equipmentStats);
 
     // Buffs

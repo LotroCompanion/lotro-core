@@ -85,15 +85,29 @@ public class SocketsSetupInstance
 
   /**
    * Get the total stats for all socket entries.
+   * @param itemLevel Item level of the parent LI.
+   * @param characterLevel Level of the parent character.
    * @return a set of stats.
    */
-  public BasicStatsSet getStats()
+  public BasicStatsSet getStats(int itemLevel, int characterLevel)
   {
     BasicStatsSet ret=new BasicStatsSet();
     for(SocketEntryInstance entry : _entries)
     {
-      BasicStatsSet entryStats=entry.getStats();
-      ret.addStats(entryStats);
+      boolean enabled=entry.getTemplate().isEnabled(itemLevel);
+      if (enabled)
+      {
+        Tracery tracery=entry.getTracery();
+        if (tracery!=null)
+        {
+          boolean applicable=tracery.isApplicable(characterLevel,itemLevel);
+          if (applicable)
+          {
+            BasicStatsSet entryStats=entry.getStats();
+            ret.addStats(entryStats);
+          }
+        }
+      }
     }
     return ret;
   }

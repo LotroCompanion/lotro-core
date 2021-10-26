@@ -87,8 +87,7 @@ public class LegendarySystem
     {
       return null;
     }
-    Integer itemLevelInt=itemInstance.getEffectiveItemLevel();
-    int itemLevel=(itemLevelInt!=null)?itemLevelInt.intValue():1;
+    int itemLevel=itemInstance.getApplicableItemLevel();
     return getRanksForMainLegacy(item,itemLevel);
   }
 
