@@ -289,6 +289,17 @@ public class ItemInstance<T extends Item> implements ItemProvider
   }
 
   /**
+   * Get the applicable item level.
+   * @return An item level value.
+   */
+  public int getApplicableItemLevel()
+  {
+    Integer itemLevel=getEffectiveItemLevel();
+    int ret=(itemLevel!=null)?itemLevel.intValue():0;
+    return ret;
+  }
+
+  /**
    * Get the minimum level required to use this item.
    * @return a minimum level value or <code>null</code>.
    */
@@ -542,7 +553,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
     Integer effectiveLevel=getEffectiveItemLevel();
     if (effectiveLevel!=null)
     {
-      BasicStatsSet stats=getStats(effectiveLevel.intValue());
+      BasicStatsSet stats=getStatsForItemLevel(effectiveLevel.intValue());
       if (stats!=null)
       {
         _statsManager.getDefault().setStats(stats);
@@ -558,7 +569,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
    * @param effectiveItemLevel Item level to use.
    * @return Some stats or <code>null</code> if computation is not possible.
    */
-  public BasicStatsSet getStats(int effectiveItemLevel)
+  public BasicStatsSet getStatsForItemLevel(int effectiveItemLevel)
   {
     BasicStatsSet ret=null;
     if (_reference!=null)

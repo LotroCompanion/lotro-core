@@ -81,8 +81,8 @@ public class ItemsSetStatsComputer
       int totalItemLevels=0;
       for(ItemInstance<? extends Item> itemInstance : itemInstances)
       {
-        Integer itemLevel=itemInstance.getEffectiveItemLevel();
-        totalItemLevels+=((itemLevel!=null)?itemLevel.intValue():0);
+        int itemLevel=itemInstance.getApplicableItemLevel();
+        totalItemLevels+=itemLevel;
       }
       int nbElements=itemInstances.size();
       return totalItemLevels/nbElements;
