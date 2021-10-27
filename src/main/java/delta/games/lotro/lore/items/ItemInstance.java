@@ -6,6 +6,7 @@ import java.util.Map;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.BasicCharacterAttributes;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.id.InternalGameId;
@@ -21,6 +22,8 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
  */
 public class ItemInstance<T extends Item> implements ItemProvider
 {
+  // Wearer
+  private BasicCharacterAttributes _wearer;
   // Reference item
   private T _reference;
   // Instance ID
@@ -55,6 +58,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
    */
   public ItemInstance()
   {
+    _wearer=null;
     _reference=null;
     _id=null;
     _time=null;
@@ -300,6 +304,15 @@ public class ItemInstance<T extends Item> implements ItemProvider
   }
 
   /**
+   * Get the level of the owner.
+   * @return A character level.
+   */
+  protected int getWearerLevel()
+  {
+    return (_wearer!=null)?_wearer.getLevel():1;
+  }
+
+  /**
    * Get the minimum level required to use this item.
    * @return a minimum level value or <code>null</code>.
    */
@@ -481,6 +494,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
   @SuppressWarnings("unchecked")
   public void copyFrom(ItemInstance<?> itemInstance)
   {
+    _wearer=itemInstance._wearer;
     _reference=(T)itemInstance._reference;
     if (itemInstance._id!=null)
     {
@@ -523,6 +537,24 @@ public class ItemInstance<T extends Item> implements ItemProvider
       _boundTo=null;
     }
     _properties=new HashMap<String,String>(itemInstance._properties);
+  }
+
+  /**
+   * Get the wearer of this item.
+   * @return A wearer or <code>null</code> if none.
+   */
+  public BasicCharacterAttributes getWearer()
+  {
+    return _wearer;
+  }
+
+  /**
+   * Set the wearer of this item.
+   * @param wearer Wearer to set.
+   */
+  public void setWearer(BasicCharacterAttributes wearer)
+  {
+    _wearer=wearer;
   }
 
   /**

@@ -74,6 +74,7 @@ public class LegendaryWeaponInstance2 extends WeaponInstance<LegendaryWeapon2> i
     ret.addStats(super.getStats());
     // Legendary stats
     int itemLevel=getApplicableItemLevel();
+    int characterLevel=getWearerLevel();
     BasicStatsSet legendaryStats=_attrs.getStats(itemLevel,characterLevel);
     ret.addStats(legendaryStats);
     return ret;

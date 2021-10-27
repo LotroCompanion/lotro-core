@@ -151,6 +151,7 @@ public class CharacterXMLParser
           if (itemTag!=null)
           {
             ItemInstance<? extends Item> item=itemParser.parseItemInstance(itemTag);
+            item.setWearer(c.getSummary());
             slotContents.setItem(item);
           }
         }

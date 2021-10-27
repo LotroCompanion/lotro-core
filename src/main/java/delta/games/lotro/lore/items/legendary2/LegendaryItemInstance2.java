@@ -76,6 +76,7 @@ public class LegendaryItemInstance2 extends ItemInstance<LegendaryItem2> impleme
     BasicStatsSet ret=new BasicStatsSet();
     ret.addStats(super.getStats());
     int itemLevel=getApplicableItemLevel();
+    int characterLevel=getWearerLevel();
     BasicStatsSet legendaryStats=_attrs.getStats(itemLevel,characterLevel);
     ret.addStats(legendaryStats);
     return ret;

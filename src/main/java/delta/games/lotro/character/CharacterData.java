@@ -61,6 +61,7 @@ public class CharacterData
     _stats=new BasicStatsSet(source.getStats());
     _equipment=new CharacterEquipment();
     _equipment.copyFrom(source._equipment);
+    _equipment.setWearer(_summary);
     _virtues=new VirtuesSet();
     _virtues.copyFrom(source.getVirtues());
     _tomes=new TomesSet();

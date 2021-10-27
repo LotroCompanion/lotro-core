@@ -339,6 +339,21 @@ public class CharacterEquipment
     _contents.clear();
   }
 
+  /**
+   * Set the wearer of this equipment.
+   * @param wearer Wearer to use.
+   */
+  public void setWearer(BasicCharacterAttributes wearer)
+  {
+    for(SlotContents contents : _contents.values())
+    {
+      if (contents._item!=null)
+      {
+        contents._item.setWearer(wearer);
+      }
+    }
+  }
+
   @Override
   public String toString()
   {
