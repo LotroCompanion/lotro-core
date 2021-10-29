@@ -35,20 +35,31 @@ public class ItemsSetStatsComputer
 
   /**
    * Get the stats contribution from items sets.
+   * @param characterLevel Character level.
    * @param equipment Equipment to use.
    * @param contribs Contributions manager (optional).
    * @return some stats.
    */
-  public BasicStatsSet getStats(CharacterEquipment equipment, StatsContributionsManager contribs)
+  public BasicStatsSet getStats(int characterLevel, CharacterEquipment equipment, StatsContributionsManager contribs)
   {
-    List<ItemInstance<? extends Item>> itemInstances=getItemInstancesFromGear(equipment);
-    Map<Integer,List<ItemInstance<? extends Item>>> itemInstancesBySet=getItemInstancesBySet(itemInstances);
     BasicStatsSet stats=new BasicStatsSet();
+    List<ItemInstance<? extends Item>> itemInstances=getItemInstancesFromGear(equipment);
+    int nbInstances=itemInstances.size();
+    if (nbInstances==0)
+    {
+      return stats;
+    }
+    Map<Integer,List<ItemInstance<? extends Item>>> itemInstancesBySet=getItemInstancesBySet(itemInstances);
     for(Map.Entry<Integer,List<ItemInstance<? extends Item>>> entry : itemInstancesBySet.entrySet())
     {
-      BasicStatsSet statsForSet=new BasicStatsSet();
       int setId=entry.getKey().intValue();
       ItemsSet set=_itemsSetsManager.getSetById(setId);
+      boolean isApplicable=StatsComputationUtils.setIsApplicable(set,characterLevel);
+      if (!isApplicable)
+      {
+        continue;
+      }
+      BasicStatsSet statsForSet=new BasicStatsSet();
       int count=entry.getValue().size();
       int level=getSetLevel(set,entry.getValue());
       for(SetBonus bonus : set.getBonuses())
@@ -120,13 +131,19 @@ public class ItemsSetStatsComputer
     for(EQUIMENT_SLOT slot : EQUIMENT_SLOT.values())
     {
       SlotContents slotContents=equipment.getSlotContents(slot,false);
-      if (slotContents!=null)
+      if (slotContents==null)
       {
-        ItemInstance<?> itemInstance=slotContents.getItem();
-        if (itemInstance!=null)
-        {
-          itemInstances.add(itemInstance);
-        }
+        continue;
+      }
+      ItemInstance<?> itemInstance=slotContents.getItem();
+      if (itemInstance==null)
+      {
+        continue;
+      }
+      boolean isApplicable=StatsComputationUtils.itemIsApplicable(itemInstance);
+      if (isApplicable)
+      {
+        itemInstances.add(itemInstance);
       }
     }
     return itemInstances;

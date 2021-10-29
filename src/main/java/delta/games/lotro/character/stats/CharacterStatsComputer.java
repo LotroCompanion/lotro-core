@@ -102,13 +102,13 @@ public class CharacterStatsComputer
       }
     }
     // Items sets
-    BasicStatsSet itemsSetsStats=_itemsSetsMgr.getStats(equipment,_contribs);
+    BasicStatsSet itemsSetsStats=_itemsSetsMgr.getStats(characterLevel,equipment,_contribs);
     if (itemsSetsStats.getStatsCount()>0)
     {
       ret.addStats(itemsSetsStats);
     }
     // Traceries sets
-    BasicStatsSet traceriesSetsStats=_traceriesSetsMgr.getStats(equipment,_contribs);
+    BasicStatsSet traceriesSetsStats=_traceriesSetsMgr.getStats(characterLevel,equipment,_contribs);
     if (traceriesSetsStats.getStatsCount()>0)
     {
       ret.addStats(traceriesSetsStats);
@@ -118,27 +118,12 @@ public class CharacterStatsComputer
 
   private BasicStatsSet getItemStats(int characterLevel, ItemInstance<? extends Item> item)
   {
-    // Check for broken items
-    Integer durability=item.getDurability();
-    if ((durability!=null) && (durability.intValue()==0))
+    boolean isApplicable=StatsComputationUtils.itemIsApplicable(item);
+    if (isApplicable)
     {
-      // Broken => no contrib
-      return new BasicStatsSet();
+      return item.getStats();
     }
-    // Check for level requirements
-    Integer minLevel=item.getEffectiveMinLevel();
-    if ((minLevel!=null) && (characterLevel<minLevel.intValue()))
-    {
-      // Character is too low level => no contrib
-      return new BasicStatsSet();
-    }
-    Integer maxLevel=item.getReference().getMaxLevel();
-    if ((maxLevel!=null) && (characterLevel>maxLevel.intValue()))
-    {
-      // Character is too high level => no contrib
-      return new BasicStatsSet();
-    }
-    return item.getStats();
+    return new BasicStatsSet();
   }
 
   /**

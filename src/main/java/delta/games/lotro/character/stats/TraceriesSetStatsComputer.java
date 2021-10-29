@@ -39,20 +39,31 @@ public class TraceriesSetStatsComputer
 
   /**
    * Get the stats contribution from traceries sets.
+   * @param characterLevel Character level.
    * @param equipment Equipment to use.
    * @param contribs Contributions manager (optional).
    * @return some stats.
    */
-  public BasicStatsSet getStats(CharacterEquipment equipment, StatsContributionsManager contribs)
+  public BasicStatsSet getStats(int characterLevel, CharacterEquipment equipment, StatsContributionsManager contribs)
   {
-    List<SocketEntryInstance> sockets=getTraceries(equipment);
-    Map<Integer,List<SocketEntryInstance>> traceriesBySet=getTraceriesBySet(sockets);
     BasicStatsSet stats=new BasicStatsSet();
+    List<SocketEntryInstance> sockets=getTraceries(characterLevel,equipment);
+    int nbInstances=sockets.size();
+    if (nbInstances==0)
+    {
+      return stats;
+    }
+    Map<Integer,List<SocketEntryInstance>> traceriesBySet=getTraceriesBySet(sockets);
     for(Map.Entry<Integer,List<SocketEntryInstance>> entry : traceriesBySet.entrySet())
     {
-      BasicStatsSet statsForSet=new BasicStatsSet();
       int setId=entry.getKey().intValue();
       ItemsSet set=_itemsSetsManager.getSetById(setId);
+      boolean isApplicable=StatsComputationUtils.setIsApplicable(set,characterLevel);
+      if (!isApplicable)
+      {
+        continue;
+      }
+      BasicStatsSet statsForSet=new BasicStatsSet();
       int count=entry.getValue().size();
       int level=getSetLevel(set,entry.getValue());
       for(SetBonus bonus : set.getBonuses())
@@ -117,33 +128,54 @@ public class TraceriesSetStatsComputer
     return ret;
   }
 
-  private List<SocketEntryInstance> getTraceries(CharacterEquipment equipment)
+  private List<SocketEntryInstance> getTraceries(int characterLevel, CharacterEquipment equipment)
   {
     List<SocketEntryInstance> ret=new ArrayList<SocketEntryInstance>();
     for(EQUIMENT_SLOT slot : EQUIMENT_SLOT.values())
     {
       SlotContents slotContents=equipment.getSlotContents(slot,false);
-      if (slotContents!=null)
+      if (slotContents==null)
       {
-        ItemInstance<?> itemInstance=slotContents.getItem();
-        if (itemInstance instanceof LegendaryInstance2)
+        continue;
+      }
+      ItemInstance<?> itemInstance=slotContents.getItem();
+      if (itemInstance==null)
+      {
+        continue;
+      }
+      boolean isApplicable=StatsComputationUtils.itemIsApplicable(itemInstance);
+      if (!isApplicable)
+      {
+        continue;
+      }
+      boolean isLegendaryInstance2=(itemInstance instanceof LegendaryInstance2);
+      if (!isLegendaryInstance2)
+      {
+        continue;
+      }
+      LegendaryInstance2 legInstance=(LegendaryInstance2)itemInstance;
+      LegendaryInstanceAttrs2 attrs=legInstance.getLegendaryAttributes();
+      // Item level
+      int itemLevel=itemInstance.getApplicableItemLevel();
+      SocketsSetupInstance sockets=attrs.getSocketsSetup();
+      int nbSockets=sockets.getSocketsCount();
+      for(int i=0;i<nbSockets;i++)
+      {
+        SocketEntryInstance entry=sockets.getEntry(i);
+        boolean enabled=entry.getTemplate().isEnabled(itemLevel);
+        if (!enabled)
         {
-          LegendaryInstance2 legInstance=(LegendaryInstance2)itemInstance;
-          LegendaryInstanceAttrs2 attrs=legInstance.getLegendaryAttributes();
-          SocketsSetupInstance sockets=attrs.getSocketsSetup();
-          int nbSockets=sockets.getSocketsCount();
-          for(int i=0;i<nbSockets;i++)
-          {
-            SocketEntryInstance entry=sockets.getEntry(i);
-            if (entry!=null)
-            {
-              Tracery tracery=entry.getTracery();
-              if (tracery!=null)
-              {
-                ret.add(entry);
-              }
-            }
-          }
+          continue;
+        }
+        Tracery tracery=entry.getTracery();
+        if (tracery==null)
+        {
+          continue;
+        }
+        boolean isTraceryApplicable=tracery.isApplicable(characterLevel,itemLevel);
+        if (isTraceryApplicable)
+        {
+          ret.add(entry);
         }
       }
     }
