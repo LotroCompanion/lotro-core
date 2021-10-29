@@ -14,7 +14,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.SetBonus;
-import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.lore.items.sets.ItemsSet.SetType;
 
 /**
  * Parser for items sets descriptions stored in XML.
@@ -61,6 +61,14 @@ public class ItemsSetXMLParser
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_NAME_ATTR,"");
     ret.setName(name);
+    // Type
+    String setTypeStr=DOMParsingTools.getStringAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_TYPE_ATTR,null);
+    SetType setType=SetType.ITEMS;
+    if (setTypeStr!=null)
+    {
+      setType=SetType.valueOf(setTypeStr);
+      ret.setSetType(setType);
+    }
     // Set level
     int setLevel=DOMParsingTools.getIntAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_LEVEL_ATTR,-1);
     ret.setSetLevel(setLevel);
@@ -90,11 +98,7 @@ public class ItemsSetXMLParser
         Item member=ItemsManager.getInstance().getItem(memberId);
         if (member!=null)
         {
-          Proxy<Item> proxy=new Proxy<Item>();
-          proxy.setId(memberId);
-          proxy.setName(member.getName());
-          proxy.setObject(member);
-          ret.addMember(proxy);
+          ret.addMember(member);
         }
       }
     }

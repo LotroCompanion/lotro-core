@@ -17,7 +17,7 @@ import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.SetBonus;
-import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.lore.items.sets.ItemsSet.SetType;
 
 /**
  * Writes LOTRO items sets to XML files.
@@ -88,6 +88,12 @@ public class ItemsSetXMLWriter
     // Name
     String name=set.getName();
     itemAttrs.addAttribute("","",ItemsSetXMLConstants.ITEMS_SET_NAME_ATTR,XmlWriter.CDATA,name);
+    // Type
+    SetType setType=set.getSetType();
+    if (setType!=SetType.ITEMS)
+    {
+      itemAttrs.addAttribute("","",ItemsSetXMLConstants.ITEMS_SET_TYPE_ATTR,XmlWriter.CDATA,setType.name());
+    }
     // Level
     boolean useAverageItemLevelForSetLevel=set.useAverageItemLevelForSetLevel();
     if (useAverageItemLevelForSetLevel)
@@ -117,11 +123,11 @@ public class ItemsSetXMLWriter
     hd.startElement("","",ItemsSetXMLConstants.ITEMS_SET_TAG,itemAttrs);
 
     // Items
-    List<Proxy<Item>> members=set.getMembers();
-    for(Proxy<Item> member : members)
+    List<Item> members=set.getMembers();
+    for(Item member : members)
     {
       AttributesImpl attrs=new AttributesImpl();
-      int memberId=member.getId();
+      int memberId=member.getIdentifier();
       attrs.addAttribute("","",ItemsSetXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(memberId));
       String memberName=member.getName();
       attrs.addAttribute("","",ItemsSetXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,memberName);

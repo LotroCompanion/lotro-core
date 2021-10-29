@@ -26,6 +26,24 @@ public class TraceryComparators
    */
   public static Comparator<Tracery> buildTraceriesComparator()
   {
+    Comparator<Item> itemsComparator=buildTraceryItemsComparator();
+    DataProvider<Tracery,Item> itemProvider=new DataProvider<Tracery,Item>()
+    {
+      public Item getData(Tracery p)
+      {
+        return p.getItem();
+      }
+    };
+    DelegatingComparator<Tracery,Item> ret=new DelegatingComparator<Tracery,Item>(itemProvider,itemsComparator);
+    return ret;
+  }
+
+  /**
+   * Build a comparator for tracery items.
+   * @return A comparator using name/tier/quality.
+   */
+  public static Comparator<Item> buildTraceryItemsComparator()
+  {
     // Item comparators
     List<Comparator<Item>> itemComparators=new ArrayList<Comparator<Item>>();
     // - name
@@ -44,17 +62,7 @@ public class TraceryComparators
     };
     DelegatingComparator<Item,ItemQuality> qualityComparator=new DelegatingComparator<Item,ItemQuality>(qualityProvider,new ItemQualityComparator());
     itemComparators.add(qualityComparator);
-    Comparator<Item> itemsComparator=new CompoundComparator<Item>(itemComparators);
-
-    // Build result comparator
-    DataProvider<Tracery,Item> itemProvider=new DataProvider<Tracery,Item>()
-    {
-      public Item getData(Tracery p)
-      {
-        return p.getItem();
-      }
-    };
-    DelegatingComparator<Tracery,Item> ret=new DelegatingComparator<Tracery,Item>(itemProvider,itemsComparator);
+    Comparator<Item> ret=new CompoundComparator<Item>(itemComparators);
     return ret;
   }
 }

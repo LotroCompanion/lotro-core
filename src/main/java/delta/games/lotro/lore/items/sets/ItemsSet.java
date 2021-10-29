@@ -10,7 +10,6 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Set of items.
@@ -20,14 +19,31 @@ import delta.games.lotro.utils.Proxy;
  */
 public class ItemsSet implements Identifiable
 {
+  /**
+   * Set type.
+   * @author DAM
+   */
+  public enum SetType
+  {
+    /**
+     * Items.
+     */
+    ITEMS,
+    /**
+     * Traceries.
+     */
+    TRACERIES
+  }
+
   private int _id;
   private String _name;
+  private SetType _type;
   private String _description;
   private int _setLevel;
   private boolean _useAverageItemLevelForSetLevel;
   private int _requiredMinLevel;
   private Integer _requiredMaxLevel;
-  private List<Proxy<Item>> _members;
+  private List<Item> _members;
   private Map<Integer,SetBonus> _bonuses;
 
   /**
@@ -37,12 +53,13 @@ public class ItemsSet implements Identifiable
   {
     _id=0;
     _name="";
+    _type=SetType.ITEMS;
     _description="";
     _setLevel=1;
     _useAverageItemLevelForSetLevel=false;
     _requiredMinLevel=1;
     _requiredMaxLevel=null;
-    _members=new ArrayList<Proxy<Item>>();
+    _members=new ArrayList<Item>();
     _bonuses=new HashMap<Integer,SetBonus>();
   }
 
@@ -84,6 +101,24 @@ public class ItemsSet implements Identifiable
       name="";
     }
     _name=name;
+  }
+
+  /**
+   * Get the set type.
+   * @return a set type.
+   */
+  public SetType getSetType()
+  {
+    return _type;
+  }
+
+  /**
+   * Set the set type.
+   * @param type Type to set.
+   */
+  public void setSetType(SetType type)
+  {
+    _type=type;
   }
 
   /**
@@ -183,20 +218,20 @@ public class ItemsSet implements Identifiable
 
   /**
    * Get the members of this set.
-   * @return a list of item proxies.
+   * @return a list of items.
    */
-  public List<Proxy<Item>> getMembers()
+  public List<Item> getMembers()
   {
     return _members;
   }
 
   /**
    * Add a member to this set.
-   * @param proxy Item proxy to add.
+   * @param item Item to add.
    */
-  public void addMember(Proxy<Item> proxy)
+  public void addMember(Item item)
   {
-    _members.add(proxy);
+    _members.add(item);
   }
 
   /**
@@ -206,9 +241,9 @@ public class ItemsSet implements Identifiable
    */
   public boolean hasMember(int itemId)
   {
-    for(Proxy<Item> member : _members)
+    for(Item member : _members)
     {
-      if (member.getId()==itemId)
+      if (member.getIdentifier()==itemId)
       {
         return true;
       }
@@ -251,6 +286,7 @@ public class ItemsSet implements Identifiable
     StringBuilder sb=new StringBuilder();
     sb.append("Set ID=").append(_id);
     sb.append(", name=").append(_name);
+    sb.append(", type=").append(_type);
     if (_useAverageItemLevelForSetLevel)
     {
       sb.append(", use average item level for set level");
@@ -268,9 +304,9 @@ public class ItemsSet implements Identifiable
       sb.append(", max character level=").append(_requiredMaxLevel);
     }
     sb.append(EndOfLine.NATIVE_EOL);
-    for(Proxy<Item> itemProxy : _members)
+    for(Item item : _members)
     {
-      sb.append('\t').append(itemProxy);
+      sb.append('\t').append(item);
       sb.append(EndOfLine.NATIVE_EOL);
     }
     List<SetBonus> bonuses=getBonuses();

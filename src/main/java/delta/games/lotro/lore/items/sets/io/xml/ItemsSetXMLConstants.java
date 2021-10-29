@@ -23,6 +23,10 @@ public class ItemsSetXMLConstants
    */
   public static final String ITEMS_SET_NAME_ATTR="name";
   /**
+   * Tag 'set', attribute 'type'.
+   */
+  public static final String ITEMS_SET_TYPE_ATTR="type";
+  /**
    * Tag 'set', attribute 'description'.
    */
   public static final String ITEMS_SET_DESCRIPTION_ATTR="description";
