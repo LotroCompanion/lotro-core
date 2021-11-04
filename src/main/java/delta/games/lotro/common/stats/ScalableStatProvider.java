@@ -45,4 +45,10 @@ public class ScalableStatProvider extends AbstractStatProvider
     }
     return ret;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Scalable stat provider: stat="+getStat().getName()+", progression="+_progression;
+  }
 }

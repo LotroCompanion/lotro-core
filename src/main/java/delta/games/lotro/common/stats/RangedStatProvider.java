@@ -3,6 +3,8 @@ package delta.games.lotro.common.stats;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.common.utils.text.EndOfLine;
+
 /**
  * Stat provider with level range constraints.
  * @author DAM
@@ -100,5 +102,20 @@ public class RangedStatProvider extends AbstractStatProvider
       return provider.getStatValue(tier,level);
     }
     return null;
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder("Ranged stat provider: stat=");
+    sb.append(getStat().getName()).append(':').append(EndOfLine.NATIVE_EOL);
+    int nb=_minLevels.size();
+    for(int i=0;i<nb;i++)
+    {
+      sb.append('\t').append(_minLevels.get(i));
+      sb.append('-').append(_maxLevels.get(i));
+      sb.append(": ").append(_providers.get(i));
+    }
+    return sb.toString();
   }
 }
