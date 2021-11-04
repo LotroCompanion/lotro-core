@@ -7,6 +7,7 @@ import java.util.Map;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.SpecialEffect;
+import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -24,6 +25,7 @@ public class MainCheckItemSets
 {
   private void doIt()
   {
+    displaySets();
     //checkItemsThatBelongToSeveralSets();
     // => no item belong to more than 1 set
     //checkItemsInSetAreUnique();
@@ -87,6 +89,29 @@ public class MainCheckItemSets
     }
   }
 
+  void displaySets()
+  {
+    System.out.println("Sets:");
+    // Gather data
+    ItemsSetsManager mgr=ItemsSetsManager.getInstance();
+    List<ItemsSet> itemsSets=mgr.getAll();
+    for(ItemsSet itemsSet : itemsSets)
+    {
+      // Filter
+      boolean average=itemsSet.useAverageItemLevelForSetLevel();
+      if (!average)
+      {
+        continue;
+      }
+      SetType type=itemsSet.getSetType();
+      if (type==SetType.ITEMS)
+      {
+        continue;
+      }
+      displayItemLevelSet(itemsSet);
+    }
+  }
+
   void displayItemLevelSet(ItemsSet itemsSet)
   {
     System.out.println("Items set: "+itemsSet.getName());
@@ -106,15 +131,25 @@ public class MainCheckItemSets
     }
     for(SetBonus bonusSet : itemsSet.getBonuses())
     {
+      // Count
       int count=bonusSet.getPiecesCount();
       System.out.println("\tCount="+count);
+      // Stats provider
       StatsProvider statsProvider=bonusSet.getStatsProvider();
+      int nbStatsProviders=statsProvider.getNumberOfStatProviders();
+      for(int i=0;i<nbStatsProviders;i++)
+      {
+        StatProvider statProvider=statsProvider.getStatProvider(i);
+        System.out.println("\t\t"+statProvider);
+      }
+      // Stats
       BasicStatsSet bonusStats=statsProvider.getStats(1,level);
       String[] lines=StatUtils.getStatsDisplayLines(bonusStats);
       for(String line : lines)
       {
         System.out.println("\t\t"+line);
       }
+      // Effects
       for(SpecialEffect effect : statsProvider.getSpecialEffects())
       {
         System.out.println("\t\tEFFECT="+effect.getLabel());

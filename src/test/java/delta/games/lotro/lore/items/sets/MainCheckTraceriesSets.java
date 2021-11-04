@@ -1,0 +1,125 @@
+package delta.games.lotro.lore.items.sets;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import delta.common.utils.math.Range;
+import delta.common.utils.math.RangeComparator;
+import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.common.stats.StatUtils;
+import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.legendary2.TraceriesSetsUtils;
+import delta.games.lotro.lore.items.legendary2.Tracery;
+import delta.games.lotro.lore.items.sets.ItemsSet.SetType;
+
+/**
+ * Simple tool class to investigate traceries sets.
+ * @author DAM
+ */
+public class MainCheckTraceriesSets
+{
+  private void doIt()
+  {
+    List<ItemsSet> sets=findTraceriesSetsWithAverageItemLevel();
+    for(ItemsSet set : sets)
+    {
+      inspectSet(set);
+    }
+  }
+
+  private void inspectSet(ItemsSet set)
+  {
+    System.out.println("Set: "+set.getName());
+    List<Tracery> traceries=TraceriesSetsUtils.getMemberTraceries(set);
+    //int[] minMax=TraceriesSetsUtils.findCharacterLevelRange(traceries);
+    //System.out.println("Min/max character level: "+minMax[0]+"/"+minMax[1]);
+    //for(int characterLevel=minMax[0];characterLevel<=minMax[1];characterLevel++)
+    //{
+    List<Range> characterLevelRanges=getCharacterLevelRanges(traceries);
+    for(Range characterLevelRange : characterLevelRanges)
+    {
+      List<Tracery> traceriesForCharacterLevelRange=findTraceriesForCharacterLevelRange(traceries,characterLevelRange);
+      int[] minMaxItemLevel=TraceriesSetsUtils.findItemLevelRange(traceriesForCharacterLevelRange);
+      System.out.println("\tCharacter levels: "+characterLevelRange+" => Min/max item level: "+minMaxItemLevel[0]+"/"+minMaxItemLevel[1]);
+      for(int itemLevel=minMaxItemLevel[0];itemLevel<=minMaxItemLevel[1];itemLevel++)
+      {
+        List<SetBonus> bonuses=set.getBonuses();
+        for(SetBonus bonus : bonuses)
+        {
+          StatsProvider statsProvider=bonus.getStatsProvider();
+          BasicStatsSet stats=statsProvider.getStats(1,itemLevel);
+          String[] lines=StatUtils.getFullStatsDisplay(stats,statsProvider);
+          System.out.println("\t\tItem Level "+itemLevel+", "+bonus.getPiecesCount()+" pieces: "+Arrays.toString(lines));
+        }
+      }
+    }
+  }
+
+  private List<ItemsSet> findTraceriesSetsWithAverageItemLevel()
+  {
+    List<ItemsSet> ret=new ArrayList<ItemsSet>();
+    ItemsSetsManager mgr=ItemsSetsManager.getInstance();
+    List<ItemsSet> itemsSets=mgr.getAll();
+    for(ItemsSet itemsSet : itemsSets)
+    {
+      // Filter
+      boolean average=itemsSet.useAverageItemLevelForSetLevel();
+      if (average)
+      {
+        SetType type=itemsSet.getSetType();
+        if (type==SetType.TRACERIES)
+        {
+          ret.add(itemsSet);
+        }
+      }
+    }
+    return ret;
+  }
+
+  private List<Tracery> findTraceriesForCharacterLevelRange(List<Tracery> traceries, Range characterLevelRange)
+  {
+    List<Tracery> ret=new ArrayList<Tracery>();
+    for(Tracery tracery : traceries)
+    {
+      Item item=tracery.getItem();
+      Integer minLevel=item.getMinLevel();
+      Integer maxLevel=item.getMaxLevel();
+      Range levelRange=new Range(minLevel,maxLevel);
+      if (levelRange.equals(characterLevelRange))
+      {
+        ret.add(tracery);
+      }
+    }
+    return ret;
+  }
+
+  private List<Range> getCharacterLevelRanges(List<Tracery> traceries)
+  {
+    Set<Range> ranges=new HashSet<Range>();
+    for(Tracery tracery : traceries)
+    {
+      Item item=tracery.getItem();
+      Integer minLevel=item.getMinLevel();
+      Integer maxLevel=item.getMaxLevel();
+      Range r=new Range(minLevel,maxLevel);
+      ranges.add(r);
+    }
+    List<Range> ret=new ArrayList<Range>(ranges);
+    Collections.sort(ret,new RangeComparator());
+    return ret;
+  }
+
+  /**
+   * Main method for this test.
+   * @param args Not used.
+   */
+  public static void main(String[] args)
+  {
+    new MainCheckTraceriesSets().doIt();
+  }
+}
