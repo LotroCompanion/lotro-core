@@ -18,6 +18,7 @@ import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.scaling.Munging;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 
 /**
@@ -653,6 +654,21 @@ public class Item implements Identifiable,Named,ItemProvider
   }
 
   /**
+   * Get munging data.
+   * @return some munging data or <code>null</code> if none.
+   */
+  public Munging getMunging()
+  {
+    Munging ret=null;
+    String mungingSpec=getProperty(ItemPropertyNames.MUNGING);
+    if (mungingSpec!=null)
+    {
+      ret=Munging.fromString(mungingSpec);
+    }
+    return ret;
+  }
+
+    /**
    * Dump the contents of this item as a string.
    * @return A readable string.
    */

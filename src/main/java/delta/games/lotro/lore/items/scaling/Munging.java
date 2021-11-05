@@ -59,6 +59,21 @@ public class Munging
   }
 
   /**
+   * Get the item level for a given base level.
+   * @param level Base level.
+   * @return A level or <code>null</code> if no match.
+   */
+  public Integer getItemLevel(int level)
+  {
+    Float itemLevel=_progression.getValue(level);
+    if (itemLevel!=null)
+    {
+      return Integer.valueOf(itemLevel.intValue());
+    }
+    return null;
+  }
+
+  /**
    * Get a string specification from this object.
    * @return A string.
    */
