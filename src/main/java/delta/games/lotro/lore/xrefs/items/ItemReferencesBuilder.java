@@ -95,8 +95,8 @@ public class ItemReferencesBuilder
       List<Ingredient> ingredients=version.getIngredients();
       for(Ingredient ingredient : ingredients)
       {
-        int ingredientId=ingredient.getItem().getIdentifier();
-        if (ingredientId==itemId)
+        Item ingredientItem=ingredient.getItem();
+        if ((ingredientItem!=null) && (ingredientItem.getIdentifier()==itemId))
         {
           ItemRole role=ingredient.isOptional()?ItemRole.RECIPE_CRITICAL_INGREDIENT:ItemRole.RECIPE_INGREDIENT;
           roles.add(role);

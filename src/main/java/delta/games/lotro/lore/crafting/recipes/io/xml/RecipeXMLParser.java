@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -23,6 +24,8 @@ import delta.games.lotro.lore.items.ItemsManager;
  */
 public class RecipeXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(RecipeXMLParser.class);
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -192,6 +195,10 @@ public class RecipeXMLParser
     // Item id
     int id=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_ID_ATTR,0);
     Item item=ItemsManager.getInstance().getItem(id);
+    if (item==null)
+    {
+      LOGGER.warn("Unknown item: "+item);
+    }
     return item;
   }
 }

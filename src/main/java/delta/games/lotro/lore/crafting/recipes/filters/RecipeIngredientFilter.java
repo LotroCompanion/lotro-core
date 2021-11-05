@@ -56,7 +56,7 @@ public class RecipeIngredientFilter implements Filter<Recipe>
       for(Ingredient ingredient : ingredients)
       {
         Item item=ingredient.getItem();
-        if (accept(item))
+        if ((item!=null) && (accept(item)))
         {
           return true;
         }
