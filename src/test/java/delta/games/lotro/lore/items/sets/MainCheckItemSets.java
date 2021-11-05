@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.common.utils.math.Range;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatProvider;
@@ -12,7 +13,6 @@ import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemPropertyNames;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.scaling.Munging;
 import delta.games.lotro.lore.items.sets.ItemsSet.SetType;
@@ -104,7 +104,7 @@ public class MainCheckItemSets
         continue;
       }
       SetType type=itemsSet.getSetType();
-      if (type==SetType.ITEMS)
+      if (type==SetType.TRACERIES)
       {
         continue;
       }
@@ -121,13 +121,13 @@ public class MainCheckItemSets
     System.out.println("\tMembers:");
     for(Item member : members)
     {
-      Munging munging=null;
-      String mungingSpec=member.getProperty(ItemPropertyNames.MUNGING);
-      if (mungingSpec!=null)
-      {
-        munging=Munging.fromString(mungingSpec);
-      }
+      Munging munging=member.getMunging();
       System.out.println("\t\t"+member+" => "+munging);
+    }
+    if (ItemsSetsUtils.hasMultipleItemLevels(itemsSet))
+    {
+      Range itemLevelRange=ItemsSetsUtils.findItemLevelRange(itemsSet);
+      System.out.println("Range: "+itemLevelRange);
     }
     for(SetBonus bonusSet : itemsSet.getBonuses())
     {
