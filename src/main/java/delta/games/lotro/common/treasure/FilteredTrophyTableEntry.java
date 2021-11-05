@@ -14,19 +14,16 @@ import delta.games.lotro.common.requirements.UsageRequirement;
 public class FilteredTrophyTableEntry
 {
   private UsageRequirement _requirements;
-  private TrophyList _trophyList;
-  private WeightedTreasureTable _treasureTable;
+  private LootTable _table;
 
   /**
    * Constructor.
-   * @param trophyList Trophy list.
-   * @param treasureTable Treasure table.
+   * @param lootTable Loot table.
    */
-  public FilteredTrophyTableEntry(TrophyList trophyList, WeightedTreasureTable treasureTable)
+  public FilteredTrophyTableEntry(LootTable lootTable)
   {
     _requirements=new UsageRequirement();
-    _trophyList=trophyList;
-    _treasureTable=treasureTable;
+    _table=lootTable;
   }
 
   /**
@@ -39,21 +36,12 @@ public class FilteredTrophyTableEntry
   }
 
   /**
-   * Get the trophy list.
-   * @return the trophy list.
+   * Get the loot table.
+   * @return the loot table.
    */
-  public TrophyList getTrophyList()
+  public LootTable getLootTable()
   {
-    return _trophyList;
-  }
-
-  /**
-   * Get the treasure table.
-   * @return the treasure table.
-   */
-  public WeightedTreasureTable getTreasureTable()
-  {
-    return _treasureTable;
+    return _table;
   }
 
   /**
@@ -65,13 +53,9 @@ public class FilteredTrophyTableEntry
   {
     for(int i=0;i<level;i++) sb.append('\t');
     sb.append('(').append(_requirements).append(") ").append(EndOfLine.NATIVE_EOL);
-    if (_trophyList!=null)
+    if (_table!=null)
     {
-      _trophyList.dump(sb,level+1);
-    }
-    if (_treasureTable!=null)
-    {
-      _treasureTable.dump(sb,level+1);
+      _table.dump(sb,level+1);
     }
   }
 

@@ -103,7 +103,7 @@ public class InstanceLootXMLParser
       LootsManager lootsMgr=LootsManager.getInstance();
       if (trophyListId!=0)
       {
-        TrophyList trophyList=lootsMgr.getTrophyLists().getItem(trophyListId);
+        TrophyList trophyList=(TrophyList)lootsMgr.getTables().getItem(trophyListId);
         entry.setTrophyList(trophyList);
       }
       ret.addEntry(entry);

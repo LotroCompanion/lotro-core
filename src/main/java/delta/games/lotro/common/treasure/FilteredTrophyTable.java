@@ -6,15 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.common.Identifiable;
 
 /**
  * Filtered trophy table.
  * @author DAM
  */
-public class FilteredTrophyTable implements Identifiable
+public class FilteredTrophyTable extends LootTable
 {
-  private int _id;
   private List<FilteredTrophyTableEntry> _entries;
 
   /**
@@ -23,13 +21,8 @@ public class FilteredTrophyTable implements Identifiable
    */
   public FilteredTrophyTable(int identifier)
   {
-    _id=identifier;
+    super(identifier);
     _entries=new ArrayList<FilteredTrophyTableEntry>();
-  }
-
-  public int getIdentifier()
-  {
-    return _id;
   }
 
   /**
@@ -50,22 +43,13 @@ public class FilteredTrophyTable implements Identifiable
     return _entries;
   }
 
-  /**
-   * Indicates if this loot table may contain the given item.
-   * @param itemId Identifier of the item to search.
-   * @return <code>true</code> if it does, <code>false</code> otherwise.
-   */
+  @Override
   public boolean contains(int itemId)
   {
     for(FilteredTrophyTableEntry entry : _entries)
     {
-      TrophyList trophyList=entry.getTrophyList();
-      if ((trophyList!=null) && (trophyList.contains(itemId)))
-      {
-        return true;
-      }
-      WeightedTreasureTable weightedTreasureTable=entry.getTreasureTable();
-      if ((weightedTreasureTable!=null) && (weightedTreasureTable.contains(itemId)))
+      LootTable lootTable=entry.getLootTable();
+      if ((lootTable!=null) && (lootTable.contains(itemId)))
       {
         return true;
       }
@@ -73,38 +57,26 @@ public class FilteredTrophyTable implements Identifiable
     return false;
   }
 
-  /**
-   * Get the identifiers of the reachable items.
-   * @return A set of item identifiers.
-   */
+  @Override
   public Set<Integer> getItemIds()
   {
     Set<Integer> ret=new HashSet<Integer>();
     for(FilteredTrophyTableEntry entry : _entries)
     {
-      TrophyList trophyList=entry.getTrophyList();
-      if (trophyList!=null)
+      LootTable lootTable=entry.getLootTable();
+      if (lootTable!=null)
       {
-        ret.addAll(trophyList.getItemIds());
-      }
-      WeightedTreasureTable treasureTable=entry.getTreasureTable();
-      if (treasureTable!=null)
-      {
-        ret.addAll(treasureTable.getItemIds());
+        ret.addAll(lootTable.getItemIds());
       }
     }
     return ret;
   }
 
-  /**
-   * Dump contents.
-   * @param sb Output.
-   * @param level Indentation level.
-   */
+  @Override
   public void dump(StringBuilder sb, int level)
   {
     for(int i=0;i<level;i++) sb.append('\t');
-    sb.append("Filtered trophy table ID=").append(_id).append(EndOfLine.NATIVE_EOL);
+    sb.append("Filtered trophy table ID=").append(getIdentifier()).append(EndOfLine.NATIVE_EOL);
     for(FilteredTrophyTableEntry entry : _entries)
     {
       entry.dump(sb,level+1);

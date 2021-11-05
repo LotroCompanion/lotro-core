@@ -10,13 +10,11 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.common.treasure.FilteredTrophyTable;
+import delta.games.lotro.common.treasure.LootTable;
 import delta.games.lotro.common.treasure.RelicsList;
-import delta.games.lotro.common.treasure.TreasureList;
-import delta.games.lotro.common.treasure.TrophyList;
-import delta.games.lotro.common.treasure.WeightedTreasureTable;
 import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.ItemsContainer;
+import delta.games.lotro.lore.items.containers.LootType;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
 
@@ -96,46 +94,16 @@ public class ContainerXMLWriter
 
   private void writeItemsContainer(AttributesImpl attrs, ItemsContainer container) throws Exception
   {
-    // Filtered trophy table
-    FilteredTrophyTable filteredTrophyTable=container.getFilteredTable();
-    if (filteredTrophyTable!=null)
+    // Loot tables
+    for(LootType lootType : LootType.values())
     {
-      int filteredTrophyTableId=filteredTrophyTable.getIdentifier();
-      attrs.addAttribute("","",ContainerXMLConstants.FILTERED_TROPHY_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(filteredTrophyTableId));
+      LootTable table=container.get(lootType);
+      if (table!=null)
+      {
+        int id=table.getIdentifier();
+        attrs.addAttribute("","",lootType.getTag(),XmlWriter.CDATA,String.valueOf(id));
+      }
     }
-
-    // Weighted treasure table
-    WeightedTreasureTable weightedTreasureTable=container.getWeightedTable();
-    if (weightedTreasureTable!=null)
-    {
-      int weightedTreasureTableId=weightedTreasureTable.getIdentifier();
-      attrs.addAttribute("","",ContainerXMLConstants.WEIGHTED_TREASURE_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(weightedTreasureTableId));
-    }
-
-    // Trophy list
-    TrophyList trophyList=container.getTrophyList();
-    if (trophyList!=null)
-    {
-      int trophyListId=trophyList.getIdentifier();
-      attrs.addAttribute("","",ContainerXMLConstants.TROPHY_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(trophyListId));
-    }
-
-    // Barter trophy list
-    TrophyList barterTrophyList=container.getBarterTrophyList();
-    if (barterTrophyList!=null)
-    {
-      int barterTrophyListId=barterTrophyList.getIdentifier();
-      attrs.addAttribute("","",ContainerXMLConstants.BARTER_TROPHY_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(barterTrophyListId));
-    }
-
-    // Treasure list
-    TreasureList treasureList=container.getTreasureList();
-    if (treasureList!=null)
-    {
-      int treasureListId=treasureList.getIdentifier();
-      attrs.addAttribute("","",ContainerXMLConstants.TREASURE_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(treasureListId));
-    }
-
     // Custom skirmish loot table
     Integer customSkirmishLootTableId=container.getCustomSkirmishLootTableId();
     if (customSkirmishLootTableId!=null)

@@ -253,7 +253,7 @@ public final class GenericMobLootSaxParser extends DefaultHandler
       int treasureListId=NumericTools.parseInt(treasureListStr,0);
       if (treasureListId!=0)
       {
-        TreasureList treasureList=lootsMgr.getTreasureLists().getItem(treasureListId);
+        TreasureList treasureList=(TreasureList)lootsMgr.getTables().getItem(treasureListId);
         entry.setTreasureList(treasureList);
       }
       // Trophy list
@@ -261,7 +261,7 @@ public final class GenericMobLootSaxParser extends DefaultHandler
       int trophyListId=NumericTools.parseInt(trophyListStr,0);
       if (trophyListId!=0)
       {
-        TrophyList trophyList=lootsMgr.getTrophyLists().getItem(trophyListId);
+        TrophyList trophyList=(TrophyList)lootsMgr.getTables().getItem(trophyListId);
         entry.setTrophyList(trophyList);
       }
       return entry;

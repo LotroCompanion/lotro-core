@@ -8,14 +8,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.treasure.FilteredTrophyTable;
+import delta.games.lotro.common.treasure.LootTable;
 import delta.games.lotro.common.treasure.LootsManager;
 import delta.games.lotro.common.treasure.RelicsList;
-import delta.games.lotro.common.treasure.TreasureList;
-import delta.games.lotro.common.treasure.TrophyList;
-import delta.games.lotro.common.treasure.WeightedTreasureTable;
 import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.ItemsContainer;
+import delta.games.lotro.lore.items.containers.LootType;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
@@ -69,40 +67,15 @@ public class ContainerXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CONTAINER_ID_ATTR,0);
     ItemsContainer ret=new ItemsContainer(id);
 
-    // Filtered trophy table
-    int filteredTrophyTableId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.FILTERED_TROPHY_TABLE_ID_ATTR,0);
-    if (filteredTrophyTableId!=0)
+    for(LootType lootType : LootType.values())
     {
-      FilteredTrophyTable filteredTrophyTable=_lootsMgr.getFilteredTrophyTables().getItem(filteredTrophyTableId);
-      ret.setFilteredTable(filteredTrophyTable);
-    }
-    // Weighted treasure table
-    int weightedTreasureTableId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.WEIGHTED_TREASURE_TABLE_ID_ATTR,0);
-    if (weightedTreasureTableId!=0)
-    {
-      WeightedTreasureTable weightedTreasureTable=_lootsMgr.getWeightedTreasureTables().getItem(weightedTreasureTableId);
-      ret.setWeightedTable(weightedTreasureTable);
-    }
-    // Trophy list
-    int trophyListId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.TROPHY_LIST_ID_ATTR,0);
-    if (trophyListId!=0)
-    {
-      TrophyList trophyList=_lootsMgr.getTrophyLists().getItem(trophyListId);
-      ret.setTrophyList(trophyList);
-    }
-    // Barter trophy list
-    int barterTrophyListId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.BARTER_TROPHY_LIST_ID_ATTR,0);
-    if (barterTrophyListId!=0)
-    {
-      TrophyList barterTrophyList=_lootsMgr.getTrophyLists().getItem(barterTrophyListId);
-      ret.setBarterTrophyList(barterTrophyList);
-    }
-    // Treasure list
-    int treasureListId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.TREASURE_LIST_ID_ATTR,0);
-    if (treasureListId!=0)
-    {
-      TreasureList treasureList=_lootsMgr.getTreasureLists().getItem(treasureListId);
-      ret.setTreasureList(treasureList);
+      String tag=lootType.getTag();
+      int tableId=DOMParsingTools.getIntAttribute(attrs,tag,0);
+      if (tableId!=0)
+      {
+        LootTable table=_lootsMgr.getTables().getItem(tableId);
+        ret.set(lootType,table);
+      }
     }
     // Custom skirmish loot table
     int customSkirmishLootTableId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CUSTOM_SKIRMISH_LOOT_TABLE_ID_ATTR,0);

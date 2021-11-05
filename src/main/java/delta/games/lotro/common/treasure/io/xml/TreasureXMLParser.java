@@ -14,6 +14,7 @@ import delta.games.lotro.common.treasure.FilteredTrophyTable;
 import delta.games.lotro.common.treasure.FilteredTrophyTableEntry;
 import delta.games.lotro.common.treasure.ItemsTable;
 import delta.games.lotro.common.treasure.ItemsTableEntry;
+import delta.games.lotro.common.treasure.LootTable;
 import delta.games.lotro.common.treasure.LootsManager;
 import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.common.treasure.RelicsListEntry;
@@ -131,7 +132,7 @@ public class TreasureXMLParser
       ItemsTableEntry entry=new ItemsTableEntry(weight,item,quantity);
       ret.addEntry(entry);
     }
-    _lootMgr.getItemsTables().add(ret);
+    _lootMgr.getTables().add(ret);
   }
 
   private void parseTreasureList(Element root)
@@ -150,16 +151,12 @@ public class TreasureXMLParser
       TreasureListEntry entry=new TreasureListEntry(weight,treasureGroupProfile);
       ret.addEntry(entry);
     }
-    _lootMgr.getTreasureLists().add(ret);
+    _lootMgr.getTables().add(ret);
   }
 
   private TreasureGroupProfile getTreasureGroupProfile(int id)
   {
-    TreasureGroupProfile ret=_lootMgr.getItemsTables().getItem(id);
-    if (ret==null)
-    {
-      ret=_lootMgr.getTreasureLists().getItem(id);
-    }
+    LootTable ret=_lootMgr.getTables().getItem(id);
     if (ret==null)
     {
       Element tag=_nodesMap.get(Integer.valueOf(id));
@@ -169,7 +166,7 @@ public class TreasureXMLParser
         ret=getTreasureGroupProfile(id);
       }
     }
-    return ret;
+    return (TreasureGroupProfile)ret;
   }
 
   private void parseTrophyList(Element root)
@@ -219,7 +216,7 @@ public class TreasureXMLParser
         ret.addEntry(entry);
       }
     }
-    _lootMgr.getTrophyLists().add(ret);
+    _lootMgr.getTables().add(ret);
   }
 
   private void parseWeightedTreasureTable(Element root)
@@ -238,12 +235,12 @@ public class TreasureXMLParser
       WeightedTreasureTableEntry entry=new WeightedTreasureTableEntry(weight,trophyList);
       ret.addEntry(entry);
     }
-    _lootMgr.getWeightedTreasureTables().add(ret);
+    _lootMgr.getTables().add(ret);
   }
 
   private TrophyList getTrophyList(int id)
   {
-    TrophyList ret=_lootMgr.getTrophyLists().getItem(id);
+    TrophyList ret=(TrophyList)_lootMgr.getTables().getItem(id);
     if (ret==null)
     {
       Element tag=_nodesMap.get(Integer.valueOf(id));
@@ -251,6 +248,21 @@ public class TreasureXMLParser
       {
         decodeTag(tag);
         ret=getTrophyList(id);
+      }
+    }
+    return ret;
+  }
+
+  private LootTable getLootTable(int id)
+  {
+    LootTable ret=_lootMgr.getTables().getItem(id);
+    if (ret==null)
+    {
+      Element tag=_nodesMap.get(Integer.valueOf(id));
+      if (tag!=null)
+      {
+        decodeTag(tag);
+        ret=getLootTable(id);
       }
     }
     return ret;
@@ -265,39 +277,15 @@ public class TreasureXMLParser
     {
       NamedNodeMap entryAttrs=entryTag.getAttributes();
       // Trophy list?
-      TrophyList trophyList=null;
       int trophyListId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.TROPHY_LIST_ID_ATTR,0);
-      if (trophyListId>0)
-      {
-        trophyList=getTrophyList(trophyListId);
-      }
-      // Weighted treasure table?
-      WeightedTreasureTable weightedTreasureTable=null;
       int weightedTreasureTableId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.WEIGHTED_TREASURE_TABLE_ID_ATTR,0);
-      if (weightedTreasureTableId!=0)
-      {
-        weightedTreasureTable=getWeightedTreasureTable(weightedTreasureTableId);
-      }
-      FilteredTrophyTableEntry entry=new FilteredTrophyTableEntry(trophyList,weightedTreasureTable);
+      int tableId=Math.max(trophyListId,weightedTreasureTableId);
+      LootTable lootTable=getLootTable(tableId);
+      FilteredTrophyTableEntry entry=new FilteredTrophyTableEntry(lootTable);
       UsageRequirementsXMLParser.parseRequirements(entry.getUsageRequirement(),entryTag);
       ret.addEntry(entry);
     }
-    _lootMgr.getFilteredTrophyTables().add(ret);
-    return ret;
-  }
-
-  private WeightedTreasureTable getWeightedTreasureTable(int id)
-  {
-    WeightedTreasureTable ret=_lootMgr.getWeightedTreasureTables().getItem(id);
-    if (ret==null)
-    {
-      Element tag=_nodesMap.get(Integer.valueOf(id));
-      if (tag!=null)
-      {
-        decodeTag(tag);
-        ret=getWeightedTreasureTable(id);
-      }
-    }
+    _lootMgr.getTables().add(ret);
     return ret;
   }
 

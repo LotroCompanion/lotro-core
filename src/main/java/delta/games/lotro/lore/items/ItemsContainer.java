@@ -3,10 +3,8 @@ package delta.games.lotro.lore.items;
 import java.util.HashSet;
 import java.util.Set;
 
-import delta.games.lotro.common.treasure.FilteredTrophyTable;
-import delta.games.lotro.common.treasure.TreasureList;
-import delta.games.lotro.common.treasure.TrophyList;
-import delta.games.lotro.common.treasure.WeightedTreasureTable;
+import delta.games.lotro.common.treasure.LootTable;
+import delta.games.lotro.lore.items.containers.LootType;
 
 /**
  * Container-specific data (items).
@@ -14,11 +12,8 @@ import delta.games.lotro.common.treasure.WeightedTreasureTable;
  */
 public class ItemsContainer extends Container
 {
-  private FilteredTrophyTable _filteredTable;
-  private WeightedTreasureTable _weightedTable;
-  private TrophyList _trophyList;
-  private TrophyList _barterTrophyList;
-  private TreasureList _treasureList;
+  private static final int NB_TABLES=LootType.values().length;
+  private LootTable[] _tables;
   private Integer _customSkirmishLootTableId;
 
   /**
@@ -28,96 +23,27 @@ public class ItemsContainer extends Container
   public ItemsContainer(int identifier)
   {
     super(identifier);
+    _tables=new LootTable[NB_TABLES];
   }
 
   /**
-   * Get the filtered trophy table for this container, if any.
-   * @return a filtered trophy table or <code>null</code>.
+   * Get a loot table.
+   * @param type Table type.
+   * @return A table or <code>null</code> if not found.
    */
-  public FilteredTrophyTable getFilteredTable()
+  public LootTable get(LootType type)
   {
-    return _filteredTable;
+    return _tables[type.ordinal()];
   }
 
   /**
-   * Set the filtered trophy table for this container.
-   * @param filteredTable the filtered trophy table to set.
+   * Set a loot table.
+   * @param type Table type.
+   * @param table Table to set.
    */
-  public void setFilteredTable(FilteredTrophyTable filteredTable)
+  public void set(LootType type, LootTable table)
   {
-    _filteredTable=filteredTable;
-  }
-
-  /**
-   * Get the weighted treasure table for this container.
-   * @return a weighted treasure table or <code>null</code>.
-   */
-  public WeightedTreasureTable getWeightedTable()
-  {
-    return _weightedTable;
-  }
-
-  /**
-   * Set the weighted treasure table for this container.
-   * @param weightedTable the weighted treasure table to set.
-   */
-  public void setWeightedTable(WeightedTreasureTable weightedTable)
-  {
-    _weightedTable=weightedTable;
-  }
-
-  /**
-   * Get the trophy list for this container.
-   * @return a trophy list or <code>null</code>.
-   */
-  public TrophyList getTrophyList()
-  {
-    return _trophyList;
-  }
-
-  /**
-   * Set the trophy list for this container.
-   * @param trophyList the trophy list to set.
-   */
-  public void setTrophyList(TrophyList trophyList)
-  {
-    _trophyList=trophyList;
-  }
-
-  /**
-   * Get the barter trophy list for this container.
-   * @return a barter trophy list or <code>null</code>.
-   */
-  public TrophyList getBarterTrophyList()
-  {
-    return _barterTrophyList;
-  }
-
-  /**
-   * Set the barter trophy list for this container.
-   * @param barterTrophyList the barter trophy list to set.
-   */
-  public void setBarterTrophyList(TrophyList barterTrophyList)
-  {
-    _barterTrophyList=barterTrophyList;
-  }
-
-  /**
-   * Get the treasure list for this container.
-   * @return a treasure list or <code>null</code>.
-   */
-  public TreasureList getTreasureList()
-  {
-    return _treasureList;
-  }
-
-  /**
-   * Set the treasure list for this container.
-   * @param treasureList the treasure list to set.
-   */
-  public void setTreasureList(TreasureList treasureList)
-  {
-    _treasureList=treasureList;
+    _tables[type.ordinal()]=table;
   }
 
   /**
@@ -145,25 +71,12 @@ public class ItemsContainer extends Container
    */
   public boolean contains(int itemId)
   {
-    if ((_filteredTable!=null) && (_filteredTable.contains(itemId)))
+    for(LootTable table : _tables)
     {
-      return true;
-    }
-    if ((_weightedTable!=null) && (_weightedTable.contains(itemId)))
-    {
-      return true;
-    }
-    if ((_trophyList!=null) && (_trophyList.contains(itemId)))
-    {
-      return true;
-    }
-    if ((_barterTrophyList!=null) && (_barterTrophyList.contains(itemId)))
-    {
-      return true;
-    }
-    if ((_treasureList!=null) && (_treasureList.contains(itemId)))
-    {
-      return true;
+      if ((table!=null) && (table.contains(itemId)))
+      {
+        return true;
+      }
     }
     return false;
   }
@@ -175,25 +88,12 @@ public class ItemsContainer extends Container
   public Set<Integer> getItemIds()
   {
     Set<Integer> ret=new HashSet<Integer>();
-    if (_filteredTable!=null)
+    for(LootTable table : _tables)
     {
-      ret.addAll(_filteredTable.getItemIds());
-    }
-    if (_weightedTable!=null)
-    {
-      ret.addAll(_weightedTable.getItemIds());
-    }
-    if (_trophyList!=null)
-    {
-      ret.addAll(_trophyList.getItemIds());
-    }
-    if (_barterTrophyList!=null)
-    {
-      ret.addAll(_barterTrophyList.getItemIds());
-    }
-    if (_treasureList!=null)
-    {
-      ret.addAll(_treasureList.getItemIds());
+      if (table!=null)
+      {
+        ret.addAll(table.getItemIds());
+      }
     }
     return ret;
   }

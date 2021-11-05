@@ -16,6 +16,7 @@ import delta.games.lotro.common.treasure.FilteredTrophyTable;
 import delta.games.lotro.common.treasure.FilteredTrophyTableEntry;
 import delta.games.lotro.common.treasure.ItemsTable;
 import delta.games.lotro.common.treasure.ItemsTableEntry;
+import delta.games.lotro.common.treasure.LootTable;
 import delta.games.lotro.common.treasure.LootsManager;
 import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.common.treasure.RelicsListEntry;
@@ -78,35 +79,13 @@ public class TreasureXMLWriter
   private void writeLootsManager(TransformerHandler hd, LootsManager loots) throws Exception
   {
     // Items tables
-    List<ItemsTable> itemsTables=loots.getItemsTables().getItems();
-    for(ItemsTable itemsTable : itemsTables)
-    {
-      writeItemsTable(hd,itemsTable);
-    }
-    // Treasure lists
-    List<TreasureList> treasureLists=loots.getTreasureLists().getItems();
-    for(TreasureList treasureList : treasureLists)
-    {
-      writeTreasureList(hd,treasureList);
-    }
-    // Trophy lists
-    List<TrophyList> trophyLists=loots.getTrophyLists().getItems();
-    for(TrophyList trophyList : trophyLists)
-    {
-      writeTrophyList(hd,trophyList);
-    }
-    // Weighted treasure tables
-    List<WeightedTreasureTable> weightedTreasureTables=loots.getWeightedTreasureTables().getItems();
-    for(WeightedTreasureTable weightedTreasureTable : weightedTreasureTables)
-    {
-      writeWeightedTreasureTable(hd,weightedTreasureTable);
-    }
-    // Filtered trophy tables
-    List<FilteredTrophyTable> filteredTrophyTables=loots.getFilteredTrophyTables().getItems();
-    for(FilteredTrophyTable filteredTrophyTable : filteredTrophyTables)
-    {
-      writeFilteredTrophyTable(hd,filteredTrophyTable);
-    }
+    writeTables(hd,loots.getTables().getItems(ItemsTable.class));
+    writeTables(hd,loots.getTables().getItems(TreasureList.class));
+    writeTables(hd,loots.getTables().getItems(TrophyList.class));
+    writeTables(hd,loots.getTables().getItems(WeightedTreasureTable.class));
+    writeTables(hd,loots.getTables().getItems(FilteredTrophyTable.class));
+    //writeTables(hd,loots.getTables().getItems();
+
     // Relics lists
     List<RelicsList> relicsLists=loots.getRelicsLists().getItems();
     for(RelicsList relicsList : relicsLists)
@@ -118,6 +97,38 @@ public class TreasureXMLWriter
     for(RelicsTreasureGroup relicsTreasureGroup : relicsTreasureGroups)
     {
       writeRelicsTreasureGroup(hd,relicsTreasureGroup);
+    }
+  }
+
+  private void writeTables(TransformerHandler hd, List<LootTable> tables) throws Exception
+  {
+    for(LootTable table : tables)
+    {
+      writeTable(hd,table);
+    }
+  }
+
+  private void writeTable(TransformerHandler hd, LootTable table) throws Exception
+  {
+    if (table instanceof ItemsTable)
+    {
+      writeItemsTable(hd,(ItemsTable)table);
+    }
+    else if (table instanceof TreasureList)
+    {
+      writeTreasureList(hd,(TreasureList)table);
+    }
+    else if (table instanceof TrophyList)
+    {
+      writeTrophyList(hd,(TrophyList)table);
+    }
+    else if (table instanceof WeightedTreasureTable)
+    {
+      writeWeightedTreasureTable(hd,(WeightedTreasureTable)table);
+    }
+    else if (table instanceof FilteredTrophyTable)
+    {
+      writeFilteredTrophyTable(hd,(FilteredTrophyTable)table);
     }
   }
 
@@ -261,17 +272,11 @@ public class TreasureXMLWriter
     for(FilteredTrophyTableEntry entry : list.getEntries())
     {
       AttributesImpl entryAttrs=new AttributesImpl();
-      // Trophy list
-      TrophyList trophyList=entry.getTrophyList();
-      if (trophyList!=null)
+      LootTable lootTable=entry.getLootTable();
+      String tag=(lootTable instanceof TrophyList)?TreasureXMLConstants.TROPHY_LIST_ID_ATTR:TreasureXMLConstants.WEIGHTED_TREASURE_TABLE_ID_ATTR;
+      if (lootTable!=null)
       {
-        entryAttrs.addAttribute("","",TreasureXMLConstants.TROPHY_LIST_ID_ATTR,XmlWriter.CDATA,String.valueOf(trophyList.getIdentifier()));
-      }
-      // Weighted treasure table?
-      WeightedTreasureTable treasureTable=entry.getTreasureTable();
-      if (treasureTable!=null)
-      {
-        entryAttrs.addAttribute("","",TreasureXMLConstants.WEIGHTED_TREASURE_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(treasureTable.getIdentifier()));
+        entryAttrs.addAttribute("","",tag,XmlWriter.CDATA,String.valueOf(lootTable.getIdentifier()));
       }
       // Requirement
       UsageRequirement requirement=entry.getUsageRequirement();

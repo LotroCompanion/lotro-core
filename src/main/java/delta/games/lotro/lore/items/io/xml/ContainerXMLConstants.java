@@ -24,26 +24,6 @@ public class ContainerXMLConstants
    */
   public static final String CONTAINER_ID_ATTR="id";
   /**
-   * Tag 'container', attribute 'filteredTrophyTableId'.
-   */
-  public static final String FILTERED_TROPHY_TABLE_ID_ATTR="filteredTrophyTableId";
-  /**
-   * Tag 'container', attribute 'weightedTreasureTableId'.
-   */
-  public static final String WEIGHTED_TREASURE_TABLE_ID_ATTR="weightedTreasureTableId";
-  /**
-   * Tag 'container', attribute 'trophyListId'.
-   */
-  public static final String TROPHY_LIST_ID_ATTR="trophyListId";
-  /**
-   * Tag 'container', attribute 'barterTrophyListId'.
-   */
-  public static final String BARTER_TROPHY_LIST_ID_ATTR="barterTrophyListId";
-  /**
-   * Tag 'container', attribute 'treasureListId'.
-   */
-  public static final String TREASURE_LIST_ID_ATTR="treasureListId";
-  /**
    * Tag 'container', attribute 'customSkirmishLootTableId'.
    */
   public static final String CUSTOM_SKIRMISH_LOOT_TABLE_ID_ATTR="customSkirmishLootTableId";

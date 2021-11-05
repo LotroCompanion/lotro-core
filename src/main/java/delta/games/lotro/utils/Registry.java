@@ -59,6 +59,25 @@ public class Registry<T extends Identifiable>
   }
 
   /**
+   * Get all items of a given class.
+   * @param itemClass Item class.
+   * @return a list of items, ordered by identifier.
+   */
+  public List<T> getItems(Class<? extends T> itemClass)
+  {
+    List<T> ret=new ArrayList<T>();
+    for(T item : _items.values())
+    {
+      if (itemClass.isAssignableFrom(item.getClass()))
+      {
+        ret.add(item);
+      }
+    }
+    Collections.sort(ret,new IdentifiableComparator<T>());
+    return ret;
+  }
+
+  /**
    * Get the size of this registry.
    * @return an items count.
    */

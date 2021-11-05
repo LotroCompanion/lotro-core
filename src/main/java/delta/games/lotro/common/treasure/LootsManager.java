@@ -19,11 +19,7 @@ public class LootsManager
 
   private static LootsManager _instance;
 
-  private Registry<FilteredTrophyTable> _filteredTrophyTables;
-  private Registry<ItemsTable> _itemTables;
-  private Registry<TreasureList> _treasureLists;
-  private Registry<TrophyList> _trophyLists;
-  private Registry<WeightedTreasureTable> _weightedTreasureTables;
+  private Registry<LootTable> _tables;
   private Registry<RelicsList> _relicsLists;
   private Registry<RelicsTreasureGroup> _relicsTreasureGroups;
 
@@ -45,11 +41,7 @@ public class LootsManager
    */
   public LootsManager()
   {
-    _filteredTrophyTables=new Registry<FilteredTrophyTable>();
-    _itemTables=new Registry<ItemsTable>();
-    _treasureLists=new Registry<TreasureList>();
-    _trophyLists=new Registry<TrophyList>();
-    _weightedTreasureTables=new Registry<WeightedTreasureTable>();
+    _tables=new Registry<LootTable>();
     _relicsLists=new Registry<RelicsList>();
     _relicsTreasureGroups=new Registry<RelicsTreasureGroup>();
   }
@@ -67,48 +59,12 @@ public class LootsManager
   }
 
   /**
-   * Get the registry for filtered trophy tables.
-   * @return the registry for filtered trophy tables.
+   * Get the registry for loot tables.
+   * @return the registry for loot tables.
    */
-  public Registry<FilteredTrophyTable> getFilteredTrophyTables()
+  public Registry<LootTable> getTables()
   {
-    return _filteredTrophyTables;
-  }
-
-  /**
-   * Get the registry for items tables.
-   * @return the registry for items tables.
-   */
-  public Registry<ItemsTable> getItemsTables()
-  {
-    return _itemTables;
-  }
-
-  /**
-   * Get the registry for treasure lists.
-   * @return the registry for treasure lists.
-   */
-  public Registry<TreasureList> getTreasureLists()
-  {
-    return _treasureLists;
-  }
-
-  /**
-   * Get the registry for trophy lists.
-   * @return the registry for trophy lists.
-   */
-  public Registry<TrophyList> getTrophyLists()
-  {
-    return _trophyLists;
-  }
-
-  /**
-   * Get the registry for weighted treasure tables.
-   * @return the registry for weighted treasure tables.
-   */
-  public Registry<WeightedTreasureTable> getWeightedTreasureTables()
-  {
-    return _weightedTreasureTables;
+    return _tables;
   }
 
   /**
@@ -135,11 +91,7 @@ public class LootsManager
   public void dump()
   {
     System.out.println("Loots manager has:");
-    System.out.println("\t"+_filteredTrophyTables.size()+" filtered trophy tables");
-    System.out.println("\t"+_itemTables.size()+" items tables");
-    System.out.println("\t"+_treasureLists.size()+" treasure lists");
-    System.out.println("\t"+_trophyLists.size()+" trophy lists");
-    System.out.println("\t"+_weightedTreasureTables.size()+" weighted treasure tables");
+    System.out.println("\t"+_tables.size()+" loot tables");
     System.out.println("\t"+_relicsLists.size()+" relics lists");
     System.out.println("\t"+_relicsTreasureGroups.size()+" relics treasure groups");
   }

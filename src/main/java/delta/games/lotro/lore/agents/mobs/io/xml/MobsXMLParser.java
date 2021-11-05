@@ -81,28 +81,28 @@ public class MobsXMLParser
     int barterTrophyListId=DOMParsingTools.getIntAttribute(attrs,MobsXMLConstants.BARTER_TROPHY_LIST_ID_ATTR,0);
     if (barterTrophyListId!=0)
     {
-      barterTrophyList=lootsMgr.getTrophyLists().getItem(barterTrophyListId);
+      barterTrophyList=(TrophyList)lootsMgr.getTables().getItem(barterTrophyListId);
     }
     // Reputation trophy list
     TrophyList reputationTrophyList=null;
     int reputationTrophyListId=DOMParsingTools.getIntAttribute(attrs,MobsXMLConstants.REPUTATION_TROPHY_LIST_ID_ATTR,0);
     if (reputationTrophyListId!=0)
     {
-      reputationTrophyList=lootsMgr.getTrophyLists().getItem(reputationTrophyListId);
+      reputationTrophyList=(TrophyList)lootsMgr.getTables().getItem(reputationTrophyListId);
     }
     // Treasure list override list
     TreasureList treasureList=null;
     int treasureListId=DOMParsingTools.getIntAttribute(attrs,MobsXMLConstants.TREASURE_LIST_OVERRIDE_ID_ATTR,0);
     if (treasureListId!=0)
     {
-      treasureList=lootsMgr.getTreasureLists().getItem(treasureListId);
+      treasureList=(TreasureList)lootsMgr.getTables().getItem(treasureListId);
     }
     // Trophy list override
     TrophyList trophyListOverride=null;
     int trophyListOverrideId=DOMParsingTools.getIntAttribute(attrs,MobsXMLConstants.TROPHY_LIST_OVERRIDE_ID_ATTR,0);
     if (trophyListOverrideId!=0)
     {
-      trophyListOverride=lootsMgr.getTrophyLists().getItem(trophyListOverrideId);
+      trophyListOverride=(TrophyList)lootsMgr.getTables().getItem(trophyListOverrideId);
     }
     MobLoot loot=null;
     if ((barterTrophyList!=null) || (reputationTrophyList!=null) || (treasureList!=null) || (trophyListOverride!=null))

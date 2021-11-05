@@ -59,10 +59,7 @@ public class ItemsTable extends TreasureGroupProfile
     return false;
   }
 
-  /**
-   * Get the identifiers of the reachable items.
-   * @return A set of item identifiers.
-   */
+  @Override
   public Set<Integer> getItemIds()
   {
     Set<Integer> ret=new HashSet<Integer>();
@@ -75,11 +72,7 @@ public class ItemsTable extends TreasureGroupProfile
     return ret;
   }
 
-  /**
-   * Dump contents.
-   * @param sb Output.
-   * @param level Indentation level.
-   */
+  @Override
   public void dump(StringBuilder sb, int level)
   {
     for(int i=0;i<level;i++) sb.append('\t');

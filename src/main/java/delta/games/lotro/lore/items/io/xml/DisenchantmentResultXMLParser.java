@@ -71,7 +71,7 @@ public class DisenchantmentResultXMLParser
     int trophyListId=DOMParsingTools.getIntAttribute(attrs,DisenchantmentResultXMLConstants.TROPHY_LIST_ID_ATTR,0);
     if (trophyListId!=0)
     {
-      TrophyList trophyList=_lootsMgr.getTrophyLists().getItem(trophyListId);
+      TrophyList trophyList=(TrophyList)_lootsMgr.getTables().getItem(trophyListId);
       ret.setTrophyList(trophyList);
     }
     return ret;
