@@ -105,18 +105,26 @@ public class ItemReferencesBuilder
       }
       // Result
       CraftingResult regularResult=version.getRegular();
-      int regularResultId=regularResult.getItem().getIdentifier();
-      if (regularResultId==itemId)
+      Item regularResultItem=regularResult.getItem();
+      if (regularResultItem!=null)
       {
-        roles.add(ItemRole.RECIPE_RESULT);
+        int regularResultId=regularResultItem.getIdentifier();
+        if (regularResultId==itemId)
+        {
+          roles.add(ItemRole.RECIPE_RESULT);
+        }
       }
       CraftingResult criticalResult=version.getCritical();
       if (criticalResult!=null)
       {
-        int criticalResultId=criticalResult.getItem().getIdentifier();
-        if (criticalResultId==itemId)
+        Item criticalResultItem=criticalResult.getItem();
+        if (criticalResultItem!=null)
         {
-          roles.add(ItemRole.RECIPE_CRITICAL_RESULT);
+          int criticalResultId=criticalResultItem.getIdentifier();
+          if (criticalResultId==itemId)
+          {
+            roles.add(ItemRole.RECIPE_CRITICAL_RESULT);
+          }
         }
       }
       // Recipe item
