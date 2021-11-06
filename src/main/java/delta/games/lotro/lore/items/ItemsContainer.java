@@ -27,6 +27,22 @@ public class ItemsContainer extends Container
   }
 
   /**
+   * Indicates if this container has at least a table.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean hasTables()
+  {
+    for(LootTable table : _tables)
+    {
+      if (table!=null)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Get a loot table.
    * @param type Table type.
    * @return A table or <code>null</code> if not found.
