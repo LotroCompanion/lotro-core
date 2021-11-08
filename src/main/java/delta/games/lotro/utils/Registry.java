@@ -32,8 +32,11 @@ public class Registry<T extends Identifiable>
    */
   public void add(T item)
   {
-    int id=item.getIdentifier();
-    _items.put(Integer.valueOf(id),item);
+    if (item!=null)
+    {
+      int id=item.getIdentifier();
+      _items.put(Integer.valueOf(id),item);
+    }
   }
 
   /**
