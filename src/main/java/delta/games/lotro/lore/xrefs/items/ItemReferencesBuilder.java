@@ -19,7 +19,8 @@ import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.ContainersManager;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemsContainer;
+import delta.games.lotro.lore.items.containers.ItemsContainer;
+import delta.games.lotro.lore.items.containers.LootTables;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 import delta.games.lotro.lore.quests.Achievable;
@@ -295,7 +296,8 @@ public class ItemReferencesBuilder
       if (container instanceof ItemsContainer)
       {
         ItemsContainer itemsContainer=(ItemsContainer)container;
-        boolean found=itemsContainer.contains(itemId);
+        LootTables lootTables=itemsContainer.getLootTables();
+        boolean found=lootTables.contains(itemId);
         if (found)
         {
           _storage.add(new ItemReference<ItemsContainer>(itemsContainer,ItemRole.CONTAINED_IN));

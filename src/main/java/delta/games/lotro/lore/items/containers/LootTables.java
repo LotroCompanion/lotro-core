@@ -1,29 +1,27 @@
-package delta.games.lotro.lore.items;
+package delta.games.lotro.lore.items.containers;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import delta.games.lotro.common.treasure.LootTable;
-import delta.games.lotro.lore.items.containers.LootType;
 
 /**
- * Container-specific data (items).
+ * Set of loot tables.
  * @author DAM
  */
-public class ItemsContainer extends Container
+public class LootTables
 {
-  private static final int NB_TABLES=LootType.values().length;
-  private LootTable[] _tables;
+  private Map<LootType,LootTable> _tables;
   private Integer _customSkirmishLootTableId;
 
   /**
    * Constructor.
-   * @param identifier Item identifier.
    */
-  public ItemsContainer(int identifier)
+  public LootTables()
   {
-    super(identifier);
-    _tables=new LootTable[NB_TABLES];
+    _tables=new HashMap<LootType,LootTable>();
   }
 
   /**
@@ -32,14 +30,7 @@ public class ItemsContainer extends Container
    */
   public boolean hasTables()
   {
-    for(LootTable table : _tables)
-    {
-      if (table!=null)
-      {
-        return true;
-      }
-    }
-    return false;
+    return ((_customSkirmishLootTableId!=null) || (_tables.size()>0));
   }
 
   /**
@@ -49,7 +40,7 @@ public class ItemsContainer extends Container
    */
   public LootTable get(LootType type)
   {
-    return _tables[type.ordinal()];
+    return _tables.get(type);
   }
 
   /**
@@ -59,7 +50,7 @@ public class ItemsContainer extends Container
    */
   public void set(LootType type, LootTable table)
   {
-    _tables[type.ordinal()]=table;
+    _tables.put(type,table);
   }
 
   /**
@@ -87,7 +78,7 @@ public class ItemsContainer extends Container
    */
   public boolean contains(int itemId)
   {
-    for(LootTable table : _tables)
+    for(LootTable table : _tables.values())
     {
       if ((table!=null) && (table.contains(itemId)))
       {
@@ -104,7 +95,7 @@ public class ItemsContainer extends Container
   public Set<Integer> getItemIds()
   {
     Set<Integer> ret=new HashSet<Integer>();
-    for(LootTable table : _tables)
+    for(LootTable table : _tables.values())
     {
       if (table!=null)
       {

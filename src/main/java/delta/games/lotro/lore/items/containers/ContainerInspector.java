@@ -8,7 +8,6 @@ import java.util.Set;
 import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.ContainersManager;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemsContainer;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
@@ -34,7 +33,8 @@ public class ContainerInspector
     if (container instanceof ItemsContainer)
     {
       ItemsContainer itemsContainer=(ItemsContainer)container;
-      itemIds.addAll(itemsContainer.getItemIds());
+      LootTables lootTables=itemsContainer.getLootTables();
+      itemIds.addAll(lootTables.getItemIds());
     }
     for(Integer itemId : itemIds)
     {

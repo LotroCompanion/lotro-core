@@ -12,7 +12,8 @@ import delta.games.lotro.common.treasure.LootTable;
 import delta.games.lotro.common.treasure.LootsManager;
 import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.lore.items.Container;
-import delta.games.lotro.lore.items.ItemsContainer;
+import delta.games.lotro.lore.items.containers.ItemsContainer;
+import delta.games.lotro.lore.items.containers.LootTables;
 import delta.games.lotro.lore.items.containers.LootType;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
@@ -66,7 +67,13 @@ public class ContainerXMLParser
     NamedNodeMap attrs=root.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CONTAINER_ID_ATTR,0);
     ItemsContainer ret=new ItemsContainer(id);
+    parseLootTables(root,ret.getLootTables());
+    return ret;
+  }
 
+  private void parseLootTables(Element root, LootTables lootTables)
+  {
+    NamedNodeMap attrs=root.getAttributes();
     for(LootType lootType : LootType.values())
     {
       String tag=lootType.getTag();
@@ -74,16 +81,15 @@ public class ContainerXMLParser
       if (tableId!=0)
       {
         LootTable table=_lootsMgr.getTables().getItem(tableId);
-        ret.set(lootType,table);
+        lootTables.set(lootType,table);
       }
     }
     // Custom skirmish loot table
     int customSkirmishLootTableId=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CUSTOM_SKIRMISH_LOOT_TABLE_ID_ATTR,0);
     if (customSkirmishLootTableId!=0)
     {
-      ret.setCustomSkirmishLootTableId(Integer.valueOf(customSkirmishLootTableId));
+      lootTables.setCustomSkirmishLootTableId(Integer.valueOf(customSkirmishLootTableId));
     }
-    return ret;
   }
 
   private RelicsContainer parseRelicContainer(Element root)

@@ -13,7 +13,8 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.treasure.LootTable;
 import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.lore.items.Container;
-import delta.games.lotro.lore.items.ItemsContainer;
+import delta.games.lotro.lore.items.containers.ItemsContainer;
+import delta.games.lotro.lore.items.containers.LootTables;
 import delta.games.lotro.lore.items.containers.LootType;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsContainer;
@@ -94,10 +95,15 @@ public class ContainerXMLWriter
 
   private void writeItemsContainer(AttributesImpl attrs, ItemsContainer container) throws Exception
   {
+    writeLootTables(attrs,container.getLootTables());
+  }
+
+  private void writeLootTables(AttributesImpl attrs, LootTables lootTables) throws Exception
+  {
     // Loot tables
     for(LootType lootType : LootType.values())
     {
-      LootTable table=container.get(lootType);
+      LootTable table=lootTables.get(lootType);
       if (table!=null)
       {
         int id=table.getIdentifier();
@@ -105,7 +111,7 @@ public class ContainerXMLWriter
       }
     }
     // Custom skirmish loot table
-    Integer customSkirmishLootTableId=container.getCustomSkirmishLootTableId();
+    Integer customSkirmishLootTableId=lootTables.getCustomSkirmishLootTableId();
     if (customSkirmishLootTableId!=null)
     {
       attrs.addAttribute("","",ContainerXMLConstants.CUSTOM_SKIRMISH_LOOT_TABLE_ID_ATTR,XmlWriter.CDATA,customSkirmishLootTableId.toString());
