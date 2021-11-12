@@ -133,4 +133,10 @@ public class SkillDescription implements Identifiable
     if (category==null) category="";
     _category=category;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Skill ID="+_identifier+", name="+_name;
+  }
 }

@@ -113,6 +113,10 @@ public class DataFiles
    * Warbands file.
    */
   public static final String WARBANDS="warbands";
+  /**
+   * Allegiances file.
+   */
+  public static final String ALLEGIANCES="allegiances";
 
   /**
    * Legacies file.
