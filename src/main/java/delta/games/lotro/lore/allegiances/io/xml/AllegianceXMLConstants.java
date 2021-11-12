@@ -54,4 +54,25 @@ public class AllegianceXMLConstants
    * Tag 'deed', attribute 'name'.
    */
   public static final String DEED_NAME_ATTR="name";
+
+  /**
+   * Tag 'curve'.
+   */
+  public static final String CURVE_TAG="curve";
+  /**
+   * Tag 'curve', attribute 'id'.
+   */
+  public static final String ID_ATTR="id";
+  /**
+   * Tag 'level'.
+   */
+  public static final String LEVEL_TAG="level";
+  /**
+   * Tag 'level', attribute 'level'.
+   */
+  public static final String LEVEL_ATTR="level";
+  /**
+   * Tag 'level', attribute 'points'.
+   */
+  public static final String POINTS_ATTR="points";
 }

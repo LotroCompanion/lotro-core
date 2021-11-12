@@ -14,6 +14,9 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.lore.allegiances.AllegianceDescription;
+import delta.games.lotro.lore.allegiances.AllegiancesManager;
+import delta.games.lotro.lore.allegiances.Points2LevelCurve;
+import delta.games.lotro.lore.allegiances.Points2LevelCurvesManager;
 import delta.games.lotro.lore.deeds.DeedDescription;
 
 /**
@@ -25,25 +28,10 @@ public class AllegianceXMLWriter
   /**
    * Write a file with allegiances.
    * @param toFile Output file.
-   * @param allegiances Allegiances to write.
+   * @param mgr Data to write.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public static boolean writeAllegiancesFile(File toFile, List<AllegianceDescription> allegiances)
-  {
-    AllegianceXMLWriter writer=new AllegianceXMLWriter();
-    Collections.sort(allegiances,new IdentifiableComparator<AllegianceDescription>());
-    boolean ok=writer.writeAllegiances(toFile,allegiances,EncodingNames.UTF_8);
-    return ok;
-  }
-
-  /**
-   * Write allegiances to a XML file.
-   * @param outFile Output file.
-   * @param allegiances Allegiances to write.
-   * @param encoding Encoding to use.
-   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
-   */
-  public boolean writeAllegiances(File outFile, final List<AllegianceDescription> allegiances, String encoding)
+  public static boolean writeAllegiancesFile(File toFile, final AllegiancesManager mgr)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -51,24 +39,27 @@ public class AllegianceXMLWriter
       @Override
       public void writeXml(TransformerHandler hd) throws Exception
       {
-        writeAllegiances(hd,allegiances);
+        writeAllegiances(hd,mgr);
       }
     };
-    boolean ret=helper.write(outFile,encoding,writer);
+    boolean ret=helper.write(toFile,EncodingNames.UTF_8,writer);
     return ret;
   }
 
-  private void writeAllegiances(TransformerHandler hd, List<AllegianceDescription> allegiances) throws Exception
+  private static void writeAllegiances(TransformerHandler hd, AllegiancesManager data) throws Exception
   {
     hd.startElement("","",AllegianceXMLConstants.ALLEGIANCES_TAG,new AttributesImpl());
+    List<AllegianceDescription> allegiances=data.getAll();
+    Collections.sort(allegiances,new IdentifiableComparator<AllegianceDescription>());
     for(AllegianceDescription allegiance : allegiances)
     {
       writeAllegiance(hd,allegiance);
     }
+    writeCurves(hd,data);
     hd.endElement("","",AllegianceXMLConstants.ALLEGIANCES_TAG);
   }
 
-  private void writeAllegiance(TransformerHandler hd, AllegianceDescription allegiance) throws Exception
+  private static void writeAllegiance(TransformerHandler hd, AllegianceDescription allegiance) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -129,5 +120,39 @@ public class AllegianceXMLWriter
       hd.endElement("","",AllegianceXMLConstants.DEED_TAG);
     }
     hd.endElement("","",AllegianceXMLConstants.ALLEGIANCE_TAG);
+  }
+
+  private static void writeCurves(TransformerHandler hd, AllegiancesManager mgr) throws Exception
+  {
+    Points2LevelCurvesManager curves=mgr.getCurvesManager();
+    List<Integer> ids=curves.getCurveIdentifiers();
+    for(Integer id : ids)
+    {
+      Points2LevelCurve curve=curves.getCurve(id.intValue());
+      writeCurve(hd,curve);
+    }
+  }
+
+  private static void writeCurve(TransformerHandler hd, Points2LevelCurve curve) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+
+    // Identifier
+    int id=curve.getIdentifier();
+    attrs.addAttribute("","",AllegianceXMLConstants.ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    hd.startElement("","",AllegianceXMLConstants.CURVE_TAG,attrs);
+    int maxLevel=curve.getMaxLevel();
+    for(int i=0;i<=maxLevel;i++)
+    {
+      AttributesImpl levelAttrs=new AttributesImpl();
+      // Level
+      levelAttrs.addAttribute("","",AllegianceXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(i));
+      // Points
+      int points=curve.getMinPointsForLevel(i);
+      levelAttrs.addAttribute("","",AllegianceXMLConstants.POINTS_ATTR,XmlWriter.CDATA,String.valueOf(points));
+      hd.startElement("","",AllegianceXMLConstants.LEVEL_TAG,levelAttrs);
+      hd.endElement("","",AllegianceXMLConstants.LEVEL_TAG);
+    }
+    hd.endElement("","",AllegianceXMLConstants.CURVE_TAG);
   }
 }

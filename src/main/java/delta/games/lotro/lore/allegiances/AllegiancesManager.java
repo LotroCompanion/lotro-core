@@ -27,6 +27,7 @@ public class AllegiancesManager
   private static AllegiancesManager _instance=null;
 
   private HashMap<Integer,AllegianceDescription> _cache;
+  private Points2LevelCurvesManager _curvesManager;
 
   /**
    * Get the sole instance of this class.
@@ -36,41 +37,54 @@ public class AllegiancesManager
   {
     if (_instance==null)
     {
-      _instance=new AllegiancesManager(true);
+      _instance=load();
     }
     return _instance;
   }
 
   /**
-   * Private constructor.
-   * @param load Indicates if the allegiances database shall be loaded or not.
+   * Constructor.
    */
-  private AllegiancesManager(boolean load)
+  public AllegiancesManager()
   {
     _cache=new HashMap<Integer,AllegianceDescription>(1000);
-    if (load)
-    {
-      loadAll();
-    }
+    _curvesManager=new Points2LevelCurvesManager();
   }
 
   /**
-   * Load all allegiances.
+   * Load data from a file.
+   * @return the loaded data.
    */
-  private void loadAll()
+  private static AllegiancesManager load()
   {
-    _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File allegiancesFile=cfg.getFile(DataFiles.ALLEGIANCES);
     long now=System.currentTimeMillis();
-    List<AllegianceDescription> allegiances=new AllegianceXMLParser().parseXML(allegiancesFile);
-    for(AllegianceDescription allegiance : allegiances)
-    {
-      _cache.put(Integer.valueOf(allegiance.getIdentifier()),allegiance);
-    }
+    AllegiancesManager mgr=new AllegianceXMLParser().parseXML(allegiancesFile);
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" allegiances in "+duration+"ms.");
+    int nbAllegiances=mgr.getAll().size();
+    LOGGER.info("Loaded "+nbAllegiances+" allegiances in "+duration+"ms.");
+    return mgr;
+  }
+
+  /**
+   * Add an allegiance.
+   * @param allegianceDescription Allegiance to add.
+   */
+  public void addAllegiance(AllegianceDescription allegianceDescription)
+  {
+    Integer key=Integer.valueOf(allegianceDescription.getIdentifier());
+    _cache.put(key,allegianceDescription);
+  }
+
+  /**
+   * Get the curves manager.
+   * @return the curves manager.
+   */
+  public Points2LevelCurvesManager getCurvesManager()
+  {
+    return _curvesManager;
   }
 
   /**

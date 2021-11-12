@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.allegiances.io.xml;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -11,6 +10,8 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.lore.allegiances.AllegianceDescription;
+import delta.games.lotro.lore.allegiances.AllegiancesManager;
+import delta.games.lotro.lore.allegiances.Points2LevelCurve;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 
@@ -25,17 +26,25 @@ public class AllegianceXMLParser
    * @param source Source file.
    * @return Parsed allegiances.
    */
-  public List<AllegianceDescription> parseXML(File source)
+  public AllegiancesManager parseXML(File source)
   {
-    List<AllegianceDescription> ret=new ArrayList<AllegianceDescription>();
+    AllegiancesManager ret=new AllegiancesManager();
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
+      // Allegiances
       List<Element> allegianceTags=DOMParsingTools.getChildTagsByName(root,AllegianceXMLConstants.ALLEGIANCE_TAG);
       for(Element allegianceTag : allegianceTags)
       {
         AllegianceDescription allegiance=parseAllegiance(allegianceTag);
-        ret.add(allegiance);
+        ret.addAllegiance(allegiance);
+      }
+      // Curves
+      List<Element> curveTags=DOMParsingTools.getChildTagsByName(root,AllegianceXMLConstants.CURVE_TAG);
+      for(Element curveTag : curveTags)
+      {
+        Points2LevelCurve curve=parseCurve(curveTag);
+        ret.getCurvesManager().addCurve(curve);
       }
     }
     return ret;
@@ -82,5 +91,26 @@ public class AllegianceXMLParser
       allegiance.addDeed(deed);
     }
     return allegiance;
+  }
+
+  private Points2LevelCurve parseCurve(Element root)
+  {
+    NamedNodeMap attrs=root.getAttributes();
+
+    // Identifier
+    int id=DOMParsingTools.getIntAttribute(attrs,AllegianceXMLConstants.ID_ATTR,0);
+
+    // Points
+    List<Element> levelTags=DOMParsingTools.getChildTagsByName(root,AllegianceXMLConstants.LEVEL_TAG);
+    int[] values=new int[levelTags.size()];
+    for(Element levelTag : levelTags)
+    {
+      NamedNodeMap levelAttrs=levelTag.getAttributes();
+      int level=DOMParsingTools.getIntAttribute(levelAttrs,AllegianceXMLConstants.LEVEL_ATTR,0);
+      int points=DOMParsingTools.getIntAttribute(levelAttrs,AllegianceXMLConstants.POINTS_ATTR,0);
+      values[level]=points;
+    }
+    Points2LevelCurve ret=new Points2LevelCurve(id,values);
+    return ret;
   }
 }
