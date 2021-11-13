@@ -43,6 +43,10 @@ public enum CharacterEventType
    */
   CHARACTER_RELICS_UPDATED,
   /**
+   * The allegiances of a toon were updated.
+   */
+  CHARACTER_ALLEGIANCES_UPDATED,
+  /**
    * The storage of a toon was updated.
    */
   CHARACTER_STORAGE_UPDATED,
