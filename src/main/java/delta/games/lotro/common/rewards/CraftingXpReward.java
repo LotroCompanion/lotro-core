@@ -52,6 +52,15 @@ public class CraftingXpReward extends RewardElement
     return _xp;
   }
 
+  /**
+   * Add XP.
+   * @param xp XP to add.
+   */
+  public void addXp(int xp)
+  {
+    _xp+=xp;
+  }
+
   @Override
   public String toString()
   {

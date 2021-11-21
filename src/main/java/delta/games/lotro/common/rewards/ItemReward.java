@@ -47,6 +47,15 @@ public class ItemReward extends RewardElement
     return _quantity;
   }
 
+  /**
+   * Add a quantity.
+   * @param quantity Quantity to add.
+   */
+  public void addQuantity(int quantity)
+  {
+    _quantity+=quantity;
+  }
+
   @Override
   public String toString()
   {

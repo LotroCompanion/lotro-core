@@ -42,6 +42,15 @@ public class VirtueReward extends RewardElement
   }
 
   /**
+   * Add points.
+   * @param points Points to add.
+   */
+  public void addPoints(int points)
+  {
+    _count+=points;
+  }
+
+  /**
    * Dump the contents of this virtue as a string.
    * @return A readable string.
    */
