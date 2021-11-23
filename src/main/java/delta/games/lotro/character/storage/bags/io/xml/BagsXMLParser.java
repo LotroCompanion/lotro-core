@@ -9,6 +9,8 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.storage.bags.BagsManager;
+import delta.games.lotro.character.storage.bags.BagsSetup;
+import delta.games.lotro.character.storage.bags.SingleBagSetup;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -42,15 +44,39 @@ public class BagsXMLParser
   private BagsManager parseBags(Element root)
   {
     BagsManager bags=new BagsManager();
-    // Max
-    int max=DOMParsingTools.getIntAttribute(root.getAttributes(),BagsXMLConstants.BAGS_MAX_ATTR,0);
-    bags.setCapacity(max);
+    // Setup
+    BagsSetup setup=new BagsSetup();
+    List<Element> setupTags=DOMParsingTools.getChildTagsByName(root,BagsXMLConstants.SETUP_TAG,false);
+    int nbSetups=setupTags.size();
+    boolean legacy=(nbSetups==0);
+    if (!legacy)
+    {
+      for(Element setupTag : setupTags)
+      {
+        SingleBagSetup bagSetup=parseBagSetup(setupTag);
+        setup.addBagSetup(bagSetup);
+      }
+    }
     // Slots
     List<Element> slotTags=DOMParsingTools.getChildTagsByName(root,BagsXMLConstants.SLOT_TAG,false);
     for(Element slotTag : slotTags)
     {
       parseBagSlot(bags,slotTag);
     }
+    if (legacy)
+    {
+      int max=DOMParsingTools.getIntAttribute(root.getAttributes(),BagsXMLConstants.BAGS_MAX_ATTR,0);
+      // Build a default setup (use the first available slots)
+      SingleBagSetup bagSetup=new SingleBagSetup(1,max);
+      List<Integer> indexes=bags.getIndexes();
+      int nbItems=indexes.size();
+      for(int i=0;i<nbItems;i++)
+      {
+        bagSetup.setItemIndexAt(i,indexes.get(i));
+      }
+      setup.addBagSetup(bagSetup);
+    }
+    bags.setBagsSetup(setup);
     return bags;
   }
 
@@ -76,5 +102,35 @@ public class BagsXMLParser
         bags.addBagItem(countedItemInstance,index);
       }
     }
+  }
+
+  private SingleBagSetup parseBagSetup(Element rootTag)
+  {
+    NamedNodeMap attrs=rootTag.getAttributes();
+    int bagIndex=DOMParsingTools.getIntAttribute(attrs,BagsXMLConstants.SETUP_BAG_INDEX_ATTR,-1);
+    if (bagIndex==-1)
+    {
+      // No index!
+      LOGGER.warn("No index!");
+      return null;
+    }
+    int bagSize=DOMParsingTools.getIntAttribute(attrs,BagsXMLConstants.SETUP_BAG_SIZE_ATTR,0);
+    SingleBagSetup ret=new SingleBagSetup(bagIndex,bagSize);
+    // Slots
+    List<Element> slotSetupTags=DOMParsingTools.getChildTagsByName(rootTag,BagsXMLConstants.SLOT_SETUP_TAG);
+    for(Element slotSetupTag : slotSetupTags)
+    {
+      NamedNodeMap slotAttrs=slotSetupTag.getAttributes();
+      int slotIndex=DOMParsingTools.getIntAttribute(slotAttrs,BagsXMLConstants.SLOT_SETUP_SLOT_INDEX_ATTR,-1);
+      int itemIndex=DOMParsingTools.getIntAttribute(slotAttrs,BagsXMLConstants.SLOT_SETUP_ITEM_INDEX_ATTR,-1);
+      if ((slotIndex!=-1) && (itemIndex!=-1))
+      {
+        ret.setItemIndexAt(slotIndex,Integer.valueOf(itemIndex));
+      }
+    }
+    // Width
+    int bagWidth=DOMParsingTools.getIntAttribute(attrs,BagsXMLConstants.SETUP_BAG_WIDTH_ATTR,10);
+    ret.setWidth(bagWidth);
+    return ret;
   }
 }

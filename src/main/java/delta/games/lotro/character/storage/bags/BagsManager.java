@@ -20,6 +20,7 @@ public class BagsManager extends BaseStorage
 {
   private int _capacity;
   private Map<Integer,CountedItem<ItemInstance<? extends Item>>> _bag;
+  private BagsSetup _setup;
 
   /**
    * Constructor.
@@ -27,6 +28,7 @@ public class BagsManager extends BaseStorage
   public BagsManager()
   {
     _bag=new HashMap<Integer,CountedItem<ItemInstance<? extends Item>>>();
+    _setup=new BagsSetup();
   }
 
   /**
@@ -119,6 +121,16 @@ public class BagsManager extends BaseStorage
   }
 
   /**
+   * Set the bags setup.
+   * @param setup Setup to set.
+   */
+  public void setBagsSetup(BagsSetup setup)
+  {
+    _setup=setup;
+    _capacity=setup.getCapacity();
+  }
+
+  /**
    * Get the total number of slots in this bag.
    * @return a slot count.
    */
@@ -128,12 +140,12 @@ public class BagsManager extends BaseStorage
   }
 
   /**
-   * Set the total number of slots in this bag.
-   * @param capacity Number of slots.
+   * Get the bags setup.
+   * @return the bags setup.
    */
-  public void setCapacity(int capacity)
+  public BagsSetup getBagsSetup()
   {
-    _capacity=capacity;
+    return _setup;
   }
 
   /**

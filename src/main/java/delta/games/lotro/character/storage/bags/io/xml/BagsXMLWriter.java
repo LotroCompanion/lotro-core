@@ -9,6 +9,8 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.storage.bags.BagsManager;
+import delta.games.lotro.character.storage.bags.BagsSetup;
+import delta.games.lotro.character.storage.bags.SingleBagSetup;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -58,6 +60,9 @@ public class BagsXMLWriter
     attrs.addAttribute("","",BagsXMLConstants.BAGS_MAX_ATTR,XmlWriter.CDATA,String.valueOf(max));
     hd.startElement("","",BagsXMLConstants.BAGS_TAG,attrs);
 
+    // Layout
+    writeLayout(hd,bagsManager.getBagsSetup());
+    // Slots
     ItemXMLWriter writer=new ItemXMLWriter();
     for(Integer index : bagsManager.getIndexes())
     {
@@ -75,5 +80,41 @@ public class BagsXMLWriter
       hd.endElement("","",BagsXMLConstants.SLOT_TAG);
     }
     hd.endElement("","",BagsXMLConstants.BAGS_TAG);
+  }
+
+  private void writeLayout(TransformerHandler hd, BagsSetup setup) throws Exception
+  {
+    for(Integer bagIndex : setup.getBagIndexes())
+    {
+      SingleBagSetup bagSetup=setup.getBagSetup(bagIndex.intValue());
+      AttributesImpl attrs=new AttributesImpl();
+      // Bag index
+      attrs.addAttribute("","",BagsXMLConstants.SETUP_BAG_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(bagIndex));
+      // Bag size
+      int bagSize=bagSetup.getSize();
+      attrs.addAttribute("","",BagsXMLConstants.SETUP_BAG_SIZE_ATTR,XmlWriter.CDATA,String.valueOf(bagSize));
+      // Bag width
+      int bagWidth=bagSetup.getWidth();
+      attrs.addAttribute("","",BagsXMLConstants.SETUP_BAG_WIDTH_ATTR,XmlWriter.CDATA,String.valueOf(bagWidth));
+      hd.startElement("","",BagsXMLConstants.SETUP_TAG,attrs);
+      // Slots
+      int size=bagSetup.getSize();
+      for(int i=0;i<size;i++)
+      {
+        Integer itemIndex=bagSetup.getItemIndexAt(i);
+        if (itemIndex==null)
+        {
+          continue;
+        }
+        AttributesImpl slotAttrs=new AttributesImpl();
+        // slot index
+        slotAttrs.addAttribute("","",BagsXMLConstants.SLOT_SETUP_SLOT_INDEX_ATTR,CDATA,String.valueOf(i));
+        // item index
+        slotAttrs.addAttribute("","",BagsXMLConstants.SLOT_SETUP_SLOT_INDEX_ATTR,CDATA,itemIndex.toString());
+        hd.startElement("","",BagsXMLConstants.SLOT_SETUP_TAG,slotAttrs);
+        hd.endElement("","",BagsXMLConstants.SLOT_SETUP_TAG);
+      }
+      hd.endElement("","",BagsXMLConstants.SETUP_TAG);
+    }
   }
 }
