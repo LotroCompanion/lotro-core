@@ -110,7 +110,7 @@ public class BagsXMLWriter
         // slot index
         slotAttrs.addAttribute("","",BagsXMLConstants.SLOT_SETUP_SLOT_INDEX_ATTR,CDATA,String.valueOf(i));
         // item index
-        slotAttrs.addAttribute("","",BagsXMLConstants.SLOT_SETUP_SLOT_INDEX_ATTR,CDATA,itemIndex.toString());
+        slotAttrs.addAttribute("","",BagsXMLConstants.SLOT_SETUP_ITEM_INDEX_ATTR,CDATA,itemIndex.toString());
         hd.startElement("","",BagsXMLConstants.SLOT_SETUP_TAG,slotAttrs);
         hd.endElement("","",BagsXMLConstants.SLOT_SETUP_TAG);
       }
