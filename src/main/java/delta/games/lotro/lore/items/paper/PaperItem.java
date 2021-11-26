@@ -1,12 +1,13 @@
 package delta.games.lotro.lore.items.paper;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Paper item description.
  * @author DAM
  */
-public class PaperItem implements Identifiable
+public class PaperItem implements Identifiable,Named
 {
   private int _identifier;
   private String _name;

@@ -11,6 +11,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.paper.io.xml.PaperItemsXMLParser;
@@ -81,6 +82,25 @@ public class PaperItemsManager
     ArrayList<PaperItem> paperItems=new ArrayList<PaperItem>();
     paperItems.addAll(_cache.values());
     Collections.sort(paperItems,new IdentifiableComparator<PaperItem>());
+    return paperItems;
+  }
+
+  /**
+   * Get a list of all paper items for a given category, sorted by name.
+   * @param category Category.
+   * @return A list of paper items.
+   */
+  public List<PaperItem> getAllForCategory(String category)
+  {
+    ArrayList<PaperItem> paperItems=new ArrayList<PaperItem>();
+    for(PaperItem paperItem : _cache.values())
+    {
+      if (category.equals(paperItem.getCategory()))
+      {
+        paperItems.add(paperItem);
+      }
+    }
+    Collections.sort(paperItems,new NamedComparator());
     return paperItems;
   }
 
