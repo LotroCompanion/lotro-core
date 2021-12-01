@@ -84,7 +84,12 @@ public class AllegiancesStatusXMLWriter
       statusAttrs.addAttribute("","",AllegiancesStatusXMLConstants.ALLEGIANCE_POINTS_EARNED_ATTR,XmlWriter.CDATA,String.valueOf(points));
       // Claimed rewards
       BitSet claimedRewards=allegianceStatus.getClaimedRewards();
-      int claimedRewardsFlags=(int)claimedRewards.toLongArray()[0];
+      int claimedRewardsFlags=0;
+      long[] bitsAsLongs=claimedRewards.toLongArray();
+      if ((bitsAsLongs!=null) && (bitsAsLongs.length>0))
+      {
+        claimedRewardsFlags=(int)(bitsAsLongs[0]);
+      }
       statusAttrs.addAttribute("","",AllegiancesStatusXMLConstants.ALLEGIANCE_CLAIMED_REWARDS_ATTR,XmlWriter.CDATA,String.valueOf(claimedRewardsFlags));
       hd.startElement("","",AllegiancesStatusXMLConstants.ALLEGIANCE,statusAttrs);
       hd.endElement("","",AllegiancesStatusXMLConstants.ALLEGIANCE);
