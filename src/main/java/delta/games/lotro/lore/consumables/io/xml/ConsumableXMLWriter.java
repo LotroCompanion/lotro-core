@@ -11,6 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.consumables.Consumable;
 
@@ -58,9 +59,12 @@ public class ConsumableXMLWriter
     // Icon ID
     String iconId=consumable.getIcon();
     attrs.addAttribute("","",ConsumableXMLConstants.CONSUMABLE_ICON_ID_ATTR,XmlWriter.CDATA,iconId);
-    // Category
-    String category=consumable.getCategory();
-    attrs.addAttribute("","",ConsumableXMLConstants.CONSUMABLE_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category));
+    // Item class
+    ItemClass itemClass=consumable.getItemClass();
+    if (itemClass!=null)
+    {
+      attrs.addAttribute("","",ConsumableXMLConstants.CONSUMABLE_CLASS_ATTR,XmlWriter.CDATA,String.valueOf(itemClass.getCode()));
+    }
 
     hd.startElement("","",ConsumableXMLConstants.CONSUMABLE_TAG,attrs);
     // Stats

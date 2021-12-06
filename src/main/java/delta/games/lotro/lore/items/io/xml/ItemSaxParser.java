@@ -14,6 +14,9 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
+import delta.games.lotro.common.enums.ItemClass;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.money.ValueTablesManager;
 import delta.games.lotro.common.progression.ProgressionsManager;
@@ -62,10 +65,12 @@ public final class ItemSaxParser extends DefaultHandler
 
   private List<Item> _parsedItems;
   private Item _currentItem;
+  private LotroEnum<ItemClass> _itemClassEnum;
 
   private ItemSaxParser()
   {
     _parsedItems=new ArrayList<Item>();
+    _itemClassEnum=LotroEnumsRegistry.getInstance().get(ItemClass.class);
   }
 
   /**
@@ -135,9 +140,14 @@ public final class ItemSaxParser extends DefaultHandler
         slot=EquipmentLocation.getByKey(slotStr);
       }
       _currentItem.setEquipmentLocation(slot);
-      // Sub-category
-      String subCategory=attributes.getValue(ItemXMLConstants.ITEM_SUBCATEGORY_ATTR);
-      _currentItem.setSubCategory(subCategory);
+      // Item class
+      String itemClassCodeStr=attributes.getValue(ItemXMLConstants.ITEM_CLASS_ATTR);
+      if (itemClassCodeStr!=null)
+      {
+        int itemClassCode=NumericTools.parseInt(itemClassCodeStr,0);
+        ItemClass itemClass=_itemClassEnum.getEntry(itemClassCode);
+        _currentItem.setItemClass(itemClass);
+      }
       // Item binding
       ItemBinding binding=null;
       String bindingStr=attributes.getValue(ItemXMLConstants.ITEM_BINDING_ATTR);

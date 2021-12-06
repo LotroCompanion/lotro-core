@@ -48,9 +48,9 @@ public class ItemXMLConstants
    */
   public static final String ITEM_CATEGORY_ATTR="category";
   /**
-   * Tag 'item', attribute 'subCategory'.
+   * Tag 'item', attribute 'class'.
    */
-  public static final String ITEM_SUBCATEGORY_ATTR="subCategory";
+  public static final String ITEM_CLASS_ATTR="class";
   /**
    * Tag 'item', attribute 'binding'.
    */

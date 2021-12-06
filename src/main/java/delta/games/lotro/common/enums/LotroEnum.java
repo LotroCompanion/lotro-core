@@ -102,6 +102,23 @@ public class LotroEnum<T extends LotroEnumEntry> implements Identifiable,Named
   }
 
   /**
+   * Get an entry by label.
+   * @param label Label to use.
+   * @return An entry or <code>null</code> if not found.
+   */
+  public T getByLabel(String label)
+  {
+    for(T entry : _entries)
+    {
+      if (label.equals(entry.getLabel()))
+      {
+        return entry;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Build an instance of the entry class.
    * @param code Internal code.
    * @param key String key.

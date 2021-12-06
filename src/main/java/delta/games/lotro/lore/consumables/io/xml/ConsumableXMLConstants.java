@@ -28,7 +28,7 @@ public class ConsumableXMLConstants
    */
   public static final String CONSUMABLE_ICON_ID_ATTR="iconId";
   /**
-   * Tag 'consumable', attribute 'category'.
+   * Tag 'consumable', attribute 'class'.
    */
-  public static final String CONSUMABLE_CATEGORY_ATTR="category";
+  public static final String CONSUMABLE_CLASS_ATTR="class";
 }

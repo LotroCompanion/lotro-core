@@ -15,6 +15,7 @@ import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
@@ -174,7 +175,8 @@ public class BuffInitializer
     for(Consumable consumable : consumables)
     {
       String id=String.valueOf(consumable.getIdentifier());
-      String category="Consumable: "+consumable.getCategory();
+      ItemClass itemClass=consumable.getItemClass();
+      String category="Consumable: "+((itemClass!=null)?itemClass.getLabel():"?");
       String name=consumable.getName();
       Buff buff=new Buff(id,BuffType.CONSUMABLE,category,name);
       String icon=IconsUtils.ITEM_ICON_PREFIX+consumable.getIcon();

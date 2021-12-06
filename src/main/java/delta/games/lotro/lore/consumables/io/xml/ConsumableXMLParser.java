@@ -8,6 +8,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.enums.ItemClass;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.consumables.Consumable;
@@ -54,9 +57,14 @@ public class ConsumableXMLParser
     // Icon ID
     String iconId=DOMParsingTools.getStringAttribute(attrs,ConsumableXMLConstants.CONSUMABLE_ICON_ID_ATTR,null);
     // Category
-    String category=DOMParsingTools.getStringAttribute(attrs,ConsumableXMLConstants.CONSUMABLE_CATEGORY_ATTR,null);
-
-    Consumable consumable=new Consumable(id,name,iconId,category);
+    ItemClass itemClass=null;
+    int itemClassCode=DOMParsingTools.getIntAttribute(attrs,ConsumableXMLConstants.CONSUMABLE_CLASS_ATTR,-1);
+    if (itemClassCode>=0)
+    {
+      LotroEnum<ItemClass> itemClassEnum=LotroEnumsRegistry.getInstance().get(ItemClass.class);
+      itemClass=itemClassEnum.getEntry(itemClassCode);
+    }
+    Consumable consumable=new Consumable(id,name,iconId,itemClass);
     // Stats
     StatsProvider statsProvider=consumable.getProvider();
     StatsProviderXMLParser.parseStatsProvider(root,statsProvider);

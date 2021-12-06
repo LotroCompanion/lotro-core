@@ -14,6 +14,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.requirements.UsageRequirement;
@@ -44,10 +45,10 @@ public class Item implements Identifiable,Named,ItemProvider
   private ItemsSet _set;
   // Slot
   private EquipmentLocation _equipmentLocation;
-  // Item name "Jacket of the Impossible Shot"
+  // Item name. Ex: "Jacket of the Impossible Shot"
   private String _name;
-  // TODO Enum or String constants for sub-categories
-  private String _subCategory;
+  // Item class. Yields the category name.
+  private ItemClass _itemClass;
   // Item binding: "Bind on Acquire", ...
   private ItemBinding _binding;
   // Is item unique or not?
@@ -90,7 +91,7 @@ public class Item implements Identifiable,Named,ItemProvider
     _setKey=null;
     _equipmentLocation=null;
     _name="";
-    _subCategory=null;
+    _itemClass=null;
     _binding=null;
     _unique=false;
     _stats=new BasicStatsSet();
@@ -259,21 +260,30 @@ public class Item implements Identifiable,Named,ItemProvider
   }
 
   /**
-   * Get the sub-category of this item.
+   * Get the item class.
+   * @return An item class.
+   */
+  public ItemClass getItemClass()
+  {
+    return _itemClass;
+  }
+
+  /**
+   * Set the item class.
+   * @param itemClass Item class to set.
+   */
+  public void setItemClass(ItemClass itemClass)
+  {
+    _itemClass=itemClass;
+  }
+
+  /**
+   * Get the category of this item.
    * @return a sub-category.
    */
   public String getSubCategory()
   {
-    return _subCategory;
-  }
-
-  /**
-   * Set the sub-category of this item.
-   * @param subCategory the sub-category to set.
-   */
-  public void setSubCategory(String subCategory)
-  {
-    _subCategory=subCategory;
+    return _itemClass!=null?_itemClass.getLabel():null;
   }
 
   /**
@@ -282,12 +292,13 @@ public class Item implements Identifiable,Named,ItemProvider
    */
   public Integer getTier()
   {
-    if (_subCategory!=null)
+    String subCategory=getSubCategory();
+    if (subCategory!=null)
     {
-      int index=_subCategory.indexOf(TIER_PATTERN);
+      int index=subCategory.indexOf(TIER_PATTERN);
       if (index!=-1)
       {
-        String tierStr=_subCategory.substring(index+TIER_PATTERN.length());
+        String tierStr=subCategory.substring(index+TIER_PATTERN.length());
         return NumericTools.parseInteger(tierStr);
       }
     }
@@ -705,10 +716,10 @@ public class Item implements Identifiable,Named,ItemProvider
       sb.append(getCategory());
       sb.append(')');
     }
-    if (_subCategory!=null)
+    if (_itemClass!=null)
     {
       sb.append(" (");
-      sb.append(_subCategory);
+      sb.append(_itemClass.getLabel());
       sb.append(')');
     }
     if (_durability!=null)

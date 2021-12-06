@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.consumables;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
@@ -12,7 +13,7 @@ public class Consumable implements Identifiable
   private int _identifier;
   private String _name;
   private String _icon;
-  private String _category;
+  private ItemClass _category;
   private StatsProvider _provider;
 
   /**
@@ -22,7 +23,7 @@ public class Consumable implements Identifiable
    * @param icon Item icon.
    * @param category Item category.
    */
-  public Consumable(int id, String name, String icon, String category)
+  public Consumable(int id, String name, String icon, ItemClass category)
   {
     _identifier=id;
     _name=name;
@@ -59,10 +60,10 @@ public class Consumable implements Identifiable
   }
 
   /**
-   * Get the consumable category.
-   * @return a category.
+   * Get the consumable class.
+   * @return an item class.
    */
-  public String getCategory()
+  public ItemClass getItemClass()
   {
     return _category;
   }
