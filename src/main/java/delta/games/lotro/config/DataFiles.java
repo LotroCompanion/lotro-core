@@ -117,6 +117,10 @@ public class DataFiles
    * Allegiances file.
    */
   public static final String ALLEGIANCES="allegiances";
+  /**
+   * Carry-alls file.
+   */
+  public static final String CARRY_ALLS="carryAlls";
 
   /**
    * Legacies file.

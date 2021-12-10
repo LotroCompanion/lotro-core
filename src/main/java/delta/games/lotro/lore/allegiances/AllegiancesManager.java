@@ -110,10 +110,10 @@ public class AllegiancesManager
    */
   public List<AllegianceDescription> getAll()
   {
-    ArrayList<AllegianceDescription> titles=new ArrayList<AllegianceDescription>();
-    titles.addAll(_cache.values());
-    Collections.sort(titles,new IdentifiableComparator<AllegianceDescription>());
-    return titles;
+    ArrayList<AllegianceDescription> allegiances=new ArrayList<AllegianceDescription>();
+    allegiances.addAll(_cache.values());
+    Collections.sort(allegiances,new IdentifiableComparator<AllegianceDescription>());
+    return allegiances;
   }
 
   /**
