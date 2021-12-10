@@ -1,99 +1,58 @@
 package delta.games.lotro.character.storage.carryalls;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.log4j.Logger;
-
-import delta.games.lotro.character.storage.carryalls.io.xml.CarryAllDefinitionXMLParser;
-import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.config.DataFiles;
-import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.common.id.InternalGameId;
 
 /**
- * Facade for carry-all access.
+ * Manager for all the carry-alls of a character.
  * @author DAM
  */
 public class CarryAllsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(CarryAllsManager.class);
-
-  private static CarryAllsManager _instance=null;
-
-  private HashMap<Integer,CarryAllDefinition> _cache;
-
-  /**
-   * Get the sole instance of this class.
-   * @return the sole instance of this class.
-   */
-  public static CarryAllsManager getInstance()
-  {
-    if (_instance==null)
-    {
-      _instance=load();
-    }
-    return _instance;
-  }
+  private Map<String,CarryAll> _carryAlls;
 
   /**
    * Constructor.
    */
   public CarryAllsManager()
   {
-    _cache=new HashMap<Integer,CarryAllDefinition>(10);
+    _carryAlls=new HashMap<String,CarryAll>();
   }
 
   /**
-   * Load data from a file.
-   * @return the loaded data.
+   * Get all keys.
+   * @return a sorted list of keys.
    */
-  private static CarryAllsManager load()
+  public List<String> getKeys()
   {
-    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File carryAllsFile=cfg.getFile(DataFiles.CARRY_ALLS);
-    long now=System.currentTimeMillis();
-    CarryAllsManager mgr=new CarryAllDefinitionXMLParser().parseXML(carryAllsFile);
-    long now2=System.currentTimeMillis();
-    long duration=now2-now;
-    int nbCarryAlls=mgr.getAll().size();
-    LOGGER.info("Loaded "+nbCarryAlls+" carry-alls in "+duration+"ms.");
-    return mgr;
+    List<String> ret=new ArrayList<String>(_carryAlls.keySet());
+    Collections.sort(ret);
+    return ret;
+  }
+
+  /**
+   * Get a carry-all using its key.
+   * @param key Key to use.
+   * @return A carry-all or <code>null</code> if no such carry-all.
+   */
+  public CarryAll getCarryAllByKey(String key)
+  {
+    return _carryAlls.get(key);
   }
 
   /**
    * Add a carry-all.
-   * @param carryAllDescription Carry-all to add.
+   * @param carryAll Carry-all to add.
    */
-  public void addCarryAll(CarryAllDefinition carryAllDescription)
+  public void addCarryAll(CarryAll carryAll)
   {
-    Integer key=Integer.valueOf(carryAllDescription.getIdentifier());
-    _cache.put(key,carryAllDescription);
-  }
-
-  /**
-   * Get a list of all carry-alls, sorted by identifier.
-   * @return A list of carry-alls.
-   */
-  public List<CarryAllDefinition> getAll()
-  {
-    ArrayList<CarryAllDefinition> carryAlls=new ArrayList<CarryAllDefinition>();
-    carryAlls.addAll(_cache.values());
-    Collections.sort(carryAlls,new IdentifiableComparator<CarryAllDefinition>());
-    return carryAlls;
-  }
-
-  /**
-   * Get a carry-all using its identifier.
-   * @param id Carry-all identifier.
-   * @return A carry-all description or <code>null</code> if not found.
-   */
-  public CarryAllDefinition getCarryAll(int id)
-  {
-    CarryAllDefinition ret=null;
-    ret=_cache.get(Integer.valueOf(id));
-    return ret;
+    InternalGameId id=carryAll.getInstanceId();
+    String key=id.asPersistedString();
+    _carryAlls.put(key,carryAll);
   }
 }

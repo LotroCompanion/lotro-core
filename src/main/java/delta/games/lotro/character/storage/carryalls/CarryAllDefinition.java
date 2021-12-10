@@ -1,6 +1,7 @@
 package delta.games.lotro.character.storage.carryalls;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Definition of a carry-all.
@@ -8,19 +9,19 @@ import delta.games.lotro.common.Identifiable;
  */
 public class CarryAllDefinition implements Identifiable
 {
-  private int _itemId;
+  private Item _item;
   private int _maxItems;
   private int _stackMax;
 
   /**
    * Constructor.
-   * @param itemId Item identifier.
+   * @param item Item.
    * @param maxItems Maximum number of items.
    * @param stackMax Maximum stack size.
    */
-  public CarryAllDefinition(int itemId, int maxItems, int stackMax)
+  public CarryAllDefinition(Item item, int maxItems, int stackMax)
   {
-    _itemId=itemId;
+    _item=item;
     _maxItems=maxItems;
     _stackMax=stackMax;
   }
@@ -28,16 +29,25 @@ public class CarryAllDefinition implements Identifiable
   @Override
   public int getIdentifier()
   {
-    return _itemId;
+    return (_item!=null)?_item.getIdentifier():0;
   }
 
   /**
-   * Get the item identifier.
-   * @return the itemId
+   * Get the carry-all name.
+   * @return A name.
    */
-  public int getItemId()
+  public String getName()
   {
-    return _itemId;
+    return (_item!=null)?_item.getName():null;
+  }
+
+  /**
+   * Get the item.
+   * @return the item
+   */
+  public Item getItem()
+  {
+    return _item;
   }
 
   /**

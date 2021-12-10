@@ -12,7 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.storage.carryalls.CarryAllDefinition;
-import delta.games.lotro.character.storage.carryalls.CarryAllsManager;
+import delta.games.lotro.character.storage.carryalls.CarryAllsDefinitionsManager;
 import delta.games.lotro.common.IdentifiableComparator;
 
 /**
@@ -27,7 +27,7 @@ public class CarryAllDefinitionXMLWriter
    * @param mgr Data to write.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public static boolean writeCarryAllsFile(File toFile, final CarryAllsManager mgr)
+  public static boolean writeCarryAllsFile(File toFile, final CarryAllsDefinitionsManager mgr)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -42,7 +42,7 @@ public class CarryAllDefinitionXMLWriter
     return ret;
   }
 
-  private static void writeCarryAlls(TransformerHandler hd, CarryAllsManager data) throws Exception
+  private static void writeCarryAlls(TransformerHandler hd, CarryAllsDefinitionsManager data) throws Exception
   {
     hd.startElement("","",CarryAllDefinitionXMLConstants.CARRY_ALLS_TAG,new AttributesImpl());
     List<CarryAllDefinition> carryAlls=data.getAll();
@@ -60,9 +60,12 @@ public class CarryAllDefinitionXMLWriter
 
     // In-game identifier
     int id=carryAll.getIdentifier();
-    if (id!=0)
+    attrs.addAttribute("","",CarryAllDefinitionXMLConstants.CARRY_ALL_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Name
+    String name=carryAll.getName();
+    if (name!=null)
     {
-      attrs.addAttribute("","",CarryAllDefinitionXMLConstants.CARRY_ALL_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      attrs.addAttribute("","",CarryAllDefinitionXMLConstants.CARRY_ALL_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Max items
     int maxItems=carryAll.getMaxItems();

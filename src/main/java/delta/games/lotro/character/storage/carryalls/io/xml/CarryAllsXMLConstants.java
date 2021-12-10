@@ -4,8 +4,12 @@ package delta.games.lotro.character.storage.carryalls.io.xml;
  * Constants for tags and attribute names used in bags XML file.
  * @author DAM
  */
-public class CarryAllXMLConstants
+public class CarryAllsXMLConstants
 {
+  /**
+   * Tag 'carry-alls'.
+   */
+  public static final String CARRY_ALLS="carry-alls";
   /**
    * Tag 'carry-all'.
    */

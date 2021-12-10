@@ -19,6 +19,10 @@ public class CarryAllDefinitionXMLConstants
    */
   public static final String CARRY_ALL_ID_ATTR="id";
   /**
+   * Tag 'carryAll', attribute 'name'.
+   */
+  public static final String CARRY_ALL_NAME_ATTR="name";
+  /**
    * Tag 'carryAll', attribute 'maxItems'.
    */
   public static final String CARRY_ALL_MAX_ITEMS_ATTR="maxItems";
