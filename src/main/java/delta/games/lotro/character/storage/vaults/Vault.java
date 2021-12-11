@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.character.storage.BaseStorage;
+import delta.games.lotro.lore.items.CountedItem;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
 
 /**
  * Storage vault (own vault or shared vault).
@@ -102,6 +106,28 @@ public class Vault extends BaseStorage
   public void setCapacity(int capacity)
   {
     _capacity=capacity;
+  }
+
+  /**
+   * Get the carry-alls from this vault.
+   * @return A list of carry-alls.
+   */
+  public List<CarryAllInstance> getCarryAlls()
+  {
+    List<CarryAllInstance> ret=new ArrayList<CarryAllInstance>();
+    for(Chest chest : _chests.values())
+    {
+      List<CountedItem<ItemInstance<? extends Item>>> items=chest.getAllItemInstances();
+      for(CountedItem<ItemInstance<? extends Item>> item : items)
+      {
+        ItemInstance<? extends Item> itemInstance=item.getManagedItem();
+        if (itemInstance instanceof CarryAllInstance)
+        {
+          ret.add((CarryAllInstance)itemInstance);
+        }
+      }
+    }
+    return ret;
   }
 
   /**

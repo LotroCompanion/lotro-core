@@ -34,7 +34,11 @@ public class SimpleStorageLocation extends StorageLocation
     /**
      * Shared wallet.
      */
-    SHARED_WALLET
+    SHARED_WALLET,
+    /**
+     * Carry-all.
+     */
+    CARRY_ALL
   }
   private Owner _owner;
   private LocationType _type;
@@ -113,6 +117,10 @@ public class SimpleStorageLocation extends StorageLocation
     else if (_type==LocationType.SHARED_WALLET)
     {
       ret="Shared Wallet";
+    }
+    else if (_type==LocationType.CARRY_ALL)
+    {
+      ret="Carry-all";
     }
     if (prefix!=null)
     {

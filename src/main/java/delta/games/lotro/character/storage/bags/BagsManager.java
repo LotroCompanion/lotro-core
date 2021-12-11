@@ -11,6 +11,7 @@ import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
 
 /**
  * Bags contents manager.
@@ -146,6 +147,24 @@ public class BagsManager extends BaseStorage
   public BagsSetup getBagsSetup()
   {
     return _setup;
+  }
+
+  /**
+   * Get the carry-alls from this vault.
+   * @return A list of carry-alls.
+   */
+  public List<CarryAllInstance> getCarryAlls()
+  {
+    List<CarryAllInstance> ret=new ArrayList<CarryAllInstance>();
+    for(CountedItem<ItemInstance<? extends Item>> item : _bag.values())
+    {
+      ItemInstance<? extends Item> itemInstance=item.getManagedItem();
+      if (itemInstance instanceof CarryAllInstance)
+      {
+        ret.add((CarryAllInstance)itemInstance);
+      }
+    }
+    return ret;
   }
 
   /**

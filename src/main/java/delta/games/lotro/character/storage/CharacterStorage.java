@@ -1,8 +1,12 @@
 package delta.games.lotro.character.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.character.storage.bags.BagsManager;
 import delta.games.lotro.character.storage.vaults.Vault;
 import delta.games.lotro.character.storage.wallet.Wallet;
+import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
 
 /**
  * Storage data for a single character.
@@ -61,6 +65,22 @@ public class CharacterStorage
   public Wallet getWallet()
   {
     return _wallet;
+  }
+
+  /**
+   * Get the carry-alls from this character storage.
+   * @return A list of carry-alls.
+   */
+  public List<CarryAllInstance> getCarryAlls()
+  {
+    List<CarryAllInstance> ret=new ArrayList<CarryAllInstance>();
+    // Own vault
+    ret.addAll(_ownVault.getCarryAlls());
+    // Bags
+    ret.addAll(_bags.getCarryAlls());
+    // Wallet
+    // ... no carry alls in the wallet!
+    return ret;
   }
 
   /**
