@@ -83,6 +83,7 @@ public class AllegianceStatus
       {
         _claimedRewards.set(i);
       }
+      mask*=2;
     }
   }
 
