@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items;
 
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 
 /**
@@ -7,7 +8,7 @@ import delta.games.lotro.common.Named;
  * @author DAM
  * @param <T> Type of managed items.
  */
-public class CountedItem<T extends ItemProvider> implements Named,ItemProvider
+public class CountedItem<T extends ItemProvider> implements Named,ItemProvider,Identifiable
 {
   private T _item;
   private int _quantity;
@@ -47,6 +48,12 @@ public class CountedItem<T extends ItemProvider> implements Named,ItemProvider
       }
     }
     return 0;
+  }
+
+  @Override
+  public int getIdentifier()
+  {
+    return getId();
   }
 
   /**

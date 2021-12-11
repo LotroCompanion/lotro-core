@@ -1,28 +1,15 @@
-package delta.games.lotro.character.storage.carryalls.io.xml;
+package delta.games.lotro.lore.items.carryalls.io.xml;
 
 /**
  * Constants for tags and attribute names used in bags XML file.
  * @author DAM
  */
-public class CarryAllsXMLConstants
+public class CarryAllInstanceXMLConstants
 {
-  /**
-   * Tag 'carry-alls'.
-   */
-  public static final String CARRY_ALLS="carry-alls";
   /**
    * Tag 'carry-all'.
    */
   public static final String CARRY_ALL="carry-all";
-  /**
-   * Tag 'carry-all', attribute 'id'.
-   */
-  public static final String CARRY_ALL_ID_ATTR="id";
-  /**
-   * Tag 'carry-all', attribute 'definitionID'.
-   */
-  public static final String CARRY_ALL_DEFINITION_ID_ATTR="definitionID";
-
   /**
    * Tag 'item'.
    */

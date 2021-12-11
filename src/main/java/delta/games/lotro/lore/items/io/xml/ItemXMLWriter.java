@@ -40,6 +40,9 @@ import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.carryalls.CarryAll;
+import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
+import delta.games.lotro.lore.items.carryalls.io.xml.CarryAllInstanceXMLWriter;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.Legendary;
@@ -336,6 +339,16 @@ public class ItemXMLWriter
           itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_BASE_RANK_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyBaseRank));
         }
       }
+      if (item instanceof CarryAll)
+      {
+        CarryAll carryAll=(CarryAll)item;
+        // Max items
+        int maxItems=carryAll.getMaxItems();
+        itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_MAX_ITEMS_ATTR,XmlWriter.CDATA,String.valueOf(maxItems));
+        // Item stack max
+        int itemStackMax=carryAll.getItemStackMax();
+        itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_ITEM_STACK_MAX_ATTR,XmlWriter.CDATA,String.valueOf(itemStackMax));
+      }
     }
     if (isInstance)
     {
@@ -390,6 +403,11 @@ public class ItemXMLWriter
     {
       LegendaryInstanceAttrs2 legAttrs=((LegendaryInstance2)instance).getLegendaryAttributes();
       LegendaryInstance2AttrsXMLWriter.write(hd,legAttrs);
+    }
+    if (instance instanceof CarryAllInstance)
+    {
+      CarryAllInstance carryAllInstance=(CarryAllInstance)instance;
+      CarryAllInstanceXMLWriter.writeCarryAll(hd,carryAllInstance);
     }
     // Money
     if (isInstance)

@@ -47,6 +47,7 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.carryalls.CarryAll;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary2.Legendary2;
@@ -268,6 +269,18 @@ public final class ItemSaxParser extends DefaultHandler
         LegendaryAttributes2Manager mgr=LegendaryAttributes2Manager.getInstance();
         LegendaryAttrs2 attrs=mgr.getLegendaryAttributes(id);
         legendary.getLegendaryAttrs().setSockets(attrs.getSockets());
+      }
+      if (_currentItem instanceof CarryAll)
+      {
+        CarryAll carryAll=(CarryAll)_currentItem;
+        // Max items
+        String maxItemsStr=attributes.getValue(ItemXMLConstants.CARRY_ALL_MAX_ITEMS_ATTR);
+        int maxItems=NumericTools.parseInt(maxItemsStr,0);
+        carryAll.setMaxItems(maxItems);
+        // Item stack max
+        String itemStackMaxStr=attributes.getValue(ItemXMLConstants.CARRY_ALL_ITEM_STACK_MAX_ATTR);
+        int itemStackMax=NumericTools.parseInt(itemStackMaxStr,0);
+        carryAll.setItemStackMax(itemStackMax);
       }
     }
     else if (ItemXMLConstants.PROPERTY_TAG.equals(qualifiedName))

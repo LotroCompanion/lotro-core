@@ -2,6 +2,8 @@ package delta.games.lotro.lore.items;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.lore.items.carryalls.CarryAll;
+import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
 import delta.games.lotro.lore.items.legendary.Legendary;
@@ -63,6 +65,10 @@ public class ItemFactory
     else if (category==ItemCategory.LEGENDARY_ITEM2)
     {
       ret=new LegendaryItem2();
+    }
+    else if (category==ItemCategory.CARRY_ALL)
+    {
+      ret=new CarryAll();
     }
     else
     {
@@ -130,6 +136,13 @@ public class ItemFactory
     {
       LegendaryItem2 reference=(LegendaryItem2)item;
       LegendaryItemInstance2 instance=new LegendaryItemInstance2(reference.getLegendaryAttrs());
+      instance.setReference(reference);
+      ret=instance;
+    }
+    else if (item instanceof CarryAll)
+    {
+      CarryAll reference=(CarryAll)item;
+      CarryAllInstance instance=new CarryAllInstance();
       instance.setReference(reference);
       ret=instance;
     }

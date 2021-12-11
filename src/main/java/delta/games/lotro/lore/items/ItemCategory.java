@@ -33,5 +33,9 @@ public enum ItemCategory
   /**
    * Legendary item (reloaded).
    */
-  LEGENDARY_ITEM2
+  LEGENDARY_ITEM2,
+  /**
+   * Carry-all.
+   */
+  CARRY_ALL
 }

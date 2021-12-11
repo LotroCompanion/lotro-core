@@ -154,6 +154,16 @@ public class ItemXMLConstants
    */
   public static final String MAIN_LEGACY_BASE_RANK_ATTR="mainLegacyBaseRank";
 
+  // Carry-all
+  /**
+   * Tag 'carryAll', attribute 'maxItems'.
+   */
+  public static final String CARRY_ALL_MAX_ITEMS_ATTR="maxItems";
+  /**
+   * Tag 'carryAll', attribute 'itemStackMax'.
+   */
+  public static final String CARRY_ALL_ITEM_STACK_MAX_ATTR="itemStackMax";
+
   /**
    * Tag 'stats'.
    */
