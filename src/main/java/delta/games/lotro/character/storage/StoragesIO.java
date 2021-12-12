@@ -1,5 +1,7 @@
 package delta.games.lotro.character.storage;
 
+import delta.games.lotro.account.Account;
+import delta.games.lotro.account.AccountsManager;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.storage.bags.BagsManager;
 import delta.games.lotro.character.storage.bags.io.BagsIo;
@@ -27,7 +29,22 @@ public class StoragesIO
     BagsManager bagsManager=BagsIo.load(character);
     // Wallet
     Wallet wallet=WalletsIO.loadCharacterWallet(character);
-    CharacterStorage storage=new CharacterStorage(ownVault,bagsManager,wallet);
+    // Shared stuff
+    Wallet sharedWallet=null;
+    Vault sharedVault=null;
+    String accountName=character.getAccountName();
+    String serverName=character.getServerName();
+    if ((accountName.length()>0) && (serverName.length()>0))
+    {
+      AccountsManager accountsMgr=AccountsManager.getInstance();
+      Account account=accountsMgr.getAccountByName(accountName);
+      if (account!=null)
+      {
+        sharedWallet=WalletsIO.loadAccountSharedWallet(account,serverName);
+        sharedVault=VaultsIo.load(account,serverName);
+      }
+    }
+    CharacterStorage storage=new CharacterStorage(sharedVault,ownVault,bagsManager,sharedWallet,wallet);
     return storage;
   }
 }

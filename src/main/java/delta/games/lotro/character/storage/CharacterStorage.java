@@ -15,6 +15,10 @@ import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
 public class CharacterStorage
 {
   /**
+   * Shared vault.
+   */
+  private Vault _sharedVault;
+  /**
    * Own vault.
    */
   private Vault _ownVault;
@@ -23,21 +27,38 @@ public class CharacterStorage
    */
   private BagsManager _bags;
   /**
+   * Shared wallet.
+   */
+  private Wallet _sharedWallet;
+  /**
    * Own wallet.
    */
   private Wallet _wallet;
 
   /**
    * Constructor.
+   * @param sharedVault Shared vault.
    * @param ownVault Own vault.
    * @param bags Bags.
+   * @param sharedWallet Shared wallet.
    * @param wallet Wallet.
    */
-  public CharacterStorage(Vault ownVault, BagsManager bags, Wallet wallet)
+  public CharacterStorage(Vault sharedVault, Vault ownVault, BagsManager bags, Wallet sharedWallet, Wallet wallet)
   {
+    _sharedVault=sharedVault;
     _ownVault=ownVault;
     _bags=bags;
+    _sharedWallet=sharedWallet;
     _wallet=wallet;
+  }
+
+  /**
+   * Get the shared vault of the associated character.
+   * @return a vault.
+   */
+  public Vault getSharedVault()
+  {
+    return _sharedVault;
   }
 
   /**
@@ -59,6 +80,15 @@ public class CharacterStorage
   }
 
   /**
+   * Get the shared wallet of the associated character.
+   * @return a wallet.
+   */
+  public Wallet getSharedWallet()
+  {
+    return _sharedWallet;
+  }
+
+  /**
    * Get the wallet of the associated character.
    * @return a wallet.
    */
@@ -69,13 +99,21 @@ public class CharacterStorage
 
   /**
    * Get the carry-alls from this character storage.
+   * @param includeShared Include shared carry-alls or not.
    * @return A list of carry-alls.
    */
-  public List<CarryAllInstance> getCarryAlls()
+  public List<CarryAllInstance> getCarryAlls(boolean includeShared)
   {
     List<CarryAllInstance> ret=new ArrayList<CarryAllInstance>();
     // Own vault
     ret.addAll(_ownVault.getCarryAlls());
+    if (includeShared)
+    {
+      if (_sharedVault!=null)
+      {
+        ret.addAll(_sharedVault.getCarryAlls());
+      }
+    }
     // Bags
     ret.addAll(_bags.getCarryAlls());
     // Wallet
