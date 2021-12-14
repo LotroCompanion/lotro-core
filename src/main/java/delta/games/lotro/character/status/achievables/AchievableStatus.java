@@ -20,6 +20,7 @@ public class AchievableStatus
   private Long _completionDate;
   private Integer _completionCount;
   private AchievableElementState _state;
+  private Progress _progress;
   private List<AchievableObjectiveStatus> _objectiveStatuses;
 
   /**
@@ -135,6 +136,21 @@ public class AchievableStatus
       }
       objectiveStatus.updateInternalState();
     }
+    updateProgress();
+  }
+
+  /**
+   * Get the progress for this achievable.
+   * @return A progress or <code>null</code>.
+   */
+  public Progress getProgress()
+  {
+    return _progress;
+  }
+
+  private void updateProgress()
+  {
+    _progress=AchievableProgressUtils.buildProgress(this);
   }
 
   /**

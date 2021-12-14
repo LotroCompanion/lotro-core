@@ -32,7 +32,7 @@ public abstract class ObjectiveCondition
   }
 
   /**
-   * Get the objective index, starting at 1.
+   * Get the objective condition index, starting at 0.
    * @return An index.
    */
   public int getIndex()
