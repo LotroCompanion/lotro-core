@@ -28,9 +28,9 @@ public class CurrenciesFacade
     if (character!=null)
     {
       CurrenciesSummary summary=CurrenciesIo.load(character);
-      CurrencyStatus goldStatus=summary.getCurrency(currencyId,true);
-      goldStatus.setDate(now);
-      goldStatus.setValue(value);
+      CurrencyStatus status=summary.getCurrency(currencyId,true);
+      status.setDate(now);
+      status.setValue(value);
       CurrenciesIo.save(character,summary);
       if (withHistory)
       {
@@ -61,9 +61,9 @@ public class CurrenciesFacade
     {
       long now=System.currentTimeMillis();
       CurrenciesSummary summary=CurrenciesIo.load(account,server);
-      CurrencyStatus destinyPointsStatus=summary.getCurrency(currencyId,true);
-      destinyPointsStatus.setDate(now);
-      destinyPointsStatus.setValue(value);
+      CurrencyStatus status=summary.getCurrency(currencyId,true);
+      status.setDate(now);
+      status.setValue(value);
       CurrenciesIo.save(account,server,summary);
       if (withHistory)
       {
