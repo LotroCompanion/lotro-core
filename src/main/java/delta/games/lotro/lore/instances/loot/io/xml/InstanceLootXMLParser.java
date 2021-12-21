@@ -14,8 +14,8 @@ import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
 import delta.games.lotro.lore.instances.loot.InstanceLootEntry;
 import delta.games.lotro.lore.instances.loot.InstanceLootParameters;
-import delta.games.lotro.lore.instances.loot.InstanceLoots;
 import delta.games.lotro.lore.instances.loot.InstanceLootTablesManager;
+import delta.games.lotro.lore.instances.loot.InstanceLoots;
 import delta.games.lotro.lore.instances.loot.InstanceLootsTable;
 
 /**

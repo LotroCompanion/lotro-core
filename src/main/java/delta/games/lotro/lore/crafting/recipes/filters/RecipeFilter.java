@@ -7,10 +7,6 @@ import delta.common.utils.collections.filters.CompoundFilter;
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.collections.filters.Operator;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
-import delta.games.lotro.lore.crafting.recipes.filters.RecipeCategoryFilter;
-import delta.games.lotro.lore.crafting.recipes.filters.RecipeNameFilter;
-import delta.games.lotro.lore.crafting.recipes.filters.RecipeProfessionFilter;
-import delta.games.lotro.lore.crafting.recipes.filters.RecipeTierFilter;
 
 /**
  * Recipe filter.

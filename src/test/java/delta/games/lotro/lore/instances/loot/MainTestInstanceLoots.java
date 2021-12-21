@@ -1,11 +1,6 @@
 package delta.games.lotro.lore.instances.loot;
 
 import delta.games.lotro.common.treasure.TrophyList;
-import delta.games.lotro.lore.instances.loot.InstanceLootEntry;
-import delta.games.lotro.lore.instances.loot.InstanceLootParameters;
-import delta.games.lotro.lore.instances.loot.InstanceLootTablesManager;
-import delta.games.lotro.lore.instances.loot.InstanceLoots;
-import delta.games.lotro.lore.instances.loot.InstanceLootsTable;
 
 /**
  * Test class for instances loots.

@@ -13,8 +13,8 @@ import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.sets.ItemsSet;
-import delta.games.lotro.lore.items.sets.SetBonus;
 import delta.games.lotro.lore.items.sets.ItemsSet.SetType;
+import delta.games.lotro.lore.items.sets.SetBonus;
 
 /**
  * Parser for items sets descriptions stored in XML.

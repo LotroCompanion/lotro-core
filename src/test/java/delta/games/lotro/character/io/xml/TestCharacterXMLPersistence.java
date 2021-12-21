@@ -2,12 +2,12 @@ package delta.games.lotro.character.io.xml;
 
 import java.io.File;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.CharacterGenerationTools;
 import delta.games.lotro.character.stats.CharacterGeneratorGiswald;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 /**
  * Test character persistence in XML.

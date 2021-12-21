@@ -2,8 +2,6 @@ package delta.games.lotro.character.status.skirmishes;
 
 import java.io.File;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.status.skirmishes.io.xml.SkirmishStatsXMLWriter;
 import delta.games.lotro.common.enums.GroupSize;
@@ -12,6 +10,8 @@ import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 /**
  * Test class for skirmish stats.

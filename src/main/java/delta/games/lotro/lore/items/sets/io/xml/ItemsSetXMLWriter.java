@@ -16,8 +16,8 @@ import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.sets.ItemsSet;
-import delta.games.lotro.lore.items.sets.SetBonus;
 import delta.games.lotro.lore.items.sets.ItemsSet.SetType;
+import delta.games.lotro.lore.items.sets.SetBonus;
 
 /**
  * Writes LOTRO items sets to XML files.
