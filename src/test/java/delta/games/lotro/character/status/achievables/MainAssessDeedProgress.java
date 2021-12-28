@@ -26,17 +26,33 @@ public class MainAssessDeedProgress
     {
       return;
     }
-    handleMetaDeed(deed);
-  }
-
-  private void handleMetaDeed(DeedDescription deed)
-  {
-    List<Objective> objectives=deed.getObjectives().getObjectives();
-    int nbObjectives=objectives.size();
+    boolean multiConditionDeed=isMultiConditionDeed(deed);
+    if (multiConditionDeed)
+    {
+      return;
+    }
+    /*
+    int nbObjectives=deed.getObjectives().getObjectivesCount();
     if (nbObjectives>1)
     {
-      System.out.println("Deed: "+deed.getName()+" => "+nbObjectives+" objectives");
+      //System.out.println("Deed: "+deed.getName());
     }
+    */
+  }
+
+  private boolean isMultiConditionDeed(DeedDescription deed)
+  {
+    List<Objective> objectives=deed.getObjectives().getObjectives();
+    for(Objective objective : objectives)
+    {
+      int nbConditions=objective.getConditions().size();
+      if (nbConditions>1)
+      {
+        System.out.println("#2 Deed: "+deed.getName()+" => "+nbConditions);
+        return true;
+      }
+    }
+    return false;
   }
 
   private boolean isFactionDeed(DeedDescription deed)
@@ -71,9 +87,9 @@ public class MainAssessDeedProgress
 
   private boolean handleCount(DeedDescription deed)
   {
-    @SuppressWarnings("unused")
     int nbCounts=0;
     int nbObjectivesWithCount=0;
+    int totalCount=0;
     for(Objective objective : deed.getObjectives().getObjectives())
     {
       boolean hasCount=false;
@@ -83,6 +99,7 @@ public class MainAssessDeedProgress
         if (count>1)
         {
           nbCounts++;
+          totalCount+=count;
           hasCount=true;
         }
       }
@@ -90,7 +107,7 @@ public class MainAssessDeedProgress
     }
     if (nbObjectivesWithCount>0)
     {
-      //System.out.println("Deed: "+deed.getName()+" => "+nbCounts+" conditions");
+      System.out.println("#1 Deed: "+deed.getName()+" => "+totalCount);
       if (nbObjectivesWithCount>1)
       {
         System.out.println("   => several counts!");

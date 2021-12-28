@@ -1,5 +1,7 @@
 package delta.games.lotro.character.status.achievables;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.lore.deeds.DeedDescription;
@@ -31,7 +33,13 @@ public class AchievableProgressUtils
       {
         return null;
       }
-      int maxCount=computeMaxCount(deed);
+      boolean multiConditionDeed=false;
+      int maxCount=computeMaxCountUsingCountedDeeds(deed);
+      if (maxCount==0)
+      {
+        multiConditionDeed=true;
+        maxCount=computeMaxCountUsingMultiConditionDeeds(deed);
+      }
       if (maxCount==0)
       {
         return null;
@@ -40,13 +48,21 @@ public class AchievableProgressUtils
       {
         return new Progress(maxCount,maxCount);
       }
-      int currentCount=computeCurrentCount(status,deed,maxCount);
+      int currentCount=0;
+      if (multiConditionDeed)
+      {
+        currentCount=computeCurrentCountUsingMultiConditionDeeds(status,deed);
+      }
+      else
+      {
+        currentCount=computeCurrentCountUsingCountedDeeds(status,deed);
+      }
       return new Progress(currentCount,maxCount);
     }
     return null;
   }
 
-  private static int computeMaxCount(DeedDescription deed)
+  private static int computeMaxCountUsingCountedDeeds(DeedDescription deed)
   {
     int totalCount=0;
     int nbObjectivesWithCount=0;
@@ -79,7 +95,16 @@ public class AchievableProgressUtils
     return 0;
   }
 
-  private static int computeCurrentCount(AchievableStatus status, DeedDescription deed, int max)
+  private static int computeMaxCountUsingMultiConditionDeeds(DeedDescription deed)
+  {
+    List<Objective> objectives=deed.getObjectives().getObjectives();
+    int nbObjectives=objectives.size();
+    Objective toUse=objectives.get(nbObjectives-1);
+    int nbConditions=toUse.getConditions().size();
+    return (nbConditions>1)?nbConditions:0;
+  }
+
+  private static int computeCurrentCountUsingCountedDeeds(AchievableStatus status, DeedDescription deed)
   {
     int ret=0;
     for(Objective objective : deed.getObjectives().getObjectives())
@@ -105,5 +130,24 @@ public class AchievableProgressUtils
       }
     }
     return ret;
+  }
+
+  private static int computeCurrentCountUsingMultiConditionDeeds(AchievableStatus status, DeedDescription deed)
+  {
+    List<Objective> objectives=deed.getObjectives().getObjectives();
+    int nbObjectives=objectives.size();
+    Objective toUse=objectives.get(nbObjectives-1);
+    AchievableObjectiveStatus objectiveStatus=status.getObjectiveStatus(toUse.getIndex());
+    int count=0;
+    for(ObjectiveCondition condition : toUse.getConditions())
+    {
+      ObjectiveConditionStatus conditionStatus=objectiveStatus.getConditionStatus(condition.getIndex());
+      AchievableElementState conditionState=conditionStatus.getState();
+      if (conditionState==AchievableElementState.COMPLETED)
+      {
+        count++;
+      }
+    }
+    return count;
   }
 }
