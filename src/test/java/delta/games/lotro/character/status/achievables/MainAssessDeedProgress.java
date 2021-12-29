@@ -87,7 +87,6 @@ public class MainAssessDeedProgress
 
   private boolean handleCount(DeedDescription deed)
   {
-    int nbCounts=0;
     int nbObjectivesWithCount=0;
     int totalCount=0;
     for(Objective objective : deed.getObjectives().getObjectives())
@@ -98,7 +97,6 @@ public class MainAssessDeedProgress
         int count=condition.getCount();
         if (count>1)
         {
-          nbCounts++;
           totalCount+=count;
           hasCount=true;
         }
