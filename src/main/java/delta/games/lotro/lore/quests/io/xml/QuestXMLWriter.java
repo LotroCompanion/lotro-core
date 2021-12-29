@@ -63,7 +63,7 @@ public class QuestXMLWriter extends AchievableXMLWriter
         hd.startElement("","",QuestXMLConstants.QUESTS_TAG,new AttributesImpl());
         for(QuestDescription quest : quests)
         {
-          write(hd,quest);
+          writeQuest(hd,quest);
         }
         hd.endElement("","",QuestXMLConstants.QUESTS_TAG);
       }
@@ -73,7 +73,7 @@ public class QuestXMLWriter extends AchievableXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, QuestDescription quest) throws Exception
+  private void writeQuest(TransformerHandler hd, QuestDescription quest) throws Exception
   {
     AttributesImpl questAttrs=new AttributesImpl();
 
@@ -139,11 +139,11 @@ public class QuestXMLWriter extends AchievableXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,XmlWriter.CDATA,String.valueOf(autoBestowed));
     }
-    // Obsolete?
-    boolean obsolete=quest.isObsolete();
-    if (obsolete)
+    // Hidden?
+    boolean hidden=quest.isHidden();
+    if (hidden)
     {
-      questAttrs.addAttribute("","",AchievableXMLConstants.OBSOLETE_ATTR,XmlWriter.CDATA,String.valueOf(obsolete));
+      questAttrs.addAttribute("","",AchievableXMLConstants.HIDDEN_ATTR,XmlWriter.CDATA,String.valueOf(hidden));
     }
     // Requirements
     UsageRequirementsXMLWriter.write(questAttrs,quest.getUsageRequirement());

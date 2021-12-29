@@ -43,7 +43,7 @@ public abstract class Achievable implements Identifiable
   private ChallengeLevel _challengeLevel;
 
   // Flags
-  private boolean _obsolete;
+  private boolean _hidden;
   /**
    * Description.
    */
@@ -75,7 +75,7 @@ public abstract class Achievable implements Identifiable
     _category="";
     _requirement=new UsageRequirement();
     _challengeLevel=ChallengeLevel.ONE;
-    _obsolete=false;
+    _hidden=false;
     _description="";
     _objectives=new ObjectivesManager();
     _rewards=new Rewards();
@@ -225,18 +225,18 @@ public abstract class Achievable implements Identifiable
    * Indicates if this quest is obsolete/hidden or not.
    * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
-  public boolean isObsolete()
+  public boolean isHidden()
   {
-    return _obsolete;
+    return _hidden;
   }
 
   /**
-   * Set the 'obsolete' flag.
-   * @param obsolete value to set.
+   * Set the 'hidden' flag.
+   * @param hidden value to set.
    */
-  public void setObsolete(boolean obsolete)
+  public void setHidden(boolean hidden)
   {
-    _obsolete=obsolete;
+    _hidden=hidden;
   }
 
   /**
@@ -328,9 +328,9 @@ public abstract class Achievable implements Identifiable
       sb.append(')');
     }
     sb.append(" (challenge level=").append(_challengeLevel).append(")");
-    if (_obsolete)
+    if (_hidden)
     {
-      sb.append(" (obsolete)");
+      sb.append(" (obsolete/hidden)");
     }
   }
   protected void dumpOtherLines(StringBuilder sb)

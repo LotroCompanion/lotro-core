@@ -24,9 +24,9 @@ public class AchievableXMLConstants
    */
   public static final String LEVEL_ATTR="level";
   /**
-   * Tag 'quest/deed', attribute 'obsolete'.
+   * Tag 'quest/deed', attribute 'hidden'.
    */
-  public static final String OBSOLETE_ATTR="obsolete";
+  public static final String HIDDEN_ATTR="hidden";
   /**
    * Tag 'quest/deed', attribute 'description'.
    */

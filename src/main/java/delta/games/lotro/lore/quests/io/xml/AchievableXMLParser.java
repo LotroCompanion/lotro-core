@@ -33,9 +33,9 @@ public class AchievableXMLParser
     // Challenge level
     int challengeLevel=DOMParsingTools.getIntAttribute(attrs,AchievableXMLConstants.LEVEL_ATTR,0);
     achievable.setChallengeLevel(ChallengeLevel.getByCode(challengeLevel));
-    // Obsolete
-    boolean obsolete=DOMParsingTools.getBooleanAttribute(attrs,AchievableXMLConstants.OBSOLETE_ATTR,false);
-    achievable.setObsolete(obsolete);
+    // Hidden
+    boolean hidden=DOMParsingTools.getBooleanAttribute(attrs,AchievableXMLConstants.HIDDEN_ATTR,false);
+    achievable.setHidden(hidden);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,AchievableXMLConstants.DESCRIPTION_ATTR,"");
     achievable.setDescription(description);

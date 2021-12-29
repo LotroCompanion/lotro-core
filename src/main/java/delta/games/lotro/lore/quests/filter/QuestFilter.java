@@ -33,7 +33,7 @@ public class QuestFilter implements Filter<QuestDescription>
   private AutoBestowedQuestFilter _autoBestowedQuestFilter;
   private RepeatabilityFilter _repeatabilityFilter;
   private LockTypeFilter _lockTypeFilter;
-  private ObsoleteAchievableFilter<QuestDescription> _obsoleteFilter;
+  private HiddenAchievableFilter<QuestDescription> _hiddenFilter;
   // Requirements
   private UsageRequirementFilter _requirementsFilter;
   // Rewards
@@ -78,9 +78,9 @@ public class QuestFilter implements Filter<QuestDescription>
     // Lock type
     _lockTypeFilter=new LockTypeFilter(null);
     filters.add(_lockTypeFilter);
-    // Obsolete
-    _obsoleteFilter=new ObsoleteAchievableFilter<QuestDescription>(null);
-    filters.add(_obsoleteFilter);
+    // Hidden
+    _hiddenFilter=new HiddenAchievableFilter<QuestDescription>(null);
+    filters.add(_hiddenFilter);
     // Requirements
     {
       _requirementsFilter=new UsageRequirementFilter(null,null);
@@ -210,12 +210,12 @@ public class QuestFilter implements Filter<QuestDescription>
   }
 
   /**
-   * Get the filter on obsolete flag.
-   * @return a filter on obsolete flag.
+   * Get the filter on hidden flag.
+   * @return a filter on hidden flag.
    */
-  public ObsoleteAchievableFilter<QuestDescription> getObsoleteFilter()
+  public HiddenAchievableFilter<QuestDescription> getHiddenFilter()
   {
-    return _obsoleteFilter;
+    return _hiddenFilter;
   }
 
   /**

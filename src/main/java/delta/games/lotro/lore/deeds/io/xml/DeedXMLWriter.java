@@ -81,11 +81,11 @@ public class DeedXMLWriter extends AchievableXMLWriter
     // Challenge level
     ChallengeLevel challengeLevel=deed.getChallengeLevel();
     deedAttrs.addAttribute("","",AchievableXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
-    // Obsolete?
-    boolean obsolete=deed.isObsolete();
-    if (obsolete)
+    // Hidden?
+    boolean hidden=deed.isHidden();
+    if (hidden)
     {
-      deedAttrs.addAttribute("","",AchievableXMLConstants.OBSOLETE_ATTR,XmlWriter.CDATA,String.valueOf(obsolete));
+      deedAttrs.addAttribute("","",AchievableXMLConstants.HIDDEN_ATTR,XmlWriter.CDATA,String.valueOf(hidden));
     }
     // Description
     String description=deed.getDescription();
