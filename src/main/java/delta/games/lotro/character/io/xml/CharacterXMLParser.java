@@ -25,7 +25,9 @@ import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
 import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
 import delta.games.lotro.utils.PersistenceVersions;
@@ -132,18 +134,28 @@ public class CharacterXMLParser
         EQUIMENT_SLOT slot=EQUIMENT_SLOT.valueOf(name);
         if (slot!=null)
         {
-          // Slots attributes
-          String objectURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_OBJECT_URL_ATTR,"");
           SlotContents slotContents=equipment.getSlotContents(slot,true);
-          if (objectURL!=null)
+          // Item ID
+          Integer itemId=null;
+          String objectURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_OBJECT_URL_ATTR,"");
+          if (objectURL.length()>0)
           {
-            Integer itemId=idFromURL(objectURL);
-            slotContents.setItemId(itemId);
+            itemId=idFromURL(objectURL);
           }
-          int itemId=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.SLOT_ITEM_ID_ATTR,-1);
-          if (itemId!=-1)
+          int itemIdInt=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.SLOT_ITEM_ID_ATTR,-1);
+          if (itemIdInt!=-1)
           {
-            slotContents.setItemId(Integer.valueOf(itemId));
+            itemId=Integer.valueOf(itemIdInt);
+          }
+          if (itemId!=null)
+          {
+            ItemsManager itemsManager=ItemsManager.getInstance();
+            Item itemRef=itemsManager.getItem(itemId.intValue());
+            if (itemRef!=null)
+            {
+              ItemInstance<? extends Item> itemInstance=ItemFactory.buildInstance(itemRef);
+              slotContents.setItem(itemInstance);
+            }
           }
           // Embedded item
           ItemXMLParser itemParser=new ItemXMLParser();
@@ -153,12 +165,12 @@ public class CharacterXMLParser
             ItemInstance<? extends Item> item=itemParser.parseItemInstance(itemTag);
             if (item!=null)
             {
-              item.setWearer(c.getSummary());
               slotContents.setItem(item);
             }
           }
         }
       }
+      equipment.setWearer(c.getSummary());
     }
   }
 

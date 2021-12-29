@@ -141,11 +141,6 @@ public class CharacterXMLWriter
     {
       AttributesImpl slotAtts=new AttributesImpl();
       slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_NAME_ATTR,XmlWriter.CDATA,slot.name());
-      Integer itemId=slotContents.getItemId();
-      if (itemId!=null)
-      {
-        slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_ITEM_ID_ATTR,XmlWriter.CDATA,itemId.toString());
-      }
       hd.startElement("","",CharacterXMLConstants.SLOT_TAG,slotAtts);
       ItemInstance<? extends Item> item=slotContents.getItem();
       if (item!=null)

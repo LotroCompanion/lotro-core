@@ -171,6 +171,7 @@ public class CharacterGeneratorGiswald
     additionalStats.addStat(WellKnownStat.PARRY, new FixedDecimalsInteger(808));
     additionalStats.addStat(WellKnownStat.BLOCK, new FixedDecimalsInteger(808));
 
+    equipment.setWearer(c.getSummary());
     return c;
   }
 

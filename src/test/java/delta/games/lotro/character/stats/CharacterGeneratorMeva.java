@@ -150,6 +150,7 @@ public class CharacterGeneratorMeva
       // Finesse, Rank 5
       additionalStats.addStat(WellKnownStat.FINESSE, new FixedDecimalsInteger(2486));
     }
+    equipment.setWearer(c.getSummary());
     return c;
   }
 

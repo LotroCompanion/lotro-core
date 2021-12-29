@@ -8,7 +8,6 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Equipment of a character.
@@ -165,7 +164,6 @@ public class CharacterEquipment
   public static class SlotContents
   {
     private EQUIMENT_SLOT _slot;
-    private Integer _itemId;
     private ItemInstance<? extends Item> _item;
 
     /**
@@ -175,7 +173,6 @@ public class CharacterEquipment
     public SlotContents(EQUIMENT_SLOT slot)
     {
       _slot=slot;
-      _itemId=null;
       _item=null;
     }
 
@@ -186,7 +183,6 @@ public class CharacterEquipment
     public SlotContents(SlotContents source)
     {
       _slot=source._slot;
-      _itemId=source._itemId;
       if (source._item!=null)
       {
         _item=ItemFactory.cloneInstance(source._item);
@@ -200,24 +196,6 @@ public class CharacterEquipment
     public EQUIMENT_SLOT getSlot()
     {
       return _slot;
-    }
-
-    /**
-     * Get the identifier of the item in this slot.
-     * @return An item identifier or <code>null</code> if none.
-     */
-    public Integer getItemId()
-    {
-      return _itemId;
-    }
-
-    /**
-     * Set the identifier of the item in this slot.
-     * @param itemId An item identifier or <code>null</code>.
-     */
-    public void setItemId(Integer itemId)
-    {
-      _itemId=itemId;
     }
 
     /**
@@ -243,10 +221,9 @@ public class CharacterEquipment
     {
       StringBuilder sb=new StringBuilder();
       sb.append("Slot ").append(_slot).append(": ");
-      sb.append("itemId=[").append(_itemId).append(']');
       if (_item!=null)
       {
-        sb.append(", item=[").append(_item).append(']');
+        sb.append(" item=[").append(_item).append(']');
       }
       return sb.toString().trim();
     }
@@ -313,20 +290,6 @@ public class CharacterEquipment
     if (contents!=null)
     {
       itemInstance=contents.getItem();
-      if (itemInstance==null)
-      {
-        Integer id=contents.getItemId();
-        if (id!=null)
-        {
-          ItemsManager itemsManager=ItemsManager.getInstance();
-          Item itemRef=itemsManager.getItem(id.intValue());
-          if (itemRef!=null)
-          {
-            itemInstance=ItemFactory.buildInstance(itemRef);
-          }
-          contents.setItem(itemInstance);
-        }
-      }
     }
     return itemInstance;
   }
