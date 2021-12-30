@@ -30,21 +30,60 @@ public class StoragesIO
     // Wallet
     Wallet wallet=WalletsIO.loadCharacterWallet(character);
     // Shared stuff
-    Wallet sharedWallet=null;
-    Vault sharedVault=null;
-    String accountName=character.getAccountName();
-    String serverName=character.getServerName();
-    if ((accountName.length()>0) && (serverName.length()>0))
-    {
-      AccountsManager accountsMgr=AccountsManager.getInstance();
-      Account account=accountsMgr.getAccountByName(accountName);
-      if (account!=null)
-      {
-        sharedWallet=WalletsIO.loadAccountSharedWallet(account,serverName);
-        sharedVault=VaultsIo.load(account,serverName);
-      }
-    }
+    Wallet sharedWallet=loadSharedWallet(character);
+    Vault sharedVault=loadSharedVault(character);
     CharacterStorage storage=new CharacterStorage(sharedVault,ownVault,bagsManager,sharedWallet,wallet);
     return storage;
+  }
+
+  /**
+   * Load shared vault.
+   * @param character Parent character.
+   * @return a vault or <code>null</code>.
+   */
+  public static Vault loadSharedVault(CharacterFile character)
+  {
+    Vault sharedVault=null;
+    Account account=getAccount(character);
+    String serverName=character.getServerName();
+    if ((account!=null) && (serverName.length()>0))
+    {
+      sharedVault=VaultsIo.load(account,serverName);
+    }
+    return sharedVault;
+  }
+
+  /**
+   * Load shared wallet.
+   * @param character Parent character.
+   * @return a vault or <code>null</code>.
+   */
+  public static Wallet loadSharedWallet(CharacterFile character)
+  {
+    Wallet sharedWallet=null;
+    Account account=getAccount(character);
+    String serverName=character.getServerName();
+    if ((account!=null) && (serverName.length()>0))
+    {
+      sharedWallet=WalletsIO.loadAccountSharedWallet(account,serverName);
+    }
+    return sharedWallet;
+  }
+
+  /**
+   * Get the account for a character.
+   * @param character Parent character.
+   * @return an account or <code>null</code>.
+   */
+  public static Account getAccount(CharacterFile character)
+  {
+    Account account=null;
+    String accountName=character.getAccountName();
+    if (accountName.length()>0)
+    {
+      AccountsManager accountsMgr=AccountsManager.getInstance();
+      account=accountsMgr.getAccountByName(accountName);
+    }
+    return account;
   }
 }
