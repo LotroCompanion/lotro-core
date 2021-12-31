@@ -9,6 +9,9 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.SkillCategory;
 
 /**
  * Parser for skill descriptions stored in XML.
@@ -16,6 +19,8 @@ import delta.games.lotro.character.skills.SkillDescription;
  */
 public class SkillDescriptionXMLParser
 {
+  private static LotroEnum<SkillCategory> _categoryEnum=LotroEnumsRegistry.getInstance().get(SkillCategory.class);
+
   /**
    * Parse a skills XML file.
    * @param source Source file.
@@ -53,8 +58,12 @@ public class SkillDescriptionXMLParser
     String name=DOMParsingTools.getStringAttribute(attrs,SkillDescriptionXMLConstants.SKILL_NAME_ATTR,null);
     skill.setName(name);
     // Category
-    String category=DOMParsingTools.getStringAttribute(attrs,SkillDescriptionXMLConstants.SKILL_CATEGORY_ATTR,"");
-    skill.setCategory(category);
+    int categoryCode=DOMParsingTools.getIntAttribute(attrs,SkillDescriptionXMLConstants.SKILL_CATEGORY_ATTR,0);
+    if (categoryCode!=0)
+    {
+      SkillCategory category=_categoryEnum.getEntry(categoryCode);
+      skill.setCategory(category);
+    }
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,SkillDescriptionXMLConstants.SKILL_ICON_ID_ATTR,0);
     skill.setIconId(iconId);

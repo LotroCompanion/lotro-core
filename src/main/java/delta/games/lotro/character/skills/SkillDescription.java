@@ -1,6 +1,7 @@
 package delta.games.lotro.character.skills;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.enums.SkillCategory;
 
 /**
  * Skill.
@@ -27,7 +28,7 @@ public class SkillDescription implements Identifiable
   /**
    * Category.
    */
-  private String _category;
+  private SkillCategory _category;
 
   /**
    * Constructor.
@@ -39,7 +40,7 @@ public class SkillDescription implements Identifiable
     _name="";
     _description="";
     _iconId=0;
-    _category="";
+    _category=null;
   }
 
   /**
@@ -119,7 +120,7 @@ public class SkillDescription implements Identifiable
    * Get the category of this skill.
    * @return a skill category.
    */
-  public String getCategory()
+  public SkillCategory getCategory()
   {
     return _category;
   }
@@ -128,9 +129,8 @@ public class SkillDescription implements Identifiable
    * Set the category of this skill.
    * @param category the category to set.
    */
-  public void setCategory(String category)
+  public void setCategory(SkillCategory category)
   {
-    if (category==null) category="";
     _category=category;
   }
 

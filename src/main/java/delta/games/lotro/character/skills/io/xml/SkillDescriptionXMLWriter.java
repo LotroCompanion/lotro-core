@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.common.enums.SkillCategory;
 
 /**
  * Writes skills to XML files.
@@ -55,10 +56,10 @@ public class SkillDescriptionXMLWriter
     String name=skill.getName();
     attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_NAME_ATTR,XmlWriter.CDATA,name);
     // Category
-    String category=skill.getCategory();
-    if (category.length()>0)
+    SkillCategory category=skill.getCategory();
+    if (category!=null)
     {
-      attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_CATEGORY_ATTR,XmlWriter.CDATA,category);
+      attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category.getCode()));
     }
     // Icon ID
     int iconId=skill.getIconId();
