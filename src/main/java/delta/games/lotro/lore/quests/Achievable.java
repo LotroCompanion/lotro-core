@@ -158,24 +158,6 @@ public abstract class Achievable implements Identifiable
   }
 
   /**
-   * Get the maximum level for this achievable.
-   * @return the maximumLevel for this achievable.
-   */
-  public Integer getMaximumLevel()
-  {
-    return _requirement.getMaxLevel();
-  }
-
-  /**
-   * Set the maximum level for this achievable.
-   * @param maximumLevel the maxiimum level to set.
-   */
-  public void setMaximumLevel(Integer maximumLevel)
-  {
-    _requirement.setMaxLevel(maximumLevel);
-  }
-
-  /**
    * Set the required race for this achievable.
    * @param race the race to set (or <code>null</code>).
    */
