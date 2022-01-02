@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.skills.io.xml.SkillDescriptionXMLParser;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 
@@ -86,6 +87,25 @@ public class SkillsManager
   {
     ArrayList<SkillDescription> skills=new ArrayList<SkillDescription>();
     skills.addAll(_cache.values());
+    Collections.sort(skills,new IdentifiableComparator<SkillDescription>());
+    return skills;
+  }
+
+  /**
+   * Get the skills from a given category, sorted by identifier.
+   * @param category Skill category.
+   * @return A list of skills.
+   */
+  public List<SkillDescription> getSkillsByCategory(SkillCategory category)
+  {
+    ArrayList<SkillDescription> skills=new ArrayList<SkillDescription>();
+    for(SkillDescription skill : _cache.values())
+    {
+      if (skill.getCategory()==category)
+      {
+        skills.add(skill);
+      }
+    }
     Collections.sort(skills,new IdentifiableComparator<SkillDescription>());
     return skills;
   }
