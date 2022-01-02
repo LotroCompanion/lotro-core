@@ -36,4 +36,23 @@ public class ItemDetailsManager
   {
     return _details;
   }
+
+  /**
+   * Get the details of a given type.
+   * @param clazz Type class.
+   * @return A list of details.
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends ItemDetail> List<T> getItemDetails(Class<T> clazz)
+  {
+    List<T> ret=new ArrayList<T>();
+    for(ItemDetail detail : _details)
+    {
+      if (clazz.isAssignableFrom(detail.getClass()))
+      {
+        ret.add((T)detail);
+      }
+    }
+    return ret;
+  }
 }
