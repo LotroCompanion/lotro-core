@@ -56,6 +56,9 @@ public class RaceDescriptionXMLWriter
     // Key
     Race race=raceDescription.getRace();
     attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_KEY_ATTR,XmlWriter.CDATA,race.getKey());
+    // Tall
+    boolean tall=raceDescription.isTall();
+    attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_TALL_ATTR,XmlWriter.CDATA,String.valueOf(tall));
     // Description
     String description=raceDescription.getDescription();
     if (description.length()>0)

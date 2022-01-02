@@ -14,6 +14,7 @@ import delta.games.lotro.common.Race;
 public class RaceDescription
 {
   private Race _race;
+  private boolean _isTall;
   private String _description;
   private RaceGender _male;
   private RaceGender _female;
@@ -28,6 +29,7 @@ public class RaceDescription
   public RaceDescription(Race race)
   {
     _race=race;
+    _isTall=true;
     _description="";
     _male=null;
     _female=null;
@@ -43,6 +45,24 @@ public class RaceDescription
   public Race getRace()
   {
     return _race;
+  }
+
+  /**
+   * Indicates if this race is 'tall' or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isTall()
+  {
+    return _isTall;
+  }
+
+  /**
+   * Set the 'tall' flag.
+   * @param tall Value to set.
+   */
+  public void setTall(boolean tall)
+  {
+    _isTall=tall;
   }
 
   /**

@@ -20,6 +20,10 @@ public class RaceDescriptionXMLConstants
    */
   public static final String RACE_KEY_ATTR="key";
   /**
+   * Tag 'race', attribute 'tall'.
+   */
+  public static final String RACE_TALL_ATTR="tall";
+  /**
    * Tag 'race', attribute 'description'.
    */
   public static final String RACE_DESCRIPTION_ATTR="description";

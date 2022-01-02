@@ -55,6 +55,9 @@ public class RaceDescriptionXMLParser
     String raceKeyStr=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_KEY_ATTR,null);
     Race race=Race.getByKey(raceKeyStr);
     RaceDescription raceDescription=new RaceDescription(race);
+    // Tall
+    boolean tall=DOMParsingTools.getBooleanAttribute(attrs,RaceDescriptionXMLConstants.RACE_TALL_ATTR,false);
+    raceDescription.setTall(tall);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_DESCRIPTION_ATTR,"");
     raceDescription.setDescription(description);
