@@ -48,6 +48,7 @@ import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
+import delta.games.lotro.lore.items.details.io.xml.ItemDetailsSaxParser;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary2.Legendary2;
@@ -67,11 +68,13 @@ public final class ItemSaxParser extends DefaultHandler
   private List<Item> _parsedItems;
   private Item _currentItem;
   private LotroEnum<ItemClass> _itemClassEnum;
+  private ItemDetailsSaxParser _detailsParser;
 
   private ItemSaxParser()
   {
     _parsedItems=new ArrayList<Item>();
     _itemClassEnum=LotroEnumsRegistry.getInstance().get(ItemClass.class);
+    _detailsParser=new ItemDetailsSaxParser();
   }
 
   /**
@@ -337,7 +340,7 @@ public final class ItemSaxParser extends DefaultHandler
     }
     else
     {
-      // ...
+      _detailsParser.startElement(_currentItem,qualifiedName,attributes);
     }
   }
 

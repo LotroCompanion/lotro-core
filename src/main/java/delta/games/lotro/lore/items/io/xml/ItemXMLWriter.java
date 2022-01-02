@@ -44,6 +44,7 @@ import delta.games.lotro.lore.items.carryalls.CarryAll;
 import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
 import delta.games.lotro.lore.items.carryalls.io.xml.CarryAllInstanceXMLWriter;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
+import delta.games.lotro.lore.items.details.io.xml.ItemDetailsXMLWriter;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
@@ -60,12 +61,14 @@ import delta.games.lotro.lore.items.legendary2.io.xml.LegendaryInstance2AttrsXML
  */
 public class ItemXMLWriter
 {
+  private ItemDetailsXMLWriter _detailsWriter;
+
   /**
    * Constructor.
    */
   public ItemXMLWriter()
   {
-    // Nothing!
+    _detailsWriter=new ItemDetailsXMLWriter();
   }
 
   /**
@@ -454,9 +457,9 @@ public class ItemXMLWriter
       StatsManagerXMLWriter.write(hd,instance.getStatsManager());
     }
 
+    // Essences
     if (isInstance)
     {
-      // Essences
       EssencesSet essences=instance.getEssences();
       if (essences!=null)
       {
@@ -480,6 +483,11 @@ public class ItemXMLWriter
         }
         hd.endElement("","",ItemXMLConstants.ESSENCES_TAG);
       }
+    }
+    // Details
+    if (!isInstance)
+    {
+      _detailsWriter.writeDetails(hd,item);
     }
     hd.endElement("","",ItemXMLConstants.ITEM_TAG);
   }

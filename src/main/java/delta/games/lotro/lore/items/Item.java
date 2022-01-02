@@ -19,6 +19,8 @@ import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.details.ItemDetail;
+import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.scaling.Munging;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 
@@ -79,6 +81,8 @@ public class Item implements Identifiable,Named,ItemProvider
   // TODO Missing attrs: consumedOnUse="0" cooldown="" decoration="" instrument=""
   private ItemQuality _quality;
   private HashMap<String,String> _properties;
+  // Other details
+  private ItemDetailsManager _details;
 
   /**
    * Constructor.
@@ -679,7 +683,25 @@ public class Item implements Identifiable,Named,ItemProvider
     return ret;
   }
 
-    /**
+  /**
+   * Get the details manager.
+   * @return a details manager or <code>null</code> if no details.
+   */
+  public ItemDetailsManager getDetails()
+  {
+    return _details;
+  }
+
+  /**
+   * Set the item details manager.
+   * @param details Details to set.
+   */
+  public void setDetails(ItemDetailsManager details)
+  {
+    _details=details;
+  }
+
+  /**
    * Dump the contents of this item as a string.
    * @return A readable string.
    */
@@ -806,5 +828,21 @@ public class Item implements Identifiable,Named,ItemProvider
   public String toString()
   {
     return _identifier+": "+_name+" ("+_itemLevel+")";
+  }
+
+  /**
+   * Add a detail to the given item.
+   * @param item Item to use.
+   * @param detail Detail to add.
+   */
+  public static void addDetail(Item item, ItemDetail detail)
+  {
+    ItemDetailsManager mgr=item.getDetails();
+    if (mgr==null)
+    {
+      mgr=new ItemDetailsManager();
+      item.setDetails(mgr);
+    }
+    mgr.addItemDetail(detail);
   }
 }
