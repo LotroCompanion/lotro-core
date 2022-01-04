@@ -1,11 +1,10 @@
 package delta.games.lotro.lore.maps;
 
-
 /**
  * Dungeon.
  * @author DAM
  */
-public class Dungeon extends AbstractMap
+public class Dungeon extends AbstractMap implements Zone
 {
   private int _basemapId;
   // allowed mount types (Dungeon_Allowed_Mount_Types)
