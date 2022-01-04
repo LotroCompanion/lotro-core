@@ -29,6 +29,8 @@ import delta.games.lotro.lore.quests.QuestsManager;
 import delta.games.lotro.lore.relics.melding.MeldingOutput;
 import delta.games.lotro.lore.relics.melding.RelicMeldingRecipe;
 import delta.games.lotro.lore.relics.melding.RelicMeldingRecipesManager;
+import delta.games.lotro.lore.tasks.Task;
+import delta.games.lotro.lore.tasks.TasksRegistry;
 import delta.games.lotro.lore.trade.barter.BarterEntry;
 import delta.games.lotro.lore.trade.barter.BarterEntryElement;
 import delta.games.lotro.lore.trade.barter.BarterNpc;
@@ -66,6 +68,7 @@ public class ItemReferencesBuilder
     _storage.clear();
     findInRecipes(itemId);
     findInQuestRewards(itemId);
+    findInTaskQuests(itemId);
     findInDeedRewards(itemId);
     findInBarterers(itemId);
     findInVendors(itemId);
@@ -158,6 +161,25 @@ public class ItemReferencesBuilder
   private void findInQuest(QuestDescription quest, int itemId)
   {
     findInRewards(quest,quest.getRewards(),itemId);
+  }
+
+  private void findInTaskQuests(int itemId)
+  {
+    TasksRegistry tasksRegistry=TasksRegistry.getInstance();
+    List<Task> tasks=tasksRegistry.getTasks();
+    for(Task task : tasks)
+    {
+      findInTask(task, itemId);
+    }
+  }
+
+  private void findInTask(Task task, int itemId)
+  {
+    Item item=task.getItem();
+    if ((item!=null) && (item.getIdentifier()==itemId))
+    {
+      _storage.add(new ItemReference<Task>(task,ItemRole.TASK_ITEM));
+    }
   }
 
   private void findInDeedRewards(int itemId)

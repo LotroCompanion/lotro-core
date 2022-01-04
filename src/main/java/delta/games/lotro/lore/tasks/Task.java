@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.tasks;
 
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.QuestDescription;
 
@@ -7,7 +8,7 @@ import delta.games.lotro.lore.quests.QuestDescription;
  * Task definition.
  * @author DAM
  */
-public class Task
+public class Task implements Identifiable
 {
   private QuestDescription _quest;
   private Item _item;
@@ -20,6 +21,12 @@ public class Task
   public Task(QuestDescription quest)
   {
     _quest=quest;
+  }
+
+  @Override
+  public int getIdentifier()
+  {
+    return _quest.getIdentifier();
   }
 
   /**

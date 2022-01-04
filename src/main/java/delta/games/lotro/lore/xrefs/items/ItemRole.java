@@ -46,6 +46,10 @@ public enum ItemRole
    */
   QUEST_REWARD,
   /**
+   * Item is required in a task.
+   */
+  TASK_ITEM,
+  /**
    * Item is a reward of deed.
    */
   DEED_REWARD,
