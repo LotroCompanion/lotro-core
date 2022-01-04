@@ -47,6 +47,10 @@ public enum CharacterEventType
    */
   CHARACTER_ALLEGIANCES_UPDATED,
   /**
+   * The anchors of a toon were updated.
+   */
+  CHARACTER_ANCHORS_UPDATED,
+  /**
    * The skills of a toon were updated.
    */
   CHARACTER_SKILLS_UPDATED,
