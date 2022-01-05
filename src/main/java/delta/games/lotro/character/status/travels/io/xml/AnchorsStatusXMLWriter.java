@@ -67,7 +67,10 @@ public class AnchorsStatusXMLWriter
       }
       // Name
       String name=anchorStatus.getName();
-      statusAttrs.addAttribute("","",AnchorsStatusXMLConstants.ANCHOR_NAME_ATTR,XmlWriter.CDATA,name);
+      if (name!=null)
+      {
+        statusAttrs.addAttribute("","",AnchorsStatusXMLConstants.ANCHOR_NAME_ATTR,XmlWriter.CDATA,name);
+      }
       // Position
       ExtendedPosition extendedPosition=anchorStatus.getPosition();
       if (extendedPosition!=null)
