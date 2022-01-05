@@ -251,6 +251,10 @@ public class DataFiles
    */
   public static final String RESOURCES_MAPS="resourcesMaps";
   /**
+   * Landblocks.
+   */
+  public static final String LANDBLOCKS="landblocks";
+  /**
    * Paper items.
    */
   public static final String PAPER_ITEMS="paperItems";
