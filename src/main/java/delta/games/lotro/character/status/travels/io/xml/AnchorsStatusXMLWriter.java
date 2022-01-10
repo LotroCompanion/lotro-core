@@ -71,6 +71,7 @@ public class AnchorsStatusXMLWriter
       {
         statusAttrs.addAttribute("","",AnchorsStatusXMLConstants.ANCHOR_NAME_ATTR,XmlWriter.CDATA,name);
       }
+      hd.startElement("","",AnchorsStatusXMLConstants.ANCHOR,statusAttrs);
       // Position
       ExtendedPosition extendedPosition=anchorStatus.getPosition();
       if (extendedPosition!=null)
@@ -99,7 +100,6 @@ public class AnchorsStatusXMLWriter
         hd.startElement("","",AnchorsStatusXMLConstants.POSITION,positionAttrs);
         hd.endElement("","",AnchorsStatusXMLConstants.POSITION);
       }
-      hd.startElement("","",AnchorsStatusXMLConstants.ANCHOR,statusAttrs);
       hd.endElement("","",AnchorsStatusXMLConstants.ANCHOR);
     }
     hd.endElement("","",AnchorsStatusXMLConstants.ANCHORS_STATUS_TAG);
