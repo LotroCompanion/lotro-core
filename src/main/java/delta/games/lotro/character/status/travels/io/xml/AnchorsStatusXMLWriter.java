@@ -81,20 +81,20 @@ public class AnchorsStatusXMLWriter
         {
           // Region
           int region=position.getRegion();
-          statusAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_REGION_ATTR,XmlWriter.CDATA,String.valueOf(region));
+          positionAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_REGION_ATTR,XmlWriter.CDATA,String.valueOf(region));
           // Longitude
           float longitude=position.getLongitude();
-          statusAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_LONGITUDE_ATTR,XmlWriter.CDATA,String.valueOf(longitude));
+          positionAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_LONGITUDE_ATTR,XmlWriter.CDATA,String.valueOf(longitude));
           // Latitude
           float latitude=position.getLatitude();
-          statusAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_LATITUDE_ATTR,XmlWriter.CDATA,String.valueOf(latitude));
+          positionAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_LATITUDE_ATTR,XmlWriter.CDATA,String.valueOf(latitude));
         }
         // Zone ID
         Zone zone=extendedPosition.getZone();
         if (zone!=null)
         {
           int zoneID=zone.getIdentifier();
-          statusAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_ZONE_ID_ATTR,XmlWriter.CDATA,String.valueOf(zoneID));
+          positionAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_ZONE_ID_ATTR,XmlWriter.CDATA,String.valueOf(zoneID));
         }
         hd.startElement("","",AnchorsStatusXMLConstants.POSITION,positionAttrs);
         hd.endElement("","",AnchorsStatusXMLConstants.POSITION);
