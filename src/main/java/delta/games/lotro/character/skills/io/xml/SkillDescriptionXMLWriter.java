@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.skills.TravelSkill;
 import delta.games.lotro.common.enums.SkillCategory;
 
 /**
@@ -64,6 +65,13 @@ public class SkillDescriptionXMLWriter
     // Icon ID
     int iconId=skill.getIconId();
     attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
+    // Travel?
+    if (skill instanceof TravelSkill)
+    {
+      TravelSkill travelSkill=(TravelSkill)skill;
+      int type=travelSkill.getType().getCode();
+      attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_TRAVEL_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type));
+    }
     // Description
     String description=skill.getDescription();
     if (description.length()>0)

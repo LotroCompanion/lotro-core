@@ -35,4 +35,8 @@ public class SkillDescriptionXMLConstants
    * Tag 'skill', attribute 'category'.
    */
   public static final String SKILL_CATEGORY_ATTR="category";
+  /**
+   * Tag 'skill', attribute 'travelType'.
+   */
+  public static final String SKILL_TRAVEL_TYPE_ATTR="travelType";
 }

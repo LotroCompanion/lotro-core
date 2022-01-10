@@ -9,9 +9,11 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.skills.TravelSkill;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
+import delta.games.lotro.common.enums.TravelLink;
 
 /**
  * Parser for skill descriptions stored in XML.
@@ -50,7 +52,7 @@ public class SkillDescriptionXMLParser
   private static SkillDescription parseSkill(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
-    SkillDescription skill=new SkillDescription();
+    SkillDescription skill=buildSkill(root);
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,SkillDescriptionXMLConstants.SKILL_IDENTIFIER_ATTR,0);
     skill.setIdentifier(id);
@@ -71,6 +73,21 @@ public class SkillDescriptionXMLParser
     String description=DOMParsingTools.getStringAttribute(attrs,SkillDescriptionXMLConstants.SKILL_DESCRIPTION_ATTR,"");
     skill.setDescription(description);
 
+    return skill;
+  }
+
+  private static SkillDescription buildSkill(Element root)
+  {
+    NamedNodeMap attrs=root.getAttributes();
+    // Travel?
+    int travelTypeCode=DOMParsingTools.getIntAttribute(attrs,SkillDescriptionXMLConstants.SKILL_TRAVEL_TYPE_ATTR,-1);
+    if (travelTypeCode>0)
+    {
+      LotroEnum<TravelLink> travelEnum=LotroEnumsRegistry.getInstance().get(TravelLink.class);
+      TravelLink type=travelEnum.getEntry(travelTypeCode);
+      return new TravelSkill(type);
+    }
+    SkillDescription skill=new SkillDescription();
     return skill;
   }
 }
