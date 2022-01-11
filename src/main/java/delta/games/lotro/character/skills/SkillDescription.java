@@ -1,13 +1,14 @@
 package delta.games.lotro.character.skills;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.enums.SkillCategory;
 
 /**
  * Skill.
  * @author DAM
  */
-public class SkillDescription implements Identifiable
+public class SkillDescription implements Identifiable,Named
 {
   /**
    * Skill identifier.
