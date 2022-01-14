@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.character.BasicCharacterAttributes;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.races.RacesManager;
-import delta.games.lotro.character.skills.filters.SkillCategoryFilter;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
@@ -26,44 +26,46 @@ import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 
 /**
- * @author dm
+ * Finds the skills that match some filter/constraints.
+ * @author DAM
  */
-public class SkillUtils
+public class SkillsFinder
 {
-  //private static final Logger LOGGER=Logger.getLogger(SkillConstraintsComputer.class);
-
   private Filter<SkillDescription> _filter;
-  private int _level;
-  private CharacterClass _class;
-  private Race _race;
+  private BasicCharacterAttributes _constraints;
   private Map<Integer,SkillDescription> _selectedSkills;
 
-  public SkillUtils(Filter<SkillDescription> filter, int level, CharacterClass characterClass, Race race)
+  /**
+   * Constructor.
+   * @param filter Skills filter.
+   * @param constraints Character constraints.
+   */
+  public SkillsFinder(Filter<SkillDescription> filter, BasicCharacterAttributes constraints)
   {
     _filter=filter;
-    _level=level;
-    _class=characterClass;
-    _race=race;
+    _constraints=constraints;
     _selectedSkills=new HashMap<Integer,SkillDescription>();
   }
 
-  private void doIt()
+  /**
+   * Find skills.
+   * @return A list of skills.
+   */
+  public List<SkillDescription> find()
   {
     inspectClassSkills();
     inspectRaceSkills();
     inspectItemGrantedSkills();
-    List<SkillDescription> selected=new ArrayList<SkillDescription>(_selectedSkills.values());
-    Collections.sort(selected,new NamedComparator());
-    for(SkillDescription skill : selected)
-    {
-      System.out.println(skill);
-    }
+    List<SkillDescription> ret=new ArrayList<SkillDescription>(_selectedSkills.values());
+    Collections.sort(ret,new NamedComparator());
+    _selectedSkills.clear();
+    return ret;
   }
 
   private void inspectClassSkills()
   {
     ClassesManager mgr=ClassesManager.getInstance();
-    ClassDescription classDescription=mgr.getClassDescription(_class);
+    ClassDescription classDescription=mgr.getClassDescription(_constraints.getCharacterClass());
     List<ClassSkill> classSkills=classDescription.getSkills();
     for(ClassSkill classSkill : classSkills)
     {
@@ -78,7 +80,7 @@ public class SkillUtils
   private void inspectRaceSkills()
   {
     RacesManager mgr=RacesManager.getInstance();
-    RaceDescription raceDescription=mgr.getRaceDescription(_race);
+    RaceDescription raceDescription=mgr.getRaceDescription(_constraints.getRace());
     List<RaceTrait> raceTraits=raceDescription.getTraits();
     for(RaceTrait raceTrait : raceTraits)
     {
@@ -127,7 +129,10 @@ public class SkillUtils
           if (_filter.accept(skill))
           {
             UsageRequirement itemReq=item.getUsageRequirements();
-            if ((itemReq==null) || (itemReq.accepts(_level,_class,_race)))
+            int level=_constraints.getLevel();
+            CharacterClass characterClass=_constraints.getCharacterClass();
+            Race race=_constraints.getRace();
+            if ((itemReq==null) || (itemReq.accepts(level,characterClass,race)))
             {
               addSkill(skill);
             }
@@ -135,16 +140,5 @@ public class SkillUtils
         }
       }
     }
-  }
-
-  /**
-   * Main method for this tool.
-   * @param args Not used.
-   */
-  public static void main(String[] args)
-  {
-    SkillCategoryFilter filter=new SkillCategoryFilter();
-    filter.setCategory(102);
-    new SkillUtils(filter,130,CharacterClass.CHAMPION,Race.MAN).doIt();
   }
 }
