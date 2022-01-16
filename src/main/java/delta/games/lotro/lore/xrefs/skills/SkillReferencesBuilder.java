@@ -33,8 +33,8 @@ public class SkillReferencesBuilder
   }
 
   /**
-   * Search for an item.
-   * @param skillID Item identifier.
+   * Search for a skill.
+   * @param skillID Skill identifier.
    * @return the found references.
    */
   public List<SkillReference<?>> inspectSkill(int skillID)
