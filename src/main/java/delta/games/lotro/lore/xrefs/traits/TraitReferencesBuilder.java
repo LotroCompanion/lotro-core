@@ -3,10 +3,15 @@ package delta.games.lotro.lore.xrefs.traits;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassTrait;
+import delta.games.lotro.character.classes.ClassesManager;
+import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
@@ -43,6 +48,7 @@ public class TraitReferencesBuilder
   {
     _storage.clear();
     findInRaces(traitID);
+    findInClasses(traitID);
     findInRewards(traitID);
     List<TraitReference<?>> ret=new ArrayList<TraitReference<?>>(_storage);
     _storage.clear();
@@ -75,6 +81,39 @@ public class TraitReferencesBuilder
       if (trait.getIdentifier()==traitID)
       {
         _storage.add(new TraitReference<Race>(race,TraitRole.RACE_TRAIT));
+      }
+    }
+  }
+
+  private void findInClasses(int traitID)
+  {
+    for(CharacterClass cClass : CharacterClass.ALL_CLASSES)
+    {
+      findInClass(cClass, traitID);
+    }
+  }
+
+  private void findInClass(CharacterClass cClass, int traitID)
+  {
+    ClassesManager mgr=ClassesManager.getInstance();
+    ClassDescription classDescription=mgr.getClassDescription(cClass);
+    // Regular traits
+    List<ClassTrait> classTraits=classDescription.getTraits();
+    for(ClassTrait classTrait : classTraits)
+    {
+      TraitDescription trait=classTrait.getTrait();
+      if (trait.getIdentifier()==traitID)
+      {
+        _storage.add(new TraitReference<CharacterClass>(cClass,TraitRole.CLASS_TRAIT));
+      }
+    }
+    // Traits tree
+    TraitTree tree=classDescription.getTraitTree();
+    for(TraitDescription trait : tree.getAllTraits())
+    {
+      if (trait.getIdentifier()==traitID)
+      {
+        _storage.add(new TraitReference<CharacterClass>(cClass,TraitRole.CLASS_TRAIT));
       }
     }
   }
