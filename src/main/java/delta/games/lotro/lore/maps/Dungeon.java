@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.maps;
 
+import delta.games.lotro.common.geo.ExtendedPosition;
+
 /**
  * Dungeon.
  * @author DAM
@@ -9,6 +11,8 @@ public class Dungeon extends AbstractMap implements Zone
   private int _basemapId;
   // allowed mount types (Dungeon_Allowed_Mount_Types)
   // Music
+  // Map position
+  private ExtendedPosition _mapPosition;
 
   /**
    * Constructor.
@@ -38,6 +42,24 @@ public class Dungeon extends AbstractMap implements Zone
   public void setBasemapId(int basemapId)
   {
     _basemapId=basemapId;
+  }
+
+  /**
+   * Get the map position.
+   * @return A position or <code>null</code>.
+   */
+  public ExtendedPosition getMapPosition()
+  {
+    return _mapPosition;
+  }
+
+  /**
+   * Set the map position.
+   * @param mapPosition A position or <code>null</code>.
+   */
+  public void setMapPosition(ExtendedPosition mapPosition)
+  {
+    _mapPosition=mapPosition;
   }
 
   /**

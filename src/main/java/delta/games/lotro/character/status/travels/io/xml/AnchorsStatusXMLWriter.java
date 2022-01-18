@@ -13,8 +13,7 @@ import delta.games.lotro.character.status.travels.AnchorStatus;
 import delta.games.lotro.character.status.travels.AnchorsStatusManager;
 import delta.games.lotro.common.enums.TravelLink;
 import delta.games.lotro.common.geo.ExtendedPosition;
-import delta.games.lotro.common.geo.Position;
-import delta.games.lotro.lore.maps.Zone;
+import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 
 /**
  * Writes a anchors status to an XML file.
@@ -74,32 +73,7 @@ public class AnchorsStatusXMLWriter
       hd.startElement("","",AnchorsStatusXMLConstants.ANCHOR,statusAttrs);
       // Position
       ExtendedPosition extendedPosition=anchorStatus.getPosition();
-      if (extendedPosition!=null)
-      {
-        AttributesImpl positionAttrs=new AttributesImpl();
-        Position position=extendedPosition.getPosition();
-        if (position!=null)
-        {
-          // Region
-          int region=position.getRegion();
-          positionAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_REGION_ATTR,XmlWriter.CDATA,String.valueOf(region));
-          // Longitude
-          float longitude=position.getLongitude();
-          positionAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_LONGITUDE_ATTR,XmlWriter.CDATA,String.valueOf(longitude));
-          // Latitude
-          float latitude=position.getLatitude();
-          positionAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_LATITUDE_ATTR,XmlWriter.CDATA,String.valueOf(latitude));
-        }
-        // Zone ID
-        Zone zone=extendedPosition.getZone();
-        if (zone!=null)
-        {
-          int zoneID=zone.getIdentifier();
-          positionAttrs.addAttribute("","",AnchorsStatusXMLConstants.POSITION_ZONE_ID_ATTR,XmlWriter.CDATA,String.valueOf(zoneID));
-        }
-        hd.startElement("","",AnchorsStatusXMLConstants.POSITION,positionAttrs);
-        hd.endElement("","",AnchorsStatusXMLConstants.POSITION);
-      }
+      PositionXMLWriter.writePosition(hd,extendedPosition);
       hd.endElement("","",AnchorsStatusXMLConstants.ANCHOR);
     }
     hd.endElement("","",AnchorsStatusXMLConstants.ANCHORS_STATUS_TAG);

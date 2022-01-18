@@ -7,6 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.geo.ExtendedPosition;
+import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
+import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 import delta.games.lotro.lore.maps.Dungeon;
 import delta.games.lotro.lore.maps.DungeonsManager;
 
@@ -60,8 +63,11 @@ public class DungeonXMLParser
     String name=DOMParsingTools.getStringAttribute(attrs,DungeonXMLConstants.NAME_ATTR,"");
     // Basemap identifier
     int basemapId=DOMParsingTools.getIntAttribute(attrs,DungeonXMLConstants.BASEMAP_ID_ATTR,0);
-
     Dungeon ret=new Dungeon(id,name,basemapId);
+    // Position
+    Element positionTag=DOMParsingTools.getChildTagByName(dungeonTag,PositionXMLConstants.POSITION);
+    ExtendedPosition position=PositionXMLParser.parsePosition(positionTag);
+    ret.setMapPosition(position);
     return ret;
   }
 }

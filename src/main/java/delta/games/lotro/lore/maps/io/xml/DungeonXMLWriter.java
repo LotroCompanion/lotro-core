@@ -10,6 +10,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.lore.maps.Dungeon;
 
 /**
@@ -79,6 +80,8 @@ public class DungeonXMLWriter
     attrs.addAttribute("","",DungeonXMLConstants.BASEMAP_ID_ATTR,XmlWriter.CDATA,String.valueOf(basemapId));
 
     hd.startElement("","",DungeonXMLConstants.DUNGEON_TAG,attrs);
+    // Position
+    PositionXMLWriter.writePosition(hd,dungeon.getMapPosition());
     hd.endElement("","",DungeonXMLConstants.DUNGEON_TAG);
   }
 }

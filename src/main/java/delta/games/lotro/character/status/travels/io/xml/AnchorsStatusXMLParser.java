@@ -14,9 +14,8 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.TravelLink;
 import delta.games.lotro.common.geo.ExtendedPosition;
-import delta.games.lotro.common.geo.Position;
-import delta.games.lotro.lore.maps.Zone;
-import delta.games.lotro.lore.maps.ZoneUtils;
+import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
+import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 
 /**
  * Parser for the anchors status stored in XML.
@@ -71,22 +70,8 @@ public class AnchorsStatusXMLParser
     String name=DOMParsingTools.getStringAttribute(attrs,AnchorsStatusXMLConstants.ANCHOR_NAME_ATTR,null);
     newStatus.setName(name);
     // Position
-    Element positionTag=DOMParsingTools.getChildTagByName(statusTag,AnchorsStatusXMLConstants.POSITION);
-    if (positionTag!=null)
-    {
-      ExtendedPosition extendedPosition=new ExtendedPosition();
-      NamedNodeMap positionAttrs=positionTag.getAttributes();
-      // Raw position
-      int region=DOMParsingTools.getIntAttribute(positionAttrs,AnchorsStatusXMLConstants.POSITION_REGION_ATTR,0);
-      float longitude=DOMParsingTools.getFloatAttribute(positionAttrs,AnchorsStatusXMLConstants.POSITION_LONGITUDE_ATTR,0);
-      float latitude=DOMParsingTools.getFloatAttribute(positionAttrs,AnchorsStatusXMLConstants.POSITION_LATITUDE_ATTR,0);
-      Position position=new Position(region,longitude,latitude);
-      extendedPosition.setPosition(position);
-      // Zone
-      int zoneID=DOMParsingTools.getIntAttribute(positionAttrs,AnchorsStatusXMLConstants.POSITION_ZONE_ID_ATTR,0);
-      Zone zone=ZoneUtils.getZone(zoneID);
-      extendedPosition.setZone(zone);
-      newStatus.setPosition(extendedPosition);
-    }
+    Element positionTag=DOMParsingTools.getChildTagByName(statusTag,PositionXMLConstants.POSITION);
+    ExtendedPosition position=PositionXMLParser.parsePosition(positionTag);
+    newStatus.setPosition(position);
   }
 }
