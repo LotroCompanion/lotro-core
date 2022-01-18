@@ -8,7 +8,6 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.common.geo.ExtendedPosition;
 import delta.games.lotro.common.geo.Position;
-import delta.games.lotro.lore.maps.Zone;
 
 /**
  * Writes position data to XML documents.
@@ -43,11 +42,10 @@ public class PositionXMLWriter
       positionAttrs.addAttribute("","",PositionXMLConstants.POSITION_LATITUDE_ATTR,XmlWriter.CDATA,String.valueOf(latitude));
     }
     // Zone ID
-    Zone zone=extendedPosition.getZone();
-    if (zone!=null)
+    Integer zoneID=extendedPosition.getZoneID();
+    if (zoneID!=null)
     {
-      int zoneID=zone.getIdentifier();
-      positionAttrs.addAttribute("","",PositionXMLConstants.POSITION_ZONE_ID_ATTR,XmlWriter.CDATA,String.valueOf(zoneID));
+      positionAttrs.addAttribute("","",PositionXMLConstants.POSITION_ZONE_ID_ATTR,XmlWriter.CDATA,zoneID.toString());
     }
     hd.startElement("","",PositionXMLConstants.POSITION,positionAttrs);
     hd.endElement("","",PositionXMLConstants.POSITION);

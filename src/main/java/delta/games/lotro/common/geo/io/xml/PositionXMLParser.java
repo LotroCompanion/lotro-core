@@ -6,8 +6,6 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.geo.ExtendedPosition;
 import delta.games.lotro.common.geo.Position;
-import delta.games.lotro.lore.maps.Zone;
-import delta.games.lotro.lore.maps.ZoneUtils;
 
 /**
  * Reads position data from an XML document.
@@ -36,8 +34,7 @@ public class PositionXMLParser
     extendedPosition.setPosition(position);
     // Zone
     int zoneID=DOMParsingTools.getIntAttribute(positionAttrs,PositionXMLConstants.POSITION_ZONE_ID_ATTR,0);
-    Zone zone=ZoneUtils.getZone(zoneID);
-    extendedPosition.setZone(zone);
+    extendedPosition.setZoneID((zoneID!=0)?Integer.valueOf(zoneID):null);
     return extendedPosition;
   }
 }
