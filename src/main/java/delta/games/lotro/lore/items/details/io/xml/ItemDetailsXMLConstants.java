@@ -19,4 +19,12 @@ public class ItemDetailsXMLConstants
    * Tag 'grants', attribute 'id'.
    */
   public static final String GRANTS_ID_ATTR="id";
+  /**
+   * Tag 'itemXP'.
+   */
+  public static final String ITEM_XP_TAG="itemXP";
+  /**
+   * Tag 'itemXP', attribute 'amount'.
+   */
+  public static final String ITEM_XP_AMOUNT_ATTR="amount";
 }

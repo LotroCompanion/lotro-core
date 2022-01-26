@@ -11,6 +11,7 @@ import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
+import delta.games.lotro.lore.items.details.ItemXP;
 
 /**
  * SAX parser for item details.
@@ -42,6 +43,15 @@ public class ItemDetailsSaxParser
         Item.addDetail(item,grantedElement);
         return true;
       }
+    }
+    else if (ItemDetailsXMLConstants.ITEM_XP_TAG.equals(qualifiedName))
+    {
+      // Amount
+      String amountStr=attributes.getValue(ItemDetailsXMLConstants.ITEM_XP_AMOUNT_ATTR);
+      int amount=NumericTools.parseInt(amountStr,-1);
+      ItemXP itemXP=new ItemXP(amount);
+      Item.addDetail(item,itemXP);
+      return true;
     }
     return false;
   }

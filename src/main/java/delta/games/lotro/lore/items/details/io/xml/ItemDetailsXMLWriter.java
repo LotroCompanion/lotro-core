@@ -12,6 +12,7 @@ import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
+import delta.games.lotro.lore.items.details.ItemXP;
 
 /**
  * Writer for item details.
@@ -45,6 +46,10 @@ public class ItemDetailsXMLWriter
     {
       writeGrantedElement(hd,(GrantedElement<?>)item);
     }
+    else if (item instanceof ItemXP)
+    {
+      writeItemXPElement(hd,(ItemXP)item);
+    }
   }
 
   private void writeGrantedElement(TransformerHandler hd, GrantedElement<?> item) throws Exception
@@ -58,5 +63,15 @@ public class ItemDetailsXMLWriter
     attrs.addAttribute("","",ItemDetailsXMLConstants.GRANTS_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     hd.startElement("","",ItemDetailsXMLConstants.GRANTS_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.GRANTS_TAG);
+  }
+
+  private void writeItemXPElement(TransformerHandler hd, ItemXP itemXP) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Amount
+    int amount=itemXP.getAmount();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.ITEM_XP_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(amount));
+    hd.startElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG);
   }
 }
