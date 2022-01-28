@@ -86,6 +86,10 @@ public class DataFiles
    */
   public static final String ITEMS="items";
   /**
+   * Item cosmetics file.
+   */
+  public static final String ITEM_COSMETICS="itemCosmetics";
+  /**
    * Sets file.
    */
   public static final String SETS="sets";
