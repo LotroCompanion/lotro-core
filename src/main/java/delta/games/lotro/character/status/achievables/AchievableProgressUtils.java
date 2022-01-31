@@ -29,10 +29,6 @@ public class AchievableProgressUtils
     {
       DeedDescription deed=(DeedDescription)achievable;
       AchievableElementState state=status.getState();
-      if (state==AchievableElementState.UNDEFINED)
-      {
-        return null;
-      }
       boolean multiConditionDeed=false;
       int maxCount=computeMaxCountUsingCountedDeeds(deed);
       if (maxCount==0)
