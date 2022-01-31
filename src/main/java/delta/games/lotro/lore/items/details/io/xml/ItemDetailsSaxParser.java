@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items.details.io.xml;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -11,7 +12,10 @@ import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
+import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemXP;
+import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.lore.reputation.FactionsRegistry;
 
 /**
  * SAX parser for item details.
@@ -19,6 +23,8 @@ import delta.games.lotro.lore.items.details.ItemXP;
  */
 public class ItemDetailsSaxParser
 {
+  private static final Logger LOGGER=Logger.getLogger(ItemDetailsSaxParser.class);
+
   /**
    * Handle an element start. 
    * @param item Parent item.
@@ -52,6 +58,23 @@ public class ItemDetailsSaxParser
       ItemXP itemXP=new ItemXP(amount);
       Item.addDetail(item,itemXP);
       return true;
+    }
+    else if (ItemDetailsXMLConstants.REPUTATION_TAG.equals(qualifiedName))
+    {
+      // Faction ID
+      String factionIDStr=attributes.getValue(ItemDetailsXMLConstants.REPUTATION_FACTION_ID_ATTR);
+      int factionID=NumericTools.parseInt(factionIDStr,-1);
+      Faction faction=FactionsRegistry.getInstance().getById(factionID);
+      if (faction!=null)
+      {
+        // Amount
+        String amountStr=attributes.getValue(ItemDetailsXMLConstants.REPUTATION_AMOUNT_ATTR);
+        int amount=NumericTools.parseInt(amountStr,-1);
+        ItemReputation reputation=new ItemReputation(faction,amount);
+        Item.addDetail(item,reputation);
+        return true;
+      }
+      LOGGER.warn("Could not find faction with ID: "+factionID);
     }
     return false;
   }

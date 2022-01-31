@@ -12,7 +12,9 @@ import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
+import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemXP;
+import delta.games.lotro.lore.reputation.Faction;
 
 /**
  * Writer for item details.
@@ -50,6 +52,10 @@ public class ItemDetailsXMLWriter
     {
       writeItemXPElement(hd,(ItemXP)item);
     }
+    else if (item instanceof ItemReputation)
+    {
+      writeItemReputationElement(hd,(ItemReputation)item);
+    }
   }
 
   private void writeGrantedElement(TransformerHandler hd, GrantedElement<?> item) throws Exception
@@ -73,5 +79,22 @@ public class ItemDetailsXMLWriter
     attrs.addAttribute("","",ItemDetailsXMLConstants.ITEM_XP_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(amount));
     hd.startElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG);
+  }
+
+  private void writeItemReputationElement(TransformerHandler hd, ItemReputation reputation) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Faction ID
+    Faction faction=reputation.getFaction();
+    int factionID=faction.getIdentifier();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.REPUTATION_FACTION_ID_ATTR,XmlWriter.CDATA,String.valueOf(factionID));
+    // Faction name
+    String factionName=faction.getName();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.REPUTATION_FACTION_NAME_ATTR,XmlWriter.CDATA,factionName);
+    // Amount
+    int amount=reputation.getAmount();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.REPUTATION_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(amount));
+    hd.startElement("","",ItemDetailsXMLConstants.REPUTATION_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.REPUTATION_TAG);
   }
 }

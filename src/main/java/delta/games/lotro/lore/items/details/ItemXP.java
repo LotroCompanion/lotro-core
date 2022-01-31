@@ -2,7 +2,7 @@ package delta.games.lotro.lore.items.details;
 
 /**
  * Item XP.
- * @author dm
+ * @author DAM
  */
 public class ItemXP extends ItemDetail
 {

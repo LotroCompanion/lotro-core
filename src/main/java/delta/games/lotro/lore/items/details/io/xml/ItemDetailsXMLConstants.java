@@ -27,4 +27,20 @@ public class ItemDetailsXMLConstants
    * Tag 'itemXP', attribute 'amount'.
    */
   public static final String ITEM_XP_AMOUNT_ATTR="amount";
+  /**
+   * Tag 'reputation'.
+   */
+  public static final String REPUTATION_TAG="reputation";
+  /**
+   * Tag 'reputation', attribute 'factionID'.
+   */
+  public static final String REPUTATION_FACTION_ID_ATTR="factionID";
+  /**
+   * Tag 'reputation', attribute 'factionName'.
+   */
+  public static final String REPUTATION_FACTION_NAME_ATTR="factionName";
+  /**
+   * Tag 'reputation', attribute 'amount'.
+   */
+  public static final String REPUTATION_AMOUNT_ATTR="amount";
 }
