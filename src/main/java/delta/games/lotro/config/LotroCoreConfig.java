@@ -171,4 +171,26 @@ public final class LotroCoreConfig
     int maxLevel=props.getIntProperty("max.character.level",115);
     return maxLevel;
   }
+
+  /**
+   * Get the maximum virtue rank.
+   * @return the maximum virtue rank.
+   */
+  public int getMaxVirtueRank()
+  {
+    TypedProperties props=getParameters();
+    int maxVirtueRank=props.getIntProperty("max.virtue.rank",80);
+    return maxVirtueRank;
+  }
+
+  /**
+   * Get the maximum item level for a legendary item.
+   * @return an item level.
+   */
+  public int getMaxItemLevelForLI()
+  {
+    TypedProperties props=getParameters();
+    int maxLIItemLevel=props.getIntProperty("max.li.itemLevel",470);
+    return maxLIItemLevel;
+  }
 }
