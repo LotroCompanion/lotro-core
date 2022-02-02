@@ -1,4 +1,4 @@
-package delta.games.lotro.character.status.statistics.reputation;
+package delta.games.lotro.common.statistics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,17 +10,18 @@ import delta.games.lotro.lore.reputation.Faction;
 /**
  * Reputation statistics.
  * @author DAM
+ * @param <T> Type of managed faction stats.
  */
-public class ReputationStats
+public abstract class ReputationStats<T extends FactionStats>
 {
-  private Map<String,FactionStats> _statistics;
+  private Map<String,T> _statistics;
 
   /**
    * Constructor.
    */
   public ReputationStats()
   {
-    _statistics=new HashMap<String,FactionStats>();
+    _statistics=new HashMap<String,T>();
   }
 
   /**
@@ -30,17 +31,24 @@ public class ReputationStats
    * or <code>null</code> to return <code>null</code> if not found.
    * @return A faction statistics or <code>null</code>.
    */
-  public FactionStats get(Faction faction, boolean createIfNeeded)
+  public T get(Faction faction, boolean createIfNeeded)
   {
     String factionKey=faction.getIdentifyingKey();
-    FactionStats factionStats=_statistics.get(factionKey);
+    T factionStats=_statistics.get(factionKey);
     if ((factionStats==null) && (createIfNeeded))
     {
-      factionStats=new FactionStats(faction);
+      factionStats=buildFactionStats(faction);
       _statistics.put(factionKey,factionStats);
     }
     return factionStats;
   }
+
+  /**
+   * Build a new faction stats instance.
+   * @param faction Faction to use.
+   * @return A new faction stats instance.
+   */
+  public abstract T buildFactionStats(Faction faction);
 
   /**
    * Get the number of known factions.

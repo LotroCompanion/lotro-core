@@ -1,15 +1,14 @@
-package delta.games.lotro.character.status.statistics.reputation;
+package delta.games.lotro.character.status.achievables.statistics.reputation;
 
+import delta.games.lotro.common.statistics.FactionStats;
 import delta.games.lotro.lore.reputation.Faction;
 
 /**
- * Statistics for a single faction.
+ * Statistics for a single faction, from achievables.
  * @author DAM
  */
-public class FactionStats
+public class AchievablesFactionStats extends FactionStats
 {
-  private Faction _faction;
-  private int _points;
   private int _achievablesCount;
   private int _completionsCount;
 
@@ -17,18 +16,9 @@ public class FactionStats
    * Constructor.
    * @param faction Managed faction.
    */
-  public FactionStats(Faction faction)
+  public AchievablesFactionStats(Faction faction)
   {
-    _faction=faction;
-  }
-
-  /**
-   * Get the managed faction.
-   * @return a faction.
-   */
-  public Faction getFaction()
-  {
-    return _faction;
+    super(faction);
   }
 
   /**
@@ -41,16 +31,6 @@ public class FactionStats
     _points+=(amountByCompletion*completionCount);
     _achievablesCount++;
     _completionsCount+=completionCount;
-  }
-
-  /**
-   * Get the total reputation points earned for this faction
-   * by the registered achievables.
-   * @return A points count.
-   */
-  public int getPoints()
-  {
-    return _points;
   }
 
   /**

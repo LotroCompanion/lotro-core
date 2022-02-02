@@ -4,9 +4,9 @@ import java.util.List;
 
 import delta.games.lotro.character.status.achievables.AchievableElementState;
 import delta.games.lotro.character.status.achievables.AchievableStatus;
+import delta.games.lotro.character.status.achievables.statistics.reputation.AchievablesFactionStats;
+import delta.games.lotro.character.status.achievables.statistics.reputation.AchievablesReputationStats;
 import delta.games.lotro.character.status.statistics.items.ItemsStats;
-import delta.games.lotro.character.status.statistics.reputation.FactionStats;
-import delta.games.lotro.character.status.statistics.reputation.ReputationStats;
 import delta.games.lotro.character.status.tasks.TaskStatus;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.rewards.ItemReward;
@@ -27,7 +27,7 @@ public class TasksStatistics
 {
   private int _distinctCompletedTasks;
   private int _taskCompletions;
-  private ReputationStats _reputation;
+  private AchievablesReputationStats _reputation;
   private ItemsStats _consumedItems;
   private Money _consumedItemsPrice;
   private ItemsStats _earnedItems;
@@ -40,7 +40,7 @@ public class TasksStatistics
    */
   public TasksStatistics()
   {
-    _reputation=new ReputationStats();
+    _reputation=new AchievablesReputationStats();
     _consumedItems=new ItemsStats();
     _consumedItemsPrice=new Money();
     _earnedItems=new ItemsStats();
@@ -115,7 +115,7 @@ public class TasksStatistics
         {
           ReputationReward reputationReward=(ReputationReward)rewardElement;
           Faction faction=reputationReward.getFaction();
-          FactionStats factionStats=_reputation.get(faction,true);
+          AchievablesFactionStats factionStats=_reputation.get(faction,true);
           int amount=reputationReward.getAmount();
           factionStats.addCompletions(completionCountInt,amount);
         }
@@ -158,7 +158,7 @@ public class TasksStatistics
    * Get the statistics about the acquired reputation.
    * @return Reputation statistics.
    */
-  public ReputationStats getReputationStats()
+  public AchievablesReputationStats getReputationStats()
   {
     return _reputation;
   }

@@ -13,6 +13,8 @@ import delta.games.lotro.character.status.achievables.AchievableStatus;
 import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.status.achievables.statistics.emotes.EmoteEvent;
 import delta.games.lotro.character.status.achievables.statistics.emotes.EmoteEventNameComparator;
+import delta.games.lotro.character.status.achievables.statistics.reputation.AchievablesFactionStats;
+import delta.games.lotro.character.status.achievables.statistics.reputation.AchievablesReputationStats;
 import delta.games.lotro.character.status.achievables.statistics.titles.TitleEvent;
 import delta.games.lotro.character.status.achievables.statistics.titles.TitleEventNameComparator;
 import delta.games.lotro.character.status.achievables.statistics.traits.TraitEvent;
@@ -20,8 +22,6 @@ import delta.games.lotro.character.status.achievables.statistics.traits.TraitEve
 import delta.games.lotro.character.status.achievables.statistics.virtues.VirtueStatsFromAchievables;
 import delta.games.lotro.character.status.achievables.statistics.virtues.VirtueXPStatsFromAchievables;
 import delta.games.lotro.character.status.statistics.items.ItemsStats;
-import delta.games.lotro.character.status.statistics.reputation.FactionStats;
-import delta.games.lotro.character.status.statistics.reputation.ReputationStats;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.rewards.EmoteReward;
@@ -57,7 +57,7 @@ public class AchievablesStatistics
   private List<TraitEvent> _traits;
   private Map<VirtueDescription,VirtueStatsFromAchievables> _virtues;
   private VirtueXPStatsFromAchievables _virtueXP;
-  private ReputationStats _reputation;
+  private AchievablesReputationStats _reputation;
   private ItemsStats _items;
 
   /**
@@ -75,7 +75,7 @@ public class AchievablesStatistics
     _traits=new ArrayList<TraitEvent>();
     _virtues=new HashMap<VirtueDescription,VirtueStatsFromAchievables>();
     _virtueXP=new VirtueXPStatsFromAchievables();
-    _reputation=new ReputationStats();
+    _reputation=new AchievablesReputationStats();
     _items=new ItemsStats();
     reset();
   }
@@ -219,7 +219,7 @@ public class AchievablesStatistics
         {
           ReputationReward reputationReward=(ReputationReward)rewardElement;
           Faction faction=reputationReward.getFaction();
-          FactionStats factionStats=_reputation.get(faction,true);
+          AchievablesFactionStats factionStats=_reputation.get(faction,true);
           int amount=reputationReward.getAmount();
           factionStats.addCompletions(completionCountInt,amount);
         }
@@ -355,7 +355,7 @@ public class AchievablesStatistics
    * Get the statistics about the acquired reputation.
    * @return Reputation statistics.
    */
-  public ReputationStats getReputationStats()
+  public AchievablesReputationStats getReputationStats()
   {
     return _reputation;
   }
@@ -427,7 +427,7 @@ public class AchievablesStatistics
       List<Faction> factions=FactionsRegistry.getInstance().getAll();
       for(Faction faction : factions)
       {
-        FactionStats factionStats=_reputation.get(faction,false);
+        AchievablesFactionStats factionStats=_reputation.get(faction,false);
         if (factionStats!=null)
         {
           int points=factionStats.getPoints();
