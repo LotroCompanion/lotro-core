@@ -63,9 +63,9 @@ public abstract class ReputationStats<T extends FactionStats>
    * Get the known statistics.
    * @return the known statistics.
    */
-  public List<FactionStats> getFactionStats()
+  public List<T> getFactionStats()
   {
-    return new ArrayList<FactionStats>(_statistics.values());
+    return new ArrayList<T>(_statistics.values());
   }
 
   /**
