@@ -32,7 +32,8 @@ public class MainTestShowStorageStatistics
     Account account=AccountsManager.getInstance().getAccountByName(accountName);
     List<StoredItem> items=StorageUtils.buildAccountItems(account,serverName);
 
-    StorageStatistics stats=new StorageStatisticsComputer().computeStatistics(items);
+    StorageStatistics stats=new StorageStatistics();
+    new StorageStatisticsComputer().computeStatistics(items,stats);
     long totalXP=stats.getTotalItemXP();
     System.out.println("Total item XP: "+totalXP);
     StorageReputationStats reputationStats=stats.getReputationStats();

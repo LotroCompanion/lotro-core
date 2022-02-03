@@ -14,28 +14,28 @@ import delta.games.lotro.lore.items.details.ItemXP;
 import delta.games.lotro.lore.reputation.Faction;
 
 /**
- * @author dm
+ * Computes statistics on stored items.
+ * @author DAM
  */
 public class StorageStatisticsComputer
 {
   /**
    * Compute storage statistics.
    * @param items Item to use.
-   * @return some statistics.
+   * @param results Storage for results.
    */
-  public StorageStatistics computeStatistics(List<StoredItem> items)
+  public void computeStatistics(List<StoredItem> items, StorageStatistics results)
   {
+    // Item XP
     long totalItemXP=computeTotalItemXP(items);
-    StorageStatistics ret=new StorageStatistics();
-    ret.setTotalItemXP(totalItemXP);
-    StorageReputationStats reputationStats=computeReputationStats(items);
-    ret.setReputationStats(reputationStats);
-    return ret;
+    results.setTotalItemXP(totalItemXP);
+    // Reputation
+    computeReputationStats(items,results.getReputationStats());
   }
 
-  private StorageReputationStats computeReputationStats(List<StoredItem> items)
+  private void computeReputationStats(List<StoredItem> items, StorageReputationStats results)
   {
-    StorageReputationStats ret=new StorageReputationStats();
+    results.reset();
     for(StoredItem storedItem : items)
     {
       CountedItem<ItemProvider> counted=storedItem.getItem();
@@ -50,12 +50,11 @@ public class StorageStatisticsComputer
           int amount=itemReputation.getAmount();
           Faction faction=itemReputation.getFaction();
           int count=counted.getQuantity();
-          StorageFactionStats stats=ret.get(faction,true);
+          StorageFactionStats stats=results.get(faction,true);
           stats.addItems(count,amount);
         }
       }
     }
-    return ret;
   }
 
   private long computeTotalItemXP(List<StoredItem> items)
