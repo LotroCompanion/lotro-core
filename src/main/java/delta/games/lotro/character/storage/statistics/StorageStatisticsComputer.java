@@ -5,8 +5,10 @@ import java.util.List;
 import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.statistics.reputation.StorageFactionStats;
 import delta.games.lotro.character.storage.statistics.reputation.StorageReputationStats;
+import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemProvider;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
@@ -31,6 +33,9 @@ public class StorageStatisticsComputer
     results.setTotalItemXP(totalItemXP);
     // Reputation
     computeReputationStats(items,results.getReputationStats());
+    // Total value
+    Money totalValue=computeTotalValue(items);
+    results.setTotalValue(totalValue);
   }
 
   private void computeReputationStats(List<StoredItem> items, StorageReputationStats results)
@@ -78,5 +83,39 @@ public class StorageStatisticsComputer
       }
     }
     return totalXP;
+  }
+
+  private Money computeTotalValue(List<StoredItem> items)
+  {
+    int totalRawValue=0;
+    for(StoredItem storedItem : items)
+    {
+      CountedItem<ItemProvider> counted=storedItem.getItem();
+      int itemRawValue=0;
+      ItemProvider itemProvider=counted.getManagedItem();
+      if (itemProvider instanceof ItemInstance)
+      {
+        ItemInstance<?> itemInstance=(ItemInstance<?>)itemProvider;
+        Money value=itemInstance.getEffectiveValue();
+        if (value!=null)
+        {
+          itemRawValue=value.getInternalValue();
+        }
+      }
+      else if (itemProvider instanceof Item)
+      {
+        Item item=(Item)itemProvider;
+        Money value=item.getValueAsMoney();
+        if (value!=null)
+        {
+          itemRawValue=value.getInternalValue();
+        }
+      }
+      int quantity=counted.getQuantity();
+      totalRawValue+=(itemRawValue)*quantity;
+    }
+    Money ret=new Money();
+    ret.setRawValue(totalRawValue);
+    return ret;
   }
 }
