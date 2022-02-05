@@ -8,6 +8,9 @@ import delta.games.lotro.character.storage.StorageUtils;
 import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.statistics.reputation.StorageReputationStats;
 import delta.games.lotro.common.statistics.FactionStats;
+import delta.games.lotro.common.statistics.items.ItemsStats;
+import delta.games.lotro.lore.items.CountedItem;
+import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.reputation.Faction;
 
 /**
@@ -34,8 +37,10 @@ public class MainTestShowStorageStatistics
 
     StorageStatistics stats=new StorageStatistics();
     new StorageStatisticsComputer().computeStatistics(items,stats);
+    // Item XP
     long totalXP=stats.getTotalItemXP();
     System.out.println("Total item XP: "+totalXP);
+    // Reputation stats
     StorageReputationStats reputationStats=stats.getReputationStats();
     for(FactionStats factionStats : reputationStats.getFactionStats())
     {
@@ -43,5 +48,13 @@ public class MainTestShowStorageStatistics
       int points=factionStats.getPoints();
       System.out.println("Total "+points+" points for faction "+faction.getName());
     }
+    // Disenchantment results
+    ItemsStats itemStats=stats.getItemStats();
+    for(CountedItem<Item> resultItem : itemStats.getItems())
+    {
+      System.out.println("\t"+resultItem);
+    }
+    // Total value
+    System.out.println("Total value: "+stats.getTotalValue());
   }
 }

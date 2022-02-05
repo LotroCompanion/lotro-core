@@ -6,7 +6,10 @@ import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.statistics.reputation.StorageFactionStats;
 import delta.games.lotro.character.storage.statistics.reputation.StorageReputationStats;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.statistics.items.ItemsStats;
 import delta.games.lotro.lore.items.CountedItem;
+import delta.games.lotro.lore.items.DisenchantmentManager;
+import delta.games.lotro.lore.items.DisenchantmentResult;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemProvider;
@@ -14,6 +17,7 @@ import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemXP;
 import delta.games.lotro.lore.reputation.Faction;
+import delta.games.lotro.utils.Registry;
 
 /**
  * Computes statistics on stored items.
@@ -33,6 +37,8 @@ public class StorageStatisticsComputer
     results.setTotalItemXP(totalItemXP);
     // Reputation
     computeReputationStats(items,results.getReputationStats());
+    // Disenchantment results
+    computeDisenchantmentResults(items,results.getItemStats());
     // Total value
     Money totalValue=computeTotalValue(items);
     results.setTotalValue(totalValue);
@@ -57,6 +63,29 @@ public class StorageStatisticsComputer
           int count=counted.getQuantity();
           StorageFactionStats stats=results.get(faction,true);
           stats.addItems(count,amount);
+        }
+      }
+    }
+  }
+
+  private void computeDisenchantmentResults(List<StoredItem> items, ItemsStats results)
+  {
+    Registry<DisenchantmentResult> registry=DisenchantmentManager.getInstance().getDisenchantmentResults();
+    results.reset();
+    for(StoredItem storedItem : items)
+    {
+      CountedItem<ItemProvider> counted=storedItem.getItem();
+      Item item=counted.getItem();
+      int quantity=counted.getQuantity();
+      DisenchantmentResult result=registry.getItem(item.getIdentifier());
+      if (result!=null)
+      {
+        CountedItem<Item> resultItems=result.getCountedItem();
+        if (resultItems!=null)
+        {
+          int resultItemId=resultItems.getIdentifier();
+          int resultItemQuantity=resultItems.getQuantity();
+          results.add(resultItemId,resultItemQuantity*quantity);
         }
       }
     }

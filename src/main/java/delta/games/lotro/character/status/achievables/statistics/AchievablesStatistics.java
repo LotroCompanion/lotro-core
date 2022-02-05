@@ -21,7 +21,6 @@ import delta.games.lotro.character.status.achievables.statistics.traits.TraitEve
 import delta.games.lotro.character.status.achievables.statistics.traits.TraitEventNameComparator;
 import delta.games.lotro.character.status.achievables.statistics.virtues.VirtueStatsFromAchievables;
 import delta.games.lotro.character.status.achievables.statistics.virtues.VirtueXPStatsFromAchievables;
-import delta.games.lotro.character.status.statistics.items.ItemsStats;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.rewards.EmoteReward;
@@ -32,6 +31,7 @@ import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
+import delta.games.lotro.common.statistics.items.ItemsStats;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.WellKnownItems;
 import delta.games.lotro.lore.quests.Achievable;

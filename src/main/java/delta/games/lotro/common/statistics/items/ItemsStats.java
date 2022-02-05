@@ -1,4 +1,4 @@
-package delta.games.lotro.character.status.statistics.items;
+package delta.games.lotro.common.statistics.items;
 
 import java.util.ArrayList;
 import java.util.Collections;

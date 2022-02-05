@@ -2,6 +2,7 @@ package delta.games.lotro.character.storage.statistics;
 
 import delta.games.lotro.character.storage.statistics.reputation.StorageReputationStats;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.statistics.items.ItemsStats;
 
 /**
  * Storage statistics.
@@ -11,6 +12,7 @@ public class StorageStatistics
 {
   private long _totalItemXP;
   private StorageReputationStats _reputationStats;
+  private ItemsStats _itemStats;
   private Money _totalValue;
 
   /**
@@ -20,6 +22,7 @@ public class StorageStatistics
   {
     _totalItemXP=0;
     _reputationStats=new StorageReputationStats();
+    _itemStats=new ItemsStats();
     _totalValue=new Money();
   }
 
@@ -51,7 +54,17 @@ public class StorageStatistics
   }
 
   /**
-   * @return the totalValue
+   * Get the item stats.
+   * @return the item stats.
+   */
+  public ItemsStats getItemStats()
+  {
+    return _itemStats;
+  }
+
+  /**
+   * Get the total value.
+   * @return the total value.
    */
   public Money getTotalValue()
   {
@@ -59,7 +72,8 @@ public class StorageStatistics
   }
 
   /**
-   * @param totalValue the totalValue to set
+   * Set the total value.
+   * @param totalValue the total value to set.
    */
   public void setTotalValue(Money totalValue)
   {
