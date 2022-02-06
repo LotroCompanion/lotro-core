@@ -71,8 +71,11 @@ public class DisenchantmentResultXMLWriter
     AttributesImpl attrs=new AttributesImpl();
 
     // Identifier
-    int id=disenchantment.getIdentifier();
-    attrs.addAttribute("","",DisenchantmentResultXMLConstants.SOURCE_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    int sourceItemID=disenchantment.getIdentifier();
+    attrs.addAttribute("","",DisenchantmentResultXMLConstants.SOURCE_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(sourceItemID));
+    // Name
+    String sourceItemname=disenchantment.getName();
+    attrs.addAttribute("","",DisenchantmentResultXMLConstants.SOURCE_ITEM_NAME_ATTR,XmlWriter.CDATA,sourceItemname);
 
     // Counted item
     CountedItem<Item> countedItem=disenchantment.getCountedItem();

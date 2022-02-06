@@ -1,31 +1,38 @@
 package delta.games.lotro.lore.items;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.treasure.TrophyList;
 
 /**
  * Disenchantment results.
  * @author DAM
  */
-public class DisenchantmentResult implements Identifiable
+public class DisenchantmentResult implements Identifiable,Named
 {
-  private int _identifier;
+  private Item _sourceItem;
   private CountedItem<Item> _countedItem;
   private TrophyList _trophyList;
 
   /**
    * Constructor.
-   * @param identifier Item identifier.
+   * @param sourceItem Source item.
    */
-  public DisenchantmentResult(int identifier)
+  public DisenchantmentResult(Item sourceItem)
   {
-    _identifier=identifier;
+    _sourceItem=sourceItem;
   }
 
   @Override
   public int getIdentifier()
   {
-    return _identifier;
+    return _sourceItem.getIdentifier();
+  }
+
+  @Override
+  public String getName()
+  {
+    return _sourceItem.getName();
   }
 
   /**

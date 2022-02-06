@@ -5,6 +5,7 @@ import java.util.Set;
 
 import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.lore.items.Container;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Container-specific data (relics).
@@ -17,11 +18,11 @@ public class RelicsContainer extends Container
 
   /**
    * Constructor.
-   * @param identifier Container identifier.
+   * @param item Container item.
    */
-  public RelicsContainer(int identifier)
+  public RelicsContainer(Item item)
   {
-    super(identifier);
+    super(item);
   }
 
   /**

@@ -24,6 +24,10 @@ public class ContainerXMLConstants
    */
   public static final String CONTAINER_ID_ATTR="id";
   /**
+   * Tag 'container', attribute 'name'.
+   */
+  public static final String CONTAINER_NAME_ATTR="name";
+  /**
    * Tag 'container', attribute 'customSkirmishLootTableId'.
    */
   public static final String CUSTOM_SKIRMISH_LOOT_TABLE_ID_ATTR="customSkirmishLootTableId";

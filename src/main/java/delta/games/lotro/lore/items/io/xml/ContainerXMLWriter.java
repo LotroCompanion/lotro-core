@@ -77,6 +77,9 @@ public class ContainerXMLWriter
     // Identifier
     int id=container.getIdentifier();
     attrs.addAttribute("","",ContainerXMLConstants.CONTAINER_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Name
+    String name=container.getName();
+    attrs.addAttribute("","",ContainerXMLConstants.CONTAINER_NAME_ATTR,XmlWriter.CDATA,name);
 
     String tag=null;
     if (container instanceof ItemsContainer)

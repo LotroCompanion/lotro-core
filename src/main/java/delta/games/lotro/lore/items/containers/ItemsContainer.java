@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.containers;
 
 import delta.games.lotro.lore.items.Container;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Container-specific data (items).
@@ -15,11 +16,11 @@ public class ItemsContainer extends Container
 
   /**
    * Constructor.
-   * @param identifier Item identifier.
+   * @param item Container item.
    */
-  public ItemsContainer(int identifier)
+  public ItemsContainer(Item item)
   {
-    super(identifier);
+    super(item);
     _lootTables=new LootTables();
     _bindingPolicy=ContainerBindingPolicy.NONE;
     _useCharacterForMunging=false;

@@ -12,6 +12,8 @@ import delta.games.lotro.common.treasure.LootTable;
 import delta.games.lotro.common.treasure.LootsManager;
 import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.lore.items.Container;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.containers.ItemsContainer;
 import delta.games.lotro.lore.items.containers.LootTables;
 import delta.games.lotro.lore.items.containers.LootType;
@@ -66,7 +68,8 @@ public class ContainerXMLParser
   {
     NamedNodeMap attrs=root.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CONTAINER_ID_ATTR,0);
-    ItemsContainer ret=new ItemsContainer(id);
+    Item item=ItemsManager.getInstance().getItem(id);
+    ItemsContainer ret=new ItemsContainer(item);
     parseLootTables(root,ret.getLootTables());
     return ret;
   }
@@ -96,7 +99,8 @@ public class ContainerXMLParser
   {
     NamedNodeMap attrs=root.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CONTAINER_ID_ATTR,0);
-    RelicsContainer ret=new RelicsContainer(id);
+    Item item=ItemsManager.getInstance().getItem(id);
+    RelicsContainer ret=new RelicsContainer(item);
 
     // Relic
     Relic relic=null;

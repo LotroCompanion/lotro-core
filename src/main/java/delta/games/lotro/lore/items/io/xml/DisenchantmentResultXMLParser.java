@@ -56,7 +56,8 @@ public class DisenchantmentResultXMLParser
   {
     NamedNodeMap attrs=root.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,DisenchantmentResultXMLConstants.SOURCE_ITEM_ID_ATTR,0);
-    DisenchantmentResult ret=new DisenchantmentResult(id);
+    Item sourceItem=ItemsManager.getInstance().getItem(id);
+    DisenchantmentResult ret=new DisenchantmentResult(sourceItem);
 
     // Counted items
     int itemId=DOMParsingTools.getIntAttribute(attrs,DisenchantmentResultXMLConstants.RESULT_ITEM_ID_ATTR,0);

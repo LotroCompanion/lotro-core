@@ -20,6 +20,10 @@ public class DisenchantmentResultXMLConstants
    */
   public static final String SOURCE_ITEM_ID_ATTR="sourceItemId";
   /**
+   * Tag 'disenchantment', attribute 'sourceItemName'.
+   */
+  public static final String SOURCE_ITEM_NAME_ATTR="sourceItemName";
+  /**
    * Tag 'disenchantment', attribute 'resultItemId'.
    */
   public static final String RESULT_ITEM_ID_ATTR="resultItemId";
