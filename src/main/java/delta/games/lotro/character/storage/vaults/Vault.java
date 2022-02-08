@@ -3,14 +3,17 @@ package delta.games.lotro.character.storage.vaults;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import delta.games.lotro.character.storage.BaseStorage;
+import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
+import delta.games.lotro.lore.items.carryalls.CarryAll;
 
 /**
  * Storage vault (own vault or shared vault).
@@ -109,21 +112,22 @@ public class Vault extends BaseStorage
   }
 
   /**
-   * Get the carry-alls from this vault.
-   * @return A list of carry-alls.
+   * Get the IDs of the carry-alls from this vault.
+   * @return A set of carry-all IDs.
    */
-  public List<CarryAllInstance> getCarryAlls()
+  public Set<InternalGameId> getCarryAllIDs()
   {
-    List<CarryAllInstance> ret=new ArrayList<CarryAllInstance>();
+    Set<InternalGameId> ret=new HashSet<InternalGameId>();
     for(Chest chest : _chests.values())
     {
-      List<CountedItem<ItemInstance<? extends Item>>> items=chest.getAllItemInstances();
-      for(CountedItem<ItemInstance<? extends Item>> item : items)
+      List<CountedItem<ItemInstance<? extends Item>>> countedItems=chest.getAllItemInstances();
+      for(CountedItem<ItemInstance<? extends Item>> countedItem : countedItems)
       {
-        ItemInstance<? extends Item> itemInstance=item.getManagedItem();
-        if (itemInstance instanceof CarryAllInstance)
+        ItemInstance<? extends Item> itemInstance=countedItem.getManagedItem();
+        Item item=itemInstance.getItem();
+        if (item instanceof CarryAll)
         {
-          ret.add((CarryAllInstance)itemInstance);
+          ret.add(itemInstance.getInstanceId());
         }
       }
     }

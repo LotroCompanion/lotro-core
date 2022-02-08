@@ -3,15 +3,17 @@ package delta.games.lotro.character.storage.bags;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import delta.games.lotro.character.storage.BaseStorage;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
+import delta.games.lotro.lore.items.carryalls.CarryAll;
 
 /**
  * Bags contents manager.
@@ -150,18 +152,19 @@ public class BagsManager extends BaseStorage
   }
 
   /**
-   * Get the carry-alls from this vault.
-   * @return A list of carry-alls.
+   * Get the IDs of the carry-alls from this bags manager.
+   * @return A set of carry-all IDs.
    */
-  public List<CarryAllInstance> getCarryAlls()
+  public Set<InternalGameId> getCarryAllIDs()
   {
-    List<CarryAllInstance> ret=new ArrayList<CarryAllInstance>();
-    for(CountedItem<ItemInstance<? extends Item>> item : _bag.values())
+    Set<InternalGameId> ret=new HashSet<InternalGameId>();
+    for(CountedItem<ItemInstance<? extends Item>> countedItem : _bag.values())
     {
-      ItemInstance<? extends Item> itemInstance=item.getManagedItem();
-      if (itemInstance instanceof CarryAllInstance)
+      ItemInstance<? extends Item> itemInstance=countedItem.getManagedItem();
+      Item item=itemInstance.getItem();
+      if (item instanceof CarryAll)
       {
-        ret.add((CarryAllInstance)itemInstance);
+        ret.add(itemInstance.getInstanceId());
       }
     }
     return ret;

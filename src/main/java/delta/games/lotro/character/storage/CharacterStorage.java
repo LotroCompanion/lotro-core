@@ -1,12 +1,18 @@
 package delta.games.lotro.character.storage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.storage.bags.BagsManager;
+import delta.games.lotro.character.storage.carryAlls.CarryAllInstance;
+import delta.games.lotro.character.storage.carryAlls.CarryAllsManager;
+import delta.games.lotro.character.storage.carryAlls.CarryAllsUtils;
 import delta.games.lotro.character.storage.vaults.Vault;
 import delta.games.lotro.character.storage.wallet.Wallet;
-import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
+import delta.games.lotro.common.id.InternalGameId;
 
 /**
  * Storage data for a single character.
@@ -14,6 +20,10 @@ import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
  */
 public class CharacterStorage
 {
+  /**
+   * Character.
+   */
+  private CharacterFile _character;
   /**
    * Shared vault.
    */
@@ -37,14 +47,16 @@ public class CharacterStorage
 
   /**
    * Constructor.
+   * @param character Character.
    * @param sharedVault Shared vault.
    * @param ownVault Own vault.
    * @param bags Bags.
    * @param sharedWallet Shared wallet.
    * @param wallet Wallet.
    */
-  public CharacterStorage(Vault sharedVault, Vault ownVault, BagsManager bags, Wallet sharedWallet, Wallet wallet)
+  public CharacterStorage(CharacterFile character, Vault sharedVault, Vault ownVault, BagsManager bags, Wallet sharedWallet, Wallet wallet)
   {
+    _character=character;
     _sharedVault=sharedVault;
     _ownVault=ownVault;
     _bags=bags;
@@ -105,17 +117,33 @@ public class CharacterStorage
   public List<CarryAllInstance> getCarryAlls(boolean includeShared)
   {
     List<CarryAllInstance> ret=new ArrayList<CarryAllInstance>();
+    Set<InternalGameId> carryAllIDs=getCarryAllIDs(includeShared);
+    CarryAllsManager mgr=CarryAllsUtils.buildCarryAllManager(_character);
+    for(InternalGameId carryAllID : carryAllIDs)
+    {
+      CarryAllInstance carryAll=mgr.getCarryAll(carryAllID);
+      if (carryAll!=null)
+      {
+        ret.add(carryAll);
+      }
+    }
+    return ret;
+  }
+
+  private Set<InternalGameId> getCarryAllIDs(boolean includeShared)
+  {
+    Set<InternalGameId> ret=new HashSet<InternalGameId>();
     // Own vault
-    ret.addAll(_ownVault.getCarryAlls());
+    ret.addAll(_ownVault.getCarryAllIDs());
     if (includeShared)
     {
       if (_sharedVault!=null)
       {
-        ret.addAll(_sharedVault.getCarryAlls());
+        ret.addAll(_sharedVault.getCarryAllIDs());
       }
     }
     // Bags
-    ret.addAll(_bags.getCarryAlls());
+    ret.addAll(_bags.getCarryAllIDs());
     // Wallet
     // ... no carry alls in the wallet!
     return ret;

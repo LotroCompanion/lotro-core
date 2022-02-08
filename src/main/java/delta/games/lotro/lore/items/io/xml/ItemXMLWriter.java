@@ -41,8 +41,6 @@ import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
-import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
-import delta.games.lotro.lore.items.carryalls.io.xml.CarryAllInstanceXMLWriter;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.details.io.xml.ItemDetailsXMLWriter;
 import delta.games.lotro.lore.items.essences.EssencesSet;
@@ -406,11 +404,6 @@ public class ItemXMLWriter
     {
       LegendaryInstanceAttrs2 legAttrs=((LegendaryInstance2)instance).getLegendaryAttributes();
       LegendaryInstance2AttrsXMLWriter.write(hd,legAttrs);
-    }
-    if (instance instanceof CarryAllInstance)
-    {
-      CarryAllInstance carryAllInstance=(CarryAllInstance)instance;
-      CarryAllInstanceXMLWriter.writeCarryAll(hd,carryAllInstance);
     }
     // Money
     if (isInstance)

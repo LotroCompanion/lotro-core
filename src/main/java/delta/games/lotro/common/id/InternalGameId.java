@@ -119,6 +119,12 @@ public class InternalGameId
   }
 
   @Override
+  public int hashCode()
+  {
+    return _id1+_id2;
+  }
+
+  @Override
   public String toString()
   {
     return "ID: "+asHexString();

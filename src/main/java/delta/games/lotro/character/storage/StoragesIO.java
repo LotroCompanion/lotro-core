@@ -32,7 +32,7 @@ public class StoragesIO
     // Shared stuff
     Wallet sharedWallet=loadSharedWallet(character);
     Vault sharedVault=loadSharedVault(character);
-    CharacterStorage storage=new CharacterStorage(sharedVault,ownVault,bagsManager,sharedWallet,wallet);
+    CharacterStorage storage=new CharacterStorage(character,sharedVault,ownVault,bagsManager,sharedWallet,wallet);
     return storage;
   }
 

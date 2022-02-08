@@ -22,8 +22,6 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
-import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
-import delta.games.lotro.lore.items.carryalls.io.xml.CarryAllInstanceXMLParser;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
@@ -204,12 +202,6 @@ public class ItemXMLParser
     {
       LegendaryInstanceAttrs2 legAttrs=((LegendaryInstance2)itemInstance).getLegendaryAttributes();
       LegendaryInstance2AttrsXMLParser.read(legAttrs,root);
-    }
-    // Handle carry-alls
-    if (itemInstance instanceof CarryAllInstance)
-    {
-      CarryAllInstance carryAllInstance=(CarryAllInstance)itemInstance;
-      CarryAllInstanceXMLParser.read(carryAllInstance,root);
     }
     return itemInstance;
   }

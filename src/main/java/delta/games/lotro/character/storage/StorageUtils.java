@@ -7,6 +7,9 @@ import delta.games.lotro.account.Account;
 import delta.games.lotro.account.AccountUtils;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.storage.bags.BagsManager;
+import delta.games.lotro.character.storage.carryAlls.CarryAllInstance;
+import delta.games.lotro.character.storage.carryAlls.CarryAllsManager;
+import delta.games.lotro.character.storage.carryAlls.CarryAllsUtils;
 import delta.games.lotro.character.storage.location.SimpleStorageLocation;
 import delta.games.lotro.character.storage.location.SimpleStorageLocation.LocationType;
 import delta.games.lotro.character.storage.location.StorageLocation;
@@ -23,7 +26,7 @@ import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemProvider;
-import delta.games.lotro.lore.items.carryalls.CarryAllInstance;
+import delta.games.lotro.lore.items.carryalls.CarryAll;
 
 /**
  * Utility methods for storage management.
@@ -83,12 +86,8 @@ public class StorageUtils
         items.addAll(storedItems);
       }
     }
-    // Carry-alls
-    for(CarryAllInstance carryAllInstance : characterStorage.getCarryAlls(true))
-    {
-      List<StoredItem> storedItems=getAllItems(owner,carryAllInstance,LocationType.CARRY_ALL);
-      items.addAll(storedItems);
-    }
+    CarryAllsManager mgr=CarryAllsUtils.buildCarryAllManager(toon);
+    items.addAll(getItemsInCarryAlls(mgr,items));
     return items;
   }
 
@@ -133,17 +132,8 @@ public class StorageUtils
         List<StoredItem> storedItems=getAllItems(owner,ownWallet,LocationType.WALLET);
         items.addAll(storedItems);
       }
-      // Carry-alls
-      {
-        for(CarryAllInstance carryAllInstance : characterStorage.getCarryAlls(false))
-        {
-          List<StoredItem> storedItems=getAllItems(owner,carryAllInstance,LocationType.CARRY_ALL);
-          items.addAll(storedItems);
-        }
-      }
     }
     // Account/server storage
-    if (account!=null)
     {
       // Shared vault
       Vault sharedVault=VaultsIo.load(account,serverName);
@@ -151,12 +141,6 @@ public class StorageUtils
       {
         List<StoredItem> storedItems=getAllItems(accountServer,sharedVault,LocationType.SHARED_VAULT);
         items.addAll(storedItems);
-        // Carry-alls
-        for(CarryAllInstance carryAllInstance : sharedVault.getCarryAlls())
-        {
-          storedItems=getAllItems(accountServer,carryAllInstance,LocationType.CARRY_ALL);
-          items.addAll(storedItems);
-        }
       }
       // Shared wallet
       Wallet sharedWallet=WalletsIO.loadAccountSharedWallet(account,serverName);
@@ -166,6 +150,8 @@ public class StorageUtils
         items.addAll(storedItems);
       }
     }
+    CarryAllsManager mgr=new CarryAllsManager(account,serverName);
+    items.addAll(getItemsInCarryAlls(mgr,items));
     return items;
   }
 
@@ -228,13 +214,40 @@ public class StorageUtils
     return items;
   }
 
-  private static List<StoredItem> getAllItems(Owner owner, CarryAllInstance container, LocationType type)
+  private static List<StoredItem> getItemsInCarryAlls(CarryAllsManager mgr, List<StoredItem> items)
   {
-    StorageLocation location=new SimpleStorageLocation(owner,type,null);
-    List<StoredItem> items=new ArrayList<StoredItem>();
-    for(CountedItem<Item> walletItem : container.getItems())
+    List<StoredItem> ret=new ArrayList<StoredItem>();
+    for(StoredItem storedItem : items)
     {
-      CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(walletItem.getManagedItem(),walletItem.getQuantity());
+      CountedItem<ItemProvider> countedItem=storedItem.getItem();
+      ItemProvider itemProvider=countedItem.getManagedItem();
+      if (itemProvider instanceof ItemInstance<?>)
+      {
+        Item item=itemProvider.getItem();
+        if (item instanceof CarryAll)
+        {
+          ItemInstance<?> itemInstance=(ItemInstance<?>)itemProvider;
+          CarryAllInstance carryAll=mgr.getCarryAll(itemInstance.getInstanceId());
+          if (carryAll!=null)
+          {
+            Owner owner=storedItem.getOwner();
+            List<StoredItem> carryAllItems=getItemsInCarryAll(owner,carryAll);
+            ret.addAll(carryAllItems);
+          }
+        }
+      }
+    }
+    return ret;
+  }
+
+  private static List<StoredItem> getItemsInCarryAll(Owner owner, CarryAllInstance carryAll)
+  {
+    StorageLocation location=new SimpleStorageLocation(owner,LocationType.CARRY_ALL,null);
+    List<StoredItem> items=new ArrayList<StoredItem>();
+    List<CountedItem<Item>> carryAllItems=carryAll.getItems();
+    for(CountedItem<Item> item : carryAllItems)
+    {
+      CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(item.getManagedItem(),item.getQuantity());
       StoredItem storedItem=new StoredItem(countedItem);
       storedItem.setOwner(owner);
       storedItem.setLocation(location);
