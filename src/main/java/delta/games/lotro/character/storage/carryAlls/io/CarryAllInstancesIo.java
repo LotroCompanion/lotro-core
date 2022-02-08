@@ -50,7 +50,14 @@ public class CarryAllInstancesIo
     return ok;
   }
 
-  private static File getCarryAllFile(Account account, String server, InternalGameId id)
+  /**
+   * Get a carry-all file path.
+   * @param account Account.
+   * @param server Server.
+   * @param id Carry-all instance identifier.
+   * @return A file.
+   */
+  public static File getCarryAllFile(Account account, String server, InternalGameId id)
   {
     File rootDir=account.getRootDir();
     File serverDir=new File(rootDir,server);

@@ -50,7 +50,12 @@ public class BagsIo
     return ok;
   }
 
-  private static File getBagsFile(CharacterFile character)
+  /**
+   * Get the path of the bags file.
+   * @param character Targeted character.
+   * @return A file.
+   */
+  public static File getBagsFile(CharacterFile character)
   {
     File rootDir=character.getRootDir();
     File bagsFile=new File(rootDir,"inventory.xml");

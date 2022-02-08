@@ -1,5 +1,6 @@
 package delta.games.lotro.character.storage.carryAlls;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,26 @@ public class CarryAllsManager
     _account=account;
     _server=server;
     _knownCarryAlls=new HashMap<Long,CarryAllInstance>();
+  }
+
+  /**
+   * Indicates if a carry-all with given ID exists or not.
+   * @param id Identifier of the carry-all to search.
+   * @return <code>true</code> if present, <code>false</code> otherwise.
+   */
+  public boolean hasCarryAll(InternalGameId id)
+  {
+    Long key=Long.valueOf(id.asLong());
+    if (_knownCarryAlls.containsKey(key))
+    {
+      return true;
+    }
+    File file=CarryAllInstancesIo.getCarryAllFile(_account,_server,id);
+    if (file.exists())
+    {
+      return true;
+    }
+    return false;
   }
 
   /**

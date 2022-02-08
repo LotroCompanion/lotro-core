@@ -42,15 +42,18 @@ public class CarryAllInstanceXMLParser
    * @param rootTag Root XML tag.
    * @return the loaded carry-all or <code>null</code>.
    */
-  private static CarryAllInstance read(Element rootTag)
+  public static CarryAllInstance read(Element rootTag)
   {
     CarryAllInstance ret=new CarryAllInstance();
     // Reference item ID
     int referenceItemID=DOMParsingTools.getIntAttribute(rootTag.getAttributes(),CarryAllInstanceXMLConstants.CARRY_ALL_ITEM_ID_TAG,0);
-    Item referenceItem=ItemsManager.getInstance().getItem(referenceItemID);
-    if (referenceItem instanceof CarryAll)
+    if (referenceItemID!=0)
     {
-      ret.setReference((CarryAll)referenceItem);
+      Item referenceItem=ItemsManager.getInstance().getItem(referenceItemID);
+      if (referenceItem instanceof CarryAll)
+      {
+        ret.setReference((CarryAll)referenceItem);
+      }
     }
     // Items
     List<Element> itemTags=DOMParsingTools.getChildTagsByName(rootTag,CarryAllInstanceXMLConstants.ITEM_TAG,false);
