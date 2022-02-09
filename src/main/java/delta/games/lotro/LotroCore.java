@@ -1,6 +1,7 @@
 package delta.games.lotro;
 
 import delta.games.lotro.character.storage.currencies.CurrenciesUpdater;
+import delta.games.lotro.misc.migration.CarryAllsMigration;
 
 /**
  * Facade for lotro-core.
@@ -16,6 +17,12 @@ public class LotroCore
   public static void init()
   {
     _currenciesUpdater=new CurrenciesUpdater();
+    migration();
+  }
+
+  private static void migration()
+  {
+    new CarryAllsMigration().doIt();
   }
 
   /**
