@@ -54,7 +54,7 @@ public class RewardsXMLParser
     {
       // Money
       Money money=rewards.getMoney();
-      MoneyXMLParser.loadMoney(root,money);
+      MoneyXMLParser.loadMoney(rewardsTag,money);
 
       List<Element> childTags=DOMParsingTools.getChildTags(rewardsTag);
       for(Element childTag : childTags)
