@@ -12,6 +12,7 @@ import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.requirements.filters.UsageRequirementFilter;
 import delta.games.lotro.common.rewards.filters.RewardsFilter;
 import delta.games.lotro.lore.deeds.DeedDescription;
+import delta.games.lotro.lore.quests.filter.AchievableMonsterPlayFilter;
 
 /**
  * Deed filter.
@@ -24,6 +25,7 @@ public class DeedFilter implements Filter<DeedDescription>
   private DeedNameFilter _nameFilter;
   private DeedTypeFilter _typeFilter;
   private DeedCategoryFilter _categoryFilter;
+  private AchievableMonsterPlayFilter<DeedDescription> _monsterPlayFilter;
   // Requirements
   private UsageRequirementFilter _requirementsFilter;
   // Rewards
@@ -44,6 +46,9 @@ public class DeedFilter implements Filter<DeedDescription>
     // Category
     _categoryFilter=new DeedCategoryFilter(null);
     filters.add(_categoryFilter);
+    // Monster play
+    _monsterPlayFilter=new AchievableMonsterPlayFilter<DeedDescription>(null);
+    filters.add(_monsterPlayFilter);
     // Requirements
     _requirementsFilter=new UsageRequirementFilter(null,null);
     ProxyValueResolver<DeedDescription,UsageRequirement> resolver=new ProxyValueResolver<DeedDescription,UsageRequirement>()
@@ -86,6 +91,15 @@ public class DeedFilter implements Filter<DeedDescription>
   public DeedCategoryFilter getCategoryFilter()
   {
     return _categoryFilter;
+  }
+
+  /**
+   * Get the filter on 'monster play' flag.
+   * @return a filter on 'monster play' flag.
+   */
+  public AchievableMonsterPlayFilter<DeedDescription> getMonsterPlayFilter()
+  {
+    return _monsterPlayFilter;
   }
 
   /**
