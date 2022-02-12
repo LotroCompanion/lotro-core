@@ -19,7 +19,6 @@ import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
-import delta.games.lotro.lore.quests.QuestDescription.FACTION;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.lore.quests.objectives.io.xml.DialogsXMLWriter;
@@ -97,12 +96,6 @@ public class QuestXMLWriter extends AchievableXMLWriter
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SIZE_ATTR,XmlWriter.CDATA,size.name());
     }
-    // Faction
-    FACTION faction=quest.getFaction();
-    if (faction==FACTION.MONSTER_PLAY)
-    {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_FACTION_ATTR,XmlWriter.CDATA,faction.name());
-    }
     // Repeatable
     Repeatability repeatability=quest.getRepeatability();
     if (repeatability!=Repeatability.NOT_REPEATABLE)
@@ -138,6 +131,12 @@ public class QuestXMLWriter extends AchievableXMLWriter
     if (autoBestowed)
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_AUTO_BESTOWED_ATTR,XmlWriter.CDATA,String.valueOf(autoBestowed));
+    }
+    // Monster play?
+    boolean monsterPlay=quest.isMonsterPlay();
+    if (monsterPlay)
+    {
+      questAttrs.addAttribute("","",AchievableXMLConstants.MONSTER_PLAY_ATTR,XmlWriter.CDATA,String.valueOf(monsterPlay));
     }
     // Hidden?
     boolean hidden=quest.isHidden();

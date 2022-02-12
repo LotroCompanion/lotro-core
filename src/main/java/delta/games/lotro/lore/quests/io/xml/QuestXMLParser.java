@@ -14,7 +14,6 @@ import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.quests.QuestDescription;
-import delta.games.lotro.lore.quests.QuestDescription.FACTION;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.lore.quests.objectives.io.xml.DialogsXMLParser;
@@ -69,14 +68,6 @@ public class QuestXMLParser extends AchievableXMLParser
       size=Size.valueOf(sizeStr);
     }
     q.setSize(size);
-    // Faction
-    FACTION faction=FACTION.FREE_PEOPLES;
-    String factionStr=DOMParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_FACTION_ATTR,null);
-    if (factionStr!=null)
-    {
-      faction=FACTION.valueOf(factionStr);
-    }
-    q.setFaction(faction);
     // Repeatable
     byte repeatable=(byte)DOMParsingTools.getIntAttribute(attrs,QuestXMLConstants.QUEST_REPEATABLE_ATTR,0);
     q.setRepeatability(Repeatability.getByCode(repeatable));

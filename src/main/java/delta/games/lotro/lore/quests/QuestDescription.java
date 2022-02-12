@@ -18,35 +18,6 @@ import delta.games.lotro.utils.Proxy;
 public class QuestDescription extends Achievable
 {
   /**
-   * Faction.
-   * @author DAM
-   */
-  public enum FACTION
-  {
-    /**
-     * Free peoples.
-     */
-    FREE_PEOPLES("Free Peoples"),
-    /**
-     * Monster play.
-     */
-    MONSTER_PLAY("Monster Play");
-
-    private String _label;
-
-    private FACTION(String label)
-    {
-      _label=label;
-    }
-
-    @Override
-    public String toString()
-    {
-      return _label;
-    }
-  }
-
-  /**
    * Scope.
    */
   private String _scope;
@@ -58,10 +29,6 @@ public class QuestDescription extends Achievable
    * Recommended size: solo, small fellowship, fellowship or raid.
    */
   private Size _size;
-  /**
-   * Free Peoples or Monster Play.
-   */
-  private FACTION _faction;
   /**
    * Repeatability (never null).
    */
@@ -95,7 +62,6 @@ public class QuestDescription extends Achievable
     _scope="";
     _questArc="";
     _size=Size.SOLO;
-    _faction=FACTION.FREE_PEOPLES;
     _repeatability=Repeatability.NOT_REPEATABLE;
     _lockType=null;
     _instanced=false;
@@ -162,24 +128,6 @@ public class QuestDescription extends Achievable
   public void setSize(Size size)
   {
     _size=size;
-  }
-
-  /**
-   * Get the quest faction.
-   * @return the quest faction.
-   */
-  public FACTION getFaction()
-  {
-    return _faction;
-  }
-
-  /**
-   * Set the quest faction.
-   * @param faction the faction to set.
-   */
-  public void setFaction(FACTION faction)
-  {
-    _faction=faction;
   }
 
   /**
@@ -374,12 +322,6 @@ public class QuestDescription extends Achievable
     {
       sb.append(" (");
       sb.append(_size);
-      sb.append(')');
-    }
-    if (_faction!=FACTION.FREE_PEOPLES)
-    {
-      sb.append(" (");
-      sb.append(_faction);
       sb.append(')');
     }
     if (_repeatability!=Repeatability.NOT_REPEATABLE)

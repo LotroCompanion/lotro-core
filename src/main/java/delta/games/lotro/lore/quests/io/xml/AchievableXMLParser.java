@@ -36,6 +36,9 @@ public class AchievableXMLParser
     // Hidden
     boolean hidden=DOMParsingTools.getBooleanAttribute(attrs,AchievableXMLConstants.HIDDEN_ATTR,false);
     achievable.setHidden(hidden);
+    // Monster-play
+    boolean monsterPlay=DOMParsingTools.getBooleanAttribute(attrs,AchievableXMLConstants.MONSTER_PLAY_ATTR,false);
+    achievable.setMonsterPlay(monsterPlay);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,AchievableXMLConstants.DESCRIPTION_ATTR,"");
     achievable.setDescription(description);

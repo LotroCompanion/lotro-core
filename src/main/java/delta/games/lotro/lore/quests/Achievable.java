@@ -43,7 +43,14 @@ public abstract class Achievable implements Identifiable
   private ChallengeLevel _challengeLevel;
 
   // Flags
+  /**
+   * Hidden?
+   */
   private boolean _hidden;
+  /**
+   * Monster Play?
+   */
+  private boolean _monsterPlay;
   /**
    * Description.
    */
@@ -53,7 +60,7 @@ public abstract class Achievable implements Identifiable
    */
   private ObjectivesManager _objectives;
   /**
-   * Reward.
+   * Rewards.
    */
   private Rewards _rewards;
   /**
@@ -76,6 +83,7 @@ public abstract class Achievable implements Identifiable
     _requirement=new UsageRequirement();
     _challengeLevel=ChallengeLevel.ONE;
     _hidden=false;
+    _monsterPlay=false;
     _description="";
     _objectives=new ObjectivesManager();
     _rewards=new Rewards();
@@ -222,6 +230,24 @@ public abstract class Achievable implements Identifiable
   }
 
   /**
+   * Indicates if this quest is 'monster play' or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isMonsterPlay()
+  {
+    return _monsterPlay;
+  }
+
+  /**
+   * Set the 'monster play' flag.
+   * @param monsterPlay value to set.
+   */
+  public void setMonsterPlay(boolean monsterPlay)
+  {
+    _monsterPlay=monsterPlay;
+  }
+
+  /**
    * Get the description of this achievable.
    * @return the description of this achievable.
    */
@@ -314,7 +340,12 @@ public abstract class Achievable implements Identifiable
     {
       sb.append(" (obsolete/hidden)");
     }
+    if (_monsterPlay)
+    {
+      sb.append(" (monster play)");
+    }
   }
+
   protected void dumpOtherLines(StringBuilder sb)
   {
     if (_category.length()>0)

@@ -26,7 +26,7 @@ public class QuestFilter implements Filter<QuestDescription>
   private QuestCategoryFilter _categoryFilter;
   private QuestArcFilter _questArcFilter;
   private QuestSizeFilter _questSizeFilter;
-  private QuestFactionFilter _questFactionFilter;
+  private AchievableMonsterPlayFilter<QuestDescription> _monsterPlayFilter;
   private InstancedQuestFilter _instancedQuestFilter;
   private ShareableQuestFilter _shareableQuestFilter;
   private SessionPlayQuestFilter _sessionPlayQuestFilter;
@@ -57,9 +57,9 @@ public class QuestFilter implements Filter<QuestDescription>
     // Quest size
     _questSizeFilter=new QuestSizeFilter(null);
     filters.add(_questSizeFilter);
-    // Quest faction
-    _questFactionFilter=new QuestFactionFilter(null);
-    filters.add(_questFactionFilter);
+    // Monster play
+    _monsterPlayFilter=new AchievableMonsterPlayFilter<QuestDescription>(null);
+    filters.add(_monsterPlayFilter);
     // Instanced quests
     _instancedQuestFilter=new InstancedQuestFilter(null);
     filters.add(_instancedQuestFilter);
@@ -147,12 +147,12 @@ public class QuestFilter implements Filter<QuestDescription>
   }
 
   /**
-   * Get the filter on quest faction.
-   * @return a quest faction filter.
+   * Get the filter on 'monster play' flag.
+   * @return a filter on 'monster play' flag.
    */
-  public QuestFactionFilter getQuestFactionFilter()
+  public AchievableMonsterPlayFilter<QuestDescription> getMonsterPlayFilter()
   {
-    return _questFactionFilter;
+    return _monsterPlayFilter;
   }
 
   /**

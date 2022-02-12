@@ -28,6 +28,10 @@ public class AchievableXMLConstants
    */
   public static final String HIDDEN_ATTR="hidden";
   /**
+   * Tag 'quest/deed', attribute 'monsterPlay'.
+   */
+  public static final String MONSTER_PLAY_ATTR="monsterPlay";
+  /**
    * Tag 'quest/deed', attribute 'description'.
    */
   public static final String DESCRIPTION_ATTR="description";

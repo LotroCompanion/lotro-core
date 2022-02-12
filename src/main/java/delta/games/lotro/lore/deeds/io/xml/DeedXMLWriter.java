@@ -87,6 +87,12 @@ public class DeedXMLWriter extends AchievableXMLWriter
     {
       deedAttrs.addAttribute("","",AchievableXMLConstants.HIDDEN_ATTR,XmlWriter.CDATA,String.valueOf(hidden));
     }
+    // Monster play?
+    boolean monsterPlay=deed.isMonsterPlay();
+    if (monsterPlay)
+    {
+      deedAttrs.addAttribute("","",AchievableXMLConstants.MONSTER_PLAY_ATTR,XmlWriter.CDATA,String.valueOf(monsterPlay));
+    }
     // Description
     String description=deed.getDescription();
     if (description.length()>0)
