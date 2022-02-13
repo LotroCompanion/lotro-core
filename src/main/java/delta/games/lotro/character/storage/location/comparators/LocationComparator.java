@@ -2,43 +2,35 @@ package delta.games.lotro.character.storage.location.comparators;
 
 import java.util.Comparator;
 
-import delta.games.lotro.character.storage.location.CompoundStorageLocation;
-import delta.games.lotro.character.storage.location.SimpleStorageLocation;
 import delta.games.lotro.character.storage.location.StorageLocation;
+import delta.games.lotro.character.storage.location.StorageLocation.LocationType;
+import delta.games.lotro.common.owner.Owner;
+import delta.games.lotro.common.owner.comparators.OwnerComparator;
 
 /**
- * Comparator for all storage location types.
+ * Comparator for character owners.
  * @author DAM
  */
 public class LocationComparator implements Comparator<StorageLocation>
 {
-  private SimpleLocationComparator _simpleComparator=new SimpleLocationComparator();
-  private CompoundLocationComparator _compoundComparator=new CompoundLocationComparator(this);
+  private OwnerComparator _ownerComparator=new OwnerComparator();
 
   @Override
   public int compare(StorageLocation o1, StorageLocation o2)
   {
-    int index1=getLocationIndex(o1);
-    int index2=getLocationIndex(o2);
-    if (index1!=index2)
+    Owner owner1=o1.getOwner();
+    Owner owner2=o2.getOwner();
+    int ret=_ownerComparator.compare(owner1,owner2);
+    if (ret==0)
     {
-      return index1-index2;
+      LocationType type1=o1.getLocationType();
+      LocationType type2=o2.getLocationType();
+      ret=type1.ordinal()-type2.ordinal();
+      if (ret==0)
+      {
+        ret=o1.getChestName().compareTo(o2.getChestName());
+      }
     }
-    if (index1==1)
-    {
-      return _simpleComparator.compare((SimpleStorageLocation)o1,(SimpleStorageLocation)o2);
-    }
-    if (index1==2)
-    {
-      return _compoundComparator.compare((CompoundStorageLocation)o1,(CompoundStorageLocation)o2);
-    }
-    return 0;
-  }
-
-  private int getLocationIndex(StorageLocation location)
-  {
-    if (location instanceof SimpleStorageLocation) return 1;
-    if (location instanceof CompoundStorageLocation) return 2;
-    return 3;
+    return ret;
   }
 }

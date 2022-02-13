@@ -10,9 +10,8 @@ import delta.games.lotro.character.storage.bags.BagsManager;
 import delta.games.lotro.character.storage.carryAlls.CarryAllInstance;
 import delta.games.lotro.character.storage.carryAlls.CarryAllsManager;
 import delta.games.lotro.character.storage.carryAlls.CarryAllsUtils;
-import delta.games.lotro.character.storage.location.SimpleStorageLocation;
-import delta.games.lotro.character.storage.location.SimpleStorageLocation.LocationType;
 import delta.games.lotro.character.storage.location.StorageLocation;
+import delta.games.lotro.character.storage.location.StorageLocation.LocationType;
 import delta.games.lotro.character.storage.vaults.Chest;
 import delta.games.lotro.character.storage.vaults.Vault;
 import delta.games.lotro.character.storage.vaults.io.VaultsIo;
@@ -158,7 +157,7 @@ public class StorageUtils
   private static List<StoredItem> getAllItems(Owner owner, BagsManager container, LocationType type)
   {
     List<StoredItem> items=new ArrayList<StoredItem>();
-    StorageLocation location=new SimpleStorageLocation(owner,type,"Bags");
+    StorageLocation location=new StorageLocation(owner,type,"Bags");
     List<CountedItem<ItemInstance<? extends Item>>> bagItems=container.getAll();
     for(CountedItem<ItemInstance<? extends Item>> bagItem : bagItems)
     {
@@ -173,7 +172,7 @@ public class StorageUtils
 
   private static List<StoredItem> getAllItems(Owner owner, Wallet container, LocationType type)
   {
-    StorageLocation location=new SimpleStorageLocation(owner,type,null);
+    StorageLocation location=new StorageLocation(owner,type,null);
     List<StoredItem> items=new ArrayList<StoredItem>();
     for(CountedItem<Item> walletItem : container.getAllItemsSortedByID())
     {
@@ -199,7 +198,7 @@ public class StorageUtils
         {
           chestName="#"+chestId;
         }
-        StorageLocation location=new SimpleStorageLocation(owner,type,chestName);
+        StorageLocation location=new StorageLocation(owner,type,chestName);
         List<CountedItem<ItemInstance<? extends Item>>> chestItems=chest.getAllItemInstances();
         for(CountedItem<ItemInstance<? extends Item>> chestItem : chestItems)
         {
@@ -242,7 +241,7 @@ public class StorageUtils
 
   private static List<StoredItem> getItemsInCarryAll(Owner owner, CarryAllInstance carryAll)
   {
-    StorageLocation location=new SimpleStorageLocation(owner,LocationType.CARRY_ALL,null);
+    StorageLocation location=new StorageLocation(owner,LocationType.CARRY_ALL,null);
     List<StoredItem> items=new ArrayList<StoredItem>();
     List<CountedItem<Item>> carryAllItems=carryAll.getItems();
     for(CountedItem<Item> item : carryAllItems)
