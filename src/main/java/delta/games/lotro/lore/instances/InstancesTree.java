@@ -17,7 +17,7 @@ import delta.games.lotro.lore.instances.io.xml.InstancesTreeXMLParser;
  */
 public class InstancesTree
 {
-  private static final InstancesTree _instance=load();
+  private static InstancesTree _instance=null;
   private InstanceCategory _rootCategory;
 
   /**
@@ -26,6 +26,10 @@ public class InstancesTree
    */
   public static InstancesTree getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=load();
+    }
     return _instance;
   }
 

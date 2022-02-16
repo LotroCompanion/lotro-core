@@ -18,7 +18,7 @@ import delta.games.lotro.lore.maps.io.xml.GeoAreasXMLParser;
  */
 public class GeoAreasManager
 {
-  private static final GeoAreasManager _instance=load();
+  private static GeoAreasManager _instance=null;
   private Map<Integer,Region> _regions;
   private Map<Integer,Territory> _territories;
   private Map<Integer,Area> _areas;
@@ -29,6 +29,10 @@ public class GeoAreasManager
    */
   public static GeoAreasManager getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=load();
+    }
     return _instance;
   }
 

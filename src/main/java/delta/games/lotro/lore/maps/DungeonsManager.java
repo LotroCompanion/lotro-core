@@ -18,7 +18,7 @@ import delta.games.lotro.lore.maps.io.xml.DungeonXMLParser;
  */
 public class DungeonsManager
 {
-  private static final DungeonsManager _instance=load();
+  private static DungeonsManager _instance=null;
   private Map<Integer,Dungeon> _dungeons;
 
   /**
@@ -27,6 +27,10 @@ public class DungeonsManager
    */
   public static DungeonsManager getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=load();
+    }
     return _instance;
   }
 

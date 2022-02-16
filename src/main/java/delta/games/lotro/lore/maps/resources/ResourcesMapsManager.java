@@ -18,7 +18,7 @@ import delta.games.lotro.lore.maps.resources.io.xml.ResourcesMapsXMLParser;
  */
 public class ResourcesMapsManager
 {
-  private static final ResourcesMapsManager _instance=load();
+  private static ResourcesMapsManager _instance=null;
   private Map<String,ResourcesMapDescriptor> _maps;
 
   /**
@@ -27,6 +27,10 @@ public class ResourcesMapsManager
    */
   public static ResourcesMapsManager getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=load();
+    }
     return _instance;
   }
 

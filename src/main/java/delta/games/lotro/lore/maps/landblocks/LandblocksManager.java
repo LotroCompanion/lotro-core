@@ -25,7 +25,7 @@ public class LandblocksManager
 {
   private static final Logger LOGGER=Logger.getLogger(LandblocksManager.class);
 
-  private static final LandblocksManager _instance=load();
+  private static LandblocksManager _instance=null;
   private Map<String,Landblock> _index;
 
   /**
@@ -34,6 +34,10 @@ public class LandblocksManager
    */
   public static LandblocksManager getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=load();
+    }
     return _instance;
   }
 

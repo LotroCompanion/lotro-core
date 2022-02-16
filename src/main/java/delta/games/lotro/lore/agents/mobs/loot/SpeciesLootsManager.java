@@ -21,7 +21,7 @@ import delta.games.lotro.lore.agents.mobs.loot.io.xml.GenericMobLootSaxParser;
  */
 public class SpeciesLootsManager
 {
-  private static final SpeciesLootsManager _instance=load();
+  private static SpeciesLootsManager _instance=null;
   private Map<Species,SpeciesLoot> _loots;
 
   /**
@@ -30,6 +30,10 @@ public class SpeciesLootsManager
    */
   public static SpeciesLootsManager getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=load();
+    }
     return _instance;
   }
 

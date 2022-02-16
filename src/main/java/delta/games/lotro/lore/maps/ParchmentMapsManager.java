@@ -22,7 +22,7 @@ public class ParchmentMapsManager
 {
   private static final Logger LOGGER=Logger.getLogger(ParchmentMapsManager.class);
 
-  private static final ParchmentMapsManager _instance=load();
+  private static ParchmentMapsManager _instance=null;
   private Map<Integer,ParchmentMap> _maps;
 
   /**
@@ -31,6 +31,10 @@ public class ParchmentMapsManager
    */
   public static ParchmentMapsManager getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=load();
+    }
     return _instance;
   }
 
