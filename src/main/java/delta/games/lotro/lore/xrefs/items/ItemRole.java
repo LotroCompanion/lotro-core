@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.xrefs.items;
 
 /**
+ * Roles in items cross-references.
  * @author DAM
  */
 public enum ItemRole
@@ -56,5 +57,9 @@ public enum ItemRole
   /**
    * Item may come from container.
    */
-  CONTAINED_IN
+  CONTAINED_IN,
+  /**
+   * Has same cosmetics as.
+   */
+  SAME_COSMETICS
 }

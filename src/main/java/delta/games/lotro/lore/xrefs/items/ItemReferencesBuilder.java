@@ -1,10 +1,12 @@
 package delta.games.lotro.lore.xrefs.items;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
@@ -19,8 +21,11 @@ import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.ContainersManager;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.containers.ItemsContainer;
 import delta.games.lotro.lore.items.containers.LootTables;
+import delta.games.lotro.lore.items.cosmetics.ItemCosmetics;
+import delta.games.lotro.lore.items.cosmetics.ItemCosmeticsManager;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 import delta.games.lotro.lore.quests.Achievable;
@@ -75,6 +80,7 @@ public class ItemReferencesBuilder
     findInSets(itemId);
     findInContainers(itemId);
     findInMeldingRecipes(itemId);
+    findSameCosmetics(itemId);
     List<ItemReference<?>> ret=new ArrayList<ItemReference<?>>(_storage);
     _storage.clear();
     return ret;
@@ -338,6 +344,38 @@ public class ItemReferencesBuilder
       if (output.isResultItem(itemId))
       {
         _storage.add(new ItemReference<RelicMeldingRecipe>(recipe,ItemRole.RECIPE_RESULT));
+      }
+    }
+  }
+
+  private void findSameCosmetics(int itemID)
+  {
+    ItemCosmeticsManager mgr=ItemCosmeticsManager.getInstance();
+    ItemCosmetics cosmeticsMgr=mgr.getData();
+    Integer cosmeticID=cosmeticsMgr.findCosmeticID(itemID);
+    if (cosmeticID==null)
+    {
+      return;
+    }
+    int[] itemIDs=cosmeticsMgr.findItemIDs(cosmeticID.intValue());
+    if (itemIDs!=null)
+    {
+      List<Item> sameCosmeticItems=new ArrayList<Item>();
+      for(int sameCosmeticItemID : itemIDs)
+      {
+        if (sameCosmeticItemID!=itemID)
+        {
+          Item sameCosmeticItem=ItemsManager.getInstance().getItem(sameCosmeticItemID);
+          sameCosmeticItems.add(sameCosmeticItem);
+        }
+      }
+      Collections.sort(sameCosmeticItems,new NamedComparator());
+      if (sameCosmeticItems.size()>0)
+      {
+        for(Item sameCosmeticItem : sameCosmeticItems)
+        {
+          _storage.add(new ItemReference<Item>(sameCosmeticItem,ItemRole.SAME_COSMETICS));
+        }
       }
     }
   }
