@@ -9,5 +9,14 @@ public enum QuestStatus
   /**
    * Completed.
    */
-  COMPLETED
+  COMPLETED,
+  /**
+   * Underway.
+   */
+  UNDERWAY,
+  /**
+   * Failed.
+   */
+  FAILED
+  // TODO Support all possible values, for instance UNDERWAY_OBJECTIVE01..UNDERWAY_OBJECTIVE35
 }

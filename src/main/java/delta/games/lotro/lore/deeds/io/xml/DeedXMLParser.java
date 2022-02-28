@@ -96,8 +96,7 @@ public class DeedXMLParser extends AchievableXMLParser
     deed.setType(type);
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(deed.getUsageRequirement(),root);
-    // Prerequisites
-    parsePrerequisites(root,deed);
+    parseAchievablesRequirements(root,deed);
     // Maps
     parseMaps(root,deed);
     // Objectives

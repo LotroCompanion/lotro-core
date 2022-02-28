@@ -1,13 +1,13 @@
 package delta.games.lotro.lore.quests.io.xml;
 
-import java.util.List;
-
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.common.ChallengeLevel;
+import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
+import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsXMLWriter;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLWriter;
 import delta.games.lotro.lore.quests.Achievable;
@@ -46,10 +46,10 @@ public class AchievableXMLWriter
 
   protected void writePrerequisites(TransformerHandler hd, Achievable quest) throws Exception
   {
-    List<Proxy<Achievable>> prerequisites=quest.getPrerequisites();
-    for(Proxy<Achievable> prerequisite : prerequisites)
+    AbstractAchievableRequirement requirement=quest.getQuestRequirements();
+    if (requirement!=null)
     {
-      writeAchievableProxy(hd,prerequisite,AchievableXMLConstants.PREREQUISITE_TAG);
+      QuestsRequirementsXMLWriter.writeQuestRequirement(hd,requirement);
     }
   }
 

@@ -115,8 +115,7 @@ public class QuestXMLParser extends AchievableXMLParser
     }
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(q.getUsageRequirement(),root);
-    // Prerequisites
-    parsePrerequisites(root,q);
+    parseAchievablesRequirements(root,q);
     // Maps
     parseMaps(root,q);
     // Next quest

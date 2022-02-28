@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
+import delta.games.lotro.common.requirements.CompoundQuestRequirement;
+import delta.games.lotro.common.requirements.QuestRequirement;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.quests.objectives.Objective;
@@ -93,6 +96,9 @@ public class AchievableProxiesResolver
    */
   public void resolveDeed(DeedDescription deed)
   {
+    // Pre-requisites
+    AbstractAchievableRequirement questRequirement=deed.getQuestRequirements();
+    resolveQuestRequirement(questRequirement);
     // Objectives
     resolveObjectives(deed.getObjectives());
   }
@@ -104,14 +110,29 @@ public class AchievableProxiesResolver
   public void resolveQuest(QuestDescription quest)
   {
     // Pre-requisites
-    for(Proxy<Achievable> prerequisite : quest.getPrerequisites())
-    {
-      resolveProxy(prerequisite);
-    }
+    AbstractAchievableRequirement questRequirement=quest.getQuestRequirements();
+    resolveQuestRequirement(questRequirement);
     // Next quest
     resolveProxy(quest.getNextQuest());
     // Objectives
     resolveObjectives(quest.getObjectives());
+  }
+
+  private void resolveQuestRequirement(AbstractAchievableRequirement requirement)
+  {
+    if (requirement instanceof CompoundQuestRequirement)
+    {
+      CompoundQuestRequirement compoundRequirement=(CompoundQuestRequirement)requirement;
+      for(AbstractAchievableRequirement childRequirement : compoundRequirement.getRequirements())
+      {
+        resolveQuestRequirement(childRequirement);
+      }
+    }
+    else if (requirement instanceof QuestRequirement)
+    {
+      QuestRequirement questRequirement=(QuestRequirement)requirement;
+      resolveProxy(questRequirement.getRequiredAchievable());
+    }
   }
 
   private void resolveObjectives(ObjectivesManager objectivesMgr)

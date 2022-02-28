@@ -7,6 +7,8 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.ChallengeLevel;
+import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
+import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsXMLParser;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLConstants;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
@@ -44,17 +46,10 @@ public class AchievableXMLParser
     achievable.setDescription(description);
   }
 
-  protected void parsePrerequisites(Element root, Achievable achievable)
+  protected void parseAchievablesRequirements(Element root, Achievable achievable)
   {
-    List<Element> prerequisiteTags=DOMParsingTools.getChildTagsByName(root,AchievableXMLConstants.PREREQUISITE_TAG);
-    for(Element prerequisiteTag : prerequisiteTags)
-    {
-      Proxy<Achievable> proxy=buildProxy(prerequisiteTag);
-      if (proxy!=null)
-      {
-        achievable.addPrerequisite(proxy);
-      }
-    }
+    AbstractAchievableRequirement requirement=QuestsRequirementsXMLParser.loadRequirement(root);
+    achievable.setQuestRequirements(requirement);
   }
 
   protected Proxy<Achievable> buildProxy(Element tag)

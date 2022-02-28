@@ -3,17 +3,21 @@ package delta.games.lotro.common.requirements;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
+import delta.games.lotro.common.utils.ComparisonOperator;
+import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Quest requirement.
  * @author DAM
  */
-public class QuestRequirement
+public class QuestRequirement extends AbstractAchievableRequirement
 {
   private static final Logger LOGGER=Logger.getLogger(QuestRequirement.class);
 
   private static final String SEPARATOR=";";
-  private int _questId;
+  private Proxy<Achievable> _quest;
+  private ComparisonOperator _operator;
   private QuestStatus _status;
 
   /**
@@ -23,7 +27,10 @@ public class QuestRequirement
    */
   public QuestRequirement(int questId, QuestStatus status)
   {
-    _questId=questId;
+    Proxy<Achievable> achievableProxy=new Proxy<Achievable>();
+    achievableProxy.setId(questId);
+    _quest=achievableProxy;
+    _operator=ComparisonOperator.EQUAL;
     _status=status;
   }
 
@@ -33,7 +40,34 @@ public class QuestRequirement
    */
   public int getQuestId()
   {
-    return _questId;
+    return _quest.getId();
+  }
+
+  /**
+   * Get the required achievable.
+   * @return An achievable proxy.
+   */
+  public Proxy<Achievable> getRequiredAchievable()
+  {
+    return _quest;
+  }
+
+  /**
+   * Get the comparison operator.
+   * @return An operator.
+   */
+  public ComparisonOperator getOperator()
+  {
+    return _operator;
+  }
+
+  /**
+   * Set the comparison operator.
+   * @param operator Operator to set.
+   */
+  public void setOperator(ComparisonOperator operator)
+  {
+    _operator=operator;
   }
 
   /**
@@ -52,7 +86,7 @@ public class QuestRequirement
   public String asString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append(_questId);
+    sb.append(_quest.getId());
     sb.append(SEPARATOR);
     sb.append(_status);
     return sb.toString();
@@ -93,6 +127,6 @@ public class QuestRequirement
   @Override
   public String toString()
   {
-    return "Quest "+_questId+" "+_status;
+    return "Quest "+_quest+" "+_operator+" "+_status;
   }
 }

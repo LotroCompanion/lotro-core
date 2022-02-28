@@ -8,12 +8,12 @@ import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Base class for quests and deeds.
@@ -64,9 +64,9 @@ public abstract class Achievable implements Identifiable
    */
   private Rewards _rewards;
   /**
-   * Pre-requisites.
+   * Quest requirements.
    */
-  private List<Proxy<Achievable>> _prerequisiteAchievables;
+  private AbstractAchievableRequirement _questRequirement;
   /**
    * Maps.
    */
@@ -87,7 +87,7 @@ public abstract class Achievable implements Identifiable
     _description="";
     _objectives=new ObjectivesManager();
     _rewards=new Rewards();
-    _prerequisiteAchievables=new ArrayList<Proxy<Achievable>>();
+    _questRequirement=null;
     _maps=new ArrayList<MapDescription>();
   }
 
@@ -285,21 +285,21 @@ public abstract class Achievable implements Identifiable
   }
 
   /**
-   * Get the list of the 'pre-requisite' achievables for this achievable. 
-   * @return a possibly empty list of achievables proxies.
+   * Get the quest requirements for this achievable. 
+   * @return a quest requirement or <code>null</code>.
    */
-  public List<Proxy<Achievable>> getPrerequisites()
+  public AbstractAchievableRequirement getQuestRequirements()
   {
-    return _prerequisiteAchievables;
+    return _questRequirement;
   }
 
   /**
-   * Add a 'pre-requisite' achievable.
-   * @param prerequisite proxy to add as a 'pre-requisite'.
+   * Set the quest requirement.
+   * @param questRequirement Requirement to set.
    */
-  public void addPrerequisite(Proxy<Achievable> prerequisite)
+  public void setQuestRequirements(AbstractAchievableRequirement questRequirement)
   {
-    _prerequisiteAchievables.add(prerequisite);
+    _questRequirement=questRequirement;
   }
 
   /**
@@ -359,9 +359,9 @@ public abstract class Achievable implements Identifiable
     sb.append("Rewards: ").append(_rewards).append(EndOfLine.NATIVE_EOL);
     sb.append("Description: ").append(_description).append(EndOfLine.NATIVE_EOL);
     sb.append("Objectives: ").append(_objectives).append(EndOfLine.NATIVE_EOL);
-    if (_prerequisiteAchievables.size()>0)
+    if (_questRequirement!=null)
     {
-      sb.append("Prerequisites: ").append(_prerequisiteAchievables).append(EndOfLine.NATIVE_EOL);
+      sb.append("Prerequisites: ").append(_questRequirement).append(EndOfLine.NATIVE_EOL);
     }
     if (_maps.size()>0)
     {
