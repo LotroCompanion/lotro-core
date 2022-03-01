@@ -49,7 +49,7 @@ public class QuestsRequirementsXMLParser
     String tagName=tag.getNodeName();
     if (QuestsRequirementsXMLConstants.PREREQUISITE_TAG.equals(tagName))
     {
-      return parseRequirement(tag);
+      return parseSimpleRequirement(tag);
     }
     else if (QuestsRequirementsXMLConstants.COMPOUND_PREREQUISITE_TAG.equals(tagName))
     {
