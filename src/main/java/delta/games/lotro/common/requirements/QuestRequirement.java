@@ -109,7 +109,7 @@ public class QuestRequirement extends AbstractAchievableRequirement
         QuestStatus status=null;
         try
         {
-          status=QuestStatus.valueOf(parts[1]);
+          status=QuestStatus.getByKey(parts[1]);
         }
         catch(Exception e)
         {

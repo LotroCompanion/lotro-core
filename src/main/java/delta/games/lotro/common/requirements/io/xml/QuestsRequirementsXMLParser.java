@@ -80,7 +80,7 @@ public class QuestsRequirementsXMLParser
     String statusStr=DOMParsingTools.getStringAttribute(attrs,QuestsRequirementsXMLConstants.STATUS_ATTR,null);
     if (statusStr!=null)
     {
-      status=QuestStatus.valueOf(statusStr);
+      status=QuestStatus.getByKey(statusStr);
     }
     QuestRequirement ret=new QuestRequirement(questId,status);
     ret.setOperator(operator);

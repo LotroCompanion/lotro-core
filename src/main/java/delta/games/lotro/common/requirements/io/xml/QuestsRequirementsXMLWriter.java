@@ -79,7 +79,7 @@ public class QuestsRequirementsXMLWriter
     QuestStatus status=questRequirement.getQuestStatus();
     if (status!=QuestStatus.COMPLETED)
     {
-      attrs.addAttribute("","",QuestsRequirementsXMLConstants.STATUS_ATTR,XmlWriter.CDATA,status.name());
+      attrs.addAttribute("","",QuestsRequirementsXMLConstants.STATUS_ATTR,XmlWriter.CDATA,status.getKey());
     }
     hd.startElement("","",QuestsRequirementsXMLConstants.PREREQUISITE_TAG,attrs);
     hd.endElement("","",QuestsRequirementsXMLConstants.PREREQUISITE_TAG);
