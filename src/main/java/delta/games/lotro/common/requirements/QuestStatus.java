@@ -64,6 +64,12 @@ public class QuestStatus
     return _objectiveIndex;
   }
 
+  @Override
+  public String toString()
+  {
+    return _key;
+  }
+
   /**
    * Completed.
    */
