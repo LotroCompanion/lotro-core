@@ -124,12 +124,11 @@ public class MainAssessDeedProgress
   }
 
   /**
-   * @param args
+   * Main method for this test.
+   * @param args Not used.
    */
   public static void main(String[] args)
   {
     new MainAssessDeedProgress().doIt();
-
   }
-
 }
