@@ -10,6 +10,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.storage.currencies.CurrenciesSummary;
+import delta.games.lotro.character.storage.currencies.Currency;
 import delta.games.lotro.character.storage.currencies.CurrencyHistory;
 import delta.games.lotro.character.storage.currencies.CurrencyStatus;
 import delta.games.lotro.character.storage.currencies.CurrencyStorage;
@@ -59,8 +60,9 @@ public class CurrenciesXMLWriter
     for(CurrencyStatus status : statuses)
     {
       AttributesImpl statusAttrs=new AttributesImpl();
+      Currency currency=status.getCurrency();
       // Key
-      String key=status.getCurrency().getKey();
+      String key=currency.getPersistenceKey();
       statusAttrs.addAttribute("","",CurrenciesXMLConstants.CURRENCY_SUMMARY_KEY_ATTR,XmlWriter.CDATA,key);
       // Date
       long date=status.getDate();

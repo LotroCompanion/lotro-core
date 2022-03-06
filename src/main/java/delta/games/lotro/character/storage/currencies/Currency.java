@@ -13,6 +13,10 @@ public class Currency
    */
   private String _key;
   /**
+   * Optional legacy key.
+   */
+  private String _legacyKey;
+  /**
    * Displayable name.
    */
   private String _name;
@@ -21,7 +25,7 @@ public class Currency
    */
   private Scope _scope;
   /**
-   * Cateogry of currency.
+   * Category of currency.
    */
   private String _category;
 
@@ -46,6 +50,37 @@ public class Currency
    */
   public String getKey()
   {
+    return _key;
+  }
+
+  /**
+   * Get the legacy key.
+   * @return A legacy key or <code>null</code>.
+   */
+  public String getLegacyKey()
+  {
+    return _legacyKey;
+  }
+
+  /**
+   * Set the legacy key.
+   * @param legacyKey Legacy key to set.
+   */
+  public void setLegacyKey(String legacyKey)
+  {
+    _legacyKey=legacyKey;
+  }
+
+  /**
+   * Get the key to use for persistence.
+   * @return A key.
+   */
+  public String getPersistenceKey()
+  {
+    if (_legacyKey!=null)
+    {
+      return _legacyKey;
+    }
     return _key;
   }
 

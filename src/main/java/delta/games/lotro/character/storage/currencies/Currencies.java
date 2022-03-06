@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import delta.games.lotro.common.Scope;
+import delta.games.lotro.lore.items.WellKnownItems;
+import delta.games.lotro.lore.items.paper.PaperItem;
+import delta.games.lotro.lore.items.paper.PaperItemsManager;
 
 /**
  * Access to all currencies.
@@ -41,15 +44,24 @@ public class Currencies
     // Gold
     Currency gold=new Currency(CurrencyKeys.GOLD,"Gold",Scope.CHARACTER,"World");
     registerCurrency(gold);
+    // Paper items
+    List<PaperItem> paperItems=PaperItemsManager.getInstance().getAll();
+    for(PaperItem paperItem : paperItems)
+    {
+      String id=String.valueOf(paperItem.getIdentifier());
+      String name=paperItem.getName();
+      boolean shared=paperItem.isShared();
+      Scope scope=(shared?Scope.SERVER:Scope.CHARACTER);
+      String category=paperItem.getCategory();
+      Currency currency=new Currency(id,name,scope,category);
+      registerCurrency(currency);
+    }
     // Marks
-    Currency marks=new Currency(CurrencyKeys.MARKS,"Marks",Scope.SERVER,"World");
-    registerCurrency(marks);
+    getByKey(String.valueOf(WellKnownItems.MARK)).setLegacyKey(CurrencyKeys.MARKS);
     // Medallions
-    Currency medallions=new Currency(CurrencyKeys.MEDALLIONS,"Medallions",Scope.SERVER,"World");
-    registerCurrency(medallions);
+    getByKey(String.valueOf(WellKnownItems.MEDALLION)).setLegacyKey(CurrencyKeys.MEDALLIONS);
     // Seals
-    Currency seals=new Currency(CurrencyKeys.SEALS,"Seals",Scope.SERVER,"World");
-    registerCurrency(seals);
+    getByKey(String.valueOf(WellKnownItems.SEAL)).setLegacyKey(CurrencyKeys.SEALS);
     // Destiny points
     Currency destinyPoints=new Currency(CurrencyKeys.DESTINY_POINTS,"Destiny Points",Scope.SERVER,"World");
     registerCurrency(destinyPoints);

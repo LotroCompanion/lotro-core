@@ -1,82 +1,58 @@
 package delta.games.lotro.character.storage.currencies;
 
+import java.util.List;
+
 import delta.games.lotro.account.Account;
-import delta.games.lotro.account.events.AccountEvent;
-import delta.games.lotro.account.events.AccountEventProperties;
-import delta.games.lotro.account.events.AccountEventType;
+import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.storage.wallet.Wallet;
-import delta.games.lotro.character.storage.wallet.io.xml.WalletsIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.WellKnownItems;
-import delta.games.lotro.utils.events.EventsManager;
-import delta.games.lotro.utils.events.GenericEventsListener;
 
 /**
- * Listens to storage updates to update currencies.
+ * Tool methods to update currencies.
  * @author DAM
  */
 public class CurrenciesUpdater
 {
-  private GenericEventsListener<AccountEvent> _accountEventsListener;
-
   /**
-   * Constructor.
+   * Update the currencies for an account.
+   * @param sharedWallet Wallet to use.
+   * @param account Account to use.
+   * @param serverName Server name.
    */
-  public CurrenciesUpdater()
+  public static void updateCurrenciesForAccount(Wallet sharedWallet, Account account, String serverName)
   {
-    initAccountsListener();
-  }
-
-  private void initAccountsListener()
-  {
-    _accountEventsListener=new GenericEventsListener<AccountEvent>()
-    {
-      @Override
-      public void eventOccurred(AccountEvent event)
-      {
-        AccountEventType type=event.getType();
-        if (type==AccountEventType.STORAGE_UPDATED)
-        {
-          String serverName=event.getProperties().getStringProperty(AccountEventProperties.SERVER_NAME,null);
-          updateCurrenciesForAccount(event.getAccount(),serverName);
-        }
-      }
-    };
-    EventsManager.addListener(AccountEvent.class,_accountEventsListener);
-  }
-
-  private void updateCurrenciesForAccount(Account account, String serverName)
-  {
-    Wallet sharedWallet=WalletsIO.loadAccountSharedWallet(account,serverName);
-    // Marks
-    CountedItem<Item> marks=sharedWallet.getById(WellKnownItems.MARK);
-    if (marks!=null)
-    {
-      int quantity=marks.getQuantity();
-      CurrenciesFacade.updateAccountServerCurrency(serverName,account.getName(),CurrencyKeys.MARKS,quantity,true);
-    }
-    // Medallions
-    CountedItem<Item> medallions=sharedWallet.getById(WellKnownItems.MEDALLION);
-    if (medallions!=null)
-    {
-      int quantity=medallions.getQuantity();
-      CurrenciesFacade.updateAccountServerCurrency(serverName,account.getName(),CurrencyKeys.MEDALLIONS,quantity,true);
-    }
-    // Seals
-    CountedItem<Item> seals=sharedWallet.getById(WellKnownItems.SEAL);
-    if (seals!=null)
-    {
-      int quantity=seals.getQuantity();
-      CurrenciesFacade.updateAccountServerCurrency(serverName,account.getName(),CurrencyKeys.SEALS,quantity,true);
-    }
+    CurrenciesManager mgr=new CurrenciesManager(account,serverName);
+    updateCurrenciesForWallet(mgr,sharedWallet);
   }
 
   /**
-   * Release all managed resources.
+   * Update the currencies for a character.
+   * @param wallet Wallet to use.
+   * @param characterFile Character to use.
    */
-  public void dispose()
+  public static void updateCurrenciesForCharacter(Wallet wallet, CharacterFile characterFile)
   {
-    EventsManager.removeListener(AccountEvent.class,_accountEventsListener);
+    CurrenciesManager mgr=new CurrenciesManager(characterFile);
+    updateCurrenciesForWallet(mgr,wallet);
+  }
+
+  private static void updateCurrenciesForWallet(CurrenciesManager mgr, Wallet wallet)
+  {
+    List<CountedItem<Item>> countedItems=wallet.getAllItemsSortedByID();
+    for(CountedItem<Item> countedItem : countedItems)
+    {
+      int id=countedItem.getId();
+      String currencyID=String.valueOf(id);
+      int quantity=countedItem.getQuantity();
+      boolean useHistory=useHistory(currencyID);
+      mgr.updateCurrency(currencyID,quantity,useHistory);
+    }
+    mgr.save();
+  }
+
+  private static boolean useHistory(String currencyID)
+  {
+    return true;
   }
 }

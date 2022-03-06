@@ -133,15 +133,6 @@ public class CharacterDetails
   }
 
   /**
-   * Set the current money for this character.
-   * @param money money amount to set.
-   */
-  public void setMoney(Money money)
-  {
-    _money=money;
-  }
-
-  /**
    * Get the last logout date for this character.
    * @return a timestamp (milliseconds since Epoch) or <code>null</code>.
    */
