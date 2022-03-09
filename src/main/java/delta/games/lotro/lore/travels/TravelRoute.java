@@ -15,7 +15,7 @@ public class TravelRoute implements Identifiable
   private String _name;
   private TravelDestination _destination;
   private List<String> _routeActions;
-  //private TravelMode _mode;
+  private TravelMode _mode;
   // Requirements
   private Integer _minLevel;
   // TODO Quest requirements
@@ -25,13 +25,15 @@ public class TravelRoute implements Identifiable
    * Constructor.
    * @param id Identifier.
    * @param name Route name.
+   * @param mode Travel mode.
    * @param destination Destination.
    * @param minLevel Minimum level (<code>null</code> if none).
    */
-  public TravelRoute(int id, String name, TravelDestination destination, Integer minLevel)
+  public TravelRoute(int id, String name, TravelMode mode, TravelDestination destination, Integer minLevel)
   {
     _id=id;
     _name=name;
+    _mode=mode;
     _destination=destination;
     _routeActions=new ArrayList<String>();
     _minLevel=minLevel;
@@ -50,6 +52,15 @@ public class TravelRoute implements Identifiable
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Get the mode of this route.
+   * @return a route mode.
+   */
+  public TravelMode getMode()
+  {
+    return _mode;
   }
 
   /**
