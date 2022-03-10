@@ -12,6 +12,11 @@ public class CurrencyKeys
   public static final String GOLD="gold";
 
   /**
+   * XP.
+   */
+  public static final String XP="xp";
+
+  /**
    * Destiny points.
    */
   public static final String DESTINY_POINTS="destinyPoints";
