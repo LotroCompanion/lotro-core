@@ -118,7 +118,11 @@ public class AchievableProxiesResolver
     resolveObjectives(quest.getObjectives());
   }
 
-  private void resolveQuestRequirement(AbstractAchievableRequirement requirement)
+  /**
+   * Resolve a quest requirement.
+   * @param requirement Requirement to resolve.
+   */
+  public void resolveQuestRequirement(AbstractAchievableRequirement requirement)
   {
     if (requirement instanceof CompoundQuestRequirement)
     {
@@ -164,6 +168,7 @@ public class AchievableProxiesResolver
       if (target!=null)
       {
         proxy.setObject(target);
+        proxy.setName(target.getName());
       }
       else
       {

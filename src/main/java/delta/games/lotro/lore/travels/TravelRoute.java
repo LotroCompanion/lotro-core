@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
+import delta.games.lotro.common.requirements.UsageRequirement;
 
 /**
  * Travel route.
@@ -17,9 +19,8 @@ public class TravelRoute implements Identifiable
   private List<String> _routeActions;
   private TravelMode _mode;
   // Requirements
-  private Integer _minLevel;
-  // TODO Quest requirements
-  // TODO Faction requirements
+  private AbstractAchievableRequirement _questRequirement;
+  private UsageRequirement _usageRequirements;
 
   /**
    * Constructor.
@@ -27,16 +28,15 @@ public class TravelRoute implements Identifiable
    * @param name Route name.
    * @param mode Travel mode.
    * @param destination Destination.
-   * @param minLevel Minimum level (<code>null</code> if none).
    */
-  public TravelRoute(int id, String name, TravelMode mode, TravelDestination destination, Integer minLevel)
+  public TravelRoute(int id, String name, TravelMode mode, TravelDestination destination)
   {
     _id=id;
     _name=name;
     _mode=mode;
     _destination=destination;
     _routeActions=new ArrayList<String>();
-    _minLevel=minLevel;
+    _usageRequirements=new UsageRequirement();
   }
 
   @Override
@@ -96,12 +96,39 @@ public class TravelRoute implements Identifiable
    */
   public Integer getMinLevel()
   {
-    return _minLevel;
+    return _usageRequirements.getMinLevel();
+  }
+
+  /**
+   * Get the quests/deeds requirement.
+   * @return A requirement or <code>null</code>.
+   */
+  public AbstractAchievableRequirement getQuestRequirement()
+  {
+    return _questRequirement;
+  }
+
+  /**
+   * Set the quests/deeds requirement.
+   * @param questRequirement Requirement to use.
+   */
+  public void setQuestRequirement(AbstractAchievableRequirement questRequirement)
+  {
+    _questRequirement=questRequirement;
+  }
+
+  /**
+   * Get the usage requirement.
+   * @return A usage requirement (that may be empty).
+   */
+  public UsageRequirement getUsageRequirement()
+  {
+    return _usageRequirements;
   }
 
   @Override
   public String toString()
   {
-    return "Route: ID="+_id+", name="+_name+", minLevel="+_minLevel+", to="+_destination;
+    return "Route: ID="+_id+", name="+_name+", to="+_destination+", requirements="+_usageRequirements;
   }
 }
