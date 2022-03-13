@@ -1,8 +1,8 @@
 package delta.games.lotro.character.storage.carryAlls;
 
 import delta.games.lotro.account.Account;
-import delta.games.lotro.account.AccountsManager;
 import delta.games.lotro.character.CharacterFile;
+import delta.games.lotro.character.utils.CharacterUtils;
 
 /**
  * Utility methods related to carry-alls management.
@@ -17,7 +17,7 @@ public class CarryAllsUtils
    */
   public static CarryAllsManager buildCarryAllManager(CharacterFile toon)
   {
-    Account account=getAccount(toon);
+    Account account=CharacterUtils.getAccount(toon);
     if (account!=null)
     {
       String serverName=toon.getServerName();
@@ -25,13 +25,5 @@ public class CarryAllsUtils
       return mgr;
     }
     return null;
-  }
-
-  private static Account getAccount(CharacterFile toon)
-  {
-    AccountsManager accountsMgr=AccountsManager.getInstance();
-    String accountName=toon.getAccountName();
-    Account account=accountsMgr.getAccountByName(accountName);
-    return account;
   }
 }

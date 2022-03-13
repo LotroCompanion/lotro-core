@@ -1,12 +1,13 @@
 package delta.games.lotro.character.storage.currencies;
 
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.Scope;
 
 /**
  * Currency.
  * @author DAM
  */
-public class Currency
+public class Currency implements Named
 {
   /**
    * Internal identifying key.

@@ -46,6 +46,16 @@ public class CurrenciesManager
     init();
   }
 
+  /**
+   * Constructor for an account.
+   * @param account Account.
+   */
+  public CurrenciesManager(Account account)
+  {
+    _rootDir=getRootDir(account);
+    init();
+  }
+
   private void init()
   {
     _histories=new HashMap<String,CurrencyHistory>();
@@ -82,6 +92,10 @@ public class CurrenciesManager
    */
   public CurrencyHistory getHistory(Currency currency)
   {
+    if (currency==null)
+    {
+      return null;
+    }
     String currencyId=currency.getKey();
     return getHistory(currencyId);
   }
@@ -92,12 +106,15 @@ public class CurrenciesManager
     if (ret==null)
     {
       Currency currency=Currencies.get().getByKey(currencyId);
-      ret=loadCurrencyHistory(currency);
-      if (ret==null)
+      if (currency!=null)
       {
-        ret=new CurrencyHistory(currency);
+        ret=loadCurrencyHistory(currency);
+        if (ret==null)
+        {
+          ret=new CurrencyHistory(currency);
+        }
+        _histories.put(currencyId,ret);
       }
-      _histories.put(currencyId,ret);
     }
     return ret;
   }
@@ -168,6 +185,13 @@ public class CurrenciesManager
     {
       rootDir=new File(rootDir,server);
     }
+    File currenciesDir=new File(rootDir,"currencies");
+    return currenciesDir;
+  }
+
+  private File getRootDir(Account account)
+  {
+    File rootDir=account.getRootDir();
     File currenciesDir=new File(rootDir,"currencies");
     return currenciesDir;
   }
