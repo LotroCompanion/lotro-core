@@ -28,6 +28,10 @@ public class Currency
    * Category of currency.
    */
   private String _category;
+  /**
+   * Factor between real value and internal value (for gold).
+   */
+  private int _factor;
 
   /**
    * Constructor.
@@ -42,6 +46,7 @@ public class Currency
     _name=name;
     _scope=scope;
     _category=category;
+    _factor=1;
   }
 
   /**
@@ -111,9 +116,37 @@ public class Currency
     return _category;
   }
 
+  /**
+   * Get the factor between real value and internal value.
+   * @return A factor.
+   */
+  public int getFactor()
+  {
+    return _factor;
+  }
+
+  /**
+   * Set the factor value.
+   * @param factor Factor to set.
+   */
+  public void setFactor(int factor)
+  {
+    _factor=factor;
+  }
+
   @Override
   public String toString()
   {
-    return "Currency: key="+_key+", name="+_name+", scope="+_scope+", category="+_category;
+    StringBuilder sb=new StringBuilder();
+    sb.append("Currency: key=").append(_key);
+    sb.append(", name=").append(_name);
+    sb.append(", scope=").append(_scope);
+    sb.append(", category=").append(_category);
+    if (_factor!=1)
+    {
+      sb.append(", factor=");
+      sb.append(_factor);
+    }
+    return sb.toString();
   }
 }

@@ -43,6 +43,7 @@ public class Currencies
   {
     // Gold
     Currency gold=new Currency(CurrencyKeys.GOLD,"Gold",Scope.CHARACTER,"World");
+    gold.setFactor(100*1000);
     registerCurrency(gold);
     // XP
     Currency xp=new Currency(CurrencyKeys.XP,"XP",Scope.CHARACTER,"World");
