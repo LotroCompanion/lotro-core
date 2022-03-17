@@ -2,6 +2,7 @@ package delta.games.lotro.account;
 
 import java.io.File;
 
+import delta.common.utils.misc.Preferences;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.account.io.xml.AccountSummaryXMLParser;
 import delta.games.lotro.account.io.xml.AccountSummaryXMLWriter;
@@ -14,14 +15,17 @@ public class Account
 {
   private File _rootDir;
   private AccountSummary _summary;
+  private Preferences _preferences;
 
   /**
    * Constructor.
-   * @param rootDir Root directory for all toon files.
+   * @param rootDir Root directory for all files for this account.
    */
   public Account(File rootDir)
   {
     _rootDir=rootDir;
+    File preferencesDir=new File(_rootDir,"preferences");
+    _preferences=new Preferences(preferencesDir);
   }
 
   /**
@@ -89,6 +93,15 @@ public class Account
   public File getRootDir()
   {
     return _rootDir;
+  }
+
+  /**
+   * Get the preferences for this account.
+   * @return the preferences for this account.
+   */
+  public Preferences getPreferences()
+  {
+    return _preferences;
   }
 
   @Override

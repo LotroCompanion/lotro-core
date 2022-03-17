@@ -43,7 +43,7 @@ public class CharacterFile
 
   /**
    * Constructor.
-   * @param rootDir Root directory for all toon files.
+   * @param rootDir Root directory for all files for this toon.
    */
   public CharacterFile(File rootDir)
   {
