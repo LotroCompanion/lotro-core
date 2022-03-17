@@ -61,17 +61,23 @@ public class Currencies
       registerCurrency(currency);
     }
     // Marks
-    getByKey(String.valueOf(WellKnownItems.MARK)).setLegacyKey(CurrencyKeys.MARKS);
+    setupCurrencyLegacy(getByKey(String.valueOf(WellKnownItems.MARK)),CurrencyKeys.MARKS);
     // Medallions
-    getByKey(String.valueOf(WellKnownItems.MEDALLION)).setLegacyKey(CurrencyKeys.MEDALLIONS);
+    setupCurrencyLegacy(getByKey(String.valueOf(WellKnownItems.MEDALLION)),CurrencyKeys.MEDALLIONS);
     // Seals
-    getByKey(String.valueOf(WellKnownItems.SEAL)).setLegacyKey(CurrencyKeys.SEALS);
+    setupCurrencyLegacy(getByKey(String.valueOf(WellKnownItems.SEAL)),CurrencyKeys.SEALS);
     // Destiny points
     Currency destinyPoints=new Currency(CurrencyKeys.DESTINY_POINTS,"Destiny Points",Scope.SERVER,"World");
     registerCurrency(destinyPoints);
     // LOTRO points
     Currency lotroPoints=new Currency("lotroPoints","LOTRO Points",Scope.ACCOUNT,"World");
     registerCurrency(lotroPoints);
+  }
+
+  private void setupCurrencyLegacy(Currency currency, String key)
+  {
+    currency.setLegacyKey(key);
+    _currenciesMap.put(key,currency);
   }
 
   private void registerCurrency(Currency currency)
