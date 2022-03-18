@@ -1,6 +1,8 @@
 package delta.games.lotro.account;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import delta.common.utils.misc.Preferences;
 import delta.common.utils.text.EncodingNames;
@@ -16,6 +18,7 @@ public class Account
   private File _rootDir;
   private AccountSummary _summary;
   private Preferences _preferences;
+  private Map<String,AccountOnServer> _servers;
 
   /**
    * Constructor.
@@ -26,6 +29,23 @@ public class Account
     _rootDir=rootDir;
     File preferencesDir=new File(_rootDir,"preferences");
     _preferences=new Preferences(preferencesDir);
+    _servers=new HashMap<String,AccountOnServer>();
+  }
+
+  /**
+   * Get the account data for a server.
+   * @param serverName Server name.
+   * @return the manager for data on the given server for this account.
+   */
+  public AccountOnServer getServer(String serverName)
+  {
+    AccountOnServer ret=_servers.get(serverName);
+    if (ret==null)
+    {
+      ret=new AccountOnServer(this,serverName);
+      _servers.put(serverName,ret);
+    }
+    return ret;
   }
 
   /**
@@ -87,7 +107,7 @@ public class Account
   }
 
   /**
-   * Get the root directory of the character's file storage. 
+   * Get the root directory of the account's file storage. 
    * @return a root directory.
    */
   public File getRootDir()
