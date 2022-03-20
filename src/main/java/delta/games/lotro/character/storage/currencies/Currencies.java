@@ -3,9 +3,12 @@ package delta.games.lotro.character.storage.currencies;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.games.lotro.common.Scope;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.lore.items.WellKnownItems;
 import delta.games.lotro.lore.items.paper.PaperItem;
 import delta.games.lotro.lore.items.paper.PaperItemsManager;
@@ -106,5 +109,44 @@ public class Currencies
   public Currency getByKey(String key)
   {
     return _currenciesMap.get(key);
+  }
+
+  /**
+   * Get a list of available currencies, including the specified scopes.
+   * @param includeCharacter Include character currencies.
+   * @param includeServer Include account/server currencies.
+   * @param includeAccount Include account currencies.
+   * @return A list of currencies, sorted by name.
+   */
+  public static List<Currency> getAvailableCurrencies(boolean includeCharacter, boolean includeServer, boolean includeAccount)
+  {
+    Set<Scope> scopes=new HashSet<Scope>();
+    if (includeCharacter)
+    {
+      scopes.add(Scope.CHARACTER);
+    }
+    if (includeServer)
+    {
+      scopes.add(Scope.SERVER);
+    }
+    if (includeAccount)
+    {
+      scopes.add(Scope.ACCOUNT);
+    }
+    return getCurrencies(scopes);
+  }
+
+  private static List<Currency> getCurrencies(Set<Scope> scopes)
+  {
+    List<Currency> ret=new ArrayList<Currency>();
+    for(Currency currency : Currencies.get().getCurrencies())
+    {
+      if (scopes.contains(currency.getScope()))
+      {
+        ret.add(currency);
+      }
+    }
+    Collections.sort(ret,new NamedComparator());
+    return ret;
   }
 }

@@ -43,12 +43,29 @@ public abstract class MultipleToonsStats<T>
     if (toon!=null)
     {
       _toons.add(toon);
-      T stats=loadToonStats(toon);
-      if (stats!=null)
-      {
-        String id=toon.getIdentifier();
-        _stats.put(id,stats);
-      }
+      refreshToonData(toon);
+    }
+  }
+
+  /**
+   * Refresh data for a single toon.
+   * @param toon Toon to refresh.
+   */
+  public void refreshToonData(CharacterFile toon)
+  {
+    T stats=loadToonStats(toon);
+    String id=toon.getIdentifier();
+    _stats.put(id,stats);
+  }
+
+  /**
+   * Refresh data.
+   */
+  public void refreshData()
+  {
+    for(CharacterFile toon : _toons)
+    {
+      refreshToonData(toon);
     }
   }
 
