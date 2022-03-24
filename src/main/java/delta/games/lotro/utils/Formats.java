@@ -3,7 +3,6 @@ package delta.games.lotro.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Formats.
@@ -28,20 +27,6 @@ public class Formats
 
   private static SimpleDateFormat _dateFormatter=new SimpleDateFormat(DATE_PATTERN);
   private static SimpleDateFormat _dateTimeFormatter=new SimpleDateFormat(DATE_TIME_PATTERN);
-
-  /**
-   * Get the dates formatter.
-   * @return a dates formatter.
-   */
-  public static SimpleDateFormat getDateFormatter()
-  {
-    if (_dateFormatter==null)
-    {
-      _dateFormatter=new SimpleDateFormat(DATE_PATTERN);
-      _dateFormatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-    }
-    return _dateFormatter;
-  }
 
   /**
    * Format a date.
