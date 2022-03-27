@@ -4,7 +4,8 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
-import delta.games.lotro.utils.Formats;
+import delta.games.lotro.utils.l10n.dates.DateFormatSpecification;
+import delta.games.lotro.utils.l10n.dates.DateFormatsManager;
 
 /**
  * Facade for formats access.
@@ -12,6 +13,17 @@ import delta.games.lotro.utils.Formats;
  */
 public class LocalizedFormats
 {
+  private static DateFormatsManager _dateFormatsMgr=new DateFormatsManager();
+
+  /**
+   * Initialize the localization system.
+   * @param configuration Configuration to use.
+   */
+  public static void init(L10nConfiguration configuration)
+  {
+    _dateFormatsMgr.init(configuration);
+  }
+
   /**
    * Get the number format for integers.
    * @return A number format for integers.
@@ -27,8 +39,8 @@ public class LocalizedFormats
    */
   public static DateFormat getDateTimeFormat()
   {
-    //return DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT);
-    return new SimpleDateFormat(Formats.DATE_TIME_PATTERN);
+    SimpleDateFormat format=_dateFormatsMgr.getDateTimeFormatSpecification().getFormat();
+    return format;
   }
 
   /**
@@ -37,17 +49,25 @@ public class LocalizedFormats
    */
   public static DateFormat getDateFormat()
   {
-    return new SimpleDateFormat(Formats.DATE_PATTERN);
+    SimpleDateFormat format=_dateFormatsMgr.getDateFormatSpecification().getFormat();
+    return format;
   }
 
   /**
-   * Get the format for GMT date.
-   * @return A format for GMT date.
+   * Get the date format specification to use.
+   * @return a date format specification.
    */
-  public static DateFormat getGMTDateFormat()
+  public static DateFormatSpecification getDateFormatSpecification()
   {
-    SimpleDateFormat ret=new SimpleDateFormat(Formats.DATE_PATTERN);
-    //ret.setTimeZone(TimeZone.getTimeZone("GMT"));
-    return ret;
+    return _dateFormatsMgr.getDateFormatSpecification();
+  }
+
+  /**
+   * Get the date/time format specification to use.
+   * @return a date/time format specification.
+   */
+  public static DateFormatSpecification getDateTimeFormatSpecification()
+  {
+    return _dateFormatsMgr.getDateTimeFormatSpecification();
   }
 }

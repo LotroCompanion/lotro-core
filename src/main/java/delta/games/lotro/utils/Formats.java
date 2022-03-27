@@ -1,8 +1,9 @@
 package delta.games.lotro.utils;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import delta.games.lotro.utils.l10n.LocalizedFormats;
 
 /**
  * Formats.
@@ -11,22 +12,9 @@ import java.util.Date;
 public class Formats
 {
   /**
-   * Date pattern.
-   */
-  public static final String DATE_PATTERN="dd/MM/yyyy";
-
-  /**
-   * Date pattern with time.
-   */
-  public static final String DATE_TIME_PATTERN="dd/MM/yyyy HH:mm";
-
-  /**
    * File date pattern.
    */
   public static final String FILE_DATE_PATTERN="yyyy-MM-dd HHmm";
-
-  private static SimpleDateFormat _dateFormatter=new SimpleDateFormat(DATE_PATTERN);
-  private static SimpleDateFormat _dateTimeFormatter=new SimpleDateFormat(DATE_TIME_PATTERN);
 
   /**
    * Format a date.
@@ -38,7 +26,7 @@ public class Formats
     String ret=null;
     if (date!=null)
     {
-      ret=_dateFormatter.format(date);
+      ret=LocalizedFormats.getDateFormat().format(date);
     }
     return ret;
   }
@@ -53,7 +41,7 @@ public class Formats
     String ret=null;
     if (date!=null)
     {
-      ret=_dateTimeFormatter.format(date);
+      ret=LocalizedFormats.getDateTimeFormat().format(date);
     }
     return ret;
   }
@@ -83,7 +71,7 @@ public class Formats
     Date date=null;
     try
     {
-      date=_dateTimeFormatter.parse(dateStr);
+      date=LocalizedFormats.getDateTimeFormat().parse(dateStr);
     }
     catch(ParseException parseException)
     {
@@ -93,7 +81,7 @@ public class Formats
     {
       try
       {
-        date=_dateFormatter.parse(dateStr);
+        date=LocalizedFormats.getDateFormat().parse(dateStr);
       }
       catch(ParseException parseException)
       {
