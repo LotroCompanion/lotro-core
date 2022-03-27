@@ -7,6 +7,7 @@ import java.util.List;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.l10n.L10n;
 
 /**
  * Utility methods for stats.
@@ -36,7 +37,7 @@ public class StatUtils
       }
       else
       {
-        valueStr=String.format("%d",Integer.valueOf(value.intValue()));
+        valueStr=L10n.getString(value.intValue());
       }
     }
     else
