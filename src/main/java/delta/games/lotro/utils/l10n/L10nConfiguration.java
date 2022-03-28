@@ -1,6 +1,7 @@
 package delta.games.lotro.utils.l10n;
 
 import delta.games.lotro.utils.l10n.dates.DateFormatID;
+import delta.games.lotro.utils.l10n.numbers.NumberFormatID;
 
 /**
  * Configuration of the localization system.
@@ -10,6 +11,7 @@ public class L10nConfiguration
 {
   private String _dateFormatID;
   private String _dateTimeFormatID;
+  private String _integerFormatID;
 
   /**
    * Constructor.
@@ -18,6 +20,7 @@ public class L10nConfiguration
   {
     _dateFormatID=DateFormatID.AUTO;
     _dateTimeFormatID=DateFormatID.AUTO;
+    _integerFormatID=NumberFormatID.AUTO;
   }
 
   /**
@@ -54,6 +57,24 @@ public class L10nConfiguration
   public void setDateTimeFormatID(String dateTimeFormatID)
   {
     _dateTimeFormatID=dateTimeFormatID;
+  }
+
+  /**
+   * Get the identifier of the integer format to use.
+   * @return an integer format identifier.
+   */
+  public String getIntegerFormatID()
+  {
+    return _integerFormatID;
+  }
+
+  /**
+   * Set the identifier of the integer format to use.
+   * @param integerFormatID the identifier of the integer format to use.
+   */
+  public void setIntegerFormatID(String integerFormatID)
+  {
+    _integerFormatID=integerFormatID;
   }
 }
 

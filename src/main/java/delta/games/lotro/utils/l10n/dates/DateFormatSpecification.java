@@ -20,7 +20,7 @@ public class DateFormatSpecification
    * @param id Format identifier.
    * @param datePattern Format pattern.
    * @param minSize Minimum size of a valid value (in characters).
-   * @param maxSize Maximul size of a valid value (in characters).
+   * @param maxSize Maximum size of a valid value (in characters).
    * @param columnSize Size of columns (in pixels)
    */
   public DateFormatSpecification(String id, String datePattern, int minSize, int maxSize, int columnSize)

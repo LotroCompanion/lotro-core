@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 
 import delta.games.lotro.utils.l10n.dates.DateFormatSpecification;
 import delta.games.lotro.utils.l10n.dates.DateFormatsManager;
+import delta.games.lotro.utils.l10n.numbers.NumberFormatsManager;
 
 /**
  * Facade for formats access.
@@ -14,6 +15,7 @@ import delta.games.lotro.utils.l10n.dates.DateFormatsManager;
 public class LocalizedFormats
 {
   private static DateFormatsManager _dateFormatsMgr=new DateFormatsManager();
+  private static NumberFormatsManager _numberFormatsMgr=new NumberFormatsManager();
 
   /**
    * Initialize the localization system.
@@ -30,7 +32,8 @@ public class LocalizedFormats
    */
   public static NumberFormat getIntegerNumberFormat()
   {
-    return NumberFormat.getIntegerInstance();
+    NumberFormat format=_numberFormatsMgr.getIntegerFormatSpecification().getFormat();
+    return format;
   }
 
   /**

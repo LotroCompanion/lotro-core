@@ -19,7 +19,7 @@ public class DateFormatID
    */
   public static final String ISO8601="ISO8601";
   /**
-   * Automatic: format chose from the default locale.
+   * Automatic: format chosen from the default locale.
    */
   public static final String AUTO="AUTO";
 }
