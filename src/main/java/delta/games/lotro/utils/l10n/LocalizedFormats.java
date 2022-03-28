@@ -24,6 +24,7 @@ public class LocalizedFormats
   public static void init(L10nConfiguration configuration)
   {
     _dateFormatsMgr.init(configuration);
+    _numberFormatsMgr.init(configuration);
   }
 
   /**
