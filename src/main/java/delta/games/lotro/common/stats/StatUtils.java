@@ -32,7 +32,7 @@ public class StatUtils
     {
       if (percentage)
       {
-        valueStr=L10n.getString(value.doubleValue()/100,2)+"%";
+        valueStr=L10n.getString(value.doubleValue(),2)+"%";
       }
       else
       {
