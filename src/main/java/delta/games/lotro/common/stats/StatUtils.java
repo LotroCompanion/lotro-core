@@ -1,6 +1,5 @@
 package delta.games.lotro.common.stats;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class StatUtils
     {
       if (percentage)
       {
-        valueStr=new DecimalFormat("#.##%").format(value.doubleValue()/100);
+        valueStr=L10n.getString(value.doubleValue()/100,2)+"%";
       }
       else
       {

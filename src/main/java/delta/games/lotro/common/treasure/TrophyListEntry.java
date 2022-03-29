@@ -3,6 +3,7 @@ package delta.games.lotro.common.treasure;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.l10n.L10n;
 
 /**
  * Entry in a 'trophy list':
@@ -89,7 +90,7 @@ public class TrophyListEntry
     {
       return "Always";
     }
-    return String.format("%.1f%%",Float.valueOf(_probability*100));
+    return L10n.getString(_probability*100,1)+"%";
   }
 
   /**
