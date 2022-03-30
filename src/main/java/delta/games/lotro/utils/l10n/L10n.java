@@ -36,9 +36,7 @@ public class L10n
    */
   public static String getString(double number, int nbDigits)
   {
-    NumberFormat format=NumberFormat.getNumberInstance();
-    format.setMinimumFractionDigits(0);
-    format.setMaximumFractionDigits(nbDigits);
+    NumberFormat format=LocalizedFormats.getRealNumberFormat(0,nbDigits);
     return format.format(number);
   }
 }

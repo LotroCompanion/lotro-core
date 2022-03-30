@@ -33,7 +33,19 @@ public class LocalizedFormats
    */
   public static NumberFormat getIntegerNumberFormat()
   {
-    NumberFormat format=_numberFormatsMgr.getIntegerFormatSpecification().getFormat();
+    NumberFormat format=_numberFormatsMgr.getNumberFormatSpecification().getIntegerFormat();
+    return format;
+  }
+
+  /**
+   * Get the number format for real numbers.
+   * @param minDigits Minimum number of fractional digits.
+   * @param maxDigits Maximum number of fractional digits.
+   * @return A number format for real numbers.
+   */
+  public static NumberFormat getRealNumberFormat(int minDigits, int maxDigits)
+  {
+    NumberFormat format=_numberFormatsMgr.getNumberFormatSpecification().getRealNumberFormat(minDigits,maxDigits);
     return format;
   }
 

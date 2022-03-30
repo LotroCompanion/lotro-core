@@ -1,54 +1,65 @@
 package delta.games.lotro.utils.l10n.numbers;
 
-import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 /**
- * Manager for number format specifications.
+ * Manager for localized number formats managers.
  * @author DAM
  */
 public class NumberFormatSpecificationsManager
 {
-  private Map<String,NumberFormatSpecification> _integerSpecs;
+  private Map<String,LocalizedNumberFormatsManager> _managers;
 
   /**
    * Constructor.
    */
   public NumberFormatSpecificationsManager()
   {
-    _integerSpecs=new HashMap<String,NumberFormatSpecification>();
+    _managers=new HashMap<String,LocalizedNumberFormatsManager>();
     initSpecifications();
   }
 
   /**
-   * Get a number format specification for integers, using its internal identifier.
+   * Get a localized number formats manager, using its internal identifier.
    * @param id An identifier.
-   * @return A specification or <code>null</code> if not found.
+   * @return A manager or <code>null</code> if not found.
    */
-  public NumberFormatSpecification getIntegerFormatSpecification(String id)
+  public LocalizedNumberFormatsManager getIntegerFormatSpecification(String id)
   {
-    return _integerSpecs.get(id);
+    return _managers.get(id);
   }
 
   private void initSpecifications()
   {
+    initAuto();
     initUS();
+    initFrench();
     initEuropean();
+  }
+
+  private void initAuto()
+  {
+    LocalizedNumberFormatsManager spec=new LocalizedNumberFormatsManager(NumberFormatID.AUTO,Locale.getDefault());
+    _managers.put(spec.getId(),spec);
   }
 
   private void initUS()
   {
-    NumberFormat format=NumberFormat.getIntegerInstance(Locale.US);
-    NumberFormatSpecification spec=new NumberFormatSpecification(NumberFormatID.US,format);
-    _integerSpecs.put(spec.getId(),spec);
+    LocalizedNumberFormatsManager spec=new LocalizedNumberFormatsManager(NumberFormatID.US,Locale.US);
+    _managers.put(spec.getId(),spec);
+  }
+
+  private void initFrench()
+  {
+    LocalizedNumberFormatsManager spec=new LocalizedNumberFormatsManager(NumberFormatID.FRENCH,Locale.FRENCH);
+    _managers.put(spec.getId(),spec);
   }
 
   private void initEuropean()
   {
-    NumberFormat format=NumberFormat.getIntegerInstance(Locale.GERMANY);
-    NumberFormatSpecification spec=new NumberFormatSpecification(NumberFormatID.EUROPEAN,format);
-    _integerSpecs.put(spec.getId(),spec);
+    LocalizedNumberFormatsManager spec=new LocalizedNumberFormatsManager(NumberFormatID.EUROPEAN,Locale.GERMANY);
+    _managers.put(spec.getId(),spec);
   }
 }

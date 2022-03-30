@@ -11,6 +11,10 @@ public class NumberFormatID
    */
   public static final String US="US";
   /**
+   * French format.
+   */
+  public static final String FRENCH="FRENCH";
+  /**
    * European format.
    */
   public static final String EUROPEAN="EUROPEAN";

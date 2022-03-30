@@ -11,7 +11,7 @@ public class L10nConfiguration
 {
   private String _dateFormatID;
   private String _dateTimeFormatID;
-  private String _integerFormatID;
+  private String _numberFormatID;
 
   /**
    * Constructor.
@@ -20,7 +20,7 @@ public class L10nConfiguration
   {
     _dateFormatID=DateFormatID.AUTO;
     _dateTimeFormatID=DateFormatID.AUTO;
-    _integerFormatID=NumberFormatID.AUTO;
+    _numberFormatID=NumberFormatID.AUTO;
   }
 
   /**
@@ -60,21 +60,21 @@ public class L10nConfiguration
   }
 
   /**
-   * Get the identifier of the integer format to use.
-   * @return an integer format identifier.
+   * Get the identifier of the number format to use.
+   * @return a number format identifier.
    */
-  public String getIntegerFormatID()
+  public String getNumberFormatID()
   {
-    return _integerFormatID;
+    return _numberFormatID;
   }
 
   /**
-   * Set the identifier of the integer format to use.
-   * @param integerFormatID the identifier of the integer format to use.
+   * Set the identifier of the number format to use.
+   * @param numberFormatID the identifier of the number format to use.
    */
-  public void setIntegerFormatID(String integerFormatID)
+  public void setNumberFormatID(String numberFormatID)
   {
-    _integerFormatID=integerFormatID;
+    _numberFormatID=numberFormatID;
   }
 }
 

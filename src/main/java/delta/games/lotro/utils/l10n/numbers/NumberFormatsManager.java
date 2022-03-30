@@ -1,7 +1,5 @@
 package delta.games.lotro.utils.l10n.numbers;
 
-import java.util.Locale;
-
 import delta.games.lotro.utils.l10n.L10nConfiguration;
 
 /**
@@ -11,7 +9,7 @@ import delta.games.lotro.utils.l10n.L10nConfiguration;
 public class NumberFormatsManager
 {
   private NumberFormatSpecificationsManager _numberFormatSpecificationsManager;
-  private NumberFormatSpecification _integerFormat;
+  private LocalizedNumberFormatsManager _numberFormatSpec;
 
   /**
    * Constructor.
@@ -23,12 +21,12 @@ public class NumberFormatsManager
   }
 
   /**
-   * Get the integer format specification to use.
-   * @return an integer format specification.
+   * Get the number format specification to use.
+   * @return a number format specification.
    */
-  public NumberFormatSpecification getIntegerFormatSpecification()
+  public LocalizedNumberFormatsManager getNumberFormatSpecification()
   {
-    return _integerFormat;
+    return _numberFormatSpec;
   }
 
   /**
@@ -37,34 +35,16 @@ public class NumberFormatsManager
    */
   public void init(L10nConfiguration config)
   {
-    initIntegerFormat(config.getIntegerFormatID());
+    initIntegerFormat(config.getNumberFormatID());
   }
 
   private void initIntegerFormat(String formatID)
   {
-    formatID=resolveNumberFormat(formatID);
-    NumberFormatSpecification spec=_numberFormatSpecificationsManager.getIntegerFormatSpecification(formatID);
+    LocalizedNumberFormatsManager spec=_numberFormatSpecificationsManager.getIntegerFormatSpecification(formatID);
     if (spec==null)
     {
       spec=_numberFormatSpecificationsManager.getIntegerFormatSpecification(NumberFormatID.EUROPEAN);
     }
-    _integerFormat=spec;
-  }
-
-  private String resolveNumberFormat(String formatID)
-  {
-    if (NumberFormatID.AUTO.equals(formatID))
-    {
-      Locale locale=Locale.getDefault();
-      if ("US".equals(locale.getCountry()))
-      {
-        formatID=NumberFormatID.US;
-      }
-      else
-      {
-        formatID=NumberFormatID.EUROPEAN;
-      }
-    }
-    return formatID;
+    _numberFormatSpec=spec;
   }
 }
