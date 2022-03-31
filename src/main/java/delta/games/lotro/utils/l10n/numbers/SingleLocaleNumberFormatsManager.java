@@ -47,24 +47,32 @@ public class SingleLocaleNumberFormatsManager
     return _format;
   }
 
-  private String getRealKey(int minDigits, int maxDigits)
+  private String getRealKey(int minDigits, int maxDigits, boolean percentage)
   {
-    return minDigits+"/"+maxDigits;
+    return minDigits+"/"+maxDigits+"#"+percentage;
   }
 
   /**
    * Get a format for a real number.
    * @param minDigits Minimum number of fractional digits.
    * @param maxDigits Maximum number of fractional digits.
+   * @param percentage Percentage or not.
    * @return A number format.
    */
-  public NumberFormat getRealNumberFormat(int minDigits, int maxDigits)
+  public NumberFormat getRealNumberFormat(int minDigits, int maxDigits, boolean percentage)
   {
-    String key=getRealKey(minDigits,maxDigits);
+    String key=getRealKey(minDigits,maxDigits,percentage);
     NumberFormat ret=_formats.get(key);
     if (ret==null)
     {
-      ret=NumberFormat.getNumberInstance(_locale);
+      if (percentage)
+      {
+        ret=NumberFormat.getPercentInstance(_locale);
+      }
+      else
+      {
+        ret=NumberFormat.getNumberInstance(_locale);
+      }
       ret.setMinimumFractionDigits(minDigits);
       ret.setMaximumFractionDigits(maxDigits);
       _formats.put(key,ret);

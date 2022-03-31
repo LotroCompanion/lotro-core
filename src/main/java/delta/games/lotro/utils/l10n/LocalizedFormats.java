@@ -45,7 +45,19 @@ public class LocalizedFormats
    */
   public static NumberFormat getRealNumberFormat(int minDigits, int maxDigits)
   {
-    NumberFormat format=_numberFormatsMgr.getNumberFormatSpecification().getRealNumberFormat(minDigits,maxDigits);
+    return getRealNumberFormat(minDigits,maxDigits,false);
+  }
+
+  /**
+   * Get the number format for real numbers.
+   * @param minDigits Minimum number of fractional digits.
+   * @param maxDigits Maximum number of fractional digits.
+   * @param percentage Percentage or not.
+   * @return A number format for real numbers.
+   */
+  public static NumberFormat getRealNumberFormat(int minDigits, int maxDigits, boolean percentage)
+  {
+    NumberFormat format=_numberFormatsMgr.getNumberFormatSpecification().getRealNumberFormat(minDigits,maxDigits,percentage);
     return format;
   }
 
