@@ -1,74 +1,65 @@
 package delta.games.lotro.utils.l10n.numbers;
 
-import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 /**
- * Specification of a number format.
+ * Manager for localized number formats managers.
  * @author DAM
  */
 public class LocalizedNumberFormatsManager
 {
-  private String _id;
-  private Locale _locale;
-  private NumberFormat _format;
-  private Map<String,NumberFormat> _formats;
+  private Map<String,SingleLocaleNumberFormatsManager> _managers;
 
   /**
    * Constructor.
-   * @param id Format identifier.
-   * @param locale Locale to use.
    */
-  public LocalizedNumberFormatsManager(String id, Locale locale)
+  public LocalizedNumberFormatsManager()
   {
-    _id=id;
-    _locale=locale;
-    _format=NumberFormat.getIntegerInstance(locale);
-    _formats=new HashMap<String,NumberFormat>();
+    _managers=new HashMap<String,SingleLocaleNumberFormatsManager>();
+    initSpecifications();
   }
 
   /**
-   * Get the identifier of the managed format.
-   * @return An identifier.
+   * Get a number formats manager for a locale, using its internal identifier.
+   * @param id An identifier.
+   * @return A manager or <code>null</code> if not found.
    */
-  public String getId()
+  public SingleLocaleNumberFormatsManager getNumberFormatsManager(String id)
   {
-    return _id;
+    return _managers.get(id);
   }
 
-  /**
-   * Get the number format.
-   * @return the number format.
-   */
-  public NumberFormat getIntegerFormat()
+  private void initSpecifications()
   {
-    return _format;
+    initAuto();
+    initUS();
+    initFrench();
+    initEuropean();
   }
 
-  private String getRealKey(int minDigits, int maxDigits)
+  private void initAuto()
   {
-    return minDigits+"/"+maxDigits;
+    SingleLocaleNumberFormatsManager spec=new SingleLocaleNumberFormatsManager(NumberFormatID.AUTO,Locale.getDefault());
+    _managers.put(spec.getId(),spec);
   }
 
-  /**
-   * Get a format for a real number.
-   * @param minDigits Minimum number of fractional digits.
-   * @param maxDigits Maximum number of fractional digits.
-   * @return A number format.
-   */
-  public NumberFormat getRealNumberFormat(int minDigits, int maxDigits)
+  private void initUS()
   {
-    String key=getRealKey(minDigits,maxDigits);
-    NumberFormat ret=_formats.get(key);
-    if (ret==null)
-    {
-      ret=NumberFormat.getNumberInstance(_locale);
-      ret.setMinimumFractionDigits(minDigits);
-      ret.setMaximumFractionDigits(maxDigits);
-      _formats.put(key,ret);
-    }
-    return ret;
+    SingleLocaleNumberFormatsManager spec=new SingleLocaleNumberFormatsManager(NumberFormatID.US,Locale.US);
+    _managers.put(spec.getId(),spec);
+  }
+
+  private void initFrench()
+  {
+    SingleLocaleNumberFormatsManager spec=new SingleLocaleNumberFormatsManager(NumberFormatID.FRENCH,Locale.FRENCH);
+    _managers.put(spec.getId(),spec);
+  }
+
+  private void initEuropean()
+  {
+    SingleLocaleNumberFormatsManager spec=new SingleLocaleNumberFormatsManager(NumberFormatID.EUROPEAN,Locale.GERMANY);
+    _managers.put(spec.getId(),spec);
   }
 }

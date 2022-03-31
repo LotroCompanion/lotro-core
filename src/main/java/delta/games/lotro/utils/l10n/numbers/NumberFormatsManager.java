@@ -3,20 +3,20 @@ package delta.games.lotro.utils.l10n.numbers;
 import delta.games.lotro.utils.l10n.L10nConfiguration;
 
 /**
- * Manager for number formats.
+ * Entry point for number formats management.
  * @author DAM
  */
 public class NumberFormatsManager
 {
-  private NumberFormatSpecificationsManager _numberFormatSpecificationsManager;
-  private LocalizedNumberFormatsManager _numberFormatSpec;
+  private LocalizedNumberFormatsManager _numberFormatSpecificationsManager;
+  private SingleLocaleNumberFormatsManager _numberFormatSpec;
 
   /**
    * Constructor.
    */
   public NumberFormatsManager()
   {
-    _numberFormatSpecificationsManager=new NumberFormatSpecificationsManager();
+    _numberFormatSpecificationsManager=new LocalizedNumberFormatsManager();
     init(new L10nConfiguration());
   }
 
@@ -24,7 +24,7 @@ public class NumberFormatsManager
    * Get the number format specification to use.
    * @return a number format specification.
    */
-  public LocalizedNumberFormatsManager getNumberFormatSpecification()
+  public SingleLocaleNumberFormatsManager getNumberFormatSpecification()
   {
     return _numberFormatSpec;
   }
@@ -35,15 +35,11 @@ public class NumberFormatsManager
    */
   public void init(L10nConfiguration config)
   {
-    initIntegerFormat(config.getNumberFormatID());
-  }
-
-  private void initIntegerFormat(String formatID)
-  {
-    LocalizedNumberFormatsManager spec=_numberFormatSpecificationsManager.getIntegerFormatSpecification(formatID);
+    String formatID=config.getNumberFormatID();
+    SingleLocaleNumberFormatsManager spec=_numberFormatSpecificationsManager.getNumberFormatsManager(formatID);
     if (spec==null)
     {
-      spec=_numberFormatSpecificationsManager.getIntegerFormatSpecification(NumberFormatID.EUROPEAN);
+      spec=_numberFormatSpecificationsManager.getNumberFormatsManager(NumberFormatID.EUROPEAN);
     }
     _numberFormatSpec=spec;
   }
