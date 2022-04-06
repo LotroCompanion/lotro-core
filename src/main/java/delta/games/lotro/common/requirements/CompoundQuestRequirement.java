@@ -43,6 +43,35 @@ public class CompoundQuestRequirement extends AbstractAchievableRequirement
   }
 
   /**
+   * Get the requirement at the given index.
+   * @param index Index of the given requirement (starting at 0).
+   * @return A requirement.
+   */
+  public AbstractAchievableRequirement getRequirement(int index)
+  {
+    return _requirements.get(index);
+  }
+
+  /**
+   * Set the requirement at the given index.
+   * @param index Index to use (starting at 0).
+   * @param requirement Requirement to set.
+   */
+  public void setRequirement(int index, AbstractAchievableRequirement requirement)
+  {
+    _requirements.set(index,requirement);
+  }
+
+  /**
+   * Remove a requirement.
+   * @param index Index of the requirement to remove.
+   */
+  public void removeRequirement(int index)
+  {
+    _requirements.remove(index);
+  }
+
+  /**
    * Get the number of requirements.
    * @return A number of requirements.
    */
