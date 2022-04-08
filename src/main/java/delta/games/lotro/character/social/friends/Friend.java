@@ -3,6 +3,7 @@ package delta.games.lotro.character.social.friends;
 import java.util.Date;
 
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.lore.crafting.CraftingData;
 import delta.games.lotro.lore.crafting.CraftingSystem;
@@ -15,7 +16,7 @@ import delta.games.lotro.lore.maps.GeoAreasManager;
  * Friend.
  * @author DAM
  */
-public class Friend
+public class Friend implements Named
 {
   private InternalGameId _id;
   private String _characterName;
