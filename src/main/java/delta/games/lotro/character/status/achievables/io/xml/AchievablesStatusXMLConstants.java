@@ -29,6 +29,10 @@ public class AchievablesStatusXMLConstants
    */
   public static final String STATUS_KEY_ATTR="key";
   /**
+   * Tag 'deedStatus'/'questStatus', attribute 'name'.
+   */
+  public static final String STATUS_NAME_ATTR="name";
+  /**
    * Tag 'deedStatus'/'questStatus', attribute 'completed'.
    */
   public static final String STATUS_COMPLETED_ATTR="completed";

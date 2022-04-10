@@ -14,6 +14,7 @@ import delta.games.lotro.character.status.achievables.AchievableObjectiveStatus;
 import delta.games.lotro.character.status.achievables.AchievableStatus;
 import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.status.achievables.ObjectiveConditionStatus;
+import delta.games.lotro.lore.quests.Achievable;
 
 /**
  * Writes an achievables status to an XML file.
@@ -78,6 +79,13 @@ public class AchievablesStatusXMLWriter
       // Key
       int achievableId=achievableStatus.getAchievableId();
       statusAttrs.addAttribute("","",AchievablesStatusXMLConstants.STATUS_KEY_ATTR,CDATA,String.valueOf(achievableId));
+      // Name
+      Achievable achievable=achievableStatus.getAchievable();
+      String name=achievable.getName();
+      if (name!=null)
+      {
+        statusAttrs.addAttribute("","",AchievablesStatusXMLConstants.STATUS_NAME_ATTR,CDATA,name);
+      }
       // Status
       AchievableElementState state=achievableStatus.getState();
       if ((state!=null) && (state!=AchievableElementState.UNDEFINED))
