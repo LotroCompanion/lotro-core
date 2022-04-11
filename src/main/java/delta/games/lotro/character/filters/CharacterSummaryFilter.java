@@ -15,8 +15,8 @@ import delta.games.lotro.character.BaseCharacterSummary;
 public class CharacterSummaryFilter implements Filter<BaseCharacterSummary>
 {
   private Filter<BaseCharacterSummary> _filter;
-  private CharacterNameFilter _nameFilter;
-  private CharacterClassFilter _classFilter;
+  private CharacterNameFilter<BaseCharacterSummary> _nameFilter;
+  private CharacterClassFilter<BaseCharacterSummary> _classFilter;
   private RaceFilter _raceFilter;
   private CharacterSexFilter _sexFilter;
 
@@ -27,10 +27,10 @@ public class CharacterSummaryFilter implements Filter<BaseCharacterSummary>
   {
     List<Filter<BaseCharacterSummary>> filters=new ArrayList<Filter<BaseCharacterSummary>>();
     // Name
-    _nameFilter=new CharacterNameFilter();
+    _nameFilter=new CharacterNameFilter<BaseCharacterSummary>();
     filters.add(_nameFilter);
     // Class
-    _classFilter=new CharacterClassFilter(null);
+    _classFilter=new CharacterClassFilter<BaseCharacterSummary>(null);
     filters.add(_classFilter);
     // Race
     _raceFilter=new RaceFilter(null);
@@ -45,7 +45,7 @@ public class CharacterSummaryFilter implements Filter<BaseCharacterSummary>
    * Get the filter on character name.
    * @return a character name filter.
    */
-  public CharacterNameFilter getNameFilter()
+  public CharacterNameFilter<BaseCharacterSummary> getNameFilter()
   {
     return _nameFilter;
   }
@@ -54,7 +54,7 @@ public class CharacterSummaryFilter implements Filter<BaseCharacterSummary>
    * Get the filter on character class.
    * @return a character class filter.
    */
-  public CharacterClassFilter getClassFilter()
+  public CharacterClassFilter<BaseCharacterSummary> getClassFilter()
   {
     return _classFilter;
   }

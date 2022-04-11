@@ -8,6 +8,7 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterDataSummary;
+import delta.games.lotro.character.CharacterReference;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
@@ -71,27 +72,13 @@ public class CharacterSummaryXMLParser
    */
   public static void parseBaseCharacterSummary(Element root, BaseCharacterSummary summary)
   {
-    // ID
-    InternalGameId id=null;
-    String idStr=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ID_ATTR,null);
-    if (idStr!=null)
-    {
-      id=InternalGameId.fromString(idStr);
-      summary.setId(id);
-    }
-    // Name
-    String name=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_NAME_ATTR,"");
-    summary.setName(name);
+    parseCharacterReference(root,summary);
     // Server
     String server=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SERVER_ATTR,"");
     summary.setServer(server);
     // Account name
     String accountName=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ACCOUNT_ATTR,"");
     summary.setAccountName(accountName);
-    // Class
-    String characterClass=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_CLASS_ATTR,"");
-    CharacterClass cClass=CharacterClass.getByKey(characterClass);
-    summary.setCharacterClass(cClass);
     // Race
     String race=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_RACE_ATTR,"");
     Race cRace=Race.getByLabel(race); 
@@ -103,6 +90,30 @@ public class CharacterSummaryXMLParser
       CharacterSex sex=CharacterSex.getByKey(sexKey); 
       summary.setCharacterSex(sex);
     }
+  }
+
+  /**
+   * Read character summary attributes from a tag.
+   * @param root Tag to read.
+   * @param summary Summary to write to.
+   */
+  public static void parseCharacterReference(Element root, CharacterReference summary)
+  {
+    // ID
+    InternalGameId id=null;
+    String idStr=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ID_ATTR,null);
+    if (idStr!=null)
+    {
+      id=InternalGameId.fromString(idStr);
+      summary.setId(id);
+    }
+    // Name
+    String name=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_NAME_ATTR,"");
+    summary.setName(name);
+    // Class
+    String characterClass=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_CLASS_ATTR,"");
+    CharacterClass cClass=CharacterClass.getByKey(characterClass);
+    summary.setCharacterClass(cClass);
     // Level
     int level=DOMParsingTools.getIntAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_LEVEL_ATTR,0);
     summary.setLevel(level);

@@ -1,16 +1,15 @@
-package delta.games.lotro.character.filters;
+package delta.games.lotro.character.social.friends.filters;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.text.MatchType;
 import delta.common.utils.text.StringFilter;
-import delta.games.lotro.character.CharacterReference;
+import delta.games.lotro.character.social.friends.Friend;
 
 /**
- * Filter for character name.
- * @param <T> Type of managed data.
+ * Filter for friend notes.
  * @author DAM
  */
-public class CharacterNameFilter<T extends CharacterReference> implements Filter<T>
+public class FriendNoteFilter implements Filter<Friend>
 {
   private StringFilter _filter;
   private String _pattern;
@@ -18,7 +17,7 @@ public class CharacterNameFilter<T extends CharacterReference> implements Filter
   /**
    * Constructor.
    */
-  public CharacterNameFilter()
+  public FriendNoteFilter()
   {
     this("");
   }
@@ -27,7 +26,7 @@ public class CharacterNameFilter<T extends CharacterReference> implements Filter
    * Constructor.
    * @param pattern String filter for name.
    */
-  public CharacterNameFilter(String pattern)
+  public FriendNoteFilter(String pattern)
   {
     _filter=new StringFilter("",MatchType.CONTAINS,true);
     _pattern=pattern;
@@ -57,12 +56,12 @@ public class CharacterNameFilter<T extends CharacterReference> implements Filter
   }
 
   @Override
-  public boolean accept(T summary)
+  public boolean accept(Friend member)
   {
-    String name=summary.getName();
-    if (name!=null)
+    String notes=member.getNote();
+    if (notes!=null)
     {
-      return _filter.accept(name);
+      return _filter.accept(notes);
     }
     return false;
   }

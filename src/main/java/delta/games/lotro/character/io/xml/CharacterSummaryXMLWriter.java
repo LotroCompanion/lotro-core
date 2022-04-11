@@ -10,6 +10,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterDataSummary;
+import delta.games.lotro.character.CharacterReference;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
@@ -132,6 +133,39 @@ public class CharacterSummaryXMLWriter
     }
     // Level
     int level=summary.getLevel();
+    attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
+  }
+
+  /**
+   * Write character reference attributes.
+   * @param attrs Attributes to write to.
+   * @param characterReference Source data.
+   * @throws Exception If an error occurs.
+   */
+  public static void writeCharacterReferenceSummary(AttributesImpl attrs, CharacterReference characterReference) throws Exception
+  {
+    // ID
+    InternalGameId id=characterReference.getId();
+    if (id!=null)
+    {
+      String idStr=id.asPersistedString();
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_ID_ATTR,XmlWriter.CDATA,idStr);
+    }
+    // Name
+    String name=characterReference.getName();
+    if (name.length()>0)
+    {
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    // Character class
+    CharacterClass characterClass=characterReference.getCharacterClass();
+    if (characterClass!=null)
+    {
+      String cClass=characterClass.getKey();
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_CLASS_ATTR,XmlWriter.CDATA,cClass);
+    }
+    // Level
+    int level=characterReference.getLevel();
     attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
   }
 

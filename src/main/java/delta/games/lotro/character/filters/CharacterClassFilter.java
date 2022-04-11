@@ -1,14 +1,15 @@
 package delta.games.lotro.character.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.character.BaseCharacterSummary;
+import delta.games.lotro.character.CharacterReference;
 import delta.games.lotro.common.CharacterClass;
 
 /**
  * Filter for characters of a given class.
+ * @param <T> Type of managed data.
  * @author DAM
  */
-public class CharacterClassFilter implements Filter<BaseCharacterSummary>
+public class CharacterClassFilter<T extends CharacterReference> implements Filter<T>
 {
   private CharacterClass _class;
 
@@ -40,7 +41,7 @@ public class CharacterClassFilter implements Filter<BaseCharacterSummary>
   }
 
   @Override
-  public boolean accept(BaseCharacterSummary summary)
+  public boolean accept(T summary)
   {
     if (_class==null)
     {
