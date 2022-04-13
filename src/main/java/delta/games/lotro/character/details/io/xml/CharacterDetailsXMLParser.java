@@ -61,14 +61,29 @@ public class CharacterDetailsXMLParser
       int currentXp=DOMParsingTools.getIntAttribute(xpAttrs,CharacterDetailsXMLConstants.CURRENT_XP_ATTR,0);
       details.setXp(currentXp);
     }
-    // Current title ID
+    // Current title
     Element titleTag=DOMParsingTools.getChildTagByName(root,CharacterDetailsXMLConstants.CURRENT_TITLE_TAG);
     if (titleTag!=null)
     {
       NamedNodeMap titleAttrs=titleTag.getAttributes();
-      // Current XP
       int titleId=DOMParsingTools.getIntAttribute(titleAttrs,CharacterDetailsXMLConstants.CURRENT_TITLE_ID_ATTR,0);
       details.setCurrentTitleId((titleId!=0)?Integer.valueOf(titleId):null);
+    }
+    // Current area
+    Element areaTag=DOMParsingTools.getChildTagByName(root,CharacterDetailsXMLConstants.CURRENT_AREA_TAG);
+    if (areaTag!=null)
+    {
+      NamedNodeMap areaAttrs=areaTag.getAttributes();
+      int areaID=DOMParsingTools.getIntAttribute(areaAttrs,CharacterDetailsXMLConstants.CURRENT_AREA_ID_ATTR,0);
+      details.setAreaID((areaID!=0)?Integer.valueOf(areaID):null);
+    }
+    // Current dungeon
+    Element dungeonTag=DOMParsingTools.getChildTagByName(root,CharacterDetailsXMLConstants.CURRENT_DUNGEON_TAG);
+    if (dungeonTag!=null)
+    {
+      NamedNodeMap dungeonAttrs=dungeonTag.getAttributes();
+      int dungeonID=DOMParsingTools.getIntAttribute(dungeonAttrs,CharacterDetailsXMLConstants.CURRENT_DUNGEON_ID_ATTR,0);
+      details.setDungeonID((dungeonID!=0)?Integer.valueOf(dungeonID):null);
     }
   }
 }

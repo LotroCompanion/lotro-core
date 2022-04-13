@@ -62,7 +62,7 @@ public class CharacterDetailsXMLWriter
     xpAttrs.addAttribute("","",CharacterDetailsXMLConstants.CURRENT_XP_ATTR,XmlWriter.CDATA,String.valueOf(xp));
     hd.startElement("","",CharacterDetailsXMLConstants.XP_TAG,xpAttrs);
     hd.endElement("","",CharacterDetailsXMLConstants.XP_TAG);
-    // Current title ID
+    // Current title
     Integer currentTitleId=details.getCurrentTitleId();
     if (currentTitleId!=null)
     {
@@ -70,6 +70,24 @@ public class CharacterDetailsXMLWriter
       titleAttrs.addAttribute("","",CharacterDetailsXMLConstants.CURRENT_TITLE_ID_ATTR,XmlWriter.CDATA,currentTitleId.toString());
       hd.startElement("","",CharacterDetailsXMLConstants.CURRENT_TITLE_TAG,titleAttrs);
       hd.endElement("","",CharacterDetailsXMLConstants.CURRENT_TITLE_TAG);
+    }
+    // Area
+    Integer areaID=details.getAreaID();
+    if (areaID!=null)
+    {
+      AttributesImpl areaAttrs=new AttributesImpl();
+      areaAttrs.addAttribute("","",CharacterDetailsXMLConstants.CURRENT_TITLE_ID_ATTR,XmlWriter.CDATA,areaID.toString());
+      hd.startElement("","",CharacterDetailsXMLConstants.CURRENT_AREA_TAG,areaAttrs);
+      hd.endElement("","",CharacterDetailsXMLConstants.CURRENT_AREA_TAG);
+    }
+    // Dungeon
+    Integer dungeonID=details.getDungeonID();
+    if (dungeonID!=null)
+    {
+      AttributesImpl dungeonAttrs=new AttributesImpl();
+      dungeonAttrs.addAttribute("","",CharacterDetailsXMLConstants.CURRENT_DUNGEON_ID_ATTR,XmlWriter.CDATA,dungeonID.toString());
+      hd.startElement("","",CharacterDetailsXMLConstants.CURRENT_DUNGEON_TAG,dungeonAttrs);
+      hd.endElement("","",CharacterDetailsXMLConstants.CURRENT_DUNGEON_TAG);
     }
     hd.endElement("","",CharacterDetailsXMLConstants.CHARACTER_DETAILS_TAG);
   }

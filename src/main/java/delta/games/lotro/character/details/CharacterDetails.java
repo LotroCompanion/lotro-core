@@ -3,6 +3,7 @@ package delta.games.lotro.character.details;
 import java.util.Date;
 
 import delta.games.lotro.common.Duration;
+import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.money.Money;
 
 /**
@@ -12,8 +13,9 @@ import delta.games.lotro.common.money.Money;
 public class CharacterDetails
 {
   private long _xp;
-  private Object _position;
-  private String _area;
+  private Position _position;
+  private Integer _areaID;
+  private Integer _dungeonID;
   private int _ingameTime;
   private Integer _currentTitleId;
   private Money _money;
@@ -26,7 +28,8 @@ public class CharacterDetails
   {
     _xp=0;
     _position=null;
-    _area="";
+    _areaID=null;
+    _dungeonID=null;
     _ingameTime=0;
     _currentTitleId=null;
     _money=new Money();
@@ -55,7 +58,7 @@ public class CharacterDetails
    * Get the current character position.
    * @return a position.
    */
-  public Object getPosition()
+  public Position getPosition()
   {
     return _position;
   }
@@ -64,27 +67,45 @@ public class CharacterDetails
    * Set the current character position.
    * @param position the position to set.
    */
-  public void setPosition(Object position)
+  public void setPosition(Position position)
   {
     _position=position;
   }
 
   /**
    * Get the current area for this character.
-   * @return an area name.
+   * @return an area ID or <code>null</code>.
    */
-  public String getArea()
+  public Integer getAreaID()
   {
-    return _area;
+    return _areaID;
   }
 
   /**
-   * Set the current area for this character.
-   * @param area the name of the area to set.
+   * Set the ID of the current area for this character.
+   * @param areaID the identifier of the area to set.
    */
-  public void setArea(String area)
+  public void setAreaID(Integer areaID)
   {
-    _area=area;
+    _areaID=areaID;
+  }
+
+  /**
+   * Get the current dungeon for this character.
+   * @return a dungeon ID or <code>null</code>.
+   */
+  public Integer getDungeonID()
+  {
+    return _dungeonID;
+  }
+
+  /**
+   * Set the ID of the current dungeon for this character.
+   * @param dungeonID the identifier of the dungeon to set.
+   */
+  public void setDungeonID(Integer dungeonID)
+  {
+    _dungeonID=dungeonID;
   }
 
   /**
@@ -159,7 +180,14 @@ public class CharacterDetails
     {
       sb.append("Position [").append(_position).append("], ");
     }
-    sb.append("Area [").append(_area).append("], ");
+    if (_areaID!=null)
+    {
+      sb.append("Area ID [").append(_areaID).append("], ");
+    }
+    if (_dungeonID!=null)
+    {
+      sb.append("Dungeon ID [").append(_dungeonID).append("], ");
+    }
     sb.append("In-game time [").append(_ingameTime);
     sb.append(" = ").append(Duration.getDurationString(_ingameTime)).append("], ");
     if (_currentTitleId!=null)
