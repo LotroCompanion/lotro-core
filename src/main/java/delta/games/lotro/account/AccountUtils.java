@@ -40,6 +40,20 @@ public class AccountUtils
   /**
    * 
    * Get the characters for the given account/server.
+   * @param accountOnServer Account/server to use.
+   * @return A possibly empty but not <code>null</code> list of characters.
+   */
+  public static List<CharacterFile> getCharacters(AccountOnServer accountOnServer)
+  {
+    Account account=accountOnServer.getAccount();
+    String accountName=account.getName();
+    String serverName=accountOnServer.getServerName();
+    return getCharacters(accountName,serverName);
+  }
+
+  /**
+   * 
+   * Get the characters for the given account/server.
    * @param accountName Account name.
    * @param server Server name or <code>null</code> to avoid filtering on server name.
    * @return A possibly empty but not <code>null</code> list of characters.

@@ -1,6 +1,7 @@
 package delta.games.lotro.character.storage.currencies;
 
 import delta.games.lotro.account.Account;
+import delta.games.lotro.account.AccountOnServer;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.utils.CharacterUtils;
 import delta.games.lotro.common.Scope;
@@ -37,6 +38,15 @@ public class CurrenciesFacade
     _toon=toon;
     _account=account;
     _characterMgr=new CurrenciesManager(toon);
+  }
+
+  /**
+   * Constructor for an account/server.
+   * @param accountOnServer Account/server to use.
+   */
+  public CurrenciesFacade(AccountOnServer accountOnServer)
+  {
+    this(accountOnServer.getAccount(),accountOnServer.getServerName());
   }
 
   /**

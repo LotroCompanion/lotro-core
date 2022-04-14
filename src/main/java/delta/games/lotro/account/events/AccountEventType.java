@@ -21,5 +21,9 @@ public enum AccountEventType
   /**
    * Storage update.
    */
-  STORAGE_UPDATED
+  STORAGE_UPDATED,
+  /**
+   * Friends updated (on a server).
+   */
+  FRIENDS_UPDATED
 }

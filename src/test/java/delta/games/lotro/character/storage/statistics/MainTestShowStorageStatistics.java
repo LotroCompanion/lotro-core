@@ -3,6 +3,7 @@ package delta.games.lotro.character.storage.statistics;
 import java.util.List;
 
 import delta.games.lotro.account.Account;
+import delta.games.lotro.account.AccountOnServer;
 import delta.games.lotro.account.AccountsManager;
 import delta.games.lotro.character.storage.StorageUtils;
 import delta.games.lotro.character.storage.StoredItem;
@@ -33,7 +34,8 @@ public class MainTestShowStorageStatistics
     */
     String accountName="glorfindel666";
     Account account=AccountsManager.getInstance().getAccountByName(accountName);
-    List<StoredItem> items=StorageUtils.buildAccountItems(account,serverName);
+    AccountOnServer accountOnServer=account.getServer(serverName);
+    List<StoredItem> items=StorageUtils.buildAccountItems(accountOnServer);
 
     StorageStatistics stats=new StorageStatistics();
     new StorageStatisticsComputer().computeStatistics(items,stats);

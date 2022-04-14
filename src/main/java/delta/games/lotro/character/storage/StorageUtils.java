@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.account.Account;
+import delta.games.lotro.account.AccountOnServer;
 import delta.games.lotro.account.AccountUtils;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.storage.bags.BagsManager;
@@ -92,20 +93,21 @@ public class StorageUtils
 
   /**
    * Build account/server items.
-   * @param account Targeted account.
-   * @param serverName Targeted server.
+   * @param accountOnServer Targeted account/server.
    * @return A list of stored items.
    */
-  public static List<StoredItem> buildAccountItems(Account account, String serverName)
+  public static List<StoredItem> buildAccountItems(AccountOnServer accountOnServer)
   {
     List<StoredItem> items=new ArrayList<StoredItem>();
 
+    Account account=accountOnServer.getAccount();
     String accountName=account.getName();
+    String serverName=accountOnServer.getServerName();
     AccountOwner accountOwner=new AccountOwner(accountName);
     AccountServerOwner accountServer=new AccountServerOwner(accountOwner,serverName);
 
     // Characters
-    List<CharacterFile> characters=AccountUtils.getCharacters(accountName,serverName);
+    List<CharacterFile> characters=AccountUtils.getCharacters(accountOnServer);
     for(CharacterFile character : characters)
     {
       // Build owner
