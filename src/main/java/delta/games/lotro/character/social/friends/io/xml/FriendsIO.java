@@ -13,7 +13,7 @@ public class FriendsIO
 {
   /**
    * Load friends from a file.
-   * @param friendsFile Roster file.
+   * @param friendsFile Friends file.
    * @return A friends manager or <code>null</code> if an error occurred.
    */
   public static FriendsManager loadFriends(File friendsFile)

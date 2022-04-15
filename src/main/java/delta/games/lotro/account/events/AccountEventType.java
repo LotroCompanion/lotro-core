@@ -25,5 +25,9 @@ public enum AccountEventType
   /**
    * Friends updated (on a server).
    */
-  FRIENDS_UPDATED
+  FRIENDS_UPDATED,
+  /**
+   * Wardrobe updated (on a server).
+   */
+  WARDROBE_UPDATED
 }
