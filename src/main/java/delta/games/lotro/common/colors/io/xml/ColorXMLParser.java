@@ -44,8 +44,11 @@ public class ColorXMLParser
     NamedNodeMap attrs=root.getAttributes();
 
     // Code
-    float code=DOMParsingTools.getFloatAttribute(attrs,ColorXMLConstants.COLOR_CODE_ATTR,0.0f);
-    color.setCode(code);
+    int code=DOMParsingTools.getIntAttribute(attrs,ColorXMLConstants.COLOR_CODE_ATTR,0);
+    color.setIntCode(code);
+    // Float code
+    float floatCode=DOMParsingTools.getFloatAttribute(attrs,ColorXMLConstants.COLOR_FLOAT_CODE_ATTR,0.0f);
+    color.setCode(floatCode);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,ColorXMLConstants.COLOR_NAME_ATTR,null);
     color.setName(name);

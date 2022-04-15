@@ -16,6 +16,10 @@ public class ColorXMLConstants
    */
   public static final String COLOR_TAG="color";
   /**
+   * Tag 'color', attribute 'floatCode'.
+   */
+  public static final String COLOR_FLOAT_CODE_ATTR="floatCode";
+  /**
    * Tag 'color', attribute 'code'.
    */
   public static final String COLOR_CODE_ATTR="code";

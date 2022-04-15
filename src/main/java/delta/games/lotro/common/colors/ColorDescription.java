@@ -8,6 +8,7 @@ public class ColorDescription
 {
   private String _name;
   private float _code;
+  private int _intCode;
 
   /**
    * Constructor.
@@ -16,6 +17,7 @@ public class ColorDescription
   {
     _name=null;
     _code=0.0f;
+    _intCode=0;
   }
 
   /**
@@ -54,11 +56,30 @@ public class ColorDescription
     _code=code;
   }
 
+  /**
+   * Get the color integer code.
+   * @return an integer code.
+   */
+  public int getIntCode()
+  {
+    return _intCode;
+  }
+
+  /**
+   * Set the color integer code.
+   * @param intCode the integer code to set.
+   */
+  public void setIntCode(int intCode)
+  {
+    _intCode=intCode;
+  }
+
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Color code=").append(_code);
+    sb.append("Color ");
+    sb.append(_intCode).append(": ").append(_code);
     sb.append(", name=").append(_name);
     return sb.toString();
   }

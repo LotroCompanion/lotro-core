@@ -67,9 +67,12 @@ public class ColorXMLWriter
   {
     AttributesImpl colorAttrs=new AttributesImpl();
 
-    // Code
-    float code=color.getCode();
+    // Integer code
+    int code=color.getIntCode();
     colorAttrs.addAttribute("","",ColorXMLConstants.COLOR_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
+    // Code
+    float floatCode=color.getCode();
+    colorAttrs.addAttribute("","",ColorXMLConstants.COLOR_FLOAT_CODE_ATTR,XmlWriter.CDATA,String.valueOf(floatCode));
     // Name
     String name=color.getName();
     if (name!=null)

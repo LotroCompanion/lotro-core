@@ -23,6 +23,7 @@ public class ColorsManager
 
   private List<ColorDescription> _colors;
   private HashMap<Float,ColorDescription> _cache;
+  private HashMap<Integer,ColorDescription> _intCodeCache;
 
   /**
    * Get the sole instance of this class.
@@ -45,6 +46,7 @@ public class ColorsManager
   {
     _colors=new ArrayList<ColorDescription>();
     _cache=new HashMap<Float,ColorDescription>(10);
+    _intCodeCache=new HashMap<Integer,ColorDescription>(10);
   }
 
   /**
@@ -74,6 +76,7 @@ public class ColorsManager
   {
     _colors.add(color);
     _cache.put(Float.valueOf(color.getCode()),color);
+    _intCodeCache.put(Integer.valueOf(color.getIntCode()),color);
   }
 
   /**
@@ -95,6 +98,18 @@ public class ColorsManager
   {
     ColorDescription ret=null;
     ret=_cache.get(Float.valueOf(code));
+    return ret;
+  }
+
+  /**
+   * Get a color using its integer code.
+   * @param code Color code.
+   * @return A color or <code>null</code> if not found.
+   */
+  public ColorDescription getColor(int code)
+  {
+    ColorDescription ret=null;
+    ret=_intCodeCache.get(Integer.valueOf(code));
     return ret;
   }
 }
