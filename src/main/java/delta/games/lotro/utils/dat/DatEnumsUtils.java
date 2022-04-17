@@ -1,5 +1,8 @@
 package delta.games.lotro.utils.dat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
@@ -164,6 +167,49 @@ public class DatEnumsUtils
     32 => Overflow
    */
     return null;
+  }
+
+  /**
+   * Get the equipment slots from a slot bitfield.
+   * @param slotCode Input code.
+   * @return A opossibly empty but never <code>null</code> list of equipment slots.
+   */
+  public static List<EQUIMENT_SLOT> getEquipmentSlots(long slotCode)
+  {
+    List<EQUIMENT_SLOT> ret=new ArrayList<EQUIMENT_SLOT>();
+    // See Enum: ContainerSlot, (id=587202798)
+    if ((slotCode&1L<<1)!=0) ret.add(EQUIMENT_SLOT.HEAD);
+    if ((slotCode&1L<<2)!=0) ret.add(EQUIMENT_SLOT.BREAST);
+    if ((slotCode&1L<<3)!=0) ret.add(EQUIMENT_SLOT.LEGS);
+    if ((slotCode&1L<<4)!=0) ret.add(EQUIMENT_SLOT.HANDS);
+    if ((slotCode&1L<<5)!=0) ret.add(EQUIMENT_SLOT.FEET);
+    if ((slotCode&1L<<6)!=0) ret.add(EQUIMENT_SLOT.SHOULDER);
+    if ((slotCode&1L<<7)!=0) ret.add(EQUIMENT_SLOT.BACK);
+    if ((slotCode&1L<<8)!=0) ret.add(EQUIMENT_SLOT.LEFT_WRIST);
+    if ((slotCode&1L<<9)!=0) ret.add(EQUIMENT_SLOT.RIGHT_WRIST);
+    if ((slotCode&1L<<10)!=0) ret.add(EQUIMENT_SLOT.NECK);
+    if ((slotCode&1L<<11)!=0) ret.add(EQUIMENT_SLOT.LEFT_FINGER);
+    if ((slotCode&1L<<12)!=0) ret.add(EQUIMENT_SLOT.RIGHT_FINGER);
+    if ((slotCode&1L<<13)!=0) ret.add(EQUIMENT_SLOT.LEFT_EAR);
+    if ((slotCode&1L<<14)!=0) ret.add(EQUIMENT_SLOT.RIGHT_EAR);
+    if ((slotCode&1L<<15)!=0) ret.add(EQUIMENT_SLOT.POCKET);
+    if ((slotCode&1L<<16)!=0) ret.add(EQUIMENT_SLOT.MAIN_MELEE);
+    if ((slotCode&1L<<17)!=0) ret.add(EQUIMENT_SLOT.OTHER_MELEE);
+    if ((slotCode&1L<<18)!=0) ret.add(EQUIMENT_SLOT.RANGED);
+    if ((slotCode&1L<<19)!=0) ret.add(EQUIMENT_SLOT.TOOL);
+    if ((slotCode&1L<<20)!=0) ret.add(EQUIMENT_SLOT.CLASS_ITEM);
+    //if ((slotCode&1L<<21)!=0) ret.add(EQUIMENT_SLOT.BRIDLE;
+    if ((slotCode&1L<<22)!=0) ret.add(EQUIMENT_SLOT.MAIN_HAND_AURA);
+    if ((slotCode&1L<<23)!=0) ret.add(EQUIMENT_SLOT.OFF_HAND_AURA);
+    if ((slotCode&1L<<24)!=0) ret.add(EQUIMENT_SLOT.RANGED_AURA);
+    /*
+    26 => Last
+    29 => Mail
+    30 => Equipment
+    31 => Backpack
+    32 => Overflow
+   */
+    return ret;
   }
 
   /**
