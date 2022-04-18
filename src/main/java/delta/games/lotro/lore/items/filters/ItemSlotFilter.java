@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.items.filters;
 
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
+import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.Weapon;
@@ -17,7 +17,7 @@ public class ItemSlotFilter implements ItemFilter
    * Constructor.
    * @param slot Slot to use.
    */
-  public ItemSlotFilter(EQUIMENT_SLOT slot)
+  public ItemSlotFilter(GearSlot slot)
   {
     _location=slot.getLocation();
   }

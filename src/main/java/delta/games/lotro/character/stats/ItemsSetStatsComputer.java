@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import delta.games.lotro.character.CharacterEquipment;
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
-import delta.games.lotro.character.CharacterEquipment.SlotContents;
+import delta.games.lotro.character.gear.CharacterGear;
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -40,7 +40,7 @@ public class ItemsSetStatsComputer
    * @param contribs Contributions manager (optional).
    * @return some stats.
    */
-  public BasicStatsSet getStats(int characterLevel, CharacterEquipment equipment, StatsContributionsManager contribs)
+  public BasicStatsSet getStats(int characterLevel, CharacterGear equipment, StatsContributionsManager contribs)
   {
     BasicStatsSet stats=new BasicStatsSet();
     List<ItemInstance<? extends Item>> itemInstances=getItemInstancesFromGear(equipment);
@@ -125,12 +125,12 @@ public class ItemsSetStatsComputer
     return ret;
   }
 
-  private List<ItemInstance<? extends Item>> getItemInstancesFromGear(CharacterEquipment equipment)
+  private List<ItemInstance<? extends Item>> getItemInstancesFromGear(CharacterGear equipment)
   {
     List<ItemInstance<? extends Item>> itemInstances=new ArrayList<ItemInstance<? extends Item>>();
-    for(EQUIMENT_SLOT slot : EQUIMENT_SLOT.values())
+    for(GearSlot slot : GearSlot.values())
     {
-      SlotContents slotContents=equipment.getSlotContents(slot,false);
+      GearSlotContents slotContents=equipment.getSlotContents(slot,false);
       if (slotContents==null)
       {
         continue;

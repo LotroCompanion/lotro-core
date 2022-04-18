@@ -3,10 +3,10 @@ package delta.games.lotro.character.stats;
 import java.util.List;
 
 import delta.games.lotro.character.CharacterData;
-import delta.games.lotro.character.CharacterEquipment;
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
-import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterProficiencies;
+import delta.games.lotro.character.gear.CharacterGear;
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
@@ -79,13 +79,13 @@ public class CharacterStatsComputer
     return buffInstance;
   }
 
-  private BasicStatsSet getEquipmentStats(int characterLevel, CharacterEquipment equipment)
+  private BasicStatsSet getEquipmentStats(int characterLevel, CharacterGear equipment)
   {
     BasicStatsSet ret=new BasicStatsSet();
     // Iterate on slots
-    for(EQUIMENT_SLOT slot : EQUIMENT_SLOT.values())
+    for(GearSlot slot : GearSlot.values())
     {
-      SlotContents slotContents=equipment.getSlotContents(slot,false);
+      GearSlotContents slotContents=equipment.getSlotContents(slot,false);
       if (slotContents!=null)
       {
         ItemInstance<?> item=slotContents.getItem();

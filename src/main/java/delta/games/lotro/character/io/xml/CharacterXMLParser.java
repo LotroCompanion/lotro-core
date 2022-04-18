@@ -10,10 +10,10 @@ import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterDataSummary;
-import delta.games.lotro.character.CharacterEquipment;
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
-import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.gear.CharacterGear;
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLConstants;
@@ -124,17 +124,17 @@ public class CharacterXMLParser
   {
     if (equipmentTag!=null)
     {
-      CharacterEquipment equipment=c.getEquipment();
+      CharacterGear equipment=c.getEquipment();
       List<Element> slotTags=DOMParsingTools.getChildTagsByName(equipmentTag,CharacterXMLConstants.SLOT_TAG);
       for(Element slotTag : slotTags)
       {
         NamedNodeMap attrs=slotTag.getAttributes();
         // Slot name
         String name=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_NAME_ATTR,"");
-        EQUIMENT_SLOT slot=EQUIMENT_SLOT.valueOf(name);
+        GearSlot slot=GearSlot.valueOf(name);
         if (slot!=null)
         {
-          SlotContents slotContents=equipment.getSlotContents(slot,true);
+          GearSlotContents slotContents=equipment.getSlotContents(slot,true);
           // Item ID
           Integer itemId=null;
           String objectURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_OBJECT_URL_ATTR,"");

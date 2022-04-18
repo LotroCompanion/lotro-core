@@ -11,10 +11,10 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterDataSummary;
-import delta.games.lotro.character.CharacterEquipment;
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
-import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.gear.CharacterGear;
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
@@ -101,7 +101,7 @@ public class CharacterXMLWriter
     BasicStatsSet stats=character.getStats();
     BasicStatsSetXMLWriter.write(hd,CharacterXMLConstants.STATS_TAG,stats);
     // Equipment
-    CharacterEquipment equipment=character.getEquipment();
+    CharacterGear equipment=character.getEquipment();
     writeEquipment(hd,equipment);
     // Virtues
     VirtuesSet virtues=character.getVirtues();
@@ -118,14 +118,14 @@ public class CharacterXMLWriter
     hd.endElement("","",CharacterXMLConstants.CHARACTER_TAG);
   }
 
-  private void writeEquipment(TransformerHandler hd, CharacterEquipment equipment) throws Exception
+  private void writeEquipment(TransformerHandler hd, CharacterGear equipment) throws Exception
   {
     AttributesImpl fieldAtts=new AttributesImpl();
     hd.startElement("","",CharacterXMLConstants.EQUIPMENT_TAG,fieldAtts);
-    EQUIMENT_SLOT[] slots=EQUIMENT_SLOT.values();
-    for(EQUIMENT_SLOT slot : slots)
+    GearSlot[] slots=GearSlot.values();
+    for(GearSlot slot : slots)
     {
-      SlotContents slotContents=equipment.getSlotContents(slot,false);
+      GearSlotContents slotContents=equipment.getSlotContents(slot,false);
       if (slotContents!=null)
       {
         writeEquipmentSlot(hd,slotContents);
@@ -134,9 +134,9 @@ public class CharacterXMLWriter
     hd.endElement("","",CharacterXMLConstants.EQUIPMENT_TAG);
   }
 
-  private void writeEquipmentSlot(TransformerHandler hd, SlotContents slotContents) throws Exception
+  private void writeEquipmentSlot(TransformerHandler hd, GearSlotContents slotContents) throws Exception
   {
-    EQUIMENT_SLOT slot=slotContents.getSlot();
+    GearSlot slot=slotContents.getSlot();
     if (slot!=null)
     {
       AttributesImpl slotAtts=new AttributesImpl();

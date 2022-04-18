@@ -3,6 +3,7 @@ package delta.games.lotro.character;
 import java.io.File;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
@@ -23,7 +24,7 @@ public class CharacterData
   private String _shortDescription;
   private String _description;
   private BasicStatsSet _stats;
-  private CharacterEquipment _equipment;
+  private CharacterGear _equipment;
   private VirtuesSet _virtues;
   private TomesSet _tomes;
   private BuffsManager _buffs;
@@ -40,7 +41,7 @@ public class CharacterData
     _shortDescription="";
     _description="";
     _stats=new BasicStatsSet();
-    _equipment=new CharacterEquipment();
+    _equipment=new CharacterGear();
     _virtues=new VirtuesSet();
     _tomes=new TomesSet();
     _buffs=new BuffsManager();
@@ -59,7 +60,7 @@ public class CharacterData
     _shortDescription=source._shortDescription;
     _description=source._description;
     _stats=new BasicStatsSet(source.getStats());
-    _equipment=new CharacterEquipment();
+    _equipment=new CharacterGear();
     _equipment.copyFrom(source._equipment);
     _equipment.setWearer(_summary);
     _virtues=new VirtuesSet();
@@ -228,7 +229,7 @@ public class CharacterData
    * Get the character's equipment.
    * @return the character's equipment.
    */
-  public CharacterEquipment getEquipment()
+  public CharacterGear getEquipment()
   {
     return _equipment;
   }

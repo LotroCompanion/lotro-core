@@ -3,11 +3,11 @@ package delta.games.lotro.character.stats;
 import java.util.List;
 
 import delta.games.lotro.character.CharacterData;
-import delta.games.lotro.character.CharacterEquipment;
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
-import delta.games.lotro.character.CharacterEquipment.SlotContents;
 import delta.games.lotro.character.CharacterFactory;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.gear.CharacterGear;
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
@@ -115,50 +115,50 @@ public class CharacterGeneratorGiswald
     tomes.setTomeRank(WellKnownStat.MIGHT,1);
     tomes.setTomeRank(WellKnownStat.FATE,2);
     // TODO Racial traits
-    CharacterEquipment equipment=c.getEquipment();
-    SlotContents head=equipment.getSlotContents(EQUIMENT_SLOT.HEAD,true);
+    CharacterGear equipment=c.getEquipment();
+    GearSlotContents head=equipment.getSlotContents(GearSlot.HEAD,true);
     head.setItem(buildHelm());
-    SlotContents shoulders=equipment.getSlotContents(EQUIMENT_SLOT.SHOULDER,true);
+    GearSlotContents shoulders=equipment.getSlotContents(GearSlot.SHOULDER,true);
     shoulders.setItem(buildShoulders());
-    SlotContents boots=equipment.getSlotContents(EQUIMENT_SLOT.FEET,true);
+    GearSlotContents boots=equipment.getSlotContents(GearSlot.FEET,true);
     boots.setItem(buildBoots());
-    SlotContents pocket=equipment.getSlotContents(EQUIMENT_SLOT.POCKET,true);
+    GearSlotContents pocket=equipment.getSlotContents(GearSlot.POCKET,true);
     pocket.setItem(buildPocket());
-    SlotContents cloak=equipment.getSlotContents(EQUIMENT_SLOT.BACK,true);
+    GearSlotContents cloak=equipment.getSlotContents(GearSlot.BACK,true);
     cloak.setItem(buildCloak());
-    SlotContents chest=equipment.getSlotContents(EQUIMENT_SLOT.BREAST,true);
+    GearSlotContents chest=equipment.getSlotContents(GearSlot.BREAST,true);
     chest.setItem(buildChest());
-    SlotContents gloves=equipment.getSlotContents(EQUIMENT_SLOT.HANDS,true);
+    GearSlotContents gloves=equipment.getSlotContents(GearSlot.HANDS,true);
     gloves.setItem(buildGloves());
-    SlotContents leggings=equipment.getSlotContents(EQUIMENT_SLOT.LEGS,true);
+    GearSlotContents leggings=equipment.getSlotContents(GearSlot.LEGS,true);
     leggings.setItem(buildLeggings());
     // Weapons
-    SlotContents sword1=equipment.getSlotContents(EQUIMENT_SLOT.MAIN_MELEE,true);
+    GearSlotContents sword1=equipment.getSlotContents(GearSlot.MAIN_MELEE,true);
     sword1.setItem(buildWeapon());
-    SlotContents sword2=equipment.getSlotContents(EQUIMENT_SLOT.OTHER_MELEE,true);
+    GearSlotContents sword2=equipment.getSlotContents(GearSlot.OTHER_MELEE,true);
     sword2.setItem(build2ndSword());
-    SlotContents bow=equipment.getSlotContents(EQUIMENT_SLOT.RANGED,true);
+    GearSlotContents bow=equipment.getSlotContents(GearSlot.RANGED,true);
     bow.setItem(buildBow());
     // Tools
-    SlotContents tool=equipment.getSlotContents(EQUIMENT_SLOT.TOOL,true);
+    GearSlotContents tool=equipment.getSlotContents(GearSlot.TOOL,true);
     tool.setItem(buildCraftingTool());
     // Class slot
-    SlotContents rune=equipment.getSlotContents(EQUIMENT_SLOT.CLASS_ITEM,true);
+    GearSlotContents rune=equipment.getSlotContents(GearSlot.CLASS_ITEM,true);
     rune.setItem(buildRune());
     // Jewels
-    SlotContents earring1=equipment.getSlotContents(EQUIMENT_SLOT.LEFT_EAR,true);
+    GearSlotContents earring1=equipment.getSlotContents(GearSlot.LEFT_EAR,true);
     earring1.setItem(buildEarring1());
-    SlotContents earring2=equipment.getSlotContents(EQUIMENT_SLOT.RIGHT_EAR,true);
+    GearSlotContents earring2=equipment.getSlotContents(GearSlot.RIGHT_EAR,true);
     earring2.setItem(buildEarring2());
-    SlotContents bracelet1=equipment.getSlotContents(EQUIMENT_SLOT.LEFT_WRIST,true);
+    GearSlotContents bracelet1=equipment.getSlotContents(GearSlot.LEFT_WRIST,true);
     bracelet1.setItem(buildBracelet1());
-    SlotContents bracelet2=equipment.getSlotContents(EQUIMENT_SLOT.RIGHT_WRIST,true);
+    GearSlotContents bracelet2=equipment.getSlotContents(GearSlot.RIGHT_WRIST,true);
     bracelet2.setItem(buildBracelet2());
-    SlotContents necklace=equipment.getSlotContents(EQUIMENT_SLOT.NECK,true);
+    GearSlotContents necklace=equipment.getSlotContents(GearSlot.NECK,true);
     necklace.setItem(buildNecklace());
-    SlotContents ring1=equipment.getSlotContents(EQUIMENT_SLOT.LEFT_FINGER,true);
+    GearSlotContents ring1=equipment.getSlotContents(GearSlot.LEFT_FINGER,true);
     ring1.setItem(buildRing1());
-    SlotContents ring2=equipment.getSlotContents(EQUIMENT_SLOT.RIGHT_FINGER,true);
+    GearSlotContents ring2=equipment.getSlotContents(GearSlot.RIGHT_FINGER,true);
     ring2.setItem(buildRing2());
 
     // Additional stats

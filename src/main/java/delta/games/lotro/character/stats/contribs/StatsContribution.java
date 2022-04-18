@@ -1,6 +1,6 @@
 package delta.games.lotro.character.stats.contribs;
 
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
+import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
@@ -166,7 +166,7 @@ public class StatsContribution
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getGearContrib(EQUIMENT_SLOT slot, ItemInstance<? extends Item> item, BasicStatsSet stats)
+  public static StatsContribution getGearContrib(GearSlot slot, ItemInstance<? extends Item> item, BasicStatsSet stats)
   {
     String source=EQUIPMENT+slot.name()+":"+item.getIdentifier();
     String label=slot.getLabel()+": "+item.getName();

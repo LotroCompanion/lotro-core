@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import delta.games.lotro.character.CharacterEquipment;
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
-import delta.games.lotro.character.CharacterEquipment.SlotContents;
+import delta.games.lotro.character.gear.CharacterGear;
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -44,7 +44,7 @@ public class TraceriesSetStatsComputer
    * @param contribs Contributions manager (optional).
    * @return some stats.
    */
-  public BasicStatsSet getStats(int characterLevel, CharacterEquipment equipment, StatsContributionsManager contribs)
+  public BasicStatsSet getStats(int characterLevel, CharacterGear equipment, StatsContributionsManager contribs)
   {
     BasicStatsSet stats=new BasicStatsSet();
     List<SocketEntryInstance> sockets=getTraceries(characterLevel,equipment);
@@ -128,12 +128,12 @@ public class TraceriesSetStatsComputer
     return ret;
   }
 
-  private List<SocketEntryInstance> getTraceries(int characterLevel, CharacterEquipment equipment)
+  private List<SocketEntryInstance> getTraceries(int characterLevel, CharacterGear equipment)
   {
     List<SocketEntryInstance> ret=new ArrayList<SocketEntryInstance>();
-    for(EQUIMENT_SLOT slot : EQUIMENT_SLOT.values())
+    for(GearSlot slot : GearSlot.values())
     {
-      SlotContents slotContents=equipment.getSlotContents(slot,false);
+      GearSlotContents slotContents=equipment.getSlotContents(slot,false);
       if (slotContents==null)
       {
         continue;

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
+import delta.games.lotro.character.gear.GearSlot;
 
 /**
  * Outfit.
@@ -13,16 +13,16 @@ import delta.games.lotro.character.CharacterEquipment.EQUIMENT_SLOT;
  */
 public class Outfit
 {
-  private Map<EQUIMENT_SLOT,OutfitElement> _elements;
-  private Set<EQUIMENT_SLOT> _visibleSlots;
+  private Map<GearSlot,OutfitElement> _elements;
+  private Set<GearSlot> _visibleSlots;
 
   /**
    * Constructor.
    */
   public Outfit()
   {
-    _elements=new HashMap<EQUIMENT_SLOT,OutfitElement>();
-    _visibleSlots=new HashSet<EQUIMENT_SLOT>();
+    _elements=new HashMap<GearSlot,OutfitElement>();
+    _visibleSlots=new HashSet<GearSlot>();
   }
 
   /**
@@ -30,7 +30,7 @@ public class Outfit
    * @param slot Slot to get.
    * @return An outfit element or <code>null</code> if nothing in the slot.
    */
-  public OutfitElement getSlot(EQUIMENT_SLOT slot)
+  public OutfitElement getSlot(GearSlot slot)
   {
     return _elements.get(slot);
   }
@@ -40,7 +40,7 @@ public class Outfit
    * @param slot Slot to set.
    * @param element Outfit element to set.
    */
-  public void setSlot(EQUIMENT_SLOT slot, OutfitElement element)
+  public void setSlot(GearSlot slot, OutfitElement element)
   {
     _elements.put(slot,element);
   }
@@ -50,7 +50,7 @@ public class Outfit
    * @param slot Slot to use.
    * @return <code>true</code> if it is visible, <code>false</code> otherwise.
    */
-  public boolean isSlotVisible(EQUIMENT_SLOT slot)
+  public boolean isSlotVisible(GearSlot slot)
   {
     return _visibleSlots.contains(slot);
   }
@@ -60,7 +60,7 @@ public class Outfit
    * @param slot Slot to use.
    * @param visible Visibility to set.
    */
-  public void setSlotVisible(EQUIMENT_SLOT slot, boolean visible)
+  public void setSlotVisible(GearSlot slot, boolean visible)
   {
     if (visible)
     {
