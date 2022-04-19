@@ -76,4 +76,14 @@ public class OutfitsManager
     Collections.sort(ret);
     return ret;
   }
+
+  /**
+   * Get an outfit using its index.
+   * @param index Index of the outfit to get.
+   * @return An outfit or <code>null</code> if not found.
+   */
+  public Outfit getOutfit(int index)
+  {
+    return _outfits.get(Integer.valueOf(index));
+  }
 }

@@ -23,7 +23,7 @@ public class WardrobeXMLParser
   /**
    * Parse the XML file.
    * @param source Source file.
-   * @return the loaded friends or <code>null</code>.
+   * @return the loaded wardrobe or <code>null</code>.
    */
   public Wardrobe parseXML(File source)
   {
@@ -39,7 +39,6 @@ public class WardrobeXMLParser
   private static Wardrobe parseWardrobe(Element mainTag)
   {
     Wardrobe ret=new Wardrobe();
-    // Friends
     List<Element> elementTags=DOMParsingTools.getChildTagsByName(mainTag,WardrobeXMLConstants.WARDROBE_ITEM_TAG,false);
     for(Element elementTag : elementTags)
     {
@@ -53,9 +52,9 @@ public class WardrobeXMLParser
   }
 
   /**
-   * Read a friend from a tag.
+   * Read a wardrobe item from a tag.
    * @param elementTag Tag to read.
-   * @return the loaded friend or <code>null</code>.
+   * @return the loaded wardrobe item or <code>null</code>.
    */
   private static WardrobeItem parseWardrobeElement(Element elementTag)
   {

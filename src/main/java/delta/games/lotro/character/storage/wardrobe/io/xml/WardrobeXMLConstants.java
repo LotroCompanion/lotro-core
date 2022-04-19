@@ -8,7 +8,7 @@ package delta.games.lotro.character.storage.wardrobe.io.xml;
 public class WardrobeXMLConstants
 {
   /**
-   * Tag 'friends'.
+   * Tag 'wardrobe'.
    */
   public static final String WARDROBE_TAG="wardrobe";
   /**

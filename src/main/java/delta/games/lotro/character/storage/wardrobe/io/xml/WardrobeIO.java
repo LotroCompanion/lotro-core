@@ -46,7 +46,7 @@ public class WardrobeIO
   /**
    * Build a wardrobe file.
    * @param accountOnServer Account/server to use.
-   * @return A friends file.
+   * @return A wardrobe file.
    */
   public static File getWardrobeFile(AccountOnServer accountOnServer)
   {
