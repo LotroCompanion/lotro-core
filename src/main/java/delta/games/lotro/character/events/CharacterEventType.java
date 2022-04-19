@@ -81,5 +81,9 @@ public enum CharacterEventType
   /**
    * Quests status updated.
    */
-  QUESTS_STATUS_UPDATED
+  QUESTS_STATUS_UPDATED,
+  /**
+   * Outfits updated.
+   */
+  OUTFITS_UPDATED
 }

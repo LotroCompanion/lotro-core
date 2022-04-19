@@ -12,9 +12,9 @@ public class OutfitsXMLConstants
    */
   public static final String OUTFITS_TAG="outfits";
   /**
-   * Tag 'outfits', attribute 'index'.
+   * Tag 'outfits', attribute 'currentIndex'.
    */
-  public static final String OUTFITS_CURRENT_INDEX_ATTR="currentInde";
+  public static final String OUTFITS_CURRENT_INDEX_ATTR="currentIndex";
   /**
    * Tag 'outfit'.
    */

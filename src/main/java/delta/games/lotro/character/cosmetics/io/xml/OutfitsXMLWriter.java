@@ -36,10 +36,7 @@ public class OutfitsXMLWriter
       @Override
       public void writeXml(TransformerHandler hd) throws Exception
       {
-        AttributesImpl attrs=new AttributesImpl();
-        hd.startElement("","",OutfitsXMLConstants.OUTFITS_TAG,attrs);
         write(hd,outfitsMgr);
-        hd.endElement("","",OutfitsXMLConstants.OUTFITS_TAG);
       }
     };
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
@@ -58,12 +55,12 @@ public class OutfitsXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     int currentIndex=outfitsMgr.getCurrentOutfitIndex();
     attrs.addAttribute("","",OutfitsXMLConstants.OUTFITS_CURRENT_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(currentIndex));
+    hd.startElement("","",OutfitsXMLConstants.OUTFITS_TAG,attrs);
     for(Integer outfitIndex : outfitsMgr.getOutfitIndexes())
     {
       Outfit outfit=outfitsMgr.getOutfit(outfitIndex.intValue());
       writeOutfit(hd,outfitIndex.intValue(),outfit);
     }
-    hd.startElement("","",OutfitsXMLConstants.OUTFITS_TAG,attrs);
     hd.endElement("","",OutfitsXMLConstants.OUTFITS_TAG);
   }
 
@@ -88,32 +85,35 @@ public class OutfitsXMLWriter
     attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_SLOT_ATTR,XmlWriter.CDATA,slot.name());
     // Visible
     attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_VISIBLE_ATTR,XmlWriter.CDATA,String.valueOf(visible));
-    Item item=element.getItem();
-    // Item ID
-    if (item!=null)
+    if (element!=null)
     {
+      Item item=element.getItem();
       // Item ID
-      int itemId=item.getIdentifier();
-      attrs.addAttribute("","",OutfitsXMLConstants.OUTFIT_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(itemId));
-      // Item name
-      String itemName=item.getName();
-      if (itemName!=null)
+      if (item!=null)
       {
-        attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_ITEM_NAME_ATTR,XmlWriter.CDATA,itemName);
+        // Item ID
+        int itemId=item.getIdentifier();
+        attrs.addAttribute("","",OutfitsXMLConstants.OUTFIT_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(itemId));
+        // Item name
+        String itemName=item.getName();
+        if (itemName!=null)
+        {
+          attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_ITEM_NAME_ATTR,XmlWriter.CDATA,itemName);
+        }
       }
-    }
-    // Color
-    ColorDescription color=element.getColor();
-    if (color!=null)
-    {
-      // Color code
-      int colorCode=color.getIntCode();
-      attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_COLOR_CODE,XmlWriter.CDATA,String.valueOf(colorCode));
-      // Color name
-      String colorName=color.getName();
-      if (colorName!=null)
+      // Color
+      ColorDescription color=element.getColor();
+      if (color!=null)
       {
-        attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_COLOR_NAME,XmlWriter.CDATA,colorName);
+        // Color code
+        int colorCode=color.getIntCode();
+        attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_COLOR_CODE,XmlWriter.CDATA,String.valueOf(colorCode));
+        // Color name
+        String colorName=color.getName();
+        if (colorName!=null)
+        {
+          attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_COLOR_NAME,XmlWriter.CDATA,colorName);
+        }
       }
     }
     hd.startElement("","",OutfitsXMLConstants.ELEMENT_TAG,attrs);
