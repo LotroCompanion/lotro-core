@@ -12,6 +12,7 @@ import delta.games.lotro.lore.items.Weapon;
 public class ItemSlotFilter implements ItemFilter
 {
   private EquipmentLocation _location;
+  private boolean _strict;
 
   /**
    * Constructor.
@@ -20,11 +21,44 @@ public class ItemSlotFilter implements ItemFilter
   public ItemSlotFilter(GearSlot slot)
   {
     _location=slot.getLocation();
+    _strict=true;
+  }
+
+  /**
+   * Constructor.
+   * @param location Slot to use.
+   */
+  public ItemSlotFilter(EquipmentLocation location)
+  {
+    _location=location;
+    _strict=false;
+  }
+
+  /**
+   * Get the managed equipment location.
+   * @return An equipment location or <code>null</code>.
+   */
+  public EquipmentLocation getLocation()
+  {
+    return _location;
+  }
+
+  /**
+   * Set the equipment location to use.
+   * @param location An equipment location or <code>null</code>.
+   */
+  public void setLocation(EquipmentLocation location)
+  {
+    _location=location;
   }
 
   @Override
   public boolean accept(Item item)
   {
+    if ((!_strict) && (_location==null))
+    {
+      return true;
+    }
     EquipmentLocation location=item.getEquipmentLocation();
     if (_location==location)
     {
