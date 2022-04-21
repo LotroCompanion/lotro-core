@@ -24,11 +24,15 @@ public class WardrobeXMLConstants
    */
   public static final String ELEMENT_ITEM_NAME_ATTR="itemName";
   /**
-   * Tag 'element', attribute 'color'.
+   * Tag 'color'.
    */
-  public static final String ELEMENT_COLOR_CODE="colorCode";
+  public static final String COLOR_TAG="color";
   /**
-   * Tag 'element', attribute 'colorName'.
+   * Tag 'color', attribute 'color'.
    */
-  public static final String ELEMENT_COLOR_NAME="color";
+  public static final String COLOR_CODE_ATTR="code";
+  /**
+   * Tag 'color', attribute 'colorName'.
+   */
+  public static final String COLOR_NAME_ATTR="name";
 }

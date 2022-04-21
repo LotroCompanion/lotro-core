@@ -66,15 +66,20 @@ public class WardrobeXMLParser
     {
       return null;
     }
-    // Color
-    int colorCode=DOMParsingTools.getIntAttribute(attrs,WardrobeXMLConstants.ELEMENT_COLOR_CODE,0);
-    ColorsManager colorsMgr=ColorsManager.getInstance();
-    ColorDescription color=colorsMgr.getColor(colorCode);
-    if (color==null)
+    WardrobeItem wardrobeItem=new WardrobeItem(item);
+    // Colors
+    List<Element> colorTags=DOMParsingTools.getChildTagsByName(elementTag,WardrobeXMLConstants.COLOR_TAG);
+    for(Element colorTag : colorTags)
     {
-      return null;
+      NamedNodeMap colorAttrs=colorTag.getAttributes();
+      int colorCode=DOMParsingTools.getIntAttribute(colorAttrs,WardrobeXMLConstants.COLOR_CODE_ATTR,0);
+      ColorsManager colorsMgr=ColorsManager.getInstance();
+      ColorDescription color=colorsMgr.getColor(colorCode);
+      if (color!=null)
+      {
+        wardrobeItem.addColor(color);
+      }
     }
-    WardrobeItem wardrobeItem=new WardrobeItem(item,color);
     return wardrobeItem;
   }
 }

@@ -79,21 +79,24 @@ public class WardrobeXMLWriter
     {
       attrs.addAttribute("","",WardrobeXMLConstants.ELEMENT_ITEM_NAME_ATTR,XmlWriter.CDATA,itemName);
     }
-    // Color
-    ColorDescription color=element.getColor();
-    if (color!=null)
+    hd.startElement("","",WardrobeXMLConstants.WARDROBE_ITEM_TAG,attrs);
+    // Colors
+    List<ColorDescription> colors=element.getColors();
+    for(ColorDescription color : colors)
     {
+      AttributesImpl colorAttrs=new AttributesImpl();
       // Color code
       int colorCode=color.getIntCode();
-      attrs.addAttribute("","",WardrobeXMLConstants.ELEMENT_COLOR_CODE,XmlWriter.CDATA,String.valueOf(colorCode));
+      colorAttrs.addAttribute("","",WardrobeXMLConstants.COLOR_CODE_ATTR,XmlWriter.CDATA,String.valueOf(colorCode));
       // Color name
       String colorName=color.getName();
       if (colorName!=null)
       {
-        attrs.addAttribute("","",WardrobeXMLConstants.ELEMENT_COLOR_NAME,XmlWriter.CDATA,colorName);
+        colorAttrs.addAttribute("","",WardrobeXMLConstants.COLOR_NAME_ATTR,XmlWriter.CDATA,colorName);
       }
+      hd.startElement("","",WardrobeXMLConstants.COLOR_TAG,colorAttrs);
+      hd.endElement("","",WardrobeXMLConstants.COLOR_TAG);
     }
-    hd.startElement("","",WardrobeXMLConstants.WARDROBE_ITEM_TAG,attrs);
     hd.endElement("","",WardrobeXMLConstants.WARDROBE_ITEM_TAG);
   }
 }

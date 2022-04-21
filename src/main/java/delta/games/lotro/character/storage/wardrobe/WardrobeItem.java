@@ -1,5 +1,8 @@
 package delta.games.lotro.character.storage.wardrobe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.lore.items.Item;
 
@@ -10,17 +13,16 @@ import delta.games.lotro.lore.items.Item;
 public class WardrobeItem
 {
   private Item _item;
-  private ColorDescription _color;
+  private List<ColorDescription> _colors;
 
   /**
    * Constructor.
    * @param item Item.
-   * @param color Color.
    */
-  public WardrobeItem(Item item, ColorDescription color)
+  public WardrobeItem(Item item)
   {
     _item=item;
-    _color=color;
+    _colors=new ArrayList<ColorDescription>();
   }
 
   /**
@@ -33,12 +35,47 @@ public class WardrobeItem
   }
 
   /**
-   * Get the managed code.
-   * @return A color.
+   * Add a color.
+   * @param color Color to add.
    */
-  public ColorDescription getColor()
+  public void addColor(ColorDescription color)
   {
-    return _color;
+    _colors.add(color);
+  }
+
+  /**
+   * Get the registered colors.
+   * @return A list of colors.
+   */
+  public List<ColorDescription> getColors()
+  {
+    return _colors;
+  }
+
+  /**
+   * Get a label to display the managed colors.
+   * @return A displayable label.
+   */
+  public String getColorsLabel()
+  {
+    if (_colors.size()==0)
+    {
+      return "";
+    }
+    StringBuilder sb=new StringBuilder();
+    for(ColorDescription color : _colors)
+    {
+      String colorName=color.getName();
+      if (colorName!=null)
+      {
+        if (sb.length()>0)
+        {
+          sb.append(',');
+        }
+        sb.append(colorName);
+      }
+    }
+    return sb.toString();
   }
 
   @Override
@@ -49,14 +86,17 @@ public class WardrobeItem
     {
       sb.append("Item: ").append(_item);
     }
-    if (_color!=null)
+    if (_colors.size()>0)
     {
       if (sb.length()>0)
       {
         sb.append(", ");
       }
-      sb.append("color: ");
-      sb.append(_color.getName());
+      sb.append("colors: ");
+      for(ColorDescription color : _colors)
+      {
+        sb.append(color.getName());
+      }
     }
     return sb.toString();
   }
