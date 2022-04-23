@@ -14,6 +14,7 @@ import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemXP;
+import delta.games.lotro.lore.items.details.VirtueXP;
 import delta.games.lotro.lore.reputation.Faction;
 
 /**
@@ -52,6 +53,10 @@ public class ItemDetailsXMLWriter
     {
       writeItemXPElement(hd,(ItemXP)item);
     }
+    else if (item instanceof VirtueXP)
+    {
+      writeVirtueXPElement(hd,(VirtueXP)item);
+    }
     else if (item instanceof ItemReputation)
     {
       writeItemReputationElement(hd,(ItemReputation)item);
@@ -78,6 +83,16 @@ public class ItemDetailsXMLWriter
     int amount=itemXP.getAmount();
     attrs.addAttribute("","",ItemDetailsXMLConstants.ITEM_XP_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(amount));
     hd.startElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG);
+  }
+
+  private void writeVirtueXPElement(TransformerHandler hd, VirtueXP virtueXP) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Amount
+    int amount=virtueXP.getAmount();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.VIRTUE_XP_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(amount));
+    hd.startElement("","",ItemDetailsXMLConstants.VIRTUE_XP_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG);
   }
 

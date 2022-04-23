@@ -16,6 +16,7 @@ import delta.games.lotro.lore.items.ItemProvider;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemXP;
+import delta.games.lotro.lore.items.details.VirtueXP;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.utils.Registry;
 
@@ -35,6 +36,9 @@ public class StorageStatisticsComputer
     // Item XP
     long totalItemXP=computeTotalItemXP(items);
     results.setTotalItemXP(totalItemXP);
+    // Virtue XP
+    long totalVirtueXP=computeTotalVirtueXP(items);
+    results.setTotalVirtueXP(totalVirtueXP);
     // Reputation
     computeReputationStats(items,results.getReputationStats());
     // Disenchantment results
@@ -108,6 +112,28 @@ public class StorageStatisticsComputer
           int count=counted.getQuantity();
           //System.out.println("Got "+count+" of "+item+" - "+itemXP.getAmount()+" XP");
           totalXP+=(count*itemXP.getAmount());
+        }
+      }
+    }
+    return totalXP;
+  }
+
+  private long computeTotalVirtueXP(List<StoredItem> items)
+  {
+    long totalXP=0;
+    for(StoredItem storedItem : items)
+    {
+      CountedItem<ItemProvider> counted=storedItem.getItem();
+      Item item=counted.getItem();
+      ItemDetailsManager details=item.getDetails();
+      if (details!=null)
+      {
+        List<VirtueXP> virtueXPs=details.getItemDetails(VirtueXP.class);
+        if (virtueXPs.size()>0)
+        {
+          VirtueXP virtueXP=virtueXPs.get(0);
+          int count=counted.getQuantity();
+          totalXP+=(count*virtueXP.getAmount());
         }
       }
     }

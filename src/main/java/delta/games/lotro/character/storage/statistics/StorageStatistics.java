@@ -11,6 +11,7 @@ import delta.games.lotro.common.statistics.items.ItemsStats;
 public class StorageStatistics
 {
   private long _totalItemXP;
+  private long _totalVirtueXP;
   private StorageReputationStats _reputationStats;
   private ItemsStats _itemStats;
   private Money _totalValue;
@@ -21,6 +22,7 @@ public class StorageStatistics
   public StorageStatistics()
   {
     _totalItemXP=0;
+    _totalVirtueXP=0;
     _reputationStats=new StorageReputationStats();
     _itemStats=new ItemsStats();
     _totalValue=new Money();
@@ -42,6 +44,24 @@ public class StorageStatistics
   public void setTotalItemXP(long totalItemXP)
   {
     _totalItemXP=totalItemXP;
+  }
+
+  /**
+   * Get the total virtue XP.
+   * @return the total virtue XP.
+   */
+  public long getTotalVirtueXP()
+  {
+    return _totalVirtueXP;
+  }
+
+  /**
+   * Set the total virtue XP.
+   * @param totalVirtueXP the value to set.
+   */
+  public void setTotalVirtueXP(long totalVirtueXP)
+  {
+    _totalVirtueXP=totalVirtueXP;
   }
 
   /**

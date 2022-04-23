@@ -14,6 +14,7 @@ import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemXP;
+import delta.games.lotro.lore.items.details.VirtueXP;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 
@@ -57,6 +58,15 @@ public class ItemDetailsSaxParser
       int amount=NumericTools.parseInt(amountStr,-1);
       ItemXP itemXP=new ItemXP(amount);
       Item.addDetail(item,itemXP);
+      return true;
+    }
+    else if (ItemDetailsXMLConstants.VIRTUE_XP_TAG.equals(qualifiedName))
+    {
+      // Amount
+      String amountStr=attributes.getValue(ItemDetailsXMLConstants.VIRTUE_XP_AMOUNT_ATTR);
+      int amount=NumericTools.parseInt(amountStr,-1);
+      VirtueXP virtueXP=new VirtueXP(amount);
+      Item.addDetail(item,virtueXP);
       return true;
     }
     else if (ItemDetailsXMLConstants.REPUTATION_TAG.equals(qualifiedName))
