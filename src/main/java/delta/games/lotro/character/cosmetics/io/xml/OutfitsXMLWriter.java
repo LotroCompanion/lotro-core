@@ -93,7 +93,7 @@ public class OutfitsXMLWriter
       {
         // Item ID
         int itemId=item.getIdentifier();
-        attrs.addAttribute("","",OutfitsXMLConstants.OUTFIT_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(itemId));
+        attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemId));
         // Item name
         String itemName=item.getName();
         if (itemName!=null)

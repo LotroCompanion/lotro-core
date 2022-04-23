@@ -91,7 +91,7 @@ public class OutfitsXMLParser
   {
     NamedNodeMap attrs=elementTag.getAttributes();
     // Item ID
-    int itemId=DOMParsingTools.getIntAttribute(attrs,OutfitsXMLConstants.OUTFIT_INDEX_ATTR,0);
+    int itemId=DOMParsingTools.getIntAttribute(attrs,OutfitsXMLConstants.ELEMENT_ITEM_ID_ATTR,0);
     Item item=ItemsManager.getInstance().getItem(itemId);
     OutfitElement ret=new OutfitElement();
     ret.setItem(item);
