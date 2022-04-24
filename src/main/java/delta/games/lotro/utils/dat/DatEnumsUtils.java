@@ -128,6 +128,16 @@ public class DatEnumsUtils
   }
 
   /**
+   * Indicates if the given slot code means an item in the overflow.
+   * @param slotCode Code to use.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public static boolean isInOverflow(int slotCode)
+  {
+    return ((slotCode&1L<<31)!=0);
+  }
+
+  /**
    * Get an equipment slot from a DAT enum code.
    * @param slotCode Input code.
    * @return An equipment slot or <code>null</code> if not supported.
