@@ -10,8 +10,10 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.common.enums.BillingGroup;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
+import delta.games.lotro.common.rewards.BillingTokenReward;
 import delta.games.lotro.common.rewards.CraftingXpReward;
 import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.ItemReward;
@@ -147,6 +149,12 @@ public class RewardsXMLWriter
     {
       writeCraftingXpReward(hd,(CraftingXpReward)rewardElement);
     }
+    // Billing token
+    else if (rewardElement instanceof BillingTokenReward)
+    {
+      BillingTokenReward billingTokenReward=(BillingTokenReward)rewardElement;
+      writeBillingTokenReward(hd,billingTokenReward);
+    }
     // Selectable
     else if (rewardElement instanceof SelectableRewardElement)
     {
@@ -235,6 +243,23 @@ public class RewardsXMLWriter
     }
     hd.startElement("","",tagName,attrs);
     hd.endElement("","",tagName);
+  }
+
+  private static void writeBillingTokenReward(TransformerHandler hd, BillingTokenReward billingTokenReward) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    BillingGroup billingGroup=billingTokenReward.getBillingGroup();
+    // ID
+    int id=billingGroup.getCode();
+    attrs.addAttribute("","",RewardsXMLConstants.BILLING_TOKEN_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Name
+    String name=billingGroup.getLabel();
+    if (name!=null)
+    {
+      attrs.addAttribute("","",RewardsXMLConstants.BILLING_TOKEN_NAMEçATTR,XmlWriter.CDATA,name);
+    }
+    hd.startElement("","",RewardsXMLConstants.BILLING_TOKEN_TAG,attrs);
+    hd.endElement("","",RewardsXMLConstants.BILLING_TOKEN_TAG);
   }
 
   private static void writeSelectableRewardElement(TransformerHandler hd, SelectableRewardElement selectableReward) throws SAXException

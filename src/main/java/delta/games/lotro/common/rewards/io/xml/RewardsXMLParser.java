@@ -10,8 +10,12 @@ import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.enums.BillingGroup;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
+import delta.games.lotro.common.rewards.BillingTokenReward;
 import delta.games.lotro.common.rewards.CraftingXpReward;
 import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.ItemReward;
@@ -177,6 +181,11 @@ public class RewardsXMLParser
     {
       parseCraftingXpReward(rewards,rewardTag);
     }
+    // Billing Token
+    else if (RewardsXMLConstants.BILLING_TOKEN_TAG.equals(tagName))
+    {
+      parseBillingTokenReward(rewards,rewardTag);
+    }
     // Selectable
     else if (RewardsXMLConstants.SELECT_ONE_OF_TAG.equals(tagName))
     {
@@ -301,6 +310,21 @@ public class RewardsXMLParser
     int xp=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.CRAFTING_XP_ATTR,1);
     CraftingXpReward craftingXpReward=new CraftingXpReward(profession,tier,xp);
     rewards.add(craftingXpReward);
+  }
+
+  private static void parseBillingTokenReward(List<RewardElement> rewards, Element billingTokenTag)
+  {
+    NamedNodeMap attrs=billingTokenTag.getAttributes();
+
+    // ID
+    int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.BILLING_TOKEN_ID_ATTR,-1);
+    LotroEnum<BillingGroup> billingGroupsEnum=LotroEnumsRegistry.getInstance().get(BillingGroup.class);
+    BillingGroup billingGroup=billingGroupsEnum.getEntry(id);
+    if (billingGroup!=null)
+    {
+      BillingTokenReward billingTokenReward=new BillingTokenReward(billingGroup);
+      rewards.add(billingTokenReward);
+    }
   }
 
   private static void parseProxy(NamedNodeMap attrs, Proxy<? extends Identifiable> proxy)

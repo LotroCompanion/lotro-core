@@ -106,6 +106,18 @@ public class RewardsXMLConstants
    * Tag 'craftingXp', attribute 'XP'.
    */
   public static final String CRAFTING_XP_ATTR="XP";
+  /**
+   * Tag 'billingToken'.
+   */
+  public static final String BILLING_TOKEN_TAG="billingToken";
+  /**
+   * Tag 'billingToken', attribute 'id'.
+   */
+  public static final String BILLING_TOKEN_ID_ATTR="id";
+  /**
+   * Tag 'billingToken', attribute 'name'.
+   */
+  public static final String BILLING_TOKEN_NAMEçATTR="name";
 
   /**
    * Tag 'selectOneOf'.
