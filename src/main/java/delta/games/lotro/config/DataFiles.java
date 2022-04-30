@@ -274,4 +274,8 @@ public class DataFiles
    * Key for the enums directory.
    */
   public static final String ENUMS_DIR="enumsDir";
+  /**
+   * Billing groups file.
+   */
+  public static final String BILLING_GROUPS="billingGroups";
 }
