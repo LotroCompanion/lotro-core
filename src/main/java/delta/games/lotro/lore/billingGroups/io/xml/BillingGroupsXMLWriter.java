@@ -62,7 +62,7 @@ public class BillingGroupsXMLWriter
     }
     hd.startElement("","",BillingGroupsXMLConstants.BILLING_GROUP_TAG,attrs);
     // Titles
-    List<TitleDescription> titles=billingGroupDescription.getAcountTitles();
+    List<TitleDescription> titles=billingGroupDescription.getAccountTitles();
     for(TitleDescription title : titles)
     {
       AttributesImpl titleAttrs=new AttributesImpl();

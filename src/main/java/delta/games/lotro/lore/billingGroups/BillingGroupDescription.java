@@ -64,7 +64,7 @@ public class BillingGroupDescription implements Identifiable,Named
    * Get the associated account-wide titles.
    * @return A possibly empty but never <code>null</code> list of titles.
    */
-  public List<TitleDescription> getAcountTitles()
+  public List<TitleDescription> getAccountTitles()
   {
     return new ArrayList<TitleDescription>(_accountTitles);
   }
