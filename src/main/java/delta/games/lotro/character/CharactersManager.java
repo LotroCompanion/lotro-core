@@ -45,7 +45,6 @@ public final class CharactersManager
   public List<CharacterFile> getAllToons()
   {
     List<CharacterFile> toons=new ArrayList<CharacterFile>(_toons);
-    // TODO sort by server/toon name?
     return toons;
   }
 

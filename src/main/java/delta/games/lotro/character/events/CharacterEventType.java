@@ -75,6 +75,10 @@ public enum CharacterEventType
    */
   CHARACTER_DATA_UPDATED,
   /**
+   * Current character data updated.
+   */
+  CURRENT_CHARACTER_DATA_UPDATED,
+  /**
    * Deeds status updated.
    */
   DEEDS_STATUS_UPDATED,

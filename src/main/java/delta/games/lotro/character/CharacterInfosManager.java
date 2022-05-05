@@ -29,6 +29,7 @@ public class CharacterInfosManager
   private static final Logger LOGGER=Logger.getLogger(CharacterInfosManager.class);
 
   private CharacterFile _toon;
+  private CharacterData _current;
   private List<CharacterData> _datas;
 
   /**
@@ -109,6 +110,47 @@ public class CharacterInfosManager
         }
       }
     }
+  }
+
+  private CharacterData loadCurrentData()
+  {
+    CharacterData ret=null;
+    File dataFile=getCurrentDataFile();
+    if (dataFile.exists())
+    {
+      ret=CharacterDataIO.getCharacterDescription(dataFile);
+    }
+    return ret;
+  }
+
+  /**
+   * Update the current character data.
+   * @param data Character data to use.
+   * @return <code>true</code> it it succeeds, <code>false</code> otherwise.
+   */
+  public boolean updateCurrentData(CharacterData data)
+  {
+    File dataFile=getCurrentDataFile();
+    boolean ret=CharacterDataIO.saveInfo(dataFile,data);
+    if (ret)
+    {
+      data.setFile(dataFile);
+      _current=data;
+    }
+    if (ret)
+    {
+      // Notify
+      CharacterEvent event=new CharacterEvent(CharacterEventType.CURRENT_CHARACTER_DATA_UPDATED,_toon,data);
+      EventsManager.invokeEvent(event);
+    }
+    return ret;
+  }
+
+  private File getCurrentDataFile()
+  {
+    File characterDir=_toon.getRootDir();
+    File ret=new File(characterDir,"current.xml");
+    return ret;
   }
 
   /**
