@@ -84,20 +84,38 @@ public class WorldEventConditionItem
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("WE ").append(_worldEvent.getId());
-    sb.append(_operator);
+    writeWorldEvent(sb,_worldEvent);
+    sb.append(' ');
+    sb.append(_operator).append(' ');
     if (_value!=null)
     {
       sb.append(_value);
     }
     else if (_compareToWorldEvent!=null)
     {
-      sb.append("WE").append(_compareToWorldEvent.getId());
+      writeWorldEvent(sb,_compareToWorldEvent);
     }
     else
     {
       sb.append('?');
     }
     return sb.toString();
+  }
+
+  private static void writeWorldEvent(StringBuilder sb, Proxy<WorldEvent> proxy)
+  {
+    if (proxy==null)
+    {
+      return;
+    }
+    WorldEvent worldEvent=proxy.getObject();
+    if (worldEvent!=null)
+    {
+      sb.append(worldEvent.getShortLabel());
+    }
+    else
+    {
+      sb.append("WE ").append(proxy.getId());
+    }
   }
 }

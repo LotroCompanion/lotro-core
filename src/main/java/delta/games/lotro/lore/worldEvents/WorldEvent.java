@@ -10,6 +10,7 @@ public class WorldEvent implements Identifiable
 {
   private int _identifier;
   private int _propertyID;
+  private String _propertyName;
   private String _description;
   private String _progress;
   private AbstractWorldEventCondition _valueComputer;
@@ -80,6 +81,24 @@ public class WorldEvent implements Identifiable
   }
 
   /**
+   * Get the property name of this world event.
+   * @return a property name or <code>null</code>.
+   */
+  public String getPropertyName()
+  {
+    return _propertyName;
+  }
+
+  /**
+   * Set the property name for this world event.
+   * @param propertyName the property name to set.
+   */
+  public void setPropertyName(String propertyName)
+  {
+    _propertyName=propertyName;
+  }
+
+  /**
    * Set the value computer for this world event.
    * @return a value computer or <code>null</code> if none.
    */
@@ -95,5 +114,45 @@ public class WorldEvent implements Identifiable
   public void setValueComputer(AbstractWorldEventCondition valueComputer)
   {
     _valueComputer=valueComputer;
+  }
+
+  /**
+   * Get a short label for this world event. 
+   * @return A short label.
+   */
+  public String getShortLabel()
+  {
+    StringBuilder sb=new StringBuilder("WE ID=");
+    sb.append(_identifier);
+    if (_propertyName!=null)
+    {
+      sb.append(" (");
+      sb.append(_propertyName);
+      sb.append(')');
+    }
+    return sb.toString();
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder("WE ID=");
+    sb.append(_identifier);
+    if (_propertyName!=null)
+    {
+      sb.append(", property=");
+      sb.append(_propertyName);
+    }
+    if (_description!=null)
+    {
+      sb.append(", description=");
+      sb.append(_description);
+    }
+    if (_valueComputer!=null)
+    {
+      sb.append(", condition=");
+      sb.append(_valueComputer);
+    }
+    return sb.toString();
   }
 }
