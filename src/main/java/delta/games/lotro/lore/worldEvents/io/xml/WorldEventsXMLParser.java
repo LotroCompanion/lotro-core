@@ -8,6 +8,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
+import delta.games.lotro.lore.worldEvents.BooleanWorldEvent;
+import delta.games.lotro.lore.worldEvents.ConditionWorldEvent;
+import delta.games.lotro.lore.worldEvents.CountedWorldEvent;
+import delta.games.lotro.lore.worldEvents.IntegerWorldEvent;
 import delta.games.lotro.lore.worldEvents.WorldEvent;
 
 /**
@@ -35,7 +40,7 @@ public class WorldEventsXMLParser
   private static List<WorldEvent> parseWorldEvents(Element mainTag)
   {
     List<WorldEvent> ret=new ArrayList<WorldEvent>();
-    List<Element> elementTags=DOMParsingTools.getChildTagsByName(mainTag,WorldEventsXMLConstants.WORLD_EVENT_TAG,false);
+    List<Element> elementTags=DOMParsingTools.getChildTags(mainTag);
     for(Element elementTag : elementTags)
     {
       WorldEvent worldEvent=parseWorldEvent(elementTag);
@@ -54,12 +59,106 @@ public class WorldEventsXMLParser
    */
   private static WorldEvent parseWorldEvent(Element elementTag)
   {
+    String tagName=elementTag.getNodeName();
+    if (WorldEventsXMLConstants.BOOLEAN_WORLD_EVENT_TAG.equals(tagName))
+    {
+      return parseBooleanWorldEvent(elementTag);
+    }
+    if (WorldEventsXMLConstants.CONDITION_WORLD_EVENT_TAG.equals(tagName))
+    {
+      return parseConditionWorldEvent(elementTag);
+    }
+    if (WorldEventsXMLConstants.INTEGER_WORLD_EVENT_TAG.equals(tagName))
+    {
+      return parseIntegerWorldEvent(elementTag);
+    }
+    if (WorldEventsXMLConstants.COUNTED_WORLD_EVENT_TAG.equals(tagName))
+    {
+      return parseCountedWorldEvent(elementTag);
+    }
+    return null;
+  }
+
+  private static BooleanWorldEvent parseBooleanWorldEvent(Element elementTag)
+  {
     NamedNodeMap attrs=elementTag.getAttributes();
+    BooleanWorldEvent ret=new BooleanWorldEvent();
+    parseWorldEventAttrs(attrs,ret);
+    // Default
+    boolean defaultValue=DOMParsingTools.getBooleanAttribute(attrs,WorldEventsXMLConstants.BOOLEAN_WORLD_EVENT_TAG,false);
+    ret.setDefaultValue(defaultValue);
+    return ret;
+  }
+
+  private static ConditionWorldEvent parseConditionWorldEvent(Element elementTag)
+  {
+    NamedNodeMap attrs=elementTag.getAttributes();
+    ConditionWorldEvent ret=new ConditionWorldEvent();
+    parseWorldEventAttrs(attrs,ret);
+    // Condition
+    List<Element> childTags=DOMParsingTools.getChildTags(elementTag);
+    if (childTags.size()==1)
+    {
+      AbstractWorldEventCondition condition=WorldEventConditionsXMLParser.parseCondition(elementTag);
+      ret.setCondition(condition);
+    }
+    return ret;
+  }
+
+  private static IntegerWorldEvent parseIntegerWorldEvent(Element elementTag)
+  {
+    NamedNodeMap attrs=elementTag.getAttributes();
+    IntegerWorldEvent ret=new IntegerWorldEvent();
+    parseWorldEventAttrs(attrs,ret);
+    // Default
+    if (attrs.getNamedItem(WorldEventsXMLConstants.WORLD_EVENT_INTEGER_DEFAULT_ATTR)!=null)
+    {
+      int defaultValue=DOMParsingTools.getIntAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_INTEGER_DEFAULT_ATTR,0);
+      ret.setDefaultValue(Integer.valueOf(defaultValue));
+    }
+    // Min
+    if (attrs.getNamedItem(WorldEventsXMLConstants.WORLD_EVENT_INTEGER_MIN_ATTR)!=null)
+    {
+      int minValue=DOMParsingTools.getIntAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_INTEGER_MIN_ATTR,0);
+      ret.setMinValue(Integer.valueOf(minValue));
+    }
+    // Max
+    if (attrs.getNamedItem(WorldEventsXMLConstants.WORLD_EVENT_INTEGER_MAX_ATTR)!=null)
+    {
+      int maxValue=DOMParsingTools.getIntAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_INTEGER_MAX_ATTR,0);
+      ret.setMaxValue(Integer.valueOf(maxValue));
+    }
+    return ret;
+  }
+
+  private static CountedWorldEvent parseCountedWorldEvent(Element elementTag)
+  {
+    NamedNodeMap attrs=elementTag.getAttributes();
+    CountedWorldEvent ret=new CountedWorldEvent();
+    parseWorldEventAttrs(attrs,ret);
+    // Max
+    int maxValue=DOMParsingTools.getIntAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_INTEGER_MAX_ATTR,0);
+    ret.setMax(maxValue);
+    List<Element> childTags=DOMParsingTools.getChildTags(elementTag);
+    for(Element childTag : childTags)
+    {
+      AbstractWorldEventCondition condition=WorldEventConditionsXMLParser.parseCondition(childTag);
+      if (condition!=null)
+      {
+        ret.addCondition(condition);
+      }
+    }
+    return ret;
+  }
+
+  private static void parseWorldEventAttrs(NamedNodeMap attrs, WorldEvent ret)
+  {
     // Identifier
     int identifier=DOMParsingTools.getIntAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_ID_ATTR,0);
+    ret.setIdentifier(identifier);
     // Property ID
     int propertyID=DOMParsingTools.getIntAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_PROPERTY_ID_ATTR,0);
-    WorldEvent ret=new WorldEvent(identifier,propertyID);
+    ret.setPropertyID(propertyID);
     // Property name
     String propertyName=DOMParsingTools.getStringAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_PROPERTY_NAME_ATTR,"");
     ret.setPropertyName(propertyName);
@@ -69,6 +168,5 @@ public class WorldEventsXMLParser
     // Progress
     String progress=DOMParsingTools.getStringAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_PROGRESS_ATTR,null);
     ret.setProgress(progress);
-    return ret;
   }
 }

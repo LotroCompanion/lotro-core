@@ -7,52 +7,53 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.collections.filters.Operator;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.common.utils.ComparisonOperator;
+import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
+import delta.games.lotro.lore.worldEvents.CompoundWorldEventCondition;
+import delta.games.lotro.lore.worldEvents.SimpleWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.WorldEvent;
-import delta.games.lotro.lore.worldEvents.WorldEventBooleanCondition;
-import delta.games.lotro.lore.worldEvents.WorldEventConditionItem;
-import delta.games.lotro.lore.worldEvents.WorldEventCountCondition;
 import delta.games.lotro.utils.Proxy;
 
 /**
- * Writes some world events to an XML document.
+ * Writes some world event conditions to an XML document.
  * @author DAM
  */
 public class WorldEventConditionsXMLWriter
 {
   /**
-   * Write a "count" condition.
+   * Write a world event condition to the given stream.
    * @param hd Output stream.
-   * @param condition Data to write.
+   * @param condition Condition to write.
    * @throws Exception If an error occurs.
    */
-  public static void writeWorldEventCountCondition(TransformerHandler hd, WorldEventCountCondition condition) throws Exception
+  public static void writeWorldEventCondition(TransformerHandler hd, AbstractWorldEventCondition condition) throws Exception
   {
-    AttributesImpl attrs=new AttributesImpl();
-    hd.startElement("","",WorldEventConditionsXMLConstants.WORLD_EVENT_COUNT_CONDITION_TAG,attrs);
-    for(WorldEventConditionItem item : condition.getItems())
+    if (condition instanceof CompoundWorldEventCondition)
     {
-      writeWorldEventConditionItem(hd,item);
+      writeCompoundWorldEventCondition(hd,(CompoundWorldEventCondition)condition);
     }
-    hd.endElement("","",WorldEventConditionsXMLConstants.WORLD_EVENT_COUNT_CONDITION_TAG);
+    else if (condition instanceof SimpleWorldEventCondition)
+    {
+      writeSimpleWorldEventCondition(hd,null);
+    }
   }
 
   /**
-   * Write a compound boolean condition.
+   * Write a compound condition.
    * @param hd Output stream.
    * @param condition Data to write.
    * @throws Exception If an error occurs.
    */
-  public static void writeWorldEventBooleanCondition(TransformerHandler hd, WorldEventBooleanCondition condition) throws Exception
+  private static void writeCompoundWorldEventCondition(TransformerHandler hd, CompoundWorldEventCondition condition) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
     Operator operator=condition.getOperator();
-    attrs.addAttribute("","",WorldEventConditionsXMLConstants.WORLD_EVENT_BOOLEAN_CONDITION_OPERATOR_ATTR,XmlWriter.CDATA,operator.name());
-    hd.startElement("","",WorldEventConditionsXMLConstants.WORLD_EVENT_BOOLEAN_CONDITION_TAG,attrs);
-    for(WorldEventConditionItem item : condition.getItems())
+    attrs.addAttribute("","",WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_OPERATOR_ATTR,XmlWriter.CDATA,operator.name());
+    hd.startElement("","",WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG,attrs);
+    for(AbstractWorldEventCondition item : condition.getItems())
     {
-      writeWorldEventConditionItem(hd,item);
+      writeWorldEventCondition(hd,item);
     }
-    hd.endElement("","",WorldEventConditionsXMLConstants.WORLD_EVENT_BOOLEAN_CONDITION_TAG);
+    hd.endElement("","",WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG);
   }
 
   /**
@@ -61,7 +62,7 @@ public class WorldEventConditionsXMLWriter
    * @param item Data to write.
    * @throws Exception If an error occurs.
    */
-  public static void writeWorldEventConditionItem(TransformerHandler hd, WorldEventConditionItem item) throws Exception
+  private static void writeSimpleWorldEventCondition(TransformerHandler hd, SimpleWorldEventCondition item) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
     Proxy<WorldEvent> targetEvent=item.getWorldEvent();

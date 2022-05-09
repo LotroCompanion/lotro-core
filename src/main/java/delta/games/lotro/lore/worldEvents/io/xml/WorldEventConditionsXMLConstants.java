@@ -8,17 +8,13 @@ package delta.games.lotro.lore.worldEvents.io.xml;
 public class WorldEventConditionsXMLConstants
 {
   /**
-   * Tag 'worldEventBooleanCondition'.
+   * Tag 'compoundWorldEventCondition'.
    */
-  public static final String WORLD_EVENT_BOOLEAN_CONDITION_TAG="worldEventBooleanCondition";
+  public static final String COMPOUND_WORLD_EVENT_CONDITION_TAG="compoundWorldEventCondition";
   /**
-   * Tag 'worldEventBooleanCondition', attribute 'operator'.
+   * Tag 'compoundWorldEventCondition', attribute 'operator'.
    */
-  public static final String WORLD_EVENT_BOOLEAN_CONDITION_OPERATOR_ATTR="operator";
-  /**
-   * Tag 'worldEventCountCondition'.
-   */
-  public static final String WORLD_EVENT_COUNT_CONDITION_TAG="worldEventCountCondition";
+  public static final String COMPOUND_WORLD_EVENT_CONDITION_OPERATOR_ATTR="operator";
   /**
    * Tag 'worldEventCondition'.
    */

@@ -1,10 +1,10 @@
 package delta.games.lotro.lore.worldEvents;
 
 /**
- * Configuration of a world event wuth an integer value.
+ * Simple integer world event.
  * @author DAM
  */
-public class IntegerWorldEventConfiguration
+public class IntegerWorldEvent extends AbstractIntegerWorldEvent
 {
   private Integer _defaultValue;
   private Integer _minValue;
@@ -13,7 +13,7 @@ public class IntegerWorldEventConfiguration
   /**
    * Constructor.
    */
-  public IntegerWorldEventConfiguration()
+  public IntegerWorldEvent()
   {
     _defaultValue=null;
     _minValue=null;

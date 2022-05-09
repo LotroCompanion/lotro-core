@@ -13,22 +13,27 @@ public class WorldEvent implements Identifiable
   private String _propertyName;
   private String _description;
   private String _progress;
-  private AbstractWorldEventCondition _valueComputer;
 
   /**
    * Constructor.
-   * @param worldEventID Identifier.
-   * @param propertyID Identifier of the associated property.
    */
-  public WorldEvent(int worldEventID, int propertyID)
+  public WorldEvent()
   {
-    _identifier=worldEventID;
-    _propertyID=propertyID;
+    // Nothing!
   }
 
   /**
-   * Get the identifier of this allegiance.
-   * @return the identifier of this allegiance.
+   * Set the world identifier.
+   * @param identifier Identifier to set.
+   */
+  public void setIdentifier(int identifier)
+  {
+    _identifier=identifier;
+  }
+
+  /**
+   * Get the identifier of this world event.
+   * @return the identifier of this world event.
    */
   public int getIdentifier()
   {
@@ -42,6 +47,15 @@ public class WorldEvent implements Identifiable
   public int getPropertyID()
   {
     return _propertyID;
+  }
+
+  /**
+   * Set the property ID.
+   * @param propertyID Property ID to set.
+   */
+  public void setPropertyID(int propertyID)
+  {
+    _propertyID=propertyID;
   }
 
   /**
@@ -99,24 +113,6 @@ public class WorldEvent implements Identifiable
   }
 
   /**
-   * Set the value computer for this world event.
-   * @return a value computer or <code>null</code> if none.
-   */
-  public AbstractWorldEventCondition getValueComputer()
-  {
-    return _valueComputer;
-  }
-
-  /**
-   * Set the value computer for this world event.
-   * @param valueComputer the value computer to set.
-   */
-  public void setValueComputer(AbstractWorldEventCondition valueComputer)
-  {
-    _valueComputer=valueComputer;
-  }
-
-  /**
    * Get a short label for this world event. 
    * @return A short label.
    */
@@ -147,11 +143,6 @@ public class WorldEvent implements Identifiable
     {
       sb.append(", description=");
       sb.append(_description);
-    }
-    if (_valueComputer!=null)
-    {
-      sb.append(", condition=");
-      sb.append(_valueComputer);
     }
     return sb.toString();
   }

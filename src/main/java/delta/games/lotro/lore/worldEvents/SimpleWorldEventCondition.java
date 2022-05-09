@@ -8,7 +8,7 @@ import delta.games.lotro.utils.Proxy;
  * To be used in AND/OR or count condition lists.
  * @author DAM
  */
-public class WorldEventConditionItem
+public class SimpleWorldEventCondition extends AbstractWorldEventCondition
 {
   private ComparisonOperator _operator;
   private Proxy<WorldEvent> _worldEvent;
@@ -24,8 +24,9 @@ public class WorldEventConditionItem
    * @param worldEvent World event to assess.
    * @param value Value to compare to.
    */
-  public WorldEventConditionItem(ComparisonOperator operator, Proxy<WorldEvent> worldEvent, int value)
+  public SimpleWorldEventCondition(ComparisonOperator operator, Proxy<WorldEvent> worldEvent, int value)
   {
+    super();
     _operator=operator;
     _worldEvent=worldEvent;
     _value=Integer.valueOf(value);
@@ -37,7 +38,7 @@ public class WorldEventConditionItem
    * @param worldEvent World event to assess.
    * @param compareToWorldEvent World event to compare to.
    */
-  public WorldEventConditionItem(ComparisonOperator operator, Proxy<WorldEvent> worldEvent, Proxy<WorldEvent> compareToWorldEvent)
+  public SimpleWorldEventCondition(ComparisonOperator operator, Proxy<WorldEvent> worldEvent, Proxy<WorldEvent> compareToWorldEvent)
   {
     _operator=operator;
     _worldEvent=worldEvent;
