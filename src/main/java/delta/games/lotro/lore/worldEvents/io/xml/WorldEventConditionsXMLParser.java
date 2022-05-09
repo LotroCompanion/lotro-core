@@ -14,6 +14,7 @@ import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.CompoundWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.SimpleWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.WorldEvent;
+import delta.games.lotro.lore.worldEvents.WorldEventsManager;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -79,6 +80,7 @@ public class WorldEventConditionsXMLParser
     {
       int value=DOMParsingTools.getIntAttribute(attrs,WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_WORLD_EVENT_VALUE_ATTR,0);
       SimpleWorldEventCondition ret=new SimpleWorldEventCondition(operator,targetWorldEvent,value);
+      resolveCondition(ret);
       return ret;
     }
     // Compare To world event
@@ -86,6 +88,7 @@ public class WorldEventConditionsXMLParser
     Proxy<WorldEvent> compareToWorldEvent=new Proxy<WorldEvent>();
     compareToWorldEvent.setId(compareToWorldEventID);
     SimpleWorldEventCondition ret=new SimpleWorldEventCondition(operator,targetWorldEvent,compareToWorldEvent);
+    resolveCondition(ret);
     return ret;
   }
 
@@ -111,5 +114,28 @@ public class WorldEventConditionsXMLParser
       }
     }
     return ret;
+  }
+
+  private static void resolveCondition(SimpleWorldEventCondition condition)
+  {
+    Proxy<WorldEvent> targetWorldEvent=condition.getWorldEvent();
+    resolveWorldEventProxy(targetWorldEvent);
+    Proxy<WorldEvent> compareToWorldEvent=condition.getCompareToWorldEvent();
+    resolveWorldEventProxy(compareToWorldEvent);
+  }
+
+  private static void resolveWorldEventProxy(Proxy<WorldEvent> proxy)
+  {
+    if (proxy==null)
+    {
+      return;
+    }
+    WorldEventsManager mgr=WorldEventsManager.getInstance();
+    WorldEvent worldEvent=mgr.getWorldEvent(proxy.getId());
+    if (worldEvent!=null)
+    {
+      proxy.setObject(worldEvent);
+      proxy.setName(worldEvent.getPropertyName());
+    }
   }
 }

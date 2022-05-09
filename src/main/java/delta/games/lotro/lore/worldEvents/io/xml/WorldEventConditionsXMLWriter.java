@@ -33,7 +33,7 @@ public class WorldEventConditionsXMLWriter
     }
     else if (condition instanceof SimpleWorldEventCondition)
     {
-      writeSimpleWorldEventCondition(hd,null);
+      writeSimpleWorldEventCondition(hd,(SimpleWorldEventCondition)condition);
     }
   }
 
