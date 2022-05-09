@@ -14,6 +14,7 @@ import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
+import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
 
 /**
  * Base class for quests and deeds.
@@ -67,6 +68,10 @@ public abstract class Achievable implements Identifiable
    * Quest requirements.
    */
   private AbstractAchievableRequirement _questRequirement;
+  /**
+   * World events requirements.
+   */
+  private AbstractWorldEventCondition _worldEventsRequirement;
   /**
    * Maps.
    */
@@ -300,6 +305,24 @@ public abstract class Achievable implements Identifiable
   public void setQuestRequirements(AbstractAchievableRequirement questRequirement)
   {
     _questRequirement=questRequirement;
+  }
+
+  /**
+   * Get the world events requirement.
+   * @return A world events requirement or <code>null</code>.
+   */
+  public AbstractWorldEventCondition getWorldEventsRequirement()
+  {
+    return _worldEventsRequirement;
+  }
+
+  /**
+   * Set the world events requirement.
+   * @param worldEventsRequirement Requirement to set, may be <code>null</code>.
+   */
+  public void setWorldEventsRequirement(AbstractWorldEventCondition worldEventsRequirement)
+  {
+    _worldEventsRequirement=worldEventsRequirement;
   }
 
   /**

@@ -11,6 +11,8 @@ import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsXMLWriter;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLWriter;
 import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
+import delta.games.lotro.lore.worldEvents.io.xml.WorldEventConditionsXMLWriter;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -50,6 +52,15 @@ public class AchievableXMLWriter
     if (requirement!=null)
     {
       QuestsRequirementsXMLWriter.writeQuestRequirement(hd,requirement);
+    }
+  }
+
+  protected void writeWorldEventsRequirement(TransformerHandler hd, Achievable quest) throws Exception
+  {
+    AbstractWorldEventCondition requirement=quest.getWorldEventsRequirement();
+    if (requirement!=null)
+    {
+      WorldEventConditionsXMLWriter.writeWorldEventCondition(hd,requirement);
     }
   }
 

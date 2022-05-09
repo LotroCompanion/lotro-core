@@ -25,6 +25,26 @@ public class WorldEventConditionsXMLParser
   private static final Logger LOGGER=Logger.getLogger(WorldEventConditionsXMLParser.class);
 
   /**
+   * Load a world events requirement from a parent tag.
+   * @param rootTag Parent tag.
+   * @return A requirement or <code>null</code> if none.
+   */
+  public static AbstractWorldEventCondition loadRequirement(Element rootTag)
+  {
+    Element simpleReqTag=DOMParsingTools.getChildTagByName(rootTag,WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_TAG);
+    if (simpleReqTag!=null)
+    {
+      return parseSimpleWorldEventCondition(simpleReqTag);
+    }
+    Element compoundReqTag=DOMParsingTools.getChildTagByName(rootTag,WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG);
+    if (compoundReqTag!=null)
+    {
+      return parseCompoundWorldEventCondition(compoundReqTag);
+    }
+    return null;
+  }
+
+  /**
    * Parse a world event condition from a tag.
    * @param elementTag Source tag.
    * @return A condition or <code>null</code> if not supported.

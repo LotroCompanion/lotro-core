@@ -103,10 +103,10 @@ public class DeedXMLWriter extends AchievableXMLWriter
 
     // Objectives
     ObjectivesXMLWriter.write(hd,deed.getObjectives());
-
     // Pre-requisites
     writePrerequisites(hd,deed);
-
+    // World event requirements
+    writeWorldEventsRequirement(hd,deed);
     // Maps
     writeMaps(hd,deed);
 

@@ -173,6 +173,8 @@ public class QuestXMLWriter extends AchievableXMLWriter
     }
     // Pre-requisites
     writePrerequisites(hd,quest);
+    // World event requirements
+    writeWorldEventsRequirement(hd,quest);
     // Maps
     writeMaps(hd,quest);
     // Next quest

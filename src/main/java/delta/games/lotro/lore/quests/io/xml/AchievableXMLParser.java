@@ -13,6 +13,8 @@ import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLConstants;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
 import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
+import delta.games.lotro.lore.worldEvents.io.xml.WorldEventConditionsXMLParser;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -50,6 +52,12 @@ public class AchievableXMLParser
   {
     AbstractAchievableRequirement requirement=QuestsRequirementsXMLParser.loadRequirement(root);
     achievable.setQuestRequirements(requirement);
+  }
+
+  protected void parseWorldEventsRequirements(Element root, Achievable achievable)
+  {
+    AbstractWorldEventCondition requirement=WorldEventConditionsXMLParser.loadRequirement(root);
+    achievable.setWorldEventsRequirement(requirement);
   }
 
   protected Proxy<Achievable> buildProxy(Element tag)
