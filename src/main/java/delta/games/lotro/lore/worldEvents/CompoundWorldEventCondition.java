@@ -46,6 +46,22 @@ public class CompoundWorldEventCondition extends AbstractWorldEventCondition
   }
 
   /**
+   * Replace a child condition.
+   * @param oldOne Old one.
+   * @param newOne New one.
+   */
+  public void replace(AbstractWorldEventCondition oldOne, AbstractWorldEventCondition newOne)
+  {
+    for(int i=0;i<_items.size();i++)
+    {
+      if (_items.get(i)==oldOne)
+      {
+        _items.set(i,newOne);
+      }
+    }
+  }
+
+  /**
    * Get the managed items.
    * @return A list of the managed items.
    */
