@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -45,9 +46,9 @@ public class RelicsInventoryXMLWriter
    * Write a relics inventory to the given XML stream.
    * @param hd XML output stream.
    * @param relicsInventory Data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void writeInventory(TransformerHandler hd, RelicsInventory relicsInventory) throws Exception
+  private void writeInventory(TransformerHandler hd, RelicsInventory relicsInventory) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",RelicsInventoryXMLConstants.MAIN_TAG,attrs);

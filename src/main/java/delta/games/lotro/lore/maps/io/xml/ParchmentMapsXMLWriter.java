@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -54,7 +55,7 @@ public class ParchmentMapsXMLWriter
     return ret;
   }
 
-  private void writeParchmentMaps(TransformerHandler hd, List<ParchmentMap> data) throws Exception
+  private void writeParchmentMaps(TransformerHandler hd, List<ParchmentMap> data) throws SAXException
   {
     hd.startElement("","",ParchmentMapsXMLConstants.PARCHMENT_MAPS_TAG,new AttributesImpl());
     // Maps
@@ -65,7 +66,7 @@ public class ParchmentMapsXMLWriter
     hd.endElement("","",ParchmentMapsXMLConstants.PARCHMENT_MAPS_TAG);
   }
 
-  private void writeParchmentMap(TransformerHandler hd, ParchmentMap map) throws Exception
+  private void writeParchmentMap(TransformerHandler hd, ParchmentMap map) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

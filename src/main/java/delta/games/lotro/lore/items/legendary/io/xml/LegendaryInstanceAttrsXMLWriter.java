@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -31,9 +32,9 @@ public class LegendaryInstanceAttrsXMLWriter
    * Write legendary instance attrs to the given XML stream.
    * @param hd XML output stream.
    * @param legendaryData Legendary data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, LegendaryInstanceAttrs legendaryData) throws Exception
+  public static void write(TransformerHandler hd, LegendaryInstanceAttrs legendaryData) throws SAXException
   {
     AttributesImpl legendaryAttrs=new AttributesImpl();
     // Name
@@ -66,7 +67,7 @@ public class LegendaryInstanceAttrsXMLWriter
     hd.endElement("","",LegendaryInstanceAttrsXMLConstants.LEGENDARY_TAG);
   }
 
-  private static void writeRelic(TransformerHandler hd, Relic relic, RelicType type) throws Exception
+  private static void writeRelic(TransformerHandler hd, Relic relic, RelicType type) throws SAXException
   {
     if (relic!=null)
     {
@@ -84,7 +85,7 @@ public class LegendaryInstanceAttrsXMLWriter
     }
   }
 
-  private static void writePassives(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws Exception
+  private static void writePassives(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws SAXException
   {
     List<Effect> passives=legendaryAttrs.getPassives();
     for(Effect passive : passives)
@@ -98,13 +99,13 @@ public class LegendaryInstanceAttrsXMLWriter
     }
   }
 
-  private static void writeLegacies(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws Exception
+  private static void writeLegacies(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws SAXException
   {
     writeNonImbuedData(hd,legendaryAttrs);
     writeImbuedData(hd,legendaryAttrs);
   }
 
-  private static void writeNonImbuedData(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws Exception
+  private static void writeNonImbuedData(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws SAXException
   {
     // Non imbued data
     NonImbuedLegendaryInstanceAttrs nonImbuedData=legendaryAttrs.getNonImbuedAttrs();
@@ -178,7 +179,7 @@ public class LegendaryInstanceAttrsXMLWriter
     hd.endElement("","",LegendaryInstanceAttrsXMLConstants.NON_IMBUED_TAG);
   }
 
-  private static void writeImbuedData(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws Exception
+  private static void writeImbuedData(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws SAXException
   {
     // Imbued data
     ImbuedLegendaryInstanceAttrs imbuedData=legendaryAttrs.getImbuedAttrs();

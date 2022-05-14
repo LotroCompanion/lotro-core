@@ -5,6 +5,8 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import delta.common.utils.files.FilesDeleter;
 import delta.common.utils.files.filter.FileTypePredicate;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -15,6 +17,12 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class CharactersStorageManager
 {
+  private static final Logger LOGGER=Logger.getLogger(CharactersStorageManager.class);
+
+  /**
+   * Seed for toon files.
+   */
+  private static final String TOON_SEED="toon-";
   private File _toonsDir;
 
   /**
@@ -73,7 +81,7 @@ public class CharactersStorageManager
     while (true)
     {
       String indexStr=String.format("%1$05d",Integer.valueOf(index));
-      File dataFile=new File(_toonsDir,"toon-"+indexStr);
+      File dataFile=new File(_toonsDir,TOON_SEED+indexStr);
       if (!dataFile.exists())
       {
         ret=dataFile;
@@ -104,14 +112,17 @@ public class CharactersStorageManager
       for(File toonDir : toonDirs)
       {
         String dirName=toonDir.getName();
-        if (dirName.startsWith("toon-"))
+        if (dirName.startsWith(TOON_SEED))
         {
           CharacterFile toon=new CharacterFile(toonDir);
           CharacterSummary summary=toon.getSummary();
           if (summary!=null)
           {
             toons.add(toon);
-            //System.out.println("Loaded: "+summary);
+            if (LOGGER.isDebugEnabled())
+            {
+              LOGGER.debug("Loaded: "+summary);
+            }
           }
         }
       }
@@ -128,10 +139,14 @@ public class CharactersStorageManager
       for(File serverDir : serverDirs)
       {
         String serverName=serverDir.getName();
-        if (!serverName.startsWith("toon-"))
+        if (!serverName.startsWith(TOON_SEED))
         {
           oldServerDirMigration(serverDir);
-          serverDir.delete();
+          boolean ok=serverDir.delete();
+          if (!ok)
+          {
+            LOGGER.warn("Could not delete server directory: "+serverDir);
+          }
         }
       }
     }
@@ -149,7 +164,11 @@ public class CharactersStorageManager
         if ((toonFiles!=null) && (toonFiles.length>0))
         {
           File newDir=getNewToonDirectory();
-          toonDir.renameTo(newDir);
+          boolean ok=toonDir.renameTo(newDir);
+          if (!ok)
+          {
+            LOGGER.warn("Could not rename toon dir from "+toonDir+" to "+newDir);
+          }
         }
       }
     }

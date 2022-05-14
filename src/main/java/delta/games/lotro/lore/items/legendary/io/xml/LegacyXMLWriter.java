@@ -78,9 +78,9 @@ public class LegacyXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedAttributes(hd,attrs,legacy);
+    writeSharedAttributes(attrs,legacy);
     // Shared non-imbued attributes
-    writeSharedNonImbuedAttributes(hd,attrs,legacy);
+    writeSharedNonImbuedAttributes(attrs,legacy);
 
     hd.startElement("","",LegacyXMLConstants.DEFAULT_NON_IMBUED_LEGACY_TAG,attrs);
     // Filter
@@ -94,9 +94,9 @@ public class LegacyXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedAttributes(hd,attrs,legacy);
+    writeSharedAttributes(attrs,legacy);
     // Shared non-imbued attributes
-    writeSharedNonImbuedAttributes(hd,attrs,legacy);
+    writeSharedNonImbuedAttributes(attrs,legacy);
     // Stat
     StatDescription stat=legacy.getStat();
     if (stat!=null)
@@ -142,7 +142,7 @@ public class LegacyXMLWriter
     int id=legacy.getIdentifier();
     attrs.addAttribute("","",LegacyXMLConstants.LEGACY_IDENTIFIER_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Shared attributes
-    writeSharedAttributes(hd,attrs,legacy);
+    writeSharedAttributes(attrs,legacy);
     // Maximum initial level
     int maxInitialLevel=legacy.getMaxInitialLevel();
     attrs.addAttribute("","",LegacyXMLConstants.LEGACY_MAX_INITIAL_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(maxInitialLevel));
@@ -183,7 +183,7 @@ public class LegacyXMLWriter
     hd.endElement("","",LegacyXMLConstants.ALLOWED_WEAPON_TYPE_TAG);
   }
 
-  private static void writeSharedAttributes(TransformerHandler hd, AttributesImpl attrs, AbstractLegacy legacy)
+  private static void writeSharedAttributes(AttributesImpl attrs, AbstractLegacy legacy)
   {
     // Type
     LegacyType type=legacy.getType();
@@ -199,7 +199,7 @@ public class LegacyXMLWriter
     }
   }
 
-  private static void writeSharedNonImbuedAttributes(TransformerHandler hd, AttributesImpl attrs, AbstractNonImbuedLegacy legacy)
+  private static void writeSharedNonImbuedAttributes(AttributesImpl attrs, AbstractNonImbuedLegacy legacy)
   {
     // Imbued legacy ID
     int imbuedLegacyId=legacy.getImbuedLegacyId();

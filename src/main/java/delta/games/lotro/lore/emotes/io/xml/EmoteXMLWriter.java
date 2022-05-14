@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -56,7 +57,7 @@ public class EmoteXMLWriter
     return ret;
   }
 
-  private void writeEmotes(TransformerHandler hd, List<EmoteDescription> emotes) throws Exception
+  private void writeEmotes(TransformerHandler hd, List<EmoteDescription> emotes) throws SAXException
   {
     hd.startElement("","",EmoteXMLConstants.EMOTES_TAG,new AttributesImpl());
     for(EmoteDescription emote : emotes)
@@ -66,7 +67,7 @@ public class EmoteXMLWriter
     hd.endElement("","",EmoteXMLConstants.EMOTES_TAG);
   }
 
-  private void writeEmote(TransformerHandler hd, EmoteDescription emote) throws Exception
+  private void writeEmote(TransformerHandler hd, EmoteDescription emote) throws SAXException
   {
     AttributesImpl emoteAttrs=new AttributesImpl();
 

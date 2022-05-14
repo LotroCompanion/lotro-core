@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -48,9 +49,9 @@ public class OutfitsXMLWriter
    * Write an outfits manager.
    * @param hd Output stream.
    * @param outfitsMgr Data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, OutfitsManager outfitsMgr) throws Exception
+  public static void write(TransformerHandler hd, OutfitsManager outfitsMgr) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     int currentIndex=outfitsMgr.getCurrentOutfitIndex();
@@ -64,7 +65,7 @@ public class OutfitsXMLWriter
     hd.endElement("","",OutfitsXMLConstants.OUTFITS_TAG);
   }
 
-  private static void writeOutfit(TransformerHandler hd, int index, Outfit outfit) throws Exception
+  private static void writeOutfit(TransformerHandler hd, int index, Outfit outfit) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     attrs.addAttribute("","",OutfitsXMLConstants.OUTFIT_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
@@ -78,7 +79,7 @@ public class OutfitsXMLWriter
     hd.endElement("","",OutfitsXMLConstants.OUTFIT_TAG);
   }
 
-  private static void writeOutfitElement(TransformerHandler hd, GearSlot slot, boolean visible, OutfitElement element) throws Exception
+  private static void writeOutfitElement(TransformerHandler hd, GearSlot slot, boolean visible, OutfitElement element) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Slot

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -56,7 +57,7 @@ public class TitleXMLWriter
     return ret;
   }
 
-  private void writeTitles(TransformerHandler hd, List<TitleDescription> titles) throws Exception
+  private void writeTitles(TransformerHandler hd, List<TitleDescription> titles) throws SAXException
   {
     hd.startElement("","",TitleXMLConstants.TITLES_TAG,new AttributesImpl());
     for(TitleDescription title : titles)
@@ -66,7 +67,7 @@ public class TitleXMLWriter
     hd.endElement("","",TitleXMLConstants.TITLES_TAG);
   }
 
-  private void writeTitle(TransformerHandler hd, TitleDescription title) throws Exception
+  private void writeTitle(TransformerHandler hd, TitleDescription title) throws SAXException
   {
     AttributesImpl titleAttrs=new AttributesImpl();
 

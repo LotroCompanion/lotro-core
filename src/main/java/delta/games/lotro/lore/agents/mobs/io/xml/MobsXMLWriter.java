@@ -83,13 +83,13 @@ public class MobsXMLWriter
     MobLoot loot=mob.getLoot();
     if (loot!=null)
     {
-      writeMobLoot(hd,attrs,loot);
+      writeMobLoot(attrs,loot);
     }
     hd.startElement("","",MobsXMLConstants.MOB_TAG,attrs);
     hd.endElement("","",MobsXMLConstants.MOB_TAG);
   }
 
-  private void writeMobLoot(TransformerHandler hd, AttributesImpl attrs, MobLoot loot) throws Exception
+  private void writeMobLoot(AttributesImpl attrs, MobLoot loot) throws Exception
   {
     // Barter trophy list
     TrophyList barterTrophy=loot.getBarterTrophy();

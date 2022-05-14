@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -39,7 +40,7 @@ public class CharacterDetailsXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, CharacterDetails details) throws Exception
+  private void write(TransformerHandler hd, CharacterDetails details) throws SAXException
   {
     AttributesImpl detailsAttrs=new AttributesImpl();
 

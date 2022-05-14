@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -49,9 +50,9 @@ public class TraitPointsRegistryXMLWriter
    * Write a trait points registry to the given XML stream.
    * @param hd XML output stream.
    * @param registry Registry to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public void write(TransformerHandler hd, TraitPointsRegistry registry) throws Exception
+  public void write(TransformerHandler hd, TraitPointsRegistry registry) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",TraitPointsRegistryXMLConstants.TRAIT_POINTS_REGISTRY_TAG,attrs);
@@ -69,9 +70,9 @@ public class TraitPointsRegistryXMLWriter
    * Write a trait points registry to the given XML stream.
    * @param hd XML output stream.
    * @param point Trait point to write.
-   * @throws Exception
+   * @throws SAXException
    */
-  private void write(TransformerHandler hd, TraitPoint point) throws Exception
+  private void write(TransformerHandler hd, TraitPoint point) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

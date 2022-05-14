@@ -185,22 +185,19 @@ public class ItemFactory
 
   private static void setupDefaultLegacy(ItemInstance<? extends Item> itemInstance, LegendaryAttrs legendaryAttrs)
   {
+    // Main legacy
+    int mainLegacyId=legendaryAttrs.getMainLegacyId();
+    DefaultNonImbuedLegacy defaultLegacy=NonImbuedLegaciesManager.getInstance().getDefaultLegacy(mainLegacyId);
+    if (defaultLegacy==null)
+    {
+      LOGGER.warn("Could not find default legacy: "+mainLegacyId);
+      return;
+    }
     LegendaryInstance legendaryInstance=(LegendaryInstance)itemInstance;
     LegendaryInstanceAttrs legendaryInstanceAttrs=legendaryInstance.getLegendaryAttributes();
     NonImbuedLegendaryInstanceAttrs nonImbuedAttrs=legendaryInstanceAttrs.getNonImbuedAttrs();
     DefaultNonImbuedLegacyInstance defaultLegacyInstance=nonImbuedAttrs.getDefaultLegacy();
-
-    // Main legacy
-    int mainLegacyId=legendaryAttrs.getMainLegacyId();
-    DefaultNonImbuedLegacy defaultLegacy=NonImbuedLegaciesManager.getInstance().getDefaultLegacy(mainLegacyId);
-    if (defaultLegacy!=null)
-    {
-      defaultLegacyInstance.setLegacy(defaultLegacy);
-    }
-    else
-    {
-      LOGGER.warn("Could not find default legacy: "+mainLegacyId);
-    }
+    defaultLegacyInstance.setLegacy(defaultLegacy);
     // - rank 
     int baseRank=legendaryAttrs.getMainLegacyBaseRank();
     defaultLegacyInstance.setRank(baseRank);

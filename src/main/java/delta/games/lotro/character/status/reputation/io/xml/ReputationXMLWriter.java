@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -44,7 +45,7 @@ public class ReputationXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, ReputationStatus reputation) throws Exception
+  private void write(TransformerHandler hd, ReputationStatus reputation) throws SAXException
   {
     AttributesImpl reputationAttrs=new AttributesImpl();
     hd.startElement("","",ReputationXMLConstants.REPUTATION_TAG,reputationAttrs);
@@ -64,9 +65,9 @@ public class ReputationXMLWriter
    * Write faction status.
    * @param hd Output stream.
    * @param factionStatus Data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void writeFactionStatus(TransformerHandler hd, FactionStatus factionStatus) throws Exception
+  public static void writeFactionStatus(TransformerHandler hd, FactionStatus factionStatus) throws SAXException
   {
     AttributesImpl factionAttrs=new AttributesImpl();
     Faction faction=factionStatus.getFaction();

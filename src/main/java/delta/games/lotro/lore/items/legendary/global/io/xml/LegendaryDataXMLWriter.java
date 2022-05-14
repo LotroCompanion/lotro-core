@@ -114,7 +114,7 @@ public class LegendaryDataXMLWriter
         AttributesImpl pointsTableAttrs=new AttributesImpl();
         pointsTableAttrs.addAttribute("","",LegendaryDataXMLConstants.POINTS_TABLE_SLOT_ATTR,XmlWriter.CDATA,location.getKey());
         hd.startElement("","",LegendaryDataXMLConstants.POINTS_TABLE_TAG,pointsTableAttrs);
-        for(int i=1;i<xpTable.length;i++)
+        for(int i=1;i<pointsTable.length;i++)
         {
           AttributesImpl pointsAttrs=new AttributesImpl();
           // Legendary level

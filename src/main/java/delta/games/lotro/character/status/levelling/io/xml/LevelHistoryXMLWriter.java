@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -38,7 +39,7 @@ public class LevelHistoryXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, LevelHistory history) throws Exception
+  private void write(TransformerHandler hd, LevelHistory history) throws SAXException
   {
     AttributesImpl characterAttrs=new AttributesImpl();
     String name=history.getName();

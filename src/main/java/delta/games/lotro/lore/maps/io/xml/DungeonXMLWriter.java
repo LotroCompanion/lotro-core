@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -54,7 +55,7 @@ public class DungeonXMLWriter
     return ret;
   }
 
-  private void writeDungeons(TransformerHandler hd, List<Dungeon> data) throws Exception
+  private void writeDungeons(TransformerHandler hd, List<Dungeon> data) throws SAXException
   {
     hd.startElement("","",DungeonXMLConstants.DUNGEONS_TAG,new AttributesImpl());
     // Maps
@@ -65,7 +66,7 @@ public class DungeonXMLWriter
     hd.endElement("","",DungeonXMLConstants.DUNGEONS_TAG);
   }
 
-  private void writeDungeon(TransformerHandler hd, Dungeon dungeon) throws Exception
+  private void writeDungeon(TransformerHandler hd, Dungeon dungeon) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

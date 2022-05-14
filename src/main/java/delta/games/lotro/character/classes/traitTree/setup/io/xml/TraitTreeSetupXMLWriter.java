@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -44,7 +45,7 @@ public class TraitTreeSetupXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, TraitTreeSetup setup) throws Exception
+  private void write(TransformerHandler hd, TraitTreeSetup setup) throws SAXException
   {
     AttributesImpl setupAttrs=new AttributesImpl();
     // Name

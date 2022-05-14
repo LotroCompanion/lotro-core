@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -50,9 +51,9 @@ public class PassivesGroupsXMLWriter
    * Write a passives group to the given XML stream.
    * @param hd XML output stream.
    * @param group Group to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private static void writeGroup(TransformerHandler hd, PassivesGroup group) throws Exception
+  private static void writeGroup(TransformerHandler hd, PassivesGroup group) throws SAXException
   {
     AttributesImpl groupAttrs=new AttributesImpl();
     hd.startElement("","",PassivesGroupsXMLConstants.PASSIVES_GROUP_TAG,groupAttrs);

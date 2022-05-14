@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -58,7 +59,7 @@ public class FactionsXMLWriter
     return ret;
   }
 
-  private void writeFactions(TransformerHandler hd, FactionsRegistry registry) throws Exception
+  private void writeFactions(TransformerHandler hd, FactionsRegistry registry) throws SAXException
   {
     AttributesImpl emptyAttrs=new AttributesImpl();
     hd.startElement("","",FactionsXMLConstants.FACTIONS_TAG,emptyAttrs);
@@ -77,7 +78,7 @@ public class FactionsXMLWriter
     hd.endElement("","",FactionsXMLConstants.FACTIONS_TAG);
   }
 
-  private void writeFaction(TransformerHandler hd, Faction faction) throws Exception
+  private void writeFaction(TransformerHandler hd, Faction faction) throws SAXException
   {
     AttributesImpl factionAttrs=new AttributesImpl();
     // Identifier
@@ -177,7 +178,7 @@ public class FactionsXMLWriter
     hd.endElement("","",FactionsXMLConstants.FACTION_TAG);
   }
 
-  private void writeReputationDeed(TransformerHandler hd, ReputationDeed deed) throws Exception
+  private void writeReputationDeed(TransformerHandler hd, ReputationDeed deed) throws SAXException
   {
     AttributesImpl deedAttrs=new AttributesImpl();
     // Deed name

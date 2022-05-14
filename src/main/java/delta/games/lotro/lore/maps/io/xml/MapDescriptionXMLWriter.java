@@ -41,13 +41,13 @@ public class MapDescriptionXMLWriter
     GeoBoundingBox boundingBox=data.getBoundingBox();
     if (boundingBox!=null)
     {
-      writeBoundingBox(hd,attrs,boundingBox);
+      writeBoundingBox(attrs,boundingBox);
     }
     hd.startElement("","",MapDescriptionXMLConstants.MAP_TAG,attrs);
     hd.endElement("","",MapDescriptionXMLConstants.MAP_TAG);
   }
 
-  private static void writeBoundingBox(TransformerHandler hd, AttributesImpl attrs, GeoBoundingBox data) throws Exception
+  private static void writeBoundingBox(AttributesImpl attrs, GeoBoundingBox data) throws Exception
   {
     // Min
     Point2D.Float min=data.getMin();

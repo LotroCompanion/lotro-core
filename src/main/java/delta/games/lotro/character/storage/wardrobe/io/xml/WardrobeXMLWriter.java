@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -49,9 +50,9 @@ public class WardrobeXMLWriter
    * Write a wardrobe.
    * @param hd Output stream.
    * @param wardrobe Wardrobe to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, Wardrobe wardrobe) throws Exception
+  public static void write(TransformerHandler hd, Wardrobe wardrobe) throws SAXException
   {
     // Elements
     List<WardrobeItem> elements=wardrobe.getAll();
@@ -61,7 +62,7 @@ public class WardrobeXMLWriter
     }
   }
 
-  private static void writeWardrobeElement(TransformerHandler hd, WardrobeItem element) throws Exception
+  private static void writeWardrobeElement(TransformerHandler hd, WardrobeItem element) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     Item item=element.getItem();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -27,9 +28,9 @@ public class ItemDetailsXMLWriter
    * Write details for an item to the given XML stream.
    * @param hd XML output stream.
    * @param item Item to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public void writeDetails(TransformerHandler hd, Item item) throws Exception
+  public void writeDetails(TransformerHandler hd, Item item) throws SAXException
   {
     ItemDetailsManager mgr=item.getDetails();
     if (mgr==null)
@@ -43,7 +44,7 @@ public class ItemDetailsXMLWriter
     }
   }
 
-  private void writeDetail(TransformerHandler hd, ItemDetail item) throws Exception
+  private void writeDetail(TransformerHandler hd, ItemDetail item) throws SAXException
   {
     if (item instanceof GrantedElement)
     {
@@ -63,7 +64,7 @@ public class ItemDetailsXMLWriter
     }
   }
 
-  private void writeGrantedElement(TransformerHandler hd, GrantedElement<?> item) throws Exception
+  private void writeGrantedElement(TransformerHandler hd, GrantedElement<?> item) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Type
@@ -76,7 +77,7 @@ public class ItemDetailsXMLWriter
     hd.endElement("","",ItemDetailsXMLConstants.GRANTS_TAG);
   }
 
-  private void writeItemXPElement(TransformerHandler hd, ItemXP itemXP) throws Exception
+  private void writeItemXPElement(TransformerHandler hd, ItemXP itemXP) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Amount
@@ -86,7 +87,7 @@ public class ItemDetailsXMLWriter
     hd.endElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG);
   }
 
-  private void writeVirtueXPElement(TransformerHandler hd, VirtueXP virtueXP) throws Exception
+  private void writeVirtueXPElement(TransformerHandler hd, VirtueXP virtueXP) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Amount
@@ -96,7 +97,7 @@ public class ItemDetailsXMLWriter
     hd.endElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG);
   }
 
-  private void writeItemReputationElement(TransformerHandler hd, ItemReputation reputation) throws Exception
+  private void writeItemReputationElement(TransformerHandler hd, ItemReputation reputation) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Faction ID

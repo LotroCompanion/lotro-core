@@ -2,6 +2,7 @@ package delta.games.lotro.common.money.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.games.lotro.common.money.Money;
@@ -18,10 +19,10 @@ public class MoneyXMLWriter
    * Write a money amount rewards to an XML document.
    * @param hd Output transformer.
    * @param money Money to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
   public static void writeMoney(TransformerHandler hd, Money money)
-      throws Exception
+      throws SAXException
   {
     if ((money!=null) && (!money.isEmpty()))
     {

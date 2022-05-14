@@ -248,7 +248,7 @@ public final class ItemSaxParser extends DefaultHandler
         String weaponTypeStr=attributes.getValue(ItemXMLConstants.WEAPON_TYPE_ATTR);
         if (weaponTypeStr!=null)
         {
-          WeaponType type=WeaponType.getWeaponType(weaponTypeStr);
+          WeaponType type=WeaponType.getWeaponTypeByKey(weaponTypeStr);
           weapon.setWeaponType(type);
         }
       }

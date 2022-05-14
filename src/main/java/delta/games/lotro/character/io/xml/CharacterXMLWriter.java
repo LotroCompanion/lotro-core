@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -152,7 +153,7 @@ public class CharacterXMLWriter
     }
   }
 
-  private void writeVirtues(TransformerHandler hd, VirtuesSet virtuesSet) throws Exception
+  private void writeVirtues(TransformerHandler hd, VirtuesSet virtuesSet) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",CharacterXMLConstants.VIRTUES_TAG,attrs);
@@ -174,7 +175,7 @@ public class CharacterXMLWriter
     hd.endElement("","",CharacterXMLConstants.VIRTUES_TAG);
   }
 
-  private void writeTomes(TransformerHandler hd, TomesSet tomes) throws Exception
+  private void writeTomes(TransformerHandler hd, TomesSet tomes) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",CharacterXMLConstants.TOMES_TAG,attrs);

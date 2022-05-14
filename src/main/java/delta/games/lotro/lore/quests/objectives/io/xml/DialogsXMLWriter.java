@@ -2,6 +2,7 @@ package delta.games.lotro.lore.quests.objectives.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -23,9 +24,9 @@ public class DialogsXMLWriter
    * @param hd Output transformer.
    * @param tag Tag to use.
    * @param dialog Data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void writeDialogElement(TransformerHandler hd, String tag, DialogElement dialog) throws Exception
+  public static void writeDialogElement(TransformerHandler hd, String tag, DialogElement dialog) throws SAXException
   {
     AttributesImpl dialogAttrs=new AttributesImpl();
     // NPC
@@ -45,9 +46,9 @@ public class DialogsXMLWriter
    * Write a quest completion comment.
    * @param hd Output transformer.
    * @param comment Data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void writeCompletionComment(TransformerHandler hd, QuestCompletionComment comment) throws Exception
+  public static void writeCompletionComment(TransformerHandler hd, QuestCompletionComment comment) throws SAXException
   {
     hd.startElement("","",QuestXMLConstants.QUEST_COMPLETION_COMMENT_TAG,new AttributesImpl());
     // NPCs

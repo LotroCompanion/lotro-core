@@ -9,16 +9,16 @@ import java.util.Map;
  */
 public class Repeatability
 {
-  private static Map<Byte,Repeatability> _mapByCode=new HashMap<Byte,Repeatability>();
+  private static final Map<Byte,Repeatability> MAP_BY_CODE=new HashMap<Byte,Repeatability>();
 
   /**
    * Infinitely repeatable.
    */
-  public static Repeatability INFINITELY_REPEATABLE=new Repeatability((byte)-1,"Repeatable");
+  public static final Repeatability INFINITELY_REPEATABLE=new Repeatability((byte)-1,"Repeatable");
   /**
    * Not repeatable.
    */
-  public static Repeatability NOT_REPEATABLE=new Repeatability((byte)0,"Not repeatable");
+  public static final Repeatability NOT_REPEATABLE=new Repeatability((byte)0,"Not repeatable");
   private byte _code;
   private String _label;
 
@@ -31,7 +31,7 @@ public class Repeatability
   {
     _code=code;
     _label=label;
-    _mapByCode.put(Byte.valueOf(code),this);
+    MAP_BY_CODE.put(Byte.valueOf(code),this);
   }
 
   /**
@@ -41,7 +41,7 @@ public class Repeatability
    */
   public static Repeatability getByCode(byte code)
   {
-    Repeatability repeatability=_mapByCode.get(Byte.valueOf(code));
+    Repeatability repeatability=MAP_BY_CODE.get(Byte.valueOf(code));
     if (repeatability==null)
     {
       String label=code+" time"+((code>1)?"s":"");

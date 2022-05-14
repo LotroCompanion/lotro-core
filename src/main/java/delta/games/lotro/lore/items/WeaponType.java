@@ -13,8 +13,7 @@ import delta.games.lotro.lore.items.comparators.WeaponTypeComparator;
  */
 public final class WeaponType
 {
-  private static HashMap<String,WeaponType> _map=new HashMap<String,WeaponType>();
-  private static HashMap<String,WeaponType> _keyMap=new HashMap<String,WeaponType>();
+  private static final HashMap<String,WeaponType> KEY_MAP=new HashMap<String,WeaponType>();
 
   /**
    * One-handed Sword.
@@ -104,8 +103,7 @@ public final class WeaponType
     _name=name;
     _ranged=ranged;
     _twoHanded=twoHanded;
-    _keyMap.put(key,this);
-    _map.put(name,this);
+    KEY_MAP.put(key,this);
   }
 
   /**
@@ -151,38 +149,13 @@ public final class WeaponType
   }
 
   /**
-   * Get a weapon type using its name.
-   * @param name Name of weapon type.
-   * @return A weapon type instance or <code>null</code> if not found.
-   */
-  public static WeaponType getWeaponTypeByName(String name)
-  {
-    return _map.get(name);
-  }
-
-  /**
    * Get a weapon type using its key.
    * @param key Key of weapon type.
    * @return A weapon type instance or <code>null</code> if not found.
    */
   public static WeaponType getWeaponTypeByKey(String key)
   {
-    return _keyMap.get(key);
-  }
-
-  /**
-   * Get a weapon type using its key or name.
-   * @param id Identifier of weapon type (key or name).
-   * @return A weapon type instance or <code>null</code> if not found.
-   */
-  public static WeaponType getWeaponType(String id)
-  {
-    WeaponType type=_keyMap.get(id);
-    if (type==null)
-    {
-      type=_map.get(id);
-    }
-    return type;
+    return KEY_MAP.get(key);
   }
 
   /**
@@ -191,7 +164,7 @@ public final class WeaponType
    */
   public static List<WeaponType> getAll()
   {
-    List<WeaponType> ret=new ArrayList<WeaponType>(_keyMap.values());
+    List<WeaponType> ret=new ArrayList<WeaponType>(KEY_MAP.values());
     Collections.sort(ret,new WeaponTypeComparator());
     return ret;
   }

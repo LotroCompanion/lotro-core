@@ -2,6 +2,7 @@ package delta.games.lotro.lore.worldEvents.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.collections.filters.Operator;
@@ -60,9 +61,9 @@ public class WorldEventConditionsXMLWriter
    * Write a simple world event condition.
    * @param hd Output stream.
    * @param item Data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private static void writeSimpleWorldEventCondition(TransformerHandler hd, SimpleWorldEventCondition item) throws Exception
+  private static void writeSimpleWorldEventCondition(TransformerHandler hd, SimpleWorldEventCondition item) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     Proxy<WorldEvent> targetEvent=item.getWorldEvent();

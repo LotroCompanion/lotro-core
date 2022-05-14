@@ -77,7 +77,7 @@ public class QuestXMLWriter extends AchievableXMLWriter
     AttributesImpl questAttrs=new AttributesImpl();
 
     // Shared achievable attributes
-    writeAttributes(hd,questAttrs,quest);
+    writeAttributes(questAttrs,quest);
     // Scope
     String scope=quest.getQuestScope();
     if (scope.length()>0)

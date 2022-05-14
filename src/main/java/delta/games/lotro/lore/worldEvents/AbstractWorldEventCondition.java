@@ -11,5 +11,6 @@ public class AbstractWorldEventCondition
    */
   public AbstractWorldEventCondition()
   {
+    // Nothing!
   }
 }

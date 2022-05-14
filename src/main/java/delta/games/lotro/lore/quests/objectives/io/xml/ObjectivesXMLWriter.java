@@ -197,12 +197,12 @@ public class ObjectivesXMLWriter
       writeDefaultCondition(hd,(DefaultObjectiveCondition)condition);
     }
   }
-  private static void writeSharedConditionAttributes(TransformerHandler hd, AttributesImpl attrs, ObjectiveCondition condition)
+  private static void writeSharedConditionAttributes(AttributesImpl attrs, ObjectiveCondition condition)
   {
-    writeSharedConditionAttributes(hd,attrs,condition,true);
+    writeSharedConditionAttributes(attrs,condition,true);
   }
 
-  private static void writeSharedConditionAttributes(TransformerHandler hd, AttributesImpl attrs, ObjectiveCondition condition, boolean withCount)
+  private static void writeSharedConditionAttributes(AttributesImpl attrs, ObjectiveCondition condition, boolean withCount)
   {
     // Index
     int index=condition.getIndex();
@@ -246,7 +246,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition,false);
+    writeSharedConditionAttributes(attrs,condition,false);
     // Achievable?
     Proxy<? extends Achievable> proxy=condition.getProxy();
     if (proxy!=null)
@@ -275,7 +275,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition,false);
+    writeSharedConditionAttributes(attrs,condition,false);
     // Mob ID
     Integer mobId=condition.getMobId();
     if (mobId!=null)
@@ -286,7 +286,7 @@ public class ObjectivesXMLWriter
     String mobName=condition.getMobName();
     if (mobName!=null)
     {
-      attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_MOB_NAME_ATTR,XmlWriter.CDATA,mobName.toString());
+      attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_MOB_NAME_ATTR,XmlWriter.CDATA,mobName);
     }
     // Count
     int count=condition.getCount();
@@ -322,7 +322,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(attrs,condition);
     // Landmark proxy
     Proxy<LandmarkDescription> proxy=condition.getLandmarkProxy();
     if (proxy!=null)
@@ -366,10 +366,10 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition,false);
+    writeSharedConditionAttributes(attrs,condition,false);
     // Item proxy
     Proxy<Item> proxy=condition.getProxy();
-    writeItemProxy(hd,attrs,proxy);
+    writeItemProxy(attrs,proxy);
     // Count
     int count=condition.getCount();
     if (count>1)
@@ -385,7 +385,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(attrs,condition);
     // Faction proxy
     Proxy<Faction> proxy=condition.getProxy();
     if (proxy!=null)
@@ -412,7 +412,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition,false);
+    writeSharedConditionAttributes(attrs,condition,false);
     // Skill proxy
     Proxy<SkillDescription> proxy=condition.getProxy();
     if (proxy!=null)
@@ -458,7 +458,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(attrs,condition);
     // Write NPC proxy
     Proxy<NpcDescription> proxy=condition.getProxy();
     SharedXMLUtils.writeNpcProxy(proxy,attrs);
@@ -471,7 +471,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(attrs,condition);
     // Level
     int level=condition.getLevel();
     attrs.addAttribute("","",ObjectivesXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
@@ -484,7 +484,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(attrs,condition);
     // Achievable?
     Proxy<? extends Achievable> proxy=condition.getProxy();
     if (proxy!=null)
@@ -511,9 +511,9 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(attrs,condition);
     // Target
-    writeTarget(hd,attrs,condition.getTarget());
+    writeTarget(attrs,condition.getTarget());
     hd.startElement("","",tagName,attrs);
     AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",tagName);
@@ -523,7 +523,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition,false);
+    writeSharedConditionAttributes(attrs,condition,false);
     // Emote
     Proxy<EmoteDescription> proxy=condition.getProxy();
     if (proxy!=null)
@@ -546,7 +546,7 @@ public class ObjectivesXMLWriter
       attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_MAX_DAILY_ATTR,XmlWriter.CDATA,maxDaily.toString());
     }
     // Target
-    writeTarget(hd,attrs,condition.getTarget());
+    writeTarget(attrs,condition.getTarget());
     hd.startElement("","",ObjectivesXMLConstants.EMOTE_TAG,attrs);
     AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.EMOTE_TAG);
@@ -556,10 +556,10 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition,false);
+    writeSharedConditionAttributes(attrs,condition,false);
     // Item proxy
     Proxy<Item> proxy=condition.getProxy();
-    writeItemProxy(hd,attrs,proxy);
+    writeItemProxy(attrs,proxy);
     // Count
     int count=condition.getCount();
     if (count>1)
@@ -575,7 +575,7 @@ public class ObjectivesXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(attrs,condition);
     // Duration
     int duration=condition.getDuration();
     if (duration>0)
@@ -587,7 +587,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.TIME_EXPIRED_TAG);
   }
 
-  private static void writeTarget(TransformerHandler hd, AttributesImpl attrs, ConditionTarget target)
+  private static void writeTarget(AttributesImpl attrs, ConditionTarget target)
   {
     if (target!=null)
     {
@@ -611,7 +611,7 @@ public class ObjectivesXMLWriter
     }
   }
 
-  private static void writeItemProxy(TransformerHandler hd, AttributesImpl attrs, Proxy<Item> proxy)
+  private static void writeItemProxy(AttributesImpl attrs, Proxy<Item> proxy)
   {
     if (proxy!=null)
     {
@@ -637,7 +637,7 @@ public class ObjectivesXMLWriter
       attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_TYPE_ATTR,XmlWriter.CDATA,type.name());
     }
     // Shared attributes
-    writeSharedConditionAttributes(hd,attrs,condition);
+    writeSharedConditionAttributes(attrs,condition);
     hd.startElement("","",ObjectivesXMLConstants.CONDITION_TAG,attrs);
     AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.CONDITION_TAG);

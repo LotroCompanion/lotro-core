@@ -8,8 +8,7 @@ import java.util.HashMap;
  */
 public final class ItemQuality
 {
-  private static HashMap<String,ItemQuality> _mapFromCode=new HashMap<String,ItemQuality>();
-  private static HashMap<String,ItemQuality> _mapFromMeaning=new HashMap<String,ItemQuality>();
+  private static final HashMap<String,ItemQuality> MAP_FROM_CODE=new HashMap<String,ItemQuality>();
 
   /**
    * Common.
@@ -46,8 +45,7 @@ public final class ItemQuality
     _code=code;
     _key=key;
     _meaning=meaning;
-    _mapFromCode.put(key,this);
-    _mapFromMeaning.put(meaning,this);
+    MAP_FROM_CODE.put(key,this);
   }
 
   /**
@@ -84,7 +82,7 @@ public final class ItemQuality
    */
   public static ItemQuality fromCode(String code)
   {
-    return _mapFromCode.get(code);
+    return MAP_FROM_CODE.get(code);
   }
 
   @Override

@@ -67,8 +67,8 @@ public class ItemsSetXMLParser
     if (setTypeStr!=null)
     {
       setType=SetType.valueOf(setTypeStr);
-      ret.setSetType(setType);
     }
+    ret.setSetType(setType);
     // Set level
     int setLevel=DOMParsingTools.getIntAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_LEVEL_ATTR,-1);
     ret.setSetLevel(setLevel);

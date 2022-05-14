@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -56,7 +57,7 @@ public class GeoAreasXMLWriter
     return ret;
   }
 
-  private void writeGeoAreas(TransformerHandler hd, GeoAreasManager data) throws Exception
+  private void writeGeoAreas(TransformerHandler hd, GeoAreasManager data) throws SAXException
   {
     hd.startElement("","",GeoAreasXMLConstants.GEO_AREAS_TAG,new AttributesImpl());
     // Regions
@@ -80,7 +81,7 @@ public class GeoAreasXMLWriter
     hd.endElement("","",GeoAreasXMLConstants.GEO_AREAS_TAG);
   }
 
-  private void writeRegion(TransformerHandler hd, Region region) throws Exception
+  private void writeRegion(TransformerHandler hd, Region region) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -100,7 +101,7 @@ public class GeoAreasXMLWriter
     hd.endElement("","",GeoAreasXMLConstants.REGION_TAG);
   }
 
-  private void writeTerritory(TransformerHandler hd, Territory territory) throws Exception
+  private void writeTerritory(TransformerHandler hd, Territory territory) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -121,7 +122,7 @@ public class GeoAreasXMLWriter
     hd.endElement("","",GeoAreasXMLConstants.TERRITORY_TAG);
   }
 
-  private void writeArea(TransformerHandler hd, Area area) throws Exception
+  private void writeArea(TransformerHandler hd, Area area) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

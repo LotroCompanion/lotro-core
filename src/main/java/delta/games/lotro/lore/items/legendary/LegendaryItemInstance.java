@@ -74,6 +74,7 @@ public class LegendaryItemInstance extends ItemInstance<LegendaryItem> implement
    * </ul>
    * @return a set of stats.
    */
+  @Override
   public BasicStatsSet getStats()
   {
     BasicStatsSet ret=new BasicStatsSet();

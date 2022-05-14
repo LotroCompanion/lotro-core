@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -40,7 +41,7 @@ public class WarbandsRegistryXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, WarbandsRegistry registry) throws Exception
+  private void write(TransformerHandler hd, WarbandsRegistry registry) throws SAXException
   {
     hd.startElement("","",WarbandsRegistryXMLConstants.WARBANDS_TAG,new AttributesImpl());
 
@@ -58,15 +59,30 @@ public class WarbandsRegistryXMLWriter
       String iconName=warband.getIconName();
       attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_ICON_NAME_ATTR,XmlWriter.CDATA,iconName);
       Integer level=warband.getLevel();
-      if (level!=null) attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
+      if (level!=null)
+      {
+        attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
+      }
       Integer morale=warband.getMorale();
-      if (morale!=null) attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_MORALE_ATTR,XmlWriter.CDATA,String.valueOf(morale));
+      if (morale!=null)
+      {
+        attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_MORALE_ATTR,XmlWriter.CDATA,String.valueOf(morale));
+      }
       String region=warband.getRegion();
-      if (region!=null) attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_REGION_ATTR,XmlWriter.CDATA,region);
+      if (region!=null)
+      {
+        attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_REGION_ATTR,XmlWriter.CDATA,region);
+      }
       String description=warband.getDescription();
-      if (description!=null) attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+      if (description!=null)
+      {
+        attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+      }
       Size size=warband.getSize();
-      if (size!=null) attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_SIZE_ATTR,XmlWriter.CDATA,size.name());
+      if (size!=null)
+      {
+        attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_SIZE_ATTR,XmlWriter.CDATA,size.name());
+      }
       hd.startElement("","",WarbandsRegistryXMLConstants.WARBAND_TAG,attrs);
       hd.endElement("","",WarbandsRegistryXMLConstants.WARBAND_TAG);
     }

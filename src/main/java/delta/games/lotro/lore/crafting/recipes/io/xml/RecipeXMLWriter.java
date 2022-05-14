@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -69,7 +70,7 @@ public class RecipeXMLWriter
     return helper.write(outFile,encoding,writer);
   }
 
-  private void write(TransformerHandler hd, Recipe recipe) throws Exception
+  private void write(TransformerHandler hd, Recipe recipe) throws SAXException
   {
     AttributesImpl recipeAttrs=new AttributesImpl();
 
@@ -190,7 +191,7 @@ public class RecipeXMLWriter
     hd.endElement("","",RecipeXMLConstants.RECIPE_TAG);
   }
 
-  private void writeCraftingResult(TransformerHandler hd, CraftingResult result) throws Exception
+  private void writeCraftingResult(TransformerHandler hd, CraftingResult result) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     int quantity=result.getQuantity();
@@ -211,7 +212,7 @@ public class RecipeXMLWriter
     hd.endElement("","",RecipeXMLConstants.RESULT_TAG);
   }
 
-  private void writeItemRef(TransformerHandler hd, Item ref, String tagName) throws Exception
+  private void writeItemRef(TransformerHandler hd, Item ref, String tagName) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     int id=ref.getIdentifier();

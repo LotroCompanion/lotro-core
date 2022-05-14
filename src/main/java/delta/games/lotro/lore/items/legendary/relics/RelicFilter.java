@@ -166,7 +166,6 @@ public class RelicFilter implements Filter<Relic>
     {
       if (!empty) sb.append(", ");
       sb.append("Stats contains: [").append(_statsContains).append(']');
-      empty=false;
     }
     return sb.toString();
   }

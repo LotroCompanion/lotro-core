@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -76,7 +77,7 @@ public class TreasureXMLWriter
     return ret;
   }
 
-  private void writeLootsManager(TransformerHandler hd, LootsManager loots) throws Exception
+  private void writeLootsManager(TransformerHandler hd, LootsManager loots) throws SAXException
   {
     // Items tables
     writeTables(hd,loots.getTables().getItems(ItemsTable.class));
@@ -84,7 +85,6 @@ public class TreasureXMLWriter
     writeTables(hd,loots.getTables().getItems(TrophyList.class));
     writeTables(hd,loots.getTables().getItems(WeightedTreasureTable.class));
     writeTables(hd,loots.getTables().getItems(FilteredTrophyTable.class));
-    //writeTables(hd,loots.getTables().getItems();
 
     // Relics lists
     List<RelicsList> relicsLists=loots.getRelicsLists().getItems();
@@ -100,7 +100,7 @@ public class TreasureXMLWriter
     }
   }
 
-  private void writeTables(TransformerHandler hd, List<LootTable> tables) throws Exception
+  private void writeTables(TransformerHandler hd, List<LootTable> tables) throws SAXException
   {
     for(LootTable table : tables)
     {
@@ -108,7 +108,7 @@ public class TreasureXMLWriter
     }
   }
 
-  private void writeTable(TransformerHandler hd, LootTable table) throws Exception
+  private void writeTable(TransformerHandler hd, LootTable table) throws SAXException
   {
     if (table instanceof ItemsTable)
     {
@@ -132,7 +132,7 @@ public class TreasureXMLWriter
     }
   }
 
-  private void writeItemsTable(TransformerHandler hd, ItemsTable table) throws Exception
+  private void writeItemsTable(TransformerHandler hd, ItemsTable table) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -161,7 +161,7 @@ public class TreasureXMLWriter
     hd.endElement("","",TreasureXMLConstants.ITEMS_TABLE_TAG);
   }
 
-  private void writeTreasureList(TransformerHandler hd, TreasureList list) throws Exception
+  private void writeTreasureList(TransformerHandler hd, TreasureList list) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -185,7 +185,7 @@ public class TreasureXMLWriter
     hd.endElement("","",TreasureXMLConstants.TREASURE_LIST_TAG);
   }
 
-  private void writeTrophyList(TransformerHandler hd, TrophyList list) throws Exception
+  private void writeTrophyList(TransformerHandler hd, TrophyList list) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -236,7 +236,7 @@ public class TreasureXMLWriter
     hd.endElement("","",TreasureXMLConstants.TROPHY_LIST_TAG);
   }
 
-  private void writeWeightedTreasureTable(TransformerHandler hd, WeightedTreasureTable list) throws Exception
+  private void writeWeightedTreasureTable(TransformerHandler hd, WeightedTreasureTable list) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -260,7 +260,7 @@ public class TreasureXMLWriter
     hd.endElement("","",TreasureXMLConstants.WEIGHTED_TREASURE_TABLE_TAG);
   }
 
-  private void writeFilteredTrophyTable(TransformerHandler hd, FilteredTrophyTable list) throws Exception
+  private void writeFilteredTrophyTable(TransformerHandler hd, FilteredTrophyTable list) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -290,7 +290,7 @@ public class TreasureXMLWriter
     hd.endElement("","",TreasureXMLConstants.FILTERED_TROPHY_TABLE_TAG);
   }
 
-  private void writeRelicsList(TransformerHandler hd, RelicsList list) throws Exception
+  private void writeRelicsList(TransformerHandler hd, RelicsList list) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -325,7 +325,7 @@ public class TreasureXMLWriter
     hd.endElement("","",TreasureXMLConstants.RELICS_LIST_TAG);
   }
 
-  private void writeRelicsTreasureGroup(TransformerHandler hd, RelicsTreasureGroup group) throws Exception
+  private void writeRelicsTreasureGroup(TransformerHandler hd, RelicsTreasureGroup group) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -362,7 +362,7 @@ public class TreasureXMLWriter
     hd.endElement("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_TAG);
   }
 
-  private void writeItemProxy(Proxy<Item> itemProxy, AttributesImpl attrs) throws Exception
+  private void writeItemProxy(Proxy<Item> itemProxy, AttributesImpl attrs)
   {
     // ID
     int itemId=itemProxy.getId();

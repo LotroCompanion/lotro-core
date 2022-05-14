@@ -75,6 +75,7 @@ public class LegendaryWeaponInstance extends WeaponInstance<LegendaryWeapon> imp
    * </ul>
    * @return a set of stats.
    */
+  @Override
   public BasicStatsSet getStats()
   {
     BasicStatsSet ret=new BasicStatsSet();

@@ -133,7 +133,6 @@ public class Duration
     {
       seconds=NumericTools.parseInt(input.substring(0,secondsIndex),-1);
       if (seconds==-1) return null;
-      input=input.substring(secondsIndex+1);
     }
     return Integer.valueOf(days*DAY+hours*HOUR+minutes*MINUTE+seconds);
   }

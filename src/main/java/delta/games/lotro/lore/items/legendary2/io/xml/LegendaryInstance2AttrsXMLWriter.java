@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items.legendary2.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -21,9 +22,9 @@ public class LegendaryInstance2AttrsXMLWriter
    * Write legendary instance attrs (reloaded) to the given XML stream.
    * @param hd XML output stream.
    * @param legendaryData Legendary data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, LegendaryInstanceAttrs2 legendaryData) throws Exception
+  public static void write(TransformerHandler hd, LegendaryInstanceAttrs2 legendaryData) throws SAXException
   {
     AttributesImpl legendaryAttrs=new AttributesImpl();
     // Name

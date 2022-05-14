@@ -98,7 +98,7 @@ public class SkirmishStatsXMLWriter
           skirmishAttrs.addAttribute("","",SkirmishStatsXMLConstants.GROUP_SIZE_ATTR,XmlWriter.CDATA,size.getKey());
           // Level
           skirmishAttrs.addAttribute("","",SkirmishStatsXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,level.name());
-          writeSkirmishStats(hd,detailedStats,skirmishAttrs);
+          writeSkirmishStats(detailedStats,skirmishAttrs);
           hd.startElement("","",SkirmishStatsXMLConstants.SKIRMISH_STATS_TAG,skirmishAttrs);
           hd.endElement("","",SkirmishStatsXMLConstants.SKIRMISH_STATS_TAG);
         }
@@ -110,11 +110,10 @@ public class SkirmishStatsXMLWriter
   /**
    * Write skirmish stats to the given XML stream.
    * @param stats Stats to write.
-   * @param hd XML output stream.
    * @param attrs Storage for attributes to write.
    * @throws Exception If an error occurs.
    */
-  private void writeSkirmishStats(TransformerHandler hd, SkirmishStats stats, AttributesImpl attrs) throws Exception
+  private void writeSkirmishStats(SkirmishStats stats, AttributesImpl attrs) throws Exception
   {
     // Monster kills
     int monsterKills=stats.getMonsterKills();

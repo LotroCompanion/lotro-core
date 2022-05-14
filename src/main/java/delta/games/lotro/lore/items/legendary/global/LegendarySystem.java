@@ -188,10 +188,6 @@ public class LegendarySystem
       return null;
     }
     List<Integer> ranks=getValuesFromRank(baseRank,progression,maxRanks);
-    if (ranks==null)
-    {
-      return null;
-    }
     int[] ret=new int[ranks.size()];
     for(int i=0;i<ranks.size();i++)
     {

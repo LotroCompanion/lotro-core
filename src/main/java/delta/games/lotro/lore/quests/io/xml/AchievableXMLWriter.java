@@ -21,7 +21,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class AchievableXMLWriter
 {
-  protected void writeAttributes(TransformerHandler hd, AttributesImpl attrs, Achievable achievable) throws Exception
+  protected void writeAttributes(AttributesImpl attrs, Achievable achievable) throws Exception
   {
     // Identifier
     int id=achievable.getIdentifier();

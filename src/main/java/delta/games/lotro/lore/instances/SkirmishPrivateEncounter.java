@@ -174,6 +174,7 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
     _levelScaling=levelScaling;
   }
 
+  @Override
   protected void dump(StringBuilder sb)
   {
     super.dump(sb);

@@ -99,11 +99,11 @@ public enum GearSlot
   /**
    * Off-hand aura.
    */
-  OFF_HAND_AURA(24,"Main Hand Aura",EquipmentLocation.OFF_HAND_AURA),
+  OFF_HAND_AURA(24,"Off-Hand Aura",EquipmentLocation.OFF_HAND_AURA),
   /**
    * Ranged aura.
    */
-  RANGED_AURA(25,"Main Hand Aura",EquipmentLocation.RANGED_AURA);
+  RANGED_AURA(25,"Ranged Aura",EquipmentLocation.RANGED_AURA);
 
   private int _position;
   private String _label;

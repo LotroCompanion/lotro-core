@@ -88,7 +88,6 @@ public class BuffFilter implements Filter<Buff>
     boolean empty=true;
     if (_category!=null)
     {
-      if (!empty) sb.append(", ");
       sb.append("Category: ").append(_category);
       empty=false;
     }
@@ -96,7 +95,6 @@ public class BuffFilter implements Filter<Buff>
     {
       if (!empty) sb.append(", ");
       sb.append("Name contains: [").append(_nameContains).append(']');
-      empty=false;
     }
     return sb.toString();
   }
