@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -46,9 +47,9 @@ public class TitlesStatusXMLWriter
    * Write a status to the given XML stream.
    * @param hd XML output stream.
    * @param statusMgr Status to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void writeStatus(TransformerHandler hd, TitlesStatusManager statusMgr) throws Exception
+  private void writeStatus(TransformerHandler hd, TitlesStatusManager statusMgr) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",TitlesStatusXMLConstants.TITLES_STATUS_TAG,attrs);

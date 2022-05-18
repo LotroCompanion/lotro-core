@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -40,7 +41,7 @@ public class CharacterLogXMLWriter
     return ret;
   }
   
-  private void write(TransformerHandler hd, CharacterLog log) throws Exception
+  private void write(TransformerHandler hd, CharacterLog log) throws SAXException
   {
     AttributesImpl questAttrs=new AttributesImpl();
 
@@ -59,7 +60,7 @@ public class CharacterLogXMLWriter
     hd.endElement("","",CharacterLogXMLConstants.CHARACTER_LOG_TAG);
   }
 
-  private void writeLogItem(TransformerHandler hd, CharacterLogItem item) throws Exception
+  private void writeLogItem(TransformerHandler hd, CharacterLogItem item) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     long date=item.getDate();

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -50,9 +51,9 @@ public class SkirmishStatsXMLWriter
    * Write stats to the given XML stream.
    * @param hd XML output stream.
    * @param statsMgr Stats to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void writeStats(TransformerHandler hd, SkirmishStatsManager statsMgr) throws Exception
+  private void writeStats(TransformerHandler hd, SkirmishStatsManager statsMgr) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",SkirmishStatsXMLConstants.MAIN_TAG,attrs);
@@ -68,9 +69,9 @@ public class SkirmishStatsXMLWriter
    * Write stats for a single skirmish to the given XML stream.
    * @param hd XML output stream.
    * @param stats Stats to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void writeSingleSkirmishStats(TransformerHandler hd, SingleSkirmishStats stats) throws Exception
+  private void writeSingleSkirmishStats(TransformerHandler hd, SingleSkirmishStats stats) throws SAXException
   {
     if (stats.isEmpty())
     {
@@ -111,9 +112,8 @@ public class SkirmishStatsXMLWriter
    * Write skirmish stats to the given XML stream.
    * @param stats Stats to write.
    * @param attrs Storage for attributes to write.
-   * @throws Exception If an error occurs.
    */
-  private void writeSkirmishStats(SkirmishStats stats, AttributesImpl attrs) throws Exception
+  private void writeSkirmishStats(SkirmishStats stats, AttributesImpl attrs)
   {
     // Monster kills
     int monsterKills=stats.getMonsterKills();

@@ -14,7 +14,7 @@ public abstract class NonImbuedLegacyInstance
   /**
    * Constructor.
    */
-  public NonImbuedLegacyInstance()
+  protected NonImbuedLegacyInstance()
   {
     // Nothing
   }
@@ -23,7 +23,7 @@ public abstract class NonImbuedLegacyInstance
    * Copy constructor.
    * @param source Source.
    */
-  public NonImbuedLegacyInstance(NonImbuedLegacyInstance source)
+  protected NonImbuedLegacyInstance(NonImbuedLegacyInstance source)
   {
     super();
     _rank=source._rank;

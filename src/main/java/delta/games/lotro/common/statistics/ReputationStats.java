@@ -19,7 +19,7 @@ public abstract class ReputationStats<T extends FactionStats>
   /**
    * Constructor.
    */
-  public ReputationStats()
+  protected ReputationStats()
   {
     _statistics=new HashMap<String,T>();
   }

@@ -2,6 +2,7 @@ package delta.games.lotro.lore.quests.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -21,7 +22,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class AchievableXMLWriter
 {
-  protected void writeAttributes(AttributesImpl attrs, Achievable achievable) throws Exception
+  protected void writeAttributes(AttributesImpl attrs, Achievable achievable)
   {
     // Identifier
     int id=achievable.getIdentifier();
@@ -46,7 +47,7 @@ public class AchievableXMLWriter
     attrs.addAttribute("","",AchievableXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
   }
 
-  protected void writePrerequisites(TransformerHandler hd, Achievable quest) throws Exception
+  protected void writePrerequisites(TransformerHandler hd, Achievable quest) throws SAXException
   {
     AbstractAchievableRequirement requirement=quest.getQuestRequirements();
     if (requirement!=null)
@@ -64,7 +65,7 @@ public class AchievableXMLWriter
     }
   }
 
-  protected void writeAchievableProxy(TransformerHandler hd, Proxy<Achievable> proxy, String tag) throws Exception
+  protected void writeAchievableProxy(TransformerHandler hd, Proxy<Achievable> proxy, String tag) throws SAXException
   {
     if (proxy!=null)
     {
@@ -81,7 +82,7 @@ public class AchievableXMLWriter
     }
   }
 
-  protected void writeMaps(TransformerHandler hd, Achievable achievable) throws Exception
+  protected void writeMaps(TransformerHandler hd, Achievable achievable) throws SAXException
   {
     for(MapDescription map : achievable.getMaps())
     {

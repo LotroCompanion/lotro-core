@@ -14,15 +14,15 @@ public class ChallengeLevel
   /**
    * Level 1.
    */
-  public static ChallengeLevel ONE=getByCode(1);
+  public static final ChallengeLevel ONE=getByCode(1);
   /**
    * Character level.
    */
-  public static ChallengeLevel CHARACTER_LEVEL=new ChallengeLevel(-1,0,"Character Level");
+  public static final ChallengeLevel CHARACTER_LEVEL=new ChallengeLevel(-1,0,"Character Level");
   /**
    * Skirmish level.
    */
-  public static ChallengeLevel SKIRMISH_LEVEL=new ChallengeLevel(-2,0,"Skirmish Level");
+  public static final ChallengeLevel SKIRMISH_LEVEL=new ChallengeLevel(-2,0,"Skirmish Level");
   private int _code;
   private int _level;
   private String _label;

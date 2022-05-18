@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -77,7 +78,7 @@ public class WorldEventsXMLWriter
     }
   }
 
-  private static void writeBooleanWorldEvent(TransformerHandler hd, BooleanWorldEvent worldEvent) throws Exception
+  private static void writeBooleanWorldEvent(TransformerHandler hd, BooleanWorldEvent worldEvent) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     writeWorldEventAttrs(attrs,worldEvent);
@@ -99,7 +100,7 @@ public class WorldEventsXMLWriter
     hd.endElement("","",WorldEventsXMLConstants.CONDITION_WORLD_EVENT_TAG);
   }
 
-  private static void writeIntegerWorldEvent(TransformerHandler hd, IntegerWorldEvent worldEvent) throws Exception
+  private static void writeIntegerWorldEvent(TransformerHandler hd, IntegerWorldEvent worldEvent) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     writeWorldEventAttrs(attrs,worldEvent);
@@ -141,7 +142,7 @@ public class WorldEventsXMLWriter
     hd.endElement("","",WorldEventsXMLConstants.COUNTED_WORLD_EVENT_TAG);
   }
 
-  private static void writeWorldEventAttrs(AttributesImpl attrs, WorldEvent worldEvent) throws Exception
+  private static void writeWorldEventAttrs(AttributesImpl attrs, WorldEvent worldEvent)
   {
     // Identifier
     int id=worldEvent.getIdentifier();

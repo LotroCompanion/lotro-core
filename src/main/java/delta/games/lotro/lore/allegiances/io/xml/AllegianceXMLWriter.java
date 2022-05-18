@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -46,7 +47,7 @@ public class AllegianceXMLWriter
     return ret;
   }
 
-  private static void writeAllegiances(TransformerHandler hd, AllegiancesManager data) throws Exception
+  private static void writeAllegiances(TransformerHandler hd, AllegiancesManager data) throws SAXException
   {
     hd.startElement("","",AllegianceXMLConstants.ALLEGIANCES_TAG,new AttributesImpl());
     List<AllegianceDescription> allegiances=data.getAll();
@@ -59,7 +60,7 @@ public class AllegianceXMLWriter
     hd.endElement("","",AllegianceXMLConstants.ALLEGIANCES_TAG);
   }
 
-  private static void writeAllegiance(TransformerHandler hd, AllegianceDescription allegiance) throws Exception
+  private static void writeAllegiance(TransformerHandler hd, AllegianceDescription allegiance) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -122,7 +123,7 @@ public class AllegianceXMLWriter
     hd.endElement("","",AllegianceXMLConstants.ALLEGIANCE_TAG);
   }
 
-  private static void writeCurves(TransformerHandler hd, AllegiancesManager mgr) throws Exception
+  private static void writeCurves(TransformerHandler hd, AllegiancesManager mgr) throws SAXException
   {
     Points2LevelCurvesManager curves=mgr.getCurvesManager();
     List<Integer> ids=curves.getCurveIdentifiers();
@@ -133,7 +134,7 @@ public class AllegianceXMLWriter
     }
   }
 
-  private static void writeCurve(TransformerHandler hd, Points2LevelCurve curve) throws Exception
+  private static void writeCurve(TransformerHandler hd, Points2LevelCurve curve) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

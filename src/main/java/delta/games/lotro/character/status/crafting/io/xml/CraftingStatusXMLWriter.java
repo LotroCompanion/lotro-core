@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -52,7 +53,7 @@ public class CraftingStatusXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, CraftingStatus status) throws Exception
+  private void write(TransformerHandler hd, CraftingStatus status) throws SAXException
   {
     AttributesImpl craftingAttrs=new AttributesImpl();
     String name=status.getName();
@@ -105,7 +106,7 @@ public class CraftingStatusXMLWriter
     hd.endElement("","",CraftingStatusXMLConstants.CRAFTING_TAG);
   }
 
-  private void writeProfessionStatus(TransformerHandler hd, ProfessionStatus status) throws Exception
+  private void writeProfessionStatus(TransformerHandler hd, ProfessionStatus status) throws SAXException
   {
     AttributesImpl professionAttrs=new AttributesImpl();
     Profession profession=status.getProfession();
@@ -151,7 +152,7 @@ public class CraftingStatusXMLWriter
     hd.endElement("","",CraftingStatusXMLConstants.PROFESSION_TAG);
   }
 
-  private void writeCraftingLevelTierStatus(TransformerHandler hd, String tagName, CraftingLevelTierStatus status) throws Exception
+  private void writeCraftingLevelTierStatus(TransformerHandler hd, String tagName, CraftingLevelTierStatus status) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     int xp=status.getAcquiredXP();

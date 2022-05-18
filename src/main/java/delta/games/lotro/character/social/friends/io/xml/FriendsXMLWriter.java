@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -50,9 +51,9 @@ public class FriendsXMLWriter
    * Write friends.
    * @param hd Output stream.
    * @param friendsMgr Friends to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, FriendsManager friendsMgr) throws Exception
+  public static void write(TransformerHandler hd, FriendsManager friendsMgr) throws SAXException
   {
     // Friends
     List<Friend> friends=friendsMgr.getAll();
@@ -63,7 +64,7 @@ public class FriendsXMLWriter
     }
   }
 
-  private static void writeFriend(TransformerHandler hd, Friend friend) throws Exception
+  private static void writeFriend(TransformerHandler hd, Friend friend) throws SAXException
   {
     AttributesImpl friendAttrs=new AttributesImpl();
     CharacterSummaryXMLWriter.writeCharacterReferenceSummary(friendAttrs,friend);

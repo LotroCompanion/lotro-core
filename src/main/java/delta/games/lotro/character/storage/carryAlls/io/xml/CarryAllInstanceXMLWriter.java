@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -48,9 +49,9 @@ public class CarryAllInstanceXMLWriter
    * Write a carry-all to the given XML stream.
    * @param hd XML output stream.
    * @param carryAll Data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private static void writeCarryAll(TransformerHandler hd, CarryAllInstance carryAll) throws Exception
+  private static void writeCarryAll(TransformerHandler hd, CarryAllInstance carryAll) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Item ID

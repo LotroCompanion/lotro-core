@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -21,9 +22,9 @@ public class AchievableGeoDataXMLWriter
    * Write objective condition geo datas.
    * @param hd Output transformer.
    * @param condition Objective condition.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void writeObjectiveConditionGeoData(TransformerHandler hd, ObjectiveCondition condition) throws Exception
+  public static void writeObjectiveConditionGeoData(TransformerHandler hd, ObjectiveCondition condition) throws SAXException
   {
     List<AchievableGeoPoint> points=condition.getPoints();
     if (points.size()>0)

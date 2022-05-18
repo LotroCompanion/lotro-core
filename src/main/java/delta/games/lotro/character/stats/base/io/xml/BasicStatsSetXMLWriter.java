@@ -2,6 +2,7 @@ package delta.games.lotro.character.stats.base.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
@@ -22,9 +23,9 @@ public class BasicStatsSetXMLWriter
    * @param hd XML output stream.
    * @param tagName Tag to use to wrap stat tags.
    * @param statsSet Stats to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, String tagName, BasicStatsSet statsSet) throws Exception
+  public static void write(TransformerHandler hd, String tagName, BasicStatsSet statsSet) throws SAXException
   {
     if ((statsSet!=null) && (statsSet.getStatsCount()>0))
     {
@@ -38,9 +39,9 @@ public class BasicStatsSetXMLWriter
    * Write a set of stats to the given XML stream.
    * @param hd XML output stream.
    * @param statsSet Stats to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void writeStats(TransformerHandler hd, BasicStatsSet statsSet) throws Exception
+  public static void writeStats(TransformerHandler hd, BasicStatsSet statsSet) throws SAXException
   {
     if (statsSet!=null)
     {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -53,7 +54,7 @@ public class ColorXMLWriter
     return ret;
   }
 
-  private void writeColors(TransformerHandler hd, List<ColorDescription> colors) throws Exception
+  private void writeColors(TransformerHandler hd, List<ColorDescription> colors) throws SAXException
   {
     hd.startElement("","",ColorXMLConstants.COLORS_TAG,new AttributesImpl());
     for(ColorDescription color : colors)
@@ -63,7 +64,7 @@ public class ColorXMLWriter
     hd.endElement("","",ColorXMLConstants.COLORS_TAG);
   }
 
-  private void writeColor(TransformerHandler hd, ColorDescription color) throws Exception
+  private void writeColor(TransformerHandler hd, ColorDescription color) throws SAXException
   {
     AttributesImpl colorAttrs=new AttributesImpl();
 

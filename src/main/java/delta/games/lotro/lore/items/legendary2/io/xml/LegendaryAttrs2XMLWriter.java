@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -50,12 +51,12 @@ public class LegendaryAttrs2XMLWriter
   }
 
   /**
-   * Write legendary instance attrs to the given XML stream.
+   * Write legendary instance attributes to the given XML stream.
    * @param hd XML output stream.
    * @param legendaryData Legendary data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private static void write(TransformerHandler hd, LegendaryAttrs2 legendaryData) throws Exception
+  private static void write(TransformerHandler hd, LegendaryAttrs2 legendaryData) throws SAXException
   {
     AttributesImpl legendaryAttrs=new AttributesImpl();
     // Item ID

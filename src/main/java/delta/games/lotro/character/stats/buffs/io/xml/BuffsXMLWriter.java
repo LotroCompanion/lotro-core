@@ -2,6 +2,7 @@ package delta.games.lotro.character.stats.buffs.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.games.lotro.character.stats.buffs.Buff;
@@ -20,9 +21,9 @@ public class BuffsXMLWriter
    * Write some buffs to the given XML stream.
    * @param hd XML output stream.
    * @param buffs Buffs to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, BuffsManager buffs) throws Exception
+  public static void write(TransformerHandler hd, BuffsManager buffs) throws SAXException
   {
     if (buffs!=null)
     {

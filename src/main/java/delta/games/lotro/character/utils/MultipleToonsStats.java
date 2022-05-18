@@ -19,7 +19,7 @@ public abstract class MultipleToonsStats<T>
   /**
    * Constructor.
    */
-  public MultipleToonsStats()
+  protected MultipleToonsStats()
   {
     _toons=new ArrayList<CharacterFile>();
     _stats=new HashMap<String,T>();

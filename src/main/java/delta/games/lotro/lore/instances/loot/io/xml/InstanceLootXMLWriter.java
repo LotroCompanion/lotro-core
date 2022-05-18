@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -59,7 +60,7 @@ public class InstanceLootXMLWriter
     return ret;
   }
 
-  private void writeInstanceLootsTables(TransformerHandler hd, List<InstanceLootsTable> data) throws Exception
+  private void writeInstanceLootsTables(TransformerHandler hd, List<InstanceLootsTable> data) throws SAXException
   {
     hd.startElement("","",InstanceLootXMLConstants.INSTANCE_LOOTS_TAG,new AttributesImpl());
     for(InstanceLootsTable table : data)
@@ -69,7 +70,7 @@ public class InstanceLootXMLWriter
     hd.endElement("","",InstanceLootXMLConstants.INSTANCE_LOOTS_TAG);
   }
 
-  private void writeInstanceLootsTable(TransformerHandler hd, InstanceLootsTable data) throws Exception
+  private void writeInstanceLootsTable(TransformerHandler hd, InstanceLootsTable data) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Identifier
@@ -83,7 +84,7 @@ public class InstanceLootXMLWriter
     hd.endElement("","",InstanceLootXMLConstants.TABLE_TAG);
   }
 
-  private void writeInstanceLoot(TransformerHandler hd, InstanceLoots instanceLoot) throws Exception
+  private void writeInstanceLoot(TransformerHandler hd, InstanceLoots instanceLoot) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

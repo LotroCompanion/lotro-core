@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -151,9 +152,9 @@ public class AchievablesStatusXMLWriter
    * Write objective condition status to the given XML stream.
    * @param hd XML output stream.
    * @param status Status to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void writeObjectiveConditionStatus(TransformerHandler hd, ObjectiveConditionStatus status) throws Exception
+  private void writeObjectiveConditionStatus(TransformerHandler hd, ObjectiveConditionStatus status) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Index

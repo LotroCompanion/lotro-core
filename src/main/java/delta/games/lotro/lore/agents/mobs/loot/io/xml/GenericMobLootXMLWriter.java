@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -54,7 +55,7 @@ public class GenericMobLootXMLWriter
     return ret;
   }
 
-  private void writeSpeciesLoots(TransformerHandler hd, SpeciesLootsManager data) throws Exception
+  private void writeSpeciesLoots(TransformerHandler hd, SpeciesLootsManager data) throws SAXException
   {
     hd.startElement("","",GenericMobLootXMLConstants.GENERIC_MOB_LOOT_TAG,new AttributesImpl());
     for(SpeciesLoot loot : data.getLootSpecs())
@@ -64,7 +65,7 @@ public class GenericMobLootXMLWriter
     hd.endElement("","",GenericMobLootXMLConstants.GENERIC_MOB_LOOT_TAG);
   }
 
-  private void writeSpeciesLoot(TransformerHandler hd, SpeciesLoot loot) throws Exception
+  private void writeSpeciesLoot(TransformerHandler hd, SpeciesLoot loot) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Species code
@@ -82,7 +83,7 @@ public class GenericMobLootXMLWriter
     hd.endElement("","",GenericMobLootXMLConstants.SPECIES_TAG);
   }
 
-  private void writeSubSpeciesLoot(TransformerHandler hd, SubSpeciesLoot loot) throws Exception
+  private void writeSubSpeciesLoot(TransformerHandler hd, SubSpeciesLoot loot) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Subspecies code
@@ -103,7 +104,7 @@ public class GenericMobLootXMLWriter
     hd.endElement("","",GenericMobLootXMLConstants.SUBSPECIES_TAG);
   }
 
-  private void writeMobTypeLoot(TransformerHandler hd, GenericMobLootSpec loot) throws Exception
+  private void writeMobTypeLoot(TransformerHandler hd, GenericMobLootSpec loot) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     MobType mobType=loot.getMobType();
@@ -125,7 +126,7 @@ public class GenericMobLootXMLWriter
     hd.endElement("","",GenericMobLootXMLConstants.MOB_TYPE_TAG);
   }
 
-  private void writeEntry(TransformerHandler hd, GenericMobLootEntry loot) throws Exception
+  private void writeEntry(TransformerHandler hd, GenericMobLootEntry loot) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Level

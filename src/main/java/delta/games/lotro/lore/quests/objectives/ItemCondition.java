@@ -14,7 +14,7 @@ public abstract class ItemCondition extends ObjectiveCondition
   /**
    * Constructor.
    */
-  public ItemCondition()
+  protected ItemCondition()
   {
     _item=null;
   }

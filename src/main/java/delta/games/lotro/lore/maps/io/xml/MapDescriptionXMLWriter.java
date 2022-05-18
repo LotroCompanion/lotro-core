@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -20,9 +21,9 @@ public class MapDescriptionXMLWriter
    * Write a map description.
    * @param hd Output stream.
    * @param data Data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void writeMapDescription(TransformerHandler hd, MapDescription data) throws Exception
+  public static void writeMapDescription(TransformerHandler hd, MapDescription data) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Map ID
@@ -47,7 +48,7 @@ public class MapDescriptionXMLWriter
     hd.endElement("","",MapDescriptionXMLConstants.MAP_TAG);
   }
 
-  private static void writeBoundingBox(AttributesImpl attrs, GeoBoundingBox data) throws Exception
+  private static void writeBoundingBox(AttributesImpl attrs, GeoBoundingBox data)
   {
     // Min
     Point2D.Float min=data.getMin();

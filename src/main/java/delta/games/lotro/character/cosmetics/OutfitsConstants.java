@@ -11,7 +11,7 @@ public class OutfitsConstants
   /**
    * Slots used for outfits.
    */
-  public static GearSlot[] OUTFIT_SLOTS={
+  public static final GearSlot[] OUTFIT_SLOTS={
       GearSlot.HEAD,
       GearSlot.SHOULDER,
       GearSlot.BREAST,

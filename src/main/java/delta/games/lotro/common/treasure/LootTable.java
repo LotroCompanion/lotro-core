@@ -16,7 +16,7 @@ public abstract class LootTable implements Identifiable
    * Constructor.
    * @param id Identifier.
    */
-  public LootTable(int id)
+  protected LootTable(int id)
   {
     _id=id;
   }

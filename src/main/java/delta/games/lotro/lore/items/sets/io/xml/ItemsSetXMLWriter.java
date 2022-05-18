@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -61,7 +62,7 @@ public class ItemsSetXMLWriter
     return ret;
   }
 
-  private void writeSets(TransformerHandler hd, List<ItemsSet> sets) throws Exception
+  private void writeSets(TransformerHandler hd, List<ItemsSet> sets) throws SAXException
   {
     AttributesImpl itemAttrs=new AttributesImpl();
     hd.startElement("","",ItemsSetXMLConstants.ITEMS_SETS_TAG,itemAttrs);
@@ -76,9 +77,9 @@ public class ItemsSetXMLWriter
    * Write an items set to a XML document.
    * @param hd Output.
    * @param set Items set to write.
-   * @throws Exception If a problem occurs.
+   * @throws SAXException If a problem occurs.
    */
-  private void writeSet(TransformerHandler hd, ItemsSet set) throws Exception
+  private void writeSet(TransformerHandler hd, ItemsSet set) throws SAXException
   {
     AttributesImpl itemAttrs=new AttributesImpl();
 

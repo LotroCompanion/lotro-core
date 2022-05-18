@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -47,7 +48,7 @@ public class BillingGroupsXMLWriter
     return ret;
   }
 
-  private static void writeBillingGroup(TransformerHandler hd, BillingGroupDescription billingGroupDescription) throws Exception
+  private static void writeBillingGroup(TransformerHandler hd, BillingGroupDescription billingGroupDescription) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Code

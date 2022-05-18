@@ -22,7 +22,7 @@ public abstract class ObjectiveCondition
   /**
    * Constructor.
    */
-  public ObjectiveCondition()
+  protected ObjectiveCondition()
   {
     _index=1;
     _showProgressText=true;

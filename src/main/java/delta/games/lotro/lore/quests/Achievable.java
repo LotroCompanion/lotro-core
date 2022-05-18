@@ -80,7 +80,7 @@ public abstract class Achievable implements Identifiable
   /**
    * Constructor.
    */
-  public Achievable()
+  protected Achievable()
   {
     _identifier=0;
     _name="";

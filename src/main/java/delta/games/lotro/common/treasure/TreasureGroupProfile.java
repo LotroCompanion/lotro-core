@@ -15,7 +15,7 @@ public abstract class TreasureGroupProfile extends LootTable
    * Constructor.
    * @param identifier Identifier.
    */
-  public TreasureGroupProfile(int identifier)
+  protected TreasureGroupProfile(int identifier)
   {
     super(identifier);
   }

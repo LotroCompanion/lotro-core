@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -82,7 +83,7 @@ public class BagsXMLWriter
     hd.endElement("","",BagsXMLConstants.BAGS_TAG);
   }
 
-  private void writeLayout(TransformerHandler hd, BagsSetup setup) throws Exception
+  private void writeLayout(TransformerHandler hd, BagsSetup setup) throws SAXException
   {
     for(Integer bagIndex : setup.getBagIndexes())
     {

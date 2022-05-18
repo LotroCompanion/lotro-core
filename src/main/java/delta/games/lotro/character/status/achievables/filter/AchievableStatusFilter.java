@@ -18,7 +18,7 @@ public abstract class AchievableStatusFilter implements Filter<AchievableStatus>
   /**
    * Constructor.
    */
-  public AchievableStatusFilter()
+  protected AchievableStatusFilter()
   {
     Set<AchievableElementState> states=new HashSet<AchievableElementState>();
     for(AchievableElementState state : AchievableElementState.values())

@@ -134,7 +134,7 @@ public class ObjectivesXMLParser
     // Specifics
     if (ObjectivesXMLConstants.QUEST_COMPLETE_TAG.equals(tagName))
     {
-      ret=parseQuestCompleteCondition(attrs,conditionTag);
+      ret=parseQuestCompleteCondition(attrs);
     }
     else if (ObjectivesXMLConstants.MONSTER_DIED_TAG.equals(tagName))
     {
@@ -142,71 +142,71 @@ public class ObjectivesXMLParser
     }
     else if (ObjectivesXMLConstants.LANDMARK_DETECTION_TAG.equals(tagName))
     {
-      ret=parseLandmarkDetectionCondition(attrs,conditionTag);
+      ret=parseLandmarkDetectionCondition(attrs);
     }
     else if (ObjectivesXMLConstants.INVENTORY_ITEM_TAG.equals(tagName))
     {
-      ret=parseInventoryItemCondition(attrs,conditionTag);
+      ret=parseInventoryItemCondition(attrs);
     }
     else if (ObjectivesXMLConstants.ITEM_USED_TAG.equals(tagName))
     {
-      ret=parseItemUsedCondition(attrs,conditionTag);
+      ret=parseItemUsedCondition(attrs);
     }
     else if (ObjectivesXMLConstants.EXTERNAL_INVENTORY_TAG.equals(tagName))
     {
-      ret=parseExternalInventoryItemCondition(attrs,conditionTag);
+      ret=parseExternalInventoryItemCondition(attrs);
     }
     else if (ObjectivesXMLConstants.ITEM_TALK_TAG.equals(tagName))
     {
-      ret=parseItemTalkCondition(attrs,conditionTag);
+      ret=parseItemTalkCondition(attrs);
     }
     else if (ObjectivesXMLConstants.FACTION_LEVEL_TAG.equals(tagName))
     {
-      ret=parseFactionLevelCondition(attrs,conditionTag);
+      ret=parseFactionLevelCondition(attrs);
     }
     else if (ObjectivesXMLConstants.SKILL_USED_TAG.equals(tagName))
     {
-      ret=parseSkillUsedCondition(attrs,conditionTag);
+      ret=parseSkillUsedCondition(attrs);
     }
     else if (ObjectivesXMLConstants.NPC_TALK_TAG.equals(tagName))
     {
-      ret=parseNpcTalkCondition(attrs,conditionTag);
+      ret=parseNpcTalkCondition(attrs);
     }
     else if (ObjectivesXMLConstants.NPC_USED_TAG.equals(tagName))
     {
-      ret=parseNpcUsedCondition(attrs,conditionTag);
+      ret=parseNpcUsedCondition(attrs);
     }
     else if (ObjectivesXMLConstants.LEVEL_TAG.equals(tagName))
     {
-      ret=parseLevelCondition(attrs,conditionTag);
+      ret=parseLevelCondition(attrs);
     }
     else if (ObjectivesXMLConstants.QUEST_BESTOWED_TAG.equals(tagName))
     {
-      ret=parseQuestBestowedCondition(attrs,conditionTag);
+      ret=parseQuestBestowedCondition(attrs);
     }
     else if (ObjectivesXMLConstants.DETECTING_TAG.equals(tagName))
     {
-      ret=parseDetectingCondition(attrs,conditionTag);
+      ret=parseDetectingCondition(attrs);
     }
     else if (ObjectivesXMLConstants.ENTER_DETECTION_TAG.equals(tagName))
     {
-      ret=parseEnterDetectionCondition(attrs,conditionTag);
+      ret=parseEnterDetectionCondition(attrs);
     }
     else if (ObjectivesXMLConstants.EMOTE_TAG.equals(tagName))
     {
-      ret=parseEmoteCondition(attrs,conditionTag);
+      ret=parseEmoteCondition(attrs);
     }
     else if (ObjectivesXMLConstants.HOBBY_TAG.equals(tagName))
     {
-      ret=parseHobbyCondition(attrs,conditionTag);
+      ret=parseHobbyCondition(attrs);
     }
     else if (ObjectivesXMLConstants.TIME_EXPIRED_TAG.equals(tagName))
     {
-      ret=parseTimeExpiredCondition(attrs,conditionTag);
+      ret=parseTimeExpiredCondition(attrs);
     }
     else
     {
-      ret=parseDefaultCondition(attrs,conditionTag);
+      ret=parseDefaultCondition(attrs);
     }
     if (ret!=null)
     {
@@ -220,7 +220,7 @@ public class ObjectivesXMLParser
     return ret;
   }
 
-  private static QuestCompleteCondition parseQuestCompleteCondition(NamedNodeMap attrs, Element conditionTag)
+  private static QuestCompleteCondition parseQuestCompleteCondition(NamedNodeMap attrs)
   {
     QuestCompleteCondition condition=new QuestCompleteCondition();
     // Achievable
@@ -267,7 +267,7 @@ public class ObjectivesXMLParser
     return condition;
   }
 
-  private static LandmarkDetectionCondition parseLandmarkDetectionCondition(NamedNodeMap attrs, Element conditionTag)
+  private static LandmarkDetectionCondition parseLandmarkDetectionCondition(NamedNodeMap attrs)
   {
     LandmarkDetectionCondition condition=new LandmarkDetectionCondition();
     // Landmark proxy
@@ -282,42 +282,42 @@ public class ObjectivesXMLParser
     return condition;
   }
 
-  private static InventoryItemCondition parseInventoryItemCondition(NamedNodeMap attrs, Element conditionTag)
+  private static InventoryItemCondition parseInventoryItemCondition(NamedNodeMap attrs)
   {
     InventoryItemCondition condition=new InventoryItemCondition();
-    parseItemCondition(condition,attrs,conditionTag);
+    parseItemCondition(condition,attrs);
     return condition;
   }
 
-  private static ItemUsedCondition parseItemUsedCondition(NamedNodeMap attrs, Element conditionTag)
+  private static ItemUsedCondition parseItemUsedCondition(NamedNodeMap attrs)
   {
     ItemUsedCondition condition=new ItemUsedCondition();
-    parseItemCondition(condition,attrs,conditionTag);
+    parseItemCondition(condition,attrs);
     return condition;
   }
 
-  private static ExternalInventoryItemCondition parseExternalInventoryItemCondition(NamedNodeMap attrs, Element conditionTag)
+  private static ExternalInventoryItemCondition parseExternalInventoryItemCondition(NamedNodeMap attrs)
   {
     ExternalInventoryItemCondition condition=new ExternalInventoryItemCondition();
-    parseItemCondition(condition,attrs,conditionTag);
+    parseItemCondition(condition,attrs);
     return condition;
   }
 
-  private static ItemTalkCondition parseItemTalkCondition(NamedNodeMap attrs, Element conditionTag)
+  private static ItemTalkCondition parseItemTalkCondition(NamedNodeMap attrs)
   {
     ItemTalkCondition condition=new ItemTalkCondition();
-    parseItemCondition(condition,attrs,conditionTag);
+    parseItemCondition(condition,attrs);
     return condition;
   }
 
-  private static void parseItemCondition(ItemCondition condition, NamedNodeMap attrs, Element conditionTag)
+  private static void parseItemCondition(ItemCondition condition, NamedNodeMap attrs)
   {
     // Item proxy
     Proxy<Item> itemProxy=parseItemProxy(attrs);
     condition.setProxy(itemProxy);
   }
 
-  private static FactionLevelCondition parseFactionLevelCondition(NamedNodeMap attrs, Element conditionTag)
+  private static FactionLevelCondition parseFactionLevelCondition(NamedNodeMap attrs)
   {
     FactionLevelCondition condition=new FactionLevelCondition();
     // Faction proxy
@@ -338,7 +338,7 @@ public class ObjectivesXMLParser
     return condition;
   }
 
-  private static SkillUsedCondition parseSkillUsedCondition(NamedNodeMap attrs, Element conditionTag)
+  private static SkillUsedCondition parseSkillUsedCondition(NamedNodeMap attrs)
   {
     SkillUsedCondition condition=new SkillUsedCondition();
     // Skill proxy
@@ -362,27 +362,27 @@ public class ObjectivesXMLParser
     return condition;
   }
 
-  private static NpcTalkCondition parseNpcTalkCondition(NamedNodeMap attrs, Element conditionTag)
+  private static NpcTalkCondition parseNpcTalkCondition(NamedNodeMap attrs)
   {
     NpcTalkCondition condition=new NpcTalkCondition();
-    parseNpcCondition(condition,attrs,conditionTag);
+    parseNpcCondition(condition,attrs);
     return condition;
   }
 
-  private static NpcUsedCondition parseNpcUsedCondition(NamedNodeMap attrs, Element conditionTag)
+  private static NpcUsedCondition parseNpcUsedCondition(NamedNodeMap attrs)
   {
     NpcUsedCondition condition=new NpcUsedCondition();
-    parseNpcCondition(condition,attrs,conditionTag);
+    parseNpcCondition(condition,attrs);
     return condition;
   }
 
-  private static void parseNpcCondition(NpcCondition condition, NamedNodeMap attrs, Element conditionTag)
+  private static void parseNpcCondition(NpcCondition condition, NamedNodeMap attrs)
   {
     Proxy<NpcDescription> npcProxy=SharedXMLUtils.parseNpcProxy(attrs);
     condition.setProxy(npcProxy);
   }
 
-  private static LevelCondition parseLevelCondition(NamedNodeMap attrs, Element conditionTag)
+  private static LevelCondition parseLevelCondition(NamedNodeMap attrs)
   {
     LevelCondition condition=new LevelCondition();
     // Level
@@ -391,7 +391,7 @@ public class ObjectivesXMLParser
     return condition;
   }
 
-  private static QuestBestowedCondition parseQuestBestowedCondition(NamedNodeMap attrs, Element conditionTag)
+  private static QuestBestowedCondition parseQuestBestowedCondition(NamedNodeMap attrs)
   {
     QuestBestowedCondition condition=new QuestBestowedCondition();
     // Achievable
@@ -405,28 +405,28 @@ public class ObjectivesXMLParser
     return condition;
   }
 
-  private static DetectingCondition parseDetectingCondition(NamedNodeMap attrs, Element conditionTag)
+  private static DetectingCondition parseDetectingCondition(NamedNodeMap attrs)
   {
     DetectingCondition condition=new DetectingCondition();
-    parseDetectionCondition(condition,attrs,conditionTag);
+    parseDetectionCondition(condition,attrs);
     return condition;
   }
 
-  private static EnterDetectionCondition parseEnterDetectionCondition(NamedNodeMap attrs, Element conditionTag)
+  private static EnterDetectionCondition parseEnterDetectionCondition(NamedNodeMap attrs)
   {
     EnterDetectionCondition condition=new EnterDetectionCondition();
-    parseDetectionCondition(condition,attrs,conditionTag);
+    parseDetectionCondition(condition,attrs);
     return condition;
   }
 
-  private static void parseDetectionCondition(DetectionCondition condition, NamedNodeMap attrs, Element conditionTag)
+  private static void parseDetectionCondition(DetectionCondition condition, NamedNodeMap attrs)
   {
     // Target
     ConditionTarget target=parseTarget(attrs);
     condition.setTarget(target);
   }
 
-  private static EmoteCondition parseEmoteCondition(NamedNodeMap attrs, Element conditionTag)
+  private static EmoteCondition parseEmoteCondition(NamedNodeMap attrs)
   {
     EmoteCondition condition=new EmoteCondition();
     // Emote proxy
@@ -450,7 +450,7 @@ public class ObjectivesXMLParser
     return condition;
   }
 
-  private static HobbyCondition parseHobbyCondition(NamedNodeMap attrs, Element conditionTag)
+  private static HobbyCondition parseHobbyCondition(NamedNodeMap attrs)
   {
     HobbyCondition condition=new HobbyCondition();
     // Item proxy
@@ -459,7 +459,7 @@ public class ObjectivesXMLParser
     return condition;
   }
 
-  private static TimeExpiredCondition parseTimeExpiredCondition(NamedNodeMap attrs, Element conditionTag)
+  private static TimeExpiredCondition parseTimeExpiredCondition(NamedNodeMap attrs)
   {
     TimeExpiredCondition condition=new TimeExpiredCondition();
     // Duration
@@ -484,7 +484,7 @@ public class ObjectivesXMLParser
     return target;
   }
 
-  private static DefaultObjectiveCondition parseDefaultCondition(NamedNodeMap attrs, Element conditionTag)
+  private static DefaultObjectiveCondition parseDefaultCondition(NamedNodeMap attrs)
   {
     // Type
     String typeStr=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_TYPE_ATTR,null);

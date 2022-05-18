@@ -14,7 +14,7 @@ public abstract class AbstractStatProvider implements StatProvider
    * Constructor.
    * @param stat Targeted stat.
    */
-  public AbstractStatProvider(StatDescription stat)
+  protected AbstractStatProvider(StatDescription stat)
   {
     _stat=stat;
     _operator=StatOperator.ADD;

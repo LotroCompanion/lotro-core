@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -62,7 +63,7 @@ public class LandblocksXMLWriter
     return ret;
   }
 
-  private void writeLandblocks(TransformerHandler hd, List<Landblock> data) throws Exception
+  private void writeLandblocks(TransformerHandler hd, List<Landblock> data) throws SAXException
   {
     hd.startElement("","",LandblocksXMLConstants.LANDBLOCKS_TAG,new AttributesImpl());
     for(Landblock landblock : data)
@@ -72,7 +73,7 @@ public class LandblocksXMLWriter
     hd.endElement("","",LandblocksXMLConstants.LANDBLOCKS_TAG);
   }
 
-  private void writeLandblock(TransformerHandler hd, Landblock landblock) throws Exception
+  private void writeLandblock(TransformerHandler hd, Landblock landblock) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Block

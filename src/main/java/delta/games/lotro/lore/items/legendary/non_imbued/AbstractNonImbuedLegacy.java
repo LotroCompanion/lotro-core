@@ -14,7 +14,7 @@ public abstract class AbstractNonImbuedLegacy extends AbstractLegacy
   /**
    * Constructor.
    */
-  public AbstractNonImbuedLegacy()
+  protected AbstractNonImbuedLegacy()
   {
     // Nothing
   }

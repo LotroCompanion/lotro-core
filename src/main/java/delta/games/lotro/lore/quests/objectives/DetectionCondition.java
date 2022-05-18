@@ -11,7 +11,7 @@ public abstract class DetectionCondition extends ObjectiveCondition
   /**
    * Constructor.
    */
-  public DetectionCondition()
+  protected DetectionCondition()
   {
     _target=null;
   }

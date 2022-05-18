@@ -93,6 +93,10 @@ public class OutfitsXMLParser
     // Item ID
     int itemId=DOMParsingTools.getIntAttribute(attrs,OutfitsXMLConstants.ELEMENT_ITEM_ID_ATTR,0);
     Item item=ItemsManager.getInstance().getItem(itemId);
+    if (item==null)
+    {
+      return null;
+    }
     OutfitElement ret=new OutfitElement();
     ret.setItem(item);
     // Color

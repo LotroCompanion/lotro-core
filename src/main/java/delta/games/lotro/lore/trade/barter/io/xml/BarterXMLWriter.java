@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -61,9 +62,9 @@ public class BarterXMLWriter
    * Write barter tables to a XML file.
    * @param hd Output.
    * @param barterers Tables to write.
-   * @throws Exception if an error occurs.
+   * @throws SAXException if an error occurs.
    */
-  private static void writeBarterTables(TransformerHandler hd, final List<BarterNpc> barterers) throws Exception
+  private static void writeBarterTables(TransformerHandler hd, final List<BarterNpc> barterers) throws SAXException
   {
     Map<Integer,BarterProfile> profilesMap=new HashMap<Integer,BarterProfile>();
     for(BarterNpc barterer : barterers)
@@ -82,7 +83,7 @@ public class BarterXMLWriter
     }
   }
 
-  private static void writeBarterer(TransformerHandler hd, BarterNpc barterer) throws Exception
+  private static void writeBarterer(TransformerHandler hd, BarterNpc barterer) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -116,7 +117,7 @@ public class BarterXMLWriter
     hd.endElement("","",BarterXMLConstants.BARTERER_TAG);
   }
 
-  private static void writeProfile(TransformerHandler hd, BarterProfile profile) throws Exception
+  private static void writeProfile(TransformerHandler hd, BarterProfile profile) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -146,7 +147,7 @@ public class BarterXMLWriter
     hd.endElement("","",BarterXMLConstants.BARTER_PROFILE_TAG);
   }
 
-  private static void writeBarterEntryElement(TransformerHandler hd, String tag, BarterEntryElement element) throws Exception
+  private static void writeBarterEntryElement(TransformerHandler hd, String tag, BarterEntryElement element) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

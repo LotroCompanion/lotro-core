@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -62,7 +63,7 @@ public class ContainerXMLWriter
     return ret;
   }
 
-  private void writeContainers(TransformerHandler hd, List<Container> containers) throws Exception
+  private void writeContainers(TransformerHandler hd, List<Container> containers) throws SAXException
   {
     for(Container container : containers)
     {
@@ -70,7 +71,7 @@ public class ContainerXMLWriter
     }
   }
 
-  private void writeContainer(TransformerHandler hd, Container container) throws Exception
+  private void writeContainer(TransformerHandler hd, Container container) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -96,12 +97,12 @@ public class ContainerXMLWriter
     hd.endElement("","",tag);
   }
 
-  private void writeItemsContainer(AttributesImpl attrs, ItemsContainer container) throws Exception
+  private void writeItemsContainer(AttributesImpl attrs, ItemsContainer container)
   {
     writeLootTables(attrs,container.getLootTables());
   }
 
-  private void writeLootTables(AttributesImpl attrs, LootTables lootTables) throws Exception
+  private void writeLootTables(AttributesImpl attrs, LootTables lootTables)
   {
     // Loot tables
     for(LootType lootType : LootType.values())
@@ -121,7 +122,7 @@ public class ContainerXMLWriter
     }
   }
 
-  private void writeRelicsContainer(AttributesImpl attrs, RelicsContainer container) throws Exception
+  private void writeRelicsContainer(AttributesImpl attrs, RelicsContainer container)
   {
     // Relics treasure group
     RelicsList relicsList=container.getRelicsList();

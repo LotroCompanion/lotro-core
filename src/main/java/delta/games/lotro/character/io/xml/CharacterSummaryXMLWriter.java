@@ -52,9 +52,8 @@ public class CharacterSummaryXMLWriter
    * Write character summary attributes.
    * @param attrs Attributes to write to.
    * @param summary Source data.
-   * @throws Exception If an error occurs.
    */
-  public static void writeCharacterSummary(AttributesImpl attrs, CharacterSummary summary) throws Exception
+  public static void writeCharacterSummary(AttributesImpl attrs, CharacterSummary summary)
   {
     writeBaseCharacterSummary(attrs,summary);
     // Region
@@ -81,9 +80,8 @@ public class CharacterSummaryXMLWriter
    * Write base character summary attributes.
    * @param attrs Attributes to write to.
    * @param summary Source data.
-   * @throws Exception If an error occurs.
    */
-  public static void writeBaseCharacterSummary(AttributesImpl attrs, BaseCharacterSummary summary) throws Exception
+  public static void writeBaseCharacterSummary(AttributesImpl attrs, BaseCharacterSummary summary)
   {
     // ID
     InternalGameId id=summary.getId();
@@ -140,9 +138,8 @@ public class CharacterSummaryXMLWriter
    * Write character reference attributes.
    * @param attrs Attributes to write to.
    * @param characterReference Source data.
-   * @throws Exception If an error occurs.
    */
-  public static void writeCharacterReferenceSummary(AttributesImpl attrs, CharacterReference characterReference) throws Exception
+  public static void writeCharacterReferenceSummary(AttributesImpl attrs, CharacterReference characterReference)
   {
     // ID
     InternalGameId id=characterReference.getId();
@@ -173,9 +170,8 @@ public class CharacterSummaryXMLWriter
    * Write character data summary attributes.
    * @param attrs Attributes to write to.
    * @param dataSummary Source data.
-   * @throws Exception If an error occurs.
    */
-  public static void writeDataSummary(AttributesImpl attrs, CharacterDataSummary dataSummary) throws Exception
+  public static void writeDataSummary(AttributesImpl attrs, CharacterDataSummary dataSummary)
   {
     // Name
     String name=dataSummary.getName();

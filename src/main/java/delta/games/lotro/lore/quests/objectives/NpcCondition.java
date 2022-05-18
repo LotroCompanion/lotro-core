@@ -14,7 +14,7 @@ public abstract class NpcCondition extends ObjectiveCondition
   /**
    * Constructor.
    */
-  public NpcCondition()
+  protected NpcCondition()
   {
     _npc=null;
   }

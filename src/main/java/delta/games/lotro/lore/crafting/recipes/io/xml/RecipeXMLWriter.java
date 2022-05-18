@@ -137,58 +137,68 @@ public class RecipeXMLWriter
     List<RecipeVersion> versions=recipe.getVersions();
     for(RecipeVersion version : versions)
     {
-      AttributesImpl attrs=new AttributesImpl();
-      Integer baseCriticalChance=version.getBaseCriticalChance();
-      if (baseCriticalChance!=null)
-      {
-        attrs.addAttribute("","",RecipeXMLConstants.RECIPE_RESULT_BASE_CRITICAL_CHANCE_ATTR,XmlWriter.CDATA,baseCriticalChance.toString());
-      }
-      hd.startElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG,attrs);
-      // Ingredients
-      List<Ingredient> ingredients=version.getIngredients();
-      if (ingredients!=null)
-      {
-        for(Ingredient ingredient : ingredients)
-        {
-          AttributesImpl ingredientsAttrs=new AttributesImpl();
-          int quantity=ingredient.getQuantity();
-          if (quantity!=1)
-          {
-            ingredientsAttrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_QUANTITY_ATTR,XmlWriter.CDATA,String.valueOf(quantity));
-          }
-          if (ingredient.isOptional())
-          {
-            ingredientsAttrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_OPTIONAL_ATTR,XmlWriter.CDATA,"true");
-            Integer criticalChanceBonus=ingredient.getCriticalChanceBonus();
-            if (criticalChanceBonus!=null)
-            {
-              ingredientsAttrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_CRITICAL_CHANCE_BONUS_ATTR,XmlWriter.CDATA,criticalChanceBonus.toString());
-            }
-          }
-          hd.startElement("","",RecipeXMLConstants.INGREDIENT_TAG,ingredientsAttrs);
-          Item item=ingredient.getItem();
-          if (item!=null)
-          {
-            writeItemRef(hd,item,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
-          }
-          hd.endElement("","",RecipeXMLConstants.INGREDIENT_TAG);
-        }
-      }
-      // Regular result
-      CraftingResult regular=version.getRegular();
-      if (regular!=null)
-      {
-        writeCraftingResult(hd,regular);
-      }
-      // Critical result
-      CraftingResult critical=version.getCritical();
-      if (critical!=null)
-      {
-        writeCraftingResult(hd,critical);
-      }
-      hd.endElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG);
+      writeRecipeVersion(hd,version);
     }
     hd.endElement("","",RecipeXMLConstants.RECIPE_TAG);
+  }
+
+  private void writeRecipeVersion(TransformerHandler hd, RecipeVersion version) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    Integer baseCriticalChance=version.getBaseCriticalChance();
+    if (baseCriticalChance!=null)
+    {
+      attrs.addAttribute("","",RecipeXMLConstants.RECIPE_RESULT_BASE_CRITICAL_CHANCE_ATTR,XmlWriter.CDATA,baseCriticalChance.toString());
+    }
+    hd.startElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG,attrs);
+    // Ingredients
+    List<Ingredient> ingredients=version.getIngredients();
+    if (ingredients!=null)
+    {
+      for(Ingredient ingredient : ingredients)
+      {
+        writeIngredient(hd,ingredient);
+      }
+    }
+    // Regular result
+    CraftingResult regular=version.getRegular();
+    if (regular!=null)
+    {
+      writeCraftingResult(hd,regular);
+    }
+    // Critical result
+    CraftingResult critical=version.getCritical();
+    if (critical!=null)
+    {
+      writeCraftingResult(hd,critical);
+    }
+    hd.endElement("","",RecipeXMLConstants.RECIPE_RESULT_TAG);
+  }
+
+  private void writeIngredient(TransformerHandler hd, Ingredient ingredient) throws SAXException
+  {
+    AttributesImpl ingredientsAttrs=new AttributesImpl();
+    int quantity=ingredient.getQuantity();
+    if (quantity!=1)
+    {
+      ingredientsAttrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_QUANTITY_ATTR,XmlWriter.CDATA,String.valueOf(quantity));
+    }
+    if (ingredient.isOptional())
+    {
+      ingredientsAttrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_OPTIONAL_ATTR,XmlWriter.CDATA,"true");
+      Integer criticalChanceBonus=ingredient.getCriticalChanceBonus();
+      if (criticalChanceBonus!=null)
+      {
+        ingredientsAttrs.addAttribute("","",RecipeXMLConstants.INGREDIENT_CRITICAL_CHANCE_BONUS_ATTR,XmlWriter.CDATA,criticalChanceBonus.toString());
+      }
+    }
+    hd.startElement("","",RecipeXMLConstants.INGREDIENT_TAG,ingredientsAttrs);
+    Item item=ingredient.getItem();
+    if (item!=null)
+    {
+      writeItemRef(hd,item,RecipeXMLConstants.INGREDIENT_ITEM_TAG);
+    }
+    hd.endElement("","",RecipeXMLConstants.INGREDIENT_TAG);
   }
 
   private void writeCraftingResult(TransformerHandler hd, CraftingResult result) throws SAXException
