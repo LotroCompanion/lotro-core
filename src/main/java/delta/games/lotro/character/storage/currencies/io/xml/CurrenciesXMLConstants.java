@@ -24,6 +24,10 @@ public class CurrenciesXMLConstants
    */
   public static final String CURRENCY_SUMMARY_KEY_ATTR="key";
   /**
+   * Tag 'currencySummary', attribute 'name'.
+   */
+  public static final String CURRENCY_SUMMARY_NAME_ATTR="name";
+  /**
    * Tag 'currencySummary', attribute 'date'.
    */
   public static final String CURRENCY_SUMMARY_DATE_ATTR="date";
@@ -40,6 +44,14 @@ public class CurrenciesXMLConstants
    * Tag 'currencyHistory'.
    */
   public static final String CURRENCY_HISTORY_TAG="currencyHistory";
+  /**
+   * Tag 'currencyHistory', attribute 'key'.
+   */
+  public static final String CURRENCY_HISTORY_KEY_ATTR="key";
+  /**
+   * Tag 'currencyHistory', attribute 'name'.
+   */
+  public static final String CURRENCY_HISTORY_NAME_ATTR="name";
 
   /**
    * Tag 'currencySample'.

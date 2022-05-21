@@ -65,6 +65,9 @@ public class CurrenciesXMLWriter
       // Key
       String key=currency.getPersistenceKey();
       statusAttrs.addAttribute("","",CurrenciesXMLConstants.CURRENCY_SUMMARY_KEY_ATTR,XmlWriter.CDATA,key);
+      // Name
+      String name=currency.getName();
+      statusAttrs.addAttribute("","",CurrenciesXMLConstants.CURRENCY_SUMMARY_NAME_ATTR,XmlWriter.CDATA,name);
       // Date
       long date=status.getDate();
       statusAttrs.addAttribute("","",CurrenciesXMLConstants.CURRENCY_SUMMARY_DATE_ATTR,XmlWriter.CDATA,String.valueOf(date));
@@ -112,6 +115,13 @@ public class CurrenciesXMLWriter
   private void writeHistory(TransformerHandler hd, CurrencyHistory history) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
+    Currency currency=history.getCurrency();
+    // Key
+    String key=currency.getPersistenceKey();
+    attrs.addAttribute("","",CurrenciesXMLConstants.CURRENCY_HISTORY_KEY_ATTR,XmlWriter.CDATA,key);
+    // Name
+    String name=currency.getName();
+    attrs.addAttribute("","",CurrenciesXMLConstants.CURRENCY_HISTORY_NAME_ATTR,XmlWriter.CDATA,name);
     hd.startElement("","",CurrenciesXMLConstants.CURRENCY_HISTORY_TAG,attrs);
     CurrencyStorage storage=history.getStorage();
     int nbPoints=storage.getPoints();
