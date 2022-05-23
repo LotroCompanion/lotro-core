@@ -6,11 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import delta.common.utils.misc.IntegerHolder;
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.character.status.achievables.AchievableElementState;
 import delta.games.lotro.character.status.achievables.AchievableStatus;
-import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.status.achievables.statistics.emotes.EmoteEvent;
 import delta.games.lotro.character.status.achievables.statistics.emotes.EmoteEventNameComparator;
 import delta.games.lotro.character.status.achievables.statistics.reputation.AchievablesFactionStats;
@@ -40,14 +37,11 @@ import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.utils.Proxy;
 
 /**
- * Gather statistics about a collection of achievables for a single character.
+ * Gather statistics about a collection of achievables.
  * @author DAM
  */
 public class AchievablesStatistics
 {
-  private Map<AchievableElementState,IntegerHolder> _countByState;
-  private int _completionsCount;
-  private int _total;
   private int _acquiredLP;
   private int _classPoints;
   private int _marksCount;
@@ -65,11 +59,6 @@ public class AchievablesStatistics
    */
   public AchievablesStatistics()
   {
-    _countByState=new HashMap<AchievableElementState,IntegerHolder>();
-    for(AchievableElementState state : AchievableElementState.values())
-    {
-      _countByState.put(state,new IntegerHolder());
-    }
     _titles=new ArrayList<TitleEvent>();
     _emotes=new ArrayList<EmoteEvent>();
     _traits=new ArrayList<TraitEvent>();
@@ -85,12 +74,6 @@ public class AchievablesStatistics
    */
   public void reset()
   {
-    for(IntegerHolder count : _countByState.values())
-    {
-      count.setInt(0);
-    }
-    _completionsCount=0;
-    _total=0;
     _acquiredLP=0;
     _classPoints=0;
     _marksCount=0;
@@ -104,155 +87,99 @@ public class AchievablesStatistics
     _items.reset();
   }
 
-  /**
-   * Compute statistics using the given status and achievables.
-   * @param status Achievables status.
-   * @param achievables Achievables to use.
-   */
-  public void useAchievables(AchievablesStatusManager status, List<? extends Achievable> achievables)
+  void endStatsComputation()
   {
-    reset();
-    for(Achievable achievable : achievables)
-    {
-      AchievableStatus achievableStatus=status.get(achievable,false);
-      if (achievableStatus!=null)
-      {
-        useAchievable(achievableStatus,achievable);
-      }
-      _total++;
-    }
     Collections.sort(_titles,new TitleEventNameComparator());
     Collections.sort(_emotes,new EmoteEventNameComparator());
     Collections.sort(_traits,new TraitEventNameComparator());
   }
 
-  private void useAchievable(AchievableStatus status, Achievable achievable)
+  void useAchievable(AchievableStatus status, Achievable achievable, int count)
   {
-    // Update count by state
-    AchievableElementState state=status.getState();
-    IntegerHolder counter=_countByState.get(state);
-    if (counter!=null)
+    Rewards rewards=achievable.getRewards();
+    // LOTRO points
+    int lp=rewards.getLotroPoints();
+    _acquiredLP+=lp;
+    // Class points
+    int classPoints=rewards.getClassPoints();
+    _classPoints+=classPoints;
+    // Virtue XP
+    int virtueXP=rewards.getVirtueXp();
+    if (virtueXP>0)
     {
-      counter.increment();
+      _virtueXP.addAchievable(achievable,virtueXP,count);
     }
-    if (state==AchievableElementState.COMPLETED)
+    // Other rewards
+    for(RewardElement rewardElement : rewards.getRewardElements())
     {
-      // Completions count
-      Integer completionCount=status.getCompletionCount();
-      int completionCountInt=(completionCount!=null)?completionCount.intValue():1;
-      _completionsCount+=completionCountInt;
-      Rewards rewards=achievable.getRewards();
-      // LOTRO points
-      int lp=rewards.getLotroPoints();
-      _acquiredLP+=lp;
-      // Class points
-      int classPoints=rewards.getClassPoints();
-      _classPoints+=classPoints;
-      // Virtue XP
-      int virtueXP=rewards.getVirtueXp();
-      if (virtueXP>0)
+      // Item
+      if (rewardElement instanceof ItemReward)
       {
-        _virtueXP.addAchievable(achievable,virtueXP,completionCountInt);
+        ItemReward itemReward=(ItemReward)rewardElement;
+        Proxy<Item> itemProxy=itemReward.getItemProxy();
+        int itemId=itemProxy.getId();
+        int itemsCount=itemReward.getQuantity();
+        int totalItemsCount=itemsCount*count;
+        // Marks
+        if (itemId==WellKnownItems.MARK)
+        {
+          _marksCount+=totalItemsCount;
+        }
+        // Medallions
+        if (itemId==WellKnownItems.MEDALLION)
+        {
+          _medallionsCount+=totalItemsCount;
+        }
+        _items.add(itemId,totalItemsCount);
       }
-      // Other rewards
-      for(RewardElement rewardElement : rewards.getRewardElements())
+      // Title
+      else if (rewardElement instanceof TitleReward)
       {
-        // Item
-        if (rewardElement instanceof ItemReward)
+        TitleReward titleReward=(TitleReward)rewardElement;
+        Long date=status.getCompletionDate();
+        TitleEvent event=new TitleEvent(titleReward.getName(),date,achievable);
+        _titles.add(event);
+      }
+      // Emote
+      else if (rewardElement instanceof EmoteReward)
+      {
+        EmoteReward emoteReward=(EmoteReward)rewardElement;
+        Long date=status.getCompletionDate();
+        EmoteEvent event=new EmoteEvent(emoteReward.getName(),date,achievable);
+        _emotes.add(event);
+      }
+      // Trait
+      else if (rewardElement instanceof TraitReward)
+      {
+        TraitReward traitReward=(TraitReward)rewardElement;
+        Long date=status.getCompletionDate();
+        TraitEvent event=new TraitEvent(traitReward.getName(),date,achievable);
+        _traits.add(event);
+      }
+      // Virtue
+      else if (rewardElement instanceof VirtueReward)
+      {
+        VirtueReward virtueReward=(VirtueReward)rewardElement;
+        VirtueDescription virtue=virtueReward.getVirtue();
+        VirtueStatsFromAchievables virtueStats=_virtues.get(virtue);
+        if (virtueStats==null)
         {
-          ItemReward itemReward=(ItemReward)rewardElement;
-          Proxy<Item> itemProxy=itemReward.getItemProxy();
-          int itemId=itemProxy.getId();
-          int itemsCount=itemReward.getQuantity();
-          // Marks
-          if (itemId==WellKnownItems.MARK)
-          {
-            _marksCount+=itemsCount;
-          }
-          // Medallions
-          if (itemId==WellKnownItems.MEDALLION)
-          {
-            _medallionsCount+=itemsCount;
-          }
-          _items.add(itemId,itemsCount);
+          virtueStats=new VirtueStatsFromAchievables(virtue);
+          _virtues.put(virtue,virtueStats);
         }
-        // Title
-        else if (rewardElement instanceof TitleReward)
-        {
-          TitleReward titleReward=(TitleReward)rewardElement;
-          Long date=status.getCompletionDate();
-          TitleEvent event=new TitleEvent(titleReward.getName(),date,achievable);
-          _titles.add(event);
-        }
-        // Emote
-        else if (rewardElement instanceof EmoteReward)
-        {
-          EmoteReward emoteReward=(EmoteReward)rewardElement;
-          Long date=status.getCompletionDate();
-          EmoteEvent event=new EmoteEvent(emoteReward.getName(),date,achievable);
-          _emotes.add(event);
-        }
-        // Trait
-        else if (rewardElement instanceof TraitReward)
-        {
-          TraitReward traitReward=(TraitReward)rewardElement;
-          Long date=status.getCompletionDate();
-          TraitEvent event=new TraitEvent(traitReward.getName(),date,achievable);
-          _traits.add(event);
-        }
-        // Virtue
-        else if (rewardElement instanceof VirtueReward)
-        {
-          VirtueReward virtueReward=(VirtueReward)rewardElement;
-          VirtueDescription virtue=virtueReward.getVirtue();
-          VirtueStatsFromAchievables virtueStats=_virtues.get(virtue);
-          if (virtueStats==null)
-          {
-            virtueStats=new VirtueStatsFromAchievables(virtue);
-            _virtues.put(virtue,virtueStats);
-          }
-          int points=virtueReward.getCount();
-          virtueStats.add(points);
-        }
-        // Reputation
-        else if (rewardElement instanceof ReputationReward)
-        {
-          ReputationReward reputationReward=(ReputationReward)rewardElement;
-          Faction faction=reputationReward.getFaction();
-          AchievablesFactionStats factionStats=_reputation.get(faction,true);
-          int amount=reputationReward.getAmount();
-          factionStats.addCompletions(completionCountInt,amount);
-        }
+        int points=virtueReward.getCount();
+        virtueStats.add(points);
+      }
+      // Reputation
+      else if (rewardElement instanceof ReputationReward)
+      {
+        ReputationReward reputationReward=(ReputationReward)rewardElement;
+        Faction faction=reputationReward.getFaction();
+        AchievablesFactionStats factionStats=_reputation.get(faction,true);
+        int amount=reputationReward.getAmount();
+        factionStats.addCompletions(count,amount);
       }
     }
-  }
-
-  /**
-   * Get the number of achievables in the given state.
-   * @param state State to use.
-   * @return A number of achievables.
-   */
-  public int getCountForState(AchievableElementState state)
-  {
-    return _countByState.get(state).getInt();
-  }
-
-  /**
-   * Get the completions count.
-   * @return A number of achievable completions (including repeatables).
-   */
-  public int getCompletionsCount()
-  {
-    return _completionsCount;
-  }
-
-  /**
-   * Get the total number of achievables.
-   * @return A number of achievables.
-   */
-  public int getTotalCount()
-  {
-    return _total;
   }
 
   /**
@@ -370,15 +297,12 @@ public class AchievablesStatistics
   }
 
   /**
-   * Show results.
+   * Dump results.
+   * @return a displayable string.
    */
-  public void showResults()
+  public String dumpResults()
   {
     StringBuilder sb=new StringBuilder();
-    for(AchievableElementState state : AchievableElementState.values())
-    {
-      sb.append(state.name()).append(": ").append(getCountForState(state)).append(" / ").append(_total).append(EndOfLine.NATIVE_EOL);
-    }
     sb.append("LOTRO points: ").append(_acquiredLP).append(EndOfLine.NATIVE_EOL);
     sb.append("Class points: ").append(_classPoints).append(EndOfLine.NATIVE_EOL);
     sb.append("Marks: ").append(_marksCount).append(EndOfLine.NATIVE_EOL);
@@ -436,7 +360,13 @@ public class AchievablesStatistics
         }
       }
     }
-    String display=sb.toString();
-    System.out.println(display);
+    String display=sb.toString().trim();
+    return display;
+  }
+
+  @Override
+  public String toString()
+  {
+    return dumpResults();
   }
 }

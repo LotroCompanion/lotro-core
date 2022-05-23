@@ -238,6 +238,33 @@ public class AchievableStatus
   }
 
   /**
+   * Get the actual completion count.
+   * @return a completion count that takes care about the current state.
+   */
+  public int getActualCompletionCount()
+  {
+    int ret=0;
+    if (_state==AchievableElementState.COMPLETED)
+    {
+      ret=(_completionCount!=null)?_completionCount.intValue():1;
+    }
+    else // UNDEFINED, UNDERWAY
+    {
+      ret=(_completionCount!=null)?_completionCount.intValue():0;
+    }
+    return ret;
+  }
+
+  /**
+   * Get the number of completions to do.
+   * @return the number of completions to do.
+   */
+  public int getToDoCompletionCount()
+  {
+    return (_state==AchievableElementState.COMPLETED)?0:1;
+  }
+
+  /**
    * Indicates if this deed status is empty (contains no data).
    * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
