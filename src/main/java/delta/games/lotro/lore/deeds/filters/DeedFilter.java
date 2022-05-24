@@ -13,6 +13,7 @@ import delta.games.lotro.common.requirements.filters.UsageRequirementFilter;
 import delta.games.lotro.common.rewards.filters.RewardsFilter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.filter.AchievableMonsterPlayFilter;
+import delta.games.lotro.lore.quests.filter.HiddenAchievableFilter;
 
 /**
  * Deed filter.
@@ -26,6 +27,7 @@ public class DeedFilter implements Filter<DeedDescription>
   private DeedTypeFilter _typeFilter;
   private DeedCategoryFilter _categoryFilter;
   private AchievableMonsterPlayFilter<DeedDescription> _monsterPlayFilter;
+  private HiddenAchievableFilter<DeedDescription> _hiddenFilter;
   // Requirements
   private UsageRequirementFilter _requirementsFilter;
   // Rewards
@@ -49,6 +51,9 @@ public class DeedFilter implements Filter<DeedDescription>
     // Monster play
     _monsterPlayFilter=new AchievableMonsterPlayFilter<DeedDescription>(null);
     filters.add(_monsterPlayFilter);
+    // Hidden
+    _hiddenFilter=new HiddenAchievableFilter<DeedDescription>(null);
+    filters.add(_hiddenFilter);
     // Requirements
     _requirementsFilter=new UsageRequirementFilter(null,null);
     ProxyValueResolver<DeedDescription,UsageRequirement> resolver=new ProxyValueResolver<DeedDescription,UsageRequirement>()
@@ -100,6 +105,15 @@ public class DeedFilter implements Filter<DeedDescription>
   public AchievableMonsterPlayFilter<DeedDescription> getMonsterPlayFilter()
   {
     return _monsterPlayFilter;
+  }
+
+  /**
+   * Get the filter on hidden flag.
+   * @return a filter on hidden flag.
+   */
+  public HiddenAchievableFilter<DeedDescription> getHiddenFilter()
+  {
+    return _hiddenFilter;
   }
 
   /**
