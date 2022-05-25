@@ -359,16 +359,6 @@ public class CharacterFile
   }
 
   /**
-   * Get the date of the last character update.
-   * @return A date or <code>null</code> if there's no log.
-   */
-  public Date getLastInfoUpdate()
-  {
-    Date ret=_infosManager.getLastInfoDate();
-    return ret;
-  }
-
-  /**
    * Get the date of the last log update.
    * @return A date or <code>null</code> if there's no log.
    */

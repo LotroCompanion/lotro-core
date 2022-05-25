@@ -94,7 +94,7 @@ public class CharacterInfosManager
 
   private void loadAllData()
   {
-    if (_datas.size()>0)
+    if (!_datas.isEmpty())
     {
       return;
     }
@@ -191,11 +191,7 @@ public class CharacterInfosManager
         public boolean accept(File pathname)
         {
           String name=pathname.getName();
-          if ((name.startsWith("data-")) && (name.endsWith(".xml")))
-          {
-            return true;
-          }
-          return false;
+          return ((name.startsWith("data-")) && (name.endsWith(".xml")));
         }
       };
       files=characterDir.listFiles(filter);
@@ -213,7 +209,7 @@ public class CharacterInfosManager
    */
   public CharacterData getLastCharacterDescription()
   {
-    if (_datas.size()==0)
+    if (_datas.isEmpty())
     {
       loadAllData();
     }
@@ -253,11 +249,7 @@ public class CharacterInfosManager
         public boolean accept(File pathname)
         {
           String name=pathname.getName();
-          if ((name.startsWith("info ")) && (name.endsWith(".xml")))
-          {
-            return true;
-          }
-          return false;
+          return ((name.startsWith("info ")) && (name.endsWith(".xml")));
         }
       };
       files=characterDir.listFiles(filter);
@@ -285,7 +277,11 @@ public class CharacterInfosManager
           File newFile=getNewInfoFile();
           updateOldCharacterData(oldInfoFile,data);
           CharacterDataIO.saveInfo(newFile,data);
-          oldInfoFile.delete();
+          boolean ok=oldInfoFile.delete();
+          if (!ok)
+          {
+            LOGGER.warn("Could not delete file: "+oldInfoFile);
+          }
         }
       }
     }
@@ -343,7 +339,7 @@ public class CharacterInfosManager
   /**
    * Delete a character data.
    * @param data Targeted data.
-   * @return <code>true</code> if successfull, <code>false</code> otherwise.
+   * @return <code>true</code> if successful, <code>false</code> otherwise.
    */
   public boolean remove(CharacterData data)
   {
@@ -371,21 +367,6 @@ public class CharacterInfosManager
         break;
       }
       index++;
-    }
-    return ret;
-  }
-
-  /**
-   * Get the date of the lastest info file.
-   * @return A date or <code>null</code> if no info file.
-   */
-  public Date getLastInfoDate()
-  {
-    Date ret=null;
-    CharacterData lastData=getLastCharacterDescription();
-    if (lastData!=null)
-    {
-      ret=new Date(lastData.getDate().longValue());
     }
     return ret;
   }
