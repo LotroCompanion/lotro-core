@@ -112,6 +112,21 @@ public class CharacterInfosManager
     }
   }
 
+  /**
+   * Get the current data for this character.
+   * @return a character description.
+   */
+  public CharacterData getCurrentData()
+  {
+    CharacterData ret=_current;
+    if (ret==null)
+    {
+      ret=loadCurrentData();
+      _current=ret;
+    }
+    return ret;
+  }
+
   private CharacterData loadCurrentData()
   {
     CharacterData ret=null;
