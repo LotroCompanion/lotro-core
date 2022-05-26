@@ -19,9 +19,10 @@ public class GlobalAchievablesStatistics
 {
   private Map<AchievableElementState,IntegerHolder> _countByState;
   private int _completionsCount;
-  private int _total;
+  private int _achiveablesCount;
   private AchievablesStatistics _acquired;
   private AchievablesStatistics _toGet;
+  private AchievablesStatistics _total;
 
   /**
    * Constructor.
@@ -35,6 +36,7 @@ public class GlobalAchievablesStatistics
     }
     _acquired=new AchievablesStatistics();
     _toGet=new AchievablesStatistics();
+    _total=new AchievablesStatistics();
     reset();
   }
 
@@ -57,6 +59,15 @@ public class GlobalAchievablesStatistics
   }
 
   /**
+   * Get the statistics about all elements.
+   * @return the statistics about all elements.
+   */
+  public AchievablesStatistics getTotalStats()
+  {
+    return _total;
+  }
+
+  /**
    * Reset contents.
    */
   public void reset()
@@ -66,9 +77,10 @@ public class GlobalAchievablesStatistics
       count.setInt(0);
     }
     _completionsCount=0;
-    _total=0;
+    _achiveablesCount=0;
     _acquired.reset();
     _toGet.reset();
+    _total.reset();
   }
 
   /**
@@ -86,10 +98,11 @@ public class GlobalAchievablesStatistics
       {
         useAchievable(achievableStatus,achievable);
       }
-      _total++;
+      _achiveablesCount++;
     }
     _acquired.endStatsComputation();
     _toGet.endStatsComputation();
+    _total.endStatsComputation();
   }
 
   private void useAchievable(AchievableStatus status, Achievable achievable)
@@ -114,6 +127,8 @@ public class GlobalAchievablesStatistics
     {
       _toGet.useAchievable(status,achievable,todoCount);
     }
+    int totalCount=completionCountInt+todoCount;
+    _total.useAchievable(status,achievable,totalCount);
   }
 
   /**
@@ -141,7 +156,7 @@ public class GlobalAchievablesStatistics
    */
   public int getTotalCount()
   {
-    return _total;
+    return _achiveablesCount;
   }
 
   /**
@@ -159,6 +174,8 @@ public class GlobalAchievablesStatistics
     sb.append(_acquired).append(EndOfLine.NATIVE_EOL);
     sb.append("*** To Get:").append(EndOfLine.NATIVE_EOL);
     sb.append(_toGet).append(EndOfLine.NATIVE_EOL);
+    sb.append("*** Total:").append(EndOfLine.NATIVE_EOL);
+    sb.append(_total).append(EndOfLine.NATIVE_EOL);
     String display=sb.toString().trim();
     return display;
   }
