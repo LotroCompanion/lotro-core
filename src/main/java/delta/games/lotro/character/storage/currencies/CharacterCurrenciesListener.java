@@ -48,6 +48,9 @@ public class CharacterCurrenciesListener
     // XP
     long xp=details.getXp();
     mgr.updateCurrency(CurrencyKeys.XP,(int)xp,true);
+    // In-game time
+    long inGameTime=details.getIngameTime();
+    mgr.updateCurrency(CurrencyKeys.IN_GAME_TIME,(int)inGameTime,true);
     mgr.save();
   }
 

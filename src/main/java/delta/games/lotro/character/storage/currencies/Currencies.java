@@ -75,6 +75,9 @@ public class Currencies
     // LOTRO points
     Currency lotroPoints=new Currency("lotroPoints","LOTRO Points",Scope.ACCOUNT,"World");
     registerCurrency(lotroPoints);
+    // In-game time
+    Currency inGameTime=new Currency(CurrencyKeys.IN_GAME_TIME,"In-game Time",Scope.CHARACTER,"In-game Time");
+    registerCurrency(inGameTime);
   }
 
   private void setupCurrencyLegacy(Currency currency, String key)

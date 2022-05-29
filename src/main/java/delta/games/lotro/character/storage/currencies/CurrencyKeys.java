@@ -22,6 +22,11 @@ public class CurrencyKeys
   public static final String DESTINY_POINTS="destinyPoints";
 
   /**
+   * In-game time.
+   */
+  public static final String IN_GAME_TIME="inGameTime";
+
+  /**
    * Marks.
    */
   public static final String MARKS="marks";
