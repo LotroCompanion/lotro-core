@@ -95,28 +95,6 @@ public class BagsManager extends BaseStorage
     return ret;
   }
 
-  /**
-   * Find an item using its Instance Identifier.
-   * @param itemIid Identifier to use.
-   * @return An item instance or <code>null</code>.
-   */
-  public ItemInstance<? extends Item> findItemByIid(long itemIid)
-  {
-    for(CountedItem<ItemInstance<? extends Item>> countedItemInstance : _bag.values())
-    {
-      ItemInstance<? extends Item> itemInstance=countedItemInstance.getManagedItem();
-      InternalGameId instanceId=itemInstance.getInstanceId();
-      if (instanceId!=null)
-      {
-        if (InternalGameId.lightMatch(instanceId.asLong(),itemIid))
-        {
-          return itemInstance;
-        }
-      }
-    }
-    return null;
-  }
-
   @Override
   public int getUsed()
   {
