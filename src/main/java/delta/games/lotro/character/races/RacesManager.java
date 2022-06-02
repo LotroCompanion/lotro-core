@@ -75,4 +75,30 @@ public class RacesManager
     ret=_cache.get(race);
     return ret;
   }
+
+  /**
+   * Get race and gender using the avatar ID.
+   * @param avatarID Avatar ID.
+   * @return A race and gender, or <code>null</code> if not found.
+   */
+  public RaceGender findByAvatarID(int avatarID)
+  {
+    for(Race race : Race.ALL_RACES)
+    {
+      RaceDescription raceDescription=getRaceDescription(race);
+      // Male?
+      RaceGender maleGender=raceDescription.getMaleGender();
+      if ((maleGender!=null) && (maleGender.getAvatarId()==avatarID))
+      {
+        return maleGender;
+      }
+      // Female?
+      RaceGender femaleGender=raceDescription.getFemaleGender();
+      if ((femaleGender!=null) && (femaleGender.getAvatarId()==avatarID))
+      {
+        return femaleGender;
+      }
+    }
+    return null;
+  }
 }

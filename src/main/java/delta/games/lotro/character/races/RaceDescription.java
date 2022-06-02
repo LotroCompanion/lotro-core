@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
 
 /**
@@ -100,6 +101,7 @@ public class RaceDescription
   public void setMaleGender(RaceGender male)
   {
     _male=male;
+    male.setRaceAndGender(_race,CharacterSex.MALE);
   }
 
   /**
@@ -118,6 +120,7 @@ public class RaceDescription
   public void setFemaleGender(RaceGender female)
   {
     _female=female;
+    female.setRaceAndGender(_race,CharacterSex.FEMALE);
   }
 
   /**
