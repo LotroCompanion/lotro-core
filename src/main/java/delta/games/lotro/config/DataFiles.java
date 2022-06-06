@@ -279,7 +279,11 @@ public class DataFiles
    */
   public static final String BILLING_GROUPS="billingGroups";
   /**
-   * Billing groups file.
+   * World events file.
    */
   public static final String WORLD_EVENTS="worldEvents";
+  /**
+   * Web store items file.
+   */
+  public static final String WEB_STORE_ITEMS="webStoreItems";
 }

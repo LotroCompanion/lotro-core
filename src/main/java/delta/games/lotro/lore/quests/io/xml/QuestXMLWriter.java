@@ -23,6 +23,7 @@ import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.lore.quests.objectives.io.xml.DialogsXMLWriter;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
+import delta.games.lotro.lore.webStore.WebStoreItem;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -146,6 +147,12 @@ public class QuestXMLWriter extends AchievableXMLWriter
     }
     // Requirements
     UsageRequirementsXMLWriter.write(questAttrs,quest.getUsageRequirement());
+    // Web store item
+    WebStoreItem webStoreItem=quest.getWebStoreItem();
+    if (webStoreItem!=null)
+    {
+      questAttrs.addAttribute("","",AchievableXMLConstants.WEB_STORE_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(webStoreItem.getIdentifier()));
+    }
     // Description
     String description=quest.getDescription();
     if (description.length()>0)

@@ -18,6 +18,8 @@ import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.lore.quests.objectives.io.xml.DialogsXMLParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
+import delta.games.lotro.lore.webStore.WebStoreItem;
+import delta.games.lotro.lore.webStore.WebStoreItemsManager;
 
 /**
  * Parser for quest descriptions stored in XML.
@@ -117,6 +119,13 @@ public class QuestXMLParser extends AchievableXMLParser
     UsageRequirementsXMLParser.parseRequirements(q.getUsageRequirement(),root);
     parseAchievablesRequirements(root,q);
     parseWorldEventsRequirements(root,q);
+    // Web store item
+    int webStoreItemID=DOMParsingTools.getIntAttribute(attrs,AchievableXMLConstants.WEB_STORE_ITEM_ID_ATTR,0);
+    if (webStoreItemID>0)
+    {
+      WebStoreItem webStoreItem=WebStoreItemsManager.getInstance().getWebStoreItem(webStoreItemID);
+      q.setWebStoreItem(webStoreItem);
+    }
     // Maps
     parseMaps(root,q);
     // Next quest

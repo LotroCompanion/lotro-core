@@ -17,6 +17,7 @@ import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.quests.io.xml.AchievableXMLConstants;
 import delta.games.lotro.lore.quests.io.xml.AchievableXMLWriter;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
+import delta.games.lotro.lore.webStore.WebStoreItem;
 
 /**
  * Writes LOTRO deeds to XML files.
@@ -92,6 +93,12 @@ public class DeedXMLWriter extends AchievableXMLWriter
     if (monsterPlay)
     {
       deedAttrs.addAttribute("","",AchievableXMLConstants.MONSTER_PLAY_ATTR,XmlWriter.CDATA,String.valueOf(monsterPlay));
+    }
+    // Web store item
+    WebStoreItem webStoreItem=deed.getWebStoreItem();
+    if (webStoreItem!=null)
+    {
+      deedAttrs.addAttribute("","",AchievableXMLConstants.WEB_STORE_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(webStoreItem.getIdentifier()));
     }
     // Description
     String description=deed.getDescription();

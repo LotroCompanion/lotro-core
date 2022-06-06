@@ -32,6 +32,10 @@ public class AchievableXMLConstants
    */
   public static final String MONSTER_PLAY_ATTR="monsterPlay";
   /**
+   * Tag 'quest/deed', attribute 'webStoreItemID'.
+   */
+  public static final String WEB_STORE_ITEM_ID_ATTR="webStoreItemID";
+  /**
    * Tag 'quest/deed', attribute 'description'.
    */
   public static final String DESCRIPTION_ATTR="description";

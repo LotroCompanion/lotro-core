@@ -13,8 +13,11 @@ import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedType;
+import delta.games.lotro.lore.quests.io.xml.AchievableXMLConstants;
 import delta.games.lotro.lore.quests.io.xml.AchievableXMLParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
+import delta.games.lotro.lore.webStore.WebStoreItem;
+import delta.games.lotro.lore.webStore.WebStoreItemsManager;
 
 /**
  * Parser for deed descriptions stored in XML.
@@ -98,6 +101,13 @@ public class DeedXMLParser extends AchievableXMLParser
     UsageRequirementsXMLParser.parseRequirements(deed.getUsageRequirement(),root);
     parseAchievablesRequirements(root,deed);
     parseWorldEventsRequirements(root,deed);
+    // Web store item
+    int webStoreItemID=DOMParsingTools.getIntAttribute(attrs,AchievableXMLConstants.WEB_STORE_ITEM_ID_ATTR,0);
+    if (webStoreItemID>0)
+    {
+      WebStoreItem webStoreItem=WebStoreItemsManager.getInstance().getWebStoreItem(webStoreItemID);
+      deed.setWebStoreItem(webStoreItem);
+    }
     // Maps
     parseMaps(root,deed);
     // Objectives

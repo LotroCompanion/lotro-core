@@ -14,6 +14,7 @@ import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
+import delta.games.lotro.lore.webStore.WebStoreItem;
 import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
 
 /**
@@ -76,6 +77,10 @@ public abstract class Achievable implements Identifiable
    * Maps.
    */
   private List<MapDescription> _maps;
+  /**
+   * Web store item.
+   */
+  private WebStoreItem _webStoreItem;
 
   /**
    * Constructor.
@@ -94,6 +99,7 @@ public abstract class Achievable implements Identifiable
     _rewards=new Rewards();
     _questRequirement=null;
     _maps=new ArrayList<MapDescription>();
+    _webStoreItem=null;
   }
 
   /**
@@ -343,6 +349,25 @@ public abstract class Achievable implements Identifiable
     return _maps;
   }
 
+  /**
+   * Get the associated web store item, iff any.
+   * @return A web store item or <code>null</code>.
+   */
+  public WebStoreItem getWebStoreItem()
+  {
+    return _webStoreItem;
+  }
+
+  /**
+   * Set the associated web store item.
+   * @param webStoreItem Web store item to set.
+   */
+  public void setWebStoreItem(WebStoreItem webStoreItem)
+  {
+    _webStoreItem=webStoreItem;
+  }
+
+  
   /**
    * Dump the contents of this achievable as a string.
    * @return A readable string.
