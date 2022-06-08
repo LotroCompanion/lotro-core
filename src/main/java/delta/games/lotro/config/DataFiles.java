@@ -68,6 +68,10 @@ public class DataFiles
    * Races file.
    */
   public static final String RACES="races";
+  /**
+   * Nationalities file.
+   */
+  public static final String NATIONALITIES="nationalities";
 
   /**
    * Deeds file.
