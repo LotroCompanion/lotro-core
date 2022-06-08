@@ -65,7 +65,10 @@ public class NationalityDescriptionXMLParser
     ret.setNamingGuidelineFemale(femaleGuideline);
     // Title ID
     int titleID=DOMParsingTools.getIntAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_TITLE_ID_ATTR,0);
-    ret.setTitleID(titleID);
+    if (titleID!=0)
+    {
+      ret.setTitleID(Integer.valueOf(titleID));
+    }
     return ret;
   }
 }

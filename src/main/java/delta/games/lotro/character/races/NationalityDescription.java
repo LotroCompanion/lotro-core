@@ -15,7 +15,7 @@ public class NationalityDescription implements Identifiable, Named
   private int _iconID;
   private String _namingGuidelineMale;
   private String _namingGuidelineFemale;
-  private int _titleID;
+  private Integer _titleID;
   // Factions table?
 
   /**
@@ -25,6 +25,10 @@ public class NationalityDescription implements Identifiable, Named
   public NationalityDescription(int identifier)
   {
     _identifier=identifier;
+    _name="";
+    _description="";
+    _namingGuidelineMale="";
+    _namingGuidelineFemale="";
   }
 
   @Override
@@ -45,6 +49,10 @@ public class NationalityDescription implements Identifiable, Named
    */
   public void setName(String name)
   {
+    if (name==null)
+    {
+      name="";
+    }
     _name=name;
   }
 
@@ -63,6 +71,10 @@ public class NationalityDescription implements Identifiable, Named
    */
   public void setDescription(String description)
   {
+    if (description==null)
+    {
+      description="";
+    }
     _description=description;
   }
 
@@ -99,6 +111,10 @@ public class NationalityDescription implements Identifiable, Named
    */
   public void setNamingGuidelineMale(String namingGuidelineMale)
   {
+    if (namingGuidelineMale==null)
+    {
+      namingGuidelineMale="";
+    }
     _namingGuidelineMale=namingGuidelineMale;
   }
 
@@ -117,6 +133,10 @@ public class NationalityDescription implements Identifiable, Named
    */
   public void setNamingGuidelineFemale(String namingGuidelineFemale)
   {
+    if (namingGuidelineFemale==null)
+    {
+      namingGuidelineFemale="";
+    }
     _namingGuidelineFemale=namingGuidelineFemale;
   }
 
@@ -124,7 +144,7 @@ public class NationalityDescription implements Identifiable, Named
    * Get the identifier of the associated title.
    * @return A title identifier.
    */
-  public int getTitleID()
+  public Integer getTitleID()
   {
     return _titleID;
   }
@@ -133,7 +153,7 @@ public class NationalityDescription implements Identifiable, Named
    * Set the title identifier.
    * @param titleID the title identifier to set.
    */
-  public void setTitleID(int titleID)
+  public void setTitleID(Integer titleID)
   {
     _titleID=titleID;
   }

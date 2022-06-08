@@ -79,8 +79,11 @@ public class NationalityDescriptionXMLWriter
       attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_FEMALE_GUIDELINE_ATTR,XmlWriter.CDATA,femaleGuideline);
     }
     // Title ID
-    int titleID=nationalityDescription.getTitleID();
-    attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_TITLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(titleID));
+    Integer titleID=nationalityDescription.getTitleID();
+    if (titleID!=null)
+    {
+      attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_TITLE_ID_ATTR,XmlWriter.CDATA,titleID.toString());
+    }
     hd.startElement("","",NationalityDescriptionXMLConstants.NATIONALITY_TAG,attrs);
     hd.endElement("","",NationalityDescriptionXMLConstants.NATIONALITY_TAG);
   }
