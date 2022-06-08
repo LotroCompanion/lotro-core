@@ -11,6 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.character.races.NationalityDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceGender;
 import delta.games.lotro.character.races.RaceTrait;
@@ -69,6 +70,16 @@ public class RaceDescriptionXMLWriter
     // Genders
     writeGender(hd,raceDescription.getMaleGender());
     writeGender(hd,raceDescription.getFemaleGender());
+    // Nationalities
+    List<NationalityDescription> nationalities=raceDescription.getNationalities();
+    for(NationalityDescription nationality : nationalities)
+    {
+      AttributesImpl nationalityAttrs=new AttributesImpl();
+      nationalityAttrs.addAttribute("","",RaceDescriptionXMLConstants.NATIONALITY_ID_ATTR,XmlWriter.CDATA,String.valueOf(nationality.getIdentifier()));
+      nationalityAttrs.addAttribute("","",RaceDescriptionXMLConstants.NATIONALITY_NAME_ATTR,XmlWriter.CDATA,String.valueOf(nationality.getName()));
+      hd.startElement("","",RaceDescriptionXMLConstants.NATIONALITY_TAG,nationalityAttrs);
+      hd.endElement("","",RaceDescriptionXMLConstants.NATIONALITY_TAG);
+    }
     // Allowed classes
     List<CharacterClass> characterClasses=raceDescription.getAllowedClasses();
     for(CharacterClass characterClass : characterClasses)

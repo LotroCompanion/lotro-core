@@ -19,6 +19,7 @@ public class RaceDescription
   private String _description;
   private RaceGender _male;
   private RaceGender _female;
+  private List<NationalityDescription> _nationalities;
   private List<CharacterClass> _classes;
   private List<RaceTrait> _traits;
   private List<TraitDescription> _earnableTraits;
@@ -34,6 +35,7 @@ public class RaceDescription
     _description="";
     _male=null;
     _female=null;
+    _nationalities=new ArrayList<NationalityDescription>();
     _classes=new ArrayList<CharacterClass>();
     _traits=new ArrayList<RaceTrait>();
     _earnableTraits=new ArrayList<TraitDescription>();
@@ -121,6 +123,24 @@ public class RaceDescription
   {
     _female=female;
     female.setRaceAndGender(_race,CharacterSex.FEMALE);
+  }
+
+  /**
+   * Add a nationality.
+   * @param nationality Nationality to add.
+   */
+  public void addNationality(NationalityDescription nationality)
+  {
+    _nationalities.add(nationality);
+  }
+
+  /**
+   * Get all the nationalities of this race.
+   * @return A list of nationalities.
+   */
+  public List<NationalityDescription> getNationalities()
+  {
+    return _nationalities;
   }
 
   /**

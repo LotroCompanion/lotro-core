@@ -4,10 +4,10 @@ import delta.common.utils.id.Identifiable;
 import delta.games.lotro.common.Named;
 
 /**
- * Nationality.
+ * Nationality description.
  * @author DAM
  */
-public class Nationality implements Identifiable, Named
+public class NationalityDescription implements Identifiable, Named
 {
   private int _identifier;
   private String _name;
@@ -22,7 +22,7 @@ public class Nationality implements Identifiable, Named
    * Constructor.
    * @param identifier Identifier.
    */
-  public Nationality(int identifier)
+  public NationalityDescription(int identifier)
   {
     _identifier=identifier;
   }

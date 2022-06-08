@@ -20,7 +20,7 @@ public class NationalitiesManager
 
   private static NationalitiesManager _instance=null;
 
-  private HashMap<Integer,Nationality> _cache;
+  private HashMap<Integer,NationalityDescription> _cache;
 
   /**
    * Get the sole instance of this class.
@@ -41,7 +41,7 @@ public class NationalitiesManager
    */
   private NationalitiesManager()
   {
-    _cache=new HashMap<Integer,Nationality>(10);
+    _cache=new HashMap<Integer,NationalityDescription>(10);
   }
 
   /**
@@ -53,8 +53,8 @@ public class NationalitiesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File nationalitiesFile=cfg.getFile(DataFiles.NATIONALITIES);
     long now=System.currentTimeMillis();
-    List<Nationality> nationalityDescriptions=NationalityDescriptionXMLParser.parseNationalitiesFile(nationalitiesFile);
-    for(Nationality nationalityDescription : nationalityDescriptions)
+    List<NationalityDescription> nationalityDescriptions=NationalityDescriptionXMLParser.parseNationalitiesFile(nationalitiesFile);
+    for(NationalityDescription nationalityDescription : nationalityDescriptions)
     {
       _cache.put(Integer.valueOf(nationalityDescription.getIdentifier()),nationalityDescription);
     }
@@ -68,7 +68,7 @@ public class NationalitiesManager
    * @param code Code of the nationality to get.
    * @return A nationality description or <code>null</code> if not found.
    */
-  public Nationality getNationalityDescription(int code)
+  public NationalityDescription getNationalityDescription(int code)
   {
     return _cache.get(Integer.valueOf(code));
   }

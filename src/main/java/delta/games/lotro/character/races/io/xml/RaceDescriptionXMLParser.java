@@ -8,6 +8,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.races.NationalitiesManager;
+import delta.games.lotro.character.races.NationalityDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceGender;
 import delta.games.lotro.character.races.RaceTrait;
@@ -70,6 +72,19 @@ public class RaceDescriptionXMLParser
     {
       female=parseGenderDescription(genderTags.get(1));
       raceDescription.setFemaleGender(female);
+    }
+    // Nationalities
+    List<Element> nationalityTags=DOMParsingTools.getChildTagsByName(root,RaceDescriptionXMLConstants.NATIONALITY_TAG);
+    for(Element nationalityTag : nationalityTags)
+    {
+      NamedNodeMap nationalityAttrs=nationalityTag.getAttributes();
+      // Code
+      int nationalityCode=DOMParsingTools.getIntAttribute(nationalityAttrs,RaceDescriptionXMLConstants.NATIONALITY_ID_ATTR,0);
+      NationalityDescription nationality=NationalitiesManager.getInstance().getNationalityDescription(nationalityCode);
+      if (nationality!=null)
+      {
+        raceDescription.addNationality(nationality);
+      }
     }
     // Allowed classes
     List<Element> allowedClassTags=DOMParsingTools.getChildTagsByName(root,RaceDescriptionXMLConstants.ALLOWED_CLASS_TAG);

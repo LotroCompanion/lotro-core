@@ -11,7 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.races.Nationality;
+import delta.games.lotro.character.races.NationalityDescription;
 
 /**
  * Writes nationality descriptions to XML files.
@@ -25,7 +25,7 @@ public class NationalityDescriptionXMLWriter
    * @param descriptions Data to save.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public static boolean write(File toFile, final List<Nationality> descriptions)
+  public static boolean write(File toFile, final List<NationalityDescription> descriptions)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -34,7 +34,7 @@ public class NationalityDescriptionXMLWriter
       public void writeXml(TransformerHandler hd) throws Exception
       {
         hd.startElement("","",NationalityDescriptionXMLConstants.NATIONALITIES_TAG,new AttributesImpl());
-        for(Nationality description : descriptions)
+        for(NationalityDescription description : descriptions)
         {
           writeNationalityDescription(hd,description);
         }
@@ -45,7 +45,7 @@ public class NationalityDescriptionXMLWriter
     return ret;
   }
 
-  private static void writeNationalityDescription(TransformerHandler hd, Nationality nationalityDescription) throws SAXException
+  private static void writeNationalityDescription(TransformerHandler hd, NationalityDescription nationalityDescription) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Code

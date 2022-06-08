@@ -52,6 +52,18 @@ public class RaceDescriptionXMLConstants
    */
   public static final String GENDER_AVATAR_ID_ATTR="avatarId";
   /**
+   * Tag 'nationality'.
+   */
+  public static final String NATIONALITY_TAG="nationality";
+  /**
+   * Tag 'nationality', attribute 'id'.
+   */
+  public static final String NATIONALITY_ID_ATTR="id";
+  /**
+   * Tag 'nationality', attribute 'name'.
+   */
+  public static final String NATIONALITY_NAME_ATTR="name";
+  /**
    * Tag 'allowedClass'.
    */
   public static final String ALLOWED_CLASS_TAG="allowedClass";

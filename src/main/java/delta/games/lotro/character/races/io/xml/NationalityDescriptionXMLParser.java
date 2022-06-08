@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.races.Nationality;
+import delta.games.lotro.character.races.NationalityDescription;
 
 /**
  * Parser for nationality descriptions stored in XML.
@@ -21,16 +21,16 @@ public class NationalityDescriptionXMLParser
    * @param source Source file.
    * @return List of parsed nationality descriptions.
    */
-  public static List<Nationality> parseNationalitiesFile(File source)
+  public static List<NationalityDescription> parseNationalitiesFile(File source)
   {
-    List<Nationality> descriptions=new ArrayList<Nationality>();
+    List<NationalityDescription> descriptions=new ArrayList<NationalityDescription>();
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
       List<Element> nationalityTags=DOMParsingTools.getChildTagsByName(root,NationalityDescriptionXMLConstants.NATIONALITY_TAG);
       for(Element nationalityTag : nationalityTags)
       {
-        Nationality description=parseNationalityDescription(nationalityTag);
+        NationalityDescription description=parseNationalityDescription(nationalityTag);
         descriptions.add(description);
       }
     }
@@ -42,12 +42,12 @@ public class NationalityDescriptionXMLParser
    * @param root Root XML tag.
    * @return A nationality description.
    */
-  private static Nationality parseNationalityDescription(Element root)
+  private static NationalityDescription parseNationalityDescription(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Code
     int code=DOMParsingTools.getIntAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_CODE_ATTR,0);
-    Nationality ret=new Nationality(code);
+    NationalityDescription ret=new NationalityDescription(code);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_NAME_ATTR,"");
     ret.setName(name);
