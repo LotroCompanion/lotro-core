@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatType;
 
 /**
  * Writes stat definitions to XML files.
@@ -86,6 +87,12 @@ public class StatXMLWriter
     if (isPercentage)
     {
       attrs.addAttribute("","",StatXMLConstants.STAT_IS_PERCENTAGE_ATTR,XmlWriter.CDATA,String.valueOf(isPercentage));
+    }
+    // Type
+    StatType type=description.getType();
+    if (type!=StatType.FLOAT)
+    {
+      attrs.addAttribute("","",StatXMLConstants.STAT_TYPE_ATTR,XmlWriter.CDATA,type.name());
     }
     hd.startElement("","",StatXMLConstants.STAT_TAG,attrs);
     hd.endElement("","",StatXMLConstants.STAT_TAG);

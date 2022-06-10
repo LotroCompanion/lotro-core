@@ -43,4 +43,8 @@ public class StatXMLConstants
    * Tag 'stat', attribute 'isPercentage'.
    */
   public static final String STAT_IS_PERCENTAGE_ATTR="isPercentage";
+  /**
+   * Tag 'stat', attribute 'type'.
+   */
+  public static final String STAT_TYPE_ATTR="type";
 }

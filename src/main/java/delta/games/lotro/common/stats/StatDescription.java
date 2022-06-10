@@ -15,6 +15,7 @@ public class StatDescription implements Identifiable
   private String _internalName;
   private String _legacyName;
   private boolean _isPercentage;
+  private StatType _type;
 
   /**
    * Constructor.
@@ -29,6 +30,7 @@ public class StatDescription implements Identifiable
     _internalName="";
     _legacyName=null;
     _isPercentage=false;
+    _type=StatType.OTHER;
   }
 
   /**
@@ -177,6 +179,24 @@ public class StatDescription implements Identifiable
   }
 
   /**
+   * Get the stat type.
+   * @return the stat type.
+   */
+  public StatType getType()
+  {
+    return _type;
+  }
+
+  /**
+   * Set the stat type.
+   * @param type Type to set.
+   */
+  public void setType(StatType type)
+  {
+    _type=type;
+  }
+
+  /**
    * Indicates if this stat is visible in the UI or not.
    * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
@@ -210,6 +230,7 @@ public class StatDescription implements Identifiable
     }
     sb.append(", name=").append(_internalName);
     sb.append(", display name=").append(getName());
+    sb.append(", type=").append(_type);
     return sb.toString();
   }
 }

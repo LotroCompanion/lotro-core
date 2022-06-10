@@ -9,6 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatType;
 
 /**
  * Parser for stat descriptions stored in XML.
@@ -69,7 +70,13 @@ public class StatXMLParser
     // Is percentage
     boolean isPercentage=DOMParsingTools.getBooleanAttribute(attrs,StatXMLConstants.STAT_IS_PERCENTAGE_ATTR,false);
     description.setPercentage(isPercentage);
-
+    // Type
+    String typeStr=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_TYPE_ATTR,null);
+    if (typeStr!=null)
+    {
+      StatType type=StatType.valueOf(typeStr);
+      description.setType(type);
+    }
     return description;
   }
 }
