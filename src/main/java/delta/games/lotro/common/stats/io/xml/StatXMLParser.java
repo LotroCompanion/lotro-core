@@ -77,6 +77,10 @@ public class StatXMLParser
       StatType type=StatType.valueOf(typeStr);
       description.setType(type);
     }
+    else
+    {
+      description.setType(StatType.FLOAT);
+    }
     return description;
   }
 }
