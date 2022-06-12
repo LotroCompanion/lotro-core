@@ -3,6 +3,7 @@ package delta.games.lotro.character.stats;
 import java.util.Objects;
 
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -13,18 +14,21 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class StatsSetElement
 {
   private StatDescription _stat;
+  private StatOperator _operator;
   private FixedDecimalsInteger _value;
   private String _descriptionOverride;
 
   /**
    * Constructor.
    * @param stat Targeted stat.
+   * @param operator Stat operator.
    * @param value Value.
    * @param descriptionOverride Description override.
    */
-  public StatsSetElement(StatDescription stat, FixedDecimalsInteger value, String descriptionOverride)
+  public StatsSetElement(StatDescription stat, StatOperator operator, FixedDecimalsInteger value, String descriptionOverride)
   {
     _stat=stat;
+    _operator=operator;
     _value=value;
     _descriptionOverride=descriptionOverride;
   }
@@ -36,6 +40,7 @@ public class StatsSetElement
   public StatsSetElement(StatsSetElement source)
   {
     _stat=source._stat;
+    _operator=source._operator;
     _descriptionOverride=source._descriptionOverride;
     _value=new FixedDecimalsInteger(source._value);
   }
@@ -47,6 +52,15 @@ public class StatsSetElement
   public StatDescription getStat()
   {
     return _stat;
+  }
+
+  /**
+   * Get the stat operator.
+   * @return a stat operator.
+   */
+  public StatOperator getOperator()
+  {
+    return _operator;
   }
 
   /**

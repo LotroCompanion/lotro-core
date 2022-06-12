@@ -297,25 +297,22 @@ public final class ItemSaxParser extends DefaultHandler
       // Stat name
       String statName=attributes.getValue(BasicStatsSetXMLConstants.STAT_NAME_ATTR);
       StatDescription stat=StatsRegistry.getInstance().getByKey(statName);
+      // Stat operator
+      StatOperator operator=getOperator(attributes.getValue(BasicStatsSetXMLConstants.STAT_OPERATOR_ATTR));
       // Stat value
       String statValue=attributes.getValue(BasicStatsSetXMLConstants.STAT_VALUE_ATTR);
       FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
       // Description override
       String descriptionOverride=attributes.getValue(BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR);
-      _currentItem.getStats().setStat(stat,value,descriptionOverride);
+      _currentItem.getStats().setStat(stat,operator,value,descriptionOverride);
       // Stat provider
       StatProvider statProvider=parseStatProvider(stat,attributes);
       if (statProvider!=null)
       {
         StatsProvider statsProvider=_currentItem.getStatsProvider();
         // Stat operator
-        String operatorStr=attributes.getValue(StatsProviderXMLConstants.STAT_OPERATOR_ATTR,null);
-        StatOperator operator=StatOperator.getByName(operatorStr);
-        if (operator==null)
-        {
-          operator=StatOperator.ADD;
-        }
-        statProvider.setOperator(operator);
+        StatOperator statProviderOperator=getOperator(attributes.getValue(StatsProviderXMLConstants.STAT_OPERATOR_ATTR,null));
+        statProvider.setOperator(statProviderOperator);
         // Description
         statProvider.setDescriptionOverride(descriptionOverride);
         if (statsProvider==null)
@@ -342,6 +339,16 @@ public final class ItemSaxParser extends DefaultHandler
     {
       _detailsParser.startElement(_currentItem,qualifiedName,attributes);
     }
+  }
+
+  private StatOperator getOperator(String operatorStr)
+  {
+    StatOperator operator=StatOperator.getByName(operatorStr);
+    if (operator==null)
+    {
+      operator=StatOperator.ADD;
+    }
+    return operator;
   }
 
   private void parseRequirements(UsageRequirement requirements, Attributes attributes)

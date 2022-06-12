@@ -615,7 +615,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
       StatsProvider provider=_reference.getStatsProvider();
       if (provider!=null)
       {
-        ret=provider.getStats(1,levelForStats,true);
+        ret=provider.getStats(1,levelForStats);
       }
     }
     return ret;

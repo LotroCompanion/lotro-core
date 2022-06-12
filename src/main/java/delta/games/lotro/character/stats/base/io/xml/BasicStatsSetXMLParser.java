@@ -9,6 +9,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -34,11 +35,18 @@ public class BasicStatsSetXMLParser
       String statName=DOMParsingTools.getStringAttribute(attrs,BasicStatsSetXMLConstants.STAT_NAME_ATTR,"");
       String statValue=DOMParsingTools.getStringAttribute(attrs,BasicStatsSetXMLConstants.STAT_VALUE_ATTR,"");
       StatDescription stat=StatsRegistry.getInstance().getByKey(statName);
+      // Operator
+      StatOperator operator=StatOperator.ADD;
+      String operatorStr=DOMParsingTools.getStringAttribute(attrs,BasicStatsSetXMLConstants.STAT_OPERATOR_ATTR,null);
+      if (operatorStr!=null)
+      {
+        operator=StatOperator.valueOf(operatorStr);
+      }
       // Value
       FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
       // Description override
       String descriptionOverride=DOMParsingTools.getStringAttribute(attrs,BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,null);
-      StatsSetElement element=new StatsSetElement(stat,value,descriptionOverride);
+      StatsSetElement element=new StatsSetElement(stat,operator,value,descriptionOverride);
       ret.addStat(element);
     }
     return ret;

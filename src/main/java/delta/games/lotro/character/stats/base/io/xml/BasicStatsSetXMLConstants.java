@@ -20,6 +20,10 @@ public class BasicStatsSetXMLConstants
    */
   public static final String STAT_NAME_ATTR="name";
   /**
+   * Tag 'stat', attribute 'operator'.
+   */
+  public static final String STAT_OPERATOR_ATTR="operator";
+  /**
    * Tag 'stat', attribute 'value'.
    */
   public static final String STAT_VALUE_ATTR="value";

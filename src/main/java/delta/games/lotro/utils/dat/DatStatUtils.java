@@ -46,7 +46,7 @@ public class DatStatUtils
 
   private static String fixStat(String key)
   {
-    if ("Combat_Agent_Armor_Value_Float".equals(key)) return "ARMOUR";
+    //if ("Combat_Agent_Armor_Value_Float".equals(key)) return "ARMOUR";
     if ("Combat_MitigationPercentage_Common".equals(key)) return "PHYSICAL_MITIGATION_PERCENTAGE";
     if ("Combat_Class_PhysicalMastery_Unified".equals(key)) return "PHYSICAL_MASTERY";
     if ("Combat_Class_TacticalMastery_Unified".equals(key)) return "TACTICAL_MASTERY";

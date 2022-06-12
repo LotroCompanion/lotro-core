@@ -36,7 +36,7 @@ public class StatUtils
       }
       else
       {
-        valueStr=L10n.getString(value.intValue());
+        valueStr=L10n.getString(Math.round(value.floatValue()));
       }
     }
     else

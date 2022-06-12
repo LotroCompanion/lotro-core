@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -119,7 +120,7 @@ public class BasicStatsSet
    */
   public void setStat(StatDescription stat, FixedDecimalsInteger value)
   {
-    setStat(stat,new FixedDecimalsInteger(value),null);
+    setStat(stat,StatOperator.ADD,new FixedDecimalsInteger(value),null);
   }
 
   /**
@@ -129,7 +130,7 @@ public class BasicStatsSet
    */
   public void setStat(StatDescription stat, int value)
   {
-    setStat(stat,new FixedDecimalsInteger(value),null);
+    setStat(stat,StatOperator.ADD,new FixedDecimalsInteger(value),null);
   }
 
   /**
@@ -139,18 +140,19 @@ public class BasicStatsSet
    */
   public void setStat(StatDescription stat, float value)
   {
-    setStat(stat,new FixedDecimalsInteger(value),null);
+    setStat(stat,StatOperator.ADD,new FixedDecimalsInteger(value),null);
   }
 
   /**
    * Set stat value.
    * @param stat Stat to set.
+   * @param operator Stat operator.
    * @param value Value to set.
    * @param descriptionOverride Description override.
    */
-  public void setStat(StatDescription stat, FixedDecimalsInteger value, String descriptionOverride)
+  public void setStat(StatDescription stat, StatOperator operator, FixedDecimalsInteger value, String descriptionOverride)
   {
-    StatsSetElement element=new StatsSetElement(stat,value,descriptionOverride);
+    StatsSetElement element=new StatsSetElement(stat,operator,value,descriptionOverride);
     internalSetStat(element);
   }
 
@@ -183,7 +185,7 @@ public class BasicStatsSet
     for(StatsSetElement element : stats._elements)
     {
       FixedDecimalsInteger value=new FixedDecimalsInteger(element.getValue());
-      StatsSetElement newElement=new StatsSetElement(element.getStat(),value,element.getDescriptionOverride());
+      StatsSetElement newElement=new StatsSetElement(element.getStat(),element.getOperator(),value,element.getDescriptionOverride());
       _elements.add(newElement);
     }
   }
@@ -195,7 +197,7 @@ public class BasicStatsSet
    */
   public void addStat(StatDescription stat, FixedDecimalsInteger value)
   {
-    StatsSetElement element=new StatsSetElement(stat,value,null);
+    StatsSetElement element=new StatsSetElement(stat,StatOperator.ADD,value,null);
     addStat(element);
   }
 

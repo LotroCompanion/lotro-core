@@ -492,6 +492,23 @@ public class Item implements Identifiable,Named,ItemProvider
   }
 
   /**
+   * Get the item level to use for stats.
+   * @return the item level to use for stats.
+   */
+  public Integer getItemLevelForStats()
+  {
+    if (_itemLevelOffset!=null)
+    {
+      if (_itemLevel!=null)
+      {
+        return Integer.valueOf(_itemLevel.intValue()+_itemLevelOffset.intValue());
+      }
+      return _itemLevelOffset;
+    }
+    return _itemLevel;
+  }
+
+  /**
    * Set the item level offset.
    * @param itemLevelOffset the item level offset as an integer value, or <code>null</code>.
    */

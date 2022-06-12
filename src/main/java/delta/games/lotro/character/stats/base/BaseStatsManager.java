@@ -13,7 +13,6 @@ import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Manager for base character stats.
@@ -33,7 +32,7 @@ public class BaseStatsManager
     _toAdd=new BasicStatsSet();
     _toAdd.setStat(WellKnownStat.PHYSICAL_MASTERY,1);
     _toAdd.setStat(WellKnownStat.TACTICAL_MASTERY,1);
-    _toAdd.setStat(WellKnownStat.BLOCK,new FixedDecimalsInteger(1.5f));
+    //_toAdd.setStat(WellKnownStat.BLOCK,new FixedDecimalsInteger(1.5f));
   }
 
   /**
@@ -65,7 +64,7 @@ public class BaseStatsManager
     for(TraitDescription trait : traits)
     {
       StatsProvider provider=trait.getStatsProvider();
-      BasicStatsSet statsForTrait=provider.getStats(1,level,true);
+      BasicStatsSet statsForTrait=provider.getStats(1,level);
       int nbStats=statsForTrait.getStatsCount();
       if (nbStats>0)
       {
@@ -85,7 +84,7 @@ public class BaseStatsManager
     {
       if ("Audacity".equals(trait.getName())) continue;
       StatsProvider provider=trait.getStatsProvider();
-      BasicStatsSet statsForTrait=provider.getStats(1,level,true);
+      BasicStatsSet statsForTrait=provider.getStats(1,level);
       int nbStats=statsForTrait.getStatsCount();
       if (nbStats>0)
       {
