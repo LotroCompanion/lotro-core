@@ -20,7 +20,7 @@ public class NationalityDescriptionXMLConstants
    */
   public static final String NATIONALITY_CODE_ATTR="code";
   /**
-   * Tag 'nationality', attribute 'description'.
+   * Tag 'nationality', attribute 'name'.
    */
   public static final String NATIONALITY_NAME_ATTR="name";
   /**
@@ -43,4 +43,12 @@ public class NationalityDescriptionXMLConstants
    * Tag 'nationality', attribute 'titleID'.
    */
   public static final String NATIONALITY_TITLE_ID_ATTR="titleID";
+  /**
+   * Tag 'alias'.
+   */
+  public static final String ALIAS_TAG="alias";
+  /**
+   * Tag 'alias', attribute 'name'.
+   */
+  public static final String ALIAS_NAME_ATTR="name";
 }

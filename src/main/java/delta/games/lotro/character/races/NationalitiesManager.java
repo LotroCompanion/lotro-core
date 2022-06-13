@@ -21,6 +21,7 @@ public class NationalitiesManager
   private static NationalitiesManager _instance=null;
 
   private HashMap<Integer,NationalityDescription> _cache;
+  private HashMap<String,NationalityDescription> _mapByName;
 
   /**
    * Get the sole instance of this class.
@@ -42,6 +43,7 @@ public class NationalitiesManager
   private NationalitiesManager()
   {
     _cache=new HashMap<Integer,NationalityDescription>(10);
+    _mapByName=new HashMap<String,NationalityDescription>(10);
   }
 
   /**
@@ -56,11 +58,24 @@ public class NationalitiesManager
     List<NationalityDescription> nationalityDescriptions=NationalityDescriptionXMLParser.parseNationalitiesFile(nationalitiesFile);
     for(NationalityDescription nationalityDescription : nationalityDescriptions)
     {
-      _cache.put(Integer.valueOf(nationalityDescription.getIdentifier()),nationalityDescription);
+      register(nationalityDescription);
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
     LOGGER.info("Loaded "+_cache.size()+" nationalities in "+duration+"ms.");
+  }
+
+  private void register(NationalityDescription nationalityDescription)
+  {
+    // ID
+    _cache.put(Integer.valueOf(nationalityDescription.getIdentifier()),nationalityDescription);
+    // Name
+    _mapByName.put(nationalityDescription.getName(),nationalityDescription);
+    // Alias
+    for(String alias : nationalityDescription.getAliases())
+    {
+      _mapByName.put(alias,nationalityDescription);
+    }
   }
 
   /**
@@ -71,5 +86,15 @@ public class NationalitiesManager
   public NationalityDescription getNationalityDescription(int code)
   {
     return _cache.get(Integer.valueOf(code));
+  }
+
+  /**
+   * Get a nationality description using its name/alias.
+   * @param name Name/alias of the nationality to get.
+   * @return A nationality description or <code>null</code> if not found.
+   */
+  public NationalityDescription getNationalityDescriptionByName(String name)
+  {
+    return _mapByName.get(name);
   }
 }

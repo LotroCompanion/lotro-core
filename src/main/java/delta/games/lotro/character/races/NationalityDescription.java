@@ -1,5 +1,8 @@
 package delta.games.lotro.character.races;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.common.utils.id.Identifiable;
 import delta.games.lotro.common.Named;
 
@@ -11,6 +14,7 @@ public class NationalityDescription implements Identifiable, Named
 {
   private int _identifier;
   private String _name;
+  private List<String> _aliases;
   private String _description;
   private int _iconID;
   private String _namingGuidelineMale;
@@ -26,6 +30,7 @@ public class NationalityDescription implements Identifiable, Named
   {
     _identifier=identifier;
     _name="";
+    _aliases=new ArrayList<String>();
     _description="";
     _namingGuidelineMale="";
     _namingGuidelineFemale="";
@@ -54,6 +59,24 @@ public class NationalityDescription implements Identifiable, Named
       name="";
     }
     _name=name;
+  }
+
+  /**
+   * Add an alias.
+   * @param alias Alias to add.
+   */
+  public void addAlias(String alias)
+  {
+    _aliases.add(alias);
+  }
+
+  /**
+   * Get the aliases.
+   * @return A list of aliases.
+   */
+  public List<String> getAliases()
+  {
+    return new ArrayList<String>(_aliases);
   }
 
   /**

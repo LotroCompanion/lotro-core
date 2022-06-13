@@ -85,6 +85,15 @@ public class NationalityDescriptionXMLWriter
       attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_TITLE_ID_ATTR,XmlWriter.CDATA,titleID.toString());
     }
     hd.startElement("","",NationalityDescriptionXMLConstants.NATIONALITY_TAG,attrs);
+    // Aliases
+    List<String> aliases=nationalityDescription.getAliases();
+    for(String alias : aliases)
+    {
+      AttributesImpl aliasAttrs=new AttributesImpl();
+      aliasAttrs.addAttribute("","",NationalityDescriptionXMLConstants.ALIAS_NAME_ATTR,XmlWriter.CDATA,alias);
+      hd.startElement("","",NationalityDescriptionXMLConstants.ALIAS_TAG,aliasAttrs);
+      hd.endElement("","",NationalityDescriptionXMLConstants.ALIAS_TAG);
+    }
     hd.endElement("","",NationalityDescriptionXMLConstants.NATIONALITY_TAG);
   }
 }

@@ -69,6 +69,16 @@ public class NationalityDescriptionXMLParser
     {
       ret.setTitleID(Integer.valueOf(titleID));
     }
+    // Aliases
+    List<Element> aliasTags=DOMParsingTools.getChildTagsByName(root,NationalityDescriptionXMLConstants.ALIAS_TAG);
+    for(Element aliasTag : aliasTags)
+    {
+      String alias=DOMParsingTools.getStringAttribute(aliasTag.getAttributes(),NationalityDescriptionXMLConstants.ALIAS_NAME_ATTR,null);
+      if (alias!=null)
+      {
+        ret.addAlias(alias);
+      }
+    }
     return ret;
   }
 }
