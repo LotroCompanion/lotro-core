@@ -2,8 +2,8 @@ package delta.games.lotro.character;
 
 import java.util.Date;
 
+import delta.games.lotro.character.races.NationalityDescription;
 import delta.games.lotro.common.id.InternalGameId;
-
 
 /**
  * Storage class for a LOTRO character summary.
@@ -11,7 +11,7 @@ import delta.games.lotro.common.id.InternalGameId;
  */
 public class CharacterSummary extends BaseCharacterSummary
 {
-  private String _region;
+  private NationalityDescription _nationality;
   private InternalGameId _kinshipID;
   private Long _importDate;
 
@@ -21,7 +21,7 @@ public class CharacterSummary extends BaseCharacterSummary
   public CharacterSummary()
   {
     super();
-    _region="";
+    _nationality=null;
     _kinshipID=null;
     _importDate=null;
   }
@@ -33,7 +33,7 @@ public class CharacterSummary extends BaseCharacterSummary
   public CharacterSummary(CharacterSummary source)
   {
     super(source);
-    _region=source._region;
+    _nationality=source._nationality;
     _kinshipID=source._kinshipID;
     _importDate=source._importDate;
   }
@@ -44,24 +44,29 @@ public class CharacterSummary extends BaseCharacterSummary
    */
   public String getRegion()
   {
-    return _region;
+    return (_nationality!=null)?_nationality.getName():"";
   }
 
   /**
-   * Set the character's region.
-   * @param region the region to set.
+   * Get the nationality.
+   * @return A nationality or <code>null</code> if not set.
    */
-  public void setRegion(String region)
+  public NationalityDescription getNationality()
   {
-    if (region==null)
-    {
-      region="";
-    }
-    _region=region;
+    return _nationality;
   }
 
   /**
-   * Get the identififer of the character's kinship.
+   * Set nationality.
+   * @param nationality Nationality to set.
+   */
+  public void setNationality(NationalityDescription nationality)
+  {
+    _nationality=nationality;
+  }
+
+  /**
+   * Get the identifier of the character's kinship.
    * @return a kinship identifier or <code>null</code> if not set.
    */
   public InternalGameId getKinshipID()
@@ -101,7 +106,7 @@ public class CharacterSummary extends BaseCharacterSummary
   {
     StringBuilder sb=new StringBuilder();
     sb.append(super.toString());
-    sb.append("], Region [").append(_region).append(']');
+    sb.append("], Region [").append(getRegion()).append(']');
     if (_kinshipID!=null)
     {
       sb.append("], Kinship [").append(_kinshipID.asDisplayableString()).append(']');

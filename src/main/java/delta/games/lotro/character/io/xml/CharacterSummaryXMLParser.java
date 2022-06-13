@@ -10,6 +10,8 @@ import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterReference;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.races.NationalitiesManager;
+import delta.games.lotro.character.races.NationalityDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
@@ -47,9 +49,23 @@ public class CharacterSummaryXMLParser
   {
     parseBaseCharacterSummary(root,summary);
     NamedNodeMap attrs=root.getAttributes();
-    // Region
-    String region=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
-    summary.setRegion(region);
+    // Nationality
+    Integer nationalityCode=DOMParsingTools.getIntegerAttribute(attrs,CharacterXMLConstants.CHARACTER_NATIONALITY_CODE_ATTR,null);
+    if (nationalityCode!=null)
+    {
+      NationalityDescription nationality=NationalitiesManager.getInstance().getNationalityDescription(nationalityCode.intValue());
+      summary.setNationality(nationality);
+    }
+    else
+    {
+      // Region
+      String region=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
+      if (region.length()>0)
+      {
+        NationalityDescription nationality=NationalitiesManager.getInstance().getNationalityDescriptionByName(region);
+        summary.setNationality(nationality);
+      }
+    }
     // Kinship ID
     String kinshipIDStr=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_KINSHIP_ID_ATTR,null);
     if (kinshipIDStr!=null)

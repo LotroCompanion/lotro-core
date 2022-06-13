@@ -12,6 +12,7 @@ import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterReference;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.races.NationalityDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Race;
@@ -56,6 +57,12 @@ public class CharacterSummaryXMLWriter
   public static void writeCharacterSummary(AttributesImpl attrs, CharacterSummary summary)
   {
     writeBaseCharacterSummary(attrs,summary);
+    // Nationality
+    NationalityDescription nationality=summary.getNationality();
+    if (nationality!=null)
+    {
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_NATIONALITY_CODE_ATTR,XmlWriter.CDATA,String.valueOf(nationality.getIdentifier()));
+    }
     // Region
     String region=summary.getRegion();
     if (region.length()>0)

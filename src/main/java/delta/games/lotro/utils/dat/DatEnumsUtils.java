@@ -61,53 +61,6 @@ public class DatEnumsUtils
   }
 
   /**
-   * Get a nationality from a nationality code.
-   * @param nationalityId Nationality code.
-   * @return A nationality or <code>null</code> if not found.
-   */
-  public static String getNationalityFromNationalityId(int nationalityId)
-  {
-    // Men
-    if (nationalityId==17) return "Bree-land";
-    if (nationalityId==16) return "Dale";
-    if (nationalityId==6) return "Gondor";
-    if (nationalityId==5) return "Rohan";
-
-    // Elves
-    if (nationalityId==15) return "Lindon";
-    if (nationalityId==8) return "Lórien";
-    if (nationalityId==11) return "Mirkwood";
-    if (nationalityId==7) return "Rivendell";
-    if (nationalityId==2) return "Edhellond";
-
-    // Dwarves
-    if (nationalityId==4) return "Blue Mountains";
-    if (nationalityId==3) return "Iron Hills";
-    if (nationalityId==12) return "Lonely Mountain";
-    if (nationalityId==10) return "Grey Mountains";
-    if (nationalityId==9) return "White Mountains";
-
-    // Hobbit
-    if (nationalityId==18) return "Fallohides";
-    if (nationalityId==14) return "Harfoot";
-    if (nationalityId==13) return "Stoors";
-
-    // Beorning
-    if (nationalityId==19) return "Vales of Anduin";
-
-    // High Elf
-    if (nationalityId==21) return "Beleriand";
-    if (nationalityId==22) return "Imladris";
-    if (nationalityId==26) return "Nargothrond";
-    if (nationalityId==23) return "Gondolin";
-    if (nationalityId==24) return "Ossiriand";
-
-    // Stout-axe dwarf
-    if (nationalityId==27) return "Mordor Mountains";
-    return null;
-  }
-
-  /**
    * Indicates if the given slot code is for an equipped item.
    * @param slotCode Code to use.
    * @return <code>true</code> if equipped, <code>false</code> otherwise.
