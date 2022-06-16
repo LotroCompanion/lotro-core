@@ -311,8 +311,7 @@ public final class ItemSaxParser extends DefaultHandler
       {
         StatsProvider statsProvider=_currentItem.getStatsProvider();
         // Stat operator
-        StatOperator statProviderOperator=getOperator(attributes.getValue(StatsProviderXMLConstants.STAT_OPERATOR_ATTR,null));
-        statProvider.setOperator(statProviderOperator);
+        statProvider.setOperator(operator);
         // Description
         statProvider.setDescriptionOverride(descriptionOverride);
         if (statsProvider==null)
