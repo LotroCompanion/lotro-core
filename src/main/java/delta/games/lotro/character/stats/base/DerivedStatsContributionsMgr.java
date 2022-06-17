@@ -8,8 +8,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.computer.StatsStorage;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
-import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatDescriptionComparator;
@@ -188,47 +188,46 @@ public final class DerivedStatsContributionsMgr
    * Get stats contribution for a set of stats.
    * @param cClass Targeted character class.
    * @param set Set of raw stats.
-   * @return A set of stat contributions.
+   * @return Stats contributions.
    */
   public BasicStatsSet getContribution(CharacterClass cClass, BasicStatsSet set)
   {
-    return getContribution(cClass,set,null);
+    List<StatsContribution> contribs=getContributions(cClass,set);
+    StatsStorage storage=new StatsStorage();
+    for(StatsContribution contrib : contribs)
+    {
+      storage.addContrib(contrib);
+    }
+    return storage.aggregate();
   }
 
   /**
    * Get stats contribution for a set of stats.
    * @param cClass Targeted character class.
    * @param set Set of raw stats.
-   * @param contribsMgr Optional contributions manager to store computed contributions.
-   * @return A set of stat contributions.
+   * @return Some stat contributions.
    */
-  public BasicStatsSet getContribution(CharacterClass cClass, BasicStatsSet set, StatsContributionsManager contribsMgr)
+  public List<StatsContribution> getContributions(CharacterClass cClass, BasicStatsSet set)
   {
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
     ClassDerivedStats classDerivedStats=_allContribs.get(cClass);
-    BasicStatsSet result=new BasicStatsSet();
     for(StatDescription stat : set.getStats())
     {
       FixedDecimalsInteger statValue=set.getStat(stat);
       StatContributions contrib=classDerivedStats.getContribsForStat(stat);
       if (contrib!=null)
       {
-        BasicStatsSet derivedStats=new BasicStatsSet();
         for(DerivedStatContribution factor : contrib.getFactors())
         {
           FixedDecimalsInteger toAdd=new FixedDecimalsInteger(statValue);
           toAdd.multiply(factor._factor);
-          result.addStat(factor._contributedStat,toAdd);
-          derivedStats.addStat(factor._contributedStat,toAdd);
-          if (contribsMgr!=null)
-          {
-            BasicStatsSet stats=new BasicStatsSet();
-            stats.addStat(factor._contributedStat,toAdd);
-            StatsContribution statContrib=StatsContribution.getStatContrib(stat,factor._factor,stats);
-            contribsMgr.addContrib(statContrib);
-          }
+          BasicStatsSet stats=new BasicStatsSet();
+          stats.addStat(factor._contributedStat,toAdd);
+          StatsContribution statContrib=StatsContribution.getStatContrib(stat,factor._factor,stats);
+          ret.add(statContrib);
         }
       }
     }
-    return result;
+    return ret;
   }
 }

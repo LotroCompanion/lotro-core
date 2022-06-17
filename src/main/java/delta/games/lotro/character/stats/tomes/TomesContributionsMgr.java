@@ -1,6 +1,10 @@
 package delta.games.lotro.character.stats.tomes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.common.stats.StatDescription;
 
 /**
@@ -14,19 +18,21 @@ public class TomesContributionsMgr
    * @param tomes Tomes to use.
    * @return A stats set.
    */
-  public BasicStatsSet getContribution(TomesSet tomes)
+  public List<StatsContribution> getContribution(TomesSet tomes)
   {
-    BasicStatsSet stats=new BasicStatsSet();
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
     StatTomesManager tomesManager=StatTomesManager.getInstance();
     for(StatDescription stat : tomesManager.getStats())
     {
       int rank=tomes.getTomeRank(stat);
       if (rank>0)
       {
-        stats.addStats(getContribution(stat,rank));
+        BasicStatsSet tomeContrib=getContribution(stat,rank);
+        StatsContribution contrib=StatsContribution.getTomeContrib(stat,rank,tomeContrib);
+        ret.add(contrib);
       }
     }
-    return stats;
+    return ret;
   }
 
   /**
@@ -35,7 +41,7 @@ public class TomesContributionsMgr
    * @param rank Rank of the targeted tome.
    * @return some contributed stats.
    */
-  public BasicStatsSet getContribution(StatDescription stat, int rank)
+  private BasicStatsSet getContribution(StatDescription stat, int rank)
   {
     BasicStatsSet ret=null;
     if (rank>0)

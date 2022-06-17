@@ -9,7 +9,6 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
-import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 
 /**
  * Storage for all buffs put on a character.
@@ -149,25 +148,6 @@ public class BuffsManager
   }
 
   /**
-   * Get buffs to apply for a character.
-   * @param c Targeted character.
-   * @return Some stats.
-   */
-  public BasicStatsSet getBuffs(CharacterData c)
-  {
-    BasicStatsSet ret=new BasicStatsSet();
-    for(BuffInstance buff : _buffs)
-    {
-      BasicStatsSet buffContrib=buff.getStats(c);
-      if (buffContrib!=null)
-      {
-        ret.addStats(buffContrib);
-      }
-    }
-    return ret;
-  }
-
-  /**
    * Get stats contributions for the buffs on the given character.
    * @param c Targeted character.
    * @return A possibly empty but not <code>null</code> list of contributions.
@@ -185,30 +165,6 @@ public class BuffsManager
       }
     }
     return ret;
-  }
-
-  /**
-   * Apply a buff that apply on raw stats.
-   * @param c Targeted character.
-   * @param raw Raw stats.
-   * @param contribs Contributions manager (may be <code>null</code>).
-   * @param buff Buff to apply.
-   * @return the added stats.
-   */
-  public static BasicStatsSet applyBuff(CharacterData c, BasicStatsSet raw, StatsContributionsManager contribs, BuffInstance buff)
-  {
-    AbstractBuffImpl impl=buff.getBuff().getImpl();
-    BasicStatsSet stats=impl.getStats(c,raw,buff);
-    if (stats!=null)
-    {
-      raw.addStats(stats);
-      if (contribs!=null)
-      {
-        StatsContribution statsContrib=StatsContribution.getBuffContrib(buff,stats);
-        contribs.addContrib(statsContrib);
-      }
-    }
-    return stats;
   }
 
   /**

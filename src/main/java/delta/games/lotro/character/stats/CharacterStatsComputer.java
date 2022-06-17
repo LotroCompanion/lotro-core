@@ -1,5 +1,6 @@
 package delta.games.lotro.character.stats;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.CharacterData;
@@ -10,24 +11,20 @@ import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
-import delta.games.lotro.character.stats.buffs.Buff;
-import delta.games.lotro.character.stats.buffs.BuffInstance;
-import delta.games.lotro.character.stats.buffs.BuffType;
-import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.buffs.MoraleFromHopeOrDread;
+import delta.games.lotro.character.stats.computer.StatsStorage;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
 import delta.games.lotro.character.stats.ratings.RatingCurveId;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
-import delta.games.lotro.character.stats.tomes.StatTomesManager;
 import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.global.CombatSystem;
-import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
@@ -44,7 +41,7 @@ public class CharacterStatsComputer
   private TomesContributionsMgr _tomesMgr;
   private ItemsSetStatsComputer _itemsSetsMgr;
   private TraceriesSetStatsComputer _traceriesSetsMgr;
-  private BuffInstance _hopeDread;
+  private MoraleFromHopeOrDread _hopeDread;
   private RatingsMgr _ratingsMgr;
   private StatsContributionsManager _contribs;
 
@@ -66,22 +63,14 @@ public class CharacterStatsComputer
     _tomesMgr=new TomesContributionsMgr();
     _itemsSetsMgr=new ItemsSetStatsComputer();
     _traceriesSetsMgr=new TraceriesSetStatsComputer();
-    _hopeDread=buildMoraleBuffFromHopeOrDread();
+    _hopeDread=new MoraleFromHopeOrDread();
     _ratingsMgr=CombatSystem.getInstance().getRatingsMgr();
     _contribs=contribs;
   }
 
-  private BuffInstance buildMoraleBuffFromHopeOrDread()
+  private List<StatsContribution> getEquipmentStats(int characterLevel, CharacterGear equipment)
   {
-    Buff buff=new Buff("MORALE_HOPE_DREAD", BuffType.OTHER, "", "Morale from Hope/Dread");
-    buff.setImpl(new MoraleFromHopeOrDread());
-    BuffInstance buffInstance=new BuffInstance(buff);
-    return buffInstance;
-  }
-
-  private BasicStatsSet getEquipmentStats(int characterLevel, CharacterGear equipment)
-  {
-    BasicStatsSet ret=new BasicStatsSet();
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
     // Iterate on slots
     for(GearSlot slot : GearSlot.values())
     {
@@ -92,27 +81,17 @@ public class CharacterStatsComputer
         if (item!=null)
         {
           BasicStatsSet itemStats=getItemStats(characterLevel,item);
-          ret.addStats(itemStats);
-          if (_contribs!=null)
-          {
-            StatsContribution contrib=StatsContribution.getGearContrib(slot,item,itemStats);
-            _contribs.addContrib(contrib);
-          }
+          StatsContribution contrib=StatsContribution.getGearContrib(slot,item,itemStats);
+          ret.add(contrib);
         }
       }
     }
     // Items sets
-    BasicStatsSet itemsSetsStats=_itemsSetsMgr.getStats(characterLevel,equipment,_contribs);
-    if (itemsSetsStats.getStatsCount()>0)
-    {
-      ret.addStats(itemsSetsStats);
-    }
+    List<StatsContribution> itemsSetsStats=_itemsSetsMgr.getStats(characterLevel,equipment);
+    ret.addAll(itemsSetsStats);
     // Traceries sets
-    BasicStatsSet traceriesSetsStats=_traceriesSetsMgr.getStats(characterLevel,equipment,_contribs);
-    if (traceriesSetsStats.getStatsCount()>0)
-    {
-      ret.addStats(traceriesSetsStats);
-    }
+    List<StatsContribution> traceriesSetsStats=_traceriesSetsMgr.getStats(characterLevel,equipment);
+    ret.addAll(traceriesSetsStats);
     return ret;
   }
 
@@ -137,105 +116,103 @@ public class CharacterStatsComputer
     {
       _contribs.clear();
     }
-    // Total
-    BasicStatsSet raw=new BasicStatsSet();
-
+    List<StatsContribution> allContribs=new ArrayList<StatsContribution>();
     // Base stats (from character class, race and level)
     BasicStatsSet baseStats=_baseStatsMgr.getBaseStats(c.getCharacterClass(),c.getRace(),c.getLevel());
-    if (_contribs!=null)
-    {
-      StatsContribution contrib=StatsContribution.getBodyContrib(baseStats);
-      _contribs.addContrib(contrib);
-    }
-    raw.addStats(baseStats);
+    StatsContribution baseStatsContrib=StatsContribution.getBodyContrib(baseStats);
+    allContribs.add(baseStatsContrib);
 
     // Tomes
     TomesSet tomes=c.getTomes();
-    BasicStatsSet tomesStats=_tomesMgr.getContribution(tomes);
-    if (_contribs!=null)
-    {
-      for(StatDescription stat : StatTomesManager.getInstance().getStats())
-      {
-        int rank=tomes.getTomeRank(stat);
-        if (rank>0)
-        {
-          BasicStatsSet tomeContrib=_tomesMgr.getContribution(stat,rank);
-          StatsContribution contrib=StatsContribution.getTomeContrib(stat,rank,tomeContrib);
-          _contribs.addContrib(contrib);
-        }
-      }
-    }
-    raw.addStats(tomesStats);
+    List<StatsContribution> tomeStatsContribs=_tomesMgr.getContribution(tomes);
+    allContribs.addAll(tomeStatsContribs);
 
     // Equipment
-    BasicStatsSet equipmentStats=getEquipmentStats(c.getLevel(),c.getEquipment());
-    raw.addStats(equipmentStats);
+    List<StatsContribution> equipmentStats=getEquipmentStats(c.getLevel(),c.getEquipment());
+    allContribs.addAll(equipmentStats);
 
     // Buffs
-    BasicStatsSet buffs=c.getBuffs().getBuffs(c);
-    if (_contribs!=null)
-    {
-      List<StatsContribution> contribs=c.getBuffs().getContributions(c);
-      for(StatsContribution contrib : contribs)
-      {
-        _contribs.addContrib(contrib);
-      }
-    }
-    raw.addStats(buffs);
+    List<StatsContribution> buffContribs=c.getBuffs().getContributions(c);
+    allContribs.addAll(buffContribs);
 
     // Virtues
     VirtuesContributionsMgr virtuesMgr=VirtuesContributionsMgr.get();
     VirtuesSet virtues=c.getVirtues();
-    virtues.setContributingStats(raw);
-    BasicStatsSet virtuesStats=virtuesMgr.getContribution(virtues,_contribs,true,true);
-    raw.addStats(virtuesStats);
+    BasicStatsSet total=getStats(allContribs);
+    virtues.setContributingStats(total);
+    List<StatsContribution> virtuesStats=virtuesMgr.getContributions(virtues,true,true);
+    allContribs.addAll(virtuesStats);
 
     // Misc
     BasicStatsSet additionalStats=c.getAdditionalStats();
-    if (_contribs!=null)
+    if (additionalStats.getStatsCount()>0)
     {
-      if (additionalStats.getStatsCount()>0)
-      {
-        StatsContribution contrib=StatsContribution.getAdditionalContrib(additionalStats);
-        _contribs.addContrib(contrib);
-      }
-    }
-    raw.addStats(additionalStats);
-
-    // Derived contributions
-    DerivedStatsContributionsMgr derivedStatsMgr=DerivedStatContributionsIO.load();
-    StatsContributionsManager contribsMgr=_contribs;
-    if ((_contribs!=null) && (_contribs.isResolveIndirectContributions()))
-    {
-      contribsMgr=null;
-    }
-    {
-      BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),raw,contribsMgr);
-      raw.addStats(derivedContrib);
-    }
-
-    // Additional buff contributions
-    BuffsManager buffsMgr=c.getBuffs();
-    int nbBuffs=buffsMgr.getBuffsCount();
-    for(int i=0;i<nbBuffs;i++)
-    {
-      BuffInstance buff=buffsMgr.getBuffAt(i);
-      BasicStatsSet addedStats=BuffsManager.applyBuff(c,raw,_contribs,buff);
-      if ((addedStats!=null) && (addedStats.getStatsCount()>0))
-      {
-        // Some of these buff may imply some derived stats (e.g armour gives mitigations)
-        BasicStatsSet derivedContrib=derivedStatsMgr.getContribution(c.getCharacterClass(),addedStats,contribsMgr);
-        raw.addStats(derivedContrib);
-      }
+      StatsContribution contrib=StatsContribution.getAdditionalContrib(additionalStats);
+      allContribs.add(contrib);
     }
 
     // Hope
-    BuffsManager.applyBuff(c,raw,_contribs,_hopeDread);
+    List<StatsContribution> hopeContribs=handleHopeDread(allContribs);
+    allContribs.addAll(hopeContribs);
+
+    // Aggregated
+    total=getStats(allContribs);
+
+    // Derived contributions
+    if ((_contribs!=null) && (_contribs.isResolveIndirectContributions()))
+    {
+      //contribsMgr=null;
+    }
+    else
+    {
+      DerivedStatsContributionsMgr derivedStatsMgr=DerivedStatContributionsIO.load();
+      List<StatsContribution> derivedStatContribs=derivedStatsMgr.getContributions(c.getCharacterClass(),total);
+      allContribs.addAll(derivedStatContribs);
+    }
+    // New total with derivated stats
+    total=getStats(allContribs);
 
     // Ratings
-    BasicStatsSet ratings=computeRatings(c,raw);
-    raw.addStats(ratings);
-    return raw;
+    BasicStatsSet ratings=computeRatings(c,total);
+    total.addStats(ratings);
+
+    if (_contribs!=null)
+    {
+      for(StatsContribution contrib : allContribs)
+      {
+        _contribs.addContrib(contrib);
+      }
+    }
+    // Total
+    return total;
+  }
+
+  private List<StatsContribution> handleHopeDread(List<StatsContribution> source)
+  {
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
+    BasicStatsSet stats=getStats(source);
+    FixedDecimalsInteger hopeLevel=stats.getStat(WellKnownStat.HOPE);
+    if ((hopeLevel!=null) && (hopeLevel.intValue()!=0))
+    {
+      float factor=_hopeDread.getMoraleFactor(hopeLevel.intValue());
+      BasicStatsSet hopeStats=new BasicStatsSet();
+      StatsSetElement moraleElement=new StatsSetElement(WellKnownStat.MORALE,StatOperator.MULTIPLY,new FixedDecimalsInteger(factor),null);
+      hopeStats.addStat(moraleElement);
+      StatsContribution contrib=new StatsContribution("HOPE_DREAD","Morale from Hope/Dread",hopeStats);
+      ret.add(contrib);
+    }
+    return ret;
+  }
+
+  private BasicStatsSet getStats(List<StatsContribution> contribs)
+  {
+    StatsStorage storage=new StatsStorage();
+    for(StatsContribution contrib : contribs)
+    {
+      storage.addContrib(contrib);
+    }
+    BasicStatsSet ret=storage.aggregate();
+    return ret;
   }
 
   private BasicStatsSet computeRatings(CharacterData c, BasicStatsSet stats)

@@ -42,10 +42,6 @@ public class StatsProviderBuffImpl extends AbstractBuffImpl
     {
       StatProvider provider=_statsProvider.getStatProvider(i);
       StatOperator operator=provider.getOperator();
-      if (operator==StatOperator.MULTIPLY)
-      {
-        continue;
-      }
       Float value=getStatValue(character,buff,provider);
       if (value!=null)
       {
@@ -55,38 +51,7 @@ public class StatsProviderBuffImpl extends AbstractBuffImpl
           statValue=-statValue;
         }
         StatDescription stat=provider.getStat();
-        stats.setStat(stat,new FixedDecimalsInteger(statValue));
-      }
-    }
-    return stats;
-  }
-
-  @Override
-  public BasicStatsSet getStats(CharacterData character, BasicStatsSet raw, BuffInstance buff)
-  {
-    BasicStatsSet stats=null;
-    int nbStats=_statsProvider.getNumberOfStatProviders();
-    for(int i=0;i<nbStats;i++)
-    {
-      StatProvider provider=_statsProvider.getStatProvider(i);
-      StatOperator operator=provider.getOperator();
-      if (operator==StatOperator.MULTIPLY)
-      {
-        Float value=getStatValue(character,buff,provider);
-        if (value!=null)
-        {
-          StatDescription stat=provider.getStat();
-          FixedDecimalsInteger rawStat=raw.getStat(stat);
-          if (rawStat!=null)
-          {
-            FixedDecimalsInteger contrib=new FixedDecimalsInteger(rawStat.floatValue()*(value.floatValue()-1));
-            if (stats==null)
-            {
-              stats=new BasicStatsSet();
-            }
-            stats.setStat(stat,contrib);
-          }
-        }
+        stats.setStat(stat,provider.getOperator(),new FixedDecimalsInteger(statValue),provider.getDescriptionOverride());
       }
     }
     return stats;

@@ -1,12 +1,12 @@
 package delta.games.lotro.character.stats.virtues;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
-import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.progression.ProgressionsManager;
@@ -87,15 +87,13 @@ public final class VirtuesContributionsMgr
   /**
    * Get stats contribution for a set of virtues.
    * @param virtuesSet Virtues set.
-   * @param contribs Storage for contributions.
    * @param includeActives Include stats for active virtues or not.
    * @param includePassives Include stats for passive virtues or not.
-   * @return A stats set.
+   * @return Some stats contributions.
    */
-  public BasicStatsSet getContribution(VirtuesSet virtuesSet, StatsContributionsManager contribs, boolean includeActives, boolean includePassives)
+  public List<StatsContribution> getContributions(VirtuesSet virtuesSet, boolean includeActives, boolean includePassives)
   {
-    BasicStatsSet ret=new BasicStatsSet();
-    BasicStatsSet passiveStats=new BasicStatsSet();
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
     List<VirtueDescription> virtues=VirtuesManager.getInstance().getAll();
     for(VirtueDescription virtue : virtues)
     {
@@ -108,9 +106,9 @@ public final class VirtuesContributionsMgr
         {
           rankForPassives=1;
         }
-        BasicStatsSet passiveContrib=getContribution(virtue,rankForPassives,true);
-        ret.addStats(passiveContrib);
-        passiveStats.addStats(passiveContrib);
+        BasicStatsSet passiveStats=getContribution(virtue,rankForPassives,true);
+        StatsContribution passiveContrib=StatsContribution.getPassiveVirtuesContrib(passiveStats);
+        ret.add(passiveContrib);
       }
       if (includeActives)
       {
@@ -119,20 +117,11 @@ public final class VirtuesContributionsMgr
         {
           int bonus=virtuesSet.getVirtueBonusRank(virtue);
           int rankToUse=rank+bonus;
-          BasicStatsSet activeContrib=getContribution(virtue,rankToUse,false);
-          ret.addStats(activeContrib);
-          if (contribs!=null)
-          {
-            StatsContribution contrib=StatsContribution.getVirtueContrib(virtue,rankToUse,activeContrib);
-            contribs.addContrib(contrib);
-          }
+          BasicStatsSet activeStats=getContribution(virtue,rankToUse,false);
+          StatsContribution activeContrib=StatsContribution.getVirtueContrib(virtue,rankToUse,activeStats);
+          ret.add(activeContrib);
         }
       }
-    }
-    if ((includePassives) && (contribs!=null))
-    {
-      StatsContribution contrib=StatsContribution.getPassiveVirtuesContrib(passiveStats);
-      contribs.addContrib(contrib);
     }
     return ret;
   }

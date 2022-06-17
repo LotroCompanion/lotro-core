@@ -1,15 +1,10 @@
 package delta.games.lotro.character.stats.buffs;
 
-import delta.games.lotro.character.CharacterData;
-import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.stats.WellKnownStat;
-import delta.games.lotro.utils.FixedDecimalsInteger;
-
 /**
  * Stats contributions from hope/dread.
  * @author DAM
  */
-public class MoraleFromHopeOrDread extends AbstractBuffImpl
+public class MoraleFromHopeOrDread
 {
   private static final float[] MORALE_FRACTION = {
       // Dread: -15 -> -1
@@ -22,23 +17,18 @@ public class MoraleFromHopeOrDread extends AbstractBuffImpl
       0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f
   };
 
-  @Override
-  public BasicStatsSet getStats(CharacterData character, BasicStatsSet raw, BuffInstance buff)
+  /**
+   * Get the morale factor associated to the given hope/dread level.
+   * @param hopeDreadLevel Hope/dread level.
+   * @return A morale factor.
+   */
+  public float getMoraleFactor(int hopeDreadLevel)
   {
-    BasicStatsSet ret=new BasicStatsSet();
-    FixedDecimalsInteger hopeStat=raw.getStat(WellKnownStat.HOPE);
-    if (hopeStat != null)
+    if (hopeDreadLevel!=0)
     {
-      FixedDecimalsInteger morale=raw.getStat(WellKnownStat.MORALE);
-      int hope=hopeStat.intValue();
-      if (hope!=0)
-      {
-        float factor=MORALE_FRACTION[hope+15];
-        FixedDecimalsInteger moraleContrib=new FixedDecimalsInteger(morale);
-        moraleContrib.multiply(new FixedDecimalsInteger(factor));
-        ret.setStat(WellKnownStat.MORALE,moraleContrib);
-      }
+      float factor=MORALE_FRACTION[hopeDreadLevel+15]+1;
+      return factor;
     }
-    return ret;
+    return 1.0f;
   }
 }

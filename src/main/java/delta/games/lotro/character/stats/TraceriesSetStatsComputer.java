@@ -9,7 +9,6 @@ import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
-import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.legendary2.LegendaryInstance2;
@@ -41,17 +40,16 @@ public class TraceriesSetStatsComputer
    * Get the stats contribution from traceries sets.
    * @param characterLevel Character level.
    * @param equipment Equipment to use.
-   * @param contribs Contributions manager (optional).
-   * @return some stats.
+   * @return some stats contributions.
    */
-  public BasicStatsSet getStats(int characterLevel, CharacterGear equipment, StatsContributionsManager contribs)
+  public List<StatsContribution> getStats(int characterLevel, CharacterGear equipment)
   {
-    BasicStatsSet stats=new BasicStatsSet();
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
     List<SocketEntryInstance> sockets=getTraceries(characterLevel,equipment);
     int nbInstances=sockets.size();
     if (nbInstances==0)
     {
-      return stats;
+      return ret;
     }
     Map<Integer,List<SocketEntryInstance>> traceriesBySet=getTraceriesBySet(sockets);
     for(Map.Entry<Integer,List<SocketEntryInstance>> entry : traceriesBySet.entrySet())
@@ -78,15 +76,11 @@ public class TraceriesSetStatsComputer
       }
       if (statsForSet.getStatsCount()>0)
       {
-        stats.addStats(statsForSet);
-        if (contribs!=null)
-        {
-          StatsContribution contrib=StatsContribution.getTraceriesSetContrib(set,count,statsForSet);
-          contribs.addContrib(contrib);
-        }
+        StatsContribution contrib=StatsContribution.getTraceriesSetContrib(set,count,statsForSet);
+        ret.add(contrib);
       }
     }
-    return stats;
+    return ret;
   }
 
   private int getSetLevel(ItemsSet set, List<SocketEntryInstance> sockets)

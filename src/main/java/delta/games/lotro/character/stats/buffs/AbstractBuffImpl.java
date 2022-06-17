@@ -23,18 +23,6 @@ public abstract class AbstractBuffImpl
   }
 
   /**
-   * Compute the stats contribution of a buff from raw stats.
-   * @param character Targeted character.
-   * @param buff Buff to use.
-   * @param raw Raw stats.
-   * @return A stats set or <code>null</code> if not supported.
-   */
-  public BasicStatsSet getStats(CharacterData character, BasicStatsSet raw, BuffInstance buff)
-  {
-    return null;
-  }
-
-  /**
    * Get all managed tiers.
    * @return a sorted list of all managed tiers or <code>null</code> if tiers are not supported.
    */

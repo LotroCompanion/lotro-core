@@ -9,7 +9,6 @@ import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
-import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -37,17 +36,16 @@ public class ItemsSetStatsComputer
    * Get the stats contribution from items sets.
    * @param characterLevel Character level.
    * @param equipment Equipment to use.
-   * @param contribs Contributions manager (optional).
    * @return some stats.
    */
-  public BasicStatsSet getStats(int characterLevel, CharacterGear equipment, StatsContributionsManager contribs)
+  public List<StatsContribution> getStats(int characterLevel, CharacterGear equipment)
   {
-    BasicStatsSet stats=new BasicStatsSet();
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
     List<ItemInstance<? extends Item>> itemInstances=getItemInstancesFromGear(equipment);
     int nbInstances=itemInstances.size();
     if (nbInstances==0)
     {
-      return stats;
+      return ret;
     }
     Map<Integer,List<ItemInstance<? extends Item>>> itemInstancesBySet=getItemInstancesBySet(itemInstances);
     for(Map.Entry<Integer,List<ItemInstance<? extends Item>>> entry : itemInstancesBySet.entrySet())
@@ -74,15 +72,11 @@ public class ItemsSetStatsComputer
       }
       if (statsForSet.getStatsCount()>0)
       {
-        stats.addStats(statsForSet);
-        if (contribs!=null)
-        {
-          StatsContribution contrib=StatsContribution.getItemsSetContrib(set,count,statsForSet);
-          contribs.addContrib(contrib);
-        }
+        StatsContribution contrib=StatsContribution.getItemsSetContrib(set,count,statsForSet);
+        ret.add(contrib);
       }
     }
-    return stats;
+    return ret;
   }
 
   private int getSetLevel(ItemsSet set, List<ItemInstance<? extends Item>> itemInstances)
