@@ -1,12 +1,13 @@
 package delta.games.lotro.character.stats.computer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
-import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.utils.FixedDecimalsInteger;
 
@@ -42,35 +43,33 @@ public class StatsStorage
   public BasicStatsSet aggregate()
   {
     List<StatsSetElement> adds=getStats(StatOperator.ADD);
-    BasicStatsSet addStats=sumStats(adds);
-    System.out.println("Add stats: "+addStats);
+    BasicStatsSet ret=sumStats(adds);
+    //System.out.println("Add stats: "+addStats);
     // Multiply
     List<StatsSetElement> multiply=getStats(StatOperator.MULTIPLY);
-    BasicStatsSet multiplyStats=sumStats(multiply);
-    System.out.println("Multiply stats: "+multiplyStats);
-    BasicStatsSet ret=applyMultiply(addStats,multiplyStats);
+    Map<Integer,Float> multiplyFactors=multiplyStats(multiply);
+    //System.out.println("Multiply stats: "+multiplyStats);
+    applyMultiply(ret,multiplyFactors);
     // Set
     List<StatsSetElement> set=getStats(StatOperator.SET);
     BasicStatsSet setStats=sumStats(set);
     ret=applySet(ret,setStats);
-    System.out.println("Result stats: "+ret);
+    //System.out.println("Result stats: "+ret);
     return ret;
   }
 
-  private BasicStatsSet applyMultiply(BasicStatsSet source, BasicStatsSet multiply)
+  private void applyMultiply(BasicStatsSet source, Map<Integer,Float> multiplyFactors)
   {
-    BasicStatsSet ret=new BasicStatsSet(source);
-    for(StatsSetElement element : multiply.getStatElements())
+    for(StatsSetElement element : source.getStatElements())
     {
-      StatDescription stat=element.getStat();
-      FixedDecimalsInteger sourceValue=ret.getStat(stat);
-      if (sourceValue!=null)
+      Integer key=Integer.valueOf(element.getStat().getIdentifier());
+      Float factor=multiplyFactors.get(key);
+      if (factor!=null)
       {
-        FixedDecimalsInteger value=element.getValue();
-        sourceValue.multiply(value);
+        float value=element.getValue().floatValue();
+        element.setValue(new FixedDecimalsInteger(value*factor.floatValue()));
       }
     }
-    return ret;
   }
 
   private BasicStatsSet applySet(BasicStatsSet source, BasicStatsSet set)
@@ -89,6 +88,26 @@ public class StatsStorage
     for(StatsSetElement element : elements)
     {
       ret.addStat(element);
+    }
+    return ret;
+  }
+
+  private Map<Integer,Float> multiplyStats(List<StatsSetElement> elements)
+  {
+    Map<Integer,Float> ret=new HashMap<Integer,Float>();
+    for(StatsSetElement element : elements)
+    {
+      float value=element.getValue().floatValue();
+      Integer key=Integer.valueOf(element.getStat().getIdentifier());
+      Float oldValue=ret.get(key);
+      if (oldValue!=null)
+      {
+        ret.put(key,Float.valueOf(oldValue.floatValue()*value));
+      }
+      else
+      {
+        ret.put(key,Float.valueOf(value));
+      }
     }
     return ret;
   }

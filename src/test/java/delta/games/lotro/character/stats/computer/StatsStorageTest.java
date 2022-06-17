@@ -57,6 +57,7 @@ public class StatsStorageTest extends TestCase
   {
     BasicStatsSet stats=new BasicStatsSet();
     stats.setStat(WellKnownStat.MIGHT,StatOperator.SET,new FixedDecimalsInteger(3.14f),null);
+    stats.setStat(WellKnownStat.MORALE,StatOperator.MULTIPLY,new FixedDecimalsInteger(1.05f),null);
     StatsContribution ret=new StatsContribution("ID3","Label3",stats);
     return ret;
   }
