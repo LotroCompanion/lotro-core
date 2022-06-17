@@ -304,6 +304,26 @@ public class ItemInstance<T extends Item> implements ItemProvider
   }
 
   /**
+   * Get the item level to use for stats.
+   * @return the item level to use for stats.
+   */
+  public Integer getItemLevelForStats()
+  {
+    Integer itemLevel=getEffectiveItemLevel();
+    Integer itemLevelOffset=_reference.getItemLevelOffset();
+    if (itemLevelOffset!=null)
+    {
+      if (itemLevel!=null)
+      {
+        return Integer.valueOf(itemLevel.intValue()+itemLevelOffset.intValue());
+      }
+      return itemLevelOffset;
+    }
+    return _itemLevel;
+  }
+
+  
+  /**
    * Get the level of the owner.
    * @return A character level.
    */
