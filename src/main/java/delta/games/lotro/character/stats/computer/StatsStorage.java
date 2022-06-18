@@ -28,6 +28,15 @@ public class StatsStorage
   }
 
   /**
+   * Add some contributions.
+   * @param contribs Contributions to add.
+   */
+  public void addContribs(List<StatsContribution> contribs)
+  {
+    _contribs.addAll(contribs);
+  }
+
+  /**
    * Add a contribution from a source.
    * @param contrib Contribution to add.
    */
@@ -44,18 +53,39 @@ public class StatsStorage
   {
     List<StatsSetElement> adds=getStats(StatOperator.ADD);
     BasicStatsSet ret=sumStats(adds);
-    //System.out.println("Add stats: "+addStats);
+    List<StatsSetElement> substracts=getStats(StatOperator.SUBSTRACT);
+    applySubstract(ret,substracts);
     // Multiply
     List<StatsSetElement> multiply=getStats(StatOperator.MULTIPLY);
     Map<Integer,Float> multiplyFactors=multiplyStats(multiply);
-    //System.out.println("Multiply stats: "+multiplyStats);
     applyMultiply(ret,multiplyFactors);
     // Set
     List<StatsSetElement> set=getStats(StatOperator.SET);
     BasicStatsSet setStats=sumStats(set);
     ret=applySet(ret,setStats);
-    //System.out.println("Result stats: "+ret);
     return ret;
+  }
+
+  private void applySubstract(BasicStatsSet source, List<StatsSetElement> elements)
+  {
+    for(StatsSetElement element : elements)
+    {
+      FixedDecimalsInteger previous=source.getStat(element.getStat());
+      if (previous!=null)
+      {
+        int internalValue=element.getValue().getInternalValue();
+        FixedDecimalsInteger value=new FixedDecimalsInteger();
+        value.setRawValue(internalValue<0?-internalValue:internalValue);
+        previous.substract(value);
+      }
+      else
+      {
+        int internalValue=element.getValue().getInternalValue();
+        FixedDecimalsInteger value=new FixedDecimalsInteger();
+        value.setRawValue(internalValue>0?-internalValue:internalValue);
+        source.setStat(element.getStat(),value);
+      }
+    }
   }
 
   private void applyMultiply(BasicStatsSet source, Map<Integer,Float> multiplyFactors)

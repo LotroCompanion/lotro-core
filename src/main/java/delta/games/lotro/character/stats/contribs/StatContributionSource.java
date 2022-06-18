@@ -41,6 +41,6 @@ public class StatContributionSource
   @Override
   public String toString()
   {
-    return _id;
+    return _id+" ("+_label+")";
   }
 }

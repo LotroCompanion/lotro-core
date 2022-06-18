@@ -3,6 +3,8 @@ package delta.games.lotro.character.stats;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterProficiencies;
 import delta.games.lotro.character.gear.CharacterGear;
@@ -24,6 +26,7 @@ import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.global.CombatSystem;
+import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.ArmourType;
@@ -37,6 +40,8 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class CharacterStatsComputer
 {
+  private static final Logger LOGGER=Logger.getLogger(CharacterStatsComputer.class);
+
   private BaseStatsManager _baseStatsMgr;
   private TomesContributionsMgr _tomesMgr;
   private ItemsSetStatsComputer _itemsSetsMgr;
@@ -144,21 +149,26 @@ public class CharacterStatsComputer
     allContribs.addAll(virtuesStats);
 
     // Misc
+    StatsContribution additionalContrib=null;
     BasicStatsSet additionalStats=c.getAdditionalStats();
     if (additionalStats.getStatsCount()>0)
     {
-      StatsContribution contrib=StatsContribution.getAdditionalContrib(additionalStats);
-      allContribs.add(contrib);
+      additionalContrib=StatsContribution.getAdditionalContrib(additionalStats);
+      allContribs.add(additionalContrib);
     }
 
     // Hope
     List<StatsContribution> hopeContribs=handleHopeDread(allContribs);
     allContribs.addAll(hopeContribs);
 
+    // Fix armour stats
+    fixArmorStats(allContribs);
+
     // Aggregated
     total=getStats(allContribs);
 
     // Derived contributions
+    List<StatsContribution> derivedStatContribs=null;
     if ((_contribs!=null) && (_contribs.isResolveIndirectContributions()))
     {
       //contribsMgr=null;
@@ -166,15 +176,30 @@ public class CharacterStatsComputer
     else
     {
       DerivedStatsContributionsMgr derivedStatsMgr=DerivedStatContributionsIO.load();
-      List<StatsContribution> derivedStatContribs=derivedStatsMgr.getContributions(c.getCharacterClass(),total);
+      derivedStatContribs=derivedStatsMgr.getContributions(c.getCharacterClass(),total);
       allContribs.addAll(derivedStatContribs);
     }
-    // New total with derivated stats
+    // New total with derived stats
     total=getStats(allContribs);
 
     // Ratings
     BasicStatsSet ratings=computeRatings(c,total);
     total.addStats(ratings);
+    if (LOGGER.isDebugEnabled())
+    {
+      showContrib("Base",baseStatsContrib);
+      showContribs("Stat tomes",tomeStatsContribs);
+      showContribs("Equipment",equipmentStats);
+      showContribs("Buffs",buffContribs);
+      showContribs("Virtues",virtuesStats);
+      showContribs("Derivations",derivedStatContribs);
+      showContrib("Misc",additionalContrib);
+      showContribs("Hope/dread",hopeContribs);
+      LOGGER.debug("Ratings");
+      LOGGER.debug("\t"+ratings);
+      LOGGER.debug("Total");
+      LOGGER.debug("\t"+total);
+    }
 
     if (_contribs!=null)
     {
@@ -183,8 +208,49 @@ public class CharacterStatsComputer
         _contribs.addContrib(contrib);
       }
     }
+
     // Total
     return total;
+  }
+
+  private void fixArmorStats(List<StatsContribution> contribs)
+  {
+    StatDescription armorFloatStat=WellKnownStat.get("Combat_Agent_Armor_Value_Float");
+    for(StatsContribution contrib : contribs)
+    {
+      BasicStatsSet stats=contrib.getStats();
+      FixedDecimalsInteger armorFloatValue=stats.getStat(armorFloatStat);
+      if (armorFloatValue!=null)
+      {
+        stats.removeStat(armorFloatStat);
+        stats.addStat(WellKnownStat.ARMOUR,armorFloatValue);
+      }
+    }
+  }
+
+  private void showContribs(String theme, List<StatsContribution> contribs)
+  {
+    if (contribs==null)
+    {
+      return;
+    }
+    LOGGER.debug(theme);
+    if (!contribs.isEmpty())
+    {
+      for(StatsContribution contrib : contribs)
+      {
+        LOGGER.debug("\t"+contrib);
+      }
+    }
+  }
+
+  private void showContrib(String theme, StatsContribution contrib)
+  {
+    if (contrib!=null)
+    {
+      LOGGER.debug(theme);
+      LOGGER.debug("\t"+contrib);
+    }
   }
 
   private List<StatsContribution> handleHopeDread(List<StatsContribution> source)

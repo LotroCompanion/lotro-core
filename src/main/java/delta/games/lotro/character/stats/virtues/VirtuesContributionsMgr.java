@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.computer.StatsStorage;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
@@ -91,6 +92,21 @@ public final class VirtuesContributionsMgr
    * @param includePassives Include stats for passive virtues or not.
    * @return Some stats contributions.
    */
+  public BasicStatsSet getStatsContributions(VirtuesSet virtuesSet, boolean includeActives, boolean includePassives)
+  {
+    List<StatsContribution> contribs=getContributions(virtuesSet,includeActives,includePassives);
+    StatsStorage storage=new StatsStorage();
+    storage.addContribs(contribs);
+    return storage.aggregate();
+  }
+
+  /**
+   * Get stats contribution for a set of virtues.
+   * @param virtuesSet Virtues set.
+   * @param includeActives Include stats for active virtues or not.
+   * @param includePassives Include stats for passive virtues or not.
+   * @return Some stats contributions.
+   */
   public List<StatsContribution> getContributions(VirtuesSet virtuesSet, boolean includeActives, boolean includePassives)
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
@@ -107,7 +123,7 @@ public final class VirtuesContributionsMgr
           rankForPassives=1;
         }
         BasicStatsSet passiveStats=getContribution(virtue,rankForPassives,true);
-        StatsContribution passiveContrib=StatsContribution.getPassiveVirtuesContrib(passiveStats);
+        StatsContribution passiveContrib=StatsContribution.getPassiveVirtuesContrib(virtue,rankForPassives,passiveStats);
         ret.add(passiveContrib);
       }
       if (includeActives)

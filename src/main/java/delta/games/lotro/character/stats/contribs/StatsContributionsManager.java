@@ -54,7 +54,7 @@ public class StatsContributionsManager
   }
 
   /**
-   * Set the valie of the 'resolve indirect contributions' flag.
+   * Set the value of the 'resolve indirect contributions' flag.
    * @param enabled Value to set.
    */
   public void setResolveIndirectContributions(boolean enabled)

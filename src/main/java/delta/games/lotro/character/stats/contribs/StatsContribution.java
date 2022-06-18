@@ -25,37 +25,37 @@ public class StatsContribution
   /**
    * Source identifier seed: stat.
    */
-  public static final String STAT_SEED="Stat:";
+  public static final String STAT_SEED="Stat: ";
   // Tome:<statId>
   /**
    * Source identifier seed: stat tome.
    */
-  public static final String TOME_SEED="Tome:";
+  public static final String TOME_SEED="Tome: ";
   // Virtue:<virtueId>
   /**
    * Source identifier seed: virtue.
    */
-  public static final String VIRTUE_SEED="Virtue:";
+  public static final String VIRTUE_SEED="Virtue: ";
   // Equipment:<slot>:<itemId>
   /**
    * Source identifier seed: piece of equipment.
    */
-  public static final String EQUIPMENT="Equipment:";
+  public static final String EQUIPMENT="Equipment: ";
   // ItemsSet:<setId>
   /**
    * Source identifier seed: items set.
    */
-  public static final String ITEMS_SET="ItemsSet:";
+  public static final String ITEMS_SET="ItemsSet: ";
   // TraceriesSet:<setId>
   /**
    * Source identifier seed: traceries set.
    */
-  public static final String TRACERIES_SET="TraceriesSet:";
+  public static final String TRACERIES_SET="TraceriesSet: ";
   // Buff:<buffId>
   /**
    * Source identifier seed: buff.
    */
-  public static final String BUFF_SEED="Buff:";
+  public static final String BUFF_SEED="Buff: ";
   /**
    * Source identifier seed: hope.
    */
@@ -63,11 +63,11 @@ public class StatsContribution
   /**
    * Source identifier seed: additional stats.
    */
-  public static final String ADDITIONAL_STATS="Additional:";
+  public static final String ADDITIONAL_STATS="Additional: ";
   /**
    * Source identifier for passive stats of virtues.
    */
-  public static final String PASSIVE_VIRTUES="PassiveVirtues";
+  public static final String PASSIVE_VIRTUE_SEED="PassiveVirtue: ";
 
   private StatContributionSource _source;
   private BasicStatsSet _stats;
@@ -103,7 +103,7 @@ public class StatsContribution
    */
   public static StatsContribution getStatContrib(StatDescription sourceStat, FixedDecimalsInteger factor, BasicStatsSet stats)
   {
-    String source=STAT_SEED+sourceStat.getIdentifier()+":"+factor.getInternalValue();
+    String source=STAT_SEED+sourceStat.getName()+"x"+factor.floatValue();
     return new StatsContribution(source,sourceStat.getName(),stats);
   }
 
@@ -123,12 +123,16 @@ public class StatsContribution
 
   /**
    * Build a stat contribution for passive virtues.
+   * @param virtue Source virtue.
+   * @param rank Rank.
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getPassiveVirtuesContrib(BasicStatsSet stats)
+  public static StatsContribution getPassiveVirtuesContrib(VirtueDescription virtue, int rank, BasicStatsSet stats)
   {
-    return new StatsContribution(PASSIVE_VIRTUES,"Passive virtues",stats);
+    String source=PASSIVE_VIRTUE_SEED+virtue.getPersistenceKey();
+    String label=virtue.getName()+", tier "+rank;
+    return new StatsContribution(source,label,stats);
   }
 
   /**
@@ -234,6 +238,6 @@ public class StatsContribution
   @Override
   public String toString()
   {
-    return _source+":"+_stats;
+    return _source+": "+_stats;
   }
 }

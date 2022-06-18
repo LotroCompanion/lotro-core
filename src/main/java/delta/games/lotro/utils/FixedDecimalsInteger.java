@@ -69,7 +69,7 @@ public class FixedDecimalsInteger extends Number implements Comparable<FixedDeci
    */
   public FixedDecimalsInteger(float value)
   {
-    _value=(int)(value*FACTOR);
+    _value=Math.round(value*FACTOR);
   }
 
   /**
@@ -112,6 +112,17 @@ public class FixedDecimalsInteger extends Number implements Comparable<FixedDeci
   public FixedDecimalsInteger add(FixedDecimalsInteger value)
   {
     _value+=value._value;
+    return this;
+  }
+
+  /**
+   * Substract a value.
+   * @param value Value to add.
+   * @return this.
+   */
+  public FixedDecimalsInteger substract(FixedDecimalsInteger value)
+  {
+    _value-=value._value;
     return this;
   }
 
