@@ -80,6 +80,7 @@ public class TraitTree
     {
       ret.addAll(branch.getTraits());
       ret.addAll(branch.getProgression().getTraits());
+      ret.add(branch.getMainTrait());
     }
     return ret;
   }

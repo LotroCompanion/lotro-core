@@ -105,7 +105,7 @@ public class BuffsManagerToTraitTreeStatus
         addBuff(trait,rank.intValue(),buffs);
       }
     }
-    // Handle main trait and progresssion in the selected branch
+    // Handle main trait and progression in the selected branch
     TraitTreeBranch selectedBranch=status.getSelectedBranch();
     if (selectedBranch!=null)
     {
