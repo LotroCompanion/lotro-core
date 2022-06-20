@@ -51,14 +51,27 @@ public class StatsStorage
    */
   public BasicStatsSet aggregate()
   {
+    return aggregate(true);
+  }
+
+  /**
+   * Aggregate stats.
+   * @param useMultiply Include multiply contribs or not.
+   * @return the aggregated stats.
+   */
+  public BasicStatsSet aggregate(boolean useMultiply)
+  {
     List<StatsSetElement> adds=getStats(StatOperator.ADD);
     BasicStatsSet ret=sumStats(adds);
     List<StatsSetElement> substracts=getStats(StatOperator.SUBSTRACT);
     applySubstract(ret,substracts);
     // Multiply
-    List<StatsSetElement> multiply=getStats(StatOperator.MULTIPLY);
-    Map<Integer,Float> multiplyFactors=multiplyStats(multiply);
-    applyMultiply(ret,multiplyFactors);
+    if (useMultiply)
+    {
+      List<StatsSetElement> multiply=getStats(StatOperator.MULTIPLY);
+      Map<Integer,Float> multiplyFactors=multiplyStats(multiply);
+      applyMultiply(ret,multiplyFactors);
+    }
     // Set
     List<StatsSetElement> set=getStats(StatOperator.SET);
     BasicStatsSet setStats=sumStats(set);

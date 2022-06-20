@@ -238,7 +238,12 @@ public class BasicStatsSet
     }
   }
 
-  private StatsSetElement findElement(StatDescription stat)
+  /**
+   * Find a stats set element using its stat. 
+   * @param stat Stat to search.
+   * @return An element or <code>null</code> if not found.
+   */
+  public StatsSetElement findElement(StatDescription stat)
   {
     for(StatsSetElement element : _elements)
     {

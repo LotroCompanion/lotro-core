@@ -14,6 +14,7 @@ import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
 import delta.games.lotro.character.stats.buffs.MoraleFromHopeOrDread;
+import delta.games.lotro.character.stats.computer.MultiplyContribsComputer;
 import delta.games.lotro.character.stats.computer.StatsStorage;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
@@ -182,9 +183,17 @@ public class CharacterStatsComputer
     // New total with derived stats
     total=getStats(allContribs);
 
+    // Total without multiplies
+    BasicStatsSet noMultiplies=buildStatsStorage(allContribs).aggregate(false);
+
+    // Handle multiply contribs
+    MultiplyContribsComputer multiplyContribsComputer=new MultiplyContribsComputer();
+    multiplyContribsComputer.handleMultiplyContribs(noMultiplies,allContribs);
+
     // Ratings
     BasicStatsSet ratings=computeRatings(c,total);
     total.addStats(ratings);
+
     if (LOGGER.isDebugEnabled())
     {
       showContrib("Base",baseStatsContrib);
@@ -219,11 +228,13 @@ public class CharacterStatsComputer
     for(StatsContribution contrib : contribs)
     {
       BasicStatsSet stats=contrib.getStats();
+      StatsSetElement armorStatElement=stats.findElement(armorFloatStat);
       FixedDecimalsInteger armorFloatValue=stats.getStat(armorFloatStat);
-      if (armorFloatValue!=null)
+      if (armorStatElement!=null)
       {
         stats.removeStat(armorFloatStat);
-        stats.addStat(WellKnownStat.ARMOUR,armorFloatValue);
+        StatsSetElement newStatElement=new StatsSetElement(WellKnownStat.ARMOUR,armorStatElement.getOperator(),armorFloatValue,armorStatElement.getDescriptionOverride());
+        stats.addStat(newStatElement);
       }
     }
   }
@@ -272,13 +283,19 @@ public class CharacterStatsComputer
 
   private BasicStatsSet getStats(List<StatsContribution> contribs)
   {
+    StatsStorage storage=buildStatsStorage(contribs);
+    BasicStatsSet ret=storage.aggregate();
+    return ret;
+  }
+
+  private StatsStorage buildStatsStorage(List<StatsContribution> contribs)
+  {
     StatsStorage storage=new StatsStorage();
     for(StatsContribution contrib : contribs)
     {
       storage.addContrib(contrib);
     }
-    BasicStatsSet ret=storage.aggregate();
-    return ret;
+    return storage;
   }
 
   private BasicStatsSet computeRatings(CharacterData c, BasicStatsSet stats)
