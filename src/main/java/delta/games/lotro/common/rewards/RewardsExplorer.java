@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import delta.games.lotro.common.enums.BillingGroup;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
@@ -28,6 +30,7 @@ public class RewardsExplorer
   private List<Relic> _relics;
   private Set<String> _skills;
   private Set<String> _traits;
+  private Set<BillingGroup> _billingGroups;
 
   /**
    * Constructor.
@@ -42,6 +45,7 @@ public class RewardsExplorer
     _emotes=new HashSet<String>();
     _skills=new HashSet<String>();
     _traits=new HashSet<String>();
+    _billingGroups=new HashSet<BillingGroup>();
   }
 
   /**
@@ -99,6 +103,13 @@ public class RewardsExplorer
         {
           _relicIds.add(Integer.valueOf(id));
         }
+      }
+      // Billing Token
+      else if (rewardElement instanceof BillingTokenReward)
+      {
+        BillingTokenReward billingTokenReward=(BillingTokenReward)rewardElement;
+        BillingGroup billingGroup=billingTokenReward.getBillingGroup();
+        _billingGroups.add(billingGroup);
       }
       // Selectable
       else if (rewardElement instanceof SelectableRewardElement)
@@ -229,6 +240,17 @@ public class RewardsExplorer
   {
     List<Relic> ret=new ArrayList<Relic>(_relics);
     Collections.sort(ret,new RelicNameComparator());
+    return ret;
+  }
+
+  /**
+   * Get all billing tokens.
+   * @return a sorted list of billing tokens.
+   */
+  public List<BillingGroup> getBillingGroups()
+  {
+    List<BillingGroup> ret=new ArrayList<BillingGroup>(_billingGroups);
+    Collections.sort(ret,new LotroEnumEntryNameComparator<BillingGroup>());
     return ret;
   }
 }

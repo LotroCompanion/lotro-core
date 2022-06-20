@@ -29,6 +29,7 @@ public class RewardsFilter implements Filter<Rewards>
   private EmoteRewardFilter _emoteFilter;
   private ItemRewardFilter _itemFilter;
   private RelicRewardFilter _relicFilter;
+  private BillingGroupRewardFilter _billingGroupFilter;
 
   /**
    * Constructor.
@@ -75,6 +76,9 @@ public class RewardsFilter implements Filter<Rewards>
     // - relic
     _relicFilter=new RelicRewardFilter(null);
     filters.add(_relicFilter);
+    // - billing group
+    _billingGroupFilter=new BillingGroupRewardFilter(null);
+    filters.add(_billingGroupFilter);
     _filter=new CompoundFilter<Rewards>(Operator.AND,filters);
   }
 
@@ -193,6 +197,15 @@ public class RewardsFilter implements Filter<Rewards>
   public RelicRewardFilter getRelicFilter()
   {
     return _relicFilter;
+  }
+
+  /**
+   * Get the filter on billing group reward.
+   * @return a billing group reward filter.
+   */
+  public BillingGroupRewardFilter getBillingGroupFilter()
+  {
+    return _billingGroupFilter;
   }
 
   @Override

@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -13,7 +14,7 @@ import delta.games.lotro.common.stats.StatsProvider;
  * Trait.
  * @author DAM
  */
-public class TraitDescription implements Identifiable
+public class TraitDescription implements Identifiable,Named
 {
   /**
    * Trait identifier.
