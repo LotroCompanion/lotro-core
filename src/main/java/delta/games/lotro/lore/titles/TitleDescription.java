@@ -1,12 +1,13 @@
 package delta.games.lotro.lore.titles;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * LOTRO title description.
  * @author DAM
  */
-public class TitleDescription implements Identifiable
+public class TitleDescription implements Identifiable,Named
 {
   private int _identifier;
   private String _name;
