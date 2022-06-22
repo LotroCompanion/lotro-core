@@ -24,4 +24,39 @@ public class StringUtils
     }
     return name;
   }
+
+  /**
+   * Remove marks ([...]) from a text.
+   * @param text Text to fix.
+   * @return Fixed text.
+   */
+  public static String removeMarks(String text)
+  {
+    if (text==null)
+    {
+      return text;
+    }
+    while(true)
+    {
+      int startIndex=text.indexOf('[');
+      if (startIndex!=-1)
+      {
+        int endIndex=text.indexOf(']',startIndex+1);
+        if (endIndex!=-1)
+        {
+          text=text.substring(0,startIndex)+text.substring(endIndex+1);
+        }
+        else
+        {
+          text=text.substring(0,startIndex);
+        }
+        text=text.trim();
+      }
+      else
+      {
+        break;
+      }
+    }
+    return text;
+  }
 }
