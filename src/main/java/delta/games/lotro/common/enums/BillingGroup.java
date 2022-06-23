@@ -6,6 +6,8 @@ package delta.games.lotro.common.enums;
  */
 public class BillingGroup extends LotroEnumEntry
 {
+  public static final BillingGroup ANY=new BillingGroup();
+
   @Override
   public String toString()
   {

@@ -79,6 +79,10 @@ public class BillingGroupRewardFilter implements Filter<Rewards>
 
   private boolean accept(BillingTokenReward billingGroupReward)
   {
+    if (_billingGroup==BillingGroup.ANY)
+    {
+      return true;
+    }
     return (_billingGroup==billingGroupReward.getBillingGroup());
   }
 }
