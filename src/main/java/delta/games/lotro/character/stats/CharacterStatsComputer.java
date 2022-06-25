@@ -16,6 +16,7 @@ import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
 import delta.games.lotro.character.stats.buffs.MoraleFromHopeOrDread;
 import delta.games.lotro.character.stats.computer.MultiplyContribsComputer;
 import delta.games.lotro.character.stats.computer.StatsStorage;
+import delta.games.lotro.character.stats.computer.SubstractContribsComputer;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
@@ -188,6 +189,9 @@ public class CharacterStatsComputer
     // Handle multiply contribs
     MultiplyContribsComputer multiplyContribsComputer=new MultiplyContribsComputer();
     multiplyContribsComputer.handleMultiplyContribs(noMultiplies,allContribs);
+    // Handle substract contribs
+    SubstractContribsComputer substractContribsComputer=new SubstractContribsComputer();
+    substractContribsComputer.handleSubstractContribs(allContribs);
 
     // Ratings
     BasicStatsSet ratings=computeRatings(c,total);

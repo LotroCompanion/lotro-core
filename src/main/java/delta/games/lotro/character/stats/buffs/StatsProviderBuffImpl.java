@@ -7,7 +7,6 @@ import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
@@ -40,17 +39,11 @@ public class StatsProviderBuffImpl extends AbstractBuffImpl
     for(int i=0;i<nbStats;i++)
     {
       StatProvider provider=_statsProvider.getStatProvider(i);
-      StatOperator operator=provider.getOperator();
       Float value=getStatValue(character,buff,provider);
       if (value!=null)
       {
-        float statValue=value.floatValue();
-        if (operator==StatOperator.SUBSTRACT)
-        {
-          statValue=-statValue;
-        }
         StatDescription stat=provider.getStat();
-        stats.setStat(stat,provider.getOperator(),Float.valueOf(statValue),provider.getDescriptionOverride());
+        stats.setStat(stat,provider.getOperator(),value,provider.getDescriptionOverride());
       }
     }
     return stats;

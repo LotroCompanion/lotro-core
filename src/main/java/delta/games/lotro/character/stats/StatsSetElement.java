@@ -65,6 +65,15 @@ public class StatsSetElement
   }
 
   /**
+   * Set operator.
+   * @param operator Operator to set.
+   */
+  public void setOperator(StatOperator operator)
+  {
+    _operator=operator;
+  }
+
+  /**
    * Get the stat value.
    * @return a value.
    */

@@ -19,7 +19,7 @@ public class StatContribution
   public StatContribution(StatContributionSource source, Number value)
   {
     _source=source;
-    _value=NumericUtils.ensurePositive(value);
+    _value=value;
   }
 
   /**
