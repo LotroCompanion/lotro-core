@@ -1,7 +1,7 @@
 package delta.games.lotro.common.stats;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 
 /**
  * Stats manager.
@@ -117,9 +117,8 @@ public class StatsManager
       _result.addStats(_default);
       for(StatDescription stat : _custom.getStats())
       {
-        FixedDecimalsInteger value=_custom.getStat(stat);
-        int internalValue=value.getInternalValue();
-        if (internalValue==0)
+        Number value=_custom.getStat(stat);
+        if (NumericUtils.isZero(value))
         {
           _result.removeStat(stat);
         }

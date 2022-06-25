@@ -54,7 +54,7 @@ import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary2.Legendary2;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttributes2Manager;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttrs2;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -301,7 +301,7 @@ public final class ItemSaxParser extends DefaultHandler
       StatOperator operator=getOperator(attributes.getValue(BasicStatsSetXMLConstants.STAT_OPERATOR_ATTR));
       // Stat value
       String statValue=attributes.getValue(BasicStatsSetXMLConstants.STAT_VALUE_ATTR);
-      FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
+      Number value=NumericUtils.fromPersistenceString(statValue);
       // Description override
       String descriptionOverride=attributes.getValue(BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR);
       _currentItem.getStats().setStat(stat,operator,value,descriptionOverride);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Stats provider.
@@ -140,7 +139,7 @@ public class StatsProvider
       Float value=provider.getStatValue(tier,level);
       if (value!=null)
       {
-        FixedDecimalsInteger statValue=null;
+        Number statValue=null;
         StatDescription stat=provider.getStat();
         float floatValue=value.floatValue();
         StatType type=stat.getType();
@@ -148,11 +147,11 @@ public class StatsProvider
         {
           //int intValue=Math.round(floatValue);
           int intValue=(int)(floatValue);
-          statValue=new FixedDecimalsInteger(intValue);
+          statValue=Integer.valueOf(intValue);
         }
         else
         {
-          statValue=new FixedDecimalsInteger(floatValue);
+          statValue=Float.valueOf(floatValue);
         }
         stats.setStat(stat,operator,statValue,provider.getDescriptionOverride());
       }

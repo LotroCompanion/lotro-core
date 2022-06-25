@@ -29,7 +29,6 @@ import delta.games.lotro.lore.items.legendary.io.xml.LegendaryInstanceAttrsXMLPa
 import delta.games.lotro.lore.items.legendary2.LegendaryInstance2;
 import delta.games.lotro.lore.items.legendary2.LegendaryInstanceAttrs2;
 import delta.games.lotro.lore.items.legendary2.io.xml.LegendaryInstance2AttrsXMLParser;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Parser for item instance descriptions stored in XML.
@@ -93,8 +92,8 @@ public class ItemXMLParser
       StatsManager statsManager=itemInstance.getStatsManager();
       if (statsManager.getMode()==CustomStatsMergeMode.SET)
       {
-        statsManager.getCustom().setStat(WellKnownStat.ARMOUR,new FixedDecimalsInteger(armour));
-        statsManager.getResult().setStat(WellKnownStat.ARMOUR,new FixedDecimalsInteger(armour));
+        statsManager.getCustom().setStat(WellKnownStat.ARMOUR,Integer.valueOf(armour));
+        statsManager.getResult().setStat(WellKnownStat.ARMOUR,Integer.valueOf(armour));
       }
     }
     // Durability

@@ -10,6 +10,6 @@ public class StatContributionComparator implements Comparator<StatContribution>
 {
   public int compare(StatContribution o1, StatContribution o2)
   {
-    return o1.getValue().compareTo(o2.getValue());
+    return Float.compare(o1.getValue().floatValue(),o2.getValue().floatValue());
   }
 }

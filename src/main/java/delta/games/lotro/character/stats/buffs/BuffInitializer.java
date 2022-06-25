@@ -25,7 +25,6 @@ import delta.games.lotro.lore.buffs.EffectBuff;
 import delta.games.lotro.lore.buffs.io.xml.EffectBuffXMLParser;
 import delta.games.lotro.lore.consumables.Consumable;
 import delta.games.lotro.lore.consumables.io.xml.ConsumableXMLParser;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.IconsUtils;
 
 /**
@@ -216,7 +215,7 @@ public class BuffInitializer
   private BasicStatsSet buildBasicSet(StatDescription stat, float value)
   {
     BasicStatsSet ret=new BasicStatsSet();
-    ret.addStat(stat,new FixedDecimalsInteger(value));
+    ret.addStat(stat,Float.valueOf(value));
     return ret;
   }
 }

@@ -13,7 +13,7 @@ import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatDescriptionComparator;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 
 /**
  * Manager for derived statistics contributions.
@@ -30,7 +30,7 @@ public final class DerivedStatsContributionsMgr
   public static class DerivedStatContribution
   {
     private StatDescription _contributedStat;
-    private FixedDecimalsInteger _factor;
+    private Number _factor;
 
     /**
      * Get the target stat.
@@ -45,7 +45,7 @@ public final class DerivedStatsContributionsMgr
      * Get the factor.
      * @return the factor.
      */
-    public FixedDecimalsInteger getFactor()
+    public Number getFactor()
     {
       return _factor;
     }
@@ -70,7 +70,7 @@ public final class DerivedStatsContributionsMgr
       _factors=new ArrayList<DerivedStatContribution>();
     }
 
-    private void addStatContribution(StatDescription contributedStat, FixedDecimalsInteger factor)
+    private void addStatContribution(StatDescription contributedStat, Number factor)
     {
       DerivedStatContribution contrib=new DerivedStatContribution();
       contrib._contributedStat=contributedStat;
@@ -100,7 +100,7 @@ public final class DerivedStatsContributionsMgr
       _contributions=new HashMap<StatDescription,StatContributions>();
     }
 
-    private void addStatContribution(StatDescription sourceStat, StatDescription contributedStat, FixedDecimalsInteger factor)
+    private void addStatContribution(StatDescription sourceStat, StatDescription contributedStat, Number factor)
     {
       StatContributions contribs=_contributions.get(sourceStat);
       if (contribs==null)
@@ -166,7 +166,7 @@ public final class DerivedStatsContributionsMgr
    * @param cClass Character class;
    * @param factor Factor.
    */
-  public void setFactor(StatDescription primaryStat, StatDescription contributedStat, CharacterClass cClass, FixedDecimalsInteger factor)
+  public void setFactor(StatDescription primaryStat, StatDescription contributedStat, CharacterClass cClass, Number factor)
   {
     ClassDerivedStats derivedStats=_allContribs.get(cClass);
     if (derivedStats==null)
@@ -213,14 +213,13 @@ public final class DerivedStatsContributionsMgr
     ClassDerivedStats classDerivedStats=_allContribs.get(cClass);
     for(StatDescription stat : set.getStats())
     {
-      FixedDecimalsInteger statValue=set.getStat(stat);
+      Number statValue=set.getStat(stat);
       StatContributions contrib=classDerivedStats.getContribsForStat(stat);
       if (contrib!=null)
       {
         for(DerivedStatContribution factor : contrib.getFactors())
         {
-          FixedDecimalsInteger toAdd=new FixedDecimalsInteger(statValue);
-          toAdd.multiply(factor._factor);
+          Number toAdd=NumericUtils.multiply(statValue,factor._factor);
           BasicStatsSet stats=new BasicStatsSet();
           stats.addStat(factor._contributedStat,toAdd);
           StatsContribution statContrib=StatsContribution.getStatContrib(stat,factor._factor,stats);

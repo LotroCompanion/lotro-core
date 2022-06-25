@@ -4,7 +4,6 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.WellKnownStat;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 import junit.framework.TestCase;
 
 /**
@@ -48,7 +47,7 @@ public class StatsStorageTest extends TestCase
   {
     BasicStatsSet stats=new BasicStatsSet();
     stats.setStat(WellKnownStat.AGILITY,100);
-    stats.setStat(WellKnownStat.MORALE,StatOperator.MULTIPLY,new FixedDecimalsInteger(1.10f),null);
+    stats.setStat(WellKnownStat.MORALE,StatOperator.MULTIPLY,Float.valueOf(1.10f),null);
     StatsContribution ret=new StatsContribution("ID2","Label2",stats);
     return ret;
   }
@@ -56,8 +55,8 @@ public class StatsStorageTest extends TestCase
   private StatsContribution buildContrib3()
   {
     BasicStatsSet stats=new BasicStatsSet();
-    stats.setStat(WellKnownStat.MIGHT,StatOperator.SET,new FixedDecimalsInteger(3.14f),null);
-    stats.setStat(WellKnownStat.MORALE,StatOperator.MULTIPLY,new FixedDecimalsInteger(1.05f),null);
+    stats.setStat(WellKnownStat.MIGHT,StatOperator.SET,Float.valueOf(3.14f),null);
+    stats.setStat(WellKnownStat.MORALE,StatOperator.MULTIPLY,Float.valueOf(1.05f),null);
     StatsContribution ret=new StatsContribution("ID3","Label3",stats);
     return ret;
   }

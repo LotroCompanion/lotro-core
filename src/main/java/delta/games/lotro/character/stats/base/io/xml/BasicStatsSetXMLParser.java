@@ -7,11 +7,10 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatsRegistry;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 
 /**
  * Read a basic stats set from XML documents.
@@ -43,11 +42,10 @@ public class BasicStatsSetXMLParser
         operator=StatOperator.valueOf(operatorStr);
       }
       // Value
-      FixedDecimalsInteger value=FixedDecimalsInteger.fromString(statValue);
+      Number value=NumericUtils.fromPersistenceString(statValue);
       // Description override
       String descriptionOverride=DOMParsingTools.getStringAttribute(attrs,BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,null);
-      StatsSetElement element=new StatsSetElement(stat,operator,value,descriptionOverride);
-      ret.addStat(element);
+      ret.setStat(stat,operator,value,descriptionOverride);
     }
     return ret;
   }

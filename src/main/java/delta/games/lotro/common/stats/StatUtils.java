@@ -5,7 +5,6 @@ import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.l10n.L10n;
 
 /**
@@ -25,7 +24,7 @@ public class StatUtils
    * @param percentage Indicates if the stat is a percentage or not.
    * @return A displayable string.
    */
-  public static String getStatDisplay(FixedDecimalsInteger value, boolean percentage)
+  public static String getStatDisplay(Number value, boolean percentage)
   {
     String valueStr;
     if (value!=null)
@@ -157,7 +156,7 @@ public class StatUtils
     String line=null;
     StatDescription stat=element.getStat();
     String statName=stat.getName();
-    FixedDecimalsInteger value=element.getValue();
+    Number value=element.getValue();
     String valueStr=getStatDisplay(value,stat.isPercentage());
     String descriptionOverride=element.getDescriptionOverride();
     if (descriptionOverride!=null)

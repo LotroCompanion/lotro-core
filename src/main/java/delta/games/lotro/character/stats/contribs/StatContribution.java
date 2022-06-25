@@ -1,6 +1,6 @@
 package delta.games.lotro.character.stats.contribs;
 
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 
 /**
  * Contribution of a source to a stat.
@@ -9,30 +9,26 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
 public class StatContribution
 {
   private StatContributionSource _source;
-  private FixedDecimalsInteger _value;
+  private Number _value;
 
   /**
    * Constructor.
    * @param source Source.
    * @param value Stat contribution.
    */
-  public StatContribution(StatContributionSource source, FixedDecimalsInteger value)
+  public StatContribution(StatContributionSource source, Number value)
   {
     _source=source;
-    _value=value;
-    if (value.getInternalValue()<0)
-    {
-      value.setRawValue(-_value.getInternalValue());
-    }
+    _value=NumericUtils.ensurePositive(value);
   }
 
   /**
    * Add a contribution.
    * @param value Value to add.
    */
-  public void add(FixedDecimalsInteger value)
+  public void add(Number value)
   {
-    _value.add(value);
+    _value=NumericUtils.add(_value,value);
   }
 
   /**
@@ -48,7 +44,7 @@ public class StatContribution
    * Get the stat contribution.
    * @return the stat contribution.
    */
-  public FixedDecimalsInteger getValue()
+  public Number getValue()
   {
     return _value;
   }

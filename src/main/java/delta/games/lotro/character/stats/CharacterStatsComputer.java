@@ -33,7 +33,6 @@ import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Character stats computer.
@@ -229,11 +228,13 @@ public class CharacterStatsComputer
     {
       BasicStatsSet stats=contrib.getStats();
       StatsSetElement armorStatElement=stats.findElement(armorFloatStat);
-      FixedDecimalsInteger armorFloatValue=stats.getStat(armorFloatStat);
+      Number armorFloatValue=stats.getStat(armorFloatStat);
       if (armorStatElement!=null)
       {
         stats.removeStat(armorFloatStat);
-        StatsSetElement newStatElement=new StatsSetElement(WellKnownStat.ARMOUR,armorStatElement.getOperator(),armorFloatValue,armorStatElement.getDescriptionOverride());
+        StatsSetElement newStatElement=new StatsSetElement(WellKnownStat.ARMOUR,armorStatElement.getOperator());
+        newStatElement.setValue(armorFloatValue);
+        newStatElement.setDescriptionOverride(armorStatElement.getDescriptionOverride());
         stats.addStat(newStatElement);
       }
     }
@@ -268,13 +269,12 @@ public class CharacterStatsComputer
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     BasicStatsSet stats=getStats(source);
-    FixedDecimalsInteger hopeLevel=stats.getStat(WellKnownStat.HOPE);
+    Number hopeLevel=stats.getStat(WellKnownStat.HOPE);
     if ((hopeLevel!=null) && (hopeLevel.intValue()!=0))
     {
       float factor=_hopeDread.getMoraleFactor(hopeLevel.intValue());
       BasicStatsSet hopeStats=new BasicStatsSet();
-      StatsSetElement moraleElement=new StatsSetElement(WellKnownStat.MORALE,StatOperator.MULTIPLY,new FixedDecimalsInteger(factor),null);
-      hopeStats.addStat(moraleElement);
+      hopeStats.setStat(WellKnownStat.MORALE,StatOperator.MULTIPLY,Float.valueOf(factor),null);
       StatsContribution contrib=new StatsContribution("HOPE_DREAD","Morale from Hope/Dread",hopeStats);
       ret.add(contrib);
     }
@@ -303,91 +303,91 @@ public class CharacterStatsComputer
     int level=c.getLevel();
     BasicStatsSet ret=new BasicStatsSet();
     // Crit %
-    FixedDecimalsInteger crit=stats.getStat(WellKnownStat.CRITICAL_RATING);
-    FixedDecimalsInteger critPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.CRITICAL_HIT),crit,level);
+    Number crit=stats.getStat(WellKnownStat.CRITICAL_RATING);
+    float critPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.CRITICAL_HIT),crit,level);
     ret.setStat(WellKnownStat.CRITICAL_MELEE_PERCENTAGE,critPercentage);
     ret.setStat(WellKnownStat.CRITICAL_RANGED_PERCENTAGE,critPercentage);
     ret.setStat(WellKnownStat.CRITICAL_TACTICAL_PERCENTAGE,critPercentage);
     // Devastate %
-    FixedDecimalsInteger devPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DEVASTATE_HIT),crit,level);
+    float devPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DEVASTATE_HIT),crit,level);
     ret.setStat(WellKnownStat.DEVASTATE_MELEE_PERCENTAGE,devPercentage);
     ret.setStat(WellKnownStat.DEVASTATE_RANGED_PERCENTAGE,devPercentage);
     ret.setStat(WellKnownStat.DEVASTATE_TACTICAL_PERCENTAGE,devPercentage);
     // Crit&Dev Magnitude %
-    FixedDecimalsInteger critDevMagnitudePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.CRIT_DEVASTATE_MAGNITUDE),crit,level);
+    float critDevMagnitudePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.CRIT_DEVASTATE_MAGNITUDE),crit,level);
     ret.setStat(WellKnownStat.CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE,critDevMagnitudePercentage);
     ret.setStat(WellKnownStat.CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE,critDevMagnitudePercentage);
     ret.setStat(WellKnownStat.CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE,critDevMagnitudePercentage);
     // Finesse %
-    FixedDecimalsInteger finesse=stats.getStat(WellKnownStat.FINESSE);
-    FixedDecimalsInteger finessePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.FINESSE),finesse,level);
+    Number finesse=stats.getStat(WellKnownStat.FINESSE);
+    float finessePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.FINESSE),finesse,level);
     ret.setStat(WellKnownStat.FINESSE_PERCENTAGE,finessePercentage);
     // Physical Damage %
-    FixedDecimalsInteger physicalMastery=stats.getStat(WellKnownStat.PHYSICAL_MASTERY);
-    FixedDecimalsInteger damagePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DAMAGE),physicalMastery,level);
+    Number physicalMastery=stats.getStat(WellKnownStat.PHYSICAL_MASTERY);
+    float damagePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DAMAGE),physicalMastery,level);
     ret.setStat(WellKnownStat.MELEE_DAMAGE_PERCENTAGE,damagePercentage);
     ret.setStat(WellKnownStat.RANGED_DAMAGE_PERCENTAGE,damagePercentage);
     // Tactical Damage / Outgoing healing %
-    FixedDecimalsInteger tacticalMastery=stats.getStat(WellKnownStat.TACTICAL_MASTERY);
-    FixedDecimalsInteger tacticalDamagePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DAMAGE),tacticalMastery,level);
-    FixedDecimalsInteger outgoingHealing=stats.getStat(WellKnownStat.OUTGOING_HEALING);
-    FixedDecimalsInteger outgoingHealingPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.HEALING),outgoingHealing,level);
+    Number tacticalMastery=stats.getStat(WellKnownStat.TACTICAL_MASTERY);
+    float tacticalDamagePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DAMAGE),tacticalMastery,level);
+    Number outgoingHealing=stats.getStat(WellKnownStat.OUTGOING_HEALING);
+    float outgoingHealingPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.HEALING),outgoingHealing,level);
     ret.setStat(WellKnownStat.TACTICAL_DAMAGE_PERCENTAGE,tacticalDamagePercentage);
     ret.setStat(WellKnownStat.OUTGOING_HEALING_PERCENTAGE,outgoingHealingPercentage);
     // Resistance %
-    FixedDecimalsInteger resistance=stats.getStat(WellKnownStat.RESISTANCE);
-    FixedDecimalsInteger resistancePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.RESISTANCE),resistance,level);
+    Number resistance=stats.getStat(WellKnownStat.RESISTANCE);
+    float resistancePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.RESISTANCE),resistance,level);
     ret.setStat(WellKnownStat.RESISTANCE_PERCENTAGE,resistancePercentage);
     // Critical Defence %
-    FixedDecimalsInteger critDefence=stats.getStat(WellKnownStat.CRITICAL_DEFENCE);
-    FixedDecimalsInteger critDefencePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.CRITICAL_DEFENCE),critDefence,level);
+    Number critDefence=stats.getStat(WellKnownStat.CRITICAL_DEFENCE);
+    float critDefencePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.CRITICAL_DEFENCE),critDefence,level);
     ret.setStat(WellKnownStat.MELEE_CRITICAL_DEFENCE,critDefencePercentage);
     ret.setStat(WellKnownStat.RANGED_CRITICAL_DEFENCE,critDefencePercentage);
     ret.setStat(WellKnownStat.TACTICAL_CRITICAL_DEFENCE,critDefencePercentage);
     // Incoming healing %
-    FixedDecimalsInteger incomingHealing=stats.getStat(WellKnownStat.INCOMING_HEALING);
-    FixedDecimalsInteger incomingHealingPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.INCOMING_HEALING),incomingHealing,level);
+    Number incomingHealing=stats.getStat(WellKnownStat.INCOMING_HEALING);
+    float incomingHealingPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.INCOMING_HEALING),incomingHealing,level);
     ret.setStat(WellKnownStat.INCOMING_HEALING_PERCENTAGE,incomingHealingPercentage);
     // Block %, Partial Block %, Block Mitigation %
-    FixedDecimalsInteger block=stats.getStat(WellKnownStat.BLOCK);
-    FixedDecimalsInteger blockPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.AVOIDANCE),block,level);
+    Number block=stats.getStat(WellKnownStat.BLOCK);
+    float blockPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.AVOIDANCE),block,level);
     ret.setStat(WellKnownStat.BLOCK_PERCENTAGE,blockPercentage);
-    FixedDecimalsInteger partialBlockPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),block,level);
+    float partialBlockPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),block,level);
     ret.setStat(WellKnownStat.PARTIAL_BLOCK_PERCENTAGE,partialBlockPercentage);
-    FixedDecimalsInteger partialBlockMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),block,level);
-    partialBlockMitigationPercentage.add(10);
+    float partialBlockMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),block,level);
+    partialBlockMitigationPercentage+=10;
     ret.setStat(WellKnownStat.PARTIAL_BLOCK_MITIGATION_PERCENTAGE,partialBlockMitigationPercentage);
     // Parry %, Partial Parry %, Parry Mitigation %
-    FixedDecimalsInteger parry=stats.getStat(WellKnownStat.PARRY);
-    FixedDecimalsInteger parryPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.AVOIDANCE),parry,level);
+    Number parry=stats.getStat(WellKnownStat.PARRY);
+    float parryPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.AVOIDANCE),parry,level);
     ret.setStat(WellKnownStat.PARRY_PERCENTAGE,parryPercentage);
-    FixedDecimalsInteger partialParryPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),parry,level);
+    float partialParryPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),parry,level);
     ret.setStat(WellKnownStat.PARTIAL_PARRY_PERCENTAGE,partialParryPercentage);
-    FixedDecimalsInteger partialParryMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),parry,level);
-    partialParryMitigationPercentage.add(10);
+    float partialParryMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),parry,level);
+    partialParryMitigationPercentage+=10;
     ret.setStat(WellKnownStat.PARTIAL_PARRY_MITIGATION_PERCENTAGE,partialParryMitigationPercentage);
     // Evade %, Partial Evade %, Evade Mitigation %
-    FixedDecimalsInteger evade=stats.getStat(WellKnownStat.EVADE);
-    FixedDecimalsInteger evadePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.AVOIDANCE),evade,level);
+    Number evade=stats.getStat(WellKnownStat.EVADE);
+    float evadePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.AVOIDANCE),evade,level);
     ret.setStat(WellKnownStat.EVADE_PERCENTAGE,evadePercentage);
-    FixedDecimalsInteger partialEvadePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),evade,level);
+    float partialEvadePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),evade,level);
     ret.setStat(WellKnownStat.PARTIAL_EVADE_PERCENTAGE,partialEvadePercentage);
-    FixedDecimalsInteger partialEvadeMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),evade,level);
-    partialEvadeMitigationPercentage.add(10);
+    float partialEvadeMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),evade,level);
+    partialEvadeMitigationPercentage+=10;
     ret.setStat(WellKnownStat.PARTIAL_EVADE_MITIGATION_PERCENTAGE,partialEvadeMitigationPercentage);
     // Physical Mitigation %
     CharacterClass cClass=c.getCharacterClass();
     RatingCurve mitigation=getMitigationCurve(cClass);
-    FixedDecimalsInteger physicalMitigation=stats.getStat(WellKnownStat.PHYSICAL_MITIGATION);
-    FixedDecimalsInteger physicalMitigationPercentage=computePercentage(mitigation,physicalMitigation,level);
+    Number physicalMitigation=stats.getStat(WellKnownStat.PHYSICAL_MITIGATION);
+    float physicalMitigationPercentage=computePercentage(mitigation,physicalMitigation,level);
     ret.setStat(WellKnownStat.PHYSICAL_MITIGATION_PERCENTAGE,physicalMitigationPercentage);
     // Orc-craft and Fell-wrought mitigation %
-    FixedDecimalsInteger ocfwMitigation=stats.getStat(WellKnownStat.OCFW_MITIGATION);
-    FixedDecimalsInteger ocfwMitigationPercentage=computePercentage(mitigation,ocfwMitigation,level);
+    Number ocfwMitigation=stats.getStat(WellKnownStat.OCFW_MITIGATION);
+    float ocfwMitigationPercentage=computePercentage(mitigation,ocfwMitigation,level);
     ret.setStat(WellKnownStat.OCFW_MITIGATION_PERCENTAGE,ocfwMitigationPercentage);
     // Tactical mitigation %
-    FixedDecimalsInteger tacticalMitigation=stats.getStat(WellKnownStat.TACTICAL_MITIGATION);
-    FixedDecimalsInteger tacticalMitigationPercentage=computePercentage(mitigation,tacticalMitigation,level);
+    Number tacticalMitigation=stats.getStat(WellKnownStat.TACTICAL_MITIGATION);
+    float tacticalMitigationPercentage=computePercentage(mitigation,tacticalMitigation,level);
     ret.setStat(WellKnownStat.TACTICAL_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
     ret.addStat(WellKnownStat.FIRE_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
     ret.addStat(WellKnownStat.LIGHTNING_MITIGATION_PERCENTAGE,tacticalMitigationPercentage);
@@ -406,20 +406,16 @@ public class CharacterStatsComputer
     return null;
   }
 
-  private FixedDecimalsInteger computePercentage(RatingCurve curve, FixedDecimalsInteger rating, int level)
+  private float computePercentage(RatingCurve curve, Number rating, int level)
   {
-    FixedDecimalsInteger ret=null;
+    float ret=0f;
     if (rating!=null)
     {
       Double percentage=curve.getPercentage(rating.doubleValue(),level);
       if (percentage!=null)
       {
-        ret=new FixedDecimalsInteger(percentage.floatValue());
+        ret=percentage.floatValue();
       }
-    }
-    if (ret==null)
-    {
-      ret=new FixedDecimalsInteger();
     }
     return ret;
   }

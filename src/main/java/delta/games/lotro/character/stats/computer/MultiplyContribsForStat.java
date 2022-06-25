@@ -8,7 +8,6 @@ import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Manages a set of multiply contribs for a single stat.
@@ -53,7 +52,7 @@ public class MultiplyContribsForStat
    */
   public void compute(float totalContrib)
   {
-    List<FixedDecimalsInteger> factors=getFactors();
+    List<Float> factors=getFactors();
     float globalFactor=getGlobalFactor(factors);
     float totalFactors=getTotalFactors(factors);
     for(StatsContribution contrib : _contribs)
@@ -67,7 +66,7 @@ public class MultiplyContribsForStat
     }
   }
 
-  private float getGlobalFactor(List<FixedDecimalsInteger> factors)
+  private float getGlobalFactor(List<Float> factors)
   {
     int nbFactors=factors.size();
     if (nbFactors==1)
@@ -83,19 +82,19 @@ public class MultiplyContribsForStat
     return ret;
   }
 
-  private float getTotalFactors(List<FixedDecimalsInteger> factors)
+  private float getTotalFactors(List<Float> factors)
   {
     float ret=0;
-    for(FixedDecimalsInteger factor : factors)
+    for(Float factor : factors)
     {
       ret+=factor.floatValue();
     }
     return ret;
   }
 
-  private List<FixedDecimalsInteger> getFactors()
+  private List<Float> getFactors()
   {
-    List<FixedDecimalsInteger> ret=new ArrayList<FixedDecimalsInteger>();
+    List<Float> ret=new ArrayList<Float>();
     for(StatsContribution contrib : _contribs)
     {
       StatsSetElement element=contrib.getStats().findElement(_stat);
@@ -104,7 +103,7 @@ public class MultiplyContribsForStat
         StatOperator operator=element.getOperator();
         if (operator==StatOperator.MULTIPLY)
         {
-          ret.add(element.getValue());
+          ret.add(Float.valueOf(element.getFloatValue()));
         }
       }
     }

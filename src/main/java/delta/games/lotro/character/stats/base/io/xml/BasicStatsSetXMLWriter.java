@@ -9,7 +9,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 
 /**
  * Writes basic stats sets to XML files.
@@ -66,8 +66,8 @@ public class BasicStatsSetXMLWriter
           statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,CDATA,descriptionOverride);
         }
         // Value
-        FixedDecimalsInteger value=element.getValue();
-        String valueStr=String.valueOf(value.getInternalValue());
+        Number value=element.getValue();
+        String valueStr=NumericUtils.toPersistenceString(value);
         statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,CDATA,valueStr);
         hd.startElement("","",BasicStatsSetXMLConstants.STAT_TAG,statAttrs);
         hd.endElement("","",BasicStatsSetXMLConstants.STAT_TAG);

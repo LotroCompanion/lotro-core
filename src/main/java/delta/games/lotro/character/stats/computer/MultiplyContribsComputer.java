@@ -9,7 +9,6 @@ import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Computes absolute values for 'multiply' contribs.
@@ -47,7 +46,7 @@ public class MultiplyContribsComputer
     for(MultiplyContribsForStat contribsForStat : map.values())
     {
       StatDescription stat=contribsForStat.getStat();
-      FixedDecimalsInteger statValue=statsNoMultiply.getStat(stat);
+      Number statValue=statsNoMultiply.getStat(stat);
       if (statValue!=null)
       {
         contribsForStat.compute(statValue.floatValue());

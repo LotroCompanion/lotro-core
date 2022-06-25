@@ -6,7 +6,6 @@ import java.util.List;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Filter items that give one or several stats.
@@ -77,7 +76,7 @@ public class ItemStatFilter implements ItemFilter
       {
         if (stat!=null)
         {
-          FixedDecimalsInteger value=itemStats.getStat(stat);
+          Number value=itemStats.getStat(stat);
           if (value==null)
           {
             return false;

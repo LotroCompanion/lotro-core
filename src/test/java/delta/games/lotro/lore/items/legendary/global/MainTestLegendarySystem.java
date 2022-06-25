@@ -24,7 +24,6 @@ import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManage
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Test class for the legendary system.
@@ -81,12 +80,12 @@ public class MainTestLegendarySystem
       for(int i=0;i<mainLegacyRanks.length;i++)
       {
         BasicStatsSet stats=statsProvider.getStats(1,mainLegacyRanks[i]);
-        FixedDecimalsInteger dpsValue=stats.getStat(WellKnownStat.DPS);
+        Number dpsValue=stats.getStat(WellKnownStat.DPS);
         if (dpsValue!=null)
         {
           float dpsFactor=getDpsFactor(item.getQuality());
           float dps=dpsValue.floatValue()*dpsFactor;
-          stats.setStat(WellKnownStat.DPS,new FixedDecimalsInteger(dps));
+          stats.setStat(WellKnownStat.DPS,Float.valueOf(dps));
         }
         System.out.println("Main Rank "+(i+1)+": "+stats);
       }

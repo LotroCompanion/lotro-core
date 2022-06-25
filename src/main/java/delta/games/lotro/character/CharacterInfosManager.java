@@ -16,8 +16,8 @@ import delta.games.lotro.character.events.CharacterEventType;
 import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 import delta.games.lotro.utils.Formats;
+import delta.games.lotro.utils.NumericUtils;
 import delta.games.lotro.utils.events.EventsManager;
 
 /**
@@ -292,8 +292,8 @@ public class CharacterInfosManager
     BasicStatsSet stats=data.getStats();
     for(StatDescription statKey : stats.getStats())
     {
-      FixedDecimalsInteger value=stats.getStat(statKey);
-      FixedDecimalsInteger newValue=value.multiply(100);
+      Number value=stats.getStat(statKey);
+      Number newValue=NumericUtils.multiply(value,Integer.valueOf(100));
       stats.setStat(statKey,newValue);
     }
     Date date=getDateFromFilename(oldFile.getName());

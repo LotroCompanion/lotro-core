@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Contributions for a single stat.
@@ -47,7 +46,7 @@ public class ContribsByStat
     StatContribution old=_contribs.get(source.getId());
     if (old==null)
     {
-      old=new StatContribution(source,new FixedDecimalsInteger());
+      old=new StatContribution(source,Integer.valueOf(0));
       _contribs.put(source.getId(),old);
     }
     old.add(contrib.getValue());

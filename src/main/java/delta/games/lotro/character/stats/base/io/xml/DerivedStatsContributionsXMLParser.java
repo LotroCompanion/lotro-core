@@ -10,7 +10,6 @@ import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Parser for derived stat contributions stored in XML.
@@ -58,7 +57,7 @@ public class DerivedStatsContributionsXMLParser
           String targetStatStr=DOMParsingTools.getStringAttribute(statContribTag.getAttributes(),DerivedStatsContributionsXMLConstants.STAT_CONTRIB_TARGET_STAT_ATTR,"");
           StatDescription targetStat=statsRegistry.getByKey(targetStatStr);
           float factor=DOMParsingTools.getFloatAttribute(statContribTag.getAttributes(),DerivedStatsContributionsXMLConstants.STAT_CONTRIB_FACTOR_ATTR,0.0f);
-          ret.setFactor(sourceStat,targetStat,characterClass,new FixedDecimalsInteger(factor));
+          ret.setFactor(sourceStat,targetStat,characterClass,Float.valueOf(factor));
         }
       }
     }

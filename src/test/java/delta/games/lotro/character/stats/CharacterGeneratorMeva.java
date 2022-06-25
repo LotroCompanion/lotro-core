@@ -27,7 +27,6 @@ import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Character generator (Meva) for tests.
@@ -140,15 +139,15 @@ public class CharacterGeneratorMeva
     // Additional stats
     BasicStatsSet additionalStats=c.getAdditionalStats();
     // Buff
-    additionalStats.addStat(WellKnownStat.MIGHT, new FixedDecimalsInteger(20));
-    additionalStats.addStat(WellKnownStat.HOPE, new FixedDecimalsInteger(1));
+    additionalStats.addStat(WellKnownStat.MIGHT,Integer.valueOf(20));
+    additionalStats.addStat(WellKnownStat.HOPE,Integer.valueOf(1));
 
     // Red trait tree:
     {
       // Enduring Morale, Rank 2
-      additionalStats.addStat(WellKnownStat.MORALE, new FixedDecimalsInteger(537));
+      additionalStats.addStat(WellKnownStat.MORALE,Integer.valueOf(537));
       // Finesse, Rank 5
-      additionalStats.addStat(WellKnownStat.FINESSE, new FixedDecimalsInteger(2486));
+      additionalStats.addStat(WellKnownStat.FINESSE,Integer.valueOf(2486));
     }
     equipment.setWearer(c.getSummary());
     return c;

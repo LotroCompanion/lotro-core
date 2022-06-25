@@ -50,7 +50,6 @@ import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Character generator for tests.
@@ -164,12 +163,12 @@ public class CharacterGeneratorGiswald
     // Additional stats
     // - yellow line buffs
     BasicStatsSet additionalStats=c.getAdditionalStats();
-    additionalStats.addStat(WellKnownStat.MIGHT, new FixedDecimalsInteger(158));
-    additionalStats.addStat(WellKnownStat.FINESSE, new FixedDecimalsInteger(2486));
+    additionalStats.addStat(WellKnownStat.MIGHT,Integer.valueOf(158));
+    additionalStats.addStat(WellKnownStat.FINESSE,Integer.valueOf(2486));
     // - Balance of Man
-    additionalStats.addStat(WellKnownStat.EVADE, new FixedDecimalsInteger(808));
-    additionalStats.addStat(WellKnownStat.PARRY, new FixedDecimalsInteger(808));
-    additionalStats.addStat(WellKnownStat.BLOCK, new FixedDecimalsInteger(808));
+    additionalStats.addStat(WellKnownStat.EVADE,Integer.valueOf(808));
+    additionalStats.addStat(WellKnownStat.PARRY,Integer.valueOf(808));
+    additionalStats.addStat(WellKnownStat.BLOCK,Integer.valueOf(808));
 
     equipment.setWearer(c.getSummary());
     return c;

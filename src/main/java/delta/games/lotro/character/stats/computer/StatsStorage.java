@@ -9,7 +9,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.common.stats.StatOperator;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 
 /**
  * Stats storage.
@@ -83,20 +83,16 @@ public class StatsStorage
   {
     for(StatsSetElement element : elements)
     {
-      FixedDecimalsInteger previous=source.getStat(element.getStat());
+      Number toRemove=NumericUtils.ensurePositive(element.getValue());
+      StatsSetElement previous=source.findElement(element.getStat());
       if (previous!=null)
       {
-        int internalValue=element.getValue().getInternalValue();
-        FixedDecimalsInteger value=new FixedDecimalsInteger();
-        value.setRawValue(internalValue<0?-internalValue:internalValue);
-        previous.substract(value);
+        previous.substract(toRemove);
       }
       else
       {
-        int internalValue=element.getValue().getInternalValue();
-        FixedDecimalsInteger value=new FixedDecimalsInteger();
-        value.setRawValue(internalValue>0?-internalValue:internalValue);
-        source.setStat(element.getStat(),value);
+        Number statValue=NumericUtils.negate(toRemove);
+        source.setStat(element.getStat(),statValue);
       }
     }
   }
@@ -109,8 +105,8 @@ public class StatsStorage
       Float factor=multiplyFactors.get(key);
       if (factor!=null)
       {
-        float value=element.getValue().floatValue();
-        element.setValue(new FixedDecimalsInteger(value*factor.floatValue()));
+        Number newValue=NumericUtils.multiply(element.getValue(),factor);
+        element.setValue(newValue);
       }
     }
   }

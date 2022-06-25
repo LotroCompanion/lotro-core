@@ -11,7 +11,6 @@ import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Buff based on a stats provider.
@@ -51,7 +50,7 @@ public class StatsProviderBuffImpl extends AbstractBuffImpl
           statValue=-statValue;
         }
         StatDescription stat=provider.getStat();
-        stats.setStat(stat,provider.getOperator(),new FixedDecimalsInteger(statValue),provider.getDescriptionOverride());
+        stats.setStat(stat,provider.getOperator(),Float.valueOf(statValue),provider.getDescriptionOverride());
       }
     }
     return stats;

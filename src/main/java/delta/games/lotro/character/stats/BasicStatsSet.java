@@ -12,7 +12,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatUtils;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 
 /**
  * Set of basic stats.
@@ -47,7 +47,7 @@ public class BasicStatsSet
    * @param stat Stat to get.
    * @return A stat value or <code>null</code> if not found.
    */
-  public FixedDecimalsInteger getStat(StatDescription stat)
+  public Number getStat(StatDescription stat)
   {
     StatsSetElement existing=findElement(stat);
     return (existing!=null)?existing.getValue():null;
@@ -118,9 +118,9 @@ public class BasicStatsSet
    * @param stat Stat to set.
    * @param value Value to set.
    */
-  public void setStat(StatDescription stat, FixedDecimalsInteger value)
+  public void setStat(StatDescription stat, Number value)
   {
-    setStat(stat,StatOperator.ADD,new FixedDecimalsInteger(value),null);
+    setStat(stat,StatOperator.ADD,value,null);
   }
 
   /**
@@ -130,7 +130,7 @@ public class BasicStatsSet
    */
   public void setStat(StatDescription stat, int value)
   {
-    setStat(stat,StatOperator.ADD,new FixedDecimalsInteger(value),null);
+    setStat(stat,StatOperator.ADD,Integer.valueOf(value),null);
   }
 
   /**
@@ -140,7 +140,7 @@ public class BasicStatsSet
    */
   public void setStat(StatDescription stat, float value)
   {
-    setStat(stat,StatOperator.ADD,new FixedDecimalsInteger(value),null);
+    setStat(stat,StatOperator.ADD,Float.valueOf(value),null);
   }
 
   /**
@@ -150,9 +150,11 @@ public class BasicStatsSet
    * @param value Value to set.
    * @param descriptionOverride Description override.
    */
-  public void setStat(StatDescription stat, StatOperator operator, FixedDecimalsInteger value, String descriptionOverride)
+  public void setStat(StatDescription stat, StatOperator operator, Number value, String descriptionOverride)
   {
-    StatsSetElement element=new StatsSetElement(stat,operator,value,descriptionOverride);
+    StatsSetElement element=new StatsSetElement(stat,operator);
+    element.setValue(value);
+    element.setDescriptionOverride(descriptionOverride);
     internalSetStat(element);
   }
 
@@ -184,8 +186,9 @@ public class BasicStatsSet
     _elements.clear();
     for(StatsSetElement element : stats._elements)
     {
-      FixedDecimalsInteger value=new FixedDecimalsInteger(element.getValue());
-      StatsSetElement newElement=new StatsSetElement(element.getStat(),element.getOperator(),value,element.getDescriptionOverride());
+      StatsSetElement newElement=new StatsSetElement(element.getStat(),element.getOperator());
+      newElement.setValue(element.getValue());
+      newElement.setDescriptionOverride(element.getDescriptionOverride());
       _elements.add(newElement);
     }
   }
@@ -195,9 +198,20 @@ public class BasicStatsSet
    * @param stat Stat to set.
    * @param value Value to set.
    */
-  public void addStat(StatDescription stat, FixedDecimalsInteger value)
+  public void addStat(StatDescription stat, float value)
   {
-    StatsSetElement element=new StatsSetElement(stat,StatOperator.ADD,value,null);
+    addStat(stat,Float.valueOf(value));
+  }
+
+  /**
+   * Add stat value.
+   * @param stat Stat to set.
+   * @param value Value to set.
+   */
+  public void addStat(StatDescription stat, Number value)
+  {
+    StatsSetElement element=new StatsSetElement(stat,StatOperator.ADD);
+    element.setValue(value);
     addStat(element);
   }
 
@@ -222,15 +236,16 @@ public class BasicStatsSet
     StatsSetElement existing=findElement(elementToAdd.getStat());
     if (existing!=null)
     {
-      FixedDecimalsInteger total=new FixedDecimalsInteger(existing.getValue());
-      total.add(elementToAdd.getValue());
+      Number value=existing.getValue();
+      Number valueToAdd=elementToAdd.getValue();
+      Number newValue=NumericUtils.add(value,valueToAdd);
       // Update this one
       if (!Objects.equals(existing.getDescriptionOverride(),elementToAdd.getDescriptionOverride()))
       {
         //LOGGER.warn("Add stat will replace description!");
       }
       existing.setDescriptionOverride(elementToAdd.getDescriptionOverride());
-      existing.setValue(total);
+      existing.setValue(newValue);
     }
     else
     {

@@ -20,7 +20,7 @@ import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -50,7 +50,7 @@ public class StatsProviderXMLWriter
     {
       StatProvider provider=statsProvider.getStatProvider(i);
       StatDescription stat=provider.getStat();
-      FixedDecimalsInteger statValue=(stats!=null)?stats.getStat(stat):null;
+      Number statValue=(stats!=null)?stats.getStat(stat):null;
       writeProvider(hd,provider,statValue);
     }
     List<SpecialEffect> specialEffects=statsProvider.getSpecialEffects();
@@ -78,7 +78,7 @@ public class StatsProviderXMLWriter
    * @param statValue Stat value to write, may be <code>null</code>.
    * @throws SAXException If an error occurs.
    */
-  private static void writeProvider(TransformerHandler hd, StatProvider provider, FixedDecimalsInteger statValue) throws SAXException
+  private static void writeProvider(TransformerHandler hd, StatProvider provider, Number statValue) throws SAXException
   {
     StatDescription stat=provider.getStat();
     AttributesImpl attrs=new AttributesImpl();
@@ -86,7 +86,7 @@ public class StatsProviderXMLWriter
     attrs.addAttribute("","",StatsProviderXMLConstants.STAT_NAME_ATTR,XmlWriter.CDATA,stat.getPersistenceKey());
     if (statValue!=null)
     {
-      String valueStr=String.valueOf(statValue.getInternalValue());
+      String valueStr=NumericUtils.toPersistenceString(statValue);
       attrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,XmlWriter.CDATA,valueStr);
     }
     // Stat operator

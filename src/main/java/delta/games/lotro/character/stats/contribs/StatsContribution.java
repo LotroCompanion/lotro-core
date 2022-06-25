@@ -9,7 +9,6 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.sets.ItemsSet;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Gathers all contributions of a single source.
@@ -101,7 +100,7 @@ public class StatsContribution
    * @param stats Contributed stats.
    * @return A stat contribution.
    */
-  public static StatsContribution getStatContrib(StatDescription sourceStat, FixedDecimalsInteger factor, BasicStatsSet stats)
+  public static StatsContribution getStatContrib(StatDescription sourceStat, Number factor, BasicStatsSet stats)
   {
     String source=STAT_SEED+sourceStat.getName()+"x"+factor.floatValue();
     return new StatsContribution(source,sourceStat.getName(),stats);

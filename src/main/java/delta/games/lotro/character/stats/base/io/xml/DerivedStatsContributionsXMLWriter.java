@@ -16,7 +16,6 @@ import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr.Deriv
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr.StatContributions;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Writes derived stats contributions to XML files.
@@ -55,7 +54,7 @@ public class DerivedStatsContributionsXMLWriter
             List<DerivedStatContribution> contributionFactors=contribs.getFactors();
             for(DerivedStatContribution contributionFactor : contributionFactors)
             {
-              FixedDecimalsInteger factor=contributionFactor.getFactor();
+              Number factor=contributionFactor.getFactor();
               StatDescription targetStat=contributionFactor.getTargetStat();
               AttributesImpl contributionFactorAttrs=new AttributesImpl();
               contributionFactorAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.STAT_CONTRIB_TARGET_STAT_ATTR,CDATA,targetStat.getPersistenceKey());

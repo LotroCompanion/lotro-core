@@ -5,7 +5,6 @@ import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
-import delta.games.lotro.utils.FixedDecimalsInteger;
 
 /**
  * Utility methods related to virtues.
@@ -30,7 +29,7 @@ public class VirtueUtils
         StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
         if (stat!=null)
         {
-          FixedDecimalsInteger value=stats.getStat(stat);
+          Number value=stats.getStat(stat);
           if (value!=null)
           {
             bonus=value.intValue();
@@ -56,7 +55,7 @@ public class VirtueUtils
       StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
       if (stat!=null)
       {
-        FixedDecimalsInteger value=stats.getStat(stat);
+        Number value=stats.getStat(stat);
         if (value!=null)
         {
           ret.setStat(stat,value);

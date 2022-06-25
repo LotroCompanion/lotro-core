@@ -2,10 +2,13 @@ package delta.games.lotro.character.stats;
 
 import java.util.Objects;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
+import delta.games.lotro.common.stats.StatType;
 import delta.games.lotro.common.stats.StatUtils;
-import delta.games.lotro.utils.FixedDecimalsInteger;
+import delta.games.lotro.utils.NumericUtils;
 
 /**
  * Element of a stats set.
@@ -13,24 +16,22 @@ import delta.games.lotro.utils.FixedDecimalsInteger;
  */
 public class StatsSetElement
 {
+  private static final Logger LOGGER=Logger.getLogger(StatsSetElement.class);
+
   private StatDescription _stat;
   private StatOperator _operator;
-  private FixedDecimalsInteger _value;
+  private Number _value;
   private String _descriptionOverride;
 
   /**
    * Constructor.
    * @param stat Targeted stat.
    * @param operator Stat operator.
-   * @param value Value.
-   * @param descriptionOverride Description override.
    */
-  public StatsSetElement(StatDescription stat, StatOperator operator, FixedDecimalsInteger value, String descriptionOverride)
+  public StatsSetElement(StatDescription stat, StatOperator operator)
   {
     _stat=stat;
     _operator=operator;
-    _value=value;
-    _descriptionOverride=descriptionOverride;
   }
 
   /**
@@ -42,7 +43,7 @@ public class StatsSetElement
     _stat=source._stat;
     _operator=source._operator;
     _descriptionOverride=source._descriptionOverride;
-    _value=new FixedDecimalsInteger(source._value);
+    _value=source._value;
   }
 
   /**
@@ -67,18 +68,101 @@ public class StatsSetElement
    * Get the stat value.
    * @return a value.
    */
-  public FixedDecimalsInteger getValue()
+  public Number getValue()
   {
     return _value;
   }
 
   /**
-   * Set the stat value.
-   * @param value
+   * Get a float value.
+   * @return a float value.
    */
-  public void setValue(FixedDecimalsInteger value)
+  public float getFloatValue()
   {
-    _value=value;
+    return (_value!=null)?_value.floatValue():0f;
+  }
+
+  /**
+   * Get an integer value.
+   * @return an integer value.
+   */
+  public int getIntValue()
+  {
+    return (_value!=null)?_value.intValue():0;
+  }
+
+  /**
+   * Set the value for this element.
+   * @param number Number to set.
+   */
+  public void setValue(Number number)
+  {
+    if (number==null)
+    {
+      _value=null;
+    }
+    else if (number instanceof Float)
+    {
+      setValue(((Float)number).floatValue());
+    }
+    else if (number instanceof Integer)
+    {
+      setValue(((Integer)number).intValue());
+    }
+  }
+
+  /**
+   * Set the stat value.
+   * @param value Value to set.
+   */
+  public void setValue(float value)
+  {
+    StatType type=_stat.getType();
+    if (type==StatType.FLOAT)
+    {
+      _value=Float.valueOf(value);
+    }
+    else if (type==StatType.INTEGER)
+    {
+      _value=Integer.valueOf(Math.round(value));
+    }
+    else
+    {
+      LOGGER.warn("Attempt to set a numeric value for stat: "+_stat);
+      _value=null;
+    }
+  }
+
+  /**
+   * Set the stat value.
+   * @param value Value to set
+   */
+  public void setValue(int value)
+  {
+    StatType type=_stat.getType();
+    if (type==StatType.FLOAT)
+    {
+      _value=Float.valueOf(value);
+    }
+    else if ((type==StatType.INTEGER) || (type==StatType.BOOLEAN) || (type==StatType.BITFIELD))
+    {
+      // TODO Better support for booleans and bitfields!
+      _value=Integer.valueOf(value);
+    }
+    else
+    {
+      LOGGER.warn("Attempt to set a numeric value for stat: "+_stat);
+      _value=null;
+    }
+  }
+
+  /**
+   * Remove a value from this stat.
+   * @param value Value to remove.
+   */
+  public void substract(Number value)
+  {
+    _value=NumericUtils.diff(_value,value);
   }
 
   /**
