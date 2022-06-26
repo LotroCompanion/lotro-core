@@ -183,7 +183,7 @@ public class StatUtils
     }
     else
     {
-      line=valueStr+" "+prefix+statName;
+      line=prefix+valueStr+" "+statName;
     }
     if (line!=null)
     {
