@@ -168,23 +168,25 @@ public class CharacterStatsComputer
     // Aggregated
     total=getStats(allContribs);
 
+    List<StatsContribution> allContribsWithDerivedStats=new ArrayList<StatsContribution>(allContribs);
     // Derived contributions
-    List<StatsContribution> derivedStatContribs=null;
+    DerivedStatsContributionsMgr derivedStatsMgr=DerivedStatContributionsIO.load();
+    List<StatsContribution> derivedStatContribs=derivedStatsMgr.getContributions(c.getCharacterClass(),total);
     if ((_contribs!=null) && (_contribs.isResolveIndirectContributions()))
     {
-      //contribsMgr=null;
+      // Do not add derived contribs
     }
     else
     {
-      DerivedStatsContributionsMgr derivedStatsMgr=DerivedStatContributionsIO.load();
-      derivedStatContribs=derivedStatsMgr.getContributions(c.getCharacterClass(),total);
       allContribs.addAll(derivedStatContribs);
     }
+    allContribsWithDerivedStats.addAll(derivedStatContribs);
+
     // New total with derived stats
     total=getStats(allContribs);
 
-    // Total without multiplies
-    BasicStatsSet noMultiplies=buildStatsStorage(allContribs).aggregate(false);
+    // Total without multiplies, including derived stats
+    BasicStatsSet noMultiplies=buildStatsStorage(allContribsWithDerivedStats).aggregate(false);
 
     // Handle multiply contribs
     MultiplyContribsComputer multiplyContribsComputer=new MultiplyContribsComputer();
