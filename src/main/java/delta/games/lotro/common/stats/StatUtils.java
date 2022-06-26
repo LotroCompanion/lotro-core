@@ -157,7 +157,18 @@ public class StatUtils
     StatDescription stat=element.getStat();
     String statName=stat.getName();
     Number value=element.getValue();
-    String valueStr=getStatDisplay(value,stat.isPercentage());
+    String prefix="";
+    boolean isPercentage=stat.isPercentage();
+    if (element.getOperator()==StatOperator.MULTIPLY)
+    {
+      value=convertMultiplyToPercentage(value);
+      if (value.floatValue()>0.0)
+      {
+        prefix="+";
+      }
+      isPercentage=true;
+    }
+    String valueStr=getStatDisplay(value,isPercentage);
     String descriptionOverride=element.getDescriptionOverride();
     if (descriptionOverride!=null)
     {
@@ -167,17 +178,29 @@ public class StatUtils
         line=line.replace("{***}",valueStr);
         line=line.replace("${VALUE}",valueStr);
         line=line.replace("${PERCENTVALUE}",valueStr);
+        line=line.replace("${PROPERTY}",stat.getName());
       }
     }
     else
     {
-      line=valueStr+" "+statName;
+      line=valueStr+" "+prefix+statName;
     }
     if (line!=null)
     {
       line=line.replace(". ",".\n");
     }
     return line;
+  }
+
+  private static Number convertMultiplyToPercentage(Number input)
+  {
+    float value=input.floatValue();
+    float percentage=(value-1)*100;
+    if (Math.abs(percentage-1)<0.001)
+    {
+      return Integer.valueOf(0);
+    }
+    return Float.valueOf(percentage);
   }
 
   /**
