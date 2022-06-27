@@ -217,6 +217,22 @@ public class StatsContribution
   }
 
   /**
+   * Build a 'rating' contribution.
+   * @param targetStat Target stat.
+   * @param value Target stat value.
+   * @param sourceStat Source stat.
+   * @return A stat contribution.
+   */
+  public static StatsContribution buildRatingContrib(StatDescription targetStat, Number value, StatDescription sourceStat)
+  {
+    String source="Rating: "+sourceStat.getName()+" => "+targetStat.getName();
+    String label="Rating from: "+sourceStat.getName();
+    BasicStatsSet stats=new BasicStatsSet();
+    stats.addStat(targetStat,value);
+    return new StatsContribution(source,label,stats);
+  }
+
+  /**
    * Get the source.
    * @return the source.
    */

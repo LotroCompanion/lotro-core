@@ -196,7 +196,7 @@ public class CharacterStatsComputer
     substractContribsComputer.handleSubstractContribs(allContribs);
 
     // Ratings
-    BasicStatsSet ratings=computeRatings(c,total);
+    BasicStatsSet ratings=computeRatings(c,total,allContribs);
     total.addStats(ratings);
 
     if (LOGGER.isDebugEnabled())
@@ -304,7 +304,7 @@ public class CharacterStatsComputer
     return storage;
   }
 
-  private BasicStatsSet computeRatings(CharacterData c, BasicStatsSet stats)
+  private BasicStatsSet computeRatings(CharacterData c, BasicStatsSet stats, List<StatsContribution> allContribs)
   {
     int level=c.getLevel();
     BasicStatsSet ret=new BasicStatsSet();
@@ -333,13 +333,16 @@ public class CharacterStatsComputer
     float damagePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DAMAGE),physicalMastery,level);
     ret.setStat(WellKnownStat.MELEE_DAMAGE_PERCENTAGE,damagePercentage);
     ret.setStat(WellKnownStat.RANGED_DAMAGE_PERCENTAGE,damagePercentage);
-    // Tactical Damage / Outgoing healing %
+    // Tactical Damage
     Number tacticalMastery=stats.getStat(WellKnownStat.TACTICAL_MASTERY);
     float tacticalDamagePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.DAMAGE),tacticalMastery,level);
+    ret.setStat(WellKnownStat.TACTICAL_DAMAGE_PERCENTAGE,tacticalDamagePercentage);
+    allContribs.add(StatsContribution.buildRatingContrib(WellKnownStat.TACTICAL_DAMAGE_PERCENTAGE,Float.valueOf(tacticalDamagePercentage),WellKnownStat.TACTICAL_MASTERY));
+    // Outgoing healing %
     Number outgoingHealing=stats.getStat(WellKnownStat.OUTGOING_HEALING);
     float outgoingHealingPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.HEALING),outgoingHealing,level);
-    ret.setStat(WellKnownStat.TACTICAL_DAMAGE_PERCENTAGE,tacticalDamagePercentage);
     ret.setStat(WellKnownStat.OUTGOING_HEALING_PERCENTAGE,outgoingHealingPercentage);
+    allContribs.add(StatsContribution.buildRatingContrib(WellKnownStat.OUTGOING_HEALING_PERCENTAGE,Float.valueOf(outgoingHealingPercentage),WellKnownStat.OUTGOING_HEALING));
     // Resistance %
     Number resistance=stats.getStat(WellKnownStat.RESISTANCE);
     float resistancePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.RESISTANCE),resistance,level);
