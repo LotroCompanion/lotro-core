@@ -18,6 +18,7 @@ public class CharacterDetails
   private Integer _dungeonID;
   private int _ingameTime;
   private Integer _currentTitleId;
+  private Integer _currentVocationId;
   private Money _money;
   private Long _lastLogoutDate;
 
@@ -32,6 +33,7 @@ public class CharacterDetails
     _dungeonID=null;
     _ingameTime=0;
     _currentTitleId=null;
+    _currentVocationId=null;
     _money=new Money();
     _lastLogoutDate=null;
   }
@@ -145,6 +147,24 @@ public class CharacterDetails
   }
 
   /**
+   * Get the identifier of the current vocation for this character.
+   * @return a vocation identifier or <code>null</code> if none.
+   */
+  public Integer getCurrentVocationId()
+  {
+    return _currentVocationId;
+  }
+
+  /**
+   * Set the identifier of the current vocation for this character.
+   * @param currentVocationId vocation identifier to set.
+   */
+  public void setCurrentVocationId(Integer currentVocationId)
+  {
+    _currentVocationId=currentVocationId;
+  }
+
+  /**
    * Get the current money for this character.
    * @return a money amount.
    */
@@ -193,6 +213,10 @@ public class CharacterDetails
     if (_currentTitleId!=null)
     {
       sb.append("Title ID [").append(_currentTitleId).append("], ");
+    }
+    if (_currentVocationId!=null)
+    {
+      sb.append("Vocation ID [").append(_currentVocationId).append("], ");
     }
     sb.append("Money [").append(_money).append("], ");
     if (_lastLogoutDate!=null)

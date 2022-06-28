@@ -85,5 +85,13 @@ public class CharacterDetailsXMLParser
       int dungeonID=DOMParsingTools.getIntAttribute(dungeonAttrs,CharacterDetailsXMLConstants.CURRENT_DUNGEON_ID_ATTR,0);
       details.setDungeonID((dungeonID!=0)?Integer.valueOf(dungeonID):null);
     }
+    // Current vocation
+    Element vocationTag=DOMParsingTools.getChildTagByName(root,CharacterDetailsXMLConstants.CURRENT_VOCATION_TAG);
+    if (vocationTag!=null)
+    {
+      NamedNodeMap vocationAttrs=vocationTag.getAttributes();
+      int vocationId=DOMParsingTools.getIntAttribute(vocationAttrs,CharacterDetailsXMLConstants.CURRENT_VOCATION_ID_ATTR,0);
+      details.setCurrentVocationId((vocationId!=0)?Integer.valueOf(vocationId):null);
+    }
   }
 }

@@ -64,6 +64,18 @@ public class CharacterDetailsXMLConstants
    */
   //public static final String CURRENT_DUNGEON_LABEL_ATTR="label";
   /**
+   * Tag 'currentVocation'.
+   */
+  public static final String CURRENT_VOCATION_TAG="currentVocation";
+  /**
+   * Tag 'currentVocation', attribute 'id'.
+   */
+  public static final String CURRENT_VOCATION_ID_ATTR="id";
+  /**
+   * Tag 'currentVocation', attribute 'label'.
+   */
+  //public static final String CURRENT_VOCATION_LABEL_ATTR="label";
+  /**
    * Tag 'characterDetails', attribute 'ingameTime'.
    */
   public static final String IN_GAME_TIME_ATTR="ingameTime";

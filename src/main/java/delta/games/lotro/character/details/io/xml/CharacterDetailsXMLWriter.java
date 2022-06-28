@@ -77,7 +77,7 @@ public class CharacterDetailsXMLWriter
     if (areaID!=null)
     {
       AttributesImpl areaAttrs=new AttributesImpl();
-      areaAttrs.addAttribute("","",CharacterDetailsXMLConstants.CURRENT_TITLE_ID_ATTR,XmlWriter.CDATA,areaID.toString());
+      areaAttrs.addAttribute("","",CharacterDetailsXMLConstants.CURRENT_AREA_ID_ATTR,XmlWriter.CDATA,areaID.toString());
       hd.startElement("","",CharacterDetailsXMLConstants.CURRENT_AREA_TAG,areaAttrs);
       hd.endElement("","",CharacterDetailsXMLConstants.CURRENT_AREA_TAG);
     }
@@ -89,6 +89,15 @@ public class CharacterDetailsXMLWriter
       dungeonAttrs.addAttribute("","",CharacterDetailsXMLConstants.CURRENT_DUNGEON_ID_ATTR,XmlWriter.CDATA,dungeonID.toString());
       hd.startElement("","",CharacterDetailsXMLConstants.CURRENT_DUNGEON_TAG,dungeonAttrs);
       hd.endElement("","",CharacterDetailsXMLConstants.CURRENT_DUNGEON_TAG);
+    }
+    // Current vocation
+    Integer currentVocationId=details.getCurrentVocationId();
+    if (currentVocationId!=null)
+    {
+      AttributesImpl vocationAttrs=new AttributesImpl();
+      vocationAttrs.addAttribute("","",CharacterDetailsXMLConstants.CURRENT_VOCATION_ID_ATTR,XmlWriter.CDATA,currentVocationId.toString());
+      hd.startElement("","",CharacterDetailsXMLConstants.CURRENT_VOCATION_TAG,vocationAttrs);
+      hd.endElement("","",CharacterDetailsXMLConstants.CURRENT_VOCATION_TAG);
     }
     hd.endElement("","",CharacterDetailsXMLConstants.CHARACTER_DETAILS_TAG);
   }
