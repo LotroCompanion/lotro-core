@@ -1,12 +1,13 @@
 package delta.games.lotro.lore.emotes;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * LOTRO emote description.
  * @author DAM
  */
-public class EmoteDescription implements Identifiable
+public class EmoteDescription implements Identifiable,Named
 {
   private int _identifier;
   private String _command;
@@ -42,6 +43,12 @@ public class EmoteDescription implements Identifiable
   public void setIdentifier(int identifier)
   {
     _identifier=identifier;
+  }
+
+  @Override
+  public String getName()
+  {
+    return _command;
   }
 
   /**

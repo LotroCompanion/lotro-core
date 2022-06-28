@@ -55,6 +55,10 @@ public enum CharacterEventType
    */
   CHARACTER_SKILLS_UPDATED,
   /**
+   * The emotes of a toon were updated.
+   */
+  CHARACTER_EMOTES_UPDATED,
+  /**
    * The storage of a toon was updated.
    */
   CHARACTER_STORAGE_UPDATED,
