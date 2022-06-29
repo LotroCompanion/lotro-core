@@ -1,12 +1,12 @@
 package delta.games.lotro.lore.collections.mounts;
 
-import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.lore.collections.Collectable;
 
 /**
  * Mount.
  * @author DAM
  */
-public class MountDescription implements Identifiable
+public class MountDescription implements Collectable
 {
   private int _identifier;
   private String _name;

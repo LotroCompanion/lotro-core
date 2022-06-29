@@ -1,13 +1,13 @@
 package delta.games.lotro.lore.collections.pets;
 
-import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.agents.EntityClassification;
+import delta.games.lotro.lore.collections.Collectable;
 
 /**
  * Cosmetic pet.
  * @author DAM
  */
-public class CosmeticPetDescription implements Identifiable
+public class CosmeticPetDescription implements Collectable
 {
   private int _identifier;
   private String _name;

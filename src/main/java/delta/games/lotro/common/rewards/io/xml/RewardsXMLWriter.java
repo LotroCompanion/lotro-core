@@ -44,9 +44,9 @@ public class RewardsXMLWriter
    * Write a rewards object to an XML document.
    * @param hd Output transformer.
    * @param rewards Rewards to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, Rewards rewards) throws Exception
+  public static void write(TransformerHandler hd, Rewards rewards) throws SAXException
   {
     hd.startElement("","",RewardsXMLConstants.REWARDS_TAG,new AttributesImpl());
     Money money=rewards.getMoney();
@@ -93,7 +93,7 @@ public class RewardsXMLWriter
     hd.endElement("","",RewardsXMLConstants.REWARDS_TAG);
   }
 
-  private static void writeAmount(TransformerHandler hd, String tagName, int value) throws Exception
+  private static void writeAmount(TransformerHandler hd, String tagName, int value) throws SAXException
   {
     if (value>0)
     {
