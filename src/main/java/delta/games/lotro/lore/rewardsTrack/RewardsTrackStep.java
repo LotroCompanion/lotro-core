@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.rewardsTrack;
 
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Step of a rewards track.
@@ -10,7 +9,7 @@ import delta.games.lotro.utils.Proxy;
 public class RewardsTrackStep
 {
   private float _xpCostMultiplier;
-  private Proxy<Item> _reward;
+  private Item _reward;
   private int _uiElementID;
 
   /**
@@ -45,7 +44,7 @@ public class RewardsTrackStep
    * Get the reward for this step.
    * @return A reward.
    */
-  public Proxy<Item> getReward()
+  public Item getReward()
   {
     return _reward;
   }
@@ -54,7 +53,7 @@ public class RewardsTrackStep
    * Set the reward for this step.
    * @param reward the reward to set.
    */
-  public void setReward(Proxy<Item> reward)
+  public void setReward(Item reward)
   {
     _reward=reward;
   }
