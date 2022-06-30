@@ -42,7 +42,7 @@ public class RewardsTracksXMLConstants
   /**
    * Tag 'rewardsTrack', attribute '_currentMilestoneProperty'.
    */
-  public static final String REWARDS_TRACK_CURRENT_MILESTONE_PROPERTY_ATTR="_currentMilestoneProperty";
+  public static final String REWARDS_TRACK_CURRENT_MILESTONE_PROPERTY_ATTR="currentMilestoneProperty";
   /**
    * Tag 'rewardsTrack', attribute 'lastExperienceGoalProperty'.
    */

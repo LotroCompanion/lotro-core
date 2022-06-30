@@ -110,9 +110,9 @@ public class RewardsTracksXMLWriter
       AttributesImpl stepAttrs=new AttributesImpl();
       // XP Cost multiplier
       float xpCostMultiplier=step.getXpCostMultiplier();
-      attrs.addAttribute("","",RewardsTracksXMLConstants.STEP_XP_COST_MULTIPLIER_ATTR,XmlWriter.CDATA,String.valueOf(xpCostMultiplier));
+      stepAttrs.addAttribute("","",RewardsTracksXMLConstants.STEP_XP_COST_MULTIPLIER_ATTR,XmlWriter.CDATA,String.valueOf(xpCostMultiplier));
       int uiElementID=step.getUiElementID();
-      attrs.addAttribute("","",RewardsTracksXMLConstants.STEP_UI_ELEMENT_ID_ATTR,XmlWriter.CDATA,String.valueOf(uiElementID));
+      stepAttrs.addAttribute("","",RewardsTracksXMLConstants.STEP_UI_ELEMENT_ID_ATTR,XmlWriter.CDATA,String.valueOf(uiElementID));
       hd.startElement("","",RewardsTracksXMLConstants.STEP_TAG,stepAttrs);
       // Reward
       Item item=step.getReward();

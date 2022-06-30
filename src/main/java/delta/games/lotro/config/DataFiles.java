@@ -294,4 +294,8 @@ public class DataFiles
    * Web store items file.
    */
   public static final String WEB_STORE_ITEMS="webStoreItems";
+  /**
+   * Rewards tracks file.
+   */
+  public static final String REWARDS_TRACKS="rewardsTracks";
 }
