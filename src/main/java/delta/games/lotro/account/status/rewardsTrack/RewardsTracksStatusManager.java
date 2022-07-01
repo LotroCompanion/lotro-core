@@ -1,6 +1,9 @@
 package delta.games.lotro.account.status.rewardsTrack;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.lore.rewardsTrack.RewardsTrack;
@@ -22,6 +25,14 @@ public class RewardsTracksStatusManager
   }
 
   /**
+   * Reset contents.
+   */
+  public void clear()
+  {
+    _map.clear();
+  }
+
+  /**
    * Get the status of a rewards track.
    * @param rewardsTrack Rewards track to use.
    * @param createIfNeeded Indicates if it shall be created/registered if it does not exist yet.
@@ -35,6 +46,22 @@ public class RewardsTracksStatusManager
     {
       ret=new RewardsTrackStatus(rewardsTrack);
       _map.put(key,ret);
+    }
+    return ret;
+  }
+
+  /**
+   * Get all managed statuses.
+   * @return A list of statuses, ordered by rewards track identifier.
+   */
+  public List<RewardsTrackStatus> getAll()
+  {
+    List<Integer> ids=new ArrayList<Integer>(_map.keySet());
+    Collections.sort(ids);
+    List<RewardsTrackStatus> ret=new ArrayList<RewardsTrackStatus>();
+    for(Integer id : ids)
+    {
+      ret.add(_map.get(id));
     }
     return ret;
   }

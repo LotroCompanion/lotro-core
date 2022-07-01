@@ -218,9 +218,6 @@ public class RewardsTrack implements Identifiable,Named
    * Get the name of the 'next experience goal' property.
    * @return a property name.
    */
-  /**
-   * @return the nextExperienceGoalProperty
-   */
   public String getNextExperienceGoalProperty()
   {
     return _nextExperienceGoalProperty;

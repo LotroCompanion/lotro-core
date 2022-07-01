@@ -29,5 +29,9 @@ public enum AccountEventType
   /**
    * Wardrobe updated (on a server).
    */
-  WARDROBE_UPDATED
+  WARDROBE_UPDATED,
+  /**
+   * Rewards tracks updated (on a server).
+   */
+  REWARDS_TRACKS_UPDATED
 }

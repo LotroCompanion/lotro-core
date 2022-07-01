@@ -1,19 +1,43 @@
 package delta.games.lotro.lore.rewardsTrack;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.rewardsTrack.io.xml.RewardsTracksXMLParser;
 
 /**
- * @author dmorcellet
+ * Rewards tracks manager.
+ * @author DAM
  */
 public class RewardsTracksManager
 {
+  private static final Logger LOGGER=Logger.getLogger(RewardsTracksManager.class);
+
+  private static RewardsTracksManager _instance=null;
+
   private Map<Integer,RewardsTrack> _tracks;
+
+  /**
+   * Get the sole instance of this class.
+   * @return the sole instance of this class.
+   */
+  public static RewardsTracksManager getInstance()
+  {
+    if (_instance==null)
+    {
+      _instance=load();
+    }
+    return _instance;
+  }
 
   /**
    * Constructor.
@@ -21,6 +45,28 @@ public class RewardsTracksManager
   public RewardsTracksManager()
   {
     _tracks=new HashMap<Integer,RewardsTrack>();
+  }
+
+  /**
+   * Load data from a file.
+   * @return the loaded data.
+   */
+  private static RewardsTracksManager load()
+  {
+    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
+    File rewardsTracksFile=cfg.getFile(DataFiles.REWARDS_TRACKS);
+    long now=System.currentTimeMillis();
+    RewardsTracksManager mgr=new RewardsTracksManager();
+    List<RewardsTrack> rewardsTracks=new RewardsTracksXMLParser().parseXML(rewardsTracksFile);
+    for(RewardsTrack rewardsTrack : rewardsTracks)
+    {
+      mgr.registerRewardsTrack(rewardsTrack);
+    }
+    long now2=System.currentTimeMillis();
+    long duration=now2-now;
+    int nbRewardsTracks=mgr.getAllRewardsTracks().size();
+    LOGGER.info("Loaded "+nbRewardsTracks+" rewards tracks in "+duration+"ms.");
+    return mgr;
   }
 
   /**
