@@ -67,7 +67,7 @@ public class RewardsTracksStatusXMLWriter
       int claimedMilestones=rewardsTrackStatus.getClaimedMilestones();
       statusAttrs.addAttribute("","",RewardsTracksStatusXMLConstants.REWARDS_TRACK_CLAIMED_MILESTONES_ATTR,XmlWriter.CDATA,String.valueOf(claimedMilestones));
       // Current milestone
-      int currentMilestone=rewardsTrackStatus.getClaimedMilestones();
+      int currentMilestone=rewardsTrackStatus.getCurrentMilestone();
       statusAttrs.addAttribute("","",RewardsTracksStatusXMLConstants.REWARDS_TRACK_CURRENT_MILESTONE_ATTR,XmlWriter.CDATA,String.valueOf(currentMilestone));
       // Last XP goal
       int lastExperienceGoal=rewardsTrackStatus.getLastExperienceGoal();
