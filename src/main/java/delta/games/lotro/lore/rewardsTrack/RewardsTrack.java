@@ -89,6 +89,24 @@ public class RewardsTrack implements Identifiable,Named
   }
 
   /**
+   * Get the size of this track (number of scheduled steps).
+   * @return A steps count.
+   */
+  public int getSize()
+  {
+    return _steps.size();
+  }
+
+  /**
+   * Get the maximum points for this track.
+   * @return A normalized XP count.
+   */
+  public int getMaxPoints()
+  {
+    return _steps.size()*1000;
+  }
+
+  /**
    * Get the steps of this rewards track.
    * @return A list of steps.
    */
