@@ -86,6 +86,9 @@ public class RewardsTracksXMLParser
       // UI element ID
       int uiElementID=DOMParsingTools.getIntAttribute(stepAttrs,RewardsTracksXMLConstants.STEP_UI_ELEMENT_ID_ATTR,0);
       step.setUiElementID(uiElementID);
+      // Large icon ID
+      int largeIconID=DOMParsingTools.getIntAttribute(stepAttrs,RewardsTracksXMLConstants.STEP_LARGE_ICON_ID_ATTR,0);
+      step.setLargeIconID(largeIconID);
       // Reward
       Element rewardTag=DOMParsingTools.getChildTagByName(stepTag,RewardsTracksXMLConstants.REWARD_TAG);
       if (rewardTag!=null)

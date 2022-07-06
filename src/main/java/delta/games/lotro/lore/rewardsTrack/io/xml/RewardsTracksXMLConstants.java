@@ -80,4 +80,8 @@ public class RewardsTracksXMLConstants
    * Tag 'step', attribute 'uiElementID'.
    */
   public static final String STEP_UI_ELEMENT_ID_ATTR="uiElementID";
+  /**
+   * Tag 'step', attribute 'largeIconID'.
+   */
+  public static final String STEP_LARGE_ICON_ID_ATTR="largeIconID";
 }

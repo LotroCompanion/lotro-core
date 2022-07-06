@@ -11,6 +11,7 @@ public class RewardsTrackStep
   private float _xpCostMultiplier;
   private Item _reward;
   private int _uiElementID;
+  private int _largeIconID;
 
   /**
    * Constructor.
@@ -20,6 +21,7 @@ public class RewardsTrackStep
     _xpCostMultiplier=1.0f;
     _reward=null;
     _uiElementID=0;
+    _largeIconID=0;
   }
 
   /**
@@ -74,5 +76,23 @@ public class RewardsTrackStep
   public void setUiElementID(int uiElementID)
   {
     _uiElementID=uiElementID;
+  }
+
+  /**
+   * Get the identifier of the large item icon for this step.
+   * @return A large icon identifier.
+   */
+  public int getLargeIconID()
+  {
+    return _largeIconID;
+  }
+
+  /**
+   * Set the identifier of the large item icon for this step.
+   * @param largeIconID the identifier to set.
+   */
+  public void setLargeIconID(int largeIconID)
+  {
+    _largeIconID=largeIconID;
   }
 }
