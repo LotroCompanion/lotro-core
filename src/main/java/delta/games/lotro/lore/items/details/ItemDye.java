@@ -10,7 +10,7 @@ public class ItemDye extends ItemDetail
 
   /**
    * Constructor.
-   * @param amount Item XP amount.
+   * @param color Dye color.
    */
   public ItemDye(Float color)
   {
@@ -18,8 +18,8 @@ public class ItemDye extends ItemDetail
   }
 
   /**
-   * Get the item XP amount.
-   * @return a quantity.
+   * Get the dye color.
+   * @return a color.
    */
   public Float getColor()
   {
