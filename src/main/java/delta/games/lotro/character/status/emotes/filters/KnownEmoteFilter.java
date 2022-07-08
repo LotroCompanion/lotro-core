@@ -46,7 +46,9 @@ public class KnownEmoteFilter implements Filter<EmoteStatus>
     {
       return true;
     }
-    boolean known=status.isAvailable();
+    boolean acquired=status.isAvailable();
+    boolean auto=status.getEmote().isAuto();
+    boolean known=acquired||auto;
     return (_isKnown.booleanValue()==known);
   }
 }
