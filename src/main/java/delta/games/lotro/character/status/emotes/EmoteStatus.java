@@ -52,6 +52,20 @@ public class EmoteStatus
     _available=available;
   }
 
+  /**
+   * Get the state of this emote.
+   * @return the state of this emote.
+   */
+  public EmoteState getState()
+  {
+    boolean auto=_emote.isAuto();
+    if (auto)
+    {
+      return EmoteState.AUTO;
+    }
+    return _available?EmoteState.ACQUIRED:EmoteState.NOT_KNOWN;
+  }
+
   @Override
   public String toString()
   {

@@ -1,13 +1,16 @@
 package delta.games.lotro.character.status.emotes.filters;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.common.utils.collections.filters.CompoundFilter;
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.collections.filters.Operator;
 import delta.common.utils.collections.filters.ProxyFilter;
 import delta.common.utils.collections.filters.ProxyValueResolver;
+import delta.games.lotro.character.status.emotes.EmoteState;
 import delta.games.lotro.character.status.emotes.EmoteStatus;
 import delta.games.lotro.common.filters.NamedFilter;
 import delta.games.lotro.lore.emotes.EmoteDescription;
@@ -20,7 +23,7 @@ public class EmoteStatusFilter implements Filter<EmoteStatus>
 {
   private Filter<EmoteStatus> _filter;
   private NamedFilter<EmoteDescription> _nameFilter;
-  private KnownEmoteFilter _knownFilter;
+  private EmoteStateFilter _stateFilter;
 
   /**
    * Constructor.
@@ -40,9 +43,14 @@ public class EmoteStatusFilter implements Filter<EmoteStatus>
     };
     ProxyFilter<EmoteStatus,EmoteDescription> nameFilter=new ProxyFilter<EmoteStatus,EmoteDescription>(proxySolver,_nameFilter);
     filters.add(nameFilter);
-    // Known
-    _knownFilter=new KnownEmoteFilter(null);
-    filters.add(_knownFilter);
+    // State
+    Set<EmoteState> states=new HashSet<EmoteState>();
+    for(EmoteState state : EmoteState.values())
+    {
+      states.add(state);
+    }
+    _stateFilter=new EmoteStateFilter(states);
+    filters.add(_stateFilter);
     _filter=new CompoundFilter<EmoteStatus>(Operator.AND,filters);
   }
 
@@ -56,12 +64,12 @@ public class EmoteStatusFilter implements Filter<EmoteStatus>
   }
 
   /**
-   * Get the filter on known/unknown state.
-   * @return a known/unknown filter.
+   * Get the filter on emote state.
+   * @return an emote state filter.
    */
-  public KnownEmoteFilter getKnownFilter()
+  public EmoteStateFilter getStateFilter()
   {
-    return _knownFilter;
+    return _stateFilter;
   }
 
   @Override
