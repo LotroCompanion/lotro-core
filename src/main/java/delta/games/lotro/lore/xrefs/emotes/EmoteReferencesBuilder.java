@@ -3,12 +3,18 @@ package delta.games.lotro.lore.xrefs.emotes;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
+import delta.games.lotro.lore.emotes.EmoteDescription;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.details.GrantedElement;
+import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
@@ -38,6 +44,7 @@ public class EmoteReferencesBuilder
   {
     _storage.clear();
     findInRewards(emoteID);
+    findInItems(emoteID);
     List<EmoteReference<?>> ret=new ArrayList<EmoteReference<?>>(_storage);
     _storage.clear();
     return ret;
@@ -88,4 +95,28 @@ public class EmoteReferencesBuilder
       }
     }
   }
+
+  private void findInItems(int emoteID)
+  {
+    for(Item item : ItemsManager.getInstance().getAllItems())
+    {
+      ItemDetailsManager detailsMgr=item.getDetails();
+      if (detailsMgr==null)
+      {
+        continue;
+      }
+      for(GrantedElement<?> element : detailsMgr.getItemDetails(GrantedElement.class))
+      {
+        Identifiable identifiable=element.getGrantedElement();
+        if (identifiable instanceof EmoteDescription)
+        {
+          if (identifiable.getIdentifier()==emoteID)
+          {
+            _storage.add(new EmoteReference<Item>(item,EmoteRole.GRANTED_BY_ITEM));
+          }
+        }
+      }
+    }
+  }
+
 }

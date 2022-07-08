@@ -9,6 +9,8 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.lore.emotes.EmoteDescription;
+import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
@@ -110,6 +112,15 @@ public class ItemDetailsSaxParser
         if (trait!=null)
         {
           return new GrantedElement<TraitDescription>(type,trait);
+        }
+      }
+      break;
+      case EMOTE:
+      {
+        EmoteDescription emote=EmotesManager.getInstance().getEmote(id);
+        if (emote!=null)
+        {
+          return new GrantedElement<EmoteDescription>(type,emote);
         }
       }
       break;
