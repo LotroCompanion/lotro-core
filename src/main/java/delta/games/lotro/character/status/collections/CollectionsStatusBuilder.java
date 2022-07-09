@@ -3,6 +3,7 @@ package delta.games.lotro.character.status.collections;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.status.skills.SkillsStatusManager;
@@ -20,18 +21,22 @@ public class CollectionsStatusBuilder
   /**
    * Build the collections status for a character.
    * @param f Input character.
+   * @param filter Filter on collections to use.
    * @return a new collections status manager.
    */
-  public CollectionsStatusManager build(CharacterFile f)
+  public CollectionsStatusManager build(CharacterFile f, Filter<CollectionDescription> filter)
   {
     SkillsStatusManager statusMgr=SkillsStatusIo.load(f);
     CollectionsStatusManager ret=new CollectionsStatusManager();
     List<CollectionDescription> collections=getCollections(f.getSummary());
     for(CollectionDescription collection : collections)
     {
-      CollectionStatus collectionStatus=new CollectionStatus(collection);
-      collectionStatus.assess(statusMgr);
-      ret.addStatus(collectionStatus);
+      if ((filter==null) || (filter.accept(collection)))
+      {
+        CollectionStatus collectionStatus=new CollectionStatus(collection);
+        collectionStatus.assess(statusMgr);
+        ret.addStatus(collectionStatus);
+      }
     }
     return ret;
   }

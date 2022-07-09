@@ -109,6 +109,20 @@ public class CollectionStatus
     return _completed.contains(element);
   }
 
+  /**
+   * Get the state of this collection.
+   * @return the state of this collection.
+   */
+  public CollectionState getState()
+  {
+    if (isComplete())
+    {
+      return CollectionState.COMPLETED;
+    }
+    int nbCompleted=getCompletedCount();
+    return (nbCompleted>0)?CollectionState.STARTED:CollectionState.NOT_STARTED;
+  }
+
   @Override
   public String toString()
   {

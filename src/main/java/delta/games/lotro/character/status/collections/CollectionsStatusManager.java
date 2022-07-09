@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.common.Named;
+import delta.games.lotro.common.comparators.NamedComparator;
+import delta.games.lotro.utils.DataProvider;
+import delta.games.lotro.utils.comparators.DelegatingComparator;
+
 /**
  * Manages a set of collection statuses.
  * @author DAM
@@ -48,13 +53,16 @@ public class CollectionsStatusManager
    */
   public List<CollectionStatus> getAll()
   {
-    List<CollectionStatus> ret=new ArrayList<CollectionStatus>();
-    List<Integer> ids=new ArrayList<Integer>(_map.keySet());
-    Collections.sort(ids);
-    for(Integer id : ids)
+    List<CollectionStatus> ret=new ArrayList<CollectionStatus>(_map.values());
+    DataProvider<CollectionStatus,Named> provider=new DataProvider<CollectionStatus,Named>()
     {
-      ret.add(_map.get(id));
-    }
+      public Named getData(CollectionStatus status)
+      {
+        return status.getCollection();
+      }
+    };
+    DelegatingComparator<CollectionStatus,Named> c=new DelegatingComparator<CollectionStatus,Named>(provider,new NamedComparator());
+    Collections.sort(ret,c);
     return ret;
   }
 }

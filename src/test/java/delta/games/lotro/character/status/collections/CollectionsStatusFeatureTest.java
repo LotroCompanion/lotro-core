@@ -17,7 +17,7 @@ public class CollectionsStatusFeatureTest extends TestCase
   {
     for(CharacterFile toon : CharactersManager.getInstance().getAllToons())
     {
-      CollectionsStatusManager mgr=new CollectionsStatusBuilder().build(toon);
+      CollectionsStatusManager mgr=new CollectionsStatusBuilder().build(toon,null);
       for(CollectionStatus collectionStatus : mgr.getAll())
       {
         if (collectionStatus.getCompletedCount()>0)
