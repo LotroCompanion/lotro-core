@@ -18,6 +18,7 @@ public class MountDescription implements Collectable
   private int _iconId;
   private int _morale;
   private float _speed;
+  private boolean _tall;
 
   /**
    * Constructor.
@@ -35,6 +36,7 @@ public class MountDescription implements Collectable
     _iconId=0;
     _morale=0;
     _speed=0;
+    _tall=false;
   }
 
   /**
@@ -214,6 +216,24 @@ public class MountDescription implements Collectable
     _speed=speed;
   }
 
+  /**
+   * Indicates if this mount is tall (horse) or short (pony).
+   * @return <code>true</code> if tall, <code>false</code> if short.
+   */
+  public boolean isTall()
+  {
+    return _tall;
+  }
+
+  /**
+   * Set the 'tall' flag.
+   * @param tall Value to set.
+   */
+  public void setTall(boolean tall)
+  {
+    _tall=tall;
+  }
+
   @Override
   public String toString()
   {
@@ -228,6 +248,7 @@ public class MountDescription implements Collectable
     sb.append(", iconID=").append(_iconId);
     sb.append(", morale=").append(_morale);
     sb.append(", speed=").append(_speed);
+    sb.append(", tall=").append(_tall);
     return sb.toString();
   }
 }

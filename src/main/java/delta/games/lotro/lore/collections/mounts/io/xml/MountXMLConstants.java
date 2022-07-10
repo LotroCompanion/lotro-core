@@ -55,4 +55,8 @@ public class MountXMLConstants
    * Tag 'mount', attribute 'speed'.
    */
   public static final String MOUNT_SPEED_ATTR="speed";
+  /**
+   * Tag 'mount', attribute 'tall'.
+   */
+  public static final String MOUNT_TALL_ATTR="tall";
 }

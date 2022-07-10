@@ -87,6 +87,12 @@ public class MountXMLWriter
     // Speed
     float speed=mount.getSpeed();
     attrs.addAttribute("","",MountXMLConstants.MOUNT_SPEED_ATTR,XmlWriter.CDATA,String.valueOf(speed));
+    // Tall
+    boolean tall=mount.isTall();
+    if (tall)
+    {
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_TALL_ATTR,XmlWriter.CDATA,String.valueOf(tall));
+    }
 
     hd.startElement("","",MountXMLConstants.MOUNT_TAG,attrs);
     hd.endElement("","",MountXMLConstants.MOUNT_TAG);

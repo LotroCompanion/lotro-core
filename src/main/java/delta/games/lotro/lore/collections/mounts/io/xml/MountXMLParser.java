@@ -75,6 +75,9 @@ public class MountXMLParser
     // Speed
     float speed=DOMParsingTools.getFloatAttribute(attrs,MountXMLConstants.MOUNT_SPEED_ATTR,0);
     ret.setSpeed(speed);
+    // Tall
+    boolean tall=DOMParsingTools.getBooleanAttribute(attrs,MountXMLConstants.MOUNT_TALL_ATTR,false);
+    ret.setTall(tall);
 
     return ret;
   }
