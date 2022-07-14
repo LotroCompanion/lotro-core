@@ -14,6 +14,8 @@ import delta.games.lotro.common.rewards.filters.RewardsFilter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.filter.AchievableMonsterPlayFilter;
 import delta.games.lotro.lore.quests.filter.HiddenAchievableFilter;
+import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
+import delta.games.lotro.lore.worldEvents.filter.WorldEventConditionFilter;
 
 /**
  * Deed filter.
@@ -32,6 +34,8 @@ public class DeedFilter implements Filter<DeedDescription>
   private UsageRequirementFilter _requirementsFilter;
   // Rewards
   private RewardsFilter _rewardsFilter;
+  // World events
+  private WorldEventConditionFilter _worldEventsFilter;
 
   /**
    * Constructor.
@@ -55,19 +59,34 @@ public class DeedFilter implements Filter<DeedDescription>
     _hiddenFilter=new HiddenAchievableFilter<DeedDescription>(null);
     filters.add(_hiddenFilter);
     // Requirements
-    _requirementsFilter=new UsageRequirementFilter(null,null);
-    ProxyValueResolver<DeedDescription,UsageRequirement> resolver=new ProxyValueResolver<DeedDescription,UsageRequirement>()
     {
-      public UsageRequirement getValue(DeedDescription pojo)
+      _requirementsFilter=new UsageRequirementFilter(null,null);
+      ProxyValueResolver<DeedDescription,UsageRequirement> resolver=new ProxyValueResolver<DeedDescription,UsageRequirement>()
       {
-        return pojo.getUsageRequirement();
-      }
-    };
-    ProxyFilter<DeedDescription,UsageRequirement> deedRequirementsFilter=new ProxyFilter<DeedDescription,UsageRequirement>(resolver,_requirementsFilter);
-    filters.add(deedRequirementsFilter);
+        public UsageRequirement getValue(DeedDescription pojo)
+        {
+          return pojo.getUsageRequirement();
+        }
+      };
+      ProxyFilter<DeedDescription,UsageRequirement> deedRequirementsFilter=new ProxyFilter<DeedDescription,UsageRequirement>(resolver,_requirementsFilter);
+      filters.add(deedRequirementsFilter);
+    }
     // Rewards
     _rewardsFilter=new RewardsFilter();
     filters.add(new DeedRewardFilter(_rewardsFilter));
+    // World events
+    {
+      _worldEventsFilter=new WorldEventConditionFilter();
+      ProxyValueResolver<DeedDescription,AbstractWorldEventCondition> resolver=new ProxyValueResolver<DeedDescription,AbstractWorldEventCondition>()
+      {
+        public AbstractWorldEventCondition getValue(DeedDescription pojo)
+        {
+          return pojo.getWorldEventsRequirement();
+        }
+      };
+      ProxyFilter<DeedDescription,AbstractWorldEventCondition> questRequirementsFilter=new ProxyFilter<DeedDescription,AbstractWorldEventCondition>(resolver,_worldEventsFilter);
+      filters.add(questRequirementsFilter);
+    }
     _filter=new CompoundFilter<DeedDescription>(Operator.AND,filters);
   }
 
@@ -132,6 +151,15 @@ public class DeedFilter implements Filter<DeedDescription>
   public RewardsFilter getRewardsFilter()
   {
     return _rewardsFilter;
+  }
+
+  /**
+   * Get the filter on world events conditions.
+   * @return the filter on world events conditions.
+   */
+  public WorldEventConditionFilter getWorldEventsFilter()
+  {
+    return _worldEventsFilter;
   }
 
   @Override

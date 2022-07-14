@@ -108,8 +108,8 @@ public class QuestFilter implements Filter<QuestDescription>
           return pojo.getRewards();
         }
       };
-      ProxyFilter<QuestDescription,Rewards> questRequirementsFilter=new ProxyFilter<QuestDescription,Rewards>(resolver,_rewardsFilter);
-      filters.add(questRequirementsFilter);
+      ProxyFilter<QuestDescription,Rewards> questRewardsFilter=new ProxyFilter<QuestDescription,Rewards>(resolver,_rewardsFilter);
+      filters.add(questRewardsFilter);
     }
     // World events
     {
