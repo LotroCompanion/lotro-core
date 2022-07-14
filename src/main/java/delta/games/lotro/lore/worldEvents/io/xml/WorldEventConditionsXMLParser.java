@@ -14,6 +14,7 @@ import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.CompoundWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.SimpleWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.WorldEvent;
+import delta.games.lotro.lore.worldEvents.WorldEventConditionsRenderer;
 import delta.games.lotro.lore.worldEvents.WorldEventsManager;
 import delta.games.lotro.utils.Proxy;
 
@@ -25,12 +26,22 @@ public class WorldEventConditionsXMLParser
 {
   private static final Logger LOGGER=Logger.getLogger(WorldEventConditionsXMLParser.class);
 
+  private WorldEventConditionsRenderer _renderer;
+
+  /**
+   * Constructor.
+   */
+  public WorldEventConditionsXMLParser()
+  {
+    _renderer=new WorldEventConditionsRenderer();
+  }
+
   /**
    * Load a world events requirement from a parent tag.
    * @param rootTag Parent tag.
    * @return A requirement or <code>null</code> if none.
    */
-  public static AbstractWorldEventCondition loadRequirement(Element rootTag)
+  public AbstractWorldEventCondition loadRequirement(Element rootTag)
   {
     Element simpleReqTag=DOMParsingTools.getChildTagByName(rootTag,WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_TAG);
     if (simpleReqTag!=null)
@@ -50,7 +61,7 @@ public class WorldEventConditionsXMLParser
    * @param elementTag Source tag.
    * @return A condition or <code>null</code> if not supported.
    */
-  public static AbstractWorldEventCondition parseCondition(Element elementTag)
+  public AbstractWorldEventCondition parseCondition(Element elementTag)
   {
     String tagName=elementTag.getNodeName();
     if (WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG.equals(tagName))
@@ -64,8 +75,9 @@ public class WorldEventConditionsXMLParser
     return null;
   }
 
-  private static SimpleWorldEventCondition parseSimpleWorldEventCondition(Element elementTag)
+  private SimpleWorldEventCondition parseSimpleWorldEventCondition(Element elementTag)
   {
+    SimpleWorldEventCondition ret;
     NamedNodeMap attrs=elementTag.getAttributes();
     // Operator
     String operatorStr=DOMParsingTools.getStringAttribute(attrs,WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_OPERATOR_ATTR,"");
@@ -79,20 +91,23 @@ public class WorldEventConditionsXMLParser
     if (valueNode!=null)
     {
       int value=DOMParsingTools.getIntAttribute(attrs,WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_WORLD_EVENT_VALUE_ATTR,0);
-      SimpleWorldEventCondition ret=new SimpleWorldEventCondition(operator,targetWorldEvent,value);
-      resolveCondition(ret);
-      return ret;
+      ret=new SimpleWorldEventCondition(operator,targetWorldEvent,value);
     }
-    // Compare To world event
-    int compareToWorldEventID=DOMParsingTools.getIntAttribute(attrs,WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_COMPARE_TO_WORLD_EVENT_ID_ATTR,0);
-    Proxy<WorldEvent> compareToWorldEvent=new Proxy<WorldEvent>();
-    compareToWorldEvent.setId(compareToWorldEventID);
-    SimpleWorldEventCondition ret=new SimpleWorldEventCondition(operator,targetWorldEvent,compareToWorldEvent);
+    else
+    {
+      // Compare To world event
+      int compareToWorldEventID=DOMParsingTools.getIntAttribute(attrs,WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_COMPARE_TO_WORLD_EVENT_ID_ATTR,0);
+      Proxy<WorldEvent> compareToWorldEvent=new Proxy<WorldEvent>();
+      compareToWorldEvent.setId(compareToWorldEventID);
+      ret=new SimpleWorldEventCondition(operator,targetWorldEvent,compareToWorldEvent);
+    }
     resolveCondition(ret);
+    String label=_renderer.renderSimpleWorldEventCondition(ret);
+    ret.setLabel(label);
     return ret;
   }
 
-  private static CompoundWorldEventCondition parseCompoundWorldEventCondition(Element elementTag)
+  private CompoundWorldEventCondition parseCompoundWorldEventCondition(Element elementTag)
   {
     NamedNodeMap attrs=elementTag.getAttributes();
     // Operator
@@ -116,7 +131,7 @@ public class WorldEventConditionsXMLParser
     return ret;
   }
 
-  private static void resolveCondition(SimpleWorldEventCondition condition)
+  private void resolveCondition(SimpleWorldEventCondition condition)
   {
     Proxy<WorldEvent> targetWorldEvent=condition.getWorldEvent();
     resolveWorldEventProxy(targetWorldEvent);
@@ -124,7 +139,7 @@ public class WorldEventConditionsXMLParser
     resolveWorldEventProxy(compareToWorldEvent);
   }
 
-  private static void resolveWorldEventProxy(Proxy<WorldEvent> proxy)
+  private void resolveWorldEventProxy(Proxy<WorldEvent> proxy)
   {
     if (proxy==null)
     {

@@ -23,6 +23,8 @@ import delta.games.lotro.utils.Proxy;
  */
 public class AchievableXMLParser
 {
+  private WorldEventConditionsXMLParser _worldEventConditionsParser=new WorldEventConditionsXMLParser();
+
   protected void parseAchievableAttributes(NamedNodeMap attrs, Achievable achievable)
   {
     // Identifier
@@ -56,7 +58,7 @@ public class AchievableXMLParser
 
   protected void parseWorldEventsRequirements(Element root, Achievable achievable)
   {
-    AbstractWorldEventCondition requirement=WorldEventConditionsXMLParser.loadRequirement(root);
+    AbstractWorldEventCondition requirement=_worldEventConditionsParser.loadRequirement(root);
     achievable.setWorldEventsRequirement(requirement);
   }
 

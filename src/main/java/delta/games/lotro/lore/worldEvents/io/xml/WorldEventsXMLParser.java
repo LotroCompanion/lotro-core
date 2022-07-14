@@ -21,6 +21,8 @@ import delta.games.lotro.lore.worldEvents.WorldEvent;
  */
 public class WorldEventsXMLParser
 {
+  private WorldEventConditionsXMLParser _worldEventConditionsParser=new WorldEventConditionsXMLParser();
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -37,7 +39,7 @@ public class WorldEventsXMLParser
     return ret;
   }
 
-  private static List<WorldEvent> parseWorldEvents(Element mainTag)
+  private List<WorldEvent> parseWorldEvents(Element mainTag)
   {
     List<WorldEvent> ret=new ArrayList<WorldEvent>();
     List<Element> elementTags=DOMParsingTools.getChildTags(mainTag);
@@ -57,7 +59,7 @@ public class WorldEventsXMLParser
    * @param elementTag Tag to read.
    * @return the loaded world event or <code>null</code>.
    */
-  private static WorldEvent parseWorldEvent(Element elementTag)
+  private WorldEvent parseWorldEvent(Element elementTag)
   {
     String tagName=elementTag.getNodeName();
     if (WorldEventsXMLConstants.BOOLEAN_WORLD_EVENT_TAG.equals(tagName))
@@ -79,7 +81,7 @@ public class WorldEventsXMLParser
     return null;
   }
 
-  private static BooleanWorldEvent parseBooleanWorldEvent(Element elementTag)
+  private BooleanWorldEvent parseBooleanWorldEvent(Element elementTag)
   {
     NamedNodeMap attrs=elementTag.getAttributes();
     BooleanWorldEvent ret=new BooleanWorldEvent();
@@ -90,7 +92,7 @@ public class WorldEventsXMLParser
     return ret;
   }
 
-  private static ConditionWorldEvent parseConditionWorldEvent(Element elementTag)
+  private ConditionWorldEvent parseConditionWorldEvent(Element elementTag)
   {
     NamedNodeMap attrs=elementTag.getAttributes();
     ConditionWorldEvent ret=new ConditionWorldEvent();
@@ -99,13 +101,13 @@ public class WorldEventsXMLParser
     List<Element> childTags=DOMParsingTools.getChildTags(elementTag);
     if (childTags.size()==1)
     {
-      AbstractWorldEventCondition condition=WorldEventConditionsXMLParser.parseCondition(elementTag);
+      AbstractWorldEventCondition condition=_worldEventConditionsParser.parseCondition(elementTag);
       ret.setCondition(condition);
     }
     return ret;
   }
 
-  private static IntegerWorldEvent parseIntegerWorldEvent(Element elementTag)
+  private IntegerWorldEvent parseIntegerWorldEvent(Element elementTag)
   {
     NamedNodeMap attrs=elementTag.getAttributes();
     IntegerWorldEvent ret=new IntegerWorldEvent();
@@ -131,7 +133,7 @@ public class WorldEventsXMLParser
     return ret;
   }
 
-  private static CountedWorldEvent parseCountedWorldEvent(Element elementTag)
+  private CountedWorldEvent parseCountedWorldEvent(Element elementTag)
   {
     NamedNodeMap attrs=elementTag.getAttributes();
     CountedWorldEvent ret=new CountedWorldEvent();
@@ -142,7 +144,7 @@ public class WorldEventsXMLParser
     List<Element> childTags=DOMParsingTools.getChildTags(elementTag);
     for(Element childTag : childTags)
     {
-      AbstractWorldEventCondition condition=WorldEventConditionsXMLParser.parseCondition(childTag);
+      AbstractWorldEventCondition condition=_worldEventConditionsParser.parseCondition(childTag);
       if (condition!=null)
       {
         ret.addCondition(condition);
@@ -151,7 +153,7 @@ public class WorldEventsXMLParser
     return ret;
   }
 
-  private static void parseWorldEventAttrs(NamedNodeMap attrs, WorldEvent ret)
+  private void parseWorldEventAttrs(NamedNodeMap attrs, WorldEvent ret)
   {
     // Identifier
     int identifier=DOMParsingTools.getIntAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_ID_ATTR,0);

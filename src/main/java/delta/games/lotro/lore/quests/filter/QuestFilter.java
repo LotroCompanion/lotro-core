@@ -13,6 +13,8 @@ import delta.games.lotro.common.requirements.filters.UsageRequirementFilter;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.filters.RewardsFilter;
 import delta.games.lotro.lore.quests.QuestDescription;
+import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
+import delta.games.lotro.lore.worldEvents.filter.WorldEventConditionFilter;
 
 /**
  * Quest filter.
@@ -38,6 +40,8 @@ public class QuestFilter implements Filter<QuestDescription>
   private UsageRequirementFilter _requirementsFilter;
   // Rewards
   private RewardsFilter _rewardsFilter;
+  // World events
+  private WorldEventConditionFilter _worldEventsFilter;
 
   /**
    * Constructor.
@@ -105,6 +109,19 @@ public class QuestFilter implements Filter<QuestDescription>
         }
       };
       ProxyFilter<QuestDescription,Rewards> questRequirementsFilter=new ProxyFilter<QuestDescription,Rewards>(resolver,_rewardsFilter);
+      filters.add(questRequirementsFilter);
+    }
+    // World events
+    {
+      _worldEventsFilter=new WorldEventConditionFilter();
+      ProxyValueResolver<QuestDescription,AbstractWorldEventCondition> resolver=new ProxyValueResolver<QuestDescription,AbstractWorldEventCondition>()
+      {
+        public AbstractWorldEventCondition getValue(QuestDescription pojo)
+        {
+          return pojo.getWorldEventsRequirement();
+        }
+      };
+      ProxyFilter<QuestDescription,AbstractWorldEventCondition> questRequirementsFilter=new ProxyFilter<QuestDescription,AbstractWorldEventCondition>(resolver,_worldEventsFilter);
       filters.add(questRequirementsFilter);
     }
     _filter=new CompoundFilter<QuestDescription>(Operator.AND,filters);
@@ -234,6 +251,15 @@ public class QuestFilter implements Filter<QuestDescription>
   public RewardsFilter getRewardsFilter()
   {
     return _rewardsFilter;
+  }
+
+  /**
+   * Get the filter on world events conditions.
+   * @return the filter on world events conditions.
+   */
+  public WorldEventConditionFilter getWorldEventsFilter()
+  {
+    return _worldEventsFilter;
   }
 
   @Override

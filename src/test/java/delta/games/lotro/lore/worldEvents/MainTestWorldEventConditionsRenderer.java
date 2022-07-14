@@ -22,7 +22,6 @@ import delta.games.lotro.lore.quests.QuestsManager;
  */
 public class MainTestWorldEventConditionsRenderer
 {
-  private WorldEventConditionsRenderer _renderer=new WorldEventConditionsRenderer();
   private Map<String,IntegerHolder> _counters=new HashMap<String,IntegerHolder>();
 
   private void doIt()
@@ -50,7 +49,7 @@ public class MainTestWorldEventConditionsRenderer
     if (condition!=null)
     {
       System.out.println("Achievable: "+achievable+" => "+condition);
-      AbstractLogicalExpression<String> conditionsStr=_renderer.renderWorldEventCondition(condition);
+      AbstractLogicalExpression<String> conditionsStr=WorldEventConditionsUtils.renderWorldEventCondition(condition);
       if (conditionsStr!=null)
       {
         System.out.println("\t"+conditionsStr);

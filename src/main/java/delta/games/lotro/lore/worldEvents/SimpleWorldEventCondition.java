@@ -17,6 +17,8 @@ public class SimpleWorldEventCondition extends AbstractWorldEventCondition
   private Integer _value;
   // - OR world event value
   private Proxy<WorldEvent> _compareToWorldEvent;
+  // Displayable label
+  private String _label;
 
   /**
    * Constructor.
@@ -79,6 +81,24 @@ public class SimpleWorldEventCondition extends AbstractWorldEventCondition
   public Proxy<WorldEvent> getCompareToWorldEvent()
   {
     return _compareToWorldEvent;
+  }
+
+  /**
+   * Get a displayable label for this condition.
+   * @return A label or <code>null</code> if not supported.
+   */
+  public String getLabel()
+  {
+    return _label;
+  }
+
+  /**
+   * Set a displayable label for this condition.
+   * @param label Label to set, may be <code>null</code>.
+   */
+  public void setLabel(String label)
+  {
+    _label=label;
   }
 
   @Override
