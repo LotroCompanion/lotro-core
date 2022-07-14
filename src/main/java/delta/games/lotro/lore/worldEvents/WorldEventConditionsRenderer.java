@@ -283,23 +283,54 @@ public class WorldEventConditionsRenderer
   private boolean handleBooleanConditions(WorldEvent we, ComparisonOperator operator, Integer value)
   {
     String weProperty=we.getPropertyName();
-    // Festivals
-    if ("WE_SummerFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Summer Festival");
-    // - yule
-    else if ("WE_WinterFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Yule Festival");
-    else if ("we_winterfestival_town_active".equals(weProperty)) handleBooleanCondition(operator,value,"Yule Festival: town quests active");
-    else if ("we_winterfestival_eatingcontest_active".equals(weProperty)) handleBooleanCondition(operator,value,"Yule Festival: eating contest active");
-    else if ("we_winterfestival_snowballfight_active".equals(weProperty)) handleBooleanCondition(operator,value,"Yule Festival: snowball fight active");
-    else if ("we_winterfestival_eatingcontest_status".equals(weProperty)) handleBooleanCondition(operator,value,null,"Yule Festival: eating contest not started");
-    else if ("we_winterfestival_snowballfight_status".equals(weProperty)) handleBooleanCondition(operator,value,null,"Yule Festival: snowball fight not started");
+    // - Yule
+    if ("WE_WinterFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Yule Festival");
+    else if ("we_winterfestival_town_active".equals(weProperty)) handleBooleanCondition(operator,value,"Yule Festival: town quests are active");
+    else if ("we_winterfestival_eatingcontest_active".equals(weProperty)) handleBooleanCondition(operator,value,"Yule Festival: eating contest is active");
+    else if ("we_winterfestival_snowballfight_active".equals(weProperty)) handleBooleanCondition(operator,value,"Yule Festival: snowball fight is active");
+    else if ("we_winterfestival_eatingcontest_status".equals(weProperty)) handleBooleanCondition(operator,value,null,"Yule Festival: eating contest is not started");
+    else if ("we_winterfestival_snowballfight_status".equals(weProperty)) handleBooleanCondition(operator,value,null,"Yule Festival: snowball fight is not started");
+    // - Farmers Faire
     else if ("WE_FarmersFair_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Farmers Faire");
-    else if ("WE_SpringFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Farmers Faire"); // ?
+    else if ("WE_SpringFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Farmers Faire");
+    else if ("WE_SummerFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Farmers Faire");
+    // - Harvest Festival
     else if ("WE_FallFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Harvest Festival");
-    else if ("WE_Anniversary_Event_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Anniversary Festival");
+    else if ("we_fallfestival_hauntedhouse_active".equals(weProperty)) handleBooleanCondition(operator,value,"Harvest Festival: haunted house is active");
+    // - LOTRO Anniversary Celebration
+    else if ("WE_Anniversary_Event_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the LOTRO Anniversary Celebration");
+    else if ("we_fallfestival_barfight_active".equals(weProperty)) handleBooleanCondition(operator,value,"LOTRO Anniversary Celebration: fight-arena is active");
+    else if ("we_fallfestival_barfight_status".equals(weProperty)) handleBooleanCondition(operator,value,null,"LOTRO Anniversary Celebration: fight-arena not started");
+    // - Midsummer Festival
     else if ("WE_WeddingFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Wedding Festival");
-    else if ("WE_Anniversary_Event_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Anniversary Festival");
+    // - Spring Festival
     else if ("WE_Real_SpringFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Spring Festival");
+    else if ("we_event_flowers_active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Spring Festival");
+    // - International Talk Like a Pirate Day
+    else if ("WE_TalkLikeACorsairDay_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the International Talk Like a Pirate Day");
+    // All Festivals
     else if ("WE_GenericFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during any Festival");
+
+    /*
+    WE_SpringFestival_DanceDuillondActive
+    WE_SpringFestival_DanceThorinsHallActive
+    WE_SpringFestival_DanceShireActive
+    WE_SpringFestival_DanceBreelandActive
+
+    WE_Summerfestival_DwarfRace_Status
+    WE_Summerfestival_HobbitRace_Status
+    WE_summerfestival_gamble_shire_active
+    WE_Real_SpringFestival_Shrew_Status
+    WE_Festival_Egg_Farm
+    WE_Festival_Mushroom_Farm
+    WE_Summerfestival_DwarfRace_Status
+    WE_Summerfestival_HobbitRace_Status
+    we_anniversary_fireworks_shire_status
+    we_anniversary_promotion_drops
+    we_anniversary_promotion_vendors
+    WE_Anniversary_Fireworks_Active
+    */
+
     // Dailies
     // - Mordor
     else if ("WE_Gorgoroth_Endgame_Event_1_Udun_DorAmarth".equals(weProperty)) handleBooleanCondition(operator,value,"Mordor dailies: Udûn and Dor Amarth featured");
@@ -312,10 +343,11 @@ public class WorldEventConditionsRenderer
     else if ("WE_Mirkwood_North_Endgame_Driven_Daily_Set_2".equals(weProperty)) handleBooleanCondition(operator,value,"Set 2 of Stronghold of the North Dailies");
     else if ("WE_Mirkwood_North_Endgame_Driven_Daily_Set_3".equals(weProperty)) handleBooleanCondition(operator,value,"Set 3 of Stronghold of the North Dailies");
     // Events
-    else if ("WE_Trollshaws_FrodoBilboBirthday_active".equals(weProperty)) handleBooleanCondition(operator,value,"Baggins' Birthday is active");
+    else if ("WE_Trollshaws_FrodoBilboBirthday_active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during Bilbo & Frodo's Birthday");
     else if ("WE_EV_Skirmish_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Ill Omens event is active");
-    else if ("WE_Bingo_Boffin_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Bingo Boffin event is active");
-    
+    else if ("WE_Bingo_Boffin_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Bingo Boffin is active");
+    else if ("we_rohanpreorder_active".equals(weProperty)) handleBooleanCondition(operator,value,"Needs Riders of Rohan legendary expansion");
+    else if ("WE_Treasure_Bugan_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Treasure Bugans event is active");
     // PVP
     else if ("World_MPControl_Ettenmoors_WestTower".equals(weProperty)) handleBooleanCondition(operator,value,"Creeps control Lugazag","Freeps control Lugazag");
     else if ("World_MPControl_Ettenmoors_EastTower".equals(weProperty)) handleBooleanCondition(operator,value,"Creeps control Tirith Rhaw","Freeps control Tirith Rhaw");
@@ -326,14 +358,14 @@ public class WorldEventConditionsRenderer
     else if ("World_IsNight".equals(weProperty)) handleBooleanCondition(operator,value,"At Night","During daytime");
     // Maps state
     // - Forochel
-    else if ("WE_Forochel_ControlPOI_Glacier".equals(weProperty)) handleBooleanCondition(operator,value,"Hylje-leiri is ?");
-    else if ("WE_Forochel_ControlPOI_Icebay".equals(weProperty)) handleBooleanCondition(operator,value,"Karhu-leiri is ?");
-    else if ("WE_Forochel_ControlPOI_TundraEast".equals(weProperty)) handleBooleanCondition(operator,value,"Pynti-leiri is ?");
-    else if ("WE_Forochel_ControlPOI_TundraWest".equals(weProperty)) handleBooleanCondition(operator,value,"Norsu-leiri is ?");
+    else if ("WE_Forochel_ControlPOI_Glacier".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Hylje-leiri");
+    else if ("WE_Forochel_ControlPOI_Icebay".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Karhu-leiri");
+    else if ("WE_Forochel_ControlPOI_TundraEast".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Pynti-leiri");
+    else if ("WE_Forochel_ControlPOI_TundraWest".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Norsu-leiri");
     // - Annuminas
-    else if ("WE_Annuminas_Camp1_Control".equals(weProperty)) handleBooleanCondition(operator,value,"Gwaelband is ?");
-    else if ("WE_Annuminas_Camp2_Control".equals(weProperty)) handleBooleanCondition(operator,value,"Clorhir is ?");
-    else if ("WE_Annuminas_Camp3_Control".equals(weProperty)) handleBooleanCondition(operator,value,"Tirband is ?","Tirband is ??");
+    else if ("WE_Annuminas_Camp1_Control".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Gwaelband");
+    else if ("WE_Annuminas_Camp2_Control".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Clorhir");
+    else if ("WE_Annuminas_Camp3_Control".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Tirband","Angmar holds Tirband");
     else
     {
       return false;
