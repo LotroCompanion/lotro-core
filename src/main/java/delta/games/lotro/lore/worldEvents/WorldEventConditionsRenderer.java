@@ -1,8 +1,12 @@
 package delta.games.lotro.lore.worldEvents;
 
+import org.apache.log4j.Logger;
+
 import delta.common.utils.collections.filters.Operator;
+import delta.common.utils.expressions.logical.AbstractLogicalExpression;
+import delta.common.utils.expressions.logical.CompoundLogicalExpression;
+import delta.common.utils.expressions.logical.SimpleLogicalExpression;
 import delta.games.lotro.common.utils.ComparisonOperator;
-import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -11,132 +15,151 @@ import delta.games.lotro.utils.Proxy;
  */
 public class WorldEventConditionsRenderer
 {
-  public void renderWorldEventCondition(Achievable achievable, AbstractWorldEventCondition condition)
+  private static final Logger LOGGER=Logger.getLogger(WorldEventConditionsRenderer.class);
+
+  /**
+   * Render a world event condition as a string-based logical expression.
+   * @param condition Input condition.
+   * @return A string-based logical expression or <code>null</code>.
+   */
+  public AbstractLogicalExpression<String> renderWorldEventCondition(AbstractWorldEventCondition condition)
   {
     if (condition==null)
     {
-      return;
+      return null;
     }
-    System.out.println("Achievable: "+achievable.getName());
     if (condition instanceof SimpleWorldEventCondition)
     {
       SimpleWorldEventCondition simpleWECondition=(SimpleWorldEventCondition)condition;
-      renderSimpleWorldEventCondition(achievable,simpleWECondition);
+      String label=renderSimpleWorldEventCondition(simpleWECondition);
+      if (label!=null)
+      {
+        return new SimpleLogicalExpression<String>(label);
+      }
+      return null;
     }
-    else if (condition instanceof CompoundWorldEventCondition)
+    if (condition instanceof CompoundWorldEventCondition)
     {
       CompoundWorldEventCondition compoundWECondition=(CompoundWorldEventCondition)condition;
-      renderCompoundWorldEventCondition(achievable,compoundWECondition);
+      return renderCompoundWorldEventCondition(compoundWECondition);
     }
-    else
-    {
-      System.out.println("Complex condition: "+condition);
-    }
+    return null;
   }
 
-  private void renderCompoundWorldEventCondition(Achievable achievable, CompoundWorldEventCondition condition)
+  private AbstractLogicalExpression<String> renderCompoundWorldEventCondition(CompoundWorldEventCondition condition)
   {
     Operator operator=condition.getOperator();
-    System.out.println(operator);
+    CompoundLogicalExpression<String> ret=new CompoundLogicalExpression<String>(operator);
     for(AbstractWorldEventCondition childCondition : condition.getItems())
     {
-      renderWorldEventCondition(achievable,childCondition);
+      AbstractLogicalExpression<String> childExpression=renderWorldEventCondition(childCondition);
+      if (childExpression!=null)
+      {
+        ret.addItem(childExpression);
+      }
     }
+    int nbItems=ret.getItems().size();
+    if (nbItems==0)
+    {
+      return null;
+    }
+    if (nbItems==1)
+    {
+      return ret.getItems().get(0);
+    }
+    return ret;
   }
 
-  private void renderSimpleWorldEventCondition(Achievable achievable, SimpleWorldEventCondition condition)
+  private String renderSimpleWorldEventCondition(SimpleWorldEventCondition condition)
   {
     Proxy<WorldEvent> weProxy=condition.getWorldEvent();
     Integer value=condition.getValue();
     WorldEvent we=weProxy.getObject();
     ComparisonOperator operator=condition.getOperator();
-    System.out.println(we+" "+operator+" "+value);
     if (value!=null)
     {
-      renderSimpleWorldEventConditionWithValue(we,operator,value);
+      return renderSimpleWorldEventConditionWithValue(we,operator,value);
     }
-    else
+    String label=renderSimpleWorldEventConditionWithComplexValue(we,operator,condition.getCompareToWorldEvent().getObject());
+    if (label==null)
     {
-      boolean ok=renderSimpleWorldEventConditionWithComplexValue(we,operator,condition.getCompareToWorldEvent().getObject());
-      if (!ok)
-      {
-        System.out.println("Unmanaged condition with complex value!");
-      }
+      LOGGER.warn("Unmanaged condition with complex value!");
     }
+    return label;
   }
 
-  private void renderSimpleWorldEventConditionWithValue(WorldEvent we, ComparisonOperator operator, Integer value)
+  private String renderSimpleWorldEventConditionWithValue(WorldEvent we, ComparisonOperator operator, Integer value)
   {
     String weProperty=we.getPropertyName();
     if ("WE_server_legendary_active".equals(weProperty))
     {
-      handleLegendaryServerCondition(operator,value);
+      return handleLegendaryServerCondition(operator,value);
     }
-    else if ("WE_Player_Level_Cap".equals(weProperty))
+    if ("WE_Player_Level_Cap".equals(weProperty))
     {
-      handlePlayerLevelCapCondition(operator,value);
+      return handlePlayerLevelCapCondition(operator,value);
     }
-    else if ("ze_skirmish_level".equals(weProperty))
+    if ("ze_skirmish_level".equals(weProperty))
     {
-      handleInstanceLevel(operator,value);
+      return handleInstanceLevel(operator,value);
     }
-    else if ("ze_skirmish_group_size".equals(weProperty))
+    if ("ze_skirmish_group_size".equals(weProperty))
     {
-      handleInstanceGroupSize(operator,value);
+      return handleInstanceGroupSize(operator,value);
     }
-    else if ("ze_skirmish_difficulty".equals(weProperty))
+    if ("ze_skirmish_difficulty".equals(weProperty))
     {
-      handleInstanceDifficulty(operator,value);
+      return handleInstanceDifficulty(operator,value);
     }
-    else if ("WE_dwarfholds_eredmithrin_instance_leading_charge_lock".equals(weProperty))
+    if ("WE_dwarfholds_eredmithrin_instance_leading_charge_lock".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Ered Mithrin instances");
+      return handleInstanceChallengePeriod(operator,value,"the Ered Mithrin instances");
     }
-    else if ("WE_vales_anduin_kidzul_kalah_instance_leading_charge_lock".equals(weProperty))
+    if ("WE_vales_anduin_kidzul_kalah_instance_leading_charge_lock".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Vales of Anduin 3-men");
+      return handleInstanceChallengePeriod(operator,value,"the Vales of Anduin 3-men");
     }
-    else if ("WE_minas_morgul_instance_leading_charge_lock".equals(weProperty))
+    if ("WE_minas_morgul_instance_leading_charge_lock".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Minas Morgul 3-men");
+      return handleInstanceChallengePeriod(operator,value,"the Minas Morgul 3-men");
     }
-    else if ("WE_minas_morgul_instance_6man_leading_charge_lock".equals(weProperty))
+    if ("WE_minas_morgul_instance_6man_leading_charge_lock".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Minas Morgul 6-men");
+      return handleInstanceChallengePeriod(operator,value,"the Minas Morgul 6-men");
     }
-    else if ("WE_minas_morgul_instance_raid_leading_charge_lock".equals(weProperty))
+    if ("WE_minas_morgul_instance_raid_leading_charge_lock".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Minas Morgul raid");
+      return handleInstanceChallengePeriod(operator,value,"the Minas Morgul raid");
     }
-    else if ("WE_Elderslade_6man_Aotc".equals(weProperty))
+    if ("WE_Elderslade_6man_Aotc".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Elderslade 6-men");
+      return handleInstanceChallengePeriod(operator,value,"the Elderslade 6-men");
     }
-    else if ("WE_Elderslade_Raid_Aotc".equals(weProperty))
+    if ("WE_Elderslade_Raid_Aotc".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Elderslade raid");
+      return handleInstanceChallengePeriod(operator,value,"the Elderslade raid");
     }
-    else if ("WE_Wildwood_Instances_Aotc_Gate".equals(weProperty))
+    if ("WE_Wildwood_Instances_Aotc_Gate".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Wildwood instances");
+      return handleInstanceChallengePeriod(operator,value,"the Wildwood instances");
     }
-    else if ("WE_Azanulbizar_Raid_Aotc_Gate".equals(weProperty))
+    if ("WE_Azanulbizar_Raid_Aotc_Gate".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Azanulbizar raid");
+      return handleInstanceChallengePeriod(operator,value,"the Azanulbizar raid");
     }
-    else if ("WE_gundabad_3man_instance_leading_charge_lock".equals(weProperty))
+    if ("WE_gundabad_3man_instance_leading_charge_lock".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Gundabad 3-men");
+      return handleInstanceChallengePeriod(operator,value,"the Gundabad 3-men");
     }
-    else if ("WE_gundabad_6man_instance_leading_charge_lock".equals(weProperty))
+    if ("WE_gundabad_6man_instance_leading_charge_lock".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Gundabad 6-men");
+      return handleInstanceChallengePeriod(operator,value,"the Gundabad 6-men");
     }
-    else if ("WE_gundabad_12man_raid_leading_charge_lock".equals(weProperty))
+    if ("WE_gundabad_12man_raid_leading_charge_lock".equals(weProperty))
     {
-      handleInstanceChallengePeriod(operator,value,"the Gundabad raid");
+      return handleInstanceChallengePeriod(operator,value,"the Gundabad raid");
     }
-    else if (("WE_Event_DurinsDay_Counter".equals(weProperty))
+    if (("WE_Event_DurinsDay_Counter".equals(weProperty))
         || ("WE_vales_anduin_instance_tier_gate".equals(weProperty))
         || ("WE_Vales_Anduin_Shades_Swamp_Active".equals(weProperty))
         || ("WE_dwarfholds_eredmithrin_instance_tier_3_lock".equals(weProperty))
@@ -155,47 +178,38 @@ public class WorldEventConditionsRenderer
         )
     {
       // Ignore
+      return null;
     }
-    else
-    {
-      boolean ok=handleMissions(we,operator,value);
-      if (ok)
-      {
-        return;
-      }
-      ok=handleBooleanConditions(we,operator,value);
-      if (ok)
-      {
-        return;
-      }
-      ok=handleEventParts(we,operator,value);
-      if (ok)
-      {
-        return;
-      }
-      System.out.println("Unmanaged property: "+weProperty);
-    }
+    String label=handleMissions(we,operator,value);
+    if (label!=null) return label;
+    label=handleBooleanConditions(we,operator,value);
+    if (label!=null) return label;
+    label=handleEventParts(we,operator,value);
+    if (label!=null) return label;
+    LOGGER.warn("Unmanaged property: "+weProperty);
+    return null;
   }
 
-  private void handleLegendaryServerCondition(ComparisonOperator operator, Integer value)
+  private String handleLegendaryServerCondition(ComparisonOperator operator, Integer value)
   {
     if (((operator==ComparisonOperator.EQUAL) && (value.intValue()==0))
         || ((operator==ComparisonOperator.NOT_EQUAL) && (value.intValue()==1)))
     {
-      System.out.println("Not on a legendary server");
+      return "Not on a legendary server";
     }
     else if (((operator==ComparisonOperator.EQUAL) && (value.intValue()==1))
         || ((operator==ComparisonOperator.NOT_EQUAL) && (value.intValue()==0)))
     {
-      System.out.println("On a legendary server");
+      return "On a legendary server";
     }
     else
     {
-      System.out.println("Unmanaged case: operator="+operator+", value="+value);
+      LOGGER.warn("Unmanaged case: operator="+operator+", value="+value);
     }
+    return null;
   }
 
-  private void handlePlayerLevelCapCondition(ComparisonOperator operator, Integer value)
+  private String handlePlayerLevelCapCondition(ComparisonOperator operator, Integer value)
   {
     String operatorStr="?";
     if (operator==ComparisonOperator.EQUAL) operatorStr=" is ";
@@ -203,113 +217,108 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.LESS_OR_EQUAL) operatorStr="=<";
     else
     {
-      System.out.println("Unmanaged operator: "+operator);
+      LOGGER.warn("Unmanaged operator: "+operator);
+      return null;
     }
-    System.out.println("Level cap"+operatorStr+value);
+    return "Level cap"+operatorStr+value;
   }
 
-  private void handleInstanceDifficulty(ComparisonOperator operator, Integer value)
+  private String handleInstanceDifficulty(ComparisonOperator operator, Integer value)
   {
-    String operatorStr="?";
+    String operatorStr;
     if (operator==ComparisonOperator.EQUAL) operatorStr=" is ";
     else if (operator==ComparisonOperator.GREATER_OR_EQUAL) operatorStr=">=";
     else
     {
-      System.out.println("Unmanaged operator: "+operator);
+      LOGGER.warn("Unmanaged operator: "+operator);
+      return null;
     }
     String valueStr="Tier "+value;
-    System.out.println("Instance difficulty"+operatorStr+valueStr);
+    return "Instance difficulty"+operatorStr+valueStr;
   }
 
-  private void handleInstanceLevel(ComparisonOperator operator, Integer value)
+  private String handleInstanceLevel(ComparisonOperator operator, Integer value)
   {
     String operatorStr="?";
     if (operator==ComparisonOperator.EQUAL) operatorStr=" is ";
     else if (operator==ComparisonOperator.GREATER_OR_EQUAL) operatorStr=">=";
     else
     {
-      System.out.println("Unmanaged operator: "+operator);
+      LOGGER.warn("Unmanaged operator: "+operator);
     }
-    System.out.println("Instance level"+operatorStr+value);
-    //sometimes: EQUAL WE_Player_Level_Cap
+    return "Instance level"+operatorStr+value;
   }
 
-  private void handleInstanceGroupSize(ComparisonOperator operator, Integer value)
+  private String handleInstanceGroupSize(ComparisonOperator operator, Integer value)
   {
     String operatorStr="?";
     if (operator==ComparisonOperator.EQUAL) operatorStr=" is ";
-    //else if (operator==ComparisonOperator.GREATER_OR_EQUAL) operatorStr=">=";
     else
     {
-      System.out.println("Unmanaged operator: "+operator);
+      LOGGER.warn("Unmanaged operator: "+operator);
+      return null;
     }
-    System.out.println("Instance size"+operatorStr+value);
+    return "Instance size"+operatorStr+value;
   }
 
-  private void handleInstanceChallengePeriod(ComparisonOperator operator, Integer value, String what)
+  private String handleInstanceChallengePeriod(ComparisonOperator operator, Integer value, String what)
   {
     if (operator==ComparisonOperator.EQUAL)
     {
       if (value.intValue()==1)
       {
-        System.out.println("In the period for initial completion of challenge mode of "+what);
+        return "In the period for initial completion of challenge mode of "+what;
       }
-      else
-      {
-        System.out.println("Unmanaged value: "+value);
-      }
+      LOGGER.warn("Unmanaged value: "+value);
     }
     else
     {
-      System.out.println("Unmanaged operator: "+operator);
+      LOGGER.warn("Unmanaged operator: "+operator);
     }
+    return null;
   }
 
-  private boolean handleEventParts(WorldEvent we, ComparisonOperator operator, Integer value)
+  private String handleEventParts(WorldEvent we, ComparisonOperator operator, Integer value)
   {
     String weProperty=we.getPropertyName();
-    if ("WE_fall_festival_maze_driver".equals(weProperty)) handleEventPart(operator,value,"Active Maze of Harvest Festival is #VALUE");
-    else if ("WE_ev_skirmish_driver".equals(weProperty)) handleEventPart(operator,value,"Active during Ill Omens day VALUE");
-    else if ("WE_Bingo_Boffin_Current_Week".equals(weProperty)) handleEventPart(operator,value,"Bingo Boffin week OPERATOR VALUE");
-    else if ("WE_Anniversary_Event_Current_Week".equals(weProperty)) handleEventPart(operator,value,"Anniversary Event Scavenger Hunt week OPERATOR VALUE");
-    else if ("WE_Episodic_LRR_Current_Week".equals(weProperty)) handleEventPart(operator,value, "Ballad of Bingo Boffin week OPERATOR VALUE");
-    else
-    {
-      return false;
-    }
-    return true;
+    if ("WE_fall_festival_maze_driver".equals(weProperty)) return handleEventPart(operator,value,"Active Maze of Harvest Festival is #VALUE");
+    if ("WE_ev_skirmish_driver".equals(weProperty)) return handleEventPart(operator,value,"Active during Ill Omens day VALUE");
+    if ("WE_Bingo_Boffin_Current_Week".equals(weProperty)) return handleEventPart(operator,value,"Bingo Boffin week OPERATOR VALUE");
+    if ("WE_Anniversary_Event_Current_Week".equals(weProperty)) return handleEventPart(operator,value,"Anniversary Event Scavenger Hunt week OPERATOR VALUE");
+    if ("WE_Episodic_LRR_Current_Week".equals(weProperty)) return handleEventPart(operator,value, "Ballad of Bingo Boffin week OPERATOR VALUE");
+    return null;
   }
 
-  private boolean handleBooleanConditions(WorldEvent we, ComparisonOperator operator, Integer value)
+  private String handleBooleanConditions(WorldEvent we, ComparisonOperator operator, Integer value)
   {
     String weProperty=we.getPropertyName();
     // - Yule
-    if ("WE_WinterFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Yule Festival");
-    else if ("we_winterfestival_town_active".equals(weProperty)) handleBooleanCondition(operator,value,"Yule Festival: town quests are active");
-    else if ("we_winterfestival_eatingcontest_active".equals(weProperty)) handleBooleanCondition(operator,value,"Yule Festival: eating contest is active");
-    else if ("we_winterfestival_snowballfight_active".equals(weProperty)) handleBooleanCondition(operator,value,"Yule Festival: snowball fight is active");
-    else if ("we_winterfestival_eatingcontest_status".equals(weProperty)) handleBooleanCondition(operator,value,null,"Yule Festival: eating contest is not started");
-    else if ("we_winterfestival_snowballfight_status".equals(weProperty)) handleBooleanCondition(operator,value,null,"Yule Festival: snowball fight is not started");
+    if ("WE_WinterFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the Yule Festival");
+    if ("we_winterfestival_town_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: town quests are active");
+    if ("we_winterfestival_eatingcontest_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: eating contest is active");
+    if ("we_winterfestival_snowballfight_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: snowball fight is active");
+    if ("we_winterfestival_eatingcontest_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"Yule Festival: eating contest is not started");
+    if ("we_winterfestival_snowballfight_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"Yule Festival: snowball fight is not started");
     // - Farmers Faire
-    else if ("WE_FarmersFair_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Farmers Faire");
-    else if ("WE_SpringFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Farmers Faire");
-    else if ("WE_SummerFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Farmers Faire");
+    if ("WE_FarmersFair_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the Farmers Faire");
+    if ("WE_SpringFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the Farmers Faire");
+    if ("WE_SummerFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the Farmers Faire");
     // - Harvest Festival
-    else if ("WE_FallFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Harvest Festival");
-    else if ("we_fallfestival_hauntedhouse_active".equals(weProperty)) handleBooleanCondition(operator,value,"Harvest Festival: haunted house is active");
+    if ("WE_FallFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the Harvest Festival");
+    if ("we_fallfestival_hauntedhouse_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Harvest Festival: haunted house is active");
     // - LOTRO Anniversary Celebration
-    else if ("WE_Anniversary_Event_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the LOTRO Anniversary Celebration");
-    else if ("we_fallfestival_barfight_active".equals(weProperty)) handleBooleanCondition(operator,value,"LOTRO Anniversary Celebration: fight-arena is active");
-    else if ("we_fallfestival_barfight_status".equals(weProperty)) handleBooleanCondition(operator,value,null,"LOTRO Anniversary Celebration: fight-arena not started");
+    if ("WE_Anniversary_Event_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the LOTRO Anniversary Celebration");
+    if ("we_fallfestival_barfight_active".equals(weProperty)) return handleBooleanCondition(operator,value,"LOTRO Anniversary Celebration: fight-arena is active");
+    if ("we_fallfestival_barfight_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"LOTRO Anniversary Celebration: fight-arena not started");
     // - Midsummer Festival
-    else if ("WE_WeddingFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Wedding Festival");
+    if ("WE_WeddingFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the Wedding Festival");
     // - Spring Festival
-    else if ("WE_Real_SpringFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Spring Festival");
-    else if ("we_event_flowers_active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the Spring Festival");
+    if ("WE_Real_SpringFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the Spring Festival");
+    if ("we_event_flowers_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the Spring Festival");
     // - International Talk Like a Pirate Day
-    else if ("WE_TalkLikeACorsairDay_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during the International Talk Like a Pirate Day");
+    if ("WE_TalkLikeACorsairDay_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during the International Talk Like a Pirate Day");
     // All Festivals
-    else if ("WE_GenericFestival_FestivalActive".equals(weProperty)) handleBooleanCondition(operator,value,"Active during any Festival");
+    if ("WE_GenericFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during any Festival");
 
     /*
     WE_SpringFestival_DanceDuillondActive
@@ -333,66 +342,55 @@ public class WorldEventConditionsRenderer
 
     // Dailies
     // - Mordor
-    else if ("WE_Gorgoroth_Endgame_Event_1_Udun_DorAmarth".equals(weProperty)) handleBooleanCondition(operator,value,"Mordor dailies: Udûn and Dor Amarth featured");
-    else if ("WE_Gorgoroth_Endgame_Event_2_Lhingris_TalathUrui".equals(weProperty)) handleBooleanCondition(operator,value,"Mordor dailies: Lhingris and Talath Úrui featured");
-    else if ("WE_Gorgoroth_Endgame_Event_3_DorAmarth_Agarnaith".equals(weProperty)) handleBooleanCondition(operator,value,"Mordor dailies: Dor Amarth and Agarnaith featured");
-    else if ("WE_Gorgoroth_Endgame_Event_4_Udun_TalathUrui".equals(weProperty)) handleBooleanCondition(operator,value,"Mordor dailies: Udûn and Talath Úrui featured");
-    else if ("WE_Gorgoroth_Endgame_Event_5_Agarnaith_Lhingris".equals(weProperty)) handleBooleanCondition(operator,value,"Mordor dailies: Agarnaith and Lhingris featured");
+    if ("WE_Gorgoroth_Endgame_Event_1_Udun_DorAmarth".equals(weProperty)) return handleBooleanCondition(operator,value,"Mordor dailies: Udûn and Dor Amarth featured");
+    if ("WE_Gorgoroth_Endgame_Event_2_Lhingris_TalathUrui".equals(weProperty)) return handleBooleanCondition(operator,value,"Mordor dailies: Lhingris and Talath Úrui featured");
+    if ("WE_Gorgoroth_Endgame_Event_3_DorAmarth_Agarnaith".equals(weProperty)) return handleBooleanCondition(operator,value,"Mordor dailies: Dor Amarth and Agarnaith featured");
+    if ("WE_Gorgoroth_Endgame_Event_4_Udun_TalathUrui".equals(weProperty)) return handleBooleanCondition(operator,value,"Mordor dailies: Udûn and Talath Úrui featured");
+    if ("WE_Gorgoroth_Endgame_Event_5_Agarnaith_Lhingris".equals(weProperty)) return handleBooleanCondition(operator,value,"Mordor dailies: Agarnaith and Lhingris featured");
     // - Strongholds of the North
-    else if ("WE_Mirkwood_North_Endgame_Driven_Daily_Set_1".equals(weProperty)) handleBooleanCondition(operator,value,"Set 1 of Stronghold of the North Dailies");
-    else if ("WE_Mirkwood_North_Endgame_Driven_Daily_Set_2".equals(weProperty)) handleBooleanCondition(operator,value,"Set 2 of Stronghold of the North Dailies");
-    else if ("WE_Mirkwood_North_Endgame_Driven_Daily_Set_3".equals(weProperty)) handleBooleanCondition(operator,value,"Set 3 of Stronghold of the North Dailies");
+    if ("WE_Mirkwood_North_Endgame_Driven_Daily_Set_1".equals(weProperty)) return handleBooleanCondition(operator,value,"Set 1 of Stronghold of the North Dailies");
+    if ("WE_Mirkwood_North_Endgame_Driven_Daily_Set_2".equals(weProperty)) return handleBooleanCondition(operator,value,"Set 2 of Stronghold of the North Dailies");
+    if ("WE_Mirkwood_North_Endgame_Driven_Daily_Set_3".equals(weProperty)) return handleBooleanCondition(operator,value,"Set 3 of Stronghold of the North Dailies");
     // Events
-    else if ("WE_Trollshaws_FrodoBilboBirthday_active".equals(weProperty)) handleBooleanCondition(operator,value,"Active during Bilbo & Frodo's Birthday");
-    else if ("WE_EV_Skirmish_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Ill Omens event is active");
-    else if ("WE_Bingo_Boffin_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Bingo Boffin is active");
-    else if ("we_rohanpreorder_active".equals(weProperty)) handleBooleanCondition(operator,value,"Needs Riders of Rohan legendary expansion");
-    else if ("WE_Treasure_Bugan_Active".equals(weProperty)) handleBooleanCondition(operator,value,"Treasure Bugans event is active");
+    if ("WE_Trollshaws_FrodoBilboBirthday_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Active during Bilbo & Frodo's Birthday");
+    if ("WE_EV_Skirmish_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"Ill Omens event is active");
+    if ("WE_Bingo_Boffin_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"Bingo Boffin is active");
+    if ("we_rohanpreorder_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Needs Riders of Rohan legendary expansion");
+    if ("WE_Treasure_Bugan_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"Treasure Bugans event is active");
     // PVP
-    else if ("World_MPControl_Ettenmoors_WestTower".equals(weProperty)) handleBooleanCondition(operator,value,"Creeps control Lugazag","Freeps control Lugazag");
-    else if ("World_MPControl_Ettenmoors_EastTower".equals(weProperty)) handleBooleanCondition(operator,value,"Creeps control Tirith Rhaw","Freeps control Tirith Rhaw");
-    else if ("World_MPControl_Ettenmoors_CenterKeep".equals(weProperty)) handleBooleanCondition(operator,value,"Creeps control Tol Ascarnen","Freeps control Tol Ascarnen");
+    if ("World_MPControl_Ettenmoors_WestTower".equals(weProperty)) return handleBooleanCondition(operator,value,"Creeps control Lugazag","Freeps control Lugazag");
+    if ("World_MPControl_Ettenmoors_EastTower".equals(weProperty)) return handleBooleanCondition(operator,value,"Creeps control Tirith Rhaw","Freeps control Tirith Rhaw");
+    if ("World_MPControl_Ettenmoors_CenterKeep".equals(weProperty)) return handleBooleanCondition(operator,value,"Creeps control Tol Ascarnen","Freeps control Tol Ascarnen");
     // World_MPControl_Ettenmoors_Lumberyard
     // World_MPControl_Ettenmoors_Mine
     // Time of Day
-    else if ("World_IsNight".equals(weProperty)) handleBooleanCondition(operator,value,"At Night","During daytime");
+    if ("World_IsNight".equals(weProperty)) return handleBooleanCondition(operator,value,"At Night","During daytime");
     // Maps state
     // - Forochel
-    else if ("WE_Forochel_ControlPOI_Glacier".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Hylje-leiri");
-    else if ("WE_Forochel_ControlPOI_Icebay".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Karhu-leiri");
-    else if ("WE_Forochel_ControlPOI_TundraEast".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Pynti-leiri");
-    else if ("WE_Forochel_ControlPOI_TundraWest".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Norsu-leiri");
+    if ("WE_Forochel_ControlPOI_Glacier".equals(weProperty)) return handleBooleanCondition(operator,value,"Freeps control Hylje-leiri");
+    if ("WE_Forochel_ControlPOI_Icebay".equals(weProperty)) return handleBooleanCondition(operator,value,"Freeps control Karhu-leiri");
+    if ("WE_Forochel_ControlPOI_TundraEast".equals(weProperty)) return handleBooleanCondition(operator,value,"Freeps control Pynti-leiri");
+    if ("WE_Forochel_ControlPOI_TundraWest".equals(weProperty)) return handleBooleanCondition(operator,value,"Freeps control Norsu-leiri");
     // - Annuminas
-    else if ("WE_Annuminas_Camp1_Control".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Gwaelband");
-    else if ("WE_Annuminas_Camp2_Control".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Clorhir");
-    else if ("WE_Annuminas_Camp3_Control".equals(weProperty)) handleBooleanCondition(operator,value,"Freeps control Tirband","Angmar holds Tirband");
-    else
-    {
-      return false;
-    }
-    return true;
+    if ("WE_Annuminas_Camp1_Control".equals(weProperty)) return handleBooleanCondition(operator,value,"Freeps control Gwaelband");
+    if ("WE_Annuminas_Camp2_Control".equals(weProperty)) return handleBooleanCondition(operator,value,"Freeps control Clorhir");
+    if ("WE_Annuminas_Camp3_Control".equals(weProperty)) return handleBooleanCondition(operator,value,"Freeps control Tirband","Angmar holds Tirband");
+    return null;
 
-    // WE_Bingo_Boffin_Active Should be FALSE until we are ready to begin the Ballad of Bingo Boffin event.
+    /*
     // WE_Minas_Tirith_Active Should be FALSE until we are ready to begin the Ballad of Bingo Boffin event. EQUAL 1
     // WE_Minas_Tirith_Current_Week : Controls the current week of the Minas Tirith After Battle quest chain. 1-7
     // we_rohan_west_endgame_bestowal
     // WE_Gondor_West_Endgame_Unlock_1
     // WE_Gondor_West_Endgame_Unlock_2
     // WE_Elderslade_Missions_Active
-    
-    
-    /*
-     * Ignore:
-     55 Unmanaged property: ze_skirmish_controlpoint_*
-
-     52 Unmanaged property: WE_Bingo_Boffin_Active
+     Ignore: Unmanaged property: ze_skirmish_controlpoint_*
      42 Unmanaged property: ze_skirmish_player_groupsizechoice
      21 Unmanaged property: we_monsterplay_invasion_forochel
      21 Unmanaged property: we_monsterplay_invasion_eregion
      21 Unmanaged property: we_monsterplay_invasion_angmar
      21 Unmanaged property: WE_Minas_Tirith_Current_Week
      21 Unmanaged property: WE_Minas_Tirith_Active
-     17 Unmanaged property: we_rohanpreorder_active
      16 Unmanaged property: we_liveops_strangehappenings_phase
      13 Unmanaged property: we_anniversary_promotion_vendors
      11 Unmanaged property: WE_dwarfholds_endgame_optional_objective
@@ -407,12 +405,12 @@ public class WorldEventConditionsRenderer
      */
   }
 
-  private void handleBooleanCondition(ComparisonOperator operator, Integer value, String label)
+  private String handleBooleanCondition(ComparisonOperator operator, Integer value, String label)
   {
-    handleBooleanCondition(operator,value,label,null);
+    return handleBooleanCondition(operator,value,label,null);
   }
 
-  private void handleBooleanCondition(ComparisonOperator operator, Integer value, String labelTrue, String labelFalse)
+  private String handleBooleanCondition(ComparisonOperator operator, Integer value, String labelTrue, String labelFalse)
   {
     if (operator==ComparisonOperator.EQUAL)
     {
@@ -420,81 +418,69 @@ public class WorldEventConditionsRenderer
       {
         if (labelTrue!=null)
         {
-          System.out.println(labelTrue);
+          return labelTrue;
         }
-        else
-        {
-          System.out.println("Unmanaged value: "+value);
-        }
+        LOGGER.warn("Unmanaged value: "+value);
       }
       else if (value.intValue()==0)
       {
         if (labelFalse!=null)
         {
-          System.out.println(labelFalse);
+          return labelFalse;
         }
-        else
-        {
-          System.out.println("Unmanaged value: "+value);
-        }
+        LOGGER.warn("Unmanaged value: "+value);
       }
     }
     else
     {
-      System.out.println("Unmanaged operator: "+operator);
+      LOGGER.warn("Unmanaged operator: "+operator);
     }
-
+    return null;
   }
 
-  private void handleEventPart(ComparisonOperator operator, Integer value, String pattern)
+  private String handleEventPart(ComparisonOperator operator, Integer value, String pattern)
   {
     String label=pattern.replace("VALUE",value.toString());
     String operatorStr=convertOperator(operator);
     label=label.replace("OPERATOR",operatorStr);
-    System.out.println(label);
+    return label;
   }
 
   private String convertOperator(ComparisonOperator operator)
   {
     if (operator==ComparisonOperator.EQUAL) return "is";
     if (operator==ComparisonOperator.GREATER_OR_EQUAL) return ">=";
-    System.out.println("Unmanaged operator: "+operator);
+    LOGGER.warn("Unmanaged operator: "+operator);
     return "?";
   }
 
-  private boolean handleMissions(WorldEvent we, ComparisonOperator operator, Integer value)
+  private String handleMissions(WorldEvent we, ComparisonOperator operator, Integer value)
   {
     String weProperty=we.getPropertyName();
     if ("WE_Integer_Elderslade_Mission_Config".equals(weProperty))
     {
-      handleMissionDay(operator,value,"War of the Three Peaks"); // 1-10
+      return handleMissionDay(operator,value,"War of the Three Peaks"); // 1-10
     }
     else if ("WE_Integer_Gundabad_Mission_Config".equals(weProperty))
     {
-      handleMissionDay(operator,value,"Gundabad"); // 1-6
+      return handleMissionDay(operator,value,"Gundabad"); // 1-6
     }
-    else
-    {
-      return false;
-    }
-    return true;
+    return null;
   }
 
-  private void handleMissionDay(ComparisonOperator operator, Integer value, String which)
+  private String handleMissionDay(ComparisonOperator operator, Integer value, String which)
   {
     if (operator==ComparisonOperator.EQUAL)
     {
-      System.out.println("Day "+value+" of "+which+" missions");
+      return "Day "+value+" of "+which+" missions";
     }
-    else
-    {
-      System.out.println("Unmanaged operator: "+operator);
-    }
+    LOGGER.warn("Unmanaged operator: "+operator);
+    return null;
   }
 
+  /*
   private void handlePVP()
   {
-    /*
     World_MPControl_Ettenmoors_WestTower EQUAL 0 => Freeps control Lugazag (1 for Creeps)
     World_MPControl_Ettenmoors_EastTower EQUAL 0 => Freeps control Tirith Rhaw (1 for Creeps)
     World_MPControl_Ettenmoors_CenterKeep EQUAL 0 => Freeps control Tol Ascarnen (1 for Creeps)
@@ -504,16 +490,15 @@ public class WorldEventConditionsRenderer
     WE_Ettenmoors_TA_Player_Cauldron => Number of completions for quest "A Cauldron of Iron"
     WE_Ettenmoors_Lug_Player_Cauldron => Number of completions for quest "Iron for the Cauldron of Lugazag"
     WE_Ettenmoors_TR_Player_Cauldron => Number of completions for quest "Iron on the Walls of Tirith Rhaw"
-    */
-
     // WE_Ettenmoors_TA_Player_Rockwithers related to "Rockwithers' Horn" (hidden)
     // WE_Ettenmoors_TA_Player_Stand related to "Pillar of Strength" (hidden)
     // WE_Ettenmoors_TA_Player_Reinforce_West related to "Signal to the West" (hidden)
     // WE_Ettenmoors_TA_Player_Reinforce_South related to "Signal to the South" (hidden)
     // WE_Ettenmoors_TA_Player_Sinew related to "Strapped for Straps" (hidden)
   }
+   */
 
-  private boolean renderSimpleWorldEventConditionWithComplexValue(WorldEvent we, ComparisonOperator operator, WorldEvent compareTo)
+  private String renderSimpleWorldEventConditionWithComplexValue(WorldEvent we, ComparisonOperator operator, WorldEvent compareTo)
   {
     String weProperty=we.getPropertyName();
     String compareToWeProperty=compareTo.getPropertyName();
@@ -523,12 +508,11 @@ public class WorldEventConditionsRenderer
       {
         if (operator==ComparisonOperator.EQUAL)
         {
-          System.out.println("Instance level is player cap level");
-          return true;
+          return "Instance level is player cap level";
         }
-        System.out.println("Unmanaged skirmish level/player cap property!");
+        LOGGER.warn("Unmanaged skirmish level/player cap property!");
       }
     }
-    return false;
+    return null;
   }
 }
