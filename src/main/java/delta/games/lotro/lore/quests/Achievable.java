@@ -350,7 +350,7 @@ public abstract class Achievable implements Identifiable
   }
 
   /**
-   * Get the associated web store item, iff any.
+   * Get the associated web store item, if any.
    * @return A web store item or <code>null</code>.
    */
   public WebStoreItem getWebStoreItem()

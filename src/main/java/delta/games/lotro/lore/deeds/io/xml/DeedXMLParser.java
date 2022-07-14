@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.deeds.io.xml;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,22 +52,6 @@ public class DeedXMLParser extends AchievableXMLParser
       }
     }
     return ret;
-  }
-
-  /**
-   * Parse the XML stream.
-   * @param source Source stream.
-   * @return Parsed deed or <code>null</code>.
-   */
-  public DeedDescription parseXML(InputStream source)
-  {
-    DeedDescription deed=null;
-    Element root=DOMParsingTools.parse(source);
-    if (root!=null)
-    {
-      deed=parseDeed(root);
-    }
-    return deed;
   }
 
   private DeedDescription parseDeed(Element root)
