@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import delta.common.utils.expressions.logical.AbstractLogicalExpression;
-import delta.common.utils.expressions.logical.CompoundLogicalExpression;
-import delta.common.utils.expressions.logical.SimpleLogicalExpression;
+import delta.common.utils.expressions.logical.LogicalTreeNode;
+import delta.common.utils.expressions.logical.CompoundLogicalTreeNode;
+import delta.common.utils.expressions.logical.SimpleLogicalTreeNode;
 import delta.common.utils.misc.IntegerHolder;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
@@ -49,7 +49,7 @@ public class MainTestWorldEventConditionsRenderer
     if (condition!=null)
     {
       System.out.println("Achievable: "+achievable+" => "+condition);
-      AbstractLogicalExpression<String> conditionsStr=WorldEventConditionsUtils.renderWorldEventCondition(condition);
+      LogicalTreeNode<String> conditionsStr=WorldEventConditionsUtils.renderWorldEventCondition(condition);
       if (conditionsStr!=null)
       {
         System.out.println("\t"+conditionsStr);
@@ -58,19 +58,19 @@ public class MainTestWorldEventConditionsRenderer
     }
   }
 
-  private void handleCondition(AbstractLogicalExpression<String> conditionsStr)
+  private void handleCondition(LogicalTreeNode<String> conditionsStr)
   {
-    if (conditionsStr instanceof CompoundLogicalExpression)
+    if (conditionsStr instanceof CompoundLogicalTreeNode)
     {
-      CompoundLogicalExpression<String> compound=(CompoundLogicalExpression<String>)conditionsStr;
-      for(AbstractLogicalExpression<String> childCondition : compound.getItems())
+      CompoundLogicalTreeNode<String> compound=(CompoundLogicalTreeNode<String>)conditionsStr;
+      for(LogicalTreeNode<String> childCondition : compound.getItems())
       {
         handleCondition(childCondition);
       }
     }
-    else if (conditionsStr instanceof SimpleLogicalExpression)
+    else if (conditionsStr instanceof SimpleLogicalTreeNode)
     {
-      SimpleLogicalExpression<String> simple=(SimpleLogicalExpression<String>)conditionsStr;
+      SimpleLogicalTreeNode<String> simple=(SimpleLogicalTreeNode<String>)conditionsStr;
       handleConditionLabel(simple.getValue());
     }
   }

@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import delta.common.utils.collections.filters.Operator;
-import delta.common.utils.expressions.logical.AbstractLogicalExpression;
-import delta.common.utils.expressions.logical.CompoundLogicalExpression;
-import delta.common.utils.expressions.logical.SimpleLogicalExpression;
+import delta.common.utils.expressions.logical.LogicalTreeNode;
+import delta.common.utils.expressions.logical.CompoundLogicalTreeNode;
+import delta.common.utils.expressions.logical.SimpleLogicalTreeNode;
 import delta.games.lotro.lore.quests.Achievable;
 
 /**
@@ -23,7 +23,7 @@ public class WorldEventConditionsUtils
    * @param condition Input condition.
    * @return A string-based logical expression or <code>null</code>.
    */
-  public static AbstractLogicalExpression<String> renderWorldEventCondition(AbstractWorldEventCondition condition)
+  public static LogicalTreeNode<String> renderWorldEventCondition(AbstractWorldEventCondition condition)
   {
     if (condition==null)
     {
@@ -35,7 +35,7 @@ public class WorldEventConditionsUtils
       String label=simpleWECondition.getLabel();
       if (label!=null)
       {
-        return new SimpleLogicalExpression<String>(label);
+        return new SimpleLogicalTreeNode<String>(label);
       }
       return null;
     }
@@ -47,13 +47,13 @@ public class WorldEventConditionsUtils
     return null;
   }
 
-  private static AbstractLogicalExpression<String> renderCompoundWorldEventCondition(CompoundWorldEventCondition condition)
+  private static LogicalTreeNode<String> renderCompoundWorldEventCondition(CompoundWorldEventCondition condition)
   {
     Operator operator=condition.getOperator();
-    CompoundLogicalExpression<String> ret=new CompoundLogicalExpression<String>(operator);
+    CompoundLogicalTreeNode<String> ret=new CompoundLogicalTreeNode<String>(operator);
     for(AbstractWorldEventCondition childCondition : condition.getItems())
     {
-      AbstractLogicalExpression<String> childExpression=renderWorldEventCondition(childCondition);
+      LogicalTreeNode<String> childExpression=renderWorldEventCondition(childCondition);
       if (childExpression!=null)
       {
         ret.addItem(childExpression);
