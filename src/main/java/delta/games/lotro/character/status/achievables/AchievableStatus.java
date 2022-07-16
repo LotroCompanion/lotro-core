@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.objectives.Objective;
@@ -14,7 +15,7 @@ import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
  * Base class for achievable status.
  * @author DAM
  */
-public class AchievableStatus
+public class AchievableStatus implements Identifiable
 {
   private Achievable _achievable;
   private Long _completionDate;
@@ -57,6 +58,12 @@ public class AchievableStatus
       AchievableObjectiveStatus from=source._objectiveStatuses.get(i);
       to.copyFrom(from);
     }
+  }
+
+  @Override
+  public int getIdentifier()
+  {
+    return _achievable.getIdentifier();
   }
 
   private void initObjectiveStatuses()
