@@ -1,12 +1,12 @@
-package delta.games.lotro.common.blacklist;
+package delta.games.lotro.common.blacklist.io;
 
 import java.io.File;
-import java.util.List;
 
-import delta.common.utils.NumericTools;
-import delta.common.utils.files.TextFileWriter;
-import delta.common.utils.text.TextUtils;
+import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
+import delta.games.lotro.common.blacklist.Blacklist;
+import delta.games.lotro.common.blacklist.io.xml.BlacklistXMLParser;
+import delta.games.lotro.common.blacklist.io.xml.BlacklistXMLWriter;
 
 /**
  * I/O methods for blacklists.
@@ -24,6 +24,10 @@ public class BlackListIO
   {
     File inputFile=getBlacklistFile(toon,quest);
     Blacklist blacklist=load(inputFile);
+    if (blacklist==null)
+    {
+      blacklist=new Blacklist(inputFile);
+    }
     return blacklist;
   }
 
@@ -34,24 +38,7 @@ public class BlackListIO
    */
   public static Blacklist load(File from)
   {
-    Blacklist ret=new Blacklist(from);
-    if (!from.canRead())
-    {
-      return ret;
-    }
-    List<String> lines=TextUtils.readAsLines(from);
-    if (lines!=null)
-    {
-      for(String line : lines)
-      {
-        Integer id=NumericTools.parseInteger(line);
-        if (id!=null)
-        {
-          ret.add(id.intValue());
-        }
-      }
-    }
-    return ret;
+    return new BlacklistXMLParser().parseXML(from);
   }
 
   /**
@@ -61,17 +48,8 @@ public class BlackListIO
    */
   public static boolean save(Blacklist blacklist)
   {
-    TextFileWriter writer=new TextFileWriter(blacklist.getFile());
-    if (!writer.start())
-    {
-      return false;
-    }
-    for(Integer id : blacklist.getAllBLacklistedIDs())
-    {
-      writer.writeNextLine(id.longValue());
-    }
-    writer.terminate();
-    return true;
+    BlacklistXMLWriter writer=new BlacklistXMLWriter();
+    return writer.write(blacklist.getFile(),blacklist,EncodingNames.UTF_8);
   }
 
   private static File getBlacklistFile(CharacterFile toon, boolean quest)
