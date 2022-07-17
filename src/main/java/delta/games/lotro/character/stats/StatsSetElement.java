@@ -131,14 +131,20 @@ public class StatsSetElement
     {
       _value=Float.valueOf(value);
     }
-    else if (type==StatType.INTEGER)
+    else if ((type==StatType.INTEGER) || (type==StatType.BOOLEAN))
     {
       _value=Integer.valueOf(Math.round(value));
     }
+    else if ((type==StatType.BITFIELD) || (type==StatType.DID))
+    {
+      // TODO Better support for DIDs and bitfields!
+      LOGGER.info("Set float value of type: "+type+" "+_stat.getKey()+" => "+value);
+      _value=Float.valueOf(value);
+    }
     else
     {
-      LOGGER.warn("Attempt to set a numeric value for stat: "+_stat);
-      _value=null;
+      LOGGER.warn("Attempt to set a float value for stat: "+_stat.getKey()+": "+value);
+      _value=Integer.valueOf(0);
     }
   }
 
@@ -153,15 +159,20 @@ public class StatsSetElement
     {
       _value=Float.valueOf(value);
     }
-    else if ((type==StatType.INTEGER) || (type==StatType.BOOLEAN) || (type==StatType.BITFIELD))
+    else if ((type==StatType.INTEGER) || (type==StatType.BOOLEAN))
     {
-      // TODO Better support for booleans and bitfields!
+      _value=Integer.valueOf(value);
+    }
+    else if ((type==StatType.BITFIELD) || (type==StatType.DID))
+    {
+      // TODO Better support for DIDs bitfields!
+      LOGGER.info("Set integer value of type: "+type+" "+_stat.getKey()+" => "+value);
       _value=Integer.valueOf(value);
     }
     else
     {
-      LOGGER.warn("Attempt to set a numeric value for stat: "+_stat);
-      _value=null;
+      LOGGER.warn("Attempt to set an integer value for stat: "+_stat+": "+value);
+      _value=Integer.valueOf(0);
     }
   }
 
