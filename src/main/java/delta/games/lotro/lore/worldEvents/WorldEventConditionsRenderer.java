@@ -40,7 +40,7 @@ public class WorldEventConditionsRenderer
     }
     catch(Exception e)
     {
-      LOGGER.warn("Caught exception during rendering of "+condition, e);
+      LOGGER.error("Caught exception during rendering of "+condition, e);
       label=null;
     }
     return label;
@@ -144,7 +144,7 @@ public class WorldEventConditionsRenderer
     if (label!=null) return label;
     label=handleEventParts(we,operator,value);
     if (label!=null) return label;
-    LOGGER.warn("Unmanaged property: "+weProperty);
+    LOGGER.debug("Unmanaged property: "+weProperty);
     return null;
   }
 
@@ -162,7 +162,7 @@ public class WorldEventConditionsRenderer
     }
     else
     {
-      LOGGER.warn("Unmanaged case: operator="+operator+", value="+value);
+      LOGGER.debug("Unmanaged case: operator="+operator+", value="+value);
     }
     return null;
   }
@@ -175,7 +175,7 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.LESS_OR_EQUAL) operatorStr="=<";
     else
     {
-      LOGGER.warn("Unmanaged operator: "+operator);
+      LOGGER.debug("Unmanaged operator: "+operator);
       return null;
     }
     return "Level cap"+operatorStr+value;
@@ -188,7 +188,7 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.GREATER_OR_EQUAL) operatorStr=">=";
     else
     {
-      LOGGER.warn("Unmanaged operator: "+operator);
+      LOGGER.debug("Unmanaged operator: "+operator);
       return null;
     }
     String valueStr="Tier "+value;
@@ -202,7 +202,7 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.GREATER_OR_EQUAL) operatorStr=">=";
     else
     {
-      LOGGER.warn("Unmanaged operator: "+operator);
+      LOGGER.debug("Unmanaged operator: "+operator);
     }
     return "Instance level"+operatorStr+value;
   }
@@ -213,7 +213,7 @@ public class WorldEventConditionsRenderer
     if (operator==ComparisonOperator.EQUAL) operatorStr=" is ";
     else
     {
-      LOGGER.warn("Unmanaged operator: "+operator);
+      LOGGER.debug("Unmanaged operator: "+operator);
       return null;
     }
     return "Instance size"+operatorStr+value;
@@ -227,11 +227,11 @@ public class WorldEventConditionsRenderer
       {
         return "In the period for initial completion of challenge mode of "+what;
       }
-      LOGGER.warn("Unmanaged value: "+value);
+      LOGGER.debug("Unmanaged value: "+value);
     }
     else
     {
-      LOGGER.warn("Unmanaged operator: "+operator);
+      LOGGER.debug("Unmanaged operator: "+operator);
     }
     return null;
   }
@@ -378,7 +378,7 @@ public class WorldEventConditionsRenderer
         {
           return labelTrue;
         }
-        LOGGER.warn("Unmanaged value: "+value);
+        LOGGER.debug("Unmanaged value: "+value);
       }
       else if (value.intValue()==0)
       {
@@ -386,12 +386,12 @@ public class WorldEventConditionsRenderer
         {
           return labelFalse;
         }
-        LOGGER.warn("Unmanaged value: "+value);
+        LOGGER.debug("Unmanaged value: "+value);
       }
     }
     else
     {
-      LOGGER.warn("Unmanaged operator: "+operator);
+      LOGGER.debug("Unmanaged operator: "+operator);
     }
     return null;
   }
@@ -432,7 +432,7 @@ public class WorldEventConditionsRenderer
     {
       return "Missions: "+which+": day "+value;
     }
-    LOGGER.warn("Unmanaged operator: "+operator);
+    LOGGER.debug("Unmanaged operator: "+operator);
     return null;
   }
 
@@ -471,16 +471,16 @@ public class WorldEventConditionsRenderer
         {
           return "Instance level is player cap level";
         }
-        LOGGER.warn("Unmanaged operator for skirmish level/player cap property: "+operator);
+        LOGGER.debug("Unmanaged operator for skirmish level/player cap property: "+operator);
       }
       else
       {
-        LOGGER.warn("Unmanaged skirmish level property: "+condition);
+        LOGGER.debug("Unmanaged skirmish level property: "+condition);
       }
     }
     else
     {
-      LOGGER.warn("Unmanaged condition with complex value: "+condition);
+      LOGGER.debug("Unmanaged condition with complex value: "+condition);
     }
     return null;
   }
