@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Trait tree.
@@ -12,26 +11,26 @@ import delta.games.lotro.common.CharacterClass;
  */
 public class TraitTree
 {
-  private CharacterClass _class;
+  private String _key;
   private List<TraitTreeBranch> _branches;
 
   /**
    * Constructor.
-   * @param characterClass Associated class.
+   * @param key Trait tree key.
    */
-  public TraitTree(CharacterClass characterClass)
+  public TraitTree(String key)
   {
-    _class=characterClass;
+    _key=key;
     _branches=new ArrayList<TraitTreeBranch>();
   }
 
   /**
-   * Get the associated class.
-   * @return a class.
+   * Get the identifying key.
+   * @return a key.
    */
-  public CharacterClass getCharacterClass()
+  public String getKey()
   {
-    return _class;
+    return _key;
   }
 
   /**

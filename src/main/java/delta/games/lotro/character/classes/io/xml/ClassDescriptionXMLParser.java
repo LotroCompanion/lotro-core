@@ -98,7 +98,7 @@ public class ClassDescriptionXMLParser
     Element traitTreeTag=DOMParsingTools.getChildTagByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_TAG);
     if (traitTreeTag!=null)
     {
-      TraitTree tree=parseTraitTree(characterClass,traitTreeTag);
+      TraitTree tree=parseTraitTree(classKeyStr,traitTreeTag);
       description.setTraitTree(tree);
     }
     // Skills
@@ -150,9 +150,9 @@ public class ClassDescriptionXMLParser
     return description;
   }
 
-  private static TraitTree parseTraitTree(CharacterClass characterClass, Element root)
+  private static TraitTree parseTraitTree(String key, Element root)
   {
-    TraitTree tree=new TraitTree(characterClass);
+    TraitTree tree=new TraitTree(key);
     TraitsManager traitsMgr=TraitsManager.getInstance();
     List<Element> branchTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG);
     for(Element branchTag : branchTags)

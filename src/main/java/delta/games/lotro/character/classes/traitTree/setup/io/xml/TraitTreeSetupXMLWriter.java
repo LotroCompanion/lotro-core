@@ -15,7 +15,6 @@ import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
 import delta.games.lotro.character.classes.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.classes.traitTree.setup.TraitTreeSetup;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Writes trait tree setups to XML files.
@@ -51,9 +50,9 @@ public class TraitTreeSetupXMLWriter
     // Name
     String name=setup.getName();
     setupAttrs.addAttribute("","",TraitTreeSetupXMLConstants.TRAIT_TREE_SETUP_NAME_ATTR,XmlWriter.CDATA,name);
-    // Class
-    CharacterClass characterClass=setup.getCharacterClass();
-    setupAttrs.addAttribute("","",TraitTreeSetupXMLConstants.TRAIT_TREE_SETUP_CLASS_ATTR,XmlWriter.CDATA,characterClass.getKey());
+    // Key
+    String key=setup.getKey();
+    setupAttrs.addAttribute("","",TraitTreeSetupXMLConstants.TRAIT_TREE_SETUP_CLASS_ATTR,XmlWriter.CDATA,key);
     // Branch
     TraitTreeBranch branch=setup.getSelectedBranch();
     if (branch!=null)
