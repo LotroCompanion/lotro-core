@@ -1,8 +1,8 @@
 package delta.games.lotro.common.geo;
 
+import delta.common.utils.l10n.L10n;
 import delta.games.lotro.lore.maps.GeoAreasManager;
 import delta.games.lotro.lore.maps.Region;
-import delta.games.lotro.utils.l10n.L10n;
 
 /**
  * Utility methods related to positions.

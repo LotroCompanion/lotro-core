@@ -1,8 +1,8 @@
 package delta.games.lotro.common.treasure;
 
+import delta.common.utils.l10n.L10n;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.utils.l10n.L10n;
 
 /**
  * Entry in a 'relics list':
@@ -62,7 +62,8 @@ public class RelicsListEntry
    * Get the probability label.
    * @return a readable label for probability.
    */
-  public String getProbabilityLabel() {
+  public String getProbabilityLabel()
+  {
     if (_probability==1.0)
     {
       return "Always";

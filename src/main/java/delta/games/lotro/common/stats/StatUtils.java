@@ -3,9 +3,9 @@ package delta.games.lotro.common.stats;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.common.utils.l10n.L10n;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
-import delta.games.lotro.utils.l10n.L10n;
 
 /**
  * Utility methods for stats.

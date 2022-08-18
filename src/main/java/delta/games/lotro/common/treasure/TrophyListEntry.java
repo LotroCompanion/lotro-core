@@ -1,9 +1,9 @@
 package delta.games.lotro.common.treasure;
 
+import delta.common.utils.l10n.L10n;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.utils.Proxy;
-import delta.games.lotro.utils.l10n.L10n;
 
 /**
  * Entry in a 'trophy list':

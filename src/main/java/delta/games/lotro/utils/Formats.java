@@ -3,7 +3,7 @@ package delta.games.lotro.utils;
 import java.text.ParseException;
 import java.util.Date;
 
-import delta.games.lotro.utils.l10n.LocalizedFormats;
+import delta.common.utils.l10n.LocalizedFormats;
 
 /**
  * Formats.
