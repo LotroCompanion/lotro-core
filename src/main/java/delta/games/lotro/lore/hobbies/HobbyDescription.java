@@ -40,6 +40,7 @@ public class HobbyDescription implements Identifiable,Named
     _name="";
     _hobbyType=1; // Fishing
     _description="";
+    _trainerDisplayInfo="";
     _iconId=0;
     _dailyProficiencyGainLimit=0;
     _items=new ArrayList<Item>();

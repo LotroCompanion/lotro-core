@@ -298,4 +298,8 @@ public class DataFiles
    * Rewards tracks file.
    */
   public static final String REWARDS_TRACKS="rewardsTracks";
+  /**
+   * Hobbies file.
+   */
+  public static final String HOBBIES="hobbies";
 }

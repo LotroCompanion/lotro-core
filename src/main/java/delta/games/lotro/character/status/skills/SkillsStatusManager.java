@@ -53,7 +53,7 @@ public class SkillsStatusManager
 
   /**
    * Get all managed statuses.
-   * @return A list of statuses, ordered by title ID.
+   * @return A list of statuses, ordered by skill ID.
    */
   public List<SkillStatus> getAll()
   {
