@@ -90,17 +90,29 @@ public class HobbyDescriptionXMLConstants
 
   // Rewards
   /**
+   * Tag 'territory'.
+   */
+  public static final String TERRITORY_TAG="territory";
+  /**
+   * Tag 'territory', attribute 'id'.
+   */
+  public static final String TERRITORY_ID_ATTR="id";
+  /**
+   * Tag 'territory', attribute 'name'.
+   */
+  public static final String TERRITORY_NAME_ATTR="name";
+  /**
+   * Tag 'territory', attribute 'profileID'.
+   */
+  public static final String TERRITORY_PROFILE_ATTR="profileID";
+  /**
    * Tag 'profile'.
    */
   public static final String PROFILE_TAG="profile";
   /**
-   * Tag 'profile', attribute 'territoryID'.
+   * Tag 'profile', attribute 'id'.
    */
-  public static final String PROFILE_TERRITORY_ID="territoryID";
-  /**
-   * Tag 'profile', attribute 'territoryName'.
-   */
-  public static final String PROFILE_TERRITORY_NAME="territoryName";
+  public static final String PROFILE_ID_ATTR="id";
   /**
    * Tag 'entry'.
    */

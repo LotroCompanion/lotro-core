@@ -134,22 +134,35 @@ public class HobbyDescriptionXMLWriter
 
   private static void writeRewards(TransformerHandler hd, HobbyRewards rewards) throws SAXException
   {
+    // Territories
     for(Integer territoryID : rewards.getKnownTerritories())
     {
       HobbyRewardsProfile profile=rewards.getProfile(territoryID.intValue());
       AttributesImpl attrs=new AttributesImpl();
       // Territory
       // - ID
-      attrs.addAttribute("","",HobbyDescriptionXMLConstants.PROFILE_TERRITORY_ID,XmlWriter.CDATA,territoryID.toString());
+      attrs.addAttribute("","",HobbyDescriptionXMLConstants.TERRITORY_ID_ATTR,XmlWriter.CDATA,territoryID.toString());
       // - Name
       Territory territory=GeoAreasManager.getInstance().getTerritoryById(territoryID.intValue());
       String territoryName=territory.getName();
-      attrs.addAttribute("","",HobbyDescriptionXMLConstants.PROFILE_TERRITORY_NAME,XmlWriter.CDATA,territoryName);
-      hd.startElement("","",HobbyDescriptionXMLConstants.PROFILE_TAG,attrs);
-      if (profile==null)
+      attrs.addAttribute("","",HobbyDescriptionXMLConstants.TERRITORY_NAME_ATTR,XmlWriter.CDATA,territoryName);
+      // Profile
+      if (profile!=null)
       {
-        continue;
+        int profileID=profile.getIdentifier();
+        attrs.addAttribute("","",HobbyDescriptionXMLConstants.TERRITORY_PROFILE_ATTR,XmlWriter.CDATA,String.valueOf(profileID));
       }
+      hd.startElement("","",HobbyDescriptionXMLConstants.TERRITORY_TAG,attrs);
+      hd.endElement("","",HobbyDescriptionXMLConstants.TERRITORY_TAG);
+    }
+    // Profiles
+    for(HobbyRewardsProfile profile : rewards.getKnownProfiles())
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      // ID
+      int profileID=profile.getIdentifier();
+      attrs.addAttribute("","",HobbyDescriptionXMLConstants.PROFILE_ID_ATTR,XmlWriter.CDATA,String.valueOf(profileID));
+      hd.startElement("","",HobbyDescriptionXMLConstants.PROFILE_TAG,attrs);
       // Entries
       for(HobbyRewardEntry entry : profile.getEntries())
       {
