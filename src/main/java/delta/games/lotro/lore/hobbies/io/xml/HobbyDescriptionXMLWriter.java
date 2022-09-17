@@ -13,7 +13,12 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.lore.hobbies.HobbyDescription;
 import delta.games.lotro.lore.hobbies.HobbyTitleEntry;
+import delta.games.lotro.lore.hobbies.rewards.HobbyRewardEntry;
+import delta.games.lotro.lore.hobbies.rewards.HobbyRewards;
+import delta.games.lotro.lore.hobbies.rewards.HobbyRewardsProfile;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.maps.GeoAreasManager;
+import delta.games.lotro.lore.maps.Territory;
 import delta.games.lotro.lore.titles.TitleDescription;
 
 /**
@@ -122,7 +127,48 @@ public class HobbyDescriptionXMLWriter
       hd.startElement("","",HobbyDescriptionXMLConstants.TITLE_TAG,titleAttrs);
       hd.endElement("","",HobbyDescriptionXMLConstants.TITLE_TAG);
     }
-    // Rewards: TODO
+    // Rewards
+    writeRewards(hd,hobby.getRewards());
     hd.endElement("","",HobbyDescriptionXMLConstants.HOBBY_TAG);
+  }
+
+  private static void writeRewards(TransformerHandler hd, HobbyRewards rewards) throws SAXException
+  {
+    for(Integer territoryID : rewards.getKnownTerritories())
+    {
+      HobbyRewardsProfile profile=rewards.getProfile(territoryID.intValue());
+      AttributesImpl attrs=new AttributesImpl();
+      // Territory
+      // - ID
+      attrs.addAttribute("","",HobbyDescriptionXMLConstants.PROFILE_TERRITORY_ID,XmlWriter.CDATA,territoryID.toString());
+      // - Name
+      Territory territory=GeoAreasManager.getInstance().getTerritoryById(territoryID.intValue());
+      String territoryName=territory.getName();
+      attrs.addAttribute("","",HobbyDescriptionXMLConstants.PROFILE_TERRITORY_NAME,XmlWriter.CDATA,territoryName);
+      hd.startElement("","",HobbyDescriptionXMLConstants.PROFILE_TAG,attrs);
+      if (profile==null)
+      {
+        continue;
+      }
+      // Entries
+      for(HobbyRewardEntry entry : profile.getEntries())
+      {
+        AttributesImpl entryAttrs=new AttributesImpl();
+        Item item=entry.getItem();
+        int itemID=item.getIdentifier();
+        entryAttrs.addAttribute("","",HobbyDescriptionXMLConstants.ENTRY_ITEM_ID,XmlWriter.CDATA,String.valueOf(itemID));
+        String itemName=item.getName();
+        entryAttrs.addAttribute("","",HobbyDescriptionXMLConstants.ENTRY_ITEM_NAME,XmlWriter.CDATA,itemName);
+        int minProficiency=entry.getMinProficiency();
+        entryAttrs.addAttribute("","",HobbyDescriptionXMLConstants.ENTRY_MIN_PROFICIENCY,XmlWriter.CDATA,String.valueOf(minProficiency));
+        int maxProficiency=entry.getMaxProficiency();
+        entryAttrs.addAttribute("","",HobbyDescriptionXMLConstants.ENTRY_MAX_PROFICIENCY,XmlWriter.CDATA,String.valueOf(maxProficiency));
+        int weight=entry.getWeight();
+        entryAttrs.addAttribute("","",HobbyDescriptionXMLConstants.ENTRY_WEIGHT,XmlWriter.CDATA,String.valueOf(weight));
+        hd.startElement("","",HobbyDescriptionXMLConstants.ENTRY_TAG,entryAttrs);
+        hd.endElement("","",HobbyDescriptionXMLConstants.ENTRY_TAG);
+      }
+      hd.endElement("","",HobbyDescriptionXMLConstants.PROFILE_TAG);
+    }
   }
 }

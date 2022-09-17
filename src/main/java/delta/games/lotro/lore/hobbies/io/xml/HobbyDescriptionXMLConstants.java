@@ -87,4 +87,42 @@ public class HobbyDescriptionXMLConstants
    * Tag 'title', attribute 'name'.
    */
   public static final String TITLE_NAME_ATTR="name";
+
+  // Rewards
+  /**
+   * Tag 'profile'.
+   */
+  public static final String PROFILE_TAG="profile";
+  /**
+   * Tag 'profile', attribute 'territoryID'.
+   */
+  public static final String PROFILE_TERRITORY_ID="territoryID";
+  /**
+   * Tag 'profile', attribute 'territoryName'.
+   */
+  public static final String PROFILE_TERRITORY_NAME="territoryName";
+  /**
+   * Tag 'entry'.
+   */
+  public static final String ENTRY_TAG="entry";
+  /**
+   * Tag 'entry', attribute 'itemID'.
+   */
+  public static final String ENTRY_ITEM_ID="itemID";
+  /**
+   * Tag 'entry', attribute 'itemName'.
+   */
+  public static final String ENTRY_ITEM_NAME="itemName";
+  /**
+   * Tag 'entry', attribute 'minProficiency'.
+   */
+  public static final String ENTRY_MIN_PROFICIENCY="minProficiency";
+  /**
+   * Tag 'entry', attribute 'maxProficiency'.
+   */
+  public static final String ENTRY_MAX_PROFICIENCY="maxProficiency";
+  /**
+   * Tag 'entry', attribute 'weight'.
+   */
+  public static final String ENTRY_WEIGHT="weight";
 }
