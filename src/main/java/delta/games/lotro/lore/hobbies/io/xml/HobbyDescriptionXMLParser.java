@@ -2,7 +2,9 @@ package delta.games.lotro.lore.hobbies.io.xml;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -10,6 +12,9 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.hobbies.HobbyDescription;
 import delta.games.lotro.lore.hobbies.HobbyTitleEntry;
+import delta.games.lotro.lore.hobbies.rewards.HobbyRewardEntry;
+import delta.games.lotro.lore.hobbies.rewards.HobbyRewards;
+import delta.games.lotro.lore.hobbies.rewards.HobbyRewardsProfile;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.titles.TitleDescription;
@@ -118,7 +123,47 @@ public class HobbyDescriptionXMLParser
         }
       }
     }
-    // Rewards: TODO
+    // Rewards
+    parseRewards(root,hobby.getRewards());
     return hobby;
+  }
+
+  private static void parseRewards(Element root, HobbyRewards rewards)
+  {
+    // Profiles
+    Map<Integer,HobbyRewardsProfile> profiles=new HashMap<Integer,HobbyRewardsProfile>();
+    List<Element> profileTags=DOMParsingTools.getChildTagsByName(root,HobbyDescriptionXMLConstants.PROFILE_TAG);
+    for(Element profileTag : profileTags)
+    {
+      NamedNodeMap profileAttrs=profileTag.getAttributes();
+      int profileID=DOMParsingTools.getIntAttribute(profileAttrs,HobbyDescriptionXMLConstants.PROFILE_ID_ATTR,0);
+      HobbyRewardsProfile profile=new HobbyRewardsProfile(profileID);
+      List<Element> entryTags=DOMParsingTools.getChildTagsByName(profileTag,HobbyDescriptionXMLConstants.ENTRY_TAG);
+      for(Element entryTag : entryTags)
+      {
+        NamedNodeMap entryAttrs=entryTag.getAttributes();
+        int itemID=DOMParsingTools.getIntAttribute(entryAttrs,HobbyDescriptionXMLConstants.ENTRY_ITEM_ID,0);
+        int minProficiency=DOMParsingTools.getIntAttribute(entryAttrs,HobbyDescriptionXMLConstants.ENTRY_MIN_PROFICIENCY,0);
+        int maxProficiency=DOMParsingTools.getIntAttribute(entryAttrs,HobbyDescriptionXMLConstants.ENTRY_MAX_PROFICIENCY,0);
+        int weight=DOMParsingTools.getIntAttribute(entryAttrs,HobbyDescriptionXMLConstants.ENTRY_WEIGHT,0);
+        Item item=ItemsManager.getInstance().getItem(itemID);
+        if (item!=null)
+        {
+          HobbyRewardEntry entry=new HobbyRewardEntry(item,minProficiency,maxProficiency,weight);
+          profile.addEntry(entry);
+        }
+        profiles.put(Integer.valueOf(profileID),profile);
+      }
+    }
+    // Territories
+    List<Element> territoryTags=DOMParsingTools.getChildTagsByName(root,HobbyDescriptionXMLConstants.TERRITORY_TAG);
+    for(Element territoryTag : territoryTags)
+    {
+      NamedNodeMap territoryAttrs=territoryTag.getAttributes();
+      int territoryID=DOMParsingTools.getIntAttribute(territoryAttrs,HobbyDescriptionXMLConstants.TERRITORY_ID_ATTR,0);
+      int profileID=DOMParsingTools.getIntAttribute(territoryAttrs,HobbyDescriptionXMLConstants.TERRITORY_PROFILE_ATTR,0);
+      HobbyRewardsProfile profile=profiles.get(Integer.valueOf(profileID));
+      rewards.registerProfile(territoryID,profile);
+    }
   }
 }
