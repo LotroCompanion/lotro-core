@@ -1,9 +1,12 @@
 package delta.games.lotro.lore.items.scaling;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatProvider;
@@ -87,5 +90,48 @@ public class ItemScaling
   public ItemScalingEntry getEntry(int level)
   {
     return _entryByLevel.get(Integer.valueOf(level));
+  }
+
+  /**
+   * Get the managed stats.
+   * @return the managed stats.
+   */
+  public List<StatDescription> getStats()
+  {
+    return new ArrayList<StatDescription>(_stats);
+  }
+
+  /**
+   * Get the managed item levels.
+   * @return A sorted list of item levels.
+   */
+  public List<Integer> getItemLevels()
+  {
+    Set<Integer> itemLevels=new HashSet<Integer>();
+    for(ItemScalingEntry entry : _entries)
+    {
+      itemLevels.add(Integer.valueOf(entry.getItemLevel()));
+    }
+    List<Integer> ret=new ArrayList<Integer>(itemLevels);
+    Collections.sort(ret);
+    return ret;
+  }
+
+  /**
+   * Get the scaling entries for the given item level.
+   * @param itemLevel Item level to use.
+   * @return A possibly empty but never <code>null</code> list of entries (sorted by level).
+   */
+  public List<ItemScalingEntry> getEntriesForItemLevel(int itemLevel)
+  {
+    List<ItemScalingEntry> ret=new ArrayList<ItemScalingEntry>();
+    for(ItemScalingEntry entry : _entries)
+    {
+      if (entry.getItemLevel()==itemLevel)
+      {
+        ret.add(entry);
+      }
+    }
+    return ret;
   }
 }
