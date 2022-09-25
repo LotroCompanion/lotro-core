@@ -581,21 +581,32 @@ public class Item implements Identifiable,Named,ItemProvider
    */
   public Money getValueAsMoney()
   {
-    Money ret=null;
-    if (_value!=null)
+    if (_itemLevel!=null)
     {
-      if ((_quality!=null) && (_itemLevel!=null))
+      return getValue(_itemLevel.intValue());
+    }
+    return null;
+  }
+
+  /**
+   * Get the value of this item at the given item level.
+   * @param itemLevel Item level to use.
+   * @return A value or <code>null</code> if none.
+   */
+  public Money getValue(int itemLevel)
+  {
+    Money ret=null;
+    if ((_value!=null) && (_quality!=null))
+    {
+      Integer valueFromTable=_value.getValue(_quality,itemLevel);
+      if (valueFromTable!=null)
       {
-        Integer valueFromTable=_value.getValue(_quality,_itemLevel.intValue());
-        if (valueFromTable!=null)
-        {
-          ret=new Money();
-          ret.setRawValue(valueFromTable.intValue());
-        }
-        else
-        {
-          LOGGER.warn("Could not build item value from table!");
-        }
+        ret=new Money();
+        ret.setRawValue(valueFromTable.intValue());
+      }
+      else
+      {
+        LOGGER.warn("Could not build item value from table!");
       }
     }
     return ret;
