@@ -49,12 +49,15 @@ public class ItemScaling
   {
     _stats=new ArrayList<StatDescription>();
     StatsProvider statsProvider=_item.getStatsProvider();
-    int nbStats=statsProvider.getNumberOfStatProviders();
-    for(int i=0;i<nbStats;i++)
+    if (statsProvider!=null)
     {
-      StatProvider statProvider=statsProvider.getStatProvider(i);
-      StatDescription stat=statProvider.getStat();
-      _stats.add(stat);
+      int nbStats=statsProvider.getNumberOfStatProviders();
+      for(int i=0;i<nbStats;i++)
+      {
+        StatProvider statProvider=statsProvider.getStatProvider(i);
+        StatDescription stat=statProvider.getStat();
+        _stats.add(stat);
+      }
     }
   }
 
