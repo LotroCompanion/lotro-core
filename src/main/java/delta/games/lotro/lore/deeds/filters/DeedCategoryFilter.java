@@ -38,6 +38,7 @@ public class DeedCategoryFilter implements Filter<DeedDescription>
     _category=category;
   }
 
+  @Override
   public boolean accept(DeedDescription deed)
   {
     if (_category==null)

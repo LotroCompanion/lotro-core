@@ -122,8 +122,18 @@ public class PaperItemsManager
    */
   public List<String> getCategories()
   {
+    return getCategories(getAll());
+  }
+
+  /**
+   * Get all categories used by the given paper items.
+   * @param paperItems Paper items to use.
+   * @return a sorted list of paper item categories.
+   */
+  public List<String> getCategories(List<PaperItem> paperItems)
+  {
     Set<String> categories=new HashSet<String>();
-    for(PaperItem paperItem : _cache.values())
+    for(PaperItem paperItem : paperItems)
     {
       categories.add(paperItem.getCategory());
     }
