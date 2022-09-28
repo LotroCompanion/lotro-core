@@ -6,6 +6,7 @@ package delta.games.lotro.character.stats.buffs;
  */
 public class MoraleFromHopeOrDread
 {
+  // TODO Load from DAT files
   private static final float[] MORALE_FRACTION = {
       // Dread: -15 -> -1
       -0.99f, -0.97f, -0.95f, -0.90f, -0.85f, -0.80f, -0.65f,

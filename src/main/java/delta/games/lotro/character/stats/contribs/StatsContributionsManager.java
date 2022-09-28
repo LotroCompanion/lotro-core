@@ -67,9 +67,9 @@ public class StatsContributionsManager
    */
   public void compute()
   {
-    DerivedStatsContributionsMgr derivatedMgr=DerivedStatContributionsIO.load();
     if (_resolveIndirectContributions)
     {
+      DerivedStatsContributionsMgr derivatedMgr=DerivedStatContributionsIO.load();
       for(StatsContribution contrib : _contribs)
       {
         BasicStatsSet stats=contrib.getStats();
