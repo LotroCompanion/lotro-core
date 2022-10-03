@@ -7,6 +7,7 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 import delta.games.lotro.lore.hobbies.rewards.HobbyRewards;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.titles.TitleDescription;
 
 /**
  * Description of a hobby.
@@ -301,5 +302,24 @@ public class HobbyDescription implements Identifiable,Named
   public HobbyRewards getRewards()
   {
     return _rewards;
+  }
+
+  /**
+   * Get the title associated with the given proficiency.
+   * @param proficiency Proficiency to use.
+   * @return A title or <code>null</code>.
+   */
+  public TitleDescription getTitleForProficiency(int proficiency)
+  {
+    TitleDescription ret=null;
+    for(HobbyTitleEntry entry : _titles)
+    {
+      int minProficiency=entry.getProficiency();
+      if (proficiency>=minProficiency)
+      {
+        ret=entry.getTitle();
+      }
+    }
+    return ret;
   }
 }
