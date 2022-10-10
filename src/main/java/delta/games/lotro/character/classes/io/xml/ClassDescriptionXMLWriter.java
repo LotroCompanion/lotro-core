@@ -17,13 +17,8 @@ import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.InitialGearDefinition;
 import delta.games.lotro.character.classes.InitialGearElement;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
-import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
-import delta.games.lotro.character.classes.traitTree.TraitTreeCell;
-import delta.games.lotro.character.classes.traitTree.TraitTreeCellDependency;
-import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
-import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
@@ -80,6 +75,13 @@ public class ClassDescriptionXMLWriter
     // Tactical DPS stat name
     String tacticalDpsStatName=description.getTacticalDpsStatName();
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TACTICAL_DPS_STAT_NAME_ATTR,XmlWriter.CDATA,tacticalDpsStatName);
+    // Trait tree
+    TraitTree tree=description.getTraitTree();
+    if (tree!=null)
+    {
+      int traitTreeID=tree.getIdentifier();
+      attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TREE_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitTreeID));
+    }
 
     hd.startElement("","",ClassDescriptionXMLConstants.CLASS_TAG,attrs);
     // Traits
@@ -95,18 +97,6 @@ public class ClassDescriptionXMLWriter
       traitAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
       hd.startElement("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TAG,traitAttrs);
       hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TAG);
-    }
-    // Trait tree
-    TraitTree tree=description.getTraitTree();
-    if (tree!=null)
-    {
-      hd.startElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_TAG,new AttributesImpl());
-      List<TraitTreeBranch> branches=tree.getBranches();
-      for(TraitTreeBranch branch : branches)
-      {
-        writeTraitTreeBranch(hd,branch);
-      }
-      hd.endElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_TAG);
     }
     // Skills
     List<ClassSkill> skills=description.getSkills();
@@ -162,73 +152,5 @@ public class ClassDescriptionXMLWriter
       hd.endElement("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_TAG);
     }
     hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TAG);
-  }
-
-  private static void writeTraitTreeBranch(TransformerHandler hd, TraitTreeBranch branch) throws SAXException
-  {
-    AttributesImpl branchAttrs=new AttributesImpl();
-    // Code
-    int code=branch.getCode();
-    branchAttrs.addAttribute("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
-    // Name
-    String name=branch.getName();
-    branchAttrs.addAttribute("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,XmlWriter.CDATA,name);
-    // Main trait ID
-    TraitDescription mainTrait=branch.getMainTrait();
-    if (mainTrait!=null)
-    {
-      int mainTraitId=mainTrait.getIdentifier();
-      branchAttrs.addAttribute("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TRAIT_ATTR,XmlWriter.CDATA,String.valueOf(mainTraitId));
-    }
-    hd.startElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG,branchAttrs);
-    // Progression
-    TraitTreeProgression progression=branch.getProgression();
-    hd.startElement("","",ClassDescriptionXMLConstants.PROGRESSION_TAG,new AttributesImpl());
-    List<Integer> steps=progression.getSteps();
-    List<TraitDescription> traits=progression.getTraits();
-    int nbItems=Math.min(steps.size(),traits.size());
-    for(int i=0;i<nbItems;i++)
-    {
-      AttributesImpl stepAttrs=new AttributesImpl();
-      // Required points
-      stepAttrs.addAttribute("","",ClassDescriptionXMLConstants.STEP_REQUIRED_POINTS_ATTR,XmlWriter.CDATA,steps.get(i).toString());
-      // Trait ID
-      int traitId=traits.get(i).getIdentifier();
-      stepAttrs.addAttribute("","",ClassDescriptionXMLConstants.STEP_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
-      hd.startElement("","",ClassDescriptionXMLConstants.STEP_TAG,stepAttrs);
-      hd.endElement("","",ClassDescriptionXMLConstants.STEP_TAG);
-    }
-    hd.endElement("","",ClassDescriptionXMLConstants.PROGRESSION_TAG);
-    // Cells
-    hd.startElement("","",ClassDescriptionXMLConstants.CELLS_TAG,new AttributesImpl());
-    List<String> cellIds=branch.getCells();
-    for(String cellId : cellIds)
-    {
-      AttributesImpl cellAttrs=new AttributesImpl();
-      // Cell ID
-      cellAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_ID_ATTR,XmlWriter.CDATA,cellId);
-      TraitTreeCell cell=branch.getCell(cellId);
-      // Trait ID
-      int traitId=cell.getTrait().getIdentifier();
-      cellAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
-      hd.startElement("","",ClassDescriptionXMLConstants.CELL_TAG,cellAttrs);
-      // Dependencies
-      List<TraitTreeCellDependency> dependencies=cell.getDependencies();
-      for(TraitTreeCellDependency dependency : dependencies)
-      {
-        AttributesImpl cellDepAttrs=new AttributesImpl();
-        // Cell ID
-        String depCellId=dependency.getCellId();
-        cellDepAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_DEPENDENCY_CELL_ID_ATTR,XmlWriter.CDATA,depCellId);
-        // Rank
-        int rank=dependency.getRank();
-        cellDepAttrs.addAttribute("","",ClassDescriptionXMLConstants.CELL_DEPENDENCY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
-        hd.startElement("","",ClassDescriptionXMLConstants.CELL_DEPENDENCY_TAG,cellDepAttrs);
-        hd.endElement("","",ClassDescriptionXMLConstants.CELL_DEPENDENCY_TAG);
-      }
-      hd.endElement("","",ClassDescriptionXMLConstants.CELL_TAG);
-    }
-    hd.endElement("","",ClassDescriptionXMLConstants.CELLS_TAG);
-    hd.endElement("","",ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG);
   }
 }

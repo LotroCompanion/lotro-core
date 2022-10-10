@@ -57,6 +57,10 @@ public class DataFiles
    */
   public static final String CLASSES="classes";
   /**
+   * Trait trees file.
+   */
+  public static final String TRAIT_TREES="traitTrees";
+  /**
    * Start stats file.
    */
   public static final String START_STATS="startStats";

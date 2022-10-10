@@ -14,10 +14,7 @@ import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.InitialGearDefinition;
 import delta.games.lotro.character.classes.InitialGearElement;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
-import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
-import delta.games.lotro.character.classes.traitTree.TraitTreeCell;
-import delta.games.lotro.character.classes.traitTree.TraitTreeCellDependency;
-import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
+import delta.games.lotro.character.classes.traitTree.TraitTreesManager;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
@@ -80,6 +77,14 @@ public class ClassDescriptionXMLParser
     // Tactical DPS stat name
     String tacticalDpsStatName=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_TACTICAL_DPS_STAT_NAME_ATTR,"");
     description.setTacticalDpsStatName(tacticalDpsStatName);
+    // Trait tree
+    int traitTreeID=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_TRAIT_TREE_ID_ATTR,0);
+    if (traitTreeID!=0)
+    {
+      TraitTreesManager traitTreesMgr=TraitTreesManager.getInstance();
+      TraitTree traitTree=traitTreesMgr.getTraitTree(traitTreeID);
+      description.setTraitTree(traitTree);
+    }
 
     // Traits
     List<Element> classTraitTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.CLASS_TRAIT_TAG);
@@ -93,13 +98,6 @@ public class ClassDescriptionXMLParser
       TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
       ClassTrait classTrait=new ClassTrait(minLevel,trait);
       description.addTrait(classTrait);
-    }
-    // Traits tree
-    Element traitTreeTag=DOMParsingTools.getChildTagByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_TAG);
-    if (traitTreeTag!=null)
-    {
-      TraitTree tree=parseTraitTree(classKeyStr,traitTreeTag);
-      description.setTraitTree(tree);
     }
     // Skills
     List<Element> classSkillTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.CLASS_SKILL_TAG);
@@ -150,67 +148,4 @@ public class ClassDescriptionXMLParser
     return description;
   }
 
-  private static TraitTree parseTraitTree(String key, Element root)
-  {
-    TraitTree tree=new TraitTree(key);
-    TraitsManager traitsMgr=TraitsManager.getInstance();
-    List<Element> branchTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TAG);
-    for(Element branchTag : branchTags)
-    {
-      NamedNodeMap branchAttrs=branchTag.getAttributes();
-      int code=DOMParsingTools.getIntAttribute(branchAttrs,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_CODE_ATTR,0);
-      String name=DOMParsingTools.getStringAttribute(branchAttrs,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,null);
-      TraitTreeBranch branch=new TraitTreeBranch(code,name);
-      tree.addBranch(branch);
-      // Main trait
-      int mainTraitId=DOMParsingTools.getIntAttribute(branchAttrs,ClassDescriptionXMLConstants.TRAIT_TREE_BRANCH_TRAIT_ATTR,0);
-      TraitDescription mainTrait=traitsMgr.getTrait(mainTraitId);
-      branch.setMainTrait(mainTrait);
-      // Progression
-      Element progressionTag=DOMParsingTools.getChildTagByName(branchTag,ClassDescriptionXMLConstants.PROGRESSION_TAG);
-      if (progressionTag!=null)
-      {
-        TraitTreeProgression progression=branch.getProgression();
-        List<Element> stepTags=DOMParsingTools.getChildTagsByName(progressionTag,ClassDescriptionXMLConstants.STEP_TAG);
-        for(Element stepTag : stepTags)
-        {
-          NamedNodeMap stepAttrs=stepTag.getAttributes();
-          // Required points
-          int requiredPoints=DOMParsingTools.getIntAttribute(stepAttrs,ClassDescriptionXMLConstants.STEP_REQUIRED_POINTS_ATTR,0);
-          // Trait ID
-          int traitId=DOMParsingTools.getIntAttribute(stepAttrs,ClassDescriptionXMLConstants.STEP_TRAIT_ID_ATTR,0);
-          TraitDescription trait=traitsMgr.getTrait(traitId);
-          progression.addStep(requiredPoints,trait);
-        }
-      }
-      // Cells
-      Element cellsTag=DOMParsingTools.getChildTagByName(branchTag,ClassDescriptionXMLConstants.CELLS_TAG);
-      if (cellsTag!=null)
-      {
-        List<Element> cellTags=DOMParsingTools.getChildTagsByName(cellsTag,ClassDescriptionXMLConstants.CELL_TAG);
-        for(Element cellTag : cellTags)
-        {
-          NamedNodeMap cellAttrs=cellTag.getAttributes();
-          // Cell ID
-          String cellId=DOMParsingTools.getStringAttribute(cellAttrs,ClassDescriptionXMLConstants.CELL_ID_ATTR,null);
-          // Trait ID
-          int traitId=DOMParsingTools.getIntAttribute(cellAttrs,ClassDescriptionXMLConstants.CELL_TRAIT_ID_ATTR,0);
-          TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
-          TraitTreeCell cell=new TraitTreeCell(cellId,trait);
-          // Dependencies
-          List<Element> cellDependencyTags=DOMParsingTools.getChildTagsByName(cellTag,ClassDescriptionXMLConstants.CELL_DEPENDENCY_TAG);
-          for(Element cellDependencyTag : cellDependencyTags)
-          {
-            NamedNodeMap cellDependencyAttrs=cellDependencyTag.getAttributes();
-            String depCellId=DOMParsingTools.getStringAttribute(cellDependencyAttrs,ClassDescriptionXMLConstants.CELL_DEPENDENCY_CELL_ID_ATTR,null);
-            int rank=DOMParsingTools.getIntAttribute(cellDependencyAttrs,ClassDescriptionXMLConstants.CELL_DEPENDENCY_RANK_ATTR,0);
-            TraitTreeCellDependency cellDependency=new TraitTreeCellDependency(depCellId,rank);
-            cell.addDependency(cellDependency);
-          }
-          branch.setCell(cellId,cell);
-        }
-      }
-    }
-    return tree;
-  }
 }

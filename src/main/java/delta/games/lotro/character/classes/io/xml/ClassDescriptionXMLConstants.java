@@ -40,6 +40,10 @@ public class ClassDescriptionXMLConstants
    */
   public static final String CLASS_TACTICAL_DPS_STAT_NAME_ATTR="tacticalDpsStatName";
   /**
+   * Tag 'class', attribute 'traitTreeID'.
+   */
+  public static final String CLASS_TRAIT_TREE_ID_ATTR="traitTreeID";
+  /**
    * Tag 'classTrait'.
    */
   public static final String CLASS_TRAIT_TAG="classTrait";
@@ -51,70 +55,6 @@ public class ClassDescriptionXMLConstants
    * Tag 'classTrait', attribute 'traitId'.
    */
   public static final String CLASS_TRAIT_ID_ATTR="traitId";
-  /**
-   * Tag 'traitTree'.
-   */
-  public static final String TRAIT_TREE_TAG="traitTree";
-  /**
-   * Tag 'traitTreeBranch'.
-   */
-  public static final String TRAIT_TREE_BRANCH_TAG="traitTreeBranch";
-  /**
-   * Tag 'traitTreeBranch', attribute 'code'.
-   */
-  public static final String TRAIT_TREE_BRANCH_CODE_ATTR="code";
-  /**
-   * Tag 'traitTreeBranch', attribute 'name'.
-   */
-  public static final String TRAIT_TREE_BRANCH_NAME_ATTR="name";
-  /**
-   * Tag 'traitTreeBranch', attribute 'name'.
-   */
-  public static final String TRAIT_TREE_BRANCH_TRAIT_ATTR="mainTraitId";
-  /**
-   * Tag 'progression'.
-   */
-  public static final String PROGRESSION_TAG="progression";
-  /**
-   * Tag 'step'.
-   */
-  public static final String STEP_TAG="step";
-  /**
-   * Tag 'step', attribute 'nbPoints'.
-   */
-  public static final String STEP_REQUIRED_POINTS_ATTR="nbPoints";
-  /**
-   * Tag 'step', attribute 'traitId'.
-   */
-  public static final String STEP_TRAIT_ID_ATTR="traitId";
-  /**
-   * Tag 'cells'.
-   */
-  public static final String CELLS_TAG="cells";
-  /**
-   * Tag 'cell'.
-   */
-  public static final String CELL_TAG="cell";
-  /**
-   * Tag 'cell', attribute 'id'.
-   */
-  public static final String CELL_ID_ATTR="id";
-  /**
-   * Tag 'cell', attribute 'traitId'.
-   */
-  public static final String CELL_TRAIT_ID_ATTR="traitId";
-  /**
-   * Tag 'cellDependency'.
-   */
-  public static final String CELL_DEPENDENCY_TAG="cellDependency";
-  /**
-   * Tag 'cellDependency', attribute 'cellId'.
-   */
-  public static final String CELL_DEPENDENCY_CELL_ID_ATTR="cellId";
-  /**
-   * Tag 'cellDependency', attribute 'rank'.
-   */
-  public static final String CELL_DEPENDENCY_RANK_ATTR="rank";
   /**
    * Tag 'classSkill'.
    */

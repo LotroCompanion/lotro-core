@@ -4,33 +4,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.Identifiable;
 
 /**
  * Trait tree.
  * @author DAM
  */
-public class TraitTree
+public class TraitTree implements Identifiable
 {
+  private int _id;
   private String _key;
   private List<TraitTreeBranch> _branches;
 
   /**
    * Constructor.
-   * @param key Trait tree key.
+   * @param id Trait id.
    */
-  public TraitTree(String key)
+  public TraitTree(int id)
   {
-    _key=key;
+    _id=id;
+    _key=null;
     _branches=new ArrayList<TraitTreeBranch>();
+  }
+
+  @Override
+  public int getIdentifier()
+  {
+    return _id;
   }
 
   /**
    * Get the identifying key.
-   * @return a key.
+   * @return a key or <code>null</code>.
    */
   public String getKey()
   {
     return _key;
+  }
+
+  /**
+   * Set the identifying key.
+   * @param key
+   */
+  public void setKey(String key)
+  {
+    _key=key;
   }
 
   /**
