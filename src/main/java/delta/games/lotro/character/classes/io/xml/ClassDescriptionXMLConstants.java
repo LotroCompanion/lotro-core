@@ -56,6 +56,10 @@ public class ClassDescriptionXMLConstants
    */
   public static final String CLASS_TRAIT_ID_ATTR="traitId";
   /**
+   * Tag 'classTrait', attribute 'traitName'.
+   */
+  public static final String CLASS_TRAIT_NAME_ATTR="traitName";
+  /**
    * Tag 'classSkill'.
    */
   public static final String CLASS_SKILL_TAG="classSkill";
@@ -79,6 +83,10 @@ public class ClassDescriptionXMLConstants
    * Tag 'initialGearElement', attribute 'itemId'.
    */
   public static final String GEAR_ITEM_ID_ATTR="itemId";
+  /**
+   * Tag 'initialGearElement', attribute 'itemName'.
+   */
+  public static final String GEAR_ITEM_NAME_ATTR="itemName";
   /**
    * Tag 'initialGearElement', attribute 'race'.
    */

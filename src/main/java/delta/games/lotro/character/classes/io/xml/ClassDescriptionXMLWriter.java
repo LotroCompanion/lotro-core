@@ -19,8 +19,11 @@ import delta.games.lotro.character.classes.InitialGearElement;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Writes class descriptions to XML files.
@@ -93,8 +96,12 @@ public class ClassDescriptionXMLWriter
       int minLevel=trait.getRequiredLevel();
       traitAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TRAIT_MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel));
       // Trait identifier
-      int traitId=trait.getTrait().getIdentifier();
+      TraitDescription traitDescription=trait.getTrait();
+      int traitId=traitDescription.getIdentifier();
       traitAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
+      // Trait name
+      String traitName=traitDescription.getName();
+      traitAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TRAIT_NAME_ATTR,XmlWriter.CDATA,traitName);
       hd.startElement("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TAG,traitAttrs);
       hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TAG);
     }
@@ -125,6 +132,13 @@ public class ClassDescriptionXMLWriter
       // Item ID
       int itemId=element.getItemId();
       gearAttrs.addAttribute("","",ClassDescriptionXMLConstants.GEAR_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemId));
+      // Item name
+      Item item=ItemsManager.getInstance().getItem(itemId);
+      String itemName=(item!=null)?item.getName():null;
+      if (itemName!=null)
+      {
+        gearAttrs.addAttribute("","",ClassDescriptionXMLConstants.GEAR_ITEM_NAME_ATTR,XmlWriter.CDATA,itemName);
+      }
       // Race
       Race requiredRace=element.getRequiredRace();
       if (requiredRace!=null)
