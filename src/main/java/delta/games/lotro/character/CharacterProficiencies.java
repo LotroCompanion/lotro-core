@@ -170,6 +170,15 @@ public class CharacterProficiencies
    */
   public boolean isDualWielding(CharacterClass cClass, int level)
   {
+    // See trait: 1879064092 Dual Wielding
+    /*
+Mod_Array: 
+  #1: Mod_Entry 
+    Inventory_AllowSecondaryWeapon: 1
+    Mod_DescriptionOverride: 
+    Mod_Modified: 268439425 (Inventory_AllowSecondaryWeapon)
+    Mod_Op: 5 (Set)
+     */
     if ((cClass==CharacterClass.CHAMPION) || (cClass==CharacterClass.BEORNING)
         || (cClass==CharacterClass.BURGLAR)|| (cClass==CharacterClass.HUNTER))
     {
@@ -236,6 +245,11 @@ public class CharacterProficiencies
    */
   public static ArmourType getArmourTypeForMitigations(CharacterClass cClass)
   {
+    /*
+     * See class properties:
+AdvTable_ArmorDefense_Points_CalcType: 14 (HeavyArmorDefense)
+AdvTable_ArmorDefense_Points_NonCommon_CalcType: 14 (HeavyArmorDefense)
+     */
     if ((cClass==CharacterClass.HUNTER) || (cClass==CharacterClass.BURGLAR)
         || (cClass==CharacterClass.WARDEN))
     {
