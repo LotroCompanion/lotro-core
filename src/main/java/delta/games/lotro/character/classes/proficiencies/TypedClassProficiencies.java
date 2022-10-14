@@ -1,4 +1,4 @@
-package delta.games.lotro.character.proficiencies;
+package delta.games.lotro.character.classes.proficiencies;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,16 +10,16 @@ import java.util.Set;
  * @param <T> Type of proficiency.
  * @author DAM
  */
-public class ClassProficiencies<T>
+public class TypedClassProficiencies<T>
 {
-  private List<ClassProficiencyEntry<T>> _entries;
+  private List<TypedClassProficiencyEntry<T>> _entries;
 
   /**
    * Constructor.
    */
-  public ClassProficiencies()
+  public TypedClassProficiencies()
   {
-    _entries=new ArrayList<ClassProficiencyEntry<T>>();
+    _entries=new ArrayList<TypedClassProficiencyEntry<T>>();
   }
 
   /**
@@ -29,7 +29,16 @@ public class ClassProficiencies<T>
    */
   public void addEntry(T value, int minimumLevel)
   {
-    _entries.add(new ClassProficiencyEntry<T>(value,minimumLevel));
+    _entries.add(new TypedClassProficiencyEntry<T>(value,minimumLevel));
+  }
+
+  /**
+   * Get the managed entries.
+   * @return the managed entries.
+   */
+  public List<TypedClassProficiencyEntry<T>> getEntries()
+  {
+    return _entries;
   }
 
   /**
@@ -40,7 +49,7 @@ public class ClassProficiencies<T>
   public Set<T> getEntries(int level)
   {
     Set<T> ret=new HashSet<T>();
-    for(ClassProficiencyEntry<T> entry : _entries)
+    for(TypedClassProficiencyEntry<T> entry : _entries)
     {
       if (level>=entry.getMinLevel())
       {

@@ -16,6 +16,7 @@ import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.InitialGearDefinition;
 import delta.games.lotro.character.classes.InitialGearElement;
+import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLWriter;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
@@ -87,6 +88,8 @@ public class ClassDescriptionXMLWriter
     }
 
     hd.startElement("","",ClassDescriptionXMLConstants.CLASS_TAG,attrs);
+    // Proficiencies
+    ClassProficienciesXMLWriter.writeClassProficiencies(hd,description.getProficiencies());
     // Traits
     List<ClassTrait> traits=description.getTraits();
     for(ClassTrait trait : traits)

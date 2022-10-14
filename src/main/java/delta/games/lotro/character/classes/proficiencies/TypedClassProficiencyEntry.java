@@ -1,11 +1,11 @@
-package delta.games.lotro.character.proficiencies;
+package delta.games.lotro.character.classes.proficiencies;
 
 /**
  * Entry of a class proficiency.
  * @param <T> Type of proficiency.
  * @author DAM
  */
-public class ClassProficiencyEntry<T>
+public class TypedClassProficiencyEntry<T>
 {
   private T _value;
   private int _minLevel;
@@ -15,7 +15,7 @@ public class ClassProficiencyEntry<T>
    * @param value Value.
    * @param minLevel Minimum level.
    */
-  public ClassProficiencyEntry(T value, int minLevel)
+  public TypedClassProficiencyEntry(T value, int minLevel)
   {
     _value=value;
     _minLevel=minLevel;

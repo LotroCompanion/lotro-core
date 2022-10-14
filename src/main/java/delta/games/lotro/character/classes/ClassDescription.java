@@ -3,6 +3,7 @@ package delta.games.lotro.character.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.character.classes.proficiencies.ClassProficiencies;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
@@ -25,6 +26,7 @@ public class ClassDescription
   private List<ClassSkill> _skills;
   private InitialGearDefinition _initialGear;
   private List<BuffSpecification> _defaultBuffs;
+  private ClassProficiencies _proficiencies;
 
   /**
    * Constructor.
@@ -39,6 +41,7 @@ public class ClassDescription
     _skills=new ArrayList<ClassSkill>();
     _initialGear=new InitialGearDefinition();
     _defaultBuffs=new ArrayList<BuffSpecification>();
+    _proficiencies=new ClassProficiencies();
   }
 
   /**
@@ -238,5 +241,14 @@ public class ClassDescription
   public List<BuffSpecification> getDefaultBuffs()
   {
     return _defaultBuffs;
+  }
+
+  /**
+   * Get the class proficiencies.
+   * @return the class proficiencies.
+   */
+  public ClassProficiencies getProficiencies()
+  {
+    return _proficiencies;
   }
 }

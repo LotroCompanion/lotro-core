@@ -13,6 +13,7 @@ import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.InitialGearDefinition;
 import delta.games.lotro.character.classes.InitialGearElement;
+import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLParser;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.classes.traitTree.TraitTreesManager;
 import delta.games.lotro.character.skills.SkillDescription;
@@ -85,7 +86,8 @@ public class ClassDescriptionXMLParser
       TraitTree traitTree=traitTreesMgr.getTraitTree(traitTreeID);
       description.setTraitTree(traitTree);
     }
-
+    // Proficiencies
+    ClassProficienciesXMLParser.parseClassProficiencies(root,description.getProficiencies());
     // Traits
     List<Element> classTraitTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.CLASS_TRAIT_TAG);
     for(Element classTraitTag : classTraitTags)
@@ -147,5 +149,4 @@ public class ClassDescriptionXMLParser
     }
     return description;
   }
-
 }
