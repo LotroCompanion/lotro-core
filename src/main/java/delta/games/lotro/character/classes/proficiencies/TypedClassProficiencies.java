@@ -42,6 +42,20 @@ public class TypedClassProficiencies<T>
   }
 
   /**
+   * Get all entry values.
+   * @return A set of all entry values.
+   */
+  public Set<T> getEntryValues()
+  {
+    Set<T> ret=new HashSet<T>();
+    for(TypedClassProficiencyEntry<T> entry : _entries)
+    {
+      ret.add(entry.getValue());
+    }
+    return ret;
+  }
+
+  /**
    * Get the applicable proficiencies for the given character level.
    * @param level Character level.
    * @return A set of proficiencies.

@@ -3,6 +3,8 @@ package delta.games.lotro.character;
 import java.util.HashSet;
 import java.util.Set;
 
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.WeaponType;
@@ -28,136 +30,11 @@ public class CharacterProficiencies
    */
   public static Set<WeaponType> getWeaponProficiencies(CharacterClass cClass, int level)
   {
-    HashSet<WeaponType> ret=new HashSet<WeaponType>();
-    if (cClass==CharacterClass.CHAMPION)
+    Set<WeaponType> ret=new HashSet<WeaponType>();
+    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(cClass);
+    if (classDescription!=null)
     {
-      ret.add(WeaponType.DAGGER);
-      ret.add(WeaponType.ONE_HANDED_AXE);
-      ret.add(WeaponType.ONE_HANDED_CLUB);
-      ret.add(WeaponType.ONE_HANDED_HAMMER);
-      ret.add(WeaponType.ONE_HANDED_MACE);
-      ret.add(WeaponType.ONE_HANDED_SWORD);
-      if (level>=10)
-      {
-        ret.add(WeaponType.SPEAR);
-        ret.add(WeaponType.TWO_HANDED_AXE);
-        ret.add(WeaponType.TWO_HANDED_HAMMER);
-        ret.add(WeaponType.TWO_HANDED_SWORD);
-      }
-      ret.add(WeaponType.BOW);
-      ret.add(WeaponType.CROSSBOW);
-    }
-    else if (cClass==CharacterClass.GUARDIAN)
-    {
-      ret.add(WeaponType.DAGGER);
-      ret.add(WeaponType.ONE_HANDED_AXE);
-      ret.add(WeaponType.ONE_HANDED_CLUB);
-      ret.add(WeaponType.ONE_HANDED_HAMMER);
-      ret.add(WeaponType.ONE_HANDED_MACE);
-      ret.add(WeaponType.ONE_HANDED_SWORD);
-      ret.add(WeaponType.SPEAR);
-      ret.add(WeaponType.TWO_HANDED_AXE);
-      ret.add(WeaponType.TWO_HANDED_CLUB);
-      ret.add(WeaponType.TWO_HANDED_HAMMER);
-      ret.add(WeaponType.TWO_HANDED_SWORD);
-      if (level>=7)
-      {
-        ret.add(WeaponType.BOW);
-        ret.add(WeaponType.CROSSBOW);
-      }
-    }
-    else if (cClass==CharacterClass.CAPTAIN)
-    {
-      ret.add(WeaponType.DAGGER);
-      ret.add(WeaponType.ONE_HANDED_AXE);
-      ret.add(WeaponType.ONE_HANDED_CLUB);
-      ret.add(WeaponType.ONE_HANDED_HAMMER);
-      ret.add(WeaponType.ONE_HANDED_MACE);
-      ret.add(WeaponType.ONE_HANDED_SWORD);
-      ret.add(WeaponType.TWO_HANDED_AXE);
-      ret.add(WeaponType.TWO_HANDED_CLUB);
-      ret.add(WeaponType.TWO_HANDED_HAMMER);
-      ret.add(WeaponType.TWO_HANDED_SWORD);
-      if (level>=10)
-      {
-        ret.add(WeaponType.SPEAR);
-      }
-      if (level>=15)
-      {
-        ret.add(WeaponType.HALBERD);
-      }
-    }
-    else if (cClass==CharacterClass.HUNTER)
-    {
-      ret.add(WeaponType.BOW);
-      ret.add(WeaponType.DAGGER);
-      ret.add(WeaponType.ONE_HANDED_AXE);
-      ret.add(WeaponType.ONE_HANDED_SWORD);
-      if (level>=7)
-      {
-        ret.add(WeaponType.CROSSBOW);
-      }
-      if (level>=15)
-      {
-        ret.add(WeaponType.ONE_HANDED_CLUB);
-        ret.add(WeaponType.ONE_HANDED_HAMMER);
-        ret.add(WeaponType.ONE_HANDED_MACE);
-      }
-      if (level>=20)
-      {
-        ret.add(WeaponType.SPEAR);
-      }
-    }
-    else if (cClass==CharacterClass.BURGLAR)
-    {
-      ret.add(WeaponType.DAGGER);
-      ret.add(WeaponType.ONE_HANDED_CLUB);
-      ret.add(WeaponType.ONE_HANDED_MACE);
-      ret.add(WeaponType.ONE_HANDED_SWORD);
-    }
-    else if (cClass==CharacterClass.BEORNING)
-    {
-      ret.add(WeaponType.BOW);
-      ret.add(WeaponType.DAGGER);
-      ret.add(WeaponType.ONE_HANDED_AXE);
-      ret.add(WeaponType.ONE_HANDED_CLUB);
-      ret.add(WeaponType.SPEAR);
-      ret.add(WeaponType.TWO_HANDED_AXE);
-      ret.add(WeaponType.TWO_HANDED_CLUB);
-    }
-    else if (cClass==CharacterClass.MINSTREL)
-    {
-      ret.add(WeaponType.DAGGER);
-      ret.add(WeaponType.ONE_HANDED_CLUB);
-      ret.add(WeaponType.ONE_HANDED_MACE);
-      ret.add(WeaponType.ONE_HANDED_SWORD);
-    }
-    else if (cClass==CharacterClass.RUNE_KEEPER)
-    {
-      ret.add(WeaponType.RUNE_STONE);
-    }
-    else if (cClass==CharacterClass.LORE_MASTER)
-    {
-      if (level>=40)
-      {
-        ret.add(WeaponType.ONE_HANDED_SWORD);
-      }
-      ret.add(WeaponType.STAFF);
-    }
-    else if (cClass==CharacterClass.WARDEN)
-    {
-      ret.add(WeaponType.ONE_HANDED_CLUB);
-      ret.add(WeaponType.DAGGER);
-      ret.add(WeaponType.JAVELIN);
-      ret.add(WeaponType.ONE_HANDED_AXE);
-      ret.add(WeaponType.ONE_HANDED_HAMMER);
-      ret.add(WeaponType.ONE_HANDED_MACE);
-      ret.add(WeaponType.SPEAR);
-      ret.add(WeaponType.ONE_HANDED_SWORD);
-    }
-    else if (cClass==CharacterClass.BRAWLER)
-    {
-      ret.add(WeaponType.BATTLE_GAUNTLETS);
+      ret.addAll(classDescription.getProficiencies().getWeaponProficiencies().getEntries(level));
     }
     return ret;
   }
@@ -199,41 +76,11 @@ Mod_Array:
    */
   public static Set<ArmourType> getArmourProficiencies(CharacterClass cClass, int level)
   {
-    HashSet<ArmourType> ret=new HashSet<ArmourType>();
-    ret.add(ArmourType.LIGHT);
-    if ((cClass==CharacterClass.HUNTER) || (cClass==CharacterClass.BURGLAR)
-        || (cClass==CharacterClass.WARDEN))
+    Set<ArmourType> ret=new HashSet<ArmourType>();
+    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(cClass);
+    if (classDescription!=null)
     {
-      ret.add(ArmourType.MEDIUM);
-    }
-    if ((cClass==CharacterClass.CHAMPION) || (cClass==CharacterClass.GUARDIAN)
-        || (cClass==CharacterClass.CAPTAIN) || (cClass==CharacterClass.BEORNING)
-        || (cClass==CharacterClass.BRAWLER) )
-    {
-      ret.add(ArmourType.MEDIUM);
-      ret.add(ArmourType.HEAVY);
-    }
-    if (cClass==CharacterClass.GUARDIAN)
-    {
-      ret.add(ArmourType.SHIELD);
-      ret.add(ArmourType.HEAVY_SHIELD);
-    }
-    if (cClass==CharacterClass.WARDEN)
-    {
-      ret.add(ArmourType.SHIELD);
-      ret.add(ArmourType.WARDEN_SHIELD);
-    }
-    if ((cClass==CharacterClass.BEORNING) && (level>=15))
-    {
-      ret.add(ArmourType.HEAVY);
-    }
-    if ((cClass==CharacterClass.CAPTAIN) && (level>=10))
-    {
-      ret.add(ArmourType.SHIELD);
-    }
-    if (cClass==CharacterClass.MINSTREL)
-    {
-      ret.add(ArmourType.SHIELD);
+      ret.addAll(classDescription.getProficiencies().getArmourProficiencies().getEntries(level));
     }
     return ret;
   }
