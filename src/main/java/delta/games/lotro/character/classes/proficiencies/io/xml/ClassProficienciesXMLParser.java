@@ -49,7 +49,7 @@ public class ClassProficienciesXMLParser
 
   private static void parseArmourProficiencies(Element root, TypedClassProficiencies<ArmourType> proficiencies)
   {
-    List<Element> armourProficiencyTags=DOMParsingTools.getChildTagsByName(root,ClassProficienciesXMLConstants.WEAPON_PROFICIENCY_TAG);
+    List<Element> armourProficiencyTags=DOMParsingTools.getChildTagsByName(root,ClassProficienciesXMLConstants.ARMOUR_PROFICIENCY_TAG);
     for(Element armourProficiencyTag : armourProficiencyTags)
     {
       NamedNodeMap attrs=armourProficiencyTag.getAttributes();
