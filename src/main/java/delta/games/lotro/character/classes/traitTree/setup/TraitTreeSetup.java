@@ -4,7 +4,7 @@ import java.io.File;
 
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
-import delta.games.lotro.character.classes.traitTree.TraitTreeStatus;
+import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 
 /**
  * Trait tree setup.
@@ -16,7 +16,18 @@ public class TraitTreeSetup
   private String _name;
   private String _description;
   private TraitTreeStatus _status;
-  private int _cost;
+
+  /**
+   * Constructor.
+   * @param traitTreeStatus Trait tree status to use.
+   */
+  public TraitTreeSetup(TraitTreeStatus traitTreeStatus)
+  {
+    _file=null;
+    _name="";
+    _description="";
+    _status=traitTreeStatus;
+  }
 
   /**
    * Constructor.
@@ -24,11 +35,7 @@ public class TraitTreeSetup
    */
   public TraitTreeSetup(TraitTree traitTree)
   {
-    _file=null;
-    _name="";
-    _description="";
-    _status=new TraitTreeStatus(traitTree);
-    _cost=0;
+    this(new TraitTreeStatus(traitTree));
   }
 
   /**
@@ -127,31 +134,5 @@ public class TraitTreeSetup
   public TraitTreeStatus getStatus()
   {
     return _status;
-  }
-
-  /**
-   * Get the cost of this setup.
-   * @return a cost in trait points.
-   */
-  public int getCost()
-  {
-    return _cost;
-  }
-
-  /**
-   * Set the cost of this setup.
-   * @param cost Cost to set.
-   */
-  public void setCost(int cost)
-  {
-    _cost=cost;
-  }
-
-  /**
-   * Update internal data after status edition.
-   */
-  public void update()
-  {
-    _cost=_status.getCost();
   }
 }

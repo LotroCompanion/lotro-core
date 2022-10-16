@@ -1,4 +1,4 @@
-package delta.games.lotro.character.classes.traitTree;
+package delta.games.lotro.character.status.traitTree;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +8,10 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.misc.IntegerHolder;
+import delta.games.lotro.character.classes.traitTree.TraitTree;
+import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
+import delta.games.lotro.character.classes.traitTree.TraitTreeCell;
+import delta.games.lotro.character.classes.traitTree.TraitTreeCellDependency;
 import delta.games.lotro.character.traits.TraitDescription;
 
 /**
@@ -21,6 +25,7 @@ public class TraitTreeStatus
   private TraitTree _tree;
   private TraitTreeBranch _selectedBranch;
   private Map<Integer,IntegerHolder> _treeRanks;
+  private int _cost;
 
   /**
    * Constructor.
@@ -29,6 +34,7 @@ public class TraitTreeStatus
   public TraitTreeStatus(TraitTree tree)
   {
     _tree=tree;
+    _cost=0;
     _selectedBranch=_tree.getBranches().get(0);
     initRanks();
   }
@@ -195,10 +201,28 @@ public class TraitTreeStatus
   }
 
   /**
-   * Get the total cost for this tree.
+   * Get the cost of this setup.
    * @return a cost in trait points.
    */
   public int getCost()
+  {
+    return _cost;
+  }
+
+  /**
+   * Set the cost of this setup.
+   * @param cost Cost to set.
+   */
+  public void setCost(int cost)
+  {
+    _cost=cost;
+  }
+
+  /**
+   * Get the total cost for this tree.
+   * @return a cost in trait points.
+   */
+  public int computeCost()
   {
     int total=0;
     for(TraitTreeBranch branch : _tree.getBranches())
@@ -304,6 +328,7 @@ public class TraitTreeStatus
   public void copyFrom(TraitTreeStatus source)
   {
     _selectedBranch=source._selectedBranch;
+    _cost=source._cost;
     // Reset
     reset();
     for(Map.Entry<Integer,IntegerHolder> entry : source._treeRanks.entrySet())

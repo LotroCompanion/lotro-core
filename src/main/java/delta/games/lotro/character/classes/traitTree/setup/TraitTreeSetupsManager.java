@@ -156,7 +156,11 @@ public class TraitTreeSetupsManager
   public boolean remove(TraitTreeSetup data)
   {
     File file=data.getFile();
-    boolean ok=file.delete();
+    boolean ok=true;
+    if (file.exists())
+    {
+      ok=file.delete();
+    }
     if (ok)
     {
       _datas.remove(data);

@@ -1,4 +1,4 @@
-package delta.games.lotro.character.classes.traitTree;
+package delta.games.lotro.character.status.traitTree;
 
 import java.util.List;
 import java.util.Set;
@@ -6,6 +6,9 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
+import delta.games.lotro.character.classes.traitTree.TraitTree;
+import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
+import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
 import delta.games.lotro.character.stats.buffs.BuffRegistry;

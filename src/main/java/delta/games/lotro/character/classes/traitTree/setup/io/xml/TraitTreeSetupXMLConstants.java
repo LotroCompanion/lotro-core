@@ -20,28 +20,7 @@ public class TraitTreeSetupXMLConstants
    */
   public static final String TRAIT_TREE_SETUP_DESCRIPTION_ATTR="description";
   /**
-   * Tag 'traitTreeSetup', attribute 'cost'.
-   */
-  public static final String TRAIT_TREE_SETUP_COST_ATTR="cost";
-  /**
    * Tag 'traitTreeSetup', attribute 'class'.
    */
   public static final String TRAIT_TREE_SETUP_CLASS_ATTR="class";
-  /**
-   * Tag 'traitTreeSetup', attribute 'branch' (code).
-   */
-  public static final String TRAIT_TREE_SETUP_BRANCH_ATTR="branch";
-
-  /**
-   * Tag 'trait'.
-   */
-  public static final String TRAIT_TAG="trait";
-  /**
-   * Tag 'trait', attribute 'id'.
-   */
-  public static final String TRAIT_ID_ATTR="id";
-  /**
-   * Tag 'trait', attribute 'rank'.
-   */
-  public static final String TRAIT_RANK_ATTR="rank";
 }
