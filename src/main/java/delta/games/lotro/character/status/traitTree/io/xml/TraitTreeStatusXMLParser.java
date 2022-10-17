@@ -28,7 +28,6 @@ public class TraitTreeStatusXMLParser
    */
   public static TraitTreeStatus parseTraitTreeStatus(Element root)
   {
-
     TraitTree traitTree=findTraitTree(root);
     if (traitTree==null)
     {
