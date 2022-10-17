@@ -196,8 +196,15 @@ public class TraitTreeStatus
   public void setRankForCell(String cellId, int rank)
   {
     TraitTreeCell cell=getCellById(cellId);
-    TraitDescription trait=cell.getTrait();
-    setRankForTrait(trait.getIdentifier(),rank);
+    if (cell!=null)
+    {
+      TraitDescription trait=cell.getTrait();
+      setRankForTrait(trait.getIdentifier(),rank);
+    }
+    else
+    {
+      LOGGER.warn("Cell not found: "+cellId);
+    }
   }
 
   /**
@@ -252,6 +259,11 @@ public class TraitTreeStatus
       return true;
     }
     TraitTreeBranch branch=getBranchForCell(cellId);
+    if (branch==null)
+    {
+      LOGGER.warn("Branch not found for cell: "+cellId);
+      return false;
+    }
     int neededRanks=branch.getProgression().getSteps().get(row-2).intValue();
     int gotRanks=getRanksForRows(branch,row-1);
     if (LOGGER.isDebugEnabled())
@@ -273,6 +285,11 @@ public class TraitTreeStatus
     {
       String depCellId=dependency.getCellId();
       TraitTreeCell depCell=getCellById(depCellId);
+      if (depCell==null)
+      {
+        LOGGER.warn("Dependent cell not found: "+depCellId);
+        continue;
+      }
       TraitDescription trait=depCell.getTrait();
       Integer key=Integer.valueOf(trait.getIdentifier());
       int ranks=_treeRanks.get(key).getInt();
