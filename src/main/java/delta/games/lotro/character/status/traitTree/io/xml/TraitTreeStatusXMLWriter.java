@@ -48,6 +48,12 @@ public class TraitTreeStatusXMLWriter
     {
       statusAttrs.addAttribute("","",TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_COST_ATTR,XmlWriter.CDATA,String.valueOf(cost));
     }
+    // Total points
+    int totalPoints=status.getTotalPoints();
+    if (totalPoints!=0)
+    {
+      statusAttrs.addAttribute("","",TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_TOTAL_POINTS_ATTR,XmlWriter.CDATA,String.valueOf(totalPoints));
+    }
   }
 
   /**

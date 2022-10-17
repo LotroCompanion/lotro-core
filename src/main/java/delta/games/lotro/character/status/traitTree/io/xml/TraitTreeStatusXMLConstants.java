@@ -27,6 +27,10 @@ public class TraitTreeStatusXMLConstants
    * Tag 'traitTreeStatus', attribute 'cost'.
    */
   public static final String TRAIT_TREE_STATUS_COST_ATTR="cost";
+  /**
+   * Tag 'traitTreeStatus', attribute 'totalPoints'.
+   */
+  public static final String TRAIT_TREE_STATUS_TOTAL_POINTS_ATTR="totalPoints";
 
   /**
    * Tag 'trait'.

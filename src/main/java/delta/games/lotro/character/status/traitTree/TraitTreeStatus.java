@@ -26,6 +26,7 @@ public class TraitTreeStatus
   private TraitTreeBranch _selectedBranch;
   private Map<Integer,IntegerHolder> _treeRanks;
   private int _cost;
+  private int _totalPoints;
 
   /**
    * Constructor.
@@ -35,6 +36,7 @@ public class TraitTreeStatus
   {
     _tree=tree;
     _cost=0;
+    _totalPoints=0;
     _selectedBranch=_tree.getBranches().get(0);
     initRanks();
   }
@@ -239,6 +241,24 @@ public class TraitTreeStatus
       total+=factor*ranks;
     }
     return total;
+  }
+
+  /**
+   * Get the total points available.
+   * @return a points count.
+   */
+  public int getTotalPoints()
+  {
+    return _totalPoints;
+  }
+
+  /**
+   * Set the total points available.
+   * @param totalPoints Points count to set.
+   */
+  public void setTotalPoints(int totalPoints)
+  {
+    _totalPoints=totalPoints;
   }
 
   /**

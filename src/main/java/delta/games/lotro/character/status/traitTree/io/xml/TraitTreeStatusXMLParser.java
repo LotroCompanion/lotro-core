@@ -49,6 +49,9 @@ public class TraitTreeStatusXMLParser
     // Cost
     int cost=DOMParsingTools.getIntAttribute(attrs,TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_COST_ATTR,0);
     status.setCost(cost);
+    // Total points
+    int totalPoints=DOMParsingTools.getIntAttribute(attrs,TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_TOTAL_POINTS_ATTR,0);
+    status.setTotalPoints(totalPoints);
 
     // Traits
     List<Element> traitTags=DOMParsingTools.getChildTagsByName(root,TraitTreeStatusXMLConstants.TRAIT_TAG);
