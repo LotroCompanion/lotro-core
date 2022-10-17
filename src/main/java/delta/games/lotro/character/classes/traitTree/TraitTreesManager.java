@@ -20,7 +20,8 @@ public class TraitTreesManager
 
   private static TraitTreesManager _instance=null;
 
-  private HashMap<Integer,TraitTree> _cache;
+  private HashMap<Integer,TraitTree> _cacheByID;
+  private HashMap<Integer,TraitTree> _cacheByCode;
 
   /**
    * Get the sole instance of this class.
@@ -41,7 +42,8 @@ public class TraitTreesManager
    */
   private TraitTreesManager()
   {
-    _cache=new HashMap<Integer,TraitTree>(10);
+    _cacheByID=new HashMap<Integer,TraitTree>(10);
+    _cacheByCode=new HashMap<Integer,TraitTree>(10);
   }
 
   /**
@@ -49,19 +51,29 @@ public class TraitTreesManager
    */
   private void loadAll()
   {
-    _cache.clear();
+    _cacheByID.clear();
+    _cacheByCode.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File traitTreesFile=cfg.getFile(DataFiles.TRAIT_TREES);
     long now=System.currentTimeMillis();
     List<TraitTree> traitTrees=TraitTreeXMLParser.parseTraitTreesFile(traitTreesFile);
     for(TraitTree traitTree : traitTrees)
     {
-      Integer id=Integer.valueOf(traitTree.getIdentifier());
-      _cache.put(id,traitTree);
+      registerTraitTree(traitTree);
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" trait trees in "+duration+"ms.");
+    LOGGER.info("Loaded "+_cacheByID.size()+" trait trees in "+duration+"ms.");
+  }
+
+  private void registerTraitTree(TraitTree traitTree)
+  {
+    // ID
+    Integer id=Integer.valueOf(traitTree.getIdentifier());
+    _cacheByID.put(id,traitTree);
+    // Code
+    Integer code=Integer.valueOf(traitTree.getCode());
+    _cacheByCode.put(code,traitTree);
   }
 
   /**
@@ -71,7 +83,18 @@ public class TraitTreesManager
    */
   public TraitTree getTraitTree(int id)
   {
-    TraitTree ret=_cache.get(Integer.valueOf(id));
+    TraitTree ret=_cacheByID.get(Integer.valueOf(id));
+    return ret;
+  }
+
+  /**
+   * Get a trait tree using its enum code.
+   * @param code Code of the trait tree to get.
+   * @return A class description or <code>null</code> if not found.
+   */
+  public TraitTree getTraitTreeByCode(int code)
+  {
+    TraitTree ret=_cacheByCode.get(Integer.valueOf(code));
     return ret;
   }
 }

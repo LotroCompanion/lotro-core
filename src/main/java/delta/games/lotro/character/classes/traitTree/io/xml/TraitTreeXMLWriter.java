@@ -56,6 +56,12 @@ public class TraitTreeXMLWriter
     // ID
     int id=tree.getIdentifier();
     mainAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Code
+    int code=tree.getCode();
+    if (code!=0)
+    {
+      mainAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
+    }
     // Key
     String key=tree.getKey();
     if (key!=null)

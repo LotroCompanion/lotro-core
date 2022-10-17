@@ -13,6 +13,7 @@ import delta.games.lotro.common.Identifiable;
 public class TraitTree implements Identifiable
 {
   private int _id;
+  private int _code;
   private String _key;
   private List<TraitTreeBranch> _branches;
 
@@ -23,6 +24,7 @@ public class TraitTree implements Identifiable
   public TraitTree(int id)
   {
     _id=id;
+    _code=0;
     _key=null;
     _branches=new ArrayList<TraitTreeBranch>();
   }
@@ -31,6 +33,24 @@ public class TraitTree implements Identifiable
   public int getIdentifier()
   {
     return _id;
+  }
+
+  /**
+   * Get the enum code for this tree.
+   * @return An enum code.
+   */
+  public int getCode()
+  {
+    return _code;
+  }
+
+  /**
+   * Set the enum code for this tree.
+   * @param code Code to set.
+   */
+  public void setCode(int code)
+  {
+    _code=code;
   }
 
   /**

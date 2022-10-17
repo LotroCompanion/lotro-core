@@ -20,6 +20,10 @@ public class TraitTreeXMLConstants
    */
   public static final String TRAIT_TREE_ID_ATTR="id";
   /**
+   * Tag 'traitTree', attribute 'code'.
+   */
+  public static final String TRAIT_TREE_CODE_ATTR="code";
+  /**
    * Tag 'traitTree', attribute 'key'.
    */
   public static final String TRAIT_TREE_KEY_ATTR="key";

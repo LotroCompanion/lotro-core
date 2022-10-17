@@ -49,6 +49,9 @@ public class TraitTreeXMLParser
     // ID
     int id=DOMParsingTools.getIntAttribute(mainAttrs,TraitTreeXMLConstants.TRAIT_TREE_ID_ATTR,0);
     TraitTree tree=new TraitTree(id);
+    // Code
+    int treeCode=DOMParsingTools.getIntAttribute(mainAttrs,TraitTreeXMLConstants.TRAIT_TREE_CODE_ATTR,0);
+    tree.setCode(treeCode);
     // Key
     String key=DOMParsingTools.getStringAttribute(mainAttrs,TraitTreeXMLConstants.TRAIT_TREE_KEY_ATTR,null);
     tree.setKey(key);
@@ -57,9 +60,9 @@ public class TraitTreeXMLParser
     for(Element branchTag : branchTags)
     {
       NamedNodeMap branchAttrs=branchTag.getAttributes();
-      int code=DOMParsingTools.getIntAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_CODE_ATTR,0);
+      int branchCode=DOMParsingTools.getIntAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_CODE_ATTR,0);
       String name=DOMParsingTools.getStringAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,null);
-      TraitTreeBranch branch=new TraitTreeBranch(code,name);
+      TraitTreeBranch branch=new TraitTreeBranch(branchCode,name);
       tree.addBranch(branch);
       // Main trait
       int mainTraitId=DOMParsingTools.getIntAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_TRAIT_ATTR,0);
