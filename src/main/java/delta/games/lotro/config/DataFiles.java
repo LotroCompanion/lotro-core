@@ -41,6 +41,10 @@ public class DataFiles
    */
   public static final String TRAITS="traits";
   /**
+   * Skirmish traits file.
+   */
+  public static final String SKIRMISH_TRAITS="skirmishTraits";
+  /**
    * Stat tomes file.
    */
   public static final String STAT_TOMES="statTomes";
