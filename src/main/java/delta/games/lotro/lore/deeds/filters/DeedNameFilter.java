@@ -28,7 +28,7 @@ public class DeedNameFilter implements Filter<DeedDescription>
    */
   public DeedNameFilter(String pattern)
   {
-    _filter=new StringFilter("",MatchType.CONTAINS,true);
+    _filter=new StringFilter("",MatchType.CONTAINS,true, true);
     _pattern=pattern;
   }
 
@@ -52,7 +52,7 @@ public class DeedNameFilter implements Filter<DeedDescription>
       pattern="";
     }
     _pattern=pattern;
-    _filter=new StringFilter(pattern,MatchType.CONTAINS,true);
+    _filter=new StringFilter(pattern,MatchType.CONTAINS,true, true);
   }
 
   public boolean accept(DeedDescription deed)

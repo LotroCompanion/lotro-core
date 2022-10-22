@@ -27,7 +27,7 @@ public class ItemNameFilter implements ItemFilter
    */
   public ItemNameFilter(String pattern)
   {
-    _filter=new StringFilter("",MatchType.CONTAINS,true);
+    _filter=new StringFilter("",MatchType.CONTAINS,true, true);
     _pattern=pattern;
   }
 
@@ -51,7 +51,7 @@ public class ItemNameFilter implements ItemFilter
       pattern="";
     }
     _pattern=pattern;
-    _filter=new StringFilter(pattern,MatchType.CONTAINS,true);
+    _filter=new StringFilter(pattern,MatchType.CONTAINS,true, true);
   }
 
   public boolean accept(Item item)

@@ -28,7 +28,7 @@ public class PrivateEncounterNameFilter implements Filter<SkirmishPrivateEncount
    */
   public PrivateEncounterNameFilter(String pattern)
   {
-    _filter=new StringFilter("",MatchType.CONTAINS,true);
+    _filter=new StringFilter("",MatchType.CONTAINS,true, true);
     _pattern=pattern;
   }
 
@@ -52,7 +52,7 @@ public class PrivateEncounterNameFilter implements Filter<SkirmishPrivateEncount
       pattern="";
     }
     _pattern=pattern;
-    _filter=new StringFilter(pattern,MatchType.CONTAINS,true);
+    _filter=new StringFilter(pattern,MatchType.CONTAINS,true, true);
   }
 
   @Override

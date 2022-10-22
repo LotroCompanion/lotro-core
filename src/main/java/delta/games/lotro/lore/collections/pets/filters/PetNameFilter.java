@@ -28,7 +28,7 @@ public class PetNameFilter implements Filter<CosmeticPetDescription>
    */
   public PetNameFilter(String pattern)
   {
-    _filter=new StringFilter("",MatchType.CONTAINS,true);
+    _filter=new StringFilter("",MatchType.CONTAINS,true, true);
     _pattern=pattern;
   }
 
@@ -52,7 +52,7 @@ public class PetNameFilter implements Filter<CosmeticPetDescription>
       pattern="";
     }
     _pattern=pattern;
-    _filter=new StringFilter(pattern,MatchType.CONTAINS,true);
+    _filter=new StringFilter(pattern,MatchType.CONTAINS,true, true);
   }
 
   public boolean accept(CosmeticPetDescription pet)

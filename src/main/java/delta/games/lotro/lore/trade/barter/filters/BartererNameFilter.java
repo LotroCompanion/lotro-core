@@ -28,7 +28,7 @@ public class BartererNameFilter implements Filter<BarterNpc>
    */
   public BartererNameFilter(String pattern)
   {
-    _filter=new StringFilter("",MatchType.CONTAINS,true);
+    _filter=new StringFilter("",MatchType.CONTAINS,true, true);
     _pattern=pattern;
   }
 
@@ -52,7 +52,7 @@ public class BartererNameFilter implements Filter<BarterNpc>
       pattern="";
     }
     _pattern=pattern;
-    _filter=new StringFilter(pattern,MatchType.CONTAINS,true);
+    _filter=new StringFilter(pattern,MatchType.CONTAINS,true, true);
   }
 
   @Override
