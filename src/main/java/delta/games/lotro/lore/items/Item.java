@@ -14,6 +14,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
@@ -51,6 +52,8 @@ public class Item implements Identifiable,Named,ItemProvider
   private String _name;
   // Item class. Yields the category name.
   private ItemClass _itemClass;
+  // Equipment category
+  private EquipmentCategory _equipmentCategory;
   // Item binding: "Bind on Acquire", ...
   private ItemBinding _binding;
   // Is item unique or not?
@@ -288,6 +291,24 @@ public class Item implements Identifiable,Named,ItemProvider
   public String getSubCategory()
   {
     return _itemClass!=null?_itemClass.getLabel():null;
+  }
+
+  /**
+   * Get the equipment category.
+   * @return An equipment category or <code>null</code>.
+   */
+  public EquipmentCategory getEquipmentCategory()
+  {
+    return _equipmentCategory;
+  }
+
+  /**
+   * Set the equipment category.
+   * @param equipmentCategory Equipment category to set.
+   */
+  public void setEquipmentCategory(EquipmentCategory equipmentCategory)
+  {
+    _equipmentCategory=equipmentCategory;
   }
 
   /**

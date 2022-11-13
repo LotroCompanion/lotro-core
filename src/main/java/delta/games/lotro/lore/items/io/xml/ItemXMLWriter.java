@@ -17,6 +17,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.StatsManagerXMLWriter;
 import delta.games.lotro.common.colors.ColorDescription;
+import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
@@ -209,6 +210,12 @@ public class ItemXMLWriter
       if (itemClass!=null)
       {
         itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CLASS_ATTR,XmlWriter.CDATA,String.valueOf(itemClass.getCode()));
+      }
+      // Equipment category
+      EquipmentCategory equipmentCategory=item.getEquipmentCategory();
+      if (equipmentCategory!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_EQUIPMENT_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(equipmentCategory.getCode()));
       }
       // Binding
       ItemBinding binding=item.getBinding();

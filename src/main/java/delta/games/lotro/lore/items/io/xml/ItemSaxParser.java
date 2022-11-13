@@ -14,6 +14,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
+import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
@@ -68,12 +69,14 @@ public final class ItemSaxParser extends DefaultHandler
   private List<Item> _parsedItems;
   private Item _currentItem;
   private LotroEnum<ItemClass> _itemClassEnum;
+  private LotroEnum<EquipmentCategory> _equipmentCategoryEnum;
   private ItemDetailsSaxParser _detailsParser;
 
   private ItemSaxParser()
   {
     _parsedItems=new ArrayList<Item>();
     _itemClassEnum=LotroEnumsRegistry.getInstance().get(ItemClass.class);
+    _equipmentCategoryEnum=LotroEnumsRegistry.getInstance().get(EquipmentCategory.class);
     _detailsParser=new ItemDetailsSaxParser();
   }
 
@@ -151,6 +154,14 @@ public final class ItemSaxParser extends DefaultHandler
         int itemClassCode=NumericTools.parseInt(itemClassCodeStr,0);
         ItemClass itemClass=_itemClassEnum.getEntry(itemClassCode);
         _currentItem.setItemClass(itemClass);
+      }
+      // Equipment category
+      String equipmentCategoryCodeStr=attributes.getValue(ItemXMLConstants.ITEM_EQUIPMENT_CATEGORY_ATTR);
+      if (equipmentCategoryCodeStr!=null)
+      {
+        int equipmentCategoryCode=NumericTools.parseInt(equipmentCategoryCodeStr,0);
+        EquipmentCategory equipmentCategory=_equipmentCategoryEnum.getEntry(equipmentCategoryCode);
+        _currentItem.setEquipmentCategory(equipmentCategory);
       }
       // Item binding
       ItemBinding binding=null;
