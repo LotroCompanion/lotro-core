@@ -100,7 +100,7 @@ public class BuffInitializer
     String name=trait.getName();
     Buff buff=new Buff(String.valueOf(identifier),BuffType.RACE, RACIAL,name);
     int iconId=trait.getIconId();
-    buff.setIcon("/traitIcons/"+iconId+".png");
+    buff.setIcon("/traits/"+iconId+".png");
     buff.setRequiredRace(race);
     StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
     buff.setImpl(buffImpl);
@@ -155,7 +155,7 @@ public class BuffInitializer
     String name=trait.getName();
     Buff buff=new Buff(String.valueOf(identifier),BuffType.CLASS,category,name);
     int iconId=trait.getIconId();
-    buff.setIcon("/traitIcons/"+iconId+".png");
+    buff.setIcon("/traits/"+iconId+".png");
     buff.setRequiredClass(characterClass);
     StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
     buff.setImpl(buffImpl);
