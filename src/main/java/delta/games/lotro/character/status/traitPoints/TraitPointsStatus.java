@@ -16,6 +16,7 @@ import delta.games.lotro.utils.maths.Progression;
 public class TraitPointsStatus
 {
   private Set<String> _acquiredTraitPointsIds;
+  private Set<String> _knownIds;
 
   /**
    * Constructor.
@@ -23,6 +24,19 @@ public class TraitPointsStatus
   public TraitPointsStatus()
   {
     _acquiredTraitPointsIds=new HashSet<String>();
+    _knownIds=loadKnownIds();
+  }
+
+  private Set<String> loadKnownIds()
+  {
+    Set<String> ret=new HashSet<String>();
+    TraitPointsRegistry registry=TraitPoints.get().getRegistry();
+    for(TraitPoint traitPoint : registry.getAll())
+    {
+      String id=traitPoint.getId();
+      ret.add(id);
+    }
+    return ret;
   }
 
   /**
@@ -81,7 +95,10 @@ public class TraitPointsStatus
   {
     if (acquired)
     {
-      _acquiredTraitPointsIds.add(id);
+      if (_knownIds.contains(id))
+      {
+        _acquiredTraitPointsIds.add(id);
+      }
     }
     else
     {
