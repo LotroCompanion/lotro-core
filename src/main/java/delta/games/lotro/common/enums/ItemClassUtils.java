@@ -21,6 +21,8 @@ public class ItemClassUtils
   private static final int WORD_OF_CRAFT_KEY=5;
   private static final int ESSENCE_OF_WAR_KEY=6;
   private static final int BOX_OF_ESSENCES_KEY=7;
+  private static final int CLOAK_ESSENCE_KEY=8;
+  private static final int NECKLACE_ESSENCE_KEY=9;
 
   /**
    * Get the item class code for essences.
@@ -90,6 +92,26 @@ public class ItemClassUtils
   public static final int getEssenceOfWarCode(int tier)
   {
     return (ESSENCE_CODE*CATEGORY_FACTOR)+(ESSENCE_OF_WAR_KEY*KEY_FACTOR)+tier;
+  }
+
+  /**
+   * Get the item class code for cloak essences.
+   * @param tier Tier.
+   * @return An item class code.
+   */
+  public static final int getCloakEssenceCode(int tier)
+  {
+    return (ESSENCE_CODE*CATEGORY_FACTOR)+(CLOAK_ESSENCE_KEY*KEY_FACTOR)+tier;
+  }
+
+  /**
+   * Get the item class code for necklace essences.
+   * @param tier Tier.
+   * @return An item class code.
+   */
+  public static final int getNecklaceEssenceCode(int tier)
+  {
+    return (ESSENCE_CODE*CATEGORY_FACTOR)+(NECKLACE_ESSENCE_KEY*KEY_FACTOR)+tier;
   }
 
   /**

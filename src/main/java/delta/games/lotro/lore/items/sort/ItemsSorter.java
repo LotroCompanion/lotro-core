@@ -75,7 +75,7 @@ public class ItemsSorter
       else
       {
         String category=item.getSubCategory();
-        if (category.startsWith("Essence"))
+        if ((category.startsWith("Essence"))||(category.startsWith("Cloak Essence"))||(category.startsWith("Necklace Essence")))
         {
           essences.add(item);
         }
