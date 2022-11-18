@@ -423,6 +423,10 @@ public class WorldEventConditionsRenderer
     {
       return handleMissionDay(operator,value,"Gundabad"); // 1-6
     }
+    else if ("WE_Integer_U34_BTS_Mission_Config".equals(weProperty))
+    {
+      return handleMissionDay(operator,value,"Before the Shadow"); // 1-3
+    }
     return null;
   }
 
