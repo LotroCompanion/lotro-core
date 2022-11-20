@@ -34,12 +34,20 @@ public class BuffsXMLWriter
         AttributesImpl attrs=new AttributesImpl();
         BuffInstance buffInstance=buffs.getBuffAt(i);
         Buff buff=buffInstance.getBuff();
+        // ID
         String id=buff.getId();
         attrs.addAttribute("","",BuffsXMLConstants.BUFF_ID_ATTR,CDATA,id);
+        // Tier
         Integer tier=buffInstance.getTier();
         if (tier!=null)
         {
           attrs.addAttribute("","",BuffsXMLConstants.BUFF_TIER_ATTR,CDATA,tier.toString());
+        }
+        // Name
+        String label=buff.getLabel();
+        if ((label!=null) && (label.length()>0))
+        {
+          attrs.addAttribute("","",BuffsXMLConstants.BUFF_NAME_ATTR,CDATA,label);
         }
         hd.startElement("","",BuffsXMLConstants.BUFF_TAG,attrs);
         hd.endElement("","",BuffsXMLConstants.BUFF_TAG);

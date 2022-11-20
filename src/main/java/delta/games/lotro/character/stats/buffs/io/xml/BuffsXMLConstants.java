@@ -23,4 +23,8 @@ public class BuffsXMLConstants
    * Tag 'buff', attribute 'tier'.
    */
   public static final String BUFF_TIER_ATTR="tier";
+  /**
+   * Tag 'buff', attribute 'name'.
+   */
+  public static final String BUFF_NAME_ATTR="name";
 }
