@@ -76,6 +76,9 @@ public class TraitTreeStatusXMLWriter
         AttributesImpl traitAttrs=new AttributesImpl();
         // Trait ID
         traitAttrs.addAttribute("","",TraitTreeStatusXMLConstants.TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traidId));
+        // Trait name
+        String name=trait.getName();
+        traitAttrs.addAttribute("","",TraitTreeStatusXMLConstants.TRAIT_NAME_ATTR,XmlWriter.CDATA,name);
         // Trait rank
         traitAttrs.addAttribute("","",TraitTreeStatusXMLConstants.TRAIT_RANK_ATTR,XmlWriter.CDATA,rank.toString());
         hd.startElement("","",TraitTreeStatusXMLConstants.TRAIT_TAG,traitAttrs);
