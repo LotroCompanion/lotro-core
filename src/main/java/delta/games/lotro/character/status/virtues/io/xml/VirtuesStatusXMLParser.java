@@ -1,4 +1,4 @@
-package delta.games.lotro.character.virtues.io.xml;
+package delta.games.lotro.character.status.virtues.io.xml;
 
 import java.io.File;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.virtues.SingleVirtueStatus;
+import delta.games.lotro.character.status.virtues.SingleVirtueStatus;
+import delta.games.lotro.character.status.virtues.VirtuesStatus;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
-import delta.games.lotro.character.virtues.VirtuesStatus;
 
 /**
  * Parser for virtues status stored in XML.

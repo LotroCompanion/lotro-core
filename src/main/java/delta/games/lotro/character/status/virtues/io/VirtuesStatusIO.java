@@ -1,11 +1,11 @@
-package delta.games.lotro.character.virtues.io;
+package delta.games.lotro.character.status.virtues.io;
 
 import java.io.File;
 
 import delta.games.lotro.character.CharacterFile;
-import delta.games.lotro.character.virtues.VirtuesStatus;
-import delta.games.lotro.character.virtues.io.xml.VirtuesStatusXMLParser;
-import delta.games.lotro.character.virtues.io.xml.VirtuesStatusXMLWriter;
+import delta.games.lotro.character.status.virtues.VirtuesStatus;
+import delta.games.lotro.character.status.virtues.io.xml.VirtuesStatusXMLParser;
+import delta.games.lotro.character.status.virtues.io.xml.VirtuesStatusXMLWriter;
 
 /**
  * I/O methods for virtues status.

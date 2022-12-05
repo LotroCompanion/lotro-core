@@ -1,4 +1,4 @@
-package delta.games.lotro.character.virtues.io.xml;
+package delta.games.lotro.character.status.virtues.io.xml;
 
 import java.io.File;
 import java.util.List;
@@ -11,9 +11,9 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.virtues.SingleVirtueStatus;
+import delta.games.lotro.character.status.virtues.SingleVirtueStatus;
+import delta.games.lotro.character.status.virtues.VirtuesStatus;
 import delta.games.lotro.character.virtues.VirtueDescription;
-import delta.games.lotro.character.virtues.VirtuesStatus;
 
 /**
  * Writes virtues status to XML files.

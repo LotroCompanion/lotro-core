@@ -1,6 +1,8 @@
-package delta.games.lotro.character.virtues;
+package delta.games.lotro.character.status.virtues;
 
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
+import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.character.virtues.VirtuesManager;
 
 /**
  * Utility methods related to virtues.

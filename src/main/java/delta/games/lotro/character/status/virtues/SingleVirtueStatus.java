@@ -1,5 +1,6 @@
-package delta.games.lotro.character.virtues;
+package delta.games.lotro.character.status.virtues;
 
+import delta.games.lotro.character.virtues.VirtueDescription;
 
 /**
  * Status for a single virtue.
