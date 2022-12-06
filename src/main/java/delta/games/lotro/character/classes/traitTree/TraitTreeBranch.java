@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.IdentifiableComparator;
 
 /**
  * Trait tree branch.
@@ -132,6 +133,7 @@ public class TraitTreeBranch
     {
       ret.add(cell.getTrait());
     }
+    Collections.sort(ret,new IdentifiableComparator<TraitDescription>());
     return ret;
   }
 }
