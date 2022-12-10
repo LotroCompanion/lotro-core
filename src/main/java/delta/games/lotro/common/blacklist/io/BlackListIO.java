@@ -38,7 +38,12 @@ public class BlackListIO
    */
   public static Blacklist load(File from)
   {
-    return new BlacklistXMLParser().parseXML(from);
+    if (from.exists())
+    {
+      BlacklistXMLParser parser=new BlacklistXMLParser();
+      return parser.parseXML(from);
+    }
+    return null;
   }
 
   /**
