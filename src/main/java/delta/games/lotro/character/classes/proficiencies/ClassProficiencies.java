@@ -11,6 +11,7 @@ public class ClassProficiencies
 {
   private TypedClassProficiencies<WeaponType> _weaponProficiencies;
   private TypedClassProficiencies<ArmourType> _armourProficiencies;
+  private ArmourType _armourTypeForMitigations;
 
   /**
    * Constructor.
@@ -19,6 +20,7 @@ public class ClassProficiencies
   {
     _weaponProficiencies=new TypedClassProficiencies<WeaponType>();
     _armourProficiencies=new TypedClassProficiencies<ArmourType>();
+    _armourTypeForMitigations=ArmourType.HEAVY;
   }
 
   /**
@@ -37,5 +39,23 @@ public class ClassProficiencies
   public TypedClassProficiencies<ArmourType> getArmourProficiencies()
   {
     return _armourProficiencies;
+  }
+
+  /**
+   * Get the armour type for mitigations.
+   * @return the armour type for mitigations.
+   */
+  public ArmourType getArmourTypeForMitigations()
+  {
+    return _armourTypeForMitigations;
+  }
+
+  /**
+   * Set the armour type for mitigations.
+   * @param armourTypeForMitigations Armour type to set.
+   */
+  public void setArmourTypeForMitigations(ArmourType armourTypeForMitigations)
+  {
+    _armourTypeForMitigations=armourTypeForMitigations;
   }
 }

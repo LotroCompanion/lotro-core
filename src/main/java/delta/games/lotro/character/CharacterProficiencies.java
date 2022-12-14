@@ -92,21 +92,10 @@ Mod_Array:
    */
   public static ArmourType getArmourTypeForMitigations(CharacterClass cClass)
   {
-    /*
-     * See class properties:
-AdvTable_ArmorDefense_Points_CalcType: 14 (HeavyArmorDefense)
-AdvTable_ArmorDefense_Points_NonCommon_CalcType: 14 (HeavyArmorDefense)
-     */
-    if ((cClass==CharacterClass.HUNTER) || (cClass==CharacterClass.BURGLAR)
-        || (cClass==CharacterClass.WARDEN))
+    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(cClass);
+    if (classDescription!=null)
     {
-      return ArmourType.MEDIUM;
-    }
-    if ((cClass==CharacterClass.CHAMPION) || (cClass==CharacterClass.GUARDIAN)
-        || (cClass==CharacterClass.CAPTAIN) || (cClass==CharacterClass.BEORNING)
-        || (cClass==CharacterClass.BRAWLER) )
-    {
-      return ArmourType.HEAVY;
+      return classDescription.getProficiencies().getArmourTypeForMitigations();
     }
     return ArmourType.LIGHT;
   }

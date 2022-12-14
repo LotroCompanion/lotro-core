@@ -12,6 +12,10 @@ public class ClassProficienciesXMLConstants
    */
   public static final String PROFICIENCIES_TAG="proficiencies";
   /**
+   * Tag 'proficiencies', attribute 'armourTypeForMitigations'.
+   */
+  public static final String PROFICIENCIES_ARMOUR_TYPE_ATTR="armourTypeForMitigations";
+  /**
    * Tag 'weaponProficiency'.
    */
   public static final String WEAPON_PROFICIENCY_TAG="weapon";

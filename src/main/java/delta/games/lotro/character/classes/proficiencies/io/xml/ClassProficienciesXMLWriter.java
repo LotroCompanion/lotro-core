@@ -26,7 +26,11 @@ public class ClassProficienciesXMLWriter
    */
   public static void writeClassProficiencies(TransformerHandler hd, ClassProficiencies proficiencies) throws SAXException
   {
-    hd.startElement("","",ClassProficienciesXMLConstants.PROFICIENCIES_TAG,new AttributesImpl());
+    AttributesImpl attrs=new AttributesImpl();
+    // Armour Type for Mitigations
+    ArmourType type=proficiencies.getArmourTypeForMitigations();
+    attrs.addAttribute("","",ClassProficienciesXMLConstants.PROFICIENCIES_ARMOUR_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
+    hd.startElement("","",ClassProficienciesXMLConstants.PROFICIENCIES_TAG,attrs);
     // Weapon proficiencies
     TypedClassProficiencies<WeaponType> weaponProficiencies=proficiencies.getWeaponProficiencies();
     for(TypedClassProficiencyEntry<WeaponType> weaponProficiency : weaponProficiencies.getEntries())

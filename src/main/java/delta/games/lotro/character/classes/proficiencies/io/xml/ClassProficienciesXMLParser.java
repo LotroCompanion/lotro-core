@@ -27,7 +27,14 @@ public class ClassProficienciesXMLParser
     Element proficienciesTag=DOMParsingTools.getChildTagByName(root,ClassProficienciesXMLConstants.PROFICIENCIES_TAG);
     if (proficienciesTag!=null)
     {
+      // Armour type for mitigations
+      NamedNodeMap attrs=proficienciesTag.getAttributes();
+      String typeStr=DOMParsingTools.getStringAttribute(attrs,ClassProficienciesXMLConstants.PROFICIENCIES_ARMOUR_TYPE_ATTR,"");
+      ArmourType type=ArmourType.getArmourTypeByKey(typeStr);
+      proficiencies.setArmourTypeForMitigations(type);
+      // Weapon proficiencies
       parseWeaponProficiencies(proficienciesTag,proficiencies.getWeaponProficiencies());
+      // Armour proficiencies
       parseArmourProficiencies(proficienciesTag,proficiencies.getArmourProficiencies());
     }
   }
