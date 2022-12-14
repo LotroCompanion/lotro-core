@@ -1,5 +1,9 @@
 package delta.games.lotro.character.stats.base.io.xml;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.apache.log4j.Logger;
@@ -9,6 +13,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
+import delta.games.lotro.character.stats.StatsSetElementComparator;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.utils.NumericUtils;
@@ -48,7 +53,9 @@ public class BasicStatsSetXMLWriter
   {
     if (statsSet!=null)
     {
-      for(StatsSetElement element : statsSet.getStatElements())
+      List<StatsSetElement> elements=new ArrayList<StatsSetElement>(statsSet.getStatElements());
+      Collections.sort(elements,new StatsSetElementComparator());
+      for(StatsSetElement element : elements)
       {
         // Value
         Number value=element.getValue();
