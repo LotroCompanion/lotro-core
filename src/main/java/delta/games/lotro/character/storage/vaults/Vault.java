@@ -30,6 +30,7 @@ public class Vault extends BaseStorage
    */
   public Vault()
   {
+    super();
     _used=0;
     _capacity=0;
     _chests=new HashMap<Integer,Chest>();

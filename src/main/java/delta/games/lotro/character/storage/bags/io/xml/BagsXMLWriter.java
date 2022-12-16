@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.storage.bags.BagsManager;
 import delta.games.lotro.character.storage.bags.BagsSetup;
 import delta.games.lotro.character.storage.bags.SingleBagSetup;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -60,7 +61,8 @@ public class BagsXMLWriter
     int max=bagsManager.getCapacity();
     attrs.addAttribute("","",BagsXMLConstants.BAGS_MAX_ATTR,XmlWriter.CDATA,String.valueOf(max));
     hd.startElement("","",BagsXMLConstants.BAGS_TAG,attrs);
-
+    // Status
+    StatusMetadataIO.writeStatusMetadata(hd,bagsManager.getStatusMetadata());
     // Layout
     writeLayout(hd,bagsManager.getBagsSetup());
     // Slots

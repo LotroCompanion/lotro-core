@@ -11,6 +11,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.storage.bags.BagsManager;
 import delta.games.lotro.character.storage.bags.BagsSetup;
 import delta.games.lotro.character.storage.bags.SingleBagSetup;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -44,6 +45,8 @@ public class BagsXMLParser
   private BagsManager parseBags(Element root)
   {
     BagsManager bags=new BagsManager();
+    // Status
+    StatusMetadataIO.parseStatusMetadata(root,bags.getStatusMetadata());
     // Setup
     BagsSetup setup=new BagsSetup();
     List<Element> setupTags=DOMParsingTools.getChildTagsByName(root,BagsXMLConstants.SETUP_TAG,false);

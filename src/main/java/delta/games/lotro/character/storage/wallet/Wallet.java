@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import delta.games.lotro.common.status.StatusMetadata;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
@@ -18,6 +19,7 @@ import delta.games.lotro.utils.comparators.DelegatingComparator;
 public class Wallet
 {
   private HashMap<Integer,CountedItem<Item>> _items;
+  private StatusMetadata _statusMetadata;
 
   /**
    * Constructor.
@@ -25,8 +27,9 @@ public class Wallet
   public Wallet()
   {
     _items=new HashMap<Integer,CountedItem<Item>>();
-  }
+    _statusMetadata=new StatusMetadata();
 
+  }
 
   /**
    * Add an item.
@@ -91,6 +94,15 @@ public class Wallet
     DelegatingComparator<CountedItem<Item>,Item> c=new DelegatingComparator<CountedItem<Item>,Item>(provider,nameComparator);
     Collections.sort(ret,c);
     return ret;
+  }
+
+  /**
+   * Get the status metadata.
+   * @return the status metadata.
+   */
+  public StatusMetadata getStatusMetadata()
+  {
+    return _statusMetadata;
   }
 
   /**

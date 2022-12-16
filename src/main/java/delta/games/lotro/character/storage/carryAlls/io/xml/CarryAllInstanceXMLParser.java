@@ -9,6 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.storage.carryAlls.CarryAllInstance;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
@@ -55,6 +56,8 @@ public class CarryAllInstanceXMLParser
         ret.setReference((CarryAll)referenceItem);
       }
     }
+    // Status
+    StatusMetadataIO.parseStatusMetadata(rootTag,ret.getStatusMetadata());
     // Items
     List<Element> itemTags=DOMParsingTools.getChildTagsByName(rootTag,CarryAllInstanceXMLConstants.ITEM_TAG,false);
     for(Element itemTag : itemTags)

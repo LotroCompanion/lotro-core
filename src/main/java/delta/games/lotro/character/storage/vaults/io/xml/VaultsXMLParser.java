@@ -9,6 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.storage.vaults.Chest;
 import delta.games.lotro.character.storage.vaults.Vault;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -47,6 +48,8 @@ public class VaultsXMLParser
     // Max
     int max=DOMParsingTools.getIntAttribute(attrs,VaultsXMLConstants.VAULT_MAX_ATTR,0);
     vault.setCapacity(max);
+    // Status
+    StatusMetadataIO.parseStatusMetadata(root,vault.getStatusMetadata());
     // Chests
     List<Element> chestTags=DOMParsingTools.getChildTagsByName(root,VaultsXMLConstants.CHEST_TAG,false);
     for(Element chestTag : chestTags)

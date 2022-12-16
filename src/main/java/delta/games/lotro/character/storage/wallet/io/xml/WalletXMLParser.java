@@ -8,6 +8,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.storage.wallet.Wallet;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
@@ -34,6 +35,9 @@ public class WalletXMLParser
 
   private static void parseWallet(Wallet wallet, Element root)
   {
+    // Status
+    StatusMetadataIO.parseStatusMetadata(root,wallet.getStatusMetadata());
+    // Items
     ItemsManager itemsManager=ItemsManager.getInstance();
     List<Element> itemTags=DOMParsingTools.getChildTagsByName(root,WalletXMLConstants.ITEM_TAG);
     for(Element itemTag : itemTags)

@@ -1,11 +1,23 @@
 package delta.games.lotro.character.storage;
 
+import delta.games.lotro.common.status.StatusMetadata;
+
 /**
  * Base class for storage containers.
  * @author DAM
  */
 public abstract class BaseStorage
 {
+  private StatusMetadata _statusMetadata;
+
+  /**
+   * Constructor.
+   */
+  public BaseStorage()
+  {
+    _statusMetadata=new StatusMetadata();
+  }
+
   /**
    * Get the number of slots used.
    * @return a slots count.
@@ -17,4 +29,13 @@ public abstract class BaseStorage
    * @return a slots count.
    */
   public abstract int getCapacity();
+
+  /**
+   * Get the status metadata.
+   * @return the status metadata.
+   */
+  public StatusMetadata getStatusMetadata()
+  {
+    return _statusMetadata;
+  }
 }

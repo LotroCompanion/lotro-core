@@ -14,6 +14,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.storage.carryAlls.CarryAllInstance;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
@@ -62,6 +63,9 @@ public class CarryAllInstanceXMLWriter
       attrs.addAttribute("","",CarryAllInstanceXMLConstants.CARRY_ALL_ITEM_ID_TAG,XmlWriter.CDATA,String.valueOf(carryAllItemID));
     }
     hd.startElement("","",CarryAllInstanceXMLConstants.CARRY_ALL,attrs);
+    // Status
+    StatusMetadataIO.writeStatusMetadata(hd,carryAll.getStatusMetadata());
+    // Items
     List<CountedItem<Item>> countedItems=carryAll.getItems();
     Collections.sort(countedItems,new IdentifiableComparator<CountedItem<Item>>());
     for(CountedItem<Item> countedItem : countedItems)

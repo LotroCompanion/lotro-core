@@ -11,6 +11,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.storage.vaults.Chest;
 import delta.games.lotro.character.storage.vaults.Vault;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -54,7 +55,9 @@ public class VaultsXMLWriter
     int max=vault.getCapacity();
     attrs.addAttribute("","",VaultsXMLConstants.VAULT_MAX_ATTR,XmlWriter.CDATA,String.valueOf(max));
     hd.startElement("","",VaultsXMLConstants.VAULT_TAG,attrs);
-
+    // Status
+    StatusMetadataIO.writeStatusMetadata(hd,vault.getStatusMetadata());
+    // Chests
     List<Integer> chestIds=vault.getChestIds();
     for(Integer chestId : chestIds)
     {

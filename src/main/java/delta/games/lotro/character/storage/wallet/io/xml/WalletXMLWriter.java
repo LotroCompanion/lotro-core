@@ -11,6 +11,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.storage.wallet.Wallet;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 
@@ -51,6 +52,9 @@ public class WalletXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",WalletXMLConstants.WALLET_TAG,attrs);
+    // Status
+    StatusMetadataIO.writeStatusMetadata(hd,wallet.getStatusMetadata());
+    // Items
     List<CountedItem<Item>> items=wallet.getAllItemsSortedByName();
     for(CountedItem<Item> item : items)
     {

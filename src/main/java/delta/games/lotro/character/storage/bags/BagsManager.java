@@ -30,6 +30,7 @@ public class BagsManager extends BaseStorage
    */
   public BagsManager()
   {
+    super();
     _bag=new HashMap<Integer,CountedItem<ItemInstance<? extends Item>>>();
     _setup=new BagsSetup();
   }

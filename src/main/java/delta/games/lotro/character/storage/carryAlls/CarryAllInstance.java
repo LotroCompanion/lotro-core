@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.id.InternalGameId;
+import delta.games.lotro.common.status.StatusMetadata;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
@@ -17,6 +18,7 @@ public class CarryAllInstance
   private InternalGameId _id;
   private CarryAll _reference;
   private List<CountedItem<Item>> _items;
+  private StatusMetadata _statusMetadata;
 
   /**
    * Constructor.
@@ -27,6 +29,7 @@ public class CarryAllInstance
     _id=null;
     _reference=null;
     _items=new ArrayList<CountedItem<Item>>();
+    _statusMetadata=new StatusMetadata();
   }
 
   /**
@@ -83,5 +86,14 @@ public class CarryAllInstance
   public List<CountedItem<Item>> getItems()
   {
     return new ArrayList<CountedItem<Item>>(_items);
+  }
+
+  /**
+   * Get the status metadata.
+   * @return the status metadata.
+   */
+  public StatusMetadata getStatusMetadata()
+  {
+    return _statusMetadata;
   }
 }
