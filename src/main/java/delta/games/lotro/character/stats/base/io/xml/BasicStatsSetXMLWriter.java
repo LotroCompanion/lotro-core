@@ -35,10 +35,23 @@ public class BasicStatsSetXMLWriter
    */
   public static void write(TransformerHandler hd, String tagName, BasicStatsSet statsSet) throws SAXException
   {
+    write(hd,tagName,statsSet,false);
+  }
+
+  /**
+   * Write a set of stats to the given XML stream.
+   * @param hd XML output stream.
+   * @param tagName Tag to use to wrap stat tags.
+   * @param statsSet Stats to write.
+   * @param sort Sort stats or not.
+   * @throws SAXException If an error occurs.
+   */
+  public static void write(TransformerHandler hd, String tagName, BasicStatsSet statsSet, boolean sort) throws SAXException
+  {
     if ((statsSet!=null) && (statsSet.getStatsCount()>0))
     {
       hd.startElement("","",tagName,new AttributesImpl());
-      writeStats(hd,statsSet);
+      writeStats(hd,statsSet,sort);
       hd.endElement("","",tagName);
     }
   }
@@ -51,10 +64,25 @@ public class BasicStatsSetXMLWriter
    */
   public static void writeStats(TransformerHandler hd, BasicStatsSet statsSet) throws SAXException
   {
+    writeStats(hd,statsSet,false);
+  }
+
+  /**
+   * Write a set of stats to the given XML stream.
+   * @param hd XML output stream.
+   * @param statsSet Stats to write.
+   * @param sort Sort stats or not.
+   * @throws SAXException If an error occurs.
+   */
+  public static void writeStats(TransformerHandler hd, BasicStatsSet statsSet, boolean sort) throws SAXException
+  {
     if (statsSet!=null)
     {
       List<StatsSetElement> elements=new ArrayList<StatsSetElement>(statsSet.getStatElements());
-      Collections.sort(elements,new StatsSetElementComparator());
+      if (sort)
+      {
+        Collections.sort(elements,new StatsSetElementComparator());
+      }
       for(StatsSetElement element : elements)
       {
         // Value

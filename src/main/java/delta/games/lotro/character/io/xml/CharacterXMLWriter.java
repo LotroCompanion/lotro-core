@@ -100,7 +100,7 @@ public class CharacterXMLWriter
 
     // Stats
     BasicStatsSet stats=character.getStats();
-    BasicStatsSetXMLWriter.write(hd,CharacterXMLConstants.STATS_TAG,stats);
+    BasicStatsSetXMLWriter.write(hd,CharacterXMLConstants.STATS_TAG,stats,true);
     // Equipment
     CharacterGear equipment=character.getEquipment();
     writeEquipment(hd,equipment);
