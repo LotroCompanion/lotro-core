@@ -44,6 +44,10 @@ public class DerivedStatsContributionsXMLWriter
           classAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.CLASS_CONTRIBS_CLASS_ATTR,CDATA,characterClass.getKey());
           hd.startElement("","",DerivedStatsContributionsXMLConstants.CLASS_CONTRIBS_TAG,classAttrs);
           ClassDerivedStats derivatedStats=statsManager.getDerivatedStats(characterClass);
+          if (derivatedStats==null)
+          {
+            continue;
+          }
           List<StatDescription> sourceStats=derivatedStats.getSourceStats();
           for(StatDescription sourceStat : sourceStats)
           {
