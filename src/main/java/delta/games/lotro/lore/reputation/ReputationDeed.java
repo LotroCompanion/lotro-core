@@ -38,7 +38,10 @@ public class ReputationDeed
    */
   public void addFaction(Faction faction)
   {
-    _factions.add(faction);
+    if (faction!=null)
+    {
+      _factions.add(faction);
+    }
   }
 
   /**

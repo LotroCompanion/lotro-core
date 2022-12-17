@@ -29,7 +29,10 @@ public class ClassProficienciesXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Armour Type for Mitigations
     ArmourType type=proficiencies.getArmourTypeForMitigations();
-    attrs.addAttribute("","",ClassProficienciesXMLConstants.PROFICIENCIES_ARMOUR_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
+    if (type!=null)
+    {
+      attrs.addAttribute("","",ClassProficienciesXMLConstants.PROFICIENCIES_ARMOUR_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
+    }
     hd.startElement("","",ClassProficienciesXMLConstants.PROFICIENCIES_TAG,attrs);
     // Weapon proficiencies
     TypedClassProficiencies<WeaponType> weaponProficiencies=proficiencies.getWeaponProficiencies();

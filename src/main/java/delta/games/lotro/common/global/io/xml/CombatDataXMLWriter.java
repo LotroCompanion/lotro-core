@@ -15,6 +15,7 @@ import delta.games.lotro.character.stats.ratings.RatingCurve;
 import delta.games.lotro.character.stats.ratings.RatingCurveId;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
 import delta.games.lotro.common.global.CombatData;
+import delta.games.lotro.utils.maths.Progression;
 
 /**
  * Writes data of the combat system to XML files.
@@ -55,15 +56,21 @@ public class CombatDataXMLWriter
       attrs.addAttribute("","",CombatDataXMLConstants.CURVE_ID_ATTR,XmlWriter.CDATA,curveId.name());
 
       ProgressionRatingCurveImpl progCurve=(ProgressionRatingCurveImpl)curve;
-      // - hard cap
-      int hardCapId=progCurve.getHardCapProgression().getIdentifier();
-      attrs.addAttribute("","",CombatDataXMLConstants.HARD_CAP_ID_ATTR,XmlWriter.CDATA,String.valueOf(hardCapId));
-      // - rating
-      int ratingId=progCurve.getRatingProgression().getIdentifier();
-      attrs.addAttribute("","",CombatDataXMLConstants.RATING_ID_ATTR,XmlWriter.CDATA,String.valueOf(ratingId));
-      // - target cap
-      int targetCapId=progCurve.getTargetCapProgression().getIdentifier();
-      attrs.addAttribute("","",CombatDataXMLConstants.TARGET_CAP_ID_ATTR,XmlWriter.CDATA,String.valueOf(targetCapId));
+      if (progCurve!=null)
+      {
+        // - hard cap
+        Progression hardCap=progCurve.getHardCapProgression();
+        int hardCapId=hardCap.getIdentifier();
+        attrs.addAttribute("","",CombatDataXMLConstants.HARD_CAP_ID_ATTR,XmlWriter.CDATA,String.valueOf(hardCapId));
+        // - rating
+        Progression rating=progCurve.getRatingProgression();
+        int ratingId=rating.getIdentifier();
+        attrs.addAttribute("","",CombatDataXMLConstants.RATING_ID_ATTR,XmlWriter.CDATA,String.valueOf(ratingId));
+        // - target cap
+        Progression targetCap=progCurve.getTargetCapProgression();
+        int targetCapId=targetCap.getIdentifier();
+        attrs.addAttribute("","",CombatDataXMLConstants.TARGET_CAP_ID_ATTR,XmlWriter.CDATA,String.valueOf(targetCapId));
+      }
 
       hd.startElement("","",CombatDataXMLConstants.CURVE_TAG,attrs);
       hd.endElement("","",CombatDataXMLConstants.CURVE_TAG);

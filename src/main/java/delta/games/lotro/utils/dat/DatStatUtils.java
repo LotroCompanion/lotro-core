@@ -39,7 +39,7 @@ public class DatStatUtils
     }
     if (ret==null)
     {
-      LOGGER.warn("Stat not found: "+propertyName);
+      LOGGER.warn("Stat not found: "+propertyName+" - fixed: "+fixedStatKey);
     }
     return ret;
   }

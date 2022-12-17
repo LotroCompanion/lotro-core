@@ -159,7 +159,10 @@ public class FactionsXMLWriter
       }
       // Level name
       String levelName=level.getName();
-      levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_NAME_ATTR,CDATA,levelName);
+      if (levelName!=null)
+      {
+        levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_NAME_ATTR,CDATA,levelName);
+      }
       // LOTRO points
       int lotroPoints=level.getLotroPoints();
       levelAttrs.addAttribute("","",FactionsXMLConstants.FACTION_LEVEL_LOTRO_POINTS_ATTR,CDATA,String.valueOf(lotroPoints));
