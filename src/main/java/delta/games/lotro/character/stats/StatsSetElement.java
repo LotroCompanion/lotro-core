@@ -133,7 +133,14 @@ public class StatsSetElement
     }
     else if ((type==StatType.INTEGER) || (type==StatType.BOOLEAN))
     {
-      _value=Integer.valueOf(Math.round(value));
+      if (_operator==StatOperator.MULTIPLY)
+      {
+        _value=Float.valueOf(value);
+      }
+      else
+      {
+        _value=Integer.valueOf(Math.round(value));
+      }
     }
     else if ((type==StatType.BITFIELD) || (type==StatType.DID))
     {
