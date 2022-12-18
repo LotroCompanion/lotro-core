@@ -20,7 +20,7 @@ public class ClassProficiencies
   {
     _weaponProficiencies=new TypedClassProficiencies<WeaponType>();
     _armourProficiencies=new TypedClassProficiencies<ArmourType>();
-    _armourTypeForMitigations=ArmourType.HEAVY;
+    _armourTypeForMitigations=null;
   }
 
   /**
