@@ -78,7 +78,10 @@ public class ClassDescriptionXMLWriter
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_DESCRIPTION_ATTR,XmlWriter.CDATA,descriptionText);
     // Tactical DPS stat name
     String tacticalDpsStatName=description.getTacticalDpsStatName();
-    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TACTICAL_DPS_STAT_NAME_ATTR,XmlWriter.CDATA,tacticalDpsStatName);
+    if (tacticalDpsStatName!=null)
+    {
+      attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TACTICAL_DPS_STAT_NAME_ATTR,XmlWriter.CDATA,tacticalDpsStatName);
+    }
     // Trait tree
     TraitTree tree=description.getTraitTree();
     if (tree!=null)
