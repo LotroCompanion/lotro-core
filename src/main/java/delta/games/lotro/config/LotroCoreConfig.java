@@ -21,6 +21,7 @@ public final class LotroCoreConfig
   private static LotroCoreConfig _instance=new LotroCoreConfig();
 
   // Locations
+  private File _rootDir;
   private TypedProperties _locations;
 
   // Root directory for user data
@@ -46,11 +47,40 @@ public final class LotroCoreConfig
   }
 
   /**
+   * Indicates if we're using the live version.
+   * @return <code>true</code> if we do, <code>false</code> otherwise.
+   */
+  public static boolean isLive()
+  {
+    String mode=getMode();
+    return ((mode.isEmpty()) || ("live".equals(mode)));
+  }
+
+  /**
+   * Get the current application mode.
+   * @return A mode (possibly empty but never <code>null</code>).
+   */
+  public static String getMode()
+  {
+    String mode=System.getProperty("lc.mode");
+    return (mode!=null)?mode:"";
+  }
+
+  private static String getLocationFile()
+  {
+    String mode=getMode();
+    return (mode.isEmpty()?"locations":("locations_"+mode));
+  }
+
+  /**
    * Private constructor.
    */
   private LotroCoreConfig()
   {
-    _locations=getLocations();
+    String propsPath=getLocationFile()+".properties";
+    _locations=getLocations(propsPath);
+    String path=_locations.getStringProperty("root",null);
+    _rootDir=new File(path);
 
     // Parameters
     File parametersFile=getFile(DataFiles.PARAMETERS);
@@ -70,13 +100,13 @@ public final class LotroCoreConfig
     _traitTreeSetupDir=new File(_userDataDir,"traitTrees");
   }
 
-  private TypedProperties getLocations()
+  private TypedProperties getLocations(String propsPath)
   {
     TypedProperties props=null;
-    URL url=URLTools.getFromClassPath("locations.properties", getClass().getClassLoader());
+    URL url=URLTools.getFromClassPath(propsPath, getClass().getClassLoader());
     if (url==null)
     {
-      url=URLTools.getFromClassPath("locations.properties",this);
+      url=URLTools.getFromClassPath(propsPath,this);
     }
     InputStream is=null;
     try
@@ -104,7 +134,12 @@ public final class LotroCoreConfig
   public File getFile(String id)
   {
     String path=_locations.getStringProperty(id,null);
-    return path!=null?new File(path).getAbsoluteFile():null;
+    if (path==null)
+    {
+      return null;
+    }
+    File ret=new File(_rootDir,path);
+    return ret;
   }
 
   /**
