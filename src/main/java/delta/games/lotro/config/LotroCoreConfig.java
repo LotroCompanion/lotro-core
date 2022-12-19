@@ -91,13 +91,19 @@ public final class LotroCoreConfig
     }
 
     // User data
-    File userHomeDir=new File(System.getProperty("user.home"));
-    File userApplicationDir=new File(userHomeDir,".lotrocompanion");
+    File userApplicationDir=getUserApplicationDir();
     _userDataDir=new File(userApplicationDir,"data");
     _toonsDir=new File(_userDataDir,"characters");
     _accountsDir=new File(_userDataDir,"accounts");
     _kinshipsDir=new File(_userDataDir,"kinships");
     _traitTreeSetupDir=new File(_userDataDir,"traitTrees");
+  }
+
+  private File getUserApplicationDir()
+  {
+    String dataDir=_locations.getStringProperty("dataDir",".");
+    dataDir=dataDir.replace("${user.home}",System.getProperty("user.home"));
+    return new File(dataDir);
   }
 
   private TypedProperties getLocations(String propsPath)
