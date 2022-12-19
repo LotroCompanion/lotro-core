@@ -106,11 +106,14 @@ public class RelicsManager
     _categories.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File relicsFile=cfg.getFile(DataFiles.RELICS);
-    RelicXMLParser parser=new RelicXMLParser();
-    List<RelicsCategory> categories=parser.parseRelicsFile(relicsFile);
-    for(RelicsCategory category : categories)
+    if (relicsFile.exists())
     {
-      _categories.put(Integer.valueOf(category.getCategoryCode()),category);
+      RelicXMLParser parser=new RelicXMLParser();
+      List<RelicsCategory> categories=parser.parseRelicsFile(relicsFile);
+      for(RelicsCategory category : categories)
+      {
+        _categories.put(Integer.valueOf(category.getCategoryCode()),category);
+      }
     }
   }
 
