@@ -58,7 +58,10 @@ public class QuestCompletionComment
    */
   public void addWhat(String what)
   {
-    _whats.add(what);
+    if (what!=null)
+    {
+      _whats.add(what);
+    }
   }
 
   /**
