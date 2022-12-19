@@ -13,6 +13,7 @@ import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLParser;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
@@ -20,6 +21,7 @@ import delta.games.lotro.lore.quests.objectives.io.xml.DialogsXMLParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLParser;
 import delta.games.lotro.lore.webStore.WebStoreItem;
 import delta.games.lotro.lore.webStore.WebStoreItemsManager;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Parser for quest descriptions stored in XML.
@@ -134,5 +136,23 @@ public class QuestXMLParser extends AchievableXMLParser
 
     RewardsXMLParser.loadRewards(root,q.getRewards());
     return q;
+  }
+
+  protected Proxy<Achievable> buildProxy(Element tag)
+  {
+    Proxy<Achievable> ret=null;
+    if (tag!=null)
+    {
+      NamedNodeMap attrs=tag.getAttributes();
+      int id=DOMParsingTools.getIntAttribute(attrs,AchievableXMLConstants.PROXY_ID_ATTR,0);
+      String name=DOMParsingTools.getStringAttribute(attrs,AchievableXMLConstants.PROXY_NAME_ATTR,null);
+      if (id!=0)
+      {
+        ret=new Proxy<Achievable>();
+        ret.setId(id);
+        ret.setName(name);
+      }
+    }
+    return ret;
   }
 }

@@ -52,13 +52,19 @@ public class ContainerXMLParser
       for(Element tag : tags)
       {
         Container container=parseItemContainer(tag);
-        ret.add(container);
+        if (container!=null)
+        {
+          ret.add(container);
+        }
       }
       List<Element> relicContainerTags=DOMParsingTools.getChildTagsByName(root,ContainerXMLConstants.RELICS_CONTAINER_TAG);
       for(Element relicContainerTag : relicContainerTags)
       {
         Container container=parseRelicContainer(relicContainerTag);
-        ret.add(container);
+        if (container!=null)
+        {
+          ret.add(container);
+        }
       }
     }
     return ret;
@@ -69,6 +75,10 @@ public class ContainerXMLParser
     NamedNodeMap attrs=root.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CONTAINER_ID_ATTR,0);
     Item item=ItemsManager.getInstance().getItem(id);
+    if (item==null)
+    {
+      return null;
+    }
     ItemsContainer ret=new ItemsContainer(item);
     parseLootTables(root,ret.getLootTables());
     return ret;
@@ -100,6 +110,10 @@ public class ContainerXMLParser
     NamedNodeMap attrs=root.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,ContainerXMLConstants.CONTAINER_ID_ATTR,0);
     Item item=ItemsManager.getInstance().getItem(id);
+    if (item==null)
+    {
+      return null;
+    }
     RelicsContainer ret=new RelicsContainer(item);
 
     // Relic

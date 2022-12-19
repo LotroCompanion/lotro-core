@@ -130,14 +130,7 @@ public class RewardsXMLParser
   {
     String tagName=rewardTag.getTagName();
     // Reputation
-    if (RewardsXMLConstants.REPUTATION_TAG.equals(tagName))
-    {
-      for(Element repItemTag : DOMParsingTools.getChildTags(rewardTag))
-      {
-        parseReputationReward(rewards,repItemTag);
-      }
-    }
-    else if (RewardsXMLConstants.REPUTATION_ITEM_TAG.equals(tagName))
+    if (RewardsXMLConstants.REPUTATION_ITEM_TAG.equals(tagName))
     {
       parseReputationReward(rewards,rewardTag);
     }

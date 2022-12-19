@@ -5,11 +5,13 @@ import javax.xml.transform.sax.TransformerHandler;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.common.utils.xml.SAXParsingTools;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
@@ -92,6 +94,28 @@ public class SharedXMLUtils
     {
       // - name
       String npcName=DOMParsingTools.getStringAttribute(attrs,SharedXMLConstants.NPC_NAME_ATTR,"?");
+      proxy=new Proxy<NpcDescription>();
+      proxy.setId(npcId);
+      proxy.setName(npcName);
+    }
+    return proxy;
+  }
+
+  /**
+   * Load NPC proxy from XML attributes.
+   * @param attrs Input.
+   * @return A NPC proxy or <code>null</code> if none.
+   */
+  public static Proxy<NpcDescription> parseNpcProxy(Attributes attrs)
+  {
+    Proxy<NpcDescription> proxy=null;
+    // NPC proxy
+    // - id
+    int npcId=SAXParsingTools.getIntAttribute(attrs,SharedXMLConstants.NPC_ID_ATTR,0);
+    if (npcId!=0)
+    {
+      // - name
+      String npcName=SAXParsingTools.getStringAttribute(attrs,SharedXMLConstants.NPC_NAME_ATTR,"?");
       proxy=new Proxy<NpcDescription>();
       proxy.setId(npcId);
       proxy.setName(npcName);

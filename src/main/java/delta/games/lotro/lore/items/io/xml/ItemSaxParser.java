@@ -21,11 +21,7 @@ import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.money.ValueTablesManager;
 import delta.games.lotro.common.progression.ProgressionsManager;
-import delta.games.lotro.common.requirements.ClassRequirement;
-import delta.games.lotro.common.requirements.FactionRequirement;
-import delta.games.lotro.common.requirements.RaceRequirement;
-import delta.games.lotro.common.requirements.UsageRequirement;
-import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
@@ -197,7 +193,7 @@ public final class ItemSaxParser extends DefaultHandler
       }
       _currentItem.setQuality(quality);
       // Requirements
-      parseRequirements(_currentItem.getUsageRequirements(),attributes);
+      UsageRequirementsXMLParser.parseRequirements(_currentItem.getUsageRequirements(),attributes);
       // Full description
       String description=attributes.getValue(ItemXMLConstants.ITEM_DESCRIPTION_ATTR);
       _currentItem.setDescription(description);
@@ -359,34 +355,6 @@ public final class ItemSaxParser extends DefaultHandler
       operator=StatOperator.ADD;
     }
     return operator;
-  }
-
-  private void parseRequirements(UsageRequirement requirements, Attributes attributes)
-  {
-    // Minimum level
-    String minimumLevelStr=attributes.getValue(UsageRequirementXMLConstants.MIN_LEVEL_ATTR);
-    if (minimumLevelStr!=null)
-    {
-      requirements.setMinLevel(NumericTools.parseInteger(minimumLevelStr));
-    }
-    // Maximum level
-    String maximumLevelStr=attributes.getValue(UsageRequirementXMLConstants.MAX_LEVEL_ATTR);
-    if (maximumLevelStr!=null)
-    {
-      requirements.setMaxLevel(NumericTools.parseInteger(maximumLevelStr));
-    }
-    // Required classes
-    String requiredClasses=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_CLASS_ATTR);
-    ClassRequirement classRequirements=ClassRequirement.fromString(requiredClasses);
-    requirements.setClassRequirement(classRequirements);
-    // Required races
-    String requiredRaces=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_RACE_ATTR);
-    RaceRequirement raceRequirements=RaceRequirement.fromString(requiredRaces);
-    requirements.setRaceRequirement(raceRequirements);
-    // Required faction
-    String requiredFaction=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_FACTION_ATTR);
-    FactionRequirement factionRequirement=FactionRequirement.fromString(requiredFaction);
-    requirements.setFactionRequirement(factionRequirement);
   }
 
   private StatProvider parseStatProvider(StatDescription stat, Attributes attributes)

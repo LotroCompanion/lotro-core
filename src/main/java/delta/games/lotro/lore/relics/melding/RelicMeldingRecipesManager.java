@@ -45,18 +45,21 @@ public class RelicMeldingRecipesManager
 
   private static RelicMeldingRecipesManager load()
   {
-    long now=System.currentTimeMillis();
     RelicMeldingRecipesManager ret=new RelicMeldingRecipesManager();
     File meldingRecipesFile=LotroCoreConfig.getInstance().getFile(DataFiles.RELIC_MELDING_RECIPES);
-    MeldingRecipesXMLParser parser=new MeldingRecipesXMLParser();
-    List<RelicMeldingRecipe> recipes=parser.parseXML(meldingRecipesFile);
-    for(RelicMeldingRecipe recipe : recipes)
+    if (meldingRecipesFile.exists())
     {
-      ret.getMeldingRecipes().add(recipe);
+      long now=System.currentTimeMillis();
+      MeldingRecipesXMLParser parser=new MeldingRecipesXMLParser();
+      List<RelicMeldingRecipe> recipes=parser.parseXML(meldingRecipesFile);
+      for(RelicMeldingRecipe recipe : recipes)
+      {
+        ret.getMeldingRecipes().add(recipe);
+      }
+      long now2=System.currentTimeMillis();
+      long duration=now2-now;
+      LOGGER.info("Loaded relic melding recipes in "+duration+"ms.");
     }
-    long now2=System.currentTimeMillis();
-    long duration=now2-now;
-    LOGGER.info("Loaded relic melding recipes in "+duration+"ms.");
     return ret;
   }
 

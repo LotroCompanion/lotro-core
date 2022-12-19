@@ -2,7 +2,9 @@ package delta.games.lotro.common.requirements.io.xml;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.xml.sax.Attributes;
 
+import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
@@ -37,20 +39,48 @@ public class UsageRequirementsXMLParser
       requirements.setMaxLevel(Integer.valueOf(maximumLevel));
     }
     // Required classes
-    String classKeys=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_CLASS_ATTR,null);
-    ClassRequirement classRequirement=ClassRequirement.fromString(classKeys);
+    String requiredClasses=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_CLASS_ATTR,null);
+    ClassRequirement classRequirement=ClassRequirement.fromString(requiredClasses);
     requirements.setClassRequirement(classRequirement);
     // Required races
-    String raceKeys=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_RACE_ATTR,null);
-    RaceRequirement raceRequirement=RaceRequirement.fromString(raceKeys);
+    String requiredRaces=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_RACE_ATTR,null);
+    RaceRequirement raceRequirement=RaceRequirement.fromString(requiredRaces);
     requirements.setRaceRequirement(raceRequirement);
     // Required faction
-    String factionReqStr=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_FACTION_ATTR,null);
-    FactionRequirement factionRequirement=FactionRequirement.fromString(factionReqStr);
+    String requiredFaction=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_FACTION_ATTR,null);
+    FactionRequirement factionRequirement=FactionRequirement.fromString(requiredFaction);
     requirements.setFactionRequirement(factionRequirement);
     // Required quest
     String questReqStr=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_QUEST_ATTR,null);
     QuestRequirement questRequirement=QuestRequirement.fromString(questReqStr);
     requirements.setQuestRequirement(questRequirement);
+  }
+
+  public static void parseRequirements(UsageRequirement requirements, Attributes attributes)
+  {
+    // Minimum level
+    String minimumLevelStr=attributes.getValue(UsageRequirementXMLConstants.MIN_LEVEL_ATTR);
+    if (minimumLevelStr!=null)
+    {
+      requirements.setMinLevel(NumericTools.parseInteger(minimumLevelStr));
+    }
+    // Maximum level
+    String maximumLevelStr=attributes.getValue(UsageRequirementXMLConstants.MAX_LEVEL_ATTR);
+    if (maximumLevelStr!=null)
+    {
+      requirements.setMaxLevel(NumericTools.parseInteger(maximumLevelStr));
+    }
+    // Required classes
+    String requiredClasses=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_CLASS_ATTR);
+    ClassRequirement classRequirements=ClassRequirement.fromString(requiredClasses);
+    requirements.setClassRequirement(classRequirements);
+    // Required races
+    String requiredRaces=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_RACE_ATTR);
+    RaceRequirement raceRequirements=RaceRequirement.fromString(requiredRaces);
+    requirements.setRaceRequirement(raceRequirements);
+    // Required faction
+    String requiredFaction=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_FACTION_ATTR);
+    FactionRequirement factionRequirement=FactionRequirement.fromString(requiredFaction);
+    requirements.setFactionRequirement(factionRequirement);
   }
 }

@@ -45,18 +45,21 @@ public class DisenchantmentManager
 
   private static DisenchantmentManager loadDisenchantmentManager()
   {
-    long now=System.currentTimeMillis();
     DisenchantmentManager ret=new DisenchantmentManager();
     File disenchantmentResultsFile=LotroCoreConfig.getInstance().getFile(DataFiles.DISENCHANTMENTS);
-    DisenchantmentResultXMLParser parser=new DisenchantmentResultXMLParser();
-    List<DisenchantmentResult> results=parser.parseXML(disenchantmentResultsFile);
-    for(DisenchantmentResult result : results)
+    if (disenchantmentResultsFile.exists())
     {
-      ret.getDisenchantmentResults().add(result);
+      long now=System.currentTimeMillis();
+      DisenchantmentResultXMLParser parser=new DisenchantmentResultXMLParser();
+      List<DisenchantmentResult> results=parser.parseXML(disenchantmentResultsFile);
+      for(DisenchantmentResult result : results)
+      {
+        ret.getDisenchantmentResults().add(result);
+      }
+      long now2=System.currentTimeMillis();
+      long duration=now2-now;
+      LOGGER.info("Loaded disenchantment results in "+duration+"ms.");
     }
-    long now2=System.currentTimeMillis();
-    long duration=now2-now;
-    LOGGER.info("Loaded disenchantment results in "+duration+"ms.");
     return ret;
   }
 

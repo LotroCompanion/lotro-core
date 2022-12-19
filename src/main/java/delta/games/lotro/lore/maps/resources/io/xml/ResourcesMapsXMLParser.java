@@ -82,7 +82,10 @@ public class ResourcesMapsXMLParser
     for(Element itemTag : itemTags)
     {
       Proxy<Item> item=SharedXMLUtils.parseItemProxy(itemTag);
-      ret.addItem(item);
+      if (item!=null)
+      {
+        ret.addItem(item);
+      }
     }
     // Maps
     List<Element> mapTags=DOMParsingTools.getChildTagsByName(resourcesMapTag,ResourcesMapsXMLConstants.MAP_TAG);

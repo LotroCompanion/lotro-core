@@ -15,7 +15,6 @@ import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.io.xml.WorldEventConditionsXMLParser;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Base class for achievable XML parsers.
@@ -60,24 +59,6 @@ public class AchievableXMLParser
   {
     AbstractWorldEventCondition requirement=_worldEventConditionsParser.loadRequirement(root);
     achievable.setWorldEventsRequirement(requirement);
-  }
-
-  protected Proxy<Achievable> buildProxy(Element tag)
-  {
-    Proxy<Achievable> ret=null;
-    if (tag!=null)
-    {
-      NamedNodeMap attrs=tag.getAttributes();
-      int id=DOMParsingTools.getIntAttribute(attrs,AchievableXMLConstants.PROXY_ID_ATTR,0);
-      String name=DOMParsingTools.getStringAttribute(attrs,AchievableXMLConstants.PROXY_NAME_ATTR,null);
-      if (id!=0)
-      {
-        ret=new Proxy<Achievable>();
-        ret.setId(id);
-        ret.setName(name);
-      }
-    }
-    return ret;
   }
 
   protected void parseMaps(Element root, Achievable achievable)

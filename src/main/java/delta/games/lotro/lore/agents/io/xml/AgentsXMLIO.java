@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.xml.sax.Attributes;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.common.utils.xml.SAXParsingTools;
 import delta.games.lotro.common.enums.AgentClass;
 import delta.games.lotro.common.enums.Alignment;
 import delta.games.lotro.common.enums.ClassificationFilter;
@@ -153,6 +155,45 @@ public class AgentsXMLIO
     }
     // Sub-species
     int subSpeciesCode=DOMParsingTools.getIntAttribute(attrs,AgentsXMLConstants.SUBSPECIES_ATTR,0);
+    if (subSpeciesCode>0)
+    {
+      LotroEnum<SubSpecies> subSpeciesMgr=LotroEnumsRegistry.getInstance().get(SubSpecies.class);
+      SubSpecies subSpecies=subSpeciesMgr.getEntry(subSpeciesCode);
+      entityClassification.setSubSpecies(subSpecies);
+    }
+  }
+
+  /**
+   * Parse entity classification data.
+   * @param entityClassification Storage.
+   * @param attrs Attributes to read from.
+   */
+  public static void parseEntityClassification(EntityClassification entityClassification, Attributes attrs)
+  {
+    // Genus
+    String genusCodes=SAXParsingTools.getStringAttribute(attrs,AgentsXMLConstants.GENUS_ATTR,null);
+    if ((genusCodes!=null) && (genusCodes.length()>0))
+    {
+      LotroEnum<Genus> genusMgr=LotroEnumsRegistry.getInstance().get(Genus.class);
+      List<Genus> genuses=new ArrayList<Genus>();
+      String[] codes=genusCodes.split(",");
+      for(String code : codes)
+      {
+        Genus genus=genusMgr.getEntry(NumericTools.parseInt(code,0));
+        genuses.add(genus);
+      }
+      entityClassification.setGenus(genuses);
+    }
+    // Species
+    int speciesCode=SAXParsingTools.getIntAttribute(attrs,AgentsXMLConstants.SPECIES_ATTR,0);
+    if (speciesCode>0)
+    {
+      LotroEnum<Species> speciesMgr=LotroEnumsRegistry.getInstance().get(Species.class);
+      Species species=speciesMgr.getEntry(speciesCode);
+      entityClassification.setSpecies(species);
+    }
+    // Sub-species
+    int subSpeciesCode=SAXParsingTools.getIntAttribute(attrs,AgentsXMLConstants.SUBSPECIES_ATTR,0);
     if (subSpeciesCode>0)
     {
       LotroEnum<SubSpecies> subSpeciesMgr=LotroEnumsRegistry.getInstance().get(SubSpecies.class);
