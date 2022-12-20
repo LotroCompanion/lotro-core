@@ -72,11 +72,14 @@ public class VirtueDescriptionXMLParser
     virtue.setXpPropertyName(xpPropertyName);
     // Max rank progression
     int maxRankProgressionId=DOMParsingTools.getIntAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_MAX_RANK_PROGRESSION_ATTR,0);
-    Progression maxRankProgression=ProgressionsManager.getInstance().getProgression(maxRankProgressionId);
-    virtue.setMaxRankForCharacterLevelProgression(maxRankProgression);
-    if (maxRankProgression==null)
+    if (maxRankProgressionId!=0)
     {
-      LOGGER.warn("Could not load progression "+maxRankProgressionId+" for virtue: "+key);
+      Progression maxRankProgression=ProgressionsManager.getInstance().getProgression(maxRankProgressionId);
+      virtue.setMaxRankForCharacterLevelProgression(maxRankProgression);
+      if (maxRankProgression==null)
+      {
+        LOGGER.warn("Could not load progression "+maxRankProgressionId+" for virtue: "+key);
+      }
     }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_DESCRIPTION_ATTR,"");
