@@ -14,19 +14,19 @@ import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.enums.TraitNature;
 
 /**
- * Writes a trait tree status to an XML document.
+ * Writes a skimirsh traits status to an XML document.
  * @author DAM
  */
 public class SkirmishTraitsStatusXMLWriter
 {
   /**
-   * Write skirmish traits status attributes.
+   * Write skirmish traits status.
    * @param hd Output stream.
    * @param status Data to write.
    * @param statusAttrs Attributes to write to. 
    * @throws SAXException If an error occurs.
    */
-  public static void writeTreeAttributes(TransformerHandler hd, SkirmishTraitsStatus status, AttributesImpl statusAttrs) throws SAXException
+  public static void writeSkirmishTraitsStatus(TransformerHandler hd, SkirmishTraitsStatus status, AttributesImpl statusAttrs) throws SAXException
   {
     hd.startElement("","",SkirmishTraitsStatusXMLConstants.SKIRMISH_TRAITS_STATUS_TAG,new AttributesImpl());
     // Slotted traits
