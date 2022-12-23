@@ -122,7 +122,7 @@ public class AchievableProxiesResolver
    * Resolve a quest requirement.
    * @param requirement Requirement to resolve.
    */
-  public void resolveQuestRequirement(AbstractAchievableRequirement requirement)
+  private void resolveQuestRequirement(AbstractAchievableRequirement requirement)
   {
     if (requirement instanceof CompoundQuestRequirement)
     {

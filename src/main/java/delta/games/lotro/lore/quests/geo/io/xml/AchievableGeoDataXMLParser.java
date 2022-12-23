@@ -46,6 +46,11 @@ public class AchievableGeoDataXMLParser
     }
   }
 
+  /**
+   * Parse an achievable geo point (SAX mode).
+   * @param pointAttrs Input data.
+   * @return the loaded point.
+   */
   public static AchievableGeoPoint parseGeoDataElement(Attributes pointAttrs)
   {
     // DID

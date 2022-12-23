@@ -56,6 +56,11 @@ public class UsageRequirementsXMLParser
     requirements.setQuestRequirement(questRequirement);
   }
 
+  /**
+   * Parse requirements (SAX mode).
+   * @param requirements Storage for loaded data.
+   * @param attributes Input data.
+   */
   public static void parseRequirements(UsageRequirement requirements, Attributes attributes)
   {
     // Minimum level

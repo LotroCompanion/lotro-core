@@ -14,7 +14,7 @@ import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.quests.io.xml.QuestXMLParser;
+import delta.games.lotro.lore.quests.io.xml.QuestsSaxParser;
 
 /**
  * Facade for quests access.
@@ -60,7 +60,8 @@ public final class QuestsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File questsFile=cfg.getFile(DataFiles.QUESTS);
     long now=System.currentTimeMillis();
-    List<QuestDescription> quests=new QuestXMLParser().parseXML(questsFile);
+    //List<QuestDescription> quests=new QuestXMLParser().parseXML(questsFile);
+    List<QuestDescription> quests=QuestsSaxParser.parseQuestsFile(questsFile);
     for(QuestDescription quest : quests)
     {
       _cache.put(Integer.valueOf(quest.getIdentifier()),quest);

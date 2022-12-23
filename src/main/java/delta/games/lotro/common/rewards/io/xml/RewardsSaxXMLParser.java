@@ -5,6 +5,7 @@ import java.util.List;
 import org.xml.sax.Attributes;
 
 import delta.common.utils.xml.SAXParsingTools;
+import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
@@ -13,6 +14,7 @@ import delta.games.lotro.common.enums.BillingGroup;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.money.io.xml.MoneyXMLConstants;
 import delta.games.lotro.common.money.io.xml.MoneyXMLParser;
 import delta.games.lotro.common.rewards.BillingTokenReward;
 import delta.games.lotro.common.rewards.CraftingXpReward;
@@ -43,7 +45,7 @@ import delta.games.lotro.utils.io.xml.SharedXMLConstants;
  * SAX Parser for rewards stored in XML.
  * @author DAM
  */
-public class RewardsSaxXMLParser
+public class RewardsSaxXMLParser extends SAXParserValve<Void>
 {
   private Rewards _rewards;
   private List<RewardElement> _rewardElements;
@@ -58,65 +60,72 @@ public class RewardsSaxXMLParser
     _rewardElements=rewards.getRewardElements();
   }
 
-  /**
-   * Handle a start element event.
-   * @param qualifiedName Tag name.
-   * @param attrs Attributes.
-   */
-  public void startElement(String qualifiedName, Attributes attrs)
+  @Override
+  public SAXParserValve<?> handleStartTag(String tagName, Attributes attrs)
   {
-    if (RewardsXMLConstants.REWARDS_TAG.equals(qualifiedName))
+    if (MoneyXMLConstants.MONEY_TAG.equals(tagName))
     {
       // Money
       Money money=_rewards.getMoney();
       MoneyXMLParser.loadMoney(attrs,money);
     }
     // LOTRO points
-    else if (RewardsXMLConstants.LOTRO_POINTS.equals(qualifiedName))
+    else if (RewardsXMLConstants.LOTRO_POINTS.equals(tagName))
     {
       int lotroPoints=SAXParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       _rewards.setLotroPoints(lotroPoints);
     }
     // Class points
-    else if (RewardsXMLConstants.CLASS_POINTS.equals(qualifiedName))
+    else if (RewardsXMLConstants.CLASS_POINTS.equals(tagName))
     {
       int classPoints=SAXParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       _rewards.setClassPoints(classPoints);
     }
     // XP
-    else if (RewardsXMLConstants.XP.equals(qualifiedName))
+    else if (RewardsXMLConstants.XP.equals(tagName))
     {
       int XP=SAXParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       _rewards.setXp(XP);
     }
     // Item XP
-    else if (RewardsXMLConstants.ITEM_XP.equals(qualifiedName))
+    else if (RewardsXMLConstants.ITEM_XP.equals(tagName))
     {
       int itemXP=SAXParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       _rewards.setItemXp(itemXP);
     }
     // Mount XP
-    else if (RewardsXMLConstants.MOUNT_XP.equals(qualifiedName))
+    else if (RewardsXMLConstants.MOUNT_XP.equals(tagName))
     {
       int mountXP=SAXParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       _rewards.setMountXp(mountXP);
     }
     // Virtue XP
-    else if (RewardsXMLConstants.VIRTUE_XP.equals(qualifiedName))
+    else if (RewardsXMLConstants.VIRTUE_XP.equals(tagName))
     {
       int virtueXP=SAXParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       _rewards.setVirtueXp(virtueXP);
     }
     // Glory
-    else if (RewardsXMLConstants.GLORY.equals(qualifiedName))
+    else if (RewardsXMLConstants.GLORY.equals(tagName))
     {
       int glory=SAXParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
       _rewards.setGlory(glory);
     }
     else
     {
-      parseRewardElementTag(_rewards.getRewardElements(),qualifiedName,attrs);
+      parseRewardElementTag(_rewards.getRewardElements(),tagName,attrs);
     }
+    return this;
+  }
+
+  @Override
+  public SAXParserValve<?> handleEndTag(String tagName)
+  {
+    if (RewardsXMLConstants.REWARDS_TAG.equals(tagName))
+    {
+      return getParent();
+    }
+    return this;
   }
 
   private void parseRewardElementTag(List<RewardElement> rewards, String tagName, Attributes attrs)
@@ -182,11 +191,11 @@ public class RewardsSaxXMLParser
 
   /**
    * End an element.
-   * @param qualifiedName Tag name.
+   * @param tagName Tag name.
    */
-  public void endElement(String qualifiedName)
+  public void endElement(String tagName)
   {
-    if (RewardsXMLConstants.SELECT_ONE_OF_TAG.equals(qualifiedName))
+    if (RewardsXMLConstants.SELECT_ONE_OF_TAG.equals(tagName))
     {
       _rewardElements=_rewards.getRewardElements();
     }

@@ -1,10 +1,13 @@
 package delta.games.lotro.lore.worldEvents.io.xml;
 
-import org.apache.log4j.Logger;
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import org.xml.sax.Attributes;
 
 import delta.common.utils.collections.filters.Operator;
 import delta.common.utils.xml.SAXParsingTools;
+import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.common.utils.ComparisonOperator;
 import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.CompoundWorldEventCondition;
@@ -15,15 +18,13 @@ import delta.games.lotro.lore.worldEvents.WorldEventsManager;
 import delta.games.lotro.utils.Proxy;
 
 /**
- * Parser for world event conditions.
+ * Read world event conditions from XML documents.
  * @author DAM
  */
-public class WorldEventConditionsSaxParser
+public class WorldEventConditionsSaxParser extends SAXParserValve<AbstractWorldEventCondition>
 {
-  private static final Logger LOGGER=Logger.getLogger(WorldEventConditionsSaxParser.class);
-
   private WorldEventConditionsRenderer _renderer;
-  private AbstractWorldEventCondition _result;
+  private Deque<CompoundWorldEventCondition> _compounds=new ArrayDeque<CompoundWorldEventCondition>();
   private CompoundWorldEventCondition _compound;
 
   /**
@@ -34,21 +35,8 @@ public class WorldEventConditionsSaxParser
     _renderer=new WorldEventConditionsRenderer();
   }
 
-  /**
-   * Get the result data.
-   * @return the result data.
-   */
-  public AbstractWorldEventCondition getResult()
-  {
-    return _result;
-  }
-
-  /**
-   * Handle a start element event.
-   * @param tagName Name of started tag.
-   * @param attrs Tag attributes.
-   */
-  public void startElement(String tagName, Attributes attrs)
+  @Override
+  public SAXParserValve<?> handleStartTag(String tagName, Attributes attrs)
   {
     if (WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_TAG.equals(tagName))
     {
@@ -59,14 +47,47 @@ public class WorldEventConditionsSaxParser
       }
       else
       {
-        _result=condition;
+        setResult(condition);
       }
     }
     else if (WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG.equals(tagName))
     {
-      parseCompoundWorldEventCondition(attrs);
-      _result=_compound;
+      CompoundWorldEventCondition compound=parseCompoundWorldEventCondition(attrs);
+      if (_compound==null)
+      {
+        setResult(compound);
+      }
+      else
+      {
+        _compound.addItem(compound);
+      }
+      _compound=compound;
+      _compounds.push(_compound);
     }
+    return this;
+  }
+
+  @Override
+  public SAXParserValve<?> handleEndTag(String tagName)
+  {
+    if (WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG.equals(tagName))
+    {
+      _compound=_compounds.pop();
+      if (_compounds.isEmpty())
+      {
+        _compound=null;
+        return getParent();
+      }
+      _compound=_compounds.peek();
+    }
+    else if (WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_TAG.equals(tagName))
+    {
+      if (_compound==null)
+      {
+        return getParent();
+      }
+    }
+    return this;
   }
 
   private SimpleWorldEventCondition parseSimpleWorldEventCondition(Attributes attrs)
@@ -100,16 +121,17 @@ public class WorldEventConditionsSaxParser
     return ret;
   }
 
-  private void parseCompoundWorldEventCondition(Attributes attrs)
+  private CompoundWorldEventCondition parseCompoundWorldEventCondition(Attributes attrs)
   {
     // Operator
+    Operator operator=Operator.AND;
     String operatorStr=SAXParsingTools.getStringAttribute(attrs,WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_OPERATOR_ATTR,"");
-    Operator operator=Operator.valueOf(operatorStr);
-    if (_compound!=null)
+    if (operatorStr!=null)
     {
-      LOGGER.warn("Found multiple levels of compound world event conditions!");
+      operator=Operator.valueOf(operatorStr);
     }
-    _compound=new CompoundWorldEventCondition(operator);
+    CompoundWorldEventCondition compound=new CompoundWorldEventCondition(operator);
+    return compound;
   }
 
   private void resolveCondition(SimpleWorldEventCondition condition)

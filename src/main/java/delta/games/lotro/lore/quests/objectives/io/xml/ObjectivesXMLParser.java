@@ -275,10 +275,13 @@ public class ObjectivesXMLParser
     int landmarkId=DOMParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.LANDMARK_DETECTION_ID_ATTR,0);
     // - name
     String landmarkName=DOMParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.LANDMARK_DETECTION_NAME_ATTR,"?");
-    Proxy<LandmarkDescription> proxy=new Proxy<LandmarkDescription>();
-    proxy.setId(landmarkId);
-    proxy.setName(landmarkName);
-    condition.setLandmarkProxy(proxy);
+    if (landmarkId!=0)
+    {
+      Proxy<LandmarkDescription> proxy=new Proxy<LandmarkDescription>();
+      proxy.setId(landmarkId);
+      proxy.setName(landmarkName);
+      condition.setLandmarkProxy(proxy);
+    }
     return condition;
   }
 

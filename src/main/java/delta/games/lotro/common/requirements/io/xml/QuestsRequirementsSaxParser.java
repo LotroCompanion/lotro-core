@@ -1,10 +1,13 @@
 package delta.games.lotro.common.requirements.io.xml;
 
-import org.apache.log4j.Logger;
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import org.xml.sax.Attributes;
 
 import delta.common.utils.collections.filters.Operator;
 import delta.common.utils.xml.SAXParsingTools;
+import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.CompoundQuestRequirement;
 import delta.games.lotro.common.requirements.QuestRequirement;
@@ -15,28 +18,13 @@ import delta.games.lotro.common.utils.ComparisonOperator;
  * Read quest requirements from XML documents.
  * @author DAM
  */
-public class QuestsRequirementsSaxParser
+public class QuestsRequirementsSaxParser extends SAXParserValve<AbstractAchievableRequirement>
 {
-  private static final Logger LOGGER=Logger.getLogger(QuestsRequirementsSaxParser.class);
-
-  private AbstractAchievableRequirement _result;
+  private Deque<CompoundQuestRequirement> _compounds=new ArrayDeque<CompoundQuestRequirement>();
   private CompoundQuestRequirement _compound;
 
-  /**
-   * Get the result data.
-   * @return the result data.
-   */
-  public AbstractAchievableRequirement getResult()
-  {
-    return _result;
-  }
-
-  /**
-   * Handle a start element event.
-   * @param tagName Name of started tag.
-   * @param attrs Tag attributes.
-   */
-  public void startElement(String tagName, Attributes attrs)
+  @Override
+  public SAXParserValve<?> handleStartTag(String tagName, Attributes attrs)
   {
     if (QuestsRequirementsXMLConstants.PREREQUISITE_TAG.equals(tagName))
     {
@@ -47,26 +35,47 @@ public class QuestsRequirementsSaxParser
       }
       else
       {
-        _result=requirement;
+        setResult(requirement);
       }
     }
     else if (QuestsRequirementsXMLConstants.COMPOUND_PREREQUISITE_TAG.equals(tagName))
     {
-      parseCompoundRequirement(attrs);
-      _result=_compound;
+      CompoundQuestRequirement compound=parseCompoundRequirement(attrs);
+      if (_compound==null)
+      {
+        setResult(compound);
+      }
+      else
+      {
+        _compound.addRequirement(compound);
+      }
+      _compound=compound;
+      _compounds.push(_compound);
     }
+    return this;
   }
 
-  /**
-   * Handle an 'end element' event.
-   * @param tagName Name of ended tag.
-   */
-  public void endElement(String tagName)
+  @Override
+  public SAXParserValve<?> handleEndTag(String tagName)
   {
     if (QuestsRequirementsXMLConstants.COMPOUND_PREREQUISITE_TAG.equals(tagName))
     {
-      _compound=null;
+      _compound=_compounds.pop();
+      if (_compounds.isEmpty())
+      {
+        _compound=null;
+        return getParent();
+      }
+      _compound=_compounds.peek();
     }
+    else if (QuestsRequirementsXMLConstants.PREREQUISITE_TAG.equals(tagName))
+    {
+      if (_compound==null)
+      {
+        return getParent();
+      }
+    }
+    return this;
   }
 
   /**
@@ -74,7 +83,7 @@ public class QuestsRequirementsSaxParser
    * @param attrs Attributes to use.
    * @return the loaded data.
    */
-  public QuestRequirement parseSimpleRequirement(Attributes attrs)
+  private QuestRequirement parseSimpleRequirement(Attributes attrs)
   {
     // ID
     int questId=SAXParsingTools.getIntAttribute(attrs,QuestsRequirementsXMLConstants.ID_ATTR,-1);
@@ -100,8 +109,9 @@ public class QuestsRequirementsSaxParser
   /**
    * Load a compound quest requirement from XML attributes.
    * @param attrs Attributes to use.
+   * @return the loaded compound requirement.
    */
-  public void parseCompoundRequirement(Attributes attrs)
+  private CompoundQuestRequirement parseCompoundRequirement(Attributes attrs)
   {
     // Operator
     Operator operator=Operator.AND;
@@ -110,10 +120,7 @@ public class QuestsRequirementsSaxParser
     {
       operator=Operator.valueOf(operatorStr);
     }
-    if (_compound!=null)
-    {
-      LOGGER.warn("Found multiple levels of compound quest requirements!");
-    }
-    _compound=new CompoundQuestRequirement(operator);
+    CompoundQuestRequirement compound=new CompoundQuestRequirement(operator);
+    return compound;
   }
 }

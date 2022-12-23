@@ -3,6 +3,7 @@ package delta.games.lotro.lore.quests.objectives.io.xml;
 import org.xml.sax.Attributes;
 
 import delta.common.utils.xml.SAXParsingTools;
+import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
@@ -53,40 +54,61 @@ import delta.games.lotro.utils.io.xml.SharedXMLUtils;
  * Parser for quests/deeds objectives stored in XML.
  * @author DAM
  */
-public class ObjectivesSaxXMLParser
+public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
 {
   private ObjectivesManager _objectives;
   private Objective _currentObjective;
   private ObjectiveCondition _condition;
 
-  public void startElement(String qualifiedName, Attributes attrs)
+  /**
+   * Set the storage for objectives.
+   * @param objectives Storage to set.
+   */
+  public void setObjectives(ObjectivesManager objectives)
   {
-    if (ObjectivesXMLConstants.OBJECTIVE_TAG.equals(qualifiedName))
+    _objectives=objectives;
+  }
+
+  @Override
+  public SAXParserValve<?> handleStartTag(String tagName, Attributes attrs)
+  {
+    if (ObjectivesXMLConstants.OBJECTIVE_TAG.equals(tagName))
     {
       _currentObjective=parseObjective(attrs);
       _objectives.addObjective(_currentObjective);
     }
-    else if (ObjectivesXMLConstants.DIALOG_TAG.equals(qualifiedName))
+    else if (ObjectivesXMLConstants.DIALOG_TAG.equals(tagName))
     {
       DialogElement dialog=DialogsSaxParser.parseDialog(attrs);
       _currentObjective.addDialog(dialog);
     }
-    else if (ObjectivesXMLConstants.MONSTER_SELECTION_TAG.equals(qualifiedName))
+    else if (ObjectivesXMLConstants.MONSTER_SELECTION_TAG.equals(tagName))
     {
       // Mob selections
       MobSelection mobSelection=parseMobSelection(attrs);
       ((MonsterDiedCondition)_condition).getMobSelections().add(mobSelection);
     }
-    else if (AchievableGeoDataXMLConstants.POINT_TAG.equals(qualifiedName))
+    else if (AchievableGeoDataXMLConstants.POINT_TAG.equals(tagName))
     {
       AchievableGeoPoint point=AchievableGeoDataXMLParser.parseGeoDataElement(attrs);
       _condition.addPoint(point);
     }
     else
     {
-      _condition=parseCondition(qualifiedName, attrs);
+      _condition=parseCondition(tagName, attrs);
       _currentObjective.addCondition(_condition);
     }
+    return this;
+  }
+
+  @Override
+  public SAXParserValve<?> handleEndTag(String tagName)
+  {
+    if (ObjectivesXMLConstants.OBJECTIVE_TAG.equals(tagName))
+    {
+      return getParent();
+    }
+    return this;
   }
 
   private Objective parseObjective(Attributes attrs)
@@ -268,12 +290,15 @@ public class ObjectivesSaxXMLParser
     // Landmark proxy
     // - id
     int landmarkId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.LANDMARK_DETECTION_ID_ATTR,0);
-    // - name
-    String landmarkName=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.LANDMARK_DETECTION_NAME_ATTR,"?");
-    Proxy<LandmarkDescription> proxy=new Proxy<LandmarkDescription>();
-    proxy.setId(landmarkId);
-    proxy.setName(landmarkName);
-    condition.setLandmarkProxy(proxy);
+    if (landmarkId!=0)
+    {
+      // - name
+      String landmarkName=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.LANDMARK_DETECTION_NAME_ATTR,"?");
+      Proxy<LandmarkDescription> proxy=new Proxy<LandmarkDescription>();
+      proxy.setId(landmarkId);
+      proxy.setName(landmarkName);
+      condition.setLandmarkProxy(proxy);
+    }
     return condition;
   }
 

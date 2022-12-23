@@ -115,7 +115,7 @@ public class SharedXMLUtils
     if (npcId!=0)
     {
       // - name
-      String npcName=SAXParsingTools.getStringAttribute(attrs,SharedXMLConstants.NPC_NAME_ATTR,"?");
+      String npcName=SAXParsingTools.getStringAttribute(attrs,SharedXMLConstants.NPC_NAME_ATTR,null);
       proxy=new Proxy<NpcDescription>();
       proxy.setId(npcId);
       proxy.setName(npcName);
