@@ -41,7 +41,7 @@ import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.io.xml.SharedXMLConstants;
 
 /**
- * Parser for rewards stored in XML.
+ * Parser for rewards stored in XML (for collections only!).
  * @author DAM
  */
 public class RewardsXMLParser

@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.deeds.io.xml.DeedXMLParser;
+import delta.games.lotro.lore.deeds.io.xml.DeedsSaxParser;
 
 /**
  * Facade for deeds access.
@@ -55,8 +55,7 @@ public final class DeedsManager
     {
       return;
     }
-    DeedXMLParser parser=new DeedXMLParser();
-    List<DeedDescription> deeds=parser.parseXML(deedFile);
+    List<DeedDescription> deeds=DeedsSaxParser.parseDeedsFile(deedFile);
     _deeds.addAll(deeds);
     for(DeedDescription deed : _deeds)
     {

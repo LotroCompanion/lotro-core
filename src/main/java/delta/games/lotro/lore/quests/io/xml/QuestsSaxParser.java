@@ -9,7 +9,6 @@ import org.xml.sax.Attributes;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserEngine;
 import delta.common.utils.xml.sax.SAXParserValve;
-import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
@@ -78,31 +77,6 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
     return result;
   }
 
-  protected void parseAchievableAttributes(Attributes attrs, Achievable achievable)
-  {
-    // Identifier
-    int id=SAXParsingTools.getIntAttribute(attrs,AchievableXMLConstants.ID_ATTR,0);
-    achievable.setIdentifier(id);
-    // Name
-    String name=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.NAME_ATTR,"");
-    achievable.setName(name);
-    // Category
-    String category=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.CATEGORY_ATTR,"");
-    achievable.setCategory(category);
-    // Challenge level
-    int challengeLevel=SAXParsingTools.getIntAttribute(attrs,AchievableXMLConstants.LEVEL_ATTR,0);
-    achievable.setChallengeLevel(ChallengeLevel.getByCode(challengeLevel));
-    // Hidden
-    boolean hidden=SAXParsingTools.getBooleanAttribute(attrs,AchievableXMLConstants.HIDDEN_ATTR,false);
-    achievable.setHidden(hidden);
-    // Monster-play
-    boolean monsterPlay=SAXParsingTools.getBooleanAttribute(attrs,AchievableXMLConstants.MONSTER_PLAY_ATTR,false);
-    achievable.setMonsterPlay(monsterPlay);
-    // Description
-    String description=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.DESCRIPTION_ATTR,"");
-    achievable.setDescription(description);
-  }
-
   @Override
   public SAXParserValve<?> handleStartTag(String tagName, Attributes attrs)
   {
@@ -112,7 +86,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
       getResult().add(q);
 
       // Shared attributes
-      parseAchievableAttributes(attrs,q);
+      AchievableSaxParser.parseAchievableAttributes(attrs,q);
       // Scope
       String scope=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SCOPE_ATTR,"");
       q.setQuestScope(scope);

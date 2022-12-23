@@ -1,8 +1,5 @@
 package delta.games.lotro.character.status.traits;
 
-import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
-import delta.games.lotro.character.status.traits.racial.RacialTraitsStatus;
-
 /**
  * Traits status, as stored in character data.
  * @author DAM

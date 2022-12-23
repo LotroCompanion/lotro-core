@@ -17,7 +17,7 @@ import delta.games.lotro.lore.maps.MapDescription;
 public class MapDescriptionXMLParser
 {
   /**
-   * Build a map description from an XML tag.
+   * Build a map description from an XML tag (for private encounters only!).
    * @param rootTag Root tag.
    * @return A parchment maps manager.
    */
