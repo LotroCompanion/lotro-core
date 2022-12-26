@@ -11,7 +11,6 @@ import delta.games.lotro.character.storage.currencies.Currencies;
 import delta.games.lotro.character.storage.currencies.CurrenciesSummary;
 import delta.games.lotro.character.storage.currencies.Currency;
 import delta.games.lotro.character.storage.currencies.CurrencyStatus;
-import delta.games.lotro.character.storage.currencies.CurrencyStorage;
 
 /**
  * Parser for the currencies data stored in XML.
@@ -62,33 +61,5 @@ public class CurrenciesXMLParser
       }
     }
     return summary;
-  }
-
-  /**
-   * Parse the XML file.
-   * @param source Source file.
-   * @param storage Storage for loaded data.
-   */
-  public void parseCurrencyHistory(File source, CurrencyStorage storage)
-  {
-    Element root=DOMParsingTools.parse(source);
-    if (root!=null)
-    {
-      parseCurrencyHistory(root,storage);
-    }
-  }
-
-  private void parseCurrencyHistory(Element root, CurrencyStorage storage)
-  {
-    List<Element> sampleTags=DOMParsingTools.getChildTagsByName(root,CurrenciesXMLConstants.CURRENCY_SAMPLE_TAG,false);
-    for(Element sampleTag : sampleTags)
-    {
-      NamedNodeMap attrs=sampleTag.getAttributes();
-      // Date
-      long date=DOMParsingTools.getLongAttribute(attrs,CurrenciesXMLConstants.CURRENCY_SAMPLE_DATE_ATTR,0);
-      // Value
-      int value=DOMParsingTools.getIntAttribute(attrs,CurrenciesXMLConstants.CURRENCY_SAMPLE_VALUE_ATTR,0);
-      storage.setValueAt(date,value);
-    }
   }
 }

@@ -8,6 +8,7 @@ import delta.games.lotro.character.storage.currencies.Currency;
 import delta.games.lotro.character.storage.currencies.CurrencyHistory;
 import delta.games.lotro.character.storage.currencies.io.xml.CurrenciesXMLParser;
 import delta.games.lotro.character.storage.currencies.io.xml.CurrenciesXMLWriter;
+import delta.games.lotro.character.storage.currencies.io.xml.CurrencyHistoryXMLParser;
 
 /**
  * I/O methods for currencies.
@@ -61,7 +62,7 @@ public class CurrenciesIo
     if (fromFile.exists())
     {
       history=new CurrencyHistory(currency);
-      CurrenciesXMLParser parser=new CurrenciesXMLParser();
+      CurrencyHistoryXMLParser parser=new CurrencyHistoryXMLParser();
       parser.parseCurrencyHistory(fromFile,history.getStorage());
     }
     return history;
