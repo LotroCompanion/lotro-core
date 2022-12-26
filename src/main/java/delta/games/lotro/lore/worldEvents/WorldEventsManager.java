@@ -1,10 +1,13 @@
 package delta.games.lotro.lore.worldEvents;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.worldEvents.io.xml.WorldEventsXMLParser;
@@ -15,7 +18,7 @@ import delta.games.lotro.lore.worldEvents.io.xml.WorldEventsXMLParser;
  */
 public class WorldEventsManager
 {
-  private static final WorldEventsManager _instance=new WorldEventsManager();
+  private static WorldEventsManager _instance;
 
   private Map<Integer,WorldEvent> _mapByID;
 
@@ -25,6 +28,11 @@ public class WorldEventsManager
    */
   public static final WorldEventsManager getInstance()
   {
+    if (_instance==null)
+    {
+      _instance=new WorldEventsManager();
+      _instance.resolve();
+    }
     return _instance;
   }
 
@@ -37,6 +45,17 @@ public class WorldEventsManager
     loadAll();
   }
 
+  /**
+   * Get all world events.
+   * @return A list of world events, sorted by their identifier.
+   */
+  public List<WorldEvent> getAll()
+  {
+    List<WorldEvent> ret=new ArrayList<WorldEvent>(_mapByID.values());
+    Collections.sort(ret,new IdentifiableComparator<WorldEvent>());
+    return ret;
+  }
+
   private void loadAll()
   {
     File worldEventsFile=LotroCoreConfig.getInstance().getFile(DataFiles.WORLD_EVENTS);
@@ -45,6 +64,15 @@ public class WorldEventsManager
     {
       int id=worldEvent.getIdentifier();
       _mapByID.put(Integer.valueOf(id),worldEvent);
+    }
+  }
+
+  private void resolve()
+  {
+    WorldEventsResolver resolver=new WorldEventsResolver();
+    for(WorldEvent event : _mapByID.values())
+    {
+      resolver.resolve(event);
     }
   }
 

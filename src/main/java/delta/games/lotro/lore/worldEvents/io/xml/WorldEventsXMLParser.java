@@ -87,7 +87,7 @@ public class WorldEventsXMLParser
     BooleanWorldEvent ret=new BooleanWorldEvent();
     parseWorldEventAttrs(attrs,ret);
     // Default
-    boolean defaultValue=DOMParsingTools.getBooleanAttribute(attrs,WorldEventsXMLConstants.BOOLEAN_WORLD_EVENT_TAG,false);
+    boolean defaultValue=DOMParsingTools.getBooleanAttribute(attrs,WorldEventsXMLConstants.WORLD_EVENT_BOOLEAN_DEFAULT_ATTR,false);
     ret.setDefaultValue(defaultValue);
     return ret;
   }
@@ -101,7 +101,8 @@ public class WorldEventsXMLParser
     List<Element> childTags=DOMParsingTools.getChildTags(elementTag);
     if (childTags.size()==1)
     {
-      AbstractWorldEventCondition condition=_worldEventConditionsParser.parseCondition(elementTag);
+      Element childTag=childTags.get(0);
+      AbstractWorldEventCondition condition=_worldEventConditionsParser.parseCondition(childTag);
       ret.setCondition(condition);
     }
     return ret;

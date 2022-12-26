@@ -14,7 +14,6 @@ import delta.games.lotro.lore.worldEvents.CompoundWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.SimpleWorldEventCondition;
 import delta.games.lotro.lore.worldEvents.WorldEvent;
 import delta.games.lotro.lore.worldEvents.WorldEventConditionsRenderer;
-import delta.games.lotro.lore.worldEvents.WorldEventsManager;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -26,6 +25,7 @@ public class WorldEventConditionsSaxParser extends SAXParserValve<AbstractWorldE
   private WorldEventConditionsRenderer _renderer;
   private Deque<CompoundWorldEventCondition> _compounds=new ArrayDeque<CompoundWorldEventCondition>();
   private CompoundWorldEventCondition _compound;
+  private WorldEventConditionsResolver _resolver;
 
   /**
    * Constructor.
@@ -33,6 +33,7 @@ public class WorldEventConditionsSaxParser extends SAXParserValve<AbstractWorldE
   public WorldEventConditionsSaxParser()
   {
     _renderer=new WorldEventConditionsRenderer();
+    _resolver=new WorldEventConditionsResolver();
   }
 
   @Override
@@ -115,7 +116,7 @@ public class WorldEventConditionsSaxParser extends SAXParserValve<AbstractWorldE
       compareToWorldEvent.setId(compareToWorldEventID);
       ret=new SimpleWorldEventCondition(operator,targetWorldEvent,compareToWorldEvent);
     }
-    resolveCondition(ret);
+    _resolver.resolve(ret);
     String label=_renderer.renderSimpleWorldEventCondition(ret);
     ret.setLabel(label);
     return ret;
@@ -132,28 +133,5 @@ public class WorldEventConditionsSaxParser extends SAXParserValve<AbstractWorldE
     }
     CompoundWorldEventCondition compound=new CompoundWorldEventCondition(operator);
     return compound;
-  }
-
-  private void resolveCondition(SimpleWorldEventCondition condition)
-  {
-    Proxy<WorldEvent> targetWorldEvent=condition.getWorldEvent();
-    resolveWorldEventProxy(targetWorldEvent);
-    Proxy<WorldEvent> compareToWorldEvent=condition.getCompareToWorldEvent();
-    resolveWorldEventProxy(compareToWorldEvent);
-  }
-
-  private void resolveWorldEventProxy(Proxy<WorldEvent> proxy)
-  {
-    if (proxy==null)
-    {
-      return;
-    }
-    WorldEventsManager mgr=WorldEventsManager.getInstance();
-    WorldEvent worldEvent=mgr.getWorldEvent(proxy.getId());
-    if (worldEvent!=null)
-    {
-      proxy.setObject(worldEvent);
-      proxy.setName(worldEvent.getPropertyName());
-    }
   }
 }
