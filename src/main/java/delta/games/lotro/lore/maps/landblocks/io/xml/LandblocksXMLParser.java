@@ -1,13 +1,13 @@
 package delta.games.lotro.lore.maps.landblocks.io.xml;
 
 import java.io.File;
-import java.util.List;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
+import org.xml.sax.Attributes;
 
 import delta.common.utils.math.geometry.Vector3D;
-import delta.common.utils.xml.DOMParsingTools;
+import delta.common.utils.xml.SAXParsingTools;
+import delta.common.utils.xml.sax.SAXParserEngine;
+import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.lore.geo.BlockReference;
 import delta.games.lotro.lore.maps.landblocks.Cell;
 import delta.games.lotro.lore.maps.landblocks.Landblock;
@@ -17,8 +17,9 @@ import delta.games.lotro.lore.maps.landblocks.LandblocksManager;
  * Parser for the landblocks stored in XML.
  * @author DAM
  */
-public class LandblocksXMLParser
+public class LandblocksXMLParser extends SAXParserValve<LandblocksManager>
 {
+  private Landblock _landblock;
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -26,74 +27,58 @@ public class LandblocksXMLParser
    */
   public LandblocksManager parseXML(File source)
   {
-    LandblocksManager ret=null;
-    Element root=DOMParsingTools.parse(source);
-    if (root!=null)
-    {
-      ret=parseLandblocks(root);
-    }
+    SAXParserEngine<LandblocksManager> engine=new SAXParserEngine<>(this);
+    LandblocksManager ret=SAXParsingTools.parseFile(source,engine);
+    _landblock=null;
     return ret;
   }
 
-  /**
-   * Build a landblocks manager from an XML tag.
-   * @param rootTag Root tag.
-   * @return A landblocks manager.
-   */
-  private LandblocksManager parseLandblocks(Element rootTag)
+  @Override
+  public SAXParserValve<?> handleStartTag(String tagName, Attributes attrs)
   {
-    LandblocksManager mgr=new LandblocksManager();
-
-    List<Element> landblockTags=DOMParsingTools.getChildTagsByName(rootTag,LandblocksXMLConstants.LANDBLOCK_TAG);
-    for(Element landblockTag : landblockTags)
+    if (LandblocksXMLConstants.LANDBLOCK_TAG.equals(tagName))
     {
-      Landblock landblock=parseLandblock(landblockTag);
-      mgr.addLandblock(landblock);
+      // Block ID
+      int region=SAXParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.REGION_ATTR,1);
+      int blockX=SAXParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.BLOCK_X_ATTR,0);
+      int blockY=SAXParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.BLOCK_Y_ATTR,0);
+      BlockReference blockId=new BlockReference(region,blockX,blockY);
+      _landblock=new Landblock(blockId);
+      getResult().addLandblock(_landblock);
+      // Area ID
+      int areaId=SAXParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.AREA_ID_ATTR,0);
+      if (areaId!=0)
+      {
+        _landblock.setParentArea(areaId);
+      }
+      // Dungeon ID
+      int dungeonId=SAXParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.DUNGEON_ID_ATTR,0);
+      if (dungeonId!=0)
+      {
+        _landblock.setParentDungeon(dungeonId);
+      }
+      // Height
+      float height=SAXParsingTools.getFloatAttribute(attrs,LandblocksXMLConstants.HEIGHT_ATTR,0);
+      _landblock.setCenterHeight(height);
     }
-    return mgr;
-  }
-
-  private Landblock parseLandblock(Element landblockTag)
-  {
-    NamedNodeMap attrs=landblockTag.getAttributes();
-    // Block ID
-    int region=DOMParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.REGION_ATTR,1);
-    int blockX=DOMParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.BLOCK_X_ATTR,0);
-    int blockY=DOMParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.BLOCK_Y_ATTR,0);
-    BlockReference blockId=new BlockReference(region,blockX,blockY);
-    Landblock ret=new Landblock(blockId);
-    // Area ID
-    int areaId=DOMParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.AREA_ID_ATTR,0);
-    if (areaId!=0)
+    else if (LandblocksXMLConstants.CELL_TAG.equals(tagName))
     {
-      ret.setParentArea(areaId);
-    }
-    // Dungeon ID
-    int dungeonId=DOMParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.DUNGEON_ID_ATTR,0);
-    if (dungeonId!=0)
-    {
-      ret.setParentDungeon(dungeonId);
-    }
-    // Height
-    float height=DOMParsingTools.getFloatAttribute(attrs,LandblocksXMLConstants.HEIGHT_ATTR,0);
-    ret.setCenterHeight(height);
-    // Cells
-    List<Element> cellTags=DOMParsingTools.getChildTagsByName(landblockTag,LandblocksXMLConstants.CELL_TAG);
-    for(Element cellTag : cellTags)
-    {
-      NamedNodeMap cellAttrs=cellTag.getAttributes();
-      int cellIndex=DOMParsingTools.getIntAttribute(cellAttrs,LandblocksXMLConstants.CELL_INDEX_ATTR,0);
-      int dungeonIdForCellValue=DOMParsingTools.getIntAttribute(cellAttrs,LandblocksXMLConstants.DUNGEON_ID_ATTR,-1);
+      int cellIndex=SAXParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.CELL_INDEX_ATTR,0);
+      int dungeonIdForCellValue=SAXParsingTools.getIntAttribute(attrs,LandblocksXMLConstants.DUNGEON_ID_ATTR,-1);
       Integer dungeonIdForCell=(dungeonIdForCellValue!=-1)?Integer.valueOf(dungeonIdForCellValue):null;
-      float x=DOMParsingTools.getFloatAttribute(cellAttrs,LandblocksXMLConstants.CELL_X_ATTR,0);
-      float y=DOMParsingTools.getFloatAttribute(cellAttrs,LandblocksXMLConstants.CELL_Y_ATTR,0);
-      float z=DOMParsingTools.getFloatAttribute(cellAttrs,LandblocksXMLConstants.CELL_Z_ATTR,0);
+      float x=SAXParsingTools.getFloatAttribute(attrs,LandblocksXMLConstants.CELL_X_ATTR,0);
+      float y=SAXParsingTools.getFloatAttribute(attrs,LandblocksXMLConstants.CELL_Y_ATTR,0);
+      float z=SAXParsingTools.getFloatAttribute(attrs,LandblocksXMLConstants.CELL_Z_ATTR,0);
       Vector3D position=new Vector3D();
       position.set(x,y,z);
       Cell cell=new Cell(cellIndex,dungeonIdForCell);
       cell.setPosition(position);
-      ret.addCell(cell);
+      _landblock.addCell(cell);
     }
-    return ret;
+    else if (LandblocksXMLConstants.LANDBLOCKS_TAG.equals(tagName))
+    {
+      setResult(new LandblocksManager());
+    }
+    return this;
   }
 }
