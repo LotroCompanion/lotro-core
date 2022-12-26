@@ -14,7 +14,7 @@ public class LandblocksXMLConstants
   /**
    * Tag 'landblock'.
    */
-  public static final String LANDBLOCK_TAG="landblocks";
+  public static final String LANDBLOCK_TAG="landblock";
   /**
    * Tag 'landblock', attribute 'region'.
    */
