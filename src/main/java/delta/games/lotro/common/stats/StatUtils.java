@@ -6,6 +6,7 @@ import java.util.List;
 import delta.common.utils.l10n.L10n;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
+import delta.games.lotro.config.LotroCoreConfig;
 
 /**
  * Utility methods for stats.
@@ -219,9 +220,12 @@ public class StatUtils
     {
       statValue=statValue*100;
     }
-    if ((stat==WellKnownStat.ICMR) || (stat==WellKnownStat.ICPR) || (stat==WellKnownStat.OCMR) || (stat==WellKnownStat.OCPR))
+    if (LotroCoreConfig.isLive())
     {
-      statValue=statValue*60;
+      if ((stat==WellKnownStat.ICMR) || (stat==WellKnownStat.ICPR) || (stat==WellKnownStat.OCMR) || (stat==WellKnownStat.OCPR))
+      {
+        statValue=statValue*60;
+      }
     }
     return statValue;
   }
