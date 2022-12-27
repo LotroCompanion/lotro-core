@@ -20,6 +20,7 @@ public class StatUtilsTest extends TestCase
     sampleTest(Float.valueOf(-2.1f),false,"-2");
     sampleTest(Float.valueOf(2.99f),false,"3");
     sampleTest(Float.valueOf(-2.99f),false,"-3");
+    sampleTest(Float.valueOf(-0.75f),false,"-0.8");
   }
 
   private void sampleTest(Number value, boolean percentage, String expected)

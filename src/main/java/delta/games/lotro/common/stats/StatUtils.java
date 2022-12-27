@@ -36,7 +36,15 @@ public class StatUtils
       }
       else
       {
-        valueStr=L10n.getString(Math.round(value.floatValue()));
+        float valueToUse=value.floatValue();
+        if (Math.abs(valueToUse)<1.0)
+        {
+          valueStr=L10n.getString(valueToUse,1);
+        }
+        else
+        {
+          valueStr=L10n.getString(Math.round(valueToUse));
+        }
       }
     }
     else
