@@ -10,7 +10,7 @@ import java.util.List;
 import delta.games.lotro.character.classes.traitTree.setup.events.TraitTreeSetupEvent;
 import delta.games.lotro.character.classes.traitTree.setup.events.TraitTreeSetupEventType;
 import delta.games.lotro.character.classes.traitTree.setup.io.xml.TraitTreeSetupsIO;
-import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.data.UserDataManager;
 import delta.games.lotro.utils.events.EventsManager;
 
 /**
@@ -41,8 +41,8 @@ public class TraitTreeSetupsManager
   private TraitTreeSetupsManager()
   {
     _datas=new ArrayList<TraitTreeSetup>();
-    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    _rootDir=cfg.getTraitTreeSetupDir();
+    UserDataManager dataMgr=UserDataManager.getInstance();
+    _rootDir=dataMgr.getTraitTreeSetupDir();
     _rootDir.mkdirs();
     init();
   }

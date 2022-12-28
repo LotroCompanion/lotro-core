@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.files.FilesDeleter;
 import delta.common.utils.files.filter.FileTypePredicate;
-import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.data.UserDataManager;
 
 /**
  * Storage manage for all characters.
@@ -30,8 +30,8 @@ public class CharactersStorageManager
    */
   public CharactersStorageManager()
   {
-    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    _toonsDir=cfg.getToonsDir();
+    UserDataManager dataMgr=UserDataManager.getInstance();
+    _toonsDir=dataMgr.getToonsDir();
     _toonsDir.mkdirs();
     init();
   }

@@ -7,7 +7,7 @@ import java.util.List;
 
 import delta.common.utils.files.FilesDeleter;
 import delta.common.utils.files.filter.FileTypePredicate;
-import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.data.UserDataManager;
 
 /**
  * Storage manager for all accounts.
@@ -26,8 +26,8 @@ public class AccountsStorageManager
    */
   public AccountsStorageManager()
   {
-    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    _accountsDir=cfg.getAccountsDir();
+    UserDataManager dataMgr=UserDataManager.getInstance();
+    _accountsDir=dataMgr.getAccountsDir();
     _accountsDir.mkdirs();
   }
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 import delta.common.utils.files.FilesDeleter;
 import delta.common.utils.files.filter.FileTypePredicate;
-import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.data.UserDataManager;
 import delta.games.lotro.kinship.io.xml.KinshipsIO;
 
 /**
@@ -27,8 +27,8 @@ public class KinshipsStorageManager
    */
   public KinshipsStorageManager()
   {
-    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    _kinshipDir=cfg.getKinshipsDir();
+    UserDataManager dataMgr=UserDataManager.getInstance();
+    _kinshipDir=dataMgr.getKinshipsDir();
     _kinshipDir.mkdirs();
   }
 

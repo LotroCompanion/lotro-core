@@ -6,7 +6,9 @@ import java.net.URL;
 
 import org.apache.log4j.Logger;
 
+import delta.common.utils.environment.EnvironmentResolver;
 import delta.common.utils.io.StreamTools;
+import delta.common.utils.misc.Preferences;
 import delta.common.utils.misc.TypedProperties;
 import delta.common.utils.url.URLTools;
 
@@ -24,18 +26,17 @@ public final class LotroCoreConfig
   private File _rootDir;
   private TypedProperties _locations;
 
-  // Root directory for user data
-  private File _userDataDir;
-  // Account data
-  private File _accountsDir;
-  // Character data
-  private File _toonsDir;
-  // Kinship data
-  private File _kinshipsDir;
-  // Trait tree setups
-  private File _traitTreeSetupDir;
   // Parameters
   private TypedProperties _parameters;
+
+  // User data directory
+  private File _userDataDir;
+
+  // Preferences
+  private Preferences _preferences;
+
+  // Data Configuration
+  private DataConfiguration _dataConfiguration;
 
   /**
    * Get the sole instance of this class.
@@ -79,7 +80,7 @@ public final class LotroCoreConfig
   {
     String propsPath=getLocationFile()+".properties";
     _locations=getLocations(propsPath);
-    String path=_locations.getStringProperty("root",null);
+    String path=_locations.getStringProperty(DataFiles.ROOT,null);
     _rootDir=new File(path);
 
     // Parameters
@@ -90,20 +91,13 @@ public final class LotroCoreConfig
       _parameters.loadFromFile(parametersFile);
     }
 
-    // User data
-    File userApplicationDir=getUserApplicationDir();
-    _userDataDir=new File(userApplicationDir,"data");
-    _toonsDir=new File(_userDataDir,"characters");
-    _accountsDir=new File(_userDataDir,"accounts");
-    _kinshipsDir=new File(_userDataDir,"kinships");
-    _traitTreeSetupDir=new File(_userDataDir,"traitTrees");
-  }
-
-  private File getUserApplicationDir()
-  {
-    String dataDir=_locations.getStringProperty("dataDir",".");
-    dataDir=dataDir.replace("${user.home}",System.getProperty("user.home"));
-    return new File(dataDir);
+    // User data dir
+    initDataDir();
+    // Preferences
+    File preferencesDir=new File(_userDataDir,"preferences");
+    _preferences=new Preferences(preferencesDir);
+    // Data Configuration
+    _dataConfiguration=initDataConfiguration();
   }
 
   private TypedProperties getLocations(String propsPath)
@@ -157,49 +151,36 @@ public final class LotroCoreConfig
     return _parameters;
   }
 
-  /**
-   * Get the directory for user data.
-   * @return the directory for user data.
-   */
-  public File getUserDataDir()
+  private void initDataDir()
   {
-    return _userDataDir;
+    String userDataRootDirStr=_parameters.getStringProperty("user.data.root.dir","${user.home}/.lotrocompanion/data");
+    userDataRootDirStr=EnvironmentResolver.resolveEnvironment(userDataRootDirStr);
+    _userDataDir=new File(userDataRootDirStr);
+  }
+
+  private DataConfiguration initDataConfiguration()
+  {
+    DataConfiguration cfg=new DataConfiguration(_userDataDir);
+    cfg.fromPreferences(_preferences);
+    return cfg;
   }
 
   /**
-   * Get the root storage directory for toons.
-   * @return a directory.
+   * Get the preferences manager.
+   * @return the preferences manager.
    */
-  public File getToonsDir()
+  public Preferences getPreferences()
   {
-    return _toonsDir;
+    return _preferences;
   }
 
   /**
-   * Get the root storage directory for accounts.
-   * @return a directory.
+   * Get the data configuration.
+   * @return the data configuration.
    */
-  public File getAccountsDir()
+  public DataConfiguration getDataConfiguration()
   {
-    return _accountsDir;
-  }
-
-  /**
-   * Get the root storage directory for kinships.
-   * @return a directory.
-   */
-  public File getKinshipsDir()
-  {
-    return _kinshipsDir;
-  }
-
-  /**
-   * Get the root storage directory for trait tree setups.
-   * @return a directory.
-   */
-  public File getTraitTreeSetupDir()
-  {
-    return _traitTreeSetupDir;
+    return _dataConfiguration;
   }
 
   /**
