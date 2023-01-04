@@ -59,7 +59,10 @@ public class BuffsManagerToTraitTreeStatus
         }
       }
     }
-    guessSelectedBranch(status,buffs);
+    if (nbBuffs>0)
+    {
+      guessSelectedBranch(status,buffs);
+    }
     for(TraitDescription trait : status.getTraitTree().getAllTraits())
     {
       buffs.removeBuff(String.valueOf(trait.getIdentifier()));
@@ -93,12 +96,19 @@ public class BuffsManagerToTraitTreeStatus
           selectedBranch=branch;
           break;
         }
+        key=trait.getKey();
+        if ((key!=null) && (buffs.contains(key)))
+        {
+          status.setSelectedBranch(branch);
+          selectedBranch=branch;
+          break;
+        }
       }
     }
     if (selectedBranch==null)
     {
       // Use first branch as default
-      LOGGER.warn("Could not guess selected branch. Using first one!");
+      LOGGER.warn("Could not guess selected branch. Using first one! Buffs="+buffs);
       selectedBranch=branches.get(0);
     }
     status.setSelectedBranch(selectedBranch);
