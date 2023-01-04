@@ -4,6 +4,7 @@ import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
@@ -55,6 +56,10 @@ public class StatsContribution
    * Source identifier seed: buff.
    */
   public static final String BUFF_SEED="Buff: ";
+  /**
+   * Source identifier seed: trait.
+   */
+  public static final String TRAIT_SEED="Trait: ";
   /**
    * Source identifier seed: hope.
    */
@@ -159,6 +164,19 @@ public class StatsContribution
     Buff buff=buffInstance.getBuff();
     String source=BUFF_SEED+buff.getId();
     String label="Buff '"+buff.getLabel()+"'";
+    return new StatsContribution(source,label,stats);
+  }
+
+  /**
+   * Build a stat contribution for a trait.
+   * @param trait Source trait.
+   * @param stats Contributed stats.
+   * @return A stat contribution.
+   */
+  public static StatsContribution getTraitContrib(TraitDescription trait, BasicStatsSet stats)
+  {
+    String source=TRAIT_SEED+trait.getIdentifier();
+    String label="Trait '"+trait.getName()+"'";
     return new StatsContribution(source,label,stats);
   }
 

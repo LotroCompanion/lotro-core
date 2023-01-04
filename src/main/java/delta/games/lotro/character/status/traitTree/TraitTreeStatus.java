@@ -1,5 +1,6 @@
 package delta.games.lotro.character.status.traitTree;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
 import delta.games.lotro.character.classes.traitTree.TraitTreeCell;
 import delta.games.lotro.character.classes.traitTree.TraitTreeCellDependency;
+import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
 import delta.games.lotro.character.traits.TraitDescription;
 
 /**
@@ -39,6 +41,19 @@ public class TraitTreeStatus
     _totalPoints=0;
     _selectedBranch=_tree.getBranches().get(0);
     initRanks();
+  }
+
+  /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public TraitTreeStatus(TraitTreeStatus source)
+  {
+    _tree=source._tree;
+    _selectedBranch=source._selectedBranch;
+    _treeRanks=new HashMap<Integer,IntegerHolder>(source._treeRanks);
+    _cost=source._cost;
+    _totalPoints=source._totalPoints;
   }
 
   private void initRanks()
@@ -173,6 +188,17 @@ public class TraitTreeStatus
     Integer key=Integer.valueOf(traitId);
     IntegerHolder ret=_treeRanks.get(key);
     return ret!=null?Integer.valueOf(ret.getInt()):null;
+  }
+
+  /**
+   * Indicates if this trait tree has a cell for the given trait.
+   * Does not work for the "main" trait and for the traits in the progression of the selected branch.
+   * @param traitId Identifier of the targeted trait.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean isKnownCell(int traitId)
+  {
+    return getRankForTrait(traitId)!=null;
   }
 
   /**
@@ -374,6 +400,42 @@ public class TraitTreeStatus
       int rank=entry.getValue().getInt();
       setRankForTrait(traitId,rank);
     }
+  }
+
+  /**
+   * Get the list of unlocked traits, given by spending points and choosing a branch.
+   * @return A list of traits.
+   */
+  public List<TraitDescription> getUnlockedTraits()
+  {
+    List<TraitDescription> ret=new ArrayList<TraitDescription>();
+    // Handle main trait and progression in the selected branch
+    if (_selectedBranch!=null)
+    {
+      // Main trait
+      TraitDescription mainTrait=_selectedBranch.getMainTrait();
+      if (mainTrait!=null)
+      {
+        ret.add(mainTrait);
+      }
+      // Progression
+      int nbRanks=getTotalRanksInTree();
+      TraitTreeProgression progression=_selectedBranch.getProgression();
+      List<Integer> steps=progression.getSteps();
+      List<TraitDescription> progressionTraits=progression.getTraits();
+      int nbSteps=steps.size();
+      for(int i=0;i<nbSteps;i++)
+      {
+        int requiredRanks=steps.get(i).intValue();
+        boolean enabled=(nbRanks>=requiredRanks);
+        if (enabled)
+        {
+          TraitDescription progressionTrait=progressionTraits.get(i);
+          ret.add(progressionTrait);
+        }
+      }
+    }
+    return ret;
   }
 
   @Override

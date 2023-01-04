@@ -16,10 +16,14 @@ import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
+import delta.games.lotro.character.stats.buffs.BuffsIO;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLConstants;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLParser;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
+import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
+import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLConstants;
+import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLParser;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
@@ -107,9 +111,15 @@ public class CharacterXMLParser
     // Tomes
     Element tomesTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.TOMES_TAG);
     parseTomes(c,tomesTag);
-    // Buffs
-    Element buffsTag=DOMParsingTools.getChildTagByName(root,BuffsXMLConstants.BUFFS_TAG);
-    BuffsXMLParser.parseBuffs(buffsTag,c.getBuffs());
+    // Trait tree
+    Element traitTreeTag=DOMParsingTools.getChildTagByName(root,TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_TAG);
+    if (traitTreeTag!=null)
+    {
+      TraitTreeStatus traitTree=TraitTreeStatusXMLParser.parseTraitTreeStatus(traitTreeTag);
+      c.getTraits().setTraitTreeStatus(traitTree);
+    }
+    // Buffs & traits
+    BuffsIO.loadBuffs(root,c);
     // Additional stats
     Element additionalStatsTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.ADDITIONAL_STATS_TAG);
     if (additionalStatsTag!=null)

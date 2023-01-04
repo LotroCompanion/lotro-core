@@ -3,16 +3,10 @@ package delta.games.lotro.character.stats.buffs;
 import java.io.File;
 import java.util.List;
 
-import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.ClassesManager;
-import delta.games.lotro.character.classes.traitTree.TraitTree;
-import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
-import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.enums.ItemClass;
@@ -50,7 +44,6 @@ public class BuffInitializer
   {
     initSharedBuffs(registry);
     initRacialBuffs(registry);
-    initClassBuffs(registry);
     initEffectBasedBuffs(registry);
     initConsumableBuffs(registry);
   }
@@ -102,61 +95,6 @@ public class BuffInitializer
     int iconId=trait.getIconId();
     buff.setIcon("/traits/"+iconId+".png");
     buff.setRequiredRace(race);
-    StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
-    buff.setImpl(buffImpl);
-    registry.registerBuff(buff);
-    String key=trait.getKey();
-    if (key.length()>0)
-    {
-      registry.registerBuff(key,buff);
-    }
-  }
-
-  private void initClassBuffs(BuffRegistry registry)
-  {
-    ClassesManager classesManager=ClassesManager.getInstance();
-    for(CharacterClass characterClass : CharacterClass.ALL_CLASSES)
-    {
-      ClassDescription description=classesManager.getClassDescription(characterClass);
-      TraitTree tree=description.getTraitTree();
-      if (tree!=null)
-      {
-        List<TraitTreeBranch> branches=tree.getBranches();
-        for(TraitTreeBranch branch : branches)
-        {
-          String name=branch.getName();
-          // Main trait
-          TraitDescription mainTrait=branch.getMainTrait();
-          if (mainTrait!=null)
-          {
-            initClassBuff(characterClass,registry,mainTrait,name);
-          }
-          // Progression
-          TraitTreeProgression progression=branch.getProgression();
-          for(TraitDescription trait : progression.getTraits())
-          {
-            initClassBuff(characterClass,registry,trait,name);
-          }
-          // Cells
-          List<String> cellIds=branch.getCells();
-          for(String cellId : cellIds)
-          {
-            TraitDescription trait=branch.getTraitForCell(cellId);
-            initClassBuff(characterClass,registry,trait,name);
-          }
-        }
-      }
-    }
-  }
-
-  private void initClassBuff(CharacterClass characterClass, BuffRegistry registry, TraitDescription trait, String category)
-  {
-    int identifier=trait.getIdentifier();
-    String name=trait.getName();
-    Buff buff=new Buff(String.valueOf(identifier),BuffType.CLASS,category,name);
-    int iconId=trait.getIconId();
-    buff.setIcon("/traits/"+iconId+".png");
-    buff.setRequiredClass(characterClass);
     StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
     buff.setImpl(buffImpl);
     registry.registerBuff(buff);

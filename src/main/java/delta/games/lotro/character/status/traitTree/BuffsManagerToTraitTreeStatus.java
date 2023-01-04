@@ -1,22 +1,23 @@
 package delta.games.lotro.character.status.traitTree;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
-import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
-import delta.games.lotro.character.stats.buffs.Buff;
-import delta.games.lotro.character.stats.buffs.BuffInstance;
-import delta.games.lotro.character.stats.buffs.BuffRegistry;
-import delta.games.lotro.character.stats.buffs.BuffsManager;
+import delta.games.lotro.character.stats.buffs.io.xml.RawBuffStorage;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.common.CharacterClass;
 
 /**
- * Method to load/save a trait tree status from/to a buffs manager.
+ * Method to load a trait tree status from buffs.
  * @author DAM
  */
 public class BuffsManagerToTraitTreeStatus
@@ -24,41 +25,62 @@ public class BuffsManagerToTraitTreeStatus
   private static final Logger LOGGER=Logger.getLogger(BuffsManagerToTraitTreeStatus.class);
 
   /**
-   * Initialize the given trait tree status from a buffs manager.
-   * @param status Trait tree status to use.
-   * @param buffs Buffs manager to use.
+   * Initialize a trait tree status from buffs.
+   * @param characterClass Character class to use.
+   * @param buffs Buffs to use.
+   * @return the loaded trait tree.
    */
-  public static void initFromBuffs(TraitTreeStatus status, BuffsManager buffs)
+  public static TraitTreeStatus initFromBuffs(CharacterClass characterClass, RawBuffStorage buffs)
   {
-    status.reset();
-    int nbBuffs=buffs.getBuffsCount();
+    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(characterClass);
+    TraitTree traitTree=classDescription.getTraitTree();
+    TraitTreeStatus status=new TraitTreeStatus(traitTree);
+
+    TraitsManager traitsMgr=TraitsManager.getInstance();
+    int nbBuffs=buffs.getSize();
     for(int i=0;i<nbBuffs;i++)
     {
-      BuffInstance buffInstance=buffs.getBuffAt(i);
-      Buff buff=buffInstance.getBuff();
-      String buffId=buff.getId();
-      Integer traitId=NumericTools.parseInteger(buffId,false);
+      String buffID=buffs.getBuffID(i);
+      TraitDescription trait=null;
+      Integer traitId=NumericTools.parseInteger(buffID,false);
       if (traitId!=null)
       {
-        Integer rank=status.getRankForTrait(traitId.intValue());
-        if (rank!=null)
+        trait=traitsMgr.getTrait(traitId.intValue());
+      }
+      else
+      {
+        trait=traitsMgr.getTraitByKey(buffID);
+      }
+      if (trait!=null)
+      {
+        boolean known=status.isKnownCell(trait.getIdentifier());
+        if (known)
         {
-          Integer newRank=buffInstance.getTier();
-          int value=newRank!=null?newRank.intValue():1;
-          status.setRankForTrait(traitId.intValue(),value);
+          int newRank=buffs.getTier(i);
+          status.setRankForTrait(trait.getIdentifier(),newRank);
         }
       }
     }
     guessSelectedBranch(status,buffs);
+    for(TraitDescription trait : status.getTraitTree().getAllTraits())
+    {
+      buffs.removeBuff(String.valueOf(trait.getIdentifier()));
+      String key=trait.getKey();
+      if (key!=null)
+      {
+        buffs.removeBuff(key);
+      }
+    }
+
     if (LOGGER.isDebugEnabled())
     {
       LOGGER.debug("Loaded tree from buffs: "+status);
     }
+    return status;
   }
 
-  private static void guessSelectedBranch(TraitTreeStatus status, BuffsManager buffs)
+  private static void guessSelectedBranch(TraitTreeStatus status, RawBuffStorage buffs)
   {
-    Set<String> buffIds=buffs.getBuffIds();
     List<TraitTreeBranch> branches=status.getTraitTree().getBranches();
     TraitTreeBranch selectedBranch=null;
     for(TraitTreeBranch branch : branches)
@@ -67,7 +89,7 @@ public class BuffsManagerToTraitTreeStatus
       for(TraitDescription trait : traits)
       {
         String key=String.valueOf(trait.getIdentifier());
-        if (buffIds.contains(key))
+        if (buffs.contains(key))
         {
           status.setSelectedBranch(branch);
           selectedBranch=branch;
@@ -82,70 +104,5 @@ public class BuffsManagerToTraitTreeStatus
       selectedBranch=branches.get(0);
     }
     status.setSelectedBranch(selectedBranch);
-  }
-
-  /**
-   * Update a buffs manager from a trait tree status.
-   * @param status Trait tree status to use.
-   * @param buffs Buffs manager to update.
-   */
-  public static void updateBuffsFromTraitTreeStatus(TraitTreeStatus status, BuffsManager buffs)
-  {
-    // Remove buffs that come from the tree
-    TraitTree tree=status.getTraitTree();
-    List<TraitDescription> traits=tree.getAllTraits();
-    for(TraitDescription trait : traits)
-    {
-      String buffId=String.valueOf(trait.getIdentifier());
-      buffs.removeBuff(buffId);
-    }
-    // Push selected traits
-    for(TraitDescription trait : tree.getAllTraits())
-    {
-      Integer rank=status.getRankForTrait(trait.getIdentifier());
-      if ((rank!=null) && (rank.intValue()>0))
-      {
-        addBuff(trait,rank.intValue(),buffs);
-      }
-    }
-    // Handle main trait and progression in the selected branch
-    TraitTreeBranch selectedBranch=status.getSelectedBranch();
-    if (selectedBranch!=null)
-    {
-      // Main trait
-      TraitDescription mainTrait=selectedBranch.getMainTrait();
-      if (mainTrait!=null)
-      {
-        addBuff(mainTrait,1,buffs);
-      }
-      // Progression
-      int nbRanks=status.getTotalRanksInTree();
-      TraitTreeProgression progression=selectedBranch.getProgression();
-      List<Integer> steps=progression.getSteps();
-      List<TraitDescription> progressionTraits=progression.getTraits();
-      int nbSteps=steps.size();
-      for(int i=0;i<nbSteps;i++)
-      {
-        int requiredRanks=steps.get(i).intValue();
-        boolean enabled=(nbRanks>=requiredRanks);
-        if (enabled)
-        {
-          TraitDescription progressionTrait=progressionTraits.get(i);
-          addBuff(progressionTrait,1,buffs);
-        }
-      }
-    }
-  }
-
-  private static void addBuff(TraitDescription trait, int rank, BuffsManager buffs)
-  {
-    String buffId=String.valueOf(trait.getIdentifier());
-    BuffRegistry buffsRegistry=BuffRegistry.getInstance();
-    BuffInstance buffInstance=buffsRegistry.newBuffInstance(buffId);
-    if (buffInstance!=null)
-    {
-      buffInstance.setTier(Integer.valueOf(rank));
-      buffs.addBuff(buffInstance);
-    }
   }
 }

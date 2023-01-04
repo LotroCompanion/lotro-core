@@ -58,8 +58,11 @@ public class TraitTreeStatusXMLParser
     {
       NamedNodeMap traitAttrs=traitTag.getAttributes();
       int traidId=DOMParsingTools.getIntAttribute(traitAttrs,TraitTreeStatusXMLConstants.TRAIT_ID_ATTR,0);
-      int rank=DOMParsingTools.getIntAttribute(traitAttrs,TraitTreeStatusXMLConstants.TRAIT_RANK_ATTR,1);
-      status.setRankForTrait(traidId,rank);
+      int rank=DOMParsingTools.getIntAttribute(traitAttrs,TraitTreeStatusXMLConstants.TRAIT_RANK_ATTR,0);
+      if (rank>0)
+      {
+        status.setRankForTrait(traidId,rank);
+      }
     }
     return status;
   }

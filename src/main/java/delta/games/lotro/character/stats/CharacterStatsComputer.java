@@ -141,6 +141,10 @@ public class CharacterStatsComputer
     List<StatsContribution> buffContribs=c.getBuffs().getContributions(c);
     allContribs.addAll(buffContribs);
 
+    // Traits
+    List<StatsContribution> traitContribs=c.getTraits().getContributions(c);
+    allContribs.addAll(traitContribs);
+
     // Virtues
     VirtuesContributionsMgr virtuesMgr=VirtuesContributionsMgr.get();
     VirtuesSet virtues=c.getVirtues();

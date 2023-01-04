@@ -89,10 +89,6 @@ public final class BuffRegistry
     Race race=attrs.getRace();
     for(Buff buff : allBuffs)
     {
-      if (!isSelectable(buff))
-      {
-        continue;
-      }
       CharacterClass requiredClass=buff.getRequiredClass();
       if ((requiredClass==null) || (requiredClass==cClass))
       {
@@ -109,16 +105,6 @@ public final class BuffRegistry
     }
     Collections.sort(ret,new BuffNameComparator());
     return ret;
-  }
-
-  /**
-   * Indicates if the given buff is selectable (=has no dedicated editor).
-   * @param buff Buff to test.
-   * @return <code>true</code> if it is, <code>false</code> otherwise.
-   */
-  public boolean isSelectable(Buff buff)
-  {
-    return buff.getType()!=BuffType.CLASS;
   }
 
   /**

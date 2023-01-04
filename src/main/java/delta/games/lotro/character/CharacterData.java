@@ -9,6 +9,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
+import delta.games.lotro.character.status.traits.TraitsStatus;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Race;
 
@@ -28,6 +29,7 @@ public class CharacterData
   private VirtuesSet _virtues;
   private TomesSet _tomes;
   private BuffsManager _buffs;
+  private TraitsStatus _traits;
   private BasicStatsSet _additionalStats;
 
   /**
@@ -45,6 +47,7 @@ public class CharacterData
     _virtues=new VirtuesSet();
     _tomes=new TomesSet();
     _buffs=new BuffsManager();
+    _traits=new TraitsStatus();
     _additionalStats=new BasicStatsSet();
   }
 
@@ -259,6 +262,15 @@ public class CharacterData
   public BuffsManager getBuffs()
   {
     return _buffs;
+  }
+
+  /**
+   * Get the traits status.
+   * @return the traits status.
+   */
+  public TraitsStatus getTraits()
+  {
+    return _traits;
   }
 
   /**

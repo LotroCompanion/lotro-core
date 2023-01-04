@@ -13,6 +13,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.classes.traitTree.setup.io.xml.TraitTreeSetupXMLWriter;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
@@ -23,6 +24,8 @@ import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLWriter;
 import delta.games.lotro.character.stats.tomes.StatTomesManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
+import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
+import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLWriter;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
@@ -110,6 +113,9 @@ public class CharacterXMLWriter
     // Tomes
     TomesSet tomes=character.getTomes();
     writeTomes(hd,tomes);
+    // Trait tree
+    TraitTreeStatus traitTree=character.getTraits().getTraitTreeStatus();
+    TraitTreeStatusXMLWriter.write(hd,traitTree);
     // Buffs
     BuffsManager buffs=character.getBuffs();
     BuffsXMLWriter.write(hd,buffs);

@@ -71,7 +71,7 @@ public class TraitTreeStatusXMLWriter
     {
       int traidId=trait.getIdentifier();
       Integer rank=status.getRankForTrait(traidId);
-      if (rank!=null)
+      if ((rank!=null) && (rank.intValue()>0))
       {
         AttributesImpl traitAttrs=new AttributesImpl();
         // Trait ID
@@ -95,6 +95,10 @@ public class TraitTreeStatusXMLWriter
    */
   public static void write(TransformerHandler hd, TraitTreeStatus status) throws SAXException
   {
+    if (status==null)
+    {
+      return;
+    }
     AttributesImpl statusAttrs=new AttributesImpl();
     writeTreeAttributes(hd,status,statusAttrs);
     hd.startElement("","",TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_TAG,statusAttrs);
