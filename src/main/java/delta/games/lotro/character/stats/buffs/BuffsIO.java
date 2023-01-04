@@ -62,6 +62,5 @@ public class BuffsIO
         LOGGER.warn("Buff not found: "+buffID);
       }
     }
-    System.out.println("Remaining buffs: "+rawBuffs);
   }
 }

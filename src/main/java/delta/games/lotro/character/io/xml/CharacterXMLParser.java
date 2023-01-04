@@ -17,8 +17,6 @@ import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.character.stats.buffs.BuffsIO;
-import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLConstants;
-import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLParser;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;

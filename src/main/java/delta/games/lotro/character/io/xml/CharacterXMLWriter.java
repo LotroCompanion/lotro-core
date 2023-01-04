@@ -13,7 +13,6 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterSummary;
-import delta.games.lotro.character.classes.traitTree.setup.io.xml.TraitTreeSetupXMLWriter;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
