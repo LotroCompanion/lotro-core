@@ -11,7 +11,6 @@ public class CurrencyStatus
   private Currency _currency;
   private long _date;
   private int _value;
-  private boolean _keepHistory;
 
   /**
    * Constructor.
@@ -67,24 +66,6 @@ public class CurrencyStatus
     _value=value;
   }
 
-  /**
-   * Indicates if we should keep an history of the values of this currency.
-   * @return <code>true</code> to do it, <code>false</code> otherwise.
-   */
-  public boolean isKeepHistory()
-  {
-    return _keepHistory;
-  }
-
-  /**
-   * Set the value of the 'keep history' flag.
-   * @param keepHistory the value to set.
-   */
-  public void setKeepHistory(boolean keepHistory)
-  {
-    _keepHistory=keepHistory;
-  }
-
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
@@ -92,7 +73,6 @@ public class CurrencyStatus
     sb.append(", value=").append(_value);
     sb.append(", date=").append(_date);
     sb.append(" (").append(new Date(_date)).append(')');
-    sb.append(", keepHistory=").append(_keepHistory);
     return sb.toString();
   }
 }

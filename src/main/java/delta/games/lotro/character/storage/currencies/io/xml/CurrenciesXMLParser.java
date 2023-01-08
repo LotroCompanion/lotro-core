@@ -52,9 +52,6 @@ public class CurrenciesXMLParser
         // Value
         int value=DOMParsingTools.getIntAttribute(attrs,CurrenciesXMLConstants.CURRENCY_SUMMARY_VALUE_ATTR,0);
         status.setValue(value);
-        // Keep history
-        boolean keepHistory=DOMParsingTools.getBooleanAttribute(attrs,CurrenciesXMLConstants.CURRENCY_SUMMARY_KEEP_HISTORY_ATTR,false);
-        status.setKeepHistory(keepHistory);
 
         // Register
         summary.addCurrencyStatus(status);

@@ -74,9 +74,6 @@ public class CurrenciesXMLWriter
       // Value
       int value=status.getValue();
       statusAttrs.addAttribute("","",CurrenciesXMLConstants.CURRENCY_SUMMARY_VALUE_ATTR,XmlWriter.CDATA,String.valueOf(value));
-      // Keep history?
-      boolean keepHistory=status.isKeepHistory();
-      statusAttrs.addAttribute("","",CurrenciesXMLConstants.CURRENCY_SUMMARY_KEEP_HISTORY_ATTR,XmlWriter.CDATA,String.valueOf(keepHistory));
 
       hd.startElement("","",CurrenciesXMLConstants.CURRENCY_SUMMARY_TAG,statusAttrs);
       hd.endElement("","",CurrenciesXMLConstants.CURRENCY_SUMMARY_TAG);
