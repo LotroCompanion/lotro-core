@@ -26,6 +26,7 @@ public class RewardsFilter implements Filter<Rewards>
   private GloryRewardFilter _gloryFilter;
   private TraitRewardFilter _traitFilter;
   private TitleRewardFilter _titleFilter;
+  private VirtueRewardFilter _virtueFilter;
   private EmoteRewardFilter _emoteFilter;
   private ItemRewardFilter _itemFilter;
   private RelicRewardFilter _relicFilter;
@@ -67,6 +68,9 @@ public class RewardsFilter implements Filter<Rewards>
     // - title
     _titleFilter=new TitleRewardFilter(null);
     filters.add(_titleFilter);
+    // - virtue
+    _virtueFilter=new VirtueRewardFilter(null);
+    filters.add(_virtueFilter);
     // - emote
     _emoteFilter=new EmoteRewardFilter(null);
     filters.add(_emoteFilter);
@@ -170,6 +174,15 @@ public class RewardsFilter implements Filter<Rewards>
   public TitleRewardFilter getTitleFilter()
   {
     return _titleFilter;
+  }
+
+  /**
+   * Get the filter on virtue reward.
+   * @return a virtue reward filter.
+   */
+  public VirtueRewardFilter getVirtueFilter()
+  {
+    return _virtueFilter;
   }
 
   /**
