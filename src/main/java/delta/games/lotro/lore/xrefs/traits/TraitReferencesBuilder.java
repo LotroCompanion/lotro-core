@@ -67,6 +67,10 @@ public class TraitReferencesBuilder
   {
     RacesManager mgr=RacesManager.getInstance();
     RaceDescription raceDescription=mgr.getRaceDescription(race);
+    if (raceDescription==null)
+    {
+      return;
+    }
     List<RaceTrait> raceTraits=raceDescription.getTraits();
     for(RaceTrait raceTrait : raceTraits)
     {
@@ -97,6 +101,10 @@ public class TraitReferencesBuilder
   {
     ClassesManager mgr=ClassesManager.getInstance();
     ClassDescription classDescription=mgr.getClassDescription(cClass);
+    if (classDescription==null)
+    {
+      return;
+    }
     // Regular traits
     List<ClassTrait> classTraits=classDescription.getTraits();
     for(ClassTrait classTrait : classTraits)
@@ -109,6 +117,10 @@ public class TraitReferencesBuilder
     }
     // Traits tree
     TraitTree tree=classDescription.getTraitTree();
+    if (tree==null)
+    {
+      return;
+    }
     for(TraitDescription trait : tree.getAllTraits())
     {
       if (trait.getIdentifier()==traitID)

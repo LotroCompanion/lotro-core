@@ -60,6 +60,10 @@ public class SkillReferencesBuilder
   {
     ClassesManager mgr=ClassesManager.getInstance();
     ClassDescription classDescription=mgr.getClassDescription(cClass);
+    if (classDescription==null)
+    {
+      return;
+    }
     List<ClassSkill> classSkills=classDescription.getSkills();
     for(ClassSkill classSkill : classSkills)
     {
