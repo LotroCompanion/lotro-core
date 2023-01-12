@@ -44,6 +44,7 @@ public final class Race
   /**
    * An array of all races.
    */
+  // TODO Adapt races to data contents (SoA have no Beorning, HIgh Elf or Stout-Axe!)
   public static final Race[] ALL_RACES = {
     BEORNING, DWARF, ELF, HIGH_ELF, HOBBIT, MAN, STOUT_AXE_DWARF
   };

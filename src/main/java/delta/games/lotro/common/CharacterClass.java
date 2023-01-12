@@ -60,6 +60,7 @@ public final class CharacterClass
   /**
    * An array of all character classes.
    */
+  // TODO Adapt classes to data contents (SoA have no Beorning, Brawler, RK? ...)
   public static final CharacterClass[] ALL_CLASSES =
   {
     BEORNING, BRAWLER, BURGLAR, CAPTAIN, CHAMPION, GUARDIAN, HUNTER, LORE_MASTER, MINSTREL, RUNE_KEEPER, WARDEN
