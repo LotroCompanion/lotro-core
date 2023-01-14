@@ -310,4 +310,8 @@ public class DataFiles
    * Hobbies file.
    */
   public static final String HOBBIES="hobbies";
+  /**
+   * Labels file.
+   */
+  public static final String LABELS="labelsDir";
 }

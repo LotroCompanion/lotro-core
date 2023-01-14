@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.xml.sax.Attributes;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserEngine;
 import delta.common.utils.xml.sax.SAXParserValve;
@@ -31,6 +32,7 @@ import delta.games.lotro.lore.webStore.WebStoreItemsManager;
 import delta.games.lotro.lore.worldEvents.io.xml.WorldEventConditionsSaxParser;
 import delta.games.lotro.lore.worldEvents.io.xml.WorldEventConditionsXMLConstants;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * SAX parser for quests.
@@ -44,6 +46,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
   private QuestsRequirementsSaxParser _requirements;
   private DialogsSaxParser _dialogs;
   private WorldEventConditionsSaxParser _worldEventConditions;
+  private SingleLocaleLabelsManager _i18n;
 
   /**
    * Constructor.
@@ -52,13 +55,14 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
   {
     super();
     setResult(new ArrayList<QuestDescription>());
-    _objectives=new ObjectivesSaxXMLParser();
+    _i18n=I18nFacade.getLabelsMgr("quests");
+    _objectives=new ObjectivesSaxXMLParser(_i18n);
     _objectives.setParent(this);
     _rewards=new RewardsSaxXMLParser();
     _rewards.setParent(this);
     _requirements=new QuestsRequirementsSaxParser();
     _requirements.setParent(this);
-    _dialogs=new DialogsSaxParser();
+    _dialogs=new DialogsSaxParser(_i18n);
     _dialogs.setParent(this);
     _worldEventConditions=new WorldEventConditionsSaxParser();
     _worldEventConditions.setParent(this);
@@ -86,7 +90,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
       getResult().add(q);
 
       // Shared attributes
-      AchievableSaxParser.parseAchievableAttributes(attrs,q);
+      AchievableSaxParser.parseAchievableAttributes(attrs,q,_i18n);
       // Scope
       String scope=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SCOPE_ATTR,"");
       q.setQuestScope(scope);
@@ -137,13 +141,13 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
     // Bestowers
     else if (QuestXMLConstants.BESTOWER_TAG.equals(tagName))
     {
-      DialogElement dialog=DialogsSaxParser.parseDialog(attrs);
+      DialogElement dialog=DialogsSaxParser.parseDialog(attrs,_i18n);
       _currentItem.addBestower(dialog);
     }
     // End dialogs
     else if (QuestXMLConstants.END_DIALOG_TAG.equals(tagName))
     {
-      DialogElement dialog=DialogsSaxParser.parseDialog(attrs);
+      DialogElement dialog=DialogsSaxParser.parseDialog(attrs,_i18n);
       _currentItem.addEndDialog(dialog);
     }
     // Maps

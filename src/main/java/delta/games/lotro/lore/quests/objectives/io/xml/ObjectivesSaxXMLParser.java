@@ -2,6 +2,7 @@ package delta.games.lotro.lore.quests.objectives.io.xml;
 
 import org.xml.sax.Attributes;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.character.skills.SkillDescription;
@@ -59,6 +60,16 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private ObjectivesManager _objectives;
   private Objective _currentObjective;
   private ObjectiveCondition _condition;
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   * @param i18n Localization support.
+   */
+  public ObjectivesSaxXMLParser(SingleLocaleLabelsManager i18n)
+  {
+    _i18n=i18n;
+  }
 
   /**
    * Set the storage for objectives.
@@ -79,7 +90,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     }
     else if (ObjectivesXMLConstants.DIALOG_TAG.equals(tagName))
     {
-      DialogElement dialog=DialogsSaxParser.parseDialog(attrs);
+      DialogElement dialog=DialogsSaxParser.parseDialog(attrs,_i18n);
       _currentObjective.addDialog(dialog);
     }
     else if (ObjectivesXMLConstants.MONSTER_SELECTION_TAG.equals(tagName))
@@ -119,31 +130,37 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     objective.setIndex(objectiveIndex);
     // Description
     String description=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_TEXT_ATTR,"");
+    description=_i18n.getLabel(description);
     objective.setDescription(description);
     // Lore override
     String loreOverride=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_LORE_OVERRIDE_ATTR,"");
+    loreOverride=_i18n.getLabel(loreOverride);
     objective.setLoreOverride(loreOverride);
     // Progress override
     String progressOverride=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_PROGRESS_OVERRIDE_ATTR,"");
+    progressOverride=_i18n.getLabel(progressOverride);
     objective.setProgressOverride(progressOverride);
     // Billboard override
     String billboardOverride=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_BILLBOARD_OVERRIDE_ATTR,"");
+    billboardOverride=_i18n.getLabel(billboardOverride);
     objective.setBillboardOverride(billboardOverride);
     return objective;
   }
 
-  private static void parseConditionAttributes(Attributes attrs, ObjectiveCondition condition)
+  private static void parseConditionAttributes(Attributes attrs, ObjectiveCondition condition, SingleLocaleLabelsManager i18n)
   {
     // Index
     int index=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.CONDITION_INDEX_ATTR,0);
     // Lore info
     String loreInfo=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_LORE_INFO_ATTR,null);
+    loreInfo=i18n.getLabel(loreInfo);
     // Show progress text
     boolean showProgressText=SAXParsingTools.getBooleanAttribute(attrs,ObjectivesXMLConstants.CONDITION_SHOW_PROGRESS_TEXT,true);
     // Show billboard text
     boolean showBillboardText=SAXParsingTools.getBooleanAttribute(attrs,ObjectivesXMLConstants.CONDITION_SHOW_BILLBOARD_TEXT,true);
     // Progress override
     String progressOverride=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_PROGRESS_OVERRIDE_ATTR,null);
+    progressOverride=i18n.getLabel(progressOverride);
     // Count
     int count=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.CONDITION_COUNT_ATTR,1);
 
@@ -235,7 +252,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     {
       ret=parseDefaultCondition(attrs);
     }
-    parseConditionAttributes(attrs,ret);
+    parseConditionAttributes(attrs,ret,_i18n);
     return ret;
   }
 

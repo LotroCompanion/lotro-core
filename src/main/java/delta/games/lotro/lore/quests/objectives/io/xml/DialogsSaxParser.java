@@ -2,6 +2,7 @@ package delta.games.lotro.lore.quests.objectives.io.xml;
 
 import org.xml.sax.Attributes;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
@@ -20,6 +21,17 @@ public class DialogsSaxParser extends SAXParserValve<Void>
 {
   private QuestCompletionComment _comment;
   private QuestDescription _quest;
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   * @param i18n Localization support.
+   */
+  public DialogsSaxParser(SingleLocaleLabelsManager i18n)
+  {
+    _i18n=i18n;
+  }
+
 
   /**
    * Set the parent quest.
@@ -46,6 +58,7 @@ public class DialogsSaxParser extends SAXParserValve<Void>
     else if (QuestXMLConstants.TEXT_TAG.equals(tagName))
     {
       String text=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.TEXT_ATTR,null);
+      text=_i18n.getLabel(text);
       _comment.addWhat(text);
     }
     return this;
@@ -65,9 +78,10 @@ public class DialogsSaxParser extends SAXParserValve<Void>
   /**
    * Build a dialog element from SAX attributes.
    * @param attrs Input tag.
+   * @param i18n Localization support.
    * @return the new dialog.
    */
-  public static DialogElement parseDialog(Attributes attrs)
+  public static DialogElement parseDialog(Attributes attrs, SingleLocaleLabelsManager i18n)
   {
     DialogElement ret=new DialogElement();
     // NPC
@@ -75,6 +89,7 @@ public class DialogsSaxParser extends SAXParserValve<Void>
     ret.setWho(npc);
     // Text
     String text=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.TEXT_ATTR,"");
+    text=i18n.getLabel(text);
     ret.setWhat(text);
     return ret;
   }

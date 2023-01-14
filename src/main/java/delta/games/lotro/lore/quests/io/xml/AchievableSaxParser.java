@@ -2,6 +2,7 @@ package delta.games.lotro.lore.quests.io.xml;
 
 import org.xml.sax.Attributes;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.lore.quests.Achievable;
@@ -16,8 +17,9 @@ public class AchievableSaxParser
    * Parse achievable attributes (SAX mode).
    * @param attrs Input data.
    * @param achievable Storage.
+   * @param i18n Localization support.
    */
-  public static void parseAchievableAttributes(Attributes attrs, Achievable achievable)
+  public static void parseAchievableAttributes(Attributes attrs, Achievable achievable, SingleLocaleLabelsManager i18n)
   {
     // Identifier
     int id=SAXParsingTools.getIntAttribute(attrs,AchievableXMLConstants.ID_ATTR,0);
@@ -39,7 +41,7 @@ public class AchievableSaxParser
     achievable.setMonsterPlay(monsterPlay);
     // Description
     String description=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.DESCRIPTION_ATTR,"");
+    description=i18n.getLabel(description);
     achievable.setDescription(description);
   }
-
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.xml.sax.Attributes;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserEngine;
 import delta.common.utils.xml.sax.SAXParserValve;
@@ -27,6 +28,7 @@ import delta.games.lotro.lore.webStore.WebStoreItem;
 import delta.games.lotro.lore.webStore.WebStoreItemsManager;
 import delta.games.lotro.lore.worldEvents.io.xml.WorldEventConditionsSaxParser;
 import delta.games.lotro.lore.worldEvents.io.xml.WorldEventConditionsXMLConstants;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * SAX parser for deeds.
@@ -39,6 +41,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
   private RewardsSaxXMLParser _rewards;
   private QuestsRequirementsSaxParser _requirements;
   private WorldEventConditionsSaxParser _worldEventConditions;
+  private SingleLocaleLabelsManager _i18n;
 
   /**
    * Constructor.
@@ -47,7 +50,8 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
   {
     super();
     setResult(new ArrayList<DeedDescription>());
-    _objectives=new ObjectivesSaxXMLParser();
+    _i18n=I18nFacade.getLabelsMgr("quests");
+    _objectives=new ObjectivesSaxXMLParser(_i18n);
     _objectives.setParent(this);
     _rewards=new RewardsSaxXMLParser();
     _rewards.setParent(this);
@@ -79,7 +83,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
       getResult().add(deed);
 
       // Shared attributes
-      AchievableSaxParser.parseAchievableAttributes(attrs,deed);
+      AchievableSaxParser.parseAchievableAttributes(attrs,deed,_i18n);
       // Key
       String key=SAXParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_KEY_ATTR,null);
       deed.setKey(key);
