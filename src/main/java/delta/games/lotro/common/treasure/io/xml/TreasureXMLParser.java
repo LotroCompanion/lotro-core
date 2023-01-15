@@ -211,10 +211,7 @@ public class TreasureXMLParser
         treasureGroup=getTreasureGroupProfile(treasureGroupProfileId);
         entry=new TrophyListEntry(probability,treasureGroup);
       }
-      if (entry!=null)
-      {
-        ret.addEntry(entry);
-      }
+      ret.addEntry(entry);
     }
     _lootMgr.getTables().add(ret);
   }
@@ -394,15 +391,4 @@ public class TreasureXMLParser
     }
     return ret;
   }
-
-  /*
-  public static void main(String[] args)
-  {
-    File in=LotroCoreConfig.getInstance().getFile(DataFiles.LOOTS);
-    LootsManager lootMgr=new TreasureXMLParser().parseXML(in);
-    File to=LotroCoreConfig.getInstance().getFile(DataFiles.LOOTS);
-    File to2=new File(to.getParentFile(),"newLoot.xml");
-    TreasureXMLWriter.writeLootsFile(to2,lootMgr);
-  }
-  */
 }
