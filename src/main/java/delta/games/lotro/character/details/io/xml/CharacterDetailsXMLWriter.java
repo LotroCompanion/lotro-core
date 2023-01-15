@@ -10,6 +10,8 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.details.CharacterDetails;
+import delta.games.lotro.common.geo.Position;
+import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.common.money.Money;
 
 /**
@@ -90,6 +92,9 @@ public class CharacterDetailsXMLWriter
       hd.startElement("","",CharacterDetailsXMLConstants.CURRENT_DUNGEON_TAG,dungeonAttrs);
       hd.endElement("","",CharacterDetailsXMLConstants.CURRENT_DUNGEON_TAG);
     }
+    // Position
+    Position position=details.getPosition();
+    PositionXMLWriter.writePosition(hd,position);
     // Current vocation
     Integer currentVocationId=details.getCurrentVocationId();
     if (currentVocationId!=null)

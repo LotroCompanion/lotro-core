@@ -50,4 +50,30 @@ public class PositionXMLWriter
     hd.startElement("","",PositionXMLConstants.POSITION,positionAttrs);
     hd.endElement("","",PositionXMLConstants.POSITION);
   }
+
+  /**
+   * Write a position in an XML document.
+   * @param hd Output stream.
+   * @param position Position to write.
+   * @throws SAXException If an error occurs.
+   */
+  public static void writePosition(TransformerHandler hd, Position position) throws SAXException
+  {
+    if (position==null)
+    {
+      return;
+    }
+    AttributesImpl positionAttrs=new AttributesImpl();
+    // Region
+    int region=position.getRegion();
+    positionAttrs.addAttribute("","",PositionXMLConstants.POSITION_REGION_ATTR,XmlWriter.CDATA,String.valueOf(region));
+    // Longitude
+    float longitude=position.getLongitude();
+    positionAttrs.addAttribute("","",PositionXMLConstants.POSITION_LONGITUDE_ATTR,XmlWriter.CDATA,String.valueOf(longitude));
+    // Latitude
+    float latitude=position.getLatitude();
+    positionAttrs.addAttribute("","",PositionXMLConstants.POSITION_LATITUDE_ATTR,XmlWriter.CDATA,String.valueOf(latitude));
+    hd.startElement("","",PositionXMLConstants.POSITION,positionAttrs);
+    hd.endElement("","",PositionXMLConstants.POSITION);
+  }
 }

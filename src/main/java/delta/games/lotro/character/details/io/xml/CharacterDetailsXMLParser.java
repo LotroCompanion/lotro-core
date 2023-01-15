@@ -7,6 +7,9 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.details.CharacterDetails;
+import delta.games.lotro.common.geo.Position;
+import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
+import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 
 /**
  * Parser for character details stored in XML.
@@ -84,6 +87,13 @@ public class CharacterDetailsXMLParser
       NamedNodeMap dungeonAttrs=dungeonTag.getAttributes();
       int dungeonID=DOMParsingTools.getIntAttribute(dungeonAttrs,CharacterDetailsXMLConstants.CURRENT_DUNGEON_ID_ATTR,0);
       details.setDungeonID((dungeonID!=0)?Integer.valueOf(dungeonID):null);
+    }
+    // Position
+    Element positionTag=DOMParsingTools.getChildTagByName(root,PositionXMLConstants.POSITION);
+    if (positionTag!=null)
+    {
+      Position position=PositionXMLParser.parseSimplePosition(positionTag);
+      details.setPosition(position);
     }
     // Current vocation
     Element vocationTag=DOMParsingTools.getChildTagByName(root,CharacterDetailsXMLConstants.CURRENT_VOCATION_TAG);
