@@ -58,7 +58,8 @@ public class DialogsSaxParser extends SAXParserValve<Void>
     else if (QuestXMLConstants.TEXT_TAG.equals(tagName))
     {
       String text=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.TEXT_ATTR,null);
-      text=_i18n.getLabel(text);
+      String tmpText=_i18n.getLabel(text);
+      text=(tmpText!=null)?tmpText:text;
       _comment.addWhat(text);
     }
     return this;

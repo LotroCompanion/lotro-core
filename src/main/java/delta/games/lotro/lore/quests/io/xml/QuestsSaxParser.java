@@ -96,6 +96,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
       q.setQuestScope(scope);
       // Quest arc
       String arc=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_ARC_ATTR,"");
+      arc=_i18n.getLabel(arc);
       q.setQuestArc(arc);
       // Size
       String sizeStr=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SIZE_ATTR,null);
