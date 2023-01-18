@@ -14,6 +14,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.enums.AllegianceGroup;
 import delta.games.lotro.lore.allegiances.AllegianceDescription;
 import delta.games.lotro.lore.allegiances.AllegiancesManager;
 import delta.games.lotro.lore.allegiances.Points2LevelCurve;
@@ -83,10 +84,11 @@ public class AllegianceXMLWriter
       attrs.addAttribute("","",AllegianceXMLConstants.ALLEGIANCE_ICON_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
     }
     // Group
-    String group=allegiance.getGroup();
-    if (group.length()>0)
+    AllegianceGroup group=allegiance.getGroup();
+    if (group!=null)
     {
-      attrs.addAttribute("","",AllegianceXMLConstants.ALLEGIANCE_GROUP_ATTR,XmlWriter.CDATA,group);
+      int groupCode=group.getCode();
+      attrs.addAttribute("","",AllegianceXMLConstants.ALLEGIANCE_GROUP_ATTR,XmlWriter.CDATA,String.valueOf(groupCode));
     }
     // Min level
     Integer minLevel=allegiance.getMinLevel();

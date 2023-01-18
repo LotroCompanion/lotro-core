@@ -7,6 +7,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.enums.AllegianceGroup;
 import delta.games.lotro.lore.deeds.DeedDescription;
 
 /**
@@ -18,7 +19,7 @@ public class AllegianceDescription implements Identifiable,Named
   private int _identifier;
   private String _name;
   private int _iconId;
-  private String _group;
+  private AllegianceGroup _group;
   private String _description;
   private Integer _minLevel;
   private SkillDescription _travelSkill;
@@ -32,7 +33,7 @@ public class AllegianceDescription implements Identifiable,Named
     _identifier=0;
     _name="";
     _iconId=0;
-    _group="";
+    _group=null;
     _description="";
     _minLevel=null;
     _travelSkill=null;
@@ -101,7 +102,7 @@ public class AllegianceDescription implements Identifiable,Named
    * Get the group of this allegiance.
    * @return the group of this allegiance.
    */
-  public String getGroup()
+  public AllegianceGroup getGroup()
   {
     return _group;
   }
@@ -110,12 +111,8 @@ public class AllegianceDescription implements Identifiable,Named
    * Set the group of this allegiance.
    * @param group the group to set.
    */
-  public void setGroup(String group)
+  public void setGroup(AllegianceGroup group)
   {
-    if (group==null)
-    {
-      group="";
-    }
     _group=group;
   }
 

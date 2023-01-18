@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
+import delta.games.lotro.common.enums.AllegianceGroup;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.allegiances.io.xml.AllegianceXMLParser;
@@ -91,16 +93,16 @@ public class AllegiancesManager
    * Get the allegiances groups.
    * @return A sorted list of allegiances groups.
    */
-  public List<String> getAllegiancesGroups()
+  public List<AllegianceGroup> getAllegiancesGroups()
   {
-    Set<String> groups=new HashSet<String>();
+    Set<AllegianceGroup> groups=new HashSet<AllegianceGroup>();
     for(AllegianceDescription allegiance : _cache.values())
     {
-      String group=allegiance.getGroup();
+      AllegianceGroup group=allegiance.getGroup();
       groups.add(group);
     }
-    List<String> ret=new ArrayList<String>(groups);
-    Collections.sort(ret);
+    List<AllegianceGroup> ret=new ArrayList<AllegianceGroup>(groups);
+    Collections.sort(ret,new LotroEnumEntryNameComparator<AllegianceGroup>());
     return ret;
   }
 
@@ -121,12 +123,12 @@ public class AllegiancesManager
    * @param group Group to use.
    * @return A list of allegiances.
    */
-  public List<AllegianceDescription> getAllegiances(String group)
+  public List<AllegianceDescription> getAllegiances(AllegianceGroup group)
   {
     ArrayList<AllegianceDescription> ret=new ArrayList<AllegianceDescription>();
     for(AllegianceDescription allegiance : _cache.values())
     {
-      if (group.equals(allegiance.getGroup()))
+      if (group==allegiance.getGroup())
       {
         ret.add(allegiance);
       }

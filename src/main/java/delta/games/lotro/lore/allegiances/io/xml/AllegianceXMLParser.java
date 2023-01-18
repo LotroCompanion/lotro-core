@@ -9,6 +9,9 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
+import delta.games.lotro.common.enums.AllegianceGroup;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.allegiances.AllegianceDescription;
 import delta.games.lotro.lore.allegiances.AllegiancesManager;
 import delta.games.lotro.lore.allegiances.Points2LevelCurve;
@@ -66,7 +69,9 @@ public class AllegianceXMLParser
     int iconId=DOMParsingTools.getIntAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_ICON_ATTR,0);
     allegiance.setIconId(iconId);
     // Group
-    String group=DOMParsingTools.getStringAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_GROUP_ATTR,"");
+    int groupCode=DOMParsingTools.getIntAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_GROUP_ATTR,0);
+    LotroEnum<AllegianceGroup> groupEnum=LotroEnumsRegistry.getInstance().get(AllegianceGroup.class);
+    AllegianceGroup group=groupEnum.getEntry(groupCode);
     allegiance.setGroup(group);
     // Min Level
     int minLevel=DOMParsingTools.getIntAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_MIN_LEVEL_ATTR,-1);
