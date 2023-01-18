@@ -209,7 +209,7 @@ public class ObjectivesXMLWriter
     attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
     // Lore Info
     String loreInfo=condition.getLoreInfo();
-    if (loreInfo!=null)
+    if ((loreInfo!=null) && (loreInfo.length()>0))
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_LORE_INFO_ATTR,XmlWriter.CDATA,loreInfo);
     }
@@ -221,7 +221,7 @@ public class ObjectivesXMLWriter
     }
     // Progress override
     String progressOverride=condition.getProgressOverride();
-    if (progressOverride!=null)
+    if ((progressOverride!=null) && (progressOverride.length()>0))
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_PROGRESS_OVERRIDE_ATTR,XmlWriter.CDATA,progressOverride);
     }
