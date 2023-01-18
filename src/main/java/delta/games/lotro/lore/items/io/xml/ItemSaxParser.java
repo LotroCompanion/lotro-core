@@ -13,6 +13,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import delta.common.utils.NumericTools;
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
@@ -52,6 +53,7 @@ import delta.games.lotro.lore.items.legendary2.Legendary2;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttributes2Manager;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttrs2;
 import delta.games.lotro.utils.NumericUtils;
+import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -67,6 +69,7 @@ public final class ItemSaxParser extends DefaultHandler
   private LotroEnum<ItemClass> _itemClassEnum;
   private LotroEnum<EquipmentCategory> _equipmentCategoryEnum;
   private ItemDetailsSaxParser _detailsParser;
+  private SingleLocaleLabelsManager _i18n;
 
   private ItemSaxParser()
   {
@@ -74,6 +77,7 @@ public final class ItemSaxParser extends DefaultHandler
     _itemClassEnum=LotroEnumsRegistry.getInstance().get(ItemClass.class);
     _equipmentCategoryEnum=LotroEnumsRegistry.getInstance().get(EquipmentCategory.class);
     _detailsParser=new ItemDetailsSaxParser();
+    _i18n=I18nFacade.getLabelsMgr("items");
   }
 
   /**
@@ -121,7 +125,11 @@ public final class ItemSaxParser extends DefaultHandler
       String setId=attributes.getValue(ItemXMLConstants.ITEM_SET_ID_ATTR);
       _currentItem.setSetKey(setId);
       // Name
-      String name=attributes.getValue(ItemXMLConstants.ITEM_NAME_ATTR);
+      String name=_i18n.getLabel(String.valueOf(id));
+      if (name==null)
+      {
+        name=attributes.getValue(ItemXMLConstants.ITEM_NAME_ATTR);
+      }
       _currentItem.setName(name);
       // Item level
       String itemLevel=attributes.getValue(ItemXMLConstants.ITEM_LEVEL_ATTR);
@@ -196,6 +204,8 @@ public final class ItemSaxParser extends DefaultHandler
       UsageRequirementsXMLParser.parseRequirements(_currentItem.getUsageRequirements(),attributes);
       // Full description
       String description=attributes.getValue(ItemXMLConstants.ITEM_DESCRIPTION_ATTR);
+      String tmpDdescription=_i18n.getLabel(description);
+      description=(tmpDdescription!=null)?tmpDdescription:description;
       _currentItem.setDescription(description);
       // Value table
       String valueTableIdStr=attributes.getValue(ItemXMLConstants.ITEM_VALUE_TABLE_ID_ATTR);
