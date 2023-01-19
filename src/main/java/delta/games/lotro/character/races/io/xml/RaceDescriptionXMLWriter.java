@@ -56,9 +56,18 @@ public class RaceDescriptionXMLWriter
     // ID
     int id=raceDescription.getIdentifier();
     attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Code
+    int code=raceDescription.getCode();
+    attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
     // Key
     String key=raceDescription.getKey();
     attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_KEY_ATTR,XmlWriter.CDATA,key);
+    // Legacy label
+    String legacyLabel=raceDescription.getLegacyLabel();
+    if (legacyLabel!=null)
+    {
+      attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_LEGACY_LABEL_ATTR,XmlWriter.CDATA,legacyLabel);
+    }
     // Name
     String name=raceDescription.getName();
     attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_NAME_ATTR,XmlWriter.CDATA,name);
