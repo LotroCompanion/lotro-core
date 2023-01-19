@@ -8,10 +8,11 @@ import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
+import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Armour;
@@ -76,7 +77,8 @@ public class CharacterGeneratorGiswald
   {
     CharacterSummary summary=new CharacterSummary();
     summary.setName("Giswald");
-    summary.setRace(Race.MAN);
+    RaceDescription man=RacesManager.getInstance().getByKey("man");
+    summary.setRace(man);
     summary.setLevel(100);
     summary.setCharacterClass(CharacterClass.CHAMPION);
     CharacterData c=CharacterFactory.buildNewData(summary);

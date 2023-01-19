@@ -12,7 +12,6 @@ import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
@@ -57,34 +56,28 @@ public class TraitReferencesBuilder
 
   private void findInRaces(int traitID)
   {
-    for(Race race : Race.ALL_RACES)
+    for(RaceDescription race : RacesManager.getInstance().getAll())
     {
       findInRace(race, traitID);
     }
   }
 
-  private void findInRace(Race race, int traitID)
+  private void findInRace(RaceDescription race, int traitID)
   {
-    RacesManager mgr=RacesManager.getInstance();
-    RaceDescription raceDescription=mgr.getRaceDescription(race);
-    if (raceDescription==null)
-    {
-      return;
-    }
-    List<RaceTrait> raceTraits=raceDescription.getTraits();
+    List<RaceTrait> raceTraits=race.getTraits();
     for(RaceTrait raceTrait : raceTraits)
     {
       TraitDescription trait=raceTrait.getTrait();
       if (trait.getIdentifier()==traitID)
       {
-        _storage.add(new TraitReference<Race>(race,TraitRole.RACE_TRAIT));
+        _storage.add(new TraitReference<RaceDescription>(race,TraitRole.RACE_TRAIT));
       }
     }
-    for(TraitDescription trait : raceDescription.getEarnableTraits())
+    for(TraitDescription trait : race.getEarnableTraits())
     {
       if (trait.getIdentifier()==traitID)
       {
-        _storage.add(new TraitReference<Race>(race,TraitRole.RACE_TRAIT));
+        _storage.add(new TraitReference<RaceDescription>(race,TraitRole.RACE_TRAIT));
       }
     }
   }

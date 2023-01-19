@@ -16,7 +16,6 @@ import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 
 /**
  * Parser for race descriptions stored in XML.
@@ -53,10 +52,18 @@ public class RaceDescriptionXMLParser
   private static RaceDescription parseRaceDescription(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
+    // ID
+    int id=DOMParsingTools.getIntAttribute(attrs,RaceDescriptionXMLConstants.RACE_ID_ATTR,0);
+    // Code
+    int code=DOMParsingTools.getIntAttribute(attrs,RaceDescriptionXMLConstants.RACE_CODE_ATTR,0);
     // Key
-    String raceKeyStr=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_KEY_ATTR,null);
-    Race race=Race.getByKey(raceKeyStr);
-    RaceDescription raceDescription=new RaceDescription(race);
+    String key=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_KEY_ATTR,null);
+    // Legacy label
+    String legacyLabel=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_LEGACY_LABEL_ATTR,null);
+    RaceDescription raceDescription=new RaceDescription(id,code,key,legacyLabel);
+    // Name
+    String name=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_NAME_ATTR,"");
+    raceDescription.setName(name);
     // Tall
     boolean tall=DOMParsingTools.getBooleanAttribute(attrs,RaceDescriptionXMLConstants.RACE_TALL_ATTR,false);
     raceDescription.setTall(tall);

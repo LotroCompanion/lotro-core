@@ -5,12 +5,10 @@ import java.util.List;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.StartStatsManagerIO;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
 
@@ -44,7 +42,7 @@ public class BaseStatsManager
    * @param level Level (starting at 1).
    * @return A set of stats.
    */
-  public BasicStatsSet getBaseStats(CharacterClass cClass, Race race, int level)
+  public BasicStatsSet getBaseStats(CharacterClass cClass, RaceDescription race, int level)
   {
     BasicStatsSet classSet=_startStatsManager.getStats(cClass,level);
     BasicStatsSet raceSet=getRaceTraitsContrib(race,level);
@@ -57,12 +55,10 @@ public class BaseStatsManager
     return global;
   }
 
-  private BasicStatsSet getRaceTraitsContrib(Race race, int level)
+  private BasicStatsSet getRaceTraitsContrib(RaceDescription race, int level)
   {
-    RacesManager racesManager=RacesManager.getInstance();
-    RaceDescription description=racesManager.getRaceDescription(race);
     BasicStatsSet stats=new BasicStatsSet();
-    List<TraitDescription> traits=description.getTraitsForLevel(level);
+    List<TraitDescription> traits=race.getTraitsForLevel(level);
     for(TraitDescription trait : traits)
     {
       StatsProvider provider=trait.getStatsProvider();

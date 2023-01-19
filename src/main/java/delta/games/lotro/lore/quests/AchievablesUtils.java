@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.requirements.filters.UsageRequirementFilter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
@@ -42,7 +42,7 @@ public class AchievablesUtils
   {
     List<T> ret=new ArrayList<T>();
     CharacterClass characterClass=summary.getCharacterClass();
-    Race race=summary.getRace();
+    RaceDescription race=summary.getRace();
     UsageRequirementFilter classRaceFilter=new UsageRequirementFilter(characterClass,race);
     for(T achievable : achievables)
     {

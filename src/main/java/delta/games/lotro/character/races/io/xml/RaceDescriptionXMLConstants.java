@@ -16,9 +16,25 @@ public class RaceDescriptionXMLConstants
    */
   public static final String RACE_TAG="race";
   /**
+   * Tag 'race', attribute 'id'.
+   */
+  public static final String RACE_ID_ATTR="id";
+  /**
+   * Tag 'race', attribute 'code'.
+   */
+  public static final String RACE_CODE_ATTR="code";
+  /**
    * Tag 'race', attribute 'key'.
    */
   public static final String RACE_KEY_ATTR="key";
+  /**
+   * Tag 'race', attribute 'legacyLabel'.
+   */
+  public static final String RACE_LEGACY_LABEL_ATTR="legacyLabel";
+  /**
+   * Tag 'race', attribute 'name'.
+   */
+  public static final String RACE_NAME_ATTR="name";
   /**
    * Tag 'race', attribute 'tall'.
    */

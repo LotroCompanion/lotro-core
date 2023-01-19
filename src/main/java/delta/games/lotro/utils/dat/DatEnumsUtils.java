@@ -5,7 +5,6 @@ import java.util.List;
 
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 
 /**
  * Misc enum utils.
@@ -40,23 +39,6 @@ public class DatEnumsUtils
     if (id==179) return CharacterClass.BLACKARROW;
     if (id==52) return CharacterClass.WARLEADER;
     if (id==126) return CharacterClass.STALKER;
-    return null;
-  }
-
-  /**
-   * Get a race from a DAT enum code.
-   * @param raceId Input code.
-   * @return A race or <code>null</code> if not supported.
-   */
-  public static Race getRaceFromRaceId(int raceId)
-  {
-    if (raceId==23) return Race.MAN;
-    if (raceId==65) return Race.ELF;
-    if (raceId==73) return Race.DWARF;
-    if (raceId==81) return Race.HOBBIT;
-    if (raceId==114) return Race.BEORNING;
-    if (raceId==117) return Race.HIGH_ELF;
-    if (raceId==120) return Race.STOUT_AXE_DWARF;
     return null;
   }
 

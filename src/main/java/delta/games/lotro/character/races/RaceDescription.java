@@ -6,15 +6,20 @@ import java.util.List;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
-import delta.games.lotro.common.Race;
+import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Race description.
  * @author DAM
  */
-public class RaceDescription
+public class RaceDescription implements Identifiable,Named
 {
-  private Race _race;
+  private int _id;
+  private int _code;
+  private String _key;
+  private String _legacyLabel;
+  private String _name;
   private boolean _isTall;
   private String _description;
   private RaceGender _male;
@@ -26,11 +31,18 @@ public class RaceDescription
 
   /**
    * Constructor.
-   * @param race Character race.
+   * @param id Identifier.
+   * @param code Internal lotro code.
+   * @param key Key Integer LC string identifier.
+   * @param legacyLabel Legacy label used in XML persistence.
    */
-  public RaceDescription(Race race)
+  public RaceDescription(int id, int code, String key, String legacyLabel)
   {
-    _race=race;
+    _id=id;
+    _code=code;
+    _key=key;
+    _legacyLabel=legacyLabel;
+    _name="";
     _isTall=true;
     _description="";
     _male=null;
@@ -41,13 +53,59 @@ public class RaceDescription
     _earnableTraits=new ArrayList<TraitDescription>();
   }
 
-  /**
-   * Get the described race.
-   * @return a character race.
-   */
-  public Race getRace()
+  @Override
+  public int getIdentifier()
   {
-    return _race;
+    return _id;
+  }
+
+  /**
+   * Get the internal LOTRO code.
+   * @return a code.
+   */
+  public int getCode()
+  {
+    return _code;
+  }
+
+  /**
+   * Get the internal key.
+   * @return An internal key.
+   */
+  public String getKey()
+  {
+    return _key;
+  }
+
+  /**
+   * Get the legacy label.
+   * @return the legacy label.
+   */
+  public String getLegacyLabel()
+  {
+    return _legacyLabel;
+  }
+
+  /**
+   * Get the race name.
+   * @return a name.
+   */
+  public String getName()
+  {
+    return _name;
+  }
+
+  /**
+   * Set the race name.
+   * @param name Name to set.
+   */
+  public void setName(String name)
+  {
+    if (name==null)
+    {
+      name="";
+    }
+    _name=name;
   }
 
   /**
@@ -83,7 +141,10 @@ public class RaceDescription
    */
   public void setDescription(String description)
   {
-    if (description==null) description="";
+    if (description==null)
+    {
+      description="";
+    }
     _description=description;
   }
 
@@ -103,7 +164,7 @@ public class RaceDescription
   public void setMaleGender(RaceGender male)
   {
     _male=male;
-    male.setRaceAndGender(_race,CharacterSex.MALE);
+    male.setRaceAndGender(this,CharacterSex.MALE);
   }
 
   /**
@@ -122,7 +183,7 @@ public class RaceDescription
   public void setFemaleGender(RaceGender female)
   {
     _female=female;
-    female.setRaceAndGender(_race,CharacterSex.FEMALE);
+    female.setRaceAndGender(this,CharacterSex.FEMALE);
   }
 
   /**
@@ -220,5 +281,11 @@ public class RaceDescription
       }
     }
     return traits;
+  }
+
+  @Override
+  public String toString()
+  {
+    return _name;
   }
 }

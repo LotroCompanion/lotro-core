@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
@@ -180,7 +180,7 @@ public abstract class Achievable implements Identifiable
    * Set the required race for this achievable.
    * @param race the race to set (or <code>null</code>).
    */
-  public void setRequiredRace(Race race)
+  public void setRequiredRace(RaceDescription race)
   {
     _requirement.addAllowedRace(race);
   }

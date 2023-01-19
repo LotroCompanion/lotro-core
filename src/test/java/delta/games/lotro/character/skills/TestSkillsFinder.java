@@ -2,12 +2,13 @@ package delta.games.lotro.character.skills;
 
 import java.util.List;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
 import delta.games.lotro.character.BaseCharacterSummary;
+import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.skills.filters.SkillCategoryFilter;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 /**
  * Test class for the skills finder.
@@ -24,7 +25,8 @@ public class TestSkillsFinder extends TestCase
     filter.setCategory(102);
     BaseCharacterSummary summary=new BaseCharacterSummary();
     summary.setCharacterClass(CharacterClass.CHAMPION);
-    summary.setRace(Race.MAN);
+    RaceDescription man=RacesManager.getInstance().getByKey("man");
+    summary.setRace(man);
     summary.setLevel(130);
     List<SkillDescription> skills=new SkillsFinder(filter,summary).find();
     Assert.assertNotNull(skills);

@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.items.filters;
 
-import delta.games.lotro.common.Race;
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.lore.items.Item;
@@ -12,7 +12,7 @@ import delta.games.lotro.lore.items.Item;
 public class ItemRequiredRaceFilter implements ItemFilter
 {
   private boolean _enabled;
-  private Race _race;
+  private RaceDescription _race;
   private boolean _strict;
 
   /**
@@ -20,7 +20,7 @@ public class ItemRequiredRaceFilter implements ItemFilter
    * @param race Character race to use.
    * @param strict Allow only class items, or allow all non class restricted items.
    */
-  public ItemRequiredRaceFilter(Race race, boolean strict)
+  public ItemRequiredRaceFilter(RaceDescription race, boolean strict)
   {
     _race=race;
     _strict=strict;
@@ -49,7 +49,7 @@ public class ItemRequiredRaceFilter implements ItemFilter
    * Get the character race.
    * @return A character race or <code>null</code>.
    */
-  public Race getRace()
+  public RaceDescription getRace()
   {
     return _race;
   }
@@ -58,7 +58,7 @@ public class ItemRequiredRaceFilter implements ItemFilter
    * Set the character race to use.
    * @param race Character race (may be <code>null</code>).
    */
-  public void setRace(Race race)
+  public void setRace(RaceDescription race)
   {
     _race=race;
   }

@@ -1,7 +1,7 @@
 package delta.games.lotro.character;
 
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.CharacterSex;
-import delta.games.lotro.common.Race;
 
 /**
  * Base class for LOTRO character summaries.
@@ -12,7 +12,7 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
   private String _server;
   private String _accountName;
   private CharacterSex _sex;
-  private Race _race;
+  private RaceDescription _race;
 
   /**
    * Constructor.
@@ -104,7 +104,7 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
    * Get the character's race.
    * @return the character's race.
    */
-  public Race getRace()
+  public RaceDescription getRace()
   {
     return _race;
   }
@@ -113,7 +113,7 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
    * Set the character's race.
    * @param race the race to set.
    */
-  public void setRace(Race race)
+  public void setRace(RaceDescription race)
   {
     _race=race;
   }

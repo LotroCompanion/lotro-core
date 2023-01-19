@@ -13,9 +13,9 @@ import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterReference;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.races.NationalityDescription;
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.id.InternalGameId;
 
 /**
@@ -123,11 +123,11 @@ public class CharacterSummaryXMLWriter
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_CLASS_ATTR,XmlWriter.CDATA,cClass);
     }
     // Race
-    Race race=summary.getRace();
+    RaceDescription race=summary.getRace();
     if (race!=null)
     {
-      String cRace=race.getLabel();
-      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_RACE_ATTR,XmlWriter.CDATA,cRace);
+      String raceKey=race.getKey();
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_RACE_ATTR,XmlWriter.CDATA,raceKey);
     }
     // Sex
     CharacterSex sex=summary.getCharacterSex();

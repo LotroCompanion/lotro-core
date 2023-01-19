@@ -1,7 +1,6 @@
 package delta.games.lotro.character.races;
 
 import delta.games.lotro.common.CharacterSex;
-import delta.games.lotro.common.Race;
 
 /**
  * Gender of a race.
@@ -10,7 +9,7 @@ import delta.games.lotro.common.Race;
 public class RaceGender
 {
   private String _name;
-  private Race _race;
+  private RaceDescription _race;
   private CharacterSex _gender;
   private int _largeIconId;
   private int _iconId;
@@ -47,7 +46,7 @@ public class RaceGender
    * Get the associated race.
    * @return the associated race.
    */
-  public Race getRace()
+  public RaceDescription getRace()
   {
     return _race;
   }
@@ -66,7 +65,7 @@ public class RaceGender
    * @param race Race.
    * @param gender Gender.
    */
-  public void setRaceAndGender(Race race, CharacterSex gender)
+  public void setRaceAndGender(RaceDescription race, CharacterSex gender)
   {
     _race=race;
     _gender=gender;

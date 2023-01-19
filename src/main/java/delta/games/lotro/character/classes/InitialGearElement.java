@@ -1,6 +1,6 @@
 package delta.games.lotro.character.classes;
 
-import delta.games.lotro.common.Race;
+import delta.games.lotro.character.races.RaceDescription;
 
 /**
  * Definition of a piece of the initial gear of a class.
@@ -9,7 +9,7 @@ import delta.games.lotro.common.Race;
 public class InitialGearElement
 {
   private int _itemId;
-  private Race _requiredRace;
+  private RaceDescription _requiredRace;
 
   /**
    * Constructor.
@@ -42,7 +42,7 @@ public class InitialGearElement
    * Get the race requirement for this element.
    * @return a race or <code>null</code> if applicable for all races.
    */
-  public Race getRequiredRace()
+  public RaceDescription getRequiredRace()
   {
     return _requiredRace;
   }
@@ -51,7 +51,7 @@ public class InitialGearElement
    * Set the required race for this element.
    * @param race A race or <code>null</code> if no race requirement.
    */
-  public void setRequiredRace(Race race)
+  public void setRequiredRace(RaceDescription race)
   {
     _requiredRace=race;
   }

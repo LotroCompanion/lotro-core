@@ -1,7 +1,7 @@
 package delta.games.lotro.character;
 
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 
 /**
  * Provides access to basic character attributes.
@@ -19,7 +19,7 @@ public interface BasicCharacterAttributes
    * Get the character's race.
    * @return the character's race.
    */
-  Race getRace();
+  RaceDescription getRace();
 
   /**
    * Get the character's level.

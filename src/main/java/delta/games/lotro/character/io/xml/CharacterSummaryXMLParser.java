@@ -12,9 +12,10 @@ import delta.games.lotro.character.CharacterReference;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.races.NationalitiesManager;
 import delta.games.lotro.character.races.NationalityDescription;
+import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.id.InternalGameId;
 
 /**
@@ -96,9 +97,9 @@ public class CharacterSummaryXMLParser
     String accountName=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ACCOUNT_ATTR,"");
     summary.setAccountName(accountName);
     // Race
-    String race=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_RACE_ATTR,"");
-    Race cRace=Race.getByLabel(race); 
-    summary.setRace(cRace);
+    String raceStr=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_RACE_ATTR,"");
+    RaceDescription race=RacesManager.getInstance().getByPersistenceKey(raceStr);
+    summary.setRace(race);
     // Sex
     String sexKey=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SEX_ATTR,"");
     if (sexKey!=null)

@@ -1,8 +1,8 @@
 package delta.games.lotro.common.requirements.filters;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
@@ -14,14 +14,14 @@ import delta.games.lotro.common.requirements.UsageRequirement;
 public class UsageRequirementFilter implements Filter<UsageRequirement>
 {
   private CharacterClass _characterClass;
-  private Race _race;
+  private RaceDescription _race;
 
   /**
    * Constructor.
    * @param characterClass Class to select (may be <code>null</code>).
    * @param race Race to select (may be <code>null</code>).
    */
-  public UsageRequirementFilter(CharacterClass characterClass, Race race)
+  public UsageRequirementFilter(CharacterClass characterClass, RaceDescription race)
   {
     _characterClass=characterClass;
     _race=race;
@@ -49,7 +49,7 @@ public class UsageRequirementFilter implements Filter<UsageRequirement>
    * Get the race to use.
    * @return A race or <code>null</code>.
    */
-  public Race getRace()
+  public RaceDescription getRace()
   {
     return _race;
   }
@@ -58,7 +58,7 @@ public class UsageRequirementFilter implements Filter<UsageRequirement>
    * Set the race to select.
    * @param race Race to use, may be <code>null</code>.
    */
-  public void setRace(Race race)
+  public void setRace(RaceDescription race)
   {
     _race=race;
   }

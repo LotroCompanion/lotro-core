@@ -6,9 +6,10 @@ import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
+import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -53,7 +54,8 @@ public class CharacterGeneratorMeva
   {
     CharacterSummary summary=new CharacterSummary();
     summary.setName("Meva");
-    summary.setRace(Race.HOBBIT);
+    RaceDescription hobbit=RacesManager.getInstance().getByKey("hobbit");
+    summary.setRace(hobbit);
     summary.setLevel(100);
     summary.setCharacterClass(CharacterClass.MINSTREL);
     CharacterData c=CharacterFactory.buildNewData(summary);

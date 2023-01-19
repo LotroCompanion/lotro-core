@@ -1,8 +1,9 @@
 package delta.games.lotro.character.stats.base;
 
+import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.stats.WellKnownStat;
 
 /**
@@ -24,9 +25,10 @@ public class TestBaseStatsComputer
     stats.addStat(WellKnownStat.FATE,Integer.valueOf(10));
 
     BaseStatsManager mgr2 = new BaseStatsManager();
+    RaceDescription man=RacesManager.getInstance().getByKey("man");
     for(CharacterClass cClass : CharacterClass.ALL_CLASSES)
     {
-      BasicStatsSet set = mgr2.getBaseStats(cClass, Race.MAN, 9);
+      BasicStatsSet set = mgr2.getBaseStats(cClass, man, 9);
       System.out.println(set);
       BasicStatsSet contrib=mgr.getContribution(cClass,set);
       System.out.println(contrib);

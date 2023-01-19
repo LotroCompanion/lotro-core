@@ -18,11 +18,11 @@ import delta.games.lotro.character.classes.InitialGearDefinition;
 import delta.games.lotro.character.classes.InitialGearElement;
 import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLWriter;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 
@@ -146,7 +146,7 @@ public class ClassDescriptionXMLWriter
         gearAttrs.addAttribute("","",ClassDescriptionXMLConstants.GEAR_ITEM_NAME_ATTR,XmlWriter.CDATA,itemName);
       }
       // Race
-      Race requiredRace=element.getRequiredRace();
+      RaceDescription requiredRace=element.getRequiredRace();
       if (requiredRace!=null)
       {
         gearAttrs.addAttribute("","",ClassDescriptionXMLConstants.GEAR_REQUIRED_RACE_ATTR,XmlWriter.CDATA,requiredRace.getKey());

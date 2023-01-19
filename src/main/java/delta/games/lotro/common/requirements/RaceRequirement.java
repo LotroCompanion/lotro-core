@@ -3,7 +3,8 @@ package delta.games.lotro.common.requirements;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.common.Race;
+import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.races.RacesManager;
 
 /**
  * Race requirement.
@@ -12,21 +13,21 @@ import delta.games.lotro.common.Race;
 public class RaceRequirement
 {
   private static final String SEPARATOR=";";
-  private List<Race> _allowedRaces;
+  private List<RaceDescription> _allowedRaces;
 
   /**
    * Constructor.
    */
   public RaceRequirement()
   {
-    _allowedRaces=new ArrayList<Race>();
+    _allowedRaces=new ArrayList<RaceDescription>();
   }
 
   /**
    * Add an allowed race.
    * @param race Race to add.
    */
-  public void addAllowedRace(Race race)
+  public void addAllowedRace(RaceDescription race)
   {
     _allowedRaces.add(race);
   }
@@ -35,7 +36,7 @@ public class RaceRequirement
    * Get the allowed races.
    * @return A possibly empty, but not <code>null</code> list of races.
    */
-  public List<Race> getAllowedRaces()
+  public List<RaceDescription> getAllowedRaces()
   {
     return _allowedRaces;
   }
@@ -45,7 +46,7 @@ public class RaceRequirement
    * @param race Race to test.
    * @return <code>true</code> if it does, <code>false</code> otherwise.
    */
-  public boolean accept(Race race)
+  public boolean accept(RaceDescription race)
   {
     return _allowedRaces.contains(race);
   }
@@ -57,7 +58,7 @@ public class RaceRequirement
   public String asString()
   {
     StringBuilder sb=new StringBuilder();
-    for(Race race : _allowedRaces)
+    for(RaceDescription race : _allowedRaces)
     {
       if (sb.length()>0)
       {
@@ -80,9 +81,10 @@ public class RaceRequirement
     {
       ret=new RaceRequirement();
       String[] raceStrs=input.split(SEPARATOR);
+      RacesManager mgr=RacesManager.getInstance();
       for(String raceStr : raceStrs)
       {
-        Race race=Race.getByKey(raceStr);
+        RaceDescription race=mgr.getByKey(raceStr);
         if (race!=null)
         {
           ret.addAllowedRace(race);

@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 import delta.games.lotro.character.BasicCharacterAttributes;
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.stats.buffs.comparators.BuffNameComparator;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 
 /**
  * Registry for buffs.
@@ -86,13 +86,13 @@ public final class BuffRegistry
     BuffRegistry buffsRegistry=BuffRegistry.getInstance();
     Set<Buff> allBuffs=buffsRegistry.getAllBuffs();
     CharacterClass cClass=attrs.getCharacterClass();
-    Race race=attrs.getRace();
+    RaceDescription race=attrs.getRace();
     for(Buff buff : allBuffs)
     {
       CharacterClass requiredClass=buff.getRequiredClass();
       if ((requiredClass==null) || (requiredClass==cClass))
       {
-        Race requiredRace=buff.getRequiredRace();
+        RaceDescription requiredRace=buff.getRequiredRace();
         if ((requiredRace==null) || (requiredRace==race))
         {
           String buffId=buff.getId();

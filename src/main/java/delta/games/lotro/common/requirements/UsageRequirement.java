@@ -2,8 +2,8 @@ package delta.games.lotro.common.requirements;
 
 import java.util.List;
 
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 
 /**
  * Usage requirement (for quests, deeds, items and relics).
@@ -155,7 +155,7 @@ public class UsageRequirement
    * Add an allowed race.
    * @param race Race to add.
    */
-  public void addAllowedRace(Race race)
+  public void addAllowedRace(RaceDescription race)
   {
     if (_raceRequirement==null)
     {
@@ -168,11 +168,11 @@ public class UsageRequirement
    * Get the required race for this deed.
    * @return a race or <code>null</code>.
    */
-  public Race getRequiredRace()
+  public RaceDescription getRequiredRace()
   {
     if (_raceRequirement!=null)
     {
-      List<Race> races=_raceRequirement.getAllowedRaces();
+      List<RaceDescription> races=_raceRequirement.getAllowedRaces();
       if (races.size()>0)
       {
         return races.get(0);
@@ -224,7 +224,7 @@ public class UsageRequirement
    * @param race Race to test.
    * @return <code>true</code> if requirement is met, <code>false</code> otherwise.
    */
-  public boolean accepts(int level, CharacterClass characterClass, Race race)
+  public boolean accepts(int level, CharacterClass characterClass, RaceDescription race)
   {
     if ((_minLevel!=null) && (level<_minLevel.intValue()))
     {

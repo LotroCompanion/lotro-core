@@ -7,7 +7,6 @@ import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.Race;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.stats.StatDescription;
@@ -76,10 +75,9 @@ public class BuffInitializer
   private void initRacialBuffs(BuffRegistry registry)
   {
     RacesManager racesManager=RacesManager.getInstance();
-    for(Race race : Race.ALL_RACES)
+    for(RaceDescription race : racesManager.getAll())
     {
-      RaceDescription description=racesManager.getRaceDescription(race);
-      List<TraitDescription> traits=description.getEarnableTraits();
+      List<TraitDescription> traits=race.getEarnableTraits();
       for(TraitDescription trait : traits)
       {
         initRaceBuff(race,registry,trait);
@@ -87,7 +85,7 @@ public class BuffInitializer
     }
   }
 
-  private void initRaceBuff(Race race, BuffRegistry registry, TraitDescription trait)
+  private void initRaceBuff(RaceDescription race, BuffRegistry registry, TraitDescription trait)
   {
     int identifier=trait.getIdentifier();
     String name=trait.getName();

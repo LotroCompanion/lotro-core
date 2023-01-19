@@ -2,8 +2,8 @@ package delta.games.lotro.character.stats.buffs;
 
 import java.util.List;
 
+import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 
 /**
  * Buff.
@@ -17,7 +17,7 @@ public class Buff
   private String _label;
   private String _icon;
   private CharacterClass _requiredClass;
-  private Race _requiredRace;
+  private RaceDescription _requiredRace;
   private AbstractBuffImpl _impl;
 
   /**
@@ -111,7 +111,7 @@ public class Buff
    * Get the race requirement for this buff.
    * @return A race or <code>null</code> if no race restriction.
    */
-  public Race getRequiredRace()
+  public RaceDescription getRequiredRace()
   {
     return _requiredRace;
   }
@@ -120,7 +120,7 @@ public class Buff
    * Set the race requirement for this buff.
    * @param requiredRace Required race or <code>null</code>.
    */
-  public void setRequiredRace(Race requiredRace)
+  public void setRequiredRace(RaceDescription requiredRace)
   {
     _requiredRace=requiredRace;
   }

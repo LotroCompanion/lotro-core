@@ -1,13 +1,15 @@
 package delta.games.lotro.character.races;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.races.io.xml.RaceDescriptionXMLParser;
-import delta.games.lotro.common.Race;
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 
@@ -21,7 +23,10 @@ public class RacesManager
 
   private static RacesManager _instance=null;
 
-  private HashMap<Race,RaceDescription> _cache;
+  private HashMap<Integer,RaceDescription> _cacheByID;
+  private HashMap<Integer,RaceDescription> _cacheByCode;
+  private HashMap<String,RaceDescription> _cacheByKey;
+  private HashMap<String,RaceDescription> _cacheByLegacyLabel;
 
   /**
    * Get the sole instance of this class.
@@ -42,7 +47,10 @@ public class RacesManager
    */
   private RacesManager()
   {
-    _cache=new HashMap<Race,RaceDescription>(10);
+    _cacheByID=new HashMap<Integer,RaceDescription>(10);
+    _cacheByCode=new HashMap<Integer,RaceDescription>(10);
+    _cacheByKey=new HashMap<String,RaceDescription>(10);
+    _cacheByLegacyLabel=new HashMap<String,RaceDescription>(10);
   }
 
   /**
@@ -50,29 +58,83 @@ public class RacesManager
    */
   private void loadAll()
   {
-    _cache.clear();
+    _cacheByID.clear();
+    _cacheByCode.clear();
+    _cacheByKey.clear();
+    _cacheByLegacyLabel.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File racesFile=cfg.getFile(DataFiles.RACES);
     long now=System.currentTimeMillis();
     List<RaceDescription> raceDescriptions=RaceDescriptionXMLParser.parseRaceDescriptionsFile(racesFile);
     for(RaceDescription raceDescription : raceDescriptions)
     {
-      _cache.put(raceDescription.getRace(),raceDescription);
+      // ID
+      int id=raceDescription.getIdentifier();
+      _cacheByID.put(Integer.valueOf(id),raceDescription);
+      // Code
+      int code=raceDescription.getCode();
+      _cacheByCode.put(Integer.valueOf(code),raceDescription);
+      // Key
+      _cacheByKey.put(raceDescription.getKey(),raceDescription);
+      // Legacy label
+      String legacyLabel=raceDescription.getLegacyLabel();
+      if (legacyLabel!=null)
+      {
+        _cacheByLegacyLabel.put(raceDescription.getLegacyLabel(),raceDescription);
+      }
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" races in "+duration+"ms.");
+    int nbRaces=_cacheByID.size();
+    LOGGER.info("Loaded "+nbRaces+" races in "+duration+"ms.");
+  }
+
+  /**
+   * Get all races.
+   * @return A list of races, sorted by identifier.
+   */
+  public List<RaceDescription> getAll()
+  {
+    ArrayList<RaceDescription> races=new ArrayList<RaceDescription>();
+    races.addAll(_cacheByID.values());
+    Collections.sort(races,new IdentifiableComparator<RaceDescription>());
+    return races;
   }
 
   /**
    * Get a race description using its key.
-   * @param race Race to get.
+   * @param key Key to use.
    * @return A race description or <code>null</code> if not found.
    */
-  public RaceDescription getRaceDescription(Race race)
+  public RaceDescription getByKey(String key)
   {
-    RaceDescription ret=null;
-    ret=_cache.get(race);
+    RaceDescription ret=_cacheByKey.get(key);
+    return ret;
+  }
+
+  /**
+   * Get a race description using its code.
+   * @param code Code to use.
+   * @return A race description or <code>null</code> if not found.
+   */
+  public RaceDescription getByCode(int code)
+  {
+    RaceDescription ret=_cacheByCode.get(Integer.valueOf(code));
+    return ret;
+  }
+
+  /**
+   * Get a race description using a persistence key.
+   * @param value Input value (a race key or a race legacy label).
+   * @return A race description or <code>null</code> if not found.
+   */
+  public RaceDescription getByPersistenceKey(String value)
+  {
+    RaceDescription ret=getByKey(value);
+    if (ret==null)
+    {
+      ret=_cacheByLegacyLabel.get(value);
+    }
     return ret;
   }
 
@@ -83,17 +145,16 @@ public class RacesManager
    */
   public RaceGender findByAvatarID(int avatarID)
   {
-    for(Race race : Race.ALL_RACES)
+    for(RaceDescription race : _cacheByKey.values())
     {
-      RaceDescription raceDescription=getRaceDescription(race);
       // Male?
-      RaceGender maleGender=raceDescription.getMaleGender();
+      RaceGender maleGender=race.getMaleGender();
       if ((maleGender!=null) && (maleGender.getAvatarId()==avatarID))
       {
         return maleGender;
       }
       // Female?
-      RaceGender femaleGender=raceDescription.getFemaleGender();
+      RaceGender femaleGender=race.getFemaleGender();
       if ((femaleGender!=null) && (femaleGender.getAvatarId()==avatarID))
       {
         return femaleGender;

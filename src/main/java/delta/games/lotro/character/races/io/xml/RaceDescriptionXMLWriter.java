@@ -17,7 +17,6 @@ import delta.games.lotro.character.races.RaceGender;
 import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.Race;
 
 /**
  * Writes race descriptions to XML files.
@@ -54,9 +53,15 @@ public class RaceDescriptionXMLWriter
   private static void writeRaceDescription(TransformerHandler hd, RaceDescription raceDescription) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
+    // ID
+    int id=raceDescription.getIdentifier();
+    attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Key
-    Race race=raceDescription.getRace();
-    attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_KEY_ATTR,XmlWriter.CDATA,race.getKey());
+    String key=raceDescription.getKey();
+    attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_KEY_ATTR,XmlWriter.CDATA,key);
+    // Name
+    String name=raceDescription.getName();
+    attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_NAME_ATTR,XmlWriter.CDATA,name);
     // Tall
     boolean tall=raceDescription.isTall();
     attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_TALL_ATTR,XmlWriter.CDATA,String.valueOf(tall));

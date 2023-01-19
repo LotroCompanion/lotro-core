@@ -33,6 +33,7 @@ public class BuffsIO
     TraitTreeStatus traitTreeStatus=c.getTraits().getTraitTreeStatus();
     if (traitTreeStatus==null)
     {
+      System.out.println("File: "+c.getFile());
       TraitTreeStatus traitTree=BuffsManagerToTraitTreeStatus.initFromBuffs(c.getCharacterClass(),buffs);
       c.getTraits().setTraitTreeStatus(traitTree);
     }

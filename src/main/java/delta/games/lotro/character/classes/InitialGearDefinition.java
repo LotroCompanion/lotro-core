@@ -3,7 +3,7 @@ package delta.games.lotro.character.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.common.Race;
+import delta.games.lotro.character.races.RaceDescription;
 
 /**
  * Definition of the initial gear for a character class.
@@ -44,12 +44,12 @@ public class InitialGearDefinition
    * @param race Race to use.
    * @return A list of item identifiers.
    */
-  public List<Integer> getItems(Race race)
+  public List<Integer> getItems(RaceDescription race)
   {
     List<Integer> itemIds=new ArrayList<Integer>();
     for(InitialGearElement element : _elements)
     {
-      Race requiredRace=element.getRequiredRace();
+      RaceDescription requiredRace=element.getRequiredRace();
       if ((requiredRace==null) || (requiredRace==race))
       {
         itemIds.add(Integer.valueOf(element.getItemId()));
