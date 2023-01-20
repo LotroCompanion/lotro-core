@@ -14,6 +14,8 @@ import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.lore.items.Container;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.containers.ContainerBindingPolicy;
+import delta.games.lotro.lore.items.containers.ContainerOpenPolicy;
 import delta.games.lotro.lore.items.containers.ItemsContainer;
 import delta.games.lotro.lore.items.containers.LootTables;
 import delta.games.lotro.lore.items.containers.LootType;
@@ -80,6 +82,17 @@ public class ContainerXMLParser
       return null;
     }
     ItemsContainer ret=new ItemsContainer(item);
+    // Attributes
+    // - open policy
+    ContainerOpenPolicy openPolicy=DOMParsingTools.getEnumAttribute(attrs,ContainerXMLConstants.CONTAINER_OPEN_POLICY_ATTR,ContainerOpenPolicy.AUTOMATIC,ContainerOpenPolicy.class);
+    ret.setOpenPolicy(openPolicy);
+    // - use character for scaling
+    boolean useCharacterForScaling=DOMParsingTools.getBooleanAttribute(attrs,ContainerXMLConstants.CONTAINER_USE_CHARACTER_FOR_SCALING_ATTR,false);
+    ret.setUseCharacterForMunging(useCharacterForScaling);
+    // - binding policy
+    ContainerBindingPolicy bindingPolicy=DOMParsingTools.getEnumAttribute(attrs,ContainerXMLConstants.CONTAINER_BINDING_POLICY_ATTR,null,ContainerBindingPolicy.class);
+    ret.setBindingPolicy(bindingPolicy);
+    // Loot tables
     parseLootTables(root,ret.getLootTables());
     return ret;
   }

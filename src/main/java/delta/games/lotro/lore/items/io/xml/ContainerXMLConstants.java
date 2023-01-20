@@ -28,6 +28,18 @@ public class ContainerXMLConstants
    */
   public static final String CONTAINER_NAME_ATTR="name";
   /**
+   * Tag 'container', attribute 'bindingPolicy'.
+   */
+  public static final String CONTAINER_BINDING_POLICY_ATTR="bindingPolicy";
+  /**
+   * Tag 'container', attribute 'useCharacterForScaling'.
+   */
+  public static final String CONTAINER_USE_CHARACTER_FOR_SCALING_ATTR="useCharacterForScaling";
+  /**
+   * Tag 'container', attribute 'openPolicy'.
+   */
+  public static final String CONTAINER_OPEN_POLICY_ATTR="openPolicy";
+  /**
    * Tag 'container', attribute 'customSkirmishLootTableId'.
    */
   public static final String CUSTOM_SKIRMISH_LOOT_TABLE_ID_ATTR="customSkirmishLootTableId";

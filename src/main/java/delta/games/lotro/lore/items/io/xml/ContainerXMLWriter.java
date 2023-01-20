@@ -14,6 +14,8 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.treasure.LootTable;
 import delta.games.lotro.common.treasure.RelicsList;
 import delta.games.lotro.lore.items.Container;
+import delta.games.lotro.lore.items.containers.ContainerBindingPolicy;
+import delta.games.lotro.lore.items.containers.ContainerOpenPolicy;
 import delta.games.lotro.lore.items.containers.ItemsContainer;
 import delta.games.lotro.lore.items.containers.LootTables;
 import delta.games.lotro.lore.items.containers.LootType;
@@ -99,6 +101,25 @@ public class ContainerXMLWriter
 
   private void writeItemsContainer(AttributesImpl attrs, ItemsContainer container)
   {
+    // Open policy
+    ContainerOpenPolicy openPolicy=container.getOpenPolicy();
+    if (openPolicy!=ContainerOpenPolicy.AUTOMATIC)
+    {
+      attrs.addAttribute("","",ContainerXMLConstants.CONTAINER_OPEN_POLICY_ATTR,XmlWriter.CDATA,openPolicy.name());
+    }
+    // Use character for scaling
+    boolean useCharacterForScaling=container.isUseCharacterForMunging();
+    if (useCharacterForScaling)
+    {
+      attrs.addAttribute("","",ContainerXMLConstants.CONTAINER_USE_CHARACTER_FOR_SCALING_ATTR,XmlWriter.CDATA,String.valueOf(useCharacterForScaling));
+    }
+    // Binding policy
+    ContainerBindingPolicy bindingPolicy=container.getBindingPolicy();
+    if (bindingPolicy!=null)
+    {
+      attrs.addAttribute("","",ContainerXMLConstants.CONTAINER_BINDING_POLICY_ATTR,XmlWriter.CDATA,bindingPolicy.name());
+    }
+    // Loot tables
     writeLootTables(attrs,container.getLootTables());
   }
 
