@@ -90,7 +90,7 @@ public class ContainerXMLParser
     boolean useCharacterForScaling=DOMParsingTools.getBooleanAttribute(attrs,ContainerXMLConstants.CONTAINER_USE_CHARACTER_FOR_SCALING_ATTR,false);
     ret.setUseCharacterForMunging(useCharacterForScaling);
     // - binding policy
-    ContainerBindingPolicy bindingPolicy=DOMParsingTools.getEnumAttribute(attrs,ContainerXMLConstants.CONTAINER_BINDING_POLICY_ATTR,null,ContainerBindingPolicy.class);
+    ContainerBindingPolicy bindingPolicy=DOMParsingTools.getEnumAttribute(attrs,ContainerXMLConstants.CONTAINER_BINDING_POLICY_ATTR,ContainerBindingPolicy.NONE,ContainerBindingPolicy.class);
     ret.setBindingPolicy(bindingPolicy);
     // Loot tables
     parseLootTables(root,ret.getLootTables());

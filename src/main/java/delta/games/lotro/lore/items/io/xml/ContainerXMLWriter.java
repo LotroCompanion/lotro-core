@@ -115,7 +115,7 @@ public class ContainerXMLWriter
     }
     // Binding policy
     ContainerBindingPolicy bindingPolicy=container.getBindingPolicy();
-    if (bindingPolicy!=null)
+    if (bindingPolicy!=ContainerBindingPolicy.NONE)
     {
       attrs.addAttribute("","",ContainerXMLConstants.CONTAINER_BINDING_POLICY_ATTR,XmlWriter.CDATA,bindingPolicy.name());
     }
