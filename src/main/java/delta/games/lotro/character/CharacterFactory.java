@@ -1,5 +1,11 @@
 package delta.games.lotro.character;
 
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
+import delta.games.lotro.character.classes.traitTree.TraitTree;
+import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
+import delta.games.lotro.common.CharacterClass;
+
 /**
  * Factory method related to character data.
  * @author DAM
@@ -19,6 +25,12 @@ public class CharacterFactory
     dataSummary.setLevel(toonSummary.getLevel());
     dataSummary.setSummary(toonSummary);
     newInfos.setDate(Long.valueOf(System.currentTimeMillis()));
+    // Trait tree
+    CharacterClass characterClass=toonSummary.getCharacterClass();
+    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(characterClass);
+    TraitTree traitTree=classDescription.getTraitTree();
+    TraitTreeStatus status=new TraitTreeStatus(traitTree);
+    newInfos.getTraits().setTraitTreeStatus(status);
     return newInfos;
   }
 }
