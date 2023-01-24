@@ -1,10 +1,8 @@
 package delta.games.lotro.character;
 
 import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Factory method related to character data.
@@ -26,8 +24,7 @@ public class CharacterFactory
     dataSummary.setSummary(toonSummary);
     newInfos.setDate(Long.valueOf(System.currentTimeMillis()));
     // Trait tree
-    CharacterClass characterClass=toonSummary.getCharacterClass();
-    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(characterClass);
+    ClassDescription classDescription=toonSummary.getCharacterClass();
     TraitTree traitTree=classDescription.getTraitTree();
     TraitTreeStatus status=new TraitTreeStatus(traitTree);
     newInfos.getTraits().setTraitTreeStatus(status);

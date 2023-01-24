@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.computer.StatsStorage;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatDescriptionComparator;
 import delta.games.lotro.utils.NumericUtils;
@@ -139,14 +139,14 @@ public final class DerivedStatsContributionsMgr
     }
   }
 
-  private HashMap<CharacterClass,ClassDerivedStats> _allContribs;
+  private HashMap<ClassDescription,ClassDerivedStats> _allContribs;
 
   /**
    * Constructor.
    */
   public DerivedStatsContributionsMgr()
   {
-    _allContribs=new HashMap<CharacterClass,ClassDerivedStats>();
+    _allContribs=new HashMap<ClassDescription,ClassDerivedStats>();
   }
 
   /**
@@ -154,7 +154,7 @@ public final class DerivedStatsContributionsMgr
    * @param characterClass Targeted class.
    * @return some derived stats contributions.
    */
-  public ClassDerivedStats getDerivatedStats(CharacterClass characterClass)
+  public ClassDerivedStats getDerivatedStats(ClassDescription characterClass)
   {
     return _allContribs.get(characterClass);
   }
@@ -163,16 +163,16 @@ public final class DerivedStatsContributionsMgr
    * Set factor.
    * @param primaryStat Primary stat.
    * @param contributedStat Contributed stat.
-   * @param cClass Character class;
+   * @param characterClass Character class;
    * @param factor Factor.
    */
-  public void setFactor(StatDescription primaryStat, StatDescription contributedStat, CharacterClass cClass, Number factor)
+  public void setFactor(StatDescription primaryStat, StatDescription contributedStat, ClassDescription characterClass, Number factor)
   {
-    ClassDerivedStats derivedStats=_allContribs.get(cClass);
+    ClassDerivedStats derivedStats=_allContribs.get(characterClass);
     if (derivedStats==null)
     {
       derivedStats=new ClassDerivedStats();
-      _allContribs.put(cClass,derivedStats);
+      _allContribs.put(characterClass,derivedStats);
     }
     if ((primaryStat!=null) && (contributedStat!=null))
     {
@@ -190,7 +190,7 @@ public final class DerivedStatsContributionsMgr
    * @param set Set of raw stats.
    * @return Stats contributions.
    */
-  public BasicStatsSet getContribution(CharacterClass cClass, BasicStatsSet set)
+  public BasicStatsSet getContribution(ClassDescription cClass, BasicStatsSet set)
   {
     List<StatsContribution> contribs=getContributions(cClass,set);
     StatsStorage storage=new StatsStorage();
@@ -203,14 +203,14 @@ public final class DerivedStatsContributionsMgr
 
   /**
    * Get stats contribution for a set of stats.
-   * @param cClass Targeted character class.
+   * @param characterClass Targeted character class.
    * @param set Set of raw stats.
    * @return Some stat contributions.
    */
-  public List<StatsContribution> getContributions(CharacterClass cClass, BasicStatsSet set)
+  public List<StatsContribution> getContributions(ClassDescription characterClass, BasicStatsSet set)
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
-    ClassDerivedStats classDerivedStats=_allContribs.get(cClass);
+    ClassDerivedStats classDerivedStats=_allContribs.get(characterClass);
     for(StatDescription stat : set.getStats())
     {
       Number statValue=set.getStat(stat);

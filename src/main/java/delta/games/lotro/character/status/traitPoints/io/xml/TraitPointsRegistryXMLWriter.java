@@ -13,10 +13,10 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.status.traitPoints.TraitPoint;
 import delta.games.lotro.character.status.traitPoints.TraitPointsRegistry;
-import delta.games.lotro.common.CharacterClass;
-import delta.games.lotro.common.CharacterClassNameComparator;
+import delta.games.lotro.common.comparators.NamedComparator;
 
 /**
  * Writes a trait points registry to an XML file.
@@ -95,7 +95,7 @@ public class TraitPointsRegistryXMLWriter
       attrs.addAttribute("","",TraitPointsRegistryXMLConstants.TRAIT_POINT_LABEL_ATTR,XmlWriter.CDATA,label);
     }
     // Required class
-    Set<CharacterClass> requiredClasses=point.getRequiredClasses();
+    Set<ClassDescription> requiredClasses=point.getRequiredClasses();
     if (!requiredClasses.isEmpty())
     {
       String classes=buildClassRequirement(requiredClasses);
@@ -111,13 +111,13 @@ public class TraitPointsRegistryXMLWriter
     hd.endElement("","",TraitPointsRegistryXMLConstants.TRAIT_POINT_TAG);
   }
 
-  private String buildClassRequirement(Set<CharacterClass> classes)
+  private String buildClassRequirement(Set<ClassDescription> classes)
   {
     StringBuilder sb=new StringBuilder();
     int index=0;
-    List<CharacterClass> sortedClasses=new ArrayList<CharacterClass>(classes);
-    Collections.sort(sortedClasses,new CharacterClassNameComparator());
-    for(CharacterClass characterClass : sortedClasses)
+    List<ClassDescription> sortedClasses=new ArrayList<ClassDescription>(classes);
+    Collections.sort(sortedClasses,new NamedComparator());
+    for(ClassDescription characterClass : sortedClasses)
     {
       if (index>0)
       {

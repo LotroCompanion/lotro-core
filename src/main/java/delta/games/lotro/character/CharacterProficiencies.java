@@ -4,8 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.ClassesManager;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.WeaponType;
 
@@ -23,15 +22,14 @@ import delta.games.lotro.lore.items.WeaponType;
 public class CharacterProficiencies
 {
   /**
-   * Get the set of weapons useable by a character class/level.
-   * @param cClass Class.
+   * Get the set of weapons usable by a character class/level.
+   * @param classDescription Class.
    * @param level Level.
    * @return A set of weapons.
    */
-  public static Set<WeaponType> getWeaponProficiencies(CharacterClass cClass, int level)
+  public static Set<WeaponType> getWeaponProficiencies(ClassDescription classDescription, int level)
   {
     Set<WeaponType> ret=new HashSet<WeaponType>();
-    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(cClass);
     if (classDescription!=null)
     {
       ret.addAll(classDescription.getProficiencies().getWeaponProficiencies().getEntries(level));
@@ -41,11 +39,11 @@ public class CharacterProficiencies
 
   /**
    * Indicates if the given character class/level can dual wield or not.
-   * @param cClass Class.
+   * @param characterClass Class.
    * @param level Level.
    * @return <code>true</code> if dual wield is allowed, <code>false</code> otherwise.
    */
-  public boolean isDualWielding(CharacterClass cClass, int level)
+  public boolean isDualWielding(ClassDescription characterClass, int level)
   {
     // See trait: 1879064092 Dual Wielding
     /*
@@ -56,12 +54,15 @@ Mod_Array:
     Mod_Modified: 268439425 (Inventory_AllowSecondaryWeapon)
     Mod_Op: 5 (Set)
      */
-    if ((cClass==CharacterClass.CHAMPION) || (cClass==CharacterClass.BEORNING)
-        || (cClass==CharacterClass.BURGLAR)|| (cClass==CharacterClass.HUNTER))
+    String classKey=characterClass.getKey();
+    if ((WellKnownCharacterClassKeys.CHAMPION.equals(classKey)) ||
+        (WellKnownCharacterClassKeys.BEORNING.equals(classKey)) ||
+        (WellKnownCharacterClassKeys.BURGLAR.equals(classKey)) ||
+        (WellKnownCharacterClassKeys.HUNTER.equals(classKey)))
     {
       return true;
     }
-    if ((cClass==CharacterClass.LORE_MASTER) && (level>=40))
+    if ((WellKnownCharacterClassKeys.LORE_MASTER.equals(classKey)) && (level>=40))
     {
       return true;
     }
@@ -70,33 +71,17 @@ Mod_Array:
 
   /**
    * Get the set of armour types useable by a character class/level.
-   * @param cClass Class.
+   * @param classDescription Class.
    * @param level Level.
    * @return A set of armour types.
    */
-  public static Set<ArmourType> getArmourProficiencies(CharacterClass cClass, int level)
+  public static Set<ArmourType> getArmourProficiencies(ClassDescription classDescription, int level)
   {
     Set<ArmourType> ret=new HashSet<ArmourType>();
-    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(cClass);
     if (classDescription!=null)
     {
       ret.addAll(classDescription.getProficiencies().getArmourProficiencies().getEntries(level));
     }
     return ret;
-  }
-
-  /**
-   * Get the armour type to use for mitigations.
-   * @param cClass Character class.
-   * @return An armour type (light/medium/heavy).
-   */
-  public static ArmourType getArmourTypeForMitigations(CharacterClass cClass)
-  {
-    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(cClass);
-    if (classDescription!=null)
-    {
-      return classDescription.getProficiencies().getArmourTypeForMitigations();
-    }
-    return ArmourType.LIGHT;
   }
 }

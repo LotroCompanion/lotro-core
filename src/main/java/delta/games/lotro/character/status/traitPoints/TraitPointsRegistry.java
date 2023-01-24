@@ -3,7 +3,7 @@ package delta.games.lotro.character.status.traitPoints;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 
 /**
  * Registry for trait points.
@@ -44,7 +44,7 @@ public class TraitPointsRegistry
    * @param requiredClass Character class to use.
    * @return A list of trait point (unspecified order).
    */
-  public List<TraitPoint> getPointsForClass(CharacterClass requiredClass)
+  public List<TraitPoint> getPointsForClass(ClassDescription requiredClass)
   {
     List<TraitPoint> points=new ArrayList<TraitPoint>();
     for(TraitPoint point : _traitPoints)

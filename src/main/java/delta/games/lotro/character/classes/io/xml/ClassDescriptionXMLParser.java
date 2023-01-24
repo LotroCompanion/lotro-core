@@ -23,7 +23,6 @@ import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Parser for class descriptions stored in XML.
@@ -60,10 +59,16 @@ public class ClassDescriptionXMLParser
   private static ClassDescription parseClassDescription(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
+    // Identifier
+    int id=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_ID_ATTR,0);
+    // Code
+    int code=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_CODE_ATTR,0);
     // Key
-    String classKeyStr=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_KEY_ATTR,null);
-    CharacterClass characterClass=CharacterClass.getByKey(classKeyStr);
-    ClassDescription description=new ClassDescription(characterClass);
+    String key=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_KEY_ATTR,null);
+    ClassDescription description=new ClassDescription(id,code,key);
+    // Name
+    String name=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_NAME_ATTR,null);
+    description.setName(name);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_ICON_ID_ATTR,0);
     description.setIconId(iconId);

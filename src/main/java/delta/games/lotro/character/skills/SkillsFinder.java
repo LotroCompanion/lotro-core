@@ -10,11 +10,9 @@ import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.BasicCharacterAttributes;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
-import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.requirements.UsageRequirement;
@@ -62,8 +60,7 @@ public class SkillsFinder
 
   private void inspectClassSkills()
   {
-    ClassesManager mgr=ClassesManager.getInstance();
-    ClassDescription classDescription=mgr.getClassDescription(_constraints.getCharacterClass());
+    ClassDescription classDescription=_constraints.getCharacterClass();
     List<ClassSkill> classSkills=classDescription.getSkills();
     for(ClassSkill classSkill : classSkills)
     {
@@ -127,7 +124,7 @@ public class SkillsFinder
           {
             UsageRequirement itemReq=item.getUsageRequirements();
             int level=_constraints.getLevel();
-            CharacterClass characterClass=_constraints.getCharacterClass();
+            ClassDescription characterClass=_constraints.getCharacterClass();
             RaceDescription race=_constraints.getRace();
             if ((itemReq==null) || (itemReq.accepts(level,characterClass,race)))
             {

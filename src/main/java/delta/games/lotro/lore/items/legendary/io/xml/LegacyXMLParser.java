@@ -10,7 +10,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.common.constraints.ClassAndSlot;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.io.xml.EffectXMLConstants;
@@ -204,11 +205,11 @@ public class LegacyXMLParser
     {
       NamedNodeMap filterAttrs=filterTag.getAttributes();
       // Character class
-      CharacterClass characterClass=null;
-      String characterClassStr=DOMParsingTools.getStringAttribute(filterAttrs,LegacyXMLConstants.FILTER_CHARACTER_CLASS_ATTR,null);
-      if (characterClassStr!=null)
+      ClassDescription characterClass=null;
+      String classKey=DOMParsingTools.getStringAttribute(filterAttrs,LegacyXMLConstants.FILTER_CHARACTER_CLASS_ATTR,null);
+      if (classKey!=null)
       {
-        characterClass=CharacterClass.getByKey(characterClassStr);
+        characterClass=ClassesManager.getInstance().getByKey(classKey);
       }
       // Slot
       EquipmentLocation slot=null;

@@ -6,8 +6,9 @@ import java.util.List;
 import org.w3c.dom.Element;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
 
@@ -41,8 +42,8 @@ public class DerivedStatsContributionsXMLParser
     for(Element classContribsTag : classContribsTags)
     {
       // Class
-      String characterClassStr=DOMParsingTools.getStringAttribute(classContribsTag.getAttributes(),DerivedStatsContributionsXMLConstants.CLASS_CONTRIBS_CLASS_ATTR,"");
-      CharacterClass characterClass=CharacterClass.getByKey(characterClassStr);
+      String classKey=DOMParsingTools.getStringAttribute(classContribsTag.getAttributes(),DerivedStatsContributionsXMLConstants.CLASS_CONTRIBS_CLASS_ATTR,"");
+      ClassDescription characterClass=ClassesManager.getInstance().getByKey(classKey);
       List<Element> statContribsTags=DOMParsingTools.getChildTagsByName(classContribsTag,DerivedStatsContributionsXMLConstants.STAT_CONTRIBS_TAG);
       for(Element statContribsTag : statContribsTags)
       {

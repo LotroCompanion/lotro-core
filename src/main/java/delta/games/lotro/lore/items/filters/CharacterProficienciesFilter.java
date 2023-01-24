@@ -4,7 +4,7 @@ import java.util.Set;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.CharacterProficiencies;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
@@ -26,7 +26,7 @@ public class CharacterProficienciesFilter implements Filter<Item>
    * @param characterClass Character class.
    * @param level Character level.
    */
-  public CharacterProficienciesFilter(CharacterClass characterClass, int level)
+  public CharacterProficienciesFilter(ClassDescription characterClass, int level)
   {
     _weaponTypes=CharacterProficiencies.getWeaponProficiencies(characterClass,level);
     _armourTypes=CharacterProficiencies.getArmourProficiencies(characterClass,level);

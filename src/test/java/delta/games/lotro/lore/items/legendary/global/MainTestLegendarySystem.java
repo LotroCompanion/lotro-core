@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -91,7 +91,7 @@ public class MainTestLegendarySystem
       }
     }
 
-    CharacterClass characterClass=item.getRequiredClass();
+    ClassDescription characterClass=item.getRequiredClass();
     if (characterClass==null) return; // Skip bridles
     EquipmentLocation slot=item.getEquipmentLocation();
     ItemQuality quality=item.getQuality();

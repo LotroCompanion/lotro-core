@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.CharacterData;
-import delta.games.lotro.character.CharacterProficiencies;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
@@ -26,7 +26,6 @@ import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
@@ -389,7 +388,7 @@ public class CharacterStatsComputer
     partialEvadeMitigationPercentage+=10;
     ret.setStat(WellKnownStat.PARTIAL_EVADE_MITIGATION_PERCENTAGE,partialEvadeMitigationPercentage);
     // Physical Mitigation %
-    CharacterClass cClass=c.getCharacterClass();
+    ClassDescription cClass=c.getCharacterClass();
     RatingCurve mitigation=getMitigationCurve(cClass);
     Number physicalMitigation=stats.getStat(WellKnownStat.PHYSICAL_MITIGATION);
     float physicalMitigationPercentage=computePercentage(mitigation,physicalMitigation,level);
@@ -410,9 +409,9 @@ public class CharacterStatsComputer
     return ret;
   }
 
-  private RatingCurve getMitigationCurve(CharacterClass cClass)
+  private RatingCurve getMitigationCurve(ClassDescription classDescription)
   {
-    ArmourType type=CharacterProficiencies.getArmourTypeForMitigations(cClass);
+    ArmourType type=classDescription.getProficiencies().getArmourTypeForMitigations();
     if (type==ArmourType.LIGHT) return _ratingsMgr.getCurve(RatingCurveId.LIGHT_MITIGATION);
     if (type==ArmourType.MEDIUM) return _ratingsMgr.getCurve(RatingCurveId.MEDIUM_MITIGATION);
     if (type==ArmourType.HEAVY) return _ratingsMgr.getCurve(RatingCurveId.HEAVY_MITIGATION);

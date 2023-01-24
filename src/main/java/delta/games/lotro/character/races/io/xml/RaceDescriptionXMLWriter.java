@@ -16,7 +16,6 @@ import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceGender;
 import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Writes race descriptions to XML files.
@@ -95,11 +94,11 @@ public class RaceDescriptionXMLWriter
       hd.endElement("","",RaceDescriptionXMLConstants.NATIONALITY_TAG);
     }
     // Allowed classes
-    List<CharacterClass> characterClasses=raceDescription.getAllowedClasses();
-    for(CharacterClass characterClass : characterClasses)
+    List<String> characterClasses=raceDescription.getAllowedClasses();
+    for(String characterClass : characterClasses)
     {
       AttributesImpl allowedClassAttrs=new AttributesImpl();
-      allowedClassAttrs.addAttribute("","",RaceDescriptionXMLConstants.ALLOWED_CLASS_ID_ATTR,XmlWriter.CDATA,characterClass.getKey());
+      allowedClassAttrs.addAttribute("","",RaceDescriptionXMLConstants.ALLOWED_CLASS_ID_ATTR,XmlWriter.CDATA,characterClass);
       hd.startElement("","",RaceDescriptionXMLConstants.ALLOWED_CLASS_TAG,allowedClassAttrs);
       hd.endElement("","",RaceDescriptionXMLConstants.ALLOWED_CLASS_TAG);
     }

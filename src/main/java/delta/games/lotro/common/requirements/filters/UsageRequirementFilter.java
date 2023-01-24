@@ -1,8 +1,8 @@
 package delta.games.lotro.common.requirements.filters;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
@@ -13,7 +13,7 @@ import delta.games.lotro.common.requirements.UsageRequirement;
  */
 public class UsageRequirementFilter implements Filter<UsageRequirement>
 {
-  private CharacterClass _characterClass;
+  private ClassDescription _characterClass;
   private RaceDescription _race;
 
   /**
@@ -21,7 +21,7 @@ public class UsageRequirementFilter implements Filter<UsageRequirement>
    * @param characterClass Class to select (may be <code>null</code>).
    * @param race Race to select (may be <code>null</code>).
    */
-  public UsageRequirementFilter(CharacterClass characterClass, RaceDescription race)
+  public UsageRequirementFilter(ClassDescription characterClass, RaceDescription race)
   {
     _characterClass=characterClass;
     _race=race;
@@ -31,7 +31,7 @@ public class UsageRequirementFilter implements Filter<UsageRequirement>
    * Get the character class to use.
    * @return A character class or <code>null</code>.
    */
-  public CharacterClass getCharacterClass()
+  public ClassDescription getCharacterClass()
   {
     return _characterClass;
   }
@@ -40,7 +40,7 @@ public class UsageRequirementFilter implements Filter<UsageRequirement>
    * Set the character class to select.
    * @param characterClass Character class to use, may be <code>null</code>.
    */
-  public void setCharacterClass(CharacterClass characterClass)
+  public void setCharacterClass(ClassDescription characterClass)
   {
     _characterClass=characterClass;
   }

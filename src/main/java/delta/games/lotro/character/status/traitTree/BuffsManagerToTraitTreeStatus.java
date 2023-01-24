@@ -6,13 +6,11 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
 import delta.games.lotro.character.stats.buffs.io.xml.RawBuffStorage;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Method to load a trait tree status from buffs.
@@ -28,10 +26,9 @@ public class BuffsManagerToTraitTreeStatus
    * @param buffs Buffs to use.
    * @return the loaded trait tree.
    */
-  public static TraitTreeStatus initFromBuffs(CharacterClass characterClass, RawBuffStorage buffs)
+  public static TraitTreeStatus initFromBuffs(ClassDescription characterClass, RawBuffStorage buffs)
   {
-    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(characterClass);
-    TraitTree traitTree=classDescription.getTraitTree();
+    TraitTree traitTree=characterClass.getTraitTree();
     TraitTreeStatus status=new TraitTreeStatus(traitTree);
 
     TraitsManager traitsMgr=TraitsManager.getInstance();

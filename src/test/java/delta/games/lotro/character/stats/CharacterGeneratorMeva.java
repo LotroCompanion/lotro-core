@@ -3,13 +3,15 @@ package delta.games.lotro.character.stats;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterFactory;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
+import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -36,6 +38,7 @@ import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 public class CharacterGeneratorMeva
 {
   private CharacterGenerationTools _tools;
+  private ClassDescription _minstrel;
 
   /**
    * Constructor.
@@ -44,6 +47,7 @@ public class CharacterGeneratorMeva
   public CharacterGeneratorMeva(CharacterGenerationTools tools)
   {
     _tools=tools;
+    _minstrel=ClassesManager.getInstance().getByKey(WellKnownCharacterClassKeys.MINSTREL);
   }
 
   /**
@@ -57,7 +61,7 @@ public class CharacterGeneratorMeva
     RaceDescription hobbit=RacesManager.getInstance().getByKey("hobbit");
     summary.setRace(hobbit);
     summary.setLevel(100);
-    summary.setCharacterClass(CharacterClass.MINSTREL);
+    summary.setCharacterClass(_minstrel);
     CharacterData c=CharacterFactory.buildNewData(summary);
 
     // Virtues
@@ -300,7 +304,7 @@ public class CharacterGeneratorMeva
   {
     LegendaryWeapon weapon=new LegendaryWeapon();
     weapon.setName("Reshaped Minstrel's Club of the First Age");
-    weapon.setRequiredClass(CharacterClass.MINSTREL);
+    weapon.setRequiredClass(_minstrel);
     weapon.setMinLevel(Integer.valueOf(100));
     weapon.setDurability(Integer.valueOf(100));
     weapon.setSturdiness(ItemSturdiness.NORMAL);
@@ -378,7 +382,7 @@ public class CharacterGeneratorMeva
   {
     LegendaryItem classItem=new LegendaryItem();
     classItem.setName("Reforged Minstrel's Songbook of the Second Age");
-    classItem.setRequiredClass(CharacterClass.MINSTREL);
+    classItem.setRequiredClass(_minstrel);
     classItem.setMinLevel(Integer.valueOf(95));
     classItem.setDurability(Integer.valueOf(80));
     classItem.setSturdiness(ItemSturdiness.NORMAL);

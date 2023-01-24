@@ -3,8 +3,9 @@ package delta.games.lotro.lore.xrefs.races;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Finds references to races.
@@ -38,9 +39,10 @@ public class RaceReferencesBuilder
 
   private void findInRaces(RaceDescription race)
   {
-    for(CharacterClass characterClass : race.getAllowedClasses())
+    for(String classKey : race.getAllowedClasses())
     {
-      _storage.add(new RaceReference<CharacterClass>(characterClass,RaceRole.CLASS_RACE));
+      ClassDescription characterClass=ClassesManager.getInstance().getByKey(classKey);
+      _storage.add(new RaceReference<ClassDescription>(characterClass,RaceRole.CLASS_RACE));
     }
   }
 }

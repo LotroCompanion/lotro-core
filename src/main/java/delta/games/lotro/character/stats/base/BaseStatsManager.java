@@ -3,12 +3,10 @@ package delta.games.lotro.character.stats.base;
 import java.util.List;
 
 import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.StartStatsManagerIO;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
 
@@ -37,16 +35,16 @@ public class BaseStatsManager
 
   /**
    * Get base stats for a given class/race/level.
-   * @param cClass Character class.
+   * @param characterClass Character class.
    * @param race Race.
    * @param level Level (starting at 1).
    * @return A set of stats.
    */
-  public BasicStatsSet getBaseStats(CharacterClass cClass, RaceDescription race, int level)
+  public BasicStatsSet getBaseStats(ClassDescription characterClass, RaceDescription race, int level)
   {
-    BasicStatsSet classSet=_startStatsManager.getStats(cClass,level);
+    BasicStatsSet classSet=_startStatsManager.getStats(characterClass,level);
     BasicStatsSet raceSet=getRaceTraitsContrib(race,level);
-    BasicStatsSet classTraitsSet=getClassTraitsContrib(cClass,level);
+    BasicStatsSet classTraitsSet=getClassTraitsContrib(characterClass,level);
     BasicStatsSet global=new BasicStatsSet();
     global.addStats(classSet);
     global.addStats(raceSet);
@@ -72,12 +70,10 @@ public class BaseStatsManager
     return stats;
   }
 
-  private BasicStatsSet getClassTraitsContrib(CharacterClass cClass, int level)
+  private BasicStatsSet getClassTraitsContrib(ClassDescription characterClass, int level)
   {
-    ClassesManager classesManager=ClassesManager.getInstance();
-    ClassDescription description=classesManager.getClassDescription(cClass);
     BasicStatsSet stats=new BasicStatsSet();
-    List<TraitDescription> traits=description.getTraitsForLevel(level);
+    List<TraitDescription> traits=characterClass.getTraitsForLevel(level);
     for(TraitDescription trait : traits)
     {
       if ("Audacity".equals(trait.getName())) continue;

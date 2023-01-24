@@ -14,7 +14,7 @@ import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.common.constraints.ClassAndSlot;
 import delta.games.lotro.common.constraints.ClassAndSlotFilter;
 import delta.games.lotro.common.effects.io.xml.EffectXMLWriter;
@@ -220,7 +220,7 @@ public class LegacyXMLWriter
         AttributesImpl filterAttrs=new AttributesImpl();
 
         // Character class
-        CharacterClass characterClass=classAndSlotFilter.getCharacterClass();
+        ClassDescription characterClass=classAndSlotFilter.getCharacterClass();
         if (characterClass!=null)
         {
           filterAttrs.addAttribute("","",LegacyXMLConstants.FILTER_CHARACTER_CLASS_ATTR,XmlWriter.CDATA,characterClass.getKey());

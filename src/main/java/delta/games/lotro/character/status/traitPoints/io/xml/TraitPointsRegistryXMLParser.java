@@ -7,9 +7,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.status.traitPoints.TraitPoint;
 import delta.games.lotro.character.status.traitPoints.TraitPointsRegistry;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Parser for the trait point registry stored in XML.
@@ -79,7 +80,7 @@ public class TraitPointsRegistryXMLParser
         String[] requiredClasses=requiredClassesStr.split(",");
         for(String requiredClass : requiredClasses)
         {
-          CharacterClass characterClass=CharacterClass.getByKey(requiredClass);
+          ClassDescription characterClass=ClassesManager.getInstance().getByKey(requiredClass);
           ret.addRequiredClass(characterClass);
         }
       }

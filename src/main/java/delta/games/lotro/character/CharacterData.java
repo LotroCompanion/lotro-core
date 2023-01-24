@@ -3,6 +3,7 @@ package delta.games.lotro.character;
 import java.io.File;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.races.RaceDescription;
@@ -11,7 +12,6 @@ import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.character.status.traits.TraitsStatus;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Storage class for a LOTRO character definition.
@@ -186,7 +186,7 @@ public class CharacterData
    * Get the character's class.
    * @return the character's class.
    */
-  public CharacterClass getCharacterClass()
+  public ClassDescription getCharacterClass()
   {
     return _summary.getCharacterClass();
   }

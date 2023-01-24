@@ -3,7 +3,7 @@ package delta.games.lotro.character.status.traitPoints;
 import java.util.HashSet;
 import java.util.Set;
 
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 
 /**
  * Represents a trait point.
@@ -14,7 +14,7 @@ public class TraitPoint
   private String _id;
   private String _category;
   private String _label;
-  private Set<CharacterClass> _requiredCharacterClasses;
+  private Set<ClassDescription> _requiredCharacterClasses;
   private int _achievableId;
 
   /**
@@ -26,7 +26,7 @@ public class TraitPoint
     _id=id;
     _category=null;
     _label=id;
-    _requiredCharacterClasses=new HashSet<CharacterClass>();
+    _requiredCharacterClasses=new HashSet<ClassDescription>();
   }
 
   /**
@@ -78,7 +78,7 @@ public class TraitPoint
    * Get the required class, if any.
    * @return the required class or <code>null</code>.
    */
-  public Set<CharacterClass> getRequiredClasses()
+  public Set<ClassDescription> getRequiredClasses()
   {
     return _requiredCharacterClasses;
   }
@@ -87,7 +87,7 @@ public class TraitPoint
    * Add a required class.
    * @param characterClass Class to add.
    */
-  public void addRequiredClass(CharacterClass characterClass)
+  public void addRequiredClass(ClassDescription characterClass)
   {
     if (characterClass!=null)
     {
@@ -100,7 +100,7 @@ public class TraitPoint
    * @param characterClass Character class to test.
    * @return <code>true</code> if enabled, <code>false</code> otherwise.
    */
-  public boolean isEnabledForClass(CharacterClass characterClass)
+  public boolean isEnabledForClass(ClassDescription characterClass)
   {
     return _requiredCharacterClasses.isEmpty()||_requiredCharacterClasses.contains(characterClass);
   }

@@ -3,7 +3,8 @@ package delta.games.lotro.common.requirements;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 
 /**
  * Class requirement.
@@ -12,21 +13,21 @@ import delta.games.lotro.common.CharacterClass;
 public class ClassRequirement
 {
   private static final String SEPARATOR=";";
-  private List<CharacterClass> _allowedClasses;
+  private List<ClassDescription> _allowedClasses;
 
   /**
    * Constructor.
    */
   public ClassRequirement()
   {
-    _allowedClasses=new ArrayList<CharacterClass>();
+    _allowedClasses=new ArrayList<ClassDescription>();
   }
 
   /**
    * Add an allowed character class.
    * @param characterClass Character class to add.
    */
-  public void addAllowedClass(CharacterClass characterClass)
+  public void addAllowedClass(ClassDescription characterClass)
   {
     if (!_allowedClasses.contains(characterClass))
     {
@@ -38,7 +39,7 @@ public class ClassRequirement
    * Get the allowed classes.
    * @return A possibly empty, but not <code>null</code> list of classes.
    */
-  public List<CharacterClass> getAllowedClasses()
+  public List<ClassDescription> getAllowedClasses()
   {
     return _allowedClasses;
   }
@@ -56,7 +57,7 @@ public class ClassRequirement
    * @param characterClass Character class to test.
    * @return <code>true</code> if it does, <code>false</code> otherwise.
    */
-  public boolean accept(CharacterClass characterClass)
+  public boolean accept(ClassDescription characterClass)
   {
     return _allowedClasses.contains(characterClass);
   }
@@ -68,7 +69,7 @@ public class ClassRequirement
   public String asString()
   {
     StringBuilder sb=new StringBuilder();
-    for(CharacterClass characterClass : _allowedClasses)
+    for(ClassDescription characterClass : _allowedClasses)
     {
       if (sb.length()>0)
       {
@@ -91,9 +92,10 @@ public class ClassRequirement
     {
       ret=new ClassRequirement();
       String[] classStrs=input.split(SEPARATOR);
+      ClassesManager classesMgr=ClassesManager.getInstance();
       for(String classStr : classStrs)
       {
-        CharacterClass characterClass=CharacterClass.getByKey(classStr);
+        ClassDescription characterClass=classesMgr.getByKey(classStr);
         if (characterClass!=null)
         {
           ret.addAllowedClass(characterClass);

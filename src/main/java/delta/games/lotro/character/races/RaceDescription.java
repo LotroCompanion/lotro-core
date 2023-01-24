@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
@@ -25,7 +24,7 @@ public class RaceDescription implements Identifiable,Named
   private RaceGender _male;
   private RaceGender _female;
   private List<NationalityDescription> _nationalities;
-  private List<CharacterClass> _classes;
+  private List<String> _classes;
   private List<RaceTrait> _traits;
   private List<TraitDescription> _earnableTraits;
 
@@ -33,7 +32,7 @@ public class RaceDescription implements Identifiable,Named
    * Constructor.
    * @param id Identifier.
    * @param code Internal lotro code.
-   * @param key Key Integer LC string identifier.
+   * @param key Key Internal LC string identifier.
    * @param legacyLabel Legacy label used in XML persistence.
    */
   public RaceDescription(int id, int code, String key, String legacyLabel)
@@ -48,7 +47,7 @@ public class RaceDescription implements Identifiable,Named
     _male=null;
     _female=null;
     _nationalities=new ArrayList<NationalityDescription>();
-    _classes=new ArrayList<CharacterClass>();
+    _classes=new ArrayList<String>();
     _traits=new ArrayList<RaceTrait>();
     _earnableTraits=new ArrayList<TraitDescription>();
   }
@@ -206,18 +205,18 @@ public class RaceDescription implements Identifiable,Named
 
   /**
    * Add an allowed class.
-   * @param characterClass Class to add.
+   * @param classKey Key of the class to add.
    */
-  public void addAllowedClass(CharacterClass characterClass)
+  public void addAllowedClass(String classKey)
   {
-    _classes.add(characterClass);
+    _classes.add(classKey);
   }
 
   /**
-   * Get all the allowed classes of this race.
-   * @return A list of character classes.
+   * Get the keys of the allowed classes of this race.
+   * @return A list of character class keys.
    */
-  public List<CharacterClass> getAllowedClasses()
+  public List<String> getAllowedClasses()
   {
     return _classes;
   }

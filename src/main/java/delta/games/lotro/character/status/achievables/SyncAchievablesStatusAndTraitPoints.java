@@ -2,11 +2,11 @@ package delta.games.lotro.character.status.achievables;
 
 import java.util.List;
 
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.status.traitPoints.TraitPoint;
 import delta.games.lotro.character.status.traitPoints.TraitPoints;
 import delta.games.lotro.character.status.traitPoints.TraitPointsRegistry;
 import delta.games.lotro.character.status.traitPoints.TraitPointsStatus;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.quests.QuestDescription;
@@ -24,7 +24,7 @@ public class SyncAchievablesStatusAndTraitPoints
    * @param tpStatus Target trait points status.
    * @param deedsStatus Source deeds status.
    */
-  public static void syncTraitPointsFromDeeds(CharacterClass characterClass, TraitPointsStatus tpStatus, AchievablesStatusManager deedsStatus)
+  public static void syncTraitPointsFromDeeds(ClassDescription characterClass, TraitPointsStatus tpStatus, AchievablesStatusManager deedsStatus)
   {
     TraitPoints tps=TraitPoints.get();
     TraitPointsRegistry registry=tps.getRegistry();
@@ -63,7 +63,7 @@ public class SyncAchievablesStatusAndTraitPoints
    * @param tpStatus Target trait points status.
    * @param questsStatus Source deeds status.
    */
-  public static void syncTraitPointsFromQuests(CharacterClass characterClass, TraitPointsStatus tpStatus, AchievablesStatusManager questsStatus)
+  public static void syncTraitPointsFromQuests(ClassDescription characterClass, TraitPointsStatus tpStatus, AchievablesStatusManager questsStatus)
   {
     TraitPoints tps=TraitPoints.get();
     TraitPointsRegistry registry=tps.getRegistry();

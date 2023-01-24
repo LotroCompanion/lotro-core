@@ -1,6 +1,6 @@
 package delta.games.lotro.character;
 
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.common.Named;
 import delta.games.lotro.common.id.InternalGameId;
 
@@ -12,7 +12,7 @@ public class CharacterReference implements Named
 {
   private InternalGameId _id;
   private String _characterName;
-  private CharacterClass _class;
+  private ClassDescription _class;
   private int _level;
 
   /**
@@ -85,7 +85,7 @@ public class CharacterReference implements Named
    * Get the character's class.
    * @return the character's class.
    */
-  public CharacterClass getCharacterClass()
+  public ClassDescription getCharacterClass()
   {
     return _class;
   }
@@ -94,7 +94,7 @@ public class CharacterReference implements Named
    * Set the character's class.
    * @param characterClass the class to set.
    */
-  public void setCharacterClass(CharacterClass characterClass)
+  public void setCharacterClass(ClassDescription characterClass)
   {
     _class=characterClass;
   }

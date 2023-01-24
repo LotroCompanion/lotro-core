@@ -11,7 +11,6 @@ import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
@@ -84,20 +83,14 @@ public class TraitReferencesBuilder
 
   private void findInClasses(int traitID)
   {
-    for(CharacterClass cClass : CharacterClass.ALL_CLASSES)
+    for(ClassDescription classDescription : ClassesManager.getInstance().getAll())
     {
-      findInClass(cClass, traitID);
+      findInClass(classDescription,traitID);
     }
   }
 
-  private void findInClass(CharacterClass cClass, int traitID)
+  private void findInClass(ClassDescription classDescription, int traitID)
   {
-    ClassesManager mgr=ClassesManager.getInstance();
-    ClassDescription classDescription=mgr.getClassDescription(cClass);
-    if (classDescription==null)
-    {
-      return;
-    }
     // Regular traits
     List<ClassTrait> classTraits=classDescription.getTraits();
     for(ClassTrait classTrait : classTraits)
@@ -105,7 +98,7 @@ public class TraitReferencesBuilder
       TraitDescription trait=classTrait.getTrait();
       if (trait.getIdentifier()==traitID)
       {
-        _storage.add(new TraitReference<CharacterClass>(cClass,TraitRole.CLASS_TRAIT));
+        _storage.add(new TraitReference<ClassDescription>(classDescription,TraitRole.CLASS_TRAIT));
       }
     }
     // Traits tree
@@ -118,7 +111,7 @@ public class TraitReferencesBuilder
     {
       if (trait.getIdentifier()==traitID)
       {
-        _storage.add(new TraitReference<CharacterClass>(cClass,TraitRole.CLASS_TRAIT));
+        _storage.add(new TraitReference<ClassDescription>(classDescription,TraitRole.CLASS_TRAIT));
       }
     }
   }

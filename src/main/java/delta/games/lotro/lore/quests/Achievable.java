@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.ChallengeLevel;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
@@ -189,7 +189,7 @@ public abstract class Achievable implements Identifiable
    * Set the required class for this achievable.
    * @param characterClass the class to set (or <code>null</code>).
    */
-  public void setRequiredClass(CharacterClass characterClass)
+  public void setRequiredClass(ClassDescription characterClass)
   {
     _requirement.removeClassRequirement();
     _requirement.addAllowedClass(characterClass);

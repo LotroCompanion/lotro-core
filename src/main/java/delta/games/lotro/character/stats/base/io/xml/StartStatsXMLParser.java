@@ -6,9 +6,10 @@ import java.util.List;
 import org.w3c.dom.Element;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.StartStatsManager;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Parser for start stats stored in XML.
@@ -39,8 +40,8 @@ public class StartStatsXMLParser
     for(Element statsTag : statsTags)
     {
       // Class
-      String characterClassStr=DOMParsingTools.getStringAttribute(statsTag.getAttributes(),StartStatsXMLConstants.STATS_CLASS_ATTR,"");
-      CharacterClass characterClass=CharacterClass.getByKey(characterClassStr);
+      String classKey=DOMParsingTools.getStringAttribute(statsTag.getAttributes(),StartStatsXMLConstants.STATS_CLASS_ATTR,"");
+      ClassDescription characterClass=ClassesManager.getInstance().getByKey(classKey);
       // Level
       int level=DOMParsingTools.getIntAttribute(statsTag.getAttributes(),StartStatsXMLConstants.STATS_LEVEL_ATTR,0);
       // Stats

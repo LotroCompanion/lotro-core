@@ -1,13 +1,15 @@
 package delta.games.lotro.character.classes;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.classes.io.xml.ClassDescriptionXMLParser;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 
@@ -21,7 +23,8 @@ public class ClassesManager
 
   private static ClassesManager _instance=null;
 
-  private HashMap<CharacterClass,ClassDescription> _cache;
+  private HashMap<String,ClassDescription> _mapByKey;
+  private HashMap<Integer,ClassDescription> _mapByCode;
 
   /**
    * Get the sole instance of this class.
@@ -42,7 +45,8 @@ public class ClassesManager
    */
   private ClassesManager()
   {
-    _cache=new HashMap<CharacterClass,ClassDescription>(10);
+    _mapByKey=new HashMap<String,ClassDescription>(10);
+    _mapByCode=new HashMap<Integer,ClassDescription>(10);
   }
 
   /**
@@ -50,29 +54,53 @@ public class ClassesManager
    */
   private void loadAll()
   {
-    _cache.clear();
+    _mapByKey.clear();
+    _mapByCode.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File classesFile=cfg.getFile(DataFiles.CLASSES);
     long now=System.currentTimeMillis();
     List<ClassDescription> classDescriptions=ClassDescriptionXMLParser.parseClassDescriptionsFile(classesFile);
     for(ClassDescription classDescription : classDescriptions)
     {
-      _cache.put(classDescription.getCharacterClass(),classDescription);
+      _mapByKey.put(classDescription.getKey(),classDescription);
+      Integer codeKey=Integer.valueOf(classDescription.getCode());
+      _mapByCode.put(codeKey,classDescription);
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" character classes in "+duration+"ms.");
+    LOGGER.info("Loaded "+_mapByKey.size()+" character classes in "+duration+"ms.");
+  }
+
+  /**
+   * Get all classes.
+   * @return a list of all character classes.
+   */
+  public List<ClassDescription> getAll()
+  {
+    List<ClassDescription> ret=new ArrayList<ClassDescription>();
+    ret.addAll(_mapByKey.values());
+    Collections.sort(ret,new NamedComparator());
+    return ret;
+  }
+
+  /**
+   * Get a class description using its code.
+   * @param code Code to use.
+   * @return A class description or <code>null</code> if not found.
+   */
+  public ClassDescription getByCode(int code)
+  {
+    return _mapByCode.get(Integer.valueOf(code));
   }
 
   /**
    * Get a class description using its key.
-   * @param characterClass Class to get.
+   * @param key Key to use.
    * @return A class description or <code>null</code> if not found.
    */
-  public ClassDescription getClassDescription(CharacterClass characterClass)
+  public ClassDescription getByKey(String key)
   {
-    ClassDescription ret=null;
-    ret=_cache.get(characterClass);
+    ClassDescription ret=_mapByKey.get(key);
     return ret;
   }
 }

@@ -1,9 +1,11 @@
 package delta.games.lotro.character.stats.base;
 
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
+import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Test class for the base stats manager.
@@ -19,9 +21,10 @@ public class TestBaseStatsManager
   {
     BaseStatsManager mgr = new BaseStatsManager();
     RaceDescription elf=RacesManager.getInstance().getByKey("elf");
-    BasicStatsSet set = mgr.getBaseStats(CharacterClass.WARDEN, elf, 1);
+    ClassDescription warden=ClassesManager.getInstance().getByKey(WellKnownCharacterClassKeys.WARDEN);
+    BasicStatsSet set = mgr.getBaseStats(warden, elf, 1);
     DerivedStatsContributionsMgr derivatedMgr = new DerivedStatsContributionsMgr();
-    BasicStatsSet derivedStats = derivatedMgr.getContribution(CharacterClass.WARDEN, set);
+    BasicStatsSet derivedStats = derivatedMgr.getContribution(warden, set);
     set.addStats(derivedStats);
     System.out.println(set);
     /*

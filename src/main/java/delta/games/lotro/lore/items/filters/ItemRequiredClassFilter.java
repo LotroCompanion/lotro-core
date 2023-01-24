@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.items.filters;
 
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.lore.items.Item;
@@ -12,7 +12,7 @@ import delta.games.lotro.lore.items.Item;
 public class ItemRequiredClassFilter implements ItemFilter
 {
   private boolean _enabled;
-  private CharacterClass _characterClass;
+  private ClassDescription _characterClass;
   private boolean _strict;
 
   /**
@@ -20,7 +20,7 @@ public class ItemRequiredClassFilter implements ItemFilter
    * @param characterClass Character class to use.
    * @param strict Allow only class items, or allow all non class restricted items.
    */
-  public ItemRequiredClassFilter(CharacterClass characterClass, boolean strict)
+  public ItemRequiredClassFilter(ClassDescription characterClass, boolean strict)
   {
     _characterClass=characterClass;
     _strict=strict;
@@ -49,7 +49,7 @@ public class ItemRequiredClassFilter implements ItemFilter
    * Get the character class.
    * @return A character class or <code>null</code>.
    */
-  public CharacterClass getCharacterClass()
+  public ClassDescription getCharacterClass()
   {
     return _characterClass;
   }
@@ -58,7 +58,7 @@ public class ItemRequiredClassFilter implements ItemFilter
    * Set the character class to use.
    * @param characterClass Character class (may be <code>null</code>).
    */
-  public void setCharacterClass(CharacterClass characterClass)
+  public void setCharacterClass(ClassDescription characterClass)
   {
     _characterClass=characterClass;
   }

@@ -5,6 +5,9 @@ import java.util.List;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterFactory;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
+import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
@@ -12,7 +15,6 @@ import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Armour;
@@ -59,6 +61,7 @@ import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
 public class CharacterGeneratorGiswald
 {
   private CharacterGenerationTools _tools;
+  private ClassDescription _champion;
 
   /**
    * Constructor.
@@ -67,6 +70,7 @@ public class CharacterGeneratorGiswald
   public CharacterGeneratorGiswald(CharacterGenerationTools tools)
   {
     _tools=tools;
+    _champion=ClassesManager.getInstance().getByKey(WellKnownCharacterClassKeys.CHAMPION);
   }
 
   /**
@@ -80,7 +84,7 @@ public class CharacterGeneratorGiswald
     RaceDescription man=RacesManager.getInstance().getByKey("man");
     summary.setRace(man);
     summary.setLevel(100);
-    summary.setCharacterClass(CharacterClass.CHAMPION);
+    summary.setCharacterClass(_champion);
     CharacterData c=CharacterFactory.buildNewData(summary);
     c.setShortDescription("Test for stats computation");
     c.setDescription("This toon was generated from code, and stats were computed automatically.");
@@ -549,7 +553,7 @@ public class CharacterGeneratorGiswald
   {
     LegendaryWeapon weapon=new LegendaryWeapon();
     weapon.setName("Reshaped Champion's Sword of the First Age");
-    weapon.setRequiredClass(CharacterClass.CHAMPION);
+    weapon.setRequiredClass(_champion);
     weapon.setMinLevel(Integer.valueOf(100));
     weapon.setDurability(Integer.valueOf(100));
     weapon.setSturdiness(ItemSturdiness.NORMAL);
@@ -635,7 +639,7 @@ public class CharacterGeneratorGiswald
       // - legacies
       NonImbuedLegaciesManager nonImbuedLegaciesMgr=NonImbuedLegaciesManager.getInstance();
       // - default legacy
-      List<DefaultNonImbuedLegacy> possibleDefaultLegacies=nonImbuedLegaciesMgr.getDefaultLegacies(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND);
+      List<DefaultNonImbuedLegacy> possibleDefaultLegacies=nonImbuedLegaciesMgr.getDefaultLegacies(_champion,EquipmentLocation.MAIN_HAND);
       if (possibleDefaultLegacies.size()>0)
       {
         DefaultNonImbuedLegacy defaultLegacy=possibleDefaultLegacies.get(0);
@@ -644,7 +648,7 @@ public class CharacterGeneratorGiswald
         defaultLegacyInstance.setRank(100);
       }
       // - other legacies
-      List<TieredNonImbuedLegacy> possibleLegacies=nonImbuedLegaciesMgr.getTieredLegacies(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND);
+      List<TieredNonImbuedLegacy> possibleLegacies=nonImbuedLegaciesMgr.getTieredLegacies(_champion,EquipmentLocation.MAIN_HAND);
       int nbLegacies=Math.min(possibleLegacies.size(),6);
       for(int i=0;i<nbLegacies;i++)
       {
@@ -660,7 +664,7 @@ public class CharacterGeneratorGiswald
       ImbuedLegendaryInstanceAttrs imbuedAttrs=attrs.getImbuedAttrs();
       // - legacies
       LegaciesManager legaciesMgr=LegaciesManager.getInstance();
-      List<ImbuedLegacy> possibleLegacies=legaciesMgr.get(CharacterClass.CHAMPION,EquipmentLocation.MAIN_HAND,LegacyType.CLASS);
+      List<ImbuedLegacy> possibleLegacies=legaciesMgr.get(_champion,EquipmentLocation.MAIN_HAND,LegacyType.CLASS);
       int nbLegacies=Math.min(possibleLegacies.size(),6);
       for(int i=0;i<nbLegacies;i++)
       {
@@ -679,7 +683,7 @@ public class CharacterGeneratorGiswald
   {
     LegendaryItem classItem=new LegendaryItem();
     classItem.setName("Reshaped Champion's Rune of the First Age");
-    classItem.setRequiredClass(CharacterClass.CHAMPION);
+    classItem.setRequiredClass(_champion);
     classItem.setMinLevel(Integer.valueOf(100));
     classItem.setDurability(Integer.valueOf(80));
     classItem.setSturdiness(ItemSturdiness.NORMAL);

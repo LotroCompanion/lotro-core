@@ -13,7 +13,6 @@ import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
 import delta.games.lotro.character.classes.traitTree.TraitTreesManager;
 import delta.games.lotro.character.classes.traitTree.setup.io.xml.TraitTreeSetupXMLConstants;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Parser for trait tree statuses stored in XML.
@@ -90,10 +89,9 @@ public class TraitTreeStatusXMLParser
     if (traitTree==null)
     {
       // Class
-      String className=DOMParsingTools.getStringAttribute(attrs,TraitTreeSetupXMLConstants.TRAIT_TREE_SETUP_CLASS_ATTR,null);
-      CharacterClass characterClass=CharacterClass.getByKey(className);
+      String classKey=DOMParsingTools.getStringAttribute(attrs,TraitTreeSetupXMLConstants.TRAIT_TREE_SETUP_CLASS_ATTR,null);
       // Build trait tree setup
-      ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(characterClass);
+      ClassDescription classDescription=ClassesManager.getInstance().getByKey(classKey);
       if (classDescription!=null)
       {
         traitTree=classDescription.getTraitTree();

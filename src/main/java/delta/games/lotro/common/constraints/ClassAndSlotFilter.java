@@ -3,7 +3,7 @@ package delta.games.lotro.common.constraints;
 import java.util.Objects;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.lore.items.EquipmentLocation;
 
 /**
@@ -27,7 +27,7 @@ public class ClassAndSlotFilter implements Filter<ClassAndSlot>
    * Get the required class.
    * @return A character class or <code>null</code>.
    */
-  public CharacterClass getCharacterClass()
+  public ClassDescription getCharacterClass()
   {
     return _spec.getCharacterClass();
   }
@@ -44,10 +44,10 @@ public class ClassAndSlotFilter implements Filter<ClassAndSlot>
   @Override
   public boolean accept(ClassAndSlot classAndSlot)
   {
-    CharacterClass characterClass=classAndSlot.getCharacterClass();
+    ClassDescription characterClass=classAndSlot.getCharacterClass();
     if (characterClass!=null)
     {
-      CharacterClass thisClass=_spec.getCharacterClass();
+      ClassDescription thisClass=_spec.getCharacterClass();
       if ((thisClass!=null) && (thisClass!=characterClass))
       {
         return false;

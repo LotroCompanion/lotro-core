@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Manager for character start stats.
@@ -18,14 +18,14 @@ public class StartStatsManager
 {
   private static final Logger LOGGER=Logger.getLogger(StartStatsManager.class);
 
-  private HashMap<CharacterClass,HashMap<Integer,BasicStatsSet>> _startStatsByClass;
+  private HashMap<ClassDescription,HashMap<Integer,BasicStatsSet>> _startStatsByClass;
 
   /**
    * Constructor.
    */
   public StartStatsManager()
   {
-    _startStatsByClass=new HashMap<CharacterClass,HashMap<Integer,BasicStatsSet>>();
+    _startStatsByClass=new HashMap<ClassDescription,HashMap<Integer,BasicStatsSet>>();
   }
 
   /**
@@ -34,7 +34,7 @@ public class StartStatsManager
    * @param level Level, starting at 1.
    * @param stats Start stats.
    */
-  public void setStats(CharacterClass characterClass, int level, BasicStatsSet stats)
+  public void setStats(ClassDescription characterClass, int level, BasicStatsSet stats)
   {
     HashMap<Integer,BasicStatsSet> mapForClass=getMapForClass(characterClass);
     mapForClass.put(Integer.valueOf(level),stats);
@@ -45,7 +45,7 @@ public class StartStatsManager
    * @param characterClass Character class.
    * @return A list of sorted levels.
    */
-  public List<Integer> getLevels(CharacterClass characterClass)
+  public List<Integer> getLevels(ClassDescription characterClass)
   {
     HashMap<Integer,BasicStatsSet> mapForClass=getMapForClass(characterClass);
     List<Integer> levels=new ArrayList<Integer>(mapForClass.keySet());
@@ -59,14 +59,10 @@ public class StartStatsManager
    * @param level Level, starting at 1.
    * @return Some stats or <code>null</code> if not supported.
    */
-  public BasicStatsSet getStats(CharacterClass characterClass, int level)
+  public BasicStatsSet getStats(ClassDescription characterClass, int level)
   {
-    BasicStatsSet ret=null;
     HashMap<Integer,BasicStatsSet> mapForClass=getMapForClass(characterClass);
-    if (mapForClass!=null)
-    {
-      ret=mapForClass.get(Integer.valueOf(level));
-    }
+    BasicStatsSet ret=mapForClass.get(Integer.valueOf(level));
     if (ret==null)
     {
       LOGGER.warn("Could not find start stats for class="+characterClass+", level="+level);
@@ -75,7 +71,7 @@ public class StartStatsManager
     return ret;
   }
 
-  private HashMap<Integer,BasicStatsSet> getMapForClass(CharacterClass characterClass)
+  private HashMap<Integer,BasicStatsSet> getMapForClass(ClassDescription characterClass)
   {
     HashMap<Integer,BasicStatsSet> ret=_startStatsByClass.get(characterClass);
     if (ret==null)

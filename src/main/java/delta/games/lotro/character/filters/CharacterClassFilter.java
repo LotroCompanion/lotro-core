@@ -2,7 +2,7 @@ package delta.games.lotro.character.filters;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.CharacterReference;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 
 /**
  * Filter for characters of a given class.
@@ -11,13 +11,13 @@ import delta.games.lotro.common.CharacterClass;
  */
 public class CharacterClassFilter<T extends CharacterReference> implements Filter<T>
 {
-  private CharacterClass _class;
+  private ClassDescription _class;
 
   /**
    * Constructor.
    * @param characterClass Class to select (may be <code>null</code>).
    */
-  public CharacterClassFilter(CharacterClass characterClass)
+  public CharacterClassFilter(ClassDescription characterClass)
   {
     _class=characterClass;
   }
@@ -26,7 +26,7 @@ public class CharacterClassFilter<T extends CharacterReference> implements Filte
    * Get the class to use.
    * @return A class or <code>null</code>.
    */
-  public CharacterClass getCharacterClass()
+  public ClassDescription getCharacterClass()
   {
     return _class;
   }
@@ -35,7 +35,7 @@ public class CharacterClassFilter<T extends CharacterReference> implements Filte
    * Set the class to select.
    * @param characterClass Class to use, may be <code>null</code>.
    */
-  public void setCharacterClass(CharacterClass characterClass)
+  public void setCharacterClass(ClassDescription characterClass)
   {
     _class=characterClass;
   }

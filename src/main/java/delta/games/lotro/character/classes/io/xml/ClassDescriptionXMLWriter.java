@@ -22,7 +22,6 @@ import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 
@@ -61,9 +60,18 @@ public class ClassDescriptionXMLWriter
   private static void writeClassDescription(TransformerHandler hd, ClassDescription description) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
+    // Identifier
+    int id=description.getIdentifier();
+    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Code
+    int code=description.getCode();
+    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
     // Key
-    CharacterClass characterClass=description.getCharacterClass();
-    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_KEY_ATTR,XmlWriter.CDATA,characterClass.getKey());
+    String key=description.getKey();
+    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_KEY_ATTR,XmlWriter.CDATA,key);
+    // String name
+    String name=description.getName();
+    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_NAME_ATTR,XmlWriter.CDATA,name);
     // Icon ID
     int iconId=description.getIconId();
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
@@ -160,8 +168,8 @@ public class ClassDescriptionXMLWriter
     {
       AttributesImpl buffAttrs=new AttributesImpl();
       // Buff ID
-      String id=buff.getBuffId();
-      buffAttrs.addAttribute("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_ID_ATTR,XmlWriter.CDATA,id);
+      String buffID=buff.getBuffId();
+      buffAttrs.addAttribute("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_ID_ATTR,XmlWriter.CDATA,buffID);
       // Tier
       Integer tier=buff.getTier();
       if (tier!=null)

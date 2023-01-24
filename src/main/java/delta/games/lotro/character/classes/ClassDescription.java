@@ -7,15 +7,19 @@ import delta.games.lotro.character.classes.proficiencies.ClassProficiencies;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Class description.
  * @author DAM
  */
-public class ClassDescription
+public class ClassDescription implements Identifiable,Named
 {
-  private CharacterClass _class;
+  private int _id;
+  private int _code;
+  private String _key;
+  private String _name;
   private int _iconId;
   private int _smallIconId;
   private String _abbreviation;
@@ -30,11 +34,16 @@ public class ClassDescription
 
   /**
    * Constructor.
-   * @param characterClass Character class.
+   * @param id Identifier.
+   * @param code Internal lotro code.
+   * @param key Key Internal LC string identifier.
    */
-  public ClassDescription(CharacterClass characterClass)
+  public ClassDescription(int id, int code, String key)
   {
-    _class=characterClass;
+    _id=id;
+    _code=code;
+    _key=key;
+    _name="";
     _iconId=0;
     _smallIconId=0;
     _traits=new ArrayList<ClassTrait>();
@@ -44,13 +53,50 @@ public class ClassDescription
     _proficiencies=new ClassProficiencies();
   }
 
-  /**
-   * Get the described character class.
-   * @return a character class.
-   */
-  public CharacterClass getCharacterClass()
+  @Override
+  public int getIdentifier()
   {
-    return _class;
+    return _id;
+  }
+
+  /**
+   * Get the internal LOTRO code.
+   * @return a code.
+   */
+  public int getCode()
+  {
+    return _code;
+  }
+
+  /**
+   * Get the internal key.
+   * @return An internal key.
+   */
+  public String getKey()
+  {
+    return _key;
+  }
+
+  /**
+   * Get the class name.
+   * @return a name.
+   */
+  public String getName()
+  {
+    return _name;
+  }
+
+  /**
+   * Set the class name.
+   * @param name Name to set.
+   */
+  public void setName(String name)
+  {
+    if (name==null)
+    {
+      name="";
+    }
+    _name=name;
   }
 
   /**
@@ -250,5 +296,11 @@ public class ClassDescription
   public ClassProficiencies getProficiencies()
   {
     return _proficiencies;
+  }
+
+  @Override
+  public String toString()
+  {
+    return _name;
   }
 }

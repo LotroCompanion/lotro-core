@@ -1,7 +1,7 @@
 package delta.games.lotro.character;
 
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
 
 /**
@@ -97,7 +97,7 @@ public class CharacterDataSummary implements BasicCharacterAttributes
    * Get the character's class.
    * @return the character's class.
    */
-  public CharacterClass getCharacterClass()
+  public ClassDescription getCharacterClass()
   {
     return _summary!=null?_summary.getCharacterClass():null;
   }

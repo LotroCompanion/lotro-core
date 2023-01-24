@@ -12,7 +12,8 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.common.constraints.ClassAndSlot;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
@@ -185,7 +186,7 @@ public class NonImbuedLegaciesManager
    * @param characterClass Involved character class.
    * @param slot Involved slot.
    */
-  public void registerLegacyUsage(AbstractNonImbuedLegacy legacy, CharacterClass characterClass, EquipmentLocation slot)
+  public void registerLegacyUsage(AbstractNonImbuedLegacy legacy, ClassDescription characterClass, EquipmentLocation slot)
   {
     if (isAllowedCombinaison(characterClass,slot))
     {
@@ -194,18 +195,22 @@ public class NonImbuedLegaciesManager
     }
   }
 
-  private boolean isAllowedCombinaison(CharacterClass characterClass, EquipmentLocation slot)
+  private boolean isAllowedCombinaison(ClassDescription characterClass, EquipmentLocation slot)
   {
     if (slot==EquipmentLocation.RANGED_ITEM)
     {
-      if ((characterClass!=CharacterClass.HUNTER) && (characterClass!=CharacterClass.WARDEN))
+      String classKey=characterClass.getKey();
+      if ((!(WellKnownCharacterClassKeys.HUNTER.equals(classKey))) &&
+          (!(WellKnownCharacterClassKeys.WARDEN.equals(classKey))))
       {
         return false;
       }
     }
     if (slot==EquipmentLocation.CLASS_SLOT)
     {
-      if ((characterClass==CharacterClass.HUNTER) || (characterClass==CharacterClass.WARDEN))
+      String classKey=characterClass.getKey();
+      if ((!(WellKnownCharacterClassKeys.HUNTER.equals(classKey))) &&
+          (!(WellKnownCharacterClassKeys.WARDEN.equals(classKey))))
       {
         return false;
       }
@@ -219,7 +224,7 @@ public class NonImbuedLegaciesManager
    * @param slot Targeted slot.
    * @return a possibly empty but not <code>null</code> list of legacies.
    */
-  public List<TieredNonImbuedLegacy> getTieredLegacies(CharacterClass characterClass, EquipmentLocation slot)
+  public List<TieredNonImbuedLegacy> getTieredLegacies(ClassDescription characterClass, EquipmentLocation slot)
   {
     return filterLegacies(characterClass,slot,_tieredLegacies.values());
   }
@@ -230,12 +235,12 @@ public class NonImbuedLegaciesManager
    * @param slot Targeted slot.
    * @return a possibly empty but not <code>null</code> list of legacies.
    */
-  public List<DefaultNonImbuedLegacy> getDefaultLegacies(CharacterClass characterClass, EquipmentLocation slot)
+  public List<DefaultNonImbuedLegacy> getDefaultLegacies(ClassDescription characterClass, EquipmentLocation slot)
   {
     return filterLegacies(characterClass,slot,_defaultLegacies.values());
   }
 
-  private <T extends AbstractLegacy> List<T> filterLegacies(CharacterClass characterClass, EquipmentLocation slot, Collection<T> legacies)
+  private <T extends AbstractLegacy> List<T> filterLegacies(ClassDescription characterClass, EquipmentLocation slot, Collection<T> legacies)
   {
     List<T> ret=new ArrayList<T>();
     ClassAndSlot classAndSlot=new ClassAndSlot(characterClass,slot);

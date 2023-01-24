@@ -9,7 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.constraints.ClassAndSlot;
 import delta.games.lotro.config.DataFiles;
@@ -99,7 +99,7 @@ public class LegaciesManager
    * @param type Legacy type (<code>null</code> to skip this filter).
    * @return A possibly empty but not <code>null</code> list of legacies.
    */
-  public List<ImbuedLegacy> get(CharacterClass characterClass, EquipmentLocation slot, LegacyType type)
+  public List<ImbuedLegacy> get(ClassDescription characterClass, EquipmentLocation slot, LegacyType type)
   {
     List<ImbuedLegacy> ret=new ArrayList<ImbuedLegacy>();
     ClassAndSlot classAndSlot=new ClassAndSlot(characterClass,slot);

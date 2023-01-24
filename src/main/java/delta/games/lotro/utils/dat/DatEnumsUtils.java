@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.gear.GearSlot;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Misc enum utils.
@@ -13,34 +12,6 @@ import delta.games.lotro.common.CharacterClass;
 public class DatEnumsUtils
 {
   private static final String SLOT_PROPERTY_NAME_SEED="Inventory_SlotCache_Eq_";
-
-  /**
-   * Get a character class from a DAT enum code.
-   * @param id Input code.
-   * @return A character class or <code>null</code> if not supported.
-   */
-  public static CharacterClass getCharacterClassFromId(int id)
-  {
-    if (id==214) return CharacterClass.BEORNING;
-    if (id==40) return CharacterClass.BURGLAR;
-    if (id==215) return CharacterClass.BRAWLER;
-    if (id==24) return CharacterClass.CAPTAIN;
-    if (id==172) return CharacterClass.CHAMPION;
-    if (id==23) return CharacterClass.GUARDIAN;
-    if (id==162) return CharacterClass.HUNTER;
-    if (id==185) return CharacterClass.LORE_MASTER;
-    if (id==31) return CharacterClass.MINSTREL;
-    if (id==193) return CharacterClass.RUNE_KEEPER;
-    if (id==194) return CharacterClass.WARDEN;
-    // Monster Play
-    if (id==71) return CharacterClass.REAVER;
-    if (id==128) return CharacterClass.DEFILER;
-    if (id==127) return CharacterClass.WEAVER;
-    if (id==179) return CharacterClass.BLACKARROW;
-    if (id==52) return CharacterClass.WARLEADER;
-    if (id==126) return CharacterClass.STALKER;
-    return null;
-  }
 
   /**
    * Indicates if the given slot code is for an equipped item.

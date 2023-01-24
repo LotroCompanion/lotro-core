@@ -12,9 +12,9 @@ import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterReference;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.NationalityDescription;
 import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.id.InternalGameId;
 
@@ -116,7 +116,7 @@ public class CharacterSummaryXMLWriter
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_ACCOUNT_ATTR,XmlWriter.CDATA,accountName);
     }
     // Character class
-    CharacterClass characterClass=summary.getCharacterClass();
+    ClassDescription characterClass=summary.getCharacterClass();
     if (characterClass!=null)
     {
       String cClass=characterClass.getKey();
@@ -162,7 +162,7 @@ public class CharacterSummaryXMLWriter
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Character class
-    CharacterClass characterClass=characterReference.getCharacterClass();
+    ClassDescription characterClass=characterReference.getCharacterClass();
     if (characterClass!=null)
     {
       String cClass=characterClass.getKey();

@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatDescriptionIndexComparator;
 
@@ -22,13 +22,13 @@ public class StatsContributionsManager
   private List<StatsContribution> _contribs;
   private Map<StatDescription,ContribsByStat> _sortedContribs;
   private boolean _resolveIndirectContributions;
-  private CharacterClass _characterClass;
+  private ClassDescription _characterClass;
 
   /**
    * Constructor.
    * @param characterClass Character class to use.
    */
-  public StatsContributionsManager(CharacterClass characterClass)
+  public StatsContributionsManager(ClassDescription characterClass)
   {
     _contribs=new ArrayList<StatsContribution>();
     _resolveIndirectContributions=false;

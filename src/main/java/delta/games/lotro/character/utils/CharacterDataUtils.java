@@ -2,12 +2,10 @@ package delta.games.lotro.character.utils;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
 import delta.games.lotro.character.stats.buffs.BuffRegistry;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
-import delta.games.lotro.common.CharacterClass;
 
 /**
  * Utility methods related to character data.
@@ -21,8 +19,7 @@ public class CharacterDataUtils
    */
   public static void addDefaultBuffs(CharacterData data)
   {
-    CharacterClass characterClass=data.getCharacterClass();
-    ClassDescription classDescription=ClassesManager.getInstance().getClassDescription(characterClass);
+    ClassDescription classDescription=data.getCharacterClass();
     if (classDescription!=null)
     {
       BuffRegistry buffsRegistry=BuffRegistry.getInstance();

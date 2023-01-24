@@ -2,7 +2,8 @@ package delta.games.lotro.lore.items;
 
 import java.util.List;
 
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
@@ -19,7 +20,7 @@ public class MainShowLegacies
     EquipmentLocation[] slots= { EquipmentLocation.MAIN_HAND, EquipmentLocation.RANGED_ITEM,
         EquipmentLocation.CLASS_SLOT,EquipmentLocation.BRIDLE
     };
-    for(CharacterClass characterClass : CharacterClass.ALL_CLASSES)
+    for(ClassDescription characterClass : ClassesManager.getInstance().getAll())
     {
       for(EquipmentLocation slot : slots)
       {

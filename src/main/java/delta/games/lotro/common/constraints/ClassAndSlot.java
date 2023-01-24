@@ -2,7 +2,7 @@ package delta.games.lotro.common.constraints;
 
 import java.util.Objects;
 
-import delta.games.lotro.common.CharacterClass;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.lore.items.EquipmentLocation;
 
 /**
@@ -11,7 +11,7 @@ import delta.games.lotro.lore.items.EquipmentLocation;
  */
 public class ClassAndSlot
 {
-  private CharacterClass _characterClass;
+  private ClassDescription _characterClass;
   private EquipmentLocation _slot;
 
   /**
@@ -19,7 +19,7 @@ public class ClassAndSlot
    * @param characterClass Character class.
    * @param slot Slot.
    */
-  public ClassAndSlot(CharacterClass characterClass, EquipmentLocation slot)
+  public ClassAndSlot(ClassDescription characterClass, EquipmentLocation slot)
   {
     _characterClass=characterClass;
     _slot=slot;
@@ -29,7 +29,7 @@ public class ClassAndSlot
    * Get the character class.
    * @return the character class.
    */
-  public CharacterClass getCharacterClass()
+  public ClassDescription getCharacterClass()
   {
     return _characterClass;
   }

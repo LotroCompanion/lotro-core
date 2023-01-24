@@ -5,10 +5,10 @@ import java.util.List;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.status.traitPoints.io.xml.TraitPointsRegistryXMLParser;
 import delta.games.lotro.character.status.traitPoints.io.xml.TraitPointsStatusXMLParser;
 import delta.games.lotro.character.status.traitPoints.io.xml.TraitPointsStatusXMLWriter;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 
@@ -109,7 +109,7 @@ public final class TraitPoints
    * @param characterLevel Level of the character.
    * @return A points count.
    */
-  public int getMaxTraitPoints(CharacterClass characterClass, int characterLevel)
+  public int getMaxTraitPoints(ClassDescription characterClass, int characterLevel)
   {
     int fromLevel=TraitPointsStatus.getTraitPointsFromLevel(characterLevel);
     List<TraitPoint> points=_registry.getPointsForClass(characterClass);

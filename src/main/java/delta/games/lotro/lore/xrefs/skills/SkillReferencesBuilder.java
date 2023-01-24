@@ -9,7 +9,6 @@ import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
-import delta.games.lotro.common.CharacterClass;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
@@ -50,27 +49,21 @@ public class SkillReferencesBuilder
 
   private void findInClasses(int skillID)
   {
-    for(CharacterClass cClass : CharacterClass.ALL_CLASSES)
+    for(ClassDescription classDescription : ClassesManager.getInstance().getAll())
     {
-      findInClass(cClass, skillID);
+      findInClass(classDescription, skillID);
     }
   }
 
-  private void findInClass(CharacterClass cClass, int skillID)
+  private void findInClass(ClassDescription classDescription, int skillID)
   {
-    ClassesManager mgr=ClassesManager.getInstance();
-    ClassDescription classDescription=mgr.getClassDescription(cClass);
-    if (classDescription==null)
-    {
-      return;
-    }
     List<ClassSkill> classSkills=classDescription.getSkills();
     for(ClassSkill classSkill : classSkills)
     {
       SkillDescription skill=classSkill.getSkill();
       if (skill.getIdentifier()==skillID)
       {
-        _storage.add(new SkillReference<CharacterClass>(cClass,SkillRole.CLASS_SKILL));
+        _storage.add(new SkillReference<ClassDescription>(classDescription,SkillRole.CLASS_SKILL));
       }
     }
   }
