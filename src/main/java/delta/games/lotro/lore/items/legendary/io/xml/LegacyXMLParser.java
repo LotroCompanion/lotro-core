@@ -209,7 +209,7 @@ public class LegacyXMLParser
       String classKey=DOMParsingTools.getStringAttribute(filterAttrs,LegacyXMLConstants.FILTER_CHARACTER_CLASS_ATTR,null);
       if (classKey!=null)
       {
-        characterClass=ClassesManager.getInstance().getByKey(classKey);
+        characterClass=ClassesManager.getInstance().getCharacterClassByKey(classKey);
       }
       // Slot
       EquipmentLocation slot=null;

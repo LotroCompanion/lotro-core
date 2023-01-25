@@ -1,28 +1,28 @@
 package delta.games.lotro.lore.items.filters;
 
-import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.lore.items.Item;
 
 /**
- * Filter items that can be used by a character class.
+ * Filter items that can be used by a character/monster class.
  * @author DAM
  */
 public class ItemRequiredClassFilter implements ItemFilter
 {
   private boolean _enabled;
-  private ClassDescription _characterClass;
+  private AbstractClassDescription _class;
   private boolean _strict;
 
   /**
    * Constructor.
-   * @param characterClass Character class to use.
+   * @param clazz Class to use.
    * @param strict Allow only class items, or allow all non class restricted items.
    */
-  public ItemRequiredClassFilter(ClassDescription characterClass, boolean strict)
+  public ItemRequiredClassFilter(AbstractClassDescription clazz, boolean strict)
   {
-    _characterClass=characterClass;
+    _class=clazz;
     _strict=strict;
     _enabled=true;
   }
@@ -46,21 +46,21 @@ public class ItemRequiredClassFilter implements ItemFilter
   }
 
   /**
-   * Get the character class.
-   * @return A character class or <code>null</code>.
+   * Get the class.
+   * @return A class or <code>null</code>.
    */
-  public ClassDescription getCharacterClass()
+  public AbstractClassDescription getCharacterClass()
   {
-    return _characterClass;
+    return _class;
   }
 
   /**
-   * Set the character class to use.
-   * @param characterClass Character class (may be <code>null</code>).
+   * Set the class to use.
+   * @param clazz Class (may be <code>null</code>).
    */
-  public void setCharacterClass(ClassDescription characterClass)
+  public void setClass(AbstractClassDescription clazz)
   {
-    _characterClass=characterClass;
+    _class=clazz;
   }
 
   @Override
@@ -70,7 +70,7 @@ public class ItemRequiredClassFilter implements ItemFilter
     {
       return true;
     }
-    if (_characterClass==null)
+    if (_class==null)
     {
       return true;
     }
@@ -80,6 +80,6 @@ public class ItemRequiredClassFilter implements ItemFilter
     {
       return !_strict;
     }
-    return classRequirement.accept(_characterClass);
+    return classRequirement.accept(_class);
   }
 }

@@ -3,7 +3,7 @@ package delta.games.lotro.lore.xrefs.skills;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.skills.SkillDescription;
@@ -49,13 +49,13 @@ public class SkillReferencesBuilder
 
   private void findInClasses(int skillID)
   {
-    for(ClassDescription classDescription : ClassesManager.getInstance().getAll())
+    for(AbstractClassDescription classDescription : ClassesManager.getInstance().getAllClasses())
     {
       findInClass(classDescription, skillID);
     }
   }
 
-  private void findInClass(ClassDescription classDescription, int skillID)
+  private void findInClass(AbstractClassDescription classDescription, int skillID)
   {
     List<ClassSkill> classSkills=classDescription.getSkills();
     for(ClassSkill classSkill : classSkills)
@@ -63,7 +63,7 @@ public class SkillReferencesBuilder
       SkillDescription skill=classSkill.getSkill();
       if (skill.getIdentifier()==skillID)
       {
-        _storage.add(new SkillReference<ClassDescription>(classDescription,SkillRole.CLASS_SKILL));
+        _storage.add(new SkillReference<AbstractClassDescription>(classDescription,SkillRole.CLASS_SKILL));
       }
     }
   }

@@ -70,7 +70,7 @@ public class CharacterGeneratorGiswald
   public CharacterGeneratorGiswald(CharacterGenerationTools tools)
   {
     _tools=tools;
-    _champion=ClassesManager.getInstance().getByKey(WellKnownCharacterClassKeys.CHAMPION);
+    _champion=ClassesManager.getInstance().getCharacterClassByKey(WellKnownCharacterClassKeys.CHAMPION);
   }
 
   /**

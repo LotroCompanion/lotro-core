@@ -91,7 +91,7 @@ public class TraitTreeStatusXMLParser
       // Class
       String classKey=DOMParsingTools.getStringAttribute(attrs,TraitTreeSetupXMLConstants.TRAIT_TREE_SETUP_CLASS_ATTR,null);
       // Build trait tree setup
-      ClassDescription classDescription=ClassesManager.getInstance().getByKey(classKey);
+      ClassDescription classDescription=ClassesManager.getInstance().getCharacterClassByKey(classKey);
       if (classDescription!=null)
       {
         traitTree=classDescription.getTraitTree();

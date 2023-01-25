@@ -21,7 +21,7 @@ public class TestBaseStatsManager
   {
     BaseStatsManager mgr = new BaseStatsManager();
     RaceDescription elf=RacesManager.getInstance().getByKey("elf");
-    ClassDescription warden=ClassesManager.getInstance().getByKey(WellKnownCharacterClassKeys.WARDEN);
+    ClassDescription warden=ClassesManager.getInstance().getCharacterClassByKey(WellKnownCharacterClassKeys.WARDEN);
     BasicStatsSet set = mgr.getBaseStats(warden, elf, 1);
     DerivedStatsContributionsMgr derivatedMgr = new DerivedStatsContributionsMgr();
     BasicStatsSet derivedStats = derivatedMgr.getContribution(warden, set);

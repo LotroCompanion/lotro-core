@@ -20,7 +20,7 @@ public class MainShowLegacies
     EquipmentLocation[] slots= { EquipmentLocation.MAIN_HAND, EquipmentLocation.RANGED_ITEM,
         EquipmentLocation.CLASS_SLOT,EquipmentLocation.BRIDLE
     };
-    for(ClassDescription characterClass : ClassesManager.getInstance().getAll())
+    for(ClassDescription characterClass : ClassesManager.getInstance().getAllCharacterClasses())
     {
       for(EquipmentLocation slot : slots)
       {

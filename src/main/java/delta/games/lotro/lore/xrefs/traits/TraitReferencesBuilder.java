@@ -3,6 +3,7 @@ package delta.games.lotro.lore.xrefs.traits;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.ClassesManager;
@@ -83,13 +84,13 @@ public class TraitReferencesBuilder
 
   private void findInClasses(int traitID)
   {
-    for(ClassDescription classDescription : ClassesManager.getInstance().getAll())
+    for(AbstractClassDescription classDescription : ClassesManager.getInstance().getAllClasses())
     {
       findInClass(classDescription,traitID);
     }
   }
 
-  private void findInClass(ClassDescription classDescription, int traitID)
+  private void findInClass(AbstractClassDescription classDescription, int traitID)
   {
     // Regular traits
     List<ClassTrait> classTraits=classDescription.getTraits();
@@ -98,20 +99,24 @@ public class TraitReferencesBuilder
       TraitDescription trait=classTrait.getTrait();
       if (trait.getIdentifier()==traitID)
       {
-        _storage.add(new TraitReference<ClassDescription>(classDescription,TraitRole.CLASS_TRAIT));
+        _storage.add(new TraitReference<AbstractClassDescription>(classDescription,TraitRole.CLASS_TRAIT));
       }
     }
     // Traits tree
-    TraitTree tree=classDescription.getTraitTree();
-    if (tree==null)
+    if (classDescription instanceof ClassDescription)
     {
-      return;
-    }
-    for(TraitDescription trait : tree.getAllTraits())
-    {
-      if (trait.getIdentifier()==traitID)
+      ClassDescription characterClass=(ClassDescription)classDescription;
+      TraitTree tree=characterClass.getTraitTree();
+      if (tree==null)
       {
-        _storage.add(new TraitReference<ClassDescription>(classDescription,TraitRole.CLASS_TRAIT));
+        return;
+      }
+      for(TraitDescription trait : tree.getAllTraits())
+      {
+        if (trait.getIdentifier()==traitID)
+        {
+          _storage.add(new TraitReference<ClassDescription>(characterClass,TraitRole.CLASS_TRAIT));
+        }
       }
     }
   }

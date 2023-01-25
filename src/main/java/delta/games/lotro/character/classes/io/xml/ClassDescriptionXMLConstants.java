@@ -16,6 +16,10 @@ public class ClassDescriptionXMLConstants
    */
   public static final String CLASS_TAG="class";
   /**
+   * Tag 'monsterClass'.
+   */
+  public static final String MONSTER_CLASS_TAG="monsterClass";
+  /**
    * Tag 'class', attribute 'id'.
    */
   public static final String CLASS_ID_ATTR="id";

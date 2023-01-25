@@ -27,7 +27,7 @@ public class TestBaseStatsComputer
 
     BaseStatsManager mgr2 = new BaseStatsManager();
     RaceDescription man=RacesManager.getInstance().getByKey("man");
-    for(ClassDescription characterClass : ClassesManager.getInstance().getAll())
+    for(ClassDescription characterClass : ClassesManager.getInstance().getAllCharacterClasses())
     {
       BasicStatsSet set = mgr2.getBaseStats(characterClass, man, 9);
       System.out.println(set);

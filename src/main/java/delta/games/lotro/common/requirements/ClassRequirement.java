@@ -3,7 +3,7 @@ package delta.games.lotro.common.requirements;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassesManager;
 
 /**
@@ -13,21 +13,21 @@ import delta.games.lotro.character.classes.ClassesManager;
 public class ClassRequirement
 {
   private static final String SEPARATOR=";";
-  private List<ClassDescription> _allowedClasses;
+  private List<AbstractClassDescription> _allowedClasses;
 
   /**
    * Constructor.
    */
   public ClassRequirement()
   {
-    _allowedClasses=new ArrayList<ClassDescription>();
+    _allowedClasses=new ArrayList<AbstractClassDescription>();
   }
 
   /**
    * Add an allowed character class.
    * @param characterClass Character class to add.
    */
-  public void addAllowedClass(ClassDescription characterClass)
+  public void addAllowedClass(AbstractClassDescription characterClass)
   {
     if (!_allowedClasses.contains(characterClass))
     {
@@ -39,7 +39,7 @@ public class ClassRequirement
    * Get the allowed classes.
    * @return A possibly empty, but not <code>null</code> list of classes.
    */
-  public List<ClassDescription> getAllowedClasses()
+  public List<AbstractClassDescription> getAllowedClasses()
   {
     return _allowedClasses;
   }
@@ -57,7 +57,7 @@ public class ClassRequirement
    * @param characterClass Character class to test.
    * @return <code>true</code> if it does, <code>false</code> otherwise.
    */
-  public boolean accept(ClassDescription characterClass)
+  public boolean accept(AbstractClassDescription characterClass)
   {
     return _allowedClasses.contains(characterClass);
   }
@@ -69,7 +69,7 @@ public class ClassRequirement
   public String asString()
   {
     StringBuilder sb=new StringBuilder();
-    for(ClassDescription characterClass : _allowedClasses)
+    for(AbstractClassDescription characterClass : _allowedClasses)
     {
       if (sb.length()>0)
       {
@@ -95,10 +95,10 @@ public class ClassRequirement
       ClassesManager classesMgr=ClassesManager.getInstance();
       for(String classStr : classStrs)
       {
-        ClassDescription characterClass=classesMgr.getByKey(classStr);
-        if (characterClass!=null)
+        AbstractClassDescription abstractClass=classesMgr.getClassByKey(classStr);
+        if (abstractClass!=null)
         {
-          ret.addAllowedClass(characterClass);
+          ret.addAllowedClass(abstractClass);
         }
       }
     }

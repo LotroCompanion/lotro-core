@@ -26,7 +26,7 @@ public class TestSkillsFinder extends TestCase
     SkillCategoryFilter filter=new SkillCategoryFilter();
     filter.setCategory(102);
     BaseCharacterSummary summary=new BaseCharacterSummary();
-    ClassDescription champion=ClassesManager.getInstance().getByKey(WellKnownCharacterClassKeys.CHAMPION);
+    ClassDescription champion=ClassesManager.getInstance().getCharacterClassByKey(WellKnownCharacterClassKeys.CHAMPION);
     summary.setCharacterClass(champion);
     RaceDescription man=RacesManager.getInstance().getByKey("man");
     summary.setRace(man);

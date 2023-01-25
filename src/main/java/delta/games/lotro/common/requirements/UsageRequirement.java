@@ -2,6 +2,7 @@ package delta.games.lotro.common.requirements;
 
 import java.util.List;
 
+import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
 
@@ -96,7 +97,7 @@ public class UsageRequirement
    * Add an allowed class.
    * @param characterClass Class to add.
    */
-  public void addAllowedClass(ClassDescription characterClass)
+  public void addAllowedClass(AbstractClassDescription characterClass)
   {
     if (_classRequirement==null)
     {
@@ -120,11 +121,11 @@ public class UsageRequirement
    * Get the required class for this deed.
    * @return a character class or <code>null</code>.
    */
-  public ClassDescription getRequiredClass()
+  public AbstractClassDescription getRequiredClass()
   {
     if (_classRequirement!=null)
     {
-      List<ClassDescription> classes=_classRequirement.getAllowedClasses();
+      List<AbstractClassDescription> classes=_classRequirement.getAllowedClasses();
       if (classes.size()>0)
       {
         return classes.get(0);

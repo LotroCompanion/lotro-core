@@ -41,7 +41,7 @@ public class RaceReferencesBuilder
   {
     for(String classKey : race.getAllowedClasses())
     {
-      ClassDescription characterClass=ClassesManager.getInstance().getByKey(classKey);
+      ClassDescription characterClass=ClassesManager.getInstance().getCharacterClassByKey(classKey);
       _storage.add(new RaceReference<ClassDescription>(characterClass,RaceRole.CLASS_RACE));
     }
   }

@@ -47,7 +47,7 @@ public class CharacterGeneratorMeva
   public CharacterGeneratorMeva(CharacterGenerationTools tools)
   {
     _tools=tools;
-    _minstrel=ClassesManager.getInstance().getByKey(WellKnownCharacterClassKeys.MINSTREL);
+    _minstrel=ClassesManager.getInstance().getCharacterClassByKey(WellKnownCharacterClassKeys.MINSTREL);
   }
 
   /**

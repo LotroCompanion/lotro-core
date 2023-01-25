@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Identifiable;
@@ -542,7 +543,7 @@ public class Item implements Identifiable,Named,ItemProvider
    * Get the required class to use this item.
    * @return a character class or <code>null</code>.
    */
-  public ClassDescription getRequiredClass()
+  public AbstractClassDescription getRequiredClass()
   {
     return _requirements.getRequiredClass();
   }

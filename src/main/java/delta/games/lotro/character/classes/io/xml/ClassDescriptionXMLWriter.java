@@ -11,9 +11,11 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassTrait;
+import delta.games.lotro.character.classes.MonsterClassDescription;
 import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLWriter;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.skills.SkillDescription;
@@ -32,7 +34,7 @@ public class ClassDescriptionXMLWriter
    * @param descriptions Data to save.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public static boolean write(File toFile, final List<ClassDescription> descriptions)
+  public static boolean write(File toFile, final List<? extends AbstractClassDescription> descriptions)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -40,21 +42,37 @@ public class ClassDescriptionXMLWriter
       @Override
       public void writeXml(TransformerHandler hd) throws Exception
       {
-        hd.startElement("","",ClassDescriptionXMLConstants.CLASSES_TAG,new AttributesImpl());
-        for(ClassDescription description : descriptions)
-        {
-          writeClassDescription(hd,description);
-        }
-        hd.endElement("","",ClassDescriptionXMLConstants.CLASSES_TAG);
+        writeClassDescriptions(hd,descriptions);
       }
     };
     boolean ret=helper.write(toFile,EncodingNames.UTF_8,writer);
     return ret;
   }
 
-  private static void writeClassDescription(TransformerHandler hd, ClassDescription description) throws SAXException
+  private static void writeClassDescriptions(TransformerHandler hd, List<? extends AbstractClassDescription> descriptions) throws SAXException
   {
-    AttributesImpl attrs=new AttributesImpl();
+    hd.startElement("","",ClassDescriptionXMLConstants.CLASSES_TAG,new AttributesImpl());
+    for(AbstractClassDescription description : descriptions)
+    {
+      writeClassDescription(hd,description);
+    }
+    hd.endElement("","",ClassDescriptionXMLConstants.CLASSES_TAG);
+  }
+
+  private static void writeClassDescription(TransformerHandler hd, AbstractClassDescription description) throws SAXException
+  {
+    if (description instanceof ClassDescription)
+    {
+      writeCharacterClassDescription(hd,(ClassDescription)description);
+    }
+    else if (description instanceof MonsterClassDescription)
+    {
+      writeMonsterClassDescription(hd,(MonsterClassDescription)description);
+    }
+  }
+
+  private static void writeSharedAttributes(AttributesImpl attrs, AbstractClassDescription description)
+  {
     // Identifier
     int id=description.getIdentifier();
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
@@ -79,23 +97,10 @@ public class ClassDescriptionXMLWriter
     // Description
     String descriptionText=description.getDescription();
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_DESCRIPTION_ATTR,XmlWriter.CDATA,descriptionText);
-    // Tactical DPS stat name
-    String tacticalDpsStatName=description.getTacticalDpsStatName();
-    if (tacticalDpsStatName!=null)
-    {
-      attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TACTICAL_DPS_STAT_NAME_ATTR,XmlWriter.CDATA,tacticalDpsStatName);
-    }
-    // Trait tree
-    TraitTree tree=description.getTraitTree();
-    if (tree!=null)
-    {
-      int traitTreeID=tree.getIdentifier();
-      attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TREE_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitTreeID));
-    }
+  }
 
-    hd.startElement("","",ClassDescriptionXMLConstants.CLASS_TAG,attrs);
-    // Proficiencies
-    ClassProficienciesXMLWriter.writeClassProficiencies(hd,description.getProficiencies());
+  private static void writeTraits(TransformerHandler hd, AbstractClassDescription description) throws SAXException
+  {
     // Traits
     List<ClassTrait> traits=description.getTraits();
     for(ClassTrait trait : traits)
@@ -114,7 +119,10 @@ public class ClassDescriptionXMLWriter
       hd.startElement("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TAG,traitAttrs);
       hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TAG);
     }
-    // Skills
+  }
+
+  private static void writeSkills(TransformerHandler hd, AbstractClassDescription description) throws SAXException
+  {
     List<ClassSkill> skills=description.getSkills();
     for(ClassSkill classSkill : skills)
     {
@@ -132,6 +140,32 @@ public class ClassDescriptionXMLWriter
       hd.startElement("","",ClassDescriptionXMLConstants.CLASS_SKILL_TAG,skillAttrs);
       hd.endElement("","",ClassDescriptionXMLConstants.CLASS_SKILL_TAG);
     }
+  }
+
+  private static void writeCharacterClassDescription(TransformerHandler hd, ClassDescription description) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    writeSharedAttributes(attrs,description);
+    // Tactical DPS stat name
+    String tacticalDpsStatName=description.getTacticalDpsStatName();
+    if (tacticalDpsStatName!=null)
+    {
+      attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TACTICAL_DPS_STAT_NAME_ATTR,XmlWriter.CDATA,tacticalDpsStatName);
+    }
+    // Trait tree
+    TraitTree tree=description.getTraitTree();
+    if (tree!=null)
+    {
+      int traitTreeID=tree.getIdentifier();
+      attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TRAIT_TREE_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitTreeID));
+    }
+    hd.startElement("","",ClassDescriptionXMLConstants.CLASS_TAG,attrs);
+    // Proficiencies
+    ClassProficienciesXMLWriter.writeClassProficiencies(hd,description.getProficiencies());
+    // Traits
+    writeTraits(hd,description);
+    // Skills
+    writeSkills(hd,description);
     // Default buffs
     List<BuffSpecification> buffs=description.getDefaultBuffs();
     for(BuffSpecification buff : buffs)
@@ -150,5 +184,17 @@ public class ClassDescriptionXMLWriter
       hd.endElement("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_TAG);
     }
     hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TAG);
+  }
+
+  private static void writeMonsterClassDescription(TransformerHandler hd, MonsterClassDescription description) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    writeSharedAttributes(attrs,description);
+    hd.startElement("","",ClassDescriptionXMLConstants.MONSTER_CLASS_TAG,attrs);
+    // Traits
+    writeTraits(hd,description);
+    // Skills
+    writeSkills(hd,description);
+    hd.endElement("","",ClassDescriptionXMLConstants.MONSTER_CLASS_TAG);
   }
 }

@@ -43,7 +43,7 @@ public class DerivedStatsContributionsXMLParser
     {
       // Class
       String classKey=DOMParsingTools.getStringAttribute(classContribsTag.getAttributes(),DerivedStatsContributionsXMLConstants.CLASS_CONTRIBS_CLASS_ATTR,"");
-      ClassDescription characterClass=ClassesManager.getInstance().getByKey(classKey);
+      ClassDescription characterClass=ClassesManager.getInstance().getCharacterClassByKey(classKey);
       List<Element> statContribsTags=DOMParsingTools.getChildTagsByName(classContribsTag,DerivedStatsContributionsXMLConstants.STAT_CONTRIBS_TAG);
       for(Element statContribsTag : statContribsTags)
       {

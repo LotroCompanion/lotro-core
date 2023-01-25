@@ -61,6 +61,10 @@ public class DataFiles
    */
   public static final String CLASSES="classes";
   /**
+   * Monster classes file.
+   */
+  public static final String MONSTER_CLASSES="monsterClasses";
+  /**
    * Trait trees file.
    */
   public static final String TRAIT_TREES="traitTrees";

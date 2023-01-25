@@ -41,7 +41,7 @@ public class StartStatsXMLParser
     {
       // Class
       String classKey=DOMParsingTools.getStringAttribute(statsTag.getAttributes(),StartStatsXMLConstants.STATS_CLASS_ATTR,"");
-      ClassDescription characterClass=ClassesManager.getInstance().getByKey(classKey);
+      ClassDescription characterClass=ClassesManager.getInstance().getCharacterClassByKey(classKey);
       // Level
       int level=DOMParsingTools.getIntAttribute(statsTag.getAttributes(),StartStatsXMLConstants.STATS_LEVEL_ATTR,0);
       // Stats

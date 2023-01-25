@@ -130,7 +130,7 @@ public class CharacterSummaryXMLParser
     summary.setName(name);
     // Class
     String classKey=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_CLASS_ATTR,"");
-    ClassDescription characterClass=ClassesManager.getInstance().getByKey(classKey);
+    ClassDescription characterClass=ClassesManager.getInstance().getCharacterClassByKey(classKey);
     summary.setCharacterClass(characterClass);
     // Level
     int level=DOMParsingTools.getIntAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_LEVEL_ATTR,0);

@@ -80,7 +80,7 @@ public class TraitPointsRegistryXMLParser
         String[] requiredClasses=requiredClassesStr.split(",");
         for(String requiredClass : requiredClasses)
         {
-          ClassDescription characterClass=ClassesManager.getInstance().getByKey(requiredClass);
+          ClassDescription characterClass=ClassesManager.getInstance().getCharacterClassByKey(requiredClass);
           ret.addRequiredClass(characterClass);
         }
       }

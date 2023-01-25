@@ -91,7 +91,7 @@ public class MainTestLegendarySystem
       }
     }
 
-    ClassDescription characterClass=item.getRequiredClass();
+    ClassDescription characterClass=(ClassDescription)item.getRequiredClass();
     if (characterClass==null) return; // Skip bridles
     EquipmentLocation slot=item.getEquipmentLocation();
     ItemQuality quality=item.getQuality();
