@@ -139,7 +139,7 @@ public class RaceDescriptionXMLWriter
       String name=gender.getName();
       attrs.addAttribute("","",RaceDescriptionXMLConstants.GENDER_NAME_ATTR,XmlWriter.CDATA,name);
       // Large icon ID
-      int largeIconId=gender.getIconId();
+      int largeIconId=gender.getLargeIconId();
       attrs.addAttribute("","",RaceDescriptionXMLConstants.GENDER_LARGE_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(largeIconId));
       // Icon ID
       int iconId=gender.getIconId();
