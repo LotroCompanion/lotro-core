@@ -88,22 +88,6 @@ public class ClassDescriptionXMLConstants
    */
   public static final String CLASS_SKILL_NAME_ATTR="skillName";
   /**
-   * Tag 'initialGearElement'.
-   */
-  public static final String INITIAL_GEAR_ELEMENT_TAG="initialGearElement";
-  /**
-   * Tag 'initialGearElement', attribute 'itemId'.
-   */
-  public static final String GEAR_ITEM_ID_ATTR="itemId";
-  /**
-   * Tag 'initialGearElement', attribute 'itemName'.
-   */
-  public static final String GEAR_ITEM_NAME_ATTR="itemName";
-  /**
-   * Tag 'initialGearElement', attribute 'race'.
-   */
-  public static final String GEAR_REQUIRED_RACE_ATTR="race";
-  /**
    * Tag 'defaultBuff'.
    */
   public static final String DEFAULT_BUFF_TAG="defaultBuff";

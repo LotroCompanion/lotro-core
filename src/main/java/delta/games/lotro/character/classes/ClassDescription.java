@@ -28,14 +28,13 @@ public class ClassDescription implements Identifiable,Named
   private List<ClassTrait> _traits;
   private TraitTree _traitTree;
   private List<ClassSkill> _skills;
-  private InitialGearDefinition _initialGear;
   private List<BuffSpecification> _defaultBuffs;
   private ClassProficiencies _proficiencies;
 
   /**
    * Constructor.
    * @param id Identifier.
-   * @param code Internal lotro code.
+   * @param code Internal LOTRO code.
    * @param key Key Internal LC string identifier.
    */
   public ClassDescription(int id, int code, String key)
@@ -48,7 +47,6 @@ public class ClassDescription implements Identifiable,Named
     _smallIconId=0;
     _traits=new ArrayList<ClassTrait>();
     _skills=new ArrayList<ClassSkill>();
-    _initialGear=new InitialGearDefinition();
     _defaultBuffs=new ArrayList<BuffSpecification>();
     _proficiencies=new ClassProficiencies();
   }
@@ -260,15 +258,6 @@ public class ClassDescription implements Identifiable,Named
   public List<ClassSkill> getSkills()
   {
     return _skills;
-  }
-
-  /**
-   * Get the initial gear definition for this class.
-   * @return an definition of the initial gear.
-   */
-  public InitialGearDefinition getInitialGear()
-  {
-    return _initialGear;
   }
 
   /**

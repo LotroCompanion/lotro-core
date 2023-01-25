@@ -14,16 +14,11 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassTrait;
-import delta.games.lotro.character.classes.InitialGearDefinition;
-import delta.games.lotro.character.classes.InitialGearElement;
 import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLWriter;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
-import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Writes class descriptions to XML files.
@@ -136,31 +131,6 @@ public class ClassDescriptionXMLWriter
       skillAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_SKILL_NAME_ATTR,XmlWriter.CDATA,skillName);
       hd.startElement("","",ClassDescriptionXMLConstants.CLASS_SKILL_TAG,skillAttrs);
       hd.endElement("","",ClassDescriptionXMLConstants.CLASS_SKILL_TAG);
-    }
-    // Initial gear
-    InitialGearDefinition initialGear=description.getInitialGear();
-    List<InitialGearElement> elements=initialGear.getElements();
-    for(InitialGearElement element : elements)
-    {
-      AttributesImpl gearAttrs=new AttributesImpl();
-      // Item ID
-      int itemId=element.getItemId();
-      gearAttrs.addAttribute("","",ClassDescriptionXMLConstants.GEAR_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemId));
-      // Item name
-      Item item=ItemsManager.getInstance().getItem(itemId);
-      String itemName=(item!=null)?item.getName():null;
-      if (itemName!=null)
-      {
-        gearAttrs.addAttribute("","",ClassDescriptionXMLConstants.GEAR_ITEM_NAME_ATTR,XmlWriter.CDATA,itemName);
-      }
-      // Race
-      RaceDescription requiredRace=element.getRequiredRace();
-      if (requiredRace!=null)
-      {
-        gearAttrs.addAttribute("","",ClassDescriptionXMLConstants.GEAR_REQUIRED_RACE_ATTR,XmlWriter.CDATA,requiredRace.getKey());
-      }
-      hd.startElement("","",ClassDescriptionXMLConstants.INITIAL_GEAR_ELEMENT_TAG,gearAttrs);
-      hd.endElement("","",ClassDescriptionXMLConstants.INITIAL_GEAR_ELEMENT_TAG);
     }
     // Default buffs
     List<BuffSpecification> buffs=description.getDefaultBuffs();

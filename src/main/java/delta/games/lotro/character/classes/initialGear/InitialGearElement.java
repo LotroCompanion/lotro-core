@@ -1,6 +1,7 @@
-package delta.games.lotro.character.classes;
+package delta.games.lotro.character.classes.initialGear;
 
 import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Definition of a piece of the initial gear of a class.
@@ -8,7 +9,7 @@ import delta.games.lotro.character.races.RaceDescription;
  */
 public class InitialGearElement
 {
-  private int _itemId;
+  private Item _item;
   private RaceDescription _requiredRace;
 
   /**
@@ -16,26 +17,26 @@ public class InitialGearElement
    */
   public InitialGearElement()
   {
-    _itemId=0;
+    _item=null;
     _requiredRace=null;
   }
 
   /**
-   * Get the targeted item identifier.
-   * @return an item identifier.
+   * Get the targeted item.
+   * @return an item.
    */
-  public int getItemId()
+  public Item getItem()
   {
-    return _itemId;
+    return _item;
   }
 
   /**
-   * Set the item identifier.
-   * @param itemId Item identifier to set.
+   * Set the item.
+   * @param item Item to set.
    */
-  public void setItemId(int itemId)
+  public void setItem(Item item)
   {
-    _itemId=itemId;
+    _item=item;
   }
 
   /**

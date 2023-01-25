@@ -11,13 +11,9 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassTrait;
-import delta.games.lotro.character.classes.InitialGearDefinition;
-import delta.games.lotro.character.classes.InitialGearElement;
 import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLParser;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.classes.traitTree.TraitTreesManager;
-import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
@@ -119,26 +115,6 @@ public class ClassDescriptionXMLParser
       SkillDescription skill=SkillsManager.getInstance().getSkill(skillId);
       ClassSkill classSkill=new ClassSkill(minLevel,skill);
       description.addSkill(classSkill);
-    }
-    // Initial gear
-    InitialGearDefinition initialGear=description.getInitialGear();
-    List<Element> gearTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.INITIAL_GEAR_ELEMENT_TAG);
-    for(Element gearTag : gearTags)
-    {
-      NamedNodeMap gearAttrs=gearTag.getAttributes();
-      InitialGearElement element=new InitialGearElement();
-      // Item ID
-      int itemId=DOMParsingTools.getIntAttribute(gearAttrs,ClassDescriptionXMLConstants.GEAR_ITEM_ID_ATTR,0);
-      element.setItemId(itemId);
-      // Race
-      RaceDescription requiredRace=null;
-      String raceKey=DOMParsingTools.getStringAttribute(gearAttrs,ClassDescriptionXMLConstants.GEAR_REQUIRED_RACE_ATTR,null);
-      if (raceKey!=null)
-      {
-        requiredRace=RacesManager.getInstance().getByKey(raceKey);
-        element.setRequiredRace(requiredRace);
-      }
-      initialGear.addGearElement(element);
     }
     // Default buffs
     List<Element> buffTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.DEFAULT_BUFF_TAG);

@@ -65,6 +65,10 @@ public class DataFiles
    */
   public static final String TRAIT_TREES="traitTrees";
   /**
+   * Initial gear file.
+   */
+  public static final String INITIAL_GEAR="initialGear";
+  /**
    * Start stats file.
    */
   public static final String START_STATS="startStats";
