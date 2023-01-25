@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.common.comparators.NamedComparator;
 
 /**
  * Manager for character start stats.
@@ -26,6 +27,18 @@ public class StartStatsManager
   public StartStatsManager()
   {
     _startStatsByClass=new HashMap<ClassDescription,HashMap<Integer,BasicStatsSet>>();
+  }
+
+  /**
+   * Get the managed classes, sorted by name.
+   * @return A list of classes.
+   */
+  public List<ClassDescription> getClasses()
+  {
+    List<ClassDescription> ret=new ArrayList<ClassDescription>();
+    ret.addAll(_startStatsByClass.keySet());
+    Collections.sort(ret,new NamedComparator());
+    return ret;
   }
 
   /**

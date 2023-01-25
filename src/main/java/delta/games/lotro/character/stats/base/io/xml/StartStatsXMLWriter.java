@@ -11,7 +11,6 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.StartStatsManager;
 
@@ -36,7 +35,7 @@ public class StartStatsXMLWriter
       public void writeXml(TransformerHandler hd) throws Exception
       {
         hd.startElement("","",StartStatsXMLConstants.START_STATS_TAG,new AttributesImpl());
-        for(ClassDescription characterClass : ClassesManager.getInstance().getAll())
+        for(ClassDescription characterClass : statsManager.getClasses())
         {
           List<Integer> levels=statsManager.getLevels(characterClass);
           for(Integer level : levels)

@@ -11,7 +11,6 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr.ClassDerivedStats;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr.DerivedStatContribution;
@@ -39,7 +38,7 @@ public class DerivedStatsContributionsXMLWriter
       public void writeXml(TransformerHandler hd) throws Exception
       {
         hd.startElement("","",DerivedStatsContributionsXMLConstants.DERIVATED_STATS_CONTRIBUTIONS_TAG,new AttributesImpl());
-        for(ClassDescription characterClass : ClassesManager.getInstance().getAll())
+        for(ClassDescription characterClass : statsManager.getClasses())
         {
           AttributesImpl classAttrs=new AttributesImpl();
           classAttrs.addAttribute("","",DerivedStatsContributionsXMLConstants.CLASS_CONTRIBS_CLASS_ATTR,CDATA,characterClass.getKey());

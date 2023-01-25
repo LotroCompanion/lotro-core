@@ -11,6 +11,7 @@ import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.computer.StatsStorage;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatDescriptionComparator;
 import delta.games.lotro.utils.NumericUtils;
@@ -147,6 +148,18 @@ public final class DerivedStatsContributionsMgr
   public DerivedStatsContributionsMgr()
   {
     _allContribs=new HashMap<ClassDescription,ClassDerivedStats>();
+  }
+
+  /**
+   * Get the managed classes, sorted by name.
+   * @return A list of classes.
+   */
+  public List<ClassDescription> getClasses()
+  {
+    List<ClassDescription> ret=new ArrayList<ClassDescription>();
+    ret.addAll(_allContribs.keySet());
+    Collections.sort(ret,new NamedComparator());
+    return ret;
   }
 
   /**
