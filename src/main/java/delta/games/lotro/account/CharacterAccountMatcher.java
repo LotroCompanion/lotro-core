@@ -66,7 +66,7 @@ public class CharacterAccountMatcher
   }
 
   private Map<String,Entry> _entries;
-  private Map<String,List<Account>> _accountsByBillingName;
+  private Map<String,List<Account>> _accountsByName;
   private Map<String,Account> _accountsBySubscription;
 
   /**
@@ -75,7 +75,7 @@ public class CharacterAccountMatcher
   public CharacterAccountMatcher()
   {
     _entries=new HashMap<String,Entry>();
-    _accountsByBillingName=new HashMap<String,List<Account>>();
+    _accountsByName=new HashMap<String,List<Account>>();
     _accountsBySubscription=new HashMap<String,Account>();
   }
 
@@ -87,7 +87,7 @@ public class CharacterAccountMatcher
   public void setData(List<Account> accounts, List<CharacterFile> characters)
   {
     _entries.clear();
-    _accountsByBillingName.clear();
+    _accountsByName.clear();
     _accountsBySubscription.clear();
     loadAccounts(accounts);
     for(CharacterFile characterFile : characters)
@@ -102,11 +102,11 @@ public class CharacterAccountMatcher
     for(Account account : accounts)
     {
       String name=account.getAccountName();
-      List<Account> accountsWithName=_accountsByBillingName.get(name);
+      List<Account> accountsWithName=_accountsByName.get(name);
       if (accountsWithName==null)
       {
         accountsWithName=new ArrayList<Account>();
-        _accountsByBillingName.put(name,accountsWithName);
+        _accountsByName.put(name,accountsWithName);
       }
       accountsWithName.add(account);
       String subscription=account.getSubscriptionKey();
@@ -153,7 +153,7 @@ public class CharacterAccountMatcher
     String characterAccountName=characterAccountID.getAccountName();
     if (!characterAccountName.isEmpty())
     {
-      List<Account> accounts=_accountsByBillingName.get(characterAccountName);
+      List<Account> accounts=_accountsByName.get(characterAccountName);
       if (accounts!=null)
       {
         return accounts.get(0);

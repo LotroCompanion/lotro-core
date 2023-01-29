@@ -116,7 +116,7 @@ public class Account
 
   /**
    * Get the name of this account.
-   * @return a billing name.
+   * @return an account name.
    */
   public String getAccountName()
   {
