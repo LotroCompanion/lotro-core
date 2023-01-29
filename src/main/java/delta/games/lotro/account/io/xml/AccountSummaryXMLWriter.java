@@ -10,7 +10,6 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.account.AccountSummary;
 import delta.games.lotro.account.AccountType;
-import delta.games.lotro.common.id.InternalGameId;
 
 /**
  * Writes LOTRO account summaries to XML files.
@@ -51,18 +50,17 @@ public class AccountSummaryXMLWriter
    */
   public static void write(AttributesImpl accountAttrs, AccountSummary account) throws Exception
   {
-    // ID
-    InternalGameId accountID=account.getAccountID();
-    if (accountID!=null)
+    // Account name
+    String accountName=account.getName();
+    if (accountName.length()>0)
     {
-      String accountIDStr=accountID.asPersistedString();
-      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_ID_ATTR,XmlWriter.CDATA,accountIDStr);
+      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_NAME_ATTR,XmlWriter.CDATA,accountName);
     }
-    // Name
-    String name=account.getName();
-    if ((name!=null) && (name.length()>0))
+    // Subscription key
+    String subscriptionKey=account.getSubscriptionKey();
+    if (subscriptionKey.length()>0)
     {
-      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_NAME_ATTR,XmlWriter.CDATA,name);
+      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_SUBSCRIPTION_KEY_ATTR,XmlWriter.CDATA,subscriptionKey);
     }
     // Signup date
     Long signupDate=account.getSignupDate();

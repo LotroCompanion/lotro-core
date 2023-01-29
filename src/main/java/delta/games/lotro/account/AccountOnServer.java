@@ -3,6 +3,7 @@ package delta.games.lotro.account;
 import java.io.File;
 
 import delta.common.utils.misc.Preferences;
+import delta.games.lotro.common.id.InternalGameId;
 
 /**
  * Provides access to data related to an account on a server.
@@ -11,6 +12,7 @@ import delta.common.utils.misc.Preferences;
 public class AccountOnServer
 {
   private Account _account;
+  private InternalGameId _accountID;
   private String _serverName;
   private File _rootDir;
   private Preferences _preferences;
@@ -23,6 +25,7 @@ public class AccountOnServer
   public AccountOnServer(Account account, String serverName)
   {
     _account=account;
+    _accountID=null;
     _serverName=serverName;
     if (_serverName==null)
     {
@@ -52,6 +55,24 @@ public class AccountOnServer
   }
 
   /**
+   * Get the account identifier.
+   * @return an account identifier.
+   */
+  public InternalGameId getAccountID()
+  {
+    return _accountID;
+  }
+
+  /**
+   * Set the account identifier.
+   * @param accountID Account identifier to set.
+   */
+  public void setAccountID(InternalGameId accountID)
+  {
+    _accountID=accountID;
+  }
+
+  /**
    * Get the root directory of the account/server file storage. 
    * @return a root directory.
    */
@@ -72,7 +93,7 @@ public class AccountOnServer
   @Override
   public String toString()
   {
-    String accountName=(_account!=null)?_account.getName():"?";
+    String accountName=(_account!=null)?_account.getDisplayName():"?";
     return accountName+"@"+_serverName;
   }
 }

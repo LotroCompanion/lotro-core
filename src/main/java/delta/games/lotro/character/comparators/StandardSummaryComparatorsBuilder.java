@@ -24,7 +24,7 @@ public class StandardSummaryComparatorsBuilder
   public static <T extends BaseCharacterSummary> Comparator<T> buildAccountNameServerComparator()
   {
     List<Comparator<T>> comparators=new ArrayList<Comparator<T>>();
-    comparators.add(new CharacterAccountNameComparator<T>());
+    comparators.add(new CharacterAccountComparator<T>());
     comparators.add(new CharacterServerComparator<T>());
     comparators.add(new CharacterNameComparator<T>());
     CompoundComparator<T> ret=new CompoundComparator<T>(comparators);

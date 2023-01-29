@@ -3,9 +3,11 @@ package delta.games.lotro.account;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import delta.common.utils.files.FilesDeleter;
+import delta.common.utils.files.comparator.FileNameComparator;
 import delta.common.utils.files.filter.FileTypePredicate;
 import delta.games.lotro.data.UserDataManager;
 
@@ -33,16 +35,16 @@ public class AccountsStorageManager
 
   /**
    * Create a new account.
-   * @param accountName Account name.
+   * @param accountID Account ID.
    * @return A new account or <code>null</code> if a problem occurred.
    */
-  public Account newAccount(String accountName)
+  public Account newAccount(AccountReference accountID)
   {
     File newDir=getNewAccountDirectory();
     newDir.mkdirs();
     Account account=new Account(newDir);
     AccountSummary summary=account.getSummary();
-    summary.setName(accountName);
+    summary.setAccountID(accountID);
     boolean ok=account.saveSummary(summary);
     if (!ok)
     {
@@ -96,6 +98,8 @@ public class AccountsStorageManager
     File[] accountDirs=_accountsDir.listFiles(fileFilter);
     if (accountDirs!=null)
     {
+      // Sort files by name to always get accounts in the same order.
+      Arrays.sort(accountDirs,new FileNameComparator());
       for(File accountDir : accountDirs)
       {
         String dirName=accountDir.getName();

@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.account.AccountReference;
 import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterReference;
@@ -94,9 +95,13 @@ public class CharacterSummaryXMLParser
     // Server
     String server=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SERVER_ATTR,"");
     summary.setServer(server);
-    // Account name
-    String accountName=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ACCOUNT_ATTR,"");
-    summary.setAccountName(accountName);
+    // Account
+    // - name
+    String accountName=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ACCOUNT_NAME_ATTR,"");
+    // - subscription
+    String subscription=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SUBSCRIPTION_KEY_ATTR,"");
+    AccountReference id=new AccountReference(accountName,subscription);
+    summary.setAccountID(id);
     // Race
     String raceStr=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_RACE_ATTR,"");
     RaceDescription race=RacesManager.getInstance().getByPersistenceKey(raceStr);

@@ -33,6 +33,24 @@ public class Account
   }
 
   /**
+   * Get the account ID.
+   * @return an account ID.
+   */
+  public AccountReference getID()
+  {
+    return getSummary().getAccountID();
+  }
+  
+  /**
+   * Get a display name for this account.
+   * @return A display name.
+   */
+  public String getDisplayName()
+  {
+    return getSummary().getDisplayName();
+  }
+
+  /**
    * Get the account data for a server.
    * @param serverName Server name.
    * @return the manager for data on the given server for this account.
@@ -97,13 +115,21 @@ public class Account
   }
 
   /**
-   * Get the name of this acount.
-   * @return an account name.
+   * Get the name of this account.
+   * @return a billing name.
    */
-  public String getName()
+  public String getAccountName()
   {
-    AccountSummary summary=getSummary();
-    return (_summary!=null)?summary.getName():null;
+    return getSummary().getName();
+  }
+
+  /**
+   * Get the subscription key of this account.
+   * @return a subscription key.
+   */
+  public String getSubscriptionKey()
+  {
+    return getSummary().getSubscriptionKey();
   }
 
   /**
@@ -127,6 +153,6 @@ public class Account
   @Override
   public String toString()
   {
-    return getName();
+    return getDisplayName();
   }
 }

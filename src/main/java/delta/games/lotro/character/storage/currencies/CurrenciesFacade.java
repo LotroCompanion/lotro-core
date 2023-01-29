@@ -54,7 +54,7 @@ public class CurrenciesFacade
    * @param account Account to use.
    * @param serverName Server name.
    */
-  public CurrenciesFacade(Account account, String serverName)
+  private CurrenciesFacade(Account account, String serverName)
   {
     _accountServerMgr=new CurrenciesManager(account,serverName);
     _accountMgr=new CurrenciesManager(account);
@@ -103,9 +103,9 @@ public class CurrenciesFacade
     {
       if (_serverName!=null)
       {
-        return _account.getName()+"@"+_serverName;
+        return _account.getAccountName()+"@"+_serverName;
       }
-      return _account.getName();
+      return _account.getAccountName();
     }
     return "?";
   }

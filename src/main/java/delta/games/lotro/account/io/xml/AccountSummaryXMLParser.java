@@ -7,9 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.account.AccountReference;
 import delta.games.lotro.account.AccountSummary;
 import delta.games.lotro.account.AccountType;
-import delta.games.lotro.common.id.InternalGameId;
 
 /**
  * Parser for account summary stored in XML.
@@ -44,16 +44,12 @@ public class AccountSummaryXMLParser
   public static void parseAccount(Element root, AccountSummary summary)
   {
     NamedNodeMap attrs=root.getAttributes();
-    // ID
-    String accountIdStr=DOMParsingTools.getStringAttribute(attrs,AccountXMLConstants.ACCOUNT_ID_ATTR,null);
-    if (accountIdStr!=null)
-    {
-      InternalGameId accountId=InternalGameId.fromString(accountIdStr);
-      summary.setAccountID(accountId);
-    }
-    // Name
+    // Account name
     String name=DOMParsingTools.getStringAttribute(attrs,AccountXMLConstants.ACCOUNT_NAME_ATTR,"");
-    summary.setName(name);
+    // Subscription key
+    String subscriptionKey=DOMParsingTools.getStringAttribute(attrs,AccountXMLConstants.ACCOUNT_SUBSCRIPTION_KEY_ATTR,"");
+    AccountReference id=new AccountReference(name,subscriptionKey);
+    summary.setAccountID(id);
     // Signup date
     long signupDateValue=DOMParsingTools.getLongAttribute(attrs,AccountXMLConstants.ACCOUNT_SIGNUP_DATE_ATTR,0);
     Long signupDate=(signupDateValue!=0)?Long.valueOf(signupDateValue):null;

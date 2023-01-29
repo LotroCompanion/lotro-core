@@ -33,7 +33,7 @@ public class MainTestShowStorageStatistics
     List<StoredItem> items=StorageUtils.buildCharacterItems(toon,characterStorage);
     */
     String accountName="glorfindel666";
-    Account account=AccountsManager.getInstance().getAccountByName(accountName);
+    Account account=AccountsManager.getInstance().getAccountByAccountName(accountName);
     AccountOnServer accountOnServer=account.getServer(serverName);
     List<StoredItem> items=StorageUtils.buildAccountItems(accountOnServer);
 

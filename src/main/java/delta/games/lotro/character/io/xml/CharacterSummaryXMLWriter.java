@@ -8,6 +8,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.account.AccountReference;
 import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterDataSummary;
 import delta.games.lotro.character.CharacterReference;
@@ -110,10 +111,21 @@ public class CharacterSummaryXMLWriter
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SERVER_ATTR,XmlWriter.CDATA,server);
     }
     // Account
-    String accountName=summary.getAccountName();
-    if (accountName.length()>0)
+    // - name
+    AccountReference accountID=summary.getAccountID();
+    if (accountID!=null)
     {
-      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_ACCOUNT_ATTR,XmlWriter.CDATA,accountName);
+      String accountName=accountID.getAccountName();
+      if (accountName.length()>0)
+      {
+        attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_ACCOUNT_NAME_ATTR,XmlWriter.CDATA,accountName);
+      }
+      // - subscription key
+      String subscriptionKey=accountID.getSubscriptionKey();
+      if (subscriptionKey.length()>0)
+      {
+        attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SUBSCRIPTION_KEY_ATTR,XmlWriter.CDATA,subscriptionKey);
+      }
     }
     // Character class
     ClassDescription characterClass=summary.getCharacterClass();

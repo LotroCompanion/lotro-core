@@ -1,15 +1,12 @@
 package delta.games.lotro.account;
 
-import delta.games.lotro.common.id.InternalGameId;
-
 /**
  * Storage class for a LOTRO account summary.
  * @author DAM
  */
 public class AccountSummary
 {
-  private InternalGameId _accountID;
-  private String _accountName;
+  private AccountReference _id;
   private Long _signupDate;
   private AccountType _accountType;
 
@@ -18,48 +15,54 @@ public class AccountSummary
    */
   public AccountSummary()
   {
-    _accountID=null;
-    _accountName="";
+    _id=new AccountReference();
+    _signupDate=null;
+    _accountType=null;
   }
 
   /**
-   * Get the account identifier.
-   * @return an account identifier.
+   * Get the account ID.
+   * @return the account ID.
    */
-  public InternalGameId getAccountID()
+  public AccountReference getAccountID()
   {
-    return _accountID;
+    return _id;
   }
 
   /**
-   * Set the account identifier.
-   * @param accountID Account identifier to set.
+   * Set the account ID.
+   * @param id ID to set.
    */
-  public void setAccountID(InternalGameId accountID)
+  public void setAccountID(AccountReference id)
   {
-    _accountID=accountID;
+    _id=id;
   }
 
   /**
-   * Get the account's name.
-   * @return the account's name.
+   * Get a display name for this account.
+   * @return A display name.
+   */
+  public String getDisplayName()
+  {
+    return _id.getDisplayName();
+  }
+
+  /**
+   * Get the account name.
+   * @return the account name.
    */
   public String getName()
   {
-    return _accountName;
+    return _id.getAccountName();
   }
 
   /**
-   * Set the account's name.
-   * @param name the name to set.
+   * Get the subscription key.
+   * @return a key or an empty string.
    */
-  public void setName(String name)
+  public String getSubscriptionKey()
   {
-    if (name==null)
-    {
-      name="";
-    }
-    _accountName=name;
+    return _id.getSubscriptionKey();
   }
 
   /**
@@ -102,8 +105,7 @@ public class AccountSummary
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("ID [").append(_accountID).append("], ");
-    sb.append("Name [").append(_accountName).append("], ");
+    sb.append("Account [").append(_id).append("], ");
     sb.append("Signup date [").append(_signupDate).append("], ");
     sb.append("Account type [").append(_accountType).append(']');
     return sb.toString();

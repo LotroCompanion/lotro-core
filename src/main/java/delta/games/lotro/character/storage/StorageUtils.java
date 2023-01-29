@@ -101,7 +101,7 @@ public class StorageUtils
     List<StoredItem> items=new ArrayList<StoredItem>();
 
     Account account=accountOnServer.getAccount();
-    String accountName=account.getName();
+    String accountName=account.getAccountName();
     String serverName=accountOnServer.getServerName();
     AccountOwner accountOwner=new AccountOwner(accountName);
     AccountServerOwner accountServer=new AccountServerOwner(accountOwner,serverName);

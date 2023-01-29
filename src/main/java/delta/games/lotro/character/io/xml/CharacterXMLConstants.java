@@ -42,7 +42,11 @@ public class CharacterXMLConstants
   /**
    * Tag 'character', attribute 'account'.
    */
-  public static final String CHARACTER_ACCOUNT_ATTR="account";
+  public static final String CHARACTER_ACCOUNT_NAME_ATTR="account";
+  /**
+   * Tag 'character', attribute 'subscription'.
+   */
+  public static final String CHARACTER_SUBSCRIPTION_KEY_ATTR="subscription";
   /**
    * Tag 'character', attribute 'class'.
    */

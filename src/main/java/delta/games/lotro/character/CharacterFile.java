@@ -5,6 +5,7 @@ import java.util.Date;
 
 import delta.common.utils.misc.Preferences;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.account.AccountReference;
 import delta.games.lotro.character.details.CharacterDetails;
 import delta.games.lotro.character.details.io.xml.CharacterDetailsXMLParser;
 import delta.games.lotro.character.details.io.xml.CharacterDetailsXMLWriter;
@@ -222,10 +223,24 @@ public class CharacterFile
    * Get the account name of the character file.
    * @return an account name.
    */
-  public String getAccountName()
+  public AccountReference getAccountID()
   {
     CharacterSummary summary=getSummary();
-    return (_summary!=null)?summary.getAccountName():"";
+    return (_summary!=null)?summary.getAccountID():null;
+  }
+
+  /**
+   * Get an account name.
+   * @return An account name (empty string if none).
+   */
+  public String getAccountName()
+  {
+    AccountReference id=getAccountID();
+    if (id!=null)
+    {
+      return id.getAccountName();
+    }
+    return "";
   }
 
   /**

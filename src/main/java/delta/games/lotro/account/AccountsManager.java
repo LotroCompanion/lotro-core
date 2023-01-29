@@ -49,16 +49,86 @@ public final class AccountsManager
   }
 
   /**
+   * Get an account using external identifiers.
+   * @param accountName Account name.
+   * @param subscriptionKey Subscription key.
+   * @return An account or <code>null</code> if not found.
+   */
+  public Account getAccount(String accountName, String subscriptionKey)
+  {
+    for(Account account : _accounts)
+    {
+      String currentAccountName=account.getAccountName();
+      if (Objects.equals(currentAccountName,accountName))
+      {
+        String currentSubscriptionKey=account.getSubscriptionKey();
+        if (Objects.equals(currentSubscriptionKey,subscriptionKey))
+        {
+          return account;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Get an account using its ID.
+   * @param id External ID to search.
+   * @return An account or <code>null</code> if not found.
+   */
+  public Account getAccountByID(AccountReference id)
+  {
+    if (id==null)
+    {
+      return null;
+    }
+    Account ret=null;
+    String subscriptionKey=id.getSubscriptionKey();
+    if (subscriptionKey.length()>0)
+    {
+      ret=getAccountBySubscriptionKey(subscriptionKey);
+    }
+    if (ret!=null)
+    {
+      return ret;
+    }
+    String accountName=id.getAccountName();
+    if (accountName.length()>0)
+    {
+      ret=getAccountByAccountName(accountName);
+    }
+    return ret;
+  }
+
+  /**
+   * Get an account by subscription key.
+   * @param subscriptionKey Subscription key.
+   * @return An account or <code>null</code> if not found.
+   */
+  public Account getAccountBySubscriptionKey(String subscriptionKey)
+  {
+    for(Account account : _accounts)
+    {
+      String currentSubscriptionKey=account.getSubscriptionKey();
+      if (Objects.equals(currentSubscriptionKey,subscriptionKey))
+      {
+        return account;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get an account by name.
    * @param accountName Account name.
    * @return An account or <code>null</code> if not found.
    */
-  public Account getAccountByName(String accountName)
+  public Account getAccountByAccountName(String accountName)
   {
     for(Account account : _accounts)
     {
-      String name=account.getName();
-      if (Objects.equals(name,accountName))
+      String currentAccountName=account.getAccountName();
+      if (Objects.equals(currentAccountName,accountName))
       {
         return account;
       }
@@ -68,12 +138,12 @@ public final class AccountsManager
 
   /**
    * Add a new account.
-   * @param accountName Account name.
+   * @param accountID Account ID.
    * @return An account or <code>null</code> if an error occurs.
    */
-  public Account addAccount(String accountName)
+  public Account addAccount(AccountReference accountID)
   {
-    Account account=_storage.newAccount(accountName);
+    Account account=_storage.newAccount(accountID);
     if (account!=null)
     {
       _accounts.add(account);

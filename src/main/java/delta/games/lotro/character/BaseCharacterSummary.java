@@ -1,5 +1,6 @@
 package delta.games.lotro.character;
 
+import delta.games.lotro.account.AccountReference;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.CharacterSex;
 
@@ -10,7 +11,7 @@ import delta.games.lotro.common.CharacterSex;
 public class BaseCharacterSummary extends CharacterReference implements BasicCharacterAttributes
 {
   private String _server;
-  private String _accountName;
+  private AccountReference _accountID;
   private CharacterSex _sex;
   private RaceDescription _race;
 
@@ -21,7 +22,7 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
   {
     super();
     _server="";
-    _accountName="";
+    _accountID=null;
     _race=null;
   }
 
@@ -33,7 +34,7 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
   {
     super(source);
     _server=source._server;
-    _accountName=source._accountName;
+    _accountID=source._accountID;
     _sex=source._sex;
     _race=source._race;
   }
@@ -61,25 +62,21 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
   }
 
   /**
-   * Get the character's account.
-   * @return the character's account.
+   * Get the account ID of this character.
+   * @return an account ID.
    */
-  public String getAccountName()
+  public AccountReference getAccountID()
   {
-    return _accountName;
+    return _accountID;
   }
 
   /**
    * Set the character's account.
-   * @param accountName the account name to set. 
+   * @param accountID external ID of the account. 
    */
-  public void setAccountName(String accountName)
+  public void setAccountID(AccountReference accountID)
   {
-    if (accountName==null)
-    {
-      accountName="";
-    }
-    _accountName=accountName;
+    _accountID=accountID;
   }
 
   /**
@@ -124,7 +121,7 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
     StringBuilder sb=new StringBuilder();
     sb.append(super.toString());
     sb.append("Server [").append(_server).append("], ");
-    sb.append("Account [").append(_accountName).append("], ");
+    sb.append("Account [").append(_accountID).append("], ");
     sb.append("Race [").append(_race).append("], ");
     sb.append("Sex [").append(_sex).append("], ");
     sb.append("Race [").append(_race).append("], ");

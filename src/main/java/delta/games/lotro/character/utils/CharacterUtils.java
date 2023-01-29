@@ -1,6 +1,7 @@
 package delta.games.lotro.character.utils;
 
 import delta.games.lotro.account.Account;
+import delta.games.lotro.account.AccountReference;
 import delta.games.lotro.account.AccountsManager;
 import delta.games.lotro.character.CharacterFile;
 
@@ -22,11 +23,11 @@ public class CharacterUtils
       return null;
     }
     Account account=null;
-    String accountName=character.getAccountName();
-    if (accountName.length()>0)
+    AccountReference accountID=character.getAccountID();
+    if (accountID!=null)
     {
       AccountsManager accountsMgr=AccountsManager.getInstance();
-      account=accountsMgr.getAccountByName(accountName);
+      account=accountsMgr.getAccountByID(accountID);
     }
     return account;
   }
