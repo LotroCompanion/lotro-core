@@ -52,10 +52,10 @@ public class RawBuffStorage
    * @param id Buff identifier.
    * @param tier Buff tier.
    */
-  public void add(String id, int tier)
+  public void add(String id, Integer tier)
   {
     _buffIDs.add(id);
-    _tiers.add(Integer.valueOf(tier));
+    _tiers.add(tier);
   }
 
   /**
@@ -73,9 +73,9 @@ public class RawBuffStorage
    * @param index Index of buff.
    * @return A buff tier.
    */
-  public int getTier(int index)
+  public Integer getTier(int index)
   {
-    return _tiers.get(index).intValue();
+    return _tiers.get(index);
   }
 
   private int findBuffIndex(String buffID)

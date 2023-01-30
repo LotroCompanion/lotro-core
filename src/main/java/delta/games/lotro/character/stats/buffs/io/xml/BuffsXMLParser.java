@@ -28,7 +28,8 @@ public class BuffsXMLParser
       {
         NamedNodeMap attrs=buffTag.getAttributes();
         String id=DOMParsingTools.getStringAttribute(attrs,BuffsXMLConstants.BUFF_ID_ATTR,"");
-        int tier=DOMParsingTools.getIntAttribute(attrs,BuffsXMLConstants.BUFF_TIER_ATTR,1);
+        int tierValue=DOMParsingTools.getIntAttribute(attrs,BuffsXMLConstants.BUFF_TIER_ATTR,-1);
+        Integer tier=(tierValue>=0)?Integer.valueOf(tierValue):null;
         ret.add(id,tier);
       }
     }

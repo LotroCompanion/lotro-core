@@ -51,8 +51,9 @@ public class BuffsManagerToTraitTreeStatus
         boolean known=status.isKnownCell(trait.getIdentifier());
         if (known)
         {
-          int newRank=buffs.getTier(i);
-          status.setRankForTrait(trait.getIdentifier(),newRank);
+          Integer newRank=buffs.getTier(i);
+          int newRankValue=(newRank!=null)?newRank.intValue():0;
+          status.setRankForTrait(trait.getIdentifier(),newRankValue);
         }
       }
     }

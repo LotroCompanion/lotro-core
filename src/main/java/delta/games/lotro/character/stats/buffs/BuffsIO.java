@@ -33,7 +33,6 @@ public class BuffsIO
     TraitTreeStatus traitTreeStatus=c.getTraits().getTraitTreeStatus();
     if (traitTreeStatus==null)
     {
-      System.out.println("File: "+c.getFile());
       TraitTreeStatus traitTree=BuffsManagerToTraitTreeStatus.initFromBuffs(c.getCharacterClass(),buffs);
       c.getTraits().setTraitTreeStatus(traitTree);
     }
@@ -48,14 +47,11 @@ public class BuffsIO
     for(int i=0;i<nbBuffs;i++)
     {
       String buffID=rawBuffs.getBuffID(i);
-      int tier=rawBuffs.getTier(i);
+      Integer tier=rawBuffs.getTier(i);
       BuffInstance buffInstance=registry.newBuffInstance(buffID);
       if (buffInstance!=null)
       {
-        if (tier>0)
-        {
-          buffInstance.setTier(Integer.valueOf(tier));
-        }
+        buffInstance.setTier(tier);
         buffs.addBuff(buffInstance);
       }
       else
