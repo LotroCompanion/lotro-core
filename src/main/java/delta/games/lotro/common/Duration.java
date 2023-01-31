@@ -33,6 +33,15 @@ public class Duration
    */
   public static final int YEAR=MONTH*12;
 
+  private static final int SHOW_SECONDS=1<<0;
+  private static final int SHOW_MINUTES=1<<1;
+  private static final int SHOW_HOURS=1<<2;
+  private static final int SHOW_DAYS=1<<3;
+  private static final int SHOW_WEEKS=1<<5;
+  private static final int SHOW_MONTHS=1<<6;
+  private static final int SHOW_YEARS=1<<7;
+  private static final int SHOW_ALL=SHOW_YEARS+SHOW_MONTHS+SHOW_DAYS+SHOW_HOURS+SHOW_MINUTES+SHOW_SECONDS;
+
   /**
    * Get a duration string from a duration input.
    * @param duration Duration in seconds.
@@ -40,53 +49,79 @@ public class Duration
    */
   public static String getDurationString(int duration)
   {
+    return getDurationString(duration,SHOW_ALL);
+  }
+
+  private static String getDurationString(int duration, int showFlags)
+  {
     StringBuilder sb=new StringBuilder();
     // Years
-    int years=duration/YEAR;
-    if (years>0)
+    if ((showFlags&SHOW_YEARS)!=0)
     {
-      sb.append(years).append('y');
+      int years=duration/YEAR;
+      if (years>0)
+      {
+        sb.append(years).append('y');
+      }
+      duration=duration%YEAR;
     }
-    duration=duration%YEAR;
     // Months
-    int months=duration/MONTH;
-    if (months>0)
+    if ((showFlags&SHOW_MONTHS)!=0)
     {
-      sb.append(months).append('m');
+      int months=duration/MONTH;
+      if (months>0)
+      {
+        sb.append(months).append('m');
+      }
+      duration=duration%MONTH;
     }
-    duration=duration%MONTH;
     // Weeks
-    int weeks=duration/WEEK;
-    if (weeks>0)
+    if ((showFlags&SHOW_WEEKS)!=0)
     {
-      sb.append(weeks).append('w');
+      int weeks=duration/WEEK;
+      if (weeks>0)
+      {
+        sb.append(weeks).append('w');
+      }
+      duration=duration%WEEK;
     }
-    duration=duration%WEEK;
     // Days
-    int days=duration/DAY;
-    if (days>0)
+    if ((showFlags&SHOW_DAYS)!=0)
     {
-      sb.append(days).append('d');
+      int days=duration/DAY;
+      if (days>0)
+      {
+        sb.append(days).append('d');
+      }
+      duration=duration%DAY;
     }
-    duration=duration%DAY;
     // Hours
-    int hours=duration/HOUR;
-    if (hours>0)
+    if ((showFlags&SHOW_HOURS)!=0)
     {
-      sb.append(hours).append('h');
+      int hours=duration/HOUR;
+      if (hours>0)
+      {
+        sb.append(hours).append('h');
+      }
+      duration=duration%HOUR;
     }
-    duration=duration%HOUR;
     // Minutes
-    int minutes=duration/MINUTE;
-    if (minutes>0)
+    if ((showFlags&SHOW_MINUTES)!=0)
     {
-      sb.append(minutes).append('m');
+      int minutes=duration/MINUTE;
+      if (minutes>0)
+      {
+        sb.append(minutes).append('m');
+      }
     }
     // Seconds
-    int seconds=duration%MINUTE;
-    if (seconds>0)
+    if ((showFlags&SHOW_SECONDS)!=0)
     {
-      sb.append(seconds).append('s');
+      int seconds=duration%MINUTE;
+      if (seconds>0)
+      {
+        sb.append(seconds).append('s');
+      }
     }
     return sb.toString();
   }
@@ -135,5 +170,36 @@ public class Duration
       if (seconds==-1) return null;
     }
     return Integer.valueOf(days*DAY+hours*HOUR+minutes*MINUTE+seconds);
+  }
+
+  /**
+   * Get a smart display for durations.
+   * @param duration Duration in seconds.
+   * @return A duration string.
+   */
+  public static String getSmartDurationString(int duration)
+  {
+    if (duration<HOUR)
+    {
+      // Display minutes and seconds
+      return getDurationString(duration,SHOW_MINUTES|SHOW_SECONDS);
+    }
+    else if (duration<DAY)
+    {
+      // Display hours and minutes
+      return getDurationString(duration,SHOW_HOURS|SHOW_MINUTES);
+    }
+    else if (duration<MONTH)
+    {
+      // Display days and hours
+      return getDurationString(duration,SHOW_DAYS|SHOW_HOURS);
+    }
+    else if (duration<YEAR)
+    {
+      // Display months and days
+      return getDurationString(duration,SHOW_MONTHS|SHOW_DAYS);
+    }
+    // Display years and months
+    return getDurationString(duration,SHOW_YEARS|SHOW_MONTHS);
   }
 }
