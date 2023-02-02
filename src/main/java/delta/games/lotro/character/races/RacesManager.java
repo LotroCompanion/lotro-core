@@ -65,7 +65,7 @@ public class RacesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File racesFile=cfg.getFile(DataFiles.RACES);
     long now=System.currentTimeMillis();
-    List<RaceDescription> raceDescriptions=RaceDescriptionXMLParser.parseRaceDescriptionsFile(racesFile);
+    List<RaceDescription> raceDescriptions=new RaceDescriptionXMLParser().parseRaceDescriptionsFile(racesFile);
     for(RaceDescription raceDescription : raceDescriptions)
     {
       // ID

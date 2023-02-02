@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.races.NationalitiesManager;
 import delta.games.lotro.character.races.NationalityDescription;
@@ -15,6 +16,7 @@ import delta.games.lotro.character.races.RaceGender;
 import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for race descriptions stored in XML.
@@ -22,12 +24,22 @@ import delta.games.lotro.character.traits.TraitsManager;
  */
 public class RaceDescriptionXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public RaceDescriptionXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("races");
+  }
+
   /**
    * Parse a race descriptions XML file.
    * @param source Source file.
    * @return List of parsed race descriptions.
    */
-  public static List<RaceDescription> parseRaceDescriptionsFile(File source)
+  public List<RaceDescription> parseRaceDescriptionsFile(File source)
   {
     List<RaceDescription> descriptions=new ArrayList<RaceDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -48,7 +60,7 @@ public class RaceDescriptionXMLParser
    * @param root Root XML tag.
    * @return A race description.
    */
-  private static RaceDescription parseRaceDescription(Element root)
+  private RaceDescription parseRaceDescription(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // ID
@@ -62,12 +74,14 @@ public class RaceDescriptionXMLParser
     RaceDescription raceDescription=new RaceDescription(id,code,key,legacyLabel);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_NAME_ATTR,"");
+    name=_i18n.getLabel(name);
     raceDescription.setName(name);
     // Tall
     boolean tall=DOMParsingTools.getBooleanAttribute(attrs,RaceDescriptionXMLConstants.RACE_TALL_ATTR,false);
     raceDescription.setTall(tall);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_DESCRIPTION_ATTR,"");
+    description=_i18n.getLabel(description);
     raceDescription.setDescription(description);
     // Genders
     List<Element> genderTags=DOMParsingTools.getChildTagsByName(root,RaceDescriptionXMLConstants.GENDER_TAG);
@@ -132,12 +146,13 @@ public class RaceDescriptionXMLParser
    * @param root Root XML tag.
    * @return A gender.
    */
-  private static RaceGender parseGenderDescription(Element root)
+  private RaceGender parseGenderDescription(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     RaceGender gender=new RaceGender();
     // Name
     String genderName=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.GENDER_NAME_ATTR,"");
+    genderName=_i18n.getLabel(genderName);
     gender.setName(genderName);
     // Large icon ID
     int largeIconId=DOMParsingTools.getIntAttribute(attrs,RaceDescriptionXMLConstants.GENDER_LARGE_ICON_ID_ATTR,0);
