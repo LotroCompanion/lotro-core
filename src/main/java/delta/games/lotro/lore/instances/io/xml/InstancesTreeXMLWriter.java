@@ -57,7 +57,11 @@ public class InstancesTreeXMLWriter
   private void writeInstancesTree(TransformerHandler hd, InstancesTree data) throws Exception
   {
     hd.startElement("","",InstancesTreeXMLConstants.INSTANCES_TREE_TAG,new AttributesImpl());
-    writeCategory(hd,data.getRoot());
+    for(String categoryName : data.getCategorieNames())
+    {
+      InstanceCategory category=data.getCategory(categoryName);
+      writeCategory(hd,category);
+    }
     hd.endElement("","",InstancesTreeXMLConstants.INSTANCES_TREE_TAG);
   }
 
@@ -80,11 +84,6 @@ public class InstancesTreeXMLWriter
       instanceAttrs.addAttribute("","",InstancesTreeXMLConstants.INSTANCE_NAME_ATTR,XmlWriter.CDATA,instanceName);
       hd.startElement("","",InstancesTreeXMLConstants.INSTANCE_TAG,instanceAttrs);
       hd.endElement("","",InstancesTreeXMLConstants.INSTANCE_TAG);
-    }
-    // Child categories
-    for(InstanceCategory childCategory : category.getChildCategories())
-    {
-      writeCategory(hd,childCategory);
     }
     hd.endElement("","",InstancesTreeXMLConstants.CATEGORY_TAG);
   }

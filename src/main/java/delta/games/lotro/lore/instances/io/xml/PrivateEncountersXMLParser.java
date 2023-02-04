@@ -11,6 +11,8 @@ import delta.games.lotro.common.enums.Difficulty;
 import delta.games.lotro.common.enums.GroupSize;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.WJEncounterCategory;
+import delta.games.lotro.common.enums.WJEncounterType;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
@@ -92,10 +94,22 @@ public class PrivateEncountersXMLParser
     {
       SkirmishPrivateEncounter skirmishPE=(SkirmishPrivateEncounter)ret;
       // Category
-      String category=DOMParsingTools.getStringAttribute(attrs,PrivateEncountersXMLConstants.CATEGORY_ATTR,null);
+      int categoryCode=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.CATEGORY_ATTR,-1);
+      WJEncounterCategory category=null;
+      if (categoryCode!=-1)
+      {
+        LotroEnum<WJEncounterCategory> categoryEnum=LotroEnumsRegistry.getInstance().get(WJEncounterCategory.class);
+        category=categoryEnum.getEntry(categoryCode);
+      }
       skirmishPE.setCategory(category);
       // Type
-      String type=DOMParsingTools.getStringAttribute(attrs,PrivateEncountersXMLConstants.TYPE_ATTR,null);
+      int typeCode=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.TYPE_ATTR,-1);
+      WJEncounterType type=null;
+      if (typeCode!=-1)
+      {
+        LotroEnum<WJEncounterType> typeEnum=LotroEnumsRegistry.getInstance().get(WJEncounterType.class);
+        type=typeEnum.getEntry(typeCode);
+      }
       skirmishPE.setType(type);
       // Min/max level
       int minLevel=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.MIN_LEVEL_ATTR,0);

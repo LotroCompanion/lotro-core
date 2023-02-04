@@ -6,6 +6,8 @@ import java.util.List;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.enums.Difficulty;
 import delta.games.lotro.common.enums.GroupSize;
+import delta.games.lotro.common.enums.WJEncounterCategory;
+import delta.games.lotro.common.enums.WJEncounterType;
 
 /**
  * Private encounter of type 'Skirmish/Big battle/Classic instance'.
@@ -22,9 +24,9 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
   private int _minLevelScale;
   private int _maxLevelScale;
   // Category (Defensive...), may be null
-  private String _category;
+  private WJEncounterCategory _category;
   // Type (Skirmish...), may be null
-  private String _type;
+  private WJEncounterType _type;
   // Skirmish_RestrictionDescription: #1: You must have completed the 'Helm's Dike' battle.
   private Integer _levelScaling;
 
@@ -40,6 +42,7 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
     _minLevelScale=0;
     _maxLevelScale=0;
     _category=null;
+    _type=null;
     _levelScaling=null;
   }
 
@@ -124,7 +127,7 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
    * Get the category for this instance.
    * @return a category or <code>null</code>.
    */
-  public String getCategory()
+  public WJEncounterCategory getCategory()
   {
     return _category;
   }
@@ -133,7 +136,7 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
    * Set the category for this instance.
    * @param category Category to set.
    */
-  public void setCategory(String category)
+  public void setCategory(WJEncounterCategory category)
   {
     _category=category; 
   }
@@ -142,7 +145,7 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
    * Get the instance type (Classic, Skirmish...).
    * @return a type.
    */
-  public String getType()
+  public WJEncounterType getType()
   {
     return _type;
   }
@@ -151,7 +154,7 @@ public class SkirmishPrivateEncounter extends PrivateEncounter
    * Set the instance type.
    * @param type Instance type to set.
    */
-  public void setType(String type)
+  public void setType(WJEncounterType type)
   {
     _type=type; 
   }

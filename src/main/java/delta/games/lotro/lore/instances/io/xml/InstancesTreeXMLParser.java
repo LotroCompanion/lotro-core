@@ -43,26 +43,21 @@ public class InstancesTreeXMLParser
   private InstancesTree parseInstancesTree(Element rootTag)
   {
     InstancesTree mgr=new InstancesTree();
-    Element rootCategoryTag=DOMParsingTools.getChildTagByName(rootTag,InstancesTreeXMLConstants.CATEGORY_TAG);
-    if (rootCategoryTag!=null)
+    List<Element> categoryTags=DOMParsingTools.getChildTagsByName(rootTag,InstancesTreeXMLConstants.CATEGORY_TAG);
+    for(Element categoryTag : categoryTags)
     {
-      List<Element> childCategoryTags=DOMParsingTools.getChildTagsByName(rootCategoryTag,InstancesTreeXMLConstants.CATEGORY_TAG,false);
-      InstanceCategory rootCategory=mgr.getRoot();
-      for(Element childCategoryTag : childCategoryTags)
-      {
-        InstanceCategory childCategory=parseCategory(rootCategory,childCategoryTag);
-        rootCategory.addInstanceCategory(childCategory);
-      }
+      InstanceCategory category=parseCategory(categoryTag);
+      mgr.addCategory(category);
     }
     return mgr;
   }
 
-  private InstanceCategory parseCategory(InstanceCategory parent, Element categoryTag)
+  private InstanceCategory parseCategory(Element categoryTag)
   {
     NamedNodeMap attrs=categoryTag.getAttributes();
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,InstancesTreeXMLConstants.CATEGORY_NAME_ATTR,"");
-    InstanceCategory ret=new InstanceCategory(parent,name);
+    InstanceCategory ret=new InstanceCategory(name);
     // Instances
     PrivateEncountersManager peMgr=PrivateEncountersManager.getInstance();
     List<Element> instanceTags=DOMParsingTools.getChildTagsByName(categoryTag,InstancesTreeXMLConstants.INSTANCE_TAG,false);
@@ -75,13 +70,6 @@ public class InstancesTreeXMLParser
         SkirmishPrivateEncounter skirmishPe=(SkirmishPrivateEncounter)pe;
         ret.addPrivateEncounter(skirmishPe);
       }
-    }
-    // Child categories
-    List<Element> childCategoryTags=DOMParsingTools.getChildTagsByName(categoryTag,InstancesTreeXMLConstants.CATEGORY_TAG,false);
-    for(Element childCategoryTag : childCategoryTags)
-    {
-      InstanceCategory childCategory=parseCategory(ret,childCategoryTag);
-      ret.addInstanceCategory(childCategory);
     }
     return ret;
   }

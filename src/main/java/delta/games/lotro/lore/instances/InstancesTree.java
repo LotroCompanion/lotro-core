@@ -3,10 +3,15 @@ package delta.games.lotro.lore.instances;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import delta.common.utils.io.streams.IndentableStream;
+import delta.games.lotro.common.enums.WJEncounterCategory;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.instances.io.xml.InstancesTreeXMLParser;
@@ -18,7 +23,7 @@ import delta.games.lotro.lore.instances.io.xml.InstancesTreeXMLParser;
 public class InstancesTree
 {
   private static InstancesTree _instance=null;
-  private InstanceCategory _rootCategory;
+  private Map<String,InstanceCategory> _categories;
 
   /**
    * Get the reference instance of this class.
@@ -44,37 +49,26 @@ public class InstancesTree
    */
   public InstancesTree()
   {
-    _rootCategory=new InstanceCategory(null,"");
+    _categories=new HashMap<String,InstanceCategory>();
   }
 
   /**
-   * Get the root category.
-   * @return the root category.
+   * Add a category.
+   * @param category Category to add.
    */
-  public InstanceCategory getRoot()
+  public void addCategory(InstanceCategory category)
   {
-    return _rootCategory;
+    _categories.put(category.getName(),category);
   }
 
   /**
-   * Get/build a category from its path.
-   * @param path Category path.
-   * @return an instance category.
+   * Get a category by name.
+   * @param categoryName Name of the category to get.
+   * @return A category or <code>null</code> if not found.
    */
-  public InstanceCategory getFromPath(String[] path)
+  public InstanceCategory getCategory(String categoryName)
   {
-    InstanceCategory parent=_rootCategory;
-    for(String pathItem : path)
-    {
-      InstanceCategory category=parent.getChildByName(pathItem);
-      if (category==null)
-      {
-        category=new InstanceCategory(parent,pathItem);
-        parent.addInstanceCategory(category);
-      }
-      parent=category;
-    }
-    return parent;
+    return _categories.get(categoryName);
   }
 
   /**
@@ -84,7 +78,11 @@ public class InstancesTree
   public List<SkirmishPrivateEncounter> getInstances()
   {
     List<SkirmishPrivateEncounter> instances=new ArrayList<SkirmishPrivateEncounter>();
-    handleCategory(_rootCategory,instances);
+    for(String categoryName : getCategorieNames())
+    {
+      InstanceCategory category=_categories.get(categoryName);
+      handleCategory(category,instances);
+    }
     return instances;
   }
 
@@ -94,25 +92,32 @@ public class InstancesTree
     {
       instances.add(pe);
     }
-    for(InstanceCategory child : category.getChildCategories())
-    {
-      handleCategory(child,instances);
-    }
+  }
+
+  /**
+   * Get the category names.
+   * @return A sorted list of names.
+   */
+  public List<String> getCategorieNames()
+  {
+    List<String> ret=new ArrayList<String>(_categories.keySet());
+    Collections.sort(ret);
+    return ret;
   }
 
   /**
    * Get all instance categories.
    * @return a sorted list of instance categories.
    */
-  public List<String> getCategories()
+  public List<WJEncounterCategory> getInstanceCategories()
   {
-    Set<String> categories=new HashSet<String>();
+    Set<WJEncounterCategory> categories=new HashSet<WJEncounterCategory>();
     for(SkirmishPrivateEncounter instance : getInstances())
     {
       categories.add(instance.getCategory());
     }
-    List<String> ret=new ArrayList<String>(categories);
-    Collections.sort(ret);
+    List<WJEncounterCategory> ret=new ArrayList<WJEncounterCategory>(categories);
+    Collections.sort(ret,new LotroEnumEntryNameComparator<WJEncounterCategory>());
     return ret;
   }
 
@@ -121,32 +126,23 @@ public class InstancesTree
    */
   public void dump()
   {
-    List<InstanceCategory> rootCategories=_rootCategory.getChildCategories();
-    for(InstanceCategory rootCategory : rootCategories)
+    List<String> categoryNames=getCategorieNames();
+    IndentableStream out=new IndentableStream(System.out);
+    for(String categoryName : categoryNames)
     {
-      dumpCategory(0,rootCategory);
+      InstanceCategory category=_categories.get(categoryName);
+      dumpCategory(out,category);
     }
   }
 
-  private void dumpCategory(int level, InstanceCategory category)
+  private void dumpCategory(IndentableStream out, InstanceCategory category)
   {
-    for(int i=0;i<level;i++) System.out.print('\t');
-    System.out.println(category.getName());
-    List<InstanceCategory> children=category.getChildCategories();
-    if (children.size()>0)
+    out.println(category.getName());
+    out.incrementIndendationLevel();
+    for(SkirmishPrivateEncounter skirmishPE : category.getPrivateEncounters())
     {
-      for(InstanceCategory childCategory : children)
-      {
-        dumpCategory(level+1,childCategory);
-      }
+      out.println(skirmishPE.getName());
     }
-    else
-    {
-      for(SkirmishPrivateEncounter skirmishPE : category.getPrivateEncounters())
-      {
-        for(int i=0;i<level+1;i++) System.out.print('\t');
-        System.out.println(skirmishPE.getName());
-      }
-    }
+    out.decrementIndentationLevel();
   }
 }

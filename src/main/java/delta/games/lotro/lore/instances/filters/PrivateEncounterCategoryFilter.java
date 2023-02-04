@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.instances.filters;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.common.enums.WJEncounterCategory;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 
 /**
@@ -9,13 +10,13 @@ import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
  */
 public class PrivateEncounterCategoryFilter implements Filter<SkirmishPrivateEncounter>
 {
-  private String _category;
+  private WJEncounterCategory _category;
 
   /**
    * Constructor.
    * @param category Category to select (may be <code>null</code>).
    */
-  public PrivateEncounterCategoryFilter(String category)
+  public PrivateEncounterCategoryFilter(WJEncounterCategory category)
   {
     _category=category;
   }
@@ -24,7 +25,7 @@ public class PrivateEncounterCategoryFilter implements Filter<SkirmishPrivateEnc
    * Get the category to use.
    * @return A category or <code>null</code>.
    */
-  public String getCategory()
+  public WJEncounterCategory getCategory()
   {
     return _category;
   }
@@ -33,7 +34,7 @@ public class PrivateEncounterCategoryFilter implements Filter<SkirmishPrivateEnc
    * Set the category to select.
    * @param category Category to use, may be <code>null</code>.
    */
-  public void setCategory(String category)
+  public void setCategory(WJEncounterCategory category)
   {
     _category=category;
   }
@@ -45,8 +46,8 @@ public class PrivateEncounterCategoryFilter implements Filter<SkirmishPrivateEnc
     {
       return true;
     }
-    String category=instance.getCategory();
-    if (_category.equals(category))
+    WJEncounterCategory category=instance.getCategory();
+    if (_category==category)
     {
       return true;
     }

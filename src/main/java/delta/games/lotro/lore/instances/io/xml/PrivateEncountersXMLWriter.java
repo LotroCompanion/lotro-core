@@ -13,6 +13,8 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.enums.Difficulty;
 import delta.games.lotro.common.enums.GroupSize;
+import delta.games.lotro.common.enums.WJEncounterCategory;
+import delta.games.lotro.common.enums.WJEncounterType;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
@@ -103,16 +105,16 @@ public class PrivateEncountersXMLWriter
     {
       SkirmishPrivateEncounter skirmishPE=(SkirmishPrivateEncounter)privateEncounter;
       // Category
-      String category=skirmishPE.getCategory();
+      WJEncounterCategory category=skirmishPE.getCategory();
       if (category!=null)
       {
-        attrs.addAttribute("","",PrivateEncountersXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,category);
+        attrs.addAttribute("","",PrivateEncountersXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category.getCode()));
       }
       // Type
-      String type=skirmishPE.getType();
+      WJEncounterType type=skirmishPE.getType();
       if (type!=null)
       {
-        attrs.addAttribute("","",PrivateEncountersXMLConstants.TYPE_ATTR,XmlWriter.CDATA,type);
+        attrs.addAttribute("","",PrivateEncountersXMLConstants.TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type.getCode()));
       }
       // Min/max level
       int minLevel=skirmishPE.getMinLevelScale();
