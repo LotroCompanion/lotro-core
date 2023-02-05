@@ -17,6 +17,7 @@ import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for race descriptions stored in XML.
@@ -81,7 +82,7 @@ public class RaceDescriptionXMLParser
     raceDescription.setTall(tall);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_DESCRIPTION_ATTR,"");
-    description=_i18n.getLabel(description);
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     raceDescription.setDescription(description);
     // Genders
     List<Element> genderTags=DOMParsingTools.getChildTagsByName(root,RaceDescriptionXMLConstants.GENDER_TAG);

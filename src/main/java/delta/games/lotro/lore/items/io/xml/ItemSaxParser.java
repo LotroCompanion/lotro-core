@@ -54,6 +54,7 @@ import delta.games.lotro.lore.items.legendary2.LegendaryAttributes2Manager;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttrs2;
 import delta.games.lotro.utils.NumericUtils;
 import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -204,8 +205,7 @@ public final class ItemSaxParser extends DefaultHandler
       UsageRequirementsXMLParser.parseRequirements(_currentItem.getUsageRequirements(),attributes);
       // Full description
       String description=attributes.getValue(ItemXMLConstants.ITEM_DESCRIPTION_ATTR);
-      String tmpDdescription=_i18n.getLabel(description);
-      description=(tmpDdescription!=null)?tmpDdescription:description;
+      description=I18nRuntimeUtils.getLabel(_i18n,description);
       _currentItem.setDescription(description);
       // Value table
       String valueTableIdStr=attributes.getValue(ItemXMLConstants.ITEM_VALUE_TABLE_ID_ATTR);

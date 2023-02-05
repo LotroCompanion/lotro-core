@@ -7,10 +7,13 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for pets stored in XML.
@@ -18,12 +21,22 @@ import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
  */
 public class CosmeticPetXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public CosmeticPetXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("pets");
+  }
+
   /**
    * Parse pets from an XML file.
    * @param source Source file.
    * @return List of parsed pets.
    */
-  public static List<CosmeticPetDescription> parsePetsFile(File source)
+  public List<CosmeticPetDescription> parsePetsFile(File source)
   {
     List<CosmeticPetDescription> pets=new ArrayList<CosmeticPetDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -44,7 +57,7 @@ public class CosmeticPetXMLParser
    * @param root Root XML tag.
    * @return A pet.
    */
-  private static CosmeticPetDescription parsePet(Element root)
+  private CosmeticPetDescription parsePet(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Identifier
@@ -52,15 +65,19 @@ public class CosmeticPetXMLParser
     CosmeticPetDescription ret=new CosmeticPetDescription(id);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_NAME_ATTR,"");
+    name=_i18n.getLabel(String.valueOf(id));
     ret.setName(name);
     // Initial Name
     String initialName=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_INITIAL_NAME_ATTR,"");
+    initialName=I18nRuntimeUtils.getLabel(_i18n,initialName);
     ret.setInitialName(initialName);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     ret.setDescription(description);
     // Source description
     String sourceDescription=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_SOURCE_DESCRIPTION_ATTR,"");
+    sourceDescription=I18nRuntimeUtils.getLabel(_i18n,sourceDescription);
     ret.setSourceDescription(sourceDescription);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,CosmeticPetXMLConstants.PET_ICON_ID_ATTR,0);

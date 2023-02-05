@@ -11,6 +11,7 @@ import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.lore.quests.io.xml.QuestXMLConstants;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
@@ -58,8 +59,7 @@ public class DialogsSaxParser extends SAXParserValve<Void>
     else if (QuestXMLConstants.TEXT_TAG.equals(tagName))
     {
       String text=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.TEXT_ATTR,null);
-      String tmpText=_i18n.getLabel(text);
-      text=(tmpText!=null)?tmpText:text;
+      text=I18nRuntimeUtils.getLabel(_i18n,text);
       _comment.addWhat(text);
     }
     return this;
@@ -90,7 +90,7 @@ public class DialogsSaxParser extends SAXParserValve<Void>
     ret.setWho(npc);
     // Text
     String text=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.TEXT_ATTR,"");
-    text=i18n.getLabel(text);
+    text=I18nRuntimeUtils.getLabel(i18n,text);
     ret.setWhat(text);
     return ret;
   }

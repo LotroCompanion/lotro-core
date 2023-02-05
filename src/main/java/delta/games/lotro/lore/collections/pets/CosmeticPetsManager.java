@@ -60,7 +60,7 @@ public class CosmeticPetsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File petsFile=cfg.getFile(DataFiles.PETS);
     long now=System.currentTimeMillis();
-    List<CosmeticPetDescription> pets=CosmeticPetXMLParser.parsePetsFile(petsFile);
+    List<CosmeticPetDescription> pets=new CosmeticPetXMLParser().parsePetsFile(petsFile);
     for(CosmeticPetDescription pet : pets)
     {
       _cache.put(Integer.valueOf(pet.getIdentifier()),pet);

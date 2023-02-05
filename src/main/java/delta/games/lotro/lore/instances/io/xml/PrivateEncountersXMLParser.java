@@ -22,6 +22,7 @@ import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLConstants;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
 import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for the private encounters stored in XML.
@@ -136,8 +137,7 @@ public class PrivateEncountersXMLParser
     }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,PrivateEncountersXMLConstants.DESCRIPTION_ATTR,"");
-    String tmpDdescription=_i18n.getLabel(description);
-    description=(tmpDdescription!=null)?tmpDdescription:description;
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     ret.setDescription(description);
 
     if (isSkirmishPE)
