@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import delta.common.utils.io.streams.IndentableStream;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.enums.WJEncounterCategory;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.config.DataFiles;
@@ -78,12 +79,32 @@ public class InstancesTree
   public List<SkirmishPrivateEncounter> getInstances()
   {
     List<SkirmishPrivateEncounter> instances=new ArrayList<SkirmishPrivateEncounter>();
-    for(String categoryName : getCategorieNames())
+    for(String categoryName : getCategoryNames())
     {
       InstanceCategory category=_categories.get(categoryName);
       handleCategory(category,instances);
     }
     return instances;
+  }
+
+  /**
+   * Get the entries of this tree.
+   * @return A list of entries, sorted by category names, then by instance category name.
+   */
+  public List<InstanceTreeEntry> getEntries()
+  {
+    List<InstanceTreeEntry> ret=new ArrayList<InstanceTreeEntry>();
+    for(InstanceCategory category : _categories.values())
+    {
+      String categoryName=category.getName();
+      for(SkirmishPrivateEncounter instance : category.getPrivateEncounters())
+      {
+        InstanceTreeEntry entry=new InstanceTreeEntry(categoryName,instance);
+        ret.add(entry);
+      }
+    }
+    Collections.sort(ret,new NamedComparator());
+    return ret;
   }
 
   private void handleCategory(InstanceCategory category, List<SkirmishPrivateEncounter> instances)
@@ -98,7 +119,7 @@ public class InstancesTree
    * Get the category names.
    * @return A sorted list of names.
    */
-  public List<String> getCategorieNames()
+  public List<String> getCategoryNames()
   {
     List<String> ret=new ArrayList<String>(_categories.keySet());
     Collections.sort(ret);
@@ -126,7 +147,7 @@ public class InstancesTree
    */
   public void dump()
   {
-    List<String> categoryNames=getCategorieNames();
+    List<String> categoryNames=getCategoryNames();
     IndentableStream out=new IndentableStream(System.out);
     for(String categoryName : categoryNames)
     {

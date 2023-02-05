@@ -57,7 +57,7 @@ public class InstancesTreeXMLWriter
   private void writeInstancesTree(TransformerHandler hd, InstancesTree data) throws Exception
   {
     hd.startElement("","",InstancesTreeXMLConstants.INSTANCES_TREE_TAG,new AttributesImpl());
-    for(String categoryName : data.getCategorieNames())
+    for(String categoryName : data.getCategoryNames())
     {
       InstanceCategory category=data.getCategory(categoryName);
       writeCategory(hd,category);
