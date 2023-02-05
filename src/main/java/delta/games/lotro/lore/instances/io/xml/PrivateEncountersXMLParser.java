@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.enums.Difficulty;
 import delta.games.lotro.common.enums.GroupSize;
@@ -20,6 +21,7 @@ import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLConstants;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for the private encounters stored in XML.
@@ -27,6 +29,16 @@ import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
  */
 public class PrivateEncountersXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public PrivateEncountersXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("instances");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -73,7 +85,7 @@ public class PrivateEncountersXMLParser
     PrivateEncounter ret=null;
     ret=(isSkirmishPE)?new SkirmishPrivateEncounter(id):new PrivateEncounter(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,PrivateEncountersXMLConstants.NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     ret.setName(name);
     // Content layer
     int contentLayerId=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.CONTENT_LAYER_ID_ATTR,0);
@@ -124,6 +136,8 @@ public class PrivateEncountersXMLParser
     }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,PrivateEncountersXMLConstants.DESCRIPTION_ATTR,"");
+    String tmpDdescription=_i18n.getLabel(description);
+    description=(tmpDdescription!=null)?tmpDdescription:description;
     ret.setDescription(description);
 
     if (isSkirmishPE)
