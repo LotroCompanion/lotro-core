@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
@@ -17,6 +18,8 @@ import delta.games.lotro.lore.allegiances.AllegiancesManager;
 import delta.games.lotro.lore.allegiances.Points2LevelCurve;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for allegiances stored in XML.
@@ -24,6 +27,16 @@ import delta.games.lotro.lore.deeds.DeedsManager;
  */
 public class AllegianceXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public AllegianceXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("allegiances");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -63,7 +76,7 @@ public class AllegianceXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_ID_ATTR,0);
     allegiance.setIdentifier(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     allegiance.setName(name);
     // Icon
     int iconId=DOMParsingTools.getIntAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_ICON_ATTR,0);
@@ -85,6 +98,7 @@ public class AllegianceXMLParser
     }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     allegiance.setDescription(description);
     // Deeds
     List<Element> deedTags=DOMParsingTools.getChildTagsByName(root,AllegianceXMLConstants.DEED_TAG);
