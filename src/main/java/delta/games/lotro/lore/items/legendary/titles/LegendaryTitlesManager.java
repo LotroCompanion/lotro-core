@@ -56,7 +56,7 @@ public class LegendaryTitlesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File legendaryTitlesFile=cfg.getFile(DataFiles.LEGENDARY_TITLES);
     long now=System.currentTimeMillis();
-    List<LegendaryTitle> legendaryTitles=LegendaryTitleXMLParser.parseXML(legendaryTitlesFile);
+    List<LegendaryTitle> legendaryTitles=new LegendaryTitleXMLParser().parseXML(legendaryTitlesFile);
     for(LegendaryTitle legendaryTitle : legendaryTitles)
     {
       registerLegendaryTitle(legendaryTitle);

@@ -2,6 +2,9 @@ package delta.games.lotro.lore.items.legendary.titles;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.enums.Genus;
+import delta.games.lotro.common.enums.LegendaryTitleCategory;
+import delta.games.lotro.common.enums.LegendaryTitleTier;
 import delta.games.lotro.lore.items.DamageType;
 
 /**
@@ -12,10 +15,10 @@ public class LegendaryTitle implements Identifiable
 {
   private int _id;
   private String _name;
-  private String _category;
-  private int _tier;
+  private LegendaryTitleCategory _category;
+  private LegendaryTitleTier _tier;
   private DamageType _damageType;
-  private String _slayerGenusType;
+  private Genus _slayerGenusType;
   private BasicStatsSet _stats;
 
   /**
@@ -63,7 +66,7 @@ public class LegendaryTitle implements Identifiable
    * Get the category of this title.
    * @return a category.
    */
-  public String getCategory()
+  public LegendaryTitleCategory getCategory()
   {
     return _category;
   }
@@ -72,7 +75,7 @@ public class LegendaryTitle implements Identifiable
    * Set the category of this title.
    * @param category the category to set.
    */
-  public void setCategory(String category)
+  public void setCategory(LegendaryTitleCategory category)
   {
     _category=category;
   }
@@ -81,7 +84,7 @@ public class LegendaryTitle implements Identifiable
    * Get the tier of this title.
    * @return a tier.
    */
-  public int getTier()
+  public LegendaryTitleTier getTier()
   {
     return _tier;
   }
@@ -90,7 +93,7 @@ public class LegendaryTitle implements Identifiable
    * Set the tier of this title.
    * @param tier the tier to set.
    */
-  public void setTier(int tier)
+  public void setTier(LegendaryTitleTier tier)
   {
     _tier=tier;
   }
@@ -117,7 +120,7 @@ public class LegendaryTitle implements Identifiable
    * Get the slayer genus of this title.
    * @return a slayer genus or <code>null</code>.
    */
-  public String getSlayerGenusType()
+  public Genus getSlayerGenusType()
   {
     return _slayerGenusType;
   }
@@ -126,7 +129,7 @@ public class LegendaryTitle implements Identifiable
    * Set the slayer genus of this title.
    * @param slayerGenusType the slayer genus to set (may be <code>null</code>.
    */
-  public void setSlayerGenusType(String slayerGenusType)
+  public void setSlayerGenusType(Genus slayerGenusType)
   {
     _slayerGenusType=slayerGenusType;
   }

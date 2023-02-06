@@ -14,6 +14,9 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.enums.Genus;
+import delta.games.lotro.common.enums.LegendaryTitleCategory;
+import delta.games.lotro.common.enums.LegendaryTitleTier;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 
@@ -86,14 +89,14 @@ public class LegendaryTitleXMLWriter
       titleAttrs.addAttribute("","",LegendaryTitleXMLConstants.TITLE_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Category
-    String category=title.getCategory();
-    if ((category!=null) && (category.length()>0))
+    LegendaryTitleCategory category=title.getCategory();
+    if (category!=null)
     {
-      titleAttrs.addAttribute("","",LegendaryTitleXMLConstants.TITLE_CATEGORY_ATTR,XmlWriter.CDATA,category);
+      titleAttrs.addAttribute("","",LegendaryTitleXMLConstants.TITLE_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category.getCode()));
     }
     // Tier
-    int tier=title.getTier();
-    titleAttrs.addAttribute("","",LegendaryTitleXMLConstants.TITLE_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
+    LegendaryTitleTier tier=title.getTier();
+    titleAttrs.addAttribute("","",LegendaryTitleXMLConstants.TITLE_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier.getCode()));
     // Damage type
     DamageType damageType=title.getDamageType();
     if (damageType!=null)
@@ -101,10 +104,10 @@ public class LegendaryTitleXMLWriter
       titleAttrs.addAttribute("","",LegendaryTitleXMLConstants.TITLE_DAMAGE_TYPE_ATTR,XmlWriter.CDATA,damageType.getKey());
     }
     // Slayer genus
-    String slayerGenus=title.getSlayerGenusType();
-    if ((slayerGenus!=null) && (slayerGenus.length()>0))
+    Genus slayerGenus=title.getSlayerGenusType();
+    if (slayerGenus!=null)
     {
-      titleAttrs.addAttribute("","",LegendaryTitleXMLConstants.TITLE_SLAYER_ATTR,XmlWriter.CDATA,slayerGenus);
+      titleAttrs.addAttribute("","",LegendaryTitleXMLConstants.TITLE_SLAYER_ATTR,XmlWriter.CDATA,String.valueOf(slayerGenus.getCode()));
     }
     hd.startElement("","",LegendaryTitleXMLConstants.TITLE_TAG,titleAttrs);
     // Stats

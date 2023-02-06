@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.legendary.titles;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.common.enums.LegendaryTitleCategory;
 
 /**
  * Filter for legendary titles.
@@ -8,7 +9,7 @@ import delta.common.utils.collections.filters.Filter;
  */
 public class LegendaryTitleFilter implements Filter<LegendaryTitle>
 {
-  private String _category;
+  private LegendaryTitleCategory _category;
   private String _nameContains;
   private String _statsContains;
 
@@ -70,7 +71,7 @@ public class LegendaryTitleFilter implements Filter<LegendaryTitle>
    * Set category.
    * @param category A category or <code>null</code> to accept all.
    */
-  public void setCategory(String category)
+  public void setCategory(LegendaryTitleCategory category)
   {
     _category=category;
   }
@@ -79,7 +80,7 @@ public class LegendaryTitleFilter implements Filter<LegendaryTitle>
    * Get the category.
    * @return a category or <code>null</code>.
    */
-  public String getCategory()
+  public LegendaryTitleCategory getCategory()
   {
     return _category;
   }
