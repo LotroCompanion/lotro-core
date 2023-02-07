@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
@@ -17,6 +18,7 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for legendary titles descriptions stored in XML.
@@ -27,6 +29,7 @@ public class LegendaryTitleXMLParser
   private LotroEnum<LegendaryTitleCategory> _category;
   private LotroEnum<Genus> _genus;
   private LotroEnum<LegendaryTitleTier> _tier;
+  private SingleLocaleLabelsManager _i18n;
 
   /**
    * Constructor.
@@ -37,6 +40,7 @@ public class LegendaryTitleXMLParser
     _category=registry.get(LegendaryTitleCategory.class);
     _genus=registry.get(Genus.class);
     _tier=registry.get(LegendaryTitleTier.class);
+    _i18n=I18nFacade.getLabelsMgr("legendaryTitles");
   }
 
   /**
@@ -70,7 +74,7 @@ public class LegendaryTitleXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,LegendaryTitleXMLConstants.TITLE_ID_ATTR,0);
     title.setIdentifier(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,LegendaryTitleXMLConstants.TITLE_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     title.setName(name);
     // Category
     int categoryCode=DOMParsingTools.getIntAttribute(attrs,LegendaryTitleXMLConstants.TITLE_CATEGORY_ATTR,0);
