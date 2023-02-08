@@ -7,8 +7,11 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.emotes.EmoteDescription;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for emote descriptions stored in XML.
@@ -16,6 +19,16 @@ import delta.games.lotro.lore.emotes.EmoteDescription;
  */
 public class EmoteXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public EmoteXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("emotes");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -47,7 +60,7 @@ public class EmoteXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,EmoteXMLConstants.EMOTE_ID_ATTR,0);
     emote.setIdentifier(id);
     // Command
-    String command=DOMParsingTools.getStringAttribute(attrs,EmoteXMLConstants.EMOTE_COMMAND_ATTR,null);
+    String command=_i18n.getLabel(String.valueOf(id));
     emote.setCommand(command);
     // Icon
     int iconId=DOMParsingTools.getIntAttribute(attrs,EmoteXMLConstants.EMOTE_ICON_ATTR,0);
@@ -57,6 +70,7 @@ public class EmoteXMLParser
     emote.setAuto(auto);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,EmoteXMLConstants.EMOTE_DESCRIPTION_ATTR,null);
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     emote.setDescription(description);
     return emote;
   }
