@@ -65,7 +65,7 @@ public class SkirmishTraitsManager
       return;
     }
     long now=System.currentTimeMillis();
-    List<TraitDescription> traits=TraitDescriptionXMLParser.parseTraitsFile(skirmishTraitsFile);
+    List<TraitDescription> traits=new TraitDescriptionXMLParser().parseTraitsFile(skirmishTraitsFile);
     for(TraitDescription trait : traits)
     {
       _cache.put(Integer.valueOf(trait.getIdentifier()),trait);

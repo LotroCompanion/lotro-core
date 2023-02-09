@@ -62,7 +62,7 @@ public class TraitsManager
       return;
     }
     long now=System.currentTimeMillis();
-    List<TraitDescription> traits=TraitDescriptionXMLParser.parseTraitsFile(traitsFile);
+    List<TraitDescription> traits=new TraitDescriptionXMLParser().parseTraitsFile(traitsFile);
     for(TraitDescription trait : traits)
     {
       registerTrait(trait);

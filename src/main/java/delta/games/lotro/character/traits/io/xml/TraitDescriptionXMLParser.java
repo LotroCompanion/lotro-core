@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
@@ -18,6 +19,8 @@ import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for trait descriptions stored in XML.
@@ -27,12 +30,22 @@ public class TraitDescriptionXMLParser
 {
   private static final Logger LOGGER=Logger.getLogger(TraitDescriptionXMLParser.class);
 
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public TraitDescriptionXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("traits");
+  }
+
   /**
    * Parse a traits XML file.
    * @param source Source file.
    * @return List of parsed traits.
    */
-  public static List<TraitDescription> parseTraitsFile(File source)
+  public List<TraitDescription> parseTraitsFile(File source)
   {
     List<TraitDescription> traits=new ArrayList<TraitDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -53,7 +66,7 @@ public class TraitDescriptionXMLParser
    * @param root Root XML tag.
    * @return A trait.
    */
-  private static TraitDescription parseTrait(Element root)
+  private TraitDescription parseTrait(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     TraitDescription trait=new TraitDescription();
@@ -64,7 +77,7 @@ public class TraitDescriptionXMLParser
     String key=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_KEY_ATTR,"");
     trait.setKey(key);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_NAME_ATTR,null);
+    String name=_i18n.getLabel(String.valueOf(id));
     trait.setName(name);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_ICON_ID_ATTR,0);
@@ -80,6 +93,7 @@ public class TraitDescriptionXMLParser
     trait.setTierPropertyName(tierPropertyName);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     trait.setDescription(description);
     // Stats
     StatsProvider statsProvider=trait.getStatsProvider();
@@ -103,6 +117,7 @@ public class TraitDescriptionXMLParser
     }
     // Tooltip
     String tooltip=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_TOOLTIP_ATTR,"");
+    tooltip=I18nRuntimeUtils.getLabel(_i18n,tooltip);
     trait.setTooltip(tooltip);
     // Cosmetic
     boolean cosmetic=DOMParsingTools.getBooleanAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_COSMETIC_ATTR,false);
