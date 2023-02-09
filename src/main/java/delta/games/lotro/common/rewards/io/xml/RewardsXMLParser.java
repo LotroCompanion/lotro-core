@@ -139,11 +139,6 @@ public class RewardsXMLParser
     {
       parseTraitReward(rewards,rewardTag);
     }
-    // Skill
-    else if (RewardsXMLConstants.SKILL_TAG.equals(tagName))
-    {
-      parseSkillReward(rewards,rewardTag);
-    }
     // Title
     else if (RewardsXMLConstants.TITLE_TAG.equals(tagName))
     {
@@ -215,14 +210,6 @@ public class RewardsXMLParser
   {
     Proxy<TraitDescription> proxy=new Proxy<TraitDescription>();
     parseProxy(traitTag.getAttributes(),proxy);
-    TraitReward traitReward=new TraitReward(proxy);
-    rewards.add(traitReward);
-  }
-
-  private static void parseSkillReward(List<RewardElement> rewards, Element skillTag)
-  {
-    Proxy<TraitDescription> proxy=new Proxy<TraitDescription>();
-    parseProxy(skillTag.getAttributes(),proxy);
     TraitReward traitReward=new TraitReward(proxy);
     rewards.add(traitReward);
   }

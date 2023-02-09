@@ -67,10 +67,6 @@ public class RewardsXMLConstants
    */
   public static final String TRAIT_TAG="trait";
   /**
-   * Tag 'skill'.
-   */
-  public static final String SKILL_TAG="skill";
-  /**
    * Tag 'title'.
    */
   public static final String TITLE_TAG="title";

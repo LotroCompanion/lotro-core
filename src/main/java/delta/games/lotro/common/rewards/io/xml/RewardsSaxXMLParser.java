@@ -140,11 +140,6 @@ public class RewardsSaxXMLParser extends SAXParserValve<Void>
     {
       parseTraitReward(attrs);
     }
-    // Skill
-    else if (RewardsXMLConstants.SKILL_TAG.equals(tagName))
-    {
-      parseSkillReward(attrs);
-    }
     // Title
     else if (RewardsXMLConstants.TITLE_TAG.equals(tagName))
     {
@@ -217,14 +212,6 @@ public class RewardsSaxXMLParser extends SAXParserValve<Void>
   }
 
   private void parseTraitReward(Attributes attrs)
-  {
-    Proxy<TraitDescription> proxy=new Proxy<TraitDescription>();
-    parseProxy(attrs,proxy);
-    TraitReward traitReward=new TraitReward(proxy);
-    _rewardElements.add(traitReward);
-  }
-
-  private void parseSkillReward(Attributes attrs)
   {
     Proxy<TraitDescription> proxy=new Proxy<TraitDescription>();
     parseProxy(attrs,proxy);
