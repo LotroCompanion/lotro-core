@@ -58,7 +58,7 @@ public class HobbiesManager
     long now=System.currentTimeMillis();
     if ((hobbiesFile.exists()) && (hobbiesFile.canRead()))
     {
-      List<HobbyDescription> hobbies=HobbyDescriptionXMLParser.parseHobbiesFile(hobbiesFile);
+      List<HobbyDescription> hobbies=new HobbyDescriptionXMLParser().parseHobbiesFile(hobbiesFile);
       for(HobbyDescription hobby : hobbies)
       {
         registerHobby(hobby);

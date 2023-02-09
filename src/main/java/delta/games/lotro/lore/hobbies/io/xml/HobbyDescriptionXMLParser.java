@@ -9,6 +9,7 @@ import java.util.Map;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.hobbies.HobbyDescription;
 import delta.games.lotro.lore.hobbies.HobbyTitleEntry;
@@ -19,6 +20,8 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.titles.TitleDescription;
 import delta.games.lotro.lore.titles.TitlesManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for hobby descriptions stored in XML.
@@ -26,12 +29,22 @@ import delta.games.lotro.lore.titles.TitlesManager;
  */
 public class HobbyDescriptionXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public HobbyDescriptionXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("hobbies");
+  }
+
   /**
    * Parse a hobbies XML file.
    * @param source Source file.
    * @return List of parsed hobbies.
    */
-  public static List<HobbyDescription> parseHobbiesFile(File source)
+  public List<HobbyDescription> parseHobbiesFile(File source)
   {
     List<HobbyDescription> hobbies=new ArrayList<HobbyDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -52,7 +65,7 @@ public class HobbyDescriptionXMLParser
    * @param root Root XML tag.
    * @return A hobby.
    */
-  private static HobbyDescription parseHobby(Element root)
+  private HobbyDescription parseHobby(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     HobbyDescription hobby=new HobbyDescription();
@@ -60,16 +73,18 @@ public class HobbyDescriptionXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,HobbyDescriptionXMLConstants.HOBBY_IDENTIFIER_ATTR,0);
     hobby.setIdentifier(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,HobbyDescriptionXMLConstants.HOBBY_NAME_ATTR,null);
+    String name=_i18n.getLabel(String.valueOf(id));
     hobby.setName(name);
     // Type
     int type=DOMParsingTools.getIntAttribute(attrs,HobbyDescriptionXMLConstants.HOBBY_TYPE_ATTR,0);
     hobby.setHobbyType(type);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,HobbyDescriptionXMLConstants.HOBBY_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     hobby.setDescription(description);
     // Trainer info
     String trainerInfo=DOMParsingTools.getStringAttribute(attrs,HobbyDescriptionXMLConstants.HOBBY_TRAINER_INFO_ATTR,"");
+    trainerInfo=I18nRuntimeUtils.getLabel(_i18n,trainerInfo);
     hobby.setTrainerDisplayInfo(trainerInfo);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,HobbyDescriptionXMLConstants.HOBBY_ICON_ID_ATTR,0);
