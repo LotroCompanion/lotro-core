@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.paper.filters;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.common.enums.PaperItemCategory;
 import delta.games.lotro.lore.items.paper.PaperItem;
 
 /**
@@ -9,13 +10,13 @@ import delta.games.lotro.lore.items.paper.PaperItem;
  */
 public class PaperItemCategoryFilter implements Filter<PaperItem>
 {
-  private String _category;
+  private PaperItemCategory _category;
 
   /**
    * Get the category to select.
    * @return A category or <code>null</code>.
    */
-  public String getCategory()
+  public PaperItemCategory getCategory()
   {
     return _category;
   }
@@ -24,7 +25,7 @@ public class PaperItemCategoryFilter implements Filter<PaperItem>
    * Set the category to select.
    * @param category A category or <code>null</code>.
    */
-  public void setCategory(String category)
+  public void setCategory(PaperItemCategory category)
   {
     _category=category;
   }
@@ -36,11 +37,7 @@ public class PaperItemCategoryFilter implements Filter<PaperItem>
     {
       return true;
     }
-    String deedCategory=item.getCategory();
-    if (_category.equals(deedCategory))
-    {
-      return true;
-    }
-    return false;
+    PaperItemCategory category=item.getCategory();
+    return (_category==category);
   }
 }

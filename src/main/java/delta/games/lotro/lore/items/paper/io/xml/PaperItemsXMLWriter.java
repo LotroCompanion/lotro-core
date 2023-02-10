@@ -11,6 +11,8 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.enums.ItemClass;
+import delta.games.lotro.common.enums.PaperItemCategory;
 import delta.games.lotro.lore.items.paper.PaperItem;
 
 /**
@@ -55,11 +57,11 @@ public class PaperItemsXMLWriter
     String name=paperItem.getName();
     attrs.addAttribute("","",PaperItemsXMLConstants.PAPER_ITEM_NAME_ATTR,XmlWriter.CDATA,name);
     // Item class
-    String itemClass=paperItem.getItemClass();
-    attrs.addAttribute("","",PaperItemsXMLConstants.PAPER_ITEM_CLASS_ATTR,XmlWriter.CDATA,itemClass);
+    ItemClass itemClass=paperItem.getItemClass();
+    attrs.addAttribute("","",PaperItemsXMLConstants.PAPER_ITEM_CLASS_ATTR,XmlWriter.CDATA,String.valueOf(itemClass.getCode()));
     // Category
-    String category=paperItem.getCategory();
-    attrs.addAttribute("","",PaperItemsXMLConstants.PAPER_ITEM_CATEGORY_ATTR,XmlWriter.CDATA,category);
+    PaperItemCategory category=paperItem.getCategory();
+    attrs.addAttribute("","",PaperItemsXMLConstants.PAPER_ITEM_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category.getCode()));
     // Shared
     boolean shared=paperItem.isShared();
     if (shared)

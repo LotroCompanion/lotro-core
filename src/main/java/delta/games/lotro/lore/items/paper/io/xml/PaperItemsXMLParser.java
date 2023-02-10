@@ -8,6 +8,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.enums.ItemClass;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.PaperItemCategory;
 import delta.games.lotro.lore.items.paper.PaperItem;
 
 /**
@@ -16,12 +20,25 @@ import delta.games.lotro.lore.items.paper.PaperItem;
  */
 public class PaperItemsXMLParser
 {
-  /**
+    private LotroEnum<ItemClass> _itemClass;
+    private LotroEnum<PaperItemCategory> _category;
+
+    /**
+     * Constructor.
+     */
+    public PaperItemsXMLParser()
+    {
+      LotroEnumsRegistry registry=LotroEnumsRegistry.getInstance();
+      _itemClass=registry.get(ItemClass.class);
+      _category=registry.get(PaperItemCategory.class);
+    }
+
+    /**
    * Parse paper items from an XML file.
    * @param source Source file.
    * @return List of parsed paper items.
    */
-  public static List<PaperItem> parsepaperItemsFile(File source)
+  public List<PaperItem> parsepaperItemsFile(File source)
   {
     List<PaperItem> paperItems=new ArrayList<PaperItem>();
     Element root=DOMParsingTools.parse(source);
@@ -42,7 +59,7 @@ public class PaperItemsXMLParser
    * @param root Root XML tag.
    * @return A paper item.
    */
-  private static PaperItem parsePaperItem(Element root)
+  private PaperItem parsePaperItem(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Identifier
@@ -52,10 +69,12 @@ public class PaperItemsXMLParser
     String name=DOMParsingTools.getStringAttribute(attrs,PaperItemsXMLConstants.PAPER_ITEM_NAME_ATTR,"");
     ret.setName(name);
     // Item class
-    String itemClass=DOMParsingTools.getStringAttribute(attrs,PaperItemsXMLConstants.PAPER_ITEM_CLASS_ATTR,"");
+    int itemClassCode=DOMParsingTools.getIntAttribute(attrs,PaperItemsXMLConstants.PAPER_ITEM_CLASS_ATTR,0);
+    ItemClass itemClass=_itemClass.getEntry(itemClassCode);
     ret.setItemClass(itemClass);
     // Category
-    String category=DOMParsingTools.getStringAttribute(attrs,PaperItemsXMLConstants.PAPER_ITEM_CATEGORY_ATTR,"");
+    int categoryCode=DOMParsingTools.getIntAttribute(attrs,PaperItemsXMLConstants.PAPER_ITEM_CATEGORY_ATTR,0);
+    PaperItemCategory category=_category.getEntry(categoryCode);
     ret.setCategory(category);
     // Shared
     boolean shared=DOMParsingTools.getBooleanAttribute(attrs,PaperItemsXMLConstants.PAPER_ITEM_SHARED_ATTR,false);

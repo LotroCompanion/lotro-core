@@ -2,6 +2,8 @@ package delta.games.lotro.lore.items.paper;
 
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.enums.ItemClass;
+import delta.games.lotro.common.enums.PaperItemCategory;
 
 /**
  * Paper item description.
@@ -11,8 +13,8 @@ public class PaperItem implements Identifiable,Named
 {
   private int _identifier;
   private String _name;
-  private String _itemClass;
-  private String _category;
+  private ItemClass _itemClass;
+  private PaperItemCategory _category;
   private boolean _accountShared;
   private boolean _free;
   private Integer _iconId;
@@ -28,8 +30,8 @@ public class PaperItem implements Identifiable,Named
   {
     _identifier=id;
     _name="";
-    _itemClass="";
-    _category="";
+    _itemClass=null;
+    _category=null;
     _accountShared=false;
     _free=true;
     _iconId=null;
@@ -69,7 +71,7 @@ public class PaperItem implements Identifiable,Named
    * Get the item class.
    * @return an item class.
    */
-  public String getItemClass()
+  public ItemClass getItemClass()
   {
     return _itemClass;
   }
@@ -78,9 +80,8 @@ public class PaperItem implements Identifiable,Named
    * Set the item class.
    * @param itemClass Item class to set.
    */
-  public void setItemClass(String itemClass)
+  public void setItemClass(ItemClass itemClass)
   {
-    if (itemClass==null) itemClass="";
     _itemClass=itemClass;
   }
 
@@ -88,7 +89,7 @@ public class PaperItem implements Identifiable,Named
    * Get the category.
    * @return a category.
    */
-  public String getCategory()
+  public PaperItemCategory getCategory()
   {
     return _category;
   }
@@ -97,9 +98,8 @@ public class PaperItem implements Identifiable,Named
    * Set the category.
    * @param category Category to set.
    */
-  public void setCategory(String category)
+  public void setCategory(PaperItemCategory category)
   {
-    if (category==null) category="";
     _category=category;
   }
 

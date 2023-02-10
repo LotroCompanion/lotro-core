@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
+import delta.games.lotro.common.enums.PaperItemCategory;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.paper.io.xml.PaperItemsXMLParser;
@@ -63,7 +65,7 @@ public class PaperItemsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File paperItemsFile=cfg.getFile(DataFiles.PAPER_ITEMS);
     long now=System.currentTimeMillis();
-    List<PaperItem> paperItems=PaperItemsXMLParser.parsepaperItemsFile(paperItemsFile);
+    List<PaperItem> paperItems=new PaperItemsXMLParser().parsepaperItemsFile(paperItemsFile);
     for(PaperItem paperItem : paperItems)
     {
       _cache.put(Integer.valueOf(paperItem.getIdentifier()),paperItem);
@@ -120,7 +122,7 @@ public class PaperItemsManager
    * Get all paper item categories.
    * @return a sorted list of paper item categories.
    */
-  public List<String> getCategories()
+  public List<PaperItemCategory> getCategories()
   {
     return getCategories(getAll());
   }
@@ -130,15 +132,15 @@ public class PaperItemsManager
    * @param paperItems Paper items to use.
    * @return a sorted list of paper item categories.
    */
-  public List<String> getCategories(List<PaperItem> paperItems)
+  public List<PaperItemCategory> getCategories(List<PaperItem> paperItems)
   {
-    Set<String> categories=new HashSet<String>();
+    Set<PaperItemCategory> categories=new HashSet<PaperItemCategory>();
     for(PaperItem paperItem : paperItems)
     {
       categories.add(paperItem.getCategory());
     }
-    List<String> ret=new ArrayList<String>(categories);
-    Collections.sort(ret);
+    List<PaperItemCategory> ret=new ArrayList<PaperItemCategory>(categories);
+    Collections.sort(ret,new LotroEnumEntryNameComparator<PaperItemCategory>());
     return ret;
   }
 }

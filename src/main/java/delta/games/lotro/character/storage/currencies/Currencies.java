@@ -9,6 +9,7 @@ import java.util.Set;
 
 import delta.games.lotro.common.Scope;
 import delta.games.lotro.common.comparators.NamedComparator;
+import delta.games.lotro.common.enums.PaperItemCategory;
 import delta.games.lotro.lore.items.WellKnownItems;
 import delta.games.lotro.lore.items.paper.PaperItem;
 import delta.games.lotro.lore.items.paper.PaperItemsManager;
@@ -59,8 +60,8 @@ public class Currencies
       String name=paperItem.getName();
       boolean shared=paperItem.isShared();
       Scope scope=(shared?Scope.SERVER:Scope.CHARACTER);
-      String category=paperItem.getCategory();
-      Currency currency=new Currency(id,name,scope,category);
+      PaperItemCategory category=paperItem.getCategory();
+      Currency currency=new Currency(id,name,scope,category.getLabel());
       registerCurrency(currency);
     }
     // Marks
