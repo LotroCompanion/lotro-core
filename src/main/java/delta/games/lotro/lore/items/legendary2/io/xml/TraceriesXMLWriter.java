@@ -12,6 +12,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.enums.ItemUniquenessChannel;
 import delta.games.lotro.common.enums.SocketType;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary2.Tracery;
@@ -94,10 +95,10 @@ public class TraceriesXMLWriter
       traceryAttrs.addAttribute("","",TraceriesXMLConstants.SET_ID_ATTR,XmlWriter.CDATA,String.valueOf(setId));
     }
     // Uniqueness channel
-    String uniquenessChannel=tracery.getUniquenessChannel();
+    ItemUniquenessChannel uniquenessChannel=tracery.getUniquenessChannel();
     if (uniquenessChannel!=null)
     {
-      traceryAttrs.addAttribute("","",TraceriesXMLConstants.UNIQUENESS_CHANNEL_ATTR,XmlWriter.CDATA,uniquenessChannel);
+      traceryAttrs.addAttribute("","",TraceriesXMLConstants.UNIQUENESS_CHANNEL_ATTR,XmlWriter.CDATA,String.valueOf(uniquenessChannel.getCode()));
     }
     hd.startElement("","",TraceriesXMLConstants.TRACERY_TAG,traceryAttrs);
     hd.endElement("","",TraceriesXMLConstants.TRACERY_TAG);

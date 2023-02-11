@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items.legendary2;
 
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.enums.ItemUniquenessChannel;
 import delta.games.lotro.common.enums.SocketType;
 import delta.games.lotro.lore.items.Item;
 
@@ -18,7 +19,7 @@ public class Tracery implements Identifiable,Named
   private int _maxItemLevel;
   private int _increment;
   private int _setId;
-  private String _uniquenessChannel;
+  private ItemUniquenessChannel _uniquenessChannel;
 
   /**
    * Constructor.
@@ -30,7 +31,7 @@ public class Tracery implements Identifiable,Named
    * @param setId Identifier of the parent set (0 if none).
    * @param uniquenessChannel Uniqueness channel.
    */
-  public Tracery(Item item, SocketType type, int minItemLevel, int maxItemLevel, int increment, int setId, String uniquenessChannel)
+  public Tracery(Item item, SocketType type, int minItemLevel, int maxItemLevel, int increment, int setId, ItemUniquenessChannel uniquenessChannel)
   {
     _item=item;
     _type=type;
@@ -133,7 +134,7 @@ public class Tracery implements Identifiable,Named
    * Get the uniqueness channel.
    * @return a uniqueness channel or <code>null</code>.
    */
-  public String getUniquenessChannel()
+  public ItemUniquenessChannel getUniquenessChannel()
   {
     return _uniquenessChannel;
   }

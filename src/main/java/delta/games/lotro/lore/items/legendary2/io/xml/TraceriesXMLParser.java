@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.enums.ItemUniquenessChannel;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SocketType;
@@ -72,7 +73,13 @@ public class TraceriesXMLParser
     // Set ID
     int setID=DOMParsingTools.getIntAttribute(attrs,TraceriesXMLConstants.SET_ID_ATTR,0);
     // Uniqueness channel
-    String uniquenessChannel=DOMParsingTools.getStringAttribute(attrs,TraceriesXMLConstants.UNIQUENESS_CHANNEL_ATTR,null);
+    ItemUniquenessChannel uniquenessChannel=null;
+    int uniquenessChannelCode=DOMParsingTools.getIntAttribute(attrs,TraceriesXMLConstants.UNIQUENESS_CHANNEL_ATTR,0);
+    if (uniquenessChannelCode>0)
+    {
+      LotroEnum<ItemUniquenessChannel> itemUniquenessChannelEnum=LotroEnumsRegistry.getInstance().get(ItemUniquenessChannel.class);
+      uniquenessChannel=itemUniquenessChannelEnum.getEntry(uniquenessChannelCode);
+    }
     Tracery ret=new Tracery(item,socketType,minItemLevel,maxItemLevel,increment,setID,uniquenessChannel);
     return ret;
   }
