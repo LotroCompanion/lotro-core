@@ -16,6 +16,10 @@ public class QuestXMLConstants
    */
   public static final String QUEST_TAG="quest";
   /**
+   * Tag 'quest', attribute 'category'.
+   */
+  public static final String CATEGORY_ATTR="category";
+  /**
    * Tag 'quest', attribute 'scope'.
    */
   public static final String QUEST_SCOPE_ATTR="scope";

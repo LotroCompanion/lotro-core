@@ -6,7 +6,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
-import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsXMLWriter;
 import delta.games.lotro.lore.maps.MapDescription;
@@ -22,31 +21,6 @@ import delta.games.lotro.utils.Proxy;
  */
 public class AchievableXMLWriter
 {
-  protected void writeAttributes(AttributesImpl attrs, Achievable achievable)
-  {
-    // Identifier
-    int id=achievable.getIdentifier();
-    if (id!=0)
-    {
-      attrs.addAttribute("","",AchievableXMLConstants.ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-    }
-    // Name
-    String name=achievable.getName();
-    if (name.length()>0)
-    {
-      attrs.addAttribute("","",AchievableXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
-    }
-    // Category
-    String category=achievable.getCategory();
-    if (category.length()>0)
-    {
-      attrs.addAttribute("","",AchievableXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,category);
-    }
-    // Challenge level
-    ChallengeLevel challengeLevel=achievable.getChallengeLevel();
-    attrs.addAttribute("","",AchievableXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
-  }
-
   protected void writePrerequisites(TransformerHandler hd, Achievable quest) throws SAXException
   {
     AbstractAchievableRequirement requirement=quest.getQuestRequirements();

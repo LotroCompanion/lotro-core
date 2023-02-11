@@ -27,9 +27,6 @@ public class AchievableSaxParser
     // Name
     String name=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.NAME_ATTR,"");
     achievable.setName(name);
-    // Category
-    String category=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.CATEGORY_ATTR,"");
-    achievable.setCategory(category);
     // Challenge level
     int challengeLevel=SAXParsingTools.getIntAttribute(attrs,AchievableXMLConstants.LEVEL_ATTR,0);
     achievable.setChallengeLevel(ChallengeLevel.getByCode(challengeLevel));

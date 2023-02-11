@@ -16,10 +16,6 @@ public class AchievableXMLConstants
    */
   public static final String NAME_ATTR="name";
   /**
-   * Tag 'quest/deed', attribute 'category'.
-   */
-  public static final String CATEGORY_ATTR="category";
-  /**
    * Tag 'quest/deed', attribute 'level'.
    */
   public static final String LEVEL_ATTR="level";

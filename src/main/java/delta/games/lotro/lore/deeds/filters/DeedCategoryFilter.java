@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.deeds.filters;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.common.enums.DeedCategory;
 import delta.games.lotro.lore.deeds.DeedDescription;
 
 /**
@@ -9,13 +10,13 @@ import delta.games.lotro.lore.deeds.DeedDescription;
  */
 public class DeedCategoryFilter implements Filter<DeedDescription>
 {
-  private String _category;
+  private DeedCategory _category;
 
   /**
    * Constructor.
    * @param category Category to select (may be <code>null</code>).
    */
-  public DeedCategoryFilter(String category)
+  public DeedCategoryFilter(DeedCategory category)
   {
     _category=category;
   }
@@ -24,7 +25,7 @@ public class DeedCategoryFilter implements Filter<DeedDescription>
    * Get the category to use.
    * @return A category or <code>null</code>.
    */
-  public String getDeedCategory()
+  public DeedCategory getDeedCategory()
   {
     return _category;
   }
@@ -33,7 +34,7 @@ public class DeedCategoryFilter implements Filter<DeedDescription>
    * Set the category to select.
    * @param category Category to use, may be <code>null</code>.
    */
-  public void setDeedCategory(String category)
+  public void setDeedCategory(DeedCategory category)
   {
     _category=category;
   }
@@ -45,15 +46,7 @@ public class DeedCategoryFilter implements Filter<DeedDescription>
     {
       return true;
     }
-    String deedCategory=deed.getCategory();
-    if (_category.equals(deedCategory))
-    {
-      return true;
-    }
-    if ((deedCategory!=null) && (deedCategory.startsWith(_category+":")))
-    {
-      return true;
-    }
-    return false;
+    DeedCategory deedCategory=deed.getCategory();
+    return (_category==deedCategory);
   }
 }

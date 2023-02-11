@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.deeds;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.enums.DeedCategory;
 import delta.games.lotro.lore.quests.Achievable;
 
 /**
@@ -17,6 +18,10 @@ public class DeedDescription extends Achievable
    * Deed type.
    */
   private DeedType _type;
+  /**
+   * Deed category.
+   */
+  private DeedCategory _category;
 
   /**
    * Constructor.
@@ -75,6 +80,24 @@ public class DeedDescription extends Achievable
   }
 
   /**
+   * Get the category of this deed.
+   * @return the category of this deed.
+   */
+  public DeedCategory getCategory()
+  {
+    return _category;
+  }
+
+  /**
+   * Set the category of this deed. 
+   * @param category the category to set.
+   */
+  public void setCategory(DeedCategory category)
+  {
+    _category=category;
+  }
+
+  /**
    * Dump the contents of this deed as a string.
    * @return A readable string.
    */
@@ -92,6 +115,12 @@ public class DeedDescription extends Achievable
     {
       sb.append(" (");
       sb.append(_type);
+      sb.append(')');
+    }
+    if (_category!=null)
+    {
+      sb.append(" (");
+      sb.append(_category);
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);

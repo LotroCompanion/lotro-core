@@ -10,6 +10,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.common.ChallengeLevel;
+import delta.games.lotro.common.enums.DeedCategory;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
@@ -77,8 +78,12 @@ public class DeedXMLWriter extends AchievableXMLWriter
     // Requirements
     UsageRequirementsXMLWriter.write(deedAttrs,deed.getUsageRequirement());
     // Category
-    String category=deed.getCategory();
-    deedAttrs.addAttribute("","",AchievableXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,category);
+    DeedCategory category=deed.getCategory();
+    if (category!=null)
+    {
+      int categoryCode=category.getCode();
+      deedAttrs.addAttribute("","",DeedXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(categoryCode));
+    }
     // Challenge level
     ChallengeLevel challengeLevel=deed.getChallengeLevel();
     deedAttrs.addAttribute("","",AchievableXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));

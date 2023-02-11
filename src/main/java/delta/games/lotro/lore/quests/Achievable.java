@@ -32,10 +32,6 @@ public abstract class Achievable implements Identifiable
    */
   private String _name;
   /**
-   * Category. Can be empty be not <code>null</code>.
-   */
-  private String _category;
-  /**
    * Requirements.
    */
   private UsageRequirement _requirement;
@@ -89,7 +85,6 @@ public abstract class Achievable implements Identifiable
   {
     _identifier=0;
     _name="";
-    _category="";
     _requirement=new UsageRequirement();
     _challengeLevel=ChallengeLevel.ONE;
     _hidden=false;
@@ -137,25 +132,6 @@ public abstract class Achievable implements Identifiable
   {
     if (name==null) name="";
     _name=name;
-  }
-
-  /**
-   * Get the category of this achievable.
-   * @return the category of this achievable.
-   */
-  public String getCategory()
-  {
-    return _category;
-  }
-
-  /**
-   * Set the category of this achievable. 
-   * @param category the category to set.
-   */
-  public void setCategory(String category)
-  {
-    if (category==null) category="";
-    _category=category;
   }
 
   /**
@@ -396,10 +372,6 @@ public abstract class Achievable implements Identifiable
 
   protected void dumpOtherLines(StringBuilder sb)
   {
-    if (_category.length()>0)
-    {
-      sb.append("Category: ").append(_category).append(EndOfLine.NATIVE_EOL);
-    }
     if (!_requirement.isEmpty())
     {
       sb.append("Requirements: ").append(_requirement).append(EndOfLine.NATIVE_EOL);

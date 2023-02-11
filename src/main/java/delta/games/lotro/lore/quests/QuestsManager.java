@@ -11,6 +11,8 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.enums.QuestCategory;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -115,15 +117,15 @@ public final class QuestsManager
    * Get all quest categories.
    * @return a sorted list of quest categories.
    */
-  public List<String> getCategories()
+  public List<QuestCategory> getCategories()
   {
-    Set<String> categories=new HashSet<String>();
+    Set<QuestCategory> categories=new HashSet<QuestCategory>();
     for(QuestDescription quest : _cache.values())
     {
       categories.add(quest.getCategory());
     }
-    List<String> ret=new ArrayList<String>(categories);
-    Collections.sort(ret);
+    List<QuestCategory> ret=new ArrayList<QuestCategory>(categories);
+    Collections.sort(ret,new LotroEnumEntryNameComparator<QuestCategory>());
     return ret;
   }
 }

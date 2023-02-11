@@ -11,10 +11,12 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.Achievable;
@@ -77,8 +79,28 @@ public class QuestXMLWriter extends AchievableXMLWriter
   {
     AttributesImpl questAttrs=new AttributesImpl();
 
-    // Shared achievable attributes
-    writeAttributes(questAttrs,quest);
+    // Identifier
+    int id=quest.getIdentifier();
+    if (id!=0)
+    {
+      questAttrs.addAttribute("","",AchievableXMLConstants.ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    // Name
+    String name=quest.getName();
+    if (name.length()>0)
+    {
+      questAttrs.addAttribute("","",AchievableXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    // Category
+    QuestCategory category=quest.getCategory();
+    if (category!=null)
+    {
+      int categoryCode=category.getCode();
+      questAttrs.addAttribute("","",QuestXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(categoryCode));
+    }
+    // Challenge level
+    ChallengeLevel challengeLevel=quest.getChallengeLevel();
+    questAttrs.addAttribute("","",AchievableXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
     // Scope
     String scope=quest.getQuestScope();
     if (scope.length()>0)

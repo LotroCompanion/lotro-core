@@ -7,6 +7,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.utils.Proxy;
@@ -17,6 +18,10 @@ import delta.games.lotro.utils.Proxy;
  */
 public class QuestDescription extends Achievable
 {
+  /**
+   * Category.
+   */
+  private QuestCategory _category; 
   /**
    * Scope.
    */
@@ -72,6 +77,24 @@ public class QuestDescription extends Achievable
     _nextQuest=null;
     _endDialogs=new ArrayList<DialogElement>();
     _completionComments=new ArrayList<QuestCompletionComment>();
+  }
+
+  /**
+   * Get the category of this quest.
+   * @return the category of this quest.
+   */
+  public QuestCategory getCategory()
+  {
+    return _category;
+  }
+
+  /**
+   * Set the category of this quest. 
+   * @param category the category to set.
+   */
+  public void setCategory(QuestCategory category)
+  {
+    _category=category;
   }
 
   /**
@@ -349,6 +372,10 @@ public class QuestDescription extends Achievable
       sb.append(" (auto-bestowed)");
     }
     sb.append(EndOfLine.NATIVE_EOL);
+    if (_category!=null)
+    {
+      sb.append("Category: ").append(_category).append(EndOfLine.NATIVE_EOL);
+    }
     super.dumpOtherLines(sb);
     if (_scope.length()>0)
     {

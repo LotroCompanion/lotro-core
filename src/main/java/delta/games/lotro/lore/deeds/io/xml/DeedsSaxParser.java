@@ -10,6 +10,9 @@ import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserEngine;
 import delta.common.utils.xml.sax.SAXParserValve;
+import delta.games.lotro.common.enums.DeedCategory;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsSaxParser;
 import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsXMLConstants;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
@@ -42,6 +45,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
   private QuestsRequirementsSaxParser _requirements;
   private WorldEventConditionsSaxParser _worldEventConditions;
   private SingleLocaleLabelsManager _i18n;
+  private LotroEnum<DeedCategory> _categoryEnum;
 
   /**
    * Constructor.
@@ -59,6 +63,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
     _requirements.setParent(this);
     _worldEventConditions=new WorldEventConditionsSaxParser();
     _worldEventConditions.setParent(this);
+    _categoryEnum=LotroEnumsRegistry.getInstance().get(DeedCategory.class);
   }
 
   /**
@@ -84,6 +89,14 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
 
       // Shared attributes
       AchievableSaxParser.parseAchievableAttributes(attrs,deed,_i18n);
+      // Category
+      int categoryCode=SAXParsingTools.getIntAttribute(attrs,DeedXMLConstants.CATEGORY_ATTR,0);
+      DeedCategory category=null;
+      if (categoryCode>0)
+      {
+        category=_categoryEnum.getEntry(categoryCode);
+      }
+      deed.setCategory(category);
       // Key
       String key=SAXParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_KEY_ATTR,null);
       deed.setKey(key);
