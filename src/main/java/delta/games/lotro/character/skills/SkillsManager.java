@@ -59,7 +59,7 @@ public class SkillsManager
     long now=System.currentTimeMillis();
     if ((skillsFile.exists()) && (skillsFile.canRead()))
     {
-      List<SkillDescription> skills=SkillDescriptionXMLParser.parseSkillsFile(skillsFile);
+      List<SkillDescription> skills=new SkillDescriptionXMLParser().parseSkillsFile(skillsFile);
       for(SkillDescription skill : skills)
       {
         registerSkill(skill);

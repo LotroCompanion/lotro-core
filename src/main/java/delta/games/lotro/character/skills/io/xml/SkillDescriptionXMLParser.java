@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.TravelSkill;
@@ -14,6 +15,8 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TravelLink;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for skill descriptions stored in XML.
@@ -23,12 +26,22 @@ public class SkillDescriptionXMLParser
 {
   private static LotroEnum<SkillCategory> _categoryEnum=LotroEnumsRegistry.getInstance().get(SkillCategory.class);
 
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public SkillDescriptionXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("skills");
+  }
+
   /**
    * Parse a skills XML file.
    * @param source Source file.
    * @return List of parsed skills.
    */
-  public static List<SkillDescription> parseSkillsFile(File source)
+  public List<SkillDescription> parseSkillsFile(File source)
   {
     List<SkillDescription> skills=new ArrayList<SkillDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -49,7 +62,7 @@ public class SkillDescriptionXMLParser
    * @param root Root XML tag.
    * @return A skill.
    */
-  private static SkillDescription parseSkill(Element root)
+  private SkillDescription parseSkill(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     SkillDescription skill=buildSkill(root);
@@ -57,7 +70,7 @@ public class SkillDescriptionXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,SkillDescriptionXMLConstants.SKILL_IDENTIFIER_ATTR,0);
     skill.setIdentifier(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,SkillDescriptionXMLConstants.SKILL_NAME_ATTR,null);
+    String name=_i18n.getLabel(String.valueOf(id));
     skill.setName(name);
     // Category
     int categoryCode=DOMParsingTools.getIntAttribute(attrs,SkillDescriptionXMLConstants.SKILL_CATEGORY_ATTR,0);
@@ -71,6 +84,7 @@ public class SkillDescriptionXMLParser
     skill.setIconId(iconId);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,SkillDescriptionXMLConstants.SKILL_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     skill.setDescription(description);
 
     return skill;
