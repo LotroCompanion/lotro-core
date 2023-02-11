@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.enums.TraitTreeType;
 
 /**
  * Trait tree.
@@ -13,19 +14,18 @@ import delta.games.lotro.common.Identifiable;
 public class TraitTree implements Identifiable
 {
   private int _id;
-  private int _code;
-  private String _key;
+  private TraitTreeType _type;
   private List<TraitTreeBranch> _branches;
 
   /**
    * Constructor.
    * @param id Trait id.
+   * @param type Type.
    */
-  public TraitTree(int id)
+  public TraitTree(int id, TraitTreeType type)
   {
     _id=id;
-    _code=0;
-    _key=null;
+    _type=type;
     _branches=new ArrayList<TraitTreeBranch>();
   }
 
@@ -36,39 +36,12 @@ public class TraitTree implements Identifiable
   }
 
   /**
-   * Get the enum code for this tree.
-   * @return An enum code.
+   * Get the trait tree type.
+   * @return the trait tree type.
    */
-  public int getCode()
+  public TraitTreeType getType()
   {
-    return _code;
-  }
-
-  /**
-   * Set the enum code for this tree.
-   * @param code Code to set.
-   */
-  public void setCode(int code)
-  {
-    _code=code;
-  }
-
-  /**
-   * Get the identifying key.
-   * @return a key or <code>null</code>.
-   */
-  public String getKey()
-  {
-    return _key;
-  }
-
-  /**
-   * Set the identifying key.
-   * @param key
-   */
-  public void setKey(String key)
-  {
-    _key=key;
+    return _type;
   }
 
   /**

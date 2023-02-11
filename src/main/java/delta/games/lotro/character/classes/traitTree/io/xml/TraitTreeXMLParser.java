@@ -15,6 +15,10 @@ import delta.games.lotro.character.classes.traitTree.TraitTreeCellDependency;
 import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.TraitTreeBranchType;
+import delta.games.lotro.common.enums.TraitTreeType;
 
 /**
  * Parser for trait trees stored in XML.
@@ -48,21 +52,21 @@ public class TraitTreeXMLParser
     NamedNodeMap mainAttrs=root.getAttributes();
     // ID
     int id=DOMParsingTools.getIntAttribute(mainAttrs,TraitTreeXMLConstants.TRAIT_TREE_ID_ATTR,0);
-    TraitTree tree=new TraitTree(id);
     // Code
     int treeCode=DOMParsingTools.getIntAttribute(mainAttrs,TraitTreeXMLConstants.TRAIT_TREE_CODE_ATTR,0);
-    tree.setCode(treeCode);
-    // Key
-    String key=DOMParsingTools.getStringAttribute(mainAttrs,TraitTreeXMLConstants.TRAIT_TREE_KEY_ATTR,null);
-    tree.setKey(key);
+    LotroEnum<TraitTreeType> enumType=LotroEnumsRegistry.getInstance().get(TraitTreeType.class);
+    TraitTreeType type=enumType.getEntry(treeCode);
+    TraitTree tree=new TraitTree(id,type);
+
     TraitsManager traitsMgr=TraitsManager.getInstance();
+    LotroEnum<TraitTreeBranchType> enumBranchType=LotroEnumsRegistry.getInstance().get(TraitTreeBranchType.class);
     List<Element> branchTags=DOMParsingTools.getChildTagsByName(root,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_TAG);
     for(Element branchTag : branchTags)
     {
       NamedNodeMap branchAttrs=branchTag.getAttributes();
       int branchCode=DOMParsingTools.getIntAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_CODE_ATTR,0);
-      String name=DOMParsingTools.getStringAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,null);
-      TraitTreeBranch branch=new TraitTreeBranch(branchCode,name);
+      TraitTreeBranchType branchType=enumBranchType.getEntry(branchCode);
+      TraitTreeBranch branch=new TraitTreeBranch(branchType);
       tree.addBranch(branch);
       // Main trait
       int mainTraitId=DOMParsingTools.getIntAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_TRAIT_ATTR,0);

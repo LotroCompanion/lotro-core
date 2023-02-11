@@ -72,7 +72,7 @@ public class TraitTreesManager
     Integer id=Integer.valueOf(traitTree.getIdentifier());
     _cacheByID.put(id,traitTree);
     // Code
-    Integer code=Integer.valueOf(traitTree.getCode());
+    Integer code=Integer.valueOf(traitTree.getType().getCode());
     _cacheByCode.put(code,traitTree);
   }
 

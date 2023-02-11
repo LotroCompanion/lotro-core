@@ -10,6 +10,7 @@ import java.util.List;
 import delta.games.lotro.character.classes.traitTree.setup.events.TraitTreeSetupEvent;
 import delta.games.lotro.character.classes.traitTree.setup.events.TraitTreeSetupEventType;
 import delta.games.lotro.character.classes.traitTree.setup.io.xml.TraitTreeSetupsIO;
+import delta.games.lotro.common.enums.TraitTreeType;
 import delta.games.lotro.data.UserDataManager;
 import delta.games.lotro.utils.events.EventsManager;
 
@@ -56,17 +57,17 @@ public class TraitTreeSetupsManager
   }
 
   /**
-   * Get the setups for a given trait tree key.
-   * @param key Trait tree key.
+   * Get the setups for a given trait tree type.
+   * @param type Trait tree type.
    * @return A possibly empty but not <code>null</code> list of trait tree setups.
    */
-  public List<TraitTreeSetup> getSetups(String key)
+  public List<TraitTreeSetup> getSetups(TraitTreeType type)
   {
     List<TraitTreeSetup> ret=new ArrayList<TraitTreeSetup>();
     for(TraitTreeSetup setup : _datas)
     {
-      String setupKey=setup.getKey();
-      if (setupKey.equals(key))
+      TraitTreeType setupType=setup.getType();
+      if (setupType==type)
       {
         ret.add(setup);
       }

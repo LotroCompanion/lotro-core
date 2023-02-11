@@ -1,10 +1,10 @@
 package delta.games.lotro.common.enums;
 
 /**
- * Paper item category.
+ * Type of trait tree branch.
  * @author DAM
  */
-public class PaperItemCategory extends LotroEnumEntry
+public class TraitTreeBranchType extends LotroEnumEntry
 {
   @Override
   public String toString()

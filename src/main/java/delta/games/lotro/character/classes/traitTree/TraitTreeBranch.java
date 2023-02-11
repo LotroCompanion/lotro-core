@@ -8,6 +8,7 @@ import java.util.Map;
 
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.enums.TraitTreeBranchType;
 
 /**
  * Trait tree branch.
@@ -15,24 +16,30 @@ import delta.games.lotro.common.IdentifiableComparator;
  */
 public class TraitTreeBranch
 {
-  private int _code;
-  private String _name;
+  private TraitTreeBranchType _type;
   private TraitDescription _trait;
   private TraitTreeProgression _progression;
   private Map<String,TraitTreeCell> _cells;
 
   /**
    * Constructor.
-   * @param code Code.
-   * @param name Branch name.
+   * @param type Type.
    */
-  public TraitTreeBranch(int code, String name)
+  public TraitTreeBranch(TraitTreeBranchType type)
   {
-    _code=code;
-    _name=name;
+    _type=type;
     _trait=null;
     _cells=new HashMap<String,TraitTreeCell>();
     _progression=new TraitTreeProgression();
+  }
+
+  /**
+   * Get the branch type.
+   * @return the branch type.
+   */
+  public TraitTreeBranchType getType()
+  {
+    return _type;
   }
 
   /**
@@ -41,7 +48,7 @@ public class TraitTreeBranch
    */
   public int getCode()
   {
-    return _code;
+    return _type.getCode();
   }
 
   /**
@@ -50,7 +57,7 @@ public class TraitTreeBranch
    */
   public String getName()
   {
-    return _name;
+    return _type.getLabel();
   }
 
   /**

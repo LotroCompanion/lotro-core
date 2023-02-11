@@ -5,6 +5,7 @@ import java.io.File;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
+import delta.games.lotro.common.enums.TraitTreeType;
 
 /**
  * Trait tree setup.
@@ -101,12 +102,12 @@ public class TraitTreeSetup
   }
 
   /**
-   * Get the trait tree key for this setup.
-   * @return A trait tree key.
+   * Get the trait tree type for this setup.
+   * @return the trait tree type for this setup.
    */
-  public String getKey()
+  public TraitTreeType getType()
   {
-    return _status.getTraitTree().getKey();
+    return getTraitTree().getType();
   }
 
   /**

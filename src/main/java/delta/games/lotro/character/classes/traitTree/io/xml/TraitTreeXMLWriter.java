@@ -17,6 +17,7 @@ import delta.games.lotro.character.classes.traitTree.TraitTreeCell;
 import delta.games.lotro.character.classes.traitTree.TraitTreeCellDependency;
 import delta.games.lotro.character.classes.traitTree.TraitTreeProgression;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.enums.TraitTreeType;
 
 /**
  * Writes trait trees to XML files.
@@ -57,17 +58,15 @@ public class TraitTreeXMLWriter
     int id=tree.getIdentifier();
     mainAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Code
-    int code=tree.getCode();
+    TraitTreeType type=tree.getType();
+    int code=type.getCode();
     if (code!=0)
     {
       mainAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
     }
     // Key
-    String key=tree.getKey();
-    if (key!=null)
-    {
-      mainAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_KEY_ATTR,XmlWriter.CDATA,key);
-    }
+    String key=type.getLabel();
+    mainAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_KEY_ATTR,XmlWriter.CDATA,key);
     hd.startElement("","",TraitTreeXMLConstants.TRAIT_TREE_TAG,mainAttrs);
     List<TraitTreeBranch> branches=tree.getBranches();
     for(TraitTreeBranch branch : branches)

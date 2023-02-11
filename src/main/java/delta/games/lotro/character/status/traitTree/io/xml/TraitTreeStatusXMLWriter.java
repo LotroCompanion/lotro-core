@@ -32,9 +32,6 @@ public class TraitTreeStatusXMLWriter
     // Tree ID
     int treeID=tree.getIdentifier();
     statusAttrs.addAttribute("","",TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_TREE_ID_ATTR,XmlWriter.CDATA,String.valueOf(treeID));
-    // Key
-    String key=tree.getKey();
-    statusAttrs.addAttribute("","",TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_KEY_ATTR,XmlWriter.CDATA,key);
     // Branch ID
     TraitTreeBranch selectedBranch=status.getSelectedBranch();
     if (selectedBranch!=null)
