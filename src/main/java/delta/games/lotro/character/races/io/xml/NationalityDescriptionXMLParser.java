@@ -7,8 +7,11 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.races.NationalityDescription;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for nationality descriptions stored in XML.
@@ -16,12 +19,22 @@ import delta.games.lotro.character.races.NationalityDescription;
  */
 public class NationalityDescriptionXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public NationalityDescriptionXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("nationalities");
+  }
+
   /**
    * Parse a nationality descriptions XML file.
    * @param source Source file.
    * @return List of parsed nationality descriptions.
    */
-  public static List<NationalityDescription> parseNationalitiesFile(File source)
+  public List<NationalityDescription> parseNationalitiesFile(File source)
   {
     List<NationalityDescription> descriptions=new ArrayList<NationalityDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -42,26 +55,29 @@ public class NationalityDescriptionXMLParser
    * @param root Root XML tag.
    * @return A nationality description.
    */
-  private static NationalityDescription parseNationalityDescription(Element root)
+  private NationalityDescription parseNationalityDescription(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Code
     int code=DOMParsingTools.getIntAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_CODE_ATTR,0);
     NationalityDescription ret=new NationalityDescription(code);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(code));
     ret.setName(name);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     ret.setDescription(description);
     // Icon ID
     int iconID=DOMParsingTools.getIntAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_ICON_ID_ATTR,0);
     ret.setIconID(iconID);
     // Male guideline
     String maleGuideline=DOMParsingTools.getStringAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_MALE_GUIDELINE_ATTR,"");
+    maleGuideline=I18nRuntimeUtils.getLabel(_i18n,maleGuideline);
     ret.setNamingGuidelineMale(maleGuideline);
     // Female guideline
     String femaleGuideline=DOMParsingTools.getStringAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_FEMALE_GUIDELINE_ATTR,"");
+    femaleGuideline=I18nRuntimeUtils.getLabel(_i18n,femaleGuideline);
     ret.setNamingGuidelineFemale(femaleGuideline);
     // Title ID
     int titleID=DOMParsingTools.getIntAttribute(attrs,NationalityDescriptionXMLConstants.NATIONALITY_TITLE_ID_ATTR,0);

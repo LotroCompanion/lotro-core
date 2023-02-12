@@ -55,7 +55,7 @@ public class NationalitiesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File nationalitiesFile=cfg.getFile(DataFiles.NATIONALITIES);
     long now=System.currentTimeMillis();
-    List<NationalityDescription> nationalityDescriptions=NationalityDescriptionXMLParser.parseNationalitiesFile(nationalitiesFile);
+    List<NationalityDescription> nationalityDescriptions=new NationalityDescriptionXMLParser().parseNationalitiesFile(nationalitiesFile);
     for(NationalityDescription nationalityDescription : nationalityDescriptions)
     {
       register(nationalityDescription);
