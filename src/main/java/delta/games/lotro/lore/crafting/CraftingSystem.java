@@ -40,7 +40,7 @@ public class CraftingSystem
   {
     File inputFile=LotroCoreConfig.getInstance().getFile(DataFiles.CRAFTING_DATA);
     long now=System.currentTimeMillis();
-    _data=CraftingXMLParser.parseCraftingSystem(inputFile);
+    _data=new CraftingXMLParser().parseCraftingSystem(inputFile);
     long now2=System.currentTimeMillis();
     long duration=now2-now;
     LOGGER.info("Loaded crafting system data in "+duration+"ms.");

@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.crafting.CraftingData;
 import delta.games.lotro.lore.crafting.CraftingLevel;
@@ -18,6 +19,8 @@ import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.lore.titles.TitleDescription;
 import delta.games.lotro.lore.titles.TitlesManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for crafting data stored in XML.
@@ -25,12 +28,22 @@ import delta.games.lotro.lore.titles.TitlesManager;
  */
 public class CraftingXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public CraftingXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("crafting");
+  }
+
   /**
    * Parse crafting data from an XML file.
    * @param source Source file.
    * @return the parsed data.
    */
-  public static CraftingData parseCraftingSystem(File source)
+  public CraftingData parseCraftingSystem(File source)
   {
     CraftingData ret=new CraftingData();
     Element root=DOMParsingTools.parse(source);
@@ -61,7 +74,7 @@ public class CraftingXMLParser
    * @param root Root XML tag.
    * @return A profession.
    */
-  private static Profession parseProfession(Element root)
+  private Profession parseProfession(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     Profession ret=new Profession();
@@ -72,10 +85,11 @@ public class CraftingXMLParser
     String key=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_KEY_ATTR,null);
     ret.setKey(key);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     ret.setName(name);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     ret.setDescription(description);
     // Guild?
     int guildFactionId=DOMParsingTools.getIntAttribute(attrs,CraftingXMLConstants.PROFESSION_GUILD_FACTION_ATTR,0);
@@ -158,7 +172,7 @@ public class CraftingXMLParser
    * @param crafting Crafting system.
    * @return A vocation.
    */
-  private static Vocation parseVocation(Element root, CraftingData crafting)
+  private Vocation parseVocation(Element root, CraftingData crafting)
   {
     NamedNodeMap attrs=root.getAttributes();
     Vocation ret=new Vocation();
@@ -169,10 +183,11 @@ public class CraftingXMLParser
     String key=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.VOCATION_KEY_ATTR,null);
     ret.setKey(key);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.VOCATION_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     ret.setName(name);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.VOCATION_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     ret.setDescription(description);
 
     Professions professions=crafting.getProfessionsRegistry();
