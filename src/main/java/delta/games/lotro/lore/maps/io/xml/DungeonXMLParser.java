@@ -6,12 +6,14 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.geo.ExtendedPosition;
 import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
 import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 import delta.games.lotro.lore.maps.Dungeon;
 import delta.games.lotro.lore.maps.DungeonsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for the dungeons stored in XML.
@@ -19,6 +21,16 @@ import delta.games.lotro.lore.maps.DungeonsManager;
  */
 public class DungeonXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public DungeonXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("dungeons");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -60,7 +72,7 @@ public class DungeonXMLParser
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,DungeonXMLConstants.ID_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,DungeonXMLConstants.NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     // Basemap identifier
     int basemapId=DOMParsingTools.getIntAttribute(attrs,DungeonXMLConstants.BASEMAP_ID_ATTR,0);
     Dungeon ret=new Dungeon(id,name,basemapId);
