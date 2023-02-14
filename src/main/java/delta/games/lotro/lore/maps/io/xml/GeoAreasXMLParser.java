@@ -6,11 +6,13 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.maps.Area;
 import delta.games.lotro.lore.maps.GeoAreasManager;
 import delta.games.lotro.lore.maps.Region;
 import delta.games.lotro.lore.maps.Territory;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for the geographic areas stored in XML.
@@ -18,6 +20,16 @@ import delta.games.lotro.lore.maps.Territory;
  */
 public class GeoAreasXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public GeoAreasXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("geoAreas");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -74,7 +86,7 @@ public class GeoAreasXMLParser
     // Code
     int code=DOMParsingTools.getIntAttribute(attrs,GeoAreasXMLConstants.REGION_CODE_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,GeoAreasXMLConstants.NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     Region region=new Region(id,code,name);
     return region;
   }
@@ -85,7 +97,7 @@ public class GeoAreasXMLParser
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,GeoAreasXMLConstants.ID_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,GeoAreasXMLConstants.NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     // Parent
     int regionId=DOMParsingTools.getIntAttribute(attrs,GeoAreasXMLConstants.PARENT_ID_ATTR,0);
     Region parentRegion=mgr.getRegionById(regionId);
@@ -99,7 +111,7 @@ public class GeoAreasXMLParser
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,GeoAreasXMLConstants.ID_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,GeoAreasXMLConstants.NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     // Parent
     int territoryId=DOMParsingTools.getIntAttribute(attrs,GeoAreasXMLConstants.PARENT_ID_ATTR,0);
     Territory parentTerritory=mgr.getTerritoryById(territoryId);
