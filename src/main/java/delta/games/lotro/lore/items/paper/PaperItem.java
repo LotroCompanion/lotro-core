@@ -4,6 +4,7 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.enums.PaperItemCategory;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Paper item description.
@@ -11,9 +12,7 @@ import delta.games.lotro.common.enums.PaperItemCategory;
  */
 public class PaperItem implements Identifiable,Named
 {
-  private int _identifier;
-  private String _name;
-  private ItemClass _itemClass;
+  private Item _item;
   private PaperItemCategory _category;
   private boolean _accountShared;
   private boolean _free;
@@ -24,13 +23,11 @@ public class PaperItem implements Identifiable,Named
 
   /**
    * Constructor.
-   * @param id Paper item identifier.
+   * @param item Associated item.
    */
-  public PaperItem(int id)
+  public PaperItem(Item item)
   {
-    _identifier=id;
-    _name="";
-    _itemClass=null;
+    _item=item;
     _category=null;
     _accountShared=false;
     _free=true;
@@ -39,32 +36,16 @@ public class PaperItem implements Identifiable,Named
     _old=false;
   }
 
-  /**
-   * Get the identifier.
-   * @return an identifier.
-   */
+  @Override
   public int getIdentifier()
   {
-    return _identifier;
+    return _item.getIdentifier();
   }
 
-  /**
-   * Get the paper item name.
-   * @return a paper item name.
-   */
+  @Override
   public String getName()
   {
-    return _name;
-  }
-
-  /**
-   * Set the paper item name.
-   * @param name Name to set.
-   */
-  public void setName(String name)
-  {
-    if (name==null) name="";
-    _name=name;
+    return _item.getName();
   }
 
   /**
@@ -73,16 +54,7 @@ public class PaperItem implements Identifiable,Named
    */
   public ItemClass getItemClass()
   {
-    return _itemClass;
-  }
-
-  /**
-   * Set the item class.
-   * @param itemClass Item class to set.
-   */
-  public void setItemClass(ItemClass itemClass)
-  {
-    _itemClass=itemClass;
+    return _item.getItemClass();
   }
 
   /**
@@ -197,9 +169,9 @@ public class PaperItem implements Identifiable,Named
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Paper item: ID=").append(_identifier);
-    sb.append(", name=").append(_name);
-    sb.append(", class=").append(_category);
+    sb.append("Paper item: ID=").append(getIdentifier());
+    sb.append(", name=").append(getName());
+    sb.append(", class=").append(getItemClass());
     sb.append(", category=").append(_category);
     if (_accountShared)
     {
