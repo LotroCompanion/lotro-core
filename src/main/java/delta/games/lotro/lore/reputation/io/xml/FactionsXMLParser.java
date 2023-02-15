@@ -7,11 +7,14 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionLevel;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.lore.reputation.ReputationDeed;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for factions stored in XML.
@@ -19,6 +22,16 @@ import delta.games.lotro.lore.reputation.ReputationDeed;
  */
 public class FactionsXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public FactionsXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("factions");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -59,7 +72,7 @@ public class FactionsXMLParser
     String factionKey=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_KEY_ATTR,null);
     faction.setLegacyKey(factionKey);
     // Name
-    String factionName=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_NAME_ATTR,null);
+    String factionName=_i18n.getLabel(String.valueOf(id));
     faction.setName(factionName);
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_CATEGORY_ATTR,null);
@@ -75,6 +88,7 @@ public class FactionsXMLParser
     }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     faction.setDescription(description);
     // Lowest tier
     int lowestTier=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LOWEST_TIER_ATTR,0);
