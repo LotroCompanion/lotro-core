@@ -42,7 +42,7 @@ public class SimpleClassesManager<T extends AbstractClassDescription>
     _mapByKey.clear();
     _mapByCode.clear();
     long now=System.currentTimeMillis();
-    List<AbstractClassDescription> classDescriptions=ClassDescriptionXMLParser.parseClassDescriptionsFile(classesFile);
+    List<AbstractClassDescription> classDescriptions=new ClassDescriptionXMLParser().parseClassDescriptionsFile(classesFile);
     for(AbstractClassDescription classDescription : classDescriptions)
     {
       _mapByKey.put(classDescription.getKey(),(T)classDescription);

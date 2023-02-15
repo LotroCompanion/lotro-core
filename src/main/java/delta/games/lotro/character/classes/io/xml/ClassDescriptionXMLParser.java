@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
@@ -21,6 +22,8 @@ import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for class descriptions stored in XML.
@@ -28,12 +31,22 @@ import delta.games.lotro.character.traits.TraitsManager;
  */
 public class ClassDescriptionXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public ClassDescriptionXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("classes");
+  }
+
   /**
    * Parse a class descriptions XML file.
    * @param source Source file.
    * @return List of parsed class descriptions.
    */
-  public static List<AbstractClassDescription> parseClassDescriptionsFile(File source)
+  public List<AbstractClassDescription> parseClassDescriptionsFile(File source)
   {
     List<AbstractClassDescription> descriptions=new ArrayList<AbstractClassDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -54,7 +67,7 @@ public class ClassDescriptionXMLParser
    * @param root Root XML tag.
    * @return A class description.
    */
-  private static AbstractClassDescription parseClassDescription(Element root)
+  private AbstractClassDescription parseClassDescription(Element root)
   {
     String tagName=root.getTagName();
     boolean isMonsterClass=ClassDescriptionXMLConstants.MONSTER_CLASS_TAG.equals(tagName);
@@ -80,7 +93,7 @@ public class ClassDescriptionXMLParser
       ret=description;
     }
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_NAME_ATTR,null);
+    String name=_i18n.getLabel(String.valueOf(id));
     ret.setName(name);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_ICON_ID_ATTR,0);
@@ -93,6 +106,7 @@ public class ClassDescriptionXMLParser
     ret.setAbbreviation(abbreviation);
     // Description
     String descriptionText=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_DESCRIPTION_ATTR,"");
+    descriptionText=I18nRuntimeUtils.getLabel(_i18n,descriptionText);
     ret.setDescription(descriptionText);
     if (description!=null)
     {
