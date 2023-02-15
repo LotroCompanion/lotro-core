@@ -7,11 +7,14 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.rewardsTrack.RewardsTrack;
 import delta.games.lotro.lore.rewardsTrack.RewardsTrackStep;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for rewards tracks stored in XML.
@@ -19,6 +22,16 @@ import delta.games.lotro.lore.rewardsTrack.RewardsTrackStep;
  */
 public class RewardsTracksXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public RewardsTracksXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("rewardsTracks");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -47,10 +60,11 @@ public class RewardsTracksXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,RewardsTracksXMLConstants.REWARDS_TRACK_ID_ATTR,0);
     RewardsTrack rewardsTrack=new RewardsTrack(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,RewardsTracksXMLConstants.REWARDS_TRACK_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     rewardsTrack.setName(name);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,RewardsTracksXMLConstants.REWARDS_TRACK_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     rewardsTrack.setDescription(description);
     // Progression ID
     int xpIntervalsProgressionID=DOMParsingTools.getIntAttribute(attrs,RewardsTracksXMLConstants.REWARDS_TRACK_PROGRESSION_ID_ATTR,0);
