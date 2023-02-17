@@ -3,6 +3,8 @@ package delta.games.lotro.lore.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.common.enums.CraftTier;
+
 /**
  * Represents a level in a crafting profession.
  * @author DAM
@@ -10,8 +12,7 @@ import java.util.List;
 public final class CraftingLevel
 {
   private Profession _profession;
-  private int _tier;
-  private String _name;
+  private CraftTier _craftTier;
   /**
    * Icon name: iconID-backgroundIconID.
    */
@@ -23,13 +24,12 @@ public final class CraftingLevel
   /**
    * Constructor.
    * @param profession Profession.
-   * @param tier Tier.
+   * @param craftTier Craft tier.
    */
-  public CraftingLevel(Profession profession, int tier)
+  public CraftingLevel(Profession profession, CraftTier craftTier)
   {
     _profession=profession;
-    _tier=tier;
-    _name="";
+    _craftTier=craftTier;
     _icon="";
     _proficiency=new CraftingLevelTier();
     _mastery=new CraftingLevelTier();
@@ -51,7 +51,7 @@ public final class CraftingLevel
    */
   public int getTier()
   {
-    return _tier;
+    return (_craftTier!=null)?_craftTier.getCode():0;
   }
 
   /**
@@ -60,16 +60,16 @@ public final class CraftingLevel
    */
   public String getName()
   {
-    return _name;
+    return (_craftTier!=null)?_craftTier.getLabel():"Beginner";
   }
 
   /**
-   * Set the name of this tier.
-   * @param name Name to set.
+   * Get the craft tier.
+   * @return the craft tier.
    */
-  public void setName(String name)
+  public CraftTier getCraftTier()
   {
-    _name=name;
+    return _craftTier;
   }
 
   /**

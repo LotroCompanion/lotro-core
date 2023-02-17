@@ -8,6 +8,9 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.enums.CraftTier;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.crafting.CraftingData;
 import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.crafting.CraftingLevelTier;
@@ -29,6 +32,7 @@ import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 public class CraftingXMLParser
 {
   private SingleLocaleLabelsManager _i18n;
+  private LotroEnum<CraftTier> _craftTierEnum;
 
   /**
    * Constructor.
@@ -36,6 +40,7 @@ public class CraftingXMLParser
   public CraftingXMLParser()
   {
     _i18n=I18nFacade.getLabelsMgr("crafting");
+    _craftTierEnum=LotroEnumsRegistry.getInstance().get(CraftTier.class);
   }
 
   /**
@@ -123,15 +128,13 @@ public class CraftingXMLParser
     return ret;
   }
 
-  private static CraftingLevel parseCraftingLevel(Profession profession, Element root)
+  private CraftingLevel parseCraftingLevel(Profession profession, Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Tier
-    int tier=DOMParsingTools.getIntAttribute(attrs,CraftingXMLConstants.PROFESSION_TIER_ATTR,0);
+    int tierCode=DOMParsingTools.getIntAttribute(attrs,CraftingXMLConstants.PROFESSION_TIER_ATTR,0);
+    CraftTier tier=_craftTierEnum.getEntry(tierCode);
     CraftingLevel ret=new CraftingLevel(profession,tier);
-    // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_TIER_NAME_ATTR,"");
-    ret.setName(name);
     // Icon
     String icon=DOMParsingTools.getStringAttribute(attrs,CraftingXMLConstants.PROFESSION_TIER_ICON_ATTR,"");
     ret.setIcon(icon);
