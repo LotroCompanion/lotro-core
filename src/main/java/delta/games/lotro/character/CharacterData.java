@@ -298,6 +298,7 @@ public class CharacterData
     getVirtues().clear();
     getTomes().clear();
     getAdditionalStats().clear();
+    _traits.clear();
     getBuffs().clear();
   }
 

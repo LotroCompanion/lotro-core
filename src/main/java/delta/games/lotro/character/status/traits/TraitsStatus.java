@@ -82,4 +82,13 @@ public class TraitsStatus
     // TODO
     return ret;
   }
+
+  /**
+   * Reset contents.
+   */
+  public void clear()
+  {
+    _traitTree=null;
+    _racialTraits=null;
+  }
 }
