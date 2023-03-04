@@ -72,6 +72,8 @@ public class CharacterData
     _tomes.copyFrom(source._tomes);
     _buffs=new BuffsManager();
     _buffs.copyFrom(source._buffs);
+    _traits=new TraitsStatus();
+    _traits.copyFrom(source._traits);
     _additionalStats=new BasicStatsSet(source.getAdditionalStats());
   }
 

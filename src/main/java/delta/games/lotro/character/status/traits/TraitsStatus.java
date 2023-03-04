@@ -30,6 +30,20 @@ public class TraitsStatus
   }
 
   /**
+   * Set the contents of this object from a given source.
+   * @param source Source to copy.
+   */
+  public void copyFrom(TraitsStatus source)
+  {
+    _traitTree=null;
+    if (source._traitTree!=null)
+    {
+      _traitTree=new TraitTreeStatus(source._traitTree);
+    }
+    _racialTraits=null;
+  }
+
+  /**
    * Get the managed trait tree status.
    * @return the managed trait tree status.
    */

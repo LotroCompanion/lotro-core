@@ -51,7 +51,13 @@ public class TraitTreeStatus
   {
     _tree=source._tree;
     _selectedBranch=source._selectedBranch;
-    _treeRanks=new HashMap<Integer,IntegerHolder>(source._treeRanks);
+    _treeRanks=new HashMap<Integer,IntegerHolder>();
+    for(Map.Entry<Integer,IntegerHolder> entry : source._treeRanks.entrySet())
+    {
+      IntegerHolder value=entry.getValue();
+      IntegerHolder newValue=(value!=null)?new IntegerHolder(value.getInt()):null;
+      _treeRanks.put(entry.getKey(),newValue);
+    }
     _cost=source._cost;
     _totalPoints=source._totalPoints;
   }
