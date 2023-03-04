@@ -35,15 +35,13 @@ public class TraitTreeStatusXMLParser
     TraitTreeStatus status=new TraitTreeStatus(traitTree);
     NamedNodeMap attrs=root.getAttributes();
     // Branch
+    TraitTreeBranch branch=null;
     int branchCode=DOMParsingTools.getIntAttribute(attrs,TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_BRANCH_ID_ATTR,0);
     if (branchCode!=0)
     {
-      TraitTreeBranch branch=traitTree.getBranchByCode(branchCode);
-      if (branch!=null)
-      {
-        status.setSelectedBranch(branch);
-      }
+      branch=traitTree.getBranchByCode(branchCode);
     }
+    status.setSelectedBranch(branch);
     // Cost
     int cost=DOMParsingTools.getIntAttribute(attrs,TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_COST_ATTR,0);
     status.setCost(cost);

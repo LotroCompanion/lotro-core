@@ -105,9 +105,7 @@ public class BuffsManagerToTraitTreeStatus
     }
     if (selectedBranch==null)
     {
-      // Use first branch as default
-      LOGGER.warn("Could not guess selected branch. Using first one! Buffs="+buffs);
-      selectedBranch=branches.get(0);
+      LOGGER.info("Could not guess selected branch! Buffs="+buffs);
     }
     status.setSelectedBranch(selectedBranch);
   }
