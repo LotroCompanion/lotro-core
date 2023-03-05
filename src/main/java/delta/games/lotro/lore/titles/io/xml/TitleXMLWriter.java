@@ -83,6 +83,12 @@ public class TitleXMLWriter
     {
       titleAttrs.addAttribute("","",TitleXMLConstants.TITLE_NAME_ATTR,XmlWriter.CDATA,name);
     }
+    // Raw name
+    String rawName=title.getRawName();
+    if (rawName.length()>0)
+    {
+      titleAttrs.addAttribute("","",TitleXMLConstants.TITLE_RAW_NAME_ATTR,XmlWriter.CDATA,rawName);
+    }
     // Icon identifier
     int iconId=title.getIconId();
     if (iconId!=0)

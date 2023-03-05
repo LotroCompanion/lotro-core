@@ -11,6 +11,7 @@ public class TitleDescription implements Identifiable,Named
 {
   private int _identifier;
   private String _name;
+  private String _rawName;
   private int _iconId;
   private String _category;
   private String _description;
@@ -24,6 +25,7 @@ public class TitleDescription implements Identifiable,Named
   {
     _identifier=0;
     _name="";
+    _rawName="";
     _category="";
     _description="";
     _iconId=0;
@@ -64,8 +66,33 @@ public class TitleDescription implements Identifiable,Named
    */
   public void setName(String name)
   {
-    if (name==null) name="";
+    if (name==null)
+    {
+      name="";
+    }
     _name=name;
+  }
+
+  /**
+   * Get the raw name of this title.
+   * @return the raw name of this title.
+   */
+  public String getRawName()
+  {
+    return _rawName;
+  }
+
+  /**
+   * Set the raw name of this title.
+   * @param rawName the raw name to set.
+   */
+  public void setRawName(String rawName)
+  {
+    if (rawName==null)
+    {
+      rawName="";
+    }
+    _rawName=rawName;
   }
 
   /**

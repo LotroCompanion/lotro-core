@@ -24,6 +24,10 @@ public class TitleXMLConstants
    */
   public static final String TITLE_NAME_ATTR="name";
   /**
+   * Tag 'title', attribute 'rawName'.
+   */
+  public static final String TITLE_RAW_NAME_ATTR="rawName";
+  /**
    * Tag 'title', attribute 'icon'.
    */
   public static final String TITLE_ICON_ATTR="icon";

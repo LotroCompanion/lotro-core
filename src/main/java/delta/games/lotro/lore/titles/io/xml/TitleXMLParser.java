@@ -60,10 +60,12 @@ public class TitleXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,TitleXMLConstants.TITLE_ID_ATTR,0);
     title.setIdentifier(id);
     // Name
-    // TMP fix to have good display of titles in English
-    //String name=_i18n.getLabel(String.valueOf(id));
-    String name=DOMParsingTools.getStringAttribute(attrs,TitleXMLConstants.TITLE_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     title.setName(name);
+    // Raw name
+    String rawName=DOMParsingTools.getStringAttribute(attrs,TitleXMLConstants.TITLE_RAW_NAME_ATTR,null);
+    rawName=I18nRuntimeUtils.getLabel(_i18n,rawName);
+    title.setRawName(rawName);
     // Icon
     int iconId=DOMParsingTools.getIntAttribute(attrs,TitleXMLConstants.TITLE_ICON_ATTR,0);
     title.setIconId(iconId);
