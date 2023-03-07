@@ -54,7 +54,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
   {
     super();
     setResult(new ArrayList<DeedDescription>());
-    _i18n=I18nFacade.getLabelsMgr("quests");
+    _i18n=I18nFacade.getLabelsMgr("deeds");
     _objectives=new ObjectivesSaxXMLParser(_i18n);
     _objectives.setParent(this);
     _rewards=new RewardsSaxXMLParser();
