@@ -1,4 +1,8 @@
 /target/
+/bin/
+/.settings/
+/.classpath
+/.project
 /Ethell.txt.xml
 /Giswald.txt.xml
 /Meva.txt.xml
