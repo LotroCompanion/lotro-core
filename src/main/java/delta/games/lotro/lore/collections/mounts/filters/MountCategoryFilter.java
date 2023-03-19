@@ -44,7 +44,7 @@ public class MountCategoryFilter implements Filter<MountDescription>
     {
       return true;
     }
-    String category=mount.getCategory();
+    String category=mount.getMountCategory();
     if (_category.equals(category))
     {
       return true;

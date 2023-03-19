@@ -105,7 +105,7 @@ public class MountsManager
     Set<String> categories=new HashSet<String>();
     for(MountDescription mount : _cache.values())
     {
-      categories.add(mount.getCategory());
+      categories.add(mount.getMountCategory());
     }
     List<String> ret=new ArrayList<String>(categories);
     Collections.sort(ret);

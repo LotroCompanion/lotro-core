@@ -56,7 +56,7 @@ public class MountXMLParser
     ret.setInitialName(initialName);
     // Category
     String category=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_CATEGORY_ATTR,"");
-    ret.setCategory(category);
+    ret.setMountCategory(category);
     // Mount type
     String mountType=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,"");
     ret.setMountType(mountType);

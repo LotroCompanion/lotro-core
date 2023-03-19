@@ -58,7 +58,7 @@ public class MountXMLWriter
     String initialName=mount.getInitialName();
     attrs.addAttribute("","",MountXMLConstants.MOUNT_INITIAL_NAME_ATTR,XmlWriter.CDATA,initialName);
     // Category
-    String category=mount.getCategory();
+    String category=mount.getMountCategory();
     attrs.addAttribute("","",MountXMLConstants.MOUNT_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category));
     // Mount type
     String mountType=mount.getMountType();

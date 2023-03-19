@@ -1,21 +1,18 @@
 package delta.games.lotro.lore.collections.mounts;
 
+import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.lore.collections.Collectable;
 
 /**
  * Mount.
  * @author DAM
  */
-public class MountDescription implements Collectable
+public class MountDescription extends SkillDescription implements Collectable
 {
-  private int _identifier;
-  private String _name;
   private String _initialName;
   private String _category;
   private String _mountType;
-  private String _description;
   private String _sourceDescription;
-  private int _iconId;
   private int _morale;
   private float _speed;
   private boolean _tall;
@@ -27,46 +24,16 @@ public class MountDescription implements Collectable
    */
   public MountDescription(int id)
   {
-    _identifier=id;
-    _name="";
+    super();
+    setIdentifier(id);
     _initialName="";
     _category="";
     _mountType="";
-    _description="";
     _sourceDescription="";
-    _iconId=0;
     _morale=0;
     _speed=0;
     _tall=false;
     _peerMountId=0;
-  }
-
-  /**
-   * Get the identifier.
-   * @return an identifier.
-   */
-  public int getIdentifier()
-  {
-    return _identifier;
-  }
-
-  /**
-   * Get the mount name.
-   * @return a mount name.
-   */
-  public String getName()
-  {
-    return _name;
-  }
-
-  /**
-   * Set the mount name.
-   * @param name Name to set.
-   */
-  public void setName(String name)
-  {
-    if (name==null) name="";
-    _name=name;
   }
 
   /**
@@ -111,7 +78,7 @@ public class MountDescription implements Collectable
    * Get the mount category.
    * @return a mount category.
    */
-  public String getCategory()
+  public String getMountCategory()
   {
     return _category;
   }
@@ -120,29 +87,10 @@ public class MountDescription implements Collectable
    * Set the mount category.
    * @param category Category to set.
    */
-  public void setCategory(String category)
+  public void setMountCategory(String category)
   {
     if (category==null) category="";
     _category=category;
-  }
-
-  /**
-   * Get the mount description.
-   * @return a mount description.
-   */
-  public String getDescription()
-  {
-    return _description;
-  }
-
-  /**
-   * Set the mount description.
-   * @param description Description to set.
-   */
-  public void setDescription(String description)
-  {
-    if (description==null) description="";
-    _description=description;
   }
 
   /**
@@ -162,24 +110,6 @@ public class MountDescription implements Collectable
   {
     if (sourceDescription==null) sourceDescription="";
     _sourceDescription=sourceDescription;
-  }
-
-  /**
-   * Get the icon ID for this mount.
-   * @return an icon ID.
-   */
-  public int getIconId()
-  {
-    return _iconId;
-  }
-
-  /**
-   * Set the icon ID for this mount.
-   * @param iconId Icon ID to set.
-   */
-  public void setIconId(int iconId)
-  {
-    _iconId=iconId;
   }
 
   /**
@@ -258,14 +188,14 @@ public class MountDescription implements Collectable
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Mount: ID=").append(_identifier);
-    sb.append(", name=").append(_name);
+    sb.append("Mount: ID=").append(getIdentifier());
+    sb.append(", name=").append(getName());
     sb.append(", initial name=").append(_initialName);
     sb.append(", category=").append(_category);
     sb.append(", mount type=").append(_mountType);
-    sb.append(", description=").append(_description);
+    sb.append(", description=").append(getDescription());
     sb.append(", source description=").append(_sourceDescription);
-    sb.append(", iconID=").append(_iconId);
+    sb.append(", iconID=").append(getIconId());
     sb.append(", morale=").append(_morale);
     sb.append(", speed=").append(_speed);
     sb.append(", tall=").append(_tall);
