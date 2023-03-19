@@ -62,7 +62,7 @@ public class MountsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File mountsFile=cfg.getFile(DataFiles.MOUNTS);
     long now=System.currentTimeMillis();
-    List<MountDescription> mounts=MountXMLParser.parseMountsFile(mountsFile);
+    List<MountDescription> mounts=new MountXMLParser().parseMountsFile(mountsFile);
     for(MountDescription mount : mounts)
     {
       _cache.put(Integer.valueOf(mount.getIdentifier()),mount);

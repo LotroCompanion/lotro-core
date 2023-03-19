@@ -7,8 +7,12 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.skills.io.xml.SkillDescriptionXMLConstants;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for mounts stored in XML.
@@ -16,12 +20,22 @@ import delta.games.lotro.lore.collections.mounts.MountDescription;
  */
 public class MountXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public MountXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("skills");
+  }
+
   /**
    * Parse mounts from an XML file.
    * @param source Source file.
    * @return List of parsed mounts.
    */
-  public static List<MountDescription> parseMountsFile(File source)
+  public List<MountDescription> parseMountsFile(File source)
   {
     List<MountDescription> mounts=new ArrayList<MountDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -42,15 +56,16 @@ public class MountXMLParser
    * @param root Root XML tag.
    * @return A mount.
    */
-  private static MountDescription parseMount(Element root)
+  private MountDescription parseMount(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     MountDescription ret=new MountDescription();
+
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_IDENTIFIER_ATTR,0);
     ret.setIdentifier(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     ret.setName(name);
     // Initial Name
     String initialName=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_INITIAL_NAME_ATTR,"");
@@ -62,7 +77,8 @@ public class MountXMLParser
     String mountType=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,"");
     ret.setMountType(mountType);
     // Description
-    String description=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_DESCRIPTION_ATTR,"");
+    String description=DOMParsingTools.getStringAttribute(attrs,SkillDescriptionXMLConstants.SKILL_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     ret.setDescription(description);
     // Source description
     String sourceDescription=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_SOURCE_DESCRIPTION_ATTR,"");
