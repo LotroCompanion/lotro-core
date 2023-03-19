@@ -45,9 +45,10 @@ public class MountXMLParser
   private static MountDescription parseMount(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
+    MountDescription ret=new MountDescription();
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_IDENTIFIER_ATTR,0);
-    MountDescription ret=new MountDescription(id);
+    ret.setIdentifier(id);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_NAME_ATTR,"");
     ret.setName(name);

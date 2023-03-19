@@ -20,12 +20,10 @@ public class MountDescription extends SkillDescription implements Collectable
 
   /**
    * Constructor.
-   * @param id Mount identifier.
    */
-  public MountDescription(int id)
+  public MountDescription()
   {
     super();
-    setIdentifier(id);
     _initialName="";
     _category="";
     _mountType="";
