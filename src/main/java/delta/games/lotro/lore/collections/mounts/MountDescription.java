@@ -1,6 +1,8 @@
 package delta.games.lotro.lore.collections.mounts;
 
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.common.enums.MountType;
+import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
 import delta.games.lotro.lore.collections.Collectable;
 
 /**
@@ -10,8 +12,8 @@ import delta.games.lotro.lore.collections.Collectable;
 public class MountDescription extends SkillDescription implements Collectable
 {
   private String _initialName;
-  private String _category;
-  private String _mountType;
+  private SkillCharacteristicSubCategory _category;
+  private MountType _mountType;
   private String _sourceDescription;
   private int _morale;
   private float _speed;
@@ -25,8 +27,8 @@ public class MountDescription extends SkillDescription implements Collectable
   {
     super();
     _initialName="";
-    _category="";
-    _mountType="";
+    _category=null;
+    _mountType=null;
     _sourceDescription="";
     _morale=0;
     _speed=0;
@@ -57,7 +59,7 @@ public class MountDescription extends SkillDescription implements Collectable
    * Get the mount type.
    * @return a mount type.
    */
-  public String getMountType()
+  public MountType getMountType()
   {
     return _mountType;
   }
@@ -66,9 +68,8 @@ public class MountDescription extends SkillDescription implements Collectable
    * Set the mount type.
    * @param mountType Type to set.
    */
-  public void setMountType(String mountType)
+  public void setMountType(MountType mountType)
   {
-    if (mountType==null) mountType="";
     _mountType=mountType;
   }
 
@@ -76,7 +77,7 @@ public class MountDescription extends SkillDescription implements Collectable
    * Get the mount category.
    * @return a mount category.
    */
-  public String getMountCategory()
+  public SkillCharacteristicSubCategory getMountCategory()
   {
     return _category;
   }
@@ -85,9 +86,8 @@ public class MountDescription extends SkillDescription implements Collectable
    * Set the mount category.
    * @param category Category to set.
    */
-  public void setMountCategory(String category)
+  public void setMountCategory(SkillCharacteristicSubCategory category)
   {
-    if (category==null) category="";
     _category=category;
   }
 

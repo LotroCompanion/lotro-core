@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.collections.mounts.filters;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
 
 /**
@@ -9,13 +10,13 @@ import delta.games.lotro.lore.collections.mounts.MountDescription;
  */
 public class MountCategoryFilter implements Filter<MountDescription>
 {
-  private String _category;
+  private SkillCharacteristicSubCategory _category;
 
   /**
    * Constructor.
    * @param category Category to select (may be <code>null</code>).
    */
-  public MountCategoryFilter(String category)
+  public MountCategoryFilter(SkillCharacteristicSubCategory category)
   {
     _category=category;
   }
@@ -24,7 +25,7 @@ public class MountCategoryFilter implements Filter<MountDescription>
    * Get the category to use.
    * @return A category or <code>null</code>.
    */
-  public String getCategory()
+  public SkillCharacteristicSubCategory getCategory()
   {
     return _category;
   }
@@ -33,7 +34,7 @@ public class MountCategoryFilter implements Filter<MountDescription>
    * Set the category to select.
    * @param category Category to use, may be <code>null</code>.
    */
-  public void setCategory(String category)
+  public void setCategory(SkillCharacteristicSubCategory category)
   {
     _category=category;
   }
@@ -44,11 +45,7 @@ public class MountCategoryFilter implements Filter<MountDescription>
     {
       return true;
     }
-    String category=mount.getMountCategory();
-    if (_category.equals(category))
-    {
-      return true;
-    }
-    return false;
+    SkillCharacteristicSubCategory category=mount.getMountCategory();
+    return (_category==category);
   }
 }

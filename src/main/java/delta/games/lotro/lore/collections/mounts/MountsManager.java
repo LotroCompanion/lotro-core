@@ -11,6 +11,8 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.collections.mounts.io.xml.MountXMLParser;
@@ -100,15 +102,15 @@ public class MountsManager
    * Get all mount categories.
    * @return a sorted list of mount categories.
    */
-  public List<String> getCategories()
+  public List<SkillCharacteristicSubCategory> getCategories()
   {
-    Set<String> categories=new HashSet<String>();
+    Set<SkillCharacteristicSubCategory> categories=new HashSet<SkillCharacteristicSubCategory>();
     for(MountDescription mount : _cache.values())
     {
       categories.add(mount.getMountCategory());
     }
-    List<String> ret=new ArrayList<String>(categories);
-    Collections.sort(ret);
+    List<SkillCharacteristicSubCategory> ret=new ArrayList<SkillCharacteristicSubCategory>(categories);
+    Collections.sort(ret,new LotroEnumEntryNameComparator<SkillCharacteristicSubCategory>());
     return ret;
   }
 }

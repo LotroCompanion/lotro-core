@@ -11,6 +11,8 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.enums.MountType;
+import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
 
 /**
@@ -58,13 +60,18 @@ public class MountXMLWriter
     String initialName=mount.getInitialName();
     attrs.addAttribute("","",MountXMLConstants.MOUNT_INITIAL_NAME_ATTR,XmlWriter.CDATA,initialName);
     // Category
-    String category=mount.getMountCategory();
-    attrs.addAttribute("","",MountXMLConstants.MOUNT_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category));
-    // Mount type
-    String mountType=mount.getMountType();
-    if (mountType.length()>0)
+    SkillCharacteristicSubCategory category=mount.getMountCategory();
+    if (category!=null)
     {
-      attrs.addAttribute("","",MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(mountType));
+      int categoryCode=category.getCode();
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(categoryCode));
+    }
+    // Mount type
+    MountType mountType=mount.getMountType();
+    if (mountType!=null)
+    {
+      int mountTypeCode=mountType.getCode();
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(mountTypeCode));
     }
     // Description
     String description=mount.getDescription();

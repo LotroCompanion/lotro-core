@@ -10,6 +10,10 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.io.xml.SkillDescriptionXMLConstants;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.MountType;
+import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
@@ -21,6 +25,8 @@ import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 public class MountXMLParser
 {
   private SingleLocaleLabelsManager _i18n;
+  private LotroEnum<MountType> _mountTypes;
+  private LotroEnum<SkillCharacteristicSubCategory> _category;
 
   /**
    * Constructor.
@@ -28,6 +34,9 @@ public class MountXMLParser
   public MountXMLParser()
   {
     _i18n=I18nFacade.getLabelsMgr("skills");
+    LotroEnumsRegistry registry=LotroEnumsRegistry.getInstance();
+    _mountTypes=registry.get(MountType.class);
+    _category=registry.get(SkillCharacteristicSubCategory.class);
   }
 
   /**
@@ -71,10 +80,12 @@ public class MountXMLParser
     String initialName=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_INITIAL_NAME_ATTR,"");
     ret.setInitialName(initialName);
     // Category
-    String category=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_CATEGORY_ATTR,"");
+    int categoryCode=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_CATEGORY_ATTR,0);
+    SkillCharacteristicSubCategory category=_category.getEntry(categoryCode);
     ret.setMountCategory(category);
     // Mount type
-    String mountType=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,"");
+    int mountTypeCode=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,0);
+    MountType mountType=_mountTypes.getEntry(mountTypeCode);
     ret.setMountType(mountType);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,SkillDescriptionXMLConstants.SKILL_DESCRIPTION_ATTR,"");
