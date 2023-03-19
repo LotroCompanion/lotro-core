@@ -78,6 +78,7 @@ public class MountXMLParser
     ret.setName(name);
     // Initial Name
     String initialName=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_INITIAL_NAME_ATTR,"");
+    initialName=I18nRuntimeUtils.getLabel(_i18n,initialName);
     ret.setInitialName(initialName);
     // Category
     int categoryCode=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_CATEGORY_ATTR,0);
@@ -93,6 +94,7 @@ public class MountXMLParser
     ret.setDescription(description);
     // Source description
     String sourceDescription=DOMParsingTools.getStringAttribute(attrs,MountXMLConstants.MOUNT_SOURCE_DESCRIPTION_ATTR,"");
+    sourceDescription=I18nRuntimeUtils.getLabel(_i18n,sourceDescription);
     ret.setSourceDescription(sourceDescription);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_ICON_ID_ATTR,0);
