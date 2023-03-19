@@ -93,7 +93,12 @@ public class MountXMLWriter
     {
       attrs.addAttribute("","",MountXMLConstants.MOUNT_TALL_ATTR,XmlWriter.CDATA,String.valueOf(tall));
     }
-
+    // Peer Mount ID
+    int peerMountId=mount.getPeerMountId();
+    if (peerMountId!=0)
+    {
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_PEER_ID_ATTR,XmlWriter.CDATA,String.valueOf(peerMountId));
+    }
     hd.startElement("","",MountXMLConstants.MOUNT_TAG,attrs);
     hd.endElement("","",MountXMLConstants.MOUNT_TAG);
   }

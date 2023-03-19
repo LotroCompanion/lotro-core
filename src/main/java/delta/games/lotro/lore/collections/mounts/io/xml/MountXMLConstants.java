@@ -59,4 +59,8 @@ public class MountXMLConstants
    * Tag 'mount', attribute 'tall'.
    */
   public static final String MOUNT_TALL_ATTR="tall";
+  /**
+   * Tag 'mount', attribute 'peerId'.
+   */
+  public static final String MOUNT_PEER_ID_ATTR="peerId";
 }

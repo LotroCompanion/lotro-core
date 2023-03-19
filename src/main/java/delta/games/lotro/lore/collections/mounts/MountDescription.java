@@ -19,6 +19,7 @@ public class MountDescription implements Collectable
   private int _morale;
   private float _speed;
   private boolean _tall;
+  private int _peerMountId;
 
   /**
    * Constructor.
@@ -37,6 +38,7 @@ public class MountDescription implements Collectable
     _morale=0;
     _speed=0;
     _tall=false;
+    _peerMountId=0;
   }
 
   /**
@@ -232,6 +234,24 @@ public class MountDescription implements Collectable
   public void setTall(boolean tall)
   {
     _tall=tall;
+  }
+
+  /**
+   * Get the ID of the peer mount.
+   * @return An ID or 9 if no such mount.
+   */
+  public int getPeerMountId()
+  {
+    return _peerMountId;
+  }
+
+  /**
+   * Set the peer mount ID.
+   * @param peerMountId Mount ID to set.
+   */
+  public void setPeerMountId(int peerMountId)
+  {
+    _peerMountId=peerMountId;
   }
 
   @Override

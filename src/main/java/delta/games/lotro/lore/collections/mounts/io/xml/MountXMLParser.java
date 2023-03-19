@@ -78,7 +78,9 @@ public class MountXMLParser
     // Tall
     boolean tall=DOMParsingTools.getBooleanAttribute(attrs,MountXMLConstants.MOUNT_TALL_ATTR,false);
     ret.setTall(tall);
-
+    // Peer Mount ID
+    int peerMountId=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_PEER_ID_ATTR,0);
+    ret.setPeerMountId(peerMountId);
     return ret;
   }
 }
