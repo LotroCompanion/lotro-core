@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.collections.mounts.io.xml;
+package delta.games.lotro.character.skills.io.xml;
 
 /**
  * Constants for tags and attribute names used in the
@@ -8,45 +8,25 @@ package delta.games.lotro.lore.collections.mounts.io.xml;
 public class MountXMLConstants
 {
   /**
-   * Tag 'mounts'.
-   */
-  public static final String MOUNTS_TAG="mounts";
-  /**
    * Tag 'mount'.
    */
   public static final String MOUNT_TAG="mount";
-  /**
-   * Tag 'mount', attribute 'identifier'.
-   */
-  public static final String MOUNT_IDENTIFIER_ATTR="identifier";
-  /**
-   * Tag 'mount', attribute 'name'.
-   */
-  public static final String MOUNT_NAME_ATTR="name";
   /**
    * Tag 'mount', attribute 'initialName'.
    */
   public static final String MOUNT_INITIAL_NAME_ATTR="initialName";
   /**
-   * Tag 'mount', attribute 'category'.
+   * Tag 'mount', attribute 'mountCategory'.
    */
-  public static final String MOUNT_CATEGORY_ATTR="category";
+  public static final String MOUNT_CATEGORY_ATTR="mountCategory";
   /**
    * Tag 'mount', attribute 'mountType'.
    */
   public static final String MOUNT_MOUNT_TYPE_ATTR="mountType";
   /**
-   * Tag 'mount', attribute 'description'.
-   */
-  public static final String MOUNT_DESCRIPTION_ATTR="description";
-  /**
    * Tag 'mount', attribute 'sourceDescription'.
    */
   public static final String MOUNT_SOURCE_DESCRIPTION_ATTR="sourceDescription";
-  /**
-   * Tag 'mount', attribute 'iconId'.
-   */
-  public static final String MOUNT_ICON_ID_ATTR="iconId";
   /**
    * Tag 'mount', attribute 'morale'.
    */

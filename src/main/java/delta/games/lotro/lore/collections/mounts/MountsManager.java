@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.collections.mounts;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,12 +9,11 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
-import delta.games.lotro.config.DataFiles;
-import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.collections.mounts.io.xml.MountXMLParser;
 
 /**
  * Facade for mounts access.
@@ -61,13 +59,15 @@ public class MountsManager
   private void loadAll()
   {
     _cache.clear();
-    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File mountsFile=cfg.getFile(DataFiles.MOUNTS);
     long now=System.currentTimeMillis();
-    List<MountDescription> mounts=new MountXMLParser().parseMountsFile(mountsFile);
-    for(MountDescription mount : mounts)
+    List<SkillDescription> skills=SkillsManager.getInstance().getAll();
+    for(SkillDescription skill : skills)
     {
-      _cache.put(Integer.valueOf(mount.getIdentifier()),mount);
+      if (skill instanceof MountDescription)
+      {
+        MountDescription mount=(MountDescription)skill;
+        _cache.put(Integer.valueOf(mount.getIdentifier()),mount);
+      }
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;

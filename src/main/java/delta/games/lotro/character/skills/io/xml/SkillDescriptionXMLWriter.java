@@ -13,7 +13,10 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.TravelSkill;
+import delta.games.lotro.common.enums.MountType;
 import delta.games.lotro.common.enums.SkillCategory;
+import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
+import delta.games.lotro.lore.collections.mounts.MountDescription;
 
 /**
  * Writes skills to XML files.
@@ -27,7 +30,7 @@ public class SkillDescriptionXMLWriter
    * @param skills Data to save.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public static boolean write(File toFile, final List<SkillDescription> skills)
+  public boolean write(File toFile, final List<SkillDescription> skills)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -47,7 +50,7 @@ public class SkillDescriptionXMLWriter
     return ret;
   }
 
-  private static void writeSkill(TransformerHandler hd, SkillDescription skill) throws SAXException
+  private void writeSkill(TransformerHandler hd, SkillDescription skill) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Identifier
@@ -72,13 +75,79 @@ public class SkillDescriptionXMLWriter
       int type=travelSkill.getType().getCode();
       attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_TRAVEL_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type));
     }
+    if (skill instanceof MountDescription)
+    {
+      MountDescription mount=(MountDescription)skill;
+      writeMountAttrs(mount,attrs);
+    }
     // Description
     String description=skill.getDescription();
     if (description.length()>0)
     {
       attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
-    hd.startElement("","",SkillDescriptionXMLConstants.SKILL_TAG,attrs);
-    hd.endElement("","",SkillDescriptionXMLConstants.SKILL_TAG);
+    String tagName=getTagName(skill);
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
+  }
+
+  /**
+   * Write mount attributes to the given storage.
+   * @param mount Mount to use.
+   * @param attrs Storage.
+   * @throws SAXException If an error occurs.
+   */
+  private void writeMountAttrs(MountDescription mount,AttributesImpl attrs) throws SAXException
+  {
+    // Initial name
+    String initialName=mount.getInitialName();
+    attrs.addAttribute("","",MountXMLConstants.MOUNT_INITIAL_NAME_ATTR,XmlWriter.CDATA,initialName);
+    // Category
+    SkillCharacteristicSubCategory category=mount.getMountCategory();
+    if (category!=null)
+    {
+      int categoryCode=category.getCode();
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(categoryCode));
+    }
+    // Mount type
+    MountType mountType=mount.getMountType();
+    if (mountType!=null)
+    {
+      int mountTypeCode=mountType.getCode();
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_MOUNT_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(mountTypeCode));
+    }
+    // Source Description
+    String sourceDescription=mount.getSourceDescription();
+    if (sourceDescription.length()>0)
+    {
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_SOURCE_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(sourceDescription));
+    }
+    // Morale
+    int morale=mount.getMorale();
+    attrs.addAttribute("","",MountXMLConstants.MOUNT_MORALE_ATTR,XmlWriter.CDATA,String.valueOf(morale));
+    // Speed
+    float speed=mount.getSpeed();
+    attrs.addAttribute("","",MountXMLConstants.MOUNT_SPEED_ATTR,XmlWriter.CDATA,String.valueOf(speed));
+    // Tall
+    boolean tall=mount.isTall();
+    if (tall)
+    {
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_TALL_ATTR,XmlWriter.CDATA,String.valueOf(tall));
+    }
+    // Peer Mount ID
+    int peerMountId=mount.getPeerMountId();
+    if (peerMountId!=0)
+    {
+      attrs.addAttribute("","",MountXMLConstants.MOUNT_PEER_ID_ATTR,XmlWriter.CDATA,String.valueOf(peerMountId));
+    }
+  }
+
+  private String getTagName(SkillDescription skill)
+  {
+    if (skill instanceof MountDescription)
+    {
+      return MountXMLConstants.MOUNT_TAG;
+    }
+    return SkillDescriptionXMLConstants.SKILL_TAG;
   }
 }
