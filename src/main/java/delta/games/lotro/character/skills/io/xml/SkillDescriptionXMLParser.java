@@ -17,7 +17,10 @@ import delta.games.lotro.common.enums.MountType;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
 import delta.games.lotro.common.enums.TravelLink;
+import delta.games.lotro.lore.agents.EntityClassification;
+import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
+import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
@@ -83,6 +86,10 @@ public class SkillDescriptionXMLParser
     else if (MountXMLConstants.MOUNT_TAG.equals(tagName))
     {
       return parseMount(root);
+    }
+    else if (CosmeticPetXMLConstants.PET_TAG.equals(tagName))
+    {
+      return parsePet(root);
     }
     return null;
   }
@@ -150,6 +157,27 @@ public class SkillDescriptionXMLParser
     // Peer Mount ID
     int peerMountId=DOMParsingTools.getIntAttribute(attrs,MountXMLConstants.MOUNT_PEER_ID_ATTR,0);
     ret.setPeerMountId(peerMountId);
+    return ret;
+  }
+
+  private CosmeticPetDescription parsePet(Element root)
+  {
+    NamedNodeMap attrs=root.getAttributes();
+    CosmeticPetDescription ret=new CosmeticPetDescription();
+
+    // Shared attributes
+    parseSharedSkillAttributes(ret,attrs);
+    // Initial Name
+    String initialName=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_INITIAL_NAME_ATTR,"");
+    initialName=I18nRuntimeUtils.getLabel(_i18n,initialName);
+    ret.setInitialName(initialName);
+    // Source description
+    String sourceDescription=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_SOURCE_DESCRIPTION_ATTR,"");
+    sourceDescription=I18nRuntimeUtils.getLabel(_i18n,sourceDescription);
+    ret.setSourceDescription(sourceDescription);
+    // Entity classification
+    EntityClassification classification=ret.getClassification();
+    AgentsXMLIO.parseEntityClassification(classification,attrs);
     return ret;
   }
 

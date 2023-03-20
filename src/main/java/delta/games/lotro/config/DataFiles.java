@@ -211,10 +211,6 @@ public class DataFiles
    */
   public static final String COLLECTIONS="collections";
   /**
-   * Pets.
-   */
-  public static final String PETS="pets";
-  /**
    * Barters.
    */
   public static final String BARTERS="barters";

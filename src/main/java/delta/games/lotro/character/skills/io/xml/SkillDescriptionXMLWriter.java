@@ -16,7 +16,9 @@ import delta.games.lotro.character.skills.TravelSkill;
 import delta.games.lotro.common.enums.MountType;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
+import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
+import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
 
 /**
  * Writes skills to XML files.
@@ -80,6 +82,11 @@ public class SkillDescriptionXMLWriter
       MountDescription mount=(MountDescription)skill;
       writeMountAttrs(mount,attrs);
     }
+    if (skill instanceof CosmeticPetDescription)
+    {
+      CosmeticPetDescription pet=(CosmeticPetDescription)skill;
+      writePetAttrs(pet,attrs);
+    }
     // Description
     String description=skill.getDescription();
     if (description.length()>0)
@@ -142,11 +149,36 @@ public class SkillDescriptionXMLWriter
     }
   }
 
+  /**
+   * Write pet attributes to the given storage.
+   * @param pet Pet to use.
+   * @param attrs Storage.
+   * @throws SAXException If an error occurs.
+   */
+  private void writePetAttrs(CosmeticPetDescription pet,AttributesImpl attrs) throws SAXException
+  {
+    // Initial name
+    String initialName=pet.getInitialName();
+    attrs.addAttribute("","",CosmeticPetXMLConstants.PET_INITIAL_NAME_ATTR,XmlWriter.CDATA,initialName);
+    // Source Description
+    String sourceDescription=pet.getSourceDescription();
+    if (sourceDescription.length()>0)
+    {
+      attrs.addAttribute("","",CosmeticPetXMLConstants.PET_SOURCE_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(sourceDescription));
+    }
+    // Entity Classification
+    AgentsXMLIO.writeEntityClassification(attrs,pet.getClassification());
+  }
+
   private String getTagName(SkillDescription skill)
   {
     if (skill instanceof MountDescription)
     {
       return MountXMLConstants.MOUNT_TAG;
+    }
+    if (skill instanceof CosmeticPetDescription)
+    {
+      return CosmeticPetXMLConstants.PET_TAG;
     }
     return SkillDescriptionXMLConstants.SKILL_TAG;
   }

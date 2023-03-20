@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.collections.pets;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,10 +7,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.config.DataFiles;
-import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.collections.pets.io.xml.CosmeticPetXMLParser;
 
 /**
  * Facade for cosmetic pets access.
@@ -57,13 +55,15 @@ public class CosmeticPetsManager
   private void loadAll()
   {
     _cache.clear();
-    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File petsFile=cfg.getFile(DataFiles.PETS);
     long now=System.currentTimeMillis();
-    List<CosmeticPetDescription> pets=new CosmeticPetXMLParser().parsePetsFile(petsFile);
-    for(CosmeticPetDescription pet : pets)
+    List<SkillDescription> skills=SkillsManager.getInstance().getAll();
+    for(SkillDescription skill : skills)
     {
-      _cache.put(Integer.valueOf(pet.getIdentifier()),pet);
+      if (skill instanceof CosmeticPetDescription)
+      {
+        CosmeticPetDescription pet=(CosmeticPetDescription)skill;
+        _cache.put(Integer.valueOf(pet.getIdentifier()),pet);
+      }
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;

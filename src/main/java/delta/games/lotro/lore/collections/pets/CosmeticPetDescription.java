@@ -19,12 +19,10 @@ public class CosmeticPetDescription extends SkillDescription implements Collecta
 
   /**
    * Constructor.
-   * @param id Pet identifier.
    */
-  public CosmeticPetDescription(int id)
+  public CosmeticPetDescription()
   {
     super();
-    setIdentifier(id);
     _initialName="";
     _sourceDescription="";
     _classification=new EntityClassification();
