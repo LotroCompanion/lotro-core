@@ -27,6 +27,10 @@ public class WellKnownCharacterClassKeys
    */
   public static final String CHAMPION="Champion";
   /**
+   * Corsair.
+   */
+  public static final String CORSAIR="Corsair";
+  /**
    * Guardian.
    */
   public static final String GUARDIAN="Guardian";
