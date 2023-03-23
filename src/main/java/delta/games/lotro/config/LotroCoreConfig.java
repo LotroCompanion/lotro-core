@@ -29,9 +29,6 @@ public final class LotroCoreConfig
   // Parameters
   private TypedProperties _parameters;
 
-  // User data directory
-  private File _userDataDir;
-
   // Preferences
   private Preferences _preferences;
 
@@ -92,12 +89,12 @@ public final class LotroCoreConfig
     }
 
     // User data dir
-    initDataDir();
+    File userDataDir=buildDataDir();
     // Preferences
-    File preferencesDir=new File(_userDataDir,"preferences");
+    File preferencesDir=new File(userDataDir,"preferences");
     _preferences=new Preferences(preferencesDir);
     // Data Configuration
-    _dataConfiguration=initDataConfiguration();
+    _dataConfiguration=initDataConfiguration(userDataDir);
   }
 
   private TypedProperties getLocations(String propsPath)
@@ -151,16 +148,17 @@ public final class LotroCoreConfig
     return _parameters;
   }
 
-  private void initDataDir()
+  private File buildDataDir()
   {
     String userDataRootDirStr=_parameters.getStringProperty("user.data.root.dir","${user.home}/.lotrocompanion/data");
     userDataRootDirStr=EnvironmentResolver.resolveEnvironment(userDataRootDirStr);
-    _userDataDir=new File(userDataRootDirStr);
+    File userDataDir=new File(userDataRootDirStr);
+    return userDataDir;
   }
 
-  private DataConfiguration initDataConfiguration()
+  private DataConfiguration initDataConfiguration(File userDataDir)
   {
-    DataConfiguration cfg=new DataConfiguration(_userDataDir);
+    DataConfiguration cfg=new DataConfiguration(userDataDir);
     cfg.fromPreferences(_preferences);
     return cfg;
   }
