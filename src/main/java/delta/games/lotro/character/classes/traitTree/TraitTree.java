@@ -90,7 +90,11 @@ public class TraitTree implements Identifiable
     {
       ret.addAll(branch.getTraits());
       ret.addAll(branch.getProgression().getTraits());
-      ret.add(branch.getMainTrait());
+      TraitDescription trait=branch.getMainTrait();
+      if (trait!=null)
+      {
+        ret.add(trait);
+      }
     }
     return ret;
   }
