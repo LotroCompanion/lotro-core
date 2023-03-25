@@ -1,139 +1,58 @@
 package delta.games.lotro.lore.quests.filter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import delta.common.utils.collections.filters.CompoundFilter;
-import delta.common.utils.collections.filters.Filter;
-import delta.common.utils.collections.filters.Operator;
-import delta.common.utils.collections.filters.ProxyFilter;
-import delta.common.utils.collections.filters.ProxyValueResolver;
-import delta.games.lotro.common.requirements.UsageRequirement;
-import delta.games.lotro.common.requirements.filters.UsageRequirementFilter;
-import delta.games.lotro.common.rewards.Rewards;
-import delta.games.lotro.common.rewards.filters.RewardsFilter;
 import delta.games.lotro.lore.quests.QuestDescription;
-import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
-import delta.games.lotro.lore.worldEvents.filter.WorldEventConditionFilter;
 
 /**
  * Quest filter.
  * @author DAM
  */
-public class QuestFilter implements Filter<QuestDescription>
+public class QuestFilter extends AchievableFilter<QuestDescription>
 {
-  private Filter<QuestDescription> _filter;
-
-  private QuestNameFilter _nameFilter;
   private QuestCategoryFilter _categoryFilter;
   private QuestArcFilter _questArcFilter;
   private QuestSizeFilter _questSizeFilter;
-  private AchievableMonsterPlayFilter<QuestDescription> _monsterPlayFilter;
   private InstancedQuestFilter _instancedQuestFilter;
   private ShareableQuestFilter _shareableQuestFilter;
   private SessionPlayQuestFilter _sessionPlayQuestFilter;
   private AutoBestowedQuestFilter _autoBestowedQuestFilter;
   private RepeatabilityFilter _repeatabilityFilter;
   private LockTypeFilter _lockTypeFilter;
-  private HiddenAchievableFilter<QuestDescription> _hiddenFilter;
-  // Requirements
-  private UsageRequirementFilter _requirementsFilter;
-  // Rewards
-  private RewardsFilter _rewardsFilter;
-  // World events
-  private WorldEventConditionFilter _worldEventsFilter;
 
   /**
    * Constructor.
    */
   public QuestFilter()
   {
-    List<Filter<QuestDescription>> filters=new ArrayList<Filter<QuestDescription>>();
-    // Name
-    _nameFilter=new QuestNameFilter();
-    filters.add(_nameFilter);
+    super();
+    CompoundFilter<QuestDescription> filter=getFilter();
     // Category
     _categoryFilter=new QuestCategoryFilter(null);
-    filters.add(_categoryFilter);
+    filter.addFilter(_categoryFilter);
     // Quest arc
     _questArcFilter=new QuestArcFilter(null);
-    filters.add(_questArcFilter);
+    filter.addFilter(_questArcFilter);
     // Quest size
     _questSizeFilter=new QuestSizeFilter(null);
-    filters.add(_questSizeFilter);
-    // Monster play
-    _monsterPlayFilter=new AchievableMonsterPlayFilter<QuestDescription>(null);
-    filters.add(_monsterPlayFilter);
+    filter.addFilter(_questSizeFilter);
     // Instanced quests
     _instancedQuestFilter=new InstancedQuestFilter(null);
-    filters.add(_instancedQuestFilter);
+    filter.addFilter(_instancedQuestFilter);
     // Shareable quests
     _shareableQuestFilter=new ShareableQuestFilter(null);
-    filters.add(_shareableQuestFilter);
+    filter.addFilter(_shareableQuestFilter);
     // Session-play quests
     _sessionPlayQuestFilter=new SessionPlayQuestFilter(null);
-    filters.add(_sessionPlayQuestFilter);
+    filter.addFilter(_sessionPlayQuestFilter);
     // Auto-bestowed quests
     _autoBestowedQuestFilter=new AutoBestowedQuestFilter(null);
-    filters.add(_autoBestowedQuestFilter);
+    filter.addFilter(_autoBestowedQuestFilter);
     // Repeatability
     _repeatabilityFilter=new RepeatabilityFilter(null);
-    filters.add(_repeatabilityFilter);
+    filter.addFilter(_repeatabilityFilter);
     // Lock type
     _lockTypeFilter=new LockTypeFilter(null);
-    filters.add(_lockTypeFilter);
-    // Hidden
-    _hiddenFilter=new HiddenAchievableFilter<QuestDescription>(null);
-    filters.add(_hiddenFilter);
-    // Requirements
-    {
-      _requirementsFilter=new UsageRequirementFilter(null,null);
-      ProxyValueResolver<QuestDescription,UsageRequirement> resolver=new ProxyValueResolver<QuestDescription,UsageRequirement>()
-      {
-        public UsageRequirement getValue(QuestDescription pojo)
-        {
-          return pojo.getUsageRequirement();
-        }
-      };
-      ProxyFilter<QuestDescription,UsageRequirement> questRequirementsFilter=new ProxyFilter<QuestDescription,UsageRequirement>(resolver,_requirementsFilter);
-      filters.add(questRequirementsFilter);
-    }
-    // Rewards
-    {
-      _rewardsFilter=new RewardsFilter();
-      ProxyValueResolver<QuestDescription,Rewards> resolver=new ProxyValueResolver<QuestDescription,Rewards>()
-      {
-        public Rewards getValue(QuestDescription pojo)
-        {
-          return pojo.getRewards();
-        }
-      };
-      ProxyFilter<QuestDescription,Rewards> questRewardsFilter=new ProxyFilter<QuestDescription,Rewards>(resolver,_rewardsFilter);
-      filters.add(questRewardsFilter);
-    }
-    // World events
-    {
-      _worldEventsFilter=new WorldEventConditionFilter();
-      ProxyValueResolver<QuestDescription,AbstractWorldEventCondition> resolver=new ProxyValueResolver<QuestDescription,AbstractWorldEventCondition>()
-      {
-        public AbstractWorldEventCondition getValue(QuestDescription pojo)
-        {
-          return pojo.getWorldEventsRequirement();
-        }
-      };
-      ProxyFilter<QuestDescription,AbstractWorldEventCondition> questRequirementsFilter=new ProxyFilter<QuestDescription,AbstractWorldEventCondition>(resolver,_worldEventsFilter);
-      filters.add(questRequirementsFilter);
-    }
-    _filter=new CompoundFilter<QuestDescription>(Operator.AND,filters);
-  }
-
-  /**
-   * Get the filter on quest name.
-   * @return a quest name filter.
-   */
-  public QuestNameFilter getNameFilter()
-  {
-    return _nameFilter;
+    filter.addFilter(_lockTypeFilter);
   }
 
   /**
@@ -161,15 +80,6 @@ public class QuestFilter implements Filter<QuestDescription>
   public QuestSizeFilter getQuestSizeFilter()
   {
     return _questSizeFilter;
-  }
-
-  /**
-   * Get the filter on 'monster play' flag.
-   * @return a filter on 'monster play' flag.
-   */
-  public AchievableMonsterPlayFilter<QuestDescription> getMonsterPlayFilter()
-  {
-    return _monsterPlayFilter;
   }
 
   /**
@@ -224,47 +134,5 @@ public class QuestFilter implements Filter<QuestDescription>
   public LockTypeFilter getLockTypeFilter()
   {
     return _lockTypeFilter;
-  }
-
-  /**
-   * Get the filter on hidden flag.
-   * @return a filter on hidden flag.
-   */
-  public HiddenAchievableFilter<QuestDescription> getHiddenFilter()
-  {
-    return _hiddenFilter;
-  }
-
-  /**
-   * Get the filter on requirements.
-   * @return the requirements filter.
-   */
-  public UsageRequirementFilter getRequirementsFilter()
-  {
-    return _requirementsFilter;
-  }
-
-  /**
-   * Get the filter on rewards.
-   * @return the rewards filter.
-   */
-  public RewardsFilter getRewardsFilter()
-  {
-    return _rewardsFilter;
-  }
-
-  /**
-   * Get the filter on world events conditions.
-   * @return the filter on world events conditions.
-   */
-  public WorldEventConditionFilter getWorldEventsFilter()
-  {
-    return _worldEventsFilter;
-  }
-
-  @Override
-  public boolean accept(QuestDescription item)
-  {
-    return _filter.accept(item);
   }
 }

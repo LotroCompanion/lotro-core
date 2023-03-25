@@ -8,6 +8,7 @@ import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
@@ -21,7 +22,7 @@ import delta.games.lotro.lore.worldEvents.AbstractWorldEventCondition;
  * Base class for quests and deeds.
  * @author DAM
  */
-public abstract class Achievable implements Identifiable
+public abstract class Achievable implements Identifiable,Named
 {
   /**
    * Identifier.

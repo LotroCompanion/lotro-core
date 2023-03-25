@@ -6,7 +6,7 @@ import delta.common.utils.text.StringFilter;
 import delta.games.lotro.common.Named;
 
 /**
- * Filter on the name of stored items.
+ * Filter on the name of items.
  * @author DAM
  * @param <T> Type of named objects.
  */
