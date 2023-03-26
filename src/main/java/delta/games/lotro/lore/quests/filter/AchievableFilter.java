@@ -37,6 +37,8 @@ public class AchievableFilter<T extends Achievable> implements Filter<T>
   private RewardsFilter _rewardsFilter;
   // World events
   private WorldEventConditionFilter _worldEventsFilter;
+  // Contents packs
+  private WebStoreItemFilter<T> _webStoreItemsFilter;
 
   /**
    * Constructor.
@@ -92,6 +94,9 @@ public class AchievableFilter<T extends Achievable> implements Filter<T>
       ProxyFilter<T,AbstractWorldEventCondition> questRequirementsFilter=new ProxyFilter<T,AbstractWorldEventCondition>(resolver,_worldEventsFilter);
       filters.add(questRequirementsFilter);
     }
+    // Web Store items
+    _webStoreItemsFilter=new WebStoreItemFilter<>(null);
+    filters.add(_webStoreItemsFilter);
     _filter=new CompoundFilter<T>(Operator.AND,filters);
   }
 
@@ -156,6 +161,15 @@ public class AchievableFilter<T extends Achievable> implements Filter<T>
   public WorldEventConditionFilter getWorldEventsFilter()
   {
     return _worldEventsFilter;
+  }
+
+  /**
+   * Get the filter on web store items.
+   * @return the filter on web store items.
+   */
+  public WebStoreItemFilter<T> getWebStoreItemsFilter()
+  {
+    return _webStoreItemsFilter;
   }
 
   @Override
