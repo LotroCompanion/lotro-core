@@ -6,6 +6,7 @@ import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.lore.quests.Achievable;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Utility methods for achievable parsers.
@@ -27,6 +28,10 @@ public class AchievableSaxParser
     // Name
     String name=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.NAME_ATTR,"");
     achievable.setName(name);
+    // Raw name
+    String rawName=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.RAW_NAME_ATTR,null);
+    rawName=I18nRuntimeUtils.getLabel(i18n,rawName);
+    achievable.setRawName(rawName);
     // Challenge level
     int challengeLevel=SAXParsingTools.getIntAttribute(attrs,AchievableXMLConstants.LEVEL_ATTR,0);
     achievable.setChallengeLevel(ChallengeLevel.getByCode(challengeLevel));
