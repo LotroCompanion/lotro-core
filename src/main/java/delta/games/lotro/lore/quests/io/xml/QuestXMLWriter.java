@@ -91,6 +91,12 @@ public class QuestXMLWriter extends AchievableXMLWriter
     {
       questAttrs.addAttribute("","",AchievableXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
     }
+    // Raw name
+    String rawName=quest.getRawName();
+    if (rawName.length()>0)
+    {
+      questAttrs.addAttribute("","",AchievableXMLConstants.RAW_NAME_ATTR,XmlWriter.CDATA,rawName);
+    }
     // Category
     QuestCategory category=quest.getCategory();
     if (category!=null)

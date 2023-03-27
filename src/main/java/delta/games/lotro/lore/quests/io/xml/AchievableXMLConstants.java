@@ -16,6 +16,10 @@ public class AchievableXMLConstants
    */
   public static final String NAME_ATTR="name";
   /**
+   * Tag 'quest/deed', attribute 'rawName'.
+   */
+  public static final String RAW_NAME_ATTR="rawName";
+  /**
    * Tag 'quest/deed', attribute 'level'.
    */
   public static final String LEVEL_ATTR="level";

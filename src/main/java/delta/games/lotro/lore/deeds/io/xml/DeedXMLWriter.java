@@ -71,7 +71,16 @@ public class DeedXMLWriter extends AchievableXMLWriter
     }
     // Name
     String name=deed.getName();
-    deedAttrs.addAttribute("","",AchievableXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
+    if (name.length()>0)
+    {
+      deedAttrs.addAttribute("","",AchievableXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    // Raw name
+    String rawName=deed.getRawName();
+    if (rawName.length()>0)
+    {
+      deedAttrs.addAttribute("","",AchievableXMLConstants.RAW_NAME_ATTR,XmlWriter.CDATA,rawName);
+    }
     // Type
     DeedType type=deed.getType();
     deedAttrs.addAttribute("","",DeedXMLConstants.DEED_TYPE_ATTR,XmlWriter.CDATA,type.name());

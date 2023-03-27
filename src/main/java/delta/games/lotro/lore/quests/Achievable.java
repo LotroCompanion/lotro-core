@@ -33,6 +33,10 @@ public abstract class Achievable implements Identifiable,Named
    */
   private String _name;
   /**
+   * Raw name. Can be empty be not <code>null</code>.
+   */
+  private String _rawName;
+  /**
    * Requirements.
    */
   private UsageRequirement _requirement;
@@ -131,8 +135,33 @@ public abstract class Achievable implements Identifiable,Named
    */
   public void setName(String name)
   {
-    if (name==null) name="";
+    if (name==null)
+    {
+      name="";
+    }
     _name=name;
+  }
+
+  /**
+   * Get the raw name of this achievable.
+   * @return the raw name of this achievable.
+   */
+  public String getRawName()
+  {
+    return _rawName;
+  }
+
+  /**
+   * Set the raw name of this achievable.
+   * @param rawName the raw name to set.
+   */
+  public void setRawName(String rawName)
+  {
+    if (rawName==null)
+    {
+      rawName="";
+    }
+    _rawName=rawName;
   }
 
   /**
