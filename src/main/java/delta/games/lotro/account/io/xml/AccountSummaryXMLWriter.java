@@ -74,5 +74,11 @@ public class AccountSummaryXMLWriter
     {
       accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_TYPE_ATTR,XmlWriter.CDATA,accountType.name());
     }
+    // User data
+    String userData=account.getUserData();
+    if (userData.length()>0)
+    {
+      accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_USER_DATA_ATTR,XmlWriter.CDATA,userData);
+    }
   }
 }

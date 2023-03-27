@@ -9,6 +9,7 @@ public class AccountSummary
   private AccountReference _id;
   private Long _signupDate;
   private AccountType _accountType;
+  private String _userData;
 
   /**
    * Constructor.
@@ -18,6 +19,7 @@ public class AccountSummary
     _id=new AccountReference();
     _signupDate=null;
     _accountType=null;
+    _userData="";
   }
 
   /**
@@ -101,6 +103,28 @@ public class AccountSummary
     _accountType=accountType;
   }
 
+  /**
+   * Get the user data.
+   * @return the user data.
+   */
+  public String getUserData()
+  {
+    return _userData;
+  }
+
+  /**
+   * Set the user data.
+   * @param userData User data to set.
+   */
+  public void setUserData(String userData)
+  {
+    if (userData==null)
+    {
+      userData="";
+    }
+    _userData=userData;
+  }
+
   @Override
   public String toString()
   {
@@ -108,6 +132,7 @@ public class AccountSummary
     sb.append("Account [").append(_id).append("], ");
     sb.append("Signup date [").append(_signupDate).append("], ");
     sb.append("Account type [").append(_accountType).append(']');
+    sb.append("User data [").append(_userData).append(']');
     return sb.toString();
   }
 }

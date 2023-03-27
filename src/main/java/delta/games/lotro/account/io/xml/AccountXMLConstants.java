@@ -27,10 +27,8 @@ public class AccountXMLConstants
    * Tag 'account', attribute 'type'.
    */
   public static final String ACCOUNT_TYPE_ATTR="type";
-
-  // For later use:
   /**
-   * Tag 'account', attribute 'id'.
+   * Tag 'account', attribute 'userData'.
    */
-  //public static final String ACCOUNT_ID_ATTR="id";
+  public static final String ACCOUNT_USER_DATA_ATTR="userData";
 }

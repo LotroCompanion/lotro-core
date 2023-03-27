@@ -2,7 +2,6 @@ package delta.games.lotro.account.io.xml;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -17,8 +16,6 @@ import delta.games.lotro.account.AccountType;
  */
 public class AccountSummaryXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(AccountSummaryXMLParser.class);
-
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -55,19 +52,10 @@ public class AccountSummaryXMLParser
     Long signupDate=(signupDateValue!=0)?Long.valueOf(signupDateValue):null;
     summary.setSignupDate(signupDate);
     // Account Type
-    String accountTypeStr=DOMParsingTools.getStringAttribute(attrs,AccountXMLConstants.ACCOUNT_TYPE_ATTR,null);
-    AccountType accountType=null;
-    if (accountTypeStr!=null)
-    {
-      try
-      {
-        accountType=AccountType.valueOf(accountTypeStr);
-      }
-      catch(Exception e)
-      {
-        LOGGER.warn("Bad account type: "+accountTypeStr);
-      }
-    }
+    AccountType accountType=DOMParsingTools.getEnumAttribute(attrs,AccountXMLConstants.ACCOUNT_TYPE_ATTR,null,AccountType.class);
     summary.setAccountType(accountType);
+    // User data
+    String userData=DOMParsingTools.getStringAttribute(attrs,AccountXMLConstants.ACCOUNT_USER_DATA_ATTR,"");
+    summary.setUserData(userData);
   }
 }
