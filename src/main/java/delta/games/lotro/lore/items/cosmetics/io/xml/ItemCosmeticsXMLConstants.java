@@ -16,10 +16,6 @@ public class ItemCosmeticsXMLConstants
    */
   public static final String COSMETIC_TAG="cosmetic";
   /**
-   * Tag 'cosmetic', attribute 'id'.
-   */
-  public static final String COSMETIC_ID_ATTR="id";
-  /**
    * Tag 'cosmetic', attribute 'itemIDs'.
    */
   public static final String COSMETIC_ITEM_IDS_ATTR="itemIDs";

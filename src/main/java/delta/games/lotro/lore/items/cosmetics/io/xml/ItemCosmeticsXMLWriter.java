@@ -45,8 +45,6 @@ public class ItemCosmeticsXMLWriter
     for(Integer cosmeticID : cosmetics.getCosmeticsIDs())
     {
       AttributesImpl attrs=new AttributesImpl();
-      // Cosmetic ID
-      attrs.addAttribute("","",ItemCosmeticsXMLConstants.COSMETIC_ID_ATTR,XmlWriter.CDATA,cosmeticID.toString());
       // Item IDs
       int[] itemIDs=cosmetics.findItemIDs(cosmeticID.intValue());
       StringBuilder sb=new StringBuilder();

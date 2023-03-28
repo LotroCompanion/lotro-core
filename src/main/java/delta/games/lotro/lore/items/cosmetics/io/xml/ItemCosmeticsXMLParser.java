@@ -57,9 +57,6 @@ public final class ItemCosmeticsXMLParser extends DefaultHandler
   {
     if (ItemCosmeticsXMLConstants.COSMETIC_TAG.equals(qualifiedName))
     {
-      // CosmeticID
-      String cosmeticIDStr=attributes.getValue(ItemCosmeticsXMLConstants.COSMETIC_ID_ATTR);
-      int cosmeticID=NumericTools.parseInt(cosmeticIDStr,-1);
       // ItemIDs
       String itemIDsStr=attributes.getValue(ItemCosmeticsXMLConstants.COSMETIC_ITEM_IDS_ATTR);
       String[] itemIDStrs=itemIDsStr.split(",");
@@ -68,7 +65,7 @@ public final class ItemCosmeticsXMLParser extends DefaultHandler
       {
         itemIDs[i]=NumericTools.parseInt(itemIDStrs[i],0);
       }
-      _result.addEntry(cosmeticID,itemIDs);
+      _result.addEntry(itemIDs);
     }
   }
 }

@@ -24,11 +24,11 @@ public class ItemCosmetics
 
   /**
    * Register a cosmetics entry.
-   * @param cosmeticID Cosmetic ID.
    * @param itemIDs Related item IDs.
    */
-  public void addEntry(int cosmeticID, int[] itemIDs)
+  public void addEntry(int[] itemIDs)
   {
+    int cosmeticID=_cosmeticIDToItemIDs.size();
     _cosmeticIDToItemIDs.put(Integer.valueOf(cosmeticID),itemIDs);
   }
 
