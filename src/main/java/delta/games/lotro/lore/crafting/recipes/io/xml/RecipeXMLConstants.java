@@ -48,7 +48,7 @@ public class RecipeXMLConstants
    */
   public static final String RECIPE_XP_ATTR="xp";
   /**
-   * Tag 'recipe', attribute 'xp'.
+   * Tag 'recipe', attribute 'cooldown'.
    */
   public static final String RECIPE_COOLDOWN_ATTR="cooldown";
 
@@ -68,6 +68,15 @@ public class RecipeXMLConstants
    * Tag 'scrollItem', attribute 'icon'.
    */
   public static final String RECIPE_ITEM_ICON_ATTR="icon";
+
+  /**
+   * Tag 'ingredientPack'.
+   */
+  public static final String INGREDIENT_PACK_TAG="ingredientPack";
+  /**
+   * Tag 'ingredientPack', attribute 'count'.
+   */
+  public static final String RECIPE_ITEM_COUNT_ATTR="count";
 
   /**
    * Tag 'ingredient'.

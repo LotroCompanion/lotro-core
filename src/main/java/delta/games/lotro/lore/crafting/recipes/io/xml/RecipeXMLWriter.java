@@ -13,6 +13,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
+import delta.games.lotro.lore.crafting.recipes.IngredientPack;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
 import delta.games.lotro.lore.items.Item;
@@ -127,10 +128,17 @@ public class RecipeXMLWriter
     }
 
     hd.startElement("","",RecipeXMLConstants.RECIPE_TAG,recipeAttrs);
+    // Recipe scroll
     Item ref=recipe.getRecipeScroll();
     if (ref!=null)
     {
       writeItemRef(hd,ref,RecipeXMLConstants.SCROLL_ITEM_TAG);
+    }
+    // Ingredient pack
+    IngredientPack ingredientPack=recipe.getIngredientPack();
+    if (ingredientPack!=null)
+    {
+      writeIngredientPack(hd,ingredientPack);
     }
 
     // Versions
@@ -242,5 +250,24 @@ public class RecipeXMLWriter
     }
     hd.startElement("","",tagName,attrs);
     hd.endElement("","",tagName);
+  }
+
+  private void writeIngredientPack(TransformerHandler hd, IngredientPack ingredientPack) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Item
+    Item ref=ingredientPack.getItem();
+    int id=ref.getIdentifier();
+    attrs.addAttribute("","",RecipeXMLConstants.RECIPE_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    String name=ref.getName();
+    attrs.addAttribute("","",RecipeXMLConstants.RECIPE_ITEM_NAME_ATTR,XmlWriter.CDATA,name);
+    // Count
+    int count=ingredientPack.getCount();
+    if (count!=1)
+    {
+      attrs.addAttribute("","",RecipeXMLConstants.RECIPE_ITEM_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count));
+    }
+    hd.startElement("","",RecipeXMLConstants.INGREDIENT_PACK_TAG,attrs);
+    hd.endElement("","",RecipeXMLConstants.INGREDIENT_PACK_TAG);
   }
 }

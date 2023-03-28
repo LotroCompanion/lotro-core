@@ -26,6 +26,7 @@ public class Recipe implements Identifiable
   private boolean _guildRecipe;
   private List<RecipeVersion> _versions;
   private Item _recipeScroll;
+  private IngredientPack _ingredientPack;
 
   /**
    * Constructor.
@@ -245,6 +246,24 @@ public class Recipe implements Identifiable
   public void setRecipeScroll(Item recipeScroll)
   {
     _recipeScroll=recipeScroll;
+  }
+
+  /**
+   * Get the ingredient pack.
+   * @return An ingredient pack or <code>null</code> if not used.
+   */
+  public IngredientPack getIngredientPack()
+  {
+    return _ingredientPack;
+  }
+
+  /**
+   * Set the ingredient pack.
+   * @param ingredientPack Ingredient pack to set.
+   */
+  public void setIngredientPack(IngredientPack ingredientPack)
+  {
+    _ingredientPack=ingredientPack;
   }
 
   /**

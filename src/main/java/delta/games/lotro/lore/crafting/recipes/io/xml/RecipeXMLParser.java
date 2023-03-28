@@ -13,6 +13,7 @@ import delta.games.lotro.lore.crafting.CraftingUtils;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
+import delta.games.lotro.lore.crafting.recipes.IngredientPack;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
 import delta.games.lotro.lore.items.Item;
@@ -97,11 +98,19 @@ public class RecipeXMLParser
     boolean guildRequired=DOMParsingTools.getBooleanAttribute(attrs,RecipeXMLConstants.RECIPE_GUILD_ATTR,false);
     r.setGuildRequired(guildRequired);
 
+    // Recipe scroll
     Element scrollItemElement=DOMParsingTools.getChildTagByName(root,RecipeXMLConstants.SCROLL_ITEM_TAG);
     if (scrollItemElement!=null)
     {
       Item ref=parseItemRef(scrollItemElement);
       r.setRecipeScroll(ref);
+    }
+    // Ingredient pack
+    Element ingredientPackTag=DOMParsingTools.getChildTagByName(root,RecipeXMLConstants.INGREDIENT_PACK_TAG);
+    if (ingredientPackTag!=null)
+    {
+      IngredientPack ingredientPack=parseIngredientPack(ingredientPackTag);
+      r.setIngredientPack(ingredientPack);
     }
 
     // Versions
@@ -209,5 +218,21 @@ public class RecipeXMLParser
       LOGGER.warn("Unknown item: "+item);
     }
     return item;
+  }
+
+  private IngredientPack parseIngredientPack(Element ingredientPackTag)
+  {
+    NamedNodeMap attrs=ingredientPackTag.getAttributes();
+    // Item ID
+    int id=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_ID_ATTR,0);
+    Item item=ItemsManager.getInstance().getItem(id);
+    if (item==null)
+    {
+      LOGGER.warn("Unknown item: "+item);
+      return null;
+    }
+    // Count
+    int count=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_COUNT_ATTR,1);
+    return new IngredientPack(item,count);
   }
 }
