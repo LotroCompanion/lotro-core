@@ -10,6 +10,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.common.enums.CraftingUICategory;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
@@ -97,10 +98,10 @@ public class RecipeXMLWriter
     int tier=recipe.getTier();
     recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
     // Category
-    String category=recipe.getCategory();
-    if (category.length()>0)
+    CraftingUICategory category=recipe.getCategory();
+    if (category!=null)
     {
-      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_CATEGORY_ATTR,XmlWriter.CDATA,category);
+      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(category.getCode()));
     }
     // XP
     int xp=recipe.getXP();

@@ -9,6 +9,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.enums.CraftingUICategory;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.crafting.CraftingUtils;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
@@ -26,6 +29,16 @@ import delta.games.lotro.lore.items.ItemsManager;
 public class RecipeXMLParser
 {
   private static final Logger LOGGER=Logger.getLogger(RecipeXMLParser.class);
+
+  private LotroEnum<CraftingUICategory> _categoryEnum;
+
+  /**
+   * Constructor.
+   */
+  public RecipeXMLParser()
+  {
+    _categoryEnum=LotroEnumsRegistry.getInstance().get(CraftingUICategory.class);
+  }
 
   /**
    * Parse the XML file.
@@ -83,7 +96,8 @@ public class RecipeXMLParser
     int tier=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_TIER_ATTR,0);
     r.setTier(tier);
     // Category
-    String category=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_CATEGORY_ATTR,null);
+    int categoryCode=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_CATEGORY_ATTR,0);
+    CraftingUICategory category=_categoryEnum.getEntry(categoryCode);
     r.setCategory(category);
     // XP
     int xp=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_XP_ATTR,0);

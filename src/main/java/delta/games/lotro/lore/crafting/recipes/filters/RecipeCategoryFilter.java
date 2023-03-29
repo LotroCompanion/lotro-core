@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.crafting.recipes.filters;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.common.enums.CraftingUICategory;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 
 /**
@@ -9,13 +10,13 @@ import delta.games.lotro.lore.crafting.recipes.Recipe;
  */
 public class RecipeCategoryFilter implements Filter<Recipe>
 {
-  private String _category;
+  private CraftingUICategory _category;
 
   /**
    * Constructor.
    * @param category Category to select (may be <code>null</code>).
    */
-  public RecipeCategoryFilter(String category)
+  public RecipeCategoryFilter(CraftingUICategory category)
   {
     _category=category;
   }
@@ -24,7 +25,7 @@ public class RecipeCategoryFilter implements Filter<Recipe>
    * Get the category to use.
    * @return A category or <code>null</code>.
    */
-  public String getCategory()
+  public CraftingUICategory getCategory()
   {
     return _category;
   }
@@ -33,7 +34,7 @@ public class RecipeCategoryFilter implements Filter<Recipe>
    * Set the category to select.
    * @param category Category to use, may be <code>null</code>.
    */
-  public void setCategory(String category)
+  public void setCategory(CraftingUICategory category)
   {
     _category=category;
   }
@@ -44,8 +45,8 @@ public class RecipeCategoryFilter implements Filter<Recipe>
     {
       return true;
     }
-    String category=recipe.getCategory();
-    if (_category.equals(category))
+    CraftingUICategory category=recipe.getCategory();
+    if (_category==category)
     {
       return true;
     }

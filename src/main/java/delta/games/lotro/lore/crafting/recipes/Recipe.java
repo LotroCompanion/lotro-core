@@ -6,6 +6,7 @@ import java.util.List;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.enums.CraftingUICategory;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.items.Item;
 
@@ -18,7 +19,7 @@ public class Recipe implements Identifiable
   private int _identifier;
   private String _name;
   private Profession _profession;
-  private String _category;
+  private CraftingUICategory _category;
   private int _tier;
   private int _xp;
   private int _cooldown;
@@ -36,7 +37,7 @@ public class Recipe implements Identifiable
     _identifier=0;
     _name="";
     _profession=null;
-    _category="";
+    _category=null;
     _tier=1;
     _xp=0;
     _cooldown=-1;
@@ -104,7 +105,7 @@ public class Recipe implements Identifiable
    * Get the category of this recipe.
    * @return a category identifier.
    */
-  public String getCategory()
+  public CraftingUICategory getCategory()
   {
     return _category;
   }
@@ -113,9 +114,9 @@ public class Recipe implements Identifiable
    * Set the category of this recipe.
    * @param category the category to set.
    */
-  public void setCategory(String category)
+  public void setCategory(CraftingUICategory category)
   {
-    _category=(category==null)?"":category;
+    _category=category;
   }
 
   /**
@@ -286,7 +287,7 @@ public class Recipe implements Identifiable
       sb.append(_profession);
       sb.append(')');
     }
-    if (_category.length()>0)
+    if (_category!=null)
     {
       sb.append(" (category=");
       sb.append(_category);
