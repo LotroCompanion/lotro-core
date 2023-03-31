@@ -22,35 +22,59 @@ public class StatUtils
   /**
    * Get a displayable string for a stat value.
    * @param value Value to display.
-   * @param percentage Indicates if the stat is a percentage or not.
+   * @param stat Stat to use.
    * @return A displayable string.
    */
-  public static String getStatDisplay(Number value, boolean percentage)
+  public static String getStatDisplay(Number value, StatDescription stat)
+  {
+    boolean percentage=stat.isPercentage();
+    return getStatDisplay(value,percentage);
+  }
+
+  /**
+   * Get a displayable string for a stat value.
+   * @param value Value to display.
+   * @param percentage Format as percentage or not.
+   * @return A displayable string.
+   */
+  private static String getStatDisplay(Number value, boolean percentage)
+  {
+    if (value==null)
+    {
+      return "-";
+    }
+    if (percentage)
+    {
+      return getStatDisplayPercentage(value,2);
+    }
+    return getStatDisplayRegular(value,1,0);
+  }
+
+  private static String getStatDisplayRegular(Number value, int maxDigitsBelow1, int maxDigitsAbove1)
   {
     String valueStr;
-    if (value!=null)
+    float valueToUse=value.floatValue();
+    if (Math.abs(valueToUse)<1.0)
     {
-      if (percentage)
-      {
-        valueStr=L10n.getString(value.doubleValue(),2)+"%";
-      }
-      else
-      {
-        float valueToUse=value.floatValue();
-        if (Math.abs(valueToUse)<1.0)
-        {
-          valueStr=L10n.getString(valueToUse,1);
-        }
-        else
-        {
-          valueStr=L10n.getString(Math.round(valueToUse));
-        }
-      }
+      valueStr=L10n.getString(valueToUse,maxDigitsBelow1);
     }
     else
     {
-      valueStr="-";
+      if (maxDigitsAbove1==0)
+      {
+        valueStr=L10n.getString(Math.round(valueToUse));
+      }
+      else
+      {
+        valueStr=L10n.getString(Math.round(valueToUse),maxDigitsAbove1);
+      }
     }
+    return valueStr;
+  }
+
+  private static String getStatDisplayPercentage(Number value, int maxDigits)
+  {
+    String valueStr=L10n.getString(value.doubleValue(),maxDigits)+"%";
     return valueStr;
   }
 

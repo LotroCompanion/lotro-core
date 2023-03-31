@@ -14,18 +14,20 @@ public class StatUtilsTest extends TestCase
    */
   public void testStatsDisplay()
   {
-    sampleTest(Integer.valueOf(2),false,"2");
-    sampleTest(Integer.valueOf(-2),false,"-2");
-    sampleTest(Float.valueOf(2.1f),false,"2");
-    sampleTest(Float.valueOf(-2.1f),false,"-2");
-    sampleTest(Float.valueOf(2.99f),false,"3");
-    sampleTest(Float.valueOf(-2.99f),false,"-3");
-    sampleTest(Float.valueOf(-0.75f),false,"-0.8");
+    StatDescription stat=new StatDescription(0);
+    stat.setPercentage(false);
+    sampleTest(Integer.valueOf(2),stat,"2");
+    sampleTest(Integer.valueOf(-2),stat,"-2");
+    sampleTest(Float.valueOf(2.1f),stat,"2");
+    sampleTest(Float.valueOf(-2.1f),stat,"-2");
+    sampleTest(Float.valueOf(2.99f),stat,"3");
+    sampleTest(Float.valueOf(-2.99f),stat,"-3");
+    sampleTest(Float.valueOf(-0.75f),stat,"-0.8");
   }
 
-  private void sampleTest(Number value, boolean percentage, String expected)
+  private void sampleTest(Number value, StatDescription stat, String expected)
   {
-    String valueStr=StatUtils.getStatDisplay(value,percentage);
+    String valueStr=StatUtils.getStatDisplay(value,stat);
     Assert.assertEquals(expected,valueStr);
   }
 }
