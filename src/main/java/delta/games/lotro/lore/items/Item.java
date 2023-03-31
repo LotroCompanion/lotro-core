@@ -168,7 +168,9 @@ public class Item implements Identifiable,Named,ItemProvider
     int ret=0;
     if (_icon!=null)
     {
-      ret=NumericTools.parseInt(_icon.substring(0,_icon.indexOf('-')),0);
+      int index=_icon.indexOf('-');
+      String iconStr=(index!=-1)?_icon.substring(0,index):_icon;
+      ret=NumericTools.parseInt(iconStr,0);
     }
     return ret;
   }
@@ -182,7 +184,13 @@ public class Item implements Identifiable,Named,ItemProvider
     int ret=0;
     if (_icon!=null)
     {
-      ret=NumericTools.parseInt(_icon.substring(_icon.indexOf('-')+1),0);
+      String iconStr=_icon.substring(_icon.indexOf('-')+1);
+      int nextIndex=iconStr.indexOf('-');
+      if (nextIndex!=-1)
+      {
+        iconStr=iconStr.substring(0,nextIndex);
+      }
+      ret=NumericTools.parseInt(iconStr,0);
     }
     return ret;
   }
