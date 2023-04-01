@@ -27,22 +27,11 @@ public class StatUtils
    */
   public static String getStatDisplay(Number value, StatDescription stat)
   {
-    boolean percentage=stat.isPercentage();
-    return getStatDisplay(value,percentage);
-  }
-
-  /**
-   * Get a displayable string for a stat value.
-   * @param value Value to display.
-   * @param percentage Format as percentage or not.
-   * @return A displayable string.
-   */
-  private static String getStatDisplay(Number value, boolean percentage)
-  {
     if (value==null)
     {
       return "-";
     }
+    boolean percentage=stat.isPercentage();
     if (percentage)
     {
       return getStatDisplayPercentage(value,2);
@@ -191,17 +180,17 @@ public class StatUtils
     String statName=stat.getName();
     Number value=element.getValue();
     String prefix="";
-    boolean isPercentage=stat.isPercentage();
     if (element.getOperator()==StatOperator.MULTIPLY)
     {
+      stat=new StatDescription(stat.getIdentifier());
+      stat.setPercentage(true);
       value=convertMultiplyToPercentage(value);
       if (value.floatValue()>0.0)
       {
         prefix="+";
       }
-      isPercentage=true;
     }
-    String valueStr=getStatDisplay(value,isPercentage);
+    String valueStr=getStatDisplay(value,stat);
     String descriptionOverride=element.getDescriptionOverride();
     if (descriptionOverride!=null)
     {
