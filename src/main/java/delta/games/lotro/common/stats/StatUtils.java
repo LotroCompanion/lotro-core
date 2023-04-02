@@ -36,7 +36,7 @@ public class StatUtils
     {
       return getStatDisplayPercentage(value,2);
     }
-    return getStatDisplayRegular(value,1,0);
+    return getStatDisplayRegular(value,2,0);
   }
 
   private static String getStatDisplayRegular(Number value, int maxDigitsBelow1, int maxDigitsAbove1)
