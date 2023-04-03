@@ -36,29 +36,63 @@ public class StatUtils
     {
       return getStatDisplayPercentage(value,2);
     }
-    return getStatDisplayRegular(value,2,0);
+    value=fixValueForDisplay(value,stat);
+    return getStatDisplayRegular(value,stat);
   }
 
-  private static String getStatDisplayRegular(Number value, int maxDigitsBelow1, int maxDigitsAbove1)
+  private static Number fixValueForDisplay(Number value, StatDescription stat)
+  {
+    if (isRegenStat(stat))
+    {
+      value=Float.valueOf(value.floatValue()/60);
+    }
+    return value;
+  }
+
+  private static boolean isRegenStat(StatDescription stat)
+  {
+    if (stat==WellKnownStat.ICMR) return true;
+    if (stat==WellKnownStat.ICPR) return true;
+    if (stat==WellKnownStat.OCMR) return true;
+    if (stat==WellKnownStat.OCPR) return true;
+    return false;
+  }
+
+  private static String getStatDisplayRegular(Number value, StatDescription stat)
   {
     String valueStr;
     float valueToUse=value.floatValue();
     if (Math.abs(valueToUse)<1.0)
     {
-      valueStr=L10n.getString(valueToUse,maxDigitsBelow1);
+      int digits=getMaxFractionalDigits(stat,true);
+      valueStr=L10n.getString(valueToUse,digits);
     }
     else
     {
-      if (maxDigitsAbove1==0)
+      int digits=getMaxFractionalDigits(stat,false);
+      if (digits==0)
       {
         valueStr=L10n.getString(Math.round(valueToUse));
       }
       else
       {
-        valueStr=L10n.getString(Math.round(valueToUse),maxDigitsAbove1);
+        valueStr=L10n.getString(valueToUse,digits);
       }
     }
     return valueStr;
+  }
+
+  private static int getMaxFractionalDigits(StatDescription stat, boolean below1)
+  {
+    if (below1)
+    {
+      return 2;
+    }
+    if (isRegenStat(stat))
+    {
+      return 3; 
+    }
+    return 0;
   }
 
   private static String getStatDisplayPercentage(Number value, int maxDigits)
