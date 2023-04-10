@@ -7,9 +7,11 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatType;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for stat descriptions stored in XML.
@@ -17,12 +19,22 @@ import delta.games.lotro.common.stats.StatType;
  */
 public class StatXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public StatXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("stats");
+  }
+
   /**
    * Parse a stat descriptions XML file.
    * @param source Source file.
    * @return List of parsed stat descriptions.
    */
-  public static List<StatDescription> parseStatDescriptionsFile(File source)
+  public List<StatDescription> parseStatDescriptionsFile(File source)
   {
     List<StatDescription> descriptions=new ArrayList<StatDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -43,7 +55,7 @@ public class StatXMLParser
    * @param root Root XML tag.
    * @return A stat description.
    */
-  private static StatDescription parseStatDescription(Element root)
+  private StatDescription parseStatDescription(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // ID
@@ -56,7 +68,7 @@ public class StatXMLParser
       description.setIndex(Integer.valueOf(index));
     }
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_INTERNAL_NAME_ATTR,null);
+    String name=_i18n.getLabel(String.valueOf(id));
     description.setInternalName(name);
     // Key
     String key=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_KEY_ATTR,null);

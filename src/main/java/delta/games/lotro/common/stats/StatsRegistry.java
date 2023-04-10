@@ -73,7 +73,7 @@ public class StatsRegistry
   {
     long now=System.currentTimeMillis();
     int nbStats=0;
-    List<StatDescription> stats=StatXMLParser.parseStatDescriptionsFile(inputFile);
+    List<StatDescription> stats=new StatXMLParser().parseStatDescriptionsFile(inputFile);
     for(StatDescription stat : stats)
     {
       addStat(stat);
