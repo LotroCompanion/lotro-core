@@ -1,12 +1,13 @@
 package delta.games.lotro.lore.maps;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Territory.
  * @author DAM
  */
-public class Territory implements Identifiable
+public class Territory implements Identifiable,Named
 {
   private int _identifier;
   private String _name;
