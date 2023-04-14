@@ -89,7 +89,7 @@ public class HobbyRewardsProfile implements Identifiable
       {
         Item item=entry.getItem();
         float dropPercentage=((float)entry.getWeight())/totalWeight;
-        HobbyDropTableEntry dropTableEntry=new HobbyDropTableEntry(item,dropPercentage);
+        HobbyDropTableEntry dropTableEntry=new HobbyDropTableEntry(item,dropPercentage*100);
         table.addEntry(dropTableEntry);
       }
     }
