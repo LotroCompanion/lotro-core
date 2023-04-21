@@ -77,7 +77,7 @@ public class StatXMLParser
     String legacyKey=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_LEGACY_KEY_ATTR,null);
     description.setLegacyKey(legacyKey);
     // Legacy name
-    String legacyName=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_LEGACY_NAME_ATTR,null);
+    String legacyName=_i18n.getLabel("legacy:"+id);
     description.setLegacyName(legacyName);
     // Is percentage
     boolean isPercentage=DOMParsingTools.getBooleanAttribute(attrs,StatXMLConstants.STAT_IS_PERCENTAGE_ATTR,false);
