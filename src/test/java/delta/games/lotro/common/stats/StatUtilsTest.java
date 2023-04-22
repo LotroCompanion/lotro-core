@@ -1,5 +1,8 @@
 package delta.games.lotro.common.stats;
 
+import delta.common.utils.l10n.L10nConfiguration;
+import delta.common.utils.l10n.LocalizedFormats;
+import delta.common.utils.l10n.numbers.NumberFormatID;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
@@ -14,6 +17,10 @@ public class StatUtilsTest extends TestCase
    */
   public void testStatsDisplay()
   {
+    L10nConfiguration l10nConfiguration=new L10nConfiguration();
+    l10nConfiguration.setNumberFormatID(NumberFormatID.US);
+    LocalizedFormats.init(l10nConfiguration);
+
     StatDescription stat=new StatDescription(0);
     stat.setPercentage(false);
     sampleTest(Integer.valueOf(2),stat,"2");
@@ -22,7 +29,7 @@ public class StatUtilsTest extends TestCase
     sampleTest(Float.valueOf(-2.1f),stat,"-2");
     sampleTest(Float.valueOf(2.99f),stat,"3");
     sampleTest(Float.valueOf(-2.99f),stat,"-3");
-    sampleTest(Float.valueOf(-0.75f),stat,"-0.8");
+    sampleTest(Float.valueOf(-0.75f),stat,"-0.75");
   }
 
   private void sampleTest(Number value, StatDescription stat, String expected)
