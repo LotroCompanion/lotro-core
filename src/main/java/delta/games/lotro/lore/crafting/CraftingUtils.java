@@ -18,4 +18,17 @@ public class CraftingUtils
     Profession profession=professions.getProfessionByName(professionName);
     return profession;
   }
+
+  /**
+   * Get a profession using its key.
+   * @param professionKey Profession key.
+   * @return A profession or <code>null</code> if not found.
+   */
+  public static Profession getProfessionByKey(String professionKey)
+  {
+    CraftingData crafting=CraftingSystem.getInstance().getData();
+    Professions professions=crafting.getProfessionsRegistry();
+    Profession profession=professions.getProfessionByKey(professionKey);
+    return profession;
+  }
 }
