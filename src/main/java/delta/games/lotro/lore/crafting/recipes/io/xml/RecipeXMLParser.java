@@ -90,7 +90,7 @@ public class RecipeXMLParser
     r.setName(name);
     // Profession
     String professionName=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_PROFESSION_ATTR,null);
-    Profession profession=CraftingUtils.getProfessionByName(professionName);
+    Profession profession=CraftingUtils.getProfessionByKey(professionName);
     r.setProfession(profession);
     // Tier
     int tier=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_TIER_ATTR,0);

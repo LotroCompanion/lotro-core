@@ -92,7 +92,7 @@ public class RecipeXMLWriter
     Profession profession=recipe.getProfession();
     if (profession!=null)
     {
-      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_PROFESSION_ATTR,XmlWriter.CDATA,profession.getName());
+      recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_PROFESSION_ATTR,XmlWriter.CDATA,profession.getKey());
     }
     // Tier
     int tier=recipe.getTier();
