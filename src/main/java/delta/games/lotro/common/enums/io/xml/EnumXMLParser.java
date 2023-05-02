@@ -7,9 +7,11 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumEntry;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for enums stored in XML.
@@ -33,6 +35,8 @@ public class EnumXMLParser<T extends LotroEnumEntry>
     {
       return null;
     }
+
+    SingleLocaleLabelsManager i18n=I18nFacade.getLabelsMgr("enum-"+implClass.getSimpleName());
     long now=System.currentTimeMillis();
     NamedNodeMap rootAttrs=root.getAttributes();
     int id=DOMParsingTools.getIntAttribute(rootAttrs,EnumXMLConstants.ENUM_ID_ATTR,0);
@@ -49,6 +53,10 @@ public class EnumXMLParser<T extends LotroEnumEntry>
       String key=DOMParsingTools.getStringAttribute(attrs,EnumXMLConstants.ENTRY_KEY_ATTR,null);
       // Name
       String name=DOMParsingTools.getStringAttribute(attrs,EnumXMLConstants.ENTRY_NAME_ATTR,"");
+      if (i18n!=null)
+      {
+        name=i18n.getLabel(name);
+      }
       T entry=ret.buildEntryInstance(code,key,name);
       ret.registerEntry(entry);
     }
