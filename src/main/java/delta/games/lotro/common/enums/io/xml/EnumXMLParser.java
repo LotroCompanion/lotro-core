@@ -52,10 +52,15 @@ public class EnumXMLParser<T extends LotroEnumEntry>
       // Key
       String key=DOMParsingTools.getStringAttribute(attrs,EnumXMLConstants.ENTRY_KEY_ATTR,null);
       // Name
-      String name=DOMParsingTools.getStringAttribute(attrs,EnumXMLConstants.ENTRY_NAME_ATTR,"");
+      String i18nKey=DOMParsingTools.getStringAttribute(attrs,EnumXMLConstants.ENTRY_NAME_ATTR,"");
+      String name=i18nKey;
       if (i18n!=null)
       {
-        name=i18n.getLabel(name);
+        name=i18n.getLabel(i18nKey);
+        if (name==null)
+        {
+          name=i18nKey;
+        }
       }
       T entry=ret.buildEntryInstance(code,key,name);
       ret.registerEntry(entry);
