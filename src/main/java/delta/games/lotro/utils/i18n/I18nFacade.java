@@ -33,14 +33,22 @@ public class I18nFacade
   private static SingleLocaleLabelsManager buildLabelsMgr(String key)
   {
     LOGGER.debug("Loading labels file: "+key);
-    long now=System.currentTimeMillis();
     File rootDir=LotroCoreConfig.getInstance().getFile(DataFiles.LABELS);
     File labelsDir=new File(rootDir,CURRENT_LOCALE);
     String filename=key+".xml";
     File from=new File(labelsDir,filename);
-    SingleLocaleLabelsManager mgr=new LabelsXMLParser().parseSingleLocaleLabels(from);
-    long now2=System.currentTimeMillis();
-    LOGGER.debug("Took: "+(now2-now)+"ms");
+    SingleLocaleLabelsManager mgr;
+    if (from.exists())
+    {
+      long now=System.currentTimeMillis();
+      mgr=new LabelsXMLParser().parseSingleLocaleLabels(from);
+      long now2=System.currentTimeMillis();
+      LOGGER.debug("Took: "+(now2-now)+"ms");
+    }
+    else
+    {
+      mgr=new SingleLocaleLabelsManager(CURRENT_LOCALE);
+    }
     return mgr;
   }
 }
