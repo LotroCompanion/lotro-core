@@ -19,6 +19,7 @@ public class RaceDescription implements Identifiable,Named
   private String _key;
   private String _legacyLabel;
   private String _name;
+  private String _tag;
   private boolean _isTall;
   private String _description;
   private RaceGender _male;
@@ -42,6 +43,7 @@ public class RaceDescription implements Identifiable,Named
     _key=key;
     _legacyLabel=legacyLabel;
     _name="";
+    _tag="";
     _isTall=true;
     _description="";
     _male=null;
@@ -105,6 +107,28 @@ public class RaceDescription implements Identifiable,Named
       name="";
     }
     _name=name;
+  }
+
+  /**
+   * Get the race tag.
+   * @return a tag.
+   */
+  public String getTag()
+  {
+    return _tag;
+  }
+
+  /**
+   * Set the race tag.
+   * @param tag Tag to set.
+   */
+  public void setTag(String tag)
+  {
+    if (tag==null)
+    {
+      tag="";
+    }
+    _tag=tag;
   }
 
   /**

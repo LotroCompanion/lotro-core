@@ -77,6 +77,9 @@ public class RaceDescriptionXMLParser
     String name=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_NAME_ATTR,"");
     name=_i18n.getLabel(name);
     raceDescription.setName(name);
+    // Tag
+    String tag=DOMParsingTools.getStringAttribute(attrs,RaceDescriptionXMLConstants.RACE_TAG_ATTR,"");
+    raceDescription.setTag(tag);
     // Tall
     boolean tall=DOMParsingTools.getBooleanAttribute(attrs,RaceDescriptionXMLConstants.RACE_TALL_ATTR,false);
     raceDescription.setTall(tall);

@@ -70,6 +70,9 @@ public class RaceDescriptionXMLWriter
     // Name
     String name=raceDescription.getName();
     attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_NAME_ATTR,XmlWriter.CDATA,name);
+    // Tag
+    String tag=raceDescription.getTag();
+    attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_TAG_ATTR,XmlWriter.CDATA,tag);
     // Tall
     boolean tall=raceDescription.isTall();
     attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_TALL_ATTR,XmlWriter.CDATA,String.valueOf(tall));
