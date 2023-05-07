@@ -82,9 +82,12 @@ public class ClassDescriptionXMLWriter
     // Key
     String key=description.getKey();
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_KEY_ATTR,XmlWriter.CDATA,key);
-    // String name
+    // Name
     String name=description.getName();
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_NAME_ATTR,XmlWriter.CDATA,name);
+    // Tag
+    String tag=description.getTag();
+    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_TAG_ATTR,XmlWriter.CDATA,tag);
     // Icon ID
     int iconId=description.getIconId();
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));

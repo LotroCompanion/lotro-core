@@ -95,6 +95,9 @@ public class ClassDescriptionXMLParser
     // Name
     String name=_i18n.getLabel(String.valueOf(id));
     ret.setName(name);
+    // Tag
+    String tag=DOMParsingTools.getStringAttribute(attrs,ClassDescriptionXMLConstants.CLASS_TAG_ATTR,"");
+    ret.setTag(tag);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_ICON_ID_ATTR,0);
     ret.setIconId(iconId);

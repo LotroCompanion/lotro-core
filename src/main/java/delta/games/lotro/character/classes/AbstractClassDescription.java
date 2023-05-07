@@ -17,6 +17,7 @@ public class AbstractClassDescription implements Identifiable,Named
   private int _code;
   private String _key;
   private String _name;
+  private String _tag;
   private int _iconId;
   private int _smallIconId;
   private String _abbreviation;
@@ -36,6 +37,7 @@ public class AbstractClassDescription implements Identifiable,Named
     _code=code;
     _key=key;
     _name="";
+    _tag="";
     _iconId=0;
     _smallIconId=0;
     _traits=new ArrayList<ClassTrait>();
@@ -86,6 +88,28 @@ public class AbstractClassDescription implements Identifiable,Named
       name="";
     }
     _name=name;
+  }
+
+  /**
+   * Get the class tag.
+   * @return a tag.
+   */
+  public String getTag()
+  {
+    return _tag;
+  }
+
+  /**
+   * Set the class tag.
+   * @param tag Tag to set.
+   */
+  public void setTag(String tag)
+  {
+    if (tag==null)
+    {
+      tag="";
+    }
+    _tag=tag;
   }
 
   /**

@@ -36,6 +36,10 @@ public class ClassDescriptionXMLConstants
    */
   public static final String CLASS_NAME_ATTR="name";
   /**
+   * Tag 'class', attribute 'tag'.
+   */
+  public static final String CLASS_TAG_ATTR="tag";
+  /**
    * Tag 'class', attribute 'iconId'.
    */
   public static final String CLASS_ICON_ID_ATTR="iconId";
