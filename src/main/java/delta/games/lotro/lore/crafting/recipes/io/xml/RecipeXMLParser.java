@@ -140,6 +140,13 @@ public class RecipeXMLParser
       versions.add(version);
     }
     r.setVersions(versions);
+    // Fix name if needed
+    name=r.getName();
+    if (name.isEmpty())
+    {
+      name=r.getDefaultName();
+      r.setName(name);
+    }
     return r;
   }
 

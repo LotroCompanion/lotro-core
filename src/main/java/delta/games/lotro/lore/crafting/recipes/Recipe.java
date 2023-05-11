@@ -84,6 +84,31 @@ public class Recipe implements Identifiable
   }
 
   /**
+   * Get the default name for this recipe.
+   * @return A name.
+   */
+  public String getDefaultName()
+  {
+    if (!_versions.isEmpty())
+    {
+      RecipeVersion version=_versions.get(0);
+      if (version!=null)
+      {
+        CraftingResult result=version.getRegular();
+        if (result!=null)
+        {
+          Item item=result.getItem();
+          if (item!=null)
+          {
+            return item.getName();
+          }
+        }
+      }
+    }
+    return "";
+  }
+
+  /**
    * Get the profession of this recipe.
    * @return a profession identifier.
    */
