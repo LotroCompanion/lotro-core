@@ -1,12 +1,13 @@
 package delta.games.lotro.character.status.recipes;
 
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 
 /**
  * Status of a single recipe.
  * @author DAM
  */
-public class RecipeStatus
+public class RecipeStatus implements Identifiable
 {
   private Recipe _recipe;
   private RecipeState _state;
@@ -20,6 +21,12 @@ public class RecipeStatus
   {
     _recipe=recipe;
     _state=state;
+  }
+
+  @Override
+  public int getIdentifier()
+  {
+    return _recipe.getIdentifier();
   }
 
   /**

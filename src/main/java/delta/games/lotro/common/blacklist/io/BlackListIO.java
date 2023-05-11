@@ -22,7 +22,21 @@ public class BlackListIO
    */
   public static Blacklist load(CharacterFile toon, boolean quest)
   {
-    File inputFile=getBlacklistFile(toon,quest);
+    String path=(quest?"quests":"deeds");
+    return load(toon,path);
+  }
+
+  /**
+   * Get a blacklist for a given character.
+   * @param toon Input character.
+   * @param key Blackilist usage key.
+   * @return A blacklist.
+   */
+  public static Blacklist load(CharacterFile toon, String key)
+  {
+    String path="blacklist-"+key+".xml";
+    File rootDir=toon.getRootDir();
+    File inputFile=new File(rootDir,path);
     Blacklist blacklist=load(inputFile);
     if (blacklist==null)
     {
@@ -55,12 +69,5 @@ public class BlackListIO
   {
     BlacklistXMLWriter writer=new BlacklistXMLWriter();
     return writer.write(blacklist.getFile(),blacklist,EncodingNames.UTF_8);
-  }
-
-  private static File getBlacklistFile(CharacterFile toon, boolean quest)
-  {
-    File rootDir=toon.getRootDir();
-    String path=quest?"blacklist-quests.xml":"blacklist-deeds.xml";
-    return new File(rootDir,path);
   }
 }
