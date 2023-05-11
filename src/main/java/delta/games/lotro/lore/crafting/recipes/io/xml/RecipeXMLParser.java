@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.enums.CraftingUICategory;
 import delta.games.lotro.common.enums.LotroEnum;
@@ -21,6 +22,7 @@ import delta.games.lotro.lore.crafting.recipes.Recipe;
 import delta.games.lotro.lore.crafting.recipes.RecipeVersion;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for quest descriptions stored in XML.
@@ -31,6 +33,7 @@ public class RecipeXMLParser
   private static final Logger LOGGER=Logger.getLogger(RecipeXMLParser.class);
 
   private LotroEnum<CraftingUICategory> _categoryEnum;
+  private SingleLocaleLabelsManager _i18n;
 
   /**
    * Constructor.
@@ -38,6 +41,7 @@ public class RecipeXMLParser
   public RecipeXMLParser()
   {
     _categoryEnum=LotroEnumsRegistry.getInstance().get(CraftingUICategory.class);
+    _i18n=I18nFacade.getLabelsMgr("recipes");
   }
 
   /**
@@ -86,7 +90,7 @@ public class RecipeXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_ID_ATTR,0);
     r.setIdentifier(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_NAME_ATTR,null);
+    String name=_i18n.getLabel(String.valueOf(id));
     r.setName(name);
     // Profession
     String professionName=DOMParsingTools.getStringAttribute(attrs,RecipeXMLConstants.RECIPE_PROFESSION_ATTR,null);
