@@ -9,6 +9,7 @@ public class RecipesStatistics
   private int _autoRecipes;
   private int _learntRecipes;
   private int _notKnownRecipes;
+  private int _blacklisted;
 
   /**
    * Constructor.
@@ -26,6 +27,7 @@ public class RecipesStatistics
     _autoRecipes=0;
     _learntRecipes=0;
     _notKnownRecipes=0;
+    _blacklisted=0;
   }
 
   /**
@@ -56,6 +58,15 @@ public class RecipesStatistics
   }
 
   /**
+   * Get the number of blacklisted recipes.
+   * @return A count.
+   */
+  public int getBloacklistedRecipesCount()
+  {
+    return _blacklisted;
+  }
+
+  /**
    * Add a recipe.
    * @param state State of recipe to add.
    */
@@ -64,5 +75,13 @@ public class RecipesStatistics
     if (state==RecipeState.AUTO) _autoRecipes++;
     else if (state==RecipeState.LEARNT) _learntRecipes++;
     else if (state==RecipeState.NOT_KNOWN) _notKnownRecipes++;
+  }
+
+  /**
+   * Add a blacklisted recipe.
+   */
+  public void addBlacklisted()
+  {
+    _blacklisted++;
   }
 }

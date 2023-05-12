@@ -14,6 +14,8 @@ import delta.games.lotro.character.status.crafting.CraftingStatus;
 import delta.games.lotro.character.status.crafting.KnownRecipes;
 import delta.games.lotro.character.status.crafting.ProfessionStatus;
 import delta.games.lotro.character.status.recipes.comparators.RecipeStatusSortUtils;
+import delta.games.lotro.character.status.recipes.filter.RecipeStatusFilter;
+import delta.games.lotro.common.blacklist.filter.BlackListFilter;
 import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.Vocation;
@@ -137,16 +139,27 @@ public class RecipesStatusManager
 
   /**
    * Update the statistics.
-   * @param recipeFilter Filter to use.
+   * @param filter Filter to use.
    */
-  public void update(Filter<Recipe> recipeFilter)
+  public void update(RecipeStatusFilter filter)
   {
+    Filter<Recipe> recipeFilter=filter.getRecipeFilter();
     _statistics.reset();
+    BlackListFilter blacklistFilter=filter.getBlacklistFilter();
     for(RecipeStatus status : _statuses.values())
     {
-      if (recipeFilter.accept(status.getRecipe()))
+      Recipe recipe=status.getRecipe();
+      boolean ok=(blacklistFilter==null)||(blacklistFilter.accept(recipe));
+      if (ok)
       {
-        _statistics.add(status.getState());
+        if (recipeFilter.accept(status.getRecipe()))
+        {
+          _statistics.add(status.getState());
+        }
+      }
+      else
+      {
+        _statistics.addBlacklisted();
       }
     }
   }
