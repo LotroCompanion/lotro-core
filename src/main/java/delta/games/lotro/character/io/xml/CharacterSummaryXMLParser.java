@@ -18,6 +18,8 @@ import delta.games.lotro.character.races.NationalityDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.common.CharacterSex;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.id.InternalGameId;
 
 /**
@@ -110,7 +112,8 @@ public class CharacterSummaryXMLParser
     String sexKey=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SEX_ATTR,"");
     if (sexKey!=null)
     {
-      CharacterSex sex=CharacterSex.getByKey(sexKey); 
+      LotroEnum<CharacterSex> genderEnum=LotroEnumsRegistry.getInstance().get(CharacterSex.class);
+      CharacterSex sex=genderEnum.getByKey(sexKey); 
       summary.setCharacterSex(sex);
     }
   }
