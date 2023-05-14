@@ -26,7 +26,7 @@ public class AchievableSaxParser
     int id=SAXParsingTools.getIntAttribute(attrs,AchievableXMLConstants.ID_ATTR,0);
     achievable.setIdentifier(id);
     // Name
-    String name=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.NAME_ATTR,"");
+    String name=i18n.getLabel(String.valueOf(id));
     achievable.setName(name);
     // Raw name
     String rawName=SAXParsingTools.getStringAttribute(attrs,AchievableXMLConstants.RAW_NAME_ATTR,null);
