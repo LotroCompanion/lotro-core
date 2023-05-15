@@ -366,7 +366,7 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(100));
-    ret.setDamageType(DamageType.WESTERNESSE);
+    ret.setDamageType(DamageType.getDamageTypeByKey("WESTERNESSE"));
     ret.setDPS(234.1f);
     ret.setMinDamage(334);
     ret.setMaxDamage(556);
@@ -390,7 +390,7 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(100));
-    ret.setDamageType(DamageType.WESTERNESSE);
+    ret.setDamageType(DamageType.getDamageTypeByKey("WESTERNESSE"));
     ret.setDPS(251.2f);
     ret.setMinDamage(392);
     ret.setMaxDamage(713);
@@ -564,7 +564,7 @@ public class CharacterGeneratorGiswald
     weapon.setDPS(255);
     weapon.setMinDamage(363);
     weapon.setMaxDamage(606);
-    weapon.setDamageType(DamageType.BELERIAND);
+    weapon.setDamageType(DamageType.getDamageTypeByKey("BELERIAND"));
     BasicStatsSet weaponStats=weapon.getStats();
     weaponStats.setStat(WellKnownStat.PARRY_PERCENTAGE,1);
 

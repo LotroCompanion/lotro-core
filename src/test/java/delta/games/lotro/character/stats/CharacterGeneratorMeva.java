@@ -315,7 +315,7 @@ public class CharacterGeneratorMeva
     weapon.setDPS(242.1f);
     weapon.setMinDamage(345);
     weapon.setMaxDamage(575);
-    weapon.setDamageType(DamageType.BELERIAND);
+    weapon.setDamageType(DamageType.getDamageTypeByKey("BELERIAND"));
 
     // Instance
     LegendaryWeaponInstance instance=new LegendaryWeaponInstance();
