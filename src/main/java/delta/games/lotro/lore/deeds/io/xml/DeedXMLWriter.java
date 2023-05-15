@@ -83,7 +83,7 @@ public class DeedXMLWriter extends AchievableXMLWriter
     }
     // Type
     DeedType type=deed.getType();
-    deedAttrs.addAttribute("","",DeedXMLConstants.DEED_TYPE_ATTR,XmlWriter.CDATA,type.name());
+    deedAttrs.addAttribute("","",DeedXMLConstants.DEED_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
     // Requirements
     UsageRequirementsXMLWriter.write(deedAttrs,deed.getUsageRequirement());
     // Category

@@ -46,6 +46,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
   private WorldEventConditionsSaxParser _worldEventConditions;
   private SingleLocaleLabelsManager _i18n;
   private LotroEnum<DeedCategory> _categoryEnum;
+  private LotroEnum<DeedType> _typeEnum;
 
   /**
    * Constructor.
@@ -64,6 +65,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
     _worldEventConditions=new WorldEventConditionsSaxParser();
     _worldEventConditions.setParent(this);
     _categoryEnum=LotroEnumsRegistry.getInstance().get(DeedCategory.class);
+    _typeEnum=LotroEnumsRegistry.getInstance().get(DeedType.class);
   }
 
   /**
@@ -101,20 +103,12 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
       String key=SAXParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_KEY_ATTR,null);
       deed.setKey(key);
       // Type
-      DeedType type=null;
       String typeStr=SAXParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_TYPE_ATTR,null);
       if (typeStr!=null)
       {
-        try
-        {
-          type=DeedType.valueOf(typeStr);
-        }
-        catch(Exception e)
-        {
-          // Ignored
-        }
+        DeedType type=_typeEnum.getByKey(typeStr);
+        deed.setType(type);
       }
-      deed.setType(type);
       // Web store item
       int webStoreItemID=SAXParsingTools.getIntAttribute(attrs,AchievableXMLConstants.WEB_STORE_ITEM_ID_ATTR,0);
       if (webStoreItemID>0)

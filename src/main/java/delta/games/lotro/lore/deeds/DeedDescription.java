@@ -30,7 +30,7 @@ public class DeedDescription extends Achievable
   {
     super();
     _key=null;
-    _type=DeedType.SLAYER;
+    _type=null;
   }
 
   /**
