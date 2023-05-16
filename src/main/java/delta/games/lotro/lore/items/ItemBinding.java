@@ -1,52 +1,44 @@
 package delta.games.lotro.lore.items;
 
+import delta.games.lotro.common.enums.LotroEnumEntry;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+
 /**
  * Item binding.
  * @author DAM
  */
-public enum ItemBinding
+public class ItemBinding extends LotroEnumEntry
 {
   /**
    * Item is bound on equip.
    */
-  BIND_ON_EQUIP("Bind on Equip"),
+  public static final ItemBinding BIND_ON_EQUIP=ItemBinding.getItemBindingByKey("BIND_ON_EQUIP");
   /**
    * Item is bound on acquire.
    */
-  BIND_ON_ACQUIRE("Bind on Acquire"),
+  public static final ItemBinding BIND_ON_ACQUIRE=ItemBinding.getItemBindingByKey("BIND_ON_ACQUIRE");
   /**
    * Item is bound to account on acquire.
    */
-  BOUND_TO_ACCOUNT_ON_ACQUIRE("Bind to Account on Acquire"),
+  public static final ItemBinding BOUND_TO_ACCOUNT_ON_ACQUIRE=ItemBinding.getItemBindingByKey("BOUND_TO_ACCOUNT_ON_ACQUIRE");
   /**
    * Item is not bound at all.
    */
-  NONE("None");
-
-  private String _label;
-
-  private ItemBinding(String label)
-  {
-    _label=label;
-  }
-
-  /**
-   * Get a readable label for this object.
-   * @return a readable label.
-   */
-  public String getLabel()
-  {
-    return _label;
-  }
+  public static final ItemBinding NONE=ItemBinding.getItemBindingByKey("NONE");
 
   @Override
   public String toString()
   {
-    return _label;
+    return getLabel();
   }
 
   /**
-   * All.
+   * Get an item binding using its key.
+   * @param key Key of item binding.
+   * @return An item binding instance or <code>null</code> if not found.
    */
-  public static final ItemBinding[] ALL={ BIND_ON_ACQUIRE, BOUND_TO_ACCOUNT_ON_ACQUIRE, BIND_ON_EQUIP, NONE };
+  public static ItemBinding getItemBindingByKey(String key)
+  {
+    return LotroEnumsRegistry.getInstance().get(ItemBinding.class).getByKey(key);
+  }
 }

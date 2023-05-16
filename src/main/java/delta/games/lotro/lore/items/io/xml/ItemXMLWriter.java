@@ -221,7 +221,7 @@ public class ItemXMLWriter
       ItemBinding binding=item.getBinding();
       if (binding!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BINDING_ATTR,XmlWriter.CDATA,binding.name());
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BINDING_ATTR,XmlWriter.CDATA,binding.getKey());
       }
       // Unique
       boolean unique=item.isUnique();

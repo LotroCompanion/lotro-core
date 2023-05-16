@@ -69,6 +69,7 @@ public final class ItemSaxParser extends DefaultHandler
   private Item _currentItem;
   private LotroEnum<ItemClass> _itemClassEnum;
   private LotroEnum<EquipmentCategory> _equipmentCategoryEnum;
+  private LotroEnum<ItemBinding> _itemBindingEnum;
   private ItemDetailsSaxParser _detailsParser;
   private SingleLocaleLabelsManager _i18n;
 
@@ -77,6 +78,7 @@ public final class ItemSaxParser extends DefaultHandler
     _parsedItems=new ArrayList<Item>();
     _itemClassEnum=LotroEnumsRegistry.getInstance().get(ItemClass.class);
     _equipmentCategoryEnum=LotroEnumsRegistry.getInstance().get(EquipmentCategory.class);
+    _itemBindingEnum=LotroEnumsRegistry.getInstance().get(ItemBinding.class);
     _detailsParser=new ItemDetailsSaxParser();
     _i18n=I18nFacade.getLabelsMgr("items");
   }
@@ -173,7 +175,7 @@ public final class ItemSaxParser extends DefaultHandler
       String bindingStr=attributes.getValue(ItemXMLConstants.ITEM_BINDING_ATTR);
       if (bindingStr!=null)
       {
-        binding=ItemBinding.valueOf(bindingStr);
+        binding=_itemBindingEnum.getByKey(bindingStr);
       }
       _currentItem.setBinding(binding);
       // Uniqueness
