@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.CharacterSex;
+import delta.games.lotro.common.Genders;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 
@@ -187,7 +187,7 @@ public class RaceDescription implements Identifiable,Named
   public void setMaleGender(RaceGender male)
   {
     _male=male;
-    male.setRaceAndGender(this,CharacterSex.MALE);
+    male.setRaceAndGender(this,Genders.MALE);
   }
 
   /**
@@ -206,7 +206,7 @@ public class RaceDescription implements Identifiable,Named
   public void setFemaleGender(RaceGender female)
   {
     _female=female;
-    female.setRaceAndGender(this,CharacterSex.FEMALE);
+    female.setRaceAndGender(this,Genders.FEMALE);
   }
 
   /**

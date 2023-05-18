@@ -23,7 +23,7 @@ public class Weapon extends Item
     super();
     _minDamage=0;
     _maxDamage=0;
-    _damageType=DamageType.COMMON;
+    _damageType=DamageTypes.COMMON;
     _dps=0.0f;
   }
 

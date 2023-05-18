@@ -10,11 +10,6 @@ import delta.games.lotro.common.enums.LotroEnumsRegistry;
 public final class DamageType extends LotroEnumEntry
 {
   /**
-   * Damage type: COMMON.
-   */
-  public static final DamageType COMMON=DamageType.getDamageTypeByKey("COMMON");
-
-  /**
    * Get the damage type name.
    * @return A name.
    */
