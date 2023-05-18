@@ -1,56 +1,26 @@
 package delta.games.lotro.lore.items;
 
+import delta.games.lotro.common.enums.LotroEnumEntry;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+
 /**
  * Sturdiness of an item.
  * @author DAM
  */
-public enum ItemSturdiness
+public class ItemSturdiness extends LotroEnumEntry
 {
-  /**
-   * Brittle.
-   */
-  BRITTLE("Brittle"),
-  /**
-   * Normal.
-   */
-  NORMAL("Normal"),
-  /**
-   * Tough.
-   */
-  TOUGH("Tough"),
-  /**
-   * Substantial.
-   */
-  SUBSTANTIAL("Substantial"),
-  /**
-   * Weak.
-   */
-  WEAK("Weak");
-
-  private String _label;
-
-  private ItemSturdiness(String label)
-  {
-    _label=label;
-  }
-
-  /**
-   * Get a readable label for this object.
-   * @return a readable label.
-   */
-  public String getLabel()
-  {
-    return _label;
-  }
-
   @Override
   public String toString()
   {
-    return _label;
+    return getLabel();
   }
-
   /**
-   * All.
+   * Get a item sturdiness using its key.
+   * @param key Key of damage type.
+   * @return An item sturdiness instance or <code>null</code> if not found.
    */
-  public static final ItemSturdiness[] ALL={ WEAK, BRITTLE, NORMAL, TOUGH, SUBSTANTIAL };
+  public static ItemSturdiness getItemSturdinessByKey(String key)
+  {
+    return LotroEnumsRegistry.getInstance().get(ItemSturdiness.class).getByKey(key);
+  }
 }

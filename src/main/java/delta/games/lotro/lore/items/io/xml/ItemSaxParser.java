@@ -192,7 +192,7 @@ public final class ItemSaxParser extends DefaultHandler
       String sturdinessStr=attributes.getValue(ItemXMLConstants.ITEM_STURDINESS_ATTR);
       if (sturdinessStr!=null)
       {
-        sturdiness=ItemSturdiness.valueOf(sturdinessStr);
+        sturdiness=ItemSturdiness.getItemSturdinessByKey(sturdinessStr);
       }
       _currentItem.setSturdiness(sturdiness);
       // Quality

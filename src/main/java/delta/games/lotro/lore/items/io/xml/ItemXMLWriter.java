@@ -242,7 +242,11 @@ public class ItemXMLWriter
       ItemSturdiness sturdiness=item.getSturdiness();
       if (sturdiness!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STURDINESS_ATTR,XmlWriter.CDATA,sturdiness.name());
+        String sturdinessKey=sturdiness.getKey();
+        if (sturdinessKey!=null)
+        {
+          itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STURDINESS_ATTR,XmlWriter.CDATA,sturdinessKey);
+        }
       }
       // Quality
       ItemQuality quality=item.getQuality();

@@ -18,7 +18,7 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQuality;
-import delta.games.lotro.lore.items.ItemSturdiness;
+import delta.games.lotro.lore.items.ItemSturdinesses;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
@@ -307,7 +307,7 @@ public class CharacterGeneratorMeva
     weapon.setRequiredClass(_minstrel);
     weapon.setMinLevel(Integer.valueOf(100));
     weapon.setDurability(Integer.valueOf(100));
-    weapon.setSturdiness(ItemSturdiness.NORMAL);
+    weapon.setSturdiness(ItemSturdinesses.NORMAL);
     weapon.setEquipmentLocation(EquipmentLocation.HAND);
     weapon.setQuality(ItemQuality.LEGENDARY);
     // Weapon specifics
@@ -385,7 +385,7 @@ public class CharacterGeneratorMeva
     classItem.setRequiredClass(_minstrel);
     classItem.setMinLevel(Integer.valueOf(95));
     classItem.setDurability(Integer.valueOf(80));
-    classItem.setSturdiness(ItemSturdiness.NORMAL);
+    classItem.setSturdiness(ItemSturdinesses.NORMAL);
     classItem.setEquipmentLocation(EquipmentLocation.CLASS_SLOT);
     classItem.setQuality(ItemQuality.LEGENDARY);
 
@@ -455,7 +455,7 @@ public class CharacterGeneratorMeva
     ret.setItemLevel(Integer.valueOf(90));
     ret.setMinLevel(Integer.valueOf(90));
     ret.setDurability(Integer.valueOf(60));
-    ret.setSturdiness(ItemSturdiness.TOUGH);
+    ret.setSturdiness(ItemSturdinesses.TOUGH);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(WellKnownStat.get("JEWELLER_CRIT_CHANCE_PERCENTAGE"), 25);
     stats.setStat(WellKnownStat.get("COOK_CRIT_CHANCE_PERCENTAGE"), 25);
