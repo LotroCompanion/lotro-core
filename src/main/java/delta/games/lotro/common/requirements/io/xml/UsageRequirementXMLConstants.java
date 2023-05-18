@@ -30,4 +30,8 @@ public class UsageRequirementXMLConstants
    * Attribute 'required quest'.
    */
   public static final String REQUIRED_QUEST_ATTR="requiredQuest";
+  /**
+   * Attribute 'required profession'.
+   */
+  public static final String REQUIRED_PROFESSION_ATTR="requiredProfession";
 }

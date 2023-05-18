@@ -67,14 +67,14 @@ public class FactionRequirement
     FactionRequirement ret=null;
     if ((input!=null) && (input.length()>0))
     {
-      String[] classStrs=input.split(SEPARATOR);
-      if (classStrs.length==2)
+      String[] parts=input.split(SEPARATOR);
+      if (parts.length==2)
       {
-        int factionId=NumericTools.parseInt(classStrs[0],0);
+        int factionId=NumericTools.parseInt(parts[0],0);
         Faction faction=FactionsRegistry.getInstance().getById(factionId);
         if (faction!=null)
         {
-          int tier=NumericTools.parseInt(classStrs[1],1);
+          int tier=NumericTools.parseInt(parts[1],1);
           ret=new FactionRequirement(faction,tier);
         }
       }

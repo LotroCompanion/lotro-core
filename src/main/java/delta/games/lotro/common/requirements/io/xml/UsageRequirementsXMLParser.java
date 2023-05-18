@@ -8,6 +8,7 @@ import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
+import delta.games.lotro.common.requirements.ProfessionRequirement;
 import delta.games.lotro.common.requirements.QuestRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
@@ -54,6 +55,10 @@ public class UsageRequirementsXMLParser
     String questReqStr=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_QUEST_ATTR,null);
     QuestRequirement questRequirement=QuestRequirement.fromString(questReqStr);
     requirements.setQuestRequirement(questRequirement);
+    // Required profession
+    String professionReqStr=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_PROFESSION_ATTR,null);
+    ProfessionRequirement professionRequirement=ProfessionRequirement.fromString(professionReqStr);
+    requirements.setProfessionRequirement(professionRequirement);
   }
 
   /**
@@ -87,5 +92,9 @@ public class UsageRequirementsXMLParser
     String requiredFaction=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_FACTION_ATTR);
     FactionRequirement factionRequirement=FactionRequirement.fromString(requiredFaction);
     requirements.setFactionRequirement(factionRequirement);
+    // Required profession
+    String requiredProfession=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_PROFESSION_ATTR);
+    ProfessionRequirement professionRequirement=ProfessionRequirement.fromString(requiredProfession);
+    requirements.setProfessionRequirement(professionRequirement);
   }
 }

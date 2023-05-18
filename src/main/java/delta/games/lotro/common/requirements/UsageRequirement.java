@@ -24,6 +24,8 @@ public class UsageRequirement
   private FactionRequirement _factionRequirement;
   // Quest requirement
   private QuestRequirement _questRequirement;
+  // Profession requirement
+  private ProfessionRequirement _professionRequirement;
   // TODO Glory rank requirement
   // TODO Trait requirement
 
@@ -37,6 +39,7 @@ public class UsageRequirement
     _classRequirement=null;
     _raceRequirement=null;
     _factionRequirement=null;
+    _professionRequirement=null;
   }
 
   /**
@@ -219,6 +222,24 @@ public class UsageRequirement
   }
 
   /**
+   * Get the profession requirement.
+   * @return A profession requirement or <code>null</code>.
+   */
+  public ProfessionRequirement getProfessionRequirement()
+  {
+    return _professionRequirement;
+  }
+
+  /**
+   * Set the profession requirement.
+   * @param professionRequirement Requirement to set, may be <code>null</code>.
+   */
+  public void setProfessionRequirement(ProfessionRequirement professionRequirement)
+  {
+    _professionRequirement=professionRequirement;
+  }
+
+  /**
    * Indicates if the given parameter do pass this requirement.
    * @param level Level to test.
    * @param characterClass Character class to test.
@@ -258,7 +279,7 @@ public class UsageRequirement
    */
   public boolean isEmpty()
   {
-    return ((_minLevel==null) && (_maxLevel==null) && (_classRequirement==null) && (_raceRequirement==null) && (_factionRequirement==null) && (_questRequirement==null));
+    return ((_minLevel==null) && (_maxLevel==null) && (_classRequirement==null) && (_raceRequirement==null) && (_factionRequirement==null) && (_questRequirement==null) && (_professionRequirement==null));
   }
 
   @Override
@@ -288,6 +309,10 @@ public class UsageRequirement
     if (_questRequirement!=null)
     {
       sb.append(" Quest=").append(_questRequirement);
+    }
+    if (_professionRequirement!=null)
+    {
+      sb.append(" Profession=").append(_professionRequirement);
     }
     return sb.toString().trim();
   }
