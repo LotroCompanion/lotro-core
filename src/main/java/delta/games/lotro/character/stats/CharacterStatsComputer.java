@@ -31,6 +31,7 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.ArmourType;
+import delta.games.lotro.lore.items.ArmourTypes;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 
@@ -412,9 +413,9 @@ public class CharacterStatsComputer
   private RatingCurve getMitigationCurve(ClassDescription classDescription)
   {
     ArmourType type=classDescription.getProficiencies().getArmourTypeForMitigations();
-    if (type==ArmourType.LIGHT) return _ratingsMgr.getCurve(RatingCurveId.LIGHT_MITIGATION);
-    if (type==ArmourType.MEDIUM) return _ratingsMgr.getCurve(RatingCurveId.MEDIUM_MITIGATION);
-    if (type==ArmourType.HEAVY) return _ratingsMgr.getCurve(RatingCurveId.HEAVY_MITIGATION);
+    if (type==ArmourTypes.LIGHT) return _ratingsMgr.getCurve(RatingCurveId.LIGHT_MITIGATION);
+    if (type==ArmourTypes.MEDIUM) return _ratingsMgr.getCurve(RatingCurveId.MEDIUM_MITIGATION);
+    if (type==ArmourTypes.HEAVY) return _ratingsMgr.getCurve(RatingCurveId.HEAVY_MITIGATION);
     return null;
   }
 

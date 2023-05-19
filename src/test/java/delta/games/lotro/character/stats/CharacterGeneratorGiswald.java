@@ -19,7 +19,7 @@ import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourInstance;
-import delta.games.lotro.lore.items.ArmourType;
+import delta.games.lotro.lore.items.ArmourTypes;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
@@ -187,7 +187,7 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(90));
-    ret.setArmourType(ArmourType.HEAVY);
+    ret.setArmourType(ArmourTypes.HEAVY);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(WellKnownStat.MIGHT,119);
     stats.setStat(WellKnownStat.ARMOUR,1024);
@@ -216,7 +216,7 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(80));
-    ret.setArmourType(ArmourType.HEAVY);
+    ret.setArmourType(ArmourTypes.HEAVY);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(WellKnownStat.MIGHT,119);
     stats.setStat(WellKnownStat.ARMOUR,1024);
@@ -241,7 +241,7 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(65));
-    ret.setArmourType(ArmourType.HEAVY);
+    ret.setArmourType(ArmourTypes.HEAVY);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(WellKnownStat.MIGHT,119);
     stats.setStat(WellKnownStat.ARMOUR,1365);
@@ -287,7 +287,7 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(182));
     ret.setMinLevel(Integer.valueOf(95));
     ret.setDurability(Integer.valueOf(40));
-    ret.setArmourType(ArmourType.LIGHT);
+    ret.setArmourType(ArmourTypes.LIGHT);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(WellKnownStat.MIGHT,225);
     stats.setStat(WellKnownStat.VITALITY,193);
@@ -307,7 +307,7 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(201));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(95));
-    ret.setArmourType(ArmourType.HEAVY);
+    ret.setArmourType(ArmourTypes.HEAVY);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(WellKnownStat.MIGHT,360);
     stats.setStat(WellKnownStat.VITALITY,90);
@@ -326,7 +326,7 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(201));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(65));
-    ret.setArmourType(ArmourType.HEAVY);
+    ret.setArmourType(ArmourTypes.HEAVY);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(WellKnownStat.MIGHT,360);
     stats.setStat(WellKnownStat.VITALITY,90);
@@ -346,7 +346,7 @@ public class CharacterGeneratorGiswald
     ret.setItemLevel(Integer.valueOf(192));
     ret.setMinLevel(Integer.valueOf(100));
     ret.setDurability(Integer.valueOf(90));
-    ret.setArmourType(ArmourType.HEAVY);
+    ret.setArmourType(ArmourTypes.HEAVY);
     BasicStatsSet stats=ret.getStats();
     stats.setStat(WellKnownStat.MIGHT,239);
     stats.setStat(WellKnownStat.VITALITY,205);

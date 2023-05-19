@@ -91,6 +91,10 @@ public class LotroEnum<T extends LotroEnumEntry> implements Identifiable,Named
    */
   public T getByKey(String key)
   {
+    if (key==null)
+    {
+      return null;
+    }
     for(T entry : _entries)
     {
       if (key.equals(entry.getKey()))
