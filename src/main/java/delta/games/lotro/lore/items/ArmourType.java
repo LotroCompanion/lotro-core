@@ -9,32 +9,12 @@ import delta.games.lotro.common.enums.LotroEnumsRegistry;
  */
 public final class ArmourType extends LotroEnumEntry
 {
-  private boolean _isShield;
-
   /**
    * Constructor.
    */
   public ArmourType()
   {
     super();
-    _isShield=false;
-  }
-
-  /**
-   * Indicates if this is a shield type or not.
-   * @return <code>true</code> for a shield type, <code>false</code> otherwise.
-   */
-  public boolean isShield()
-  {
-    return _isShield;
-  }
-
-  /**
-   * Set "this is a shield"!
-   */
-  public void setShield()
-  {
-    _isShield=true;
   }
 
   @Override
