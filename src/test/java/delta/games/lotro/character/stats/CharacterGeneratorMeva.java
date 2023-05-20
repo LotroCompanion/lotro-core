@@ -19,7 +19,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdinesses;
-import delta.games.lotro.lore.items.WeaponType;
+import delta.games.lotro.lore.items.WeaponTypes;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
@@ -311,7 +311,7 @@ public class CharacterGeneratorMeva
     weapon.setEquipmentLocation(EquipmentLocation.HAND);
     weapon.setQuality(ItemQuality.LEGENDARY);
     // Weapon specifics
-    weapon.setWeaponType(WeaponType.ONE_HANDED_CLUB);
+    weapon.setWeaponType(WeaponTypes.ONE_HANDED_CLUB);
     weapon.setDPS(242.1f);
     weapon.setMinDamage(345);
     weapon.setMaxDamage(575);
