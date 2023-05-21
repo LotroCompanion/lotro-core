@@ -1,93 +1,36 @@
 package delta.games.lotro.lore.items;
 
-import java.util.HashMap;
+import delta.games.lotro.common.enums.LotroEnumEntry;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 
 /**
  * Item quality.
  * @author DAM
  */
-public final class ItemQuality
+public final class ItemQuality extends LotroEnumEntry
 {
-  private static final HashMap<String,ItemQuality> MAP_FROM_CODE=new HashMap<String,ItemQuality>();
-
-  /**
-   * Common.
-   */
-  public static final ItemQuality COMMON=new ItemQuality(0,"COMMON","Common");
-  /**
-   * Uncommon.
-   */
-  public static final ItemQuality UNCOMMON=new ItemQuality(1,"UNCOMMON","Uncommon");
-  /**
-   * Rare.
-   */
-  public static final ItemQuality RARE=new ItemQuality(2,"RARE","Rare");
-  /**
-   * Incomparable.
-   */
-  public static final ItemQuality INCOMPARABLE=new ItemQuality(3,"INCOMPARABLE","Incomparable");
-  /**
-   * Epic.
-   */
-  public static final ItemQuality LEGENDARY=new ItemQuality(4,"LEGENDARY","Epic");
-
-  /**
-   * All qualities.
-   */
-  public static final ItemQuality[] ALL={ COMMON, UNCOMMON, RARE, INCOMPARABLE, LEGENDARY };
-
-  private int _code;
-  private String _key;
-  private String _meaning;
-
-  private ItemQuality(int code, String key, String meaning)
-  {
-    _code=code;
-    _key=key;
-    _meaning=meaning;
-    MAP_FROM_CODE.put(key,this);
-  }
-
-  /**
-   * Get sort code.
-   * @return a integer value.
-   */
-  public int getCode()
-  {
-    return _code;
-  }
-
-  /**
-   * Get the code for this object.
-   * @return an internal identifying code.
-   */
-  public String getKey()
-  {
-    return _key;
-  }
-
   /**
    * Get the quality label.
    * @return the quality label.
    */
   public String getMeaning()
   {
-    return _meaning;
+    return getLabel();
   }
 
   /**
-   * Get an item quality from its code.
-   * @param code Code to use.
-   * @return An item quality or <code>null</code> if not found.
+   * Get an item quality using its key.
+   * @param key Key of item quality.
+   * @return An item quality instance or <code>null</code> if not found.
    */
-  public static ItemQuality fromCode(String code)
+  public static ItemQuality fromCode(String key)
   {
-    return MAP_FROM_CODE.get(code);
+    return LotroEnumsRegistry.getInstance().get(ItemQuality.class).getByKey(key);
   }
 
   @Override
   public String toString()
   {
-    return _meaning;
+    return getLabel();
   }
 }

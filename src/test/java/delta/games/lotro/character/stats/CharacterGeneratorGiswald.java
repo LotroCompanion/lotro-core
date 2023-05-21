@@ -24,7 +24,7 @@ import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.ItemQuality;
+import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemSturdinesses;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponInstance;
@@ -558,7 +558,7 @@ public class CharacterGeneratorGiswald
     weapon.setDurability(Integer.valueOf(100));
     weapon.setSturdiness(ItemSturdinesses.NORMAL);
     weapon.setEquipmentLocation(EquipmentLocation.HAND);
-    weapon.setQuality(ItemQuality.LEGENDARY);
+    weapon.setQuality(ItemQualities.LEGENDARY);
     // Weapon specifics
     weapon.setWeaponType(WeaponTypes.ONE_HANDED_SWORD);
     weapon.setDPS(255);
@@ -688,7 +688,7 @@ public class CharacterGeneratorGiswald
     classItem.setDurability(Integer.valueOf(80));
     classItem.setSturdiness(ItemSturdinesses.NORMAL);
     classItem.setEquipmentLocation(EquipmentLocation.CLASS_SLOT);
-    classItem.setQuality(ItemQuality.LEGENDARY);
+    classItem.setQuality(ItemQualities.LEGENDARY);
 
     LegendaryItemInstance instance=new LegendaryItemInstance();
     instance.setReference(classItem);

@@ -14,6 +14,7 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.legendary.Legendary;
@@ -131,9 +132,9 @@ public class MainTestLegendarySystem
 
   private float getDpsFactor(ItemQuality quality)
   {
-    if (quality==ItemQuality.RARE) return 1.04f;
-    if (quality==ItemQuality.INCOMPARABLE) return 1.08f;
-    if (quality==ItemQuality.LEGENDARY) return 1.12f;
+    if (quality==ItemQualities.RARE) return 1.04f;
+    if (quality==ItemQualities.INCOMPARABLE) return 1.08f;
+    if (quality==ItemQualities.LEGENDARY) return 1.12f;
     return 0;
   }
 

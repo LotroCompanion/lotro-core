@@ -55,9 +55,9 @@ public class TraceryComparators
     // - quality
     DataProvider<Item,ItemQuality> qualityProvider=new DataProvider<Item,ItemQuality>()
     {
-      public ItemQuality getData(Item p)
+      public ItemQuality getData(Item item)
       {
-        return p.getQuality();
+        return item.getQuality();
       }
     };
     DelegatingComparator<Item,ItemQuality> qualityComparator=new DelegatingComparator<Item,ItemQuality>(qualityProvider,new ItemQualityComparator());

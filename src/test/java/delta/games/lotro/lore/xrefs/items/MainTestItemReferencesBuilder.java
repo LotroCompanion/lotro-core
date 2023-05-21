@@ -1,7 +1,7 @@
 package delta.games.lotro.lore.xrefs.items;
 
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemQuality;
+import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
 
@@ -33,7 +33,7 @@ public class MainTestItemReferencesBuilder
     //if (item.getQuality()==ItemQuality.LEGENDARY) return true;
     if (item instanceof LegendaryWeapon)
     {
-      if (item.getQuality()==ItemQuality.INCOMPARABLE)
+      if (item.getQuality()==ItemQualities.INCOMPARABLE)
       {
         Integer minLevel=item.getMinLevel();
         if ((minLevel!=null) && (minLevel.intValue()==75))

@@ -15,6 +15,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.legendary.global.LegendaryData;
 import delta.games.lotro.lore.items.legendary.global.QualityBasedData;
@@ -57,7 +58,7 @@ public class LegendaryDataXMLWriter
     attrs.addAttribute("","",LegendaryDataXMLConstants.MAX_MAIN_LEGACY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(maxMainLegacyRank));
     // Quality-based data
     hd.startElement("","",LegendaryDataXMLConstants.LEGENDARY_TAG,attrs);
-    for(ItemQuality quality : ItemQuality.ALL)
+    for(ItemQuality quality : ItemQualities.ALL)
     {
       QualityBasedData qualityData=data.getQualityData(quality,false);
       if (qualityData!=null)

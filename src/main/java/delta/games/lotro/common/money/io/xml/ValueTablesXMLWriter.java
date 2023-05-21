@@ -13,6 +13,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
+import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemQuality;
 
 /**
@@ -68,7 +69,7 @@ public class ValueTablesXMLWriter
     attrs.addAttribute("","",ValueTablesXMLConstants.VALUE_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     hd.startElement("","",ValueTablesXMLConstants.VALUE_TABLE_TAG,attrs);
     // Quality factors
-    for(ItemQuality quality : ItemQuality.ALL)
+    for(ItemQuality quality : ItemQualities.ALL)
     {
       Float factor=valueTable.getQualityFactor(quality);
       if (factor!=null)
