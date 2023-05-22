@@ -9,6 +9,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
@@ -58,11 +60,12 @@ public class VirtueDescriptionXMLParser
     // Key
     String key=DOMParsingTools.getStringAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_KEY_ATTR,"");
     virtue.setKey(key);
+    TraitDescription trait=TraitsManager.getInstance().getTrait(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_NAME_ATTR,null);
+    String name=trait.getName();
     virtue.setName(name);
     // Icon ID
-    int iconId=DOMParsingTools.getIntAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_ICON_ID_ATTR,0);
+    int iconId=trait.getIconId();
     virtue.setIconId(iconId);
     // Rank stat key
     String rankStatKey=DOMParsingTools.getStringAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_RANK_STAT_KEY_ATTR,null);
@@ -82,7 +85,7 @@ public class VirtueDescriptionXMLParser
       }
     }
     // Description
-    String description=DOMParsingTools.getStringAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_DESCRIPTION_ATTR,"");
+    String description=trait.getDescription();
     virtue.setDescription(description);
     // Active stats
     Element activeStatsTag=DOMParsingTools.getChildTagByName(root,VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG);
