@@ -263,6 +263,17 @@ public class AchievableStatus implements Identifiable
   }
 
   /**
+   * Get the completion count as an Integer, for display in the quests status table.
+   * @return A non-zero integer value, or <code>null</code>.
+   */
+  public Integer getCompletionCountForDisplay()
+  {
+    if (_completionCount!=null) return _completionCount;
+    if (_state==AchievableElementState.COMPLETED) return Integer.valueOf(1);
+    return null;
+  }
+
+  /**
    * Get the number of completions to do.
    * @return the number of completions to do.
    */
