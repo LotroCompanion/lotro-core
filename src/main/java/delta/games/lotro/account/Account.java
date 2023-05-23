@@ -61,6 +61,7 @@ public class Account
     if (ret==null)
     {
       ret=new AccountOnServer(this,serverName);
+      ret.load();
       _servers.put(serverName,ret);
     }
     return ret;

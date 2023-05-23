@@ -3,6 +3,8 @@ package delta.games.lotro.account;
 import java.io.File;
 
 import delta.common.utils.misc.Preferences;
+import delta.games.lotro.account.io.xml.AccountOnServerXMLParser;
+import delta.games.lotro.account.io.xml.AccountOnServerXMLWriter;
 import delta.games.lotro.common.id.InternalGameId;
 
 /**
@@ -34,6 +36,35 @@ public class AccountOnServer
     _rootDir=new File(account.getRootDir(),_serverName);
     File preferencesDir=new File(_rootDir,"preferences");
     _preferences=new Preferences(preferencesDir);
+  }
+
+  /**
+   * Load data from file.
+   */
+  public void load()
+  {
+    File summaryFile=getSummaryFile();
+    if (summaryFile.exists())
+    {
+      AccountOnServerXMLParser.parseXML(_rootDir,this);
+    }
+  }
+
+  /**
+   * Save data to file.
+   * @return <code>true</code> if it was successful, <code>false</code> otherwise.
+   */
+  public boolean save()
+  {
+    File summaryFile=getSummaryFile();
+    boolean ok=AccountOnServerXMLWriter.write(summaryFile,this);
+    return ok;
+  }
+
+  private File getSummaryFile()
+  {
+    File summaryFile=new File(_rootDir,"summary.xml");
+    return summaryFile;
   }
 
   /**
