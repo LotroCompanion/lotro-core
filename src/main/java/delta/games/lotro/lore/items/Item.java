@@ -13,8 +13,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.Named;
+import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.money.Money;
@@ -30,7 +29,7 @@ import delta.games.lotro.lore.items.sets.ItemsSet;
  * Item description.
  * @author DAM
  */
-public class Item implements Identifiable,Named,ItemProvider
+public class Item implements Interactable,ItemProvider
 {
   private static final Logger LOGGER=Logger.getLogger(Item.class);
 

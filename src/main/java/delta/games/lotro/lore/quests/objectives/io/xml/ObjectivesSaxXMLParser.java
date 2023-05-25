@@ -6,6 +6,7 @@ import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.common.Interactable;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
@@ -415,7 +416,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
 
   private static void parseNpcCondition(NpcCondition condition, Attributes attrs)
   {
-    Proxy<NpcDescription> npcProxy=SharedXMLUtils.parseNpcProxy(attrs);
+    Proxy<Interactable> npcProxy=SharedXMLUtils.parseInteractableProxy(attrs);
     condition.setProxy(npcProxy);
   }
 

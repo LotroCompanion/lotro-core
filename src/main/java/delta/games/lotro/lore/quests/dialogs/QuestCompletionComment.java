@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.lore.agents.npcs.NpcDescription;
+import delta.games.lotro.common.Interactable;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -13,7 +13,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class QuestCompletionComment
 {
-  private List<Proxy<NpcDescription>> _whos;
+  private List<Proxy<Interactable>> _whos;
   private List<String> _whats;
 
   /**
@@ -21,7 +21,7 @@ public class QuestCompletionComment
    */
   public QuestCompletionComment()
   {
-    _whos=new ArrayList<Proxy<NpcDescription>>();
+    _whos=new ArrayList<Proxy<Interactable>>();
     _whats=new ArrayList<String>();
   }
 
@@ -29,7 +29,7 @@ public class QuestCompletionComment
    * Get the speaker(s). 
    * @return a list of speaker proxies.
    */
-  public List<Proxy<NpcDescription>> getWhos()
+  public List<Proxy<Interactable>> getWhos()
   {
     return _whos;
   }
@@ -38,7 +38,7 @@ public class QuestCompletionComment
    * Add a speaker.
    * @param who a proxy to the speaker to add.
    */
-  public void addWho(Proxy<NpcDescription> who)
+  public void addWho(Proxy<Interactable> who)
   {
     _whos.add(who);
   }
@@ -77,7 +77,7 @@ public class QuestCompletionComment
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    for(Proxy<NpcDescription> who : _whos)
+    for(Proxy<Interactable> who : _whos)
     {
       if (sb.length()>0)
       {

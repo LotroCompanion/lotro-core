@@ -8,6 +8,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.common.Interactable;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
@@ -460,8 +461,8 @@ public class ObjectivesXMLWriter
     // Shared attributes
     writeSharedConditionAttributes(attrs,condition);
     // Write NPC proxy
-    Proxy<NpcDescription> proxy=condition.getProxy();
-    SharedXMLUtils.writeNpcProxy(proxy,attrs);
+    Proxy<Interactable> proxy=condition.getProxy();
+    SharedXMLUtils.writeInteractableProxy(proxy,attrs);
     hd.startElement("","",tagName,attrs);
     AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",tagName);
@@ -593,7 +594,7 @@ public class ObjectivesXMLWriter
     {
       // NPC proxy
       Proxy<NpcDescription> npcProxy=target.getNpcProxy();
-      SharedXMLUtils.writeNpcProxy(npcProxy,attrs);
+      SharedXMLUtils.writeInteractableProxy(npcProxy,attrs);
       // Mob proxy
       Proxy<MobDescription> mobProxy=target.getMobProxy();
       if (mobProxy!=null)

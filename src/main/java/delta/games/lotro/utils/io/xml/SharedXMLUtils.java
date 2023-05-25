@@ -13,6 +13,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Interactable;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
@@ -124,11 +125,32 @@ public class SharedXMLUtils
   }
 
   /**
-   * Write a NPC proxy into the given attributes.
+   * Load an interactable proxy from XML attributes.
+   * @param attrs Input.
+   * @return A NPC proxy or <code>null</code> if none.
+   */
+  public static Proxy<Interactable> parseInteractableProxy(Attributes attrs)
+  {
+    Proxy<Interactable> proxy=null;
+    // - id
+    int id=SAXParsingTools.getIntAttribute(attrs,SharedXMLConstants.NPC_ID_ATTR,0);
+    if (id!=0)
+    {
+      // - name
+      String name=SAXParsingTools.getStringAttribute(attrs,SharedXMLConstants.NPC_NAME_ATTR,null);
+      proxy=new Proxy<Interactable>();
+      proxy.setId(id);
+      proxy.setName(name);
+    }
+    return proxy;
+  }
+
+  /**
+   * Write an interactable proxy into the given attributes.
    * @param proxy Proxy to write.
    * @param attrs Storage.
    */
-  public static void writeNpcProxy(Proxy<NpcDescription> proxy, AttributesImpl attrs)
+  public static void writeInteractableProxy(Proxy<? extends Interactable> proxy, AttributesImpl attrs)
   {
     if (proxy!=null)
     {

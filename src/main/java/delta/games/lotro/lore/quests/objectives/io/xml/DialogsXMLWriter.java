@@ -6,7 +6,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
-import delta.games.lotro.lore.agents.npcs.NpcDescription;
+import delta.games.lotro.common.Interactable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.lore.quests.io.xml.QuestXMLConstants;
@@ -30,8 +30,8 @@ public class DialogsXMLWriter
   {
     AttributesImpl dialogAttrs=new AttributesImpl();
     // NPC
-    Proxy<NpcDescription> npcProxy=dialog.getWho();
-    SharedXMLUtils.writeNpcProxy(npcProxy,dialogAttrs);
+    Proxy<Interactable> npcProxy=dialog.getWho();
+    SharedXMLUtils.writeInteractableProxy(npcProxy,dialogAttrs);
     // Text
     String text=dialog.getWhat();
     if (text.length()>0)
@@ -52,10 +52,10 @@ public class DialogsXMLWriter
   {
     hd.startElement("","",QuestXMLConstants.QUEST_COMPLETION_COMMENT_TAG,new AttributesImpl());
     // NPCs
-    for(Proxy<NpcDescription> npcProxy : comment.getWhos())
+    for(Proxy<Interactable> npcProxy : comment.getWhos())
     {
       AttributesImpl npcAttrs=new AttributesImpl();
-      SharedXMLUtils.writeNpcProxy(npcProxy,npcAttrs);
+      SharedXMLUtils.writeInteractableProxy(npcProxy,npcAttrs);
       hd.startElement("","",QuestXMLConstants.NPC_TAG,npcAttrs);
       hd.endElement("","",QuestXMLConstants.NPC_TAG);
     }

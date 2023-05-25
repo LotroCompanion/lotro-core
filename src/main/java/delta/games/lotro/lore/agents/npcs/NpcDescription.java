@@ -1,15 +1,13 @@
 package delta.games.lotro.lore.agents.npcs;
 
-import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.lore.agents.AgentDescription;
 
 /**
  * NPC description.
  * @author DAM
  */
-public class NpcDescription implements Identifiable
+public class NpcDescription extends AgentDescription
 {
-  private int _identifier;
-  private String _name;
   private String _title;
 
   /**
@@ -19,28 +17,8 @@ public class NpcDescription implements Identifiable
    */
   public NpcDescription(int id, String name)
   {
-    _identifier=id;
-    if (name==null) name="";
-    _name=name;
+    super(id,name);
     _title="";
-  }
-
-  /**
-   * Get the identifier.
-   * @return an identifier.
-   */
-  public int getIdentifier()
-  {
-    return _identifier;
-  }
-
-  /**
-   * Get the NPC name.
-   * @return a name (may be empty but not <code>null</code>)..
-   */
-  public String getName()
-  {
-    return _name;
   }
 
   /**
@@ -66,12 +44,12 @@ public class NpcDescription implements Identifiable
   public String toString()
   {
     StringBuilder sb=new StringBuilder("NPC ");
-    sb.append(_name);
+    sb.append(getName());
     if (_title.length()>0)
     {
       sb.append(" (").append(_title).append(')');
     }
-    sb.append(" (ID=").append(_identifier).append(')');
+    sb.append(" (ID=").append(getIdentifier()).append(')');
     return sb.toString();
   }
 }
