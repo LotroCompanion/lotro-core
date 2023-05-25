@@ -62,9 +62,6 @@ public class VirtueDescriptionXMLWriter
     // Name
     String name=virtue.getName();
     attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_NAME_ATTR,XmlWriter.CDATA,name);
-    // Icon ID
-    int iconId=virtue.getIconId();
-    attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
     // Rank stat key
     String rankStatKey=virtue.getRankStatKey();
     if (rankStatKey!=null)
@@ -83,12 +80,6 @@ public class VirtueDescriptionXMLWriter
     {
       int progressionId=progression.getIdentifier();
       attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_MAX_RANK_PROGRESSION_ATTR,XmlWriter.CDATA,String.valueOf(progressionId));
-    }
-    // Description
-    String description=virtue.getDescription();
-    if (description.length()>0)
-    {
-      attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
 
     hd.startElement("","",VirtueDescriptionXMLConstants.VIRTUE_TAG,attrs);

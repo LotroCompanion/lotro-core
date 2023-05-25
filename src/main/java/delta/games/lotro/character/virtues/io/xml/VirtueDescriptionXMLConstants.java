@@ -28,14 +28,6 @@ public class VirtueDescriptionXMLConstants
    */
   public static final String VIRTUE_NAME_ATTR="name";
   /**
-   * Tag 'virtue', attribute 'description'.
-   */
-  public static final String VIRTUE_DESCRIPTION_ATTR="description";
-  /**
-   * Tag 'virtue', attribute 'iconId'.
-   */
-  public static final String VIRTUE_ICON_ID_ATTR="iconId";
-  /**
    * Tag 'virtue', attribute 'maxRankProgression'.
    */
   public static final String VIRTUE_MAX_RANK_PROGRESSION_ATTR="maxRankProgression";
