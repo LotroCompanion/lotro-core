@@ -267,6 +267,10 @@ public class DataFiles
    */
   public static final String GENERIC_MOB_LOOTS="genericMobLoots";
   /**
+   * NPCs.
+   */
+  public static final String NPCS="NPCs";
+  /**
    * Resources maps.
    */
   public static final String RESOURCES_MAPS="resourcesMaps";
