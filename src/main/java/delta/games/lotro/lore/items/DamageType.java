@@ -1,7 +1,12 @@
 package delta.games.lotro.lore.items;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 
 /**
  * Damage type.
@@ -32,5 +37,17 @@ public final class DamageType extends LotroEnumEntry
   public static DamageType getDamageTypeByKey(String key)
   {
     return LotroEnumsRegistry.getInstance().get(DamageType.class).getByKey(key);
+  }
+
+  /**
+   * Get all instances of this class.
+   * @return an array of all instances of this class.
+   */
+  public static List<DamageType> getAll()
+  {
+    List<DamageType> ret=new ArrayList<DamageType>();
+    ret.addAll(LotroEnumsRegistry.getInstance().get(DamageType.class).getAll());
+    Collections.sort(ret,new LotroEnumEntryNameComparator<DamageType>());
+    return ret;
   }
 }
