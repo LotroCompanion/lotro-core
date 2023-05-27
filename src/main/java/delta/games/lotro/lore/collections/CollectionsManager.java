@@ -60,7 +60,7 @@ public class CollectionsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File collectionsFile=cfg.getFile(DataFiles.COLLECTIONS);
     long now=System.currentTimeMillis();
-    List<CollectionDescription> collections=CollectionsXMLParser.parseCollectionsFile(collectionsFile);
+    List<CollectionDescription> collections=new CollectionsXMLParser().parseCollectionsFile(collectionsFile);
     for(CollectionDescription collection : collections)
     {
       _cache.put(Integer.valueOf(collection.getIdentifier()),collection);

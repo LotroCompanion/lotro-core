@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.enums.CollectionCategory;
 import delta.games.lotro.common.enums.LotroEnum;
@@ -19,6 +20,7 @@ import delta.games.lotro.lore.collections.Collectable;
 import delta.games.lotro.lore.collections.CollectionDescription;
 import delta.games.lotro.lore.collections.mounts.MountsManager;
 import delta.games.lotro.lore.collections.pets.CosmeticPetsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for collections stored in XML.
@@ -28,12 +30,22 @@ public class CollectionsXMLParser
 {
   private static final Logger LOGGER=Logger.getLogger(CollectionsXMLParser.class);
 
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public CollectionsXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("collections");
+  }
+
   /**
    * Parse collections from an XML file.
    * @param source Source file.
    * @return List of parsed collections.
    */
-  public static List<CollectionDescription> parseCollectionsFile(File source)
+  public List<CollectionDescription> parseCollectionsFile(File source)
   {
     List<CollectionDescription> collections=new ArrayList<CollectionDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -54,14 +66,14 @@ public class CollectionsXMLParser
    * @param root Root XML tag.
    * @return A collection.
    */
-  private static CollectionDescription parseCollection(Element root)
+  private CollectionDescription parseCollection(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,CollectionsXMLConstants.COLLECTION_IDENTIFIER_ATTR,0);
     CollectionDescription ret=new CollectionDescription(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,CollectionsXMLConstants.COLLECTION_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     ret.setName(name);
     // Category
     int categoryCode=DOMParsingTools.getIntAttribute(attrs,CollectionsXMLConstants.COLLECTION_CATEGORY_ATTR,0);
