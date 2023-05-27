@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.Weapon;
 
@@ -41,7 +42,7 @@ public class ItemsSorter
   {
     List<Item> ret=new ArrayList<Item>();
     ret.addAll(_items.get(location.getKey()));
-    if (location==EquipmentLocation.OFF_HAND)
+    if (location==EquipmentLocations.OFF_HAND)
     {
       ret.addAll(_items.get(WEAPON));
     }
@@ -66,7 +67,7 @@ public class ItemsSorter
         list.add(item);
         if (item instanceof Weapon)
         {
-          if (location==EquipmentLocation.MAIN_HAND)
+          if (location==EquipmentLocations.MAIN_HAND)
           {
             weapons.add(item);
           }

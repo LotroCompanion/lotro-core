@@ -12,6 +12,7 @@ import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.scaling.Munging;
@@ -195,7 +196,7 @@ public class MainCheckItemSets
 
   private boolean isMultipleSlot(EquipmentLocation location)
   {
-    return ((location==EquipmentLocation.FINGER)||(location==EquipmentLocation.EAR)||(location==EquipmentLocation.WRIST));
+    return ((location==EquipmentLocations.FINGER)||(location==EquipmentLocations.EAR)||(location==EquipmentLocations.WRIST));
   }
 
   /**

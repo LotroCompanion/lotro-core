@@ -70,7 +70,7 @@ public class OutfitsXMLParser
       boolean visible=DOMParsingTools.getBooleanAttribute(elementAttrs,OutfitsXMLConstants.ELEMENT_VISIBLE_ATTR,true);
       // Slot
       String slotName=DOMParsingTools.getStringAttribute(elementAttrs,OutfitsXMLConstants.ELEMENT_SLOT_ATTR,"");
-      GearSlot slot=GearSlot.valueOf(slotName);
+      GearSlot slot=GearSlot.getByKey(slotName);
       // Element
       OutfitElement element=parseOutfitElement(elementTag);
       if ((slot!=null) && (element!=null))

@@ -125,7 +125,7 @@ public class TraceriesSetStatsComputer
   private List<SocketEntryInstance> getTraceries(int characterLevel, CharacterGear equipment)
   {
     List<SocketEntryInstance> ret=new ArrayList<SocketEntryInstance>();
-    for(GearSlot slot : GearSlot.values())
+    for(GearSlot slot : GearSlot.getAll())
     {
       GearSlotContents slotContents=equipment.getSlotContents(slot,false);
       if (slotContents==null)

@@ -17,8 +17,8 @@ public class MainShowLegacies
   private void doIt()
   {
     NonImbuedLegaciesManager nonImbuedLegaciesMgr=NonImbuedLegaciesManager.getInstance();
-    EquipmentLocation[] slots= { EquipmentLocation.MAIN_HAND, EquipmentLocation.RANGED_ITEM,
-        EquipmentLocation.CLASS_SLOT,EquipmentLocation.BRIDLE
+    EquipmentLocation[] slots= { EquipmentLocations.MAIN_HAND, EquipmentLocations.RANGED_ITEM,
+        EquipmentLocations.CLASS_SLOT,EquipmentLocations.BRIDLE
     };
     for(ClassDescription characterClass : ClassesManager.getInstance().getAllCharacterClasses())
     {

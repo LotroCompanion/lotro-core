@@ -21,7 +21,7 @@ public class CharacterGearUpdater
   public void updateGear(CharacterData data)
   {
     CharacterGear gear=data.getEquipment();
-    for(GearSlot slot : GearSlot.values())
+    for(GearSlot slot : GearSlot.getAll())
     {
       GearSlotContents contents=gear.getSlotContents(slot,false);
       if (contents!=null)

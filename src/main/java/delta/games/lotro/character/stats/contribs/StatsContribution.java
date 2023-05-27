@@ -189,7 +189,7 @@ public class StatsContribution
    */
   public static StatsContribution getGearContrib(GearSlot slot, ItemInstance<? extends Item> item, BasicStatsSet stats)
   {
-    String source=EQUIPMENT+slot.name()+":"+item.getIdentifier();
+    String source=EQUIPMENT+slot.getKey()+":"+item.getIdentifier();
     String label=slot.getLabel()+": "+item.getName();
     return new StatsContribution(source,label,stats);
   }

@@ -128,7 +128,7 @@ public class CharacterXMLWriter
   {
     AttributesImpl fieldAtts=new AttributesImpl();
     hd.startElement("","",CharacterXMLConstants.EQUIPMENT_TAG,fieldAtts);
-    GearSlot[] slots=GearSlot.values();
+    GearSlot[] slots=GearSlot.getAll();
     for(GearSlot slot : slots)
     {
       GearSlotContents slotContents=equipment.getSlotContents(slot,false);
@@ -146,7 +146,7 @@ public class CharacterXMLWriter
     if (slot!=null)
     {
       AttributesImpl slotAtts=new AttributesImpl();
-      slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_NAME_ATTR,XmlWriter.CDATA,slot.name());
+      slotAtts.addAttribute("","",CharacterXMLConstants.SLOT_NAME_ATTR,XmlWriter.CDATA,slot.getKey());
       hd.startElement("","",CharacterXMLConstants.SLOT_TAG,slotAtts);
       ItemInstance<? extends Item> item=slotContents.getItem();
       if (item!=null)

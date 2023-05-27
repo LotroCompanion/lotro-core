@@ -21,6 +21,7 @@ import delta.games.lotro.common.stats.StatDescriptionComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 import delta.games.lotro.lore.items.legendary.io.xml.LegacyXMLParser;
 
@@ -197,7 +198,7 @@ public class NonImbuedLegaciesManager
 
   private boolean isAllowedCombinaison(ClassDescription characterClass, EquipmentLocation slot)
   {
-    if (slot==EquipmentLocation.RANGED_ITEM)
+    if (slot==EquipmentLocations.RANGED_ITEM)
     {
       String classKey=characterClass.getKey();
       if ((!(WellKnownCharacterClassKeys.HUNTER.equals(classKey))) &&
@@ -206,7 +207,7 @@ public class NonImbuedLegaciesManager
         return false;
       }
     }
-    if (slot==EquipmentLocation.CLASS_SLOT)
+    if (slot==EquipmentLocations.CLASS_SLOT)
     {
       String classKey=characterClass.getKey();
       if (((WellKnownCharacterClassKeys.HUNTER.equals(classKey))) ||

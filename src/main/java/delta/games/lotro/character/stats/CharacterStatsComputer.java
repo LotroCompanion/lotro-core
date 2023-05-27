@@ -78,7 +78,7 @@ public class CharacterStatsComputer
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     // Iterate on slots
-    for(GearSlot slot : GearSlot.values())
+    for(GearSlot slot : GearSlot.getAll())
     {
       GearSlotContents slotContents=equipment.getSlotContents(slot,false);
       if (slotContents!=null)

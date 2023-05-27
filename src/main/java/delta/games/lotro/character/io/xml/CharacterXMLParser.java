@@ -139,7 +139,7 @@ public class CharacterXMLParser
         NamedNodeMap attrs=slotTag.getAttributes();
         // Slot name
         String name=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_NAME_ATTR,"");
-        GearSlot slot=GearSlot.valueOf(name);
+        GearSlot slot=GearSlot.getByKey(name);
         if (slot!=null)
         {
           GearSlotContents slotContents=equipment.getSlotContents(slot,true);

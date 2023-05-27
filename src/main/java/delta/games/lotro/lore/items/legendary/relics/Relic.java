@@ -9,9 +9,10 @@ import java.util.Set;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.lore.items.EquipmentLocation;
-import delta.games.lotro.lore.items.comparators.EquipmentLocationComparator;
 
 /**
  * Relic description.
@@ -129,25 +130,32 @@ public class Relic implements Identifiable,Named
   }
 
   /**
-   * Get all supported slots.
-   * @return a list of slots .
+   * Get all allowed slots (string for UI).
+   * @return a displayable string.
    */
-  public List<EquipmentLocation> getAllowedSlots()
+  public String getAllowedSlotsForUI()
   {
-    List<EquipmentLocation> slots=new ArrayList<EquipmentLocation>();
-    slots.addAll(_allowedSlots);
-    Collections.sort(slots,new EquipmentLocationComparator());
-    return slots;
+    List<EquipmentLocation> slots=new ArrayList<EquipmentLocation>(_allowedSlots);
+    Collections.sort(slots,new LotroEnumEntryNameComparator<EquipmentLocation>());
+    StringBuilder sb=new StringBuilder();
+    for(EquipmentLocation slot : slots)
+    {
+      if (sb.length()>0) sb.append(", ");
+      sb.append(slot.getLabel());
+    }
+    return sb.toString();
   }
 
   /**
-   * Get all allowed slots as a ',' separated string.
-   * @return a string.
+   * Get all allowed slots (string for persistence).
+   * @return a string usable for persistence.
    */
-  public String getAllowedSlotsStr()
+  public String getAllowedSlotsForPersistence()
   {
+    List<EquipmentLocation> slots=new ArrayList<EquipmentLocation>(_allowedSlots);
+    Collections.sort(slots,new LotroEnumEntryCodeComparator<EquipmentLocation>());
     StringBuilder sb=new StringBuilder();
-    for(EquipmentLocation slot : getAllowedSlots())
+    for(EquipmentLocation slot : slots)
     {
       if (sb.length()>0) sb.append(',');
       sb.append(slot.getKey());

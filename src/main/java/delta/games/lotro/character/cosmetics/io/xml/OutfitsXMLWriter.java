@@ -83,7 +83,7 @@ public class OutfitsXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Slot
-    attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_SLOT_ATTR,XmlWriter.CDATA,slot.name());
+    attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_SLOT_ATTR,XmlWriter.CDATA,slot.getKey());
     // Visible
     attrs.addAttribute("","",OutfitsXMLConstants.ELEMENT_VISIBLE_ATTR,XmlWriter.CDATA,String.valueOf(visible));
     if (element!=null)

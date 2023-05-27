@@ -1,7 +1,9 @@
 package delta.games.lotro.lore.items.filters;
 
 import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlotUtils;
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.Weapon;
 
@@ -20,7 +22,7 @@ public class ItemSlotFilter implements ItemFilter
    */
   public ItemSlotFilter(GearSlot slot)
   {
-    _location=slot.getLocation();
+    _location=GearSlotUtils.getEquipmentSlot(slot);
     _strict=true;
   }
 
@@ -64,12 +66,12 @@ public class ItemSlotFilter implements ItemFilter
     {
       return true;
     }
-    if (_location==EquipmentLocation.OFF_HAND)
+    if (_location==EquipmentLocations.OFF_HAND)
     {
       // If off-hand, allow main hand weapons
       if (item instanceof Weapon)
       {
-        return location==EquipmentLocation.MAIN_HAND;
+        return location==EquipmentLocations.MAIN_HAND;
       }
     }
     return false;

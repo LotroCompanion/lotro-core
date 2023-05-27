@@ -109,7 +109,7 @@ public class RelicXMLWriter
     String typesStr=relic.getTypesStr();
     relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_TYPES_ATTR,XmlWriter.CDATA,typesStr);
     // Slots
-    String slotsStr=relic.getAllowedSlotsStr();
+    String slotsStr=relic.getAllowedSlotsForPersistence();
     relicAttrs.addAttribute("","",RelicXMLConstants.RELIC_SLOTS_ATTR,XmlWriter.CDATA,slotsStr);
     // Requirements
     UsageRequirementsXMLWriter.write(relicAttrs,relic.getUsageRequirement());

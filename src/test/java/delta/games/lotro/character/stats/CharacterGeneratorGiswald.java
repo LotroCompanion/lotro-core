@@ -9,8 +9,8 @@ import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.character.gear.CharacterGear;
-import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
+import delta.games.lotro.character.gear.GearSlots;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
@@ -21,7 +21,7 @@ import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourInstance;
 import delta.games.lotro.lore.items.ArmourTypes;
 import delta.games.lotro.lore.items.DamageType;
-import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQualities;
@@ -121,49 +121,49 @@ public class CharacterGeneratorGiswald
     tomes.setTomeRank(WellKnownStat.FATE,2);
     // TODO Racial traits
     CharacterGear equipment=c.getEquipment();
-    GearSlotContents head=equipment.getSlotContents(GearSlot.HEAD,true);
+    GearSlotContents head=equipment.getSlotContents(GearSlots.HEAD,true);
     head.setItem(buildHelm());
-    GearSlotContents shoulders=equipment.getSlotContents(GearSlot.SHOULDER,true);
+    GearSlotContents shoulders=equipment.getSlotContents(GearSlots.SHOULDER,true);
     shoulders.setItem(buildShoulders());
-    GearSlotContents boots=equipment.getSlotContents(GearSlot.FEET,true);
+    GearSlotContents boots=equipment.getSlotContents(GearSlots.FEET,true);
     boots.setItem(buildBoots());
-    GearSlotContents pocket=equipment.getSlotContents(GearSlot.POCKET,true);
+    GearSlotContents pocket=equipment.getSlotContents(GearSlots.POCKET,true);
     pocket.setItem(buildPocket());
-    GearSlotContents cloak=equipment.getSlotContents(GearSlot.BACK,true);
+    GearSlotContents cloak=equipment.getSlotContents(GearSlots.BACK,true);
     cloak.setItem(buildCloak());
-    GearSlotContents chest=equipment.getSlotContents(GearSlot.BREAST,true);
+    GearSlotContents chest=equipment.getSlotContents(GearSlots.BREAST,true);
     chest.setItem(buildChest());
-    GearSlotContents gloves=equipment.getSlotContents(GearSlot.HANDS,true);
+    GearSlotContents gloves=equipment.getSlotContents(GearSlots.HANDS,true);
     gloves.setItem(buildGloves());
-    GearSlotContents leggings=equipment.getSlotContents(GearSlot.LEGS,true);
+    GearSlotContents leggings=equipment.getSlotContents(GearSlots.LEGS,true);
     leggings.setItem(buildLeggings());
     // Weapons
-    GearSlotContents sword1=equipment.getSlotContents(GearSlot.MAIN_MELEE,true);
+    GearSlotContents sword1=equipment.getSlotContents(GearSlots.MAIN_MELEE,true);
     sword1.setItem(buildWeapon());
-    GearSlotContents sword2=equipment.getSlotContents(GearSlot.OTHER_MELEE,true);
+    GearSlotContents sword2=equipment.getSlotContents(GearSlots.OTHER_MELEE,true);
     sword2.setItem(build2ndSword());
-    GearSlotContents bow=equipment.getSlotContents(GearSlot.RANGED,true);
+    GearSlotContents bow=equipment.getSlotContents(GearSlots.RANGED,true);
     bow.setItem(buildBow());
     // Tools
-    GearSlotContents tool=equipment.getSlotContents(GearSlot.TOOL,true);
+    GearSlotContents tool=equipment.getSlotContents(GearSlots.TOOL,true);
     tool.setItem(buildCraftingTool());
     // Class slot
-    GearSlotContents rune=equipment.getSlotContents(GearSlot.CLASS_ITEM,true);
+    GearSlotContents rune=equipment.getSlotContents(GearSlots.CLASS_ITEM,true);
     rune.setItem(buildRune());
     // Jewels
-    GearSlotContents earring1=equipment.getSlotContents(GearSlot.LEFT_EAR,true);
+    GearSlotContents earring1=equipment.getSlotContents(GearSlots.LEFT_EAR,true);
     earring1.setItem(buildEarring1());
-    GearSlotContents earring2=equipment.getSlotContents(GearSlot.RIGHT_EAR,true);
+    GearSlotContents earring2=equipment.getSlotContents(GearSlots.RIGHT_EAR,true);
     earring2.setItem(buildEarring2());
-    GearSlotContents bracelet1=equipment.getSlotContents(GearSlot.LEFT_WRIST,true);
+    GearSlotContents bracelet1=equipment.getSlotContents(GearSlots.LEFT_WRIST,true);
     bracelet1.setItem(buildBracelet1());
-    GearSlotContents bracelet2=equipment.getSlotContents(GearSlot.RIGHT_WRIST,true);
+    GearSlotContents bracelet2=equipment.getSlotContents(GearSlots.RIGHT_WRIST,true);
     bracelet2.setItem(buildBracelet2());
-    GearSlotContents necklace=equipment.getSlotContents(GearSlot.NECK,true);
+    GearSlotContents necklace=equipment.getSlotContents(GearSlots.NECK,true);
     necklace.setItem(buildNecklace());
-    GearSlotContents ring1=equipment.getSlotContents(GearSlot.LEFT_FINGER,true);
+    GearSlotContents ring1=equipment.getSlotContents(GearSlots.LEFT_FINGER,true);
     ring1.setItem(buildRing1());
-    GearSlotContents ring2=equipment.getSlotContents(GearSlot.RIGHT_FINGER,true);
+    GearSlotContents ring2=equipment.getSlotContents(GearSlots.RIGHT_FINGER,true);
     ring2.setItem(buildRing2());
 
     // Additional stats
@@ -557,7 +557,7 @@ public class CharacterGeneratorGiswald
     weapon.setMinLevel(Integer.valueOf(100));
     weapon.setDurability(Integer.valueOf(100));
     weapon.setSturdiness(ItemSturdinesses.NORMAL);
-    weapon.setEquipmentLocation(EquipmentLocation.HAND);
+    weapon.setEquipmentLocation(EquipmentLocations.HAND);
     weapon.setQuality(ItemQualities.LEGENDARY);
     // Weapon specifics
     weapon.setWeaponType(WeaponTypes.ONE_HANDED_SWORD);
@@ -639,7 +639,7 @@ public class CharacterGeneratorGiswald
       // - legacies
       NonImbuedLegaciesManager nonImbuedLegaciesMgr=NonImbuedLegaciesManager.getInstance();
       // - default legacy
-      List<DefaultNonImbuedLegacy> possibleDefaultLegacies=nonImbuedLegaciesMgr.getDefaultLegacies(_champion,EquipmentLocation.MAIN_HAND);
+      List<DefaultNonImbuedLegacy> possibleDefaultLegacies=nonImbuedLegaciesMgr.getDefaultLegacies(_champion,EquipmentLocations.MAIN_HAND);
       if (possibleDefaultLegacies.size()>0)
       {
         DefaultNonImbuedLegacy defaultLegacy=possibleDefaultLegacies.get(0);
@@ -648,7 +648,7 @@ public class CharacterGeneratorGiswald
         defaultLegacyInstance.setRank(100);
       }
       // - other legacies
-      List<TieredNonImbuedLegacy> possibleLegacies=nonImbuedLegaciesMgr.getTieredLegacies(_champion,EquipmentLocation.MAIN_HAND);
+      List<TieredNonImbuedLegacy> possibleLegacies=nonImbuedLegaciesMgr.getTieredLegacies(_champion,EquipmentLocations.MAIN_HAND);
       int nbLegacies=Math.min(possibleLegacies.size(),6);
       for(int i=0;i<nbLegacies;i++)
       {
@@ -664,7 +664,7 @@ public class CharacterGeneratorGiswald
       ImbuedLegendaryInstanceAttrs imbuedAttrs=attrs.getImbuedAttrs();
       // - legacies
       LegaciesManager legaciesMgr=LegaciesManager.getInstance();
-      List<ImbuedLegacy> possibleLegacies=legaciesMgr.get(_champion,EquipmentLocation.MAIN_HAND,LegacyType.CLASS);
+      List<ImbuedLegacy> possibleLegacies=legaciesMgr.get(_champion,EquipmentLocations.MAIN_HAND,LegacyType.CLASS);
       int nbLegacies=Math.min(possibleLegacies.size(),6);
       for(int i=0;i<nbLegacies;i++)
       {
@@ -687,7 +687,7 @@ public class CharacterGeneratorGiswald
     classItem.setMinLevel(Integer.valueOf(100));
     classItem.setDurability(Integer.valueOf(80));
     classItem.setSturdiness(ItemSturdinesses.NORMAL);
-    classItem.setEquipmentLocation(EquipmentLocation.CLASS_SLOT);
+    classItem.setEquipmentLocation(EquipmentLocations.CLASS_SLOT);
     classItem.setQuality(ItemQualities.LEGENDARY);
 
     LegendaryItemInstance instance=new LegendaryItemInstance();

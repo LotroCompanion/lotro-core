@@ -122,7 +122,7 @@ public class ItemsSetStatsComputer
   private List<ItemInstance<? extends Item>> getItemInstancesFromGear(CharacterGear equipment)
   {
     List<ItemInstance<? extends Item>> itemInstances=new ArrayList<ItemInstance<? extends Item>>();
-    for(GearSlot slot : GearSlot.values())
+    for(GearSlot slot : GearSlot.getAll())
     {
       GearSlotContents slotContents=equipment.getSlotContents(slot,false);
       if (slotContents==null)

@@ -14,16 +14,14 @@ import delta.games.lotro.lore.items.ItemInstance;
  */
 public class CharacterGear
 {
-  private HashMap<Integer,GearSlotContents> _contents; 
+  private HashMap<GearSlot,GearSlotContents> _contents; 
 
   /**
    * Constructor.
    */
   public CharacterGear()
   {
-    _contents=new HashMap<Integer,GearSlotContents>();
-    // Force EQUIPMENT_SLOT class initialization
-    GearSlot.values();
+    _contents=new HashMap<GearSlot,GearSlotContents>();
   }
 
   /**
@@ -38,12 +36,11 @@ public class CharacterGear
     GearSlotContents contents=null;
     if (slot!=null)
     {
-      int index=slot.getPosition();
-      contents=_contents.get(Integer.valueOf(index));
+      contents=_contents.get(slot);
       if ((contents==null) && (createIfNeeded))
       {
         contents=new GearSlotContents(slot);
-        _contents.put(Integer.valueOf(index),contents);
+        _contents.put(slot,contents);
       }
     }
     return contents;
@@ -56,7 +53,7 @@ public class CharacterGear
   public void copyFrom(CharacterGear source)
   {
     _contents.clear();
-    for(Map.Entry<Integer,GearSlotContents> entry : source._contents.entrySet())
+    for(Map.Entry<GearSlot,GearSlotContents> entry : source._contents.entrySet())
     {
       GearSlotContents newSlot=new GearSlotContents(entry.getValue());
       _contents.put(entry.getKey(),newSlot);
@@ -107,7 +104,7 @@ public class CharacterGear
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    GearSlot[] slots=GearSlot.values();
+    GearSlot[] slots=GearSlot.getAll();
     for(GearSlot slot : slots)
     {
       GearSlotContents contents=getSlotContents(slot,false);
