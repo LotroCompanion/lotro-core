@@ -14,6 +14,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryKeyComparator;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemQuality;
@@ -107,7 +108,9 @@ public class LegendaryDataXMLWriter
       }
     }
     // Write points tables
-    for(EquipmentLocation location : EquipmentLocation.getAll())
+    List<EquipmentLocation> locations=EquipmentLocation.getAll();
+    Collections.sort(locations,new LotroEnumEntryKeyComparator<EquipmentLocation>());
+    for(EquipmentLocation location : locations)
     {
       int[] pointsTable=qualityData.getPointsTable(location);
       if (pointsTable!=null)

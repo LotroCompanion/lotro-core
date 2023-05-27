@@ -9,7 +9,7 @@ import java.util.Set;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
-import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryKeyComparator;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -153,7 +153,7 @@ public class Relic implements Identifiable,Named
   public String getAllowedSlotsForPersistence()
   {
     List<EquipmentLocation> slots=new ArrayList<EquipmentLocation>(_allowedSlots);
-    Collections.sort(slots,new LotroEnumEntryCodeComparator<EquipmentLocation>());
+    Collections.sort(slots,new LotroEnumEntryKeyComparator<EquipmentLocation>());
     StringBuilder sb=new StringBuilder();
     for(EquipmentLocation slot : slots)
     {

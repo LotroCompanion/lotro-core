@@ -29,12 +29,12 @@ public final class EquipmentLocation extends LotroEnumEntry
    * Get all instances of this class.
    * @return an array of all instances of this class.
    */
-  public static EquipmentLocation[] getAll()
+  public static List<EquipmentLocation> getAll()
   {
     LotroEnum<EquipmentLocation> locationEnum=LotroEnumsRegistry.getInstance().get(EquipmentLocation.class);
     List<EquipmentLocation> values=new ArrayList<EquipmentLocation>(locationEnum.getAll());
     Collections.sort(values,new LotroEnumEntryCodeComparator<EquipmentLocation>());
-    return values.toArray(new EquipmentLocation[values.size()]);
+    return values;
   }
 
   @Override
