@@ -120,6 +120,7 @@ public class FactionsXMLParser
       int tier=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_TIER_ATTR,0);
       // Level name
       String levelName=DOMParsingTools.getStringAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_NAME_ATTR,null);
+      levelName=I18nRuntimeUtils.getLabel(_i18n,levelName);
       // LOTRO points
       int lotroPoints=DOMParsingTools.getIntAttribute(attrs,FactionsXMLConstants.FACTION_LEVEL_LOTRO_POINTS_ATTR,0);
       // Required XP
