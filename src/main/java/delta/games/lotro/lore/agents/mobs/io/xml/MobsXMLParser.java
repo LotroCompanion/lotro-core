@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.treasure.LootsManager;
 import delta.games.lotro.common.treasure.TreasureList;
@@ -14,6 +15,7 @@ import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
 import delta.games.lotro.lore.agents.mobs.MobLoot;
 import delta.games.lotro.lore.agents.mobs.MobsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for the mobs stored in XML.
@@ -21,6 +23,16 @@ import delta.games.lotro.lore.agents.mobs.MobsManager;
  */
 public class MobsXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public MobsXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("mobs");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -61,7 +73,7 @@ public class MobsXMLParser
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,MobsXMLConstants.ID_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,MobsXMLConstants.NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     MobDescription ret=new MobDescription(id,name);
     // Classification
     AgentsXMLIO.parseClassificationTag(mobTag,ret.getClassification());
