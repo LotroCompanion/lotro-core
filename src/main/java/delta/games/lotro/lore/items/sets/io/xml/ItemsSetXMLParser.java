@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
@@ -15,6 +16,8 @@ import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSet.SetType;
 import delta.games.lotro.lore.items.sets.SetBonus;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for items sets descriptions stored in XML.
@@ -22,6 +25,16 @@ import delta.games.lotro.lore.items.sets.SetBonus;
  */
 public class ItemsSetXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public ItemsSetXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("itemsSets");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -59,7 +72,7 @@ public class ItemsSetXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_ID_ATTR,0);
     ret.setIdentifier(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     ret.setName(name);
     // Type
     String setTypeStr=DOMParsingTools.getStringAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_TYPE_ATTR,null);
@@ -85,6 +98,7 @@ public class ItemsSetXMLParser
     }
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
     ret.setDescription(description);
 
     // Items
