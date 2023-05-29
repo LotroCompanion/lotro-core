@@ -1,4 +1,4 @@
-package delta.games.lotro.character.social.friends.io.xml;
+package delta.games.lotro.account.status.friends.io.xml;
 
 import java.io.File;
 import java.util.Collections;
@@ -11,9 +11,9 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.account.status.friends.Friend;
+import delta.games.lotro.account.status.friends.FriendsManager;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLWriter;
-import delta.games.lotro.character.social.friends.Friend;
-import delta.games.lotro.character.social.friends.FriendsManager;
 import delta.games.lotro.common.comparators.NamedComparator;
 
 /**

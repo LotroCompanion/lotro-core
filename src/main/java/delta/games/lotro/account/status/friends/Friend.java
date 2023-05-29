@@ -1,4 +1,4 @@
-package delta.games.lotro.character.social.friends;
+package delta.games.lotro.account.status.friends;
 
 import java.util.Date;
 

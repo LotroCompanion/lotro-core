@@ -1,4 +1,4 @@
-package delta.games.lotro.character.social.friends.filters;
+package delta.games.lotro.account.status.friends.filters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import delta.common.utils.collections.filters.CompoundFilter;
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.collections.filters.Operator;
+import delta.games.lotro.account.status.friends.Friend;
 import delta.games.lotro.character.filters.CharacterClassFilter;
 import delta.games.lotro.character.filters.CharacterNameFilter;
-import delta.games.lotro.character.social.friends.Friend;
 
 /**
  * Friend filter.

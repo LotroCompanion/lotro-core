@@ -1,4 +1,4 @@
-package delta.games.lotro.character.social.friends.io.xml;
+package delta.games.lotro.account.status.friends.io.xml;
 
 /**
  * Constants for tags and attribute names used in the

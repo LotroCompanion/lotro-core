@@ -1,9 +1,9 @@
-package delta.games.lotro.character.social.friends.filters;
+package delta.games.lotro.account.status.friends.filters;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.text.MatchType;
 import delta.common.utils.text.StringFilter;
-import delta.games.lotro.character.social.friends.Friend;
+import delta.games.lotro.account.status.friends.Friend;
 
 /**
  * Filter for friend notes.

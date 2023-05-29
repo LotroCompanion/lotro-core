@@ -1,4 +1,4 @@
-package delta.games.lotro.character.social.friends.io.xml;
+package delta.games.lotro.account.status.friends.io.xml;
 
 import java.io.File;
 import java.util.List;
@@ -7,9 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.account.status.friends.Friend;
+import delta.games.lotro.account.status.friends.FriendsManager;
 import delta.games.lotro.character.io.xml.CharacterSummaryXMLParser;
-import delta.games.lotro.character.social.friends.Friend;
-import delta.games.lotro.character.social.friends.FriendsManager;
 
 /**
  * Parser for friends stored in XML.

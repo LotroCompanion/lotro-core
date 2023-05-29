@@ -1,9 +1,9 @@
-package delta.games.lotro.character.social.friends.io.xml;
+package delta.games.lotro.account.status.friends.io.xml;
 
 import java.io.File;
 
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.social.friends.FriendsManager;
+import delta.games.lotro.account.status.friends.FriendsManager;
 
 /**
  * I/O utilities for friends.
