@@ -46,7 +46,7 @@ public class AccountOnServer
     File summaryFile=getSummaryFile();
     if (summaryFile.exists())
     {
-      AccountOnServerXMLParser.parseXML(_rootDir,this);
+      AccountOnServerXMLParser.parseXML(summaryFile,this);
     }
   }
 
