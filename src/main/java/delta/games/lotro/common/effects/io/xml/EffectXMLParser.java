@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -46,13 +47,32 @@ public class EffectXMLParser
    */
   public static Effect parseEffect(Element root)
   {
+    return parseEffect(root,null);
+  }
+
+  /**
+   * Build an effect from an XML tag.
+   * @param root Root XML tag.
+   * @param labelsMgr Labels manager.
+   * @return An effect.
+   */
+  public static Effect parseEffect(Element root, SingleLocaleLabelsManager labelsMgr)
+  {
     NamedNodeMap attrs=root.getAttributes();
     Effect effect=new Effect();
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_ID_ATTR,0);
     effect.setId(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_NAME_ATTR,null);
+    String name;
+    if (labelsMgr!=null)
+    {
+      name=labelsMgr.getLabel(String.valueOf(id));
+    }
+    else
+    {
+      name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_NAME_ATTR,null);
+    }
     effect.setName(name);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_ICON_ID_ATTR,-1);

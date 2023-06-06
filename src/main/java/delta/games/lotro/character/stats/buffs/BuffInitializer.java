@@ -126,7 +126,7 @@ public class BuffInitializer
   private void initEffectBasedBuffs(BuffRegistry registry)
   {
     File effectsFile=LotroCoreConfig.getInstance().getFile(DataFiles.BUFFS);
-    List<EffectBuff> effectBuffs=EffectBuffXMLParser.parseEffectsFile(effectsFile);
+    List<EffectBuff> effectBuffs=new EffectBuffXMLParser().parseEffectsFile(effectsFile);
     for(EffectBuff effectBuff : effectBuffs)
     {
       String id=String.valueOf(effectBuff.getIdentifier());
