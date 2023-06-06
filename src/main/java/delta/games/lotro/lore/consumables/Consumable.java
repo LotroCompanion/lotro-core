@@ -3,6 +3,7 @@ package delta.games.lotro.lore.consumables;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.Item;
 
 /**
  * Consumable.
@@ -10,25 +11,16 @@ import delta.games.lotro.common.stats.StatsProvider;
  */
 public class Consumable implements Identifiable
 {
-  private int _identifier;
-  private String _name;
-  private String _icon;
-  private ItemClass _category;
+  private Item _item;
   private StatsProvider _provider;
 
   /**
    * Constructor.
-   * @param id Item identifier.
-   * @param name Item name.
-   * @param icon Item icon.
-   * @param category Item category.
+   * @param item Parent item.
    */
-  public Consumable(int id, String name, String icon, ItemClass category)
+  public Consumable(Item item)
   {
-    _identifier=id;
-    _name=name;
-    _icon=icon;
-    _category=category;
+    _item=item;
     _provider=new StatsProvider();
   }
 
@@ -38,7 +30,7 @@ public class Consumable implements Identifiable
    */
   public int getIdentifier()
   {
-    return _identifier;
+    return _item.getIdentifier();
   }
 
   /**
@@ -47,7 +39,7 @@ public class Consumable implements Identifiable
    */
   public String getName()
   {
-    return _name;
+    return _item.getName();
   }
 
   /**
@@ -56,7 +48,7 @@ public class Consumable implements Identifiable
    */
   public String getIcon()
   {
-    return _icon;
+    return _item.getIcon();
   }
 
   /**
@@ -65,7 +57,7 @@ public class Consumable implements Identifiable
    */
   public ItemClass getItemClass()
   {
-    return _category;
+    return _item.getItemClass();
   }
 
   /**
@@ -81,10 +73,10 @@ public class Consumable implements Identifiable
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Consumable: ID=").append(_identifier);
-    sb.append(", name=").append(_name);
-    sb.append(", category=").append(_category);
-    sb.append(", iconID=").append(_icon);
+    sb.append("Consumable: ID=").append(getIdentifier());
+    sb.append(", name=").append(getName());
+    sb.append(", category=").append(getItemClass());
+    sb.append(", iconID=").append(getIcon());
     sb.append(", stats=").append(_provider);
     return sb.toString();
   }

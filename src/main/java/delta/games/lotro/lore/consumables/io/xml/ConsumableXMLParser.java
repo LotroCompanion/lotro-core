@@ -4,16 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.enums.ItemClass;
-import delta.games.lotro.common.enums.LotroEnum;
-import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.consumables.Consumable;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Parser for consumables stored in XML.
@@ -21,6 +21,8 @@ import delta.games.lotro.lore.consumables.Consumable;
  */
 public class ConsumableXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(ConsumableXMLParser.class);
+
   /**
    * Parse consumables from an XML file.
    * @param source Source file.
@@ -36,7 +38,10 @@ public class ConsumableXMLParser
       for(Element consumableTag : consumableTags)
       {
         Consumable consumable=parseConsumable(consumableTag);
-        consumables.add(consumable);
+        if (consumable!=null)
+        {
+          consumables.add(consumable);
+        }
       }
     }
     return consumables;
@@ -52,19 +57,13 @@ public class ConsumableXMLParser
     NamedNodeMap attrs=root.getAttributes();
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,ConsumableXMLConstants.CONSUMABLE_IDENTIFIER_ATTR,0);
-    // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,ConsumableXMLConstants.CONSUMABLE_NAME_ATTR,null);
-    // Icon ID
-    String iconId=DOMParsingTools.getStringAttribute(attrs,ConsumableXMLConstants.CONSUMABLE_ICON_ID_ATTR,null);
-    // Category
-    ItemClass itemClass=null;
-    int itemClassCode=DOMParsingTools.getIntAttribute(attrs,ConsumableXMLConstants.CONSUMABLE_CLASS_ATTR,-1);
-    if (itemClassCode>=0)
+    Item item=ItemsManager.getInstance().getItem(id);
+    if (item==null)
     {
-      LotroEnum<ItemClass> itemClassEnum=LotroEnumsRegistry.getInstance().get(ItemClass.class);
-      itemClass=itemClassEnum.getEntry(itemClassCode);
+      LOGGER.warn("Cannot find item with ID="+id+". Ignoring consumable.");
+      return null;
     }
-    Consumable consumable=new Consumable(id,name,iconId,itemClass);
+    Consumable consumable=new Consumable(item);
     // Stats
     StatsProvider statsProvider=consumable.getProvider();
     StatsProviderXMLParser.parseStatsProvider(root,statsProvider);

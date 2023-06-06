@@ -23,12 +23,4 @@ public class ConsumableXMLConstants
    * Tag 'consumable', attribute 'name'.
    */
   public static final String CONSUMABLE_NAME_ATTR="name";
-  /**
-   * Tag 'consumable', attribute 'iconId'.
-   */
-  public static final String CONSUMABLE_ICON_ID_ATTR="iconId";
-  /**
-   * Tag 'consumable', attribute 'class'.
-   */
-  public static final String CONSUMABLE_CLASS_ATTR="class";
 }
