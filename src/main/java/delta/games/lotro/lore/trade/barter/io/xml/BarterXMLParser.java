@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
+import delta.games.lotro.lore.agents.npcs.NPCsManager;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.reputation.Faction;
@@ -30,6 +32,8 @@ import delta.games.lotro.utils.io.xml.SharedXMLUtils;
  */
 public class BarterXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(BarterXMLParser.class);
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -52,7 +56,10 @@ public class BarterXMLParser
       for(Element bartererTag : bartererTags)
       {
         BarterNpc barterer=parseBarterer(bartererTag,profiles);
-        ret.add(barterer);
+        if (barterer!=null)
+        {
+          ret.add(barterer);
+        }
       }
     }
     return ret;
@@ -64,9 +71,12 @@ public class BarterXMLParser
     // NPC
     // - Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,BarterXMLConstants.BARTERER_ID,0);
-    // - Name
-    String name=DOMParsingTools.getStringAttribute(attrs,BarterXMLConstants.BARTERER_NAME,null);
-    NpcDescription npc=new NpcDescription(id,name);
+    NpcDescription npc=NPCsManager.getInstance().getNPCById(id);
+    if (npc==null)
+    {
+      LOGGER.warn("NPC not found: ID="+id);
+      return null;
+    }
     BarterNpc ret=new BarterNpc(npc);
     // - Title
     String title=DOMParsingTools.getStringAttribute(attrs,BarterXMLConstants.BARTERER_TITLE,null);

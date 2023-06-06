@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.lore.agents.npcs.NPCsManager;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.trade.vendor.SellList;
@@ -23,6 +25,8 @@ import delta.games.lotro.utils.io.xml.SharedXMLUtils;
  */
 public class VendorXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(VendorXMLParser.class);
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -45,7 +49,10 @@ public class VendorXMLParser
       for(Element vendorTag : vendorTags)
       {
         VendorNpc vendor=parseVendor(vendorTag,sellLists);
-        ret.add(vendor);
+        if (vendor!=null)
+        {
+          ret.add(vendor);
+        }
       }
     }
     return ret;
@@ -57,9 +64,12 @@ public class VendorXMLParser
     // NPC
     // - Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,VendorXMLConstants.VENDOR_ID_ATTR,0);
-    // - Name
-    String name=DOMParsingTools.getStringAttribute(attrs,VendorXMLConstants.VENDOR_NAME_ATTR,null);
-    NpcDescription npc=new NpcDescription(id,name);
+    NpcDescription npc=NPCsManager.getInstance().getNPCById(id);
+    if (npc==null)
+    {
+      LOGGER.warn("NPC not found: ID="+id);
+      return null;
+    }
     VendorNpc ret=new VendorNpc(npc);
     // - Title
     String title=DOMParsingTools.getStringAttribute(attrs,VendorXMLConstants.VENDOR_TITLE_ATTR,null);
