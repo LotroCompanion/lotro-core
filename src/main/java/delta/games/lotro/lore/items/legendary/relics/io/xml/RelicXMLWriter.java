@@ -13,7 +13,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
 import delta.games.lotro.common.enums.RunicTier;
-import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsCategory;
@@ -42,7 +42,7 @@ public class RelicXMLWriter
       {
         hd.startElement("","",RelicXMLConstants.RELICS_TAG,new AttributesImpl());
         List<RunicTier> tiers=relicsMgr.getTiers();
-        Collections.sort(tiers,new LotroEnumEntryCodeComparator<RunicTier>());
+        Collections.sort(tiers,new LotroEnumEntryNameComparator<RunicTier>());
         for(RunicTier tier : tiers)
         {
           RelicsCategory category=relicsMgr.getRelicCategory(tier,false);

@@ -2,11 +2,14 @@ package delta.games.lotro.lore.items.legendary.relics;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.enums.RunicTier;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -158,9 +161,13 @@ public class RelicsManager
   public List<Relic> getAllRelics(RelicType type, EquipmentLocation slot)
   {
     List<Relic> relics=new ArrayList<Relic>();
-    for(RelicsCategory category : _categories.values())
+    List<RunicTier> tiers=getTiers();
+    Collections.sort(tiers,new LotroEnumEntryCodeComparator<RunicTier>());
+    for(RunicTier tier : tiers)
     {
+      RelicsCategory category=getRelicCategory(tier,false);
       List<Relic> categoryRelics=category.getAllRelics();
+      Collections.sort(categoryRelics,new NamedComparator());
       for(Relic relic : categoryRelics)
       {
         boolean match=match(relic,type,slot);
