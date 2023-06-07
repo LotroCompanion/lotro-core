@@ -5,53 +5,36 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.common.enums.RunicTier;
+
 /**
  * Manages all relics for a given category.
  * @author DAM
  */
 public class RelicsCategory
 {
-  private int _code;
-  private String _name;
+  private RunicTier _tier;
   private Map<Integer,Relic> _relicById;
   private List<Relic> _relics;
 
   /**
    * Constructor.
-   * @param code Category code.
+   * @param tier Managed relic tier.
    */
-  public RelicsCategory(int code)
+  public RelicsCategory(RunicTier tier)
   {
-    _code=code;
+    _tier=tier;
     _relicById=new HashMap<Integer,Relic>();
     _relics=new ArrayList<Relic>();
   }
 
   /**
-   * Get the category code.
-   * @return the category code.
+   * Get the relic tier.
+   * @return the relic tier.
    */
-  public int getCategoryCode()
+  public RunicTier getTier()
   {
-    return _code;
-  }
-
-  /**
-   * Get the name of this category.
-   * @return a category name.
-   */
-  public String getName()
-  {
-    return _name;
-  }
-
-  /**
-   * Set the category name.
-   * @param name Name to set.
-   */
-  public void setName(String name)
-  {
-    _name=name;
+    return _tier;
   }
 
   /**
@@ -104,6 +87,6 @@ public class RelicsCategory
   @Override
   public String toString()
   {
-    return _name;
+    return _tier.getLabel();
   }
 }

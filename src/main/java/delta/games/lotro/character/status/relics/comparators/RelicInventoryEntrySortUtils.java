@@ -4,8 +4,9 @@ import java.util.Collections;
 import java.util.List;
 
 import delta.games.lotro.character.status.relics.RelicsInventoryEntry;
+import delta.games.lotro.common.Named;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.lore.items.legendary.relics.comparators.RelicNameComparator;
 import delta.games.lotro.utils.DataProvider;
 import delta.games.lotro.utils.comparators.DelegatingComparator;
 
@@ -21,14 +22,14 @@ public class RelicInventoryEntrySortUtils
    */
   public static void sortByName(List<RelicsInventoryEntry> entries)
   {
-    DataProvider<RelicsInventoryEntry,Relic> p=new DataProvider<RelicsInventoryEntry,Relic>()
+    DataProvider<RelicsInventoryEntry,Named> p=new DataProvider<RelicsInventoryEntry,Named>()
     {
       public Relic getData(RelicsInventoryEntry entry)
       {
         return entry.getRelic();
       }
     };
-    DelegatingComparator<RelicsInventoryEntry,Relic> c=new DelegatingComparator<>(p,new RelicNameComparator());
+    DelegatingComparator<RelicsInventoryEntry,Named> c=new DelegatingComparator<RelicsInventoryEntry,Named>(p,new NamedComparator());
     Collections.sort(entries,c);
   }
 }

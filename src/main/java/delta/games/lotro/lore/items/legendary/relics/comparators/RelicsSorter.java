@@ -1,11 +1,9 @@
 package delta.games.lotro.lore.items.legendary.relics.comparators;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import delta.common.utils.collections.CompoundComparator;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 
 /**
@@ -20,10 +18,7 @@ public class RelicsSorter
    */
   public static void sortStatsForInternalUse(List<Relic> relics)
   {
-    List<Comparator<Relic>> comparators=new ArrayList<Comparator<Relic>>();
-    comparators.add(new RelicTypeComparator());
-    comparators.add(new RelicNameComparator());
-    CompoundComparator<Relic> c=new CompoundComparator<Relic>(comparators);
-    Collections.sort(relics,c);
+    Collections.sort(relics,new NamedComparator());
+    Collections.sort(relics,new RelicTypeComparator());
   }
 }

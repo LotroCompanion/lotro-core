@@ -11,6 +11,9 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.RunicTier;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
@@ -23,6 +26,16 @@ import delta.games.lotro.lore.items.legendary.relics.RelicsCategory;
  */
 public class RelicXMLParser
 {
+  private LotroEnum<RunicTier> _tiers;
+
+  /**
+   * Constructor.
+   */
+  public RelicXMLParser()
+  {
+    _tiers=LotroEnumsRegistry.getInstance().get(RunicTier.class);
+  }
+
   /**
    * Parse a relics XML file.
    * @param source Source file.
@@ -55,16 +68,14 @@ public class RelicXMLParser
 
     // Code
     int code=DOMParsingTools.getIntAttribute(attrs,RelicXMLConstants.CATEGORY_CODE_ATTR,0);
-    RelicsCategory category=new RelicsCategory(code);
-    // Name
-    String categoryName=DOMParsingTools.getStringAttribute(attrs,RelicXMLConstants.CATEGORY_NAME_ATTR,null);
-    category.setName(categoryName);
+    RunicTier tier=_tiers.getEntry(code);
+    RelicsCategory category=new RelicsCategory(tier);
     // Relics
     List<Element> relicTags=DOMParsingTools.getChildTagsByName(root,RelicXMLConstants.RELIC_TAG);
     for(Element relicTag : relicTags)
     {
       Relic relic=parseRelic(relicTag);
-      relic.setCategory(category);
+      relic.setTier(tier);
       category.addRelic(relic);
     }
     return category;

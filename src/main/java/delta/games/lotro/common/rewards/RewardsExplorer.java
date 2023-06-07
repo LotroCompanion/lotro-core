@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.enums.BillingGroup;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.lore.items.Item;
@@ -13,7 +14,6 @@ import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
-import delta.games.lotro.lore.items.legendary.relics.comparators.RelicNameComparator;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -239,7 +239,7 @@ public class RewardsExplorer
   public List<Relic> getRelics()
   {
     List<Relic> ret=new ArrayList<Relic>(_relics);
-    Collections.sort(ret,new RelicNameComparator());
+    Collections.sort(ret,new NamedComparator());
     return ret;
   }
 

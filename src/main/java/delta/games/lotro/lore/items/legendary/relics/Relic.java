@@ -9,6 +9,7 @@ import java.util.Set;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.enums.RunicTier;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryKeyComparator;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.common.requirements.UsageRequirement;
@@ -24,7 +25,7 @@ public class Relic implements Identifiable,Named
   private String _name;
   private Set<RelicType> _types;
   private Set<EquipmentLocation> _allowedSlots;
-  private RelicsCategory _category;
+  private RunicTier _tier;
   private String _iconFilename;
   private UsageRequirement _requirements; // contains min level and class
   private BasicStatsSet _stats;
@@ -40,7 +41,7 @@ public class Relic implements Identifiable,Named
     _name=name;
     _types=new HashSet<RelicType>();
     _allowedSlots=new HashSet<EquipmentLocation>();
-    _category=null;
+    _tier=null;
     _iconFilename=null;
     _requirements=new UsageRequirement();
     _stats=new BasicStatsSet();
@@ -218,21 +219,21 @@ public class Relic implements Identifiable,Named
   }
 
   /**
-   * Get the category of this relic.
-   * @return a relic category.
+   * Get the tier of this relic.
+   * @return a relic tier.
    */
-  public RelicsCategory getCategory()
+  public RunicTier getTier()
   {
-    return _category;
+    return _tier;
   }
 
   /**
-   * Set category.
-   * @param category Category to set.
+   * Set tier.
+   * @param tier Tier to set.
    */
-  public void setCategory(RelicsCategory category)
+  public void setTier(RunicTier tier)
   {
-    _category=category;
+    _tier=tier;
   }
 
   @Override

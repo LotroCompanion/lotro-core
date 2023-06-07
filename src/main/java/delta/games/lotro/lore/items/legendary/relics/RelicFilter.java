@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.legendary.relics;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.games.lotro.common.enums.RunicTier;
 
 /**
  * Filter for relics.
@@ -9,7 +10,7 @@ import delta.common.utils.collections.filters.Filter;
 public class RelicFilter implements Filter<Relic>
 {
   private RelicType _type;
-  private RelicsCategory _category;
+  private RunicTier _tier;
   private String _nameContains;
   private String _statsContains;
 
@@ -19,7 +20,7 @@ public class RelicFilter implements Filter<Relic>
   public RelicFilter()
   {
     _type=null;
-    _category=null;
+    _tier=null;
     _nameContains=null;
     _statsContains=null;
   }
@@ -70,20 +71,20 @@ public class RelicFilter implements Filter<Relic>
 
   /**
    * Set relic category.
-   * @param category A category or <code>null</code> to accept all.
+   * @param tier A tier or <code>null</code> to accept all.
    */
-  public void setRelicCategory(RelicsCategory category)
+  public void setRelicTier(RunicTier tier)
   {
-    _category=category;
+    _tier=tier;
   }
 
   /**
-   * Get the relic category.
-   * @return a category or <code>null</code>.
+   * Get the relic tier.
+   * @return a tier or <code>null</code>.
    */
-  public RelicsCategory getRelicCategory()
+  public RunicTier getRelicTier()
   {
-    return _category;
+    return _tier;
   }
 
   /**
@@ -116,11 +117,10 @@ public class RelicFilter implements Filter<Relic>
     {
       if (!relic.hasType(_type)) return false;
     }
-    if (_category!=null)
+    if (_tier!=null)
     {
-      int code=_category.getCategoryCode();
-      int relicCategoryCode=relic.getCategory().getCategoryCode();
-      if (relicCategoryCode!=code)
+      RunicTier tier=relic.getTier();
+      if (tier!=_tier)
       {
         return false;
       }
@@ -150,10 +150,10 @@ public class RelicFilter implements Filter<Relic>
       sb.append("Type: ").append(_type);
       empty=false;
     }
-    if (_category!=null)
+    if (_tier!=null)
     {
       if (!empty) sb.append(", ");
-      sb.append("Category: ").append(_category);
+      sb.append("Tier: ").append(_tier);
       empty=false;
     }
     if (_nameContains!=null)

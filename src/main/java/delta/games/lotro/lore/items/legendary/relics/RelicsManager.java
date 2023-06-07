@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.enums.RunicTier;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -20,7 +21,7 @@ public class RelicsManager
 {
   private static RelicsManager _instance;
 
-  private HashMap<Integer,RelicsCategory> _categories;
+  private HashMap<RunicTier,RelicsCategory> _categories;
 
   /**
    * Get the sole instance of this class.
@@ -41,23 +42,22 @@ public class RelicsManager
    */
   public RelicsManager()
   {
-    _categories=new HashMap<Integer,RelicsCategory>();
+    _categories=new HashMap<RunicTier,RelicsCategory>();
   }
 
   /**
-   * Get a relic category using its name.
-   * @param code Category code.
+   * Get a relic category.
+   * @param tier Tier.
    * @param doCreate Create category if it does not exist yet.
    * @return A category or <code>null</code>.
    */
-  public RelicsCategory getRelicCategory(int code, boolean doCreate)
+  public RelicsCategory getRelicCategory(RunicTier tier, boolean doCreate)
   {
-    Integer key=Integer.valueOf(code);
-    RelicsCategory category=_categories.get(key);
+    RelicsCategory category=_categories.get(tier);
     if ((doCreate)&&(category==null))
     {
-      category=new RelicsCategory(code);
-      _categories.put(key,category);
+      category=new RelicsCategory(tier);
+      _categories.put(tier,category);
     }
     return category;
   }
@@ -112,20 +112,23 @@ public class RelicsManager
       List<RelicsCategory> categories=parser.parseRelicsFile(relicsFile);
       for(RelicsCategory category : categories)
       {
-        _categories.put(Integer.valueOf(category.getCategoryCode()),category);
+        _categories.put(category.getTier(),category);
       }
     }
   }
 
   /**
-   * Get all relic categories.
-   * @return a list of categories.
+   * Get all relic tiers.
+   * @return a list of tiers.
    */
-  public List<RelicsCategory> getCategories()
+  public List<RunicTier> getTiers()
   {
-    List<RelicsCategory> categories=new ArrayList<RelicsCategory>();
-    categories.addAll(_categories.values());
-    return categories;
+    List<RunicTier> tiers=new ArrayList<RunicTier>();
+    for(RelicsCategory category : _categories.values())
+    {
+      tiers.add(category.getTier());
+    }
+    return tiers;
   }
 
   /**

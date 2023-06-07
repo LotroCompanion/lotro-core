@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.lore.items.legendary.relics.comparators.RelicNameComparator;
 
 /**
  * Output of a relic melding.
@@ -85,7 +85,7 @@ public class MeldingOutput
     {
       ret.add(relic.getRelic());
     }
-    Collections.sort(ret,new RelicNameComparator());
+    Collections.sort(ret,new NamedComparator());
     return ret;
   }
 

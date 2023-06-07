@@ -12,11 +12,12 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLWriter;
+import delta.games.lotro.common.enums.RunicTier;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsCategory;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
-import delta.games.lotro.lore.items.legendary.relics.comparators.RelicCategoryNameComparator;
 import delta.games.lotro.lore.items.legendary.relics.comparators.RelicsSorter;
 
 /**
@@ -40,10 +41,11 @@ public class RelicXMLWriter
       public void writeXml(TransformerHandler hd) throws Exception
       {
         hd.startElement("","",RelicXMLConstants.RELICS_TAG,new AttributesImpl());
-        List<RelicsCategory> categories=relicsMgr.getCategories();
-        Collections.sort(categories,new RelicCategoryNameComparator());
-        for(RelicsCategory category : categories)
+        List<RunicTier> tiers=relicsMgr.getTiers();
+        Collections.sort(tiers,new LotroEnumEntryCodeComparator<RunicTier>());
+        for(RunicTier tier : tiers)
         {
+          RelicsCategory category=relicsMgr.getRelicCategory(tier,false);
           write(hd,category);
         }
         hd.endElement("","",RelicXMLConstants.RELICS_TAG);
@@ -64,11 +66,12 @@ public class RelicXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
 
+    RunicTier tier=category.getTier();
     // Code
-    int code=category.getCategoryCode();
+    int code=tier.getCode();
     attrs.addAttribute("","",RelicXMLConstants.CATEGORY_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
     // Name
-    String name=category.getName();
+    String name=tier.getLabel();
     if (name!=null)
     {
       attrs.addAttribute("","",RelicXMLConstants.CATEGORY_NAME_ATTR,XmlWriter.CDATA,name);
