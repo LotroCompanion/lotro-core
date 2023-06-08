@@ -78,9 +78,6 @@ public class BarterXMLParser
       return null;
     }
     BarterNpc ret=new BarterNpc(npc);
-    // - Title
-    String title=DOMParsingTools.getStringAttribute(attrs,BarterXMLConstants.BARTERER_TITLE,null);
-    npc.setTitle(title);
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(ret.getRequirements(),root);
     // Profiles

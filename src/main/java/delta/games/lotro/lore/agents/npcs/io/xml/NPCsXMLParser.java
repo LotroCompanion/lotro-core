@@ -6,9 +6,12 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.agents.npcs.NPCsManager;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for the NPCs stored in XML.
@@ -16,6 +19,16 @@ import delta.games.lotro.lore.agents.npcs.NpcDescription;
  */
 public class NPCsXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public NPCsXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("npc");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -56,10 +69,11 @@ public class NPCsXMLParser
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,NPCsXMLConstants.ID_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,NPCsXMLConstants.NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
     NpcDescription ret=new NpcDescription(id,name);
     // Title
     String title=DOMParsingTools.getStringAttribute(attrs,NPCsXMLConstants.TITLE_ATTR,"");
+    title=I18nRuntimeUtils.getLabel(_i18n,title);
     ret.setTitle(title);
     return ret;
   }

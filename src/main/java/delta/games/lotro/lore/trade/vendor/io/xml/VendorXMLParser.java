@@ -71,9 +71,6 @@ public class VendorXMLParser
       return null;
     }
     VendorNpc ret=new VendorNpc(npc);
-    // - Title
-    String title=DOMParsingTools.getStringAttribute(attrs,VendorXMLConstants.VENDOR_TITLE_ATTR,null);
-    npc.setTitle(title);
     // Buys
     boolean buys=DOMParsingTools.getBooleanAttribute(attrs,VendorXMLConstants.VENDOR_BUYS_ATTR,false);
     ret.setBuys(buys);
