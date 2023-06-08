@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Represents a faction in the LOTRO world.
  * @author DAM
  */
-public class Faction implements Identifiable
+public class Faction implements Identifiable,Named
 {
   private int _identifier;
   private String _key;
