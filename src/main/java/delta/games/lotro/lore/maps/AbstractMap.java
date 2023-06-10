@@ -19,6 +19,10 @@ public class AbstractMap implements Identifiable
   public AbstractMap(int identifier, String name)
   {
     _identifier=identifier;
+    if (name==null)
+    {
+      name="";
+    }
     _name=name;
   }
 

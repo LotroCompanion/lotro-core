@@ -6,11 +6,13 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.maps.Area;
 import delta.games.lotro.lore.maps.GeoAreasManager;
 import delta.games.lotro.lore.maps.ParchmentMap;
 import delta.games.lotro.lore.maps.ParchmentMapsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for the parchment maps stored in XML.
@@ -18,6 +20,16 @@ import delta.games.lotro.lore.maps.ParchmentMapsManager;
  */
 public class ParchmentMapsXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public ParchmentMapsXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("parchmentMaps");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -59,7 +71,7 @@ public class ParchmentMapsXMLParser
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,ParchmentMapsXMLConstants.ID_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,ParchmentMapsXMLConstants.NAME_ATTR,"");
+    String name=_i18n.getLabel(String.valueOf(id));
 
     ParchmentMap ret=new ParchmentMap(id,name);
     // Region
