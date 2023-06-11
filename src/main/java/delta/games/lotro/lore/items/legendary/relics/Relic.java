@@ -14,6 +14,7 @@ import delta.games.lotro.common.enums.comparator.LotroEnumEntryKeyComparator;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.legendary.relics.comparators.RelicTypeComparator;
 
 /**
  * Relic description.
@@ -92,21 +93,39 @@ public class Relic implements Identifiable,Named
   {
     List<RelicType> types=new ArrayList<RelicType>();
     types.addAll(_types);
-    Collections.sort(types);
+    RelicTypeComparator c=new RelicTypeComparator();
+    Collections.sort(types,c);
     return types;
   }
 
   /**
-   * Get all types as a ',' separated string.
+   * Get all types as a ',' separated string (for persistence).
    * @return a string.
    */
   public String getTypesStr()
   {
     StringBuilder sb=new StringBuilder();
-    for(RelicType type : getTypes())
+    List<RelicType> types=getTypes();
+    for(RelicType type : types)
     {
       if (sb.length()>0) sb.append(',');
-      sb.append(type);
+      sb.append(type.getKey());
+    }
+    return sb.toString();
+  }
+
+  /**
+   * Get all types as a ',' separated string (for display).
+   * @return a string.
+   */
+  public String getTypesForDisplay()
+  {
+    StringBuilder sb=new StringBuilder();
+    List<RelicType> types=getTypes();
+    for(RelicType type : types)
+    {
+      if (sb.length()>0) sb.append(',');
+      sb.append(type.getLabel());
     }
     return sb.toString();
   }

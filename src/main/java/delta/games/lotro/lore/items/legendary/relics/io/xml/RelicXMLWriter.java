@@ -78,7 +78,7 @@ public class RelicXMLWriter
     }
     hd.startElement("","",RelicXMLConstants.CATEGORY_TAG,attrs);
     List<Relic> relics=category.getAllRelics();
-    RelicsSorter.sortStatsForInternalUse(relics);
+    RelicsSorter.sortRelicsForInternalUse(relics);
     for(Relic relic : relics)
     {
       write(hd,relic);

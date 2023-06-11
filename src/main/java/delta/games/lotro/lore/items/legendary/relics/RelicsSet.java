@@ -37,7 +37,7 @@ public class RelicsSet
   public List<Relic> getRelics()
   {
     List<Relic> relics=new ArrayList<Relic>();
-    for(RelicType type : RelicType.values())
+    for(RelicType type : RelicType.getAll())
     {
       Relic relic=_relics.get(type);
       relics.add(relic);
@@ -61,7 +61,7 @@ public class RelicsSet
    */
   public Relic getSetting()
   {
-    return _relics.get(RelicType.SETTING);
+    return _relics.get(RelicTypes.SETTING);
   }
 
   /**
@@ -70,7 +70,7 @@ public class RelicsSet
    */
   public void setSetting(Relic relic)
   {
-    _relics.put(RelicType.SETTING,relic);
+    _relics.put(RelicTypes.SETTING,relic);
   }
 
   /**
@@ -79,7 +79,7 @@ public class RelicsSet
    */
   public Relic getGem()
   {
-    return _relics.get(RelicType.GEM);
+    return _relics.get(RelicTypes.GEM);
   }
 
   /**
@@ -88,7 +88,7 @@ public class RelicsSet
    */
   public void setGem(Relic relic)
   {
-    _relics.put(RelicType.GEM,relic);
+    _relics.put(RelicTypes.GEM,relic);
   }
 
   /**
@@ -97,7 +97,7 @@ public class RelicsSet
    */
   public Relic getRune()
   {
-    return _relics.get(RelicType.RUNE);
+    return _relics.get(RelicTypes.RUNE);
   }
 
   /**
@@ -106,7 +106,7 @@ public class RelicsSet
    */
   public void setRune(Relic relic)
   {
-    _relics.put(RelicType.RUNE,relic);
+    _relics.put(RelicTypes.RUNE,relic);
   }
 
   /**
@@ -115,7 +115,7 @@ public class RelicsSet
    */
   public Relic getCraftedRelic()
   {
-    return _relics.get(RelicType.CRAFTED_RELIC);
+    return _relics.get(RelicTypes.CRAFTED_RELIC);
   }
 
   /**
@@ -124,7 +124,7 @@ public class RelicsSet
    */
   public void setCraftedRelic(Relic relic)
   {
-    _relics.put(RelicType.CRAFTED_RELIC,relic);
+    _relics.put(RelicTypes.CRAFTED_RELIC,relic);
   }
 
   /**

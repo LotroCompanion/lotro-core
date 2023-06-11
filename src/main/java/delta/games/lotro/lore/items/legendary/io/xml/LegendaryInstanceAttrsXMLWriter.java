@@ -20,6 +20,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInsta
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.lore.items.legendary.relics.RelicTypes;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 
 /**
@@ -60,10 +61,10 @@ public class LegendaryInstanceAttrsXMLWriter
     writeLegacies(hd,legendaryData);
     // Write relics
     List<Relic> relics=legendaryData.getRelicsSet().getRelics();
-    writeRelic(hd,relics.get(0),RelicType.SETTING);
-    writeRelic(hd,relics.get(1),RelicType.GEM);
-    writeRelic(hd,relics.get(2),RelicType.RUNE);
-    writeRelic(hd,relics.get(3),RelicType.CRAFTED_RELIC);
+    writeRelic(hd,relics.get(0),RelicTypes.SETTING);
+    writeRelic(hd,relics.get(1),RelicTypes.GEM);
+    writeRelic(hd,relics.get(2),RelicTypes.RUNE);
+    writeRelic(hd,relics.get(3),RelicTypes.CRAFTED_RELIC);
     hd.endElement("","",LegendaryInstanceAttrsXMLConstants.LEGENDARY_TAG);
   }
 
@@ -76,7 +77,7 @@ public class LegendaryInstanceAttrsXMLWriter
       int id=relic.getIdentifier();
       relicAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.RELIC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // Type
-      relicAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.RELIC_TYPE_ATTR,XmlWriter.CDATA,type.name());
+      relicAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.RELIC_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
       // Name
       String name=relic.getName();
       relicAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.RELIC_NAME_ATTR,XmlWriter.CDATA,name);

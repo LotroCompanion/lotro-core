@@ -1,21 +1,32 @@
 package delta.games.lotro.lore.items.legendary.relics.comparators;
 
 import java.util.Comparator;
+import java.util.List;
 
-import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 
 /**
- * Relic comparator using their first type.
+ * Relic types comparator.
  * @author DAM
  */
-public class RelicTypeComparator implements Comparator<Relic>
+public class RelicTypeComparator implements Comparator<RelicType>
 {
-  public int compare(Relic r1, Relic r2)
+  private List<RelicType> _sortedTypes;
+
+  /**
+   * Constructor.
+   */
+  public RelicTypeComparator()
   {
-    RelicType type1=r1.getTypes().get(0);
-    RelicType type2=r2.getTypes().get(0);
-    int typeDiff=type1.ordinal()-type2.ordinal();
+    _sortedTypes=RelicType.getAll();
+  }
+
+  @Override
+  public int compare(RelicType type1, RelicType type2)
+  {
+    int index1=_sortedTypes.indexOf(type1);
+    int index2=_sortedTypes.indexOf(type2);
+    int typeDiff=index1-index2;
     return typeDiff;
   }
 }

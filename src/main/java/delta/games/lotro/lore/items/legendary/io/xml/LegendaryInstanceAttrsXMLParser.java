@@ -22,6 +22,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInsta
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.lore.items.legendary.relics.RelicTypes;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
@@ -243,7 +244,7 @@ public class LegendaryInstanceAttrsXMLParser
       String typeStr=DOMParsingTools.getStringAttribute(attrs,LegendaryInstanceAttrsXMLConstants.RELIC_TYPE_ATTR,null);
       if (typeStr!=null)
       {
-        RelicType type=RelicType.valueOf(typeStr);
+        RelicType type=RelicType.getRelicTypeByKey(typeStr);
         Relic relic=null;
         int id=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.RELIC_ID_ATTR,0);
         if (id!=0)
@@ -259,10 +260,10 @@ public class LegendaryInstanceAttrsXMLParser
           }
         }
         RelicsSet relics=legendaryAttrs.getRelicsSet();
-        if (type==RelicType.SETTING) relics.setSetting(relic);
-        if (type==RelicType.RUNE) relics.setRune(relic);
-        if (type==RelicType.GEM) relics.setGem(relic);
-        if (type==RelicType.CRAFTED_RELIC) relics.setCraftedRelic(relic);
+        if (type==RelicTypes.SETTING) relics.setSetting(relic);
+        if (type==RelicTypes.RUNE) relics.setRune(relic);
+        if (type==RelicTypes.GEM) relics.setGem(relic);
+        if (type==RelicTypes.CRAFTED_RELIC) relics.setCraftedRelic(relic);
       }
     }
   }

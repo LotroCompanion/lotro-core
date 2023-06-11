@@ -27,7 +27,7 @@ import delta.games.lotro.lore.items.legendary.LegendaryItemInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryWeapon;
 import delta.games.lotro.lore.items.legendary.LegendaryWeaponInstance;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.lore.items.legendary.relics.RelicType;
+import delta.games.lotro.lore.items.legendary.relics.RelicTypes;
 import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
 
@@ -338,7 +338,7 @@ public class CharacterGeneratorMeva
     RelicsSet relics=attrs.getRelicsSet();
     {
       // Setting
-      Relic setting=_tools.buildRelic(0,"True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
+      Relic setting=_tools.buildRelic(0,"True Setting of the North", RelicTypes.SETTING, Integer.valueOf(80));
       BasicStatsSet stats=setting.getStats();
       stats.setStat(WellKnownStat.MORALE, 330);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1293);
@@ -347,7 +347,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Gem
-      Relic gem=_tools.buildRelic(0,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
+      Relic gem=_tools.buildRelic(0,"True Gem of the Wizard's Vale", RelicTypes.GEM, Integer.valueOf(75));
       BasicStatsSet stats=gem.getStats();
       stats.setStat(WellKnownStat.ICPR,90);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
@@ -356,7 +356,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Rune
-      Relic rune=_tools.buildRelic(0,"Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
+      Relic rune=_tools.buildRelic(0,"Great River Rune of Power", RelicTypes.RUNE, Integer.valueOf(75));
       BasicStatsSet stats=rune.getStats();
       stats.setStat(WellKnownStat.PHYSICAL_MITIGATION,170);
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,606);
@@ -366,7 +366,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Crafted relic
-      Relic craftedRelic=_tools.buildRelic(0,"Westemnet Device of Tactics", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
+      Relic craftedRelic=_tools.buildRelic(0,"Westemnet Device of Tactics", RelicTypes.CRAFTED_RELIC, Integer.valueOf(95));
       BasicStatsSet stats=craftedRelic.getStats();
       stats.setStat(WellKnownStat.WILL,40);
       stats.setStat(WellKnownStat.CRITICAL_RATING,740);
@@ -408,7 +408,7 @@ public class CharacterGeneratorMeva
     RelicsSet relics=attrs.getRelicsSet();
     {
       // Setting
-      Relic setting=_tools.buildRelic(0,"True Setting of the North", RelicType.SETTING, Integer.valueOf(80));
+      Relic setting=_tools.buildRelic(0,"True Setting of the North", RelicTypes.SETTING, Integer.valueOf(80));
       BasicStatsSet stats=setting.getStats();
       stats.setStat(WellKnownStat.MORALE, 330);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1293);
@@ -417,7 +417,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Gem
-      Relic gem=_tools.buildRelic(0,"True Gem of the Wizard's Vale", RelicType.GEM, Integer.valueOf(75));
+      Relic gem=_tools.buildRelic(0,"True Gem of the Wizard's Vale", RelicTypes.GEM, Integer.valueOf(75));
       BasicStatsSet stats=gem.getStats();
       stats.setStat(WellKnownStat.ICPR,90);
       stats.setStat(WellKnownStat.CRITICAL_RATING,1212);
@@ -426,7 +426,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Rune
-      Relic rune=_tools.buildRelic(0,"Great River Rune of Power", RelicType.RUNE, Integer.valueOf(75));
+      Relic rune=_tools.buildRelic(0,"Great River Rune of Power", RelicTypes.RUNE, Integer.valueOf(75));
       BasicStatsSet stats=rune.getStats();
       stats.setStat(WellKnownStat.PHYSICAL_MITIGATION,170);
       stats.setStat(WellKnownStat.PHYSICAL_MASTERY,606);
@@ -436,7 +436,7 @@ public class CharacterGeneratorMeva
     }
     {
       // Crafted relic
-      Relic craftedRelic=_tools.buildRelic(0,"Westemnet Device of Tactics", RelicType.CRAFTED_RELIC, Integer.valueOf(95));
+      Relic craftedRelic=_tools.buildRelic(0,"Westemnet Device of Tactics", RelicTypes.CRAFTED_RELIC, Integer.valueOf(95));
       BasicStatsSet stats=craftedRelic.getStats();
       stats.setStat(WellKnownStat.WILL,40);
       stats.setStat(WellKnownStat.CRITICAL_RATING,740);

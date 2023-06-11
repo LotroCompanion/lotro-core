@@ -99,7 +99,7 @@ public class RelicXMLParser
     String[] typeStrs=typesStr.split(",");
     for(String typeStr : typeStrs)
     {
-      RelicType type=RelicType.valueOf(typeStr);
+      RelicType type=RelicType.getRelicTypeByKey(typeStr);
       relic.addType(type);
     }
     // Requirements
