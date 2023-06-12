@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.lore.agents.npcs.NPCsManager;
@@ -24,6 +25,7 @@ import delta.games.lotro.lore.trade.barter.BarterProfile;
 import delta.games.lotro.lore.trade.barter.ItemBarterEntryElement;
 import delta.games.lotro.lore.trade.barter.ReputationBarterEntryElement;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
@@ -33,6 +35,16 @@ import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 public class BarterXMLParser
 {
   private static final Logger LOGGER=Logger.getLogger(BarterXMLParser.class);
+
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public BarterXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("barterers");
+  }
 
   /**
    * Parse the XML file.
@@ -98,7 +110,7 @@ public class BarterXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,BarterXMLConstants.BARTER_PROFILE_ID,0);
     BarterProfile profile=new BarterProfile(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,BarterXMLConstants.BARTER_PROFILE_NAME,null);
+    String name=_i18n.getLabel(String.valueOf(id));
     profile.setName(name);
     // Requirements
     UsageRequirementsXMLParser.parseRequirements(profile.getRequirements(),root);
