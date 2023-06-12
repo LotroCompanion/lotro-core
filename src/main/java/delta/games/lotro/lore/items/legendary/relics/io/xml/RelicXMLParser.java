@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
@@ -19,6 +20,7 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicsCategory;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for relic descriptions stored in XML.
@@ -27,6 +29,7 @@ import delta.games.lotro.lore.items.legendary.relics.RelicsCategory;
 public class RelicXMLParser
 {
   private LotroEnum<RunicTier> _tiers;
+  private SingleLocaleLabelsManager _i18n;
 
   /**
    * Constructor.
@@ -34,6 +37,7 @@ public class RelicXMLParser
   public RelicXMLParser()
   {
     _tiers=LotroEnumsRegistry.getInstance().get(RunicTier.class);
+    _i18n=I18nFacade.getLabelsMgr("relics");
   }
 
   /**
@@ -92,7 +96,7 @@ public class RelicXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,RelicXMLConstants.RELIC_ID_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,RelicXMLConstants.RELIC_NAME_ATTR,null);
+    String name=_i18n.getLabel(String.valueOf(id));
     Relic relic=new Relic(id,name);
     // Type
     String typesStr=DOMParsingTools.getStringAttribute(attrs,RelicXMLConstants.RELIC_TYPES_ATTR,null);
