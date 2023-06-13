@@ -57,7 +57,7 @@ public class VirtuesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File virtuesFile=cfg.getFile(DataFiles.VIRTUES);
     long now=System.currentTimeMillis();
-    List<VirtueDescription> virtues=VirtueDescriptionXMLParser.parseVirtuesFile(virtuesFile);
+    List<VirtueDescription> virtues=new VirtueDescriptionXMLParser().parseVirtuesFile(virtuesFile);
     for(VirtueDescription virtue : virtues)
     {
       registerVirtue(virtue);

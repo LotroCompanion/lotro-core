@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.constraints.ClassAndSlot;
@@ -17,6 +18,7 @@ import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.io.xml.LegacyXMLParser;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Facade for access to legacies.
@@ -61,7 +63,8 @@ public class LegaciesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File legaciesFile=cfg.getFile(DataFiles.LEGACIES);
     long now=System.currentTimeMillis();
-    List<AbstractLegacy> legacies=LegacyXMLParser.parseLegaciesFile(legaciesFile);
+    SingleLocaleLabelsManager i18n=I18nFacade.getLabelsMgr("legacies");
+    List<AbstractLegacy> legacies=new LegacyXMLParser(i18n).parseLegaciesFile(legaciesFile);
     for(AbstractLegacy legacy : legacies)
     {
       registerLegacy((ImbuedLegacy)legacy);

@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.NumericTools;
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.progression.ProgressionsManager;
@@ -19,6 +20,7 @@ import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -32,21 +34,23 @@ public class StatsProviderXMLParser
   /**
    * Build a stats provider from an XML tag.
    * @param root Root XML tag.
+   * @param i18n Labels manager.
    * @return A stats provider.
    */
-  public static StatsProvider parseStatsProvider(Element root)
+  public static StatsProvider parseStatsProvider(Element root, SingleLocaleLabelsManager i18n)
   {
     StatsProvider statsProvider=new StatsProvider();
-    parseStatsProvider(root,statsProvider);
+    parseStatsProvider(root,statsProvider,i18n);
     return statsProvider;
   }
 
   /**
    * Build a stats provider from an XML tag.
    * @param root Root XML tag.
+   * @param i18n Labels manager.
    * @param statsProvider Storage.
    */
-  public static void parseStatsProvider(Element root, StatsProvider statsProvider)
+  public static void parseStatsProvider(Element root, StatsProvider statsProvider, SingleLocaleLabelsManager i18n)
   {
     // Stats
     List<Element> statTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.STAT_TAG);
@@ -55,7 +59,7 @@ public class StatsProviderXMLParser
     {
       for(Element statTag : statTags)
       {
-        StatProvider statProvider=StatsProviderXMLParser.parseStatProvider(statTag);
+        StatProvider statProvider=StatsProviderXMLParser.parseStatProvider(statTag,i18n);
         statsProvider.addStatProvider(statProvider);
       }
     }
@@ -67,6 +71,7 @@ public class StatsProviderXMLParser
       for(Element specialEffectsTag : specialEffectsTags)
       {
         String label=DOMParsingTools.getStringAttribute(specialEffectsTag.getAttributes(),StatsProviderXMLConstants.SPECIAL_EFFECT_LABEL_ATTR,null);
+        label=I18nRuntimeUtils.getLabel(i18n,label);
         if (label!=null)
         {
           SpecialEffect specialEffect=new SpecialEffect(label);
@@ -79,9 +84,10 @@ public class StatsProviderXMLParser
   /**
    * Build a stat provider from an XML tag.
    * @param root Root XML tag.
+   * @param i18n Labels manager.
    * @return A stat provider.
    */
-  private static StatProvider parseStatProvider(Element root)
+  private static StatProvider parseStatProvider(Element root, SingleLocaleLabelsManager i18n)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Stat name
@@ -106,6 +112,14 @@ public class StatsProviderXMLParser
 
       // Description override
       String descriptionOverride=DOMParsingTools.getStringAttribute(attrs,BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,null);
+      if ((i18n!=null) && (descriptionOverride!=null))
+      {
+        String i18nDescriptionOverride=i18n.getLabel(descriptionOverride);
+        if (i18nDescriptionOverride!=null)
+        {
+          descriptionOverride=i18nDescriptionOverride;
+        }
+      }
       provider.setDescriptionOverride(descriptionOverride);
     }
     return provider;

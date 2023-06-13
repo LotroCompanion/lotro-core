@@ -9,6 +9,7 @@ import java.util.Set;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassesManager;
@@ -36,12 +37,23 @@ import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
  */
 public class LegacyXMLParser
 {
+  private SingleLocaleLabelsManager _labelsMgr;  
+
+  /**
+   * Constructor.
+   * @param labelsMgr Labels manager.
+   */
+  public LegacyXMLParser(SingleLocaleLabelsManager labelsMgr)
+  {
+    _labelsMgr=labelsMgr;
+  }
+
   /**
    * Parse a legacies XML file.
    * @param source Source file.
    * @return List of parsed legacies.
    */
-  public static List<AbstractLegacy> parseLegaciesFile(File source)
+  public List<AbstractLegacy> parseLegaciesFile(File source)
   {
     List<AbstractLegacy> legacies=new ArrayList<AbstractLegacy>();
     Element root=DOMParsingTools.parse(source);
@@ -57,7 +69,7 @@ public class LegacyXMLParser
     return legacies;
   }
 
-  private static AbstractLegacy parseLegacy(Element root)
+  private AbstractLegacy parseLegacy(Element root)
   {
     String tag=root.getTagName();
     if (LegacyXMLConstants.DEFAULT_NON_IMBUED_LEGACY_TAG.equals(tag))
@@ -80,7 +92,7 @@ public class LegacyXMLParser
    * @param root Root XML tag.
    * @return A legacy.
    */
-  private static DefaultNonImbuedLegacy parseDefaultNonImbuedLegacy(Element root)
+  private DefaultNonImbuedLegacy parseDefaultNonImbuedLegacy(Element root)
   {
     DefaultNonImbuedLegacy legacy=new DefaultNonImbuedLegacy();
     // Shared data
@@ -91,7 +103,7 @@ public class LegacyXMLParser
     Element effectTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants.EFFECT_TAG);
     if (effectTag!=null)
     {
-      Effect effect=EffectXMLParser.parseEffect(effectTag);
+      Effect effect=EffectXMLParser.parseEffect(effectTag,_labelsMgr);
       legacy.setEffect(effect);
     }
     return legacy;
@@ -102,7 +114,7 @@ public class LegacyXMLParser
    * @param root Root XML tag.
    * @return A legacy.
    */
-  private static TieredNonImbuedLegacy parseTieredNonImbuedLegacy(Element root)
+  private TieredNonImbuedLegacy parseTieredNonImbuedLegacy(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Stat
@@ -128,7 +140,7 @@ public class LegacyXMLParser
       Element effectTag=DOMParsingTools.getChildTagByName(tierTag,EffectXMLConstants.EFFECT_TAG);
       if (effectTag!=null)
       {
-        effect=EffectXMLParser.parseEffect(effectTag);
+        effect=EffectXMLParser.parseEffect(effectTag,_labelsMgr);
       }
       NonImbuedLegacyTier legacyTier=legacy.addTier(tier,effect);
       // Start rank
@@ -146,7 +158,7 @@ public class LegacyXMLParser
    * @param root Root XML tag.
    * @return A legacy.
    */
-  private static ImbuedLegacy parseImbuedLegacy(Element root)
+  private ImbuedLegacy parseImbuedLegacy(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     ImbuedLegacy legacy=new ImbuedLegacy();
@@ -163,7 +175,7 @@ public class LegacyXMLParser
     legacy.setMaxLevel(maxLevel);
 
     // Stats
-    StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root);
+    StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root,_labelsMgr);
     legacy.setStatsProvider(statsProvider);
 
     // Types

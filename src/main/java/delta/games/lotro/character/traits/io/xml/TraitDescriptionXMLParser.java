@@ -97,7 +97,7 @@ public class TraitDescriptionXMLParser
     trait.setDescription(description);
     // Stats
     StatsProvider statsProvider=trait.getStatsProvider();
-    StatsProviderXMLParser.parseStatsProvider(root,statsProvider);
+    StatsProviderXMLParser.parseStatsProvider(root,statsProvider,_i18n);
     // Category
     LotroEnumsRegistry registry=LotroEnumsRegistry.getInstance();
     int categoryCode=DOMParsingTools.getIntAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_CATEGORY_ATTR,0);

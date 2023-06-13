@@ -22,9 +22,10 @@ public class EffectXMLParser
   /**
    * Parse an effects XML file.
    * @param source Source file.
+   * @param labelsMgr Labels manager.
    * @return List of parsed effects.
    */
-  public static List<Effect> parseEffectsFile(File source)
+  public static List<Effect> parseEffectsFile(File source, SingleLocaleLabelsManager labelsMgr)
   {
     List<Effect> effects=new ArrayList<Effect>();
     Element root=DOMParsingTools.parse(source);
@@ -33,21 +34,11 @@ public class EffectXMLParser
       List<Element> effectTags=DOMParsingTools.getChildTags(root);
       for(Element effectTag : effectTags)
       {
-        Effect effect=parseEffect(effectTag);
+        Effect effect=parseEffect(effectTag,labelsMgr);
         effects.add(effect);
       }
     }
     return effects;
-  }
-
-  /**
-   * Build an effect from an XML tag.
-   * @param root Root XML tag.
-   * @return An effect.
-   */
-  public static Effect parseEffect(Element root)
-  {
-    return parseEffect(root,null);
   }
 
   /**
@@ -84,7 +75,7 @@ public class EffectXMLParser
       effect.setDuration(Float.valueOf(duration));
     }
     // Stats
-    StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root);
+    StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root,labelsMgr);
     effect.setStatsProvider(statsProvider);
 
     return effect;

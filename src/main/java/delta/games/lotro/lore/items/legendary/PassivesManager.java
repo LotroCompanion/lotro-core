@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
@@ -16,6 +17,7 @@ import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.legendary.passives.PassivesGroup;
 import delta.games.lotro.lore.items.legendary.passives.PassivesGroupsManager;
 import delta.games.lotro.lore.items.legendary.passives.io.xml.PassivesGroupsXMLParser;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Facade for access to passives.
@@ -70,7 +72,8 @@ public class PassivesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File legaciesFile=cfg.getFile(DataFiles.PASSIVES);
     long now=System.currentTimeMillis();
-    List<Effect> effects=EffectXMLParser.parseEffectsFile(legaciesFile);
+    SingleLocaleLabelsManager labelsMgr=I18nFacade.getLabelsMgr("passives");
+    List<Effect> effects=EffectXMLParser.parseEffectsFile(legaciesFile,labelsMgr);
     for(Effect effect : effects)
     {
       registerEffect(effect);

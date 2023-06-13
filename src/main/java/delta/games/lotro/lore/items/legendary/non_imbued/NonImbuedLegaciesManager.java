@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.collections.filters.Filter;
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
@@ -24,6 +25,7 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 import delta.games.lotro.lore.items.legendary.io.xml.LegacyXMLParser;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Manager for non-imbued legacies.
@@ -69,7 +71,8 @@ public class NonImbuedLegaciesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File legaciesFile=cfg.getFile(DataFiles.NON_IMBUED_LEGACIES);
     long now=System.currentTimeMillis();
-    List<AbstractLegacy> legacies=LegacyXMLParser.parseLegaciesFile(legaciesFile);
+    SingleLocaleLabelsManager i18n=I18nFacade.getLabelsMgr("nonImbuedLegacies");
+    List<AbstractLegacy> legacies=new LegacyXMLParser(i18n).parseLegaciesFile(legaciesFile);
     for(AbstractLegacy legacy : legacies)
     {
       if (legacy instanceof TieredNonImbuedLegacy)

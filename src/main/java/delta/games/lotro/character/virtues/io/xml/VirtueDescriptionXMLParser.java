@@ -8,12 +8,14 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
+import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -24,12 +26,22 @@ public class VirtueDescriptionXMLParser
 {
   private static final Logger LOGGER=Logger.getLogger(VirtueDescriptionXMLParser.class);
 
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public VirtueDescriptionXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("virtues");
+  }
+
   /**
    * Parse a virtues XML file.
    * @param source Source file.
    * @return List of parsed virtues.
    */
-  public static List<VirtueDescription> parseVirtuesFile(File source)
+  public List<VirtueDescription> parseVirtuesFile(File source)
   {
     List<VirtueDescription> virtues=new ArrayList<VirtueDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -50,7 +62,7 @@ public class VirtueDescriptionXMLParser
    * @param root Root XML tag.
    * @return A virtue description.
    */
-  private static VirtueDescription parseVirtue(Element root)
+  private VirtueDescription parseVirtue(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     VirtueDescription virtue=new VirtueDescription();
@@ -89,10 +101,10 @@ public class VirtueDescriptionXMLParser
     virtue.setDescription(description);
     // Active stats
     Element activeStatsTag=DOMParsingTools.getChildTagByName(root,VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG);
-    StatsProviderXMLParser.parseStatsProvider(activeStatsTag,virtue.getStatsProvider());
+    StatsProviderXMLParser.parseStatsProvider(activeStatsTag,virtue.getStatsProvider(),_i18n);
     // Passive stats
     Element passiveStatsTag=DOMParsingTools.getChildTagByName(root,VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG);
-    StatsProviderXMLParser.parseStatsProvider(passiveStatsTag,virtue.getPassiveStatsProvider());
+    StatsProviderXMLParser.parseStatsProvider(passiveStatsTag,virtue.getPassiveStatsProvider(),null);
     // XP table
     List<Element> xpTags=DOMParsingTools.getChildTagsByName(root,VirtueDescriptionXMLConstants.XP_TAG);
     for(Element xpTag : xpTags)

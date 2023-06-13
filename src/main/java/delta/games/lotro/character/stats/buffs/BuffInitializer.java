@@ -106,7 +106,7 @@ public class BuffInitializer
   private void initConsumableBuffs(BuffRegistry registry)
   {
     File consumablesFile=LotroCoreConfig.getInstance().getFile(DataFiles.CONSUMABLES);
-    List<Consumable> consumables=ConsumableXMLParser.parseConsumablesFile(consumablesFile);
+    List<Consumable> consumables=new ConsumableXMLParser().parseConsumablesFile(consumablesFile);
     for(Consumable consumable : consumables)
     {
       String id=String.valueOf(consumable.getIdentifier());

@@ -323,6 +323,7 @@ public final class ItemSaxParser extends DefaultHandler
       Number value=NumericUtils.fromPersistenceString(statValue);
       // Description override
       String descriptionOverride=attributes.getValue(BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR);
+      descriptionOverride=I18nRuntimeUtils.getLabel(_i18n,descriptionOverride);
       _currentItem.getStats().setStat(stat,operator,value,descriptionOverride);
       // Stat provider
       StatProvider statProvider=parseStatProvider(stat,attributes);
@@ -344,6 +345,7 @@ public final class ItemSaxParser extends DefaultHandler
     else if (StatsProviderXMLConstants.SPECIAL_EFFECT_TAG.equals(qualifiedName))
     {
       String label=attributes.getValue(StatsProviderXMLConstants.SPECIAL_EFFECT_LABEL_ATTR);
+      label=I18nRuntimeUtils.getLabel(_i18n,label);
       SpecialEffect specialEffect=new SpecialEffect(label);
       StatsProvider statsProvider=_currentItem.getStatsProvider();
       if (statsProvider==null)

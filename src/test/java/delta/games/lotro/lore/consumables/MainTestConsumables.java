@@ -23,7 +23,7 @@ public class MainTestConsumables
   public static void main(String[] args)
   {
     File consumablesFile=LotroCoreConfig.getInstance().getFile(DataFiles.CONSUMABLES);
-    List<Consumable> consumables=ConsumableXMLParser.parseConsumablesFile(consumablesFile);
+    List<Consumable> consumables=new ConsumableXMLParser().parseConsumablesFile(consumablesFile);
     for(Consumable consumable : consumables)
     {
       System.out.println("Consumable: "+consumable.getIdentifier()+" "+consumable.getName());

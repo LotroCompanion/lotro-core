@@ -8,12 +8,14 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.consumables.Consumable;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for consumables stored in XML.
@@ -23,12 +25,22 @@ public class ConsumableXMLParser
 {
   private static final Logger LOGGER=Logger.getLogger(ConsumableXMLParser.class);
 
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public ConsumableXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("consumables");
+  }
+
   /**
    * Parse consumables from an XML file.
    * @param source Source file.
    * @return List of parsed consumables.
    */
-  public static List<Consumable> parseConsumablesFile(File source)
+  public List<Consumable> parseConsumablesFile(File source)
   {
     List<Consumable> consumables=new ArrayList<Consumable>();
     Element root=DOMParsingTools.parse(source);
@@ -52,7 +64,7 @@ public class ConsumableXMLParser
    * @param root Root XML tag.
    * @return A consumable.
    */
-  private static Consumable parseConsumable(Element root)
+  private Consumable parseConsumable(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Identifier
@@ -66,7 +78,7 @@ public class ConsumableXMLParser
     Consumable consumable=new Consumable(item);
     // Stats
     StatsProvider statsProvider=consumable.getProvider();
-    StatsProviderXMLParser.parseStatsProvider(root,statsProvider);
+    StatsProviderXMLParser.parseStatsProvider(root,statsProvider,_i18n);
     return consumable;
   }
 }

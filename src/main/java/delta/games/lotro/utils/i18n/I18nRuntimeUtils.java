@@ -16,7 +16,7 @@ public class I18nRuntimeUtils
    */
   public static String getLabel(SingleLocaleLabelsManager mgr, String input)
   {
-    String value=mgr.getLabel(input);
+    String value=(mgr!=null)?mgr.getLabel(input):null;
     return (value!=null)?value:input;
   }
 }

@@ -122,7 +122,7 @@ public class ItemsSetXMLParser
     {
       NamedNodeMap bonusAttrs=bonusTag.getAttributes();
       int piecesCount=DOMParsingTools.getIntAttribute(bonusAttrs,ItemsSetXMLConstants.BONUS_NB_ITEMS_ATTR,0);
-      StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(bonusTag);
+      StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(bonusTag,_i18n);
       if ((piecesCount!=0) && (statsProvider!=null))
       {
         SetBonus bonus=new SetBonus(piecesCount);
