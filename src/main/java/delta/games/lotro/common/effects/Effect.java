@@ -1,13 +1,14 @@
 package delta.games.lotro.common.effects;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
  * Effect.
  * @author DAM
  */
-public class Effect implements Identifiable
+public class Effect implements Identifiable,Named
 {
   // Identifier
   private int _id;
@@ -142,7 +143,7 @@ public class Effect implements Identifiable
     }
     if (_iconId!=null)
     {
-      sb.append(", (icon=").append(_iconId);
+      sb.append(", (icon=").append(_iconId).append(')');
     }
     if (_duration!=null)
     {

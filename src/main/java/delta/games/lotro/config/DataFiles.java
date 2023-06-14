@@ -110,6 +110,10 @@ public class DataFiles
    */
   public static final String ITEM_COSMETICS="itemCosmetics";
   /**
+   * Generic item effects file.
+   */
+  public static final String GENERIC_ITEM_EFFECTS="genericItemEffects";
+  /**
    * Sets file.
    */
   public static final String SETS="sets";
