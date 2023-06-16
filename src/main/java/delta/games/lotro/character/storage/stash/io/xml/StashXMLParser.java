@@ -11,7 +11,7 @@ import delta.games.lotro.character.storage.stash.ItemsStash;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
-import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
+import delta.games.lotro.lore.items.io.xml.ItemInstanceXMLParser;
 
 /**
  * Parser for stashs stored in XML.
@@ -47,7 +47,7 @@ public class StashXMLParser
       stash.setNextId(nextId);
     }
 
-    ItemXMLParser parser=new ItemXMLParser();
+    ItemInstanceXMLParser parser=new ItemInstanceXMLParser();
     List<Element> itemTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.ITEM_TAG,false);
     for(Element itemTag : itemTags)
     {

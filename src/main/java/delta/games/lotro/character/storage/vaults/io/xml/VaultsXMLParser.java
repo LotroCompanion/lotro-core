@@ -14,7 +14,7 @@ import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
-import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
+import delta.games.lotro.lore.items.io.xml.ItemInstanceXMLParser;
 
 /**
  * Parser for the vaults stored in XML.
@@ -79,7 +79,7 @@ public class VaultsXMLParser
   {
     NamedNodeMap attrs=slotTag.getAttributes();
     int count=DOMParsingTools.getIntAttribute(attrs,VaultsXMLConstants.SLOT_COUNT_ATTR,1);
-    ItemXMLParser parser=new ItemXMLParser();
+    ItemInstanceXMLParser parser=new ItemInstanceXMLParser();
     Element itemTag=DOMParsingTools.getChildTagByName(slotTag,ItemXMLConstants.ITEM_TAG);
     if (itemTag!=null)
     {

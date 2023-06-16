@@ -34,7 +34,7 @@ import delta.games.lotro.lore.items.legendary2.io.xml.LegendaryInstance2AttrsXML
  * Parser for item instance descriptions stored in XML.
  * @author DAM
  */
-public class ItemXMLParser
+public class ItemInstanceXMLParser
 {
   /**
    * Build an item instance from an XML tag.

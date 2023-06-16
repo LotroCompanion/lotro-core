@@ -31,7 +31,7 @@ import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
-import delta.games.lotro.lore.items.io.xml.ItemXMLParser;
+import delta.games.lotro.lore.items.io.xml.ItemInstanceXMLParser;
 import delta.games.lotro.utils.PersistenceVersions;
 
 /**
@@ -166,7 +166,7 @@ public class CharacterXMLParser
             }
           }
           // Embedded item
-          ItemXMLParser itemParser=new ItemXMLParser();
+          ItemInstanceXMLParser itemParser=new ItemInstanceXMLParser();
           Element itemTag=DOMParsingTools.getChildTagByName(slotTag,ItemXMLConstants.ITEM_TAG);
           if (itemTag!=null)
           {
