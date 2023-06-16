@@ -35,14 +35,15 @@ public class SimpleClassesManager<T extends AbstractClassDescription>
   /**
    * Load all classes from a file.
    * @param classesFile File to read from.
+   * @param labels Name of the labels file to use.
    */
   @SuppressWarnings("unchecked")
-  public void loadFromFile(File classesFile)
+  public void loadFromFile(File classesFile, String labels)
   {
     _mapByKey.clear();
     _mapByCode.clear();
     long now=System.currentTimeMillis();
-    List<AbstractClassDescription> classDescriptions=new ClassDescriptionXMLParser().parseClassDescriptionsFile(classesFile);
+    List<AbstractClassDescription> classDescriptions=new ClassDescriptionXMLParser(labels).parseClassDescriptionsFile(classesFile);
     for(AbstractClassDescription classDescription : classDescriptions)
     {
       _mapByKey.put(classDescription.getKey(),(T)classDescription);

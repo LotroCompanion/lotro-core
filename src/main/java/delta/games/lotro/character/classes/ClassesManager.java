@@ -51,10 +51,10 @@ public class ClassesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     // Character classes
     File classesFile=cfg.getFile(DataFiles.CLASSES);
-    _characterClasses.loadFromFile(classesFile);
+    _characterClasses.loadFromFile(classesFile,"classes");
     // Monster classes
     File monsterClassesFile=cfg.getFile(DataFiles.MONSTER_CLASSES);
-    _monsterClasses.loadFromFile(monsterClassesFile);
+    _monsterClasses.loadFromFile(monsterClassesFile,"monsterClasses");
   }
 
   /**

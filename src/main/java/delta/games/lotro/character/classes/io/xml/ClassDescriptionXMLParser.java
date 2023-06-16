@@ -35,10 +35,11 @@ public class ClassDescriptionXMLParser
 
   /**
    * Constructor.
+   * @param labels Name of the labels file to use.
    */
-  public ClassDescriptionXMLParser()
+  public ClassDescriptionXMLParser(String labels)
   {
-    _i18n=I18nFacade.getLabelsMgr("classes");
+    _i18n=I18nFacade.getLabelsMgr(labels);
   }
 
   /**
