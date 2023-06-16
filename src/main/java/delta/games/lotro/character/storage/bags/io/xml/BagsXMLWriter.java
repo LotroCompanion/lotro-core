@@ -16,7 +16,7 @@ import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
+import delta.games.lotro.lore.items.io.xml.ItemInstanceXMLWriter;
 
 /**
  * Writes a bags manager to an XML file.
@@ -66,7 +66,7 @@ public class BagsXMLWriter
     // Layout
     writeLayout(hd,bagsManager.getBagsSetup());
     // Slots
-    ItemXMLWriter writer=new ItemXMLWriter();
+    ItemInstanceXMLWriter writer=new ItemInstanceXMLWriter();
     for(Integer index : bagsManager.getIndexes())
     {
       CountedItem<ItemInstance<? extends Item>> countedItemInstance=bagsManager.getSlotContent(index.intValue());

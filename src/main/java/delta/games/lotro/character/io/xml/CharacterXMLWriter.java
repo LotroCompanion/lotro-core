@@ -30,7 +30,7 @@ import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
+import delta.games.lotro.lore.items.io.xml.ItemInstanceXMLWriter;
 import delta.games.lotro.utils.PersistenceVersions;
 
 /**
@@ -151,7 +151,7 @@ public class CharacterXMLWriter
       ItemInstance<? extends Item> item=slotContents.getItem();
       if (item!=null)
       {
-        ItemXMLWriter writer=new ItemXMLWriter();
+        ItemInstanceXMLWriter writer=new ItemInstanceXMLWriter();
         writer.writeItemInstance(hd,item);
       }
       hd.endElement("","",CharacterXMLConstants.SLOT_TAG);

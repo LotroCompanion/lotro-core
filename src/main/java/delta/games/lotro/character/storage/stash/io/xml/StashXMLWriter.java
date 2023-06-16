@@ -12,7 +12,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.storage.stash.ItemsStash;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
+import delta.games.lotro.lore.items.io.xml.ItemInstanceXMLWriter;
 
 /**
  * Writes character stashs to XML files.
@@ -51,7 +51,7 @@ public class StashXMLWriter
     List<ItemInstance<? extends Item>> items=stash.getAll();
     if (items.size()>0)
     {
-      ItemXMLWriter writer=new ItemXMLWriter();
+      ItemInstanceXMLWriter writer=new ItemInstanceXMLWriter();
       for(ItemInstance<? extends Item> item : items)
       {
         writer.writeItemInstance(hd,item);

@@ -3,7 +3,6 @@ package delta.games.lotro.lore.items.io.xml;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,44 +14,29 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.stats.base.io.xml.StatsManagerXMLWriter;
-import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
-import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
-import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
-import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.Armour;
-import delta.games.lotro.lore.items.ArmourInstance;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
-import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemPropertyNames;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
-import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
 import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.details.io.xml.ItemDetailsXMLWriter;
-import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
-import delta.games.lotro.lore.items.legendary.LegendaryInstance;
-import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
-import delta.games.lotro.lore.items.legendary.io.xml.LegendaryInstanceAttrsXMLWriter;
-import delta.games.lotro.lore.items.legendary2.LegendaryInstance2;
-import delta.games.lotro.lore.items.legendary2.LegendaryInstanceAttrs2;
-import delta.games.lotro.lore.items.legendary2.io.xml.LegendaryInstance2AttrsXMLWriter;
 
 /**
  * Writes LOTRO items to XML files.
@@ -114,37 +98,12 @@ public class ItemXMLWriter
   /**
    * Write an item to the given XML stream.
    * @param hd XML output stream.
-   * @param instance Item to write.
-   * @throws Exception If an error occurs.
-   */
-  public void writeItemInstance(TransformerHandler hd, ItemInstance<? extends Item> instance) throws Exception
-  {
-    write(hd,instance,instance.getReference());
-  }
-
-  /**
-   * Write an item to the given XML stream.
-   * @param hd XML output stream.
    * @param item Item to write.
    * @throws Exception If an error occurs.
    */
   public void write(TransformerHandler hd, Item item) throws Exception
   {
-    write(hd,null,item);
-  }
-
-  /**
-   * Write an item to the given XML stream.
-   * @param hd XML output stream.
-   * @param item Item to write.
-   * @param instance Write an instance or a model.
-   * @throws Exception If an error occurs.
-   */
-  private void write(TransformerHandler hd, ItemInstance<? extends Item> instance, Item item) throws Exception
-  {
     AttributesImpl itemAttrs=new AttributesImpl();
-
-    boolean isInstance=(instance!=null);
 
     // Identifier
     int id=item.getIdentifier();
@@ -152,14 +111,11 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_KEY_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
-    if (!isInstance)
+    // Set identifier
+    String setIdentifier=item.getSetKey();
+    if (setIdentifier!=null)
     {
-      // Set identifier
-      String setIdentifier=item.getSetKey();
-      if (setIdentifier!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SET_ID_ATTR,XmlWriter.CDATA,setIdentifier);
-      }
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SET_ID_ATTR,XmlWriter.CDATA,setIdentifier);
     }
     // Name
     String name=item.getName();
@@ -167,276 +123,178 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,name);
     }
-    if (!isInstance)
+    // Icon
+    String icon=item.getIcon();
+    if (icon!=null)
     {
-      // Icon
-      String icon=item.getIcon();
-      if (icon!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ICON_ATTR,XmlWriter.CDATA,icon);
-      }
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ICON_ATTR,XmlWriter.CDATA,icon);
     }
     // Item level
-    Integer itemLevel=(isInstance?instance.getItemLevel():item.getItemLevel());
+    Integer itemLevel=item.getItemLevel();
     if ((itemLevel!=null) && (itemLevel.intValue()>0))
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(itemLevel.intValue()));
     }
     // Item level offset
-    if (!isInstance)
+    Integer itemLevelOffset=item.getItemLevelOffset();
+    if ((itemLevelOffset!=null) && (itemLevelOffset.intValue()>0))
     {
-      Integer itemLevelOffset=item.getItemLevelOffset();
-      if ((itemLevelOffset!=null) && (itemLevelOffset.intValue()>0))
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_OFFSET_ATTR,XmlWriter.CDATA,String.valueOf(itemLevelOffset.intValue()));
-      }
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_LEVEL_OFFSET_ATTR,XmlWriter.CDATA,String.valueOf(itemLevelOffset.intValue()));
     }
+    // Category
     ItemCategory category=item.getCategory();
-    if (!isInstance)
+    // Slot
+    EquipmentLocation slot=item.getEquipmentLocation();
+    if (slot!=null)
     {
-      // Slot
-      EquipmentLocation slot=item.getEquipmentLocation();
-      if (slot!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SLOT_ATTR,XmlWriter.CDATA,String.valueOf(slot.getKey()));
-      }
-      // Category
-      if (category!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CATEGORY_ATTR,XmlWriter.CDATA,category.name());
-      }
-      // Item class
-      ItemClass itemClass=item.getItemClass();
-      if (itemClass!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CLASS_ATTR,XmlWriter.CDATA,String.valueOf(itemClass.getCode()));
-      }
-      // Equipment category
-      EquipmentCategory equipmentCategory=item.getEquipmentCategory();
-      if (equipmentCategory!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_EQUIPMENT_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(equipmentCategory.getCode()));
-      }
-      // Binding
-      ItemBinding binding=item.getBinding();
-      if (binding!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BINDING_ATTR,XmlWriter.CDATA,binding.getKey());
-      }
-      // Unique
-      boolean unique=item.isUnique();
-      if (unique)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_UNIQUE_ATTR,XmlWriter.CDATA,String.valueOf(unique));
-      }
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SLOT_ATTR,XmlWriter.CDATA,String.valueOf(slot.getKey()));
+    }
+    // Category
+    if (category!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CATEGORY_ATTR,XmlWriter.CDATA,category.name());
+    }
+    // Item class
+    ItemClass itemClass=item.getItemClass();
+    if (itemClass!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CLASS_ATTR,XmlWriter.CDATA,String.valueOf(itemClass.getCode()));
+    }
+    // Equipment category
+    EquipmentCategory equipmentCategory=item.getEquipmentCategory();
+    if (equipmentCategory!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_EQUIPMENT_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(equipmentCategory.getCode()));
+    }
+    // Binding
+    ItemBinding binding=item.getBinding();
+    if (binding!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BINDING_ATTR,XmlWriter.CDATA,binding.getKey());
+    }
+    // Unique
+    boolean unique=item.isUnique();
+    if (unique)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_UNIQUE_ATTR,XmlWriter.CDATA,String.valueOf(unique));
     }
     // Durability
-    Integer durability=(isInstance?instance.getDurability():item.getDurability());
+    Integer durability=item.getDurability();
     if (durability!=null)
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DURABILITY_ATTR,XmlWriter.CDATA,String.valueOf(durability.intValue()));
     }
-    if (!isInstance)
+    // Sturdiness
+    ItemSturdiness sturdiness=item.getSturdiness();
+    if (sturdiness!=null)
     {
-      // Sturdiness
-      ItemSturdiness sturdiness=item.getSturdiness();
-      if (sturdiness!=null)
+      String sturdinessKey=sturdiness.getKey();
+      if (sturdinessKey!=null)
       {
-        String sturdinessKey=sturdiness.getKey();
-        if (sturdinessKey!=null)
-        {
-          itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STURDINESS_ATTR,XmlWriter.CDATA,sturdinessKey);
-        }
-      }
-      // Quality
-      ItemQuality quality=item.getQuality();
-      if (quality!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_QUALITY_ATTR,XmlWriter.CDATA,quality.getKey());
+        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STURDINESS_ATTR,XmlWriter.CDATA,sturdinessKey);
       }
     }
-    if (isInstance)
+    // Quality
+    ItemQuality quality=item.getQuality();
+    if (quality!=null)
     {
-      // Minimum level
-      Integer minLevel=(isInstance?instance.getMinLevel():item.getMinLevel());
-      if (minLevel!=null)
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_QUALITY_ATTR,XmlWriter.CDATA,quality.getKey());
+    }
+    // Usage requirements
+    UsageRequirementsXMLWriter.write(itemAttrs,item.getUsageRequirements());
+    // Description
+    String description=item.getDescription();
+    if ((description!=null) && (description.length()>0))
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+    }
+    // Value table ID
+    QualityBasedValueLookupTable valueTable=item.getValueTable();
+    if (valueTable!=null)
+    {
+      int valueTableId=valueTable.getIdentifier();
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_VALUE_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(valueTableId));
+    }
+    // Stack max
+    Integer stackMax=item.getStackMax();
+    if (stackMax!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STACK_MAX_ATTR,XmlWriter.CDATA,String.valueOf(stackMax.intValue()));
+    }
+    // Essence slot count
+    int nbEssenceSlots=item.getEssenceSlots();
+    if (nbEssenceSlots>0)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR,XmlWriter.CDATA,String.valueOf(nbEssenceSlots));
+    }
+    // Armor specific:
+    if (item instanceof Armour)
+    {
+      Armour armour=(Armour)item;
+      ArmourType type=armour.getArmourType();
+      if (type!=null)
       {
-        itemAttrs.addAttribute("","",UsageRequirementXMLConstants.MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel.intValue()));
+        itemAttrs.addAttribute("","",ItemXMLConstants.ARMOUR_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
       }
     }
-    else
+    // Weapon specific:
+    else if (item instanceof Weapon)
     {
-      UsageRequirementsXMLWriter.write(itemAttrs,item.getUsageRequirements());
-    }
-    if (!isInstance)
-    {
-      // Description
-      String description=item.getDescription();
-      if ((description!=null) && (description.length()>0))
+      Weapon weapon=(Weapon)item;
+      float dps=weapon.getDPS();
+      itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,XmlWriter.CDATA,String.valueOf(dps));
+      int minDamage=weapon.getMinDamage();
+      itemAttrs.addAttribute("","",ItemXMLConstants.MIN_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(minDamage));
+      int maxDamage=weapon.getMaxDamage();
+      itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamage));
+      DamageType type=weapon.getDamageType();
+      if (type!=null)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+        itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
       }
-      // Value table ID
-      QualityBasedValueLookupTable valueTable=item.getValueTable();
-      if (valueTable!=null)
+      WeaponType weaponType=weapon.getWeaponType();
+      if (weaponType!=null)
       {
-        int valueTableId=valueTable.getIdentifier();
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_VALUE_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(valueTableId));
-      }
-      // Stack max
-      Integer stackMax=item.getStackMax();
-      if (stackMax!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_STACK_MAX_ATTR,XmlWriter.CDATA,String.valueOf(stackMax.intValue()));
-      }
-      // Essence slot count
-      int nbEssenceSlots=item.getEssenceSlots();
-      if (nbEssenceSlots>0)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR,XmlWriter.CDATA,String.valueOf(nbEssenceSlots));
-      }
-      // Armor specific:
-      if (item instanceof Armour)
-      {
-        Armour armour=(Armour)item;
-        ArmourType type=armour.getArmourType();
-        if (type!=null)
-        {
-          itemAttrs.addAttribute("","",ItemXMLConstants.ARMOUR_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
-        }
-        if (instance instanceof ArmourInstance)
-        {
-          // Nothing!
-        }
-      }
-      // Weapon specific:
-      else if (item instanceof Weapon)
-      {
-        Weapon weapon=(Weapon)item;
-        float dps=weapon.getDPS();
-        itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,XmlWriter.CDATA,String.valueOf(dps));
-        int minDamage=weapon.getMinDamage();
-        itemAttrs.addAttribute("","",ItemXMLConstants.MIN_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(minDamage));
-        int maxDamage=weapon.getMaxDamage();
-        itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamage));
-        DamageType type=weapon.getDamageType();
-        if (type!=null)
-        {
-          itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
-        }
-        WeaponType weaponType=weapon.getWeaponType();
-        if (weaponType!=null)
-        {
-          itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,XmlWriter.CDATA,weaponType.getKey());
-        }
-        if (instance instanceof WeaponInstance)
-        {
-          // Nothing!
-        }
-      }
-      if (item instanceof Legendary)
-      {
-        Legendary legendary=(Legendary)item;
-        LegendaryAttrs attrs=legendary.getLegendaryAttrs();
-        // Main legacy ID
-        int mainLegacyId=attrs.getMainLegacyId();
-        if (mainLegacyId!=0)
-        {
-          itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyId));
-        }
-        // Main legacy base rank
-        int mainLegacyBaseRank=attrs.getMainLegacyBaseRank();
-        if (mainLegacyBaseRank!=0)
-        {
-          itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_BASE_RANK_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyBaseRank));
-        }
-      }
-      if (item instanceof CarryAll)
-      {
-        CarryAll carryAll=(CarryAll)item;
-        // Max items
-        int maxItems=carryAll.getMaxItems();
-        itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_MAX_ITEMS_ATTR,XmlWriter.CDATA,String.valueOf(maxItems));
-        // Item stack max
-        int itemStackMax=carryAll.getItemStackMax();
-        itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_ITEM_STACK_MAX_ATTR,XmlWriter.CDATA,String.valueOf(itemStackMax));
+        itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,XmlWriter.CDATA,weaponType.getKey());
       }
     }
-    if (isInstance)
+    if (item instanceof Legendary)
     {
-      // Instance ID
-      InternalGameId instanceId=instance.getInstanceId();
-      if (instanceId!=null)
+      Legendary legendary=(Legendary)item;
+      LegendaryAttrs attrs=legendary.getLegendaryAttrs();
+      // Main legacy ID
+      int mainLegacyId=attrs.getMainLegacyId();
+      if (mainLegacyId!=0)
       {
-        String instanceIdStr=instanceId.asPersistedString();
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_INSTANCE_ID_ATTR,XmlWriter.CDATA,instanceIdStr);
+        itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyId));
       }
-      // Birth name
-      String birthName=instance.getBirthName();
-      if (birthName!=null)
+      // Main legacy base rank
+      int mainLegacyBaseRank=attrs.getMainLegacyBaseRank();
+      if (mainLegacyBaseRank!=0)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BIRTH_NAME_ATTR,XmlWriter.CDATA,birthName);
+        itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_BASE_RANK_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyBaseRank));
       }
-      // Crafter name
-      String crafterName=instance.getCrafterName();
-      if (crafterName!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CRAFTER_NAME_ATTR,XmlWriter.CDATA,crafterName);
-      }
-      // Color
-      ColorDescription color=instance.getColor();
-      if (color!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_COLOR_CODE_ATTR,XmlWriter.CDATA,String.valueOf(color.getCode()));
-      }
-      // Bound to
-      InternalGameId boundTo=instance.getBoundTo();
-      if (boundTo!=null)
-      {
-        String boundToStr=boundTo.asPersistedString();
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_BOUND_TO_ATTR,XmlWriter.CDATA,boundToStr);
-      }
-      // Time
-      Long time=instance.getTime();
-      if (time!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_TIME_ATTR,XmlWriter.CDATA,time.toString());
-      }
+    }
+    if (item instanceof CarryAll)
+    {
+      CarryAll carryAll=(CarryAll)item;
+      // Max items
+      int maxItems=carryAll.getMaxItems();
+      itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_MAX_ITEMS_ATTR,XmlWriter.CDATA,String.valueOf(maxItems));
+      // Item stack max
+      int itemStackMax=carryAll.getItemStackMax();
+      itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_ITEM_STACK_MAX_ATTR,XmlWriter.CDATA,String.valueOf(itemStackMax));
     }
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
 
-    // Handle legendary instances
-    if (instance instanceof LegendaryInstance)
-    {
-      LegendaryInstanceAttrs legAttrs=((LegendaryInstance)instance).getLegendaryAttributes();
-      LegendaryInstanceAttrsXMLWriter.write(hd,legAttrs);
-    }
-    if (instance instanceof LegendaryInstance2)
-    {
-      LegendaryInstanceAttrs2 legAttrs=((LegendaryInstance2)instance).getLegendaryAttributes();
-      LegendaryInstance2AttrsXMLWriter.write(hd,legAttrs);
-    }
-    // Money
-    if (isInstance)
-    {
-      MoneyXMLWriter.writeMoney(hd,instance.getValue());
-    }
-
     // Properties
     Map<String,String> properties=item.getProperties();
-    if (isInstance)
-    {
-      Map<String,String> allProperties=new HashMap<String,String>(properties);
-      allProperties.putAll(instance.getProperties());
-      properties=allProperties;
-    }
     List<String> propertyNames=new ArrayList<String>(properties.keySet());
     Collections.sort(propertyNames);
     for(String propertyName : propertyNames)
     {
       // Write reference item properties for items, and write instance properties for item instances...
-      if ((!isInstance && ItemPropertyNames.isItemReferenceProperty(propertyName)) ||
-          (isInstance && ItemPropertyNames.isItemInstanceProperty(propertyName)))
+      if (ItemPropertyNames.isItemReferenceProperty(propertyName))
       {
         String propertyValue=properties.get(propertyName);
         AttributesImpl attrs=new AttributesImpl();
@@ -447,52 +305,15 @@ public class ItemXMLWriter
       }
     }
     // Stats
-    if (!isInstance)
+    StatsProvider statsProvider=item.getStatsProvider();
+    if (statsProvider!=null)
     {
-      StatsProvider statsProvider=item.getStatsProvider();
-      if (statsProvider!=null)
-      {
-        BasicStatsSet stats=item.getStats();
-        StatsProviderXMLWriter.writeXml(hd,ItemXMLConstants.STATS_TAG,statsProvider,stats);
-      }
-    }
-    else
-    {
-      StatsManagerXMLWriter.write(hd,instance.getStatsManager());
+      BasicStatsSet stats=item.getStats();
+      StatsProviderXMLWriter.writeXml(hd,ItemXMLConstants.STATS_TAG,statsProvider,stats);
     }
 
-    // Essences
-    if (isInstance)
-    {
-      EssencesSet essences=instance.getEssences();
-      if (essences!=null)
-      {
-        AttributesImpl attrs=new AttributesImpl();
-        hd.startElement("","",ItemXMLConstants.ESSENCES_TAG,attrs);
-        int nbEssences=essences.getSize();
-        for(int i=0;i<nbEssences;i++)
-        {
-          Item essence=essences.getEssence(i);
-          if (essence!=null)
-          {
-            int essenceId=essence.getIdentifier();
-            String essenceName=essence.getName();
-            AttributesImpl essenceAttrs=new AttributesImpl();
-            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(i));
-            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_ID_ATTR,XmlWriter.CDATA,String.valueOf(essenceId));
-            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_NAME_ATTR,XmlWriter.CDATA,essenceName);
-            hd.startElement("","",ItemXMLConstants.ESSENCE_TAG,essenceAttrs);
-            hd.endElement("","",ItemXMLConstants.ESSENCE_TAG);
-          }
-        }
-        hd.endElement("","",ItemXMLConstants.ESSENCES_TAG);
-      }
-    }
     // Details
-    if (!isInstance)
-    {
-      _detailsWriter.writeDetails(hd,item);
-    }
+    _detailsWriter.writeDetails(hd,item);
     hd.endElement("","",ItemXMLConstants.ITEM_TAG);
   }
 }

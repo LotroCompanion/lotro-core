@@ -15,7 +15,7 @@ import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.io.xml.ItemXMLWriter;
+import delta.games.lotro.lore.items.io.xml.ItemInstanceXMLWriter;
 
 /**
  * Writes a vault to an XML file.
@@ -78,7 +78,7 @@ public class VaultsXMLWriter
     attrs.addAttribute("","",VaultsXMLConstants.CHEST_NAME_ATTR,XmlWriter.CDATA,chestName);
     hd.startElement("","",VaultsXMLConstants.CHEST_TAG,attrs);
     // Write contents
-    ItemXMLWriter writer=new ItemXMLWriter();
+    ItemInstanceXMLWriter writer=new ItemInstanceXMLWriter();
     List<CountedItem<ItemInstance<? extends Item>>> countedItemInstances=chest.getAllItemInstances();
     for(CountedItem<ItemInstance<? extends Item>> countedItemInstance : countedItemInstances)
     {
