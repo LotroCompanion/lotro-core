@@ -123,7 +123,7 @@ public class RelicXMLParser
     Element statsTag=DOMParsingTools.getChildTagByName(root,BasicStatsSetXMLConstants.STATS_TAG);
     if (statsTag!=null)
     {
-      BasicStatsSet stats=BasicStatsSetXMLParser.parseStats(statsTag);
+      BasicStatsSet stats=BasicStatsSetXMLParser.parseStats(statsTag,_i18n);
       relic.getStats().addStats(stats);
     }
     return relic;
