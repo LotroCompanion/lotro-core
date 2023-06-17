@@ -145,7 +145,7 @@ public class ItemsSetXMLWriter
       hd.startElement("","",ItemsSetXMLConstants.BONUS_TAG,attrs);
       // Stats
       StatsProvider statsProvider=bonus.getStatsProvider();
-      StatsProviderXMLWriter.writeXml(hd,null,statsProvider,null);
+      StatsProviderXMLWriter.writeXml(hd,statsProvider);
       hd.endElement("","",ItemsSetXMLConstants.BONUS_TAG);
     }
     hd.endElement("","",ItemsSetXMLConstants.ITEMS_SET_TAG);

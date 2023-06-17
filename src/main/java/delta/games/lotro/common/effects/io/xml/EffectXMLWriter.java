@@ -82,7 +82,7 @@ public class EffectXMLWriter
     StatsProvider statsProvider=effect.getStatsProvider();
     if (statsProvider!=null)
     {
-      StatsProviderXMLWriter.writeXml(hd,null,statsProvider,null);
+      StatsProviderXMLWriter.writeXml(hd,statsProvider);
     }
     hd.endElement("","",EffectXMLConstants.EFFECT_TAG);
   }

@@ -58,7 +58,7 @@ public class ConsumableXMLWriter
 
     hd.startElement("","",ConsumableXMLConstants.CONSUMABLE_TAG,attrs);
     // Stats
-    StatsProviderXMLWriter.writeXml(hd,null,consumable.getProvider(),null);
+    StatsProviderXMLWriter.writeXml(hd,consumable.getProvider());
     hd.endElement("","",ConsumableXMLConstants.CONSUMABLE_TAG);
   }
 }

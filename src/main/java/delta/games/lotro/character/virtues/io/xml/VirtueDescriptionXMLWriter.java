@@ -84,9 +84,13 @@ public class VirtueDescriptionXMLWriter
 
     hd.startElement("","",VirtueDescriptionXMLConstants.VIRTUE_TAG,attrs);
     // Active stats
-    StatsProviderXMLWriter.writeXml(hd,VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG,virtue.getStatsProvider(),null);
+    hd.startElement("","",VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG,new AttributesImpl());
+    StatsProviderXMLWriter.writeXml(hd,virtue.getStatsProvider());
+    hd.endElement("","",VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG);
     // Passive stats
-    StatsProviderXMLWriter.writeXml(hd,VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG,virtue.getPassiveStatsProvider(),null);
+    hd.startElement("","",VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG,new AttributesImpl());
+    StatsProviderXMLWriter.writeXml(hd,virtue.getPassiveStatsProvider());
+    hd.endElement("","",VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG);
     // XP table
     List<Integer> tiers=virtue.getTiers();
     for(Integer tier : tiers)

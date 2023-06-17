@@ -169,7 +169,7 @@ public class LegacyXMLWriter
     StatsProvider statsProvider=legacy.getStatsProvider();
     if (statsProvider!=null)
     {
-      StatsProviderXMLWriter.writeXml(hd,null,statsProvider,null);
+      StatsProviderXMLWriter.writeXml(hd,statsProvider);
     }
     hd.endElement("","",LegacyXMLConstants.LEGACY_TAG);
   }

@@ -34,17 +34,23 @@ public class StatsProviderXMLWriter
   /**
    * Write a stats provider to a XML document.
    * @param hd Output.
-   * @param tag Wrapper tag to use, may be <code>null</code>.
+   * @param statsProvider Data to write.
+   * @throws SAXException If an error occurs.
+   */
+  public static void writeXml(TransformerHandler hd, StatsProvider statsProvider) throws SAXException
+  {
+    writeXml(hd,statsProvider,null);
+  }
+
+  /**
+   * Write a stats provider to a XML document.
+   * @param hd Output.
    * @param statsProvider Data to write.
    * @param stats Stats values to write, may be <code>null</code>.
    * @throws SAXException If an error occurs.
    */
-  public static void writeXml(TransformerHandler hd, String tag, StatsProvider statsProvider, BasicStatsSet stats) throws SAXException
+  public static void writeXml(TransformerHandler hd, StatsProvider statsProvider, BasicStatsSet stats) throws SAXException
   {
-    if (tag!=null)
-    {
-      hd.startElement("","",tag,new AttributesImpl());
-    }
     int nbStats=statsProvider.getNumberOfStatProviders();
     for(int i=0;i<nbStats;i++)
     {
@@ -64,10 +70,6 @@ public class StatsProviderXMLWriter
         hd.startElement("","",StatsProviderXMLConstants.SPECIAL_EFFECT_TAG,attrs);
         hd.endElement("","",StatsProviderXMLConstants.SPECIAL_EFFECT_TAG);
       }
-    }
-    if (tag!=null)
-    {
-      hd.endElement("","",tag);
     }
   }
 

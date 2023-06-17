@@ -115,7 +115,7 @@ public class TraitDescriptionXMLWriter
 
     hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_TAG,attrs);
     // Stats
-    StatsProviderXMLWriter.writeXml(hd,null,trait.getStatsProvider(),null);
+    StatsProviderXMLWriter.writeXml(hd,trait.getStatsProvider());
     // Skills
     for(SkillDescription skill : trait.getSkills())
     {

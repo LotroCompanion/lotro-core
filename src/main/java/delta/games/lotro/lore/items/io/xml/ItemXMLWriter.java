@@ -75,7 +75,7 @@ public class ItemXMLWriter
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean writeItems(File outFile, final List<Item> items, String encoding)
+  private boolean writeItems(File outFile, final List<Item> items, String encoding)
   {
     XmlWriter writer=new XmlWriter()
     {
@@ -101,7 +101,7 @@ public class ItemXMLWriter
    * @param item Item to write.
    * @throws Exception If an error occurs.
    */
-  public void write(TransformerHandler hd, Item item) throws Exception
+  private void write(TransformerHandler hd, Item item) throws Exception
   {
     AttributesImpl itemAttrs=new AttributesImpl();
 
@@ -309,7 +309,9 @@ public class ItemXMLWriter
     if (statsProvider!=null)
     {
       BasicStatsSet stats=item.getStats();
-      StatsProviderXMLWriter.writeXml(hd,ItemXMLConstants.STATS_TAG,statsProvider,stats);
+      hd.startElement("","",ItemXMLConstants.STATS_TAG,new AttributesImpl());
+      StatsProviderXMLWriter.writeXml(hd,statsProvider,stats);
+      hd.endElement("","",ItemXMLConstants.STATS_TAG);
     }
 
     // Details
