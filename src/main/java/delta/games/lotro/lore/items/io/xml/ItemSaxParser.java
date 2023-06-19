@@ -43,6 +43,7 @@ import delta.games.lotro.lore.items.ItemCategory;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
+import delta.games.lotro.lore.items.ItemUtils;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
@@ -52,7 +53,6 @@ import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary2.Legendary2;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttributes2Manager;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttrs2;
-import delta.games.lotro.utils.NumericUtils;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.maths.Progression;
@@ -93,7 +93,6 @@ public final class ItemSaxParser extends DefaultHandler
     try
     {
       ItemSaxParser handler=new ItemSaxParser();
-
       // Use the default (non-validating) parser
       SAXParserFactory factory=SAXParserFactory.newInstance();
       SAXParser saxParser=factory.newSAXParser();
@@ -316,24 +315,18 @@ public final class ItemSaxParser extends DefaultHandler
       // Stat name
       String statName=attributes.getValue(BasicStatsSetXMLConstants.STAT_NAME_ATTR);
       StatDescription stat=StatsRegistry.getInstance().getByKey(statName);
-      // Stat operator
-      StatOperator operator=getOperator(attributes.getValue(BasicStatsSetXMLConstants.STAT_OPERATOR_ATTR));
-      // Stat value
-      String statValue=attributes.getValue(BasicStatsSetXMLConstants.STAT_VALUE_ATTR);
-      Number value=NumericUtils.fromPersistenceString(statValue);
-      // Description override
-      String descriptionOverride=attributes.getValue(BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR);
-      descriptionOverride=I18nRuntimeUtils.getLabel(_i18n,descriptionOverride);
-      _currentItem.getStats().setStat(stat,operator,value,descriptionOverride);
       // Stat provider
       StatProvider statProvider=parseStatProvider(stat,attributes);
       if (statProvider!=null)
       {
-        StatsProvider statsProvider=_currentItem.getStatsProvider();
         // Stat operator
+        StatOperator operator=getOperator(attributes.getValue(BasicStatsSetXMLConstants.STAT_OPERATOR_ATTR));
         statProvider.setOperator(operator);
-        // Description
+        // Description override
+        String descriptionOverride=attributes.getValue(BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR);
+        descriptionOverride=I18nRuntimeUtils.getLabel(_i18n,descriptionOverride);
         statProvider.setDescriptionOverride(descriptionOverride);
+        StatsProvider statsProvider=_currentItem.getStatsProvider();
         if (statsProvider==null)
         {
           statsProvider=new StatsProvider();
@@ -437,14 +430,15 @@ public final class ItemSaxParser extends DefaultHandler
   }
 
   /**
-   * Identify end of element.
+   * Handle end of element.
    */
-
   @Override
   public void endElement(String uri, String localName, String qualifiedName)
   {
     if ("item".equals(qualifiedName))
     {
+      ItemUtils.injectGenericEffects(_currentItem);
+      _currentItem.setStatsFromStatsProvider();
       _parsedItems.add(_currentItem);
       _currentItem=null;
     }

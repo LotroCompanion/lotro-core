@@ -15,7 +15,11 @@ public class GenericItemEffectsXMLConstants
    */
   public static final String CATEGORY_TAG="category";
   /**
-   * Tag 'category', attribute 'key'.
+   * Tag 'category', attribute 'code'.
    */
-  public static final String CATEGORY_CODE_ATTR="key";
+  public static final String CATEGORY_CODE_ATTR="code";
+  /**
+   * Tag 'category', attribute 'label'.
+   */
+  public static final String CATEGORY_LABEL_ATTR="label";
 }

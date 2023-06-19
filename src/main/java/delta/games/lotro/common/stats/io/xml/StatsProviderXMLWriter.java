@@ -9,7 +9,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
-import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
@@ -20,7 +19,6 @@ import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
-import delta.games.lotro.utils.NumericUtils;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -39,25 +37,11 @@ public class StatsProviderXMLWriter
    */
   public static void writeXml(TransformerHandler hd, StatsProvider statsProvider) throws SAXException
   {
-    writeXml(hd,statsProvider,null);
-  }
-
-  /**
-   * Write a stats provider to a XML document.
-   * @param hd Output.
-   * @param statsProvider Data to write.
-   * @param stats Stats values to write, may be <code>null</code>.
-   * @throws SAXException If an error occurs.
-   */
-  public static void writeXml(TransformerHandler hd, StatsProvider statsProvider, BasicStatsSet stats) throws SAXException
-  {
     int nbStats=statsProvider.getNumberOfStatProviders();
     for(int i=0;i<nbStats;i++)
     {
       StatProvider provider=statsProvider.getStatProvider(i);
-      StatDescription stat=provider.getStat();
-      Number statValue=(stats!=null)?stats.getStat(stat):null;
-      writeProvider(hd,provider,statValue);
+      writeProvider(hd,provider);
     }
     List<SpecialEffect> specialEffects=statsProvider.getSpecialEffects();
     if (specialEffects.size()>0)
@@ -77,20 +61,14 @@ public class StatsProviderXMLWriter
    * Write a single stat provider.
    * @param hd Output.
    * @param provider Provider to write.
-   * @param statValue Stat value to write, may be <code>null</code>.
    * @throws SAXException If an error occurs.
    */
-  private static void writeProvider(TransformerHandler hd, StatProvider provider, Number statValue) throws SAXException
+  private static void writeProvider(TransformerHandler hd, StatProvider provider) throws SAXException
   {
     StatDescription stat=provider.getStat();
     AttributesImpl attrs=new AttributesImpl();
     // Stat ID
     attrs.addAttribute("","",StatsProviderXMLConstants.STAT_NAME_ATTR,XmlWriter.CDATA,stat.getPersistenceKey());
-    if (statValue!=null)
-    {
-      String valueStr=NumericUtils.toPersistenceString(statValue);
-      attrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_VALUE_ATTR,XmlWriter.CDATA,valueStr);
-    }
     // Stat operator
     StatOperator operator=provider.getOperator();
     if ((operator!=null) && (operator!=StatOperator.ADD))

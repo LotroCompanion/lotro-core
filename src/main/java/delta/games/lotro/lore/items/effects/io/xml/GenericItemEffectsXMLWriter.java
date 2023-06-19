@@ -61,6 +61,8 @@ public class GenericItemEffectsXMLWriter
     EquipmentCategory category=itemEffects.getCategory();
     int code=category.getCode();
     attrs.addAttribute("","",GenericItemEffectsXMLConstants.CATEGORY_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
+    String label=category.getLabel();
+    attrs.addAttribute("","",GenericItemEffectsXMLConstants.CATEGORY_LABEL_ATTR,XmlWriter.CDATA,label);
     hd.startElement("","",GenericItemEffectsXMLConstants.CATEGORY_TAG,attrs);
     // Effects
     for(Effect effect : itemEffects.getEffects())

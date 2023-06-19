@@ -13,7 +13,6 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
@@ -308,9 +307,8 @@ public class ItemXMLWriter
     StatsProvider statsProvider=item.getStatsProvider();
     if (statsProvider!=null)
     {
-      BasicStatsSet stats=item.getStats();
       hd.startElement("","",ItemXMLConstants.STATS_TAG,new AttributesImpl());
-      StatsProviderXMLWriter.writeXml(hd,statsProvider,stats);
+      StatsProviderXMLWriter.writeXml(hd,statsProvider);
       hd.endElement("","",ItemXMLConstants.STATS_TAG);
     }
 

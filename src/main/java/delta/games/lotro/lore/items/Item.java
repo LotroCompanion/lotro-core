@@ -384,6 +384,21 @@ public class Item implements Interactable,ItemProvider
   }
 
   /**
+   * Set the item stats using the stats provider.
+   */
+  public void setStatsFromStatsProvider()
+  {
+    Integer statsLevel=getItemLevelForStats();
+    if (statsLevel!=null)
+    {
+      if (_statsProvider!=null)
+      {
+        _stats=_statsProvider.getStats(1,statsLevel.intValue());
+      }
+    }
+  }
+
+  /**
    * Get the stats provider.
    * @return the stats provider (may be <code>null</code>).
    */
