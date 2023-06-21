@@ -23,6 +23,10 @@ public class EffectXMLConstants
    */
   public static final String EFFECT_NAME_ATTR="name";
   /**
+   * Tag 'effect', attribute 'description'.
+   */
+  public static final String EFFECT_DESCRIPTION_ATTR="description";
+  /**
    * Tag 'effect', attribute 'iconId'.
    */
   public static final String EFFECT_ICON_ID_ATTR="iconId";

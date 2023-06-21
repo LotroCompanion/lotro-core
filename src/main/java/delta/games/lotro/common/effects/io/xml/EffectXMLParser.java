@@ -12,6 +12,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for effect descriptions stored in XML.
@@ -65,6 +66,10 @@ public class EffectXMLParser
       name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_NAME_ATTR,null);
     }
     effect.setName(name);
+    // Description
+    String description=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_DESCRIPTION_ATTR,null);
+    description=I18nRuntimeUtils.getLabel(labelsMgr,description);
+    effect.setDescription(description);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_ICON_ID_ATTR,-1);
     effect.setIconId((iconId!=-1)?Integer.valueOf(iconId):null);

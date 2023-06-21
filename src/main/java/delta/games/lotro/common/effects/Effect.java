@@ -14,6 +14,8 @@ public class Effect implements Identifiable,Named
   private int _id;
   // Name
   private String _name;
+  // Description
+  private String _description;
   // Duration
   private Float _duration;
   // Icon
@@ -26,7 +28,7 @@ public class Effect implements Identifiable,Named
    */
   public Effect()
   {
-    // Nothing
+    _description="";
   }
 
   /**
@@ -63,6 +65,28 @@ public class Effect implements Identifiable,Named
   public void setName(String name)
   {
     _name=name;
+  }
+
+  /**
+   * Get the effect description.
+   * @return a description (may be empty but not <code>null</code>).
+   */
+  public String getDescription()
+  {
+    return _description;
+  }
+
+  /**
+   * Set the effect description.
+   * @param description Description to set.
+   */
+  public void setDescription(String description)
+  {
+    if (description==null)
+    {
+      description="";
+    }
+    _description=description;
   }
 
   /**

@@ -77,6 +77,12 @@ public class EffectXMLWriter
     {
       attrs.addAttribute("","",EffectXMLConstants.EFFECT_DURATION_ATTR,XmlWriter.CDATA,duration.toString());
     }
+    // Description
+    String description=effect.getDescription();
+    if (description.length()>0)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.EFFECT_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+    }
     hd.startElement("","",EffectXMLConstants.EFFECT_TAG,attrs);
     // Stats
     StatsProvider statsProvider=effect.getStatsProvider();
