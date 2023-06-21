@@ -11,6 +11,23 @@ public class I18nRuntimeUtils
   /**
    * Get an internationalized label.
    * @param mgr Labels manager.
+   * @param id Identifier.
+   * @return the i18ned value.
+   */
+  public static String getLabel(SingleLocaleLabelsManager mgr, int id)
+  {
+    if (mgr!=null)
+    {
+      String key=String.valueOf(id);
+      String value=mgr.getLabel(key);
+      return value;
+    }
+    return null;
+  }
+
+  /**
+   * Get an internationalized label.
+   * @param mgr Labels manager.
    * @param input Input (label or i18n key).
    * @return the i18ned value.
    */

@@ -69,7 +69,7 @@ public class NPCsXMLParser
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,NPCsXMLConstants.ID_ATTR,0);
     // Name
-    String name=_i18n.getLabel(String.valueOf(id));
+    String name=I18nRuntimeUtils.getLabel(_i18n,id);
     NpcDescription ret=new NpcDescription(id,name);
     // Title
     String title=DOMParsingTools.getStringAttribute(attrs,NPCsXMLConstants.TITLE_ATTR,"");
