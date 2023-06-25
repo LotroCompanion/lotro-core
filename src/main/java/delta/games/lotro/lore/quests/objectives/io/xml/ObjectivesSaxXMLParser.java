@@ -10,6 +10,7 @@ import delta.games.lotro.common.Interactable;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.mobs.MobsManager;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
@@ -281,11 +282,9 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     int mobId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.MONSTER_DIE_MOB_ID_ATTR,0);
     if (mobId>0)
     {
-      condition.setMobId(Integer.valueOf(mobId));
+      MobDescription mob=MobsManager.getInstance().getMobById(mobId);
+      condition.setMob(mob);
     }
-    // Mob name
-    String mobName=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.MONSTER_DIE_MOB_NAME_ATTR,null);
-    condition.setMobName(mobName);
     return condition;
   }
 

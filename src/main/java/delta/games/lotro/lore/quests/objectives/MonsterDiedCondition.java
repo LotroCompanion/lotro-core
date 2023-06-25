@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.lore.agents.EntityClassification;
+import delta.games.lotro.lore.agents.mobs.MobDescription;
 
 /**
  * Monster died condition.
@@ -11,8 +12,7 @@ import delta.games.lotro.lore.agents.EntityClassification;
  */
 public class MonsterDiedCondition extends ObjectiveCondition
 {
-  private Integer _mobId;
-  private String _mobName;
+  private MobDescription _mob;
   private List<MobSelection> _mobSelections;
 
   /**
@@ -31,21 +31,21 @@ public class MonsterDiedCondition extends ObjectiveCondition
   }
 
   /**
-   * Get the mob identifier.
-   * @return a mob identifier or <code>null</code>.
+   * Get the mob.
+   * @return a mob or <code>null</code>.
    */
-  public Integer getMobId()
+  public MobDescription getMob()
   {
-    return _mobId;
+    return _mob;
   }
 
   /**
-   * Set the mob identifier.
-   * @param mobId the identifier to set. May be <code>null</code>.
+   * Set the mob.
+   * @param mob the mob to set. May be <code>null</code>.
    */
-  public void setMobId(Integer mobId)
+  public void setMob(MobDescription mob)
   {
-    _mobId=mobId;
+    _mob=mob;
   }
 
   /**
@@ -54,16 +54,7 @@ public class MonsterDiedCondition extends ObjectiveCondition
    */
   public String getMobName()
   {
-    return _mobName;
-  }
-
-  /**
-   * Set the mob name.
-   * @param mobName Name to set. May be <code>null</code>.
-   */
-  public void setMobName(String mobName)
-  {
-    _mobName=mobName;
+    return _mob!=null?_mob.getName():null;
   }
 
   /**
@@ -132,7 +123,7 @@ public class MonsterDiedCondition extends ObjectiveCondition
   {
     StringBuilder sb=new StringBuilder();
     sb.append("#").append(getIndex());
-    sb.append(": ").append("MonsterDiedCondition: "+_mobId+", name="+_mobName+", selections="+_mobSelections);
+    sb.append(": ").append("MonsterDiedCondition: mob="+_mob+", selections="+_mobSelections);
     return sb.toString();
   }
 }

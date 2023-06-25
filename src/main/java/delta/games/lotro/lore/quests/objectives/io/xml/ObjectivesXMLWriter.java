@@ -277,16 +277,15 @@ public class ObjectivesXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(attrs,condition,false);
-    // Mob ID
-    Integer mobId=condition.getMobId();
-    if (mobId!=null)
+    // Mob
+    MobDescription mob=condition.getMob();
+    if (mob!=null)
     {
-      attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_MOB_ID_ATTR,XmlWriter.CDATA,mobId.toString());
-    }
-    // Mob Name
-    String mobName=condition.getMobName();
-    if (mobName!=null)
-    {
+      // - ID
+      int mobId=mob.getIdentifier();
+      attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_MOB_ID_ATTR,XmlWriter.CDATA,String.valueOf(mobId));
+      // - Name
+      String mobName=mob.getName();
       attrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_DIE_MOB_NAME_ATTR,XmlWriter.CDATA,mobName);
     }
     // Count

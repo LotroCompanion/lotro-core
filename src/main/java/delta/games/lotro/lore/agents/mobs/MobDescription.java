@@ -49,4 +49,10 @@ public class MobDescription extends AgentDescription
   {
     _loot=loot;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Mob "+getName()+" (ID="+getIdentifier()+')';
+  }
 }
