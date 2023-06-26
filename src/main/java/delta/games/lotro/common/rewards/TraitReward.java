@@ -1,7 +1,6 @@
 package delta.games.lotro.common.rewards;
 
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Trait reward.
@@ -9,22 +8,22 @@ import delta.games.lotro.utils.Proxy;
  */
 public class TraitReward extends RewardElement
 {
-  private Proxy<TraitDescription> _trait;
+  private TraitDescription _trait;
 
   /**
    * Constructor.
-   * @param traitProxy Trait proxy.
+   * @param trait Trait.
    */
-  public TraitReward(Proxy<TraitDescription> traitProxy)
+  public TraitReward(TraitDescription trait)
   {
-    _trait=traitProxy;
+    _trait=trait;
   }
 
   /**
-   * Get the trait proxy.
-   * @return a trait proxy or <code>null</code> if not set.
+   * Get the trait.
+   * @return a trait or <code>null</code> if not set.
    */
-  public Proxy<TraitDescription> getTraitProxy()
+  public TraitDescription getTrait()
   {
     return _trait;
   }
@@ -35,21 +34,12 @@ public class TraitReward extends RewardElement
    */
   public String getName()
   {
-    return _trait.getName();
+    return (_trait!=null)?_trait.getName():"?";
   }
 
   @Override
   public String toString()
   {
-    StringBuilder sb=new StringBuilder();
-    if (_trait!=null)
-    {
-      sb.append(_trait.getName());
-    }
-    else
-    {
-      sb.append('?');
-    }
-    return sb.toString();
+    return getName();
   }
 }

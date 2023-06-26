@@ -152,7 +152,7 @@ public class TraitReferencesBuilder
       if (element instanceof TraitReward)
       {
         TraitReward traitReward=(TraitReward)element;
-        int traitRewardID=traitReward.getTraitProxy().getId();
+        int traitRewardID=traitReward.getTrait().getIdentifier();
         if (traitRewardID==traitID)
         {
           TraitRole role=TraitRole.REWARD;

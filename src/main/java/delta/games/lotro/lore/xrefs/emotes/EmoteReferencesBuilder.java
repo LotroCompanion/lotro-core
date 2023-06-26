@@ -81,7 +81,7 @@ public class EmoteReferencesBuilder
       if (element instanceof EmoteReward)
       {
         EmoteReward emoteReward=(EmoteReward)element;
-        int emoteRewardID=emoteReward.getEmoteProxy().getId();
+        int emoteRewardID=emoteReward.getEmote().getIdentifier();
         if (emoteRewardID==emoteID)
         {
           EmoteRole role=EmoteRole.REGULAR_REWARD;

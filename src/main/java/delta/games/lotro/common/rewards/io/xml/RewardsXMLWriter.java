@@ -9,6 +9,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.common.enums.BillingGroup;
 import delta.games.lotro.common.money.Money;
@@ -27,12 +28,12 @@ import delta.games.lotro.common.rewards.TitleReward;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.common.rewards.VirtueReward;
 import delta.games.lotro.lore.crafting.Profession;
+import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.reputation.Faction;
-import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.lore.titles.TitleDescription;
 import delta.games.lotro.utils.io.xml.SharedXMLConstants;
-import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
  * Writes LOTRO rewards to XML documents.
@@ -115,13 +116,15 @@ public class RewardsXMLWriter
     else if (rewardElement instanceof TraitReward)
     {
       TraitReward traitReward=(TraitReward)rewardElement;
-      SharedXMLUtils.writeProxy(hd,RewardsXMLConstants.TRAIT_TAG,traitReward.getTraitProxy());
+      TraitDescription trait=traitReward.getTrait();
+      writeReward(hd,RewardsXMLConstants.TRAIT_TAG,trait.getIdentifier(),trait.getName());
     }
     // Title
     else if (rewardElement instanceof TitleReward)
     {
       TitleReward titleReward=(TitleReward)rewardElement;
-      SharedXMLUtils.writeProxy(hd,RewardsXMLConstants.TITLE_TAG,titleReward.getTitleProxy());
+      TitleDescription title=titleReward.getTitle();
+      writeReward(hd,RewardsXMLConstants.TITLE_TAG,title.getIdentifier(),title.getName());
     }
     // Virtue
     else if (rewardElement instanceof VirtueReward)
@@ -132,7 +135,8 @@ public class RewardsXMLWriter
     else if (rewardElement instanceof EmoteReward)
     {
       EmoteReward emoteReward=(EmoteReward)rewardElement;
-      SharedXMLUtils.writeProxy(hd,RewardsXMLConstants.EMOTE_TAG,emoteReward.getEmoteProxy());
+      EmoteDescription emote=emoteReward.getEmote();
+      writeReward(hd,RewardsXMLConstants.EMOTE_TAG,emote.getIdentifier(),emote.getName());
     }
     // Item
     else if (rewardElement instanceof ItemReward)
@@ -194,8 +198,8 @@ public class RewardsXMLWriter
 
   private static void writeItemReward(TransformerHandler hd, ItemReward itemReward) throws SAXException
   {
-    Proxy<Item> item=itemReward.getItemProxy();
-    int id=item.getId();
+    Item item=itemReward.getItem();
+    int id=item.getIdentifier();
     String name=item.getName();
     int quantity=itemReward.getQuantity();
     writeQuantifiedReward(hd,RewardsXMLConstants.OBJECT_TAG,id,name,quantity);
@@ -203,8 +207,8 @@ public class RewardsXMLWriter
 
   private static void writeRelicReward(TransformerHandler hd, RelicReward relicReward) throws SAXException
   {
-    Proxy<Relic> relic=relicReward.getRelicProxy();
-    int id=relic.getId();
+    Relic relic=relicReward.getRelic();
+    int id=relic.getIdentifier();
     String name=relic.getName();
     int quantity=relicReward.getQuantity();
     writeQuantifiedReward(hd,RewardsXMLConstants.RELIC_TAG,id,name,quantity);
@@ -224,6 +228,21 @@ public class RewardsXMLWriter
     attrs.addAttribute("","",RewardsXMLConstants.CRAFTING_XP_ATTR,XmlWriter.CDATA,String.valueOf(xpValue));
     hd.startElement("","",RewardsXMLConstants.CRAFTING_XP_TAG,attrs);
     hd.endElement("","",RewardsXMLConstants.CRAFTING_XP_TAG);
+  }
+
+  private static void writeReward(TransformerHandler hd, String tagName, int id, String name) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    if (id!=0)
+    {
+      attrs.addAttribute("","",SharedXMLConstants.PROXY_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    if (name!=null)
+    {
+      attrs.addAttribute("","",SharedXMLConstants.PROXY_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
   }
 
   private static void writeQuantifiedReward(TransformerHandler hd, String tagName, int id, String name, int quantity) throws SAXException

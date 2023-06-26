@@ -216,7 +216,7 @@ public class ItemReferencesBuilder
       if (element instanceof ItemReward)
       {
         ItemReward itemReward=(ItemReward)element;
-        int itemRewardId=itemReward.getItemProxy().getId();
+        int itemRewardId=itemReward.getItem().getIdentifier();
         if (itemRewardId==itemId)
         {
           ItemRole role=(context instanceof QuestDescription)?ItemRole.QUEST_REWARD:ItemRole.DEED_REWARD;

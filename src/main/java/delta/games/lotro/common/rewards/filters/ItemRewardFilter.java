@@ -8,7 +8,6 @@ import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Filter for rewards that contain an item.
@@ -80,10 +79,10 @@ public class ItemRewardFilter implements Filter<Rewards>
 
   private boolean accept(ItemReward itemReward)
   {
-    Proxy<Item> itemProxy=itemReward.getItemProxy();
-    if (itemProxy!=null)
+    Item item=itemReward.getItem();
+    if (item!=null)
     {
-      return (_itemId.intValue()==itemProxy.getId());
+      return (_itemId.intValue()==item.getIdentifier());
     }
     return false;
   }

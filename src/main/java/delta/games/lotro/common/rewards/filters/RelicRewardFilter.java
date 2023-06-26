@@ -8,7 +8,6 @@ import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Filter for rewards that contain a relic.
@@ -80,10 +79,10 @@ public class RelicRewardFilter implements Filter<Rewards>
 
   private boolean accept(RelicReward relicReward)
   {
-    Proxy<Relic> relicProxy=relicReward.getRelicProxy();
-    if (relicProxy!=null)
+    Relic relic=relicReward.getRelic();
+    if (relic!=null)
     {
-      return (_relicId.intValue()==relicProxy.getId());
+      return (_relicId.intValue()==relic.getIdentifier());
     }
     return false;
   }

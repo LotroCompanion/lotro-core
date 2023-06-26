@@ -1,7 +1,6 @@
 package delta.games.lotro.common.rewards;
 
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Relic reward.
@@ -10,9 +9,9 @@ import delta.games.lotro.utils.Proxy;
 public class RelicReward extends RewardElement
 {
   /**
-   * Relic proxy.
+   * Relic.
    */
-  private Proxy<Relic> _relic;
+  private Relic _relic;
   /**
    * Item quantity.
    */
@@ -20,20 +19,20 @@ public class RelicReward extends RewardElement
 
   /**
    * Constructor.
-   * @param relic Relic proxy.
+   * @param relic Relic.
    * @param quantity Quantity.
    */
-  public RelicReward(Proxy<Relic> relic, int quantity)
+  public RelicReward(Relic relic, int quantity)
   {
     _relic=relic;
     _quantity=quantity;
   }
 
   /**
-   * Get the relic proxy.
-   * @return a relic proxy or <code>null</code> if not set.
+   * Get the relic.
+   * @return a relic or <code>null</code> if not set.
    */
-  public Proxy<Relic> getRelicProxy()
+  public Relic getRelic()
   {
     return _relic;
   }

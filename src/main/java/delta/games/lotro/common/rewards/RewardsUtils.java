@@ -90,7 +90,7 @@ public class RewardsUtils
     boolean found=false;
     for(ItemReward reward : existing)
     {
-      if (reward.getItemProxy().getId()==element.getItemProxy().getId())
+      if (reward.getItem().getIdentifier()==element.getItem().getIdentifier())
       {
         found=true;
         reward.addQuantity(element.getQuantity());
@@ -99,7 +99,7 @@ public class RewardsUtils
     }
     if (!found)
     {
-      ItemReward newOne=new ItemReward(element.getItemProxy(),element.getQuantity());
+      ItemReward newOne=new ItemReward(element.getItem(),element.getQuantity());
       target.addRewardElement(newOne);
     }
   }
@@ -110,7 +110,7 @@ public class RewardsUtils
     boolean found=false;
     for(RelicReward reward : existing)
     {
-      if (reward.getRelicProxy().getId()==element.getRelicProxy().getId())
+      if (reward.getRelic().getIdentifier()==element.getRelic().getIdentifier())
       {
         found=true;
         reward.addQuantity(element.getQuantity());
@@ -119,7 +119,7 @@ public class RewardsUtils
     }
     if (!found)
     {
-      RelicReward newOne=new RelicReward(element.getRelicProxy(),element.getQuantity());
+      RelicReward newOne=new RelicReward(element.getRelic(),element.getQuantity());
       target.addRewardElement(newOne);
     }
   }

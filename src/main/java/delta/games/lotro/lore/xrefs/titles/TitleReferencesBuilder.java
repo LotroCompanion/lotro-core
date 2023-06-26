@@ -97,7 +97,7 @@ public class TitleReferencesBuilder
       if (element instanceof TitleReward)
       {
         TitleReward titleReward=(TitleReward)element;
-        int titleRewardID=titleReward.getTitleProxy().getId();
+        int titleRewardID=titleReward.getTitle().getIdentifier();
         if (titleRewardID==titleID)
         {
           TitleRole role=TitleRole.REGULAR_REWARD;

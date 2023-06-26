@@ -1,7 +1,6 @@
 package delta.games.lotro.common.rewards;
 
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Item reward.
@@ -10,9 +9,9 @@ import delta.games.lotro.utils.Proxy;
 public class ItemReward extends RewardElement
 {
   /**
-   * Item proxy.
+   * Item.
    */
-  private Proxy<Item> _item;
+  private Item _item;
   /**
    * Item quantity.
    */
@@ -20,20 +19,20 @@ public class ItemReward extends RewardElement
 
   /**
    * Constructor.
-   * @param item Item proxy.
+   * @param item Item.
    * @param quantity Quantity.
    */
-  public ItemReward(Proxy<Item> item, int quantity)
+  public ItemReward(Item item, int quantity)
   {
     _item=item;
     _quantity=quantity;
   }
 
   /**
-   * Get the item proxy.
-   * @return an item proxy or <code>null</code> if not set.
+   * Get the item.
+   * @return an item or <code>null</code> if not set.
    */
-  public Proxy<Item> getItemProxy()
+  public Item getItem()
   {
     return _item;
   }

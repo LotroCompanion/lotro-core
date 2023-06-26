@@ -1,7 +1,6 @@
 package delta.games.lotro.common.rewards;
 
 import delta.games.lotro.lore.titles.TitleDescription;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Title reward.
@@ -9,22 +8,22 @@ import delta.games.lotro.utils.Proxy;
  */
 public class TitleReward extends RewardElement
 {
-  private Proxy<TitleDescription> _title;
+  private TitleDescription _title;
 
   /**
    * Constructor.
-   * @param titleProxy Title proxy.
+   * @param title Title.
    */
-  public TitleReward(Proxy<TitleDescription> titleProxy)
+  public TitleReward(TitleDescription title)
   {
-    _title=titleProxy;
+    _title=title;
   }
 
   /**
-   * Get the title proxy.
-   * @return a title proxy or <code>null</code> if not set.
+   * Get the title.
+   * @return a title or <code>null</code> if not set.
    */
-  public Proxy<TitleDescription> getTitleProxy()
+  public TitleDescription getTitle()
   {
     return _title;
   }
@@ -35,21 +34,12 @@ public class TitleReward extends RewardElement
    */
   public String getName()
   {
-    return _title.getName();
+    return (_title!=null)?_title.getName():"?";
   }
 
   @Override
   public String toString()
   {
-    StringBuilder sb=new StringBuilder();
-    if (_title!=null)
-    {
-      sb.append(_title.getName());
-    }
-    else
-    {
-      sb.append('?');
-    }
-    return sb.toString();
+    return getName();
   }
 }

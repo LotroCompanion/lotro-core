@@ -7,9 +7,9 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
-import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.enums.BillingGroup;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
@@ -32,12 +32,15 @@ import delta.games.lotro.lore.crafting.CraftingSystem;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.Professions;
 import delta.games.lotro.lore.emotes.EmoteDescription;
+import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.lore.titles.TitleDescription;
-import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.lore.titles.TitlesManager;
 import delta.games.lotro.utils.io.xml.SharedXMLConstants;
 
 /**
@@ -208,18 +211,24 @@ public class RewardsXMLParser
 
   private static void parseTraitReward(List<RewardElement> rewards, Element traitTag)
   {
-    Proxy<TraitDescription> proxy=new Proxy<TraitDescription>();
-    parseProxy(traitTag.getAttributes(),proxy);
-    TraitReward traitReward=new TraitReward(proxy);
-    rewards.add(traitReward);
+    int id=DOMParsingTools.getIntAttribute(traitTag.getAttributes(),SharedXMLConstants.PROXY_ID_ATTR,0);
+    TraitDescription trait=TraitsManager.getInstance().getTrait(id);
+    if (trait!=null)
+    {
+      TraitReward traitReward=new TraitReward(trait);
+      rewards.add(traitReward);
+    }
   }
 
   private static void parseTitleReward(List<RewardElement> rewards, Element titleTag)
   {
-    Proxy<TitleDescription> proxy=new Proxy<TitleDescription>();
-    parseProxy(titleTag.getAttributes(),proxy);
-    TitleReward titleReward=new TitleReward(proxy);
-    rewards.add(titleReward);
+    int id=DOMParsingTools.getIntAttribute(titleTag.getAttributes(),SharedXMLConstants.PROXY_ID_ATTR,0);
+    TitleDescription title=TitlesManager.getInstance().getTitle(id);
+    if (title!=null)
+    {
+      TitleReward titleReward=new TitleReward(title);
+      rewards.add(titleReward);
+    }
   }
 
   private static void parseVirtueReward(List<RewardElement> rewards, Element virtueTag)
@@ -237,25 +246,28 @@ public class RewardsXMLParser
 
   private static void parseEmoteReward(List<RewardElement> rewards, Element emoteTag)
   {
-    Proxy<EmoteDescription> proxy=new Proxy<EmoteDescription>();
-    parseProxy(emoteTag.getAttributes(),proxy);
-    EmoteReward emoteReward=new EmoteReward(proxy);
-    rewards.add(emoteReward);
+    int id=DOMParsingTools.getIntAttribute(emoteTag.getAttributes(),SharedXMLConstants.PROXY_ID_ATTR,0);
+    EmoteDescription emote=EmotesManager.getInstance().getEmote(id);
+    if (emote!=null)
+    {
+      EmoteReward emoteReward=new EmoteReward(emote);
+      rewards.add(emoteReward);
+    }
   }
 
   private static void parseItemReward(List<RewardElement> rewards, Element itemTag)
   {
     NamedNodeMap attrs=itemTag.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.PROXY_ID_ATTR,0);
-    String name=DOMParsingTools.getStringAttribute(attrs,SharedXMLConstants.PROXY_NAME_ATTR,null);
     int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,1);
-    if (((name!=null) || (id!=0)) && (quantity!=0))
+    if ((id!=0) && (quantity!=0))
     {
-      Proxy<Item> item=new Proxy<Item>();
-      item.setName(name);
-      item.setId(id);
-      ItemReward itemReward=new ItemReward(item,quantity);
-      rewards.add(itemReward);
+      Item item=ItemsManager.getInstance().getItem(id);
+      if (item!=null)
+      {
+        ItemReward itemReward=new ItemReward(item,quantity);
+        rewards.add(itemReward);
+      }
     }
   }
 
@@ -263,15 +275,15 @@ public class RewardsXMLParser
   {
     NamedNodeMap attrs=relicTag.getAttributes();
     int id=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.PROXY_ID_ATTR,0);
-    String name=DOMParsingTools.getStringAttribute(attrs,SharedXMLConstants.PROXY_NAME_ATTR,null);
     int quantity=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,1);
-    if (((name!=null) || (id!=0)) && (quantity!=0))
+    if ((id!=0) && (quantity!=0))
     {
-      Proxy<Relic> relic=new Proxy<Relic>();
-      relic.setName(name);
-      relic.setId(id);
-      RelicReward relicReward=new RelicReward(relic,quantity);
-      rewards.add(relicReward);
+      Relic relic=RelicsManager.getInstance().getById(id);
+      if (relic!=null)
+      {
+        RelicReward relicReward=new RelicReward(relic,quantity);
+        rewards.add(relicReward);
+      }
     }
   }
 
@@ -305,13 +317,5 @@ public class RewardsXMLParser
       BillingTokenReward billingTokenReward=new BillingTokenReward(billingGroup);
       rewards.add(billingTokenReward);
     }
-  }
-
-  private static void parseProxy(NamedNodeMap attrs, Proxy<? extends Identifiable> proxy)
-  {
-    int id=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.PROXY_ID_ATTR,0);
-    proxy.setId(id);
-    String name=DOMParsingTools.getStringAttribute(attrs,SharedXMLConstants.PROXY_NAME_ATTR,null);
-    proxy.setName(name);
   }
 }

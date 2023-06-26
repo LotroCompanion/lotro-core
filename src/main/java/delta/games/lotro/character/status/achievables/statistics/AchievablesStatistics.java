@@ -34,7 +34,6 @@ import delta.games.lotro.lore.items.WellKnownItems;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Gather statistics about a collection of achievables.
@@ -116,8 +115,8 @@ public class AchievablesStatistics
       if (rewardElement instanceof ItemReward)
       {
         ItemReward itemReward=(ItemReward)rewardElement;
-        Proxy<Item> itemProxy=itemReward.getItemProxy();
-        int itemId=itemProxy.getId();
+        Item item=itemReward.getItem();
+        int itemId=item.getIdentifier();
         int itemsCount=itemReward.getQuantity();
         int totalItemsCount=itemsCount*count;
         // Marks

@@ -14,7 +14,6 @@ import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Tool to explore rewards.
@@ -86,23 +85,17 @@ public class RewardsExplorer
       else if (rewardElement instanceof ItemReward)
       {
         ItemReward itemReward=(ItemReward)rewardElement;
-        Proxy<Item> object=itemReward.getItemProxy();
-        int id=object.getId();
-        if (id!=0)
-        {
-          _itemIds.add(Integer.valueOf(id));
-        }
+        Item item=itemReward.getItem();
+        int id=item.getIdentifier();
+        _itemIds.add(Integer.valueOf(id));
       }
       // Relics
       else if (rewardElement instanceof RelicReward)
       {
         RelicReward relicReward=(RelicReward)rewardElement;
-        Proxy<Relic> object=relicReward.getRelicProxy();
-        int id=object.getId();
-        if (id!=0)
-        {
-          _relicIds.add(Integer.valueOf(id));
-        }
+        Relic relic=relicReward.getRelic();
+        int relicId=relic.getIdentifier();
+        _relicIds.add(Integer.valueOf(relicId));
       }
       // Billing Token
       else if (rewardElement instanceof BillingTokenReward)

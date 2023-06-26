@@ -133,7 +133,7 @@ public class RelicReferencesBuilder
       if (element instanceof RelicReward)
       {
         RelicReward itemReward=(RelicReward)element;
-        int relicRewardId=itemReward.getRelicProxy().getId();
+        int relicRewardId=itemReward.getRelic().getIdentifier();
         if (relicRewardId==relicId)
         {
           RelicRole role=(context instanceof QuestDescription)?RelicRole.QUEST_REWARD:RelicRole.DEED_REWARD;

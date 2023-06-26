@@ -59,7 +59,7 @@ public class StatsProviderXMLParser
     {
       for(Element statTag : statTags)
       {
-        StatProvider statProvider=StatsProviderXMLParser.parseStatProvider(statTag,i18n);
+        StatProvider statProvider=parseStatProvider(statTag,i18n);
         statsProvider.addStatProvider(statProvider);
       }
     }

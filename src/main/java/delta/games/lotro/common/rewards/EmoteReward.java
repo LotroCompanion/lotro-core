@@ -1,7 +1,6 @@
 package delta.games.lotro.common.rewards;
 
 import delta.games.lotro.lore.emotes.EmoteDescription;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Emote reward.
@@ -9,22 +8,22 @@ import delta.games.lotro.utils.Proxy;
  */
 public class EmoteReward extends RewardElement
 {
-  private Proxy<EmoteDescription> _emote;
+  private EmoteDescription _emote;
 
   /**
    * Constructor.
-   * @param emoteProxy Emote proxy.
+   * @param emote Emote.
    */
-  public EmoteReward(Proxy<EmoteDescription> emoteProxy)
+  public EmoteReward(EmoteDescription emote)
   {
-    _emote=emoteProxy;
+    _emote=emote;
   }
 
   /**
-   * Get the emote proxy.
-   * @return an emote proxy or <code>null</code> if not set.
+   * Get the emote.
+   * @return an emote or <code>null</code> if not set.
    */
-  public Proxy<EmoteDescription> getEmoteProxy()
+  public EmoteDescription getEmote()
   {
     return _emote;
   }
@@ -35,21 +34,12 @@ public class EmoteReward extends RewardElement
    */
   public String getName()
   {
-    return _emote.getName();
+    return (_emote!=null)?_emote.getName():"?";
   }
 
   @Override
   public String toString()
   {
-    StringBuilder sb=new StringBuilder();
-    if (_emote!=null)
-    {
-      sb.append(_emote.getName());
-    }
-    else
-    {
-      sb.append('?');
-    }
-    return sb.toString();
+    return getName();
   }
 }

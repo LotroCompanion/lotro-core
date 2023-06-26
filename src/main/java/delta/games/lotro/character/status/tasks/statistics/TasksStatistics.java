@@ -17,7 +17,6 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.tasks.Task;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Gather statistics about a collection of tasks for a single character.
@@ -105,8 +104,8 @@ public class TasksStatistics
         if (rewardElement instanceof ItemReward)
         {
           ItemReward itemReward=(ItemReward)rewardElement;
-          Proxy<Item> itemProxy=itemReward.getItemProxy();
-          int itemId=itemProxy.getId();
+          Item item=itemReward.getItem();
+          int itemId=item.getIdentifier();
           int itemsCount=itemReward.getQuantity();
           _earnedItems.add(itemId,itemsCount*completionCountInt);
         }
