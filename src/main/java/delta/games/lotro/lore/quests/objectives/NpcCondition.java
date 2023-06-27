@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
 import delta.games.lotro.common.Interactable;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * 'NPC xxx' condition.
@@ -9,7 +8,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public abstract class NpcCondition extends ObjectiveCondition
 {
-  private Proxy<Interactable> _npc;
+  private Interactable _npc;
 
   /**
    * Constructor.
@@ -26,21 +25,21 @@ public abstract class NpcCondition extends ObjectiveCondition
   public abstract String getAction();
 
   /**
-   * Get the proxy to the targeted NPC.
-   * @return a proxy or <code>null</code>.
+   * Get the targeted NPC.
+   * @return a NPC or <code>null</code>.
    */
-  public Proxy<Interactable> getProxy()
+  public Interactable getNpc()
   {
     return _npc;
   }
 
   /**
-   * Set the proxy to the targeted NPC.
-   * @param proxy the proxy to set (may be <code>null</code>).
+   * Set the targeted NPC.
+   * @param npc the NPC to set (may be <code>null</code>).
    */
-  public void setProxy(Proxy<Interactable> proxy)
+  public void setNpc(Interactable npc)
   {
-    _npc=proxy;
+    _npc=npc;
   }
 
   @Override

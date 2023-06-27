@@ -14,9 +14,13 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Interactable;
-import delta.games.lotro.lore.agents.npcs.NpcDescription;
+import delta.games.lotro.lore.agents.AgentDescription;
+import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.mobs.MobsManager;
+import delta.games.lotro.lore.agents.npcs.NPCsManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLConstants;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -85,83 +89,90 @@ public class SharedXMLUtils
    * @param attrs Input.
    * @return A NPC proxy or <code>null</code> if none.
    */
-  public static Proxy<NpcDescription> parseNpcProxy(NamedNodeMap attrs)
+  public static Interactable parseInteractable(Attributes attrs)
   {
-    Proxy<NpcDescription> proxy=null;
-    // NPC proxy
-    // - id
-    int npcId=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.NPC_ID_ATTR,0);
-    if (npcId!=0)
-    {
-      // - name
-      String npcName=DOMParsingTools.getStringAttribute(attrs,SharedXMLConstants.NPC_NAME_ATTR,"?");
-      proxy=new Proxy<NpcDescription>();
-      proxy.setId(npcId);
-      proxy.setName(npcName);
-    }
-    return proxy;
-  }
-
-  /**
-   * Load NPC proxy from XML attributes.
-   * @param attrs Input.
-   * @return A NPC proxy or <code>null</code> if none.
-   */
-  public static Proxy<NpcDescription> parseNpcProxy(Attributes attrs)
-  {
-    Proxy<NpcDescription> proxy=null;
-    // NPC proxy
+    Interactable ret=null;
+    // NPC
     // - id
     int npcId=SAXParsingTools.getIntAttribute(attrs,SharedXMLConstants.NPC_ID_ATTR,0);
     if (npcId!=0)
     {
-      // - name
-      String npcName=SAXParsingTools.getStringAttribute(attrs,SharedXMLConstants.NPC_NAME_ATTR,null);
-      proxy=new Proxy<NpcDescription>();
-      proxy.setId(npcId);
-      proxy.setName(npcName);
+      // - NPC?
+      ret=NPCsManager.getInstance().getNPCById(npcId);
+      if (ret!=null)
+      {
+        return ret;
+      }
+      // - Item?
+      ret=ItemsManager.getInstance().getItem(npcId);
+      if (ret!=null)
+      {
+        return ret;
+      }
+      // - Mob?
+      ret=MobsManager.getInstance().getMobById(npcId);
+      if (ret!=null)
+      {
+        return ret;
+      }
     }
-    return proxy;
-  }
-
-  /**
-   * Load an interactable proxy from XML attributes.
-   * @param attrs Input.
-   * @return A NPC proxy or <code>null</code> if none.
-   */
-  public static Proxy<Interactable> parseInteractableProxy(Attributes attrs)
-  {
-    Proxy<Interactable> proxy=null;
-    // - id
-    int id=SAXParsingTools.getIntAttribute(attrs,SharedXMLConstants.NPC_ID_ATTR,0);
-    if (id!=0)
+    int mobId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.MOB_ID_ATTR,0);
+    if (mobId!=0)
     {
-      // - name
-      String name=SAXParsingTools.getStringAttribute(attrs,SharedXMLConstants.NPC_NAME_ATTR,null);
-      proxy=new Proxy<Interactable>();
-      proxy.setId(id);
-      proxy.setName(name);
+      ret=MobsManager.getInstance().getMobById(mobId);
     }
-    return proxy;
+    return ret;
+  }
+
+
+  /**
+   * Load an agent from XML attributes.
+   * @param attrs Input.
+   * @return An agent or <code>null</code> if none.
+   */
+  public static AgentDescription parseAgent(Attributes attrs)
+  {
+    AgentDescription ret=null;
+    // NPC
+    // - id
+    int npcId=SAXParsingTools.getIntAttribute(attrs,SharedXMLConstants.NPC_ID_ATTR,0);
+    if (npcId!=0)
+    {
+      // - NPC?
+      ret=NPCsManager.getInstance().getNPCById(npcId);
+      if (ret!=null)
+      {
+        return ret;
+      }
+    }
+    int mobId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.MOB_ID_ATTR,0);
+    if (mobId!=0)
+    {
+      ret=MobsManager.getInstance().getMobById(mobId);
+    }
+    return ret;
   }
 
   /**
-   * Write an interactable proxy into the given attributes.
-   * @param proxy Proxy to write.
+   * Write an interactable into the given attributes.
+   * @param interactable Interactable to write.
    * @param attrs Storage.
    */
-  public static void writeInteractableProxy(Proxy<? extends Interactable> proxy, AttributesImpl attrs)
+  public static void writeInteractable(Interactable interactable, AttributesImpl attrs)
   {
-    if (proxy!=null)
+    if (interactable!=null)
     {
+      boolean isMob=(interactable instanceof MobDescription);
+      String idTag=(isMob?ObjectivesXMLConstants.MOB_ID_ATTR:SharedXMLConstants.NPC_ID_ATTR);
+      String nameTag=(isMob?ObjectivesXMLConstants.MOB_NAME_ATTR:SharedXMLConstants.NPC_NAME_ATTR);
       // ID
-      int id=proxy.getId();
-      attrs.addAttribute("","",SharedXMLConstants.NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      int id=interactable.getIdentifier();
+      attrs.addAttribute("","",idTag,XmlWriter.CDATA,String.valueOf(id));
       // Name
-      String name=proxy.getName();
+      String name=interactable.getName();
       if (name!=null)
       {
-        attrs.addAttribute("","",SharedXMLConstants.NPC_NAME_ATTR,XmlWriter.CDATA,name);
+        attrs.addAttribute("","",nameTag,XmlWriter.CDATA,name);
       }
     }
   }

@@ -10,7 +10,6 @@ import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.lore.quests.io.xml.QuestXMLConstants;
-import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
@@ -53,8 +52,8 @@ public class DialogsSaxParser extends SAXParserValve<Void>
     }
     else if (QuestXMLConstants.NPC_TAG.equals(tagName))
     {
-      Proxy<Interactable> npcProxy=SharedXMLUtils.parseInteractableProxy(attrs);
-      _comment.addWho(npcProxy);
+      Interactable npc=SharedXMLUtils.parseInteractable(attrs);
+      _comment.addWho(npc);
     }
     else if (QuestXMLConstants.TEXT_TAG.equals(tagName))
     {
@@ -86,7 +85,7 @@ public class DialogsSaxParser extends SAXParserValve<Void>
   {
     DialogElement ret=new DialogElement();
     // NPC
-    Proxy<Interactable> npc=SharedXMLUtils.parseInteractableProxy(attrs);
+    Interactable npc=SharedXMLUtils.parseInteractable(attrs);
     ret.setWho(npc);
     // Text
     String text=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.TEXT_ATTR,"");

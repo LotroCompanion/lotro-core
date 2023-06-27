@@ -6,15 +6,18 @@ import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
 import delta.games.lotro.lore.agents.mobs.MobsManager;
-import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.emotes.EmoteDescription;
+import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
@@ -349,26 +352,18 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
 
   private static void parseItemCondition(ItemCondition condition, Attributes attrs)
   {
-    // Item proxy
-    Proxy<Item> itemProxy=parseItemProxy(attrs);
-    condition.setProxy(itemProxy);
+    // Item
+    Item item=parseItem(attrs);
+    condition.setItem(item);
   }
 
   private static FactionLevelCondition parseFactionLevelCondition(Attributes attrs)
   {
     FactionLevelCondition condition=new FactionLevelCondition();
-    // Faction proxy
-    // - id
+    // Faction
     int factionId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.FACTION_LEVEL_ID_ATTR,0);
-    // - name
-    String factionName=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.FACTION_LEVEL_NAME_ATTR,"?");
-    Proxy<Faction> proxy=new Proxy<Faction>();
-    proxy.setId(factionId);
-    proxy.setName(factionName);
-    // - object
     Faction faction=FactionsRegistry.getInstance().getById(factionId);
-    proxy.setObject(faction);
-    condition.setProxy(proxy);
+    condition.setFaction(faction);
     // Tier
     int tier=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.FACTION_LEVEL_TIER_ATTR,1);
     condition.setTier(tier);
@@ -383,12 +378,8 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     int skillId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_SKILL_ID_ATTR,0);
     if (skillId!=0)
     {
-      // - name
-      String skillName=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_SKILL_NAME_ATTR,"?");
-      Proxy<SkillDescription> proxy=new Proxy<SkillDescription>();
-      proxy.setId(skillId);
-      proxy.setName(skillName);
-      condition.setProxy(proxy);
+      SkillDescription skill=SkillsManager.getInstance().getSkill(skillId);
+      condition.setSkill(skill);
     }
     // Max per day
     int maxPerDay=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.SKILL_USED_MAX_PER_DAY_ATTR,-1);
@@ -415,8 +406,8 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
 
   private static void parseNpcCondition(NpcCondition condition, Attributes attrs)
   {
-    Proxy<Interactable> npcProxy=SharedXMLUtils.parseInteractableProxy(attrs);
-    condition.setProxy(npcProxy);
+    Interactable npc=SharedXMLUtils.parseInteractable(attrs);
+    condition.setNpc(npc);
   }
 
   private static LevelCondition parseLevelCondition(Attributes attrs)
@@ -466,15 +457,10 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private static EmoteCondition parseEmoteCondition(Attributes attrs)
   {
     EmoteCondition condition=new EmoteCondition();
-    // Emote proxy
-    // - id
+    // Emote
     int emoteId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.EMOTE_ID_ATTR,0);
-    // - command
-    String command=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.EMOTE_COMMAND_ATTR,"?");
-    Proxy<EmoteDescription> proxy=new Proxy<EmoteDescription>();
-    proxy.setId(emoteId);
-    proxy.setName(command);
-    condition.setProxy(proxy);
+    EmoteDescription emote=EmotesManager.getInstance().getEmote(emoteId);
+    condition.setEmote(emote);
     // Max per day
     int maxPerDay=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.EMOTE_MAX_DAILY_ATTR,-1);
     if (maxPerDay!=-1)
@@ -490,9 +476,9 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private static HobbyCondition parseHobbyCondition(Attributes attrs)
   {
     HobbyCondition condition=new HobbyCondition();
-    // Item proxy
-    Proxy<Item> itemProxy=parseItemProxy(attrs);
-    condition.setProxy(itemProxy);
+    // Item
+    Item item=parseItem(attrs);
+    condition.setItem(item);
     return condition;
   }
 
@@ -508,15 +494,11 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private static ConditionTarget parseTarget(Attributes attrs)
   {
     ConditionTarget target=null;
-    // NPC proxy
-    Proxy<NpcDescription> npcProxy=SharedXMLUtils.parseNpcProxy(attrs);
-    // Mob proxy
-    Proxy<MobDescription> mobProxy=parseMobProxy(attrs);
-    if ((npcProxy!=null) || (mobProxy!=null))
+    AgentDescription agent=SharedXMLUtils.parseAgent(attrs);
+    if (agent!=null)
     {
       target=new ConditionTarget();
-      target.setNpcProxy(npcProxy);
-      target.setMobProxy(mobProxy);
+      target.setAgent(agent);
     }
     return target;
   }
@@ -534,37 +516,15 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     return condition;
   }
 
-  private static Proxy<MobDescription> parseMobProxy(Attributes attrs)
+  private static Item parseItem(Attributes attrs)
   {
-    Proxy<MobDescription> proxy=null;
-    // Mob proxy
-    // - id
-    int mobId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.MOB_ID_ATTR,0);
-    if (mobId!=0)
-    {
-      // - name
-      String mobName=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.MOB_NAME_ATTR,"?");
-      proxy=new Proxy<MobDescription>();
-      proxy.setId(mobId);
-      proxy.setName(mobName);
-    }
-    return proxy;
-  }
-
-  private static Proxy<Item> parseItemProxy(Attributes attrs)
-  {
-    Proxy<Item> proxy=null;
-    // Item proxy
-    // - id
+    // ID
     int itemId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.ITEM_ID_ATTR,0);
     if (itemId!=0)
     {
-      // - name
-      String itemName=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.ITEM_NAME_ATTR,"?");
-      proxy=new Proxy<Item>();
-      proxy.setId(itemId);
-      proxy.setName(itemName);
+      Item item=ItemsManager.getInstance().getItem(itemId);
+      return item;
     }
-    return proxy;
+    return null;
   }
 }

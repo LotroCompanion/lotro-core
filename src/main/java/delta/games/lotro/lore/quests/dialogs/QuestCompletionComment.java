@@ -5,7 +5,6 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Interactable;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Comments after quest completion.
@@ -13,7 +12,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class QuestCompletionComment
 {
-  private List<Proxy<Interactable>> _whos;
+  private List<Interactable> _whos;
   private List<String> _whats;
 
   /**
@@ -21,24 +20,24 @@ public class QuestCompletionComment
    */
   public QuestCompletionComment()
   {
-    _whos=new ArrayList<Proxy<Interactable>>();
+    _whos=new ArrayList<Interactable>();
     _whats=new ArrayList<String>();
   }
 
   /**
    * Get the speaker(s). 
-   * @return a list of speaker proxies.
+   * @return a list of speakers.
    */
-  public List<Proxy<Interactable>> getWhos()
+  public List<Interactable> getWhos()
   {
     return _whos;
   }
 
   /**
    * Add a speaker.
-   * @param who a proxy to the speaker to add.
+   * @param who the speaker to add.
    */
-  public void addWho(Proxy<Interactable> who)
+  public void addWho(Interactable who)
   {
     _whos.add(who);
   }
@@ -77,7 +76,7 @@ public class QuestCompletionComment
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    for(Proxy<Interactable> who : _whos)
+    for(Interactable who : _whos)
     {
       if (sb.length()>0)
       {

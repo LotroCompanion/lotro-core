@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.quests.dialogs;
 
 import delta.games.lotro.common.Interactable;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Dialog element.
@@ -9,7 +8,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class DialogElement
 {
-  private Proxy<Interactable> _who;
+  private Interactable _who;
   private String _what;
 
   /**
@@ -23,9 +22,9 @@ public class DialogElement
 
   /**
    * Get the speaker. 
-   * @return a proxy to the speaker or <code>null</code>.
+   * @return a speaker or <code>null</code>.
    */
-  public Proxy<Interactable> getWho()
+  public Interactable getWho()
   {
     return _who;
   }
@@ -41,9 +40,9 @@ public class DialogElement
 
   /**
    * Set the speaker.
-   * @param who a proxy to the speaker, or <code>null</code>.
+   * @param who a speaker, or <code>null</code>.
    */
-  public void setWho(Proxy<Interactable> who)
+  public void setWho(Interactable who)
   {
     _who=who;
   }

@@ -1,7 +1,6 @@
   package delta.games.lotro.lore.quests.objectives;
 
 import delta.games.lotro.character.skills.SkillDescription;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Skill used condition.
@@ -9,7 +8,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class SkillUsedCondition extends ObjectiveCondition
 {
-  private Proxy<SkillDescription> _skill;
+  private SkillDescription _skill;
   private Integer _maxPerDay;
 
   /**
@@ -28,21 +27,21 @@ public class SkillUsedCondition extends ObjectiveCondition
   }
 
   /**
-   * Get the proxy to the targeted skill.
-   * @return a proxy or <code>null</code>.
+   * Get the targeted skill.
+   * @return a skill or <code>null</code>.
    */
-  public Proxy<SkillDescription> getProxy()
+  public SkillDescription getSkill()
   {
     return _skill;
   }
 
   /**
-   * Set the proxy to the targeted skill.
-   * @param proxy the proxy to set (may be <code>null</code>).
+   * Set the targeted skill.
+   * @param skill the skill to set (may be <code>null</code>).
    */
-  public void setProxy(Proxy<SkillDescription> proxy)
+  public void setSkill(SkillDescription skill)
   {
-    _skill=proxy;
+    _skill=skill;
   }
 
   /**

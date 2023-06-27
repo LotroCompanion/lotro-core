@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Hobby condition.
@@ -9,7 +8,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class HobbyCondition extends ObjectiveCondition
 {
-  private Proxy<Item> _item;
+  private Item _item;
 
   /**
    * Constructor.
@@ -26,21 +25,21 @@ public class HobbyCondition extends ObjectiveCondition
   }
 
   /**
-   * Get the proxy to the targeted item.
-   * @return a proxy or <code>null</code>.
+   * Get the targeted item.
+   * @return an item or <code>null</code>.
    */
-  public Proxy<Item> getProxy()
+  public Item getItem()
   {
     return _item;
   }
 
   /**
-   * Set the proxy to the targeted item.
-   * @param proxy the proxy to set (may be <code>null</code>).
+   * Set the targeted item.
+   * @param item the item to set (may be <code>null</code>).
    */
-  public void setProxy(Proxy<Item> proxy)
+  public void setItem(Item item)
   {
-    _item=proxy;
+    _item=item;
   }
 
   @Override

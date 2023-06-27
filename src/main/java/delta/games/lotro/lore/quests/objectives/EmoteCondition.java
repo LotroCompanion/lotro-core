@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
 import delta.games.lotro.lore.emotes.EmoteDescription;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Emote condition.
@@ -9,7 +8,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class EmoteCondition extends ObjectiveCondition
 {
-  private Proxy<EmoteDescription> _emote;
+  private EmoteDescription _emote;
   private Integer _maxDaily;
   private ConditionTarget _target;
 
@@ -30,21 +29,21 @@ public class EmoteCondition extends ObjectiveCondition
   }
 
   /**
-   * Get the proxy to the targeted emote.
-   * @return a proxy or <code>null</code>.
+   * Get the targeted emote.
+   * @return an emote.
    */
-  public Proxy<EmoteDescription> getProxy()
+  public EmoteDescription getEmote()
   {
     return _emote;
   }
 
   /**
-   * Set the proxy to the targeted emote.
-   * @param proxy the proxy to set (may be <code>null</code>).
+   * Set the targeted emote.
+   * @param emote the emote to set (may be <code>null</code>).
    */
-  public void setProxy(Proxy<EmoteDescription> proxy)
+  public void setEmote(EmoteDescription emote)
   {
-    _emote=proxy;
+    _emote=emote;
   }
 
   /**

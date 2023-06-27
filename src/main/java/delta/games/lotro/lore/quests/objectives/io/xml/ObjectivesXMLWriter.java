@@ -9,10 +9,10 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
-import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
@@ -368,8 +368,8 @@ public class ObjectivesXMLWriter
     // Shared attributes
     writeSharedConditionAttributes(attrs,condition,false);
     // Item proxy
-    Proxy<Item> proxy=condition.getProxy();
-    writeItemProxy(attrs,proxy);
+    Item item=condition.getItem();
+    writeItem(attrs,item);
     // Count
     int count=condition.getCount();
     if (count>1)
@@ -386,19 +386,16 @@ public class ObjectivesXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(attrs,condition);
-    // Faction proxy
-    Proxy<Faction> proxy=condition.getProxy();
-    if (proxy!=null)
+    // Faction
+    Faction faction=condition.getFaction();
+    if (faction!=null)
     {
       // ID
-      int id=proxy.getId();
+      int id=faction.getIdentifier();
       attrs.addAttribute("","",ObjectivesXMLConstants.FACTION_LEVEL_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // Name
-      String name=proxy.getName();
-      if (name!=null)
-      {
-        attrs.addAttribute("","",ObjectivesXMLConstants.FACTION_LEVEL_NAME_ATTR,XmlWriter.CDATA,name);
-      }
+      String name=faction.getName();
+      attrs.addAttribute("","",ObjectivesXMLConstants.FACTION_LEVEL_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Tier
     int tier=condition.getTier();
@@ -413,15 +410,15 @@ public class ObjectivesXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(attrs,condition,false);
-    // Skill proxy
-    Proxy<SkillDescription> proxy=condition.getProxy();
-    if (proxy!=null)
+    // Skill
+    SkillDescription skill=condition.getSkill();
+    if (skill!=null)
     {
       // ID
-      int id=proxy.getId();
+      int id=skill.getIdentifier();
       attrs.addAttribute("","",ObjectivesXMLConstants.SKILL_USED_SKILL_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // Name
-      String name=proxy.getName();
+      String name=skill.getName();
       if (name!=null)
       {
         attrs.addAttribute("","",ObjectivesXMLConstants.SKILL_USED_SKILL_NAME_ATTR,XmlWriter.CDATA,name);
@@ -459,9 +456,9 @@ public class ObjectivesXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(attrs,condition);
-    // Write NPC proxy
-    Proxy<Interactable> proxy=condition.getProxy();
-    SharedXMLUtils.writeInteractableProxy(proxy,attrs);
+    // Write NPC
+    Interactable interactable=condition.getNpc();
+    SharedXMLUtils.writeInteractable(interactable,attrs);
     hd.startElement("","",tagName,attrs);
     AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",tagName);
@@ -525,12 +522,12 @@ public class ObjectivesXMLWriter
     // Shared attributes
     writeSharedConditionAttributes(attrs,condition,false);
     // Emote
-    Proxy<EmoteDescription> proxy=condition.getProxy();
-    if (proxy!=null)
+    EmoteDescription emote=condition.getEmote();
+    if (emote!=null)
     {
-      int id=proxy.getId();
+      int id=emote.getIdentifier();
       attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-      String command=proxy.getName();
+      String command=emote.getName();
       attrs.addAttribute("","",ObjectivesXMLConstants.EMOTE_COMMAND_ATTR,XmlWriter.CDATA,command);
     }
     // Count
@@ -558,8 +555,8 @@ public class ObjectivesXMLWriter
     // Shared attributes
     writeSharedConditionAttributes(attrs,condition,false);
     // Item proxy
-    Proxy<Item> proxy=condition.getProxy();
-    writeItemProxy(attrs,proxy);
+    Item item=condition.getItem();
+    writeItem(attrs,item);
     // Count
     int count=condition.getCount();
     if (count>1)
@@ -591,35 +588,20 @@ public class ObjectivesXMLWriter
   {
     if (target!=null)
     {
-      // NPC proxy
-      Proxy<NpcDescription> npcProxy=target.getNpcProxy();
-      SharedXMLUtils.writeInteractableProxy(npcProxy,attrs);
-      // Mob proxy
-      Proxy<MobDescription> mobProxy=target.getMobProxy();
-      if (mobProxy!=null)
-      {
-        // ID
-        int id=mobProxy.getId();
-        attrs.addAttribute("","",ObjectivesXMLConstants.MOB_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-        // Name
-        String name=mobProxy.getName();
-        if (name!=null)
-        {
-          attrs.addAttribute("","",ObjectivesXMLConstants.MOB_NAME_ATTR,XmlWriter.CDATA,name);
-        }
-      }
+      AgentDescription agent=target.getAgent();
+      SharedXMLUtils.writeInteractable(agent,attrs);
     }
   }
 
-  private static void writeItemProxy(AttributesImpl attrs, Proxy<Item> proxy)
+  private static void writeItem(AttributesImpl attrs, Item item)
   {
-    if (proxy!=null)
+    if (item!=null)
     {
       // ID
-      int id=proxy.getId();
+      int id=item.getIdentifier();
       attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // Name
-      String name=proxy.getName();
+      String name=item.getName();
       if (name!=null)
       {
         attrs.addAttribute("","",ObjectivesXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,name);

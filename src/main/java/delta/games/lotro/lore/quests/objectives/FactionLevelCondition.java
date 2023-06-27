@@ -1,7 +1,6 @@
   package delta.games.lotro.lore.quests.objectives;
 
 import delta.games.lotro.lore.reputation.Faction;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Faction level condition.
@@ -9,7 +8,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class FactionLevelCondition extends ObjectiveCondition
 {
-  private Proxy<Faction> _faction;
+  private Faction _faction;
   private int _tier;
 
   /**
@@ -28,21 +27,21 @@ public class FactionLevelCondition extends ObjectiveCondition
   }
 
   /**
-   * Get the proxy to the targeted faction.
-   * @return a proxy or <code>null</code>.
+   * Get the targeted faction.
+   * @return a faction or <code>null</code>.
    */
-  public Proxy<Faction> getProxy()
+  public Faction getFaction()
   {
     return _faction;
   }
 
   /**
-   * Set the proxy to the targeted faction.
-   * @param proxy the proxy to set (may be <code>null</code>).
+   * Set the targeted faction.
+   * @param faction the faction to set (may be <code>null</code>).
    */
-  public void setProxy(Proxy<Faction> proxy)
+  public void setFaction(Faction faction)
   {
-    _faction=proxy;
+    _faction=faction;
   }
 
   /**
