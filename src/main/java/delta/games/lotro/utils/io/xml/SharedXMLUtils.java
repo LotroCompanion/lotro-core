@@ -116,11 +116,6 @@ public class SharedXMLUtils
         return ret;
       }
     }
-    int mobId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.MOB_ID_ATTR,0);
-    if (mobId!=0)
-    {
-      ret=MobsManager.getInstance().getMobById(mobId);
-    }
     return ret;
   }
 
@@ -162,14 +157,35 @@ public class SharedXMLUtils
   {
     if (interactable!=null)
     {
-      boolean isMob=(interactable instanceof MobDescription);
+      // ID
+      int id=interactable.getIdentifier();
+      attrs.addAttribute("","",SharedXMLConstants.NPC_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=interactable.getName();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",SharedXMLConstants.NPC_NAME_ATTR,XmlWriter.CDATA,name);
+      }
+    }
+  }
+
+  /**
+   * Write an agent into the given attributes.
+   * @param agent Agent to write.
+   * @param attrs Storage.
+   */
+  public static void writeAgent(AgentDescription agent, AttributesImpl attrs)
+  {
+    if (agent!=null)
+    {
+      boolean isMob=(agent instanceof MobDescription);
       String idTag=(isMob?ObjectivesXMLConstants.MOB_ID_ATTR:SharedXMLConstants.NPC_ID_ATTR);
       String nameTag=(isMob?ObjectivesXMLConstants.MOB_NAME_ATTR:SharedXMLConstants.NPC_NAME_ATTR);
       // ID
-      int id=interactable.getIdentifier();
+      int id=agent.getIdentifier();
       attrs.addAttribute("","",idTag,XmlWriter.CDATA,String.valueOf(id));
       // Name
-      String name=interactable.getName();
+      String name=agent.getName();
       if (name!=null)
       {
         attrs.addAttribute("","",nameTag,XmlWriter.CDATA,name);

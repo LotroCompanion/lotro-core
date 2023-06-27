@@ -589,7 +589,7 @@ public class ObjectivesXMLWriter
     if (target!=null)
     {
       AgentDescription agent=target.getAgent();
-      SharedXMLUtils.writeInteractable(agent,attrs);
+      SharedXMLUtils.writeAgent(agent,attrs);
     }
   }
 
