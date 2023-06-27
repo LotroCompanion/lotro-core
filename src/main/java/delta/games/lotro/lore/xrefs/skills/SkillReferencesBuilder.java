@@ -14,6 +14,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
+import delta.games.lotro.lore.xrefs.Reference;
 
 /**
  * Finds references to skills.
@@ -21,14 +22,14 @@ import delta.games.lotro.lore.items.details.ItemDetailsManager;
  */
 public class SkillReferencesBuilder
 {
-  private List<SkillReference<?>> _storage;
+  private List<Reference<?,SkillRole>> _storage;
 
   /**
    * Constructor.
    */
   public SkillReferencesBuilder()
   {
-    _storage=new ArrayList<SkillReference<?>>();
+    _storage=new ArrayList<Reference<?,SkillRole>>();
   }
 
   /**
@@ -36,13 +37,13 @@ public class SkillReferencesBuilder
    * @param skillID Skill identifier.
    * @return the found references.
    */
-  public List<SkillReference<?>> inspectSkill(int skillID)
+  public List<Reference<?,SkillRole>> inspectSkill(int skillID)
   {
     _storage.clear();
     findInClasses(skillID);
     findInItems(skillID);
     findInTraits(skillID);
-    List<SkillReference<?>> ret=new ArrayList<SkillReference<?>>(_storage);
+    List<Reference<?,SkillRole>> ret=new ArrayList<Reference<?,SkillRole>>(_storage);
     _storage.clear();
     return ret;
   }
@@ -63,7 +64,7 @@ public class SkillReferencesBuilder
       SkillDescription skill=classSkill.getSkill();
       if (skill.getIdentifier()==skillID)
       {
-        _storage.add(new SkillReference<AbstractClassDescription>(classDescription,SkillRole.CLASS_SKILL));
+        _storage.add(new Reference<AbstractClassDescription,SkillRole>(classDescription,SkillRole.CLASS_SKILL));
       }
     }
   }
@@ -84,7 +85,7 @@ public class SkillReferencesBuilder
         {
           if (identifiable.getIdentifier()==skillID)
           {
-            _storage.add(new SkillReference<Item>(item,SkillRole.GRANTED_BY_ITEM));
+            _storage.add(new Reference<Item,SkillRole>(item,SkillRole.GRANTED_BY_ITEM));
           }
         }
       }
@@ -100,7 +101,7 @@ public class SkillReferencesBuilder
       {
         if (traitSkill.getIdentifier()==skillID)
         {
-          _storage.add(new SkillReference<TraitDescription>(trait,SkillRole.GRANTED_BY_TRAIT));
+          _storage.add(new Reference<TraitDescription,SkillRole>(trait,SkillRole.GRANTED_BY_TRAIT));
         }
       }
     }

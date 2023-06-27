@@ -6,6 +6,7 @@ import java.util.List;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.lore.xrefs.Reference;
 
 /**
  * Finds references to races.
@@ -13,14 +14,14 @@ import delta.games.lotro.character.races.RaceDescription;
  */
 public class RaceReferencesBuilder
 {
-  private List<RaceReference<?>> _storage;
+  private List<Reference<?,RaceRole>> _storage;
 
   /**
    * Constructor.
    */
   public RaceReferencesBuilder()
   {
-    _storage=new ArrayList<RaceReference<?>>();
+    _storage=new ArrayList<Reference<?,RaceRole>>();
   }
 
   /**
@@ -28,11 +29,11 @@ public class RaceReferencesBuilder
    * @param race Race.
    * @return the found references.
    */
-  public List<RaceReference<?>> inspectRace(RaceDescription race)
+  public List<Reference<?,RaceRole>> inspectRace(RaceDescription race)
   {
     _storage.clear();
     findInRaces(race);
-    List<RaceReference<?>> ret=new ArrayList<RaceReference<?>>(_storage);
+    List<Reference<?,RaceRole>> ret=new ArrayList<Reference<?,RaceRole>>(_storage);
     _storage.clear();
     return ret;
   }
@@ -42,7 +43,7 @@ public class RaceReferencesBuilder
     for(String classKey : race.getAllowedClasses())
     {
       ClassDescription characterClass=ClassesManager.getInstance().getCharacterClassByKey(classKey);
-      _storage.add(new RaceReference<ClassDescription>(characterClass,RaceRole.CLASS_RACE));
+      _storage.add(new Reference<ClassDescription,RaceRole>(characterClass,RaceRole.CLASS_RACE));
     }
   }
 }

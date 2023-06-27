@@ -21,6 +21,7 @@ import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
+import delta.games.lotro.lore.xrefs.Reference;
 
 /**
  * Finds references to traits.
@@ -28,14 +29,14 @@ import delta.games.lotro.lore.quests.QuestsManager;
  */
 public class TraitReferencesBuilder
 {
-  private List<TraitReference<?>> _storage;
+  private List<Reference<?,TraitRole>> _storage;
 
   /**
    * Constructor.
    */
   public TraitReferencesBuilder()
   {
-    _storage=new ArrayList<TraitReference<?>>();
+    _storage=new ArrayList<Reference<?,TraitRole>>();
   }
 
   /**
@@ -43,13 +44,13 @@ public class TraitReferencesBuilder
    * @param traitID Trait identifier.
    * @return the found references.
    */
-  public List<TraitReference<?>> inspectTrait(int traitID)
+  public List<Reference<?,TraitRole>> inspectTrait(int traitID)
   {
     _storage.clear();
     findInRaces(traitID);
     findInClasses(traitID);
     findInRewards(traitID);
-    List<TraitReference<?>> ret=new ArrayList<TraitReference<?>>(_storage);
+    List<Reference<?,TraitRole>> ret=new ArrayList<Reference<?,TraitRole>>(_storage);
     _storage.clear();
     return ret;
   }
@@ -70,14 +71,14 @@ public class TraitReferencesBuilder
       TraitDescription trait=raceTrait.getTrait();
       if (trait.getIdentifier()==traitID)
       {
-        _storage.add(new TraitReference<RaceDescription>(race,TraitRole.RACE_TRAIT));
+        _storage.add(new Reference<RaceDescription,TraitRole>(race,TraitRole.RACE_TRAIT));
       }
     }
     for(TraitDescription trait : race.getEarnableTraits())
     {
       if (trait.getIdentifier()==traitID)
       {
-        _storage.add(new TraitReference<RaceDescription>(race,TraitRole.RACE_TRAIT));
+        _storage.add(new Reference<RaceDescription,TraitRole>(race,TraitRole.RACE_TRAIT));
       }
     }
   }
@@ -99,7 +100,7 @@ public class TraitReferencesBuilder
       TraitDescription trait=classTrait.getTrait();
       if (trait.getIdentifier()==traitID)
       {
-        _storage.add(new TraitReference<AbstractClassDescription>(classDescription,TraitRole.CLASS_TRAIT));
+        _storage.add(new Reference<AbstractClassDescription,TraitRole>(classDescription,TraitRole.CLASS_TRAIT));
       }
     }
     // Traits tree
@@ -115,7 +116,7 @@ public class TraitReferencesBuilder
       {
         if (trait.getIdentifier()==traitID)
         {
-          _storage.add(new TraitReference<ClassDescription>(characterClass,TraitRole.CLASS_TRAIT));
+          _storage.add(new Reference<ClassDescription,TraitRole>(characterClass,TraitRole.CLASS_TRAIT));
         }
       }
     }
@@ -156,7 +157,7 @@ public class TraitReferencesBuilder
         if (traitRewardID==traitID)
         {
           TraitRole role=TraitRole.REWARD;
-          _storage.add(new TraitReference<Achievable>(context,role));
+          _storage.add(new Reference<Achievable,TraitRole>(context,role));
         }
       }
       else if (element instanceof SelectableRewardElement)

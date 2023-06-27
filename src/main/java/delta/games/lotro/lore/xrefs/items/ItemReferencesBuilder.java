@@ -45,6 +45,7 @@ import delta.games.lotro.lore.trade.barter.ItemBarterEntryElement;
 import delta.games.lotro.lore.trade.vendor.SellList;
 import delta.games.lotro.lore.trade.vendor.VendorNpc;
 import delta.games.lotro.lore.trade.vendor.VendorsManager;
+import delta.games.lotro.lore.xrefs.Reference;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -53,14 +54,14 @@ import delta.games.lotro.utils.Proxy;
  */
 public class ItemReferencesBuilder
 {
-  private List<ItemReference<?>> _storage;
+  private List<Reference<?,ItemRole>> _storage;
 
   /**
    * Constructor.
    */
   public ItemReferencesBuilder()
   {
-    _storage=new ArrayList<ItemReference<?>>();
+    _storage=new ArrayList<Reference<?,ItemRole>>();
   }
 
   /**
@@ -68,7 +69,7 @@ public class ItemReferencesBuilder
    * @param itemId Item identifier.
    * @return the found references.
    */
-  public List<ItemReference<?>> inspectItem(int itemId)
+  public List<Reference<?,ItemRole>> inspectItem(int itemId)
   {
     _storage.clear();
     findInRecipes(itemId);
@@ -81,7 +82,7 @@ public class ItemReferencesBuilder
     findInContainers(itemId);
     findInMeldingRecipes(itemId);
     findSameCosmetics(itemId);
-    List<ItemReference<?>> ret=new ArrayList<ItemReference<?>>(_storage);
+    List<Reference<?,ItemRole>> ret=new ArrayList<Reference<?,ItemRole>>(_storage);
     _storage.clear();
     return ret;
   }
@@ -150,7 +151,7 @@ public class ItemReferencesBuilder
     }
     if (roles.size()>0)
     {
-      _storage.add(new ItemReference<Recipe>(recipe,roles));
+      _storage.add(new Reference<Recipe,ItemRole>(recipe,roles));
     }
   }
 
@@ -184,7 +185,7 @@ public class ItemReferencesBuilder
     Item item=task.getItem();
     if ((item!=null) && (item.getIdentifier()==itemId))
     {
-      _storage.add(new ItemReference<Task>(task,ItemRole.TASK_ITEM));
+      _storage.add(new Reference<Task,ItemRole>(task,ItemRole.TASK_ITEM));
     }
   }
 
@@ -220,7 +221,7 @@ public class ItemReferencesBuilder
         if (itemRewardId==itemId)
         {
           ItemRole role=(context instanceof QuestDescription)?ItemRole.QUEST_REWARD:ItemRole.DEED_REWARD;
-          _storage.add(new ItemReference<Achievable>(context,role));
+          _storage.add(new Reference<Achievable,ItemRole>(context,role));
         }
       }
       else if (element instanceof SelectableRewardElement)
@@ -272,7 +273,7 @@ public class ItemReferencesBuilder
     }
     if (roles.size()>0)
     {
-      _storage.add(new ItemReference<BarterNpc>(barterer,roles));
+      _storage.add(new Reference<BarterNpc,ItemRole>(barterer,roles));
     }
   }
 
@@ -297,7 +298,7 @@ public class ItemReferencesBuilder
         int itemToGetId=entry.getId();
         if (itemToGetId==itemId)
         {
-          _storage.add(new ItemReference<VendorNpc>(vendor,ItemRole.VENDOR_SOLD_BY));
+          _storage.add(new Reference<VendorNpc,ItemRole>(vendor,ItemRole.VENDOR_SOLD_BY));
         }
       }
     }
@@ -310,7 +311,7 @@ public class ItemReferencesBuilder
     {
       if (itemsSet.hasMember(itemId))
       {
-        _storage.add(new ItemReference<ItemsSet>(itemsSet,ItemRole.SET_MEMBER_OF_SET));
+        _storage.add(new Reference<ItemsSet,ItemRole>(itemsSet,ItemRole.SET_MEMBER_OF_SET));
       }
     }
   }
@@ -328,7 +329,7 @@ public class ItemReferencesBuilder
         boolean found=lootTables.contains(itemId);
         if (found)
         {
-          _storage.add(new ItemReference<ItemsContainer>(itemsContainer,ItemRole.CONTAINED_IN));
+          _storage.add(new Reference<ItemsContainer,ItemRole>(itemsContainer,ItemRole.CONTAINED_IN));
         }
       }
     }
@@ -343,7 +344,7 @@ public class ItemReferencesBuilder
       MeldingOutput output=recipe.getOutput();
       if (output.isResultItem(itemId))
       {
-        _storage.add(new ItemReference<RelicMeldingRecipe>(recipe,ItemRole.RECIPE_RESULT));
+        _storage.add(new Reference<RelicMeldingRecipe,ItemRole>(recipe,ItemRole.RECIPE_RESULT));
       }
     }
   }
@@ -374,7 +375,7 @@ public class ItemReferencesBuilder
       {
         for(Item sameCosmeticItem : sameCosmeticItems)
         {
-          _storage.add(new ItemReference<Item>(sameCosmeticItem,ItemRole.SAME_COSMETICS));
+          _storage.add(new Reference<Item,ItemRole>(sameCosmeticItem,ItemRole.SAME_COSMETICS));
         }
       }
     }

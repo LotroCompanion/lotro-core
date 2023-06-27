@@ -1,29 +1,30 @@
-package delta.games.lotro.lore.xrefs.titles;
+package delta.games.lotro.lore.xrefs;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
- * Title reference.
+ * Generic reference.
  * @author DAM
- * @param <T> 
+ * @param <T> Source type.
+ * @param <E> Role type.
  */
-public class TitleReference<T>
+public class Reference<T, E extends Enum<?>>
 {
   private T _source;
-  private HashSet<TitleRole> _roles;
+  private TreeSet<E> _roles;
 
   /**
    * Constructor.
    * @param source Source.
    * @param role Role.
    */
-  public TitleReference(T source, TitleRole role)
+  public Reference(T source, E role)
   {
     _source=source;
-    _roles=new HashSet<TitleRole>();
+    _roles=new TreeSet<E>();
     _roles.add(role);
   }
 
@@ -32,10 +33,10 @@ public class TitleReference<T>
    * @param source Source.
    * @param roles Roles.
    */
-  public TitleReference(T source, Set<TitleRole> roles)
+  public Reference(T source, Set<E> roles)
   {
     _source=source;
-    _roles=new HashSet<TitleRole>(roles);
+    _roles=new TreeSet<E>(roles);
   }
 
   /**
@@ -48,12 +49,12 @@ public class TitleReference<T>
   }
 
   /**
-   * Get the roles of the title for the source.
+   * Get the roles for the source.
    * @return a list of roles.
    */
-  public List<TitleRole> getRoles()
+  public List<E> getRoles()
   {
-    List<TitleRole> ret=new ArrayList<TitleRole>(_roles);
+    List<E> ret=new ArrayList<E>(_roles);
     return ret;
   }
 }

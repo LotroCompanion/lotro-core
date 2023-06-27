@@ -19,6 +19,7 @@ import delta.games.lotro.lore.relics.melding.MeldingInput;
 import delta.games.lotro.lore.relics.melding.MeldingOutput;
 import delta.games.lotro.lore.relics.melding.RelicMeldingRecipe;
 import delta.games.lotro.lore.relics.melding.RelicMeldingRecipesManager;
+import delta.games.lotro.lore.xrefs.Reference;
 
 /**
  * Finds references to relics.
@@ -26,14 +27,14 @@ import delta.games.lotro.lore.relics.melding.RelicMeldingRecipesManager;
  */
 public class RelicReferencesBuilder
 {
-  private List<RelicReference<?>> _storage;
+  private List<Reference<?,RelicRole>> _storage;
 
   /**
    * Constructor.
    */
   public RelicReferencesBuilder()
   {
-    _storage=new ArrayList<RelicReference<?>>();
+    _storage=new ArrayList<Reference<?,RelicRole>>();
   }
 
   /**
@@ -41,14 +42,14 @@ public class RelicReferencesBuilder
    * @param relicId Relic identifier.
    * @return the found references.
    */
-  public List<RelicReference<?>> inspectItem(int relicId)
+  public List<Reference<?,RelicRole>> inspectItem(int relicId)
   {
     _storage.clear();
     findInQuestRewards(relicId);
     findInDeedRewards(relicId);
     findInContainers(relicId);
     findInMeldingRecipes(relicId);
-    List<RelicReference<?>> ret=new ArrayList<RelicReference<?>>(_storage);
+    List<Reference<?,RelicRole>> ret=new ArrayList<Reference<?,RelicRole>>(_storage);
     _storage.clear();
     return ret;
   }
@@ -62,12 +63,12 @@ public class RelicReferencesBuilder
       MeldingInput input=recipe.getInput();
       if (input.isNeededRelic(relicId))
       {
-        _storage.add(new RelicReference<RelicMeldingRecipe>(recipe,RelicRole.RECIPE_INGREDIENT));
+        _storage.add(new Reference<RelicMeldingRecipe,RelicRole>(recipe,RelicRole.RECIPE_INGREDIENT));
       }
       MeldingOutput output=recipe.getOutput();
       if (output.isResultRelic(relicId))
       {
-        _storage.add(new RelicReference<RelicMeldingRecipe>(recipe,RelicRole.RECIPE_RESULT));
+        _storage.add(new Reference<RelicMeldingRecipe,RelicRole>(recipe,RelicRole.RECIPE_RESULT));
       }
     }
   }
@@ -84,7 +85,7 @@ public class RelicReferencesBuilder
         boolean found=relicsContainer.contains(relicId);
         if (found)
         {
-          _storage.add(new RelicReference<RelicsContainer>(relicsContainer,RelicRole.CONTAINED_IN));
+          _storage.add(new Reference<RelicsContainer,RelicRole>(relicsContainer,RelicRole.CONTAINED_IN));
         }
       }
     }
@@ -137,7 +138,7 @@ public class RelicReferencesBuilder
         if (relicRewardId==relicId)
         {
           RelicRole role=(context instanceof QuestDescription)?RelicRole.QUEST_REWARD:RelicRole.DEED_REWARD;
-          _storage.add(new RelicReference<Achievable>(context,role));
+          _storage.add(new Reference<Achievable,RelicRole>(context,role));
         }
       }
       else if (element instanceof SelectableRewardElement)

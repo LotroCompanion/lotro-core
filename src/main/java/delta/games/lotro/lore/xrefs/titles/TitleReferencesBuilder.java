@@ -15,6 +15,7 @@ import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
 import delta.games.lotro.lore.titles.TitleDescription;
+import delta.games.lotro.lore.xrefs.Reference;
 
 /**
  * Finds references to titles.
@@ -22,14 +23,14 @@ import delta.games.lotro.lore.titles.TitleDescription;
  */
 public class TitleReferencesBuilder
 {
-  private List<TitleReference<?>> _storage;
+  private List<Reference<?,TitleRole>> _storage;
 
   /**
    * Constructor.
    */
   public TitleReferencesBuilder()
   {
-    _storage=new ArrayList<TitleReference<?>>();
+    _storage=new ArrayList<Reference<?,TitleRole>>();
   }
 
   /**
@@ -37,12 +38,12 @@ public class TitleReferencesBuilder
    * @param titleID Title identifier.
    * @return the found references.
    */
-  public List<TitleReference<?>> inspectTitle(int titleID)
+  public List<Reference<?,TitleRole>> inspectTitle(int titleID)
   {
     _storage.clear();
     findInRewards(titleID);
     findInBillingGroups(titleID);
-    List<TitleReference<?>> ret=new ArrayList<TitleReference<?>>(_storage);
+    List<Reference<?,TitleRole>> ret=new ArrayList<Reference<?,TitleRole>>(_storage);
     _storage.clear();
     return ret;
   }
@@ -61,7 +62,7 @@ public class TitleReferencesBuilder
     {
       if (title.getIdentifier()==titleID)
       {
-        _storage.add(new TitleReference<BillingGroupDescription>(billingGroup,TitleRole.BILLING_GROUP_REWARD));
+        _storage.add(new Reference<BillingGroupDescription,TitleRole>(billingGroup,TitleRole.BILLING_GROUP_REWARD));
       }
     }
   }
@@ -101,7 +102,7 @@ public class TitleReferencesBuilder
         if (titleRewardID==titleID)
         {
           TitleRole role=TitleRole.REGULAR_REWARD;
-          _storage.add(new TitleReference<Achievable>(context,role));
+          _storage.add(new Reference<Achievable,TitleRole>(context,role));
         }
       }
       else if (element instanceof SelectableRewardElement)

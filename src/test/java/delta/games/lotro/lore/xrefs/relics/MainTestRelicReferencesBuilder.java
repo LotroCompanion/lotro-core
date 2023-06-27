@@ -4,6 +4,7 @@ import java.util.List;
 
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
+import delta.games.lotro.lore.xrefs.Reference;
 
 /**
  * Test class for the relic references builder.
@@ -20,12 +21,12 @@ public class MainTestRelicReferencesBuilder
     RelicsManager relicsMgr=RelicsManager.getInstance();
     for(Relic relic : relicsMgr.getAll())
     {
-      List<RelicReference<?>> refs=builder.inspectItem(relic.getIdentifier());
+      List<Reference<?,RelicRole>> refs=builder.inspectItem(relic.getIdentifier());
       if (refs.size()>0)
       {
         System.out.println("References for relic: "+relic);
       }
-      for(RelicReference<?> ref : refs)
+      for(Reference<?,RelicRole> ref : refs)
       {
         System.out.println("\t"+ref);
       }

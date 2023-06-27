@@ -13,6 +13,7 @@ import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
+import delta.games.lotro.lore.xrefs.Reference;
 
 /**
  * Finds references to billing groups.
@@ -20,14 +21,14 @@ import delta.games.lotro.lore.quests.QuestsManager;
  */
 public class BillingGroupReferencesBuilder
 {
-  private List<BillingGroupReference<?>> _storage;
+  private List<Reference<?,BillingGroupRole>> _storage;
 
   /**
    * Constructor.
    */
   public BillingGroupReferencesBuilder()
   {
-    _storage=new ArrayList<BillingGroupReference<?>>();
+    _storage=new ArrayList<Reference<?,BillingGroupRole>>();
   }
 
   /**
@@ -35,11 +36,11 @@ public class BillingGroupReferencesBuilder
    * @param billingGroupID Billing group identifier.
    * @return the found references.
    */
-  public List<BillingGroupReference<?>> inspectBillingGroup(int billingGroupID)
+  public List<Reference<?,BillingGroupRole>> inspectBillingGroup(int billingGroupID)
   {
     _storage.clear();
     findInRewards(billingGroupID);
-    List<BillingGroupReference<?>> ret=new ArrayList<BillingGroupReference<?>>(_storage);
+    List<Reference<?,BillingGroupRole>> ret=new ArrayList<Reference<?,BillingGroupRole>>(_storage);
     _storage.clear();
     return ret;
   }
@@ -79,7 +80,7 @@ public class BillingGroupReferencesBuilder
         if (billingGroup.getCode()==billingGroupID)
         {
           BillingGroupRole role=BillingGroupRole.REGULAR_REWARD;
-          _storage.add(new BillingGroupReference<Achievable>(context,role));
+          _storage.add(new Reference<Achievable,BillingGroupRole>(context,role));
         }
       }
       else if (element instanceof SelectableRewardElement)

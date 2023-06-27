@@ -18,6 +18,7 @@ import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
+import delta.games.lotro.lore.xrefs.Reference;
 
 /**
  * Finds references to emotes.
@@ -25,14 +26,14 @@ import delta.games.lotro.lore.quests.QuestsManager;
  */
 public class EmoteReferencesBuilder
 {
-  private List<EmoteReference<?>> _storage;
+  private List<Reference<?,EmoteRole>> _storage;
 
   /**
    * Constructor.
    */
   public EmoteReferencesBuilder()
   {
-    _storage=new ArrayList<EmoteReference<?>>();
+    _storage=new ArrayList<Reference<?,EmoteRole>>();
   }
 
   /**
@@ -40,12 +41,12 @@ public class EmoteReferencesBuilder
    * @param emoteID Emote identifier.
    * @return the found references.
    */
-  public List<EmoteReference<?>> inspectEmote(int emoteID)
+  public List<Reference<?,EmoteRole>> inspectEmote(int emoteID)
   {
     _storage.clear();
     findInRewards(emoteID);
     findInItems(emoteID);
-    List<EmoteReference<?>> ret=new ArrayList<EmoteReference<?>>(_storage);
+    List<Reference<?,EmoteRole>> ret=new ArrayList<Reference<?,EmoteRole>>(_storage);
     _storage.clear();
     return ret;
   }
@@ -85,7 +86,7 @@ public class EmoteReferencesBuilder
         if (emoteRewardID==emoteID)
         {
           EmoteRole role=EmoteRole.REGULAR_REWARD;
-          _storage.add(new EmoteReference<Achievable>(context,role));
+          _storage.add(new Reference<Achievable,EmoteRole>(context,role));
         }
       }
       else if (element instanceof SelectableRewardElement)
@@ -112,7 +113,7 @@ public class EmoteReferencesBuilder
         {
           if (identifiable.getIdentifier()==emoteID)
           {
-            _storage.add(new EmoteReference<Item>(item,EmoteRole.GRANTED_BY_ITEM));
+            _storage.add(new Reference<Item,EmoteRole>(item,EmoteRole.GRANTED_BY_ITEM));
           }
         }
       }
