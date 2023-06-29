@@ -2,8 +2,10 @@ package delta.games.lotro.character.stats;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
@@ -58,7 +60,7 @@ public class ItemsSetStatsComputer
         continue;
       }
       BasicStatsSet statsForSet=new BasicStatsSet();
-      int count=entry.getValue().size();
+      int count=getDifferentItemsCount(entry.getValue());
       int level=getSetLevel(set,entry.getValue());
       for(SetBonus bonus : set.getBonuses())
       {
@@ -77,6 +79,17 @@ public class ItemsSetStatsComputer
       }
     }
     return ret;
+  }
+
+  private int getDifferentItemsCount(List<ItemInstance<? extends Item>> items)
+  {
+    Set<Integer> ids=new HashSet<Integer>();
+    for(ItemInstance<? extends Item> itemInstance : items)
+    {
+      Integer id=Integer.valueOf(itemInstance.getIdentifier());
+      ids.add(id);
+    }
+    return ids.size();
   }
 
   private int getSetLevel(ItemsSet set, List<ItemInstance<? extends Item>> itemInstances)
