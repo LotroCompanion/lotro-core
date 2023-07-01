@@ -19,13 +19,25 @@ public class PositionUtils
   {
     float latitude=position.getLatitude();
     float longitude=position.getLongitude();
+    int regionCode=position.getRegion();
+    Region region=GeoAreasManager.getInstance().getRegionByCode(regionCode);
+    return getLabel(latitude,longitude,region);
+  }
+
+  /**
+   * Get a displayable label for a position.
+   * @param latitude Latitude.
+   * @param longitude Longitude.
+   * @param region Region to use (may be <code>null</code>).
+   * @return A label.
+   */
+  public static String getLabel(float latitude, float longitude, Region region)
+  {
     boolean isSouth=(latitude<0);
     boolean isWest=(longitude<0);
     String latStr=L10n.getString(Math.abs(latitude),1);
     String lonStr=L10n.getString(Math.abs(longitude),1);
     String positionStr=latStr+(isSouth?'S':'N')+", "+lonStr+(isWest?'W':'E');
-    int regionCode=position.getRegion();
-    Region region=GeoAreasManager.getInstance().getRegionByCode(regionCode);
     if (region!=null)
     {
       positionStr=positionStr+" ("+region.getName()+")";
