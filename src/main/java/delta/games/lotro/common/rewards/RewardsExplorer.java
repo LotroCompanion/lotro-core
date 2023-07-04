@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.enums.BillingGroup;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
@@ -14,6 +15,7 @@ import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
+import delta.games.lotro.lore.titles.TitleDescription;
 
 /**
  * Tool to explore rewards.
@@ -22,7 +24,7 @@ import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
 public class RewardsExplorer
 {
   private Set<String> _emotes;
-  private Set<String> _titles;
+  private Set<TitleDescription> _titles;
   private Set<Integer> _itemIds;
   private List<Item> _items;
   private Set<Integer> _relicIds;
@@ -36,7 +38,7 @@ public class RewardsExplorer
    */
   public RewardsExplorer()
   {
-    _titles=new HashSet<String>();
+    _titles=new HashSet<TitleDescription>();
     _itemIds=new HashSet<Integer>();
     _items=new ArrayList<Item>();
     _relicIds=new HashSet<Integer>();
@@ -71,8 +73,8 @@ public class RewardsExplorer
       else if (rewardElement instanceof TitleReward)
       {
         TitleReward titleReward=(TitleReward)rewardElement;
-        String titleName=titleReward.getName();
-        _titles.add(titleName);
+        TitleDescription title=titleReward.getTitle();
+        _titles.add(title);
       }
       // Traits
       else if (rewardElement instanceof TraitReward)
@@ -196,10 +198,10 @@ public class RewardsExplorer
    * Get all titles.
    * @return a sorted list of titles.
    */
-  public List<String> getTitles()
+  public List<TitleDescription> getTitles()
   {
-    List<String> ret=new ArrayList<String>(_titles);
-    Collections.sort(ret);
+    List<TitleDescription> ret=new ArrayList<TitleDescription>(_titles);
+    Collections.sort(ret,new IdentifiableComparator<TitleDescription>());
     return ret;
   }
 

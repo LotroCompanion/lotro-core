@@ -7,6 +7,7 @@ import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.TitleReward;
+import delta.games.lotro.lore.titles.TitleDescription;
 
 /**
  * Filter for rewards that contain a title.
@@ -14,13 +15,13 @@ import delta.games.lotro.common.rewards.TitleReward;
  */
 public class TitleRewardFilter implements Filter<Rewards>
 {
-  private String _title;
+  private TitleDescription _title;
 
   /**
    * Constructor.
    * @param title Title to select (may be <code>null</code>).
    */
-  public TitleRewardFilter(String title)
+  public TitleRewardFilter(TitleDescription title)
   {
     _title=title;
   }
@@ -29,7 +30,7 @@ public class TitleRewardFilter implements Filter<Rewards>
    * Get the title to use.
    * @return A title or <code>null</code>.
    */
-  public String getTitle()
+  public TitleDescription getTitle()
   {
     return _title;
   }
@@ -38,7 +39,7 @@ public class TitleRewardFilter implements Filter<Rewards>
    * Set the title to select.
    * @param title Title to use, may be <code>null</code>.
    */
-  public void setTitle(String title)
+  public void setTitle(TitleDescription title)
   {
     _title=title;
   }
@@ -78,6 +79,6 @@ public class TitleRewardFilter implements Filter<Rewards>
 
   private boolean accept(TitleReward titleReward)
   {
-    return (_title.equals(titleReward.getName()));
+    return (_title==titleReward.getTitle());
   }
 }
