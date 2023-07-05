@@ -3,7 +3,6 @@ package delta.games.lotro.common.treasure;
 import delta.common.utils.l10n.L10n;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Entry in a 'trophy list':
@@ -17,7 +16,7 @@ import delta.games.lotro.utils.Proxy;
 public class TrophyListEntry
 {
   private float _probability;
-  private Proxy<Item> _item;
+  private Item _item;
   private TreasureGroupProfile _treasureGroup;
   private int _quantity;
 
@@ -27,7 +26,7 @@ public class TrophyListEntry
    * @param item Item.
    * @param quantity Quantity.
    */
-  public TrophyListEntry(float probability, Proxy<Item> item, int quantity)
+  public TrophyListEntry(float probability, Item item, int quantity)
   {
     _probability=probability;
     _item=item;
@@ -58,7 +57,7 @@ public class TrophyListEntry
    * Get the rewarded item.
    * @return an item or <code>null</code>.
    */
-  public Proxy<Item> getItem()
+  public Item getItem()
   {
     return _item;
   }

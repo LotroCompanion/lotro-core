@@ -7,7 +7,6 @@ import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Items table.
@@ -15,7 +14,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class ItemsTable extends TreasureGroupProfile
 {
-  private List<ItemsTableEntry> _entries;
+  private List<ItemsTableEntry> _entries; 
 
   /**
    * Constructor.
@@ -50,8 +49,8 @@ public class ItemsTable extends TreasureGroupProfile
   {
     for(ItemsTableEntry entry : _entries)
     {
-      Proxy<Item> item=entry.getItem();
-      if (item.getId()==itemId)
+      Item item=entry.getItem();
+      if (item.getIdentifier()==itemId)
       {
         return true;
       }
@@ -65,8 +64,8 @@ public class ItemsTable extends TreasureGroupProfile
     Set<Integer> ret=new HashSet<Integer>();
     for(ItemsTableEntry entry : _entries)
     {
-      Proxy<Item> item=entry.getItem();
-      int itemId=item.getId();
+      Item item=entry.getItem();
+      int itemId=item.getIdentifier();
       ret.add(Integer.valueOf(itemId));
     }
     return ret;

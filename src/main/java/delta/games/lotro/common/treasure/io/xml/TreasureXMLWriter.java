@@ -32,7 +32,7 @@ import delta.games.lotro.common.treasure.WeightedTreasureTable;
 import delta.games.lotro.common.treasure.WeightedTreasureTableEntry;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
  * Writes loot tables to XML files.
@@ -148,7 +148,7 @@ public class TreasureXMLWriter
       int weight=entry.getWeight();
       entryAttrs.addAttribute("","",TreasureXMLConstants.WEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(weight));
       // Item
-      writeItemProxy(entry.getItem(),entryAttrs);
+      SharedXMLUtils.writeItem(hd,entry.getItem(),entryAttrs);
       // Quantity
       int quantity=entry.getQuantity();
       if (quantity>1)
@@ -213,10 +213,10 @@ public class TreasureXMLWriter
       float probability=entry.getProbability();
       entryAttrs.addAttribute("","",TreasureXMLConstants.DROP_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(probability));
       // Item?
-      Proxy<Item> itemProxy=entry.getItem();
-      if (itemProxy!=null)
+      Item item=entry.getItem();
+      if (item!=null)
       {
-        writeItemProxy(itemProxy,entryAttrs);
+        SharedXMLUtils.writeItem(hd,item,entryAttrs);
       }
       // Treasure group profile?
       TreasureGroupProfile profile=entry.getTreasureGroup();
@@ -360,15 +360,5 @@ public class TreasureXMLWriter
       hd.endElement("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_ENTRY_TAG);
     }
     hd.endElement("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_TAG);
-  }
-
-  private void writeItemProxy(Proxy<Item> itemProxy, AttributesImpl attrs)
-  {
-    // ID
-    int itemId=itemProxy.getId();
-    attrs.addAttribute("","",TreasureXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemId));
-    // Name
-    String name=itemProxy.getName();
-    attrs.addAttribute("","",TreasureXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
   }
 }

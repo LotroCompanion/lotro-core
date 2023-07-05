@@ -31,7 +31,6 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Parser for loot tables stored in XML.
@@ -126,7 +125,8 @@ public class TreasureXMLParser
       // Weight
       int weight=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.WEIGHT_ATTR,0);
       // Item
-      Proxy<Item> item=parseItemProxy(entryAttrs);
+      int itemId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.ITEM_ID_ATTR,-1);
+      Item item=ItemsManager.getInstance().getItem(itemId);
       // Quantity
       int quantity=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.QUANTITY_ATTR,1);
       ItemsTableEntry entry=new ItemsTableEntry(weight,item,quantity);
@@ -194,12 +194,12 @@ public class TreasureXMLParser
 
       // Item?
       TrophyListEntry entry=null;
-      Proxy<Item> item=null;
+      Item item=null;
       TreasureGroupProfile treasureGroup=null;
       int itemId=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.ITEM_ID_ATTR,-1);
       if (itemId>0)
       {
-        item=parseItemProxy(entryAttrs);
+        item=ItemsManager.getInstance().getItem(itemId);
         // Quantity
         int quantity=DOMParsingTools.getIntAttribute(entryAttrs,TreasureXMLConstants.QUANTITY_ATTR,1);
         entry=new TrophyListEntry(probability,item,quantity);
@@ -369,24 +369,6 @@ public class TreasureXMLParser
       {
         decodeTag(tag);
         ret=getRelicTreasureGroup(id);
-      }
-    }
-    return ret;
-  }
-
-  private Proxy<Item> parseItemProxy(NamedNodeMap attrs)
-  {
-    Proxy<Item> ret=null;
-    int id=DOMParsingTools.getIntAttribute(attrs,TreasureXMLConstants.ITEM_ID_ATTR,-1);
-    if (id>0)
-    {
-      Item item=ItemsManager.getInstance().getItem(id);
-      if (item!=null)
-      {
-        ret=new Proxy<Item>();
-        ret.setId(id);
-        ret.setName(item.getName());
-        ret.setObject(item);
       }
     }
     return ret;

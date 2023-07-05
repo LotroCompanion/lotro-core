@@ -7,7 +7,6 @@ import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Trophy list.
@@ -90,8 +89,8 @@ public class TrophyList extends LootTable
   {
     for(TrophyListEntry entry : _entries)
     {
-      Proxy<Item> item=entry.getItem();
-      if ((item!=null) && (item.getId()==itemId))
+      Item item=entry.getItem();
+      if ((item!=null) && (item.getIdentifier()==itemId))
       {
         return true;
       }
@@ -110,10 +109,10 @@ public class TrophyList extends LootTable
     Set<Integer> ret=new HashSet<Integer>();
     for(TrophyListEntry entry : _entries)
     {
-      Proxy<Item> item=entry.getItem();
+      Item item=entry.getItem();
       if (item!=null)
       {
-        int itemId=item.getId();
+        int itemId=item.getIdentifier();
         ret.add(Integer.valueOf(itemId));
       }
       TreasureGroupProfile treasureGroupProfile=entry.getTreasureGroup();

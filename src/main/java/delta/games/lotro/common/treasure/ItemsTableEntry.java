@@ -1,7 +1,6 @@
 package delta.games.lotro.common.treasure;
 
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Entry in an 'items table':
@@ -15,7 +14,7 @@ import delta.games.lotro.utils.Proxy;
 public class ItemsTableEntry
 {
   private int _weight;
-  private Proxy<Item> _item;
+  private Item _item;
   private int _quantity;
 
   /**
@@ -24,7 +23,7 @@ public class ItemsTableEntry
    * @param item Referenced item.
    * @param quantity Quantity.
    */
-  public ItemsTableEntry(int weight, Proxy<Item> item, int quantity)
+  public ItemsTableEntry(int weight, Item item, int quantity)
   {
     _weight=weight;
     _item=item;
@@ -42,9 +41,9 @@ public class ItemsTableEntry
 
   /**
    * Get the referenced item.
-   * @return an item proxy.
+   * @return an item.
    */
-  public Proxy<Item> getItem()
+  public Item getItem()
   {
     return _item;
   }

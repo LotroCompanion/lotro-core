@@ -114,6 +114,19 @@ public class SharedXMLUtils
   public static void writeItem(TransformerHandler hd, String tagName, Item item) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
+    writeItem(hd,item,attrs);
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
+  }
+
+  /**
+   * Write an item.
+   * @param hd Output.
+   * @param item Item.
+   * @param attrs Storage.
+   */
+  public static void writeItem(TransformerHandler hd, Item item, AttributesImpl attrs)
+  {
     // - Identifier
     int id=item.getIdentifier();
     if (id!=0)
@@ -126,8 +139,6 @@ public class SharedXMLUtils
     {
       attrs.addAttribute("","",SharedXMLConstants.PROXY_NAME_ATTR,XmlWriter.CDATA,name);
     }
-    hd.startElement("","",tagName,attrs);
-    hd.endElement("","",tagName);
   }
 
   /**
