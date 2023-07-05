@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
-import delta.games.lotro.lore.geo.LandmarkDescription;
+import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
 import delta.games.lotro.utils.Proxy;
 
 /**

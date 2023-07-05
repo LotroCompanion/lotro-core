@@ -251,6 +251,10 @@ public class DataFiles
    */
   public static final String DUNGEONS="dungeons";
   /**
+   * Landmarks.
+   */
+  public static final String LANDMARKS="landmarks";
+  /**
    * Private encounters.
    */
   public static final String PRIVATE_ENCOUNTERS="privateEncounters";

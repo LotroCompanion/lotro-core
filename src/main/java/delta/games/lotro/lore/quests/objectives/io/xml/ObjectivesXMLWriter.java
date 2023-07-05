@@ -14,7 +14,7 @@ import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
 import delta.games.lotro.lore.emotes.EmoteDescription;
-import delta.games.lotro.lore.geo.LandmarkDescription;
+import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.maps.LandDivision;
 import delta.games.lotro.lore.quests.Achievable;

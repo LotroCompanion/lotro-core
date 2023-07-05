@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.geo;
+package delta.games.lotro.lore.geo.landmarks;
 
 import delta.games.lotro.common.Identifiable;
 
