@@ -16,7 +16,6 @@ import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.trade.vendor.SellList;
 import delta.games.lotro.lore.trade.vendor.VendorNpc;
-import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
@@ -111,7 +110,7 @@ public class VendorXMLParser
     List<Element> sellEntryTags=DOMParsingTools.getChildTagsByName(root,VendorXMLConstants.SELL_ENTRY_TAG);
     for(Element sellEntryTag : sellEntryTags)
     {
-      Proxy<Item> item=SharedXMLUtils.parseItemProxy(sellEntryTag);
+      Item item=SharedXMLUtils.parseItem(sellEntryTag);
       if (item!=null)
       {
         sellList.addItem(item);

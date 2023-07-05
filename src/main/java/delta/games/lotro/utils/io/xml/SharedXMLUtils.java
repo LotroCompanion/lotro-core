@@ -59,6 +59,26 @@ public class SharedXMLUtils
     return proxy;
   }
 
+  /**
+   * Parse an item.
+   * @param itemTag Source tag.
+   * @return an item or <code>null</code> if not found.
+   */
+  public static Item parseItem(Element itemTag)
+  {
+    NamedNodeMap attrs=itemTag.getAttributes();
+    int id=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.PROXY_ID_ATTR,0);
+    if (id!=0)
+    {
+      Item item=ItemsManager.getInstance().getItem(id);
+      if (item==null)
+      {
+        LOGGER.warn("Could not find item with ID: "+id);
+      }
+      return item;
+    }
+    return null;
+  }
 
   /**
    * Write a proxy.
@@ -76,6 +96,32 @@ public class SharedXMLUtils
       attrs.addAttribute("","",SharedXMLConstants.PROXY_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
     String name=proxy.getName();
+    if (name!=null)
+    {
+      attrs.addAttribute("","",SharedXMLConstants.PROXY_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
+  }
+
+  /**
+   * Write an item.
+   * @param hd Output.
+   * @param tagName Tag to use.
+   * @param item Item.
+   * @throws SAXException If an error occurs.
+   */
+  public static void writeItem(TransformerHandler hd, String tagName, Item item) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // - Identifier
+    int id=item.getIdentifier();
+    if (id!=0)
+    {
+      attrs.addAttribute("","",SharedXMLConstants.PROXY_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    // - Name
+    String name=item.getName();
     if (name!=null)
     {
       attrs.addAttribute("","",SharedXMLConstants.PROXY_NAME_ATTR,XmlWriter.CDATA,name);

@@ -5,7 +5,6 @@ import java.util.List;
 
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Sell list.
@@ -14,7 +13,7 @@ import delta.games.lotro.utils.Proxy;
 public class SellList implements Identifiable
 {
   private int _id;
-  private List<Proxy<Item>> _items;
+  private List<Item> _items;
 
   /**
    * Constructor.
@@ -23,7 +22,7 @@ public class SellList implements Identifiable
   public SellList(int identifier)
   {
     _id=identifier;
-    _items=new ArrayList<Proxy<Item>>();
+    _items=new ArrayList<Item>();
   }
 
   public int getIdentifier()
@@ -35,7 +34,7 @@ public class SellList implements Identifiable
    * Add an item.
    * @param item Item to add.
    */
-  public void addItem(Proxy<Item> item)
+  public void addItem(Item item)
   {
     _items.add(item);
   }
@@ -44,7 +43,7 @@ public class SellList implements Identifiable
    * Get items to sell.
    * @return a list of items.
    */
-  public List<Proxy<Item>> getItems()
+  public List<Item> getItems()
   {
     return _items;
   }

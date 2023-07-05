@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
-
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.money.Money;
@@ -15,7 +13,6 @@ import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.utils.DataProvider;
-import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.comparators.DelegatingComparator;
 
 /**
@@ -24,8 +21,6 @@ import delta.games.lotro.utils.comparators.DelegatingComparator;
  */
 public class VendorNpc implements Identifiable
 {
-  private static final Logger LOGGER=Logger.getLogger(VendorNpc.class);
-
   // Parent NPC
   private NpcDescription _npc;
   private List<SellList> _sellLists;
@@ -75,9 +70,9 @@ public class VendorNpc implements Identifiable
   {
     for(SellList list : _sellLists)
     {
-      for(Proxy<Item> item : list.getItems())
+      for(Item item : list.getItems())
       {
-        if (item.getId()==itemId)
+        if (item.getIdentifier()==itemId)
         {
           return true;
         }
@@ -188,27 +183,19 @@ public class VendorNpc implements Identifiable
     float factor=getSellFactor();
     for(SellList list : lists)
     {
-      for(Proxy<Item> itemProxy : list.getItems())
+      for(Item item : list.getItems())
       {
-        Item item=itemProxy.getObject();
-        if (item!=null)
+        Integer key=Integer.valueOf(item.getIdentifier());
+        if (!knownItemIds.contains(key))
         {
-          Integer key=Integer.valueOf(item.getIdentifier());
-          if (!knownItemIds.contains(key))
-          {
-            Money value=item.getValueAsMoney();
-            int rawValue=value.getInternalValue();
-            int sellRawValue=(int)(rawValue*factor);
-            Money sellValue=new Money();
-            sellValue.setRawValue(sellRawValue);
-            ValuedItem valuedItem=new ValuedItem(item,sellValue);
-            ret.add(valuedItem);
-            knownItemIds.add(key);
-          }
-        }
-        else
-        {
-          LOGGER.warn("Could not find item: "+itemProxy);
+          Money value=item.getValueAsMoney();
+          int rawValue=value.getInternalValue();
+          int sellRawValue=(int)(rawValue*factor);
+          Money sellValue=new Money();
+          sellValue.setRawValue(sellRawValue);
+          ValuedItem valuedItem=new ValuedItem(item,sellValue);
+          ret.add(valuedItem);
+          knownItemIds.add(key);
         }
       }
     }
@@ -242,7 +229,7 @@ public class VendorNpc implements Identifiable
     sb.append(EndOfLine.NATIVE_EOL);
     for(SellList sellList : _sellLists)
     {
-      for(Proxy<Item> entry : sellList.getItems())
+      for(Item entry : sellList.getItems())
       {
         sb.append("\t\t").append(entry).append(EndOfLine.NATIVE_EOL);
       }

@@ -26,7 +26,6 @@ import delta.games.lotro.lore.trade.barter.BarterNpc;
 import delta.games.lotro.lore.trade.barter.BarterProfile;
 import delta.games.lotro.lore.trade.barter.ItemBarterEntryElement;
 import delta.games.lotro.lore.trade.barter.ReputationBarterEntryElement;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Writes barter tables to XML files.
@@ -155,12 +154,12 @@ public class BarterXMLWriter
     {
       ItemBarterEntryElement itemElement=(ItemBarterEntryElement)element;
       // Item
-      Proxy<Item> itemProxy=itemElement.getItemProxy();
+      Item item=itemElement.getItem();
       // - Identifier
-      int id=itemProxy.getId();
+      int id=item.getIdentifier();
       attrs.addAttribute("","",BarterXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // - Name
-      String name=itemProxy.getName();
+      String name=item.getName();
       attrs.addAttribute("","",BarterXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,name);
       // Quantity
       int quantity=itemElement.getQuantity();

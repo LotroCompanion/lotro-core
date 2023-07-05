@@ -19,7 +19,6 @@ import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.trade.vendor.SellList;
 import delta.games.lotro.lore.trade.vendor.VendorNpc;
-import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
@@ -141,9 +140,9 @@ public class VendorXMLWriter
     attrs.addAttribute("","",VendorXMLConstants.SELL_LIST_ID,XmlWriter.CDATA,String.valueOf(id));
     hd.startElement("","",VendorXMLConstants.SELL_LIST_TAG,attrs);
     // Entries
-    for(Proxy<Item> entry : sellList.getItems())
+    for(Item entry : sellList.getItems())
     {
-      SharedXMLUtils.writeProxy(hd,VendorXMLConstants.SELL_ENTRY_TAG,entry);
+      SharedXMLUtils.writeItem(hd,VendorXMLConstants.SELL_ENTRY_TAG,entry);
     }
     hd.endElement("","",VendorXMLConstants.SELL_LIST_TAG);
   }

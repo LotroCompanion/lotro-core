@@ -46,7 +46,6 @@ import delta.games.lotro.lore.trade.vendor.SellList;
 import delta.games.lotro.lore.trade.vendor.VendorNpc;
 import delta.games.lotro.lore.trade.vendor.VendorsManager;
 import delta.games.lotro.lore.xrefs.Reference;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Finds references to items.
@@ -255,7 +254,7 @@ public class ItemReferencesBuilder
         if (toReceive instanceof ItemBarterEntryElement)
         {
           ItemBarterEntryElement itemToReceive=(ItemBarterEntryElement)toReceive;
-          int itemToReceiveId=itemToReceive.getItemProxy().getId();
+          int itemToReceiveId=itemToReceive.getItem().getIdentifier();
           if (itemToReceiveId==itemId)
           {
             roles.add(ItemRole.BARTERER_GIVEN);
@@ -263,7 +262,7 @@ public class ItemReferencesBuilder
         }
         for(ItemBarterEntryElement toGive : entry.getElementsToGive())
         {
-          int itemToGiveId=toGive.getItemProxy().getId();
+          int itemToGiveId=toGive.getItem().getIdentifier();
           if (itemToGiveId==itemId)
           {
             roles.add(ItemRole.BARTERER_RECEIVED);
@@ -292,10 +291,10 @@ public class ItemReferencesBuilder
     List<SellList> sellLists=vendor.getSellLists();
     for(SellList sellList : sellLists)
     {
-      List<Proxy<Item>> entries=sellList.getItems();
-      for(Proxy<Item> entry : entries)
+      List<Item> entries=sellList.getItems();
+      for(Item entry : entries)
       {
-        int itemToGetId=entry.getId();
+        int itemToGetId=entry.getIdentifier();
         if (itemToGetId==itemId)
         {
           _storage.add(new Reference<VendorNpc,ItemRole>(vendor,ItemRole.VENDOR_SOLD_BY));

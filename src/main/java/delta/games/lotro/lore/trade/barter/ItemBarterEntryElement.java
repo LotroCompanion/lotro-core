@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.trade.barter;
 
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Barter entry: item and quantity.
@@ -10,9 +9,9 @@ import delta.games.lotro.utils.Proxy;
 public class ItemBarterEntryElement extends BarterEntryElement
 {
   /**
-   * Item proxy.
+   * Item.
    */
-  private Proxy<Item> _item;
+  private Item _item;
   /**
    * Item quantity.
    */
@@ -20,20 +19,20 @@ public class ItemBarterEntryElement extends BarterEntryElement
 
   /**
    * Constructor.
-   * @param item Item proxy.
+   * @param item Item.
    * @param quantity Quantity.
    */
-  public ItemBarterEntryElement(Proxy<Item> item, int quantity)
+  public ItemBarterEntryElement(Item item, int quantity)
   {
     _item=item;
     _quantity=quantity;
   }
 
   /**
-   * Get the item proxy.
-   * @return an item proxy or <code>null</code> if not set.
+   * Get the item.
+   * @return an item or <code>null</code> if not set.
    */
-  public Proxy<Item> getItemProxy()
+  public Item getItem()
   {
     return _item;
   }

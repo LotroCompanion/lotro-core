@@ -24,7 +24,6 @@ import delta.games.lotro.lore.trade.barter.BarterNpc;
 import delta.games.lotro.lore.trade.barter.BarterProfile;
 import delta.games.lotro.lore.trade.barter.ItemBarterEntryElement;
 import delta.games.lotro.lore.trade.barter.ReputationBarterEntryElement;
-import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
@@ -125,7 +124,7 @@ public class BarterXMLParser
       for(Element giveTag : giveTags)
       {
         NamedNodeMap giveAttrs=giveTag.getAttributes();
-        Proxy<Item> item=SharedXMLUtils.parseItemProxy(giveTag);
+        Item item=SharedXMLUtils.parseItem(giveTag);
         if (item!=null)
         {
           int quantity=DOMParsingTools.getIntAttribute(giveAttrs,BarterXMLConstants.ITEM_QUANTITY_ATTR,1);
@@ -157,7 +156,7 @@ public class BarterXMLParser
   {
     ItemBarterEntryElement element=null;
     NamedNodeMap attrs=tag.getAttributes();
-    Proxy<Item> item=SharedXMLUtils.parseItemProxy(tag);
+    Item item=SharedXMLUtils.parseItem(tag);
     if (item!=null)
     {
       int quantity=DOMParsingTools.getIntAttribute(attrs,BarterXMLConstants.ITEM_QUANTITY_ATTR,1);
