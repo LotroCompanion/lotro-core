@@ -32,7 +32,6 @@ import delta.games.lotro.common.treasure.WeightedTreasureTable;
 import delta.games.lotro.common.treasure.WeightedTreasureTableEntry;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
-import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
  * Writes loot tables to XML files.
@@ -148,7 +147,7 @@ public class TreasureXMLWriter
       int weight=entry.getWeight();
       entryAttrs.addAttribute("","",TreasureXMLConstants.WEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(weight));
       // Item
-      SharedXMLUtils.writeItem(hd,entry.getItem(),entryAttrs);
+      writeItem(hd,entry.getItem(),entryAttrs);
       // Quantity
       int quantity=entry.getQuantity();
       if (quantity>1)
@@ -216,7 +215,7 @@ public class TreasureXMLWriter
       Item item=entry.getItem();
       if (item!=null)
       {
-        SharedXMLUtils.writeItem(hd,item,entryAttrs);
+        writeItem(hd,item,entryAttrs);
       }
       // Treasure group profile?
       TreasureGroupProfile profile=entry.getTreasureGroup();
@@ -360,5 +359,27 @@ public class TreasureXMLWriter
       hd.endElement("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_ENTRY_TAG);
     }
     hd.endElement("","",TreasureXMLConstants.RELICS_TREASURE_GROUP_TAG);
+  }
+
+  /**
+   * Write an item.
+   * @param hd Output.
+   * @param item Item.
+   * @param attrs Storage.
+   */
+  public static void writeItem(TransformerHandler hd, Item item, AttributesImpl attrs)
+  {
+    // - Identifier
+    int id=item.getIdentifier();
+    if (id!=0)
+    {
+      attrs.addAttribute("","",TreasureXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    // - Name
+    String name=item.getName();
+    if (name!=null)
+    {
+      attrs.addAttribute("","",TreasureXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
+    }
   }
 }
