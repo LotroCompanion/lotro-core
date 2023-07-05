@@ -9,12 +9,9 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.comparators.ItemIdComparator;
-import delta.games.lotro.utils.DataProvider;
-import delta.games.lotro.utils.Proxy;
-import delta.games.lotro.utils.comparators.DelegatingComparator;
 
 /**
  * Descriptor for a resources map.
@@ -23,7 +20,7 @@ import delta.games.lotro.utils.comparators.DelegatingComparator;
 public class ResourcesMapDescriptor
 {
   private CraftingLevel _level;
-  private Map<Integer,Proxy<Item>> _items;
+  private Map<Integer,Item> _items;
   private SortedSet<Integer> _mapIds;
 
   /**
@@ -33,7 +30,7 @@ public class ResourcesMapDescriptor
   public ResourcesMapDescriptor(CraftingLevel level)
   {
     _level=level;
-    _items=new HashMap<Integer,Proxy<Item>>();
+    _items=new HashMap<Integer,Item>();
     _mapIds=new TreeSet<Integer>();
   }
 
@@ -50,18 +47,10 @@ public class ResourcesMapDescriptor
    * Get the managed resource items.
    * @return a list of resource items.
    */
-  public List<Proxy<Item>> getItems()
+  public List<Item> getItems()
   {
-    List<Proxy<Item>> items=new ArrayList<Proxy<Item>>(_items.values());
-    DataProvider<Proxy<Item>,Item> provider=new DataProvider<Proxy<Item>,Item>()
-    {
-      public Item getData(Proxy<Item> p)
-      {
-        return p.getObject();
-      }
-    };
-    Comparator<Item> itemC=new ItemIdComparator();
-    Comparator<Proxy<Item>> c=new DelegatingComparator<Proxy<Item>,Item>(provider,itemC);
+    List<Item> items=new ArrayList<Item>(_items.values());
+    Comparator<Item> c=new IdentifiableComparator<Item>();
     Collections.sort(items,c);
     return items;
   }
@@ -79,9 +68,9 @@ public class ResourcesMapDescriptor
    * Add a resource item.
    * @param item Item to add.
    */
-  public void addItem(Proxy<Item> item)
+  public void addItem(Item item)
   {
-    _items.put(Integer.valueOf(item.getId()),item);
+    _items.put(Integer.valueOf(item.getIdentifier()),item);
   }
 
   /**

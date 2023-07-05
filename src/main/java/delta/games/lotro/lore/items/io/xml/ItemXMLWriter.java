@@ -13,6 +13,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.money.QualityBasedValueLookupTable;
@@ -32,7 +33,6 @@ import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
-import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.details.io.xml.ItemDetailsXMLWriter;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
@@ -62,7 +62,7 @@ public class ItemXMLWriter
   public static boolean writeItemsFile(File toFile, List<Item> items)
   {
     ItemXMLWriter writer=new ItemXMLWriter();
-    Collections.sort(items,new ItemIdComparator());
+    Collections.sort(items,new IdentifiableComparator<Item>());
     boolean ok=writer.writeItems(toFile,items,EncodingNames.UTF_8);
     return ok;
   }

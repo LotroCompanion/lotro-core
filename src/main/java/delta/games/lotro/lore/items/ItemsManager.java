@@ -8,9 +8,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.items.comparators.ItemIdComparator;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.items.io.xml.ItemSaxParser;
 import delta.games.lotro.lore.items.sort.ItemsSorter;
@@ -106,7 +106,7 @@ public class ItemsManager
   {
     ArrayList<Item> items=new ArrayList<Item>();
     items.addAll(_cache.values());
-    Collections.sort(items,new ItemIdComparator());
+    Collections.sort(items,new IdentifiableComparator<Item>());
     return items;
   }
 

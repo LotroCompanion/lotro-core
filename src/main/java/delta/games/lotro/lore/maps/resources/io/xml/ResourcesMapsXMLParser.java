@@ -14,7 +14,6 @@ import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.maps.resources.ResourcesMapDescriptor;
 import delta.games.lotro.lore.maps.resources.ResourcesMapsManager;
-import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
@@ -81,7 +80,7 @@ public class ResourcesMapsXMLParser
     List<Element> itemTags=DOMParsingTools.getChildTagsByName(resourcesMapTag,ResourcesMapsXMLConstants.ITEM_TAG);
     for(Element itemTag : itemTags)
     {
-      Proxy<Item> item=SharedXMLUtils.parseItemProxy(itemTag);
+      Item item=SharedXMLUtils.parseItem(itemTag);
       if (item!=null)
       {
         ret.addItem(item);

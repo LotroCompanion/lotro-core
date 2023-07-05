@@ -12,7 +12,6 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.common.utils.xml.SAXParsingTools;
-import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
@@ -21,7 +20,6 @@ import delta.games.lotro.lore.agents.npcs.NPCsManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLConstants;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Shared XML utilities.
@@ -30,34 +28,6 @@ import delta.games.lotro.utils.Proxy;
 public class SharedXMLUtils
 {
   private static final Logger LOGGER=Logger.getLogger(SharedXMLUtils.class);
-
-  /**
-   * Parse an item proxy.
-   * @param itemTag Source tag.
-   * @return a proxy or <code>null</code> if not valid.
-   */
-  public static Proxy<Item> parseItemProxy(Element itemTag)
-  {
-    Proxy<Item> proxy=null;
-    NamedNodeMap attrs=itemTag.getAttributes();
-    int id=DOMParsingTools.getIntAttribute(attrs,SharedXMLConstants.PROXY_ID_ATTR,0);
-    if (id!=0)
-    {
-      Item item=ItemsManager.getInstance().getItem(id);
-      if (item!=null)
-      {
-        proxy=new Proxy<Item>();
-        proxy.setId(id);
-        proxy.setName(item.getName());
-        proxy.setObject(item);
-      }
-    }
-    else
-    {
-      LOGGER.warn("Could not find item with ID: "+id);
-    }
-    return proxy;
-  }
 
   /**
    * Parse an item.
@@ -81,30 +51,6 @@ public class SharedXMLUtils
   }
 
   /**
-   * Write a proxy.
-   * @param hd Output.
-   * @param tagName Tag to use.
-   * @param proxy Proxy data.
-   * @throws SAXException If an error occurs.
-   */
-  public static void writeProxy(TransformerHandler hd, String tagName, Proxy<? extends Identifiable> proxy) throws SAXException
-  {
-    AttributesImpl attrs=new AttributesImpl();
-    int id=proxy.getId();
-    if (id!=0)
-    {
-      attrs.addAttribute("","",SharedXMLConstants.PROXY_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-    }
-    String name=proxy.getName();
-    if (name!=null)
-    {
-      attrs.addAttribute("","",SharedXMLConstants.PROXY_NAME_ATTR,XmlWriter.CDATA,name);
-    }
-    hd.startElement("","",tagName,attrs);
-    hd.endElement("","",tagName);
-  }
-
-  /**
    * Write an item.
    * @param hd Output.
    * @param tagName Tag to use.
@@ -114,19 +60,6 @@ public class SharedXMLUtils
   public static void writeItem(TransformerHandler hd, String tagName, Item item) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
-    writeItem(hd,item,attrs);
-    hd.startElement("","",tagName,attrs);
-    hd.endElement("","",tagName);
-  }
-
-  /**
-   * Write an item.
-   * @param hd Output.
-   * @param item Item.
-   * @param attrs Storage.
-   */
-  public static void writeItem(TransformerHandler hd, Item item, AttributesImpl attrs)
-  {
     // - Identifier
     int id=item.getIdentifier();
     if (id!=0)
@@ -139,6 +72,8 @@ public class SharedXMLUtils
     {
       attrs.addAttribute("","",SharedXMLConstants.PROXY_NAME_ATTR,XmlWriter.CDATA,name);
     }
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
   }
 
   /**

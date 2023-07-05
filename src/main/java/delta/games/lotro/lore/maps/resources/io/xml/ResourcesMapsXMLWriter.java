@@ -14,7 +14,6 @@ import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.maps.resources.ResourcesMapDescriptor;
-import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.io.xml.SharedXMLUtils;
 
 /**
@@ -83,9 +82,9 @@ public class ResourcesMapsXMLWriter
     attrs.addAttribute("","",ResourcesMapsXMLConstants.PROFESSION_TIER_ATTR,XmlWriter.CDATA,String.valueOf(tier));
     hd.startElement("","",ResourcesMapsXMLConstants.RESOURCES_MAP_TAG,attrs);
     // Items
-    for(Proxy<Item> item : map.getItems())
+    for(Item item : map.getItems())
     {
-      SharedXMLUtils.writeProxy(hd,ResourcesMapsXMLConstants.ITEM_TAG,item);
+      SharedXMLUtils.writeItem(hd,ResourcesMapsXMLConstants.ITEM_TAG,item);
     }
     // Maps
     for(Integer mapID : map.getMapIds())
