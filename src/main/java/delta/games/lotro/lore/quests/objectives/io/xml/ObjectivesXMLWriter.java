@@ -323,10 +323,13 @@ public class ObjectivesXMLWriter
           selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LAND_NAME_ATTR,XmlWriter.CDATA,name);
         }
         // Landmark
-        String landmark=where.getLandmark();
+        LandmarkDescription landmark=where.getLandmark();
         if (landmark!=null)
         {
-          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_ATTR,XmlWriter.CDATA,landmark);
+          int landmarkId=landmark.getIdentifier();
+          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_ID_ATTR,XmlWriter.CDATA,String.valueOf(landmarkId));
+          String landmarkName=landmark.getName();
+          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_NAME_ATTR,XmlWriter.CDATA,landmarkName);
         }
       }
       // What
@@ -347,15 +350,15 @@ public class ObjectivesXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
     writeSharedConditionAttributes(attrs,condition);
-    // Landmark proxy
-    Proxy<LandmarkDescription> proxy=condition.getLandmarkProxy();
-    if (proxy!=null)
+    // Landmark
+    LandmarkDescription landmark=condition.getLandmark();
+    if (landmark!=null)
     {
       // ID
-      int id=proxy.getId();
+      int id=landmark.getIdentifier();
       attrs.addAttribute("","",ObjectivesXMLConstants.LANDMARK_DETECTION_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // Name
-      String name=proxy.getName();
+      String name=landmark.getName();
       if (name!=null)
       {
         attrs.addAttribute("","",ObjectivesXMLConstants.LANDMARK_DETECTION_NAME_ATTR,XmlWriter.CDATA,name);

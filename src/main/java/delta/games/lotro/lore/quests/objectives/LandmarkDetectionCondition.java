@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
 import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Landmark detected condition.
@@ -9,7 +8,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class LandmarkDetectionCondition extends ObjectiveCondition
 {
-  private Proxy<LandmarkDescription> _landmark;
+  private LandmarkDescription _landmark;
 
   /**
    * Constructor.
@@ -26,19 +25,19 @@ public class LandmarkDetectionCondition extends ObjectiveCondition
   }
 
   /**
-   * Get the proxy to a landmark.
-   * @return a proxy or <code>null</code>.
+   * Get the landmark.
+   * @return a landmark or <code>null</code>.
    */
-  public Proxy<LandmarkDescription> getLandmarkProxy()
+  public LandmarkDescription getLandmark()
   {
     return _landmark;
   }
 
   /**
-   * Set the proxy to a landmark.
-   * @param landmark the proxy to set (may be <code>null</code>).
+   * Set the landmark.
+   * @param landmark the landmark to set (may be <code>null</code>).
    */
-  public void setLandmarkProxy(Proxy<LandmarkDescription> landmark)
+  public void setLandmark(LandmarkDescription landmark)
   {
     _landmark=landmark;
   }

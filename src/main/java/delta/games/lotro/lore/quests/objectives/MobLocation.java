@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
+import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
 import delta.games.lotro.lore.maps.LandDivision;
 
 /**
@@ -11,8 +12,7 @@ public class MobLocation
   // TODO Use an enum
   private String _mobDivision;
   private LandDivision _landDivision;
-  // TODO Use a landmark POJO
-  private String _landmark;
+  private LandmarkDescription _landmark;
 
   /**
    * Constructor.
@@ -20,7 +20,7 @@ public class MobLocation
    * @param landDivision Land division.
    * @param landmark Landmark.
    */
-  public MobLocation(String mobDivision, LandDivision landDivision, String landmark)
+  public MobLocation(String mobDivision, LandDivision landDivision, LandmarkDescription landmark)
   {
     _mobDivision=mobDivision;
     _landDivision=landDivision;
@@ -49,7 +49,7 @@ public class MobLocation
    * Get the landmark.
    * @return the landmark.
    */
-  public String getLandmark()
+  public LandmarkDescription getLandmark()
   {
     return _landmark;
   }

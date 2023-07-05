@@ -116,9 +116,13 @@ public class ObjectivesXMLConstants
    */
   public static final String MONSTER_SELECTION_LAND_NAME_ATTR="landName";
   /**
-   * Tag 'monsterSelection', attribute 'landmark'.
+   * Tag 'monsterSelection', attribute 'landmarkId'.
    */
-  public static final String MONSTER_SELECTION_LANDMARK_ATTR="landmark";
+  public static final String MONSTER_SELECTION_LANDMARK_ID_ATTR="landmarkId";
+  /**
+   * Tag 'monsterSelection', attribute 'landmarkName'.
+   */
+  public static final String MONSTER_SELECTION_LANDMARK_NAME_ATTR="landmarkName";
 
   /**
    * Tag 'landmarkDetection'.

@@ -16,6 +16,7 @@ import delta.games.lotro.lore.agents.mobs.MobsManager;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
+import delta.games.lotro.lore.geo.landmarks.LandmarksManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.maps.GeoAreasManager;
@@ -308,7 +309,12 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
       land=GeoAreasManager.getInstance().getLandById(whereId);
     }
     // - landmark
-    String landmark=SAXParsingTools.getStringAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_ATTR,null);
+    LandmarkDescription landmark=null;
+    int landmarkId=SAXParsingTools.getIntAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_ID_ATTR,0);
+    if (landmarkId!=0)
+    {
+      landmark=LandmarksManager.getInstance().getLandmarkById(landmarkId);
+    }
     if ((mobDivision!=null) || (land!=null) || (landmark!=null))
     {
       MobLocation location=new MobLocation(mobDivision,land,landmark);
@@ -324,17 +330,11 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private static LandmarkDetectionCondition parseLandmarkDetectionCondition(Attributes attrs)
   {
     LandmarkDetectionCondition condition=new LandmarkDetectionCondition();
-    // Landmark proxy
-    // - id
     int landmarkId=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.LANDMARK_DETECTION_ID_ATTR,0);
     if (landmarkId!=0)
     {
-      // - name
-      String landmarkName=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.LANDMARK_DETECTION_NAME_ATTR,"?");
-      Proxy<LandmarkDescription> proxy=new Proxy<LandmarkDescription>();
-      proxy.setId(landmarkId);
-      proxy.setName(landmarkName);
-      condition.setLandmarkProxy(proxy);
+      LandmarkDescription landmark=LandmarksManager.getInstance().getLandmarkById(landmarkId);
+      condition.setLandmark(landmark);
     }
     return condition;
   }
