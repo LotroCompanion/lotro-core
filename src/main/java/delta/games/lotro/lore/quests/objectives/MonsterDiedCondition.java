@@ -3,7 +3,6 @@ package delta.games.lotro.lore.quests.objectives;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
 
 /**
@@ -64,58 +63,6 @@ public class MonsterDiedCondition extends ObjectiveCondition
   public List<MobSelection> getMobSelections()
   {
     return _mobSelections;
-  }
-
-  /**
-   * Mob selection.
-   * @author DAM
-   */
-  public static class MobSelection
-  {
-    private String _where;
-    private EntityClassification _what;
-
-    /**
-     * Get the location of mobs.
-     * @return a location string (internal game code).
-     */
-    public String getWhere()
-    {
-      return _where;
-    }
-
-    /**
-     * Set the location of mob.
-     * @param where the location to set.
-     */
-    public void setWhere(String where)
-    {
-      _where=where;
-    }
-
-    /**
-     * Get the mob kind.
-     * @return a mob kind description (genus/species/subspecies).
-     */
-    public EntityClassification getWhat()
-    {
-      return _what;
-    }
-
-    /**
-     * Set the mob kind.
-     * @param what the mob kind to set.
-     */
-    public void setWhat(EntityClassification what)
-    {
-      _what=what;
-    }
-
-    @Override
-    public String toString()
-    {
-      return _what + " in " + _where;
-    }
   }
 
   @Override

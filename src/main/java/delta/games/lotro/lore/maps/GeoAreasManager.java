@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -18,6 +20,7 @@ import delta.games.lotro.lore.maps.io.xml.GeoAreasXMLParser;
  */
 public class GeoAreasManager
 {
+  private static final Logger LOGGER=Logger.getLogger(GeoAreasManager.class);
   private static GeoAreasManager _instance=null;
   private Map<Integer,Region> _regions;
   private Map<Integer,Territory> _territories;
@@ -203,6 +206,32 @@ public class GeoAreasManager
     return ret;
   }
 
+  /**
+   * Get a land division using its identifier.
+   * @param landId Land division identifier.
+   * @return A land division or <code>null</code> if not found.
+   */
+  public LandDivision getLandById(int landId)
+  {
+    GeoAreasManager mgr=GeoAreasManager.getInstance();
+    Territory territory=mgr.getTerritoryById(landId);
+    if (territory!=null)
+    {
+      return territory;
+    }
+    Region region=mgr.getRegionById(landId);
+    if (region!=null)
+    {
+      return region;
+    }
+    Area area=mgr.getAreaById(landId);
+    if (area!=null)
+    {
+      return area;
+    }
+    LOGGER.warn("Land not found: "+landId);
+    return null;
+  }
   /**
    * Dump the contents of this manager.
    */

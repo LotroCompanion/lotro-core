@@ -16,6 +16,7 @@ import delta.games.lotro.lore.agents.mobs.MobDescription;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.maps.LandDivision;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.geo.io.xml.AchievableGeoDataXMLWriter;
@@ -35,8 +36,9 @@ import delta.games.lotro.lore.quests.objectives.ItemTalkCondition;
 import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
+import delta.games.lotro.lore.quests.objectives.MobLocation;
+import delta.games.lotro.lore.quests.objectives.MobSelection;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
-import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.NpcCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
 import delta.games.lotro.lore.quests.objectives.NpcUsedCondition;
@@ -300,10 +302,32 @@ public class ObjectivesXMLWriter
     {
       AttributesImpl selectionAttrs=new AttributesImpl();
       // Where
-      String where=selection.getWhere();
+      MobLocation where=selection.getWhere();
       if (where!=null)
       {
-        selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_WHERE_ATTR,XmlWriter.CDATA,where);
+        // Mob division
+        String mobDivision=where.getMobDivision();
+        if (mobDivision!=null)
+        {
+          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_MOB_DIVISION_ATTR,XmlWriter.CDATA,mobDivision);
+        }
+        // Land division
+        LandDivision landDivision=where.getLandDivision();
+        if (landDivision!=null)
+        {
+          // ID
+          int id=landDivision.getIdentifier();
+          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LAND_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+          // Name
+          String name=landDivision.getName();
+          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LAND_NAME_ATTR,XmlWriter.CDATA,name);
+        }
+        // Landmark
+        String landmark=where.getLandmark();
+        if (landmark!=null)
+        {
+          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_ATTR,XmlWriter.CDATA,landmark);
+        }
       }
       // What
       EntityClassification what=selection.getWhat();

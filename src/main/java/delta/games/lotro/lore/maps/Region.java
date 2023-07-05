@@ -1,12 +1,10 @@
 package delta.games.lotro.lore.maps;
 
-import delta.games.lotro.common.Identifiable;
-
 /**
  * Region.
  * @author DAM
  */
-public class Region implements Identifiable
+public class Region implements LandDivision
 {
   private int _identifier;
   private int _code;

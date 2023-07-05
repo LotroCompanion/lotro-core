@@ -18,6 +18,8 @@ import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.geo.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.maps.GeoAreasManager;
+import delta.games.lotro.lore.maps.LandDivision;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
@@ -39,8 +41,9 @@ import delta.games.lotro.lore.quests.objectives.ItemTalkCondition;
 import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
+import delta.games.lotro.lore.quests.objectives.MobLocation;
+import delta.games.lotro.lore.quests.objectives.MobSelection;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
-import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition.MobSelection;
 import delta.games.lotro.lore.quests.objectives.NpcCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
 import delta.games.lotro.lore.quests.objectives.NpcUsedCondition;
@@ -295,8 +298,22 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   {
     MobSelection selection=new MobSelection();
     // Where
-    String where=SAXParsingTools.getStringAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_WHERE_ATTR,null);
-    selection.setWhere(where);
+    // - mob division
+    String mobDivision=SAXParsingTools.getStringAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_MOB_DIVISION_ATTR,null);
+    // - land division
+    LandDivision land=null;
+    int whereId=SAXParsingTools.getIntAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_LAND_ID_ATTR,0);
+    if (whereId!=0)
+    {
+      land=GeoAreasManager.getInstance().getLandById(whereId);
+    }
+    // - landmark
+    String landmark=SAXParsingTools.getStringAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_ATTR,null);
+    if ((mobDivision!=null) || (land!=null) || (landmark!=null))
+    {
+      MobLocation location=new MobLocation(mobDivision,land,landmark);
+      selection.setWhere(location);
+    }
     // What
     EntityClassification what=new EntityClassification();
     AgentsXMLIO.parseEntityClassification(what,selectionAttrs);

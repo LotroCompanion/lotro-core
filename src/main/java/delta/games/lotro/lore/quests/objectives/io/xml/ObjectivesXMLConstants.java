@@ -104,9 +104,21 @@ public class ObjectivesXMLConstants
    */
   public static final String MONSTER_SELECTION_TAG="monsterSelection";
   /**
-   * Tag 'monsterSelection', attribute 'where'.
+   * Tag 'monsterSelection', attribute 'mobDivision'.
    */
-  public static final String MONSTER_SELECTION_WHERE_ATTR="where";
+  public static final String MONSTER_SELECTION_MOB_DIVISION_ATTR="mobDivision";
+  /**
+   * Tag 'monsterSelection', attribute 'landId'.
+   */
+  public static final String MONSTER_SELECTION_LAND_ID_ATTR="landId";
+  /**
+   * Tag 'monsterSelection', attribute 'landName'.
+   */
+  public static final String MONSTER_SELECTION_LAND_NAME_ATTR="landName";
+  /**
+   * Tag 'monsterSelection', attribute 'landmark'.
+   */
+  public static final String MONSTER_SELECTION_LANDMARK_ATTR="landmark";
 
   /**
    * Tag 'landmarkDetection'.

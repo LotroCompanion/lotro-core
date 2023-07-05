@@ -4,7 +4,7 @@ package delta.games.lotro.lore.maps;
  * Area.
  * @author DAM
  */
-public class Area implements Zone
+public class Area implements Zone,LandDivision
 {
   private int _identifier;
   private String _name;
