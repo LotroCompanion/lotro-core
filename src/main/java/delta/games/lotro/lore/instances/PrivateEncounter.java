@@ -5,12 +5,13 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Private encounter description.
  * @author DAM
  */
-public class PrivateEncounter implements Identifiable
+public class PrivateEncounter implements Identifiable,Named
 {
   private int _id;
   private String _name;

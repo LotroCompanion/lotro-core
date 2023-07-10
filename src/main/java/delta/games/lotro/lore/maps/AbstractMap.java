@@ -1,12 +1,13 @@
 package delta.games.lotro.lore.maps;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Base class for maps (Dungeon and ParchmentMap)
  * @author DAM
  */
-public class AbstractMap implements Identifiable
+public class AbstractMap implements Identifiable,Named
 {
   protected int _identifier;
   protected String _name;

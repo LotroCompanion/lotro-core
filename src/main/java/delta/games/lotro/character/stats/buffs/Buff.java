@@ -4,12 +4,13 @@ import java.util.List;
 
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.common.Named;
 
 /**
  * Buff.
  * @author DAM
  */
-public class Buff
+public class Buff implements Named
 {
   private String _id;
   private BuffType _type;
@@ -58,6 +59,12 @@ public class Buff
    * @return a label.
    */
   public String getLabel()
+  {
+    return _label;
+  }
+
+  @Override
+  public String getName()
   {
     return _label;
   }

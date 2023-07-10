@@ -10,7 +10,7 @@ import java.util.Set;
 import delta.games.lotro.character.BasicCharacterAttributes;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.character.stats.buffs.comparators.BuffNameComparator;
+import delta.games.lotro.common.comparators.NamedComparator;
 
 /**
  * Registry for buffs.
@@ -103,7 +103,7 @@ public final class BuffRegistry
         }
       }
     }
-    Collections.sort(ret,new BuffNameComparator());
+    Collections.sort(ret,new NamedComparator());
     return ret;
   }
 

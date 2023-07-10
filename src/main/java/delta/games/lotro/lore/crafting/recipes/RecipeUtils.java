@@ -7,8 +7,8 @@ import java.util.List;
 
 import delta.common.utils.collections.CompoundComparator;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.comparators.TypedNamedComparator;
 import delta.games.lotro.lore.crafting.recipes.comparator.RecipeCategoryComparator;
-import delta.games.lotro.lore.crafting.recipes.comparator.RecipeNameComparator;
 import delta.games.lotro.lore.crafting.recipes.comparator.RecipeProfessionComparator;
 import delta.games.lotro.lore.crafting.recipes.comparator.RecipeTierComparator;
 
@@ -37,7 +37,7 @@ public class RecipeUtils
     comparators.add(new RecipeProfessionComparator());
     comparators.add(new RecipeTierComparator());
     comparators.add(new RecipeCategoryComparator());
-    comparators.add(new RecipeNameComparator());
+    comparators.add(new TypedNamedComparator<Recipe>());
     comparators.add(new IdentifiableComparator<Recipe>());
     CompoundComparator<Recipe> comparator=new CompoundComparator<Recipe>(comparators);
     return comparator;

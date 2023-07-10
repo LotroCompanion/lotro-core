@@ -1,12 +1,13 @@
 package delta.games.lotro.common.stats;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Stat description.
  * @author DAM
  */
-public class StatDescription implements Identifiable
+public class StatDescription implements Identifiable,Named
 {
   private int _id;
   private Integer _index;

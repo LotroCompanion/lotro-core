@@ -6,6 +6,7 @@ import java.util.List;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.enums.CraftingUICategory;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.items.Item;
@@ -14,7 +15,7 @@ import delta.games.lotro.lore.items.Item;
  * Recipe description.
  * @author DAM
  */
-public class Recipe implements Identifiable
+public class Recipe implements Identifiable,Named
 {
   private int _identifier;
   private String _name;

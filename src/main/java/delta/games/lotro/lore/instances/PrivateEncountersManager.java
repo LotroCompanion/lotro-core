@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.instances.comparators.PrivateEncounterNameComparator;
 import delta.games.lotro.lore.instances.io.xml.PrivateEncountersXMLParser;
 
 /**
@@ -91,7 +91,7 @@ public class PrivateEncountersManager
         ret.add((SkirmishPrivateEncounter)pe);
       }
     }
-    Collections.sort(ret,new PrivateEncounterNameComparator());
+    Collections.sort(ret,new NamedComparator());
     return ret;
   }
 

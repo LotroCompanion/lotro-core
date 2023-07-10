@@ -5,14 +5,14 @@ import java.util.Collections;
 import java.util.List;
 
 import delta.games.lotro.common.Named;
-import delta.games.lotro.lore.instances.comparators.PrivateEncounterNameComparator;
+import delta.games.lotro.common.comparators.NamedComparator;
 
 /**
  * Category of instances.
  * @author DAM
  */
 public class InstanceCategory implements Named
-{
+{ 
   private String _name;
   private List<SkirmishPrivateEncounter> _privateEncounters;
 
@@ -51,7 +51,7 @@ public class InstanceCategory implements Named
   public List<SkirmishPrivateEncounter> getPrivateEncounters()
   {
     List<SkirmishPrivateEncounter> ret=new ArrayList<SkirmishPrivateEncounter>(_privateEncounters);
-    Collections.sort(ret,new PrivateEncounterNameComparator());
+    Collections.sort(ret,new NamedComparator());
     return ret;
   }
 }

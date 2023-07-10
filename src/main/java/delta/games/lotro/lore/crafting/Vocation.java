@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Vocation.
  * @author DAM
  */
-public class Vocation implements Identifiable
+public class Vocation implements Identifiable,Named
 {
   private int _id;
   private String _key;
