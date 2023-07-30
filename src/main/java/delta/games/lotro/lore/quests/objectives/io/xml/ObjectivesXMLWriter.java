@@ -320,7 +320,10 @@ public class ObjectivesXMLWriter
           selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LAND_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
           // Name
           String name=landDivision.getName();
-          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LAND_NAME_ATTR,XmlWriter.CDATA,name);
+          if (name!=null)
+          {
+            selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LAND_NAME_ATTR,XmlWriter.CDATA,name);
+          }
         }
         // Landmark
         LandmarkDescription landmark=where.getLandmark();
