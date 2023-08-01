@@ -83,7 +83,7 @@ public class ResourcesMapDescriptor
   }
 
   /**
-   * Add a map identifieer.
+   * Add a map identifier.
    * @param mapId Map identifier to add. 
    */
   public void addMapId(int mapId)
