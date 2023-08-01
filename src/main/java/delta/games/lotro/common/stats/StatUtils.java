@@ -44,7 +44,11 @@ public class StatUtils
   {
     if (isRegenStat(stat))
     {
-      value=Float.valueOf(value.floatValue()/60);
+      boolean isLive=LotroCoreConfig.isLive();
+      if (isLive)
+      {
+        value=Float.valueOf(value.floatValue()/60);
+      }
     }
     return value;
   }
@@ -84,13 +88,28 @@ public class StatUtils
 
   private static int getMaxFractionalDigits(StatDescription stat, boolean below1)
   {
-    if (below1)
+    boolean isLive=LotroCoreConfig.isLive();
+    if (isLive)
     {
-      return 2;
+      if (below1)
+      {
+        return 2;
+      }
+      if (isRegenStat(stat))
+      {
+        return 3; 
+      }
     }
-    if (isRegenStat(stat))
+    else
     {
-      return 3; 
+      if (isRegenStat(stat))
+      {
+        return 1;
+      }
+      if (below1)
+      {
+        return 2;
+      }
     }
     return 0;
   }
