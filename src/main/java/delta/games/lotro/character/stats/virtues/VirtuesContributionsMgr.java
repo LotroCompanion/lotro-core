@@ -66,7 +66,7 @@ public final class VirtuesContributionsMgr
     }
     if (rank>0)
     {
-      int level=_rankToLevelProgression.getValue(rank).intValue();
+      int level=(_rankToLevelProgression!=null)?_rankToLevelProgression.getValue(rank).intValue():rank;
       StatsProvider statsProvider;
       if (passive)
       {
