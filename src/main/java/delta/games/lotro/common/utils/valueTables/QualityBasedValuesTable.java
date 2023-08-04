@@ -1,4 +1,4 @@
-package delta.games.lotro.common.money;
+package delta.games.lotro.common.utils.valueTables;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import delta.games.lotro.lore.items.ItemQuality;
  * Quality-based value table.
  * @author DAM
  */
-public class QualityBasedValueLookupTable implements Identifiable
+public class QualityBasedValuesTable implements Identifiable
 {
   private int _id;
   private Map<ItemQuality,Float> _qualityFactors;
@@ -22,7 +22,7 @@ public class QualityBasedValueLookupTable implements Identifiable
   /**
    * Constructor.
    */
-  public QualityBasedValueLookupTable()
+  public QualityBasedValuesTable()
   {
     _qualityFactors=new HashMap<ItemQuality,Float>();
     _baseValues=new HashMap<Integer,Float>();

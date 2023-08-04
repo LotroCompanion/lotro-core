@@ -16,10 +16,10 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
-import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
+import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
@@ -208,7 +208,7 @@ public class ItemXMLWriter
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
     // Value table ID
-    QualityBasedValueLookupTable valueTable=item.getValueTable();
+    QualityBasedValuesTable valueTable=item.getValueTable();
     if (valueTable!=null)
     {
       int valueTableId=valueTable.getIdentifier();

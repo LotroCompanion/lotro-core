@@ -1,4 +1,4 @@
-package delta.games.lotro.common.money.io.xml;
+package delta.games.lotro.common.utils.valueTables.io.xml;
 
 import java.io.File;
 import java.util.Collections;
@@ -12,7 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.common.money.QualityBasedValueLookupTable;
+import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
 import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemQuality;
 
@@ -28,9 +28,9 @@ public class ValueTablesXMLWriter
    * @param valueTables Tables to write.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public static boolean writeValueTablesFile(File toFile, final List<QualityBasedValueLookupTable> valueTables)
+  public static boolean writeValueTablesFile(File toFile, final List<QualityBasedValuesTable> valueTables)
   {
-    Collections.sort(valueTables,new IdentifiableComparator<QualityBasedValueLookupTable>());
+    Collections.sort(valueTables,new IdentifiableComparator<QualityBasedValuesTable>());
     XmlWriter xmlWriter=new XmlWriter()
     {
       @Override
@@ -52,15 +52,15 @@ public class ValueTablesXMLWriter
    * @param valueTables Tables to write.
    * @throws Exception if an error occurs.
    */
-  private static void writeValueTables(TransformerHandler hd, final List<QualityBasedValueLookupTable> valueTables) throws Exception
+  private static void writeValueTables(TransformerHandler hd, final List<QualityBasedValuesTable> valueTables) throws Exception
   {
-    for(QualityBasedValueLookupTable valueTable : valueTables)
+    for(QualityBasedValuesTable valueTable : valueTables)
     {
       writeValueTable(hd,valueTable);
     }
   }
 
-  private static void writeValueTable(TransformerHandler hd, QualityBasedValueLookupTable valueTable) throws Exception
+  private static void writeValueTable(TransformerHandler hd, QualityBasedValuesTable valueTable) throws Exception
   {
     AttributesImpl attrs=new AttributesImpl();
 

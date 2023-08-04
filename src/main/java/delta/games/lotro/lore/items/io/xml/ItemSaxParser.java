@@ -19,8 +19,7 @@ import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
-import delta.games.lotro.common.money.QualityBasedValueLookupTable;
-import delta.games.lotro.common.money.ValueTablesManager;
+import delta.games.lotro.common.money.MoneyTables;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.stats.ConstantStatProvider;
@@ -33,6 +32,7 @@ import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLConstants;
+import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
@@ -213,7 +213,7 @@ public final class ItemSaxParser extends DefaultHandler
       if (valueTableIdStr!=null)
       {
         int valueTableId=NumericTools.parseInt(valueTableIdStr,0);
-        QualityBasedValueLookupTable table=ValueTablesManager.getInstance().getValueTable(valueTableId);
+        QualityBasedValuesTable table=MoneyTables.getMoneyTablesManager().getValueTable(valueTableId);
         _currentItem.setValueTable(table);
       }
       // Stack max

@@ -1,4 +1,4 @@
-package delta.games.lotro.common.money.io.xml;
+package delta.games.lotro.common.utils.valueTables.io.xml;
 
 /**
  * Constants used in the XML persistence of value tables.

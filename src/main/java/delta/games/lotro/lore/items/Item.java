@@ -17,9 +17,9 @@ import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.money.Money;
-import delta.games.lotro.common.money.QualityBasedValueLookupTable;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
 import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.scaling.Munging;
@@ -77,7 +77,7 @@ public class Item implements Interactable,ItemProvider
   // Full description (may be empty but not <code>null</code>)
   private String _description;
   // Value
-  private QualityBasedValueLookupTable _value;
+  private QualityBasedValuesTable _value;
   // Stacking information
   private Integer _stackMax;
 
@@ -614,7 +614,7 @@ public class Item implements Interactable,ItemProvider
    * Get the value table of this item.
    * @return a value table.
    */
-  public QualityBasedValueLookupTable getValueTable()
+  public QualityBasedValuesTable getValueTable()
   {
     return _value;
   }
@@ -660,7 +660,7 @@ public class Item implements Interactable,ItemProvider
    * Set the value table of this item.
    * @param value the value to set.
    */
-  public void setValueTable(QualityBasedValueLookupTable value)
+  public void setValueTable(QualityBasedValuesTable value)
   {
     _value=value;
   }

@@ -1,4 +1,4 @@
-package delta.games.lotro.common.money.io.xml;
+package delta.games.lotro.common.utils.valueTables.io.xml;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.money.QualityBasedValueLookupTable;
+import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
 import delta.games.lotro.lore.items.ItemQuality;
 
 /**
@@ -22,26 +22,26 @@ public class ValueTablesXMLParser
    * @param source Source file.
    * @return Parsed data.
    */
-  public List<QualityBasedValueLookupTable> parseXML(File source)
+  public List<QualityBasedValuesTable> parseXML(File source)
   {
-    List<QualityBasedValueLookupTable> ret=new ArrayList<QualityBasedValueLookupTable>();
+    List<QualityBasedValuesTable> ret=new ArrayList<QualityBasedValuesTable>();
     Element root=DOMParsingTools.parse(source);
     if (root!=null)
     {
       List<Element> valueTableTags=DOMParsingTools.getChildTagsByName(root,ValueTablesXMLConstants.VALUE_TABLE_TAG);
       for(Element valueTableTag : valueTableTags)
       {
-        QualityBasedValueLookupTable valueTable=parseValueTable(valueTableTag);
+        QualityBasedValuesTable valueTable=parseValueTable(valueTableTag);
         ret.add(valueTable);
       }
     }
     return ret;
   }
 
-  private QualityBasedValueLookupTable parseValueTable(Element root)
+  private QualityBasedValuesTable parseValueTable(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
-    QualityBasedValueLookupTable table=new QualityBasedValueLookupTable();
+    QualityBasedValuesTable table=new QualityBasedValuesTable();
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,ValueTablesXMLConstants.VALUE_TABLE_ID_ATTR,0);
     table.setIdentifier(id);
