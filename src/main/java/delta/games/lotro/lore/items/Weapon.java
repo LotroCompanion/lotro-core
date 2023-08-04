@@ -1,6 +1,9 @@
 package delta.games.lotro.lore.items;
 
+import org.apache.log4j.Logger;
+
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
 
 /**
  * Weapon description.
@@ -8,11 +11,14 @@ import delta.common.utils.text.EndOfLine;
  */
 public class Weapon extends Item
 {
+  private static final Logger LOGGER=Logger.getLogger(Weapon.class);
+
   //197 - 359 Common Damage
   private int _minDamage;
   private int _maxDamage;
   private DamageType _damageType;
   private float _dps;
+  private QualityBasedValuesTable _dpsTable;
   private WeaponType _type;
 
   /**
@@ -25,6 +31,8 @@ public class Weapon extends Item
     _maxDamage=0;
     _damageType=DamageTypes.COMMON;
     _dps=0.0f;
+    _dpsTable=null;
+    _type=null;
   }
 
   @Override
@@ -104,7 +112,59 @@ public class Weapon extends Item
   {
     _dps=dps;
   }
-  
+
+  /**
+   * Get the DPS table of this weapon.
+   * @return a DPS table.
+   */
+  public QualityBasedValuesTable getDPSTable()
+  {
+    return _dpsTable;
+  }
+
+  /**
+   * Get the value of this item.
+   * @return a value or <code>null</code> if none.
+   */
+  public Float computeDPS()
+  {
+    Integer itemLevel=getItemLevel();
+    if (itemLevel!=null)
+    {
+      return getDPS(itemLevel.intValue());
+    }
+    return null;
+  }
+
+  /**
+   * Get the DPS of this weapon at the given item level.
+   * @param itemLevel Item level to use.
+   * @return A DPS or <code>null</code> if none.
+   */
+  public Float getDPS(int itemLevel)
+  {
+    Float ret=null;
+    ItemQuality quality=getQuality();
+    if ((_dpsTable!=null) && (quality!=null))
+    {
+      ret=_dpsTable.getValue(quality,itemLevel);
+      if (ret==null)
+      {
+        LOGGER.warn("Could not build weapon DPS from table!");
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Set the DPS table of this weapon.
+   * @param dpsTable the value to set.
+   */
+  public void setDPSTable(QualityBasedValuesTable dpsTable)
+  {
+    _dpsTable=dpsTable;
+  }
+
   /**
    * Get weapon type.
    * @return a weapon type.

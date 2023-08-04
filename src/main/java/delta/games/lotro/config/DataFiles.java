@@ -227,6 +227,10 @@ public class DataFiles
    */
   public static final String VALUE_TABLES="valueTables";
   /**
+   * DPS tables.
+   */
+  public static final String DPS_TABLES="dpsTables";
+  /**
    * Loots.
    */
   public static final String LOOTS="loots";

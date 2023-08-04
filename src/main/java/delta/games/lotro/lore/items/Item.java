@@ -642,11 +642,11 @@ public class Item implements Interactable,ItemProvider
     Money ret=null;
     if ((_value!=null) && (_quality!=null))
     {
-      Integer valueFromTable=_value.getValue(_quality,itemLevel);
+      Float valueFromTable=_value.getValue(_quality,itemLevel);
       if (valueFromTable!=null)
       {
         ret=new Money();
-        ret.setRawValue(valueFromTable.intValue());
+        ret.setRawValue(Math.round(valueFromTable.floatValue()));
       }
       else
       {

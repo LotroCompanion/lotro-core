@@ -1,4 +1,4 @@
-package delta.games.lotro.common.money;
+package delta.games.lotro.lore.items.weapons;
 
 import java.io.File;
 
@@ -7,32 +7,32 @@ import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 
 /**
- * Facade for money tables access.
+ * Facade for DPS tables access.
  * @author DAM
  */
-public class MoneyTables
+public class DPSTables
 {
   private static ValueTablesManager _instance=null;
 
   /**
-   * Get the money tables manager.
-   * @return  the money tables manager.
+   * Get the DPS tables manager.
+   * @return the DPS tables manager.
    */
-  public static ValueTablesManager getMoneyTablesManager()
+  public static ValueTablesManager getDPSTablesManager()
   {
     if (_instance==null)
     {
-      _instance=buildMoneyTablesManager();
+      _instance=buildDPSTablesManager();
     }
     return _instance;
   }
 
-  private static ValueTablesManager buildMoneyTablesManager()
+  private static ValueTablesManager buildDPSTablesManager()
   {
     ValueTablesManager ret=new ValueTablesManager();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File valueTablesFile=cfg.getFile(DataFiles.VALUE_TABLES);
-    ret.loadAll(valueTablesFile);
+    File dpsTablesFile=cfg.getFile(DataFiles.DPS_TABLES);
+    ret.loadAll(dpsTablesFile);
     return ret;
   }
 }

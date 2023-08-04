@@ -240,17 +240,28 @@ public class ItemXMLWriter
     else if (item instanceof Weapon)
     {
       Weapon weapon=(Weapon)item;
+      // DPS
       float dps=weapon.getDPS();
       itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,XmlWriter.CDATA,String.valueOf(dps));
+      // DPS table ID
+      QualityBasedValuesTable dpsTable=weapon.getDPSTable();
+      if (dpsTable!=null)
+      {
+        int dpsTableId=dpsTable.getIdentifier();
+        itemAttrs.addAttribute("","",ItemXMLConstants.DPS_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(dpsTableId));
+      }
+      // Damage min/max
       int minDamage=weapon.getMinDamage();
       itemAttrs.addAttribute("","",ItemXMLConstants.MIN_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(minDamage));
       int maxDamage=weapon.getMaxDamage();
       itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamage));
+      // Damage type
       DamageType type=weapon.getDamageType();
       if (type!=null)
       {
         itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
       }
+      // Weapon type
       WeaponType weaponType=weapon.getWeaponType();
       if (weaponType!=null)
       {

@@ -132,6 +132,10 @@ public class ItemXMLConstants
    */
   public static final String DPS_ATTR="dps";
   /**
+   * Tag 'item', attribute 'dpsTableId'.
+   */
+  public static final String DPS_TABLE_ID_ATTR="dpsTableId";
+  /**
    * Tag 'item', attribute 'minDamage'.
    */
   public static final String MIN_DAMAGE_ATTR="minDamage";

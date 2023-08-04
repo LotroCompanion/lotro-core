@@ -53,6 +53,7 @@ import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary2.Legendary2;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttributes2Manager;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttrs2;
+import delta.games.lotro.lore.items.weapons.DPSTables;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.maths.Progression;
@@ -245,11 +246,21 @@ public final class ItemSaxParser extends DefaultHandler
       if (_currentItem instanceof Weapon)
       {
         Weapon weapon=(Weapon)_currentItem;
+        // DPS
         String dpsStr=attributes.getValue(ItemXMLConstants.DPS_ATTR);
         if (dpsStr!=null)
         {
           weapon.setDPS(Float.parseFloat(dpsStr));
         }
+        // DPS table
+        String dpsTableIdStr=attributes.getValue(ItemXMLConstants.DPS_TABLE_ID_ATTR);
+        if (dpsTableIdStr!=null)
+        {
+          int dpsTableId=NumericTools.parseInt(dpsTableIdStr,0);
+          QualityBasedValuesTable table=DPSTables.getDPSTablesManager().getValueTable(dpsTableId);
+          weapon.setDPSTable(table);
+        }
+        // Damage min/max
         String minDamageStr=attributes.getValue(ItemXMLConstants.MIN_DAMAGE_ATTR);
         if (minDamageStr!=null)
         {
@@ -257,12 +268,14 @@ public final class ItemSaxParser extends DefaultHandler
         }
         String maxDamage=attributes.getValue(ItemXMLConstants.MAX_DAMAGE_ATTR);
         weapon.setMaxDamage(Integer.parseInt(maxDamage));
+        // Damage type
         String damageTypeStr=attributes.getValue(ItemXMLConstants.DAMAGE_TYPE_ATTR);
         if (damageTypeStr!=null)
         {
           DamageType type=DamageType.getDamageTypeByKey(damageTypeStr);
           weapon.setDamageType(type);
         }
+        // Weapon type
         String weaponTypeStr=attributes.getValue(ItemXMLConstants.WEAPON_TYPE_ATTR);
         if (weaponTypeStr!=null)
         {

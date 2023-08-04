@@ -101,15 +101,15 @@ public class QualityBasedValuesTable implements Identifiable
    * @param level Level to use.
    * @return the computed value or <code>null</code> if an error occurred.
    */
-  public Integer getValue(ItemQuality quality, int level)
+  public Float getValue(ItemQuality quality, int level)
   {
-    Integer ret=null;
+    Float ret=null;
     Float baseValue=_baseValues.get(Integer.valueOf(level));
     if (baseValue!=null)
     {
       Float factor=_qualityFactors.get(quality);
       float value=baseValue.floatValue()*factor.floatValue();
-      ret=Integer.valueOf(Math.round(value));
+      ret=Float.valueOf(value);
     }
     return ret;
   }
