@@ -13,6 +13,7 @@ public class ItemScalingEntry
   private int _itemLevel;
   private BasicStatsSet _stats;
   private Money _money;
+  private Float _dps;
 
   /**
    * Constructor.
@@ -20,13 +21,15 @@ public class ItemScalingEntry
    * @param itemLevel Item level.
    * @param stats Stats.
    * @param money Value.
+   * @param dps DPS.
    */
-  public ItemScalingEntry(int level, int itemLevel, BasicStatsSet stats, Money money)
+  public ItemScalingEntry(int level, int itemLevel, BasicStatsSet stats, Money money, Float dps)
   {
     _level=level;
     _itemLevel=itemLevel;
     _stats=stats;
     _money=money;
+    _dps=dps;
   }
 
   /**
@@ -63,5 +66,14 @@ public class ItemScalingEntry
   public Money getMoney()
   {
     return _money;
+  }
+
+  /**
+   * Get the DPS for the item level.
+   * @return A DPS.
+   */
+  public Float getDPS()
+  {
+    return _dps;
   }
 }

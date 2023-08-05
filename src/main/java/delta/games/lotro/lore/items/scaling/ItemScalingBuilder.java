@@ -5,6 +5,7 @@ import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -51,7 +52,13 @@ public class ItemScalingBuilder
       }
       BasicStatsSet values=statsProvider.getStats(1,itemLevel.intValue());
       Money value=item.getValue(itemLevel.intValue());
-      ItemScalingEntry entry=new ItemScalingEntry(level,itemLevel.intValue(),values,value);
+      Float dps=null;
+      if (item instanceof Weapon)
+      {
+        Weapon weapon=(Weapon)item;
+        dps=weapon.getDPS(itemLevel.intValue());
+      }
+      ItemScalingEntry entry=new ItemScalingEntry(level,itemLevel.intValue(),values,value,dps);
       ret.addEntry(entry);
     }
     return ret;
