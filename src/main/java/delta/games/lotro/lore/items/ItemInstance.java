@@ -493,21 +493,6 @@ public class ItemInstance<T extends Item> implements ItemProvider
   }
 
   /**
-   * Get the value of a property (using instance properties, then reference properties if not found).
-   * @param key Property name.
-   * @return A value or <code>null</code> if not found.
-   */
-  public String getEffectiveProperty(String key)
-  {
-    String ret=getProperty(key);
-    if ((ret==null) && (_reference!=null))
-    {
-      ret=_reference.getProperty(key);
-    }
-    return ret;
-  }
-
-  /**
    * Copy item instance data from a source.
    * @param itemInstance Source item instance.
    */

@@ -53,6 +53,7 @@ import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary2.Legendary2;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttributes2Manager;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttrs2;
+import delta.games.lotro.lore.items.scaling.Munging;
 import delta.games.lotro.lore.items.weapons.DPSTables;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
@@ -229,7 +230,13 @@ public final class ItemSaxParser extends DefaultHandler
       {
         _currentItem.setEssenceSlots(Integer.parseInt(nbEssenceSlotsStr));
       }
-
+      // Munging
+      String mungingStr=attributes.getValue(ItemXMLConstants.ITEM_SCALING_ATTR);
+      if (mungingStr!=null)
+      {
+        Munging munging=Munging.fromString(mungingStr);
+        _currentItem.setMunging(munging);
+      }
       // Armour specific:
       if (_currentItem instanceof Armour)
       {
@@ -316,12 +323,6 @@ public final class ItemSaxParser extends DefaultHandler
         int itemStackMax=NumericTools.parseInt(itemStackMaxStr,0);
         carryAll.setItemStackMax(itemStackMax);
       }
-    }
-    else if (ItemXMLConstants.PROPERTY_TAG.equals(qualifiedName))
-    {
-      String propertyName=attributes.getValue(ItemXMLConstants.PROPERTY_KEY_ATTR);
-      String propertyValue=attributes.getValue(ItemXMLConstants.PROPERTY_VALUE_ATTR);
-      _currentItem.setProperty(propertyName,propertyValue);
     }
     else if (BasicStatsSetXMLConstants.STAT_TAG.equals(qualifiedName))
     {

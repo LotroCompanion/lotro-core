@@ -7,11 +7,6 @@ package delta.games.lotro.lore.items;
 public class ItemPropertyNames
 {
   /**
-   * Munging.
-   */
-  public static final String MUNGING="Munging";
-
-  /**
    * User comment.
    */
   public static final String USER_COMMENT="UserComment";
@@ -20,17 +15,6 @@ public class ItemPropertyNames
    * Stash ID.
    */
   public static final String STASH_ID="stashId";
-
-  /**
-   * Indicates if the given property name is used for an item reference or not.
-   * @param key Key to use.
-   * @return <code>true</code> if it is, <code>false</code> otherwise.
-   */
-  public static boolean isItemReferenceProperty(String key) 
-  {
-    if (MUNGING.equals(key)) return true;
-    return false;
-  }
 
   /**
    * Indicates if the given property name is used for an item instance or not.

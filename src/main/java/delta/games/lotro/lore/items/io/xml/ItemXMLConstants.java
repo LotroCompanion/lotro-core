@@ -92,6 +92,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_ESSENCE_SLOTS_ATTR="slots";
   /**
+   * Tag 'item', attribute 'scaling'.
+   */
+  public static final String ITEM_SCALING_ATTR="scaling";
+  /**
    * Tag 'item', attribute 'instanceId'.
    */
   public static final String ITEM_INSTANCE_ID_ATTR="instanceId";

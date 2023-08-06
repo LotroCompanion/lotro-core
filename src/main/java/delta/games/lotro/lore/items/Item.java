@@ -1,11 +1,5 @@
 package delta.games.lotro.lore.items;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 
 import delta.common.utils.NumericTools;
@@ -83,7 +77,7 @@ public class Item implements Interactable,ItemProvider
 
   // TODO Missing attrs: consumedOnUse="0" cooldown="" decoration="" instrument=""
   private ItemQuality _quality;
-  private HashMap<String,String> _properties;
+  private Munging _munging;
   // Other details
   private ItemDetailsManager _details;
 
@@ -113,7 +107,8 @@ public class Item implements Interactable,ItemProvider
     _value=null;
     _stackMax=null;
     _quality=null;
-    _properties=new HashMap<String,String>();
+    _munging=null;
+    _details=null;
   }
 
   @Override
@@ -703,56 +698,21 @@ public class Item implements Interactable,ItemProvider
   }
 
   /**
-   * Set a property for this item.
-   * @param key Property key.
-   * @param value Property value.
-   */
-  public void setProperty(String key, String value)
-  {
-    _properties.put(key,value);
-  }
-
-  /**
-   * Remove a property.
-   * @param key Property key.
-   */
-  public void removeProperty(String key)
-  {
-    _properties.remove(key);
-  }
-
-  /**
-   * Get the value of a property.
-   * @param key Property name.
-   * @return A value or <code>null</code> if not set.
-   */
-  public String getProperty(String key)
-  {
-    return _properties.get(key);
-  }
-
-  /**
-   * Get all properties for this item.
-   * @return A properties map or <code>null</code>.
-   */
-  public Map<String,String> getProperties()
-  {
-    return _properties;
-  }
-
-  /**
    * Get munging data.
    * @return some munging data or <code>null</code> if none.
    */
   public Munging getMunging()
   {
-    Munging ret=null;
-    String mungingSpec=getProperty(ItemPropertyNames.MUNGING);
-    if (mungingSpec!=null)
-    {
-      ret=Munging.fromString(mungingSpec);
-    }
-    return ret;
+    return _munging;
+  }
+
+  /**
+   * Set munging data.
+   * @param munging Munging data.
+   */
+  public void setMunging(Munging munging)
+  {
+    _munging=munging;
   }
 
   /**
@@ -874,18 +834,13 @@ public class Item implements Interactable,ItemProvider
       sb.append(_stackMax);
       sb.append(')');
     }
-    sb.append(EndOfLine.NATIVE_EOL);
-    // Properties
-    if (_properties.size()>0)
+    if (_munging!=null)
     {
-      List<String> propertyNames=new ArrayList<String>(_properties.keySet());
-      Collections.sort(propertyNames);
-      for(String propertyName : propertyNames)
-      {
-        String value=_properties.get(propertyName);
-        sb.append(propertyName).append(": ").append(value).append(EndOfLine.NATIVE_EOL);
-      }
+      sb.append(" (Munging=");
+      sb.append(_munging);
+      sb.append(')');
     }
+    sb.append(EndOfLine.NATIVE_EOL);
     // Description
     if ((_description!=null) && (_description.length()>0))
     {

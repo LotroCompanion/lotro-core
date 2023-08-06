@@ -1,10 +1,8 @@
 package delta.games.lotro.lore.items.io.xml;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.transform.sax.TransformerHandler;
 
@@ -27,7 +25,6 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
-import delta.games.lotro.lore.items.ItemPropertyNames;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
@@ -36,6 +33,7 @@ import delta.games.lotro.lore.items.carryalls.CarryAll;
 import delta.games.lotro.lore.items.details.io.xml.ItemDetailsXMLWriter;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.scaling.Munging;
 
 /**
  * Writes LOTRO items to XML files.
@@ -226,6 +224,12 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR,XmlWriter.CDATA,String.valueOf(nbEssenceSlots));
     }
+    // Munging
+    Munging munging=item.getMunging();
+    if (munging!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SCALING_ATTR,XmlWriter.CDATA,munging.asString());
+    }
     // Armor specific:
     if (item instanceof Armour)
     {
@@ -297,23 +301,6 @@ public class ItemXMLWriter
     }
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
 
-    // Properties
-    Map<String,String> properties=item.getProperties();
-    List<String> propertyNames=new ArrayList<String>(properties.keySet());
-    Collections.sort(propertyNames);
-    for(String propertyName : propertyNames)
-    {
-      // Write reference item properties for items, and write instance properties for item instances...
-      if (ItemPropertyNames.isItemReferenceProperty(propertyName))
-      {
-        String propertyValue=properties.get(propertyName);
-        AttributesImpl attrs=new AttributesImpl();
-        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_KEY_ATTR,XmlWriter.CDATA,propertyName);
-        attrs.addAttribute("","",ItemXMLConstants.PROPERTY_VALUE_ATTR,XmlWriter.CDATA,propertyValue);
-        hd.startElement("","",ItemXMLConstants.PROPERTY_TAG,attrs);
-        hd.endElement("","",ItemXMLConstants.PROPERTY_TAG);
-      }
-    }
     // Stats
     StatsProvider statsProvider=item.getStatsProvider();
     if (statsProvider!=null)
