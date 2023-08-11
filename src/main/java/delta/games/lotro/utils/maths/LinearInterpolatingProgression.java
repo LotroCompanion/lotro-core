@@ -22,6 +22,24 @@ public class LinearInterpolatingProgression extends AbstractProgression implemen
   }
 
   /**
+   * Get the minimum X value.
+   * @return the minimum X value.
+   */
+  public int getMinX()
+  {
+    return _xValues[0];
+  }
+
+  /**
+   * Get the maximum X value.
+   * @return the maximum X value.
+   */
+  public int getMaxX()
+  {
+    return _xValues[_xValues.length-1];
+  }
+
+  /**
    * Get the number of points.
    * @return the number of points.
    */
