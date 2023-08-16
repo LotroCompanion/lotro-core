@@ -93,7 +93,10 @@ public class ClassDescriptionXMLWriter
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
     // Small icon ID
     int smallIconId=description.getSmallIconId();
-    attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_SMALL_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(smallIconId));
+    if (smallIconId!=0)
+    {
+      attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_SMALL_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(smallIconId));
+    }
     // Abbreviation
     String abbreviation=description.getAbbreviation();
     attrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_ABBREVIATION_ATTR,XmlWriter.CDATA,abbreviation);
