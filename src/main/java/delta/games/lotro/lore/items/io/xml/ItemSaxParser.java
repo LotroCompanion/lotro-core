@@ -55,6 +55,8 @@ import delta.games.lotro.lore.items.legendary2.LegendaryAttributes2Manager;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttrs2;
 import delta.games.lotro.lore.items.scaling.Munging;
 import delta.games.lotro.lore.items.weapons.DPSTables;
+import delta.games.lotro.lore.items.weapons.WeaponSpeedEntry;
+import delta.games.lotro.lore.items.weapons.WeaponSpeedsManager;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.maths.Progression;
@@ -288,6 +290,14 @@ public final class ItemSaxParser extends DefaultHandler
         {
           WeaponType type=WeaponType.getWeaponTypeByKey(weaponTypeStr);
           weapon.setWeaponType(type);
+        }
+        // Weapon speed
+        String speedCodeStr=attributes.getValue(ItemXMLConstants.WEAPON_SPEED_ATTR);
+        if (speedCodeStr!=null)
+        {
+          int speedCode=Integer.parseInt(speedCodeStr);
+          WeaponSpeedEntry entry=WeaponSpeedsManager.getWeaponSpeedsManager().getSpeedEntry(weapon.getWeaponType(),speedCode);
+          weapon.setSpeed(entry);
         }
       }
       // Legendary specifics

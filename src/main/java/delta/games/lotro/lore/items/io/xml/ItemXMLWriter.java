@@ -34,6 +34,7 @@ import delta.games.lotro.lore.items.details.io.xml.ItemDetailsXMLWriter;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.scaling.Munging;
+import delta.games.lotro.lore.items.weapons.WeaponSpeedEntry;
 
 /**
  * Writes LOTRO items to XML files.
@@ -270,6 +271,13 @@ public class ItemXMLWriter
       if (weaponType!=null)
       {
         itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,XmlWriter.CDATA,weaponType.getKey());
+      }
+      // Weapon speed
+      WeaponSpeedEntry speed=weapon.getSpeed();
+      if (speed!=null)
+      {
+        int code=speed.getWeaponSpeedCode();
+        itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_SPEED_ATTR,XmlWriter.CDATA,String.valueOf(code));
       }
     }
     if (item instanceof Legendary)

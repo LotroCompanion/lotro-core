@@ -155,6 +155,10 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'weaponType'.
    */
   public static final String WEAPON_TYPE_ATTR="weaponType";
+  /**
+   * Tag 'item', attribute 'speed'.
+   */
+  public static final String WEAPON_SPEED_ATTR="speed";
 
   // Legendary
   /**

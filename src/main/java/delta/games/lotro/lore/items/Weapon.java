@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
+import delta.games.lotro.lore.items.weapons.WeaponSpeedEntry;
 
 /**
  * Weapon description.
@@ -20,6 +21,7 @@ public class Weapon extends Item
   private float _dps;
   private QualityBasedValuesTable _dpsTable;
   private WeaponType _type;
+  private WeaponSpeedEntry _speed;
 
   /**
    * Constructor.
@@ -181,6 +183,24 @@ public class Weapon extends Item
   public void setWeaponType(WeaponType type)
   {
     _type=type;
+  }
+
+  /**
+   * Get the speed data.
+   * @return the speed data.
+   */
+  public WeaponSpeedEntry getSpeed()
+  {
+    return _speed;
+  }
+
+  /**
+   * Set the speed data.
+   * @param speed Speed data to set.
+   */
+  public void setSpeed(WeaponSpeedEntry speed)
+  {
+    _speed=speed;
   }
 
   /**
