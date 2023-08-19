@@ -36,6 +36,10 @@ public class WeaponSpeedTable
     return _type;
   }
 
+  /**
+   * Get the managed speed codes.
+   * @return A sorted list of speed codes.
+   */
   public List<Integer> getSpeedCodes()
   {
     List<Integer> ret=new ArrayList<Integer>(_speedsMap.keySet());
