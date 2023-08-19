@@ -231,6 +231,10 @@ public class DataFiles
    */
   public static final String DPS_TABLES="dpsTables";
   /**
+   * Speed tables.
+   */
+  public static final String SPEED_TABLES="speedTables";
+  /**
    * Loots.
    */
   public static final String LOOTS="loots";

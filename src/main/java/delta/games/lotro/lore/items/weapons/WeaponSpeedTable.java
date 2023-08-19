@@ -1,6 +1,9 @@
 package delta.games.lotro.lore.items.weapons;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.lore.items.WeaponType;
@@ -9,7 +12,7 @@ import delta.games.lotro.lore.items.WeaponType;
  * Speed data for a single weapon type.
  * @author DAM
  */
-public class WeaponSpeed
+public class WeaponSpeedTable
 {
   private WeaponType _type;
   private Map<Integer,WeaponSpeedEntry> _speedsMap;
@@ -18,7 +21,7 @@ public class WeaponSpeed
    * Constructor.
    * @param weaponType Managed weapon type.
    */
-  public WeaponSpeed(WeaponType weaponType)
+  public WeaponSpeedTable(WeaponType weaponType)
   {
     _type=weaponType;
     _speedsMap=new HashMap<Integer,WeaponSpeedEntry>();
@@ -31,6 +34,13 @@ public class WeaponSpeed
   public WeaponType getWeaponType()
   {
     return _type;
+  }
+
+  public List<Integer> getSpeedCodes()
+  {
+    List<Integer> ret=new ArrayList<Integer>(_speedsMap.keySet());
+    Collections.sort(ret);
+    return ret;
   }
 
   /**
