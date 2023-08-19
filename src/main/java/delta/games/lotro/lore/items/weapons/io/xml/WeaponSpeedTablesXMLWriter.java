@@ -81,5 +81,6 @@ public class WeaponSpeedTablesXMLWriter
       hd.startElement("","",WeaponSpeedTablesXMLConstants.ENTRY_TAG,entryAttrs);
       hd.endElement("","",WeaponSpeedTablesXMLConstants.ENTRY_TAG);
     }
+    hd.endElement("","",WeaponSpeedTablesXMLConstants.SPEED_TABLE_TAG);
   }
 }
