@@ -507,7 +507,7 @@ public class Item implements Interactable,ItemProvider
    * Get the item level.
    * @return a level value or <code>null</code>.
    */
-  public Integer getItemLevel()
+  public final Integer getItemLevel()
   {
     return _itemLevel;
   }
