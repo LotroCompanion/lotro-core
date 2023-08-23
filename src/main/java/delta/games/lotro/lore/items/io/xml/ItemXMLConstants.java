@@ -166,9 +166,13 @@ public class ItemXMLConstants
    */
   public static final String MAIN_LEGACY_ID_ATTR="mainLegacyId";
   /**
-   * Tag 'item', attribute 'mainLegacyBaseRank'.
+   * Tag 'item', attribute 'combatDPSLevel'.
    */
-  public static final String MAIN_LEGACY_BASE_RANK_ATTR="mainLegacyBaseRank";
+  public static final String MAIN_LEGACY_COMBAT_DPS_LEVEL_ATTR="combatDPSLevel";
+  /**
+   * Tag 'item', attribute 'combatPropertyModLevel'.
+   */
+  public static final String MAIN_LEGACY_COMBAT_PROPERTY_MOD_LEVEL_ATTR="combatPropertyModLevel";
 
   // Carry-all
   /**

@@ -290,11 +290,17 @@ public class ItemXMLWriter
       {
         itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyId));
       }
-      // Main legacy base rank
-      int mainLegacyBaseRank=attrs.getMainLegacyBaseRank();
-      if (mainLegacyBaseRank!=0)
+      // Combat DPS level
+      int combatDPSLevel=attrs.getCombatDPSLevel();
+      if (combatDPSLevel!=0)
       {
-        itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_BASE_RANK_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyBaseRank));
+        itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_COMBAT_DPS_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(combatDPSLevel));
+      }
+      // Combat Property Mod level
+      int combatPropertyModLevel=attrs.getCombatPropertyModLevel();
+      if (combatPropertyModLevel!=0)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_COMBAT_PROPERTY_MOD_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(combatPropertyModLevel));
       }
     }
     if (item instanceof CarryAll)

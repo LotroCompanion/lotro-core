@@ -309,10 +309,14 @@ public final class ItemSaxParser extends DefaultHandler
         String mainLegacyIdStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_ID_ATTR);
         int mainLegacyId=NumericTools.parseInt(mainLegacyIdStr,0);
         attrs.setMainLegacyId(mainLegacyId);
-        // - Main legacy base rank
-        String mainLegacyBaseRankStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_BASE_RANK_ATTR);
-        int mainLegacyBaseRank=NumericTools.parseInt(mainLegacyBaseRankStr,0);
-        attrs.setMainLegacyBaseRank(mainLegacyBaseRank);
+        // - Combat DPS level
+        String combatDPSLevelStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_COMBAT_DPS_LEVEL_ATTR);
+        int combatDPSLevel=NumericTools.parseInt(combatDPSLevelStr,0);
+        attrs.setCombatDPSLevel(combatDPSLevel);
+        // - Combat Property Mod level
+        String combatPropertyModLevelStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_COMBAT_PROPERTY_MOD_LEVEL_ATTR);
+        int combatPropertyModLevel=NumericTools.parseInt(combatPropertyModLevelStr,0);
+        attrs.setCombatPropertyModLevel(combatPropertyModLevel);
       }
       if (_currentItem instanceof Legendary2)
       {
