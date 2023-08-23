@@ -1,7 +1,5 @@
 package delta.games.lotro.lore.items.legendary;
 
-import delta.games.lotro.character.classes.AbstractClassDescription;
-import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.lore.items.ItemCategory;
 import delta.games.lotro.lore.items.Weapon;
 

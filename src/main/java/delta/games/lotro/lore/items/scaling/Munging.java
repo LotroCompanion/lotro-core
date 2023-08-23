@@ -65,6 +65,10 @@ public class Munging
    */
   public Integer getItemLevel(int level)
   {
+    if (_progression==null)
+    {
+      return Integer.valueOf(level);
+    }
     Float itemLevel=_progression.getValue(level);
     if (itemLevel!=null)
     {
