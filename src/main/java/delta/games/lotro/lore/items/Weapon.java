@@ -126,16 +126,16 @@ public class Weapon extends Item
 
   /**
    * Get the DPS of this weapon at the given item level.
-   * @param itemLevel Item level to use.
+   * @param itemLevelForDPS Item level to use.
    * @return A DPS or <code>null</code> if none.
    */
-  public Float getDPS(int itemLevel)
+  private Float getDPS(int itemLevelForDPS)
   {
     Float ret=null;
     ItemQuality quality=getQuality();
     if ((_dpsTable!=null) && (quality!=null))
     {
-      ret=_dpsTable.getValue(quality,itemLevel);
+      ret=_dpsTable.getValue(quality,itemLevelForDPS);
       if (ret==null)
       {
         LOGGER.warn("Could not compute weapon DPS from table!");
@@ -150,8 +150,20 @@ public class Weapon extends Item
    */
   public float computeDPS()
   {
-    int itemLevelForComputations=getItemLevelForDPS();
-    Float dps=getDPS(itemLevelForComputations);
+    int itemLevelForDPS=getItemLevelForDPS();
+    Float dps=getDPS(itemLevelForDPS);
+    return (dps!=null)?dps.floatValue():0.0f;
+  }
+
+  /**
+   * Compute the DPS.
+   * @param baseItemLevel Base item level.
+   * @return A DPS value.
+   */
+  public float computeDPS(int baseItemLevel)
+  {
+    int itemLevelForDPS=getItemLevelForDPS(baseItemLevel);
+    Float dps=getDPS(itemLevelForDPS);
     return (dps!=null)?dps.floatValue():0.0f;
   }
 
@@ -163,6 +175,12 @@ public class Weapon extends Item
   {
     Integer itemLevel=getItemLevel();
     int ret=(itemLevel!=null)?itemLevel.intValue():0;
+    return getItemLevelForDPS(ret);
+  }
+
+  public int getItemLevelForDPS(int baseItemLevel)
+  {
+    int ret=baseItemLevel;
     Integer offset=getItemLevelOffset();
     if (offset!=null)
     {

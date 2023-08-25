@@ -33,12 +33,12 @@ public class LegendaryWeapon extends Weapon implements Legendary
   }
 
   @Override
-  public int getItemLevelForDPS()
+  public int getItemLevelForDPS(int baseItemLevel)
   {
     int ret=_attrs.getCombatDPSLevel();
     if (ret==0)
     {
-      ret=super.getItemLevelForDPS();
+      ret=super.getItemLevelForDPS(baseItemLevel);
     }
     return ret;
   }
