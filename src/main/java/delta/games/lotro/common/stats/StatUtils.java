@@ -44,11 +44,7 @@ public class StatUtils
   {
     if (isRegenStat(stat))
     {
-      boolean isLive=LotroCoreConfig.isLive();
-      if (isLive)
-      {
-        value=Float.valueOf(value.floatValue()/60);
-      }
+      value=Float.valueOf(value.floatValue()/60);
     }
     return value;
   }
@@ -294,12 +290,9 @@ public class StatUtils
     {
       statValue=statValue*100;
     }
-    if (LotroCoreConfig.isLive())
+    if ((stat==WellKnownStat.ICMR) || (stat==WellKnownStat.ICPR) || (stat==WellKnownStat.OCMR) || (stat==WellKnownStat.OCPR))
     {
-      if ((stat==WellKnownStat.ICMR) || (stat==WellKnownStat.ICPR) || (stat==WellKnownStat.OCMR) || (stat==WellKnownStat.OCPR))
-      {
-        statValue=statValue*60;
-      }
+      statValue=statValue*60;
     }
     return statValue;
   }
