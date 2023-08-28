@@ -8,6 +8,7 @@ import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.i18n.io.xml.LabelsXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.config.labels.LabelsConfiguration;
 
 /**
  * Facade for localization utilities.
@@ -17,8 +18,15 @@ public class I18nFacade
 {
   private static final Logger LOGGER=Logger.getLogger(I18nFacade.class);
 
-  // TODO Use current locale!
-  private static final String CURRENT_LOCALE="en";
+  private static final I18nFacade _instance=new I18nFacade();
+
+  private String _localeKey;
+
+  private I18nFacade()
+  {
+    LabelsConfiguration cfg=LotroCoreConfig.getInstance().getLabelsConfiguration();
+    _localeKey=cfg.getDataLabelsKey();
+  }
 
   /**
    * Get the labels manager for the given key and the current locale.
@@ -27,14 +35,14 @@ public class I18nFacade
    */
   public static SingleLocaleLabelsManager getLabelsMgr(String key)
   {
-    return buildLabelsMgr(key);
+    return _instance.buildLabelsMgr(key);
   }
 
-  private static SingleLocaleLabelsManager buildLabelsMgr(String key)
+  private SingleLocaleLabelsManager buildLabelsMgr(String key)
   {
     LOGGER.debug("Loading labels file: "+key);
     File rootDir=LotroCoreConfig.getInstance().getFile(DataFiles.LABELS);
-    File labelsDir=new File(rootDir,CURRENT_LOCALE);
+    File labelsDir=new File(rootDir,_localeKey);
     String filename=key+".xml";
     File from=new File(labelsDir,filename);
     SingleLocaleLabelsManager mgr;
@@ -47,7 +55,7 @@ public class I18nFacade
     }
     else
     {
-      mgr=new SingleLocaleLabelsManager(CURRENT_LOCALE);
+      mgr=new SingleLocaleLabelsManager(_localeKey);
     }
     return mgr;
   }

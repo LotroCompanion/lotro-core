@@ -11,6 +11,7 @@ import delta.common.utils.io.StreamTools;
 import delta.common.utils.misc.Preferences;
 import delta.common.utils.misc.TypedProperties;
 import delta.common.utils.url.URLTools;
+import delta.games.lotro.config.labels.LabelsConfiguration;
 
 /**
  * Configuration.
@@ -34,6 +35,9 @@ public final class LotroCoreConfig
 
   // Data Configuration
   private DataConfiguration _dataConfiguration;
+
+  // Labels Configuration
+  private LabelsConfiguration _labelsConfiguration;
 
   /**
    * Get the sole instance of this class.
@@ -95,6 +99,8 @@ public final class LotroCoreConfig
     _preferences=new Preferences(preferencesDir);
     // Data Configuration
     _dataConfiguration=initDataConfiguration(userDataDir);
+    // Labels Configuration
+    _labelsConfiguration=initLabelsConfiguration(userDataDir);
   }
 
   private TypedProperties getLocations(String propsPath)
@@ -163,6 +169,13 @@ public final class LotroCoreConfig
     return cfg;
   }
 
+  private LabelsConfiguration initLabelsConfiguration(File userDataDir)
+  {
+    LabelsConfiguration cfg=new LabelsConfiguration();
+    cfg.fromPreferences(_preferences);
+    return cfg;
+  }
+
   /**
    * Get the preferences manager.
    * @return the preferences manager.
@@ -179,6 +192,15 @@ public final class LotroCoreConfig
   public DataConfiguration getDataConfiguration()
   {
     return _dataConfiguration;
+  }
+
+  /**
+   * Get the labels configuration.
+   * @return the labels configuration.
+   */
+  public LabelsConfiguration getLabelsConfiguration()
+  {
+    return _labelsConfiguration;
   }
 
   /**

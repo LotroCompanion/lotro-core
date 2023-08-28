@@ -178,6 +178,11 @@ public class Weapon extends Item
     return getItemLevelForDPS(ret);
   }
 
+  /**
+   * Get the item level to use for DPS computation, when using the given item level.
+   * @param baseItemLevel Base item level. 
+   * @return An item level.
+   */
   public int getItemLevelForDPS(int baseItemLevel)
   {
     int ret=baseItemLevel;
