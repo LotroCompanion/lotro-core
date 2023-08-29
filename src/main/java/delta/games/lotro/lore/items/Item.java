@@ -698,6 +698,15 @@ public class Item implements Interactable,ItemProvider
   }
 
   /**
+   * Indicates if this item is scalable or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isScalable()
+  {
+    return (_munging!=null);
+  }
+
+  /**
    * Get munging data.
    * @return some munging data or <code>null</code> if none.
    */

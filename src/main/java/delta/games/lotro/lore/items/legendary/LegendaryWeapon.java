@@ -42,4 +42,10 @@ public class LegendaryWeapon extends Weapon implements Legendary
     }
     return ret;
   }
+
+   @Override
+  public boolean isScalable()
+  {
+    return false;
+  }
 }

@@ -30,4 +30,10 @@ public class LegendaryItem2 extends Item implements Legendary2
   {
     return _attrs;
   }
+
+  @Override
+  public boolean isScalable()
+  {
+    return false;
+  }
 }
