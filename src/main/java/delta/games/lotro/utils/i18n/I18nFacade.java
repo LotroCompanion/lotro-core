@@ -41,21 +41,32 @@ public class I18nFacade
   private SingleLocaleLabelsManager buildLabelsMgr(String key)
   {
     LOGGER.debug("Loading labels file: "+key);
+    SingleLocaleLabelsManager mgr=loadLabelsFile(key,_localeKey);
+    if (mgr==null)
+    {
+      // If no labels file, use the English file
+      mgr=loadLabelsFile(key,"en");
+    }
+    if (mgr==null)
+    {
+      mgr=new SingleLocaleLabelsManager(_localeKey);
+    }
+    return mgr;
+  }
+
+  private SingleLocaleLabelsManager loadLabelsFile(String key, String localeKey)
+  {
     File rootDir=LotroCoreConfig.getInstance().getFile(DataFiles.LABELS);
-    File labelsDir=new File(rootDir,_localeKey);
+    File labelsDir=new File(rootDir,localeKey);
     String filename=key+".xml";
     File from=new File(labelsDir,filename);
-    SingleLocaleLabelsManager mgr;
+    SingleLocaleLabelsManager mgr=null;
     if (from.exists())
     {
       long now=System.currentTimeMillis();
       mgr=new LabelsXMLParser().parseSingleLocaleLabels(from);
       long now2=System.currentTimeMillis();
       LOGGER.debug("Took: "+(now2-now)+"ms");
-    }
-    else
-    {
-      mgr=new SingleLocaleLabelsManager(_localeKey);
     }
     return mgr;
   }
