@@ -367,7 +367,6 @@ public class CharacterStatsComputer
     float partialBlockPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),block,level);
     ret.setStat(WellKnownStat.PARTIAL_BLOCK_PERCENTAGE,partialBlockPercentage);
     float partialBlockMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),block,level);
-    partialBlockMitigationPercentage+=10;
     ret.setStat(WellKnownStat.PARTIAL_BLOCK_MITIGATION_PERCENTAGE,partialBlockMitigationPercentage);
     // Parry %, Partial Parry %, Parry Mitigation %
     Number parry=stats.getStat(WellKnownStat.PARRY);
@@ -376,7 +375,6 @@ public class CharacterStatsComputer
     float partialParryPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),parry,level);
     ret.setStat(WellKnownStat.PARTIAL_PARRY_PERCENTAGE,partialParryPercentage);
     float partialParryMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),parry,level);
-    partialParryMitigationPercentage+=10;
     ret.setStat(WellKnownStat.PARTIAL_PARRY_MITIGATION_PERCENTAGE,partialParryMitigationPercentage);
     // Evade %, Partial Evade %, Evade Mitigation %
     Number evade=stats.getStat(WellKnownStat.EVADE);
@@ -385,7 +383,6 @@ public class CharacterStatsComputer
     float partialEvadePercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_AVOIDANCE),evade,level);
     ret.setStat(WellKnownStat.PARTIAL_EVADE_PERCENTAGE,partialEvadePercentage);
     float partialEvadeMitigationPercentage=computePercentage(_ratingsMgr.getCurve(RatingCurveId.PARTIAL_MITIGATION),evade,level);
-    partialEvadeMitigationPercentage+=10;
     ret.setStat(WellKnownStat.PARTIAL_EVADE_MITIGATION_PERCENTAGE,partialEvadeMitigationPercentage);
     // Physical Mitigation %
     ClassDescription cClass=c.getCharacterClass();
