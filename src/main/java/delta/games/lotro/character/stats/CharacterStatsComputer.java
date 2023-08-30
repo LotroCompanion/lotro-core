@@ -124,9 +124,8 @@ public class CharacterStatsComputer
     }
     List<StatsContribution> allContribs=new ArrayList<StatsContribution>();
     // Base stats (from character class, race and level)
-    BasicStatsSet baseStats=_baseStatsMgr.getBaseStats(c.getCharacterClass(),c.getRace(),c.getLevel());
-    StatsContribution baseStatsContrib=StatsContribution.getBodyContrib(baseStats);
-    allContribs.add(baseStatsContrib);
+    List<StatsContribution> baseStatsContribs=_baseStatsMgr.getBaseStats(c.getCharacterClass(),c.getRace(),c.getLevel());
+    allContribs.addAll(baseStatsContribs);
 
     // Tomes
     TomesSet tomes=c.getTomes();
@@ -205,7 +204,7 @@ public class CharacterStatsComputer
 
     if (LOGGER.isDebugEnabled())
     {
-      showContrib("Base",baseStatsContrib);
+      showContribs("Base",baseStatsContribs);
       showContribs("Stat tomes",tomeStatsContribs);
       showContribs("Equipment",equipmentStats);
       showContribs("Buffs",buffContribs);

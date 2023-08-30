@@ -1,11 +1,13 @@
 package delta.games.lotro.character.stats.base;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.base.io.StartStatsManagerIO;
+import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
@@ -38,24 +40,24 @@ public class BaseStatsManager
    * @param characterClass Character class.
    * @param race Race.
    * @param level Level (starting at 1).
-   * @return A set of stats.
+   * @return A list of stats contributions.
    */
-  public BasicStatsSet getBaseStats(ClassDescription characterClass, RaceDescription race, int level)
+  public List<StatsContribution> getBaseStats(ClassDescription characterClass, RaceDescription race, int level)
   {
-    BasicStatsSet classSet=_startStatsManager.getStats(characterClass,level);
-    BasicStatsSet raceSet=getRaceTraitsContrib(race,level);
-    BasicStatsSet classTraitsSet=getClassTraitsContrib(characterClass,level);
-    BasicStatsSet global=new BasicStatsSet();
-    global.addStats(classSet);
-    global.addStats(raceSet);
-    global.addStats(classTraitsSet);
-    global.addStats(_toAdd);
-    return global;
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
+    BasicStatsSet baseStats=_startStatsManager.getStats(characterClass,level);
+    baseStats.addStats(_toAdd);
+    ret.add(StatsContribution.getBodyContrib(baseStats));
+    List<StatsContribution> raceContribs=getRaceTraitsContrib(race,level);
+    ret.addAll(raceContribs);
+    List<StatsContribution> classContribs=getClassTraitsContrib(characterClass,level);
+    ret.addAll(classContribs);
+    return ret;
   }
 
-  private BasicStatsSet getRaceTraitsContrib(RaceDescription race, int level)
+  private List<StatsContribution> getRaceTraitsContrib(RaceDescription race, int level)
   {
-    BasicStatsSet stats=new BasicStatsSet();
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
     List<TraitDescription> traits=race.getTraitsForLevel(level);
     for(TraitDescription trait : traits)
     {
@@ -64,15 +66,15 @@ public class BaseStatsManager
       int nbStats=statsForTrait.getStatsCount();
       if (nbStats>0)
       {
-        stats.addStats(statsForTrait);
+        ret.add(StatsContribution.getTraitContrib(trait,statsForTrait));
       }
     }
-    return stats;
+    return ret;
   }
 
-  private BasicStatsSet getClassTraitsContrib(ClassDescription characterClass, int level)
+  private List<StatsContribution> getClassTraitsContrib(ClassDescription characterClass, int level)
   {
-    BasicStatsSet stats=new BasicStatsSet();
+    List<StatsContribution> ret=new ArrayList<StatsContribution>();
     List<TraitDescription> traits=characterClass.getTraitsForLevel(level);
     for(TraitDescription trait : traits)
     {
@@ -82,9 +84,9 @@ public class BaseStatsManager
       int nbStats=statsForTrait.getStatsCount();
       if (nbStats>0)
       {
-        stats.addStats(statsForTrait);
+        ret.add(StatsContribution.getTraitContrib(trait,statsForTrait));
       }
     }
-    return stats;
+    return ret;
   }
 }
