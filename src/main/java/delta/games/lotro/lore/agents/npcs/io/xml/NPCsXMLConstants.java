@@ -24,6 +24,10 @@ public class NPCsXMLConstants
    */
   public static final String NAME_ATTR="name";
   /**
+   * Tag 'NPC', attribute 'gender'.
+   */
+  public static final String GENDER_ATTR="gender";
+  /**
    * Tag 'NPC', attribute 'title'.
    */
   public static final String TITLE_ATTR="title";

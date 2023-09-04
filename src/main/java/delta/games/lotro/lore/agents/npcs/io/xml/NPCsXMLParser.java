@@ -8,6 +8,9 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.CharacterSex;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.agents.npcs.NPCsManager;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 import delta.games.lotro.utils.i18n.I18nFacade;
@@ -71,6 +74,14 @@ public class NPCsXMLParser
     // Name
     String name=I18nRuntimeUtils.getLabel(_i18n,id);
     NpcDescription ret=new NpcDescription(id,name);
+    // Gender
+    String genderKey=DOMParsingTools.getStringAttribute(attrs,NPCsXMLConstants.GENDER_ATTR,null);
+    if (genderKey!=null)
+    {
+      LotroEnum<CharacterSex> genderEnum=LotroEnumsRegistry.getInstance().get(CharacterSex.class);
+      CharacterSex gender=genderEnum.getByKey(genderKey); 
+      ret.setGender(gender);
+    }
     // Title
     String title=DOMParsingTools.getStringAttribute(attrs,NPCsXMLConstants.TITLE_ATTR,"");
     title=I18nRuntimeUtils.getLabel(_i18n,title);

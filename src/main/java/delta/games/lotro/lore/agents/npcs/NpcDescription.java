@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.agents.npcs;
 
+import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.lore.agents.AgentDescription;
 
 /**
@@ -9,6 +10,7 @@ import delta.games.lotro.lore.agents.AgentDescription;
 public class NpcDescription extends AgentDescription
 {
   private String _title;
+  private CharacterSex _gender;
 
   /**
    * Constructor.
@@ -19,6 +21,7 @@ public class NpcDescription extends AgentDescription
   {
     super(id,name);
     _title="";
+    _gender=null;
   }
 
   /**
@@ -40,11 +43,33 @@ public class NpcDescription extends AgentDescription
     _title=title;
   }
 
+  /**
+   * Get the NPC gender.
+   * @return a gender (<code>null</code> if not known).
+   */
+  public CharacterSex getGender()
+  {
+    return _gender;
+  }
+
+  /**
+   * Set the NPC gender.
+   * @param gender Gender to set.
+   */
+  public void setGender(CharacterSex gender)
+  {
+    _gender=gender;
+  }
+
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder("NPC ");
     sb.append(getName());
+    if (_gender!=null)
+    {
+      sb.append(" (").append(_gender.getLabel()).append(')');
+    }
     if (_title.length()>0)
     {
       sb.append(" (").append(_title).append(')');

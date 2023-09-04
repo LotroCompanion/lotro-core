@@ -10,6 +10,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 
 /**
@@ -73,6 +74,12 @@ public class NPCsXMLWriter
     // Name
     String name=npc.getName();
     attrs.addAttribute("","",NPCsXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
+    // Gender
+    CharacterSex gender=npc.getGender();
+    if (gender!=null)
+    {
+      attrs.addAttribute("","",NPCsXMLConstants.GENDER_ATTR,XmlWriter.CDATA,gender.getKey());
+    }
     // Title
     String title=npc.getTitle();
     if (!title.isEmpty())
