@@ -17,8 +17,8 @@ public class WeaponSpeedsManager
   private WeaponSpeedTables _tables;
 
   /**
-   * Get the DPS tables manager.
-   * @return the DPS tables manager.
+   * Get the speed tables manager.
+   * @return the speed tables manager.
    */
   public static WeaponSpeedsManager getWeaponSpeedsManager()
   {

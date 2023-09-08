@@ -235,6 +235,10 @@ public class DataFiles
    */
   public static final String SPEED_TABLES="speedTables";
   /**
+   * Weapon damage.
+   */
+  public static final String WEAPON_DAMAGE="weaponDamage";
+  /**
    * Loots.
    */
   public static final String LOOTS="loots";
