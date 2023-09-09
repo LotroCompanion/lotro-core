@@ -13,23 +13,13 @@ public class ItemScalingEntry
   private int _itemLevel;
   private BasicStatsSet _stats;
   private Money _money;
-  private Float _dps;
 
   /**
    * Constructor.
-   * @param level Character/instance lLevel.
-   * @param itemLevel Item level.
-   * @param stats Stats.
-   * @param money Value.
-   * @param dps DPS.
    */
-  public ItemScalingEntry(int level, int itemLevel, BasicStatsSet stats, Money money, Float dps)
+  public ItemScalingEntry()
   {
-    _level=level;
-    _itemLevel=itemLevel;
-    _stats=stats;
-    _money=money;
-    _dps=dps;
+    // Nothing!
   }
 
   /**
@@ -42,12 +32,30 @@ public class ItemScalingEntry
   }
 
   /**
+   * Set the character level.
+   * @param level Level to set.
+   */
+  public void setLevel(int level)
+  {
+    _level=level;
+  }
+
+  /**
    * Get the item level used for scaling.
    * @return an item level.
    */
   public int getItemLevel()
   {
     return _itemLevel;
+  }
+
+  /**
+   * Set the item level.
+   * @param itemLevel Item level to set.
+   */
+  public void setItemLevel(int itemLevel)
+  {
+    _itemLevel=itemLevel;
   }
 
   /**
@@ -60,6 +68,15 @@ public class ItemScalingEntry
   }
 
   /**
+   * Set the stats.
+   * @param stats Stats to set.
+   */
+  public void setStats(BasicStatsSet stats)
+  {
+    _stats=stats;
+  }
+
+  /**
    * Get the item value for the item level.
    * @return a value.
    */
@@ -69,11 +86,11 @@ public class ItemScalingEntry
   }
 
   /**
-   * Get the DPS for the item level.
-   * @return A DPS.
+   *  Set the value.
+   * @param money Value to set.
    */
-  public Float getDPS()
+  public void setMoney(Money money)
   {
-    return _dps;
+    _money=money;
   }
 }

@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
+import delta.games.lotro.lore.items.weapons.WeaponDamageManager;
 import delta.games.lotro.lore.items.weapons.WeaponSpeedEntry;
 
 /**
@@ -165,6 +166,32 @@ public class Weapon extends Item
     int itemLevelForDPS=getItemLevelForDPS(baseItemLevel);
     Float dps=getDPS(itemLevelForDPS);
     return (dps!=null)?dps.floatValue():0.0f;
+  }
+
+  /**
+   * Compute the minimum damage for the given item level.
+   * @param baseItemLevel Item level to use.
+   * @return A damage value.
+   */
+  public float computeMinDamage(int baseItemLevel)
+  {
+    Float variance=WeaponDamageManager.getWeaponDamageManager().getVariance(_type);
+    float v=(variance!=null)?variance.floatValue():0;
+    float dps=computeDPS(baseItemLevel);
+    return 2*dps*(1-v)/(2-v);
+  }
+
+  /**
+   * Compute the maximum damage for the given item level.
+   * @param baseItemLevel Item level to use.
+   * @return A damage value.
+   */
+  public float computeMaxDamage(int baseItemLevel)
+  {
+    Float variance=WeaponDamageManager.getWeaponDamageManager().getVariance(_type);
+    float v=(variance!=null)?variance.floatValue():0;
+    float dps=computeDPS(baseItemLevel);
+    return 2*dps/(2-v);
   }
 
   /**
