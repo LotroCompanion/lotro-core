@@ -26,7 +26,8 @@ public class UsageRequirement
   private QuestRequirement _questRequirement;
   // Profession requirement
   private ProfessionRequirement _professionRequirement;
-  // TODO Glory rank requirement
+  // Glory rank requirement
+  private GloryRankRequirement _gloryRankRequirement;
   // TODO Trait requirement
 
   /**
@@ -40,6 +41,7 @@ public class UsageRequirement
     _raceRequirement=null;
     _factionRequirement=null;
     _professionRequirement=null;
+    _gloryRankRequirement=null;
   }
 
   /**
@@ -240,6 +242,24 @@ public class UsageRequirement
   }
 
   /**
+   * Get the glory rank requirement.
+   * @return A glory rank requirement or <code>null</code>.
+   */
+  public GloryRankRequirement getGloryRankRequirement()
+  {
+    return _gloryRankRequirement;
+  }
+
+  /**
+   * Set the glory rank requirement.
+   * @param gloryRankRequirement Requirement to set, may be <code>null</code>.
+   */
+  public void setGloryRankRequirement(GloryRankRequirement gloryRankRequirement)
+  {
+    _gloryRankRequirement=gloryRankRequirement;
+  }
+
+  /**
    * Indicates if the given parameter do pass this requirement.
    * @param level Level to test.
    * @param characterClass Character class to test.
@@ -279,7 +299,9 @@ public class UsageRequirement
    */
   public boolean isEmpty()
   {
-    return ((_minLevel==null) && (_maxLevel==null) && (_classRequirement==null) && (_raceRequirement==null) && (_factionRequirement==null) && (_questRequirement==null) && (_professionRequirement==null));
+    return ((_minLevel==null) && (_maxLevel==null) && (_classRequirement==null) &&
+        (_raceRequirement==null) && (_factionRequirement==null) && (_questRequirement==null) &&
+        (_professionRequirement==null) && (_gloryRankRequirement==null));
   }
 
   @Override
@@ -313,6 +335,10 @@ public class UsageRequirement
     if (_professionRequirement!=null)
     {
       sb.append(" Profession=").append(_professionRequirement);
+    }
+    if (_gloryRankRequirement!=null)
+    {
+      sb.append(" Glory Rank>=").append(_gloryRankRequirement.getRank());
     }
     return sb.toString().trim();
   }

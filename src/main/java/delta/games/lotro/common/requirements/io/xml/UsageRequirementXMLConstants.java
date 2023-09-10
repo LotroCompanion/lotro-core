@@ -34,4 +34,8 @@ public class UsageRequirementXMLConstants
    * Attribute 'required profession'.
    */
   public static final String REQUIRED_PROFESSION_ATTR="requiredProfession";
+  /**
+   * Attribute 'required glory rank'.
+   */
+  public static final String REQUIRED_GLORY_RANK_ATTR="requiredGloryRank";
 }

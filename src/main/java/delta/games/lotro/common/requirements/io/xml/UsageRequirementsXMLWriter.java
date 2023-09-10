@@ -6,6 +6,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
+import delta.games.lotro.common.requirements.GloryRankRequirement;
 import delta.games.lotro.common.requirements.ProfessionRequirement;
 import delta.games.lotro.common.requirements.QuestRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
@@ -71,6 +72,13 @@ public class UsageRequirementsXMLWriter
     {
       String professionReqStr=professionRequirement.asString();
       attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_PROFESSION_ATTR,XmlWriter.CDATA,professionReqStr);
+    }
+    // Glory rank requirement
+    GloryRankRequirement gloryRankRequirement=requirements.getGloryRankRequirement();
+    if (gloryRankRequirement!=null)
+    {
+      int rank=gloryRankRequirement.getRank();
+      attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_GLORY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
     }
   }
 }

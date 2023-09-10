@@ -8,6 +8,7 @@ import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
+import delta.games.lotro.common.requirements.GloryRankRequirement;
 import delta.games.lotro.common.requirements.ProfessionRequirement;
 import delta.games.lotro.common.requirements.QuestRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
@@ -96,5 +97,14 @@ public class UsageRequirementsXMLParser
     String requiredProfession=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_PROFESSION_ATTR);
     ProfessionRequirement professionRequirement=ProfessionRequirement.fromString(requiredProfession);
     requirements.setProfessionRequirement(professionRequirement);
+    // Required glory rank
+    String requiredGloryRankStr=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_GLORY_RANK_ATTR);
+    if (requiredGloryRankStr!=null)
+    {
+      int rank=NumericTools.parseInt(requiredGloryRankStr,0);
+      GloryRankRequirement gloryRankRequirement=new GloryRankRequirement();
+      gloryRankRequirement.setRank(rank);
+      requirements.setGloryRankRequirement(gloryRankRequirement);
+    }
   }
 }
