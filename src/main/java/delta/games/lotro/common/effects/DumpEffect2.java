@@ -32,6 +32,16 @@ public class DumpEffect2
   public void dumpEffect(Effect2 effect)
   {
     _is.println("Effect ID="+effect.getIdentifier()+", name="+effect.getName());
+    String description=effect.getDescription();
+    if (!description.isEmpty())
+    {
+      _is.println("Description: "+description);
+    }
+    String appliedDescription=effect.getAppliedDescription();
+    if (!appliedDescription.isEmpty())
+    {
+      _is.println("Applied description: "+appliedDescription);
+    }
     _is.incrementIndendationLevel();
     for(EffectAspect aspect : effect.getAspects())
     {

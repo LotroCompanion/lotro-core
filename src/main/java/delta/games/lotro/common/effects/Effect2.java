@@ -99,6 +99,28 @@ public class Effect2 implements Identifiable,Named
   }
 
   /**
+   * Get the effect 'applied' description.
+   * @return a description (may be empty but not <code>null</code>).
+   */
+  public String getAppliedDescription()
+  {
+    return _appliedDescription;
+  }
+
+  /**
+   * Set the effect 'applied' description.
+   * @param appliedDescription Description to set.
+   */
+  public void setAppliedDescription(String appliedDescription)
+  {
+    if (appliedDescription==null)
+    {
+      appliedDescription="";
+    }
+    _appliedDescription=appliedDescription;
+  }
+
+  /**
    * Get the icon ID.
    * @return an icon ID or <code>null</code> if none.
    */
