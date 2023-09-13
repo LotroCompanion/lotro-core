@@ -16,16 +16,12 @@ public class Effect2 implements Identifiable,Named
   private int _id;
   // Name
   private String _name;
-  // From: Effect_Definition_Description:
   private String _description;
-  // From: Effect_Description_Override: ${PROCPROBABILITY} chance on heal to proc,
   private String _descriptionOverride;
-  // From: Effect_Applied_Description
   private String _appliedDescription;
   private ApplicationProbability _prob;
   private EffectDuration _duration;
   private EffectCriticalChance _critChance;
-
   // Icon
   private Integer _iconId;
   // Aspects
@@ -37,6 +33,8 @@ public class Effect2 implements Identifiable,Named
   public Effect2()
   {
     _description="";
+    _descriptionOverride="";
+    _appliedDescription="";
     _aspects=new ArrayList<EffectAspect>();
   }
 
@@ -99,6 +97,28 @@ public class Effect2 implements Identifiable,Named
   }
 
   /**
+   * Get the effect description override.
+   * @return a description (may be empty but not <code>null</code>).
+   */
+  public String getDescriptionOverride()
+  {
+    return _descriptionOverride;
+  }
+
+  /**
+   * Set the effect description override.
+   * @param descriptionOverride Description to set.
+   */
+  public void setDescriptionOverride(String descriptionOverride)
+  {
+    if (descriptionOverride==null)
+    {
+      descriptionOverride="";
+    }
+    _descriptionOverride=descriptionOverride;
+  }
+
+  /**
    * Get the effect 'applied' description.
    * @return a description (may be empty but not <code>null</code>).
    */
@@ -118,6 +138,42 @@ public class Effect2 implements Identifiable,Named
       appliedDescription="";
     }
     _appliedDescription=appliedDescription;
+  }
+
+  /**
+   * Get the application probability.
+   * @return the application probability.
+   */
+  public ApplicationProbability getApplicationProbability()
+  {
+    return _prob;
+  }
+
+  /**
+   * Set the application probability.
+   * @param probability Probability to set.
+   */
+  public void setApplicationProbability(ApplicationProbability probability)
+  {
+    _prob=probability;
+  }
+
+  /**
+   * Get the effect duration.
+   * @return the effect duration.
+   */
+  public EffectDuration getDuration()
+  {
+    return _duration;
+  }
+
+  /**
+   * Set the effect duration.
+   * @param duration Duration to set.
+   */
+  public void setApplicationProbability(EffectDuration duration)
+  {
+    _duration=duration;
   }
 
   /**

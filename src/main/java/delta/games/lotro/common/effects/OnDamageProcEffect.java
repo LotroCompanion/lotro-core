@@ -17,9 +17,19 @@ public class OnDamageProcEffect implements EffectAspect
   // From:
   //Effect_ReactiveVital_DefenderEffect_Effect: 1879141127
   //Effect_ReactiveVital_DefenderEffect_SpellcraftOverride: -1.0
-  private EffectGenerator _generatedEffects;
+  private EffectGenerator _generatedEffect;
   /*
   Effect_VitalInterested_VitalTypeList: 
     #1: Effect_VitalInterested_VitalType 1 (Morale)
     */
 }
+
+/*
+Effect_ReactiveVital_DefenderEffect_SpellcraftOverride: always -1.0 when set => unused
+Effect_ReactiveResistCategory_DefenderEffect_SpellcraftOverride: unused
+Effect_ReactiveResistCategory_DefenderEffect_Effect: DID. Unused
+Effect_ReactiveResistCategory_DefenderEffect_Probability: Float. Unused.
+Effect_ReactiveVital_DefenderEffect_Probability_ModifierList: Array. Unused. 
+EffectGenerator_VitalThreshold_DefenderEffectList: Array. Unused.
+EffectGenerator_DefenderEffectList: Array. Unused.
+*/

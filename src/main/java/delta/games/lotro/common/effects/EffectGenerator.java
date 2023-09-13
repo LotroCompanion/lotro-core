@@ -1,7 +1,8 @@
 package delta.games.lotro.common.effects;
 
 /**
- * @author dm
+ * Effect generator.
+ * @author DAM
  */
 public class EffectGenerator
 {
