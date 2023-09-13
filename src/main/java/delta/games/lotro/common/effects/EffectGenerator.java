@@ -9,6 +9,11 @@ public class EffectGenerator
   private Effect2 _effect;
   private Float _spellcraft;
 
+  /**
+   * Constructor.
+   * @param effect Effect.
+   * @param spellcraft Spellcraft value.
+   */
   public EffectGenerator(Effect2 effect, Float spellcraft)
   {
     _effect=effect;
@@ -16,7 +21,8 @@ public class EffectGenerator
   }
 
   /**
-   * @return the effect
+   * Get the managed effect.
+   * @return the managed effect.
    */
   public Effect2 getEffect()
   {
@@ -24,7 +30,8 @@ public class EffectGenerator
   }
 
   /**
-   * @return the spellcraft
+   * Get the spellcraft.
+   * @return the spellcraft.
    */
   public Float getSpellcraft()
   {

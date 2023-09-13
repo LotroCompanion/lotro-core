@@ -39,42 +39,74 @@ public class ProcEffect implements EffectAspect
     _cooldown=null;
   }
 
+  /**
+   * Get the skill types that triggers.
+   * @return a list of skill types.
+   */
   public List<SkillType> getSkillTypes()
   {
     return _skillTypes;
   }
 
+  /**
+   * Set the skill types.
+   * @param skillTypes Skill types to use.
+   */
   public void setSkillTypes(List<SkillType> skillTypes)
   {
     _skillTypes.clear();
     _skillTypes.addAll(skillTypes);
   }
 
+  /**
+   * Set the probability to trigger.
+   * @param probability Probability to set (0-1).
+   */
   public void setProcProbability(Float probability)
   {
     _procProbability=probability;
   }
 
+  /**
+   * Get the probability to trigger.
+   * @return A probability (0-1).
+   */
   public Float getProcProbability()
   {
     return _procProbability;
   }
 
+  /**
+   * Add a triggered effect.
+   * @param generator Effect generator.
+   */
   public void addProcedEffect(EffectGenerator generator)
   {
     _procedEffects.add(generator);
   }
 
+  /**
+   * Get the triggered effects.
+   * @return A list of effect generators.
+   */
   public List<EffectGenerator> getProcedEffects()
   {
     return _procedEffects;
   }
 
+  /**
+   * Set the cooldown (minimum time between triggers).
+   * @param cooldown A duration (seconds).
+   */
   public void setCooldown(Float cooldown)
   {
     _cooldown=cooldown;
   }
 
+  /**
+   * Get the cooldown.
+   * @return A duration (seconds) or <code>null</code>.
+   */
   public Float getCooldown()
   {
     return _cooldown;

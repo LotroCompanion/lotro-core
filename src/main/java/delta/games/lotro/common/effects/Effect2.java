@@ -21,7 +21,7 @@ public class Effect2 implements Identifiable,Named
   private String _appliedDescription;
   private ApplicationProbability _prob;
   private EffectDuration _duration;
-  private EffectCriticalChance _critChance;
+  //private EffectCriticalChance _critChance;
   // Icon
   private Integer _iconId;
   // Aspects
@@ -171,7 +171,7 @@ public class Effect2 implements Identifiable,Named
    * Set the effect duration.
    * @param duration Duration to set.
    */
-  public void setApplicationProbability(EffectDuration duration)
+  public void setDuration(EffectDuration duration)
   {
     _duration=duration;
   }
