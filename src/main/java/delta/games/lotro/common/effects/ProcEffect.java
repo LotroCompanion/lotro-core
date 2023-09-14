@@ -11,6 +11,7 @@ import delta.games.lotro.common.enums.SkillType;
  */
 public class ProcEffect implements EffectAspect
 {
+  // Class 3686
   /**
    * Types of skills that may trigger effects.
    */

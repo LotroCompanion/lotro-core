@@ -7,21 +7,23 @@ import delta.games.lotro.common.stats.WellKnownStat;
  * Instant vital effect.
  * @author DAM
  */
-public class VitalInstantChangeEffect implements EffectAspect
+public class InstantVitalEffect implements EffectAspect
 {
   // Morale, Power, ...
   private StatDescription _stat;
   private boolean _multiplicative;
   private VitalChangeDescription _instantChange;
+  // Effect_InstantVital_InitialChangeVariance
+  private Float _variance;
 
   /**
    * Constructor.
    */
-  public VitalInstantChangeEffect()
+  public InstantVitalEffect()
   {
     _stat=WellKnownStat.MORALE;
     _multiplicative=false;
-    _instantChange=new VitalChangeDescription();
+    _instantChange=null;
   }
 
   /**
@@ -67,5 +69,14 @@ public class VitalInstantChangeEffect implements EffectAspect
   public VitalChangeDescription getInstantChangeDescription()
   {
     return _instantChange;
+  }
+
+  /**
+   * Set the instant change description.
+   * @param instantChange Change to set.
+   */
+  public void setInstantChangeDescription(VitalChangeDescription instantChange)
+  {
+    _instantChange=instantChange;
   }
 }

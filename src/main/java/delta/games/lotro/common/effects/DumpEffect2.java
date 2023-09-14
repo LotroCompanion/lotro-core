@@ -42,7 +42,16 @@ public class DumpEffect2
     {
       _is.println("Applied description: "+appliedDescription);
     }
+    String descriptionOverride=effect.getDescriptionOverride();
+    if (!descriptionOverride.isEmpty())
+    {
+      _is.println("Description override: "+descriptionOverride);
+    }
     _is.incrementIndendationLevel();
+    EffectDuration duration=effect.getDuration();
+    _is.println("Duration: "+duration);
+    ApplicationProbability probability=effect.getApplicationProbability();
+    _is.println("Probability: "+probability);
     for(EffectAspect aspect : effect.getAspects())
     {
       showAspect(aspect);
@@ -60,13 +69,13 @@ public class DumpEffect2
     {
       showStatEffect((StatsEffect)aspect);
     }
-    else if (aspect instanceof VitalInstantChangeEffect)
+    else if (aspect instanceof InstantVitalEffect)
     {
-      showInstantVitalEffect((VitalInstantChangeEffect)aspect);
+      showInstantVitalEffect((InstantVitalEffect)aspect);
     }
-    else if (aspect instanceof VitalOverTimeChangeEffect)
+    else if (aspect instanceof VitalOverTimeEffect)
     {
-      showVitalOverTimeEffect((VitalOverTimeChangeEffect)aspect);
+      showVitalOverTimeEffect((VitalOverTimeEffect)aspect);
     }
     else if (aspect instanceof FellowshipEffect)
     {
@@ -98,7 +107,7 @@ public class DumpEffect2
     showGenerators(procedEffects);
   }
 
-  private void showInstantVitalEffect(VitalInstantChangeEffect aspect)
+  private void showInstantVitalEffect(InstantVitalEffect aspect)
   {
     StatDescription stat=aspect.getStat();
     _is.println("Vital instant change: "+stat.getName());
@@ -111,7 +120,7 @@ public class DumpEffect2
     dumpVitalChangeDescription(aspect.getInstantChangeDescription());
   }
 
-  private void showVitalOverTimeEffect(VitalOverTimeChangeEffect aspect)
+  private void showVitalOverTimeEffect(VitalOverTimeEffect aspect)
   {
     StatDescription stat=aspect.getStat();
     _is.println("Vital over-time change: "+stat.getName());
@@ -124,6 +133,10 @@ public class DumpEffect2
 
   private void dumpVitalChangeDescription(VitalChangeDescription description)
   {
+    if (description==null)
+    {
+      return;
+    }
     _is.incrementIndendationLevel();
     Float constant=description.getConstant();
     if (constant!=null)

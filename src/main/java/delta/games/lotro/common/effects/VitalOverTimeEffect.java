@@ -7,7 +7,7 @@ import delta.games.lotro.common.stats.WellKnownStat;
  * Vital over-time effect.
  * @author DAM
  */
-public class VitalOverTimeChangeEffect implements EffectAspect
+public class VitalOverTimeEffect implements EffectAspect
 {
   // Morale, Power, ...
   private StatDescription _stat;
@@ -17,11 +17,11 @@ public class VitalOverTimeChangeEffect implements EffectAspect
   /**
    * Constructor.
    */
-  public VitalOverTimeChangeEffect()
+  public VitalOverTimeEffect()
   {
     _stat=WellKnownStat.MORALE;
-    _initialChange=new VitalChangeDescription();
-    _overTimeChange=new VitalChangeDescription();
+    _initialChange=null;
+    _overTimeChange=null;
   }
 
   /**
@@ -52,11 +52,29 @@ public class VitalOverTimeChangeEffect implements EffectAspect
   }
 
   /**
+   * Set the initial change.
+   * @param initialChange Initial change to set (may be <code>null</code>).
+   */
+  public void setInitialChangeDescription(VitalChangeDescription initialChange)
+  {
+    _initialChange=initialChange;
+  }
+
+  /**
    * Get the over-time change description.
    * @return the over-time change description.
    */
   public VitalChangeDescription getOverTimeChangeDescription()
   {
     return _overTimeChange;
+  }
+
+  /**
+   * Set the over-time change.
+   * @param overTimeChange Initial change to set (may be <code>null</code>).
+   */
+  public void setOverTimeChangeDescription(VitalChangeDescription overTimeChange)
+  {
+    _overTimeChange=overTimeChange;
   }
 }
