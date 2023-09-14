@@ -256,7 +256,7 @@ public class LegendaryInstanceAttrsXMLParser
           String name=DOMParsingTools.getStringAttribute(attrs,LegendaryInstanceAttrsXMLConstants.RELIC_NAME_ATTR,null);
           if (name!=null)
           {
-            relic=relicsMgr.getByName(name);
+            relic=relicsMgr.getByName(name); // !! Won't work if not in English!!
           }
         }
         RelicsSet relics=legendaryAttrs.getRelicsSet();

@@ -62,7 +62,11 @@ public class DumpEffect2
     }
     else if (aspect instanceof VitalInstantChangeEffect)
     {
-      showVitalInstantChangeEffect((VitalInstantChangeEffect)aspect);
+      showInstantVitalEffect((VitalInstantChangeEffect)aspect);
+    }
+    else if (aspect instanceof VitalOverTimeChangeEffect)
+    {
+      showVitalOverTimeEffect((VitalOverTimeChangeEffect)aspect);
     }
     else if (aspect instanceof FellowshipEffect)
     {
@@ -94,7 +98,7 @@ public class DumpEffect2
     showGenerators(procedEffects);
   }
 
-  private void showVitalInstantChangeEffect(VitalInstantChangeEffect aspect)
+  private void showInstantVitalEffect(VitalInstantChangeEffect aspect)
   {
     StatDescription stat=aspect.getStat();
     _is.println("Vital instant change: "+stat.getName());
@@ -102,23 +106,42 @@ public class DumpEffect2
     {
       _is.println("Multiplicative");
     }
-    // Initial change: constant, progression or min-max range:
-    Float constant=aspect.getConstant();
+    // Instant change
+    _is.println("Instant change:");
+    dumpVitalChangeDescription(aspect.getInstantChangeDescription());
+  }
+
+  private void showVitalOverTimeEffect(VitalOverTimeChangeEffect aspect)
+  {
+    StatDescription stat=aspect.getStat();
+    _is.println("Vital over-time change: "+stat.getName());
+    // Initial change:
+    _is.println("Initial change:");
+    dumpVitalChangeDescription(aspect.getInitialChangeDescription());
+    _is.println("Over-time change:");
+    dumpVitalChangeDescription(aspect.getOverTimeChangeDescription());
+  }
+
+  private void dumpVitalChangeDescription(VitalChangeDescription description)
+  {
+    _is.incrementIndendationLevel();
+    Float constant=description.getConstant();
     if (constant!=null)
     {
       _is.println("Constant: "+constant);
     }
-    Progression progression=aspect.getProgression();
+    Progression progression=description.getProgression();
     if (progression!=null)
     {
       _is.println("Progression: "+progression);
     }
-    Float min=aspect.getMinValue();
-    Float max=aspect.getMaxValue();
+    Float min=description.getMinValue();
+    Float max=description.getMaxValue();
     if ((min!=null) && (max!=null))
     {
       _is.println("Range: "+min+"-"+max);
     }
+    _is.decrementIndentationLevel();
   }
 
   private void showFellowshipEffect(FellowshipEffect aspect)

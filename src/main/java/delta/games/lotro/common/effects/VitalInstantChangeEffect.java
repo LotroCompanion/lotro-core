@@ -2,10 +2,9 @@ package delta.games.lotro.common.effects;
 
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.WellKnownStat;
-import delta.games.lotro.utils.maths.Progression;
 
 /**
- * Vital instant change effect. 
+ * Instant vital effect.
  * @author DAM
  */
 public class VitalInstantChangeEffect implements EffectAspect
@@ -13,11 +12,7 @@ public class VitalInstantChangeEffect implements EffectAspect
   // Morale, Power, ...
   private StatDescription _stat;
   private boolean _multiplicative;
-  // Initial change: constant, progression or min-max range:
-  private Float _constant;
-  private Progression _progression;
-  private Float _min;
-  private Float _max;
+  private VitalChangeDescription _instantChange;
 
   /**
    * Constructor.
@@ -26,10 +21,7 @@ public class VitalInstantChangeEffect implements EffectAspect
   {
     _stat=WellKnownStat.MORALE;
     _multiplicative=false;
-    _constant=null;
-    _progression=null;
-    _min=null;
-    _max=null;
+    _instantChange=new VitalChangeDescription();
   }
 
   /**
@@ -69,74 +61,11 @@ public class VitalInstantChangeEffect implements EffectAspect
   }
 
   /**
-   * Get the constant change value.
-   * @return A value or <code>null</code> if not constant.
+   * Get the instant change description.
+   * @return the instant change description.
    */
-  public Float getConstant()
+  public VitalChangeDescription getInstantChangeDescription()
   {
-    return _constant;
-  }
-
-  /**
-   * Set the constant change value.
-   * @param constant Value to set.
-   */
-  public void setConstant(float constant)
-  {
-    _constant=Float.valueOf(constant);
-  }
-
-  /**
-   * Get the change progression.
-   * @return A progression or <code>null</code>.
-   */
-  public Progression getProgression()
-  {
-    return _progression;
-  }
-
-  /**
-   * Set the change progression.
-   * @param progression Progression change.
-   */
-  public void setProgression(Progression progression)
-  {
-    _progression=progression;
-  }
-
-  /**
-   * Get the minimum change progression.
-   * @return A minimum value or <code>null</code>.
-   */
-  public Float getMinValue()
-  {
-    return _min;
-  }
-
-  /**
-   * Set the minimum change value.
-   * @param minValue Value to set.
-   */
-  public void setMinValue(float minValue)
-  {
-    _min=Float.valueOf(minValue);
-  }
-
-  /**
-   * Get the maximum change progression.
-   * @return A maximum value or <code>null</code>.
-   */
-  public Float getMaxValue()
-  {
-    return _max;
-  }
-
-  /**
-   * Set the maximum change value.
-   * @param maxValue Value to set.
-   */
-  public void setMaxValue(float maxValue)
-  {
-    _max=Float.valueOf(maxValue);
+    return _instantChange;
   }
 }
