@@ -77,9 +77,9 @@ public class DumpEffect2
     {
       showVitalOverTimeEffect((VitalOverTimeEffect)aspect);
     }
-    else if (aspect instanceof FellowshipEffect)
+    else if (aspect instanceof InstantFellowshipEffect)
     {
-      showFellowshipEffect((FellowshipEffect)aspect);
+      showFellowshipEffect((InstantFellowshipEffect)aspect);
     }
   }
 
@@ -157,7 +157,7 @@ public class DumpEffect2
     _is.decrementIndentationLevel();
   }
 
-  private void showFellowshipEffect(FellowshipEffect aspect)
+  private void showFellowshipEffect(InstantFellowshipEffect aspect)
   {
     _is.println("Fellowship effect:");
     showGenerators(aspect.getEffects());

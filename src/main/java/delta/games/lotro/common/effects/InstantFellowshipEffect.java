@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Fellowship effect.
+ * Instant fellowship effect.
  * @author DAM
  */
-public class FellowshipEffect implements EffectAspect
+public class InstantFellowshipEffect implements EffectAspect
 {
   private List<EffectGenerator> _effects;
   private boolean _applyToRaidGroups;
@@ -18,7 +18,7 @@ public class FellowshipEffect implements EffectAspect
   /**
    * Constructor.
    */
-  public FellowshipEffect()
+  public InstantFellowshipEffect()
   {
     _effects=new ArrayList<EffectGenerator>();
     _applyToRaidGroups=false;

@@ -5,9 +5,10 @@ import java.util.List;
 import delta.games.lotro.lore.items.DamageType;
 
 /**
- * @author dm
+ * Reactive vital effect.
+ * @author DAM
  */
-public class OnDamageProcEffect implements EffectAspect
+public class ReactiveVitalEffect implements EffectAspect
 {
   // From:  Effect_InterestedIncomingDamageTypes: 
   //        #1: Effect_DamageType 65407 (ALL)
