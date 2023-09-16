@@ -50,7 +50,11 @@ public class DumpEffect2
     }
     _is.incrementIndendationLevel();
     EffectDuration duration=effect.getDuration();
-    _is.println("Duration: "+duration);
+    String durationStr=duration.toString();
+    if (durationStr.length()>0)
+    {
+      _is.println("Duration: "+duration);
+    }
     ApplicationProbability probability=effect.getApplicationProbability();
     _is.println("Probability: "+probability);
     for(EffectAspect aspect : effect.getAspects())
@@ -218,7 +222,7 @@ public class DumpEffect2
     _is.println(label);
     _is.incrementIndendationLevel();
     Float constant=change.getConstant();
-    if (constant!=null)
+    if (constant!=null) 
     {
       _is.println("Constant: "+constant);
     }

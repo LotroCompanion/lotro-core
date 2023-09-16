@@ -7,7 +7,7 @@ package delta.games.lotro.common.effects;
 public class EffectDuration
 {
   // Total duration, or interval duration if pulses (seconds)
-  private float _duration;
+  private Float _duration;
   // Pulses count
   private int _pulseCount;
   // Expires in real world time, or in gaming time
@@ -18,16 +18,16 @@ public class EffectDuration
    */
   public EffectDuration()
   {
-    _duration=0;
+    _duration=null;
     _pulseCount=0;
     _expiresInRealTime=false;
   }
 
   /**
    * Get the total duration (or interval duration if pulses).
-   * @return A duration (s).
+   * @return A duration (s) or <code>null</code>.
    */
-  public float getDuration()
+  public Float getDuration()
   {
     return _duration;
   }
@@ -36,7 +36,7 @@ public class EffectDuration
    * Set duration.
    * @param duration Duration in seconds.
    */
-  public void setDuration(float duration)
+  public void setDuration(Float duration)
   {
     _duration=duration;
   }
@@ -83,11 +83,12 @@ public class EffectDuration
     StringBuilder sb=new StringBuilder();
     if (_pulseCount>1)
     {
-      float duration=_duration*_pulseCount;
+      float duration=(_duration!=null)?_duration.floatValue():0.0f;
+      float totalDuration=duration*_pulseCount;
       sb.append(_pulseCount).append(" times, interval ");
-      sb.append(_duration).append("s (total duration ").append(duration).append("s)");
+      sb.append(_duration).append("s (total duration ").append(totalDuration).append("s)");
     }
-    else
+    else if (_duration!=null)
     {
       sb.append(_duration).append('s');
     }
