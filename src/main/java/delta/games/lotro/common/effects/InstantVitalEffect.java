@@ -13,8 +13,6 @@ public class InstantVitalEffect implements EffectAspect
   private StatDescription _stat;
   private boolean _multiplicative;
   private VitalChangeDescription _instantChange;
-  // Effect_InstantVital_InitialChangeVariance
-  private Float _variance;
 
   /**
    * Constructor.

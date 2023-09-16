@@ -6,6 +6,7 @@ import delta.common.utils.io.streams.IndentableStream;
 import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -79,7 +80,11 @@ public class DumpEffect2
     }
     else if (aspect instanceof InstantFellowshipEffect)
     {
-      showFellowshipEffect((InstantFellowshipEffect)aspect);
+      showInstantFellowshipEffect((InstantFellowshipEffect)aspect);
+    }
+    else if (aspect instanceof ReactiveVitalEffect)
+    {
+      showReactiveVitalEffect((ReactiveVitalEffect)aspect);
     }
   }
 
@@ -157,7 +162,7 @@ public class DumpEffect2
     _is.decrementIndentationLevel();
   }
 
-  private void showFellowshipEffect(InstantFellowshipEffect aspect)
+  private void showInstantFellowshipEffect(InstantFellowshipEffect aspect)
   {
     _is.println("Fellowship effect:");
     showGenerators(aspect.getEffects());
@@ -181,6 +186,68 @@ public class DumpEffect2
     {
       _is.println("Range: "+range+"m");
     }
+  }
+
+  private void showReactiveVitalEffect(ReactiveVitalEffect aspect)
+  {
+    _is.println("Reactive vital effect:");
+    List<DamageType> damageTypes=aspect.getDamageTypes();
+    _is.println("Damage types: "+damageTypes);
+    DamageType override=aspect.getAttackerDamageTypeOverride();
+    if (override!=null)
+    {
+      _is.println("Damage override: "+override);
+    }
+    dumpReactiveVitalChange("Attacker vital change:",aspect.getAttackerVitalChange());
+    dumpEffectAndProbability("Attacker effect: ",aspect.getAttackerEffect());
+    dumpReactiveVitalChange("Defender vital change:",aspect.getDefenderVitalChange());
+    dumpEffectAndProbability("Defender effect: ",aspect.getDefenderEffect());
+    boolean removeOnProc=aspect.isRemoveOnProc();
+    if (removeOnProc)
+    {
+      _is.println("Removed on proc");
+    }
+  }
+
+  private void dumpReactiveVitalChange(String label, ReactiveVitalChange change)
+  {
+    if (change==null)
+    {
+      return;
+    }
+    _is.println(label);
+    _is.incrementIndendationLevel();
+    Float constant=change.getConstant();
+    if (constant!=null)
+    {
+      _is.println("Constant: "+constant);
+    }
+    Progression progression=change.getProgression();
+    if (progression!=null)
+    {
+      _is.println("Progression: "+progression);
+    }
+    float probability=change.getProbability();
+    _is.println("Probability: "+probability);
+    if (change.isMultiplicative())
+    {
+      _is.println("Multiplicative");
+    }
+    _is.decrementIndentationLevel();
+  }
+
+  private void dumpEffectAndProbability(String label, EffectAndProbability effectProb)
+  {
+    if (effectProb==null)
+    {
+      return;
+    }
+    _is.println(label);
+    _is.incrementIndendationLevel();
+    _is.println("Probability: "+effectProb.getProbability());
+    Effect2 effect=effectProb.getEffect();
+    _is.println("Effect: "+effect.getIdentifier()+" - "+effect.getName());
+    _is.decrementIndentationLevel();
   }
 
   private void showGenerators(List<EffectGenerator> generators)
