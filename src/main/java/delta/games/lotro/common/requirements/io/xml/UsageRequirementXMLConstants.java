@@ -38,4 +38,8 @@ public class UsageRequirementXMLConstants
    * Attribute 'required glory rank'.
    */
   public static final String REQUIRED_GLORY_RANK_ATTR="requiredGloryRank";
+  /**
+   * Attribute 'required effect'.
+   */
+  public static final String REQUIRED_EFFECT_ATTR="requiredEffect";
 }

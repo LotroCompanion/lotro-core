@@ -211,6 +211,10 @@ public class DataFiles
    */
   public static final String BUFFS="buffs";
   /**
+   * Effects file.
+   */
+  public static final String EFFECTS="effects";
+  /**
    * Collections.
    */
   public static final String COLLECTIONS="collections";

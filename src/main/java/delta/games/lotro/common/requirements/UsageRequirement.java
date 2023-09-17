@@ -5,6 +5,7 @@ import java.util.List;
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.common.effects.Effect;
 
 /**
  * Usage requirement (for quests, deeds, items and relics).
@@ -28,6 +29,8 @@ public class UsageRequirement
   private ProfessionRequirement _professionRequirement;
   // Glory rank requirement
   private GloryRankRequirement _gloryRankRequirement;
+  // Effect requirement
+  private EffectRequirement _effectRequirement;
   // TODO Trait requirement
 
   /**
@@ -42,6 +45,7 @@ public class UsageRequirement
     _factionRequirement=null;
     _professionRequirement=null;
     _gloryRankRequirement=null;
+    _effectRequirement=null;
   }
 
   /**
@@ -260,6 +264,24 @@ public class UsageRequirement
   }
 
   /**
+   * Get the effect requirement.
+   * @return An effect requirement or <code>null</code>.
+   */
+  public EffectRequirement getEffectRequirement()
+  {
+    return _effectRequirement;
+  }
+
+  /**
+   * Set the effect requirement.
+   * @param effectRequirement Requirement to set, may be <code>null</code>.
+   */
+  public void setEffectRequirement(EffectRequirement effectRequirement)
+  {
+    _effectRequirement=effectRequirement;
+  }
+
+  /**
    * Indicates if the given parameter do pass this requirement.
    * @param level Level to test.
    * @param characterClass Character class to test.
@@ -301,7 +323,8 @@ public class UsageRequirement
   {
     return ((_minLevel==null) && (_maxLevel==null) && (_classRequirement==null) &&
         (_raceRequirement==null) && (_factionRequirement==null) && (_questRequirement==null) &&
-        (_professionRequirement==null) && (_gloryRankRequirement==null));
+        (_professionRequirement==null) && (_gloryRankRequirement==null) &&
+        (_effectRequirement==null));
   }
 
   @Override
@@ -339,6 +362,11 @@ public class UsageRequirement
     if (_gloryRankRequirement!=null)
     {
       sb.append(" Glory Rank>=").append(_gloryRankRequirement.getRank());
+    }
+    if (_effectRequirement!=null)
+    {
+      Effect effect=_effectRequirement.getEffect();
+      sb.append(" Effect=").append(effect.getName());
     }
     return sb.toString().trim();
   }

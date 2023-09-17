@@ -6,7 +6,10 @@ import org.xml.sax.Attributes;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.requirements.ClassRequirement;
+import delta.games.lotro.common.requirements.EffectRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
 import delta.games.lotro.common.requirements.GloryRankRequirement;
 import delta.games.lotro.common.requirements.ProfessionRequirement;
@@ -105,6 +108,18 @@ public class UsageRequirementsXMLParser
       GloryRankRequirement gloryRankRequirement=new GloryRankRequirement();
       gloryRankRequirement.setRank(rank);
       requirements.setGloryRankRequirement(gloryRankRequirement);
+    }
+    // Required effect
+    String effectIDStr=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_EFFECT_ATTR);
+    if (effectIDStr!=null)
+    {
+      int effectID=NumericTools.parseInt(effectIDStr,0);
+      Effect effect=EffectsManager.getInstance().getEffectById(effectID);
+      if (effect!=null)
+      {
+        EffectRequirement effectRequirement=new EffectRequirement(effect);
+        requirements.setEffectRequirement(effectRequirement);
+      }
     }
   }
 }

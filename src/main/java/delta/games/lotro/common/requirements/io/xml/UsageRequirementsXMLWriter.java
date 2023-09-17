@@ -5,6 +5,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.common.requirements.ClassRequirement;
+import delta.games.lotro.common.requirements.EffectRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
 import delta.games.lotro.common.requirements.GloryRankRequirement;
 import delta.games.lotro.common.requirements.ProfessionRequirement;
@@ -79,6 +80,13 @@ public class UsageRequirementsXMLWriter
     {
       int rank=gloryRankRequirement.getRank();
       attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_GLORY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
+    }
+    // Effect requirement
+    EffectRequirement effectRequirement=requirements.getEffectRequirement();
+    if (effectRequirement!=null)
+    {
+      int effectID=effectRequirement.getEffect().getIdentifier();
+      attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_EFFECT_ATTR,XmlWriter.CDATA,String.valueOf(effectID));
     }
   }
 }
