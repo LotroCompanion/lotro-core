@@ -76,6 +76,7 @@ public class ItemsSorter
       else
       {
         String category=item.getSubCategory();
+        // TODO Bad i18n
         if ((category.startsWith("Essence"))||(category.startsWith("Cloak Essence"))||(category.startsWith("Necklace Essence")))
         {
           essences.add(item);

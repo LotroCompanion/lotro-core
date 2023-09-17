@@ -30,7 +30,7 @@ public class Item implements Interactable,ItemProvider
   /**
    * Tier pattern.
    */
-  private static final String TIER_PATTERN=":Tier";
+  private static final String TIER_PATTERN=":Tier"; // TODO Bad i18n
 
   // Item identifier
   private int _identifier;
