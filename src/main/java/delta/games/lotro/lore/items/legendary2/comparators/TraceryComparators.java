@@ -10,7 +10,6 @@ import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.comparators.ItemNameComparator;
 import delta.games.lotro.lore.items.comparators.ItemQualityComparator;
 import delta.games.lotro.lore.items.comparators.ItemTierComparator;
-import delta.games.lotro.lore.items.legendary2.Tracery;
 import delta.games.lotro.utils.DataProvider;
 import delta.games.lotro.utils.comparators.DelegatingComparator;
 
@@ -20,24 +19,6 @@ import delta.games.lotro.utils.comparators.DelegatingComparator;
  */
 public class TraceryComparators
 {
-  /**
-   * Build a comparator for traceries.
-   * @return A traceries comparator using name/tier/quality.
-   */
-  public static Comparator<Tracery> buildTraceriesComparator()
-  {
-    Comparator<Item> itemsComparator=buildTraceryItemsComparator();
-    DataProvider<Tracery,Item> itemProvider=new DataProvider<Tracery,Item>()
-    {
-      public Item getData(Tracery p)
-      {
-        return p.getItem();
-      }
-    };
-    DelegatingComparator<Tracery,Item> ret=new DelegatingComparator<Tracery,Item>(itemProvider,itemsComparator);
-    return ret;
-  }
-
   /**
    * Build a comparator for tracery items.
    * @return A comparator using name/tier/quality.

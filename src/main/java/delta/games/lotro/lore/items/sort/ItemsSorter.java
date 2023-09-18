@@ -16,7 +16,6 @@ import delta.games.lotro.lore.items.Weapon;
  */
 public class ItemsSorter
 {
-  private static final String ESSENCES="essences";
   private static final String WEAPON="weapon";
 
   private HashMap<String,List<Item>> _items;
@@ -56,7 +55,6 @@ public class ItemsSorter
   public void sortItems(Collection<Item> items)
   {
     List<Item> weapons=new ArrayList<Item>();
-    List<Item> essences=new ArrayList<Item>();
 
     for(Item item : items)
     {
@@ -73,28 +71,7 @@ public class ItemsSorter
           }
         }
       }
-      else
-      {
-        String category=item.getSubCategory();
-        // TODO Bad i18n
-        if ((category.startsWith("Essence"))||(category.startsWith("Cloak Essence"))||(category.startsWith("Necklace Essence")))
-        {
-          essences.add(item);
-        }
-      }
     }
     _items.put(WEAPON,weapons);
-    _items.put(ESSENCES,essences);
-  }
-
-  /**
-   * Build a list of all essences.
-   * @return a list of essence items.
-   */
-  public List<Item> buildEssencesList()
-  {
-    List<Item> ret=new ArrayList<Item>();
-    ret.addAll(_items.get(ESSENCES));
-    return ret;
   }
 }

@@ -69,17 +69,6 @@ public class ItemsManager
   }
 
   /**
-   * Get a list of all essences.
-   * @return a list of essence items.
-   */
-  public List<Item> getEssences()
-  {
-    List<Item> items=_sorter.buildEssencesList();
-    Collections.sort(items,new ItemNameComparator());
-    return items;
-  }
-
-  /**
    * Load all items.
    */
   private void loadAllItems()

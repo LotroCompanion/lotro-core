@@ -3,13 +3,14 @@ package delta.games.lotro.character.stats;
 import java.util.HashMap;
 import java.util.List;
 
-import delta.common.utils.NumericTools;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.essences.Essence;
+import delta.games.lotro.lore.items.essences.EssencesManager;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 
@@ -19,8 +20,7 @@ import delta.games.lotro.lore.items.legendary.relics.RelicType;
  */
 public class CharacterGenerationTools
 {
-  private static final String ESSENCE_SEED="Essence:Tier";
-  private HashMap<Integer,HashMap<String,Item>> _essencesMap;
+  private HashMap<Integer,HashMap<String,Essence>> _essencesMap;
 
   /**
    * Constructor.
@@ -32,24 +32,19 @@ public class CharacterGenerationTools
 
   private void init()
   {
-    _essencesMap=new HashMap<Integer,HashMap<String,Item>>();
-    List<Item> items=ItemsManager.getInstance().getEssences();
-    for(Item item : items)
+    _essencesMap=new HashMap<Integer,HashMap<String,Essence>>();
+    List<Essence> essences=EssencesManager.getInstance().getAll();
+    for(Essence essence : essences)
     {
-      String category=item.getSubCategory();
-      if (category.startsWith(ESSENCE_SEED))
+      Integer tier=essence.getTier();
+      HashMap<String,Essence> mapbyTier=_essencesMap.get(tier);
+      if (mapbyTier==null)
       {
-        String tierStr=category.substring(ESSENCE_SEED.length());
-        Integer tier=NumericTools.parseInteger(tierStr);
-        HashMap<String,Item> mapbyTier=_essencesMap.get(tier);
-        if (mapbyTier==null)
-        {
-          mapbyTier=new HashMap<String,Item>();
-          _essencesMap.put(tier,mapbyTier);
-        }
-        String name=item.getName();
-        mapbyTier.put(name,item);
+        mapbyTier=new HashMap<String,Essence>();
+        _essencesMap.put(tier,mapbyTier);
       }
+      String name=essence.getName();
+      mapbyTier.put(name,essence);
     }
   }
 
@@ -73,13 +68,13 @@ public class CharacterGenerationTools
    */
   public Item getEssenceByName(int tier, String name)
   {
-    Item ret=null;
-    HashMap<String,Item> mapByTier=_essencesMap.get(Integer.valueOf(tier));
+    Essence ret=null;
+    HashMap<String,Essence> mapByTier=_essencesMap.get(Integer.valueOf(tier));
     if (mapByTier!=null)
     {
       ret=mapByTier.get(name);
     }
-    return ret;
+    return (ret!=null)?ret.getItem():null;
   }
 
   /**

@@ -12,6 +12,7 @@ import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.SocketType;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.essences.io.xml.EssencesXMLParser;
 
 /**
@@ -94,6 +95,20 @@ public class EssencesManager
   {
     List<Essence> ret=new ArrayList<Essence>(_cache.values());
     Collections.sort(ret,new IdentifiableComparator<Essence>());
+    return ret;
+  }
+
+  /**
+   * Get all essence items.
+   * @return A list of items.
+   */
+  public List<Item> getAllEssenceItems()
+  {
+    List<Item> ret=new ArrayList<Item>();
+    for(Essence essence : getAll())
+    {
+      ret.add(essence.getItem());
+    }
     return ret;
   }
 
