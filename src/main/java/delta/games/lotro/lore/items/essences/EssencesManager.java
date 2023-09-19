@@ -129,4 +129,19 @@ public class EssencesManager
     }
     return ret;
   }
+
+  /**
+   * Get all essence items for a given type.
+   * @param type Socket type.
+   * @return A list of items.
+   */
+  public List<Item> getAllEssenceItems(SocketType type)
+  {
+    List<Item> ret=new ArrayList<Item>();
+    for(Essence essence : getEssences(type))
+    {
+      ret.add(essence.getItem());
+    }
+    return ret;
+  }
 }
