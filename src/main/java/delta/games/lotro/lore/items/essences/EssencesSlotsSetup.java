@@ -62,6 +62,11 @@ public class EssencesSlotsSetup
     {
       return "";
     }
+    // All classic codes?
+    if (isAllClassic())
+    {
+      return String.valueOf(_entries.size());
+    }
     // Series of one letter codes (1 code per slot type)
     StringBuilder sb=new StringBuilder();
     for(SocketType type : _entries)
@@ -74,6 +79,18 @@ public class EssencesSlotsSetup
       sb.append(key);
     }
     return sb.toString();
+  }
+
+  private boolean isAllClassic()
+  {
+    for(SocketType type : _entries)
+    {
+      if (type!=SocketTypes.CLASSIC)
+      {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -92,11 +109,12 @@ public class EssencesSlotsSetup
     Integer count=NumericTools.parseInteger(input,false);
     if (count!=null)
     {
-      SocketType classicSlot=socketTypeEnum.getEntry(1);
+      SocketType classicSlot=SocketTypes.CLASSIC;
       for(int i=0;i<count.intValue();i++)
       {
         ret.addSlot(classicSlot);
       }
+      return ret;
     }
     int nbSlots=input.length();
     for(int i=0;i<nbSlots;i++)
