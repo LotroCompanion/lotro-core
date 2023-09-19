@@ -48,6 +48,7 @@ import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
 import delta.games.lotro.lore.items.details.io.xml.ItemDetailsSaxParser;
+import delta.games.lotro.lore.items.essences.EssencesSlotsSetup;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary2.Legendary2;
@@ -233,10 +234,11 @@ public final class ItemSaxParser extends DefaultHandler
         _currentItem.setStackMax(Integer.valueOf(stackMaxStr));
       }
       // Essence slots
-      String nbEssenceSlotsStr=attributes.getValue(ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR);
-      if (nbEssenceSlotsStr!=null)
+      String essenceSlots=attributes.getValue(ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR);
+      if (essenceSlots!=null)
       {
-        _currentItem.setEssenceSlots(Integer.parseInt(nbEssenceSlotsStr));
+        EssencesSlotsSetup setup=EssencesSlotsSetup.fromPersistenceString(essenceSlots);
+        _currentItem.setEssenceSlots(setup);
       }
       // Munging
       String mungingStr=attributes.getValue(ItemXMLConstants.ITEM_SCALING_ATTR);

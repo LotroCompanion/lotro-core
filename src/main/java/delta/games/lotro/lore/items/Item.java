@@ -16,6 +16,7 @@ import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
 import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
+import delta.games.lotro.lore.items.essences.EssencesSlotsSetup;
 import delta.games.lotro.lore.items.scaling.Munging;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 
@@ -53,7 +54,7 @@ public class Item implements Interactable,ItemProvider
   private BasicStatsSet _stats;
   private StatsProvider _statsProvider;
   // Essences
-  private int _essenceSlots;
+  private EssencesSlotsSetup _essenceSlots;
   // Durability
   private Integer _durability;
   // Sturdiness (may be null)
@@ -94,7 +95,7 @@ public class Item implements Interactable,ItemProvider
     _unique=false;
     _stats=new BasicStatsSet();
     _statsProvider=null;
-    _essenceSlots=0;
+    _essenceSlots=null;
     _durability=null;
     _sturdiness=null;
     _requirements=new UsageRequirement();
@@ -413,14 +414,23 @@ public class Item implements Interactable,ItemProvider
    */
   public int getEssenceSlots()
   {
+    return (_essenceSlots!=null)?_essenceSlots.getSocketsCount():0;
+  }
+
+  /**
+   * Get the essences slots setup.
+   * @return A setup or <code>null</code> if no essence slots.
+   */
+  public EssencesSlotsSetup getEssenceSlotsSetup()
+  {
     return _essenceSlots;
   }
 
   /**
-   * Set the number of available essence slots.
-   * @param essenceSlots Slot count.
+   * Set the essence slots setup.
+   * @param essenceSlots Setup to set.
    */
-  public void setEssenceSlots(int essenceSlots)
+  public void setEssenceSlots(EssencesSlotsSetup essenceSlots)
   {
     _essenceSlots=essenceSlots;
   }
@@ -764,11 +774,11 @@ public class Item implements Interactable,ItemProvider
       sb.append(_equipmentLocation);
       sb.append(')');
     }
-    if (_essenceSlots!=0)
+    if (_essenceSlots!=null)
     {
-      sb.append(" (");
-      sb.append(_essenceSlots);
-      sb.append(" slot(s))");
+      sb.append(" (slot(s): ");
+      sb.append(_essenceSlots.toPersistenceString());
+      sb.append(')');
     }
     {
       sb.append(" (");
