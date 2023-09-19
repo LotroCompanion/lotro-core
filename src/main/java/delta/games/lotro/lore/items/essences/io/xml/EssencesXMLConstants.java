@@ -26,12 +26,4 @@ public class EssencesXMLConstants
    * Tag 'essence', attribute 'type'.
    */
   public static final String SOCKET_TYPE_ATTR="type";
-  /**
-   * Tag 'essence', attribute 'tier'.
-   */
-  public static final String TIER_ATTR="tier";
-  /**
-   * Tag 'essence', attribute 'uniquenessChannel'.
-   */
-  //public static final String UNIQUENESS_CHANNEL_ATTR="uniquenessChannel";
 }

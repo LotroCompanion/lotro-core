@@ -14,7 +14,6 @@ public class Tracery implements Identifiable,Named
 {
   private Item _item;
   private SocketType _type;
-  private Integer _tier;
   private int _minItemLevel;
   private int _maxItemLevel;
   private int _increment;
@@ -35,7 +34,6 @@ public class Tracery implements Identifiable,Named
   {
     _item=item;
     _type=type;
-    initTier();
     _minItemLevel=minItemLevel;
     _maxItemLevel=maxItemLevel;
     _increment=increment;
@@ -82,16 +80,7 @@ public class Tracery implements Identifiable,Named
    */
   public Integer getTier()
   {
-    return _tier;
-  }
-
-  private void initTier()
-  {
-    if (_item==null)
-    {
-      return;
-    }
-    _tier=_item.getTier();
+    return _item.getTier();
   }
 
   /**

@@ -3,26 +3,19 @@ package delta.games.lotro.lore.items.filters;
 import delta.games.lotro.lore.items.Item;
 
 /**
- * Filter to select essences using their tier.
+ * Filter to select items using their tier.
  * @author DAM
  */
-public class EssenceTierFilter implements ItemFilter
+public class TierFilter implements ItemFilter
 {
-  /**
-   * Category seed for tier.
-   */
-  public static final String TIER_SEED=":Tier";
-
   private Integer _tier;
-  private String _expectedCategory;
 
   /**
    * Constructor.
    */
-  public EssenceTierFilter()
+  public TierFilter()
   {
     _tier=null;
-    _expectedCategory=null;
   }
 
   /**
@@ -40,23 +33,15 @@ public class EssenceTierFilter implements ItemFilter
    */
   public void setTier(Integer tier)
   {
-    if (tier!=null)
-    {
-      _expectedCategory=TIER_SEED+tier;
-    }
-    else
-    {
-      _expectedCategory=null;
-    }
     _tier=tier;
   }
 
   public boolean accept(Item item)
   {
+    Integer tier=item.getTier();
     if (_tier!=null)
     {
-      String category=item.getSubCategory();
-      return ((category!=null) && (category.contains(_expectedCategory)));
+      return _tier.equals(tier);
     }
     return true;
   }

@@ -75,20 +75,6 @@ public class EssencesXMLWriter
     SocketType type=essence.getType();
     int typeCode=type.getCode();
     attrs.addAttribute("","",EssencesXMLConstants.SOCKET_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(typeCode));
-    // Tier
-    Integer tier=essence.getTier();
-    if (tier!=null)
-    {
-      attrs.addAttribute("","",EssencesXMLConstants.TIER_ATTR,XmlWriter.CDATA,tier.toString());
-    }
-    // Uniqueness channel
-    /*
-    ItemUniquenessChannel uniquenessChannel=essence.getUniquenessChannel();
-    if (uniquenessChannel!=null)
-    {
-      attrs.addAttribute("","",EssencesXMLConstants.UNIQUENESS_CHANNEL_ATTR,XmlWriter.CDATA,String.valueOf(uniquenessChannel.getCode()));
-    }
-    */
     hd.startElement("","",EssencesXMLConstants.ESSENCE_TAG,attrs);
     hd.endElement("","",EssencesXMLConstants.ESSENCE_TAG);
   }

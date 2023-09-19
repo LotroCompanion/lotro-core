@@ -64,23 +64,6 @@ public class EssencesXMLParser
     int typeCode=DOMParsingTools.getIntAttribute(attrs,EssencesXMLConstants.SOCKET_TYPE_ATTR,0);
     SocketType socketType=socketTypesMgr.getEntry(typeCode);
     Essence ret=new Essence(item,socketType);
-    // Tier
-    int tier=DOMParsingTools.getIntAttribute(attrs,EssencesXMLConstants.TIER_ATTR,-1);
-    if (tier>=0)
-    {
-      ret.setTier(Integer.valueOf(tier));
-    }
-    // Uniqueness channel
-    /*
-    ItemUniquenessChannel uniquenessChannel=null;
-    int uniquenessChannelCode=DOMParsingTools.getIntAttribute(attrs,EssencesXMLConstants.UNIQUENESS_CHANNEL_ATTR,0);
-    if (uniquenessChannelCode>0)
-    {
-      LotroEnum<ItemUniquenessChannel> itemUniquenessChannelEnum=LotroEnumsRegistry.getInstance().get(ItemUniquenessChannel.class);
-      uniquenessChannel=itemUniquenessChannelEnum.getEntry(uniquenessChannelCode);
-      ret.setUniquenessChannel(uniquenessChannel);
-    }
-    */
     return ret;
   }
 }

@@ -165,6 +165,12 @@ public final class ItemSaxParser extends DefaultHandler
         ItemClass itemClass=_itemClassEnum.getEntry(itemClassCode);
         _currentItem.setItemClass(itemClass);
       }
+      // Tier
+      String tierStr=attributes.getValue(ItemXMLConstants.ITEM_TIER_ATTR);
+      if (tierStr!=null)
+      {
+        _currentItem.setTier(NumericTools.parseInteger(tierStr));
+      }
       // Equipment category
       String equipmentCategoryCodeStr=attributes.getValue(ItemXMLConstants.ITEM_EQUIPMENT_CATEGORY_ATTR);
       if (equipmentCategoryCodeStr!=null)

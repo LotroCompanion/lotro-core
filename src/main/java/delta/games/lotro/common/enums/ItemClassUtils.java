@@ -22,52 +22,47 @@ public class ItemClassUtils
 
   /**
    * Get the item class code for enhancement runes.
-   * @param tier Tier.
    * @return An item class code.
    */
-  public static final int getEnhancementRuneCode(int tier)
+  public static final int getEnhancementRuneCode()
   {
-    return (ESSENCE_CODE*CATEGORY_FACTOR)+(ENHANCEMENT_RUNE_KEY*KEY_FACTOR)+tier;
+    return (ESSENCE_CODE*CATEGORY_FACTOR)+(ENHANCEMENT_RUNE_KEY*KEY_FACTOR);
   }
 
   /**
    * Get the item class code for heraldic traceries.
-   * @param tier Tier.
    * @return An item class code.
    */
-  public static final int getHeraldicTraceryCode(int tier)
+  public static final int getHeraldicTraceryCode()
   {
-    return (ESSENCE_CODE*CATEGORY_FACTOR)+(HERALDIC_TRACERY_KEY*KEY_FACTOR)+tier;
+    return (ESSENCE_CODE*CATEGORY_FACTOR)+(HERALDIC_TRACERY_KEY*KEY_FACTOR);
   }
 
   /**
    * Get the item class code for words of power.
-   * @param tier Tier.
    * @return An item class code.
    */
-  public static final int getWordOfPowerCode(int tier)
+  public static final int getWordOfPowerCode()
   {
-    return (ESSENCE_CODE*CATEGORY_FACTOR)+(WORD_OF_POWER_KEY*KEY_FACTOR)+tier;
+    return (ESSENCE_CODE*CATEGORY_FACTOR)+(WORD_OF_POWER_KEY*KEY_FACTOR);
   }
 
   /**
    * Get the item class code for words of mastery.
-   * @param tier Tier.
    * @return An item class code.
    */
-  public static final int getWordOfMasteryCode(int tier)
+  public static final int getWordOfMasteryCode()
   {
-    return (ESSENCE_CODE*CATEGORY_FACTOR)+(WORD_OF_MASTERY_KEY*KEY_FACTOR)+tier;
+    return (ESSENCE_CODE*CATEGORY_FACTOR)+(WORD_OF_MASTERY_KEY*KEY_FACTOR);
   }
 
   /**
    * Get the item class code for words of craft.
-   * @param tier Tier.
    * @return An item class code.
-   */
-  public static final int getWordOfCraftCode(int tier)
+  */
+  public static final int getWordOfCraftCode()
   {
-    return (ESSENCE_CODE*CATEGORY_FACTOR)+(WORD_OF_CRAFT_KEY*KEY_FACTOR)+tier;
+    return (ESSENCE_CODE*CATEGORY_FACTOR)+(WORD_OF_CRAFT_KEY*KEY_FACTOR);
   }
 
   /**

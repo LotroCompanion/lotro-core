@@ -27,11 +27,6 @@ public class Item implements Interactable,ItemProvider
 {
   private static final Logger LOGGER=Logger.getLogger(Item.class);
 
-  /**
-   * Tier pattern.
-   */
-  private static final String TIER_PATTERN=":Tier"; // TODO Bad i18n
-
   // Item identifier
   private int _identifier;
   // Icon name: iconID-backgroundIconID
@@ -46,6 +41,8 @@ public class Item implements Interactable,ItemProvider
   private String _name;
   // Item class. Yields the category name.
   private ItemClass _itemClass;
+  // Tier
+  private Integer _tier;
   // Equipment category
   private EquipmentCategory _equipmentCategory;
   // Item binding: "Bind on Acquire", ...
@@ -288,6 +285,24 @@ public class Item implements Interactable,ItemProvider
   }
 
   /**
+   * Get the tier for this item.
+   * @return A tier or <code>null</code> if not found.
+   */
+  public Integer getTier()
+  {
+    return _tier;
+  }
+
+  /**
+   * Set the item tier.
+   * @param tier Tier to set.
+   */
+  public void setTier(Integer tier)
+  {
+    _tier=tier;
+  }
+
+  /**
    * Get the category of this item.
    * @return a sub-category.
    */
@@ -312,25 +327,6 @@ public class Item implements Interactable,ItemProvider
   public void setEquipmentCategory(EquipmentCategory equipmentCategory)
   {
     _equipmentCategory=equipmentCategory;
-  }
-
-  /**
-   * Get the tier for this item.
-   * @return A tier or <code>null</code> if not found.
-   */
-  public Integer getTier()
-  {
-    String subCategory=getSubCategory();
-    if (subCategory!=null)
-    {
-      int index=subCategory.indexOf(TIER_PATTERN);
-      if (index!=-1)
-      {
-        String tierStr=subCategory.substring(index+TIER_PATTERN.length());
-        return NumericTools.parseInteger(tierStr);
-      }
-    }
-    return null;
   }
 
   /**

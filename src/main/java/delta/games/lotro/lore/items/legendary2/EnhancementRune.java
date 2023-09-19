@@ -11,7 +11,6 @@ import delta.games.lotro.lore.items.Item;
 public class EnhancementRune implements Identifiable,Named
 {
   private Item _item;
-  private Integer _tier;
   private int _minItemLevel;
   private int _maxItemLevel;
   private int _increment;
@@ -26,7 +25,6 @@ public class EnhancementRune implements Identifiable,Named
   public EnhancementRune(Item item, int minItemLevel, int maxItemLevel, int increment)
   {
     _item=item;
-    initTier();
     _minItemLevel=minItemLevel;
     _maxItemLevel=maxItemLevel;
     _increment=increment;
@@ -62,16 +60,7 @@ public class EnhancementRune implements Identifiable,Named
    */
   public Integer getTier()
   {
-    return _tier;
-  }
-
-  private void initTier()
-  {
-    if (_item==null)
-    {
-      return;
-    }
-    _tier=_item.getTier();
+    return _item.getTier();
   }
 
   /**

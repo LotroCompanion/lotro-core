@@ -13,9 +13,6 @@ public class Essence implements Identifiable,Named
 {
   private Item _item;
   private SocketType _type;
-  private Integer _tier;
-  // May be:
-  //private ItemUniquenessChannel _uniquenessChannel;
 
   /**
    * Constructor.
@@ -26,7 +23,6 @@ public class Essence implements Identifiable,Named
   {
     _item=item;
     _type=type;
-    _tier=null;
   }
 
   @Override
@@ -36,7 +32,7 @@ public class Essence implements Identifiable,Named
   }
 
   /**
-   * Get the name of this tracery.
+   * Get the name of this essence.
    * @return a name.
    */
   public String getName()
@@ -68,39 +64,8 @@ public class Essence implements Identifiable,Named
    */
   public Integer getTier()
   {
-    return _tier;
+    return _item.getTier();
   }
-
-  /**
-   * Set the tier.
-   * @param tier Tier to set.
-   */
-  public void setTier(Integer tier)
-  {
-    _tier=tier;
-  }
-
-  /**
-   * Get the uniqueness channel.
-   * @return a uniqueness channel or <code>null</code>.
-   */
-  /*
-  public ItemUniquenessChannel getUniquenessChannel()
-  {
-    return _uniquenessChannel;
-  }
-  */
-
-  /**
-   * Set the uniqueness channel.
-   * @param2 uniquenessChannel Uniqueness channel to set.
-   */
-  /*
-  public void setUniquenessChannel(ItemUniquenessChannel uniquenessChannel)
-  {
-    _uniquenessChannel=uniquenessChannel;
-  }
-  */
 
   @Override
   public String toString()
@@ -108,14 +73,10 @@ public class Essence implements Identifiable,Named
     StringBuilder sb=new StringBuilder("Essence ID=").append(getIdentifier());
     sb.append(", name=").append(getName());
     sb.append(", type=").append(_type);
-    if (_tier!=null)
+    Integer tier=getTier();
+    if (tier!=null)
     {
-      sb.append(", tier=").append(_tier);
-    }
-    if (_item!=null)
-    {
-      sb.append(", min Char Level=").append(_item.getMinLevel());
-      sb.append(", max Char Level=").append(_item.getMaxLevel());
+      sb.append(", tier=").append(tier);
     }
     return sb.toString();
   }

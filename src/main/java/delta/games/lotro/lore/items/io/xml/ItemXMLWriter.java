@@ -158,6 +158,12 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_CLASS_ATTR,XmlWriter.CDATA,String.valueOf(itemClass.getCode()));
     }
+    // Tier
+    Integer tier=item.getTier();
+    if (tier!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_TIER_ATTR,XmlWriter.CDATA,tier.toString());
+    }
     // Equipment category
     EquipmentCategory equipmentCategory=item.getEquipmentCategory();
     if (equipmentCategory!=null)

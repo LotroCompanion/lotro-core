@@ -52,6 +52,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_CLASS_ATTR="class";
   /**
+   * Tag 'item', attribute 'tier'.
+   */
+  public static final String ITEM_TIER_ATTR="tier";
+  /**
    * Tag 'item', attribute 'equipmentCategory'.
    */
   public static final String ITEM_EQUIPMENT_CATEGORY_ATTR="equipmentCategory";
