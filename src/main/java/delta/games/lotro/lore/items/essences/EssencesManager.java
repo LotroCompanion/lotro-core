@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.enums.SocketType;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -99,20 +100,6 @@ public class EssencesManager
   }
 
   /**
-   * Get all essence items.
-   * @return A list of items.
-   */
-  public List<Item> getAllEssenceItems()
-  {
-    List<Item> ret=new ArrayList<Item>();
-    for(Essence essence : getAll())
-    {
-      ret.add(essence.getItem());
-    }
-    return ret;
-  }
-
-  /**
    * Get all the essences for a given socket type.
    * @param type Socket type.
    * @return A list of essences.
@@ -142,6 +129,7 @@ public class EssencesManager
     {
       ret.add(essence.getItem());
     }
+    Collections.sort(ret,new NamedComparator());
     return ret;
   }
 }
