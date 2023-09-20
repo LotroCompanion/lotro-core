@@ -9,6 +9,9 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.common.enums.Genus;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.items.Item;
@@ -17,6 +20,7 @@ import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemXP;
 import delta.games.lotro.lore.items.details.VirtueXP;
+import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 
@@ -87,6 +91,28 @@ public class ItemDetailsSaxParser
         return true;
       }
       LOGGER.warn("Could not find faction with ID: "+factionID);
+    }
+    else if (ItemDetailsXMLConstants.SLAYER_TAG.equals(qualifiedName))
+    {
+      // Slayer value
+      String slayerValueStr=attributes.getValue(ItemDetailsXMLConstants.SLAYER_VALUE_ATTR);
+      float slayerValue=NumericTools.parseFloat(slayerValueStr,-1);
+      WeaponSlayerInfo info=new WeaponSlayerInfo(slayerValue);
+      // Genus
+      String genusStr=attributes.getValue(ItemDetailsXMLConstants.SLAYER_GENUS_ATTR);
+      String[] genusCodeStrs=genusStr.split(",");
+      LotroEnum<Genus> genusEnum=LotroEnumsRegistry.getInstance().get(Genus.class);
+      for(String genusCodeStr : genusCodeStrs)
+      {
+        int genusCode=NumericTools.parseInt(genusCodeStr,-1);
+        Genus genus=genusEnum.getEntry(genusCode);
+        if (genus!=null)
+        {
+          info.addGenus(genus);
+        }
+      }
+      Item.addDetail(item,info);
+      return true;
     }
     return false;
   }

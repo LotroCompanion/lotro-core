@@ -51,4 +51,16 @@ public class ItemDetailsXMLConstants
    * Tag 'reputation', attribute 'amount'.
    */
   public static final String REPUTATION_AMOUNT_ATTR="amount";
+  /**
+   * Tag 'slayer'.
+   */
+  public static final String SLAYER_TAG="slayer";
+  /**
+   * Tag 'slayer', attribute 'value'.
+   */
+  public static final String SLAYER_VALUE_ATTR="value";
+  /**
+   * Tag 'slayer', attribute 'genus'.
+   */
+  public static final String SLAYER_GENUS_ATTR="genus";
 }

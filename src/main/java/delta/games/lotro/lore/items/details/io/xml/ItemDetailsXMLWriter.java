@@ -8,6 +8,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
@@ -16,6 +17,7 @@ import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemXP;
 import delta.games.lotro.lore.items.details.VirtueXP;
+import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
 import delta.games.lotro.lore.reputation.Faction;
 
 /**
@@ -61,6 +63,10 @@ public class ItemDetailsXMLWriter
     else if (item instanceof ItemReputation)
     {
       writeItemReputationElement(hd,(ItemReputation)item);
+    }
+    else if (item instanceof WeaponSlayerInfo)
+    {
+      writeWeaponSlayerElement(hd,(WeaponSlayerInfo)item);
     }
   }
 
@@ -112,5 +118,27 @@ public class ItemDetailsXMLWriter
     attrs.addAttribute("","",ItemDetailsXMLConstants.REPUTATION_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(amount));
     hd.startElement("","",ItemDetailsXMLConstants.REPUTATION_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.REPUTATION_TAG);
+  }
+
+  private void writeWeaponSlayerElement(TransformerHandler hd, WeaponSlayerInfo info) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Slayer value
+    float slayer=info.getSlayer();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.SLAYER_VALUE_ATTR,XmlWriter.CDATA,String.valueOf(slayer));
+    // Genus
+    List<Genus> genuses=info.getGenus();
+    StringBuilder sb=new StringBuilder();
+    for(Genus genus : genuses)
+    {
+      if (sb.length()>0)
+      {
+        sb.append(',');
+      }
+      sb.append(genus.getCode());
+    }
+    attrs.addAttribute("","",ItemDetailsXMLConstants.SLAYER_GENUS_ATTR,XmlWriter.CDATA,sb.toString());
+    hd.startElement("","",ItemDetailsXMLConstants.SLAYER_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.SLAYER_TAG);
   }
 }
