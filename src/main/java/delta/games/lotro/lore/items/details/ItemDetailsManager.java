@@ -55,4 +55,22 @@ public class ItemDetailsManager
     }
     return ret;
   }
+
+  /**
+   * Get the first detail of a given type.
+   * @param clazz Type class.
+   * @return A detail or <code>null</code> if not found.
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends ItemDetail> T getFirstItemDetail(Class<T> clazz)
+  {
+    for(ItemDetail detail : _details)
+    {
+      if (clazz.isAssignableFrom(detail.getClass()))
+      {
+        return (T)detail;
+      }
+    }
+    return null;
+  }
 }

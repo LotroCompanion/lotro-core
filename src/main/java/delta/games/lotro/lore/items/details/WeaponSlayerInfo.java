@@ -50,4 +50,32 @@ public class WeaponSlayerInfo extends ItemDetail
   {
     return _genuses;
   }
+
+  /**
+   * Get a displayable label for this info.
+   * @return A displayable label.
+   */
+  public String getLabel()
+  {
+    StringBuilder sb=new StringBuilder("+");
+    sb.append(Math.round(_slayer)).append(" Damage to ");
+    int index=0;
+    for(Genus genus : _genuses)
+    {
+      if (index>0)
+      {
+        sb.append(", ");
+      }
+      sb.append(genus.getLabel());
+      index++;
+    }
+    String label=sb.toString();
+    return label;
+  }
+
+  @Override
+  public String toString()
+  {
+    return getLabel();
+  }
 }
