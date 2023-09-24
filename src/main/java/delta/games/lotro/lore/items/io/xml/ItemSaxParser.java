@@ -19,6 +19,7 @@ import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.SocketType;
 import delta.games.lotro.common.money.MoneyTables;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
@@ -48,6 +49,7 @@ import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
 import delta.games.lotro.lore.items.details.io.xml.ItemDetailsSaxParser;
+import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSlotsSetup;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
@@ -75,6 +77,7 @@ public final class ItemSaxParser extends DefaultHandler
   private LotroEnum<ItemClass> _itemClassEnum;
   private LotroEnum<EquipmentCategory> _equipmentCategoryEnum;
   private LotroEnum<ItemBinding> _itemBindingEnum;
+  private LotroEnum<SocketType> _socketTypeEnum;
   private ItemDetailsSaxParser _detailsParser;
   private SingleLocaleLabelsManager _i18n;
 
@@ -84,6 +87,7 @@ public final class ItemSaxParser extends DefaultHandler
     _itemClassEnum=LotroEnumsRegistry.getInstance().get(ItemClass.class);
     _equipmentCategoryEnum=LotroEnumsRegistry.getInstance().get(EquipmentCategory.class);
     _itemBindingEnum=LotroEnumsRegistry.getInstance().get(ItemBinding.class);
+    _socketTypeEnum=LotroEnumsRegistry.getInstance().get(SocketType.class);
     _detailsParser=new ItemDetailsSaxParser();
     _i18n=I18nFacade.getLabelsMgr("items");
   }
@@ -326,14 +330,14 @@ public final class ItemSaxParser extends DefaultHandler
         int combatPropertyModLevel=NumericTools.parseInt(combatPropertyModLevelStr,0);
         attrs.setCombatPropertyModLevel(combatPropertyModLevel);
       }
-      if (_currentItem instanceof Legendary2)
+      else if (_currentItem instanceof Legendary2)
       {
         Legendary2 legendary=(Legendary2)_currentItem;
         LegendaryAttributes2Manager mgr=LegendaryAttributes2Manager.getInstance();
         LegendaryAttrs2 attrs=mgr.getLegendaryAttributes(id);
         legendary.getLegendaryAttrs().setSockets(attrs.getSockets());
       }
-      if (_currentItem instanceof CarryAll)
+      else if (_currentItem instanceof CarryAll)
       {
         CarryAll carryAll=(CarryAll)_currentItem;
         // Max items
@@ -344,6 +348,15 @@ public final class ItemSaxParser extends DefaultHandler
         String itemStackMaxStr=attributes.getValue(ItemXMLConstants.CARRY_ALL_ITEM_STACK_MAX_ATTR);
         int itemStackMax=NumericTools.parseInt(itemStackMaxStr,0);
         carryAll.setItemStackMax(itemStackMax);
+      }
+      else if (_currentItem instanceof Essence)
+      {
+        Essence essence=(Essence)_currentItem;
+        // Type
+        String typeCodeStr=attributes.getValue(ItemXMLConstants.ESSENCE_TYPE_ATTR);
+        int typeCode=NumericTools.parseInt(typeCodeStr,0);
+        SocketType type=_socketTypeEnum.getEntry(typeCode);
+        essence.setType(type);
       }
     }
     else if (BasicStatsSetXMLConstants.STAT_TAG.equals(qualifiedName))

@@ -37,5 +37,9 @@ public enum ItemCategory
   /**
    * Carry-all.
    */
-  CARRY_ALL
+  CARRY_ALL,
+  /**
+   * Essence.
+   */
+  ESSENCE
 }

@@ -1,20 +1,15 @@
 package delta.games.lotro.lore.items.essences;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.enums.SocketType;
-import delta.games.lotro.config.DataFiles;
-import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.essences.io.xml.EssencesXMLParser;
+import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Manager for all known essences.
@@ -22,8 +17,6 @@ import delta.games.lotro.lore.items.essences.io.xml.EssencesXMLParser;
  */
 public class EssencesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(EssencesManager.class);
-
   private static EssencesManager _instance=null;
 
   private HashMap<Integer,Essence> _cache;
@@ -56,24 +49,21 @@ public class EssencesManager
   private void loadAll()
   {
     _cache.clear();
-    LotroCoreConfig cfg=LotroCoreConfig.getInstance();
-    File essencesFile=cfg.getFile(DataFiles.ESSENCES);
-    long now=System.currentTimeMillis();
-    List<Essence> essences=EssencesXMLParser.parseEssencesFile(essencesFile);
-    for(Essence essence : essences)
+    ItemsManager itemsMgr=ItemsManager.getInstance();
+    for(Item item : itemsMgr.getAllItems())
     {
-      registerEssence(essence);
+      if (item instanceof Essence)
+      {
+        registerEssence((Essence)item);
+      }
     }
-    long now2=System.currentTimeMillis();
-    long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" essences in "+duration+"ms.");
   }
 
   /**
    * Register a new essence.
    * @param essence Essence to register.
    */
-  public void registerEssence(Essence essence)
+  private void registerEssence(Essence essence)
   {
     _cache.put(Integer.valueOf(essence.getIdentifier()),essence);
   }

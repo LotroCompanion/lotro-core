@@ -188,6 +188,12 @@ public class ItemXMLConstants
    */
   public static final String CARRY_ALL_ITEM_STACK_MAX_ATTR="itemStackMax";
 
+  // Essence
+  /**
+   * Tag 'essence', attribute 'type='.
+   */
+  public static final String ESSENCE_TYPE_ATTR="type";
+
   /**
    * Tag 'stats'.
    */

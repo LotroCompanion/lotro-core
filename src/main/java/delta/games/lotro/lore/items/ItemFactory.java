@@ -3,6 +3,7 @@ package delta.games.lotro.lore.items;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.lore.items.carryalls.CarryAll;
+import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
 import delta.games.lotro.lore.items.legendary.Legendary;
@@ -68,6 +69,10 @@ public class ItemFactory
     else if (category==ItemCategory.CARRY_ALL)
     {
       ret=new CarryAll();
+    }
+    else if (category==ItemCategory.ESSENCE)
+    {
+      ret=new Essence();
     }
     else
     {

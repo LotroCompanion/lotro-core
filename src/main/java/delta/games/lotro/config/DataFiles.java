@@ -114,10 +114,6 @@ public class DataFiles
    */
   public static final String GENERIC_ITEM_EFFECTS="genericItemEffects";
   /**
-   * Essences file.
-   */
-  public static final String ESSENCES="essences";
-  /**
    * Sets file.
    */
   public static final String SETS="sets";
