@@ -22,6 +22,8 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.essences.Essence;
+import delta.games.lotro.lore.items.essences.EssencesManager;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
@@ -159,6 +161,7 @@ public class ItemInstanceXMLParser
       Element essencesTag=DOMParsingTools.getChildTagByName(root,ItemXMLConstants.ESSENCES_TAG);
       if (essencesTag!=null)
       {
+        EssencesManager essencesMgr=EssencesManager.getInstance();
         EssencesSet essencesSet=itemInstance.getEssences();
         int currentIndex=0;
         List<Element> allEssenceTags=new ArrayList<Element>();
@@ -180,7 +183,7 @@ public class ItemInstanceXMLParser
           }
           if (essenceId!=-1)
           {
-            Item essence=itemsMgr.getItem(essenceId);
+            Essence essence=essencesMgr.getEssence(essenceId);
             if (essence!=null)
             {
               essencesSet.setEssence(index,essence);

@@ -12,7 +12,7 @@ import delta.games.lotro.lore.items.Item;
  */
 public class EssencesSet
 {
-  private List<Item> _essences;
+  private List<Essence> _essences;
 
   /**
    * Constructor.
@@ -20,7 +20,7 @@ public class EssencesSet
    */
   public EssencesSet(int size)
   {
-    _essences=new ArrayList<Item>();
+    _essences=new ArrayList<Essence>();
     for(int i=0;i<size;i++)
     {
       _essences.add(null);
@@ -33,7 +33,7 @@ public class EssencesSet
    */
   public EssencesSet(EssencesSet source)
   {
-    _essences=new ArrayList<Item>(source._essences);
+    _essences=new ArrayList<Essence>(source._essences);
   }
 
   /**
@@ -50,7 +50,7 @@ public class EssencesSet
    * @param index Index, starting at 0.
    * @return An essence or <code>null</code> if none set.
    */
-  public Item getEssence(int index)
+  public Essence getEssence(int index)
   {
     if (index<_essences.size())
     {
@@ -64,7 +64,7 @@ public class EssencesSet
    * @param index Index, starting at 0.
    * @param essence Essence to set.
    */
-  public void setEssence(int index, Item essence)
+  public void setEssence(int index, Essence essence)
   {
     if ((index>=0) && (index<_essences.size()))
     {

@@ -20,6 +20,7 @@ import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemSturdinesses;
 import delta.games.lotro.lore.items.WeaponTypes;
+import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.LegendaryItem;
@@ -165,16 +166,16 @@ public class CharacterGeneratorMeva
     ItemInstance<? extends Item> instance=_tools.getItemById(1879313783);
 
     EssencesSet essences=new EssencesSet(4);
-    Item will=_tools.getEssenceByName(7,"Supreme Essence of Will");
+    Essence will=_tools.getEssenceByName(7,"Supreme Essence of Will");
     //will.getStats().setStat(STAT.WILL,139);
     //will.getStats().setStat(STAT.VITALITY,17);
     essences.setEssence(0,will);
     essences.setEssence(1,will);
-    Item vitalityS=_tools.getEssenceByName(7,"Supreme Essence of Vitality");
+    Essence vitalityS=_tools.getEssenceByName(7,"Supreme Essence of Vitality");
     //vitalityS.getStats().setStat(STAT.VITALITY,139);
     //vitalityS.getStats().setStat(STAT.FATE,17);
     essences.setEssence(2,vitalityS);
-    Item vitalityG=_tools.getEssenceByName(7,"Greater Essence of Vitality");
+    Essence vitalityG=_tools.getEssenceByName(7,"Greater Essence of Vitality");
     //vitalityG.getStats().setStat(STAT.VITALITY,136);
     essences.setEssence(3,vitalityG);
     instance.setEssences(essences);
@@ -187,14 +188,14 @@ public class CharacterGeneratorMeva
     ItemInstance<? extends Item> instance=_tools.getItemById(1879313778);
 
     EssencesSet essences=new EssencesSet(4);
-    Item will=_tools.getEssenceByName(7,"Greater Essence of Will");
+    Essence will=_tools.getEssenceByName(7,"Greater Essence of Will");
     //will.getStats().setStat(STAT.WILL,136);
     essences.setEssence(0,will);
     essences.setEssence(1,will);
-    Item critRating=_tools.getEssenceByName(7,"Major Essence of Critical Rating");
+    Essence critRating=_tools.getEssenceByName(7,"Major Essence of Critical Rating");
     //critRating.getStats().setStat(STAT.CRITICAL_RATING,1075);
     essences.setEssence(2,critRating);
-    Item tacticalMastery=_tools.getEssenceByName(7,"Major Essence of Tactical Mastery");
+    Essence tacticalMastery=_tools.getEssenceByName(7,"Major Essence of Tactical Mastery");
     //tacticalMastery.getStats().setStat(STAT.TACTICAL_MASTERY,1075);
     essences.setEssence(3,tacticalMastery);
     instance.setEssences(essences);
@@ -292,7 +293,7 @@ public class CharacterGeneratorMeva
     // 1879318796" name="Advisor's Fateful Ring
     ItemInstance<? extends Item> ret=_tools.getItemById(1879318796);
     EssencesSet essences=new EssencesSet(1);
-    Item tacticalMastery=_tools.getEssenceByName(6,"Supreme Essence of Tactical Mastery");
+    Essence tacticalMastery=_tools.getEssenceByName(6,"Supreme Essence of Tactical Mastery");
     tacticalMastery.getStats().setStat(WellKnownStat.TACTICAL_MASTERY,1165);
     tacticalMastery.getStats().setStat(WellKnownStat.POWER,88);
     essences.setEssence(0,tacticalMastery);

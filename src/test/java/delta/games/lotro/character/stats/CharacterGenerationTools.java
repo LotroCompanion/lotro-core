@@ -66,7 +66,7 @@ public class CharacterGenerationTools
    * @param name Essence name.
    * @return An essence item or <code>null</code> if not found.
    */
-  public Item getEssenceByName(int tier, String name)
+  public Essence getEssenceByName(int tier, String name)
   {
     Essence ret=null;
     HashMap<String,Essence> mapByTier=_essencesMap.get(Integer.valueOf(tier));
@@ -74,7 +74,7 @@ public class CharacterGenerationTools
     {
       ret=mapByTier.get(name);
     }
-    return (ret!=null)?ret.getItem():null;
+    return ret;
   }
 
   /**

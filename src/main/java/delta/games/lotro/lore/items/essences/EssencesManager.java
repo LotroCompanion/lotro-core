@@ -112,12 +112,12 @@ public class EssencesManager
    * @param type Socket type.
    * @return A list of items.
    */
-  public List<Item> getAllEssenceItems(SocketType type)
+  public List<Essence> getAllEssenceItems(SocketType type)
   {
-    List<Item> ret=new ArrayList<Item>();
+    List<Essence> ret=new ArrayList<Essence>();
     for(Essence essence : getEssences(type))
     {
-      ret.add(essence.getItem());
+      ret.add(essence);
     }
     Collections.sort(ret,new NamedComparator());
     return ret;
