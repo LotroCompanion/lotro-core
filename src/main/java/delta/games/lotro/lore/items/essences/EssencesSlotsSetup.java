@@ -49,7 +49,11 @@ public class EssencesSlotsSetup
    */
   public SocketType getSlotType(int index)
   {
-    return _entries.get(index);
+    if ((index>=0) && (index<_entries.size()))
+    {
+      return _entries.get(index);
+    }
+    return null;
   }
 
   /**

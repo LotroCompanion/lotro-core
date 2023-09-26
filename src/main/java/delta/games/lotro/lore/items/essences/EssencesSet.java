@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.common.enums.SocketType;
 import delta.games.lotro.lore.items.Item;
 
 /**
@@ -12,7 +13,18 @@ import delta.games.lotro.lore.items.Item;
  */
 public class EssencesSet
 {
+  private EssencesSlotsSetup _setup;
   private List<Essence> _essences;
+
+  /**
+   * Constructor.
+   * @param setup Slots setup.
+   */
+  public EssencesSet(EssencesSlotsSetup setup)
+  {
+    this(setup.getSocketsCount());
+    _setup=setup;
+  }
 
   /**
    * Constructor.
@@ -33,7 +45,27 @@ public class EssencesSet
    */
   public EssencesSet(EssencesSet source)
   {
+    _setup=source._setup;
     _essences=new ArrayList<Essence>(source._essences);
+  }
+
+  /**
+   * Get the socket type for the given index. 
+   * @param index Index of socket to get, starting at 0.
+   * @return A socket type.
+   */
+  public SocketType getType(int index)
+  {
+    SocketType ret=null;
+    if (_setup!=null)
+    {
+      ret=_setup.getSlotType(index);
+    }
+    if (ret==null)
+    {
+      ret=SocketTypes.CLASSIC;
+    }
+    return ret;
   }
 
   /**
