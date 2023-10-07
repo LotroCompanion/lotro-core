@@ -63,4 +63,16 @@ public class ItemDetailsXMLConstants
    * Tag 'slayer', attribute 'genus'.
    */
   public static final String SLAYER_GENUS_ATTR="genus";
+  /**
+   * Tag 'cooldown'.
+   */
+  public static final String COOLDOWN_TAG="cooldown";
+  /**
+   * Tag 'cooldown', attribute 'duration'.
+   */
+  public static final String COOLDOWN_DURATION_ATTR="duration";
+  /**
+   * Tag 'cooldown', attribute 'channelID'.
+   */
+  public static final String COOLDOWN_CHANNEL_ID_ATTR="channelID";
 }

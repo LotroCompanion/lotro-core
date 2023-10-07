@@ -15,6 +15,7 @@ import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
+import delta.games.lotro.lore.items.details.ItemUsageCooldown;
 import delta.games.lotro.lore.items.details.ItemXP;
 import delta.games.lotro.lore.items.details.VirtueXP;
 import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
@@ -67,6 +68,10 @@ public class ItemDetailsXMLWriter
     else if (item instanceof WeaponSlayerInfo)
     {
       writeWeaponSlayerElement(hd,(WeaponSlayerInfo)item);
+    }
+    else if (item instanceof ItemUsageCooldown)
+    {
+      writeUsageCooldownElement(hd,(ItemUsageCooldown)item);
     }
   }
 
@@ -140,5 +145,21 @@ public class ItemDetailsXMLWriter
     attrs.addAttribute("","",ItemDetailsXMLConstants.SLAYER_GENUS_ATTR,XmlWriter.CDATA,sb.toString());
     hd.startElement("","",ItemDetailsXMLConstants.SLAYER_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.SLAYER_TAG);
+  }
+
+  private void writeUsageCooldownElement(TransformerHandler hd, ItemUsageCooldown info) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Duration value
+    float duration=info.getDuration();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.COOLDOWN_DURATION_ATTR,XmlWriter.CDATA,String.valueOf(duration));
+    // Channel ID
+    Integer channelID=info.getChannelID();
+    if (channelID!=null)
+    {
+      attrs.addAttribute("","",ItemDetailsXMLConstants.COOLDOWN_CHANNEL_ID_ATTR,XmlWriter.CDATA,channelID.toString());
+    }
+    hd.startElement("","",ItemDetailsXMLConstants.COOLDOWN_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.COOLDOWN_TAG);
   }
 }

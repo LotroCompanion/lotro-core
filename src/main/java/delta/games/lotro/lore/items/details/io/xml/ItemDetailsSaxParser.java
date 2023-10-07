@@ -18,6 +18,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemReputation;
+import delta.games.lotro.lore.items.details.ItemUsageCooldown;
 import delta.games.lotro.lore.items.details.ItemXP;
 import delta.games.lotro.lore.items.details.VirtueXP;
 import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
@@ -111,6 +112,22 @@ public class ItemDetailsSaxParser
           info.addGenus(genus);
         }
       }
+      Item.addDetail(item,info);
+      return true;
+    }
+    else if (ItemDetailsXMLConstants.COOLDOWN_TAG.equals(qualifiedName))
+    {
+      // Duration value
+      String durationStr=attributes.getValue(ItemDetailsXMLConstants.COOLDOWN_DURATION_ATTR);
+      float duration=NumericTools.parseFloat(durationStr,-1);
+      // Channel ID
+      String channelIDStr=attributes.getValue(ItemDetailsXMLConstants.COOLDOWN_CHANNEL_ID_ATTR);
+      Integer channelID=null;
+      if (channelIDStr!=null)
+      {
+        channelID=NumericTools.parseInteger(channelIDStr);
+      }
+      ItemUsageCooldown info=new ItemUsageCooldown(duration,channelID);
       Item.addDetail(item,info);
       return true;
     }
