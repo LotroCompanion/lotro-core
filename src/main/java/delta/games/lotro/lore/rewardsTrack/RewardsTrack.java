@@ -7,7 +7,8 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 
 /**
- * @author dmorcellet
+ * Description of a single rewards track.
+ * @author DAM
  */
 public class RewardsTrack implements Identifiable,Named
 {

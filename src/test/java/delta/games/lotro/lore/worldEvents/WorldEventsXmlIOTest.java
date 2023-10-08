@@ -8,7 +8,8 @@ import delta.games.lotro.lore.worldEvents.io.xml.WorldEventsXMLWriter;
 import junit.framework.TestCase;
 
 /**
- * @author dm
+ * Test XML I/O for world events. 
+ * @author DAM
  */
 public class WorldEventsXmlIOTest extends TestCase
 {
