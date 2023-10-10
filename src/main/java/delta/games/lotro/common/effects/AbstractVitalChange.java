@@ -3,15 +3,15 @@ package delta.games.lotro.common.effects;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
- * Base class for vital changes. 
+ * Base class for vital changes.
  * @author DAM
  */
 public class AbstractVitalChange
 {
   private Float _constant;
   private Progression _progression;
+  private Float _variance;
   // TODO
-  //private float _variance;
   //private ModPropertyList _valueModifiers;
   //private float _critMultiplier;
   //private ModPropertyList _critMultiplierModifiers;
@@ -77,5 +77,23 @@ public class AbstractVitalChange
   public void setProgression(Progression progression)
   {
     _progression=progression;
+  }
+
+  /**
+   * Get the variance.
+   * @return a variance or <code>null</code> if none.
+   */
+  public Float getVariance()
+  {
+    return _variance;
+  }
+
+  /**
+   * Set the variance.
+   * @param variance Variance to set (may be <code>null</code>).
+   */
+  public void setVariance(Float variance)
+  {
+    _variance=variance;
   }
 }

@@ -3,6 +3,8 @@ package delta.games.lotro.common.effects;
 import java.util.List;
 
 import delta.common.utils.io.streams.IndentableStream;
+import delta.games.lotro.common.Duration;
+import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -66,6 +68,7 @@ public class DumpEffect2
 
   private void showAspect(EffectAspect aspect)
   {
+    System.out.println("Aspect class "+aspect.getClass().getSimpleName());
     if (aspect instanceof ProcEffect)
     {
       showProcEffect((ProcEffect)aspect);
@@ -90,6 +93,10 @@ public class DumpEffect2
     {
       showReactiveVitalEffect((ReactiveVitalEffect)aspect);
     }
+    else if (aspect instanceof GenesisEffect)
+    {
+      showGenesisEffect((GenesisEffect)aspect);
+    }
   }
 
   private void showStatEffect(StatsEffect statsEffect)
@@ -113,7 +120,7 @@ public class DumpEffect2
       _is.println("Cooldown: "+cooldown);
     }
     List<EffectGenerator> procedEffects=procEffect.getProcedEffects();
-    showGenerators(procedEffects);
+    showGenerators("Proc'ed effects:", procedEffects);
   }
 
   private void showInstantVitalEffect(InstantVitalEffect aspect)
@@ -163,13 +170,18 @@ public class DumpEffect2
     {
       _is.println("Range: "+min+"-"+max);
     }
+    Float variance=description.getVariance();
+    if (variance!=null)
+    {
+      _is.println("Variance: "+(variance.floatValue()*100)+"%");
+    }
     _is.decrementIndentationLevel();
   }
 
   private void showInstantFellowshipEffect(InstantFellowshipEffect aspect)
   {
     _is.println("Fellowship effect:");
-    showGenerators(aspect.getEffects());
+    showGenerators("Proc'ed effects:", aspect.getEffects());
     boolean applyToRaidGroups=aspect.appliesToRaidGroups();
     if (applyToRaidGroups)
     {
@@ -231,6 +243,11 @@ public class DumpEffect2
     {
       _is.println("Progression: "+progression);
     }
+    Float variance=change.getVariance();
+    if (variance!=null)
+    {
+      _is.println("Variance: "+(variance.floatValue()*100)+"%");
+    }
     float probability=change.getProbability();
     _is.println("Probability: "+probability);
     if (change.isMultiplicative())
@@ -254,11 +271,39 @@ public class DumpEffect2
     _is.decrementIndentationLevel();
   }
 
-  private void showGenerators(List<EffectGenerator> generators)
+  private void showGenesisEffect(GenesisEffect aspect)
+  {
+    boolean permanent=aspect.isPermanent();
+    if (permanent)
+    {
+      _is.println("Permanent");
+    }
+    else
+    {
+      _is.println("Duration: "+Duration.getDurationString((int)aspect.getDuration()));
+    }
+    Hotspot hotspot=aspect.getHotspot();
+    if (hotspot!=null)
+    {
+      int hotspotID=hotspot.getIdentifier();
+      String name=hotspot.getName();
+      _is.println("Summoned hotspot ID="+hotspotID+": "+name);
+      showGenerators("Hotspot effects:", hotspot.getEffects());
+    }
+    Interactable interactable=aspect.getInteractable();
+    if (interactable!=null)
+    {
+      int id=interactable.getIdentifier();
+      String name=interactable.getName();
+      _is.println("Summoned element ID="+id+": "+name);
+    }
+  }
+
+  private void showGenerators(String label, List<EffectGenerator> generators)
   {
     if (!generators.isEmpty())
     {
-      _is.println("Proc'ed effects:");
+      _is.println(label);
       _is.incrementIndendationLevel();
       for(EffectGenerator generator : generators)
       {

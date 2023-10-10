@@ -3,12 +3,11 @@ package delta.games.lotro.common.effects;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
- * @author dm
+ * Effects that gives stats.
+ * @author DAM
  */
 public class StatsEffect implements EffectAspect
 {
-  // From Effect_Duration_ConstantInterval:
-  private Float _duration;
   // From Mod_Array:
   private StatsProvider _statsProvider;
   /*
@@ -23,24 +22,6 @@ public class StatsEffect implements EffectAspect
       Skill_SingleTarget_Healing_CritChance: 0.05
       => healing crit + 5%
   */
-
-  /**
-   * Get the effect duration.
-   * @return a duration (seconds) or <code>null</code>.
-   */
-  public Float getDuration()
-  {
-    return _duration;
-  }
-
-  /**
-   * Set the effect duration.
-   * @param duration Duration to set (seconds) (may be <code>null</code>).
-   */
-  public void setDuration(Float duration)
-  {
-    _duration=duration;
-  }
 
   /**
    * Get the stats provider.

@@ -3,7 +3,7 @@ package delta.games.lotro.character.races;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.common.utils.id.Identifiable;
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 
 /**

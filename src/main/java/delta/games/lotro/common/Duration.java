@@ -118,7 +118,7 @@ public class Duration
     if ((showFlags&SHOW_SECONDS)!=0)
     {
       int seconds=duration%MINUTE;
-      if (seconds>0)
+      if ((seconds>0) || (sb.length()==0))
       {
         sb.append(seconds).append('s');
       }
