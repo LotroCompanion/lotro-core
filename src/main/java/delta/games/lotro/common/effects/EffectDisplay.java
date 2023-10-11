@@ -42,7 +42,7 @@ public class EffectDisplay
     }
     for(EffectAspect aspect : effect.getAspects())
     {
-      displayAspect(aspect);
+      displayAspect(effect,aspect);
     }
     if (!_durationDisplayed)
     {
@@ -60,7 +60,7 @@ public class EffectDisplay
     }
   }
 
-  private void displayAspect(EffectAspect aspect)
+  private void displayAspect(Effect2 effect, EffectAspect aspect)
   {
     if (aspect instanceof InstantVitalEffect)
     {
@@ -81,6 +81,10 @@ public class EffectDisplay
     else if (aspect instanceof GenesisEffect)
     {
       showGenesisEffect((GenesisEffect)aspect);
+    }
+    else if (aspect instanceof VitalOverTimeEffect)
+    {
+      showVitalOverTimeEffect(effect,(VitalOverTimeEffect)aspect);
     }
   }
 
@@ -120,6 +124,10 @@ public class EffectDisplay
 
   private Float getValue(AbstractVitalChange change)
   {
+    if (change==null)
+    {
+      return null;
+    }
     Float value=change.getConstant();
     if (value!=null)
     {
@@ -146,6 +154,7 @@ public class EffectDisplay
 
   private void showReactiveVitalEffect(ReactiveVitalEffect aspect)
   {
+    // Defender
     ReactiveVitalChange defender=aspect.getDefenderVitalChange();
     if (defender!=null)
     {
@@ -156,10 +165,52 @@ public class EffectDisplay
       System.out.println("On any "+damageTypes+" damage:");
       if (!multiplicative)
       {
-        int percentage=(int)(probability*100);
         int damage=(int)value.floatValue();
-        System.out.println(percentage+"% chance to Negate "+damage+" damage");
+        if (probability!=1.0f)
+        {
+          int percentage=(int)(probability*100);
+          System.out.println(percentage+"% chance to Negate "+damage+" damage");
+        }
+        else
+        {
+          // Never?
+          System.out.println("Negate "+damage+" damage");
+        }
       }
+      else
+      {
+        if (probability!=1.0f)
+        {
+          // Never?
+          int percentage=(int)(probability*100);
+          int percentageDamage=(int)(value.floatValue()*100);
+          System.out.println(percentage+"% chance to Negate "+percentageDamage+" damage");
+        }
+        else
+        {
+          int percentageDamage=(int)(value.floatValue()*100);
+          // Negate 100% damage
+          System.out.println("Negate "+percentageDamage+"% damage");
+        }
+      }
+    }
+    ReactiveVitalChange attacker=aspect.getAttackerVitalChange();
+    if (attacker!=null)
+    {
+      Float value=getValue(defender);
+      List<DamageType> damageTypes=aspect.getDamageTypes();
+      System.out.println("On any "+damageTypes+" damage:");
+      // TODO
+      //"10% chance to Reflect 1,106 damage";
+    }
+    EffectAndProbability attackerEffect=aspect.getAttackerEffect();
+    if (attackerEffect!=null)
+    {
+      float probability=attackerEffect.getProbability();
+      int percentage=(int)(probability*100);
+      Effect2 effect=attackerEffect.getEffect();
+      System.out.println(percentage+"% to Reflect effect:");
+      displayEffect(effect);
     }
   }
 
@@ -214,5 +265,39 @@ public class EffectDisplay
       showEffectGenerators(hotspot.getEffects());
     }
     // TODO Interactable
+  }
+
+  private void showVitalOverTimeEffect(Effect2 effect, VitalOverTimeEffect aspect)
+  {
+    VitalChangeDescription initialChange=aspect.getInitialChangeDescription();
+    Float initialValue=getValue(initialChange);
+    VitalChangeDescription overTimeChange=aspect.getOverTimeChangeDescription();
+    Float overTimeValue=getValue(overTimeChange);
+    StatDescription stat=aspect.getStat();
+    EffectDuration duration=effect.getDuration();
+    int pulseCount=duration.getPulseCount();
+    Float interval=duration.getDuration();
+    float totalDuration=interval.floatValue()*pulseCount;
+    String overtime=" every "+interval+" seconds for "+(int)totalDuration+" seconds.";
+    DamageType damageType=aspect.getDamageType();
+    if (damageType!=null)
+    {
+      // Damage computation is wrong now (values do depend on character stats=>tactical mastery % ?)
+      if (initialValue!=null)
+      {
+        System.out.println(initialValue+" "+damageType.getLabel()+" Damage initially.");
+      }
+      System.out.println(overTimeValue+" "+damageType.getLabel()+" Damage"+overtime);
+    }
+    else
+    {
+      // Heal values do not seem to be changed by Incoming Healing or Outgoing Healing!
+      if (initialValue!=null)
+      {
+        System.out.println("Restores "+initialValue+" "+stat.getName()+" initially.");
+      }
+      System.out.println("Restores "+overTimeValue+" "+stat.getName()+overtime);
+    }
+    _durationDisplayed=true;
   }
 }

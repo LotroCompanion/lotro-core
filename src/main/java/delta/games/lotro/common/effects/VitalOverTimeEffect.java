@@ -2,6 +2,7 @@ package delta.games.lotro.common.effects;
 
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.WellKnownStat;
+import delta.games.lotro.lore.items.DamageType;
 
 /**
  * Vital over-time effect.
@@ -11,7 +12,11 @@ public class VitalOverTimeEffect implements EffectAspect
 {
   // Morale, Power, ...
   private StatDescription _stat;
+  // Damage type (if harmful, null otherwise)
+  private DamageType _damageType;
+  // Initial change
   private VitalChangeDescription _initialChange;
+  // Over-time change
   private VitalChangeDescription _overTimeChange;
 
   /**
@@ -20,6 +25,7 @@ public class VitalOverTimeEffect implements EffectAspect
   public VitalOverTimeEffect()
   {
     _stat=WellKnownStat.MORALE;
+    _damageType=null;
     _initialChange=null;
     _overTimeChange=null;
   }
@@ -40,6 +46,24 @@ public class VitalOverTimeEffect implements EffectAspect
   public void setStat(StatDescription stat)
   {
     _stat=stat;
+  }
+
+  /**
+   * Get the damage type.
+   * @return the damage type.
+   */
+  public DamageType getDamageType()
+  {
+    return _damageType;
+  }
+
+  /**
+   * Set the damage type.
+   * @param damageType Damage type to set.
+   */
+  public void setDamageType(DamageType damageType)
+  {
+    _damageType=damageType;
   }
 
   /**

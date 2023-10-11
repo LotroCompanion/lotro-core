@@ -5,7 +5,9 @@ import java.util.List;
 import delta.common.utils.io.streams.IndentableStream;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.SkillType;
+import delta.games.lotro.common.math.LinearFunction;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.DamageType;
@@ -97,6 +99,10 @@ public class DumpEffect2
     {
       showGenesisEffect((GenesisEffect)aspect);
     }
+    else if (aspect instanceof InduceCombatStateEffect)
+    {
+      showInduceCombatStateEffect((InduceCombatStateEffect)aspect);
+    }
   }
 
   private void showStatEffect(StatsEffect statsEffect)
@@ -140,9 +146,16 @@ public class DumpEffect2
   {
     StatDescription stat=aspect.getStat();
     _is.println("Vital over-time change: "+stat.getName());
+    // Damage type
+    DamageType damageType=aspect.getDamageType();
+    if (damageType!=null)
+    {
+      _is.println("Damage type: "+damageType.getLabel());
+    }
     // Initial change:
     _is.println("Initial change:");
     dumpVitalChangeDescription(aspect.getInitialChangeDescription());
+    // Over-time change:
     _is.println("Over-time change:");
     dumpVitalChangeDescription(aspect.getOverTimeChangeDescription());
   }
@@ -296,6 +309,22 @@ public class DumpEffect2
       int id=interactable.getIdentifier();
       String name=interactable.getName();
       _is.println("Summoned element ID="+id+": "+name);
+    }
+  }
+
+  private void showInduceCombatStateEffect(InduceCombatStateEffect aspect)
+  {
+    CombatState state=aspect.getCombatState();
+    _is.println("Combat state:" +state);
+    LinearFunction function=aspect.getDurationFunction();
+    if (function!=null)
+    {
+      _is.println("Duration: "+function);
+    }
+    else
+    {
+      float duration=aspect.getDuration();
+      _is.println("Duration: "+duration);
     }
   }
 
