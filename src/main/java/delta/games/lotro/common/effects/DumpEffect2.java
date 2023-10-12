@@ -6,6 +6,7 @@ import delta.common.utils.io.streams.IndentableStream;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.CombatState;
+import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.math.LinearFunction;
 import delta.games.lotro.common.stats.StatDescription;
@@ -102,6 +103,10 @@ public class DumpEffect2
     else if (aspect instanceof InduceCombatStateEffect)
     {
       showInduceCombatStateEffect((InduceCombatStateEffect)aspect);
+    }
+    else if (aspect instanceof DispelByResistEffect)
+    {
+      showDispelByResistEffect((DispelByResistEffect)aspect);
     }
   }
 
@@ -325,6 +330,23 @@ public class DumpEffect2
     {
       float duration=aspect.getDuration();
       _is.println("Duration: "+duration);
+    }
+  }
+
+  private void showDispelByResistEffect(DispelByResistEffect aspect)
+  {
+    int dispelCount=aspect.getMaxDispelCount();
+    _is.println("Max dispel count: "+((dispelCount>0)?String.valueOf(dispelCount):"all"));
+    List<ResistCategory> categories=aspect.getResistCategories();
+    _is.println("Resist categories: "+categories);
+    if (aspect.useStrengthRestriction())
+    {
+      _is.println("Use strength restriction.");
+      Integer offset=aspect.getStrengthOffset();
+      if (offset!=null)
+      {
+        _is.println("Strength offset: "+offset);
+      }
     }
   }
 
