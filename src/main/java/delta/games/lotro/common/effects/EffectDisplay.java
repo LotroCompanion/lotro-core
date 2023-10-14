@@ -2,14 +2,21 @@ package delta.games.lotro.common.effects;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import delta.common.utils.text.EndOfLine;
+import delta.common.utils.variables.VariableValueProvider;
+import delta.common.utils.variables.VariablesResolver;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.ResistCategory;
+import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.math.LinearFunction;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -19,6 +26,8 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class EffectDisplay
 {
+  private static final Logger LOGGER=Logger.getLogger(EffectDisplay.class);
+
   private int _level;
   private boolean _durationDisplayed;
 
@@ -34,18 +43,25 @@ public class EffectDisplay
 
   /**
    * Display an effect.
+   * @param sb Output stream.
    * @param effect Effect to show.
    */
-  public void displayEffect(Effect2 effect)
+  public void displayEffect(StringBuilder sb, Effect2 effect)
   {
+    String descriptionOverride=effect.getDescriptionOverride();
+    if (!descriptionOverride.isEmpty())
+    {
+      String text=resolveVariables(effect,descriptionOverride);
+      sb.append(text).append(EndOfLine.NATIVE_EOL);
+    }
     String description=effect.getDescription();
     if (!description.isEmpty())
     {
-      System.out.println(description);
+      sb.append(description).append(EndOfLine.NATIVE_EOL);
     }
     for(EffectAspect aspect : effect.getAspects())
     {
-      displayAspect(effect,aspect);
+      displayAspect(sb,effect,aspect);
     }
     if (!_durationDisplayed)
     {
@@ -56,50 +72,81 @@ public class EffectDisplay
         if (duration!=null)
         {
           String durationStr=Duration.getDurationString(duration.intValue());
-          System.out.println("Duration: "+durationStr);
+          sb.append("Duration: ").append(durationStr).append(EndOfLine.NATIVE_EOL);
           _durationDisplayed=true;
         }
       }
     }
   }
 
-  private void displayAspect(Effect2 effect, EffectAspect aspect)
+  private String resolveVariables(Effect2 effect, String input)
+  {
+    VariableValueProvider provider=new VariableValueProvider()
+    {
+      @Override
+      public String getVariable(String variableName)
+      {
+        return resolveVariable(effect,variableName);
+      }
+    };
+    VariablesResolver resolver=new VariablesResolver(provider);
+    return resolver.render(input);
+  }
+
+  private String resolveVariable(Effect2 effect, String variableName)
+  {
+    for(EffectAspect aspect : effect.getAspects())
+    {
+      String ret=aspect.resolveVariable(variableName);
+      if (ret!=null)
+      {
+        return ret;
+      }
+    }
+    return variableName;
+  }
+
+  private void displayAspect(StringBuilder sb, Effect2 effect, EffectAspect aspect)
   {
     if (aspect instanceof InstantVitalEffect)
     {
-      showInstantVitalEffect((InstantVitalEffect)aspect);
+      showInstantVitalEffect(sb,(InstantVitalEffect)aspect);
     }
     else if (aspect instanceof StatsEffect)
     {
-      showStatsEffect((StatsEffect)aspect);
+      showStatsEffect(sb,(StatsEffect)aspect);
     }
     else if (aspect instanceof ReactiveVitalEffect)
     {
-      showReactiveVitalEffect((ReactiveVitalEffect)aspect);
+      showReactiveVitalEffect(sb,(ReactiveVitalEffect)aspect);
     }
     else if (aspect instanceof InstantFellowshipEffect)
     {
-      showInstantFellowshipEffect((InstantFellowshipEffect)aspect);
+      showInstantFellowshipEffect(sb,(InstantFellowshipEffect)aspect);
     }
     else if (aspect instanceof GenesisEffect)
     {
-      showGenesisEffect((GenesisEffect)aspect);
+      showGenesisEffect(sb,(GenesisEffect)aspect);
     }
     else if (aspect instanceof VitalOverTimeEffect)
     {
-      showVitalOverTimeEffect(effect,(VitalOverTimeEffect)aspect);
+      showVitalOverTimeEffect(sb,effect,(VitalOverTimeEffect)aspect);
     }
     else if (aspect instanceof InduceCombatStateEffect)
     {
-      showInduceCombatStateEffect((InduceCombatStateEffect)aspect);
+      showInduceCombatStateEffect(sb,(InduceCombatStateEffect)aspect);
     }
     else if (aspect instanceof DispelByResistEffect)
     {
-      showDispelByResistEffect((DispelByResistEffect)aspect);
+      showDispelByResistEffect(sb,(DispelByResistEffect)aspect);
+    }
+    else if (aspect instanceof ProcEffect)
+    {
+      showProcEffect(sb,effect,(ProcEffect)aspect);
     }
   }
 
-  private void showInstantVitalEffect(InstantVitalEffect effect)
+  private void showInstantVitalEffect(StringBuilder sb, InstantVitalEffect effect)
   {
     StatDescription stat=effect.getStat();
     VitalChangeDescription description=effect.getInstantChangeDescription();
@@ -107,30 +154,60 @@ public class EffectDisplay
     {
       return;
     }
-    Float value=getValue(description);
-    if (value!=null)
+    boolean isMorale=(stat==WellKnownStat.MORALE);
+    boolean multiplicative=effect.isMultiplicative();
+    if (!multiplicative)
     {
-      float maxValueFloat=value.floatValue();
-      int maxValue=(int)maxValueFloat;
-      Float variance=description.getVariance();
-      if (variance!=null)
+      int[] minMax=getMinMaxValue(description);
+      if (minMax[0]==minMax[1])
       {
-        float minValueFloat=maxValueFloat*(1-variance.floatValue());
-        int minValue=(int)minValueFloat;
-        System.out.print(minValue+" - "+maxValue);
+        if ((minMax[0]<0) && isMorale)
+        {
+          sb.append("Apply to the target(s)").append(EndOfLine.NATIVE_EOL);
+          sb.append(-minMax[0]).append(" Damage").append(EndOfLine.NATIVE_EOL);
+        }
+        else
+        {
+          sb.append(minMax[0]).append(' ');
+          sb.append(stat.getName()).append(EndOfLine.NATIVE_EOL);
+        }
       }
       else
       {
-        System.out.print(maxValue);
+        if ((minMax[0]<0) && (minMax[1]<0) && isMorale)
+        {
+          sb.append("Apply to the target(s)").append(EndOfLine.NATIVE_EOL);
+          sb.append(-minMax[0]).append(" - ").append(-minMax[1]).append(" Damage").append(EndOfLine.NATIVE_EOL);
+        }
+        else
+        {
+          sb.append(minMax[0]).append(" - ").append(minMax[1]).append(' ');
+          sb.append(stat.getName()).append(EndOfLine.NATIVE_EOL);
+        }
       }
     }
     else
     {
-      Float minValue=description.getMinValue();
-      Float maxValue=description.getMaxValue();
-      System.out.println((int)minValue.floatValue()+" - "+(int)maxValue.floatValue());
+      Float value=getValue(description);
+      if (value!=null)
+      {
+        float maxPercentageFloat=value.floatValue()*100;
+        int maxPercentage=(int)maxPercentageFloat;
+        Float variance=description.getVariance();
+        sb.append("Restores ");
+        if (variance!=null)
+        {
+          float minPercentageFloat=maxPercentageFloat*(1-variance.floatValue());
+          int minPercentage=(int)minPercentageFloat;
+          sb.append(minPercentage).append("% - ").append(maxPercentage).append('%');
+        }
+        else
+        {
+          sb.append(maxPercentage).append('%');
+        }
+        sb.append(" of maximum ").append(stat.getName()).append(EndOfLine.NATIVE_EOL);
+      }
     }
-    System.out.println(" "+stat.getName());
   }
 
   private Float getValue(AbstractVitalChange change)
@@ -148,22 +225,53 @@ public class EffectDisplay
     if (progression!=null)
     {
       value=progression.getValue(_level);
+      if (value==null)
+      {
+        value=Float.valueOf(0);
+      }
     }
     return value;
   }
 
-  private void showStatsEffect(StatsEffect effect)
+  private int[] getMinMaxValue(VitalChangeDescription description)
+  {
+    Float value=getValue(description);
+    if (value!=null)
+    {
+      float maxValueFloat=value.floatValue();
+      int maxValue=(int)maxValueFloat;
+      Float variance=description.getVariance();
+      if (variance!=null)
+      {
+        float minValueFloat=maxValueFloat*(1-variance.floatValue());
+        int minValue=(int)minValueFloat;
+        return new int[] {minValue, maxValue};
+      }
+      return new int[] {maxValue, maxValue};
+    }
+    Float minValueFloat=description.getMinValue();
+    Float maxValueFloat=description.getMaxValue();
+    if ((minValueFloat!=null) && (maxValueFloat!=null))
+    {
+      int minValue=(int)minValueFloat.floatValue();
+      int maxValue=(int)maxValueFloat.floatValue();
+      return new int[] {minValue, maxValue};
+    }
+    return new int[] {0,0};
+  }
+
+  private void showStatsEffect(StringBuilder sb, StatsEffect effect)
   {
     StatsProvider provider=effect.getStatsProvider();
     BasicStatsSet stats=provider.getStats(1,_level);
     String[] lines=StatUtils.getStatsDisplayLines(stats);
     for(String line : lines)
     {
-      System.out.println(line);
+      sb.append(line).append(EndOfLine.NATIVE_EOL);
     }
   }
 
-  private void showReactiveVitalEffect(ReactiveVitalEffect aspect)
+  private void showReactiveVitalEffect(StringBuilder sb, ReactiveVitalEffect aspect)
   {
     // Defender
     ReactiveVitalChange defender=aspect.getDefenderVitalChange();
@@ -174,18 +282,18 @@ public class EffectDisplay
       float probability=defender.getProbability();
       boolean multiplicative=defender.isMultiplicative();
       int percentage=(int)(probability*100);
-      System.out.println("On any "+damageTypes+" damage:");
+      sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
       if (!multiplicative)
       {
         int damage=(int)value.floatValue();
         if (percentage!=100)
         {
-          System.out.println(percentage+"% chance to Negate "+damage+" damage");
+          sb.append(percentage).append("% chance to Negate ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
         }
         else
         {
           // Never?
-          System.out.println("Negate "+damage+" damage");
+          sb.append("Negate ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
         }
       }
       else
@@ -194,12 +302,12 @@ public class EffectDisplay
         if (percentage!=100)
         {
           // Never?
-          System.out.println(percentage+"% chance to Negate "+percentageDamage+"% damage");
+          sb.append(percentage).append("% chance to Negate ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
         }
         else
         {
-          // Negate 100% damage
-          System.out.println("Negate "+percentageDamage+"% damage");
+          // Negate X% damage
+          sb.append("Negate ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
         }
       }
     }
@@ -208,12 +316,12 @@ public class EffectDisplay
     {
       List<DamageType> damageTypes=aspect.getDamageTypes();
       // TODO Handle case where damageTypes is [ALL]
-      System.out.println("On any "+damageTypes+" damage:");
+      sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
       float probability=defenderEffect.getProbability();
       int percentage=(int)(probability*100);
       Effect2 effect=defenderEffect.getEffect();
-      System.out.println(percentage+"% chance to Receive effect:");
-      displayEffect(effect);
+      sb.append(percentage).append("% chance to Receive effect:").append(EndOfLine.NATIVE_EOL);
+      displayEffect(sb,effect);
     }
     // Attacker
     ReactiveVitalChange attacker=aspect.getAttackerVitalChange();
@@ -222,7 +330,7 @@ public class EffectDisplay
       Float value=getValue(attacker);
       List<DamageType> damageTypes=aspect.getDamageTypes();
       // TODO Handle case where damageTypes is [ALL]
-      System.out.println("On any "+damageTypes+" damage:");
+      sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
       float probability=attacker.getProbability();
       int percentage=(int)(probability*100);
       boolean multiplicative=attacker.isMultiplicative();
@@ -231,11 +339,11 @@ public class EffectDisplay
         int damage=Math.round(Math.abs(value.floatValue()));
         if (percentage!=100)
         {
-          System.out.println(percentage+"% chance to Reflect "+damage+" damage");
+          sb.append(percentage).append("% chance to Reflect ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
         }
         else
         {
-          System.out.println("Reflect "+damage+" damage");
+          sb.append("Reflect ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
         }
       }
       else
@@ -244,11 +352,11 @@ public class EffectDisplay
         int percentageDamage=(int)(value.floatValue()*100);
         if (percentage!=100)
         {
-          System.out.println(percentage+"% chance to Reflect "+percentageDamage+"% damage");
+          sb.append(percentage).append("% chance to Reflect ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
         }
         else
         {
-          System.out.println("Reflect "+percentageDamage+"% damage");
+          sb.append("Reflect ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
         }
       }
     }
@@ -257,34 +365,34 @@ public class EffectDisplay
     {
       List<DamageType> damageTypes=aspect.getDamageTypes();
       // TODO Handle case where damageTypes is [ALL]
-      System.out.println("On any "+damageTypes+" damage:");
+      sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
       float probability=attackerEffect.getProbability();
       int percentage=(int)(probability*100);
       Effect2 effect=attackerEffect.getEffect();
-      System.out.println(percentage+"% chance to Reflect effect:");
-      displayEffect(effect);
+      sb.append(percentage).append("% chance to Reflect effect:").append(EndOfLine.NATIVE_EOL);
+      displayEffect(sb,effect);
     }
   }
 
-  private void showInstantFellowshipEffect(InstantFellowshipEffect aspect)
+  private void showInstantFellowshipEffect(StringBuilder sb, InstantFellowshipEffect aspect)
   {
     Float range=aspect.getRange();
     List<EffectGenerator> effects=aspect.getEffects();
     //boolean appliesToTarget=aspect.appliesToTarget();
     int rangeInt=(int)range.floatValue();
-    System.out.println("Effects applied to the Fellowship within "+rangeInt+" metres:");
-    showEffectGenerators(effects);
+    sb.append("Effects applied to the Fellowship within ").append(rangeInt).append(" metres:").append(EndOfLine.NATIVE_EOL);
+    showEffectGenerators(sb,effects);
   }
 
-  private void showEffectGenerators(List<EffectGenerator> effects)
+  private void showEffectGenerators(StringBuilder sb, List<EffectGenerator> effects)
   {
     for(EffectGenerator effectGenerator : effects)
     {
-      showEffectGenerator(effectGenerator);
+      showEffectGenerator(sb,effectGenerator);
     }
   }
 
-  private void showEffectGenerator(EffectGenerator effectGenerator)
+  private void showEffectGenerator(StringBuilder sb, EffectGenerator effectGenerator)
   {
     Effect2 childEffect=effectGenerator.getEffect();
     Float spellcraft=effectGenerator.getSpellcraft();
@@ -293,33 +401,33 @@ public class EffectDisplay
     {
       _level=spellcraft.intValue();
     }
-    displayEffect(childEffect);
+    displayEffect(sb,childEffect);
     _level=levelBackup;
   }
 
-  private void showGenesisEffect(GenesisEffect aspect)
+  private void showGenesisEffect(StringBuilder sb, GenesisEffect aspect)
   {
     boolean permanent=aspect.isPermanent();
     if (permanent)
     {
-      System.out.println("Permanent");
+      sb.append("Permanent").append(EndOfLine.NATIVE_EOL);
     }
     else
     {
       float duration=aspect.getDuration();
       String durationStr=Duration.getDurationString((int)duration);
-      System.out.println("Duration: "+durationStr);
+      sb.append("Duration: ").append(durationStr).append(EndOfLine.NATIVE_EOL);
     }
     _durationDisplayed=true;
     Hotspot hotspot=aspect.getHotspot();
     if (hotspot!=null)
     {
-      showEffectGenerators(hotspot.getEffects());
+      showEffectGenerators(sb,hotspot.getEffects());
     }
     // TODO Interactable
   }
 
-  private void showVitalOverTimeEffect(Effect2 effect, VitalOverTimeEffect aspect)
+  private void showVitalOverTimeEffect(StringBuilder sb, Effect2 effect, VitalOverTimeEffect aspect)
   {
     VitalChangeDescription initialChange=aspect.getInitialChangeDescription();
     Float initialValue=getValue(initialChange);
@@ -337,23 +445,27 @@ public class EffectDisplay
       // Damage computation is wrong now (values do depend on character stats=>tactical mastery % ?)
       if (initialValue!=null)
       {
-        System.out.println(initialValue+" "+damageType.getLabel()+" Damage initially.");
+        sb.append(initialValue).append(' ').append(damageType.getLabel());
+        sb.append(" Damage initially.").append(EndOfLine.NATIVE_EOL);
       }
-      System.out.println(overTimeValue+" "+damageType.getLabel()+" Damage"+overtime);
+      sb.append(overTimeValue).append(' ').append(damageType.getLabel());
+      sb.append(" Damage").append(overtime).append(EndOfLine.NATIVE_EOL);
     }
     else
     {
       // Heal values do not seem to be changed by Incoming Healing or Outgoing Healing!
       if (initialValue!=null)
       {
-        System.out.println("Restores "+initialValue+" "+stat.getName()+" initially.");
+        sb.append("Restores ").append(initialValue).append(' ').append(stat.getName());
+        sb.append(" initially.").append(EndOfLine.NATIVE_EOL);
       }
-      System.out.println("Restores "+overTimeValue+" "+stat.getName()+overtime);
+      sb.append("Restores ").append(overTimeValue).append(' ').append(stat.getName());
+      sb.append(overtime).append(EndOfLine.NATIVE_EOL);
     }
     _durationDisplayed=true;
   }
 
-  private void showInduceCombatStateEffect(InduceCombatStateEffect aspect)
+  private void showInduceCombatStateEffect(StringBuilder sb, InduceCombatStateEffect aspect)
   {
     float duration=aspect.getDuration();
     LinearFunction durationFunction=aspect.getDurationFunction();
@@ -367,7 +479,7 @@ public class EffectDisplay
     }
     CombatState state=aspect.getCombatState();
     String stateStr=getStateLabel(state);
-    System.out.println(duration+"s "+stateStr);
+    sb.append(duration).append("s ").append(stateStr).append(EndOfLine.NATIVE_EOL);
   }
 
   private String getStateLabel(CombatState state)
@@ -377,11 +489,11 @@ public class EffectDisplay
     if (code==3) return "Daze";
     if ((code==9) || (code==15)) return "Stun";
     if (code==10) return "Root";
-    System.out.println("Unmanaged state: "+state.getLabel());
+    LOGGER.warn("Unmanaged state: "+state.getLabel());
     return state.getLabel();
   }
 
-  private void showDispelByResistEffect(DispelByResistEffect aspect)
+  private void showDispelByResistEffect(StringBuilder sb, DispelByResistEffect aspect)
   {
     int count=aspect.getMaxDispelCount();
     List<ResistCategory> categories=aspect.getResistCategories();
@@ -397,6 +509,35 @@ public class EffectDisplay
       String complement=" with a maximum strength of "+strength;
       label=label+complement;
     }
-    System.out.println(label);
+    sb.append(label).append(EndOfLine.NATIVE_EOL);
+  }
+
+  private void showProcEffect(StringBuilder sb, Effect2 effect, ProcEffect aspect)
+  {
+    //Float cooldown=aspect.getCooldown();
+    Float probability=aspect.getProcProbability();
+    List<SkillType> skillTypes=aspect.getSkillTypes();
+    List<EffectGenerator> procedEffects=aspect.getProcedEffects();
+    StringBuilder childSb=new StringBuilder();
+    showEffectGenerators(childSb,procedEffects);
+    String descriptionOverride=effect.getDescriptionOverride();
+    if (descriptionOverride.isEmpty())
+    {
+      if (childSb.length()>0)
+      {
+        sb.append("On every ").append(skillTypes).append(" skill");
+        if (probability!=null)
+        {
+          int percent=(int)(probability.floatValue()*100);
+          sb.append(", ").append(percent).append("% chance to");
+        }
+        sb.append(EndOfLine.NATIVE_EOL);
+        sb.append(childSb);
+      }
+    }
+    else
+    {
+      sb.append(childSb);
+    }
   }
 }

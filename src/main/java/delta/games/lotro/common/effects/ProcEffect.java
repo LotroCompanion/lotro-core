@@ -112,4 +112,16 @@ public class ProcEffect implements EffectAspect
   {
     return _cooldown;
   }
+
+  @Override
+  public String resolveVariable(String variableName)
+  {
+    if ("PROCPROBABILITY".equals(variableName))
+    {
+      float procProbability=(_procProbability!=null)?_procProbability.floatValue():0;
+      int percent=(int)(procProbability*100);
+      return percent+"%";
+    }
+    return variableName;
+  }
 }

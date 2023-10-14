@@ -6,5 +6,13 @@ package delta.games.lotro.common.effects;
  */
 public interface EffectAspect
 {
-  // Nothing!
+  /**
+   * Resolve a variable defined by its name.
+   * @param variableName Name of the variable to resolve.
+   * @return A resolved value or <code>null</code> if not supported.
+   */
+  public default String resolveVariable(String variableName)
+  {
+    return null;
+  }
 }
