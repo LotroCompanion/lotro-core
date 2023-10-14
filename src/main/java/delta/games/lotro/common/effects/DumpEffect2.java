@@ -24,7 +24,7 @@ public class DumpEffect2
 
   /**
    * Constructor.
-   * @param is Output stram.
+   * @param is Output stream.
    */
   public DumpEffect2(IndentableStream is)
   {
@@ -54,7 +54,7 @@ public class DumpEffect2
       _is.println("Description override: "+descriptionOverride);
     }
     _is.incrementIndendationLevel();
-    EffectDuration duration=effect.getDuration();
+    EffectDuration duration=effect.getEffectDuration();
     String durationStr=duration.toString();
     if (durationStr.length()>0)
     {
@@ -62,62 +62,79 @@ public class DumpEffect2
     }
     ApplicationProbability probability=effect.getApplicationProbability();
     _is.println("Probability: "+probability);
-    for(EffectAspect aspect : effect.getAspects())
-    {
-      showAspect(aspect);
-    }
+    showSpecifics(effect);
     _is.decrementIndentationLevel();
   }
 
-  private void showAspect(EffectAspect aspect)
+  private void showSpecifics(Effect2 effect)
   {
-    System.out.println("Aspect class "+aspect.getClass().getSimpleName());
-    if (aspect instanceof ProcEffect)
+    if (effect.getClass()!=Effect2.class)
     {
-      showProcEffect((ProcEffect)aspect);
+      String className=effect.getClass().getSimpleName();
+      boolean doIt=true;
+      if ("PropertyModificationEffect".equals(className))
+      {
+        className="StatsEffect";
+        if (((PropertyModificationEffect)effect).getStatsProvider()==null)
+        {
+          doIt=false;
+        }
+      }
+      if (doIt)
+      {
+        System.out.println("Aspect class "+className);
+      }
     }
-    else if (aspect instanceof StatsEffect)
+    if (effect instanceof ProcEffect)
     {
-      showStatEffect((StatsEffect)aspect);
+      showProcEffect((ProcEffect)effect);
     }
-    else if (aspect instanceof InstantVitalEffect)
+    else if (effect instanceof PropertyModificationEffect)
     {
-      showInstantVitalEffect((InstantVitalEffect)aspect);
+      showPropertyModificationEffect((PropertyModificationEffect)effect);
     }
-    else if (aspect instanceof VitalOverTimeEffect)
+    else if (effect instanceof InstantVitalEffect)
     {
-      showVitalOverTimeEffect((VitalOverTimeEffect)aspect);
+      showInstantVitalEffect((InstantVitalEffect)effect);
     }
-    else if (aspect instanceof InstantFellowshipEffect)
+    else if (effect instanceof VitalOverTimeEffect)
     {
-      showInstantFellowshipEffect((InstantFellowshipEffect)aspect);
+      showVitalOverTimeEffect((VitalOverTimeEffect)effect);
     }
-    else if (aspect instanceof ReactiveVitalEffect)
+    else if (effect instanceof InstantFellowshipEffect)
     {
-      showReactiveVitalEffect((ReactiveVitalEffect)aspect);
+      showInstantFellowshipEffect((InstantFellowshipEffect)effect);
     }
-    else if (aspect instanceof GenesisEffect)
+    else if (effect instanceof ReactiveVitalEffect)
     {
-      showGenesisEffect((GenesisEffect)aspect);
+      showReactiveVitalEffect((ReactiveVitalEffect)effect);
     }
-    else if (aspect instanceof InduceCombatStateEffect)
+    else if (effect instanceof GenesisEffect)
     {
-      showInduceCombatStateEffect((InduceCombatStateEffect)aspect);
+      showGenesisEffect((GenesisEffect)effect);
     }
-    else if (aspect instanceof DispelByResistEffect)
+    else if (effect instanceof InduceCombatStateEffect)
     {
-      showDispelByResistEffect((DispelByResistEffect)aspect);
+      showInduceCombatStateEffect((InduceCombatStateEffect)effect);
+    }
+    else if (effect instanceof DispelByResistEffect)
+    {
+      showDispelByResistEffect((DispelByResistEffect)effect);
     }
   }
 
-  private void showStatEffect(StatsEffect statsEffect)
+  private void showPropertyModificationEffect(PropertyModificationEffect statsEffect)
   {
     StatsProvider statsProvider=statsEffect.getStatsProvider();
-    _is.println("Stats: "+statsProvider);
+    if (statsProvider!=null)
+    {
+      _is.println("Stats: "+statsProvider);
+    }
   }
 
   private void showProcEffect(ProcEffect procEffect)
   {
+    showPropertyModificationEffect(procEffect);
     List<SkillType> skillTypes=procEffect.getSkillTypes();
     _is.println("Proc: skillTypes="+skillTypes);
     Float probability=procEffect.getProcProbability();
@@ -134,35 +151,35 @@ public class DumpEffect2
     showGenerators("Proc'ed effects:", procedEffects);
   }
 
-  private void showInstantVitalEffect(InstantVitalEffect aspect)
+  private void showInstantVitalEffect(InstantVitalEffect effect)
   {
-    StatDescription stat=aspect.getStat();
+    StatDescription stat=effect.getStat();
     _is.println("Vital instant change: "+stat.getName());
-    if (aspect.isMultiplicative())
+    if (effect.isMultiplicative())
     {
       _is.println("Multiplicative");
     }
     // Instant change
     _is.println("Instant change:");
-    dumpVitalChangeDescription(aspect.getInstantChangeDescription());
+    dumpVitalChangeDescription(effect.getInstantChangeDescription());
   }
 
-  private void showVitalOverTimeEffect(VitalOverTimeEffect aspect)
+  private void showVitalOverTimeEffect(VitalOverTimeEffect effect)
   {
-    StatDescription stat=aspect.getStat();
+    StatDescription stat=effect.getStat();
     _is.println("Vital over-time change: "+stat.getName());
     // Damage type
-    DamageType damageType=aspect.getDamageType();
+    DamageType damageType=effect.getDamageType();
     if (damageType!=null)
     {
       _is.println("Damage type: "+damageType.getLabel());
     }
     // Initial change:
     _is.println("Initial change:");
-    dumpVitalChangeDescription(aspect.getInitialChangeDescription());
+    dumpVitalChangeDescription(effect.getInitialChangeDescription());
     // Over-time change:
     _is.println("Over-time change:");
-    dumpVitalChangeDescription(aspect.getOverTimeChangeDescription());
+    dumpVitalChangeDescription(effect.getOverTimeChangeDescription());
   }
 
   private void dumpVitalChangeDescription(VitalChangeDescription description)
@@ -196,47 +213,47 @@ public class DumpEffect2
     _is.decrementIndentationLevel();
   }
 
-  private void showInstantFellowshipEffect(InstantFellowshipEffect aspect)
+  private void showInstantFellowshipEffect(InstantFellowshipEffect effect)
   {
     _is.println("Fellowship effect:");
-    showGenerators("Proc'ed effects:", aspect.getEffects());
-    boolean applyToRaidGroups=aspect.appliesToRaidGroups();
+    showGenerators("Proc'ed effects:", effect.getEffects());
+    boolean applyToRaidGroups=effect.appliesToRaidGroups();
     if (applyToRaidGroups)
     {
       _is.println("Apply to raid groups");
     }
-    boolean applyToPets=aspect.appliesToPets();
+    boolean applyToPets=effect.appliesToPets();
     if (applyToPets)
     {
       _is.println("Apply to pets");
     }
-    boolean applyToTarget=aspect.appliesToTarget();
+    boolean applyToTarget=effect.appliesToTarget();
     if (applyToTarget)
     {
       _is.println("Apply to target");
     }
-    Float range=aspect.getRange();
+    Float range=effect.getRange();
     if (range!=null)
     {
       _is.println("Range: "+range+"m");
     }
   }
 
-  private void showReactiveVitalEffect(ReactiveVitalEffect aspect)
+  private void showReactiveVitalEffect(ReactiveVitalEffect effect)
   {
     _is.println("Reactive vital effect:");
-    List<DamageType> damageTypes=aspect.getDamageTypes();
+    List<DamageType> damageTypes=effect.getDamageTypes();
     _is.println("Damage types: "+damageTypes);
-    DamageType override=aspect.getAttackerDamageTypeOverride();
+    DamageType override=effect.getAttackerDamageTypeOverride();
     if (override!=null)
     {
       _is.println("Damage override: "+override);
     }
-    dumpReactiveVitalChange("Attacker vital change:",aspect.getAttackerVitalChange());
-    dumpEffectAndProbability("Attacker effect: ",aspect.getAttackerEffect());
-    dumpReactiveVitalChange("Defender vital change:",aspect.getDefenderVitalChange());
-    dumpEffectAndProbability("Defender effect: ",aspect.getDefenderEffect());
-    boolean removeOnProc=aspect.isRemoveOnProc();
+    dumpReactiveVitalChange("Attacker vital change:",effect.getAttackerVitalChange());
+    dumpEffectAndProbability("Attacker effect: ",effect.getAttackerEffect());
+    dumpReactiveVitalChange("Defender vital change:",effect.getDefenderVitalChange());
+    dumpEffectAndProbability("Defender effect: ",effect.getDefenderEffect());
+    boolean removeOnProc=effect.isRemoveOnProc();
     if (removeOnProc)
     {
       _is.println("Removed on proc");
@@ -289,18 +306,18 @@ public class DumpEffect2
     _is.decrementIndentationLevel();
   }
 
-  private void showGenesisEffect(GenesisEffect aspect)
+  private void showGenesisEffect(GenesisEffect effect)
   {
-    boolean permanent=aspect.isPermanent();
+    boolean permanent=effect.isPermanent();
     if (permanent)
     {
       _is.println("Permanent");
     }
     else
     {
-      _is.println("Duration: "+Duration.getDurationString((int)aspect.getDuration()));
+      _is.println("Duration: "+Duration.getDurationString((int)effect.getDuration()));
     }
-    Hotspot hotspot=aspect.getHotspot();
+    Hotspot hotspot=effect.getHotspot();
     if (hotspot!=null)
     {
       int hotspotID=hotspot.getIdentifier();
@@ -308,7 +325,7 @@ public class DumpEffect2
       _is.println("Summoned hotspot ID="+hotspotID+": "+name);
       showGenerators("Hotspot effects:", hotspot.getEffects());
     }
-    Interactable interactable=aspect.getInteractable();
+    Interactable interactable=effect.getInteractable();
     if (interactable!=null)
     {
       int id=interactable.getIdentifier();
@@ -317,32 +334,32 @@ public class DumpEffect2
     }
   }
 
-  private void showInduceCombatStateEffect(InduceCombatStateEffect aspect)
+  private void showInduceCombatStateEffect(InduceCombatStateEffect effect)
   {
-    CombatState state=aspect.getCombatState();
+    CombatState state=effect.getCombatState();
     _is.println("Combat state:" +state);
-    LinearFunction function=aspect.getDurationFunction();
+    LinearFunction function=effect.getDurationFunction();
     if (function!=null)
     {
       _is.println("Duration: "+function);
     }
     else
     {
-      float duration=aspect.getDuration();
+      float duration=effect.getDuration();
       _is.println("Duration: "+duration);
     }
   }
 
-  private void showDispelByResistEffect(DispelByResistEffect aspect)
+  private void showDispelByResistEffect(DispelByResistEffect effect)
   {
-    int dispelCount=aspect.getMaxDispelCount();
+    int dispelCount=effect.getMaxDispelCount();
     _is.println("Max dispel count: "+((dispelCount>0)?String.valueOf(dispelCount):"all"));
-    List<ResistCategory> categories=aspect.getResistCategories();
+    List<ResistCategory> categories=effect.getResistCategories();
     _is.println("Resist categories: "+categories);
-    if (aspect.useStrengthRestriction())
+    if (effect.useStrengthRestriction())
     {
       _is.println("Use strength restriction.");
-      Integer offset=aspect.getStrengthOffset();
+      Integer offset=effect.getStrengthOffset();
       if (offset!=null)
       {
         _is.println("Strength offset: "+offset);

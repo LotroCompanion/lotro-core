@@ -6,7 +6,7 @@ import delta.games.lotro.common.stats.StatsProvider;
  * Effects that gives stats.
  * @author DAM
  */
-public class StatsEffect implements EffectAspect
+public class PropertyModificationEffect extends Effect2
 {
   // From Mod_Array:
   private StatsProvider _statsProvider;

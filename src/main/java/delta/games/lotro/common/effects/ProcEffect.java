@@ -9,7 +9,7 @@ import delta.games.lotro.common.enums.SkillType;
  * Effect that has a chance to trigger other effects.
  * @author DAM
  */
-public class ProcEffect implements EffectAspect
+public class ProcEffect extends PropertyModificationEffect
 {
   // Class 3686
   /**
@@ -34,6 +34,7 @@ public class ProcEffect implements EffectAspect
    */
   public ProcEffect()
   {
+    super();
     _skillTypes=new ArrayList<SkillType>();
     _procProbability=null;
     _procedEffects=new ArrayList<EffectGenerator>();

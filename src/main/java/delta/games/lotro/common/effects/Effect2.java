@@ -1,8 +1,5 @@
 package delta.games.lotro.common.effects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 
@@ -24,8 +21,6 @@ public class Effect2 implements Identifiable,Named
   //private EffectCriticalChance _critChance;
   // Icon
   private Integer _iconId;
-  // Aspects
-  private List<EffectAspect> _aspects;
 
   /**
    * Constructor.
@@ -35,7 +30,6 @@ public class Effect2 implements Identifiable,Named
     _description="";
     _descriptionOverride="";
     _appliedDescription="";
-    _aspects=new ArrayList<EffectAspect>();
   }
 
   /**
@@ -162,7 +156,7 @@ public class Effect2 implements Identifiable,Named
    * Get the effect duration.
    * @return the effect duration.
    */
-  public EffectDuration getDuration()
+  public EffectDuration getEffectDuration()
   {
     return _duration;
   }
@@ -171,7 +165,7 @@ public class Effect2 implements Identifiable,Named
    * Set the effect duration.
    * @param duration Duration to set.
    */
-  public void setDuration(EffectDuration duration)
+  public void setEffectDuration(EffectDuration duration)
   {
     _duration=duration;
   }
@@ -195,21 +189,13 @@ public class Effect2 implements Identifiable,Named
   }
 
   /**
-   * Add an aspect.
-   * @param aspect Aspect to add.
+   * Resolve a variable defined by its name.
+   * @param variableName Name of the variable to resolve.
+   * @return A resolved value or <code>null</code> if not supported.
    */
-  public void addAspect(EffectAspect aspect)
+  public String resolveVariable(String variableName)
   {
-    _aspects.add(aspect);
-  }
-
-  /**
-   * Get the aspects.
-   * @return a list of aspects.
-   */
-  public List<EffectAspect> getAspects()
-  {
-    return _aspects;
+    return null;
   }
 
   @Override

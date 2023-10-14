@@ -9,7 +9,7 @@ import delta.games.lotro.common.enums.ResistCategory;
  * "Dispel by Resist" effect.
  * @author DAM
  */
-public class DispelByResistEffect implements EffectAspect
+public class DispelByResistEffect extends Effect2
 {
   private int _maxDispelCount;
   private List<ResistCategory> _resistCategories;
@@ -21,6 +21,7 @@ public class DispelByResistEffect implements EffectAspect
    */
   public DispelByResistEffect()
   {
+    super();
     _maxDispelCount=-1;
     _resistCategories=new ArrayList<ResistCategory>();
     _useStrengthRestriction=false;

@@ -4,7 +4,7 @@ package delta.games.lotro.common.effects;
  * Effect to grant a trait.
  * @author DAM
  */
-public class GrantTraitEffect implements EffectAspect
+public class GrantTraitEffect extends Effect2
 {
   private int _grantedTraitID;
 
@@ -14,6 +14,7 @@ public class GrantTraitEffect implements EffectAspect
    */
   public GrantTraitEffect(int grantedTraitID)
   {
+    super();
     _grantedTraitID=grantedTraitID;
   }
 

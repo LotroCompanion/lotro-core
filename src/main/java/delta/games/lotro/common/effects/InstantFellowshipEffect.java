@@ -7,7 +7,7 @@ import java.util.List;
  * Instant fellowship effect.
  * @author DAM
  */
-public class InstantFellowshipEffect implements EffectAspect
+public class InstantFellowshipEffect extends Effect2
 {
   private List<EffectGenerator> _effects;
   private boolean _applyToRaidGroups;
@@ -20,6 +20,7 @@ public class InstantFellowshipEffect implements EffectAspect
    */
   public InstantFellowshipEffect()
   {
+    super();
     _effects=new ArrayList<EffectGenerator>();
     _applyToRaidGroups=false;
     _applyToPets=true;

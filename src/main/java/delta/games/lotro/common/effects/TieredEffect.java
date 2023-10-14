@@ -7,7 +7,7 @@ import java.util.List;
  * Tiered effect.
  * @author DAM
  */
-public class TieredEffect implements EffectAspect
+public class TieredEffect extends Effect2
 {
   //(see DNT - Burning Embers Tierup)
   // From Effect_TierUp_EffectList:

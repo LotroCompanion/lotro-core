@@ -6,7 +6,7 @@ import delta.games.lotro.common.Interactable;
  * Genesis effect.
  * @author DAM
  */
-public class GenesisEffect implements EffectAspect
+public class GenesisEffect extends Effect2
 {
   // Effect_Genesis_ConstantSummonDuration: 20.0
   // Effect_Genesis_PermanentSummonDuration: 0
@@ -25,6 +25,7 @@ public class GenesisEffect implements EffectAspect
    */
   public GenesisEffect()
   {
+    super();
     _hotspot=null;
     _interactable=null;
   }

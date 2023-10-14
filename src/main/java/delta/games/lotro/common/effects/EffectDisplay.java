@@ -59,13 +59,10 @@ public class EffectDisplay
     {
       sb.append(description).append(EndOfLine.NATIVE_EOL);
     }
-    for(EffectAspect aspect : effect.getAspects())
-    {
-      displayAspect(sb,effect,aspect);
-    }
+    displaySpecifics(sb,effect);
     if (!_durationDisplayed)
     {
-      EffectDuration effectDuration=effect.getDuration();
+      EffectDuration effectDuration=effect.getEffectDuration();
       if (effectDuration!=null)
       {
         Float duration=effectDuration.getDuration();
@@ -95,54 +92,51 @@ public class EffectDisplay
 
   private String resolveVariable(Effect2 effect, String variableName)
   {
-    for(EffectAspect aspect : effect.getAspects())
+    String ret=effect.resolveVariable(variableName);
+    if (ret!=null)
     {
-      String ret=aspect.resolveVariable(variableName);
-      if (ret!=null)
-      {
-        return ret;
-      }
+      return ret;
     }
     return variableName;
   }
 
-  private void displayAspect(StringBuilder sb, Effect2 effect, EffectAspect aspect)
+  private void displaySpecifics(StringBuilder sb, Effect2 effect)
   {
-    if (aspect instanceof InstantVitalEffect)
+    if (effect instanceof InstantVitalEffect)
     {
-      showInstantVitalEffect(sb,(InstantVitalEffect)aspect);
+      showInstantVitalEffect(sb,(InstantVitalEffect)effect);
     }
-    else if (aspect instanceof StatsEffect)
+    else if (effect instanceof ProcEffect)
     {
-      showStatsEffect(sb,(StatsEffect)aspect);
+      showProcEffect(sb,(ProcEffect)effect);
     }
-    else if (aspect instanceof ReactiveVitalEffect)
+    else if (effect instanceof PropertyModificationEffect)
     {
-      showReactiveVitalEffect(sb,(ReactiveVitalEffect)aspect);
+      showPropertyModificationEffect(sb,(PropertyModificationEffect)effect);
     }
-    else if (aspect instanceof InstantFellowshipEffect)
+    else if (effect instanceof ReactiveVitalEffect)
     {
-      showInstantFellowshipEffect(sb,(InstantFellowshipEffect)aspect);
+      showReactiveVitalEffect(sb,(ReactiveVitalEffect)effect);
     }
-    else if (aspect instanceof GenesisEffect)
+    else if (effect instanceof InstantFellowshipEffect)
     {
-      showGenesisEffect(sb,(GenesisEffect)aspect);
+      showInstantFellowshipEffect(sb,(InstantFellowshipEffect)effect);
     }
-    else if (aspect instanceof VitalOverTimeEffect)
+    else if (effect instanceof GenesisEffect)
     {
-      showVitalOverTimeEffect(sb,effect,(VitalOverTimeEffect)aspect);
+      showGenesisEffect(sb,(GenesisEffect)effect);
     }
-    else if (aspect instanceof InduceCombatStateEffect)
+    else if (effect instanceof VitalOverTimeEffect)
     {
-      showInduceCombatStateEffect(sb,(InduceCombatStateEffect)aspect);
+      showVitalOverTimeEffect(sb,(VitalOverTimeEffect)effect);
     }
-    else if (aspect instanceof DispelByResistEffect)
+    else if (effect instanceof InduceCombatStateEffect)
     {
-      showDispelByResistEffect(sb,(DispelByResistEffect)aspect);
+      showInduceCombatStateEffect(sb,(InduceCombatStateEffect)effect);
     }
-    else if (aspect instanceof ProcEffect)
+    else if (effect instanceof DispelByResistEffect)
     {
-      showProcEffect(sb,effect,(ProcEffect)aspect);
+      showDispelByResistEffect(sb,(DispelByResistEffect)effect);
     }
   }
 
@@ -163,7 +157,7 @@ public class EffectDisplay
       {
         if ((minMax[0]<0) && isMorale)
         {
-          sb.append("Apply to the target(s)").append(EndOfLine.NATIVE_EOL);
+          //sb.append("Apply to the target(s)").append(EndOfLine.NATIVE_EOL);
           sb.append(-minMax[0]).append(" Damage").append(EndOfLine.NATIVE_EOL);
         }
         else
@@ -176,7 +170,7 @@ public class EffectDisplay
       {
         if ((minMax[0]<0) && (minMax[1]<0) && isMorale)
         {
-          sb.append("Apply to the target(s)").append(EndOfLine.NATIVE_EOL);
+          //sb.append("Apply to the target(s)").append(EndOfLine.NATIVE_EOL);
           sb.append(-minMax[0]).append(" - ").append(-minMax[1]).append(" Damage").append(EndOfLine.NATIVE_EOL);
         }
         else
@@ -260,9 +254,13 @@ public class EffectDisplay
     return new int[] {0,0};
   }
 
-  private void showStatsEffect(StringBuilder sb, StatsEffect effect)
+  private void showPropertyModificationEffect(StringBuilder sb, PropertyModificationEffect effect)
   {
     StatsProvider provider=effect.getStatsProvider();
+    if (provider==null)
+    {
+      return;
+    }
     BasicStatsSet stats=provider.getStats(1,_level);
     String[] lines=StatUtils.getStatsDisplayLines(stats);
     for(String line : lines)
@@ -271,14 +269,14 @@ public class EffectDisplay
     }
   }
 
-  private void showReactiveVitalEffect(StringBuilder sb, ReactiveVitalEffect aspect)
+  private void showReactiveVitalEffect(StringBuilder sb, ReactiveVitalEffect effect)
   {
     // Defender
-    ReactiveVitalChange defender=aspect.getDefenderVitalChange();
+    ReactiveVitalChange defender=effect.getDefenderVitalChange();
     if (defender!=null)
     {
       Float value=getValue(defender);
-      List<DamageType> damageTypes=aspect.getDamageTypes();
+      List<DamageType> damageTypes=effect.getDamageTypes();
       float probability=defender.getProbability();
       boolean multiplicative=defender.isMultiplicative();
       int percentage=(int)(probability*100);
@@ -311,24 +309,23 @@ public class EffectDisplay
         }
       }
     }
-    EffectAndProbability defenderEffect=aspect.getDefenderEffect();
+    EffectAndProbability defenderEffect=effect.getDefenderEffect();
     if (defenderEffect!=null)
     {
-      List<DamageType> damageTypes=aspect.getDamageTypes();
+      List<DamageType> damageTypes=effect.getDamageTypes();
       // TODO Handle case where damageTypes is [ALL]
       sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
       float probability=defenderEffect.getProbability();
       int percentage=(int)(probability*100);
-      Effect2 effect=defenderEffect.getEffect();
       sb.append(percentage).append("% chance to Receive effect:").append(EndOfLine.NATIVE_EOL);
-      displayEffect(sb,effect);
+      displayEffect(sb,defenderEffect.getEffect());
     }
     // Attacker
-    ReactiveVitalChange attacker=aspect.getAttackerVitalChange();
+    ReactiveVitalChange attacker=effect.getAttackerVitalChange();
     if (attacker!=null)
     {
       Float value=getValue(attacker);
-      List<DamageType> damageTypes=aspect.getDamageTypes();
+      List<DamageType> damageTypes=effect.getDamageTypes();
       // TODO Handle case where damageTypes is [ALL]
       sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
       float probability=attacker.getProbability();
@@ -360,25 +357,24 @@ public class EffectDisplay
         }
       }
     }
-    EffectAndProbability attackerEffect=aspect.getAttackerEffect();
+    EffectAndProbability attackerEffect=effect.getAttackerEffect();
     if (attackerEffect!=null)
     {
-      List<DamageType> damageTypes=aspect.getDamageTypes();
+      List<DamageType> damageTypes=effect.getDamageTypes();
       // TODO Handle case where damageTypes is [ALL]
       sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
       float probability=attackerEffect.getProbability();
       int percentage=(int)(probability*100);
-      Effect2 effect=attackerEffect.getEffect();
       sb.append(percentage).append("% chance to Reflect effect:").append(EndOfLine.NATIVE_EOL);
-      displayEffect(sb,effect);
+      displayEffect(sb,attackerEffect.getEffect());
     }
   }
 
-  private void showInstantFellowshipEffect(StringBuilder sb, InstantFellowshipEffect aspect)
+  private void showInstantFellowshipEffect(StringBuilder sb, InstantFellowshipEffect effect)
   {
-    Float range=aspect.getRange();
-    List<EffectGenerator> effects=aspect.getEffects();
-    //boolean appliesToTarget=aspect.appliesToTarget();
+    Float range=effect.getRange();
+    List<EffectGenerator> effects=effect.getEffects();
+    //boolean appliesToTarget=effect.appliesToTarget();
     int rangeInt=(int)range.floatValue();
     sb.append("Effects applied to the Fellowship within ").append(rangeInt).append(" metres:").append(EndOfLine.NATIVE_EOL);
     showEffectGenerators(sb,effects);
@@ -405,21 +401,21 @@ public class EffectDisplay
     _level=levelBackup;
   }
 
-  private void showGenesisEffect(StringBuilder sb, GenesisEffect aspect)
+  private void showGenesisEffect(StringBuilder sb, GenesisEffect effect)
   {
-    boolean permanent=aspect.isPermanent();
+    boolean permanent=effect.isPermanent();
     if (permanent)
     {
       sb.append("Permanent").append(EndOfLine.NATIVE_EOL);
     }
     else
     {
-      float duration=aspect.getDuration();
+      float duration=effect.getDuration();
       String durationStr=Duration.getDurationString((int)duration);
       sb.append("Duration: ").append(durationStr).append(EndOfLine.NATIVE_EOL);
     }
     _durationDisplayed=true;
-    Hotspot hotspot=aspect.getHotspot();
+    Hotspot hotspot=effect.getHotspot();
     if (hotspot!=null)
     {
       showEffectGenerators(sb,hotspot.getEffects());
@@ -427,19 +423,19 @@ public class EffectDisplay
     // TODO Interactable
   }
 
-  private void showVitalOverTimeEffect(StringBuilder sb, Effect2 effect, VitalOverTimeEffect aspect)
+  private void showVitalOverTimeEffect(StringBuilder sb, VitalOverTimeEffect effect)
   {
-    VitalChangeDescription initialChange=aspect.getInitialChangeDescription();
+    VitalChangeDescription initialChange=effect.getInitialChangeDescription();
     Float initialValue=getValue(initialChange);
-    VitalChangeDescription overTimeChange=aspect.getOverTimeChangeDescription();
+    VitalChangeDescription overTimeChange=effect.getOverTimeChangeDescription();
     Float overTimeValue=getValue(overTimeChange);
-    StatDescription stat=aspect.getStat();
-    EffectDuration duration=effect.getDuration();
+    StatDescription stat=effect.getStat();
+    EffectDuration duration=effect.getEffectDuration();
     int pulseCount=duration.getPulseCount();
     Float interval=duration.getDuration();
     float totalDuration=interval.floatValue()*pulseCount;
     String overtime=" every "+interval+" seconds for "+(int)totalDuration+" seconds.";
-    DamageType damageType=aspect.getDamageType();
+    DamageType damageType=effect.getDamageType();
     if (damageType!=null)
     {
       // Damage computation is wrong now (values do depend on character stats=>tactical mastery % ?)
@@ -465,10 +461,10 @@ public class EffectDisplay
     _durationDisplayed=true;
   }
 
-  private void showInduceCombatStateEffect(StringBuilder sb, InduceCombatStateEffect aspect)
+  private void showInduceCombatStateEffect(StringBuilder sb, InduceCombatStateEffect effect)
   {
-    float duration=aspect.getDuration();
-    LinearFunction durationFunction=aspect.getDurationFunction();
+    float duration=effect.getDuration();
+    LinearFunction durationFunction=effect.getDurationFunction();
     if (durationFunction!=null)
     {
       Float computedDuration=durationFunction.getValue(_level);
@@ -477,7 +473,7 @@ public class EffectDisplay
         duration=computedDuration.floatValue();
       }
     }
-    CombatState state=aspect.getCombatState();
+    CombatState state=effect.getCombatState();
     String stateStr=getStateLabel(state);
     sb.append(duration).append("s ").append(stateStr).append(EndOfLine.NATIVE_EOL);
   }
@@ -493,17 +489,17 @@ public class EffectDisplay
     return state.getLabel();
   }
 
-  private void showDispelByResistEffect(StringBuilder sb, DispelByResistEffect aspect)
+  private void showDispelByResistEffect(StringBuilder sb, DispelByResistEffect effect)
   {
-    int count=aspect.getMaxDispelCount();
-    List<ResistCategory> categories=aspect.getResistCategories();
-    boolean useStrengthRestriction=aspect.useStrengthRestriction();
+    int count=effect.getMaxDispelCount();
+    List<ResistCategory> categories=effect.getResistCategories();
+    boolean useStrengthRestriction=effect.useStrengthRestriction();
     String effects=((count<0) || (count>1))?"effects":"effect"; 
     String label="Removes "+((count<0)?"all":"up to "+count)+" "+categories+" "+effects;
     if (useStrengthRestriction)
     {
       // TODO Use raw spellcraft if any
-      Integer strengthOffset=aspect.getStrengthOffset();
+      Integer strengthOffset=effect.getStrengthOffset();
       int delta=(strengthOffset!=null)?strengthOffset.intValue():4;
       int strength=_level+delta;
       String complement=" with a maximum strength of "+strength;
@@ -512,12 +508,13 @@ public class EffectDisplay
     sb.append(label).append(EndOfLine.NATIVE_EOL);
   }
 
-  private void showProcEffect(StringBuilder sb, Effect2 effect, ProcEffect aspect)
+  private void showProcEffect(StringBuilder sb, ProcEffect effect)
   {
-    //Float cooldown=aspect.getCooldown();
-    Float probability=aspect.getProcProbability();
-    List<SkillType> skillTypes=aspect.getSkillTypes();
-    List<EffectGenerator> procedEffects=aspect.getProcedEffects();
+    showPropertyModificationEffect(sb,effect);
+    //Float cooldown=effect.getCooldown();
+    Float probability=effect.getProcProbability();
+    List<SkillType> skillTypes=effect.getSkillTypes();
+    List<EffectGenerator> procedEffects=effect.getProcedEffects();
     StringBuilder childSb=new StringBuilder();
     showEffectGenerators(childSb,procedEffects);
     String descriptionOverride=effect.getDescriptionOverride();

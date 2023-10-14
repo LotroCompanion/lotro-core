@@ -324,6 +324,6 @@ public class ItemsSet implements Identifiable
   @Override
   public String toString()
   {
-    return _name;
+    return _id+": "+_name+" ("+_setLevel+")";
   }
 }
