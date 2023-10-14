@@ -9,7 +9,7 @@ import delta.games.lotro.lore.items.DamageType;
  * Reactive vital effect.
  * @author DAM
  */
-public class ReactiveVitalEffect extends Effect2
+public class ReactiveVitalEffect extends PropertyModificationEffect
 {
   // Incoming damage types
   private List<DamageType> _damageTypes;

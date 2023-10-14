@@ -110,13 +110,13 @@ public class EffectDisplay
     {
       showProcEffect(sb,(ProcEffect)effect);
     }
-    else if (effect instanceof PropertyModificationEffect)
-    {
-      showPropertyModificationEffect(sb,(PropertyModificationEffect)effect);
-    }
     else if (effect instanceof ReactiveVitalEffect)
     {
       showReactiveVitalEffect(sb,(ReactiveVitalEffect)effect);
+    }
+    else if (effect instanceof PropertyModificationEffect)
+    {
+      showPropertyModificationEffect(sb,(PropertyModificationEffect)effect);
     }
     else if (effect instanceof InstantFellowshipEffect)
     {
@@ -271,6 +271,7 @@ public class EffectDisplay
 
   private void showReactiveVitalEffect(StringBuilder sb, ReactiveVitalEffect effect)
   {
+    showPropertyModificationEffect(sb,effect);
     // Defender
     ReactiveVitalChange defender=effect.getDefenderVitalChange();
     if (defender!=null)

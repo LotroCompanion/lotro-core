@@ -89,6 +89,10 @@ public class DumpEffect2
     {
       showProcEffect((ProcEffect)effect);
     }
+    else if (effect instanceof ReactiveVitalEffect)
+    {
+      showReactiveVitalEffect((ReactiveVitalEffect)effect);
+    }
     else if (effect instanceof PropertyModificationEffect)
     {
       showPropertyModificationEffect((PropertyModificationEffect)effect);
@@ -104,10 +108,6 @@ public class DumpEffect2
     else if (effect instanceof InstantFellowshipEffect)
     {
       showInstantFellowshipEffect((InstantFellowshipEffect)effect);
-    }
-    else if (effect instanceof ReactiveVitalEffect)
-    {
-      showReactiveVitalEffect((ReactiveVitalEffect)effect);
     }
     else if (effect instanceof GenesisEffect)
     {
@@ -241,6 +241,7 @@ public class DumpEffect2
 
   private void showReactiveVitalEffect(ReactiveVitalEffect effect)
   {
+    showPropertyModificationEffect(effect);
     _is.println("Reactive vital effect:");
     List<DamageType> damageTypes=effect.getDamageTypes();
     _is.println("Damage types: "+damageTypes);
