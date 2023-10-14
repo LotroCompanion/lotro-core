@@ -8,6 +8,8 @@ import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.ItemEffectsManager;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.money.Money;
@@ -78,6 +80,8 @@ public class Item implements Interactable,ItemProvider
   private Munging _munging;
   // Other details
   private ItemDetailsManager _details;
+  // Effects
+  private ItemEffectsManager _effects;
 
   /**
    * Constructor.
@@ -107,6 +111,7 @@ public class Item implements Interactable,ItemProvider
     _quality=null;
     _munging=null;
     _details=null;
+    _effects=null;
   }
 
   @Override
@@ -740,12 +745,12 @@ public class Item implements Interactable,ItemProvider
   }
 
   /**
-   * Set the item details manager.
-   * @param details Details to set.
+   * Get the effects manager.
+   * @return an effects manager or <code>null</code> if no effects.
    */
-  public void setDetails(ItemDetailsManager details)
+  public ItemEffectsManager getEffects()
   {
-    _details=details;
+    return _effects;
   }
 
   /**
@@ -883,8 +888,25 @@ public class Item implements Interactable,ItemProvider
     if (mgr==null)
     {
       mgr=new ItemDetailsManager();
-      item.setDetails(mgr);
+      item._details=mgr;
     }
     mgr.addItemDetail(detail);
+  }
+
+  /**
+   * Add an effect to the given item.
+   * @param item Item to use.
+   * @param type Use case.
+   * @param effect Effect to add.
+   */
+  public static void addEffect(Item item, ItemEffectsManager.Type type, EffectGenerator effect)
+  {
+    ItemEffectsManager mgr=item.getEffects();
+    if (mgr==null)
+    {
+      mgr=new ItemEffectsManager();
+      item._effects=mgr;
+    }
+    mgr.addEffect(type,effect);
   }
 }
