@@ -30,6 +30,10 @@ public class SkillDescription implements Identifiable,Named
    * Category.
    */
   private SkillCategory _category;
+  /**
+   * Effects.
+   */
+  private SkillEffectsManager _effects;
 
   /**
    * Constructor.
@@ -135,9 +139,34 @@ public class SkillDescription implements Identifiable,Named
     _category=category;
   }
 
+  /**
+   * Get the effects manager.
+   * @return an effects manager or <code>null</code> if no effects.
+   */
+  public SkillEffectsManager getEffects()
+  {
+    return _effects;
+  }
+
   @Override
   public String toString()
   {
     return "Skill ID="+_identifier+", name="+_name;
+  }
+
+  /**
+   * Add an effect to the given skill.
+   * @param skill Skill to use.
+   * @param effect Effect to add.
+   */
+  public static void addEffect(SkillDescription skill, SkillEffectGenerator effect)
+  {
+    SkillEffectsManager mgr=skill.getEffects();
+    if (mgr==null)
+    {
+      mgr=new SkillEffectsManager();
+      skill._effects=mgr;
+    }
+    mgr.addEffect(effect);
   }
 }

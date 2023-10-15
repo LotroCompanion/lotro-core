@@ -9,6 +9,7 @@ import java.util.Set;
 import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
 import delta.games.lotro.lore.items.effects.GenericItemEffects;
@@ -78,5 +79,27 @@ public class ItemUtils
     List<Genus> ret=new ArrayList<Genus>(genus);
     Collections.sort(ret,new LotroEnumEntryNameComparator<Genus>());
     return ret;
+  }
+
+  /**
+   * Get the sole detail of the given class for the given item.
+   * @param <T> Type of detail to get.
+   * @param item Item to use.
+   * @param detailClass Class of detail to get.
+   * @return A detail or <code>null</code> if none.
+   */
+  public static <T extends ItemDetail> T getDetail(Item item, Class<T> detailClass)
+  {
+    ItemDetailsManager detailsMgr=item.getDetails();
+    if (detailsMgr==null)
+    {
+      return null;
+    }
+    List<T> details=detailsMgr.getItemDetails(detailClass);
+    if (details.isEmpty())
+    {
+      return null;
+    }
+    return details.get(0);
   }
 }

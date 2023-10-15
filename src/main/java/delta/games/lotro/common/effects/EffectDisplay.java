@@ -495,7 +495,8 @@ public class EffectDisplay
     int count=effect.getMaxDispelCount();
     List<ResistCategory> categories=effect.getResistCategories();
     boolean useStrengthRestriction=effect.useStrengthRestriction();
-    String effects=((count<0) || (count>1))?"effects":"effect"; 
+    String effects=((count<0) || (count>1))?"effects":"effect";
+    // TODO Format categories list
     String label="Removes "+((count<0)?"all":"up to "+count)+" "+categories+" "+effects;
     if (useStrengthRestriction)
     {
