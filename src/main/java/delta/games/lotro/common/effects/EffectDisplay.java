@@ -475,7 +475,11 @@ public class EffectDisplay
       }
     }
     CombatState state=effect.getCombatState();
-    String stateStr=getStateLabel(state);
+    String stateStr="?";
+    if (state!=null)
+    {
+      stateStr=getStateLabel(state);
+    }
     sb.append(duration).append("s ").append(stateStr).append(EndOfLine.NATIVE_EOL);
   }
 
