@@ -9,7 +9,6 @@ import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.EffectGenerator;
-import delta.games.lotro.common.effects.ItemEffectsManager;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.money.Money;

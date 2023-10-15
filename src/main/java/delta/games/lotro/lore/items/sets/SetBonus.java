@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.items.sets;
 
+import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
@@ -10,6 +11,7 @@ public class SetBonus
 {
   private int _piecesCount;
   private StatsProvider _stats;
+  private ItemSetEffectsManager _effects;
 
   /**
    * Constructor.
@@ -51,5 +53,27 @@ public class SetBonus
   public String toString()
   {
     return _piecesCount+": "+_stats;
+  }
+
+  /**
+   * Get the effects manager.
+   * @return an effects manager or <code>null</code> if no effects.
+   */
+  public ItemSetEffectsManager getEffects()
+  {
+    return _effects;
+  }
+
+  /**
+   * Add an effect to this bonus.
+   * @param effect Effect to add.
+   */
+  public void addEffect(EffectGenerator effect)
+  {
+    if (_effects==null)
+    {
+      _effects=new ItemSetEffectsManager();
+    }
+    _effects.addEffect(effect);
   }
 }

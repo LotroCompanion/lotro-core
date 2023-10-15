@@ -1,7 +1,9 @@
-package delta.games.lotro.common.effects;
+package delta.games.lotro.lore.items;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import delta.games.lotro.common.effects.EffectGenerator;
 
 /**
  * Stores the effects for an item.
