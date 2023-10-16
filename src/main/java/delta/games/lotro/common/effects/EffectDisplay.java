@@ -411,7 +411,7 @@ public class EffectDisplay
     }
     else
     {
-      float duration=effect.getDuration();
+      float duration=effect.getSummonDuration();
       String durationStr=Duration.getDurationString((int)duration);
       sb.append("Duration: ").append(durationStr).append(EndOfLine.NATIVE_EOL);
     }

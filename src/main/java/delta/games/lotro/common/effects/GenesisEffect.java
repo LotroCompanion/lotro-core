@@ -13,7 +13,7 @@ public class GenesisEffect extends Effect2
   // Effect_Genesis_SummonedObject: 1879163733
 
   // Duration (<0 => Permanent)
-  private float _duration;
+  private float _summonDuration;
   // What:
   // - Hotspot
   private Hotspot _hotspot;
@@ -36,7 +36,7 @@ public class GenesisEffect extends Effect2
    */
   public boolean isPermanent()
   {
-    return (_duration<0);
+    return (_summonDuration<0);
   }
 
   /**
@@ -44,25 +44,25 @@ public class GenesisEffect extends Effect2
    */
   public void setPermanent()
   {
-    _duration=-1;
+    _summonDuration=-1;
   }
 
   /**
-   * Get the effect duration.
+   * Get the summon duration.
    * @return A duration in seconds.
    */
-  public float getDuration()
+  public float getSummonDuration()
   {
-    return (_duration>0)?_duration:0.0f;
+    return (_summonDuration>0)?_summonDuration:0.0f;
   }
 
   /**
-   * Set the effect duration.
-   * @param duration Duration to set (seconds).
+   * Set the summon duration.
+   * @param summonDuration Duration to set (seconds).
    */
-  public void setDuration(float duration)
+  public void setSummonDuration(float summonDuration)
   {
-    _duration=duration;
+    _summonDuration=summonDuration;
   }
 
   /**

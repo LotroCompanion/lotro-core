@@ -316,7 +316,7 @@ public class DumpEffect2
     }
     else
     {
-      _is.println("Duration: "+Duration.getDurationString((int)effect.getDuration()));
+      _is.println("Duration: "+Duration.getDurationString((int)effect.getSummonDuration()));
     }
     Hotspot hotspot=effect.getHotspot();
     if (hotspot!=null)
