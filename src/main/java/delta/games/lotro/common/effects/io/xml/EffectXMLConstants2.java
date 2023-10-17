@@ -31,7 +31,7 @@ public class EffectXMLConstants2
    */
   public static final String EFFECT_DESCRIPTION_OVERRIDE_ATTR="descriptionOverride";
   /**
-   * Tag 'effect', attribute 'descriptionOverride'.
+   * Tag 'effect', attribute 'appliedDescription'.
    */
   public static final String EFFECT_APPLIED_DESCRIPTION_ATTR="appliedDescription";
   /**
@@ -48,7 +48,7 @@ public class EffectXMLConstants2
    */
   public static final String EFFECT_PULSE_COUNT_ATTR="pulseCount";
   /**
-   * Tag 'effect', attribute 'pulseCount'.
+   * Tag 'effect', attribute 'expiresInRealTime'.
    */
   public static final String EFFECT_EXPIRES_IN_REAL_TIME_ATTR="expiresInRealTime";
   /**
@@ -156,6 +156,136 @@ public class EffectXMLConstants2
    * Tag 'fellowshipEffect', attribute 'range'.
    */
   public static final String FELLOWSHIP_EFFECT_RANGE_ATTR="range";
+
+  /**
+   * Tag 'instantVitalEffect'.
+   */
+  public static final String INSTANT_VITAL_EFFECT_TAG="instantVitalEffect";
+  /**
+   * Tag 'instantVitalEffect', attribute 'stat'.
+   */
+  public static final String INSTANT_VITAL_EFFECT_STAT_ATTR="stat";
+  /**
+   * Tag 'instantVitalEffect', attribute 'multiplicative'.
+   */
+  public static final String INSTANT_VITAL_EFFECT_MULTIPLICATIVE_ATTR="multiplicative";
+
+  /**
+   * Tag 'vitalChange'.
+   */
+  public static final String VITAL_CHANGE_TAG="vitalChange";
+  /**
+   * Tag 'vitalChange'/'attacker'/'defender'/'initialChange'/'overTimeChange', attribute 'constant'.
+   */
+  public static final String VITAL_CHANGE_CONSTANT_ATTR="constant";
+  /**
+   * Tag 'vitalChange'/'attacker'/'defender'/'initialChange'/'overTimeChange', attribute 'progressionID'.
+   */
+  public static final String VITAL_CHANGE_PROGRESSION_ID_ATTR="progressionID";
+  /**
+   * Tag 'vitalChange'/'attacker'/'defender'/'initialChange'/'overTimeChange', attribute 'variance'.
+   */
+  public static final String VITAL_CHANGE_VARIANCE_ATTR="variance";
+  /**
+   * Tag 'vitalChange'/'initialChange'/'overTimeChange', attribute 'min'.
+   */
+  public static final String VITAL_CHANGE_MIN_ATTR="min";
+  /**
+   * Tag 'vitalChange'/'initialChange'/'overTimeChange', attribute 'max'.
+   */
+  public static final String VITAL_CHANGE_MAX_ATTR="max";
+
+  /**
+   * Tag 'propertyModEffect'.
+   */
+  public static final String PROPERTY_MOD_EFFECT_TAG="propertyModEffect";
+
+  /**
+   * Tag 'procEffect'.
+   */
+  public static final String PROC_TAG="procEffect";
+  /**
+   * Tag 'procEffect', attribute 'skillTypes'.
+   */
+  public static final String PROC_SKILL_TYPES_ATTR="skillTypes";
+  /**
+   * Tag 'procEffect', attribute 'probability'.
+   */
+  public static final String PROC_PROBABILITY_ATTR="probability";
+  /**
+   * Tag 'procEffect', attribute 'cooldown'.
+   */
+  public static final String PROC_COOLDOWN_ATTR="cooldown";
+
+  /**
+   * Tag 'reactiveVitalEffect'.
+   */
+  public static final String REACTIVE_VITAL_EFFECT_TAG="reactiveVitalEffect";
+  /**
+   * Tag 'reactiveVitalEffect', attribute 'damageTypes'.
+   */
+  public static final String REACTIVE_VITAL_DAMAGE_TYPES_ATTR="damageTypes";
+  /**
+   * Tag 'reactiveVitalEffect', attribute 'damageTypes'.
+   */
+  public static final String REACTIVE_VITAL_DAMAGE_TYPE_OVERRIDE_ATTR="damageTypeOverride";
+  /**
+   * Tag 'reactiveVitalEffect', attribute 'removeOnProc'.
+   */
+  public static final String REACTIVE_VITAL_REMOVE_ON_PROC_ATTR="removeOnProc";
+  /**
+   * Tag 'attacker'.
+   */
+  public static final String ATTACKER_TAG="attacker";
+  /**
+   * Tag 'defender'.
+   */
+  public static final String DEFENDER_TAG="defender";
+  /**
+   * Tag 'attacker'/'defender', attribute 'probability'.
+   */
+  public static final String REACTIVE_VITAL_PROBABILITY_ATTR="probability";
+  /**
+   * Tag 'attacker'/'defender', attribute 'multiplicative'.
+   */
+  public static final String REACTIVE_VITAL_MULTIPLICATIVE_ATTR="multiplicative";
+  /**
+   * Tag 'effect'.
+   */
+  public static final String REACTIVE_EFFECT_TAG="effect";
+  /**
+   * Tag 'effect', attribute 'id'.
+   */
+  public static final String REACTIVE_EFFECT_ID_ATTR="id";
+  /**
+   * Tag 'effect', attribute 'name'.
+   */
+  public static final String REACTIVE_EFFECT_NAME_ATTR="name";
+  /**
+   * Tag 'effect', attribute 'probability'.
+   */
+  public static final String REACTIVE_EFFECT_PROBABILITY_ATTR="probability";
+
+  /**
+   * Tag 'vitalOverTimeEffect'.
+   */
+  public static final String VITAL_OVER_TIME_EFFECT_TAG="vitalOverTimeEffect";
+  /**
+   * Tag 'vitalOverTimeEffect', attribute 'stat'.
+   */
+  public static final String VITAL_OVER_TIME_EFFECT_STAT_ATTR="stat";
+  /**
+   * Tag 'vitalOverTimeEffect', attribute 'stat'.
+   */
+  public static final String VITAL_OVER_TIME_EFFECT_DAMAGE_TYPE_ATTR="damageType";
+  /**
+   * Tag 'initialChange'.
+   */
+  public static final String INITIAL_CHANGE_TAG="initialChange";
+  /**
+   * Tag 'overTimeChange'.
+   */
+  public static final String OVER_TIME_CHANGE_TAG="overTimeChange";
 
   /**
    * Tag 'effect' (generator).

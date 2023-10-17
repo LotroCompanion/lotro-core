@@ -47,7 +47,7 @@ public class ApplicationProbability
   }
 
   /**
-   * 
+   * Always.
    */
   public static ApplicationProbability ALWAYS=new ApplicationProbability(1);
 
