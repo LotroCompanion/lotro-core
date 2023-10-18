@@ -11,11 +11,14 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectDuration;
+import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
+import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
@@ -27,8 +30,6 @@ import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.math.LinearFunction;
-import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 
 /**
  * Writes effects to XML documents.
@@ -167,7 +168,7 @@ public class EffectXMLWriter2
     }
   }
 
-  private void writeSpecificAttributes(AttributesImpl attrs, Effect2 effect) throws SAXException
+  private void writeSpecificAttributes(AttributesImpl attrs, Effect2 effect)
   {
     if (effect instanceof DispelByResistEffect)
     {
@@ -183,6 +184,36 @@ public class EffectXMLWriter2
     {
       InduceCombatStateEffect induceCombatState=(InduceCombatStateEffect)effect;
       writeInduceCombatStateAttributes(attrs,induceCombatState);
+    }
+    else if (effect instanceof InstantFellowshipEffect)
+    {
+      InstantFellowshipEffect instantFellowshipEffect=(InstantFellowshipEffect)effect;
+      writeInstantFellowshipEffectAttributes(attrs,instantFellowshipEffect);
+    }
+    else if (effect instanceof InstantVitalEffect)
+    {
+      InstantVitalEffect instantVitalEffect=(InstantVitalEffect)effect;
+      writeInstantVitalEffectAttributes(attrs,instantVitalEffect);
+    }
+    else if (effect instanceof ProcEffect)
+    {
+      ProcEffect procEffect=(ProcEffect)effect;
+      writeProcEffectAttributes(attrs,procEffect);
+    }
+    else if (effect instanceof ReactiveVitalEffect)
+    {
+      ReactiveVitalEffect reactiveVitalEffect=(ReactiveVitalEffect)effect;
+      writeReactiveVitalEffectAttributes(attrs,reactiveVitalEffect);
+    }
+    else if (effect instanceof PropertyModificationEffect)
+    {
+      PropertyModificationEffect propertyModificationEffect=(PropertyModificationEffect)effect;
+      writePropertyModificationEffectAttributes(attrs,propertyModificationEffect);
+    }
+    else if (effect instanceof VitalOverTimeEffect)
+    {
+      VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
+      writeVitalOverTimeEffectAttributes(attrs,vitalOverTimeEffect);
     }
   }
 
@@ -244,15 +275,102 @@ public class EffectXMLWriter2
     }
   }
 
-  private void writeChildTags(TransformerHandler hd, Effect2 effect) throws SAXException
+  private void writeInstantFellowshipEffectAttributes(AttributesImpl attrs, InstantFellowshipEffect instantFellowshipEffect)
   {
-    if (effect instanceof InduceCombatStateEffect)
+    // Apply to raid groups
+    boolean raidGroups=instantFellowshipEffect.appliesToRaidGroups();
+    if (raidGroups)
     {
-      writeInduceCombatStateTag(hd,(InduceCombatStateEffect)effect);
+      attrs.addAttribute("","",EffectXMLConstants2.FELLOWSHIP_EFFECT_APPLY_TO_RAID_GROUPS_ATTR,XmlWriter.CDATA,String.valueOf(raidGroups));
+    }
+    // Apply to pets
+    boolean pets=instantFellowshipEffect.appliesToPets();
+    if (pets)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.FELLOWSHIP_EFFECT_APPLY_TO_PETS_ATTR,XmlWriter.CDATA,String.valueOf(pets));
+    }
+    // Apply to target
+    boolean target=instantFellowshipEffect.appliesToTarget();
+    if (target)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.FELLOWSHIP_EFFECT_APPLY_TARGET_ATTR,XmlWriter.CDATA,String.valueOf(target));
+    }
+    // Range
+    Float range=instantFellowshipEffect.getRange();
+    if (range!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.FELLOWSHIP_EFFECT_RANGE_ATTR,XmlWriter.CDATA,String.valueOf(range.floatValue()));
     }
   }
 
-  private void writeInduceCombatStateTag(TransformerHandler hd, InduceCombatStateEffect induceCombatState) throws SAXException
+  private void writeInstantVitalEffectAttributes(AttributesImpl attrs, InstantVitalEffect instantVitalEffect)
+  {
+    
+  }
+  private void writeProcEffectAttributes(AttributesImpl attrs, ProcEffect procEffect)
+  {
+    
+  }
+  private void writeReactiveVitalEffectAttributes(AttributesImpl attrs, ReactiveVitalEffect reactiveVitalEffect)
+  {
+    
+  }
+  private void writePropertyModificationEffectAttributes(AttributesImpl attrs, PropertyModificationEffect propertyModificationEffect)
+  {
+    
+  }
+  private void writeVitalOverTimeEffectAttributes(AttributesImpl attrs, VitalOverTimeEffect vitalOverTimeEffect)
+  {
+    
+  }
+
+  private void writeChildTags(TransformerHandler hd, Effect2 effect) throws SAXException
+  {
+    if (effect instanceof GenesisEffect)
+    {
+      writeGenesisTags(hd,(GenesisEffect)effect);
+    }
+    else if (effect instanceof InduceCombatStateEffect)
+    {
+      writeInduceCombatStateTags(hd,(InduceCombatStateEffect)effect);
+    }
+    else if (effect instanceof InstantFellowshipEffect)
+    {
+      writeInstantFellowshipEffectTags(hd,(InstantFellowshipEffect)effect);
+    }
+  }
+
+  private void writeGenesisTags(TransformerHandler hd, GenesisEffect genesis) throws SAXException
+  {
+    Hotspot hotspot=genesis.getHotspot();
+    if (hotspot!=null)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      int id=hotspot.getIdentifier();
+      attrs.addAttribute("","",EffectXMLConstants2.HOTSPOT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      String hotspotName=hotspot.getName();
+      attrs.addAttribute("","",EffectXMLConstants2.HOTSPOT_NAME_ATTR,XmlWriter.CDATA,hotspotName);
+      hd.startElement("","",EffectXMLConstants2.HOTSPOT_TAG,attrs);
+      for(EffectGenerator effectGenerator : hotspot.getEffects())
+      {
+        writeEffectGenerator(hd,effectGenerator);
+      }
+      hd.endElement("","",EffectXMLConstants2.HOTSPOT_TAG);
+    }
+    Interactable interactable=genesis.getInteractable();
+    if (interactable!=null)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      int id=interactable.getIdentifier();
+      attrs.addAttribute("","",EffectXMLConstants2.SUMMONED_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      String name=interactable.getName();
+      attrs.addAttribute("","",EffectXMLConstants2.SUMMONED_NAME_ATTR,XmlWriter.CDATA,name);
+      hd.startElement("","",EffectXMLConstants2.SUMMONED_TAG,attrs);
+      hd.endElement("","",EffectXMLConstants2.SUMMONED_TAG);
+    }
+  }
+
+  private void writeInduceCombatStateTags(TransformerHandler hd, InduceCombatStateEffect induceCombatState) throws SAXException
   {
     // Function
     LinearFunction function=induceCombatState.getDurationFunction();
@@ -266,6 +384,31 @@ public class EffectXMLWriter2
       hd.startElement("","",EffectXMLConstants2.FUNCTION_TAG,attrs);
       hd.endElement("","",EffectXMLConstants2.FUNCTION_TAG);
     }
+  }
+
+  private void writeInstantFellowshipEffectTags(TransformerHandler hd, InstantFellowshipEffect instantFellowshipEffect) throws SAXException
+  {
+    for(EffectGenerator effectGenerator : instantFellowshipEffect.getEffects())
+    {
+      writeEffectGenerator(hd,effectGenerator);
+    }
+  }
+
+  private void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    Effect2 effect=generator.getEffect();
+    int id=effect.getIdentifier();
+    attrs.addAttribute("","",EffectXMLConstants2.EFFECT_GENERATOR_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    String name=effect.getName();
+    attrs.addAttribute("","",EffectXMLConstants2.EFFECT_GENERATOR_NAME_ATTR,XmlWriter.CDATA,name);
+    Float spellcraft=generator.getSpellcraft();
+    if (spellcraft!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.EFFECT_GENERATOR_SPELLCRAFT_ATTR,XmlWriter.CDATA,String.valueOf(spellcraft.floatValue()));
+    }
+    hd.startElement("","",EffectXMLConstants2.EFFECT_GENERATOR_TAG,attrs);
+    hd.endElement("","",EffectXMLConstants2.EFFECT_GENERATOR_TAG);
   }
 
   private <T extends LotroEnumEntry> String serializeEnumList(List<T> enumList)
