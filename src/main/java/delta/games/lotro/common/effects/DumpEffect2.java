@@ -250,10 +250,8 @@ public class DumpEffect2
     {
       _is.println("Damage override: "+override);
     }
-    dumpReactiveVitalChange("Attacker vital change:",effect.getAttackerVitalChange());
-    dumpEffectAndProbability("Attacker effect: ",effect.getAttackerEffect());
-    dumpReactiveVitalChange("Defender vital change:",effect.getDefenderVitalChange());
-    dumpEffectAndProbability("Defender effect: ",effect.getDefenderEffect());
+    dumpReactiveVitalChange("Attacker",effect.getAttackerVitalChange());
+    dumpReactiveVitalChange("Defender",effect.getDefenderVitalChange());
     boolean removeOnProc=effect.isRemoveOnProc();
     if (removeOnProc)
     {
@@ -267,7 +265,7 @@ public class DumpEffect2
     {
       return;
     }
-    _is.println(label);
+    _is.println(label+" vital change:");
     _is.incrementIndendationLevel();
     Float constant=change.getConstant();
     if (constant!=null) 
@@ -290,6 +288,7 @@ public class DumpEffect2
     {
       _is.println("Multiplicative");
     }
+    dumpEffectAndProbability(label+" effect: ",change.getEffect());
     _is.decrementIndentationLevel();
   }
 

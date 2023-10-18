@@ -18,12 +18,8 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
   private DamageType _attackerDamageTypeOverride;
   // Attacker reactive vital (may be <code>null</code>).
   private ReactiveVitalChange _attacker;
-  // Attacker effect (may be <code>null</code>).
-  private EffectAndProbability _attackerEffect;
   // Defender reactive vital (may be <code>null</code>).
   private ReactiveVitalChange _defender;
-  // Defender effect (may be <code>null</code>).
-  private EffectAndProbability _defenderEffect;
   // Indicates if the effect is removed once it is triggered
   private boolean _removeOnProc;
   // Vital types? Always health/morale?
@@ -38,9 +34,7 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
     _damageTypes=new ArrayList<DamageType>();
     _attackerDamageTypeOverride=null;
     _attacker=null;
-    _attackerEffect=null;
     _defender=null;
-    _defenderEffect=null;
     _removeOnProc=false;
   }
 
@@ -99,24 +93,6 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
   }
 
   /**
-   * Set the attacker effect.
-   * @param effect Effect to set (may be <code>null</code>).
-   */
-  public void setAttackerEffect(EffectAndProbability effect)
-  {
-    _attackerEffect=effect;
-  }
-
-  /**
-   * Get the defender effect.
-   * @return an effect+probability (or <code>null</code> if none).
-   */
-  public EffectAndProbability getAttackerEffect()
-  {
-    return _attackerEffect;
-  }
-
-  /**
    * Set the defender reactive vital change.
    * @param change Change to set.
    */
@@ -132,24 +108,6 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
   public ReactiveVitalChange getDefenderVitalChange()
   {
     return _defender;
-  }
-
-  /**
-   * Set the defender effect.
-   * @param effect Effect to set (may be <code>null</code>).
-   */
-  public void setDefenderEffect(EffectAndProbability effect)
-  {
-    _defenderEffect=effect;
-  }
-
-  /**
-   * Get the defender effect.
-   * @return an effect+probability (or <code>null</code> if none).
-   */
-  public EffectAndProbability getDefenderEffect()
-  {
-    return _defenderEffect;
   }
 
   /**

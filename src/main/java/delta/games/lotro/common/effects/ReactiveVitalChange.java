@@ -8,6 +8,8 @@ public class ReactiveVitalChange extends AbstractVitalChange
 {
   private float _probability;
   private boolean _multiplicative;
+  // Effect (may be <code>null</code>).
+  private EffectAndProbability _effect;
 
   /**
    * Constructor.
@@ -51,5 +53,23 @@ public class ReactiveVitalChange extends AbstractVitalChange
   public boolean isMultiplicative()
   {
     return _multiplicative;
+  }
+
+  /**
+   * Set the effect.
+   * @param effect Effect to set (may be <code>null</code>).
+   */
+  public void setEffect(EffectAndProbability effect)
+  {
+    _effect=effect;
+  }
+
+  /**
+   * Get the effect.
+   * @return an effect+probability (or <code>null</code> if none).
+   */
+  public EffectAndProbability getEffect()
+  {
+    return _effect;
   }
 }

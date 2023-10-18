@@ -309,17 +309,14 @@ public class EffectDisplay
           sb.append("Negate ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
         }
       }
-    }
-    EffectAndProbability defenderEffect=effect.getDefenderEffect();
-    if (defenderEffect!=null)
-    {
-      List<DamageType> damageTypes=effect.getDamageTypes();
-      // TODO Handle case where damageTypes is [ALL]
-      sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
-      float probability=defenderEffect.getProbability();
-      int percentage=(int)(probability*100);
-      sb.append(percentage).append("% chance to Receive effect:").append(EndOfLine.NATIVE_EOL);
-      displayEffect(sb,defenderEffect.getEffect());
+      EffectAndProbability defenderEffect=defender.getEffect();
+      if (defenderEffect!=null)
+      {
+        float effectProbability=defenderEffect.getProbability();
+        int effectPercentage=(int)(effectProbability*100);
+        sb.append(effectPercentage).append("% chance to Receive effect:").append(EndOfLine.NATIVE_EOL);
+        displayEffect(sb,defenderEffect.getEffect());
+      }
     }
     // Attacker
     ReactiveVitalChange attacker=effect.getAttackerVitalChange();
@@ -357,17 +354,14 @@ public class EffectDisplay
           sb.append("Reflect ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
         }
       }
-    }
-    EffectAndProbability attackerEffect=effect.getAttackerEffect();
-    if (attackerEffect!=null)
-    {
-      List<DamageType> damageTypes=effect.getDamageTypes();
-      // TODO Handle case where damageTypes is [ALL]
-      sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
-      float probability=attackerEffect.getProbability();
-      int percentage=(int)(probability*100);
-      sb.append(percentage).append("% chance to Reflect effect:").append(EndOfLine.NATIVE_EOL);
-      displayEffect(sb,attackerEffect.getEffect());
+      EffectAndProbability attackerEffect=attacker.getEffect();
+      if (attackerEffect!=null)
+      {
+        float effectProbability=attackerEffect.getProbability();
+        int effectPercentage=(int)(effectProbability*100);
+        sb.append(effectPercentage).append("% chance to Reflect effect:").append(EndOfLine.NATIVE_EOL);
+        displayEffect(sb,attackerEffect.getEffect());
+      }
     }
   }
 

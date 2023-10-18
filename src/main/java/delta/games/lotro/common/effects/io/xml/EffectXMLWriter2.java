@@ -12,9 +12,11 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.EffectAndProbability;
 import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
@@ -24,12 +26,20 @@ import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
+import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
+import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.ResistCategory;
+import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.math.LinearFunction;
+import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
+import delta.games.lotro.lore.items.DamageType;
+import delta.games.lotro.utils.maths.Progression;
 
 /**
  * Writes effects to XML documents.
@@ -305,23 +315,75 @@ public class EffectXMLWriter2
 
   private void writeInstantVitalEffectAttributes(AttributesImpl attrs, InstantVitalEffect instantVitalEffect)
   {
-    
+    // Stat
+    StatDescription stat=instantVitalEffect.getStat();
+    attrs.addAttribute("","",EffectXMLConstants2.INSTANT_VITAL_EFFECT_STAT_ATTR,XmlWriter.CDATA,String.valueOf(stat.getKey()));
+    // Multiplicative
+    boolean multiplicative=instantVitalEffect.isMultiplicative();
+    if (multiplicative)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.INSTANT_VITAL_EFFECT_MULTIPLICATIVE_ATTR,XmlWriter.CDATA,String.valueOf(multiplicative));
+    }
   }
+
   private void writeProcEffectAttributes(AttributesImpl attrs, ProcEffect procEffect)
   {
-    
+    // Skill types
+    List<SkillType> skillTypes=procEffect.getSkillTypes();
+    String skillTypesStr=serializeEnumList(skillTypes);
+    attrs.addAttribute("","",EffectXMLConstants2.PROC_SKILL_TYPES_ATTR,XmlWriter.CDATA,skillTypesStr);
+    // Probability
+    Float probability=procEffect.getProcProbability();
+    if (probability!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.PROC_PROBABILITY_ATTR,XmlWriter.CDATA,probability.toString());
+    }
+    // Cooldown
+    Float cooldown=procEffect.getCooldown();
+    if (cooldown!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.PROC_COOLDOWN_ATTR,XmlWriter.CDATA,cooldown.toString());
+    }
   }
+
   private void writeReactiveVitalEffectAttributes(AttributesImpl attrs, ReactiveVitalEffect reactiveVitalEffect)
   {
-    
+    // Incoming damage types
+    List<DamageType> damageTypes=reactiveVitalEffect.getDamageTypes();
+    String damageTypesStr=serializeEnumList(damageTypes);
+    attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_VITAL_DAMAGE_TYPES_ATTR,XmlWriter.CDATA,damageTypesStr);
+    // Damage type override
+    DamageType overrideDamageType=reactiveVitalEffect.getAttackerDamageTypeOverride();
+    if (overrideDamageType!=null)
+    {
+      String damageTypeOverrideStr=String.valueOf(overrideDamageType.getCode());
+      attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_VITAL_DAMAGE_TYPE_OVERRIDE_ATTR,XmlWriter.CDATA,damageTypeOverrideStr);
+    }
+    // Remove on proc
+    boolean removeOnProc=reactiveVitalEffect.isRemoveOnProc();
+    if (removeOnProc)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_VITAL_REMOVE_ON_PROC_ATTR,XmlWriter.CDATA,String.valueOf(removeOnProc));
+    }
   }
+
   private void writePropertyModificationEffectAttributes(AttributesImpl attrs, PropertyModificationEffect propertyModificationEffect)
   {
-    
+    // Nothing!
   }
+
   private void writeVitalOverTimeEffectAttributes(AttributesImpl attrs, VitalOverTimeEffect vitalOverTimeEffect)
   {
-    
+    // Stat
+    StatDescription stat=vitalOverTimeEffect.getStat();
+    attrs.addAttribute("","",EffectXMLConstants2.VITAL_OVER_TIME_EFFECT_STAT_ATTR,XmlWriter.CDATA,String.valueOf(stat.getKey()));
+    // Damage type (if harmful, null otherwise)
+    DamageType damageType=vitalOverTimeEffect.getDamageType();
+    if (damageType!=null)
+    {
+      String damageTypeStr=String.valueOf(damageType.getCode());
+      attrs.addAttribute("","",EffectXMLConstants2.VITAL_OVER_TIME_EFFECT_DAMAGE_TYPE_ATTR,XmlWriter.CDATA,damageTypeStr);
+    }
   }
 
   private void writeChildTags(TransformerHandler hd, Effect2 effect) throws SAXException
@@ -337,6 +399,31 @@ public class EffectXMLWriter2
     else if (effect instanceof InstantFellowshipEffect)
     {
       writeInstantFellowshipEffectTags(hd,(InstantFellowshipEffect)effect);
+    }
+    else if (effect instanceof InstantVitalEffect)
+    {
+      InstantVitalEffect instantVitalEffect=(InstantVitalEffect)effect;
+      writeInstantVitalEffectTags(hd,instantVitalEffect);
+    }
+    else if (effect instanceof ProcEffect)
+    {
+      ProcEffect procEffect=(ProcEffect)effect;
+      writeProcEffectTags(hd,procEffect);
+    }
+    else if (effect instanceof ReactiveVitalEffect)
+    {
+      ReactiveVitalEffect reactiveVitalEffect=(ReactiveVitalEffect)effect;
+      writeReactiveVitalEffectTags(hd,reactiveVitalEffect);
+    }
+    else if (effect instanceof PropertyModificationEffect)
+    {
+      PropertyModificationEffect propertyModificationEffect=(PropertyModificationEffect)effect;
+      writePropertyModificationEffectTags(hd,propertyModificationEffect);
+    }
+    else if (effect instanceof VitalOverTimeEffect)
+    {
+      VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
+      writeVitalOverTimeEffectTags(hd,vitalOverTimeEffect);
     }
   }
 
@@ -394,6 +481,136 @@ public class EffectXMLWriter2
     }
   }
 
+  private void writeInstantVitalEffectTags(TransformerHandler hd, InstantVitalEffect instantVitalEffect) throws SAXException
+  {
+    writeVitalChangeTag(hd,instantVitalEffect.getInstantChangeDescription(),EffectXMLConstants2.VITAL_CHANGE_TAG);
+  }
+
+  private void writeVitalChangeTag(TransformerHandler hd, VitalChangeDescription change, String tagName) throws SAXException
+  {
+    if (change!=null)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      writeAbstractVitalChangeAttributes(attrs,change);
+      // Min
+      Float min=change.getMinValue();
+      if (min!=null)
+      {
+        attrs.addAttribute("","",EffectXMLConstants2.VITAL_CHANGE_MIN_ATTR,XmlWriter.CDATA,min.toString());
+      }
+      // Max
+      Float max=change.getMinValue();
+      if (max!=null)
+      {
+        attrs.addAttribute("","",EffectXMLConstants2.VITAL_CHANGE_MAX_ATTR,XmlWriter.CDATA,max.toString());
+      }
+      hd.startElement("","",tagName,attrs);
+      hd.endElement("","",tagName);
+    }
+  }
+
+  private void writeAbstractVitalChangeAttributes(AttributesImpl attrs, AbstractVitalChange change)
+  {
+    // Constant
+    Float constant=change.getConstant();
+    if (constant!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.VITAL_CHANGE_CONSTANT_ATTR,XmlWriter.CDATA,constant.toString());
+    }
+    // Progression
+    Progression progression=change.getProgression();
+    if (progression!=null)
+    {
+      int id=progression.getIdentifier();
+      attrs.addAttribute("","",EffectXMLConstants2.VITAL_CHANGE_PROGRESSION_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    }
+    // Variance
+    Float variance=change.getVariance();
+    if (variance!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.VITAL_CHANGE_VARIANCE_ATTR,XmlWriter.CDATA,variance.toString());
+    }
+  }
+
+  private void writeProcEffectTags(TransformerHandler hd, ProcEffect procEffect) throws SAXException
+  {
+    writePropertyModificationEffectTags(hd,procEffect);
+    for(EffectGenerator effectGenerator : procEffect.getProcedEffects())
+    {
+      writeEffectGenerator(hd,effectGenerator);
+    }
+  }
+
+  private void writeReactiveVitalEffectTags(TransformerHandler hd, ReactiveVitalEffect reactiveVitalEffect) throws SAXException
+  {
+    writePropertyModificationEffectTags(hd,reactiveVitalEffect);
+    ReactiveVitalChange attacker=reactiveVitalEffect.getAttackerVitalChange();
+    writeReactiveVitalChangeTag(hd,attacker,EffectXMLConstants2.ATTACKER_TAG);
+    ReactiveVitalChange defender=reactiveVitalEffect.getDefenderVitalChange();
+    writeReactiveVitalChangeTag(hd,defender,EffectXMLConstants2.DEFENDER_TAG);
+  }
+
+  private void writeReactiveVitalChangeTag(TransformerHandler hd, ReactiveVitalChange change, String tagName) throws SAXException
+  {
+    if (change!=null)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      writeAbstractVitalChangeAttributes(attrs,change);
+      // Probability
+      float probability=change.getProbability();
+      attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_VITAL_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(probability));
+      // Multiplicative
+      boolean multiplicative=change.isMultiplicative();
+      if (multiplicative)
+      {
+        attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_VITAL_MULTIPLICATIVE_ATTR,XmlWriter.CDATA,String.valueOf(multiplicative));
+      }
+      hd.startElement("","",tagName,attrs);
+      writeReactiveVitalEffectTag(hd,change.getEffect());
+      hd.endElement("","",tagName);
+    }
+  }
+
+  private void writeReactiveVitalEffectTag(TransformerHandler hd, EffectAndProbability effectProb) throws SAXException
+  {
+    if (effectProb!=null)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      // ID
+      int id=effectProb.getEffect().getIdentifier();
+      attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Name
+      String name=effectProb.getEffect().getName();
+      attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
+      // Probability
+      float probability=effectProb.getProbability();
+      attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_EFFECT_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(probability));
+      hd.startElement("","",EffectXMLConstants2.REACTIVE_EFFECT_TAG,attrs);
+      hd.endElement("","",EffectXMLConstants2.REACTIVE_EFFECT_TAG);
+    }
+  }
+
+  private void writePropertyModificationEffectTags(TransformerHandler hd, PropertyModificationEffect propertyModificationEffect) throws SAXException
+  {
+    // Stats
+    StatsProvider statsProvider=propertyModificationEffect.getStatsProvider();
+    if (statsProvider!=null)
+    {
+      StatsProviderXMLWriter.writeXml(hd,statsProvider);
+    }
+  }
+
+  private void writeVitalOverTimeEffectTags(TransformerHandler hd, VitalOverTimeEffect vitalOverTimeEffect) throws SAXException
+  {
+    // Initial change
+    VitalChangeDescription initialChange=vitalOverTimeEffect.getInitialChangeDescription();
+    writeVitalChangeTag(hd,initialChange,EffectXMLConstants2.INITIAL_CHANGE_TAG);
+    // Over-time change
+    VitalChangeDescription overTimeChange=vitalOverTimeEffect.getInitialChangeDescription();
+    writeVitalChangeTag(hd,overTimeChange,EffectXMLConstants2.OVER_TIME_CHANGE_TAG);
+
+  }
+
   private void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
@@ -429,18 +646,4 @@ public class EffectXMLWriter2
     }
     return sb.toString();
   }
-
-  /*
-  private void toto()
-  {
-    hd.startElement("","",EffectXMLConstants.EFFECT_TAG,attrs);
-    // Stats
-    StatsProvider statsProvider=effect.getStatsProvider();
-    if (statsProvider!=null)
-    {
-      StatsProviderXMLWriter.writeXml(hd,statsProvider);
-    }
-    hd.endElement("","",EffectXMLConstants.EFFECT_TAG);
-  }
-  */
 }
