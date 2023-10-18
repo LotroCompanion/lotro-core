@@ -16,10 +16,10 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
   // Damage type override: type of damage received by the attacker (reflect), if different from source damage type
   // Usually <code>null</code>.
   private DamageType _attackerDamageTypeOverride;
-  // Attacker reactive vital (may be <code>null</code>).
-  private ReactiveVitalChange _attacker;
-  // Defender reactive vital (may be <code>null</code>).
-  private ReactiveVitalChange _defender;
+  // Attacker reactive change (may be <code>null</code>).
+  private ReactiveChange _attacker;
+  // Defender reactive change (may be <code>null</code>).
+  private ReactiveChange _defender;
   // Indicates if the effect is removed once it is triggered
   private boolean _removeOnProc;
   // Vital types? Always health/morale?
@@ -75,37 +75,37 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
   }
 
   /**
-   * Set the attacker reactive vital change.
-   * @param change Change to set.
+   * Set the attacker reactive change.
+   * @param attacker Change to set.
    */
-  public void setAttackerReactiveVitalChange(ReactiveVitalChange change)
+  public void setAttackerReactiveChange(ReactiveChange attacker)
   {
-    _attacker=change;
+    _attacker=attacker;
   }
 
   /**
-   * Get the attacker reactive vital change.
+   * Get the attacker reactive change.
    * @return A reactive vital change.
    */
-  public ReactiveVitalChange getAttackerVitalChange()
+  public ReactiveChange getAttackerReactiveChange()
   {
     return _attacker;
   }
 
   /**
-   * Set the defender reactive vital change.
-   * @param change Change to set.
+   * Set the defender reactive change.
+   * @param defender Change to set.
    */
-  public void setDefenderReactiveVitalChange(ReactiveVitalChange change)
+  public void setDefenderReactiveChange(ReactiveChange defender)
   {
-    _defender=change;
+    _defender=defender;
   }
 
   /**
-   * Get the defender reactive vital change.
-   * @return A reactive vital change.
+   * Get the defender reactive change.
+   * @return A reactive change.
    */
-  public ReactiveVitalChange getDefenderVitalChange()
+  public ReactiveChange getDefenderReactiveChange()
   {
     return _defender;
   }

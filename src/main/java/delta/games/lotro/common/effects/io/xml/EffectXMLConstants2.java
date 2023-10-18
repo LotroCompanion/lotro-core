@@ -242,11 +242,15 @@ public class EffectXMLConstants2
    */
   public static final String DEFENDER_TAG="defender";
   /**
-   * Tag 'attacker'/'defender', attribute 'probability'.
+   * Tag 'reactiveVital'.
+   */
+  public static final String REACTIVE_VITAL_TAG="reactiveVital";
+  /**
+   * Tag 'reactiveVital', attribute 'probability'.
    */
   public static final String REACTIVE_VITAL_PROBABILITY_ATTR="probability";
   /**
-   * Tag 'attacker'/'defender', attribute 'multiplicative'.
+   * Tag 'reactiveVital', attribute 'multiplicative'.
    */
   public static final String REACTIVE_VITAL_MULTIPLICATIVE_ATTR="multiplicative";
   /**

@@ -26,6 +26,7 @@ import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
+import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
@@ -526,7 +527,7 @@ public class EffectXMLWriter2
     }
     // Variance
     Float variance=change.getVariance();
-    if (variance!=null)
+    if ((variance!=null) && (variance.floatValue()>0))
     {
       attrs.addAttribute("","",EffectXMLConstants2.VITAL_CHANGE_VARIANCE_ATTR,XmlWriter.CDATA,variance.toString());
     }
@@ -544,31 +545,38 @@ public class EffectXMLWriter2
   private void writeReactiveVitalEffectTags(TransformerHandler hd, ReactiveVitalEffect reactiveVitalEffect) throws SAXException
   {
     writePropertyModificationEffectTags(hd,reactiveVitalEffect);
-    ReactiveVitalChange attacker=reactiveVitalEffect.getAttackerVitalChange();
-    writeReactiveVitalChangeTag(hd,attacker,EffectXMLConstants2.ATTACKER_TAG);
-    ReactiveVitalChange defender=reactiveVitalEffect.getDefenderVitalChange();
-    writeReactiveVitalChangeTag(hd,defender,EffectXMLConstants2.DEFENDER_TAG);
+    ReactiveChange attacker=reactiveVitalEffect.getAttackerReactiveChange();
+    writeReactiveChangeTag(hd,attacker,EffectXMLConstants2.ATTACKER_TAG);
+    ReactiveChange defender=reactiveVitalEffect.getDefenderReactiveChange();
+    writeReactiveChangeTag(hd,defender,EffectXMLConstants2.DEFENDER_TAG);
   }
 
-  private void writeReactiveVitalChangeTag(TransformerHandler hd, ReactiveVitalChange change, String tagName) throws SAXException
+  private void writeReactiveChangeTag(TransformerHandler hd, ReactiveChange change, String tagName) throws SAXException
   {
-    if (change!=null)
+    if (change==null)
+    {
+      return;
+    }
+    hd.startElement("","",tagName,new AttributesImpl());
+    ReactiveVitalChange vitalChange=change.getVitalChange();
+    if (vitalChange!=null)
     {
       AttributesImpl attrs=new AttributesImpl();
-      writeAbstractVitalChangeAttributes(attrs,change);
+      writeAbstractVitalChangeAttributes(attrs,vitalChange);
       // Probability
-      float probability=change.getProbability();
+      float probability=vitalChange.getProbability();
       attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_VITAL_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(probability));
       // Multiplicative
-      boolean multiplicative=change.isMultiplicative();
+      boolean multiplicative=vitalChange.isMultiplicative();
       if (multiplicative)
       {
         attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_VITAL_MULTIPLICATIVE_ATTR,XmlWriter.CDATA,String.valueOf(multiplicative));
       }
-      hd.startElement("","",tagName,attrs);
-      writeReactiveVitalEffectTag(hd,change.getEffect());
-      hd.endElement("","",tagName);
+      hd.startElement("","",EffectXMLConstants2.REACTIVE_VITAL_TAG,attrs);
+      hd.endElement("","",EffectXMLConstants2.REACTIVE_VITAL_TAG);
     }
+    writeReactiveVitalEffectTag(hd,change.getEffect());
+    hd.endElement("","",tagName);
   }
 
   private void writeReactiveVitalEffectTag(TransformerHandler hd, EffectAndProbability effectProb) throws SAXException

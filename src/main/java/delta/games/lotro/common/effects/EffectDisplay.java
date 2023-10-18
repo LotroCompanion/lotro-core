@@ -273,40 +273,44 @@ public class EffectDisplay
   {
     showPropertyModificationEffect(sb,effect);
     // Defender
-    ReactiveVitalChange defender=effect.getDefenderVitalChange();
+    ReactiveChange defender=effect.getDefenderReactiveChange();
     if (defender!=null)
     {
-      Float value=getValue(defender);
       List<DamageType> damageTypes=effect.getDamageTypes();
-      float probability=defender.getProbability();
-      boolean multiplicative=defender.isMultiplicative();
-      int percentage=(int)(probability*100);
       sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
-      if (!multiplicative)
+      ReactiveVitalChange change=defender.getVitalChange();
+      if (change!=null)
       {
-        int damage=(int)value.floatValue();
-        if (percentage!=100)
+        Float value=getValue(change);
+        float probability=change.getProbability();
+        boolean multiplicative=change.isMultiplicative();
+        int percentage=(int)(probability*100);
+        if (!multiplicative)
         {
-          sb.append(percentage).append("% chance to Negate ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+          int damage=(int)value.floatValue();
+          if (percentage!=100)
+          {
+            sb.append(percentage).append("% chance to Negate ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+          }
+          else
+          {
+            // Never?
+            sb.append("Negate ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+          }
         }
         else
         {
-          // Never?
-          sb.append("Negate ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
-        }
-      }
-      else
-      {
-        int percentageDamage=(int)(value.floatValue()*100);
-        if (percentage!=100)
-        {
-          // Never?
-          sb.append(percentage).append("% chance to Negate ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
-        }
-        else
-        {
-          // Negate X% damage
-          sb.append("Negate ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+          int percentageDamage=(int)(value.floatValue()*100);
+          if (percentage!=100)
+          {
+            // Never?
+            sb.append(percentage).append("% chance to Negate ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+          }
+          else
+          {
+            // Negate X% damage
+            sb.append("Negate ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+          }
         }
       }
       EffectAndProbability defenderEffect=defender.getEffect();
@@ -319,39 +323,43 @@ public class EffectDisplay
       }
     }
     // Attacker
-    ReactiveVitalChange attacker=effect.getAttackerVitalChange();
+    ReactiveChange attacker=effect.getAttackerReactiveChange();
     if (attacker!=null)
     {
-      Float value=getValue(attacker);
       List<DamageType> damageTypes=effect.getDamageTypes();
-      // TODO Handle case where damageTypes is [ALL]
       sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
-      float probability=attacker.getProbability();
-      int percentage=(int)(probability*100);
-      boolean multiplicative=attacker.isMultiplicative();
-      if (!multiplicative)
+      ReactiveVitalChange change=attacker.getVitalChange();
+      if (change!=null)
       {
-        int damage=Math.round(Math.abs(value.floatValue()));
-        if (percentage!=100)
+        Float value=getValue(change);
+        // TODO Handle case where damageTypes is [ALL]
+        float probability=change.getProbability();
+        int percentage=(int)(probability*100);
+        boolean multiplicative=change.isMultiplicative();
+        if (!multiplicative)
         {
-          sb.append(percentage).append("% chance to Reflect ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+          int damage=Math.round(Math.abs(value.floatValue()));
+          if (percentage!=100)
+          {
+            sb.append(percentage).append("% chance to Reflect ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+          }
+          else
+          {
+            sb.append("Reflect ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+          }
         }
         else
         {
-          sb.append("Reflect ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
-        }
-      }
-      else
-      {
-        // Never multiplicative?
-        int percentageDamage=(int)(value.floatValue()*100);
-        if (percentage!=100)
-        {
-          sb.append(percentage).append("% chance to Reflect ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
-        }
-        else
-        {
-          sb.append("Reflect ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+          // Never multiplicative?
+          int percentageDamage=(int)(value.floatValue()*100);
+          if (percentage!=100)
+          {
+            sb.append(percentage).append("% chance to Reflect ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+          }
+          else
+          {
+            sb.append("Reflect ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+          }
         }
       }
       EffectAndProbability attackerEffect=attacker.getEffect();

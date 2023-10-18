@@ -250,8 +250,8 @@ public class DumpEffect2
     {
       _is.println("Damage override: "+override);
     }
-    dumpReactiveVitalChange("Attacker",effect.getAttackerVitalChange());
-    dumpReactiveVitalChange("Defender",effect.getDefenderVitalChange());
+    dumpReactiveChange("Attacker",effect.getAttackerReactiveChange());
+    dumpReactiveChange("Defender",effect.getDefenderReactiveChange());
     boolean removeOnProc=effect.isRemoveOnProc();
     if (removeOnProc)
     {
@@ -259,34 +259,38 @@ public class DumpEffect2
     }
   }
 
-  private void dumpReactiveVitalChange(String label, ReactiveVitalChange change)
+  private void dumpReactiveChange(String label, ReactiveChange change)
   {
     if (change==null)
     {
       return;
     }
-    _is.println(label+" vital change:");
-    _is.incrementIndendationLevel();
-    Float constant=change.getConstant();
-    if (constant!=null) 
+    ReactiveVitalChange vitalChange=change.getVitalChange();
+    if (vitalChange!=null)
     {
-      _is.println("Constant: "+constant);
-    }
-    Progression progression=change.getProgression();
-    if (progression!=null)
-    {
-      _is.println("Progression: "+progression);
-    }
-    Float variance=change.getVariance();
-    if (variance!=null)
-    {
-      _is.println("Variance: "+(variance.floatValue()*100)+"%");
-    }
-    float probability=change.getProbability();
-    _is.println("Probability: "+probability);
-    if (change.isMultiplicative())
-    {
-      _is.println("Multiplicative");
+      _is.println(label+" vital change:");
+      _is.incrementIndendationLevel();
+      Float constant=vitalChange.getConstant();
+      if (constant!=null) 
+      {
+        _is.println("Constant: "+constant);
+      }
+      Progression progression=vitalChange.getProgression();
+      if (progression!=null)
+      {
+        _is.println("Progression: "+progression);
+      }
+      Float variance=vitalChange.getVariance();
+      if (variance!=null)
+      {
+        _is.println("Variance: "+(variance.floatValue()*100)+"%");
+      }
+      float probability=vitalChange.getProbability();
+      _is.println("Probability: "+probability);
+      if (vitalChange.isMultiplicative())
+      {
+        _is.println("Multiplicative");
+      }
     }
     dumpEffectAndProbability(label+" effect: ",change.getEffect());
     _is.decrementIndentationLevel();
