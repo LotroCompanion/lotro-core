@@ -107,7 +107,7 @@ public class ApplicationProbability
     {
       return ALWAYS;
     }
-    if (modifierPropertyID!=0)
+    if (modifierPropertyID==0)
     {
       return new ApplicationProbability(probability,variance);
     }
