@@ -4,21 +4,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.transform.sax.TransformerHandler;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
-import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.EffectAndProbability;
 import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
@@ -28,6 +25,8 @@ import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
+import delta.games.lotro.common.effects.ReactiveChange;
+import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
@@ -36,9 +35,16 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.ResistCategory;
+import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.math.LinearFunction;
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.StatsRegistry;
+import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.items.DamageType;
+import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.maths.Progression;
 
 /**
  * Parser for effect descriptions stored in XML.
@@ -81,7 +87,6 @@ public class EffectXMLParser2
   /**
    * Build an effect from an XML tag.
    * @param root Root XML tag.
-   * @param labelsMgr Labels manager.
    * @return An effect.
    */
   private Effect2 parseEffect(Element root)
@@ -140,7 +145,7 @@ public class EffectXMLParser2
     int maxDispelCount=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.DISPEL_BY_RESIST_MAX_DISPELCOUNT_ATTR,0);
     ret.setMaxDispelCount(maxDispelCount);
     // Resist categories
-    String resistCategories=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.DISPEL_BY_RESIST_MAX_DISPELCOUNT_ATTR,null);
+    String resistCategories=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.DISPEL_BY_RESIST_CATEGORIES_ATTR,null);
     List<ResistCategory> categories=readEnumEntriesList(resistCategories,ResistCategory.class);
     if (categories!=null)
     {
@@ -167,6 +172,11 @@ public class EffectXMLParser2
     {
       ret.setSummonDuration(duration);
     }
+    boolean permanent=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants2.GENESIS_PERMANENT_ATTR,false);
+    if (permanent)
+    {
+      ret.setPermanent();
+    }
     // Hotspot
     Element hotspotTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants2.HOTSPOT_TAG);
     if (hotspotTag!=null)
@@ -179,10 +189,11 @@ public class EffectXMLParser2
       String name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.HOTSPOT_NAME_ATTR,null);
       hotspot.setName(name);
       // Generators
-      for(EffectGenerator effectGenerator : hotspot.getEffects())
+      List<Element> generatorTags=DOMParsingTools.getChildTagsByName(hotspotTag,EffectXMLConstants2.EFFECT_GENERATOR_TAG);
+      for(Element generatorTag : generatorTags)
       {
-        hotspot.
-        writeEffectGenerator(hd,effectGenerator);
+        EffectGenerator generator=readEffectGenerator(generatorTag);
+        hotspot.addEffect(generator);
       }
       ret.setHotspot(hotspot);
     }
@@ -194,93 +205,281 @@ public class EffectXMLParser2
       // Identifier
       int id=DOMParsingTools.getIntAttribute(summonedAttrs,EffectXMLConstants2.SUMMONED_ID_ATTR,0);
       // Name
-      String name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.SUMMONED_NAME_ATTR,null);
-      // TODO Resolve interactable!
+      String name=DOMParsingTools.getStringAttribute(summonedAttrs,EffectXMLConstants2.SUMMONED_NAME_ATTR,null);
+      Proxy<Interactable> i=new Proxy<Interactable>();
+      i.setId(id);
+      i.setName(name);
+      ret.setInteractable(i);
     }
+    return ret;
   }
 
   private InduceCombatStateEffect parseInduceCombatStateEffect(Element root)
   {
-    private CombatState _state;
-    private float _duration;
-    private LinearFunction _durationFunction;
+    InduceCombatStateEffect ret=new InduceCombatStateEffect();
+    NamedNodeMap attrs=root.getAttributes();
+    // Duration
+    float duration=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.INDUCE_COMBAT_STATE_DURATION_ATTR,0);
+    ret.setDuration(duration);
+    // Combat state
+    int combatStateCode=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.INDUCE_COMBAT_STATE_STATE_ATTR,-1);
+    if (combatStateCode>=0)
+    {
+      CombatState combatState=LotroEnumsRegistry.getInstance().get(CombatState.class).getEntry(combatStateCode);
+      ret.setCombatState(combatState);
+    }
+    // Function
+    Element functionTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants2.FUNCTION_TAG);
+    if (functionTag!=null)
+    {
+      NamedNodeMap functionAttrs=functionTag.getAttributes();
+      float minX=DOMParsingTools.getFloatAttribute(functionAttrs,EffectXMLConstants2.FUNCTION_MIN_X_ATTR,0);
+      float minY=DOMParsingTools.getFloatAttribute(functionAttrs,EffectXMLConstants2.FUNCTION_MIN_Y_ATTR,0);
+      float maxX=DOMParsingTools.getFloatAttribute(functionAttrs,EffectXMLConstants2.FUNCTION_MAX_X_ATTR,0);
+      float maxY=DOMParsingTools.getFloatAttribute(functionAttrs,EffectXMLConstants2.FUNCTION_MAX_Y_ATTR,0);
+      LinearFunction f=new LinearFunction(minX,maxX,minY,maxY);
+      ret.setDurationFunction(f);
+    }
+    return ret;
   }
 
   private InstantFellowshipEffect parseInstantFellowshipEffect(Element root)
   {
-    private List<EffectGenerator> _effects;
-    private boolean _applyToRaidGroups;
-    private boolean _applyToPets;
-    private boolean _applyToTarget;
-    private Float _range;
-
+    InstantFellowshipEffect ret=new InstantFellowshipEffect();
+    NamedNodeMap attrs=root.getAttributes();
+    // Apply to raid groups
+    boolean applyToRaidGroups=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants2.FELLOWSHIP_EFFECT_APPLY_TO_RAID_GROUPS_ATTR,false);
+    ret.setAppliesToRaidGroups(applyToRaidGroups);
+    // Apply to pets
+    boolean applyToPets=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants2.FELLOWSHIP_EFFECT_APPLY_TO_PETS_ATTR,false);
+    ret.setAppliesToPets(applyToPets);
+    // Apply to target
+    boolean applyToTarget=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants2.FELLOWSHIP_EFFECT_APPLY_TARGET_ATTR,false);
+    ret.setAppliesToTarget(applyToTarget);
+    // Range
+    float range=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.FELLOWSHIP_EFFECT_RANGE_ATTR,-1);
+    if (range>0)
+    {
+      ret.setRange(range);
+    }
+    // Generators
+    List<Element> generatorTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants2.EFFECT_GENERATOR_TAG);
+    for(Element generatorTag : generatorTags)
+    {
+      EffectGenerator generator=readEffectGenerator(generatorTag);
+      ret.addEffect(generator);
+    }
+    return ret;
   }
-  
+
   private InstantVitalEffect parseInstantVitalEffect(Element root)
   {
-    // Morale, Power, ...
-    private StatDescription _stat;
-    private boolean _multiplicative;
-    private VitalChangeDescription _instantChange;
+    InstantVitalEffect ret=new InstantVitalEffect();
+    NamedNodeMap attrs=root.getAttributes();
+    // Stat
+    String statKey=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.INSTANT_VITAL_EFFECT_STAT_ATTR,"");
+    StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
+    ret.setStat(stat);
+    // Multiplicative
+    boolean multiplicative=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants2.INSTANT_VITAL_EFFECT_MULTIPLICATIVE_ATTR,false);
+    ret.setMultiplicative(multiplicative);
+    Element vitalChangeTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants2.VITAL_CHANGE_TAG);
+    if (vitalChangeTag!=null)
+    {
+      VitalChangeDescription change=parseVitalChangeDescription(vitalChangeTag);
+      ret.setInstantChangeDescription(change);
+    }
+    return ret;
+  }
 
+  private VitalChangeDescription parseVitalChangeDescription(Element vitalChangeTag)
+  {
+    if (vitalChangeTag==null)
+    {
+      return null;
+    }
+    VitalChangeDescription ret=new VitalChangeDescription();
+    NamedNodeMap attrs=vitalChangeTag.getAttributes();
+    readAbstractVitalChangeAttributes(attrs,ret);
+    // Min
+    Float min=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.VITAL_CHANGE_MIN_ATTR,null);
+    if (min!=null)
+    {
+      ret.setMinValue(min.floatValue());
+    }
+    // Max
+    Float max=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.VITAL_CHANGE_MAX_ATTR,null);
+    if (max!=null)
+    {
+      ret.setMaxValue(max.floatValue());
+    }
+    return ret;
+  }
+
+  private void readAbstractVitalChangeAttributes(NamedNodeMap attrs, AbstractVitalChange change)
+  {
+    // Constant
+    Float constant=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.VITAL_CHANGE_CONSTANT_ATTR,null);
+    if (constant!=null)
+    {
+      change.setConstant(constant.floatValue());
+    }
+    // Progression
+    int progressionID=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.VITAL_CHANGE_PROGRESSION_ID_ATTR,0);
+    if (progressionID!=0)
+    {
+      Progression progression=ProgressionsManager.getInstance().getProgression(progressionID);
+      change.setProgression(progression);
+    }
+    // Variance
+    Float variance=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.VITAL_CHANGE_VARIANCE_ATTR,null);
+    change.setVariance(variance);
   }
 
   private ProcEffect parseProcEffect(Element root)
   {
-    PropertyMod+
-    // Class 3686
-    /**
-     * Types of skills that may trigger effects.
-     */
-    private List<SkillType> _skillTypes;
-    /**
-     * Probability to trigger effects (0..1).
-     */
-    private Float _procProbability;
-    /**
-     * Triggered effects.
-     */
-    private List<EffectGenerator> _procedEffects;
-    /**
-     * Minimum time between triggers (s).
-     */
-    private Float _cooldown;
-
+    ProcEffect ret=new ProcEffect();
+    readPropertyMod(root,ret);
+    NamedNodeMap attrs=root.getAttributes();
+    // Skill types
+    String skillTypesStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.PROC_SKILL_TYPES_ATTR,null);
+    List<SkillType> skillTypes=readEnumEntriesList(skillTypesStr,SkillType.class);
+    if (skillTypes!=null)
+    {
+      ret.setSkillTypes(skillTypes);
+    }
+    Float procProbability=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.PROC_PROBABILITY_ATTR,null);
+    ret.setProcProbability(procProbability);
+    // Triggered effects
+    List<Element> generatorTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants2.EFFECT_GENERATOR_TAG);
+    for(Element generatorTag : generatorTags)
+    {
+      EffectGenerator generator=readEffectGenerator(generatorTag);
+      ret.addProcedEffect(generator);
+    }
+    // Cooldown
+    Float cooldown=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.PROC_COOLDOWN_ATTR,null);
+    ret.setCooldown(cooldown);
+    return ret;
   }
 
   private ReactiveVitalEffect parseReactiveVitalEffect(Element root)
   {
-    PropertyMod+
+    ReactiveVitalEffect ret=new ReactiveVitalEffect();
+    readPropertyMod(root,ret);
+    NamedNodeMap attrs=root.getAttributes();
     // Incoming damage types
-    private List<DamageType> _damageTypes;
-    // Damage type override: type of damage received by the attacker (reflect), if different from source damage type
-    // Usually <code>null</code>.
-    private DamageType _attackerDamageTypeOverride;
-    // Attacker reactive change (may be <code>null</code>).
-    private ReactiveChange _attacker;
-    // Defender reactive change (may be <code>null</code>).
-    private ReactiveChange _defender;
-    // Indicates if the effect is removed once it is triggered
-    private boolean _removeOnProc;
-    
+    String damageTypesStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.REACTIVE_VITAL_DAMAGE_TYPES_ATTR,null);
+    List<DamageType> damageTypes=readEnumEntriesList(damageTypesStr,DamageType.class);
+    if (damageTypes!=null)
+    {
+      for(DamageType damageType : damageTypes)
+      {
+        ret.addDamageType(damageType);
+      }
+    }
+    // Damage type override
+    int damageTypeCode=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.REACTIVE_VITAL_DAMAGE_TYPE_OVERRIDE_ATTR,-1);
+    if (damageTypeCode>0)
+    {
+      DamageType attackerDamageTypeOverride=LotroEnumsRegistry.getInstance().get(DamageType.class).getEntry(damageTypeCode);
+      ret.setAttackerDamageTypeOverride(attackerDamageTypeOverride);
+    }
+    // Attacker reactive change
+    Element attackerTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants2.ATTACKER_TAG);
+    ReactiveChange attacker=parseReactiveChange(attackerTag);
+    ret.setAttackerReactiveChange(attacker);
+    // Defender reactive change
+    Element defenderTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants2.DEFENDER_TAG);
+    ReactiveChange defender=parseReactiveChange(defenderTag);
+    ret.setDefenderReactiveChange(defender);
+    // Remove on proc
+    boolean removeOnProc=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants2.REACTIVE_VITAL_REMOVE_ON_PROC_ATTR,false);
+    ret.setRemoveOnProc(removeOnProc);
+    return ret;
+  }
+
+  private ReactiveChange parseReactiveChange(Element changeTag)
+  {
+    if (changeTag==null)
+    {
+      return null;
+    }
+    Element reactiveVitalTag=DOMParsingTools.getChildTagByName(changeTag,EffectXMLConstants2.REACTIVE_VITAL_TAG);
+    ReactiveVitalChange reactiveVitalChange=parseReactiveVitalChange(reactiveVitalTag);
+    Element reactiveEffectTag=DOMParsingTools.getChildTagByName(changeTag,EffectXMLConstants2.REACTIVE_EFFECT_TAG);
+    EffectAndProbability effectProb=parseReactiveEffectTag(reactiveEffectTag);
+    if ((reactiveVitalChange!=null) || (effectProb!=null))
+    {
+      return new ReactiveChange(reactiveVitalChange,effectProb);
+    }
+    return null;
+  }
+
+  private ReactiveVitalChange parseReactiveVitalChange(Element reactiveVitalTag)
+  {
+    if (reactiveVitalTag==null)
+    {
+      return null;
+    }
+    ReactiveVitalChange ret=new ReactiveVitalChange();
+    NamedNodeMap attrs=reactiveVitalTag.getAttributes();
+    readAbstractVitalChangeAttributes(attrs,ret);
+    // Probability
+    float probability=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.REACTIVE_VITAL_PROBABILITY_ATTR,0);
+    ret.setProbability(probability);
+    // Multiplicative
+    boolean multiplicative=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants2.REACTIVE_VITAL_MULTIPLICATIVE_ATTR,false);
+    ret.setMultiplicative(multiplicative);
+    return ret;
+  }
+
+  private EffectAndProbability parseReactiveEffectTag(Element reactiveEffectTag)
+  {
+    if (reactiveEffectTag==null)
+    {
+      return null;
+    }
+    NamedNodeMap attrs=reactiveEffectTag.getAttributes();
+    int effectID=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.REACTIVE_EFFECT_ID_ATTR,0);
+    Effect2 effect=new Effect2();
+    effect.setId(effectID);
+    float probability=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.REACTIVE_EFFECT_PROBABILITY_ATTR,0);
+    EffectAndProbability ret=new EffectAndProbability(effect,probability);
+    return ret;
   }
 
   private PropertyModificationEffect parsePropertyModificationEffect(Element root)
   {
-    //PropertyMod+
+    PropertyModificationEffect ret=new PropertyModificationEffect();
+    readPropertyMod(root,ret);
+    return ret;
   }
 
   private VitalOverTimeEffect parseVitalOverTimeEffect(Element root)
   {
-    // Morale, Power, ...
-    private StatDescription _stat;
-    // Damage type (if harmful, null otherwise)
-    private DamageType _damageType;
+    VitalOverTimeEffect ret=new VitalOverTimeEffect();
+    NamedNodeMap attrs=root.getAttributes();
+    // Stat
+    String statKey=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.VITAL_OVER_TIME_EFFECT_STAT_ATTR,"");
+    StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
+    ret.setStat(stat);
+    // Damage type
+    int damageTypeCode=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.VITAL_OVER_TIME_EFFECT_DAMAGE_TYPE_ATTR,-1);
+    if (damageTypeCode>0)
+    {
+      DamageType damageType=LotroEnumsRegistry.getInstance().get(DamageType.class).getEntry(damageTypeCode);
+      ret.setDamageType(damageType);
+    }
     // Initial change
-    private VitalChangeDescription _initialChange;
+    Element initialChangeTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants2.INITIAL_CHANGE_TAG);
+    VitalChangeDescription initialChange=parseVitalChangeDescription(initialChangeTag);
+    ret.setInitialChangeDescription(initialChange);
     // Over-time change
-    private VitalChangeDescription _overTimeChange;
-
+    Element overTimeChangeTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants2.OVER_TIME_CHANGE_TAG);
+    VitalChangeDescription overTimeChange=parseVitalChangeDescription(overTimeChangeTag);
+    ret.setOverTimeChangeDescription(overTimeChange);
+    return ret;
   }
 
   private void readSharedAttributes(Element root, Effect2 effect)
@@ -343,7 +542,7 @@ public class EffectXMLParser2
     }
   }
 
-  private void readEffectGenerator(Element generatorTag) throws SAXException
+  private EffectGenerator readEffectGenerator(Element generatorTag)
   {
     NamedNodeMap attrs=generatorTag.getAttributes();
     int effectId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.EFFECT_GENERATOR_ID_ATTR,0);
@@ -353,8 +552,11 @@ public class EffectXMLParser2
     {
       spellcraft=Float.valueOf(spellcraftValue);
     }
+    Effect2 effect=new Effect2();
+    effect.setId(effectId);
+    EffectGenerator ret=new EffectGenerator(effect,spellcraft);
+    return ret;
   }
-
 
   private <T extends LotroEnumEntry> List<T> readEnumEntriesList(String value, Class<T> enumEntryClass)
   {
@@ -369,24 +571,21 @@ public class EffectXMLParser2
     {
       int code=NumericTools.parseInt(codeStr,0);
       T entry=lotroEnum.getEntry(code);
-      ret.add(entry);
+      if (entry!=null)
+      {
+        ret.add(entry);
+      }
+      else
+      {
+        System.out.println("null entry: code="+code+" for class: "+enumEntryClass);
+      }
     }
     return ret;
   }
 
-  private void toto()
+  private void readPropertyMod(Element root, PropertyModificationEffect effect)
   {
-    /*
-    Effect effect;
-    // Duration
-    float duration=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.EFFECT_DURATION_ATTR,-1);
-    if (duration>=0)
-    {
-      effect.setDuration(Float.valueOf(duration));
-    }
-    // Stats
-    StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root,labelsMgr);
+    StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root,_labelsMgr);
     effect.setStatsProvider(statsProvider);
-    */
   }
 }

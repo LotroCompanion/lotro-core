@@ -1,6 +1,7 @@
 package delta.games.lotro.common.effects;
 
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Genesis effect.
@@ -18,7 +19,7 @@ public class GenesisEffect extends Effect2
   // - Hotspot
   private Hotspot _hotspot;
   // - NPC, Mob or Item
-  private Interactable _interactable;
+  private Proxy<Interactable> _interactable;
 
   /**
    * Constructor.
@@ -87,7 +88,7 @@ public class GenesisEffect extends Effect2
    * Get the interactable, if any.
    * @return An interactable or <code>null</code>.
    */
-  public Interactable getInteractable()
+  public Proxy<Interactable> getInteractable()
   {
     return _interactable;
   }
@@ -96,7 +97,7 @@ public class GenesisEffect extends Effect2
    * Set the interactable.
    * @param interactable Interactable to set.
    */
-  public void setInteractable(Interactable interactable)
+  public void setInteractable(Proxy<Interactable> interactable)
   {
     _interactable=interactable;
   }

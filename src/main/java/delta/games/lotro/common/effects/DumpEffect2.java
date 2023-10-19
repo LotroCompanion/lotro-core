@@ -12,6 +12,7 @@ import delta.games.lotro.common.math.LinearFunction;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.DamageType;
+import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -329,10 +330,10 @@ public class DumpEffect2
       _is.println("Summoned hotspot ID="+hotspotID+": "+name);
       showGenerators("Hotspot effects:", hotspot.getEffects());
     }
-    Interactable interactable=effect.getInteractable();
+    Proxy<Interactable> interactable=effect.getInteractable();
     if (interactable!=null)
     {
-      int id=interactable.getIdentifier();
+      int id=interactable.getId();
       String name=interactable.getName();
       _is.println("Summoned element ID="+id+": "+name);
     }

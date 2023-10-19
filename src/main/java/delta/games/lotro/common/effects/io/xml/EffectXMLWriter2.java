@@ -40,6 +40,7 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.DamageType;
+import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -445,11 +446,11 @@ public class EffectXMLWriter2
       }
       hd.endElement("","",EffectXMLConstants2.HOTSPOT_TAG);
     }
-    Interactable interactable=genesis.getInteractable();
+    Proxy<Interactable> interactable=genesis.getInteractable();
     if (interactable!=null)
     {
       AttributesImpl attrs=new AttributesImpl();
-      int id=interactable.getIdentifier();
+      int id=interactable.getId();
       attrs.addAttribute("","",EffectXMLConstants2.SUMMONED_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       String name=interactable.getName();
       attrs.addAttribute("","",EffectXMLConstants2.SUMMONED_NAME_ATTR,XmlWriter.CDATA,name);
@@ -589,7 +590,10 @@ public class EffectXMLWriter2
       attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       // Name
       String name=effectProb.getEffect().getName();
-      attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
+      if (name!=null)
+      {
+        attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
+      }
       // Probability
       float probability=effectProb.getProbability();
       attrs.addAttribute("","",EffectXMLConstants2.REACTIVE_EFFECT_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(probability));
@@ -626,7 +630,10 @@ public class EffectXMLWriter2
     int id=effect.getIdentifier();
     attrs.addAttribute("","",EffectXMLConstants2.EFFECT_GENERATOR_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     String name=effect.getName();
-    attrs.addAttribute("","",EffectXMLConstants2.EFFECT_GENERATOR_NAME_ATTR,XmlWriter.CDATA,name);
+    if (name!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.EFFECT_GENERATOR_NAME_ATTR,XmlWriter.CDATA,name);
+    }
     Float spellcraft=generator.getSpellcraft();
     if (spellcraft!=null)
     {
@@ -650,7 +657,8 @@ public class EffectXMLWriter2
       {
         sb.append(',');
       }
-      sb.append(enumList.get(i).getCode());
+      T entry=enumList.get(i);
+      sb.append(entry.getCode());
     }
     return sb.toString();
   }
