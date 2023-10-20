@@ -30,6 +30,15 @@ public class EffectAndProbability
   }
 
   /**
+   * Set the managed effect.
+   * @param effect Effect to set.
+   */
+  public void setEffect(Effect2 effect)
+  {
+    _effect=effect;
+  }
+
+  /**
    * Get the probability.
    * @return a probability (0-1).
    */

@@ -2,7 +2,9 @@ package delta.games.lotro.common.effects.io.xml;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -53,6 +55,9 @@ import delta.games.lotro.utils.maths.Progression;
 public class EffectXMLParser2
 {
   private SingleLocaleLabelsManager _labelsMgr;
+  private List<EffectGenerator> _toUpdate;
+  private List<EffectAndProbability> _toUpdate2;
+  private Map<Integer,Effect2> _loadedEffects;
 
   /**
    * Constructor.
@@ -61,6 +66,9 @@ public class EffectXMLParser2
   public EffectXMLParser2(SingleLocaleLabelsManager labelsMgr)
   {
     _labelsMgr=labelsMgr;
+    _toUpdate=new ArrayList<EffectGenerator>();
+    _toUpdate2=new ArrayList<EffectAndProbability>();
+    _loadedEffects=new HashMap<Integer,Effect2>();
   }
 
   /**
@@ -81,6 +89,7 @@ public class EffectXMLParser2
         effects.add(effect);
       }
     }
+    resolveEffects();
     return effects;
   }
 
@@ -134,6 +143,7 @@ public class EffectXMLParser2
       ret=new Effect2();
     }
     readSharedAttributes(root,ret);
+    _loadedEffects.put(Integer.valueOf(ret.getIdentifier()),ret);
     return ret;
   }
 
@@ -186,7 +196,7 @@ public class EffectXMLParser2
       int id=DOMParsingTools.getIntAttribute(hotspotAttrs,EffectXMLConstants2.HOTSPOT_ID_ATTR,0);
       Hotspot hotspot=new Hotspot(id);
       // Name
-      String name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.HOTSPOT_NAME_ATTR,null);
+      String name=DOMParsingTools.getStringAttribute(hotspotAttrs,EffectXMLConstants2.HOTSPOT_NAME_ATTR,null);
       hotspot.setName(name);
       // Generators
       List<Element> generatorTags=DOMParsingTools.getChildTagsByName(hotspotTag,EffectXMLConstants2.EFFECT_GENERATOR_TAG);
@@ -446,6 +456,7 @@ public class EffectXMLParser2
     effect.setId(effectID);
     float probability=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.REACTIVE_EFFECT_PROBABILITY_ATTR,0);
     EffectAndProbability ret=new EffectAndProbability(effect,probability);
+    _toUpdate2.add(ret);
     return ret;
   }
 
@@ -555,6 +566,7 @@ public class EffectXMLParser2
     Effect2 effect=new Effect2();
     effect.setId(effectId);
     EffectGenerator ret=new EffectGenerator(effect,spellcraft);
+    _toUpdate.add(ret);
     return ret;
   }
 
@@ -587,5 +599,21 @@ public class EffectXMLParser2
   {
     StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root,_labelsMgr);
     effect.setStatsProvider(statsProvider);
+  }
+
+  private void resolveEffects()
+  {
+    for(EffectGenerator effectGenerator : _toUpdate)
+    {
+      int effectID=effectGenerator.getEffect().getIdentifier();
+      Effect2 effect=_loadedEffects.get(Integer.valueOf(effectID));
+      effectGenerator.setEffect(effect);
+    }
+    for(EffectAndProbability effectProb : _toUpdate2)
+    {
+      int effectID=effectProb.getEffect().getIdentifier();
+      Effect2 effect=_loadedEffects.get(Integer.valueOf(effectID));
+      effectProb.setEffect(effect);
+    }
   }
 }

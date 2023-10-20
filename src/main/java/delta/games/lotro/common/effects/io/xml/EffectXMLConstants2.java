@@ -132,9 +132,9 @@ public class EffectXMLConstants2
    */
   public static final String INDUCE_COMBAT_STATE_STATE_ATTR="state";
   /**
-   * Tag 'induceCombatState', attribute 'duration'.
+   * Tag 'induceCombatState', attribute 'stateDuration'.
    */
-  public static final String INDUCE_COMBAT_STATE_DURATION_ATTR="duration";
+  public static final String INDUCE_COMBAT_STATE_DURATION_ATTR="stateDuration";
 
   /**
    * Tag 'fellowshipEffect'.
@@ -209,9 +209,9 @@ public class EffectXMLConstants2
    */
   public static final String PROC_SKILL_TYPES_ATTR="skillTypes";
   /**
-   * Tag 'procEffect', attribute 'probability'.
+   * Tag 'procEffect', attribute 'procProbability'.
    */
-  public static final String PROC_PROBABILITY_ATTR="probability";
+  public static final String PROC_PROBABILITY_ATTR="procProbability";
   /**
    * Tag 'procEffect', attribute 'cooldown'.
    */

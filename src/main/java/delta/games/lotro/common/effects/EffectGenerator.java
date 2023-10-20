@@ -30,6 +30,15 @@ public class EffectGenerator
   }
 
   /**
+   * Set the managed effect.
+   * @param effect Effect to set.
+   */
+  public void setEffect(Effect2 effect)
+  {
+    _effect=effect;
+  }
+
+  /**
    * Get the spellcraft.
    * @return the spellcraft.
    */
