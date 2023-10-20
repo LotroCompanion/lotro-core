@@ -65,6 +65,7 @@ public class SkillDescriptionXMLParser
       for(Element skillTag : skillTags)
       {
         SkillDescription skill=parseSkillTag(skillTag);
+        SkillEffectsXmlIO.readSkillEffects(skillTag,skill);
         skills.add(skill);
       }
     }

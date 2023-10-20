@@ -64,10 +64,10 @@ public class ItemEffectsXmlIO
    */
   public static void writeSetEffects(TransformerHandler hd, ItemSetEffectsManager effectsMgr) throws SAXException
   {
-    EffectGenerator[] onUse=effectsMgr.getEffects();
-    if (onUse.length>0)
+    EffectGenerator[] effects=effectsMgr.getEffects();
+    if (effects.length>0)
     {
-      for(EffectGenerator generator : onUse)
+      for(EffectGenerator generator : effects)
       {
         writeEffectGenerator(hd,generator,null);
       }

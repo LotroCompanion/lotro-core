@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.items.sets;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 
 /**
@@ -26,6 +28,11 @@ public class ItemsSetEffectsTest extends TestCase
 
   private void showSet(ItemsSet set)
   {
+    boolean hasEffects=hasEffects(set);
+    if (!hasEffects)
+    {
+      return;
+    }
     SetEffectsDisplay display=new SetEffectsDisplay();
     System.out.println("Set: "+set);
     for(SetBonus bonus : set.getBonuses())
@@ -37,5 +44,21 @@ public class ItemsSetEffectsTest extends TestCase
         System.out.println(text);
       }
     }
+  }
+
+  private boolean hasEffects(ItemsSet set)
+  {
+    boolean doIt=false;
+    List<SetBonus> bonuses=set.getBonuses();
+    for(SetBonus bonus : bonuses)
+    {
+      ItemSetEffectsManager effectsMgr=bonus.getEffects();
+      if (effectsMgr!=null)
+      {
+        doIt=true;
+        break;
+      }
+    }
+    return doIt;
   }
 }

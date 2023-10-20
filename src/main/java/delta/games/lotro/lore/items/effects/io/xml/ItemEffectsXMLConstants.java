@@ -27,4 +27,8 @@ public class ItemEffectsXMLConstants
    * Tag 'effect', attribute 'spellcraft'.
    */
   public static final String EFFECT_SPELLCRAFT_ATTR="spellcraft";
+  /**
+   * Tag 'effect', attribute 'duration'.
+   */
+  public static final String EFFECT_DURATION_ATTR="duration";
 }
