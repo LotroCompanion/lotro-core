@@ -17,8 +17,8 @@ import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemEffectsManager;
-import delta.games.lotro.lore.items.ItemEffectsManager.Type;
+import delta.games.lotro.lore.items.effects.ItemEffectsManager;
+import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
 import delta.games.lotro.lore.items.sets.ItemSetEffectsManager;
 import delta.games.lotro.lore.items.sets.SetBonus;
 

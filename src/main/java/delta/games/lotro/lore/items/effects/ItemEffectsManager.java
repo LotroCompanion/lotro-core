@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.items;
+package delta.games.lotro.lore.items.effects;
 
 import java.util.ArrayList;
 import java.util.List;
