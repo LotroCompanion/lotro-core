@@ -49,6 +49,8 @@ import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
 import delta.games.lotro.lore.items.details.io.xml.ItemDetailsSaxParser;
+import delta.games.lotro.lore.items.effects.io.xml.ItemEffectsXMLConstants;
+import delta.games.lotro.lore.items.effects.io.xml.ItemEffectsXmlIO;
 import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSlotsSetup;
 import delta.games.lotro.lore.items.legendary.Legendary;
@@ -396,6 +398,10 @@ public final class ItemSaxParser extends DefaultHandler
         _currentItem.setStatsProvider(statsProvider);
       }
       statsProvider.addSpecialEffect(specialEffect);
+    }
+    else if (ItemEffectsXMLConstants.EFFECT_TAG.equals(qualifiedName))
+    {
+      ItemEffectsXmlIO.readItemEffect(attributes,_currentItem);
     }
     else
     {

@@ -215,10 +215,6 @@ public class DataFiles
    */
   public static final String EFFECTS="effects";
   /**
-   * Effects file.
-   */
-  public static final String EFFECTS2="effects2";
-  /**
    * Collections.
    */
   public static final String COLLECTIONS="collections";

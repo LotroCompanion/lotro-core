@@ -5,7 +5,7 @@ import java.util.List;
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.Effect2;
 
 /**
  * Usage requirement (for quests, deeds, items and relics).
@@ -365,7 +365,7 @@ public class UsageRequirement
     }
     if (_effectRequirement!=null)
     {
-      Effect effect=_effectRequirement.getEffect();
+      Effect2 effect=_effectRequirement.getEffect();
       sb.append(" Effect=").append(effect.getName());
     }
     return sb.toString().trim();

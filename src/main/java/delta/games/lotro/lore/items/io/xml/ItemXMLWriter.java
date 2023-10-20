@@ -25,12 +25,14 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
+import delta.games.lotro.lore.items.ItemEffectsManager;
 import delta.games.lotro.lore.items.ItemQuality;
 import delta.games.lotro.lore.items.ItemSturdiness;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
 import delta.games.lotro.lore.items.details.io.xml.ItemDetailsXMLWriter;
+import delta.games.lotro.lore.items.effects.io.xml.ItemEffectsXmlIO;
 import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSlotsSetup;
 import delta.games.lotro.lore.items.legendary.Legendary;
@@ -341,6 +343,13 @@ public class ItemXMLWriter
 
     // Details
     _detailsWriter.writeDetails(hd,item);
+
+    // Effects
+    ItemEffectsManager effectsMgr=item.getEffects();
+    if (effectsMgr!=null)
+    {
+      ItemEffectsXmlIO.writeItemEffects(hd,effectsMgr);
+    }
     hd.endElement("","",ItemXMLConstants.ITEM_TAG);
   }
 }

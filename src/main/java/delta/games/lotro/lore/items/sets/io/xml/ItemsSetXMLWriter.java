@@ -16,6 +16,8 @@ import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.effects.io.xml.ItemEffectsXmlIO;
+import delta.games.lotro.lore.items.sets.ItemSetEffectsManager;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSet.SetType;
 import delta.games.lotro.lore.items.sets.SetBonus;
@@ -139,15 +141,26 @@ public class ItemsSetXMLWriter
     List<SetBonus> bonuses=set.getBonuses();
     for(SetBonus bonus : bonuses)
     {
-      AttributesImpl attrs=new AttributesImpl();
-      int count=bonus.getPiecesCount();
-      attrs.addAttribute("","",ItemsSetXMLConstants.BONUS_NB_ITEMS_ATTR,XmlWriter.CDATA,String.valueOf(count));
-      hd.startElement("","",ItemsSetXMLConstants.BONUS_TAG,attrs);
-      // Stats
-      StatsProvider statsProvider=bonus.getStatsProvider();
-      StatsProviderXMLWriter.writeXml(hd,statsProvider);
-      hd.endElement("","",ItemsSetXMLConstants.BONUS_TAG);
+      writeBonus(hd,bonus);
     }
     hd.endElement("","",ItemsSetXMLConstants.ITEMS_SET_TAG);
+  }
+
+  private void writeBonus(TransformerHandler hd, SetBonus bonus) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    int count=bonus.getPiecesCount();
+    attrs.addAttribute("","",ItemsSetXMLConstants.BONUS_NB_ITEMS_ATTR,XmlWriter.CDATA,String.valueOf(count));
+    hd.startElement("","",ItemsSetXMLConstants.BONUS_TAG,attrs);
+    // Stats
+    StatsProvider statsProvider=bonus.getStatsProvider();
+    StatsProviderXMLWriter.writeXml(hd,statsProvider);
+    // Effects
+    ItemSetEffectsManager effectsMgr=bonus.getEffects();
+    if (effectsMgr!=null)
+    {
+      ItemEffectsXmlIO.writeSetEffects(hd,effectsMgr);
+    }
+    hd.endElement("","",ItemsSetXMLConstants.BONUS_TAG);
   }
 }

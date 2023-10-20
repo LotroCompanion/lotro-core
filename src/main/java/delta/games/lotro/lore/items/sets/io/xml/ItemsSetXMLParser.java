@@ -13,6 +13,7 @@ import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.effects.io.xml.ItemEffectsXmlIO;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 import delta.games.lotro.lore.items.sets.ItemsSet.SetType;
 import delta.games.lotro.lore.items.sets.SetBonus;
@@ -122,11 +123,14 @@ public class ItemsSetXMLParser
     {
       NamedNodeMap bonusAttrs=bonusTag.getAttributes();
       int piecesCount=DOMParsingTools.getIntAttribute(bonusAttrs,ItemsSetXMLConstants.BONUS_NB_ITEMS_ATTR,0);
-      StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(bonusTag,_i18n);
-      if ((piecesCount!=0) && (statsProvider!=null))
+      if (piecesCount!=0)
       {
         SetBonus bonus=new SetBonus(piecesCount);
+        // Stats
+        StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(bonusTag,_i18n);
         bonus.setStatsProvider(statsProvider);
+        // Effects
+        ItemEffectsXmlIO.readSetBonusEffects(bonusTag,bonus);
         ret.addBonus(bonus);
       }
     }

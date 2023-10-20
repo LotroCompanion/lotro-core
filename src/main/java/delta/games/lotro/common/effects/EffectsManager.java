@@ -9,7 +9,7 @@ import java.util.Map;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
+import delta.games.lotro.common.effects.io.xml.EffectXMLParser2;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.utils.i18n.I18nFacade;
@@ -21,7 +21,7 @@ import delta.games.lotro.utils.i18n.I18nFacade;
 public class EffectsManager
 {
   private static EffectsManager _instance=null;
-  private Map<Integer,Effect> _effects;
+  private Map<Integer,Effect2> _effects;
 
   /**
    * Get the reference instance of this class.
@@ -41,8 +41,9 @@ public class EffectsManager
     EffectsManager ret=new EffectsManager();
     File from=LotroCoreConfig.getInstance().getFile(DataFiles.EFFECTS);
     SingleLocaleLabelsManager labelsMgr=I18nFacade.getLabelsMgr("effects");
-    List<Effect> effects=EffectXMLParser.parseEffectsFile(from,labelsMgr);
-    for(Effect effect : effects)
+    EffectXMLParser2 parser=new EffectXMLParser2(labelsMgr);
+    List<Effect2> effects=parser.parseEffectsFile(from);
+    for(Effect2 effect : effects)
     {
       ret.addEffect(effect);
     }
@@ -54,14 +55,14 @@ public class EffectsManager
    */
   public EffectsManager()
   {
-    _effects=new HashMap<Integer,Effect>();
+    _effects=new HashMap<Integer,Effect2>();
   }
 
   /**
    * Add an effect.
    * @param effect Effect to add.
    */
-  public void addEffect(Effect effect)
+  public void addEffect(Effect2 effect)
   {
     Integer key=Integer.valueOf(effect.getIdentifier());
     _effects.put(key,effect);
@@ -72,7 +73,7 @@ public class EffectsManager
    * @param effectId Effect identifier.
    * @return An effect or <code>null</code> if not found.
    */
-  public Effect getEffectById(int effectId)
+  public Effect2 getEffectById(int effectId)
   {
     return _effects.get(Integer.valueOf(effectId));
   }
@@ -81,11 +82,11 @@ public class EffectsManager
    * Get all effects.
    * @return a list of effects.
    */
-  public List<Effect> getEffects()
+  public List<Effect2> getEffects()
   {
-    List<Effect> ret=new ArrayList<Effect>();
+    List<Effect2> ret=new ArrayList<Effect2>();
     ret.addAll(_effects.values());
-    Collections.sort(ret,new IdentifiableComparator<Effect>());
+    Collections.sort(ret,new IdentifiableComparator<Effect2>());
     return ret;
   }
 
@@ -94,9 +95,9 @@ public class EffectsManager
    */
   public void dump()
   {
-    List<Effect> effects=getEffects();
+    List<Effect2> effects=getEffects();
     System.out.println("Effect: ("+effects.size()+")");
-    for(Effect effect : effects)
+    for(Effect2 effect : effects)
     {
       System.out.println("\t"+effect);
     }

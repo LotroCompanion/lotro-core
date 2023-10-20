@@ -6,7 +6,7 @@ import org.xml.sax.Attributes;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.requirements.ClassRequirement;
 import delta.games.lotro.common.requirements.EffectRequirement;
@@ -114,7 +114,7 @@ public class UsageRequirementsXMLParser
     if (effectIDStr!=null)
     {
       int effectID=NumericTools.parseInt(effectIDStr,0);
-      Effect effect=EffectsManager.getInstance().getEffectById(effectID);
+      Effect2 effect=EffectsManager.getInstance().getEffectById(effectID);
       if (effect!=null)
       {
         EffectRequirement effectRequirement=new EffectRequirement(effect);
