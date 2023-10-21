@@ -1,7 +1,11 @@
 package delta.games.lotro.lore.items.effects;
 
+import java.util.List;
+
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.details.ItemDetailsManager;
+import delta.games.lotro.lore.items.details.SkillToExecute;
 import junit.framework.TestCase;
 
 /**
@@ -10,7 +14,7 @@ import junit.framework.TestCase;
  */
 public class ItemEffectsTest extends TestCase
 {
-  private static int[] TEST_ITEM_IDS= {
+  static int[] TEST_ITEM_IDS= {
       1879150044, // Lothlórien Protector's Locket
       1879049652, // Lesser Celebrant Salve
       1879049653, // Roast Pork
@@ -44,18 +48,41 @@ public class ItemEffectsTest extends TestCase
    */
   public void testEffectsDisplay()
   {
-    for(int itemId : TEST_ITEM_IDS)
+    //for(int itemId : TEST_ITEM_IDS)
+    for(Item item : ItemsManager.getInstance().getAllItems())
     {
-      Item item=ItemsManager.getInstance().getItem(itemId);
+      //Item item=ItemsManager.getInstance().getItem(itemId);
       showItem(item);
     }
   }
 
   private void showItem(Item item)
   {
-    ItemEffectsDisplay display=new ItemEffectsDisplay();
-    System.out.println("Item: "+item);
-    String text=display.buildItemEffectsDisplay(item);
-    System.out.println(text);
+    if (hasEffects(item))
+    {
+      ItemEffectsDisplay display=new ItemEffectsDisplay();
+      System.out.println("Item: "+item);
+      String text=display.buildItemEffectsDisplay(item);
+      System.out.println(text);
+    }
+  }
+
+  private boolean hasEffects(Item item)
+  {
+    ItemEffectsManager effectsMgr=item.getEffects();
+    if (effectsMgr!=null)
+    {
+      return true;
+    }
+    ItemDetailsManager detailsMgr=item.getDetails();
+    if (detailsMgr!=null)
+    {
+      List<SkillToExecute> skills=item.getDetails().getItemDetails(SkillToExecute.class);
+      if (skills.size()>0)
+      {
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -57,7 +57,7 @@ public class SetEffectsDisplay
     display.displayEffect(sb2,effect);
     if (sb2.length()>0)
     {
-      sb2.append(sb.toString().trim()).append(EndOfLine.NATIVE_EOL);
+      sb.append(sb2.toString().trim()).append(EndOfLine.NATIVE_EOL);
     }
   }
 

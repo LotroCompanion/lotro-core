@@ -10,7 +10,7 @@ import junit.framework.TestCase;
  */
 public class ItemsSetEffectsTest extends TestCase
 {
-  private static int[] TEST_SET_IDS={
+  static int[] TEST_SET_IDS={
       1879150692, // Protector's Reproach (Max Level: 69)
   };
 
@@ -19,9 +19,10 @@ public class ItemsSetEffectsTest extends TestCase
    */
   public void testEffectsDisplay()
   {
-    for(int sedId : TEST_SET_IDS)
+    //for(int sedId : TEST_SET_IDS)
+    for(ItemsSet set : ItemsSetsManager.getInstance().getAll())
     {
-      ItemsSet set=ItemsSetsManager.getInstance().getSetById(sedId);
+      //ItemsSet set=ItemsSetsManager.getInstance().getSetById(sedId);
       showSet(set);
     }
   }

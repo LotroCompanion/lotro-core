@@ -38,10 +38,15 @@ public class ItemEffectsDisplay
         EffectGenerator[] onEquip=mgr.getEffects(Type.ON_EQUIP);
         if (onEquip.length>0)
         {
-          sb.append("On equip:").append(EndOfLine.NATIVE_EOL);
+          StringBuilder sb2=new StringBuilder();
           for(EffectGenerator effect : onEquip)
           {
-            showEffectGenerator(sb,effect);
+            showEffectGenerator(sb2,effect);
+          }
+          if (sb2.length()>0)
+          {
+            sb.append("On equip:").append(EndOfLine.NATIVE_EOL);
+            sb.append(sb2);
           }
         }
       }
@@ -50,10 +55,15 @@ public class ItemEffectsDisplay
         EffectGenerator[] onUse=mgr.getEffects(Type.ON_USE);
         if (onUse.length>0)
         {
-          sb.append("On use:").append(EndOfLine.NATIVE_EOL);
+          StringBuilder sb2=new StringBuilder();
           for(EffectGenerator effect : onUse)
           {
-            showEffectGenerator(sb,effect);
+            showEffectGenerator(sb2,effect);
+          }
+          if (sb2.length()>0)
+          {
+            sb.append("On use:").append(EndOfLine.NATIVE_EOL);
+            sb.append(sb2);
           }
         }
       }
@@ -108,7 +118,7 @@ public class ItemEffectsDisplay
     display.displayEffect(sb2,effect);
     if (sb2.length()>0)
     {
-      sb2.append(sb.toString().trim()).append(EndOfLine.NATIVE_EOL);
+      sb.append(sb2.toString().trim()).append(EndOfLine.NATIVE_EOL);
     }
   }
 
