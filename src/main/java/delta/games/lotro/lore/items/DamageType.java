@@ -40,6 +40,16 @@ public final class DamageType extends LotroEnumEntry
   }
 
   /**
+   * Get a damage type using its code.
+   * @param code Code of damage type.
+   * @return A damage type instance or <code>null</code> if not found.
+   */
+  public static DamageType getDamageTypeByCode(int code)
+  {
+    return LotroEnumsRegistry.getInstance().get(DamageType.class).getEntry(code);
+  }
+
+  /**
    * Get all instances of this class.
    * @return an array of all instances of this class.
    */

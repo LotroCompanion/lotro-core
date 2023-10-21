@@ -18,6 +18,7 @@ import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
+import delta.games.lotro.lore.items.DamageTypes;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -277,7 +278,11 @@ public class EffectDisplay
     if (defender!=null)
     {
       List<DamageType> damageTypes=effect.getDamageTypes();
-      sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
+      if (!damageTypes.isEmpty())
+      {
+        String damageTypesStr=formatDamageType(damageTypes);
+        sb.append("On any ").append(damageTypesStr).append("damage:").append(EndOfLine.NATIVE_EOL);
+      }
       ReactiveVitalChange change=defender.getVitalChange();
       if (change!=null)
       {
@@ -327,12 +332,15 @@ public class EffectDisplay
     if (attacker!=null)
     {
       List<DamageType> damageTypes=effect.getDamageTypes();
-      sb.append("On any ").append(damageTypes).append(" damage:").append(EndOfLine.NATIVE_EOL);
+      if (!damageTypes.isEmpty())
+      {
+        String damageTypesStr=formatDamageType(damageTypes);
+        sb.append("On any ").append(damageTypesStr).append("damage:").append(EndOfLine.NATIVE_EOL);
+      }
       ReactiveVitalChange change=attacker.getVitalChange();
       if (change!=null)
       {
         Float value=getValue(change);
-        // TODO Handle case where damageTypes is [ALL]
         float probability=change.getProbability();
         int percentage=(int)(probability*100);
         boolean multiplicative=change.isMultiplicative();
@@ -423,7 +431,6 @@ public class EffectDisplay
     {
       showEffectGenerators(sb,hotspot.getEffects());
     }
-    // TODO Interactable
   }
 
   private void showVitalOverTimeEffect(StringBuilder sb, VitalOverTimeEffect effect)
@@ -502,8 +509,8 @@ public class EffectDisplay
     List<ResistCategory> categories=effect.getResistCategories();
     boolean useStrengthRestriction=effect.useStrengthRestriction();
     String effects=((count<0) || (count>1))?"effects":"effect";
-    // TODO Format categories list
-    String label="Removes "+((count<0)?"all":"up to "+count)+" "+categories+" "+effects;
+    String categoriesStr=formatResistCategories(categories);
+    String label="Removes "+((count<0)?"all":"up to "+count)+" "+categoriesStr+" "+effects;
     if (useStrengthRestriction)
     {
       // TODO Use raw spellcraft if any
@@ -544,5 +551,32 @@ public class EffectDisplay
     {
       sb.append(childSb);
     }
+  }
+
+  private String formatDamageType(List<DamageType> damageTypes)
+  {
+    if ((damageTypes.size()==1) && (damageTypes.get(0)==DamageTypes.ALL))
+    {
+      return "";
+    }
+    StringBuilder sb=new StringBuilder();
+    for(DamageType damageType : damageTypes)
+    {
+      if (sb.length()>0) sb.append(",");
+      sb.append(damageType.getLabel());
+    }
+    sb.append(' ');
+    return sb.toString();
+  }
+
+  private String formatResistCategories(List<ResistCategory> categories)
+  {
+    StringBuilder sb=new StringBuilder();
+    for(ResistCategory category : categories)
+    {
+      if (sb.length()>0) sb.append(",");
+      sb.append(category.getLabel());
+    }
+    return sb.toString();
   }
 }
