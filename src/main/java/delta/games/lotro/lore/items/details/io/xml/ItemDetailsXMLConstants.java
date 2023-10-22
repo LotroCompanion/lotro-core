@@ -75,4 +75,20 @@ public class ItemDetailsXMLConstants
    * Tag 'cooldown', attribute 'channelID'.
    */
   public static final String COOLDOWN_CHANNEL_ID_ATTR="channelID";
+  /**
+   * Tag 'skill'.
+   */
+  public static final String SKILL_TAG="skill";
+  /**
+   * Tag 'skill', attribute 'id'.
+   */
+  public static final String SKILL_ID_ATTR="id";
+  /**
+   * Tag 'skill', attribute 'name'.
+   */
+  public static final String SKILL_NAME_ATTR="name";
+  /**
+   * Tag 'skill', attribute 'level'.
+   */
+  public static final String SKILL_LEVEL_ATTR="level";
 }

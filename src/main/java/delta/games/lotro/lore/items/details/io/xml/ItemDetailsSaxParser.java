@@ -20,6 +20,7 @@ import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemUsageCooldown;
 import delta.games.lotro.lore.items.details.ItemXP;
+import delta.games.lotro.lore.items.details.SkillToExecute;
 import delta.games.lotro.lore.items.details.VirtueXP;
 import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
 import delta.games.lotro.lore.reputation.Faction;
@@ -128,6 +129,23 @@ public class ItemDetailsSaxParser
         channelID=NumericTools.parseInteger(channelIDStr);
       }
       ItemUsageCooldown info=new ItemUsageCooldown(duration,channelID);
+      Item.addDetail(item,info);
+      return true;
+    }
+    else if (ItemDetailsXMLConstants.SKILL_TAG.equals(qualifiedName))
+    {
+      // Skill ID
+      String skillIDStr=attributes.getValue(ItemDetailsXMLConstants.SKILL_ID_ATTR);
+      int skillID=NumericTools.parseInt(skillIDStr,0);
+      SkillDescription skill=SkillsManager.getInstance().getSkill(skillID);
+      // Level
+      Integer level=null;
+      String levelStr=attributes.getValue(ItemDetailsXMLConstants.SKILL_LEVEL_ATTR);
+      if (levelStr!=null)
+      {
+        level=NumericTools.parseInteger(levelStr);
+      }
+      SkillToExecute info=new SkillToExecute(skill,level);
       Item.addDetail(item,info);
       return true;
     }

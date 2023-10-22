@@ -8,6 +8,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.details.GrantType;
@@ -17,6 +18,7 @@ import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemUsageCooldown;
 import delta.games.lotro.lore.items.details.ItemXP;
+import delta.games.lotro.lore.items.details.SkillToExecute;
 import delta.games.lotro.lore.items.details.VirtueXP;
 import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
 import delta.games.lotro.lore.reputation.Faction;
@@ -72,6 +74,10 @@ public class ItemDetailsXMLWriter
     else if (item instanceof ItemUsageCooldown)
     {
       writeUsageCooldownElement(hd,(ItemUsageCooldown)item);
+    }
+    else if (item instanceof SkillToExecute)
+    {
+      writeSkillToExecute(hd,(SkillToExecute)item);
     }
   }
 
@@ -161,5 +167,25 @@ public class ItemDetailsXMLWriter
     }
     hd.startElement("","",ItemDetailsXMLConstants.COOLDOWN_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.COOLDOWN_TAG);
+  }
+
+  private void writeSkillToExecute(TransformerHandler hd, SkillToExecute info) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Skill ID
+    SkillDescription skill=info.getSkill();
+    int skillID=skill.getIdentifier();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.SKILL_ID_ATTR,XmlWriter.CDATA,String.valueOf(skillID));
+    // Skill name
+    String skillName=skill.getName();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.SKILL_NAME_ATTR,XmlWriter.CDATA,skillName);
+    // Level
+    Integer level=info.getLevel();
+    if (level!=null)
+    {
+      attrs.addAttribute("","",ItemDetailsXMLConstants.SKILL_LEVEL_ATTR,XmlWriter.CDATA,level.toString());
+    }
+    hd.startElement("","",ItemDetailsXMLConstants.SKILL_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.SKILL_TAG);
   }
 }
