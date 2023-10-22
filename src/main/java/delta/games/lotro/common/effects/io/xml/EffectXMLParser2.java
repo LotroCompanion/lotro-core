@@ -46,6 +46,7 @@ import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -500,16 +501,19 @@ public class EffectXMLParser2
     int id=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.EFFECT_ID_ATTR,0);
     effect.setId(id);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.EFFECT_NAME_ATTR,null);
+    String name=_labelsMgr.getLabel(String.valueOf(id));
     effect.setName(name);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.EFFECT_DESCRIPTION_ATTR,"");
+    description=I18nRuntimeUtils.getLabel(_labelsMgr,description);
     effect.setDescription(description);
     // Description override
     String descriptionOverride=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.EFFECT_DESCRIPTION_OVERRIDE_ATTR,"");
+    descriptionOverride=I18nRuntimeUtils.getLabel(_labelsMgr,descriptionOverride);
     effect.setDescriptionOverride(descriptionOverride);
     // Applied description
     String appliedDescription=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants2.EFFECT_APPLIED_DESCRIPTION_ATTR,"");
+    appliedDescription=I18nRuntimeUtils.getLabel(_labelsMgr,appliedDescription);
     effect.setAppliedDescription(appliedDescription);
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.EFFECT_ICON_ID_ATTR,-1);
