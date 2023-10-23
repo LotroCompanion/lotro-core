@@ -44,17 +44,20 @@ public class EffectsManager
   {
     EffectsManager ret=new EffectsManager();
     File from=LotroCoreConfig.getInstance().getFile(DataFiles.EFFECTS);
-    long now=System.currentTimeMillis();
-    SingleLocaleLabelsManager labelsMgr=I18nFacade.getLabelsMgr("effects");
-    EffectXMLParser2 parser=new EffectXMLParser2(labelsMgr);
-    List<Effect2> effects=parser.parseEffectsFile(from);
-    for(Effect2 effect : effects)
+    if (from.exists())
     {
-      ret.addEffect(effect);
+      long now=System.currentTimeMillis();
+      SingleLocaleLabelsManager labelsMgr=I18nFacade.getLabelsMgr("effects");
+      EffectXMLParser2 parser=new EffectXMLParser2(labelsMgr);
+      List<Effect2> effects=parser.parseEffectsFile(from);
+      for(Effect2 effect : effects)
+      {
+        ret.addEffect(effect);
+      }
+      long now2=System.currentTimeMillis();
+      long duration=now2-now;
+      LOGGER.info("Loaded "+ret._effects.size()+" effects in "+duration+"ms.");
     }
-    long now2=System.currentTimeMillis();
-    long duration=now2-now;
-    LOGGER.info("Loaded "+ret._effects.size()+" effects in "+duration+"ms.");
     return ret;
   }
 

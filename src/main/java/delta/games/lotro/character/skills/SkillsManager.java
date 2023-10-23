@@ -56,18 +56,21 @@ public class SkillsManager
     _cache.clear();
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File skillsFile=cfg.getFile(DataFiles.SKILLS);
-    long now=System.currentTimeMillis();
-    if ((skillsFile.exists()) && (skillsFile.canRead()))
+    if (skillsFile.exists())
     {
-      List<SkillDescription> skills=new SkillDescriptionXMLParser().parseSkillsFile(skillsFile);
-      for(SkillDescription skill : skills)
+      long now=System.currentTimeMillis();
+      if ((skillsFile.exists()) && (skillsFile.canRead()))
       {
-        registerSkill(skill);
+        List<SkillDescription> skills=new SkillDescriptionXMLParser().parseSkillsFile(skillsFile);
+        for(SkillDescription skill : skills)
+        {
+          registerSkill(skill);
+        }
       }
+      long now2=System.currentTimeMillis();
+      long duration=now2-now;
+      LOGGER.info("Loaded "+_cache.size()+" skills in "+duration+"ms.");
     }
-    long now2=System.currentTimeMillis();
-    long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" skills in "+duration+"ms.");
   }
 
   /**
