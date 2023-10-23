@@ -3,7 +3,8 @@ package delta.games.lotro.lore.items.effects;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
@@ -34,15 +35,19 @@ public class MainTestGenericItemEffects
     }
     EquipmentCategory category=genericItemEffects.getCategory();
     System.out.println("Category: "+category);
-    List<Effect> effects=genericItemEffects.getEffects();
-    for(Effect effect : effects)
+    List<Effect2> effects=genericItemEffects.getEffects();
+    for(Effect2 effect : effects)
     {
       System.out.println("\t"+effect);
-      BasicStatsSet stats=effect.getStatsProvider().getStats(1,100);
-      List<String> lines=StatUtils.getStatsDisplayLinesAsList(stats);
-      for(String line : lines)
+      if (effect instanceof PropertyModificationEffect)
       {
-        System.out.println("\t\t"+line);
+        PropertyModificationEffect propModEffect=(PropertyModificationEffect)effect;
+        BasicStatsSet stats=propModEffect.getStatsProvider().getStats(1,100);
+        List<String> lines=StatUtils.getStatsDisplayLinesAsList(stats);
+        for(String line : lines)
+        {
+          System.out.println("\t\t"+line);
+        }
       }
     }
   }

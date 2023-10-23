@@ -11,8 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.io.xml.EffectXMLWriter;
+import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.lore.items.effects.GenericItemEffects;
 
@@ -65,9 +64,14 @@ public class GenericItemEffectsXMLWriter
     attrs.addAttribute("","",GenericItemEffectsXMLConstants.CATEGORY_LABEL_ATTR,XmlWriter.CDATA,label);
     hd.startElement("","",GenericItemEffectsXMLConstants.CATEGORY_TAG,attrs);
     // Effects
-    for(Effect effect : itemEffects.getEffects())
+    for(Effect2 effect : itemEffects.getEffects())
     {
-      EffectXMLWriter.writeEffect(hd,effect);
+      int id=effect.getIdentifier();
+      attrs.addAttribute("","",GenericItemEffectsXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      String name=effect.getName();
+      attrs.addAttribute("","",GenericItemEffectsXMLConstants.EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
+      hd.startElement("","",GenericItemEffectsXMLConstants.EFFECT_TAG,attrs);
+      hd.endElement("","",GenericItemEffectsXMLConstants.EFFECT_TAG);
     }
     hd.endElement("","",GenericItemEffectsXMLConstants.CATEGORY_TAG);
   }
