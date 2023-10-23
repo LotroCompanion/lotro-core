@@ -66,11 +66,12 @@ public class GenericItemEffectsXMLWriter
     // Effects
     for(Effect2 effect : itemEffects.getEffects())
     {
+      AttributesImpl effectAttrs=new AttributesImpl();
       int id=effect.getIdentifier();
-      attrs.addAttribute("","",GenericItemEffectsXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      effectAttrs.addAttribute("","",GenericItemEffectsXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
       String name=effect.getName();
-      attrs.addAttribute("","",GenericItemEffectsXMLConstants.EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
-      hd.startElement("","",GenericItemEffectsXMLConstants.EFFECT_TAG,attrs);
+      effectAttrs.addAttribute("","",GenericItemEffectsXMLConstants.EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
+      hd.startElement("","",GenericItemEffectsXMLConstants.EFFECT_TAG,effectAttrs);
       hd.endElement("","",GenericItemEffectsXMLConstants.EFFECT_TAG);
     }
     hd.endElement("","",GenericItemEffectsXMLConstants.CATEGORY_TAG);
