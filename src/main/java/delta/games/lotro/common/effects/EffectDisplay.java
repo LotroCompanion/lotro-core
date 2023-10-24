@@ -537,7 +537,8 @@ public class EffectDisplay
     {
       if (childSb.length()>0)
       {
-        sb.append("On every ").append(skillTypes).append(" skill");
+        String skillTypesStr=formatSkillTypes(skillTypes);
+        sb.append("On every ").append(skillTypesStr).append(" skill");
         if (probability!=null)
         {
           int percent=(int)(probability.floatValue()*100);
@@ -576,6 +577,17 @@ public class EffectDisplay
     {
       if (sb.length()>0) sb.append(",");
       sb.append(category.getLabel());
+    }
+    return sb.toString();
+  }
+
+  private String formatSkillTypes(List<SkillType> skillTypes)
+  {
+    StringBuilder sb=new StringBuilder();
+    for(SkillType skillType : skillTypes)
+    {
+      if (sb.length()>0) sb.append(",");
+      sb.append(skillType.getLabel());
     }
     return sb.toString();
   }
