@@ -618,9 +618,8 @@ public class EffectXMLWriter2
     VitalChangeDescription initialChange=vitalOverTimeEffect.getInitialChangeDescription();
     writeVitalChangeTag(hd,initialChange,EffectXMLConstants2.INITIAL_CHANGE_TAG);
     // Over-time change
-    VitalChangeDescription overTimeChange=vitalOverTimeEffect.getInitialChangeDescription();
+    VitalChangeDescription overTimeChange=vitalOverTimeEffect.getOverTimeChangeDescription();
     writeVitalChangeTag(hd,overTimeChange,EffectXMLConstants2.OVER_TIME_CHANGE_TAG);
-
   }
 
   private void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator) throws SAXException
