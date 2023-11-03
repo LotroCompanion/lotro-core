@@ -158,7 +158,6 @@ public class EffectDisplay
       {
         if ((minMax[0]<0) && isMorale)
         {
-          //sb.append("Apply to the target(s)").append(EndOfLine.NATIVE_EOL);
           sb.append(-minMax[0]).append(" Damage").append(EndOfLine.NATIVE_EOL);
         }
         else
@@ -171,7 +170,6 @@ public class EffectDisplay
       {
         if ((minMax[0]<0) && (minMax[1]<0) && isMorale)
         {
-          //sb.append("Apply to the target(s)").append(EndOfLine.NATIVE_EOL);
           sb.append(-minMax[0]).append(" - ").append(-minMax[1]).append(" Damage").append(EndOfLine.NATIVE_EOL);
         }
         else
@@ -207,10 +205,6 @@ public class EffectDisplay
 
   private Float getValue(AbstractVitalChange change)
   {
-    if (change==null)
-    {
-      return null;
-    }
     Float value=change.getConstant();
     if (value!=null)
     {
@@ -436,9 +430,7 @@ public class EffectDisplay
   private void showVitalOverTimeEffect(StringBuilder sb, VitalOverTimeEffect effect)
   {
     VitalChangeDescription initialChange=effect.getInitialChangeDescription();
-    Float initialValue=getValue(initialChange);
     VitalChangeDescription overTimeChange=effect.getOverTimeChangeDescription();
-    Float overTimeValue=getValue(overTimeChange);
     StatDescription stat=effect.getStat();
     EffectDuration duration=effect.getEffectDuration();
     int pulseCount=duration.getPulseCount();
@@ -449,24 +441,36 @@ public class EffectDisplay
     if (damageType!=null)
     {
       // Damage computation is wrong now (values do depend on character stats=>tactical mastery % ?)
-      if (initialValue!=null)
+      if (initialChange!=null)
       {
+        Float initialValue=getValue(initialChange);
         sb.append(initialValue).append(' ').append(damageType.getLabel());
         sb.append(" Damage initially.").append(EndOfLine.NATIVE_EOL);
       }
-      sb.append(overTimeValue).append(' ').append(damageType.getLabel());
-      sb.append(" Damage").append(overtime).append(EndOfLine.NATIVE_EOL);
+      if (overTimeChange!=null)
+      {
+        Float overTimeValue=getValue(overTimeChange);
+        sb.append(overTimeValue).append(' ').append(damageType.getLabel());
+        sb.append(" Damage").append(overtime).append(EndOfLine.NATIVE_EOL);
+      }
     }
     else
     {
       // Heal values do not seem to be changed by Incoming Healing or Outgoing Healing!
-      if (initialValue!=null)
+      // TODO Use "Heals" if Morale, "Restores" if Power!
+      // TODO Handle variance
+      if (initialChange!=null)
       {
+        Float initialValue=getValue(initialChange);
         sb.append("Restores ").append(initialValue).append(' ').append(stat.getName());
         sb.append(" initially.").append(EndOfLine.NATIVE_EOL);
       }
-      sb.append("Restores ").append(overTimeValue).append(' ').append(stat.getName());
-      sb.append(overtime).append(EndOfLine.NATIVE_EOL);
+      if (overTimeChange!=null)
+      {
+        Float overTimeValue=getValue(overTimeChange);
+        sb.append("Restores ").append(overTimeValue).append(' ').append(stat.getName());
+        sb.append(overtime).append(EndOfLine.NATIVE_EOL);
+      }
     }
     _durationDisplayed=true;
   }
@@ -526,7 +530,6 @@ public class EffectDisplay
   private void showProcEffect(StringBuilder sb, ProcEffect effect)
   {
     showPropertyModificationEffect(sb,effect);
-    //Float cooldown=effect.getCooldown();
     Float probability=effect.getProcProbability();
     List<SkillType> skillTypes=effect.getSkillTypes();
     List<EffectGenerator> procedEffects=effect.getProcedEffects();
