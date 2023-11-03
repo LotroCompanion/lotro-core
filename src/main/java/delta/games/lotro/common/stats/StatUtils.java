@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.l10n.L10n;
+import delta.common.utils.text.TextTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -124,7 +125,7 @@ public class StatUtils
   public static String[] getStatsDisplayLines(BasicStatsSet stats)
   {
     List<String> lines=getStatsDisplayLinesAsList(stats);
-    lines=handleNewLines(lines);
+    lines=TextTools.handleNewLines(lines);
     String[] ret=lines.toArray(new String[lines.size()]);
     return ret;
   }
@@ -152,34 +153,6 @@ public class StatUtils
       lines.add(line);
     }
     return lines;
-  }
-
-  /**
-   * Gracefully handle new lines.
-   * @param lines Input lines.
-   * @return a list of lines, with no new line.
-   */
-  public static List<String> handleNewLines(List<String> lines)
-  {
-    List<String> ret=new ArrayList<String>();
-    for(String line : lines)
-    {
-      while(true)
-      {
-        int hasLF=line.indexOf("\n");
-        if (hasLF!=-1)
-        {
-          ret.add(line.substring(0,hasLF));
-          line=line.substring(hasLF+1);
-        }
-        else
-        {
-          ret.add(line);
-          break;
-        }
-      }
-    }
-    return ret;
   }
 
   /**
@@ -212,7 +185,7 @@ public class StatUtils
       List<String> specialEffectsLines=getSpecialEffects(provider);
       lines.addAll(specialEffectsLines);
     }
-    lines=handleNewLines(lines);
+    lines=TextTools.handleNewLines(lines);
     String[] ret=lines.toArray(new String[lines.size()]);
     return ret;
   }
