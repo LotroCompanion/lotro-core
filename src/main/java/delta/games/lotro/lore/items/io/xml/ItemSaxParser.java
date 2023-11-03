@@ -492,7 +492,7 @@ public final class ItemSaxParser extends DefaultHandler
   {
     if ("item".equals(qualifiedName))
     {
-      ItemUtils.injectGenericEffects(_currentItem);
+      ItemUtils.finalizeItemStats(_currentItem);
       _currentItem.setStatsFromStatsProvider();
       _parsedItems.add(_currentItem);
       _currentItem=null;

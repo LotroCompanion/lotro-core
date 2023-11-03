@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -14,6 +17,8 @@ import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
 import delta.games.lotro.lore.items.effects.GenericItemEffects;
 import delta.games.lotro.lore.items.effects.GenericItemEffectsManager;
+import delta.games.lotro.lore.items.effects.ItemEffectsManager;
+import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
 
 /**
  * Utility methods related to items.
@@ -22,10 +27,20 @@ import delta.games.lotro.lore.items.effects.GenericItemEffectsManager;
 public class ItemUtils
 {
   /**
+   * Finalize item stats.
+   * @param item Item to enhance.
+   */
+  public static void finalizeItemStats(Item item)
+  {
+    injectGenericEffects(item);
+    addOnEquipStats(item);
+  }
+
+  /**
    * Add generic effects to the given item.
    * @param item Item to enhance.
    */
-  public static void injectGenericEffects(Item item)
+  private static void injectGenericEffects(Item item)
   {
     GenericItemEffectsManager mgr=GenericItemEffectsManager.getInstance();
     GenericItemEffects effects=mgr.getEffects(item.getEquipmentCategory());
@@ -34,6 +49,35 @@ public class ItemUtils
       return;
     }
     StatsProvider statsProvider=effects.getStatsProvider();
+    addStatsProvider(item,statsProvider);
+  }
+
+  /**
+   * Add stats from 'on equip' effects. 
+   * @param item Item to enhance.
+   */
+  private static void addOnEquipStats(Item item)
+  {
+    ItemEffectsManager effectsMgr=item.getEffects();
+    if (effectsMgr==null)
+    {
+      return;
+    }
+    EffectGenerator[] effectGenerators=effectsMgr.getEffects(Type.ON_EQUIP);
+    for(EffectGenerator effectGenerator : effectGenerators)
+    {
+      Effect2 effect=effectGenerator.getEffect();
+      if (effect instanceof PropertyModificationEffect)
+      {
+        PropertyModificationEffect propModEffect=(PropertyModificationEffect)effect;
+        StatsProvider effectStats=propModEffect.getStatsProvider();
+        addStatsProvider(item,effectStats);
+      }
+    }
+  }
+
+  private static void addStatsProvider(Item item, StatsProvider statsProvider)
+  {
     int nbStats=statsProvider.getNumberOfStatProviders();
     if (nbStats>=0)
     {
