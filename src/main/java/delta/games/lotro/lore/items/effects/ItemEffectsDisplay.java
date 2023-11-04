@@ -38,11 +38,13 @@ public class ItemEffectsDisplay
       if (mgr.hasOnEquipEffects())
       {
         EffectGenerator[] onEquip=mgr.getEffects(Type.ON_EQUIP);
-        if (onEquip.length>0)
+        int nbOnEquip=onEquip.length;
+        if (nbOnEquip>0)
         {
           List<String> childStorage=new ArrayList<String>();
-          for(EffectGenerator effect : onEquip)
+          for(int i=nbOnEquip-1;i>=0;i--)
           {
+            EffectGenerator effect=onEquip[i];
             showEffectGenerator(childStorage,effect,true);
           }
           if (!childStorage.isEmpty())
@@ -54,11 +56,13 @@ public class ItemEffectsDisplay
       if (mgr.hasOnUseEffects())
       {
         EffectGenerator[] onUse=mgr.getEffects(Type.ON_USE);
-        if (onUse.length>0)
+        int nbOnUse=onUse.length;
+        if (nbOnUse>0)
         {
           List<String> childStorage=new ArrayList<String>();
-          for(EffectGenerator effect : onUse)
+          for(int i=nbOnUse-1;i>=0;i--)
           {
+            EffectGenerator effect=onUse[i];
             showEffectGenerator(childStorage,effect,false);
           }
           if (!childStorage.isEmpty())

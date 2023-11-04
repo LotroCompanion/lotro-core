@@ -69,8 +69,10 @@ public class ItemUtils
       return;
     }
     EffectGenerator[] effectGenerators=effectsMgr.getEffects(Type.ON_EQUIP);
-    for(EffectGenerator effectGenerator : effectGenerators)
+    int nbOnEquip=effectGenerators.length;
+    for(int i=nbOnEquip-1;i>=0;i--)
     {
+      EffectGenerator effectGenerator=effectGenerators[i];
       Effect2 effect=effectGenerator.getEffect();
       if (effect instanceof PropertyModificationEffect)
       {
