@@ -29,6 +29,7 @@ public class EffectDisplay
 {
   private static final Logger LOGGER=Logger.getLogger(EffectDisplay.class);
 
+  private boolean _skipRawStats;
   private int _level;
   private boolean _durationDisplayed;
 
@@ -40,6 +41,15 @@ public class EffectDisplay
   {
     _level=level;
     _durationDisplayed=false;
+  }
+
+  /**
+   * Set the "skip raw stats" flag.
+   * @param skipRawStats Value to set.
+   */
+  public void skipRawStats(boolean skipRawStats)
+  {
+    _skipRawStats=skipRawStats;
   }
 
   /**
@@ -255,6 +265,10 @@ public class EffectDisplay
 
   private void showPropertyModificationEffect(List<String> storage, PropertyModificationEffect effect)
   {
+    if (_skipRawStats)
+    {
+      return;
+    }
     StatsProvider provider=effect.getStatsProvider();
     if (provider==null)
     {

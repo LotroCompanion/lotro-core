@@ -43,7 +43,7 @@ public class ItemEffectsDisplay
           List<String> childStorage=new ArrayList<String>();
           for(EffectGenerator effect : onEquip)
           {
-            showEffectGenerator(childStorage,effect);
+            showEffectGenerator(childStorage,effect,true);
           }
           if (!childStorage.isEmpty())
           {
@@ -60,7 +60,7 @@ public class ItemEffectsDisplay
           List<String> childStorage=new ArrayList<String>();
           for(EffectGenerator effect : onUse)
           {
-            showEffectGenerator(childStorage,effect);
+            showEffectGenerator(childStorage,effect,false);
           }
           if (!childStorage.isEmpty())
           {
@@ -96,26 +96,27 @@ public class ItemEffectsDisplay
     SkillEffectGenerator[] effectGenerators=mgr.getEffects();
     for(SkillEffectGenerator effectGenerator : effectGenerators)
     {
-      showEffectGenerator(storage,effectGenerator);
+      showEffectGenerator(storage,effectGenerator,false);
     }
     _level=levelBackup;
   }
 
-  private void showEffectGenerator(List<String> storage, EffectGenerator generator)
+  private void showEffectGenerator(List<String> storage, EffectGenerator generator, boolean skipRawStats)
   {
-    Effect2 effect2=generator.getEffect();
+    Effect2 effect=generator.getEffect();
     Float spellcraft=generator.getSpellcraft();
     int level=_level;
     if (spellcraft!=null)
     {
       level=spellcraft.intValue();
     }
-    showEffect(storage,effect2,level);
+    showEffect(storage,effect,level,skipRawStats);
   }
 
-  private void showEffect(List<String> storage, Effect2 effect, int level)
+  private void showEffect(List<String> storage, Effect2 effect, int level, boolean skipRawStats)
   {
     EffectDisplay display=new EffectDisplay(level);
+    display.skipRawStats(skipRawStats);
     List<String> childStorage=new ArrayList<String>();
     display.displayEffect(childStorage,effect);
     if (!childStorage.isEmpty())
