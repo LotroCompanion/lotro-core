@@ -24,6 +24,9 @@ import delta.games.lotro.lore.items.effects.GenericItemEffectsManager;
 import delta.games.lotro.lore.items.effects.ItemEffectsDisplay;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
+import delta.games.lotro.lore.items.sets.ItemsSet;
+import delta.games.lotro.lore.items.sets.SetBonus;
+import delta.games.lotro.lore.items.sets.SetEffectsDisplay;
 
 /**
  * Utility methods related to items.
@@ -170,6 +173,29 @@ public class ItemUtils
     List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,statsProvider);
     ItemEffectsDisplay effectsDisplay=new ItemEffectsDisplay();
     List<String> effectsDisplayText=effectsDisplay.buildItemEffectsDisplay(item);
+    lines.addAll(effectsDisplayText);
+    if (!lines.isEmpty())
+    {
+      lines=TextTools.handleNewLines(lines);
+    }
+    return lines;
+  }
+
+  /**
+   * Build the lines to show a set bonus (stats+special effects+effects).
+   * @param set Set to use.
+   * @param bonus Set bonus.
+   * @param level Level to use for computations.
+   * @return A list of lines.
+   */
+  public static List<String> buildLinesToShowItemsSetBonus(ItemsSet set, SetBonus bonus, int level)
+  {
+    StatsProvider statsProvider=bonus.getStatsProvider();
+    BasicStatsSet stats=statsProvider.getStats(1,level);
+    List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,statsProvider);
+
+    SetEffectsDisplay effectsDisplay=new SetEffectsDisplay();
+    List<String> effectsDisplayText=effectsDisplay.buildSetEffectsDisplay(set,bonus);
     lines.addAll(effectsDisplayText);
     if (!lines.isEmpty())
     {
