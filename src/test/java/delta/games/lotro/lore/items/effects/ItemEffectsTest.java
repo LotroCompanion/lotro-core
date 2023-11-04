@@ -2,10 +2,14 @@ package delta.games.lotro.lore.items.effects;
 
 import java.util.List;
 
+import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.SkillToExecute;
+import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
 import junit.framework.TestCase;
 
 /**
@@ -53,6 +57,36 @@ public class ItemEffectsTest extends TestCase
     {
       //Item item=ItemsManager.getInstance().getItem(itemId);
       showItem(item);
+      //handleItem(item);
+    }
+  }
+
+  void handleItem(Item item)
+  {
+    ItemEffectsManager mgr=item.getEffects();
+    if (mgr==null)
+    {
+      return;
+    }
+    EffectGenerator[] onEquip=mgr.getEffects(Type.ON_EQUIP);
+    if (onEquip.length>0)
+    {
+      for(EffectGenerator effectGenerator : onEquip)
+      {
+        Effect2 effect=effectGenerator.getEffect();
+        if (effect.getClass()==PropertyModificationEffect.class)
+        {
+          Float spellcraft=effectGenerator.getSpellcraft();
+          //if (spellcraft!=null)
+          {
+            System.out.println(item+" => "+effect.getIdentifier()+" - "+spellcraft);
+          }
+        }
+        else
+        {
+          //System.out.println(item+" => "+effect.getIdentifier()+" - "+effect.getClass());
+        }
+      }
     }
   }
 
@@ -62,8 +96,11 @@ public class ItemEffectsTest extends TestCase
     {
       ItemEffectsDisplay display=new ItemEffectsDisplay();
       System.out.println("Item: "+item);
-      String text=display.buildItemEffectsDisplay(item);
-      System.out.println(text);
+      List<String> text=display.buildItemEffectsDisplay(item);
+      for(String line : text)
+      {
+        System.out.println(line);
+      }
     }
   }
 

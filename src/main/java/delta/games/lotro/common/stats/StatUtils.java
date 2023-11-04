@@ -175,9 +175,9 @@ public class StatUtils
    * Get a full stats display (including special effects).
    * @param stats Stats to use.
    * @param provider Stats provider (for special effects).
-   * @return A possibly empty but not <code>null</code> array of stat/effect lines.
+   * @return A possibly empty but not <code>null</code> list of stat/special-effect lines.
    */
-  public static String[] getFullStatsDisplay(BasicStatsSet stats, StatsProvider provider)
+  public static List<String> getFullStatsDisplayAsLines(BasicStatsSet stats, StatsProvider provider)
   {
     List<String> lines=getStatsDisplayLinesAsList(stats);
     if (provider!=null)
@@ -185,6 +185,18 @@ public class StatUtils
       List<String> specialEffectsLines=getSpecialEffects(provider);
       lines.addAll(specialEffectsLines);
     }
+    return lines;
+  }
+
+  /**
+   * Get a full stats display (including special effects).
+   * @param stats Stats to use.
+   * @param provider Stats provider (for special effects).
+   * @return A possibly empty but not <code>null</code> array of stat/effect lines.
+   */
+  public static String[] getFullStatsDisplay(BasicStatsSet stats, StatsProvider provider)
+  {
+    List<String> lines=getFullStatsDisplayAsLines(stats,provider);
     lines=TextTools.handleNewLines(lines);
     String[] ret=lines.toArray(new String[lines.size()]);
     return ret;

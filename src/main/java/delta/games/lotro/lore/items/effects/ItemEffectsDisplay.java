@@ -1,6 +1,8 @@
 package delta.games.lotro.lore.items.effects;
 
-import delta.common.utils.text.EndOfLine;
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.SkillEffectsManager;
@@ -25,10 +27,10 @@ public class ItemEffectsDisplay
    * @param item Item to use.
    * @return the displayable lines.
    */
-  public String buildItemEffectsDisplay(Item item)
+  public List<String> buildItemEffectsDisplay(Item item)
   {
     _level=getLevel(item);
-    StringBuilder sb=new StringBuilder();
+    List<String> ret=new ArrayList<String>();
     // Show effects
     ItemEffectsManager mgr=item.getEffects();
     if (mgr!=null)
@@ -38,15 +40,15 @@ public class ItemEffectsDisplay
         EffectGenerator[] onEquip=mgr.getEffects(Type.ON_EQUIP);
         if (onEquip.length>0)
         {
-          StringBuilder sb2=new StringBuilder();
+          List<String> childStorage=new ArrayList<String>();
           for(EffectGenerator effect : onEquip)
           {
-            showEffectGenerator(sb2,effect);
+            showEffectGenerator(childStorage,effect);
           }
-          if (sb2.length()>0)
+          if (!childStorage.isEmpty())
           {
-            sb.append("On equip:").append(EndOfLine.NATIVE_EOL);
-            sb.append(sb2);
+            ret.add("On equip:");
+            ret.addAll(childStorage);
           }
         }
       }
@@ -55,15 +57,15 @@ public class ItemEffectsDisplay
         EffectGenerator[] onUse=mgr.getEffects(Type.ON_USE);
         if (onUse.length>0)
         {
-          StringBuilder sb2=new StringBuilder();
+          List<String> childStorage=new ArrayList<String>();
           for(EffectGenerator effect : onUse)
           {
-            showEffectGenerator(sb2,effect);
+            showEffectGenerator(childStorage,effect);
           }
-          if (sb2.length()>0)
+          if (!childStorage.isEmpty())
           {
-            sb.append("On use:").append(EndOfLine.NATIVE_EOL);
-            sb.append(sb2);
+            ret.add("On use:");
+            ret.addAll(childStorage);
           }
         }
       }
@@ -72,12 +74,12 @@ public class ItemEffectsDisplay
     SkillToExecute skillToExecute=ItemUtils.getDetail(item,SkillToExecute.class);
     if (skillToExecute!=null)
     {
-      showSkill(sb,skillToExecute);
+      showSkill(ret,skillToExecute);
     }
-    return sb.toString().trim();
+    return ret;
   }
 
-  private void showSkill(StringBuilder sb,SkillToExecute skillToExecute)
+  private void showSkill(List<String> storage, SkillToExecute skillToExecute)
   {
     SkillDescription skill=skillToExecute.getSkill();
     SkillEffectsManager mgr=skill.getEffects();
@@ -94,12 +96,12 @@ public class ItemEffectsDisplay
     SkillEffectGenerator[] effectGenerators=mgr.getEffects();
     for(SkillEffectGenerator effectGenerator : effectGenerators)
     {
-      showEffectGenerator(sb,effectGenerator);
+      showEffectGenerator(storage,effectGenerator);
     }
     _level=levelBackup;
   }
 
-  private void showEffectGenerator(StringBuilder sb, EffectGenerator generator)
+  private void showEffectGenerator(List<String> storage, EffectGenerator generator)
   {
     Effect2 effect2=generator.getEffect();
     Float spellcraft=generator.getSpellcraft();
@@ -108,17 +110,17 @@ public class ItemEffectsDisplay
     {
       level=spellcraft.intValue();
     }
-    showEffect(sb,effect2,level);
+    showEffect(storage,effect2,level);
   }
 
-  private void showEffect(StringBuilder sb, Effect2 effect, int level)
+  private void showEffect(List<String> storage, Effect2 effect, int level)
   {
     EffectDisplay display=new EffectDisplay(level);
-    StringBuilder sb2=new StringBuilder();
-    display.displayEffect(sb2,effect);
-    if (sb2.length()>0)
+    List<String> childStorage=new ArrayList<String>();
+    display.displayEffect(childStorage,effect);
+    if (!childStorage.isEmpty())
     {
-      sb.append(sb2.toString().trim()).append(EndOfLine.NATIVE_EOL);
+      storage.addAll(childStorage);
     }
   }
 

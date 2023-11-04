@@ -6,17 +6,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import delta.common.utils.text.TextTools;
+import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
+import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
 import delta.games.lotro.lore.items.effects.GenericItemEffects;
 import delta.games.lotro.lore.items.effects.GenericItemEffectsManager;
+import delta.games.lotro.lore.items.effects.ItemEffectsDisplay;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
 
@@ -145,5 +149,25 @@ public class ItemUtils
       return null;
     }
     return details.get(0);
+  }
+
+  /**
+   * Build the lines to show an item (stats+special effects+effects).
+   * @param item Item to use.
+   * @return A list of lines.
+   */
+  public static List<String> buildLinesToShowItem(Item item)
+  {
+    StatsProvider statsProvider=item.getStatsProvider();
+    BasicStatsSet stats=item.getStats();
+    List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,statsProvider);
+    ItemEffectsDisplay effectsDisplay=new ItemEffectsDisplay();
+    List<String> effectsDisplayText=effectsDisplay.buildItemEffectsDisplay(item);
+    lines.addAll(effectsDisplayText);
+    if (!lines.isEmpty())
+    {
+      lines=TextTools.handleNewLines(lines);
+    }
+    return lines;
   }
 }

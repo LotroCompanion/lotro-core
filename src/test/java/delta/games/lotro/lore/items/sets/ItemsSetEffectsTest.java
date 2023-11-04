@@ -38,11 +38,14 @@ public class ItemsSetEffectsTest extends TestCase
     System.out.println("Set: "+set);
     for(SetBonus bonus : set.getBonuses())
     {
-      String text=display.buildSetEffectsDisplay(set,bonus).trim();
-      if (text.length()>0)
+      List<String> text=display.buildSetEffectsDisplay(set,bonus);
+      if (!text.isEmpty())
       {
         System.out.println("Nb pieces: "+bonus.getPiecesCount());
-        System.out.println(text);
+        for(String line : text)
+        {
+          System.out.println(line);
+        }
       }
     }
   }

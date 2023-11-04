@@ -1,10 +1,10 @@
 package delta.games.lotro.common.effects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.text.EndOfLine;
 import delta.common.utils.variables.VariableValueProvider;
 import delta.common.utils.variables.VariablesResolver;
 import delta.games.lotro.character.stats.BasicStatsSet;
@@ -44,23 +44,23 @@ public class EffectDisplay
 
   /**
    * Display an effect.
-   * @param sb Output stream.
+   * @param storage Storage for lines to display.
    * @param effect Effect to show.
    */
-  public void displayEffect(StringBuilder sb, Effect2 effect)
+  public void displayEffect(List<String> storage, Effect2 effect)
   {
     String descriptionOverride=effect.getDescriptionOverride();
     if (!descriptionOverride.isEmpty())
     {
       String text=resolveVariables(effect,descriptionOverride);
-      sb.append(text).append(EndOfLine.NATIVE_EOL);
+      storage.add(text);
     }
     String description=effect.getDescription();
     if (!description.isEmpty())
     {
-      sb.append(description).append(EndOfLine.NATIVE_EOL);
+      storage.add(description);
     }
-    displaySpecifics(sb,effect);
+    displaySpecifics(storage,effect);
     if (!_durationDisplayed)
     {
       EffectDuration effectDuration=effect.getEffectDuration();
@@ -70,7 +70,7 @@ public class EffectDisplay
         if (duration!=null)
         {
           String durationStr=Duration.getDurationString(duration.intValue());
-          sb.append("Duration: ").append(durationStr).append(EndOfLine.NATIVE_EOL);
+          storage.add("Duration: "+durationStr);
           _durationDisplayed=true;
         }
       }
@@ -101,47 +101,47 @@ public class EffectDisplay
     return variableName;
   }
 
-  private void displaySpecifics(StringBuilder sb, Effect2 effect)
+  private void displaySpecifics(List<String> storage, Effect2 effect)
   {
     if (effect instanceof InstantVitalEffect)
     {
-      showInstantVitalEffect(sb,(InstantVitalEffect)effect);
+      showInstantVitalEffect(storage,(InstantVitalEffect)effect);
     }
     else if (effect instanceof ProcEffect)
     {
-      showProcEffect(sb,(ProcEffect)effect);
+      showProcEffect(storage,(ProcEffect)effect);
     }
     else if (effect instanceof ReactiveVitalEffect)
     {
-      showReactiveVitalEffect(sb,(ReactiveVitalEffect)effect);
+      showReactiveVitalEffect(storage,(ReactiveVitalEffect)effect);
     }
     else if (effect instanceof PropertyModificationEffect)
     {
-      showPropertyModificationEffect(sb,(PropertyModificationEffect)effect);
+      showPropertyModificationEffect(storage,(PropertyModificationEffect)effect);
     }
     else if (effect instanceof InstantFellowshipEffect)
     {
-      showInstantFellowshipEffect(sb,(InstantFellowshipEffect)effect);
+      showInstantFellowshipEffect(storage,(InstantFellowshipEffect)effect);
     }
     else if (effect instanceof GenesisEffect)
     {
-      showGenesisEffect(sb,(GenesisEffect)effect);
+      showGenesisEffect(storage,(GenesisEffect)effect);
     }
     else if (effect instanceof VitalOverTimeEffect)
     {
-      showVitalOverTimeEffect(sb,(VitalOverTimeEffect)effect);
+      showVitalOverTimeEffect(storage,(VitalOverTimeEffect)effect);
     }
     else if (effect instanceof InduceCombatStateEffect)
     {
-      showInduceCombatStateEffect(sb,(InduceCombatStateEffect)effect);
+      showInduceCombatStateEffect(storage,(InduceCombatStateEffect)effect);
     }
     else if (effect instanceof DispelByResistEffect)
     {
-      showDispelByResistEffect(sb,(DispelByResistEffect)effect);
+      showDispelByResistEffect(storage,(DispelByResistEffect)effect);
     }
   }
 
-  private void showInstantVitalEffect(StringBuilder sb, InstantVitalEffect effect)
+  private void showInstantVitalEffect(List<String> storage, InstantVitalEffect effect)
   {
     StatDescription stat=effect.getStat();
     VitalChangeDescription description=effect.getInstantChangeDescription();
@@ -158,24 +158,26 @@ public class EffectDisplay
       {
         if ((minMax[0]<0) && isMorale)
         {
-          sb.append(-minMax[0]).append(" Damage").append(EndOfLine.NATIVE_EOL);
+          String text=(-minMax[0])+" Damage";
+          storage.add(text);
         }
         else
         {
-          sb.append(minMax[0]).append(' ');
-          sb.append(stat.getName()).append(EndOfLine.NATIVE_EOL);
+          String text=(minMax[0])+" "+stat.getName();
+          storage.add(text);
         }
       }
       else
       {
         if ((minMax[0]<0) && (minMax[1]<0) && isMorale)
         {
-          sb.append(-minMax[0]).append(" - ").append(-minMax[1]).append(" Damage").append(EndOfLine.NATIVE_EOL);
+          String text=(-minMax[0])+" - "+(-minMax[1])+" Damage";
+          storage.add(text);
         }
         else
         {
-          sb.append(minMax[0]).append(" - ").append(minMax[1]).append(' ');
-          sb.append(stat.getName()).append(EndOfLine.NATIVE_EOL);
+          String text=(minMax[0])+" - "+(minMax[1])+" "+stat.getName();
+          storage.add(text);
         }
       }
     }
@@ -187,6 +189,7 @@ public class EffectDisplay
         float maxPercentageFloat=value.floatValue()*100;
         int maxPercentage=(int)maxPercentageFloat;
         Float variance=description.getVariance();
+        StringBuilder sb=new StringBuilder();
         sb.append("Restores ");
         if (variance!=null)
         {
@@ -198,7 +201,8 @@ public class EffectDisplay
         {
           sb.append(maxPercentage).append('%');
         }
-        sb.append(" of maximum ").append(stat.getName()).append(EndOfLine.NATIVE_EOL);
+        sb.append(" of maximum ").append(stat.getName());
+        storage.add(sb.toString());
       }
     }
   }
@@ -249,7 +253,7 @@ public class EffectDisplay
     return new int[] {0,0};
   }
 
-  private void showPropertyModificationEffect(StringBuilder sb, PropertyModificationEffect effect)
+  private void showPropertyModificationEffect(List<String> storage, PropertyModificationEffect effect)
   {
     StatsProvider provider=effect.getStatsProvider();
     if (provider==null)
@@ -260,13 +264,13 @@ public class EffectDisplay
     String[] lines=StatUtils.getStatsDisplayLines(stats);
     for(String line : lines)
     {
-      sb.append(line).append(EndOfLine.NATIVE_EOL);
+      storage.add(line);
     }
   }
 
-  private void showReactiveVitalEffect(StringBuilder sb, ReactiveVitalEffect effect)
+  private void showReactiveVitalEffect(List<String> storage, ReactiveVitalEffect effect)
   {
-    showPropertyModificationEffect(sb,effect);
+    showPropertyModificationEffect(storage,effect);
     // Defender
     ReactiveChange defender=effect.getDefenderReactiveChange();
     if (defender!=null)
@@ -275,7 +279,8 @@ public class EffectDisplay
       if (!damageTypes.isEmpty())
       {
         String damageTypesStr=formatDamageType(damageTypes);
-        sb.append("On any ").append(damageTypesStr).append("damage:").append(EndOfLine.NATIVE_EOL);
+        String text="On any "+damageTypesStr+"damage:";
+        storage.add(text);
       }
       ReactiveVitalChange change=defender.getVitalChange();
       if (change!=null)
@@ -289,12 +294,14 @@ public class EffectDisplay
           int damage=(int)value.floatValue();
           if (percentage!=100)
           {
-            sb.append(percentage).append("% chance to Negate ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+            String text=percentage+"% chance to Negate "+damage+" damage";
+            storage.add(text);
           }
           else
           {
             // Never?
-            sb.append("Negate ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+            String text="Negate "+damage+" damage";
+            storage.add(text);
           }
         }
         else
@@ -303,12 +310,14 @@ public class EffectDisplay
           if (percentage!=100)
           {
             // Never?
-            sb.append(percentage).append("% chance to Negate ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+            String text=percentage+"% chance to Negate "+percentageDamage+"% damage";
+            storage.add(text);
           }
           else
           {
             // Negate X% damage
-            sb.append("Negate ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+            String text="Negate "+percentageDamage+"% damage";
+            storage.add(text);
           }
         }
       }
@@ -317,8 +326,9 @@ public class EffectDisplay
       {
         float effectProbability=defenderEffect.getProbability();
         int effectPercentage=(int)(effectProbability*100);
-        sb.append(effectPercentage).append("% chance to Receive effect:").append(EndOfLine.NATIVE_EOL);
-        displayEffect(sb,defenderEffect.getEffect());
+        String text=effectPercentage+"% chance to Receive effect:";
+        storage.add(text);
+        displayEffect(storage,defenderEffect.getEffect());
       }
     }
     // Attacker
@@ -329,7 +339,8 @@ public class EffectDisplay
       if (!damageTypes.isEmpty())
       {
         String damageTypesStr=formatDamageType(damageTypes);
-        sb.append("On any ").append(damageTypesStr).append("damage:").append(EndOfLine.NATIVE_EOL);
+        String text="On any "+damageTypesStr+"damage:";
+        storage.add(text);
       }
       ReactiveVitalChange change=attacker.getVitalChange();
       if (change!=null)
@@ -343,11 +354,13 @@ public class EffectDisplay
           int damage=Math.round(Math.abs(value.floatValue()));
           if (percentage!=100)
           {
-            sb.append(percentage).append("% chance to Reflect ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+            String text=percentage+"% chance to Reflect "+damage+" damage";
+            storage.add(text);
           }
           else
           {
-            sb.append("Reflect ").append(damage).append(" damage").append(EndOfLine.NATIVE_EOL);
+            String text="Reflect "+damage+" damage";
+            storage.add(text);
           }
         }
         else
@@ -356,11 +369,13 @@ public class EffectDisplay
           int percentageDamage=(int)(value.floatValue()*100);
           if (percentage!=100)
           {
-            sb.append(percentage).append("% chance to Reflect ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+            String text=percentage+"% chance to Reflect "+percentageDamage+"% damage";
+            storage.add(text);
           }
           else
           {
-            sb.append("Reflect ").append(percentageDamage).append("% damage").append(EndOfLine.NATIVE_EOL);
+            String text="Reflect "+percentageDamage+"% damage";
+            storage.add(text);
           }
         }
       }
@@ -369,31 +384,33 @@ public class EffectDisplay
       {
         float effectProbability=attackerEffect.getProbability();
         int effectPercentage=(int)(effectProbability*100);
-        sb.append(effectPercentage).append("% chance to Reflect effect:").append(EndOfLine.NATIVE_EOL);
-        displayEffect(sb,attackerEffect.getEffect());
+        String text=effectPercentage+"% chance to Reflect effect:";
+        storage.add(text);
+        displayEffect(storage,attackerEffect.getEffect());
       }
     }
   }
 
-  private void showInstantFellowshipEffect(StringBuilder sb, InstantFellowshipEffect effect)
+  private void showInstantFellowshipEffect(List<String> storage, InstantFellowshipEffect effect)
   {
     Float range=effect.getRange();
     List<EffectGenerator> effects=effect.getEffects();
     //boolean appliesToTarget=effect.appliesToTarget();
     int rangeInt=(int)range.floatValue();
-    sb.append("Effects applied to the Fellowship within ").append(rangeInt).append(" metres:").append(EndOfLine.NATIVE_EOL);
-    showEffectGenerators(sb,effects);
+    String text="Effects applied to the Fellowship within "+rangeInt+" metres:";
+    storage.add(text);
+    showEffectGenerators(storage,effects);
   }
 
-  private void showEffectGenerators(StringBuilder sb, List<EffectGenerator> effects)
+  private void showEffectGenerators(List<String> storage, List<EffectGenerator> effects)
   {
     for(EffectGenerator effectGenerator : effects)
     {
-      showEffectGenerator(sb,effectGenerator);
+      showEffectGenerator(storage,effectGenerator);
     }
   }
 
-  private void showEffectGenerator(StringBuilder sb, EffectGenerator effectGenerator)
+  private void showEffectGenerator(List<String> storage, EffectGenerator effectGenerator)
   {
     Effect2 childEffect=effectGenerator.getEffect();
     Float spellcraft=effectGenerator.getSpellcraft();
@@ -402,32 +419,32 @@ public class EffectDisplay
     {
       _level=spellcraft.intValue();
     }
-    displayEffect(sb,childEffect);
+    displayEffect(storage,childEffect);
     _level=levelBackup;
   }
 
-  private void showGenesisEffect(StringBuilder sb, GenesisEffect effect)
+  private void showGenesisEffect(List<String> storage, GenesisEffect effect)
   {
     boolean permanent=effect.isPermanent();
     if (permanent)
     {
-      sb.append("Permanent").append(EndOfLine.NATIVE_EOL);
+      storage.add("Permanent");
     }
     else
     {
       float duration=effect.getSummonDuration();
       String durationStr=Duration.getDurationString((int)duration);
-      sb.append("Duration: ").append(durationStr).append(EndOfLine.NATIVE_EOL);
+      storage.add("Duration: "+durationStr);
     }
     _durationDisplayed=true;
     Hotspot hotspot=effect.getHotspot();
     if (hotspot!=null)
     {
-      showEffectGenerators(sb,hotspot.getEffects());
+      showEffectGenerators(storage,hotspot.getEffects());
     }
   }
 
-  private void showVitalOverTimeEffect(StringBuilder sb, VitalOverTimeEffect effect)
+  private void showVitalOverTimeEffect(List<String> storage, VitalOverTimeEffect effect)
   {
     VitalChangeDescription initialChange=effect.getInitialChangeDescription();
     VitalChangeDescription overTimeChange=effect.getOverTimeChangeDescription();
@@ -444,14 +461,14 @@ public class EffectDisplay
       if (initialChange!=null)
       {
         Float initialValue=getValue(initialChange);
-        sb.append(initialValue).append(' ').append(damageType.getLabel());
-        sb.append(" Damage initially.").append(EndOfLine.NATIVE_EOL);
+        String text=initialValue+" "+damageType.getLabel()+" Damage initially.";
+        storage.add(text);
       }
       if (overTimeChange!=null)
       {
         Float overTimeValue=getValue(overTimeChange);
-        sb.append(overTimeValue).append(' ').append(damageType.getLabel());
-        sb.append(" Damage").append(overtime).append(EndOfLine.NATIVE_EOL);
+        String text=overTimeValue+" "+damageType.getLabel()+" Damage"+overtime;
+        storage.add(text);
       }
     }
     else
@@ -462,20 +479,20 @@ public class EffectDisplay
       if (initialChange!=null)
       {
         Float initialValue=getValue(initialChange);
-        sb.append("Restores ").append(initialValue).append(' ').append(stat.getName());
-        sb.append(" initially.").append(EndOfLine.NATIVE_EOL);
+        String text="Restores "+initialValue+" "+stat.getName()+" initially.";
+        storage.add(text);
       }
       if (overTimeChange!=null)
       {
         Float overTimeValue=getValue(overTimeChange);
-        sb.append("Restores ").append(overTimeValue).append(' ').append(stat.getName());
-        sb.append(overtime).append(EndOfLine.NATIVE_EOL);
+        String text="Restores "+overTimeValue+" "+stat.getName()+overtime;
+        storage.add(text);
       }
     }
     _durationDisplayed=true;
   }
 
-  private void showInduceCombatStateEffect(StringBuilder sb, InduceCombatStateEffect effect)
+  private void showInduceCombatStateEffect(List<String> storage, InduceCombatStateEffect effect)
   {
     float duration=effect.getDuration();
     LinearFunction durationFunction=effect.getDurationFunction();
@@ -493,7 +510,8 @@ public class EffectDisplay
     {
       stateStr=getStateLabel(state);
     }
-    sb.append(duration).append("s ").append(stateStr).append(EndOfLine.NATIVE_EOL);
+    String text=duration+"s "+stateStr;
+    storage.add(text);
   }
 
   private String getStateLabel(CombatState state)
@@ -507,7 +525,7 @@ public class EffectDisplay
     return state.getLabel();
   }
 
-  private void showDispelByResistEffect(StringBuilder sb, DispelByResistEffect effect)
+  private void showDispelByResistEffect(List<String> storage, DispelByResistEffect effect)
   {
     int count=effect.getMaxDispelCount();
     List<ResistCategory> categories=effect.getResistCategories();
@@ -524,36 +542,37 @@ public class EffectDisplay
       String complement=" with a maximum strength of "+strength;
       label=label+complement;
     }
-    sb.append(label).append(EndOfLine.NATIVE_EOL);
+    storage.add(label);
   }
 
-  private void showProcEffect(StringBuilder sb, ProcEffect effect)
+  private void showProcEffect(List<String> storage, ProcEffect effect)
   {
-    showPropertyModificationEffect(sb,effect);
+    showPropertyModificationEffect(storage,effect);
     Float probability=effect.getProcProbability();
     List<SkillType> skillTypes=effect.getSkillTypes();
     List<EffectGenerator> procedEffects=effect.getProcedEffects();
-    StringBuilder childSb=new StringBuilder();
-    showEffectGenerators(childSb,procedEffects);
+    List<String> childStorage=new ArrayList<String>();
+    showEffectGenerators(childStorage,procedEffects);
     String descriptionOverride=effect.getDescriptionOverride();
     if (descriptionOverride.isEmpty())
     {
-      if (childSb.length()>0)
+      if (!childStorage.isEmpty())
       {
         String skillTypesStr=formatSkillTypes(skillTypes);
-        sb.append("On every ").append(skillTypesStr).append(" skill");
+        String text="On every "+skillTypesStr+" skill";
         if (probability!=null)
         {
           int percent=(int)(probability.floatValue()*100);
-          sb.append(", ").append(percent).append("% chance to");
+          String suffix=", "+percent+"% chance to";
+          text=text+suffix;
         }
-        sb.append(EndOfLine.NATIVE_EOL);
-        sb.append(childSb);
+        storage.add(text);
+        storage.addAll(childStorage);
       }
     }
     else
     {
-      sb.append(childSb);
+      storage.addAll(childStorage);
     }
   }
 

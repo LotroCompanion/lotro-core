@@ -1,6 +1,8 @@
 package delta.games.lotro.lore.items.sets;
 
-import delta.common.utils.text.EndOfLine;
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectDisplay;
 import delta.games.lotro.common.effects.EffectGenerator;
@@ -19,10 +21,10 @@ public class SetEffectsDisplay
    * @param bonus Bonus to use.
    * @return the displayable lines.
    */
-  public String buildSetEffectsDisplay(ItemsSet set, SetBonus bonus)
+  public List<String> buildSetEffectsDisplay(ItemsSet set, SetBonus bonus)
   {
     _level=getLevel(set);
-    StringBuilder sb=new StringBuilder();
+    List<String> ret=new ArrayList<String>();
     ItemSetEffectsManager mgr=bonus.getEffects();
     if (mgr!=null)
     {
@@ -31,14 +33,14 @@ public class SetEffectsDisplay
       {
         for(EffectGenerator effect : effects)
         {
-          showEffectGenerator(sb,effect);
+          showEffectGenerator(ret,effect);
         }
       }
     }
-    return sb.toString().trim();
+    return ret;
   }
 
-  private void showEffectGenerator(StringBuilder sb, EffectGenerator generator)
+  private void showEffectGenerator(List<String> storage, EffectGenerator generator)
   {
     Effect2 effect2=generator.getEffect();
     Float spellcraft=generator.getSpellcraft();
@@ -47,17 +49,17 @@ public class SetEffectsDisplay
     {
       level=spellcraft.intValue();
     }
-    showEffect(sb,effect2,level);
+    showEffect(storage,effect2,level);
   }
 
-  private void showEffect(StringBuilder sb, Effect2 effect, int level)
+  private void showEffect(List<String> storage, Effect2 effect, int level)
   {
     EffectDisplay display=new EffectDisplay(level);
-    StringBuilder sb2=new StringBuilder();
-    display.displayEffect(sb2,effect);
-    if (sb2.length()>0)
+    List<String> childStorage=new ArrayList<String>();
+    display.displayEffect(childStorage,effect);
+    if (!childStorage.isEmpty())
     {
-      sb.append(sb2.toString().trim()).append(EndOfLine.NATIVE_EOL);
+      storage.addAll(childStorage);
     }
   }
 
