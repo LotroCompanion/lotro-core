@@ -47,7 +47,6 @@ public class ItemEffectsDisplay
           }
           if (!childStorage.isEmpty())
           {
-            ret.add("On equip:");
             ret.addAll(childStorage);
           }
         }

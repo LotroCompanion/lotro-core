@@ -30,6 +30,7 @@ public class EffectDisplay
   private static final Logger LOGGER=Logger.getLogger(EffectDisplay.class);
 
   private boolean _skipRawStats;
+  private boolean _isRootEffect;
   private int _level;
   private boolean _durationDisplayed;
 
@@ -41,6 +42,7 @@ public class EffectDisplay
   {
     _level=level;
     _durationDisplayed=false;
+    _isRootEffect=true;
   }
 
   /**
@@ -79,9 +81,12 @@ public class EffectDisplay
         Float duration=effectDuration.getDuration();
         if (duration!=null)
         {
-          String durationStr=Duration.getDurationString(duration.intValue());
-          storage.add("Duration: "+durationStr);
-          _durationDisplayed=true;
+          if (!storage.isEmpty())
+          {
+            String durationStr=Duration.getDurationString(duration.intValue());
+            storage.add("Duration: "+durationStr);
+            _durationDisplayed=true;
+          }
         }
       }
     }
@@ -265,7 +270,7 @@ public class EffectDisplay
 
   private void showPropertyModificationEffect(List<String> storage, PropertyModificationEffect effect)
   {
-    if (_skipRawStats)
+    if ((_skipRawStats) && (_isRootEffect))
     {
       return;
     }
@@ -275,11 +280,8 @@ public class EffectDisplay
       return;
     }
     BasicStatsSet stats=provider.getStats(1,_level);
-    String[] lines=StatUtils.getStatsDisplayLines(stats);
-    for(String line : lines)
-    {
-      storage.add(line);
-    }
+    List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,provider);
+    storage.addAll(lines);
   }
 
   private void showReactiveVitalEffect(List<String> storage, ReactiveVitalEffect effect)
@@ -418,10 +420,13 @@ public class EffectDisplay
 
   private void showEffectGenerators(List<String> storage, List<EffectGenerator> effects)
   {
+    boolean isRootEffectBackup=_isRootEffect;
+    _isRootEffect=false;
     for(EffectGenerator effectGenerator : effects)
     {
       showEffectGenerator(storage,effectGenerator);
     }
+    _isRootEffect=isRootEffectBackup;
   }
 
   private void showEffectGenerator(List<String> storage, EffectGenerator effectGenerator)

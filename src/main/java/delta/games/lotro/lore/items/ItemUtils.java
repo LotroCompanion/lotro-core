@@ -13,6 +13,7 @@ import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
+import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.details.ItemDetail;
@@ -95,6 +96,10 @@ public class ItemUtils
         for(int i=0;i<nbStats;i++)
         {
           oldStatsProvider.addStatProvider(statsProvider.getStatProvider(i));
+        }
+        for(SpecialEffect specialEffect : statsProvider.getSpecialEffects())
+        {
+          oldStatsProvider.addSpecialEffect(specialEffect);
         }
       }
     }
