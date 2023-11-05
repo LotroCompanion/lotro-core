@@ -95,21 +95,19 @@ public class ItemUtils
     int nbStats=statsProvider.getNumberOfStatProviders();
     if (nbStats>=0)
     {
-      StatsProvider oldStatsProvider=item.getStatsProvider();
-      if (oldStatsProvider==null)
+      StatsProvider itemStatsProvider=item.getStatsProvider();
+      if (itemStatsProvider==null)
       {
-        item.setStatsProvider(statsProvider);
+        itemStatsProvider=new StatsProvider();
+        item.setStatsProvider(itemStatsProvider);
       }
-      else
+      for(int i=0;i<nbStats;i++)
       {
-        for(int i=0;i<nbStats;i++)
-        {
-          oldStatsProvider.addStatProvider(statsProvider.getStatProvider(i));
-        }
-        for(SpecialEffect specialEffect : statsProvider.getSpecialEffects())
-        {
-          oldStatsProvider.addSpecialEffect(specialEffect);
-        }
+        itemStatsProvider.addStatProvider(statsProvider.getStatProvider(i));
+      }
+      for(SpecialEffect specialEffect : statsProvider.getSpecialEffects())
+      {
+        itemStatsProvider.addSpecialEffect(specialEffect);
       }
     }
   }
