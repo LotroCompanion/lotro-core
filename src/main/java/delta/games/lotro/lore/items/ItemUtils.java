@@ -88,6 +88,10 @@ public class ItemUtils
 
   private static void addStatsProvider(Item item, StatsProvider statsProvider)
   {
+    if (statsProvider==null)
+    {
+      return;
+    }
     int nbStats=statsProvider.getNumberOfStatProviders();
     if (nbStats>=0)
     {

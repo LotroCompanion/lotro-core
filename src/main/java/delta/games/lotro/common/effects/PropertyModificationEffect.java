@@ -8,20 +8,7 @@ import delta.games.lotro.common.stats.StatsProvider;
  */
 public class PropertyModificationEffect extends Effect2
 {
-  // From Mod_Array:
   private StatsProvider _statsProvider;
-  /*
-    #1: Mod_Entry 
-      Combat_Modifier_OutgoingHealing_Percent: 0.1
-      Mod_Modified: 268448149 (Combat_Modifier_OutgoingHealing_Percent)
-      Mod_Op: 7 (Add)
-      => 10% Outgoing Healing?
-    #2: Mod_Entry 
-      Mod_Modified: 268462693 (Skill_SingleTarget_Healing_CritChance)
-      Mod_Op: 7 (Add)
-      Skill_SingleTarget_Healing_CritChance: 0.05
-      => healing crit + 5%
-  */
 
   /**
    * Get the stats provider.
