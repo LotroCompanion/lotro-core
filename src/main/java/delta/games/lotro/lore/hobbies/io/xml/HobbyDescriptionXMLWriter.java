@@ -144,8 +144,11 @@ public class HobbyDescriptionXMLWriter
       attrs.addAttribute("","",HobbyDescriptionXMLConstants.TERRITORY_ID_ATTR,XmlWriter.CDATA,territoryID.toString());
       // - Name
       Territory territory=GeoAreasManager.getInstance().getTerritoryById(territoryID.intValue());
-      String territoryName=territory.getName();
-      attrs.addAttribute("","",HobbyDescriptionXMLConstants.TERRITORY_NAME_ATTR,XmlWriter.CDATA,territoryName);
+      if (territory!=null)
+      {
+        String territoryName=territory.getName();
+        attrs.addAttribute("","",HobbyDescriptionXMLConstants.TERRITORY_NAME_ATTR,XmlWriter.CDATA,territoryName);
+      }
       // Profile
       if (profile!=null)
       {
