@@ -18,7 +18,6 @@ import delta.games.lotro.character.status.recipes.filter.RecipeStatusFilter;
 import delta.games.lotro.common.blacklist.filter.BlackListFilter;
 import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.crafting.Profession;
-import delta.games.lotro.lore.crafting.Vocation;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 import delta.games.lotro.lore.crafting.recipes.RecipeUtils;
 import delta.games.lotro.lore.crafting.recipes.RecipesManager;
@@ -48,13 +47,8 @@ public class RecipesStatusManager
   public void init(CraftingStatus craftingStatus)
   {
     _statuses.clear();
-    Vocation vocation=craftingStatus.getVocation();
-    if (vocation==null)
-    {
-      return;
-    }
     RecipesManager recipesMgr=RecipesManager.getInstance();
-    for(Profession profession : vocation.getProfessions())
+    for(Profession profession : craftingStatus.getKnownProfessions())
     {
       Set<Integer> knownRecipeIds=new HashSet<Integer>();
       ProfessionStatus professionStatus=craftingStatus.getProfessionStatus(profession);

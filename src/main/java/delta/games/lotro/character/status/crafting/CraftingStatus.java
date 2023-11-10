@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.crafting.ProfessionComparator;
 import delta.games.lotro.lore.crafting.Vocation;
@@ -124,12 +125,14 @@ public class CraftingStatus
   }
 
   /**
-   * Get all managed professions.
-   * @return A list of sorted profession names.
+   * Get the known professions, sorted by name.
+   * @return A list of professions.
    */
-  public List<Profession> getProfessions()
+  public List<Profession> getKnownProfessions()
   {
-    return (_vocation!=null)?_vocation.getProfessions():new ArrayList<Profession>();
+    List<Profession> ret=new ArrayList<Profession>(_stats.keySet());
+    Collections.sort(ret,new NamedComparator());
+    return ret;
   }
 
   /**

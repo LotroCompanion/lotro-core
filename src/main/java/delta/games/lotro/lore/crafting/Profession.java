@@ -6,13 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.lore.reputation.Faction;
 
 /**
  * Profession.
  * @author DAM
  */
-public class Profession implements Identifiable
+public class Profession implements Identifiable,Named
 {
   private int _id;
   private String _key;

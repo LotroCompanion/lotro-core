@@ -21,7 +21,7 @@ public class KnownRecipesComputerTest extends TestCase
   public void test()
   {
     CraftingStatus craftingStatus=load();
-    for(Profession profession : craftingStatus.getProfessions())
+    for(Profession profession : craftingStatus.getKnownProfessions())
     {
       ProfessionStatus professionStatus=craftingStatus.getProfessionStatus(profession);
       KnownRecipes knownRecipes=professionStatus.getKnownRecipes();
