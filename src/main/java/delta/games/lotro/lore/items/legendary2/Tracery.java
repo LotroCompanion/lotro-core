@@ -170,10 +170,12 @@ public class Tracery implements Identifiable,Named
     {
       return false;
     }
+    /*
     if (_maxItemLevel<itemLevel)
     {
       return false;
     }
+    */
     return true;
   }
 
