@@ -106,6 +106,19 @@ public class AllegianceStatus
   }
 
   /**
+   * Get the maximum level.
+   * @return the maximum level.
+   */
+  public int getMaxLevel()
+  {
+    if (_points2LevelCurve!=null)
+    {
+      return _points2LevelCurve.getMaxLevel();
+    }
+    return 0;
+  }
+
+  /**
    * Indicates if this allegiance is started or not.
    * @return <code>true</code> if it is, <code>false</code> otherwise.
    */

@@ -57,6 +57,10 @@ public class Points2LevelCurve implements Identifiable
    */
   public int getMinPointsForLevel(int level)
   {
+    if (level>=_points2Level.length)
+    {
+      return -1;
+    }
     return _points2Level[level];
   }
 
