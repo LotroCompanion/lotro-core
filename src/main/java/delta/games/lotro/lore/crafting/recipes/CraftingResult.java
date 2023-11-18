@@ -10,6 +10,7 @@ public class CraftingResult
 {
   private int _quantity;
   private Item _item;
+  private int _itemLevel;
   private boolean _isCriticalResult;
 
   /**
@@ -19,6 +20,7 @@ public class CraftingResult
   {
     _quantity=1;
     _item=null;
+    _itemLevel=0;
     _isCriticalResult=false;
   }
 
@@ -56,6 +58,26 @@ public class CraftingResult
   public void setItem(Item item)
   {
     _item=item;
+  }
+
+  /**
+   * Get the item level of the result (if different from the natural item level of
+   * the result item).
+   * @return An item level.
+   */
+  public int getItemLevel()
+  {
+    return _itemLevel;
+  }
+
+  /**
+   * Set the item of the result (if different from the natural item level of
+   * the result item).
+   * @param itemLevel Item level to set.
+   */
+  public void setItemLevel(int itemLevel)
+  {
+    _itemLevel=itemLevel;
   }
 
   /**

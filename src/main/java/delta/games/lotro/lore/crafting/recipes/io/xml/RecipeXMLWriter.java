@@ -218,6 +218,11 @@ public class RecipeXMLWriter
     {
       attrs.addAttribute("","",RecipeXMLConstants.RESULT_QUANTITY_ATTR,XmlWriter.CDATA,String.valueOf(quantity));
     }
+    int itemLevel=result.getItemLevel();
+    if (itemLevel!=0)
+    {
+      attrs.addAttribute("","",RecipeXMLConstants.RESULT_ITEM_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(itemLevel));
+    }
     if (result.isCriticalResult())
     {
       attrs.addAttribute("","",RecipeXMLConstants.RESULT_CRITICAL_ATTR,XmlWriter.CDATA,"true");

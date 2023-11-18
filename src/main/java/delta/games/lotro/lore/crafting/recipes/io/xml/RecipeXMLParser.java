@@ -219,6 +219,9 @@ public class RecipeXMLParser
     // Quantity
     int quantity=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RESULT_QUANTITY_ATTR,1);
     result.setQuantity(quantity);
+    // Item level
+    int itemLevel=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RESULT_ITEM_LEVEL_ATTR,0);
+    result.setItemLevel(itemLevel);
     // Critical
     boolean critical=DOMParsingTools.getBooleanAttribute(attrs,RecipeXMLConstants.RESULT_CRITICAL_ATTR,false);
     result.setCriticalResult(critical);

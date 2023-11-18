@@ -116,6 +116,10 @@ public class RecipeXMLConstants
    */
   public static final String RESULT_QUANTITY_ATTR="quantity";
   /**
+   * Tag 'result', attribute 'itemLevel'.
+   */
+  public static final String RESULT_ITEM_LEVEL_ATTR="itemLevel";
+  /**
    * Tag 'result', attribute 'critical'.
    */
   public static final String RESULT_CRITICAL_ATTR="critical";
