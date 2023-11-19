@@ -166,12 +166,13 @@ public class ItemUtils
   /**
    * Build the lines to show an item (stats+special effects+effects).
    * @param item Item to use.
+   * @param itemLevel Item level to use (<code>null</code> to use default).
    * @return A list of lines.
    */
-  public static List<String> buildLinesToShowItem(Item item)
+  public static List<String> buildLinesToShowItem(Item item, Integer itemLevel)
   {
     StatsProvider statsProvider=item.getStatsProvider();
-    BasicStatsSet stats=item.getStats();
+    BasicStatsSet stats=getStats(item,itemLevel);
     List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,statsProvider);
     ItemEffectsDisplay effectsDisplay=new ItemEffectsDisplay();
     List<String> effectsDisplayText=effectsDisplay.buildItemEffectsDisplay(item);
@@ -181,6 +182,20 @@ public class ItemUtils
       lines=TextTools.handleNewLines(lines);
     }
     return lines;
+  }
+
+  private static BasicStatsSet getStats(Item item, Integer itemLevel)
+  {
+    if (itemLevel==null)
+    {
+      return item.getStats();
+    }
+    StatsProvider statsProvider=item.getStatsProvider();
+    if (statsProvider!=null)
+    {
+      return statsProvider.getStats(1,itemLevel.intValue());
+    }
+    return new BasicStatsSet();
   }
 
   /**
