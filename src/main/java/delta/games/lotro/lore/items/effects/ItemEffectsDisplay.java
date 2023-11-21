@@ -96,10 +96,16 @@ public class ItemEffectsDisplay
     {
       _level=skillLevel.intValue();
     }
+    List<String> childStorage=new ArrayList<String>();
     SkillEffectGenerator[] effectGenerators=mgr.getEffects();
     for(SkillEffectGenerator effectGenerator : effectGenerators)
     {
-      showEffectGenerator(storage,effectGenerator,false);
+      showEffectGenerator(childStorage,effectGenerator,false);
+    }
+    if (!childStorage.isEmpty())
+    {
+      storage.add("On Use:");
+      storage.addAll(childStorage);
     }
     _level=levelBackup;
   }
