@@ -46,10 +46,6 @@ public class ObjectivesXMLConstants
    */
   public static final String CONDITION_TAG="condition";
   /**
-   * Tag 'condition', attribute 'index'.
-   */
-  public static final String CONDITION_INDEX_ATTR="index";
-  /**
    * Tag 'condition', attribute 'eventID'.
    */
   public static final String CONDITION_EVENT_ID_ATTR="eventID";

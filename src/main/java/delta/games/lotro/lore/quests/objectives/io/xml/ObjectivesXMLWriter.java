@@ -207,9 +207,6 @@ public class ObjectivesXMLWriter
 
   private static void writeSharedConditionAttributes(AttributesImpl attrs, ObjectiveCondition condition, boolean withCount)
   {
-    // Index
-    int index=condition.getIndex();
-    attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
     // Event ID
     int eventID=condition.getEventID();
     if (eventID!=0)
