@@ -210,6 +210,12 @@ public class ObjectivesXMLWriter
     // Index
     int index=condition.getIndex();
     attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
+    // Event ID
+    int eventID=condition.getEventID();
+    if (eventID!=0)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_EVENT_ID_ATTR,XmlWriter.CDATA,String.valueOf(eventID));
+    }
     // Lore Info
     String loreInfo=condition.getLoreInfo();
     if ((loreInfo!=null) && (loreInfo.length()>0))

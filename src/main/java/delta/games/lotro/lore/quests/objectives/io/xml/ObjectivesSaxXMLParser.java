@@ -158,8 +158,8 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
 
   private static void parseConditionAttributes(Attributes attrs, ObjectiveCondition condition, SingleLocaleLabelsManager i18n)
   {
-    // Index
-    int index=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.CONDITION_INDEX_ATTR,0);
+    // Event ID
+    int eventID=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.CONDITION_EVENT_ID_ATTR,0);
     // Lore info
     String loreInfo=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.CONDITION_LORE_INFO_ATTR,null);
     loreInfo=i18n.getLabel(loreInfo);
@@ -173,7 +173,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     // Count
     int count=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.CONDITION_COUNT_ATTR,1);
 
-    condition.setIndex(index);
+    condition.setEventID(eventID);
     condition.setLoreInfo(loreInfo);
     condition.setShowBillboardText(showBillboardText);
     condition.setShowProgressText(showProgressText);

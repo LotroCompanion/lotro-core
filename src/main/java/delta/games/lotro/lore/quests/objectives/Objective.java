@@ -152,6 +152,7 @@ public class Objective
    */
   public void addCondition(ObjectiveCondition condition)
   {
+    condition.setIndex(_conditions.size());
     _conditions.add(condition);
   }
 
@@ -165,15 +166,15 @@ public class Objective
   }
 
   /**
-   * Access to an objective condition using its index.
-   * @param index Index to use.
+   * Access to an objective condition using its event ID.
+   * @param eventID EventID to use.
    * @return An objective condition or <code>null</code> if not found.
    */
-  public ObjectiveCondition getConditionByIndex(int index)
+  public ObjectiveCondition getConditionByEventID(int eventID)
   {
     for(ObjectiveCondition condition : _conditions)
     {
-      if (condition.getIndex()==index)
+      if (condition.getEventID()==eventID)
       {
         return condition;
       }

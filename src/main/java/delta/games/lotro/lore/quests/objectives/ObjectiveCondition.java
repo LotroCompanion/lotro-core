@@ -12,6 +12,7 @@ import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
 public abstract class ObjectiveCondition
 {
   private int _index;
+  private int _eventID;
   private boolean _showProgressText;
   private boolean _showBillboardText;
   private String _loreInfo;
@@ -25,6 +26,7 @@ public abstract class ObjectiveCondition
   protected ObjectiveCondition()
   {
     _index=1;
+    _eventID=-1;
     _showProgressText=true;
     _showBillboardText=true;
     _points=new ArrayList<AchievableGeoPoint>();
@@ -50,7 +52,25 @@ public abstract class ObjectiveCondition
   }
 
   /**
-   * Indicats if the progress text is to be displayed or not.
+   * Get the event ID, starting at 1.
+   * @return An event iD.
+   */
+  public int getEventID()
+  {
+    return _eventID;
+  }
+
+  /**
+   * Set the event iD.
+   * @param eventID Event ID to set.
+   */
+  public void setEventID(int eventID)
+  {
+    _eventID=eventID;
+  }
+
+  /**
+   * Indicates if the progress text is to be displayed or not.
    * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
   public boolean isShowProgressText()

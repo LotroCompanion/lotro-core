@@ -21,6 +21,7 @@ import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsXMLConstan
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsSaxXMLParser;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLConstants;
+import delta.games.lotro.lore.deeds.io.xml.DeedsSaxParser;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLConstants;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
@@ -83,6 +84,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
     SAXParserValve<List<QuestDescription>> initial=new QuestsSaxParser();
     SAXParserEngine<List<QuestDescription>> engine=new SAXParserEngine<List<QuestDescription>>(initial);
     List<QuestDescription> result=SAXParsingTools.parseFile(source,engine);
+    DeedsSaxParser.setupEventIDsForAchievables(result);
     return result;
   }
 

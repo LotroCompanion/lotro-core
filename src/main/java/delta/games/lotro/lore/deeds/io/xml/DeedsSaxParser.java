@@ -23,8 +23,12 @@ import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLConstants;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.io.xml.AchievableSaxParser;
 import delta.games.lotro.lore.quests.io.xml.AchievableXMLConstants;
+import delta.games.lotro.lore.quests.objectives.Objective;
+import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesSaxXMLParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLConstants;
 import delta.games.lotro.lore.webStore.WebStoreItem;
@@ -78,7 +82,32 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
     SAXParserValve<List<DeedDescription>> initial=new DeedsSaxParser();
     SAXParserEngine<List<DeedDescription>> engine=new SAXParserEngine<List<DeedDescription>>(initial);
     List<DeedDescription> result=SAXParsingTools.parseFile(source,engine);
+    setupEventIDsForAchievables(result);
     return result;
+  }
+
+  /**
+   * Setup the event IDs for the given achievables.
+   * @param achievables A list of achievables.
+   */
+  public static void setupEventIDsForAchievables(List<? extends Achievable> achievables)
+  {
+    for(Achievable achievable : achievables)
+    {
+      ObjectivesManager mgr=achievable.getObjectives();
+      int eventID=1;
+      for(Objective objective : mgr.getObjectives())
+      {
+        for(ObjectiveCondition condition : objective.getConditions())
+        {
+          if (condition.getEventID()==0)
+          {
+            condition.setEventID(eventID);
+          }
+          eventID++;
+        }
+      }
+    }
   }
 
   @Override
