@@ -45,6 +45,8 @@ public class AchievablesStatistics
   private int _classPoints;
   private int _marksCount;
   private int _medallionsCount;
+  private long _xp;
+  private long _itemXP;
   private List<TitleEvent> _titles;
   private List<EmoteEvent> _emotes;
   private List<TraitEvent> _traits;
@@ -77,6 +79,8 @@ public class AchievablesStatistics
     _classPoints=0;
     _marksCount=0;
     _medallionsCount=0;
+    _xp=0;
+    _itemXP=0;
     _titles.clear();
     _emotes.clear();
     _traits.clear();
@@ -102,6 +106,12 @@ public class AchievablesStatistics
     // Class points
     int classPoints=rewards.getClassPoints();
     _classPoints+=classPoints;
+    // XP
+    int xp=rewards.getXp();
+    _xp+=xp;
+    // Item XP
+    int itemXp=rewards.getItemXp();
+    _itemXP+=itemXp;
     // Virtue XP
     int virtueXP=rewards.getVirtueXp();
     if (virtueXP>0)
@@ -215,6 +225,24 @@ public class AchievablesStatistics
   public int getMedallionsCount()
   {
     return _medallionsCount;
+  }
+
+  /**
+   * Get total XP.
+   * @return A XP count.
+   */
+  public long getXP()
+  {
+    return _xp;
+  }
+
+  /**
+   * Get total item XP.
+   * @return An item XP count.
+   */
+  public long getItemXP()
+  {
+    return _itemXP;
   }
 
   /**
