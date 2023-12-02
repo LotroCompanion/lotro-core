@@ -17,6 +17,7 @@ public class ProfessionStatus
   private Long _validityDate;
   private List<CraftingLevelStatus> _status;
   private KnownRecipes _knownRecipes;
+  private boolean _active;
 
   /**
    * Constructor.
@@ -27,6 +28,7 @@ public class ProfessionStatus
     _profession=profession;
     _status=new ArrayList<CraftingLevelStatus>();
     _knownRecipes=new KnownRecipes();
+    _active=false;
     reset();
   }
 
@@ -232,6 +234,24 @@ public class ProfessionStatus
   }
 
   /**
+   * Indicates if this profession is active or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isActive()
+  {
+    return _active;
+  }
+
+  /**
+   * Set the active flag.
+   * @param active Value to set.
+   */
+  public void setActive(boolean active)
+  {
+    _active=active;
+  }
+
+  /**
    * Dump the contents of this object to the given stream.
    * @param ps Output stream to use.
    */
@@ -261,6 +281,7 @@ public class ProfessionStatus
     CraftingLevel proficiencyLevel=getProficiencyLevel();
     String proficiencyLabel=(proficiencyLevel!=null)?proficiencyLevel.getProficiency().getLabel():"???";
     sb.append(proficiencyLabel);
+    sb.append(", active=").append(_active);
     return sb.toString();
   }
 }

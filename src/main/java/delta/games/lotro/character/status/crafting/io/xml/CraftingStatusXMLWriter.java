@@ -112,10 +112,17 @@ public class CraftingStatusXMLWriter
     Profession profession=status.getProfession();
     String id=profession.getKey();
     professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_ID_ATTR,XmlWriter.CDATA,id);
+    // Validity date
     Long validityDate=status.getValidityDate();
     if (validityDate!=null)
     {
       professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_VALIDITY_DATE_ATTR,XmlWriter.CDATA,validityDate.toString());
+    }
+    // Active
+    boolean active=status.isActive();
+    if (!active)
+    {
+      professionAttrs.addAttribute("","",CraftingStatusXMLConstants.PROFESSION_ACTIVE_ATTR,XmlWriter.CDATA,String.valueOf(active));
     }
     hd.startElement("","",CraftingStatusXMLConstants.PROFESSION_TAG,professionAttrs);
 
