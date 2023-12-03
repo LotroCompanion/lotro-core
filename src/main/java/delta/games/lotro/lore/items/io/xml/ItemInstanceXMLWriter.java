@@ -16,8 +16,10 @@ import delta.games.lotro.common.colors.ColorDescription;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.common.money.io.xml.MoneyXMLWriter;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants;
+import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryInstance;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
@@ -110,6 +112,29 @@ public class ItemInstanceXMLWriter
     if (time!=null)
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_TIME_ATTR,XmlWriter.CDATA,time.toString());
+    }
+    // Weapon specifics
+    if (instance instanceof WeaponInstance)
+    {
+      WeaponInstance<?> wi=(WeaponInstance<?>)instance;
+      // Max damage
+      Float maxDamage=wi.getMaxDamage();
+      if (maxDamage!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,XmlWriter.CDATA,maxDamage.toString());
+      }
+      // DPS
+      Float dps=wi.getDPS();
+      if (dps!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,XmlWriter.CDATA,dps.toString());
+      }
+      // Damage type
+      DamageType damageType=wi.getDamageType();
+      if (damageType!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(damageType.getCode()));
+      }
     }
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
 

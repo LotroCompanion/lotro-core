@@ -7,7 +7,7 @@ package delta.games.lotro.lore.items;
  */
 public class WeaponInstance<T extends Weapon> extends ItemInstance<T>
 {
-  private Integer _maxDamage;
+  private Float _maxDamage;
   private Float _dps;
   private DamageType _damageType;
 
@@ -33,7 +33,7 @@ public class WeaponInstance<T extends Weapon> extends ItemInstance<T>
    * Get the max damage for this instance.
    * @return A value or <code>null</code> to use default from the reference weapon.
    */
-  public Integer getMaxDamage()
+  public Float getMaxDamage()
   {
     return _maxDamage;
   }
@@ -42,7 +42,7 @@ public class WeaponInstance<T extends Weapon> extends ItemInstance<T>
    * Set the max damage.
    * @param maxDamage Max damage to set.
    */
-  public void setMaxDamage(Integer maxDamage)
+  public void setMaxDamage(Float maxDamage)
   {
     _maxDamage=maxDamage;
   }
@@ -74,7 +74,7 @@ public class WeaponInstance<T extends Weapon> extends ItemInstance<T>
       int itemLevel=getApplicableItemLevel();
       return (int)w.computeMinDamage(itemLevel);
     }
-    int max=_maxDamage.intValue();
+    float max=_maxDamage.floatValue();
     float v=w.getVariance();
     float min=max*(1-v);
     return (int)min;

@@ -18,10 +18,12 @@ import delta.games.lotro.common.requirements.io.xml.UsageRequirementXMLConstants
 import delta.games.lotro.common.stats.CustomStatsMergeMode;
 import delta.games.lotro.common.stats.StatsManager;
 import delta.games.lotro.common.stats.WellKnownStat;
+import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesManager;
 import delta.games.lotro.lore.items.essences.EssencesSet;
@@ -150,6 +152,24 @@ public class ItemInstanceXMLParser
       itemInstance.setTime(Long.valueOf(time));
     }
 
+    // Weapon specifics
+    if (itemInstance instanceof WeaponInstance)
+    {
+      WeaponInstance<?> wi=(WeaponInstance<?>)itemInstance;
+      // Max damage
+      Float maxDamage=DOMParsingTools.getFloatAttribute(attrs,ItemXMLConstants.MAX_DAMAGE_ATTR,null);
+      wi.setMaxDamage(maxDamage);
+      // DPS
+      Float dps=DOMParsingTools.getFloatAttribute(attrs,ItemXMLConstants.DPS_ATTR,null);
+      wi.setDPS(dps);
+      // Damage type
+      String damageTypeStr=DOMParsingTools.getStringAttribute(attrs,ItemXMLConstants.DAMAGE_TYPE_ATTR,null);
+      if (damageTypeStr!=null)
+      {
+        DamageType type=DamageType.getDamageTypeByKey(damageTypeStr);
+        wi.setDamageType(type);
+      }
+    }
     // Money
     Money value=MoneyXMLParser.loadMoney(root,null);
     itemInstance.setValue(value);
