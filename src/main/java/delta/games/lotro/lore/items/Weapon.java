@@ -81,6 +81,17 @@ public class Weapon extends Item
   }
 
   /**
+   * Get the damage variance for this weapon.
+   * @return A variance v: min=max*(1-v).
+   */
+  public float getVariance()
+  {
+    Float variance=WeaponDamageManager.getWeaponDamageManager().getVariance(_type);
+    float v=(variance!=null)?variance.floatValue():0;
+    return v;
+  }
+
+  /**
    * Get the damage type.
    * @return the damage type.
    */
