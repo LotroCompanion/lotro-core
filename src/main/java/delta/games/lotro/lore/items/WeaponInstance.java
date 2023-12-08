@@ -57,9 +57,9 @@ public class WeaponInstance<T extends Weapon> extends ItemInstance<T>
     {
       Weapon w=getReference();
       int itemLevel=getApplicableItemLevel();
-      return (int)w.computeMaxDamage(itemLevel);
+      return Math.round(w.computeMaxDamage(itemLevel));
     }
-    return _maxDamage.intValue();
+    return Math.round(_maxDamage.floatValue());
   }
 
   /**
@@ -72,12 +72,12 @@ public class WeaponInstance<T extends Weapon> extends ItemInstance<T>
     if (_maxDamage==null)
     {
       int itemLevel=getApplicableItemLevel();
-      return (int)w.computeMinDamage(itemLevel);
+      return Math.round(w.computeMinDamage(itemLevel));
     }
     float max=_maxDamage.floatValue();
     float v=w.getVariance();
     float min=max*(1-v);
-    return (int)min;
+    return Math.round(min);
   }
 
   /**
