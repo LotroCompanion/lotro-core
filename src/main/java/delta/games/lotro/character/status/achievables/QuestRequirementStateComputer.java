@@ -35,6 +35,15 @@ public class QuestRequirementStateComputer
   }
 
   /**
+   * Get the status manager for the quests.
+   * @return A status manager.
+   */
+  public AchievablesStatusManager getQuestsStatusManager()
+  {
+    return _questsStatusMgr;
+  }
+
+  /**
    * Assess a requirement.
    * @param requirement Requirement to use.
    * @return <code>true</code> if the requirement is met, <code>false</code> otherwise.
