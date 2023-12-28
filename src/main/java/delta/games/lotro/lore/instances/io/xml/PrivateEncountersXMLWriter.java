@@ -17,9 +17,12 @@ import delta.games.lotro.common.enums.WJEncounterCategory;
 import delta.games.lotro.common.enums.WJEncounterType;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
+import delta.games.lotro.lore.instances.PrivateEncounterQuests;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLWriter;
+import delta.games.lotro.lore.quests.QuestDescription;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Writes private encounters to XML files.
@@ -90,10 +93,18 @@ public class PrivateEncountersXMLWriter
     int contentLayerId=privateEncounter.getContentLayerId();
     attrs.addAttribute("","",PrivateEncountersXMLConstants.CONTENT_LAYER_ID_ATTR,XmlWriter.CDATA,String.valueOf(contentLayerId));
     // Quest ID
-    Integer questId=privateEncounter.getQuestId();
-    if (questId!=null)
+    PrivateEncounterQuests quests=privateEncounter.getQuests();
+    Proxy<QuestDescription> parentQuest=quests.getParentQuest();
+    if (parentQuest!=null)
     {
-      attrs.addAttribute("","",PrivateEncountersXMLConstants.QUEST_ID_ATTR,XmlWriter.CDATA,questId.toString());
+      int questId=parentQuest.getId();
+      attrs.addAttribute("","",PrivateEncountersXMLConstants.QUEST_ID_ATTR,XmlWriter.CDATA,String.valueOf(questId));
+    }
+    // Random quests count
+    int randomQuestsCount=quests.getRandomQuestsCount();
+    if (randomQuestsCount>0)
+    {
+      attrs.addAttribute("","",PrivateEncountersXMLConstants.RANDOM_QUESTS_COUNT,XmlWriter.CDATA,String.valueOf(randomQuestsCount));
     }
     // Max players
     Integer maxPlayers=privateEncounter.getMaxPlayers();
@@ -197,13 +208,31 @@ public class PrivateEncountersXMLWriter
       hd.endElement("","",PrivateEncountersXMLConstants.INSTANCE_MAP_TAG);
     }
     // Quests to bestow
-    for(Integer questToBestowId : privateEncounter.getQuestsToBestow())
+    for(Proxy<QuestDescription> questToBestow : quests.getQuests())
     {
-      AttributesImpl questToBestowAttrs=new AttributesImpl();
-      questToBestowAttrs.addAttribute("","",PrivateEncountersXMLConstants.QUEST_ID_ATTR,XmlWriter.CDATA,questToBestowId.toString());
-      hd.startElement("","",PrivateEncountersXMLConstants.QUEST_TO_BESTOW_TAG,questToBestowAttrs);
-      hd.endElement("","",PrivateEncountersXMLConstants.QUEST_TO_BESTOW_TAG);
+      writeQuestProxy(hd,PrivateEncountersXMLConstants.QUEST_TO_BESTOW_TAG,questToBestow);
     }
+    // Random quests
+    for(Proxy<QuestDescription> randomQuest : quests.getRandomQuests())
+    {
+      writeQuestProxy(hd,PrivateEncountersXMLConstants.RANDOM_QUEST_TAG,randomQuest);
+    }
+    hd.endElement("","",tagName);
+  }
+
+  private void writeQuestProxy(TransformerHandler hd, String tagName, Proxy<QuestDescription> quest) throws Exception
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // ID
+    int questId=quest.getId();
+    attrs.addAttribute("","",PrivateEncountersXMLConstants.QUEST_ID_ATTR,XmlWriter.CDATA,String.valueOf(questId));
+    // Name
+    String questName=quest.getName();
+    if ((questName!=null) && (questName.length()>0))
+    {
+      attrs.addAttribute("","",PrivateEncountersXMLConstants.QUEST_NAME_ATTR,XmlWriter.CDATA,questName);
+    }
+    hd.startElement("","",tagName,attrs);
     hd.endElement("","",tagName);
   }
 }

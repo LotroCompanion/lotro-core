@@ -16,11 +16,14 @@ import delta.games.lotro.common.enums.WJEncounterCategory;
 import delta.games.lotro.common.enums.WJEncounterType;
 import delta.games.lotro.lore.instances.InstanceMapDescription;
 import delta.games.lotro.lore.instances.PrivateEncounter;
+import delta.games.lotro.lore.instances.PrivateEncounterQuests;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
 import delta.games.lotro.lore.maps.MapDescription;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLConstants;
 import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
+import delta.games.lotro.lore.quests.QuestDescription;
+import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
@@ -91,12 +94,6 @@ public class PrivateEncountersXMLParser
     // Content layer
     int contentLayerId=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.CONTENT_LAYER_ID_ATTR,0);
     ret.setContentLayerId(contentLayerId);
-    // Quest ID
-    int questId=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.QUEST_ID_ATTR,0);
-    if (questId>0)
-    {
-      ret.setQuestId(Integer.valueOf(questId));
-    }
     // Max players
     int maxPlayers=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.MAX_PLAYERS_ATTR,0);
     if (maxPlayers>0)
@@ -191,15 +188,51 @@ public class PrivateEncountersXMLParser
       }
       ret.addMapDescription(map);
     }
-    // Quests to bestow
+    // Quests
+    parseQuestsData(ret.getQuests(),privateEncounterTag);
+    return ret;
+  }
+
+  private void parseQuestsData(PrivateEncounterQuests quests, Element privateEncounterTag)
+  {
+    NamedNodeMap attrs=privateEncounterTag.getAttributes();
+    // Parent quest ID
+    int questId=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.QUEST_ID_ATTR,0);
+    if (questId>0)
+    {
+      Proxy<QuestDescription> proxy=new Proxy<QuestDescription>();
+      proxy.setId(questId);
+      quests.setParentQuest(proxy);
+    }
+    // Bestowed quests
     List<Element> questToBestowTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.QUEST_TO_BESTOW_TAG);
     for(Element questToBestowTag : questToBestowTags)
     {
-      NamedNodeMap questToBestowAttrs=questToBestowTag.getAttributes();
-      // Quest ID
-      int questToBestowId=DOMParsingTools.getIntAttribute(questToBestowAttrs,PrivateEncountersXMLConstants.QUEST_ID_ATTR,0);
-      ret.addQuestToBestow(questToBestowId);
+      Proxy<QuestDescription> proxy=parseQuestProxy(questToBestowTag);
+      quests.addQuest(proxy);
     }
-    return ret;
+    // Random quests
+    List<Element> randomQuestTags=DOMParsingTools.getChildTagsByName(privateEncounterTag,PrivateEncountersXMLConstants.RANDOM_QUEST_TAG);
+    for(Element randomQuestTag : randomQuestTags)
+    {
+      Proxy<QuestDescription> proxy=parseQuestProxy(randomQuestTag);
+      quests.addRandomQuest(proxy);
+    }
+    // Random quests count
+    int count=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.RANDOM_QUESTS_COUNT,0);
+    quests.setRandomQuestsCount(count);
+  }
+
+  private Proxy<QuestDescription> parseQuestProxy(Element tag)
+  {
+    NamedNodeMap attrs=tag.getAttributes();
+    // Quest ID
+    int questToBestowId=DOMParsingTools.getIntAttribute(attrs,PrivateEncountersXMLConstants.QUEST_ID_ATTR,0);
+    Proxy<QuestDescription> proxy=new Proxy<QuestDescription>();
+    proxy.setId(questToBestowId);
+    // Quest name
+    String name=DOMParsingTools.getStringAttribute(attrs,PrivateEncountersXMLConstants.QUEST_NAME_ATTR,null);
+    proxy.setName(name);
+    return proxy;
   }
 }

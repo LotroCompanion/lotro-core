@@ -33,9 +33,17 @@ public class PrivateEncountersXMLConstants
    */
   public static final String CONTENT_LAYER_ID_ATTR="contentLayerId";
   /**
-   * Tag 'privateEncounter'/'questToBestow', attribute 'questId'.
+   * Tag 'privateEncounter'/'questToBestow'/'randomQuest', attribute 'questId'.
    */
   public static final String QUEST_ID_ATTR="questId";
+  /**
+   * Tag 'privateEncounter'/'questToBestow'/'randomQuest', attribute 'questName'.
+   */
+  public static final String QUEST_NAME_ATTR="questName";
+  /**
+   * Tag 'privateEncounter', attribute 'randomQuestsCount'.
+   */
+  public static final String RANDOM_QUESTS_COUNT="randomQuestsCount";
   /**
    * Tag 'privateEncounter', attribute 'maxPlayers'.
    */
@@ -52,6 +60,10 @@ public class PrivateEncountersXMLConstants
    * Tag 'questToBestow'.
    */
   public static final String QUEST_TO_BESTOW_TAG="questToBestow";
+  /**
+   * Tag 'randomQuest'.
+   */
+  public static final String RANDOM_QUEST_TAG="randomQuest";
   /**
    * Tag 'map'.
    */

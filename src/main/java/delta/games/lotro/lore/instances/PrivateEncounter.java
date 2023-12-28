@@ -19,9 +19,8 @@ public class PrivateEncounter implements Identifiable,Named
   private int _contentLayerId;
   private List<Integer> _additionalContentLayers;
   private List<InstanceMapDescription> _mapDescriptions;
-  private Integer _questId;
-  // Quests to bestow (array)
-  private List<Integer> _questsToBestow;
+  // Related quests
+  private PrivateEncounterQuests _quests;
   // TODO LATER
   // Start position
   // Success position
@@ -45,7 +44,7 @@ public class PrivateEncounter implements Identifiable,Named
     _description="";
     _additionalContentLayers=new ArrayList<Integer>();
     _mapDescriptions=new ArrayList<InstanceMapDescription>();
-    _questsToBestow=new ArrayList<Integer>();
+    _quests=new PrivateEncounterQuests();
   }
 
   @Override
@@ -191,39 +190,12 @@ public class PrivateEncounter implements Identifiable,Named
   }
 
   /**
-   * Get the identifier of the associated quest.
-   * @return A quest identifier or <code>null</code>.
+   * Get the quests data for this encounter.
+   * @return the quests data.
    */
-  public Integer getQuestId()
+  public PrivateEncounterQuests getQuests()
   {
-    return _questId;
-  }
-
-  /**
-   * Set the identifier of the associated quest.
-   * @param questId Quest identifier (may be <code>null</code>).
-   */
-  public void setQuestId(Integer questId)
-  {
-    _questId=questId;
-  }
-
-  /**
-   * Add an identifier for a 'quest to bestow'.
-   * @param questId Quest identifier.
-   */
-  public void addQuestToBestow(int questId)
-  {
-    _questsToBestow.add(Integer.valueOf(questId));
-  }
-
-  /**
-   * Get the quests to bestow for this instance.
-   * @return a list of quest identifiers.
-   */
-  public List<Integer> getQuestsToBestow()
-  {
-    return _questsToBestow;
+    return _quests;
   }
 
   /**
@@ -262,14 +234,7 @@ public class PrivateEncounter implements Identifiable,Named
         sb.append("\t").append(map).append(EndOfLine.NATIVE_EOL);
       }
     }
-    if (_questId!=null)
-    {
-      sb.append("Quest=").append(_questId).append(EndOfLine.NATIVE_EOL);
-    }
-    if (_questsToBestow.size()>0)
-    {
-      sb.append("Quest(s) to bestow=").append(_questsToBestow).append(EndOfLine.NATIVE_EOL);
-    }
+    _quests.dump(sb);
     if (_maxPlayers!=null)
     {
       sb.append("Max players=").append(_maxPlayers).append(EndOfLine.NATIVE_EOL);
