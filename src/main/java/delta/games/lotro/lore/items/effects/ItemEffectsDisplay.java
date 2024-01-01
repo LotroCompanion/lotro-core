@@ -98,9 +98,14 @@ public class ItemEffectsDisplay
     }
     List<String> childStorage=new ArrayList<String>();
     SkillEffectGenerator[] effectGenerators=mgr.getEffects();
-    for(SkillEffectGenerator effectGenerator : effectGenerators)
+    int nbEffects=effectGenerators.length;
+    if (nbEffects>0)
     {
-      showEffectGenerator(childStorage,effectGenerator,false);
+      for(int i=nbEffects-1;i>=0;i--)
+      {
+        SkillEffectGenerator effectGenerator=effectGenerators[i];
+        showEffectGenerator(childStorage,effectGenerator,false);
+      }
     }
     if (!childStorage.isEmpty())
     {
