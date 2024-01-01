@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.xml.sax.SAXException;
@@ -13,6 +14,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
+import delta.games.lotro.character.skills.SkillEffectType;
 import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectsManager;
@@ -23,6 +25,8 @@ import delta.games.lotro.common.effects.EffectsManager;
  */
 public class SkillEffectsXmlIO
 {
+  private static final Logger LOGGER=Logger.getLogger(SkillEffectsXmlIO.class);
+
   /**
    * Write skill effects.
    * @param hd Output
@@ -66,6 +70,12 @@ public class SkillEffectsXmlIO
     {
       attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECT_DURATION_ATTR,XmlWriter.CDATA,duration.toString());
     }
+    // Type
+    SkillEffectType type=generator.getType();
+    if (type!=SkillEffectType.ATTACK)
+    {
+      attrs.addAttribute("","",SkillEffectsXMLConstants.SKILL_EFFECT_TYPE_ATTR,XmlWriter.CDATA,type.name());
+    }
     hd.startElement("","",SkillEffectsXMLConstants.EFFECT_TAG,attrs);
     hd.endElement("","",SkillEffectsXMLConstants.EFFECT_TAG);
   }
@@ -87,11 +97,22 @@ public class SkillEffectsXmlIO
       Float spellcraft=DOMParsingTools.getFloatAttribute(attrs,SkillEffectsXMLConstants.EFFECT_SPELLCRAFT_ATTR,null);
       // Spellcraft
       Float duration=DOMParsingTools.getFloatAttribute(attrs,SkillEffectsXMLConstants.EFFECT_DURATION_ATTR,null);
+      // Type
+      String typeStr=DOMParsingTools.getStringAttribute(attrs,SkillEffectsXMLConstants.SKILL_EFFECT_TYPE_ATTR,null);
+      SkillEffectType type=SkillEffectType.ATTACK;
+      if (typeStr!=null)
+      {
+        type=SkillEffectType.valueOf(typeStr);
+      }
       Effect2 effect=EffectsManager.getInstance().getEffectById(id);
       if (effect!=null)
       {
-        SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,duration);
+        SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,duration,type);
         SkillDescription.addEffect(skill,generator);
+      }
+      else
+      {
+        LOGGER.warn("Unknown effect: id="+id+" in skill "+skill.getIdentifier());
       }
     }
   }

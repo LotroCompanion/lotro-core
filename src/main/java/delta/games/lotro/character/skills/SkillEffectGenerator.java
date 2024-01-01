@@ -10,17 +10,20 @@ import delta.games.lotro.common.effects.EffectGenerator;
 public class SkillEffectGenerator extends EffectGenerator
 {
   private Float _duration;
+  private SkillEffectType _type;
 
   /**
    * Constructor.
    * @param effect Effect.
    * @param spellcraft Spellcraft value.
    * @param duration Duration.
+   * @param type Type.
    */
-  public SkillEffectGenerator(Effect2 effect, Float spellcraft, Float duration)
+  public SkillEffectGenerator(Effect2 effect, Float spellcraft, Float duration, SkillEffectType type)
   {
     super(effect,spellcraft);
     _duration=duration;
+    _type=type;
   }
 
   /**
@@ -30,5 +33,14 @@ public class SkillEffectGenerator extends EffectGenerator
   public Float getDuration()
   {
     return _duration;
+  }
+
+  /**
+   * Get the skill effect type.
+   * @return A skill effect type.
+   */
+  public SkillEffectType getType()
+  {
+    return _type;
   }
 }

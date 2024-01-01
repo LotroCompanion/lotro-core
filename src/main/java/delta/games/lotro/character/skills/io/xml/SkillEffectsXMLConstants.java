@@ -16,10 +16,6 @@ public class SkillEffectsXMLConstants
    */
   public static final String TOGGLE_EFFECT_TAG="toggleEffect";
   /**
-   * Tag 'effect', attribute 'type'.
-   */
-  public static final String EFFECT_TYPE_ATTR="type";
-  /**
    * Tag 'effect', attribute 'id'.
    */
   public static final String EFFECT_ID_ATTR="id";
@@ -35,4 +31,8 @@ public class SkillEffectsXMLConstants
    * Tag 'effect', attribute 'duration'.
    */
   public static final String EFFECT_DURATION_ATTR="duration";
+  /**
+   * Tag 'effect', attribute 'type'.
+   */
+  public static final String SKILL_EFFECT_TYPE_ATTR="type";
 }
