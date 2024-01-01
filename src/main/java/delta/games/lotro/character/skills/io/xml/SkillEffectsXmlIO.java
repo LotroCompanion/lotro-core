@@ -16,7 +16,6 @@ import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectsManager;
-import delta.games.lotro.lore.items.effects.io.xml.ItemEffectsXMLConstants;
 
 /**
  * XML I/O for effects integration in skills.
@@ -48,27 +47,27 @@ public class SkillEffectsXmlIO
     Effect2 effect=generator.getEffect();
     // ID
     int id=effect.getIdentifier();
-    attrs.addAttribute("","",ItemEffectsXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Name
     String name=effect.getName();
     if ((name!=null) && (!name.isEmpty()))
     {
-      attrs.addAttribute("","",ItemEffectsXMLConstants.EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
+      attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Spellcraft
     Float spellcraft=generator.getSpellcraft();
     if (spellcraft!=null)
     {
-      attrs.addAttribute("","",ItemEffectsXMLConstants.EFFECT_SPELLCRAFT_ATTR,XmlWriter.CDATA,spellcraft.toString());
+      attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECT_SPELLCRAFT_ATTR,XmlWriter.CDATA,spellcraft.toString());
     }
     // Duration
     Float duration=generator.getDuration();
     if (duration!=null)
     {
-      attrs.addAttribute("","",ItemEffectsXMLConstants.EFFECT_DURATION_ATTR,XmlWriter.CDATA,duration.toString());
+      attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECT_DURATION_ATTR,XmlWriter.CDATA,duration.toString());
     }
-    hd.startElement("","",ItemEffectsXMLConstants.EFFECT_TAG,attrs);
-    hd.endElement("","",ItemEffectsXMLConstants.EFFECT_TAG);
+    hd.startElement("","",SkillEffectsXMLConstants.EFFECT_TAG,attrs);
+    hd.endElement("","",SkillEffectsXMLConstants.EFFECT_TAG);
   }
 
   /**
@@ -78,16 +77,16 @@ public class SkillEffectsXmlIO
    */
   public static void readSkillEffects(Element skillTag, SkillDescription skill)
   {
-    List<Element> effectTags=DOMParsingTools.getChildTagsByName(skillTag,ItemEffectsXMLConstants.EFFECT_TAG);
+    List<Element> effectTags=DOMParsingTools.getChildTagsByName(skillTag,SkillEffectsXMLConstants.EFFECT_TAG);
     for(Element effectTag : effectTags)
     {
       NamedNodeMap attrs=effectTag.getAttributes();
       // ID
-      int id=DOMParsingTools.getIntAttribute(attrs,ItemEffectsXMLConstants.EFFECT_ID_ATTR,0);
+      int id=DOMParsingTools.getIntAttribute(attrs,SkillEffectsXMLConstants.EFFECT_ID_ATTR,0);
       // Spellcraft
-      Float spellcraft=DOMParsingTools.getFloatAttribute(attrs,ItemEffectsXMLConstants.EFFECT_SPELLCRAFT_ATTR,null);
+      Float spellcraft=DOMParsingTools.getFloatAttribute(attrs,SkillEffectsXMLConstants.EFFECT_SPELLCRAFT_ATTR,null);
       // Spellcraft
-      Float duration=DOMParsingTools.getFloatAttribute(attrs,ItemEffectsXMLConstants.EFFECT_DURATION_ATTR,null);
+      Float duration=DOMParsingTools.getFloatAttribute(attrs,SkillEffectsXMLConstants.EFFECT_DURATION_ATTR,null);
       Effect2 effect=EffectsManager.getInstance().getEffectById(id);
       if (effect!=null)
       {
