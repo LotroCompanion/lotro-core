@@ -19,6 +19,7 @@ public class Objective
   private String _billboardOverride;
   private List<DialogElement> _dialogs;
   private Integer _nbCompletions;
+  private List<AbstractQuestEvent> _questEvents;
   private List<ObjectiveCondition> _completionConditions;
   private List<ObjectiveCondition> _failureConditions;
 
@@ -33,6 +34,7 @@ public class Objective
     _progressOverride="";
     _dialogs=new ArrayList<DialogElement>();
     _nbCompletions=null;
+    _questEvents=new ArrayList<AbstractQuestEvent>();
     _completionConditions=new ArrayList<ObjectiveCondition>();
     _failureConditions=new ArrayList<ObjectiveCondition>();
   }
@@ -168,13 +170,36 @@ public class Objective
   }
 
   /**
-   * Add an objective condition.
-   * @param condition Condition to add.
+   * Add a quest event.
+   * @param questEvent Condition to add.
    */
-  public void addCondition(ObjectiveCondition condition)
+  public void addCondition(AbstractQuestEvent questEvent)
   {
-    condition.setIndex(_completionConditions.size());
-    _completionConditions.add(condition);
+    _questEvents.add(questEvent);
+    if (questEvent instanceof ObjectiveCondition)
+    {
+      ObjectiveCondition condition=(ObjectiveCondition)questEvent;
+      condition.setIndex(_completionConditions.size());
+      _completionConditions.add(condition);
+    }
+    if (questEvent instanceof CompoundQuestEvent)
+    {
+      CompoundQuestEvent compoundQuestEvent=(CompoundQuestEvent)questEvent;
+      for(ObjectiveCondition condition : compoundQuestEvent.getEvents())
+      {
+        condition.setIndex(_completionConditions.size());
+        _completionConditions.add(condition);
+      }
+    }
+  }
+
+  /**
+   * Get all the quest events of the objective.
+   * @return A list of quest events.
+   */
+  public List<AbstractQuestEvent> getQuestEvents()
+  {
+    return _questEvents;
   }
 
   /**

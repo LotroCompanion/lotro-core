@@ -20,6 +20,8 @@ import delta.games.lotro.lore.maps.LandDivision;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.geo.io.xml.AchievableGeoDataXMLWriter;
+import delta.games.lotro.lore.quests.objectives.AbstractQuestEvent;
+import delta.games.lotro.lore.quests.objectives.CompoundQuestEvent;
 import delta.games.lotro.lore.quests.objectives.ConditionTarget;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
@@ -131,10 +133,29 @@ public class ObjectivesXMLWriter
       DialogsXMLWriter.writeDialogElement(hd,ObjectivesXMLConstants.DIALOG_TAG,dialog);
     }
     // Completion conditions
-    List<ObjectiveCondition> conditions=objective.getConditions();
-    for(ObjectiveCondition condition : conditions)
+    List<AbstractQuestEvent> events=objective.getQuestEvents();
+    for(AbstractQuestEvent event : events)
     {
-      writeCondition(hd,condition);
+      if (event instanceof ObjectiveCondition)
+      {
+        writeCondition(hd,(ObjectiveCondition)event);
+      }
+      else
+      {
+        AttributesImpl compoundAttrs=new AttributesImpl();
+        CompoundQuestEvent compoundQuestEvent=(CompoundQuestEvent)event;
+        String compoundProgressOverride=compoundQuestEvent.getCompoundProgressOverride();
+        if (compoundProgressOverride!=null)
+        {
+          compoundAttrs.addAttribute("","",ObjectivesXMLConstants.COMPOUND_PROGRESS_OVERRIDE_ATTR,XmlWriter.CDATA,compoundProgressOverride);
+        }
+        hd.startElement("","",ObjectivesXMLConstants.COMPOUND_EVENT_TAG,compoundAttrs);
+        for(ObjectiveCondition condition : compoundQuestEvent.getEvents())
+        {
+          writeCondition(hd,condition);
+        }
+        hd.endElement("","",ObjectivesXMLConstants.COMPOUND_EVENT_TAG);
+      }
     }
     // Failure conditions
     List<ObjectiveCondition> failureConditions=objective.getFailureConditions();

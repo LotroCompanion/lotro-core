@@ -9,7 +9,7 @@ import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
  * Condition of an objective (should be quest event).
  * @author DAM
  */
-public abstract class ObjectiveCondition
+public abstract class ObjectiveCondition extends AbstractQuestEvent
 {
   private int _index;
   private int _eventID;

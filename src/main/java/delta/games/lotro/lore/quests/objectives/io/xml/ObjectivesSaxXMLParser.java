@@ -26,6 +26,7 @@ import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
 import delta.games.lotro.lore.quests.geo.io.xml.AchievableGeoDataXMLConstants;
 import delta.games.lotro.lore.quests.geo.io.xml.AchievableGeoDataXMLParser;
+import delta.games.lotro.lore.quests.objectives.CompoundQuestEvent;
 import delta.games.lotro.lore.quests.objectives.ConditionTarget;
 import delta.games.lotro.lore.quests.objectives.ConditionType;
 import delta.games.lotro.lore.quests.objectives.DefaultObjectiveCondition;
@@ -71,6 +72,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private ObjectiveCondition _condition;
   private boolean _useFailureConditions;
   private boolean _useGlobalFailureConditions;
+  private CompoundQuestEvent _compoundEvent;
   private SingleLocaleLabelsManager _i18n;
 
   /**
@@ -125,6 +127,13 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
         _useFailureConditions=true;
       }
     }
+    else if (ObjectivesXMLConstants.COMPOUND_EVENT_TAG.equals(tagName))
+    {
+      _compoundEvent=new CompoundQuestEvent();
+      String progressOverride=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.COMPOUND_PROGRESS_OVERRIDE_ATTR,null);
+      progressOverride=_i18n.getLabel(progressOverride);
+      _compoundEvent.setCompoundProgressOverride(progressOverride);
+    }
     else if (ObjectivesXMLConstants.OBJECTIVES_TAG.equals(tagName))
     {
       // Ignore
@@ -132,7 +141,11 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     else
     {
       _condition=parseCondition(tagName, attrs);
-      if (_useGlobalFailureConditions)
+      if (_compoundEvent!=null)
+      {
+        _compoundEvent.addQuestEvent(_condition);
+      }
+      else if (_useGlobalFailureConditions)
       {
         _objectives.addFailureCondition(_condition);
       }
@@ -158,6 +171,11 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     else if (ObjectivesXMLConstants.OBJECTIVES_TAG.equals(tagName))
     {
       return getParent();
+    }
+    else if (ObjectivesXMLConstants.COMPOUND_EVENT_TAG.equals(tagName))
+    {
+      _currentObjective.addCondition(_compoundEvent);
+      _compoundEvent=null;
     }
     return this;
   }

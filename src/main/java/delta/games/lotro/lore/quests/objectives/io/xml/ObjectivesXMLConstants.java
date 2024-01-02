@@ -83,6 +83,14 @@ public class ObjectivesXMLConstants
    */
   public static final String FAILURE_CONDITIONS_TAG="failureConditions";
   /**
+   * Tag 'compoundEvent'.
+   */
+  public static final String COMPOUND_EVENT_TAG="compoundEvent";
+  /**
+   * Tag 'compoundEvent', attribute 'progressOverride'.
+   */
+  public static final String COMPOUND_PROGRESS_OVERRIDE_ATTR="progressOverride";
+  /**
    * Tag 'questComplete'.
    */
   public static final String QUEST_COMPLETE_TAG="questComplete";
