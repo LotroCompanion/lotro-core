@@ -6,7 +6,7 @@ import java.util.List;
 import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
 
 /**
- * Condition of an objective.
+ * Condition of an objective (should be quest event).
  * @author DAM
  */
 public abstract class ObjectiveCondition

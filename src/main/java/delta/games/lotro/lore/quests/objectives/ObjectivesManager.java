@@ -53,10 +53,6 @@ public class ObjectivesManager
   public void sort()
   {
     Collections.sort(_objectives,new ObjectiveIndexComparator());
-    for(Objective objective : _objectives)
-    {
-      objective.sort();
-    }
   }
 
   @Override

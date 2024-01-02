@@ -24,7 +24,6 @@ public class QuestsSaxParserTest extends TestCase
     {
       AchievableProxiesResolver.resolve(quest);
     }
-    
     QuestXMLWriter writer=new QuestXMLWriter();
     File to=new File("quests.xml");
     writer.writeQuests(to,quests,EncodingNames.UTF_8);

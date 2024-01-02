@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
@@ -19,7 +18,9 @@ public class Objective
   private String _progressOverride;
   private String _billboardOverride;
   private List<DialogElement> _dialogs;
-  private List<ObjectiveCondition> _conditions;
+  private Integer _nbCompletions;
+  private List<ObjectiveCondition> _completionConditions;
+  private List<ObjectiveCondition> _failureConditions;
 
   /**
    * Constructor.
@@ -31,7 +32,9 @@ public class Objective
     _loreOverride="";
     _progressOverride="";
     _dialogs=new ArrayList<DialogElement>();
-    _conditions=new ArrayList<ObjectiveCondition>();
+    _nbCompletions=null;
+    _completionConditions=new ArrayList<ObjectiveCondition>();
+    _failureConditions=new ArrayList<ObjectiveCondition>();
   }
 
   /**
@@ -147,22 +150,59 @@ public class Objective
   }
 
   /**
+   * Get the expected number of completed conditions.
+   * @return A number or <code>null</code> to complete all conditions.
+   */
+  public Integer getCompletionConditionsCount()
+  {
+    return _nbCompletions;
+  }
+
+  /**
+   * Set the expected number of completed conditions.
+   * @param count Count to set.
+   */
+  public void setCompletionConditionsCount(Integer count)
+  {
+    _nbCompletions=count;
+  }
+
+  /**
    * Add an objective condition.
    * @param condition Condition to add.
    */
   public void addCondition(ObjectiveCondition condition)
   {
-    condition.setIndex(_conditions.size());
-    _conditions.add(condition);
+    condition.setIndex(_completionConditions.size());
+    _completionConditions.add(condition);
   }
 
   /**
-   * Get all the conditions of the objective.
+   * Get all the completion conditions of the objective.
    * @return A list of conditions.
    */
   public List<ObjectiveCondition> getConditions()
   {
-    return _conditions;
+    return _completionConditions;
+  }
+
+  /**
+   * Add an objective failure condition.
+   * @param condition Condition to add.
+   */
+  public void addFailureCondition(ObjectiveCondition condition)
+  {
+    condition.setIndex(_failureConditions.size());
+    _failureConditions.add(condition);
+  }
+
+  /**
+   * Get the failure conditions of the objective.
+   * @return A list of conditions.
+   */
+  public List<ObjectiveCondition> getFailureConditions()
+  {
+    return _failureConditions;
   }
 
   /**
@@ -172,7 +212,7 @@ public class Objective
    */
   public ObjectiveCondition getConditionByEventID(int eventID)
   {
-    for(ObjectiveCondition condition : _conditions)
+    for(ObjectiveCondition condition : _completionConditions)
     {
       if (condition.getEventID()==eventID)
       {
@@ -183,20 +223,12 @@ public class Objective
   }
 
   /**
-   * Sort conditions.
-   */
-  public void sort()
-  {
-    Collections.sort(_conditions,new ObjectiveConditionComparator());
-  }
-
-  /**
    * Indicates if this objective has geo data.
    * @return <code>true</code> if it has geo data.
    */
   public boolean hasGeoData()
   {
-    for(ObjectiveCondition condition : _conditions)
+    for(ObjectiveCondition condition : _completionConditions)
     {
       if (condition.hasGeoData())
       {
@@ -229,10 +261,22 @@ public class Objective
     {
       sb.append('\t').append(dialog).append(EndOfLine.NATIVE_EOL);
     }
-    sb.append("Conditions:").append(EndOfLine.NATIVE_EOL);
-    for(ObjectiveCondition condition : _conditions)
+    sb.append("Completion conditions:").append(EndOfLine.NATIVE_EOL);
+    if (_completionConditions!=null)
+    {
+      sb.append(_completionConditions).append(" conditions among:").append(EndOfLine.NATIVE_EOL);
+    }
+    for(ObjectiveCondition condition : _completionConditions)
     {
       sb.append('\t').append(condition).append(EndOfLine.NATIVE_EOL);
+    }
+    if (!_failureConditions.isEmpty())
+    {
+      sb.append("Failure conditions:").append(EndOfLine.NATIVE_EOL);
+      for(ObjectiveCondition condition : _failureConditions)
+      {
+        sb.append('\t').append(condition).append(EndOfLine.NATIVE_EOL);
+      }
     }
     return sb.toString();
   }

@@ -105,6 +105,12 @@ public class ObjectivesXMLWriter
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_BILLBOARD_OVERRIDE_ATTR,XmlWriter.CDATA,billboardOverride);
     }
+    // Completions count
+    Integer completionsCount=objective.getCompletionConditionsCount();
+    if (completionsCount!=null)
+    {
+      attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_COMPLETIONS_COUNT_ATTR,XmlWriter.CDATA,completionsCount.toString());
+    }
     hd.startElement("","",ObjectivesXMLConstants.OBJECTIVE_TAG,attrs);
     // Dialogs
     List<DialogElement> dialogs=objective.getDialogs();
@@ -112,11 +118,22 @@ public class ObjectivesXMLWriter
     {
       DialogsXMLWriter.writeDialogElement(hd,ObjectivesXMLConstants.DIALOG_TAG,dialog);
     }
-    // Conditions
+    // Completion conditions
     List<ObjectiveCondition> conditions=objective.getConditions();
     for(ObjectiveCondition condition : conditions)
     {
       writeCondition(hd,condition);
+    }
+    // Failure conditions
+    List<ObjectiveCondition> failureConditions=objective.getFailureConditions();
+    if (!failureConditions.isEmpty())
+    {
+      hd.startElement("","",ObjectivesXMLConstants.FAILURE_CONDITIONS_TAG,new AttributesImpl());
+      for(ObjectiveCondition failureCondition : failureConditions)
+      {
+        writeCondition(hd,failureCondition);
+      }
+      hd.endElement("","",ObjectivesXMLConstants.FAILURE_CONDITIONS_TAG);
     }
     hd.endElement("","",ObjectivesXMLConstants.OBJECTIVE_TAG);
   }

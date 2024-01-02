@@ -35,6 +35,10 @@ public class ObjectivesXMLConstants
    * Tag 'objective', attribute 'billboardOverride'.
    */
   public static final String OBJECTIVE_BILLBOARD_OVERRIDE_ATTR="billboardOverride";
+  /**
+   * Tag 'objective', attribute 'completionsCount'.
+   */
+  public static final String OBJECTIVE_COMPLETIONS_COUNT_ATTR="completionsCount";
 
   /**
    * Tag 'dialog'.
@@ -74,6 +78,10 @@ public class ObjectivesXMLConstants
    */
   public static final String CONDITION_COUNT_ATTR="count";
 
+  /**
+   * Tag 'failureConditions'.
+   */
+  public static final String FAILURE_CONDITIONS_TAG="failureConditions";
   /**
    * Tag 'questComplete'.
    */

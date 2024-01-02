@@ -69,6 +69,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private ObjectivesManager _objectives;
   private Objective _currentObjective;
   private ObjectiveCondition _condition;
+  private boolean _useFailureConditions;
   private SingleLocaleLabelsManager _i18n;
 
   /**
@@ -94,6 +95,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   {
     if (ObjectivesXMLConstants.OBJECTIVE_TAG.equals(tagName))
     {
+      _useFailureConditions=false;
       _currentObjective=parseObjective(attrs);
       _objectives.addObjective(_currentObjective);
     }
@@ -113,10 +115,21 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
       AchievableGeoPoint point=AchievableGeoDataXMLParser.parseGeoDataElement(attrs);
       _condition.addPoint(point);
     }
+    else if (ObjectivesXMLConstants.FAILURE_CONDITIONS_TAG.equals(tagName))
+    {
+      _useFailureConditions=true;
+    }
     else
     {
       _condition=parseCondition(tagName, attrs);
-      _currentObjective.addCondition(_condition);
+      if (_useFailureConditions)
+      {
+        _currentObjective.addFailureCondition(_condition);
+      }
+      else
+      {
+        _currentObjective.addCondition(_condition);
+      }
     }
     return this;
   }
@@ -153,6 +166,12 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     String billboardOverride=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_BILLBOARD_OVERRIDE_ATTR,"");
     billboardOverride=_i18n.getLabel(billboardOverride);
     objective.setBillboardOverride(billboardOverride);
+    // Completions count
+    int completionsCount=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.OBJECTIVE_COMPLETIONS_COUNT_ATTR,-1);
+    if (completionsCount>0)
+    {
+      objective.setCompletionConditionsCount(Integer.valueOf(completionsCount));
+    }
     return objective;
   }
 
