@@ -68,6 +68,18 @@ public class ObjectivesXMLWriter
   public static void write(TransformerHandler hd, ObjectivesManager objectives) throws Exception
   {
     hd.startElement("","",ObjectivesXMLConstants.OBJECTIVES_TAG,new AttributesImpl());
+    // Failure conditions
+    List<ObjectiveCondition> failureConditions=objectives.getFailureConditions();
+    if (!failureConditions.isEmpty())
+    {
+      hd.startElement("","",ObjectivesXMLConstants.FAILURE_CONDITIONS_TAG,new AttributesImpl());
+      for(ObjectiveCondition failureCondition : failureConditions)
+      {
+        writeCondition(hd,failureCondition);
+      }
+      hd.endElement("","",ObjectivesXMLConstants.FAILURE_CONDITIONS_TAG);
+    }
+    // Objectives
     for(Objective objective : objectives.getObjectives())
     {
       writeObjective(hd,objective);

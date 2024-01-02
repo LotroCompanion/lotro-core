@@ -178,7 +178,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
       _currentItem.setNextQuest(buildProxy(attrs));
     }
     // Objectives
-    else if (ObjectivesXMLConstants.OBJECTIVE_TAG.equals(tagName))
+    else if (ObjectivesXMLConstants.OBJECTIVES_TAG.equals(tagName))
     {
       _objectives.setObjectives(_currentItem.getObjectives());
       return _objectives;

@@ -70,6 +70,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private Objective _currentObjective;
   private ObjectiveCondition _condition;
   private boolean _useFailureConditions;
+  private boolean _useGlobalFailureConditions;
   private SingleLocaleLabelsManager _i18n;
 
   /**
@@ -88,6 +89,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   public void setObjectives(ObjectivesManager objectives)
   {
     _objectives=objectives;
+    _useGlobalFailureConditions=true;
   }
 
   @Override
@@ -96,6 +98,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     if (ObjectivesXMLConstants.OBJECTIVE_TAG.equals(tagName))
     {
       _useFailureConditions=false;
+      _useGlobalFailureConditions=false;
       _currentObjective=parseObjective(attrs);
       _objectives.addObjective(_currentObjective);
     }
@@ -117,12 +120,23 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     }
     else if (ObjectivesXMLConstants.FAILURE_CONDITIONS_TAG.equals(tagName))
     {
-      _useFailureConditions=true;
+      if (!_useGlobalFailureConditions)
+      {
+        _useFailureConditions=true;
+      }
+    }
+    else if (ObjectivesXMLConstants.OBJECTIVES_TAG.equals(tagName))
+    {
+      // Ignore
     }
     else
     {
       _condition=parseCondition(tagName, attrs);
-      if (_useFailureConditions)
+      if (_useGlobalFailureConditions)
+      {
+        _objectives.addFailureCondition(_condition);
+      }
+      else if (_useFailureConditions)
       {
         _currentObjective.addFailureCondition(_condition);
       }
@@ -138,6 +152,10 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   public SAXParserValve<?> handleEndTag(String tagName)
   {
     if (ObjectivesXMLConstants.OBJECTIVE_TAG.equals(tagName))
+    {
+      _currentObjective=null;
+    }
+    else if (ObjectivesXMLConstants.OBJECTIVES_TAG.equals(tagName))
     {
       return getParent();
     }

@@ -11,6 +11,7 @@ import java.util.List;
 public class ObjectivesManager
 {
   private List<Objective> _objectives;
+  private List<ObjectiveCondition> _failureConditions;
 
   /**
    * Constructor.
@@ -18,6 +19,7 @@ public class ObjectivesManager
   public ObjectivesManager()
   {
     _objectives=new ArrayList<Objective>();
+    _failureConditions=new ArrayList<ObjectiveCondition>();
   }
 
   /**
@@ -45,6 +47,25 @@ public class ObjectivesManager
   public List<Objective> getObjectives()
   {
     return _objectives;
+  }
+
+  /**
+   * Add a global failure condition.
+   * @param condition Condition to add.
+   */
+  public void addFailureCondition(ObjectiveCondition condition)
+  {
+    condition.setIndex(_failureConditions.size());
+    _failureConditions.add(condition);
+  }
+
+  /**
+   * Get the global failure conditions.
+   * @return A list of conditions.
+   */
+  public List<ObjectiveCondition> getFailureConditions()
+  {
+    return _failureConditions;
   }
 
   /**

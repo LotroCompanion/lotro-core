@@ -156,7 +156,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
       _currentItem.addMap(map);
     }
     // Objectives
-    else if (ObjectivesXMLConstants.OBJECTIVE_TAG.equals(tagName))
+    else if (ObjectivesXMLConstants.OBJECTIVES_TAG.equals(tagName))
     {
       _objectives.setObjectives(_currentItem.getObjectives());
       return _objectives;
