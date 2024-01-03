@@ -6,16 +6,14 @@ import delta.games.lotro.lore.items.Item;
  * Hobby condition.
  * @author DAM
  */
-public class HobbyCondition extends ObjectiveCondition
+public class HobbyCondition extends ItemCondition
 {
-  private Item _item;
-
   /**
    * Constructor.
    */
   public HobbyCondition()
   {
-    _item=null;
+    super();
   }
 
   @Override
@@ -24,30 +22,12 @@ public class HobbyCondition extends ObjectiveCondition
     return ConditionType.HOBBY_ITEM;
   }
 
-  /**
-   * Get the targeted item.
-   * @return an item or <code>null</code>.
-   */
-  public Item getItem()
-  {
-    return _item;
-  }
-
-  /**
-   * Set the targeted item.
-   * @param item the item to set (may be <code>null</code>).
-   */
-  public void setItem(Item item)
-  {
-    _item=item;
-  }
-
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
     sb.append("#").append(getIndex());
-    sb.append(": Fish ");
+    sb.append(": Catch ");
     if (_item!=null)
     {
       sb.append(_item);
