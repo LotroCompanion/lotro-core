@@ -141,21 +141,34 @@ public class AchievableProxiesResolver
 
   private void resolveObjectives(ObjectivesManager objectivesMgr)
   {
+    for(ObjectiveCondition condition : objectivesMgr.getFailureConditions())
+    {
+      resolveCondition(condition);
+    }
     for(Objective objective : objectivesMgr.getObjectives())
     {
       for(ObjectiveCondition condition : objective.getConditions())
       {
-        if (condition instanceof QuestCompleteCondition)
-        {
-          QuestCompleteCondition completeCondition=(QuestCompleteCondition)condition;
-          resolveProxy(completeCondition.getProxy());
-        }
-        else if (condition instanceof QuestBestowedCondition)
-        {
-          QuestBestowedCondition completeCondition=(QuestBestowedCondition)condition;
-          resolveProxy(completeCondition.getProxy());
-        }
+        resolveCondition(condition);
       }
+      for(ObjectiveCondition condition : objective.getFailureConditions())
+      {
+        resolveCondition(condition);
+      }
+    }
+  }
+
+  private void resolveCondition(ObjectiveCondition condition)
+  {
+    if (condition instanceof QuestCompleteCondition)
+    {
+      QuestCompleteCondition completeCondition=(QuestCompleteCondition)condition;
+      resolveProxy(completeCondition.getProxy());
+    }
+    else if (condition instanceof QuestBestowedCondition)
+    {
+      QuestBestowedCondition completeCondition=(QuestBestowedCondition)condition;
+      resolveProxy(completeCondition.getProxy());
     }
   }
 
