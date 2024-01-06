@@ -1,7 +1,5 @@
 package delta.games.lotro.lore.quests.objectives;
 
-import delta.games.lotro.lore.items.Item;
-
 /**
  * Hobby condition.
  * @author DAM

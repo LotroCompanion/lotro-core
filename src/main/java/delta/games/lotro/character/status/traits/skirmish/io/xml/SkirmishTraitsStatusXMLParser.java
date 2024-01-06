@@ -1,5 +1,6 @@
 package delta.games.lotro.character.status.traits.skirmish.io.xml;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,22 @@ import delta.games.lotro.common.enums.TraitNature;
  */
 public class SkirmishTraitsStatusXMLParser
 {
+  /**
+   * Parse the XML file.
+   * @param source Source file.
+   * @return Parsed status or <code>null</code>.
+   */
+  public SkirmishTraitsStatus parseXML(File source)
+  {
+    SkirmishTraitsStatus status=null;
+    Element root=DOMParsingTools.parse(source);
+    if (root!=null)
+    {
+      status=parseSkirmishTraitsStatus(root);
+    }
+    return status;
+  }
+
   /**
    * Parse a skirmish traits status from an XML document.
    * @param root Root tag.

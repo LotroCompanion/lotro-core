@@ -67,6 +67,10 @@ public enum CharacterEventType
    */
   CHARACTER_STORAGE_UPDATED,
   /**
+   * The skirmish traits of a toon were updated.
+   */
+  CHARACTER_SKIRMISH_TRAITS_UPDATED,
+  /**
    * A toon was removed.
    */
   CHARACTER_REMOVED,

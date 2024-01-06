@@ -11,7 +11,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.character.traits.io.xml.TraitDescriptionXMLParser;
+import delta.games.lotro.character.traits.skirmish.io.xml.SkirmishTraitsXMLParser;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
@@ -65,7 +65,7 @@ public class SkirmishTraitsManager
       return;
     }
     long now=System.currentTimeMillis();
-    List<TraitDescription> traits=new TraitDescriptionXMLParser().parseTraitsFile(skirmishTraitsFile);
+    List<TraitDescription> traits=SkirmishTraitsXMLParser.parseTraitsFile(skirmishTraitsFile);
     for(TraitDescription trait : traits)
     {
       _cache.put(Integer.valueOf(trait.getIdentifier()),trait);
