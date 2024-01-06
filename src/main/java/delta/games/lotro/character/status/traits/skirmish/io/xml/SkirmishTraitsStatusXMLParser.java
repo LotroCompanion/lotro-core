@@ -55,6 +55,10 @@ public class SkirmishTraitsStatusXMLParser
       // Count
       int count=DOMParsingTools.getIntAttribute(slottedTraitsAttrs,SkirmishTraitsStatusXMLConstants.SLOTTED_TRAITS_SLOTS_COUNT_ATTR,0);
       List<Integer> slottedTraitIDs=new ArrayList<Integer>(count);
+      for(int i=0;i<count;i++)
+      {
+        slottedTraitIDs.add(Integer.valueOf(0));
+      }
       List<Element> slottedTraitTags=DOMParsingTools.getChildTagsByName(slottedTraitsTag,SkirmishTraitsStatusXMLConstants.SLOTTED_TRAIT_TAG);
       for(Element slottedTraitTag : slottedTraitTags)
       {
