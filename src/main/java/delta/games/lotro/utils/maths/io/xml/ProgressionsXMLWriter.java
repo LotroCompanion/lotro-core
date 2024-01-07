@@ -2,6 +2,7 @@ package delta.games.lotro.utils.maths.io.xml;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 import javax.xml.transform.sax.TransformerHandler;
 
@@ -11,10 +12,9 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.utils.maths.AbstractArrayProgression;
 import delta.games.lotro.utils.maths.ArrayProgression;
+import delta.games.lotro.utils.maths.ArrayProgressionConstants;
 import delta.games.lotro.utils.maths.LinearInterpolatingProgression;
-import delta.games.lotro.utils.maths.LongArrayProgression;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -57,9 +57,9 @@ public class ProgressionsXMLWriter
    */
   public static void write(TransformerHandler hd, final Progression progression) throws SAXException
   {
-    if (progression instanceof AbstractArrayProgression)
+    if (progression instanceof ArrayProgression)
     {
-      writeAbstractArrayProgression(hd,(AbstractArrayProgression)progression);
+      writeArrayProgression(hd,(ArrayProgression)progression);
     }
     else if (progression instanceof LinearInterpolatingProgression)
     {
@@ -73,91 +73,47 @@ public class ProgressionsXMLWriter
    * @param progression Data to save.
    * @throws SAXException If an error occurs.
    */
-  private static void writeAbstractArrayProgression(TransformerHandler hd, final AbstractArrayProgression progression) throws SAXException
+  private static void writeArrayProgression(TransformerHandler hd, final ArrayProgression progression) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     int identifier=progression.getIdentifier();
     attrs.addAttribute("","",ProgressionsXMLConstants.IDENTIFIER_ATTR,XmlWriter.CDATA,String.valueOf(identifier));
+    // Min X
+    int minX=progression.getMinX();
+    if (minX!=1)
+    {
+      attrs.addAttribute("","",ProgressionsXMLConstants.MIN_X_ATTR,XmlWriter.CDATA,String.valueOf(minX));
+    }
     // Number of points
     int nbPoints=progression.getNumberOfPoints();
     attrs.addAttribute("","",ProgressionsXMLConstants.NB_POINTS_ATTR,XmlWriter.CDATA,String.valueOf(nbPoints));
     // Type
-    if (progression instanceof LongArrayProgression)
+    String type=progression.getValueType();
+    if (!ArrayProgressionConstants.FLOAT.equals(type))
     {
-      attrs.addAttribute("","",ProgressionsXMLConstants.TYPE_ATTR,XmlWriter.CDATA,"long");
+      attrs.addAttribute("","",ProgressionsXMLConstants.TYPE_ATTR,XmlWriter.CDATA,type);
     }
     hd.startElement("","",ProgressionsXMLConstants.ARRAY_PROGRESSION_TAG,attrs);
-    if (progression instanceof ArrayProgression)
+    Number previousValue=progression.getY(0);
+    int startX=minX;
+    int endX=startX;
+    for(int i=1;i<nbPoints;i++)
     {
-      writeArrayProgression(hd,(ArrayProgression)progression);
+      int x=minX+i;
+      Number y=progression.getY(i);
+      if (!Objects.equals(previousValue,y))
+      {
+        writeArrayProgressionItem(hd,startX,endX,previousValue);
+        startX=x;
+        previousValue=y;
+      }
+      endX=x;
     }
-    else if (progression instanceof LongArrayProgression)
-    {
-      writeLongArrayProgression(hd,(LongArrayProgression)progression);
-    }
+    writeArrayProgressionItem(hd,startX,endX,previousValue);
     hd.endElement("","",ProgressionsXMLConstants.ARRAY_PROGRESSION_TAG);
   }
 
-  private static void writeArrayProgression(TransformerHandler hd, ArrayProgression progression) throws SAXException
-  {
-    float previousValue=progression.getY(0);
-    int minX=progression.getX(0);
-    int maxX=progression.getX(0);
-    int nbPoints=progression.getNumberOfPoints();
-    for(int i=1;i<nbPoints;i++)
-    {
-      int x=progression.getX(i);
-      float y=progression.getY(i);
-      if (y!=previousValue)
-      {
-        writeArrayProgressionItem(hd,minX,maxX,previousValue);
-        minX=x;
-        previousValue=y;
-      }
-      maxX=x;
-    }
-    writeArrayProgressionItem(hd,minX,maxX,previousValue);
-  }
-
-  private static void writeArrayProgressionItem(TransformerHandler hd, int xMin, int xMax, float value) throws SAXException
-  {
-    AttributesImpl pointAttrs=new AttributesImpl();
-    if (xMin==xMax)
-    {
-      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(xMin));
-    }
-    else
-    {
-      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_MIN_ATTR,XmlWriter.CDATA,String.valueOf(xMin));
-      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_MAX_ATTR,XmlWriter.CDATA,String.valueOf(xMax));
-    }
-    pointAttrs.addAttribute("","",ProgressionsXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(value));
-    hd.startElement("","",ProgressionsXMLConstants.POINT_TAG,pointAttrs);
-    hd.endElement("","",ProgressionsXMLConstants.POINT_TAG);
-  }
-
-  private static void writeLongArrayProgression(TransformerHandler hd, LongArrayProgression progression) throws SAXException
-  {
-    long previousValue=progression.getY(0);
-    int minX=progression.getX(0);
-    int maxX=progression.getX(0);
-    int nbPoints=progression.getNumberOfPoints();
-    for(int i=1;i<nbPoints;i++)
-    {
-      int x=progression.getX(i);
-      long y=progression.getY(i);
-      if (y!=previousValue)
-      {
-        writeLongArrayProgressionItem(hd,minX,maxX,previousValue);
-        minX=x;
-        previousValue=y;
-      }
-      maxX=x;
-    }
-    writeLongArrayProgressionItem(hd,minX,maxX,previousValue);
-  }
-
-  private static void writeLongArrayProgressionItem(TransformerHandler hd, int xMin, int xMax, long value) throws SAXException
+  private static void writeArrayProgressionItem(TransformerHandler hd, int xMin, int xMax, Number value) throws SAXException
   {
     AttributesImpl pointAttrs=new AttributesImpl();
     if (xMin==xMax)

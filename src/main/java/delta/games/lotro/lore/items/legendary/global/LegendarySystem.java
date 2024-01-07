@@ -205,7 +205,7 @@ public class LegendarySystem
     List<Float> values=new ArrayList<Float>();
     List<Integer> ranks=new ArrayList<Integer>();
     int nbPoints=progression.getNumberOfPoints();
-    int maxX=progression.getX(nbPoints-1);
+    int maxX=progression.getMinX()+nbPoints-1;
     float lastValue=Float.MIN_VALUE;
     int x=startRank;
     while(true)

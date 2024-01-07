@@ -20,6 +20,10 @@ public class ProgressionsXMLConstants
    */
   public static final String ARRAY_PROGRESSION_TAG="arrayProgression";
   /**
+   * Tag 'arrayProgression', attribute 'minX'.
+   */
+  public static final String MIN_X_ATTR="minX";
+  /**
    * Tag 'arrayProgression', attribute 'type'.
    */
   public static final String TYPE_ATTR="type";
