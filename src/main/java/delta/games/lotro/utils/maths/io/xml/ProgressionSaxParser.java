@@ -13,8 +13,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import delta.common.utils.NumericTools;
+import delta.games.lotro.utils.maths.AbstractArrayProgression;
 import delta.games.lotro.utils.maths.ArrayProgression;
 import delta.games.lotro.utils.maths.LinearInterpolatingProgression;
+import delta.games.lotro.utils.maths.LongArrayProgression;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -26,7 +28,7 @@ public final class ProgressionSaxParser extends DefaultHandler
   private static final Logger LOGGER=Logger.getLogger(ProgressionSaxParser.class);
 
   private List<Progression> _parsedProgressions;
-  private ArrayProgression _arrayProgression;
+  private AbstractArrayProgression _arrayProgression;
   private LinearInterpolatingProgression _linearInterpolatingProgression;
   private int _index;
 
@@ -75,7 +77,15 @@ public final class ProgressionSaxParser extends DefaultHandler
       String nbPointsStr=attributes.getValue(ProgressionsXMLConstants.NB_POINTS_ATTR);
       int nbPoints=NumericTools.parseInt(nbPointsStr,0);
       _index=0;
-      _arrayProgression=new ArrayProgression(identifier,nbPoints);
+      String type=attributes.getValue(ProgressionsXMLConstants.TYPE_ATTR);
+      if ("long".equals(type))
+      {
+        _arrayProgression=new LongArrayProgression(identifier,nbPoints);
+      }
+      else
+      {
+        _arrayProgression=new ArrayProgression(identifier,nbPoints);
+      }
       _parsedProgressions.add(_arrayProgression);
     }
     else if (ProgressionsXMLConstants.LINEAR_INTERPOLATION_PROGRESSION_TAG.equals(qualifiedName))
@@ -90,12 +100,20 @@ public final class ProgressionSaxParser extends DefaultHandler
     }
     else if (ProgressionsXMLConstants.POINT_TAG.equals(qualifiedName))
     {
-      String yStr=attributes.getValue(ProgressionsXMLConstants.Y_ATTR);
-      float y=NumericTools.parseFloat(yStr,0);
       String xStr=attributes.getValue(ProgressionsXMLConstants.X_ATTR);
       int x=NumericTools.parseInt(xStr,0);
-      if (_arrayProgression!=null)
+      if (_linearInterpolatingProgression!=null)
       {
+        String yStr=attributes.getValue(ProgressionsXMLConstants.Y_ATTR);
+        float y=NumericTools.parseFloat(yStr,0);
+        _linearInterpolatingProgression.set(_index,x,y);
+        _index++;
+      }
+      else if (_arrayProgression instanceof ArrayProgression)
+      {
+        ArrayProgression arrayProgression=(ArrayProgression)_arrayProgression;
+        String yStr=attributes.getValue(ProgressionsXMLConstants.Y_ATTR);
+        float y=NumericTools.parseFloat(yStr,0);
         if (xStr==null)
         {
           String xMinStr=attributes.getValue(ProgressionsXMLConstants.X_MIN_ATTR);
@@ -104,20 +122,38 @@ public final class ProgressionSaxParser extends DefaultHandler
           int xMax=NumericTools.parseInt(xMaxStr,0);
           for(int i=xMin;i<=xMax;i++)
           {
-            _arrayProgression.set(_index,i,y);
+            arrayProgression.set(_index,i,y);
             _index++;
           }
         }
         else
         {
-          _arrayProgression.set(_index,x,y);
+          arrayProgression.set(_index,x,y);
           _index++;
         }
       }
-      else if (_linearInterpolatingProgression!=null)
+      else if (_arrayProgression instanceof LongArrayProgression)
       {
-        _linearInterpolatingProgression.set(_index,x,y);
-        _index++;
+        LongArrayProgression arrayProgression=(LongArrayProgression)_arrayProgression;
+        String yStr=attributes.getValue(ProgressionsXMLConstants.Y_ATTR);
+        long y=NumericTools.parseLong(yStr,0);
+        if (xStr==null)
+        {
+          String xMinStr=attributes.getValue(ProgressionsXMLConstants.X_MIN_ATTR);
+          int xMin=NumericTools.parseInt(xMinStr,0);
+          String xMaxStr=attributes.getValue(ProgressionsXMLConstants.X_MAX_ATTR);
+          int xMax=NumericTools.parseInt(xMaxStr,0);
+          for(int i=xMin;i<=xMax;i++)
+          {
+            arrayProgression.set(_index,i,y);
+            _index++;
+          }
+        }
+        else
+        {
+          arrayProgression.set(_index,x,y);
+          _index++;
+        }
       }
     }
     else

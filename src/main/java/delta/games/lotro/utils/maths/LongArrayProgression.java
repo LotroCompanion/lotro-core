@@ -4,19 +4,19 @@ package delta.games.lotro.utils.maths;
  * Progression that uses predefined Y values for all supported X values.
  * @author DAM
  */
-public class ArrayProgression extends AbstractArrayProgression implements Progression
+public class LongArrayProgression extends AbstractArrayProgression implements Progression
 {
-  private float[] _yValues;
+  private long[] _yValues;
 
   /**
    * Constructor.
    * @param identifier Identifier.
    * @param size Number of supported points.
    */
-  public ArrayProgression(int identifier, int size)
+  public LongArrayProgression(int identifier, int size)
   {
     super(identifier,size);
-    _yValues=new float[size];
+    _yValues=new long[size];
   }
 
   /**
@@ -24,7 +24,7 @@ public class ArrayProgression extends AbstractArrayProgression implements Progre
    * @param index Point index, starting at 0.
    * @return A Y value.
    */
-  public float getY(int index)
+  public long getY(int index)
   {
     return _yValues[index];
   }
@@ -35,22 +35,35 @@ public class ArrayProgression extends AbstractArrayProgression implements Progre
    * @param x X value to set.
    * @param y Y value to set.
    */
-  public void set(int index, int x, float y)
+  public void set(int index, int x, long y)
   {
     super.set(index,x);
     _yValues[index]=y;
   }
 
-  @Override
-  public Float getValue(int x)
+  /**
+   * Get a Y value for a given X value. 
+   * @param x X value.
+   * @return A Y value or <code>null</code> if not supported.
+   */
+  public Long getLongValue(int x)
   {
     for(int i=0;i<_xValues.length;i++)
     {
-      if (x==_xValues[i]) return Float.valueOf(_yValues[i]);
+      if (x==_xValues[i]) return Long.valueOf(_yValues[i]);
     }
-    if (x>_xValues[_xValues.length-1])
+    return null;
+
+  }
+
+  @Override
+  public Float getValue(int x)
+  {
+    // Caution! Precision loss!
+    Long value=getLongValue(x);
+    if (value!=null)
     {
-      return Float.valueOf(_yValues[_xValues.length-1]);
+      return Float.valueOf(value.floatValue());
     }
     return null;
   }
