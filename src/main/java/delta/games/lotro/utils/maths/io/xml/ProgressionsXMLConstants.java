@@ -44,13 +44,9 @@ public class ProgressionsXMLConstants
    */
   public static final String X_ATTR="x";
   /**
-   * Tag 'point', attribute 'xMin'.
+   * Tag 'point', attribute 'count'.
    */
-  public static final String X_MIN_ATTR="xMin";
-  /**
-   * Tag 'point', attribute 'xMax'.
-   */
-  public static final String X_MAX_ATTR="xMax";
+  public static final String COUNT_ATTR="count";
   /**
    * Tag 'point', attribute 'y'.
    */

@@ -10,9 +10,9 @@ import delta.common.utils.NumericTools;
  */
 public class ArrayProgression extends AbstractProgression implements Progression
 {
-  private static final Function<String,Number> PARSE_INT= x -> NumericTools.parseInteger(x);
-  private static final Function<String,Number> PARSE_LONG= x -> NumericTools.parseLong(x);
-  private static final Function<String,Number> PARSE_FLOAT= x -> NumericTools.parseFloat(x);
+  private static final Function<String,Number> PARSE_INT=NumericTools::parseInteger;
+  private static final Function<String,Number> PARSE_LONG=NumericTools::parseLong;
+  private static final Function<String,Number> PARSE_FLOAT=NumericTools::parseFloat;
 
   private String _valueType;
   private int _minX;

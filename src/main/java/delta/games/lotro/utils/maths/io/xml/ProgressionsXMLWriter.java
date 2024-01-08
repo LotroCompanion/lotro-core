@@ -103,27 +103,22 @@ public class ProgressionsXMLWriter
       Number y=progression.getY(i);
       if (!Objects.equals(previousValue,y))
       {
-        writeArrayProgressionItem(hd,startX,endX,previousValue);
+        writeArrayProgressionItem(hd,endX-startX,previousValue);
         startX=x;
         previousValue=y;
       }
       endX=x;
     }
-    writeArrayProgressionItem(hd,startX,endX,previousValue);
+    writeArrayProgressionItem(hd,endX-startX,previousValue);
     hd.endElement("","",ProgressionsXMLConstants.ARRAY_PROGRESSION_TAG);
   }
 
-  private static void writeArrayProgressionItem(TransformerHandler hd, int xMin, int xMax, Number value) throws SAXException
+  private static void writeArrayProgressionItem(TransformerHandler hd, int count, Number value) throws SAXException
   {
     AttributesImpl pointAttrs=new AttributesImpl();
-    if (xMin==xMax)
+    if (count>0)
     {
-      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(xMin));
-    }
-    else
-    {
-      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_MIN_ATTR,XmlWriter.CDATA,String.valueOf(xMin));
-      pointAttrs.addAttribute("","",ProgressionsXMLConstants.X_MAX_ATTR,XmlWriter.CDATA,String.valueOf(xMax));
+      pointAttrs.addAttribute("","",ProgressionsXMLConstants.COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count+1));
     }
     pointAttrs.addAttribute("","",ProgressionsXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(value));
     hd.startElement("","",ProgressionsXMLConstants.POINT_TAG,pointAttrs);

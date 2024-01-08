@@ -76,6 +76,7 @@ public final class ProgressionSaxParser extends DefaultHandler
       int identifier=NumericTools.parseInt(identifierStr,0);
       int minX=SAXParsingTools.getIntAttribute(attributes,ProgressionsXMLConstants.MIN_X_ATTR,1);
       int nbPoints=SAXParsingTools.getIntAttribute(attributes,ProgressionsXMLConstants.NB_POINTS_ATTR,0);
+      _index=minX;
       String type=SAXParsingTools.getStringAttribute(attributes,ProgressionsXMLConstants.TYPE_ATTR,ArrayProgressionConstants.FLOAT);
       _arrayProgression=new ArrayProgression(identifier,type,minX,nbPoints);
       _parsedProgressions.add(_arrayProgression);
@@ -101,22 +102,13 @@ public final class ProgressionSaxParser extends DefaultHandler
       }
       else if (_arrayProgression!=null)
       {
-        String xStr=attributes.getValue(ProgressionsXMLConstants.X_ATTR);
         String yStr=attributes.getValue(ProgressionsXMLConstants.Y_ATTR);
         Number y=_arrayProgression.parseValue(yStr);
-        if (xStr==null)
+        int count=SAXParsingTools.getIntAttribute(attributes,ProgressionsXMLConstants.COUNT_ATTR,1);
+        for(int i=0;i<count;i++)
         {
-          int xMin=SAXParsingTools.getIntAttribute(attributes,ProgressionsXMLConstants.X_MIN_ATTR,0);
-          int xMax=SAXParsingTools.getIntAttribute(attributes,ProgressionsXMLConstants.X_MAX_ATTR,0);
-          for(int i=xMin;i<=xMax;i++)
-          {
-            _arrayProgression.set(i,y);
-          }
-        }
-        else
-        {
-          int x=NumericTools.parseInt(xStr,0);
-          _arrayProgression.set(x,y);
+          _arrayProgression.set(_index,y);
+          _index++;
         }
       }
     }
