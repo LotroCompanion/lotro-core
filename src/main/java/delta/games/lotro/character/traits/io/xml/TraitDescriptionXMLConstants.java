@@ -36,6 +36,14 @@ public class TraitDescriptionXMLConstants
    */
   public static final String TRAIT_ICON_ID_ATTR="iconId";
   /**
+   * Tag 'trait', attribute 'staticIconOverlayId'.
+   */
+  public static final String TRAIT_STATIC_ICON_OVERLAY_ID_ATTR="staticIconOverlayId";
+  /**
+   * Tag 'trait', attribute 'rankOverlayProgression'.
+   */
+  public static final String TRAIT_RANK_OVERLAY_PROGRESSION_ATTR="rankOverlayProgression";
+  /**
    * Tag 'trait', attribute 'minLevel'.
    */
   public static final String TRAIT_MIN_LEVEL_ATTR="minLevel";

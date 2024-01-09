@@ -16,6 +16,7 @@ import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
+import delta.games.lotro.utils.maths.ArrayProgression;
 
 /**
  * Writes traits to XML files.
@@ -67,6 +68,19 @@ public class TraitDescriptionXMLWriter
     // Icon ID
     int iconId=trait.getIconId();
     attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconId));
+    // Static overlay icon ID
+    Integer staticOverlayIconId=trait.getStaticIconOverlayId();
+    if (staticOverlayIconId!=null)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_STATIC_ICON_OVERLAY_ID_ATTR,XmlWriter.CDATA,staticOverlayIconId.toString());
+    }
+    // Rank overlay progression
+    ArrayProgression rankOverlayProgression=trait.getRankOverlayProgression();
+    if (rankOverlayProgression!=null)
+    {
+      int rankOverlayProgressionId=rankOverlayProgression.getIdentifier();
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_RANK_OVERLAY_PROGRESSION_ATTR,XmlWriter.CDATA,String.valueOf(rankOverlayProgressionId));
+    }
     // Min level
     int minLevel=trait.getMinLevel();
     if (minLevel!=1)

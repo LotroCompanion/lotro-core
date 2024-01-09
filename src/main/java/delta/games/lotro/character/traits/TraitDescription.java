@@ -9,6 +9,7 @@ import delta.games.lotro.common.Named;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.utils.maths.ArrayProgression;
 
 /**
  * Trait.
@@ -36,6 +37,14 @@ public class TraitDescription implements Identifiable,Named
    * Trait icon identifier.
    */
   private int _iconId;
+  /**
+   * Overlay icon ID.
+   */
+  private Integer _staticIconOverlayId;
+  /**
+   * Rank overlay progression.
+   */
+  private ArrayProgression _rankOverlayProgression;
   /**
    * Minimum level.
    */
@@ -185,6 +194,42 @@ public class TraitDescription implements Identifiable,Named
   public void setIconId(int iconId)
   {
     _iconId=iconId;
+  }
+
+  /**
+   * Get the static icon overlay ID.
+   * @return An ID or <code>null</code> if none.
+   */
+  public Integer getStaticIconOverlayId()
+  {
+    return _staticIconOverlayId;
+  }
+
+  /**
+   * Set the static icon overlay ID.
+   * @param staticIconOverlayId ID to set (may be <code>null</code>).
+   */
+  public void setStaticIconOverlayId(Integer staticIconOverlayId)
+  {
+    _staticIconOverlayId=staticIconOverlayId;
+  }
+
+  /**
+   * Get the rank overlay progression.
+   * @return A progression for rank overlay (may be <code>null</code>).
+   */
+  public ArrayProgression getRankOverlayProgression()
+  {
+    return _rankOverlayProgression;
+  }
+
+  /**
+   * Set the rank overlay progression.
+   * @param rankOverlayProgression Progression to set (may be <code>null</code>).
+   */
+  public void setRankOverlayProgression(ArrayProgression rankOverlayProgression)
+  {
+    _rankOverlayProgression=rankOverlayProgression;
   }
 
   /**

@@ -17,10 +17,12 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
+import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
+import delta.games.lotro.utils.maths.ArrayProgression;
 
 /**
  * Parser for trait descriptions stored in XML.
@@ -82,6 +84,16 @@ public class TraitDescriptionXMLParser
     // Icon ID
     int iconId=DOMParsingTools.getIntAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_ICON_ID_ATTR,0);
     trait.setIconId(iconId);
+    // Static icon overlay ID
+    Integer staticIconOverlayID=DOMParsingTools.getIntegerAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_STATIC_ICON_OVERLAY_ID_ATTR,null);
+    trait.setStaticIconOverlayId(staticIconOverlayID);
+    // Rank overlay progression
+    Integer rankOverlayProgressionID=DOMParsingTools.getIntegerAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_RANK_OVERLAY_PROGRESSION_ATTR,null);
+    if (rankOverlayProgressionID!=null)
+    {
+      ArrayProgression rankOverlayProgression=(ArrayProgression)ProgressionsManager.getInstance().getProgression(rankOverlayProgressionID.intValue());
+      trait.setRankOverlayProgression(rankOverlayProgression);
+    }
     // Min level
     int minLevel=DOMParsingTools.getIntAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_MIN_LEVEL_ATTR,1);
     trait.setMinLevel(minLevel);
