@@ -1,36 +1,21 @@
-package delta.games.lotro.character.skills;
+package delta.games.lotro.common.effects;
 
-import delta.games.lotro.common.enums.TravelLink;
 import delta.games.lotro.common.geo.Position;
 
 /**
- * Travel skill.
- * <p>
- * A skill that gives a travel feature.
+ * Recall effect.
  * @author DAM
  */
-public class TravelSkill extends SkillDescription
+public class RecallEffect extends Effect2
 {
-  private TravelLink _type;
   private Position _position;
 
   /**
    * Constructor.
-   * @param type Travel type.
    */
-  public TravelSkill(TravelLink type)
+  public RecallEffect()
   {
     super();
-    _type=type;
-  }
-
-  /**
-   * Get the travel type.
-   * @return A travel type.
-   */
-  public TravelLink getType()
-  {
-    return _type;
   }
 
   /**

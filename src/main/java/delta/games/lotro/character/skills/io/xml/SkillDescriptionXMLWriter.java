@@ -17,6 +17,9 @@ import delta.games.lotro.character.skills.TravelSkill;
 import delta.games.lotro.common.enums.MountType;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
+import delta.games.lotro.common.enums.TravelLink;
+import delta.games.lotro.common.geo.Position;
+import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
 import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
@@ -75,8 +78,11 @@ public class SkillDescriptionXMLWriter
     if (skill instanceof TravelSkill)
     {
       TravelSkill travelSkill=(TravelSkill)skill;
-      int type=travelSkill.getType().getCode();
-      attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_TRAVEL_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type));
+      TravelLink type=travelSkill.getType();
+      if (type!=null)
+      {
+        attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_TRAVEL_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type.getCode()));
+      }
     }
     if (skill instanceof MountDescription)
     {
@@ -96,6 +102,17 @@ public class SkillDescriptionXMLWriter
     }
     String tagName=getTagName(skill);
     hd.startElement("","",tagName,attrs);
+    // Position (for travel skills)
+    if (skill instanceof TravelSkill)
+    {
+      TravelSkill travelSkill=(TravelSkill)skill;
+      // Position
+      Position position=travelSkill.getPosition();
+      if (position!=null)
+      {
+        PositionXMLWriter.writePosition(hd,position);
+      }
+    }
     // Effects
     SkillEffectsManager effectsMgr=skill.getEffects();
     if (effectsMgr!=null)
@@ -186,6 +203,10 @@ public class SkillDescriptionXMLWriter
     if (skill instanceof CosmeticPetDescription)
     {
       return CosmeticPetXMLConstants.PET_TAG;
+    }
+    if (skill instanceof TravelSkill)
+    {
+      return SkillDescriptionXMLConstants.TRAVEL_SKILL_TAG;
     }
     return SkillDescriptionXMLConstants.SKILL_TAG;
   }

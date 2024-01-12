@@ -29,12 +29,15 @@ import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
+import delta.games.lotro.common.effects.RecallEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
+import delta.games.lotro.common.geo.Position;
+import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.common.math.LinearFunction;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -97,6 +100,7 @@ public class EffectXMLWriter2
     if (effect instanceof ReactiveVitalEffect) return EffectXMLConstants2.REACTIVE_VITAL_EFFECT_TAG;
     if (effect instanceof PropertyModificationEffect) return EffectXMLConstants2.PROPERTY_MOD_EFFECT_TAG;
     if (effect instanceof VitalOverTimeEffect) return EffectXMLConstants2.VITAL_OVER_TIME_EFFECT_TAG;
+    if (effect instanceof RecallEffect) return EffectXMLConstants2.RECALL_EFFECT_TAG;
     return EffectXMLConstants2.EFFECT_TAG;
   }
 
@@ -427,6 +431,11 @@ public class EffectXMLWriter2
       VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
       writeVitalOverTimeEffectTags(hd,vitalOverTimeEffect);
     }
+    else if (effect instanceof RecallEffect)
+    {
+      RecallEffect recallEffect=(RecallEffect)effect;
+      writeRecallEffectTags(hd,recallEffect);
+    }
   }
 
   private void writeGenesisTags(TransformerHandler hd, GenesisEffect genesis) throws SAXException
@@ -620,6 +629,16 @@ public class EffectXMLWriter2
     // Over-time change
     VitalChangeDescription overTimeChange=vitalOverTimeEffect.getOverTimeChangeDescription();
     writeVitalChangeTag(hd,overTimeChange,EffectXMLConstants2.OVER_TIME_CHANGE_TAG);
+  }
+
+  private void writeRecallEffectTags(TransformerHandler hd, RecallEffect recallEffect) throws SAXException
+  {
+    // Position
+    Position position=recallEffect.getPosition();
+    if (position!=null)
+    {
+      PositionXMLWriter.writePosition(hd,position);
+    }
   }
 
   private void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator) throws SAXException

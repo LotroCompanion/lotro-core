@@ -30,6 +30,7 @@ import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
+import delta.games.lotro.common.effects.RecallEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
@@ -38,6 +39,9 @@ import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
+import delta.games.lotro.common.geo.Position;
+import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
+import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 import delta.games.lotro.common.math.LinearFunction;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.StatDescription;
@@ -138,6 +142,10 @@ public class EffectXMLParser2
     else if (EffectXMLConstants2.VITAL_OVER_TIME_EFFECT_TAG.equals(tagName))
     {
       ret=parseVitalOverTimeEffect(root);
+    }
+    else if (EffectXMLConstants2.RECALL_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseRecallEffect(root);
     }
     else
     {
@@ -491,6 +499,16 @@ public class EffectXMLParser2
     Element overTimeChangeTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants2.OVER_TIME_CHANGE_TAG);
     VitalChangeDescription overTimeChange=parseVitalChangeDescription(overTimeChangeTag);
     ret.setOverTimeChangeDescription(overTimeChange);
+    return ret;
+  }
+
+  private RecallEffect parseRecallEffect(Element root)
+  {
+    RecallEffect ret=new RecallEffect();
+    // Position
+    Element positionTag=DOMParsingTools.getChildTagByName(root,PositionXMLConstants.POSITION);
+    Position position=PositionXMLParser.parseSimplePosition(positionTag);
+    ret.setPosition(position);
     return ret;
   }
 

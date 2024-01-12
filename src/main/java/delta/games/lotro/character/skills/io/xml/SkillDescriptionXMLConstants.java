@@ -39,4 +39,9 @@ public class SkillDescriptionXMLConstants
    * Tag 'skill', attribute 'travelType'.
    */
   public static final String SKILL_TRAVEL_TYPE_ATTR="travelType";
+
+  /**
+   * Tag 'travelSkill'.
+   */
+  public static final String TRAVEL_SKILL_TAG="travelSkill";
 }

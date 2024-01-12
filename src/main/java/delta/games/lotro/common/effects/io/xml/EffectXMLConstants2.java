@@ -290,6 +290,10 @@ public class EffectXMLConstants2
    * Tag 'overTimeChange'.
    */
   public static final String OVER_TIME_CHANGE_TAG="overTimeChange";
+  /**
+   * Tag 'recallEffect'.
+   */
+  public static final String RECALL_EFFECT_TAG="recallEffect";
 
   /**
    * Tag 'effect' (generator).

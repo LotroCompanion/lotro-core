@@ -17,6 +17,9 @@ import delta.games.lotro.common.enums.MountType;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
 import delta.games.lotro.common.enums.TravelLink;
+import delta.games.lotro.common.geo.Position;
+import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
+import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
@@ -92,29 +95,39 @@ public class SkillDescriptionXMLParser
     {
       return parsePet(root);
     }
+    else if (SkillDescriptionXMLConstants.TRAVEL_SKILL_TAG.equals(tagName))
+    {
+      return parseTravelSkill(root);
+    }
     return null;
   }
 
-  private SkillDescription parseSkill(Element root)
+  private TravelSkill parseTravelSkill(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
-    SkillDescription skill=buildSkill(root);
-    parseSharedSkillAttributes(skill,attrs);
-    return skill;
-  }
-
-  private SkillDescription buildSkill(Element root)
-  {
-    NamedNodeMap attrs=root.getAttributes();
-    // Travel?
+    // Travel type
+    TravelLink type=null;
     int travelTypeCode=DOMParsingTools.getIntAttribute(attrs,SkillDescriptionXMLConstants.SKILL_TRAVEL_TYPE_ATTR,-1);
     if (travelTypeCode>0)
     {
       LotroEnum<TravelLink> travelEnum=LotroEnumsRegistry.getInstance().get(TravelLink.class);
-      TravelLink type=travelEnum.getEntry(travelTypeCode);
-      return new TravelSkill(type);
+      type=travelEnum.getEntry(travelTypeCode);
     }
+    TravelSkill skill=new TravelSkill(type);
+    // Shared attributes
+    parseSharedSkillAttributes(skill,attrs);
+    // Position
+    Element positionTag=DOMParsingTools.getChildTagByName(root,PositionXMLConstants.POSITION);
+    Position position=PositionXMLParser.parseSimplePosition(positionTag);
+    skill.setPosition(position);
+    return skill;
+  }
+
+  private SkillDescription parseSkill(Element root)
+  {
     SkillDescription skill=new SkillDescription();
+    NamedNodeMap attrs=root.getAttributes();
+    parseSharedSkillAttributes(skill,attrs);
     return skill;
   }
 
