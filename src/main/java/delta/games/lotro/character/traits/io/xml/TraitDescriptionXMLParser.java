@@ -13,6 +13,9 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.traits.prerequisites.CompoundTraitPrerequisite;
+import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLConstants;
+import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLParser;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
@@ -33,6 +36,7 @@ public class TraitDescriptionXMLParser
   private static final Logger LOGGER=Logger.getLogger(TraitDescriptionXMLParser.class);
 
   private SingleLocaleLabelsManager _i18n;
+  private TraitPrerequisitesXMLParser _prerequisitesParser;
 
   /**
    * Constructor.
@@ -40,6 +44,7 @@ public class TraitDescriptionXMLParser
   public TraitDescriptionXMLParser()
   {
     _i18n=I18nFacade.getLabelsMgr("traits");
+    _prerequisitesParser=new TraitPrerequisitesXMLParser();
   }
 
   /**
@@ -60,6 +65,7 @@ public class TraitDescriptionXMLParser
         traits.add(trait);
       }
     }
+    _prerequisitesParser.resolveProxies();
     return traits;
   }
 
@@ -151,6 +157,13 @@ public class TraitDescriptionXMLParser
       {
         LOGGER.warn("Skill not found: ID="+skillId+", name="+skillName);
       }
+    }
+    // Pre-requisites
+    Element prerequisitesTag=DOMParsingTools.getChildTagByName(root,TraitPrerequisitesXMLConstants.COMPOUND_PREREQUISITE_TAG);
+    if (prerequisitesTag!=null)
+    {
+      CompoundTraitPrerequisite prerequisite=_prerequisitesParser.parseCompoundPrerequisite(prerequisitesTag);
+      trait.setTraitPrerequisite(prerequisite);
     }
     return trait;
   }

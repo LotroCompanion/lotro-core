@@ -13,6 +13,8 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.traits.prerequisites.CompoundTraitPrerequisite;
+import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLWriter;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
@@ -24,6 +26,16 @@ import delta.games.lotro.utils.maths.ArrayProgression;
  */
 public class TraitDescriptionXMLWriter
 {
+  private TraitPrerequisitesXMLWriter _prerequisitesWriter;
+
+  /**
+   * Constructor.
+   */
+  public TraitDescriptionXMLWriter()
+  {
+    _prerequisitesWriter=new TraitPrerequisitesXMLWriter();
+  }
+
   /**
    * Write some traits to a XML file.
    * @param toFile File to write to.
@@ -38,10 +50,11 @@ public class TraitDescriptionXMLWriter
       @Override
       public void writeXml(TransformerHandler hd) throws Exception
       {
+        TraitDescriptionXMLWriter traitsWriter=new TraitDescriptionXMLWriter();
         hd.startElement("","",TraitDescriptionXMLConstants.TRAITS_TAG,new AttributesImpl());
         for(TraitDescription trait : traits)
         {
-          writeTrait(hd,trait);
+          traitsWriter.writeTrait(hd,trait);
         }
         hd.endElement("","",TraitDescriptionXMLConstants.TRAITS_TAG);
       }
@@ -50,7 +63,7 @@ public class TraitDescriptionXMLWriter
     return ret;
   }
 
-  private static void writeTrait(TransformerHandler hd, TraitDescription trait) throws SAXException
+  private void writeTrait(TransformerHandler hd, TraitDescription trait) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Identifier
@@ -141,6 +154,12 @@ public class TraitDescriptionXMLWriter
       skillAttrs.addAttribute("","",TraitDescriptionXMLConstants.SKILL_NAME_ATTR,XmlWriter.CDATA,skillName);
       hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_SKILL_TAG,skillAttrs);
       hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_SKILL_TAG);
+    }
+    // Pre-requisites
+    CompoundTraitPrerequisite prerequisite=trait.getTraitPrerequisites();
+    if (prerequisite!=null)
+    {
+      _prerequisitesWriter.writeTraitPrerequisite(hd,prerequisite);
     }
     hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_TAG);
   }

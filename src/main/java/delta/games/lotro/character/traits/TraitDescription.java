@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.traits.prerequisites.CompoundTraitPrerequisite;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 import delta.games.lotro.common.enums.SkillCategory;
@@ -83,6 +84,10 @@ public class TraitDescription implements Identifiable,Named
    * Skills.
    */
   private List<SkillDescription> _skills;
+  /**
+   * Pre-requisites.
+   */
+  private CompoundTraitPrerequisite _prerequisites;
 
   /**
    * Constructor.
@@ -103,6 +108,7 @@ public class TraitDescription implements Identifiable,Named
     _tooltip="";
     _cosmetic=false;
     _skills=new ArrayList<SkillDescription>();
+    _prerequisites=null;
   }
 
   /**
@@ -396,6 +402,24 @@ public class TraitDescription implements Identifiable,Named
   public List<SkillDescription> getSkills()
   {
     return _skills;
+  }
+
+  /**
+   * Get the trait prerequisites.
+   * @return A compound trait pre-requisites or <code>null</code>.
+   */
+  public CompoundTraitPrerequisite getTraitPrerequisites()
+  {
+    return _prerequisites;
+  }
+
+  /**
+   * Set the trait pre-requisites.
+   * @param prerequisites Pre-requisites to set.
+   */
+  public void setTraitPrerequisite(CompoundTraitPrerequisite prerequisites)
+  {
+    _prerequisites=prerequisites;
   }
 
   @Override
