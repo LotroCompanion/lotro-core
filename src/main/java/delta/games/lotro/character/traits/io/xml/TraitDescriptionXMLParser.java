@@ -13,7 +13,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.character.traits.prerequisites.CompoundTraitPrerequisite;
+import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLConstants;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLParser;
 import delta.games.lotro.common.enums.LotroEnum;
@@ -65,7 +65,7 @@ public class TraitDescriptionXMLParser
         traits.add(trait);
       }
     }
-    _prerequisitesParser.resolveProxies();
+    _prerequisitesParser.resolveProxies(traits);
     return traits;
   }
 
@@ -160,9 +160,13 @@ public class TraitDescriptionXMLParser
     }
     // Pre-requisites
     Element prerequisitesTag=DOMParsingTools.getChildTagByName(root,TraitPrerequisitesXMLConstants.COMPOUND_PREREQUISITE_TAG);
+    if (prerequisitesTag==null)
+    {
+      prerequisitesTag=DOMParsingTools.getChildTagByName(root,TraitPrerequisitesXMLConstants.SIMPLE_PREREQUISITE_TAG);
+    }
     if (prerequisitesTag!=null)
     {
-      CompoundTraitPrerequisite prerequisite=_prerequisitesParser.parseCompoundPrerequisite(prerequisitesTag);
+      AbstractTraitPrerequisite prerequisite=_prerequisitesParser.parsePrerequisite(prerequisitesTag);
       trait.setTraitPrerequisite(prerequisite);
     }
     return trait;

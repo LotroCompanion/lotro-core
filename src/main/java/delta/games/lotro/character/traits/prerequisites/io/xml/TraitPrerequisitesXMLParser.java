@@ -3,17 +3,16 @@ package delta.games.lotro.character.traits.prerequisites.io.xml;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.CompoundTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.SimpleTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.TraitLogicOperator;
+import delta.games.lotro.character.traits.prerequisites.TraitPrerequisitesUtils;
 import delta.games.lotro.utils.Proxy;
 
 /**
@@ -22,8 +21,6 @@ import delta.games.lotro.utils.Proxy;
  */
 public class TraitPrerequisitesXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(TraitPrerequisitesXMLParser.class);
-
   private List<Proxy<TraitDescription>> _toUpdate;
 
   /**
@@ -74,7 +71,7 @@ public class TraitPrerequisitesXMLParser
    * @param root Root XML tag.
    * @return A compound trait pre-requisite.
    */
-  public CompoundTraitPrerequisite parseCompoundPrerequisite(Element root)
+  private CompoundTraitPrerequisite parseCompoundPrerequisite(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
     // Operator
@@ -92,23 +89,10 @@ public class TraitPrerequisitesXMLParser
 
   /**
    * Resolve proxies.
+   * @param traits Traits to use for resolution.
    */
-  public void resolveProxies()
+  public void resolveProxies(List<TraitDescription> traits)
   {
-    TraitsManager traitsMgr=TraitsManager.getInstance();
-    for(Proxy<TraitDescription> proxy : _toUpdate)
-    {
-      int id=proxy.getId();
-      TraitDescription trait=traitsMgr.getTrait(id);
-      if (trait!=null)
-      {
-        proxy.setName(trait.getName());
-        proxy.setObject(trait);
-      }
-      else
-      {
-        LOGGER.warn("Could not resolve trait ID="+id);
-      }
-    }
+    TraitPrerequisitesUtils.resolveProxies(traits,_toUpdate);
   }
 }

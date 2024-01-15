@@ -13,7 +13,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.character.traits.prerequisites.CompoundTraitPrerequisite;
+import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLWriter;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
@@ -156,7 +156,7 @@ public class TraitDescriptionXMLWriter
       hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_SKILL_TAG);
     }
     // Pre-requisites
-    CompoundTraitPrerequisite prerequisite=trait.getTraitPrerequisites();
+    AbstractTraitPrerequisite prerequisite=trait.getTraitPrerequisites();
     if (prerequisite!=null)
     {
       _prerequisitesWriter.writeTraitPrerequisite(hd,prerequisite);
