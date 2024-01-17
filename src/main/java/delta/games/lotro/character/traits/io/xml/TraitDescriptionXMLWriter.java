@@ -17,6 +17,7 @@ import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisit
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLWriter;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
+import delta.games.lotro.common.enums.TraitSubCategory;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.utils.maths.ArrayProgression;
 
@@ -121,6 +122,12 @@ public class TraitDescriptionXMLWriter
     // Nature
     TraitNature nature=trait.getNature();
     attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_NATURE_ATTR,XmlWriter.CDATA,String.valueOf(nature.getCode()));
+    // Sub-category
+    TraitSubCategory subCategory=trait.getSubCategory();
+    if (subCategory!=null)
+    {
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_SUB_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(subCategory.getCode()));
+    }
     // Cosmetic
     boolean cosmetic=trait.isCosmetic();
     if (cosmetic)

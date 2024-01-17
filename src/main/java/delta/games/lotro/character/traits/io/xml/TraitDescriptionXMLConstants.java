@@ -64,6 +64,10 @@ public class TraitDescriptionXMLConstants
    */
   public static final String TRAIT_NATURE_ATTR="nature";
   /**
+   * Tag 'trait', attribute 'subCategory'.
+   */
+  public static final String TRAIT_SUB_CATEGORY_ATTR="subCategory";
+  /**
    * Tag 'trait', attribute 'tooltip'.
    */
   public static final String TRAIT_TOOLTIP_ATTR="tooltip";

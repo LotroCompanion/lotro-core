@@ -20,6 +20,7 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
+import delta.games.lotro.common.enums.TraitSubCategory;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
@@ -132,6 +133,14 @@ public class TraitDescriptionXMLParser
       LotroEnum<TraitNature> natureMgr=registry.get(TraitNature.class);
       TraitNature nature=natureMgr.getEntry(natureCode);
       trait.setNature(nature);
+    }
+    // Sub-category
+    int subCategoryCode=DOMParsingTools.getIntAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_SUB_CATEGORY_ATTR,0);
+    if (subCategoryCode!=0)
+    {
+      LotroEnum<TraitSubCategory> subCategoryMgr=registry.get(TraitSubCategory.class);
+      TraitSubCategory subCategory=subCategoryMgr.getEntry(subCategoryCode);
+      trait.setSubCategory(subCategory);
     }
     // Tooltip
     String tooltip=DOMParsingTools.getStringAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_TOOLTIP_ATTR,"");

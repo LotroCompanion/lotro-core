@@ -9,6 +9,7 @@ import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
+import delta.games.lotro.common.enums.TraitSubCategory;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.utils.maths.ArrayProgression;
 
@@ -70,6 +71,10 @@ public class TraitDescription implements Identifiable,Named
    * Nature.
    */
   private TraitNature _traitNature;
+  /**
+   * Trait sub-category.
+   */
+  private TraitSubCategory _subCategory;
   // Priority: int
   /**
    * Tooltip.
@@ -105,6 +110,7 @@ public class TraitDescription implements Identifiable,Named
     _stats=new StatsProvider();
     _category=null;
     _traitNature=null;
+    _subCategory=null;
     _tooltip="";
     _cosmetic=false;
     _skills=new ArrayList<SkillDescription>();
@@ -344,6 +350,24 @@ public class TraitDescription implements Identifiable,Named
   public void setNature(TraitNature traitNature)
   {
     _traitNature=traitNature;
+  }
+
+  /**
+   * Get the sub-category.
+   * @return a sub-category or <code>null</code>.
+   */
+  public TraitSubCategory getSubCategory()
+  {
+    return _subCategory;
+  }
+
+  /**
+   * Set the sub-category.
+   * @param subCategory Sub-category to set.
+   */
+  public void setSubCategory(TraitSubCategory subCategory)
+  {
+    _subCategory=subCategory;
   }
 
   /**
