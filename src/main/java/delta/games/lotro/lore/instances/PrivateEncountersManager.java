@@ -7,11 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.instances.io.xml.PrivateEncountersXMLParser;
+import delta.games.lotro.lore.quests.QuestDescription;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Manager for all private encounters.
@@ -19,8 +23,11 @@ import delta.games.lotro.lore.instances.io.xml.PrivateEncountersXMLParser;
  */
 public class PrivateEncountersManager
 {
+  private static final Logger LOGGER=Logger.getLogger(PrivateEncountersManager.class);
+
   private static final PrivateEncountersManager _instance=load();
   private Map<Integer,PrivateEncounter> _privateEncounters;
+  private Map<Integer,PrivateEncounter> _questToPE;
 
   /**
    * Get the reference instance of this class.
@@ -43,6 +50,7 @@ public class PrivateEncountersManager
   public PrivateEncountersManager()
   {
     _privateEncounters=new HashMap<Integer,PrivateEncounter>();
+    _questToPE=new HashMap<Integer,PrivateEncounter>();
   }
 
   /**
@@ -53,6 +61,17 @@ public class PrivateEncountersManager
   {
     Integer key=Integer.valueOf(privateEncounter.getIdentifier());
     _privateEncounters.put(key,privateEncounter);
+    // Quest
+    Proxy<QuestDescription> parentQuest=privateEncounter.getQuests().getParentQuest();
+    if (parentQuest!=null)
+    {
+      key=Integer.valueOf(parentQuest.getId());
+      PrivateEncounter old=_questToPE.put(key,privateEncounter);
+      if (old!=null)
+      {
+        LOGGER.warn("Several PE use the same parent quest: "+parentQuest.getId());
+      }
+    }
   }
 
   /**
@@ -63,6 +82,16 @@ public class PrivateEncountersManager
   public PrivateEncounter getPrivateEncounterById(int id)
   {
     return _privateEncounters.get(Integer.valueOf(id));
+  }
+
+  /**
+   * Get the private encounter for the given quest.
+   * @param questId Quest identifier.
+   * @return A private encounter or <code>null</code> if none.
+   */
+  public PrivateEncounter getPrivateEncounterForQuest(int questId)
+  {
+    return _questToPE.get(Integer.valueOf(questId));
   }
 
   /**
