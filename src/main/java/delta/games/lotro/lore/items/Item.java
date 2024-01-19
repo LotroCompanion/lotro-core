@@ -230,7 +230,7 @@ public class Item implements Interactable,ItemProvider
 
   /**
    * Get equipment location.
-   * @return an equimment location. 
+   * @return an equipment location. 
    */
   public EquipmentLocation getEquipmentLocation()
   {
