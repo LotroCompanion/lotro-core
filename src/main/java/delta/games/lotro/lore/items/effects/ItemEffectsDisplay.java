@@ -7,7 +7,6 @@ import java.util.Set;
 
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
-import delta.games.lotro.character.skills.SkillEffectType;
 import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectDisplay;

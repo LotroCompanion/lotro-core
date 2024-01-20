@@ -20,7 +20,7 @@ public class CraftingStatus
 {
   private String _name;
   private Vocation _vocation;
-  private HashMap<Profession,ProfessionStatus> _stats;
+  private HashMap<Profession,ProfessionStatus> _status;
   private HashMap<Profession,GuildStatus> _guildStatuses;
 
   /**
@@ -30,7 +30,7 @@ public class CraftingStatus
   public CraftingStatus(String toonName)
   {
     _name=toonName;
-    _stats=new HashMap<Profession,ProfessionStatus>();
+    _status=new HashMap<Profession,ProfessionStatus>();
     _guildStatuses=new HashMap<Profession,GuildStatus>();
   }
 
@@ -130,7 +130,26 @@ public class CraftingStatus
    */
   public List<Profession> getKnownProfessions()
   {
-    List<Profession> ret=new ArrayList<Profession>(_stats.keySet());
+    List<Profession> ret=new ArrayList<Profession>(_status.keySet());
+    Collections.sort(ret,new NamedComparator());
+    return ret;
+  }
+
+  /**
+   * Get the active professions, sorted by name.
+   * @return A list of professions.
+   */
+  public List<Profession> getActiveProfessions()
+  {
+    List<Profession> ret=new ArrayList<Profession>();
+    for(Profession profession : _status.keySet())
+    {
+      ProfessionStatus status=_status.get(profession);
+      if (status.isActive())
+      {
+        ret.add(profession);
+      }
+    }
     Collections.sort(ret,new NamedComparator());
     return ret;
   }
@@ -141,7 +160,7 @@ public class CraftingStatus
    */
   public Collection<ProfessionStatus> getProfessionStatus()
   {
-    return _stats.values();
+    return _status.values();
   }
 
   /**
@@ -152,7 +171,7 @@ public class CraftingStatus
    */
   public ProfessionStatus getProfessionStatus(Profession profession)
   {
-    ProfessionStatus stat=_stats.get(profession);
+    ProfessionStatus stat=_status.get(profession);
     return stat;
   }
 
@@ -164,11 +183,11 @@ public class CraftingStatus
    */
   public ProfessionStatus getProfessionStatus(Profession profession, boolean createItIfNeeded)
   {
-    ProfessionStatus stat=_stats.get(profession);
+    ProfessionStatus stat=_status.get(profession);
     if ((stat==null) && (createItIfNeeded))
     {
       stat=new ProfessionStatus(profession);
-      _stats.put(profession,stat);
+      _status.put(profession,stat);
     }
     return stat;
   }
@@ -184,7 +203,7 @@ public class CraftingStatus
     ps.println("Vocation:"+_vocation);
     // Professions
     ps.println("Professions:");
-    List<Profession> professions=new ArrayList<Profession>(_stats.keySet());
+    List<Profession> professions=new ArrayList<Profession>(_status.keySet());
     Collections.sort(professions,new ProfessionComparator());
     for(Profession profession : professions)
     {
