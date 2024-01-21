@@ -93,7 +93,7 @@ public class ArrayProgression extends AbstractProgression implements Progression
     int index=x-_minX;
     if (index<0)
     {
-      throw new IllegalArgumentException("x="+x+"<minX="+_minX);
+      return null;
     }
     if (index<_yValues.length)
     {
