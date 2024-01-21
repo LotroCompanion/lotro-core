@@ -48,7 +48,7 @@ public class RecipesStatusManager
   {
     _statuses.clear();
     RecipesManager recipesMgr=RecipesManager.getInstance();
-    for(Profession profession : craftingStatus.getKnownProfessions())
+    for(Profession profession : craftingStatus.getActiveProfessions())
     {
       Set<Integer> knownRecipeIds=new HashSet<Integer>();
       ProfessionStatus professionStatus=craftingStatus.getProfessionStatus(profession);
