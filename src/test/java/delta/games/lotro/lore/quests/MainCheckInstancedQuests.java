@@ -86,6 +86,10 @@ public class MainCheckInstancedQuests
     return quests;
   }
 
+  /**
+   * Main method for this test.
+   * @param args Not used.
+   */
   public static void main(String[] args)
   {
     new MainCheckInstancedQuests().doIt();
