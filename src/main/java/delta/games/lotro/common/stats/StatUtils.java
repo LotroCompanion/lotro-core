@@ -140,8 +140,7 @@ public class StatUtils
     List<String> lines=new ArrayList<String>();
     for(StatsSetElement element : stats.getStatElements())
     {
-      StatDescription stat=element.getStat();
-      if (!stat.isVisible())
+      if (!shallShow(element))
       {
         continue;
       }
@@ -153,6 +152,17 @@ public class StatUtils
       lines.add(line);
     }
     return lines;
+  }
+
+  private static boolean shallShow(StatsSetElement element)
+  {
+    String descriptionOverride=element.getDescriptionOverride();
+    if ((descriptionOverride!=null) && (!NO_DESCRIPTION.equals(descriptionOverride)))
+    {
+      return true;
+    }
+    StatDescription stat=element.getStat();
+    return stat.isVisible();
   }
 
   /**
