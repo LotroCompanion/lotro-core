@@ -14,6 +14,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
+import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectAndProbability;
@@ -101,6 +102,7 @@ public class EffectXMLWriter2
     if (effect instanceof PropertyModificationEffect) return EffectXMLConstants2.PROPERTY_MOD_EFFECT_TAG;
     if (effect instanceof VitalOverTimeEffect) return EffectXMLConstants2.VITAL_OVER_TIME_EFFECT_TAG;
     if (effect instanceof RecallEffect) return EffectXMLConstants2.RECALL_EFFECT_TAG;
+    if (effect instanceof ComboEffect) return EffectXMLConstants2.COMBO_EFFECT_TAG;
     return EffectXMLConstants2.EFFECT_TAG;
   }
 
@@ -436,6 +438,11 @@ public class EffectXMLWriter2
       RecallEffect recallEffect=(RecallEffect)effect;
       writeRecallEffectTags(hd,recallEffect);
     }
+    else if (effect instanceof ComboEffect)
+    {
+      ComboEffect comboEffect=(ComboEffect)effect;
+      writeComboEffectTags(hd,comboEffect);
+    }
   }
 
   private void writeGenesisTags(TransformerHandler hd, GenesisEffect genesis) throws SAXException
@@ -639,6 +646,37 @@ public class EffectXMLWriter2
     {
       PositionXMLWriter.writePosition(hd,position);
     }
+  }
+
+  private void writeComboEffectTags(TransformerHandler hd, ComboEffect comboEffect) throws SAXException
+  {
+    for(Proxy<Effect2> proxy : comboEffect.getPresentEffects())
+    {
+      writeEffectProxyTag(hd,EffectXMLConstants2.COMBO_PRESENT_EFFECT_TAG,proxy);
+    }
+    writeEffectProxyTag(hd,EffectXMLConstants2.COMBO_TO_ADD_IF_NOT_PRESENT_TAG,comboEffect.getToAddIfNotPresent());
+    writeEffectProxyTag(hd,EffectXMLConstants2.COMBO_TO_ADD_IF_PRESENT_TAG,comboEffect.getToAddIfPresent());
+    writeEffectProxyTag(hd,EffectXMLConstants2.COMBO_TO_GIVE_BACK_IF_NOT_PRESENT_TAG,comboEffect.getToGiveBackIfNotPresent());
+    writeEffectProxyTag(hd,EffectXMLConstants2.COMBO_TO_GIVE_BACK_IF_PRESENT_TAG,comboEffect.getToGiveBackIfPresent());
+    writeEffectProxyTag(hd,EffectXMLConstants2.COMBO_TO_EXAMINE_TAG,comboEffect.getToExamine());
+  }
+
+  private void writeEffectProxyTag(TransformerHandler hd, String tagName, Proxy<Effect2> proxy) throws SAXException
+  {
+    if (proxy==null)
+    {
+      return;
+    }
+    int id=proxy.getId();
+    AttributesImpl attrs=new AttributesImpl();
+    attrs.addAttribute("","",EffectXMLConstants2.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    String name=proxy.getName();
+    if (name!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants2.EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    hd.startElement("","",tagName,attrs);
+    hd.endElement("","",tagName);
   }
 
   private void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator) throws SAXException

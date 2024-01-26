@@ -15,6 +15,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
+import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.effects.EffectAndProbability;
@@ -62,6 +63,7 @@ public class EffectXMLParser2
   private SingleLocaleLabelsManager _labelsMgr;
   private List<EffectGenerator> _toUpdate;
   private List<EffectAndProbability> _toUpdate2;
+  private List<Proxy<Effect2>> _toUpdate3;
   private Map<Integer,Effect2> _loadedEffects;
 
   /**
@@ -74,6 +76,7 @@ public class EffectXMLParser2
     _toUpdate=new ArrayList<EffectGenerator>();
     _toUpdate2=new ArrayList<EffectAndProbability>();
     _loadedEffects=new HashMap<Integer,Effect2>();
+    _toUpdate3=new ArrayList<Proxy<Effect2>>();
   }
 
   /**
@@ -146,6 +149,10 @@ public class EffectXMLParser2
     else if (EffectXMLConstants2.RECALL_EFFECT_TAG.equals(tagName))
     {
       ret=parseRecallEffect(root);
+    }
+    else if (EffectXMLConstants2.COMBO_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseComboEffect(root);
     }
     else
     {
@@ -512,6 +519,47 @@ public class EffectXMLParser2
     return ret;
   }
 
+  private ComboEffect parseComboEffect(Element root)
+  {
+    ComboEffect ret=new ComboEffect();
+    List<Element> presentTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants2.COMBO_PRESENT_EFFECT_TAG);
+    for(Element presentTag : presentTags)
+    {
+      Proxy<Effect2> proxy=parseEffectProxy(presentTag);
+      ret.addPresentEffect(proxy);
+    }
+    ret.setToAddIfNotPresent(parseEffectProxy(root,EffectXMLConstants2.COMBO_TO_ADD_IF_NOT_PRESENT_TAG));
+    ret.setToAddIfPresent(parseEffectProxy(root,EffectXMLConstants2.COMBO_TO_ADD_IF_PRESENT_TAG));
+    ret.setToGiveBackIfNotPresent(parseEffectProxy(root,EffectXMLConstants2.COMBO_TO_GIVE_BACK_IF_NOT_PRESENT_TAG));
+    ret.setToGiveBackIfPresent(parseEffectProxy(root,EffectXMLConstants2.COMBO_TO_GIVE_BACK_IF_PRESENT_TAG));
+    ret.setToExamine(parseEffectProxy(root,EffectXMLConstants2.COMBO_TO_EXAMINE_TAG));
+    return ret;
+  }
+
+  private Proxy<Effect2> parseEffectProxy(Element root, String tagName)
+  {
+    Element tag=DOMParsingTools.getChildTagByName(root,tagName);
+    if (tag!=null)
+    {
+      return parseEffectProxy(tag);
+    }
+    return null;
+  }
+
+  private Proxy<Effect2> parseEffectProxy(Element tag)
+  {
+    Proxy<Effect2> proxy=null;
+    if (tag!=null)
+    {
+      proxy=new Proxy<Effect2>();
+      NamedNodeMap attrs=tag.getAttributes();
+      int id=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.EFFECT_ID_ATTR,0);
+      proxy.setId(id);
+      _toUpdate3.add(proxy);
+    }
+    return proxy;
+  }
+
   private void readSharedAttributes(Element root, Effect2 effect)
   {
     NamedNodeMap attrs=root.getAttributes();
@@ -636,6 +684,13 @@ public class EffectXMLParser2
       int effectID=effectProb.getEffect().getIdentifier();
       Effect2 effect=_loadedEffects.get(Integer.valueOf(effectID));
       effectProb.setEffect(effect);
+    }
+    for(Proxy<Effect2> proxy : _toUpdate3)
+    {
+      int effectID=proxy.getId();
+      Effect2 effect=_loadedEffects.get(Integer.valueOf(effectID));
+      proxy.setObject(effect);
+      proxy.setName(effect.getName());
     }
   }
 }

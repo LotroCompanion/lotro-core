@@ -294,6 +294,34 @@ public class EffectXMLConstants2
    * Tag 'recallEffect'.
    */
   public static final String RECALL_EFFECT_TAG="recallEffect";
+  /**
+   * Tag 'comboEffect'.
+   */
+  public static final String COMBO_EFFECT_TAG="comboEffect";
+  /**
+   * Tag 'present'.
+   */
+  public static final String COMBO_PRESENT_EFFECT_TAG="present";
+  /**
+   * Tag 'toAddIfNotPresent'.
+   */
+  public static final String COMBO_TO_ADD_IF_NOT_PRESENT_TAG="toAddIfNotPresent";
+  /**
+   * Tag 'toAddIfPresent'.
+   */
+  public static final String COMBO_TO_ADD_IF_PRESENT_TAG="toAddIfPresent";
+  /**
+   * Tag 'toGiveBackIfNotPresent'.
+   */
+  public static final String COMBO_TO_GIVE_BACK_IF_NOT_PRESENT_TAG="toGiveBackIfNotPresent";
+  /**
+   * Tag 'toGiveBackIfPresent'.
+   */
+  public static final String COMBO_TO_GIVE_BACK_IF_PRESENT_TAG="toGiveBackIfPresent";
+  /**
+   * Tag 'toExamine'.
+   */
+  public static final String COMBO_TO_EXAMINE_TAG="toExamine";
 
   /**
    * Tag 'effect' (generator).

@@ -154,6 +154,10 @@ public class EffectDisplay
     {
       showDispelByResistEffect(storage,(DispelByResistEffect)effect);
     }
+    else if (effect instanceof ComboEffect)
+    {
+      // Nothing?
+    }
   }
 
   private void showInstantVitalEffect(List<String> storage, InstantVitalEffect effect)
