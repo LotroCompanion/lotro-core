@@ -1,7 +1,6 @@
 package delta.games.lotro.common.statistics.items;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import org.apache.log4j.Logger;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
-import delta.games.lotro.lore.items.comparators.CountedItemNameComparator;
 
 /**
  * Items statistics.
@@ -22,6 +20,7 @@ public class ItemsStats
   private static final Logger LOGGER=Logger.getLogger(ItemsStats.class);
 
   private Map<Integer,CountedItem<Item>> _items;
+  private List<CountedItem<Item>> _list;
 
   /**
    * Constructor.
@@ -29,6 +28,7 @@ public class ItemsStats
   public ItemsStats()
   {
     _items=new HashMap<Integer,CountedItem<Item>>();
+    _list=new ArrayList<CountedItem<Item>>();
   }
 
   /**
@@ -51,6 +51,7 @@ public class ItemsStats
     {
       count=new CountedItem<Item>(item,0);
       _items.put(itemIdInteger,count);
+      _list.add(count);
     }
     count.add(itemsCount);
     return true;
@@ -81,13 +82,11 @@ public class ItemsStats
 
   /**
    * Get the acquired items.
-   * @return A list of counted items, sorted by name.
+   * @return A list of counted items.
    */
   public List<CountedItem<Item>> getItems()
   {
-    List<CountedItem<Item>> items=new ArrayList<CountedItem<Item>>(_items.values());
-    Collections.sort(items,new CountedItemNameComparator<Item>());
-    return items;
+    return _list;
   }
 
   /**
@@ -96,5 +95,6 @@ public class ItemsStats
   public void reset()
   {
     _items.clear();
+    _list.clear();
   }
 }
