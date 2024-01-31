@@ -1,10 +1,11 @@
 package delta.games.lotro.character.status.achievables.statistics.virtues;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 import delta.games.lotro.lore.quests.Achievable;
 
@@ -14,9 +15,12 @@ import delta.games.lotro.lore.quests.Achievable;
  */
 public class VirtueXPStatsFromAchievables
 {
+  private static final Logger LOGGER=Logger.getLogger(VirtueXPStatsFromAchievables.class);
+
   private int _totalVirtueXP;
   private int _totalCompletions;
   private Map<Integer,VirtueXPStatsFromAchievable> _mapByAchievable;
+  private List<VirtueXPStatsFromAchievable> _stats;
 
   /**
    * Constructor.
@@ -24,6 +28,7 @@ public class VirtueXPStatsFromAchievables
   public VirtueXPStatsFromAchievables()
   {
     _mapByAchievable=new HashMap<Integer,VirtueXPStatsFromAchievable>();
+    _stats=new ArrayList<VirtueXPStatsFromAchievable>();
   }
 
   /**
@@ -36,9 +41,24 @@ public class VirtueXPStatsFromAchievables
   {
     VirtueXPStatsFromAchievable entry=new VirtueXPStatsFromAchievable(achievable);
     entry.setCompletions(completions,virtueXP);
-    _mapByAchievable.put(Integer.valueOf(achievable.getIdentifier()),entry);
+    _stats.add(entry);
+    VirtueXPStatsFromAchievable old=_mapByAchievable.put(Integer.valueOf(achievable.getIdentifier()),entry);
+    if (old!=null)
+    {
+      LOGGER.warn("Using duplicate achievable: "+achievable);
+      _stats.remove(old);
+    }
     _totalVirtueXP+=entry.getPoints();
     _totalCompletions+=completions;
+  }
+
+  /**
+   * Get a list of virtue XP stats.
+   * @return A list of virtue XP stats.
+   */
+  public List<VirtueXPStatsFromAchievable> getStats()
+  {
+    return _stats;
   }
 
   /**
@@ -56,6 +76,7 @@ public class VirtueXPStatsFromAchievables
   public void clear()
   {
     _mapByAchievable.clear();
+    _stats.clear();
     _totalVirtueXP=0;
     _totalCompletions=0;
   }
@@ -76,16 +97,5 @@ public class VirtueXPStatsFromAchievables
   public int getTotalCompletions()
   {
     return _totalCompletions;
-  }
-
-  /**
-   * Get managed entries, sorted by total virtue XP points.
-   * @return A list of managed entries.
-   */
-  public List<VirtueXPStatsFromAchievable> getEntries()
-  {
-    List<VirtueXPStatsFromAchievable> ret=new ArrayList<VirtueXPStatsFromAchievable>(_mapByAchievable.values());
-    Collections.sort(ret,Collections.reverseOrder(new VirtueXPStatsFromAchievableTotalPointsComparator()));
-    return ret;
   }
 }

@@ -15,6 +15,7 @@ import delta.games.lotro.lore.reputation.Faction;
 public abstract class ReputationStats<T extends FactionStats>
 {
   private Map<String,T> _statistics;
+  private List<T> _list;
 
   /**
    * Constructor.
@@ -22,6 +23,7 @@ public abstract class ReputationStats<T extends FactionStats>
   protected ReputationStats()
   {
     _statistics=new HashMap<String,T>();
+    _list=new ArrayList<T>();
   }
 
   /**
@@ -39,6 +41,7 @@ public abstract class ReputationStats<T extends FactionStats>
     {
       factionStats=buildFactionStats(faction);
       _statistics.put(factionKey,factionStats);
+      _list.add(factionStats);
     }
     return factionStats;
   }
@@ -65,7 +68,7 @@ public abstract class ReputationStats<T extends FactionStats>
    */
   public List<T> getFactionStats()
   {
-    return new ArrayList<T>(_statistics.values());
+    return _list;
   }
 
   /**
@@ -89,5 +92,6 @@ public abstract class ReputationStats<T extends FactionStats>
   public void reset()
   {
     _statistics.clear();
+    _list.clear();
   }
 }
