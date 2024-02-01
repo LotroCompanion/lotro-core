@@ -19,4 +19,12 @@ public class EffectBuffXMLConstants
    * Tag 'buff', attribute 'key'.
    */
   public static final String BUFF_KEY_ATTR="key";
+  /**
+   * Tag 'buff', attribute 'effectId'.
+   */
+  public static final String BUFF_EFFECT_ID_ATTR="effectId";
+  /**
+   * Tag 'buff', attribute 'effectName'.
+   */
+  public static final String BUFF_EFFECT_NAME_ATTR="effectName";
 }

@@ -1,7 +1,7 @@
 package delta.games.lotro.lore.buffs;
 
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.requirements.UsageRequirement;
 
 /**
@@ -11,7 +11,7 @@ import delta.games.lotro.common.requirements.UsageRequirement;
 public class EffectBuff implements Identifiable
 {
   private String _key;
-  private Effect _effect;
+  private Effect2 _effect;
   private UsageRequirement _requirements;
 
   /**
@@ -56,7 +56,7 @@ public class EffectBuff implements Identifiable
    * Get the associated effect.
    * @return an Effect or <code>null</code> if not set.
    */
-  public Effect getEffect()
+  public Effect2 getEffect()
   {
     return _effect;
   }
@@ -65,7 +65,7 @@ public class EffectBuff implements Identifiable
    * Set the associated effect.
    * @param effect Effect to set.
    */
-  public void setEffect(Effect effect)
+  public void setEffect(Effect2 effect)
   {
     _effect=effect;
   }

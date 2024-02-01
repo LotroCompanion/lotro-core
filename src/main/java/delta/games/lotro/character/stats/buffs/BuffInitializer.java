@@ -7,7 +7,8 @@ import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -131,12 +132,21 @@ public class BuffInitializer
     {
       String id=String.valueOf(effectBuff.getIdentifier());
       String category="Effect";
-      Effect effect=effectBuff.getEffect();
+      Effect2 effect=effectBuff.getEffect();
       String name=effect.getName();
       Buff buff=new Buff(id,BuffType.EFFECT,category,name);
-      String icon="/effectIcons/"+effect.getIconId()+".png";
+      String icon="/effects/"+effect.getIconId()+".png";
       buff.setIcon(icon);
-      StatsProvider statsProvider=effect.getStatsProvider();
+      StatsProvider statsProvider;
+      if (effect instanceof PropertyModificationEffect)
+      {
+        PropertyModificationEffect propertyModificationEffect=(PropertyModificationEffect)effect;
+        statsProvider=propertyModificationEffect.getStatsProvider();
+      }
+      else
+      {
+        statsProvider=new StatsProvider();
+      }
       StatsProviderBuffImpl impl=new StatsProviderBuffImpl(statsProvider,1);
       buff.setImpl(impl);
       registry.registerBuff(buff);

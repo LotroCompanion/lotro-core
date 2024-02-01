@@ -11,8 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.io.xml.EffectXMLWriter;
+import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.lore.buffs.EffectBuff;
 
@@ -57,15 +56,20 @@ public class EffectBuffXMLWriter
     {
       attrs.addAttribute("","",EffectBuffXMLConstants.BUFF_KEY_ATTR,XmlWriter.CDATA,key);
     }
+    // Effect
+    Effect2 effect=buff.getEffect();
+    // - ID
+    int effectId=effect.getIdentifier();
+    attrs.addAttribute("","",EffectBuffXMLConstants.BUFF_EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(effectId));
+    // - Name
+    String effectName=effect.getName();
+    if (effectName!=null)
+    {
+      attrs.addAttribute("","",EffectBuffXMLConstants.BUFF_EFFECT_NAME_ATTR,XmlWriter.CDATA,effectName);
+    }
     // Requirements
     UsageRequirementsXMLWriter.write(attrs,buff.getUsageRequirements());
     hd.startElement("","",EffectBuffXMLConstants.BUFF_TAG,attrs);
-    // Effect
-    Effect effect=buff.getEffect();
-    if (effect!=null)
-    {
-      EffectXMLWriter.writeEffect(hd,effect);
-    }
     hd.endElement("","",EffectBuffXMLConstants.BUFF_TAG);
   }
 }
