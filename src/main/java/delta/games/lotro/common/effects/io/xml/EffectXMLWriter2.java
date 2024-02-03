@@ -704,7 +704,14 @@ public class EffectXMLWriter2
     writeEffectGenerator(hd,generator,EffectXMLConstants2.EFFECT_GENERATOR_TAG);
   }
 
-  private void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator, String tag) throws SAXException
+  /**
+   * Write an effect generator.
+   * @param hd Output stream.
+   * @param generator Generator to write.
+   * @param tag Tag to use.
+   * @throws SAXException If an error occurs.
+   */
+  public static void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator, String tag) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     Effect2 effect=generator.getEffect();

@@ -17,7 +17,9 @@ import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisit
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLConstants;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLParser;
 import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.EffectsManager;
+import delta.games.lotro.common.effects.io.xml.EffectXMLConstants2;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
@@ -169,13 +171,21 @@ public class TraitDescriptionXMLParser
         LOGGER.warn("Skill not found: ID="+skillId+", name="+skillName);
       }
     }
-    // Traits
-    List<Element> traitTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_EFFECT_TAG);
-    for(Element traitTag : traitTags)
+    // Effects
+    // - generators
+    List<Element> effectGeneratorTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_EFFECT_GENERATOR_TAG);
+    for(Element effectGeneratorTag : effectGeneratorTags)
     {
-      NamedNodeMap traitAttrs=traitTag.getAttributes();
-      int rank=DOMParsingTools.getIntAttribute(traitAttrs,TraitDescriptionXMLConstants.EFFECT_RANK_ATTR,1);
-      int effectId=DOMParsingTools.getIntAttribute(traitAttrs,TraitDescriptionXMLConstants.EFFECT_ID_ATTR,0);
+      EffectGenerator generator=readEffectGenerator(effectGeneratorTag);
+      trait.addEffectGenerator(generator);
+    }
+    // - at rank
+    List<Element> effectTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_EFFECT_TAG);
+    for(Element effectTag : effectTags)
+    {
+      NamedNodeMap effectAttrs=effectTag.getAttributes();
+      int rank=DOMParsingTools.getIntAttribute(effectAttrs,TraitDescriptionXMLConstants.EFFECT_RANK_ATTR,1);
+      int effectId=DOMParsingTools.getIntAttribute(effectAttrs,TraitDescriptionXMLConstants.EFFECT_ID_ATTR,0);
       EffectsManager effectsMgr=EffectsManager.getInstance();
       Effect2 effect=effectsMgr.getEffectById(effectId);
       if (effect!=null)
@@ -184,7 +194,7 @@ public class TraitDescriptionXMLParser
       }
       else
       {
-        String effectName=DOMParsingTools.getStringAttribute(traitAttrs,TraitDescriptionXMLConstants.EFFECT_NAME_ATTR,null);
+        String effectName=DOMParsingTools.getStringAttribute(effectAttrs,TraitDescriptionXMLConstants.EFFECT_NAME_ATTR,null);
         LOGGER.warn("Effect not found: ID="+effectId+", name="+effectName);
       }
     }
@@ -200,5 +210,20 @@ public class TraitDescriptionXMLParser
       trait.setTraitPrerequisite(prerequisite);
     }
     return trait;
+  }
+
+  private EffectGenerator readEffectGenerator(Element generatorTag)
+  {
+    NamedNodeMap attrs=generatorTag.getAttributes();
+    int effectId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.EFFECT_GENERATOR_ID_ATTR,0);
+    float spellcraftValue=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.EFFECT_GENERATOR_SPELLCRAFT_ATTR,-1);
+    Float spellcraft=null;
+    if (spellcraftValue>0)
+    {
+      spellcraft=Float.valueOf(spellcraftValue);
+    }
+    Effect2 effect=EffectsManager.getInstance().getEffectById(effectId);
+    EffectGenerator ret=new EffectGenerator(effect,spellcraft);
+    return ret;
   }
 }

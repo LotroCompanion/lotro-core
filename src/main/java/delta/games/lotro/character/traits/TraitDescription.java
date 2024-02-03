@@ -8,6 +8,7 @@ import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisit
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.enums.TraitSubCategory;
@@ -94,6 +95,7 @@ public class TraitDescription implements Identifiable,Named
    * Effects.
    */
   private List<EffectAtRank> _effects;
+  private List<EffectGenerator> _effectGenerators;
   /**
    * Pre-requisites.
    */
@@ -120,6 +122,7 @@ public class TraitDescription implements Identifiable,Named
     _cosmetic=false;
     _skills=new ArrayList<SkillDescription>();
     _effects=new ArrayList<EffectAtRank>();
+    _effectGenerators=new ArrayList<EffectGenerator>();
     _prerequisites=null;
   }
 
@@ -451,6 +454,24 @@ public class TraitDescription implements Identifiable,Named
   public List<EffectAtRank> getEffects()
   {
     return _effects;
+  }
+
+  /**
+   * Add an effect generator.
+   * @param effect Effect to add.
+   */
+  public void addEffectGenerator(EffectGenerator effect)
+  {
+    _effectGenerators.add(effect);
+  }
+
+  /**
+   * Get all the effect generators of this trait.
+   * @return A list of effect generators.
+   */
+  public List<EffectGenerator> getEffectGenerators()
+  {
+    return _effectGenerators;
   }
 
   /**

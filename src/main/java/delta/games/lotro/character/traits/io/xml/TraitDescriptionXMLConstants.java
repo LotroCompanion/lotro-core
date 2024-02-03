@@ -103,4 +103,8 @@ public class TraitDescriptionXMLConstants
    * Tag 'effect', attribute 'name'.
    */
   public static final String EFFECT_NAME_ATTR="name";
+  /**
+   * Tag 'effectGenerator'.
+   */
+  public static final String TRAIT_EFFECT_GENERATOR_TAG="effectGenerator";
 }
