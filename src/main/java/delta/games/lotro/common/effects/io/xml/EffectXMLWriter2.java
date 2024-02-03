@@ -31,6 +31,7 @@ import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
 import delta.games.lotro.common.effects.RecallEffect;
+import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
@@ -103,6 +104,7 @@ public class EffectXMLWriter2
     if (effect instanceof VitalOverTimeEffect) return EffectXMLConstants2.VITAL_OVER_TIME_EFFECT_TAG;
     if (effect instanceof RecallEffect) return EffectXMLConstants2.RECALL_EFFECT_TAG;
     if (effect instanceof ComboEffect) return EffectXMLConstants2.COMBO_EFFECT_TAG;
+    if (effect instanceof TieredEffect) return EffectXMLConstants2.TIERED_EFFECT_TAG;
     return EffectXMLConstants2.EFFECT_TAG;
   }
 
@@ -443,6 +445,11 @@ public class EffectXMLWriter2
       ComboEffect comboEffect=(ComboEffect)effect;
       writeComboEffectTags(hd,comboEffect);
     }
+    else if (effect instanceof TieredEffect)
+    {
+      TieredEffect tieredEffect=(TieredEffect)effect;
+      writeTieredEffectTags(hd,tieredEffect);
+    }
   }
 
   private void writeGenesisTags(TransformerHandler hd, GenesisEffect genesis) throws SAXException
@@ -661,6 +668,19 @@ public class EffectXMLWriter2
     writeEffectProxyTag(hd,EffectXMLConstants2.COMBO_TO_EXAMINE_TAG,comboEffect.getToExamine());
   }
 
+  private void writeTieredEffectTags(TransformerHandler hd, TieredEffect tieredEffect) throws SAXException
+  {
+    for(EffectGenerator generator : tieredEffect.getTiers())
+    {
+      writeEffectGenerator(hd,generator, EffectXMLConstants2.TIERED_TIER_UP_TAG);
+    }
+    EffectGenerator finalTier=tieredEffect.getFinalTier();
+    if (finalTier!=null)
+    {
+      writeEffectGenerator(hd,finalTier, EffectXMLConstants2.TIERED_FINAL_TIER_TAG);
+    }
+  }
+
   private void writeEffectProxyTag(TransformerHandler hd, String tagName, Proxy<Effect2> proxy) throws SAXException
   {
     if (proxy==null)
@@ -681,6 +701,11 @@ public class EffectXMLWriter2
 
   private void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator) throws SAXException
   {
+    writeEffectGenerator(hd,generator,EffectXMLConstants2.EFFECT_GENERATOR_TAG);
+  }
+
+  private void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator, String tag) throws SAXException
+  {
     AttributesImpl attrs=new AttributesImpl();
     Effect2 effect=generator.getEffect();
     int id=effect.getIdentifier();
@@ -695,8 +720,8 @@ public class EffectXMLWriter2
     {
       attrs.addAttribute("","",EffectXMLConstants2.EFFECT_GENERATOR_SPELLCRAFT_ATTR,XmlWriter.CDATA,String.valueOf(spellcraft.floatValue()));
     }
-    hd.startElement("","",EffectXMLConstants2.EFFECT_GENERATOR_TAG,attrs);
-    hd.endElement("","",EffectXMLConstants2.EFFECT_GENERATOR_TAG);
+    hd.startElement("","",tag,attrs);
+    hd.endElement("","",tag);
   }
 
   private <T extends LotroEnumEntry> String serializeEnumList(List<T> enumList)

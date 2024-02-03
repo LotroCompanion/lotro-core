@@ -322,6 +322,18 @@ public class EffectXMLConstants2
    * Tag 'toExamine'.
    */
   public static final String COMBO_TO_EXAMINE_TAG="toExamine";
+  /**
+   * Tag 'tieredEffect'.
+   */
+  public static final String TIERED_EFFECT_TAG="tieredEffect";
+  /**
+   * Tag 'tierUp'.
+   */
+  public static final String TIERED_TIER_UP_TAG="tierUp";
+  /**
+   * Tag 'finalTier'.
+   */
+  public static final String TIERED_FINAL_TIER_TAG="finalTier";
 
   /**
    * Tag 'effect' (generator).

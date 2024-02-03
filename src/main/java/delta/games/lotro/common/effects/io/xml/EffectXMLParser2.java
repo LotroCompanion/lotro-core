@@ -32,6 +32,7 @@ import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
 import delta.games.lotro.common.effects.RecallEffect;
+import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
@@ -153,6 +154,10 @@ public class EffectXMLParser2
     else if (EffectXMLConstants2.COMBO_EFFECT_TAG.equals(tagName))
     {
       ret=parseComboEffect(root);
+    }
+    else if (EffectXMLConstants2.TIERED_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseTieredEffect(root);
     }
     else
     {
@@ -533,6 +538,24 @@ public class EffectXMLParser2
     ret.setToGiveBackIfNotPresent(parseEffectProxy(root,EffectXMLConstants2.COMBO_TO_GIVE_BACK_IF_NOT_PRESENT_TAG));
     ret.setToGiveBackIfPresent(parseEffectProxy(root,EffectXMLConstants2.COMBO_TO_GIVE_BACK_IF_PRESENT_TAG));
     ret.setToExamine(parseEffectProxy(root,EffectXMLConstants2.COMBO_TO_EXAMINE_TAG));
+    return ret;
+  }
+
+  private TieredEffect parseTieredEffect(Element root)
+  {
+    TieredEffect ret=new TieredEffect();
+    List<Element> tierUpTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants2.TIERED_TIER_UP_TAG);
+    for(Element tierUpTag : tierUpTags)
+    {
+      EffectGenerator generator=readEffectGenerator(tierUpTag);
+      ret.addTierEffect(generator);
+    }
+    Element finalTierTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants2.TIERED_FINAL_TIER_TAG);
+    if (finalTierTag!=null)
+    {
+      EffectGenerator finalTierEffect=readEffectGenerator(finalTierTag);
+      ret.setFinalTier(finalTierEffect);
+    }
     return ret;
   }
 
