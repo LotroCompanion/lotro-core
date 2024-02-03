@@ -12,9 +12,11 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.traits.EffectAtRank;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLWriter;
+import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.enums.TraitSubCategory;
@@ -161,6 +163,26 @@ public class TraitDescriptionXMLWriter
       skillAttrs.addAttribute("","",TraitDescriptionXMLConstants.SKILL_NAME_ATTR,XmlWriter.CDATA,skillName);
       hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_SKILL_TAG,skillAttrs);
       hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_SKILL_TAG);
+    }
+    // Effects
+    for(EffectAtRank effectAtRank : trait.getEffects())
+    {
+      AttributesImpl effectAttrs=new AttributesImpl();
+      // Rank
+      int rank=effectAtRank.getRank();
+      if (rank>1)
+      {
+        effectAttrs.addAttribute("","",TraitDescriptionXMLConstants.EFFECT_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
+      }
+      Effect2 effect=effectAtRank.getEffect();
+      // ID
+      int effectId=effect.getIdentifier();
+      effectAttrs.addAttribute("","",TraitDescriptionXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(effectId));
+      // Name
+      String effectName=effect.getName();
+      effectAttrs.addAttribute("","",TraitDescriptionXMLConstants.EFFECT_NAME_ATTR,XmlWriter.CDATA,effectName);
+      hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_EFFECT_TAG,effectAttrs);
+      hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_EFFECT_TAG);
     }
     // Pre-requisites
     AbstractTraitPrerequisite prerequisite=trait.getTraitPrerequisites();

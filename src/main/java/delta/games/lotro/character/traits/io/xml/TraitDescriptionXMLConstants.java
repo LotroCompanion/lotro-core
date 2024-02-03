@@ -87,4 +87,20 @@ public class TraitDescriptionXMLConstants
    * Tag 'skill', attribute 'name'.
    */
   public static final String SKILL_NAME_ATTR="name";
+  /**
+   * Tag 'effect'.
+   */
+  public static final String TRAIT_EFFECT_TAG="effect";
+  /**
+   * Tag 'effect', attribute 'rank'.
+   */
+  public static final String EFFECT_RANK_ATTR="rank";
+  /**
+   * Tag 'effect', attribute 'id'.
+   */
+  public static final String EFFECT_ID_ATTR="id";
+  /**
+   * Tag 'effect', attribute 'name'.
+   */
+  public static final String EFFECT_NAME_ATTR="name";
 }

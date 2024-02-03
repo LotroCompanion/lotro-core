@@ -16,6 +16,8 @@ import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLConstants;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLParser;
+import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
@@ -165,6 +167,25 @@ public class TraitDescriptionXMLParser
       else
       {
         LOGGER.warn("Skill not found: ID="+skillId+", name="+skillName);
+      }
+    }
+    // Traits
+    List<Element> traitTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_EFFECT_TAG);
+    for(Element traitTag : traitTags)
+    {
+      NamedNodeMap traitAttrs=traitTag.getAttributes();
+      int rank=DOMParsingTools.getIntAttribute(traitAttrs,TraitDescriptionXMLConstants.EFFECT_RANK_ATTR,1);
+      int effectId=DOMParsingTools.getIntAttribute(traitAttrs,TraitDescriptionXMLConstants.EFFECT_ID_ATTR,0);
+      EffectsManager effectsMgr=EffectsManager.getInstance();
+      Effect2 effect=effectsMgr.getEffectById(effectId);
+      if (effect!=null)
+      {
+        trait.addEffect(effect,rank);
+      }
+      else
+      {
+        String effectName=DOMParsingTools.getStringAttribute(traitAttrs,TraitDescriptionXMLConstants.EFFECT_NAME_ATTR,null);
+        LOGGER.warn("Effect not found: ID="+effectId+", name="+effectName);
       }
     }
     // Pre-requisites

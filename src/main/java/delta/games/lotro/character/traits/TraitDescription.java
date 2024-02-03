@@ -7,6 +7,7 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.effects.Effect2;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.enums.TraitSubCategory;
@@ -90,6 +91,10 @@ public class TraitDescription implements Identifiable,Named
    */
   private List<SkillDescription> _skills;
   /**
+   * Effects.
+   */
+  private List<EffectAtRank> _effects;
+  /**
    * Pre-requisites.
    */
   private AbstractTraitPrerequisite _prerequisites;
@@ -114,6 +119,7 @@ public class TraitDescription implements Identifiable,Named
     _tooltip="";
     _cosmetic=false;
     _skills=new ArrayList<SkillDescription>();
+    _effects=new ArrayList<EffectAtRank>();
     _prerequisites=null;
   }
 
@@ -426,6 +432,25 @@ public class TraitDescription implements Identifiable,Named
   public List<SkillDescription> getSkills()
   {
     return _skills;
+  }
+
+  /**
+   * Add an effect.
+   * @param effect Effect to add.
+   * @param rank Rank.
+   */
+  public void addEffect(Effect2 effect, int rank)
+  {
+    _effects.add(new EffectAtRank(effect,rank));
+  }
+
+  /**
+   * Get all the effects of this trait.
+   * @return A list of effects.
+   */
+  public List<EffectAtRank> getEffects()
+  {
+    return _effects;
   }
 
   /**
