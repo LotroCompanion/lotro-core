@@ -11,7 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.lore.items.effects.GenericItemEffects;
 
@@ -64,7 +64,7 @@ public class GenericItemEffectsXMLWriter
     attrs.addAttribute("","",GenericItemEffectsXMLConstants.CATEGORY_LABEL_ATTR,XmlWriter.CDATA,label);
     hd.startElement("","",GenericItemEffectsXMLConstants.CATEGORY_TAG,attrs);
     // Effects
-    for(Effect2 effect : itemEffects.getEffects())
+    for(Effect effect : itemEffects.getEffects())
     {
       AttributesImpl effectAttrs=new AttributesImpl();
       int id=effect.getIdentifier();

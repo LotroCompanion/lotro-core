@@ -1,6 +1,6 @@
 package delta.games.lotro.character.skills;
 
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 
 /**
@@ -19,7 +19,7 @@ public class SkillEffectGenerator extends EffectGenerator
    * @param duration Duration.
    * @param type Type.
    */
-  public SkillEffectGenerator(Effect2 effect, Float spellcraft, Float duration, SkillEffectType type)
+  public SkillEffectGenerator(Effect effect, Float spellcraft, Float duration, SkillEffectType type)
   {
     super(effect,spellcraft);
     _duration=duration;

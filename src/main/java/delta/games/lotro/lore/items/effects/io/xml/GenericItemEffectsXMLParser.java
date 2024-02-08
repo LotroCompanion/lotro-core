@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.LotroEnum;
@@ -60,7 +60,7 @@ public class GenericItemEffectsXMLParser
     {
       NamedNodeMap effectAttrs=tag.getAttributes();
       int effectID=DOMParsingTools.getIntAttribute(effectAttrs,GenericItemEffectsXMLConstants.EFFECT_ID_ATTR,0);
-      Effect2 effect=EffectsManager.getInstance().getEffectById(effectID);
+      Effect effect=EffectsManager.getInstance().getEffectById(effectID);
       if (effect!=null)
       {
         ret.addEffect(effect);

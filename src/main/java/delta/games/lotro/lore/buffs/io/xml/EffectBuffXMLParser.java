@@ -7,7 +7,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.lore.buffs.EffectBuff;
@@ -54,7 +54,7 @@ public class EffectBuffXMLParser
     UsageRequirementsXMLParser.parseRequirements(buff.getUsageRequirements(),root);
     // Effect
     int effectId=DOMParsingTools.getIntAttribute(root.getAttributes(),EffectBuffXMLConstants.BUFF_EFFECT_ID_ATTR,0);
-    Effect2 effect=EffectsManager.getInstance().getEffectById(effectId);
+    Effect effect=EffectsManager.getInstance().getEffectById(effectId);
     buff.setEffect(effect);
     return buff;
   }

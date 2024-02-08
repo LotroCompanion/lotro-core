@@ -6,7 +6,7 @@ package delta.games.lotro.common.effects;
  */
 public class EffectAndProbability
 {
-  private Effect2 _effect;
+  private Effect _effect;
   private float _probability;
 
   /**
@@ -14,7 +14,7 @@ public class EffectAndProbability
    * @param effect Effect.
    * @param probability Probability.
    */
-  public EffectAndProbability(Effect2 effect, float probability)
+  public EffectAndProbability(Effect effect, float probability)
   {
     _effect=effect;
     _probability=probability;
@@ -24,7 +24,7 @@ public class EffectAndProbability
    * Get the managed effect.
    * @return an effect.
    */
-  public Effect2 getEffect()
+  public Effect getEffect()
   {
     return _effect;
   }
@@ -33,7 +33,7 @@ public class EffectAndProbability
    * Set the managed effect.
    * @param effect Effect to set.
    */
-  public void setEffect(Effect2 effect)
+  public void setEffect(Effect effect)
   {
     _effect=effect;
   }

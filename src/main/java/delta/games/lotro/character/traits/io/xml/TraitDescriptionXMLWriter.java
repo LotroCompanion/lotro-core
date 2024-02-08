@@ -16,9 +16,9 @@ import delta.games.lotro.character.traits.EffectAtRank;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLWriter;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
-import delta.games.lotro.common.effects.io.xml.EffectXMLWriter2;
+import delta.games.lotro.common.effects.io.xml.EffectXMLWriter;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.enums.TraitSubCategory;
@@ -170,7 +170,7 @@ public class TraitDescriptionXMLWriter
     // - generators
     for(EffectGenerator generator : trait.getEffectGenerators())
     {
-      EffectXMLWriter2.writeEffectGenerator(hd,generator,TraitDescriptionXMLConstants.TRAIT_EFFECT_GENERATOR_TAG);
+      EffectXMLWriter.writeEffectGenerator(hd,generator,TraitDescriptionXMLConstants.TRAIT_EFFECT_GENERATOR_TAG);
     }
     // - at rank
     for(EffectAtRank effectAtRank : trait.getEffects())
@@ -182,7 +182,7 @@ public class TraitDescriptionXMLWriter
       {
         effectAttrs.addAttribute("","",TraitDescriptionXMLConstants.EFFECT_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
       }
-      Effect2 effect=effectAtRank.getEffect();
+      Effect effect=effectAtRank.getEffect();
       // ID
       int effectId=effect.getIdentifier();
       effectAttrs.addAttribute("","",TraitDescriptionXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(effectId));

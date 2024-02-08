@@ -7,7 +7,7 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.TraitNature;
@@ -442,7 +442,7 @@ public class TraitDescription implements Identifiable,Named
    * @param effect Effect to add.
    * @param rank Rank.
    */
-  public void addEffect(Effect2 effect, int rank)
+  public void addEffect(Effect effect, int rank)
   {
     _effects.add(new EffectAtRank(effect,rank));
   }

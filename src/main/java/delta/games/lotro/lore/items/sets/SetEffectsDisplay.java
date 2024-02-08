@@ -3,7 +3,7 @@ package delta.games.lotro.lore.items.sets;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectDisplay;
 import delta.games.lotro.common.effects.EffectGenerator;
 
@@ -42,7 +42,7 @@ public class SetEffectsDisplay
 
   private void showEffectGenerator(List<String> storage, EffectGenerator generator)
   {
-    Effect2 effect2=generator.getEffect();
+    Effect effect2=generator.getEffect();
     Float spellcraft=generator.getSpellcraft();
     int level=_level;
     if (spellcraft!=null)
@@ -52,7 +52,7 @@ public class SetEffectsDisplay
     showEffect(storage,effect2,level);
   }
 
-  private void showEffect(List<String> storage, Effect2 effect, int level)
+  private void showEffect(List<String> storage, Effect effect, int level)
   {
     EffectDisplay display=new EffectDisplay(level);
     List<String> childStorage=new ArrayList<String>();

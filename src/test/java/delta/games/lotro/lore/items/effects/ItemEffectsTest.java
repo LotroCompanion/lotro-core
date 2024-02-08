@@ -2,7 +2,7 @@ package delta.games.lotro.lore.items.effects;
 
 import java.util.List;
 
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.lore.items.Item;
@@ -73,7 +73,7 @@ public class ItemEffectsTest extends TestCase
     {
       for(EffectGenerator effectGenerator : onEquip)
       {
-        Effect2 effect=effectGenerator.getEffect();
+        Effect effect=effectGenerator.getEffect();
         if (effect.getClass()==PropertyModificationEffect.class)
         {
           Float spellcraft=effectGenerator.getSpellcraft();

@@ -7,7 +7,7 @@ import delta.games.lotro.common.Named;
  * Effect.
  * @author DAM
  */
-public class Effect2 implements Identifiable,Named
+public class Effect implements Identifiable,Named
 {
   // Identifier
   private int _id;
@@ -25,7 +25,7 @@ public class Effect2 implements Identifiable,Named
   /**
    * Constructor.
    */
-  public Effect2()
+  public Effect()
   {
     _description="";
     _descriptionOverride="";

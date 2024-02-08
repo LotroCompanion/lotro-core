@@ -1,6 +1,6 @@
 package delta.games.lotro.common.requirements;
 
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 
 /**
  * Effect requirement.
@@ -8,13 +8,13 @@ import delta.games.lotro.common.effects.Effect2;
  */
 public class EffectRequirement
 {
-  private Effect2 _effect;
+  private Effect _effect;
 
   /**
    * Constructor.
    * @param effect Required effect.
    */
-  public EffectRequirement(Effect2 effect)
+  public EffectRequirement(Effect effect)
   {
     _effect=effect;
   }
@@ -23,7 +23,7 @@ public class EffectRequirement
    * Get the required effect.
    * @return the required effect.
    */
-  public Effect2 getEffect()
+  public Effect getEffect()
   {
     return _effect;
   }

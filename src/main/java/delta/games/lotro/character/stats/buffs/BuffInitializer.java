@@ -7,7 +7,7 @@ import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.ItemClass;
 import delta.games.lotro.common.stats.StatDescription;
@@ -132,7 +132,7 @@ public class BuffInitializer
     {
       String id=String.valueOf(effectBuff.getIdentifier());
       String category="Effect";
-      Effect2 effect=effectBuff.getEffect();
+      Effect effect=effectBuff.getEffect();
       String name=effect.getName();
       Buff buff=new Buff(id,BuffType.EFFECT,category,name);
       String icon="/effects/"+effect.getIconId()+".png";

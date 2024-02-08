@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.common.effects.io.xml.EffectXMLParser2;
+import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.utils.i18n.I18nFacade;
@@ -25,7 +25,7 @@ public class EffectsManager
   private static final Logger LOGGER=Logger.getLogger(EffectsManager.class);
 
   private static EffectsManager _instance=null;
-  private Map<Integer,Effect2> _effects;
+  private Map<Integer,Effect> _effects;
 
   /**
    * Get the reference instance of this class.
@@ -48,9 +48,9 @@ public class EffectsManager
     {
       long now=System.currentTimeMillis();
       SingleLocaleLabelsManager labelsMgr=I18nFacade.getLabelsMgr("effects");
-      EffectXMLParser2 parser=new EffectXMLParser2(labelsMgr);
-      List<Effect2> effects=parser.parseEffectsFile(from);
-      for(Effect2 effect : effects)
+      EffectXMLParser parser=new EffectXMLParser(labelsMgr);
+      List<Effect> effects=parser.parseEffectsFile(from);
+      for(Effect effect : effects)
       {
         ret.addEffect(effect);
       }
@@ -66,14 +66,14 @@ public class EffectsManager
    */
   public EffectsManager()
   {
-    _effects=new HashMap<Integer,Effect2>();
+    _effects=new HashMap<Integer,Effect>();
   }
 
   /**
    * Add an effect.
    * @param effect Effect to add.
    */
-  public void addEffect(Effect2 effect)
+  public void addEffect(Effect effect)
   {
     Integer key=Integer.valueOf(effect.getIdentifier());
     _effects.put(key,effect);
@@ -84,7 +84,7 @@ public class EffectsManager
    * @param effectId Effect identifier.
    * @return An effect or <code>null</code> if not found.
    */
-  public Effect2 getEffectById(int effectId)
+  public Effect getEffectById(int effectId)
   {
     return _effects.get(Integer.valueOf(effectId));
   }
@@ -93,11 +93,11 @@ public class EffectsManager
    * Get all effects.
    * @return a list of effects.
    */
-  public List<Effect2> getEffects()
+  public List<Effect> getEffects()
   {
-    List<Effect2> ret=new ArrayList<Effect2>();
+    List<Effect> ret=new ArrayList<Effect>();
     ret.addAll(_effects.values());
-    Collections.sort(ret,new IdentifiableComparator<Effect2>());
+    Collections.sort(ret,new IdentifiableComparator<Effect>());
     return ret;
   }
 
@@ -106,9 +106,9 @@ public class EffectsManager
    */
   public void dump()
   {
-    List<Effect2> effects=getEffects();
+    List<Effect> effects=getEffects();
     System.out.println("Effect: ("+effects.size()+")");
-    for(Effect2 effect : effects)
+    for(Effect effect : effects)
     {
       System.out.println("\t"+effect);
     }

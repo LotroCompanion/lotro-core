@@ -9,14 +9,14 @@ import delta.games.lotro.utils.Proxy;
  * Combo effect.
  * @author DAM
  */
-public class ComboEffect extends Effect2
+public class ComboEffect extends Effect
 {
-  private List<Proxy<Effect2>> _presentList;
-  private Proxy<Effect2> _toAddIfNotPresent;
-  private Proxy<Effect2> _toAddIfPresent;
-  private Proxy<Effect2> _toGiveBackIfNotPresent;
-  private Proxy<Effect2> _toGiveBackIfPresent;
-  private Proxy<Effect2> _toExamine;
+  private List<Proxy<Effect>> _presentList;
+  private Proxy<Effect> _toAddIfNotPresent;
+  private Proxy<Effect> _toAddIfPresent;
+  private Proxy<Effect> _toGiveBackIfNotPresent;
+  private Proxy<Effect> _toGiveBackIfPresent;
+  private Proxy<Effect> _toExamine;
 
   /**
    * Constructor.
@@ -24,14 +24,14 @@ public class ComboEffect extends Effect2
   public ComboEffect()
   {
     super();
-    _presentList=new ArrayList<Proxy<Effect2>>();
+    _presentList=new ArrayList<Proxy<Effect>>();
   }
 
   /**
    * Add a 'present' effect.
    * @param effect Effect to add.
    */
-  public void addPresentEffect(Proxy<Effect2> effect)
+  public void addPresentEffect(Proxy<Effect> effect)
   {
     _presentList.add(effect);
   }
@@ -40,7 +40,7 @@ public class ComboEffect extends Effect2
    * Get the 'present' effects.
    * @return A list of effect proxies (may be empty but never <code>null</code>).
    */
-  public List<Proxy<Effect2>> getPresentEffects()
+  public List<Proxy<Effect>> getPresentEffects()
   {
     return _presentList;
   }
@@ -49,7 +49,7 @@ public class ComboEffect extends Effect2
    * Get the 'to add if not present' effect proxy.
    * @return A proxy or <code>null</code> if none.
    */
-  public Proxy<Effect2> getToAddIfNotPresent()
+  public Proxy<Effect> getToAddIfNotPresent()
   {
     return _toAddIfNotPresent;
   }
@@ -58,7 +58,7 @@ public class ComboEffect extends Effect2
    * Set the 'to add if not present' effect proxy.
    * @param effect A proxy or <code>null</code> if none.
    */
-  public void setToAddIfNotPresent(Proxy<Effect2> effect)
+  public void setToAddIfNotPresent(Proxy<Effect> effect)
   {
     _toAddIfNotPresent=effect;
   }
@@ -67,7 +67,7 @@ public class ComboEffect extends Effect2
    * Get the 'to add if present' effect proxy.
    * @return A proxy or <code>null</code> if none.
    */
-  public Proxy<Effect2> getToAddIfPresent()
+  public Proxy<Effect> getToAddIfPresent()
   {
     return _toAddIfPresent;
   }
@@ -76,7 +76,7 @@ public class ComboEffect extends Effect2
    * Set the 'to add if present' effect proxy.
    * @param effect A proxy or <code>null</code> if none.
    */
-  public void setToAddIfPresent(Proxy<Effect2> effect)
+  public void setToAddIfPresent(Proxy<Effect> effect)
   {
     _toAddIfPresent=effect;
   }
@@ -85,7 +85,7 @@ public class ComboEffect extends Effect2
    * Get the 'to give back if not present' effect proxy.
    * @return A proxy or <code>null</code> if none.
    */
-  public Proxy<Effect2> getToGiveBackIfNotPresent()
+  public Proxy<Effect> getToGiveBackIfNotPresent()
   {
     return _toGiveBackIfNotPresent;
   }
@@ -94,7 +94,7 @@ public class ComboEffect extends Effect2
    * Set the 'to give back if not present' effect proxy.
    * @param effect A proxy or <code>null</code> if none.
    */
-  public void setToGiveBackIfNotPresent(Proxy<Effect2> effect)
+  public void setToGiveBackIfNotPresent(Proxy<Effect> effect)
   {
     _toGiveBackIfNotPresent=effect;
   }
@@ -103,7 +103,7 @@ public class ComboEffect extends Effect2
    * Get the 'to give back if present' effect proxy.
    * @return A proxy or <code>null</code> if none.
    */
-  public Proxy<Effect2> getToGiveBackIfPresent()
+  public Proxy<Effect> getToGiveBackIfPresent()
   {
     return _toGiveBackIfPresent;
   }
@@ -112,7 +112,7 @@ public class ComboEffect extends Effect2
    * Set the 'to give back if present' effect proxy.
    * @param effect A proxy or <code>null</code> if none.
    */
-  public void setToGiveBackIfPresent(Proxy<Effect2> effect)
+  public void setToGiveBackIfPresent(Proxy<Effect> effect)
   {
     _toGiveBackIfPresent=effect;
   }
@@ -121,7 +121,7 @@ public class ComboEffect extends Effect2
    * Get the 'to examine' effect proxy.
    * @return A proxy or <code>null</code> if none.
    */
-  public Proxy<Effect2> getToExamine()
+  public Proxy<Effect> getToExamine()
   {
     return _toExamine;
   }
@@ -130,7 +130,7 @@ public class ComboEffect extends Effect2
    * Set the 'to examine' effect proxy.
    * @param effect A proxy or <code>null</code> if none.
    */
-  public void setToExamine(Proxy<Effect2> effect)
+  public void setToExamine(Proxy<Effect> effect)
   {
     _toExamine=effect;
   }

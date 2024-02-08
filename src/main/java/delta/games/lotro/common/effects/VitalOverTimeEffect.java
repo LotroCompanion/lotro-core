@@ -8,7 +8,7 @@ import delta.games.lotro.lore.items.DamageType;
  * Vital over-time effect.
  * @author DAM
  */
-public class VitalOverTimeEffect extends Effect2
+public class VitalOverTimeEffect extends Effect
 {
   // Morale, Power, ...
   private StatDescription _stat;

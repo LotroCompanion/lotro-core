@@ -13,7 +13,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.NumericTools;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.lore.items.Item;
@@ -82,7 +82,7 @@ public class ItemEffectsXmlIO
     {
       attrs.addAttribute("","",ItemEffectsXMLConstants.EFFECT_TYPE_ATTR,XmlWriter.CDATA,type.name());
     }
-    Effect2 effect=generator.getEffect();
+    Effect effect=generator.getEffect();
     // ID
     int id=effect.getIdentifier();
     attrs.addAttribute("","",ItemEffectsXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
@@ -122,7 +122,7 @@ public class ItemEffectsXmlIO
     {
       spellcraft=NumericTools.parseFloat(spellcraftStr);
     }
-    Effect2 effect=EffectsManager.getInstance().getEffectById(id);
+    Effect effect=EffectsManager.getInstance().getEffectById(id);
     if (effect!=null)
     {
       EffectGenerator generator=new EffectGenerator(effect,spellcraft);
@@ -145,7 +145,7 @@ public class ItemEffectsXmlIO
       int id=DOMParsingTools.getIntAttribute(attrs,ItemEffectsXMLConstants.EFFECT_ID_ATTR,0);
       // Spellcraft
       Float spellcraft=DOMParsingTools.getFloatAttribute(attrs,ItemEffectsXMLConstants.EFFECT_SPELLCRAFT_ATTR,null);
-      Effect2 effect=EffectsManager.getInstance().getEffectById(id);
+      Effect effect=EffectsManager.getInstance().getEffectById(id);
       if (effect!=null)
       {
         EffectGenerator generator=new EffectGenerator(effect,spellcraft);

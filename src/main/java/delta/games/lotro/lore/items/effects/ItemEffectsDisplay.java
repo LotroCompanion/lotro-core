@@ -8,7 +8,7 @@ import java.util.Set;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.SkillEffectsManager;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectDisplay;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.lore.items.Item;
@@ -126,7 +126,7 @@ public class ItemEffectsDisplay
 
   private void showEffectGenerator(List<String> storage, EffectGenerator generator, boolean skipRawStats)
   {
-    Effect2 effect=generator.getEffect();
+    Effect effect=generator.getEffect();
     Float spellcraft=generator.getSpellcraft();
     int level=_level;
     if (spellcraft!=null)
@@ -136,7 +136,7 @@ public class ItemEffectsDisplay
     showEffect(storage,effect,level,skipRawStats);
   }
 
-  private void showEffect(List<String> storage, Effect2 effect, int level, boolean skipRawStats)
+  private void showEffect(List<String> storage, Effect effect, int level, boolean skipRawStats)
   {
     EffectDisplay display=new EffectDisplay(level);
     display.skipRawStats(skipRawStats);

@@ -6,7 +6,7 @@ import delta.games.lotro.common.geo.Position;
  * Travel effect.
  * @author DAM
  */
-public class TravelEffect extends Effect2
+public class TravelEffect extends Effect
 {
   private Position _destination;
   // Scene ID: not very interesting

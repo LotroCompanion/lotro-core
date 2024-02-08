@@ -7,7 +7,7 @@ import delta.games.lotro.common.stats.WellKnownStat;
  * Instant vital effect.
  * @author DAM
  */
-public class InstantVitalEffect extends Effect2
+public class InstantVitalEffect extends Effect
 {
   // Morale, Power, ...
   private StatDescription _stat;

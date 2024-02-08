@@ -3,7 +3,7 @@ package delta.games.lotro.lore.items.effects;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.stats.SpecialEffect;
@@ -16,7 +16,7 @@ import delta.games.lotro.common.stats.StatsProvider;
 public class GenericItemEffects
 {
   private EquipmentCategory _category;
-  private List<Effect2> _effects;
+  private List<Effect> _effects;
   private StatsProvider _statsProvider;
 
   /**
@@ -26,7 +26,7 @@ public class GenericItemEffects
   public GenericItemEffects(EquipmentCategory category)
   {
     _category=category;
-    _effects=new ArrayList<Effect2>();
+    _effects=new ArrayList<Effect>();
   }
 
   /**
@@ -42,7 +42,7 @@ public class GenericItemEffects
    * Add an effect.
    * @param effect Effect to add.
    */
-  public void addEffect(Effect2 effect)
+  public void addEffect(Effect effect)
   {
     _effects.add(effect);
   }
@@ -51,7 +51,7 @@ public class GenericItemEffects
    * Get the managed effects.
    * @return a list of effects.
    */
-  public List<Effect2> getEffects()
+  public List<Effect> getEffects()
   {
     return _effects;
   }
@@ -72,7 +72,7 @@ public class GenericItemEffects
   private StatsProvider buildStatsProvider()
   {
     StatsProvider ret=new StatsProvider();
-    for(Effect2 effect : _effects)
+    for(Effect effect : _effects)
     {
       if (effect instanceof PropertyModificationEffect)
       {

@@ -59,7 +59,7 @@ public class EffectDisplay
    * @param storage Storage for lines to display.
    * @param effect Effect to show.
    */
-  public void displayEffect(List<String> storage, Effect2 effect)
+  public void displayEffect(List<String> storage, Effect effect)
   {
     String descriptionOverride=effect.getDescriptionOverride();
     if (!descriptionOverride.isEmpty())
@@ -92,7 +92,7 @@ public class EffectDisplay
     }
   }
 
-  private String resolveVariables(Effect2 effect, String input)
+  private String resolveVariables(Effect effect, String input)
   {
     VariableValueProvider provider=new VariableValueProvider()
     {
@@ -106,7 +106,7 @@ public class EffectDisplay
     return resolver.render(input);
   }
 
-  private String resolveVariable(Effect2 effect, String variableName)
+  private String resolveVariable(Effect effect, String variableName)
   {
     String ret=effect.resolveVariable(variableName);
     if (ret!=null)
@@ -116,7 +116,7 @@ public class EffectDisplay
     return variableName;
   }
 
-  private void displaySpecifics(List<String> storage, Effect2 effect)
+  private void displaySpecifics(List<String> storage, Effect effect)
   {
     if (effect instanceof InstantVitalEffect)
     {
@@ -435,7 +435,7 @@ public class EffectDisplay
 
   private void showEffectGenerator(List<String> storage, EffectGenerator effectGenerator)
   {
-    Effect2 childEffect=effectGenerator.getEffect();
+    Effect childEffect=effectGenerator.getEffect();
     Float spellcraft=effectGenerator.getSpellcraft();
     int levelBackup=_level;
     if (spellcraft!=null)

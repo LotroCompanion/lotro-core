@@ -1,6 +1,6 @@
 package delta.games.lotro.character.traits;
 
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 
 /**
  * Gathers an effect and a rank.
@@ -8,7 +8,7 @@ import delta.games.lotro.common.effects.Effect2;
  */
 public class EffectAtRank
 {
-  private Effect2 _effect;
+  private Effect _effect;
   private int _rank;
 
   /**
@@ -16,7 +16,7 @@ public class EffectAtRank
    * @param effect Effect.
    * @param rank Rank.
    */
-  public EffectAtRank(Effect2 effect, int rank)
+  public EffectAtRank(Effect effect, int rank)
   {
     _effect=effect;
     _rank=rank;
@@ -26,7 +26,7 @@ public class EffectAtRank
    * Get the managed effect.
    * @return the managed effect.
    */
-  public Effect2 getEffect()
+  public Effect getEffect()
   {
     return _effect;
   }

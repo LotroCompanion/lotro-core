@@ -16,10 +16,10 @@ import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLConstants;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLParser;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.EffectsManager;
-import delta.games.lotro.common.effects.io.xml.EffectXMLConstants2;
+import delta.games.lotro.common.effects.io.xml.EffectXMLConstants;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
@@ -187,7 +187,7 @@ public class TraitDescriptionXMLParser
       int rank=DOMParsingTools.getIntAttribute(effectAttrs,TraitDescriptionXMLConstants.EFFECT_RANK_ATTR,1);
       int effectId=DOMParsingTools.getIntAttribute(effectAttrs,TraitDescriptionXMLConstants.EFFECT_ID_ATTR,0);
       EffectsManager effectsMgr=EffectsManager.getInstance();
-      Effect2 effect=effectsMgr.getEffectById(effectId);
+      Effect effect=effectsMgr.getEffectById(effectId);
       if (effect!=null)
       {
         trait.addEffect(effect,rank);
@@ -215,14 +215,14 @@ public class TraitDescriptionXMLParser
   private EffectGenerator readEffectGenerator(Element generatorTag)
   {
     NamedNodeMap attrs=generatorTag.getAttributes();
-    int effectId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants2.EFFECT_GENERATOR_ID_ATTR,0);
-    float spellcraftValue=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants2.EFFECT_GENERATOR_SPELLCRAFT_ATTR,-1);
+    int effectId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_ID_ATTR,0);
+    float spellcraftValue=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_SPELLCRAFT_ATTR,-1);
     Float spellcraft=null;
     if (spellcraftValue>0)
     {
       spellcraft=Float.valueOf(spellcraftValue);
     }
-    Effect2 effect=EffectsManager.getInstance().getEffectById(effectId);
+    Effect effect=EffectsManager.getInstance().getEffectById(effectId);
     EffectGenerator ret=new EffectGenerator(effect,spellcraft);
     return ret;
   }

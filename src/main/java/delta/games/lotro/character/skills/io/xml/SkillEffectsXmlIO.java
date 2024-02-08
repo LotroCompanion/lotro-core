@@ -16,7 +16,7 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.SkillEffectType;
 import delta.games.lotro.character.skills.SkillEffectsManager;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectsManager;
 
 /**
@@ -48,7 +48,7 @@ public class SkillEffectsXmlIO
   private static void writeEffectGenerator(TransformerHandler hd, SkillEffectGenerator generator) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
-    Effect2 effect=generator.getEffect();
+    Effect effect=generator.getEffect();
     // ID
     int id=effect.getIdentifier();
     attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
@@ -104,7 +104,7 @@ public class SkillEffectsXmlIO
       {
         type=SkillEffectType.valueOf(typeStr);
       }
-      Effect2 effect=EffectsManager.getInstance().getEffectById(id);
+      Effect effect=EffectsManager.getInstance().getEffectById(id);
       if (effect!=null)
       {
         SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,duration,type);

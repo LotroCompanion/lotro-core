@@ -6,7 +6,7 @@ package delta.games.lotro.common.effects;
  */
 public class EffectGenerator
 {
-  private Effect2 _effect;
+  private Effect _effect;
   private Float _spellcraft;
 
   /**
@@ -14,7 +14,7 @@ public class EffectGenerator
    * @param effect Effect.
    * @param spellcraft Spellcraft value.
    */
-  public EffectGenerator(Effect2 effect, Float spellcraft)
+  public EffectGenerator(Effect effect, Float spellcraft)
   {
     _effect=effect;
     _spellcraft=spellcraft;
@@ -24,7 +24,7 @@ public class EffectGenerator
    * Get the managed effect.
    * @return the managed effect.
    */
-  public Effect2 getEffect()
+  public Effect getEffect()
   {
     return _effect;
   }
@@ -33,7 +33,7 @@ public class EffectGenerator
    * Set the managed effect.
    * @param effect Effect to set.
    */
-  public void setEffect(Effect2 effect)
+  public void setEffect(Effect effect)
   {
     _effect=effect;
   }

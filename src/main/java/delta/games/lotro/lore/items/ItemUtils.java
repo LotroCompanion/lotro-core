@@ -8,7 +8,7 @@ import java.util.Set;
 
 import delta.common.utils.text.TextTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.Genus;
@@ -76,7 +76,7 @@ public class ItemUtils
     for(int i=nbOnEquip-1;i>=0;i--)
     {
       EffectGenerator effectGenerator=effectGenerators[i];
-      Effect2 effect=effectGenerator.getEffect();
+      Effect effect=effectGenerator.getEffect();
       if (effect instanceof PropertyModificationEffect)
       {
         PropertyModificationEffect propModEffect=(PropertyModificationEffect)effect;

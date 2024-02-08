@@ -3,7 +3,7 @@ package delta.games.lotro.lore.items.effects;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.effects.Effect2;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.EquipmentCategory;
 import delta.games.lotro.common.enums.LotroEnum;
@@ -35,8 +35,8 @@ public class MainTestGenericItemEffects
     }
     EquipmentCategory category=genericItemEffects.getCategory();
     System.out.println("Category: "+category);
-    List<Effect2> effects=genericItemEffects.getEffects();
-    for(Effect2 effect : effects)
+    List<Effect> effects=genericItemEffects.getEffects();
+    for(Effect effect : effects)
     {
       System.out.println("\t"+effect);
       if (effect instanceof PropertyModificationEffect)

@@ -4,7 +4,7 @@ package delta.games.lotro.common.effects.io.xml;
  * Constants for tags and attribute names used in XML I/O of effects.
  * @author DAM
  */
-public class EffectXMLConstants2
+public class EffectXMLConstants
 {
   /**
    * Tag 'effects'.
