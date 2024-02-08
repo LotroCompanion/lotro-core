@@ -50,6 +50,10 @@ public class LegacyXMLConstants
    */
   public static final String LEGACY_MAX_LEVEL_ATTR="maxLevel";
   /**
+   * Tag 'legacy', attribute 'effectId'.
+   */
+  public static final String LEGACY_EFFECT_ID_ATTR="effectId";
+  /**
    * Tag 'allowedWeaponType'.
    */
   public static final String ALLOWED_WEAPON_TYPE_TAG="allowedWeaponType";

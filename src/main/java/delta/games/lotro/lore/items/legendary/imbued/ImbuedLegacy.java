@@ -17,6 +17,7 @@ public class ImbuedLegacy extends AbstractLegacy implements Identifiable
   private int _maxInitialLevel;
   private int _maxLevel;
   private StatsProvider _statsProvider;
+  private int _effectID;
   private Set<WeaponType> _types;
 
   /**
@@ -110,6 +111,24 @@ public class ImbuedLegacy extends AbstractLegacy implements Identifiable
       return _statsProvider.getLabel();
     }
     return "?";
+  }
+
+  /**
+   * Get the effect ID.
+   * @return the effect ID.
+   */
+  public int getEffectID()
+  {
+    return _effectID;
+  }
+
+  /**
+   * Set the effect ID.
+   * @param effectID Effect ID to set.
+   */
+  public void setEffectID(int effectID)
+  {
+    _effectID=effectID;
   }
 
   /**

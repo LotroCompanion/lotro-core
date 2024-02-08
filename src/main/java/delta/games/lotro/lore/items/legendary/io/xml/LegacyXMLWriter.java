@@ -17,7 +17,6 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.common.constraints.ClassAndSlot;
 import delta.games.lotro.common.constraints.ClassAndSlotFilter;
-import delta.games.lotro.common.effects.io.xml.EffectXMLWriter;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
@@ -81,12 +80,21 @@ public class LegacyXMLWriter
     writeSharedAttributes(attrs,legacy);
     // Shared non-imbued attributes
     writeSharedNonImbuedAttributes(attrs,legacy);
-
+    // Effect ID
+    int effectID=legacy.getEffectID();
+    if (effectID>0)
+    {
+      attrs.addAttribute("","",LegacyXMLConstants.LEGACY_EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(effectID));
+    }
     hd.startElement("","",LegacyXMLConstants.DEFAULT_NON_IMBUED_LEGACY_TAG,attrs);
     // Filter
     writeFilter(hd,legacy);
-    // Effect
-    EffectXMLWriter.writeEffect(hd,legacy.getEffect());
+    // Stats
+    StatsProvider statsProvider=legacy.getStatsProvider();
+    if (statsProvider!=null)
+    {
+      StatsProviderXMLWriter.writeXml(hd,statsProvider);
+    }
     hd.endElement("","",LegacyXMLConstants.DEFAULT_NON_IMBUED_LEGACY_TAG);
   }
 
@@ -127,9 +135,19 @@ public class LegacyXMLWriter
       {
         tierAttrs.addAttribute("","",LegacyXMLConstants.LEGACY_TIER_START_RANK_ATTR,XmlWriter.CDATA,startRank.toString());
       }
+      // Effect ID
+      int effectID=legacyTier.getEffectID();
+      if (effectID>0)
+      {
+        tierAttrs.addAttribute("","",LegacyXMLConstants.LEGACY_EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(effectID));
+      }
       hd.startElement("","",LegacyXMLConstants.LEGACY_TIER_TAG,tierAttrs);
-      // Effect
-      EffectXMLWriter.writeEffect(hd,legacyTier.getEffect());
+      // Stats
+      StatsProvider statsProvider=legacyTier.getStatsProvider();
+      if (statsProvider!=null)
+      {
+        StatsProviderXMLWriter.writeXml(hd,statsProvider);
+      }
       hd.endElement("","",LegacyXMLConstants.LEGACY_TIER_TAG);
     }
     hd.endElement("","",LegacyXMLConstants.TIERED_NON_IMBUED_LEGACY_TAG);
@@ -149,6 +167,12 @@ public class LegacyXMLWriter
     // Maximum level
     int maxLevel=legacy.getMaxLevel();
     attrs.addAttribute("","",LegacyXMLConstants.LEGACY_MAX_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(maxLevel));
+    // Effect ID
+    int effectID=legacy.getEffectID();
+    if (effectID>0)
+    {
+      attrs.addAttribute("","",LegacyXMLConstants.LEGACY_EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(effectID));
+    }
     hd.startElement("","",LegacyXMLConstants.LEGACY_TAG,attrs);
 
     // Allowed types

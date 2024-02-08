@@ -134,7 +134,7 @@ public class LegendaryInstanceAttrsXMLWriter
       if (defaultLegacy!=null)
       {
         // ID
-        int legacyId=defaultLegacy.getEffect().getIdentifier();
+        int legacyId=defaultLegacy.getEffectID();
         defaultLegacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.DEFAULT_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(legacyId));
       }
       // Rank
@@ -161,7 +161,7 @@ public class LegendaryInstanceAttrsXMLWriter
         // Index
         legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
         // ID
-        int legacyId=tier.getEffect().getIdentifier();
+        int legacyId=tier.getEffectID();
         legacyAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.TIERED_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(legacyId));
         // Rank
         int rank=legacyInstance.getRank();

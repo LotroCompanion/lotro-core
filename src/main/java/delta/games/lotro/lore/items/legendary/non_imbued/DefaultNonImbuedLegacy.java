@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.items.legendary.non_imbued;
 
-import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.legendary.LegacyType;
@@ -11,7 +10,8 @@ import delta.games.lotro.lore.items.legendary.LegacyType;
  */
 public class DefaultNonImbuedLegacy extends AbstractNonImbuedLegacy
 {
-  private Effect _effect;
+  private int _effectID;
+  private StatsProvider _statsProvider;
 
   /**
    * Constructor.
@@ -21,45 +21,61 @@ public class DefaultNonImbuedLegacy extends AbstractNonImbuedLegacy
     // Nothing!
   }
 
+  /**
+   * Get the stats provider.
+   * @return the stats provider.
+   */
+  public StatsProvider getStatsProvider()
+  {
+    return _statsProvider;
+  }
+
+  /**
+   * Set the stats provider.
+   * @param statsProvider Stats provider.
+   */
+  public void setStatsProvider(StatsProvider statsProvider)
+  {
+    _statsProvider=statsProvider;
+  }
+
   @Override
   public StatDescription getStat()
   {
-    if (_effect!=null)
+    if (_statsProvider!=null)
     {
-      StatsProvider statsProvider=_effect.getStatsProvider();
-      return statsProvider.getFirstStat();
+      return _statsProvider.getFirstStat();
     }
     return null;
   }
 
   /**
-   * Get the associated effect.
-   * @return the associated effect.
+   * Get the effect ID.
+   * @return the effect ID.
    */
-  public Effect getEffect()
+  public int getEffectID()
   {
-    return _effect;
+    return _effectID;
   }
 
   /**
-   * Set the associated effect.
-   * @param effect Effect to set.
+   * Set the effect ID.
+   * @param effectID Effect ID to set.
    */
-  public void setEffect(Effect effect)
+  public void setEffectID(int effectID)
   {
-    _effect=effect;
+    _effectID=effectID;
   }
 
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    String name=(_effect!=null)?_effect.getLabel():"?";
-    sb.append("Default non imbued: ").append(name);
-    int id=(_effect!=null)?_effect.getIdentifier():0;
-    if (id!=0)
+    StatDescription stat=getStat();
+    sb.append("Default non imbued: ").append(stat.getName());
+    if (_effectID!=0)
     {
-      sb.append(" (id=").append(id).append(')');
+      sb.append(" (effectID=").append(_effectID).append(')');
     }
     LegacyType type=getType();
     if (type!=null)

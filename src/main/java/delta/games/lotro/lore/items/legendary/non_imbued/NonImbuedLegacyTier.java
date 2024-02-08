@@ -1,7 +1,7 @@
 package delta.games.lotro.lore.items.legendary.non_imbued;
 
-import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatsProvider;
 
 /**
  * Non imbued legacy tier.
@@ -12,19 +12,22 @@ public class NonImbuedLegacyTier
   private TieredNonImbuedLegacy _parent;
   private int _tier;
   private Integer _startRank;
-  private Effect _effect;
+  private int _effectID;
+  private StatsProvider _statsProvider;
 
   /**
    * Constructor.
    * @param legacy Parent legacy.
    * @param tier Tier (1 to 6).
-   * @param effect Legadcy effect.
+   * @param effectID Legacy effect ID.
+   * @param statsProvider Stats provider.
    */
-  public NonImbuedLegacyTier(TieredNonImbuedLegacy legacy, int tier, Effect effect)
+  public NonImbuedLegacyTier(TieredNonImbuedLegacy legacy, int tier, int effectID, StatsProvider statsProvider)
   {
     _parent=legacy;
     _tier=tier;
-    _effect=effect;
+    _effectID=effectID;
+    _statsProvider=statsProvider;
   }
 
   /**
@@ -64,12 +67,21 @@ public class NonImbuedLegacyTier
   }
 
   /**
-   * Get the legacy effect.
-   * @return the legacy effect.
+   * Get the effect ID.
+   * @return the effect ID.
    */
-  public Effect getEffect()
+  public int getEffectID()
   {
-    return _effect;
+    return _effectID;
+  }
+
+  /**
+   * Get the stats provider.
+   * @return the stats provider.
+   */
+  public StatsProvider getStatsProvider()
+  {
+    return _statsProvider;
   }
 
   /**
@@ -85,9 +97,9 @@ public class NonImbuedLegacyTier
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    if (_effect!=null)
+    if (_effectID>0)
     {
-      sb.append("ID:").append(_effect.getIdentifier()).append(' ');
+      sb.append("ID:").append(_effectID).append(' ');
     }
     StatDescription stat=getStat();
     String statLabel=(stat!=null)?stat.getName():"???";

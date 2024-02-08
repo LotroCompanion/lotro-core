@@ -16,7 +16,6 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.common.constraints.ClassAndSlot;
-import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatDescriptionComparator;
 import delta.games.lotro.config.DataFiles;
@@ -105,8 +104,8 @@ public class NonImbuedLegaciesManager
    */
   public void addDefaultLegacy(DefaultNonImbuedLegacy legacy)
   {
-    Effect effect=legacy.getEffect();
-    Integer identifier=Integer.valueOf(effect.getIdentifier());
+    int effectID=legacy.getEffectID();
+    Integer identifier=Integer.valueOf(effectID);
     _defaultLegacies.put(identifier,legacy);
   }
 
@@ -131,7 +130,7 @@ public class NonImbuedLegaciesManager
     {
       for(NonImbuedLegacyTier tier : legacy.getTiers())
       {
-        if (tier.getEffect().getIdentifier()==id)
+        if (tier.getEffectID()==id)
         {
           return tier;
         }

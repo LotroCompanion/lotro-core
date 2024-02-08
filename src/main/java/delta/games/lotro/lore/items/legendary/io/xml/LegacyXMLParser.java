@@ -14,9 +14,6 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.common.constraints.ClassAndSlot;
-import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.io.xml.EffectXMLConstants;
-import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.StatsRegistry;
@@ -99,13 +96,13 @@ public class LegacyXMLParser
     parseSharedData(root,legacy);
     // Shared, non-imbued data
     parseSharedNonImbuedData(root,legacy);
-    // Effect
-    Element effectTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants.EFFECT_TAG);
-    if (effectTag!=null)
-    {
-      Effect effect=EffectXMLParser.parseEffect(effectTag,_labelsMgr);
-      legacy.setEffect(effect);
-    }
+    // Effect ID
+    int effectID=DOMParsingTools.getIntAttribute(root.getAttributes(),LegacyXMLConstants.LEGACY_EFFECT_ID_ATTR,0);
+    legacy.setEffectID(effectID);
+    // Stats
+    StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root,_labelsMgr);
+    legacy.setStatsProvider(statsProvider);
+
     return legacy;
   }
 
@@ -135,14 +132,11 @@ public class LegacyXMLParser
       NamedNodeMap tierAttrs=tierTag.getAttributes();
       // Tier
       int tier=DOMParsingTools.getIntAttribute(tierAttrs,LegacyXMLConstants.LEGACY_TIER_TIER_ATTR,0);
-      // Effect
-      Effect effect=null;
-      Element effectTag=DOMParsingTools.getChildTagByName(tierTag,EffectXMLConstants.EFFECT_TAG);
-      if (effectTag!=null)
-      {
-        effect=EffectXMLParser.parseEffect(effectTag,_labelsMgr);
-      }
-      NonImbuedLegacyTier legacyTier=legacy.addTier(tier,effect);
+      // Effect ID
+      int effectID=DOMParsingTools.getIntAttribute(tierAttrs,LegacyXMLConstants.LEGACY_EFFECT_ID_ATTR,0);
+      // Stats
+      StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(tierTag,_labelsMgr);
+      NonImbuedLegacyTier legacyTier=legacy.addTier(tier,effectID,statsProvider);
       // Start rank
       int startRankInt=DOMParsingTools.getIntAttribute(tierAttrs,LegacyXMLConstants.LEGACY_TIER_START_RANK_ATTR,-1);
       if (startRankInt!=-1)
@@ -173,7 +167,9 @@ public class LegacyXMLParser
     // Maximum level
     int maxLevel=DOMParsingTools.getIntAttribute(attrs,LegacyXMLConstants.LEGACY_MAX_LEVEL_ATTR,1);
     legacy.setMaxLevel(maxLevel);
-
+    // Effect ID
+    int effectID=DOMParsingTools.getIntAttribute(attrs,LegacyXMLConstants.LEGACY_EFFECT_ID_ATTR,0);
+    legacy.setEffectID(effectID);
     // Stats
     StatsProvider statsProvider=StatsProviderXMLParser.parseStatsProvider(root,_labelsMgr);
     legacy.setStatsProvider(statsProvider);

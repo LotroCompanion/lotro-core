@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.legendary.LegacyType;
 
 /**
@@ -57,12 +57,13 @@ public class TieredNonImbuedLegacy extends AbstractNonImbuedLegacy
   /**
    * Add a legacy tier.
    * @param tier Tier to add.
-   * @param effect Associated effect.
+   * @param effectID Legacy effect ID.
+   * @param statsProvider Stats provider.
    * @return the new legacy tier.
    */
-  public NonImbuedLegacyTier addTier(int tier, Effect effect)
+  public NonImbuedLegacyTier addTier(int tier, int effectID, StatsProvider statsProvider)
   {
-    NonImbuedLegacyTier legacyTier=new NonImbuedLegacyTier(this,tier,effect);
+    NonImbuedLegacyTier legacyTier=new NonImbuedLegacyTier(this,tier,effectID,statsProvider);
     _tiers.add(legacyTier);
     return legacyTier;
   }

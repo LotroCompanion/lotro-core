@@ -58,7 +58,7 @@ public class DefaultNonImbuedLegacyInstance extends NonImbuedLegacyInstance
     BasicStatsSet stats;
     if (_legacy!=null)
     {
-      StatsProvider statsProvider=_legacy.getEffect().getStatsProvider();
+      StatsProvider statsProvider=_legacy.getStatsProvider();
       int rank=getRank();
       stats=statsProvider.getStats(1,rank);
     }

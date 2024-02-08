@@ -30,6 +30,8 @@ public class SkillDescription implements Identifiable,Named
    * Category.
    */
   private SkillCategory _category;
+  // TODO Add required effects
+  // TODO Add required traits
   /**
    * Effects.
    */

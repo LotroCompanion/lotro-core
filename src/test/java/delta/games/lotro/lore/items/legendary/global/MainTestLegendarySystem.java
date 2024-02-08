@@ -77,7 +77,7 @@ public class MainTestLegendarySystem
       NonImbuedLegendaryInstanceAttrs nonImbuedAttrs=legendaryInstance.getLegendaryAttributes().getNonImbuedAttrs();
       DefaultNonImbuedLegacyInstance defaultLegacyInstance=nonImbuedAttrs.getDefaultLegacy();
       DefaultNonImbuedLegacy defaultLegacy=defaultLegacyInstance.getLegacy();
-      StatsProvider statsProvider=defaultLegacy.getEffect().getStatsProvider();
+      StatsProvider statsProvider=defaultLegacy.getStatsProvider();
       for(int i=0;i<mainLegacyRanks.length;i++)
       {
         BasicStatsSet stats=statsProvider.getStats(1,mainLegacyRanks[i]);
@@ -118,7 +118,7 @@ public class MainTestLegendarySystem
         {
           for(int i=0;i<ranks.length;i++)
           {
-            BasicStatsSet stats=tier.getEffect().getStatsProvider().getStats(1,ranks[i]);
+            BasicStatsSet stats=tier.getStatsProvider().getStats(1,ranks[i]);
             System.out.println("Rank "+(i+1)+": "+stats);
           }
         }

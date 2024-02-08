@@ -66,7 +66,7 @@ public class TieredNonImbuedLegacyInstance extends NonImbuedLegacyInstance
     BasicStatsSet stats;
     if (_legacyTier!=null)
     {
-      StatsProvider statsProvider=_legacyTier.getEffect().getStatsProvider();
+      StatsProvider statsProvider=_legacyTier.getStatsProvider();
       int rank=getRank();
       stats=statsProvider.getStats(1,rank);
     }
