@@ -15,7 +15,6 @@ import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
-import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourInstance;
@@ -49,6 +48,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
+import delta.games.lotro.lore.items.legendary.passives.Passive;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicTypes;
 import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
@@ -623,7 +623,7 @@ public class CharacterGeneratorGiswald
     // Passives
     {
       PassivesManager passivesMgr=PassivesManager.getInstance();
-      List<Effect> passives=passivesMgr.getAll();
+      List<Passive> passives=passivesMgr.getAll();
       for(int i=0;i<2;i++)
       {
         attrs.addPassive(passives.get(i));

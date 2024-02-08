@@ -7,7 +7,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.PassivesManager;
@@ -20,6 +19,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManage
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
+import delta.games.lotro.lore.items.legendary.passives.Passive;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicTypes;
@@ -92,7 +92,7 @@ public class LegendaryInstanceAttrsXMLParser
         int passiveId=DOMParsingTools.getIntAttribute(attrs,LegendaryInstanceAttrsXMLConstants.PASSIVE_ID_ATTR,0);
         if (passiveId!=0)
         {
-          Effect passive=passivesMgr.getEffect(passiveId);
+          Passive passive=passivesMgr.getPassive(passiveId);
           legendaryAttrs.addPassive(passive);
         }
       }

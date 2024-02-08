@@ -10,12 +10,12 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.items.legendary.passives.Passive;
 import delta.games.lotro.lore.items.legendary.passives.PassivesGroup;
 import delta.games.lotro.lore.items.legendary.passives.PassivesGroupsManager;
+import delta.games.lotro.lore.items.legendary.passives.io.xml.PassivesXMLParser;
 import delta.games.lotro.lore.items.legendary.passives.io.xml.PassivesGroupsXMLParser;
 import delta.games.lotro.utils.i18n.I18nFacade;
 
@@ -29,7 +29,7 @@ public class PassivesManager
 
   private static PassivesManager _instance=null;
 
-  private HashMap<Integer,Effect> _cache;
+  private HashMap<Integer,Passive> _cache;
   private PassivesGroupsManager _passivesUsage;
 
   /**
@@ -51,7 +51,7 @@ public class PassivesManager
    */
   public PassivesManager()
   {
-    _cache=new HashMap<Integer,Effect>(100);
+    _cache=new HashMap<Integer,Passive>(100);
     _passivesUsage=new PassivesGroupsManager();
   }
 
@@ -73,10 +73,10 @@ public class PassivesManager
     File legaciesFile=cfg.getFile(DataFiles.PASSIVES);
     long now=System.currentTimeMillis();
     SingleLocaleLabelsManager labelsMgr=I18nFacade.getLabelsMgr("passives");
-    List<Effect> effects=EffectXMLParser.parseEffectsFile(legaciesFile,labelsMgr);
-    for(Effect effect : effects)
+    List<Passive> passives=PassivesXMLParser.parsePassivesFile(legaciesFile,labelsMgr);
+    for(Passive passive : passives)
     {
-      registerEffect(effect);
+      registerPassive(passive);
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
@@ -102,34 +102,34 @@ public class PassivesManager
   }
 
   /**
-   * Register a new effect.
-   * @param effect Effect to register.
+   * Register a new passive.
+   * @param passive Passive to register.
    */
-  public void registerEffect(Effect effect)
+  public void registerPassive(Passive passive)
   {
-    _cache.put(Integer.valueOf(effect.getIdentifier()),effect);
+    _cache.put(Integer.valueOf(passive.getIdentifier()),passive);
   }
 
   /**
-   * Get a list of all effects, sorted by identifier.
-   * @return A list of effects.
+   * Get a list of all passives, sorted by identifier.
+   * @return A list of passives.
    */
-  public List<Effect> getAll()
+  public List<Passive> getAll()
   {
-    ArrayList<Effect> effects=new ArrayList<Effect>();
-    effects.addAll(_cache.values());
-    Collections.sort(effects,new IdentifiableComparator<Effect>());
-    return effects;
+    ArrayList<Passive> passives=new ArrayList<Passive>();
+    passives.addAll(_cache.values());
+    Collections.sort(passives,new IdentifiableComparator<Passive>());
+    return passives;
   }
 
   /**
-   * Get an effect using its identifier.
-   * @param id Effect identifier.
-   * @return An effect or <code>null</code> if not found.
+   * Get a passive using its identifier.
+   * @param id Passive identifier.
+   * @return A passive or <code>null</code> if not found.
    */
-  public Effect getEffect(int id)
+  public Passive getPassive(int id)
   {
-    Effect ret=null;
+    Passive ret=null;
     ret=_cache.get(Integer.valueOf(id));
     return ret;
   }
@@ -139,14 +139,14 @@ public class PassivesManager
    * @param itemId Item identifier.
    * @return A list of passives, sorted by their identifier.
    */
-  public List<Effect> getPassivesForItem(int itemId)
+  public List<Passive> getPassivesForItem(int itemId)
   {
-    List<Effect> passives=new ArrayList<Effect>();
+    List<Passive> passives=new ArrayList<Passive>();
     List<Integer> passiveIds=new ArrayList<Integer>(_passivesUsage.getPassiveIdsForItem(itemId));
     Collections.sort(passiveIds);
     for(Integer passiveId : passiveIds)
     {
-      Effect passive=getEffect(passiveId.intValue());
+      Passive passive=getPassive(passiveId.intValue());
       if (passive!=null)
       {
         passives.add(passive);

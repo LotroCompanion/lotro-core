@@ -5,11 +5,11 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
+import delta.games.lotro.lore.items.legendary.passives.Passive;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsSet;
 import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
@@ -27,7 +27,7 @@ public class LegendaryInstanceAttrs
   // Relics
   private RelicsSet _relics;
   // Passives
-  private List<Effect> _passives;
+  private List<Passive> _passives;
   // Imbued or not?
   private boolean _imbued;
   // Imbued attributes
@@ -42,7 +42,7 @@ public class LegendaryInstanceAttrs
   {
     _legendaryName="";
     _relics=new RelicsSet();
-    _passives=new ArrayList<Effect>();
+    _passives=new ArrayList<Passive>();
     _imbued=false;
     _imbuedAttrs=new ImbuedLegendaryInstanceAttrs();
     _nonImbuedAttrs=new NonImbuedLegendaryInstanceAttrs();
@@ -57,7 +57,7 @@ public class LegendaryInstanceAttrs
     _legendaryName=source._legendaryName;
     _title=source._title;
     _relics=new RelicsSet(source._relics);
-    _passives=new ArrayList<Effect>();
+    _passives=new ArrayList<Passive>();
     _passives.addAll(source._passives);
     _imbued=source._imbued;
     _imbuedAttrs=new ImbuedLegendaryInstanceAttrs(source._imbuedAttrs);
@@ -115,20 +115,20 @@ public class LegendaryInstanceAttrs
 
   /**
    * Add a passive.
-   * @param effect Passive to add.
+   * @param passive Passive to add.
    */
-  public void addPassive(Effect effect)
+  public void addPassive(Passive passive)
   {
-    _passives.add(effect);
+    _passives.add(passive);
   }
 
   /**
    * Remove a passive.
-   * @param effect Legacy to remove.
+   * @param passive Passive to remove.
    */
-  public void removePassive(Effect effect)
+  public void removePassive(Passive passive)
   {
-    _passives.remove(effect);
+    _passives.remove(passive);
   }
 
   /**
@@ -143,9 +143,9 @@ public class LegendaryInstanceAttrs
    * Get a list of all passives.
    * @return a list of all passives.
    */
-  public List<Effect> getPassives()
+  public List<Passive> getPassives()
   {
-    return new ArrayList<Effect>(_passives);
+    return new ArrayList<Passive>(_passives);
   }
 
   /**
@@ -240,7 +240,7 @@ public class LegendaryInstanceAttrs
   {
     BasicStatsSet ret=new BasicStatsSet();
     int passivesLevel=findLevelForPassives(itemLevel);
-    for(Effect passive : _passives)
+    for(Passive passive : _passives)
     {
       StatsProvider statsProvider=passive.getStatsProvider();
       BasicStatsSet stats=statsProvider.getStats(1,passivesLevel);
@@ -295,7 +295,7 @@ public class LegendaryInstanceAttrs
     if (nbPassives>0)
     {
       sb.append("Passives:").append(EndOfLine.NATIVE_EOL);
-      for(Effect passive : _passives)
+      for(Passive passive : _passives)
       {
         sb.append('\t').append(passive).append(EndOfLine.NATIVE_EOL);
       }

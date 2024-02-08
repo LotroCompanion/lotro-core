@@ -8,7 +8,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
-import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacyInstance;
@@ -18,6 +17,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyI
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegendaryInstanceAttrs;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
+import delta.games.lotro.lore.items.legendary.passives.Passive;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicType;
 import delta.games.lotro.lore.items.legendary.relics.RelicTypes;
@@ -88,8 +88,8 @@ public class LegendaryInstanceAttrsXMLWriter
 
   private static void writePassives(TransformerHandler hd, LegendaryInstanceAttrs legendaryAttrs) throws SAXException
   {
-    List<Effect> passives=legendaryAttrs.getPassives();
-    for(Effect passive : passives)
+    List<Passive> passives=legendaryAttrs.getPassives();
+    for(Passive passive : passives)
     {
       AttributesImpl passiveAttrs=new AttributesImpl();
       // ID
