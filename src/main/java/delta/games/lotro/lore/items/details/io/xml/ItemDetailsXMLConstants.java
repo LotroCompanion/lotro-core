@@ -91,4 +91,20 @@ public class ItemDetailsXMLConstants
    * Tag 'skill', attribute 'level'.
    */
   public static final String SKILL_LEVEL_ATTR="level";
+  /**
+   * Tag 'allegiancePoints'.
+   */
+  public static final String ALLEGIANCE_POINTS_TAG="allegiancePoints";
+  /**
+   * Tag 'allegiancePoints', attribute 'group'.
+   */
+  public static final String ALLEGIANCE_GROUP_ATTR="group";
+  /**
+   * Tag 'allegiancePoints', attribute 'name'.
+   */
+  public static final String ALLEGIANCE_GROUPNAME_ATTR="name";
+  /**
+   * Tag 'allegiancePoints', attribute 'points'.
+   */
+  public static final String ALLEGIANCE_POINTS_ATTR="points";
 }

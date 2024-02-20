@@ -5,16 +5,19 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import delta.common.utils.NumericTools;
+import delta.common.utils.xml.SAXParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.common.enums.AllegianceGroup;
 import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.details.AllegiancePoints;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemReputation;
@@ -33,6 +36,16 @@ import delta.games.lotro.lore.reputation.FactionsRegistry;
 public class ItemDetailsSaxParser
 {
   private static final Logger LOGGER=Logger.getLogger(ItemDetailsSaxParser.class);
+
+  private LotroEnum<AllegianceGroup> _allegianceGroupEnum;
+
+  /**
+   * Constructor.
+   */
+  public ItemDetailsSaxParser()
+  {
+    _allegianceGroupEnum=LotroEnumsRegistry.getInstance().get(AllegianceGroup.class);
+  }
 
   /**
    * Handle an element start. 
@@ -147,6 +160,17 @@ public class ItemDetailsSaxParser
       }
       SkillToExecute info=new SkillToExecute(skill,level);
       Item.addDetail(item,info);
+      return true;
+    }
+    else if (ItemDetailsXMLConstants.ALLEGIANCE_POINTS_TAG.equals(qualifiedName))
+    {
+      // Group
+      int groupCode=SAXParsingTools.getIntAttribute(attributes,ItemDetailsXMLConstants.ALLEGIANCE_GROUP_ATTR,0);
+      AllegianceGroup group=_allegianceGroupEnum.getEntry(groupCode);
+      // Points
+      int points=SAXParsingTools.getIntAttribute(attributes,ItemDetailsXMLConstants.ALLEGIANCE_POINTS_ATTR,0);
+      AllegiancePoints allegiancePoints=new AllegiancePoints(group,points);
+      Item.addDetail(item,allegiancePoints);
       return true;
     }
     return false;

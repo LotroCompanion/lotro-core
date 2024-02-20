@@ -9,8 +9,10 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.common.enums.AllegianceGroup;
 import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.details.AllegiancePoints;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.ItemDetail;
@@ -78,6 +80,10 @@ public class ItemDetailsXMLWriter
     else if (item instanceof SkillToExecute)
     {
       writeSkillToExecute(hd,(SkillToExecute)item);
+    }
+    else if (item instanceof AllegiancePoints)
+    {
+      writeAllegiancePoints(hd,(AllegiancePoints)item);
     }
   }
 
@@ -188,4 +194,20 @@ public class ItemDetailsXMLWriter
     hd.startElement("","",ItemDetailsXMLConstants.SKILL_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.SKILL_TAG);
   }
+
+  private void writeAllegiancePoints(TransformerHandler hd, AllegiancePoints allegiancePoints) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Group
+    AllegianceGroup group=allegiancePoints.getGroup();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.ALLEGIANCE_GROUP_ATTR,XmlWriter.CDATA,String.valueOf(group.getCode()));
+    attrs.addAttribute("","",ItemDetailsXMLConstants.ALLEGIANCE_GROUPNAME_ATTR,XmlWriter.CDATA,group.getLabel());
+    // Points
+    int points=allegiancePoints.getPoints();
+    attrs.addAttribute("","",ItemDetailsXMLConstants.ALLEGIANCE_POINTS_ATTR,XmlWriter.CDATA,String.valueOf(points));
+    hd.startElement("","",ItemDetailsXMLConstants.ALLEGIANCE_POINTS_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.ALLEGIANCE_POINTS_TAG);
+  }
+
+  
 }
