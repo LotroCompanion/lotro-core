@@ -11,10 +11,12 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.enums.AllegianceGroup;
 import delta.games.lotro.common.enums.Genus;
+import delta.games.lotro.common.enums.HousingHookCategory;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.details.AllegiancePoints;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
+import delta.games.lotro.lore.items.details.HousingHooks;
 import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
@@ -80,6 +82,10 @@ public class ItemDetailsXMLWriter
     else if (item instanceof SkillToExecute)
     {
       writeSkillToExecute(hd,(SkillToExecute)item);
+    }
+    else if (item instanceof HousingHooks)
+    {
+      writeHousingHooks(hd,(HousingHooks)item);
     }
     else if (item instanceof AllegiancePoints)
     {
@@ -209,5 +215,22 @@ public class ItemDetailsXMLWriter
     hd.endElement("","",ItemDetailsXMLConstants.ALLEGIANCE_POINTS_TAG);
   }
 
-  
+  private void writeHousingHooks(TransformerHandler hd, HousingHooks info) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Categories
+    List<HousingHookCategory> categories=info.getHookCategories();
+    StringBuilder sb=new StringBuilder();
+    for(HousingHookCategory category : categories)
+    {
+      if (sb.length()>0)
+      {
+        sb.append(',');
+      }
+      sb.append(category.getCode());
+    }
+    attrs.addAttribute("","",ItemDetailsXMLConstants.HOUSING_HOOKS_CATEGORIES_ATTR,XmlWriter.CDATA,sb.toString());
+    hd.startElement("","",ItemDetailsXMLConstants.HOUSING_HOOKS_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.HOUSING_HOOKS_TAG);
+  }
 }

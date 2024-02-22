@@ -107,4 +107,12 @@ public class ItemDetailsXMLConstants
    * Tag 'allegiancePoints', attribute 'points'.
    */
   public static final String ALLEGIANCE_POINTS_ATTR="points";
+  /**
+   * Tag 'housingHooks'.
+   */
+  public static final String HOUSING_HOOKS_TAG="housingHooks";
+  /**
+   * Tag 'housingHooks', attribute 'genus'.
+   */
+  public static final String HOUSING_HOOKS_CATEGORIES_ATTR="categories";
 }

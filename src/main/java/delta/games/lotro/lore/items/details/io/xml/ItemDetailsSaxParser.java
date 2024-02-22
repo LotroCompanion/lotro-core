@@ -12,6 +12,7 @@ import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.enums.AllegianceGroup;
 import delta.games.lotro.common.enums.Genus;
+import delta.games.lotro.common.enums.HousingHookCategory;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.emotes.EmoteDescription;
@@ -20,6 +21,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.details.AllegiancePoints;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
+import delta.games.lotro.lore.items.details.HousingHooks;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemUsageCooldown;
 import delta.games.lotro.lore.items.details.ItemXP;
@@ -171,6 +173,25 @@ public class ItemDetailsSaxParser
       int points=SAXParsingTools.getIntAttribute(attributes,ItemDetailsXMLConstants.ALLEGIANCE_POINTS_ATTR,0);
       AllegiancePoints allegiancePoints=new AllegiancePoints(group,points);
       Item.addDetail(item,allegiancePoints);
+      return true;
+    }
+    else if (ItemDetailsXMLConstants.HOUSING_HOOKS_TAG.equals(qualifiedName))
+    {
+      HousingHooks info=new HousingHooks();
+      // Categories
+      String categoriesStr=attributes.getValue(ItemDetailsXMLConstants.HOUSING_HOOKS_CATEGORIES_ATTR);
+      String[] categoryCodeStrs=categoriesStr.split(",");
+      LotroEnum<HousingHookCategory> housingHookCategoryEnum=LotroEnumsRegistry.getInstance().get(HousingHookCategory.class);
+      for(String categoryCodeStr : categoryCodeStrs)
+      {
+        int code=NumericTools.parseInt(categoryCodeStr,-1);
+        HousingHookCategory category=housingHookCategoryEnum.getEntry(code);
+        if (category!=null)
+        {
+          info.addCategory(category);
+        }
+      }
+      Item.addDetail(item,info);
       return true;
     }
     return false;
