@@ -339,6 +339,10 @@ public class DataFiles
    */
   public static final String HOBBIES="hobbies";
   /**
+   * Perks file.
+   */
+  public static final String PERKS="perks";
+  /**
    * Labels file.
    */
   public static final String LABELS="labelsDir";
