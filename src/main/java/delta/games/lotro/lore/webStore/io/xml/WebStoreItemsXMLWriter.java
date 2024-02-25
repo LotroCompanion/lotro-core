@@ -71,11 +71,23 @@ public class WebStoreItemsXMLWriter
     {
       attrs.addAttribute("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_BILLING_GROUP_ATTR,XmlWriter.CDATA,String.valueOf(billingToken.getCode()));
     }
+    // Item ID
+    int itemID=webStoreItem.getItemID();
+    if (itemID!=0)
+    {
+      attrs.addAttribute("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemID));
+    }
     // SKU
     String sku=webStoreItem.getSku();
     if (sku.length()>0)
     {
       attrs.addAttribute("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_SKU_ATTR,XmlWriter.CDATA,sku);
+    }
+    // Short name
+    String shortName=webStoreItem.getShortName();
+    if (shortName.length()>0)
+    {
+      attrs.addAttribute("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_SHORT_NAME_ATTR,XmlWriter.CDATA,shortName);
     }
     hd.startElement("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_TAG,attrs);
     hd.endElement("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_TAG);

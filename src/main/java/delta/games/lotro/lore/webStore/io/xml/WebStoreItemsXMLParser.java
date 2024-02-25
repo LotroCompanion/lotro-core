@@ -87,7 +87,15 @@ public class WebStoreItemsXMLParser
       BillingGroup group=billingGroupsEnum.getEntry(billingGroupId);
       ret.setBillingToken(group);
     }
+    // Item ID
+    int itemID=DOMParsingTools.getIntAttribute(attrs,WebStoreItemsXMLConstants.WEB_STORE_ITEM_ITEM_ID_ATTR,-1);
+    ret.setItemID(itemID);
     // SKU
+    String sku=DOMParsingTools.getStringAttribute(attrs,WebStoreItemsXMLConstants.WEB_STORE_ITEM_SKU_ATTR,"");
+    ret.setSku(sku);
+    // Short name
+    String shortName=DOMParsingTools.getStringAttribute(attrs,WebStoreItemsXMLConstants.WEB_STORE_ITEM_SHORT_NAME_ATTR,"");
+    ret.setShortName(shortName);
     return ret;
   }
 }

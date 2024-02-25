@@ -11,10 +11,14 @@ import delta.games.lotro.common.enums.BillingGroup;
 public class WebStoreItem implements Identifiable,Named
 {
   private int _id;
-  private BillingGroup _billingToken;
   private String _name;
+  private BillingGroup _billingToken;
+  private int _itemID;
   private boolean _freeForSubscribers;
   private String _sku;
+  private String _shortName;
+  // private String _buyNowTooltip;
+  // private String _buyNowTooltipDisabled;
 
   /**
    * Constructor.
@@ -73,6 +77,24 @@ public class WebStoreItem implements Identifiable,Named
   }
 
   /**
+   * Get the item ID.
+   * @return An item ID or zero.
+   */
+  public int getItemID()
+  {
+    return _itemID;
+  }
+
+  /**
+   * Set the item ID.
+   * @param itemID Item ID (0 means no item).
+   */
+  public void setItemID(int itemID)
+  {
+    _itemID=itemID;
+  }
+
+  /**
    * Indicates if this store item is free for subscribers or not.
    * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
@@ -110,6 +132,28 @@ public class WebStoreItem implements Identifiable,Named
       sku="";
     }
     _sku=sku;
+  }
+
+  /**
+   * Get the 'short name'.
+   * @return the 'short name'.
+   */
+  public String getShortName()
+  {
+    return _shortName;
+  }
+
+  /**
+   * Set the 'short name'.
+   * @param shortName the short name to set.
+   */
+  public void setShortName(String shortName)
+  {
+    if (shortName==null)
+    {
+      shortName="";
+    }
+    _shortName=shortName;
   }
 
   @Override

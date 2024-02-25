@@ -32,7 +32,15 @@ public class WebStoreItemsXMLConstants
    */
   public static final String WEB_STORE_ITEM_BILLING_GROUP_ATTR="billingGroup";
   /**
+   * Tag 'webStoreItem', attribute 'itemID'.
+   */
+  public static final String WEB_STORE_ITEM_ITEM_ID_ATTR="itemID";
+  /**
    * Tag 'webStoreItem', attribute 'sku'.
    */
   public static final String WEB_STORE_ITEM_SKU_ATTR="sku";
+  /**
+   * Tag 'webStoreItem', attribute 'shortName'.
+   */
+  public static final String WEB_STORE_ITEM_SHORT_NAME_ATTR="shortName";
 }
