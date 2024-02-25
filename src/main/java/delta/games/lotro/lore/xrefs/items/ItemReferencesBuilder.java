@@ -45,6 +45,8 @@ import delta.games.lotro.lore.trade.barter.ItemBarterEntryElement;
 import delta.games.lotro.lore.trade.vendor.SellList;
 import delta.games.lotro.lore.trade.vendor.VendorNpc;
 import delta.games.lotro.lore.trade.vendor.VendorsManager;
+import delta.games.lotro.lore.webStore.WebStoreItem;
+import delta.games.lotro.lore.webStore.WebStoreItemsManager;
 import delta.games.lotro.lore.xrefs.Reference;
 
 /**
@@ -81,6 +83,7 @@ public class ItemReferencesBuilder
     findInContainers(itemId);
     findInMeldingRecipes(itemId);
     findSameCosmetics(itemId);
+    findInWebStoreItems(itemId);
     List<Reference<?,ItemRole>> ret=new ArrayList<Reference<?,ItemRole>>(_storage);
     _storage.clear();
     return ret;
@@ -376,6 +379,19 @@ public class ItemReferencesBuilder
         {
           _storage.add(new Reference<Item,ItemRole>(sameCosmeticItem,ItemRole.SAME_COSMETICS));
         }
+      }
+    }
+  }
+
+  private void findInWebStoreItems(int itemId)
+  {
+    WebStoreItemsManager webStoreItemsMgr=WebStoreItemsManager.getInstance();
+    for(WebStoreItem webStoreItem : webStoreItemsMgr.getAll())
+    {
+      int webStoreItemId=webStoreItem.getItemID();
+      if (webStoreItemId==itemId)
+      {
+        _storage.add(new Reference<WebStoreItem,ItemRole>(webStoreItem,ItemRole.WEB_STORE_ITEM));
       }
     }
   }

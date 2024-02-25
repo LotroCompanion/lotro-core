@@ -61,5 +61,9 @@ public enum ItemRole
   /**
    * Has same cosmetics as.
    */
-  SAME_COSMETICS
+  SAME_COSMETICS,
+  /**
+   * Item comes from a web store item.
+   */
+  WEB_STORE_ITEM
 }
