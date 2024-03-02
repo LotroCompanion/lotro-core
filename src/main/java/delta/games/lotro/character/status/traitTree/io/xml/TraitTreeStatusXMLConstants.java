@@ -2,7 +2,7 @@ package delta.games.lotro.character.status.traitTree.io.xml;
 
 /**
  * Constants for tags and attribute names used in the
- * trait tree setup XML files.
+ * trait tree status XML files.
  * @author DAM
  */
 public class TraitTreeStatusXMLConstants

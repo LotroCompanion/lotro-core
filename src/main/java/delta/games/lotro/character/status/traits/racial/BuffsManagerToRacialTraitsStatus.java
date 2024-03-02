@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.stats.buffs.io.xml.RawBuffStorage;
+import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 
@@ -27,9 +28,9 @@ public class BuffsManagerToRacialTraitsStatus
    * @param buffs Buffs to use.
    * @return the loaded racial traits status.
    */
-  public static RacialTraitsStatus initFromBuffs(RaceDescription race, RawBuffStorage buffs)
+  public static SlottedTraitsStatus initFromBuffs(RaceDescription race, RawBuffStorage buffs)
   {
-    RacialTraitsStatus status=new RacialTraitsStatus();
+    SlottedTraitsStatus status=new SlottedTraitsStatus();
     Set<Integer> availableRacialTraitIDs=new HashSet<Integer>();
     for(TraitDescription trait : race.getEarnableTraits())
     {

@@ -1,18 +1,19 @@
-package delta.games.lotro.character.status.traits.racial;
+package delta.games.lotro.character.status.traits.shared;
 
 /**
- * Status of slotted racial traits for a single character.
+ * Status of slotted traits.
  * @author DAM
  */
-public class RacialTraitsStatus
+public class SlottedTraitsStatus extends TraitsStatus
 {
   private int[] _traitIDs;
 
   /**
    * Constructor.
    */
-  public RacialTraitsStatus()
+  public SlottedTraitsStatus()
   {
+    super();
     _traitIDs=new int[0];
   }
 
