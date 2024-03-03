@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import delta.games.lotro.character.traits.io.xml.TraitDescriptionXMLParser;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 
@@ -107,6 +108,25 @@ public class TraitsManager
   {
     TraitDescription ret=null;
     ret=_cache.get(Integer.valueOf(id));
+    return ret;
+  }
+
+  /**
+   * Get the traits for a given nature.
+   * @param traitNature Trait nature.
+   * @return A list of traits, sorted by ID.
+   */
+  public List<TraitDescription> getTraitsForNature(TraitNature traitNature)
+  {
+    List<TraitDescription> ret=new ArrayList<TraitDescription>();
+    for(TraitDescription trait : _cache.values())
+    {
+      if (trait.getNature()==traitNature)
+      {
+        ret.add(trait);
+      }
+    }
+    Collections.sort(ret,new IdentifiableComparator<TraitDescription>());
     return ret;
   }
 
