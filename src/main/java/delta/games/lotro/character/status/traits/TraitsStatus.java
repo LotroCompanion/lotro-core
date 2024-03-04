@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.stats.RacialTraitsStatsComputer;
 import delta.games.lotro.character.stats.TraitTreeStatsComputer;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
@@ -93,7 +94,10 @@ public class TraitsStatus
       ret.addAll(TraitTreeStatsComputer.getContributions(_traitTree,c));
     }
     // Racial traits
-    // TODO
+    if (_racialTraits!=null)
+    {
+      ret.addAll(RacialTraitsStatsComputer.getContributions(_racialTraits,c));
+    }
     return ret;
   }
 

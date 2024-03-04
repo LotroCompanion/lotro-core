@@ -22,6 +22,9 @@ import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLConstants;
 import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLParser;
+import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLConstants;
+import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLParser;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
@@ -115,6 +118,13 @@ public class CharacterXMLParser
     {
       TraitTreeStatus traitTree=TraitTreeStatusXMLParser.parseTraitTreeStatus(traitTreeTag);
       c.getTraits().setTraitTreeStatus(traitTree);
+    }
+    // Racial traits
+    Element racialTraitsTag=DOMParsingTools.getChildTagByName(root,SlottedTraitsStatusXMLConstants.RACIAL_TRAITS_STATUS_TAG);
+    if (racialTraitsTag!=null)
+    {
+      SlottedTraitsStatus racialTraitsStatus=SlottedTraitsStatusXMLParser.parseSlottedTraitsStatus(racialTraitsTag);
+      c.getTraits().setRacialTraitsStatus(racialTraitsStatus);
     }
     // Buffs & traits
     BuffsIO.loadBuffs(root,c);

@@ -23,10 +23,11 @@ public class SlottedTraitsStatusXMLWriter
    * Write a status to an XML file.
    * @param outFile Output file.
    * @param status Status to write.
+   * @param mainTag Main tag.
    * @param encoding Encoding to use.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean write(File outFile, final SlottedTraitsStatus status, String encoding)
+  public boolean write(File outFile, final SlottedTraitsStatus status, String mainTag, String encoding)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -34,7 +35,7 @@ public class SlottedTraitsStatusXMLWriter
       @Override
       public void writeXml(TransformerHandler hd) throws Exception
       {
-        writeSlottedTraitsStatus(hd,status);
+        writeSlottedTraitsStatus(hd,status,mainTag);
       }
     };
     boolean ret=helper.write(outFile,encoding,writer);
@@ -47,9 +48,13 @@ public class SlottedTraitsStatusXMLWriter
    * @param status Data to write.
    * @throws SAXException If an error occurs.
    */
-  public static void writeSlottedTraitsStatus(TransformerHandler hd, SlottedTraitsStatus status) throws SAXException
+  public static void writeSlottedTraitsStatus(TransformerHandler hd, SlottedTraitsStatus status, String mainTag) throws SAXException
   {
-    hd.startElement("","",SlottedTraitsStatusXMLConstants.TRAITS_TAG,new AttributesImpl());
+    if (status==null)
+    {
+      return;
+    }
+    hd.startElement("","",mainTag,new AttributesImpl());
     // Available traits
     for(Integer traitID : status.getTraitIDs())
     {
@@ -91,6 +96,6 @@ public class SlottedTraitsStatusXMLWriter
       hd.startElement("","",SlottedTraitsStatusXMLConstants.TRAIT_SLOT_TAG,slotAttrs);
       hd.endElement("","",SlottedTraitsStatusXMLConstants.TRAIT_SLOT_TAG);
     }
-    hd.endElement("","",SlottedTraitsStatusXMLConstants.TRAITS_TAG);
+    hd.endElement("","",mainTag);
   }
 }

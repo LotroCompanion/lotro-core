@@ -58,6 +58,7 @@ public class SlottedTraitsStatusXMLParser
       int traidId=DOMParsingTools.getIntAttribute(traitSlotAttrs,SlottedTraitsStatusXMLConstants.TRAIT_SLOT_TRAIT_ID_ATTR,0);
       traitIDs[i]=traidId;
     }
+    status.setTraits(traitIDs);
     return status;
   }
 }

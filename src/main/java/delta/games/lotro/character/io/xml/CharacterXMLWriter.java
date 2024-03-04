@@ -25,6 +25,11 @@ import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLWriter;
+import delta.games.lotro.character.status.traits.TraitsStatus;
+import delta.games.lotro.character.status.traits.racial.RacialTraitsIo;
+import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLConstants;
+import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLWriter;
 import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
@@ -112,9 +117,14 @@ public class CharacterXMLWriter
     // Tomes
     TomesSet tomes=character.getTomes();
     writeTomes(hd,tomes);
-    // Trait tree
-    TraitTreeStatus traitTree=character.getTraits().getTraitTreeStatus();
+    // Traits
+    // - trait tree
+    TraitsStatus traitsStatus=character.getTraits();
+    TraitTreeStatus traitTree=traitsStatus.getTraitTreeStatus();
     TraitTreeStatusXMLWriter.write(hd,traitTree);
+    // - racial traits
+    SlottedTraitsStatus racialTraitsStatus=traitsStatus.getRacialTraitsStatus();
+    SlottedTraitsStatusXMLWriter.writeSlottedTraitsStatus(hd,racialTraitsStatus,SlottedTraitsStatusXMLConstants.RACIAL_TRAITS_STATUS_TAG);
     // Buffs
     BuffsManager buffs=character.getBuffs();
     BuffsXMLWriter.write(hd,buffs);

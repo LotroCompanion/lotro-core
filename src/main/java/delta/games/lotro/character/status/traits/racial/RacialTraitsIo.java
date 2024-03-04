@@ -5,6 +5,7 @@ import java.io.File;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLConstants;
 import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLParser;
 import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLWriter;
 
@@ -46,7 +47,7 @@ public class RacialTraitsIo
   {
     File toFile=getStatusFile(character);
     SlottedTraitsStatusXMLWriter writer=new SlottedTraitsStatusXMLWriter();
-    boolean ok=writer.write(toFile,status,EncodingNames.UTF_8);
+    boolean ok=writer.write(toFile,status,EncodingNames.UTF_8,SlottedTraitsStatusXMLConstants.RACIAL_TRAITS_STATUS_TAG);
     return ok;
   }
 

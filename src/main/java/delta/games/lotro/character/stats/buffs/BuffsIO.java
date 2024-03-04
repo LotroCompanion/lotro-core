@@ -10,6 +10,9 @@ import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLParser;
 import delta.games.lotro.character.stats.buffs.io.xml.RawBuffStorage;
 import delta.games.lotro.character.status.traitTree.BuffsManagerToTraitTreeStatus;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
+import delta.games.lotro.character.status.traits.TraitsStatus;
+import delta.games.lotro.character.status.traits.racial.BuffsManagerToRacialTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
 
 /**
  * I/O methods for buffs.
@@ -29,12 +32,20 @@ public class BuffsIO
     // Load raw buffs
     Element buffsTag=DOMParsingTools.getChildTagByName(root,BuffsXMLConstants.BUFFS_TAG);
     RawBuffStorage buffs=BuffsXMLParser.parseBuffs(buffsTag);
+    TraitsStatus traitsStatus=c.getTraits();
     // Initialize the trait tree
-    TraitTreeStatus traitTreeStatus=c.getTraits().getTraitTreeStatus();
+    TraitTreeStatus traitTreeStatus=traitsStatus.getTraitTreeStatus();
     if (traitTreeStatus==null)
     {
       TraitTreeStatus traitTree=BuffsManagerToTraitTreeStatus.initFromBuffs(c.getCharacterClass(),buffs);
-      c.getTraits().setTraitTreeStatus(traitTree);
+      traitsStatus.setTraitTreeStatus(traitTree);
+    }
+    // Initialize racial traits status
+    SlottedTraitsStatus racialTraits=traitsStatus.getRacialTraitsStatus();
+    if (racialTraits==null)
+    {
+      racialTraits=BuffsManagerToRacialTraitsStatus.initFromBuffs(c.getRace(),buffs);
+      traitsStatus.setRacialTraitsStatus(racialTraits);
     }
     // Initialize other buffs
     initBuffs(buffs,c.getBuffs());

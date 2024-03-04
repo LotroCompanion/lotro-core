@@ -3,6 +3,8 @@ package delta.games.lotro.character;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
+import delta.games.lotro.character.status.traits.TraitsStatus;
+import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
 
 /**
  * Factory method related to character data.
@@ -23,11 +25,16 @@ public class CharacterFactory
     dataSummary.setLevel(toonSummary.getLevel());
     dataSummary.setSummary(toonSummary);
     newInfos.setDate(Long.valueOf(System.currentTimeMillis()));
-    // Trait tree
+    // Init traits
+    TraitsStatus traitsStatus=newInfos.getTraits();
+    // - Trait tree
     ClassDescription classDescription=toonSummary.getCharacterClass();
     TraitTree traitTree=classDescription.getTraitTree();
-    TraitTreeStatus status=new TraitTreeStatus(traitTree);
-    newInfos.getTraits().setTraitTreeStatus(status);
+    TraitTreeStatus traitTreeStatus=new TraitTreeStatus(traitTree);
+    traitsStatus.setTraitTreeStatus(traitTreeStatus);
+    // - Racial traits
+    SlottedTraitsStatus racialTraitsStatus=new SlottedTraitsStatus();
+    traitsStatus.setRacialTraitsStatus(racialTraitsStatus);
     return newInfos;
   }
 }

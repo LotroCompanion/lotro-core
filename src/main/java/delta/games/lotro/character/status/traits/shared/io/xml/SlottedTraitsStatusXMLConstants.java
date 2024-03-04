@@ -8,9 +8,13 @@ package delta.games.lotro.character.status.traits.shared.io.xml;
 public class SlottedTraitsStatusXMLConstants
 {
   /**
-   * Tag 'traits'.
+   * Tag 'racialTraitsStatus'.
    */
-  public static final String TRAITS_TAG="traits";
+  public static final String RACIAL_TRAITS_STATUS_TAG="racialTraitsStatus";
+  /**
+   * Tag 'mountedAppearancesStatus'.
+   */
+  public static final String MOUNTED_APPEARANCES_STATUS_TAG="mountedAppearancesStatus";
   /**
    * Tag 'available'.
    */
