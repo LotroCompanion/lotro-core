@@ -46,6 +46,7 @@ public class SlottedTraitsStatusXMLWriter
    * Write status of the slotted traits.
    * @param hd Output stream.
    * @param status Data to write.
+   * @param mainTag Tag to use.
    * @throws SAXException If an error occurs.
    */
   public static void writeSlottedTraitsStatus(TransformerHandler hd, SlottedTraitsStatus status, String mainTag) throws SAXException

@@ -26,7 +26,6 @@ import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLWriter;
 import delta.games.lotro.character.status.traits.TraitsStatus;
-import delta.games.lotro.character.status.traits.racial.RacialTraitsIo;
 import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
 import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLConstants;
 import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLWriter;
