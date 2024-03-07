@@ -10,6 +10,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.TraitSlotsStatus;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 
@@ -57,7 +58,7 @@ public class SlottedTraitsStatusXMLWriter
     }
     hd.startElement("","",mainTag,new AttributesImpl());
     // Available traits
-    for(Integer traitID : status.getTraitIDs())
+    for(Integer traitID : status.getAvailableTraitsStatus().getTraitIDs())
     {
       AttributesImpl availableTraitAttrs=new AttributesImpl();
       availableTraitAttrs.addAttribute("","",SlottedTraitsStatusXMLConstants.TRAIT_SLOT_TRAIT_ID_ATTR,XmlWriter.CDATA,traitID.toString());
@@ -74,13 +75,35 @@ public class SlottedTraitsStatusXMLWriter
       hd.endElement("","",SlottedTraitsStatusXMLConstants.TRAIT_AVAILABLE_TAG);
     }
     // Slots status
-    int slotsCount=status.getSlotsCount();
+    TraitSlotsStatus slotsStatus=status.getSlotsStatus();
+    writeSlotsStatus(hd,slotsStatus,null);
+    hd.endElement("","",mainTag);
+  }
+
+  /**
+   * Write status of the slotted traits.
+   * @param hd Output stream.
+   * @param slotsStatus Data to write.
+   * @param mainTag Tag to use.
+   * @throws SAXException If an error occurs.
+   */
+  public static void writeSlotsStatus(TransformerHandler hd, TraitSlotsStatus slotsStatus, String mainTag) throws SAXException
+  {
+    if (slotsStatus==null)
+    {
+      return;
+    }
+    if (mainTag!=null)
+    {
+      hd.startElement("","",mainTag,new AttributesImpl());
+    }
+    int slotsCount=slotsStatus.getSlotsCount();
     for(int i=0;i<slotsCount;i++)
     {
       AttributesImpl slotAttrs=new AttributesImpl();
       // Index
       slotAttrs.addAttribute("","",SlottedTraitsStatusXMLConstants.TRAIT_SLOT_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(i));
-      int traitID=status.getTraitAt(i);
+      int traitID=slotsStatus.getTraitAt(i);
       if (traitID!=0)
       {
         slotAttrs.addAttribute("","",SlottedTraitsStatusXMLConstants.TRAIT_SLOT_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitID));
@@ -97,6 +120,9 @@ public class SlottedTraitsStatusXMLWriter
       hd.startElement("","",SlottedTraitsStatusXMLConstants.TRAIT_SLOT_TAG,slotAttrs);
       hd.endElement("","",SlottedTraitsStatusXMLConstants.TRAIT_SLOT_TAG);
     }
-    hd.endElement("","",mainTag);
+    if (mainTag!=null)
+    {
+      hd.endElement("","",mainTag);
+    }
   }
 }

@@ -4,44 +4,35 @@ package delta.games.lotro.character.status.traits.shared;
  * Status of slotted traits.
  * @author DAM
  */
-public class SlottedTraitsStatus extends TraitsStatus
+public class SlottedTraitsStatus
 {
-  private int[] _traitIDs;
+  private TraitSlotsStatus _slotsStatus;
+  private AvailableTraitsStatus _availableTraits;
 
   /**
    * Constructor.
    */
   public SlottedTraitsStatus()
   {
-    super();
-    _traitIDs=new int[0];
+    _slotsStatus=new TraitSlotsStatus();
+    _availableTraits=new AvailableTraitsStatus();
   }
 
   /**
-   * Set the traits.
-   * @param traitIDs Trait IDs (0=none slotted).
+   * Get the slots status.
+   * @return the slots status.
    */
-  public void setTraits(int[] traitIDs)
+  public TraitSlotsStatus getSlotsStatus()
   {
-    _traitIDs=traitIDs;
+    return _slotsStatus;
   }
 
   /**
-   * Get the number of slots.
-   * @return A slots count.
+   * Get the available traits status.
+   * @return the available traits status.
    */
-  public int getSlotsCount()
+  public AvailableTraitsStatus getAvailableTraitsStatus()
   {
-    return _traitIDs.length;
-  }
-
-  /**
-   * Get the trait at the given index.
-   * @param index Index, between 0 and getSlotsCount()-1.
-   * @return A trait ID or 0 if not slotted.
-   */
-  public int getTraitAt(int index)
-  {
-    return _traitIDs[index];
+    return _availableTraits;
   }
 }

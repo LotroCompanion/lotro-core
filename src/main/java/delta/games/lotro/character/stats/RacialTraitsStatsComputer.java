@@ -5,7 +5,7 @@ import java.util.List;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
-import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.TraitSlotsStatus;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 
@@ -21,7 +21,7 @@ public class RacialTraitsStatsComputer
    * @param c Character to use.
    * @return a possibly empty but never <code>null</code> list of stats contributions.
    */
-  public static List<StatsContribution> getContributions(SlottedTraitsStatus status, CharacterData c)
+  public static List<StatsContribution> getContributions(TraitSlotsStatus status, CharacterData c)
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     TraitsManager traitsMgr=TraitsManager.getInstance();

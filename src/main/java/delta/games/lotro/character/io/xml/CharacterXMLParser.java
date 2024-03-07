@@ -22,7 +22,7 @@ import delta.games.lotro.character.stats.virtues.VirtuesSet;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLConstants;
 import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLParser;
-import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.TraitSlotsStatus;
 import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLConstants;
 import delta.games.lotro.character.status.traits.shared.io.xml.SlottedTraitsStatusXMLParser;
 import delta.games.lotro.character.virtues.VirtueDescription;
@@ -33,8 +33,8 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemFactory;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemsManager;
-import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
 import delta.games.lotro.lore.items.io.xml.ItemInstanceXMLParser;
+import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
 import delta.games.lotro.utils.PersistenceVersions;
 
 /**
@@ -123,8 +123,9 @@ public class CharacterXMLParser
     Element racialTraitsTag=DOMParsingTools.getChildTagByName(root,SlottedTraitsStatusXMLConstants.RACIAL_TRAITS_STATUS_TAG);
     if (racialTraitsTag!=null)
     {
-      SlottedTraitsStatus racialTraitsStatus=SlottedTraitsStatusXMLParser.parseSlottedTraitsStatus(racialTraitsTag);
-      c.getTraits().setRacialTraitsStatus(racialTraitsStatus);
+      TraitSlotsStatus slotsStatus=new TraitSlotsStatus();
+      SlottedTraitsStatusXMLParser.parseSlotsStatus(racialTraitsTag,slotsStatus);
+      c.getTraits().setRacialTraitsStatus(slotsStatus);
     }
     // Buffs & traits
     BuffsIO.loadBuffs(root,c);

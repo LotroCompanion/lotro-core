@@ -12,7 +12,7 @@ import delta.games.lotro.character.status.traitTree.BuffsManagerToTraitTreeStatu
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traits.TraitsStatus;
 import delta.games.lotro.character.status.traits.racial.BuffsManagerToRacialTraitsStatus;
-import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.TraitSlotsStatus;
 
 /**
  * I/O methods for buffs.
@@ -41,7 +41,7 @@ public class BuffsIO
       traitsStatus.setTraitTreeStatus(traitTree);
     }
     // Initialize racial traits status
-    SlottedTraitsStatus racialTraits=traitsStatus.getRacialTraitsStatus();
+    TraitSlotsStatus racialTraits=traitsStatus.getRacialTraitsStatus();
     if (racialTraits==null)
     {
       racialTraits=BuffsManagerToRacialTraitsStatus.initFromBuffs(c.getRace(),buffs);

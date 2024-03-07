@@ -4,7 +4,7 @@ import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traits.TraitsStatus;
-import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.TraitSlotsStatus;
 
 /**
  * Factory method related to character data.
@@ -33,7 +33,7 @@ public class CharacterFactory
     TraitTreeStatus traitTreeStatus=new TraitTreeStatus(traitTree);
     traitsStatus.setTraitTreeStatus(traitTreeStatus);
     // - Racial traits
-    SlottedTraitsStatus racialTraitsStatus=new SlottedTraitsStatus();
+    TraitSlotsStatus racialTraitsStatus=new TraitSlotsStatus();
     traitsStatus.setRacialTraitsStatus(racialTraitsStatus);
     return newInfos;
   }

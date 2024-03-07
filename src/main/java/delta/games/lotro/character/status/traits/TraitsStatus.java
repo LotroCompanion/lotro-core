@@ -8,7 +8,7 @@ import delta.games.lotro.character.stats.RacialTraitsStatsComputer;
 import delta.games.lotro.character.stats.TraitTreeStatsComputer;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
-import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
+import delta.games.lotro.character.status.traits.shared.TraitSlotsStatus;
 
 /**
  * Traits status, as stored in character data.
@@ -17,7 +17,7 @@ import delta.games.lotro.character.status.traits.shared.SlottedTraitsStatus;
 public class TraitsStatus
 {
   private TraitTreeStatus _traitTree;
-  private SlottedTraitsStatus _racialTraits;
+  private TraitSlotsStatus _racialTraits;
   // Later or never: tomes status, VirtuesSet
   // Note: SkirmishTraitsStatus, Mounted combat trait tree and BB trait tree are stored separately
 
@@ -66,7 +66,7 @@ public class TraitsStatus
    * Get the racial traits status.
    * @return the racial traits status.
    */
-  public SlottedTraitsStatus getRacialTraitsStatus()
+  public TraitSlotsStatus getRacialTraitsStatus()
   {
     return _racialTraits;
   }
@@ -75,7 +75,7 @@ public class TraitsStatus
    * Set the racial traits status.
    * @param racialTraits Racial traits status to set.
    */
-  public void setRacialTraitsStatus(SlottedTraitsStatus racialTraits)
+  public void setRacialTraitsStatus(TraitSlotsStatus racialTraits)
   {
     _racialTraits=racialTraits;
   }

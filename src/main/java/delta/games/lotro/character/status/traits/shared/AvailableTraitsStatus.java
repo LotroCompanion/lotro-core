@@ -10,14 +10,14 @@ import java.util.Set;
  * Status of available traits.
  * @author DAM
  */
-public class TraitsStatus
+public class AvailableTraitsStatus
 {
   private Set<Integer> _availableTraits;
 
   /**
    * Constructor.
    */
-  public TraitsStatus()
+  public AvailableTraitsStatus()
   {
     _availableTraits=new HashSet<Integer>();
   }
