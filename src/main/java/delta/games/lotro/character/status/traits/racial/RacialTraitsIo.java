@@ -47,7 +47,7 @@ public class RacialTraitsIo
   {
     File toFile=getStatusFile(character);
     SlottedTraitsStatusXMLWriter writer=new SlottedTraitsStatusXMLWriter();
-    boolean ok=writer.write(toFile,status,EncodingNames.UTF_8,SlottedTraitsStatusXMLConstants.RACIAL_TRAITS_STATUS_TAG);
+    boolean ok=writer.write(toFile,status,SlottedTraitsStatusXMLConstants.RACIAL_TRAITS_STATUS_TAG,EncodingNames.UTF_8);
     return ok;
   }
 
