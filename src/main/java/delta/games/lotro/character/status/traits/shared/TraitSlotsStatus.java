@@ -44,4 +44,14 @@ public class TraitSlotsStatus
   {
     return _traitIDs[index];
   }
+
+  /**
+   * Set the trait at the given slot.
+   * @param index Index of slot.
+   * @param traitID ID of the trait to set (0 for no trait).
+   */
+  public void setTraitAt(int index, int traitID)
+  {
+    _traitIDs[index]=traitID;
+  }
 }
