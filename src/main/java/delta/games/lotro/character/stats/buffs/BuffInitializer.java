@@ -3,10 +3,7 @@ package delta.games.lotro.character.stats.buffs;
 import java.io.File;
 import java.util.List;
 
-import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.ItemClass;
@@ -31,10 +28,6 @@ public class BuffInitializer
    * Generic buffs (for all characters).
    */
   private static final String GENERIC="Generic";
-  /**
-   * Racial buffs.
-   */
-  private static final String RACIAL="Racial";
 
   /**
    * Init buffs.
@@ -43,7 +36,6 @@ public class BuffInitializer
   public void initBuffs(BuffRegistry registry)
   {
     initSharedBuffs(registry);
-    initRacialBuffs(registry);
     initEffectBasedBuffs(registry);
     initConsumableBuffs(registry);
   }
@@ -70,37 +62,6 @@ public class BuffInitializer
       SimpleStatsBuff buff=new SimpleStatsBuff(stats);
       hope.setImpl(buff);
       registry.registerBuff(hope);
-    }
-  }
-
-  private void initRacialBuffs(BuffRegistry registry)
-  {
-    RacesManager racesManager=RacesManager.getInstance();
-    for(RaceDescription race : racesManager.getAll())
-    {
-      List<TraitDescription> traits=race.getEarnableTraits();
-      for(TraitDescription trait : traits)
-      {
-        initRaceBuff(race,registry,trait);
-      }
-    }
-  }
-
-  private void initRaceBuff(RaceDescription race, BuffRegistry registry, TraitDescription trait)
-  {
-    int identifier=trait.getIdentifier();
-    String name=trait.getName();
-    Buff buff=new Buff(String.valueOf(identifier),BuffType.RACE, RACIAL,name);
-    int iconId=trait.getIconId();
-    buff.setIcon("/traits/"+iconId+".png");
-    buff.setRequiredRace(race);
-    StatsProviderBuffImpl buffImpl=new StatsProviderBuffImpl(trait.getStatsProvider(),trait.getTiersCount());
-    buff.setImpl(buffImpl);
-    registry.registerBuff(buff);
-    String key=trait.getKey();
-    if (key.length()>0)
-    {
-      registry.registerBuff(key,buff);
     }
   }
 

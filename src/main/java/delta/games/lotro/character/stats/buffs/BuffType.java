@@ -7,14 +7,6 @@ package delta.games.lotro.character.stats.buffs;
 public enum BuffType
 {
   /**
-   * Buff from a class trait.
-   */
-  CLASS,
-  /**
-   * Buff from a racial trait.
-   */
-  RACE,
-  /**
    * Buff from a consumable.
    */
   CONSUMABLE,
