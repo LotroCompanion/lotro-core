@@ -18,6 +18,17 @@ public class TraitSlotsStatus
   }
 
   /**
+   * Copy constructor.
+   * @param status Source status.
+   */
+  public TraitSlotsStatus(TraitSlotsStatus status)
+  {
+    super();
+    _traitIDs=new int[status._traitIDs.length];
+    System.arraycopy(status._traitIDs,0,_traitIDs,0,status.getSlotsCount());
+  }
+
+  /**
    * Set the traits.
    * @param traitIDs Trait IDs (0=none slotted).
    */
