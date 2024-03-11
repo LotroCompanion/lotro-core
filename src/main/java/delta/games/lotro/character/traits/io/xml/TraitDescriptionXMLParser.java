@@ -23,6 +23,7 @@ import delta.games.lotro.common.effects.io.xml.EffectXMLConstants;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
+import delta.games.lotro.common.enums.TraitGroup;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.enums.TraitSubCategory;
 import delta.games.lotro.common.progression.ProgressionsManager;
@@ -42,6 +43,7 @@ public class TraitDescriptionXMLParser
 
   private SingleLocaleLabelsManager _i18n;
   private TraitPrerequisitesXMLParser _prerequisitesParser;
+  private LotroEnum<TraitGroup> _traitGroupEnum;
 
   /**
    * Constructor.
@@ -50,6 +52,7 @@ public class TraitDescriptionXMLParser
   {
     _i18n=I18nFacade.getLabelsMgr("traits");
     _prerequisitesParser=new TraitPrerequisitesXMLParser();
+    _traitGroupEnum=LotroEnumsRegistry.getInstance().get(TraitGroup.class);
   }
 
   /**
@@ -153,6 +156,26 @@ public class TraitDescriptionXMLParser
     // Cosmetic
     boolean cosmetic=DOMParsingTools.getBooleanAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_COSMETIC_ATTR,false);
     trait.setCosmetic(cosmetic);
+    // Trait groups
+    List<Element> traitGroups=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_GROUP_TAG);
+    for(Element traitGroup : traitGroups)
+    {
+      NamedNodeMap groupAttrs=traitGroup.getAttributes();
+      int code=DOMParsingTools.getIntAttribute(groupAttrs,TraitDescriptionXMLConstants.TRAIT_GROUP_CODE_ATTR,0);
+      if (code>0)
+      {
+        TraitGroup group=_traitGroupEnum.getEntry(code);
+        if (group!=null)
+        {
+          trait.addTraitGroup(group);
+        }
+        else
+        {
+          String groupName=DOMParsingTools.getStringAttribute(groupAttrs,TraitDescriptionXMLConstants.TRAIT_GROUP_NAME_ATTR,null);
+          LOGGER.warn("Trait group not found: code="+code+", name="+groupName);
+        }
+      }
+    }
     // Skills
     List<Element> skillTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_SKILL_TAG);
     for(Element skillTag : skillTags)

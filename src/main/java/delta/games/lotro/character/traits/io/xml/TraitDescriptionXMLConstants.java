@@ -107,4 +107,16 @@ public class TraitDescriptionXMLConstants
    * Tag 'effectGenerator'.
    */
   public static final String TRAIT_EFFECT_GENERATOR_TAG="effectGenerator";
+  /**
+   * Tag 'group'.
+   */
+  public static final String TRAIT_GROUP_TAG="group";
+  /**
+   * Tag 'group', attribute 'code'.
+   */
+  public static final String TRAIT_GROUP_CODE_ATTR="code";
+  /**
+   * Tag 'group', attribute 'name'.
+   */
+  public static final String TRAIT_GROUP_NAME_ATTR="name";
 }

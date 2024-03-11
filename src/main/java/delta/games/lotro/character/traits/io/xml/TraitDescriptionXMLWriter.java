@@ -20,6 +20,7 @@ import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.io.xml.EffectXMLWriter;
 import delta.games.lotro.common.enums.SkillCategory;
+import delta.games.lotro.common.enums.TraitGroup;
 import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.enums.TraitSubCategory;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
@@ -154,6 +155,18 @@ public class TraitDescriptionXMLWriter
     hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_TAG,attrs);
     // Stats
     StatsProviderXMLWriter.writeXml(hd,trait.getStatsProvider());
+    // Trait groups
+    for(TraitGroup traitGroup : trait.getTraitGroups())
+    {
+      AttributesImpl traitGroupAttrs=new AttributesImpl();
+      int code=traitGroup.getCode();
+      traitGroupAttrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_GROUP_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
+      // Name
+      String groupName=traitGroup.getLabel();
+      traitGroupAttrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_GROUP_NAME_ATTR,XmlWriter.CDATA,groupName);
+      hd.startElement("","",TraitDescriptionXMLConstants.TRAIT_GROUP_TAG,traitGroupAttrs);
+      hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_GROUP_TAG);
+    }
     // Skills
     for(SkillDescription skill : trait.getSkills())
     {
