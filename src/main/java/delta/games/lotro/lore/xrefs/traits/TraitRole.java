@@ -15,6 +15,10 @@ public enum TraitRole
    */
   RACE_TRAIT,
   /**
+   * Trait found in an item.
+   */
+  ITEM_TRAIT,
+  /**
    * Trait provided as a quest/deed reward.
    */
   REWARD

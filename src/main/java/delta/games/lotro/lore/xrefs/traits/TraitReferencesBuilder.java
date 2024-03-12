@@ -18,6 +18,11 @@ import delta.games.lotro.common.rewards.SelectableRewardElement;
 import delta.games.lotro.common.rewards.TraitReward;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.lore.items.details.GrantType;
+import delta.games.lotro.lore.items.details.GrantedElement;
+import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
@@ -50,6 +55,7 @@ public class TraitReferencesBuilder
     findInRaces(traitID);
     findInClasses(traitID);
     findInRewards(traitID);
+    findInItems(traitID);
     List<Reference<?,TraitRole>> ret=new ArrayList<Reference<?,TraitRole>>(_storage);
     _storage.clear();
     return ret;
@@ -167,4 +173,28 @@ public class TraitReferencesBuilder
       }
     }
   }
+
+  private void findInItems(int traitID)
+  {
+    for(Item item : ItemsManager.getInstance().getAllItems())
+    {
+      ItemDetailsManager details=item.getDetails();
+      if (details==null)
+      {
+        continue;
+      }
+      for(GrantedElement<?> granted : details.getItemDetails(GrantedElement.class))
+      {
+        if (granted.getType()==GrantType.TRAIT)
+        {
+          TraitDescription trait=(TraitDescription)granted.getGrantedElement();
+          if (trait.getIdentifier()==traitID)
+          {
+            _storage.add(new Reference<Item,TraitRole>(item,TraitRole.ITEM_TRAIT));
+          }
+        }
+      }
+    }
+  }
+
 }
