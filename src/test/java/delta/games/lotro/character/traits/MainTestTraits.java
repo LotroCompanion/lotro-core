@@ -19,7 +19,6 @@ public class MainTestTraits
       BasicStatsSet stats=statsProvider.getStats(i,level);
       System.out.println(trait.getName()+", tier "+i+", level "+level+" => "+stats);
     }
-    
   }
 
   private void doIt()
