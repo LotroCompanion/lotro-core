@@ -10,6 +10,7 @@ import delta.common.utils.collections.filters.ProxyFilter;
 import delta.common.utils.collections.filters.ProxyValueResolver;
 import delta.games.lotro.character.status.traits.TraitStatus;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.traits.filters.TraitGroupFilter;
 import delta.games.lotro.common.filters.NamedFilter;
 
 /**
@@ -20,6 +21,7 @@ public class TraitStatusFilter implements Filter<TraitStatus>
 {
   private Filter<TraitStatus> _filter;
   private NamedFilter<TraitDescription> _nameFilter;
+  private TraitGroupFilter _groupFilter;
   private KnownTraitFilter _knownFilter;
 
   /**
@@ -40,6 +42,10 @@ public class TraitStatusFilter implements Filter<TraitStatus>
     };
     ProxyFilter<TraitStatus,TraitDescription> nameFilter=new ProxyFilter<TraitStatus,TraitDescription>(proxySolver,_nameFilter);
     filters.add(nameFilter);
+    // Group
+    _groupFilter=new TraitGroupFilter(null);
+    ProxyFilter<TraitStatus,TraitDescription> groupFilter=new ProxyFilter<TraitStatus,TraitDescription>(proxySolver,_groupFilter);
+    filters.add(groupFilter);
     // Known
     _knownFilter=new KnownTraitFilter(null);
     filters.add(_knownFilter);
@@ -53,6 +59,15 @@ public class TraitStatusFilter implements Filter<TraitStatus>
   public NamedFilter<TraitDescription> getNameFilter()
   {
     return _nameFilter;
+  }
+
+  /**
+   * Get the filter on trait group.
+   * @return a trait group filter.
+   */
+  public TraitGroupFilter getGroupFilter()
+  {
+    return _groupFilter;
   }
 
   /**
