@@ -89,7 +89,7 @@ public class MobsXMLWriter
     hd.endElement("","",MobsXMLConstants.MOB_TAG);
   }
 
-  private void writeMobLoot(AttributesImpl attrs, MobLoot loot) throws Exception
+  private void writeMobLoot(AttributesImpl attrs, MobLoot loot)
   {
     // Barter trophy list
     TrophyList barterTrophy=loot.getBarterTrophy();

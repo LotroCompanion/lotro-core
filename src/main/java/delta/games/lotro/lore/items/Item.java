@@ -75,7 +75,7 @@ public class Item implements Interactable,ItemProvider
   // Stacking information
   private Integer _stackMax;
 
-  // TODO Missing attrs: consumedOnUse="0" cooldown="" decoration="" instrument=""
+  // TODO Missing attrs: consumedOnUse="0" decoration="" instrument=""
   private ItemQuality _quality;
   private Munging _munging;
   // Other details

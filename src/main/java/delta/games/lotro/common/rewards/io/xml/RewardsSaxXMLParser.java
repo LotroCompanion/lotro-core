@@ -87,8 +87,8 @@ public class RewardsSaxXMLParser extends SAXParserValve<Void>
     // XP
     else if (RewardsXMLConstants.XP.equals(tagName))
     {
-      int XP=SAXParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
-      _rewards.setXp(XP);
+      int xp=SAXParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
+      _rewards.setXp(xp);
     }
     // Item XP
     else if (RewardsXMLConstants.ITEM_XP.equals(tagName))

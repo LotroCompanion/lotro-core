@@ -78,7 +78,7 @@ public class ServerXMLWriter
     InetAddress address=server.getAddress();
     if (address!=null)
     {
-      serverAttrs.addAttribute("","",ServerXMLConstants.SERVER_ADDRESS_ATTR,XmlWriter.CDATA,address.getHostAddress().toString());
+      serverAttrs.addAttribute("","",ServerXMLConstants.SERVER_ADDRESS_ATTR,XmlWriter.CDATA,address.getHostAddress());
     }
     hd.startElement("","",ServerXMLConstants.SERVER_TAG,serverAttrs);
     hd.endElement("","",ServerXMLConstants.SERVER_TAG);

@@ -23,14 +23,4 @@ public class ArmourInstance extends ItemInstance<Armour>
     this();
     copyFrom(source);
   }
-
-  /**
-   * Copy item instance data from a source.
-   * @param itemInstance Source item instance.
-   */
-  @Override
-  public void copyFrom(ItemInstance<?> itemInstance)
-  {
-    super.copyFrom(itemInstance);
-  }
 }

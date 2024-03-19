@@ -15,7 +15,7 @@ public class ItemEffectsManager
    * Use cases.
    * @author DAM
    */
-  public static enum Type
+  public enum Type
   {
     /**
      * On use.

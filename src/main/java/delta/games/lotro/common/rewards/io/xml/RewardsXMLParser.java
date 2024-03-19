@@ -92,8 +92,8 @@ public class RewardsXMLParser
     else if (RewardsXMLConstants.XP.equals(tagName))
     {
       NamedNodeMap attrs=rewardTag.getAttributes();
-      int XP=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
-      rewards.setXp(XP);
+      int xp=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUANTITY_ATTR,0);
+      rewards.setXp(xp);
     }
     // Item XP
     else if (RewardsXMLConstants.ITEM_XP.equals(tagName))

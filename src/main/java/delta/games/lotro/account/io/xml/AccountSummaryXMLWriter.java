@@ -46,9 +46,8 @@ public class AccountSummaryXMLWriter
    * Write account summary attributes.
    * @param accountAttrs Attributes to write to.
    * @param account Source data.
-   * @throws Exception If an error occurs.
    */
-  public static void write(AttributesImpl accountAttrs, AccountSummary account) throws Exception
+  public static void write(AttributesImpl accountAttrs, AccountSummary account)
   {
     // Account name
     String accountName=account.getName();

@@ -49,7 +49,7 @@ public class ApplicationProbability
   /**
    * Always.
    */
-  public static ApplicationProbability ALWAYS=new ApplicationProbability(1);
+  public static final ApplicationProbability ALWAYS=new ApplicationProbability(1);
 
   /**
    * Get the probability.

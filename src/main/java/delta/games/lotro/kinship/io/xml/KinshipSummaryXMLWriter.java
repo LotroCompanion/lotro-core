@@ -46,9 +46,8 @@ public class KinshipSummaryXMLWriter
    * Write kinship summary attributes.
    * @param kinshipAttrs Attributes to write to.
    * @param kinship Source data.
-   * @throws Exception If an error occurs.
    */
-  public static void write(AttributesImpl kinshipAttrs, KinshipSummary kinship) throws Exception
+  public static void write(AttributesImpl kinshipAttrs, KinshipSummary kinship)
   {
     // ID
     InternalGameId kinshipID=kinship.getKinshipID();

@@ -40,7 +40,7 @@ public class BuffsIO
       TraitTreeStatus traitTree=BuffsManagerToTraitTreeStatus.initFromBuffs(c.getCharacterClass(),buffs);
       traitsStatus.setTraitTreeStatus(traitTree);
     }
-    // Initialize racial traits status
+    // Initialize the racial traits status
     TraitSlotsStatus racialTraits=traitsStatus.getRacialTraitsStatus();
     if (racialTraits==null)
     {

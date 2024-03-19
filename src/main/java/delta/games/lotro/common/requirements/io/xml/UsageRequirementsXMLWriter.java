@@ -1,6 +1,5 @@
 package delta.games.lotro.common.requirements.io.xml;
 
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -23,9 +22,8 @@ public class UsageRequirementsXMLWriter
    * Write a usage requirement to the given XML stream.
    * @param attrs Storage for needed XML attributes.
    * @param requirements Requirements to store.
-   * @throws SAXException If an error occurs.
    */
-  public static void write(AttributesImpl attrs, UsageRequirement requirements) throws SAXException
+  public static void write(AttributesImpl attrs, UsageRequirement requirements)
   {
     // Min level
     Integer minLevel=requirements.getMinLevel();

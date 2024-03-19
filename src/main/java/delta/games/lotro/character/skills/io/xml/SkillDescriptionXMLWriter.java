@@ -126,9 +126,8 @@ public class SkillDescriptionXMLWriter
    * Write mount attributes to the given storage.
    * @param mount Mount to use.
    * @param attrs Storage.
-   * @throws SAXException If an error occurs.
    */
-  private void writeMountAttrs(MountDescription mount,AttributesImpl attrs) throws SAXException
+  private void writeMountAttrs(MountDescription mount,AttributesImpl attrs)
   {
     // Initial name
     String initialName=mount.getInitialName();
@@ -177,9 +176,8 @@ public class SkillDescriptionXMLWriter
    * Write pet attributes to the given storage.
    * @param pet Pet to use.
    * @param attrs Storage.
-   * @throws SAXException If an error occurs.
    */
-  private void writePetAttrs(CosmeticPetDescription pet,AttributesImpl attrs) throws SAXException
+  private void writePetAttrs(CosmeticPetDescription pet,AttributesImpl attrs)
   {
     // Initial name
     String initialName=pet.getInitialName();

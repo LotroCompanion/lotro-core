@@ -24,9 +24,8 @@ public class TraitTreeStatusXMLWriter
    * @param hd Output stream.
    * @param status Data to write.
    * @param statusAttrs Attributes to write to. 
-   * @throws SAXException If an error occurs.
    */
-  public static void writeTreeAttributes(TransformerHandler hd, TraitTreeStatus status, AttributesImpl statusAttrs) throws SAXException
+  public static void writeTreeAttributes(TransformerHandler hd, TraitTreeStatus status, AttributesImpl statusAttrs)
   {
     TraitTree tree=status.getTraitTree();
     // Tree ID
