@@ -20,14 +20,6 @@ public class CharacterDetailsXMLConstants
    */
   public static final String CURRENT_XP_ATTR="current";
   /**
-   * Tag 'xp', attribute 'bonus'.
-   */
-  //public static final String BONUS_XP_ATTR="bonus";
-  /**
-   * Tag 'xp', attribute 'restBonus'.
-   */
-  //public static final String REST_BONUS_XP_ATTR="restBonus";
-  /**
    * Tag 'currentTitle'.
    */
   public static final String CURRENT_TITLE_TAG="currentTitle";
@@ -35,10 +27,6 @@ public class CharacterDetailsXMLConstants
    * Tag 'currentTitle', attribute 'id'.
    */
   public static final String CURRENT_TITLE_ID_ATTR="id";
-  /**
-   * Tag 'currentTitle', attribute 'label'.
-   */
-  //public static final String CURRENT_TITLE_LABEL_ATTR="label";
   /**
    * Tag 'currentArea'.
    */
@@ -48,10 +36,6 @@ public class CharacterDetailsXMLConstants
    */
   public static final String CURRENT_AREA_ID_ATTR="id";
   /**
-   * Tag 'currentArea', attribute 'label'.
-   */
-  //public static final String CURRENT_AREA_LABEL_ATTR="label";
-  /**
    * Tag 'currentDungeon'.
    */
   public static final String CURRENT_DUNGEON_TAG="currentDungeon";
@@ -60,10 +44,6 @@ public class CharacterDetailsXMLConstants
    */
   public static final String CURRENT_DUNGEON_ID_ATTR="id";
   /**
-   * Tag 'currentDungeon', attribute 'label'.
-   */
-  //public static final String CURRENT_DUNGEON_LABEL_ATTR="label";
-  /**
    * Tag 'currentVocation'.
    */
   public static final String CURRENT_VOCATION_TAG="currentVocation";
@@ -71,10 +51,6 @@ public class CharacterDetailsXMLConstants
    * Tag 'currentVocation', attribute 'id'.
    */
   public static final String CURRENT_VOCATION_ID_ATTR="id";
-  /**
-   * Tag 'currentVocation', attribute 'label'.
-   */
-  //public static final String CURRENT_VOCATION_LABEL_ATTR="label";
   /**
    * Tag 'characterDetails', attribute 'ingameTime'.
    */

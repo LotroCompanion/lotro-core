@@ -18,8 +18,4 @@ public class BlacklistXMLConstants
    * Tag 'element', attribute 'id'.
    */
   public static final String ELEMENT_ID_ATTR="id";
-  /**
-   * Tag 'element', attribute 'name'.
-   */
-  public static final String ELEMENT_NAME_ATTR="name";
 }

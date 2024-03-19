@@ -57,9 +57,6 @@ public class BlacklistXMLWriter
       AttributesImpl elementAttrs=new AttributesImpl();
       // ID
       elementAttrs.addAttribute("","",BlacklistXMLConstants.ELEMENT_ID_ATTR,XmlWriter.CDATA,id.toString());
-      // Name
-      //String name=emote.getName();
-      //elementAttrs.addAttribute("","",BlacklistXMLConstants.EMOTE_NAME_ATTR,XmlWriter.CDATA,name);
       hd.startElement("","",BlacklistXMLConstants.ELEMENT,elementAttrs);
       hd.endElement("","",BlacklistXMLConstants.ELEMENT);
     }

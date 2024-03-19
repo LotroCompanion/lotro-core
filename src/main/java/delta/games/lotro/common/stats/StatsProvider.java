@@ -145,7 +145,6 @@ public class StatsProvider
         StatType type=stat.getType();
         if (type==StatType.INTEGER)
         {
-          //int intValue=Math.round(floatValue);
           int intValue=(int)(floatValue);
           statValue=Integer.valueOf(intValue);
         }
@@ -183,7 +182,7 @@ public class StatsProvider
       StatDescription stat=statProvider.getStat();
       sb.append(stat.getName());
     }
-    if (_effects.size()>0)
+    if (!_effects.isEmpty())
     {
       sb.append(", effects=").append(_effects);
     }

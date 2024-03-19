@@ -15,7 +15,6 @@ public class AchievableObjectiveStatus
   private AchievableStatus _parent;
   private Objective _objective;
   private AchievableElementState _state;
-  //private Long _completionDate;
   private List<ObjectiveConditionStatus> _conditionStatuses;
 
   /**

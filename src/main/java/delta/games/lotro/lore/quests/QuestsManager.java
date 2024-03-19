@@ -62,7 +62,6 @@ public final class QuestsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File questsFile=cfg.getFile(DataFiles.QUESTS);
     long now=System.currentTimeMillis();
-    //List<QuestDescription> quests=new QuestXMLParser().parseXML(questsFile);
     List<QuestDescription> quests=QuestsSaxParser.parseQuestsFile(questsFile);
     for(QuestDescription quest : quests)
     {

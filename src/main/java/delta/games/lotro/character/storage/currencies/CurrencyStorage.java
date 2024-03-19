@@ -99,7 +99,7 @@ public class CurrencyStorage
           _values.add(0,Integer.valueOf(value));
         }
       }
-      else //if (insertionIndex==nbItems-1)
+      else
       {
         long lastTime=_startTimes.get(insertionIndex).longValue();
         if (time==lastTime)

@@ -137,7 +137,6 @@ public class ReputationStatus
   {
     ps.println("Reputation status:");
     List<Faction> factions=new ArrayList<Faction>(_stats.keySet());
-    //Collections.sort(factions);
     for(Faction faction : factions)
     {
       FactionStatus stat=getFactionStatus(faction);
