@@ -196,8 +196,6 @@ public class RewardsXMLParser
     NamedNodeMap attrs=reputationTag.getAttributes();
     // Identifier
     int factionId=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_FACTION_ID_ATTR,0);
-    // Name
-    //String factionName=DOMParsingTools.getStringAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_FACTION_ATTR,null);
     // Amount
     int amount=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.REPUTATION_ITEM_AMOUNT_ATTR,0);
     Faction faction=FactionsRegistry.getInstance().getById(factionId);

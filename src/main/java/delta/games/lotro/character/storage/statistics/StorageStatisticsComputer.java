@@ -59,7 +59,7 @@ public class StorageStatisticsComputer
       if (details!=null)
       {
         List<ItemReputation> itemReputations=details.getItemDetails(ItemReputation.class);
-        if (itemReputations.size()>0)
+        if (!itemReputations.isEmpty())
         {
           ItemReputation itemReputation=itemReputations.get(0);
           int amount=itemReputation.getAmount();
@@ -106,7 +106,7 @@ public class StorageStatisticsComputer
       if (details!=null)
       {
         List<ItemXP> itemXPs=details.getItemDetails(ItemXP.class);
-        if (itemXPs.size()>0)
+        if (!itemXPs.isEmpty())
         {
           ItemXP itemXP=itemXPs.get(0);
           int count=counted.getQuantity();
@@ -129,7 +129,7 @@ public class StorageStatisticsComputer
       if (details!=null)
       {
         List<VirtueXP> virtueXPs=details.getItemDetails(VirtueXP.class);
-        if (virtueXPs.size()>0)
+        if (!virtueXPs.isEmpty())
         {
           VirtueXP virtueXP=virtueXPs.get(0);
           int count=counted.getQuantity();

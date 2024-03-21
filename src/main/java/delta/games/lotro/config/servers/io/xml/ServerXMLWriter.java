@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -45,7 +46,7 @@ public class ServerXMLWriter
     XmlWriter writer=new XmlWriter()
     {
       @Override
-      public void writeXml(TransformerHandler hd) throws Exception
+      public void writeXml(TransformerHandler hd) throws SAXException
       {
         writeServers(hd,servers);
       }
@@ -54,7 +55,7 @@ public class ServerXMLWriter
     return ret;
   }
 
-  private void writeServers(TransformerHandler hd, List<ServerDescription> servers) throws Exception
+  private void writeServers(TransformerHandler hd, List<ServerDescription> servers) throws SAXException
   {
     hd.startElement("","",ServerXMLConstants.SERVERS_TAG,new AttributesImpl());
     for(ServerDescription server : servers)
@@ -64,7 +65,7 @@ public class ServerXMLWriter
     hd.endElement("","",ServerXMLConstants.SERVERS_TAG);
   }
 
-  private void writeServer(TransformerHandler hd, ServerDescription server) throws Exception
+  private void writeServer(TransformerHandler hd, ServerDescription server) throws SAXException
   {
     AttributesImpl serverAttrs=new AttributesImpl();
 

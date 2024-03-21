@@ -81,7 +81,6 @@ public class AchievableProgressUtils
     }
     if (nbObjectivesWithCount>0)
     {
-      //System.out.println("Deed: "+deed.getName()+" => "+nbCounts+" conditions");
       if (nbObjectivesWithCount>1)
       {
         LOGGER.warn("Found deed with several counted objectives: "+deed.getIdentifier());

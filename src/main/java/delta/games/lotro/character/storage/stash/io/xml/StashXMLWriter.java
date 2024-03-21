@@ -49,7 +49,7 @@ public class StashXMLWriter
     stashAttrs.addAttribute("","",StashXMLConstants.NEXT_ID_ATTR,XmlWriter.CDATA,String.valueOf(nextId));
     hd.startElement("","",StashXMLConstants.STASH_TAG,stashAttrs);
     List<ItemInstance<? extends Item>> items=stash.getAll();
-    if (items.size()>0)
+    if (!items.isEmpty())
     {
       ItemInstanceXMLWriter writer=new ItemInstanceXMLWriter();
       for(ItemInstance<? extends Item> item : items)

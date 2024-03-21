@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -65,9 +66,9 @@ public class ObjectivesXMLWriter
    * Write an objectives manager to an XML document.
    * @param hd Output transformer.
    * @param objectives Rewards to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, ObjectivesManager objectives) throws Exception
+  public static void write(TransformerHandler hd, ObjectivesManager objectives) throws SAXException
   {
     hd.startElement("","",ObjectivesXMLConstants.OBJECTIVES_TAG,new AttributesImpl());
     // Failure conditions
@@ -89,7 +90,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.OBJECTIVES_TAG);
   }
 
-  private static void writeObjective(TransformerHandler hd, Objective objective) throws Exception
+  private static void writeObjective(TransformerHandler hd, Objective objective) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Index
@@ -171,7 +172,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.OBJECTIVE_TAG);
   }
 
-  private static void writeCondition(TransformerHandler hd, ObjectiveCondition condition) throws Exception
+  private static void writeCondition(TransformerHandler hd, ObjectiveCondition condition) throws SAXException
   {
     if (condition instanceof QuestCompleteCondition)
     {
@@ -298,7 +299,7 @@ public class ObjectivesXMLWriter
     }
   }
 
-  private static void writeQuestCompleteCondition(TransformerHandler hd, QuestCompleteCondition condition) throws Exception
+  private static void writeQuestCompleteCondition(TransformerHandler hd, QuestCompleteCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -327,7 +328,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.QUEST_COMPLETE_TAG);
   }
 
-  private static void writeMonsterDiedCondition(TransformerHandler hd, MonsterDiedCondition condition) throws Exception
+  private static void writeMonsterDiedCondition(TransformerHandler hd, MonsterDiedCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -401,7 +402,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.MONSTER_DIED_TAG);
   }
 
-  private static void writeLandmarkDetectionCondition(TransformerHandler hd, LandmarkDetectionCondition condition) throws Exception
+  private static void writeLandmarkDetectionCondition(TransformerHandler hd, LandmarkDetectionCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -425,27 +426,27 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.LANDMARK_DETECTION_TAG);
   }
 
-  private static void writeInventoryItemCondition(TransformerHandler hd, InventoryItemCondition condition) throws Exception
+  private static void writeInventoryItemCondition(TransformerHandler hd, InventoryItemCondition condition) throws SAXException
   {
     writeItemCondition(hd,condition,ObjectivesXMLConstants.INVENTORY_ITEM_TAG);
   }
 
-  private static void writeItemUsedCondition(TransformerHandler hd, ItemUsedCondition condition) throws Exception
+  private static void writeItemUsedCondition(TransformerHandler hd, ItemUsedCondition condition) throws SAXException
   {
     writeItemCondition(hd,condition,ObjectivesXMLConstants.ITEM_USED_TAG);
   }
 
-  private static void writeExternalInventoryItemCondition(TransformerHandler hd, ExternalInventoryItemCondition condition) throws Exception
+  private static void writeExternalInventoryItemCondition(TransformerHandler hd, ExternalInventoryItemCondition condition) throws SAXException
   {
     writeItemCondition(hd,condition,ObjectivesXMLConstants.EXTERNAL_INVENTORY_TAG);
   }
 
-  private static void writeItemTalkCondition(TransformerHandler hd, ItemTalkCondition condition) throws Exception
+  private static void writeItemTalkCondition(TransformerHandler hd, ItemTalkCondition condition) throws SAXException
   {
     writeItemCondition(hd,condition,ObjectivesXMLConstants.ITEM_TALK_TAG);
   }
 
-  private static void writeItemCondition(TransformerHandler hd, ItemCondition condition, String tagName) throws Exception
+  private static void writeItemCondition(TransformerHandler hd, ItemCondition condition, String tagName) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -464,7 +465,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",tagName);
   }
 
-  private static void writeFactionLevelCondition(TransformerHandler hd, FactionLevelCondition condition) throws Exception
+  private static void writeFactionLevelCondition(TransformerHandler hd, FactionLevelCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -488,7 +489,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.FACTION_LEVEL_TAG);
   }
 
-  private static void writeSkillUsedCondition(TransformerHandler hd, SkillUsedCondition condition) throws Exception
+  private static void writeSkillUsedCondition(TransformerHandler hd, SkillUsedCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -524,17 +525,17 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.SKILL_USED_TAG);
   }
 
-  private static void writeNpcTalkCondition(TransformerHandler hd, NpcTalkCondition condition) throws Exception
+  private static void writeNpcTalkCondition(TransformerHandler hd, NpcTalkCondition condition) throws SAXException
   {
     writeNpcCondition(hd,ObjectivesXMLConstants.NPC_TALK_TAG,condition);
   }
 
-  private static void writeNpcUsedCondition(TransformerHandler hd, NpcUsedCondition condition) throws Exception
+  private static void writeNpcUsedCondition(TransformerHandler hd, NpcUsedCondition condition) throws SAXException
   {
     writeNpcCondition(hd,ObjectivesXMLConstants.NPC_USED_TAG,condition);
   }
 
-  private static void writeNpcCondition(TransformerHandler hd, String tagName, NpcCondition condition) throws Exception
+  private static void writeNpcCondition(TransformerHandler hd, String tagName, NpcCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -547,7 +548,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",tagName);
   }
 
-  private static void writeLevelCondition(TransformerHandler hd, LevelCondition condition) throws Exception
+  private static void writeLevelCondition(TransformerHandler hd, LevelCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -560,7 +561,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.LEVEL_TAG);
   }
 
-  private static void writeQuestBestowedCondition(TransformerHandler hd, QuestBestowedCondition condition) throws Exception
+  private static void writeQuestBestowedCondition(TransformerHandler hd, QuestBestowedCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -577,17 +578,17 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.QUEST_BESTOWED_TAG);
   }
 
-  private static void writeDetectingCondition(TransformerHandler hd, DetectingCondition condition) throws Exception
+  private static void writeDetectingCondition(TransformerHandler hd, DetectingCondition condition) throws SAXException
   {
     writeDetectCondition(hd,ObjectivesXMLConstants.DETECTING_TAG,condition);
   }
 
-  private static void writeEnterDetectionCondition(TransformerHandler hd, EnterDetectionCondition condition) throws Exception
+  private static void writeEnterDetectionCondition(TransformerHandler hd, EnterDetectionCondition condition) throws SAXException
   {
     writeDetectCondition(hd,ObjectivesXMLConstants.ENTER_DETECTION_TAG,condition);
   }
 
-  private static void writeDetectCondition(TransformerHandler hd, String tagName, DetectionCondition condition) throws Exception
+  private static void writeDetectCondition(TransformerHandler hd, String tagName, DetectionCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -599,7 +600,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",tagName);
   }
 
-  private static void writeEmoteCondition(TransformerHandler hd, EmoteCondition condition) throws Exception
+  private static void writeEmoteCondition(TransformerHandler hd, EmoteCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -632,7 +633,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.EMOTE_TAG);
   }
 
-  private static void writeHobbyCondition(TransformerHandler hd, HobbyCondition condition) throws Exception
+  private static void writeHobbyCondition(TransformerHandler hd, HobbyCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -651,7 +652,7 @@ public class ObjectivesXMLWriter
     hd.endElement("","",ObjectivesXMLConstants.HOBBY_TAG);
   }
 
-  private static void writeTimeExpiredCondition(TransformerHandler hd, TimeExpiredCondition condition) throws Exception
+  private static void writeTimeExpiredCondition(TransformerHandler hd, TimeExpiredCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Shared attributes
@@ -692,7 +693,7 @@ public class ObjectivesXMLWriter
     }
   }
 
-  private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws Exception
+  private static void writeDefaultCondition(TransformerHandler hd, DefaultObjectiveCondition condition) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Type

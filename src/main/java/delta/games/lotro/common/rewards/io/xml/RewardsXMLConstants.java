@@ -113,7 +113,7 @@ public class RewardsXMLConstants
   /**
    * Tag 'billingToken', attribute 'name'.
    */
-  public static final String BILLING_TOKEN_NAMEçATTR="name";
+  public static final String BILLING_TOKEN_NAME_ATTR="name";
 
   /**
    * Tag 'selectOneOf'.

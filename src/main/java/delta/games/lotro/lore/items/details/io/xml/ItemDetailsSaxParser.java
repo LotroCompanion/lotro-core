@@ -94,107 +94,140 @@ public class ItemDetailsSaxParser
     }
     else if (ItemDetailsXMLConstants.REPUTATION_TAG.equals(qualifiedName))
     {
-      // Faction ID
-      String factionIDStr=attributes.getValue(ItemDetailsXMLConstants.REPUTATION_FACTION_ID_ATTR);
-      int factionID=NumericTools.parseInt(factionIDStr,-1);
-      Faction faction=FactionsRegistry.getInstance().getById(factionID);
-      if (faction!=null)
-      {
-        // Amount
-        String amountStr=attributes.getValue(ItemDetailsXMLConstants.REPUTATION_AMOUNT_ATTR);
-        int amount=NumericTools.parseInt(amountStr,-1);
-        ItemReputation reputation=new ItemReputation(faction,amount);
-        Item.addDetail(item,reputation);
-        return true;
-      }
-      LOGGER.warn("Could not find faction with ID: "+factionID);
+      handleReputation(item,attributes);
+      return true;
     }
     else if (ItemDetailsXMLConstants.SLAYER_TAG.equals(qualifiedName))
     {
-      // Slayer value
-      String slayerValueStr=attributes.getValue(ItemDetailsXMLConstants.SLAYER_VALUE_ATTR);
-      float slayerValue=NumericTools.parseFloat(slayerValueStr,-1);
-      WeaponSlayerInfo info=new WeaponSlayerInfo(slayerValue);
-      // Genus
-      String genusStr=attributes.getValue(ItemDetailsXMLConstants.SLAYER_GENUS_ATTR);
-      String[] genusCodeStrs=genusStr.split(",");
-      LotroEnum<Genus> genusEnum=LotroEnumsRegistry.getInstance().get(Genus.class);
-      for(String genusCodeStr : genusCodeStrs)
-      {
-        int genusCode=NumericTools.parseInt(genusCodeStr,-1);
-        Genus genus=genusEnum.getEntry(genusCode);
-        if (genus!=null)
-        {
-          info.addGenus(genus);
-        }
-      }
-      Item.addDetail(item,info);
+      handleSlayer(item,attributes);
       return true;
     }
     else if (ItemDetailsXMLConstants.COOLDOWN_TAG.equals(qualifiedName))
     {
-      // Duration value
-      String durationStr=attributes.getValue(ItemDetailsXMLConstants.COOLDOWN_DURATION_ATTR);
-      float duration=NumericTools.parseFloat(durationStr,-1);
-      // Channel ID
-      String channelIDStr=attributes.getValue(ItemDetailsXMLConstants.COOLDOWN_CHANNEL_ID_ATTR);
-      Integer channelID=null;
-      if (channelIDStr!=null)
-      {
-        channelID=NumericTools.parseInteger(channelIDStr);
-      }
-      ItemUsageCooldown info=new ItemUsageCooldown(duration,channelID);
-      Item.addDetail(item,info);
+      handleCooldown(item,attributes);
       return true;
     }
     else if (ItemDetailsXMLConstants.SKILL_TAG.equals(qualifiedName))
     {
-      // Skill ID
-      String skillIDStr=attributes.getValue(ItemDetailsXMLConstants.SKILL_ID_ATTR);
-      int skillID=NumericTools.parseInt(skillIDStr,0);
-      SkillDescription skill=SkillsManager.getInstance().getSkill(skillID);
-      // Level
-      Integer level=null;
-      String levelStr=attributes.getValue(ItemDetailsXMLConstants.SKILL_LEVEL_ATTR);
-      if (levelStr!=null)
-      {
-        level=NumericTools.parseInteger(levelStr);
-      }
-      SkillToExecute info=new SkillToExecute(skill,level);
-      Item.addDetail(item,info);
+      handleSkill(item,attributes);
       return true;
     }
     else if (ItemDetailsXMLConstants.ALLEGIANCE_POINTS_TAG.equals(qualifiedName))
     {
-      // Group
-      int groupCode=SAXParsingTools.getIntAttribute(attributes,ItemDetailsXMLConstants.ALLEGIANCE_GROUP_ATTR,0);
-      AllegianceGroup group=_allegianceGroupEnum.getEntry(groupCode);
-      // Points
-      int points=SAXParsingTools.getIntAttribute(attributes,ItemDetailsXMLConstants.ALLEGIANCE_POINTS_ATTR,0);
-      AllegiancePoints allegiancePoints=new AllegiancePoints(group,points);
-      Item.addDetail(item,allegiancePoints);
+      handleAllegiancePoints(item,attributes);
       return true;
     }
     else if (ItemDetailsXMLConstants.HOUSING_HOOKS_TAG.equals(qualifiedName))
     {
-      HousingHooks info=new HousingHooks();
-      // Categories
-      String categoriesStr=attributes.getValue(ItemDetailsXMLConstants.HOUSING_HOOKS_CATEGORIES_ATTR);
-      String[] categoryCodeStrs=categoriesStr.split(",");
-      LotroEnum<HousingHookCategory> housingHookCategoryEnum=LotroEnumsRegistry.getInstance().get(HousingHookCategory.class);
-      for(String categoryCodeStr : categoryCodeStrs)
-      {
-        int code=NumericTools.parseInt(categoryCodeStr,-1);
-        HousingHookCategory category=housingHookCategoryEnum.getEntry(code);
-        if (category!=null)
-        {
-          info.addCategory(category);
-        }
-      }
-      Item.addDetail(item,info);
+      handleHousingHook(item,attributes);
       return true;
     }
     return false;
+  }
+
+  private void handleReputation(Item item, Attributes attributes)
+  {
+    // Faction ID
+    String factionIDStr=attributes.getValue(ItemDetailsXMLConstants.REPUTATION_FACTION_ID_ATTR);
+    int factionID=NumericTools.parseInt(factionIDStr,-1);
+    Faction faction=FactionsRegistry.getInstance().getById(factionID);
+    if (faction!=null)
+    {
+      // Amount
+      String amountStr=attributes.getValue(ItemDetailsXMLConstants.REPUTATION_AMOUNT_ATTR);
+      int amount=NumericTools.parseInt(amountStr,-1);
+      ItemReputation reputation=new ItemReputation(faction,amount);
+      Item.addDetail(item,reputation);
+    }
+    else
+    {
+      LOGGER.warn("Could not find faction with ID: "+factionID);
+    }
+  }
+
+  private void handleSlayer(Item item, Attributes attributes)
+  {
+    // Slayer value
+    String slayerValueStr=attributes.getValue(ItemDetailsXMLConstants.SLAYER_VALUE_ATTR);
+    float slayerValue=NumericTools.parseFloat(slayerValueStr,-1);
+    WeaponSlayerInfo info=new WeaponSlayerInfo(slayerValue);
+    // Genus
+    String genusStr=attributes.getValue(ItemDetailsXMLConstants.SLAYER_GENUS_ATTR);
+    String[] genusCodeStrs=genusStr.split(",");
+    LotroEnum<Genus> genusEnum=LotroEnumsRegistry.getInstance().get(Genus.class);
+    for(String genusCodeStr : genusCodeStrs)
+    {
+      int genusCode=NumericTools.parseInt(genusCodeStr,-1);
+      Genus genus=genusEnum.getEntry(genusCode);
+      if (genus!=null)
+      {
+        info.addGenus(genus);
+      }
+    }
+    Item.addDetail(item,info);
+  }
+
+  private void handleCooldown(Item item, Attributes attributes)
+  {
+    // Duration value
+    String durationStr=attributes.getValue(ItemDetailsXMLConstants.COOLDOWN_DURATION_ATTR);
+    float duration=NumericTools.parseFloat(durationStr,-1);
+    // Channel ID
+    String channelIDStr=attributes.getValue(ItemDetailsXMLConstants.COOLDOWN_CHANNEL_ID_ATTR);
+    Integer channelID=null;
+    if (channelIDStr!=null)
+    {
+      channelID=NumericTools.parseInteger(channelIDStr);
+    }
+    ItemUsageCooldown info=new ItemUsageCooldown(duration,channelID);
+    Item.addDetail(item,info);
+  }
+
+  private void handleSkill(Item item, Attributes attributes)
+  {
+    // Skill ID
+    String skillIDStr=attributes.getValue(ItemDetailsXMLConstants.SKILL_ID_ATTR);
+    int skillID=NumericTools.parseInt(skillIDStr,0);
+    SkillDescription skill=SkillsManager.getInstance().getSkill(skillID);
+    // Level
+    Integer level=null;
+    String levelStr=attributes.getValue(ItemDetailsXMLConstants.SKILL_LEVEL_ATTR);
+    if (levelStr!=null)
+    {
+      level=NumericTools.parseInteger(levelStr);
+    }
+    SkillToExecute info=new SkillToExecute(skill,level);
+    Item.addDetail(item,info);
+  }
+
+  private void handleAllegiancePoints(Item item, Attributes attributes)
+  {
+    // Group
+    int groupCode=SAXParsingTools.getIntAttribute(attributes,ItemDetailsXMLConstants.ALLEGIANCE_GROUP_ATTR,0);
+    AllegianceGroup group=_allegianceGroupEnum.getEntry(groupCode);
+    // Points
+    int points=SAXParsingTools.getIntAttribute(attributes,ItemDetailsXMLConstants.ALLEGIANCE_POINTS_ATTR,0);
+    AllegiancePoints allegiancePoints=new AllegiancePoints(group,points);
+    Item.addDetail(item,allegiancePoints);
+  }
+
+  private void handleHousingHook(Item item, Attributes attributes)
+  {
+    HousingHooks info=new HousingHooks();
+    // Categories
+    String categoriesStr=attributes.getValue(ItemDetailsXMLConstants.HOUSING_HOOKS_CATEGORIES_ATTR);
+    String[] categoryCodeStrs=categoriesStr.split(",");
+    LotroEnum<HousingHookCategory> housingHookCategoryEnum=LotroEnumsRegistry.getInstance().get(HousingHookCategory.class);
+    for(String categoryCodeStr : categoryCodeStrs)
+    {
+      int code=NumericTools.parseInt(categoryCodeStr,-1);
+      HousingHookCategory category=housingHookCategoryEnum.getEntry(code);
+      if (category!=null)
+      {
+        info.addCategory(category);
+      }
+    }
+    Item.addDetail(item,info);
   }
 
   private GrantedElement<?> buildGrantedElement(int id, GrantType type)

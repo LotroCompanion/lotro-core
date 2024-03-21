@@ -99,11 +99,7 @@ public class CharacterLogsManager
         public boolean accept(File pathname)
         {
           String name=pathname.getName();
-          if ((name.startsWith("log ")) && (name.endsWith(".xml")))
-          {
-            return true;
-          }
-          return false;
+          return ((name.startsWith("log ")) && (name.endsWith(".xml")));
         }
       };
       files=characterDir.listFiles(filter);

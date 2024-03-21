@@ -54,7 +54,7 @@ public class RewardsXMLWriter
     MoneyXMLWriter.writeMoney(hd,money);
     // Reputation rewards
     List<ReputationReward> reputationRewards=rewards.getRewardElementsOfClass(ReputationReward.class);
-    if (reputationRewards.size()>0)
+    if (!reputationRewards.isEmpty())
     {
       for(RewardElement rewardElement : reputationRewards)
       {
@@ -275,7 +275,7 @@ public class RewardsXMLWriter
     String name=billingGroup.getLabel();
     if (name!=null)
     {
-      attrs.addAttribute("","",RewardsXMLConstants.BILLING_TOKEN_NAMEçATTR,XmlWriter.CDATA,name);
+      attrs.addAttribute("","",RewardsXMLConstants.BILLING_TOKEN_NAME_ATTR,XmlWriter.CDATA,name);
     }
     hd.startElement("","",RewardsXMLConstants.BILLING_TOKEN_TAG,attrs);
     hd.endElement("","",RewardsXMLConstants.BILLING_TOKEN_TAG);

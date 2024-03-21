@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -67,7 +68,7 @@ public class PrivateEncountersXMLWriter
     return ret;
   }
 
-  private void writePrivateEncounters(TransformerHandler hd, List<PrivateEncounter> data) throws Exception
+  private void writePrivateEncounters(TransformerHandler hd, List<PrivateEncounter> data) throws SAXException
   {
     hd.startElement("","",PrivateEncountersXMLConstants.PRIVATE_ENCOUNTERS_TAG,new AttributesImpl());
     for(PrivateEncounter privateEncounter : data)
@@ -77,7 +78,7 @@ public class PrivateEncountersXMLWriter
     hd.endElement("","",PrivateEncountersXMLConstants.PRIVATE_ENCOUNTERS_TAG);
   }
 
-  private void writePrivateEncounter(TransformerHandler hd, PrivateEncounter privateEncounter) throws Exception
+  private void writePrivateEncounter(TransformerHandler hd, PrivateEncounter privateEncounter) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -220,7 +221,7 @@ public class PrivateEncountersXMLWriter
     hd.endElement("","",tagName);
   }
 
-  private void writeQuestProxy(TransformerHandler hd, String tagName, Proxy<QuestDescription> quest) throws Exception
+  private void writeQuestProxy(TransformerHandler hd, String tagName, Proxy<QuestDescription> quest) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // ID
