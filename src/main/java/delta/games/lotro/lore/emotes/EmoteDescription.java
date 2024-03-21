@@ -57,7 +57,7 @@ public class EmoteDescription implements Identifiable,Named
    */
   public String getCommand()
   {
-    return _command;
+    return getName();
   }
 
   /**

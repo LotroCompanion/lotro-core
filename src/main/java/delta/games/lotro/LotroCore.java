@@ -28,7 +28,7 @@ public class LotroCore
   /**
    * Release all managed resources.
    */
-  public void dispose()
+  public static void dispose()
   {
     if (_characterCurrenciesListener!=null)
     {

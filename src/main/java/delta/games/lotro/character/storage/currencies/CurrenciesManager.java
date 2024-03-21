@@ -21,6 +21,11 @@ import delta.games.lotro.character.storage.currencies.io.CurrenciesIo;
  */
 public class CurrenciesManager
 {
+  /**
+   * Currencies directory name.
+   */
+  private static final String CURRENCIES_DIR="currencies";
+
   private File _rootDir;
   private CurrenciesSummary _summary;
   private Map<String,CurrencyHistory> _histories;
@@ -174,7 +179,7 @@ public class CurrenciesManager
   private File getRootDir(CharacterFile character)
   {
     File rootDir=character.getRootDir();
-    File currenciesDir=new File(rootDir,"currencies");
+    File currenciesDir=new File(rootDir,CURRENCIES_DIR);
     return currenciesDir;
   }
 
@@ -185,14 +190,14 @@ public class CurrenciesManager
     {
       rootDir=new File(rootDir,server);
     }
-    File currenciesDir=new File(rootDir,"currencies");
+    File currenciesDir=new File(rootDir,CURRENCIES_DIR);
     return currenciesDir;
   }
 
   private File getRootDir(Account account)
   {
     File rootDir=account.getRootDir();
-    File currenciesDir=new File(rootDir,"currencies");
+    File currenciesDir=new File(rootDir,CURRENCIES_DIR);
     return currenciesDir;
   }
 }

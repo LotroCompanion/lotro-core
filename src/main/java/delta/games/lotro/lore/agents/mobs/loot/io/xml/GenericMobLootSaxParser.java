@@ -1,7 +1,8 @@
 package delta.games.lotro.lore.agents.mobs.loot.io.xml;
 
 import java.io.File;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -34,12 +35,17 @@ public final class GenericMobLootSaxParser extends DefaultHandler
 {
   private static final Logger LOGGER=Logger.getLogger(GenericMobLootSaxParser.class);
 
-  private Stack<DefaultHandler> _handlers;
+  /**
+   * "Unexpected tag" error message.
+   */
+  private static final String UNEXPECTED_TAG_ERROR_MESSAGE="Unexpected tag: ";
+
+  private Deque<DefaultHandler> _handlers;
   private SpeciesLootsManager _data;
 
   private GenericMobLootSaxParser()
   {
-    _handlers=new Stack<DefaultHandler>();
+    _handlers=new ArrayDeque<DefaultHandler>();
     _handlers.push(new RootParser());
   }
 
@@ -56,6 +62,7 @@ public final class GenericMobLootSaxParser extends DefaultHandler
 
       // Use the default (non-validating) parser
       SAXParserFactory factory=SAXParserFactory.newInstance();
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       SAXParser saxParser=factory.newSAXParser();
       saxParser.parse(source,handler);
       saxParser.reset();
@@ -105,7 +112,7 @@ public final class GenericMobLootSaxParser extends DefaultHandler
       }
       else
       {
-        throw new SAXException("Unexpected tag: "+qualifiedName);
+        throw new SAXException(UNEXPECTED_TAG_ERROR_MESSAGE+qualifiedName);
       }
     }
 
@@ -143,7 +150,7 @@ public final class GenericMobLootSaxParser extends DefaultHandler
       }
       else
       {
-        throw new SAXException("Unexpected tag: "+qualifiedName);
+        throw new SAXException(UNEXPECTED_TAG_ERROR_MESSAGE+qualifiedName);
       }
     }
 
@@ -191,7 +198,7 @@ public final class GenericMobLootSaxParser extends DefaultHandler
       }
       else
       {
-        throw new SAXException("Unexpected tag: "+qualifiedName);
+        throw new SAXException(UNEXPECTED_TAG_ERROR_MESSAGE+qualifiedName);
       }
     }
 
@@ -238,7 +245,7 @@ public final class GenericMobLootSaxParser extends DefaultHandler
       }
       else
       {
-        throw new SAXException("Unexpected tag: "+qualifiedName);
+        throw new SAXException(UNEXPECTED_TAG_ERROR_MESSAGE+qualifiedName);
       }
     }
 

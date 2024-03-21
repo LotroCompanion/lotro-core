@@ -20,6 +20,10 @@ import delta.games.lotro.lore.items.paper.PaperItemsManager;
  */
 public class Currencies
 {
+  /**
+   * World category.
+   */
+  private static final String WORLD_CATEGORY="World";
   private static Currencies _instance=new Currencies();
   private HashMap<String,Currency> _currenciesMap;
   private List<Currency> _currencies;
@@ -46,11 +50,11 @@ public class Currencies
   private void init()
   {
     // Gold
-    Currency gold=new Currency(CurrencyKeys.GOLD,"Gold",Scope.CHARACTER,"World");
+    Currency gold=new Currency(CurrencyKeys.GOLD,"Gold",Scope.CHARACTER,WORLD_CATEGORY);
     gold.setFactor(100*1000);
     registerCurrency(gold);
     // XP
-    Currency xp=new Currency(CurrencyKeys.XP,"XP",Scope.CHARACTER,"World");
+    Currency xp=new Currency(CurrencyKeys.XP,"XP",Scope.CHARACTER,WORLD_CATEGORY);
     registerCurrency(xp);
     // Paper items
     List<PaperItem> paperItems=PaperItemsManager.getInstance().getAll();
@@ -71,10 +75,10 @@ public class Currencies
     // Seals
     setupCurrencyLegacy(getByKey(String.valueOf(WellKnownItems.SEAL)),CurrencyKeys.SEALS);
     // Destiny points
-    Currency destinyPoints=new Currency(CurrencyKeys.DESTINY_POINTS,"Destiny Points",Scope.SERVER,"World");
+    Currency destinyPoints=new Currency(CurrencyKeys.DESTINY_POINTS,"Destiny Points",Scope.SERVER,WORLD_CATEGORY);
     registerCurrency(destinyPoints);
     // LOTRO points
-    Currency lotroPoints=new Currency("lotroPoints","LOTRO Points",Scope.ACCOUNT,"World");
+    Currency lotroPoints=new Currency("lotroPoints","LOTRO Points",Scope.ACCOUNT,WORLD_CATEGORY);
     registerCurrency(lotroPoints);
     // In-game time
     Currency inGameTime=new Currency(CurrencyKeys.IN_GAME_TIME,"In-game Time",Scope.CHARACTER,"In-game Time");

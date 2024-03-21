@@ -43,7 +43,7 @@ public class KinshipsStorageManager
     newDir.mkdirs();
     Kinship kinship=new Kinship();
     kinship.setSummary(summary);
-    kinship.setRootFile(newDir);
+    kinship.setRootDir(newDir);
     File summaryFile=KinshipsIO.getSummaryFile(newDir);
     boolean ok=KinshipsIO.saveSummary(summaryFile,summary);
     if (!ok)
@@ -103,7 +103,7 @@ public class KinshipsStorageManager
         if (dirName.startsWith(KINSHIP_SEED))
         {
           Kinship kinship=new Kinship();
-          kinship.setRootFile(kinshipDir);
+          kinship.setRootDir(kinshipDir);
           File summaryFile=KinshipsIO.getSummaryFile(kinshipDir);
           KinshipSummary summary=KinshipsIO.loadSummary(summaryFile);
           if (summary!=null)

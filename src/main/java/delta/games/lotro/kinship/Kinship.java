@@ -25,10 +25,10 @@ public class Kinship
   }
 
   /**
-   * Get the root directory for kinship files.
-   * @return a root directory or <code>null</code> if not set.
+   * Get the root directory of the kinship's storage. 
+   * @return a root directory or <code>null</code> if not set..
    */
-  public File getRootFile()
+  public File getRootDir()
   {
     return _rootDir;
   }
@@ -37,7 +37,7 @@ public class Kinship
    * Set the root directory for kinship files.
    * @param rootDir Directory to set.
    */
-  public void setRootFile(File rootDir)
+  public void setRootDir(File rootDir)
   {
     _rootDir=rootDir;
   }
@@ -78,15 +78,6 @@ public class Kinship
   {
     KinshipSummary summary=getSummary();
     return summary.getName();
-  }
-
-  /**
-   * Get the root directory of the kinship's storage. 
-   * @return a root directory.
-   */
-  public File getRootDir()
-  {
-    return _rootDir;
   }
 
   /**

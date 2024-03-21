@@ -42,8 +42,8 @@ public class QuestStatus
 
   private QuestStatus(int objectiveIndex)
   {
-    _objectiveIndex=objectiveIndex;
     _key=KEY_UNDERWAY+_objectiveIndex;
+    _objectiveIndex=objectiveIndex;
   }
 
   /**
@@ -77,7 +77,7 @@ public class QuestStatus
   /**
    * Underway.
    */
-  public static final QuestStatus UNDERWAY=new QuestStatus("UNDERWAY");
+  public static final QuestStatus UNDERWAY=new QuestStatus(KEY_UNDERWAY);
   /**
    * Failed.
    */
