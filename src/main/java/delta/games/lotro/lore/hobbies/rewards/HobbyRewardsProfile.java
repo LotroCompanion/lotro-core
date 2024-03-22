@@ -85,6 +85,10 @@ public class HobbyRewardsProfile implements Identifiable
       {
         totalWeight+=entry.getWeight();
       }
+      if (totalWeight<=0)
+      {
+        totalWeight=1;
+      }
       for(HobbyRewardEntry entry : entries)
       {
         Item item=entry.getItem();

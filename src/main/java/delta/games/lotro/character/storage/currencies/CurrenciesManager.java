@@ -86,7 +86,10 @@ public class CurrenciesManager
     if (withHistory)
     {
       CurrencyHistory history=getHistory(currencyId);
-      history.getStorage().setValueAt(now,value);
+      if (history!=null)
+      {
+        history.getStorage().setValueAt(now,value);
+      }
     }
   }
 

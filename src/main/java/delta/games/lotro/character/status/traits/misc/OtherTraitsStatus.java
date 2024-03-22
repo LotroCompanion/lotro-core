@@ -61,7 +61,7 @@ public class OtherTraitsStatus
   public void addTrait(TraitNature nature, int traitID)
   {
     Set<Integer> storage=_traitsByNature.get(nature);
-    if (storage!=null)
+    if (storage==null)
     {
       storage=new HashSet<Integer>();
       _traitsByNature.put(nature,storage);

@@ -62,92 +62,93 @@ public class CurrencyStorage
     {
       _startTimes.add(Long.valueOf(time));
       _values.add(Integer.valueOf(value));
+      return;
+    }
+    int insertionIndex=getInsertPoint(time);
+    if (insertionIndex==-1)
+    {
+      // Time is before the beginning
+      handleInsertBeforeBeginning(time,value);
     }
     else
     {
-      int insertionIndex=getInsertPoint(time);
-      if (insertionIndex==-1)
+      long lastTime=_startTimes.get(insertionIndex).longValue();
+      if (time==lastTime)
       {
-        // Time is before the beginning
-        int firstValue=_values.get(0).intValue();
-        if (value==firstValue)
-        {
-          if (nbItems>1)
-          {
-            int secondValue=_values.get(1).intValue();
-            if (secondValue==firstValue)
-            {
-              _startTimes.set(0,Long.valueOf(time));
-            }
-            else
-            {
-              // Update first time
-              _startTimes.set(0,Long.valueOf(time));
-            }
-          }
-          else
-          {
-            // Insert first point
-            _startTimes.add(0,Long.valueOf(time));
-            _values.add(0,Integer.valueOf(value));
-          }
-        }
-        else
-        {
-          // Insert first point
-          _startTimes.add(0,Long.valueOf(time));
-          _values.add(0,Integer.valueOf(value));
-        }
+        _startTimes.set(insertionIndex,Long.valueOf(time));
       }
       else
       {
-        long lastTime=_startTimes.get(insertionIndex).longValue();
-        if (time==lastTime)
+        // Time is after the one of the insertion index
+        handleInsertion(insertionIndex,time,value);
+      }
+    }
+  }
+
+  private void handleInsertBeforeBeginning(long time, int value)
+  {
+    int firstValue=_values.get(0).intValue();
+    if (value==firstValue)
+    {
+      int nbItems=_startTimes.size();
+      if (nbItems>1)
+      {
+        // Update first time
+        _startTimes.set(0,Long.valueOf(time));
+      }
+      else
+      {
+        // Insert before first point
+        _startTimes.add(0,Long.valueOf(time));
+        _values.add(0,Integer.valueOf(value));
+      }
+    }
+    else
+    {
+      // Insert before first point
+      _startTimes.add(0,Long.valueOf(time));
+      _values.add(0,Integer.valueOf(value));
+    }
+  }
+
+  private void handleInsertion(int insertionIndex, long time, int value)
+  {
+    int lastValue=_values.get(insertionIndex).intValue();
+    if (value==lastValue)
+    {
+      if (insertionIndex>0)
+      {
+        int valueBeforeLast=_values.get(insertionIndex-1).intValue();
+        if (valueBeforeLast==lastValue)
         {
+          // Just update the last time
           _startTimes.set(insertionIndex,Long.valueOf(time));
         }
         else
         {
-          // Time is after the one of the insertion index
-          int lastValue=_values.get(insertionIndex).intValue();
-          if (value==lastValue)
-          {
-            if (insertionIndex>0)
-            {
-              int valueBeforeLast=_values.get(insertionIndex-1).intValue();
-              if (valueBeforeLast==lastValue)
-              {
-                // Just update the last time
-                _startTimes.set(insertionIndex,Long.valueOf(time));
-              }
-              else
-              {
-                // Insert new point
-                _startTimes.add(insertionIndex+1,Long.valueOf(time));
-                _values.add(insertionIndex+1,Integer.valueOf(value));
-              }
-            }
-            else
-            {
-              // Insert new point
-              _startTimes.add(insertionIndex+1,Long.valueOf(time));
-              _values.add(insertionIndex+1,Integer.valueOf(value));
-            }
-          }
-          else
-          {
-            // Insert new point
-            _startTimes.add(insertionIndex+1,Long.valueOf(time));
-            _values.add(insertionIndex+1,Integer.valueOf(value));
-          }
+          // Insert new point
+          _startTimes.add(insertionIndex+1,Long.valueOf(time));
+          _values.add(insertionIndex+1,Integer.valueOf(value));
         }
       }
+      else
+      {
+        // Insert new point
+        _startTimes.add(insertionIndex+1,Long.valueOf(time));
+        _values.add(insertionIndex+1,Integer.valueOf(value));
+      }
+    }
+    else
+    {
+      // Insert new point
+      _startTimes.add(insertionIndex+1,Long.valueOf(time));
+      _values.add(insertionIndex+1,Integer.valueOf(value));
     }
   }
 
   private int getInsertPoint(long time)
   {
-    if (_startTimes.size()==0)
+    if (_startTimes.isEmpty())
     {
       return -1;
     }

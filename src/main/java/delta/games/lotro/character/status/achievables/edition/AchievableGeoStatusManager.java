@@ -96,10 +96,13 @@ public class AchievableGeoStatusManager implements GeoPointChangeListener
   {
     // Find manager
     AchievableConditionStatusManager statusManager=getManager(point);
-    // Handle point change
-    statusManager.handlePointChange(point,completed);
-    // Update states
-    statusManager.updateStatusFromItems();
+    if (statusManager!=null)
+    {
+      // Handle point change
+      statusManager.handlePointChange(point,completed);
+      // Update states
+      statusManager.updateStatusFromItems();
+    }
     // Listener
     if (_listener!=null)
     {
