@@ -237,10 +237,6 @@ public class EffectDisplay
     if (progression!=null)
     {
       value=progression.getValue(_level);
-      if (value==null)
-      {
-        value=Float.valueOf(0);
-      }
     }
     return value;
   }
@@ -311,7 +307,7 @@ public class EffectDisplay
         int percentage=(int)(probability*100);
         if (!multiplicative)
         {
-          int damage=(int)value.floatValue();
+          int damage=(value!=null)?((int)value.floatValue()):0;
           if (percentage!=100)
           {
             String text=percentage+"% chance to Negate "+damage+" damage";
@@ -326,7 +322,7 @@ public class EffectDisplay
         }
         else
         {
-          int percentageDamage=(int)(value.floatValue()*100);
+          int percentageDamage=(value!=null)?((int)(value.floatValue()*100)):0;
           if (percentage!=100)
           {
             // Never?
@@ -368,10 +364,11 @@ public class EffectDisplay
         Float value=getValue(change);
         float probability=change.getProbability();
         int percentage=(int)(probability*100);
+        float safeValue=(value!=null)?value.floatValue():0;
         boolean multiplicative=change.isMultiplicative();
         if (!multiplicative)
         {
-          int damage=Math.round(Math.abs(value.floatValue()));
+          int damage=Math.round(Math.abs(safeValue));
           if (percentage!=100)
           {
             String text=percentage+"% chance to Reflect "+damage+" damage";
@@ -386,7 +383,7 @@ public class EffectDisplay
         else
         {
           // Never multiplicative?
-          int percentageDamage=(int)(value.floatValue()*100);
+          int percentageDamage=(int)(safeValue*100);
           if (percentage!=100)
           {
             String text=percentage+"% chance to Reflect "+percentageDamage+"% damage";
