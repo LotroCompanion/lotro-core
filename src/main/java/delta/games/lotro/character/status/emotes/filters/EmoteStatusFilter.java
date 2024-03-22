@@ -1,6 +1,7 @@
 package delta.games.lotro.character.status.emotes.filters;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,10 +46,7 @@ public class EmoteStatusFilter implements Filter<EmoteStatus>
     filters.add(nameFilter);
     // State
     Set<EmoteState> states=new HashSet<EmoteState>();
-    for(EmoteState state : EmoteState.values())
-    {
-      states.add(state);
-    }
+    Collections.addAll(states,EmoteState.values());
     _stateFilter=new EmoteStateFilter(states);
     filters.add(_stateFilter);
     _filter=new CompoundFilter<EmoteStatus>(Operator.AND,filters);

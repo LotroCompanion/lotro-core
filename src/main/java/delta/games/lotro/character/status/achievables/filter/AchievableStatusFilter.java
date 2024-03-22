@@ -1,5 +1,6 @@
 package delta.games.lotro.character.status.achievables.filter;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,10 +27,7 @@ public abstract class AchievableStatusFilter implements Filter<AchievableStatus>
   protected AchievableStatusFilter()
   {
     Set<AchievableElementState> states=new HashSet<AchievableElementState>();
-    for(AchievableElementState state : AchievableElementState.values())
-    {
-      states.add(state);
-    }
+    Collections.addAll(states,AchievableElementState.values());
     _stateFilter=new AchievableElementStateFilter(states);
     _blacklist=null;
   }

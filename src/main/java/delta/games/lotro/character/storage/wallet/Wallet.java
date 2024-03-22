@@ -116,7 +116,7 @@ public class Wallet
     List<CountedItem<Item>> items=getAllItemsSortedByID();
     for(CountedItem<Item> item : items)
     {
-      for(int i=0;i<level;i++) System.out.print('\t');
+      for(int i=0;i<level;i++) out.print('\t');
       out.println(item);
     }
   }

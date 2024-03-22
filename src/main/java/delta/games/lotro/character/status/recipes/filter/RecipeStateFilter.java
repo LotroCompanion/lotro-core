@@ -1,5 +1,6 @@
 package delta.games.lotro.character.status.recipes.filter;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,10 +22,7 @@ public class RecipeStateFilter implements Filter<RecipeStatus>
   public RecipeStateFilter()
   {
     _states=new HashSet<RecipeState>();
-    for(RecipeState state : RecipeState.values())
-    {
-      _states.add(state);
-    }
+    Collections.addAll(_states,RecipeState.values());
   }
 
   /**

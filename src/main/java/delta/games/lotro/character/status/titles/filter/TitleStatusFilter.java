@@ -1,5 +1,6 @@
 package delta.games.lotro.character.status.titles.filter;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,10 +25,7 @@ public class TitleStatusFilter implements Filter<TitleStatus>
   {
     _titleFilter=new TitleFilter();
     Set<TitleState> states=new HashSet<TitleState>();
-    for(TitleState state : TitleState.values())
-    {
-      states.add(state);
-    }
+    Collections.addAll(states,TitleState.values());
     _stateFilter=new TitleStateFilter(states);
   }
 
