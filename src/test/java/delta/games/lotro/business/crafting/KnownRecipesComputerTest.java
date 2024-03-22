@@ -7,6 +7,7 @@ import delta.games.lotro.character.status.crafting.CraftingStatusManager;
 import delta.games.lotro.character.status.crafting.KnownRecipes;
 import delta.games.lotro.character.status.crafting.ProfessionStatus;
 import delta.games.lotro.lore.crafting.Profession;
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
@@ -24,7 +25,9 @@ public class KnownRecipesComputerTest extends TestCase
     for(Profession profession : craftingStatus.getKnownProfessions())
     {
       ProfessionStatus professionStatus=craftingStatus.getProfessionStatus(profession);
+      Assert.assertNotNull(professionStatus);
       KnownRecipes knownRecipes=professionStatus.getKnownRecipes();
+      Assert.assertNotNull(knownRecipes);
       KnownRecipesComputer.showRecipesStatusForProfession(profession,knownRecipes);
     }
   }

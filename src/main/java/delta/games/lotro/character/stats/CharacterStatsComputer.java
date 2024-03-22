@@ -86,7 +86,7 @@ public class CharacterStatsComputer
         ItemInstance<?> item=slotContents.getItem();
         if (item!=null)
         {
-          BasicStatsSet itemStats=getItemStats(characterLevel,item);
+          BasicStatsSet itemStats=getItemStats(item);
           StatsContribution contrib=StatsContribution.getGearContrib(slot,item,itemStats);
           ret.add(contrib);
         }
@@ -101,7 +101,7 @@ public class CharacterStatsComputer
     return ret;
   }
 
-  private BasicStatsSet getItemStats(int characterLevel, ItemInstance<? extends Item> item)
+  private BasicStatsSet getItemStats(ItemInstance<? extends Item> item)
   {
     boolean isApplicable=StatsComputationUtils.itemIsApplicable(item);
     if (isApplicable)

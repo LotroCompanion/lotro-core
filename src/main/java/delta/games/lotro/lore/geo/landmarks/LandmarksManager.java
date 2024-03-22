@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.geo.landmarks;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -82,14 +83,15 @@ public class LandmarksManager
 
   /**
    * Dump the contents of this manager.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
     List<LandmarkDescription> landmarks=getLandmarks();
-    System.out.println("Landmarks: ("+landmarks.size()+")");
+    out.println("Landmarks: ("+landmarks.size()+")");
     for(LandmarkDescription landmark : landmarks)
     {
-      System.out.println("\t"+landmark);
+      out.println("\t"+landmark);
     }
   }
 }

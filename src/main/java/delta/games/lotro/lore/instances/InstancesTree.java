@@ -148,7 +148,7 @@ public class InstancesTree
   public void dump()
   {
     List<String> categoryNames=getCategoryNames();
-    IndentableStream out=new IndentableStream(System.out);
+    IndentableStream out=new IndentableStream(System.out); // NOSONAR
     for(String categoryName : categoryNames)
     {
       InstanceCategory category=_categories.get(categoryName);

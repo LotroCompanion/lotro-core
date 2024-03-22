@@ -177,6 +177,16 @@ public class TraitDescriptionXMLParser
       }
     }
     // Skills
+    loadSkills(root,trait);
+    // Effects
+    loadEffects(root,trait);
+    // Pre-requisites
+    loadPrerequisites(root,trait);
+    return trait;
+  }
+
+  private void loadSkills(Element root, TraitDescription trait)
+  {
     List<Element> skillTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_SKILL_TAG);
     for(Element skillTag : skillTags)
     {
@@ -194,7 +204,10 @@ public class TraitDescriptionXMLParser
         LOGGER.warn("Skill not found: ID="+skillId+", name="+skillName);
       }
     }
-    // Effects
+  }
+
+  private void loadEffects(Element root, TraitDescription trait)
+  {
     // - generators
     List<Element> effectGeneratorTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_EFFECT_GENERATOR_TAG);
     for(Element effectGeneratorTag : effectGeneratorTags)
@@ -221,7 +234,10 @@ public class TraitDescriptionXMLParser
         LOGGER.warn("Effect not found: ID="+effectId+", name="+effectName);
       }
     }
-    // Pre-requisites
+  }
+
+  private void loadPrerequisites(Element root, TraitDescription trait)
+  {
     Element prerequisitesTag=DOMParsingTools.getChildTagByName(root,TraitPrerequisitesXMLConstants.COMPOUND_PREREQUISITE_TAG);
     if (prerequisitesTag==null)
     {
@@ -232,7 +248,6 @@ public class TraitDescriptionXMLParser
       AbstractTraitPrerequisite prerequisite=_prerequisitesParser.parsePrerequisite(prerequisitesTag);
       trait.setTraitPrerequisite(prerequisite);
     }
-    return trait;
   }
 
   private EffectGenerator readEffectGenerator(Element generatorTag)

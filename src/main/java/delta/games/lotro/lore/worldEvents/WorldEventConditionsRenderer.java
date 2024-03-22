@@ -14,6 +14,19 @@ public class WorldEventConditionsRenderer
   private static final Logger LOGGER=Logger.getLogger(WorldEventConditionsRenderer.class);
 
   /**
+   * World condition label: farmer's faire active".
+   */
+  private static final String FARMERS_FAIRE_ACTIVE="Farmers Faire: active";
+  /**
+   * Error label "Unmanaged operator".
+   */
+  private static final String UNMANAGED_OPERATOR="Unmanaged operator: ";
+  /**
+   * Error label "Unmanaged value".
+   */
+  private static final String UNMANAGED_VALUE="Unmanaged value: ";
+
+  /**
    * Render a simple world event condition.
    * @param condition Condition to use.
    * @return A displayable label for this condition, or <code>null</code> if not supported.
@@ -175,7 +188,7 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.LESS_OR_EQUAL) operatorStr="=<";
     else
     {
-      LOGGER.debug("Unmanaged operator: "+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR+operator);
       return null;
     }
     return "Level cap"+operatorStr+value;
@@ -188,7 +201,7 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.GREATER_OR_EQUAL) operatorStr=">=";
     else
     {
-      LOGGER.debug("Unmanaged operator: "+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR+operator);
       return null;
     }
     String valueStr="Tier "+value;
@@ -202,21 +215,19 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.GREATER_OR_EQUAL) operatorStr=">=";
     else
     {
-      LOGGER.debug("Unmanaged operator: "+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR+operator);
     }
     return "Instance level"+operatorStr+value;
   }
 
   private String handleInstanceGroupSize(ComparisonOperator operator, Integer value)
   {
-    String operatorStr="?";
-    if (operator==ComparisonOperator.EQUAL) operatorStr=" is ";
-    else
+    if (operator!=ComparisonOperator.EQUAL)
     {
-      LOGGER.debug("Unmanaged operator: "+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR+operator);
       return null;
     }
-    return "Instance size"+operatorStr+value;
+    return "Instance size is "+value;
   }
 
   private String handleInstanceChallengePeriod(ComparisonOperator operator, Integer value, String what)
@@ -227,11 +238,11 @@ public class WorldEventConditionsRenderer
       {
         return "In the period for initial completion of challenge mode of "+what;
       }
-      LOGGER.debug("Unmanaged value: "+value);
+      LOGGER.debug(UNMANAGED_VALUE+value);
     }
     else
     {
-      LOGGER.debug("Unmanaged operator: "+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR+operator);
     }
     return null;
   }
@@ -258,9 +269,9 @@ public class WorldEventConditionsRenderer
     if ("we_winterfestival_eatingcontest_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"Yule Festival: eating contest is not started");
     if ("we_winterfestival_snowballfight_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"Yule Festival: snowball fight is not started");
     // - Farmers Faire
-    if ("WE_FarmersFair_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Farmers Faire: active");
-    if ("WE_SpringFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Farmers Faire: active");
-    if ("WE_SummerFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Farmers Faire: active");
+    if ("WE_FarmersFair_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,FARMERS_FAIRE_ACTIVE);
+    if ("WE_SpringFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,FARMERS_FAIRE_ACTIVE);
+    if ("WE_SummerFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,FARMERS_FAIRE_ACTIVE);
     // - Harvest Festival
     if ("WE_FallFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Harvest Festival: active");
     if ("we_fallfestival_hauntedhouse_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Harvest Festival: haunted house is active");
@@ -378,7 +389,7 @@ public class WorldEventConditionsRenderer
         {
           return labelTrue;
         }
-        LOGGER.debug("Unmanaged value: "+value);
+        LOGGER.debug(UNMANAGED_VALUE+value);
       }
       else if (value.intValue()==0)
       {
@@ -386,12 +397,12 @@ public class WorldEventConditionsRenderer
         {
           return labelFalse;
         }
-        LOGGER.debug("Unmanaged value: "+value);
+        LOGGER.debug(UNMANAGED_VALUE+value);
       }
     }
     else
     {
-      LOGGER.debug("Unmanaged operator: "+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR+operator);
     }
     return null;
   }
@@ -408,7 +419,7 @@ public class WorldEventConditionsRenderer
   {
     if (operator==ComparisonOperator.EQUAL) return "is";
     if (operator==ComparisonOperator.GREATER_OR_EQUAL) return ">=";
-    LOGGER.warn("Unmanaged operator: "+operator);
+    LOGGER.warn(UNMANAGED_OPERATOR+operator);
     return "?";
   }
 
@@ -419,11 +430,11 @@ public class WorldEventConditionsRenderer
     {
       return handleMissionDay(operator,value,"War of the Three Peaks"); // 1-10
     }
-    else if ("WE_Integer_Gundabad_Mission_Config".equals(weProperty))
+    if ("WE_Integer_Gundabad_Mission_Config".equals(weProperty))
     {
       return handleMissionDay(operator,value,"Gundabad"); // 1-6
     }
-    else if ("WE_Integer_U34_BTS_Mission_Config".equals(weProperty))
+    if ("WE_Integer_U34_BTS_Mission_Config".equals(weProperty))
     {
       return handleMissionDay(operator,value,"Before the Shadow"); // 1-3
     }
@@ -436,13 +447,12 @@ public class WorldEventConditionsRenderer
     {
       return "Missions: "+which+": day "+value;
     }
-    LOGGER.debug("Unmanaged operator: "+operator);
+    LOGGER.debug(UNMANAGED_OPERATOR+operator);
     return null;
   }
 
   /*
-  private void handlePVP()
-  {
+  TODO handlePVP:
     World_MPControl_Ettenmoors_WestTower EQUAL 0 => Freeps control Lugazag (1 for Creeps)
     World_MPControl_Ettenmoors_EastTower EQUAL 0 => Freeps control Tirith Rhaw (1 for Creeps)
     World_MPControl_Ettenmoors_CenterKeep EQUAL 0 => Freeps control Tol Ascarnen (1 for Creeps)
@@ -457,7 +467,6 @@ public class WorldEventConditionsRenderer
     // WE_Ettenmoors_TA_Player_Reinforce_West related to "Signal to the West" (hidden)
     // WE_Ettenmoors_TA_Player_Reinforce_South related to "Signal to the South" (hidden)
     // WE_Ettenmoors_TA_Player_Sinew related to "Strapped for Straps" (hidden)
-  }
    */
 
   private String renderSimpleWorldEventConditionWithComplexValue(SimpleWorldEventCondition condition)

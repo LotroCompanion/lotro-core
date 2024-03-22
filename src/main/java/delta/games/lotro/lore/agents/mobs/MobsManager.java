@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.agents.mobs;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -78,14 +79,15 @@ public class MobsManager
 
   /**
    * Dump the contents of this manager.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
     List<MobDescription> mobs=getMobs();
-    System.out.println("Mobs: ("+mobs.size()+")");
+    out.println("Mobs: ("+mobs.size()+")");
     for(MobDescription mob : mobs)
     {
-      System.out.println("* "+mob);
+      out.println("* "+mob);
     }
   }
 }

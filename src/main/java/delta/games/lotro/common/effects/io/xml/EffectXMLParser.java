@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -61,6 +62,8 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class EffectXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(EffectXMLParser.class);
+
   private SingleLocaleLabelsManager _labelsMgr;
   private List<EffectGenerator> _toUpdate;
   private List<EffectAndProbability> _toUpdate2;
@@ -682,7 +685,7 @@ public class EffectXMLParser
       }
       else
       {
-        System.out.println("null entry: code="+code+" for class: "+enumEntryClass);
+        LOGGER.warn("null entry: code="+code+" for class: "+enumEntryClass);
       }
     }
     return ret;

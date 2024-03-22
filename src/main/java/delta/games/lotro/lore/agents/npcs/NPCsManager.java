@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.agents.npcs;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -78,14 +79,15 @@ public class NPCsManager
 
   /**
    * Dump the contents of this manager.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
     List<NpcDescription> npcs=getNPCs();
-    System.out.println("NPCs: ("+npcs.size()+")");
+    out.println("NPCs: ("+npcs.size()+")");
     for(NpcDescription npc : npcs)
     {
-      System.out.println("* "+npc);
+      out.println("* "+npc);
     }
   }
 }

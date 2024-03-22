@@ -1,6 +1,7 @@
 package delta.games.lotro.common.treasure;
 
 import java.io.File;
+import java.io.PrintStream;
 
 import org.apache.log4j.Logger;
 
@@ -87,12 +88,13 @@ public class LootsManager
 
   /**
    * Dump some statistics about loots.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
-    System.out.println("Loots manager has:");
-    System.out.println("\t"+_tables.size()+" loot tables");
-    System.out.println("\t"+_relicsLists.size()+" relics lists");
-    System.out.println("\t"+_relicsTreasureGroups.size()+" relics treasure groups");
+    out.println("Loots manager has:");
+    out.println("\t"+_tables.size()+" loot tables");
+    out.println("\t"+_relicsLists.size()+" relics lists");
+    out.println("\t"+_relicsTreasureGroups.size()+" relics treasure groups");
   }
 }

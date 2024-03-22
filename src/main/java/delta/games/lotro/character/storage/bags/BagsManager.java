@@ -1,5 +1,6 @@
 package delta.games.lotro.character.storage.bags;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -150,17 +151,18 @@ public class BagsManager extends BaseStorage
   }
 
   /**
-   * Dump the contents of this aggregator.
+   * Dump the contents of the managed bag.
+   * @param out Output stream.
    */
-  public void dumpContents()
+  public void dumpContents(PrintStream out)
   {
-    System.out.println("Bags:");
+    out.println("Bags:");
     List<Integer> positions=new ArrayList<Integer>(_bag.keySet());
     Collections.sort(positions);
     for(Integer position : positions)
     {
       CountedItem<ItemInstance<? extends Item>> itemInstance=_bag.get(position);
-      System.out.println("\t"+position+" => "+itemInstance);
+      out.println("\t"+position+" => "+itemInstance);
     }
   }
 }

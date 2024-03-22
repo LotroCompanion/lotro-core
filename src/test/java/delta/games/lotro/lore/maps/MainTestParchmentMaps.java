@@ -13,6 +13,6 @@ public class MainTestParchmentMaps
   public static void main(String[] args)
   {
     ParchmentMapsManager mgr=ParchmentMapsManager.getInstance();
-    mgr.dump();
+    mgr.dump(System.out);
   }
 }

@@ -1,5 +1,6 @@
 package delta.games.lotro.character.storage.vaults;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,15 +54,16 @@ public class ItemInstancesContainer
 
   /**
    * Dump contents.
+   * @param out Output stream.
    * @param level Indentation level.
    */
-  public void dump(int level)
+  public void dump(PrintStream out, int level)
   {
     List<CountedItem<ItemInstance<? extends Item>>> itemInstances=getAllItemInstances();
     for(CountedItem<ItemInstance<? extends Item>> itemInstance : itemInstances)
     {
-      for(int i=0;i<level;i++) System.out.print('\t');
-      System.out.println(itemInstance);
+      for(int i=0;i<level;i++) out.print('\t');
+      out.println(itemInstance);
     }
   }
 }

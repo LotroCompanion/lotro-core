@@ -13,6 +13,6 @@ public class MainTestDungeons
   public static void main(String[] args)
   {
     DungeonsManager mgr=DungeonsManager.getInstance();
-    mgr.dump();
+    mgr.dump(System.out);
   }
 }

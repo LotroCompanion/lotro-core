@@ -1,6 +1,7 @@
 package delta.games.lotro.common.effects;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -103,14 +104,15 @@ public class EffectsManager
 
   /**
    * Dump the contents of this manager.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
     List<Effect> effects=getEffects();
-    System.out.println("Effect: ("+effects.size()+")");
+    out.println("Effect: ("+effects.size()+")");
     for(Effect effect : effects)
     {
-      System.out.println("\t"+effect);
+      out.println("\t"+effect);
     }
   }
 }

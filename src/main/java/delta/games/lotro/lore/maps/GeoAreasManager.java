@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.maps;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -234,26 +235,27 @@ public class GeoAreasManager
   }
   /**
    * Dump the contents of this manager.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
     List<Region> regions=getRegions();
-    System.out.println("Regions: ("+regions.size()+")");
+    out.println("Regions: ("+regions.size()+")");
     for(Region region : regions)
     {
-      System.out.println("\t"+region);
+      out.println("\t"+region);
     }
     List<Territory> territories=getTerritories();
-    System.out.println("Territories: ("+territories.size()+")");
+    out.println("Territories: ("+territories.size()+")");
     for(Territory territory : territories)
     {
-      System.out.println("\t"+territory);
+      out.println("\t"+territory);
     }
     List<Area> areas=getAreas();
-    System.out.println("Areas: ("+areas.size()+")");
+    out.println("Areas: ("+areas.size()+")");
     for(Area area : areas)
     {
-      System.out.println("\t"+area);
+      out.println("\t"+area);
     }
   }
 }

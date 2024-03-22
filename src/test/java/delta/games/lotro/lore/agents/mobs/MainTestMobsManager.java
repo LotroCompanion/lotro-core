@@ -13,6 +13,6 @@ public class MainTestMobsManager
   public static void main(String[] args)
   {
     MobsManager mgr=MobsManager.getInstance();
-    mgr.dump();
+    mgr.dump(System.out);
   }
 }

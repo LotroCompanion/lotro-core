@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.instances;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -126,14 +127,15 @@ public class PrivateEncountersManager
 
   /**
    * Dump the contents of this manager.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
     List<PrivateEncounter> privateEncounters=getPrivateEncounters();
-    System.out.println("Private encounters: ("+privateEncounters.size()+")");
+    out.println("Private encounters: ("+privateEncounters.size()+")");
     for(PrivateEncounter privateEncounter : privateEncounters)
     {
-      System.out.println("* "+privateEncounter);
+      out.println("* "+privateEncounter);
     }
   }
 }

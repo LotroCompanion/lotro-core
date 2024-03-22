@@ -1,5 +1,6 @@
 package delta.games.lotro.character.storage.wallet;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -107,15 +108,16 @@ public class Wallet
 
   /**
    * Dump contents.
+   * @param out Output stream.
    * @param level Indentation level.
    */
-  public void dump(int level)
+  public void dump(PrintStream out, int level)
   {
     List<CountedItem<Item>> items=getAllItemsSortedByID();
     for(CountedItem<Item> item : items)
     {
       for(int i=0;i<level;i++) System.out.print('\t');
-      System.out.println(item);
+      out.println(item);
     }
   }
 }

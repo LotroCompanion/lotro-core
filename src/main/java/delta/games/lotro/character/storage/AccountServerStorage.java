@@ -1,5 +1,6 @@
 package delta.games.lotro.character.storage;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -122,22 +123,23 @@ public class AccountServerStorage
 
   /**
    * Dump contents.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
-    System.out.println("Account: "+_account);
-    System.out.println("Server: "+_server);
-    System.out.println("Shared Vault: ");
-    _sharedVault.dump(1);
-    System.out.println("Shared Wallet: ");
-    _sharedWallet.dump(1);
+    out.println("Account: "+_account);
+    out.println("Server: "+_server);
+    out.println("Shared Vault: ");
+    _sharedVault.dump(out,1);
+    out.println("Shared Wallet: ");
+    _sharedWallet.dump(out,1);
     List<String> characterNames=new ArrayList<String>(_storages.keySet());
     Collections.sort(characterNames);
     for(String characterName : characterNames)
     {
       CharacterStorage storage=_storages.get(characterName);
-      System.out.println(characterName);
-      storage.dump(1);
+      out.println(characterName);
+      storage.dump(out,1);
     }
   }
 }

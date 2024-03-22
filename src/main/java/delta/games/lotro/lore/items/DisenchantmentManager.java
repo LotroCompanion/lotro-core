@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -74,10 +75,11 @@ public class DisenchantmentManager
 
   /**
    * Dump some statistics about disenchantments.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
-    System.out.println("Disenchantment manager has:");
-    System.out.println("\t"+_disenchantmentResults.size()+" disenchantment results");
+    out.println("Disenchantment manager has:");
+    out.println("\t"+_disenchantmentResults.size()+" disenchantment results");
   }
 }

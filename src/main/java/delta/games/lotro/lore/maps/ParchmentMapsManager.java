@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.maps;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -150,14 +151,15 @@ public class ParchmentMapsManager
 
   /**
    * Dump the contents of this manager.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
     List<ParchmentMap> maps=getParchmentMaps();
-    System.out.println("Maps: ("+maps.size()+")");
+    out.println("Maps: ("+maps.size()+")");
     for(ParchmentMap map : maps)
     {
-      System.out.println("\t"+map);
+      out.println("\t"+map);
     }
   }
 }

@@ -1,5 +1,6 @@
 package delta.games.lotro.character.storage.vaults;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -137,16 +138,17 @@ public class Vault extends BaseStorage
 
   /**
    * Dump contents.
+   * @param out Output stream.
    * @param level Indentation level.
    */
-  public void dump(int level)
+  public void dump(PrintStream out, int level)
   {
-    for(int i=0;i<level;i++) System.out.print('\t');
-    System.out.println("Capacity: "+_used+'/'+_capacity);
+    for(int i=0;i<level;i++) out.print('\t');
+    out.println("Capacity: "+_used+'/'+_capacity);
     for(Integer chestId : getChestIds())
     {
       Chest chest=getChest(chestId.intValue());
-      chest.dump(level);
+      chest.dump(out,level);
     }
   }
 }

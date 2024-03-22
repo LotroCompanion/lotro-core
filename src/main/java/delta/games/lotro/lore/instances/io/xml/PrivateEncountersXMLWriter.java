@@ -185,6 +185,22 @@ public class PrivateEncountersXMLWriter
     }
 
     // Maps
+    writeMaps(hd,privateEncounter);
+    // Quests to bestow
+    for(Proxy<QuestDescription> questToBestow : quests.getQuests())
+    {
+      writeQuestProxy(hd,PrivateEncountersXMLConstants.QUEST_TO_BESTOW_TAG,questToBestow);
+    }
+    // Random quests
+    for(Proxy<QuestDescription> randomQuest : quests.getRandomQuests())
+    {
+      writeQuestProxy(hd,PrivateEncountersXMLConstants.RANDOM_QUEST_TAG,randomQuest);
+    }
+    hd.endElement("","",tagName);
+  }
+
+  private void writeMaps(TransformerHandler hd, PrivateEncounter privateEncounter) throws SAXException
+  {
     for(InstanceMapDescription map : privateEncounter.getMapDescriptions())
     {
       hd.startElement("","",PrivateEncountersXMLConstants.INSTANCE_MAP_TAG,new AttributesImpl());
@@ -208,17 +224,6 @@ public class PrivateEncountersXMLWriter
       }
       hd.endElement("","",PrivateEncountersXMLConstants.INSTANCE_MAP_TAG);
     }
-    // Quests to bestow
-    for(Proxy<QuestDescription> questToBestow : quests.getQuests())
-    {
-      writeQuestProxy(hd,PrivateEncountersXMLConstants.QUEST_TO_BESTOW_TAG,questToBestow);
-    }
-    // Random quests
-    for(Proxy<QuestDescription> randomQuest : quests.getRandomQuests())
-    {
-      writeQuestProxy(hd,PrivateEncountersXMLConstants.RANDOM_QUEST_TAG,randomQuest);
-    }
-    hd.endElement("","",tagName);
   }
 
   private void writeQuestProxy(TransformerHandler hd, String tagName, Proxy<QuestDescription> quest) throws SAXException

@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.relics.melding;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -74,10 +75,11 @@ public class RelicMeldingRecipesManager
 
   /**
    * Dump some statistics about melding recipes.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
-    System.out.println("Relic melding recipes manager has:");
-    System.out.println("\t"+_meldingRecipes.size()+" recipes");
+    out.println("Relic melding recipes manager has:");
+    out.println("\t"+_meldingRecipes.size()+" recipes");
   }
 }

@@ -1,5 +1,7 @@
 package delta.games.lotro.character.storage.vaults;
 
+import java.io.PrintStream;
+
 /**
  * Chest.
  * @author DAM
@@ -51,15 +53,11 @@ public class Chest extends ItemInstancesContainer
     _name=name;
   }
 
-  /**
-   * Dump contents.
-   * @param level Indentation level.
-   */
   @Override
-  public void dump(int level)
+  public void dump(PrintStream out, int level)
   {
-    for(int i=0;i<level;i++) System.out.print('\t');
-    System.out.println("Chest: ID="+_id+", name="+_name);
-    super.dump(level+1);
+    for(int i=0;i<level;i++) out.print('\t');
+    out.println("Chest: ID="+_id+", name="+_name);
+    super.dump(out,level+1);
   }
 }

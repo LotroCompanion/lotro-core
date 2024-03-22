@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.maps.resources;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -90,14 +91,15 @@ public class ResourcesMapsManager
 
   /**
    * Dump the contents of this manager.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
     List<ResourcesMapDescriptor> maps=getResourcesMaps();
-    System.out.println("Maps: ("+maps.size()+")");
+    out.println("Maps: ("+maps.size()+")");
     for(ResourcesMapDescriptor map : maps)
     {
-      System.out.println("\t"+map);
+      out.println("\t"+map);
     }
   }
 }

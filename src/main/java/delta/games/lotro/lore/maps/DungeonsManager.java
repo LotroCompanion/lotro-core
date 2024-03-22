@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.maps;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -82,14 +83,15 @@ public class DungeonsManager
 
   /**
    * Dump the contents of this manager.
+   * @param out Output stream.
    */
-  public void dump()
+  public void dump(PrintStream out)
   {
     List<Dungeon> dungeons=getDungeons();
-    System.out.println("Dungeons: ("+dungeons.size()+")");
+    out.println("Dungeons: ("+dungeons.size()+")");
     for(Dungeon dungeon : dungeons)
     {
-      System.out.println("\t"+dungeon);
+      out.println("\t"+dungeon);
     }
   }
 }

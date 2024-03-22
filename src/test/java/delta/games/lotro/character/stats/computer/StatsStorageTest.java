@@ -4,6 +4,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.WellKnownStat;
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
@@ -20,6 +21,9 @@ public class StatsStorageTest extends TestCase
     StatsStorage stats=build();
     BasicStatsSet result=stats.aggregate();
     System.out.println("Result: "+result);
+    Assert.assertEquals(Integer.valueOf(3),result.getStat(WellKnownStat.MIGHT));
+    Assert.assertEquals(Float.valueOf(231),result.getStat(WellKnownStat.MORALE));
+    Assert.assertEquals(Integer.valueOf(100),result.getStat(WellKnownStat.AGILITY));
   }
 
   private StatsStorage build()

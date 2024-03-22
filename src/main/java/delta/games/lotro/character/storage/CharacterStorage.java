@@ -1,5 +1,6 @@
 package delta.games.lotro.character.storage;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -145,24 +146,25 @@ public class CharacterStorage
     // Bags
     ret.addAll(_bags.getCarryAllIDs());
     // Wallet
-    // ... no carry alls in the wallet!
+    // ... no carry-alls in the wallet!
     return ret;
   }
 
   /**
    * Dump contents.
+   * @param out Output stream.
    * @param level Indentation level.
    */
-  public void dump(int level)
+  public void dump(PrintStream out, int level)
   {
-    for(int i=0;i<level;i++) System.out.print('\t');
-    System.out.println("Own vault:");
-    _ownVault.dump(level+1);
-    for(int i=0;i<level;i++) System.out.print('\t');
-    System.out.println("Own wallet:");
-    _wallet.dump(level+1);
-    for(int i=0;i<level;i++) System.out.print('\t');
-    System.out.println("Bags:");
-    _bags.dumpContents();
+    for(int i=0;i<level;i++) out.print('\t');
+    out.println("Own vault:");
+    _ownVault.dump(out,level+1);
+    for(int i=0;i<level;i++) out.print('\t');
+    out.println("Own wallet:");
+    _wallet.dump(out,level+1);
+    for(int i=0;i<level;i++) out.print('\t');
+    out.println("Bags:");
+    _bags.dumpContents(out);
   }
 }

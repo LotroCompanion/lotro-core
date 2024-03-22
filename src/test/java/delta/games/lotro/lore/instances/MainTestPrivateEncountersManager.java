@@ -13,6 +13,6 @@ public class MainTestPrivateEncountersManager
   public static void main(String[] args)
   {
     PrivateEncountersManager mgr=PrivateEncountersManager.getInstance();
-    mgr.dump();
+    mgr.dump(System.out);
   }
 }
