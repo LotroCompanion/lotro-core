@@ -42,7 +42,7 @@ public class QuestStatus
 
   private QuestStatus(int objectiveIndex)
   {
-    _key=KEY_UNDERWAY+_objectiveIndex;
+    _key=KEY_UNDERWAY+objectiveIndex;
     _objectiveIndex=objectiveIndex;
   }
 
