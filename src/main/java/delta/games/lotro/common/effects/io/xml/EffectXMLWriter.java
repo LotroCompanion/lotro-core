@@ -167,6 +167,11 @@ public class EffectXMLWriter
       }
     }
     // Probability
+    writeProbability(attrs,effect);
+  }
+
+  private void writeProbability(AttributesImpl attrs, Effect effect)
+  {
     ApplicationProbability applicationProbability=effect.getApplicationProbability();
     if (applicationProbability!=ApplicationProbability.ALWAYS)
     {
@@ -377,7 +382,7 @@ public class EffectXMLWriter
     }
   }
 
-  private void writePropertyModificationEffectAttributes(AttributesImpl attrs, PropertyModificationEffect propertyModificationEffect)
+  private void writePropertyModificationEffectAttributes(AttributesImpl attrs, PropertyModificationEffect propertyModificationEffect) // NOSONAR
   {
     // Nothing!
   }

@@ -147,7 +147,7 @@ public class TreasureXMLWriter
       int weight=entry.getWeight();
       entryAttrs.addAttribute("","",TreasureXMLConstants.WEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(weight));
       // Item
-      writeItem(hd,entry.getItem(),entryAttrs);
+      writeItem(entry.getItem(),entryAttrs);
       // Quantity
       int quantity=entry.getQuantity();
       if (quantity>1)
@@ -215,7 +215,7 @@ public class TreasureXMLWriter
       Item item=entry.getItem();
       if (item!=null)
       {
-        writeItem(hd,item,entryAttrs);
+        writeItem(item,entryAttrs);
       }
       // Treasure group profile?
       TreasureGroupProfile profile=entry.getTreasureGroup();
@@ -363,11 +363,10 @@ public class TreasureXMLWriter
 
   /**
    * Write an item.
-   * @param hd Output.
    * @param item Item.
    * @param attrs Storage.
    */
-  public static void writeItem(TransformerHandler hd, Item item, AttributesImpl attrs)
+  public static void writeItem(Item item, AttributesImpl attrs)
   {
     // - Identifier
     int id=item.getIdentifier();

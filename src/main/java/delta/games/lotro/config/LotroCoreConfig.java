@@ -87,7 +87,7 @@ public final class LotroCoreConfig
     // Parameters
     File parametersFile=getFile(DataFiles.PARAMETERS);
     _parameters=new TypedProperties();
-    if (parametersFile.canRead())
+    if ((parametersFile!=null) && (parametersFile.canRead()))
     {
       _parameters.loadFromFile(parametersFile);
     }
@@ -100,12 +100,12 @@ public final class LotroCoreConfig
     // Data Configuration
     _dataConfiguration=initDataConfiguration(userDataDir);
     // Labels Configuration
-    _labelsConfiguration=initLabelsConfiguration(userDataDir);
+    _labelsConfiguration=initLabelsConfiguration();
   }
 
   private TypedProperties getLocations(String propsPath)
   {
-    TypedProperties props=null;
+    TypedProperties props=new TypedProperties();
     URL url=URLTools.getFromClassPath(propsPath, getClass().getClassLoader());
     if (url==null)
     {
@@ -115,10 +115,9 @@ public final class LotroCoreConfig
     try
     {
       is=url.openStream();
-      props=new TypedProperties();
       props.loadFromInputStream(is);
     }
-    catch(Throwable t)
+    catch(Exception t)
     {
       LOGGER.error("Could not load locations!",t);
     }
@@ -169,7 +168,7 @@ public final class LotroCoreConfig
     return cfg;
   }
 
-  private LabelsConfiguration initLabelsConfiguration(File userDataDir)
+  private LabelsConfiguration initLabelsConfiguration()
   {
     LabelsConfiguration cfg=new LabelsConfiguration();
     cfg.fromPreferences(_preferences);
