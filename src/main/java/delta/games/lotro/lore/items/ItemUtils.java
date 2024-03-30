@@ -193,7 +193,9 @@ public class ItemUtils
     StatsProvider statsProvider=item.getStatsProvider();
     if (statsProvider!=null)
     {
-      return statsProvider.getStats(1,itemLevel.intValue());
+      Integer offset=item.getItemLevelOffset();
+      int effectiveItemLevel=itemLevel.intValue()+((offset!=null)?offset.intValue():0);
+      return statsProvider.getStats(1,effectiveItemLevel);
     }
     return new BasicStatsSet();
   }
