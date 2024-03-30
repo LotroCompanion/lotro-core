@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -45,9 +46,9 @@ public class WeaponDamageXMLWriter
    * Write weapon damage data to a XML file.
    * @param hd Output.
    * @param mgr Data to write.
-   * @throws Exception if an error occurs.
+   * @throws SAXException if an error occurs.
    */
-  private static void writeWeaponDamage(TransformerHandler hd, final WeaponDamageManager mgr) throws Exception
+  private static void writeWeaponDamage(TransformerHandler hd, final WeaponDamageManager mgr) throws SAXException
   {
     for(WeaponType weaponType : mgr.getWeaponTypes())
     {

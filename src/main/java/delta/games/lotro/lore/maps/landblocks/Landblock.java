@@ -195,7 +195,10 @@ public class Landblock
         if (nbCells>0)
         {
           Cell nearestCell=getNearestCell(position);
-          ret=nearestCell.getDungeonId();
+          if (nearestCell!=null)
+          {
+            ret=nearestCell.getDungeonId();
+          }
           if (ret==null)
           {
             ret=getParentDungeon();
@@ -214,8 +217,7 @@ public class Landblock
   private boolean hasDungeon()
   {
     if (_parentDungeon!=null) return true;
-    if (getDungeonsFromCells().size()>0) return true;
-    return false;
+    return (!getDungeonsFromCells().isEmpty());
   }
 
   private Cell getNearestCell(Vector3D position)

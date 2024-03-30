@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -60,9 +61,9 @@ public class RelicXMLWriter
    * Write a relics category to the given XML stream.
    * @param hd XML output stream.
    * @param category Category to write.
-   * @throws Exception
+   * @throws SAXException
    */
-  private void write(TransformerHandler hd, RelicsCategory category) throws Exception
+  private void write(TransformerHandler hd, RelicsCategory category) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -90,9 +91,9 @@ public class RelicXMLWriter
    * Write a relic to the given XML stream.
    * @param hd XML output stream.
    * @param relic Relic to write.
-   * @throws Exception
+   * @throws SAXException
    */
-  private void write(TransformerHandler hd, Relic relic) throws Exception
+  private void write(TransformerHandler hd, Relic relic) throws SAXException
   {
     AttributesImpl relicAttrs=new AttributesImpl();
 

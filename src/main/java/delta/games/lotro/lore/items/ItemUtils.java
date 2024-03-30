@@ -122,18 +122,16 @@ public class ItemUtils
     for(Item item : ItemsManager.getInstance().getAllItems())
     {
       ItemDetailsManager detailsMgr=item.getDetails();
-      if (detailsMgr==null)
+      if (detailsMgr!=null)
       {
-        continue;
-      }
-      List<WeaponSlayerInfo> infos=detailsMgr.getItemDetails(WeaponSlayerInfo.class);
-      if (infos.isEmpty())
-      {
-        continue;
-      }
-      for(WeaponSlayerInfo info : infos)
-      {
-        genus.addAll(info.getGenus());
+        List<WeaponSlayerInfo> infos=detailsMgr.getItemDetails(WeaponSlayerInfo.class);
+        if (!infos.isEmpty())
+        {
+          for(WeaponSlayerInfo info : infos)
+          {
+            genus.addAll(info.getGenus());
+          }
+        }
       }
     }
     List<Genus> ret=new ArrayList<Genus>(genus);

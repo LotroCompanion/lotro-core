@@ -44,7 +44,7 @@ public class StatsProviderXMLWriter
       writeProvider(hd,provider);
     }
     List<SpecialEffect> specialEffects=statsProvider.getSpecialEffects();
-    if (specialEffects.size()>0)
+    if (!specialEffects.isEmpty())
     {
       for(SpecialEffect specialEffect : specialEffects)
       {

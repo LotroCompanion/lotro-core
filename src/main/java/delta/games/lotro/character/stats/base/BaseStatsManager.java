@@ -32,7 +32,6 @@ public class BaseStatsManager
     _toAdd.setStat(WellKnownStat.TACTICAL_MASTERY,1);
     _toAdd.setStat(WellKnownStat.PARRY,3);
     _toAdd.setStat(WellKnownStat.EVADE,1);
-    //_toAdd.setStat(WellKnownStat.BLOCK,new FixedDecimalsInteger(1.5f));
   }
 
   /**

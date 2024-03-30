@@ -42,7 +42,7 @@ public class EntityClassification
   public String getGenusLabel()
   {
     String ret=null;
-    if ((_genus!=null) && (_genus.size()>0))
+    if ((_genus!=null) && (!_genus.isEmpty()))
     {
       StringBuilder sb=new StringBuilder();
       for(Genus genus : _genus)
@@ -65,7 +65,7 @@ public class EntityClassification
   public String getGenusPersistenceString()
   {
     String ret=null;
-    if ((_genus!=null) && (_genus.size()>0))
+    if ((_genus!=null) && (!_genus.isEmpty()))
     {
       StringBuilder sb=new StringBuilder();
       for(Genus genus : _genus)

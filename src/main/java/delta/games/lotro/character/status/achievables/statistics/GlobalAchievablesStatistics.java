@@ -1,6 +1,6 @@
 package delta.games.lotro.character.status.achievables.statistics;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +29,7 @@ public class GlobalAchievablesStatistics
    */
   public GlobalAchievablesStatistics()
   {
-    _countByState=new HashMap<AchievableElementState,IntegerHolder>();
+    _countByState=new EnumMap<AchievableElementState,IntegerHolder>(AchievableElementState.class);
     for(AchievableElementState state : AchievableElementState.values())
     {
       _countByState.put(state,new IntegerHolder());

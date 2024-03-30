@@ -334,7 +334,7 @@ public class AchievablesStatistics
     sb.append("Class points: ").append(_classPoints).append(EndOfLine.NATIVE_EOL);
     sb.append("Marks: ").append(_marksCount).append(EndOfLine.NATIVE_EOL);
     sb.append("Medallions: ").append(_medallionsCount).append(EndOfLine.NATIVE_EOL);
-    if (_titles.size()>0)
+    if (!_titles.isEmpty())
     {
       sb.append("Titles: (").append(_titles.size()).append(')').append(EndOfLine.NATIVE_EOL);
       for(TitleEvent title : _titles)
@@ -342,7 +342,7 @@ public class AchievablesStatistics
         sb.append('\t').append(title).append(EndOfLine.NATIVE_EOL);
       }
     }
-    if (_emotes.size()>0)
+    if (!_emotes.isEmpty())
     {
       sb.append("Emotes: (").append(_emotes.size()).append(')').append(EndOfLine.NATIVE_EOL);
       for(EmoteEvent emote : _emotes)
@@ -350,7 +350,7 @@ public class AchievablesStatistics
         sb.append('\t').append(emote).append(EndOfLine.NATIVE_EOL);
       }
     }
-    if (_traits.size()>0)
+    if (!_traits.isEmpty())
     {
       sb.append("Traits: (").append(_traits.size()).append(')').append(EndOfLine.NATIVE_EOL);
       for(TraitEvent trait : _traits)
@@ -358,7 +358,7 @@ public class AchievablesStatistics
         sb.append('\t').append(trait).append(EndOfLine.NATIVE_EOL);
       }
     }
-    if (_virtues.size()>0)
+    if (!_virtues.isEmpty())
     {
       sb.append("Virtues:").append(EndOfLine.NATIVE_EOL);
       List<VirtueDescription> virtues=VirtuesManager.getInstance().getAll();

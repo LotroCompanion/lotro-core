@@ -48,7 +48,7 @@ public class TravelNode implements Identifiable
    */
   public String getName()
   {
-    if (_locations.size()>0)
+    if (!_locations.isEmpty())
     {
       return _locations.get(0).getName();
     }

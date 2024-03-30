@@ -50,10 +50,7 @@ public class CharacterLogXMLParser
     {
       Node n=nl.item(i);
       CharacterLogItem item=parseLogItem((Element)n);
-      if (item!=null)
-      {
-        log.addLogItem(item);
-      }
+      log.addLogItem(item);
     }
   }
 

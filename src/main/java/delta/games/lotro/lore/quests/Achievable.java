@@ -413,7 +413,7 @@ public abstract class Achievable implements Identifiable,Named
     {
       sb.append("Prerequisites: ").append(_questRequirement).append(EndOfLine.NATIVE_EOL);
     }
-    if (_maps.size()>0)
+    if (!_maps.isEmpty())
     {
       sb.append("Maps: ").append(_maps).append(EndOfLine.NATIVE_EOL);
     }

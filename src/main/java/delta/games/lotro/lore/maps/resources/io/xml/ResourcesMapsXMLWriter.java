@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -57,7 +58,7 @@ public class ResourcesMapsXMLWriter
     return ret;
   }
 
-  private void writeResourcesMaps(TransformerHandler hd, List<ResourcesMapDescriptor> data) throws Exception
+  private void writeResourcesMaps(TransformerHandler hd, List<ResourcesMapDescriptor> data) throws SAXException
   {
     hd.startElement("","",ResourcesMapsXMLConstants.RESOURCES_MAPS_TAG,new AttributesImpl());
     // Maps
@@ -68,7 +69,7 @@ public class ResourcesMapsXMLWriter
     hd.endElement("","",ResourcesMapsXMLConstants.RESOURCES_MAPS_TAG);
   }
 
-  private void writeResourcesMap(TransformerHandler hd, ResourcesMapDescriptor map) throws Exception
+  private void writeResourcesMap(TransformerHandler hd, ResourcesMapDescriptor map) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

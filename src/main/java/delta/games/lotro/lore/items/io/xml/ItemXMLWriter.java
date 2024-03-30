@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -101,9 +102,9 @@ public class ItemXMLWriter
    * Write an item to the given XML stream.
    * @param hd XML output stream.
    * @param item Item to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void write(TransformerHandler hd, Item item) throws Exception
+  private void write(TransformerHandler hd, Item item) throws SAXException
   {
     AttributesImpl itemAttrs=new AttributesImpl();
 

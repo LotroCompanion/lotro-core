@@ -4,7 +4,7 @@ package delta.games.lotro.common.rewards;
  * Base class for reward elements.
  * @author DAM
  */
-public class RewardElement
+public abstract class RewardElement
 {
   // Nothing!
 }

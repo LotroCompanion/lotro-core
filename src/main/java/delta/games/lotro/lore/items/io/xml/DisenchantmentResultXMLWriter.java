@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -58,7 +59,7 @@ public class DisenchantmentResultXMLWriter
     return ret;
   }
 
-  private void writeDisenchantments(TransformerHandler hd, List<DisenchantmentResult> disenchantments) throws Exception
+  private void writeDisenchantments(TransformerHandler hd, List<DisenchantmentResult> disenchantments) throws SAXException
   {
     for(DisenchantmentResult disenchantment : disenchantments)
     {
@@ -66,7 +67,7 @@ public class DisenchantmentResultXMLWriter
     }
   }
 
-  private void writeDisenchantment(TransformerHandler hd, DisenchantmentResult disenchantment) throws Exception
+  private void writeDisenchantment(TransformerHandler hd, DisenchantmentResult disenchantment) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

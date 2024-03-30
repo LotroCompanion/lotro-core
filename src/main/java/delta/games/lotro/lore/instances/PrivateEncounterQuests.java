@@ -112,7 +112,7 @@ public class PrivateEncounterQuests
       String q=_parentQuest.getId()+" - "+_parentQuest.getName();
       sb.append("Quest=").append(q).append(EndOfLine.NATIVE_EOL);
     }
-    if (_always.size()>0)
+    if (!_always.isEmpty())
     {
       sb.append("Bestowed quests: ");
       List<String> quests=new ArrayList<String>();
@@ -122,7 +122,7 @@ public class PrivateEncounterQuests
       }
       sb.append(String.join(", ",quests)).append(EndOfLine.NATIVE_EOL);
     }
-    if ((_randomQuestsCount>0) && (_random.size()>0))
+    if ((_randomQuestsCount>0) && (!_random.isEmpty()))
     {
       sb.append("Random quests (").append(_randomQuestsCount).append("): ");
       List<String> quests=new ArrayList<String>();

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -55,9 +56,9 @@ public class VendorXMLWriter
    * Write vendors to a XML file.
    * @param hd Output.
    * @param vendors Vendors to write.
-   * @throws Exception if an error occurs.
+   * @throws SAXException if an error occurs.
    */
-  private static void writeVendors(TransformerHandler hd, final List<VendorNpc> vendors) throws Exception
+  private static void writeVendors(TransformerHandler hd, final List<VendorNpc> vendors) throws SAXException
   {
     Map<Integer,SellList> sellListsMap=new HashMap<Integer,SellList>();
     for(VendorNpc vendor : vendors)
@@ -76,7 +77,7 @@ public class VendorXMLWriter
     }
   }
 
-  private static void writeVendor(TransformerHandler hd, VendorNpc barterer) throws Exception
+  private static void writeVendor(TransformerHandler hd, VendorNpc barterer) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 
@@ -131,7 +132,7 @@ public class VendorXMLWriter
     hd.endElement("","",VendorXMLConstants.VENDOR_TAG);
   }
 
-  private static void writeSellList(TransformerHandler hd, SellList sellList) throws Exception
+  private static void writeSellList(TransformerHandler hd, SellList sellList) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

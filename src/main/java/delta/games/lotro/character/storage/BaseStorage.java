@@ -13,7 +13,7 @@ public abstract class BaseStorage
   /**
    * Constructor.
    */
-  public BaseStorage()
+  protected BaseStorage()
   {
     _statusMetadata=new StatusMetadata();
   }

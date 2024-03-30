@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -46,7 +47,7 @@ public class StatTomesXMLWriter
     return ret;
   }
 
-  private static void writeStatTomesManager(TransformerHandler hd, StatTomesManager statTomesMgr) throws Exception
+  private static void writeStatTomesManager(TransformerHandler hd, StatTomesManager statTomesMgr) throws SAXException
   {
     List<StatDescription> stats=statTomesMgr.getStats();
     for(StatDescription stat : stats)

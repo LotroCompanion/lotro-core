@@ -40,6 +40,7 @@ public final class ItemCosmeticsXMLParser extends DefaultHandler
       ItemCosmeticsXMLParser handler=new ItemCosmeticsXMLParser();
       // Use the default (non-validating) parser
       SAXParserFactory factory=SAXParserFactory.newInstance();
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       SAXParser saxParser=factory.newSAXParser();
       saxParser.parse(source,handler);
       saxParser.reset();

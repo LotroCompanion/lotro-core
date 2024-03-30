@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -40,7 +41,7 @@ public class EnumXMLWriter<T extends LotroEnumEntry>
     return ret;
   }
 
-  private void writeEnum(TransformerHandler hd, LotroEnum<T> lotroEnum) throws Exception
+  private void writeEnum(TransformerHandler hd, LotroEnum<T> lotroEnum) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Identifier
@@ -57,7 +58,7 @@ public class EnumXMLWriter<T extends LotroEnumEntry>
     hd.endElement("","",EnumXMLConstants.ENUM_TAG);
   }
 
-  private void writeEntry(TransformerHandler hd, T entry) throws Exception
+  private void writeEntry(TransformerHandler hd, T entry) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

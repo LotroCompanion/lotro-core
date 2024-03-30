@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -53,9 +54,9 @@ public class KinshipRosterXMLWriter
    * Write kinship roster.
    * @param hd Output stream.
    * @param roster Source data.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, KinshipRoster roster) throws Exception
+  public static void write(TransformerHandler hd, KinshipRoster roster) throws SAXException
   {
     // Ranks
     List<KinshipRank> ranks=roster.getRanks();
@@ -74,7 +75,7 @@ public class KinshipRosterXMLWriter
   }
 
 
-  private static void writeRank(TransformerHandler hd, KinshipRank rank) throws Exception
+  private static void writeRank(TransformerHandler hd, KinshipRank rank) throws SAXException
   {
     AttributesImpl rankAttrs=new AttributesImpl();
     // Code
@@ -89,7 +90,7 @@ public class KinshipRosterXMLWriter
     hd.endElement("","",KinshipRosterXMLConstants.RANK_TAG);
   }
 
-  private static void writeMember(TransformerHandler hd, KinshipMember member) throws Exception
+  private static void writeMember(TransformerHandler hd, KinshipMember member) throws SAXException
   {
     AttributesImpl memberAttrs=new AttributesImpl();
     KinshipCharacterSummary memberSummary=member.getSummary();

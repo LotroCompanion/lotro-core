@@ -58,7 +58,7 @@ public class WardrobeItem
    */
   public String getColorsLabel()
   {
-    if (_colors.size()==0)
+    if (_colors.isEmpty())
     {
       return "";
     }

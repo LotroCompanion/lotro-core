@@ -73,7 +73,7 @@ public class ItemInstanceXMLParser
     }
     // Properties
     List<Element> propertyTags=DOMParsingTools.getChildTagsByName(root,ItemXMLConstants.PROPERTY_TAG,false);
-    if ((propertyTags!=null) && (propertyTags.size()>0))
+    if ((propertyTags!=null) && (!propertyTags.isEmpty()))
     {
       for(Element propertyTag : propertyTags)
       {

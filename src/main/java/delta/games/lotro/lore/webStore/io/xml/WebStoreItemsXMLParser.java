@@ -54,10 +54,7 @@ public class WebStoreItemsXMLParser
     for(Element elementTag : elementTags)
     {
       WebStoreItem webStoreItem=parseWebStoreItem(elementTag);
-      if (webStoreItem!=null)
-      {
-        ret.add(webStoreItem);
-      }
+      ret.add(webStoreItem);
     }
     return ret;
   }
@@ -65,7 +62,7 @@ public class WebStoreItemsXMLParser
   /**
    * Read a web store item from a tag.
    * @param elementTag Tag to read.
-   * @return the loaded web store item or <code>null</code>.
+   * @return the loaded web store item.
    */
   private WebStoreItem parseWebStoreItem(Element elementTag)
   {

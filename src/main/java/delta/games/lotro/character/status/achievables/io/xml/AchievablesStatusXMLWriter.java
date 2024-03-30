@@ -64,9 +64,9 @@ public class AchievablesStatusXMLWriter
    * Write a status to the given XML stream.
    * @param hd XML output stream.
    * @param statusMgr Status to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void writeStatus(TransformerHandler hd, AchievablesStatusManager statusMgr) throws Exception
+  private void writeStatus(TransformerHandler hd, AchievablesStatusManager statusMgr) throws SAXException
   {
     statusMgr.cleanup();
     AttributesImpl attrs=new AttributesImpl();
@@ -120,9 +120,9 @@ public class AchievablesStatusXMLWriter
    * Write achievable objectives status to the given XML stream.
    * @param hd XML output stream.
    * @param status Status to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void writeObjectivesStatus(TransformerHandler hd, AchievableStatus status) throws Exception
+  private void writeObjectivesStatus(TransformerHandler hd, AchievableStatus status) throws SAXException
   {
     List<AchievableObjectiveStatus> objectiveStatuses=status.getObjectiveStatuses();
 
@@ -174,7 +174,7 @@ public class AchievablesStatusXMLWriter
     }
     // Keys
     List<String> keys=status.getKeys();
-    if ((keys!=null) && (keys.size()>0))
+    if ((keys!=null) && (!keys.isEmpty()))
     {
       String keysStr=buildKeysString(keys);
       attrs.addAttribute("","",AchievablesStatusXMLConstants.CONDITION_STATUS_KEYS_ATTR,CDATA,keysStr);

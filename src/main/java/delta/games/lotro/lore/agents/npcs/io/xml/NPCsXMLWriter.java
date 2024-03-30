@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -54,7 +55,7 @@ public class NPCsXMLWriter
     return ret;
   }
 
-  private void writeNPCs(TransformerHandler hd, List<NpcDescription> data) throws Exception
+  private void writeNPCs(TransformerHandler hd, List<NpcDescription> data) throws SAXException
   {
     hd.startElement("","",NPCsXMLConstants.NPCS_TAG,new AttributesImpl());
     for(NpcDescription npc : data)
@@ -64,7 +65,7 @@ public class NPCsXMLWriter
     hd.endElement("","",NPCsXMLConstants.NPCS_TAG);
   }
 
-  private void writeNPC(TransformerHandler hd, NpcDescription npc) throws Exception
+  private void writeNPC(TransformerHandler hd, NpcDescription npc) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

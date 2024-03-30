@@ -66,7 +66,7 @@ public class Buff implements Named
   @Override
   public String getName()
   {
-    return _label;
+    return getLabel();
   }
 
   /**
@@ -158,7 +158,7 @@ public class Buff implements Named
   {
     BuffInstance buff=new BuffInstance(this);
     List<Integer> tiers=getImpl().getTiers();
-    if ((tiers!=null) && (tiers.size()>0))
+    if ((tiers!=null) && (!tiers.isEmpty()))
     {
       buff.setTier(tiers.get(0));
     }

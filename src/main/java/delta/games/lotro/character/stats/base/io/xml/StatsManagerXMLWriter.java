@@ -2,6 +2,7 @@ package delta.games.lotro.character.stats.base.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
@@ -19,9 +20,9 @@ public class StatsManagerXMLWriter
    * Write a stats manager to the given XML stream.
    * @param hd XML output stream.
    * @param statsManager Stats to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public static void write(TransformerHandler hd, StatsManager statsManager) throws Exception
+  public static void write(TransformerHandler hd, StatsManager statsManager) throws SAXException
   {
     AttributesImpl statsAttrs=new AttributesImpl();
     // Mode

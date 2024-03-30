@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.items.containers;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class LootTables
    */
   public LootTables()
   {
-    _tables=new HashMap<LootType,LootTable>();
+    _tables=new EnumMap<LootType,LootTable>(LootType.class);
   }
 
   /**

@@ -135,7 +135,7 @@ public class UsageRequirement
     if (_classRequirement!=null)
     {
       List<AbstractClassDescription> classes=_classRequirement.getAllowedClasses();
-      if (classes.size()>0)
+      if (!classes.isEmpty())
       {
         return classes.get(0);
       }
@@ -183,7 +183,7 @@ public class UsageRequirement
     if (_raceRequirement!=null)
     {
       List<RaceDescription> races=_raceRequirement.getAllowedRaces();
-      if (races.size()>0)
+      if (!races.isEmpty())
       {
         return races.get(0);
       }

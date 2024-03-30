@@ -4,7 +4,7 @@ package delta.games.lotro.common.effects;
  * Effect that reset one or several skills.
  * @author DAM
  */
-public class SkillResetEffect
+public abstract class SkillResetEffect
 {
   /*
       Effect_Skill_Reset_SkillChannel_Array: 

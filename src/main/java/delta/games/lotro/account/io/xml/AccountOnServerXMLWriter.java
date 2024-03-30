@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -43,9 +44,9 @@ public class AccountOnServerXMLWriter
    * Write "account on server" data.
    * @param hd Output stream.
    * @param accountOnServer Source data.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private static void write(TransformerHandler hd, AccountOnServer accountOnServer) throws Exception
+  private static void write(TransformerHandler hd, AccountOnServer accountOnServer) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Account ID

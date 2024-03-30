@@ -27,7 +27,7 @@ public class AchievableGeoDataXMLWriter
   public static void writeObjectiveConditionGeoData(TransformerHandler hd, ObjectiveCondition condition) throws SAXException
   {
     List<AchievableGeoPoint> points=condition.getPoints();
-    if (points.size()>0)
+    if (!points.isEmpty())
     {
       for(AchievableGeoPoint point : points)
       {

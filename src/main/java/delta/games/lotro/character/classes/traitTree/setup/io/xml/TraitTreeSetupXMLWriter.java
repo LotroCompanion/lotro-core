@@ -46,7 +46,7 @@ public class TraitTreeSetupXMLWriter
     // Name
     String name=setup.getName();
     setupAttrs.addAttribute("","",TraitTreeSetupXMLConstants.TRAIT_TREE_SETUP_NAME_ATTR,XmlWriter.CDATA,name);
-    TraitTreeStatusXMLWriter.writeTreeAttributes(hd,setup.getStatus(),setupAttrs);
+    TraitTreeStatusXMLWriter.writeTreeAttributes(setup.getStatus(),setupAttrs);
     // Description
     String description=setup.getDescription();
     if (description.length()>0)

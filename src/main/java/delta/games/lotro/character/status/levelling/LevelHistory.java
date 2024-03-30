@@ -118,7 +118,7 @@ public class LevelHistory
     for(Map.Entry<Integer,Long> item  : _dates.entrySet())
     {
       int level=item.getKey().intValue();
-      if ((ret==null) || ((ret!=null) && (ret.intValue()<level)))
+      if ((ret==null) || (ret.intValue()<level))
       {
         ret=Integer.valueOf(level);
       }

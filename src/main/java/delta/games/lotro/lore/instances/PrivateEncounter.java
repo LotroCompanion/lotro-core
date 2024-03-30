@@ -226,7 +226,7 @@ public class PrivateEncounter implements Identifiable,Named
     {
       sb.append("Description=").append(_description).append(EndOfLine.NATIVE_EOL);
     }
-    if (_mapDescriptions.size()>0)
+    if (!_mapDescriptions.isEmpty())
     {
       sb.append("Maps=").append(EndOfLine.NATIVE_EOL);
       for(InstanceMapDescription map : _mapDescriptions)

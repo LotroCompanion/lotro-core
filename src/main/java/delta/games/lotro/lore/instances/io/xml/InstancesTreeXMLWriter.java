@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -54,7 +55,7 @@ public class InstancesTreeXMLWriter
     return ret;
   }
 
-  private void writeInstancesTree(TransformerHandler hd, InstancesTree data) throws Exception
+  private void writeInstancesTree(TransformerHandler hd, InstancesTree data) throws SAXException
   {
     hd.startElement("","",InstancesTreeXMLConstants.INSTANCES_TREE_TAG,new AttributesImpl());
     for(String categoryName : data.getCategoryNames())
@@ -65,7 +66,7 @@ public class InstancesTreeXMLWriter
     hd.endElement("","",InstancesTreeXMLConstants.INSTANCES_TREE_TAG);
   }
 
-  private void writeCategory(TransformerHandler hd, InstanceCategory category) throws Exception
+  private void writeCategory(TransformerHandler hd, InstanceCategory category) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Name

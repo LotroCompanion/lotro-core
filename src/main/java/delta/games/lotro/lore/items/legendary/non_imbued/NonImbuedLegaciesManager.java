@@ -212,8 +212,8 @@ public class NonImbuedLegaciesManager
     if (slot==EquipmentLocations.CLASS_SLOT)
     {
       String classKey=characterClass.getKey();
-      if (((WellKnownCharacterClassKeys.HUNTER.equals(classKey))) ||
-          ((WellKnownCharacterClassKeys.WARDEN.equals(classKey))))
+      if ((WellKnownCharacterClassKeys.HUNTER.equals(classKey)) ||
+          (WellKnownCharacterClassKeys.WARDEN.equals(classKey)))
       {
         return false;
       }

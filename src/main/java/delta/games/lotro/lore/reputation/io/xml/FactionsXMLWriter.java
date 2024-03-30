@@ -193,7 +193,7 @@ public class FactionsXMLWriter
     hd.startElement("","",FactionsXMLConstants.DEED_TAG,deedAttrs);
     // Deed factions
     List<Faction> factions=deed.getFactions();
-    if (factions.size()>0)
+    if (!factions.isEmpty())
     {
       for(Faction faction : factions)
       {

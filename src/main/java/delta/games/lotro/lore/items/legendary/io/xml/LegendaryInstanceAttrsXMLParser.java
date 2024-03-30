@@ -83,7 +83,7 @@ public class LegendaryInstanceAttrsXMLParser
   private static void readPassives(LegendaryInstanceAttrs legendaryAttrs, Element legendaryElement)
   {
     List<Element> passiveTags=DOMParsingTools.getChildTagsByName(legendaryElement,LegendaryInstanceAttrsXMLConstants.PASSIVE_TAG);
-    if (passiveTags.size()>0)
+    if (!passiveTags.isEmpty())
     {
       PassivesManager passivesMgr=PassivesManager.getInstance();
       for(Element passiveTag : passiveTags)

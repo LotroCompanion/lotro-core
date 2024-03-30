@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -52,9 +53,9 @@ public class EnhancementRunesXMLWriter
    * Write a enhancement rune to the given XML stream.
    * @param hd XML output stream.
    * @param enhancementRune Rune to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private static void write(TransformerHandler hd, EnhancementRune enhancementRune) throws Exception
+  private static void write(TransformerHandler hd, EnhancementRune enhancementRune) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     Item item=enhancementRune.getItem();

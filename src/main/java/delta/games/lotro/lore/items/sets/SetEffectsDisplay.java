@@ -65,7 +65,7 @@ public class SetEffectsDisplay
 
   private int getLevel(ItemsSet set)
   {
-    // May be use: set.useAverageItemLevelForSetLevel();
+    // TODO May be use: set.useAverageItemLevelForSetLevel();
     return set.getSetLevel();
   }
 }

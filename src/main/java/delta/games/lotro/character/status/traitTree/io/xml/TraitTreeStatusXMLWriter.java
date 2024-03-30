@@ -21,11 +21,10 @@ public class TraitTreeStatusXMLWriter
 {
   /**
    * Write trait tree status attributes.
-   * @param hd Output stream.
    * @param status Data to write.
    * @param statusAttrs Attributes to write to. 
    */
-  public static void writeTreeAttributes(TransformerHandler hd, TraitTreeStatus status, AttributesImpl statusAttrs)
+  public static void writeTreeAttributes(TraitTreeStatus status, AttributesImpl statusAttrs)
   {
     TraitTree tree=status.getTraitTree();
     // Tree ID
@@ -96,7 +95,7 @@ public class TraitTreeStatusXMLWriter
       return;
     }
     AttributesImpl statusAttrs=new AttributesImpl();
-    writeTreeAttributes(hd,status,statusAttrs);
+    writeTreeAttributes(status,statusAttrs);
     hd.startElement("","",TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_TAG,statusAttrs);
     writeTraitsStatus(hd,status);
     hd.endElement("","",TraitTreeStatusXMLConstants.TRAIT_TREE_STATUS_TAG);

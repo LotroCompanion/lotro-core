@@ -1,6 +1,6 @@
 package delta.games.lotro.character.stats.ratings;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -20,7 +20,7 @@ public class RatingsMgr
    */
   public RatingsMgr()
   {
-    _curves=new HashMap<RatingCurveId,RatingCurve>();
+    _curves=new EnumMap<RatingCurveId,RatingCurve>(RatingCurveId.class);
   }
 
   /**

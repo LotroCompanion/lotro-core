@@ -29,7 +29,7 @@ public class AccountOwner extends Owner
   @Override
   public String getLabel()
   {
-    return _accountName;
+    return getAccountName();
   }
 
   @Override

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -44,9 +45,9 @@ public class TraitPointsStatusXMLWriter
    * Write a trait points status to the given XML stream.
    * @param hd XML output stream.
    * @param status Status to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  public void write(TransformerHandler hd, TraitPointsStatus status) throws Exception
+  public void write(TransformerHandler hd, TraitPointsStatus status) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",TraitPointsStatusXMLConstants.TRAIT_POINTS_TAG,attrs);

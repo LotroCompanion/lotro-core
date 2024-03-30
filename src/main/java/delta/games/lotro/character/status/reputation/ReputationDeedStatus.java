@@ -78,7 +78,7 @@ public class ReputationDeedStatus
    */
   public boolean isDone()
   {
-    return _missingFactions.size()==0;
+    return _missingFactions.isEmpty();
   }
 
   /**

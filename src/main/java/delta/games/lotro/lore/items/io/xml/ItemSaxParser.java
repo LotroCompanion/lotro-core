@@ -106,6 +106,7 @@ public final class ItemSaxParser extends DefaultHandler
       ItemSaxParser handler=new ItemSaxParser();
       // Use the default (non-validating) parser
       SAXParserFactory factory=SAXParserFactory.newInstance();
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       SAXParser saxParser=factory.newSAXParser();
       saxParser.parse(source,handler);
       saxParser.reset();
@@ -115,7 +116,7 @@ public final class ItemSaxParser extends DefaultHandler
     {
       LOGGER.error("Error when loading items file "+source,e);
     }
-    return null;
+    return new ArrayList<Item>();
   }
 
   @Override

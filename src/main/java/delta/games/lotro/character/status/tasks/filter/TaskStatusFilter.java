@@ -11,7 +11,6 @@ import delta.games.lotro.character.status.tasks.TaskStatus;
 public class TaskStatusFilter implements Filter<TaskStatus>
 {
   private QuestStatusFilter _questStatusFilter;
-  //private TaskFilter _taskFilter;
 
   /**
    * Constructor.

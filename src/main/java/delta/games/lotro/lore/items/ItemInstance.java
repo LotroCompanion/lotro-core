@@ -100,7 +100,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
    */
   public T getItem()
   {
-    return _reference;
+    return getReference();
   }
 
   /**

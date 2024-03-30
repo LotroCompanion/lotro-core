@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -50,9 +51,9 @@ public class ValueTablesXMLWriter
    * Write value tables to a XML file.
    * @param hd Output.
    * @param valueTables Tables to write.
-   * @throws Exception if an error occurs.
+   * @throws SAXException if an error occurs.
    */
-  private static void writeValueTables(TransformerHandler hd, final List<QualityBasedValuesTable> valueTables) throws Exception
+  private static void writeValueTables(TransformerHandler hd, final List<QualityBasedValuesTable> valueTables) throws SAXException
   {
     for(QualityBasedValuesTable valueTable : valueTables)
     {
@@ -60,7 +61,7 @@ public class ValueTablesXMLWriter
     }
   }
 
-  private static void writeValueTable(TransformerHandler hd, QualityBasedValuesTable valueTable) throws Exception
+  private static void writeValueTable(TransformerHandler hd, QualityBasedValuesTable valueTable) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

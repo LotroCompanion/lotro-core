@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -57,7 +58,7 @@ public class MobsXMLWriter
     return ret;
   }
 
-  private void writeMobs(TransformerHandler hd, List<MobDescription> data) throws Exception
+  private void writeMobs(TransformerHandler hd, List<MobDescription> data) throws SAXException
   {
     hd.startElement("","",MobsXMLConstants.MOBS_TAG,new AttributesImpl());
     for(MobDescription mob : data)
@@ -67,7 +68,7 @@ public class MobsXMLWriter
     hd.endElement("","",MobsXMLConstants.MOBS_TAG);
   }
 
-  private void writeMob(TransformerHandler hd, MobDescription mob) throws Exception
+  private void writeMob(TransformerHandler hd, MobDescription mob) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

@@ -92,7 +92,7 @@ public class PaperItemsManager
    * @param category Category.
    * @return A list of paper items.
    */
-  public List<PaperItem> getAllForCategory(String category)
+  public List<PaperItem> getAllForCategory(PaperItemCategory category)
   {
     ArrayList<PaperItem> paperItems=new ArrayList<PaperItem>();
     for(PaperItem paperItem : _cache.values())

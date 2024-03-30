@@ -53,7 +53,7 @@ public class MeldingOutput
    */
   public Named getFirstResult()
   {
-    if (_entries.size()>0)
+    if (!_entries.isEmpty())
     {
       RelicMeldingOutputEntry entry=_entries.get(0);
       return entry.getResult();
@@ -67,7 +67,7 @@ public class MeldingOutput
    */
   public Item getItemRelic()
   {
-    if (_entries.size()>0)
+    if (!_entries.isEmpty())
     {
       return _entries.get(0).getItem();
     }

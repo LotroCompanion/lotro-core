@@ -69,7 +69,7 @@ public class QuestCompletionComment
    */
   public boolean isValid()
   {
-    return ((_whos.size()>0) && (_whats.size()>0));
+    return ((!_whos.isEmpty()) && (!_whats.isEmpty()));
   }
 
   @Override

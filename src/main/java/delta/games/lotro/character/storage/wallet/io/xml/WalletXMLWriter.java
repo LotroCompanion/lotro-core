@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -46,9 +47,9 @@ public class WalletXMLWriter
    * Write a wallet to the given XML stream.
    * @param hd XML output stream.
    * @param wallet Wallet to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void writeWallet(TransformerHandler hd, Wallet wallet) throws Exception
+  private void writeWallet(TransformerHandler hd, Wallet wallet) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     hd.startElement("","",WalletXMLConstants.WALLET_TAG,attrs);
@@ -63,7 +64,7 @@ public class WalletXMLWriter
     hd.endElement("","",WalletXMLConstants.WALLET_TAG);
   }
 
-  private void writeItem(TransformerHandler hd, CountedItem<Item> item) throws Exception
+  private void writeItem(TransformerHandler hd, CountedItem<Item> item) throws SAXException
   {
     AttributesImpl itemAttrs=new AttributesImpl();
     // ID

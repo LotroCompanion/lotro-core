@@ -4,15 +4,16 @@ import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.lore.items.WeaponType;
-import delta.games.lotro.lore.items.weapons.WeaponSpeedTables;
-import delta.games.lotro.lore.items.weapons.WeaponSpeedTable;
 import delta.games.lotro.lore.items.weapons.WeaponSpeedEntry;
+import delta.games.lotro.lore.items.weapons.WeaponSpeedTable;
+import delta.games.lotro.lore.items.weapons.WeaponSpeedTables;
 
 /**
  * Writes speed tables to XML files.
@@ -47,9 +48,9 @@ public class WeaponSpeedTablesXMLWriter
    * Write speed tables to a XML file.
    * @param hd Output.
    * @param speedTables Tables to write.
-   * @throws Exception if an error occurs.
+   * @throws SAXException if an error occurs.
    */
-  private static void writeSpeedTables(TransformerHandler hd, final WeaponSpeedTables speedTables) throws Exception
+  private static void writeSpeedTables(TransformerHandler hd, final WeaponSpeedTables speedTables) throws SAXException
   {
     for(WeaponType weaponType : speedTables.getWeaponTypes())
     {
@@ -57,7 +58,7 @@ public class WeaponSpeedTablesXMLWriter
     }
   }
 
-  private static void writeSpeedWeaponTable(TransformerHandler hd, WeaponSpeedTable speedTable) throws Exception
+  private static void writeSpeedWeaponTable(TransformerHandler hd, WeaponSpeedTable speedTable) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
 

@@ -151,7 +151,7 @@ public class ItemReferencesBuilder
         }
       }
     }
-    if (roles.size()>0)
+    if (!roles.isEmpty())
     {
       _storage.add(new Reference<Recipe,ItemRole>(recipe,roles));
     }
@@ -273,7 +273,7 @@ public class ItemReferencesBuilder
         }
       }
     }
-    if (roles.size()>0)
+    if (!roles.isEmpty())
     {
       _storage.add(new Reference<BarterNpc,ItemRole>(barterer,roles));
     }
@@ -373,7 +373,7 @@ public class ItemReferencesBuilder
         }
       }
       Collections.sort(sameCosmeticItems,new NamedComparator());
-      if (sameCosmeticItems.size()>0)
+      if (!sameCosmeticItems.isEmpty())
       {
         for(Item sameCosmeticItem : sameCosmeticItems)
         {

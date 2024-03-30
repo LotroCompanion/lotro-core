@@ -197,6 +197,6 @@ public abstract class ObjectiveCondition extends AbstractQuestEvent
    */
   public boolean hasGeoData()
   {
-    return _points.size()>0;
+    return !_points.isEmpty();
   }
 }
