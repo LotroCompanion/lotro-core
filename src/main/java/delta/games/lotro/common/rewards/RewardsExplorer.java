@@ -150,28 +150,6 @@ public class RewardsExplorer
     }
   }
 
-  /*
-  private void showResults()
-  {
-    showList("Emotes",_emotes);
-    showList("Items",_itemNames);
-    showList("Skills",_skills);
-    showList("Titles",_titles);
-    showList("Traits",_traits);
-  }
-
-  private void showList(String category, Set<String> items)
-  {
-    System.out.println(category+" ("+items.size()+")");
-    List<String> itemsList=new ArrayList<String>(items);
-    Collections.sort(itemsList);
-    for(String item : itemsList)
-    {
-      System.out.println("\t"+item);
-    }
-  }
-  */
-
   /**
    * Get all traits.
    * @return a sorted list of traits.

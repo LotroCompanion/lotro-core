@@ -78,10 +78,6 @@ public class LegendarySystem
    */
   public int[] getRanksForMainLegacy(ItemInstance<? extends Item> itemInstance)
   {
-    if (itemInstance==null)
-    {
-      return null;
-    }
     Item item=itemInstance.getReference();
     if (!(item instanceof Legendary))
     {
@@ -132,10 +128,6 @@ public class LegendarySystem
    */
   public int[] getRanksForLegacyTier(ItemInstance<? extends Item> itemInstance, NonImbuedLegacyTier legacy)
   {
-    if (itemInstance==null)
-    {
-      return null;
-    }
     Integer itemLevel=itemInstance.getEffectiveItemLevel();
     if (itemLevel==null)
     {

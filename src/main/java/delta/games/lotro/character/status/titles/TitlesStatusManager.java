@@ -95,7 +95,6 @@ public class TitlesStatusManager
     for(TitleDescription title : obsoleteTitles)
     {
       get(title,true).setState(TitleState.SUPERSEDED);
-      //System.out.println(obsoletedTitle.getName()+" is obsolete");
     }
   }
 }

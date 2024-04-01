@@ -17,8 +17,6 @@ public class WebStoreItem implements Identifiable,Named
   private boolean _freeForSubscribers;
   private String _sku;
   private String _shortName;
-  // private String _buyNowTooltip;
-  // private String _buyNowTooltipDisabled;
 
   /**
    * Constructor.

@@ -14,7 +14,6 @@ public class ObjectiveConditionStatus
   private AchievableObjectiveStatus _parent;
   private ObjectiveCondition _condition;
   private AchievableElementState _state;
-  //private Long _completionDate;
   private Integer _count;
   private List<String> _keys;
 
