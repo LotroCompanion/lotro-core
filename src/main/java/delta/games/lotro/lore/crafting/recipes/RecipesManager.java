@@ -158,12 +158,12 @@ public final class RecipesManager
   public List<Recipe> getAll()
   {
     List<Recipe> ret=new ArrayList<Recipe>();
-    for(Integer professionKey : _recipes.keySet())
+    for(Map.Entry<Integer,Map<Integer,List<Recipe>>> professionEntry : _recipes.entrySet())
     {
-      Map<Integer,List<Recipe>> recipesForProfession=_recipes.get(professionKey);
-      for(Integer tier : recipesForProfession.keySet())
+      Map<Integer,List<Recipe>> recipesForProfession=professionEntry.getValue();
+      for(Map.Entry<Integer,List<Recipe>> tierEntry : recipesForProfession.entrySet())
       {
-        ret.addAll(recipesForProfession.get(tier));
+        ret.addAll(tierEntry.getValue());
       }
     }
     return ret;

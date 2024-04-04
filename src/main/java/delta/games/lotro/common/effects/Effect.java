@@ -18,7 +18,7 @@ public class Effect implements Identifiable,Named
   private String _appliedDescription;
   private ApplicationProbability _prob;
   private EffectDuration _duration;
-  //private EffectCriticalChance _critChance;
+  // TODO EffectCriticalChance _critChance
   // Icon
   private Integer _iconId;
 

@@ -12,9 +12,9 @@ public class AbstractVitalChange
   private Progression _progression;
   private Float _variance;
   // TODO
-  //private ModPropertyList _valueModifiers;
-  //private float _critMultiplier;
-  //private ModPropertyList _critMultiplierModifiers;
+  //private ModPropertyList _valueModifiers
+  //private float _critMultiplier
+  //private ModPropertyList _critMultiplierModifiers
 
   /**
    * Constructor.

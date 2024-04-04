@@ -124,7 +124,10 @@ public class ItemsSetsUtils
       }
     }
     Range ret=new Range(minLevel,maxLevel);
-    //System.out.println("Character level range for "+item+": "+ret);
+    if (LOGGER.isDebugEnabled())
+    {
+      LOGGER.debug("Character level range for "+item+": "+ret);
+    }
     return ret;
   }
 

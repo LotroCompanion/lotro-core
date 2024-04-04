@@ -3,9 +3,9 @@ package delta.games.lotro.lore.maps.resources;
 
 import java.util.Comparator;
 
+import delta.games.lotro.common.comparators.TypedNamedComparator;
 import delta.games.lotro.lore.crafting.CraftingLevel;
 import delta.games.lotro.lore.crafting.Profession;
-import delta.games.lotro.lore.crafting.ProfessionComparator;
 
 /**
  * Comparator for resources map descriptors.
@@ -13,14 +13,14 @@ import delta.games.lotro.lore.crafting.ProfessionComparator;
  */
 public class ResourcesMapDescriptorComparator implements Comparator<ResourcesMapDescriptor>
 {
-  private ProfessionComparator _professionComparator;
+  private TypedNamedComparator<Profession> _professionComparator;
 
   /**
    * Constructor.
    */
   public ResourcesMapDescriptorComparator()
   {
-    _professionComparator=new ProfessionComparator();
+    _professionComparator=new TypedNamedComparator<Profession>();
   }
 
   @Override

@@ -25,7 +25,6 @@ public class DeedsSaxParserTest extends TestCase
     {
       AchievableProxiesResolver.resolve(deed);
     }
-    
     DeedXMLWriter writer=new DeedXMLWriter();
     File to=new File("deeds.xml");
     writer.writeDeeds(to,deeds,EncodingNames.UTF_8);

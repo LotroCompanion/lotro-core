@@ -9,15 +9,14 @@ import delta.games.lotro.common.geo.Position;
 public class TravelEffect extends Effect
 {
   private Position _destination;
+  // We could add:
   // Scene ID: not very interesting
-  //private int _sceneID;
-  // 749
+  // Private encounter ID: only used once (in Wildermore) 
   /*
       EffectGenerator_EffectDataList: 
         #1: EffectGenerator_EffectData_SceneID 1879048837
         #2: EffectGenerator_EffectData_Destination rohan_wold_harwick_meadhall_exit
       Effect_Applied_Description: You travel to Harwick.
-      // Only used once (in Wildermore):
       Effect_Travel_PrivateEncounter: 1879262955
       */
 

@@ -9,7 +9,6 @@ import java.util.List;
 
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.lore.crafting.Profession;
-import delta.games.lotro.lore.crafting.ProfessionComparator;
 import delta.games.lotro.lore.crafting.Vocation;
 
 /**
@@ -204,7 +203,7 @@ public class CraftingStatus
     // Professions
     ps.println("Professions:");
     List<Profession> professions=new ArrayList<Profession>(_status.keySet());
-    Collections.sort(professions,new ProfessionComparator());
+    Collections.sort(professions,new NamedComparator());
     for(Profession profession : professions)
     {
       ProfessionStatus stat=getProfessionStatus(profession);

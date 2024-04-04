@@ -2,6 +2,8 @@ package delta.games.lotro.character.storage.statistics;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.statistics.reputation.StorageFactionStats;
 import delta.games.lotro.character.storage.statistics.reputation.StorageReputationStats;
@@ -26,6 +28,8 @@ import delta.games.lotro.utils.Registry;
  */
 public class StorageStatisticsComputer
 {
+  private static final Logger LOGGER=Logger.getLogger(StorageStatisticsComputer.class);
+
   /**
    * Compute storage statistics.
    * @param items Item to use.
@@ -110,7 +114,10 @@ public class StorageStatisticsComputer
         {
           ItemXP itemXP=itemXPs.get(0);
           int count=counted.getQuantity();
-          //System.out.println("Got "+count+" of "+item+" - "+itemXP.getAmount()+" XP");
+          if (LOGGER.isDebugEnabled())
+          {
+            LOGGER.debug("Got "+count+" of "+item+" - "+itemXP.getAmount()+" XP");
+          }
           totalXP+=(count*itemXP.getAmount());
         }
       }

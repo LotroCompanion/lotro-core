@@ -2,8 +2,8 @@ package delta.games.lotro.lore.crafting.recipes.comparator;
 
 import java.util.Comparator;
 
+import delta.games.lotro.common.comparators.TypedNamedComparator;
 import delta.games.lotro.lore.crafting.Profession;
-import delta.games.lotro.lore.crafting.ProfessionComparator;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
 
 /**
@@ -12,7 +12,7 @@ import delta.games.lotro.lore.crafting.recipes.Recipe;
  */
 public class RecipeProfessionComparator implements Comparator<Recipe>
 {
-  private ProfessionComparator _professionComparator=new ProfessionComparator();
+  private TypedNamedComparator<Profession> _professionComparator=new TypedNamedComparator<Profession>();
 
   @Override
   public int compare(Recipe o1, Recipe o2)
