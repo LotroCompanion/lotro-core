@@ -44,6 +44,12 @@ public class ClassAndSlot
   }
 
   @Override
+  public int hashCode()
+  {
+    return _characterClass.getCode()+_slot.getCode();
+  }
+
+  @Override
   public boolean equals(Object other)
   {
     if (other instanceof ClassAndSlot)

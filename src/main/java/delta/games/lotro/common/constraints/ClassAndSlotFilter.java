@@ -1,5 +1,7 @@
 package delta.games.lotro.common.constraints;
 
+import java.util.Objects;
+
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.lore.items.EquipmentLocation;
@@ -61,5 +63,22 @@ public class ClassAndSlotFilter implements Filter<ClassAndSlot>
       }
     }
     return true;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return _spec.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object other)
+  {
+    if (other instanceof ClassAndSlotFilter)
+    {
+      ClassAndSlotFilter otherFilter=(ClassAndSlotFilter)other;
+      return Objects.equals(_spec,otherFilter._spec);
+    }
+    return false;
   }
 }
