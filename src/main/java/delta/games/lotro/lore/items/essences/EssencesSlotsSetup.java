@@ -15,6 +15,7 @@ import delta.games.lotro.common.enums.SocketType;
 public class EssencesSlotsSetup
 {
   private List<SocketType> _entries;
+  private String _summary;
 
   /**
    * Constructor.
@@ -22,6 +23,26 @@ public class EssencesSlotsSetup
   public EssencesSlotsSetup()
   {
     _entries=new ArrayList<SocketType>();
+  }
+
+  /**
+   * Constructor from a setup summary.
+   * @param setupSummary
+   */
+  public EssencesSlotsSetup(String setupSummary)
+  {
+    this();
+    _summary=setupSummary;
+    initFromSetup();
+  }
+
+  /**
+   * Get the setup summary.
+   * @return the setup summary.
+   */
+  public String getSetupSummary()
+  {
+    return _summary;
   }
 
   /**
@@ -108,28 +129,39 @@ public class EssencesSlotsSetup
     {
       return null;
     }
-    EssencesSlotsSetup ret=new EssencesSlotsSetup();
+    EssencesSlotsSetup ret=new EssencesSlotsSetup(input);
+    return ret;
+  }
+
+  private void initFromSetup()
+  {
+    _entries.clear();
     LotroEnum<SocketType> socketTypeEnum=LotroEnumsRegistry.getInstance().get(SocketType.class);
-    Integer count=NumericTools.parseInteger(input,false);
+    Integer count=NumericTools.parseInteger(_summary,false);
     if (count!=null)
     {
       SocketType classicSlot=SocketTypes.CLASSIC;
       for(int i=0;i<count.intValue();i++)
       {
-        ret.addSlot(classicSlot);
+        addSlot(classicSlot);
       }
-      return ret;
+      return;
     }
-    int nbSlots=input.length();
+    int nbSlots=_summary.length();
     for(int i=0;i<nbSlots;i++)
     {
-      String key=input.substring(i,i+1);
+      String key=_summary.substring(i,i+1);
       SocketType type=socketTypeEnum.getByKey(key);
       if (type!=null)
       {
-        ret.addSlot(type);
+        addSlot(type);
       }
     }
-    return ret;
+  }
+
+  @Override
+  public String toString()
+  {
+    return _summary;
   }
 }
