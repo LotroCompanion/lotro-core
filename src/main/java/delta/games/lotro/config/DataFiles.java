@@ -343,6 +343,10 @@ public class DataFiles
    */
   public static final String PERKS="perks";
   /**
+   * XP table file.
+   */
+  public static final String XP_TABLE="xpTable";
+  /**
    * Labels file.
    */
   public static final String LABELS="labelsDir";
