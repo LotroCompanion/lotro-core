@@ -234,6 +234,10 @@ public class StatUtils
         prefix="+";
       }
     }
+    if (element.getOperator()==StatOperator.SUBSTRACT)
+    {
+      prefix="-";
+    }
     String valueStr=getStatDisplay(value,stat);
     String descriptionOverride=element.getDescriptionOverride();
     if (descriptionOverride!=null)
