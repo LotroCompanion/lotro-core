@@ -52,9 +52,9 @@ public class BagsXMLWriter
    * Write a bags manager to the given XML stream.
    * @param hd XML output stream.
    * @param bagsManager Data to write.
-   * @throws Exception If an error occurs.
+   * @throws SAXException If an error occurs.
    */
-  private void writeBags(TransformerHandler hd, BagsManager bagsManager) throws Exception
+  private void writeBags(TransformerHandler hd, BagsManager bagsManager) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Max

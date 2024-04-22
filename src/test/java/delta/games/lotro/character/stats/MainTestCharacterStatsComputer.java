@@ -11,7 +11,7 @@ import delta.games.lotro.character.stats.contribs.StatsContributionsManager;
  * Test for the character stats computer.
  * @author DAM
  */
-public class TestCharacterStatsComputer
+public class MainTestCharacterStatsComputer
 {
   private void doIt()
   {
@@ -48,6 +48,6 @@ public class TestCharacterStatsComputer
    */
   public static void main(String[] args)
   {
-    new TestCharacterStatsComputer().doIt();
+    new MainTestCharacterStatsComputer().doIt();
   }
 }

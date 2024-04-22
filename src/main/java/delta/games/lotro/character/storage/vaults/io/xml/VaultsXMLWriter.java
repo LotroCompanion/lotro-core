@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -67,7 +68,7 @@ public class VaultsXMLWriter
     hd.endElement("","",VaultsXMLConstants.VAULT_TAG);
   }
 
-  private void writeChest(TransformerHandler hd, Chest chest) throws Exception
+  private void writeChest(TransformerHandler hd, Chest chest) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Chest ID

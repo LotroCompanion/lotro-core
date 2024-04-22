@@ -61,9 +61,9 @@ public class EventsManager
       {
         listener.eventOccurred(event);
       }
-      catch(Throwable t)
+      catch(Exception e)
       {
-        LOGGER.error("Exception in an event listener",t);
+        LOGGER.error("Exception in an event listener",e);
       }
     }
   }

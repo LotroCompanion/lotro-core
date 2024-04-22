@@ -4,7 +4,7 @@ package delta.games.lotro.character.stats.ratings;
  * Test class for rating curves.
  * @author DAM
  */
-public class TestRatingCurve
+public class MainTestRatingCurve
 {
   private static final int LEVEL_CAP=105;
 

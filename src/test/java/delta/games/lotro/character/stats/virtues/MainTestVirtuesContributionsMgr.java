@@ -10,7 +10,7 @@ import delta.games.lotro.character.virtues.VirtuesManager;
  * Test class for the virtues contributions manager.
  * @author DAM
  */
-public class TestVirtuesContributionsMgr
+public class MainTestVirtuesContributionsMgr
 {
   /**
    * Main method for this test.

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
@@ -42,7 +43,7 @@ public class StashXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, ItemsStash stash) throws Exception
+  private void write(TransformerHandler hd, ItemsStash stash) throws SAXException
   {
     AttributesImpl stashAttrs=new AttributesImpl();
     int nextId=stash.getNextId();

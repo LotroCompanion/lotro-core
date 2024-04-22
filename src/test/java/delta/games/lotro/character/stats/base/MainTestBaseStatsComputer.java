@@ -16,7 +16,7 @@ import delta.games.lotro.common.stats.WellKnownStat;
  * Test base stats computer.
  * @author DAM
  */
-public class TestBaseStatsComputer
+public class MainTestBaseStatsComputer
 {
   /**
    * Main method for this tool.

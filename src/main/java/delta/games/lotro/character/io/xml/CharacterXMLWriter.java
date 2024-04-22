@@ -149,7 +149,7 @@ public class CharacterXMLWriter
     hd.endElement("","",CharacterXMLConstants.EQUIPMENT_TAG);
   }
 
-  private void writeEquipmentSlot(TransformerHandler hd, GearSlotContents slotContents) throws Exception
+  private void writeEquipmentSlot(TransformerHandler hd, GearSlotContents slotContents) throws SAXException
   {
     GearSlot slot=slotContents.getSlot();
     if (slot!=null)

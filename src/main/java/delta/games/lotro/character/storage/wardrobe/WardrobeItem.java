@@ -86,7 +86,7 @@ public class WardrobeItem
     {
       sb.append("Item: ").append(_item);
     }
-    if (_colors.size()>0)
+    if (!_colors.isEmpty())
     {
       if (sb.length()>0)
       {

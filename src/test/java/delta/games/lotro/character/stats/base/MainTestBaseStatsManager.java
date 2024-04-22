@@ -13,7 +13,7 @@ import delta.games.lotro.character.stats.contribs.StatsContribution;
  * Test class for the base stats manager.
  * @author DAM
  */
-public class TestBaseStatsManager
+public class MainTestBaseStatsManager
 {
   /**
    * Main method for this test.
