@@ -8,6 +8,9 @@ import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
@@ -74,6 +77,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private boolean _useGlobalFailureConditions;
   private CompoundQuestEvent _compoundEvent;
   private SingleLocaleLabelsManager _i18n;
+  private LotroEnum<MobDivision> _mobDivisionEnum;
 
   /**
    * Constructor.
@@ -82,6 +86,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   public ObjectivesSaxXMLParser(SingleLocaleLabelsManager i18n)
   {
     _i18n=i18n;
+    _mobDivisionEnum=LotroEnumsRegistry.getInstance().get(MobDivision.class);
   }
 
   /**
@@ -350,12 +355,17 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     return condition;
   }
 
-  private static MobSelection parseMobSelection(Attributes selectionAttrs)
+  private MobSelection parseMobSelection(Attributes selectionAttrs)
   {
     MobSelection selection=new MobSelection();
     // Where
     // - mob division
-    String mobDivision=SAXParsingTools.getStringAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_MOB_DIVISION_ATTR,null);
+    MobDivision mobDivision=null;
+    int mobDivisionCode=SAXParsingTools.getIntAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_MOB_DIVISION_ATTR,-1);
+    if (mobDivisionCode>0)
+    {
+      mobDivision=_mobDivisionEnum.getEntry(mobDivisionCode);
+    }
     // - land division
     LandDivision land=null;
     int whereId=SAXParsingTools.getIntAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_LAND_ID_ATTR,0);

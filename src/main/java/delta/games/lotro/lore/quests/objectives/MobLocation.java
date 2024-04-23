@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
+import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
 import delta.games.lotro.lore.maps.LandDivision;
 
@@ -9,8 +10,7 @@ import delta.games.lotro.lore.maps.LandDivision;
  */
 public class MobLocation
 {
-  // TODO Use an enum
-  private String _mobDivision;
+  private MobDivision _mobDivision;
   private LandDivision _landDivision;
   private LandmarkDescription _landmark;
 
@@ -20,7 +20,7 @@ public class MobLocation
    * @param landDivision Land division.
    * @param landmark Landmark.
    */
-  public MobLocation(String mobDivision, LandDivision landDivision, LandmarkDescription landmark)
+  public MobLocation(MobDivision mobDivision, LandDivision landDivision, LandmarkDescription landmark)
   {
     _mobDivision=mobDivision;
     _landDivision=landDivision;
@@ -31,7 +31,7 @@ public class MobLocation
    * Get the mob division.
    * @return the mob division.
    */
-  public String getMobDivision()
+  public MobDivision getMobDivision()
   {
     return _mobDivision;
   }

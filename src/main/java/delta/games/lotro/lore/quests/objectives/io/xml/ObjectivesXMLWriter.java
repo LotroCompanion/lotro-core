@@ -10,6 +10,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
@@ -360,10 +361,11 @@ public class ObjectivesXMLWriter
       if (where!=null)
       {
         // Mob division
-        String mobDivision=where.getMobDivision();
+        MobDivision mobDivision=where.getMobDivision();
         if (mobDivision!=null)
         {
-          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_MOB_DIVISION_ATTR,XmlWriter.CDATA,mobDivision);
+          int mobDivisionCode=mobDivision.getCode();
+          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_MOB_DIVISION_ATTR,XmlWriter.CDATA,String.valueOf(mobDivisionCode));
         }
         // Land division
         LandDivision landDivision=where.getLandDivision();
