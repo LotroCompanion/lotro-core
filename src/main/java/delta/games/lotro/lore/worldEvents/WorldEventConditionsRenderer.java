@@ -452,21 +452,18 @@ public class WorldEventConditionsRenderer
   }
 
   /*
-  TODO handlePVP:
-    World_MPControl_Ettenmoors_WestTower EQUAL 0 => Freeps control Lugazag (1 for Creeps)
-    World_MPControl_Ettenmoors_EastTower EQUAL 0 => Freeps control Tirith Rhaw (1 for Creeps)
-    World_MPControl_Ettenmoors_CenterKeep EQUAL 0 => Freeps control Tol Ascarnen (1 for Creeps)
+   For PVP:
     WE_Ettenmoors_TA_Player_Oil => Number of completions for quest "Oil for Boiling"
     WE_Ettenmoors_Lug_Player_Oil => Number of completions for quest "Oil for the Cauldron of Lugazag"
     WE_Ettenmoors_TR_Player_Oil => Number of completions for quest "Oil for the Cauldron of Tirith Rhaw"
     WE_Ettenmoors_TA_Player_Cauldron => Number of completions for quest "A Cauldron of Iron"
     WE_Ettenmoors_Lug_Player_Cauldron => Number of completions for quest "Iron for the Cauldron of Lugazag"
     WE_Ettenmoors_TR_Player_Cauldron => Number of completions for quest "Iron on the Walls of Tirith Rhaw"
-    // WE_Ettenmoors_TA_Player_Rockwithers related to "Rockwithers' Horn" (hidden)
-    // WE_Ettenmoors_TA_Player_Stand related to "Pillar of Strength" (hidden)
-    // WE_Ettenmoors_TA_Player_Reinforce_West related to "Signal to the West" (hidden)
-    // WE_Ettenmoors_TA_Player_Reinforce_South related to "Signal to the South" (hidden)
-    // WE_Ettenmoors_TA_Player_Sinew related to "Strapped for Straps" (hidden)
+    WE_Ettenmoors_TA_Player_Rockwithers related to "Rockwithers' Horn" (hidden)
+    WE_Ettenmoors_TA_Player_Stand related to "Pillar of Strength" (hidden)
+    WE_Ettenmoors_TA_Player_Reinforce_West related to "Signal to the West" (hidden)
+    WE_Ettenmoors_TA_Player_Reinforce_South related to "Signal to the South" (hidden)
+    WE_Ettenmoors_TA_Player_Sinew related to "Strapped for Straps" (hidden)
    */
 
   private String renderSimpleWorldEventConditionWithComplexValue(SimpleWorldEventCondition condition)

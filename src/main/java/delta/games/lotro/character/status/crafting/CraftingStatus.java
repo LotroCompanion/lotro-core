@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.lore.crafting.Profession;
@@ -141,11 +142,12 @@ public class CraftingStatus
   public List<Profession> getActiveProfessions()
   {
     List<Profession> ret=new ArrayList<Profession>();
-    for(Profession profession : _status.keySet())
+    for(Map.Entry<Profession,ProfessionStatus> entry : _status.entrySet())
     {
-      ProfessionStatus status=_status.get(profession);
+      ProfessionStatus status=entry.getValue();
       if (status.isActive())
       {
+        Profession profession=entry.getKey();
         ret.add(profession);
       }
     }

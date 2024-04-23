@@ -129,40 +129,45 @@ public class MeldingRecipesXMLWriter
       MeldingOutput output=recipe.getOutput();
       for(RelicMeldingOutputEntry entry : output.getPossibleOutputs())
       {
-        AttributesImpl outputEntryAttrs=new AttributesImpl();
-        String name=null;
-        // Relic ID
-        Relic outputRelic=entry.getRelic();
-        if (outputRelic!=null)
-        {
-          int relicId=outputRelic.getIdentifier();
-          outputEntryAttrs.addAttribute("","",MeldingRecipesXMLConstants.OUTPUT_RELIC_ID_ATTR,XmlWriter.CDATA,String.valueOf(relicId));
-          name=outputRelic.getName();
-        }
-        // Item ID
-        Item outputItem=entry.getItem();
-        if (outputItem!=null)
-        {
-          int itemId=outputItem.getIdentifier();
-          outputEntryAttrs.addAttribute("","",MeldingRecipesXMLConstants.OUTPUT_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemId));
-          name=outputItem.getName();
-        }
-        // Name
-        if (name!=null)
-        {
-          outputEntryAttrs.addAttribute("","",MeldingRecipesXMLConstants.OUTPUT_NAME_ATTR,XmlWriter.CDATA,name);
-        }
-        // Weight
-        int weight=entry.getWeight();
-        if (weight!=1)
-        {
-          outputEntryAttrs.addAttribute("","",MeldingRecipesXMLConstants.OUTPUT_WEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(weight));
-        }
-        hd.startElement("","",MeldingRecipesXMLConstants.OUTPUT_TAG,outputEntryAttrs);
-        hd.endElement("","",MeldingRecipesXMLConstants.OUTPUT_TAG);
+        writeMeldingOutputEntry(hd,entry);
       }
       hd.endElement("","",MeldingRecipesXMLConstants.RECIPE_TAG);
     }
     hd.endElement("","",MeldingRecipesXMLConstants.MAIN_TAG);
  }
+
+  private void writeMeldingOutputEntry(TransformerHandler hd, RelicMeldingOutputEntry entry) throws SAXException
+  {
+    AttributesImpl outputEntryAttrs=new AttributesImpl();
+    String name=null;
+    // Relic ID
+    Relic outputRelic=entry.getRelic();
+    if (outputRelic!=null)
+    {
+      int relicId=outputRelic.getIdentifier();
+      outputEntryAttrs.addAttribute("","",MeldingRecipesXMLConstants.OUTPUT_RELIC_ID_ATTR,XmlWriter.CDATA,String.valueOf(relicId));
+      name=outputRelic.getName();
+    }
+    // Item ID
+    Item outputItem=entry.getItem();
+    if (outputItem!=null)
+    {
+      int itemId=outputItem.getIdentifier();
+      outputEntryAttrs.addAttribute("","",MeldingRecipesXMLConstants.OUTPUT_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemId));
+      name=outputItem.getName();
+    }
+    // Name
+    if (name!=null)
+    {
+      outputEntryAttrs.addAttribute("","",MeldingRecipesXMLConstants.OUTPUT_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    // Weight
+    int weight=entry.getWeight();
+    if (weight!=1)
+    {
+      outputEntryAttrs.addAttribute("","",MeldingRecipesXMLConstants.OUTPUT_WEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(weight));
+    }
+    hd.startElement("","",MeldingRecipesXMLConstants.OUTPUT_TAG,outputEntryAttrs);
+    hd.endElement("","",MeldingRecipesXMLConstants.OUTPUT_TAG);
+  }
 }

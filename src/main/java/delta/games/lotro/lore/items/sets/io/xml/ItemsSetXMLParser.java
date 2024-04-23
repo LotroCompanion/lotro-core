@@ -109,7 +109,6 @@ public class ItemsSetXMLParser
       for(Element itemTag : itemTags)
       {
         int memberId=DOMParsingTools.getIntAttribute(itemTag.getAttributes(),ItemsSetXMLConstants.ITEM_ID_ATTR,0);
-        //String memberName=DOMParsingTools.getStringAttribute(itemTag.getAttributes(),ItemsSetXMLConstants.ITEM_NAME_ATTR,"");
         Item member=ItemsManager.getInstance().getItem(memberId);
         if (member!=null)
         {

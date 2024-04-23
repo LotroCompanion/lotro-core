@@ -13,7 +13,7 @@ public class CosmeticPetDescription extends SkillDescription implements Collecta
   private String _initialName;
   private String _sourceDescription;
   private EntityClassification _classification;
-  // TODO:
+  // We could add:
   // - Alignment
   // - Class (always melee)
 

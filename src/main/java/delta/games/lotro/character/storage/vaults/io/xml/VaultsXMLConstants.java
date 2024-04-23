@@ -36,10 +36,6 @@ public class VaultsXMLConstants
    */
   public static final String SLOT_TAG="slot";
   /**
-   * Tag 'slot', attribute 'index'.
-   */
-  //public static final String SLOT_INDEX_ATTR="index";
-  /**
    * Tag 'slot', attribute 'count'.
    */
   public static final String SLOT_COUNT_ATTR="count";

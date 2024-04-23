@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import delta.common.utils.math.geometry.Vector3D;
 import delta.games.lotro.lore.geo.BlockReference;
 
@@ -16,6 +18,8 @@ import delta.games.lotro.lore.geo.BlockReference;
  */
 public class Landblock
 {
+  private static final Logger LOGGER=Logger.getLogger(Landblock.class);
+
   private BlockReference _id;
   private Map<Integer,Cell> _cells;
   private Integer _parentDungeon;
@@ -177,7 +181,10 @@ public class Landblock
       }
       if (ret==null)
       {
-        //System.out.println("No dungeon for cell: "+cell+" in landblock: "+_id);
+        if (LOGGER.isDebugEnabled())
+        {
+          LOGGER.debug("No dungeon for cell: "+cell+" in landblock: "+_id);
+        }
       }
     }
     else if (cell==0)

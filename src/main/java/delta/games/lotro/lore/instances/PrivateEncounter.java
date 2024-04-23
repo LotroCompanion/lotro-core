@@ -21,7 +21,7 @@ public class PrivateEncounter implements Identifiable,Named
   private List<InstanceMapDescription> _mapDescriptions;
   // Related quests
   private PrivateEncounterQuests _quests;
-  // TODO LATER
+  // LATER:
   // Start position
   // Success position
   // Requirements

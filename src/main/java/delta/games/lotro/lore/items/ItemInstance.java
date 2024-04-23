@@ -262,7 +262,15 @@ public class ItemInstance<T extends Item> implements ItemProvider
    */
   public Integer getEffectiveDurability()
   {
-    return (_durability!=null?_durability:(_reference!=null)?_reference.getDurability():null);
+    if (_durability!=null)
+    {
+      return _durability;
+    }
+    if (_reference!=null)
+    {
+      return _reference.getDurability();
+    }
+    return null;
   }
 
   /**
@@ -289,7 +297,15 @@ public class ItemInstance<T extends Item> implements ItemProvider
    */
   public Integer getEffectiveItemLevel()
   {
-    return (_itemLevel!=null?_itemLevel:(_reference!=null)?_reference.getItemLevel():null);
+    if (_itemLevel!=null)
+    {
+      return _itemLevel;
+    }
+    if (_reference!=null)
+    {
+      return _reference.getItemLevel();
+    }
+    return null;
   }
 
   /**
@@ -357,7 +373,15 @@ public class ItemInstance<T extends Item> implements ItemProvider
    */
   public Integer getEffectiveMinLevel()
   {
-    return (_minLevel!=null?_minLevel:(_reference!=null)?_reference.getMinLevel():null);
+    if (_minLevel!=null)
+    {
+      return _minLevel;
+    }
+    if (_reference!=null)
+    {
+      return _reference.getMinLevel();
+    }
+    return null;
   }
 
   /**
@@ -384,7 +408,15 @@ public class ItemInstance<T extends Item> implements ItemProvider
    */
   public Money getEffectiveValue()
   {
-    return (_value!=null?_value:(_reference!=null)?_reference.getValueAsMoney():null);
+    if (_value!=null)
+    {
+      return _value;
+    }
+    if (_reference!=null)
+    {
+      return _reference.getValueAsMoney();
+    }
+    return null;
   }
 
   /**
