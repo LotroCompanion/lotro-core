@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.quests.objectives.Objective;
@@ -66,8 +67,8 @@ public class TaskDeedsBuilder
       if (condition instanceof QuestCompleteCondition)
       {
         QuestCompleteCondition questCondition=(QuestCompleteCondition)condition;
-        String questCategory=questCondition.getQuestCategory();
-        if ("Task".equals(questCategory))
+        QuestCategory questCategory=questCondition.getQuestCategory();
+        if ((questCategory!=null) && (questCategory.getCode()==112)) // Task
         {
           int tasksCount=questCondition.getCount();
           return Integer.valueOf(tasksCount);

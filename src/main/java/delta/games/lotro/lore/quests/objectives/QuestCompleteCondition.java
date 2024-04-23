@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.quests.objectives;
 
+import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.utils.Proxy;
 
@@ -10,7 +11,7 @@ import delta.games.lotro.utils.Proxy;
 public class QuestCompleteCondition extends ObjectiveCondition
 {
   private Proxy<Achievable> _achievable;
-  private String _questCategory;
+  private QuestCategory _questCategory;
 
   /**
    * Constructor.
@@ -49,7 +50,7 @@ public class QuestCompleteCondition extends ObjectiveCondition
    * Get the quest category.
    * @return a quest category or <code>null/code>.
    */
-  public String getQuestCategory()
+  public QuestCategory getQuestCategory()
   {
     return _questCategory;
   }
@@ -58,7 +59,7 @@ public class QuestCompleteCondition extends ObjectiveCondition
    * Set the quest category.
    * @param questCategory category to set.
    */
-  public void setQuestCategory(String questCategory)
+  public void setQuestCategory(QuestCategory questCategory)
   {
     _questCategory=questCategory;
   }

@@ -11,6 +11,7 @@ import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.MobDivision;
+import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
@@ -78,6 +79,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private CompoundQuestEvent _compoundEvent;
   private SingleLocaleLabelsManager _i18n;
   private LotroEnum<MobDivision> _mobDivisionEnum;
+  private LotroEnum<QuestCategory> _questCategoryEnum;
 
   /**
    * Constructor.
@@ -87,6 +89,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   {
     _i18n=i18n;
     _mobDivisionEnum=LotroEnumsRegistry.getInstance().get(MobDivision.class);
+    _questCategoryEnum=LotroEnumsRegistry.getInstance().get(QuestCategory.class);
   }
 
   /**
@@ -325,7 +328,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     return ret;
   }
 
-  private static QuestCompleteCondition parseQuestCompleteCondition(Attributes attrs)
+  private QuestCompleteCondition parseQuestCompleteCondition(Attributes attrs)
   {
     QuestCompleteCondition condition=new QuestCompleteCondition();
     // Achievable
@@ -337,8 +340,12 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
       condition.setProxy(proxy);
     }
     // Quest category
-    String questCategory=SAXParsingTools.getStringAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_CATEGORY_ATTR,null);
-    condition.setQuestCategory(questCategory);
+    int questCategoryCode=SAXParsingTools.getIntAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_CATEGORY_ATTR,-1);
+    if (questCategoryCode>0)
+    {
+      QuestCategory questCategory=_questCategoryEnum.getEntry(questCategoryCode);
+      condition.setQuestCategory(questCategory);
+    }
     return condition;
   }
 
