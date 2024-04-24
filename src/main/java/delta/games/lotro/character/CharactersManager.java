@@ -5,7 +5,6 @@ import java.util.List;
 
 import delta.games.lotro.character.events.CharacterEvent;
 import delta.games.lotro.character.events.CharacterEventType;
-import delta.games.lotro.common.binding.BindingsManager;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.utils.events.EventsManager;
 
@@ -36,12 +35,7 @@ public final class CharactersManager
   {
     _storage=new CharactersStorageManager();
     _toons=new ArrayList<CharacterFile>();
-    List<CharacterFile> toons=_storage.getAllToons();
-    for(CharacterFile toon : toons)
-    {
-      _toons.add(toon);
-      BindingsManager.getInstance().addCharacter(toon);
-    }
+    _toons.addAll(_storage.getAllToons());
   }
 
   /**
@@ -126,7 +120,6 @@ public final class CharactersManager
     if (toon!=null)
     {
       _toons.add(toon);
-      BindingsManager.getInstance().addCharacter(toon);
       // Broadcast toon creation event...
       CharacterEvent event=new CharacterEvent(CharacterEventType.CHARACTER_ADDED,toon,null);
       EventsManager.invokeEvent(event);
@@ -144,7 +137,6 @@ public final class CharactersManager
     boolean ret=_toons.remove(toon);
     if (ret)
     {
-      BindingsManager.getInstance().removeCharacter(toon);
       _storage.removeToon(toon);
       // Broadcast toon deletion event...
       CharacterEvent event=new CharacterEvent(CharacterEventType.CHARACTER_REMOVED,toon,null);
