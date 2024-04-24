@@ -1,7 +1,10 @@
 package delta.games.lotro.account;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import delta.common.utils.misc.Preferences;
@@ -64,6 +67,18 @@ public class Account
       ret.load();
       _servers.put(serverName,ret);
     }
+    return ret;
+  }
+
+  /**
+   * Get the known servers.
+   * @return A sorted list of server names.
+   */
+  public List<String> getKnownServers()
+  {
+    List<String> ret=new ArrayList<String>();
+    ret.addAll(_servers.keySet());
+    Collections.sort(ret);
     return ret;
   }
 

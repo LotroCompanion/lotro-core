@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import delta.games.lotro.account.events.AccountEvent;
 import delta.games.lotro.account.events.AccountEventType;
+import delta.games.lotro.common.binding.BindingsManager;
 import delta.games.lotro.utils.events.EventsManager;
 
 /**
@@ -35,7 +36,12 @@ public final class AccountsManager
   {
     _storage=new AccountsStorageManager();
     _accounts=new ArrayList<Account>();
-    _accounts.addAll(_storage.getAllAccounts());
+    List<Account> accounts=_storage.getAllAccounts();
+    for(Account account : accounts)
+    {
+      _accounts.add(account);
+      BindingsManager.getInstance().addAccount(account);
+    }
   }
 
   /**
@@ -147,6 +153,7 @@ public final class AccountsManager
     if (account!=null)
     {
       _accounts.add(account);
+      BindingsManager.getInstance().addAccount(account);
       // Broadcast account creation event...
       AccountEvent event=new AccountEvent(AccountEventType.ACCOUNT_ADDED,account);
       EventsManager.invokeEvent(event);
