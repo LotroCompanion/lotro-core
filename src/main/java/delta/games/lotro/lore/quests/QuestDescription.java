@@ -390,6 +390,16 @@ public class QuestDescription extends Achievable
       sb.append("Next quest: ").append(_nextQuest).append(EndOfLine.NATIVE_EOL);
     }
     // Bestowers
+    dumpBestowers(sb);
+    // End dialogs
+    dumpEndDialogs(sb);
+    // Quest completion comments
+    dumpCompletionComments(sb);
+    return sb.toString().trim();
+  }
+
+  private void dumpBestowers(StringBuilder sb)
+  {
     int nbBestowers=_bestowers.size();
     if (nbBestowers>0)
     {
@@ -401,7 +411,10 @@ public class QuestDescription extends Achievable
         sb.append("Bestower text: ").append(text).append(EndOfLine.NATIVE_EOL);
       }
     }
-    // End dialogs
+  }
+
+  private void dumpEndDialogs(StringBuilder sb)
+  {
     int nbEndDialogs=_endDialogs.size();
     if (nbEndDialogs>0)
     {
@@ -417,7 +430,10 @@ public class QuestDescription extends Achievable
         sb.append(text).append(EndOfLine.NATIVE_EOL);
       }
     }
-    // Quest completion comments
+  }
+
+  private void dumpCompletionComments(StringBuilder sb)
+  {
     int nbComments=_completionComments.size();
     if (nbComments>0)
     {
@@ -428,6 +444,5 @@ public class QuestDescription extends Achievable
         sb.append(EndOfLine.NATIVE_EOL);
       }
     }
-    return sb.toString().trim();
   }
 }

@@ -124,136 +124,7 @@ public final class ItemSaxParser extends DefaultHandler
   {
     if (ItemXMLConstants.ITEM_TAG.equals(qualifiedName))
     {
-      // Category
-      String categoryStr=attributes.getValue(ItemXMLConstants.ITEM_CATEGORY_ATTR);
-      ItemCategory category=ItemCategory.valueOf(categoryStr);
-      _currentItem=ItemFactory.buildItem(category);
-      // Identifier
-      String idStr=attributes.getValue(ItemXMLConstants.ITEM_KEY_ATTR);
-      int id=NumericTools.parseInt(idStr,-1);
-      _currentItem.setIdentifier(id);
-      // Icon
-      String icon=attributes.getValue(ItemXMLConstants.ITEM_ICON_ATTR);
-      _currentItem.setIcon(icon);
-      // Set identifier
-      String setId=attributes.getValue(ItemXMLConstants.ITEM_SET_ID_ATTR);
-      _currentItem.setSetKey(setId);
-      // Name
-      String name=_i18n.getLabel(String.valueOf(id));
-      if (name==null)
-      {
-        name=attributes.getValue(ItemXMLConstants.ITEM_NAME_ATTR);
-      }
-      _currentItem.setName(name);
-      // Item level
-      String itemLevel=attributes.getValue(ItemXMLConstants.ITEM_LEVEL_ATTR);
-      if (itemLevel!=null)
-      {
-        _currentItem.setItemLevel(Integer.valueOf(itemLevel));
-      }
-      // Item level offset
-      String itemLevelOffset=attributes.getValue(ItemXMLConstants.ITEM_LEVEL_OFFSET_ATTR);
-      if (itemLevelOffset!=null)
-      {
-        _currentItem.setItemLevelOffset(Integer.valueOf(itemLevelOffset));
-      }
-      // Slot
-      EquipmentLocation slot=null;
-      String slotStr=attributes.getValue(ItemXMLConstants.ITEM_SLOT_ATTR);
-      if (slotStr!=null)
-      {
-        slot=EquipmentLocation.getByKey(slotStr);
-      }
-      _currentItem.setEquipmentLocation(slot);
-      // Item class
-      String itemClassCodeStr=attributes.getValue(ItemXMLConstants.ITEM_CLASS_ATTR);
-      if (itemClassCodeStr!=null)
-      {
-        int itemClassCode=NumericTools.parseInt(itemClassCodeStr,0);
-        ItemClass itemClass=_itemClassEnum.getEntry(itemClassCode);
-        _currentItem.setItemClass(itemClass);
-      }
-      // Tier
-      String tierStr=attributes.getValue(ItemXMLConstants.ITEM_TIER_ATTR);
-      if (tierStr!=null)
-      {
-        _currentItem.setTier(NumericTools.parseInteger(tierStr));
-      }
-      // Equipment category
-      String equipmentCategoryCodeStr=attributes.getValue(ItemXMLConstants.ITEM_EQUIPMENT_CATEGORY_ATTR);
-      if (equipmentCategoryCodeStr!=null)
-      {
-        int equipmentCategoryCode=NumericTools.parseInt(equipmentCategoryCodeStr,0);
-        EquipmentCategory equipmentCategory=_equipmentCategoryEnum.getEntry(equipmentCategoryCode);
-        _currentItem.setEquipmentCategory(equipmentCategory);
-      }
-      // Item binding
-      ItemBinding binding=null;
-      String bindingStr=attributes.getValue(ItemXMLConstants.ITEM_BINDING_ATTR);
-      if (bindingStr!=null)
-      {
-        binding=_itemBindingEnum.getByKey(bindingStr);
-      }
-      _currentItem.setBinding(binding);
-      // Uniqueness
-      String uniqueStr=attributes.getValue(ItemXMLConstants.ITEM_UNIQUE_ATTR);
-      _currentItem.setUnique("true".equals(uniqueStr));
-      // Durability
-      String durabilityStr=attributes.getValue(ItemXMLConstants.ITEM_DURABILITY_ATTR);
-      if (durabilityStr!=null)
-      {
-        _currentItem.setDurability(Integer.valueOf(durabilityStr));
-      }
-      // Sturdiness
-      ItemSturdiness sturdiness=null;
-      String sturdinessStr=attributes.getValue(ItemXMLConstants.ITEM_STURDINESS_ATTR);
-      if (sturdinessStr!=null)
-      {
-        sturdiness=ItemSturdiness.getItemSturdinessByKey(sturdinessStr);
-      }
-      _currentItem.setSturdiness(sturdiness);
-      // Quality
-      ItemQuality quality=null;
-      String qualityStr=attributes.getValue(ItemXMLConstants.ITEM_QUALITY_ATTR);
-      if (qualityStr!=null)
-      {
-        quality=ItemQuality.fromCode(qualityStr);
-      }
-      _currentItem.setQuality(quality);
-      // Requirements
-      UsageRequirementsXMLParser.parseRequirements(_currentItem.getUsageRequirements(),attributes);
-      // Full description
-      String description=attributes.getValue(ItemXMLConstants.ITEM_DESCRIPTION_ATTR);
-      description=I18nRuntimeUtils.getLabel(_i18n,description);
-      _currentItem.setDescription(description);
-      // Value table
-      String valueTableIdStr=attributes.getValue(ItemXMLConstants.ITEM_VALUE_TABLE_ID_ATTR);
-      if (valueTableIdStr!=null)
-      {
-        int valueTableId=NumericTools.parseInt(valueTableIdStr,0);
-        QualityBasedValuesTable table=MoneyTables.getMoneyTablesManager().getValueTable(valueTableId);
-        _currentItem.setValueTable(table);
-      }
-      // Stack max
-      String stackMaxStr=attributes.getValue(ItemXMLConstants.ITEM_STACK_MAX_ATTR);
-      if (stackMaxStr!=null)
-      {
-        _currentItem.setStackMax(Integer.valueOf(stackMaxStr));
-      }
-      // Essence slots
-      String essenceSlots=attributes.getValue(ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR);
-      if (essenceSlots!=null)
-      {
-        EssencesSlotsSetup setup=EssencesSlotsSetup.fromPersistenceString(essenceSlots);
-        _currentItem.setEssenceSlots(setup);
-      }
-      // Munging
-      String mungingStr=attributes.getValue(ItemXMLConstants.ITEM_SCALING_ATTR);
-      if (mungingStr!=null)
-      {
-        Munging munging=Munging.fromString(mungingStr);
-        _currentItem.setMunging(munging);
-      }
+      int id=handleItemAttributes(attributes);
       // Armour specific:
       if (_currentItem instanceof Armour)
       {
@@ -270,68 +141,13 @@ public final class ItemSaxParser extends DefaultHandler
       if (_currentItem instanceof Weapon)
       {
         Weapon weapon=(Weapon)_currentItem;
-        // DPS
-        String dpsStr=attributes.getValue(ItemXMLConstants.DPS_ATTR);
-        if (dpsStr!=null)
-        {
-          weapon.setDPS(Float.parseFloat(dpsStr));
-        }
-        // DPS table
-        String dpsTableIdStr=attributes.getValue(ItemXMLConstants.DPS_TABLE_ID_ATTR);
-        if (dpsTableIdStr!=null)
-        {
-          int dpsTableId=NumericTools.parseInt(dpsTableIdStr,0);
-          QualityBasedValuesTable table=DPSTables.getDPSTablesManager().getValueTable(dpsTableId);
-          weapon.setDPSTable(table);
-        }
-        // Damage min/max
-        String minDamageStr=attributes.getValue(ItemXMLConstants.MIN_DAMAGE_ATTR);
-        if (minDamageStr!=null)
-        {
-          weapon.setMinDamage(Integer.parseInt(minDamageStr));
-        }
-        String maxDamage=attributes.getValue(ItemXMLConstants.MAX_DAMAGE_ATTR);
-        weapon.setMaxDamage(Integer.parseInt(maxDamage));
-        // Damage type
-        String damageTypeStr=attributes.getValue(ItemXMLConstants.DAMAGE_TYPE_ATTR);
-        if (damageTypeStr!=null)
-        {
-          DamageType type=DamageType.getDamageTypeByKey(damageTypeStr);
-          weapon.setDamageType(type);
-        }
-        // Weapon type
-        String weaponTypeStr=attributes.getValue(ItemXMLConstants.WEAPON_TYPE_ATTR);
-        if (weaponTypeStr!=null)
-        {
-          WeaponType type=WeaponType.getWeaponTypeByKey(weaponTypeStr);
-          weapon.setWeaponType(type);
-        }
-        // Weapon speed
-        String speedCodeStr=attributes.getValue(ItemXMLConstants.WEAPON_SPEED_ATTR);
-        if (speedCodeStr!=null)
-        {
-          int speedCode=Integer.parseInt(speedCodeStr);
-          WeaponSpeedEntry entry=WeaponSpeedsManager.getWeaponSpeedsManager().getSpeedEntry(weapon.getWeaponType(),speedCode);
-          weapon.setSpeed(entry);
-        }
+        handleWeaponSpecifics(weapon,attributes);
       }
       // Legendary specifics
       if (_currentItem instanceof Legendary)
       {
         Legendary legendary=(Legendary)_currentItem;
-        LegendaryAttrs attrs=legendary.getLegendaryAttrs();
-        // - Main legacy ID
-        String mainLegacyIdStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_ID_ATTR);
-        int mainLegacyId=NumericTools.parseInt(mainLegacyIdStr,0);
-        attrs.setMainLegacyId(mainLegacyId);
-        // - Combat DPS level
-        String combatDPSLevelStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_COMBAT_DPS_LEVEL_ATTR);
-        int combatDPSLevel=NumericTools.parseInt(combatDPSLevelStr,0);
-        attrs.setCombatDPSLevel(combatDPSLevel);
-        // - Combat Property Mod level
-        String combatPropertyModLevelStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_COMBAT_PROPERTY_MOD_LEVEL_ATTR);
-        int combatPropertyModLevel=NumericTools.parseInt(combatPropertyModLevelStr,0);
-        attrs.setCombatPropertyModLevel(combatPropertyModLevel);
+        handleLegendarySpecifics(legendary,attributes);
       }
       else if (_currentItem instanceof Legendary2)
       {
@@ -364,28 +180,7 @@ public final class ItemSaxParser extends DefaultHandler
     }
     else if (BasicStatsSetXMLConstants.STAT_TAG.equals(qualifiedName))
     {
-      // Stat name
-      String statName=attributes.getValue(BasicStatsSetXMLConstants.STAT_NAME_ATTR);
-      StatDescription stat=StatsRegistry.getInstance().getByKey(statName);
-      // Stat provider
-      StatProvider statProvider=parseStatProvider(stat,attributes);
-      if (statProvider!=null)
-      {
-        // Stat operator
-        StatOperator operator=getOperator(attributes.getValue(BasicStatsSetXMLConstants.STAT_OPERATOR_ATTR));
-        statProvider.setOperator(operator);
-        // Description override
-        String descriptionOverride=attributes.getValue(BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR);
-        descriptionOverride=I18nRuntimeUtils.getLabel(_i18n,descriptionOverride);
-        statProvider.setDescriptionOverride(descriptionOverride);
-        StatsProvider statsProvider=_currentItem.getStatsProvider();
-        if (statsProvider==null)
-        {
-          statsProvider=new StatsProvider();
-          _currentItem.setStatsProvider(statsProvider);
-        }
-        statsProvider.addStatProvider(statProvider);
-      }
+      handleStatTag(attributes);
     }
     else if (StatsProviderXMLConstants.SPECIAL_EFFECT_TAG.equals(qualifiedName))
     {
@@ -407,6 +202,232 @@ public final class ItemSaxParser extends DefaultHandler
     else
     {
       _detailsParser.startElement(_currentItem,qualifiedName,attributes);
+    }
+  }
+
+  private int handleItemAttributes(Attributes attributes)
+  {
+    // Category
+    String categoryStr=attributes.getValue(ItemXMLConstants.ITEM_CATEGORY_ATTR);
+    ItemCategory category=ItemCategory.valueOf(categoryStr);
+    _currentItem=ItemFactory.buildItem(category);
+    // Identifier
+    String idStr=attributes.getValue(ItemXMLConstants.ITEM_KEY_ATTR);
+    int id=NumericTools.parseInt(idStr,-1);
+    _currentItem.setIdentifier(id);
+    // Icon
+    String icon=attributes.getValue(ItemXMLConstants.ITEM_ICON_ATTR);
+    _currentItem.setIcon(icon);
+    // Set identifier
+    String setId=attributes.getValue(ItemXMLConstants.ITEM_SET_ID_ATTR);
+    _currentItem.setSetKey(setId);
+    // Name
+    String name=_i18n.getLabel(String.valueOf(id));
+    if (name==null)
+    {
+      name=attributes.getValue(ItemXMLConstants.ITEM_NAME_ATTR);
+    }
+    _currentItem.setName(name);
+    // Item level
+    String itemLevel=attributes.getValue(ItemXMLConstants.ITEM_LEVEL_ATTR);
+    if (itemLevel!=null)
+    {
+      _currentItem.setItemLevel(Integer.valueOf(itemLevel));
+    }
+    // Item level offset
+    String itemLevelOffset=attributes.getValue(ItemXMLConstants.ITEM_LEVEL_OFFSET_ATTR);
+    if (itemLevelOffset!=null)
+    {
+      _currentItem.setItemLevelOffset(Integer.valueOf(itemLevelOffset));
+    }
+    // Slot
+    EquipmentLocation slot=null;
+    String slotStr=attributes.getValue(ItemXMLConstants.ITEM_SLOT_ATTR);
+    if (slotStr!=null)
+    {
+      slot=EquipmentLocation.getByKey(slotStr);
+    }
+    _currentItem.setEquipmentLocation(slot);
+    // Item class
+    String itemClassCodeStr=attributes.getValue(ItemXMLConstants.ITEM_CLASS_ATTR);
+    if (itemClassCodeStr!=null)
+    {
+      int itemClassCode=NumericTools.parseInt(itemClassCodeStr,0);
+      ItemClass itemClass=_itemClassEnum.getEntry(itemClassCode);
+      _currentItem.setItemClass(itemClass);
+    }
+    // Tier
+    String tierStr=attributes.getValue(ItemXMLConstants.ITEM_TIER_ATTR);
+    if (tierStr!=null)
+    {
+      _currentItem.setTier(NumericTools.parseInteger(tierStr));
+    }
+    // Equipment category
+    String equipmentCategoryCodeStr=attributes.getValue(ItemXMLConstants.ITEM_EQUIPMENT_CATEGORY_ATTR);
+    if (equipmentCategoryCodeStr!=null)
+    {
+      int equipmentCategoryCode=NumericTools.parseInt(equipmentCategoryCodeStr,0);
+      EquipmentCategory equipmentCategory=_equipmentCategoryEnum.getEntry(equipmentCategoryCode);
+      _currentItem.setEquipmentCategory(equipmentCategory);
+    }
+    // Item binding
+    ItemBinding binding=null;
+    String bindingStr=attributes.getValue(ItemXMLConstants.ITEM_BINDING_ATTR);
+    if (bindingStr!=null)
+    {
+      binding=_itemBindingEnum.getByKey(bindingStr);
+    }
+    _currentItem.setBinding(binding);
+    // Uniqueness
+    String uniqueStr=attributes.getValue(ItemXMLConstants.ITEM_UNIQUE_ATTR);
+    _currentItem.setUnique("true".equals(uniqueStr));
+    // Durability
+    String durabilityStr=attributes.getValue(ItemXMLConstants.ITEM_DURABILITY_ATTR);
+    if (durabilityStr!=null)
+    {
+      _currentItem.setDurability(Integer.valueOf(durabilityStr));
+    }
+    // Sturdiness
+    ItemSturdiness sturdiness=null;
+    String sturdinessStr=attributes.getValue(ItemXMLConstants.ITEM_STURDINESS_ATTR);
+    if (sturdinessStr!=null)
+    {
+      sturdiness=ItemSturdiness.getItemSturdinessByKey(sturdinessStr);
+    }
+    _currentItem.setSturdiness(sturdiness);
+    // Quality
+    ItemQuality quality=null;
+    String qualityStr=attributes.getValue(ItemXMLConstants.ITEM_QUALITY_ATTR);
+    if (qualityStr!=null)
+    {
+      quality=ItemQuality.fromCode(qualityStr);
+    }
+    _currentItem.setQuality(quality);
+    // Requirements
+    UsageRequirementsXMLParser.parseRequirements(_currentItem.getUsageRequirements(),attributes);
+    // Full description
+    String description=attributes.getValue(ItemXMLConstants.ITEM_DESCRIPTION_ATTR);
+    description=I18nRuntimeUtils.getLabel(_i18n,description);
+    _currentItem.setDescription(description);
+    // Value table
+    String valueTableIdStr=attributes.getValue(ItemXMLConstants.ITEM_VALUE_TABLE_ID_ATTR);
+    if (valueTableIdStr!=null)
+    {
+      int valueTableId=NumericTools.parseInt(valueTableIdStr,0);
+      QualityBasedValuesTable table=MoneyTables.getMoneyTablesManager().getValueTable(valueTableId);
+      _currentItem.setValueTable(table);
+    }
+    // Stack max
+    String stackMaxStr=attributes.getValue(ItemXMLConstants.ITEM_STACK_MAX_ATTR);
+    if (stackMaxStr!=null)
+    {
+      _currentItem.setStackMax(Integer.valueOf(stackMaxStr));
+    }
+    // Essence slots
+    String essenceSlots=attributes.getValue(ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR);
+    if (essenceSlots!=null)
+    {
+      EssencesSlotsSetup setup=EssencesSlotsSetup.fromPersistenceString(essenceSlots);
+      _currentItem.setEssenceSlots(setup);
+    }
+    // Munging
+    String mungingStr=attributes.getValue(ItemXMLConstants.ITEM_SCALING_ATTR);
+    if (mungingStr!=null)
+    {
+      Munging munging=Munging.fromString(mungingStr);
+      _currentItem.setMunging(munging);
+    }
+    return id;
+  }
+
+  private void handleLegendarySpecifics(Legendary legendary, Attributes attributes)
+  {
+    LegendaryAttrs attrs=legendary.getLegendaryAttrs();
+    // - Main legacy ID
+    String mainLegacyIdStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_ID_ATTR);
+    int mainLegacyId=NumericTools.parseInt(mainLegacyIdStr,0);
+    attrs.setMainLegacyId(mainLegacyId);
+    // - Combat DPS level
+    String combatDPSLevelStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_COMBAT_DPS_LEVEL_ATTR);
+    int combatDPSLevel=NumericTools.parseInt(combatDPSLevelStr,0);
+    attrs.setCombatDPSLevel(combatDPSLevel);
+    // - Combat Property Mod level
+    String combatPropertyModLevelStr=attributes.getValue(ItemXMLConstants.MAIN_LEGACY_COMBAT_PROPERTY_MOD_LEVEL_ATTR);
+    int combatPropertyModLevel=NumericTools.parseInt(combatPropertyModLevelStr,0);
+    attrs.setCombatPropertyModLevel(combatPropertyModLevel);
+  }
+
+  private void handleWeaponSpecifics(Weapon weapon, Attributes attributes)
+  {
+    // DPS
+    String dpsStr=attributes.getValue(ItemXMLConstants.DPS_ATTR);
+    if (dpsStr!=null)
+    {
+      weapon.setDPS(Float.parseFloat(dpsStr));
+    }
+    // DPS table
+    String dpsTableIdStr=attributes.getValue(ItemXMLConstants.DPS_TABLE_ID_ATTR);
+    if (dpsTableIdStr!=null)
+    {
+      int dpsTableId=NumericTools.parseInt(dpsTableIdStr,0);
+      QualityBasedValuesTable table=DPSTables.getDPSTablesManager().getValueTable(dpsTableId);
+      weapon.setDPSTable(table);
+    }
+    // Damage min/max
+    String minDamageStr=attributes.getValue(ItemXMLConstants.MIN_DAMAGE_ATTR);
+    if (minDamageStr!=null)
+    {
+      weapon.setMinDamage(Integer.parseInt(minDamageStr));
+    }
+    String maxDamage=attributes.getValue(ItemXMLConstants.MAX_DAMAGE_ATTR);
+    weapon.setMaxDamage(Integer.parseInt(maxDamage));
+    // Damage type
+    String damageTypeStr=attributes.getValue(ItemXMLConstants.DAMAGE_TYPE_ATTR);
+    if (damageTypeStr!=null)
+    {
+      DamageType type=DamageType.getDamageTypeByKey(damageTypeStr);
+      weapon.setDamageType(type);
+    }
+    // Weapon type
+    String weaponTypeStr=attributes.getValue(ItemXMLConstants.WEAPON_TYPE_ATTR);
+    if (weaponTypeStr!=null)
+    {
+      WeaponType type=WeaponType.getWeaponTypeByKey(weaponTypeStr);
+      weapon.setWeaponType(type);
+    }
+    // Weapon speed
+    String speedCodeStr=attributes.getValue(ItemXMLConstants.WEAPON_SPEED_ATTR);
+    if (speedCodeStr!=null)
+    {
+      int speedCode=Integer.parseInt(speedCodeStr);
+      WeaponSpeedEntry entry=WeaponSpeedsManager.getWeaponSpeedsManager().getSpeedEntry(weapon.getWeaponType(),speedCode);
+      weapon.setSpeed(entry);
+    }
+  }
+
+  private void handleStatTag(Attributes attributes)
+  {
+    // Stat name
+    String statName=attributes.getValue(BasicStatsSetXMLConstants.STAT_NAME_ATTR);
+    StatDescription stat=StatsRegistry.getInstance().getByKey(statName);
+    // Stat provider
+    StatProvider statProvider=parseStatProvider(stat,attributes);
+    if (statProvider!=null)
+    {
+      // Stat operator
+      StatOperator operator=getOperator(attributes.getValue(BasicStatsSetXMLConstants.STAT_OPERATOR_ATTR));
+      statProvider.setOperator(operator);
+      // Description override
+      String descriptionOverride=attributes.getValue(BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR);
+      descriptionOverride=I18nRuntimeUtils.getLabel(_i18n,descriptionOverride);
+      statProvider.setDescriptionOverride(descriptionOverride);
+      StatsProvider statsProvider=_currentItem.getStatsProvider();
+      if (statsProvider==null)
+      {
+        statsProvider=new StatsProvider();
+        _currentItem.setStatsProvider(statsProvider);
+      }
+      statsProvider.addStatProvider(statProvider);
     }
   }
 
