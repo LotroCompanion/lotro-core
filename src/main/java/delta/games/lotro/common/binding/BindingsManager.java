@@ -61,6 +61,7 @@ public class BindingsManager
    */
   private void addCharacter(CharacterFile character)
   {
+    // Character
     InternalGameId id=character.getSummary().getId();
     if (id!=null)
     {
@@ -68,6 +69,18 @@ public class BindingsManager
       registerBinding(info);
     }
     character.getAccountID();
+    // Account/server
+    AccountReference accountRef=character.getAccountID();
+    if (accountRef!=null)
+    {
+      Account account=AccountsManager.getInstance().getAccount(accountRef.getAccountName(),accountRef.getSubscriptionKey());
+      if (account!=null)
+      {
+        String serverName=character.getServerName();
+        AccountOnServer accountOnServer=account.getServer(serverName);
+        handleAccountOnServer(accountOnServer);
+      }
+    }
   }
 
   /**
@@ -80,12 +93,17 @@ public class BindingsManager
     for(String serverName : servers)
     {
       AccountOnServer accountOnServer=account.getServer(serverName);
-      InternalGameId id=accountOnServer.getAccountID();
-      if (id!=null)
-      {
-        BindingInfo info=new BindingInfo(id,accountOnServer);
-        registerBinding(info);
-      }
+      handleAccountOnServer(accountOnServer);
+    }
+  }
+
+  private void handleAccountOnServer(AccountOnServer accountOnServer)
+  {
+    InternalGameId id=accountOnServer.getAccountID();
+    if (id!=null)
+    {
+      BindingInfo info=new BindingInfo(id,accountOnServer);
+      registerBinding(info);
     }
   }
 
@@ -93,7 +111,7 @@ public class BindingsManager
   {
     InternalGameId id=info.getId();
     _knownBindings.put(id,info);
-    LOGGER.debug("Registered: "+info);
+    LOGGER.debug("Registered/updated: "+info);
   }
 
   /**
