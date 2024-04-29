@@ -70,7 +70,7 @@ public class DatEnumsUtils
     if ((slotCode&1L<<18)!=0) return GearSlots.RANGED;
     if ((slotCode&1L<<19)!=0) return GearSlots.TOOL;
     if ((slotCode&1L<<20)!=0) return GearSlots.CLASS_ITEM;
-    //if ((slotCode&1L<<21)!=0) return EQUIMENT_SLOT.BRIDLE;
+    if ((slotCode&1L<<21)!=0) return GearSlots.BRIDLE;
     if ((slotCode&1L<<22)!=0) return GearSlots.MAIN_HAND_AURA;
     if ((slotCode&1L<<23)!=0) return GearSlots.OFF_HAND_AURA;
     if ((slotCode&1L<<24)!=0) return GearSlots.RANGED_AURA;
@@ -113,7 +113,7 @@ public class DatEnumsUtils
     if ((slotCode&1L<<18)!=0) ret.add(GearSlots.RANGED);
     if ((slotCode&1L<<19)!=0) ret.add(GearSlots.TOOL);
     if ((slotCode&1L<<20)!=0) ret.add(GearSlots.CLASS_ITEM);
-    //if ((slotCode&1L<<21)!=0) ret.add(EQUIMENT_SLOT.BRIDLE;
+    if ((slotCode&1L<<21)!=0) ret.add(GearSlots.BRIDLE);
     if ((slotCode&1L<<22)!=0) ret.add(GearSlots.MAIN_HAND_AURA);
     if ((slotCode&1L<<23)!=0) ret.add(GearSlots.OFF_HAND_AURA);
     if ((slotCode&1L<<24)!=0) ret.add(GearSlots.RANGED_AURA);

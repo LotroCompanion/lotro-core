@@ -10,6 +10,7 @@ import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotContents;
+import delta.games.lotro.character.gear.GearSlots;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
@@ -78,7 +79,7 @@ public class CharacterStatsComputer
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     // Iterate on slots
-    for(GearSlot slot : GearSlot.getAll())
+    for(GearSlot slot : GearSlots.getSlotsForStatsComputation())
     {
       GearSlotContents slotContents=equipment.getSlotContents(slot,false);
       if (slotContents!=null)

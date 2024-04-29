@@ -36,7 +36,7 @@ public class GearSlotUtils
     if (slot==GearSlots.RANGED) return EquipmentLocations.RANGED_ITEM;
     if (slot==GearSlots.TOOL) return EquipmentLocations.TOOL;
     if (slot==GearSlots.CLASS_ITEM) return EquipmentLocations.CLASS_SLOT;
-    //if (slot==GearSlots.BRIDLE) return EquipmentLocations.BRIDLE;
+    if (slot==GearSlots.BRIDLE) return EquipmentLocations.BRIDLE;
     if (slot==GearSlots.MAIN_HAND_AURA) return EquipmentLocations.MAIN_HAND_AURA;
     if (slot==GearSlots.OFF_HAND_AURA) return EquipmentLocations.OFF_HAND_AURA;
     if (slot==GearSlots.RANGED_AURA) return EquipmentLocations.RANGED_AURA;

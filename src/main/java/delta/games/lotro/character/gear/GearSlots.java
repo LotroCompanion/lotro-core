@@ -1,5 +1,8 @@
 package delta.games.lotro.character.gear;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Gear slot designators.
  * @author DAM
@@ -89,7 +92,7 @@ public class GearSlots
   /**
    * Bridle.
    */
-  //public static final GearSlot BRIDLE=GearSlot.getByKey("BRIDLE");
+  public static final GearSlot BRIDLE=GearSlot.getByKey("BRIDLE");
   /**
    * Main hand aura.
    */
@@ -102,4 +105,34 @@ public class GearSlots
    * Ranged aura.
    */
   public static final GearSlot RANGED_AURA=GearSlot.getByKey("RANGED_AURA");
+
+  /**
+   * Get the slots to use for stats computations.
+   * @return A list of slots.
+   */
+  public static List<GearSlot> getSlotsForStatsComputation()
+  {
+    List<GearSlot> ret=new ArrayList<GearSlot>();
+    ret.add(LEFT_EAR);
+    ret.add(RIGHT_EAR);
+    ret.add(NECK);
+    ret.add(POCKET); 
+    ret.add(LEFT_WRIST);
+    ret.add(RIGHT_WRIST);
+    ret.add(LEFT_FINGER);
+    ret.add(RIGHT_FINGER);
+    ret.add(HEAD);
+    ret.add(SHOULDER);
+    ret.add(BREAST);
+    ret.add(BACK);
+    ret.add(HANDS);
+    ret.add(LEGS);
+    ret.add(FEET);
+    ret.add(MAIN_MELEE);
+    ret.add(OTHER_MELEE);
+    ret.add(RANGED);
+    ret.add(TOOL);
+    ret.add(CLASS_ITEM);
+    return ret;
+  }
 }
