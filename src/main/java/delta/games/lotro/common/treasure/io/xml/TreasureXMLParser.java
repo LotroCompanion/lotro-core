@@ -211,6 +211,9 @@ public class TreasureXMLParser
         treasureGroup=getTreasureGroupProfile(treasureGroupProfileId);
         entry=new TrophyListEntry(probability,treasureGroup);
       }
+      // Group drop
+      boolean groupDrop=DOMParsingTools.getBooleanAttribute(entryAttrs,TreasureXMLConstants.GROUP_DROP_ATTR,false);
+      entry.setGroupDrop(groupDrop);
       ret.addEntry(entry);
     }
     _lootMgr.getTables().add(ret);

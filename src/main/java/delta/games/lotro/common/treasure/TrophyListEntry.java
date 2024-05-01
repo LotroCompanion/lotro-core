@@ -18,6 +18,7 @@ public class TrophyListEntry
   private float _probability;
   private Item _item;
   private TreasureGroupProfile _treasureGroup;
+  private boolean _groupDrop;
   private int _quantity;
 
   /**
@@ -31,6 +32,7 @@ public class TrophyListEntry
     _probability=probability;
     _item=item;
     _quantity=quantity;
+    _groupDrop=false;
   }
 
   /**
@@ -42,6 +44,7 @@ public class TrophyListEntry
   {
     _probability=probability;
     _treasureGroup=treasureGroup;
+    _groupDrop=false;
   }
 
   /**
@@ -93,6 +96,24 @@ public class TrophyListEntry
   }
 
   /**
+   * Indicates if this is a group drop or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isGroupDrop()
+  {
+    return _groupDrop;
+  }
+
+  /**
+   * Set the 'group drop' flag.
+   * @param groupDrop Value to set.
+   */
+  public void setGroupDrop(boolean groupDrop)
+  {
+    _groupDrop=groupDrop;
+  }
+
+  /**
    * Dump contents.
    * @param sb Output.
    * @param level Indentation level.
@@ -104,6 +125,10 @@ public class TrophyListEntry
     if (_quantity!=1)
     {
       sb.append(' ').append(_quantity).append('x');
+    }
+    if (_groupDrop)
+    {
+      sb.append(" (group drop)");
     }
     if (_item!=null)
     {

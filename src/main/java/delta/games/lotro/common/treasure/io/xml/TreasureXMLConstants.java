@@ -121,6 +121,10 @@ public class TreasureXMLConstants
    */
   public static final String TREASURE_GROUP_PROFILE_ID_ATTR="treasureGroupProfileId";
   /**
+   * Attribute 'groupDrop'.
+   */
+  public static final String GROUP_DROP_ATTR="groupDrop";
+  /**
    * Attribute 'weightedTreasureTableId'.
    */
   public static final String WEIGHTED_TREASURE_TABLE_ID_ATTR="weightedTreasureTableId";

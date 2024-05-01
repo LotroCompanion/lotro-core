@@ -211,6 +211,12 @@ public class TreasureXMLWriter
       // Probability
       float probability=entry.getProbability();
       entryAttrs.addAttribute("","",TreasureXMLConstants.DROP_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(probability));
+      // Group drop
+      boolean groupDrop=entry.isGroupDrop();
+      if (groupDrop)
+      {
+        entryAttrs.addAttribute("","",TreasureXMLConstants.GROUP_DROP_ATTR,XmlWriter.CDATA,String.valueOf(true));
+      }
       // Item?
       Item item=entry.getItem();
       if (item!=null)
