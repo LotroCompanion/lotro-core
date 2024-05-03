@@ -1,7 +1,7 @@
 package delta.games.lotro.character.storage.vaults.io.xml;
 
 /**
- * Constants for tags and attribute names used in bags XML file.
+ * Constants for tags and attribute names used in vault XML file.
  * @author DAM
  */
 public class VaultsXMLConstants
