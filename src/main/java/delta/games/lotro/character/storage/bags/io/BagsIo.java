@@ -7,6 +7,9 @@ import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.storage.bags.BagsManager;
 import delta.games.lotro.character.storage.bags.io.xml.BagsXMLParser;
 import delta.games.lotro.character.storage.bags.io.xml.BagsXMLWriter;
+import delta.games.lotro.character.storage.summary.CharacterStorageSummary;
+import delta.games.lotro.character.storage.summary.SingleStorageSummary;
+import delta.games.lotro.character.storage.summary.StorageSummaryIO;
 
 /**
  * I/O methods for bags.
@@ -47,7 +50,19 @@ public class BagsIo
     File toFile=getBagsFile(character);
     BagsXMLWriter writer=new BagsXMLWriter();
     boolean ok=writer.write(toFile,bags,EncodingNames.UTF_8);
+    saveSummary(character,bags);
     return ok;
+  }
+
+  private static void saveSummary(CharacterFile character, BagsManager bagsMgr)
+  {
+    CharacterStorageSummary summary=StorageSummaryIO.loadCharacterStorageSummary(character);
+    SingleStorageSummary vaultSummary=summary.getBags();
+    int max=bagsMgr.getCapacity();
+    vaultSummary.setMax(max);
+    int used=bagsMgr.getUsed();
+    vaultSummary.setAvailable(max-used);
+    StorageSummaryIO.save(character,summary);
   }
 
   /**

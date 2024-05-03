@@ -5,6 +5,9 @@ import java.io.File;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.account.Account;
 import delta.games.lotro.character.CharacterFile;
+import delta.games.lotro.character.storage.summary.CharacterStorageSummary;
+import delta.games.lotro.character.storage.summary.SingleStorageSummary;
+import delta.games.lotro.character.storage.summary.StorageSummaryIO;
 import delta.games.lotro.character.storage.vaults.Vault;
 import delta.games.lotro.character.storage.vaults.io.xml.VaultsXMLParser;
 import delta.games.lotro.character.storage.vaults.io.xml.VaultsXMLWriter;
@@ -48,7 +51,19 @@ public class VaultsIo
     File toFile=getVaultFile(character);
     VaultsXMLWriter writer=new VaultsXMLWriter();
     boolean ok=writer.write(toFile,vault,EncodingNames.UTF_8);
+    saveSummary(character,vault);
     return ok;
+  }
+
+  private static void saveSummary(CharacterFile character, Vault vault)
+  {
+    CharacterStorageSummary summary=StorageSummaryIO.loadCharacterStorageSummary(character);
+    SingleStorageSummary vaultSummary=summary.getOwnVault();
+    int max=vault.getCapacity();
+    vaultSummary.setMax(max);
+    int used=vault.getUsed();
+    vaultSummary.setAvailable(max-used);
+    StorageSummaryIO.save(character,summary);
   }
 
   private static File getVaultFile(CharacterFile character)
