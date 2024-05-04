@@ -79,7 +79,14 @@ public class KinshipRosterXMLWriter
   {
     AttributesImpl rankAttrs=new AttributesImpl();
     // Code
-    rankAttrs.addAttribute("","",KinshipRosterXMLConstants.RANK_ID_ATTR,XmlWriter.CDATA,String.valueOf(rank.getCode()));
+    int code=rank.getCode();
+    rankAttrs.addAttribute("","",KinshipRosterXMLConstants.RANK_ID_ATTR,XmlWriter.CDATA,String.valueOf(code));
+    // Level
+    int level=rank.getLevel();
+    if (level!=0)
+    {
+      rankAttrs.addAttribute("","",KinshipRosterXMLConstants.RANK_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
+    }
     // Name
     String name=rank.getName();
     if (name.length()>0)

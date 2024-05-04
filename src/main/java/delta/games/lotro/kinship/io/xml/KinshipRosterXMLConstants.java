@@ -20,6 +20,10 @@ public class KinshipRosterXMLConstants
    */
   public static final String RANK_ID_ATTR="id";
   /**
+   * Tag 'rank', attribute 'level'.
+   */
+  public static final String RANK_LEVEL_ATTR="level";
+  /**
    * Tag 'rank', attribute 'name'.
    */
   public static final String RANK_NAME_ATTR="name";

@@ -65,9 +65,11 @@ public class KinshipRosterXMLParser
     NamedNodeMap attrs=rankTag.getAttributes();
     // ID
     int code=DOMParsingTools.getIntAttribute(attrs,KinshipRosterXMLConstants.RANK_ID_ATTR,0);
+    // Level
+    int level=DOMParsingTools.getIntAttribute(attrs,KinshipRosterXMLConstants.RANK_LEVEL_ATTR,0);
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,KinshipRosterXMLConstants.RANK_NAME_ATTR,"");
-    KinshipRank rank=new KinshipRank(code,name);
+    KinshipRank rank=new KinshipRank(code,level,name);
     return rank;
   }
 

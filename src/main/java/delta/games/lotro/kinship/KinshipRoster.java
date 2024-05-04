@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import delta.games.lotro.kinship.comparators.KinshipLevelComparator;
 import delta.games.lotro.kinship.comparators.KinshipMemberIdComparator;
 
 /**
@@ -50,14 +51,14 @@ public class KinshipRoster
   }
 
   /**
-   * Get the defined ranks, sorted by code.
+   * Get the defined ranks, sorted by level.
    * @return a list of ranks.
    */
   public List<KinshipRank> getRanks()
   {
     List<KinshipRank> ret=new ArrayList<KinshipRank>();
     ret.addAll(_ranks.values());
-    // TODO Sort
+    Collections.sort(ret,new KinshipLevelComparator());
     return ret;
   }
 
