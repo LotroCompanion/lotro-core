@@ -129,6 +129,10 @@ public class CharacterInfosManager
       ret=getLastCharacterDescription();
       _current=ret;
     }
+    if (ret==null)
+    {
+      ret=new CharacterData();
+    }
     return ret;
   }
 
