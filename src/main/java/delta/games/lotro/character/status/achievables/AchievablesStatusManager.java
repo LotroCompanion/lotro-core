@@ -44,6 +44,26 @@ public class AchievablesStatusManager
   }
 
   /**
+   * Get the the total number of completions.
+   * @param achievables To use.
+   * @return A completions count.
+   */
+  public int getTotalCompletionsCount(List<? extends Achievable> achievables)
+  {
+    int nb=0;
+    for(Achievable achievable : achievables)
+    {
+      AchievableStatus status=get(achievable,false);
+      if (status!=null)
+      {
+        int count=status.getActualCompletionCount();
+        nb+=count;
+      }
+    }
+    return nb;
+  }
+
+  /**
    * Cleanup un-needed entries.
    */
   public void cleanup()

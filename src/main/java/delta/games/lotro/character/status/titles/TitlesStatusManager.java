@@ -34,6 +34,23 @@ public class TitlesStatusManager
   }
 
   /**
+   * Get the the total number of completions.
+   * @return A completions count.
+   */
+  public int getTitlesCount()
+  {
+    int nb=0;
+    for(TitleStatus status : _status.values())
+    {
+      if (status.getState()==TitleState.ACQUIRED)
+      {
+        nb++;
+      }
+    }
+    return nb;
+  }
+
+  /**
    * Get the status of a title.
    * @param title Targeted title.
    * @param createIfNecessary Indicates if the status shall be created if it

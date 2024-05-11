@@ -18,7 +18,7 @@ public class StorageSummaryXMLParser
   /**
    * Parse the XML file.
    * @param source Source file.
-   * @return Parsed bags or <code>null</code>.
+   * @return Parsed summary or <code>null</code>.
    */
   public CharacterStorageSummary parseXML(File source)
   {
