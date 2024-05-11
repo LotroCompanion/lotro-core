@@ -7,6 +7,7 @@ import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.status.achievables.io.xml.AchievablesStatusXMLParser;
 import delta.games.lotro.character.status.achievables.io.xml.AchievablesStatusXMLWriter;
+import delta.games.lotro.character.status.summary.io.AchievementsSummaryIO;
 
 /**
  * I/O methods for deeds status.
@@ -58,6 +59,7 @@ public class DeedsStatusIo
     File toFile=getStatusFile(character);
     AchievablesStatusXMLWriter writer=new AchievablesStatusXMLWriter(true);
     boolean ok=writer.write(toFile,status,EncodingNames.UTF_8);
+    AchievementsSummaryIO.updateAchievementsSummaryForDeeds(character,status);
     return ok;
   }
 

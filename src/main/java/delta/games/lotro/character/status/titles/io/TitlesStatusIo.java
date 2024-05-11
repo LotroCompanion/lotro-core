@@ -4,6 +4,7 @@ import java.io.File;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
+import delta.games.lotro.character.status.summary.io.AchievementsSummaryIO;
 import delta.games.lotro.character.status.titles.TitlesStatusManager;
 import delta.games.lotro.character.status.titles.io.xml.TitlesStatusXMLParser;
 import delta.games.lotro.character.status.titles.io.xml.TitlesStatusXMLWriter;
@@ -59,6 +60,7 @@ public class TitlesStatusIo
     File toFile=getStatusFile(character);
     TitlesStatusXMLWriter writer=new TitlesStatusXMLWriter();
     boolean ok=writer.write(toFile,status,EncodingNames.UTF_8);
+    AchievementsSummaryIO.updateAchievementsSummaryForTitles(character,status);
     return ok;
   }
 

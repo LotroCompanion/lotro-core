@@ -6,6 +6,8 @@ import java.util.List;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.character.events.CharacterEvent;
+import delta.games.lotro.character.events.CharacterEventType;
 import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.status.achievables.io.DeedsStatusIo;
 import delta.games.lotro.character.status.achievables.io.QuestsStatusIo;
@@ -17,6 +19,7 @@ import delta.games.lotro.character.status.titles.io.TitlesStatusIo;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.AchievablesUtils;
 import delta.games.lotro.lore.quests.QuestDescription;
+import delta.games.lotro.utils.events.EventsManager;
 
 /**
  * I/O methods for storage summaries.
@@ -31,17 +34,28 @@ public class AchievementsSummaryIO
    */
   public static AchievementsSummary loadAchievementsSummary(CharacterFile character)
   {
+    AchievementsSummary ret=loadAchievementsSummaryIfExists(character);
+    if (ret==null)
+    {
+      ret=buildAchievementsSummaryFromDetails(character);
+      save(character,ret);
+    }
+    return ret;
+  }
+
+  /**
+   * Load achievements summary.
+   * @param character Parent character.
+   * @return the loaded summary.
+   */
+  public static AchievementsSummary loadAchievementsSummaryIfExists(CharacterFile character)
+  {
     File fromFile=getAchievementsSummaryFile(character);
     AchievementsSummary ret=null;
     if (fromFile.exists())
     {
       AchievementsSummaryXMLParser parser=new AchievementsSummaryXMLParser();
       ret=parser.parseXML(fromFile);
-    }
-    if (ret==null)
-    {
-      ret=buildAchievementsSummaryFromDetails(character);
-      save(character,ret);
     }
     return ret;
   }
@@ -57,6 +71,8 @@ public class AchievementsSummaryIO
     File toFile=getAchievementsSummaryFile(character);
     AchievementsSummaryXMLWriter writer=new AchievementsSummaryXMLWriter();
     boolean ok=writer.write(toFile,summary,EncodingNames.UTF_8);
+    CharacterEvent event=new CharacterEvent(CharacterEventType.CHARACTER_SUMMARY_UPDATED,character,null);
+    EventsManager.invokeEvent(event);
     return ok;
   }
 
@@ -75,30 +91,85 @@ public class AchievementsSummaryIO
   public static AchievementsSummary buildAchievementsSummaryFromDetails(CharacterFile character)
   {
     AchievementsSummary ret=new AchievementsSummary();
-    CharacterSummary characterSummary=character.getSummary();
     // Deeds
     AchievablesStatusManager deedsStatusMgr=DeedsStatusIo.loadIfExists(character);
     if (deedsStatusMgr!=null)
     {
-      List<DeedDescription> deeds=AchievablesUtils.getDeeds(characterSummary);
-      int deedsCount=deedsStatusMgr.getTotalCompletionsCount(deeds);
-      ret.setDeedsCount(Integer.valueOf(deedsCount));
+      ret=updateAchievementsSummaryForDeeds(character,deedsStatusMgr);
     }
     // Quests
     AchievablesStatusManager questsStatusMgr=QuestsStatusIo.loadIfExists(character);
     if (questsStatusMgr!=null)
     {
-      List<QuestDescription> quests=AchievablesUtils.getQuests(characterSummary);
-      int questsCount=questsStatusMgr.getTotalCompletionsCount(quests);
-      ret.setQuestsCount(Integer.valueOf(questsCount));
+      ret=updateAchievementsSummaryForQuests(character,questsStatusMgr);
     }
     // Titles
     TitlesStatusManager titlesStatusMgr=TitlesStatusIo.loadIfExists(character);
     if (titlesStatusMgr!=null)
     {
-      int titles=titlesStatusMgr.getTitlesCount();
-      ret.setTitlesCount(Integer.valueOf(titles));
+      ret=updateAchievementsSummaryForTitles(character,titlesStatusMgr);
     }
+    return ret;
+  }
+
+  /**
+   * Update the achievements summary for deeds.
+   * @param character Targeted character.
+   * @param deedsStatusMgr Deeds status manager.
+   * @return the updated summary. 
+   */
+  public static AchievementsSummary updateAchievementsSummaryForDeeds(CharacterFile character, AchievablesStatusManager deedsStatusMgr)
+  {
+    AchievementsSummary ret=loadAchievementsSummaryIfExists(character);
+    if (ret==null)
+    {
+      ret=new AchievementsSummary();
+    }
+    CharacterSummary characterSummary=character.getSummary();
+    List<DeedDescription> deeds=AchievablesUtils.getDeeds(characterSummary);
+    int deedsCount=deedsStatusMgr.getTotalCompletionsCount(deeds);
+    ret.setDeedsCount(Integer.valueOf(deedsCount));
+    save(character,ret);
+    return ret;
+  }
+
+  /**
+   * Update the achievements summary for quests.
+   * @param character Targeted character.
+   * @param questsStatusMgr Quests status manager.
+   * @return the updated summary. 
+   */
+  public static AchievementsSummary updateAchievementsSummaryForQuests(CharacterFile character, AchievablesStatusManager questsStatusMgr)
+  {
+    AchievementsSummary ret=loadAchievementsSummaryIfExists(character);
+    if (ret==null)
+    {
+      ret=new AchievementsSummary();
+    }
+    CharacterSummary characterSummary=character.getSummary();
+    List<QuestDescription> quests=AchievablesUtils.getQuests(characterSummary);
+    int questsCount=questsStatusMgr.getTotalCompletionsCount(quests);
+    ret.setQuestsCount(Integer.valueOf(questsCount));
+    save(character,ret);
+    return ret;
+  }
+
+  /**
+   * Update the achievements summary for titles.
+   * @param character Targeted character.
+   * @param titlesStatusMgr Titles status manager.
+   * @return the updated summary. 
+   */
+  public static AchievementsSummary updateAchievementsSummaryForTitles(CharacterFile character, TitlesStatusManager titlesStatusMgr)
+  {
+    AchievementsSummary ret=loadAchievementsSummaryIfExists(character);
+    if (ret==null)
+    {
+      ret=new AchievementsSummary();
+    }
+    int titles=titlesStatusMgr.getTitlesCount();
+    ret.setTitlesCount(Integer.valueOf(titles));
+    save(character,ret);
     return ret;
   }
 }

@@ -7,6 +7,7 @@ import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.status.achievables.io.xml.AchievablesStatusXMLParser;
 import delta.games.lotro.character.status.achievables.io.xml.AchievablesStatusXMLWriter;
+import delta.games.lotro.character.status.summary.io.AchievementsSummaryIO;
 
 /**
  * I/O methods for quests status.
@@ -58,6 +59,7 @@ public class QuestsStatusIo
     File toFile=getStatusFile(character);
     AchievablesStatusXMLWriter writer=new AchievablesStatusXMLWriter(false);
     boolean ok=writer.write(toFile,status,EncodingNames.UTF_8);
+    AchievementsSummaryIO.updateAchievementsSummaryForQuests(character,status);
     return ok;
   }
 
