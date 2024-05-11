@@ -21,6 +21,22 @@ public class TitlesStatusIo
    */
   public static TitlesStatusManager load(CharacterFile character)
   {
+    TitlesStatusManager status=loadIfExists(character);
+    if (status==null)
+    {
+      status=new TitlesStatusManager();
+      save(character,status);
+    }
+    return status;
+  }
+
+  /**
+   * Load the titles status for a character, if it exists.
+   * @param character Targeted character.
+   * @return A titles status or <code>null</code> if it does not exist.
+   */
+  public static TitlesStatusManager loadIfExists(CharacterFile character)
+  {
     File fromFile=getStatusFile(character);
     TitlesStatusManager status=null;
     if (fromFile.exists())
@@ -28,11 +44,6 @@ public class TitlesStatusIo
       TitlesStatusXMLParser parser=new TitlesStatusXMLParser();
       status=parser.parseXML(fromFile);
       status.markObsoleteTitles();
-    }
-    if (status==null)
-    {
-      status=new TitlesStatusManager();
-      save(character,status);
     }
     return status;
   }

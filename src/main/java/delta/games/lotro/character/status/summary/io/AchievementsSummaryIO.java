@@ -77,19 +77,28 @@ public class AchievementsSummaryIO
     AchievementsSummary ret=new AchievementsSummary();
     CharacterSummary characterSummary=character.getSummary();
     // Deeds
-    AchievablesStatusManager deedsStatusMgr=DeedsStatusIo.load(character);
-    List<DeedDescription> deeds=AchievablesUtils.getDeeds(characterSummary);
-    int deedsCount=deedsStatusMgr.getTotalCompletionsCount(deeds);
-    ret.setDeedsCount(deedsCount);
+    AchievablesStatusManager deedsStatusMgr=DeedsStatusIo.loadIfExists(character);
+    if (deedsStatusMgr!=null)
+    {
+      List<DeedDescription> deeds=AchievablesUtils.getDeeds(characterSummary);
+      int deedsCount=deedsStatusMgr.getTotalCompletionsCount(deeds);
+      ret.setDeedsCount(Integer.valueOf(deedsCount));
+    }
     // Quests
-    AchievablesStatusManager questsStatusMgr=QuestsStatusIo.load(character);
-    List<QuestDescription> quests=AchievablesUtils.getQuests(characterSummary);
-    int questsCount=questsStatusMgr.getTotalCompletionsCount(quests);
-    ret.setQuestsCount(questsCount);
+    AchievablesStatusManager questsStatusMgr=QuestsStatusIo.loadIfExists(character);
+    if (questsStatusMgr!=null)
+    {
+      List<QuestDescription> quests=AchievablesUtils.getQuests(characterSummary);
+      int questsCount=questsStatusMgr.getTotalCompletionsCount(quests);
+      ret.setQuestsCount(Integer.valueOf(questsCount));
+    }
     // Titles
-    TitlesStatusManager titlesStatusMgr=TitlesStatusIo.load(character);
-    int titles=titlesStatusMgr.getTitlesCount();
-    ret.setTitlesCount(titles);
+    TitlesStatusManager titlesStatusMgr=TitlesStatusIo.loadIfExists(character);
+    if (titlesStatusMgr!=null)
+    {
+      int titles=titlesStatusMgr.getTitlesCount();
+      ret.setTitlesCount(Integer.valueOf(titles));
+    }
     return ret;
   }
 }

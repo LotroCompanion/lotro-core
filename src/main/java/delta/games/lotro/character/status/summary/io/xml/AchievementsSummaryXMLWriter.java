@@ -43,14 +43,23 @@ public class AchievementsSummaryXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     // Deeds
-    int deeds=summary.getDeedsCount();
-    attrs.addAttribute("","",AchievementsSummaryXMLConstants.DEEDS_ATTR,XmlWriter.CDATA,String.valueOf(deeds));
+    Integer deeds=summary.getDeedsCount();
+    if (deeds!=null)
+    {
+      attrs.addAttribute("","",AchievementsSummaryXMLConstants.DEEDS_ATTR,XmlWriter.CDATA,String.valueOf(deeds));
+    }
     // Quests
-    int quests=summary.getQuestsCount();
-    attrs.addAttribute("","",AchievementsSummaryXMLConstants.QUESTS_ATTR,XmlWriter.CDATA,String.valueOf(quests));
+    Integer quests=summary.getQuestsCount();
+    if (quests!=null)
+    {
+      attrs.addAttribute("","",AchievementsSummaryXMLConstants.QUESTS_ATTR,XmlWriter.CDATA,String.valueOf(quests));
+    }
     // Titles
-    int titles=summary.getTitlesCount();
-    attrs.addAttribute("","",AchievementsSummaryXMLConstants.TITLES_ATTR,XmlWriter.CDATA,String.valueOf(titles));
+    Integer titles=summary.getTitlesCount();
+    if (titles!=null)
+    {
+      attrs.addAttribute("","",AchievementsSummaryXMLConstants.TITLES_ATTR,XmlWriter.CDATA,String.valueOf(titles));
+    }
     hd.startElement("","",AchievementsSummaryXMLConstants.ACHIEVEMENTS_SUMMARY_TAG,attrs);
     hd.endElement("","",AchievementsSummaryXMLConstants.ACHIEVEMENTS_SUMMARY_TAG);
   }

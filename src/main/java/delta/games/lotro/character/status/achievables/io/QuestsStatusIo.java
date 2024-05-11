@@ -21,17 +21,28 @@ public class QuestsStatusIo
    */
   public static AchievablesStatusManager load(CharacterFile character)
   {
+    AchievablesStatusManager status=loadIfExists(character);
+    if (status==null)
+    {
+      status=new AchievablesStatusManager();
+      save(character,status);
+    }
+    return status;
+  }
+
+  /**
+   * Load the quests status for a character, if it exists.
+   * @param character Targeted character.
+   * @return A quests status or <code>null</code> if it does not exist.
+   */
+  public static AchievablesStatusManager loadIfExists(CharacterFile character)
+  {
     File fromFile=getStatusFile(character);
     AchievablesStatusManager status=null;
     if (fromFile.exists())
     {
       AchievablesStatusXMLParser parser=new AchievablesStatusXMLParser();
       status=parser.parseXML(fromFile,false);
-    }
-    if (status==null)
-    {
-      status=new AchievablesStatusManager();
-      save(character,status);
     }
     return status;
   }

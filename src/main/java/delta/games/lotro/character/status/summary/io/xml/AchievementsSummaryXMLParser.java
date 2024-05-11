@@ -35,13 +35,13 @@ public class AchievementsSummaryXMLParser
     AchievementsSummary ret=new AchievementsSummary();
     NamedNodeMap attrs=root.getAttributes();
     // Deeds
-    int deeds=DOMParsingTools.getIntAttribute(attrs,AchievementsSummaryXMLConstants.DEEDS_ATTR,0);
+    Integer deeds=DOMParsingTools.getIntegerAttribute(attrs,AchievementsSummaryXMLConstants.DEEDS_ATTR,null);
     ret.setDeedsCount(deeds);
     // Quests
-    int quests=DOMParsingTools.getIntAttribute(attrs,AchievementsSummaryXMLConstants.QUESTS_ATTR,0);
+    Integer quests=DOMParsingTools.getIntegerAttribute(attrs,AchievementsSummaryXMLConstants.QUESTS_ATTR,null);
     ret.setQuestsCount(quests);
     // Titles
-    int titles=DOMParsingTools.getIntAttribute(attrs,AchievementsSummaryXMLConstants.TITLES_ATTR,0);
+    Integer titles=DOMParsingTools.getIntegerAttribute(attrs,AchievementsSummaryXMLConstants.TITLES_ATTR,null);
     ret.setTitlesCount(titles);
     return ret;
   }

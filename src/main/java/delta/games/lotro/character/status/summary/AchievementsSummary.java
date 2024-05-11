@@ -6,25 +6,25 @@ package delta.games.lotro.character.status.summary;
  */
 public class AchievementsSummary
 {
-  private int _deeds;
-  private int _quests;
-  private int _titles;
+  private Integer _deeds;
+  private Integer _quests;
+  private Integer _titles;
 
   /**
    * Constructor.
    */
   public AchievementsSummary()
   {
-    _deeds=0;
-    _quests=0;
-    _titles=0;
+    _deeds=null;
+    _quests=null;
+    _titles=null;
   }
 
   /**
    * Get the deeds count.
    * @return a deeds count.
    */
-  public int getDeedsCount()
+  public Integer getDeedsCount()
   {
     return _deeds;
   }
@@ -33,7 +33,7 @@ public class AchievementsSummary
    * Set the deeds count.
    * @param deeds Deeds count.
    */
-  public void setDeedsCount(int deeds)
+  public void setDeedsCount(Integer deeds)
   {
     _deeds=deeds; 
   }
@@ -42,7 +42,7 @@ public class AchievementsSummary
    * Get the quests count.
    * @return a quests count.
    */
-  public int getQuestsCount()
+  public Integer getQuestsCount()
   {
     return _quests;
   }
@@ -51,7 +51,7 @@ public class AchievementsSummary
    * Set the quests count.
    * @param quests Quests count.
    */
-  public void setQuestsCount(int quests)
+  public void setQuestsCount(Integer quests)
   {
     _quests=quests; 
   }
@@ -60,7 +60,7 @@ public class AchievementsSummary
    * Get the titles count.
    * @return a titles count.
    */
-  public int getTitlesCount()
+  public Integer getTitlesCount()
   {
     return _titles;
   }
@@ -69,7 +69,7 @@ public class AchievementsSummary
    * Set the titles count.
    * @param titles Titles count.
    */
-  public void setTitlesCount(int titles)
+  public void setTitlesCount(Integer titles)
   {
     _titles=titles; 
   }
