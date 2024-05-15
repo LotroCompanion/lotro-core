@@ -27,9 +27,9 @@ public class MainCheckItemSets
   private void doIt()
   {
     displaySets();
-    //checkItemsThatBelongToSeveralSets();
+    checkItemsThatBelongToSeveralSets();
     // => no item belong to more than 1 set
-    //checkItemsInSetAreUnique();
+    checkItemsInSetAreUnique();
     // => lots of non unique set members
   }
 
@@ -43,13 +43,6 @@ public class MainCheckItemSets
     for(ItemsSet itemsSet : itemsSets)
     {
       // Filter
-      /*
-      boolean average=itemsSet.useAverageItemLevelForSetLevel();
-      if (!average)
-      {
-        continue;
-      }
-      */
       SetType type=itemsSet.getSetType();
       if (type==SetType.TRACERIES)
       {
@@ -167,13 +160,6 @@ public class MainCheckItemSets
     for(ItemsSet itemsSet : itemsSets)
     {
       // Filter
-      /*
-      boolean average=itemsSet.useAverageItemLevelForSetLevel();
-      if (!average)
-      {
-        continue;
-      }
-      */
       SetType type=itemsSet.getSetType();
       if (type==SetType.TRACERIES)
       {

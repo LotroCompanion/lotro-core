@@ -1,7 +1,15 @@
 package delta.games.lotro.lore.agents.mobs.loots;
 
+import java.util.List;
+
+import delta.games.lotro.common.enums.MobType;
+import delta.games.lotro.common.enums.Species;
+import delta.games.lotro.common.enums.SubSpecies;
 import delta.games.lotro.common.treasure.LootsManager;
+import delta.games.lotro.lore.agents.mobs.loot.GenericMobLootSpec;
+import delta.games.lotro.lore.agents.mobs.loot.SpeciesLoot;
 import delta.games.lotro.lore.agents.mobs.loot.SpeciesLootsManager;
+import delta.games.lotro.lore.agents.mobs.loot.SubSpeciesLoot;
 import delta.games.lotro.lore.items.ItemsManager;
 
 /**
@@ -27,7 +35,6 @@ public class MainTestSpeciesLootManager
     System.out.println("Items: "+(now1-now)+"ms");
     System.out.println("Loots: "+(now2-now1)+"ms");
     System.out.println("Species loots: "+(now3-now2)+"ms");
-    /*
     List<SpeciesLoot> speciesLoots=mgr.getLootSpecs();
     for(SpeciesLoot speciesLoot : speciesLoots)
     {
@@ -48,6 +55,5 @@ public class MainTestSpeciesLootManager
         }
       }
     }
-    */
   }
 }

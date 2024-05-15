@@ -24,17 +24,6 @@ public class MainCheckMountAppearanceTraits
     List<TraitDescription> traits=traitsMgr.getAll();
     for(TraitDescription trait : traits)
     {
-      /*
-      SkillCategory category=trait.getCategory();
-      if (category==null)
-      {
-        continue;
-      }
-      if (category.getCode()!=54)
-      {
-        continue;
-      }
-      */
       TraitNature nature=trait.getNature();
       if (nature==null)
       {

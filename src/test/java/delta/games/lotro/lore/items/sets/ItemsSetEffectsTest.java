@@ -2,6 +2,7 @@ package delta.games.lotro.lore.items.sets;
 
 import java.util.List;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
@@ -10,7 +11,7 @@ import junit.framework.TestCase;
  */
 public class ItemsSetEffectsTest extends TestCase
 {
-  static int[] TEST_SET_IDS={
+  private static int[] TEST_SET_IDS={
       1879150692, // Protector's Reproach (Max Level: 69)
       1879301149, // Eighth Captain's Jewellery of Deeping Coomb&#10;(Max Level: 68)
   };
@@ -20,10 +21,21 @@ public class ItemsSetEffectsTest extends TestCase
    */
   public void testEffectsDisplay()
   {
-    //for(int sedId : TEST_SET_IDS)
     for(ItemsSet set : ItemsSetsManager.getInstance().getAll())
     {
-      //ItemsSet set=ItemsSetsManager.getInstance().getSetById(sedId);
+      showSet(set);
+    }
+  }
+
+  /**
+   * Test effects display.
+   */
+  public void testSpecificEffectsDisplay()
+  {
+    for(int sedId : TEST_SET_IDS)
+    {
+      ItemsSet set=ItemsSetsManager.getInstance().getSetById(sedId);
+      Assert.assertNotNull(set);
       showSet(set);
     }
   }

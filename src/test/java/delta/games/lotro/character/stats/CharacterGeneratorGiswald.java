@@ -197,14 +197,11 @@ public class CharacterGeneratorGiswald
     instance.setReference(ret);
     EssencesSet essences=new EssencesSet(4);
     Essence might=_tools.getEssenceByName(7,"Major Essence of Might");
-    //might.getStats().setStat(STAT.MIGHT,119);
     essences.setEssence(0,might);
     essences.setEssence(1,might);
     Essence critDef=_tools.getEssenceByName(7,"Major Essence of Critical Defence");
-    //critDef.getStats().setStat(STAT.CRITICAL_DEFENCE,2702);
     essences.setEssence(2,critDef);
     Essence physicalMitigation=_tools.getEssenceByName(7,"Major Essence of Physical Mitigation");
-    //physicalMitigation.getStats().setStat(STAT.PHYSICAL_MITIGATION,2420);
     essences.setEssence(3,physicalMitigation);
     instance.setEssences(essences);
     return instance;
@@ -226,7 +223,6 @@ public class CharacterGeneratorGiswald
     instance.setReference(ret);
     EssencesSet essences=new EssencesSet(4);
     Essence morale=_tools.getEssenceByName(7,"Major Essence of Morale");
-    //morale.getStats().setStat(STAT.MORALE,765);
     essences.setEssence(0,morale);
     essences.setEssence(1,morale);
     essences.setEssence(2,morale);
@@ -251,13 +247,10 @@ public class CharacterGeneratorGiswald
     instance.setReference(ret);
     EssencesSet essences=new EssencesSet(4);
     Essence morale=_tools.getEssenceByName(7,"Greater Essence of Morale");
-    //morale.getStats().setStat(STAT.MORALE,875);
     essences.setEssence(0,morale);
     essences.setEssence(1,morale);
     essences.setEssence(2,morale);
     Essence supremeMorale=_tools.getEssenceByName(7,"Supreme Essence of Morale");
-    //supremeMorale.getStats().setStat(STAT.MORALE,891);
-    //supremeMorale.getStats().setStat(STAT.POWER,96);
     essences.setEssence(3,supremeMorale);
     instance.setEssences(essences);
     return instance;
@@ -520,8 +513,6 @@ public class CharacterGeneratorGiswald
     instance.setReference(ret);
     EssencesSet essences=new EssencesSet(1);
     Essence supremeMight=_tools.getEssenceByName(7,"Supreme Essence of Might");
-    //supremeMight.getStats().setStat(STAT.MIGHT,139);
-    //supremeMight.getStats().setStat(STAT.VITALITY,17);
     essences.setEssence(0,supremeMight);
     instance.setEssences(essences);
     return instance;
@@ -543,8 +534,6 @@ public class CharacterGeneratorGiswald
     instance.setReference(ret);
     EssencesSet essences=new EssencesSet(1);
     Essence supremeMight=_tools.getEssenceByName(7,"Supreme Essence of Might");
-    //supremeMight.getStats().setStat(STAT.MIGHT,139);
-    //supremeMight.getStats().setStat(STAT.VITALITY,17);
     essences.setEssence(0,supremeMight);
     instance.setEssences(essences);
     return instance;

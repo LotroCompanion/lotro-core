@@ -36,10 +36,6 @@ public class MainCheckTraceriesSets
   {
     System.out.println("Set: "+set.getName());
     List<Tracery> traceries=TraceriesSetsUtils.getMemberTraceries(set);
-    //int[] minMax=TraceriesSetsUtils.findCharacterLevelRange(traceries);
-    //System.out.println("Min/max character level: "+minMax[0]+"/"+minMax[1]);
-    //for(int characterLevel=minMax[0];characterLevel<=minMax[1];characterLevel++)
-    //{
     List<Range> characterLevelRanges=getCharacterLevelRanges(traceries);
     for(Range characterLevelRange : characterLevelRanges)
     {

@@ -117,29 +117,7 @@ public class ItemReferencesBuilder
         }
       }
       // Result
-      CraftingResult regularResult=version.getRegular();
-      Item regularResultItem=regularResult.getItem();
-      if (regularResultItem!=null)
-      {
-        int regularResultId=regularResultItem.getIdentifier();
-        if (regularResultId==itemId)
-        {
-          roles.add(ItemRole.RECIPE_RESULT);
-        }
-      }
-      CraftingResult criticalResult=version.getCritical();
-      if (criticalResult!=null)
-      {
-        Item criticalResultItem=criticalResult.getItem();
-        if (criticalResultItem!=null)
-        {
-          int criticalResultId=criticalResultItem.getIdentifier();
-          if (criticalResultId==itemId)
-          {
-            roles.add(ItemRole.RECIPE_CRITICAL_RESULT);
-          }
-        }
-      }
+      findInRecipeResult(version,itemId,roles);
       // Recipe item
       Item recipeItem=recipe.getRecipeScroll();
       if (recipeItem!=null)
@@ -154,6 +132,33 @@ public class ItemReferencesBuilder
     if (!roles.isEmpty())
     {
       _storage.add(new Reference<Recipe,ItemRole>(recipe,roles));
+    }
+  }
+
+  private void findInRecipeResult(RecipeVersion version, int itemId, Set<ItemRole> roles)
+  {
+    CraftingResult regularResult=version.getRegular();
+    Item regularResultItem=regularResult.getItem();
+    if (regularResultItem!=null)
+    {
+      int regularResultId=regularResultItem.getIdentifier();
+      if (regularResultId==itemId)
+      {
+        roles.add(ItemRole.RECIPE_RESULT);
+      }
+    }
+    CraftingResult criticalResult=version.getCritical();
+    if (criticalResult!=null)
+    {
+      Item criticalResultItem=criticalResult.getItem();
+      if (criticalResultItem!=null)
+      {
+        int criticalResultId=criticalResultItem.getIdentifier();
+        if (criticalResultId==itemId)
+        {
+          roles.add(ItemRole.RECIPE_CRITICAL_RESULT);
+        }
+      }
     }
   }
 

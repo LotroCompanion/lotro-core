@@ -3,6 +3,7 @@ package delta.games.lotro;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 /**
@@ -13,12 +14,12 @@ public class MainPlayingWithNumberFormats
 {
   private static void showNumbers(Number value)
   {
-    System.out.println(Locale.getDefault().getDisplayName());
+    System.out.println("Locale: "+Locale.getDefault().getDisplayName());
     DecimalFormat format=(DecimalFormat)NumberFormat.getNumberInstance();
     DecimalFormatSymbols symbols=format.getDecimalFormatSymbols();
     System.out.println("Decimal separator: ["+symbols.getDecimalSeparator()+"]");
     System.out.println("Grouping separator: ["+symbols.getGroupingSeparator()+"]");
-    System.out.println(format.format(value));
+    System.out.println("Value: "+format.format(value));
   }
 
   /**
@@ -27,11 +28,9 @@ public class MainPlayingWithNumberFormats
    */
   public static void main(String[] args)
   {
-    /*
     SimpleDateFormat format=new SimpleDateFormat();
-    System.out.println(format.toLocalizedPattern());
-    System.out.println(format.toPattern());
-    */
+    System.out.println("toLocalizedPattern: "+format.toLocalizedPattern());
+    System.out.println("toPattern: "+format.toPattern());
 
     Number value=new Float(1234.567);
     showNumbers(value);

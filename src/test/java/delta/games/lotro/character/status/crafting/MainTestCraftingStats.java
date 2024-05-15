@@ -21,8 +21,6 @@ public class MainTestCraftingStats
     List<CharacterFile> toons=utils.getAllFiles();
     for(CharacterFile toon : toons)
     {
-      //CharacterFile toon=utils.getMainToon();
-      //CharacterFile toon=utils.getToonByName("Feroce");
       CraftingStatus stats=toon.getCraftingMgr().getCraftingStatus();
       stats.dump(System.out);
     }

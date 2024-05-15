@@ -178,40 +178,7 @@ public class ItemInstanceXMLParser
     int nbSlots=item.getEssenceSlots();
     if (nbSlots>0)
     {
-      Element essencesTag=DOMParsingTools.getChildTagByName(root,ItemXMLConstants.ESSENCES_TAG);
-      if (essencesTag!=null)
-      {
-        EssencesManager essencesMgr=EssencesManager.getInstance();
-        EssencesSet essencesSet=itemInstance.getEssences();
-        int currentIndex=0;
-        List<Element> allEssenceTags=new ArrayList<Element>();
-        List<Element> itemTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ITEM_TAG,false);
-        allEssenceTags.addAll(itemTags);
-        List<Element> essenceTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ESSENCE_TAG,false);
-        allEssenceTags.addAll(essenceTags);
-        for(Element essenceTag : allEssenceTags)
-        {
-          int index=currentIndex;
-          NamedNodeMap essenceAttrs=essenceTag.getAttributes();
-          // Essence ID
-          int essenceId=DOMParsingTools.getIntAttribute(essenceAttrs,ItemXMLConstants.ITEM_KEY_ATTR,-1);
-          if (essenceId==-1)
-          {
-            essenceId=DOMParsingTools.getIntAttribute(essenceAttrs,ItemXMLConstants.ESSENCE_ID_ATTR,-1);
-            // Index
-            index=DOMParsingTools.getIntAttribute(essenceAttrs,ItemXMLConstants.ESSENCE_INDEX_ATTR,currentIndex);
-          }
-          if (essenceId!=-1)
-          {
-            Essence essence=essencesMgr.getEssence(essenceId);
-            if (essence!=null)
-            {
-              essencesSet.setEssence(index,essence);
-              currentIndex++;
-            }
-          }
-        }
-      }
+      parseEssences(root,itemInstance);
     }
 
     // Handle legendary items
@@ -226,5 +193,43 @@ public class ItemInstanceXMLParser
       LegendaryInstance2AttrsXMLParser.read(legAttrs,root);
     }
     return itemInstance;
+  }
+
+  private void parseEssences(Element root, ItemInstance<? extends Item> itemInstance)
+  {
+    Element essencesTag=DOMParsingTools.getChildTagByName(root,ItemXMLConstants.ESSENCES_TAG);
+    if (essencesTag!=null)
+    {
+      EssencesManager essencesMgr=EssencesManager.getInstance();
+      EssencesSet essencesSet=itemInstance.getEssences();
+      int currentIndex=0;
+      List<Element> allEssenceTags=new ArrayList<Element>();
+      List<Element> itemTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ITEM_TAG,false);
+      allEssenceTags.addAll(itemTags);
+      List<Element> essenceTags=DOMParsingTools.getChildTagsByName(essencesTag,ItemXMLConstants.ESSENCE_TAG,false);
+      allEssenceTags.addAll(essenceTags);
+      for(Element essenceTag : allEssenceTags)
+      {
+        int index=currentIndex;
+        NamedNodeMap essenceAttrs=essenceTag.getAttributes();
+        // Essence ID
+        int essenceId=DOMParsingTools.getIntAttribute(essenceAttrs,ItemXMLConstants.ITEM_KEY_ATTR,-1);
+        if (essenceId==-1)
+        {
+          essenceId=DOMParsingTools.getIntAttribute(essenceAttrs,ItemXMLConstants.ESSENCE_ID_ATTR,-1);
+          // Index
+          index=DOMParsingTools.getIntAttribute(essenceAttrs,ItemXMLConstants.ESSENCE_INDEX_ATTR,currentIndex);
+        }
+        if (essenceId!=-1)
+        {
+          Essence essence=essencesMgr.getEssence(essenceId);
+          if (essence!=null)
+          {
+            essencesSet.setEssence(index,essence);
+            currentIndex++;
+          }
+        }
+      }
+    }
   }
 }

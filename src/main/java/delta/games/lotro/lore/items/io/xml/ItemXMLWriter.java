@@ -108,6 +108,70 @@ public class ItemXMLWriter
   {
     AttributesImpl itemAttrs=new AttributesImpl();
 
+    // Item attributes
+    writeItemAttrs(item,itemAttrs); 
+    // Armor specific:
+    if (item instanceof Armour)
+    {
+      Armour armour=(Armour)item;
+      ArmourType type=armour.getArmourType();
+      if (type!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.ARMOUR_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
+      }
+    }
+    // Weapon specific:
+    else if (item instanceof Weapon)
+    {
+      Weapon weapon=(Weapon)item;
+      writeWeaponSpecifics(weapon,itemAttrs);
+    }
+    if (item instanceof Legendary)
+    {
+      Legendary legendary=(Legendary)item;
+      writeLegendarySpecifics(legendary,itemAttrs);
+    }
+    else if (item instanceof CarryAll)
+    {
+      CarryAll carryAll=(CarryAll)item;
+      // Max items
+      int maxItems=carryAll.getMaxItems();
+      itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_MAX_ITEMS_ATTR,XmlWriter.CDATA,String.valueOf(maxItems));
+      // Item stack max
+      int itemStackMax=carryAll.getItemStackMax();
+      itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_ITEM_STACK_MAX_ATTR,XmlWriter.CDATA,String.valueOf(itemStackMax));
+    }
+    else if (item instanceof Essence)
+    {
+      Essence essence=(Essence)item;
+      int type=essence.getType().getCode();
+      itemAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type));
+    }
+    hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
+
+    // Stats
+    StatsProvider statsProvider=item.getStatsProvider();
+    if (statsProvider!=null)
+    {
+      hd.startElement("","",ItemXMLConstants.STATS_TAG,new AttributesImpl());
+      StatsProviderXMLWriter.writeXml(hd,statsProvider);
+      hd.endElement("","",ItemXMLConstants.STATS_TAG);
+    }
+
+    // Details
+    _detailsWriter.writeDetails(hd,item);
+
+    // Effects
+    ItemEffectsManager effectsMgr=item.getEffects();
+    if (effectsMgr!=null)
+    {
+      ItemEffectsXmlIO.writeItemEffects(hd,effectsMgr);
+    }
+    hd.endElement("","",ItemXMLConstants.ITEM_TAG);
+  }
+
+  private void writeItemAttrs(Item item, AttributesImpl itemAttrs)
+  {
     // Identifier
     int id=item.getIdentifier();
     if (id!=0)
@@ -243,114 +307,66 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SCALING_ATTR,XmlWriter.CDATA,munging.asString());
     }
-    // Armor specific:
-    if (item instanceof Armour)
-    {
-      Armour armour=(Armour)item;
-      ArmourType type=armour.getArmourType();
-      if (type!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.ARMOUR_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
-      }
-    }
-    // Weapon specific:
-    else if (item instanceof Weapon)
-    {
-      Weapon weapon=(Weapon)item;
-      // DPS
-      float dps=weapon.getDPS();
-      itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,XmlWriter.CDATA,String.valueOf(dps));
-      // DPS table ID
-      QualityBasedValuesTable dpsTable=weapon.getDPSTable();
-      if (dpsTable!=null)
-      {
-        int dpsTableId=dpsTable.getIdentifier();
-        itemAttrs.addAttribute("","",ItemXMLConstants.DPS_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(dpsTableId));
-      }
-      // Damage min/max
-      int minDamage=weapon.getMinDamage();
-      itemAttrs.addAttribute("","",ItemXMLConstants.MIN_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(minDamage));
-      int maxDamage=weapon.getMaxDamage();
-      itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamage));
-      // Damage type
-      DamageType type=weapon.getDamageType();
-      if (type!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
-      }
-      // Weapon type
-      WeaponType weaponType=weapon.getWeaponType();
-      if (weaponType!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,XmlWriter.CDATA,weaponType.getKey());
-      }
-      // Weapon speed
-      WeaponSpeedEntry speed=weapon.getSpeed();
-      if (speed!=null)
-      {
-        int code=speed.getWeaponSpeedCode();
-        itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_SPEED_ATTR,XmlWriter.CDATA,String.valueOf(code));
-      }
-    }
-    if (item instanceof Legendary)
-    {
-      Legendary legendary=(Legendary)item;
-      LegendaryAttrs attrs=legendary.getLegendaryAttrs();
-      // Main legacy ID
-      int mainLegacyId=attrs.getMainLegacyId();
-      if (mainLegacyId!=0)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyId));
-      }
-      // Combat DPS level
-      int combatDPSLevel=attrs.getCombatDPSLevel();
-      if (combatDPSLevel!=0)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_COMBAT_DPS_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(combatDPSLevel));
-      }
-      // Combat Property Mod level
-      int combatPropertyModLevel=attrs.getCombatPropertyModLevel();
-      if (combatPropertyModLevel!=0)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_COMBAT_PROPERTY_MOD_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(combatPropertyModLevel));
-      }
-    }
-    else if (item instanceof CarryAll)
-    {
-      CarryAll carryAll=(CarryAll)item;
-      // Max items
-      int maxItems=carryAll.getMaxItems();
-      itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_MAX_ITEMS_ATTR,XmlWriter.CDATA,String.valueOf(maxItems));
-      // Item stack max
-      int itemStackMax=carryAll.getItemStackMax();
-      itemAttrs.addAttribute("","",ItemXMLConstants.CARRY_ALL_ITEM_STACK_MAX_ATTR,XmlWriter.CDATA,String.valueOf(itemStackMax));
-    }
-    else if (item instanceof Essence)
-    {
-      Essence essence=(Essence)item;
-      int type=essence.getType().getCode();
-      itemAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type));
-    }
-    hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
+  }
 
-    // Stats
-    StatsProvider statsProvider=item.getStatsProvider();
-    if (statsProvider!=null)
+  private void writeWeaponSpecifics(Weapon weapon, AttributesImpl itemAttrs)
+  {
+    // DPS
+    float dps=weapon.getDPS();
+    itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,XmlWriter.CDATA,String.valueOf(dps));
+    // DPS table ID
+    QualityBasedValuesTable dpsTable=weapon.getDPSTable();
+    if (dpsTable!=null)
     {
-      hd.startElement("","",ItemXMLConstants.STATS_TAG,new AttributesImpl());
-      StatsProviderXMLWriter.writeXml(hd,statsProvider);
-      hd.endElement("","",ItemXMLConstants.STATS_TAG);
+      int dpsTableId=dpsTable.getIdentifier();
+      itemAttrs.addAttribute("","",ItemXMLConstants.DPS_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(dpsTableId));
     }
-
-    // Details
-    _detailsWriter.writeDetails(hd,item);
-
-    // Effects
-    ItemEffectsManager effectsMgr=item.getEffects();
-    if (effectsMgr!=null)
+    // Damage min/max
+    int minDamage=weapon.getMinDamage();
+    itemAttrs.addAttribute("","",ItemXMLConstants.MIN_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(minDamage));
+    int maxDamage=weapon.getMaxDamage();
+    itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamage));
+    // Damage type
+    DamageType type=weapon.getDamageType();
+    if (type!=null)
     {
-      ItemEffectsXmlIO.writeItemEffects(hd,effectsMgr);
+      itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
     }
-    hd.endElement("","",ItemXMLConstants.ITEM_TAG);
+    // Weapon type
+    WeaponType weaponType=weapon.getWeaponType();
+    if (weaponType!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_TYPE_ATTR,XmlWriter.CDATA,weaponType.getKey());
+    }
+    // Weapon speed
+    WeaponSpeedEntry speed=weapon.getSpeed();
+    if (speed!=null)
+    {
+      int code=speed.getWeaponSpeedCode();
+      itemAttrs.addAttribute("","",ItemXMLConstants.WEAPON_SPEED_ATTR,XmlWriter.CDATA,String.valueOf(code));
+    }
+  }
+
+  private void writeLegendarySpecifics(Legendary legendary, AttributesImpl itemAttrs)
+  {
+    LegendaryAttrs attrs=legendary.getLegendaryAttrs();
+    // Main legacy ID
+    int mainLegacyId=attrs.getMainLegacyId();
+    if (mainLegacyId!=0)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_ID_ATTR,XmlWriter.CDATA,String.valueOf(mainLegacyId));
+    }
+    // Combat DPS level
+    int combatDPSLevel=attrs.getCombatDPSLevel();
+    if (combatDPSLevel!=0)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_COMBAT_DPS_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(combatDPSLevel));
+    }
+    // Combat Property Mod level
+    int combatPropertyModLevel=attrs.getCombatPropertyModLevel();
+    if (combatPropertyModLevel!=0)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.MAIN_LEGACY_COMBAT_PROPERTY_MOD_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(combatPropertyModLevel));
+    }
   }
 }

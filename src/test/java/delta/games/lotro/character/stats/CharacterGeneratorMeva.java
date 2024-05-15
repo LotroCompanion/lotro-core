@@ -92,10 +92,6 @@ public class CharacterGeneratorMeva
     virtues.setSelectedVirtue(_tools.getVirtue("IDEALISM"),2);
     virtues.setSelectedVirtue(_tools.getVirtue("INNOCENCE"),3);
     virtues.setSelectedVirtue(_tools.getVirtue("HONOUR"),4);
-    // Tomes
-    //TomesSet tomes=c.getTomes();
-    //tomes.setTomeRank(STAT.MIGHT,1);
-    //tomes.setTomeRank(STAT.FATE,2);
     // TODO Racial traits
     CharacterGear equipment=c.getEquipment();
     GearSlotContents head=equipment.getSlotContents(GearSlots.HEAD,true);
@@ -167,16 +163,11 @@ public class CharacterGeneratorMeva
 
     EssencesSet essences=new EssencesSet(4);
     Essence will=_tools.getEssenceByName(7,"Supreme Essence of Will");
-    //will.getStats().setStat(STAT.WILL,139);
-    //will.getStats().setStat(STAT.VITALITY,17);
     essences.setEssence(0,will);
     essences.setEssence(1,will);
     Essence vitalityS=_tools.getEssenceByName(7,"Supreme Essence of Vitality");
-    //vitalityS.getStats().setStat(STAT.VITALITY,139);
-    //vitalityS.getStats().setStat(STAT.FATE,17);
     essences.setEssence(2,vitalityS);
     Essence vitalityG=_tools.getEssenceByName(7,"Greater Essence of Vitality");
-    //vitalityG.getStats().setStat(STAT.VITALITY,136);
     essences.setEssence(3,vitalityG);
     instance.setEssences(essences);
     return instance;
@@ -189,14 +180,11 @@ public class CharacterGeneratorMeva
 
     EssencesSet essences=new EssencesSet(4);
     Essence will=_tools.getEssenceByName(7,"Greater Essence of Will");
-    //will.getStats().setStat(STAT.WILL,136);
     essences.setEssence(0,will);
     essences.setEssence(1,will);
     Essence critRating=_tools.getEssenceByName(7,"Major Essence of Critical Rating");
-    //critRating.getStats().setStat(STAT.CRITICAL_RATING,1075);
     essences.setEssence(2,critRating);
     Essence tacticalMastery=_tools.getEssenceByName(7,"Major Essence of Tactical Mastery");
-    //tacticalMastery.getStats().setStat(STAT.TACTICAL_MASTERY,1075);
     essences.setEssence(3,tacticalMastery);
     instance.setEssences(essences);
     return instance;
@@ -325,15 +313,10 @@ public class CharacterGeneratorMeva
     instance.setCrafterName("Glumlug");
 
     // Passives
-    //BasicStatsSet passives=weapon.getPassives();
-    // -40% attack speed
-    //passives.setStat(STAT.PARRY_PERCENTAGE,1);
     LegendaryInstanceAttrs attrs=instance.getLegendaryAttributes();
     // Title
     LegendaryTitle title=new LegendaryTitle();
     title.setName("Elven Orc-Hewer");
-    //BasicStatsSet titleStats=title.getStats();
-    //titleStats.setStat(STAT.CRITICAL_RATING,460);
     attrs.setTitle(title);
     // Relics
     RelicsSet relics=attrs.getRelicsSet();
@@ -394,17 +377,7 @@ public class CharacterGeneratorMeva
     instance.setReference(classItem);
     instance.setBirthName("Small blue book");
     instance.setCrafterName("Utharr");
-
-    // Passives
-    //BasicStatsSet passives=classItem.getPassives();
-    //passives.setStat(STAT.BLADE_LINE_AOE_POWER_COST_PERCENTAGE,-1);
-    //passives.setStat(STAT.STRIKE_SKILLS_POWER_COST_PERCENTAGE,-4);
-    //passives.setStat(STAT.INCOMING_HEALING,6300);
-    // -1% perceived threat
-    // +95.24 Tactical Healing Rating
     LegendaryInstanceAttrs attrs=instance.getLegendaryAttributes();
-    // Title
-    // 5% light-type damage
     // Relics
     RelicsSet relics=attrs.getRelicsSet();
     {

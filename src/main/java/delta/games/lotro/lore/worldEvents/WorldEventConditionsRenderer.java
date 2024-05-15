@@ -261,53 +261,12 @@ public class WorldEventConditionsRenderer
   private String handleBooleanConditions(WorldEvent we, ComparisonOperator operator, Integer value)
   {
     String weProperty=we.getPropertyName();
-    // - Yule
-    if ("WE_WinterFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: active");
-    if ("we_winterfestival_town_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: town quests are active");
-    if ("we_winterfestival_eatingcontest_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: eating contest is active");
-    if ("we_winterfestival_snowballfight_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: snowball fight is active");
-    if ("we_winterfestival_eatingcontest_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"Yule Festival: eating contest is not started");
-    if ("we_winterfestival_snowballfight_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"Yule Festival: snowball fight is not started");
-    // - Farmers Faire
-    if ("WE_FarmersFair_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,FARMERS_FAIRE_ACTIVE);
-    if ("WE_SpringFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,FARMERS_FAIRE_ACTIVE);
-    if ("WE_SummerFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,FARMERS_FAIRE_ACTIVE);
-    // - Harvest Festival
-    if ("WE_FallFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Harvest Festival: active");
-    if ("we_fallfestival_hauntedhouse_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Harvest Festival: haunted house is active");
-    // - LOTRO Anniversary Celebration
-    if ("WE_Anniversary_Event_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"LOTRO Anniversary Celebration: active");
-    if ("we_fallfestival_barfight_active".equals(weProperty)) return handleBooleanCondition(operator,value,"LOTRO Anniversary Celebration: fight-arena is active");
-    if ("we_fallfestival_barfight_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"LOTRO Anniversary Celebration: fight-arena not started");
-    // - Midsummer Festival
-    if ("WE_WeddingFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Wedding Festival: active");
-    // - Spring Festival
-    if ("WE_Real_SpringFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Spring Festival: active");
-    if ("we_event_flowers_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Spring Festival: active");
-    // - International Talk Like a Pirate Day
-    if ("WE_TalkLikeACorsairDay_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"International Talk Like a Pirate Day");
-    // All Festivals
-    if ("WE_GenericFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Any Festival: active");
-
-    /*
-    WE_SpringFestival_DanceDuillondActive
-    WE_SpringFestival_DanceThorinsHallActive
-    WE_SpringFestival_DanceShireActive
-    WE_SpringFestival_DanceBreelandActive
-
-    WE_Summerfestival_DwarfRace_Status
-    WE_Summerfestival_HobbitRace_Status
-    WE_summerfestival_gamble_shire_active
-    WE_Real_SpringFestival_Shrew_Status
-    WE_Festival_Egg_Farm
-    WE_Festival_Mushroom_Farm
-    WE_Summerfestival_DwarfRace_Status
-    WE_Summerfestival_HobbitRace_Status
-    we_anniversary_fireworks_shire_status
-    we_anniversary_promotion_drops
-    we_anniversary_promotion_vendors
-    WE_Anniversary_Fireworks_Active
-    */
+    // Festivals
+    String ret=handleFestivalRelatedConditions(weProperty,operator,value);
+    if (ret!=null)
+    {
+      return ret;
+    }
 
     // Dailies
     // - Mordor
@@ -372,6 +331,58 @@ public class WorldEventConditionsRenderer
       8 Unmanaged property: we_int_daily_quest_normal_moria
       8 Unmanaged property: WE_Elderslade_Missions_Active
      */
+  }
+
+  private String handleFestivalRelatedConditions(String weProperty, ComparisonOperator operator, Integer value)
+  {
+    // - Yule
+    if ("WE_WinterFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: active");
+    if ("we_winterfestival_town_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: town quests are active");
+    if ("we_winterfestival_eatingcontest_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: eating contest is active");
+    if ("we_winterfestival_snowballfight_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Yule Festival: snowball fight is active");
+    if ("we_winterfestival_eatingcontest_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"Yule Festival: eating contest is not started");
+    if ("we_winterfestival_snowballfight_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"Yule Festival: snowball fight is not started");
+    // - Farmers Faire
+    if ("WE_FarmersFair_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,FARMERS_FAIRE_ACTIVE);
+    if ("WE_SpringFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,FARMERS_FAIRE_ACTIVE);
+    if ("WE_SummerFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,FARMERS_FAIRE_ACTIVE);
+    // - Harvest Festival
+    if ("WE_FallFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Harvest Festival: active");
+    if ("we_fallfestival_hauntedhouse_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Harvest Festival: haunted house is active");
+    // - LOTRO Anniversary Celebration
+    if ("WE_Anniversary_Event_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"LOTRO Anniversary Celebration: active");
+    if ("we_fallfestival_barfight_active".equals(weProperty)) return handleBooleanCondition(operator,value,"LOTRO Anniversary Celebration: fight-arena is active");
+    if ("we_fallfestival_barfight_status".equals(weProperty)) return handleBooleanCondition(operator,value,null,"LOTRO Anniversary Celebration: fight-arena not started");
+    // - Midsummer Festival
+    if ("WE_WeddingFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Wedding Festival: active");
+    // - Spring Festival
+    if ("WE_Real_SpringFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Spring Festival: active");
+    if ("we_event_flowers_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Spring Festival: active");
+    // - International Talk Like a Pirate Day
+    if ("WE_TalkLikeACorsairDay_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"International Talk Like a Pirate Day");
+    // All Festivals
+    if ("WE_GenericFestival_FestivalActive".equals(weProperty)) return handleBooleanCondition(operator,value,"Any Festival: active");
+
+    /*
+    WE_SpringFestival_DanceDuillondActive
+    WE_SpringFestival_DanceThorinsHallActive
+    WE_SpringFestival_DanceShireActive
+    WE_SpringFestival_DanceBreelandActive
+
+    WE_Summerfestival_DwarfRace_Status
+    WE_Summerfestival_HobbitRace_Status
+    WE_summerfestival_gamble_shire_active
+    WE_Real_SpringFestival_Shrew_Status
+    WE_Festival_Egg_Farm
+    WE_Festival_Mushroom_Farm
+    WE_Summerfestival_DwarfRace_Status
+    WE_Summerfestival_HobbitRace_Status
+    we_anniversary_fireworks_shire_status
+    we_anniversary_promotion_drops
+    we_anniversary_promotion_vendors
+    WE_Anniversary_Fireworks_Active
+    */
+    return null;
   }
 
   private String handleBooleanCondition(ComparisonOperator operator, Integer value, String label)
