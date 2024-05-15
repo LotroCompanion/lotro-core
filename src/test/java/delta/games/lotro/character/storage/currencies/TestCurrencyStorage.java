@@ -74,63 +74,72 @@ public class TestCurrencyStorage extends TestCase
   }
 
   /**
-   * Test addition of point before the beginning.
+   * Test addition of point before the beginning: dd identical value.
    */
-  public void testAdditionBeforeBeginning()
+  public void testAdditionBeforeBeginning_addIdenticalValue()
   {
-    // Add identical value
-    {
-      CurrencyStorage storage=new CurrencyStorage();
-      storage.setValueAt(START_TIME1,VALUE1);
-      Assert.assertEquals(1,storage.getPoints());
-      storage.setValueAt(START_TIME1-1,VALUE1);
-      Assert.assertEquals(2,storage.getPoints());
-      Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1-1).intValue());
-      Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
-      Assert.assertNull(storage.getValueAtTime(START_TIME1-2));
-      Assert.assertNull(storage.getValueAtTime(START_TIME1+1));
-    }
-    // Add identical value several times
-    {
-      CurrencyStorage storage=new CurrencyStorage();
-      storage.setValueAt(START_TIME1,VALUE1);
-      Assert.assertEquals(1,storage.getPoints());
-      storage.setValueAt(START_TIME1-1,VALUE1);
-      Assert.assertEquals(2,storage.getPoints());
-      storage.setValueAt(START_TIME1-2,VALUE1);
-      Assert.assertEquals(2,storage.getPoints());
-      Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1-2).intValue());
-      Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1-1).intValue());
-      Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
-      Assert.assertNull(storage.getValueAtTime(START_TIME1-3));
-      Assert.assertNull(storage.getValueAtTime(START_TIME1+1));
-    }
-    // Add different value
-    {
-      CurrencyStorage storage=new CurrencyStorage();
-      storage.setValueAt(START_TIME1,VALUE1);
-      Assert.assertEquals(1,storage.getPoints());
-      storage.setValueAt(START_TIME1-1,VALUE2);
-      Assert.assertEquals(2,storage.getPoints());
-      Assert.assertEquals(VALUE2,storage.getValueAtTime(START_TIME1-1).intValue());
-      Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
-      Assert.assertNull(storage.getValueAtTime(START_TIME1-2));
-      Assert.assertNull(storage.getValueAtTime(START_TIME1+1));
-    }
-    // Add different value
-    {
-      CurrencyStorage storage=new CurrencyStorage();
-      storage.setValueAt(START_TIME1,VALUE1);
-      storage.setValueAt(START_TIME1+1,VALUE2);
-      Assert.assertEquals(2,storage.getPoints());
-      storage.setValueAt(START_TIME1-1,VALUE1);
-      Assert.assertEquals(2,storage.getPoints());
-      Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1-1).intValue());
-      Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
-      Assert.assertEquals(VALUE2,storage.getValueAtTime(START_TIME1+1).intValue());
-      Assert.assertNull(storage.getValueAtTime(START_TIME1-2));
-      Assert.assertNull(storage.getValueAtTime(START_TIME1+2));
-    }
+    CurrencyStorage storage=new CurrencyStorage();
+    storage.setValueAt(START_TIME1,VALUE1);
+    Assert.assertEquals(1,storage.getPoints());
+    storage.setValueAt(START_TIME1-1,VALUE1);
+    Assert.assertEquals(2,storage.getPoints());
+    Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1-1).intValue());
+    Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
+    Assert.assertNull(storage.getValueAtTime(START_TIME1-2));
+    Assert.assertNull(storage.getValueAtTime(START_TIME1+1));
+  }
+
+  /**
+   * Test addition of point before the beginning: add identical value several times.
+   */
+  public void testAdditionBeforeBeginning_addIdenticalValueSeveralTimes()
+  {
+    CurrencyStorage storage=new CurrencyStorage();
+    storage.setValueAt(START_TIME1,VALUE1);
+    Assert.assertEquals(1,storage.getPoints());
+    storage.setValueAt(START_TIME1-1,VALUE1);
+    Assert.assertEquals(2,storage.getPoints());
+    storage.setValueAt(START_TIME1-2,VALUE1);
+    Assert.assertEquals(2,storage.getPoints());
+    Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1-2).intValue());
+    Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1-1).intValue());
+    Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
+    Assert.assertNull(storage.getValueAtTime(START_TIME1-3));
+    Assert.assertNull(storage.getValueAtTime(START_TIME1+1));
+  }
+
+  /**
+   * Test addition of point before the beginning: add a different value.
+   */
+  public void testAdditionBeforeBeginning_addDifferentValue()
+  {
+    CurrencyStorage storage=new CurrencyStorage();
+    storage.setValueAt(START_TIME1,VALUE1);
+    Assert.assertEquals(1,storage.getPoints());
+    storage.setValueAt(START_TIME1-1,VALUE2);
+    Assert.assertEquals(2,storage.getPoints());
+    Assert.assertEquals(VALUE2,storage.getValueAtTime(START_TIME1-1).intValue());
+    Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
+    Assert.assertNull(storage.getValueAtTime(START_TIME1-2));
+    Assert.assertNull(storage.getValueAtTime(START_TIME1+1));
+  }
+
+  /**
+   * Test addition of point before the beginning: add an identical value that changes later.
+   */
+  public void testAdditionBeforeBeginning_addIdenticalValueThatChangesLater()
+  {
+    CurrencyStorage storage=new CurrencyStorage();
+    storage.setValueAt(START_TIME1,VALUE1);
+    storage.setValueAt(START_TIME1+1,VALUE2);
+    Assert.assertEquals(2,storage.getPoints());
+    storage.setValueAt(START_TIME1-1,VALUE1);
+    Assert.assertEquals(2,storage.getPoints());
+    Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1-1).intValue());
+    Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
+    Assert.assertEquals(VALUE2,storage.getValueAtTime(START_TIME1+1).intValue());
+    Assert.assertNull(storage.getValueAtTime(START_TIME1-2));
+    Assert.assertNull(storage.getValueAtTime(START_TIME1+2));
   }
 
   /**
@@ -177,21 +186,25 @@ public class TestCurrencyStorage extends TestCase
       Assert.assertNull(storage.getValueAtTime(START_TIME1+2));
       Assert.assertNull(storage.getValueAtTime(START_TIME1-1));
     }
-    // Add different value
-    {
-      CurrencyStorage storage=new CurrencyStorage();
-      storage.setValueAt(START_TIME1,VALUE1);
-      Assert.assertEquals(1,storage.getPoints());
-      storage.setValueAt(START_TIME1+1,VALUE2);
-      Assert.assertEquals(2,storage.getPoints());
-      storage.setValueAt(START_TIME1+2,VALUE2);
-      Assert.assertEquals(3,storage.getPoints());
-      Assert.assertEquals(VALUE2,storage.getValueAtTime(START_TIME1+2).intValue());
-      Assert.assertEquals(VALUE2,storage.getValueAtTime(START_TIME1+1).intValue());
-      Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
-      Assert.assertNull(storage.getValueAtTime(START_TIME1+3));
-      Assert.assertNull(storage.getValueAtTime(START_TIME1-1));
-    }
+  }
+
+  /**
+   * Test addition of point after the beginning: add an identical value that changes before.
+   */
+  public void testAdditionBeforeBeginning_addIdenticalValueThatChangesBefore()
+  {
+    CurrencyStorage storage=new CurrencyStorage();
+    storage.setValueAt(START_TIME1,VALUE1);
+    Assert.assertEquals(1,storage.getPoints());
+    storage.setValueAt(START_TIME1+1,VALUE2);
+    Assert.assertEquals(2,storage.getPoints());
+    storage.setValueAt(START_TIME1+2,VALUE2);
+    Assert.assertEquals(3,storage.getPoints());
+    Assert.assertEquals(VALUE2,storage.getValueAtTime(START_TIME1+2).intValue());
+    Assert.assertEquals(VALUE2,storage.getValueAtTime(START_TIME1+1).intValue());
+    Assert.assertEquals(VALUE1,storage.getValueAtTime(START_TIME1).intValue());
+    Assert.assertNull(storage.getValueAtTime(START_TIME1+3));
+    Assert.assertNull(storage.getValueAtTime(START_TIME1-1));
   }
 
   /**

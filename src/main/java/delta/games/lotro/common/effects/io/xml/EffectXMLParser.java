@@ -2,6 +2,7 @@ package delta.games.lotro.common.effects.io.xml;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -181,7 +182,7 @@ public class EffectXMLParser
     // Resist categories
     String resistCategories=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.DISPEL_BY_RESIST_CATEGORIES_ATTR,null);
     List<ResistCategory> categories=readEnumEntriesList(resistCategories,ResistCategory.class);
-    if (categories!=null)
+    if (!categories.isEmpty())
     {
       for(ResistCategory category : categories)
       {
@@ -378,7 +379,7 @@ public class EffectXMLParser
     // Skill types
     String skillTypesStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.PROC_SKILL_TYPES_ATTR,null);
     List<SkillType> skillTypes=readEnumEntriesList(skillTypesStr,SkillType.class);
-    if (skillTypes!=null)
+    if (!skillTypes.isEmpty())
     {
       ret.setSkillTypes(skillTypes);
     }
@@ -405,7 +406,7 @@ public class EffectXMLParser
     // Incoming damage types
     String damageTypesStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.REACTIVE_VITAL_DAMAGE_TYPES_ATTR,null);
     List<DamageType> damageTypes=readEnumEntriesList(damageTypesStr,DamageType.class);
-    if (damageTypes!=null)
+    if (!damageTypes.isEmpty())
     {
       for(DamageType damageType : damageTypes)
       {
@@ -670,7 +671,7 @@ public class EffectXMLParser
   {
     if ((value==null) || (value.length()==0))
     {
-      return null;
+      return Collections.emptyList();
     }
     List<T> ret=new ArrayList<T>();
     LotroEnum<T> lotroEnum=LotroEnumsRegistry.getInstance().get(enumEntryClass);
