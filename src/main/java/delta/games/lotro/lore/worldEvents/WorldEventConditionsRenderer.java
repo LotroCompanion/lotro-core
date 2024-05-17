@@ -252,9 +252,9 @@ public class WorldEventConditionsRenderer
     String weProperty=we.getPropertyName();
     if ("WE_fall_festival_maze_driver".equals(weProperty)) return handleEventPart(operator,value,"Harvest Festival: Active Maze is #VALUE");
     if ("WE_ev_skirmish_driver".equals(weProperty)) return handleEventPart(operator,value,"Ill Omens: day VALUE");
-    if ("WE_Bingo_Boffin_Current_Week".equals(weProperty)) return handleEventPart(operator,value,"The Lay of Rust and Rime: week OPERATOR VALUE");
+    if ("WE_Bingo_Boffin_Current_Week".equals(weProperty)) return handleEventPart(operator,value,"Ballad of Bingo Boffin: week OPERATOR VALUE");
     if ("WE_Anniversary_Event_Current_Week".equals(weProperty)) return handleEventPart(operator,value,"Anniversary Event Scavenger Hunt: week OPERATOR VALUE");
-    if ("WE_Episodic_LRR_Current_Week".equals(weProperty)) return handleEventPart(operator,value, "Ballad of Bingo Boffin: week OPERATOR VALUE");
+    if ("WE_Episodic_LRR_Current_Week".equals(weProperty)) return handleEventPart(operator,value,"The Lay of Rust and Rime: week OPERATOR VALUE");
     return null;
   }
 
