@@ -77,7 +77,11 @@ public class BaseStatsManager
     List<TraitDescription> traits=characterClass.getTraitsForLevel(level);
     for(TraitDescription trait : traits)
     {
-      if ("Audacity".equals(trait.getName())) continue;
+      int traitID=trait.getIdentifier();
+      if ((traitID==1879230292) || (traitID==1879231342))
+      {
+        continue; // Audacity
+      }
       StatsProvider provider=trait.getStatsProvider();
       BasicStatsSet statsForTrait=provider.getStats(1,level);
       int nbStats=statsForTrait.getStatsCount();
