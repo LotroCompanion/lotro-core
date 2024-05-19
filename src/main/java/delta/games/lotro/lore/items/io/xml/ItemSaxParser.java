@@ -58,6 +58,7 @@ import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.legendary2.Legendary2;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttributes2Manager;
 import delta.games.lotro.lore.items.legendary2.LegendaryAttrs2;
+import delta.games.lotro.lore.items.scaling.ItemSpellcraft;
 import delta.games.lotro.lore.items.scaling.Munging;
 import delta.games.lotro.lore.items.weapons.DPSTables;
 import delta.games.lotro.lore.items.weapons.WeaponSpeedEntry;
@@ -336,6 +337,13 @@ public final class ItemSaxParser extends DefaultHandler
     {
       Munging munging=Munging.fromString(mungingStr);
       _currentItem.setMunging(munging);
+    }
+    // Spellcraft
+    String spellcraftStr=attributes.getValue(ItemXMLConstants.ITEM_SPELLCRAFT_ATTR);
+    if (spellcraftStr!=null)
+    {
+      ItemSpellcraft spellcraft=ItemSpellcraft.fromString(spellcraftStr);
+      _currentItem.setSpellcraft(spellcraft);
     }
     return id;
   }

@@ -19,6 +19,7 @@ import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager;
 import delta.games.lotro.lore.items.essences.EssencesSlotsSetup;
+import delta.games.lotro.lore.items.scaling.ItemSpellcraft;
 import delta.games.lotro.lore.items.scaling.Munging;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 
@@ -74,9 +75,12 @@ public class Item implements Interactable,ItemProvider
   private QualityBasedValuesTable _value;
   // Stacking information
   private Integer _stackMax;
-
+  // Quality
   private ItemQuality _quality;
+  // Scaling
   private Munging _munging;
+  // Spellcraft
+  private ItemSpellcraft _spellcraft;
   // Other details
   private ItemDetailsManager _details;
   // Effects
@@ -109,6 +113,7 @@ public class Item implements Interactable,ItemProvider
     _stackMax=null;
     _quality=null;
     _munging=null;
+    _spellcraft=null;
     _details=null;
     _effects=null;
   }
@@ -735,6 +740,24 @@ public class Item implements Interactable,ItemProvider
   }
 
   /**
+   * Get spellcraft data.
+   * @return some spellcraft data or <code>null</code> if none.
+   */
+  public ItemSpellcraft getSpellcraft()
+  {
+    return _spellcraft;
+  }
+
+  /**
+   * Set spellcraft data.
+   * @param spellcraft Spellcraft data.
+   */
+  public void setSpellcraft(ItemSpellcraft spellcraft)
+  {
+    _spellcraft=spellcraft;
+  }
+
+  /**
    * Get the details manager.
    * @return a details manager or <code>null</code> if no details.
    */
@@ -857,6 +880,12 @@ public class Item implements Interactable,ItemProvider
     {
       sb.append(" (Munging=");
       sb.append(_munging);
+      sb.append(')');
+    }
+    if (_spellcraft!=null)
+    {
+      sb.append(" (Spellcraft=");
+      sb.append(_spellcraft);
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);

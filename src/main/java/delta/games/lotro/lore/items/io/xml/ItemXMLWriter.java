@@ -38,6 +38,7 @@ import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSlotsSetup;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
+import delta.games.lotro.lore.items.scaling.ItemSpellcraft;
 import delta.games.lotro.lore.items.scaling.Munging;
 import delta.games.lotro.lore.items.weapons.WeaponSpeedEntry;
 
@@ -306,6 +307,12 @@ public class ItemXMLWriter
     if (munging!=null)
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SCALING_ATTR,XmlWriter.CDATA,munging.asString());
+    }
+    // Spellcraft
+    ItemSpellcraft spellcraft=item.getSpellcraft();
+    if (spellcraft!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SPELLCRAFT_ATTR,XmlWriter.CDATA,spellcraft.asString());
     }
   }
 

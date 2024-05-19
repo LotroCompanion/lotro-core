@@ -100,6 +100,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_SCALING_ATTR="scaling";
   /**
+   * Tag 'item', attribute 'spellcraft'.
+   */
+  public static final String ITEM_SPELLCRAFT_ATTR="spellcraft";
+  /**
    * Tag 'item', attribute 'instanceId'.
    */
   public static final String ITEM_INSTANCE_ID_ATTR="instanceId";
