@@ -212,7 +212,7 @@ public class ItemUtils
     List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,statsProvider);
 
     SetEffectsDisplay effectsDisplay=new SetEffectsDisplay();
-    List<String> effectsDisplayText=effectsDisplay.buildSetEffectsDisplay(set,bonus);
+    List<String> effectsDisplayText=effectsDisplay.buildSetEffectsDisplay(set,bonus,level);
     lines.addAll(effectsDisplayText);
     if (!lines.isEmpty())
     {

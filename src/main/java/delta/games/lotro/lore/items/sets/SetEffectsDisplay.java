@@ -19,11 +19,12 @@ public class SetEffectsDisplay
    * Build a displayable version of the effects of an items set.
    * @param set Set to use.
    * @param bonus Bonus to use.
+   * @param level Level to use.
    * @return the displayable lines.
    */
-  public List<String> buildSetEffectsDisplay(ItemsSet set, SetBonus bonus)
+  public List<String> buildSetEffectsDisplay(ItemsSet set, SetBonus bonus, int level)
   {
-    _level=getLevel(set);
+    _level=level;
     List<String> ret=new ArrayList<String>();
     ItemSetEffectsManager mgr=bonus.getEffects();
     if (mgr!=null)
@@ -61,11 +62,5 @@ public class SetEffectsDisplay
     {
       storage.addAll(childStorage);
     }
-  }
-
-  private int getLevel(ItemsSet set)
-  {
-    // TODO May be use: set.useAverageItemLevelForSetLevel();
-    return set.getSetLevel();
   }
 }

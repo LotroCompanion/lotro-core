@@ -49,9 +49,10 @@ public class ItemsSetEffectsTest extends TestCase
     }
     SetEffectsDisplay display=new SetEffectsDisplay();
     System.out.println("Set: "+set);
+    int level=set.getSetLevel();
     for(SetBonus bonus : set.getBonuses())
     {
-      List<String> text=display.buildSetEffectsDisplay(set,bonus);
+      List<String> text=display.buildSetEffectsDisplay(set,bonus,level);
       if (!text.isEmpty())
       {
         System.out.println("Nb pieces: "+bonus.getPiecesCount());
