@@ -2,10 +2,8 @@ package delta.games.lotro.lore.items.scaling;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import delta.games.lotro.common.stats.StatDescription;
@@ -22,7 +20,6 @@ public class ItemScaling
   private Item _item;
   private List<StatDescription> _stats;
   private List<ItemScalingEntry> _entries;
-  private Map<Integer,ItemScalingEntry> _entryByLevel;
 
   /**
    * Constructor.
@@ -33,7 +30,6 @@ public class ItemScaling
     _item=item;
     initStats();
     _entries=new ArrayList<ItemScalingEntry>();
-    _entryByLevel=new HashMap<Integer,ItemScalingEntry>();
   }
 
   /**
@@ -68,12 +64,6 @@ public class ItemScaling
   public void addEntry(ItemScalingEntry entry)
   {
     _entries.add(entry);
-    Integer level=Integer.valueOf(entry.getLevel());
-    ItemScalingEntry old=_entryByLevel.put(level,entry);
-    if (old!=null)
-    {
-      _entries.remove(old);
-    }
   }
 
   /**
@@ -83,16 +73,6 @@ public class ItemScaling
   public List<ItemScalingEntry> getEntries()
   {
     return new ArrayList<ItemScalingEntry>(_entries);
-  }
-
-  /**
-   * Get a scaling entry using its level.
-   * @param level Level to use.
-   * @return A scaling entry or <code>null</code> if not found.
-   */
-  public ItemScalingEntry getEntry(int level)
-  {
-    return _entryByLevel.get(Integer.valueOf(level));
   }
 
   /**
@@ -117,24 +97,6 @@ public class ItemScaling
     }
     List<Integer> ret=new ArrayList<Integer>(itemLevels);
     Collections.sort(ret);
-    return ret;
-  }
-
-  /**
-   * Get the scaling entries for the given item level.
-   * @param itemLevel Item level to use.
-   * @return A possibly empty but never <code>null</code> list of entries (sorted by level).
-   */
-  public List<ItemScalingEntry> getEntriesForItemLevel(int itemLevel)
-  {
-    List<ItemScalingEntry> ret=new ArrayList<ItemScalingEntry>();
-    for(ItemScalingEntry entry : _entries)
-    {
-      if (entry.getItemLevel()==itemLevel)
-      {
-        ret.add(entry);
-      }
-    }
     return ret;
   }
 }

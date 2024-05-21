@@ -47,12 +47,6 @@ public class ItemScalingBuilder
     {
       return false;
     }
-    Progression progression=munging.getProgression();
-    if (progression==null)
-    {
-      // TODO Handle this case
-      return false;
-    }
     return true;
   }
 
@@ -70,7 +64,18 @@ public class ItemScalingBuilder
     StatsProvider statsProvider=item.getStatsProvider();
     for(int level=minLevel;level<=maxLevel;level++)
     {
-      Float itemLevel=progression.getValue(level);
+      int levelValue;
+      Float itemLevel=null;
+      if (progression!=null)
+      {
+        itemLevel=progression.getValue(level);
+        levelValue=level;
+      }
+      else
+      {
+        itemLevel=Float.valueOf(level);
+        levelValue=0;
+      }
       if (itemLevel==null)
       {
         continue;
@@ -86,7 +91,7 @@ public class ItemScalingBuilder
       {
         scaling=new ItemScalingEntry();
       }
-      scaling.setLevel(level);
+      scaling.setLevel(levelValue);
       scaling.setItemLevel(itemLevel.intValue());
       if (statsProvider!=null)
       {
