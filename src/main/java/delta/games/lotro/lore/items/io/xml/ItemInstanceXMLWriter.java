@@ -115,28 +115,7 @@ public class ItemInstanceXMLWriter
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_TIME_ATTR,XmlWriter.CDATA,time.toString());
     }
     // Weapon specifics
-    if (instance instanceof WeaponInstance)
-    {
-      WeaponInstance<?> wi=(WeaponInstance<?>)instance;
-      // Max damage
-      Float maxDamage=wi.getMaxDamage();
-      if (maxDamage!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,XmlWriter.CDATA,maxDamage.toString());
-      }
-      // DPS
-      Float dps=wi.getDPS();
-      if (dps!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,XmlWriter.CDATA,dps.toString());
-      }
-      // Damage type
-      DamageType damageType=wi.getDamageType();
-      if (damageType!=null)
-      {
-        itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(damageType.getCode()));
-      }
-    }
+    writeWeaponSpecifics(itemAttrs,instance);
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);
 
     // Handle legendary instances
@@ -166,36 +145,63 @@ public class ItemInstanceXMLWriter
       hd.startElement("","",ItemXMLConstants.PROPERTY_TAG,attrs);
       hd.endElement("","",ItemXMLConstants.PROPERTY_TAG);
     }
-
     // Stats
     StatsManagerXMLWriter.write(hd,instance.getStatsManager());
-
     // Essences
+    writeEssences(hd,instance);
+    hd.endElement("","",ItemXMLConstants.ITEM_TAG);
+  }
+
+  private void writeWeaponSpecifics(AttributesImpl itemAttrs, ItemInstance<? extends Item> instance)
+  {
+    if (instance instanceof WeaponInstance)
     {
-      EssencesSet essences=instance.getEssences();
-      if (essences!=null)
+      WeaponInstance<?> wi=(WeaponInstance<?>)instance;
+      // Max damage
+      Float maxDamage=wi.getMaxDamage();
+      if (maxDamage!=null)
       {
-        AttributesImpl attrs=new AttributesImpl();
-        hd.startElement("","",ItemXMLConstants.ESSENCES_TAG,attrs);
-        int nbEssences=essences.getSize();
-        for(int i=0;i<nbEssences;i++)
-        {
-          Item essence=essences.getEssence(i);
-          if (essence!=null)
-          {
-            int essenceId=essence.getIdentifier();
-            String essenceName=essence.getName();
-            AttributesImpl essenceAttrs=new AttributesImpl();
-            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(i));
-            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_ID_ATTR,XmlWriter.CDATA,String.valueOf(essenceId));
-            essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_NAME_ATTR,XmlWriter.CDATA,essenceName);
-            hd.startElement("","",ItemXMLConstants.ESSENCE_TAG,essenceAttrs);
-            hd.endElement("","",ItemXMLConstants.ESSENCE_TAG);
-          }
-        }
-        hd.endElement("","",ItemXMLConstants.ESSENCES_TAG);
+        itemAttrs.addAttribute("","",ItemXMLConstants.MAX_DAMAGE_ATTR,XmlWriter.CDATA,maxDamage.toString());
+      }
+      // DPS
+      Float dps=wi.getDPS();
+      if (dps!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.DPS_ATTR,XmlWriter.CDATA,dps.toString());
+      }
+      // Damage type
+      DamageType damageType=wi.getDamageType();
+      if (damageType!=null)
+      {
+        itemAttrs.addAttribute("","",ItemXMLConstants.DAMAGE_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(damageType.getCode()));
       }
     }
-    hd.endElement("","",ItemXMLConstants.ITEM_TAG);
+  }
+
+  private void writeEssences(TransformerHandler hd, ItemInstance<? extends Item> instance) throws SAXException
+  {
+    EssencesSet essences=instance.getEssences();
+    if (essences!=null)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      hd.startElement("","",ItemXMLConstants.ESSENCES_TAG,attrs);
+      int nbEssences=essences.getSize();
+      for(int i=0;i<nbEssences;i++)
+      {
+        Item essence=essences.getEssence(i);
+        if (essence!=null)
+        {
+          int essenceId=essence.getIdentifier();
+          String essenceName=essence.getName();
+          AttributesImpl essenceAttrs=new AttributesImpl();
+          essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(i));
+          essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_ID_ATTR,XmlWriter.CDATA,String.valueOf(essenceId));
+          essenceAttrs.addAttribute("","",ItemXMLConstants.ESSENCE_NAME_ATTR,XmlWriter.CDATA,essenceName);
+          hd.startElement("","",ItemXMLConstants.ESSENCE_TAG,essenceAttrs);
+          hd.endElement("","",ItemXMLConstants.ESSENCE_TAG);
+        }
+      }
+      hd.endElement("","",ItemXMLConstants.ESSENCES_TAG);
+    }
   }
 }
