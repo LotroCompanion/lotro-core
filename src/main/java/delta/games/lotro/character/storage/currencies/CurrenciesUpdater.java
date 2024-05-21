@@ -45,14 +45,8 @@ public class CurrenciesUpdater
       int id=countedItem.getId();
       String currencyID=String.valueOf(id);
       int quantity=countedItem.getQuantity();
-      boolean useHistory=useHistory(currencyID);
-      mgr.updateCurrency(currencyID,quantity,useHistory);
+      mgr.updateCurrency(currencyID,quantity,true);
     }
     mgr.save();
-  }
-
-  private static boolean useHistory(String currencyID)
-  {
-    return true;
   }
 }

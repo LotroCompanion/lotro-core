@@ -1,5 +1,6 @@
 package delta.games.lotro.character.stats.buffs;
 
+import java.util.Collections;
 import java.util.List;
 
 import delta.games.lotro.character.CharacterData;
@@ -28,6 +29,6 @@ public abstract class AbstractBuffImpl
    */
   public List<Integer> getTiers()
   {
-    return null;
+    return Collections.emptyList();
   }
 }

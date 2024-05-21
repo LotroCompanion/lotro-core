@@ -158,7 +158,7 @@ public class Buff implements Named
   {
     BuffInstance buff=new BuffInstance(this);
     List<Integer> tiers=getImpl().getTiers();
-    if ((tiers!=null) && (!tiers.isEmpty()))
+    if (!tiers.isEmpty())
     {
       buff.setTier(tiers.get(0));
     }

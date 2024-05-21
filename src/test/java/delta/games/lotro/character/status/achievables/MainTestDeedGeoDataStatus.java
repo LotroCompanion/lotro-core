@@ -56,12 +56,12 @@ public class MainTestDeedGeoDataStatus
      System.out.println("\tObjective index="+objectiveIndex+" - "+objectiveState);
      if (objectiveState==AchievableElementState.UNDERWAY)
      {
-       handleDeedObjective(objectiveStatus,deed,objective);
+       handleDeedObjective(objectiveStatus);
      }
     }
   }
 
-  private void handleDeedObjective(AchievableObjectiveStatus objectiveStatus, DeedDescription deed, Objective objective)
+  private void handleDeedObjective(AchievableObjectiveStatus objectiveStatus)
   {
     List<ObjectiveConditionStatus> conditionStatuses=objectiveStatus.getConditionStatuses();
     for(ObjectiveConditionStatus conditionStatus : conditionStatuses)
