@@ -7,10 +7,13 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.pvp.Rank;
 import delta.games.lotro.lore.pvp.RankScale;
 import delta.games.lotro.lore.pvp.RankScaleEntry;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for the PVP data stored in XML.
@@ -18,6 +21,16 @@ import delta.games.lotro.lore.pvp.RankScaleEntry;
  */
 public class PVPDataXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public PVPDataXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("pvp");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -52,6 +65,7 @@ public class PVPDataXMLParser
       int code=DOMParsingTools.getIntAttribute(entryAttrs,PVPDataXMLConstants.CODE_ATTR,0);
       // Name
       String name=DOMParsingTools.getStringAttribute(entryAttrs,PVPDataXMLConstants.LABEL_ATTR,"");
+      name=I18nRuntimeUtils.getLabel(_i18n,name);
       Rank rank=new Rank(code,name);
       // Min value
       int minValue=DOMParsingTools.getIntAttribute(entryAttrs,PVPDataXMLConstants.MIN_ATTR,0);
