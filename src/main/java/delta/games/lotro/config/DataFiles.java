@@ -347,6 +347,10 @@ public class DataFiles
    */
   public static final String XP_TABLE="xpTable";
   /**
+   * PVP data file.
+   */
+  public static final String PVP="pvp";
+  /**
    * Labels file.
    */
   public static final String LABELS="labelsDir";
