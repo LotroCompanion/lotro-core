@@ -77,14 +77,7 @@ public class ItemEffectsTest extends TestCase
         if (effect.getClass()==PropertyModificationEffect.class)
         {
           Float spellcraft=effectGenerator.getSpellcraft();
-          //if (spellcraft!=null)
-          {
-            System.out.println(item+" => "+effect.getIdentifier()+" - "+spellcraft);
-          }
-        }
-        else
-        {
-          //System.out.println(item+" => "+effect.getIdentifier()+" - "+effect.getClass());
+          System.out.println(item+" => "+effect.getIdentifier()+" - "+spellcraft);
         }
       }
     }
