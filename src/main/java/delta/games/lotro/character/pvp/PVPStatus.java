@@ -9,7 +9,7 @@ import delta.games.lotro.lore.pvp.Rank;
 public class PVPStatus
 {
   // Ranks
-  // - glory=infamy orrenown
+  // - glory=infamy or renown
   private int _gloryPoints;
   private Rank _rank;
   // - prestige

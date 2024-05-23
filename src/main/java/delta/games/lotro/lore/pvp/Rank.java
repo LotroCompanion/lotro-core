@@ -26,7 +26,7 @@ public class Rank implements Identifiable,Named
   @Override
   public int getIdentifier()
   {
-    return _code;
+    return getCode();
   }
 
   /**

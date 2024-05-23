@@ -101,5 +101,9 @@ public enum CharacterEventType
   /**
    * Outfits updated.
    */
-  OUTFITS_UPDATED
+  OUTFITS_UPDATED,
+  /**
+   * PVP status updated.
+   */
+  PVP_STATUS_UPDATED
 }
