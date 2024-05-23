@@ -17,6 +17,7 @@ public class CarryAllInstance
 {
   private InternalGameId _id;
   private CarryAll _reference;
+  private String _name;
   private List<CountedItem<Item>> _items;
   private StatusMetadata _statusMetadata;
 
@@ -28,6 +29,7 @@ public class CarryAllInstance
     super();
     _id=null;
     _reference=null;
+    _name="";
     _items=new ArrayList<CountedItem<Item>>();
     _statusMetadata=new StatusMetadata();
   }
@@ -66,6 +68,28 @@ public class CarryAllInstance
   public void setReference(CarryAll reference)
   {
     _reference=reference;
+  }
+
+  /**
+   * Get the name.
+   * @return a name (may be empty but never <code>null</code>).
+   */
+  public String getName()
+  {
+    return _name;
+  }
+
+  /**
+   * Set the name.
+   * @param name Name to set.
+   */
+  public void setName(String name)
+  {
+    if (name==null)
+    {
+      name="";
+    }
+    _name=name;
   }
 
   /**

@@ -15,6 +15,10 @@ public class CarryAllInstanceXMLConstants
    */
   public static final String CARRY_ALL_ITEM_ID_TAG="itemID";
   /**
+   * Tag 'carry-all', attribute 'name'.
+   */
+  public static final String CARRY_ALL_NAME_TAG="name";
+  /**
    * Tag 'item'.
    */
   public static final String ITEM_TAG="item";

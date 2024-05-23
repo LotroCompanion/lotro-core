@@ -56,6 +56,9 @@ public class CarryAllInstanceXMLParser
         ret.setReference((CarryAll)referenceItem);
       }
     }
+    // Name
+    String name=DOMParsingTools.getStringAttribute(rootTag.getAttributes(),CarryAllInstanceXMLConstants.CARRY_ALL_NAME_TAG,"");
+    ret.setName(name);
     // Status
     StatusMetadataIO.parseStatusMetadata(rootTag,ret.getStatusMetadata());
     // Items

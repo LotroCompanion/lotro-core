@@ -62,6 +62,12 @@ public class CarryAllInstanceXMLWriter
       int carryAllItemID=carryAllItem.getIdentifier();
       attrs.addAttribute("","",CarryAllInstanceXMLConstants.CARRY_ALL_ITEM_ID_TAG,XmlWriter.CDATA,String.valueOf(carryAllItemID));
     }
+    // Name
+    String carryAllName=carryAll.getName();
+    if (carryAllName.length()>0)
+    {
+      attrs.addAttribute("","",CarryAllInstanceXMLConstants.CARRY_ALL_NAME_TAG,XmlWriter.CDATA,carryAllName);
+    }
     hd.startElement("","",CarryAllInstanceXMLConstants.CARRY_ALL,attrs);
     // Status
     StatusMetadataIO.writeStatusMetadata(hd,carryAll.getStatusMetadata());
