@@ -93,6 +93,22 @@ public class CarryAllInstance
   }
 
   /**
+   * Get the effective name.
+   * @return A name.
+   */
+  public String getEffectiveName()
+  {
+    String refName=_reference.getName();
+    String instanceName=getName();
+    String name=refName;
+    if (instanceName.length()>0)
+    {
+      name=instanceName;
+    }
+    return name;
+  }
+
+  /**
    * Add an item in this carry-all.
    * @param item Item to add.
    * @param count Item count.
