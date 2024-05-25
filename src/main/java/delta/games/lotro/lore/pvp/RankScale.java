@@ -50,6 +50,23 @@ public class RankScale
   }
 
   /**
+   * Get an entry using its code.
+   * @param code Rank code to use.
+   * @return An entry or <code>null</code>.
+   */
+  public RankScaleEntry getRankByCode(int code)
+  {
+    for(RankScaleEntry entry : _entries)
+    {
+      if (entry.getRank().getCode()==code)
+      {
+        return entry;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get the rank for the given value.
    * @param value Input value.
    * @return the associated rank.
