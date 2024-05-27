@@ -151,6 +151,18 @@ public class CharacterSummaryXMLWriter
     // Level
     int level=summary.getLevel();
     attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
+    // Surname
+    String surname=summary.getSurname();
+    if (surname.length()>0)
+    {
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SURNAME_ATTR,XmlWriter.CDATA,surname);
+    }
+    // Rank
+    Integer rankCode=summary.getRankCode();
+    if (rankCode!=null)
+    {
+      attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_RANK_ATTR,XmlWriter.CDATA,rankCode.toString());
+    }
   }
 
   /**

@@ -14,6 +14,8 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
   private AccountReference _accountID;
   private CharacterSex _sex;
   private RaceDescription _race;
+  private String _surname;
+  private Integer _rankCode;
 
   /**
    * Constructor.
@@ -24,6 +26,8 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
     _server="";
     _accountID=null;
     _race=null;
+    _surname="";
+    _rankCode=null;
   }
 
   /**
@@ -37,6 +41,8 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
     _accountID=source._accountID;
     _sex=source._sex;
     _race=source._race;
+    _surname=source._surname;
+    _rankCode=source._rankCode;
   }
 
   /**
@@ -115,6 +121,46 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
     _race=race;
   }
 
+  /**
+   * Get the surname.
+   * @return the surname.
+   */
+  public String getSurname()
+  {
+    return _surname;
+  }
+
+  /**
+   * Set the surname.
+   * @param surname the surname to set.
+   */
+  public void setSurname(String surname)
+  {
+    if (surname==null)
+    {
+      surname="";
+    }
+    _surname=surname;
+  }
+
+  /**
+   * Get the PVP rank.
+   * @return a rank or <code>null</code> not set/known.
+   */
+  public Integer getRankCode()
+  {
+    return _rankCode;
+  }
+
+  /**
+   * Set the PVP rank.
+   * @param rankCode Rank to set.
+   */
+  public void setRankCode(Integer rankCode)
+  {
+    _rankCode=rankCode;
+  }
+
   @Override
   public String toString()
   {
@@ -125,6 +171,8 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
     sb.append("Race [").append(_race).append("], ");
     sb.append("Sex [").append(_sex).append("], ");
     sb.append("Race [").append(_race).append("], ");
+    sb.append("Surname [").append(_surname).append("], ");
+    sb.append("Rank [").append(_rankCode).append("], ");
     return sb.toString();
   }
 }

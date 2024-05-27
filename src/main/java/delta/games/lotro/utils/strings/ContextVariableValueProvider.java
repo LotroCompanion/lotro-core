@@ -1,11 +1,17 @@
 package delta.games.lotro.utils.strings;
 
+import org.apache.log4j.Logger;
+
 import delta.common.utils.variables.VariableValueProvider;
 import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Genders;
+import delta.games.lotro.lore.pvp.RankScale;
+import delta.games.lotro.lore.pvp.RankScaleEntry;
+import delta.games.lotro.lore.pvp.RankScaleKeys;
+import delta.games.lotro.lore.pvp.RanksManager;
 
 /**
  * A variable value provider that handles the variable found in lore objects (quests, deeds, titles, ...):
@@ -22,6 +28,8 @@ import delta.games.lotro.common.Genders;
  */
 public class ContextVariableValueProvider implements VariableValueProvider
 {
+  private static final Logger LOGGER=Logger.getLogger(ContextVariableValueProvider.class);
+
   // Character name + tag for gender
   private String _name;
   private String _surname;
@@ -51,11 +59,20 @@ public class ContextVariableValueProvider implements VariableValueProvider
     // Name
     String name=attrs.getName();
     _name=name+"["+genderTag+"]";
-    // TODO Surname and rank
     // Surname
-    _surname="";
+    _surname=attrs.getSurname();
     // Rank
     _rank="";
+    Integer rankCode=attrs.getRankCode();
+    if (rankCode!=null)
+    {
+      RankScale scale=RanksManager.getInstance().getRankScale(RankScaleKeys.RENOWN);
+      RankScaleEntry rank=scale.getRankByCode(rankCode.intValue());
+      if (rank!=null)
+      {
+        _rank=rank.getRank().getName();
+      }
+    }
     // Class
     ClassDescription characterClass=attrs.getCharacterClass();
     if (characterClass!=null)
@@ -88,6 +105,7 @@ public class ContextVariableValueProvider implements VariableValueProvider
     if ("TOTAL".equals(variableName)) return "?";
     if ("VALUE".equals(variableName)) return "0";
     if ("PLAYER_NAME".equals(variableName)) return _name;
+    LOGGER.warn("Unmanged variable: "+variableName);
     // TODO Unmanaged: MAX, CURRENT, NOS
     return null;
   }

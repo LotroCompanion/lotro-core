@@ -94,28 +94,35 @@ public class CharacterSummaryXMLParser
   public static void parseBaseCharacterSummary(Element root, BaseCharacterSummary summary)
   {
     parseCharacterReference(root,summary);
+    NamedNodeMap attrs=root.getAttributes();
     // Server
-    String server=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SERVER_ATTR,"");
+    String server=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_SERVER_ATTR,"");
     summary.setServer(server);
     // Account
     // - name
-    String accountName=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_ACCOUNT_NAME_ATTR,"");
+    String accountName=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_ACCOUNT_NAME_ATTR,"");
     // - subscription
-    String subscription=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SUBSCRIPTION_KEY_ATTR,"");
+    String subscription=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_SUBSCRIPTION_KEY_ATTR,"");
     AccountReference id=new AccountReference(accountName,subscription);
     summary.setAccountID(id);
     // Race
-    String raceStr=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_RACE_ATTR,"");
+    String raceStr=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_RACE_ATTR,"");
     RaceDescription race=RacesManager.getInstance().getByPersistenceKey(raceStr);
     summary.setRace(race);
     // Sex
-    String sexKey=DOMParsingTools.getStringAttribute(root.getAttributes(),CharacterXMLConstants.CHARACTER_SEX_ATTR,"");
-    if (sexKey!=null)
+    String sexKey=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_SEX_ATTR,"");
+    if (sexKey.length()>0)
     {
       LotroEnum<CharacterSex> genderEnum=LotroEnumsRegistry.getInstance().get(CharacterSex.class);
       CharacterSex sex=genderEnum.getByKey(sexKey); 
       summary.setCharacterSex(sex);
     }
+    // Surname
+    String surname=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_SURNAME_ATTR,"");
+    summary.setSurname(surname);
+    // Rank
+    Integer rankCode=DOMParsingTools.getIntegerAttribute(attrs,CharacterXMLConstants.CHARACTER_RANK_ATTR,null);
+    summary.setRankCode(rankCode);
   }
 
   /**
