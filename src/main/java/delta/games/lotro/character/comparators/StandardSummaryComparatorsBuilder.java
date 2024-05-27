@@ -8,6 +8,7 @@ import delta.common.utils.collections.CompoundComparator;
 import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharacterSummary;
+import delta.games.lotro.common.comparators.TypedNamedComparator;
 import delta.games.lotro.utils.DataProvider;
 import delta.games.lotro.utils.comparators.DelegatingComparator;
 
@@ -26,7 +27,7 @@ public class StandardSummaryComparatorsBuilder
     List<Comparator<T>> comparators=new ArrayList<Comparator<T>>();
     comparators.add(new CharacterAccountComparator<T>());
     comparators.add(new CharacterServerComparator<T>());
-    comparators.add(new CharacterNameComparator<T>());
+    comparators.add(new TypedNamedComparator<T>());
     CompoundComparator<T> ret=new CompoundComparator<T>(comparators);
     return ret;
   }
