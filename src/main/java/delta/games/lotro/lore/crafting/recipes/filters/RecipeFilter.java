@@ -21,6 +21,7 @@ public class RecipeFilter implements Filter<Recipe>
   private RecipeTierFilter _tierFilter;
   private RecipeCategoryFilter _categoryFilter;
   private RecipeIngredientFilter _ingredientFilter;
+  private RecipeResultFilter _resultFilter;
   private RecipeSingleUseFilter _singleUseFilter;
   private RecipeHasCooldownFilter _hasCooldownFilter;
   private RecipeIsGuildFilter _isGuildFilter;
@@ -46,6 +47,9 @@ public class RecipeFilter implements Filter<Recipe>
     // Ingredient
     _ingredientFilter=new RecipeIngredientFilter(null);
     filters.add(_ingredientFilter);
+    // Result
+    _resultFilter=new RecipeResultFilter(null);
+    filters.add(_resultFilter);
     // Single Use
     _singleUseFilter=new RecipeSingleUseFilter(null);
     filters.add(_singleUseFilter);
@@ -101,6 +105,15 @@ public class RecipeFilter implements Filter<Recipe>
   public RecipeIngredientFilter getIngredientFilter()
   {
     return _ingredientFilter;
+  }
+
+  /**
+   * Get the filter on result.
+   * @return a recipe result filter.
+   */
+  public RecipeResultFilter getResultFilter()
+  {
+    return _resultFilter;
   }
 
   /**
