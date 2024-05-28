@@ -7,7 +7,6 @@ import delta.common.utils.l10n.L10n;
 import delta.common.utils.text.TextTools;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
-import delta.games.lotro.config.LotroCoreConfig;
 
 /**
  * Utility methods for stats.
@@ -63,52 +62,30 @@ public class StatUtils
   {
     String valueStr;
     float valueToUse=value.floatValue();
+    int digitsBelow1=0;
+    int digitsAbove1=0;
+    if (stat instanceof FloatStatDescription)
+    {
+      FloatStatDescription floatStat=(FloatStatDescription)stat;
+      digitsBelow1=floatStat.getMaxDigitsBelow1();
+      digitsAbove1=floatStat.getMaxDigitsAbove1();
+    }
     if (Math.abs(valueToUse)<1.0)
     {
-      int digits=getMaxFractionalDigits(stat,true);
-      valueStr=L10n.getString(valueToUse,digits);
+      valueStr=L10n.getString(valueToUse,digitsBelow1);
     }
     else
     {
-      int digits=getMaxFractionalDigits(stat,false);
-      if (digits==0)
+      if (digitsAbove1==0)
       {
         valueStr=L10n.getString(Math.round(valueToUse));
       }
       else
       {
-        valueStr=L10n.getString(valueToUse,digits);
+        valueStr=L10n.getString(valueToUse,digitsAbove1);
       }
     }
     return valueStr;
-  }
-
-  private static int getMaxFractionalDigits(StatDescription stat, boolean below1)
-  {
-    boolean isLive=LotroCoreConfig.isLive();
-    if (isLive)
-    {
-      if (below1)
-      {
-        return 2;
-      }
-      if (isRegenStat(stat))
-      {
-        return 3; 
-      }
-    }
-    else
-    {
-      if (isRegenStat(stat))
-      {
-        return 1;
-      }
-      if (below1)
-      {
-        return 2;
-      }
-    }
-    return 0;
   }
 
   private static String getStatDisplayPercentage(Number value, int maxDigits)
@@ -226,7 +203,9 @@ public class StatUtils
     String prefix="";
     if (element.getOperator()==StatOperator.MULTIPLY)
     {
-      stat=new StatDescription(stat.getIdentifier());
+      StatDescription newStat=new StatDescription();
+      newStat.setIdentifier(stat.getIdentifier());
+      stat=newStat;
       stat.setPercentage(true);
       value=convertMultiplyToPercentage(value);
       if (value.floatValue()>0.0)

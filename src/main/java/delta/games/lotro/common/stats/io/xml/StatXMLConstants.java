@@ -47,4 +47,12 @@ public class StatXMLConstants
    * Tag 'stat', attribute 'type'.
    */
   public static final String STAT_TYPE_ATTR="type";
+  /**
+   * Tag 'stat' (float stats), attribute 'maxDigitsBelow1'.
+   */
+  public static final String STAT_MAX_DIGITS_BELOW1_ATTR="maxDigitsBelow1";
+  /**
+   * Tag 'stat' (float stats), attribute 'maxDigitsAbove11'.
+   */
+  public static final String STAT_MAX_DIGITS_ABOVE1_ATTR="maxDigitsAbove1";
 }

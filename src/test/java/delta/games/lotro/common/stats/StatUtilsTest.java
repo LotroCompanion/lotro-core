@@ -21,8 +21,11 @@ public class StatUtilsTest extends TestCase
     l10nConfiguration.setNumberFormatID(NumberFormatID.US);
     LocalizedFormats.init(l10nConfiguration);
 
-    StatDescription stat=new StatDescription(0);
+    FloatStatDescription stat=new FloatStatDescription();
+    stat.setIdentifier(0);
     stat.setPercentage(false);
+    stat.setMaxDigitsAbove1(0);
+    stat.setMaxDigitsBelow1(2);
     sampleTest(Integer.valueOf(2),stat,"2");
     sampleTest(Integer.valueOf(-2),stat,"-2");
     sampleTest(Float.valueOf(2.1f),stat,"2");

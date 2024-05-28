@@ -20,11 +20,10 @@ public class StatDescription implements Identifiable,Named
 
   /**
    * Constructor.
-   * @param id Stat identifier.
    */
-  public StatDescription(int id)
+  public StatDescription()
   {
-    _id=id;
+    _id=0;
     _index=null;
     _key=null;
     _legacyKey=null;
@@ -41,6 +40,15 @@ public class StatDescription implements Identifiable,Named
   public int getIdentifier()
   {
     return _id;
+  }
+
+  /**
+   * Set the stat identifier.
+   * @param identifier Identifier to set.
+   */
+  public void setIdentifier(int identifier)
+  {
+    _id=identifier;
   }
 
   /**

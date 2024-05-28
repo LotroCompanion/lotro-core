@@ -11,6 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.stats.FloatStatDescription;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatType;
 
@@ -93,6 +94,22 @@ public class StatXMLWriter
     if (type!=StatType.FLOAT)
     {
       attrs.addAttribute("","",StatXMLConstants.STAT_TYPE_ATTR,XmlWriter.CDATA,type.name());
+    }
+    if (description instanceof FloatStatDescription)
+    {
+      FloatStatDescription floatStat=(FloatStatDescription)description;
+      // - Max digits below 1
+      int maxDigitsBelow1=floatStat.getMaxDigitsBelow1();
+      if (maxDigitsBelow1!=2)
+      {
+        attrs.addAttribute("","",StatXMLConstants.STAT_MAX_DIGITS_BELOW1_ATTR,XmlWriter.CDATA,String.valueOf(maxDigitsBelow1));
+      }
+      // - Max digits above 1
+      int maxDigitsAbove1=floatStat.getMaxDigitsAbove1();
+      if (maxDigitsAbove1!=0)
+      {
+        attrs.addAttribute("","",StatXMLConstants.STAT_MAX_DIGITS_ABOVE1_ATTR,XmlWriter.CDATA,String.valueOf(maxDigitsAbove1));
+      }
     }
     hd.startElement("","",StatXMLConstants.STAT_TAG,attrs);
     hd.endElement("","",StatXMLConstants.STAT_TAG);

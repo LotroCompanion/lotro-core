@@ -9,6 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.stats.FloatStatDescription;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatType;
 import delta.games.lotro.utils.i18n.I18nFacade;
@@ -58,9 +59,25 @@ public class StatXMLParser
   private StatDescription parseStatDescription(Element root)
   {
     NamedNodeMap attrs=root.getAttributes();
+    StatDescription ret=null;
+    FloatStatDescription floatDescription=null;
+    // Type
+    String typeStr=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_TYPE_ATTR,null);
+    if (typeStr!=null)
+    {
+      StatType type=StatType.valueOf(typeStr);
+      ret=new StatDescription();
+      ret.setType(type);
+    }
+    else
+    {
+      floatDescription=new FloatStatDescription();
+      ret=floatDescription;
+    }
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,StatXMLConstants.STAT_ID_ATTR,0);
-    StatDescription description=new StatDescription(id);
+    StatDescription description=new StatDescription();
+    description.setIdentifier(id);
     // Index
     int index=DOMParsingTools.getIntAttribute(attrs,StatXMLConstants.STAT_INDEX_ATTR,-1);
     if (index>=0)
@@ -82,16 +99,15 @@ public class StatXMLParser
     // Is percentage
     boolean isPercentage=DOMParsingTools.getBooleanAttribute(attrs,StatXMLConstants.STAT_IS_PERCENTAGE_ATTR,false);
     description.setPercentage(isPercentage);
-    // Type
-    String typeStr=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_TYPE_ATTR,null);
-    if (typeStr!=null)
+    // Float specifics
+    if (floatDescription!=null)
     {
-      StatType type=StatType.valueOf(typeStr);
-      description.setType(type);
-    }
-    else
-    {
-      description.setType(StatType.FLOAT);
+      // - Max digits below 1
+      int nbMaxDigitsBelow1=DOMParsingTools.getIntAttribute(attrs,StatXMLConstants.STAT_MAX_DIGITS_BELOW1_ATTR,2);
+      floatDescription.setMaxDigitsBelow1(nbMaxDigitsBelow1);
+      // - Max digits above 1
+      int nbMaxDigitsAbove1=DOMParsingTools.getIntAttribute(attrs,StatXMLConstants.STAT_MAX_DIGITS_ABOVE1_ATTR,0);
+      floatDescription.setMaxDigitsAbove1(nbMaxDigitsAbove1);
     }
     return description;
   }
