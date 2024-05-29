@@ -76,29 +76,28 @@ public class StatXMLParser
     }
     // ID
     int id=DOMParsingTools.getIntAttribute(attrs,StatXMLConstants.STAT_ID_ATTR,0);
-    StatDescription description=new StatDescription();
-    description.setIdentifier(id);
+    ret.setIdentifier(id);
     // Index
     int index=DOMParsingTools.getIntAttribute(attrs,StatXMLConstants.STAT_INDEX_ATTR,-1);
     if (index>=0)
     {
-      description.setIndex(Integer.valueOf(index));
+      ret.setIndex(Integer.valueOf(index));
     }
     // Name
     String name=_i18n.getLabel(String.valueOf(id));
-    description.setInternalName(name);
+    ret.setInternalName(name);
     // Key
     String key=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_KEY_ATTR,null);
-    description.setKey(key);
+    ret.setKey(key);
     // Legacy key
     String legacyKey=DOMParsingTools.getStringAttribute(attrs,StatXMLConstants.STAT_LEGACY_KEY_ATTR,null);
-    description.setLegacyKey(legacyKey);
+    ret.setLegacyKey(legacyKey);
     // Legacy name
     String legacyName=_i18n.getLabel("legacy:"+id);
-    description.setLegacyName(legacyName);
+    ret.setLegacyName(legacyName);
     // Is percentage
     boolean isPercentage=DOMParsingTools.getBooleanAttribute(attrs,StatXMLConstants.STAT_IS_PERCENTAGE_ATTR,false);
-    description.setPercentage(isPercentage);
+    ret.setPercentage(isPercentage);
     // Float specifics
     if (floatDescription!=null)
     {
@@ -109,6 +108,6 @@ public class StatXMLParser
       int nbMaxDigitsAbove1=DOMParsingTools.getIntAttribute(attrs,StatXMLConstants.STAT_MAX_DIGITS_ABOVE1_ATTR,0);
       floatDescription.setMaxDigitsAbove1(nbMaxDigitsAbove1);
     }
-    return description;
+    return ret;
   }
 }

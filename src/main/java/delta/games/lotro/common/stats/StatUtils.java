@@ -31,11 +31,6 @@ public class StatUtils
     {
       return "-";
     }
-    boolean percentage=stat.isPercentage();
-    if (percentage)
-    {
-      return getStatDisplayPercentage(value,2);
-    }
     value=fixValueForDisplay(value,stat);
     return getStatDisplayRegular(value,stat);
   }
@@ -60,6 +55,7 @@ public class StatUtils
 
   private static String getStatDisplayRegular(Number value, StatDescription stat)
   {
+    boolean percentage=stat.isPercentage();
     String valueStr;
     float valueToUse=value.floatValue();
     int digitsBelow1=0;
@@ -69,6 +65,10 @@ public class StatUtils
       FloatStatDescription floatStat=(FloatStatDescription)stat;
       digitsBelow1=floatStat.getMaxDigitsBelow1();
       digitsAbove1=floatStat.getMaxDigitsAbove1();
+    }
+    if ((percentage) && (digitsAbove1<2))
+    {
+      digitsAbove1=2;
     }
     if (Math.abs(valueToUse)<1.0)
     {
@@ -85,12 +85,10 @@ public class StatUtils
         valueStr=L10n.getString(valueToUse,digitsAbove1);
       }
     }
-    return valueStr;
-  }
-
-  private static String getStatDisplayPercentage(Number value, int maxDigits)
-  {
-    String valueStr=L10n.getString(value.doubleValue(),maxDigits)+"%";
+    if (percentage)
+    {
+      valueStr=valueStr+"%";
+    }
     return valueStr;
   }
 
