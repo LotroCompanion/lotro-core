@@ -12,6 +12,7 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.common.enums.QuestCategory;
+import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
@@ -80,6 +81,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private SingleLocaleLabelsManager _i18n;
   private LotroEnum<MobDivision> _mobDivisionEnum;
   private LotroEnum<QuestCategory> _questCategoryEnum;
+  private LotroEnum<QuestScope> _questScopeEnum;
 
   /**
    * Constructor.
@@ -90,6 +92,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     _i18n=i18n;
     _mobDivisionEnum=LotroEnumsRegistry.getInstance().get(MobDivision.class);
     _questCategoryEnum=LotroEnumsRegistry.getInstance().get(QuestCategory.class);
+    _questScopeEnum=LotroEnumsRegistry.getInstance().get(QuestScope.class);
   }
 
   /**
@@ -345,6 +348,13 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     {
       QuestCategory questCategory=_questCategoryEnum.getEntry(questCategoryCode);
       condition.setQuestCategory(questCategory);
+    }
+    // Quest scope
+    Integer questScopeCode=SAXParsingTools.getIntegerAttribute(attrs,ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_SCOPE_ATTR,null);
+    if (questScopeCode!=null)
+    {
+      QuestScope questScope=_questScopeEnum.getEntry(questScopeCode.intValue());
+      condition.setQuestScope(questScope);
     }
     return condition;
   }

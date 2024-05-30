@@ -12,6 +12,7 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.common.enums.QuestCategory;
+import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
@@ -319,6 +320,13 @@ public class ObjectivesXMLWriter
     {
       int questCategoryCode=questCategory.getCode();
       attrs.addAttribute("","",ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(questCategoryCode));
+    }
+    // Quest scope
+    QuestScope questScope=condition.getQuestScope();
+    if (questScope!=null)
+    {
+      int questScopeCode=questScope.getCode();
+      attrs.addAttribute("","",ObjectivesXMLConstants.QUEST_COMPLETE_QUEST_SCOPE_ATTR,XmlWriter.CDATA,String.valueOf(questScopeCode));
     }
     // Count
     int count=condition.getCount();

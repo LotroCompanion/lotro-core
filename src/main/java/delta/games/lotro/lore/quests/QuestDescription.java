@@ -8,6 +8,7 @@ import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.enums.QuestCategory;
+import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
 import delta.games.lotro.utils.Proxy;
@@ -25,7 +26,7 @@ public class QuestDescription extends Achievable
   /**
    * Scope.
    */
-  private String _scope;
+  private QuestScope _scope;
   /**
    * Quest arc. Can be empty be not <code>null</code>.
    */
@@ -64,7 +65,7 @@ public class QuestDescription extends Achievable
   public QuestDescription()
   {
     super();
-    _scope="";
+    _scope=null;
     _questArc="";
     _size=Size.SOLO;
     _repeatability=Repeatability.NOT_REPEATABLE;
@@ -101,7 +102,7 @@ public class QuestDescription extends Achievable
    * Get the scope of this quest.
    * @return the scope of this quest.
    */
-  public String getQuestScope()
+  public QuestScope getQuestScope()
   {
     return _scope;
   }
@@ -110,9 +111,8 @@ public class QuestDescription extends Achievable
    * Set the scope of this quest.
    * @param scope the scope to set.
    */
-  public void setQuestScope(String scope)
+  public void setQuestScope(QuestScope scope)
   {
-    if (scope==null) scope="";
     _scope=scope;
   }
 
@@ -377,7 +377,7 @@ public class QuestDescription extends Achievable
       sb.append("Category: ").append(_category).append(EndOfLine.NATIVE_EOL);
     }
     super.dumpOtherLines(sb);
-    if (_scope.length()>0)
+    if (_scope!=null)
     {
       sb.append("Scope: ").append(_scope).append(EndOfLine.NATIVE_EOL);
     }
