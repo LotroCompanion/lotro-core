@@ -14,7 +14,6 @@ import delta.games.lotro.character.gear.GearSlots;
 import delta.games.lotro.character.stats.base.BaseStatsManager;
 import delta.games.lotro.character.stats.base.DerivedStatsContributionsMgr;
 import delta.games.lotro.character.stats.base.io.DerivedStatContributionsIO;
-import delta.games.lotro.character.stats.buffs.MoraleFromHopeOrDread;
 import delta.games.lotro.character.stats.computer.MultiplyContribsComputer;
 import delta.games.lotro.character.stats.computer.StatsStorage;
 import delta.games.lotro.character.stats.computer.SubstractContribsComputer;
@@ -35,6 +34,7 @@ import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.ArmourTypes;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.mood.MoodManager;
 
 /**
  * Character stats computer.
@@ -48,7 +48,7 @@ public class CharacterStatsComputer
   private TomesContributionsMgr _tomesMgr;
   private ItemsSetStatsComputer _itemsSetsMgr;
   private TraceriesSetStatsComputer _traceriesSetsMgr;
-  private MoraleFromHopeOrDread _hopeDread;
+  private MoodManager _moodMgr;
   private RatingsMgr _ratingsMgr;
   private StatsContributionsManager _contribs;
 
@@ -70,7 +70,7 @@ public class CharacterStatsComputer
     _tomesMgr=new TomesContributionsMgr();
     _itemsSetsMgr=new ItemsSetStatsComputer();
     _traceriesSetsMgr=new TraceriesSetStatsComputer();
-    _hopeDread=new MoraleFromHopeOrDread();
+    _moodMgr=MoodManager.getInstance();
     _ratingsMgr=CombatSystem.getInstance().getRatingsMgr();
     _contribs=contribs;
   }
@@ -282,7 +282,7 @@ public class CharacterStatsComputer
     Number hopeLevel=stats.getStat(WellKnownStat.HOPE);
     if ((hopeLevel!=null) && (hopeLevel.intValue()!=0))
     {
-      float factor=_hopeDread.getMoraleFactor(hopeLevel.intValue());
+      float factor=_moodMgr.getMoraleModifier(hopeLevel.intValue());
       BasicStatsSet hopeStats=new BasicStatsSet();
       hopeStats.setStat(WellKnownStat.MORALE,StatOperator.MULTIPLY,Float.valueOf(factor),null);
       StatsContribution contrib=new StatsContribution("HOPE_DREAD","Morale from Hope/Dread",hopeStats);
