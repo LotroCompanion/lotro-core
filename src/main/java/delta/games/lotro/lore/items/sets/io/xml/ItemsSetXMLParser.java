@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
+import delta.common.utils.text.EndOfLine;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
@@ -74,6 +75,7 @@ public class ItemsSetXMLParser
     ret.setIdentifier(id);
     // Name
     String name=_i18n.getLabel(String.valueOf(id));
+    name=name.replace(EndOfLine.UNIX.toString(),EndOfLine.NATIVE_EOL);
     ret.setName(name);
     // Type
     String setTypeStr=DOMParsingTools.getStringAttribute(attrs,ItemsSetXMLConstants.ITEMS_SET_TYPE_ATTR,null);
