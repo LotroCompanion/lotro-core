@@ -1,6 +1,7 @@
 package delta.games.lotro.utils.strings;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.utils.style.StyleElement;
 
 /**
  * Generic output interface.
@@ -42,6 +43,13 @@ public interface GenericOutput
    */
   void printText(StringBuilder sb, String text);
   /**
+   * Print text.
+   * @param sb Output.
+   * @param text Text.
+   * @param styles Styles to use.
+   */
+  void printText(StringBuilder sb, String text, StyleElement... styles);
+  /**
    * Start a paragraph.
    * @param sb Output.
    */
@@ -51,6 +59,11 @@ public interface GenericOutput
    * @param sb Output.
    */
   void endParagraph(StringBuilder sb);
+  /**
+   * New line.
+   * @param sb Output.
+   */
+  void newLine(StringBuilder sb);
   /**
    * Switch to bold.
    * @param sb Output.
@@ -62,7 +75,7 @@ public interface GenericOutput
    */
   void endBold(StringBuilder sb);
   /**
-   * Switch italic.
+   * Switch to italic.
    * @param sb Output.
    */
   void startItalic(StringBuilder sb);
@@ -71,6 +84,16 @@ public interface GenericOutput
    * @param sb Output.
    */
   void endItalic(StringBuilder sb);
+  /**
+   * Switch to underline.
+   * @param sb Output.
+   */
+  void startUnderline(StringBuilder sb);
+  /**
+   * End underline.
+   * @param sb Output.
+   */
+  void endUnderline(StringBuilder sb);
   /**
    * Start a title.
    * @param sb Output.
@@ -83,4 +106,18 @@ public interface GenericOutput
    * @param level Title level.
    */
   void endTitle(StringBuilder sb, int level);
+
+  /**
+   * Start a style.
+   * @param sb Output.
+   * @param elements Style elements.
+   */
+  void startStyle(StringBuilder sb, StyleElement...elements);
+
+  /**
+   * End a style.
+   * @param sb Output.
+   * @param elements Style elements.
+   */
+  void endStyle(StringBuilder sb, StyleElement...elements);
 }

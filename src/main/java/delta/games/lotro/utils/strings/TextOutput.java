@@ -1,6 +1,8 @@
 package delta.games.lotro.utils.strings;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.utils.style.StyleElement;
 
 /**
  * Simple text output.
@@ -45,6 +47,11 @@ public class TextOutput implements GenericOutput
     sb.append(text);
   }
 
+  @Override
+  public void printText(StringBuilder sb, String text, StyleElement... styles)
+  {
+    printText(sb,text);
+  }
 
   @Override
   public void startParagraph(StringBuilder sb)
@@ -56,6 +63,12 @@ public class TextOutput implements GenericOutput
   public void endParagraph(StringBuilder sb)
   {
     // Nothing!
+  }
+
+  @Override
+  public void newLine(StringBuilder sb)
+  {
+    sb.append(EndOfLine.NATIVE_EOL);
   }
 
   @Override
@@ -83,6 +96,18 @@ public class TextOutput implements GenericOutput
   }
 
   @Override
+  public void startUnderline(StringBuilder sb)
+  {
+    // Nothing!
+  }
+
+  @Override
+  public void endUnderline(StringBuilder sb)
+  {
+    // Nothing!
+  }
+
+  @Override
   public void startTitle(StringBuilder sb, int level)
   {
     // Nothing!
@@ -90,6 +115,18 @@ public class TextOutput implements GenericOutput
 
   @Override
   public void endTitle(StringBuilder sb, int level)
+  {
+    // Nothing!
+  }
+
+  @Override
+  public void startStyle(StringBuilder sb, StyleElement... elements)
+  {
+    // Nothing!
+  }
+
+  @Override
+  public void endStyle(StringBuilder sb, StyleElement... elements)
   {
     // Nothing!
   }
