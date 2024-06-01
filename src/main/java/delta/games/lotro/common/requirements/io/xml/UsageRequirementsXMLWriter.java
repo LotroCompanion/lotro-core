@@ -10,6 +10,7 @@ import delta.games.lotro.common.requirements.GloryRankRequirement;
 import delta.games.lotro.common.requirements.ProfessionRequirement;
 import delta.games.lotro.common.requirements.QuestRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
+import delta.games.lotro.common.requirements.TraitRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 
 /**
@@ -85,6 +86,13 @@ public class UsageRequirementsXMLWriter
     {
       int effectID=effectRequirement.getEffect().getIdentifier();
       attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_EFFECT_ATTR,XmlWriter.CDATA,String.valueOf(effectID));
+    }
+    // Trait requirement
+    TraitRequirement traitRequirement=requirements.getTraitRequirement();
+    if (traitRequirement!=null)
+    {
+      int traitID=traitRequirement.getTrait().getIdentifier();
+      attrs.addAttribute("","",UsageRequirementXMLConstants.REQUIRED_TRAIT_ATTR,XmlWriter.CDATA,String.valueOf(traitID));
     }
   }
 }

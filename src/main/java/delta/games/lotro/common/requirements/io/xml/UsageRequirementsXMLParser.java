@@ -6,6 +6,8 @@ import org.xml.sax.Attributes;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.requirements.ClassRequirement;
@@ -15,6 +17,7 @@ import delta.games.lotro.common.requirements.GloryRankRequirement;
 import delta.games.lotro.common.requirements.ProfessionRequirement;
 import delta.games.lotro.common.requirements.QuestRequirement;
 import delta.games.lotro.common.requirements.RaceRequirement;
+import delta.games.lotro.common.requirements.TraitRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 
 /**
@@ -119,6 +122,18 @@ public class UsageRequirementsXMLParser
       {
         EffectRequirement effectRequirement=new EffectRequirement(effect);
         requirements.setEffectRequirement(effectRequirement);
+      }
+    }
+    // Required trait
+    String traitIDStr=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_TRAIT_ATTR);
+    if (traitIDStr!=null)
+    {
+      int traitID=NumericTools.parseInt(traitIDStr,0);
+      TraitDescription trait=TraitsManager.getInstance().getTrait(traitID);
+      if (trait!=null)
+      {
+        TraitRequirement traitRequirement=new TraitRequirement(trait);
+        requirements.setTraitRequirement(traitRequirement);
       }
     }
   }

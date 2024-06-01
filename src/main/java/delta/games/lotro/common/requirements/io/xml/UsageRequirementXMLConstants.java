@@ -42,4 +42,8 @@ public class UsageRequirementXMLConstants
    * Attribute 'required effect'.
    */
   public static final String REQUIRED_EFFECT_ATTR="requiredEffect";
+  /**
+   * Attribute 'required trait'.
+   */
+  public static final String REQUIRED_TRAIT_ATTR="requiredTrait";
 }
