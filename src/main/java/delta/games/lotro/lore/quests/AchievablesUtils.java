@@ -8,7 +8,9 @@ import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.status.crafting.CraftingStatus;
+import delta.games.lotro.common.requirements.filters.ClassRequirementFilter;
 import delta.games.lotro.common.requirements.filters.ProfessionRequirementFilter;
+import delta.games.lotro.common.requirements.filters.RaceRequirementFilter;
 import delta.games.lotro.common.requirements.filters.UsageRequirementFilter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
@@ -47,12 +49,16 @@ public class AchievablesUtils
     CharacterSummary summary=character.getSummary();
     ClassDescription characterClass=summary.getCharacterClass();
     RaceDescription race=summary.getRace();
-    UsageRequirementFilter classRaceFilter=new UsageRequirementFilter(characterClass,race);
+    UsageRequirementFilter requirementFilter=new UsageRequirementFilter();
+    ClassRequirementFilter classFilter=requirementFilter.getCharacterClassFilter();
+    classFilter.setCharacterClass(characterClass);
+    RaceRequirementFilter raceFilter=requirementFilter.getRaceFilter();
+    raceFilter.setRace(race);
     CraftingStatus status=character.getCraftingMgr().getCraftingStatus();
     ProfessionRequirementFilter craftingFilter=new ProfessionRequirementFilter(status);
     for(T achievable : achievables)
     {
-      if (classRaceFilter.accept(achievable.getUsageRequirement()))
+      if (requirementFilter.accept(achievable.getUsageRequirement()))
       {
         if (craftingFilter.accept(achievable.getUsageRequirement()))
         {

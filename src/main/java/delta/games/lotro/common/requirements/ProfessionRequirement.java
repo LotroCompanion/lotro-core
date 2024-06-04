@@ -10,10 +10,9 @@ import delta.games.lotro.lore.crafting.Profession;
  * Profession requirement.
  * @author DAM
  */
-public class ProfessionRequirement
+public class ProfessionRequirement extends SimpleProfessionRequirement
 {
   private static final String SEPARATOR=";";
-  private Profession _profession;
   private CraftTier _tier;
 
   /**
@@ -23,17 +22,8 @@ public class ProfessionRequirement
    */
   public ProfessionRequirement(Profession profession, CraftTier tier)
   {
-    _profession=profession;
+    super(profession);
     _tier=tier;
-  }
-
-  /**
-   * Get the targeted profession.
-   * @return a profession.
-   */
-  public Profession getProfession()
-  {
-    return _profession;
   }
 
   /**
@@ -52,7 +42,7 @@ public class ProfessionRequirement
   public String asString()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append(_profession.getIdentifier());
+    sb.append(super.asString());
     if (_tier!=null)
     {
       sb.append(SEPARATOR);
@@ -94,9 +84,10 @@ public class ProfessionRequirement
   @Override
   public String toString()
   {
-    if (_profession!=null)
+    Profession profession=getProfession();
+    if (profession!=null)
     {
-      String ret=_profession.getName();
+      String ret=profession.getName();
       if (_tier!=null)
       {
         String tierName=_tier.getLabel();
