@@ -5,7 +5,6 @@ import java.util.List;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterFile;
-import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.events.CharacterEvent;
 import delta.games.lotro.character.events.CharacterEventType;
 import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
@@ -125,8 +124,7 @@ public class AchievementsSummaryIO
     {
       ret=new AchievementsSummary();
     }
-    CharacterSummary characterSummary=character.getSummary();
-    List<DeedDescription> deeds=AchievablesUtils.getDeeds(characterSummary);
+    List<DeedDescription> deeds=AchievablesUtils.getDeeds(character);
     int deedsCount=deedsStatusMgr.getTotalCompletionsCount(deeds);
     ret.setDeedsCount(Integer.valueOf(deedsCount));
     save(character,ret);
@@ -146,8 +144,7 @@ public class AchievementsSummaryIO
     {
       ret=new AchievementsSummary();
     }
-    CharacterSummary characterSummary=character.getSummary();
-    List<QuestDescription> quests=AchievablesUtils.getQuests(characterSummary);
+    List<QuestDescription> quests=AchievablesUtils.getQuests(character);
     int questsCount=questsStatusMgr.getTotalCompletionsCount(quests);
     ret.setQuestsCount(Integer.valueOf(questsCount));
     save(character,ret);
