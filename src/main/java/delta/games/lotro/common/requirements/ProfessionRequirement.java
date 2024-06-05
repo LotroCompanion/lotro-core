@@ -35,10 +35,7 @@ public class ProfessionRequirement extends SimpleProfessionRequirement
     return _tier;
   }
 
-  /**
-   * Get a string representation of this requirement.
-   * @return A persistable string.
-   */
+  @Override
   public String asString()
   {
     StringBuilder sb=new StringBuilder();
