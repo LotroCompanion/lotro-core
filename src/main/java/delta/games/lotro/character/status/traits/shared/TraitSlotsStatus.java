@@ -53,7 +53,11 @@ public class TraitSlotsStatus
    */
   public int getTraitAt(int index)
   {
-    return _traitIDs[index];
+    if (index<_traitIDs.length)
+    {
+      return _traitIDs[index];
+    }
+    return 0;
   }
 
   /**
@@ -63,6 +67,12 @@ public class TraitSlotsStatus
    */
   public void setTraitAt(int index, int traitID)
   {
+    if (index>=_traitIDs.length)
+    {
+      int[] newTraitIDs=new int[index];
+      System.arraycopy(_traitIDs,0,newTraitIDs,0,index);
+      _traitIDs=newTraitIDs;
+    }
     _traitIDs[index]=traitID;
   }
 }
