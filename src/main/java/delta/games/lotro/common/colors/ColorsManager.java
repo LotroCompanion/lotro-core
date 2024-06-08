@@ -58,7 +58,7 @@ public class ColorsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File colorsFile=cfg.getFile(DataFiles.COLORS);
     long now=System.currentTimeMillis();
-    List<ColorDescription> colors=ColorXMLParser.parseXML(colorsFile);
+    List<ColorDescription> colors=new ColorXMLParser().parseXML(colorsFile);
     for(ColorDescription color : colors)
     {
       registerColor(color);
