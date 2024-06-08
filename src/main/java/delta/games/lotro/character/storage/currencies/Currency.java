@@ -30,9 +30,9 @@ public class Currency implements Named
    */
   private String _category;
   /**
-   * Factor between real value and internal value (for gold).
+   * Semantics.
    */
-  private int _factor;
+  private CurrencySemantics _semantics;
 
   /**
    * Constructor.
@@ -47,7 +47,7 @@ public class Currency implements Named
     _name=name;
     _scope=scope;
     _category=category;
-    _factor=1;
+    _semantics=CurrencySemantics.COUNT;
   }
 
   /**
@@ -118,21 +118,21 @@ public class Currency implements Named
   }
 
   /**
-   * Get the factor between real value and internal value.
-   * @return A factor.
+   * Get the semantics of this currency.
+   * @return A currency semantics.
    */
-  public int getFactor()
+  public CurrencySemantics getSemantics()
   {
-    return _factor;
+    return _semantics;
   }
 
   /**
-   * Set the factor value.
-   * @param factor Factor to set.
+   * Set the currency semantics.
+   * @param semantics Semantics to set.
    */
-  public void setFactor(int factor)
+  public void setSemantics(CurrencySemantics semantics)
   {
-    _factor=factor;
+    _semantics=semantics;
   }
 
   @Override
@@ -143,11 +143,7 @@ public class Currency implements Named
     sb.append(", name=").append(_name);
     sb.append(", scope=").append(_scope);
     sb.append(", category=").append(_category);
-    if (_factor!=1)
-    {
-      sb.append(", factor=");
-      sb.append(_factor);
-    }
+    sb.append(", currency=").append(_semantics);
     return sb.toString();
   }
 }
