@@ -92,6 +92,12 @@ public class TraitTreeXMLWriter
       int mainTraitId=mainTrait.getIdentifier();
       branchAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_BRANCH_TRAIT_ATTR,XmlWriter.CDATA,String.valueOf(mainTraitId));
     }
+    // Enabled?
+    boolean enabled=branch.isEnabled();
+    if (!enabled)
+    {
+      branchAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_BRANCH_ENABLED_ATTR,XmlWriter.CDATA,String.valueOf(enabled));
+    }
     hd.startElement("","",TraitTreeXMLConstants.TRAIT_TREE_BRANCH_TAG,branchAttrs);
     // Progression
     TraitTreeProgression progression=branch.getProgression();
