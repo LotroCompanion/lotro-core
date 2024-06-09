@@ -1,15 +1,10 @@
 package delta.games.lotro.lore.items.effects;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import delta.games.lotro.character.skills.SkillDescription;
-import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.SkillEffectsManager;
-import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.EffectDisplay;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemUtils;
@@ -47,7 +42,7 @@ public class ItemEffectsDisplay
           for(int i=nbOnEquip-1;i>=0;i--)
           {
             EffectGenerator effect=onEquip[i];
-            showEffectGenerator(childStorage,effect,true);
+            DisplayEffectsUtils.showEffectGenerator(childStorage,effect,true,_level);
           }
           if (!childStorage.isEmpty())
           {
@@ -65,7 +60,7 @@ public class ItemEffectsDisplay
           for(int i=nbOnUse-1;i>=0;i--)
           {
             EffectGenerator effect=onUse[i];
-            showEffectGenerator(childStorage,effect,false);
+            DisplayEffectsUtils.showEffectGenerator(childStorage,effect,false,_level);
           }
           if (!childStorage.isEmpty())
           {
@@ -92,58 +87,16 @@ public class ItemEffectsDisplay
     {
       return;
     }
-    int levelBackup=_level;
+    int level=_level;
     Integer skillLevel=skillToExecute.getLevel();
     if (skillLevel!=null)
     {
-      _level=skillLevel.intValue();
+      level=skillLevel.intValue();
     }
-    List<String> childStorage=new ArrayList<String>();
-    SkillEffectGenerator[] effectGenerators=mgr.getEffects();
-    int nbEffects=effectGenerators.length;
-    if (nbEffects>0)
-    {
-      Set<Integer> usedEffectIds=new HashSet<Integer>();
-      // Avoid using the same ID multiple times
-      for(int i=nbEffects-1;i>=0;i--)
-      {
-        SkillEffectGenerator effectGenerator=effectGenerators[i];
-        Integer effectId=Integer.valueOf(effectGenerator.getEffect().getIdentifier());
-        if (!usedEffectIds.contains(effectId))
-        {
-          showEffectGenerator(childStorage,effectGenerator,false);
-          usedEffectIds.add(effectId);
-        }
-      }
-    }
+    List<String> childStorage=SkillEffectsDisplay.showSkill(skill,level);
     if (!childStorage.isEmpty())
     {
       storage.add("On Use:");
-      storage.addAll(childStorage);
-    }
-    _level=levelBackup;
-  }
-
-  private void showEffectGenerator(List<String> storage, EffectGenerator generator, boolean skipRawStats)
-  {
-    Effect effect=generator.getEffect();
-    Float spellcraft=generator.getSpellcraft();
-    int level=_level;
-    if (spellcraft!=null)
-    {
-      level=spellcraft.intValue();
-    }
-    showEffect(storage,effect,level,skipRawStats);
-  }
-
-  private void showEffect(List<String> storage, Effect effect, int level, boolean skipRawStats)
-  {
-    EffectDisplay display=new EffectDisplay(level);
-    display.skipRawStats(skipRawStats);
-    List<String> childStorage=new ArrayList<String>();
-    display.displayEffect(childStorage,effect);
-    if (!childStorage.isEmpty())
-    {
       storage.addAll(childStorage);
     }
   }
