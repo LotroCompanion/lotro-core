@@ -8,10 +8,18 @@ import delta.games.lotro.common.effects.EffectDisplay;
 import delta.games.lotro.common.effects.EffectGenerator;
 
 /**
- * @author dm
+ * Utility methods related to effects display.
+ * @author DAM
  */
 public class DisplayEffectsUtils
 {
+  /**
+   * Show an effect generator.
+   * @param storage Storage for generated strings.
+   * @param generator Generator to use.
+   * @param skipRawStats Indicates if stats shall be skipped or not.
+   * @param level Level of effect.
+   */
   public static void showEffectGenerator(List<String> storage, EffectGenerator generator, boolean skipRawStats, int level)
   {
     Effect effect=generator.getEffect();

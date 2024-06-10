@@ -10,10 +10,17 @@ import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.SkillEffectsManager;
 
 /**
- * @author dm
+ * Utilities to display skill effects.
+ * @author DAM
  */
 public class SkillEffectsDisplay
 {
+  /**
+   * Get display strings for the effects of a skill.
+   * @param skill Skill to use.
+   * @param level Level of skill.
+   * @return A list of displayable strings.
+   */
   public static List<String> showSkill(SkillDescription skill, int level)
   {
     List<String> ret=new ArrayList<String>();
