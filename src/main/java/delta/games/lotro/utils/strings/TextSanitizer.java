@@ -13,6 +13,9 @@ public class TextSanitizer
    * @param text Input text.
    * @return sanitized text.
    */
+  private TextSanitizer() {
+  }
+  
   public static String sanitize(String text)
   {
     text=removeColorHints(text);

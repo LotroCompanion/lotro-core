@@ -22,6 +22,9 @@ public class StorageSummaryIO
    * @param character Parent character.
    * @return the loaded storage summary.
    */
+  private StorageSummaryIO() {
+  }
+  
   public static CharacterStorageSummary loadCharacterStorageSummary(CharacterFile character)
   {
     File fromFile=getStorageSummaryFile(character);

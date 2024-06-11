@@ -9,6 +9,9 @@ public class PVPStatusXMLConstants
   /**
    * Tag 'pvpStatus'.
    */
+  private PVPStatusXMLConstants() {
+  }
+  
   public static final String PVP_STATUS_TAG="pvpStatus";
   /**
    * Attribute 'glory'.

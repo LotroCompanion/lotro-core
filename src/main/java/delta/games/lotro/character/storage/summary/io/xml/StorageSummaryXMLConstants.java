@@ -9,6 +9,9 @@ public class StorageSummaryXMLConstants
   /**
    * Tag 'characterStorageSummary'.
    */
+  private StorageSummaryXMLConstants() {
+  }
+  
   public static final String CHARACTER_STORAGE_SUMMARY_TAG="characterStorageSummary";
   /**
    * Tag 'bags'.

@@ -14,6 +14,9 @@ public class StringRendering
    * @param rawFormat Input string.
    * @return the rendered string.
    */
+  private StringRendering() {
+  }
+  
   public static String render(VariablesResolver resolver, String rawFormat)
   {
     if (rawFormat==null)

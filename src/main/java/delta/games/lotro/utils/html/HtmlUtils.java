@@ -8,6 +8,9 @@ import org.apache.log4j.Logger;
  */
 public class HtmlUtils
 {
+  private HtmlUtils() {
+  }
+  
   private static final Logger LOGGER=Logger.getLogger(HtmlUtils.class);
   private static ColorMapping _colorMapping=new ColorMapping();
 
