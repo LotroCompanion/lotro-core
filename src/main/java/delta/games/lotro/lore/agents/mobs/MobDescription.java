@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.agents.mobs;
 
+import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.lore.agents.AgentClassification;
 import delta.games.lotro.lore.agents.AgentDescription;
 
@@ -11,6 +12,7 @@ public class MobDescription extends AgentDescription
 {
   private AgentClassification _classification;
   private MobLoot _loot;
+  private MobDivision _division;
 
   /**
    * Constructor.
@@ -21,6 +23,7 @@ public class MobDescription extends AgentDescription
   {
     super(id,name);
     _classification=new AgentClassification();
+    _division=null;
   }
 
   /**
@@ -48,6 +51,24 @@ public class MobDescription extends AgentDescription
   public void setMobLoot(MobLoot loot)
   {
     _loot=loot;
+  }
+
+  /**
+   * Get the associated land division.
+   * @return a land division.
+   */
+  public MobDivision getDivision()
+  {
+    return _division;
+  }
+
+  /**
+   * Set the land division.
+   * @param division Land division to set.
+   */
+  public void setDivision(MobDivision division)
+  {
+    _division=division;
   }
 
   @Override

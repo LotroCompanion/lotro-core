@@ -7,8 +7,10 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.colors.ColorDescription;
+import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
  * Parser for color descriptions stored in XML.
@@ -16,12 +18,22 @@ import delta.games.lotro.common.colors.ColorDescription;
  */
 public class ColorXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public ColorXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("colors");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
    * @return Parsed colors.
    */
-  public static List<ColorDescription> parseXML(File source)
+  public List<ColorDescription> parseXML(File source)
   {
     List<ColorDescription> ret=new ArrayList<ColorDescription>();
     Element root=DOMParsingTools.parse(source);
@@ -37,7 +49,7 @@ public class ColorXMLParser
     return ret;
   }
 
-  private static ColorDescription parseColor(Element root)
+  private ColorDescription parseColor(Element root)
   {
     ColorDescription color=new ColorDescription();
 
@@ -50,7 +62,7 @@ public class ColorXMLParser
     float floatCode=DOMParsingTools.getFloatAttribute(attrs,ColorXMLConstants.COLOR_FLOAT_CODE_ATTR,0.0f);
     color.setCode(floatCode);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,ColorXMLConstants.COLOR_NAME_ATTR,null);
+    String name=_i18n.getLabel(String.valueOf(code));
     color.setName(name);
     return color;
   }

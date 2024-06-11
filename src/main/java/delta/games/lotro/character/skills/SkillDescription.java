@@ -1,8 +1,14 @@
 package delta.games.lotro.character.skills;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.enums.SkillCategory;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Skill.
@@ -30,8 +36,14 @@ public class SkillDescription implements Identifiable,Named
    * Category.
    */
   private SkillCategory _category;
-  // TODO Add required effects
-  // TODO Add required traits
+  /**
+   * Required trait.
+   */
+  private Proxy<TraitDescription> _requiredTrait;
+  /**
+   * Required effects.
+   */
+  private List<Effect> _requiredEffects;
   /**
    * Effects.
    */
@@ -48,6 +60,8 @@ public class SkillDescription implements Identifiable,Named
     _description="";
     _iconId=0;
     _category=null;
+    _requiredTrait=null;
+    _requiredEffects=null;
   }
 
   /**
@@ -139,6 +153,46 @@ public class SkillDescription implements Identifiable,Named
   public void setCategory(SkillCategory category)
   {
     _category=category;
+  }
+
+  /**
+   * Get the required trait.
+   * @return A trait proxy or <code>null</code>.
+   */
+  public Proxy<TraitDescription> getRequiredTrait()
+  {
+    return _requiredTrait;
+  }
+
+  /**
+   * Set the required trait.
+   * @param requiredTrait Required trait to set.
+   */
+  public void setRequiredTrait(Proxy<TraitDescription> requiredTrait)
+  {
+    _requiredTrait=requiredTrait;
+  }
+
+  /**
+   * Add a required effect.
+   * @param effect Effect to add.
+   */
+  public void addRequiredEffect(Effect effect)
+  {
+    if (_requiredEffects==null)
+    {
+      _requiredEffects=new ArrayList<Effect>();
+    }
+    _requiredEffects.add(effect);
+  }
+
+  /**
+   * Get all the required effects.
+   * @return A list of effects or <code>null</code>.
+   */
+  public List<Effect> getRequiredEffects()
+  {
+    return _requiredEffects;
   }
 
   /**

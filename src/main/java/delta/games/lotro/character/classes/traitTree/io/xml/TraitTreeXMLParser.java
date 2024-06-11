@@ -72,6 +72,9 @@ public class TraitTreeXMLParser
       int mainTraitId=DOMParsingTools.getIntAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_TRAIT_ATTR,0);
       TraitDescription mainTrait=traitsMgr.getTrait(mainTraitId);
       branch.setMainTrait(mainTrait);
+      // Enabled
+      boolean enabled=DOMParsingTools.getBooleanAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_ENABLED_ATTR,true);
+      branch.setEnabled(enabled);
       // Progression
       Element progressionTag=DOMParsingTools.getChildTagByName(branchTag,TraitTreeXMLConstants.PROGRESSION_TAG);
       if (progressionTag!=null)

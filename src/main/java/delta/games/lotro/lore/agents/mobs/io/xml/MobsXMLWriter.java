@@ -11,6 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TrophyList;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
@@ -78,6 +79,13 @@ public class MobsXMLWriter
     // Name
     String name=mob.getName();
     attrs.addAttribute("","",MobsXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
+    // Division
+    MobDivision mobDivision=mob.getDivision();
+    if (mobDivision!=null)
+    {
+      int divisionCode=mobDivision.getCode();
+      attrs.addAttribute("","",MobsXMLConstants.DIVISION_ATTR,XmlWriter.CDATA,String.valueOf(divisionCode));
+    }
     // Classification
     AgentsXMLIO.writeClassification(attrs,mob.getClassification());
     // Loot

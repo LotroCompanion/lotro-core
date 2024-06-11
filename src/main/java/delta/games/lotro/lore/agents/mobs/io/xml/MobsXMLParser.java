@@ -8,6 +8,9 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.common.treasure.LootsManager;
 import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TrophyList;
@@ -24,6 +27,7 @@ import delta.games.lotro.utils.i18n.I18nFacade;
 public class MobsXMLParser
 {
   private SingleLocaleLabelsManager _i18n;
+  private LotroEnum<MobDivision> _mobDivision;
 
   /**
    * Constructor.
@@ -31,6 +35,7 @@ public class MobsXMLParser
   public MobsXMLParser()
   {
     _i18n=I18nFacade.getLabelsMgr("mobs");
+    _mobDivision=LotroEnumsRegistry.getInstance().get(MobDivision.class);
   }
 
   /**
@@ -75,6 +80,13 @@ public class MobsXMLParser
     // Name
     String name=_i18n.getLabel(String.valueOf(id));
     MobDescription ret=new MobDescription(id,name);
+    // Division
+    Integer mobDivisionCode=DOMParsingTools.getIntegerAttribute(attrs,MobsXMLConstants.DIVISION_ATTR,null);
+    if (mobDivisionCode!=null)
+    {
+      MobDivision mobDivision=_mobDivision.getEntry(mobDivisionCode.intValue());
+      ret.setDivision(mobDivision);
+    }
     // Classification
     AgentsXMLIO.parseClassificationTag(mobTag,ret.getClassification());
     MobLoot loot=parseMobLoot(mobTag);

@@ -351,6 +351,10 @@ public class DataFiles
    */
   public static final String PVP="pvp";
   /**
+   * Mood data file.
+   */
+  public static final String MOOD="mood";
+  /**
    * Labels file.
    */
   public static final String LABELS="labelsDir";

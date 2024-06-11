@@ -14,6 +14,8 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.character.skills.TravelSkill;
+import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.enums.MountType;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
@@ -23,6 +25,7 @@ import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
 import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Writes skills to XML files.
@@ -113,6 +116,8 @@ public class SkillDescriptionXMLWriter
         PositionXMLWriter.writePosition(hd,position);
       }
     }
+    // Requirements
+    writeSkillRequirements(hd,skill);
     // Effects
     SkillEffectsManager effectsMgr=skill.getEffects();
     if (effectsMgr!=null)
@@ -120,6 +125,52 @@ public class SkillDescriptionXMLWriter
       SkillEffectsXmlIO.writeSkillEffects(hd,effectsMgr);
     }
     hd.endElement("","",tagName);
+  }
+
+  private void writeSkillRequirements(TransformerHandler hd, SkillDescription skill) throws SAXException
+  {
+    Proxy<TraitDescription> requiredTrait=skill.getRequiredTrait();
+    if (requiredTrait!=null)
+    {
+      writeTraitRequirement(hd,requiredTrait);
+    }
+    List<Effect> requiredEffects=skill.getRequiredEffects();
+    if (requiredEffects!=null)
+    {
+      for(Effect requiredEffect : requiredEffects)
+      {
+        writeEffectRequirement(hd,requiredEffect);
+      }
+    }
+  }
+
+  private void writeTraitRequirement(TransformerHandler hd, Proxy<TraitDescription> trait) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Identifier
+    int id=trait.getId();
+    attrs.addAttribute("","",SkillDescriptionXMLConstants.REQUIRED_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Name
+    String name=trait.getName();
+    attrs.addAttribute("","",SkillDescriptionXMLConstants.REQUIRED_TRAIT_NAME_ATTR,XmlWriter.CDATA,name);
+    hd.startElement("","",SkillDescriptionXMLConstants.REQUIRED_TRAIT_TAG,attrs);
+    hd.endElement("","",SkillDescriptionXMLConstants.REQUIRED_TRAIT_TAG);
+  }
+
+  private void writeEffectRequirement(TransformerHandler hd, Effect effect) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Identifier
+    int id=effect.getIdentifier();
+    attrs.addAttribute("","",SkillDescriptionXMLConstants.REQUIRED_EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Name
+    String name=effect.getName();
+    if (name!=null)
+    {
+      attrs.addAttribute("","",SkillDescriptionXMLConstants.REQUIRED_EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    hd.startElement("","",SkillDescriptionXMLConstants.REQUIRED_EFFECT_TAG,attrs);
+    hd.endElement("","",SkillDescriptionXMLConstants.REQUIRED_EFFECT_TAG);
   }
 
   /**

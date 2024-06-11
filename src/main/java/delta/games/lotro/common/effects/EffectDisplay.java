@@ -20,6 +20,7 @@ import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.DamageTypes;
 import delta.games.lotro.utils.maths.Progression;
+import delta.games.lotro.utils.strings.TextSanitizer;
 
 /**
  * Display effects.
@@ -65,11 +66,13 @@ public class EffectDisplay
     if (!descriptionOverride.isEmpty())
     {
       String text=resolveVariables(effect,descriptionOverride);
+      text=TextSanitizer.sanitize(text);
       storage.add(text);
     }
     String description=effect.getDescription();
     if (!description.isEmpty())
     {
+      description=TextSanitizer.sanitize(description);
       storage.add(description);
     }
     displaySpecifics(storage,effect);

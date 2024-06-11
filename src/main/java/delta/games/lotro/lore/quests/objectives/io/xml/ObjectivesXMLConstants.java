@@ -102,6 +102,10 @@ public class ObjectivesXMLConstants
    * Tag 'questComplete', attribute 'questCategory'.
    */
   public static final String QUEST_COMPLETE_QUEST_CATEGORY_ATTR="questCategory";
+  /**
+   * Tag 'questComplete', attribute 'questScope'.
+   */
+  public static final String QUEST_COMPLETE_QUEST_SCOPE_ATTR="questScope";
 
   /**
    * Tag 'monsterDie'.

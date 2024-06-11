@@ -225,7 +225,7 @@ public class StatUtils
         line=line.replace("{***}",valueStr);
         line=line.replace("${VALUE}",valueStr);
         line=line.replace("${PERCENTVALUE}",valueStr);
-        line=line.replace("${PROPERTY}",stat.getName());
+        line=line.replace("${PROPERTY}",statName);
       }
     }
     else

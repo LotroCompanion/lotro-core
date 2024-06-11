@@ -44,6 +44,10 @@ public class TraitTreeXMLConstants
    */
   public static final String TRAIT_TREE_BRANCH_TRAIT_ATTR="mainTraitId";
   /**
+   * Tag 'traitTreeBranch', attribute 'enabled'.
+   */
+  public static final String TRAIT_TREE_BRANCH_ENABLED_ATTR="enabled";
+  /**
    * Tag 'progression'.
    */
   public static final String PROGRESSION_TAG="progression";

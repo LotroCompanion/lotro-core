@@ -39,6 +39,30 @@ public class SkillDescriptionXMLConstants
    * Tag 'skill', attribute 'travelType'.
    */
   public static final String SKILL_TRAVEL_TYPE_ATTR="travelType";
+  /**
+   * Tag 'requiredTrait'.
+   */
+  public static final String REQUIRED_TRAIT_TAG="requiredTrait";
+  /**
+   * Tag 'requiredTrait', attribute 'id'.
+   */
+  public static final String REQUIRED_TRAIT_ID_ATTR="id";
+  /**
+   * Tag 'requiredTrait', attribute 'name'.
+   */
+  public static final String REQUIRED_TRAIT_NAME_ATTR="name";
+  /**
+   * Tag 'requiredEffect'.
+   */
+  public static final String REQUIRED_EFFECT_TAG="requiredEffect";
+  /**
+   * Tag 'requiredEffect', attribute 'id'.
+   */
+  public static final String REQUIRED_EFFECT_ID_ATTR="id";
+  /**
+   * Tag 'requiredEffect', attribute 'name'.
+   */
+  public static final String REQUIRED_EFFECT_NAME_ATTR="name";
 
   /**
    * Tag 'travelSkill'.

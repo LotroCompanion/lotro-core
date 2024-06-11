@@ -57,7 +57,7 @@ public class AchievableFilter<T extends Achievable> implements Filter<T>
     filters.add(_hiddenFilter);
     // Requirements
     {
-      _requirementsFilter=new UsageRequirementFilter(null,null);
+      _requirementsFilter=new UsageRequirementFilter();
       ProxyValueResolver<T,UsageRequirement> resolver=new ProxyValueResolver<T,UsageRequirement>()
       {
         public UsageRequirement getValue(T pojo)

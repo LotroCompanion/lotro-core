@@ -23,6 +23,10 @@ public class MobsXMLConstants
    * Tag 'mob', attribute 'name'.
    */
   public static final String NAME_ATTR="name";
+  /**
+   * Tag 'mob', attribute 'division'.
+   */
+  public static final String DIVISION_ATTR="division";
 
   /**
    * Tag 'loot'.

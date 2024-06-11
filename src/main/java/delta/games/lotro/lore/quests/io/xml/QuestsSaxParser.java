@@ -16,6 +16,7 @@ import delta.games.lotro.common.Size;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.QuestCategory;
+import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsSaxParser;
 import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsXMLConstants;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
@@ -52,6 +53,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
   private WorldEventConditionsSaxParser _worldEventConditions;
   private SingleLocaleLabelsManager _i18n;
   private LotroEnum<QuestCategory> _categoryEnum;
+  private LotroEnum<QuestScope> _scopeEnum;
 
   /**
    * Constructor.
@@ -72,6 +74,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
     _worldEventConditions=new WorldEventConditionsSaxParser();
     _worldEventConditions.setParent(this);
     _categoryEnum=LotroEnumsRegistry.getInstance().get(QuestCategory.class);
+    _scopeEnum=LotroEnumsRegistry.getInstance().get(QuestScope.class);
   }
 
   /**
@@ -107,8 +110,12 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
       }
       q.setCategory(category);
       // Scope
-      String scope=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SCOPE_ATTR,"");
-      q.setQuestScope(scope);
+      Integer scopeCode=SAXParsingTools.getIntegerAttribute(attrs,QuestXMLConstants.QUEST_SCOPE_ATTR,null);
+      if (scopeCode!=null)
+      {
+        QuestScope scope=_scopeEnum.getEntry(scopeCode.intValue());
+        q.setQuestScope(scope);
+      }
       // Quest arc
       String arc=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_ARC_ATTR,"");
       arc=_i18n.getLabel(arc);

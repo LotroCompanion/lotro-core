@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -11,6 +12,9 @@ import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.TravelSkill;
+import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.MountType;
@@ -24,6 +28,7 @@ import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.collections.mounts.MountDescription;
 import delta.games.lotro.lore.collections.pets.CosmeticPetDescription;
+import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
@@ -33,6 +38,7 @@ import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
  */
 public class SkillDescriptionXMLParser
 {
+  private static final Logger LOGGER=Logger.getLogger(SkillDescriptionXMLParser.class);
 
   private SingleLocaleLabelsManager _i18n;
   // All skills
@@ -82,24 +88,29 @@ public class SkillDescriptionXMLParser
    */
   private SkillDescription parseSkillTag(Element root)
   {
+    SkillDescription ret=null;
     String tagName=root.getTagName();
     if (SkillDescriptionXMLConstants.SKILL_TAG.equals(tagName))
     {
-      return parseSkill(root);
+      ret=parseSkill(root);
     }
     else if (MountXMLConstants.MOUNT_TAG.equals(tagName))
     {
-      return parseMount(root);
+      ret=parseMount(root);
     }
     else if (CosmeticPetXMLConstants.PET_TAG.equals(tagName))
     {
-      return parsePet(root);
+      ret=parsePet(root);
     }
     else if (SkillDescriptionXMLConstants.TRAVEL_SKILL_TAG.equals(tagName))
     {
-      return parseTravelSkill(root);
+      ret=parseTravelSkill(root);
     }
-    return null;
+    if (ret!=null)
+    {
+      parseRequirements(root,ret);
+    }
+    return ret;
   }
 
   private TravelSkill parseTravelSkill(Element root)
@@ -217,5 +228,37 @@ public class SkillDescriptionXMLParser
     String description=DOMParsingTools.getStringAttribute(attrs,SkillDescriptionXMLConstants.SKILL_DESCRIPTION_ATTR,"");
     description=I18nRuntimeUtils.getLabel(_i18n,description);
     skill.setDescription(description);
+  }
+
+  private void parseRequirements(Element root, SkillDescription skill)
+  {
+    // Required trait
+    Element traitTag=DOMParsingTools.getChildTagByName(root,SkillDescriptionXMLConstants.REQUIRED_TRAIT_TAG);
+    if (traitTag!=null)
+    {
+      NamedNodeMap attrs=traitTag.getAttributes();
+      int id=DOMParsingTools.getIntAttribute(attrs,SkillDescriptionXMLConstants.REQUIRED_TRAIT_ID_ATTR,0);
+      String name=DOMParsingTools.getStringAttribute(attrs,SkillDescriptionXMLConstants.REQUIRED_TRAIT_NAME_ATTR,"");
+      Proxy<TraitDescription> trait=new Proxy<TraitDescription>();
+      trait.setId(id);
+      trait.setName(name);
+      skill.setRequiredTrait(trait);
+    }
+    // Required effects
+    List<Element> effectTags=DOMParsingTools.getChildTagsByName(root,SkillDescriptionXMLConstants.REQUIRED_EFFECT_TAG);
+    for(Element effectTag : effectTags)
+    {
+      NamedNodeMap attrs=effectTag.getAttributes();
+      int id=DOMParsingTools.getIntAttribute(attrs,SkillDescriptionXMLConstants.REQUIRED_EFFECT_ID_ATTR,0);
+      Effect effect=EffectsManager.getInstance().getEffectById(id);
+      if (effect!=null)
+      {
+        skill.addRequiredEffect(effect);
+      }
+      else
+      {
+        LOGGER.warn("Effect not found: "+id);
+      }
+    }
   }
 }

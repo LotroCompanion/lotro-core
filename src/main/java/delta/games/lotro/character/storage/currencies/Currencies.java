@@ -51,7 +51,7 @@ public class Currencies
   {
     // Gold
     Currency gold=new Currency(CurrencyKeys.GOLD,"Gold",Scope.CHARACTER,WORLD_CATEGORY);
-    gold.setFactor(100*1000);
+    gold.setSemantics(CurrencySemantics.MONEY);
     registerCurrency(gold);
     // XP
     Currency xp=new Currency(CurrencyKeys.XP,"XP",Scope.CHARACTER,WORLD_CATEGORY);
@@ -82,6 +82,7 @@ public class Currencies
     registerCurrency(lotroPoints);
     // In-game time
     Currency inGameTime=new Currency(CurrencyKeys.IN_GAME_TIME,"In-game Time",Scope.CHARACTER,"In-game Time");
+    inGameTime.setSemantics(CurrencySemantics.DURATION);
     registerCurrency(inGameTime);
   }
 

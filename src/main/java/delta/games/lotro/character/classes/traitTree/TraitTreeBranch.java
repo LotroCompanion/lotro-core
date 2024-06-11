@@ -20,6 +20,7 @@ public class TraitTreeBranch
   private TraitDescription _trait;
   private TraitTreeProgression _progression;
   private Map<String,TraitTreeCell> _cells;
+  private boolean _enabled;
 
   /**
    * Constructor.
@@ -31,6 +32,7 @@ public class TraitTreeBranch
     _trait=null;
     _cells=new HashMap<String,TraitTreeCell>();
     _progression=new TraitTreeProgression();
+    _enabled=true;
   }
 
   /**
@@ -127,6 +129,24 @@ public class TraitTreeBranch
   public void setCell(String cellId, TraitTreeCell cell)
   {
     _cells.put(cellId,cell);
+  }
+
+  /**
+   * Indicates if this branch is eligible as a main specialization.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isEnabled()
+  {
+    return _enabled;
+  }
+
+  /**
+   * Set the 'enabled' flag.
+   * @param enabled Value to set.
+   */
+  public void setEnabled(boolean enabled)
+  {
+    _enabled=enabled;
   }
 
   /**

@@ -3,9 +3,14 @@ package delta.games.lotro.lore.quests;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharacterSummary;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.status.crafting.CraftingStatus;
+import delta.games.lotro.common.requirements.filters.ClassRequirementFilter;
+import delta.games.lotro.common.requirements.filters.ProfessionRequirementFilter;
+import delta.games.lotro.common.requirements.filters.RaceRequirementFilter;
 import delta.games.lotro.common.requirements.filters.UsageRequirementFilter;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
@@ -18,37 +23,47 @@ public class AchievablesUtils
 {
   /**
    * Get the deeds for the given character.
-   * @param summary Character summary.
+   * @param character Character.
    * @return A list of deeds.
    */
-  public static List<DeedDescription> getDeeds(CharacterSummary summary)
+  public static List<DeedDescription> getDeeds(CharacterFile character)
   {
     List<DeedDescription> deeds=DeedsManager.getInstance().getAll();
-    return filter(deeds,summary);
+    return filter(deeds,character);
   }
 
   /**
    * Get the quests for the given character.
-   * @param summary Character summary.
+   * @param character Character.
    * @return A list of quests.
    */
-  public static List<QuestDescription> getQuests(CharacterSummary summary)
+  public static List<QuestDescription> getQuests(CharacterFile character)
   {
     List<QuestDescription> quests=QuestsManager.getInstance().getAll();
-    return filter(quests,summary);
+    return filter(quests,character);
   }
 
-  private static <T extends Achievable> List<T> filter(List<T> achievables, CharacterSummary summary)
+  private static <T extends Achievable> List<T> filter(List<T> achievables, CharacterFile character)
   {
     List<T> ret=new ArrayList<T>();
+    CharacterSummary summary=character.getSummary();
     ClassDescription characterClass=summary.getCharacterClass();
     RaceDescription race=summary.getRace();
-    UsageRequirementFilter classRaceFilter=new UsageRequirementFilter(characterClass,race);
+    UsageRequirementFilter requirementFilter=new UsageRequirementFilter();
+    ClassRequirementFilter classFilter=requirementFilter.getCharacterClassFilter();
+    classFilter.setCharacterClass(characterClass);
+    RaceRequirementFilter raceFilter=requirementFilter.getRaceFilter();
+    raceFilter.setRace(race);
+    CraftingStatus status=character.getCraftingMgr().getCraftingStatus();
+    ProfessionRequirementFilter craftingFilter=new ProfessionRequirementFilter(status);
     for(T achievable : achievables)
     {
-      if (classRaceFilter.accept(achievable.getUsageRequirement()))
+      if (requirementFilter.accept(achievable.getUsageRequirement()))
       {
-        ret.add(achievable);
+        if (craftingFilter.accept(achievable.getUsageRequirement()))
+        {
+          ret.add(achievable);
+        }
       }
     }
     return ret;

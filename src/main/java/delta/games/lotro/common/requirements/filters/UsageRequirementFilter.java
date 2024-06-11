@@ -1,10 +1,6 @@
 package delta.games.lotro.common.requirements.filters;
 
 import delta.common.utils.collections.filters.Filter;
-import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.common.requirements.ClassRequirement;
-import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 
 /**
@@ -13,87 +9,62 @@ import delta.games.lotro.common.requirements.UsageRequirement;
  */
 public class UsageRequirementFilter implements Filter<UsageRequirement>
 {
-  private ClassDescription _characterClass;
-  private RaceDescription _race;
+  private ClassRequirementFilter _classFilter;
+  private RaceRequirementFilter _raceFilter;
+  private SimpleProfessionRequirementFilter _professionFilter;
 
   /**
    * Constructor.
-   * @param characterClass Class to select (may be <code>null</code>).
-   * @param race Race to select (may be <code>null</code>).
    */
-  public UsageRequirementFilter(ClassDescription characterClass, RaceDescription race)
+  public UsageRequirementFilter()
   {
-    _characterClass=characterClass;
-    _race=race;
+    _classFilter=new ClassRequirementFilter();
+    _raceFilter=new RaceRequirementFilter();
+    _professionFilter=new SimpleProfessionRequirementFilter();
   }
 
   /**
-   * Get the character class to use.
-   * @return A character class or <code>null</code>.
+   * Get the character class filter.
+   * @return the character class filter.
    */
-  public ClassDescription getCharacterClass()
+  public ClassRequirementFilter getCharacterClassFilter()
   {
-    return _characterClass;
+    return _classFilter;
   }
 
   /**
-   * Set the character class to select.
-   * @param characterClass Character class to use, may be <code>null</code>.
+   * Get the race filter.
+   * @return the race filter.
    */
-  public void setCharacterClass(ClassDescription characterClass)
+  public RaceRequirementFilter getRaceFilter()
   {
-    _characterClass=characterClass;
+    return _raceFilter;
   }
 
   /**
-   * Get the race to use.
-   * @return A race or <code>null</code>.
+   * Get the profession filter.
+   * @return the profession filter.
    */
-  public RaceDescription getRace()
+  public SimpleProfessionRequirementFilter getProfessionFilter()
   {
-    return _race;
-  }
-
-  /**
-   * Set the race to select.
-   * @param race Race to use, may be <code>null</code>.
-   */
-  public void setRace(RaceDescription race)
-  {
-    _race=race;
+    return _professionFilter;
   }
 
   @Override
   public boolean accept(UsageRequirement requirement)
   {
-    return (acceptCharacterClass(requirement) && acceptRace(requirement));
-  }
-
-  private boolean acceptCharacterClass(UsageRequirement requirement)
-  {
-    if (_characterClass==null)
+    if (!_classFilter.accept(requirement.getClassRequirement()))
     {
-      return true;
+      return false;
     }
-    ClassRequirement classRequirement=requirement.getClassRequirement();
-    if (classRequirement==null)
+    if (!_raceFilter.accept(requirement.getRaceRequirement()))
     {
-      return true;
+      return false;
     }
-    return classRequirement.accept(_characterClass);
-  }
-
-  private boolean acceptRace(UsageRequirement requirement)
-  {
-    if (_race==null)
+    if (!_professionFilter.accept(requirement.getProfessionRequirement()))
     {
-      return true;
+      return false;
     }
-    RaceRequirement raceRequirement=requirement.getRaceRequirement();
-    if (raceRequirement==null)
-    {
-      return true;
-    }
-    return raceRequirement.accept(_race);
+    return true;
   }
 }

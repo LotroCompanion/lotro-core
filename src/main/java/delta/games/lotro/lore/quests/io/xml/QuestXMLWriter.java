@@ -17,6 +17,7 @@ import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
 import delta.games.lotro.common.enums.QuestCategory;
+import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.quests.Achievable;
@@ -108,10 +109,10 @@ public class QuestXMLWriter extends AchievableXMLWriter
     ChallengeLevel challengeLevel=quest.getChallengeLevel();
     questAttrs.addAttribute("","",AchievableXMLConstants.LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(challengeLevel.getCode()));
     // Scope
-    String scope=quest.getQuestScope();
-    if (scope.length()>0)
+    QuestScope scope=quest.getQuestScope();
+    if (scope!=null)
     {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SCOPE_ATTR,XmlWriter.CDATA,scope);
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SCOPE_ATTR,XmlWriter.CDATA,String.valueOf(scope.getCode()));
     }
     // Quest arc
     String arc=quest.getQuestArc();

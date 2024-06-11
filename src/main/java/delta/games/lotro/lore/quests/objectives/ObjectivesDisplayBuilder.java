@@ -34,6 +34,7 @@ import delta.games.lotro.utils.html.HtmlUtils;
 import delta.games.lotro.utils.strings.GenericOutput;
 import delta.games.lotro.utils.strings.StringRendering;
 import delta.games.lotro.utils.strings.TextSanitizer;
+import delta.games.lotro.utils.style.Style;
 
 /**
  * Display achievables objectives as text or HTML.
@@ -147,7 +148,9 @@ public class ObjectivesDisplayBuilder
         {
           failureText=(nb>1)?"Failure conditions:":"Failure condition:";
         }
-        sb.append("<p><u><font color=\"#FF0000\">").append(failureText).append("</font></u></p>");
+        _output.startParagraph(sb);
+        _output.printText(sb,failureText,Style.UNDERLINE,Style.getColorStyle("#FF0000"));
+        _output.endParagraph(sb);
         sb.append(childSb);
       }
     }
@@ -608,7 +611,6 @@ public class ObjectivesDisplayBuilder
         else
         {
           LOGGER.warn("No NPC, no mob and no progress override");
-          //sb.append("No NPC, no mob and no progress override"); // I18n
         }
       }
     }

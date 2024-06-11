@@ -47,6 +47,16 @@ public class Duration
    * @param duration Duration in seconds.
    * @return A displayable string.
    */
+  public static String getDurationStringNoSeconds(int duration)
+  {
+    return getDurationString(duration,SHOW_ALL-SHOW_SECONDS);
+  }
+
+  /**
+   * Get a duration string from a duration input.
+   * @param duration Duration in seconds.
+   * @return A displayable string.
+   */
   public static String getDurationString(int duration)
   {
     return getDurationString(duration,SHOW_ALL);

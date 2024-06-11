@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.quests.objectives;
 
 import delta.games.lotro.common.enums.QuestCategory;
+import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.utils.Proxy;
 
@@ -12,6 +13,7 @@ public class QuestCompleteCondition extends ObjectiveCondition
 {
   private Proxy<Achievable> _achievable;
   private QuestCategory _questCategory;
+  private QuestScope _questScope;
 
   /**
    * Constructor.
@@ -20,6 +22,7 @@ public class QuestCompleteCondition extends ObjectiveCondition
   {
     _achievable=null;
     _questCategory=null;
+    _questScope=null;
   }
 
   @Override
@@ -64,6 +67,24 @@ public class QuestCompleteCondition extends ObjectiveCondition
     _questCategory=questCategory;
   }
 
+  /**
+   * Get the quest scope.
+   * @return a quest scope or <code>null/code>.
+   */
+  public QuestScope getQuestScope()
+  {
+    return _questScope;
+  }
+
+  /**
+   * Set the quest scope.
+   * @param questScope scope to set.
+   */
+  public void setQuestScope(QuestScope questScope)
+  {
+    _questScope=questScope;
+  }
+
   @Override
   public String toString()
   {
@@ -82,6 +103,10 @@ public class QuestCompleteCondition extends ObjectiveCondition
     else if (_questCategory!=null)
     {
       sb.append("quest in category: ").append(_questCategory);
+    }
+    if (_questScope!=null)
+    {
+      sb.append(", scope=").append(_questScope);
     }
     return sb.toString();
   }

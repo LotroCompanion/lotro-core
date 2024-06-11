@@ -5,6 +5,7 @@ import java.util.List;
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.effects.Effect;
 
 /**
@@ -31,7 +32,8 @@ public class UsageRequirement
   private GloryRankRequirement _gloryRankRequirement;
   // Effect requirement
   private EffectRequirement _effectRequirement;
-  // TODO Trait requirement
+  // Trait requirement
+  private TraitRequirement _traitRequirement;
 
   /**
    * Constructor.
@@ -46,6 +48,7 @@ public class UsageRequirement
     _professionRequirement=null;
     _gloryRankRequirement=null;
     _effectRequirement=null;
+    _traitRequirement=null;
   }
 
   /**
@@ -282,6 +285,24 @@ public class UsageRequirement
   }
 
   /**
+   * Get the trait requirement.
+   * @return A trait requirement or <code>null</code>.
+   */
+  public TraitRequirement getTraitRequirement()
+  {
+    return _traitRequirement;
+  }
+
+  /**
+   * Set the trait requirement.
+   * @param traitRequirement Requirement to set, may be <code>null</code>.
+   */
+  public void setTraitRequirement(TraitRequirement traitRequirement)
+  {
+    _traitRequirement=traitRequirement;
+  }
+
+  /**
    * Indicates if the given parameter do pass this requirement.
    * @param level Level to test.
    * @param characterClass Character class to test.
@@ -367,6 +388,11 @@ public class UsageRequirement
     {
       Effect effect=_effectRequirement.getEffect();
       sb.append(" Effect=").append(effect.getName());
+    }
+    if (_traitRequirement!=null)
+    {
+      TraitDescription trait=_traitRequirement.getTrait();
+      sb.append(" Trait=").append(trait.getName());
     }
     return sb.toString().trim();
   }
