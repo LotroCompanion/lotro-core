@@ -1,8 +1,8 @@
 package delta.games.lotro.common.action;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import delta.games.lotro.common.enums.AICooldownChannel;
 import delta.games.lotro.common.enums.AIHint;
@@ -16,13 +16,13 @@ public class ActionTableEntry
   private float _probability;
   // Self data/constraints
   private Float _cooldown;
-  private Set<AIHint> _requiredHints;
-  private Set<AIHint> _disallowedHints;
+  private List<AIHint> _requiredHints;
+  private List<AIHint> _disallowedHints;
   private AICooldownChannel _cooldownChannel;
   // Target data/constraints
   private Float _targetCooldown;
-  private Set<AIHint> _targetRequiredHints;
-  private Set<AIHint> _targetDisallowedHints;
+  private List<AIHint> _targetRequiredHints;
+  private List<AIHint> _targetDisallowedHints;
   // Actions chain
   private List<ActionEntry> _actionsChain;
 
@@ -40,12 +40,12 @@ public class ActionTableEntry
   {
     _probability=0;
     _cooldown=null;
-    _requiredHints=null;
-    _disallowedHints=null;
+    _requiredHints=Collections.emptyList();
+    _disallowedHints=Collections.emptyList();
     _cooldownChannel=null;
     _targetCooldown=null;
-    _targetRequiredHints=null;
-    _targetDisallowedHints=null;
+    _targetRequiredHints=Collections.emptyList();
+    _targetDisallowedHints=Collections.emptyList();
     _actionsChain=new ArrayList<ActionEntry>();
   }
 
@@ -59,6 +59,15 @@ public class ActionTableEntry
   }
 
   /**
+   * Set the probability.
+   * @param probability Probability to set.
+   */
+  public void setProbability(float probability)
+  {
+    _probability=probability;
+  }
+
+  /**
    * Get the (self) cooldown.
    * @return A cooldown or <code>null</code>.
    */
@@ -68,21 +77,56 @@ public class ActionTableEntry
   }
 
   /**
-   * Get the required (self) hints.
-   * @return a non-empty set of hints, or <code>null</code>.
+   * Set the (self) cooldown.
+   * @param cooldown Cooldown to set (may be <code>null</code>).
    */
-  public Set<AIHint> getRequiredHints()
+  public void setCooldown(Float cooldown)
+  {
+    _cooldown=cooldown;
+  }
+
+  /**
+   * Get the required (self) hints.
+   * @return a list of hints.
+   */
+  public List<AIHint> getRequiredHints()
   {
     return _requiredHints;
   }
 
   /**
-   * Get the disallowed (self) hints.
-   * @return a non-empty set of hints, or <code>null</code>.
+   * Set the required hints.
+   * @param hints Hints to set.
    */
-  public Set<AIHint> getDisallowedHints()
+  public void setRequiredHints(List<AIHint> hints)
+  {
+    if (hints==null)
+    {
+      hints=Collections.emptyList();
+    }
+    _requiredHints=hints;
+  }
+
+  /**
+   * Get the disallowed (self) hints.
+   * @return a list of hints.
+   */
+  public List<AIHint> getDisallowedHints()
   {
     return _disallowedHints;
+  }
+
+  /**
+   * Set the required hints.
+   * @param hints Hints to set.
+   */
+  public void setDisallowedHints(List<AIHint> hints)
+  {
+    if (hints==null)
+    {
+      hints=Collections.emptyList();
+    }
+    _disallowedHints=hints;
   }
 
   /**
@@ -95,7 +139,17 @@ public class ActionTableEntry
   }
 
   /**
-   * @return the targetCooldown
+   * Set the cooldown channel.
+   * @param cooldownChannel Cooldown channel to set (may be <code>null</code>).
+   */
+  public void setCooldownChannel(AICooldownChannel cooldownChannel)
+  {
+    _cooldownChannel=cooldownChannel;
+  }
+
+  /**
+   * Get the target cooldown.
+   * @return A cooldown or <code>null</code>.
    */
   public Float getTargetCooldown()
   {
@@ -103,28 +157,73 @@ public class ActionTableEntry
   }
 
   /**
-   * Get the required (target) hints.
-   * @return a non-empty set of hints, or <code>null</code>.
+   * Set the target cooldown.
+   * @param targetCooldown Cooldown to set (may be <code>null</code>).
    */
-  public Set<AIHint> getTargetRequiredHints()
+  public void setTargetCooldown(Float targetCooldown)
+  {
+    _targetCooldown=targetCooldown;
+  }
+
+  /**
+   * Get the required (target) hints.
+   * @return a list of hints.
+   */
+  public List<AIHint> getTargetRequiredHints()
   {
     return _targetRequiredHints;
   }
 
   /**
-   * Get the disallowed (target) hints.
-   * @return a non-empty set of hints, or <code>null</code>.
+   * Set the target required hints.
+   * @param hints Hints to set.
    */
-  public Set<AIHint> getTargetDisallowedHints()
+  public void setTargetRequiredHints(List<AIHint> hints)
+  {
+    if (hints==null)
+    {
+      hints=Collections.emptyList();
+    }
+    _targetRequiredHints=hints;
+  }
+
+  /**
+   * Get the disallowed (target) hints.
+   * @return a list of hints.
+   */
+  public List<AIHint> getTargetDisallowedHints()
   {
     return _targetDisallowedHints;
   }
 
   /**
-   * @return the actionsChain
+   * Set the target disallowed hints.
+   * @param hints Hints to set.
+   */
+  public void setTargetDisallowedHints(List<AIHint> hints)
+  {
+    if (hints==null)
+    {
+      hints=Collections.emptyList();
+    }
+    _targetDisallowedHints=hints;
+  }
+
+  /**
+   * Get the actions chain.
+   * @return a list of action entries.
    */
   public List<ActionEntry> getActionsChain()
   {
     return _actionsChain;
+  }
+
+  /**
+   * Add an action.
+   * @param action Action to add.
+   */
+  public void addAction(ActionEntry action)
+  {
+    _actionsChain.add(action);
   }
 }
