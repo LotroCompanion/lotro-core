@@ -183,7 +183,6 @@ public class ActionTablesXMLWriter
     {
       return;
     }
-    hd.startElement("","",ActionTablesXMLConstants.ACTION_TABLES_USE_TAG,new AttributesImpl());
     for(ActionTablesEntry actionTableEntry : actionTables.getEntries())
     {
       AttributesImpl attrs=new AttributesImpl();
@@ -202,11 +201,10 @@ public class ActionTablesXMLWriter
       Integer maxLevel=actionTableEntry.getMaxLevel();
       if (maxLevel!=null)
       {
-        attrs.addAttribute("","",ActionTablesXMLConstants.MIN_LEVEL_ATTR,XmlWriter.CDATA,maxLevel.toString());
+        attrs.addAttribute("","",ActionTablesXMLConstants.MAX_LEVEL_ATTR,XmlWriter.CDATA,maxLevel.toString());
       }
       hd.startElement("","",ActionTablesXMLConstants.ACTION_TABLE_USE_TAG,attrs);
       hd.endElement("","",ActionTablesXMLConstants.ACTION_TABLE_USE_TAG);
     }
-    hd.endElement("","",ActionTablesXMLConstants.ACTION_TABLES_USE_TAG);
   }
 }

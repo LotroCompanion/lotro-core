@@ -8,10 +8,6 @@ package delta.games.lotro.common.action.io.xml;
 public class ActionTablesXMLConstants
 {
   /**
-   * Tag 'actionTables'.
-   */
-  public static final String ACTION_TABLES_USE_TAG="actionTables";
-  /**
    * Tag 'actionTable'.
    */
   public static final String ACTION_TABLE_USE_TAG="actionTable";

@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.agents.mobs;
 
+import delta.games.lotro.common.action.ActionTables;
 import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.lore.agents.AgentClassification;
 import delta.games.lotro.lore.agents.AgentDescription;
@@ -13,6 +14,7 @@ public class MobDescription extends AgentDescription
   private AgentClassification _classification;
   private MobLoot _loot;
   private MobDivision _division;
+  private ActionTables _actionTables;
 
   /**
    * Constructor.
@@ -69,6 +71,24 @@ public class MobDescription extends AgentDescription
   public void setDivision(MobDivision division)
   {
     _division=division;
+  }
+
+  /**
+   * Get the action tables.
+   * @return Action tables or <code>null</code>.
+   */
+  public ActionTables getActionTables()
+  {
+    return _actionTables;
+  }
+
+  /**
+   * Set the action tables.
+   * @param actionTables Tables to set (may be <code>null</code>).
+   */
+  public void setActionTables(ActionTables actionTables)
+  {
+    _actionTables=actionTables;
   }
 
   @Override

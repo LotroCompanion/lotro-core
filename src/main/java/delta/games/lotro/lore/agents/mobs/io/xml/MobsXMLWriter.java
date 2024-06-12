@@ -11,6 +11,8 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.common.action.ActionTables;
+import delta.games.lotro.common.action.io.xml.ActionTablesXMLWriter;
 import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.common.treasure.TreasureList;
 import delta.games.lotro.common.treasure.TrophyList;
@@ -24,6 +26,16 @@ import delta.games.lotro.lore.agents.mobs.MobLoot;
  */
 public class MobsXMLWriter
 {
+  private ActionTablesXMLWriter _actionTablesWriter;
+
+  /**
+   * Constructor.
+   */
+  public MobsXMLWriter()
+  {
+    _actionTablesWriter=new ActionTablesXMLWriter();
+  }
+
   /**
    * Write a file with mobs.
    * @param toFile Output file.
@@ -95,6 +107,11 @@ public class MobsXMLWriter
       writeMobLoot(attrs,loot);
     }
     hd.startElement("","",MobsXMLConstants.MOB_TAG,attrs);
+    ActionTables actionTables=mob.getActionTables();
+    if (actionTables!=null)
+    {
+      _actionTablesWriter.writeActionTablesUsage(hd,actionTables);
+    }
     hd.endElement("","",MobsXMLConstants.MOB_TAG);
   }
 
