@@ -355,6 +355,10 @@ public class DataFiles
    */
   public static final String MOOD="mood";
   /**
+   * Action tables file.
+   */
+  public static final String ACTION_TABLES="actionTables";
+  /**
    * Labels file.
    */
   public static final String LABELS="labelsDir";

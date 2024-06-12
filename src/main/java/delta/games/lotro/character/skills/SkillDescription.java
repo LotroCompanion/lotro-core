@@ -97,6 +97,10 @@ public class SkillDescription implements Identifiable,Named
    */
   public void setName(String name)
   {
+    if (name==null)
+    {
+      name="";
+    }
     _name=name;
   }
 
