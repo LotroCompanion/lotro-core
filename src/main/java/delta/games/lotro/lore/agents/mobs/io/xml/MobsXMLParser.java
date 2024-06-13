@@ -8,6 +8,8 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.common.action.ActionTables;
+import delta.games.lotro.common.action.io.xml.ActionTablesXMLParser;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.MobDivision;
@@ -28,6 +30,7 @@ public class MobsXMLParser
 {
   private SingleLocaleLabelsManager _i18n;
   private LotroEnum<MobDivision> _mobDivision;
+  private ActionTablesXMLParser _actionTablesParser;
 
   /**
    * Constructor.
@@ -36,6 +39,7 @@ public class MobsXMLParser
   {
     _i18n=I18nFacade.getLabelsMgr("mobs");
     _mobDivision=LotroEnumsRegistry.getInstance().get(MobDivision.class);
+    _actionTablesParser=new ActionTablesXMLParser();
   }
 
   /**
@@ -89,8 +93,12 @@ public class MobsXMLParser
     }
     // Classification
     AgentsXMLIO.parseClassificationTag(mobTag,ret.getClassification());
+    // Loot
     MobLoot loot=parseMobLoot(mobTag);
     ret.setMobLoot(loot);
+    // Action tables
+    ActionTables tables=_actionTablesParser.parseTablesUsage(mobTag);
+    ret.setActionTables(tables);
     return ret;
   }
 

@@ -2,12 +2,10 @@ package delta.games.lotro.common.effects.io.xml;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -38,8 +36,6 @@ import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
-import delta.games.lotro.common.enums.LotroEnum;
-import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
@@ -54,6 +50,7 @@ import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.utils.Proxy;
+import delta.games.lotro.utils.enums.EnumXMLUtils;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -63,8 +60,6 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class EffectXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(EffectXMLParser.class);
-
   private SingleLocaleLabelsManager _labelsMgr;
   private List<EffectGenerator> _toUpdate;
   private List<EffectAndProbability> _toUpdate2;
@@ -181,7 +176,7 @@ public class EffectXMLParser
     ret.setMaxDispelCount(maxDispelCount);
     // Resist categories
     String resistCategories=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.DISPEL_BY_RESIST_CATEGORIES_ATTR,null);
-    List<ResistCategory> categories=readEnumEntriesList(resistCategories,ResistCategory.class);
+    List<ResistCategory> categories=EnumXMLUtils.readEnumEntriesList(resistCategories,ResistCategory.class);
     if (!categories.isEmpty())
     {
       for(ResistCategory category : categories)
@@ -378,7 +373,7 @@ public class EffectXMLParser
     NamedNodeMap attrs=root.getAttributes();
     // Skill types
     String skillTypesStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.PROC_SKILL_TYPES_ATTR,null);
-    List<SkillType> skillTypes=readEnumEntriesList(skillTypesStr,SkillType.class);
+    List<SkillType> skillTypes=EnumXMLUtils.readEnumEntriesList(skillTypesStr,SkillType.class);
     if (!skillTypes.isEmpty())
     {
       ret.setSkillTypes(skillTypes);
@@ -405,7 +400,7 @@ public class EffectXMLParser
     NamedNodeMap attrs=root.getAttributes();
     // Incoming damage types
     String damageTypesStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.REACTIVE_VITAL_DAMAGE_TYPES_ATTR,null);
-    List<DamageType> damageTypes=readEnumEntriesList(damageTypesStr,DamageType.class);
+    List<DamageType> damageTypes=EnumXMLUtils.readEnumEntriesList(damageTypesStr,DamageType.class);
     if (!damageTypes.isEmpty())
     {
       for(DamageType damageType : damageTypes)
@@ -664,31 +659,6 @@ public class EffectXMLParser
     effect.setId(effectId);
     EffectGenerator ret=new EffectGenerator(effect,spellcraft);
     _toUpdate.add(ret);
-    return ret;
-  }
-
-  private <T extends LotroEnumEntry> List<T> readEnumEntriesList(String value, Class<T> enumEntryClass)
-  {
-    if ((value==null) || (value.length()==0))
-    {
-      return Collections.emptyList();
-    }
-    List<T> ret=new ArrayList<T>();
-    LotroEnum<T> lotroEnum=LotroEnumsRegistry.getInstance().get(enumEntryClass);
-    String[] codeStrs=value.split(",");
-    for(String codeStr : codeStrs)
-    {
-      int code=NumericTools.parseInt(codeStr,0);
-      T entry=lotroEnum.getEntry(code);
-      if (entry!=null)
-      {
-        ret.add(entry);
-      }
-      else
-      {
-        LOGGER.warn("null entry: code="+code+" for class: "+enumEntryClass);
-      }
-    }
     return ret;
   }
 
