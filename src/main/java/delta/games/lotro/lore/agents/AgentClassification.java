@@ -28,7 +28,7 @@ public class AgentClassification
 
   /**
    * Get the alignment.
-   * @return an alignement or an empty string.
+   * @return an alignment or <code>null</code>.
    */
   public Alignment getAlignment()
   {
@@ -46,7 +46,7 @@ public class AgentClassification
 
   /**
    * Get the agent class.
-   * @return an agent class or an empty string.
+   * @return an agent class or <code>null</code>.
    */
   public AgentClass getAgentClass()
   {
@@ -64,7 +64,7 @@ public class AgentClassification
 
   /**
    * Get the classification filter.
-   * @return a classification filter or an empty string.
+   * @return a classification filter or <code>null</code>.
    */
   public ClassificationFilter getClassificationFilter()
   {
