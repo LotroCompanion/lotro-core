@@ -9,6 +9,9 @@ public class PVPDataXMLConstants
   /**
    * Tag 'pvp'.
    */
+  private PVPDataXMLConstants() {
+  }
+  
   public static final String PVP_TAG="pvp";
   /**
    * Tag 'scale'.
