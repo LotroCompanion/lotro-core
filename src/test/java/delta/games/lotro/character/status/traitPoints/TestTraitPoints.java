@@ -4,10 +4,10 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
- * Test class for trait points status.
+ * Test class for trait points utilities.
  * @author DAM
  */
-public class TestTraitPointsStatus extends TestCase
+public class TestTraitPoints extends TestCase
 {
   /**
    * Test the computation of the number of trait points given from the level.
@@ -20,7 +20,7 @@ public class TestTraitPointsStatus extends TestCase
     int nbItems=Math.min(levels.length,expected.length);
     for(int i=0;i<nbItems;i++)
     {
-      int nbPoints=TraitPointsStatus.getTraitPointsFromLevel(levels[i]);
+      int nbPoints=TraitPoints.getTraitPointsFromLevel(levels[i]);
       Assert.assertEquals("Item #"+i,expected[i],nbPoints);
     }
   }

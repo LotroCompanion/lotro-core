@@ -134,10 +134,6 @@ public class DataFiles
    */
   public static final String TITLES="titles";
   /**
-   * Trait points file.
-   */
-  public static final String TRAIT_POINTS="traitPoints";
-  /**
    * Warbands file.
    */
   public static final String WARBANDS="warbands";
