@@ -3,7 +3,6 @@ package delta.games.lotro.character.stats;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.status.traits.shared.TraitSlotsStatus;
 import delta.games.lotro.character.traits.TraitDescription;
@@ -18,10 +17,10 @@ public class RacialTraitsStatsComputer
   /**
    * Compute stats contributions for racial traits.
    * @param status Status to use.
-   * @param c Character to use.
+   * @param level Level to use.
    * @return a possibly empty but never <code>null</code> list of stats contributions.
    */
-  public static List<StatsContribution> getContributions(TraitSlotsStatus status, CharacterData c)
+  public static List<StatsContribution> getContributions(TraitSlotsStatus status, int level)
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     TraitsManager traitsMgr=TraitsManager.getInstance();
@@ -38,7 +37,7 @@ public class RacialTraitsStatsComputer
       {
         continue;
       }
-      StatsContribution contrib=handleTrait(c,trait,1);
+      StatsContribution contrib=handleTrait(level,trait,1);
       if (contrib!=null)
       {
         ret.add(contrib);
@@ -47,9 +46,9 @@ public class RacialTraitsStatsComputer
     return ret;
   }
 
-  private static StatsContribution handleTrait(CharacterData c, TraitDescription trait, int rank)
+  private static StatsContribution handleTrait(int level, TraitDescription trait, int rank)
   {
-    BasicStatsSet stats=StatsComputer.getStats(c,trait,rank);
+    BasicStatsSet stats=StatsComputer.getStats(level,trait,rank);
     StatsContribution contrib=StatsContribution.getTraitContrib(trait,stats);
     return contrib;
   }

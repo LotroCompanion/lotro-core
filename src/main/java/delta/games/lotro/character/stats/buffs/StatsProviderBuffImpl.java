@@ -3,7 +3,6 @@ package delta.games.lotro.character.stats.buffs;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.StatDescription;
@@ -32,14 +31,14 @@ public class StatsProviderBuffImpl extends AbstractBuffImpl
   }
 
   @Override
-  public BasicStatsSet getStats(CharacterData character, BuffInstance buff)
+  public BasicStatsSet getStats(int level, BuffInstance buff)
   {
     BasicStatsSet stats=new BasicStatsSet();
     int nbStats=_statsProvider.getNumberOfStatProviders();
     for(int i=0;i<nbStats;i++)
     {
       StatProvider provider=_statsProvider.getStatProvider(i);
-      Float value=getStatValue(character,buff,provider);
+      Float value=getStatValue(level,buff,provider);
       if (value!=null)
       {
         StatDescription stat=provider.getStat();
@@ -63,11 +62,10 @@ public class StatsProviderBuffImpl extends AbstractBuffImpl
     return ret;
   }
 
-  private Float getStatValue(CharacterData character, BuffInstance buff, StatProvider provider)
+  private Float getStatValue(int level, BuffInstance buff, StatProvider provider)
   {
     Integer tier=buff.getTier();
     int tierValue=(tier!=null)?tier.intValue():1;
-    int level=character.getLevel();
     Float value=null;
     if (provider instanceof TieredScalableStatProvider)
     {

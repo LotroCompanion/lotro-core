@@ -1,6 +1,5 @@
 package delta.games.lotro.character.stats.buffs;
 
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 
 /**
@@ -59,14 +58,14 @@ public class BuffInstance
   }
 
   /**
-   * Get the stats contributed by this buff on the given character.
-   * @param c Targeted character.
+   * Get the stats contributed by this buff for the given character level.
+   * @param level Targeted character level.
    * @return Some stats.
    */
-  public BasicStatsSet getStats(CharacterData c)
+  public BasicStatsSet getStats(int level)
   {
     AbstractBuffImpl impl=_buff.getImpl();
-    BasicStatsSet buffContrib=impl.getStats(c,this);
+    BasicStatsSet buffContrib=impl.getStats(level,this);
     return buffContrib;
   }
 

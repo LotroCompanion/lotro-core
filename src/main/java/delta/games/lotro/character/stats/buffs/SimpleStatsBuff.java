@@ -1,6 +1,5 @@
 package delta.games.lotro.character.stats.buffs;
 
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 
 /**
@@ -21,7 +20,7 @@ public class SimpleStatsBuff extends AbstractBuffImpl
   }
 
   @Override
-  public BasicStatsSet getStats(CharacterData character, BuffInstance buff)
+  public BasicStatsSet getStats(int level, BuffInstance buff)
   {
     return _stats;
   }

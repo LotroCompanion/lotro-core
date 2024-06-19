@@ -1,6 +1,5 @@
 package delta.games.lotro.character.stats;
 
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.traits.EffectAtRank;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.effects.Effect;
@@ -19,17 +18,17 @@ public class StatsComputer
 {
   /**
    * Get the stats for a given trait.
-   * @param character Character to use.
+   * @param level Level to use.
    * @param trait Trait.
    * @param tier Tier to use.
    * @return some stats.
    */
-  public static BasicStatsSet getStats(CharacterData character, TraitDescription trait, int tier)
+  public static BasicStatsSet getStats(int level, TraitDescription trait, int tier)
   {
     StatsProvider statsProvider=trait.getStatsProvider();
     int tiersCount=trait.getTiersCount();
-    BasicStatsSet stats=getStats(character,statsProvider,tiersCount,tier);
-    BasicStatsSet statsFromEffects=getStatsFromEffectsAtRank(character,trait,tier);
+    BasicStatsSet stats=getStats(level,statsProvider,tiersCount,tier);
+    BasicStatsSet statsFromEffects=getStatsFromEffectsAtRank(level,trait,tier);
     if (statsFromEffects.getStatsCount()>0)
     {
       stats.addStats(statsFromEffects);
@@ -37,14 +36,14 @@ public class StatsComputer
     return stats;
   }
 
-  private static BasicStatsSet getStats(CharacterData character, StatsProvider statsProvider, int tiersCount, int tier)
+  private static BasicStatsSet getStats(int level, StatsProvider statsProvider, int tiersCount, int tier)
   {
     BasicStatsSet stats=new BasicStatsSet();
     int nbStats=statsProvider.getNumberOfStatProviders();
     for(int i=0;i<nbStats;i++)
     {
       StatProvider provider=statsProvider.getStatProvider(i);
-      Float value=getStatValue(character,tier,tiersCount,provider);
+      Float value=getStatValue(level,tier,tiersCount,provider);
       if (value!=null)
       {
         StatDescription stat=provider.getStat();
@@ -54,7 +53,7 @@ public class StatsComputer
     return stats;
   }
 
-  private static BasicStatsSet getStatsFromEffectsAtRank(CharacterData character, TraitDescription trait, int tier)
+  private static BasicStatsSet getStatsFromEffectsAtRank(int level, TraitDescription trait, int tier)
   {
     BasicStatsSet stats=new BasicStatsSet();
     for(EffectAtRank effectAtRank : trait.getEffects())
@@ -68,7 +67,7 @@ public class StatsComputer
           PropertyModificationEffect propModEffect=(PropertyModificationEffect)effect;
           StatsProvider statsProvider=propModEffect.getStatsProvider();
           int tiersCount=trait.getTiersCount();
-          stats=getStats(character,statsProvider,tiersCount,tier);
+          stats=getStats(level,statsProvider,tiersCount,tier);
           break;
         }
       }
@@ -76,9 +75,8 @@ public class StatsComputer
     return stats;
   }
 
-  private static Float getStatValue(CharacterData character, int tier, int tiersCount, StatProvider provider)
+  private static Float getStatValue(int level, int tier, int tiersCount, StatProvider provider)
   {
-    int level=character.getLevel();
     Float value=null;
     if (provider instanceof TieredScalableStatProvider)
     {

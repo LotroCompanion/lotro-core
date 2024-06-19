@@ -3,7 +3,6 @@ package delta.games.lotro.character.stats.buffs;
 import java.util.Collections;
 import java.util.List;
 
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 
 /**
@@ -13,12 +12,12 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 public abstract class AbstractBuffImpl
 {
   /**
-   * Compute the stats contribution of a buff on a character.
-   * @param character Targeted character.
+   * Compute the stats contribution of a buff for a character level.
+   * @param level Targeted character level.
    * @param buff Buff to use.
    * @return A stats set or <code>null</code> if not supported.
    */
-  public BasicStatsSet getStats(CharacterData character, BuffInstance buff)
+  public BasicStatsSet getStats(int level, BuffInstance buff)
   {
     return null;
   }

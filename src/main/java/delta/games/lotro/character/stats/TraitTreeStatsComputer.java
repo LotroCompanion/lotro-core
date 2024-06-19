@@ -3,7 +3,6 @@ package delta.games.lotro.character.stats;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
@@ -18,10 +17,10 @@ public class TraitTreeStatsComputer
   /**
    * Compute stats contributions for a trait tree.
    * @param status Trait tree status to use.
-   * @param c Character to use.
+   * @param level Level to use.
    * @return a possibly empty but never <code>null</code> list of stats contributions.
    */
-  public static List<StatsContribution> getContributions(TraitTreeStatus status, CharacterData c)
+  public static List<StatsContribution> getContributions(TraitTreeStatus status, int level)
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     // Handle selected traits
@@ -31,7 +30,7 @@ public class TraitTreeStatsComputer
       Integer rank=status.getRankForTrait(trait.getIdentifier());
       if ((rank!=null) && (rank.intValue()>0))
       {
-        StatsContribution contrib=handleTrait(c,trait,rank.intValue());
+        StatsContribution contrib=handleTrait(level,trait,rank.intValue());
         if (contrib!=null)
         {
           ret.add(contrib);
@@ -42,7 +41,7 @@ public class TraitTreeStatsComputer
     List<TraitDescription> unlockedTraits=status.getUnlockedTraits();
     for(TraitDescription trait : unlockedTraits)
     {
-      StatsContribution contrib=handleTrait(c,trait,1);
+      StatsContribution contrib=handleTrait(level,trait,1);
       if (contrib!=null)
       {
         ret.add(contrib);
@@ -51,9 +50,9 @@ public class TraitTreeStatsComputer
     return ret;
   }
 
-  private static StatsContribution handleTrait(CharacterData c, TraitDescription trait, int rank)
+  private static StatsContribution handleTrait(int level, TraitDescription trait, int rank)
   {
-    BasicStatsSet stats=StatsComputer.getStats(c,trait,rank);
+    BasicStatsSet stats=StatsComputer.getStats(level,trait,rank);
     StatsContribution contrib=StatsContribution.getTraitContrib(trait,stats);
     return contrib;
   }

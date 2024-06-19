@@ -3,7 +3,6 @@ package delta.games.lotro.character.status.traits;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.RacialTraitsStatsComputer;
 import delta.games.lotro.character.stats.TraitTreeStatsComputer;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
@@ -81,22 +80,22 @@ public class TraitsStatus
   }
 
   /**
-   * Get stats contributions for the traits on the given character.
-   * @param c Targeted character.
+   * Get stats contributions for the traits for the given character level.
+   * @param level Character level.
    * @return A possibly empty but not <code>null</code> list of contributions.
    */
-  public List<StatsContribution> getContributions(CharacterData c)
+  public List<StatsContribution> getContributions(int level)
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     // Trait tree
     if (_traitTree!=null)
     {
-      ret.addAll(TraitTreeStatsComputer.getContributions(_traitTree,c));
+      ret.addAll(TraitTreeStatsComputer.getContributions(_traitTree,level));
     }
     // Racial traits
     if (_racialTraits!=null)
     {
-      ret.addAll(RacialTraitsStatsComputer.getContributions(_racialTraits,c));
+      ret.addAll(RacialTraitsStatsComputer.getContributions(_racialTraits,level));
     }
     return ret;
   }

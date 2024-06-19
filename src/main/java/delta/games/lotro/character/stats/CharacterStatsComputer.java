@@ -137,12 +137,13 @@ public class CharacterStatsComputer
     List<StatsContribution> equipmentStats=getEquipmentStats(c.getLevel(),c.getEquipment());
     allContribs.addAll(equipmentStats);
 
+    int level=c.getLevel();
     // Buffs
-    List<StatsContribution> buffContribs=c.getBuffs().getContributions(c);
+    List<StatsContribution> buffContribs=c.getBuffs().getContributions(level);
     allContribs.addAll(buffContribs);
 
     // Traits
-    List<StatsContribution> traitContribs=c.getTraits().getContributions(c);
+    List<StatsContribution> traitContribs=c.getTraits().getContributions(level);
     allContribs.addAll(traitContribs);
 
     // Virtues

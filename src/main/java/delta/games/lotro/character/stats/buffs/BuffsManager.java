@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 
@@ -148,16 +147,16 @@ public class BuffsManager
   }
 
   /**
-   * Get stats contributions for the buffs on the given character.
-   * @param c Targeted character.
+   * Get stats contributions for the buffs for the given character level.
+   * @param level Targeted character level.
    * @return A possibly empty but not <code>null</code> list of contributions.
    */
-  public List<StatsContribution> getContributions(CharacterData c)
+  public List<StatsContribution> getContributions(int level)
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     for(BuffInstance buff : _buffs)
     {
-      BasicStatsSet buffContrib=buff.getStats(c);
+      BasicStatsSet buffContrib=buff.getStats(level);
       if (buffContrib!=null)
       {
         StatsContribution statsContrib=StatsContribution.getBuffContrib(buff,buffContrib);

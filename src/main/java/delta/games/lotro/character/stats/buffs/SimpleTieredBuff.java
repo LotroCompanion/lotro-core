@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.BasicStatsSet;
 
 /**
@@ -44,7 +43,7 @@ public class SimpleTieredBuff extends AbstractBuffImpl
   }
 
   @Override
-  public BasicStatsSet getStats(CharacterData character, BuffInstance buff)
+  public BasicStatsSet getStats(int level, BuffInstance buff)
   {
     Integer tier=buff.getTier();
     BasicStatsSet stats=null;
