@@ -107,15 +107,19 @@ public class RaceDescriptionXMLWriter
     }
     // Traits
     List<TraitAndLevel> traits=raceDescription.getTraits();
-    for(TraitAndLevel trait : traits)
+    for(TraitAndLevel traitAndLevel : traits)
     {
       AttributesImpl traitAttrs=new AttributesImpl();
       // Min level
-      int minLevel=trait.getRequiredLevel();
+      int minLevel=traitAndLevel.getRequiredLevel();
       traitAttrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_TRAIT_MIN_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(minLevel));
       // Trait identifier
-      int traitId=trait.getTrait().getIdentifier();
+      TraitDescription trait=traitAndLevel.getTrait();
+      int traitId=trait.getIdentifier();
       traitAttrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
+      // Trait name
+      String traitName=trait.getName();
+      traitAttrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_TRAIT_NAME_ATTR,XmlWriter.CDATA,traitName);
       hd.startElement("","",RaceDescriptionXMLConstants.RACE_TRAIT_TAG,traitAttrs);
       hd.endElement("","",RaceDescriptionXMLConstants.RACE_TRAIT_TAG);
     }
@@ -127,6 +131,9 @@ public class RaceDescriptionXMLWriter
       // Trait identifier
       int traitId=trait.getIdentifier();
       traitAttrs.addAttribute("","",RaceDescriptionXMLConstants.EARNABLE_TRAIT_ID_ATTR,XmlWriter.CDATA,String.valueOf(traitId));
+      // Trait name
+      String traitName=trait.getName();
+      traitAttrs.addAttribute("","",RaceDescriptionXMLConstants.EARNABLE_TRAIT_NAME_ATTR,XmlWriter.CDATA,traitName);
       hd.startElement("","",RaceDescriptionXMLConstants.EARNABLE_TRAIT_TAG,traitAttrs);
       hd.endElement("","",RaceDescriptionXMLConstants.EARNABLE_TRAIT_TAG);
     }
