@@ -12,7 +12,6 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
-import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.MonsterClassDescription;
 import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLParser;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
@@ -22,6 +21,7 @@ import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.character.utils.TraitAndLevel;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
@@ -138,7 +138,7 @@ public class ClassDescriptionXMLParser
       // Trait ID
       int traitId=DOMParsingTools.getIntAttribute(traitAttrs,ClassDescriptionXMLConstants.CLASS_TRAIT_ID_ATTR,0);
       TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
-      ClassTrait classTrait=new ClassTrait(minLevel,trait);
+      TraitAndLevel classTrait=new TraitAndLevel(minLevel,trait);
       ret.addTrait(classTrait);
     }
     // Skills

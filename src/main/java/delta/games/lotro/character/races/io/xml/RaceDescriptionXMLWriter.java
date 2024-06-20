@@ -14,8 +14,8 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.races.NationalityDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceGender;
-import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.utils.TraitAndLevel;
 
 /**
  * Writes race descriptions to XML files.
@@ -106,8 +106,8 @@ public class RaceDescriptionXMLWriter
       hd.endElement("","",RaceDescriptionXMLConstants.ALLOWED_CLASS_TAG);
     }
     // Traits
-    List<RaceTrait> traits=raceDescription.getTraits();
-    for(RaceTrait trait : traits)
+    List<TraitAndLevel> traits=raceDescription.getTraits();
+    for(TraitAndLevel trait : traits)
     {
       AttributesImpl traitAttrs=new AttributesImpl();
       // Min level

@@ -13,9 +13,9 @@ import delta.games.lotro.character.races.NationalitiesManager;
 import delta.games.lotro.character.races.NationalityDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.character.races.RaceGender;
-import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
+import delta.games.lotro.character.utils.TraitAndLevel;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
@@ -129,7 +129,7 @@ public class RaceDescriptionXMLParser
       // Trait ID
       int traitId=DOMParsingTools.getIntAttribute(traitAttrs,RaceDescriptionXMLConstants.RACE_TRAIT_ID_ATTR,0);
       TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
-      RaceTrait raceTrait=new RaceTrait(minLevel,trait);
+      TraitAndLevel raceTrait=new TraitAndLevel(minLevel,trait);
       raceDescription.addTrait(raceTrait);
     }
     // Earnable traits

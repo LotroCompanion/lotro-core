@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.utils.TraitAndLevel;
 import delta.games.lotro.common.Genders;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
@@ -26,7 +27,7 @@ public class RaceDescription implements Identifiable,Named
   private RaceGender _female;
   private List<NationalityDescription> _nationalities;
   private List<String> _classes;
-  private List<RaceTrait> _traits;
+  private List<TraitAndLevel> _traits;
   private List<TraitDescription> _earnableTraits;
 
   /**
@@ -50,7 +51,7 @@ public class RaceDescription implements Identifiable,Named
     _female=null;
     _nationalities=new ArrayList<NationalityDescription>();
     _classes=new ArrayList<String>();
-    _traits=new ArrayList<RaceTrait>();
+    _traits=new ArrayList<TraitAndLevel>();
     _earnableTraits=new ArrayList<TraitDescription>();
   }
 
@@ -249,7 +250,7 @@ public class RaceDescription implements Identifiable,Named
    * Add a race trait.
    * @param trait Trait to add.
    */
-  public void addTrait(RaceTrait trait)
+  public void addTrait(TraitAndLevel trait)
   {
     _traits.add(trait);
   }
@@ -258,7 +259,7 @@ public class RaceDescription implements Identifiable,Named
    * Get all the traits of this race.
    * @return A list of race traits.
    */
-  public List<RaceTrait> getTraits()
+  public List<TraitAndLevel> getTraits()
   {
     return _traits;
   }
@@ -289,7 +290,7 @@ public class RaceDescription implements Identifiable,Named
   public List<TraitDescription> getTraitsForLevel(int level)
   {
     List<TraitDescription> traits=new ArrayList<TraitDescription>();
-    for(RaceTrait classTrait : _traits)
+    for(TraitAndLevel classTrait : _traits)
     {
       TraitDescription trait=classTrait.getTrait();
       if (_earnableTraits.contains(trait))

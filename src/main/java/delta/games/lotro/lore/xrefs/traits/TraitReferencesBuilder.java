@@ -5,13 +5,12 @@ import java.util.List;
 
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.character.races.RaceTrait;
 import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.utils.TraitAndLevel;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
@@ -71,8 +70,8 @@ public class TraitReferencesBuilder
 
   private void findInRace(RaceDescription race, int traitID)
   {
-    List<RaceTrait> raceTraits=race.getTraits();
-    for(RaceTrait raceTrait : raceTraits)
+    List<TraitAndLevel> raceTraits=race.getTraits();
+    for(TraitAndLevel raceTrait : raceTraits)
     {
       TraitDescription trait=raceTrait.getTrait();
       if (trait.getIdentifier()==traitID)
@@ -100,8 +99,8 @@ public class TraitReferencesBuilder
   private void findInClass(AbstractClassDescription classDescription, int traitID)
   {
     // Regular traits
-    List<ClassTrait> classTraits=classDescription.getTraits();
-    for(ClassTrait classTrait : classTraits)
+    List<TraitAndLevel> classTraits=classDescription.getTraits();
+    for(TraitAndLevel classTrait : classTraits)
     {
       TraitDescription trait=classTrait.getTrait();
       if (trait.getIdentifier()==traitID)

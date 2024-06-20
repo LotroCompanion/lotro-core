@@ -14,13 +14,13 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
-import delta.games.lotro.character.classes.ClassTrait;
 import delta.games.lotro.character.classes.MonsterClassDescription;
 import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLWriter;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.utils.TraitAndLevel;
 
 /**
  * Writes class descriptions to XML files.
@@ -108,8 +108,8 @@ public class ClassDescriptionXMLWriter
   private static void writeTraits(TransformerHandler hd, AbstractClassDescription description) throws SAXException
   {
     // Traits
-    List<ClassTrait> traits=description.getTraits();
-    for(ClassTrait trait : traits)
+    List<TraitAndLevel> traits=description.getTraits();
+    for(TraitAndLevel trait : traits)
     {
       AttributesImpl traitAttrs=new AttributesImpl();
       // Min level

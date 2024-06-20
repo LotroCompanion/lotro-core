@@ -1,12 +1,12 @@
-package delta.games.lotro.character.classes;
+package delta.games.lotro.character.utils;
 
 import delta.games.lotro.character.traits.TraitDescription;
 
 /**
- * Trait for a class.
+ * A trait and a level.
  * @author DAM
  */
-public class ClassTrait
+public class TraitAndLevel
 {
   private int _requiredLevel;
   private TraitDescription _trait;
@@ -16,7 +16,7 @@ public class ClassTrait
    * @param requiredLevel Required level.
    * @param trait Trait.
    */
-  public ClassTrait(int requiredLevel, TraitDescription trait)
+  public TraitAndLevel(int requiredLevel, TraitDescription trait)
   {
     _requiredLevel=requiredLevel;
     _trait=trait;

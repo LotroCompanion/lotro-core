@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.utils.TraitAndLevel;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 
@@ -22,7 +23,7 @@ public class AbstractClassDescription implements Identifiable,Named
   private int _smallIconId;
   private String _abbreviation;
   private String _description;
-  private List<ClassTrait> _traits;
+  private List<TraitAndLevel> _traits;
   private List<ClassSkill> _skills;
 
   /**
@@ -40,7 +41,7 @@ public class AbstractClassDescription implements Identifiable,Named
     _tag="";
     _iconId=0;
     _smallIconId=0;
-    _traits=new ArrayList<ClassTrait>();
+    _traits=new ArrayList<TraitAndLevel>();
     _skills=new ArrayList<ClassSkill>();
   }
 
@@ -188,7 +189,7 @@ public class AbstractClassDescription implements Identifiable,Named
    * Add a class trait.
    * @param trait Trait to add.
    */
-  public void addTrait(ClassTrait trait)
+  public void addTrait(TraitAndLevel trait)
   {
     _traits.add(trait);
   }
@@ -197,7 +198,7 @@ public class AbstractClassDescription implements Identifiable,Named
    * Get all the traits of this class.
    * @return A list of class traits.
    */
-  public List<ClassTrait> getTraits()
+  public List<TraitAndLevel> getTraits()
   {
     return _traits;
   }
@@ -210,7 +211,7 @@ public class AbstractClassDescription implements Identifiable,Named
   public List<TraitDescription> getTraitsForLevel(int level)
   {
     List<TraitDescription> traits=new ArrayList<TraitDescription>();
-    for(ClassTrait classTrait : _traits)
+    for(TraitAndLevel classTrait : _traits)
     {
       int requiredLevel=classTrait.getRequiredLevel();
       if (level>=requiredLevel)
