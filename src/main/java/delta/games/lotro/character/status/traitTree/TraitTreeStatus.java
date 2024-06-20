@@ -269,7 +269,11 @@ public class TraitTreeStatus
     for(TraitTreeBranch branch : _tree.getBranches())
     {
       int ranks=getRanksForRows(branch,10); // Assume max 10 ranks
-      int factor=(branch==_selectedBranch)?1:2;
+      int factor=2;
+      if ((branch==_selectedBranch) || (!branch.isEnabled()))
+      {
+        factor=1;
+      }
       total+=factor*ranks;
     }
     return total;
