@@ -13,7 +13,6 @@ import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
-import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.details.ItemDetail;
@@ -92,8 +91,8 @@ public class ItemUtils
     {
       return;
     }
-    int nbStats=statsProvider.getNumberOfStatProviders();
-    if (nbStats>=0)
+    int nbEntries=statsProvider.getEntriesCount();
+    if (nbEntries>=0)
     {
       StatsProvider itemStatsProvider=item.getStatsProvider();
       if (itemStatsProvider==null)
@@ -101,13 +100,9 @@ public class ItemUtils
         itemStatsProvider=new StatsProvider();
         item.setStatsProvider(itemStatsProvider);
       }
-      for(int i=0;i<nbStats;i++)
+      for(int i=0;i<nbEntries;i++)
       {
-        itemStatsProvider.addStatProvider(statsProvider.getStatProvider(i));
-      }
-      for(SpecialEffect specialEffect : statsProvider.getSpecialEffects())
-      {
-        itemStatsProvider.addSpecialEffect(specialEffect);
+        itemStatsProvider.addEntry(statsProvider.getEntry(i));
       }
     }
   }
@@ -210,7 +205,6 @@ public class ItemUtils
     StatsProvider statsProvider=bonus.getStatsProvider();
     BasicStatsSet stats=statsProvider.getStats(1,level);
     List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,statsProvider);
-
     SetEffectsDisplay effectsDisplay=new SetEffectsDisplay();
     List<String> effectsDisplayText=effectsDisplay.buildSetEffectsDisplay(set,bonus,level);
     lines.addAll(effectsDisplayText);

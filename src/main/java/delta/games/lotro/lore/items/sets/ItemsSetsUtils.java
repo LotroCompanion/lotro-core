@@ -5,8 +5,8 @@ import org.apache.log4j.Logger;
 import delta.common.utils.math.Range;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
-import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.StatsProviderEntry;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.Item;
@@ -172,19 +172,19 @@ public class ItemsSetsUtils
 
   private static boolean hasScalableStats(StatsProvider statsProvider)
   {
-    int nbProviders=statsProvider.getNumberOfStatProviders();
-    for(int i=0;i<nbProviders;i++)
+    int nbEntries=statsProvider.getEntriesCount();
+    for(int i=0;i<nbEntries;i++)
     {
-      StatProvider statProvider=statsProvider.getStatProvider(i);
-      if (statProvider instanceof ScalableStatProvider)
+      StatsProviderEntry entry=statsProvider.getEntry(i);
+      if (entry instanceof ScalableStatProvider)
       {
         return true;
       }
-      if (statProvider instanceof TieredScalableStatProvider)
+      if (entry instanceof TieredScalableStatProvider)
       {
         return true;
       }
-      if (statProvider instanceof RangedStatProvider)
+      if (entry instanceof RangedStatProvider)
       {
         return true;
       }

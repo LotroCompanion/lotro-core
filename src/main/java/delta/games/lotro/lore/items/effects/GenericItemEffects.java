@@ -6,7 +6,6 @@ import java.util.List;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.EquipmentCategory;
-import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatsProvider;
 
 /**
@@ -86,16 +85,10 @@ public class GenericItemEffects
 
   private void addProvider(StatsProvider from, StatsProvider to)
   {
-    // Stat providers
-    int nbProviders=from.getNumberOfStatProviders();
-    for(int i=0;i<nbProviders;i++)
+    int nbEntries=from.getEntriesCount();
+    for(int i=0;i<nbEntries;i++)
     {
-      to.addStatProvider(from.getStatProvider(i));
-    }
-    // Special effects
-    for(SpecialEffect effect : from.getSpecialEffects())
-    {
-      to.addSpecialEffect(effect);
+      to.addEntry(from.getEntry(i));
     }
   }
 }

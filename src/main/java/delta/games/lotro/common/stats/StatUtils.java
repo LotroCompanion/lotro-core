@@ -145,7 +145,7 @@ public class StatUtils
    * @param provider Stats provider.
    * @return A list of special effect lines.
    */
-  public static List<String> getSpecialEffects(StatsProvider provider)
+  private static List<String> getSpecialEffects(StatsProvider provider)
   {
     List<String> lines=new ArrayList<String>();
     for(SpecialEffect specialEffect : provider.getSpecialEffects())
@@ -164,11 +164,12 @@ public class StatUtils
    */
   public static List<String> getFullStatsDisplayAsLines(BasicStatsSet stats, StatsProvider provider)
   {
+    // TODO Correct order of stats and effects
     List<String> lines=getStatsDisplayLinesAsList(stats);
     if (provider!=null)
     {
-      List<String> specialEffectsLines=getSpecialEffects(provider);
-      lines.addAll(specialEffectsLines);
+      List<String> specialEffects=getSpecialEffects(provider);
+      lines.addAll(specialEffects);
     }
     return lines;
   }

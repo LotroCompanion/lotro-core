@@ -47,10 +47,8 @@ public class ItemScaling
     StatsProvider statsProvider=_item.getStatsProvider();
     if (statsProvider!=null)
     {
-      int nbStats=statsProvider.getNumberOfStatProviders();
-      for(int i=0;i<nbStats;i++)
+      for(StatProvider statProvider : statsProvider.getStatProviders())
       {
-        StatProvider statProvider=statsProvider.getStatProvider(i);
         StatDescription stat=statProvider.getStat();
         _stats.add(stat);
       }

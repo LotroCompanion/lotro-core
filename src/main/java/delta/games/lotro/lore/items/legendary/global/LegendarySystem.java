@@ -115,7 +115,7 @@ public class LegendarySystem
       LOGGER.warn("Main legacy not found. ID: "+mainLegacyId+" for item: "+item);
       return null;
     }
-    StatProvider provider=legacy.getStatsProvider().getStatProvider(0);
+    StatProvider provider=legacy.getStatsProvider().getFirstStatProvider();
     int maxRanks=_data.getMaxMainLegacyRank();
     return getRanks(baseRank,provider,maxRanks);
   }
@@ -153,7 +153,7 @@ public class LegendarySystem
     {
       return null;
     }
-    StatProvider provider=legacy.getStatsProvider().getStatProvider(0);
+    StatProvider provider=legacy.getStatsProvider().getFirstStatProvider();
     int maxRanks=_data.getMaxUiRank();
     return getRanks(startRank.intValue(),provider,maxRanks);
   }

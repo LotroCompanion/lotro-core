@@ -39,10 +39,8 @@ public class StatsComputer
   private static BasicStatsSet getStats(int level, StatsProvider statsProvider, int tiersCount, int tier)
   {
     BasicStatsSet stats=new BasicStatsSet();
-    int nbStats=statsProvider.getNumberOfStatProviders();
-    for(int i=0;i<nbStats;i++)
+    for(StatProvider provider : statsProvider.getStatProviders())
     {
-      StatProvider provider=statsProvider.getStatProvider(i);
       Float value=getStatValue(level,tier,tiersCount,provider);
       if (value!=null)
       {

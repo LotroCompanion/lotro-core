@@ -7,10 +7,9 @@ import java.util.Map;
 
 import delta.common.utils.math.Range;
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.stats.SpecialEffect;
-import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.StatsProviderEntry;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
@@ -130,23 +129,18 @@ public class MainCheckItemSets
       System.out.println("\tCount="+count);
       // Stats provider
       StatsProvider statsProvider=bonusSet.getStatsProvider();
-      int nbStatsProviders=statsProvider.getNumberOfStatProviders();
-      for(int i=0;i<nbStatsProviders;i++)
+      int nbEntries=statsProvider.getEntriesCount();
+      for(int i=0;i<nbEntries;i++)
       {
-        StatProvider statProvider=statsProvider.getStatProvider(i);
-        System.out.println("\t\t"+statProvider);
+        StatsProviderEntry entry=statsProvider.getEntry(i);
+        System.out.println("\t\t"+entry);
       }
       // Stats
       BasicStatsSet bonusStats=statsProvider.getStats(1,level);
-      String[] lines=StatUtils.getStatsDisplayLines(bonusStats);
+      String[] lines=StatUtils.getFullStatsDisplay(bonusStats,statsProvider);
       for(String line : lines)
       {
         System.out.println("\t\t"+line);
-      }
-      // Effects
-      for(SpecialEffect effect : statsProvider.getSpecialEffects())
-      {
-        System.out.println("\t\tEFFECT="+effect.getLabel());
       }
     }
   }

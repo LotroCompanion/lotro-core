@@ -11,16 +11,14 @@ import delta.games.lotro.character.stats.BasicStatsSet;
  */
 public class StatsProvider
 {
-  private List<StatProvider> _stats;
-  private List<SpecialEffect> _effects;
+  private List<StatsProviderEntry> _entries;
 
   /**
    * Constructor.
    */
   public StatsProvider()
   {
-    _stats=new ArrayList<StatProvider>();
-    _effects=new ArrayList<SpecialEffect>();
+    _entries=new ArrayList<StatsProviderEntry>();
   }
 
   /**
@@ -31,7 +29,7 @@ public class StatsProvider
   {
     if (statProvider!=null)
     {
-      _stats.add(statProvider);
+      _entries.add(statProvider);
     }
   }
 
@@ -43,17 +41,17 @@ public class StatsProvider
   {
     if (effect!=null)
     {
-      _effects.add(effect);
+      _entries.add(effect);
     }
   }
 
   /**
-   * Get the number of stats providers.
+   * Get the number of entries.
    * @return a count.
    */
-  public int getNumberOfStatProviders()
+  public int getEntriesCount()
   {
-    return _stats.size();
+    return _entries.size();
   }
 
   /**
@@ -67,17 +65,34 @@ public class StatsProvider
   }
 
   /**
+   * Get the first stat provider.
+   * @return A stat provider or <code>null</code>.
+   */
+  public StatProvider getFirstStatProvider()
+  {
+    if (!_entries.isEmpty())
+    {
+      for(StatsProviderEntry entry : _entries)
+      {
+        if (entry instanceof StatProvider)
+        {
+          return (StatProvider)entry;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get the first stat in this provider.
    * @return A stat or <code>null</code> if no stat.
    */
   public StatDescription getFirstStat()
   {
-    int nbStats=getNumberOfStatProviders();
-    if (nbStats>0)
+    StatProvider provider=getFirstStatProvider();
+    if (provider!=null)
     {
-      StatProvider statProvider=getStatProvider(0);
-      StatDescription stat=statProvider.getStat();
-      return stat;
+      return provider.getStat();
     }
     return null;
   }
@@ -90,25 +105,38 @@ public class StatsProvider
   public StatProvider getStat(StatDescription stat)
   {
     StatProvider ret=null;
-    for(StatProvider provider : _stats)
+    for(StatsProviderEntry entry : _entries)
     {
-      if (stat==provider.getStat())
+      if (entry instanceof StatProvider)
       {
-        ret=provider;
-        break;
+        StatProvider provider=(StatProvider)entry;
+        if (stat==provider.getStat())
+        {
+          ret=provider;
+          break;
+        }
       }
     }
     return ret;
   }
 
   /**
-   * Get the stat provider at the given index.
-   * @param index Index of provider, starting at 0.
-   * @return A stat provider.
+   * Add an entry.
+   * @param entry Entry to add.
    */
-  public StatProvider getStatProvider(int index)
+  public void addEntry(StatsProviderEntry entry)
   {
-    return _stats.get(index);
+    _entries.add(entry);
+  }
+
+  /**
+   * Get the stats provider enty at the given index.
+   * @param index Index of entry, starting at 0.
+   * @return A stats provider entry.
+   */
+  public StatsProviderEntry getEntry(int index)
+  {
+    return _entries.get(index);
   }
 
   /**
@@ -120,8 +148,25 @@ public class StatsProvider
     StatProvider provider=getStat(stat);
     if (provider!=null)
     {
-      _stats.remove(provider);
+      _entries.remove(provider);
     }
+  }
+
+  /**
+   * Get the managed stat providers.
+   * @return a possibly empty but never <code>null</code> list of stat providers.
+   */
+  public List<StatProvider> getStatProviders()
+  {
+    List<StatProvider> ret=new ArrayList<StatProvider>();
+    for(StatsProviderEntry entry : _entries)
+    {
+      if (entry instanceof StatProvider)
+      {
+        ret.add((StatProvider)entry);
+      }
+    }
+    return ret;
   }
 
   /**
@@ -133,7 +178,7 @@ public class StatsProvider
   public BasicStatsSet getStats(int tier, int level)
   {
     BasicStatsSet stats=new BasicStatsSet();
-    for(StatProvider provider : _stats)
+    for(StatProvider provider : getStatProviders())
     {
       StatOperator operator=provider.getOperator();
       Float value=provider.getStatValue(tier,level);
@@ -164,27 +209,40 @@ public class StatsProvider
    */
   public List<SpecialEffect> getSpecialEffects()
   {
-    return _effects;
+    List<SpecialEffect> ret=new ArrayList<SpecialEffect>();
+    for(StatsProviderEntry entry : _entries)
+    {
+      if (entry instanceof SpecialEffect)
+      {
+        ret.add((SpecialEffect)entry);
+      }
+    }
+    return ret;
   }
 
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    int nbStats=getNumberOfStatProviders();
-    for(int i=0;i<nbStats;i++)
+    int nbEntries=getEntriesCount();
+    for(int i=0;i<nbEntries;i++)
     {
       if (i>0)
       {
         sb.append(" / ");
       }
-      StatProvider statProvider=getStatProvider(i);
-      StatDescription stat=statProvider.getStat();
-      sb.append(stat.getName());
-    }
-    if (!_effects.isEmpty())
-    {
-      sb.append(", effects=").append(_effects);
+      StatsProviderEntry entry=getEntry(i);
+      if (entry instanceof StatProvider)
+      {
+        StatProvider statProvider=(StatProvider)entry;
+        StatDescription stat=statProvider.getStat();
+        sb.append(stat.getName());
+      }
+      else if (entry instanceof SpecialEffect)
+      {
+        SpecialEffect specialEffect=(SpecialEffect)entry;
+        sb.append(specialEffect.getLabel());
+      }
     }
     return sb.toString();
   }

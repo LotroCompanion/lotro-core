@@ -34,10 +34,8 @@ public class StatsProviderBuffImpl extends AbstractBuffImpl
   public BasicStatsSet getStats(int level, BuffInstance buff)
   {
     BasicStatsSet stats=new BasicStatsSet();
-    int nbStats=_statsProvider.getNumberOfStatProviders();
-    for(int i=0;i<nbStats;i++)
+    for(StatProvider provider : _statsProvider.getStatProviders())
     {
-      StatProvider provider=_statsProvider.getStatProvider(i);
       Float value=getStatValue(level,buff,provider);
       if (value!=null)
       {

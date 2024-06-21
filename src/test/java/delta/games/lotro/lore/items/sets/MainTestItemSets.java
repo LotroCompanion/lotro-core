@@ -3,7 +3,6 @@ package delta.games.lotro.lore.items.sets;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 
@@ -31,14 +30,10 @@ public class MainTestItemSets
         System.out.println("\tCount="+count);
         StatsProvider statsProvider=bonusSet.getStatsProvider();
         BasicStatsSet bonusStats=statsProvider.getStats(1,level);
-        String[] lines=StatUtils.getStatsDisplayLines(bonusStats);
+        String[] lines=StatUtils.getFullStatsDisplay(bonusStats,statsProvider);
         for(String line : lines)
         {
           System.out.println("\t\t"+line);
-        }
-        for(SpecialEffect effect : statsProvider.getSpecialEffects())
-        {
-          System.out.println("\t\tEFFECT="+effect.getLabel());
         }
       }
     }

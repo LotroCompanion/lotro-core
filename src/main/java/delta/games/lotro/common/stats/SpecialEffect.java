@@ -4,7 +4,7 @@ package delta.games.lotro.common.stats;
  * Special effect.
  * @author DAM
  */
-public class SpecialEffect
+public class SpecialEffect implements StatsProviderEntry
 {
   private String _label;
 

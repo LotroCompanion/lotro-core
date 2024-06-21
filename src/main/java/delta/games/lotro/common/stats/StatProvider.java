@@ -4,7 +4,7 @@ package delta.games.lotro.common.stats;
  * Interface of a stat provider.
  * @author DAM
  */
-public interface StatProvider
+public interface StatProvider extends StatsProviderEntry
 {
   /**
    * Get the targeted stat.

@@ -1,7 +1,5 @@
 package delta.games.lotro.common.stats.io.xml;
 
-import java.util.List;
-
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.apache.log4j.Logger;
@@ -18,6 +16,7 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.common.stats.StatsProviderEntry;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -37,17 +36,17 @@ public class StatsProviderXMLWriter
    */
   public static void writeXml(TransformerHandler hd, StatsProvider statsProvider) throws SAXException
   {
-    int nbStats=statsProvider.getNumberOfStatProviders();
-    for(int i=0;i<nbStats;i++)
+    int nbEntries=statsProvider.getEntriesCount();
+    for(int i=0;i<nbEntries;i++)
     {
-      StatProvider provider=statsProvider.getStatProvider(i);
-      writeProvider(hd,provider);
-    }
-    List<SpecialEffect> specialEffects=statsProvider.getSpecialEffects();
-    if (!specialEffects.isEmpty())
-    {
-      for(SpecialEffect specialEffect : specialEffects)
+      StatsProviderEntry entry=statsProvider.getEntry(i);
+      if (entry instanceof StatProvider)
       {
+        writeProvider(hd,(StatProvider)entry);
+      }
+      else if (entry instanceof SpecialEffect)
+      {
+        SpecialEffect specialEffect=(SpecialEffect)entry;
         AttributesImpl attrs=new AttributesImpl();
         String label=specialEffect.getLabel();
         attrs.addAttribute("","",StatsProviderXMLConstants.SPECIAL_EFFECT_LABEL_ATTR,XmlWriter.CDATA,label);
