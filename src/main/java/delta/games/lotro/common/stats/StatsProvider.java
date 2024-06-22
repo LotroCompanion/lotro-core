@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
+import delta.games.lotro.character.stats.StatsSetElement;
 
 /**
  * Stats provider.
@@ -180,27 +181,43 @@ public class StatsProvider
     BasicStatsSet stats=new BasicStatsSet();
     for(StatProvider provider : getStatProviders())
     {
-      StatOperator operator=provider.getOperator();
-      Float value=provider.getStatValue(tier,level);
-      if (value!=null)
+      StatsSetElement element=getStat(provider,tier,level);
+      if (element!=null)
       {
-        Number statValue=null;
-        StatDescription stat=provider.getStat();
-        float floatValue=value.floatValue();
-        StatType type=stat.getType();
-        if (type==StatType.INTEGER)
-        {
-          int intValue=(int)(floatValue);
-          statValue=Integer.valueOf(intValue);
-        }
-        else
-        {
-          statValue=Float.valueOf(floatValue);
-        }
+        StatDescription stat=element.getStat();
+        StatOperator operator=element.getOperator();
+        Number statValue=element.getValue();
         stats.setStat(stat,operator,statValue,provider.getDescriptionOverride());
       }
     }
     return stats;
+  }
+
+  public StatsSetElement getStat(StatProvider provider, int tier, int level)
+  {
+    StatOperator operator=provider.getOperator();
+    Float value=provider.getStatValue(tier,level);
+    if (value!=null)
+    {
+      Number statValue=null;
+      StatDescription stat=provider.getStat();
+      float floatValue=value.floatValue();
+      StatType type=stat.getType();
+      if (type==StatType.INTEGER)
+      {
+        int intValue=(int)(floatValue);
+        statValue=Integer.valueOf(intValue);
+      }
+      else
+      {
+        statValue=Float.valueOf(floatValue);
+      }
+      StatsSetElement ret=new StatsSetElement(stat,operator);
+      ret.setValue(statValue);
+      ret.setDescriptionOverride(provider.getDescriptionOverride());
+      return ret;
+    }
+    return null;
   }
 
   /**

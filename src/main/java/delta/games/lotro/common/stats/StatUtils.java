@@ -99,7 +99,7 @@ public class StatUtils
    */
   public static List<String> getStatsForDisplay(BasicStatsSet stats)
   {
-    List<String> lines=getStatsDisplayLinesAsList(stats);
+    List<String> lines=unsafeGetStatsForDisplay(stats);
     lines=TextTools.handleNewLines(lines);
     return lines;
   }
@@ -109,7 +109,7 @@ public class StatUtils
    * @param stats Stats to display.
    * @return A possibly empty but not <code>null</code> array of stat lines.
    */
-  private static List<String> getStatsDisplayLinesAsList(BasicStatsSet stats)
+  private static List<String> unsafeGetStatsForDisplay(BasicStatsSet stats)
   {
     List<String> lines=new ArrayList<String>();
     for(StatsSetElement element : stats.getStatElements())
@@ -157,14 +157,49 @@ public class StatUtils
 
   /**
    * Get a full stats display (including special effects).
+   * @param statsProvider Stats provider (for special effects).
+   * @param level Level to use for computations.
+   * @return A possibly empty but not <code>null</code> list of stat/effect lines.
+   */
+  public static List<String> getFullStatsForDisplay(StatsProvider statsProvider, int level)
+  {
+    List<String> lines=new ArrayList<String>();
+    int nbEntries=statsProvider.getEntriesCount();
+    for(int i=0;i<nbEntries;i++)
+    {
+      StatsProviderEntry entry=statsProvider.getEntry(i);
+      if (entry instanceof StatProvider)
+      {
+        StatProvider provider=(StatProvider)entry;
+        StatsSetElement element=statsProvider.getStat(provider,1,level);
+        if (element!=null)
+        {
+          String statDisplay=getStatDisplay(element);
+          if (statDisplay!=null)
+          {
+            lines.add(statDisplay);
+          }
+        }
+      }
+      else if (entry instanceof SpecialEffect)
+      {
+        SpecialEffect specialEffect=(SpecialEffect)entry;
+        lines.add(specialEffect.getLabel());
+      }
+    }
+    lines=TextTools.handleNewLines(lines);
+    return lines;
+  }
+
+  /**
+   * Get a full stats display (including special effects).
    * @param stats Stats to use.
    * @param provider Stats provider (for special effects).
    * @return A possibly empty but not <code>null</code> list of stat/effect lines.
    */
   public static List<String> getFullStatsForDisplay(BasicStatsSet stats, StatsProvider provider)
   {
-    // TODO Correct order of stats and effects
-    List<String> lines=getStatsDisplayLinesAsList(stats);
+    List<String> lines=unsafeGetStatsForDisplay(stats);
     if (provider!=null)
     {
       List<String> specialEffects=getSpecialEffects(provider);

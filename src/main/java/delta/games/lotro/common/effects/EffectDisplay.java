@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.variables.VariableValueProvider;
 import delta.common.utils.variables.VariablesResolver;
-import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.ResistCategory;
@@ -282,8 +281,7 @@ public class EffectDisplay
     {
       return;
     }
-    BasicStatsSet stats=provider.getStats(1,_level);
-    List<String> lines=StatUtils.getFullStatsForDisplay(stats,provider);
+    List<String> lines=StatUtils.getFullStatsForDisplay(provider,_level);
     storage.addAll(lines);
   }
 

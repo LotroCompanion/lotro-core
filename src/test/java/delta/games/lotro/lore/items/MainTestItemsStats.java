@@ -2,9 +2,6 @@ package delta.games.lotro.lore.items;
 
 import java.util.List;
 
-import delta.games.lotro.character.stats.BasicStatsSet;
-import delta.games.lotro.common.stats.StatUtils;
-
 /**
  * Simple test class to show the stats of items.
  * @author DAM
@@ -22,8 +19,7 @@ public class MainTestItemsStats
     for(Item item : items)
     {
       System.out.println("Item: "+item);
-      BasicStatsSet stats=item.getStats();
-      List<String> lines=StatUtils.getFullStatsForDisplay(stats,item.getStatsProvider());
+      List<String> lines=ItemUtils.buildLinesToShowItem(item,null);
       for(String line : lines)
       {
         System.out.println("\t"+line);

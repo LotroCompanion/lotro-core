@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import delta.common.utils.text.TextTools;
-import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
@@ -164,9 +163,13 @@ public class ItemUtils
    */
   public static List<String> buildLinesToShowItem(Item item, Integer itemLevel)
   {
+    List<String> lines=new ArrayList<String>();
     StatsProvider statsProvider=item.getStatsProvider();
-    BasicStatsSet stats=getStats(item,itemLevel);
-    List<String> lines=StatUtils.getFullStatsForDisplay(stats,statsProvider);
+    if (statsProvider!=null)
+    {
+      int level=getLevelForStatsComputations(item,itemLevel);
+      lines.addAll(StatUtils.getFullStatsForDisplay(statsProvider,level));
+    }
     ItemEffectsDisplay effectsDisplay=new ItemEffectsDisplay();
     List<String> effectsDisplayText=effectsDisplay.buildItemEffectsDisplay(item);
     lines.addAll(effectsDisplayText);
@@ -177,20 +180,24 @@ public class ItemUtils
     return lines;
   }
 
-  private static BasicStatsSet getStats(Item item, Integer itemLevel)
+  /**
+   * Get the item level to use for stats computations.
+   * @param item Item.
+   * @param itemLevelInt Item level (<code>null</code> to use default).
+   * @return A level.
+   */
+  public static int getLevelForStatsComputations(Item item, Integer itemLevelInt)
   {
-    if (itemLevel==null)
+    if (itemLevelInt==null)
     {
-      return item.getStats();
+      Integer itemLevel=item.getItemLevelForStats();
+      return (itemLevel!=null)?itemLevel.intValue():0;
     }
-    StatsProvider statsProvider=item.getStatsProvider();
-    if (statsProvider!=null)
-    {
-      Integer offset=item.getItemLevelOffset();
-      int effectiveItemLevel=itemLevel.intValue()+((offset!=null)?offset.intValue():0);
-      return statsProvider.getStats(1,effectiveItemLevel);
-    }
-    return new BasicStatsSet();
+    Integer offsetInt=item.getItemLevelOffset();
+    int offset=(offsetInt!=null)?offsetInt.intValue():0;
+    int itemLevel=(itemLevelInt!=null)?itemLevelInt.intValue():0;
+    int effectiveItemLevel=itemLevel+offset;
+    return effectiveItemLevel;
   }
 
   /**
@@ -203,8 +210,7 @@ public class ItemUtils
   public static List<String> buildLinesToShowItemsSetBonus(ItemsSet set, SetBonus bonus, int level)
   {
     StatsProvider statsProvider=bonus.getStatsProvider();
-    BasicStatsSet stats=statsProvider.getStats(1,level);
-    List<String> lines=StatUtils.getFullStatsForDisplay(stats,statsProvider);
+    List<String> lines=StatUtils.getFullStatsForDisplay(statsProvider,level);
     SetEffectsDisplay effectsDisplay=new SetEffectsDisplay();
     List<String> effectsDisplayText=effectsDisplay.buildSetEffectsDisplay(set,bonus,level);
     lines.addAll(effectsDisplayText);

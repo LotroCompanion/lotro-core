@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import delta.common.utils.math.Range;
-import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.StatsProviderEntry;
@@ -136,8 +135,7 @@ public class MainCheckItemSets
         System.out.println("\t\t"+entry);
       }
       // Stats
-      BasicStatsSet bonusStats=statsProvider.getStats(1,level);
-      List<String> lines=StatUtils.getFullStatsForDisplay(bonusStats,statsProvider);
+      List<String> lines=StatUtils.getFullStatsForDisplay(statsProvider,level);
       for(String line : lines)
       {
         System.out.println("\t\t"+line);

@@ -8,7 +8,6 @@ import java.util.Set;
 
 import delta.common.utils.math.Range;
 import delta.common.utils.math.RangeComparator;
-import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.Item;
@@ -47,8 +46,7 @@ public class MainCheckTraceriesSets
         for(SetBonus bonus : bonuses)
         {
           StatsProvider statsProvider=bonus.getStatsProvider();
-          BasicStatsSet stats=statsProvider.getStats(1,itemLevel);
-          List<String> lines=StatUtils.getFullStatsForDisplay(stats,statsProvider);
+          List<String> lines=StatUtils.getFullStatsForDisplay(statsProvider,itemLevel);
           System.out.println("\t\tItem Level "+itemLevel+", "+bonus.getPiecesCount()+" pieces: "+lines);
         }
       }

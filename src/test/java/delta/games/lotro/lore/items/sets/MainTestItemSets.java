@@ -2,7 +2,6 @@ package delta.games.lotro.lore.items.sets;
 
 import java.util.List;
 
-import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 
@@ -29,8 +28,7 @@ public class MainTestItemSets
         int count=bonusSet.getPiecesCount();
         System.out.println("\tCount="+count);
         StatsProvider statsProvider=bonusSet.getStatsProvider();
-        BasicStatsSet bonusStats=statsProvider.getStats(1,level);
-        List<String> lines=StatUtils.getFullStatsForDisplay(bonusStats,statsProvider);
+        List<String> lines=StatUtils.getFullStatsForDisplay(statsProvider,level);
         for(String line : lines)
         {
           System.out.println("\t\t"+line);
