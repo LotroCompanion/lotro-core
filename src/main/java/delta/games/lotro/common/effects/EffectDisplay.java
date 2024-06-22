@@ -283,7 +283,7 @@ public class EffectDisplay
       return;
     }
     BasicStatsSet stats=provider.getStats(1,_level);
-    List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,provider);
+    List<String> lines=StatUtils.getFullStatsForDisplay(stats,provider);
     storage.addAll(lines);
   }
 

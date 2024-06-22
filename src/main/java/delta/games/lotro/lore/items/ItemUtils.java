@@ -166,7 +166,7 @@ public class ItemUtils
   {
     StatsProvider statsProvider=item.getStatsProvider();
     BasicStatsSet stats=getStats(item,itemLevel);
-    List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,statsProvider);
+    List<String> lines=StatUtils.getFullStatsForDisplay(stats,statsProvider);
     ItemEffectsDisplay effectsDisplay=new ItemEffectsDisplay();
     List<String> effectsDisplayText=effectsDisplay.buildItemEffectsDisplay(item);
     lines.addAll(effectsDisplayText);
@@ -204,7 +204,7 @@ public class ItemUtils
   {
     StatsProvider statsProvider=bonus.getStatsProvider();
     BasicStatsSet stats=statsProvider.getStats(1,level);
-    List<String> lines=StatUtils.getFullStatsDisplayAsLines(stats,statsProvider);
+    List<String> lines=StatUtils.getFullStatsForDisplay(stats,statsProvider);
     SetEffectsDisplay effectsDisplay=new SetEffectsDisplay();
     List<String> effectsDisplayText=effectsDisplay.buildSetEffectsDisplay(set,bonus,level);
     lines.addAll(effectsDisplayText);

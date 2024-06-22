@@ -23,7 +23,7 @@ public class MainTestItemsStats
     {
       System.out.println("Item: "+item);
       BasicStatsSet stats=item.getStats();
-      String[] lines=StatUtils.getFullStatsDisplay(stats,item.getStatsProvider());
+      List<String> lines=StatUtils.getFullStatsForDisplay(stats,item.getStatsProvider());
       for(String line : lines)
       {
         System.out.println("\t"+line);

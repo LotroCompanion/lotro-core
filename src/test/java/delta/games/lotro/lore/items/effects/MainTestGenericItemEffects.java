@@ -43,7 +43,7 @@ public class MainTestGenericItemEffects
       {
         PropertyModificationEffect propModEffect=(PropertyModificationEffect)effect;
         BasicStatsSet stats=propModEffect.getStatsProvider().getStats(1,100);
-        List<String> lines=StatUtils.getStatsDisplayLinesAsList(stats);
+        List<String> lines=StatUtils.getStatsForDisplay(stats);
         for(String line : lines)
         {
           System.out.println("\t\t"+line);

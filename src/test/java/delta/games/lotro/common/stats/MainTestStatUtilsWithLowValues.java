@@ -33,7 +33,7 @@ public class MainTestStatUtilsWithLowValues
       {
         System.out.println("Item: "+item);
         System.out.println("\t"+stats);
-        System.out.println(StatUtils.getStatsDisplayLinesAsList(stats));
+        System.out.println(StatUtils.getStatsForDisplay(stats));
       }
     }
   }

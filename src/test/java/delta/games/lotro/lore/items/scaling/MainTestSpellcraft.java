@@ -68,7 +68,7 @@ public class MainTestSpellcraft
   private void showStats(String meaning, BasicStatsSet stats)
   {
     System.out.println("\t\t*** "+meaning);
-    String[] lines=StatUtils.getStatsDisplayLines(stats);
+    List<String> lines=StatUtils.getStatsForDisplay(stats);
     for(String line : lines)
     {
       System.out.println("\t\t"+line);

@@ -137,7 +137,7 @@ public class MainCheckItemSets
       }
       // Stats
       BasicStatsSet bonusStats=statsProvider.getStats(1,level);
-      String[] lines=StatUtils.getFullStatsDisplay(bonusStats,statsProvider);
+      List<String> lines=StatUtils.getFullStatsForDisplay(bonusStats,statsProvider);
       for(String line : lines)
       {
         System.out.println("\t\t"+line);

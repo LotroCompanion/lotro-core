@@ -32,7 +32,7 @@ public class StatsEquality
    * @param stats2 Stats set 2.
    * @return <code>true</code> if equal, <code>false</code> otherwise.
    */
-  public static boolean equals(BasicStatsSet stats1, BasicStatsSet stats2)
+  private static boolean equals(BasicStatsSet stats1, BasicStatsSet stats2)
   {
     int n1=stats1.getStatsCount();
     List<StatsSetElement> elements1=stats1.getStatElements();

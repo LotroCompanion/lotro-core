@@ -1,7 +1,6 @@
 package delta.games.lotro.lore.items.sets;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -49,8 +48,8 @@ public class MainCheckTraceriesSets
         {
           StatsProvider statsProvider=bonus.getStatsProvider();
           BasicStatsSet stats=statsProvider.getStats(1,itemLevel);
-          String[] lines=StatUtils.getFullStatsDisplay(stats,statsProvider);
-          System.out.println("\t\tItem Level "+itemLevel+", "+bonus.getPiecesCount()+" pieces: "+Arrays.toString(lines));
+          List<String> lines=StatUtils.getFullStatsForDisplay(stats,statsProvider);
+          System.out.println("\t\tItem Level "+itemLevel+", "+bonus.getPiecesCount()+" pieces: "+lines);
         }
       }
     }

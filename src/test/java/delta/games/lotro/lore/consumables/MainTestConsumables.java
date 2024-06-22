@@ -29,7 +29,7 @@ public class MainTestConsumables
       System.out.println("Consumable: "+consumable.getIdentifier()+" "+consumable.getName());
       StatsProvider provider=consumable.getProvider();
       BasicStatsSet stats=provider.getStats(1,130);
-      String[] lines=StatUtils.getStatsDisplayLines(stats);
+      List<String> lines=StatUtils.getStatsForDisplay(stats);
       for(String line : lines)
       {
         System.out.println("\t"+line);
