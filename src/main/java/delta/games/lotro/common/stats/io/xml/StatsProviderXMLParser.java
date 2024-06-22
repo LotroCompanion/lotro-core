@@ -52,25 +52,18 @@ public class StatsProviderXMLParser
    */
   public static void parseStatsProvider(Element root, StatsProvider statsProvider, SingleLocaleLabelsManager i18n)
   {
-    // Stats
-    List<Element> statTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.STAT_TAG);
-    int nbStatsTags=statTags.size();
-    if (nbStatsTags>0)
+    List<Element> childTags=DOMParsingTools.getChildTags(root);
+    for(Element childTag : childTags)
     {
-      for(Element statTag : statTags)
+      String tagName=childTag.getTagName();
+      if (StatsProviderXMLConstants.STAT_TAG.equals(tagName))
       {
-        StatProvider statProvider=parseStatProvider(statTag,i18n);
+        StatProvider statProvider=parseStatProvider(childTag,i18n);
         statsProvider.addStatProvider(statProvider);
       }
-    }
-    // Special effects
-    List<Element> specialEffectsTags=DOMParsingTools.getChildTagsByName(root,StatsProviderXMLConstants.SPECIAL_EFFECT_TAG);
-    int nbSpecialEffectTags=specialEffectsTags.size();
-    if (nbSpecialEffectTags>0)
-    {
-      for(Element specialEffectsTag : specialEffectsTags)
+      else if (StatsProviderXMLConstants.SPECIAL_EFFECT_TAG.equals(tagName))
       {
-        String label=DOMParsingTools.getStringAttribute(specialEffectsTag.getAttributes(),StatsProviderXMLConstants.SPECIAL_EFFECT_LABEL_ATTR,null);
+        String label=DOMParsingTools.getStringAttribute(childTag.getAttributes(),StatsProviderXMLConstants.SPECIAL_EFFECT_LABEL_ATTR,null);
         label=I18nRuntimeUtils.getLabel(i18n,label);
         if (label!=null)
         {
