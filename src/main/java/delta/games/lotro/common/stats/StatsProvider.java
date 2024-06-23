@@ -193,6 +193,13 @@ public class StatsProvider
     return stats;
   }
 
+  /**
+   * Compute a single stat.
+   * @param provider Stat provider.
+   * @param tier Tier to use.
+   * @param level Level to use.
+   * @return A stats set element.
+   */
   public StatsSetElement getStat(StatProvider provider, int tier, int level)
   {
     StatOperator operator=provider.getOperator();
