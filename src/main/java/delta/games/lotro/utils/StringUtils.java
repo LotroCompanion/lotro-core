@@ -20,7 +20,11 @@ public class StringUtils
     int index=name.lastIndexOf('[');
     if (index!=-1)
     {
-      name=name.substring(0,index).trim();
+      int index2=name.indexOf(']',index);
+      if (index2==name.length()-1)
+      {
+        name=name.substring(0,index).trim();
+      }
     }
     return name;
   }
