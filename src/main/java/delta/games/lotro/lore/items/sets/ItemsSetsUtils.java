@@ -8,9 +8,9 @@ import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.StatsProviderEntry;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
-import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.scaling.Munging;
+import delta.games.lotro.lore.parameters.Game;
 
 /**
  * Utility methods for items sets.
@@ -106,7 +106,7 @@ public class ItemsSetsUtils
       }
     }
     // Max character level
-    int maxLevel=LotroCoreConfig.getInstance().getMaxCharacterLevel();
+    int maxLevel=Game.getParameters().getMaxCharacterLevel();
     Integer maxSetLevel=set.getRequiredMaxLevel();
     if (maxSetLevel!=null)
     {

@@ -355,7 +355,11 @@ public class DataFiles
    */
   public static final String ACTION_TABLES="actionTables";
   /**
-   * Labels file.
+   * Game data file.
+   */
+  public static final String GAME_DATA="gameData";
+  /**
+   * Labels directory.
    */
   public static final String LABELS="labelsDir";
 }

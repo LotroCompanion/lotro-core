@@ -3,11 +3,11 @@ package delta.games.lotro.lore.items.scaling;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary2.Legendary2;
+import delta.games.lotro.lore.parameters.Game;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -57,7 +57,7 @@ public class ItemScalingBuilder
     Integer min=munging.getMin();
     int minLevel=(min!=null?min.intValue():1);
     Integer max=munging.getMax();
-    int levelCap=LotroCoreConfig.getInstance().getMaxCharacterLevel();
+    int levelCap=Game.getParameters().getMaxCharacterLevel();
     int maxLevel=(max!=null?max.intValue():levelCap);
 
     Progression progression=munging.getProgression();
