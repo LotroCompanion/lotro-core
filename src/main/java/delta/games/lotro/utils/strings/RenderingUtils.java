@@ -12,8 +12,6 @@ import delta.games.lotro.character.races.RacesManager;
 import delta.games.lotro.common.CharacterSex;
 import delta.games.lotro.common.Genders;
 import delta.games.lotro.lore.parameters.Game;
-import delta.games.lotro.lore.pvp.RankScale;
-import delta.games.lotro.lore.pvp.RankScaleEntry;
 import delta.games.lotro.lore.pvp.RankScaleKeys;
 import delta.games.lotro.lore.pvp.RanksManager;
 
@@ -75,18 +73,9 @@ public class RenderingUtils
     // Surname
     ret.put(WellKnownVariables.SURNAME,summary.getSurname());
     // Rank
-    String rankLabel="";
     Integer rankCode=summary.getRankCode();
-    if (rankCode!=null)
-    {
-      RankScale scale=RanksManager.getInstance().getRankScale(RankScaleKeys.RENOWN);
-      RankScaleEntry rank=scale.getRankByCode(rankCode.intValue());
-      if (rank!=null)
-      {
-        rankLabel=rank.getRank().getName();
-      }
-    }
-    ret.put(WellKnownVariables.RANK,rankLabel);
+    String rankLabel=RanksManager.getInstance().getRankLabel(rankCode,RankScaleKeys.RENOWN);
+    ret.put(WellKnownVariables.RANK,(rankLabel!=null)?rankLabel:"");
     // Class
     ClassDescription characterClass=summary.getCharacterClass();
     if (characterClass!=null)

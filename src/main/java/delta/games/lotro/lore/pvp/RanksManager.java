@@ -82,4 +82,26 @@ public class RanksManager
   {
     return _scales.get(key);
   }
+
+  /**
+   * Get the rank label.
+   * @param rankCode Rank code.
+   * @param key Rank scale key.
+   * @return A string or <code>null</code>.
+   */
+  public String getRankLabel(Integer rankCode, String key)
+  {
+    if (rankCode==null)
+    {
+      return null;
+    }
+    String rankLabel=null;
+    RankScale scale=RanksManager.getInstance().getRankScale(RankScaleKeys.RENOWN);
+    RankScaleEntry rank=scale.getRankByCode(rankCode.intValue());
+    if (rank!=null)
+    {
+      rankLabel=rank.getRank().getName();
+    }
+    return rankLabel;
+  }
 }
