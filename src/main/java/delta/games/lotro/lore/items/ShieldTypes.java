@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.items;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Well-known shield types.
  * @author DAM
@@ -20,9 +23,15 @@ public class ShieldTypes
   public static final ArmourType SHIELD=ArmourType.getArmourTypeByKey("SHIELD");
 
   /**
-   * Ordered shield types.
+   * Get shield types.
+   * @return a list of shield types.
    */
-  public static final ArmourType[] SHIELD_TYPES = {
-      SHIELD, HEAVY_SHIELD, WARDEN_SHIELD
-  };
+  public static List<ArmourType> getShieldTypes()
+  {
+    List<ArmourType> ret=new ArrayList<ArmourType>();
+    ret.add(SHIELD);
+    ret.add(HEAVY_SHIELD);
+    ret.add(WARDEN_SHIELD);
+    return ret;
+  }
 }
