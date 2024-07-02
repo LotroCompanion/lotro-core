@@ -18,7 +18,7 @@ import junit.framework.TestCase;
  */
 public class ItemEffectsTest extends TestCase
 {
-  static int[] TEST_ITEM_IDS= {
+  private static int[] TEST_ITEM_IDS= {
       1879150044, // Lothlórien Protector's Locket
       1879049652, // Lesser Celebrant Salve
       1879049653, // Roast Pork
@@ -52,16 +52,25 @@ public class ItemEffectsTest extends TestCase
    */
   public void testEffectsDisplay()
   {
-    //for(int itemId : TEST_ITEM_IDS)
-    for(Item item : ItemsManager.getInstance().getAllItems())
+    for(int itemId : TEST_ITEM_IDS)
     {
-      //Item item=ItemsManager.getInstance().getItem(itemId);
-      showItem(item);
-      //handleItem(item);
+      Item item=ItemsManager.getInstance().getItem(itemId);
+      handleItem(item);
     }
   }
 
-  void handleItem(Item item)
+  /**
+   * test effects display.
+   */
+  public void testEffectsDisplay2()
+  {
+    for(Item item : ItemsManager.getInstance().getAllItems())
+    {
+      showItem(item);
+    }
+  }
+
+  private void handleItem(Item item)
   {
     ItemEffectsManager mgr=item.getEffects();
     if (mgr==null)

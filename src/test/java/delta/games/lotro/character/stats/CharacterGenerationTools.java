@@ -61,6 +61,16 @@ public class CharacterGenerationTools
   }
 
   /**
+   * Get an essence using its ID.
+   * @param id Essence identifier.
+   * @return An essence or <code>null</code> if not found.
+   */
+  public Essence getEssence(int id)
+  {
+    return EssencesManager.getInstance().getEssence(id);
+  }
+
+  /**
    * Get an essence using its tier and name.
    * @param tier Tier to get.
    * @param name Essence name.

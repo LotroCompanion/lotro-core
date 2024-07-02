@@ -2,6 +2,8 @@ package delta.games.lotro.character.status.achievables;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.quests.objectives.FactionLevelCondition;
@@ -14,6 +16,8 @@ import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
  */
 public class MainAssessDeedProgress
 {
+  private static final Logger LOGGER=Logger.getLogger(MainAssessDeedProgress.class);
+
   private void handleDeedDescription(DeedDescription deed)
   {
     boolean counted=handleCount(deed);
@@ -31,13 +35,6 @@ public class MainAssessDeedProgress
     {
       return;
     }
-    /*
-    int nbObjectives=deed.getObjectives().getObjectivesCount();
-    if (nbObjectives>1)
-    {
-      //System.out.println("Deed: "+deed.getName());
-    }
-    */
   }
 
   private boolean isMultiConditionDeed(DeedDescription deed)
@@ -74,12 +71,12 @@ public class MainAssessDeedProgress
     {
       if (nbConditions!=nbFactionLevelCondition)
       {
-        //System.out.println("Faction Deed: "+deed.getName()+" => "+nbFactionLevelCondition+"/"+nbConditions);
+        LOGGER.warn("Faction Deed: "+deed.getName()+" => "+nbFactionLevelCondition+"/"+nbConditions);
       }
       else
       {
+        LOGGER.debug("Faction Deed: "+deed.getName());
         return true;
-        //System.out.println("Faction Deed: "+deed.getName());
       }
     }
     return false;

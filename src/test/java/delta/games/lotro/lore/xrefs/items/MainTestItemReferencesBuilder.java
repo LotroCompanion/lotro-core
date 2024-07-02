@@ -30,7 +30,6 @@ public class MainTestItemReferencesBuilder
   private boolean useItem(Item item)
   {
     if (item.getEquipmentLocation()==null) return false;
-    //if (item.getQuality()==ItemQuality.LEGENDARY) return true;
     if (item instanceof LegendaryWeapon)
     {
       if (item.getQuality()==ItemQualities.INCOMPARABLE)

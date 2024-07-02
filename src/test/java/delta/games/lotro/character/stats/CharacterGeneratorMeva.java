@@ -281,9 +281,7 @@ public class CharacterGeneratorMeva
     // 1879318796" name="Advisor's Fateful Ring
     ItemInstance<? extends Item> ret=_tools.getItemById(1879318796);
     EssencesSet essences=new EssencesSet(1);
-    Essence tacticalMastery=_tools.getEssenceByName(6,"Supreme Essence of Tactical Mastery");
-    tacticalMastery.getStats().setStat(WellKnownStat.TACTICAL_MASTERY,1165);
-    tacticalMastery.getStats().setStat(WellKnownStat.POWER,88);
+    Essence tacticalMastery=_tools.getEssence(1879314636); // Supreme Essence of Tactical Mastery, tier 6
     essences.setEssence(0,tacticalMastery);
     ret.setEssences(essences);
     return ret;
