@@ -18,6 +18,7 @@ import delta.games.lotro.common.rewards.BillingTokenReward;
 import delta.games.lotro.common.rewards.CraftingXpReward;
 import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.ItemReward;
+import delta.games.lotro.common.rewards.QuestCompleteReward;
 import delta.games.lotro.common.rewards.RelicReward;
 import delta.games.lotro.common.rewards.ReputationReward;
 import delta.games.lotro.common.rewards.RewardElement;
@@ -31,8 +32,10 @@ import delta.games.lotro.lore.crafting.Profession;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.titles.TitleDescription;
+import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.io.xml.SharedXMLConstants;
 
 /**
@@ -159,6 +162,12 @@ public class RewardsXMLWriter
       BillingTokenReward billingTokenReward=(BillingTokenReward)rewardElement;
       writeBillingTokenReward(hd,billingTokenReward);
     }
+    // Quest complete
+    else if (rewardElement instanceof QuestCompleteReward)
+    {
+      QuestCompleteReward questCompleteReward=(QuestCompleteReward)rewardElement;
+      writeQuestCompleteReward(hd,questCompleteReward);
+    }
     // Selectable
     else if (rewardElement instanceof SelectableRewardElement)
     {
@@ -279,6 +288,32 @@ public class RewardsXMLWriter
     }
     hd.startElement("","",RewardsXMLConstants.BILLING_TOKEN_TAG,attrs);
     hd.endElement("","",RewardsXMLConstants.BILLING_TOKEN_TAG);
+  }
+
+  private static void writeQuestCompleteReward(TransformerHandler hd, QuestCompleteReward questCompleteReward) throws SAXException
+  {
+    Proxy<Achievable> achievableProxy=questCompleteReward.getAchievable();
+    if (achievableProxy==null)
+    {
+      return;
+    }
+    Achievable achievable=achievableProxy.getObject();
+    if (achievable==null)
+    {
+      return;
+    }
+    AttributesImpl attrs=new AttributesImpl();
+    // ID
+    int id=achievable.getIdentifier();
+    attrs.addAttribute("","",RewardsXMLConstants.QUEST_COMPLETE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    // Name
+    String name=achievable.getName();
+    if (name!=null)
+    {
+      attrs.addAttribute("","",RewardsXMLConstants.QUEST_COMPLETE_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    hd.startElement("","",RewardsXMLConstants.QUEST_COMPLETE_TAG,attrs);
+    hd.endElement("","",RewardsXMLConstants.QUEST_COMPLETE_TAG);
   }
 
   private static void writeSelectableRewardElement(TransformerHandler hd, SelectableRewardElement selectableReward) throws SAXException

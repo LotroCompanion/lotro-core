@@ -18,6 +18,9 @@ public class RewardElementComparator implements Comparator<RewardElement>
   public RewardElementComparator()
   {
     _classes=new ArrayList<Class<? extends RewardElement>>();
+    _classes.add(BillingTokenReward.class);
+    _classes.add(CraftingXpReward.class);
+    _classes.add(QuestCompleteReward.class);
     _classes.add(ReputationReward.class);
     _classes.add(TraitReward.class);
     _classes.add(TitleReward.class);

@@ -19,6 +19,7 @@ import delta.games.lotro.common.rewards.BillingTokenReward;
 import delta.games.lotro.common.rewards.CraftingXpReward;
 import delta.games.lotro.common.rewards.EmoteReward;
 import delta.games.lotro.common.rewards.ItemReward;
+import delta.games.lotro.common.rewards.QuestCompleteReward;
 import delta.games.lotro.common.rewards.RelicReward;
 import delta.games.lotro.common.rewards.ReputationReward;
 import delta.games.lotro.common.rewards.RewardElement;
@@ -37,10 +38,12 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.legendary.relics.Relic;
 import delta.games.lotro.lore.items.legendary.relics.RelicsManager;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 import delta.games.lotro.lore.titles.TitleDescription;
 import delta.games.lotro.lore.titles.TitlesManager;
+import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.io.xml.SharedXMLConstants;
 
 /**
@@ -176,6 +179,11 @@ public class RewardsXMLParser
     else if (RewardsXMLConstants.BILLING_TOKEN_TAG.equals(tagName))
     {
       parseBillingTokenReward(rewards,rewardTag);
+    }
+    // Quest Complete
+    else if (RewardsXMLConstants.QUEST_COMPLETE_TAG.equals(tagName))
+    {
+      parseQuestCompleteReward(rewards,rewardTag);
     }
     // Selectable
     else if (RewardsXMLConstants.SELECT_ONE_OF_TAG.equals(tagName))
@@ -315,5 +323,16 @@ public class RewardsXMLParser
       BillingTokenReward billingTokenReward=new BillingTokenReward(billingGroup);
       rewards.add(billingTokenReward);
     }
+  }
+
+  private static void parseQuestCompleteReward(List<RewardElement> rewards, Element questCompleteTag)
+  {
+    NamedNodeMap attrs=questCompleteTag.getAttributes();
+    // ID
+    int id=DOMParsingTools.getIntAttribute(attrs,RewardsXMLConstants.QUEST_COMPLETE_ID_ATTR,-1);
+    Proxy<Achievable> achievableProxy=new Proxy<Achievable>();
+    achievableProxy.setId(id);
+    QuestCompleteReward reward=new QuestCompleteReward(achievableProxy);
+    rewards.add(reward);
   }
 }

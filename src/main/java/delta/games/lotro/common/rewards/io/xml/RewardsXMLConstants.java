@@ -114,6 +114,18 @@ public class RewardsXMLConstants
    * Tag 'billingToken', attribute 'name'.
    */
   public static final String BILLING_TOKEN_NAME_ATTR="name";
+  /**
+   * Tag 'questComplete'.
+   */
+  public static final String QUEST_COMPLETE_TAG="questComplete";
+  /**
+   * Tag 'questComplete', attribute 'id'.
+   */
+  public static final String QUEST_COMPLETE_ID_ATTR="id";
+  /**
+   * Tag 'questComplete', attribute 'name'.
+   */
+  public static final String QUEST_COMPLETE_NAME_ATTR="name";
 
   /**
    * Tag 'selectOneOf'.

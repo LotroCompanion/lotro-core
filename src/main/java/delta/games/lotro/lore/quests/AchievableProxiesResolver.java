@@ -9,6 +9,9 @@ import org.apache.log4j.Logger;
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.CompoundQuestRequirement;
 import delta.games.lotro.common.requirements.QuestRequirement;
+import delta.games.lotro.common.rewards.QuestCompleteReward;
+import delta.games.lotro.common.rewards.RewardElement;
+import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
 import delta.games.lotro.lore.quests.objectives.Objective;
@@ -116,6 +119,8 @@ public class AchievableProxiesResolver
     resolveProxy(quest.getNextQuest());
     // Objectives
     resolveObjectives(quest.getObjectives());
+    // Rewards
+    resolveRewards(quest.getRewards());
   }
 
   /**
@@ -169,6 +174,23 @@ public class AchievableProxiesResolver
     {
       QuestBestowedCondition completeCondition=(QuestBestowedCondition)condition;
       resolveProxy(completeCondition.getProxy());
+    }
+  }
+
+  private void resolveRewards(Rewards rewards)
+  {
+    for(RewardElement element : rewards.getRewardElements())
+    {
+      resolveRewardElement(element);
+    }
+  }
+
+  private void resolveRewardElement(RewardElement element)
+  {
+    if (element instanceof QuestCompleteReward)
+    {
+      QuestCompleteReward questCompleteReward=(QuestCompleteReward)element;
+      resolveProxy(questCompleteReward.getAchievable());
     }
   }
 
