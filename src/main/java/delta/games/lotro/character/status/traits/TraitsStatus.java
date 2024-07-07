@@ -41,6 +41,10 @@ public class TraitsStatus
       _traitTree=new TraitTreeStatus(source._traitTree);
     }
     _racialTraits=null;
+    if (source._racialTraits!=null)
+    {
+      _racialTraits=new TraitSlotsStatus(source._racialTraits);
+    }
   }
 
   /**
