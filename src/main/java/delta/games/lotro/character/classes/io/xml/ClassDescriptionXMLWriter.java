@@ -18,7 +18,6 @@ import delta.games.lotro.character.classes.MonsterClassDescription;
 import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLWriter;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.skills.SkillDescription;
-import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.utils.TraitAndLevel;
 
@@ -172,23 +171,6 @@ public class ClassDescriptionXMLWriter
     writeTraits(hd,description);
     // Skills
     writeSkills(hd,description);
-    // Default buffs
-    List<BuffSpecification> buffs=description.getDefaultBuffs();
-    for(BuffSpecification buff : buffs)
-    {
-      AttributesImpl buffAttrs=new AttributesImpl();
-      // Buff ID
-      String buffID=buff.getBuffId();
-      buffAttrs.addAttribute("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_ID_ATTR,XmlWriter.CDATA,buffID);
-      // Tier
-      Integer tier=buff.getTier();
-      if (tier!=null)
-      {
-        buffAttrs.addAttribute("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_TIER,XmlWriter.CDATA,tier.toString());
-      }
-      hd.startElement("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_TAG,buffAttrs);
-      hd.endElement("","",ClassDescriptionXMLConstants.DEFAULT_BUFF_TAG);
-    }
     hd.endElement("","",ClassDescriptionXMLConstants.CLASS_TAG);
   }
 

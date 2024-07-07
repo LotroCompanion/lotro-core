@@ -95,16 +95,4 @@ public class ClassDescriptionXMLConstants
    * Tag 'classSkill', attribute 'skillName'.
    */
   public static final String CLASS_SKILL_NAME_ATTR="skillName";
-  /**
-   * Tag 'defaultBuff'.
-   */
-  public static final String DEFAULT_BUFF_TAG="defaultBuff";
-  /**
-   * Tag 'defaultBuff', attribute 'id'.
-   */
-  public static final String DEFAULT_BUFF_ID_ATTR="id";
-  /**
-   * Tag 'defaultBuff', attribute 'tier'.
-   */
-  public static final String DEFAULT_BUFF_TIER="tier";
 }

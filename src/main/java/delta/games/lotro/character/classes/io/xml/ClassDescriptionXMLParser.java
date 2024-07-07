@@ -18,7 +18,6 @@ import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.classes.traitTree.TraitTreesManager;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
-import delta.games.lotro.character.stats.buffs.BuffSpecification;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.character.utils.TraitAndLevel;
@@ -153,22 +152,6 @@ public class ClassDescriptionXMLParser
       SkillDescription skill=SkillsManager.getInstance().getSkill(skillId);
       ClassSkill classSkill=new ClassSkill(minLevel,skill);
       ret.addSkill(classSkill);
-    }
-    if (description!=null)
-    {
-      // Default buffs
-      List<Element> buffTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.DEFAULT_BUFF_TAG);
-      for(Element buffTag : buffTags)
-      {
-        NamedNodeMap buffAttrs=buffTag.getAttributes();
-        // Buff ID
-        String buffId=DOMParsingTools.getStringAttribute(buffAttrs,ClassDescriptionXMLConstants.DEFAULT_BUFF_ID_ATTR,null);
-        // Tier
-        int tierValue=DOMParsingTools.getIntAttribute(buffAttrs,ClassDescriptionXMLConstants.DEFAULT_BUFF_TIER,0);
-        Integer tier=(tierValue!=0)?Integer.valueOf(tierValue):null;
-        BuffSpecification buff=new BuffSpecification(buffId,tier);
-        description.addDefaultBuff(buff);
-      }
     }
     return ret;
   }
