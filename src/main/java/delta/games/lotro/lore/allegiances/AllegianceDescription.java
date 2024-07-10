@@ -24,6 +24,7 @@ public class AllegianceDescription implements Identifiable,Named
   private Integer _minLevel;
   private SkillDescription _travelSkill;
   private List<DeedDescription> _deeds;
+  private int _advancementProgressionID;
 
   /**
    * Constructor.
@@ -38,6 +39,7 @@ public class AllegianceDescription implements Identifiable,Named
     _minLevel=null;
     _travelSkill=null;
     _deeds=new ArrayList<DeedDescription>();
+    _advancementProgressionID=0;
   }
 
   /**
@@ -190,6 +192,24 @@ public class AllegianceDescription implements Identifiable,Named
   public void addDeed(DeedDescription deed)
   {
     _deeds.add(deed);
+  }
+
+  /**
+   * Get the advancement progression ID.
+   * @return the advancement progression ID.
+   */
+  public int getAdvancementProgressionID()
+  {
+    return _advancementProgressionID;
+  }
+
+  /**
+   * Set the advancement progression ID.
+   * @param advancementProgressionID the advancement progression ID to set.
+   */
+  public void setAdvancementProgressionID(int advancementProgressionID)
+  {
+    _advancementProgressionID=advancementProgressionID;
   }
 
   @Override

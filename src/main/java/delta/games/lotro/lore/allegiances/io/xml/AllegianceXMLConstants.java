@@ -23,6 +23,10 @@ public class AllegianceXMLConstants
    */
   public static final String ALLEGIANCE_NAME_ATTR="name";
   /**
+   * Tag 'allegiance', attribute 'advancementProgressionID'.
+   */
+  public static final String ALLEGIANCE_ADVANCEMENT_PROGRESSION_ID_ATTR="advancementProgressionID";
+  /**
    * Tag 'allegiance', attribute 'icon'.
    */
   public static final String ALLEGIANCE_ICON_ATTR="icon";

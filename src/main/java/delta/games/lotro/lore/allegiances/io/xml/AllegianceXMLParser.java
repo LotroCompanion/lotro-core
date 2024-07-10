@@ -78,6 +78,9 @@ public class AllegianceXMLParser
     // Name
     String name=_i18n.getLabel(String.valueOf(id));
     allegiance.setName(name);
+    // Advancement progression ID
+    int advancementProgressionID=DOMParsingTools.getIntAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_ADVANCEMENT_PROGRESSION_ID_ATTR,0);
+    allegiance.setAdvancementProgressionID(advancementProgressionID);
     // Icon
     int iconId=DOMParsingTools.getIntAttribute(attrs,AllegianceXMLConstants.ALLEGIANCE_ICON_ATTR,0);
     allegiance.setIconId(iconId);

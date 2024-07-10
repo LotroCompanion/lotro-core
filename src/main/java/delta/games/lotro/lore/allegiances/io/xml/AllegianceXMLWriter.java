@@ -77,6 +77,9 @@ public class AllegianceXMLWriter
     {
       attrs.addAttribute("","",AllegianceXMLConstants.ALLEGIANCE_NAME_ATTR,XmlWriter.CDATA,name);
     }
+    // Advancement progression ID
+    int advancementProgressionID=allegiance.getAdvancementProgressionID();
+    attrs.addAttribute("","",AllegianceXMLConstants.ALLEGIANCE_ADVANCEMENT_PROGRESSION_ID_ATTR,XmlWriter.CDATA,String.valueOf(advancementProgressionID));
     // Icon identifier
     int iconId=allegiance.getIconId();
     if (iconId!=0)
