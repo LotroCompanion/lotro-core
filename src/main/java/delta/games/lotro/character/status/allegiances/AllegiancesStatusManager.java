@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.lore.allegiances.AllegianceDescription;
+import delta.games.lotro.lore.allegiances.AllegiancesManager;
+import delta.games.lotro.lore.allegiances.Points2LevelCurve;
 
 /**
  * Storage for all allegiances status data for a single character.
@@ -66,6 +68,10 @@ public class AllegiancesStatusManager
     if ((ret==null) && (createIfNecessary))
     {
       ret=new AllegianceStatus(allegiance);
+      int curveID=allegiance.getAdvancementProgressionID();
+      AllegiancesManager mgr=AllegiancesManager.getInstance();
+      Points2LevelCurve curve=mgr.getCurvesManager().getCurve(curveID);
+      ret.setPoints2LevelCurve(curve);
       _status.put(key,ret);
     }
     return ret;

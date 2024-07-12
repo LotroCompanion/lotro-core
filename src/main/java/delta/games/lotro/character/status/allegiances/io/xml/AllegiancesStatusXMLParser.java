@@ -73,10 +73,14 @@ public class AllegiancesStatusXMLParser
       return;
     }
     AllegianceStatus newStatus=status.get(allegiance,true);
+    newStatus.setStarted(true);
     // Curve
     int curveID=DOMParsingTools.getIntAttribute(attrs,AllegiancesStatusXMLConstants.ALLEGIANCE_CURVE_ID_ATTR,0);
-    Points2LevelCurve curve=mgr.getCurvesManager().getCurve(curveID);
-    newStatus.setPoints2LevelCurve(curve);
+    if (curveID!=0)
+    {
+      Points2LevelCurve curve=mgr.getCurvesManager().getCurve(curveID);
+      newStatus.setPoints2LevelCurve(curve);
+    }
     // Points
     int points=DOMParsingTools.getIntAttribute(attrs,AllegiancesStatusXMLConstants.ALLEGIANCE_POINTS_EARNED_ATTR,0);
     newStatus.setPointsEarned(points);

@@ -15,6 +15,7 @@ public class AllegianceStatus
   private int _pointsEarned;
   private BitSet _claimedRewards;
   private Points2LevelCurve _points2LevelCurve;
+  private boolean _started;
 
   /**
    * Constructor.
@@ -30,6 +31,7 @@ public class AllegianceStatus
     _pointsEarned=0;
     _claimedRewards=new BitSet();
     _points2LevelCurve=null;
+    _started=false;
   }
 
   /**
@@ -124,7 +126,16 @@ public class AllegianceStatus
    */
   public boolean isStarted()
   {
-    return _points2LevelCurve!=null;
+    return _started;
+  }
+
+  /**
+   * Set the 'started' flag.
+   * @param started Value to set.
+   */
+  public void setStarted(boolean started)
+  {
+    _started=started;
   }
 
   /**
