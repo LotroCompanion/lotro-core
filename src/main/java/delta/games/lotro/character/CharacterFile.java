@@ -63,24 +63,27 @@ public class CharacterFile
    */
   public CharacterSummary getSummary()
   {
-    if (_summary==null)
+    if (_summary!=null)
     {
-      _summary=loadSummary();
+      return _summary;
     }
-    if (_summary==null)
+    _summary=loadSummary();
+    if (_summary!=null)
     {
-      CharacterSummary summary=_infosManager.buildSummaryFromNewestData();
-      if (summary!=null)
-      {
-        boolean ok=saveSummary(summary);
-        if (ok)
-        {
-          _summary=summary;
-          _infosManager.setSummary();
-        }
-      }
+      return _summary;
     }
-    return _summary;
+    CharacterSummary summary=_infosManager.buildSummaryFromNewestData();
+    if (summary==null)
+    {
+      summary=new CharacterSummary();
+    }
+    boolean ok=saveSummary(summary);
+    if (ok)
+    {
+      _summary=summary;
+      _infosManager.setSummary();
+    }
+    return summary;
   }
 
   private CharacterSummary loadSummary()
@@ -112,6 +115,15 @@ public class CharacterFile
   {
     File summaryFile=new File(_rootDir,"summary.xml");
     return summaryFile;
+  }
+
+  /**
+   * Invoked when the summary has been updated.
+   */
+  public void summaryUpdated()
+  {
+    // Update the current data
+    _infosManager.updateCurrentData(_infosManager.getCurrentData());
   }
 
   /**

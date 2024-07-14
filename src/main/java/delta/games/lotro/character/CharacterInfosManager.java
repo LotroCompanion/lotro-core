@@ -118,22 +118,28 @@ public class CharacterInfosManager
    */
   public CharacterData getCurrentData()
   {
-    CharacterData ret=_current;
-    if (ret==null)
+    if (_current!=null)
     {
-      ret=loadCurrentData();
-      _current=ret;
+      return _current;
     }
-    if (ret==null)
+    _current=loadCurrentData();
+    if (_current!=null)
     {
-      ret=getLastCharacterDescription();
-      _current=ret;
+      _current.getSummary().setSummary(_toon.getSummary());
+      return _current;
     }
-    if (ret==null)
+    CharacterData last=getLastCharacterDescription();
+    if (last!=null)
     {
-      ret=new CharacterData();
+      CharacterData current=new CharacterData(last);
+      updateCurrentData(current);
+      return _current;
     }
-    return ret;
+    // Shall not happen!
+    CharacterData current=new CharacterData();
+    current.getSummary().setSummary(_toon.getSummary());
+    updateCurrentData(current);
+    return _current;
   }
 
   private CharacterData loadCurrentData()
