@@ -21,6 +21,7 @@ import delta.games.lotro.lore.items.effects.ItemEffectsManager;
 import delta.games.lotro.lore.items.essences.EssencesSlotsSetup;
 import delta.games.lotro.lore.items.scaling.ItemSpellcraft;
 import delta.games.lotro.lore.items.scaling.Munging;
+import delta.games.lotro.lore.items.scaling.ScalingData;
 import delta.games.lotro.lore.items.sets.ItemsSet;
 
 /**
@@ -78,7 +79,7 @@ public class Item implements Interactable,ItemProvider
   // Quality
   private ItemQuality _quality;
   // Scaling
-  private Munging _munging;
+  private ScalingData _scaling;
   // Spellcraft
   private ItemSpellcraft _spellcraft;
   // Other details
@@ -112,7 +113,7 @@ public class Item implements Interactable,ItemProvider
     _value=null;
     _stackMax=null;
     _quality=null;
-    _munging=null;
+    _scaling=null;
     _spellcraft=null;
     _details=null;
     _effects=null;
@@ -718,7 +719,7 @@ public class Item implements Interactable,ItemProvider
    */
   public boolean isScalable()
   {
-    return (_munging!=null);
+    return (_scaling!=null);
   }
 
   /**
@@ -727,16 +728,25 @@ public class Item implements Interactable,ItemProvider
    */
   public Munging getMunging()
   {
-    return _munging;
+    return (_scaling!=null)?_scaling.getMunging():null;
   }
 
   /**
-   * Set munging data.
-   * @param munging Munging data.
+   * Get scaling data.
+   * @return scaling data or <code>null</code>.
    */
-  public void setMunging(Munging munging)
+  public ScalingData getScaling()
   {
-    _munging=munging;
+    return _scaling;
+  }
+
+  /**
+   * Set scaling data.
+   * @param scaling Scaling data.
+   */
+  public void setScaling(ScalingData scaling)
+  {
+    _scaling=scaling;
   }
 
   /**
@@ -876,10 +886,10 @@ public class Item implements Interactable,ItemProvider
       sb.append(_stackMax);
       sb.append(')');
     }
-    if (_munging!=null)
+    if (_scaling!=null)
     {
-      sb.append(" (Munging=");
-      sb.append(_munging);
+      sb.append(" (Scaling=");
+      sb.append(_scaling);
       sb.append(')');
     }
     if (_spellcraft!=null)

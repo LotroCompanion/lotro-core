@@ -39,7 +39,7 @@ import delta.games.lotro.lore.items.essences.EssencesSlotsSetup;
 import delta.games.lotro.lore.items.legendary.Legendary;
 import delta.games.lotro.lore.items.legendary.LegendaryAttrs;
 import delta.games.lotro.lore.items.scaling.ItemSpellcraft;
-import delta.games.lotro.lore.items.scaling.Munging;
+import delta.games.lotro.lore.items.scaling.ScalingData;
 import delta.games.lotro.lore.items.weapons.WeaponSpeedEntry;
 
 /**
@@ -303,10 +303,10 @@ public class ItemXMLWriter
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_ESSENCE_SLOTS_ATTR,XmlWriter.CDATA,setupStr);
     }
     // Munging
-    Munging munging=item.getMunging();
-    if (munging!=null)
+    ScalingData scaling=item.getScaling();
+    if (scaling!=null)
     {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SCALING_ATTR,XmlWriter.CDATA,munging.asString());
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SCALING_ATTR,XmlWriter.CDATA,scaling.asString());
     }
     // Spellcraft
     ItemSpellcraft spellcraft=item.getSpellcraft();
