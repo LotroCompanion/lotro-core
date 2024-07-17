@@ -14,21 +14,33 @@ public class Munging
 {
   private static final Logger LOGGER=Logger.getLogger(Munging.class);
 
+  private String _propertyName;
   private Integer _min;
   private Integer _max;
   private Progression _progression;
 
   /**
    * Constructor.
+   * @param propertyName Property that drives the scaling (may be <code>null</code>).
    * @param min Minimum level/item level (may be <code>null</code>).
    * @param max Maximum level/item level (may be <code>null</code>).
    * @param progression Level to item level curve (may be <code>null</code>).
    */
-  public Munging(Integer min, Integer max, Progression progression)
+  public Munging(String propertyName, Integer min, Integer max, Progression progression)
   {
+    _propertyName=propertyName;
     _min=min;
     _max=max;
     _progression=progression;
+  }
+
+  /**
+   * Get the name of the property that drives the scaling.
+   * @return A property name or <code>null</code>.
+   */
+  public String getPropertyName()
+  {
+    return _propertyName;
   }
 
   /**
@@ -93,7 +105,14 @@ public class Munging
    */
   public static Munging fromString(String mungingStr)
   {
-    int index=mungingStr.indexOf(':');
+    int index=mungingStr.indexOf('#');
+    String propertyName=null;
+    if (index!=-1)
+    {
+      propertyName=mungingStr.substring(0,index);
+      mungingStr=mungingStr.substring(index+1);
+    }
+    index=mungingStr.indexOf(':');
     String levelsStr=null;
     Integer progressionId=null;
     if (index!=-1)
@@ -130,13 +149,18 @@ public class Munging
         LOGGER.warn("Progression not found: "+progressionId);
       }
     }
-    return new Munging(min,max,progression);
+    return new Munging(propertyName,min,max,progression);
   }
 
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
+    if (_propertyName!=null)
+    {
+      sb.append(_propertyName);
+      sb.append('#');
+    }
     if ((_min!=null) || (_max!=null))
     {
       if (_min!=null)
