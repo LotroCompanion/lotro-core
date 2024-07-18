@@ -19,6 +19,9 @@ public class PVPStatusIO
    * @param character Parent character.
    * @return the loaded summary.
    */
+  private PVPStatusIO() {
+  }
+  
   public static PVPStatus loadPVPStatus(CharacterFile character)
   {
     File fromFile=getPVPStatusFile(character);

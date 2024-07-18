@@ -31,6 +31,9 @@ public class AchievementsSummaryIO
    * @param character Parent character.
    * @return the loaded summary.
    */
+  private AchievementsSummaryIO() {
+  }
+  
   public static AchievementsSummary loadAchievementsSummary(CharacterFile character)
   {
     AchievementsSummary ret=loadAchievementsSummaryIfExists(character);

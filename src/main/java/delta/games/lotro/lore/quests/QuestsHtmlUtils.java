@@ -21,6 +21,9 @@ public class QuestsHtmlUtils
    * @param sb Output stream.
    * @param dialog Data to show.
    */
+  private QuestsHtmlUtils() {
+  }
+  
   public static void buildHtmlForDialog(VariablesResolver resolver, StringBuilder sb, DialogElement dialog)
   {
     sb.append("<br>");

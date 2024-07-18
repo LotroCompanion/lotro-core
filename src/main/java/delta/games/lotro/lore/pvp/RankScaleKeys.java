@@ -12,6 +12,9 @@ public class RankScaleKeys
   /**
    * Renown.
    */
+  private RankScaleKeys() {
+  }
+  
   public static final String RENOWN="renown";
   /**
    * Infamy.

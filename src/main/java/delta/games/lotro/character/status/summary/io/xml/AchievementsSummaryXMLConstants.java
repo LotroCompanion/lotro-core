@@ -9,6 +9,9 @@ public class AchievementsSummaryXMLConstants
   /**
    * Tag 'achievablesSummary'.
    */
+  private AchievementsSummaryXMLConstants() {
+  }
+  
   public static final String ACHIEVEMENTS_SUMMARY_TAG="achievementsSummary";
   /**
    * Attribute 'deeds'.
