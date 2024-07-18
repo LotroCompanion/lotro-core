@@ -53,7 +53,8 @@ public class ItemScalingBuilder
   private static ItemScaling buildScaling(Item item)
   {
     ItemScaling ret=new ItemScaling(item);
-    Munging munging=item.getMunging();
+    ScalingData scaling=item.getScaling();
+    Munging munging=scaling.getMunging();
     Integer min=munging.getMin();
     int minLevel=(min!=null?min.intValue():1);
     Integer max=munging.getMax();
@@ -61,7 +62,6 @@ public class ItemScalingBuilder
     int maxLevel=(max!=null?max.intValue():levelCap);
 
     Progression progression=munging.getProgression();
-    StatsProvider statsProvider=item.getStatsProvider();
     for(int level=minLevel;level<=maxLevel;level++)
     {
       int levelValue;
@@ -80,41 +80,58 @@ public class ItemScalingBuilder
       {
         continue;
       }
-      ItemScalingEntry scaling=null;
-      WeaponScalingEntry weaponScaling=null;
-      if (item instanceof Weapon)
+      int minItemLevel=itemLevel.intValue();
+      int maxItemLevel=minItemLevel;
+      ItemLevelBonus bonus=scaling.getItemLevelBonus();
+      if (bonus!=null)
       {
-        weaponScaling=new WeaponScalingEntry();
-        scaling=weaponScaling;
+        maxItemLevel+=bonus.getBonusLimit();
       }
-      else
+      for(int itemLevelToUse=minItemLevel;itemLevelToUse<=maxItemLevel;itemLevelToUse++)
       {
-        scaling=new ItemScalingEntry();
+        ItemScalingEntry entry=buildEntry(item,levelValue,itemLevelToUse);
+        ret.addEntry(entry);
       }
-      scaling.setLevel(levelValue);
-      scaling.setItemLevel(itemLevel.intValue());
-      if (statsProvider!=null)
-      {
-        BasicStatsSet stats=statsProvider.getStats(1,itemLevel.intValue());
-        scaling.setStats(stats);
-      }
-      Money value=item.getValue(itemLevel.intValue());
-      scaling.setMoney(value);
-      // Weapon specifics
-      if (weaponScaling!=null)
-      {
-        Weapon weapon=(Weapon)item;
-        // DPS
-        float dps=weapon.computeDPS(itemLevel.intValue());
-        weaponScaling.setDPS(dps);
-        // Min/max damage
-        float minDamage=weapon.computeMinDamage(itemLevel.intValue());
-        weaponScaling.setMinDamage(minDamage);
-        float maxDamage=weapon.computeMaxDamage(itemLevel.intValue());
-        weaponScaling.setMaxDamage(maxDamage);
-      }
-      ret.addEntry(scaling);
     }
     return ret;
+  }
+
+  private static ItemScalingEntry buildEntry(Item item,int levelValue,int itemLevel)
+  {
+    ItemScalingEntry scaling=null;
+    WeaponScalingEntry weaponScaling=null;
+    if (item instanceof Weapon)
+    {
+      weaponScaling=new WeaponScalingEntry();
+      scaling=weaponScaling;
+    }
+    else
+    {
+      scaling=new ItemScalingEntry();
+    }
+    scaling.setLevel(levelValue);
+    scaling.setItemLevel(itemLevel);
+    StatsProvider statsProvider=item.getStatsProvider();
+    if (statsProvider!=null)
+    {
+      BasicStatsSet stats=statsProvider.getStats(1,itemLevel);
+      scaling.setStats(stats);
+    }
+    Money value=item.getValue(itemLevel);
+    scaling.setMoney(value);
+    // Weapon specifics
+    if (weaponScaling!=null)
+    {
+      Weapon weapon=(Weapon)item;
+      // DPS
+      float dps=weapon.computeDPS(itemLevel);
+      weaponScaling.setDPS(dps);
+      // Min/max damage
+      float minDamage=weapon.computeMinDamage(itemLevel);
+      weaponScaling.setMinDamage(minDamage);
+      float maxDamage=weapon.computeMaxDamage(itemLevel);
+      weaponScaling.setMaxDamage(maxDamage);
+    }
+    return scaling;
   }
 }
