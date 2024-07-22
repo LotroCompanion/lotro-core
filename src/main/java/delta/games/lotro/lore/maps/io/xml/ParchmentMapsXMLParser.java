@@ -80,6 +80,9 @@ public class ParchmentMapsXMLParser
     // Parent map ID
     int parentMapId=DOMParsingTools.getIntAttribute(attrs,ParchmentMapsXMLConstants.PARCHMENT_PARENT_MAP_ID_ATTR,0);
     ret.setParentMapId(parentMapId);
+    // Quest guide disabled
+    boolean questGuideDisabled=DOMParsingTools.getBooleanAttribute(attrs,ParchmentMapsXMLConstants.PARCHMENT_QUEST_GUIDE_DISABLED_ATTR,false);
+    ret.setQuestGuideDisabled(questGuideDisabled);
     // Areas
     List<Element> areaTags=DOMParsingTools.getChildTagsByName(parchmentMapTag,ParchmentMapsXMLConstants.AREA_TAG);
     for(Element areaTag : areaTags)

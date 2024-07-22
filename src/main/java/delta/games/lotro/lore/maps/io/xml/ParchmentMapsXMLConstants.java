@@ -24,6 +24,10 @@ public class ParchmentMapsXMLConstants
    */
   public static final String PARCHMENT_PARENT_MAP_ID_ATTR="parentMapId";
   /**
+   * Tag 'parchmentMap', attribute 'questGuideDisabled'.
+   */
+  public static final String PARCHMENT_QUEST_GUIDE_DISABLED_ATTR="questGuideDisabled";
+  /**
    * Tag 'area'.
    */
   public static final String AREA_TAG="area";

@@ -11,6 +11,7 @@ public class ParchmentMap extends AbstractMap
 {
   private int _parentMapId;
   private int _region;
+  private boolean _questGuideDisabled;
   private List<Area> _areas;
 
   /**
@@ -21,6 +22,7 @@ public class ParchmentMap extends AbstractMap
   public ParchmentMap(int id, String name)
   {
     super(id,name);
+    _questGuideDisabled=false;
     _areas=new ArrayList<Area>();
   }
 
@@ -61,6 +63,24 @@ public class ParchmentMap extends AbstractMap
   }
 
   /**
+   * Indicates if the quest guide is disabled or not.
+   * @return <code>true</code> if it is disabled, <code>false</code> otherwise.
+   */
+  public boolean isQuestGuideDisabled()
+  {
+    return _questGuideDisabled;
+  }
+
+  /**
+   * Set the 'quest guide disabled' flag.
+   * @param questGuideDisabled Value to set.
+   */
+  public void setQuestGuideDisabled(boolean questGuideDisabled)
+  {
+    _questGuideDisabled=questGuideDisabled;
+  }
+
+/**
    * Add a child area.
    * @param area Area to add.
    */

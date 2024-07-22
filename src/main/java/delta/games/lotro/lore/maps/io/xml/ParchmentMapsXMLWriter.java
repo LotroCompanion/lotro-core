@@ -85,6 +85,12 @@ public class ParchmentMapsXMLWriter
     {
       attrs.addAttribute("","",ParchmentMapsXMLConstants.PARCHMENT_PARENT_MAP_ID_ATTR,XmlWriter.CDATA,String.valueOf(parentMapId));
     }
+    // Quest guide disabled
+    boolean questGuideDisabled=map.isQuestGuideDisabled();
+    if (questGuideDisabled)
+    {
+      attrs.addAttribute("","",ParchmentMapsXMLConstants.PARCHMENT_QUEST_GUIDE_DISABLED_ATTR,XmlWriter.CDATA,String.valueOf(questGuideDisabled));
+    }
     hd.startElement("","",ParchmentMapsXMLConstants.PARCHMENT_MAP_TAG,attrs);
     // Areas
     for(Area area : map.getAreas())
