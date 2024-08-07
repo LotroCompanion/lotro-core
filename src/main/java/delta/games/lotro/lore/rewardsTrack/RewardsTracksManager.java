@@ -100,4 +100,23 @@ public class RewardsTracksManager
     Collections.sort(ret,new IdentifiableComparator<RewardsTrack>());
     return ret;
   }
+
+  /**
+   * Get rewards tracks.
+   * @param monsterPlay get tracks for monster play or not.
+   * @return A list of rewards tracks, sorted by identifier.
+   */
+  public List<RewardsTrack> getRewardsTracks(boolean monsterPlay)
+  {
+    List<RewardsTrack> ret=new ArrayList<RewardsTrack>();
+    for(RewardsTrack track : _tracks.values())
+    {
+      if (track.isMonsterPlay()==monsterPlay)
+      {
+        ret.add(track);
+      }
+    }
+    Collections.sort(ret,new IdentifiableComparator<RewardsTrack>());
+    return ret;
+  }
 }
