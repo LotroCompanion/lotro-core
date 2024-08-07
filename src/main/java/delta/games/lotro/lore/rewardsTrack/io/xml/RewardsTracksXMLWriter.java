@@ -79,6 +79,12 @@ public class RewardsTracksXMLWriter
     // Name
     String name=rewardsTrack.getName();
     attrs.addAttribute("","",RewardsTracksXMLConstants.REWARDS_TRACK_NAME_ATTR,XmlWriter.CDATA,name);
+    // Monster play
+    boolean monsterPlay=rewardsTrack.isMonsterPlay();
+    if (monsterPlay)
+    {
+      attrs.addAttribute("","",RewardsTracksXMLConstants.REWARDS_TRACK_MONSTER_PLAY_ATTR,XmlWriter.CDATA,String.valueOf(monsterPlay));
+    }
     // Description
     String description=rewardsTrack.getDescription();
     attrs.addAttribute("","",RewardsTracksXMLConstants.REWARDS_TRACK_DESCRIPTION_ATTR,XmlWriter.CDATA,description);

@@ -24,6 +24,10 @@ public class RewardsTracksXMLConstants
    */
   public static final String REWARDS_TRACK_NAME_ATTR="name";
   /**
+   * Tag 'rewardsTrack', attribute 'monsterPlay'.
+   */
+  public static final String REWARDS_TRACK_MONSTER_PLAY_ATTR="monsterPlay";
+  /**
    * Tag 'rewardsTrack', attribute 'description'.
    */
   public static final String REWARDS_TRACK_DESCRIPTION_ATTR="description";

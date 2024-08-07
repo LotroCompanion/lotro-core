@@ -62,6 +62,9 @@ public class RewardsTracksXMLParser
     // Name
     String name=_i18n.getLabel(String.valueOf(id));
     rewardsTrack.setName(name);
+    // Monster play.
+    boolean monsterPlay=DOMParsingTools.getBooleanAttribute(attrs,RewardsTracksXMLConstants.REWARDS_TRACK_MONSTER_PLAY_ATTR,false);
+    rewardsTrack.setMonsterPlay(monsterPlay);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,RewardsTracksXMLConstants.REWARDS_TRACK_DESCRIPTION_ATTR,"");
     description=I18nRuntimeUtils.getLabel(_i18n,description);

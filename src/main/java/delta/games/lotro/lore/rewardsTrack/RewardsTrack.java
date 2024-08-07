@@ -14,6 +14,7 @@ public class RewardsTrack implements Identifiable,Named
 {
   private int _identifier;
   private String _name;
+  private boolean _monsterPlay;
   private String _description;
   private List<RewardsTrackStep> _steps;
   // ID of the progression to get the item XP amount for an interval as a function of the character level
@@ -35,6 +36,7 @@ public class RewardsTrack implements Identifiable,Named
   {
     _identifier=identifier;
     _name="";
+    _monsterPlay=false;
     _description="";
     _steps=new ArrayList<RewardsTrackStep>();
   }
@@ -65,6 +67,24 @@ public class RewardsTrack implements Identifiable,Named
       name="";
     }
     _name=name;
+  }
+
+  /**
+   * Indicates if this reward track is for monster play or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isMonsterPlay()
+  {
+    return _monsterPlay;
+  }
+
+  /**
+   * Set the 'monster play' flag.
+   * @param monsterPlay Value to set.
+   */
+  public void setMonsterPlay(boolean monsterPlay)
+  {
+    _monsterPlay=monsterPlay;
   }
 
   /**
