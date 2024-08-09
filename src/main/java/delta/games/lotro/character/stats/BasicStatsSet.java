@@ -307,7 +307,11 @@ public class BasicStatsSet
       {
         sb.append(separator);
       }
-      sb.append(StatUtils.getStatDisplay(element));
+      String line=StatUtils.getStatDisplay(element);
+      if ((line!=null) && (!line.isEmpty()))
+      {
+        sb.append(line);
+      }
       index++;
     }
     return sb.toString().trim();

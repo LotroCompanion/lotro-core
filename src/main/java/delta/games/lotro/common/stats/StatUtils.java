@@ -119,7 +119,7 @@ public class StatUtils
         continue;
       }
       String line=getStatDisplay(element);
-      if (line==null)
+      if ((line==null) || (line.isEmpty()))
       {
         continue;
       }
@@ -150,7 +150,10 @@ public class StatUtils
     for(SpecialEffect specialEffect : provider.getSpecialEffects())
     {
       String label=specialEffect.getLabel();
-      lines.add(label);
+      if ((label!=null) && (!label.isEmpty()))
+      {
+        lines.add(label);
+      }
     }
     return lines;
   }
@@ -175,7 +178,7 @@ public class StatUtils
         if (element!=null)
         {
           String statDisplay=getStatDisplay(element);
-          if (statDisplay!=null)
+          if ((statDisplay!=null) && (!statDisplay.isEmpty()))
           {
             lines.add(statDisplay);
           }
@@ -184,7 +187,11 @@ public class StatUtils
       else if (entry instanceof SpecialEffect)
       {
         SpecialEffect specialEffect=(SpecialEffect)entry;
-        lines.add(specialEffect.getLabel());
+        String line=specialEffect.getLabel();
+        if ((line!=null) && (!line.isEmpty()))
+        {
+          lines.add(line);
+        }
       }
     }
     lines=TextTools.handleNewLines(lines);

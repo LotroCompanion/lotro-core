@@ -265,7 +265,11 @@ public class StatsProvider
       else if (entry instanceof SpecialEffect)
       {
         SpecialEffect specialEffect=(SpecialEffect)entry;
-        sb.append(specialEffect.getLabel());
+        String line=specialEffect.getLabel();
+        if ((line!=null) && (!line.isEmpty()))
+        {
+          sb.append(line);
+        }
       }
     }
     return sb.toString();
