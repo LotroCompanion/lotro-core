@@ -75,6 +75,10 @@ public class ItemsSetXMLParser
     ret.setIdentifier(id);
     // Name
     String name=_i18n.getLabel(String.valueOf(id));
+    if (name==null)
+    {
+      name="";
+    }
     name=name.replace(EndOfLine.UNIX.toString(),EndOfLine.NATIVE_EOL);
     ret.setName(name);
     // Type
