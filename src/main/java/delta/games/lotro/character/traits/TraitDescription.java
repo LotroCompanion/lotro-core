@@ -47,6 +47,10 @@ public class TraitDescription implements Identifiable,Named
    */
   private Integer _staticIconOverlayId;
   /**
+   * Point cost progression.
+   */
+  private ArrayProgression _pointCostProgression;
+  /**
    * Rank overlay progression.
    */
   private ArrayProgression _rankOverlayProgression;
@@ -239,6 +243,24 @@ public class TraitDescription implements Identifiable,Named
   public void setStaticIconOverlayId(Integer staticIconOverlayId)
   {
     _staticIconOverlayId=staticIconOverlayId;
+  }
+
+  /**
+   * Get the point cost progression.
+   * @return A progression for point cost (may be <code>null</code>).
+   */
+  public ArrayProgression getPointCostProgression()
+  {
+    return _pointCostProgression;
+  }
+
+  /**
+   * Set the point cost progression.
+   * @param pointCostProgression Progression to set (may be <code>null</code>).
+   */
+  public void setPointCostProgression(ArrayProgression pointCostProgression)
+  {
+    _pointCostProgression=pointCostProgression;
   }
 
   /**
@@ -514,6 +536,30 @@ public class TraitDescription implements Identifiable,Named
   public void setTraitPrerequisite(AbstractTraitPrerequisite prerequisites)
   {
     _prerequisites=prerequisites;
+  }
+
+  /**
+   * Get the total point cost for the given rank.
+   * @param rank Rank to use.
+   * @return A point cost.
+   */
+  public float getPointCost(int rank)
+  {
+    if (rank<=0)
+    {
+      return 0;
+    }
+    if (_pointCostProgression==null)
+    {
+      return 0;
+    }
+    float cost=0;
+    for(int i=1;i<=rank;i++)
+    {
+      float rankCost=_pointCostProgression.getValue(i).floatValue();
+      cost+=rankCost;
+    }
+    return cost;
   }
 
   @Override

@@ -40,6 +40,10 @@ public class TraitDescriptionXMLConstants
    */
   public static final String TRAIT_STATIC_ICON_OVERLAY_ID_ATTR="staticIconOverlayId";
   /**
+   * Tag 'trait', attribute 'pointCostProgression'.
+   */
+  public static final String TRAIT_POINT_COST_PROGRESSION_ATTR="pointCostProgression";
+  /**
    * Tag 'trait', attribute 'rankOverlayProgression'.
    */
   public static final String TRAIT_RANK_OVERLAY_PROGRESSION_ATTR="rankOverlayProgression";

@@ -93,6 +93,13 @@ public class TraitDescriptionXMLWriter
     {
       attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_STATIC_ICON_OVERLAY_ID_ATTR,XmlWriter.CDATA,staticOverlayIconId.toString());
     }
+    // Point cost progression
+    ArrayProgression pointCostProgression=trait.getPointCostProgression();
+    if (pointCostProgression!=null)
+    {
+      int pointCostProgressionId=pointCostProgression.getIdentifier();
+      attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_POINT_COST_PROGRESSION_ATTR,XmlWriter.CDATA,String.valueOf(pointCostProgressionId));
+    }
     // Rank overlay progression
     ArrayProgression rankOverlayProgression=trait.getRankOverlayProgression();
     if (rankOverlayProgression!=null)

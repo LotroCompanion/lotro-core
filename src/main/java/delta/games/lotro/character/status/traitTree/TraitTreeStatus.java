@@ -153,6 +153,31 @@ public class TraitTreeStatus
   }
 
   /**
+   * Get the cost in the specified row of the specified branch.
+   * @param branch Branch to use.
+   * @param row Row, starting at 1.
+   * @return A points count.
+   */
+  private float getCostForRow(TraitTreeBranch branch, int row)
+  {
+    float totalCost=0;
+    String seed=String.valueOf(row)+"_";
+    for(String cellId : branch.getCells())
+    {
+      if (cellId.startsWith(seed))
+      {
+        TraitTreeCell cell=branch.getCell(cellId);
+        TraitDescription trait=cell.getTrait();
+        Integer key=Integer.valueOf(trait.getIdentifier());
+        int ranks=_treeRanks.get(key).getInt();
+        float cost=trait.getPointCost(ranks);
+        totalCost+=cost;
+      }
+    }
+    return totalCost;
+  }
+
+  /**
    * Get the number of activated ranks in the given first rows of the specified branch.
    * @param branch Branch to use.
    * @param rows Rows to use.
@@ -166,6 +191,22 @@ public class TraitTreeStatus
       totalRanks+=getRanksForRow(branch,row);
     }
     return totalRanks;
+  }
+
+  /**
+   * Get the cost of the given first rows of the specified branch.
+   * @param branch Branch to use.
+   * @param rows Rows to use.
+   * @return A points count.
+   */
+  private float getCostForRows(TraitTreeBranch branch, int rows)
+  {
+    float totalCost=0;
+    for(int row=1;row<=rows;row++)
+    {
+      totalCost+=getCostForRow(branch,row);
+    }
+    return totalCost;
   }
 
   /**
@@ -268,13 +309,13 @@ public class TraitTreeStatus
     int total=0;
     for(TraitTreeBranch branch : _tree.getBranches())
     {
-      int ranks=getRanksForRows(branch,10); // Assume max 10 ranks
+      float cost=getCostForRows(branch,10); // Assume max 10 ranks
       int factor=2;
-      if ((branch==_selectedBranch) || (!branch.isEnabled()))
+      if (branch==_selectedBranch)
       {
         factor=1;
       }
-      total+=factor*ranks;
+      total+=factor*cost;
     }
     return total;
   }

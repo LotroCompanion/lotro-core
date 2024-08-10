@@ -101,6 +101,13 @@ public class TraitDescriptionXMLParser
     // Static icon overlay ID
     Integer staticIconOverlayID=DOMParsingTools.getIntegerAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_STATIC_ICON_OVERLAY_ID_ATTR,null);
     trait.setStaticIconOverlayId(staticIconOverlayID);
+    // Point cost progression
+    Integer pointCostProgressionID=DOMParsingTools.getIntegerAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_POINT_COST_PROGRESSION_ATTR,null);
+    if (pointCostProgressionID!=null)
+    {
+      ArrayProgression pointCostProgression=(ArrayProgression)ProgressionsManager.getInstance().getProgression(pointCostProgressionID.intValue());
+      trait.setPointCostProgression(pointCostProgression);
+    }
     // Rank overlay progression
     Integer rankOverlayProgressionID=DOMParsingTools.getIntegerAttribute(attrs,TraitDescriptionXMLConstants.TRAIT_RANK_OVERLAY_PROGRESSION_ATTR,null);
     if (rankOverlayProgressionID!=null)
