@@ -184,10 +184,7 @@ public class StatsProvider
       StatsSetElement element=getStat(provider,tier,level);
       if (element!=null)
       {
-        StatDescription stat=element.getStat();
-        StatOperator operator=element.getOperator();
-        Number statValue=element.getValue();
-        stats.setStat(stat,operator,statValue,provider.getDescriptionOverride());
+        stats.addStat(element);
       }
     }
     return stats;

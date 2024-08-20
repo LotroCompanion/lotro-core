@@ -164,12 +164,15 @@ public class BasicStatsSet
     if (existing!=null)
     {
       // Update this one
-      if (!Objects.equals(existing.getDescriptionOverride(),elementToSet.getDescriptionOverride()))
+      String currentDescriptionOverride=existing.getDescriptionOverride();
+      String newDescriptionOverride=elementToSet.getDescriptionOverride();
+      if (!Objects.equals(currentDescriptionOverride,newDescriptionOverride))
       {
-        LOGGER.warn("Set stat will replace description!");
+        StatDescription stat=elementToSet.getStat();
+        LOGGER.warn("Set stat ("+stat.getName()+") will replace description: before=["+currentDescriptionOverride+"], after=["+newDescriptionOverride+"]!");
       }
       existing.setValue(elementToSet.getValue());
-      existing.setDescriptionOverride(elementToSet.getDescriptionOverride());
+      existing.setDescriptionOverride(newDescriptionOverride);
     }
     else
     {
@@ -186,9 +189,7 @@ public class BasicStatsSet
     _elements.clear();
     for(StatsSetElement element : stats._elements)
     {
-      StatsSetElement newElement=new StatsSetElement(element.getStat(),element.getOperator());
-      newElement.setValue(element.getValue());
-      newElement.setDescriptionOverride(element.getDescriptionOverride());
+      StatsSetElement newElement=new StatsSetElement(element);
       _elements.add(newElement);
     }
   }
@@ -243,6 +244,11 @@ public class BasicStatsSet
       if (!Objects.equals(existing.getDescriptionOverride(),elementToAdd.getDescriptionOverride()))
       {
         //LOGGER.warn("Add stat will replace description!");
+      }
+      StatOperator operator=elementToAdd.getOperator();
+      if (operator!=StatOperator.ADD)
+      {
+        LOGGER.warn("Adding stat "+elementToAdd.getStat()+" with operator "+operator);
       }
       existing.setDescriptionOverride(elementToAdd.getDescriptionOverride());
       existing.setValue(newValue);
