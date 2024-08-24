@@ -6,7 +6,7 @@ import delta.games.lotro.common.geo.Position;
  * Recall effect.
  * @author DAM
  */
-public class RecallEffect extends Effect
+public class RecallEffect extends InstantEffect
 {
   private Position _position;
 

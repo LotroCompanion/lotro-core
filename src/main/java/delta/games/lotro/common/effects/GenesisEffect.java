@@ -7,7 +7,7 @@ import delta.games.lotro.utils.Proxy;
  * Genesis effect.
  * @author DAM
  */
-public class GenesisEffect extends Effect
+public class GenesisEffect extends ParameterizedNumericEffect
 {
   // Effect_Genesis_ConstantSummonDuration: 20.0
   // Effect_Genesis_PermanentSummonDuration: 0

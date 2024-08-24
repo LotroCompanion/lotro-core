@@ -6,7 +6,7 @@ import delta.games.lotro.common.geo.Position;
  * Travel effect.
  * @author DAM
  */
-public class TravelEffect extends Effect
+public class TravelEffect extends InstantEffect
 {
   private Position _destination;
   // We could add:

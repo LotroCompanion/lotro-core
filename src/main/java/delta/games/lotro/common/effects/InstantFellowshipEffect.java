@@ -7,7 +7,7 @@ import java.util.List;
  * Instant fellowship effect.
  * @author DAM
  */
-public class InstantFellowshipEffect extends Effect
+public class InstantFellowshipEffect extends InstantEffect
 {
   private List<EffectGenerator> _effects;
   private boolean _applyToRaidGroups;

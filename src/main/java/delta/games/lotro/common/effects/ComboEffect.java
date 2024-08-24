@@ -9,7 +9,7 @@ import delta.games.lotro.utils.Proxy;
  * Combo effect.
  * @author DAM
  */
-public class ComboEffect extends Effect
+public class ComboEffect extends InstantEffect
 {
   private List<Proxy<Effect>> _presentList;
   private Proxy<Effect> _toAddIfNotPresent;

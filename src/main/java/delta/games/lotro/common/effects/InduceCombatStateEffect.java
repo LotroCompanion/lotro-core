@@ -7,7 +7,7 @@ import delta.games.lotro.common.math.LinearFunction;
  * 'Induce combat state' effect.
  * @author DAM
  */
-public class InduceCombatStateEffect extends Effect
+public class InduceCombatStateEffect extends InstantEffect
 {
   private CombatState _state;
   private float _duration;

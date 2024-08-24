@@ -7,7 +7,7 @@ import java.util.List;
  * Tiered effect.
  * @author DAM
  */
-public class TieredEffect extends Effect
+public class TieredEffect extends InstantEffect
 {
   private List<EffectGenerator> _tiers;
   private EffectGenerator _finalTier;
