@@ -295,6 +295,22 @@ public class EffectXMLConstants
    */
   public static final String RECALL_EFFECT_TAG="recallEffect";
   /**
+   * Tag 'travelEffect'.
+   */
+  public static final String TRAVEL_EFFECT_TAG="travelEffect";
+  /**
+   * Tag 'travelEffect', attribute 'sceneID'.
+   */
+  public static final String TRAVEL_EFFECT_SCENE_ID="sceneID";
+  /**
+   * Tag 'travelEffect', attribute 'privateEncounterID'.
+   */
+  public static final String TRAVEL_EFFECT_PRIVATE_ENCOUNTER_ID="privateEncounterID";
+  /**
+   * Tag 'travelEffect', attribute 'removeFromInstance'.
+   */
+  public static final String TRAVEL_EFFECT_REMOVE_FROM_INSTANCE="removeFromInstance";
+  /**
    * Tag 'comboEffect'.
    */
   public static final String COMBO_EFFECT_TAG="comboEffect";

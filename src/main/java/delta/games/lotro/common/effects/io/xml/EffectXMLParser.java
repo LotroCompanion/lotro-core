@@ -33,6 +33,7 @@ import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
 import delta.games.lotro.common.effects.RecallEffect;
 import delta.games.lotro.common.effects.TieredEffect;
+import delta.games.lotro.common.effects.TravelEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
@@ -149,6 +150,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.RECALL_EFFECT_TAG.equals(tagName))
     {
       ret=parseRecallEffect(root);
+    }
+    else if (EffectXMLConstants.TRAVEL_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseTravelEffect(root);
     }
     else if (EffectXMLConstants.COMBO_EFFECT_TAG.equals(tagName))
     {
@@ -520,6 +525,26 @@ public class EffectXMLParser
     Element positionTag=DOMParsingTools.getChildTagByName(root,PositionXMLConstants.POSITION);
     Position position=PositionXMLParser.parseSimplePosition(positionTag);
     ret.setPosition(position);
+    return ret;
+  }
+
+  private TravelEffect parseTravelEffect(Element root)
+  {
+    TravelEffect ret=new TravelEffect();
+    NamedNodeMap attrs=root.getAttributes();
+    // Scene ID
+    int sceneID=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.TRAVEL_EFFECT_SCENE_ID,0);
+    ret.setSceneID(sceneID);
+    // Remove from instance
+    boolean removeFromInstance=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.TRAVEL_EFFECT_REMOVE_FROM_INSTANCE,true);
+    ret.setRemoveFromInstance(removeFromInstance);
+    // Private encounter ID
+    Integer privateEncounterID=DOMParsingTools.getIntegerAttribute(attrs,EffectXMLConstants.TRAVEL_EFFECT_PRIVATE_ENCOUNTER_ID,null);
+    ret.setPrivateEncounterID(privateEncounterID);
+    // Position
+    Element destinationTag=DOMParsingTools.getChildTagByName(root,PositionXMLConstants.POSITION);
+    Position destination=PositionXMLParser.parseSimplePosition(destinationTag);
+    ret.setDestination(destination);
     return ret;
   }
 

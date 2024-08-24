@@ -32,6 +32,7 @@ import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
 import delta.games.lotro.common.effects.RecallEffect;
 import delta.games.lotro.common.effects.TieredEffect;
+import delta.games.lotro.common.effects.TravelEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
@@ -103,6 +104,7 @@ public class EffectXMLWriter
     if (effect instanceof PropertyModificationEffect) return EffectXMLConstants.PROPERTY_MOD_EFFECT_TAG;
     if (effect instanceof VitalOverTimeEffect) return EffectXMLConstants.VITAL_OVER_TIME_EFFECT_TAG;
     if (effect instanceof RecallEffect) return EffectXMLConstants.RECALL_EFFECT_TAG;
+    if (effect instanceof TravelEffect) return EffectXMLConstants.TRAVEL_EFFECT_TAG;
     if (effect instanceof ComboEffect) return EffectXMLConstants.COMBO_EFFECT_TAG;
     if (effect instanceof TieredEffect) return EffectXMLConstants.TIERED_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
@@ -234,6 +236,11 @@ public class EffectXMLWriter
     {
       PropertyModificationEffect propertyModificationEffect=(PropertyModificationEffect)effect;
       writePropertyModificationEffectAttributes(attrs,propertyModificationEffect);
+    }
+    else if (effect instanceof TravelEffect)
+    {
+      TravelEffect travelEffect=(TravelEffect)effect;
+      writeTravelEffectAttributes(attrs,travelEffect);
     }
     else if (effect instanceof VitalOverTimeEffect)
     {
@@ -387,6 +394,28 @@ public class EffectXMLWriter
     // Nothing!
   }
 
+  private void writeTravelEffectAttributes(AttributesImpl attrs, TravelEffect travelEffect)
+  {
+    // Scene ID
+    int sceneID=travelEffect.getSceneID();
+    if (sceneID>0)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.TRAVEL_EFFECT_SCENE_ID,XmlWriter.CDATA,String.valueOf(sceneID));
+    }
+    // Remove from instance
+    boolean removeFromInstance=travelEffect.isRemoveFromInstance();
+    if (!removeFromInstance)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.TRAVEL_EFFECT_REMOVE_FROM_INSTANCE,XmlWriter.CDATA,String.valueOf(removeFromInstance));
+    }
+    // Private encounter ID
+    Integer privateEncounterID=travelEffect.getPrivateEncounterID();
+    if (privateEncounterID!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.TRAVEL_EFFECT_PRIVATE_ENCOUNTER_ID,XmlWriter.CDATA,privateEncounterID.toString());
+    }
+  }
+
   private void writeVitalOverTimeEffectAttributes(AttributesImpl attrs, VitalOverTimeEffect vitalOverTimeEffect)
   {
     // Stat
@@ -444,6 +473,11 @@ public class EffectXMLWriter
     {
       RecallEffect recallEffect=(RecallEffect)effect;
       writeRecallEffectTags(hd,recallEffect);
+    }
+    else if (effect instanceof TravelEffect)
+    {
+      TravelEffect travelEffect=(TravelEffect)effect;
+      writeTravelEffectTags(hd,travelEffect);
     }
     else if (effect instanceof ComboEffect)
     {
@@ -658,6 +692,11 @@ public class EffectXMLWriter
     {
       PositionXMLWriter.writePosition(hd,position);
     }
+  }
+
+  private void writeTravelEffectTags(TransformerHandler hd, TravelEffect travelEffect) throws SAXException
+  {
+    PositionXMLWriter.writePosition(hd,travelEffect.getDestination());
   }
 
   private void writeComboEffectTags(TransformerHandler hd, ComboEffect comboEffect) throws SAXException

@@ -8,17 +8,10 @@ import delta.games.lotro.common.geo.Position;
  */
 public class TravelEffect extends InstantEffect
 {
+  private int _sceneID;
   private Position _destination;
-  // We could add:
-  // Scene ID: not very interesting
-  // Private encounter ID: only used once (in Wildermore) 
-  /*
-      EffectGenerator_EffectDataList: 
-        #1: EffectGenerator_EffectData_SceneID 1879048837
-        #2: EffectGenerator_EffectData_Destination rohan_wold_harwick_meadhall_exit
-      Effect_Applied_Description: You travel to Harwick.
-      Effect_Travel_PrivateEncounter: 1879262955
-      */
+  private Integer _privateEncounterID;
+  private boolean _removeFromInstance;
 
   /**
    * Constructor.
@@ -27,6 +20,25 @@ public class TravelEffect extends InstantEffect
   {
     super();
     _destination=null;
+    _removeFromInstance=true;
+  }
+
+  /**
+   * Get the scene identifier.
+   * @return A scene identifier.
+   */
+  public int getSceneID()
+  {
+    return _sceneID;
+  }
+
+  /**
+   * Set the scene identifier.
+   * @param sceneID Scene identifier.
+   */
+  public void setSceneID(int sceneID)
+  {
+    _sceneID=sceneID;
   }
 
   /**
@@ -45,5 +57,41 @@ public class TravelEffect extends InstantEffect
   public void setDestination(Position destination)
   {
     _destination=destination;
+  }
+
+  /**
+   * Get the private encounter identifier.
+   * @return An identifier or <code>null</code>.
+   */
+  public Integer getPrivateEncounterID()
+  {
+    return _privateEncounterID;
+  }
+
+  /**
+   * Set the private encounter identifier.
+   * @param privateEncounterID Private encounter identifier to set.
+   */
+  public void setPrivateEncounterID(Integer privateEncounterID)
+  {
+    _privateEncounterID=privateEncounterID;
+  }
+
+  /**
+   * Indicates if the travel effect removes the character from the current instance, if any.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean isRemoveFromInstance()
+  {
+    return _removeFromInstance;
+  }
+
+  /**
+   *  Set the 'remove from instance' flag.
+   * @param removeFromInstance Value to set.
+   */
+  public void setRemoveFromInstance(boolean removeFromInstance)
+  {
+    _removeFromInstance=removeFromInstance;
   }
 }
