@@ -39,4 +39,10 @@ public class LandmarkDescription implements Identifiable
   {
     return _name;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Landmark "+getName()+" (ID="+getIdentifier()+')';
+  }
 }
