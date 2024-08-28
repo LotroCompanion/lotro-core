@@ -43,17 +43,17 @@ public enum ItemRole
    */
   VENDOR_SOLD_BY,
   /**
-   * Item is a reward of quest.
+   * Item is involved in quest/deed.
    */
-  QUEST_REWARD,
+  ACHIEVABLE_INVOLVED,
+  /**
+   * Item is a reward of quest/deed.
+   */
+  ACHIEVABLE_REWARD,
   /**
    * Item is required in a task.
    */
   TASK_ITEM,
-  /**
-   * Item is a reward of deed.
-   */
-  DEED_REWARD,
   /**
    * Item may come from container.
    */

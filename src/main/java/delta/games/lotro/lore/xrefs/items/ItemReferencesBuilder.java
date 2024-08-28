@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RewardElement;
@@ -31,6 +33,10 @@ import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
+import delta.games.lotro.lore.quests.objectives.ItemCondition;
+import delta.games.lotro.lore.quests.objectives.Objective;
+import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
+import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.lore.relics.melding.MeldingOutput;
 import delta.games.lotro.lore.relics.melding.RelicMeldingRecipe;
 import delta.games.lotro.lore.relics.melding.RelicMeldingRecipesManager;
@@ -55,6 +61,8 @@ import delta.games.lotro.lore.xrefs.Reference;
  */
 public class ItemReferencesBuilder
 {
+  private static final Logger LOGGER=Logger.getLogger(ItemReferencesBuilder.class);
+
   private List<Reference<?,ItemRole>> _storage;
 
   /**
@@ -74,9 +82,9 @@ public class ItemReferencesBuilder
   {
     _storage.clear();
     findInRecipes(itemId);
-    findInQuestRewards(itemId);
+    findInQuests(itemId);
     findInTaskQuests(itemId);
-    findInDeedRewards(itemId);
+    findInDeeds(itemId);
     findInBarterers(itemId);
     findInVendors(itemId);
     findInSets(itemId);
@@ -162,7 +170,7 @@ public class ItemReferencesBuilder
     }
   }
 
-  private void findInQuestRewards(int itemId)
+  private void findInQuests(int itemId)
   {
     QuestsManager questsManager=QuestsManager.getInstance();
     List<QuestDescription> quests=questsManager.getAll();
@@ -175,6 +183,7 @@ public class ItemReferencesBuilder
   private void findInQuest(QuestDescription quest, int itemId)
   {
     findInRewards(quest,quest.getRewards(),itemId);
+    findInAchievable(quest,itemId);
   }
 
   private void findInTaskQuests(int itemId)
@@ -196,7 +205,7 @@ public class ItemReferencesBuilder
     }
   }
 
-  private void findInDeedRewards(int itemId)
+  private void findInDeeds(int itemId)
   {
     DeedsManager deedsManager=DeedsManager.getInstance();
     List<DeedDescription> deeds=deedsManager.getAll();
@@ -209,6 +218,7 @@ public class ItemReferencesBuilder
   private void findInDeed(DeedDescription deed, int itemId)
   {
     findInRewards(deed,deed.getRewards(),itemId);
+    findInAchievable(deed,itemId);
   }
 
   private void findInRewards(Achievable context, Rewards rewards, int itemId)
@@ -227,8 +237,7 @@ public class ItemReferencesBuilder
         int itemRewardId=itemReward.getItem().getIdentifier();
         if (itemRewardId==itemId)
         {
-          ItemRole role=(context instanceof QuestDescription)?ItemRole.QUEST_REWARD:ItemRole.DEED_REWARD;
-          _storage.add(new Reference<Achievable,ItemRole>(context,role));
+          _storage.add(new Reference<Achievable,ItemRole>(context,ItemRole.ACHIEVABLE_REWARD));
         }
       }
       else if (element instanceof SelectableRewardElement)
@@ -237,6 +246,58 @@ public class ItemReferencesBuilder
         findInRewardsElements(context,selectableReward.getElements(),itemId);
       }
     }
+  }
+
+  private void findInAchievable(Achievable context, int itemId)
+  {
+    ObjectivesManager objectives=context.getObjectives();
+    for(Objective objective : objectives.getObjectives())
+    {
+      for(ObjectiveCondition condition : objective.getConditions())
+      {
+        if (findInCondition(context,condition,itemId))
+        {
+          return;
+        }
+      }
+      for(ObjectiveCondition condition : objective.getFailureConditions())
+      {
+        if (findInCondition(context,condition,itemId))
+        {
+          return;
+        }
+      }
+    }
+    for(ObjectiveCondition condition : objectives.getFailureConditions())
+    {
+      if (findInCondition(context,condition,itemId))
+      {
+        return;
+      }
+    }
+  }
+
+  private boolean findInCondition(Achievable context, ObjectiveCondition condition, int itemId)
+  {
+    if (condition instanceof ItemCondition)
+    {
+      ItemCondition itemCondition=(ItemCondition)condition;
+      Item item=itemCondition.getItem();
+      if (item!=null)
+      {
+        int conditionItemID=item.getIdentifier();
+        if (conditionItemID==itemId)
+        {
+          _storage.add(new Reference<Achievable,ItemRole>(context,ItemRole.ACHIEVABLE_INVOLVED));
+          return true;
+        }
+      }
+      else
+      {
+        LOGGER.warn("Item is null in condition "+condition+" of achievable "+context);
+      }
+    }
+    return false;
   }
 
   private void findInBarterers(int itemId)
