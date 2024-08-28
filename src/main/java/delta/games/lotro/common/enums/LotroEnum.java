@@ -134,7 +134,7 @@ public class LotroEnum<T extends LotroEnumEntry> implements Identifiable,Named
     T ret=null;
     try
     {
-      ret=_entryImplClass.newInstance();
+      ret=_entryImplClass.getDeclaredConstructor().newInstance();
       ret.set(code,key,label);
     }
     catch(Exception e)

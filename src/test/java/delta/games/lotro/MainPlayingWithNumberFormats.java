@@ -32,7 +32,7 @@ public class MainPlayingWithNumberFormats
     System.out.println("toLocalizedPattern: "+format.toLocalizedPattern());
     System.out.println("toPattern: "+format.toPattern());
 
-    Number value=new Float(1234.567);
+    Number value=Float.valueOf(1234.567f);
     showNumbers(value);
     Locale.setDefault(Locale.US);
     showNumbers(value);
