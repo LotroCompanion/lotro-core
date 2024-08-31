@@ -55,6 +55,10 @@ public enum ItemRole
    */
   TASK_ITEM,
   /**
+   * Rewards track reward.
+   */
+  REWARDS_TRACK_REWARD,
+  /**
    * Item may come from container.
    */
   CONTAINED_IN,

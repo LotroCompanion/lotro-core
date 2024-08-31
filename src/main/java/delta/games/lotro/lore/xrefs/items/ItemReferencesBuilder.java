@@ -40,6 +40,9 @@ import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.lore.relics.melding.MeldingOutput;
 import delta.games.lotro.lore.relics.melding.RelicMeldingRecipe;
 import delta.games.lotro.lore.relics.melding.RelicMeldingRecipesManager;
+import delta.games.lotro.lore.rewardsTrack.RewardsTrack;
+import delta.games.lotro.lore.rewardsTrack.RewardsTrackStep;
+import delta.games.lotro.lore.rewardsTrack.RewardsTracksManager;
 import delta.games.lotro.lore.tasks.Task;
 import delta.games.lotro.lore.tasks.TasksRegistry;
 import delta.games.lotro.lore.trade.barter.BarterEntry;
@@ -85,6 +88,7 @@ public class ItemReferencesBuilder
     findInQuests(itemId);
     findInTaskQuests(itemId);
     findInDeeds(itemId);
+    findInRewardTracks(itemId);
     findInBarterers(itemId);
     findInVendors(itemId);
     findInSets(itemId);
@@ -294,10 +298,32 @@ public class ItemReferencesBuilder
       }
       else
       {
-        LOGGER.warn("Item is null in condition "+condition+" of achievable "+context);
+        LOGGER.debug("Item is null in condition "+condition+" of achievable "+context);
       }
     }
     return false;
+  }
+
+  private void findInRewardTracks(int itemId)
+  {
+    RewardsTracksManager mgr=RewardsTracksManager.getInstance();
+    for(RewardsTrack rewardTrack : mgr.getAllRewardsTracks())
+    {
+      findInRewardTrack(rewardTrack,itemId);
+    }
+  }
+
+  private void findInRewardTrack(RewardsTrack rewardTrack, int itemId)
+  {
+    for(RewardsTrackStep step : rewardTrack.getSteps())
+    {
+      Item rewardItem=step.getReward();
+      if ((rewardItem!=null) && (rewardItem.getIdentifier()==itemId))
+      {
+        _storage.add(new Reference<RewardsTrack,ItemRole>(rewardTrack,ItemRole.REWARDS_TRACK_REWARD));
+        break;
+      }
+    }
   }
 
   private void findInBarterers(int itemId)
