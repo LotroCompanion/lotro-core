@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>delta-lotro-core</artifactId>
   <packaging>jar</packaging>
-  <version>23.0</version>
+  <version>23.1</version>
   <name>lotro-core</name>
   <parent>
     <groupId>com.dam.delta4j</groupId>
