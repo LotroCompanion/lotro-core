@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
@@ -32,7 +33,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacy;
  */
 public class MainTestLegendarySystem
 {
-  private static final Logger LOGGER=Logger.getLogger(MainTestLegendarySystem.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(MainTestLegendarySystem.class);
 
   private void doIt()
   {

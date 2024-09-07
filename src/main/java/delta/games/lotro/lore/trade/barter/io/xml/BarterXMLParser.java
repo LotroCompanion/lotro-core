@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -33,7 +34,7 @@ import delta.games.lotro.utils.io.xml.SharedXMLUtils;
  */
 public class BarterXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(BarterXMLParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(BarterXMLParser.class);
 
   private SingleLocaleLabelsManager _i18n;
 

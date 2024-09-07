@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
@@ -19,7 +20,7 @@ import delta.games.lotro.lore.billingGroups.io.xml.BillingGroupsXMLParser;
  */
 public class BillingGroupsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(BillingGroupsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(BillingGroupsManager.class);
 
   private static BillingGroupsManager _instance=null;
 

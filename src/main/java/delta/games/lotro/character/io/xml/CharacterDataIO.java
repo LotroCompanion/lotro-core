@@ -2,7 +2,8 @@ package delta.games.lotro.character.io.xml;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterData;
@@ -13,7 +14,7 @@ import delta.games.lotro.character.CharacterData;
  */
 public class CharacterDataIO
 {
-  private static final Logger LOGGER=Logger.getLogger(CharacterDataIO.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(CharacterDataIO.class);
 
   /**
    * Get the character data for a given file.

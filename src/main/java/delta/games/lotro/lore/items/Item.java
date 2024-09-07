@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.text.EndOfLine;
@@ -30,7 +31,7 @@ import delta.games.lotro.lore.items.sets.ItemsSet;
  */
 public class Item implements Interactable,ItemProvider
 {
-  private static final Logger LOGGER=Logger.getLogger(Item.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(Item.class);
 
   // Item identifier
   private int _identifier;

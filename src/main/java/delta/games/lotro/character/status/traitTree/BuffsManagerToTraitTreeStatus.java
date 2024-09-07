@@ -2,7 +2,8 @@ package delta.games.lotro.character.status.traitTree;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.classes.ClassDescription;
@@ -18,7 +19,7 @@ import delta.games.lotro.character.traits.TraitsManager;
  */
 public class BuffsManagerToTraitTreeStatus
 {
-  private static final Logger LOGGER=Logger.getLogger(BuffsManagerToTraitTreeStatus.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(BuffsManagerToTraitTreeStatus.class);
 
   /**
    * Initialize a trait tree status from buffs.

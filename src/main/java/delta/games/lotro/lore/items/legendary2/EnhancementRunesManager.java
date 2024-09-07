@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -16,7 +17,7 @@ import delta.games.lotro.lore.items.legendary2.io.xml.EnhancementRunesXMLParser;
  */
 public class EnhancementRunesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(EnhancementRunesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(EnhancementRunesManager.class);
 
   private static EnhancementRunesManager _instance=null;
 

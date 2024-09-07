@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.lore.items.carryalls.CarryAll;
 import delta.games.lotro.lore.items.essences.Essence;
@@ -33,7 +34,7 @@ import delta.games.lotro.lore.items.legendary2.LegendaryWeaponInstance2;
  */
 public class ItemFactory
 {
-  private static final Logger LOGGER=Logger.getLogger(ItemFactory.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ItemFactory.class);
 
   /**
    * Build a new item of the right class.

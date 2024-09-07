@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
@@ -19,7 +20,7 @@ import delta.games.lotro.lore.deeds.io.xml.DeedsSaxParser;
  */
 public final class DeedsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(DeedsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(DeedsManager.class);
 
   private static DeedsManager _instance=new DeedsManager();
 

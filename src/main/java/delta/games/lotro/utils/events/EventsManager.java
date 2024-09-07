@@ -3,7 +3,8 @@ package delta.games.lotro.utils.events;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Global manager for events and associated listeners.
@@ -11,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 public class EventsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(EventsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(EventsManager.class);
 
   private static Map<String,GenericListenersManager<? extends Event>> _listeners=new HashMap<String,GenericListenersManager<? extends Event>>();
 

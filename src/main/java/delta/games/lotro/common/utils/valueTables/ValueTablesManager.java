@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.utils.valueTables.io.xml.ValueTablesXMLParser;
 
@@ -14,7 +15,7 @@ import delta.games.lotro.common.utils.valueTables.io.xml.ValueTablesXMLParser;
  */
 public class ValueTablesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ValueTablesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ValueTablesManager.class);
 
   private HashMap<Integer,QualityBasedValuesTable> _cache;
 

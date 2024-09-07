@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.enums.SocketType;
 import delta.games.lotro.config.DataFiles;
@@ -18,7 +19,7 @@ import delta.games.lotro.lore.items.legendary2.io.xml.TraceriesXMLParser;
  */
 public class TraceriesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(TraceriesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(TraceriesManager.class);
 
   private static TraceriesManager _instance=null;
 

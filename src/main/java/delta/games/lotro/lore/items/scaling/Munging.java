@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.scaling;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.common.progression.ProgressionsManager;
@@ -12,7 +13,7 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class Munging
 {
-  private static final Logger LOGGER=Logger.getLogger(Munging.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(Munging.class);
 
   private String _propertyName;
   private Integer _min;

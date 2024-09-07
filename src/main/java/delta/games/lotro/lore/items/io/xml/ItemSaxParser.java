@@ -7,7 +7,8 @@ import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -73,7 +74,7 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public final class ItemSaxParser extends DefaultHandler
 {
-  private static final Logger LOGGER=Logger.getLogger(ItemSaxParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ItemSaxParser.class);
 
   private List<Item> _parsedItems;
   private Item _currentItem;

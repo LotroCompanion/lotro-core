@@ -1,6 +1,7 @@
 package delta.games.lotro.character.status.achievables;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.collections.filters.Operator;
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
@@ -18,7 +19,7 @@ import delta.games.lotro.lore.quests.QuestDescription;
  */
 public class QuestRequirementStateComputer
 {
-  private static final Logger LOGGER=Logger.getLogger(QuestRequirementStateComputer.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(QuestRequirementStateComputer.class);
 
   private AchievablesStatusManager _questsStatusMgr;
   private AchievablesStatusManager _deedsStatusMgr;

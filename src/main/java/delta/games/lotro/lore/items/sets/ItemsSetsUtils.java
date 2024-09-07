@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.sets;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.math.Range;
 import delta.games.lotro.common.stats.RangedStatProvider;
@@ -18,7 +19,7 @@ import delta.games.lotro.lore.parameters.Game;
  */
 public class ItemsSetsUtils
 {
-  private static final Logger LOGGER=Logger.getLogger(ItemsSetsUtils.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ItemsSetsUtils.class);
 
   /**
    * Find the item level range for the set.

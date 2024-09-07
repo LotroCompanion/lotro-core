@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
@@ -19,7 +20,7 @@ import delta.games.lotro.lore.webStore.io.xml.WebStoreItemsXMLParser;
  */
 public class WebStoreItemsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(WebStoreItemsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(WebStoreItemsManager.class);
 
   private static WebStoreItemsManager _instance=null;
 

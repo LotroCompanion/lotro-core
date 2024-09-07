@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
@@ -24,7 +25,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class PrivateEncountersManager
 {
-  private static final Logger LOGGER=Logger.getLogger(PrivateEncountersManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(PrivateEncountersManager.class);
 
   private static final PrivateEncountersManager _instance=load();
   private Map<Integer,PrivateEncounter> _privateEncounters;

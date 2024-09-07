@@ -5,7 +5,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.misc.IntegerHolder;
 import delta.common.utils.variables.VariablesResolver;
@@ -42,7 +43,7 @@ import delta.games.lotro.utils.style.Style;
  */
 public class ObjectivesDisplayBuilder
 {
-  private static final Logger LOGGER=Logger.getLogger(ObjectivesDisplayBuilder.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ObjectivesDisplayBuilder.class);
 
   private static final String COUNT_PATTERN="${NUMBER}/${TOTAL}";
 

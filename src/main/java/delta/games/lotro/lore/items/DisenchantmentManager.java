@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.PrintStream;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -17,7 +18,7 @@ import delta.games.lotro.utils.Registry;
  */
 public class DisenchantmentManager
 {
-  private static final Logger LOGGER=Logger.getLogger(DisenchantmentManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(DisenchantmentManager.class);
 
   private static DisenchantmentManager _instance;
 

@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.lore.quests.Achievable;
 
@@ -15,7 +16,7 @@ import delta.games.lotro.lore.quests.Achievable;
  */
 public class VirtueXPStatsFromAchievables
 {
-  private static final Logger LOGGER=Logger.getLogger(VirtueXPStatsFromAchievables.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(VirtueXPStatsFromAchievables.class);
 
   private int _totalVirtueXP;
   private int _totalCompletions;

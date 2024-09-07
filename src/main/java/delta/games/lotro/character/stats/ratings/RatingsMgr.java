@@ -3,7 +3,8 @@ package delta.games.lotro.character.stats.ratings;
 import java.util.EnumMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Ratings manager.
@@ -11,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 public class RatingsMgr
 {
-  private static final Logger LOGGER=Logger.getLogger(RatingsMgr.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(RatingsMgr.class);
 
   private Map<RatingCurveId,RatingCurve> _curves;
 

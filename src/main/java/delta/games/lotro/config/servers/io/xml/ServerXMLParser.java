@@ -6,7 +6,8 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -19,7 +20,7 @@ import delta.games.lotro.config.servers.ServerDescription;
  */
 public class ServerXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(ServerXMLParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ServerXMLParser.class);
 
   /**
    * Parse the XML file.

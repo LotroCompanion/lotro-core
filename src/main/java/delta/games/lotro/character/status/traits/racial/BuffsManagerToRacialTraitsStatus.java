@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.races.RaceDescription;
@@ -20,7 +21,7 @@ import delta.games.lotro.character.traits.TraitsManager;
  */
 public class BuffsManagerToRacialTraitsStatus
 {
-  private static final Logger LOGGER=Logger.getLogger(BuffsManagerToRacialTraitsStatus.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(BuffsManagerToRacialTraitsStatus.class);
 
   /**
    * Initialize a racial traits status from buffs.

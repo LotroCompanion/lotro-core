@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.common.enums.LotroEnum;
@@ -17,7 +18,7 @@ import delta.games.lotro.common.enums.LotroEnumsRegistry;
  */
 public class EnumXMLUtils
 {
-  private static final Logger LOGGER=Logger.getLogger(EnumXMLUtils.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(EnumXMLUtils.class);
 
   /**
    * Get a list of enum entries from a persisted list of enum codes.

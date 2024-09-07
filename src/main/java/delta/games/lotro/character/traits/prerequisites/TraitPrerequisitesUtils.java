@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.utils.Proxy;
@@ -15,7 +16,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class TraitPrerequisitesUtils
 {
-  private static final Logger LOGGER=Logger.getLogger(TraitPrerequisitesUtils.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(TraitPrerequisitesUtils.class);
 
   /**
    * Resolve proxies.

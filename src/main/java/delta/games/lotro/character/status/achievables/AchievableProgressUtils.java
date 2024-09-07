@@ -2,7 +2,8 @@ package delta.games.lotro.character.status.achievables;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.Achievable;
@@ -15,7 +16,7 @@ import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
  */
 public class AchievableProgressUtils
 {
-  private static final Logger LOGGER=Logger.getLogger(AchievableProgressUtils.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(AchievableProgressUtils.class);
 
   /**
    * Build a progress for the given status.

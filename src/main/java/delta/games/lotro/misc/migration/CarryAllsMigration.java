@@ -3,7 +3,8 @@ package delta.games.lotro.misc.migration;
 import java.io.File;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 import delta.common.utils.xml.DOMParsingTools;
@@ -27,7 +28,7 @@ import delta.games.lotro.lore.items.io.xml.ItemXMLConstants;
  */
 public class CarryAllsMigration
 {
-  private static final Logger LOGGER=Logger.getLogger(CarryAllsMigration.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(CarryAllsMigration.class);
 
   /**
    * Perform migration.

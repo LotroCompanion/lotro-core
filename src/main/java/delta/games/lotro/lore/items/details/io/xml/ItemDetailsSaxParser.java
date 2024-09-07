@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.details.io.xml;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -37,7 +38,7 @@ import delta.games.lotro.lore.reputation.FactionsRegistry;
  */
 public class ItemDetailsSaxParser
 {
-  private static final Logger LOGGER=Logger.getLogger(ItemDetailsSaxParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ItemDetailsSaxParser.class);
 
   private LotroEnum<AllegianceGroup> _allegianceGroupEnum;
 

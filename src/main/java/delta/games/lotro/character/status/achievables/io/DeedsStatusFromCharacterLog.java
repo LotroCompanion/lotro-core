@@ -2,7 +2,8 @@ package delta.games.lotro.character.status.achievables.io;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
@@ -20,7 +21,7 @@ import delta.games.lotro.lore.deeds.DeedsManager;
  */
 public class DeedsStatusFromCharacterLog
 {
-  private static final Logger LOGGER=Logger.getLogger(DeedsStatusFromCharacterLog.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(DeedsStatusFromCharacterLog.class);
 
   /**
    * Do it.

@@ -2,7 +2,8 @@ package delta.games.lotro.lore.parameters;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -14,7 +15,7 @@ import delta.games.lotro.lore.parameters.io.xml.GameXMLParser;
  */
 public class Game
 {
-  private static final Logger LOGGER=Logger.getLogger(Game.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(Game.class);
 
   private static Game _instance=null;
 

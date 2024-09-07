@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.xml.sax.SAXException;
@@ -25,7 +26,7 @@ import delta.games.lotro.common.effects.EffectsManager;
  */
 public class SkillEffectsXmlIO
 {
-  private static final Logger LOGGER=Logger.getLogger(SkillEffectsXmlIO.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(SkillEffectsXmlIO.class);
 
   /**
    * Write skill effects.

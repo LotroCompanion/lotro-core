@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.colors.io.xml.ColorXMLParser;
 import delta.games.lotro.config.DataFiles;
@@ -17,7 +18,7 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class ColorsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ColorsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ColorsManager.class);
 
   private static ColorsManager _instance=null;
 

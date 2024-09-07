@@ -3,7 +3,8 @@ package delta.games.lotro.character.stats.virtues;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.computer.StatsStorage;
@@ -20,7 +21,7 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public final class VirtuesContributionsMgr
 {
-  private static final Logger LOGGER=Logger.getLogger(VirtuesContributionsMgr.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(VirtuesContributionsMgr.class);
 
   private static final int RANK_TO_LEVEL_PROGRESSION_ID=1879387583;
 

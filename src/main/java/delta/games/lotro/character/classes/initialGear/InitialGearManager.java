@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.classes.initialGear.io.xml.InitialGearXMLParser;
 import delta.games.lotro.config.DataFiles;
@@ -17,7 +18,7 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class InitialGearManager
 {
-  private static final Logger LOGGER=Logger.getLogger(InitialGearManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(InitialGearManager.class);
 
   private static InitialGearManager _instance=null;
 

@@ -3,7 +3,8 @@ package delta.games.lotro.account.status.rewardsTrack.io.xml;
 import java.io.File;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -19,7 +20,7 @@ import delta.games.lotro.lore.rewardsTrack.RewardsTracksManager;
  */
 public class RewardsTracksStatusXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(RewardsTracksStatusXMLParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(RewardsTracksStatusXMLParser.class);
 
   /**
    * Parse the XML file.

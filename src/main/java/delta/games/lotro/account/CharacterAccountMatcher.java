@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.io.streams.IndentableStream;
 import delta.games.lotro.character.CharacterFile;
@@ -18,7 +19,7 @@ import delta.games.lotro.character.CharacterFile;
  */
 public class CharacterAccountMatcher
 {
-  private static final Logger LOGGER=Logger.getLogger(CharacterAccountMatcher.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(CharacterAccountMatcher.class);
 
   private class Entry
   {

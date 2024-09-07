@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.log.CharacterLog;
 import delta.games.lotro.character.log.CharacterLogItem;
@@ -20,7 +21,7 @@ import delta.games.lotro.lore.warbands.WarbandsRegistry;
  */
 public class WarbandsStats
 {
-  private static final Logger LOGGER=Logger.getLogger(WarbandsStats.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(WarbandsStats.class);
 
   private static final String WARBAND_SEED="Warband:";
 

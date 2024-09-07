@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -30,7 +31,7 @@ import delta.games.lotro.utils.i18n.I18nFacade;
  */
 public class RecipeXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(RecipeXMLParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(RecipeXMLParser.class);
 
   private LotroEnum<CraftingUICategory> _categoryEnum;
   private SingleLocaleLabelsManager _i18n;

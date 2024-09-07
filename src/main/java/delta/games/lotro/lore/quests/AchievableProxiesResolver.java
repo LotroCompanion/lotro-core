@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.CompoundQuestRequirement;
@@ -27,7 +28,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class AchievableProxiesResolver
 {
-  private static final Logger LOGGER=Logger.getLogger(AchievableProxiesResolver.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(AchievableProxiesResolver.class);
 
   private static AchievableProxiesResolver _instance=null;
   private HashMap<Integer,Achievable> _mapByKey;

@@ -8,7 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
@@ -24,7 +25,7 @@ import delta.games.lotro.lore.allegiances.io.xml.AllegianceXMLParser;
  */
 public class AllegiancesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(AllegiancesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(AllegiancesManager.class);
 
   private static AllegiancesManager _instance=null;
 

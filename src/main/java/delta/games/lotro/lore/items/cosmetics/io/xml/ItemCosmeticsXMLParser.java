@@ -5,7 +5,8 @@ import java.io.File;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -19,7 +20,7 @@ import delta.games.lotro.lore.items.cosmetics.ItemCosmetics;
  */
 public final class ItemCosmeticsXMLParser extends DefaultHandler
 {
-  private static final Logger LOGGER=Logger.getLogger(ItemCosmeticsXMLParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ItemCosmeticsXMLParser.class);
 
   private ItemCosmetics _result;
 

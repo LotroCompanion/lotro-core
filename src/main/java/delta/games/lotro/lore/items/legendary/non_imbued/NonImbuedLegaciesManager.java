@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
@@ -32,7 +33,7 @@ import delta.games.lotro.utils.i18n.I18nFacade;
  */
 public class NonImbuedLegaciesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(NonImbuedLegaciesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(NonImbuedLegaciesManager.class);
 
   private static NonImbuedLegaciesManager _instance=null;
 

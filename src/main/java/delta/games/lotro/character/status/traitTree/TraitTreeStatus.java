@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.misc.IntegerHolder;
@@ -22,7 +23,7 @@ import delta.games.lotro.character.traits.TraitDescription;
  */
 public class TraitTreeStatus
 {
-  private static final Logger LOGGER=Logger.getLogger(TraitTreeStatus.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(TraitTreeStatus.class);
 
   private TraitTree _tree;
   private TraitTreeBranch _selectedBranch;

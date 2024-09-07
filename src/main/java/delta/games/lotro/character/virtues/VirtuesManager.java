@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.virtues.io.xml.VirtueDescriptionXMLParser;
 import delta.games.lotro.config.DataFiles;
@@ -18,7 +19,7 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class VirtuesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(VirtuesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(VirtuesManager.class);
 
   private static VirtuesManager _instance=null;
 

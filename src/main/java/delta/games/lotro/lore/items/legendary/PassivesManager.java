@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.common.IdentifiableComparator;
@@ -25,7 +26,7 @@ import delta.games.lotro.utils.i18n.I18nFacade;
  */
 public class PassivesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(PassivesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(PassivesManager.class);
 
   private static PassivesManager _instance=null;
 

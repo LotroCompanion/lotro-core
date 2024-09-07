@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
@@ -17,7 +18,7 @@ import delta.games.lotro.common.IdentifiableComparator;
  */
 public class CosmeticPetsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(CosmeticPetsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(CosmeticPetsManager.class);
 
   private static CosmeticPetsManager _instance=null;
 

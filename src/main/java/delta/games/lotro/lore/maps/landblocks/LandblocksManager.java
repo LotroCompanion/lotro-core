@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.math.geometry.Vector3D;
 import delta.games.lotro.config.DataFiles;
@@ -23,7 +24,7 @@ import delta.games.lotro.lore.maps.landblocks.io.xml.LandblocksXMLParser;
  */
 public class LandblocksManager
 {
-  private static final Logger LOGGER=Logger.getLogger(LandblocksManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(LandblocksManager.class);
 
   private static LandblocksManager _instance=null;
   private Map<String,Landblock> _index;

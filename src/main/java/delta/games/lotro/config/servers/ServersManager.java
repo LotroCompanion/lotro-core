@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -19,7 +20,7 @@ import delta.games.lotro.config.servers.io.xml.ServerXMLParser;
  */
 public class ServersManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ServersManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ServersManager.class);
 
   private static ServersManager _instance=null;
 

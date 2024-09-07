@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
@@ -19,7 +20,7 @@ import delta.games.lotro.lore.perks.io.xml.PerkDescriptionXMLParser;
  */
 public class PerksManager
 {
-  private static final Logger LOGGER=Logger.getLogger(PerksManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(PerksManager.class);
 
   private static PerksManager _instance=null;
 

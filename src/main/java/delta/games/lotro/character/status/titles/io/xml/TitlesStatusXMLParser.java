@@ -3,7 +3,8 @@ package delta.games.lotro.character.status.titles.io.xml;
 import java.io.File;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -22,7 +23,7 @@ import delta.games.lotro.lore.titles.TitlesManager;
  */
 public class TitlesStatusXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(TitlesStatusXMLParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(TitlesStatusXMLParser.class);
 
   /**
    * Parse the XML file.

@@ -5,7 +5,8 @@ import java.util.BitSet;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
@@ -17,7 +18,7 @@ import delta.games.lotro.common.Named;
  */
 public class LotroEnum<T extends LotroEnumEntry> implements Identifiable,Named
 {
-  private static final Logger LOGGER=Logger.getLogger(LotroEnum.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(LotroEnum.class);
 
   private int _id;
   private String _name;

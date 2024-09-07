@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.environment.EnvironmentResolver;
 import delta.common.utils.io.StreamTools;
@@ -19,7 +20,7 @@ import delta.games.lotro.config.labels.LabelsConfiguration;
  */
 public final class LotroCoreConfig
 {
-  private static final Logger LOGGER=Logger.getLogger(LotroCoreConfig.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(LotroCoreConfig.class);
 
   private static LotroCoreConfig _instance=new LotroCoreConfig();
 

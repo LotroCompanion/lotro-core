@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
@@ -21,7 +22,7 @@ import delta.games.lotro.lore.maps.io.xml.ParchmentMapsXMLParser;
  */
 public class ParchmentMapsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(ParchmentMapsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ParchmentMapsManager.class);
 
   private static ParchmentMapsManager _instance=null;
   private Map<Integer,ParchmentMap> _maps;

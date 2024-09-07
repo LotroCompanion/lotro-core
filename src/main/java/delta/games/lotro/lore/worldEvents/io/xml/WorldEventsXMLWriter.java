@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
@@ -24,7 +25,7 @@ import delta.games.lotro.lore.worldEvents.WorldEvent;
  */
 public class WorldEventsXMLWriter
 {
-  private static final Logger LOGGER=Logger.getLogger(WorldEventsXMLWriter.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(WorldEventsXMLWriter.class);
 
   /**
    * Write some world events to a XML file.

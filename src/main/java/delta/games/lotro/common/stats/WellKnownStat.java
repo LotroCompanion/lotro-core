@@ -3,7 +3,8 @@ package delta.games.lotro.common.stats;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Registry for 'well known' stats, used in code.
@@ -11,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 public class WellKnownStat
 {
-  private static final Logger LOGGER=Logger.getLogger(WellKnownStat.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(WellKnownStat.class);
 
   private static final List<StatDescription> ALL_WELL_KNOWN_STATS=new ArrayList<StatDescription>();
 

@@ -3,7 +3,8 @@ package delta.games.lotro.character.stats;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.classes.ClassDescription;
@@ -42,7 +43,7 @@ import delta.games.lotro.lore.mood.MoodManager;
  */
 public class CharacterStatsComputer
 {
-  private static final Logger LOGGER=Logger.getLogger(CharacterStatsComputer.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(CharacterStatsComputer.class);
 
   private BaseStatsManager _baseStatsMgr;
   private TomesContributionsMgr _tomesMgr;

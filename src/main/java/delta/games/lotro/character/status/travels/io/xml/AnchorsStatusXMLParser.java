@@ -3,7 +3,8 @@ package delta.games.lotro.character.status.travels.io.xml;
 import java.io.File;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -23,7 +24,7 @@ import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
  */
 public class AnchorsStatusXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(AnchorsStatusXMLParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(AnchorsStatusXMLParser.class);
 
   /**
    * Parse the XML file.

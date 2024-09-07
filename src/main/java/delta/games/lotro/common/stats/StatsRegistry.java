@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.stats.io.xml.StatXMLParser;
 import delta.games.lotro.config.DataFiles;
@@ -19,7 +20,7 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class StatsRegistry
 {
-  private static final Logger LOGGER=Logger.getLogger(StatsRegistry.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(StatsRegistry.class);
 
   private static StatsRegistry _instance=null;
 

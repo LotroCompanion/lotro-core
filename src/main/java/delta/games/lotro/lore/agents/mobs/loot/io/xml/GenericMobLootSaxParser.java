@@ -7,7 +7,8 @@ import java.util.Deque;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -33,7 +34,7 @@ import delta.games.lotro.lore.agents.mobs.loot.SubSpeciesLoot;
  */
 public final class GenericMobLootSaxParser extends DefaultHandler
 {
-  private static final Logger LOGGER=Logger.getLogger(GenericMobLootSaxParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(GenericMobLootSaxParser.class);
 
   /**
    * "Unexpected tag" error message.

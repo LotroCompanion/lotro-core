@@ -1,6 +1,7 @@
 package delta.games.lotro.utils.dat;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
@@ -11,7 +12,7 @@ import delta.games.lotro.common.stats.StatsRegistry;
  */
 public class DatStatUtils
 {
-  private static final Logger LOGGER=Logger.getLogger(DatStatUtils.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(DatStatUtils.class);
 
   /**
    * Get a stat description from a property.

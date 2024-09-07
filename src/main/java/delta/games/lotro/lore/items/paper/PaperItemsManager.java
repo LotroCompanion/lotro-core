@@ -8,7 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
@@ -24,7 +25,7 @@ import delta.games.lotro.lore.items.paper.io.xml.PaperItemsXMLParser;
  */
 public class PaperItemsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(PaperItemsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(PaperItemsManager.class);
 
   private static PaperItemsManager _instance=null;
 

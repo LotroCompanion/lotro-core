@@ -2,7 +2,8 @@ package delta.games.lotro.lore.items.legendary2.global;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -15,7 +16,7 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class LegendarySystem2
 {
-  private static final Logger LOGGER=Logger.getLogger(LegendarySystem2.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(LegendarySystem2.class);
 
   private static LegendarySystem2 _instance=null;
 

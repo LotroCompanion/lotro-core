@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
@@ -17,7 +18,7 @@ import delta.games.lotro.lore.items.ItemsManager;
  */
 public class ItemsStats
 {
-  private static final Logger LOGGER=Logger.getLogger(ItemsStats.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(ItemsStats.class);
 
   private Map<Integer,CountedItem<Item>> _items;
   private List<CountedItem<Item>> _list;

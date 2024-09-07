@@ -2,7 +2,8 @@ package delta.games.lotro.character.status.achievables;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedsManager;
@@ -16,7 +17,7 @@ import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
  */
 public class MainAssessDeedProgress
 {
-  private static final Logger LOGGER=Logger.getLogger(MainAssessDeedProgress.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(MainAssessDeedProgress.class);
 
   private void handleDeedDescription(DeedDescription deed)
   {

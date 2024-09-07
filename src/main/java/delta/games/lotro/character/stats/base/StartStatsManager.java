@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.stats.BasicStatsSet;
@@ -17,7 +18,7 @@ import delta.games.lotro.common.comparators.NamedComparator;
  */
 public class StartStatsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(StartStatsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(StartStatsManager.class);
 
   private HashMap<ClassDescription,HashMap<Integer,BasicStatsSet>> _startStatsByClass;
 

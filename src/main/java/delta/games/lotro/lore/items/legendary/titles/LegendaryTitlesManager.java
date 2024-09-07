@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
@@ -19,7 +20,7 @@ import delta.games.lotro.lore.items.legendary.titles.io.xml.LegendaryTitleXMLPar
  */
 public class LegendaryTitlesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(LegendaryTitlesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(LegendaryTitlesManager.class);
 
   private static LegendaryTitlesManager _instance=null;
 

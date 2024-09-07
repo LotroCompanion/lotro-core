@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items.scaling;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterFile;
@@ -22,7 +23,7 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class SpellcraftResolver
 {
-  private static final Logger LOGGER=Logger.getLogger(SpellcraftResolver.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(SpellcraftResolver.class);
 
   private CharacterFile _toon;
   private CharacterData _data;

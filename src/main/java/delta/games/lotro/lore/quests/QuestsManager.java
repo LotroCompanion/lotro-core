@@ -8,7 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.QuestCategory;
@@ -24,7 +25,7 @@ import delta.games.lotro.lore.quests.io.xml.QuestsSaxParser;
  */
 public final class QuestsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(QuestsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(QuestsManager.class);
 
   private static QuestsManager _instance=null;
 

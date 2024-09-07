@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.enums.io.xml.EnumXMLParser;
 import delta.games.lotro.config.DataFiles;
@@ -16,7 +17,7 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class LotroEnumsRegistry
 {
-  private static final Logger LOGGER=Logger.getLogger(LotroEnumsRegistry.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(LotroEnumsRegistry.class);
 
   private static LotroEnumsRegistry _instance=null;
 

@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.stats.StatDescription;
@@ -20,7 +21,7 @@ import delta.games.lotro.utils.NumericUtils;
  */
 public class BasicStatsSet
 {
-  private static final Logger LOGGER=Logger.getLogger(BasicStatsSet.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(BasicStatsSet.class);
 
   private List<StatsSetElement> _elements;
 

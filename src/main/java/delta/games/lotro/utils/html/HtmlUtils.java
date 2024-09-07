@@ -1,6 +1,7 @@
 package delta.games.lotro.utils.html;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility methods related to HTML generation.
@@ -8,7 +9,7 @@ import org.apache.log4j.Logger;
  */
 public class HtmlUtils
 {
-  private static final Logger LOGGER=Logger.getLogger(HtmlUtils.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(HtmlUtils.class);
   private static ColorMapping _colorMapping=new ColorMapping();
 
   /**

@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
@@ -20,7 +21,7 @@ import delta.games.lotro.lore.rewardsTrack.io.xml.RewardsTracksXMLParser;
  */
 public class RewardsTracksManager
 {
-  private static final Logger LOGGER=Logger.getLogger(RewardsTracksManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(RewardsTracksManager.class);
 
   private static RewardsTracksManager _instance=null;
 

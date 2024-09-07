@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.races.io.xml.RaceDescriptionXMLParser;
 import delta.games.lotro.common.IdentifiableComparator;
@@ -19,7 +20,7 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class RacesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(RacesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(RacesManager.class);
 
   private static RacesManager _instance=null;
 

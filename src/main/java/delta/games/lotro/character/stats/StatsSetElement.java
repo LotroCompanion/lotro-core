@@ -2,7 +2,8 @@ package delta.games.lotro.character.stats;
 
 import java.util.Objects;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
@@ -16,7 +17,7 @@ import delta.games.lotro.utils.NumericUtils;
  */
 public class StatsSetElement
 {
-  private static final Logger LOGGER=Logger.getLogger(StatsSetElement.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(StatsSetElement.class);
 
   private StatDescription _stat;
   private StatOperator _operator;

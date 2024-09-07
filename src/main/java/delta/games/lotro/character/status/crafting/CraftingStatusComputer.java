@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.text.TextTools;
@@ -25,7 +26,7 @@ import delta.games.lotro.lore.crafting.Vocations;
  */
 public class CraftingStatusComputer
 {
-  private static final Logger _logger=Logger.getLogger(CraftingStatusComputer.class);
+  private static final Logger _logger=LoggerFactory.getLogger(CraftingStatusComputer.class);
 
   private CraftingStatus _status;
 

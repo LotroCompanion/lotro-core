@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.items;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.utils.valueTables.QualityBasedValuesTable;
@@ -13,7 +14,7 @@ import delta.games.lotro.lore.items.weapons.WeaponSpeedEntry;
  */
 public class Weapon extends Item
 {
-  private static final Logger LOGGER=Logger.getLogger(Weapon.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(Weapon.class);
 
   //197 - 359 Common Damage
   private int _minDamage;

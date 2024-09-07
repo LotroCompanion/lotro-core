@@ -1,6 +1,7 @@
 package delta.games.lotro.character.skills.attack;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
@@ -19,7 +20,7 @@ import delta.games.lotro.common.stats.WellKnownStat;
  */
 public class SkillAttackComputer
 {
-  private static final Logger LOGGER=Logger.getLogger(SkillAttackComputer.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(SkillAttackComputer.class);
 
   private CharacterDataForSkills _character;
   private SkillDetails _skill;

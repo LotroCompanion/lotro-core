@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
@@ -26,7 +27,7 @@ import delta.games.lotro.utils.i18n.I18nFacade;
  */
 public class LegaciesManager
 {
-  private static final Logger LOGGER=Logger.getLogger(LegaciesManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(LegaciesManager.class);
 
   private static LegaciesManager _instance=null;
 

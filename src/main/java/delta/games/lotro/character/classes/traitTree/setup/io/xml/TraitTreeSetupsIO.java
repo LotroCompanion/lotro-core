@@ -2,7 +2,8 @@ package delta.games.lotro.character.classes.traitTree.setup.io.xml;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.classes.traitTree.setup.TraitTreeSetup;
@@ -13,7 +14,7 @@ import delta.games.lotro.character.classes.traitTree.setup.TraitTreeSetup;
  */
 public class TraitTreeSetupsIO
 {
-  private static final Logger LOGGER=Logger.getLogger(TraitTreeSetupsIO.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(TraitTreeSetupsIO.class);
 
   /**
    * Load a setup data from a given file.

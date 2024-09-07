@@ -2,7 +2,8 @@ package delta.games.lotro.common.global;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
 import delta.games.lotro.common.global.io.xml.CombatDataXMLParser;
@@ -15,7 +16,7 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class CombatSystem
 {
-  private static final Logger LOGGER=Logger.getLogger(CombatSystem.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(CombatSystem.class);
 
   private static CombatSystem _instance=null;
 

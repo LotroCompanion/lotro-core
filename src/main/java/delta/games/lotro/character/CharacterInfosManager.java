@@ -9,7 +9,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.events.CharacterEvent;
 import delta.games.lotro.character.events.CharacterEventType;
@@ -26,7 +27,7 @@ import delta.games.lotro.utils.events.EventsManager;
  */
 public class CharacterInfosManager
 {
-  private static final Logger LOGGER=Logger.getLogger(CharacterInfosManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(CharacterInfosManager.class);
 
   private CharacterFile _toon;
   private CharacterData _current;

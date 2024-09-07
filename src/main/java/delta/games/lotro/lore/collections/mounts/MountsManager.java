@@ -7,7 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
@@ -22,7 +23,7 @@ import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
  */
 public class MountsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(MountsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(MountsManager.class);
 
   private static MountsManager _instance=null;
 

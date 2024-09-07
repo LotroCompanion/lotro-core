@@ -1,6 +1,7 @@
 package delta.games.lotro.common.requirements;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.common.utils.ComparisonOperator;
@@ -13,7 +14,7 @@ import delta.games.lotro.utils.Proxy;
  */
 public class QuestRequirement extends AbstractAchievableRequirement
 {
-  private static final Logger LOGGER=Logger.getLogger(QuestRequirement.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(QuestRequirement.class);
 
   private static final String SEPARATOR=";";
   private Proxy<Achievable> _quest;

@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
@@ -21,7 +22,7 @@ import delta.games.lotro.lore.items.legendary2.EnhancementRune;
  */
 public class EnhancementRunesXMLWriter
 {
-  private static final Logger LOGGER=Logger.getLogger(EnhancementRunesXMLWriter.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(EnhancementRunesXMLWriter.class);
 
   /**
    * Write some enhancement runes to a XML file.

@@ -2,7 +2,8 @@ package delta.games.lotro.common.stats.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
@@ -26,7 +27,7 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class StatsProviderXMLWriter
 {
-  private static final Logger LOGGER=Logger.getLogger(StatsProviderXMLWriter.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(StatsProviderXMLWriter.class);
 
   /**
    * Write a stats provider to a XML document.

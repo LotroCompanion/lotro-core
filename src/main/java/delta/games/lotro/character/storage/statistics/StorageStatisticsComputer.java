@@ -2,7 +2,8 @@ package delta.games.lotro.character.storage.statistics;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.storage.StoredItem;
 import delta.games.lotro.character.storage.statistics.reputation.StorageFactionStats;
@@ -28,7 +29,7 @@ import delta.games.lotro.utils.Registry;
  */
 public class StorageStatisticsComputer
 {
-  private static final Logger LOGGER=Logger.getLogger(StorageStatisticsComputer.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(StorageStatisticsComputer.class);
 
   /**
    * Compute storage statistics.

@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.StatProvider;
@@ -30,7 +31,7 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class LegendarySystem
 {
-  private static final Logger LOGGER=Logger.getLogger(LegendarySystem.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(LegendarySystem.class);
 
   private static LegendarySystem _instance=null;
 

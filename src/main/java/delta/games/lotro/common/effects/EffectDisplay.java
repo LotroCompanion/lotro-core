@@ -3,7 +3,8 @@ package delta.games.lotro.common.effects;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.variables.VariableValueProvider;
 import delta.common.utils.variables.VariablesResolver;
@@ -27,7 +28,7 @@ import delta.games.lotro.utils.strings.TextSanitizer;
  */
 public class EffectDisplay
 {
-  private static final Logger LOGGER=Logger.getLogger(EffectDisplay.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(EffectDisplay.class);
 
   private boolean _skipRawStats;
   private boolean _isRootEffect;

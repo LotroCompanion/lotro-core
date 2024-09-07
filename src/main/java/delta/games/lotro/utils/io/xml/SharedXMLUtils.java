@@ -2,7 +2,8 @@ package delta.games.lotro.utils.io.xml;
 
 import javax.xml.transform.sax.TransformerHandler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.xml.sax.Attributes;
@@ -27,7 +28,7 @@ import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLConstants;
  */
 public class SharedXMLUtils
 {
-  private static final Logger LOGGER=Logger.getLogger(SharedXMLUtils.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(SharedXMLUtils.class);
 
   /**
    * Parse an item.

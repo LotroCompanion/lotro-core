@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.account.Account;
 import delta.games.lotro.account.AccountOnServer;
@@ -28,7 +29,7 @@ import delta.games.lotro.utils.events.GenericEventsListener;
  */
 public class BindingsManager
 {
-  private static final Logger LOGGER=Logger.getLogger(BindingsManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(BindingsManager.class);
 
   private static BindingsManager _instance=new BindingsManager();
 

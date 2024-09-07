@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.status.achievables.AchievableElementState;
 import delta.games.lotro.character.status.achievables.AchievableStatusBusinessRules;
@@ -19,7 +20,7 @@ import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
  */
 public class AchievableConditionStatusManager
 {
-  private static final Logger LOGGER=Logger.getLogger(AchievableConditionStatusManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(AchievableConditionStatusManager.class);
 
   private ObjectiveConditionStatus _status;
   private List<AchievableStatusGeoItem> _items;

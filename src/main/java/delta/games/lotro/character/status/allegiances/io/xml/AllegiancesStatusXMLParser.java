@@ -3,7 +3,8 @@ package delta.games.lotro.character.status.allegiances.io.xml;
 import java.io.File;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -20,7 +21,7 @@ import delta.games.lotro.lore.allegiances.Points2LevelCurve;
  */
 public class AllegiancesStatusXMLParser
 {
-  private static final Logger LOGGER=Logger.getLogger(AllegiancesStatusXMLParser.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(AllegiancesStatusXMLParser.class);
 
   /**
    * Parse the XML file.

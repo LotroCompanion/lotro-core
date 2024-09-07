@@ -3,7 +3,8 @@ package delta.games.lotro.lore.items.legendary2;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.sets.ItemsSet;
@@ -14,7 +15,7 @@ import delta.games.lotro.lore.items.sets.ItemsSet;
  */
 public class TraceriesSetsUtils
 {
-  private static final Logger LOGGER=Logger.getLogger(TraceriesSetsUtils.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(TraceriesSetsUtils.class);
 
   /**
    * Get the member traceries for a set.

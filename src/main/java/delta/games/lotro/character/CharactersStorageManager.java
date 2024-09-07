@@ -5,7 +5,8 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import delta.common.utils.files.FilesDeleter;
 import delta.common.utils.files.filter.FileTypePredicate;
@@ -17,7 +18,7 @@ import delta.games.lotro.data.UserDataManager;
  */
 public class CharactersStorageManager
 {
-  private static final Logger LOGGER=Logger.getLogger(CharactersStorageManager.class);
+  private static final Logger LOGGER=LoggerFactory.getLogger(CharactersStorageManager.class);
 
   /**
    * Seed for toon files.
