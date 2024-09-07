@@ -2,10 +2,12 @@ package delta.games.lotro.character.skills.attack;
 
 import org.apache.log4j.Logger;
 
-import delta.games.lotro.account.status.rewardsTrack.io.xml.RewardsTracksStatusXMLParser;
+import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
 import delta.games.lotro.character.stats.ratings.RatingCurveId;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
+import delta.games.lotro.common.enums.DamageQualifier;
+import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.inductions.Induction;
 import delta.games.lotro.common.inductions.InductionsManager;
@@ -34,16 +36,16 @@ public class SkillAttackComputer
     StatDescription percentageStat=WellKnownStat.MELEE_DAMAGE_PERCENTAGE;
 
     float nDmgQfrBase=classData.getBaseDamageForQualifier(damageQualifier);
-    if (damageQualifier==DamageQualifier.MELEE)
+    if (damageQualifier==DamageQualifiers.MELEE)
     {
       // Already set up
     }
-    else if (damageQualifier==DamageQualifier.TACTICAL)
+    else if (damageQualifier==DamageQualifiers.TACTICAL)
     {
       ratingStat=WellKnownStat.TACTICAL_MASTERY;
       percentageStat=WellKnownStat.TACTICAL_DAMAGE_PERCENTAGE;
     }
-    else if (damageQualifier==DamageQualifier.RANGED)
+    else if (damageQualifier==DamageQualifiers.RANGED)
     {
       percentageStat=WellKnownStat.RANGED_DAMAGE_PERCENTAGE;
     }

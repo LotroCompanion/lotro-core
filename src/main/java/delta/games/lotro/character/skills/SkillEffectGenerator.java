@@ -12,6 +12,8 @@ public class SkillEffectGenerator extends EffectGenerator
   private Float _duration;
   private SkillEffectType _type;
 
+  // TODO Add Skill_EffectImplementUsage
+
   /**
    * Constructor.
    * @param effect Effect.

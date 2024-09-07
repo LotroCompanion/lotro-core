@@ -1,4 +1,4 @@
-package delta.games.lotro.common.effects;
+package delta.games.lotro.common.properties;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,6 @@
 package delta.games.lotro.character.skills.attack;
 
+import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -24,6 +25,26 @@ public class SkillAttack
   // TODO Damage add contribution mods
   private float _damageMaxVariance;
   private float _damageModifier=1.0f;
+
+  public DamageQualifier getDamageQualifier()
+  {
+    return _damageQualifier;
+  }
+
+  public void setDamageQualifier(DamageQualifier damageQualifier)
+  {
+    _damageQualifier=damageQualifier;
+  }
+
+  public DamageType getDamageType()
+  {
+    return _damageType;
+  }
+
+  public void setDamageType(DamageType damageType)
+  {
+    _damageType=damageType;
+  }
 
   public float getDamageModifier()
   {

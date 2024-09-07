@@ -1,5 +1,7 @@
 package delta.games.lotro.character.skills.attack;
 
+import delta.games.lotro.common.enums.DamageQualifier;
+
 /**
  * Class data for skill details.
  * @author DAM
