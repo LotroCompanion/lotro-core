@@ -1,7 +1,8 @@
 package delta.games.lotro.character.skills;
 
 /**
- * @author dm
+ * Skill flags.
+ * @author DAM
  */
 public class SkillFlags
 {
