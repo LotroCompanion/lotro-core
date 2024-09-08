@@ -26,4 +26,8 @@ public class SkillFlags
    * Uses ranged.
    */
   public static int USES_RANGED=1<<4;
+  /**
+   * Is toggle.
+   */
+  public static int IS_TOGGLE=1<<5;
 }

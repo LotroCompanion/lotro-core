@@ -11,12 +11,12 @@ import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.inductions.Induction;
-import delta.games.lotro.common.inductions.InductionsManager;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.WellKnownStat;
 
 /**
- * @author dmorcellet
+ * Skill attack computer.
+ * @author DAM
  */
 public class SkillAttackComputer
 {
@@ -80,22 +80,25 @@ public class SkillAttackComputer
 
   public float getAttackDamage(SkillAttack attack, boolean minimum)
   {
-    DamageQualifier damageQualifier=_skill.getDamagerQualifier();
+    DamageQualifier damageQualifier=attack.getDamageQualifier();
     // Calculate Damage Qualifier
     float nDamageQualifier=getDamageQualifier(damageQualifier);
     LOGGER.info("Damage qualifier: "+nDamageQualifier);
 
     // Calculate Skill Action Duration
-    float nSkillActionDuration = 1;
-    Float nActionDurationContr = _skill.getActionDurationContribution();
+    float skillActionDuration=1;
+    Float nActionDurationContr=_skill.getActionDurationContribution();
     if (nActionDurationContr!=null)
     {
-      nSkillActionDuration+=nActionDurationContr.floatValue();
+      skillActionDuration+=nActionDurationContr.floatValue();
     }
-    Integer inductionActionID=_skill.getInductionActionID();
-    float baseInductionDuration=getInductionDuration(inductionActionID);
-    nSkillActionDuration+=baseInductionDuration;
-    LOGGER.info("Skill duration: "+nSkillActionDuration);
+    Induction induction=_skill.getInduction();
+    if (induction!=null)
+    {
+      float baseInductionDuration=induction.getDuration();
+      skillActionDuration+=baseInductionDuration;
+    }
+    LOGGER.info("Skill duration: "+skillActionDuration);
 
     // Damage
     float damageModifier=attack.getDamageModifier(); // HKDAMAGEMOD
@@ -177,22 +180,4 @@ public class SkillAttackComputer
   return GetAttackDamage(aAttack,false);
   end
   */
-
-  private float getInductionDuration(Integer inductionActionID)
-  {
-    if (inductionActionID==null)
-    {
-      return 0;
-    } 
-    InductionsManager inductionsMgr=InductionsManager.getInstance();
-    Induction induction=inductionsMgr.get(inductionActionID.intValue());
-    if (induction==null)
-    {
-      // TODO Warn
-      return 0;
-    }
-    float ret=induction.getDuration();
-    return ret;
-  }
 }
-
