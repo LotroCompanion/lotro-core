@@ -240,14 +240,18 @@ public class BasicStatsSet
     {
       Number value=existing.getValue();
       Number valueToAdd=elementToAdd.getValue();
+      StatOperator operator=elementToAdd.getOperator();
+      if (operator==StatOperator.SUBSTRACT)
+      {
+        valueToAdd=NumericUtils.negate(valueToAdd);
+      }
       Number newValue=NumericUtils.add(value,valueToAdd);
       // Update this one
       if (!Objects.equals(existing.getDescriptionOverride(),elementToAdd.getDescriptionOverride()))
       {
         //LOGGER.warn("Add stat will replace description!");
       }
-      StatOperator operator=elementToAdd.getOperator();
-      if (operator!=StatOperator.ADD)
+      if ((operator!=StatOperator.ADD) && (operator!=StatOperator.SUBSTRACT))
       {
         LOGGER.warn("Adding stat "+elementToAdd.getStat()+" with operator "+operator);
       }
