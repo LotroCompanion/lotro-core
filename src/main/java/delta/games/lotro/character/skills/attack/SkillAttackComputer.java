@@ -9,10 +9,15 @@ import delta.games.lotro.character.stats.ratings.RatingCurveId;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.DamageQualifiers;
+import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.inductions.Induction;
+import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.WellKnownStat;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.utils.maths.Progression;
 
 /**
  * Skill attack computer.
@@ -103,33 +108,45 @@ public class SkillAttackComputer
     // Damage
     float damageModifier=attack.getDamageModifier(); // HKDAMAGEMOD
     // Handle damage modifiers mods // HKDAMAGEMODMODS
+
+    int charLevel=_character.getLevel();
+    // Max damage
+    float maxDamageProg=getProgressionValue(attack.getMaxDamageProgression(),charLevel,0);
+    float maxDamage=attack.getMaxDamage()+maxDamageProg;
+    ModPropertyList maxDamageMods=attack.getMaxDamageMods();
+    // TODO Handle additive modifiers for maxDamage
+    // DPS
+    float dpsAddModProg=getProgressionValue(attack.getDPSModProgression(),charLevel,0);
+    ModPropertyList dpsMods=attack.getDPSMods();
+    // TODO Handle additive DPS mods
+    float dpsAddMod=dpsAddModProg;
+
+    Float damageContribMultiplierFloat=attack.getDamageContributionMultiplier();
+    float damageContribMultiplier=(damageContribMultiplierFloat!=null)?damageContribMultiplierFloat.floatValue():0;
+    float damageAdd=skillActionDuration*dpsAddMod*damageContribMultiplier;
+    maxDamage+=damageAdd;
+
+    float variance=1;
+    if (minimum)
+    {
+      variance-=attack.getMaxDamageVariance();
+    }
+    float damage=nDamageQualifier*damageModifier*maxDamage*variance;
+
+    ImplementUsageType usesImpl=attack.getImplementUsageType();
+    if (usesImpl!=null)
+    {
+      ItemInstance<? extends Item> item=_character.getImplement(usesImpl);
+    }
     return 0;
   }
-
-  /*
-    local nHookDamageMaxProgValue = GetProgressionValue(skd.GetProp(aAD,"HKDAMAGEMAXPROG"),aChar[CHAR_LEVEL]);
-    local nHookDamageMax = skd.GetProp(aAD,"HKDAMAGEMAX") + nHookDamageMaxProgValue;
-    nHookDamageMax = AdditiveModify(nHookDamageMax,aChar,aAD,"HKDAMAGEMAXMODS");
-
-    local nDPSAddModProgValue = GetProgressionValue(skd.GetProp(aAD,"DPSADDMODPROG"),aChar[CHAR_LEVEL]);
-    local nDPSAddMod = AdditiveModify(nDPSAddModProgValue,aChar,aAD,"DPSADDMODMODS");
-    local nDamageAdd = nSkillActionDuration * nDPSAddMod * skd.GetProp(aAD,"DAMAGEADDCONTRMP");
-    
-    nHookDamageMax = nHookDamageMax + nDamageAdd;
-
-    local nVarianceMP = 1;
-    if bMinimum then
-      nVarianceMP = nVarianceMP - skd.GetProp(aAD,"HKDAMAGEMAXVAR");
-    end
-
-    nDamage = nDamage + csm.RoundDbl(nDamageQualifier * nHookDamageModifier * nHookDamageMax * nVarianceMP);
-    
+    /*
     local nUsesImp = skd.GetProp(aAD,"IMPUSAGE");
     if nUsesImp ~= nil then
       -- calculate implement damage
       local nImplementSelect = skd.GetProp(aAD,"IMPUSAGE");
       local aImp;
-    
+
       if nImplementSelect == IMPSEL_PRIMARY then
         aImp = aChar[CHAR_IMP_PRIMARY];
       elseif nImplementSelect == IMPSEL_SECONDARY then
@@ -139,7 +156,7 @@ public class SkillAttackComputer
       elseif nImplementSelect == IMPSEL_TACTICAL then
         aImp = aChar[CHAR_IMP_TACTICAL];
       end
-      
+
       if nImplementSelect ~= IMPSEL_UNDEF then
         local nImpDamage = 0;
 
@@ -163,7 +180,6 @@ public class SkillAttackComputer
             nImpDamage = csm.CalcStat("WpnDmgMax",aImp[IMP_ILVL],aImp[IMP_WPNCODE]);
           end
         end
-        
         nDamage = nDamage + csm.RoundDbl(nDamageQualifier * nHookDamageModifier * skd.GetProp(aAD,"IMPCONTRMP") * nImpDamage);
       end
     end
@@ -180,4 +196,18 @@ public class SkillAttackComputer
   return GetAttackDamage(aAttack,false);
   end
   */
+
+  private float getProgressionValue(Progression progression, int x, float defaultValue)
+  {
+    float ret=defaultValue;
+    if (progression!=null)
+    {
+      Float progValue=progression.getValue(x);
+      if (progValue!=null)
+      {
+        ret=progValue.floatValue();
+      }
+    }
+    return ret;
+  }
 }

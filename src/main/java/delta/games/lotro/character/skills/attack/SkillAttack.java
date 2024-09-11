@@ -2,6 +2,8 @@ package delta.games.lotro.character.skills.attack;
 
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.DamageQualifiers;
+import delta.games.lotro.common.enums.ImplementUsageType;
+import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.DamageTypes;
@@ -31,9 +33,6 @@ public class SkillAttack
   private float _damageModifier=1.0f;
   private Float _implementContributionMultiplier;
   private int _flags;
-
-  //private Implement _implementUsage;
-  //private Progression _damageAddContributionProgression;
 
   /**
    * Constructor.
@@ -308,6 +307,21 @@ public class SkillAttack
     return ((_flags&flag)==flag);
   }
 
+  /**
+   * Get the implement usage type for this attack.
+   * @return an implement usage type or <code>null</code>.
+   */
+  public ImplementUsageType getImplementUsageType()
+  {
+    if (isSet(SkillAttackFlags.PRIMARY)) return ImplementUsageTypes.PRIMARY;
+    if (isSet(SkillAttackFlags.SECONDARY)) return ImplementUsageTypes.SECONDARY;
+    if (isSet(SkillAttackFlags.RANGED)) return ImplementUsageTypes.RANGED;
+    if (isSet(SkillAttackFlags.TACTICAL)) return ImplementUsageTypes.TACTICAL_DPS;
+    if (isSet(SkillAttackFlags.NATURAL)) return ImplementUsageTypes.NATURAL;
+    return null;
+  }
+
+  @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();

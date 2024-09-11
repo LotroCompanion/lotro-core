@@ -1,6 +1,12 @@
 package delta.games.lotro.character.skills.attack;
 
+import delta.games.lotro.common.enums.ImplementUsageType;
+import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.EquipmentLocations;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
 
 /**
  * Character data for skill details.
@@ -44,5 +50,89 @@ public class CharacterDataForSkills
   public int getLevel()
   {
     return 1;
+  }
+
+  private boolean useMainDPS()
+  {
+    return true;
+  }
+
+  private boolean useMainTDR()
+  {
+    return false;
+  }
+
+  private boolean useSecondaryDPS()
+  {
+    return false;
+  }
+
+  private boolean useRangedDPS()
+  {
+    return false;
+  }
+
+  private boolean useRangedTHR()
+  {
+    return false;
+  }
+
+  private boolean useClassTHR()
+  {
+    return false;
+  }
+
+  private ItemInstance<? extends Item> getItem(EquipmentLocation slot)
+  {
+    return null;
+  }
+
+  public ItemInstance<? extends Item> getImplement(ImplementUsageType implementUsageType)
+  {
+    if (implementUsageType==ImplementUsageTypes.PRIMARY)
+    {
+      if (useMainDPS())
+      {
+        return getItem(EquipmentLocations.MAIN_HAND);
+      }
+      return null;
+    }
+    else if (implementUsageType==ImplementUsageTypes.SECONDARY)
+    {
+      if (useSecondaryDPS())
+      {
+        return getItem(EquipmentLocations.OFF_HAND);
+      }
+      return null;
+    }
+    else if (implementUsageType==ImplementUsageTypes.RANGED)
+    {
+      if (useRangedDPS())
+      {
+        return getItem(EquipmentLocations.RANGED_ITEM);
+      }
+      return null;
+    }
+    else if (implementUsageType==ImplementUsageTypes.TACTICAL_DPS)
+    {
+      if (useMainTDR())
+      {
+        return getItem(EquipmentLocations.MAIN_HAND);
+      }
+      return null;
+    }
+    else if (implementUsageType==ImplementUsageTypes.TACTICAL_HPS)
+    {
+      if (useRangedTHR())
+      {
+        return getItem(EquipmentLocations.RANGED_ITEM);
+      }
+      if (useClassTHR())
+      {
+        return getItem(EquipmentLocations.CLASS_SLOT);
+      }
+      return null;
+    }
+    return null;
   }
 }
