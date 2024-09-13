@@ -3,9 +3,11 @@ package delta.games.lotro.character.skills;
 import java.util.Set;
 
 import delta.games.lotro.character.skills.attack.SkillAttacks;
+import delta.games.lotro.character.skills.geometry.SkillGeometry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillDisplayType;
 import delta.games.lotro.common.inductions.Induction;
+import delta.games.lotro.common.properties.ModPropertyList;
 
 /**
  * Skill details.
@@ -24,7 +26,7 @@ public class SkillDetails
   private SkillGeometry _geometry;
   // Max target
   private Integer _maxTargets; // From Skill_AreaEffectMaxTargets
-  // + Mod Array // From Skill_AreaEffectMaxTargets_Mod_Array
+  private ModPropertyList _maxTargetsMods; // From Skill_AreaEffectMaxTargets_Mod_Array
 
   private ResistCategory _resistCategory;
   private Set<SkillDisplayType> _displayTypes;
@@ -200,6 +202,22 @@ public class SkillDetails
   public void setMaxTargets(Integer maxTargets)
   {
     _maxTargets=maxTargets;
+  }
+
+  /**
+   * @return the maxTargetsMods
+   */
+  public ModPropertyList getMaxTargetsMods()
+  {
+    return _maxTargetsMods;
+  }
+
+  /**
+   * @param maxTargetsMods the maxTargetsMods to set
+   */
+  public void setMaxTargetsMods(ModPropertyList maxTargetsMods)
+  {
+    _maxTargetsMods=maxTargetsMods;
   }
 
   /**
