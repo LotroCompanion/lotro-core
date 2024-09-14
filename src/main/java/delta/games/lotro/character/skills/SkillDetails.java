@@ -23,6 +23,7 @@ public class SkillDetails
   private Float _cooldown;
   // Flags
   private int _flags;
+  // Geometry
   private SkillGeometry _geometry;
   // Max target
   private Integer _maxTargets; // From Skill_AreaEffectMaxTargets

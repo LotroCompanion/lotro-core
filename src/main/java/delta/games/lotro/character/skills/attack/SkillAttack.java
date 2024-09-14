@@ -326,7 +326,7 @@ public class SkillAttack
   {
     StringBuilder sb=new StringBuilder();
 
-    sb.append("Qualifier: ").append(_damageModifier);
+    sb.append("Qualifier: ").append(_damageQualifier);
     if (_dpsMods!=null)
     {
       sb.append(", DPS mods=").append(_dpsMods);

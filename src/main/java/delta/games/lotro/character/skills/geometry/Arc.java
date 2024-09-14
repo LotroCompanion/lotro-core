@@ -6,9 +6,9 @@ package delta.games.lotro.character.skills.geometry;
  */
 public class Arc implements Shape
 {
-  private float _radius; // From Skill_AEDetectionVolume_ArcRadius
-  private float _degrees; // From Skill_AEDetectionVolume_ArcDegrees
-  private float _headingOffset; // From Skill_AEDetectionVolume_HeadingOffset (may be also for arc)
+  private float _radius;
+  private float _degrees;
+  private Float _headingOffset;
 
   /**
    * Constructor.
@@ -17,7 +17,7 @@ public class Arc implements Shape
   {
     _radius=1;
     _degrees=90;
-    _headingOffset=0;
+    _headingOffset=null;
   }
 
   /**
@@ -55,7 +55,7 @@ public class Arc implements Shape
   /**
    * @return the headingOffset
    */
-  public float getHeadingOffset()
+  public Float getHeadingOffset()
   {
     return _headingOffset;
   }
@@ -63,7 +63,7 @@ public class Arc implements Shape
   /**
    * @param headingOffset the headingOffset to set
    */
-  public void setHeadingOffset(float headingOffset)
+  public void setHeadingOffset(Float headingOffset)
   {
     _headingOffset=headingOffset;
   }
@@ -71,6 +71,6 @@ public class Arc implements Shape
   @Override
   public String toString()
   {
-    return "Arc: radius="+_radius+", degrees="+_degrees+", heading="+_headingOffset;
+    return "Arc: radius="+_radius+", degrees="+_degrees+((_headingOffset!=null)?", heading="+_headingOffset:"");
   }
 }

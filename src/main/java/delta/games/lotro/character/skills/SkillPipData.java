@@ -279,7 +279,7 @@ public class SkillPipData
     {
       sb.append(", required max value mods=").append(_requiredMaxValueMods);
     }
-    if (_towardHome!=null)
+    if ((_towardHome!=null) && (_towardHome.intValue()!=0))
     {
       sb.append(", toward home=").append(_towardHome);
     }

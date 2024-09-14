@@ -6,7 +6,7 @@ package delta.games.lotro.character.skills.geometry;
  */
 public class Sphere implements Shape
 {
-  private float _radius; // From Skill_AEDetectionVolume_SphereRadius
+  private float _radius;
 
   /**
    * Constructor.
