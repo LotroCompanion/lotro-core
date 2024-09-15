@@ -1,13 +1,13 @@
 package delta.games.lotro.common.inductions;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import delta.games.lotro.common.inductions.io.xml.InductionXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 
@@ -38,7 +38,7 @@ public class InductionsManager
 
   /**
    * Private constructor.
-   * @param load Indicates if the action tables database shall be loaded or not.
+   * @param load Indicates if the inductions database shall be loaded or not.
    */
   private InductionsManager(boolean load)
   {
@@ -58,15 +58,14 @@ public class InductionsManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File inductionsFile=cfg.getFile(DataFiles.INDUCTIONS);
     long now=System.currentTimeMillis();
-    List<Induction> inductions=new ArrayList<Induction>();
-    //List<Induction> inductions=new ActionTablesXMLParser().parseXML(actionTablesFile);
+    List<Induction> inductions=new InductionXMLParser().parseXML(inductionsFile);
     for(Induction induction : inductions)
     {
       _cache.put(Integer.valueOf(induction.getIdentifier()),induction);
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" inductions in "+duration+"ms.");
+    LOGGER.info("Loaded {} inductions in {}ms.",Integer.valueOf(_cache.size()),Long.valueOf(duration));
   }
 
   /**
