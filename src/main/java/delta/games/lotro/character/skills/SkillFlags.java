@@ -30,4 +30,8 @@ public class SkillFlags
    * Is toggle.
    */
   public static int IS_TOGGLE=1<<5;
+  /**
+   * Harmful.
+   */
+  public static int HARMFUL=1<<6;
 }

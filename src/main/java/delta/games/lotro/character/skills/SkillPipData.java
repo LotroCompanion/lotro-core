@@ -249,7 +249,6 @@ public class SkillPipData
     _secondsPerPipChangeMods=secondsPerPipChangeMods;
   }
 
-
   @Override
   public String toString()
   {
