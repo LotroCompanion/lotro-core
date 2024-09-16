@@ -96,7 +96,7 @@ public class SkillEffectsXmlIO
       int id=DOMParsingTools.getIntAttribute(attrs,SkillEffectsXMLConstants.EFFECT_ID_ATTR,0);
       // Spellcraft
       Float spellcraft=DOMParsingTools.getFloatAttribute(attrs,SkillEffectsXMLConstants.EFFECT_SPELLCRAFT_ATTR,null);
-      // Spellcraft
+      // Duration
       Float duration=DOMParsingTools.getFloatAttribute(attrs,SkillEffectsXMLConstants.EFFECT_DURATION_ATTR,null);
       // Type
       String typeStr=DOMParsingTools.getStringAttribute(attrs,SkillEffectsXMLConstants.SKILL_EFFECT_TYPE_ATTR,null);
@@ -108,7 +108,8 @@ public class SkillEffectsXmlIO
       Effect effect=EffectsManager.getInstance().getEffectById(id);
       if (effect!=null)
       {
-        SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,duration,type);
+        SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,duration);
+        generator.setType(type);
         SkillDescription.addEffect(skill,generator);
       }
       else
