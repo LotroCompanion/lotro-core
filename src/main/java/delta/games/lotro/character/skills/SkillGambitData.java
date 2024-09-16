@@ -10,8 +10,30 @@ import delta.games.lotro.common.enums.GambitIconType;
  */
 public class SkillGambitData
 {
+  /**
+   * Required gambits. Can be:
+   * <ul>
+   * <li><code>null</code>: no requirements
+   * <li>empty: requires an active gambit
+   * <li>not empty: ordered list of required gambits.
+   * </ul>
+   */
   private List<GambitIconType> _required;
+  /**
+   * Gambits to add on skill execution. Can be:
+   * <ul>
+   * <li><code>null</code>: nothing to add.
+   * <li>non empty: ordered list of gambits to add.
+   * </ul>
+   */
   private List<GambitIconType> _toAdd;
+  /**
+   * Gambits to remove. Can be:
+   * <ul>
+   * <li>100: clear all gambits.
+   * <li>less than 100: number of gambits to clear.
+   * </ul>
+   */
   private int _toRemove;
 
   /**
