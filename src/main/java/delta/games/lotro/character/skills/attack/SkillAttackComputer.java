@@ -41,7 +41,7 @@ public class SkillAttackComputer
     StatDescription ratingStat=WellKnownStat.PHYSICAL_MASTERY;
     StatDescription percentageStat=WellKnownStat.MELEE_DAMAGE_PERCENTAGE;
 
-    float nDmgQfrBase=classData.getBaseDamageForQualifier(damageQualifier);
+    float baseDamageQualifier=classData.getBaseDamageForQualifier(damageQualifier);
     if (damageQualifier==DamageQualifiers.MELEE)
     {
       // Already set up
@@ -55,19 +55,19 @@ public class SkillAttackComputer
     {
       percentageStat=WellKnownStat.RANGED_DAMAGE_PERCENTAGE;
     }
-    return getQualifier(ratingStat,percentageStat,curveId,nDmgQfrBase);
+    return getQualifier(ratingStat,percentageStat,curveId,baseDamageQualifier);
   }
 
-  private float getQualifier(StatDescription ratingStat, StatDescription percentageStat, RatingCurveId curveId, float base)
+  private float getQualifier(StatDescription ratingStat, StatDescription percentageStat, RatingCurveId curveId, float baseDamageQualifier)
   {
-    float nRating=_character.getStat(ratingStat);
+    float rating=_character.getStat(ratingStat);
     // TODO Use cap if stat not set?
     int characterLevel=_character.getLevel();
-    float ratingPercentage=getPercentage(curveId,nRating,characterLevel);
-    float nRatPercMP=1+ratingPercentage/100;
-    float nDmgQfrMP=base+_character.getStat(percentageStat);
-    float nDamageQualifier=nRatPercMP*nDmgQfrMP;
-    return nDamageQualifier;
+    float ratingPercentage=getPercentage(curveId,rating,characterLevel);
+    float ratingPercentageMultiplier=1+ratingPercentage/100;
+    float damageQualifier=baseDamageQualifier+_character.getStat(percentageStat); // TODO use "bonus" percentage only here
+    damageQualifier*=ratingPercentageMultiplier;
+    return damageQualifier;
   }
 
   private float getPercentage(RatingCurveId curveId, float rating, int characterLevel)
@@ -85,10 +85,9 @@ public class SkillAttackComputer
 
   public float getAttackDamage(SkillAttack attack, boolean minimum)
   {
-    DamageQualifier damageQualifier=attack.getDamageQualifier();
     // Calculate Damage Qualifier
-    float nDamageQualifier=getDamageQualifier(damageQualifier);
-    LOGGER.info("Damage qualifier: "+nDamageQualifier);
+    float damageQualifier=getDamageQualifier(attack.getDamageQualifier());
+    LOGGER.info("Damage qualifier: "+damageQualifier);
 
     // Calculate Skill Action Duration
     float skillActionDuration=1;
@@ -97,6 +96,7 @@ public class SkillAttackComputer
     {
       skillActionDuration+=nActionDurationContr.floatValue();
     }
+    LOGGER.info("Skill duration (before induction): "+skillActionDuration);
     Induction induction=_skill.getInduction();
     if (induction!=null)
     {
@@ -106,32 +106,33 @@ public class SkillAttackComputer
     LOGGER.info("Skill duration: "+skillActionDuration);
 
     // Damage
-    float damageModifier=attack.getDamageModifier(); // HKDAMAGEMOD
-    // Handle damage modifiers mods // HKDAMAGEMODMODS
+    float damageModifier=attack.getDamageModifier();
+    ModPropertyList damageModifierMods=attack.getDamageModifiersMods();
+    damageModifier+=_character.computeAdditiveModifiers(damageModifierMods);
 
     int charLevel=_character.getLevel();
     // Max damage
     float maxDamageProg=getProgressionValue(attack.getMaxDamageProgression(),charLevel,0);
     float maxDamage=attack.getMaxDamage()+maxDamageProg;
     ModPropertyList maxDamageMods=attack.getMaxDamageMods();
-    // TODO Handle additive modifiers for maxDamage
+    maxDamage+=_character.computeAdditiveModifiers(maxDamageMods);
     // DPS
     float dpsAddModProg=getProgressionValue(attack.getDPSModProgression(),charLevel,0);
-    ModPropertyList dpsMods=attack.getDPSMods();
-    // TODO Handle additive DPS mods
     float dpsAddMod=dpsAddModProg;
+    ModPropertyList dpsMods=attack.getDPSMods();
+    dpsAddMod+=_character.computeAdditiveModifiers(dpsMods);
 
     Float damageContribMultiplierFloat=attack.getDamageContributionMultiplier();
     float damageContribMultiplier=(damageContribMultiplierFloat!=null)?damageContribMultiplierFloat.floatValue():0;
     float damageAdd=skillActionDuration*dpsAddMod*damageContribMultiplier;
     maxDamage+=damageAdd;
 
-    float variance=1;
+    float damage=damageQualifier*damageModifier*maxDamage;
     if (minimum)
     {
-      variance-=attack.getMaxDamageVariance();
+      float variance=1-attack.getMaxDamageVariance();
+      damage=damage*variance;
     }
-    float damage=nDamageQualifier*damageModifier*maxDamage*variance;
 
     ImplementUsageType usesImpl=attack.getImplementUsageType();
     if (usesImpl!=null)

@@ -2,7 +2,10 @@ package delta.games.lotro.character.skills.attack;
 
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
+import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatsManager;
+import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
@@ -134,5 +137,23 @@ public class CharacterDataForSkills
       return null;
     }
     return null;
+  }
+
+  /**
+   * Compute the value of modifier properties.
+   * @param mods Modifiers.
+   * @return A value to add.
+   */
+  public float computeAdditiveModifiers(ModPropertyList mods)
+  {
+    if (mods==null) return 0;
+    float ret=0;
+    for(Integer id : mods.getIDs())
+    {
+      StatDescription stat=StatsRegistry.getInstance().getById(id.intValue());
+      float statValue=getStat(stat);
+      ret+=statValue;
+    }
+    return ret;
   }
 }
