@@ -11,6 +11,22 @@ public enum SkillEffectType
    */
   ATTACK,
   /**
+   * Attack (critical result).
+   */
+  ATTACK_CRITICAL,
+  /**
+   * Attack (with positional bonus).
+   */
+  ATTACK_POSITIONAL,
+  /**
+   * Attack (supercritical/devastate result).
+   */
+  ATTACK_SUPERCRITICAL,
+  /**
+   * Applied to self on critical.
+   */
+  SELF_CRITICAL,
+  /**
    * Toggle skill effect.
    */
   TOGGLE,

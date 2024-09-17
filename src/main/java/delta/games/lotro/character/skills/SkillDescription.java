@@ -208,25 +208,18 @@ public class SkillDescription implements Identifiable,Named
     return _effects;
   }
 
+  /**
+   * Set the effects manager.
+   * @param effects Effects to set.
+   */
+  public void setEffects(SkillEffectsManager effects)
+  {
+    _effects=effects;
+  }
+
   @Override
   public String toString()
   {
     return "Skill ID="+_identifier+", name="+_name;
-  }
-
-  /**
-   * Add an effect to the given skill.
-   * @param skill Skill to use.
-   * @param effect Effect to add.
-   */
-  public static void addEffect(SkillDescription skill, SkillEffectGenerator effect)
-  {
-    SkillEffectsManager mgr=skill.getEffects();
-    if (mgr==null)
-    {
-      mgr=new SkillEffectsManager();
-      skill._effects=mgr;
-    }
-    mgr.addEffect(effect);
   }
 }

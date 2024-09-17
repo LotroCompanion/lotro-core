@@ -89,6 +89,11 @@ public class SkillEffectsXmlIO
   public static void readSkillEffects(Element skillTag, SkillDescription skill)
   {
     List<Element> effectTags=DOMParsingTools.getChildTagsByName(skillTag,SkillEffectsXMLConstants.EFFECT_TAG);
+    if (effectTags.isEmpty())
+    {
+      return;
+    }
+    SkillEffectsManager mgr=new SkillEffectsManager();
     for(Element effectTag : effectTags)
     {
       NamedNodeMap attrs=effectTag.getAttributes();
@@ -110,12 +115,13 @@ public class SkillEffectsXmlIO
       {
         SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,duration);
         generator.setType(type);
-        SkillDescription.addEffect(skill,generator);
+        mgr.addEffect(generator);
       }
       else
       {
         LOGGER.warn("Unknown effect: id="+id+" in skill "+skill.getIdentifier());
       }
     }
+    skill.setEffects(mgr);
   }
 }

@@ -1,5 +1,6 @@
 package delta.games.lotro.character.skills.attack;
 
+import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.enums.ImplementUsageType;
@@ -16,23 +17,26 @@ import delta.games.lotro.utils.maths.Progression;
 public class SkillAttack
 {
   private DamageQualifier _damageQualifier;
-  // TODO Critical Effects
-  // TODO Positional Effects
-  // TODO SuperCritical Effects
-  // TODO Target Effects
-  private ModPropertyList _dpsMods;
-  private ModPropertyList _maxDamageMods;
-  private ModPropertyList _damageModifierMods;
-  private DamageType _damageType; // nullable
-
-  private Float _damageContributionMultiplier;
+  // Damage type (may be <code>null</code>)
+  private DamageType _damageType;
+  // DPS
   private Progression _dpsModProgression;
+  private ModPropertyList _dpsMods;
+  // Max damage
   private float _maxDamage;
   private float _maxDamageVariance;
   private Progression _maxDamageProgression;
+  private ModPropertyList _maxDamageMods;
+  // Damage modifier
   private float _damageModifier=1.0f;
+  private ModPropertyList _damageModifierMods;
+  // Multipliers
+  private Float _damageContributionMultiplier;
   private Float _implementContributionMultiplier;
+  // Flags
   private int _flags;
+  // Effects
+  private SkillEffectsManager _effects;
 
   /**
    * Constructor.
@@ -319,6 +323,24 @@ public class SkillAttack
     if (isSet(SkillAttackFlags.TACTICAL)) return ImplementUsageTypes.TACTICAL_DPS;
     if (isSet(SkillAttackFlags.NATURAL)) return ImplementUsageTypes.NATURAL;
     return null;
+  }
+
+  /**
+   * Get the effects associated with this attack.
+   * @return An effects manager or <code>null</code>.
+   */
+  public SkillEffectsManager getEffects()
+  {
+    return _effects;
+  }
+
+  /**
+   * Set the effects associated with this attack.
+   * @param effects Effects manager to set (may be <code>null</code>).
+   */
+  public void setEffects(SkillEffectsManager effects)
+  {
+    _effects=effects;
   }
 
   @Override
