@@ -44,7 +44,7 @@ public class SkillCostData
    * Get the power cost per second.
    * @return a cost or <code>null</code>.
    */
-  public SkillVitalCost getTogglePowerCost()
+  public SkillVitalCost getPowerCostPerSecond()
   {
     return _powerCostPerSecond;
   }

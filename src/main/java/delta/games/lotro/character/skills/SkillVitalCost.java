@@ -12,10 +12,10 @@ import delta.games.lotro.utils.maths.Progression;
 public class SkillVitalCost
 {
   private VitalType _type;
-  private boolean _consumesAll; // From Skill_Vital_Consumes_All
-  private Float _percentage; // From Skill_Vital_Percent
-  private Float _points; // From Skill_Vital_Points
-  private Progression _pointsProgression; // From Skill_Vital_Points_Progression
+  private boolean _consumesAll;
+  private Float _percentage;
+  private Float _points;
+  private Progression _pointsProgression;
   private ModPropertyList _vitalMods;
 
   /**
