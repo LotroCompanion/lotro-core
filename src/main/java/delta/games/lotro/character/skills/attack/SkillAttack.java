@@ -275,6 +275,24 @@ public class SkillAttack
   }
 
   /**
+   * Get the raw flags value.
+   * @return flags.
+   */
+  public int getFlags()
+  {
+    return _flags;
+  }
+
+  /**
+   * Set the raw flags value.
+   * @param flags Flags to set.
+   */
+  public void setFlags(int flags)
+  {
+    _flags=flags;
+  }
+
+  /**
    * Get a flag value.
    * @param flag Flag to test.
    * @return <code>true</code> if set, <code>false</code> otherwise.
