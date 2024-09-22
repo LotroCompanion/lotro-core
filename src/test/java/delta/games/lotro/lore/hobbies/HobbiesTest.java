@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.hobbies;
 
+import org.junit.jupiter.api.Test;
+
 import delta.games.lotro.lore.hobbies.rewards.HobbyRewardEntry;
 import delta.games.lotro.lore.hobbies.rewards.HobbyRewards;
 import delta.games.lotro.lore.hobbies.rewards.HobbyRewardsProfile;
@@ -7,18 +9,18 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.maps.GeoAreasManager;
 import delta.games.lotro.lore.maps.Territory;
 import delta.games.lotro.lore.titles.TitleDescription;
-import junit.framework.TestCase;
 
 /**
  * Test class for hobbies.
  * @author DAM
  */
-public class HobbiesTest extends TestCase
+class HobbiesTest
 {
   /**
    * Test hobbies loading. Dump the results.
    */
-  public void testHobbiesLoading()
+  @Test
+  void testHobbiesLoading()
   {
     HobbiesManager hobbiesMgr=HobbiesManager.getInstance();
     for(HobbyDescription hobby : hobbiesMgr.getAll())

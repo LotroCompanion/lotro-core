@@ -1,5 +1,9 @@
 package delta.games.lotro.business.crafting;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
 import delta.games.lotro.character.status.crafting.CraftingStatus;
@@ -7,27 +11,26 @@ import delta.games.lotro.character.status.crafting.CraftingStatusManager;
 import delta.games.lotro.character.status.crafting.KnownRecipes;
 import delta.games.lotro.character.status.crafting.ProfessionStatus;
 import delta.games.lotro.lore.crafting.Profession;
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * Test class for the {@link KnownRecipesComputer}.
  * @author DAM
  */
-public class KnownRecipesComputerTest extends TestCase
+class KnownRecipesComputerTest
 {
   /**
    * Load a crafting status and show the recipes status for it.
    */
-  public void test()
+  @Test
+  void test()
   {
     CraftingStatus craftingStatus=load();
     for(Profession profession : craftingStatus.getKnownProfessions())
     {
       ProfessionStatus professionStatus=craftingStatus.getProfessionStatus(profession);
-      Assert.assertNotNull(professionStatus);
+      assertNotNull(professionStatus);
       KnownRecipes knownRecipes=professionStatus.getKnownRecipes();
-      Assert.assertNotNull(knownRecipes);
+      assertNotNull(knownRecipes);
       KnownRecipesComputer.showRecipesStatusForProfession(profession,knownRecipes);
     }
   }

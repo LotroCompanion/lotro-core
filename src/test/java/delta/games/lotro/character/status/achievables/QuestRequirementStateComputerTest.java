@@ -1,5 +1,9 @@
 package delta.games.lotro.character.status.achievables;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
 import delta.games.lotro.character.status.achievables.io.DeedsStatusIo;
@@ -8,19 +12,18 @@ import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.lore.quests.AchievableProxiesResolver;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.QuestsManager;
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * Test class for the {@link QuestRequirementStateComputer}.
  * @author DAM
  */
-public class QuestRequirementStateComputerTest extends TestCase
+class QuestRequirementStateComputerTest
 {
   /**
    * Test quest requirements state computer.
    */
-  public void testQuestRequirementsStat()
+  @Test
+  void testQuestRequirementsStat()
   {
     CharactersManager mgr=CharactersManager.getInstance();
     CharacterFile character=mgr.getToonById("Landroval","Giswald");
@@ -38,6 +41,6 @@ public class QuestRequirementStateComputerTest extends TestCase
         System.out.println("\t=>"+(ok?"OK":"KO"));
       }
     }
-    Assert.assertTrue(true);
+    assertTrue(true);
   }
 }

@@ -1,29 +1,32 @@
 package delta.games.lotro.character.stats.computer;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.common.stats.StatOperator;
 import delta.games.lotro.common.stats.WellKnownStat;
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * Test class for stats storage.
  * @author DAM
  */
-public class StatsStorageTest extends TestCase
+class StatsStorageTest
 {
   /**
    * Test.
    */
-  public void test()
+  @Test
+  void test()
   {
     StatsStorage stats=build();
     BasicStatsSet result=stats.aggregate();
     System.out.println("Result: "+result);
-    Assert.assertEquals(Integer.valueOf(3),result.getStat(WellKnownStat.MIGHT));
-    Assert.assertEquals(Float.valueOf(231),result.getStat(WellKnownStat.MORALE));
-    Assert.assertEquals(Integer.valueOf(100),result.getStat(WellKnownStat.AGILITY));
+    assertEquals(Integer.valueOf(3),result.getStat(WellKnownStat.MIGHT));
+    assertEquals(Float.valueOf(231),result.getStat(WellKnownStat.MORALE));
+    assertEquals(Integer.valueOf(100),result.getStat(WellKnownStat.AGILITY));
   }
 
   private StatsStorage build()

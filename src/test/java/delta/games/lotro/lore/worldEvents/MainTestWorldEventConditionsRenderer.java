@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import delta.common.utils.expressions.logical.LogicalTreeNode;
 import delta.common.utils.expressions.logical.CompoundLogicalTreeNode;
+import delta.common.utils.expressions.logical.LogicalTreeNode;
 import delta.common.utils.expressions.logical.SimpleLogicalTreeNode;
 import delta.common.utils.misc.IntegerHolder;
 import delta.games.lotro.lore.deeds.DeedDescription;

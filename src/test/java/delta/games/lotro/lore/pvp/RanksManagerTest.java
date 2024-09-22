@@ -1,26 +1,29 @@
 package delta.games.lotro.lore.pvp;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.HashSet;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for the ranks manager.
  * @author DAM
  */
-public class RanksManagerTest extends TestCase
+class RanksManagerTest
 {
   /**
    * Test the ranks manager.
    */
-  public void testRanksManager()
+  @Test
+  void testRanksManager()
   {
     RanksManager ranksMgr=RanksManager.getInstance();
     for(String key : RankScaleKeys.getKeys())
     {
       RankScale scale=ranksMgr.getRankScale(key);
-      Assert.assertNotNull(scale);
+      assertNotNull(scale);
       showScale(scale);
     }
   }
@@ -28,10 +31,11 @@ public class RanksManagerTest extends TestCase
   /**
    * Test keys.
    */
-  public void testKeys()
+  @Test
+  void testKeys()
   {
     RanksManager ranksMgr=RanksManager.getInstance();
-    Assert.assertEquals(new HashSet<String>(RankScaleKeys.getKeys()),new HashSet<String>(ranksMgr.getKeys()));
+    assertEquals(new HashSet<String>(RankScaleKeys.getKeys()),new HashSet<String>(ranksMgr.getKeys()));
   }
 
   private void showScale(RankScale scale)

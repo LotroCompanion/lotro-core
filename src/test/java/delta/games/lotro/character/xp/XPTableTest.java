@@ -1,13 +1,14 @@
 package delta.games.lotro.character.xp;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for the XP table.
  * @author DAM
  */
-public class XPTableTest extends TestCase
+class XPTableTest
 {
   private static final long LEVEL2=100;
   private static final long LEVEL3=200;
@@ -24,18 +25,19 @@ public class XPTableTest extends TestCase
   /**
    * Test the 'get level' method.
    */
-  public void testGetLevel()
+  @Test
+  void testGetLevel()
   {
     XPTable toTest=buildTable();
-    Assert.assertEquals(1,toTest.getLevel(0));
-    Assert.assertEquals(1,toTest.getLevel(1));
-    Assert.assertEquals(1,toTest.getLevel(LEVEL2-1));
-    Assert.assertEquals(2,toTest.getLevel(LEVEL2));
-    Assert.assertEquals(2,toTest.getLevel(LEVEL2+1));
-    Assert.assertEquals(2,toTest.getLevel(LEVEL3-1));
-    Assert.assertEquals(3,toTest.getLevel(LEVEL3));
-    Assert.assertEquals(4,toTest.getLevel(LEVEL4));
-    Assert.assertEquals(4,toTest.getLevel(LEVEL4+1));
-    Assert.assertEquals(4,toTest.getLevel(1000));
+    assertEquals(1,toTest.getLevel(0));
+    assertEquals(1,toTest.getLevel(1));
+    assertEquals(1,toTest.getLevel(LEVEL2-1));
+    assertEquals(2,toTest.getLevel(LEVEL2));
+    assertEquals(2,toTest.getLevel(LEVEL2+1));
+    assertEquals(2,toTest.getLevel(LEVEL3-1));
+    assertEquals(3,toTest.getLevel(LEVEL3));
+    assertEquals(4,toTest.getLevel(LEVEL4));
+    assertEquals(4,toTest.getLevel(LEVEL4+1));
+    assertEquals(4,toTest.getLevel(1000));
   }
 }

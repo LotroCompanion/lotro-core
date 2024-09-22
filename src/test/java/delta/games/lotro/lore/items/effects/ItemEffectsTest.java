@@ -2,6 +2,8 @@ package delta.games.lotro.lore.items.effects;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
@@ -10,13 +12,12 @@ import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.SkillToExecute;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
-import junit.framework.TestCase;
 
 /**
  * Test display of item effects.
  * @author DAM
  */
-public class ItemEffectsTest extends TestCase
+class ItemEffectsTest
 {
   private static int[] TEST_ITEM_IDS= {
       1879150044, // Lothlórien Protector's Locket
@@ -48,9 +49,10 @@ public class ItemEffectsTest extends TestCase
   };
 
   /**
-   * test effects display.
+   * Test effects display.
    */
-  public void testEffectsDisplay()
+  @Test
+  void testEffectsDisplay()
   {
     for(int itemId : TEST_ITEM_IDS)
     {
@@ -60,9 +62,10 @@ public class ItemEffectsTest extends TestCase
   }
 
   /**
-   * test effects display.
+   * tTst effects display.
    */
-  public void testEffectsDisplay2()
+  @Test
+  void testEffectsDisplay2()
   {
     for(Item item : ItemsManager.getInstance().getAllItems())
     {

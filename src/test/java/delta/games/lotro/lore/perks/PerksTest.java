@@ -1,25 +1,28 @@
 package delta.games.lotro.lore.perks;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.enums.PerkUICategory;
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * Test class for perks.
  * @author DAM
  */
-public class PerksTest extends TestCase
+class PerksTest
 {
   /**
    * Test perks loading. Dump the results.
    */
-  public void testPerksLoading()
+  @Test
+  void testPerksLoading()
   {
     PerksManager perksMgr=PerksManager.getInstance();
     for(PerkDescription perk : perksMgr.getAll())
     {
-      Assert.assertNotNull(perk);
+      assertNotNull(perk);
       // Attributes
       int id=perk.getIdentifier();
       String name=perk.getName();

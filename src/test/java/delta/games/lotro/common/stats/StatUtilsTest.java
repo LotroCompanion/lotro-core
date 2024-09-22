@@ -1,21 +1,24 @@
 package delta.games.lotro.common.stats;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import delta.common.utils.l10n.L10nConfiguration;
 import delta.common.utils.l10n.LocalizedFormats;
 import delta.common.utils.l10n.numbers.NumberFormatID;
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * Test class for class StatUtils.
  * @author DAM
  */
-public class StatUtilsTest extends TestCase
+class StatUtilsTest
 {
   /**
    * Test display of stat values.
    */
-  public void testStatsDisplay()
+  @Test
+  void testStatsDisplay()
   {
     L10nConfiguration l10nConfiguration=new L10nConfiguration();
     l10nConfiguration.setNumberFormatID(NumberFormatID.US);
@@ -38,6 +41,6 @@ public class StatUtilsTest extends TestCase
   private void sampleTest(Number value, StatDescription stat, String expected)
   {
     String valueStr=StatUtils.getStatDisplay(value,stat);
-    Assert.assertEquals(expected,valueStr);
+    assertEquals(expected,valueStr);
   }
 }

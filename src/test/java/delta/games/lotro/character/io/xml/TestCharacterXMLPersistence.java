@@ -1,24 +1,27 @@
 package delta.games.lotro.character.io.xml;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.File;
+
+import org.junit.jupiter.api.Test;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.CharacterGenerationTools;
 import delta.games.lotro.character.stats.CharacterGeneratorGiswald;
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * Test character persistence in XML.
  * @author DAM
  */
-public class TestCharacterXMLPersistence extends TestCase
+class TestCharacterXMLPersistence
 {
   /**
    * Test that writes then read a generated character.
    */
-  public void testWriteReadCharacter()
+  @Test
+  void testWriteReadCharacter()
   {
     CharacterGenerationTools tools=new CharacterGenerationTools();
     CharacterGeneratorGiswald generator=new CharacterGeneratorGiswald(tools);
@@ -35,6 +38,6 @@ public class TestCharacterXMLPersistence extends TestCase
 
   private void compareCharacters(CharacterData c1, CharacterData c2)
   {
-    Assert.assertEquals(c1.getName(),c2.getName());
+    assertEquals(c1.getName(),c2.getName());
   }
 }

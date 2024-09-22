@@ -1,15 +1,16 @@
 package delta.games.lotro.lore.items.sets;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test display of item effects.
  * @author DAM
  */
-public class ItemsSetEffectsTest extends TestCase
+class ItemsSetEffectsTest
 {
   private static int[] TEST_SET_IDS={
       1879150692, // Protector's Reproach (Max Level: 69)
@@ -19,7 +20,8 @@ public class ItemsSetEffectsTest extends TestCase
   /**
    * Test effects display.
    */
-  public void testEffectsDisplay()
+  @Test
+  void testEffectsDisplay()
   {
     for(ItemsSet set : ItemsSetsManager.getInstance().getAll())
     {
@@ -28,14 +30,15 @@ public class ItemsSetEffectsTest extends TestCase
   }
 
   /**
-   * Test effects display.
+   * Test specific effects display.
    */
-  public void testSpecificEffectsDisplay()
+  @Test
+  void testSpecificEffectsDisplay()
   {
     for(int sedId : TEST_SET_IDS)
     {
       ItemsSet set=ItemsSetsManager.getInstance().getSetById(sedId);
-      Assert.assertNotNull(set);
+      assertNotNull(set);
       showSet(set);
     }
   }

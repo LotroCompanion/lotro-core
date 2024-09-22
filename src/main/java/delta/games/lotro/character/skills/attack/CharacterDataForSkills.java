@@ -4,7 +4,6 @@ import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.StatsManager;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.EquipmentLocations;

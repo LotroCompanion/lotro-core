@@ -1,6 +1,10 @@
 package delta.games.lotro.character.status.skirmishes;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
+
+import org.junit.jupiter.api.Test;
 
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.status.skirmishes.io.xml.SkirmishStatsXMLWriter;
@@ -10,25 +14,24 @@ import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.instances.PrivateEncounter;
 import delta.games.lotro.lore.instances.PrivateEncountersManager;
 import delta.games.lotro.lore.instances.SkirmishPrivateEncounter;
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * Test class for skirmish stats.
  * @author DAM
  */
-public class TestSkirmishStats extends TestCase
+class TestSkirmishStats
 {
   /**
    * Test the skirmish stats IO.
    */
-  public void testSkirmishStatsIO()
+  @Test
+  void testSkirmishStatsIO()
   {
     SkirmishStatsManager stats=buildStats();
     SkirmishStatsXMLWriter writer=new SkirmishStatsXMLWriter();
     File out=new File("skirmishStats.xml");
     boolean ok=writer.write(out,stats,EncodingNames.UTF_8);
-    Assert.assertTrue(ok);
+    assertTrue(ok);
   }
 
   private SkirmishStatsManager buildStats()

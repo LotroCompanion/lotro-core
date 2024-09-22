@@ -3,21 +3,23 @@ package delta.games.lotro.lore.worldEvents;
 import java.io.File;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.lore.worldEvents.io.xml.WorldEventsXMLWriter;
-import junit.framework.TestCase;
 
 /**
  * Test XML I/O for world events. 
  * @author DAM
  */
-public class WorldEventsXmlIOTest extends TestCase
+class WorldEventsXmlIOTest
 {
   /**
    * Test world events loading: loads world vents and write them to a file.
    * Compare the produced file with the initial one.
    */
-  public void testWorldEventsLoading()
+  @Test
+  void testWorldEventsLoading()
   {
     List<WorldEvent> worldEvents=WorldEventsManager.getInstance().getAll();
     WorldEventsXMLWriter writer=new WorldEventsXMLWriter();

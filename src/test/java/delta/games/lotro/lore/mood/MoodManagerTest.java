@@ -1,21 +1,23 @@
 package delta.games.lotro.lore.mood;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for the mood data access. 
  * @author DAM
  */
-public class MoodManagerTest extends TestCase
+class MoodManagerTest
 {
   /**
    * Test morale modifiers.
    */
-  public void testMoraleModifiers()
+  @Test
+  void testMoraleModifiers()
   {
     MoodManager moodManager=MoodManager.getInstance();
-    Assert.assertNotNull(moodManager);
+    assertNotNull(moodManager);
     for(int i=-15;i<=15;i++)
     {
       float factor=moodManager.getMoraleModifier(i);

@@ -1,19 +1,21 @@
 package delta.games.lotro.character.status.collections;
 
+import org.junit.jupiter.api.Test;
+
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
-import junit.framework.TestCase;
 
 /**
  * Test class for collection status computations.
  * @author DAM
  */
-public class CollectionsStatusFeatureTest extends TestCase
+class CollectionsStatusFeatureTest
 {
   /**
    * Test the computation of the collections status for a character.
    */
-  public void testStatusComputation()
+  @Test
+  void testStatusComputation()
   {
     for(CharacterFile toon : CharactersManager.getInstance().getAllToons())
     {

@@ -1,18 +1,20 @@
 package delta.games.lotro.common.requirements;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for class QuestStatus.
  * @author DAM
  */
-public class QuestStatusTest extends TestCase
+class QuestStatusTest
 {
   /**
    * Test persistence keys.
    */
-  public void testPersistenceKeys()
+  @Test
+  void testPersistenceKeys()
   {
     testIOForSingleValue(QuestStatus.COMPLETED);
     testIOForSingleValue(QuestStatus.UNDERWAY);
@@ -27,6 +29,6 @@ public class QuestStatusTest extends TestCase
   {
     String key=status.getKey();
     QuestStatus newStatus=QuestStatus.getByKey(key);
-    Assert.assertSame(status,newStatus);
+    assertSame(status,newStatus);
   }
 }
