@@ -25,19 +25,24 @@ public class SkillDetails
   private int _flags;
   // Geometry
   private SkillGeometry _geometry;
-  // Max target
-  private Integer _maxTargets; // From Skill_AreaEffectMaxTargets
-  private ModPropertyList _maxTargetsMods; // From Skill_AreaEffectMaxTargets_Mod_Array
-
+  // Max targets
+  private Integer _maxTargets;
+  private ModPropertyList _maxTargetsMods;
+  // Resist category
   private ResistCategory _resistCategory;
+  // Display types
   private Set<SkillDisplayType> _displayTypes;
 
   // Effects: see SkillEffectsManager
   // 4 lists: critical, toggle, toggle user, user effect
 
+  // Morale/power cost
   private SkillCostData _cost;
+  // PIP (optional)
   private SkillPipData _pipData;
+  // Gambit (optional)
   private SkillGambitData _gambitData;
+  // Attacks
   private SkillAttacks _attacks;
 
   /**
@@ -130,6 +135,24 @@ public class SkillDetails
   public void setCooldown(Float cooldown)
   {
     _cooldown=cooldown;
+  }
+
+  /**
+   * Get the raw flags value.
+   * @return flags.
+   */
+  public int getFlags()
+  {
+    return _flags;
+  }
+
+  /**
+   * Set the raw flags value.
+   * @param flags Flags to set.
+   */
+  public void setFlags(int flags)
+  {
+    _flags=flags;
   }
 
   /**
