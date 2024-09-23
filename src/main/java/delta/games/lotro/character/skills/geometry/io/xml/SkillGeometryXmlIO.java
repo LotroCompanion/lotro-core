@@ -53,8 +53,11 @@ public class SkillGeometryXmlIO
       attrs.addAttribute("","",SkillGeometryXMLConstants.MIN_RANGE_ATTR,XmlWriter.CDATA,minRange.toString());
     }
     // Max range
-    float maxRange=data.getMaxRange();
-    attrs.addAttribute("","",SkillGeometryXMLConstants.MAX_RANGE_MODS_ATTR,XmlWriter.CDATA,String.valueOf(maxRange));
+    Float maxRange=data.getMaxRange();
+    if (maxRange!=null)
+    {
+      attrs.addAttribute("","",SkillGeometryXMLConstants.MAX_RANGE_ATTR,XmlWriter.CDATA,maxRange.toString());
+    }
     // Max range modifiers
     ModPropertyList mods=data.getMaxRangeMods();
     String maxRangeModsStr=ModPropertyListIO.asPersistentString(mods);
@@ -142,7 +145,7 @@ public class SkillGeometryXmlIO
     Float minRange=DOMParsingTools.getFloatAttribute(attrs,SkillGeometryXMLConstants.MIN_RANGE_ATTR,null);
     ret.setMinRange(minRange);
     // Max range
-    float maxRange=DOMParsingTools.getFloatAttribute(attrs,SkillGeometryXMLConstants.MAX_RANGE_ATTR,0);
+    Float maxRange=DOMParsingTools.getFloatAttribute(attrs,SkillGeometryXMLConstants.MAX_RANGE_ATTR,null);
     ret.setMaxRange(maxRange);
     // Max range modifiers
     String maxRangeModsStr=DOMParsingTools.getStringAttribute(attrs,SkillGeometryXMLConstants.MAX_RANGE_MODS_ATTR,null);

@@ -12,6 +12,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDetails;
+import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.attack.io.xml.SkillAttacksXmlIO;
@@ -46,6 +47,12 @@ public class SkillDetailsXmlIO
 
   private static void writeSkillDetailsAttributes(AttributesImpl attrs, SkillDetails data)
   {
+    // ID
+    int id=data.getId();
+    attrs.addAttribute("","","id",XmlWriter.CDATA,String.valueOf(id));
+    // Name
+    String name=data.getName();
+    attrs.addAttribute("","","name",XmlWriter.CDATA,name);
     // Action duration contribution
     Float actionDurationContribution=data.getActionDurationContribution();
     if (actionDurationContribution!=null)
@@ -78,7 +85,7 @@ public class SkillDetailsXmlIO
     }
     // Max targets
     Integer maxTargets=data.getMaxTargets();
-    if (maxTargets!=null)
+    if ((maxTargets!=null) && (maxTargets.intValue()>0))
     {
       attrs.addAttribute("","",SkillDetailsXMLConstants.MAX_TARGETS_ATTR,XmlWriter.CDATA,maxTargets.toString());
     }
@@ -124,8 +131,12 @@ public class SkillDetailsXmlIO
   {
     // Geometry
     SkillGeometryXmlIO.writeGeometryData(hd,data.getGeometry());
-    // TODO Effects: see SkillEffectsManager
-    // 4 lists: critical, toggle, toggle user, user effect
+    // Effects
+    SkillEffectsManager effects=data.getEffects();
+    if (effects!=null)
+    {
+      SkillEffectsXmlIO.writeSkillEffects(hd,effects);
+    }
     // Vital cost
     SkillCostXmlIO.writeCostData(hd,data.getCostData());
     // PIP

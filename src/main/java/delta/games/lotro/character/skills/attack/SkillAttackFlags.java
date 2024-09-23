@@ -9,21 +9,21 @@ public class SkillAttackFlags
   /**
    * Natural.
    */
-  public static int NATURAL=1<<0;
+  public static final int NATURAL=1<<0;
   /**
    * Primary.
    */
-  public static int PRIMARY=1<<1;
+  public static final int PRIMARY=1<<1;
   /**
    * Ranged.
    */
-  public static int RANGED=1<<2;
+  public static final int RANGED=1<<2;
   /**
    * Secondary.
    */
-  public static int SECONDARY=1<<3;
+  public static final int SECONDARY=1<<3;
   /**
    * Tactical.
    */
-  public static int TACTICAL=1<<4;
+  public static final int TACTICAL=1<<4;
 }

@@ -9,7 +9,9 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.character.skills.attack.SkillAttack;
+import delta.games.lotro.character.skills.io.xml.SkillEffectsXmlIO;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
@@ -65,7 +67,7 @@ public class SkillAttacksXmlIO
     DamageType damageType=attack.getDamageType();
     if (damageType!=null)
     {
-      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(damageQualifier.getCode()));
+      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(damageType.getCode()));
     }
     // Damage contribution multiplier
     Float damageContributionMultiplier=attack.getDamageContributionMultiplier();
@@ -81,10 +83,16 @@ public class SkillAttacksXmlIO
     }
     // Max damage
     float maxDamage=attack.getMaxDamage();
-    attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamage));
+    if (maxDamage>0)
+    {
+      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamage));
+    }
     // Max damage variance
     float maxDamageVariance=attack.getMaxDamageVariance();
-    attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_VARIANCE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamageVariance));
+    if (maxDamageVariance>0)
+    {
+      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_VARIANCE_ATTR,XmlWriter.CDATA,String.valueOf(maxDamageVariance));
+    }
     // Max damage progression
     Progression maxDamageProgression=attack.getMaxDamageProgression();
     if (maxDamageProgression!=null)
@@ -93,7 +101,10 @@ public class SkillAttacksXmlIO
     }
     // Damage modifier
     float damageModifier=attack.getDamageModifier();
-    attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIER_ATTR,XmlWriter.CDATA,String.valueOf(damageModifier));
+    if (damageModifier!=1.0f)
+    {
+      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIER_ATTR,XmlWriter.CDATA,String.valueOf(damageModifier));
+    }
     // Implement contribution multiplier
     Float implementContributionMultiplier=attack.getImplementContributionMultiplier();
     if (implementContributionMultiplier!=null)
@@ -107,6 +118,12 @@ public class SkillAttacksXmlIO
       attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_FLAGS_ATTR,XmlWriter.CDATA,String.valueOf(flags));
     }
     hd.startElement("","",SkillAttacksXMLConstants.ATTACK_TAG,attrs);
+    // Effects
+    SkillEffectsManager effects=attack.getEffects();
+    if (effects!=null)
+    {
+      SkillEffectsXmlIO.writeSkillEffects(hd,effects);
+    }
     hd.endElement("","",SkillAttacksXMLConstants.ATTACK_TAG);
   }
 

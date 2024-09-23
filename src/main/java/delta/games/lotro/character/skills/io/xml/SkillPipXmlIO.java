@@ -30,6 +30,10 @@ public class SkillPipXmlIO
    */
   public static void writePipData(TransformerHandler hd, SkillPipData data) throws SAXException
   {
+    if (data==null)
+    {
+      return;
+    }
     AttributesImpl attrs=new AttributesImpl();
     // Type
     PipType type=data.getType();

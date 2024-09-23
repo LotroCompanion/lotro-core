@@ -22,9 +22,9 @@ public class SkillGeometry
    */
   private Float _minRange;
   /**
-   * Maximum range (meters).
+   * Maximum range (if any) (meters).
    */
-  private float _maxRange;
+  private Float _maxRange;
   /**
    * Maximum range modifiers.
    */
@@ -38,12 +38,13 @@ public class SkillGeometry
     _shape=null;
     _detectionAnchor=null;
     _minRange=null;
-    _maxRange=0;
+    _maxRange=null;
     _maxRangeMods=null;
   }
 
   /**
-   * @return the shape
+   * Get the shape.
+   * @return the shape (may be <code>null</code>).
    */
   public Shape getShape()
   {
@@ -51,7 +52,8 @@ public class SkillGeometry
   }
 
   /**
-   * @param shape the shape to set
+   * Set the shape.
+   * @param shape the shape to set.
    */
   public void setShape(Shape shape)
   {
@@ -59,7 +61,8 @@ public class SkillGeometry
   }
 
   /**
-   * @return the detectionAnchor
+   * Get the detection anchor.
+   * @return the detection anchor (may be <code>null</code>).
    */
   public AreaEffectAnchorType getDetectionAnchor()
   {
@@ -67,7 +70,8 @@ public class SkillGeometry
   }
 
   /**
-   * @param detectionAnchor the detectionAnchor to set
+   * Set the detection anchor.
+   * @param detectionAnchor the detection anchor to set.
    */
   public void setDetectionAnchor(AreaEffectAnchorType detectionAnchor)
   {
@@ -75,7 +79,8 @@ public class SkillGeometry
   }
 
   /**
-   * @return the minRange
+   * Get the minimum range.
+   * @return A range (meters) or <code>null</code>.
    */
   public Float getMinRange()
   {
@@ -83,7 +88,8 @@ public class SkillGeometry
   }
 
   /**
-   * @param minRange the minRange to set
+   * Set the minimum range.
+   * @param minRange the minimum range to set (may be <code>null</code>).
    */
   public void setMinRange(Float minRange)
   {
@@ -91,23 +97,26 @@ public class SkillGeometry
   }
 
   /**
-   * @return the maxRange
+   * Get the maximum range.
+   * @return A range (meters) or <code>null</code>.
    */
-  public float getMaxRange()
+  public Float getMaxRange()
   {
     return _maxRange;
   }
 
   /**
-   * @param maxRange the maxRange to set
+   * Set the maximum range.
+   * @param maxRange the maximum range to set (may be <code>null</code>).
    */
-  public void setMaxRange(float maxRange)
+  public void setMaxRange(Float maxRange)
   {
     _maxRange=maxRange;
   }
 
   /**
-   * @return the maxRangeMods
+   * Get the maximum range modifiers.
+   * @return some modifiers or <code>null</code>.
    */
   public ModPropertyList getMaxRangeMods()
   {
@@ -115,7 +124,8 @@ public class SkillGeometry
   }
 
   /**
-   * @param maxRangeMods the maxRangeMods to set
+   * Set the maximum range modifiers.
+   * @param maxRangeMods the modifiers to set (may be <code>null</code>).
    */
   public void setMaxRangeMods(ModPropertyList maxRangeMods)
   {
@@ -128,7 +138,7 @@ public class SkillGeometry
    */
   public boolean hasValues()
   {
-    return ((_shape!=null) || (_detectionAnchor!=null) || (_minRange!=null) || (_maxRange>0) || (_maxRangeMods!=null));
+    return ((_shape!=null) || (_detectionAnchor!=null) || (_minRange!=null) || (_maxRange!=null) || (_maxRangeMods!=null));
   }
 
   @Override
@@ -147,7 +157,7 @@ public class SkillGeometry
     {
       sb.append(" MinRange=").append(_minRange);
     }
-    if (_maxRange>0)
+    if (_maxRange!=null)
     {
       sb.append(" MaxRange=").append(_maxRange);
       if (_maxRangeMods!=null)

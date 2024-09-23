@@ -15,6 +15,8 @@ import delta.games.lotro.common.properties.ModPropertyList;
  */
 public class SkillDetails
 {
+  private int _id;
+  private String _name;
   // Duration, induction, channeling
   private Float _actionDurationContribution;
   private Induction _induction;
@@ -32,10 +34,8 @@ public class SkillDetails
   private ResistCategory _resistCategory;
   // Display types
   private Set<SkillDisplayType> _displayTypes;
-
-  // Effects: see SkillEffectsManager
-  // 4 lists: critical, toggle, toggle user, user effect
-
+  // Effects
+  private SkillEffectsManager _effects;
   // Morale/power cost
   private SkillCostData _cost;
   // PIP (optional)
@@ -63,6 +63,42 @@ public class SkillDetails
     _pipData=null;
     _gambitData=null;
     _attacks=null;
+  }
+
+  /**
+   * Get the skill identifier;
+   * @return an identifier.
+   */
+  public int getId()
+  {
+    return _id;
+  }
+
+  /**
+   * Set the skill identifier.
+   * @param id the identifier to set.
+   */
+  public void setId(int id)
+  {
+    _id=id;
+  }
+
+  /**
+   * Get the skill name.
+   * @return a name.
+   */
+  public String getName()
+  {
+    return _name;
+  }
+
+  /**
+   * Set the skill name.
+   * @param name the name to set.
+   */
+  public void setName(String name)
+  {
+    _name=name;
   }
 
   /**
@@ -278,6 +314,24 @@ public class SkillDetails
   public void setDisplayTypes(Set<SkillDisplayType> displayTypes)
   {
     _displayTypes=displayTypes;
+  }
+
+  /**
+   * Get the effects manager. 
+   * @return An effects manager or <code>null</code> if no effects.
+   */
+  public SkillEffectsManager getEffects()
+  {
+    return _effects;
+  }
+
+  /**
+   * Set the effects manager.
+   * @param effects Effects manager to set (may be <code>null</code).
+   */
+  public void setEffects(SkillEffectsManager effects)
+  {
+    _effects=effects;
   }
 
   /**

@@ -32,6 +32,10 @@ public class SkillGambitsXmlIO
    */
   public static void writeGambitData(TransformerHandler hd, SkillGambitData data) throws SAXException
   {
+    if (data==null)
+    {
+      return;
+    }
     AttributesImpl attrs=new AttributesImpl();
     // Required
     List<GambitIconType> required=data.getRequired();
