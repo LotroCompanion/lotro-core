@@ -42,44 +42,24 @@ public class SkillAttacksXmlIO
     {
       attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_QUALIFIER_ATTR,XmlWriter.CDATA,String.valueOf(damageQualifier.getCode()));
     }
-    // DPS modifiers
-    ModPropertyList dpsMods=attack.getDPSMods();
-    String dpsModsStr=ModPropertyListIO.asPersistentString(dpsMods);
-    if (!dpsModsStr.isEmpty())
-    {
-      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DPS_MODS_ATTR,XmlWriter.CDATA,dpsModsStr);
-    }
-    // Max damage modifiers
-    ModPropertyList maxDamageMods=attack.getMaxDamageMods();
-    String maxDamageModsStr=ModPropertyListIO.asPersistentString(maxDamageMods);
-    if (!maxDamageModsStr.isEmpty())
-    {
-      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_MODS_ATTR,XmlWriter.CDATA,maxDamageModsStr);
-    }
-    // Damage modifiers mods
-    ModPropertyList damageModifiersMods=attack.getDamageModifiersMods();
-    String damageModifiersModsStr=ModPropertyListIO.asPersistentString(damageModifiersMods);
-    if (!damageModifiersModsStr.isEmpty())
-    {
-      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIERS_MODS_ATTR,XmlWriter.CDATA,damageModifiersModsStr);
-    }
     // Damage type
     DamageType damageType=attack.getDamageType();
     if (damageType!=null)
     {
       attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(damageType.getCode()));
     }
-    // Damage contribution multiplier
-    Float damageContributionMultiplier=attack.getDamageContributionMultiplier();
-    if (damageContributionMultiplier!=null)
-    {
-      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_CONTRIBUTION_MULTIPLIER_ATTR,XmlWriter.CDATA,damageContributionMultiplier.toString());
-    }
     // DPS mod progression
     Progression dpsModProgression=attack.getDPSModProgression();
     if (dpsModProgression!=null)
     {
       attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DPS_MOD_PROGRESSION_ATTR,XmlWriter.CDATA,String.valueOf(dpsModProgression.getIdentifier()));
+    }
+    // DPS modifiers
+    ModPropertyList dpsMods=attack.getDPSMods();
+    String dpsModsStr=ModPropertyListIO.asPersistentString(dpsMods);
+    if (!dpsModsStr.isEmpty())
+    {
+      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DPS_MODS_ATTR,XmlWriter.CDATA,dpsModsStr);
     }
     // Max damage
     float maxDamage=attack.getMaxDamage();
@@ -99,11 +79,31 @@ public class SkillAttacksXmlIO
     {
       attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_PROGRESSION_ATTR,XmlWriter.CDATA,String.valueOf(maxDamageProgression.getIdentifier()));
     }
+    // Max damage modifiers
+    ModPropertyList maxDamageMods=attack.getMaxDamageMods();
+    String maxDamageModsStr=ModPropertyListIO.asPersistentString(maxDamageMods);
+    if (!maxDamageModsStr.isEmpty())
+    {
+      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_MODS_ATTR,XmlWriter.CDATA,maxDamageModsStr);
+    }
     // Damage modifier
     float damageModifier=attack.getDamageModifier();
     if (damageModifier!=1.0f)
     {
       attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIER_ATTR,XmlWriter.CDATA,String.valueOf(damageModifier));
+    }
+    // Damage modifiers mods
+    ModPropertyList damageModifiersMods=attack.getDamageModifiersMods();
+    String damageModifiersModsStr=ModPropertyListIO.asPersistentString(damageModifiersMods);
+    if (!damageModifiersModsStr.isEmpty())
+    {
+      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIERS_MODS_ATTR,XmlWriter.CDATA,damageModifiersModsStr);
+    }
+    // Damage contribution multiplier
+    Float damageContributionMultiplier=attack.getDamageContributionMultiplier();
+    if (damageContributionMultiplier!=null)
+    {
+      attrs.addAttribute("","",SkillAttacksXMLConstants.ATTACK_DAMAGE_CONTRIBUTION_MULTIPLIER_ATTR,XmlWriter.CDATA,damageContributionMultiplier.toString());
     }
     // Implement contribution multiplier
     Float implementContributionMultiplier=attack.getImplementContributionMultiplier();
@@ -145,18 +145,6 @@ public class SkillAttacksXmlIO
       DamageQualifier damageQualifier=damageQualifierEnum.getEntry(damageQualifierCode.intValue());
       ret.setDamageQualifier(damageQualifier);
     }
-    // DPS modifiers
-    String dpsModsStr=DOMParsingTools.getStringAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DPS_MODS_ATTR,null);
-    ModPropertyList dpsMods=ModPropertyListIO.fromPersistedString(dpsModsStr);
-    ret.setDPSMods(dpsMods);
-    // Max damage modifiers
-    String maxDamageModsStr=DOMParsingTools.getStringAttribute(attrs,SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_MODS_ATTR,null);
-    ModPropertyList maxDamageMods=ModPropertyListIO.fromPersistedString(maxDamageModsStr);
-    ret.setMaxDamageMods(maxDamageMods);
-    // Damage modifiers mods
-    String damageModifiersModsStr=DOMParsingTools.getStringAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIERS_MODS_ATTR,null);
-    ModPropertyList damageModifiersMods=ModPropertyListIO.fromPersistedString(damageModifiersModsStr);
-    ret.setDamageModifiersMods(damageModifiersMods);
     // Damage type
     Integer damageTypeCode=DOMParsingTools.getIntegerAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DAMAGE_TYPE_ATTR,null);
     if (damageTypeCode!=null)
@@ -165,9 +153,6 @@ public class SkillAttacksXmlIO
       DamageType damageType=damageTypeEnum.getEntry(damageTypeCode.intValue());
       ret.setDamageType(damageType);
     }
-    // Damage contribution multiplier
-    Float damageContributionMultiplier=DOMParsingTools.getFloatAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DAMAGE_CONTRIBUTION_MULTIPLIER_ATTR,null);
-    ret.setDamageContributionMultiplier(damageContributionMultiplier);
     // DPS mod progression
     Integer dpsModProgressionID=DOMParsingTools.getIntegerAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DPS_MOD_PROGRESSION_ATTR,null);
     if (dpsModProgressionID!=null)
@@ -175,6 +160,10 @@ public class SkillAttacksXmlIO
       Progression dpsModProgression=ProgressionsManager.getInstance().getProgression(dpsModProgressionID.intValue());
       ret.setDPSModProgression(dpsModProgression);
     }
+    // DPS modifiers
+    String dpsModsStr=DOMParsingTools.getStringAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DPS_MODS_ATTR,null);
+    ModPropertyList dpsMods=ModPropertyListIO.fromPersistedString(dpsModsStr);
+    ret.setDPSMods(dpsMods);
     // Max damage
     float maxDamage=DOMParsingTools.getFloatAttribute(attrs,SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_ATTR,0);
     ret.setMaxDamage(maxDamage);
@@ -188,9 +177,20 @@ public class SkillAttacksXmlIO
       Progression maxDamageProgression=ProgressionsManager.getInstance().getProgression(maxDamageProgressionID.intValue());
       ret.setMaxDamageProgression(maxDamageProgression);
     }
+    // Max damage modifiers
+    String maxDamageModsStr=DOMParsingTools.getStringAttribute(attrs,SkillAttacksXMLConstants.ATTACK_MAX_DAMAGE_MODS_ATTR,null);
+    ModPropertyList maxDamageMods=ModPropertyListIO.fromPersistedString(maxDamageModsStr);
+    ret.setMaxDamageMods(maxDamageMods);
     // Damage modifier
     float damageModifier=DOMParsingTools.getFloatAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIER_ATTR,0);
     ret.setDamageModifier(damageModifier);
+    // Damage modifiers mods
+    String damageModifiersModsStr=DOMParsingTools.getStringAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIERS_MODS_ATTR,null);
+    ModPropertyList damageModifiersMods=ModPropertyListIO.fromPersistedString(damageModifiersModsStr);
+    ret.setDamageModifiersMods(damageModifiersMods);
+    // Damage contribution multiplier
+    Float damageContributionMultiplier=DOMParsingTools.getFloatAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DAMAGE_CONTRIBUTION_MULTIPLIER_ATTR,null);
+    ret.setDamageContributionMultiplier(damageContributionMultiplier);
     // Implement contribution multiplier
     Float implementContributionMultiplier=DOMParsingTools.getFloatAttribute(attrs,SkillAttacksXMLConstants.ATTACK_IMPLEMENT_CONTRIBUTION_MULTIPLIER_ATTR,null);
     ret.setImplementContributionMultiplier(implementContributionMultiplier);

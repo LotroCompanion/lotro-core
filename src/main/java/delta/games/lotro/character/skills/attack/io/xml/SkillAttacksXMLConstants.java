@@ -16,29 +16,17 @@ public class SkillAttacksXMLConstants
    */
   public static final String ATTACK_DAMAGE_QUALIFIER_ATTR="damageQualifier";
   /**
-   * Tag 'attack', attribute 'dpsMods'.
-   */
-  public static final String ATTACK_DPS_MODS_ATTR="dpsMods";
-  /**
-   * Tag 'attack', attribute 'maxDamageMods'.
-   */
-  public static final String ATTACK_MAX_DAMAGE_MODS_ATTR="maxDamageMods";
-  /**
-   * Tag 'attack', attribute 'damageModifierMods'.
-   */
-  public static final String ATTACK_DAMAGE_MODIFIERS_MODS_ATTR="damageModifierMods";
-  /**
    * Tag 'attack', attribute 'damageType'.
    */
   public static final String ATTACK_DAMAGE_TYPE_ATTR="damageType";
   /**
-   * Tag 'attack', attribute 'damageContributionMultiplier'.
-   */
-  public static final String ATTACK_DAMAGE_CONTRIBUTION_MULTIPLIER_ATTR="damageContributionMultiplier";
-  /**
    * Tag 'attack', attribute 'dpsModProgression'.
    */
   public static final String ATTACK_DPS_MOD_PROGRESSION_ATTR="dpsModProgression";
+  /**
+   * Tag 'attack', attribute 'dpsMods'.
+   */
+  public static final String ATTACK_DPS_MODS_ATTR="dpsMods";
   /**
    * Tag 'attack', attribute 'maxDamage'.
    */
@@ -52,9 +40,21 @@ public class SkillAttacksXMLConstants
    */
   public static final String ATTACK_MAX_DAMAGE_PROGRESSION_ATTR="maxDamageProgression";
   /**
+   * Tag 'attack', attribute 'maxDamageMods'.
+   */
+  public static final String ATTACK_MAX_DAMAGE_MODS_ATTR="maxDamageMods";
+  /**
    * Tag 'attack', attribute 'damageModifier'.
    */
   public static final String ATTACK_DAMAGE_MODIFIER_ATTR="damageModifier";
+  /**
+   * Tag 'attack', attribute 'damageModifierMods'.
+   */
+  public static final String ATTACK_DAMAGE_MODIFIERS_MODS_ATTR="damageModifierMods";
+  /**
+   * Tag 'attack', attribute 'damageContributionMultiplier'.
+   */
+  public static final String ATTACK_DAMAGE_CONTRIBUTION_MULTIPLIER_ATTR="damageContributionMultiplier";
   /**
    * Tag 'attack', attribute 'implementContributionMultiplier'.
    */
