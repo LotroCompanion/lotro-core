@@ -2,12 +2,10 @@ package delta.games.lotro.character.skills.attack;
 
 import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.common.enums.DamageQualifier;
-import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.lore.items.DamageType;
-import delta.games.lotro.lore.items.DamageTypes;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -43,11 +41,11 @@ public class SkillAttack
    */
   public SkillAttack()
   {
-    _damageQualifier=DamageQualifiers.MELEE;
+    _damageQualifier=null;
     _dpsMods=null;
     _maxDamageMods=null;
     _damageModifierMods=null;
-    _damageType=DamageTypes.COMMON;
+    _damageType=null;
     _damageContributionMultiplier=null;
     _dpsModProgression=null;
     _maxDamage=0;

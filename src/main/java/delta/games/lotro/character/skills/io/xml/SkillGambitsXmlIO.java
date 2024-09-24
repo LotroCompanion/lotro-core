@@ -111,6 +111,10 @@ public class SkillGambitsXmlIO
    */
   public static SkillGambitData readGambitData(Element gambitTag)
   {
+    if (gambitTag==null)
+    {
+      return null;
+    }
     SkillGambitData ret=new SkillGambitData();
     NamedNodeMap attrs=gambitTag.getAttributes();
     // Required

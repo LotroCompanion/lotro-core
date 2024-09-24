@@ -182,7 +182,7 @@ public class SkillAttacksXmlIO
     ModPropertyList maxDamageMods=ModPropertyListIO.fromPersistedString(maxDamageModsStr);
     ret.setMaxDamageMods(maxDamageMods);
     // Damage modifier
-    float damageModifier=DOMParsingTools.getFloatAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIER_ATTR,0);
+    float damageModifier=DOMParsingTools.getFloatAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIER_ATTR,1.0f);
     ret.setDamageModifier(damageModifier);
     // Damage modifiers mods
     String damageModifiersModsStr=DOMParsingTools.getStringAttribute(attrs,SkillAttacksXMLConstants.ATTACK_DAMAGE_MODIFIERS_MODS_ATTR,null);
@@ -197,7 +197,9 @@ public class SkillAttacksXmlIO
     // Flags
     int flags=DOMParsingTools.getIntAttribute(attrs,SkillAttacksXMLConstants.ATTACK_FLAGS_ATTR,0);
     ret.setFlags(flags);
-
+    // Effects
+    SkillEffectsManager mgr=SkillEffectsXmlIO.readSkillEffects(attackTag);
+    ret.setEffects(mgr);
     return ret;
   }
 }

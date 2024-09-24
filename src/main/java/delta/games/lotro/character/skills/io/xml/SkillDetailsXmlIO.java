@@ -2,27 +2,41 @@ package delta.games.lotro.character.skills.io.xml;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.xml.transform.sax.TransformerHandler;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
+import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.skills.SkillCostData;
 import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.SkillEffectsManager;
+import delta.games.lotro.character.skills.SkillGambitData;
+import delta.games.lotro.character.skills.SkillPipData;
 import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
+import delta.games.lotro.character.skills.attack.io.xml.SkillAttacksXMLConstants;
 import delta.games.lotro.character.skills.attack.io.xml.SkillAttacksXmlIO;
+import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.character.skills.geometry.io.xml.SkillGeometryXMLConstants;
 import delta.games.lotro.character.skills.geometry.io.xml.SkillGeometryXmlIO;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillDisplayType;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
 import delta.games.lotro.common.inductions.Induction;
+import delta.games.lotro.common.inductions.InductionsManager;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.properties.io.ModPropertyListIO;
+import delta.games.lotro.utils.enums.EnumXMLUtils;
 
 /**
  * XML I/O for skill details.
@@ -151,6 +165,100 @@ public class SkillDetailsXmlIO
       {
         SkillAttacksXmlIO.writeSkillAttack(hd,attack);
       }
+    }
+  }
+
+  /**
+   * Read skill details.
+   * @param skillDetailsTag Tag to read.
+   * @return A skill details.
+   */
+  public static SkillDetails readSkillDetails(Element skillDetailsTag)
+  {
+    NamedNodeMap attrs=skillDetailsTag.getAttributes();
+    SkillDetails ret=new SkillDetails();
+    // ID
+    int id=DOMParsingTools.getIntAttribute(attrs,"id",0);
+    ret.setId(id);
+    // Name
+    String name=DOMParsingTools.getStringAttribute(attrs,"name",null);
+    ret.setName(name);
+    // Action duration contribution
+    Float actionDurationContribution=DOMParsingTools.getFloatAttribute(attrs,SkillDetailsXMLConstants.ACTION_DURATION_CONTRIBUTION_ATTR,null);
+    ret.setActionDurationContribution(actionDurationContribution);
+    // Induction
+    Integer inductionID=DOMParsingTools.getIntegerAttribute(attrs,SkillDetailsXMLConstants.INDUCTION_ID_ATTR,null);
+    if (inductionID!=null)
+    {
+      Induction induction=InductionsManager.getInstance().get(inductionID.intValue());
+      ret.setInduction(induction);
+    }
+    // Channeling duration
+    Float channelingDuration=DOMParsingTools.getFloatAttribute(attrs,SkillDetailsXMLConstants.CHANNELING_DURATION_ATTR,null);
+    ret.setChannelingDuration(channelingDuration);
+    // Cooldown
+    Float cooldown=DOMParsingTools.getFloatAttribute(attrs,SkillDetailsXMLConstants.COOLDOWN_ATTR,null);
+    ret.setCooldown(cooldown);
+    // Flags
+    int flags=DOMParsingTools.getIntAttribute(attrs,SkillDetailsXMLConstants.FLAGS_ATTR,0);
+    ret.setFlags(flags);
+    // Max targets
+    Integer maxTargets=DOMParsingTools.getIntegerAttribute(attrs,SkillDetailsXMLConstants.MAX_TARGETS_ATTR,null);
+    ret.setMaxTargets(maxTargets);
+    // Max targets modifiers
+    String maxTargetsModsStr=DOMParsingTools.getStringAttribute(attrs,SkillDetailsXMLConstants.MAX_TARGETS_MODS_ATTR,null);
+    ModPropertyList maxTargetsMods=ModPropertyListIO.fromPersistedString(maxTargetsModsStr);
+    ret.setMaxTargetsMods(maxTargetsMods);
+    // Resist category
+    Integer resistCategoryCode=DOMParsingTools.getIntegerAttribute(attrs,SkillDetailsXMLConstants.RESIST_CATEGORY_ATTR,null);
+    if (resistCategoryCode!=null)
+    {
+      LotroEnum<ResistCategory> resistCategoryEnum=LotroEnumsRegistry.getInstance().get(ResistCategory.class);
+      ResistCategory resistCategory=resistCategoryEnum.getEntry(resistCategoryCode.intValue());
+      ret.setResistCategory(resistCategory);
+    }
+    // Display types
+    String displayTypeCodes=DOMParsingTools.getStringAttribute(attrs,SkillDetailsXMLConstants.DISPLAY_TYPES_ATTR,null);
+    if (displayTypeCodes!=null)
+    {
+      List<SkillDisplayType> displayTypes=EnumXMLUtils.readEnumEntriesList(displayTypeCodes,SkillDisplayType.class);
+      ret.setDisplayTypes(new HashSet<SkillDisplayType>(displayTypes));
+    }
+    readChildNodes(ret,skillDetailsTag);
+    return ret;
+  }
+
+  private static void readChildNodes(SkillDetails ret, Element skillDetailsTag)
+  {
+    // Geometry
+    Element geometryTag=DOMParsingTools.getChildTagByName(skillDetailsTag,SkillGeometryXMLConstants.GEOMETRY_TAG);
+    SkillGeometry geometry=SkillGeometryXmlIO.readGeometryData(geometryTag);
+    ret.setGeometry(geometry);
+    // Effects
+    SkillEffectsManager mgr=SkillEffectsXmlIO.readSkillEffects(skillDetailsTag);
+    ret.setEffects(mgr);
+    // Vital cost
+    SkillCostData costData=SkillCostXmlIO.readCostData(skillDetailsTag);
+    ret.setCostData(costData);
+    // PIP
+    Element pipTag=DOMParsingTools.getChildTagByName(skillDetailsTag,SkillPipXMLConstants.PIP_TAG);
+    SkillPipData pipData=SkillPipXmlIO.readPipData(pipTag);
+    ret.setPIPData(pipData);
+    // Gambit
+    Element gambitTag=DOMParsingTools.getChildTagByName(skillDetailsTag,SkillGambitsXMLConstants.GAMBIT_TAG);
+    SkillGambitData gambitData=SkillGambitsXmlIO.readGambitData(gambitTag);
+    ret.setGambitData(gambitData);
+    // Attacks
+    List<Element> attackTags=DOMParsingTools.getChildTagsByName(skillDetailsTag,SkillAttacksXMLConstants.ATTACK_TAG);
+    if (!attackTags.isEmpty())
+    {
+      SkillAttacks attacks=new SkillAttacks();
+      for(Element attackTag : attackTags)
+      {
+        SkillAttack attack=SkillAttacksXmlIO.readSkillAttack(attackTag);
+        attacks.addAttack(attack);
+      }
+      ret.setAttacks(attacks);
     }
   }
 }

@@ -13,7 +13,6 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
-import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.SkillEffectType;
 import delta.games.lotro.character.skills.SkillEffectsManager;
@@ -83,15 +82,15 @@ public class SkillEffectsXmlIO
 
   /**
    * Read skill effects.
-   * @param skillTag Parent tag.
-   * @param skill The parent skill.
+   * @param parentTag Parent tag.
+   * @return the loaded skills manager or <code>null</code>.
    */
-  public static void readSkillEffects(Element skillTag, SkillDescription skill)
+  public static SkillEffectsManager readSkillEffects(Element parentTag)
   {
-    List<Element> effectTags=DOMParsingTools.getChildTagsByName(skillTag,SkillEffectsXMLConstants.EFFECT_TAG);
+    List<Element> effectTags=DOMParsingTools.getChildTagsByName(parentTag,SkillEffectsXMLConstants.EFFECT_TAG,false);
     if (effectTags.isEmpty())
     {
-      return;
+      return null;
     }
     SkillEffectsManager mgr=new SkillEffectsManager();
     for(Element effectTag : effectTags)
@@ -119,9 +118,9 @@ public class SkillEffectsXmlIO
       }
       else
       {
-        LOGGER.warn("Unknown effect: id="+id+" in skill "+skill.getIdentifier());
+        LOGGER.warn("Unknown effect: id="+id);
       }
     }
-    skill.setEffects(mgr);
+    return mgr;
   }
 }

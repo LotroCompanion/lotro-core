@@ -32,6 +32,10 @@ public class SkillCostXmlIO
    */
   public static void writeCostData(TransformerHandler hd, SkillCostData data) throws SAXException
   {
+    if (data==null)
+    {
+      return;
+    }
     writeVitalCostData(hd,data.getMoraleCost(),SkillCostXMLConstants.MORALE_COST_TAG);
     writeVitalCostData(hd,data.getMoraleCostPerSecond(),SkillCostXMLConstants.MORALE_COST_PER_SECOND_TAG);
     writeVitalCostData(hd,data.getPowerCost(),SkillCostXMLConstants.POWER_COST_TAG);

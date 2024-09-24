@@ -120,6 +120,10 @@ public class SkillPipXmlIO
    */
   public static SkillPipData readPipData(Element pipTag)
   {
+    if (pipTag==null)
+    {
+      return null;
+    }
     NamedNodeMap attrs=pipTag.getAttributes();
 
     // PIP Type

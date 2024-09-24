@@ -12,6 +12,7 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.character.skills.TravelSkill;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.effects.Effect;
@@ -75,7 +76,8 @@ public class SkillDescriptionXMLParser
       for(Element skillTag : skillTags)
       {
         SkillDescription skill=parseSkillTag(skillTag);
-        SkillEffectsXmlIO.readSkillEffects(skillTag,skill);
+        SkillEffectsManager mgr=SkillEffectsXmlIO.readSkillEffects(skillTag);
+        skill.setEffects(mgr);
         skills.add(skill);
       }
     }
