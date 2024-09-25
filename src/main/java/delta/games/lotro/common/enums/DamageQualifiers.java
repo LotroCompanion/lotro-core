@@ -13,11 +13,11 @@ public class DamageQualifiers
   /**
    * Damage qualifier: TACTICAL.
    */
-  public static final DamageQualifier TACTICAL=getByCode(1);
+  public static final DamageQualifier TACTICAL=getByCode(2);
   /**
    * Damage qualifier: RANGED.
    */
-  public static final DamageQualifier RANGED=getByCode(2);
+  public static final DamageQualifier RANGED=getByCode(3);
 
   /**
    * Get a damage qualifier using its code.

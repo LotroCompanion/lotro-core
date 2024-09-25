@@ -21,7 +21,7 @@ public class InductionXMLParser
   /**
    * Parse the XML file.
    * @param source Source file.
-   * @return Parsed colors.
+   * @return Parsed inductions.
    */
   public List<Induction> parseXML(File source)
   {

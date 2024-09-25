@@ -1,12 +1,14 @@
 package delta.games.lotro.character.skills.attack;
 
+import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.gear.CharacterGear;
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlots;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
-import delta.games.lotro.lore.items.EquipmentLocation;
-import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 
@@ -17,12 +19,14 @@ import delta.games.lotro.lore.items.ItemInstance;
 public class CharacterDataForSkills
 {
   private ClassDataForSkills _classData;
+  private CharacterData _data;
 
   /**
    * Constructor.
    */
-  public CharacterDataForSkills()
+  public CharacterDataForSkills(CharacterData data)
   {
+    _data=data;
     _classData=new ClassDataForSkills();
   }
 
@@ -42,7 +46,8 @@ public class CharacterDataForSkills
    */
   public float getStat(StatDescription stat)
   {
-    return 0f;
+    Number value=_data.getStats().getStat(stat);
+    return (value!=null)?value.floatValue():0.0f;
   }
 
   /**
@@ -51,7 +56,7 @@ public class CharacterDataForSkills
    */
   public int getLevel()
   {
-    return 1;
+    return _data.getLevel();
   }
 
   private boolean useMainDPS()
@@ -71,7 +76,7 @@ public class CharacterDataForSkills
 
   private boolean useRangedDPS()
   {
-    return false;
+    return true;
   }
 
   private boolean useRangedTHR()
@@ -84,9 +89,10 @@ public class CharacterDataForSkills
     return false;
   }
 
-  private ItemInstance<? extends Item> getItem(EquipmentLocation slot)
+  private ItemInstance<? extends Item> getItem(GearSlot slot)
   {
-    return null;
+    CharacterGear gear=_data.getEquipment();
+    return gear.getItemForSlot(slot);
   }
 
   public ItemInstance<? extends Item> getImplement(ImplementUsageType implementUsageType)
@@ -95,7 +101,7 @@ public class CharacterDataForSkills
     {
       if (useMainDPS())
       {
-        return getItem(EquipmentLocations.MAIN_HAND);
+        return getItem(GearSlots.MAIN_MELEE);
       }
       return null;
     }
@@ -103,7 +109,7 @@ public class CharacterDataForSkills
     {
       if (useSecondaryDPS())
       {
-        return getItem(EquipmentLocations.OFF_HAND);
+        return getItem(GearSlots.OTHER_MELEE);
       }
       return null;
     }
@@ -111,7 +117,7 @@ public class CharacterDataForSkills
     {
       if (useRangedDPS())
       {
-        return getItem(EquipmentLocations.RANGED_ITEM);
+        return getItem(GearSlots.RANGED);
       }
       return null;
     }
@@ -119,7 +125,7 @@ public class CharacterDataForSkills
     {
       if (useMainTDR())
       {
-        return getItem(EquipmentLocations.MAIN_HAND);
+        return getItem(GearSlots.MAIN_MELEE);
       }
       return null;
     }
@@ -127,11 +133,11 @@ public class CharacterDataForSkills
     {
       if (useRangedTHR())
       {
-        return getItem(EquipmentLocations.RANGED_ITEM);
+        return getItem(GearSlots.RANGED);
       }
       if (useClassTHR())
       {
-        return getItem(EquipmentLocations.CLASS_SLOT);
+        return getItem(GearSlots.CLASS_ITEM);
       }
       return null;
     }
@@ -147,12 +153,19 @@ public class CharacterDataForSkills
   {
     if (mods==null) return 0;
     float ret=0;
+    System.out.println("Computing modifiers: "+mods);
     for(Integer id : mods.getIDs())
     {
       StatDescription stat=StatsRegistry.getInstance().getById(id.intValue());
       float statValue=getStat(stat);
+      if (stat.isPercentage())
+      {
+        statValue/=100;
+      }
+      System.out.println("\tStat "+stat.getPersistenceKey()+" => "+statValue);
       ret+=statValue;
     }
+    System.out.println("\tTotal: "+ret);
     return ret;
   }
 }

@@ -53,13 +53,22 @@ public class WeaponInstance<T extends Weapon> extends ItemInstance<T>
    */
   public int getEffectiveMaxDamage()
   {
+    return Math.round(getEffectiveMaxDamageFloat());
+  }
+
+  /**
+   * Get the effective max damage.
+   * @return A max damage value.
+   */
+  public float getEffectiveMaxDamageFloat()
+  {
     if (_maxDamage==null)
     {
       Weapon w=getReference();
       int itemLevel=getApplicableItemLevel();
-      return Math.round(w.computeMaxDamage(itemLevel));
+      return w.computeMaxDamage(itemLevel);
     }
-    return Math.round(_maxDamage.floatValue());
+    return _maxDamage.floatValue();
   }
 
   /**

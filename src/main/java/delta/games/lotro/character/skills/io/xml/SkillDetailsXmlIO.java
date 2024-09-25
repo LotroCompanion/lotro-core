@@ -1,5 +1,6 @@
 package delta.games.lotro.character.skills.io.xml;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -62,7 +63,7 @@ public class SkillDetailsXmlIO
   private static void writeSkillDetailsAttributes(AttributesImpl attrs, SkillDetails data)
   {
     // ID
-    int id=data.getId();
+    int id=data.getIdentifier();
     attrs.addAttribute("","","id",XmlWriter.CDATA,String.valueOf(id));
     // Name
     String name=data.getName();
@@ -166,6 +167,27 @@ public class SkillDetailsXmlIO
         SkillAttacksXmlIO.writeSkillAttack(hd,attack);
       }
     }
+  }
+
+  /**
+   * Parse the XML file.
+   * @param source Source file.
+   * @return Parsed details.
+   */
+  public static List<SkillDetails> parseXML(File source)
+  {
+    List<SkillDetails> ret=new ArrayList<SkillDetails>();
+    Element root=DOMParsingTools.parse(source);
+    if (root!=null)
+    {
+      List<Element> tags=DOMParsingTools.getChildTagsByName(root,SkillDetailsXMLConstants.DETAILS_TAG);
+      for(Element tag : tags)
+      {
+        SkillDetails details=readSkillDetails(tag);
+        ret.add(details);
+      }
+    }
+    return ret;
   }
 
   /**

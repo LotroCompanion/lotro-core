@@ -17,6 +17,7 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -29,6 +30,12 @@ public class SkillAttackComputer
 
   private CharacterDataForSkills _character;
   private SkillDetails _skill;
+
+  public SkillAttackComputer(CharacterDataForSkills data, SkillDetails details)
+  {
+    _character=data;
+    _skill=details;
+  }
 
   private float getDamageQualifier(DamageQualifier damageQualifier)
   {
@@ -65,7 +72,7 @@ public class SkillAttackComputer
     int characterLevel=_character.getLevel();
     float ratingPercentage=getPercentage(curveId,rating,characterLevel);
     float ratingPercentageMultiplier=1+ratingPercentage/100;
-    float damageQualifier=baseDamageQualifier+_character.getStat(percentageStat); // TODO use "bonus" percentage only here
+    float damageQualifier=baseDamageQualifier; // +_character.getStat(percentageStat); // TODO use "bonus" percentage only here
     damageQualifier*=ratingPercentageMultiplier;
     return damageQualifier;
   }
@@ -85,16 +92,17 @@ public class SkillAttackComputer
 
   public float getAttackDamage(SkillAttack attack, boolean minimum)
   {
+    float ret=0.0f;
     // Calculate Damage Qualifier
     float damageQualifier=getDamageQualifier(attack.getDamageQualifier());
     LOGGER.info("Damage qualifier: "+damageQualifier);
 
     // Calculate Skill Action Duration
     float skillActionDuration=1;
-    Float nActionDurationContr=_skill.getActionDurationContribution();
-    if (nActionDurationContr!=null)
+    Float actionDurationContribution=_skill.getActionDurationContribution();
+    if (actionDurationContribution!=null)
     {
-      skillActionDuration+=nActionDurationContr.floatValue();
+      skillActionDuration+=actionDurationContribution.floatValue();
     }
     LOGGER.info("Skill duration (before induction): "+skillActionDuration);
     Induction induction=_skill.getInduction();
@@ -107,20 +115,32 @@ public class SkillAttackComputer
 
     // Damage
     float damageModifier=attack.getDamageModifier();
+    System.out.println("Damage modifier: "+damageModifier);
+    System.out.println("Damage modifier mods:");
     ModPropertyList damageModifierMods=attack.getDamageModifiersMods();
-    damageModifier+=_character.computeAdditiveModifiers(damageModifierMods);
+    float damageModifierModValue=_character.computeAdditiveModifiers(damageModifierMods);
+    System.out.println("  => Damage modifier mods value: "+damageModifierModValue);
+    damageModifier+=damageModifierModValue;
 
     int charLevel=_character.getLevel();
     // Max damage
     float maxDamageProg=getProgressionValue(attack.getMaxDamageProgression(),charLevel,0);
     float maxDamage=attack.getMaxDamage()+maxDamageProg;
+    System.out.println("Max damage: "+maxDamage);
+    System.out.println("Max damage mods:");
     ModPropertyList maxDamageMods=attack.getMaxDamageMods();
-    maxDamage+=_character.computeAdditiveModifiers(maxDamageMods);
+    float maxDamageModsValue=_character.computeAdditiveModifiers(maxDamageMods);
+    maxDamage+=maxDamageModsValue;
+    System.out.println("  => Max damage mods value: "+maxDamageModsValue);
     // DPS
     float dpsAddModProg=getProgressionValue(attack.getDPSModProgression(),charLevel,0);
     float dpsAddMod=dpsAddModProg;
+    System.out.println("DPS add mod: "+dpsAddMod);
+    System.out.println("DPS mods:");
     ModPropertyList dpsMods=attack.getDPSMods();
-    dpsAddMod+=_character.computeAdditiveModifiers(dpsMods);
+    float dpsModsValue=_character.computeAdditiveModifiers(dpsMods);
+    System.out.println("  => DPS mods value: "+dpsModsValue);
+    dpsAddMod+=dpsModsValue;
 
     Float damageContribMultiplierFloat=attack.getDamageContributionMultiplier();
     float damageContribMultiplier=(damageContribMultiplierFloat!=null)?damageContribMultiplierFloat.floatValue():0;
@@ -133,13 +153,44 @@ public class SkillAttackComputer
       float variance=1-attack.getMaxDamageVariance();
       damage=damage*variance;
     }
+    System.out.println("Hook damage: "+damage);
+    ret+=damage;
 
     ImplementUsageType usesImpl=attack.getImplementUsageType();
     if (usesImpl!=null)
     {
       ItemInstance<? extends Item> item=_character.getImplement(usesImpl);
+      System.out.println("Using item: "+item);
+
+      if (item instanceof WeaponInstance)
+      {
+        WeaponInstance weapon=(WeaponInstance)item;
+        float implementDamage=weapon.getEffectiveMaxDamageFloat();
+        Float implementContribMultiplierFloat=attack.getImplementContributionMultiplier();
+        float implementContribMultiplier=(implementContribMultiplierFloat!=null)?implementContribMultiplierFloat.floatValue():0;
+        float resultDamage=damageQualifier*damageModifier*implementContribMultiplier*implementDamage;
+        System.out.println("Implement damage: "+resultDamage);
+        ret+=resultDamage;
+      }
     }
-    return 0;
+
+    // Missing 5% damage bonus for Men
+    // See CombatControl:
+    /*
+    Combat_Control_WeaponStrikeModifierList: 
+      #4: Combat_Control_WeaponStrikeModifier 
+        Combat_Control_EquipmentCategory: 4 (Two-handed Sword[E])
+        Combat_Control_WeaponDamageMultiplier: 268440059 (Combat_WeaponDamageMultiplier_2HSword)
+    */
+    /// And Trait:
+    /*
+    <trait identifier="1879073521" name="Man Sword-damage Bonus" iconId="1090553991" category="45" nature="4" tooltip="key:620775276:191029568" description="key:620775276:54354734">
+    <stat name="Combat_WeaponDamageMultiplier_1HSword" constant="5.0"/>
+    <stat name="Combat_WeaponDamageMultiplier_2HSword" constant="5.0"/>
+    </trait>
+    */
+
+    return ret;
   }
     /*
     local nUsesImp = skd.GetProp(aAD,"IMPUSAGE");
@@ -188,16 +239,8 @@ public class SkillAttackComputer
 
   return nDamage;
   end
-
-  function GetAttackDamageMin(aAttack)
-  return GetAttackDamage(aAttack,true);
-  end
-
-  function GetAttackDamageMax(aAttack)
-  return GetAttackDamage(aAttack,false);
-  end
   */
-
+  
   private float getProgressionValue(Progression progression, int x, float defaultValue)
   {
     float ret=defaultValue;

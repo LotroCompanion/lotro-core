@@ -57,6 +57,10 @@ public class DataFiles
    */
   public static final String SKILLS="skills";
   /**
+   * Skill details file.
+   */
+  public static final String SKILL_DETAILS="skillDetails";
+  /**
    * Classes file.
    */
   public static final String CLASSES="classes";
