@@ -10,10 +10,13 @@ import delta.games.lotro.character.stats.ratings.RatingsMgr;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.enums.ImplementUsageType;
+import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.inductions.Induction;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatsManager;
+import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -43,6 +46,7 @@ public class SkillAttackComputer
     {
       return 0;
     }
+    System.out.println("Damage qualifier: "+damageQualifier);
     ClassDataForSkills classData=_character.getClassData();
     RatingCurveId curveId=RatingCurveId.DAMAGE; // TODO Use a specific curve for tactical damage?
     StatDescription ratingStat=WellKnownStat.PHYSICAL_MASTERY;
@@ -67,12 +71,16 @@ public class SkillAttackComputer
 
   private float getQualifier(StatDescription ratingStat, StatDescription percentageStat, RatingCurveId curveId, float baseDamageQualifier)
   {
-    float rating=_character.getStat(ratingStat);
+    //float rating=_character.getStat(ratingStat);
     // TODO Use cap if stat not set?
-    int characterLevel=_character.getLevel();
-    float ratingPercentage=getPercentage(curveId,rating,characterLevel);
+    //int characterLevel=_character.getLevel();
+    //float ratingPercentage=getPercentage(curveId,rating,characterLevel);
+    System.out.println("Using percentage stat: "+percentageStat.getName());
+    float ratingPercentage=_character.getStat(percentageStat);
+
     float ratingPercentageMultiplier=1+ratingPercentage/100;
-    float damageQualifier=baseDamageQualifier; // +_character.getStat(percentageStat); // TODO use "bonus" percentage only here
+    System.out.println("Rating % x: "+ratingPercentageMultiplier);
+    float damageQualifier=baseDamageQualifier;
     damageQualifier*=ratingPercentageMultiplier;
     return damageQualifier;
   }
@@ -95,7 +103,7 @@ public class SkillAttackComputer
     float ret=0.0f;
     // Calculate Damage Qualifier
     float damageQualifier=getDamageQualifier(attack.getDamageQualifier());
-    LOGGER.info("Damage qualifier: "+damageQualifier);
+    System.out.println("Damage qualifier: "+damageQualifier);
 
     // Calculate Skill Action Duration
     float skillActionDuration=1;
@@ -115,12 +123,13 @@ public class SkillAttackComputer
 
     // Damage
     float damageModifier=attack.getDamageModifier();
-    System.out.println("Damage modifier: "+damageModifier);
+    System.out.println("Damage modifier (base): "+damageModifier);
     System.out.println("Damage modifier mods:");
     ModPropertyList damageModifierMods=attack.getDamageModifiersMods();
     float damageModifierModValue=_character.computeAdditiveModifiers(damageModifierMods);
     System.out.println("  => Damage modifier mods value: "+damageModifierModValue);
     damageModifier+=damageModifierModValue;
+    System.out.println("Damage modifier: "+damageModifier);
 
     int charLevel=_character.getLevel();
     // Max damage
@@ -157,21 +166,35 @@ public class SkillAttackComputer
     ret+=damage;
 
     ImplementUsageType usesImpl=attack.getImplementUsageType();
+    System.out.println("Implement usage: "+usesImpl);
     if (usesImpl!=null)
     {
       ItemInstance<? extends Item> item=_character.getImplement(usesImpl);
       System.out.println("Using item: "+item);
 
-      if (item instanceof WeaponInstance)
+      float implementBaseDamage=0;
+      if ((usesImpl==ImplementUsageTypes.PRIMARY) || (usesImpl==ImplementUsageTypes.SECONDARY) || (usesImpl==ImplementUsageTypes.RANGED))
       {
-        WeaponInstance weapon=(WeaponInstance)item;
-        float implementDamage=weapon.getEffectiveMaxDamageFloat();
-        Float implementContribMultiplierFloat=attack.getImplementContributionMultiplier();
-        float implementContribMultiplier=(implementContribMultiplierFloat!=null)?implementContribMultiplierFloat.floatValue():0;
-        float resultDamage=damageQualifier*damageModifier*implementContribMultiplier*implementDamage;
-        System.out.println("Implement damage: "+resultDamage);
-        ret+=resultDamage;
+        if (item instanceof WeaponInstance)
+        {
+          WeaponInstance weapon=(WeaponInstance)item;
+          implementBaseDamage=weapon.getEffectiveMaxDamageFloat();
+        }
       }
+      else if (usesImpl==ImplementUsageTypes.TACTICAL_DPS)
+      {
+        StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
+        implementBaseDamage=item.getStats().getStat(tacticalDPS).floatValue()+50;
+      }
+      System.out.println("Implement base damage: "+implementBaseDamage);
+
+      Float implementContribMultiplierFloat=attack.getImplementContributionMultiplier();
+      float implementContribMultiplier=(implementContribMultiplierFloat!=null)?implementContribMultiplierFloat.floatValue():0;
+      System.out.println("implementDamage=damageQualifier*damageModifier*implementContribMultiplier*implementBaseDamage");
+      System.out.println("implementDamage="+damageQualifier+"*"+damageModifier+"*"+implementContribMultiplier+"*"+implementBaseDamage);
+      float implementDamage=damageQualifier*damageModifier*implementContribMultiplier*implementBaseDamage;
+      System.out.println("Implement damage: "+implementDamage);
+      ret+=implementDamage;
     }
 
     // Missing 5% damage bonus for Men

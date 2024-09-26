@@ -66,7 +66,7 @@ public class CharacterDataForSkills
 
   private boolean useMainTDR()
   {
-    return false;
+    return true;
   }
 
   private boolean useSecondaryDPS()
