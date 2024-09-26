@@ -9,6 +9,7 @@ import delta.games.lotro.character.stats.ratings.RatingsMgr;
 public class CombatData
 {
   private RatingsMgr _ratingsMgr;
+  private WeaponStrikeModifiersManager _weaponStrikeModifiersMgr;
 
   /**
    * Constructor.
@@ -16,6 +17,7 @@ public class CombatData
   public CombatData()
   {
     _ratingsMgr=new RatingsMgr();
+    _weaponStrikeModifiersMgr=new WeaponStrikeModifiersManager();
   }
 
   /**
@@ -25,5 +27,14 @@ public class CombatData
   public RatingsMgr getRatingsMgr()
   {
     return _ratingsMgr;
+  }
+
+  /**
+   * Get the weapon strike modifiers manager.
+   * @return the weapon strike modifiers manager.
+   */
+  public WeaponStrikeModifiersManager getWeaponStrikeModifiersMgr()
+  {
+    return _weaponStrikeModifiersMgr;
   }
 }

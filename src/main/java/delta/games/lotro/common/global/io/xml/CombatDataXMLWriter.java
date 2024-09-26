@@ -46,7 +46,11 @@ public class CombatDataXMLWriter
 
   private static void writeCombatData(TransformerHandler hd, CombatData data) throws SAXException
   {
-    RatingsMgr ratingsMgr=data.getRatingsMgr();
+    writeCurves(hd,data.getRatingsMgr());
+  }
+
+  private static void writeCurves(TransformerHandler hd, RatingsMgr ratingsMgr) throws SAXException
+  {
     hd.startElement("","",CombatDataXMLConstants.COMBAT_TAG,new AttributesImpl());
     for(RatingCurveId curveId : RatingCurveId.values())
     {
