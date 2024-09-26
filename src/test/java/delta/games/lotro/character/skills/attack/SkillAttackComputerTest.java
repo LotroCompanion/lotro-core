@@ -5,7 +5,12 @@ import java.io.File;
 import org.junit.jupiter.api.Test;
 
 import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassSkill;
+import delta.games.lotro.character.classes.ClassesManager;
+import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.character.io.xml.CharacterDataIO;
+import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.SkillsDetailsManager;
 
@@ -29,7 +34,18 @@ class SkillAttackComputerTest
   @Test
   void test()
   {
-    testMinstrel();
+    testGuardian();
+  }
+
+  private void testGuardian()
+  {
+    String filename="guardian.xml";
+    ClassDescription charClass=ClassesManager.getInstance().getCharacterClassByKey(WellKnownCharacterClassKeys.GUARDIAN);
+    for(ClassSkill classSkill : charClass.getSkills())
+    {
+      SkillDescription skill=classSkill.getSkill();
+      doSkill(skill.getIdentifier(),filename);
+    }
   }
 
   private void testBurglar()
