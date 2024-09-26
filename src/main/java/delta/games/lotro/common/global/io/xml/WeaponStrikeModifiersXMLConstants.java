@@ -14,17 +14,17 @@ public class WeaponStrikeModifiersXMLConstants
   /**
    * Attribute 'weaponType'.
    */
-  public static final String WEAPON_TYPE_TAG="weaponType";
+  public static final String WEAPON_TYPE_ATTR="weaponType";
   /**
    * Attribute 'criticalMultiplierAddMod'.
    */
-  public static final String CRITICAL_MULTIPLIER_ADD_MOD_TAG="criticalMultiplierAddMod";
+  public static final String CRITICAL_MULTIPLIER_ADD_MOD_ATTR="criticalMultiplierAddMod";
   /**
    * Attribute 'superCriticalMultiplierAddMod'.
    */
-  public static final String SUPERCRITICAL_MULTIPLIER_ADD_MOD_TAG="superCriticalMultiplierAddMod";
+  public static final String SUPERCRITICAL_MULTIPLIER_ADD_MOD_ATTR="superCriticalMultiplierAddMod";
   /**
    * Attribute 'weaponDamageMultiplier'.
    */
-  public static final String WEAPON_DAMAGE_MULTIPLIER_TAG="weaponDamageMultiplier";
+  public static final String WEAPON_DAMAGE_MULTIPLIER_ATTR="weaponDamageMultiplier";
 }

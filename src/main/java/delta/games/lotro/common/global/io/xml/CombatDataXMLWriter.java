@@ -15,6 +15,9 @@ import delta.games.lotro.character.stats.ratings.RatingCurve;
 import delta.games.lotro.character.stats.ratings.RatingCurveId;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
 import delta.games.lotro.common.global.CombatData;
+import delta.games.lotro.common.global.WeaponStrikeModifiers;
+import delta.games.lotro.common.global.WeaponStrikeModifiersManager;
+import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -46,12 +49,14 @@ public class CombatDataXMLWriter
 
   private static void writeCombatData(TransformerHandler hd, CombatData data) throws SAXException
   {
+    hd.startElement("","",CombatDataXMLConstants.COMBAT_TAG,new AttributesImpl());
     writeCurves(hd,data.getRatingsMgr());
+    writeWeaponStrikeModifiers(hd,data.getWeaponStrikeModifiersMgr());
+    hd.endElement("","",CombatDataXMLConstants.COMBAT_TAG);
   }
 
   private static void writeCurves(TransformerHandler hd, RatingsMgr ratingsMgr) throws SAXException
   {
-    hd.startElement("","",CombatDataXMLConstants.COMBAT_TAG,new AttributesImpl());
     for(RatingCurveId curveId : RatingCurveId.values())
     {
       RatingCurve curve=ratingsMgr.getCurve(curveId);
@@ -79,6 +84,36 @@ public class CombatDataXMLWriter
       hd.startElement("","",CombatDataXMLConstants.CURVE_TAG,attrs);
       hd.endElement("","",CombatDataXMLConstants.CURVE_TAG);
     }
-    hd.endElement("","",CombatDataXMLConstants.COMBAT_TAG);
+  }
+
+  private static void writeWeaponStrikeModifiers(TransformerHandler hd, WeaponStrikeModifiersManager mgr) throws SAXException
+  {
+    for(WeaponType type : mgr.getWeaponTypes())
+    {
+      WeaponStrikeModifiers mods=mgr.getStrikeModifiers(type);
+      AttributesImpl attrs=new AttributesImpl();
+      // Type
+      attrs.addAttribute("","",WeaponStrikeModifiersXMLConstants.WEAPON_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type.getCode()));
+      // Critical mod
+      Integer criticalMod=mods.getCriticalMultiplierAddMod();
+      if (criticalMod!=null)
+      {
+        attrs.addAttribute("","",WeaponStrikeModifiersXMLConstants.CRITICAL_MULTIPLIER_ADD_MOD_ATTR,XmlWriter.CDATA,criticalMod.toString());
+      }
+      // SuperCritical mod
+      Integer superCriticalMod=mods.getSuperCriticalMultiplierAddMod();
+      if (superCriticalMod!=null)
+      {
+        attrs.addAttribute("","",WeaponStrikeModifiersXMLConstants.SUPERCRITICAL_MULTIPLIER_ADD_MOD_ATTR,XmlWriter.CDATA,superCriticalMod.toString());
+      }
+      // Weapon damage multiplier
+      Integer weaponDamageMultiplier=mods.getWeaponDamageMultiplier();
+      if (weaponDamageMultiplier!=null)
+      {
+        attrs.addAttribute("","",WeaponStrikeModifiersXMLConstants.WEAPON_DAMAGE_MULTIPLIER_ATTR,XmlWriter.CDATA,weaponDamageMultiplier.toString());
+      }
+      hd.startElement("","",WeaponStrikeModifiersXMLConstants.WEAPON_STRIKE_MODIFIERS_TAG,attrs);
+      hd.endElement("","",WeaponStrikeModifiersXMLConstants.WEAPON_STRIKE_MODIFIERS_TAG);
+    }
   }
 }
