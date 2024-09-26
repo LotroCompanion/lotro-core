@@ -184,7 +184,9 @@ public class SkillAttackComputer
       else if (usesImpl==ImplementUsageTypes.TACTICAL_DPS)
       {
         StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
-        implementBaseDamage=item.getStats().getStat(tacticalDPS).floatValue()+50;
+        float v=attack.getMaxDamageVariance();
+        float dps=implementBaseDamage=item.getStats().getStat(tacticalDPS).floatValue();
+        implementBaseDamage=2*dps/(2-v);
       }
       System.out.println("Implement base damage: "+implementBaseDamage);
 

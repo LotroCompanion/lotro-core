@@ -107,11 +107,11 @@ public class CharacterDataForSkills
     }
     else if (implementUsageType==ImplementUsageTypes.SECONDARY)
     {
-      if (useSecondaryDPS())
+      //if (useSecondaryDPS())
       {
         return getItem(GearSlots.OTHER_MELEE);
       }
-      return null;
+      //return null;
     }
     else if (implementUsageType==ImplementUsageTypes.RANGED)
     {
