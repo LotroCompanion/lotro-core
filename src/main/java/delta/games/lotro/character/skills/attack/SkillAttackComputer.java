@@ -71,17 +71,18 @@ public class SkillAttackComputer
 
   private float getQualifier(StatDescription ratingStat, StatDescription percentageStat, RatingCurveId curveId, float baseDamageQualifier)
   {
-    //float rating=_character.getStat(ratingStat);
-    // TODO Use cap if stat not set?
-    //int characterLevel=_character.getLevel();
-    //float ratingPercentage=getPercentage(curveId,rating,characterLevel);
+    float rating=_character.getStat(ratingStat);
+    int characterLevel=_character.getLevel();
+    float ratingPercentage=getPercentage(curveId,rating,characterLevel);
+    float fullPercentage=_character.getStat(percentageStat);
+    float percentageBonus=fullPercentage-ratingPercentage;
     System.out.println("Using percentage stat: "+percentageStat.getName());
-    float ratingPercentage=_character.getStat(percentageStat);
 
     float ratingPercentageMultiplier=1+ratingPercentage/100;
     System.out.println("Rating % x: "+ratingPercentageMultiplier);
     float damageQualifier=baseDamageQualifier;
     damageQualifier*=ratingPercentageMultiplier;
+    damageQualifier*=(1+percentageBonus/100);
     return damageQualifier;
   }
 
@@ -112,14 +113,19 @@ public class SkillAttackComputer
     {
       skillActionDuration+=actionDurationContribution.floatValue();
     }
-    LOGGER.info("Skill duration (before induction): "+skillActionDuration);
+    System.out.println("Skill duration (before induction): "+skillActionDuration);
     Induction induction=_skill.getInduction();
     if (induction!=null)
     {
       float baseInductionDuration=induction.getDuration();
-      skillActionDuration+=baseInductionDuration;
+      float inductionAddMods=_character.computeAdditiveModifiers(induction.getAddMods());
+      float inductionDuration=baseInductionDuration+inductionAddMods;
+      float inductionMultiplyMods=_character.computeMultiplicativeModifiers(induction.getMultiplyMods());
+      inductionDuration*=inductionMultiplyMods;
+      System.out.println("Induction: "+inductionDuration);
+      skillActionDuration+=inductionDuration;
     }
-    LOGGER.info("Skill duration: "+skillActionDuration);
+    System.out.println("Skill duration: "+skillActionDuration);
 
     // Damage
     float damageModifier=attack.getDamageModifier();
@@ -184,9 +190,10 @@ public class SkillAttackComputer
       else if (usesImpl==ImplementUsageTypes.TACTICAL_DPS)
       {
         StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
-        float v=attack.getMaxDamageVariance();
+        //float v=attack.getMaxDamageVariance();
         float dps=implementBaseDamage=item.getStats().getStat(tacticalDPS).floatValue();
-        implementBaseDamage=2*dps/(2-v);
+        //implementBaseDamage=2*dps/(2-v);
+        implementBaseDamage=dps+50;
       }
       System.out.println("Implement base damage: "+implementBaseDamage);
 

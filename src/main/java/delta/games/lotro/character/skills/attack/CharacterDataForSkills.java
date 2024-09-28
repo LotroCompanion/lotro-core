@@ -153,7 +153,7 @@ public class CharacterDataForSkills
   {
     if (mods==null) return 0;
     float ret=0;
-    System.out.println("Computing modifiers: "+mods);
+    System.out.println("Computing additive modifiers: "+mods);
     for(Integer id : mods.getIDs())
     {
       StatDescription stat=StatsRegistry.getInstance().getById(id.intValue());
@@ -164,6 +164,31 @@ public class CharacterDataForSkills
       }
       System.out.println("\tStat "+stat.getPersistenceKey()+" => "+statValue);
       ret+=statValue;
+    }
+    System.out.println("\tTotal: "+ret);
+    return ret;
+  }
+
+  /**
+   * Compute the value of modifier properties.
+   * @param mods Modifiers.
+   * @return A value to add.
+   */
+  public float computeMultiplicativeModifiers(ModPropertyList mods)
+  {
+    if (mods==null) return 0;
+    float ret=1;
+    System.out.println("Computing multiplicative modifiers: "+mods);
+    for(Integer id : mods.getIDs())
+    {
+      StatDescription stat=StatsRegistry.getInstance().getById(id.intValue());
+      float statValue=getStat(stat);
+      if (stat.isPercentage())
+      {
+        statValue/=100;
+      }
+      System.out.println("\tStat "+stat.getPersistenceKey()+" => "+statValue);
+      ret*=(1+statValue);
     }
     System.out.println("\tTotal: "+ret);
     return ret;
