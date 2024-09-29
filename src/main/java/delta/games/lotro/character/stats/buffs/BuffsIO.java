@@ -68,7 +68,7 @@ public class BuffsIO
       }
       else
       {
-        LOGGER.warn("Buff not found: "+buffID);
+        LOGGER.warn("Buff not found: {}",buffID);
       }
     }
   }

@@ -112,7 +112,7 @@ public class BindingsManager
   {
     InternalGameId id=info.getId();
     _knownBindings.put(id,info);
-    LOGGER.debug("Registered/updated: "+info);
+    LOGGER.debug("Registered/updated: {}",info);
   }
 
   /**

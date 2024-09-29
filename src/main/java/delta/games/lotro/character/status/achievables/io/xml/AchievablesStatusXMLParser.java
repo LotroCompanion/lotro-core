@@ -75,14 +75,14 @@ public class AchievablesStatusXMLParser
     if (achievable==null)
     {
       // Unknown achievable!
-      LOGGER.warn("Unknown achievable: "+key);
+      LOGGER.warn("Unknown achievable: {}",key);
       return;
     }
     AchievableStatus newStatus=status.get(achievable,true);
     if (newStatus==null)
     {
       // Unknown achievable!
-      LOGGER.warn("Unknown achievable: "+key);
+      LOGGER.warn("Unknown achievable: {}",key);
       return;
     }
     // State
