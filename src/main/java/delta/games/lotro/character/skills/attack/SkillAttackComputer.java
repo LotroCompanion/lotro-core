@@ -15,7 +15,6 @@ import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.inductions.Induction;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.StatsManager;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Item;
@@ -34,6 +33,11 @@ public class SkillAttackComputer
   private CharacterDataForSkills _character;
   private SkillDetails _skill;
 
+  /**
+   * Constructor.
+   * @param data Access to character data related to skills.
+   * @param details Skill details.
+   */
   public SkillAttackComputer(CharacterDataForSkills data, SkillDetails details)
   {
     _character=data;
@@ -75,14 +79,16 @@ public class SkillAttackComputer
     int characterLevel=_character.getLevel();
     float ratingPercentage=getPercentage(curveId,rating,characterLevel);
     float fullPercentage=_character.getStat(percentageStat);
-    float percentageBonus=fullPercentage-ratingPercentage;
     System.out.println("Using percentage stat: "+percentageStat.getName());
 
     float ratingPercentageMultiplier=1+ratingPercentage/100;
     System.out.println("Rating % x: "+ratingPercentageMultiplier);
     float damageQualifier=baseDamageQualifier;
     damageQualifier*=ratingPercentageMultiplier;
-    damageQualifier*=(1+percentageBonus/100);
+    float percentageBonus=fullPercentage-ratingPercentage;
+    float bonusPercentageMultipler=(1+percentageBonus/100);
+    System.out.println("Bonus % x: "+bonusPercentageMultipler);
+    damageQualifier*=bonusPercentageMultipler;
     return damageQualifier;
   }
 
@@ -99,8 +105,15 @@ public class SkillAttackComputer
     return getQualifier(WellKnownStat.OUTGOING_HEALING,WellKnownStat.OUTGOING_HEALING_PERCENTAGE,RatingCurveId.HEALING,0);
   }
 
+  /**
+   * Get the damage for a skill attack.
+   * @param attack Attack to use.
+   * @param minimum Use minimum damage or maximum damage.
+   * @return A damage value.
+   */
   public float getAttackDamage(SkillAttack attack, boolean minimum)
   {
+    System.out.println("Attack details: "+attack);
     float ret=0.0f;
     // Calculate Damage Qualifier
     float damageQualifier=getDamageQualifier(attack.getDamageQualifier());
@@ -178,22 +191,27 @@ public class SkillAttackComputer
       ItemInstance<? extends Item> item=_character.getImplement(usesImpl);
       System.out.println("Using item: "+item);
 
+      boolean isWeapon=(item instanceof WeaponInstance);
       float implementBaseDamage=0;
       if ((usesImpl==ImplementUsageTypes.PRIMARY) || (usesImpl==ImplementUsageTypes.SECONDARY) || (usesImpl==ImplementUsageTypes.RANGED))
       {
-        if (item instanceof WeaponInstance)
+        if (isWeapon)
         {
-          WeaponInstance weapon=(WeaponInstance)item;
+          WeaponInstance<?> weapon=(WeaponInstance<?>)item;
           implementBaseDamage=weapon.getEffectiveMaxDamageFloat();
         }
       }
       else if (usesImpl==ImplementUsageTypes.TACTICAL_DPS)
       {
-        StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
-        //float v=attack.getMaxDamageVariance();
-        float dps=implementBaseDamage=item.getStats().getStat(tacticalDPS).floatValue();
-        //implementBaseDamage=2*dps/(2-v);
-        implementBaseDamage=dps+50;
+        if (item!=null)
+        {
+          StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
+          Number dpsN=item.getStats().getStat(tacticalDPS);
+          float dps=(dpsN!=null)?dpsN.floatValue():0;
+          System.out.println("Tactical DPS: "+dps);
+          implementBaseDamage=dps;
+        }
+        implementBaseDamage+=20;
       }
       System.out.println("Implement base damage: "+implementBaseDamage);
 

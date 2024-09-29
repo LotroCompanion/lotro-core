@@ -34,10 +34,10 @@ class SkillAttackComputerTest
   @Test
   void test()
   {
-    testGuardian();
+    testMinstrel();
   }
 
-  private void testGuardian()
+  void testGuardian()
   {
     String filename="guardian.xml";
     ClassDescription charClass=ClassesManager.getInstance().getCharacterClassByKey(WellKnownCharacterClassKeys.GUARDIAN);
@@ -48,16 +48,16 @@ class SkillAttackComputerTest
     }
   }
 
-  private void testBurglar()
+  void testBurglar()
   {
     String filename="burglar.xml";
-    //doSkill(1879064332,filename); // ~OK Double-edged Strike ; #1: 5943.338 / 6240 (lack 5% club damage) ; #2: 3359.742 / 3363
-    //doSkill(1879384439,filename); // ~OK Throw Knife ; 1484.5181 / 1559 (x1.05 lack 5% club damage??)
-    //doSkill(1879263587,filename); // ~OK Coup De Grâce ; #1: 7283.1772 / 7647 (x1.05) ; #2: 4008.4202 / 4011 ; #3: 5443.9365 / 5719 (x1.05)
+    doSkill(1879064332,filename); // ~OK Double-edged Strike ; #1: 5943.338 / 6240 (lack 5% club damage) ; #2: 3359.742 / 3363
+    doSkill(1879384439,filename); // ~OK Throw Knife ; 1484.5181 / 1559 (x1.05 lack 5% club damage??)
+    doSkill(1879263587,filename); // ~OK Coup De Grâce ; #1: 7283.1772 / 7647 (x1.05) ; #2: 4008.4202 / 4011 ; #3: 5443.9365 / 5719 (x1.05)
     doSkill(1879052125,filename); // ~OK Flashing Blades ; #1: 9371.625=>7178.2656 (x1.05) / 7537 ; #2: 4570.784 / 4575 => modifier 268444443 x2!!
   }
 
-  private void testHunter()
+  void testHunter()
   {
     String filename="hunter.xml";
     doSkill(1879218262,filename); // Improved Quick Shot ; 3600.227 should be 3705 (x1,029)
@@ -72,18 +72,18 @@ class SkillAttackComputerTest
 
   private void testMinstrel()
   {
-    String filename="minstrel.xml";
-    doSkill(1879064186,filename); // Dissonant Strike ; 10726.226 / 10210 (x1.05 too much)
-    doSkill(1879064190,filename); // Perfect Ballad  12012.069 should be 13386 (x1,114)
-    doSkill(1879221564,filename); // Major Ballad  8653.634 should be 9861 (x1.14)
-    doSkill(1879452871,filename); // Minor Ballad - Dissonance 13749.663 should be 15348 (x1,116)
-    doSkill(1879217094,filename); // Coda of Fury ; 29566.584 should be 33692 (x1.14)
-    doSkill(1879052912,filename); // Cry of the Wizards 21307.857 should be 23229 (x1,09)
-    doSkill(1879094939,filename); // Call of the Second Age 18929.824 should be 20378 (x1,076) (x1.019)
-    doSkill(1879284233,filename); // Dissonant Piercing Cry 15227.821 should be 16496 (x1.083)
+    String filename="minstrel2.xml"; // => ~OK
+    doSkill(1879064186,filename); // Dissonant Strike ; 10485.629 / 10219 (x1.026 too much)
+    doSkill(1879064190,filename); // Perfect Ballad 13388.382 / 13389
+    doSkill(1879221564,filename); // Major Ballad 9862.915 / 9863
+    doSkill(1879452871,filename); // Minor Ballad - Dissonance 15350.472 / 15351
+    doSkill(1879217094,filename); // Coda of Fury ; 33698.29 / 33700
+    doSkill(1879052912,filename); // Cry of the Wizards 23233.809 / 23235
+    doSkill(1879094939,filename); // Call of the Second Age 20381.605 / 20382
+    doSkill(1879284233,filename); // Dissonant Piercing Cry 16499.396 / 16500
   }
 
-  private void testChampion()
+  void testChampion()
   {
     String filename="champion.xml";
     doSkill(1879064084,filename); // Let Fly
