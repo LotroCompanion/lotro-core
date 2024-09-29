@@ -1,5 +1,6 @@
 package delta.games.lotro.character.skills.attack;
 
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.ImplementUsageType;
@@ -365,43 +366,48 @@ public class SkillAttack
     StringBuilder sb=new StringBuilder();
 
     sb.append("Qualifier: ").append(_damageQualifier);
-    if (_dpsMods!=null)
-    {
-      sb.append(", DPS mods=").append(_dpsMods);
-    }
-    if (_maxDamageMods!=null)
-    {
-      sb.append(", Max damage mods=").append(_maxDamageMods);
-    }
-    if (_damageModifierMods!=null)
-    {
-      sb.append(", damage modifiers mods=").append(_damageModifierMods);
-    }
-    sb.append(", type=").append(_damageType);
-    if (_damageContributionMultiplier!=null)
-    {
-      sb.append(", damage contrib x=").append(_damageContributionMultiplier);
-    }
+    sb.append(", damage type=").append(_damageType).append(EndOfLine.NATIVE_EOL);
+    sb.append("DPS:");
     if (_dpsModProgression!=null)
     {
-      sb.append(", DPS mod progression=").append(_dpsModProgression);
+      sb.append(" mod progression=").append(_dpsModProgression);
     }
-    sb.append(", max damage=").append(_maxDamage);
+    if (_dpsMods!=null)
+    {
+      sb.append(" DPS mods=").append(_dpsMods);
+    }
+    sb.append(EndOfLine.NATIVE_EOL);
+    sb.append("Max damage: ").append(_maxDamage);
     sb.append(", max damage variance=").append(_maxDamageVariance);
     if (_maxDamageProgression!=null)
     {
       sb.append(", max damage progression=").append(_maxDamageProgression);
     }
-    sb.append(", damage modifier=").append(_damageModifier);
+    if (_maxDamageMods!=null)
+    {
+      sb.append(", Max damage mods=").append(_maxDamageMods);
+    }
+    sb.append(EndOfLine.NATIVE_EOL);
+    sb.append("Damage modifier=").append(_damageModifier);
+    if (_damageModifierMods!=null)
+    {
+      sb.append(", damage modifiers mods=").append(_damageModifierMods);
+    }
+    sb.append(EndOfLine.NATIVE_EOL);
+    if (_damageContributionMultiplier!=null)
+    {
+      sb.append("Damage contrib x=").append(_damageContributionMultiplier).append(EndOfLine.NATIVE_EOL);
+    }
     if (_implementContributionMultiplier!=null)
     {
-      sb.append(", implement contrib x=").append(_implementContributionMultiplier);
+      sb.append("Implement contrib x=").append(_implementContributionMultiplier).append(EndOfLine.NATIVE_EOL);
     }
-    if (isSet(SkillAttackFlags.NATURAL)) sb.append(", natural");
-    if (isSet(SkillAttackFlags.PRIMARY)) sb.append(", primary");
-    if (isSet(SkillAttackFlags.RANGED)) sb.append(", ranged");
-    if (isSet(SkillAttackFlags.SECONDARY)) sb.append(", secondary");
-    if (isSet(SkillAttackFlags.TACTICAL)) sb.append(", tactical");
+    sb.append("Flags:");
+    if (isSet(SkillAttackFlags.NATURAL)) sb.append(" natural");
+    if (isSet(SkillAttackFlags.PRIMARY)) sb.append(" primary");
+    if (isSet(SkillAttackFlags.RANGED)) sb.append(" ranged");
+    if (isSet(SkillAttackFlags.SECONDARY)) sb.append(" secondary");
+    if (isSet(SkillAttackFlags.TACTICAL)) sb.append(" tactical");
     return sb.toString();
   }
 }
