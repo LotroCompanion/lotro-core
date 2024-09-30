@@ -13,7 +13,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 
 /**
- * Character data for skill details.
+ * Character data for skill computations.
  * @author DAM
  */
 public class CharacterDataForSkills
@@ -23,6 +23,7 @@ public class CharacterDataForSkills
 
   /**
    * Constructor.
+   * @param data Character data.
    */
   public CharacterDataForSkills(CharacterData data)
   {
@@ -59,26 +60,6 @@ public class CharacterDataForSkills
     return _data.getLevel();
   }
 
-  private boolean useMainDPS()
-  {
-    return true;
-  }
-
-  private boolean useMainTDR()
-  {
-    return true;
-  }
-
-  private boolean useSecondaryDPS()
-  {
-    return false;
-  }
-
-  private boolean useRangedDPS()
-  {
-    return true;
-  }
-
   private boolean useRangedTHR()
   {
     return false;
@@ -95,39 +76,28 @@ public class CharacterDataForSkills
     return gear.getItemForSlot(slot);
   }
 
+  /**
+   * Get tehe item to use for the given implement usage.
+   * @param implementUsageType Implement usage.
+   * @return An item instance or <code>null</code>. 
+   */
   public ItemInstance<? extends Item> getImplement(ImplementUsageType implementUsageType)
   {
     if (implementUsageType==ImplementUsageTypes.PRIMARY)
     {
-      if (useMainDPS())
-      {
-        return getItem(GearSlots.MAIN_MELEE);
-      }
-      return null;
+      return getItem(GearSlots.MAIN_MELEE);
     }
     else if (implementUsageType==ImplementUsageTypes.SECONDARY)
     {
-      //if (useSecondaryDPS())
-      {
-        return getItem(GearSlots.OTHER_MELEE);
-      }
-      //return null;
+      return getItem(GearSlots.OTHER_MELEE);
     }
     else if (implementUsageType==ImplementUsageTypes.RANGED)
     {
-      if (useRangedDPS())
-      {
-        return getItem(GearSlots.RANGED);
-      }
-      return null;
+      return getItem(GearSlots.RANGED);
     }
     else if (implementUsageType==ImplementUsageTypes.TACTICAL_DPS)
     {
-      if (useMainTDR())
-      {
-        return getItem(GearSlots.MAIN_MELEE);
-      }
-      return null;
+      return getItem(GearSlots.MAIN_MELEE);
     }
     else if (implementUsageType==ImplementUsageTypes.TACTICAL_HPS)
     {

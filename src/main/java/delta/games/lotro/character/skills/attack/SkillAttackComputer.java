@@ -12,6 +12,8 @@ import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.global.CombatSystem;
+import delta.games.lotro.common.global.WeaponStrikeModifiers;
+import delta.games.lotro.common.global.WeaponStrikeModifiersManager;
 import delta.games.lotro.common.inductions.Induction;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
@@ -19,7 +21,9 @@ import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponInstance;
+import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -199,6 +203,11 @@ public class SkillAttackComputer
         {
           WeaponInstance<?> weapon=(WeaponInstance<?>)item;
           implementBaseDamage=weapon.getEffectiveMaxDamageFloat();
+          System.out.println("Weapon base damage: "+implementBaseDamage);
+          // Weapon strike
+          float factor=getWeaponStrikeMultiplier(weapon);
+          System.out.println("Using weapon strike multiplier: "+factor);
+          implementBaseDamage*=factor;
         }
       }
       else if (usesImpl==ImplementUsageTypes.TACTICAL_DPS)
@@ -224,73 +233,32 @@ public class SkillAttackComputer
       ret+=implementDamage;
     }
 
-    // Missing 5% damage bonus for Men
-    // See CombatControl:
-    /*
-    Combat_Control_WeaponStrikeModifierList: 
-      #4: Combat_Control_WeaponStrikeModifier 
-        Combat_Control_EquipmentCategory: 4 (Two-handed Sword[E])
-        Combat_Control_WeaponDamageMultiplier: 268440059 (Combat_WeaponDamageMultiplier_2HSword)
-    */
-    /// And Trait:
-    /*
-    <trait identifier="1879073521" name="Man Sword-damage Bonus" iconId="1090553991" category="45" nature="4" tooltip="key:620775276:191029568" description="key:620775276:54354734">
-    <stat name="Combat_WeaponDamageMultiplier_1HSword" constant="5.0"/>
-    <stat name="Combat_WeaponDamageMultiplier_2HSword" constant="5.0"/>
-    </trait>
-    */
-
     return ret;
   }
-    /*
-    local nUsesImp = skd.GetProp(aAD,"IMPUSAGE");
-    if nUsesImp ~= nil then
-      -- calculate implement damage
-      local nImplementSelect = skd.GetProp(aAD,"IMPUSAGE");
-      local aImp;
 
-      if nImplementSelect == IMPSEL_PRIMARY then
-        aImp = aChar[CHAR_IMP_PRIMARY];
-      elseif nImplementSelect == IMPSEL_SECONDARY then
-        aImp = aChar[CHAR_IMP_SECONDARY];
-      elseif nImplementSelect == IMPSEL_RANGED then
-        aImp = aChar[CHAR_IMP_RANGED];
-      elseif nImplementSelect == IMPSEL_TACTICAL then
-        aImp = aChar[CHAR_IMP_TACTICAL];
-      end
+  private float getWeaponStrikeMultiplier(WeaponInstance<?> weaponInstance)
+  {
+    WeaponStrikeModifiersManager weaponStrikeModsMgr=CombatSystem.getInstance().getData().getWeaponStrikeModifiersMgr();
+    Weapon weapon=weaponInstance.getReference();
+    WeaponType weaponType=weapon.getWeaponType();
+    WeaponStrikeModifiers weaponStrikeMods=weaponStrikeModsMgr.getStrikeModifiers(weaponType);
+    if (weaponStrikeMods!=null)
+    {
+      Integer weaponDamageMultiplierMod=weaponStrikeMods.getWeaponDamageMultiplier();
+      if (weaponDamageMultiplierMod!=null)
+      {
+        StatDescription stat=StatsRegistry.getInstance().getById(weaponDamageMultiplierMod.intValue());
+        float multiplier=_character.getStat(stat);
+        if (multiplier>0)
+        {
+          float factor=1+(multiplier/100);
+          return factor;
+        }
+      }
+    }
+    return 1;
+  }
 
-      if nImplementSelect ~= IMPSEL_UNDEF then
-        local nImpDamage = 0;
-
-        if nImplementSelect == IMPSEL_TACTICAL then
-          if aImp[IMP_ILVL] > 0 then
-            nImpDamage = csm.CalcStat("CombatBaseTacDPS",aImp[IMP_ILVL]);
-          end
-          if aChar[CHAR_LEVEL] > 50 then
-            nImpDamage = nImpDamage + 50;
-          else
-            nImpDamage = nImpDamage + aChar[CHAR_LEVEL];
-          end
-          if bMinimum then
-            nImpDamage = nImpDamage * 0.7;
-          end
-        elseif aImp[IMP_ILVL] > 0 then
-          if bMinimum then
-            nImpDamage = csm.CalcStat("WpnDmgMin",aImp[IMP_ILVL],aImp[IMP_WPNCODE]);
-          
-          else
-            nImpDamage = csm.CalcStat("WpnDmgMax",aImp[IMP_ILVL],aImp[IMP_WPNCODE]);
-          end
-        end
-        nDamage = nDamage + csm.RoundDbl(nDamageQualifier * nHookDamageModifier * skd.GetProp(aAD,"IMPCONTRMP") * nImpDamage);
-      end
-    end
-  end
-
-  return nDamage;
-  end
-  */
-  
   private float getProgressionValue(Progression progression, int x, float defaultValue)
   {
     float ret=defaultValue;
