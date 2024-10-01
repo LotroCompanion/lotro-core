@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.skills.SkillDetails;
+import delta.games.lotro.character.skills.SkillDetailsUtils;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
 import delta.games.lotro.character.stats.ratings.RatingCurveId;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
@@ -14,7 +15,6 @@ import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.global.WeaponStrikeModifiers;
 import delta.games.lotro.common.global.WeaponStrikeModifiersManager;
-import delta.games.lotro.common.inductions.Induction;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
@@ -131,17 +131,8 @@ public class SkillAttackComputer
       skillActionDuration+=actionDurationContribution.floatValue();
     }
     System.out.println("Skill duration (before induction): "+skillActionDuration);
-    Induction induction=_skill.getInduction();
-    if (induction!=null)
-    {
-      float baseInductionDuration=induction.getDuration();
-      float inductionAddMods=_character.computeAdditiveModifiers(induction.getAddMods());
-      float inductionDuration=baseInductionDuration+inductionAddMods;
-      float inductionMultiplyMods=_character.computeMultiplicativeModifiers(induction.getMultiplyMods());
-      inductionDuration*=inductionMultiplyMods;
-      System.out.println("Induction: "+inductionDuration);
-      skillActionDuration+=inductionDuration;
-    }
+    float inductionDuration=SkillDetailsUtils.getInductionDuration(_skill,_character);
+        skillActionDuration+=inductionDuration;
     System.out.println("Skill duration: "+skillActionDuration);
 
     // Damage

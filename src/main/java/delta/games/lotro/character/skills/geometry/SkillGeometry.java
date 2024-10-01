@@ -133,6 +133,49 @@ public class SkillGeometry
   }
 
   /**
+   * Get the radius of the skill.
+   * @return A radius (meters).
+   */
+  public float getRadius()
+  {
+    if (_shape instanceof Arc)
+    {
+      Arc arc=(Arc)_shape;
+      return arc.getRadius();
+    }
+    if (_shape instanceof Sphere)
+    {
+      Sphere sphere=(Sphere)_shape;
+      return sphere.getRadius();
+    }
+    return 0.0f;
+  }
+
+  /**
+   * Get the range of the skill.
+   * @return A range (meters).
+   */
+  public float getRange()
+  {
+    if (_detectionAnchor==null)
+    {
+      return 0;
+    }
+    int anchorCode=_detectionAnchor.getCode();
+    if ((anchorCode==2) || (anchorCode==3)) // Donut or Self: AOE from self
+    {
+      float radius=getRadius();
+      float range=radius+0.2f;
+      if ((_maxRange!=null) && (_maxRange.floatValue()>range))
+      {
+        range=_maxRange.floatValue();
+      }
+      return range;
+    }
+    return (_maxRange!=null)?_maxRange.floatValue():0;
+  }
+
+  /**
    * Indicates if this geometry has a meaningful value or not.
    * @return <code>true</code> if it does, <code>false</code> otherwise.
    */

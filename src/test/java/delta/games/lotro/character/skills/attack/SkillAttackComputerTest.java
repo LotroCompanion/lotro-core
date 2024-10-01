@@ -15,7 +15,9 @@ import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillDetails;
+import delta.games.lotro.character.skills.SkillDisplay;
 import delta.games.lotro.character.skills.SkillsDetailsManager;
+import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traits.TraitsStatus;
 import delta.games.lotro.character.traits.TraitDescription;
@@ -229,6 +231,9 @@ class SkillAttackComputerTest
     System.out.println("\n*****************************");
     System.out.println("Skill ID="+id+", name="+details.getName());
     CharacterDataForSkills dataForSkills=new CharacterDataForSkills(data);
+    SkillDescription skill=SkillsManager.getInstance().getSkill(id);
+    SkillDisplay d=new SkillDisplay(dataForSkills,skill,details);
+    System.out.println(d.getText());
     SkillAttackComputer c=new SkillAttackComputer(dataForSkills,details);
     int index=1;
     for(SkillAttack attack : details.getAttacks().getAttacks())
