@@ -47,6 +47,7 @@ class SkillAttackComputerTest
     testHunter();
     testLoremaster();
     testMinstrel();
+    testRunekeeper();
   }
 
   void testClassSkills(String key, CharacterData data)
@@ -96,6 +97,32 @@ class SkillAttackComputerTest
       }
     }
     return ret;
+  }
+
+  void testRunekeeper()
+  {
+    // No tree
+    /*
+    CharacterData data=getCharacterData("rk no tree.xml"); // OK
+    doSkill(1879110792,data); // Shocking Touch 3783.6074 / 3784 OK
+    doSkill(1879107947,data); // Fiery Ridicule 5611.707 / 5612 OK
+    doSkill(1879109293,data); // Scribe's Spark 8989.852 / 8990 OK
+    doSkill(1879109291,data); // Essence of Storm 11686.806 / 11687 OK
+    */
+    // Tree red + 5 Deliberate Address
+    /*
+    CharacterData data=getCharacterData("rk no tree 5DA.xml"); // OK
+    doSkill(1879110792,data); // Shocking Touch 3972.7869 / 3973 OK
+    doSkill(1879107947,data); // Fiery Ridicule 6765.2236 / 6765 OK
+    doSkill(1879109293,data); // Scribe's Spark 9439.342 / 9439 OK
+    doSkill(1879109291,data); // Essence of Storm 12271.145 / 12271 OK
+    */
+    // Standard
+    CharacterData data=getCharacterData("runekeeper.xml"); // OK
+    doSkill(1879110792,data); // Shocking Touch 3965.6267 / 3966 OK
+    doSkill(1879221506,data); // Fiery Ridicule 6535.1904 / 6535 OK
+    doSkill(1879109293,data); // Scribe's Spark 9422.329 / 9423 ~OK
+    doSkill(1879109291,data); // Essence of Storm 12249.028 / 12249 OK
   }
 
   void testLoremaster() // ~OK
