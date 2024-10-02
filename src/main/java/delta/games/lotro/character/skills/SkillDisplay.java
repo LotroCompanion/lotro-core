@@ -179,6 +179,28 @@ public class SkillDisplay
     {
       sb.append(attacks).append(EndOfLine.NATIVE_EOL);
     }
+    // Cost
+    List<String> admin=new ArrayList<String>();
+    // - power cost
+    SkillVitalCostComputer costComputer=new SkillVitalCostComputer(_character);
+    SkillCostData costData=_skillDetails.getCostData();
+    if (costData!=null)
+    {
+      Float powerCost=costComputer.getVitalCost(costData.getPowerCost());
+      if (powerCost!=null)
+      {
+        admin.add("Cost: "+L10n.getString(powerCost.floatValue(),0)+" Power");
+      }
+      Float togglePowerCost=costComputer.getVitalCost(costData.getPowerCostPerSecond());
+      if (togglePowerCost!=null)
+      {
+        admin.add("Cost: "+L10n.getString(togglePowerCost.floatValue(),0)+" Power Per Second");
+      }
+    }
+    for(String line : admin)
+    {
+      sb.append(line).append(EndOfLine.NATIVE_EOL);
+    }
     return sb.toString().trim();
   }
 
@@ -285,16 +307,6 @@ function GetSkillOutputPlainText(aChar,nSkillId)
 
   local aSkillAdmin = {};
 
-  if nPowerCost > 0.0 then
-    table.insert(aSkillAdmin,"Cost: "..csm.stringformatvalue("%'.0f",nPowerCost+csm.DblCalcDev).." Power");
-  elseif nPowerCost < 0.0 then
-    table.insert(aSkillAdmin,"Cost: ... Power");
-  end
-  if nTogglePowerCost > 0.0 then
-    table.insert(aSkillAdmin,"Cost: "..csm.stringformatvalue("%'d",nTogglePowerCost+csm.DblCalcDev).." Power Per Second");
-  elseif nTogglePowerCost < 0.0 then
-    table.insert(aSkillAdmin,"Cost: ... Power Per Second");
-  end
   if bGambitsRequiresActive then
     if nGambitsRequired > 0 then
       table.insert(aSkillAdmin,"Requires: "..GetGambitText(nGambitsRequired));
