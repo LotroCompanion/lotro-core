@@ -42,6 +42,7 @@ class SkillAttackComputerTest
   @Test
   void test()
   {
+    testWarden();
     testBurglar();
     testCaptain();
     testChampion();
@@ -99,6 +100,12 @@ class SkillAttackComputerTest
       }
     }
     return ret;
+  }
+
+  void testWarden()
+  {
+    CharacterData data=getCharacterData("warden.xml");
+    testClass(WellKnownCharacterClassKeys.WARDEN,data);
   }
 
   void testRunekeeper()

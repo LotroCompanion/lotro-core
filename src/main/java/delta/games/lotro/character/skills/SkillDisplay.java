@@ -11,6 +11,7 @@ import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.common.enums.GambitIconType;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.enums.ResistCategory;
@@ -197,6 +198,10 @@ public class SkillDisplay
         admin.add("Cost: "+L10n.getString(togglePowerCost.floatValue(),0)+" Power Per Second");
       }
     }
+    // Gambit
+    List<String> gambitLines=getGambitLines(_skillDetails.getGambitData());
+    admin.addAll(gambitLines);
+
     for(String line : admin)
     {
       sb.append(line).append(EndOfLine.NATIVE_EOL);
@@ -270,6 +275,69 @@ public class SkillDisplay
     return sb.toString().trim();
   }
 
+  private String getGambitText(List<GambitIconType> types)
+  {
+    StringBuilder sb=new StringBuilder();
+    for(GambitIconType type : types)
+    {
+      if (sb.length()>0)
+      {
+        sb.append('-');
+      }
+      sb.append(type.getLabel());
+    }
+    return sb.toString();
+  }
+
+  private List<String> getGambitLines(SkillGambitData data)
+  {
+    List<String> ret=new ArrayList<String>();
+    if (data==null)
+    {
+      return ret;
+    }
+    // Requirements
+    List<GambitIconType> required=data.getRequired();
+    if (required!=null)
+    {
+      if (required.isEmpty())
+      {
+        ret.add("Requires: an active Gambit");
+      }
+      else
+      {
+        String gambitText=getGambitText(required);
+        ret.add("Requires: "+gambitText);
+      }
+    }
+    // Actions
+    // - additions
+    List<GambitIconType> toAdd=data.getToAdd();
+    if ((toAdd!=null) && (!toAdd.isEmpty()))
+    {
+      String gambitText=getGambitText(toAdd);
+      ret.add("Adds: "+gambitText);
+    }
+    // - removals
+    if (data.isClearAllGambits())
+    {
+      ret.add("Clears All Gambits");
+    }
+    else
+    {
+      int toRemove=data.getToRemove();
+      if (toRemove==1)
+      {
+        ret.add("Clears 1 Gambit");
+      }
+      else if (toRemove>1)
+      {
+        ret.add("Clears "+toRemove+" Gambits");
+      }
+    }
+    return ret;
+  }
+
   /*
 function GetSkillOutputPlainText(aChar,nSkillId)
   local nInductionDuration = GetSkillInductionDuration(aSkill); -- skill's induction duration
@@ -285,17 +353,10 @@ function GetSkillOutputPlainText(aChar,nSkillId)
   local nTogglePowerPercentCost = GetSkillTogglePowerPercentCost(aSkill);
   local nPowerCost = GetSkillPowerCost(aSkill);
   local nPowerPercentCost = GetSkillPowerPercentCost(aSkill);
-  local nGambitsAdded = GetSkillGambitsAdded(aSkill);
-  local nGambitsClearedCount = GetSkillGambitsClearedCount(aSkill);
-  local nGambitsRequired = GetSkillGambitsRequired(aSkill);
-  local bGambitsRequiresActive = GetSkillGambitsRequiresActive(aSkill);
   local nPipType = GetSkillPipType(aSkill);
   local bUsesToggle = GetSkillUsesToggle(aSkill);
   
   local nTargetTextWidth = 38;
-
-  aaa
-  
 
   local nEffectTextCount = #aEffectTexts;
   if nEffectTextCount > 0 then
@@ -307,23 +368,6 @@ function GetSkillOutputPlainText(aChar,nSkillId)
 
   local aSkillAdmin = {};
 
-  if bGambitsRequiresActive then
-    if nGambitsRequired > 0 then
-      table.insert(aSkillAdmin,"Requires: "..GetGambitText(nGambitsRequired));
-    else
-      table.insert(aSkillAdmin,"Requires: an active Gambit");
-    end
-  end
-  if nGambitsAdded > 0 then
-    table.insert(aSkillAdmin,"Adds: "..GetGambitText(nGambitsAdded));
-  end
-  if nGambitsClearedCount == -1 then
-    table.insert(aSkillAdmin,"Clears All Gambits");
-  elseif nGambitsClearedCount == 1 then
-    table.insert(aSkillAdmin,"Clears 1 Gambit");
-  elseif nGambitsClearedCount > 1 then
-    table.insert(aSkillAdmin,"Clears "..nGambitsClearedCount.." Gambits");
-  end
   if nPipType ~= 0 then
     local sPipName = GetSkillPipName(aSkill);
     local nPipMinValue = GetSkillPipMinValue(aSkill);
