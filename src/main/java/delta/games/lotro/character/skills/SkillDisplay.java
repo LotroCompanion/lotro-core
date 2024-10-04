@@ -14,10 +14,13 @@ import delta.games.lotro.character.skills.geometry.SkillGeometry;
 import delta.games.lotro.common.enums.GambitIconType;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
+import delta.games.lotro.common.enums.PipType;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillDisplayType;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.DamageTypes;
+import delta.games.lotro.lore.pip.PipDescription;
+import delta.games.lotro.lore.pip.PipsManager;
 
 /**
  * COmpute a display of the details of a skill.
@@ -33,6 +36,7 @@ public class SkillDisplay
   /**
    * Constructor.
    * @param data Access to character data related to skills.
+   * @param skill Skill.
    * @param details Skill details.
    */
   public SkillDisplay(CharacterDataForSkills data, SkillDescription skill, SkillDetails details)
@@ -76,6 +80,10 @@ public class SkillDisplay
     return geometry.getRange();
   }
 
+  /**
+   * Get skill display text.
+   * @return Displayable text.
+   */
   public String getText()
   {
     StringBuilder sb=new StringBuilder();
@@ -201,6 +209,9 @@ public class SkillDisplay
     // Gambit
     List<String> gambitLines=getGambitLines(_skillDetails.getGambitData());
     admin.addAll(gambitLines);
+    // PIP
+    List<String> pipLines=getPIPLines(_skillDetails.getPIPData());
+    admin.addAll(pipLines);
 
     for(String line : admin)
     {
@@ -261,7 +272,7 @@ public class SkillDisplay
         }
         else
         {
-          attackText=String.valueOf(minDamageInt)+" - "+String.valueOf(maxDamageInt);
+          attackText=minDamageInt+" - "+maxDamageInt;
         }
         attackText=attackText+" "+damageType.getLabel();
         if (!implementText.isEmpty())
@@ -338,75 +349,129 @@ public class SkillDisplay
     return ret;
   }
 
-  /*
-function GetSkillOutputPlainText(aChar,nSkillId)
-  local nInductionDuration = GetSkillInductionDuration(aSkill); -- skill's induction duration
-  local nChannelingDuration = GetSkillChannelingDuration(aSkill); -- skill's channel duration
-  local nAttackCount = GetSkillAttackCount(aSkill); -- skill's number of attacks
-  local nCooldown = GetSkillCooldown(aSkill); -- skill's cooldown duration
-  local nAOEMaxTargets = GetSkillAOEMaxTargets(aSkill); -- maximum number of targets for AOE
-  local nRange = GetSkillRange(aSkill); -- calculated range from maxrange + AOE radius
-  local nRadius = GetSkillRadius(aSkill); -- AOE radius
-  local nResistCategory = GetSkillResistCategory(aSkill); -- resistance category
-  local nDisplaySkillTypeCount = GetSkillDisplaySkillTypeCount(aSkill); -- number of Skill Types for display
-  local nTogglePowerCost = GetSkillTogglePowerCost(aSkill);
-  local nTogglePowerPercentCost = GetSkillTogglePowerPercentCost(aSkill);
-  local nPowerCost = GetSkillPowerCost(aSkill);
-  local nPowerPercentCost = GetSkillPowerPercentCost(aSkill);
-  local nPipType = GetSkillPipType(aSkill);
-  local bUsesToggle = GetSkillUsesToggle(aSkill);
-  
-  local nTargetTextWidth = 38;
+  private int getPipChange(SkillPipData data)
+  {
+    Integer change=data.getChange();
+    if (change==null)
+    {
+      return 0;
+    }
+    int ret=change.intValue();
+    float mods=_character.computeAdditiveModifiers(data.getChangeMods());
+    return ret+(int)mods;
+  }
 
-  local nEffectTextCount = #aEffectTexts;
-  if nEffectTextCount > 0 then
-    sOutput = sOutput.."\n";
-    for elem = 1, nEffectTextCount do
-      sOutput = sOutput..aEffectTexts[elem];
-    end
-  end
+  private int getPipRequiredMin(SkillPipData data)
+  {
+    Integer min=data.getRequiredMinValue();
+    if (min==null)
+    {
+      return -1;
+    }
+    int ret=min.intValue();
+    float mods=_character.computeAdditiveModifiers(data.getRequiredMinValueMods());
+    return ret+(int)mods;
+  }
 
-  local aSkillAdmin = {};
+  private int getPipRequiredMax(SkillPipData data)
+  {
+    Integer min=data.getRequiredMaxValue();
+    if (min==null)
+    {
+      return -1;
+    }
+    int ret=min.intValue();
+    float mods=_character.computeAdditiveModifiers(data.getRequiredMaxValueMods());
+    return ret+(int)mods;
+  }
 
-  if nPipType ~= 0 then
-    local sPipName = GetSkillPipName(aSkill);
-    local nPipMinValue = GetSkillPipMinValue(aSkill);
-    local nPipMaxValue = GetSkillPipMaxValue(aSkill);
-    local nPipHomeValue = GetSkillPipHomeValue(aSkill);
-    local nPipChange = GetSkillPipChange(aSkill);
-    local nPipRequiredMinValue = GetSkillPipRequiredMinValue(aSkill);
-    local nPipRequiredMaxValue = GetSkillPipRequiredMaxValue(aSkill);
-    local nPipTowardHome = GetSkillPipTowardHome(aSkill);
-    local nPipToggleChange = GetSkillPipToggleChange(aSkill);
-    local nPipToggleInterval = GetSkillPipToggleInterval(aSkill);
-    if nPipType == 4 then
-      -- Rune-keeper Attunement
-      local sPipNameMin = "(B)";
-      local sPipNameHome = "(S)"
-      local sPipNameMax = "(H)";
-      local nPipRequiredMinOffset = nPipRequiredMinValue-nPipHomeValue; -- positive = required healing attunement
-      local nPipRequiredMaxOffset = nPipRequiredMaxValue-nPipHomeValue; -- negative = required battle attunement
-      if nPipChange < 0 then
-        table.insert(aSkillAdmin,"Attunes: "..csm.stringformatvalue("%'d",-nPipChange+csm.DblCalcDev).." "..sPipNameMin);
-      elseif nPipChange > 0 then
-        table.insert(aSkillAdmin,"Attunes: "..csm.stringformatvalue("%'d",nPipChange+csm.DblCalcDev).." "..sPipNameMax);
-      end
-      if nPipTowardHome > 0 then
-        table.insert(aSkillAdmin,"Attunes: "..csm.stringformatvalue("%'d",nPipTowardHome+csm.DblCalcDev).." "..sPipNameHome);
-      end
-      if (nPipRequiredMinValue ~= -1 and nPipRequiredMinOffset == 0) then
-        table.insert(aSkillAdmin,"Requires: No "..sPipNameMin);
-      elseif (nPipRequiredMinValue ~= -1 and nPipRequiredMinOffset > 0) and nPipRequiredMinOffset ~= -nPipChange then
-        -- if a minimum positive offset from home is required, but the change from there
-        -- doesn't make pips return exactly to home (is not a "cost")
-        table.insert(aSkillAdmin,"Requires: "..csm.stringformatvalue("%'d",nPipRequiredMinOffset+csm.DblCalcDev).." "..sPipNameMax);
-      elseif (nPipRequiredMaxValue ~= -1 and nPipRequiredMaxOffset == 0) then
-        table.insert(aSkillAdmin,"Requires: No "..sPipNameMax);
-      elseif (nPipRequiredMaxValue ~= -1 and nPipRequiredMaxOffset < 0) and nPipRequiredMaxOffset ~= -nPipChange then
-        -- if a minimum negative offset from home is required, but the change from there
-        -- doesn't make pips return exactly to home (is not a "cost")
-        table.insert(aSkillAdmin,"Requires: "..csm.stringformatvalue("%'d",-nPipRequiredMaxOffset+csm.DblCalcDev).." "..sPipNameMin);
-      end
+  private int getPipToggleChange(SkillPipData data)
+  {
+    Integer change=data.getChangePerInterval();
+    if (change==null)
+    {
+      return 0;
+    }
+    int ret=change.intValue();
+    float mods=_character.computeAdditiveModifiers(data.getChangePerIntervalMods());
+    return ret+(int)mods;
+  }
+
+  private float getPipToggleChangeInterval(SkillPipData data)
+  {
+    Float interval=data.getSecondsPerPipChange();
+    if (interval==null)
+    {
+      return 0;
+    }
+    float ret=interval.floatValue();
+    float mods=_character.computeAdditiveModifiers(data.getSecondsPerPipChangeMods());
+    return ret+mods;
+  }
+
+  private List<String> getPIPLines(SkillPipData data)
+  {
+    List<String> ret=new ArrayList<String>();
+    if (data==null)
+    {
+      return ret;
+    }
+    PipType type=data.getType();
+    PipDescription pip=PipsManager.getInstance().get(type.getCode());
+    if (pip==null)
+    {
+      return ret;
+    }
+    String pipName=pip.getName();
+    int min=pip.getMin();
+    int max=pip.getMax();
+    int home=pip.getHome();
+    int change=getPipChange(data);
+    int requiredMin=getPipRequiredMin(data);
+    int requiredMax=getPipRequiredMax(data);
+    Integer towardHomeInt=data.getTowardHome();
+    int toggleChange=getPipToggleChange(data);
+    float toggleChangeInterval=getPipToggleChangeInterval(data);
+
+    if (type.getCode()==4)
+    {
+      // RK attunement
+      // positive: required healing attunement, negative: required battle attunement
+      int requiredMinOffset=requiredMin-home;
+      int requiredMaxOffset=requiredMax-home;
+      // Change
+      if (change<0)
+      {
+        ret.add("Attunes: "+(-change)+" (battle)");
+      }
+      else if (change>0)
+      {
+        ret.add("Attunes: "+(change)+" (healing)");
+      }
+      if ((towardHomeInt!=null) && (towardHomeInt.intValue()>0))
+      {
+        ret.add("Attunes: "+towardHomeInt+" (steady)");
+      }
+      if ((requiredMin!=-1) && (requiredMinOffset==0))
+      {
+        ret.add("Requires: No (battle)");
+      }
+      else if ((requiredMin!=-1) && (requiredMinOffset>0) && (requiredMinOffset==-change))
+      {
+        // if a minimum positive offset from home is required, but the change from there doesn't make pips return exactly to home (is not a "cost")
+        ret.add("Requires: "+requiredMinOffset+" (healing)");
+      }
+      else if ((requiredMax!=-1) && (requiredMaxOffset==0))
+      {
+        ret.add("Requires: No (healing)");
+      }
+      else if ((requiredMax!=-1) && (requiredMaxOffset<0) && (requiredMaxOffset==-change))
+      {
+        // if a minimum negative offset from home is required, but the change from there doesn't make pips return exactly to home (is not a "cost")
+        ret.add("Requires: "+(-requiredMaxOffset)+" (battle)");
+      }
+    }
+    /*
     elseif nPipType == 29 then
       -- Corsair Balance
     elseif nPipMinValue == nPipHomeValue then
@@ -453,7 +518,40 @@ function GetSkillOutputPlainText(aChar,nSkillId)
         table.insert(aSkillAdmin,sActionText.." "..csm.stringformatvalue("%'d",nPipToggleChange+csm.DblCalcDev).." "..sPipName.." "..sPointText.." every "..sSecondText);
       end
     end
+    */
+    return ret;
+  }
+
+  /*
+function GetSkillOutputPlainText(aChar,nSkillId)
+  local nInductionDuration = GetSkillInductionDuration(aSkill); -- skill's induction duration
+  local nChannelingDuration = GetSkillChannelingDuration(aSkill); -- skill's channel duration
+  local nAttackCount = GetSkillAttackCount(aSkill); -- skill's number of attacks
+  local nCooldown = GetSkillCooldown(aSkill); -- skill's cooldown duration
+  local nAOEMaxTargets = GetSkillAOEMaxTargets(aSkill); -- maximum number of targets for AOE
+  local nRange = GetSkillRange(aSkill); -- calculated range from maxrange + AOE radius
+  local nRadius = GetSkillRadius(aSkill); -- AOE radius
+  local nResistCategory = GetSkillResistCategory(aSkill); -- resistance category
+  local nDisplaySkillTypeCount = GetSkillDisplaySkillTypeCount(aSkill); -- number of Skill Types for display
+  local nTogglePowerCost = GetSkillTogglePowerCost(aSkill);
+  local nTogglePowerPercentCost = GetSkillTogglePowerPercentCost(aSkill);
+  local nPowerCost = GetSkillPowerCost(aSkill);
+  local nPowerPercentCost = GetSkillPowerPercentCost(aSkill);
+  local nPipType = GetSkillPipType(aSkill);
+  local bUsesToggle = GetSkillUsesToggle(aSkill);
+  
+  local nTargetTextWidth = 38;
+
+  local nEffectTextCount = #aEffectTexts;
+  if nEffectTextCount > 0 then
+    sOutput = sOutput.."\n";
+    for elem = 1, nEffectTextCount do
+      sOutput = sOutput..aEffectTexts[elem];
+    end
   end
+
+  local aSkillAdmin = {};
+
 
   for elem = 1, #aSkillAdmin do
     if elem == 1 then
