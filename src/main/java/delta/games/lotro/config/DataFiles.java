@@ -367,6 +367,10 @@ public class DataFiles
    */
   public static final String INDUCTIONS="inductions";
   /**
+   * Pips file.
+   */
+  public static final String PIPS="pips";
+  /**
    * Labels directory.
    */
   public static final String LABELS="labelsDir";
