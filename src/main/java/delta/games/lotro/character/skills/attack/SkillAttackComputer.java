@@ -223,6 +223,7 @@ public class SkillAttackComputer
       System.out.println("Implement damage: "+implementDamage);
       ret+=implementDamage;
     }
+    System.out.println("Total damage: "+ret);
 
     return ret;
   }

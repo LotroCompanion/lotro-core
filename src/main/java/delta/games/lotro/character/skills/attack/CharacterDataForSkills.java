@@ -121,12 +121,19 @@ public class CharacterDataForSkills
    */
   public float computeAdditiveModifiers(ModPropertyList mods)
   {
-    if (mods==null) return 0;
+    if (mods==null)
+    {
+      return 0;
+    }
     float ret=0;
     System.out.println("Computing additive modifiers: "+mods);
     for(Integer id : mods.getIDs())
     {
       StatDescription stat=StatsRegistry.getInstance().getById(id.intValue());
+      if (stat==null)
+      {
+        continue;
+      }
       float statValue=getStat(stat);
       if (stat.isPercentage())
       {

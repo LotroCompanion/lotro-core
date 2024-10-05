@@ -409,6 +409,117 @@ public class SkillDisplay
     return ret+mods;
   }
 
+  private List<String> getPIPWithHome(PipDescription pip, SkillPipData data, String left, String center, String right)
+  {
+    List<String> ret=new ArrayList<String>();
+    int home=pip.getHome();
+    int change=getPipChange(data);
+    int requiredMin=getPipRequiredMin(data);
+    int requiredMax=getPipRequiredMax(data);
+    Integer towardHomeInt=data.getTowardHome();
+    int requiredMinOffset=requiredMin-home;
+    int requiredMaxOffset=requiredMax-home;
+    // Change
+    if (change<0)
+    {
+      ret.add("Attunes: "+(-change)+" ("+left+")");
+    }
+    else if (change>0)
+    {
+      ret.add("Attunes: "+(change)+" ("+right+")");
+    }
+    if ((towardHomeInt!=null) && (towardHomeInt.intValue()>0))
+    {
+      ret.add("Attunes: "+towardHomeInt+" ("+center+")");
+    }
+    // Requirements
+    if ((requiredMin!=-1) && (requiredMinOffset==0))
+    {
+      ret.add("Requires: No ("+left+")");
+    }
+    else if ((requiredMin!=-1) && (requiredMinOffset>0) && (requiredMinOffset!=-change))
+    {
+      // if a minimum positive offset from home is required, but the change from there doesn't make pips return exactly to home (is not a "cost")
+      ret.add("Requires: "+requiredMinOffset+" ("+right+")");
+    }
+    else if ((requiredMax!=-1) && (requiredMaxOffset==0))
+    {
+      ret.add("Requires: No ("+right+")");
+    }
+    else if ((requiredMax!=-1) && (requiredMaxOffset<0) && (requiredMaxOffset!=-change))
+    {
+      // if a minimum negative offset from home is required, but the change from there doesn't make pips return exactly to home (is not a "cost")
+      ret.add("Requires: "+(-requiredMaxOffset)+" ("+left+")");
+    }
+    return ret;
+  }
+
+  private List<String> getStandardPip(PipDescription pip, SkillPipData data)
+  {
+    List<String> ret=new ArrayList<String>();
+    int home=pip.getHome();
+    int change=getPipChange(data);
+    int requiredMin=getPipRequiredMin(data);
+    int requiredMax=getPipRequiredMax(data);
+    int requiredMinOffset=requiredMin-home;
+    int requiredMaxOffset=requiredMax-home;
+    String pipName=pip.getName();
+
+    if ((requiredMinOffset>=0) && (requiredMaxOffset>=0))
+    {
+      ret.add("Requires between "+requiredMinOffset+" and "+requiredMaxOffset+" "+pipName);
+    }
+    else if ((requiredMinOffset>0) && (requiredMinOffset!=(-change)))
+    {
+      // if a minimum positive offset from home is required, but the change from there doesn't make pips return exactly to home (is not a "cost")
+      ret.add("Requires at least "+requiredMinOffset+" "+pipName);
+    }
+    if (change<0)
+    {
+      if (requiredMinOffset+change==0)
+      {
+        // "cost" when all pips are consumed from minimum required starting point (back to home)
+        ret.add("Cost: "+(-change)+" "+pipName);
+      }
+      else
+      {
+        ret.add("Removes "+(-change)+" from "+pipName);
+      }
+    }
+    else if (change>0)
+    {
+      ret.add("Adds "+change+" to "+pipName);
+    }
+    return ret;
+  }
+
+  private void handleTogglePip(PipDescription pip, SkillPipData data, List<String> ret)
+  {
+    int change=getPipToggleChange(data);
+    float interval=getPipToggleChangeInterval(data);
+    if ((interval>0) && (change!=0))
+    {
+      String actionText=(change>0)?"Adds":"Removes";
+      String pointText="points";
+      String secondText;
+      if ((change==-1) || (change==1))
+      {
+        pointText="point";
+      }
+      if (interval==1.0f)
+      {
+        secondText="second";
+      }
+      else
+      {
+        secondText=L10n.getString(interval,1)+" seconds";
+      }
+      String pipName=pip.getName();
+      String text=actionText+" "+Math.abs(change)+" "+pipName+" "+pointText+" every "+secondText;
+      ret.add(text);
+    }
+  }
+
   private List<String> getPIPLines(SkillPipData data)
   {
     List<String> ret=new ArrayList<String>();
@@ -422,144 +533,37 @@ public class SkillDisplay
     {
       return ret;
     }
-    String pipName=pip.getName();
     int min=pip.getMin();
-    int max=pip.getMax();
     int home=pip.getHome();
-    int change=getPipChange(data);
-    int requiredMin=getPipRequiredMin(data);
-    int requiredMax=getPipRequiredMax(data);
-    Integer towardHomeInt=data.getTowardHome();
-    int toggleChange=getPipToggleChange(data);
-    float toggleChangeInterval=getPipToggleChangeInterval(data);
 
     if (type.getCode()==4)
     {
-      // RK attunement
-      // positive: required healing attunement, negative: required battle attunement
-      int requiredMinOffset=requiredMin-home;
-      int requiredMaxOffset=requiredMax-home;
-      // Change
-      if (change<0)
-      {
-        ret.add("Attunes: "+(-change)+" (battle)");
-      }
-      else if (change>0)
-      {
-        ret.add("Attunes: "+(change)+" (healing)");
-      }
-      if ((towardHomeInt!=null) && (towardHomeInt.intValue()>0))
-      {
-        ret.add("Attunes: "+towardHomeInt+" (steady)");
-      }
-      if ((requiredMin!=-1) && (requiredMinOffset==0))
-      {
-        ret.add("Requires: No (battle)");
-      }
-      else if ((requiredMin!=-1) && (requiredMinOffset>0) && (requiredMinOffset==-change))
-      {
-        // if a minimum positive offset from home is required, but the change from there doesn't make pips return exactly to home (is not a "cost")
-        ret.add("Requires: "+requiredMinOffset+" (healing)");
-      }
-      else if ((requiredMax!=-1) && (requiredMaxOffset==0))
-      {
-        ret.add("Requires: No (healing)");
-      }
-      else if ((requiredMax!=-1) && (requiredMaxOffset<0) && (requiredMaxOffset==-change))
-      {
-        // if a minimum negative offset from home is required, but the change from there doesn't make pips return exactly to home (is not a "cost")
-        ret.add("Requires: "+(-requiredMaxOffset)+" (battle)");
-      }
+      // RK attunement: positive: healing, negative: battle, center: steady
+      ret=getPIPWithHome(pip,data,"battle","steady","healing");
     }
-    /*
-    elseif nPipType == 29 then
-      -- Corsair Balance
-    elseif nPipMinValue == nPipHomeValue then
-      -- everything with the minimum value is also the home value
-      local nPipRequiredMinOffset = nPipRequiredMinValue-nPipHomeValue;
-      local nPipRequiredMaxOffset = nPipRequiredMaxValue-nPipHomeValue;
-      if nPipRequiredMinOffset >= 0 and nPipRequiredMaxOffset >= 0 then
-        table.insert(aSkillAdmin,"Requires between "..csm.stringformatvalue("%'d",nPipRequiredMinOffset+csm.DblCalcDev).." and "..csm.stringformatvalue("%'d",nPipRequiredMaxOffset+csm.DblCalcDev).." "..sPipName);
-      elseif nPipRequiredMinOffset > 0 and nPipRequiredMinOffset ~= -nPipChange then
-        -- if a minimum positive offset from home is required, but the change from there
-        -- doesn't make pips return exactly to home (is not a "cost")
-        table.insert(aSkillAdmin,"Requires at least "..csm.stringformatvalue("%'d",nPipRequiredMinOffset+csm.DblCalcDev).." "..sPipName);
-      end
-      if nPipChange < 0 then
-        if nPipRequiredMinOffset+nPipChange == 0 then
-          -- "cost" when all pips are consumed from minimum required starting point (back to home)
-          table.insert(aSkillAdmin,"Cost: "..csm.stringformatvalue("%'d",-nPipChange+csm.DblCalcDev).." "..sPipName);
-        else
-          table.insert(aSkillAdmin,"Removes "..csm.stringformatvalue("%'d",-nPipChange+csm.DblCalcDev).." from "..sPipName);
-        end
-      elseif nPipChange > 0 then
-        table.insert(aSkillAdmin,"Adds "..csm.stringformatvalue("%'d",nPipChange+csm.DblCalcDev).." to "..sPipName);
-      end
-      if nPipToggleInterval > 0 and nPipToggleChange ~= 0 then
-        local sActionText;
-        local sPointText;
-        local sSecondText;
-        if nPipToggleChange > 0 then
-          --> Adds 1 Wrath point every 3 seconds
-          sActionText = "Adds";
-        elseif nPipToggleChange < 0 then
-          sActionText = "Removes";
-        end
-        if nPipToggleChange == -1 or nPipToggleChange == 1 then
-          sPointText = "point";
-        else
-          sPointText = "points";
-        end
-        if nPipToggleInterval == 1 then
-          sSecondText = "second";
-        else
-          sSecondText = csm.stringformatvalue("%.0.1f",nPipToggleInterval+csm.DblCalcDev).." seconds";
-        end
-        table.insert(aSkillAdmin,sActionText.." "..csm.stringformatvalue("%'d",nPipToggleChange+csm.DblCalcDev).." "..sPipName.." "..sPointText.." every "..sSecondText);
-      end
-    end
-    */
+    else if (type.getCode()==29)
+    {
+      // Mariner attunement: positive: foreward, negative: aftward, center: balance
+      ret=getPIPWithHome(pip,data,"aftward","balance","foreward");
+    }
+    else if (min==home)
+    {
+      // Everything with the minimum value is also the home value
+      ret=getStandardPip(pip,data);
+      handleTogglePip(pip,data,ret);
+    }
     return ret;
   }
 
+  public void doPip()
+  {
+    List<String> lines=getPIPLines(_skillDetails.getPIPData());
+    System.out.println("ID="+_skill.getIdentifier()+": "+_skill.getName()+" => "+lines);
+  }
   /*
-function GetSkillOutputPlainText(aChar,nSkillId)
-  local nInductionDuration = GetSkillInductionDuration(aSkill); -- skill's induction duration
   local nChannelingDuration = GetSkillChannelingDuration(aSkill); -- skill's channel duration
-  local nAttackCount = GetSkillAttackCount(aSkill); -- skill's number of attacks
   local nCooldown = GetSkillCooldown(aSkill); -- skill's cooldown duration
-  local nAOEMaxTargets = GetSkillAOEMaxTargets(aSkill); -- maximum number of targets for AOE
-  local nRange = GetSkillRange(aSkill); -- calculated range from maxrange + AOE radius
-  local nRadius = GetSkillRadius(aSkill); -- AOE radius
-  local nResistCategory = GetSkillResistCategory(aSkill); -- resistance category
-  local nDisplaySkillTypeCount = GetSkillDisplaySkillTypeCount(aSkill); -- number of Skill Types for display
-  local nTogglePowerCost = GetSkillTogglePowerCost(aSkill);
-  local nTogglePowerPercentCost = GetSkillTogglePowerPercentCost(aSkill);
-  local nPowerCost = GetSkillPowerCost(aSkill);
-  local nPowerPercentCost = GetSkillPowerPercentCost(aSkill);
-  local nPipType = GetSkillPipType(aSkill);
   local bUsesToggle = GetSkillUsesToggle(aSkill);
-  
-  local nTargetTextWidth = 38;
-
-  local nEffectTextCount = #aEffectTexts;
-  if nEffectTextCount > 0 then
-    sOutput = sOutput.."\n";
-    for elem = 1, nEffectTextCount do
-      sOutput = sOutput..aEffectTexts[elem];
-    end
-  end
-
-  local aSkillAdmin = {};
-
-
-  for elem = 1, #aSkillAdmin do
-    if elem == 1 then
-      sOutput = sOutput.."\n\n"..aSkillAdmin[elem];
-    else
-      sOutput = sOutput.."\n"..aSkillAdmin[elem];
-    end
-  end
   
   if nChannelingDuration > 0 then
     sOutput = sOutput.."\n".."Channelled Skill";
@@ -570,9 +574,5 @@ function GetSkillOutputPlainText(aChar,nSkillId)
   if nCooldown > 0 then
     sOutput = sOutput.."\n\n".."Cooldown: "..DurationFormat(nCooldown);
   end
-
-  return sOutput;
-end
  */
-  
 }
