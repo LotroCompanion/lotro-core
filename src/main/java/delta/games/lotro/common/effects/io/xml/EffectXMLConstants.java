@@ -187,6 +187,10 @@ public class EffectXMLConstants
    */
   public static final String VITAL_CHANGE_VARIANCE_ATTR="variance";
   /**
+   * Tag 'vitalChange'/'initialChange'/'overTimeChange', attribute 'modifiers'.
+   */
+  public static final String VITAL_CHANGE_MODIFIERS_ATTR="modifiers";
+  /**
    * Tag 'vitalChange'/'initialChange'/'overTimeChange', attribute 'min'.
    */
   public static final String VITAL_CHANGE_MIN_ATTR="min";

@@ -1,5 +1,6 @@
 package delta.games.lotro.common.effects;
 
+import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -11,8 +12,8 @@ public class AbstractVitalChange
   private Float _constant;
   private Progression _progression;
   private Float _variance;
+  private ModPropertyList _valueModifiers;
   // TODO
-  //private ModPropertyList _valueModifiers
   //private float _critMultiplier
   //private ModPropertyList _critMultiplierModifiers
 
@@ -95,5 +96,15 @@ public class AbstractVitalChange
   public void setVariance(Float variance)
   {
     _variance=variance;
+  }
+
+  public ModPropertyList getModifiers()
+  {
+    return _valueModifiers;
+  }
+
+  public void setModifiers(ModPropertyList valueModifiers)
+  {
+    _valueModifiers=valueModifiers;
   }
 }

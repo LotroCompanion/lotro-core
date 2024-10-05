@@ -45,6 +45,8 @@ import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
 import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 import delta.games.lotro.common.math.LinearFunction;
 import delta.games.lotro.common.progression.ProgressionsManager;
+import delta.games.lotro.common.properties.ModPropertyList;
+import delta.games.lotro.common.properties.io.ModPropertyListIO;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.StatsRegistry;
@@ -369,6 +371,10 @@ public class EffectXMLParser
     // Variance
     Float variance=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.VITAL_CHANGE_VARIANCE_ATTR,null);
     change.setVariance(variance);
+    // Modifiers
+    String modifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.VITAL_CHANGE_MODIFIERS_ATTR,null);
+    ModPropertyList modifiers=ModPropertyListIO.fromPersistedString(modifiersStr);
+    change.setModifiers(modifiers);
   }
 
   private ProcEffect parseProcEffect(Element root)

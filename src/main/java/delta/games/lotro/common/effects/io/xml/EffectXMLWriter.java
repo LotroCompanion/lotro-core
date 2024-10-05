@@ -42,6 +42,8 @@ import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.common.math.LinearFunction;
+import delta.games.lotro.common.properties.ModPropertyList;
+import delta.games.lotro.common.properties.io.ModPropertyListIO;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
@@ -593,6 +595,13 @@ public class EffectXMLWriter
     if ((variance!=null) && (variance.floatValue()>0))
     {
       attrs.addAttribute("","",EffectXMLConstants.VITAL_CHANGE_VARIANCE_ATTR,XmlWriter.CDATA,variance.toString());
+    }
+    // Modifiers
+    ModPropertyList modifiers=change.getModifiers();
+    String modifiersStr=ModPropertyListIO.asPersistentString(modifiers);
+    if (!modifiersStr.isEmpty())
+    {
+      attrs.addAttribute("","",EffectXMLConstants.VITAL_CHANGE_MODIFIERS_ATTR,XmlWriter.CDATA,modifiersStr);
     }
   }
 
