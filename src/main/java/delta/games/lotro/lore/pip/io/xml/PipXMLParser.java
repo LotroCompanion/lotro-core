@@ -30,7 +30,7 @@ public class PipXMLParser
   public PipXMLParser()
   {
     _pipTypeEnum=LotroEnumsRegistry.getInstance().get(PipType.class);
-    _i18n=I18nFacade.getLabelsMgr("pips");
+    _i18n=I18nFacade.getLabelsMgr("pip");
   }
 
   /**
