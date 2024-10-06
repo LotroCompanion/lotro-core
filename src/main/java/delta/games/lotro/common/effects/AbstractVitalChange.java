@@ -13,6 +13,7 @@ public class AbstractVitalChange
   private Progression _progression;
   private Float _variance;
   private ModPropertyList _valueModifiers;
+  private Float _vpsMultiplier;
   // TODO
   //private float _critMultiplier
   //private ModPropertyList _critMultiplierModifiers
@@ -98,13 +99,39 @@ public class AbstractVitalChange
     _variance=variance;
   }
 
+  /**
+   * Get the modifiers.
+   * @return some modifiers or <code>null</code>.
+   */
   public ModPropertyList getModifiers()
   {
     return _valueModifiers;
   }
 
+  /**
+   * Set the modifiers.
+   * @param valueModifiers Modifiers to set (may be <code>null</code>.
+   */
   public void setModifiers(ModPropertyList valueModifiers)
   {
     _valueModifiers=valueModifiers;
+  }
+
+  /**
+   * Get the VPS multiplier.
+   * @return A value or <code>null</code>.
+   */
+  public Float getVPSMultiplier()
+  {
+    return _vpsMultiplier;
+  }
+
+  /**
+   * Set the VPS multiplier.
+   * @param vpsMultiplier Value to set (may be <code>null</code>).
+   */
+  public void setVPSMultiplier(Float vpsMultiplier)
+  {
+    _vpsMultiplier=vpsMultiplier;
   }
 }

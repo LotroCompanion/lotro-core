@@ -191,6 +191,10 @@ public class EffectXMLConstants
    */
   public static final String VITAL_CHANGE_MODIFIERS_ATTR="modifiers";
   /**
+   * Tag 'vitalChange'/'initialChange'/'overTimeChange', attribute 'vpsMultiplier'.
+   */
+  public static final String VITAL_CHANGE_VPS_MULTIPLIER_ATTR="vpsMultiplier";
+  /**
    * Tag 'vitalChange'/'initialChange'/'overTimeChange', attribute 'min'.
    */
   public static final String VITAL_CHANGE_MIN_ATTR="min";

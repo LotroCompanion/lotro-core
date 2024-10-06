@@ -603,6 +603,12 @@ public class EffectXMLWriter
     {
       attrs.addAttribute("","",EffectXMLConstants.VITAL_CHANGE_MODIFIERS_ATTR,XmlWriter.CDATA,modifiersStr);
     }
+    // VPS multiplier
+    Float vpsMultiplier=change.getVPSMultiplier();
+    if (vpsMultiplier!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.VITAL_CHANGE_VPS_MULTIPLIER_ATTR,XmlWriter.CDATA,vpsMultiplier.toString());
+    }
   }
 
   private void writeProcEffectTags(TransformerHandler hd, ProcEffect procEffect) throws SAXException

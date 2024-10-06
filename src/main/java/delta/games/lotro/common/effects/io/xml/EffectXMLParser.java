@@ -375,6 +375,9 @@ public class EffectXMLParser
     String modifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.VITAL_CHANGE_MODIFIERS_ATTR,null);
     ModPropertyList modifiers=ModPropertyListIO.fromPersistedString(modifiersStr);
     change.setModifiers(modifiers);
+    // VPS multiplier
+    Float vpsMultiplier=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.VITAL_CHANGE_VPS_MULTIPLIER_ATTR,null);
+    change.setVPSMultiplier(vpsMultiplier);
   }
 
   private ProcEffect parseProcEffect(Element root)
