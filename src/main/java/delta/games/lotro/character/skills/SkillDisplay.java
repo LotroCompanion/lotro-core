@@ -11,6 +11,13 @@ import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.common.effects.ComboEffect;
+import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.EffectDisplay2;
+import delta.games.lotro.common.effects.InstantVitalEffect;
+import delta.games.lotro.common.effects.VitalChangeDescription;
+import delta.games.lotro.common.effects.VitalOverTimeEffect;
+import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.GambitIconType;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
@@ -21,6 +28,7 @@ import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.DamageTypes;
 import delta.games.lotro.lore.pip.PipDescription;
 import delta.games.lotro.lore.pip.PipsManager;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * COmpute a display of the details of a skill.
@@ -261,6 +269,7 @@ public class SkillDisplay
         damageType=DamageTypes.COMMON;
       }
       // TODO Effects
+      doEffects(attack);
       String attackText="";
       int maxDamageInt=Math.round(maxDamage);
       int minDamageInt=Math.round(minDamage);
@@ -284,6 +293,59 @@ public class SkillDisplay
       }
     }
     return sb.toString().trim();
+  }
+
+  private void doEffects(SkillAttack attack)
+  {
+    SkillEffectsManager effectsMgr=attack.getEffects();
+    if (effectsMgr==null)
+    {
+      return;
+    }
+    for(SkillEffectGenerator generator : effectsMgr.getEffects())
+    {
+      handleEffect(attack,generator,generator.getEffect());
+    }
+  }
+
+  private void handleEffect(SkillAttack attack, SkillEffectGenerator generator, Effect effect)
+  {
+    if (effect instanceof InstantVitalEffect)
+    {
+      InstantVitalEffect instantVitalEffect=(InstantVitalEffect)effect;
+      EffectDisplay2 d2=new EffectDisplay2(_character,_skillDetails);
+      DamageQualifier damageQualifier=attack.getDamageQualifier();
+      VitalChangeDescription vitalChange=instantVitalEffect.getInstantChangeDescription();
+      float max=d2.getVitalChange(generator,instantVitalEffect,vitalChange,damageQualifier,true,false);
+      float min=d2.getVitalChange(generator,instantVitalEffect,vitalChange,damageQualifier,true,true);
+      System.out.println("Vital change: "+min+"/"+max+" "+instantVitalEffect.getStat().getName());
+    }
+    else if (effect instanceof VitalOverTimeEffect)
+    {
+      VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
+      EffectDisplay2 d2=new EffectDisplay2(_character,_skillDetails);
+      DamageQualifier damageQualifier=attack.getDamageQualifier();
+      VitalChangeDescription initialChange=vitalOverTimeEffect.getInitialChangeDescription();
+      if (initialChange!=null)
+      {
+        float max=d2.getVitalChange(generator,vitalOverTimeEffect,initialChange,damageQualifier,true,false);
+        float min=d2.getVitalChange(generator,vitalOverTimeEffect,initialChange,damageQualifier,true,true);
+        System.out.println("Initial vital change: "+min+"/"+max+" "+vitalOverTimeEffect.getStat().getName());
+      }
+      VitalChangeDescription overTimeChange=vitalOverTimeEffect.getOverTimeChangeDescription();
+      if (overTimeChange!=null)
+      {
+        float maxOT=d2.getVitalChange(generator,vitalOverTimeEffect,overTimeChange,damageQualifier,false,false);
+        float minOT=d2.getVitalChange(generator,vitalOverTimeEffect,overTimeChange,damageQualifier,false,true);
+        System.out.println("Over time vital change: "+minOT+"/"+maxOT+" "+vitalOverTimeEffect.getStat().getName());
+      }
+    }
+    else if (effect instanceof ComboEffect)
+    {
+      ComboEffect comboEffect=(ComboEffect)effect;
+      Proxy<Effect> toExamine=comboEffect.getToExamine();
+      handleEffect(attack,generator,toExamine.getObject());
+    }
   }
 
   private String getGambitText(List<GambitIconType> types)

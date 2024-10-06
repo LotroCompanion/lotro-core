@@ -48,7 +48,7 @@ public class SkillAttackComputer
     _skill=details;
   }
 
-  private float getDamageQualifier(DamageQualifier damageQualifier)
+  public float getDamageQualifier(DamageQualifier damageQualifier)
   {
     if (damageQualifier==null)
     {
@@ -104,9 +104,22 @@ public class SkillAttackComputer
     return (percentage!=null)?percentage.floatValue():0;
   }
 
-  private float getHealingQualifier()
+  public float getHealingQualifier()
   {
-    return getQualifier(WellKnownStat.OUTGOING_HEALING,WellKnownStat.OUTGOING_HEALING_PERCENTAGE,RatingCurveId.HEALING,0);
+    float fullPercentage=_character.getStat(WellKnownStat.OUTGOING_HEALING_PERCENTAGE);
+    float ratingPercentageMultiplier=1+fullPercentage/100;
+    return ratingPercentageMultiplier;
+    /*
+    float rating=_character.getStat(WellKnownStat.OUTGOING_HEALING);
+    int characterLevel=_character.getLevel();
+    float ratingPercentage=getPercentage(RatingCurveId.HEALING,rating,characterLevel);
+    float fullPercentage=_character.getStat(WellKnownStat.OUTGOING_HEALING_PERCENTAGE);
+    float ratingPercentageMultiplier=1+ratingPercentage/100;
+    System.out.println("Rating % x: "+ratingPercentageMultiplier);
+    float percentageBonus=fullPercentage-ratingPercentage;
+    float bonusPercentageMultipler=(1+percentageBonus/100);
+    return ratingPercentageMultiplier+bonusPercentageMultipler;
+    */
   }
 
   /**

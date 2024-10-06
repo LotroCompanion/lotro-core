@@ -67,7 +67,7 @@ public class CharacterDataForSkills
 
   private boolean useClassTHR()
   {
-    return false;
+    return true;
   }
 
   private ItemInstance<? extends Item> getItem(GearSlot slot)
