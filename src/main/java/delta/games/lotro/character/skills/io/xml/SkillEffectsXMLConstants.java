@@ -35,4 +35,8 @@ public class SkillEffectsXMLConstants
    * Tag 'effect', attribute 'type'.
    */
   public static final String SKILL_EFFECT_TYPE_ATTR="type";
+  /**
+   * Tag 'effect', attribute 'implement'.
+   */
+  public static final String SKILL_EFFECT_IMPLEMENT_ATTR="implement";
 }

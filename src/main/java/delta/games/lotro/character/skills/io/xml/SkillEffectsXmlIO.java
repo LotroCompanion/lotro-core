@@ -18,6 +18,9 @@ import delta.games.lotro.character.skills.SkillEffectType;
 import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectsManager;
+import delta.games.lotro.common.enums.ImplementUsageType;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 
 /**
  * XML I/O for effects integration in skills.
@@ -76,6 +79,12 @@ public class SkillEffectsXmlIO
     {
       attrs.addAttribute("","",SkillEffectsXMLConstants.SKILL_EFFECT_TYPE_ATTR,XmlWriter.CDATA,type.name());
     }
+    // Implement usage
+    ImplementUsageType implementUsage=generator.getImplementUsage();
+    if (implementUsage!=null)
+    {
+      attrs.addAttribute("","",SkillEffectsXMLConstants.SKILL_EFFECT_IMPLEMENT_ATTR,XmlWriter.CDATA,String.valueOf(implementUsage.getCode()));
+    }
     hd.startElement("","",SkillEffectsXMLConstants.EFFECT_TAG,attrs);
     hd.endElement("","",SkillEffectsXMLConstants.EFFECT_TAG);
   }
@@ -92,6 +101,7 @@ public class SkillEffectsXmlIO
     {
       return null;
     }
+    LotroEnum<ImplementUsageType> implementUsageEnum=LotroEnumsRegistry.getInstance().get(ImplementUsageType.class);
     SkillEffectsManager mgr=new SkillEffectsManager();
     for(Element effectTag : effectTags)
     {
@@ -109,11 +119,19 @@ public class SkillEffectsXmlIO
       {
         type=SkillEffectType.valueOf(typeStr);
       }
+      // Implement usage
+      ImplementUsageType implementUsage=null;
+      Integer implementUsageCode=DOMParsingTools.getIntegerAttribute(attrs,SkillEffectsXMLConstants.SKILL_EFFECT_IMPLEMENT_ATTR,null);
+      if (implementUsageCode!=null)
+      {
+        implementUsage=implementUsageEnum.getEntry(implementUsageCode.intValue());
+      }
       Effect effect=EffectsManager.getInstance().getEffectById(id);
       if (effect!=null)
       {
         SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,duration);
         generator.setType(type);
+        generator.setImplementUsage(implementUsage);
         mgr.addEffect(generator);
       }
       else
