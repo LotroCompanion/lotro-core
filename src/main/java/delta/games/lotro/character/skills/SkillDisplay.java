@@ -14,6 +14,9 @@ import delta.games.lotro.character.skills.geometry.SkillGeometry;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectDisplay2;
+import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.GenesisEffect;
+import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
@@ -360,6 +363,18 @@ public class SkillDisplay
       ComboEffect comboEffect=(ComboEffect)effect;
       Proxy<Effect> toExamine=comboEffect.getToExamine();
       handleEffect(attack,generator,toExamine.getObject());
+    }
+    else if (effect instanceof GenesisEffect)
+    {
+      GenesisEffect genesisEffect=(GenesisEffect)effect;
+      Hotspot hotspot=genesisEffect.getHotspot();
+      if (hotspot!=null)
+      {
+        for(EffectGenerator hotspotGenerator : hotspot.getEffects())
+        {
+          handleEffect(attack,generator,hotspotGenerator.getEffect());
+        }
+      }
     }
   }
 
