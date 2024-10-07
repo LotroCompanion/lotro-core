@@ -220,7 +220,22 @@ public class SkillDisplay
     // PIP
     List<String> pipLines=getPIPLines(_skillDetails.getPIPData());
     admin.addAll(pipLines);
-
+    // Misc
+    boolean isToggle=_skillDetails.getFlag(SkillFlags.IS_TOGGLE);
+    if ((channelingDuration!=null) && (channelingDuration.floatValue()>0))
+    {
+      admin.add("Channelled Skill");
+    }
+    else if (isToggle)
+    {
+      admin.add("Toggle Skill");
+    }
+    Float cooldown=_skillDetails.getCooldown();
+    if ((cooldown!=null) && (cooldown.floatValue()>0))
+    {
+      // TODO Format duration
+      admin.add("Cooldown: "+L10n.getString(cooldown.floatValue(),1)+"s");
+    }
     for(String line : admin)
     {
       sb.append(line).append(EndOfLine.NATIVE_EOL);
@@ -616,25 +631,4 @@ public class SkillDisplay
     }
     return ret;
   }
-
-  public void doPip()
-  {
-    List<String> lines=getPIPLines(_skillDetails.getPIPData());
-    System.out.println("ID="+_skill.getIdentifier()+": "+_skill.getName()+" => "+lines);
-  }
-  /*
-  local nChannelingDuration = GetSkillChannelingDuration(aSkill); -- skill's channel duration
-  local nCooldown = GetSkillCooldown(aSkill); -- skill's cooldown duration
-  local bUsesToggle = GetSkillUsesToggle(aSkill);
-  
-  if nChannelingDuration > 0 then
-    sOutput = sOutput.."\n".."Channelled Skill";
-  elseif bUsesToggle then
-    sOutput = sOutput.."\n".."Toggle Skill";
-  end
-  
-  if nCooldown > 0 then
-    sOutput = sOutput.."\n\n".."Cooldown: "..DurationFormat(nCooldown);
-  end
- */
 }
