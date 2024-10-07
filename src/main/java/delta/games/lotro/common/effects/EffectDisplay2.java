@@ -5,6 +5,7 @@ import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.common.enums.DamageQualifier;
+import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.stats.StatDescription;
@@ -31,20 +32,15 @@ public class EffectDisplay2
   {
     float vps=0;
     boolean noTHRClass=false; // TODO
-    int level=_character.getLevel();
     if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
     {
-      StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
-      Number dpsN=item.getStats().getStat(tacticalDPS);
-      vps=(dpsN!=null)?-dpsN.floatValue():0;
-      if (level>50)
+      if (item!=null)
       {
-        vps-=50;
+        StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
+        Number dpsN=item.getStats().getStat(tacticalDPS);
+        vps=(dpsN!=null)?-dpsN.floatValue():0;
       }
-      else
-      {
-        vps-=level;
-      }
+      vps-=5.659143f; // Combat_Class_TacticalHPS
     }
     else if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
     {
@@ -61,20 +57,7 @@ public class EffectDisplay2
           Number hpsN=item.getStats().getStat(tacticalDPS);
           vps=(hpsN!=null)?hpsN.floatValue():0;
         }
-        else
-        {
-          vps=5.659143f; // Combat_Current_TacticalHPS
-        }
-        /*
-        if (level>50)
-        {
-          vps+=0;
-        }
-        else
-        {
-          vps+=level;
-        }
-        */
+        vps+=5.659143f; // Combat_Class_TacticalHPS
       }
     }
     else
@@ -92,20 +75,31 @@ public class EffectDisplay2
   public float getVitalChange(SkillEffectGenerator generator, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial, boolean minimum)
   {
     float change=0;
-    float damageQualifierValue=_attackComputer.getDamageQualifier(damageQualifier);
-    float healingQualifierValue=_attackComputer.getHealingQualifier();
+    float qualifierValue=0;
+    ImplementUsageType implementUsage=generator.getImplementUsage();
+    if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
+    {
+      qualifierValue=_attackComputer.getHealingQualifier();
+    }
+    else if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
+    {
+      qualifierValue=_attackComputer.getDamageQualifier(DamageQualifiers.TACTICAL);
+    }
+    else
+    {
+      System.out.println("Unmanaged!");
+    }
     float modifiers=_character.computeAdditiveModifiers(description.getModifiers());
     Progression prog=description.getProgression();
     Float progValueF=prog.getValue(_character.getLevel());
     float progValue=(progValueF!=null)?progValueF.floatValue():0;
-    ImplementUsageType implementUsage=generator.getImplementUsage();
     if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
     {
-      change=(healingQualifierValue+modifiers)*progValue;
+      change=(qualifierValue+modifiers)*progValue;
     }
     else
     {
-      change=damageQualifierValue*(1+modifiers)*progValue;
+      change=qualifierValue*(1+modifiers)*progValue;
     }
     Float vpsMultiplierValue=description.getVPSMultiplier();
     float vpsMultiplier=(vpsMultiplierValue!=null)?vpsMultiplierValue.floatValue():0;
@@ -124,11 +118,11 @@ public class EffectDisplay2
       }
       if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
       {
-        change+=(healingQualifierValue+modifiers)*vpsMultiplier*vps;
+        change+=(qualifierValue+modifiers)*vpsMultiplier*vps;
       }
       else
       {
-        change+=damageQualifierValue*(1+modifiers)*vpsMultiplier*vps;
+        change+=qualifierValue*(1+modifiers)*vpsMultiplier*vps;
       }
     }
 

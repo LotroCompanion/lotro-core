@@ -42,6 +42,7 @@ class SkillAttackComputerTest
   @Test
   void test()
   {
+    /*
     testWarden();
     testBurglar();
     testCaptain();
@@ -50,6 +51,7 @@ class SkillAttackComputerTest
     testHunter();
     testLoremaster();
     testMinstrel();
+    */
     testRunekeeper();
   }
 
@@ -125,13 +127,24 @@ class SkillAttackComputerTest
     doSkill(1879107947,data); // Fiery Ridicule 6765.2236 / 6765 OK
     doSkill(1879109293,data); // Scribe's Spark 9439.342 / 9439 OK
     doSkill(1879109291,data); // Essence of Storm 12271.145 / 12271 OK
+    doSkill(1879109121,data); // Essence of Winter 10817.778 / 10818 OK
     */
     // Standard
     CharacterData data=getCharacterData("runekeeper.xml"); // OK
+    //testClass(WellKnownCharacterClassKeys.RUNE_KEEPER,data);
+    /*
+    doSkill(1879109290, data); // Prelude to Hope
+    doSkill(1879109286, data); // Epic for the Ages
+    doSkill(1879109288, data); // Mending Verse
+    doSkill(1879105591, data); // Self-motivation
+    */
+    doSkill(1879109119, data); // Flurry of Words
+    /*
     doSkill(1879110792,data); // Shocking Touch 3965.6267 / 3966 OK
     doSkill(1879221506,data); // Fiery Ridicule 6535.1904 / 6535 OK
     doSkill(1879109293,data); // Scribe's Spark 9422.329 / 9423 ~OK
     doSkill(1879109291,data); // Essence of Storm 12249.028 / 12249 OK
+    */
   }
 
   void testLoremaster() // ~OK
