@@ -11,6 +11,7 @@ import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectDisplay2;
@@ -374,6 +375,14 @@ public class SkillDisplay
         {
           handleEffect(attack,generator,hotspotGenerator.getEffect());
         }
+      }
+    }
+    else if (effect instanceof AreaEffect)
+    {
+      AreaEffect areaEffect=(AreaEffect)effect;
+      for(EffectGenerator childGenerator : areaEffect.getEffects())
+      {
+        handleEffect(attack,generator,childGenerator.getEffect());
       }
     }
   }
