@@ -110,6 +110,7 @@ public class EffectXMLWriter
     if (effect instanceof TravelEffect) return EffectXMLConstants.TRAVEL_EFFECT_TAG;
     if (effect instanceof ComboEffect) return EffectXMLConstants.COMBO_EFFECT_TAG;
     if (effect instanceof TieredEffect) return EffectXMLConstants.TIERED_EFFECT_TAG;
+    if (effect instanceof AreaEffect) return EffectXMLConstants.AREA_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
