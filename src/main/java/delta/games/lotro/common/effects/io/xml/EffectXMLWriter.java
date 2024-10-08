@@ -14,6 +14,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
+import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect;
@@ -249,6 +250,11 @@ public class EffectXMLWriter
       VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
       writeVitalOverTimeEffectAttributes(attrs,vitalOverTimeEffect);
     }
+    else if (effect instanceof AreaEffect)
+    {
+      AreaEffect areaEffect=(AreaEffect)effect;
+      writeAreaEffectAttributes(attrs,areaEffect);
+    }
   }
 
   private void writeDispelByResistAttributes(AttributesImpl attrs, DispelByResistEffect dispelByResistEffect)
@@ -432,6 +438,37 @@ public class EffectXMLWriter
     }
   }
 
+  private void writeAreaEffectAttributes(AttributesImpl attrs, AreaEffect areaEffect)
+  {
+    // Flags
+    int flags=areaEffect.getFlags();
+    if (flags>0)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.AREA_EFFECT_FLAGS_ATTR,XmlWriter.CDATA,String.valueOf(flags));
+    }
+    // Range
+    float range=areaEffect.getRange();
+    if (range>0)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.AREA_EFFECT_RANGE_ATTR,XmlWriter.CDATA,String.valueOf(range));
+    }
+    // Detection buffer
+    float detectionBuffer=areaEffect.getDetectionBuffer();
+    if (detectionBuffer>0)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.AREA_EFFECT_DETECTION_BUFFER_ATTR,XmlWriter.CDATA,String.valueOf(detectionBuffer));
+    }
+    // Max targets
+    int maxTargets=areaEffect.getMaxTargets();
+    attrs.addAttribute("","",EffectXMLConstants.AREA_EFFECT_MAX_TARGETS_ATTR,XmlWriter.CDATA,String.valueOf(maxTargets));
+    // - modifiers
+    String maxTargetsMods=ModPropertyListIO.asPersistentString(areaEffect.getMaxTargetsModifiers());
+    if (!maxTargetsMods.isEmpty())
+    {
+      attrs.addAttribute("","",EffectXMLConstants.AREA_EFFECT_MAX_TARGETS_MODS_ATTR,XmlWriter.CDATA,maxTargetsMods);
+    }
+  }
+
   private void writeChildTags(TransformerHandler hd, Effect effect) throws SAXException
   {
     if (effect instanceof GenesisEffect)
@@ -490,6 +527,11 @@ public class EffectXMLWriter
     {
       TieredEffect tieredEffect=(TieredEffect)effect;
       writeTieredEffectTags(hd,tieredEffect);
+    }
+    else if (effect instanceof AreaEffect)
+    {
+      AreaEffect areaEffect=(AreaEffect)effect;
+      writeAreaEffectTags(hd,areaEffect);
     }
   }
 
@@ -737,6 +779,14 @@ public class EffectXMLWriter
     if (finalTier!=null)
     {
       writeEffectGenerator(hd,finalTier, EffectXMLConstants.TIERED_FINAL_TIER_TAG);
+    }
+  }
+
+  private void writeAreaEffectTags(TransformerHandler hd, AreaEffect areaEffect) throws SAXException
+  {
+    for(EffectGenerator generator : areaEffect.getEffects())
+    {
+      writeEffectGenerator(hd,generator);
     }
   }
 

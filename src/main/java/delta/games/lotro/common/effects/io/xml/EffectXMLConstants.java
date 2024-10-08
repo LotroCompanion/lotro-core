@@ -358,6 +358,30 @@ public class EffectXMLConstants
    * Tag 'finalTier'.
    */
   public static final String TIERED_FINAL_TIER_TAG="finalTier";
+  /**
+   * Tag 'areaEffect'.
+   */
+  public static final String AREA_EFFECT_TAG="areaEffect";
+  /**
+   * Tag 'areaEffect', attribute 'flags'.
+   */
+  public static final String AREA_EFFECT_FLAGS_ATTR="flags";
+  /**
+   * Tag 'areaEffect', attribute 'range'.
+   */
+  public static final String AREA_EFFECT_RANGE_ATTR="range";
+  /**
+   * Tag 'areaEffect', attribute 'detectionBuffer'.
+   */
+  public static final String AREA_EFFECT_DETECTION_BUFFER_ATTR="detectionBuffer";
+  /**
+   * Tag 'areaEffect', attribute 'maxTargets'.
+   */
+  public static final String AREA_EFFECT_MAX_TARGETS_ATTR="maxTargets";
+  /**
+   * Tag 'areaEffect', attribute 'maxTargetsMods'.
+   */
+  public static final String AREA_EFFECT_MAX_TARGETS_MODS_ATTR="maxTargetsMods";
 
   /**
    * Tag 'effect' (generator).

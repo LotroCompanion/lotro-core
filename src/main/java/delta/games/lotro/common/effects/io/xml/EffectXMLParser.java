@@ -15,6 +15,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
+import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect;
@@ -164,6 +165,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.TIERED_EFFECT_TAG.equals(tagName))
     {
       ret=parseTieredEffect(root);
+    }
+    else if (EffectXMLConstants.AREA_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseAreaEffect(root);
     }
     else
     {
@@ -588,6 +593,36 @@ public class EffectXMLParser
     {
       EffectGenerator finalTierEffect=readEffectGenerator(finalTierTag);
       ret.setFinalTier(finalTierEffect);
+    }
+    return ret;
+  }
+
+  private AreaEffect parseAreaEffect(Element root)
+  {
+    AreaEffect ret=new AreaEffect();
+    NamedNodeMap attrs=root.getAttributes();
+    // Flags
+    int flags=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.AREA_EFFECT_FLAGS_ATTR,0);
+    ret.setFlags(flags);
+    // Range
+    float range=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.AREA_EFFECT_RANGE_ATTR,0);
+    ret.setRange(range);
+    // Detection buffer
+    float detectionBuffer=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.AREA_EFFECT_DETECTION_BUFFER_ATTR,0);
+    ret.setDetectionBuffer(detectionBuffer);
+    // Max targets
+    int maxTargets=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.AREA_EFFECT_MAX_TARGETS_ATTR,0);
+    ret.setMaxTargets(maxTargets);
+    // Max targets (modifiers)
+    String maxTargetsModsStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.AREA_EFFECT_MAX_TARGETS_MODS_ATTR,null);
+    ModPropertyList maxTargetsMods=ModPropertyListIO.fromPersistedString(maxTargetsModsStr);
+    ret.setMaxTargetsModifiers(maxTargetsMods);
+    // Generators
+    List<Element> generatorTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.EFFECT_GENERATOR_TAG);
+    for(Element generatorTag : generatorTags)
+    {
+      EffectGenerator generator=readEffectGenerator(generatorTag);
+      ret.addEffect(generator);
     }
     return ret;
   }
