@@ -2,6 +2,7 @@ package delta.games.lotro.character.skills.attack;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traits.TraitsStatus;
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.IdentifiableComparator;
 
 /**
  * Test for the skill attack damage computer.
@@ -53,6 +55,11 @@ class SkillAttackComputerTest
     testMinstrel();
     */
     testRunekeeper();
+    /*
+    testMariner();
+    testPip();
+    testMinstrel();
+    */
   }
 
   void testClassSkills(String key, CharacterData data)
@@ -94,13 +101,14 @@ class SkillAttackComputerTest
     List<TraitDescription> traits=tree.getAllTraits();
     for(TraitDescription trait : traits)
     {
-      Integer rank=traitTreeStatus.getRankForTrait(trait.getIdentifier());
-      if ((rank!=null) && (rank.intValue()>0))
+      //Integer rank=traitTreeStatus.getRankForTrait(trait.getIdentifier());
+      //if ((rank!=null) && (rank.intValue()>0))
       {
         List<SkillDescription> traitSkills=trait.getSkills();
         ret.addAll(traitSkills);
       }
     }
+    Collections.sort(ret,new IdentifiableComparator<SkillDescription>());
     return ret;
   }
 
@@ -108,6 +116,12 @@ class SkillAttackComputerTest
   {
     CharacterData data=getCharacterData("warden.xml");
     testClass(WellKnownCharacterClassKeys.WARDEN,data);
+  }
+
+  void testMariner()
+  {
+    CharacterData data=getCharacterData("mariner.xml");
+    testClass(WellKnownCharacterClassKeys.CORSAIR,data);
   }
 
   void testRunekeeper()
@@ -131,14 +145,18 @@ class SkillAttackComputerTest
     */
     // Standard
     CharacterData data=getCharacterData("runekeeper.xml"); // OK
+    //doSkill(1879219450,data); // Improved Rousing Words
     //testClass(WellKnownCharacterClassKeys.RUNE_KEEPER,data);
     /*
-    doSkill(1879109290, data); // Prelude to Hope
-    doSkill(1879109286, data); // Epic for the Ages
-    doSkill(1879109288, data); // Mending Verse
-    doSkill(1879105591, data); // Self-motivation
+    doSkill(1879109290, data); // Prelude to Hope OK
+    doSkill(1879109286, data); // Epic for the Ages OK
+    doSkill(1879109288, data); // Mending Verse OK
+    doSkill(1879461530, data); // Self-motivation ~OK (!=1)
     */
-    doSkill(1879109119, data); // Flurry of Words
+    //doSkill(1879109119, data); // Flurry of Words (do not use qualifier*)
+    //doSkill(1879199033, data); // Essay of Fire (use qualifier*)
+    //doSkill(1879107945, data); // Scathing Mockery (use qualifier*)
+    doSkill(1879272247, data); // Combustion
     /*
     doSkill(1879110792,data); // Shocking Touch 3965.6267 / 3966 OK
     doSkill(1879221506,data); // Fiery Ridicule 6535.1904 / 6535 OK
@@ -196,9 +214,9 @@ class SkillAttackComputerTest
   {
     String filename="burglar.xml";
     CharacterData data=getCharacterData(filename);
-    doSkill(1879064332,data); // Double-edged Strike ; #1: 6240.5737 / 6240 OK ; #2: 3359.7793 / 3363 ~OK
+    doSkill(1879064332,data); // Double-edged Strike ; #1: 6240.5737 / ~6240 OK ; #2: 3359.7793 / 3363 ~OK
     doSkill(1879384439,data); // Throw Knife ; 1558.7612 / 1559 OK
-    doSkill(1879263587,data); // Coup De Grâce ; #1: 7647.4214 / 7647 OK ; #2: 4008.4648 / 4011 ~OK ; #3: 5716.1963 / 5719 ~OK
+    doSkill(1879263587,data); // Coup De Grâce ; #1: 7647.4214 / 7647 OK ; #2: 4011.8667 / 4011 ~OK ; #3: 5719.269 / 5719 ~OK
     doSkill(1879052125,data); // Flashing Blades ; #1: 7537.2627 / 7537 OK ; #2: 4570.835 / 4575 ~OK
   }
 
@@ -206,6 +224,7 @@ class SkillAttackComputerTest
   {
     String filename="hunter.xml"; // OK
     CharacterData data=getCharacterData(filename);
+    /*
     doSkill(1879218262,data); // Improved Quick Shot ; 3705.0732 / 3705 OK
     doSkill(1879064371,data); // Barbed Arrow ; 7165.932 / 7167 OK
     doSkill(1879218255,data); // Improved Penetrating Shot ; 8639.543 / 8640 OK
@@ -214,12 +233,18 @@ class SkillAttackComputerTest
     doSkill(1879073389,data); // Low Cut ; #1: 4781.571 / 4782 OK #2: 1349.2628 / 1349 OK
     doSkill(1879135202,data); // Improved Swift Bow ; #1: 8856.019 / 8856 OK ; #2: 7381.6787 / 7382 OK ; #3: 5586.1353 / 5586 OK
     doSkill(1879052499,data); // Bard's Arrow ; 14910.659 / 14911 OK
+    */
+    testClass(WellKnownCharacterClassKeys.HUNTER,data);
   }
 
   void testMinstrel()
   {
-    String filename="minstrel.xml";
-    CharacterData data=getCharacterData(filename);
+    CharacterData data=getCharacterData("mini_noLIs.xml");
+    doSkill(1879218616,data); // Raise My Spirit
+    doSkill(1879218619,data); // Bolster My Courage
+    doSkill(1879096321,data); // Chord of Salvation
+    //testClass(WellKnownCharacterClassKeys.MINSTREL,data);
+    /*
     doSkill(1879064186,data); // Dissonant Strike ; 10485.629 / 10219 (x1.026 too much)
     doSkill(1879064190,data); // Perfect Ballad 13388.382 / 13389 OK
     doSkill(1879221564,data); // Major Ballad 9862.915 / 9863 OK
@@ -228,12 +253,14 @@ class SkillAttackComputerTest
     doSkill(1879052912,data); // Cry of the Wizards 23233.809 / 23235 OK
     doSkill(1879094939,data); // Call of the Second Age 20381.605 / 20382 OK
     doSkill(1879284233,data); // Dissonant Piercing Cry 16499.396 / 16500 OK
+    */
   }
 
   void testChampion()
   {
     String filename="champion.xml";
     CharacterData data=getCharacterData(filename);
+    /*
     doSkill(1879064084,data); // Let Fly : 6946.133 / 6946 OK
     doSkill(1879064065,data); // Brutal Strikes 1 weapon (double handed) ; #1 15886.874 / 15887 OK ; #2 12444.718 / 12445 OK ; #3 10326.468 / 10326 OK
     doSkill(1879073019,data); // Brutal Strikes, 2 handed ; not tested
@@ -243,17 +270,34 @@ class SkillAttackComputerTest
     doSkill(1879064077,data); // Horn of Gondor ; 14679.4375 / 14680 OK
     doSkill(1879064073,data); // Merciful Strike ; 11214.265 / 11214 OK
     doSkill(1879060547,data); // Battle Frenzy
+    */
+    testClass(WellKnownCharacterClassKeys.CHAMPION,data);
+  }
+
+  private void testPip()
+  {
+    String filename="champion.xml";
+    CharacterData data=getCharacterData(filename);
+    doSkill(1879090228,data); // Rampage
+    doSkill(1879139378,data); // Fire Under The Mountain
+    doSkill(1879319277,data); // Bear-form
+    doSkill(1879319928,data); // Positive Thinking
+    doSkill(1879319929,data); // Steel Skin
+    doSkill(1879319930,data); // Ride for Ruin
+    doSkill(1879319935,data); // Sacrifice
   }
 
   private void doSkill(int id, CharacterData data)
   {
     SkillDetails details=getSkillDetails(id);
-    System.out.println("\n*****************************");
-    System.out.println("Skill ID="+id+", name="+details.getName());
+    //System.out.println("\n*****************************");
+    //System.out.println("Skill ID="+id+", name="+details.getName());
     CharacterDataForSkills dataForSkills=new CharacterDataForSkills(data);
     SkillDescription skill=SkillsManager.getInstance().getSkill(id);
     SkillDisplay d=new SkillDisplay(dataForSkills,skill,details);
+    //d.doPip();
     System.out.println(d.getText());
+    /*
     SkillAttackComputer c=new SkillAttackComputer(dataForSkills,details);
     int index=1;
     for(SkillAttack attack : details.getAttacks().getAttacks())
@@ -263,5 +307,6 @@ class SkillAttackComputerTest
       System.out.println("Damage: "+damage);
       index++;
     }
+    */
   }
 }

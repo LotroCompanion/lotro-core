@@ -39,8 +39,9 @@ public class EffectDisplay2
         StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
         Number dpsN=item.getStats().getStat(tacticalDPS);
         vps=(dpsN!=null)?-dpsN.floatValue():0;
+        System.out.println("Weapon Tactical DPS: "+vps);
       }
-      vps-=5.659143f; // Combat_Class_TacticalHPS
+      vps-=20; // Combat_Class_TacticalDPS
     }
     else if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
     {
@@ -84,11 +85,15 @@ public class EffectDisplay2
     else if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
     {
       qualifierValue=_attackComputer.getDamageQualifier(DamageQualifiers.TACTICAL);
+      System.out.println("Tactical DPS qualifier value: "+qualifierValue);
     }
     else
     {
       System.out.println("Unmanaged!");
     }
+
+    // TODO Use damageQualifier. If not set, qualifierValue shall be 1?
+
     float modifiers=_character.computeAdditiveModifiers(description.getModifiers());
     Progression prog=description.getProgression();
     Float progValueF=prog.getValue(_character.getLevel());
@@ -101,13 +106,16 @@ public class EffectDisplay2
     {
       change=qualifierValue*(1+modifiers)*progValue;
     }
+    System.out.println("Change: "+change);
     Float vpsMultiplierValue=description.getVPSMultiplier();
     float vpsMultiplier=(vpsMultiplierValue!=null)?vpsMultiplierValue.floatValue():0;
+    System.out.println("VPS multiplier: "+vpsMultiplier);
 
     ItemInstance<?> item=_character.getImplement(implementUsage);
     if (implementUsage!=null)
     {
       float vps=implementContrib(implementUsage,item);
+      System.out.println("Implement contrib: "+vps);
       if (!initial)
       {
         Float duration=effect.getEffectDuration().getDuration();
@@ -122,6 +130,8 @@ public class EffectDisplay2
       }
       else
       {
+        System.out.println("qualifierValue*(1+modifiers)*vpsMultiplier*vps");
+        System.out.println(qualifierValue+"*"+(1+modifiers)+"*"+vpsMultiplier+"*"+vps);
         change+=qualifierValue*(1+modifiers)*vpsMultiplier*vps;
       }
     }
