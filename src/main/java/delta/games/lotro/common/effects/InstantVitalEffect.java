@@ -2,6 +2,7 @@ package delta.games.lotro.common.effects;
 
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.WellKnownStat;
+import delta.games.lotro.lore.items.DamageType;
 
 /**
  * Instant vital effect.
@@ -25,10 +26,7 @@ public class InstantVitalEffect extends BaseVitalEffect
     _instantChange=null;
   }
 
-  /**
-   * Get the involved stat.
-   * @return the involved stat.
-   */
+  @Override
   public StatDescription getStat()
   {
     return _stat;
@@ -41,6 +39,12 @@ public class InstantVitalEffect extends BaseVitalEffect
   public void setStat(StatDescription stat)
   {
     _stat=stat;
+  }
+
+  @Override
+  public DamageType getDamageType()
+  {
+    return null; // TODO
   }
 
   /**

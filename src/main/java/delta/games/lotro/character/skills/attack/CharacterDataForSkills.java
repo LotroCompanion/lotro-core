@@ -153,7 +153,7 @@ public class CharacterDataForSkills
    */
   public float computeMultiplicativeModifiers(ModPropertyList mods)
   {
-    if (mods==null) return 0;
+    if (mods==null) return 1;
     float ret=1;
     System.out.println("Computing multiplicative modifiers: "+mods);
     for(Integer id : mods.getIDs())

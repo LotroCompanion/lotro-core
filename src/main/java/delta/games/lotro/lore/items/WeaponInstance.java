@@ -77,16 +77,25 @@ public class WeaponInstance<T extends Weapon> extends ItemInstance<T>
    */
   public int getEffectiveMinDamage()
   {
+    return Math.round(getEffectiveMinDamageFloat());
+  }
+
+  /**
+   * Get the effective min damage.
+   * @return A min damage value.
+   */
+ public float getEffectiveMinDamageFloat()
+ {
     Weapon w=getReference();
     if (_maxDamage==null)
     {
       int itemLevel=getApplicableItemLevel();
-      return Math.round(w.computeMinDamage(itemLevel));
+      return w.computeMinDamage(itemLevel);
     }
     float max=_maxDamage.floatValue();
     float v=w.getVariance();
     float min=max*(1-v);
-    return Math.round(min);
+    return min;
   }
 
   /**

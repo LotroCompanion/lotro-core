@@ -12,15 +12,13 @@ import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
 import delta.games.lotro.common.effects.AreaEffect;
+import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectDisplay2;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
-import delta.games.lotro.common.effects.InstantVitalEffect;
-import delta.games.lotro.common.effects.VitalChangeDescription;
-import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.GambitIconType;
 import delta.games.lotro.common.enums.ImplementUsageType;
@@ -287,7 +285,6 @@ public class SkillDisplay
       {
         damageType=DamageTypes.COMMON;
       }
-      // TODO Effects
       doEffects(attack);
       String attackText="";
       int maxDamageInt=Math.round(maxDamage);
@@ -329,35 +326,13 @@ public class SkillDisplay
 
   private void handleEffect(SkillAttack attack, SkillEffectGenerator generator, Effect effect)
   {
-    if (effect instanceof InstantVitalEffect)
+    if (effect instanceof BaseVitalEffect)
     {
-      InstantVitalEffect instantVitalEffect=(InstantVitalEffect)effect;
+      BaseVitalEffect vitalEffect=(BaseVitalEffect)effect;
       EffectDisplay2 d2=new EffectDisplay2(_character,_skillDetails);
       DamageQualifier damageQualifier=attack.getDamageQualifier();
-      VitalChangeDescription vitalChange=instantVitalEffect.getInstantChangeDescription();
-      float max=d2.getVitalChange(generator,instantVitalEffect,vitalChange,damageQualifier,true,false);
-      float min=d2.getVitalChange(generator,instantVitalEffect,vitalChange,damageQualifier,true,true);
-      System.out.println("Vital change: "+min+"/"+max+" "+instantVitalEffect.getStat().getName());
-    }
-    else if (effect instanceof VitalOverTimeEffect)
-    {
-      VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
-      EffectDisplay2 d2=new EffectDisplay2(_character,_skillDetails);
-      DamageQualifier damageQualifier=attack.getDamageQualifier();
-      VitalChangeDescription initialChange=vitalOverTimeEffect.getInitialChangeDescription();
-      if (initialChange!=null)
-      {
-        float max=d2.getVitalChange(generator,vitalOverTimeEffect,initialChange,damageQualifier,true,false);
-        float min=d2.getVitalChange(generator,vitalOverTimeEffect,initialChange,damageQualifier,true,true);
-        System.out.println("Initial vital change: "+min+"/"+max+" "+vitalOverTimeEffect.getStat().getName());
-      }
-      VitalChangeDescription overTimeChange=vitalOverTimeEffect.getOverTimeChangeDescription();
-      if (overTimeChange!=null)
-      {
-        float maxOT=d2.getVitalChange(generator,vitalOverTimeEffect,overTimeChange,damageQualifier,false,false);
-        float minOT=d2.getVitalChange(generator,vitalOverTimeEffect,overTimeChange,damageQualifier,false,true);
-        System.out.println("Over time vital change: "+minOT+"/"+maxOT+" "+vitalOverTimeEffect.getStat().getName());
-      }
+      String display=d2.getVitalEffectDisplay(generator,vitalEffect,damageQualifier);
+      System.out.println(display);
     }
     else if (effect instanceof ComboEffect)
     {

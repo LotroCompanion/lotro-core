@@ -31,10 +31,7 @@ public class VitalOverTimeEffect extends BaseVitalEffect
     _overTimeChange=null;
   }
 
-  /**
-   * Get the involved stat.
-   * @return the involved stat.
-   */
+  @Override
   public StatDescription getStat()
   {
     return _stat;
@@ -49,10 +46,7 @@ public class VitalOverTimeEffect extends BaseVitalEffect
     _stat=stat;
   }
 
-  /**
-   * Get the damage type.
-   * @return the damage type.
-   */
+  @Override
   public DamageType getDamageType()
   {
     return _damageType;

@@ -154,8 +154,9 @@ class SkillAttackComputerTest
     doSkill(1879461530, data); // Self-motivation ~OK (!=1)
     */
     //doSkill(1879109119, data); // Flurry of Words (do not use qualifier*)
-    //doSkill(1879199033, data); // Essay of Fire (use qualifier*)
-    //doSkill(1879107945, data); // Scathing Mockery (use qualifier*)
+    doSkill(1879199033, data); // Essay of Fire (use qualifier*)
+    doSkill(1879107945, data); // Scathing Mockery (use qualifier*)
+    //doSkill(1879107949, data); // Smouldering Wrath
     doSkill(1879272247, data); // Combustion
     /*
     doSkill(1879110792,data); // Shocking Touch 3965.6267 / 3966 OK
@@ -274,7 +275,7 @@ class SkillAttackComputerTest
     testClass(WellKnownCharacterClassKeys.CHAMPION,data);
   }
 
-  private void testPip()
+  void testPip()
   {
     String filename="champion.xml";
     CharacterData data=getCharacterData(filename);

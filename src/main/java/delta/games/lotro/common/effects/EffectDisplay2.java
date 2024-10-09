@@ -1,5 +1,6 @@
 package delta.games.lotro.common.effects;
 
+import delta.common.utils.l10n.L10n;
 import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
@@ -10,6 +11,8 @@ import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
+import delta.games.lotro.common.stats.WellKnownStat;
+import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.utils.maths.Progression;
@@ -22,6 +25,11 @@ public class EffectDisplay2
   private CharacterDataForSkills _character;
   private SkillAttackComputer _attackComputer;
 
+  /**
+   * Constructor.
+   * @param character Character to use.
+   * @param details Parent skill details.
+   */
   public EffectDisplay2(CharacterDataForSkills character, SkillDetails details)
   {
     _character=character;
@@ -73,7 +81,17 @@ public class EffectDisplay2
     return vps;
   }
 
-  public float getVitalChange(SkillEffectGenerator generator, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial, boolean minimum)
+  /**
+   * Compute a vital change.
+   * @param generator Parent effect generator.
+   * @param effect Vital effect.
+   * @param description Vital change to use.
+   * @param damageQualifier Damage qualifier.
+   * @param initial Initial/instant change or not.
+   * @param minimum Compute the minimum change or maximum change.
+   * @return A vital change value.
+   */
+  private float getVitalChange(SkillEffectGenerator generator, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial, boolean minimum)
   {
     float change=0;
     float qualifierValue=0;
@@ -142,5 +160,124 @@ public class EffectDisplay2
       change*=(1-variance.floatValue());
     }
     return change;
+  }
+
+  public String getVitalEffectDisplay(SkillEffectGenerator generator, BaseVitalEffect effect, DamageQualifier damageQualifier)
+  {
+    if (effect instanceof InstantVitalEffect)
+    {
+      InstantVitalEffect instantVitalEffect=(InstantVitalEffect)effect;
+      return getInstantVitalEffectDisplay(generator,instantVitalEffect,damageQualifier);
+    }
+    else if (effect instanceof VitalOverTimeEffect)
+    {
+      VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
+      return getVitalOverTimeEffectDisplay(generator,vitalOverTimeEffect,damageQualifier);
+    }
+    return "";
+  }
+
+  private String getInstantVitalEffectDisplay(SkillEffectGenerator generator, InstantVitalEffect effect, DamageQualifier damageQualifier)
+  {
+    VitalChangeDescription change=effect.getInstantChangeDescription();
+    float min=getVitalChange(generator,effect,change,damageQualifier,true,true);
+    int minInt=Math.round(min);
+    float max=getVitalChange(generator,effect,change,damageQualifier,true,false);
+    int maxInt=Math.round(max);
+
+    StatDescription stat=effect.getStat();
+    DamageType damageType=effect.getDamageType();
+    String ret=buildFullChange(minInt,maxInt,stat,damageType);
+    return ret;
+  }
+
+  private static String buildFullChange(int min, int max, StatDescription stat, DamageType damageType)
+  {
+    boolean negative=false;
+    if ((min<0) || (max<0))
+    {
+      negative=true;
+      min=Math.abs(min);
+      max=Math.abs(max);
+    }
+    String changeStr=buildChangeStr(min,max);
+    String fullChange="";
+    if (stat==WellKnownStat.MORALE)
+    {
+      if (negative)
+      {
+        String damageTypeStr="";
+        if (damageType!=null)
+        {
+          damageTypeStr=" "+damageType.getLabel();
+        }
+        fullChange=changeStr+damageTypeStr+" Damage";
+      }
+      else
+      {
+        fullChange="Heals "+changeStr;
+      }
+    }
+    else if (stat==WellKnownStat.POWER)
+    {
+      fullChange=(negative?"Drains ":"Restores ")+changeStr;
+    }
+    return fullChange;
+  }
+
+  private static String buildChangeStr(int min, int max)
+  {
+    String ret="";
+    if (min==max)
+    {
+      ret=String.valueOf(min);
+    }
+    else
+    {
+      ret=min+"-"+max;
+    }
+    return ret;
+  }
+
+  private String getVitalOverTimeEffectDisplay(SkillEffectGenerator generator, VitalOverTimeEffect effect, DamageQualifier damageQualifier)
+  {
+    StatDescription stat=effect.getStat();
+    DamageType damageType=effect.getDamageType();
+    String initialLine=null;
+    VitalChangeDescription initialChange=effect.getInitialChangeDescription();
+    if (initialChange!=null)
+    {
+      float initialMin=getVitalChange(generator,effect,initialChange,damageQualifier,true,true);
+      int initialMinInt=Math.round(initialMin);
+      float initialMax=getVitalChange(generator,effect,initialChange,damageQualifier,true,false);
+      int initialMaxInt=Math.round(initialMax);
+      initialLine=buildFullChange(initialMinInt,initialMaxInt,stat,damageType);
+    }
+    String overTimeLine=null;
+    VitalChangeDescription overTimeChange=effect.getOverTimeChangeDescription();
+    if (overTimeChange!=null)
+    {
+      float intervalMin=getVitalChange(generator,effect,overTimeChange,damageQualifier,false,true);
+      int intervalMinInt=Math.round(intervalMin);
+      float intervalMax=getVitalChange(generator,effect,overTimeChange,damageQualifier,false,false);
+      int intervalMaxInt=Math.round(intervalMax);
+
+      EffectDuration duration=effect.getEffectDuration();
+      int pulseCount=duration.getPulseCount();
+      Float interval=duration.getDuration();
+      float totalDuration=interval.floatValue()*pulseCount;
+
+      overTimeLine=buildFullChange(intervalMinInt,intervalMaxInt,stat,damageType);
+      overTimeLine=overTimeLine+" every "+L10n.getString(interval.floatValue(),1)+" seconds for "+L10n.getString(Math.round(totalDuration))+" seconds";
+    }
+    if (initialLine!=null)
+    {
+      if (overTimeLine==null)
+      {
+        return initialLine;
+      }
+      return initialLine+" initially\n"+overTimeLine;
+    }
+    return (overTimeLine!=null)?overTimeLine:"";
   }
 }

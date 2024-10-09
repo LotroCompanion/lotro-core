@@ -9,6 +9,7 @@ public class EffectDuration
   // Total duration, or interval duration if pulses (seconds)
   private Float _duration;
   // Pulses count
+  // TODO Pulse count modifiers??
   private int _pulseCount;
   // Expires in real world time, or in gaming time
   private boolean _expiresInRealTime;

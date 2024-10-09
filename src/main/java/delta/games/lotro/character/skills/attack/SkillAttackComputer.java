@@ -206,7 +206,7 @@ public class SkillAttackComputer
         if (isWeapon)
         {
           WeaponInstance<?> weapon=(WeaponInstance<?>)item;
-          implementBaseDamage=weapon.getEffectiveMaxDamageFloat();
+          implementBaseDamage=(minimum?weapon.getEffectiveMinDamageFloat():weapon.getEffectiveMaxDamageFloat());
           System.out.println("Weapon base damage: "+implementBaseDamage);
           // Weapon strike
           float factor=getWeaponStrikeMultiplier(weapon);
@@ -225,6 +225,10 @@ public class SkillAttackComputer
           implementBaseDamage=dps;
         }
         implementBaseDamage+=20;
+        if (minimum)
+        {
+          implementBaseDamage*=0.7;
+        }
       }
       System.out.println("Implement base damage: "+implementBaseDamage);
 
