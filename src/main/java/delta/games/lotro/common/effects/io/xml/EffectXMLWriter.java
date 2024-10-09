@@ -15,6 +15,7 @@ import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.AreaEffect;
+import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect;
@@ -249,7 +250,7 @@ public class EffectXMLWriter
     else if (effect instanceof VitalOverTimeEffect)
     {
       VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
-      writeVitalOverTimeEffectAttributes(attrs,vitalOverTimeEffect);
+      writeBaseVitalEffectAttributes(attrs,vitalOverTimeEffect);
     }
     else if (effect instanceof AreaEffect)
     {
@@ -346,9 +347,7 @@ public class EffectXMLWriter
 
   private void writeInstantVitalEffectAttributes(AttributesImpl attrs, InstantVitalEffect instantVitalEffect)
   {
-    // Stat
-    StatDescription stat=instantVitalEffect.getStat();
-    attrs.addAttribute("","",EffectXMLConstants.INSTANT_VITAL_EFFECT_STAT_ATTR,XmlWriter.CDATA,String.valueOf(stat.getKey()));
+    writeBaseVitalEffectAttributes(attrs,instantVitalEffect);
     // Multiplicative
     boolean multiplicative=instantVitalEffect.isMultiplicative();
     if (multiplicative)
@@ -425,17 +424,17 @@ public class EffectXMLWriter
     }
   }
 
-  private void writeVitalOverTimeEffectAttributes(AttributesImpl attrs, VitalOverTimeEffect vitalOverTimeEffect)
+  private void writeBaseVitalEffectAttributes(AttributesImpl attrs, BaseVitalEffect baseVitalEffect)
   {
     // Stat
-    StatDescription stat=vitalOverTimeEffect.getStat();
-    attrs.addAttribute("","",EffectXMLConstants.VITAL_OVER_TIME_EFFECT_STAT_ATTR,XmlWriter.CDATA,String.valueOf(stat.getKey()));
+    StatDescription stat=baseVitalEffect.getStat();
+    attrs.addAttribute("","",EffectXMLConstants.BASE_VITAL_EFFECT_STAT_ATTR,XmlWriter.CDATA,String.valueOf(stat.getKey()));
     // Damage type (if harmful, null otherwise)
-    DamageType damageType=vitalOverTimeEffect.getDamageType();
+    DamageType damageType=baseVitalEffect.getDamageType();
     if (damageType!=null)
     {
       String damageTypeStr=String.valueOf(damageType.getCode());
-      attrs.addAttribute("","",EffectXMLConstants.VITAL_OVER_TIME_EFFECT_DAMAGE_TYPE_ATTR,XmlWriter.CDATA,damageTypeStr);
+      attrs.addAttribute("","",EffectXMLConstants.BASE_VITAL_EFFECT_DAMAGE_TYPE_ATTR,XmlWriter.CDATA,damageTypeStr);
     }
   }
 

@@ -16,6 +16,7 @@ import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.AreaEffect;
+import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect;
@@ -318,10 +319,7 @@ public class EffectXMLParser
   {
     InstantVitalEffect ret=new InstantVitalEffect();
     NamedNodeMap attrs=root.getAttributes();
-    // Stat
-    String statKey=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.INSTANT_VITAL_EFFECT_STAT_ATTR,"");
-    StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
-    ret.setStat(stat);
+    parseBaseVitalEffect(ret,attrs);
     // Multiplicative
     boolean multiplicative=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.INSTANT_VITAL_EFFECT_MULTIPLICATIVE_ATTR,false);
     ret.setMultiplicative(multiplicative);
@@ -510,17 +508,7 @@ public class EffectXMLParser
   {
     VitalOverTimeEffect ret=new VitalOverTimeEffect();
     NamedNodeMap attrs=root.getAttributes();
-    // Stat
-    String statKey=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.VITAL_OVER_TIME_EFFECT_STAT_ATTR,"");
-    StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
-    ret.setStat(stat);
-    // Damage type
-    int damageTypeCode=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.VITAL_OVER_TIME_EFFECT_DAMAGE_TYPE_ATTR,-1);
-    if (damageTypeCode>0)
-    {
-      DamageType damageType=LotroEnumsRegistry.getInstance().get(DamageType.class).getEntry(damageTypeCode);
-      ret.setDamageType(damageType);
-    }
+    parseBaseVitalEffect(ret,attrs);
     // Initial change
     Element initialChangeTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants.INITIAL_CHANGE_TAG);
     VitalChangeDescription initialChange=parseVitalChangeDescription(initialChangeTag);
@@ -530,6 +518,21 @@ public class EffectXMLParser
     VitalChangeDescription overTimeChange=parseVitalChangeDescription(overTimeChangeTag);
     ret.setOverTimeChangeDescription(overTimeChange);
     return ret;
+  }
+
+  private void parseBaseVitalEffect(BaseVitalEffect ret, NamedNodeMap attrs)
+  {
+    // Stat
+    String statKey=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.BASE_VITAL_EFFECT_STAT_ATTR,"");
+    StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
+    ret.setStat(stat);
+    // Damage type
+    int damageTypeCode=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.BASE_VITAL_EFFECT_DAMAGE_TYPE_ATTR,-1);
+    if (damageTypeCode>0)
+    {
+      DamageType damageType=LotroEnumsRegistry.getInstance().get(DamageType.class).getEntry(damageTypeCode);
+      ret.setDamageType(damageType);
+    }
   }
 
   private RecallEffect parseRecallEffect(Element root)

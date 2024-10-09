@@ -162,9 +162,13 @@ public class EffectXMLConstants
    */
   public static final String INSTANT_VITAL_EFFECT_TAG="instantVitalEffect";
   /**
-   * Tag 'instantVitalEffect', attribute 'stat'.
+   * Tag 'instantVitalEffect'/'vitalOverTimeEffect', attribute 'stat'.
    */
-  public static final String INSTANT_VITAL_EFFECT_STAT_ATTR="stat";
+  public static final String BASE_VITAL_EFFECT_STAT_ATTR="stat";
+  /**
+   * Tag 'instantVitalEffect'/'vitalOverTimeEffect', attribute 'damageType'.
+   */
+  public static final String BASE_VITAL_EFFECT_DAMAGE_TYPE_ATTR="damageType";
   /**
    * Tag 'instantVitalEffect', attribute 'multiplicative'.
    */
@@ -282,14 +286,6 @@ public class EffectXMLConstants
    * Tag 'vitalOverTimeEffect'.
    */
   public static final String VITAL_OVER_TIME_EFFECT_TAG="vitalOverTimeEffect";
-  /**
-   * Tag 'vitalOverTimeEffect', attribute 'stat'.
-   */
-  public static final String VITAL_OVER_TIME_EFFECT_STAT_ATTR="stat";
-  /**
-   * Tag 'vitalOverTimeEffect', attribute 'stat'.
-   */
-  public static final String VITAL_OVER_TIME_EFFECT_DAMAGE_TYPE_ATTR="damageType";
   /**
    * Tag 'initialChange'.
    */

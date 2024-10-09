@@ -1,17 +1,11 @@
 package delta.games.lotro.common.effects;
 
-import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.WellKnownStat;
-import delta.games.lotro.lore.items.DamageType;
-
 /**
  * Instant vital effect.
  * @author DAM
  */
 public class InstantVitalEffect extends BaseVitalEffect
 {
-  // Morale, Power, ...
-  private StatDescription _stat;
   private boolean _multiplicative;
   private VitalChangeDescription _instantChange;
 
@@ -21,30 +15,8 @@ public class InstantVitalEffect extends BaseVitalEffect
   public InstantVitalEffect()
   {
     super();
-    _stat=WellKnownStat.MORALE;
     _multiplicative=false;
     _instantChange=null;
-  }
-
-  @Override
-  public StatDescription getStat()
-  {
-    return _stat;
-  }
-
-  /**
-   * Set the involved stat.
-   * @param stat Stat to set.
-   */
-  public void setStat(StatDescription stat)
-  {
-    _stat=stat;
-  }
-
-  @Override
-  public DamageType getDamageType()
-  {
-    return null; // TODO
   }
 
   /**
