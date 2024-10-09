@@ -166,6 +166,13 @@ public class EffectXMLWriter
       {
         attrs.addAttribute("","",EffectXMLConstants.EFFECT_PULSE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(pulseCount));
       }
+      // Pulse count modifiers
+      ModPropertyList pulseCountModifiers=effectDuration.getPulseCountModifiers();
+      String pulseCountModifiersStr=ModPropertyListIO.asPersistentString(pulseCountModifiers);
+      if (!pulseCountModifiersStr.isEmpty())
+      {
+        attrs.addAttribute("","",EffectXMLConstants.EFFECT_PULSE_COUNT_MODIFIERS_ATTR,XmlWriter.CDATA,pulseCountModifiersStr);
+      }
       // Expires in real time
       boolean expiresInRealTime=effectDuration.expiresInRealTime();
       if (expiresInRealTime)

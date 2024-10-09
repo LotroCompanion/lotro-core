@@ -48,6 +48,10 @@ public class EffectXMLConstants
    */
   public static final String EFFECT_PULSE_COUNT_ATTR="pulseCount";
   /**
+   * Tag 'effect', attribute 'pulseCountMods'.
+   */
+  public static final String EFFECT_PULSE_COUNT_MODIFIERS_ATTR="pulseCountMods";
+  /**
    * Tag 'effect', attribute 'expiresInRealTime'.
    */
   public static final String EFFECT_EXPIRES_IN_REAL_TIME_ATTR="expiresInRealTime";

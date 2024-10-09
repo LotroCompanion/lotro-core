@@ -1,5 +1,7 @@
 package delta.games.lotro.common.effects;
 
+import delta.games.lotro.common.properties.ModPropertyList;
+
 /**
  * Description of effect duration.
  * @author DAM
@@ -9,8 +11,8 @@ public class EffectDuration
   // Total duration, or interval duration if pulses (seconds)
   private Float _duration;
   // Pulses count
-  // TODO Pulse count modifiers??
   private int _pulseCount;
+  private ModPropertyList _pulseCountModifiers;
   // Expires in real world time, or in gaming time
   private boolean _expiresInRealTime;
 
@@ -58,6 +60,24 @@ public class EffectDuration
   public void setPulseCount(int pulseCount)
   {
     _pulseCount=pulseCount;
+  }
+
+  /**
+   * Get the pulses count modifiers.
+   * @return Some modifiers or <code>null</code>.
+   */
+  public ModPropertyList getPulseCountModifiers()
+  {
+    return _pulseCountModifiers;
+  }
+
+  /**
+   * Set the pulses count modifiers.
+   * @param pulseCountModifiers The modifiers to set (may be <code>null</code>).
+   */
+  public void setPulseCountModifiers(ModPropertyList pulseCountModifiers)
+  {
+    _pulseCountModifiers=pulseCountModifiers;
   }
 
   /**

@@ -690,14 +690,18 @@ public class EffectXMLParser
       }
       // - pulse count
       int pulseCount=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_PULSE_COUNT_ATTR,0);
+      // - pulse count modifiers
+      String pulseCountModifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_PULSE_COUNT_MODIFIERS_ATTR,null);
+      ModPropertyList pulseCountModifiers=ModPropertyListIO.fromPersistedString(pulseCountModifiersStr);
       // - expires in real time
       boolean expiresInRealTime=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.EFFECT_EXPIRES_IN_REAL_TIME_ATTR,false);
-      if ((duration!=null) || (pulseCount>0) || (expiresInRealTime))
+      if ((duration!=null) || (pulseCount>0) || (expiresInRealTime) || (pulseCountModifiers!=null))
       {
         EffectDuration effectDuration=new EffectDuration();
         effectDuration.setDuration(duration);
         effectDuration.setPulseCount(pulseCount);
         effectDuration.setExpiresInRealTime(expiresInRealTime);
+        effectDuration.setPulseCountModifiers(pulseCountModifiers);
         effect.setEffectDuration(effectDuration);
       }
     }

@@ -264,6 +264,7 @@ public class EffectDisplay2
 
       EffectDuration duration=effect.getEffectDuration();
       int pulseCount=duration.getPulseCount();
+      pulseCount+=_character.computeAdditiveModifiers(duration.getPulseCountModifiers());
       Float interval=duration.getDuration();
       float totalDuration=interval.floatValue()*pulseCount;
 
