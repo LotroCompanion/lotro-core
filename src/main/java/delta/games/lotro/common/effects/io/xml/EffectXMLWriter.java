@@ -106,6 +106,7 @@ public class EffectXMLWriter
     if (effect instanceof InstantVitalEffect) return EffectXMLConstants.INSTANT_VITAL_EFFECT_TAG;
     if (effect instanceof ProcEffect) return EffectXMLConstants.PROC_TAG;
     if (effect instanceof ReactiveVitalEffect) return EffectXMLConstants.REACTIVE_VITAL_EFFECT_TAG;
+    if (effect instanceof CountDownEffect) return EffectXMLConstants.COUNTDOWN_EFFECT_TAG;
     if (effect instanceof PropertyModificationEffect) return EffectXMLConstants.PROPERTY_MOD_EFFECT_TAG;
     if (effect instanceof VitalOverTimeEffect) return EffectXMLConstants.VITAL_OVER_TIME_EFFECT_TAG;
     if (effect instanceof RecallEffect) return EffectXMLConstants.RECALL_EFFECT_TAG;
@@ -113,7 +114,6 @@ public class EffectXMLWriter
     if (effect instanceof ComboEffect) return EffectXMLConstants.COMBO_EFFECT_TAG;
     if (effect instanceof TieredEffect) return EffectXMLConstants.TIERED_EFFECT_TAG;
     if (effect instanceof AreaEffect) return EffectXMLConstants.AREA_EFFECT_TAG;
-    if (effect instanceof CountDownEffect) return EffectXMLConstants.COUNTDOWN_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -507,6 +507,11 @@ public class EffectXMLWriter
       ReactiveVitalEffect reactiveVitalEffect=(ReactiveVitalEffect)effect;
       writeReactiveVitalEffectTags(hd,reactiveVitalEffect);
     }
+    else if (effect instanceof CountDownEffect)
+    {
+      CountDownEffect countDownEffect=(CountDownEffect)effect;
+      writeCountDownEffectTags(hd,countDownEffect);
+    }
     else if (effect instanceof PropertyModificationEffect)
     {
       PropertyModificationEffect propertyModificationEffect=(PropertyModificationEffect)effect;
@@ -541,11 +546,6 @@ public class EffectXMLWriter
     {
       AreaEffect areaEffect=(AreaEffect)effect;
       writeAreaEffectTags(hd,areaEffect);
-    }
-    else if (effect instanceof CountDownEffect)
-    {
-      CountDownEffect countDownEffect=(CountDownEffect)effect;
-      writeCountDownEffectTags(hd,countDownEffect);
     }
   }
 
