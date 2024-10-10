@@ -382,6 +382,18 @@ public class EffectXMLConstants
    * Tag 'areaEffect', attribute 'maxTargetsMods'.
    */
   public static final String AREA_EFFECT_MAX_TARGETS_MODS_ATTR="maxTargetsMods";
+  /**
+   * Tag 'countdownEffect'.
+   */
+  public static final String COUNTDOWN_EFFECT_TAG="countdownEffect";
+  /**
+   * Tag 'onExpire'.
+   */
+  public static final String ON_EXPIRE_TAG="onExpire";
+  /**
+   * Tag 'onRemoval'.
+   */
+  public static final String ON_REMOVAL_TAG="onRemoval";
 
   /**
    * Tag 'effect' (generator).

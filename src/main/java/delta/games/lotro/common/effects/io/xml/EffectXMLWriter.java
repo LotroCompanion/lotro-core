@@ -17,6 +17,7 @@ import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
+import delta.games.lotro.common.effects.CountDownEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectAndProbability;
@@ -112,6 +113,7 @@ public class EffectXMLWriter
     if (effect instanceof ComboEffect) return EffectXMLConstants.COMBO_EFFECT_TAG;
     if (effect instanceof TieredEffect) return EffectXMLConstants.TIERED_EFFECT_TAG;
     if (effect instanceof AreaEffect) return EffectXMLConstants.AREA_EFFECT_TAG;
+    if (effect instanceof CountDownEffect) return EffectXMLConstants.COUNTDOWN_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -540,6 +542,11 @@ public class EffectXMLWriter
       AreaEffect areaEffect=(AreaEffect)effect;
       writeAreaEffectTags(hd,areaEffect);
     }
+    else if (effect instanceof CountDownEffect)
+    {
+      CountDownEffect countDownEffect=(CountDownEffect)effect;
+      writeCountDownEffectTags(hd,countDownEffect);
+    }
   }
 
   private void writeGenesisTags(TransformerHandler hd, GenesisEffect genesis) throws SAXException
@@ -794,6 +801,23 @@ public class EffectXMLWriter
     for(EffectGenerator generator : areaEffect.getEffects())
     {
       writeEffectGenerator(hd,generator);
+    }
+  }
+
+  private void writeCountDownEffectTags(TransformerHandler hd, CountDownEffect countDownEffect) throws SAXException
+  {
+    // Stats
+    writePropertyModificationEffectTags(hd,countDownEffect);
+    // 'on expire' effects
+    for(EffectGenerator onExpireEffect : countDownEffect.getOnExpireEffects())
+    {
+      writeEffectGenerator(hd,onExpireEffect,EffectXMLConstants.ON_EXPIRE_TAG);
+    }
+    // 'on removal' effect
+    EffectGenerator onRemovalEffect=countDownEffect.getOnRemovalEffect();
+    if (onRemovalEffect!=null)
+    {
+      writeEffectGenerator(hd,onRemovalEffect,EffectXMLConstants.ON_REMOVAL_TAG);
     }
   }
 

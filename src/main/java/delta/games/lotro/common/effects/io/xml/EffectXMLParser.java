@@ -18,6 +18,7 @@ import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
+import delta.games.lotro.common.effects.CountDownEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectAndProbability;
@@ -170,6 +171,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.AREA_EFFECT_TAG.equals(tagName))
     {
       ret=parseAreaEffect(root);
+    }
+    else if (EffectXMLConstants.COUNTDOWN_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseCountDownEffect(root);
     }
     else
     {
@@ -626,6 +631,28 @@ public class EffectXMLParser
     {
       EffectGenerator generator=readEffectGenerator(generatorTag);
       ret.addEffect(generator);
+    }
+    return ret;
+  }
+
+  private CountDownEffect parseCountDownEffect(Element root)
+  {
+    CountDownEffect ret=new CountDownEffect();
+    // Stats
+    readPropertyMod(root,ret);
+    // 'on expire' effect generators
+    List<Element> onExpireTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.ON_EXPIRE_TAG);
+    for(Element onExpireTag : onExpireTags)
+    {
+      EffectGenerator onExpireEffect=readEffectGenerator(onExpireTag);
+      ret.addOnExpireEffect(onExpireEffect);
+    }
+    // 'on removal' effect.
+    Element onRemovalTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants.ON_REMOVAL_TAG);
+    if (onRemovalTag!=null)
+    {
+      EffectGenerator onRemovalEffect=readEffectGenerator(onRemovalTag);
+      ret.setOnRemovalEffect(onRemovalEffect);
     }
     return ret;
   }
