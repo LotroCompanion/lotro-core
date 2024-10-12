@@ -251,11 +251,11 @@ public class EffectDisplay2
     String ret="";
     if (min==max)
     {
-      ret=String.valueOf(min);
+      ret=L10n.getString(min);
     }
     else
     {
-      ret=min+"-"+max;
+      ret=L10n.getString(min)+" - "+L10n.getString(max);
     }
     return ret;
   }

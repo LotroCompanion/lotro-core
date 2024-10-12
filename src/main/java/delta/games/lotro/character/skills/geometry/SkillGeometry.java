@@ -157,20 +157,19 @@ public class SkillGeometry
    */
   public float getRange()
   {
-    if (_detectionAnchor==null)
+    if (_detectionAnchor!=null)
     {
-      return 0;
-    }
-    int anchorCode=_detectionAnchor.getCode();
-    if ((anchorCode==2) || (anchorCode==3)) // Donut or Self: AOE from self
-    {
-      float radius=getRadius();
-      float range=radius+0.2f;
-      if ((_maxRange!=null) && (_maxRange.floatValue()>range))
+      int anchorCode=_detectionAnchor.getCode();
+      if ((anchorCode==2) || (anchorCode==3)) // Donut or Self: AOE from self
       {
-        range=_maxRange.floatValue();
+        float radius=getRadius();
+        float range=radius+0.2f;
+        if ((_maxRange!=null) && (_maxRange.floatValue()>range))
+        {
+          range=_maxRange.floatValue();
+        }
+        return range;
       }
-      return range;
     }
     return (_maxRange!=null)?_maxRange.floatValue():0;
   }

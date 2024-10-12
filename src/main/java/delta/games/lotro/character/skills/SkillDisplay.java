@@ -87,7 +87,9 @@ public class SkillDisplay
     {
       return 0.0f;
     }
-    return geometry.getRange();
+    float range=geometry.getRange();
+    range+=_character.computeAdditiveModifiers(geometry.getMaxRangeMods());
+    return range;
   }
 
   /**
@@ -285,8 +287,6 @@ public class SkillDisplay
       {
         damageType=DamageTypes.COMMON;
       }
-      String effects=doEffects(attack);
-      sb.append(effects);
       String attackText="";
       int maxDamageInt=Math.round(maxDamage);
       int minDamageInt=Math.round(minDamage);
@@ -294,11 +294,11 @@ public class SkillDisplay
       {
         if (minDamageInt==maxDamageInt)
         {
-          attackText=String.valueOf(maxDamageInt);
+          attackText=L10n.getString(maxDamageInt);
         }
         else
         {
-          attackText=minDamageInt+" - "+maxDamageInt;
+          attackText=L10n.getString(minDamageInt)+" - "+L10n.getString(maxDamageInt);
         }
         attackText=attackText+" "+damageType.getLabel();
         if (!implementText.isEmpty())
@@ -307,6 +307,11 @@ public class SkillDisplay
         }
         attackText=attackText+" Damage";
         sb.append(attackText).append(EndOfLine.NATIVE_EOL);
+      }
+      String effects=doEffects(attack);
+      if (!effects.isEmpty())
+      {
+        sb.append(effects).append(EndOfLine.NATIVE_EOL);
       }
     }
     return sb.toString().trim();
