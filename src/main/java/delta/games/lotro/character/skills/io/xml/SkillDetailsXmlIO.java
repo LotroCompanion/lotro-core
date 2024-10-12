@@ -87,7 +87,7 @@ public class SkillDetailsXmlIO
       attrs.addAttribute("","",SkillDetailsXMLConstants.CHANNELING_DURATION_ATTR,XmlWriter.CDATA,channelingDuration.toString());
     }
     // Cooldown
-    Float cooldown=data.getChannelingDuration();
+    Float cooldown=data.getCooldown();
     if (cooldown!=null)
     {
       attrs.addAttribute("","",SkillDetailsXMLConstants.COOLDOWN_ATTR,XmlWriter.CDATA,cooldown.toString());
