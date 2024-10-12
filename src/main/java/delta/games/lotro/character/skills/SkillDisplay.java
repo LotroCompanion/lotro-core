@@ -11,6 +11,7 @@ import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
@@ -277,6 +278,11 @@ public class SkillDisplay
     {
       sb.append(nbAttacks).append(" Attacks:").append(EndOfLine.NATIVE_EOL);
     }
+    String skillEffects=doSkillEffects();
+    if (!skillEffects.isEmpty())
+    {
+      sb.append(skillEffects).append(EndOfLine.NATIVE_EOL);
+    }
     for(SkillAttack attack : attacks.getAttacks())
     {
       float maxDamage=_attackComputer.getAttackDamage(attack,false);
@@ -327,18 +333,32 @@ public class SkillDisplay
     StringBuilder sb=new StringBuilder();
     for(SkillEffectGenerator generator : effectsMgr.getEffects())
     {
-      handleEffect(attack,generator,generator.getEffect(),sb);
+      handleEffect(attack.getDamageQualifier(),generator,generator.getEffect(),sb);
     }
     return sb.toString().trim();
   }
 
-  private void handleEffect(SkillAttack attack, SkillEffectGenerator generator, Effect effect, StringBuilder sb)
+  private String doSkillEffects()
+  {
+    SkillEffectsManager effectsMgr=_skillDetails.getEffects();
+    if (effectsMgr==null)
+    {
+      return "";
+    }
+    StringBuilder sb=new StringBuilder();
+    for(SkillEffectGenerator generator : effectsMgr.getEffects())
+    {
+      handleEffect(null,generator,generator.getEffect(),sb);
+    }
+    return sb.toString().trim();
+  }
+
+  private void handleEffect(DamageQualifier damageQualifier, SkillEffectGenerator generator, Effect effect, StringBuilder sb)
   {
     if (effect instanceof BaseVitalEffect)
     {
       BaseVitalEffect vitalEffect=(BaseVitalEffect)effect;
       EffectDisplay2 d2=new EffectDisplay2(_character,_skillDetails);
-      DamageQualifier damageQualifier=attack.getDamageQualifier();
       String display=d2.getVitalEffectDisplay(generator,vitalEffect,damageQualifier);
       sb.append(display).append(EndOfLine.NATIVE_EOL);
     }
@@ -346,7 +366,7 @@ public class SkillDisplay
     {
       ComboEffect comboEffect=(ComboEffect)effect;
       Proxy<Effect> toExamine=comboEffect.getToExamine();
-      handleEffect(attack,generator,toExamine.getObject(),sb);
+      handleEffect(damageQualifier,generator,toExamine.getObject(),sb);
     }
     else if (effect instanceof GenesisEffect)
     {
@@ -356,7 +376,7 @@ public class SkillDisplay
       {
         for(EffectGenerator hotspotGenerator : hotspot.getEffects())
         {
-          handleEffect(attack,generator,hotspotGenerator.getEffect(),sb);
+          handleEffect(damageQualifier,generator,hotspotGenerator.getEffect(),sb);
         }
       }
     }
@@ -365,7 +385,21 @@ public class SkillDisplay
       AreaEffect areaEffect=(AreaEffect)effect;
       for(EffectGenerator childGenerator : areaEffect.getEffects())
       {
-        handleEffect(attack,generator,childGenerator.getEffect(),sb);
+        handleEffect(damageQualifier,generator,childGenerator.getEffect(),sb);
+      }
+    }
+    else if (effect instanceof ApplyOverTimeEffect)
+    {
+      ApplyOverTimeEffect applyOverTimeEffect=(ApplyOverTimeEffect)effect;
+      if (!applyOverTimeEffect.getAppliedEffects().isEmpty())
+      {
+        float interval=applyOverTimeEffect.getInterval();
+        String seconds=(interval>1.0f)?" seconds:":" second:";
+        sb.append("Every ").append(L10n.getString(interval,1)).append(seconds).append(EndOfLine.NATIVE_EOL);
+        for(EffectGenerator childGenerator : applyOverTimeEffect.getAppliedEffects())
+        {
+          handleEffect(damageQualifier,generator,childGenerator.getEffect(),sb);
+        }
       }
     }
   }
