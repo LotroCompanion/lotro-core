@@ -177,15 +177,15 @@ public class EffectXMLWriter
       {
         attrs.addAttribute("","",EffectXMLConstants.EFFECT_PULSE_COUNT_MODIFIERS_ATTR,XmlWriter.CDATA,pulseCountModifiersStr);
       }
-      // Expires in real time
-      boolean expiresInRealTime=effectDuration.expiresInRealTime();
-      if (expiresInRealTime)
-      {
-        attrs.addAttribute("","",EffectXMLConstants.EFFECT_EXPIRES_IN_REAL_TIME_ATTR,XmlWriter.CDATA,String.valueOf(expiresInRealTime));
-      }
     }
     // Probability
     writeProbability(attrs,effect);
+    // Flags
+    int flags=effect.getBaseFlags();
+    if (flags!=0)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.BASE_FLAGS_ATTR,XmlWriter.CDATA,String.valueOf(flags));
+    }
   }
 
   private void writeProbability(AttributesImpl attrs, Effect effect)

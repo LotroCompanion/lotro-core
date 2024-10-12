@@ -745,14 +745,11 @@ public class EffectXMLParser
       // - pulse count modifiers
       String pulseCountModifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_PULSE_COUNT_MODIFIERS_ATTR,null);
       ModPropertyList pulseCountModifiers=ModPropertyListIO.fromPersistedString(pulseCountModifiersStr);
-      // - expires in real time
-      boolean expiresInRealTime=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.EFFECT_EXPIRES_IN_REAL_TIME_ATTR,false);
-      if ((duration!=null) || (pulseCount>0) || (expiresInRealTime) || (pulseCountModifiers!=null))
+      if ((duration!=null) || (pulseCount>0) || (pulseCountModifiers!=null))
       {
         EffectDuration effectDuration=new EffectDuration();
         effectDuration.setDuration(duration);
         effectDuration.setPulseCount(pulseCount);
-        effectDuration.setExpiresInRealTime(expiresInRealTime);
         effectDuration.setPulseCountModifiers(pulseCountModifiers);
         effect.setEffectDuration(effectDuration);
       }
@@ -771,6 +768,9 @@ public class EffectXMLParser
       ApplicationProbability applicationProbability=ApplicationProbability.from(probability,variance,modPropertyID);
       effect.setApplicationProbability(applicationProbability);
     }
+    // Flags
+    int flags=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.BASE_FLAGS_ATTR,0);
+    effect.setBaseFlags(flags);
   }
 
   private EffectGenerator readEffectGenerator(Element generatorTag)

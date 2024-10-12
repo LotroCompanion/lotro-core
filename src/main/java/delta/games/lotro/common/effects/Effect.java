@@ -21,6 +21,8 @@ public class Effect implements Identifiable,Named
   // TODO EffectCriticalChance _critChance
   // Icon
   private Integer _iconId;
+  // Flags
+  private int _flags;
 
   /**
    * Constructor.
@@ -186,6 +188,51 @@ public class Effect implements Identifiable,Named
   public void setIconId(Integer iconId)
   {
     _iconId=iconId;
+  }
+
+  /**
+   * Get the raw flags value.
+   * @return flags.
+   */
+  public int getBaseFlags()
+  {
+    return _flags;
+  }
+
+  /**
+   * Set the raw flags value.
+   * @param flags Flags to set.
+   */
+  public void setBaseFlags(int flags)
+  {
+    _flags=flags;
+  }
+
+  /**
+   * Get a flag value.
+   * @param flag Flag to test.
+   * @return <code>true</code> if set, <code>false</code> otherwise.
+   */
+  public boolean getBaseFlag(int flag)
+  {
+    return ((_flags&flag)!=0);
+  }
+
+  /**
+   * Set a flag value.
+   * @param flag Flag to set (from SkillAttackFlags).
+   * @param set Set it or unset it.
+   */
+  public void setBaseFlag(int flag, boolean set)
+  {
+    if (set)
+    {
+      _flags=(_flags|flag);
+    }
+    else
+    {
+      _flags=(_flags&(~flag));
+    }
   }
 
   /**

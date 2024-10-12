@@ -13,8 +13,6 @@ public class EffectDuration
   // Pulses count
   private int _pulseCount;
   private ModPropertyList _pulseCountModifiers;
-  // Expires in real world time, or in gaming time
-  private boolean _expiresInRealTime;
 
   /**
    * Constructor.
@@ -23,7 +21,6 @@ public class EffectDuration
   {
     _duration=null;
     _pulseCount=0;
-    _expiresInRealTime=false;
   }
 
   /**
@@ -80,24 +77,6 @@ public class EffectDuration
     _pulseCountModifiers=pulseCountModifiers;
   }
 
-  /**
-   * Indicates if the duration are evaluated in real time (or game time).
-   * @return <code>true</code> for real time, <code>false</code> for game time.
-   */
-  public boolean expiresInRealTime()
-  {
-    return _expiresInRealTime;
-  }
-
-  /**
-   * Set the 'expire in real time' flag.
-   * @param expiresInRealTime Value to set.
-   */
-  public void setExpiresInRealTime(boolean expiresInRealTime)
-  {
-    _expiresInRealTime=expiresInRealTime;
-  }
-
   @Override
   public String toString()
   {
@@ -112,10 +91,6 @@ public class EffectDuration
     else if (_duration!=null)
     {
       sb.append(_duration).append('s');
-    }
-    if (_expiresInRealTime)
-    {
-      sb.append(" (expires in real time)");
     }
     return sb.toString();
   }

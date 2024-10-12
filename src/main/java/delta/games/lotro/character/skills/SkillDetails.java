@@ -221,16 +221,6 @@ public class SkillDetails implements Identifiable,Named
   }
 
   /**
-   * Indicates if a flag is set.
-   * @param flag Flag to test (from SkillAttackFlags).
-   * @return <code>true</code> if it is set, <code>false</code> otherwise.
-   */
-  public boolean isSet(int flag)
-  {
-    return ((_flags&flag)==flag);
-  }
-
-  /**
    * Get the skill geometry.
    * @return a geometry.
    */

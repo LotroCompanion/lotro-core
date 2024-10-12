@@ -52,10 +52,6 @@ public class EffectXMLConstants
    */
   public static final String EFFECT_PULSE_COUNT_MODIFIERS_ATTR="pulseCountMods";
   /**
-   * Tag 'effect', attribute 'expiresInRealTime'.
-   */
-  public static final String EFFECT_EXPIRES_IN_REAL_TIME_ATTR="expiresInRealTime";
-  /**
    * Tag 'effect', attribute 'probability'.
    */
   public static final String EFFECT_PROBABILITY_ATTR="probability";
@@ -67,6 +63,10 @@ public class EffectXMLConstants
    * Tag 'effect', attribute 'probabilityModProperty'.
    */
   public static final String EFFECT_PROBABILITY_MOD_PROPERTY_ATTR="probabilityModProperty";
+  /**
+   * Tag 'effect', attribute 'baseFlags'.
+   */
+  public static final String BASE_FLAGS_ATTR="baseFlags";
 
   /**
    * Tag 'dispelByResist'.
