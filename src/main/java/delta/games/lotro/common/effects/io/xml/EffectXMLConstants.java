@@ -394,6 +394,18 @@ public class EffectXMLConstants
    * Tag 'onRemoval'.
    */
   public static final String ON_REMOVAL_TAG="onRemoval";
+  /**
+   * Tag 'applyOverTimeEffect'.
+   */
+  public static final String APPLY_OVER_TIME_EFFECT_TAG="applyOverTimeEffect";
+  /**
+   * Tag 'initiallyApplied'.
+   */
+  public static final String INITIALLY_APPLIED_TAG="initiallyApplied";
+  /**
+   * Tag 'applied'.
+   */
+  public static final String APPLIED_TAG="applied";
 
   /**
    * Tag 'effect' (generator).

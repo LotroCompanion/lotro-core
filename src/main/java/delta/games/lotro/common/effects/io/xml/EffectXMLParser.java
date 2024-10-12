@@ -15,6 +15,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
+import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
@@ -175,6 +176,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.COUNTDOWN_EFFECT_TAG.equals(tagName))
     {
       ret=parseCountDownEffect(root);
+    }
+    else if (EffectXMLConstants.APPLY_OVER_TIME_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseApplyOverTimeEffect(root);
     }
     else
     {
@@ -653,6 +658,26 @@ public class EffectXMLParser
     {
       EffectGenerator onRemovalEffect=readEffectGenerator(onRemovalTag);
       ret.setOnRemovalEffect(onRemovalEffect);
+    }
+    return ret;
+  }
+
+  private ApplyOverTimeEffect parseApplyOverTimeEffect(Element root)
+  {
+    ApplyOverTimeEffect ret=new ApplyOverTimeEffect();
+    // 'initially applied' effect generators
+    List<Element> initiallyAppliedTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.INITIALLY_APPLIED_TAG);
+    for(Element initiallyAppliedTag : initiallyAppliedTags)
+    {
+      EffectGenerator initiallyAppliedEffect=readEffectGenerator(initiallyAppliedTag);
+      ret.addInitiallyAppliedEffect(initiallyAppliedEffect);
+    }
+    // 'applied' effects.
+    List<Element> appliedTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.APPLIED_TAG);
+    for(Element appliedTag : appliedTags)
+    {
+      EffectGenerator appliedEffect=readEffectGenerator(appliedTag);
+      ret.addAppliedEffect(appliedEffect);
     }
     return ret;
   }

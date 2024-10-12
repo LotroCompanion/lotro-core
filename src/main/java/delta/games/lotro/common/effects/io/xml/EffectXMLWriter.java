@@ -14,6 +14,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
+import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
@@ -114,6 +115,7 @@ public class EffectXMLWriter
     if (effect instanceof ComboEffect) return EffectXMLConstants.COMBO_EFFECT_TAG;
     if (effect instanceof TieredEffect) return EffectXMLConstants.TIERED_EFFECT_TAG;
     if (effect instanceof AreaEffect) return EffectXMLConstants.AREA_EFFECT_TAG;
+    if (effect instanceof ApplyOverTimeEffect) return EffectXMLConstants.APPLY_OVER_TIME_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -512,6 +514,11 @@ public class EffectXMLWriter
       CountDownEffect countDownEffect=(CountDownEffect)effect;
       writeCountDownEffectTags(hd,countDownEffect);
     }
+    else if (effect instanceof ApplyOverTimeEffect)
+    {
+      ApplyOverTimeEffect applyOverTimeEffect=(ApplyOverTimeEffect)effect;
+      writeApplyOverTimeEffectTags(hd,applyOverTimeEffect);
+    }
     else if (effect instanceof PropertyModificationEffect)
     {
       PropertyModificationEffect propertyModificationEffect=(PropertyModificationEffect)effect;
@@ -818,6 +825,20 @@ public class EffectXMLWriter
     if (onRemovalEffect!=null)
     {
       writeEffectGenerator(hd,onRemovalEffect,EffectXMLConstants.ON_REMOVAL_TAG);
+    }
+  }
+
+  private void writeApplyOverTimeEffectTags(TransformerHandler hd, ApplyOverTimeEffect applyOverTimeEffect) throws SAXException
+  {
+    // 'initially applied' effects
+    for(EffectGenerator initiallyAppliedEffect : applyOverTimeEffect.getInitiallyAppliedEffects())
+    {
+      writeEffectGenerator(hd,initiallyAppliedEffect,EffectXMLConstants.INITIALLY_APPLIED_TAG);
+    }
+    // 'applied' effects
+    for(EffectGenerator appliedEffect : applyOverTimeEffect.getAppliedEffects())
+    {
+      writeEffectGenerator(hd,appliedEffect,EffectXMLConstants.APPLIED_TAG);
     }
   }
 
