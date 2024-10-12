@@ -291,7 +291,7 @@ class SkillAttackComputerTest
   private void doSkill(int id, CharacterData data)
   {
     SkillDetails details=getSkillDetails(id);
-    //System.out.println("\n*****************************");
+    System.out.println("*****************************");
     //System.out.println("Skill ID="+id+", name="+details.getName());
     CharacterDataForSkills dataForSkills=new CharacterDataForSkills(data);
     SkillDescription skill=SkillsManager.getInstance().getSkill(id);

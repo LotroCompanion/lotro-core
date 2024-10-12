@@ -1,5 +1,8 @@
 package delta.games.lotro.common.effects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import delta.common.utils.l10n.L10n;
 import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
@@ -18,10 +21,13 @@ import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
- * @author dm
+ * Utility methods to display vital change effects.
+ * @author DAM
  */
 public class EffectDisplay2
 {
+  private static final Logger LOGGER=LoggerFactory.getLogger(EffectDisplay2.class); 
+
   private CharacterDataForSkills _character;
   private SkillAttackComputer _attackComputer;
 
@@ -47,7 +53,7 @@ public class EffectDisplay2
         StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
         Number dpsN=item.getStats().getStat(tacticalDPS);
         vps=(dpsN!=null)?-dpsN.floatValue():0;
-        System.out.println("Weapon Tactical DPS: "+vps);
+        LOGGER.debug("Item Tactical DPS: {}",Float.valueOf(vps));
       }
       vps-=20; // Combat_Class_TacticalDPS
     }
@@ -65,6 +71,7 @@ public class EffectDisplay2
           StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalHPS_Modifier");
           Number hpsN=item.getStats().getStat(tacticalDPS);
           vps=(hpsN!=null)?hpsN.floatValue():0;
+          LOGGER.debug("Item Tactical HPS: {}",Float.valueOf(vps));
         }
         vps+=5.659143f; // Combat_Class_TacticalHPS
       }
@@ -76,6 +83,7 @@ public class EffectDisplay2
       {
         WeaponInstance<?> weapon=(WeaponInstance<?>)item;
         vps=-weapon.getEffectiveDPS();
+        LOGGER.debug("Weapon DPS: {}",Float.valueOf(vps));
       }
     }
     return vps;
@@ -99,15 +107,16 @@ public class EffectDisplay2
     if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
     {
       qualifierValue=_attackComputer.getHealingQualifier();
+      LOGGER.debug("Tactical HPS qualifier value: {}",Float.valueOf(qualifierValue));
     }
     else if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
     {
       qualifierValue=_attackComputer.getDamageQualifier(DamageQualifiers.TACTICAL);
-      System.out.println("Tactical DPS qualifier value: "+qualifierValue);
+      LOGGER.debug("Tactical DPS qualifier value: {}",Float.valueOf(qualifierValue));
     }
     else
     {
-      System.out.println("Unmanaged!");
+      LOGGER.warn("Unmanaged case!");
     }
 
     // TODO Use damageQualifier. If not set, qualifierValue shall be 1?
@@ -124,33 +133,38 @@ public class EffectDisplay2
     {
       change=qualifierValue*(1+modifiers)*progValue;
     }
-    System.out.println("Change: "+change);
+    LOGGER.debug("Base vital change: {}", Float.valueOf(change));
     Float vpsMultiplierValue=description.getVPSMultiplier();
     float vpsMultiplier=(vpsMultiplierValue!=null)?vpsMultiplierValue.floatValue():0;
-    System.out.println("VPS multiplier: "+vpsMultiplier);
+    LOGGER.debug("VPS multiplier: {}", Float.valueOf(vpsMultiplier));
 
     ItemInstance<?> item=_character.getImplement(implementUsage);
     if (implementUsage!=null)
     {
       float vps=implementContrib(implementUsage,item);
-      System.out.println("Implement contrib: "+vps);
+      LOGGER.debug("VPS implement contribution: {}", Float.valueOf(vps));
       if (!initial)
       {
         Float duration=effect.getEffectDuration().getDuration();
         if (duration!=null)
         {
           vps*=duration.floatValue();
+          LOGGER.debug("Interval implement contribution: {}", Float.valueOf(vps));
         }
       }
       if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
       {
-        change+=(qualifierValue+modifiers)*vpsMultiplier*vps;
+        LOGGER.debug("Tactical HPS: change+=(qualifierValue+modifiers)*vpsMultiplier*vps");
+        float changeContrib=(qualifierValue+modifiers)*vpsMultiplier*vps;
+        LOGGER.debug("({}+{})*{}*{}={}",Float.valueOf(qualifierValue),Float.valueOf(modifiers),Float.valueOf(vpsMultiplier),Float.valueOf(vps),Float.valueOf(changeContrib));
+        change+=changeContrib;
       }
       else
       {
-        System.out.println("qualifierValue*(1+modifiers)*vpsMultiplier*vps");
-        System.out.println(qualifierValue+"*"+(1+modifiers)+"*"+vpsMultiplier+"*"+vps);
-        change+=qualifierValue*(1+modifiers)*vpsMultiplier*vps;
+        LOGGER.debug("change+=qualifierValue*(1+modifiers)*vpsMultiplier*vps");
+        float changeContrib=qualifierValue*(1+modifiers)*vpsMultiplier*vps;
+        LOGGER.debug("{}*(1+{})*{}*{}={}",Float.valueOf(qualifierValue),Float.valueOf(modifiers),Float.valueOf(vpsMultiplier),Float.valueOf(vps),Float.valueOf(changeContrib));
+        change+=changeContrib;
       }
     }
 
@@ -162,6 +176,13 @@ public class EffectDisplay2
     return change;
   }
 
+  /**
+   * Get a string to display a vital effect.
+   * @param generator Effect generator.
+   * @param effect Effect.
+   * @param damageQualifier Damage qualifier.
+   * @return A displayable string.
+   */
   public String getVitalEffectDisplay(SkillEffectGenerator generator, BaseVitalEffect effect, DamageQualifier damageQualifier)
   {
     if (effect instanceof InstantVitalEffect)

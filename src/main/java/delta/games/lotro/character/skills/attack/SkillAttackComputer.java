@@ -48,13 +48,17 @@ public class SkillAttackComputer
     _skill=details;
   }
 
+  /**
+   * Get the damage qualifier value from the given damage qualifier.
+   * @param damageQualifier Damage qualifier (melee/tactical/range).
+   * @return A value.
+   */
   public float getDamageQualifier(DamageQualifier damageQualifier)
   {
     if (damageQualifier==null)
     {
       return 0;
     }
-    System.out.println("Damage qualifier: "+damageQualifier);
     ClassDataForSkills classData=_character.getClassData();
     RatingCurveId curveId=RatingCurveId.DAMAGE; // TODO Use a specific curve for tactical damage?
     StatDescription ratingStat=WellKnownStat.PHYSICAL_MASTERY;
@@ -83,16 +87,16 @@ public class SkillAttackComputer
     int characterLevel=_character.getLevel();
     float ratingPercentage=getPercentage(curveId,rating,characterLevel);
     float fullPercentage=_character.getStat(percentageStat);
-    System.out.println("Using percentage stat: "+percentageStat.getName());
+    LOGGER.debug("Using percentage stat: {}",percentageStat.getName());
 
     float ratingPercentageMultiplier=1+ratingPercentage/100;
-    System.out.println("Rating % x: "+ratingPercentageMultiplier);
+    LOGGER.debug("Rating % x: {}",Float.valueOf(ratingPercentageMultiplier));
     float damageQualifier=baseDamageQualifier;
     damageQualifier*=ratingPercentageMultiplier;
     float percentageBonus=fullPercentage-ratingPercentage;
-    float bonusPercentageMultipler=(1+percentageBonus/100);
-    System.out.println("Bonus % x: "+bonusPercentageMultipler);
-    damageQualifier*=bonusPercentageMultipler;
+    float bonusPercentageMultiplier=(1+percentageBonus/100);
+    LOGGER.debug("Bonus % x: {}",Float.valueOf(bonusPercentageMultiplier));
+    damageQualifier*=bonusPercentageMultiplier;
     return damageQualifier;
   }
 
@@ -104,22 +108,15 @@ public class SkillAttackComputer
     return (percentage!=null)?percentage.floatValue():0;
   }
 
+  /**
+   * Get the healing qualifier value.
+   * @return A value.
+   */
   public float getHealingQualifier()
   {
     float fullPercentage=_character.getStat(WellKnownStat.OUTGOING_HEALING_PERCENTAGE);
     float ratingPercentageMultiplier=1+fullPercentage/100;
     return ratingPercentageMultiplier;
-    /*
-    float rating=_character.getStat(WellKnownStat.OUTGOING_HEALING);
-    int characterLevel=_character.getLevel();
-    float ratingPercentage=getPercentage(RatingCurveId.HEALING,rating,characterLevel);
-    float fullPercentage=_character.getStat(WellKnownStat.OUTGOING_HEALING_PERCENTAGE);
-    float ratingPercentageMultiplier=1+ratingPercentage/100;
-    System.out.println("Rating % x: "+ratingPercentageMultiplier);
-    float percentageBonus=fullPercentage-ratingPercentage;
-    float bonusPercentageMultipler=(1+percentageBonus/100);
-    return ratingPercentageMultiplier+bonusPercentageMultipler;
-    */
   }
 
   /**
@@ -130,11 +127,12 @@ public class SkillAttackComputer
    */
   public float getAttackDamage(SkillAttack attack, boolean minimum)
   {
-    System.out.println("Attack details: "+attack);
-    float ret=0.0f;
+    LOGGER.debug("Attack details: {}", attack);
     // Calculate Damage Qualifier
-    float damageQualifier=getDamageQualifier(attack.getDamageQualifier());
-    System.out.println("Damage qualifier: "+damageQualifier);
+    DamageQualifier damageQualifier=attack.getDamageQualifier();
+    LOGGER.debug("Damage qualifier: {}",damageQualifier);
+    float damageQualifierValue=getDamageQualifier(damageQualifier);
+    LOGGER.debug("Damage qualifier value: {}",Float.valueOf(damageQualifierValue));
 
     // Calculate Skill Action Duration
     float skillActionDuration=1;
@@ -143,61 +141,63 @@ public class SkillAttackComputer
     {
       skillActionDuration+=actionDurationContribution.floatValue();
     }
-    System.out.println("Skill duration (before induction): "+skillActionDuration);
+    LOGGER.debug("Skill duration (before induction): {}",Float.valueOf(skillActionDuration));
     float inductionDuration=SkillDetailsUtils.getInductionDuration(_skill,_character);
-        skillActionDuration+=inductionDuration;
-    System.out.println("Skill duration: "+skillActionDuration);
+    skillActionDuration+=inductionDuration;
+    LOGGER.debug("Skill duration: {}",Float.valueOf(skillActionDuration));
 
     // Damage
     float damageModifier=attack.getDamageModifier();
-    System.out.println("Damage modifier (base): "+damageModifier);
-    System.out.println("Damage modifier mods:");
+    LOGGER.debug("Damage modifier (from attack): {}",Float.valueOf(damageModifier));
     ModPropertyList damageModifierMods=attack.getDamageModifiersMods();
     float damageModifierModValue=_character.computeAdditiveModifiers(damageModifierMods);
-    System.out.println("  => Damage modifier mods value: "+damageModifierModValue);
     damageModifier+=damageModifierModValue;
-    System.out.println("Damage modifier: "+damageModifier);
+    LOGGER.debug("Damage modifier (with modifiers): {}",Float.valueOf(damageModifier));
 
     int charLevel=_character.getLevel();
     // Max damage
+    float maxDamageAttack=attack.getMaxDamage();
+    LOGGER.debug("Max damage (attack): {}",Float.valueOf(maxDamageAttack));
     float maxDamageProg=getProgressionValue(attack.getMaxDamageProgression(),charLevel,0);
+    LOGGER.debug("Max damage (progression): {}",Float.valueOf(maxDamageProg));
     float maxDamage=attack.getMaxDamage()+maxDamageProg;
-    System.out.println("Max damage: "+maxDamage);
-    System.out.println("Max damage mods:");
+    LOGGER.debug("Max damage: {}",Float.valueOf(maxDamage));
     ModPropertyList maxDamageMods=attack.getMaxDamageMods();
     float maxDamageModsValue=_character.computeAdditiveModifiers(maxDamageMods);
     maxDamage+=maxDamageModsValue;
-    System.out.println("  => Max damage mods value: "+maxDamageModsValue);
+    LOGGER.debug("Max damage (with modifiers): {}",Float.valueOf(maxDamage));
     // DPS
     float dpsAddModProg=getProgressionValue(attack.getDPSModProgression(),charLevel,0);
-    float dpsAddMod=dpsAddModProg;
-    System.out.println("DPS add mod: "+dpsAddMod);
-    System.out.println("DPS mods:");
+    LOGGER.debug("DPS add mod (progression): {}",Float.valueOf(dpsAddModProg));
     ModPropertyList dpsMods=attack.getDPSMods();
     float dpsModsValue=_character.computeAdditiveModifiers(dpsMods);
-    System.out.println("  => DPS mods value: "+dpsModsValue);
-    dpsAddMod+=dpsModsValue;
+    float dpsAddMod=dpsAddModProg+dpsModsValue;
+    LOGGER.debug("DPS add mod (with modifiers): {}",Float.valueOf(dpsAddMod));
 
     Float damageContribMultiplierFloat=attack.getDamageContributionMultiplier();
     float damageContribMultiplier=(damageContribMultiplierFloat!=null)?damageContribMultiplierFloat.floatValue():0;
     float damageAdd=skillActionDuration*dpsAddMod*damageContribMultiplier;
     maxDamage+=damageAdd;
 
-    float damage=damageQualifier*damageModifier*maxDamage;
+    float damage=damageQualifierValue*damageModifier*maxDamage;
+    LOGGER.debug("Hook max damage: damageQualifier*damageModifier*maxDamage");
+    LOGGER.debug("Hook max damage: {}*{}*{}={}",Float.valueOf(damageQualifierValue),Float.valueOf(damageModifier),Float.valueOf(maxDamage),Float.valueOf(damage));
     if (minimum)
     {
       float variance=1-attack.getMaxDamageVariance();
+      LOGGER.debug("Hook damage variance: {}",Float.valueOf(variance));
       damage=damage*variance;
+      LOGGER.debug("Hook min damage: {}",Float.valueOf(damage));
     }
-    System.out.println("Hook damage: "+damage);
-    ret+=damage;
+
+    float ret=damage;
 
     ImplementUsageType usesImpl=attack.getImplementUsageType();
-    System.out.println("Implement usage: "+usesImpl);
     if (usesImpl!=null)
     {
+      LOGGER.debug("Implement usage: {}",usesImpl);
       ItemInstance<? extends Item> item=_character.getImplement(usesImpl);
-      System.out.println("Using item: "+item);
+      LOGGER.debug("Using item: {}",item);
 
       boolean isWeapon=(item instanceof WeaponInstance);
       float implementBaseDamage=0;
@@ -207,11 +207,12 @@ public class SkillAttackComputer
         {
           WeaponInstance<?> weapon=(WeaponInstance<?>)item;
           implementBaseDamage=(minimum?weapon.getEffectiveMinDamageFloat():weapon.getEffectiveMaxDamageFloat());
-          System.out.println("Weapon base damage: "+implementBaseDamage);
+          LOGGER.debug("Weapon base damage: {}",Float.valueOf(implementBaseDamage));
           // Weapon strike
           float factor=getWeaponStrikeMultiplier(weapon);
-          System.out.println("Using weapon strike multiplier: "+factor);
+          LOGGER.debug("Using weapon strike multiplier: {}",Float.valueOf(factor));
           implementBaseDamage*=factor;
+          LOGGER.debug("Weapon damage: {}",Float.valueOf(implementBaseDamage));
         }
       }
       else if (usesImpl==ImplementUsageTypes.TACTICAL_DPS)
@@ -221,26 +222,27 @@ public class SkillAttackComputer
           StatDescription tacticalDPS=StatsRegistry.getInstance().getByKey("Combat_TacticalDPS_Modifier");
           Number dpsN=item.getStats().getStat(tacticalDPS);
           float dps=(dpsN!=null)?dpsN.floatValue():0;
-          System.out.println("Tactical DPS: "+dps);
+          LOGGER.debug("Item tactical DPS: {}",Float.valueOf(dps));
           implementBaseDamage=dps;
         }
         implementBaseDamage+=20;
+        LOGGER.debug("Tactical DPS: {}",Float.valueOf(implementBaseDamage));
         if (minimum)
         {
           implementBaseDamage*=0.7;
+          LOGGER.debug("Tactical min DPS: {}",Float.valueOf(implementBaseDamage));
         }
       }
-      System.out.println("Implement base damage: "+implementBaseDamage);
 
       Float implementContribMultiplierFloat=attack.getImplementContributionMultiplier();
       float implementContribMultiplier=(implementContribMultiplierFloat!=null)?implementContribMultiplierFloat.floatValue():0;
-      System.out.println("implementDamage=damageQualifier*damageModifier*implementContribMultiplier*implementBaseDamage");
-      System.out.println("implementDamage="+damageQualifier+"*"+damageModifier+"*"+implementContribMultiplier+"*"+implementBaseDamage);
-      float implementDamage=damageQualifier*damageModifier*implementContribMultiplier*implementBaseDamage;
-      System.out.println("Implement damage: "+implementDamage);
+      float implementDamage=damageQualifierValue*damageModifier*implementContribMultiplier*implementBaseDamage;
+      LOGGER.debug("implementDamage=damageQualifier*damageModifier*implementContribMultiplier*implementBaseDamage");
+      LOGGER.debug("implementDamage={}*{}*{}*{}",Float.valueOf(damageQualifierValue),Float.valueOf(damageModifier),Float.valueOf(implementContribMultiplier),Float.valueOf(implementBaseDamage));
+      LOGGER.debug("Implement damage: {}",Float.valueOf(implementDamage));
       ret+=implementDamage;
     }
-    System.out.println("Total damage: "+ret);
+    LOGGER.debug("Total damage: {}",Float.valueOf(ret));
 
     return ret;
   }

@@ -285,7 +285,8 @@ public class SkillDisplay
       {
         damageType=DamageTypes.COMMON;
       }
-      doEffects(attack);
+      String effects=doEffects(attack);
+      sb.append(effects);
       String attackText="";
       int maxDamageInt=Math.round(maxDamage);
       int minDamageInt=Math.round(minDamage);
@@ -311,20 +312,22 @@ public class SkillDisplay
     return sb.toString().trim();
   }
 
-  private void doEffects(SkillAttack attack)
+  private String doEffects(SkillAttack attack)
   {
     SkillEffectsManager effectsMgr=attack.getEffects();
     if (effectsMgr==null)
     {
-      return;
+      return "";
     }
+    StringBuilder sb=new StringBuilder();
     for(SkillEffectGenerator generator : effectsMgr.getEffects())
     {
-      handleEffect(attack,generator,generator.getEffect());
+      handleEffect(attack,generator,generator.getEffect(),sb);
     }
+    return sb.toString().trim();
   }
 
-  private void handleEffect(SkillAttack attack, SkillEffectGenerator generator, Effect effect)
+  private void handleEffect(SkillAttack attack, SkillEffectGenerator generator, Effect effect, StringBuilder sb)
   {
     if (effect instanceof BaseVitalEffect)
     {
@@ -332,13 +335,13 @@ public class SkillDisplay
       EffectDisplay2 d2=new EffectDisplay2(_character,_skillDetails);
       DamageQualifier damageQualifier=attack.getDamageQualifier();
       String display=d2.getVitalEffectDisplay(generator,vitalEffect,damageQualifier);
-      System.out.println(display);
+      sb.append(display).append(EndOfLine.NATIVE_EOL);
     }
     else if (effect instanceof ComboEffect)
     {
       ComboEffect comboEffect=(ComboEffect)effect;
       Proxy<Effect> toExamine=comboEffect.getToExamine();
-      handleEffect(attack,generator,toExamine.getObject());
+      handleEffect(attack,generator,toExamine.getObject(),sb);
     }
     else if (effect instanceof GenesisEffect)
     {
@@ -348,7 +351,7 @@ public class SkillDisplay
       {
         for(EffectGenerator hotspotGenerator : hotspot.getEffects())
         {
-          handleEffect(attack,generator,hotspotGenerator.getEffect());
+          handleEffect(attack,generator,hotspotGenerator.getEffect(),sb);
         }
       }
     }
@@ -357,7 +360,7 @@ public class SkillDisplay
       AreaEffect areaEffect=(AreaEffect)effect;
       for(EffectGenerator childGenerator : areaEffect.getEffects())
       {
-        handleEffect(attack,generator,childGenerator.getEffect());
+        handleEffect(attack,generator,childGenerator.getEffect(),sb);
       }
     }
   }

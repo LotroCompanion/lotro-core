@@ -1,5 +1,8 @@
 package delta.games.lotro.character.skills.attack;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
@@ -18,6 +21,8 @@ import delta.games.lotro.lore.items.ItemInstance;
  */
 public class CharacterDataForSkills
 {
+  private static final Logger LOGGER=LoggerFactory.getLogger(CharacterDataForSkills.class); 
+
   private ClassDataForSkills _classData;
   private CharacterData _data;
 
@@ -77,7 +82,7 @@ public class CharacterDataForSkills
   }
 
   /**
-   * Get tehe item to use for the given implement usage.
+   * Get the item to use for the given implement usage.
    * @param implementUsageType Implement usage.
    * @return An item instance or <code>null</code>. 
    */
@@ -126,7 +131,7 @@ public class CharacterDataForSkills
       return 0;
     }
     float ret=0;
-    System.out.println("Computing additive modifiers: "+mods);
+    LOGGER.debug("Computing additive modifiers: {}",mods);
     for(Integer id : mods.getIDs())
     {
       StatDescription stat=StatsRegistry.getInstance().getById(id.intValue());
@@ -139,10 +144,10 @@ public class CharacterDataForSkills
       {
         statValue/=100;
       }
-      System.out.println("\tStat "+stat.getPersistenceKey()+" => "+statValue);
+      LOGGER.debug("\tStat {} => {}",stat.getPersistenceKey(),Float.valueOf(statValue));
       ret+=statValue;
     }
-    System.out.println("\tTotal: "+ret);
+    LOGGER.debug("\tTotal: {}",Float.valueOf(ret));
     return ret;
   }
 
@@ -153,9 +158,12 @@ public class CharacterDataForSkills
    */
   public float computeMultiplicativeModifiers(ModPropertyList mods)
   {
-    if (mods==null) return 1;
+    if (mods==null)
+    {
+      return 1;
+    }
     float ret=1;
-    System.out.println("Computing multiplicative modifiers: "+mods);
+    LOGGER.debug("Computing multiplicative modifiers: {}",mods);
     for(Integer id : mods.getIDs())
     {
       StatDescription stat=StatsRegistry.getInstance().getById(id.intValue());
@@ -164,10 +172,10 @@ public class CharacterDataForSkills
       {
         statValue/=100;
       }
-      System.out.println("\tStat "+stat.getPersistenceKey()+" => "+statValue);
+      LOGGER.debug("\tStat {} => {}",stat.getPersistenceKey(),Float.valueOf(statValue));
       ret*=(1+statValue);
     }
-    System.out.println("\tTotal: "+ret);
+    LOGGER.debug("\tTotal: {}",Float.valueOf(ret));
     return ret;
   }
 }
