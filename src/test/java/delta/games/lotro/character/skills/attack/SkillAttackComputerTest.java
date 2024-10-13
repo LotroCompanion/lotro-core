@@ -158,6 +158,8 @@ class SkillAttackComputerTest
     doSkill(1879107945, data); // Scathing Mockery (use qualifier*)
     doSkill(1879107949, data); // Smouldering Wrath
     doSkill(1879272247, data); // Combustion
+    doSkill(1879109295, data); // Epic Conclusion
+    doSkill(1879221506, data); // Fiery Ridicule
     /*
     doSkill(1879110792,data); // Shocking Touch 3965.6267 / 3966 OK
     doSkill(1879221506,data); // Fiery Ridicule 6535.1904 / 6535 OK

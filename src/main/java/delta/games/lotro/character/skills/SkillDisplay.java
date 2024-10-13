@@ -17,9 +17,12 @@ import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectDisplay2;
+import delta.games.lotro.common.effects.EffectFlags;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
+import delta.games.lotro.common.effects.PropertyModificationEffect;
+import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.GambitIconType;
 import delta.games.lotro.common.enums.ImplementUsageType;
@@ -27,6 +30,8 @@ import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.enums.PipType;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillDisplayType;
+import delta.games.lotro.common.stats.StatUtils;
+import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.DamageTypes;
 import delta.games.lotro.lore.pip.PipDescription;
@@ -201,9 +206,8 @@ public class SkillDisplay
     {
       sb.append(attacks).append(EndOfLine.NATIVE_EOL);
     }
-    // Cost
     List<String> admin=new ArrayList<String>();
-    // - power cost
+    // Power cost
     SkillVitalCostComputer costComputer=new SkillVitalCostComputer(_character);
     SkillCostData costData=_skillDetails.getCostData();
     if (costData!=null)
@@ -401,6 +405,33 @@ public class SkillDisplay
           handleEffect(damageQualifier,generator,childGenerator.getEffect(),sb);
         }
       }
+    }
+    else if (effect instanceof PropertyModificationEffect)
+    {
+      PropertyModificationEffect propModEffect=(PropertyModificationEffect)effect;
+      StatsProvider provider=propModEffect.getStatsProvider();
+      if (provider!=null)
+      {
+        int level=_character.getLevel();
+        List<String> lines=StatUtils.getFullStatsForDisplay(provider,level);
+        for(String line : lines)
+        {
+          sb.append(line).append(EndOfLine.NATIVE_EOL);
+        }
+      }
+      boolean expiresOutOfCombat=effect.getBaseFlag(EffectFlags.DURATION_COMBAT_ONLY);
+      if (expiresOutOfCombat)
+      {
+        sb.append("Expires if out of combat for 9 seconds.").append(EndOfLine.NATIVE_EOL);
+      }
+    }
+    else if (effect instanceof TieredEffect)
+    {
+      TieredEffect propModEffect=(TieredEffect)effect;
+      int tiers=propModEffect.getTiers().size();
+      sb.append("This effect stacks up to "+tiers+" times:").append(EndOfLine.NATIVE_EOL);
+      EffectGenerator firstTier=propModEffect.getTiers().get(0);
+      handleEffect(damageQualifier,generator,firstTier.getEffect(),sb);
     }
   }
 
