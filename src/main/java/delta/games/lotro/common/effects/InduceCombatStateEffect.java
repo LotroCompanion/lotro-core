@@ -2,6 +2,7 @@ package delta.games.lotro.common.effects;
 
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.math.LinearFunction;
+import delta.games.lotro.common.properties.ModPropertyList;
 
 /**
  * 'Induce combat state' effect.
@@ -12,6 +13,13 @@ public class InduceCombatStateEffect extends InstantEffect
   private CombatState _state;
   private float _duration;
   private LinearFunction _durationFunction;
+  private ModPropertyList _durationMods; // Effect_CombatState_Induce_StateDuration_ModProp_List
+  private Float _breakOnHarmfullSkill; // Effect_CombatState_Induce_BreakOnHarmfulSkill_Override
+  private ModPropertyList _breakOnHarmfullSkillMods; // Effect_CombatState_Induce_BreakOnHarmfulSkill_ModProp_List
+  private Float _breakOnVitalLossProb; // Effect_CombatState_Induce_BreakOnVitalLossProb_Override
+  private ModPropertyList _breakOnVitalLossProbMods; // Effect_CombatState_Induce_BreakOnVitalLoss_ModProp_List
+  private Float _gracePeriod; // Effect_CombatState_Induce_BreakOutOfState_GracePeriod_Override
+  private ModPropertyList _gracePeriodMods; // Effect_CombatState_Induce_BreakOutOfState_GracePeriod_Override_ModifierList
 
   /**
    * Constructor.

@@ -17,6 +17,7 @@ import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectDisplay2;
+import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.EffectFlags;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
@@ -417,6 +418,15 @@ public class SkillDisplay
         for(String line : lines)
         {
           sb.append(line).append(EndOfLine.NATIVE_EOL);
+        }
+      }
+      EffectDuration effectDuration=propModEffect.getEffectDuration();
+      if (effectDuration!=null)
+      {
+        Float duration=effectDuration.getDuration();
+        if (duration!=null)
+        {
+          sb.append("Duration: ").append(L10n.getString(duration.doubleValue(),1)).append("s").append(EndOfLine.NATIVE_EOL);
         }
       }
       boolean expiresOutOfCombat=effect.getBaseFlag(EffectFlags.DURATION_COMBAT_ONLY);

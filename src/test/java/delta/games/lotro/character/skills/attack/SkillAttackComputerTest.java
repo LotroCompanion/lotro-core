@@ -160,6 +160,12 @@ class SkillAttackComputerTest
     doSkill(1879272247, data); // Combustion
     doSkill(1879109295, data); // Epic Conclusion
     doSkill(1879221506, data); // Fiery Ridicule
+    doSkill(1879109293, data); // Scribe's Spark
+    doSkill(1879109616, data); // Writ of Fire
+    doSkill(1879109291, data); // Essence of Storm
+    doSkill(1879109292, data); // Ceaseless Argument
+    doSkill(1879110792, data); // Shocking Touch
+    doSkill(1879272269, data); // Fulgurite Rune-stone
     /*
     doSkill(1879110792,data); // Shocking Touch 3965.6267 / 3966 OK
     doSkill(1879221506,data); // Fiery Ridicule 6535.1904 / 6535 OK
