@@ -25,6 +25,7 @@ public class SkillDetails implements Identifiable,Named
   private Float _channelingDuration;
   // Cooldown
   private Float _cooldown;
+  private ModPropertyList _cooldownMods;
   // Flags
   private int _flags;
   // Geometry
@@ -173,6 +174,24 @@ public class SkillDetails implements Identifiable,Named
   public void setCooldown(Float cooldown)
   {
     _cooldown=cooldown;
+  }
+
+  /**
+   * Get the skill cooldown modifiers.
+   * @return Some modifiers or <code>null</code>.
+   */
+  public ModPropertyList getCooldownMods()
+  {
+    return _cooldownMods;
+  }
+
+  /**
+   * Set the cooldown modifiers.
+   * @param cooldownMods Modifiers to set (may be <code>null</code>).
+   */
+  public void setCooldownMods(ModPropertyList cooldownMods)
+  {
+    _cooldownMods=cooldownMods;
   }
 
   /**

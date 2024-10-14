@@ -92,6 +92,11 @@ public class SkillDetailsXmlIO
     {
       attrs.addAttribute("","",SkillDetailsXMLConstants.COOLDOWN_ATTR,XmlWriter.CDATA,cooldown.toString());
     }
+    String cooldownModsStr=ModPropertyListIO.asPersistentString(data.getCooldownMods());
+    if (!cooldownModsStr.isEmpty())
+    {
+      attrs.addAttribute("","",SkillDetailsXMLConstants.COOLDOWN_MODS_ATTR,XmlWriter.CDATA,cooldownModsStr);
+    }
     // Flags
     int flags=data.getFlags();
     if (flags!=0)
@@ -221,6 +226,9 @@ public class SkillDetailsXmlIO
     // Cooldown
     Float cooldown=DOMParsingTools.getFloatAttribute(attrs,SkillDetailsXMLConstants.COOLDOWN_ATTR,null);
     ret.setCooldown(cooldown);
+    String cooldownModsStr=DOMParsingTools.getStringAttribute(attrs,SkillDetailsXMLConstants.COOLDOWN_MODS_ATTR,null);
+    ModPropertyList cooldownMods=ModPropertyListIO.fromPersistedString(cooldownModsStr);
+    ret.setCooldownMods(cooldownMods);
     // Flags
     int flags=DOMParsingTools.getIntAttribute(attrs,SkillDetailsXMLConstants.FLAGS_ATTR,0);
     ret.setFlags(flags);

@@ -241,10 +241,15 @@ public class SkillDisplay
       admin.add("Toggle Skill");
     }
     Float cooldown=_skillDetails.getCooldown();
-    if ((cooldown!=null) && (cooldown.floatValue()>0))
+    if (cooldown!=null)
     {
-      // TODO Format duration
-      admin.add("Cooldown: "+L10n.getString(cooldown.floatValue(),1)+"s");
+      float cooldownF=cooldown.floatValue();
+      cooldownF+=_character.computeAdditiveModifiers(_skillDetails.getCooldownMods());
+      if (cooldownF>0f)
+      {
+        // TODO Format duration
+        admin.add("Cooldown: "+L10n.getString(cooldownF,1)+"s");
+      }
     }
     for(String line : admin)
     {

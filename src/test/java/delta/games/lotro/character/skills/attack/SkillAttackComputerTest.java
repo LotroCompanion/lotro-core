@@ -166,6 +166,10 @@ class SkillAttackComputerTest
     doSkill(1879109292, data); // Ceaseless Argument
     doSkill(1879110792, data); // Shocking Touch
     doSkill(1879272269, data); // Fulgurite Rune-stone
+    doSkill(1879109290, data); // Prelude to Hope
+    doSkill(1879109288, data); // Mending Verse
+    doSkill(1879109121, data); // Essence of Winter
+    doSkill(1879461530, data); // Self-motivation
     /*
     doSkill(1879110792,data); // Shocking Touch 3965.6267 / 3966 OK
     doSkill(1879221506,data); // Fiery Ridicule 6535.1904 / 6535 OK

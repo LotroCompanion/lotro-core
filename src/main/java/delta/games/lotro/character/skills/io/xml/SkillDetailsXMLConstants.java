@@ -27,6 +27,10 @@ public class SkillDetailsXMLConstants
    */
   public static final String COOLDOWN_ATTR="cooldown";
   /**
+   * Attribute 'cooldownMods'.
+   */
+  public static final String COOLDOWN_MODS_ATTR="cooldownMods";
+  /**
    * Attribute 'flags'.
    */
   public static final String FLAGS_ATTR="flags";
