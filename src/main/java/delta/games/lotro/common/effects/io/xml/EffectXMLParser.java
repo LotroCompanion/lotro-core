@@ -293,6 +293,14 @@ public class EffectXMLParser
       LinearFunction f=new LinearFunction(minX,maxX,minY,maxY);
       ret.setDurationFunction(f);
     }
+    // Duration modifiers
+    String durationModsStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.INDUCE_COMBAT_STATE_DURATION_MODS_ATTR,null);
+    ret.setDurationModifiers(ModPropertyListIO.fromPersistedString(durationModsStr));
+    // Grace period
+    Float gracePeriod=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.INDUCE_COMBAT_STATE_GRACE_PERIOD_ATTR,null);
+    ret.setGracePeriod(gracePeriod);
+    String gracePeriodModsStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.INDUCE_COMBAT_STATE_GRACE_PERIOD_MODS_ATTR,null);
+    ret.setGracePeriodModifiers(ModPropertyListIO.fromPersistedString(gracePeriodModsStr));
     return ret;
   }
 

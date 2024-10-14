@@ -139,7 +139,18 @@ public class EffectXMLConstants
    * Tag 'induceCombatState', attribute 'stateDuration'.
    */
   public static final String INDUCE_COMBAT_STATE_DURATION_ATTR="stateDuration";
-
+  /**
+   * Tag 'induceCombatState', attribute 'stateDurationMods'.
+   */
+  public static final String INDUCE_COMBAT_STATE_DURATION_MODS_ATTR="stateDurationMods";
+  /**
+   * Tag 'induceCombatState', attribute 'gracePeriod'.
+   */
+  public static final String INDUCE_COMBAT_STATE_GRACE_PERIOD_ATTR="gracePeriod";
+  /**
+   * Tag 'induceCombatState', attribute 'gracePeriodMods'.
+   */
+  public static final String INDUCE_COMBAT_STATE_GRACE_PERIOD_MODS_ATTR="gracePeriodMods";
   /**
    * Tag 'fellowshipEffect'.
    */

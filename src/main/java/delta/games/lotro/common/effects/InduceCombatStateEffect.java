@@ -87,6 +87,60 @@ public class InduceCombatStateEffect extends InstantEffect
  }
 
   /**
+   * Get the duration modifiers.
+   * @return Some modifiers or <code>null</code>.
+   */
+  public ModPropertyList getDurationModifiers()
+  {
+    return _durationMods;
+  }
+
+  /**
+   * Set the duration modifiers.
+   * @param durationMods Modifiers to set (may be <code>null</code>).
+   */
+  public void setDurationModifiers(ModPropertyList durationMods)
+  {
+    _durationMods=durationMods;
+  }
+
+  /**
+   * Get the grace period, if any.
+   * @return A duration (seconds) or <code>null</code>.
+   */
+  public Float getGracePeriod()
+  {
+    return _gracePeriod;
+  }
+
+  /**
+   * Set the grace period.
+   * @param gracePeriod Grace period duration (may be <code>null</code>).
+   */
+  public void setGracePeriod(Float gracePeriod)
+  {
+    _gracePeriod=gracePeriod;
+  }
+
+  /**
+   * Set the grace period modifiers.
+   * @return some modifiers or <code>null</code>.
+   */
+  public ModPropertyList getGracePeriodModifiers()
+  {
+    return _gracePeriodMods;
+  }
+
+  /**
+   * Set the grace period modifiers.
+   * @param gracePeriodMods Modifiers to set (may be <code>null</code>).
+   */
+  public void setGracePeriodModifiers(ModPropertyList gracePeriodMods)
+  {
+    _gracePeriodMods=gracePeriodMods;
+  }
+
+  /**
    * Get the duration.
    * @param level Spell-craft level.
    * @return A duration (seconds).

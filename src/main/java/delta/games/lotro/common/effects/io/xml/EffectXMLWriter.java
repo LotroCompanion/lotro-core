@@ -326,6 +326,23 @@ public class EffectXMLWriter
     {
       attrs.addAttribute("","",EffectXMLConstants.INDUCE_COMBAT_STATE_DURATION_ATTR,XmlWriter.CDATA,String.valueOf(duration));
     }
+    // Duration modifiers
+    String durationModsStr=ModPropertyListIO.asPersistentString(induceCombatState.getDurationModifiers());
+    if (!durationModsStr.isEmpty())
+    {
+      attrs.addAttribute("","",EffectXMLConstants.INDUCE_COMBAT_STATE_DURATION_MODS_ATTR,XmlWriter.CDATA,String.valueOf(durationModsStr));
+    }
+    // Grace period
+    Float gracePeriod=induceCombatState.getGracePeriod();
+    if (gracePeriod!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.INDUCE_COMBAT_STATE_GRACE_PERIOD_ATTR,XmlWriter.CDATA,gracePeriod.toString());
+    }
+    String gracePeriodModsStr=ModPropertyListIO.asPersistentString(induceCombatState.getGracePeriodModifiers());
+    if (!gracePeriodModsStr.isEmpty())
+    {
+      attrs.addAttribute("","",EffectXMLConstants.INDUCE_COMBAT_STATE_GRACE_PERIOD_MODS_ATTR,XmlWriter.CDATA,gracePeriodModsStr);
+    }
   }
 
   private void writeInstantFellowshipEffectAttributes(AttributesImpl attrs, InstantFellowshipEffect instantFellowshipEffect)
