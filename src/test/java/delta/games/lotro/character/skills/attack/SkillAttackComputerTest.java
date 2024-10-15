@@ -53,13 +53,13 @@ class SkillAttackComputerTest
     testHunter();
     testLoremaster();
     testMinstrel();
-    */
     testRunekeeper();
-    /*
     testMariner();
     testPip();
     testMinstrel();
     */
+    //testRunekeeper();
+    testLoremaster();
   }
 
   void testClassSkills(String key, CharacterData data)
@@ -181,16 +181,17 @@ class SkillAttackComputerTest
   void testLoremaster() // ~OK
   {
     CharacterData data=getCharacterData("loremaster.xml");
-    testClass(WellKnownCharacterClassKeys.LORE_MASTER,data);
-    // (Fire) Burning Embers: 4714.4585 / 4715 ~OK
+    //testClass(WellKnownCharacterClassKeys.LORE_MASTER,data);
+    doSkill(1879064244, data); // Burning Embers
+    doSkill(1879111679, data); // Wizard's Fire
+    doSkill(1879488018, data); // Wizard's Spark
+    doSkill(1879064247, data); // Gust of Wind
+    doSkill(1879487481, data); // Minor Pet Command
+    doSkill(1879060758, data); // Power of Knowledge
     // (Frost) Staff Strike: #1 7382.149 / 7382 ; #2 2036.4579 / 2036 OK
-    // (Lightning) Wizard's Spark: 5235.174 / 5235 OK
     // (Frost) Wizard's Frost: 33451.1545 / 3451 OK
-    // (Fire) Wizard's Fire: 3272.5842 / 3273 OK
     // (Fire) Cracked Earth: 8996.994 / 8997 OK
-    // (Frost) Gust of Wind: 3075.8953 / 3076 OK
     // Light of the Rising Dawn: 615.1791 / 615 OK
-    // Minor Pet Command: 615.1791 / 615 OK
   }
 
   void testCaptain() // ~OK

@@ -116,6 +116,7 @@ public class EffectDisplay2
     }
     else
     {
+      qualifierValue=1.0f;
       LOGGER.warn("Unmanaged case!");
     }
 
@@ -236,12 +237,12 @@ public class EffectDisplay2
       }
       else
       {
-        fullChange="Heals "+changeStr;
+        fullChange="Heals "+changeStr+" Morale";
       }
     }
     else if (stat==WellKnownStat.POWER)
     {
-      fullChange=(negative?"Drains ":"Restores ")+changeStr;
+      fullChange=(negative?"Drains ":"Restores ")+changeStr+" Power";
     }
     return fullChange;
   }

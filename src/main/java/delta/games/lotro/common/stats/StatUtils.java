@@ -227,6 +227,7 @@ public class StatUtils
     StatDescription stat=element.getStat();
     String statName=stat.getName();
     Number value=element.getValue();
+    Number rawValue=value;
     String prefix="";
     if (element.getOperator()==StatOperator.MULTIPLY)
     {
@@ -245,6 +246,7 @@ public class StatUtils
       prefix="-";
     }
     String valueStr=getStatDisplay(value,stat);
+    String rawValueStr=rawValue.toString();
     String descriptionOverride=element.getDescriptionOverride();
     if (descriptionOverride!=null)
     {
@@ -252,7 +254,7 @@ public class StatUtils
       {
         line=descriptionOverride;
         line=line.replace("{***}",valueStr);
-        line=line.replace("${VALUE}",valueStr);
+        line=line.replace("${VALUE}",rawValueStr);
         line=line.replace("${PERCENTVALUE}",valueStr);
         line=line.replace("${PROPERTY}",statName);
       }

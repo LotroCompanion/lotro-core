@@ -22,6 +22,7 @@ import delta.games.lotro.common.effects.EffectFlags;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
+import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
@@ -216,7 +217,11 @@ public class SkillDisplay
       Float powerCost=costComputer.getVitalCost(costData.getPowerCost());
       if (powerCost!=null)
       {
-        admin.add("Cost: "+L10n.getString(powerCost.floatValue(),0)+" Power");
+        int powerCostInt=Math.round(powerCost.floatValue());
+        if (powerCostInt>0)
+        {
+          admin.add("Cost: "+L10n.getString(powerCostInt)+" Power");
+        }
       }
       Float togglePowerCost=costComputer.getVitalCost(costData.getPowerCostPerSecond());
       if (togglePowerCost!=null)
@@ -288,11 +293,6 @@ public class SkillDisplay
     {
       sb.append(nbAttacks).append(" Attacks:").append(EndOfLine.NATIVE_EOL);
     }
-    String skillEffects=doSkillEffects();
-    if (!skillEffects.isEmpty())
-    {
-      sb.append(skillEffects).append(EndOfLine.NATIVE_EOL);
-    }
     for(SkillAttack attack : attacks.getAttacks())
     {
       float maxDamage=_attackComputer.getAttackDamage(attack,false);
@@ -328,6 +328,11 @@ public class SkillDisplay
       if (!effects.isEmpty())
       {
         sb.append(effects).append(EndOfLine.NATIVE_EOL);
+      }
+      String skillEffects=doSkillEffects();
+      if (!skillEffects.isEmpty())
+      {
+        sb.append(skillEffects).append(EndOfLine.NATIVE_EOL);
       }
     }
     return sb.toString().trim();
@@ -376,7 +381,10 @@ public class SkillDisplay
     {
       ComboEffect comboEffect=(ComboEffect)effect;
       Proxy<Effect> toExamine=comboEffect.getToExamine();
-      handleEffect(damageQualifier,generator,toExamine.getObject(),sb);
+      if (toExamine!=null)
+      {
+        handleEffect(damageQualifier,generator,toExamine.getObject(),sb);
+      }
     }
     else if (effect instanceof GenesisEffect)
     {
@@ -425,6 +433,12 @@ public class SkillDisplay
           sb.append(line).append(EndOfLine.NATIVE_EOL);
         }
       }
+      boolean expiresOutOfCombat=effect.getBaseFlag(EffectFlags.DURATION_COMBAT_ONLY);
+      if (expiresOutOfCombat)
+      {
+        // TODO Sometimes "Expires if out of combat for a short amount of time."
+        sb.append("Expires if out of combat for 9 seconds.").append(EndOfLine.NATIVE_EOL);
+      }
       EffectDuration effectDuration=propModEffect.getEffectDuration();
       if (effectDuration!=null)
       {
@@ -434,11 +448,6 @@ public class SkillDisplay
           sb.append("Duration: ").append(L10n.getString(duration.doubleValue(),1)).append("s").append(EndOfLine.NATIVE_EOL);
         }
       }
-      boolean expiresOutOfCombat=effect.getBaseFlag(EffectFlags.DURATION_COMBAT_ONLY);
-      if (expiresOutOfCombat)
-      {
-        sb.append("Expires if out of combat for 9 seconds.").append(EndOfLine.NATIVE_EOL);
-      }
     }
     else if (effect instanceof TieredEffect)
     {
@@ -447,6 +456,24 @@ public class SkillDisplay
       sb.append("This effect stacks up to "+tiers+" times:").append(EndOfLine.NATIVE_EOL);
       EffectGenerator firstTier=propModEffect.getTiers().get(0);
       handleEffect(damageQualifier,generator,firstTier.getEffect(),sb);
+    }
+    else if (effect instanceof InstantFellowshipEffect)
+    {
+      InstantFellowshipEffect fellowshipEffect=(InstantFellowshipEffect)effect;
+      Float range=fellowshipEffect.getRange();
+      boolean toPets=fellowshipEffect.appliesToPets();
+      if (toPets)
+      {
+        sb.append("Effects applied to your animal companion");
+        if (range!=null)
+        {
+          sb.append(" within ").append(L10n.getString(range.doubleValue(),0)).append(" metres:").append(EndOfLine.NATIVE_EOL);
+        }
+      }
+      for(EffectGenerator childEffect : fellowshipEffect.getEffects())
+      {
+        handleEffect(damageQualifier,generator,childEffect.getEffect(),sb);
+      }
     }
   }
 
