@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlots;
@@ -63,6 +65,21 @@ public class CharacterDataForSkills
   public int getLevel()
   {
     return _data.getLevel();
+  }
+
+  public float getTacticalDamageVariance()
+  {
+    String classKey=_data.getCharacterClass().getKey();
+    if (WellKnownCharacterClassKeys.LORE_MASTER.equals(classKey))
+    {
+      return 0.2f;
+    }
+    else if ((WellKnownCharacterClassKeys.MINSTREL.equals(classKey)) ||
+        (WellKnownCharacterClassKeys.RUNE_KEEPER.equals(classKey)))
+    {
+      return 0.3f;
+    }
+    return 0;
   }
 
   private boolean useRangedTHR()

@@ -92,6 +92,7 @@ public class EffectDisplay2
   /**
    * Compute a vital change.
    * @param generator Parent effect generator.
+   * @param stat Stat to use.
    * @param effect Vital effect.
    * @param description Vital change to use.
    * @param damageQualifier Damage qualifier.
@@ -99,14 +100,21 @@ public class EffectDisplay2
    * @param minimum Compute the minimum change or maximum change.
    * @return A vital change value.
    */
-  private float getVitalChange(SkillEffectGenerator generator, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial, boolean minimum)
+  private float getVitalChange(SkillEffectGenerator generator, StatDescription stat, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial, boolean minimum)
   {
     float change=0;
     float qualifierValue=0;
     ImplementUsageType implementUsage=generator.getImplementUsage();
     if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
     {
-      qualifierValue=_attackComputer.getHealingQualifier();
+      if (stat==WellKnownStat.MORALE)
+      {
+        qualifierValue=_attackComputer.getHealingQualifier();
+      }
+      else
+      {
+        qualifierValue=1.0f;
+      }
       LOGGER.debug("Tactical HPS qualifier value: {}",Float.valueOf(qualifierValue));
     }
     else if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
@@ -202,12 +210,12 @@ public class EffectDisplay2
   private String getInstantVitalEffectDisplay(SkillEffectGenerator generator, InstantVitalEffect effect, DamageQualifier damageQualifier)
   {
     VitalChangeDescription change=effect.getInstantChangeDescription();
-    float min=getVitalChange(generator,effect,change,damageQualifier,true,true);
+    StatDescription stat=effect.getStat();
+    float min=getVitalChange(generator,stat,effect,change,damageQualifier,true,true);
     int minInt=Math.round(min);
-    float max=getVitalChange(generator,effect,change,damageQualifier,true,false);
+    float max=getVitalChange(generator,stat,effect,change,damageQualifier,true,false);
     int maxInt=Math.round(max);
 
-    StatDescription stat=effect.getStat();
     DamageType damageType=effect.getDamageType();
     String ret=buildFullChange(minInt,maxInt,stat,damageType);
     return ret;
@@ -269,9 +277,9 @@ public class EffectDisplay2
     VitalChangeDescription initialChange=effect.getInitialChangeDescription();
     if (initialChange!=null)
     {
-      float initialMin=getVitalChange(generator,effect,initialChange,damageQualifier,true,true);
+      float initialMin=getVitalChange(generator,stat,effect,initialChange,damageQualifier,true,true);
       int initialMinInt=Math.round(initialMin);
-      float initialMax=getVitalChange(generator,effect,initialChange,damageQualifier,true,false);
+      float initialMax=getVitalChange(generator,stat,effect,initialChange,damageQualifier,true,false);
       int initialMaxInt=Math.round(initialMax);
       initialLine=buildFullChange(initialMinInt,initialMaxInt,stat,damageType);
     }
@@ -279,9 +287,9 @@ public class EffectDisplay2
     VitalChangeDescription overTimeChange=effect.getOverTimeChangeDescription();
     if (overTimeChange!=null)
     {
-      float intervalMin=getVitalChange(generator,effect,overTimeChange,damageQualifier,false,true);
+      float intervalMin=getVitalChange(generator,stat,effect,overTimeChange,damageQualifier,false,true);
       int intervalMinInt=Math.round(intervalMin);
-      float intervalMax=getVitalChange(generator,effect,overTimeChange,damageQualifier,false,false);
+      float intervalMax=getVitalChange(generator,stat,effect,overTimeChange,damageQualifier,false,false);
       int intervalMaxInt=Math.round(intervalMax);
 
       EffectDuration duration=effect.getEffectDuration();
@@ -291,7 +299,11 @@ public class EffectDisplay2
       float totalDuration=interval.floatValue()*pulseCount;
 
       overTimeLine=buildFullChange(intervalMinInt,intervalMaxInt,stat,damageType);
-      overTimeLine=overTimeLine+" every "+L10n.getString(interval.floatValue(),1)+" seconds for "+L10n.getString(Math.round(totalDuration))+" seconds";
+      overTimeLine=overTimeLine+" every "+L10n.getString(interval.floatValue(),1)+" seconds";
+      if (totalDuration>0)
+      {
+        overTimeLine=overTimeLine+" for "+L10n.getString(Math.round(totalDuration))+" seconds";
+      }
     }
     if (initialLine!=null)
     {

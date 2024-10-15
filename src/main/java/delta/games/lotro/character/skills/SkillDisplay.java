@@ -363,6 +363,11 @@ public class SkillDisplay
     StringBuilder sb=new StringBuilder();
     for(SkillEffectGenerator generator : effectsMgr.getEffects())
     {
+      SkillEffectType type=generator.getType();
+      if (type==SkillEffectType.USER_TOGGLE)
+      {
+        sb.append("On Use:").append(EndOfLine.NATIVE_EOL);
+      }
       handleEffect(null,generator,generator.getEffect(),sb);
     }
     return sb.toString().trim();
@@ -401,9 +406,14 @@ public class SkillDisplay
     else if (effect instanceof AreaEffect)
     {
       AreaEffect areaEffect=(AreaEffect)effect;
-      for(EffectGenerator childGenerator : areaEffect.getEffects())
+      float range=areaEffect.getRange();
+      if (!areaEffect.getEffects().isEmpty())
       {
-        handleEffect(damageQualifier,generator,childGenerator.getEffect(),sb);
+        sb.append("Effects applied to enemies within ").append(L10n.getString(range,0)).append(" metres:").append(EndOfLine.NATIVE_EOL);
+        for(EffectGenerator childGenerator : areaEffect.getEffects())
+        {
+          handleEffect(damageQualifier,generator,childGenerator.getEffect(),sb);
+        }
       }
     }
     else if (effect instanceof ApplyOverTimeEffect)

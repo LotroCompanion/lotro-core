@@ -229,7 +229,8 @@ public class SkillAttackComputer
         LOGGER.debug("Tactical DPS: {}",Float.valueOf(implementBaseDamage));
         if (minimum)
         {
-          implementBaseDamage*=0.7;
+          float variance=_character.getTacticalDamageVariance();
+          implementBaseDamage*=(1-variance);
           LOGGER.debug("Tactical min DPS: {}",Float.valueOf(implementBaseDamage));
         }
       }
