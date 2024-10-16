@@ -19,6 +19,8 @@ import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.WellKnownStat;
+import delta.games.lotro.lore.items.DamageType;
+import delta.games.lotro.lore.items.DamageTypes;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.Weapon;
@@ -46,6 +48,35 @@ public class SkillAttackComputer
   {
     _character=data;
     _skill=details;
+  }
+
+  /**
+   * Get the damage type for an attack.
+   * @param attack Attack to use.
+   * @return A damage type.
+   */
+  public DamageType getDamageType(SkillAttack attack)
+  {
+    DamageType damageType=attack.getDamageType();
+    if (damageType!=null)
+    {
+      return damageType;
+    }
+    ImplementUsageType usesImpl=attack.getImplementUsageType();
+    if (usesImpl!=null)
+    {
+      ItemInstance<? extends Item> item=_character.getImplement(usesImpl);
+      if (item instanceof WeaponInstance<?>)
+      {
+        WeaponInstance<?> weapon=(WeaponInstance<?>)item;
+        damageType=weapon.getEffectiveDamageType();
+      }
+    }
+    if (damageType==null)
+    {
+      damageType=DamageTypes.COMMON;
+    }
+    return damageType;
   }
 
   /**

@@ -58,8 +58,8 @@ class SkillAttackComputerTest
     testPip();
     testMinstrel();
     */
-    //testRunekeeper();
-    testLoremaster();
+    testRunekeeper();
+    //testLoremaster();
   }
 
   void testClassSkills(String key, CharacterData data)
@@ -127,55 +127,43 @@ class SkillAttackComputerTest
   void testRunekeeper()
   {
     // No tree
-    /*
-    CharacterData data=getCharacterData("rk no tree.xml"); // OK
-    doSkill(1879110792,data); // Shocking Touch 3783.6074 / 3784 OK
-    doSkill(1879107947,data); // Fiery Ridicule 5611.707 / 5612 OK
-    doSkill(1879109293,data); // Scribe's Spark 8989.852 / 8990 OK
-    doSkill(1879109291,data); // Essence of Storm 11686.806 / 11687 OK
-    */
+    // CharacterData data=getCharacterData("rk no tree.xml");
     // Tree red + 5 Deliberate Address
-    /*
-    CharacterData data=getCharacterData("rk no tree 5DA.xml"); // OK
-    doSkill(1879110792,data); // Shocking Touch 3972.7869 / 3973 OK
-    doSkill(1879107947,data); // Fiery Ridicule 6765.2236 / 6765 OK
-    doSkill(1879109293,data); // Scribe's Spark 9439.342 / 9439 OK
-    doSkill(1879109291,data); // Essence of Storm 12271.145 / 12271 OK
-    doSkill(1879109121,data); // Essence of Winter 10817.778 / 10818 OK
-    */
+    // CharacterData data=getCharacterData("rk no tree 5DA.xml");
+
     // Standard
     CharacterData data=getCharacterData("runekeeper.xml"); // OK
     //doSkill(1879219450,data); // Improved Rousing Words
     //testClass(WellKnownCharacterClassKeys.RUNE_KEEPER,data);
-    /*
-    doSkill(1879109290, data); // Prelude to Hope OK
-    doSkill(1879109286, data); // Epic for the Ages OK
-    doSkill(1879109288, data); // Mending Verse OK
-    doSkill(1879461530, data); // Self-motivation ~OK (!=1)
-    */
+
+    //doSkill(1879109286, data); // Epic for the Ages OK
     //doSkill(1879109119, data); // Flurry of Words (do not use qualifier*)
+
+    // Page 1
+    doSkill(1879110792, data); // Shocking Touch
     doSkill(1879199033, data); // Essay of Fire (use qualifier*)
-    doSkill(1879107945, data); // Scathing Mockery (use qualifier*)
-    doSkill(1879107949, data); // Smouldering Wrath
-    doSkill(1879272247, data); // Combustion
-    doSkill(1879109295, data); // Epic Conclusion
-    doSkill(1879221506, data); // Fiery Ridicule
-    doSkill(1879109293, data); // Scribe's Spark
-    doSkill(1879109616, data); // Writ of Fire
     doSkill(1879109291, data); // Essence of Storm
     doSkill(1879109292, data); // Ceaseless Argument
-    doSkill(1879110792, data); // Shocking Touch
     doSkill(1879272269, data); // Fulgurite Rune-stone
-    doSkill(1879109290, data); // Prelude to Hope
-    doSkill(1879109288, data); // Mending Verse
+    doSkill(1879107949, data); // Smouldering Wrath
+    doSkill(1879109616, data); // Writ of Fire
+    doSkill(1879107945, data); // Scathing Mockery (use qualifier*)
+    // TODO Chilling Rhetoric
+    doSkill(1879221506, data); // Fiery Ridicule
+    // TODO Essence of Flame
+    // TODO Distracting Flame
+    doSkill(1879109293, data); // Scribe's Spark
+    doSkill(1879109295, data); // Epic Conclusion
+    doSkill(1879272247, data); // Combustion
+    // TODO Shocking Words
+    // Page 2
     doSkill(1879109121, data); // Essence of Winter
+    doSkill(1879109288, data); // Mending Verse
     doSkill(1879461530, data); // Self-motivation
-    /*
-    doSkill(1879110792,data); // Shocking Touch 3965.6267 / 3966 OK
-    doSkill(1879221506,data); // Fiery Ridicule 6535.1904 / 6535 OK
-    doSkill(1879109293,data); // Scribe's Spark 9422.329 / 9423 ~OK
-    doSkill(1879109291,data); // Essence of Storm 12249.028 / 12249 OK
-    */
+    // TODO Flurry of Words
+    doSkill(1879109290, data); // Prelude to Hope
+    // TODO Epic for the Ages
+    // TODO Armour of the Elements
   }
 
   void testLoremaster() // ~OK
@@ -188,10 +176,12 @@ class SkillAttackComputerTest
     doSkill(1879064247, data); // Gust of Wind
     doSkill(1879487481, data); // Minor Pet Command
     doSkill(1879060758, data); // Power of Knowledge
-    // (Frost) Staff Strike: #1 7382.149 / 7382 ; #2 2036.4579 / 2036 OK
-    // (Frost) Wizard's Frost: 33451.1545 / 3451 OK
-    // (Fire) Cracked Earth: 8996.994 / 8997 OK
-    // Light of the Rising Dawn: 615.1791 / 615 OK
+    doSkill(1879490501, data); // Staff Strike
+    doSkill(1879060803, data); // Cracked Earth
+    doSkill(1879060811, data); // Wisdom of the Council
+    doSkill(1879064258, data); // Light of the Rising Dawn
+    doSkill(1879455086, data); // Wizard's Frost
+    doSkill(1879060771, data); // Light of Hope
   }
 
   void testCaptain() // ~OK

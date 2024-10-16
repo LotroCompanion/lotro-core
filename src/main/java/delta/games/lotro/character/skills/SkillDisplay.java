@@ -35,7 +35,6 @@ import delta.games.lotro.common.enums.SkillDisplayType;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.DamageType;
-import delta.games.lotro.lore.items.DamageTypes;
 import delta.games.lotro.lore.pip.PipDescription;
 import delta.games.lotro.lore.pip.PipsManager;
 import delta.games.lotro.utils.Proxy;
@@ -209,26 +208,9 @@ public class SkillDisplay
       sb.append(attacks).append(EndOfLine.NATIVE_EOL);
     }
     List<String> admin=new ArrayList<String>();
-    // Power cost
-    SkillVitalCostComputer costComputer=new SkillVitalCostComputer(_character);
-    SkillCostData costData=_skillDetails.getCostData();
-    if (costData!=null)
-    {
-      Float powerCost=costComputer.getVitalCost(costData.getPowerCost());
-      if (powerCost!=null)
-      {
-        int powerCostInt=Math.round(powerCost.floatValue());
-        if (powerCostInt>0)
-        {
-          admin.add("Cost: "+L10n.getString(powerCostInt)+" Power");
-        }
-      }
-      Float togglePowerCost=costComputer.getVitalCost(costData.getPowerCostPerSecond());
-      if (togglePowerCost!=null)
-      {
-        admin.add("Cost: "+L10n.getString(togglePowerCost.floatValue(),0)+" Power Per Second");
-      }
-    }
+    // Cost
+    List<String> costLines=getCostLines();
+    admin.addAll(costLines);
     // Gambit
     List<String> gambitLines=getGambitLines(_skillDetails.getGambitData());
     admin.addAll(gambitLines);
@@ -298,11 +280,7 @@ public class SkillDisplay
       float maxDamage=_attackComputer.getAttackDamage(attack,false);
       float minDamage=_attackComputer.getAttackDamage(attack,true);
       String implementText=getAttackImplementText(attack.getImplementUsageType());
-      DamageType damageType=attack.getDamageType();
-      if (damageType==null)
-      {
-        damageType=DamageTypes.COMMON;
-      }
+      DamageType damageType=_attackComputer.getDamageType(attack);
       String attackText="";
       int maxDamageInt=Math.round(maxDamage);
       int minDamageInt=Math.round(minDamage);
@@ -485,6 +463,56 @@ public class SkillDisplay
         handleEffect(damageQualifier,generator,childEffect.getEffect(),sb);
       }
     }
+  }
+
+  private List<String> getCostLines()
+  {
+    List<String> ret=new ArrayList<String>();
+    SkillVitalCostComputer costComputer=new SkillVitalCostComputer(_character);
+    SkillCostData costData=_skillDetails.getCostData();
+    if (costData!=null)
+    {
+      ret.addAll(getMoraleCost(costComputer,costData));
+      ret.addAll(getPowerCost(costComputer,costData));
+    }
+    return ret;
+  }
+
+  private List<String> getMoraleCost(SkillVitalCostComputer costComputer, SkillCostData costData)
+  {
+    List<String> ret=new ArrayList<String>();
+    Float moraleCost=costComputer.getVitalCost(costData.getMoraleCost());
+    if (moraleCost!=null)
+    {
+      int moraleCostInt=Math.round(moraleCost.floatValue());
+      if (moraleCostInt>0)
+      {
+        ret.add("Cost: "+L10n.getString(moraleCostInt)+" Morale");
+      }
+    }
+    return ret;
+  }
+
+  private List<String> getPowerCost(SkillVitalCostComputer costComputer, SkillCostData costData)
+  {
+    List<String> ret=new ArrayList<String>();
+    // Power cost
+    Float powerCost=costComputer.getVitalCost(costData.getPowerCost());
+    if (powerCost!=null)
+    {
+      int powerCostInt=Math.round(powerCost.floatValue());
+      if (powerCostInt>0)
+      {
+        ret.add("Cost: "+L10n.getString(powerCostInt)+" Power");
+      }
+    }
+    // Interval power cost
+    Float togglePowerCost=costComputer.getVitalCost(costData.getPowerCostPerSecond());
+    if (togglePowerCost!=null)
+    {
+      ret.add("Cost: "+L10n.getString(togglePowerCost.floatValue(),0)+" Power Per Second");
+    }
+    return ret;
   }
 
   private String getGambitText(List<GambitIconType> types)

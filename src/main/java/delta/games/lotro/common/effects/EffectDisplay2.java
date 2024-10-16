@@ -132,15 +132,18 @@ public class EffectDisplay2
 
     float modifiers=_character.computeAdditiveModifiers(description.getModifiers());
     Progression prog=description.getProgression();
-    Float progValueF=prog.getValue(_character.getLevel());
-    float progValue=(progValueF!=null)?progValueF.floatValue():0;
-    if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
+    if (prog!=null)
     {
-      change=(qualifierValue+modifiers)*progValue;
-    }
-    else
-    {
-      change=qualifierValue*(1+modifiers)*progValue;
+      Float progValueF=prog.getValue(_character.getLevel());
+      float progValue=(progValueF!=null)?progValueF.floatValue():0;
+      if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
+      {
+        change=(qualifierValue+modifiers)*progValue;
+      }
+      else
+      {
+        change=qualifierValue*(1+modifiers)*progValue;
+      }
     }
     LOGGER.debug("Base vital change: {}", Float.valueOf(change));
     Float vpsMultiplierValue=description.getVPSMultiplier();
