@@ -536,7 +536,12 @@ public class EffectDisplay
     storage.add(text);
   }
 
-  private String getStateLabel(CombatState state)
+  /**
+   * Get the label for the given state.
+   * @param state State to use.
+   * @return A label.
+   */
+  public static String getStateLabel(CombatState state)
   {
     int code=state.getCode();
     if (code==2) return "Fear";

@@ -16,15 +16,18 @@ import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.EffectDisplay;
 import delta.games.lotro.common.effects.EffectDisplay2;
 import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.EffectFlags;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
+import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.TieredEffect;
+import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.GambitIconType;
 import delta.games.lotro.common.enums.ImplementUsageType;
@@ -106,10 +109,19 @@ public class SkillDisplay
   public String getText()
   {
     StringBuilder sb=new StringBuilder();
-    sb.append("Skill-Id: ").append(_skill.getIdentifier()).append(EndOfLine.NATIVE_EOL);
-    sb.append(_skill.getName()).append(EndOfLine.NATIVE_EOL);
+    for(String line : getLines())
+    {
+      sb.append(line).append(EndOfLine.NATIVE_EOL);
+    }
+    return sb.toString().trim();
+  }
 
+  private List<String> getLines()
+  {
     List<String> table=new ArrayList<String>();
+    table.add("Skill-Id: "+_skill.getIdentifier());
+    table.add(_skill.getName());
+
     if (_skillDetails.getFlag(SkillFlags.FAST))
     {
       table.add("Fast");
@@ -187,45 +199,37 @@ public class SkillDisplay
       table.add("Skill Type: "+types.toString());
     }
     // Range
+    // TODO Display range on right of the first line
     float range=getRange();
     if (range>0)
     {
       table.add("Range: "+L10n.getString(range,1)+"m");
     }
-    // TODO Display range on right of the first line
-    for(String line : table)
-    {
-      sb.append(line).append(EndOfLine.NATIVE_EOL);
-    }
     String description=_skill.getDescription();
     if (!description.isEmpty())
     {
-      sb.append(description).append(EndOfLine.NATIVE_EOL);
+      table.add(description);
     }
-    String attacks=getAttacksLines();
-    if (!attacks.isEmpty())
-    {
-      sb.append(attacks).append(EndOfLine.NATIVE_EOL);
-    }
-    List<String> admin=new ArrayList<String>();
+    List<String> attacks=getAttacksLines();
+    table.addAll(attacks);
     // Cost
     List<String> costLines=getCostLines();
-    admin.addAll(costLines);
+    table.addAll(costLines);
     // Gambit
     List<String> gambitLines=getGambitLines(_skillDetails.getGambitData());
-    admin.addAll(gambitLines);
+    table.addAll(gambitLines);
     // PIP
     List<String> pipLines=getPIPLines(_skillDetails.getPIPData());
-    admin.addAll(pipLines);
+    table.addAll(pipLines);
     // Misc
     boolean isToggle=_skillDetails.getFlag(SkillFlags.IS_TOGGLE);
     if ((channelingDuration!=null) && (channelingDuration.floatValue()>0))
     {
-      admin.add("Channelled Skill");
+      table.add("Channelled Skill");
     }
     else if (isToggle)
     {
-      admin.add("Toggle Skill");
+      table.add("Toggle Skill");
     }
     Float cooldown=_skillDetails.getCooldown();
     if (cooldown!=null)
@@ -235,14 +239,10 @@ public class SkillDisplay
       if (cooldownF>0f)
       {
         // TODO Format duration
-        admin.add("Cooldown: "+L10n.getString(cooldownF,1)+"s");
+        table.add("Cooldown: "+L10n.getString(cooldownF,1)+"s");
       }
     }
-    for(String line : admin)
-    {
-      sb.append(line).append(EndOfLine.NATIVE_EOL);
-    }
-    return sb.toString().trim();
+    return table;
   }
 
   private String getAttackImplementText(ImplementUsageType implementUsageType)
@@ -262,18 +262,18 @@ public class SkillDisplay
     return "";
   }
 
-  private String getAttacksLines()
+  private List<String> getAttacksLines()
   {
+    List<String> ret=new ArrayList<String>();
     SkillAttacks attacks=_skillDetails.getAttacks();
     if (attacks==null)
     {
-      return "";
+      return ret;
     }
-    StringBuilder sb=new StringBuilder();
     int nbAttacks=attacks.getAttacks().size();
     if (nbAttacks>1)
     {
-      sb.append(nbAttacks).append(" Attacks:").append(EndOfLine.NATIVE_EOL);
+      ret.add(nbAttacks+" Attacks:");
     }
     for(SkillAttack attack : attacks.getAttacks())
     {
@@ -300,65 +300,58 @@ public class SkillDisplay
           attackText=attackText+" ("+implementText+")";
         }
         attackText=attackText+" Damage";
-        sb.append(attackText).append(EndOfLine.NATIVE_EOL);
+        ret.add(attackText);
       }
-      String effects=doEffects(attack);
-      if (!effects.isEmpty())
-      {
-        sb.append(effects).append(EndOfLine.NATIVE_EOL);
-      }
-      String skillEffects=doSkillEffects();
-      if (!skillEffects.isEmpty())
-      {
-        sb.append(skillEffects).append(EndOfLine.NATIVE_EOL);
-      }
+      doEffects(attack,ret);
+      doSkillEffects(ret);
     }
-    return sb.toString().trim();
+    return ret;
   }
 
-  private String doEffects(SkillAttack attack)
+  private void doEffects(SkillAttack attack, List<String> storage)
   {
     SkillEffectsManager effectsMgr=attack.getEffects();
     if (effectsMgr==null)
     {
-      return "";
+      return;
     }
-    StringBuilder sb=new StringBuilder();
     for(SkillEffectGenerator generator : effectsMgr.getEffects())
     {
-      handleEffect(attack.getDamageQualifier(),generator,generator.getEffect(),sb);
+      handleEffect(attack.getDamageQualifier(),generator,generator.getEffect(),storage);
     }
-    return sb.toString().trim();
   }
 
-  private String doSkillEffects()
+  private void doSkillEffects(List<String> storage)
   {
     SkillEffectsManager effectsMgr=_skillDetails.getEffects();
     if (effectsMgr==null)
     {
-      return "";
+      return;
     }
-    StringBuilder sb=new StringBuilder();
     for(SkillEffectGenerator generator : effectsMgr.getEffects())
     {
       SkillEffectType type=generator.getType();
       if (type==SkillEffectType.USER_TOGGLE)
       {
-        sb.append("On Use:").append(EndOfLine.NATIVE_EOL);
+        storage.add("On Use:");
       }
-      handleEffect(null,generator,generator.getEffect(),sb);
+      handleEffect(null,generator,generator.getEffect(),storage);
     }
-    return sb.toString().trim();
   }
 
-  private void handleEffect(DamageQualifier damageQualifier, SkillEffectGenerator generator, Effect effect, StringBuilder sb)
+  private void handleEffect(DamageQualifier damageQualifier, SkillEffectGenerator generator, Effect effect, List<String> storage)
   {
+    String description=effect.getDescription();
+    if (!description.isEmpty())
+    {
+      storage.add(description);
+    }
     if (effect instanceof BaseVitalEffect)
     {
       BaseVitalEffect vitalEffect=(BaseVitalEffect)effect;
       EffectDisplay2 d2=new EffectDisplay2(_character,_skillDetails);
       String display=d2.getVitalEffectDisplay(generator,vitalEffect,damageQualifier);
-      sb.append(display).append(EndOfLine.NATIVE_EOL);
+      storage.add(display);
     }
     else if (effect instanceof ComboEffect)
     {
@@ -366,7 +359,7 @@ public class SkillDisplay
       Proxy<Effect> toExamine=comboEffect.getToExamine();
       if (toExamine!=null)
       {
-        handleEffect(damageQualifier,generator,toExamine.getObject(),sb);
+        handleEffect(damageQualifier,generator,toExamine.getObject(),storage);
       }
     }
     else if (effect instanceof GenesisEffect)
@@ -377,7 +370,7 @@ public class SkillDisplay
       {
         for(EffectGenerator hotspotGenerator : hotspot.getEffects())
         {
-          handleEffect(damageQualifier,generator,hotspotGenerator.getEffect(),sb);
+          handleEffect(damageQualifier,generator,hotspotGenerator.getEffect(),storage);
         }
       }
     }
@@ -387,10 +380,11 @@ public class SkillDisplay
       float range=areaEffect.getRange();
       if (!areaEffect.getEffects().isEmpty())
       {
-        sb.append("Effects applied to enemies within ").append(L10n.getString(range,0)).append(" metres:").append(EndOfLine.NATIVE_EOL);
+        String line="Effects applied to enemies within "+L10n.getString(range,0)+" metres:";
+        storage.add(line);
         for(EffectGenerator childGenerator : areaEffect.getEffects())
         {
-          handleEffect(damageQualifier,generator,childGenerator.getEffect(),sb);
+          handleEffect(damageQualifier,generator,childGenerator.getEffect(),storage);
         }
       }
     }
@@ -401,10 +395,11 @@ public class SkillDisplay
       {
         float interval=applyOverTimeEffect.getInterval();
         String seconds=(interval>1.0f)?" seconds:":" second:";
-        sb.append("Every ").append(L10n.getString(interval,1)).append(seconds).append(EndOfLine.NATIVE_EOL);
+        String line="Every "+L10n.getString(interval,1)+seconds;
+        storage.add(line);
         for(EffectGenerator childGenerator : applyOverTimeEffect.getAppliedEffects())
         {
-          handleEffect(damageQualifier,generator,childGenerator.getEffect(),sb);
+          handleEffect(damageQualifier,generator,childGenerator.getEffect(),storage);
         }
       }
     }
@@ -416,16 +411,13 @@ public class SkillDisplay
       {
         int level=_character.getLevel();
         List<String> lines=StatUtils.getFullStatsForDisplay(provider,level);
-        for(String line : lines)
-        {
-          sb.append(line).append(EndOfLine.NATIVE_EOL);
-        }
+        storage.addAll(lines);
       }
       boolean expiresOutOfCombat=effect.getBaseFlag(EffectFlags.DURATION_COMBAT_ONLY);
       if (expiresOutOfCombat)
       {
         // TODO Sometimes "Expires if out of combat for a short amount of time."
-        sb.append("Expires if out of combat for 9 seconds.").append(EndOfLine.NATIVE_EOL);
+        storage.add("Expires if out of combat for 9 seconds.");
       }
       EffectDuration effectDuration=propModEffect.getEffectDuration();
       if (effectDuration!=null)
@@ -433,17 +425,16 @@ public class SkillDisplay
         Float duration=effectDuration.getDuration();
         if (duration!=null)
         {
-          sb.append("Duration: ").append(L10n.getString(duration.doubleValue(),1)).append("s").append(EndOfLine.NATIVE_EOL);
+          String line="Duration: "+L10n.getString(duration.doubleValue(),1)+"s";
+          storage.add(line);
         }
       }
     }
     else if (effect instanceof TieredEffect)
     {
       TieredEffect propModEffect=(TieredEffect)effect;
-      int tiers=propModEffect.getTiers().size();
-      sb.append("This effect stacks up to "+tiers+" times:").append(EndOfLine.NATIVE_EOL);
       EffectGenerator firstTier=propModEffect.getTiers().get(0);
-      handleEffect(damageQualifier,generator,firstTier.getEffect(),sb);
+      handleEffect(damageQualifier,generator,firstTier.getEffect(),storage);
     }
     else if (effect instanceof InstantFellowshipEffect)
     {
@@ -452,17 +443,36 @@ public class SkillDisplay
       boolean toPets=fellowshipEffect.appliesToPets();
       if (toPets)
       {
-        sb.append("Effects applied to your animal companion");
+        String line="Effects applied to your animal companion";
         if (range!=null)
         {
-          sb.append(" within ").append(L10n.getString(range.doubleValue(),0)).append(" metres:").append(EndOfLine.NATIVE_EOL);
+          line=line+" within "+L10n.getString(range.doubleValue(),0)+" metres:";
         }
+        storage.add(line);
       }
       for(EffectGenerator childEffect : fellowshipEffect.getEffects())
       {
-        handleEffect(damageQualifier,generator,childEffect.getEffect(),sb);
+        handleEffect(damageQualifier,generator,childEffect.getEffect(),storage);
       }
     }
+    else if (effect instanceof InduceCombatStateEffect)
+    {
+      showInduceCombatStateEffect(storage,(InduceCombatStateEffect)effect);
+    }
+  }
+
+  private void showInduceCombatStateEffect(List<String> storage, InduceCombatStateEffect effect)
+  {
+    float duration=effect.getDuration();
+    duration+=_character.computeAdditiveModifiers(effect.getDurationModifiers());
+    CombatState state=effect.getCombatState();
+    String stateStr="?";
+    if (state!=null)
+    {
+      stateStr=EffectDisplay.getStateLabel(state);
+    }
+    String text=L10n.getString(duration,1)+"s "+stateStr;
+    storage.add(text);
   }
 
   private List<String> getCostLines()

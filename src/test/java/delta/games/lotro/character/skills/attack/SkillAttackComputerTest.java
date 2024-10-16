@@ -58,8 +58,8 @@ class SkillAttackComputerTest
     testPip();
     testMinstrel();
     */
-    testRunekeeper();
-    //testLoremaster();
+    //testRunekeeper();
+    testLoremaster();
   }
 
   void testClassSkills(String key, CharacterData data)
@@ -136,9 +136,6 @@ class SkillAttackComputerTest
     //doSkill(1879219450,data); // Improved Rousing Words
     //testClass(WellKnownCharacterClassKeys.RUNE_KEEPER,data);
 
-    //doSkill(1879109286, data); // Epic for the Ages OK
-    //doSkill(1879109119, data); // Flurry of Words (do not use qualifier*)
-
     // Page 1
     doSkill(1879110792, data); // Shocking Touch
     doSkill(1879199033, data); // Essay of Fire (use qualifier*)
@@ -148,25 +145,25 @@ class SkillAttackComputerTest
     doSkill(1879107949, data); // Smouldering Wrath
     doSkill(1879109616, data); // Writ of Fire
     doSkill(1879107945, data); // Scathing Mockery (use qualifier*)
-    // TODO Chilling Rhetoric
+    doSkill(1879109122, data); // Chilling Rhetoric
     doSkill(1879221506, data); // Fiery Ridicule
-    // TODO Essence of Flame
-    // TODO Distracting Flame
+    doSkill(1879233275, data); // Essence of Flame
+    doSkill(1879146741, data); // Distracting Flame
     doSkill(1879109293, data); // Scribe's Spark
-    doSkill(1879109295, data); // Epic Conclusion
+    doSkill(1879153049, data); // Epic Conclusion
     doSkill(1879272247, data); // Combustion
-    // TODO Shocking Words
+    doSkill(1879109294, data); // Shocking Words
     // Page 2
     doSkill(1879109121, data); // Essence of Winter
     doSkill(1879109288, data); // Mending Verse
     doSkill(1879461530, data); // Self-motivation
-    // TODO Flurry of Words
+    doSkill(1879109119, data); // Flurry of Words
     doSkill(1879109290, data); // Prelude to Hope
-    // TODO Epic for the Ages
-    // TODO Armour of the Elements
+    doSkill(1879109286, data); // Epic for the Ages
+    doSkill(1879244911, data); // Armour of The Elements
   }
 
-  void testLoremaster() // ~OK
+  void testLoremaster()
   {
     CharacterData data=getCharacterData("loremaster.xml");
     //testClass(WellKnownCharacterClassKeys.LORE_MASTER,data);
