@@ -58,8 +58,9 @@ class SkillAttackComputerTest
     testPip();
     testMinstrel();
     */
+    testGuardian();
     //testRunekeeper();
-    testLoremaster();
+    //testLoremaster();
   }
 
   void testClassSkills(String key, CharacterData data)
@@ -197,18 +198,18 @@ class SkillAttackComputerTest
   void testGuardian() // ~OK
   {
     CharacterData data=getCharacterData("guardian.xml");
-    testClass(WellKnownCharacterClassKeys.GUARDIAN,data);
-    // Guardian's Ward: 9505.975 (9514)
-    // Retaliation: 10218.923 (10228)
-    // Sweeping Cut: 4293.021 (4297), 3679.7324 (3683)
-    // Whirling Retaliation: 13005.553 (13017)
-    // Let Fly: 3370.5676 (5274)
-    // Vexing Blow: 8773.861 (8781)
-    // Turn the Tables: 7424.0215 (7430)
-    // Stagger: 5519.5986 (5524)
-    // Stamp: 7577.416 (7584)
-    // Improved Sting: 6891.8315 (6898)
-    // Fray the Edge: -
+    //testClass(WellKnownCharacterClassKeys.GUARDIAN,data);
+    doSkill(1879060582, data); // Guardian's Ward
+    doSkill(1879110113, data); // Improved Sting
+    doSkill(1879064292, data); // Whirling Retaliation
+    doSkill(1879064286, data); // Sweeping Cut
+    doSkill(1879064288, data); // Retaliation
+    doSkill(1879102645, data); // Fray the Edge
+    doSkill(1879060621, data); // Vexing Blow
+    doSkill(1879064084, data); // Let Fly
+    doSkill(1879064296, data); // Turn the Tables
+    doSkill(1879064295, data); // Stamp
+    doSkill(1879102643, data); // Stagger
   }
 
   void testBurglar()
