@@ -1,0 +1,358 @@
+*****************************
+Skill-Id: 1879110792
+Shocking Touch
+Fast
+Tactical Skill
+Resistance: Tactical
+Skill Type: Lightning
+Range: 4m
+Briefly dazes the foe.
+
+<rgb=#00FFDD>Mounted Combat Enemies: Daze replaced with a debuff that reduces damage against dismounted players.</rgb>
+2 776 - 3 966 Lightning Damage
+5s Daze
+Cost: 127 Power
+Attunes: 1 (steady)
+Cooldown: 20s
+*****************************
+Skill-Id: 1879199033
+Essay of Fire
+Fast
+Tactical Skill
+Induction: 1,8s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+A powerful fire attack dealing damage-over-time.
+5 535 - 7 907 Fire Damage initially
+5 844 - 8 349 Fire Damage every 2 seconds for 14 seconds
+Your next fire skill has no induction
+Expires if out of combat for 9 seconds.
+Cost: 159 Power
+Attunes: 3 (battle)
+Cooldown: 10s
+*****************************
+Skill-Id: 1879109291
+Essence of Storm
+Fast
+Tactical Skill
+Resistance: Tactical
+Skill Type: Lightning
+Range: 20m
+Summon the essence of a thundercloud's lightning, which deals extra damage on critical hits.
+8 574 - 12 249 Lightning Damage
+Cost: 96 Power
+Attunes: 3 (battle)
+Cooldown: 8s
+*****************************
+Skill-Id: 1879109292
+Ceaseless Argument
+Fast
+Tactical Skill
+Resistance: Tactical
+Skill Type: Lightning
+Range: 20m
+The potency of Rune-keepers' writings is not hindered by repetition. This skill is hard to resist.
+7 415 - 10 593 Lightning Damage
+-20% Target Run Speed
+Duration: 10s
+Cost: 16 Power
+Attunes: 1 (battle)
+Cooldown: 0,2s
+*****************************
+Skill-Id: 1879272269
+Fulgurite Rune-stone
+Fast
+Resistance: Tactical
+Places a Rune-stone upon the ground which, after a few seconds, is struck by lightning, damaging and briefly stunning nearby foes.
+Cost: 222 Power
+Attunes: 3 (battle)
+Cooldown: 20s
+*****************************
+Skill-Id: 1879107949
+Smouldering Wrath
+Fast
+Tactical Skill
+Channel Duration: 1s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+A channelled skill dealing huge amounts of fire damage every second. This skill cannot be interrupted.
+
+Duration increases per battle attunement.
+
+This skill consumes 1 attunement per second.
+
+Requires Battle Attunement.
+Every 1 second:
+17 882 - 19 869 Fire Damage
+Cost: 254 Power
+Cost: 96 Power Per Second
+Channelled Skill
+Cooldown: 12s
+*****************************
+Skill-Id: 1879109616
+Writ of Fire
+Fast
+Tactical Skill
+Induction: 0,7s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+Stacking fire damage-over-time.
+
+May be applied up to three times, increasing the Writ's tier.
+
++20% damage per tier increase.
+2 044 - 2 920 Fire Damage initially
+2 966 - 4 238 Fire Damage every 3 seconds for 21 seconds
+-1% Tactical Mitigation (%)
+Duration: 15s
+Cost: 32 Power
+Attunes: 2 (battle)
+Cooldown: 1s
+*****************************
+Skill-Id: 1879107945
+Scathing Mockery
+Fast
+Tactical Skill
+Max Targets: 5
+Radius: 8m
+Induction: 2,7s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+AoE fire damage-over-time.
+9 195 - 13 135 Fire Damage
+4 700 - 6 714 Fire Damage every 3 seconds for 21 seconds
+Cost: 191 Power
+Attunes: 3 (battle)
+Cooldown: 20s
+*****************************
+Skill-Id: 1879109122
+Chilling Rhetoric
+Fast
+Tactical Skill
+Induction: 0,5s
+Resistance: Tactical
+Skill Type: Frost
+Range: 30m
+Written words can have a chilling effect on their victim. Slows your foe, but damaging them will return their speed.
+5 532 - 7 903 Frost Damage
+-50% Run Speed
+Duration: 10s
+Cost: 64 Power
+Cooldown: 20s
+*****************************
+Skill-Id: 1879221506
+Fiery Ridicule
+Fast
+Tactical Skill
+Max Targets: 5
+Radius: 4m
+Induction: 1,4s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+The ridicule a Rune-keeper writes hurts more than a mundane scribe's ever could. The damage over time tiers up on subsequent uses.
+4 575 - 6 535 Fire Damage
+This effect stacks up to 3 times
+3 076 - 4 394 Fire Damage every 3 seconds for 21 seconds
+Cost: 32 Power
+Attunes: 1 (battle)
+Cooldown: 1s
+*****************************
+Skill-Id: 1879233275
+Essence of Flame
+Fast
+Tactical Skill
+Max Targets: 3
+Radius: 4m
+Induction: 1,8s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+AoE fire attack that refreshes Fiery Ridicule on the target.
+16 596 - 23 708 Fire Damage
+Cost: 159 Power
+Attunes: 3 (battle)
+Cooldown: 12s
+*****************************
+Skill-Id: 1879146741
+Distracting Flame
+Fast
+Tactical Skill
+Induction: 0,9s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+Fire damage-over-time that reduces threat.
+3 335 - 4 764 Fire Damage every 3 seconds for 21 seconds
+Slightly decreases threat over time.
+Cost: 32 Power
+Attunes: 3 (battle)
+Cooldown: 5s
+*****************************
+Skill-Id: 1879109293
+Scribe's Spark
+Fast
+Tactical Skill
+Resistance: Tactical
+Skill Type: Lightning
+Range: 20m
+A basic lightning rune deals lightning damage and builds battle attunement.
+6 596 - 9 422 Lightning Damage
+Cost: 16 Power
+Attunes: 2 (battle)
+Cooldown: 3s
+*****************************
+Skill-Id: 1879153049
+Epic Conclusion
+Fast
+Tactical Skill
+Resistance: Tactical
+Skill Type: Lightning
+Range: 20m
+An enormously powerful lightning attack dealing +Damage per attunement consumed.
+ 
+ Requires Battle Attunement.
+22 799 - 32 571 Lightning Damage
+Returns to Neutral Attunement
+Cost: 159 Power
+Cooldown: 30s
+*****************************
+Skill-Id: 1879272247
+Combustion
+Fast
+Tactical Skill
+Induction: 1,4s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+Targeted fire attack dealing damage to all enemies near the target, dealing +Damage per attunement consumed.
+ 
+ Requires Battle Attunement.
+19 174 - 27 391 Fire Damage
+Deals Damage to all enemies around Target
+Effects applied to enemies within 5 metres:
+10 338 - 14 768 Fire Damage
+Returns to Neutral Attunement
+Cost: 254 Power
+Cooldown: 15s
+*****************************
+Skill-Id: 1879109294
+Shocking Words
+Fast
+Tactical Skill
+Resistance: Tactical
+Skill Type: Lightning
+Range: 20m
+A lightning attack dealing +Damage and +Stun duration per attunement consumed. 
+ 
+ Requires Battle Attunement.
+
+<rgb=#00FFDD>Mounted Combat Enemies: Stun replaced with a mount speed debuff</rgb>
+14 923 - 21 319 Lightning Damage
+1s Stun
+Returns to Neutral Attunement
+Cost: 191 Power
+Cooldown: 20s
+*****************************
+Skill-Id: 1879109121
+Essence of Winter
+Fast
+Tactical Skill
+Max Targets: 5
+Radius: 5m
+Induction: 1,4s
+Resistance: Tactical
+Skill Type: Frost
+Range: 30m
+In writing, the significance of winter is that in time all things must slow, then stop. Lowers your foes' incoming healing and increases their skill Power cost.
+7 572 - 10 818 Frost Damage
+-15% Incoming Healing (%)
+5% Power Cost
+Duration: 15s
+Cost: 254 Power
+Cooldown: 15s
+*****************************
+Skill-Id: 1879109288
+Mending Verse
+Fast
+Tactical Skill
+Induction: 1,8s
+Skill Type: Heal
+Range: 25m
+Hardships are forgotten and spirits are lifted by such writings. This heal over time stacks with itself. -1% Power cost per Healing Attunement.
+Heals 2 928 - 4 183 Morale initially
+Heals 209 - 299 Morale every 2 seconds for 6 seconds
+Cost: 96 Power
+Attunes: 2 (healing)
+Cooldown: 3s
+*****************************
+Skill-Id: 1879461530
+Self-motivation
+Fast
+Tactical Skill
+Skill Type: Heal
+Restores Morale.
+Heals 23 401 - 26 001 Morale
+Cost: 735 Power
+Attunes: 4 (steady)
+Cooldown: 15s
+*****************************
+Skill-Id: 1879109119
+Flurry of Words
+Fast
+Induction: 1,8s
+Skill Type: Frost
+A flurry of chilling words unleashes a swirl of numbing cold on foes around you. An area around you is filled with a flurry of frost, and dealing damage over time.
+3% Incoming Melee Critical Chance
+3% Incoming Ranged Critical Chance
+3% Incoming Tactical Critical Chance
+2 643 - 3 776 Frost Damage initially
+3 688 - 5 268 Frost Damage every 3 seconds
+Cost: 191 Power
+Cooldown: 25s
+*****************************
+Skill-Id: 1879109290
+Prelude to Hope
+Fast
+Tactical Skill
+Skill Type: Heal
+Range: 25m
+Heals the target +2% per Healing attunement.
+Heals 1 046 - 1 494 Morale initially
+Heals 366 - 523 Morale every 1 seconds for 12 seconds
+Attunes: 1 (healing)
+Cooldown: 3s
+*****************************
+Skill-Id: 1879109286
+Epic for the Ages
+Fast
+Tactical Skill
+Induction: 2,3s
+Skill Type: Heal
+Range: 25m
+A big heal.
+
++Healing per attunement.
+ 
+ Requires Healing Attunement.
+Heals 10 457 - 14 939 Morale
+Cost: 444 Power
+Attunes: 3 (healing)
+Cooldown: 15s
+*****************************
+Skill-Id: 1879244911
+Armour of The Elements
+Immediate
+A thin armour of lightning covers your body. Melee attackers have a chance to be dazed for 5 seconds. Additionally you are protected from an amount of future damage.
+
+<rgb=#00FFDD>Mounted Combat Enemies: Daze replaced with a debuff that reduces damage against dismounted players.</rgb>
+6 780 Tactical Mitigation
+Duration: 20s
+Duration: 20s
+Cost: 254 Power
+Attunes: 4 (steady)
+Cooldown: 180s

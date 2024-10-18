@@ -1,0 +1,165 @@
+*****************************
+Skill-Id: 1879064244
+Burning Embers
+Fast
+Tactical Skill
+Induction: 0,5s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+Burn the enemy with damage-over-time.
+3 772 - 4 714 Fire Damage
+2 042 - 2 149 Fire Damage every 2 seconds for 10 seconds
+-3% Tactical Mitigation (%)
+-3% Physical Mitigation (%)
+Duration: 20s
+Cost: 32 Power
+Cooldown: 3s
+*****************************
+Skill-Id: 1879111679
+Wizard's Fire
+Fast
+Tactical Skill
+Skill Type: Fire
+Range: 30m
+A basic sigil which burns your foe over a brief time and restores your Power.
+2 618 - 3 273 Fire Damage
+764 - 849 Fire Damage every 2 seconds for 6 seconds
+Restores 208 - 297 Power
+Cooldown: 0,5s
+*****************************
+Skill-Id: 1879488018
+Wizard's Spark
+Fast
+Tactical Skill
+Skill Type: Lightning
+Range: 30m
+A basic sigil which shocks your foe.
+
+If this skill is used whilst your companion flanks the enemy, your Speed will be increased.
+4 188 - 5 235 Lightning Damage
+5s Stun
+Cooldown: 5s
+*****************************
+Skill-Id: 1879064247
+Gust of Wind
+Fast
+Tactical Skill
+Induction: 0,8s
+Range: 30m
+Tearing winds cause frost damage in a small radius.
+
+<rgb=#ff0091>When traited in Nature's Fury, this skill has a chance to spread Burning Embers to nearby foes.</rgb>
+2 461 - 3 076 Frost Damage
+Effects applied to enemies within 5 metres:
+3 980 Frost Damage
+Cost: 64 Power
+Cooldown: 10s
+*****************************
+Skill-Id: 1879487481
+Minor Pet Command
+Fast
+Tactical Skill
+Range: 40m
+Command your pet to execute a minor skill on themselves or their target.
+492 - 615 Light Damage
+Effects applied to your animal companion within 60 metres:
+Execute Minor Skill
+x-30% Incoming Damage
+Expires if out of combat for 9 seconds.
+Duration: 15s
+Effects applied to your animal companion within 60 metres:
+Cost: 32 Power
+Cooldown: 20s
+*****************************
+Skill-Id: 1879060758
+Power of Knowledge
+Fast
+Tactical Skill
+Channel Duration: 5,5s
+Skill Type: Lightning
+Range: 30m
+Lightning wreaths your enemy while restoring your own power.
+6 189 - 6 877 Lightning Damage every 1 seconds
+On Use:
+Restores 589 - 654 Power every 1 seconds
+Channelled Skill
+Cooldown: 45s
+*****************************
+Skill-Id: 1879490501
+Staff Strike
+Fast
+Tactical Skill
+Skill Type: Frost
+Range: 4m
+Strike hard with your staff. If your pet is flanking the enemy, you will deal bonus damage.
+2 Attacks:
+5 906 - 7 382 Frost Damage
+1 527 - 2 036 Beleriand (Off-hand) Damage
+Cost: 32 Power
+Cooldown: 3s
+*****************************
+Skill-Id: 1879060803
+Cracked Earth
+Fast
+Tactical Skill
+Max Targets: 5
+Radius: 7m
+Induction: 1s
+Resistance: Tactical
+Skill Type: Fire
+Range: 30m
+Unstable earth deals Fire damage to several enemies.
+7 198 - 8 997 Fire Damage
+Cost: 159 Power
+Cooldown: 10s
+*****************************
+Skill-Id: 1879060811
+Wisdom of the Council
+Immediate
+Skill Type: Heal
+Heals Morale in a time of need.
+
+Briefly protects you, while damaging enemies who attack you.
+Heals 0 Morale
+Duration: 10s
+Cooldown: 180s
+*****************************
+Skill-Id: 1879064258
+Light of the Rising Dawn
+Immediate
+Tactical Skill
+Resistance: Tactical
+Skill Type: Light
+Range: 30m
+Piercing Light interrupts your foe.
+492 - 615 Light Damage
+Interrupts Inductions
+Cost: 159 Power
+Cooldown: 15s
+*****************************
+Skill-Id: 1879455086
+Wizard's Frost
+Fast
+Tactical Skill
+Skill Type: Frost
+Range: 30m
+A basic sigil which chills your foe.
+
+If this skill is used whilst your companion flanks the enemy, your Morale will be healed.
+2 761 - 3 451 Frost Damage
+Slows movement speed by 30%
+Duration: 4s
+Cooldown: 0,5s
+*****************************
+Skill-Id: 1879060771
+Light of Hope
+Fast
+Tactical Skill
+Induction: 1s
+Skill Type: Heal
+Range: 30m
+Transfers Morale to an ally or companion.
+Heals 8 046 - 8 469 Morale
+Cost: 3 282 Morale
+Cooldown: 15s

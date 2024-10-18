@@ -116,7 +116,11 @@ public class SkillDisplay
     return sb.toString().trim();
   }
 
-  private List<String> getLines()
+  /**
+   * Get skill display lines.
+   * @return A list of displayable lines.
+   */
+  public List<String> getLines()
   {
     List<String> table=new ArrayList<String>();
     table.add("Skill-Id: "+_skill.getIdentifier());

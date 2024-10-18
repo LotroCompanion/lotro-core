@@ -1,0 +1,151 @@
+*****************************
+Skill-Id: 1879060582
+Guardian's Ward
+Fast
+Melee Skill
+Range: 4m
+Strengthens defences briefly.
+7 129 - 9 506 Beleriand (Main-hand) Damage
+2% Parry Chance
+2% Block Chance
+2,5% Partial Parry Chance
+-5% Armour Wear from Hits
+2,5% Partial Block Chance
++${VALUE} to Tactical Mitigation
+Duration: 10s
+Restores 396 Power
+Cooldown: 3s
+*****************************
+Skill-Id: 1879110113
+Improved Sting
+Fast
+Melee Skill
+Range: 4m
+A quick stinging blow.
+5 169 - 6 892 Beleriand (Main-hand) Damage
+5s Stun
+Cost: 16 Power
+Cooldown: 2,5s
+*****************************
+Skill-Id: 1879064292
+Whirling Retaliation
+Fast
+Melee Skill
+Max Targets: 8
+Radius: 5m
+Range: 5,2m
+Whirl to attack enemies in a circle.
+
+ <rgb=#00FFDD>Requires a parry response.</rgb>
+9 754 - 13 006 Beleriand (Main-hand) Damage
+Cost: 64 Power
+Cooldown: 5s
+*****************************
+Skill-Id: 1879064286
+Sweeping Cut
+Fast
+Melee Skill
+Max Targets: 8
+Radius: 4,8m
+Range: 5m
+A sweeping back-and forth strike in a frontal arc.
+2 Attacks:
+3 220 - 4 293 Beleriand (Main-hand) Damage
+766 Damage every 2 seconds for 10 seconds
+2 760 - 3 680 Beleriand (Main-hand) Damage
+Cost: 64 Power
+Cooldown: 9s
+*****************************
+Skill-Id: 1879064288
+Retaliation
+Fast
+Melee Skill
+Range: 4m
+A retaliation after parrying an attack.
+
+ <rgb=#00FFDD>Requires a parry response.</rgb>
+7 664 - 10 219 Beleriand (Main-hand) Damage
+Cost: 32 Power
+Cooldown: 5s
+*****************************
+Skill-Id: 1879102645
+Fray the Edge
+Fast
+Tactical Skill
+Range: 25m
+Taunts the enemy into lowering its defences, increasing the chance of a Fellowship Manoeuvre.
+
+Fellowship Manoeuvre chance increases with each use.
++1% Random Conjunction Chance
+Duration: 15s
+Forced Attack
+Cost: 96 Power
+Cooldown: 10s
+*****************************
+Skill-Id: 1879060621
+Vexing Blow
+Fast
+Melee Skill
+Max Targets: 8
+Radius: 4,8m
+Range: 5m
+A quick swipe that will strike multiple enemies.
+6 580 - 8 774 Beleriand (Main-hand) Damage
+Cost: 32 Power
+Cooldown: 4s
+*****************************
+Skill-Id: 1879064084
+Let Fly
+Ranged Skill
+Induction: 0,5s
+Range: 30m
+You attack with your ranged weapon.
+2 528 - 3 371 Ancient Dwarf-make (Ranged) Damage
+Cooldown: 9s
+*****************************
+Skill-Id: 1879064296
+Turn the Tables
+Fast
+Melee Skill
+Max Targets: 6
+Radius: 4,8m
+Range: 5m
+When dazed, stunned, or knocked down: recover from impairing effects and inflict them upon your enemy instead.
+5 568 - 7 424 Beleriand (Main-hand) Damage
+3s Stun
+Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
+Cost: 191 Power
+Cooldown: 75s
+*****************************
+Skill-Id: 1879064295
+Stamp
+Immediate
+Melee Skill
+Range: 4m
+Interrupts the target.
+5 683 - 7 577 Beleriand (Main-hand) Damage
+Interrupts Inductions
+Cost: 32 Power
+Cooldown: 10s
+*****************************
+Skill-Id: 1879102643
+Stagger
+Fast
+Melee Skill
+Range: 4m
+An attack that impairs the target on a critical hit, or when attacking from behind.
+4 140 - 5 520 Beleriand (Main-hand) Damage
+-25% Target Run Speed
+Duration: 15s
++15% Target Attack Duration
+Duration: 15s
+-25% Target Run Speed
+Duration: 15s
++15% Target Attack Duration
+Duration: 15s
+-25% Target Run Speed
+Duration: 15s
++15% Target Attack Duration
+Duration: 15s
+Cost: 32 Power
+Cooldown: 5s

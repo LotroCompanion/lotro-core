@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?><character version="1100" name="Kargarth" level="140" date="1724607146638">
+<characterSummary id="0208000000261E67" name="Kargarth" server="Landroval" account="glorfindel666" subscription="FPPW4D9YZ4XREC2LNRLFW73WC" class="Guardian" race="dwarf" sex="MALE" level="140" rank="0" nationalityCode="4" region="Blue Mountains" kinshipID="0C08000108047427" importDate="1724607144290"/>
+<stats>
+<stat name="MORALE" value="7506797"/>
+<stat name="POWER" value="472700"/>
+<stat name="ARMOUR" value="2944700"/>
+<stat name="MIGHT" value="1302800"/>
+<stat name="AGILITY" value="44000"/>
+<stat name="VITALITY" value="1273700"/>
+<stat name="WILL" value="34000"/>
+<stat name="FATE" value="274700"/>
+<stat name="CRITICAL_RATING" value="4169859"/>
+<stat name="CRITICAL_MELEE_PERCENTAGE" value="1273"/>
+<stat name="CRITICAL_RANGED_PERCENTAGE" value="1273"/>
+<stat name="CRITICAL_TACTICAL_PERCENTAGE" value="1273"/>
+<stat name="DEVASTATE_MELEE_PERCENTAGE" value="401"/>
+<stat name="DEVASTATE_RANGED_PERCENTAGE" value="401"/>
+<stat name="DEVASTATE_TACTICAL_PERCENTAGE" value="401"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE" value="2077"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE" value="2077"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE" value="2077"/>
+<stat name="FINESSE" value="844245"/>
+<stat name="FINESSE_PERCENTAGE" value="877"/>
+<stat name="PHYSICAL_MASTERY" value="7475541"/>
+<stat name="MELEE_DAMAGE_PERCENTAGE" value="16091"/>
+<stat name="RANGED_DAMAGE_PERCENTAGE" value="16091"/>
+<stat name="TACTICAL_MASTERY" value="296937"/>
+<stat name="TACTICAL_DAMAGE_PERCENTAGE" value="861"/>
+<stat name="OUTGOING_HEALING" value="4327337"/>
+<stat name="OUTGOING_HEALING_PERCENTAGE" value="2558"/>
+<stat name="RESISTANCE" value="34000"/>
+<stat name="RESISTANCE_PERCENTAGE" value="25"/>
+<stat name="CRITICAL_DEFENCE" value="40700"/>
+<stat name="MELEE_CRITICAL_DEFENCE" value="72"/>
+<stat name="RANGED_CRITICAL_DEFENCE" value="72"/>
+<stat name="TACTICAL_CRITICAL_DEFENCE" value="72"/>
+<stat name="INCOMING_HEALING" value="1207298"/>
+<stat name="INCOMING_HEALING_PERCENTAGE" value="612"/>
+<stat name="BLOCK" value="1302800"/>
+<stat name="BLOCK_PERCENTAGE" value="341"/>
+<stat name="PARTIAL_BLOCK_PERCENTAGE" value="380"/>
+<stat name="PARTIAL_BLOCK_MITIGATION_PERCENTAGE" value="532"/>
+<stat name="PARRY" value="3019961"/>
+<stat name="PARRY_PERCENTAGE" value="709"/>
+<stat name="PARTIAL_PARRY_PERCENTAGE" value="826"/>
+<stat name="PARTIAL_PARRY_MITIGATION_PERCENTAGE" value="1156"/>
+<stat name="EVADE" value="11831"/>
+<stat name="EVADE_PERCENTAGE" value="3"/>
+<stat name="PARTIAL_EVADE_PERCENTAGE" value="4"/>
+<stat name="PARTIAL_EVADE_MITIGATION_PERCENTAGE" value="5"/>
+<stat name="PHYSICAL_MITIGATION" value="4335228"/>
+<stat name="PHYSICAL_MITIGATION_PERCENTAGE" value="4451"/>
+<stat name="OCFW_MITIGATION" value="625668"/>
+<stat name="OCFW_MITIGATION_PERCENTAGE" value="892"/>
+<stat name="TACTICAL_MITIGATION" value="2523296"/>
+<stat name="TACTICAL_MITIGATION_PERCENTAGE" value="2817"/>
+<stat name="FIRE_MITIGATION_PERCENTAGE" value="2817"/>
+<stat name="LIGHTNING_MITIGATION_PERCENTAGE" value="2817"/>
+<stat name="FROST_MITIGATION_PERCENTAGE" value="2817"/>
+<stat name="ACID_MITIGATION_PERCENTAGE" value="2817"/>
+<stat name="SHADOW_MITIGATION_PERCENTAGE" value="2817"/>
+<stat name="OCMR" value="7991040"/>
+<stat name="ICMR" value="1118104"/>
+<stat name="OCPR" value="690540"/>
+<stat name="ICPR" value="113100"/>
+<stat name="LIGHT_OF_EARENDIL" value="8000"/>
+<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" value="100"/>
+<stat name="TAILOR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Tailor Critical Chance" value="2500"/>
+<stat name="METALSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Metalsmith Critical Chance" value="2500"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
+<stat name="PERCEIVED_THREAT" descriptionOverride="-" value="21000"/>
+<stat name="Combat_WeaponDamageMultiplier_2HAxe" value="500"/>
+<stat name="Combat_WeaponDamageMultiplier_1HAxe" value="500"/>
+<stat name="Skill_DamageMultiplier_GuardianStingMod" value="3500"/>
+<stat name="Trait_Guardian_DamageMultiplier_ShieldSkills" value="3150"/>
+<stat name="Skill_RecoveryTime_GuardianStampMod" value="-1000"/>
+<stat name="EffectMod_MoraleBonus_Guardian_WarriorsHeart" value="5000"/>
+<stat name="EffectMod_HealthHeal_Guardian_CatchaBreath" value="1500"/>
+<stat name="EffectMod_Duration_Guardian_WarriorsHeart" value="1000"/>
+<stat name="SkillMod_Damage_Guardian_GuardiansWard" value="3500"/>
+<stat name="SkillMod_Damage_Guardian_SweepingCut" value="3500"/>
+<stat name="EffectMod_ParryPoints_Guardian_GuardiansWard" value="200"/>
+<stat name="SkillMod_Damage_Guardian_WhirlingRetaliation" value="3500"/>
+<stat name="Combat_SkillDamageMultiplier_Lightning" value="1500"/>
+<stat name="Effect_Self_Revive_Cooldown" descriptionOverride="Increases duration of Revived effect to 2 hours." value="540000"/>
+<stat name="Skill_RecoveryTime_Guardian_CatchaBreath" value="-1700"/>
+<stat name="Skill_DamageMultiplier_GuardianVexingBlow" value="3850"/>
+<stat name="SkillMod_Damage_Guardian_GuardiansPledge" value="500"/>
+<stat name="Skill_Guardian_IA_ReactiveParry_Damage" value="3500"/>
+<stat name="Skill_Guardian_IA_Stamp_Damage" value="3500"/>
+<stat name="Skill_Guardian_IA_WarriorsHeart_MaxMorale" value="3500"/>
+<stat name="Skill_Guardian_IA_SweepingCut_CriticalRating" value="500"/>
+<stat name="Skill_Guardian_IA_Sting_CriticalRating" value="500"/>
+<stat name="Skill_Guardian_IA_GuardiansPledge_Cooldown" value="-6000"/>
+<stat name="Skill_SingleTarget_Damage_CritChance" value="500"/>
+<stat name="Skill_SingleTarget_Damage_CritMag" value="2000"/>
+<stat name="Skill_AreaEffect_TargetCount" value="300"/>
+<stat name="Skill_AreaEffect_Damage_CritMag" value="3000"/>
+<stat name="Skill_SingleTarget_Damage" value="2000"/>
+<stat name="Skill_AreaEffect_Damage" value="2500"/>
+<stat name="Skill_AreaEffect_Damage_CritChance" value="500"/>
+<stat name="Effect_2H_Bonus_Mod" descriptionOverride="-" value="2000"/>
+</stats>
+<equipment>
+<equipmentSlot name="HEAD">
+<item key="1879378076" name="Reinforced Helm of the Adventurer" level="467" minLevel="140" instanceId="030A000AA7C1AB0F" boundTo="08FF00000005FA91">
+<money gold="0" silver="128" copper="16"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="90800"/>
+<stat name="VITALITY" value="51100"/>
+<stat name="PHYSICAL_MASTERY" value="278796"/>
+<stat name="CRITICAL_RATING" value="140245"/>
+<stat name="ARMOUR" value="270800"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="90800"/>
+<stat name="VITALITY" value="51100"/>
+<stat name="PHYSICAL_MASTERY" value="278796"/>
+<stat name="CRITICAL_RATING" value="140245"/>
+<stat name="ARMOUR" value="270800"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879440669" name="Humble Delver's Essence of Critical Rating"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BREAST">
+<item key="1879440892" name="Stone-finder's Armour" instanceId="030A000AA534B8BD" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="67100"/>
+<stat name="VITALITY" value="45000"/>
+<stat name="CRITICAL_RATING" value="253143"/>
+<stat name="PHYSICAL_MASTERY" value="143857"/>
+<stat name="ARMOUR" value="767400"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="67100"/>
+<stat name="VITALITY" value="45000"/>
+<stat name="CRITICAL_RATING" value="253143"/>
+<stat name="PHYSICAL_MASTERY" value="143857"/>
+<stat name="ARMOUR" value="767400"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEGS">
+<item key="1879440878" name="Greaves of Câr Bronach" instanceId="030A000AA2D42085" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="72900"/>
+<stat name="VITALITY" value="51100"/>
+<stat name="CRITICAL_RATING" value="206327"/>
+<stat name="FATE" value="18300"/>
+<stat name="ARMOUR" value="632300"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="72900"/>
+<stat name="VITALITY" value="51100"/>
+<stat name="CRITICAL_RATING" value="206327"/>
+<stat name="FATE" value="18300"/>
+<stat name="ARMOUR" value="632300"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="HANDS">
+<item key="1879405689" name="Vambraces of the Rocky Spur" instanceId="030A000A18C11E28" boundTo="08FF00000005FA91">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="46000"/>
+<stat name="VITALITY" value="29900"/>
+<stat name="PHYSICAL_MASTERY" value="73794"/>
+<stat name="ARMOUR" value="280600"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="46000"/>
+<stat name="VITALITY" value="29900"/>
+<stat name="PHYSICAL_MASTERY" value="73794"/>
+<stat name="ARMOUR" value="280600"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879392250" name="Flickering Moonlit Essence of Vitality"/>
+<essence index="1" id="1879392250" name="Flickering Moonlit Essence of Vitality"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="FEET">
+<item key="1879441030" name="Socketed Heavy Treads of Kept Promises" instanceId="030A000AA4A01111" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="76900"/>
+<stat name="VITALITY" value="39000"/>
+<stat name="FINESSE" value="290204"/>
+<stat name="CRITICAL_RATING" value="130673"/>
+<stat name="ARMOUR" value="331800"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="76900"/>
+<stat name="VITALITY" value="39000"/>
+<stat name="FINESSE" value="290204"/>
+<stat name="CRITICAL_RATING" value="130673"/>
+<stat name="ARMOUR" value="331800"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879440664" name="Humble Delver's Essence of Physical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="SHOULDER">
+<item key="1879440896" name="Pauldrons of Reckless Rescue" instanceId="030A000AA73DC13C" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="64900"/>
+<stat name="VITALITY" value="36000"/>
+<stat name="PHYSICAL_MASTERY" value="243776"/>
+<stat name="CRITICAL_RATING" value="163265"/>
+<stat name="ARMOUR" value="194500"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="64900"/>
+<stat name="VITALITY" value="36000"/>
+<stat name="PHYSICAL_MASTERY" value="243776"/>
+<stat name="CRITICAL_RATING" value="163265"/>
+<stat name="ARMOUR" value="194500"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BACK">
+<item key="1879440848" name="Woolen Cloak of Gundabad's Claim" instanceId="030A000AA5D1D44B" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="67800"/>
+<stat name="VITALITY" value="68500"/>
+<stat name="PHYSICAL_MASTERY" value="181510"/>
+<stat name="ARMOUR" value="453900"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="67800"/>
+<stat name="VITALITY" value="68500"/>
+<stat name="PHYSICAL_MASTERY" value="181510"/>
+<stat name="ARMOUR" value="453900"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879440678" name="Flickering Delver's Essence of Physical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_WRIST">
+<item key="1879410223" name="Armlet of the Three Peaks" instanceId="030A0009A81DCF72" boundTo="08FF00000005FA91">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="64100"/>
+<stat name="VITALITY" value="26100"/>
+<stat name="FATE" value="26400"/>
+<stat name="PHYSICAL_MASTERY" value="129041"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="64100"/>
+<stat name="VITALITY" value="26100"/>
+<stat name="FATE" value="26400"/>
+<stat name="PHYSICAL_MASTERY" value="129041"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_WRIST">
+<item key="1879410223" name="Armlet of the Three Peaks" instanceId="030A000A06AEDB09" boundTo="08FF00000005FA91">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="64100"/>
+<stat name="VITALITY" value="26100"/>
+<stat name="FATE" value="26400"/>
+<stat name="PHYSICAL_MASTERY" value="129041"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="64100"/>
+<stat name="VITALITY" value="26100"/>
+<stat name="FATE" value="26400"/>
+<stat name="PHYSICAL_MASTERY" value="129041"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="NECK">
+<item key="1879440931" name="Torc of Silence" instanceId="030A000AA26486E7" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="58300"/>
+<stat name="VITALITY" value="58400"/>
+<stat name="PHYSICAL_MASTERY" value="175694"/>
+<stat name="FATE" value="12200"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="58300"/>
+<stat name="VITALITY" value="58400"/>
+<stat name="PHYSICAL_MASTERY" value="175694"/>
+<stat name="FATE" value="12200"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879440664" name="Humble Delver's Essence of Physical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_FINGER">
+<item key="1879440950" name="Troublesome Steel Ring" instanceId="030A000AA53958E2" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="75300"/>
+<stat name="VITALITY" value="60800"/>
+<stat name="PHYSICAL_MASTERY" value="145408"/>
+<stat name="FINESSE" value="170531"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="75300"/>
+<stat name="VITALITY" value="60800"/>
+<stat name="PHYSICAL_MASTERY" value="145408"/>
+<stat name="FINESSE" value="170531"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_FINGER">
+<item key="1879440947" name="Steel Ring of the Mighty Court" instanceId="030A000A9EC66EF0" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="62800"/>
+<stat name="VITALITY" value="34500"/>
+<stat name="CRITICAL_RATING" value="276184"/>
+<stat name="FATE" value="23100"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="62800"/>
+<stat name="VITALITY" value="34500"/>
+<stat name="CRITICAL_RATING" value="276184"/>
+<stat name="FATE" value="23100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_EAR">
+<item key="1879440902" name="Stud of the Cartographer" instanceId="030A000AA3E3013B" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="74500"/>
+<stat name="VITALITY" value="75000"/>
+<stat name="PHYSICAL_MASTERY" value="179571"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="74500"/>
+<stat name="VITALITY" value="75000"/>
+<stat name="PHYSICAL_MASTERY" value="179571"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_EAR">
+<item key="1879440929" name="Steel Earring of the High Seat" instanceId="030A000AA0AB6495" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="70500"/>
+<stat name="VITALITY" value="49000"/>
+<stat name="PHYSICAL_MASTERY" value="238388"/>
+<stat name="FINESSE" value="212857"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="70500"/>
+<stat name="VITALITY" value="49000"/>
+<stat name="PHYSICAL_MASTERY" value="238388"/>
+<stat name="FINESSE" value="212857"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="POCKET">
+<item key="1879440921" name="Pocket Book of Adventure" instanceId="030A000AA13D391C" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="42800"/>
+<stat name="VITALITY" value="70900"/>
+<stat name="TACTICAL_MITIGATION" value="159429"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="42800"/>
+<stat name="VITALITY" value="70900"/>
+<stat name="TACTICAL_MITIGATION" value="159429"/>
+</resultStats>
+</stats>
+<essences/>
+</item>
+</equipmentSlot>
+<equipmentSlot name="MAIN_MELEE">
+<item key="1879424240" name="Guardian's Great Axe of Legends" level="480" minLevel="138" instanceId="030A000A04DC544B" boundTo="0208000000261E67" maxDamage="620.10516" dps="542.59204">
+<legendary2 name="Slash the Crowd">
+<socket index="0" traceryId="1879426047" traceryName="Heraldry of the Ox" itemLevel="440"/>
+<socket index="1" traceryId="1879425713" traceryName="Area Effect Attack Criticals" itemLevel="440"/>
+<socket index="2" traceryId="1879426016" traceryName="Area Effect Attack Damage" itemLevel="440"/>
+<socket index="3" traceryId="1879425681" traceryName="Shield Damage" itemLevel="440"/>
+<socket index="4" traceryId="1879425761" traceryName="Stamp Cooldown &amp; Damage" itemLevel="440"/>
+<socket index="5" traceryId="1879435311" traceryName="Sting Damage &amp; Critical Chance" itemLevel="460"/>
+<socket index="6" traceryId="1879436332" traceryName="Sweeping Cut Damage &amp; Critical Chance" itemLevel="460"/>
+<socket index="7" traceryId="1879425613" traceryName="Vexing Blow Damage" itemLevel="440"/>
+<socket index="8" traceryId="1879433065" traceryName="Whirling Retaliation Damage" itemLevel="475"/>
+<socket index="9" traceryId="1879428248" traceryName="Ascendent Lightning" itemLevel="440"/>
+<socket index="10" traceryId="1879428248" traceryName="Ascendent Lightning" itemLevel="440"/>
+</legendary2>
+<stats mode="AUTO">
+<defautStats>
+<stat name="Effect_2H_Bonus_Mod" descriptionOverride="-" value="2000"/>
+</defautStats>
+<resultStats>
+<stat name="Effect_2H_Bonus_Mod" descriptionOverride="-" value="2000"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RANGED">
+<item key="1879285823" name="Potent Valorous Bow of Penetration" level="403" minLevel="130" instanceId="030A000A006D228A" boundTo="0208000000261E67" maxDamage="358.83716" dps="313.9825">
+<money gold="0" silver="57" copper="48"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="56200"/>
+<stat name="VITALITY" value="45600"/>
+<stat name="CRITICAL_RATING" value="158939"/>
+<stat name="FINESSE" value="70704"/>
+<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" value="100"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="56200"/>
+<stat name="VITALITY" value="45600"/>
+<stat name="CRITICAL_RATING" value="158939"/>
+<stat name="FINESSE" value="70704"/>
+<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" value="100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="TOOL">
+<item key="1879283840" name="Superior Tools of the Westemnet Armourer" instanceId="030800048EF2BADD" crafterName="Kargarth" boundTo="0208000000261E67">
+<stats mode="AUTO">
+<defautStats>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
+<stat name="METALSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Metalsmith Critical Chance" value="2500"/>
+<stat name="TAILOR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Tailor Critical Chance" value="2500"/>
+</defautStats>
+<resultStats>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
+<stat name="METALSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Metalsmith Critical Chance" value="2500"/>
+<stat name="TAILOR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Tailor Critical Chance" value="2500"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="CLASS_ITEM">
+<item key="1879424485" name="Guardian's Belt" level="480" minLevel="140" instanceId="030A0009FEDFCB9A" boundTo="0208000000261E67">
+<legendary2 name="Pants Helper">
+<socket index="0" traceryId="1879426047" traceryName="Heraldry of the Ox" itemLevel="403"/>
+<socket index="1" traceryId="1879425550" traceryName="Area Effect Target Count" itemLevel="400"/>
+<socket index="2" traceryId="1879425482" traceryName="Single Target Attack Damage" itemLevel="400"/>
+<socket index="3" traceryId="1879425576" traceryName="Single Target Attack Criticals" itemLevel="400"/>
+<socket index="4" traceryId="1879425851" traceryName="Catch a Breath Cooldown &amp; Heal" itemLevel="400"/>
+<socket index="5" traceryId="1879431972" traceryName="Guardian's Pledge Cooldown &amp; Magnitude" itemLevel="460"/>
+<socket index="6" traceryId="1879434670" traceryName="Guardian's Ward Damage &amp; Parry Chance" itemLevel="452"/>
+<socket index="7" traceryId="1879425675" traceryName="Parry Response Damage" itemLevel="400"/>
+<socket index="8" traceryId="1879425845" traceryName="Warrior's Heart Duration" itemLevel="400"/>
+<socket index="9" traceryId="1879431762" traceryName="Warrior's Heart Morale Heal &amp; Maximum" itemLevel="450"/>
+<socket index="10" traceryId="1879428248" traceryName="Ascendent Lightning" itemLevel="400"/>
+<socket index="11" traceryId="1879428248" traceryName="Ascendent Lightning" itemLevel="400"/>
+</legendary2>
+<stats mode="AUTO">
+<defautStats>
+<stat name="INCOMING_HEALING" value="701225"/>
+</defautStats>
+<resultStats>
+<stat name="INCOMING_HEALING" value="701225"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BRIDLE">
+<item key="1879253166" name="Heavy Bridle of the Second Age" instanceId="03080003C2E05564" boundTo="0208000000261E67">
+<legendary imbued="false">
+<nonImbued level="60" upgrades="0" pointsSpent="639" pointsLeft="11">
+<defaultLegacy id="1879242523" rank="95"/>
+<tieredLegacy index="0" id="1879249829" rank="84"/>
+<tieredLegacy index="1" id="1879254484" rank="47"/>
+<tieredLegacy index="2" id="1879249786" rank="47"/>
+<tieredLegacy index="3" id="1879254489" rank="47"/>
+<tieredLegacy index="4" id="1879249896" rank="53"/>
+<tieredLegacy index="5" id="1879249944" rank="55"/>
+</nonImbued>
+<imbued/>
+</legendary>
+<stats mode="AUTO"/>
+</item>
+</equipmentSlot>
+</equipment>
+<virtues>
+<virtue id="CHARITY" rank="53"/>
+<virtue id="COMPASSION" rank="34"/>
+<virtue id="CONFIDENCE" rank="37" index="2"/>
+<virtue id="DETERMINATION" rank="21"/>
+<virtue id="DISCIPLINE" rank="16"/>
+<virtue id="EMPATHY" rank="45"/>
+<virtue id="FIDELITY" rank="52" index="4"/>
+<virtue id="FORTITUDE" rank="15"/>
+<virtue id="HONESTY" rank="37"/>
+<virtue id="HONOUR" rank="31"/>
+<virtue id="IDEALISM" rank="34"/>
+<virtue id="INNOCENCE" rank="34"/>
+<virtue id="JUSTICE" rank="31"/>
+<virtue id="LOYALTY" rank="42" index="3"/>
+<virtue id="MERCY" rank="18"/>
+<virtue id="PATIENCE" rank="39"/>
+<virtue id="TOLERANCE" rank="61"/>
+<virtue id="VALOUR" rank="10" index="0"/>
+<virtue id="WISDOM" rank="29"/>
+<virtue id="WIT" rank="8"/>
+<virtue id="ZEAL" rank="26" index="1"/>
+</virtues>
+<tomes>
+<tome stat="MIGHT" rank="1"/>
+<tome stat="AGILITY" rank="0"/>
+<tome stat="VITALITY" rank="3"/>
+<tome stat="WILL" rank="0"/>
+<tome stat="FATE" rank="0"/>
+</tomes>
+<traitTreeStatus treeId="1879272221" branch="29" totalPoints="98"/>
+<racialTraitsStatus>
+<slot index="0" traitId="1879073605" traitName="Return to Thorin's Gate"/>
+<slot index="1" traitId="1879073613" traitName="Dwarf-endurance"/>
+<slot index="2" traitId="1879073603" traitName="Fateful Dwarf"/>
+<slot index="3" traitId="1879073601" traitName="Dwarf Axe-damage Bonus"/>
+<slot index="4" traitId="1879073609" traitName="Endurance of Stone"/>
+</racialTraitsStatus>
+<buffs/>
+</character>
