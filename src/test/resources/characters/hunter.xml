@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?><character version="1100" name="Glumlug" level="140" date="1727329449749">
+<characterSummary id="02080000002263A6" name="Glumlug" server="Landroval" account="glorfindel666" subscription="FPPW4D9YZ4XREC2LNRLFW73WC" class="Hunter" race="dwarf" sex="MALE" level="140" surname="Glum" rank="0" nationalityCode="10" region="Grey Mountains" kinshipID="0C08000108047427" importDate="1727329445795"/>
+<stats>
+<stat name="MORALE" value="7358696"/>
+<stat name="POWER" value="358100"/>
+<stat name="ARMOUR" value="2302100"/>
+<stat name="MIGHT" value="128000"/>
+<stat name="AGILITY" value="1236100"/>
+<stat name="VITALITY" value="1185200"/>
+<stat name="WILL" value="34000"/>
+<stat name="FATE" value="160100"/>
+<stat name="CRITICAL_RATING" value="5050111"/>
+<stat name="CRITICAL_MELEE_PERCENTAGE" value="1488"/>
+<stat name="CRITICAL_RANGED_PERCENTAGE" value="1988"/>
+<stat name="CRITICAL_TACTICAL_PERCENTAGE" value="1488"/>
+<stat name="DEVASTATE_MELEE_PERCENTAGE" value="473"/>
+<stat name="DEVASTATE_RANGED_PERCENTAGE" value="473"/>
+<stat name="DEVASTATE_TACTICAL_PERCENTAGE" value="473"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE" value="2467"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE" value="2467"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE" value="2467"/>
+<stat name="FINESSE" value="2502837"/>
+<stat name="FINESSE_PERCENTAGE" value="2331"/>
+<stat name="PHYSICAL_MASTERY" value="6594942"/>
+<stat name="MELEE_DAMAGE_PERCENTAGE" value="14658"/>
+<stat name="RANGED_DAMAGE_PERCENTAGE" value="15158"/>
+<stat name="TACTICAL_MASTERY" value="485111"/>
+<stat name="TACTICAL_DAMAGE_PERCENTAGE" value="1394"/>
+<stat name="OUTGOING_HEALING" value="4517411"/>
+<stat name="OUTGOING_HEALING_PERCENTAGE" value="2656"/>
+<stat name="RESISTANCE" value="361163"/>
+<stat name="RESISTANCE_PERCENTAGE" value="261"/>
+<stat name="CRITICAL_DEFENCE" value="534551"/>
+<stat name="MELEE_CRITICAL_DEFENCE" value="908"/>
+<stat name="RANGED_CRITICAL_DEFENCE" value="908"/>
+<stat name="TACTICAL_CRITICAL_DEFENCE" value="908"/>
+<stat name="INCOMING_HEALING" value="51464"/>
+<stat name="INCOMING_HEALING_PERCENTAGE" value="28"/>
+<stat name="BLOCK_PERCENTAGE" value="0"/>
+<stat name="PARTIAL_BLOCK_PERCENTAGE" value="0"/>
+<stat name="PARTIAL_BLOCK_MITIGATION_PERCENTAGE" value="0"/>
+<stat name="PARRY" value="1856053"/>
+<stat name="PARRY_PERCENTAGE" value="468"/>
+<stat name="PARTIAL_PARRY_PERCENTAGE" value="530"/>
+<stat name="PARTIAL_PARRY_MITIGATION_PERCENTAGE" value="742"/>
+<stat name="EVADE" value="3692070"/>
+<stat name="EVADE_PERCENTAGE" value="833"/>
+<stat name="PARTIAL_EVADE_PERCENTAGE" value="986"/>
+<stat name="PARTIAL_EVADE_MITIGATION_PERCENTAGE" value="1380"/>
+<stat name="PHYSICAL_MITIGATION" value="3572200"/>
+<stat name="PHYSICAL_MITIGATION_PERCENTAGE" value="3703"/>
+<stat name="OCFW_MITIGATION" value="460420"/>
+<stat name="OCFW_MITIGATION_PERCENTAGE" value="687"/>
+<stat name="TACTICAL_MITIGATION" value="1696520"/>
+<stat name="TACTICAL_MITIGATION_PERCENTAGE" value="1958"/>
+<stat name="FIRE_MITIGATION_PERCENTAGE" value="1958"/>
+<stat name="LIGHTNING_MITIGATION_PERCENTAGE" value="1958"/>
+<stat name="FROST_MITIGATION_PERCENTAGE" value="1958"/>
+<stat name="ACID_MITIGATION_PERCENTAGE" value="1958"/>
+<stat name="SHADOW_MITIGATION_PERCENTAGE" value="1958"/>
+<stat name="OCMR" value="7347840"/>
+<stat name="ICMR" value="1052084"/>
+<stat name="OCPR" value="209220"/>
+<stat name="ICPR" value="113100"/>
+<stat name="LIGHT_OF_EARENDIL" value="8000"/>
+<stat name="WOODWORKER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Woodworker Critical Chance" value="2500"/>
+<stat name="FARMER_MINING_DURATION" descriptionOverride="-4s Farmer Harvesting Duration" value="-400"/>
+<stat name="FORESTER_CHOPPING_DURATION" descriptionOverride="-4s Forester Chopping Duration" value="-400"/>
+<stat name="PERCEIVED_THREAT" descriptionOverride="-" value="-5000"/>
+<stat name="ALL_SKILL_INDUCTION" value="-900"/>
+<stat name="Combat_WeaponDamageMultiplier_2HAxe" value="500"/>
+<stat name="Skill_AutoAttack_BlockChance" value="-500"/>
+<stat name="Skill_RecoveryTime_Trait_HastyRecovery" value="-3000"/>
+<stat name="Skill_ChanceCriticalHit_Trait_Hunter_HailofArrows" value="200"/>
+<stat name="Combat_WeaponDamageMultiplier_1HAxe" value="500"/>
+<stat name="Skill_DamageMultiplier_Trait_SwiftandTrue" value="1800"/>
+<stat name="Trait_Virtue_Rank_Honesty" value="100"/>
+<stat name="Skill_RangedDefaultAttack_MaxRangeMod" descriptionOverride="Adds ${VALUE} metres to maximum distance of ranged auto-attack." value="1500"/>
+<stat name="Trait_Virtue_Rank_Loyalty" value="100"/>
+<stat name="Skill_Pips_Mod_Trait_EnduringPrecision_Seconds" value="100"/>
+<stat name="Skill_CriticalDamageMultiplier_Trait_Hunter_HailofArrows" value="1000"/>
+<stat name="Skill_AdditionalThreat_Hunter_AllRangeSkillsMod" descriptionOverride="Greatly reduces threat during ranged combat." value="326179"/>
+<stat name="Trait_Virtue_Rank_Fidelity" value="100"/>
+<stat name="Skill_Hunter_CriticalDamageMultiplier_Trait_MercifulShot" value="2500"/>
+<stat name="Skill_ChanceMovingHit_Set_Hunter_Mod" value="-10000"/>
+<stat name="IA_Hunter_SnareMagnitude_QuickShot" value="1000"/>
+<stat name="IA_Hunter_BuffDamage_BurnHot" value="1500"/>
+<stat name="IA_Hunter_DamageDoT_BarbedArrow" value="2000"/>
+<stat name="IA_Hunter_PowerCost_FocusBowSkills" value="-2500"/>
+<stat name="IA_Hunter_Damage_HeartSeeker" value="5000"/>
+<stat name="IA_Hunter_CriticalDamageMultiplier_FocusBowSkills" value="1500"/>
+<stat name="IA_Hunter_CriticalDamageMultiplier_InductionBowSkills" value="3000"/>
+<stat name="IA_Hunter_ChanceCriticalHit_QuickShot" value="1000"/>
+<stat name="Combat_SkillDamageMultiplier_Lightning" value="1500"/>
+<stat name="Effect_Self_Revive_Cooldown" descriptionOverride="Increases duration of Revived effect to 2 hours." value="540000"/>
+<stat name="Skill_Hunter_PrecisionStance_CritMagnitude" value="2200"/>
+<stat name="Skill_Hunter_RecoveryTime_MercifulShot" value="-1000"/>
+<stat name="Skill_RecoveryTime_BloodArrow" value="-500"/>
+<stat name="Hunter_BarbedArrow_InitialDamage" descriptionOverride="+${PERCENTVALUE} Barbed Arrow Damage" value="3000"/>
+<stat name="Skill_DamageMultiplier_Trait_StrongDraw" value="2500"/>
+<stat name="Trait_Hunter_QuickShot_Focus_AppChance" descriptionOverride="+${PERCENTVALUE} Quick Shot Bonus Focus Application Chance" value="4500"/>
+<stat name="Trait_Hunter_InductionBow_DamageMod" value="5000"/>
+<stat name="Trait_Hunter_NaturalExtracts_DoTDamageMod" value="2500"/>
+<stat name="Trait_Hunter_Exsanguinate_AppChance" value="10000"/>
+<stat name="Trait_Hunter_ResoluteAim_InductionPenaltyMod" value="2000"/>
+<stat name="ForwardSource_Hunter_FocusLoss_OnMovement" value="-100"/>
+<stat name="Skill_Hunter_PressOnward_HealMod" value="2500"/>
+<stat name="IA_Hunter_QuickShot_Damage" value="3500"/>
+<stat name="Combat_AdditiveEvadeRate_Moving" descriptionOverride="Gain +5% Evade chance whilst you are moving." value="500"/>
+<stat name="Skill_Hunter_IA_SwiftBow_Damage" value="3500"/>
+<stat name="IA_Hunter_QuickShot_CriticalMagnitude" value="1000"/>
+<stat name="Skill_IA_Hunter_Upshot_Damage" value="3500"/>
+<stat name="Skill_Trait_HuntersCry_Runspeed_Mod" descriptionOverride="+${PERCENTVALUE} Runspeed" value="1000"/>
+<stat name="Skill_Trait_HuntersCry_Cooldown_Mod" value="-1500"/>
+<stat name="Trait_Hunter_Heartseeker_Duration" value="0"/>
+<stat name="Skill_SingleTarget_Damage_CritChance" value="500"/>
+<stat name="Skill_SingleTarget_Damage_CritMag" value="2000"/>
+<stat name="Skill_OverTime_Damage_CritChance" value="500"/>
+<stat name="Skill_OverTime_Damage_CritMag" value="2000"/>
+<stat name="Skill_SingleTarget_Damage" value="2000"/>
+<stat name="Skill_OverTime_Damage" value="2000"/>
+<stat name="Trait_Hunter_StrengthOfEarth_DamageBuff" value="2500"/>
+</stats>
+<equipment>
+<equipmentSlot name="HEAD">
+<item key="1879410277" name="Padded Helmet of Scatha's Hoard" instanceId="030A000A2830DC11" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="53400"/>
+<stat name="VITALITY" value="31300"/>
+<stat name="PHYSICAL_MASTERY" value="103045"/>
+<stat name="CRITICAL_RATING" value="90735"/>
+<stat name="ARMOUR" value="144700"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="53400"/>
+<stat name="VITALITY" value="31300"/>
+<stat name="PHYSICAL_MASTERY" value="103045"/>
+<stat name="CRITICAL_RATING" value="90735"/>
+<stat name="ARMOUR" value="144700"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879392190" name="Flickering Moonlit Essence of Critical Rating"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BREAST">
+<item key="1879380176" name="Incomparable Mathom-hunter's Jacket" level="445" minLevel="137" instanceId="030A000A3486B03A" boundTo="08FF00000005FA91">
+<money gold="0" silver="108" copper="18"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="58800"/>
+<stat name="VITALITY" value="57600"/>
+<stat name="PHYSICAL_MASTERY" value="199082"/>
+<stat name="CRITICAL_DEFENCE" value="222673"/>
+<stat name="ARMOUR" value="584000"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="58800"/>
+<stat name="VITALITY" value="57600"/>
+<stat name="PHYSICAL_MASTERY" value="199082"/>
+<stat name="CRITICAL_DEFENCE" value="222673"/>
+<stat name="ARMOUR" value="584000"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEGS">
+<item key="1879380168" name="Incomparable Mathom-hunter's Leggings" level="445" minLevel="137" instanceId="030A000A3486B04C" boundTo="08FF00000005FA91">
+<money gold="0" silver="107" copper="94"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="58800"/>
+<stat name="VITALITY" value="57600"/>
+<stat name="CRITICAL_DEFENCE" value="311878"/>
+<stat name="FINESSE" value="222673"/>
+<stat name="ARMOUR" value="486000"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="58800"/>
+<stat name="VITALITY" value="57600"/>
+<stat name="CRITICAL_DEFENCE" value="311878"/>
+<stat name="FINESSE" value="222673"/>
+<stat name="ARMOUR" value="486000"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="HANDS">
+<item key="1879440880" name="Gages of the Unforgettable Insult" instanceId="030A000A9E937876" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="66300"/>
+<stat name="VITALITY" value="74000"/>
+<stat name="PARRY" value="292102"/>
+<stat name="EVADE" value="234184"/>
+<stat name="ARMOUR" value="328700"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="66300"/>
+<stat name="VITALITY" value="74000"/>
+<stat name="PARRY" value="292102"/>
+<stat name="EVADE" value="234184"/>
+<stat name="ARMOUR" value="328700"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="FEET">
+<item key="1879410988" name="Nimble Padded Boots of the Want-kin" instanceId="030A000A28FE89B3" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="42700"/>
+<stat name="VITALITY" value="31300"/>
+<stat name="CRITICAL_RATING" value="120980"/>
+<stat name="ARMOUR" value="200100"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="42700"/>
+<stat name="VITALITY" value="31300"/>
+<stat name="CRITICAL_RATING" value="120980"/>
+<stat name="ARMOUR" value="200100"/>
+</resultStats>
+</stats>
+<essences/>
+</item>
+</equipmentSlot>
+<equipmentSlot name="SHOULDER">
+<item key="1879380185" name="Incomparable Mathom-hunter's Shoulder-pads" level="445" minLevel="137" instanceId="030A000A3486B04B" boundTo="08FF00000005FA91">
+<money gold="0" silver="107" copper="52"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="58800"/>
+<stat name="VITALITY" value="57600"/>
+<stat name="PARRY" value="327551"/>
+<stat name="CRITICAL_RATING" value="166735"/>
+<stat name="ARMOUR" value="172400"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="58800"/>
+<stat name="VITALITY" value="57600"/>
+<stat name="PARRY" value="327551"/>
+<stat name="CRITICAL_RATING" value="166735"/>
+<stat name="ARMOUR" value="172400"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BACK">
+<item key="1879410421" name="Medium Cloak of Annâk-khurfu" instanceId="030A000A2907EB72" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="48000"/>
+<stat name="VITALITY" value="36600"/>
+<stat name="CRITICAL_RATING" value="181469"/>
+<stat name="EVADE" value="211714"/>
+<stat name="FINESSE" value="202122"/>
+<stat name="ARMOUR" value="352000"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="48000"/>
+<stat name="VITALITY" value="36600"/>
+<stat name="CRITICAL_RATING" value="181469"/>
+<stat name="EVADE" value="211714"/>
+<stat name="FINESSE" value="202122"/>
+<stat name="ARMOUR" value="352000"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_WRIST">
+<item key="1879410286" name="Bracelet of the Eagle Eye" instanceId="030A000A2A87CE16" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="64100"/>
+<stat name="VITALITY" value="20900"/>
+<stat name="FINESSE" value="282796"/>
+<stat name="CRITICAL_RATING" value="151224"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="64100"/>
+<stat name="VITALITY" value="20900"/>
+<stat name="FINESSE" value="282796"/>
+<stat name="CRITICAL_RATING" value="151224"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_WRIST">
+<item key="1879410232" name="Ancient Éothéod Medium Wristguard" instanceId="030A000A28332B3B" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="37400"/>
+<stat name="VITALITY" value="52200"/>
+<stat name="RESISTANCE" value="327163"/>
+<stat name="EVADE" value="211714"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="37400"/>
+<stat name="VITALITY" value="52200"/>
+<stat name="RESISTANCE" value="327163"/>
+<stat name="EVADE" value="211714"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="NECK">
+<item key="1879441040" name="Socketed Medium Torc of Kept Promises" level="457" minLevel="137" instanceId="030A000A98950A39" boundTo="02080000002263A6">
+<money gold="0" silver="28" copper="36"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="59600"/>
+<stat name="VITALITY" value="67600"/>
+<stat name="CRITICAL_RATING" value="126571"/>
+<stat name="EVADE" value="177429"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="59600"/>
+<stat name="VITALITY" value="67600"/>
+<stat name="CRITICAL_RATING" value="126571"/>
+<stat name="EVADE" value="177429"/>
+</resultStats>
+</stats>
+<essences/>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_FINGER">
+<item key="1879410238" name="Grimbeorn's Duelling Ring" instanceId="030A000A2B3589A1" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="64100"/>
+<stat name="VITALITY" value="26100"/>
+<stat name="CRITICAL_RATING" value="211714"/>
+<stat name="FINESSE" value="161816"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="64100"/>
+<stat name="VITALITY" value="26100"/>
+<stat name="CRITICAL_RATING" value="211714"/>
+<stat name="FINESSE" value="161816"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_FINGER">
+<item key="1879440953" name="Gold Ring of the Mighty Court" instanceId="030A000A9D273DC4" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="62800"/>
+<stat name="VITALITY" value="34500"/>
+<stat name="CRITICAL_RATING" value="276184"/>
+<stat name="FATE" value="23100"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="62800"/>
+<stat name="VITALITY" value="34500"/>
+<stat name="CRITICAL_RATING" value="276184"/>
+<stat name="FATE" value="23100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_EAR">
+<item key="1879377826" name="Refined Tourmaline Silver Earring of the Adventurer" level="433" minLevel="130" instanceId="030A000A234AB2EE" boundTo="08FF00000005FA91">
+<money gold="0" silver="38" copper="13"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="77600"/>
+<stat name="VITALITY" value="38000"/>
+<stat name="PHYSICAL_MASTERY" value="187327"/>
+<stat name="FATE" value="18200"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="77600"/>
+<stat name="VITALITY" value="38000"/>
+<stat name="PHYSICAL_MASTERY" value="187327"/>
+<stat name="FATE" value="18200"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_EAR">
+<item key="1879440919" name="Gold Earring of the High Seat" instanceId="030A000A9D987E0E" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="70500"/>
+<stat name="VITALITY" value="49000"/>
+<stat name="PHYSICAL_MASTERY" value="238388"/>
+<stat name="FINESSE" value="212857"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="70500"/>
+<stat name="VITALITY" value="49000"/>
+<stat name="PHYSICAL_MASTERY" value="238388"/>
+<stat name="FINESSE" value="212857"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="POCKET">
+<item key="1879410242" name="Intricate Signet of Scatha's Hoard" instanceId="030A000A2A38AD81" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="53400"/>
+<stat name="VITALITY" value="26100"/>
+<stat name="FINESSE" value="323102"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="53400"/>
+<stat name="VITALITY" value="26100"/>
+<stat name="FINESSE" value="323102"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879392190" name="Flickering Moonlit Essence of Critical Rating"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="MAIN_MELEE">
+<item key="1879424195" name="Hunter's Axe of Legends" level="465" minLevel="131" instanceId="030A0009FBD7724D" boundTo="02080000002263A6" maxDamage="401.88345" dps="351.648">
+<legendary2>
+<socket index="0" traceryId="1879437270" traceryName="Heraldry of the Serpent" itemLevel="459"/>
+<socket index="1" traceryId="1879435039" traceryName="Damage Over Time" itemLevel="450"/>
+<socket index="2" traceryId="1879431922" traceryName="Damage Over Time Criticals" itemLevel="453"/>
+<socket index="3" traceryId="1879434399" traceryName="Heart Seeker Damage" itemLevel="450"/>
+<socket index="4" traceryId="1879435168" traceryName="Induction Bow Damage" itemLevel="450"/>
+<socket index="5" traceryId="1879437835" traceryName="Merciful Shot Cooldown &amp; Critical Multiplier" itemLevel="450"/>
+<socket index="6" traceryId="1879437393" traceryName="Quick Shot Damage" itemLevel="450"/>
+<socket index="7" traceryId="1879426233" traceryName="Swift Bow Damage" itemLevel="404"/>
+<socket index="8" traceryId="1879426109" traceryName="Upshot Damage" itemLevel="400"/>
+<socket index="9" traceryId="1879428248" traceryName="Ascendent Lightning" itemLevel="400"/>
+<socket index="10" traceryId="1879428248" traceryName="Ascendent Lightning" itemLevel="400"/>
+</legendary2>
+<stats mode="AUTO"/>
+</item>
+</equipmentSlot>
+<equipmentSlot name="OTHER_MELEE">
+<item key="1879280784" name="Dextrous Club of Prowess" level="390" minLevel="126" instanceId="030A0008E38C6034" boundTo="02080000002263A6" maxDamage="225.29492" dps="197.13306">
+<money gold="0" silver="55" copper="94"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="47300"/>
+<stat name="VITALITY" value="38600"/>
+<stat name="PHYSICAL_MASTERY" value="152429"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="47300"/>
+<stat name="VITALITY" value="38600"/>
+<stat name="PHYSICAL_MASTERY" value="152429"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RANGED">
+<item key="1879424197" name="Hunter's Crossbow of Legends" level="475" minLevel="137" instanceId="030A0009FBD77218" boundTo="02080000002263A6" maxDamage="600.94904" dps="525.8304">
+<legendary2>
+<socket index="0" traceryId="1879437270" traceryName="Heraldry of the Serpent" itemLevel="475"/>
+<socket index="1" traceryId="1879436253" traceryName="Single Target Attack Damage" itemLevel="475"/>
+<socket index="2" traceryId="1879436933" traceryName="Single Target Attack Criticals" itemLevel="475"/>
+<socket index="3" traceryId="1879425411" traceryName="Skill Induction Speed" itemLevel="400"/>
+<socket index="4" traceryId="1879432799" traceryName="Burn Hot Damage" itemLevel="450"/>
+<socket index="5" traceryId="1879434949" traceryName="Focus Bow Critical Multiplier" itemLevel="450"/>
+<socket index="6" traceryId="1879436794" traceryName="Induction Bow Critical Multiplier" itemLevel="450"/>
+<socket index="7" traceryId="1879436236" traceryName="Precision: Quick Shot Critical Chance &amp; Magnitude" itemLevel="450"/>
+<socket index="8" traceryId="1879426104" traceryName="Precision Stance Critical Magnitude" itemLevel="400"/>
+<socket index="9" traceryId="1879435949" traceryName="Strength: Quick Shot Slow &amp; Focus Chance" itemLevel="459"/>
+<socket index="10" traceryId="1879428248" traceryName="Ascendent Lightning" itemLevel="400"/>
+<socket index="11" traceryId="1879428248" traceryName="Ascendent Lightning" itemLevel="400"/>
+</legendary2>
+<stats mode="AUTO">
+<defautStats>
+<stat name="Skill_AutoAttack_BlockChance" value="-500"/>
+</defautStats>
+<resultStats>
+<stat name="Skill_AutoAttack_BlockChance" value="-500"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="TOOL">
+<item key="1879283859" name="Superior Tools of the Westemnet Woodsman" instanceId="030800048EF2BB6F" crafterName="Kargarth" boundTo="02080000002263A6">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WOODWORKER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Woodworker Critical Chance" value="2500"/>
+<stat name="FORESTER_CHOPPING_DURATION" descriptionOverride="-4s Forester Chopping Duration" value="-400"/>
+<stat name="FARMER_MINING_DURATION" descriptionOverride="-4s Farmer Harvesting Duration" value="-400"/>
+</defautStats>
+<resultStats>
+<stat name="WOODWORKER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Woodworker Critical Chance" value="2500"/>
+<stat name="FORESTER_CHOPPING_DURATION" descriptionOverride="-4s Forester Chopping Duration" value="-400"/>
+<stat name="FARMER_MINING_DURATION" descriptionOverride="-4s Farmer Harvesting Duration" value="-400"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="CLASS_ITEM">
+<item key="1879370179" name="Ironfold Tome of the Whisper-draw" level="374" instanceId="030A00081D25C045" birthName="Hunter's Guide for Middle Earth" crafterName="Utharr" boundTo="02080000002263A6">
+<money gold="0" silver="11" copper="94"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="Skill_AdditionalThreat_Hunter_AllRangeSkillsMod" descriptionOverride="Greatly reduces threat during ranged combat." value="326179"/>
+<stat name="MORALE" value="215837"/>
+</defautStats>
+<resultStats>
+<stat name="Skill_AdditionalThreat_Hunter_AllRangeSkillsMod" descriptionOverride="Greatly reduces threat during ranged combat." value="326179"/>
+<stat name="MORALE" value="215837"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+</equipment>
+<virtues>
+<virtue id="CHARITY" rank="53"/>
+<virtue id="COMPASSION" rank="53"/>
+<virtue id="CONFIDENCE" rank="39" index="2"/>
+<virtue id="DETERMINATION" rank="31" index="1"/>
+<virtue id="DISCIPLINE" rank="34"/>
+<virtue id="EMPATHY" rank="53"/>
+<virtue id="FIDELITY" rank="45"/>
+<virtue id="FORTITUDE" rank="34"/>
+<virtue id="HONESTY" rank="53"/>
+<virtue id="HONOUR" rank="42"/>
+<virtue id="IDEALISM" rank="54"/>
+<virtue id="INNOCENCE" rank="53"/>
+<virtue id="JUSTICE" rank="31"/>
+<virtue id="LOYALTY" rank="53" index="4"/>
+<virtue id="MERCY" rank="29"/>
+<virtue id="PATIENCE" rank="39"/>
+<virtue id="TOLERANCE" rank="42"/>
+<virtue id="VALOUR" rank="82" index="0"/>
+<virtue id="WISDOM" rank="45"/>
+<virtue id="WIT" rank="48" index="3"/>
+<virtue id="ZEAL" rank="42"/>
+</virtues>
+<tomes>
+<tome stat="MIGHT" rank="0"/>
+<tome stat="AGILITY" rank="4"/>
+<tome stat="VITALITY" rank="0"/>
+<tome stat="WILL" rank="0"/>
+<tome stat="FATE" rank="0"/>
+</tomes>
+<traitTreeStatus treeId="1879272219" branch="41" cost="83" totalPoints="98">
+<trait id="1879259533" name="Barbed Fury" rank="5"/>
+<trait id="1879264321" name="Impact Arrows" rank="5"/>
+<trait id="1879264322" name="Strength of Earth" rank="2"/>
+<trait id="1879264323" name="Shot Through The Heart" rank="1"/>
+<trait id="1879264325" name="Blood Arrow" rank="2"/>
+<trait id="1879264327" name="Rapid Fire" rank="1"/>
+<trait id="1879268083" name="Strong Draw" rank="6"/>
+<trait id="1879268084" name="Improved Intent Concentration" rank="1"/>
+<trait id="1879268087" name="Exsanguinate" rank="3"/>
+<trait id="1879268098" name="Quick Shot Focus" rank="5"/>
+<trait id="1879268100" name="Precision" rank="2"/>
+<trait id="1879292069" name="Perseverance" rank="4"/>
+<trait id="1879292070" name="Press Onward" rank="1"/>
+<trait id="1879312461" name="Moving Target" rank="1"/>
+<trait id="1879259548" name="Critical Eye" rank="5"/>
+<trait id="1879264249" name="Quick Escape" rank="1"/>
+<trait id="1879264254" name="Rain of Arrows" rank="2"/>
+<trait id="1879268102" name="Draw Weight" rank="5"/>
+<trait id="1879292019" name="Heart Seeker" rank="1"/>
+<trait id="1879292021" name="Swift and True" rank="3"/>
+<trait id="1879268095" name="Natural Extracts" rank="5"/>
+</traitTreeStatus>
+<racialTraitsStatus>
+<slot index="0" traitId="1879073613" traitName="Dwarf-endurance"/>
+<slot index="1" traitId="1879073605" traitName="Return to Thorin's Gate"/>
+<slot index="2" traitId="1879092950" traitName="Virtuous Dwarf"/>
+<slot index="3" traitId="1879073601" traitName="Dwarf Axe-damage Bonus"/>
+<slot index="4" traitId="1879073609" traitName="Endurance of Stone"/>
+</racialTraitsStatus>
+<buffs/>
+</character>

@@ -39,6 +39,7 @@ class SkillTooltipGenerationTest
     testGuardian();
     testRunekeeper();
     testLoremaster();
+    testHunter();
   }
 
   private void doTest(String characterFile, int[] skillIDs)
@@ -130,6 +131,27 @@ class SkillTooltipGenerationTest
       1879102643, // Stagger
     };
     doTest("guardian.xml",skills);
+  }
+
+  private void testHunter()
+  {
+    int[] skills={
+      1879218262, // Improved Quick Shot
+      1879135202, // Improved Swift Bow
+      1879064379, // Blindside
+      1879064371, // Barbed Arrow
+      1879052499, // Bard's Arrow
+      1879089875, // Heart Seeker
+      1879218255, // Improved Penetrating Shot
+      1879073389, // Low Cut
+      1879270510, // Barrage
+      1879073393, // Scourging Blow
+      1879186701, // Blood Arrow
+      1879064374, // Rain of Arrows
+      1879186712, // Improved Dazing Blow
+      1879135205, // Improved Merciful Shot
+    };
+    doTest("hunter.xml",skills);
   }
 
   private List<String> doSkill(int id, CharacterData data)

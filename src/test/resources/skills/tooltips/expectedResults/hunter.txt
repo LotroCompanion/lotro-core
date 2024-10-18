@@ -1,0 +1,218 @@
+*****************************
+Skill-Id: 1879218262
+Improved Quick Shot
+Fast
+Ranged Skill
+Induction: 0,5s
+Range: 30m
+Nock and loose an arrow quickly.
+
+Has a chance to generate additional Focus.
+2 779 - 3 705 Beleriand (Ranged) Damage
+Restores 22 - 24 Power
++1 Bonus Focus
+Cost: 32 Power
+Adds 1 to Focus
+*****************************
+Skill-Id: 1879135202
+Improved Swift Bow
+Fast
+Ranged Skill
+Induction: 1,6s
+Range: 30m
+Loose three missiles in rapid succession.
+3 Attacks:
+6 642 - 8 856 Beleriand (Ranged) Damage
+Restores 22 - 24 Power
+5 536 - 7 382 Beleriand (Ranged) Damage
+Restores 22 - 24 Power
+4 190 - 5 586 Beleriand (Ranged) Damage
+Restores 22 - 24 Power
+Cost: 191 Power
+Adds 2 to Focus
+Cooldown: 10s
+*****************************
+Skill-Id: 1879064379
+Blindside
+Immediate
+Ranged Skill
+Range: 30m
+A swift ranged attack that can interrupt an enemy's actions.
+10 799 - 14 399 Beleriand (Ranged) Damage
+Interrupts Inductions
+Cost: 95 Power
+Adds 3 to Focus
+Cooldown: 18s
+*****************************
+Skill-Id: 1879064371
+Barbed Arrow
+Fast
+Ranged Skill
+Induction: 1,4s
+Range: 30m
+Your arrow can cause a wound that bleeds and slightly slows movement speed.
+5 377 - 7 166 Beleriand (Ranged) Damage
+1 470 Damage every 2 seconds for 12 seconds
+-10% Target Run Speed
+Duration: 20s
+Restores 22 - 24 Power
+Cost: 191 Power
+Adds 1 to Focus
+Cooldown: 1,5s
+*****************************
+Skill-Id: 1879052499
+Bard's Arrow
+Fast
+Ranged Skill
+Induction: 1,4s
+Range: 30m
+A shot that strikes the enemy with fear.
+
+<rgb=#00FFDD>Mounted Combat Enemies: Fear replaced with attack speed debuff.</rgb>
+11 183 - 14 911 Beleriand (Ranged) Damage
+15s Fear
+Restores 22 - 24 Power
+Cost: 96 Power
+Adds 1 to Focus
+Cooldown: 30s
+*****************************
+Skill-Id: 1879089875
+Heart Seeker
+Fast
+Ranged Skill
+Induction: 1,8s
+Range: 30m
+A shot that cannot be missed, parried, evaded, or blocked.
+22 883 - 30 511 Beleriand (Ranged) Damage
+1 812 Damage every 2 seconds for 10 seconds
+Restores 22 - 24 Power
+Cost: 191 Power
+Cooldown: 50s
+*****************************
+Skill-Id: 1879218255
+Improved Penetrating Shot
+Fast
+Ranged Skill
+Range: 30m
+A damaging shot that pierces enemy mitigations.
+6 480 - 8 640 Beleriand (Ranged) Damage
+-3% Physical Mitigation (%)
+-3% Tactical Mitigation (%)
+Duration: 10s
+Restores 22 - 24 Power
+Cost: 119 Power
+Cost: 3 Focus
+Cooldown: 1s
+*****************************
+Skill-Id: 1879073389
+Low Cut
+Fast
+Melee Skill
+Max Targets: 5
+Radius: 4,8m
+Range: 5m
+A low cut in front of you which briefly slows the movement speed of up to 3 enemies.
+2 Attacks:
+3 586 - 4 782 Beleriand (Main-hand) Damage
+-50% Target Run Speed
+Duration: 10s
+441 Damage every 2 seconds for 10 seconds
+On Hit: Removes and grants 5s immunity to Roots and Movement Speed debuffs
+Every 1 second:
+1 012 - 1 349 Westernesse (Off-hand) Damage
+On Hit: Removes and grants 5s immunity to Roots and Movement Speed debuffs
+Every 1 second:
+Cost: 127 Power
+Adds 3 to Focus
+Cooldown: 10s
+*****************************
+Skill-Id: 1879270510
+Barrage
+Fast
+Ranged Skill
+Range: 30m
+A quick attack that deals more damage each time it is used.
+7 927 - 10 570 Beleriand (Ranged) Damage
+Restores 22 - 24 Power
+Increases Barrage Damage & Power Costs
+Duration: 6s
+Cost: 95 Power
+Cost: 3 Focus
+Cooldown: 2s
+*****************************
+Skill-Id: 1879073393
+Scourging Blow
+Fast
+Melee Skill
+Range: 4m
+A melee attack dealing additional damage if the enemy suffers from Barbed Arrow.
+
+Using this skill will stop the bleeding.
+2 Attacks:
+4 164 - 5 552 Beleriand (Main-hand) Damage
+1 184 - 1 579 Westernesse (Off-hand) Damage
+Cost: 127 Power
+Adds 2 to Focus
+Cooldown: 5s
+*****************************
+Skill-Id: 1879186701
+Blood Arrow
+Fast
+Ranged Skill
+Skill Type: Heal
+Range: 30m
+A damaging shot that also restores the Hunter's Morale and removes Corruptions from the target.
+7 992 - 10 655 Beleriand (Ranged) Damage
+Removes 1 tier of up to 3 different Corruption effects from the target.
+Restores 22 - 24 Power
+Activates the Skill Exsanguinate
+Duration: 8s
+Heals 0 Morale
+Cost: 143 Power
+Cost: 3 Focus
+Cooldown: 15s
+*****************************
+Skill-Id: 1879064374
+Rain of Arrows
+Fast
+Ranged Skill
+Max Targets: 10
+Radius: 10m
+Range: 30m
+Rains arrows down upon your enemies, allowing you to hit multiple targets.
+9 172 - 12 230 Beleriand (Ranged) Damage
+Restores 22 - 24 Power
+Cost: 191 Power
+Cost: 5 Focus
+Cooldown: 12s
+*****************************
+Skill-Id: 1879186712
+Improved Dazing Blow
+Fast
+Melee Skill
+Range: 4m
+Dazes the enemy with a pair of melee attacks while dual-wielding.
+
+<rgb=#00FFDD>Mounted Combat Enemies: Daze replaced with a debuff that reduces damage against dismounted players.</rgb>
+2 Attacks:
+1 978 - 2 638 Westernesse (Off-hand) Damage
+5s Daze
+Removes 1 tier of up to 3 different Corruption effects from the target.
+5 787 - 7 716 Beleriand (Main-hand) Damage
+Cost: 127 Power
+Adds 3 to Focus
+Cooldown: 20s
+*****************************
+Skill-Id: 1879135205
+Improved Merciful Shot
+Fast
+Ranged Skill
+Range: 30m
+A massively damaging shot that unlocks when the target is below 50% health.
+
+Critical hits deal bonus damage.
+14 039 - 18 719 Beleriand (Ranged) Damage
+Restores 22 - 24 Power
+Cost: 72 Power
+Cost: 6 Focus
+Cooldown: 20s
