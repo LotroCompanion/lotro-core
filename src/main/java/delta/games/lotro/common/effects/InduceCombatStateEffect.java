@@ -15,7 +15,6 @@ public class InduceCombatStateEffect extends InstantEffect
   private LinearFunction _durationFunction;
   private ModPropertyList _durationMods; // Effect_CombatState_Induce_StateDuration_ModProp_List
   private Float _breakOnHarmfullSkill; // Effect_CombatState_Induce_BreakOnHarmfulSkill_Override
-  // Not used: private ModPropertyList _breakOnHarmfullSkillMods; // Effect_CombatState_Induce_BreakOnHarmfulSkill_ModProp_List
   private Float _breakOnVitalLossProb; // Effect_CombatState_Induce_BreakOnVitalLossProb_Override
   private ModPropertyList _breakOnVitalLossProbMods; // Effect_CombatState_Induce_BreakOnVitalLoss_ModProp_List
   private Float _gracePeriod; // Effect_CombatState_Induce_BreakOutOfState_GracePeriod_Override
@@ -102,6 +101,60 @@ public class InduceCombatStateEffect extends InstantEffect
   public void setDurationModifiers(ModPropertyList durationMods)
   {
     _durationMods=durationMods;
+  }
+
+  /**
+   * Get break on harmfull skill.
+   * @return A probability or <code>null</code>.
+   */
+  public Float getBreakOnHarmfullSkill()
+  {
+    return _breakOnHarmfullSkill;
+  }
+
+  /**
+   * Set the break on harmfull skill probability.
+   * @param breakOnHarmfullSkill Value to set (may be <code>null</code>).
+   */
+  public void setBreakOnHarmfullSkill(Float breakOnHarmfullSkill)
+  {
+    _breakOnHarmfullSkill=breakOnHarmfullSkill;
+  }
+
+  /**
+   * Get break on vital loss probability.
+   * @return A probability or <code>null</code>.
+   */
+  public Float getBreakOnVitalLossProbability()
+  {
+    return _breakOnVitalLossProb;
+  }
+
+  /**
+   * Set the break on vital loss probability.
+   * @param breakOnVitalLossProb Value to set (may be <code>null</code>).
+   */
+  public void setBreakOnVitalLossProbability(Float breakOnVitalLossProb)
+  {
+    _breakOnVitalLossProb=breakOnVitalLossProb;
+  }
+
+  /**
+   * Get the modifiers for the 'break on vital loss' probability.
+   * @return Some modifiers or <code>null</code>.
+   */
+  public ModPropertyList getBreakOnVitalLossProbabilityModifiers()
+  {
+    return _breakOnVitalLossProbMods;
+  }
+
+  /**
+   * Set the modifiers for the 'break on vital loss' probability.
+   * @param modifiers Modifiers to set (may be <code>null</code>).
+   */
+  public void setBreakOnVitalLossProbabilityModifiers(ModPropertyList modifiers)
+  {
+    _breakOnVitalLossProbMods=modifiers;
   }
 
   /**

@@ -296,6 +296,16 @@ public class EffectXMLParser
     // Duration modifiers
     String durationModsStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.INDUCE_COMBAT_STATE_DURATION_MODS_ATTR,null);
     ret.setDurationModifiers(ModPropertyListIO.fromPersistedString(durationModsStr));
+    // Break on harmful skill
+    Float breakOnHarmfullSkill=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.INDUCE_COMBAT_STATE_BREAK_ON_HARMFULL_SKILL_ATTR,null);
+    ret.setBreakOnHarmfullSkill(breakOnHarmfullSkill);
+    // Break on vital loss
+    // - value
+    Float breakOnVitalLoss=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.INDUCE_COMBAT_STATE_BREAK_ON_VITAL_LOSS_ATTR,null);
+    ret.setBreakOnVitalLossProbability(breakOnVitalLoss);
+    // - modifiers
+    String breakOnVitalLossModsStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.INDUCE_COMBAT_STATE_BREAK_ON_VITAL_LOSS_MODS_ATTR,null);
+    ret.setBreakOnVitalLossProbabilityModifiers(ModPropertyListIO.fromPersistedString(breakOnVitalLossModsStr));
     // Grace period
     Float gracePeriod=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.INDUCE_COMBAT_STATE_GRACE_PERIOD_ATTR,null);
     ret.setGracePeriod(gracePeriod);

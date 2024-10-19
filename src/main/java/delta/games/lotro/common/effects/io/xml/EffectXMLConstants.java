@@ -144,6 +144,18 @@ public class EffectXMLConstants
    */
   public static final String INDUCE_COMBAT_STATE_DURATION_MODS_ATTR="stateDurationMods";
   /**
+   * Tag 'induceCombatState', attribute 'breakOnHarmfullSkill'.
+   */
+  public static final String INDUCE_COMBAT_STATE_BREAK_ON_HARMFULL_SKILL_ATTR="breakOnHarmfullSkill";
+  /**
+   * Tag 'induceCombatState', attribute 'breakOnVitalLoss'.
+   */
+  public static final String INDUCE_COMBAT_STATE_BREAK_ON_VITAL_LOSS_ATTR="breakOnVitalLoss";
+  /**
+   * Tag 'induceCombatState', attribute 'breakOnVitalLossMods'.
+   */
+  public static final String INDUCE_COMBAT_STATE_BREAK_ON_VITAL_LOSS_MODS_ATTR="breakOnVitalLossMods";
+  /**
    * Tag 'induceCombatState', attribute 'gracePeriod'.
    */
   public static final String INDUCE_COMBAT_STATE_GRACE_PERIOD_ATTR="gracePeriod";

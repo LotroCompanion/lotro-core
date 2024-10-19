@@ -330,7 +330,26 @@ public class EffectXMLWriter
     String durationModsStr=ModPropertyListIO.asPersistentString(induceCombatState.getDurationModifiers());
     if (!durationModsStr.isEmpty())
     {
-      attrs.addAttribute("","",EffectXMLConstants.INDUCE_COMBAT_STATE_DURATION_MODS_ATTR,XmlWriter.CDATA,String.valueOf(durationModsStr));
+      attrs.addAttribute("","",EffectXMLConstants.INDUCE_COMBAT_STATE_DURATION_MODS_ATTR,XmlWriter.CDATA,durationModsStr);
+    }
+    // Break on harmfull skill
+    Float breakOnHarmfullSkill=induceCombatState.getBreakOnHarmfullSkill();
+    if (breakOnHarmfullSkill!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.INDUCE_COMBAT_STATE_BREAK_ON_HARMFULL_SKILL_ATTR,XmlWriter.CDATA,breakOnHarmfullSkill.toString());
+    }
+    // Break on vital loss
+    // - value
+    Float breakOnVitalLoss=induceCombatState.getBreakOnVitalLossProbability();
+    if (breakOnVitalLoss!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.INDUCE_COMBAT_STATE_BREAK_ON_VITAL_LOSS_ATTR,XmlWriter.CDATA,breakOnVitalLoss.toString());
+    }
+    // - modifiers
+    String breakOnVitalLossMods=ModPropertyListIO.asPersistentString(induceCombatState.getBreakOnVitalLossProbabilityModifiers());
+    if (!breakOnVitalLossMods.isEmpty())
+    {
+      attrs.addAttribute("","",EffectXMLConstants.INDUCE_COMBAT_STATE_BREAK_ON_VITAL_LOSS_MODS_ATTR,XmlWriter.CDATA,breakOnVitalLossMods);
     }
     // Grace period
     Float gracePeriod=induceCombatState.getGracePeriod();
