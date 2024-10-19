@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import delta.common.utils.l10n.L10n;
+import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
@@ -313,7 +314,7 @@ public class EffectDisplay2
       {
         return initialLine;
       }
-      return initialLine+" initially\n"+overTimeLine;
+      return initialLine+" initially"+EndOfLine.NATIVE_EOL+overTimeLine;
     }
     return (overTimeLine!=null)?overTimeLine:"";
   }

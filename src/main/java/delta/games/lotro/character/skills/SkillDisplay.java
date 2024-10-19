@@ -212,7 +212,7 @@ public class SkillDisplay
     String description=_skill.getDescription();
     if (!description.isEmpty())
     {
-      table.add(description);
+      table.add(description.replace("\n",EndOfLine.NATIVE_EOL));
     }
     List<String> attacks=getAttacksLines();
     table.addAll(attacks);
