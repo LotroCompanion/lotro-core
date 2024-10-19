@@ -5,7 +5,7 @@ Fast
 Melee Skill
 Range: 4m
 Strengthens defences briefly.
-7 129 - 9 506 Beleriand (Main-hand) Damage
+7 135 - 9 514 Beleriand (Main-hand) Damage
 2% Parry Chance
 2% Block Chance
 2,5% Partial Parry Chance
@@ -22,7 +22,7 @@ Fast
 Melee Skill
 Range: 4m
 A quick stinging blow.
-5 169 - 6 892 Beleriand (Main-hand) Damage
+5 173 - 6 898 Beleriand (Main-hand) Damage
 5s Stun
 Cost: 16 Power
 Cooldown: 2,5s
@@ -37,7 +37,7 @@ Range: 5,2m
 Whirl to attack enemies in a circle.
 
  <rgb=#00FFDD>Requires a parry response.</rgb>
-9 754 - 13 006 Beleriand (Main-hand) Damage
+9 762 - 13 017 Beleriand (Main-hand) Damage
 Cost: 64 Power
 Cooldown: 5s
 *****************************
@@ -50,9 +50,9 @@ Radius: 4,8m
 Range: 5m
 A sweeping back-and forth strike in a frontal arc.
 2 Attacks:
-3 220 - 4 293 Beleriand (Main-hand) Damage
+3 222 - 4 297 Beleriand (Main-hand) Damage
 766 Damage every 2 seconds for 10 seconds
-2 760 - 3 680 Beleriand (Main-hand) Damage
+2 762 - 3 683 Beleriand (Main-hand) Damage
 Cost: 64 Power
 Cooldown: 9s
 *****************************
@@ -64,7 +64,7 @@ Range: 4m
 A retaliation after parrying an attack.
 
  <rgb=#00FFDD>Requires a parry response.</rgb>
-7 664 - 10 219 Beleriand (Main-hand) Damage
+7 671 - 10 228 Beleriand (Main-hand) Damage
 Cost: 32 Power
 Cooldown: 5s
 *****************************
@@ -90,7 +90,7 @@ Max Targets: 8
 Radius: 4,8m
 Range: 5m
 A quick swipe that will strike multiple enemies.
-6 580 - 8 774 Beleriand (Main-hand) Damage
+6 586 - 8 781 Beleriand (Main-hand) Damage
 Cost: 32 Power
 Cooldown: 4s
 *****************************
@@ -100,7 +100,7 @@ Ranged Skill
 Induction: 0,5s
 Range: 30m
 You attack with your ranged weapon.
-2 528 - 3 371 Ancient Dwarf-make (Ranged) Damage
+3 956 - 5 274 Westernesse (Ranged) Damage
 Cooldown: 9s
 *****************************
 Skill-Id: 1879064296
@@ -111,7 +111,7 @@ Max Targets: 6
 Radius: 4,8m
 Range: 5m
 When dazed, stunned, or knocked down: recover from impairing effects and inflict them upon your enemy instead.
-5 568 - 7 424 Beleriand (Main-hand) Damage
+5 573 - 7 430 Beleriand (Main-hand) Damage
 3s Stun
 Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
 Cost: 191 Power
@@ -123,7 +123,7 @@ Immediate
 Melee Skill
 Range: 4m
 Interrupts the target.
-5 683 - 7 577 Beleriand (Main-hand) Damage
+5 688 - 7 584 Beleriand (Main-hand) Damage
 Interrupts Inductions
 Cost: 32 Power
 Cooldown: 10s
@@ -134,7 +134,7 @@ Fast
 Melee Skill
 Range: 4m
 An attack that impairs the target on a critical hit, or when attacking from behind.
-4 140 - 5 520 Beleriand (Main-hand) Damage
+4 143 - 5 524 Beleriand (Main-hand) Damage
 -25% Target Run Speed
 Duration: 15s
 +15% Target Attack Duration

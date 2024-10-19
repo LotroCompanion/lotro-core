@@ -1,33 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?><character version="1100" name="Kargarth" level="140" date="1724607146638">
-<characterSummary id="0208000000261E67" name="Kargarth" server="Landroval" account="glorfindel666" subscription="FPPW4D9YZ4XREC2LNRLFW73WC" class="Guardian" race="dwarf" sex="MALE" level="140" rank="0" nationalityCode="4" region="Blue Mountains" kinshipID="0C08000108047427" importDate="1724607144290"/>
+<?xml version="1.0" encoding="UTF-8"?><character version="1100" name="Kargarth" level="140" date="1924607146638">
+<characterSummary id="0208000000261E67" name="Kargarth" server="Landroval" account="glorfindel666" subscription="FPPW4D9YZ4XREC2LNRLFW73WC" class="Guardian" race="dwarf" sex="MALE" level="143" rank="0" nationalityCode="4" region="Blue Mountains" kinshipID="0C08000108047427" importDate="1728815069743"/>
 <stats>
-<stat name="MORALE" value="7506797"/>
-<stat name="POWER" value="472700"/>
+<stat name="MORALE" value="7698947"/>
+<stat name="POWER" value="532000"/>
 <stat name="ARMOUR" value="2944700"/>
-<stat name="MIGHT" value="1302800"/>
+<stat name="MIGHT" value="1323000"/>
 <stat name="AGILITY" value="44000"/>
-<stat name="VITALITY" value="1273700"/>
+<stat name="VITALITY" value="1316400"/>
 <stat name="WILL" value="34000"/>
-<stat name="FATE" value="274700"/>
-<stat name="CRITICAL_RATING" value="4169859"/>
-<stat name="CRITICAL_MELEE_PERCENTAGE" value="1273"/>
-<stat name="CRITICAL_RANGED_PERCENTAGE" value="1273"/>
-<stat name="CRITICAL_TACTICAL_PERCENTAGE" value="1273"/>
-<stat name="DEVASTATE_MELEE_PERCENTAGE" value="401"/>
-<stat name="DEVASTATE_RANGED_PERCENTAGE" value="401"/>
-<stat name="DEVASTATE_TACTICAL_PERCENTAGE" value="401"/>
-<stat name="CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE" value="2077"/>
-<stat name="CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE" value="2077"/>
-<stat name="CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE" value="2077"/>
-<stat name="FINESSE" value="844245"/>
-<stat name="FINESSE_PERCENTAGE" value="877"/>
-<stat name="PHYSICAL_MASTERY" value="7475541"/>
-<stat name="MELEE_DAMAGE_PERCENTAGE" value="16091"/>
-<stat name="RANGED_DAMAGE_PERCENTAGE" value="16091"/>
+<stat name="FATE" value="334000"/>
+<stat name="CRITICAL_RATING" value="4031120"/>
+<stat name="CRITICAL_MELEE_PERCENTAGE" value="1237"/>
+<stat name="CRITICAL_RANGED_PERCENTAGE" value="1237"/>
+<stat name="CRITICAL_TACTICAL_PERCENTAGE" value="1237"/>
+<stat name="DEVASTATE_MELEE_PERCENTAGE" value="390"/>
+<stat name="DEVASTATE_RANGED_PERCENTAGE" value="390"/>
+<stat name="DEVASTATE_TACTICAL_PERCENTAGE" value="390"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE" value="2014"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE" value="2014"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE" value="2014"/>
+<stat name="FINESSE" value="773541"/>
+<stat name="FINESSE_PERCENTAGE" value="807"/>
+<stat name="PHYSICAL_MASTERY" value="7490541"/>
+<stat name="MELEE_DAMAGE_PERCENTAGE" value="16114"/>
+<stat name="RANGED_DAMAGE_PERCENTAGE" value="16114"/>
 <stat name="TACTICAL_MASTERY" value="296937"/>
 <stat name="TACTICAL_DAMAGE_PERCENTAGE" value="861"/>
-<stat name="OUTGOING_HEALING" value="4327337"/>
-<stat name="OUTGOING_HEALING_PERCENTAGE" value="2558"/>
+<stat name="OUTGOING_HEALING" value="4387937"/>
+<stat name="OUTGOING_HEALING_PERCENTAGE" value="2589"/>
 <stat name="RESISTANCE" value="34000"/>
 <stat name="RESISTANCE_PERCENTAGE" value="25"/>
 <stat name="CRITICAL_DEFENCE" value="40700"/>
@@ -36,39 +36,39 @@
 <stat name="TACTICAL_CRITICAL_DEFENCE" value="72"/>
 <stat name="INCOMING_HEALING" value="1207298"/>
 <stat name="INCOMING_HEALING_PERCENTAGE" value="612"/>
-<stat name="BLOCK" value="1302800"/>
-<stat name="BLOCK_PERCENTAGE" value="341"/>
-<stat name="PARTIAL_BLOCK_PERCENTAGE" value="380"/>
-<stat name="PARTIAL_BLOCK_MITIGATION_PERCENTAGE" value="532"/>
-<stat name="PARRY" value="3019961"/>
-<stat name="PARRY_PERCENTAGE" value="709"/>
-<stat name="PARTIAL_PARRY_PERCENTAGE" value="826"/>
-<stat name="PARTIAL_PARRY_MITIGATION_PERCENTAGE" value="1156"/>
+<stat name="BLOCK" value="1323000"/>
+<stat name="BLOCK_PERCENTAGE" value="346"/>
+<stat name="PARTIAL_BLOCK_PERCENTAGE" value="386"/>
+<stat name="PARTIAL_BLOCK_MITIGATION_PERCENTAGE" value="540"/>
+<stat name="PARRY" value="3060361"/>
+<stat name="PARRY_PERCENTAGE" value="716"/>
+<stat name="PARTIAL_PARRY_PERCENTAGE" value="836"/>
+<stat name="PARTIAL_PARRY_MITIGATION_PERCENTAGE" value="1170"/>
 <stat name="EVADE" value="11831"/>
 <stat name="EVADE_PERCENTAGE" value="3"/>
 <stat name="PARTIAL_EVADE_PERCENTAGE" value="4"/>
 <stat name="PARTIAL_EVADE_MITIGATION_PERCENTAGE" value="5"/>
-<stat name="PHYSICAL_MITIGATION" value="4335228"/>
-<stat name="PHYSICAL_MITIGATION_PERCENTAGE" value="4451"/>
+<stat name="PHYSICAL_MITIGATION" value="4355428"/>
+<stat name="PHYSICAL_MITIGATION_PERCENTAGE" value="4466"/>
 <stat name="OCFW_MITIGATION" value="625668"/>
 <stat name="OCFW_MITIGATION_PERCENTAGE" value="892"/>
-<stat name="TACTICAL_MITIGATION" value="2523296"/>
-<stat name="TACTICAL_MITIGATION_PERCENTAGE" value="2817"/>
-<stat name="FIRE_MITIGATION_PERCENTAGE" value="2817"/>
-<stat name="LIGHTNING_MITIGATION_PERCENTAGE" value="2817"/>
-<stat name="FROST_MITIGATION_PERCENTAGE" value="2817"/>
-<stat name="ACID_MITIGATION_PERCENTAGE" value="2817"/>
-<stat name="SHADOW_MITIGATION_PERCENTAGE" value="2817"/>
-<stat name="OCMR" value="7991040"/>
-<stat name="ICMR" value="1118104"/>
-<stat name="OCPR" value="690540"/>
+<stat name="TACTICAL_MITIGATION" value="2767068"/>
+<stat name="TACTICAL_MITIGATION_PERCENTAGE" value="3043"/>
+<stat name="FIRE_MITIGATION_PERCENTAGE" value="3043"/>
+<stat name="LIGHTNING_MITIGATION_PERCENTAGE" value="3043"/>
+<stat name="FROST_MITIGATION_PERCENTAGE" value="3043"/>
+<stat name="ACID_MITIGATION_PERCENTAGE" value="3043"/>
+<stat name="SHADOW_MITIGATION_PERCENTAGE" value="3043"/>
+<stat name="OCMR" value="8298480"/>
+<stat name="ICMR" value="1148848"/>
+<stat name="OCPR" value="939600"/>
 <stat name="ICPR" value="113100"/>
 <stat name="LIGHT_OF_EARENDIL" value="8000"/>
-<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" value="100"/>
+<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" descriptionOverride="-" value="100"/>
 <stat name="TAILOR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Tailor Critical Chance" value="2500"/>
 <stat name="METALSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Metalsmith Critical Chance" value="2500"/>
 <stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
-<stat name="PERCEIVED_THREAT" descriptionOverride="-" value="21000"/>
+<stat name="PERCEIVED_THREAT" descriptionOverride="-" value="15000"/>
 <stat name="Combat_WeaponDamageMultiplier_2HAxe" value="500"/>
 <stat name="Combat_WeaponDamageMultiplier_1HAxe" value="500"/>
 <stat name="Skill_DamageMultiplier_GuardianStingMod" value="3500"/>
@@ -422,38 +422,42 @@
 </item>
 </equipmentSlot>
 <equipmentSlot name="RANGED">
-<item key="1879285823" name="Potent Valorous Bow of Penetration" level="403" minLevel="130" instanceId="030A000A006D228A" boundTo="0208000000261E67" maxDamage="358.83716" dps="313.9825">
-<money gold="0" silver="57" copper="48"/>
+<item key="1879378201" name="Powerful Greatbow of the Adventurer" level="470">
+<money gold="0" silver="27" copper="0"/>
 <stats mode="AUTO">
 <defautStats>
-<stat name="MIGHT" value="56200"/>
-<stat name="VITALITY" value="45600"/>
-<stat name="CRITICAL_RATING" value="158939"/>
-<stat name="FINESSE" value="70704"/>
-<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" value="100"/>
+<stat name="MIGHT" value="76400"/>
+<stat name="VITALITY" value="88300"/>
+<stat name="FATE" value="59300"/>
+<stat name="TACTICAL_MITIGATION" value="223571"/>
+<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" descriptionOverride="-" value="100"/>
 </defautStats>
 <resultStats>
-<stat name="MIGHT" value="56200"/>
-<stat name="VITALITY" value="45600"/>
-<stat name="CRITICAL_RATING" value="158939"/>
-<stat name="FINESSE" value="70704"/>
-<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" value="100"/>
+<stat name="MIGHT" value="76400"/>
+<stat name="VITALITY" value="88300"/>
+<stat name="FATE" value="59300"/>
+<stat name="TACTICAL_MITIGATION" value="223571"/>
+<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" descriptionOverride="-" value="100"/>
 </resultStats>
 </stats>
 </item>
 </equipmentSlot>
 <equipmentSlot name="TOOL">
 <item key="1879283840" name="Superior Tools of the Westemnet Armourer" instanceId="030800048EF2BADD" crafterName="Kargarth" boundTo="0208000000261E67">
-<stats mode="AUTO">
+<stats mode="MERGE">
 <defautStats>
 <stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
 <stat name="METALSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Metalsmith Critical Chance" value="2500"/>
 <stat name="TAILOR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Tailor Critical Chance" value="2500"/>
 </defautStats>
+<customStats>
+<stat name="PHYSICAL_MASTERY" value="-45600"/>
+</customStats>
 <resultStats>
 <stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
 <stat name="METALSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Metalsmith Critical Chance" value="2500"/>
 <stat name="TAILOR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Tailor Critical Chance" value="2500"/>
+<stat name="PHYSICAL_MASTERY" value="-45600"/>
 </resultStats>
 </stats>
 </item>
@@ -496,7 +500,9 @@
 <tieredLegacy index="4" id="1879249896" rank="53"/>
 <tieredLegacy index="5" id="1879249944" rank="55"/>
 </nonImbued>
-<imbued/>
+<imbued>
+<imbuedLegacy index="0" imbuedLegacyId="1879316202" xp="0" unlockedLevels="0"/>
+</imbued>
 </legendary>
 <stats mode="AUTO"/>
 </item>
