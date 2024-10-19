@@ -327,8 +327,8 @@ public class SkillDisplay
         ret.add(attackText);
       }
       doEffects(attack,ret);
-      doSkillEffects(ret);
     }
+    doSkillEffects(ret);
     return ret;
   }
 

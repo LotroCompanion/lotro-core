@@ -23,9 +23,7 @@ Range: 30m
 Loose three missiles in rapid succession.
 3 Attacks:
 6 642 - 8 856 Beleriand (Ranged) Damage
-Restores 22 - 24 Power
 5 536 - 7 382 Beleriand (Ranged) Damage
-Restores 22 - 24 Power
 4 190 - 5 586 Beleriand (Ranged) Damage
 Restores 22 - 24 Power
 Cost: 191 Power
@@ -117,8 +115,6 @@ A low cut in front of you which briefly slows the movement speed of up to 3 enem
 -50% Target Run Speed
 Duration: 10s
 441 Damage every 2 seconds for 10 seconds
-On Hit: Removes and grants 5s immunity to Roots and Movement Speed debuffs
-Every 1 second:
 1 012 - 1 349 Westernesse (Off-hand) Damage
 On Hit: Removes and grants 5s immunity to Roots and Movement Speed debuffs
 Every 1 second:
