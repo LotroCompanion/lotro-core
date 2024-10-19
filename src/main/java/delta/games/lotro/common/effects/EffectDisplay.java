@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import delta.common.utils.variables.VariableValueProvider;
 import delta.common.utils.variables.VariablesResolver;
 import delta.games.lotro.common.Duration;
+import delta.games.lotro.common.effects.display.EffectDisplayUtils;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
@@ -18,7 +19,6 @@ import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
-import delta.games.lotro.lore.items.DamageTypes;
 import delta.games.lotro.utils.maths.Progression;
 import delta.games.lotro.utils.strings.TextSanitizer;
 
@@ -296,7 +296,7 @@ public class EffectDisplay
       List<DamageType> damageTypes=effect.getDamageTypes();
       if (!damageTypes.isEmpty())
       {
-        String damageTypesStr=formatDamageType(damageTypes);
+        String damageTypesStr=EffectDisplayUtils.formatDamageType(damageTypes);
         String text="On any "+damageTypesStr+"damage:";
         storage.add(text);
       }
@@ -356,7 +356,7 @@ public class EffectDisplay
       List<DamageType> damageTypes=effect.getDamageTypes();
       if (!damageTypes.isEmpty())
       {
-        String damageTypesStr=formatDamageType(damageTypes);
+        String damageTypesStr=EffectDisplayUtils.formatDamageType(damageTypes);
         String text="On any "+damageTypesStr+"damage:";
         storage.add(text);
       }
@@ -558,7 +558,7 @@ public class EffectDisplay
     List<ResistCategory> categories=effect.getResistCategories();
     boolean useStrengthRestriction=effect.useStrengthRestriction();
     String effects=((count<0) || (count>1))?"effects":"effect";
-    String categoriesStr=formatResistCategories(categories);
+    String categoriesStr=EffectDisplayUtils.formatResistCategories(categories);
     String label="Removes "+((count<0)?"all":"up to "+count)+" "+categoriesStr+" "+effects;
     if (useStrengthRestriction)
     {
@@ -585,7 +585,7 @@ public class EffectDisplay
     {
       if (!childStorage.isEmpty())
       {
-        String skillTypesStr=formatSkillTypes(skillTypes);
+        String skillTypesStr=EffectDisplayUtils.formatSkillTypes(skillTypes);
         String text="On every "+skillTypesStr+" skill";
         if (probability!=null)
         {
@@ -603,41 +603,4 @@ public class EffectDisplay
     }
   }
 
-  private String formatDamageType(List<DamageType> damageTypes)
-  {
-    if ((damageTypes.size()==1) && (damageTypes.get(0)==DamageTypes.ALL))
-    {
-      return "";
-    }
-    StringBuilder sb=new StringBuilder();
-    for(DamageType damageType : damageTypes)
-    {
-      if (sb.length()>0) sb.append(",");
-      sb.append(damageType.getLabel());
-    }
-    sb.append(' ');
-    return sb.toString();
-  }
-
-  private String formatResistCategories(List<ResistCategory> categories)
-  {
-    StringBuilder sb=new StringBuilder();
-    for(ResistCategory category : categories)
-    {
-      if (sb.length()>0) sb.append(",");
-      sb.append(category.getLabel());
-    }
-    return sb.toString();
-  }
-
-  private String formatSkillTypes(List<SkillType> skillTypes)
-  {
-    StringBuilder sb=new StringBuilder();
-    for(SkillType skillType : skillTypes)
-    {
-      if (sb.length()>0) sb.append(",");
-      sb.append(skillType.getLabel());
-    }
-    return sb.toString();
-  }
 }
