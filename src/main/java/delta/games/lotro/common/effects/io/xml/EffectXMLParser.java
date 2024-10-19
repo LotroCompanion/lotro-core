@@ -766,8 +766,7 @@ public class EffectXMLParser
     // Probability
     {
       // - probability
-      String probabilityStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_PROBABILITY_ATTR,null);
-      float probability=NumericTools.parseFloat(probabilityStr,1.0f);
+      float probability=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.EFFECT_PROBABILITY_ATTR,1.0f);
       // - variance
       String varianceStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_PROBABILITY_VARIANCE_ATTR,null);
       float variance=NumericTools.parseFloat(varianceStr,0.0f);

@@ -54,8 +54,6 @@ Skill Type: Lightning
 Range: 20m
 The potency of Rune-keepers' writings is not hindered by repetition. This skill is hard to resist.
 7 415 - 10 593 Lightning Damage
--20% Target Run Speed
-Duration: 10s
 Cost: 16 Power
 Attunes: 1 (battle)
 Cooldown: 0,2s

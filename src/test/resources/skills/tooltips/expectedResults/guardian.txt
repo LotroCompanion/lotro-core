@@ -23,7 +23,6 @@ Melee Skill
 Range: 4m
 A quick stinging blow.
 5 173 - 6 898 Beleriand (Main-hand) Damage
-5s Stun
 Cost: 16 Power
 Cooldown: 2,5s
 *****************************
@@ -51,7 +50,6 @@ Range: 5,0m
 A sweeping back-and forth strike in a frontal arc.
 2 Attacks:
 3 222 - 4 297 Beleriand (Main-hand) Damage
-766 Damage every 2 seconds for 10 seconds
 2 762 - 3 683 Beleriand (Main-hand) Damage
 Cost: 64 Power
 Cooldown: 9s

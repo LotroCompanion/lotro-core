@@ -9,7 +9,6 @@ Nock and loose an arrow quickly.
 
 Has a chance to generate additional Focus.
 2 779 - 3 705 Beleriand (Ranged) Damage
-Restores 22 - 24 Power
 +1 Bonus Focus
 Cost: 32 Power
 Adds 1 to Focus
@@ -25,7 +24,6 @@ Loose three missiles in rapid succession.
 6 642 - 8 856 Beleriand (Ranged) Damage
 5 536 - 7 382 Beleriand (Ranged) Damage
 4 190 - 5 586 Beleriand (Ranged) Damage
-Restores 22 - 24 Power
 Cost: 191 Power
 Adds 2 to Focus
 Cooldown: 10s
@@ -53,7 +51,6 @@ Your arrow can cause a wound that bleeds and slightly slows movement speed.
 1 470 Damage every 2 seconds for 12 seconds
 -10% Target Run Speed
 Duration: 20s
-Restores 22 - 24 Power
 Cost: 191 Power
 Adds 1 to Focus
 Cooldown: 1,5s
@@ -69,7 +66,6 @@ A shot that strikes the enemy with fear.
 <rgb=#00FFDD>Mounted Combat Enemies: Fear replaced with attack speed debuff.</rgb>
 11 183 - 14 911 Beleriand (Ranged) Damage
 15s Fear
-Restores 22 - 24 Power
 Cost: 96 Power
 Adds 1 to Focus
 Cooldown: 30s
@@ -83,7 +79,6 @@ Range: 30m
 A shot that cannot be missed, parried, evaded, or blocked.
 22 883 - 30 511 Beleriand (Ranged) Damage
 1 812 Damage every 2 seconds for 10 seconds
-Restores 22 - 24 Power
 Cost: 191 Power
 Cooldown: 50s
 *****************************
@@ -97,7 +92,6 @@ A damaging shot that pierces enemy mitigations.
 -3% Physical Mitigation (%)
 -3% Tactical Mitigation (%)
 Duration: 10s
-Restores 22 - 24 Power
 Cost: 119 Power
 Cost: 3 Focus
 Cooldown: 1s
@@ -114,10 +108,7 @@ A low cut in front of you which briefly slows the movement speed of up to 3 enem
 3 586 - 4 782 Beleriand (Main-hand) Damage
 -50% Target Run Speed
 Duration: 10s
-441 Damage every 2 seconds for 10 seconds
 1 012 - 1 349 Westernesse (Off-hand) Damage
-On Hit: Removes and grants 5s immunity to Roots and Movement Speed debuffs
-Every 1 second:
 Cost: 127 Power
 Adds 3 to Focus
 Cooldown: 10s
@@ -129,7 +120,6 @@ Ranged Skill
 Range: 30m
 A quick attack that deals more damage each time it is used.
 7 927 - 10 570 Beleriand (Ranged) Damage
-Restores 22 - 24 Power
 Increases Barrage Damage & Power Costs
 Duration: 6s
 Cost: 95 Power
@@ -160,7 +150,6 @@ Range: 30m
 A damaging shot that also restores the Hunter's Morale and removes Corruptions from the target.
 7 992 - 10 655 Beleriand (Ranged) Damage
 Removes 1 tier of up to 3 different Corruption effects from the target.
-Restores 22 - 24 Power
 Activates the Skill Exsanguinate
 Duration: 8s
 Heals 0 Morale
@@ -177,7 +166,6 @@ Radius: 10m
 Range: 30m
 Rains arrows down upon your enemies, allowing you to hit multiple targets.
 9 172 - 12 230 Beleriand (Ranged) Damage
-Restores 22 - 24 Power
 Cost: 191 Power
 Cost: 5 Focus
 Cooldown: 12s
@@ -208,7 +196,6 @@ A massively damaging shot that unlocks when the target is below 50% health.
 
 Critical hits deal bonus damage.
 14 039 - 18 719 Beleriand (Ranged) Damage
-Restores 22 - 24 Power
 Cost: 72 Power
 Cost: 6 Focus
 Cooldown: 20s

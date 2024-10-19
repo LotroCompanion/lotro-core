@@ -194,7 +194,7 @@ public class EffectXMLWriter
     if (applicationProbability!=ApplicationProbability.ALWAYS)
     {
       float probability=applicationProbability.getProbability();
-      if ((probability>0) && (probability!=1.0))
+      if (probability!=1.0f)
       {
         attrs.addAttribute("","",EffectXMLConstants.EFFECT_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(probability));
       }

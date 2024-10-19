@@ -38,7 +38,6 @@ A basic sigil which shocks your foe.
 
 If this skill is used whilst your companion flanks the enemy, your Speed will be increased.
 4 188 - 5 235 Lightning Damage
-5s Stun
 Cooldown: 5s
 *****************************
 Skill-Id: 1879064247

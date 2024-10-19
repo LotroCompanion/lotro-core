@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.character.CharacterData;
-import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
@@ -67,6 +66,10 @@ public class CharacterDataForSkills
     return _data.getLevel();
   }
 
+  /**
+   * Get the variance for tactical damage. 
+   * @return A variance.
+   */
   public float getTacticalDamageVariance()
   {
     String classKey=_data.getCharacterClass().getKey();
@@ -151,21 +154,44 @@ public class CharacterDataForSkills
     LOGGER.debug("Computing additive modifiers: {}",mods);
     for(Integer id : mods.getIDs())
     {
-      StatDescription stat=StatsRegistry.getInstance().getById(id.intValue());
-      if (stat==null)
-      {
-        continue;
-      }
-      float statValue=getStat(stat);
-      if (stat.isPercentage())
-      {
-        statValue/=100;
-      }
-      LOGGER.debug("\tStat {} => {}",stat.getPersistenceKey(),Float.valueOf(statValue));
+      float statValue=getStatValue(id.intValue());
       ret+=statValue;
     }
     LOGGER.debug("\tTotal: {}",Float.valueOf(ret));
     return ret;
+  }
+
+  /**
+   * Compute the value of an modifier property.
+   * @param modifier Modifier property (may be <code>null</code>).
+   * @return A value to add.
+   */
+  public float computeAdditiveModifier(Integer modifier)
+  {
+    if (modifier==null)
+    {
+      return 0;
+    }
+    LOGGER.debug("Computing additive modifier: {}",modifier);
+    float ret=getStatValue(modifier.intValue());
+    LOGGER.debug("\tTotal: {}",Float.valueOf(ret));
+    return ret;
+  }
+
+  private float getStatValue(int statID)
+  {
+    StatDescription stat=StatsRegistry.getInstance().getById(statID);
+    if (stat==null)
+    {
+      return 0;
+    }
+    float statValue=getStat(stat);
+    if (stat.isPercentage())
+    {
+      statValue/=100;
+    }
+    LOGGER.debug("\tStat {} => {}",stat.getPersistenceKey(),Float.valueOf(statValue));
+    return statValue;
   }
 
   /**

@@ -13,6 +13,7 @@ import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.Arc;
 import delta.games.lotro.character.skills.geometry.Shape;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
@@ -365,6 +366,12 @@ public class SkillDisplay
 
   private void handleEffect(DamageQualifier damageQualifier, SkillEffectGenerator generator, Effect effect, List<String> storage)
   {
+    // Check probability
+    boolean applicable=checkEffectApplicationProbability(effect);
+    if (!applicable)
+    {
+      return;
+    }
     String description=effect.getDescription();
     if (!description.isEmpty())
     {
@@ -497,6 +504,19 @@ public class SkillDisplay
     }
     String text=L10n.getString(duration,1)+"s "+stateStr;
     storage.add(text);
+  }
+
+  private boolean checkEffectApplicationProbability(Effect effect)
+  {
+    ApplicationProbability probability=effect.getApplicationProbability();
+    if (probability==ApplicationProbability.ALWAYS)
+    {
+      return true;
+    }
+    float probabilityValue=probability.getProbability();
+    Integer modifier=probability.getModProperty();
+    probabilityValue+=_character.computeAdditiveModifier(modifier);
+    return (probabilityValue>0);
   }
 
   private List<String> getCostLines()
