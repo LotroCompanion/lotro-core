@@ -109,8 +109,8 @@ Low Cut
 Fast
 Melee Skill
 Max Targets: 5
-Radius: 4,8m
-Range: 5m
+Radius: 5m
+Range: 5,0m
 A low cut in front of you which briefly slows the movement speed of up to 3 enemies.
 2 Attacks:
 3 586 - 4 782 Beleriand (Main-hand) Damage

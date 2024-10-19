@@ -46,8 +46,8 @@ Sweeping Cut
 Fast
 Melee Skill
 Max Targets: 8
-Radius: 4,8m
-Range: 5m
+Radius: 5m
+Range: 5,0m
 A sweeping back-and forth strike in a frontal arc.
 2 Attacks:
 3 222 - 4 297 Beleriand (Main-hand) Damage
@@ -87,8 +87,8 @@ Vexing Blow
 Fast
 Melee Skill
 Max Targets: 8
-Radius: 4,8m
-Range: 5m
+Radius: 5m
+Range: 5,0m
 A quick swipe that will strike multiple enemies.
 6 586 - 8 781 Beleriand (Main-hand) Damage
 Cost: 32 Power
@@ -108,8 +108,8 @@ Turn the Tables
 Fast
 Melee Skill
 Max Targets: 6
-Radius: 4,8m
-Range: 5m
+Radius: 5m
+Range: 5,0m
 When dazed, stunned, or knocked down: recover from impairing effects and inflict them upon your enemy instead.
 5 573 - 7 430 Beleriand (Main-hand) Damage
 3s Stun

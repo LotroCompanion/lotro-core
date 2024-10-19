@@ -10,6 +10,8 @@ import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
+import delta.games.lotro.character.skills.geometry.Arc;
+import delta.games.lotro.character.skills.geometry.Shape;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
@@ -99,7 +101,25 @@ public class SkillDisplay
     }
     float range=geometry.getRange();
     range+=_character.computeAdditiveModifiers(geometry.getMaxRangeMods());
+
     return range;
+  }
+
+  private String getRangeDisplay()
+  {
+    float range=getRange();
+    SkillGeometry geometry=_skillDetails.getGeometry();
+    if (geometry!=null)
+    {
+      int minDigits=0;
+      Shape shape=geometry.getShape();
+      if (shape instanceof Arc)
+      {
+        minDigits=1;
+      }
+      return L10n.getString(range,minDigits,1);
+    }
+    return "";
   }
 
   /**
@@ -167,7 +187,7 @@ public class SkillDisplay
     float radius=getRadius();
     if (radius>0)
     {
-      table.add("Radius: "+L10n.getString(radius,1)+"m");
+      table.add("Radius: "+L10n.getString(radius,0)+"m");
     }
     // Induction
     float inductionDuration=SkillDetailsUtils.getInductionDuration(_skillDetails,_character);
@@ -204,10 +224,10 @@ public class SkillDisplay
     }
     // Range
     // TODO Display range on right of the first line
-    float range=getRange();
-    if (range>0)
+    String range=getRangeDisplay();
+    if (!range.isEmpty())
     {
-      table.add("Range: "+L10n.getString(range,1)+"m");
+      table.add("Range: "+range+"m");
     }
     String description=_skill.getDescription();
     if (!description.isEmpty())
