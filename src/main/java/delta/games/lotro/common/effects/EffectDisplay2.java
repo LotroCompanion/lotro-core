@@ -125,7 +125,6 @@ public class EffectDisplay2
     else
     {
       qualifierValue=1.0f;
-      LOGGER.warn("Unmanaged case!");
     }
 
     // TODO Use damageQualifier. If not set, qualifierValue shall be 1?
