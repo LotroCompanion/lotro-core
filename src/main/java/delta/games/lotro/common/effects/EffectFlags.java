@@ -54,4 +54,8 @@ public class EffectFlags
    * Duration: permanent.
    */
   public static final int DURATION_PERMANENT=1<<11;
+  /**
+   * Display procedurally generated examination information.
+   */
+  public static final int AUTO_EXAMINATION=1<<12;
 }
