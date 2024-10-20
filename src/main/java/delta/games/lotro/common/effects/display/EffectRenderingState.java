@@ -42,6 +42,24 @@ public class EffectRenderingState
   }
 
   /**
+   * Indicates if this is the root effect.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isRootEffect()
+  {
+    return _isRootEffect;
+  }
+
+  /**
+   * Set the root effect flag.
+   * @param rootEffect Value to set.
+   */
+  public void setRootEffect(boolean rootEffect)
+  {
+    _isRootEffect=rootEffect;
+  }
+
+  /**
    * Indicates if stats for property modification effects shall be hidden or not.
    * @return <code>true</code> to hide, <code>false</code> to show.
    */

@@ -5,7 +5,7 @@ import java.util.List;
 
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
-import delta.games.lotro.common.effects.display.EffectDisplay;
+import delta.games.lotro.common.effects.display.EffectRenderingEngine;
 
 /**
  * Build a displayable version of the effects of an items set.
@@ -55,7 +55,7 @@ public class SetEffectsDisplay
 
   private void showEffect(List<String> storage, Effect effect, int level)
   {
-    EffectDisplay display=new EffectDisplay(level);
+    EffectRenderingEngine display=new EffectRenderingEngine(level);
     List<String> childStorage=new ArrayList<String>();
     display.displayEffect(childStorage,effect);
     if (!childStorage.isEmpty())

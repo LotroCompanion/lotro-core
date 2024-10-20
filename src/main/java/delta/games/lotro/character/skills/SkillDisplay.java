@@ -28,8 +28,8 @@ import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.TieredEffect;
-import delta.games.lotro.common.effects.display.EffectDisplay;
 import delta.games.lotro.common.effects.display.EffectDisplay2;
+import delta.games.lotro.common.effects.display.EffectDisplayUtils;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.GambitIconType;
@@ -500,7 +500,7 @@ public class SkillDisplay
     String stateStr="?";
     if (state!=null)
     {
-      stateStr=EffectDisplay.getStateLabel(state);
+      stateStr=EffectDisplayUtils.getStateLabel(state);
     }
     String text=L10n.getString(duration,1)+"s "+stateStr;
     storage.add(text);
