@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.EffectDisplay;
 import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.display.EffectDisplay;
 
 /**
  * Build a displayable version of the effects of an items set.

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.EffectDisplay;
 import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.display.EffectDisplay;
 
 /**
  * Utility methods related to effects display.
@@ -34,7 +34,7 @@ public class DisplayEffectsUtils
   private static void showEffect(List<String> storage, Effect effect, int level, boolean skipRawStats)
   {
     EffectDisplay display=new EffectDisplay(level);
-    display.skipRawStats(skipRawStats);
+    display.getState().skipRawStats(skipRawStats);
     List<String> childStorage=new ArrayList<String>();
     display.displayEffect(childStorage,effect);
     if (!childStorage.isEmpty())

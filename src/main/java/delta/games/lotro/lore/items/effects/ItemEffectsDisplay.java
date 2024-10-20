@@ -41,8 +41,8 @@ public class ItemEffectsDisplay
           List<String> childStorage=new ArrayList<String>();
           for(int i=nbOnEquip-1;i>=0;i--)
           {
-            EffectGenerator effect=onEquip[i];
-            DisplayEffectsUtils.showEffectGenerator(childStorage,effect,true,_level);
+            EffectGenerator effectGenerator=onEquip[i];
+            DisplayEffectsUtils.showEffectGenerator(childStorage,effectGenerator,true,_level);
           }
           if (!childStorage.isEmpty())
           {

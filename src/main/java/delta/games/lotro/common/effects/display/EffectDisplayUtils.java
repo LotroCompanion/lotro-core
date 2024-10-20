@@ -8,10 +8,16 @@ import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.DamageTypes;
 
 /**
- * @author dm
+ * Utility methods related to effects display.
+ * @author DAM
  */
 public class EffectDisplayUtils
 {
+  /**
+   * Format a list of damage types.
+   * @param damageTypes Input damge types.
+   * @return A displayable string.
+   */
   public static String formatDamageType(List<DamageType> damageTypes)
   {
     if ((damageTypes.size()==1) && (damageTypes.get(0)==DamageTypes.ALL))
@@ -28,6 +34,11 @@ public class EffectDisplayUtils
     return sb.toString();
   }
 
+  /**
+   * Format a list of resist categories.
+   * @param categories Input resist categories.
+   * @return A displayable string.
+   */
   public static String formatResistCategories(List<ResistCategory> categories)
   {
     StringBuilder sb=new StringBuilder();
@@ -39,6 +50,11 @@ public class EffectDisplayUtils
     return sb.toString();
   }
 
+  /**
+   * Format a list of skill types.
+   * @param skillTypes Input skill types.
+   * @return A displayable string.
+   */
   public static String formatSkillTypes(List<SkillType> skillTypes)
   {
     StringBuilder sb=new StringBuilder();

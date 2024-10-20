@@ -19,8 +19,6 @@ import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.EffectDisplay;
-import delta.games.lotro.common.effects.EffectDisplay2;
 import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.EffectFlags;
 import delta.games.lotro.common.effects.EffectGenerator;
@@ -30,6 +28,8 @@ import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.TieredEffect;
+import delta.games.lotro.common.effects.display.EffectDisplay;
+import delta.games.lotro.common.effects.display.EffectDisplay2;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.GambitIconType;
@@ -46,7 +46,7 @@ import delta.games.lotro.lore.pip.PipsManager;
 import delta.games.lotro.utils.Proxy;
 
 /**
- * COmpute a display of the details of a skill.
+ * Compute a display of the details of a skill.
  * @author DAM
  */
 public class SkillDisplay

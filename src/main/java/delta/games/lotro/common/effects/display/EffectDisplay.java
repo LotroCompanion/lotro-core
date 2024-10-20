@@ -1,4 +1,4 @@
-package delta.games.lotro.common.effects;
+package delta.games.lotro.common.effects.display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,25 @@ import org.slf4j.LoggerFactory;
 import delta.common.utils.variables.VariableValueProvider;
 import delta.common.utils.variables.VariablesResolver;
 import delta.games.lotro.common.Duration;
-import delta.games.lotro.common.effects.display.EffectDisplayUtils;
+import delta.games.lotro.common.effects.AbstractVitalChange;
+import delta.games.lotro.common.effects.ComboEffect;
+import delta.games.lotro.common.effects.DispelByResistEffect;
+import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.EffectAndProbability;
+import delta.games.lotro.common.effects.EffectDuration;
+import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.GenesisEffect;
+import delta.games.lotro.common.effects.Hotspot;
+import delta.games.lotro.common.effects.InduceCombatStateEffect;
+import delta.games.lotro.common.effects.InstantFellowshipEffect;
+import delta.games.lotro.common.effects.InstantVitalEffect;
+import delta.games.lotro.common.effects.ProcEffect;
+import delta.games.lotro.common.effects.PropertyModificationEffect;
+import delta.games.lotro.common.effects.ReactiveChange;
+import delta.games.lotro.common.effects.ReactiveVitalChange;
+import delta.games.lotro.common.effects.ReactiveVitalEffect;
+import delta.games.lotro.common.effects.VitalChangeDescription;
+import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
@@ -30,10 +48,8 @@ public class EffectDisplay
 {
   private static final Logger LOGGER=LoggerFactory.getLogger(EffectDisplay.class);
 
-  private boolean _skipRawStats;
-  private boolean _isRootEffect;
-  private int _level;
-  private boolean _durationDisplayed;
+  private EffectRenderingState _state;
+  private EffectRenderingContext _context;
 
   /**
    * Constructor.
@@ -41,18 +57,37 @@ public class EffectDisplay
    */
   public EffectDisplay(int level)
   {
-    _level=level;
-    _durationDisplayed=false;
-    _isRootEffect=true;
+    _context=new EffectRenderingContext(level);
+    _state=new EffectRenderingState();
   }
 
   /**
-   * Set the "skip raw stats" flag.
-   * @param skipRawStats Value to set.
+   * Constructor.
+   * @param state Initial state.
+   * @param context Initial context.
    */
-  public void skipRawStats(boolean skipRawStats)
+  public EffectDisplay(EffectRenderingState state, EffectRenderingContext context)
   {
-    _skipRawStats=skipRawStats;
+    _state=state;
+    _context=context;
+  }
+
+  /**
+   * Get the rendering state.
+   * @return the rendering state.
+   */
+  public EffectRenderingState getState()
+  {
+    return _state;
+  }
+
+  /**
+   * Get the level to use.
+   * @return A level.
+   */
+  public int getLevel()
+  {
+    return _context.getLevel();
   }
 
   /**
@@ -76,7 +111,7 @@ public class EffectDisplay
       storage.add(description);
     }
     displaySpecifics(storage,effect);
-    if (!_durationDisplayed)
+    if (!_state.isDurationDisplayed())
     {
       EffectDuration effectDuration=effect.getEffectDuration();
       if (effectDuration!=null)
@@ -88,7 +123,7 @@ public class EffectDisplay
           {
             String durationStr=Duration.getDurationString(duration.intValue());
             storage.add("Duration: "+durationStr);
-            _durationDisplayed=true;
+            _state.setDurationDisplayed();
           }
         }
       }
@@ -239,7 +274,7 @@ public class EffectDisplay
     Progression progression=change.getProgression();
     if (progression!=null)
     {
-      value=progression.getValue(_level);
+      value=progression.getValue(getLevel());
     }
     return value;
   }
@@ -273,7 +308,7 @@ public class EffectDisplay
 
   private void showPropertyModificationEffect(List<String> storage, PropertyModificationEffect effect)
   {
-    if ((_skipRawStats) && (_isRootEffect))
+    if (_state.hidePropertyModificationStats())
     {
       return;
     }
@@ -282,7 +317,7 @@ public class EffectDisplay
     {
       return;
     }
-    List<String> lines=StatUtils.getFullStatsForDisplay(provider,_level);
+    List<String> lines=StatUtils.getFullStatsForDisplay(provider,getLevel());
     storage.addAll(lines);
   }
 
@@ -423,26 +458,19 @@ public class EffectDisplay
 
   private void showEffectGenerators(List<String> storage, List<EffectGenerator> effects)
   {
-    boolean isRootEffectBackup=_isRootEffect;
-    _isRootEffect=false;
+    EffectRenderingState newState=_state.buildChildState();
     for(EffectGenerator effectGenerator : effects)
     {
-      showEffectGenerator(storage,effectGenerator);
+      int childLevel=getLevel();
+      Float spellcraft=effectGenerator.getSpellcraft();
+      if (spellcraft!=null)
+      {
+        childLevel=spellcraft.intValue();
+      }
+      EffectRenderingContext newContext=new EffectRenderingContext(childLevel);
+      EffectDisplay childDisplay=new EffectDisplay(newState,newContext);
+      childDisplay.displayEffect(storage,effectGenerator.getEffect());
     }
-    _isRootEffect=isRootEffectBackup;
-  }
-
-  private void showEffectGenerator(List<String> storage, EffectGenerator effectGenerator)
-  {
-    Effect childEffect=effectGenerator.getEffect();
-    Float spellcraft=effectGenerator.getSpellcraft();
-    int levelBackup=_level;
-    if (spellcraft!=null)
-    {
-      _level=spellcraft.intValue();
-    }
-    displayEffect(storage,childEffect);
-    _level=levelBackup;
   }
 
   private void showGenesisEffect(List<String> storage, GenesisEffect effect)
@@ -458,7 +486,7 @@ public class EffectDisplay
       String durationStr=Duration.getDurationString((int)duration);
       storage.add("Duration: "+durationStr);
     }
-    _durationDisplayed=true;
+    _state.setDurationDisplayed();
     Hotspot hotspot=effect.getHotspot();
     if (hotspot!=null)
     {
@@ -511,7 +539,7 @@ public class EffectDisplay
         storage.add(text);
       }
     }
-    _durationDisplayed=true;
+    _state.setDurationDisplayed();
   }
 
   private void showInduceCombatStateEffect(List<String> storage, InduceCombatStateEffect effect)
@@ -520,7 +548,7 @@ public class EffectDisplay
     LinearFunction durationFunction=effect.getDurationFunction();
     if (durationFunction!=null)
     {
-      Float computedDuration=durationFunction.getValue(_level);
+      Float computedDuration=durationFunction.getValue(getLevel());
       if (computedDuration!=null)
       {
         duration=computedDuration.floatValue();
@@ -548,7 +576,7 @@ public class EffectDisplay
     if (code==3) return "Daze";
     if ((code==9) || (code==15)) return "Stun";
     if (code==10) return "Root";
-    LOGGER.warn("Unmanaged state: "+state.getLabel());
+    LOGGER.warn("Unmanaged state: {}",state);
     return state.getLabel();
   }
 
@@ -565,7 +593,7 @@ public class EffectDisplay
       // TODO Use raw spellcraft if any
       Integer strengthOffset=effect.getStrengthOffset();
       int delta=(strengthOffset!=null)?strengthOffset.intValue():4;
-      int strength=_level+delta;
+      int strength=getLevel()+delta;
       String complement=" with a maximum strength of "+strength;
       label=label+complement;
     }

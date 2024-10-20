@@ -1,4 +1,4 @@
-package delta.games.lotro.common.effects;
+package delta.games.lotro.common.effects.display;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,11 @@ import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
+import delta.games.lotro.common.effects.BaseVitalEffect;
+import delta.games.lotro.common.effects.EffectDuration;
+import delta.games.lotro.common.effects.InstantVitalEffect;
+import delta.games.lotro.common.effects.VitalChangeDescription;
+import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.enums.ImplementUsageType;
