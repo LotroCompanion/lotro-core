@@ -3,8 +3,6 @@ package delta.games.lotro.character.skills.attack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import delta.games.lotro.character.skills.SkillDetails;
-import delta.games.lotro.character.skills.SkillDetailsUtils;
 import delta.games.lotro.character.stats.ratings.RatingCurve;
 import delta.games.lotro.character.stats.ratings.RatingCurveId;
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
@@ -37,17 +35,14 @@ public class SkillAttackComputer
   private static final Logger LOGGER=LoggerFactory.getLogger(SkillAttackComputer.class);
 
   private CharacterDataForSkills _character;
-  private SkillDetails _skill;
 
   /**
    * Constructor.
    * @param data Access to character data related to skills.
-   * @param details Skill details.
    */
-  public SkillAttackComputer(CharacterDataForSkills data, SkillDetails details)
+  public SkillAttackComputer(CharacterDataForSkills data)
   {
     _character=data;
-    _skill=details;
   }
 
   /**
@@ -154,9 +149,10 @@ public class SkillAttackComputer
    * Get the damage for a skill attack.
    * @param attack Attack to use.
    * @param minimum Use minimum damage or maximum damage.
+   * @param skillActionDuration Action duration (seconds).
    * @return A damage value.
    */
-  public float getAttackDamage(SkillAttack attack, boolean minimum)
+  public float getAttackDamage(SkillAttack attack, boolean minimum, float skillActionDuration)
   {
     LOGGER.debug("Attack details: {}", attack);
     // Calculate Damage Qualifier
@@ -164,18 +160,6 @@ public class SkillAttackComputer
     LOGGER.debug("Damage qualifier: {}",damageQualifier);
     float damageQualifierValue=getDamageQualifier(damageQualifier);
     LOGGER.debug("Damage qualifier value: {}",Float.valueOf(damageQualifierValue));
-
-    // Calculate Skill Action Duration
-    float skillActionDuration=1;
-    Float actionDurationContribution=_skill.getActionDurationContribution();
-    if (actionDurationContribution!=null)
-    {
-      skillActionDuration+=actionDurationContribution.floatValue();
-    }
-    LOGGER.debug("Skill duration (before induction): {}",Float.valueOf(skillActionDuration));
-    float inductionDuration=SkillDetailsUtils.getInductionDuration(_skill,_character);
-    skillActionDuration+=inductionDuration;
-    LOGGER.debug("Skill duration: {}",Float.valueOf(skillActionDuration));
 
     // Damage
     float damageModifier=attack.getDamageModifier();

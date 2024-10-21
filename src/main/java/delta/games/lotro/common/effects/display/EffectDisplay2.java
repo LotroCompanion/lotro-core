@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import delta.common.utils.l10n.L10n;
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
@@ -15,7 +14,6 @@ import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
-import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.stats.StatDescription;
@@ -27,7 +25,7 @@ import delta.games.lotro.lore.items.WeaponInstance;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
- * Utility methods to display vital change effects.
+ * Utility methods to display effects.
  * @author DAM
  */
 public class EffectDisplay2
@@ -40,12 +38,11 @@ public class EffectDisplay2
   /**
    * Constructor.
    * @param character Character to use.
-   * @param details Parent skill details.
    */
-  public EffectDisplay2(CharacterDataForSkills character, SkillDetails details)
+  public EffectDisplay2(CharacterDataForSkills character)
   {
     _character=character;
-    _attackComputer=new SkillAttackComputer(_character,details);
+    _attackComputer=new SkillAttackComputer(_character);
   }
 
   private float implementContrib(ImplementUsageType implementUsage, ItemInstance<?> item)

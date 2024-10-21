@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import delta.common.utils.l10n.L10n;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
@@ -33,6 +36,8 @@ import delta.games.lotro.lore.pip.PipsManager;
  */
 public class SkillDisplay
 {
+  private static final Logger LOGGER=LoggerFactory.getLogger(SkillDisplay.class);
+
   private CharacterDataForSkills _character;
   private SkillDescription _skill;
   private SkillDetails _skillDetails;
@@ -50,8 +55,8 @@ public class SkillDisplay
     _character=data;
     _skill=skill;
     _skillDetails=details;
-    _attackComputer=new SkillAttackComputer(data,details);
-    _effectsDisplay=new SkillEffectsDisplay(data,skill,details);
+    _attackComputer=new SkillAttackComputer(data);
+    _effectsDisplay=new SkillEffectsDisplay(data,skill);
   }
 
   private int getAoEMaxTargets()
@@ -273,6 +278,22 @@ public class SkillDisplay
     return "";
   }
 
+  private float getActionDuration()
+  {
+    // Calculate Skill Action Duration
+    float skillActionDuration=1;
+    Float actionDurationContribution=_skillDetails.getActionDurationContribution();
+    if (actionDurationContribution!=null)
+    {
+      skillActionDuration+=actionDurationContribution.floatValue();
+    }
+    LOGGER.debug("Skill duration (before induction): {}",Float.valueOf(skillActionDuration));
+    float inductionDuration=SkillDetailsUtils.getInductionDuration(_skillDetails,_character);
+    skillActionDuration+=inductionDuration;
+    LOGGER.debug("Skill duration: {}",Float.valueOf(skillActionDuration));
+    return skillActionDuration;
+  }
+
   private List<String> getAttacksLines()
   {
     List<String> ret=new ArrayList<String>();
@@ -286,10 +307,11 @@ public class SkillDisplay
     {
       ret.add(nbAttacks+" Attacks:");
     }
+    float skillActionDuration=getActionDuration();
     for(SkillAttack attack : attacks.getAttacks())
     {
-      float maxDamage=_attackComputer.getAttackDamage(attack,false);
-      float minDamage=_attackComputer.getAttackDamage(attack,true);
+      float maxDamage=_attackComputer.getAttackDamage(attack,false,skillActionDuration);
+      float minDamage=_attackComputer.getAttackDamage(attack,true,skillActionDuration);
       String implementText=getAttackImplementText(attack.getImplementUsageType());
       DamageType damageType=_attackComputer.getDamageType(attack);
       String attackText="";

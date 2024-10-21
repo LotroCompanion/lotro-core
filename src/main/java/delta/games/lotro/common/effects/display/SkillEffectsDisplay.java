@@ -4,7 +4,6 @@ import java.util.List;
 
 import delta.common.utils.l10n.L10n;
 import delta.games.lotro.character.skills.SkillDescription;
-import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.common.effects.ApplicationProbability;
@@ -35,18 +34,15 @@ import delta.games.lotro.utils.Proxy;
 public class SkillEffectsDisplay
 {
   private CharacterDataForSkills _character;
-  private SkillDetails _skillDetails;
 
   /**
    * Constructor.
    * @param data Access to character data related to skills.
    * @param skill Skill.
-   * @param details Skill details.
    */
-  public SkillEffectsDisplay(CharacterDataForSkills data, SkillDescription skill, SkillDetails details)
+  public SkillEffectsDisplay(CharacterDataForSkills data, SkillDescription skill)
   {
     _character=data;
-    _skillDetails=details;
   }
 
   /**
@@ -72,7 +68,7 @@ public class SkillEffectsDisplay
     if (effect instanceof BaseVitalEffect)
     {
       BaseVitalEffect vitalEffect=(BaseVitalEffect)effect;
-      EffectDisplay2 d2=new EffectDisplay2(_character,_skillDetails);
+      EffectDisplay2 d2=new EffectDisplay2(_character);
       String display=d2.getVitalEffectDisplay(generator,vitalEffect,damageQualifier);
       storage.add(display);
     }
