@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?><character version="1100" name="Giswald" level="150" date="1727016453962">
+<characterSummary id="02080000002D0F72" name="Giswald" server="Landroval" account="glorfindel666" subscription="FPPW4D9YZ4XREC2LNRLFW73WC" class="Champion" race="man" sex="MALE" level="150" rank="0" nationalityCode="6" region="Gondor" kinshipID="0C08000108047427" importDate="1727016449881"/>
+<stats>
+<stat name="MORALE" value="19927682"/>
+<stat name="POWER" value="858300"/>
+<stat name="ARMOUR" value="4996600"/>
+<stat name="MIGHT" value="2578300"/>
+<stat name="AGILITY" value="136000"/>
+<stat name="VITALITY" value="3413900"/>
+<stat name="WILL" value="20300"/>
+<stat name="FATE" value="458300"/>
+<stat name="CRITICAL_RATING" value="10920830"/>
+<stat name="CRITICAL_MELEE_PERCENTAGE" value="2265"/>
+<stat name="CRITICAL_RANGED_PERCENTAGE" value="1765"/>
+<stat name="CRITICAL_TACTICAL_PERCENTAGE" value="1765"/>
+<stat name="DEVASTATE_MELEE_PERCENTAGE" value="462"/>
+<stat name="DEVASTATE_RANGED_PERCENTAGE" value="462"/>
+<stat name="DEVASTATE_TACTICAL_PERCENTAGE" value="462"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE" value="2435"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE" value="2435"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE" value="2435"/>
+<stat name="FINESSE" value="5590504"/>
+<stat name="FINESSE_PERCENTAGE" value="2356"/>
+<stat name="PHYSICAL_MASTERY" value="15760056"/>
+<stat name="MELEE_DAMAGE_PERCENTAGE" value="15563"/>
+<stat name="RANGED_DAMAGE_PERCENTAGE" value="15563"/>
+<stat name="TACTICAL_MASTERY" value="1354773"/>
+<stat name="TACTICAL_DAMAGE_PERCENTAGE" value="1754"/>
+<stat name="OUTGOING_HEALING" value="9381973"/>
+<stat name="OUTGOING_HEALING_PERCENTAGE" value="2514"/>
+<stat name="RESISTANCE" value="1059239"/>
+<stat name="RESISTANCE_PERCENTAGE" value="345"/>
+<stat name="CRITICAL_DEFENCE" value="391163"/>
+<stat name="MELEE_CRITICAL_DEFENCE" value="309"/>
+<stat name="RANGED_CRITICAL_DEFENCE" value="309"/>
+<stat name="TACTICAL_CRITICAL_DEFENCE" value="309"/>
+<stat name="INCOMING_HEALING" value="1636674"/>
+<stat name="INCOMING_HEALING_PERCENTAGE" value="888"/>
+<stat name="BLOCK" value="1512327"/>
+<stat name="BLOCK_PERCENTAGE" value="187"/>
+<stat name="PARTIAL_BLOCK_PERCENTAGE" value="204"/>
+<stat name="PARTIAL_BLOCK_MITIGATION_PERCENTAGE" value="286"/>
+<stat name="PARRY" value="9612119"/>
+<stat name="PARRY_PERCENTAGE" value="1646"/>
+<stat name="PARTIAL_PARRY_PERCENTAGE" value="1133"/>
+<stat name="PARTIAL_PARRY_MITIGATION_PERCENTAGE" value="1587"/>
+<stat name="EVADE" value="2668692"/>
+<stat name="EVADE_PERCENTAGE" value="319"/>
+<stat name="PARTIAL_EVADE_PERCENTAGE" value="353"/>
+<stat name="PARTIAL_EVADE_MITIGATION_PERCENTAGE" value="494"/>
+<stat name="PHYSICAL_MITIGATION" value="9788350"/>
+<stat name="PHYSICAL_MITIGATION_PERCENTAGE" value="4428"/>
+<stat name="OCFW_MITIGATION" value="5760620"/>
+<stat name="OCFW_MITIGATION_PERCENTAGE" value="2900"/>
+<stat name="TACTICAL_MITIGATION" value="5015764"/>
+<stat name="TACTICAL_MITIGATION_PERCENTAGE" value="2578"/>
+<stat name="FIRE_MITIGATION_PERCENTAGE" value="2578"/>
+<stat name="LIGHTNING_MITIGATION_PERCENTAGE" value="2578"/>
+<stat name="FROST_MITIGATION_PERCENTAGE" value="2578"/>
+<stat name="ACID_MITIGATION_PERCENTAGE" value="2578"/>
+<stat name="SHADOW_MITIGATION_PERCENTAGE" value="2578"/>
+<stat name="OCMR" value="24610080"/>
+<stat name="ICMR" value="2478308"/>
+<stat name="OCPR" value="1936860"/>
+<stat name="ICPR" value="24000"/>
+<stat name="LIGHT_OF_EARENDIL" value="8000"/>
+<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" value="100"/>
+<stat name="ATTACK_DURATION_PERCENTAGE" value="-1000"/>
+<stat name="WEAPONSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Weaponsmith Critical Chance" value="2500"/>
+<stat name="WOODWORKER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Woodworker Critical Chance" value="2500"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
+<stat name="PERCEIVED_THREAT" descriptionOverride="-" value="-5000"/>
+<stat name="Skill_Pips_CostMod_Trait_Champion_ImprovedBattleFrenzy" descriptionOverride="+${VALUE} Fervour from Battle Frenzy" value="300"/>
+<stat name="Skill_ChanceCriticalHit_ChampionStrikesMod" value="1000"/>
+<stat name="Skill_Targets_Trait_Champion_ImprovedBladeStormTargets" descriptionOverride="+${VALUE} number of Area Effect targets" value="500"/>
+<stat name="Combat_WeaponDamageMultiplier_1HSword" value="500"/>
+<stat name="Combat_WeaponDamageMultiplier_2HSword" value="500"/>
+<stat name="Skill_CriticalDamageMultiplier_ChampionStrikesMod" descriptionOverride="+${PERCENTVALUE} Critical Damage for Strike Skills" value="2000"/>
+<stat name="Skill_DamageMultiplier_RendDot" value="5000"/>
+<stat name="Skill_DamageMultiplier_HornofGondor" value="5500"/>
+<stat name="Skill_Duration_Champion_GreatCleave" value="1000"/>
+<stat name="Effect_Self_Revive_Cooldown" descriptionOverride="Increases duration of Revived effect to 2 hours." value="540000"/>
+<stat name="Skill_DamageMultiplier_BrutalStrikes" value="5000"/>
+<stat name="Skill_RecoveryTime_ChampionBattleFrenzy" value="-3650"/>
+<stat name="Skill_VitalCost_SwiftStrike" value="2200"/>
+<stat name="Skill_RecoveryTime_Champion_FerociousStrikes" value="-500"/>
+<stat name="Skill_Duration_Mod_ImprovedFlurry" descriptionOverride="+${VALUE} seconds to Flurry's duration" value="1000"/>
+<stat name="TraitSet_Champion_AoEDamage" descriptionOverride="+${PERCENTVALUE} Great Cleave's Area Effect Damage" value="500"/>
+<stat name="Skill_Champion_BladeWall_DamageMod" descriptionOverride="+${PERCENTVALUE} Blade Wall Damage" value="10500"/>
+<stat name="Skill_Champion_RagingBlade_DamageMod" descriptionOverride="+${PERCENTVALUE} Raging Blade Damage" value="9850"/>
+<stat name="Skill_Champion_Rend_DamageMod" value="3000"/>
+<stat name="Skill_Champion_FervourMod_FuryBlades_Damage" value="3850"/>
+<stat name="Skill_Champion_Flurry_CriticalRatingMod" descriptionOverride="+${VALUE} Critical Rating while Flurry is Active" value="1620000"/>
+<stat name="Trait_Champion_BaseMod_TacticalMitigation" descriptionOverride="Increases Tactical Mitigation by a rating per Fervour pip. Rating is based on Champion level" value="100"/>
+<stat name="Trait_Champion_BaseMod_Damage" descriptionOverride="Increases  Champion skill damage by 5% per Fervour Pip" value="100"/>
+<stat name="Trait_Champion_BaseMod_PowerCost" descriptionOverride="Reduces all Power Costs by 5% per Fervour Pip" value="100"/>
+<stat name="Skill_Champion_BladeDamage" value="4000"/>
+<stat name="Skill_Champion_IA_Horn_Gondor_PhyiscalMit_DebuffMod" value="220"/>
+<stat name="Skill_Champion_IA_FerociousStrikes_Damage" value="3500"/>
+<stat name="Skill_Champion_IA_Exchange_Blows_DamageMod" value="2000"/>
+<stat name="Skill_Champion_IA_FightOn_Critical_RatingMod" value="1000"/>
+<stat name="Skill_IA_Champion_SwiftStrike_Damage" value="3850"/>
+<stat name="Skill_SingleTarget_Damage_CritChance" value="500"/>
+<stat name="Skill_SingleTarget_Damage_CritMag" value="2000"/>
+<stat name="Skill_AreaEffect_TargetCount" value="300"/>
+<stat name="Skill_AreaEffect_Damage_CritMag" value="3300"/>
+<stat name="Skill_SingleTarget_Damage" value="2000"/>
+<stat name="Skill_AreaEffect_Damage" value="2750"/>
+<stat name="Skill_AreaEffect_Damage_CritChance" value="550"/>
+<stat name="Effect_2H_Bonus_Mod" descriptionOverride="-" value="2000"/>
+</stats>
+<equipment>
+<equipmentSlot name="HEAD">
+<item key="1879475627" name="Reinforced Chain Helm" durability="90" instanceId="030A000C1E8236FD" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="97700"/>
+<stat name="VITALITY" value="94900"/>
+<stat name="CRITICAL_RATING" value="551755"/>
+<stat name="PHYSICAL_MITIGATION" value="429143"/>
+<stat name="ARMOUR" value="346900"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="97700"/>
+<stat name="VITALITY" value="94900"/>
+<stat name="CRITICAL_RATING" value="551755"/>
+<stat name="PHYSICAL_MITIGATION" value="429143"/>
+<stat name="ARMOUR" value="346900"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BREAST">
+<item key="1879475655" name="Reinforced Chain Hauberk" durability="95" instanceId="030A000C1B8C5FF7" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="92800"/>
+<stat name="VITALITY" value="89900"/>
+<stat name="CRITICAL_RATING" value="524571"/>
+<stat name="EVADE" value="737143"/>
+<stat name="ARMOUR" value="1275700"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="92800"/>
+<stat name="VITALITY" value="89900"/>
+<stat name="CRITICAL_RATING" value="524571"/>
+<stat name="EVADE" value="737143"/>
+<stat name="ARMOUR" value="1275700"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEGS">
+<item key="1879475618" name="Reinforced Chain Greaves" durability="90" instanceId="030A000C1D5DCC39" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="95200"/>
+<stat name="VITALITY" value="92400"/>
+<stat name="FINESSE" value="719184"/>
+<stat name="PHYSICAL_MITIGATION" value="418571"/>
+<stat name="ARMOUR" value="1093200"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="95200"/>
+<stat name="VITALITY" value="92400"/>
+<stat name="FINESSE" value="719184"/>
+<stat name="PHYSICAL_MITIGATION" value="418571"/>
+<stat name="ARMOUR" value="1093200"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="HANDS">
+<item key="1879475611" name="Reinforced Chain Gauntlets" durability="65" instanceId="030A000C1E8157F8" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="96400"/>
+<stat name="VITALITY" value="93700"/>
+<stat name="PHYSICAL_MASTERY" value="423857"/>
+<stat name="PARRY" value="765918"/>
+<stat name="ARMOUR" value="638300"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="96400"/>
+<stat name="VITALITY" value="93700"/>
+<stat name="PHYSICAL_MASTERY" value="423857"/>
+<stat name="PARRY" value="765918"/>
+<stat name="ARMOUR" value="638300"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="FEET">
+<item key="1879475604" name="Reinforced Chain Boots" durability="65" instanceId="030A000C1BFB5F70" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="94000"/>
+<stat name="VITALITY" value="91200"/>
+<stat name="PHYSICAL_MASTERY" value="413286"/>
+<stat name="PHYSICAL_MITIGATION" value="413286"/>
+<stat name="ARMOUR" value="516500"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="94000"/>
+<stat name="VITALITY" value="91200"/>
+<stat name="PHYSICAL_MASTERY" value="413286"/>
+<stat name="PHYSICAL_MITIGATION" value="413286"/>
+<stat name="ARMOUR" value="516500"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="SHOULDER">
+<item key="1879475667" name="Reinforced Chain Pauldrons" durability="80" instanceId="030A000C1DC5C219" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="95200"/>
+<stat name="VITALITY" value="92400"/>
+<stat name="PHYSICAL_MASTERY" value="418571"/>
+<stat name="BLOCK" value="756327"/>
+<stat name="ARMOUR" value="338300"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="95200"/>
+<stat name="VITALITY" value="92400"/>
+<stat name="PHYSICAL_MASTERY" value="418571"/>
+<stat name="BLOCK" value="756327"/>
+<stat name="ARMOUR" value="338300"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BACK">
+<item key="1879475676" name="Cloak of Elessar's Guile" durability="40" instanceId="030A000C1E84800A" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="158800"/>
+<stat name="PHYSICAL_MASTERY" value="429143"/>
+<stat name="PHYSICAL_MITIGATION" value="285837"/>
+<stat name="ARMOUR" value="787700"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="158800"/>
+<stat name="PHYSICAL_MASTERY" value="429143"/>
+<stat name="PHYSICAL_MITIGATION" value="285837"/>
+<stat name="ARMOUR" value="787700"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471574" name="Humble Sea-farer's Essence of Might"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_WRIST">
+<item key="1879475738" name="Shiny Seaside Bracelet" durability="80" instanceId="030A000C1E82A09D" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="158800"/>
+<stat name="PHYSICAL_MITIGATION" value="214959"/>
+<stat name="TACTICAL_MITIGATION" value="214959"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="158800"/>
+<stat name="PHYSICAL_MITIGATION" value="214959"/>
+<stat name="TACTICAL_MITIGATION" value="214959"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471574" name="Humble Sea-farer's Essence of Might"/>
+<essence index="1" id="1879471611" name="Humble Sea-farer's Essence of Physical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_WRIST">
+<item key="1879475729" name="Lucky Shell Bracelet" durability="80" instanceId="030A000C1DA1D59E" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="91200"/>
+<stat name="CRITICAL_RATING" value="531367"/>
+<stat name="FATE" value="51200"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="91200"/>
+<stat name="CRITICAL_RATING" value="531367"/>
+<stat name="FATE" value="51200"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471574" name="Humble Sea-farer's Essence of Might"/>
+<essence index="1" id="1879471645" name="Humble Sea-farer's Essence of Critical Rating"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="NECK">
+<item key="1879475731" name="Lucky Shell Pendant" durability="80" instanceId="030A000C1E49C7CF" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="122300"/>
+<stat name="CRITICAL_RATING" value="354245"/>
+<stat name="FINESSE" value="237000"/>
+<stat name="FATE" value="25600"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="122300"/>
+<stat name="CRITICAL_RATING" value="354245"/>
+<stat name="FINESSE" value="237000"/>
+<stat name="FATE" value="25600"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471574" name="Humble Sea-farer's Essence of Might"/>
+<essence index="1" id="1879471645" name="Humble Sea-farer's Essence of Critical Rating"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_FINGER">
+<item key="1879475736" name="Shimmering Pearl Ring" instanceId="030A000C1D5DB9EE" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="152600"/>
+<stat name="FINESSE" value="473163"/>
+<stat name="RESISTANCE" value="319490"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="152600"/>
+<stat name="FINESSE" value="473163"/>
+<stat name="RESISTANCE" value="319490"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471574" name="Humble Sea-farer's Essence of Might"/>
+<essence index="1" id="1879471645" name="Humble Sea-farer's Essence of Critical Rating"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_FINGER">
+<item key="1879475728" name="Shimmering Tidal Ring" durability="50" instanceId="030A000C1B8C5B13" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="146400"/>
+<stat name="CRITICAL_RATING" value="340653"/>
+<stat name="EVADE" value="239714"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="146400"/>
+<stat name="CRITICAL_RATING" value="340653"/>
+<stat name="EVADE" value="239714"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471574" name="Humble Sea-farer's Essence of Might"/>
+<essence index="1" id="1879471611" name="Humble Sea-farer's Essence of Physical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_EAR">
+<item key="1879475727" name="Mysterious Tidal Creature Earring" durability="60" instanceId="030A000C1BF1DD6A" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="150500"/>
+<stat name="TACTICAL_MITIGATION" value="408000"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="150500"/>
+<stat name="TACTICAL_MITIGATION" value="408000"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471574" name="Humble Sea-farer's Essence of Might"/>
+<essence index="1" id="1879471645" name="Humble Sea-farer's Essence of Critical Rating"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_EAR">
+<item key="1879475735" name="Glowing Water Lurker Earring" durability="60" instanceId="030A000C1E802330" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="158800"/>
+<stat name="CRITICAL_RATING" value="551755"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="158800"/>
+<stat name="CRITICAL_RATING" value="551755"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471574" name="Humble Sea-farer's Essence of Might"/>
+<essence index="1" id="1879471645" name="Humble Sea-farer's Essence of Critical Rating"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="POCKET">
+<item key="1879477416" name="Shiny Parrot Coin" durability="100" instanceId="030A000C1E801ABC" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="154700"/>
+<stat name="TACTICAL_MITIGATION" value="278776"/>
+<stat name="RESISTANCE" value="323551"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="154700"/>
+<stat name="TACTICAL_MITIGATION" value="278776"/>
+<stat name="RESISTANCE" value="323551"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471574" name="Humble Sea-farer's Essence of Might"/>
+<essence index="1" id="1879471611" name="Humble Sea-farer's Essence of Physical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="MAIN_MELEE">
+<item key="1879424216" name="Champion's Great Sword of Legends" level="520" minLevel="146" instanceId="030A000A005D6957" boundTo="02080000002D0F72" maxDamage="879.2064" dps="769.3056">
+<legendary2 name="Schling Schling III">
+<socket index="0" traceryId="1879472646" traceryName="Heraldry of the Lion" itemLevel="520"/>
+<socket index="1" traceryId="1879472177" traceryName="Area Effect Attack Criticals" itemLevel="520"/>
+<socket index="2" traceryId="1879471864" traceryName="Area Effect Attack Damage" itemLevel="520"/>
+<socket index="3" traceryId="1879473133" traceryName="Brutal Strikes Damage" itemLevel="502"/>
+<socket index="4" traceryId="1879471877" traceryName="Exchange of Blows Melee Damage" itemLevel="500"/>
+<socket index="5" traceryId="1879472178" traceryName="Ferocious Strikes Cooldown &amp; Damage" itemLevel="500"/>
+<socket index="6" traceryId="1879472968" traceryName="Fury of Blades Damage" itemLevel="520"/>
+<socket index="7" traceryId="1879472210" traceryName="Great Cleave Duration" itemLevel="500"/>
+<socket index="8" traceryId="1879472061" traceryName="Raging Blade Damage" itemLevel="520"/>
+<socket index="9" traceryId="1879472199" traceryName="Heroic Precision" itemLevel="520"/>
+<socket index="10" traceryId="1879471720" traceryName="Heroic Precision" itemLevel="503"/>
+</legendary2>
+<stats mode="AUTO">
+<defautStats>
+<stat name="PARRY_PERCENTAGE" descriptionOverride="+${PERCENTVALUE} Parry Chance" value="200"/>
+<stat name="Effect_2H_Bonus_Mod" descriptionOverride="-" value="2000"/>
+</defautStats>
+<resultStats>
+<stat name="PARRY_PERCENTAGE" descriptionOverride="+${PERCENTVALUE} Parry Chance" value="200"/>
+<stat name="Effect_2H_Bonus_Mod" descriptionOverride="-" value="2000"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RANGED">
+<item key="1879477236" name="Pristine Weighted Bow" durability="100" instanceId="030A000C1DC5C02B" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="109500"/>
+<stat name="VITALITY" value="106400"/>
+<stat name="CRITICAL_RATING" value="708490"/>
+<stat name="EVADE" value="746735"/>
+<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" value="100"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="109500"/>
+<stat name="VITALITY" value="106400"/>
+<stat name="CRITICAL_RATING" value="708490"/>
+<stat name="EVADE" value="746735"/>
+<stat name="RANGED_AUTO_ATTACKS_CRIT_CHANCE_PERCENTAGE" value="100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="TOOL">
+<item key="1879283830" name="Superior Tools of the Westemnet Armsman" instanceId="030800048EF2BB0C" crafterName="Kargarth" boundTo="02080000002D0F72">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WEAPONSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Weaponsmith Critical Chance" value="2500"/>
+<stat name="WOODWORKER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Woodworker Critical Chance" value="2500"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
+</defautStats>
+<resultStats>
+<stat name="WEAPONSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Weaponsmith Critical Chance" value="2500"/>
+<stat name="WOODWORKER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Woodworker Critical Chance" value="2500"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="CLASS_ITEM">
+<item key="1879424489" name="Champion's Rune" level="520" durability="80" minLevel="146" instanceId="030A0009FC2BC2D8" boundTo="02080000002D0F72">
+<legendary2 name="Champollion's Helper">
+<socket index="0" traceryId="1879434794" traceryName="Heraldry of the Ox" itemLevel="471"/>
+<socket index="1" traceryId="1879473137" traceryName="Area Effect Target Count" itemLevel="500"/>
+<socket index="2" traceryId="1879472034" traceryName="Single Target Attack Criticals" itemLevel="500"/>
+<socket index="3" traceryId="1879471842" traceryName="Single Target Attack Damage" itemLevel="500"/>
+<socket index="4" traceryId="1879436743" traceryName="Battle Frenzy Cooldown" itemLevel="475"/>
+<socket index="5" traceryId="1879473161" traceryName="Blade Wall Damage" itemLevel="520"/>
+<socket index="6" traceryId="1879471946" traceryName="Rend Bleed Damage" itemLevel="520"/>
+<socket index="7" traceryId="1879433779" traceryName="Horn of Gondor Damage &amp; Mitigation Debuff" itemLevel="450"/>
+<socket index="8" traceryId="1879432174" traceryName="Fight On Critical Chance Buff" itemLevel="450"/>
+<socket index="9" traceryId="1879472017" traceryName="Swift Strike/Blade Damage &amp; Power Restore" itemLevel="520"/>
+<socket index="10" traceryId="1879473032" traceryName="Empowered Destruction" itemLevel="520"/>
+<socket index="11" traceryId="1879471897" traceryName="Empowered Blades" itemLevel="500"/>
+</legendary2>
+<stats mode="AUTO">
+<defautStats>
+<stat name="INCOMING_HEALING" value="1367959"/>
+</defautStats>
+<resultStats>
+<stat name="INCOMING_HEALING" value="1367959"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+</equipment>
+<virtues>
+<virtue id="CHARITY" rank="84"/>
+<virtue id="COMPASSION" rank="53"/>
+<virtue id="CONFIDENCE" rank="80"/>
+<virtue id="DETERMINATION" rank="80"/>
+<virtue id="DISCIPLINE" rank="80"/>
+<virtue id="EMPATHY" rank="54"/>
+<virtue id="FIDELITY" rank="54"/>
+<virtue id="FORTITUDE" rank="61"/>
+<virtue id="HONESTY" rank="80"/>
+<virtue id="HONOUR" rank="92" index="4"/>
+<virtue id="IDEALISM" rank="56"/>
+<virtue id="INNOCENCE" rank="81" index="0"/>
+<virtue id="JUSTICE" rank="80"/>
+<virtue id="LOYALTY" rank="62"/>
+<virtue id="MERCY" rank="44"/>
+<virtue id="PATIENCE" rank="50"/>
+<virtue id="TOLERANCE" rank="53"/>
+<virtue id="VALOUR" rank="92" index="2"/>
+<virtue id="WISDOM" rank="50"/>
+<virtue id="WIT" rank="92" index="1"/>
+<virtue id="ZEAL" rank="85" index="3"/>
+</virtues>
+<tomes>
+<tome stat="MIGHT" rank="1"/>
+<tome stat="AGILITY" rank="0"/>
+<tome stat="VITALITY" rank="0"/>
+<tome stat="WILL" rank="0"/>
+<tome stat="FATE" rank="3"/>
+</tomes>
+<traitTreeStatus treeId="1879272225" branch="37" cost="95" totalPoints="98">
+<trait id="1879260676" name="Second Wind" rank="1"/>
+<trait id="1879266995" name="Horn of Champions" rank="1"/>
+<trait id="1879270414" name="Stalwart Blade" rank="5"/>
+<trait id="1879260590" name="Deadly Strikes" rank="4"/>
+<trait id="1879260598" name="Vicious Strikes" rank="5"/>
+<trait id="1879267067" name="Controlled Burn" rank="1"/>
+<trait id="1879270411" name="Critical Chance Increase" rank="5"/>
+<trait id="1879270415" name="Battle Reflexes" rank="5"/>
+<trait id="1879290894" name="Brutal Strikes" rank="1"/>
+<trait id="1879260592" name="Ardent Rage" rank="4"/>
+<trait id="1879260605" name="Battle Frenzy" rank="1"/>
+<trait id="1879266986" name="Fury of Blades" rank="1"/>
+<trait id="1879266989" name="Barbed Wall" rank="5"/>
+<trait id="1879266991" name="Battle Acuity" rank="1"/>
+<trait id="1879266994" name="Great Cleave" rank="1"/>
+<trait id="1879267061" name="Improved Raging Blade" rank="3"/>
+<trait id="1879267066" name="Raging Blade" rank="1"/>
+<trait id="1879270408" name="Champion's Advantage" rank="3"/>
+<trait id="1879270418" name="Finesse Increase" rank="5"/>
+<trait id="1879270421" name="Blade of Courage" rank="3"/>
+<trait id="1879290955" name="Blade Damage" rank="5"/>
+<trait id="1879290957" name="Broad Sweep" rank="5"/>
+<trait id="1879312459" name="The More The Merrier" rank="1"/>
+</traitTreeStatus>
+<racialTraitsStatus>
+<slot index="0" traitId="1879073529" traitName="Duty-bound"/>
+<slot index="1" traitId="1879073521" traitName="Man Sword-damage Bonus"/>
+<slot index="2" traitId="1879073534" traitName="Balance of Man"/>
+<slot index="3" traitId="1879073536" traitName="Strength of Morale"/>
+<slot index="4" traitId="1879073525" traitName="Return to Bree"/>
+</racialTraitsStatus>
+<buffs/>
+</character>

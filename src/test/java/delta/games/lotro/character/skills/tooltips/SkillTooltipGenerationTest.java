@@ -40,6 +40,7 @@ class SkillTooltipGenerationTest
     testRunekeeper();
     testLoremaster();
     testHunter();
+    testChampion();
   }
 
   private void doTest(String characterFile, int[] skillIDs)
@@ -152,6 +153,40 @@ class SkillTooltipGenerationTest
       1879135205, // Improved Merciful Shot
     };
     doTest("hunter.xml",skills);
+  }
+
+  private void testChampion()
+  {
+    int[] skills={
+      1879064072, // Champion's Challenge
+      1879064060, // Wild Attack
+      1879060547, // Battle Frenzy
+      1879073516, // Upper-cut => wrong, uses max damage progression
+      1879212605, // Swift Blade
+      1879111264, // Rend ; 11074.086 / 11074 OK
+      1879064078, // Hamstring
+      1879243824, // Horn of Champions
+      1879064076, // Clobber
+      1879064065, // Brutal Strikes 1 weapon (double handed) ; #1 15886.874 / 15887 OK ; #2 12444.718 / 12445 OK ; #3 10326.468 / 10326 OK
+      1879064084, // Let Fly : 6946.133 / 6946 OK
+      1879064073, // Merciful Strike ; 11214.265 / 11214 OK
+      1879064067, // Blade Storm ; 1 weapon (double handed) ; 15044.505 / 15044 OK
+      1879064077, // Horn of Gondor ; 14679.4375 / 14680 OK
+      // Page 2
+      1879271239, // Fury of Blades
+      1879059893, // Controlled Burn
+      1879111438, // Blood Rage
+      1879059881, // Raging Blade
+      1879064061, // Blade Wall
+      1879290949, // Feral Strikes
+      1879111436, // Great Cleave
+      1879216336, // True Heroics
+      1879102586, // Second Wind
+      1879064066, // Exchange of Blows
+      1879059869, // Fight On
+      1879186727 // Fear Nothing!
+    };
+    doTest("champion.xml",skills);
   }
 
   private List<String> doSkill(int id, CharacterData data)

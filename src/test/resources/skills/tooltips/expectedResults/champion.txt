@@ -1,0 +1,345 @@
+*****************************
+Skill-Id: 1879064072
+Champion's Challenge
+Fast
+Melee Skill
+Range: 30m
+Your taunting cry forces your target to face and attack you for a few seconds.
+Forced Attack
+x-30% Damage
+Duration: 5s
+Cost: 202 Power
+Cooldown: 30s
+*****************************
+Skill-Id: 1879064060
+Wild Attack
+Fast
+Melee Skill
+Skill Type: Harmful, Strike
+Range: 4m
+A single powerful melee attack.
+2 Attacks:
+5 210 - 6 947 Beleriand (Main-hand) Damage
+4 018 - 5 358 Beleriand (Main-hand) Damage
+Cost: 68 Power
+Adds 1 to Fervour
+Cooldown: 1,5s
+*****************************
+Skill-Id: 1879060547
+Battle Frenzy
+Immediate
+Your Fervour is instantly increased as well as some additional fervour over time.
+Every 3 seconds:
+Adds 1 Fervour Pip
+Cost: 404 Power
+Adds 5 to Fervour
+Cooldown: 8,5s
+*****************************
+Skill-Id: 1879073516
+Upper-cut
+Melee Skill
+Range: 4m
+You make a stiff punch at your enemy.
+28 324 Common Damage
+There is a chance your opponent will be dazed by your combat prowess.
+3s Daze
+Cost: 429 Power
+Cooldown: 180s
+*****************************
+Skill-Id: 1879212605
+Swift Blade
+Fast
+Melee Skill
+Max Targets: 13
+Radius: 5m
+Skill Type: Harmful, Blade
+Range: 5,0m
+A swift sweeping melee attack.
+8 663 - 11 551 Beleriand (Main-hand) Damage
+Restores 488 Power
+Adds 1 to Fervour
+Cooldown: 3s
+*****************************
+Skill-Id: 1879111264
+Rend
+Fast
+Melee Skill
+Max Targets: 13
+Radius: 5m
+Skill Type: Harmful, Blade
+Range: 5,2m
+Makes a full AoE attack, which causes medium damage-over-time.
+8 306 - 11 074 Beleriand (Main-hand) Damage
+787 Damage initially
+1 732 Damage every 2 seconds for 20 seconds
+Cost: 135 Power
+Adds 2 to Fervour
+Cooldown: 4s
+*****************************
+Skill-Id: 1879064078
+Hamstring
+Fast
+Melee Skill
+Skill Type: Harmful
+Range: 4m
+Makes an attack which snares your opponent.
+6 168 - 8 224 Beleriand (Main-hand) Damage
+-30% Target Run Speed
+Duration: 10s
+Cost: 202 Power
+Cost: 1 Fervour
+Cooldown: 20s
+*****************************
+Skill-Id: 1879243824
+Horn of Champions
+Fast
+Melee Skill
+Max Targets: 14
+Radius: 8m
+Range: 30m
+Area effect attack that demoralizes nearby enemies and reduces their damage for a short duration.
+6 653 - 8 870 Beleriand (Main-hand) Damage
+-20% Damage
+Duration: 10s
+Cost: 336 Power
+Cooldown: 30s
+*****************************
+Skill-Id: 1879064076
+Clobber
+Immediate
+Melee Skill
+Skill Type: Harmful
+Range: 4m
+Makes a swift melee attack, interrupting any induction skills being attempted by the enemy.
+6 051 - 8 068 Beleriand (Main-hand) Damage
+Interrupts Inductions
+Cost: 135 Power
+Cost: 1 Fervour
+Cooldown: 10s
+*****************************
+Skill-Id: 1879064065
+Brutal Strikes
+Fast
+Melee Skill
+Skill Type: Harmful, Strike
+Range: 4m
+Makes three deadly attacks that are difficult to parry or evade.
+3 Attacks:
+11 915 - 15 887 Beleriand (Main-hand) Damage
+9 334 - 12 445 Beleriand (Main-hand) Damage
+7 745 - 10 326 Beleriand (Main-hand) Damage
+Cost: 202 Power
+Cost: 3 Fervour
+Cooldown: 4s
+*****************************
+Skill-Id: 1879064084
+Let Fly
+Ranged Skill
+Induction: 0,5s
+Range: 30m
+You attack with your ranged weapon.
+5 210 - 6 946 Common (Ranged) Damage
+Cooldown: 9s
+*****************************
+Skill-Id: 1879064073
+Merciful Strike
+Fast
+Melee Skill
+Skill Type: Harmful, Strike
+Range: 4m
+A powerful attack that can only be used on opponents under 20% health.
+8 411 - 11 214 Beleriand (Main-hand) Damage
+Cost: 404 Power
+Removes 5 from Fervour
+Cooldown: 10s
+*****************************
+Skill-Id: 1879064067
+Blade Storm
+Fast
+Melee Skill
+Max Targets: 13
+Radius: 5m
+Skill Type: Harmful, Blade
+Range: 5,2m
+Makes a full AoE attack.
+11 283 - 15 045 Beleriand (Main-hand) Damage
+-20% Attack Duration
+Duration: 20s
+Cost: 336 Power
+Cost: 4 Fervour
+Cooldown: 10s
+*****************************
+Skill-Id: 1879064077
+Horn of Gondor
+Fast
+Melee Skill
+Max Targets: 13
+Radius: 8m
+Range: 8,2m
+Makes a full AoE attack, which stuns your opponents.
+
+<rgb=#00FFDD>Mounted Combat Enemies: Stun replaced with a mount speed debuff</rgb>
+11 012 - 14 679 Beleriand (Main-hand) Damage
+3s Stun
+Duration: 12s
+Cost: 404 Power
+Cost: 5 Fervour
+Cooldown: 20s
+*****************************
+Skill-Id: 1879271239
+Fury of Blades
+Fast
+Melee Skill
+Radius: 5m
+Skill Type: Harmful, Blade
+Range: 5,0m
+Deals AoE damage in front of the Champion.
+
+Damage is increased by 30% per pip consumed.
+2 Attacks:
+11 833 - 15 778 Beleriand (Main-hand) Damage
+9 096 - 12 128 Beleriand (Main-hand) Damage
+Cost: 471 Power
+Removes 5 from Fervour
+Cooldown: 20s
+*****************************
+Skill-Id: 1879059893
+Controlled Burn
+Fast
+Melee Skill
+Skill Type: Buff
+Briefly increases damage, Power regen, and attack speed.
+
+Adds 1 Fervour Pip every 5 seconds.
++20 to power regeneration
++10% to Melee Damage
+Increases attack speed by 5%
+Duration: 30s
+Every 5 seconds:
+Adds 1 Fervour Pip
+Cost: 269 Power
+Cooldown: 90s
+*****************************
+Skill-Id: 1879111438
+Blood Rage
+Fast
+Skill Type: Buff
+Breaks Champion out of any impairing Combat State and removes disarm effects.
+Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
+Cooldown: 60s
+*****************************
+Skill-Id: 1879059881
+Raging Blade
+Fast
+Melee Skill
+Max Targets: 16
+Radius: 8m
+Skill Type: Harmful, Blade
+Range: 8,2m
+Makes a full AoE attack, inflicting heavy damage.
+
+This attack never misses on level opponents.
+2 Attacks:
+14 035 - 18 713 Beleriand (Main-hand) Damage
+10 617 - 14 155 Beleriand (Main-hand) Damage
+Cost: 269 Power
+Cost: 3 Fervour
+Cooldown: 10s
+*****************************
+Skill-Id: 1879064061
+Blade Wall
+Fast
+Melee Skill
+Max Targets: 13
+Radius: 5m
+Skill Type: Harmful, Blade
+Range: 5,0m
+Make a frontal AoE attack and reduce your enemies' Physical Mitigation.
+22 707 - 30 276 Beleriand (Main-hand) Damage
+Armour protection is reduced.
+-5% Physical Mitigation (%)
+Duration: 30s
+Cost: 135 Power
+Cooldown: 4s
+*****************************
+Skill-Id: 1879290949
+Feral Strikes
+Fast
+Melee Skill
+Skill Type: Harmful, Strike
+Range: 4m
+You make a savage double attack that is difficult to parry or evade. The first attack will remove a Corruption from the target and the second has a chance to remove a corruption from the target.
+2 Attacks:
+5 607 - 7 476 Beleriand (Main-hand) Damage
+4 626 - 6 168 Beleriand (Main-hand) Damage
+Cost: 336 Power
+Cost: 2 Fervour
+Cooldown: 4s
+*****************************
+Skill-Id: 1879111436
+Great Cleave
+Fast
+All AoE attacks cost 1 less Fervour Pip.
+Duration: 30s
+Cost: 672 Power
+Requires at least 5 Fervour
+Cooldown: 120s
+*****************************
+Skill-Id: 1879216336
+True Heroics
+Fast
+Tactical Skill
+Max Targets: 23
+Radius: 15m
+Skill Type: Buff, Heal, Debuff
+Range: 15,2m
+Restores the power of your Fellows and increases your melee damage while slowing all enemies around you.
+Reduces target's Movement speed by 50%
+Duration: 12s
+Effects applied to your animal companion within 15 metres:
+Restores 360 - 400 Power
+10% Melee Damage
+Duration: 12s
+Cost: 1 080 Power
+Cooldown: 120s
+*****************************
+Skill-Id: 1879102586
+Second Wind
+Fast
+Skill Type: Buff
+Consumes all current fervour and restores power. Amount of power restored is based off the amount of fervour consumed.
+Restores 600 Power
+Removes 5 from Fervour
+Cooldown: 25s
+*****************************
+Skill-Id: 1879064066
+Exchange of Blows
+Fast
+Melee Skill
+You reflect damage to your attacker when hit.
+Duration: 15s
+Cost: 404 Power
+Cost: 2 Fervour
+Cooldown: 40s
+*****************************
+Skill-Id: 1879059869
+Fight On
+Fast
+Tactical Skill
+Resistance: Cry
+Skill Type: Heal
+Heals the Champion for a percentage of their health over time.
+Every 2 seconds:
+Heals 0 Morale
+Duration: 30s
+Cost: 672 Power
+Cooldown: 180s
+*****************************
+Skill-Id: 1879186727
+Fear Nothing!
+Fast
+You feel the joy of battle coursing through your veins. You Fear Nothing!
+Duration: 12s
+Cost: 202 Power
+Adds 2 to Fervour
+Cooldown: 15s
