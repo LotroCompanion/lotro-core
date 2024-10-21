@@ -116,62 +116,33 @@ public class EffectDisplay2
    */
   private float getMaxVitalChange(ImplementUsageType implementUsage, StatDescription stat, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial)
   {
-    float qualifierValue=0;
-    if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
-    {
-      if (stat==WellKnownStat.MORALE)
-      {
-        qualifierValue=_attackComputer.getHealingQualifier();
-      }
-      else
-      {
-        qualifierValue=1.0f;
-      }
-      LOGGER.debug("Tactical HPS qualifier value: {}",Float.valueOf(qualifierValue));
-    }
-    else if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
-    {
-      if (damageQualifier==null)
-      {
-        qualifierValue=1.0f;
-      }
-      else
-      {
-        qualifierValue=_attackComputer.getDamageQualifier(damageQualifier);
-        LOGGER.debug("Tactical DPS qualifier value: {}",Float.valueOf(qualifierValue));
-      }
-    }
-    else
-    {
-      qualifierValue=1.0f;
-    }
-
     float change=0;
+    float qualifierValue=getQualifierValue(implementUsage,stat,damageQualifier);
     float modifiers=_character.computeAdditiveModifiers(description.getModifiers());
+    float qualifierFactor=getQualifierFactor(modifiers,implementUsage,qualifierValue);
+    LOGGER.debug("Qualifier factor: {}", Float.valueOf(qualifierFactor));
+
+    // Progression
     Progression prog=description.getProgression();
     if (prog!=null)
     {
       Float progValueF=prog.getValue(_character.getLevel());
       float progValue=(progValueF!=null)?progValueF.floatValue():0;
-      if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
-      {
-        change=(qualifierValue+modifiers)*progValue;
-      }
-      else
-      {
-        change=qualifierValue*(1+modifiers)*progValue;
-      }
+      change=progValue;
+      LOGGER.debug("Progression contribution: {}", Float.valueOf(progValue));
     }
-    LOGGER.debug("Base vital change: {}", Float.valueOf(change));
-    Float vpsMultiplierValue=description.getVPSMultiplier();
-    float vpsMultiplier=(vpsMultiplierValue!=null)?vpsMultiplierValue.floatValue():0;
-    LOGGER.debug("VPS multiplier: {}", Float.valueOf(vpsMultiplier));
 
+    // Implement
     ItemInstance<?> item=_character.getImplement(implementUsage);
     if (implementUsage!=null)
     {
       float vps=implementContrib(implementUsage,item);
       LOGGER.debug("VPS implement contribution: {}", Float.valueOf(vps));
+
+      Float vpsMultiplierValue=description.getVPSMultiplier();
+      float vpsMultiplier=(vpsMultiplierValue!=null)?vpsMultiplierValue.floatValue():0;
+      LOGGER.debug("VPS multiplier: {}", Float.valueOf(vpsMultiplier));
+
       if (!initial)
       {
         Float duration=effect.getEffectDuration().getDuration();
@@ -181,22 +152,52 @@ public class EffectDisplay2
           LOGGER.debug("Interval implement contribution: {}", Float.valueOf(vps));
         }
       }
-      if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
+      float implementContrib=vpsMultiplier*vps;
+      LOGGER.debug("implementContrib=vpsMultiplier*vps");
+      LOGGER.debug("{}={}*{}",Float.valueOf(implementContrib),Float.valueOf(vpsMultiplier),Float.valueOf(vps));
+      LOGGER.debug("Implement contribution: {}", Float.valueOf(implementContrib));
+      change+=implementContrib;
+    }
+    LOGGER.debug("Change: {}", Float.valueOf(change));
+    change*=qualifierFactor;
+    LOGGER.debug("Total change: {}", Float.valueOf(change));
+    return change;
+  }
+
+  private float getQualifierValue(ImplementUsageType implementUsage, StatDescription stat, DamageQualifier damageQualifier)
+  {
+    float qualifierValue=1.0f;
+    if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
+    {
+      if (stat==WellKnownStat.MORALE)
       {
-        LOGGER.debug("Tactical HPS: change+=(qualifierValue+modifiers)*vpsMultiplier*vps");
-        float changeContrib=(qualifierValue+modifiers)*vpsMultiplier*vps;
-        LOGGER.debug("({}+{})*{}*{}={}",Float.valueOf(qualifierValue),Float.valueOf(modifiers),Float.valueOf(vpsMultiplier),Float.valueOf(vps),Float.valueOf(changeContrib));
-        change+=changeContrib;
-      }
-      else
-      {
-        LOGGER.debug("change+=qualifierValue*(1+modifiers)*vpsMultiplier*vps");
-        float changeContrib=qualifierValue*(1+modifiers)*vpsMultiplier*vps;
-        LOGGER.debug("{}*(1+{})*{}*{}={}",Float.valueOf(qualifierValue),Float.valueOf(modifiers),Float.valueOf(vpsMultiplier),Float.valueOf(vps),Float.valueOf(changeContrib));
-        change+=changeContrib;
+        qualifierValue=_attackComputer.getHealingQualifier();
+        LOGGER.debug("Tactical HPS qualifier value: {}",Float.valueOf(qualifierValue));
       }
     }
-    return change;
+    else if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
+    {
+      if (damageQualifier!=null)
+      {
+        qualifierValue=_attackComputer.getDamageQualifier(damageQualifier);
+        LOGGER.debug("Tactical DPS qualifier value: {}",Float.valueOf(qualifierValue));
+      }
+    }
+    return qualifierValue;
+  }
+
+  private float getQualifierFactor(float modifiers, ImplementUsageType implementUsage, float qualifierValue)
+  {
+    float factor;
+    if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
+    {
+      factor=(qualifierValue+modifiers);
+    }
+    else
+    {
+      factor=qualifierValue*(1+modifiers);
+    }
+    return factor;
   }
 
   /**
