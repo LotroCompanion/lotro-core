@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import delta.common.utils.l10n.L10n;
 import delta.common.utils.text.EndOfLine;
-import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.common.effects.BaseVitalEffect;
@@ -94,7 +93,7 @@ public class EffectDisplay2
 
   /**
    * Compute a vital change.
-   * @param generator Parent effect generator.
+   * @param implementUsage Implement usage.
    * @param stat Stat to use.
    * @param effect Vital effect.
    * @param description Vital change to use.
@@ -103,11 +102,9 @@ public class EffectDisplay2
    * @param minimum Compute the minimum change or maximum change.
    * @return A vital change value.
    */
-  private float getVitalChange(SkillEffectGenerator generator, StatDescription stat, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial, boolean minimum)
+  private float getVitalChange(ImplementUsageType implementUsage, StatDescription stat, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial, boolean minimum)
   {
-    float change=0;
     float qualifierValue=0;
-    ImplementUsageType implementUsage=generator.getImplementUsage();
     if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
     {
       if (stat==WellKnownStat.MORALE)
@@ -137,8 +134,7 @@ public class EffectDisplay2
       qualifierValue=1.0f;
     }
 
-    // TODO Use damageQualifier. If not set, qualifierValue shall be 1?
-
+    float change=0;
     float modifiers=_character.computeAdditiveModifiers(description.getModifiers());
     Progression prog=description.getProgression();
     if (prog!=null)
@@ -199,33 +195,33 @@ public class EffectDisplay2
 
   /**
    * Get a string to display a vital effect.
-   * @param generator Effect generator.
+   * @param implementUsage Implement usage.
    * @param effect Effect.
    * @param damageQualifier Damage qualifier.
    * @return A displayable string.
    */
-  public String getVitalEffectDisplay(SkillEffectGenerator generator, BaseVitalEffect effect, DamageQualifier damageQualifier)
+  public String getVitalEffectDisplay(ImplementUsageType implementUsage, BaseVitalEffect effect, DamageQualifier damageQualifier)
   {
     if (effect instanceof InstantVitalEffect)
     {
       InstantVitalEffect instantVitalEffect=(InstantVitalEffect)effect;
-      return getInstantVitalEffectDisplay(generator,instantVitalEffect,damageQualifier);
+      return getInstantVitalEffectDisplay(implementUsage,instantVitalEffect,damageQualifier);
     }
     else if (effect instanceof VitalOverTimeEffect)
     {
       VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
-      return getVitalOverTimeEffectDisplay(generator,vitalOverTimeEffect,damageQualifier);
+      return getVitalOverTimeEffectDisplay(implementUsage,vitalOverTimeEffect,damageQualifier);
     }
     return "";
   }
 
-  private String getInstantVitalEffectDisplay(SkillEffectGenerator generator, InstantVitalEffect effect, DamageQualifier damageQualifier)
+  private String getInstantVitalEffectDisplay(ImplementUsageType implementUsage, InstantVitalEffect effect, DamageQualifier damageQualifier)
   {
     VitalChangeDescription change=effect.getInstantChangeDescription();
     StatDescription stat=effect.getStat();
-    float min=getVitalChange(generator,stat,effect,change,damageQualifier,true,true);
+    float min=getVitalChange(implementUsage,stat,effect,change,damageQualifier,true,true);
     int minInt=Math.round(min);
-    float max=getVitalChange(generator,stat,effect,change,damageQualifier,true,false);
+    float max=getVitalChange(implementUsage,stat,effect,change,damageQualifier,true,false);
     int maxInt=Math.round(max);
 
     DamageType damageType=effect.getDamageType();
@@ -281,7 +277,7 @@ public class EffectDisplay2
     return ret;
   }
 
-  private String getVitalOverTimeEffectDisplay(SkillEffectGenerator generator, VitalOverTimeEffect effect, DamageQualifier damageQualifier)
+  private String getVitalOverTimeEffectDisplay(ImplementUsageType implementUsage, VitalOverTimeEffect effect, DamageQualifier damageQualifier)
   {
     StatDescription stat=effect.getStat();
     DamageType damageType=effect.getDamageType();
@@ -289,9 +285,9 @@ public class EffectDisplay2
     VitalChangeDescription initialChange=effect.getInitialChangeDescription();
     if (initialChange!=null)
     {
-      float initialMin=getVitalChange(generator,stat,effect,initialChange,damageQualifier,true,true);
+      float initialMin=getVitalChange(implementUsage,stat,effect,initialChange,damageQualifier,true,true);
       int initialMinInt=Math.round(initialMin);
-      float initialMax=getVitalChange(generator,stat,effect,initialChange,damageQualifier,true,false);
+      float initialMax=getVitalChange(implementUsage,stat,effect,initialChange,damageQualifier,true,false);
       int initialMaxInt=Math.round(initialMax);
       initialLine=buildFullChange(initialMinInt,initialMaxInt,stat,damageType);
     }
@@ -299,9 +295,9 @@ public class EffectDisplay2
     VitalChangeDescription overTimeChange=effect.getOverTimeChangeDescription();
     if (overTimeChange!=null)
     {
-      float intervalMin=getVitalChange(generator,stat,effect,overTimeChange,damageQualifier,false,true);
+      float intervalMin=getVitalChange(implementUsage,stat,effect,overTimeChange,damageQualifier,false,true);
       int intervalMinInt=Math.round(intervalMin);
-      float intervalMax=getVitalChange(generator,stat,effect,overTimeChange,damageQualifier,false,false);
+      float intervalMax=getVitalChange(implementUsage,stat,effect,overTimeChange,damageQualifier,false,false);
       int intervalMaxInt=Math.round(intervalMax);
 
       EffectDuration duration=effect.getEffectDuration();

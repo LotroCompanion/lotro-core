@@ -23,6 +23,7 @@ import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
+import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.utils.Proxy;
@@ -69,7 +70,8 @@ public class SkillEffectsDisplay
     {
       BaseVitalEffect vitalEffect=(BaseVitalEffect)effect;
       EffectDisplay2 d2=new EffectDisplay2(_character);
-      String display=d2.getVitalEffectDisplay(generator,vitalEffect,damageQualifier);
+      ImplementUsageType implementUsage=generator.getImplementUsage();
+      String display=d2.getVitalEffectDisplay(implementUsage,vitalEffect,damageQualifier);
       storage.add(display);
     }
     else if (effect instanceof ComboEffect)
