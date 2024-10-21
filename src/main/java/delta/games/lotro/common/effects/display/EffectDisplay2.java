@@ -125,8 +125,15 @@ public class EffectDisplay2
     }
     else if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
     {
-      qualifierValue=_attackComputer.getDamageQualifier(DamageQualifiers.TACTICAL);
-      LOGGER.debug("Tactical DPS qualifier value: {}",Float.valueOf(qualifierValue));
+      if (damageQualifier==null)
+      {
+        qualifierValue=1.0f;
+      }
+      else
+      {
+        qualifierValue=_attackComputer.getDamageQualifier(damageQualifier);
+        LOGGER.debug("Tactical DPS qualifier value: {}",Float.valueOf(qualifierValue));
+      }
     }
     else
     {

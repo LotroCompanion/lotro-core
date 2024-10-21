@@ -16,6 +16,7 @@ import delta.games.lotro.character.skills.geometry.SkillGeometry;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.display.SkillEffectsDisplay;
 import delta.games.lotro.common.enums.DamageQualifier;
+import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.enums.GambitIconType;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
@@ -344,7 +345,13 @@ public class SkillDisplay
       {
         storage.add("On Use:");
       }
-      handleEffect(null,generator,generator.getEffect(),storage);
+      DamageQualifier damageQualifier=null;
+      ImplementUsageType implementUsage=generator.getImplementUsage();
+      if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
+      {
+        damageQualifier=DamageQualifiers.TACTICAL;
+      }
+      handleEffect(damageQualifier,generator,generator.getEffect(),storage);
     }
   }
 
