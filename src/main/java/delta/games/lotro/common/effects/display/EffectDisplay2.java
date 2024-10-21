@@ -1,10 +1,11 @@
 package delta.games.lotro.common.effects.display;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import delta.common.utils.l10n.L10n;
-import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.common.effects.BaseVitalEffect;
@@ -91,6 +92,18 @@ public class EffectDisplay2
     return vps;
   }
 
+  private float[] getVitalChange(ImplementUsageType implementUsage, StatDescription stat, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial)
+  {
+    float maxChange=getMaxVitalChange(implementUsage,stat,effect,description,damageQualifier,initial);
+    float minChange=maxChange;
+    Float variance=description.getVariance();
+    if (variance!=null)
+    {
+      minChange*=(1-variance.floatValue());
+    }
+    return new float[] {minChange,maxChange};
+  }
+
   /**
    * Compute a vital change.
    * @param implementUsage Implement usage.
@@ -99,10 +112,9 @@ public class EffectDisplay2
    * @param description Vital change to use.
    * @param damageQualifier Damage qualifier.
    * @param initial Initial/instant change or not.
-   * @param minimum Compute the minimum change or maximum change.
    * @return A vital change value.
    */
-  private float getVitalChange(ImplementUsageType implementUsage, StatDescription stat, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial, boolean minimum)
+  private float getMaxVitalChange(ImplementUsageType implementUsage, StatDescription stat, BaseVitalEffect effect, VitalChangeDescription description, DamageQualifier damageQualifier, boolean initial)
   {
     float qualifierValue=0;
     if (implementUsage==ImplementUsageTypes.TACTICAL_HPS)
@@ -184,12 +196,6 @@ public class EffectDisplay2
         change+=changeContrib;
       }
     }
-
-    Float variance=description.getVariance();
-    if ((variance!=null) && (minimum))
-    {
-      change*=(1-variance.floatValue());
-    }
     return change;
   }
 
@@ -198,31 +204,30 @@ public class EffectDisplay2
    * @param implementUsage Implement usage.
    * @param effect Effect.
    * @param damageQualifier Damage qualifier.
-   * @return A displayable string.
+   * @param storage Storage for generated output.
    */
-  public String getVitalEffectDisplay(ImplementUsageType implementUsage, BaseVitalEffect effect, DamageQualifier damageQualifier)
+  public void getVitalEffectDisplay(ImplementUsageType implementUsage, BaseVitalEffect effect, DamageQualifier damageQualifier, List<String> storage)
   {
     if (effect instanceof InstantVitalEffect)
     {
       InstantVitalEffect instantVitalEffect=(InstantVitalEffect)effect;
-      return getInstantVitalEffectDisplay(implementUsage,instantVitalEffect,damageQualifier);
+      String line=getInstantVitalEffectDisplay(implementUsage,instantVitalEffect,damageQualifier);
+      storage.add(line);
     }
     else if (effect instanceof VitalOverTimeEffect)
     {
       VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
-      return getVitalOverTimeEffectDisplay(implementUsage,vitalOverTimeEffect,damageQualifier);
+      getVitalOverTimeEffectDisplay(implementUsage,vitalOverTimeEffect,damageQualifier,storage);
     }
-    return "";
   }
 
   private String getInstantVitalEffectDisplay(ImplementUsageType implementUsage, InstantVitalEffect effect, DamageQualifier damageQualifier)
   {
     VitalChangeDescription change=effect.getInstantChangeDescription();
     StatDescription stat=effect.getStat();
-    float min=getVitalChange(implementUsage,stat,effect,change,damageQualifier,true,true);
-    int minInt=Math.round(min);
-    float max=getVitalChange(implementUsage,stat,effect,change,damageQualifier,true,false);
-    int maxInt=Math.round(max);
+    float[] minMaxChange=getVitalChange(implementUsage,stat,effect,change,damageQualifier,true);
+    int minInt=Math.round(minMaxChange[0]);
+    int maxInt=Math.round(minMaxChange[1]);
 
     DamageType damageType=effect.getDamageType();
     String ret=buildFullChange(minInt,maxInt,stat,damageType);
@@ -277,7 +282,7 @@ public class EffectDisplay2
     return ret;
   }
 
-  private String getVitalOverTimeEffectDisplay(ImplementUsageType implementUsage, VitalOverTimeEffect effect, DamageQualifier damageQualifier)
+  private void getVitalOverTimeEffectDisplay(ImplementUsageType implementUsage, VitalOverTimeEffect effect, DamageQualifier damageQualifier, List<String> storage)
   {
     StatDescription stat=effect.getStat();
     DamageType damageType=effect.getDamageType();
@@ -285,20 +290,18 @@ public class EffectDisplay2
     VitalChangeDescription initialChange=effect.getInitialChangeDescription();
     if (initialChange!=null)
     {
-      float initialMin=getVitalChange(implementUsage,stat,effect,initialChange,damageQualifier,true,true);
-      int initialMinInt=Math.round(initialMin);
-      float initialMax=getVitalChange(implementUsage,stat,effect,initialChange,damageQualifier,true,false);
-      int initialMaxInt=Math.round(initialMax);
+      float[] initialMinMax=getVitalChange(implementUsage,stat,effect,initialChange,damageQualifier,true);
+      int initialMinInt=Math.round(initialMinMax[0]);
+      int initialMaxInt=Math.round(initialMinMax[1]);
       initialLine=buildFullChange(initialMinInt,initialMaxInt,stat,damageType);
     }
     String overTimeLine=null;
     VitalChangeDescription overTimeChange=effect.getOverTimeChangeDescription();
     if (overTimeChange!=null)
     {
-      float intervalMin=getVitalChange(implementUsage,stat,effect,overTimeChange,damageQualifier,false,true);
-      int intervalMinInt=Math.round(intervalMin);
-      float intervalMax=getVitalChange(implementUsage,stat,effect,overTimeChange,damageQualifier,false,false);
-      int intervalMaxInt=Math.round(intervalMax);
+      float[] intervalMinMax=getVitalChange(implementUsage,stat,effect,overTimeChange,damageQualifier,false);
+      int intervalMinInt=Math.round(intervalMinMax[0]);
+      int intervalMaxInt=Math.round(intervalMinMax[1]);
 
       EffectDuration duration=effect.getEffectDuration();
       int pulseCount=duration.getPulseCount();
@@ -315,12 +318,18 @@ public class EffectDisplay2
     }
     if (initialLine!=null)
     {
-      if (overTimeLine==null)
+      if (overTimeLine!=null)
       {
-        return initialLine;
+        storage.add(initialLine+" initially");
       }
-      return initialLine+" initially"+EndOfLine.NATIVE_EOL+overTimeLine;
+      else
+      {
+        storage.add(initialLine);
+      }
     }
-    return (overTimeLine!=null)?overTimeLine:"";
+    if (overTimeLine!=null)
+    {
+      storage.add(overTimeLine);
+    }
   }
 }

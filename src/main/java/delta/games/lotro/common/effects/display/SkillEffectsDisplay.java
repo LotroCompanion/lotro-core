@@ -71,8 +71,7 @@ public class SkillEffectsDisplay
       BaseVitalEffect vitalEffect=(BaseVitalEffect)effect;
       EffectDisplay2 d2=new EffectDisplay2(_character);
       ImplementUsageType implementUsage=generator.getImplementUsage();
-      String display=d2.getVitalEffectDisplay(implementUsage,vitalEffect,damageQualifier);
-      storage.add(display);
+      d2.getVitalEffectDisplay(implementUsage,vitalEffect,damageQualifier,storage);
     }
     else if (effect instanceof ComboEffect)
     {
