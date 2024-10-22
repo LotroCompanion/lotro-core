@@ -291,7 +291,7 @@ Fast
 Tactical Skill
 Max Targets: 23
 Radius: 15m
-Skill Type: Buff, Heal, Debuff
+Skill Type: Debuff, Buff, Heal
 Range: 15,2m
 Restores the power of your Fellows and increases your melee damage while slowing all enemies around you.
 Reduces target's Movement speed by 50%
