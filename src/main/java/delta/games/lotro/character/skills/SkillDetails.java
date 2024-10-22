@@ -1,6 +1,6 @@
 package delta.games.lotro.character.skills;
 
-import java.util.Set;
+import java.util.List;
 
 import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
@@ -36,7 +36,7 @@ public class SkillDetails implements Identifiable,Named
   // Resist category
   private ResistCategory _resistCategory;
   // Display types
-  private Set<SkillDisplayType> _displayTypes;
+  private List<SkillDisplayType> _displayTypes;
   // Effects
   private SkillEffectsManager _effects;
   // Morale/power cost
@@ -313,7 +313,7 @@ public class SkillDetails implements Identifiable,Named
    * Get the display types.
    * @return some display types or <code>null</code>.
    */
-  public Set<SkillDisplayType> getDisplayTypes()
+  public List<SkillDisplayType> getDisplayTypes()
   {
     return _displayTypes;
   }
@@ -322,7 +322,7 @@ public class SkillDetails implements Identifiable,Named
    * Set the display types.
    * @param displayTypes Types to set (may be <code>null</code>).
    */
-  public void setDisplayTypes(Set<SkillDisplayType> displayTypes)
+  public void setDisplayTypes(List<SkillDisplayType> displayTypes)
   {
     _displayTypes=displayTypes;
   }

@@ -2,7 +2,6 @@ package delta.games.lotro.character.skills;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -198,7 +197,7 @@ public class SkillDisplay
       table.add("Resistance: "+resistCategory.getLabel());
     }
     // Skill types
-    Set<SkillDisplayType> displayTypes=_skillDetails.getDisplayTypes();
+    List<SkillDisplayType> displayTypes=_skillDetails.getDisplayTypes();
     if ((displayTypes!=null) && (!displayTypes.isEmpty()))
     {
       StringBuilder types=new StringBuilder();

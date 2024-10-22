@@ -2,10 +2,7 @@ package delta.games.lotro.character.skills.io.xml;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.transform.sax.TransformerHandler;
 
@@ -32,7 +29,6 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillDisplayType;
-import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
 import delta.games.lotro.common.inductions.Induction;
 import delta.games.lotro.common.inductions.InductionsManager;
 import delta.games.lotro.common.properties.ModPropertyList;
@@ -123,7 +119,7 @@ public class SkillDetailsXmlIO
       attrs.addAttribute("","",SkillDetailsXMLConstants.RESIST_CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(resistCategory.getCode()));
     }
     // Display types
-    Set<SkillDisplayType> displayTypes=data.getDisplayTypes();
+    List<SkillDisplayType> displayTypes=data.getDisplayTypes();
     if ((displayTypes!=null) && (!displayTypes.isEmpty()))
     {
       String displayTypeCodes=asCodes(displayTypes);
@@ -131,12 +127,10 @@ public class SkillDetailsXmlIO
     }
   }
 
-  private static String asCodes(Set<SkillDisplayType> displayTypes)
+  private static String asCodes(List<SkillDisplayType> displayTypes)
   {
-    List<SkillDisplayType> list=new ArrayList<SkillDisplayType>(displayTypes);
-    Collections.sort(list,new LotroEnumEntryCodeComparator<SkillDisplayType>());
     StringBuilder sb=new StringBuilder();
-    for(SkillDisplayType type : list)
+    for(SkillDisplayType type : displayTypes)
     {
       if (sb.length()>0)
       {
@@ -252,7 +246,7 @@ public class SkillDetailsXmlIO
     if (displayTypeCodes!=null)
     {
       List<SkillDisplayType> displayTypes=EnumXMLUtils.readEnumEntriesList(displayTypeCodes,SkillDisplayType.class);
-      ret.setDisplayTypes(new HashSet<SkillDisplayType>(displayTypes));
+      ret.setDisplayTypes(displayTypes);
     }
     readChildNodes(ret,skillDetailsTag);
     return ret;
