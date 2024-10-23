@@ -10,6 +10,7 @@ public class EffectDuration
 {
   // Total duration, or interval duration if pulses (seconds)
   private Float _duration;
+  private ModPropertyList _durationModifiers;
   // Pulses count
   private int _pulseCount;
   private ModPropertyList _pulseCountModifiers;
@@ -39,6 +40,24 @@ public class EffectDuration
   public void setDuration(Float duration)
   {
     _duration=duration;
+  }
+
+  /**
+   * Get the duration modifiers.
+   * @return Some modifiers or <code>null</code>.
+   */
+  public ModPropertyList getDurationModifiers()
+  {
+    return _durationModifiers;
+  }
+
+  /**
+   * Set the duration modifiers.
+   * @param durationModifiers The modifiers to set (may be <code>null</code>).
+   */
+  public void setDurationModifiers(ModPropertyList durationModifiers)
+  {
+    _durationModifiers=durationModifiers;
   }
 
   /**

@@ -159,18 +159,27 @@ public class EffectXMLWriter
     if (effectDuration!=null)
     {
       // Duration
+      // - value
       Float duration=effectDuration.getDuration();
       if (duration!=null)
       {
         attrs.addAttribute("","",EffectXMLConstants.EFFECT_DURATION_ATTR,XmlWriter.CDATA,duration.toString());
       }
+      // - modifiers
+      ModPropertyList durationMods=effectDuration.getDurationModifiers();
+      String durationModsStr=ModPropertyListIO.asPersistentString(durationMods);
+      if (!durationModsStr.isEmpty())
+      {
+        attrs.addAttribute("","",EffectXMLConstants.EFFECT_DURATION_MODIFIERS_ATTR,XmlWriter.CDATA,durationModsStr);
+      }
       // Pulse count
+      // - value
       int pulseCount=effectDuration.getPulseCount();
       if (pulseCount>0)
       {
         attrs.addAttribute("","",EffectXMLConstants.EFFECT_PULSE_COUNT_ATTR,XmlWriter.CDATA,String.valueOf(pulseCount));
       }
-      // Pulse count modifiers
+      // - modifiers
       ModPropertyList pulseCountModifiers=effectDuration.getPulseCountModifiers();
       String pulseCountModifiersStr=ModPropertyListIO.asPersistentString(pulseCountModifiers);
       if (!pulseCountModifiersStr.isEmpty())

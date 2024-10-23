@@ -758,15 +758,19 @@ public class EffectXMLParser
       {
         duration=NumericTools.parseFloat(durationStr);
       }
+      // - duration modifiers
+      String durationModifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_DURATION_MODIFIERS_ATTR,null);
+      ModPropertyList durationModifiers=ModPropertyListIO.fromPersistedString(durationModifiersStr);
       // - pulse count
       int pulseCount=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_PULSE_COUNT_ATTR,0);
       // - pulse count modifiers
       String pulseCountModifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_PULSE_COUNT_MODIFIERS_ATTR,null);
       ModPropertyList pulseCountModifiers=ModPropertyListIO.fromPersistedString(pulseCountModifiersStr);
-      if ((duration!=null) || (pulseCount>0) || (pulseCountModifiers!=null))
+      if ((duration!=null) || (durationModifiers!=null) || (pulseCount>0) || (pulseCountModifiers!=null))
       {
         EffectDuration effectDuration=new EffectDuration();
         effectDuration.setDuration(duration);
+        effectDuration.setDurationModifiers(durationModifiers);
         effectDuration.setPulseCount(pulseCount);
         effectDuration.setPulseCountModifiers(pulseCountModifiers);
         effect.setEffectDuration(effectDuration);

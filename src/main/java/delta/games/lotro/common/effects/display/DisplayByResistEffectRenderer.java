@@ -11,7 +11,7 @@ import delta.games.lotro.common.enums.ResistCategory;
  */
 public class DisplayByResistEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<DispelByResistEffect>
 {
-
+  @Override
   public void render(List<String> storage, DispelByResistEffect effect)
   {
     int count=effect.getMaxDispelCount();

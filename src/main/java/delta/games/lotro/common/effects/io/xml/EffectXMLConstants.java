@@ -44,6 +44,10 @@ public class EffectXMLConstants
    */
   public static final String EFFECT_DURATION_ATTR="duration";
   /**
+   * Tag 'effect', attribute 'durationMods'.
+   */
+  public static final String EFFECT_DURATION_MODIFIERS_ATTR="durationMods";
+  /**
    * Tag 'effect', attribute 'pulseCount'.
    */
   public static final String EFFECT_PULSE_COUNT_ATTR="pulseCount";
