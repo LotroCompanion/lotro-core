@@ -9,7 +9,7 @@ Skill Type: Fire
 Range: 30m
 Burn the enemy with damage-over-time.
 3 772 - 4 714 Fire Damage
-2 042 - 2 149 Fire Damage every 2 seconds for 10 seconds
+2 042 - 2 149 Fire Damage every 2,0 seconds for 10 seconds
 -3% Tactical Mitigation (%)
 -3% Physical Mitigation (%)
 Duration: 20s
@@ -24,7 +24,7 @@ Skill Type: Fire
 Range: 30m
 A basic sigil which burns your foe over a brief time and restores your Power.
 2 618 - 3 273 Fire Damage
-764 - 849 Fire Damage every 2 seconds for 6 seconds
+764 - 849 Fire Damage every 2,0 seconds for 6 seconds
 Restores 208 - 297 Power
 Cooldown: 0,5s
 *****************************
@@ -79,9 +79,9 @@ Channel Duration: 5,5s
 Skill Type: Lightning
 Range: 30m
 Lightning wreaths your enemy while restoring your own power.
-6 189 - 6 877 Lightning Damage every 1 seconds
+6 189 - 6 877 Lightning Damage every 1,0 seconds
 On Use:
-Restores 589 - 654 Power every 1 seconds
+Restores 589 - 654 Power every 1,0 seconds
 Channelled Skill
 Cooldown: 45s
 *****************************

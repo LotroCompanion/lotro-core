@@ -12,7 +12,6 @@ import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.EffectFlags;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
@@ -56,11 +55,20 @@ public class SkillEffectsDisplay
   public void handleEffect(DamageQualifier damageQualifier, SkillEffectGenerator generator, Effect effect, List<String> storage)
   {
     // Check probability
-    boolean applicable=checkEffectApplicationProbability(effect);
+    float probabilityValue=getEffectApplicationProbability(effect);
+    boolean applicable=(probabilityValue>0);
     if (!applicable)
     {
       return;
     }
+    /*
+    if (probabilityValue<1.0f)
+    {
+      int percentage=Math.round(probabilityValue*100);
+      String probabilityLine=percentage+"% chance to apply";
+      storage.add(probabilityLine);
+    }
+    */
     String description=effect.getDescription();
     if (!description.isEmpty())
     {
@@ -191,16 +199,16 @@ public class SkillEffectsDisplay
     storage.add(text);
   }
 
-  private boolean checkEffectApplicationProbability(Effect effect)
+  private float getEffectApplicationProbability(Effect effect)
   {
     ApplicationProbability probability=effect.getApplicationProbability();
     if (probability==ApplicationProbability.ALWAYS)
     {
-      return true;
+      return 1.0f;
     }
     float probabilityValue=probability.getProbability();
     Integer modifier=probability.getModProperty();
     probabilityValue+=_character.computeAdditiveModifier(modifier);
-    return (probabilityValue>0);
+    return probabilityValue;
   }
 }

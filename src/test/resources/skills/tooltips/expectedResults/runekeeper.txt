@@ -25,7 +25,7 @@ Skill Type: Fire
 Range: 30m
 A powerful fire attack dealing damage-over-time.
 5 535 - 7 907 Fire Damage initially
-5 844 - 8 349 Fire Damage every 2 seconds for 14 seconds
+5 844 - 8 349 Fire Damage every 2,0 seconds for 14 seconds
 Your next fire skill has no induction
 Expires if out of combat for 9 seconds.
 Cost: 159 Power
@@ -103,7 +103,7 @@ May be applied up to three times, increasing the Writ's tier.
 
 +20% damage per tier increase.
 2 044 - 2 920 Fire Damage initially
-2 966 - 4 238 Fire Damage every 3 seconds for 21 seconds
+2 966 - 4 238 Fire Damage every 3,0 seconds for 21 seconds
 -1% Tactical Mitigation (%)
 Duration: 15s
 Cost: 32 Power
@@ -122,7 +122,7 @@ Skill Type: Fire
 Range: 30m
 AoE fire damage-over-time.
 9 195 - 13 135 Fire Damage
-4 700 - 6 714 Fire Damage every 3 seconds for 21 seconds
+4 700 - 6 714 Fire Damage every 3,0 seconds for 21 seconds
 Cost: 191 Power
 Attunes: 3 (battle)
 Cooldown: 20s
@@ -155,7 +155,7 @@ Range: 30m
 The ridicule a Rune-keeper writes hurts more than a mundane scribe's ever could. The damage over time tiers up on subsequent uses.
 4 575 - 6 535 Fire Damage
 This effect stacks up to 3 times
-3 076 - 4 394 Fire Damage every 3 seconds for 21 seconds
+3 076 - 4 394 Fire Damage every 3,0 seconds for 21 seconds
 Cost: 32 Power
 Attunes: 1 (battle)
 Cooldown: 1s
@@ -185,7 +185,7 @@ Resistance: Tactical
 Skill Type: Fire
 Range: 30m
 Fire damage-over-time that reduces threat.
-3 335 - 4 764 Fire Damage every 3 seconds for 21 seconds
+3 335 - 4 764 Fire Damage every 3,0 seconds for 21 seconds
 Slightly decreases threat over time.
 Cost: 32 Power
 Attunes: 3 (battle)
@@ -283,7 +283,7 @@ Skill Type: Heal
 Range: 25m
 Hardships are forgotten and spirits are lifted by such writings. This heal over time stacks with itself. -1% Power cost per Healing Attunement.
 Heals 2 928 - 4 183 Morale initially
-Heals 209 - 299 Morale every 2 seconds for 6 seconds
+Heals 209 - 299 Morale every 2,0 seconds for 6 seconds
 Cost: 96 Power
 Attunes: 2 (healing)
 Cooldown: 3s
@@ -309,7 +309,7 @@ A flurry of chilling words unleashes a swirl of numbing cold on foes around you.
 3% Incoming Ranged Critical Chance
 3% Incoming Tactical Critical Chance
 945 - 1 350 Frost Damage initially
-1 318 - 1 883 Frost Damage every 3 seconds
+1 318 - 1 883 Frost Damage every 3,0 seconds
 Cost: 191 Power
 Cooldown: 25s
 *****************************
@@ -321,7 +321,7 @@ Skill Type: Heal
 Range: 25m
 Heals the target +2% per Healing attunement.
 Heals 1 046 - 1 494 Morale initially
-Heals 366 - 523 Morale every 1 seconds for 12 seconds
+Heals 366 - 523 Morale every 1,0 seconds for 12 seconds
 Attunes: 1 (healing)
 Cooldown: 3s
 *****************************

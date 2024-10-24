@@ -304,10 +304,10 @@ public class EffectDisplay2
       EffectDuration duration=effect.getEffectDuration();
       int pulseCount=duration.getPulseCount();
       pulseCount+=_character.computeAdditiveModifiers(duration.getPulseCountModifiers());
-      Float interval=EffectDisplayUtils.getDuration(effect,_character);
-      float totalDuration=interval.floatValue()*pulseCount;
+      float interval=EffectDisplayUtils.getDuration(effect,_character);
+      float totalDuration=interval*pulseCount;
       overTimeLine=buildFullChange(intervalMinInt,intervalMaxInt,stat,damageType);
-      overTimeLine=overTimeLine+" every "+L10n.getString(interval.floatValue(),1)+" seconds";
+      overTimeLine=overTimeLine+" every "+L10n.getString(interval,1,1)+" seconds";
       if (totalDuration>0)
       {
         overTimeLine=overTimeLine+" for "+L10n.getString(Math.round(totalDuration))+" seconds";

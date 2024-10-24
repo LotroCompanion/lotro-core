@@ -71,7 +71,7 @@ Range: 5,2m
 Makes a full AoE attack, which causes medium damage-over-time.
 8 306 - 11 074 Beleriand (Main-hand) Damage
 787 Damage initially
-1 732 Damage every 2 seconds for 20 seconds
+1 732 Damage every 2,0 seconds for 20 seconds
 Cost: 135 Power
 Adds 2 to Fervour
 Cooldown: 4s
