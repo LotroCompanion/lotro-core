@@ -12,6 +12,8 @@ import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.progression.ProgressionsManager;
+import delta.games.lotro.common.properties.ModPropertyList;
+import delta.games.lotro.common.properties.io.ModPropertyListIO;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.SpecialEffect;
@@ -115,6 +117,14 @@ public class StatsProviderXMLParser
         }
       }
       provider.setDescriptionOverride(descriptionOverride);
+
+      // Modifiers
+      String modifiersStr=DOMParsingTools.getStringAttribute(attrs,BasicStatsSetXMLConstants.STAT_MODIFIERS_ATTR,null);
+      if (modifiersStr!=null)
+      {
+        ModPropertyList modifiers=ModPropertyListIO.fromPersistedString(modifiersStr);
+        provider.setModifiers(modifiers);
+      }
     }
     return provider;
   }

@@ -31,4 +31,8 @@ public class BasicStatsSetXMLConstants
    * Tag 'stat', attribute 'descriptionOverride'.
    */
   public static final String STAT_DESCRIPTION_OVERRIDE_ATTR="descriptionOverride";
+  /**
+   * Tag 'stat', attribute 'modifiers'.
+   */
+  public static final String STAT_MODIFIERS_ATTR="modifiers";
 }

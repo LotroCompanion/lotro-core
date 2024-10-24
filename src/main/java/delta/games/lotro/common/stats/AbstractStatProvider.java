@@ -1,5 +1,7 @@
 package delta.games.lotro.common.stats;
 
+import delta.games.lotro.common.properties.ModPropertyList;
+
 /**
  * Base class for stat providers.
  * @author DAM
@@ -9,6 +11,7 @@ public abstract class AbstractStatProvider implements StatProvider
   private StatOperator _operator;
   private StatDescription _stat;
   private String _descriptionOverride;
+  private ModPropertyList _modifiers;
 
   /**
    * Constructor.
@@ -54,5 +57,17 @@ public abstract class AbstractStatProvider implements StatProvider
   public void setDescriptionOverride(String descriptionOverride)
   {
     _descriptionOverride=descriptionOverride;
+  }
+
+  @Override
+  public ModPropertyList getModifiers()
+  {
+    return _modifiers;
+  }
+
+  @Override
+  public void setModifiers(ModPropertyList modifiers)
+  {
+    _modifiers=modifiers;
   }
 }

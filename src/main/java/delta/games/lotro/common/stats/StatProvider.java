@@ -1,5 +1,7 @@
 package delta.games.lotro.common.stats;
 
+import delta.games.lotro.common.properties.ModPropertyList;
+
 /**
  * Interface of a stat provider.
  * @author DAM
@@ -49,5 +51,16 @@ public interface StatProvider extends StatsProviderEntry
    * @param descriptionOverride Value to set.
    */
   void setDescriptionOverride(String descriptionOverride);
-}
 
+  /**
+   * Get the stat value modifiers.
+   * @return some modifiers or <code>null</code>.
+   */
+  ModPropertyList getModifiers();
+
+  /**
+   * Set the stat value modifiers.
+   * @param modifiers Modifiers to set (may be <code>null</code>).
+   */
+  void setModifiers(ModPropertyList modifiers);
+}

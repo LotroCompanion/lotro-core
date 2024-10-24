@@ -9,6 +9,7 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
+import delta.games.lotro.common.properties.io.ModPropertyListIO;
 import delta.games.lotro.common.stats.ConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
@@ -80,6 +81,12 @@ public class StatsProviderXMLWriter
     if ((descriptionOverride!=null) && (descriptionOverride.length()>0))
     {
       attrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,XmlWriter.CDATA,descriptionOverride);
+    }
+    // Modifiers
+    String modifiers=ModPropertyListIO.asPersistentString(provider.getModifiers());
+    if (!modifiers.isEmpty())
+    {
+      attrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_MODIFIERS_ATTR,XmlWriter.CDATA,modifiers);
     }
     // Constant?
     if (provider instanceof ConstantStatProvider)
