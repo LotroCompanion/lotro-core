@@ -113,7 +113,7 @@ public class SkillEffectsDisplay
       ApplyOverTimeEffect applyOverTimeEffect=(ApplyOverTimeEffect)effect;
       if (!applyOverTimeEffect.getAppliedEffects().isEmpty())
       {
-        float interval=applyOverTimeEffect.getInterval();
+        float interval=EffectDisplayUtils.getDuration(applyOverTimeEffect,_character);
         String seconds=(interval>1.0f)?" seconds:":" second:";
         String line="Every "+L10n.getString(interval,1)+seconds;
         storage.add(line);
@@ -139,15 +139,11 @@ public class SkillEffectsDisplay
         // TODO Sometimes "Expires if out of combat for a short amount of time."
         storage.add("Expires if out of combat for 9 seconds.");
       }
-      EffectDuration effectDuration=propModEffect.getEffectDuration();
-      if (effectDuration!=null)
+      float duration=EffectDisplayUtils.getDuration(propModEffect,_character);
+      if (duration>0)
       {
-        Float duration=effectDuration.getDuration();
-        if (duration!=null)
-        {
-          String line="Duration: "+L10n.getString(duration.doubleValue(),1)+"s";
-          storage.add(line);
-        }
+        String line="Duration: "+L10n.getString(duration,1)+"s";
+        storage.add(line);
       }
     }
     else if (effect instanceof TieredEffect)

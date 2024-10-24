@@ -145,12 +145,9 @@ public class EffectDisplay2
 
       if (!initial)
       {
-        Float duration=effect.getEffectDuration().getDuration();
-        if (duration!=null)
-        {
-          vps*=duration.floatValue();
-          LOGGER.debug("Interval implement contribution: {}", Float.valueOf(vps));
-        }
+        float duration=EffectDisplayUtils.getDuration(effect,_character);
+        vps*=duration;
+        LOGGER.debug("Interval implement contribution: {}", Float.valueOf(vps));
       }
       float implementContrib=vpsMultiplier*vps;
       LOGGER.debug("implementContrib=vpsMultiplier*vps");
@@ -307,9 +304,8 @@ public class EffectDisplay2
       EffectDuration duration=effect.getEffectDuration();
       int pulseCount=duration.getPulseCount();
       pulseCount+=_character.computeAdditiveModifiers(duration.getPulseCountModifiers());
-      Float interval=duration.getDuration();
+      Float interval=EffectDisplayUtils.getDuration(effect,_character);
       float totalDuration=interval.floatValue()*pulseCount;
-
       overTimeLine=buildFullChange(intervalMinInt,intervalMaxInt,stat,damageType);
       overTimeLine=overTimeLine+" every "+L10n.getString(interval.floatValue(),1)+" seconds";
       if (totalDuration>0)

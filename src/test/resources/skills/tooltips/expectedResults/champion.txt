@@ -164,7 +164,7 @@ Range: 5,2m
 Makes a full AoE attack.
 11 283 - 15 045 Beleriand (Main-hand) Damage
 -20% Attack Duration
-Duration: 20s
+Duration: 30s
 Cost: 336 Power
 Cost: 4 Fervour
 Cooldown: 10s
@@ -280,7 +280,7 @@ Skill-Id: 1879111436
 Great Cleave
 Fast
 All AoE attacks cost 1 less Fervour Pip.
-Duration: 30s
+Duration: 40s
 Cost: 672 Power
 Requires at least 5 Fervour
 Cooldown: 120s

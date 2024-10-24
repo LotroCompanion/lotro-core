@@ -65,22 +65,4 @@ public class ApplyOverTimeEffect extends Effect
   {
     return _appliedEffects;
   }
-
-  /**
-   * Get the interval between applications.
-   * @return An interval (seconds).
-   */
-  public float getInterval()
-  {
-    EffectDuration duration=getEffectDuration();
-    if (duration!=null)
-    {
-      Float intervalDuration=duration.getDuration();
-      if (intervalDuration!=null)
-      {
-        return intervalDuration.floatValue();
-      }
-    }
-    return 0;
-  }
 }

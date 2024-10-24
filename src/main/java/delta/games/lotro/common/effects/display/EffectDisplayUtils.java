@@ -5,9 +5,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
+import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
+import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.DamageTypes;
 
@@ -86,5 +90,29 @@ public class EffectDisplayUtils
     if (code==10) return "Root";
     LOGGER.warn("Unmanaged state: {}",state);
     return state.getLabel();
+  }
+
+  /**
+   * Get the duration (or interval) of an effect.
+   * @param effect Effect to use.
+   * @param character Context.
+   * @return A duration (seconds).
+   */
+  public static float getDuration(Effect effect, CharacterDataForSkills character)
+  {
+    EffectDuration effectDuration=effect.getEffectDuration();
+    if (effectDuration==null)
+    {
+      return 0;
+    }
+    float ret=0;
+    Float intervalDuration=effectDuration.getDuration();
+    if (intervalDuration!=null)
+    {
+      ret=intervalDuration.floatValue();
+    }
+    ModPropertyList mods=effectDuration.getDurationModifiers();
+    ret+=character.computeAdditiveModifiers(mods);
+    return ret;
   }
 }
