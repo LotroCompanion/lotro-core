@@ -122,7 +122,7 @@ Heals Morale in a time of need.
 Briefly protects you, while damaging enemies who attack you.
 Heals 0 Morale
 Duration: 10s
-Cooldown: 180s
+Cooldown: 3m
 *****************************
 Skill-Id: 1879064258
 Light of the Rising Dawn

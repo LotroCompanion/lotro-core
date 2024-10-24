@@ -44,7 +44,7 @@ You make a stiff punch at your enemy.
 There is a chance your opponent will be dazed by your combat prowess.
 3s Daze
 Cost: 429 Power
-Cooldown: 180s
+Cooldown: 3m
 *****************************
 Skill-Id: 1879212605
 Swift Blade
@@ -218,7 +218,7 @@ Duration: 30s
 Every 5 seconds:
 Adds 1 Fervour Pip
 Cost: 269 Power
-Cooldown: 90s
+Cooldown: 1m30s
 *****************************
 Skill-Id: 1879111438
 Blood Rage
@@ -226,7 +226,7 @@ Fast
 Skill Type: Buff
 Breaks Champion out of any impairing Combat State and removes disarm effects.
 Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
-Cooldown: 60s
+Cooldown: 1m
 *****************************
 Skill-Id: 1879059881
 Raging Blade
@@ -283,7 +283,7 @@ All AoE attacks cost 1 less Fervour Pip.
 Duration: 40s
 Cost: 672 Power
 Requires at least 5 Fervour
-Cooldown: 120s
+Cooldown: 2m
 *****************************
 Skill-Id: 1879216336
 True Heroics
@@ -301,7 +301,7 @@ Restores 360 - 400 Power
 10% Melee Damage
 Duration: 12s
 Cost: 1 080 Power
-Cooldown: 120s
+Cooldown: 2m
 *****************************
 Skill-Id: 1879102586
 Second Wind
@@ -333,7 +333,7 @@ Every 2 seconds:
 Heals 0 Morale
 Duration: 30s
 Cost: 672 Power
-Cooldown: 180s
+Cooldown: 3m
 *****************************
 Skill-Id: 1879186727
 Fear Nothing!

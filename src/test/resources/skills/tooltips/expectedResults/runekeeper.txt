@@ -353,4 +353,4 @@ Duration: 20s
 Duration: 20s
 Cost: 254 Power
 Attunes: 4 (steady)
-Cooldown: 180s
+Cooldown: 3m

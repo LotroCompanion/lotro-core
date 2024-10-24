@@ -113,7 +113,7 @@ When dazed, stunned, or knocked down: recover from impairing effects and inflict
 3s Stun
 Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
 Cost: 191 Power
-Cooldown: 75s
+Cooldown: 1m15s
 *****************************
 Skill-Id: 1879064295
 Stamp

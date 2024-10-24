@@ -1,6 +1,7 @@
 package delta.games.lotro.common;
 
 import delta.common.utils.NumericTools;
+import delta.common.utils.l10n.L10n;
 
 /**
  * Duration related tools.
@@ -211,5 +212,35 @@ public class Duration
     }
     // Display years and months
     return getDurationString(duration,SHOW_YEARS|SHOW_MONTHS);
+  }
+
+  /**
+   * Get a duration string from a duration input.
+   * @param duration Duration in seconds.
+   * @return A displayable string.
+   */
+  public static String getShortDurationString(float duration)
+  {
+    StringBuilder sb=new StringBuilder();
+    // Hours
+    int hours=(int)(duration/HOUR);
+    if (hours>0)
+    {
+      sb.append(hours).append('h');
+    }
+    duration-=hours*HOUR;
+    // Minutes
+    int minutes=(int)(duration/MINUTE);
+    if (minutes>0)
+    {
+      sb.append(minutes).append('m');
+    }
+    // Seconds
+    float seconds=duration-minutes*MINUTE;
+    if (seconds>0)
+    {
+      sb.append(L10n.getString(seconds,1)).append('s');
+    }
+    return sb.toString();
   }
 }

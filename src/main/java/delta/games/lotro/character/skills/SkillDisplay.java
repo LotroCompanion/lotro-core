@@ -15,6 +15,7 @@ import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.Arc;
 import delta.games.lotro.character.skills.geometry.Shape;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.display.SkillEffectsDisplay;
 import delta.games.lotro.common.enums.DamageQualifier;
@@ -253,8 +254,7 @@ public class SkillDisplay
       cooldownF+=_character.computeAdditiveModifiers(_skillDetails.getCooldownMods());
       if (cooldownF>0f)
       {
-        // TODO Format duration
-        table.add("Cooldown: "+L10n.getString(cooldownF,1)+"s");
+        table.add("Cooldown: "+Duration.getShortDurationString(cooldownF));
       }
     }
     return table;
