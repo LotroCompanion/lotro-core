@@ -75,7 +75,11 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
         int effectPercentage=(int)(effectProbability*100);
         String text=effectPercentage+"% chance to Receive effect:";
         storage.add(text);
+        EffectRenderingState state=getState();
+        boolean isRootEffectBackup=state.isRootEffect();
+        state.setRootEffect(false);
         displayEffect(storage,defenderEffect.getEffect());
+        state.setRootEffect(isRootEffectBackup);
       }
     }
     // Attacker
@@ -134,7 +138,11 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
         int effectPercentage=(int)(effectProbability*100);
         String text=effectPercentage+"% chance to Reflect effect:";
         storage.add(text);
+        EffectRenderingState state=getState();
+        boolean isRootEffectBackup=state.isRootEffect();
+        state.setRootEffect(false);
         displayEffect(storage,attackerEffect.getEffect());
+        state.setRootEffect(isRootEffectBackup);
       }
     }
   }
