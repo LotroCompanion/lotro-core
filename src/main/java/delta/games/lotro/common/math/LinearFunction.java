@@ -71,8 +71,16 @@ public class LinearFunction
   {
     if ((x>=_minX) && (x<=_maxX))
     {
-      float value=(x-_minX)*(_maxY-_minY)/(_maxX-_minX);
+      float value=_minY+(x-_minX)*(_maxY-_minY)/(_maxX-_minX);
       return Float.valueOf(value);
+    }
+    if (x<_minX)
+    {
+      return Float.valueOf(_minY);
+    }
+    if (x>_maxX)
+    {
+      return Float.valueOf(_maxY);
     }
     return null;
   }
