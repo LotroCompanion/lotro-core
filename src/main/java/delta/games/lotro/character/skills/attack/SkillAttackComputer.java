@@ -15,6 +15,7 @@ import delta.games.lotro.common.global.WeaponStrikeModifiers;
 import delta.games.lotro.common.global.WeaponStrikeModifiersManager;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
@@ -35,6 +36,7 @@ public class SkillAttackComputer
   private static final Logger LOGGER=LoggerFactory.getLogger(SkillAttackComputer.class);
 
   private CharacterDataForSkills _character;
+  private StatModifiersComputer _statModsComputer;
 
   /**
    * Constructor.
@@ -43,6 +45,7 @@ public class SkillAttackComputer
   public SkillAttackComputer(CharacterDataForSkills data)
   {
     _character=data;
+    _statModsComputer=new StatModifiersComputer(data);
   }
 
   /**
@@ -165,7 +168,7 @@ public class SkillAttackComputer
     float damageModifier=attack.getDamageModifier();
     LOGGER.debug("Damage modifier (from attack): {}",Float.valueOf(damageModifier));
     ModPropertyList damageModifierMods=attack.getDamageModifiersMods();
-    float damageModifierModValue=_character.computeAdditiveModifiers(damageModifierMods);
+    float damageModifierModValue=_statModsComputer.computeAdditiveModifiers(damageModifierMods);
     damageModifier+=damageModifierModValue;
     LOGGER.debug("Damage modifier (with modifiers): {}",Float.valueOf(damageModifier));
 
@@ -178,14 +181,14 @@ public class SkillAttackComputer
     float maxDamage=attack.getMaxDamage()+maxDamageProg;
     LOGGER.debug("Max damage: {}",Float.valueOf(maxDamage));
     ModPropertyList maxDamageMods=attack.getMaxDamageMods();
-    float maxDamageModsValue=_character.computeAdditiveModifiers(maxDamageMods);
+    float maxDamageModsValue=_statModsComputer.computeAdditiveModifiers(maxDamageMods);
     maxDamage+=maxDamageModsValue;
     LOGGER.debug("Max damage (with modifiers): {}",Float.valueOf(maxDamage));
     // DPS
     float dpsAddModProg=getProgressionValue(attack.getDPSModProgression(),charLevel,0);
     LOGGER.debug("DPS add mod (progression): {}",Float.valueOf(dpsAddModProg));
     ModPropertyList dpsMods=attack.getDPSMods();
-    float dpsModsValue=_character.computeAdditiveModifiers(dpsMods);
+    float dpsModsValue=_statModsComputer.computeAdditiveModifiers(dpsMods);
     float dpsAddMod=dpsAddModProg+dpsModsValue;
     LOGGER.debug("DPS add mod (with modifiers): {}",Float.valueOf(dpsAddMod));
 

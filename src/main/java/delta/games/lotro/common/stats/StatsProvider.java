@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
+import delta.games.lotro.common.properties.ModPropertyList;
 
 /**
  * Stats provider.
@@ -199,12 +200,43 @@ public class StatsProvider
    */
   public StatsSetElement getStat(StatProvider provider, int tier, int level)
   {
+    return getStat(provider,new SimpleStatComputerContext(tier,level));
+  }
+
+  /**
+   * Compute a single stat.
+   * @param provider Stat provider.
+   * @param context Context to use.
+   * @return A stats set element.
+   */
+  public StatsSetElement getStat(StatProvider provider, StatComputerContext context)
+  {
+    int tier=context.getTier();
+    int level=context.getLevel();
     StatOperator operator=provider.getOperator();
+    StatDescription stat=provider.getStat();
     Float value=provider.getStatValue(tier,level);
-    if (value!=null)
+    ModPropertyList mods=provider.getModifiers();
+    StatModifiersComputer modsComputer=context.getStatModifiersComputer();
+    if ((mods!=null) && (modsComputer!=null))
+    {
+      float modsValue=modsComputer.computeAdditiveModifiers(mods);
+      if (stat.isPercentage())
+      {
+        modsValue*=100;
+      }
+      if (value!=null)
+      {
+        value=Float.valueOf(value.floatValue()+modsValue);
+      }
+      else
+      {
+        value=Float.valueOf(modsValue);
+      }
+    }
+    if ((value!=null) && (Math.abs(value.floatValue())>0.001))
     {
       Number statValue=null;
-      StatDescription stat=provider.getStat();
       float floatValue=value.floatValue();
       StatType type=stat.getType();
       if (type==StatType.INTEGER)

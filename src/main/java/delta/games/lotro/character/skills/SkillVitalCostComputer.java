@@ -4,6 +4,7 @@ import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.common.enums.VitalType;
 import delta.games.lotro.common.enums.VitalTypes;
 import delta.games.lotro.common.properties.ModPropertyList;
+import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -14,6 +15,7 @@ import delta.games.lotro.utils.maths.Progression;
 public class SkillVitalCostComputer
 {
   private CharacterDataForSkills _character;
+  private StatModifiersComputer _statModsComputer;
 
   /**
    * Constructor.
@@ -22,6 +24,7 @@ public class SkillVitalCostComputer
   public SkillVitalCostComputer(CharacterDataForSkills character)
   {
     _character=character;
+    _statModsComputer=new StatModifiersComputer(character);
   }
 
   private float getStat(VitalType type)
@@ -88,7 +91,7 @@ public class SkillVitalCostComputer
     }
     // Modifiers
     ModPropertyList mods=costDefinition.getVitalMods();
-    float costMultiplier=_character.computeMultiplicativeModifiers(mods);
+    float costMultiplier=_statModsComputer.computeMultiplicativeModifiers(mods);
     float cost=totalCost*costMultiplier;
     return Float.valueOf(cost);
   }

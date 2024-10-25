@@ -17,6 +17,7 @@ import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.stats.StatDescription;
+import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.WellKnownStat;
 import delta.games.lotro.lore.items.DamageType;
@@ -34,6 +35,7 @@ public class EffectDisplay2
 
   private CharacterDataForSkills _character;
   private SkillAttackComputer _attackComputer;
+  private StatModifiersComputer _statModsComputer;
 
   /**
    * Constructor.
@@ -42,7 +44,8 @@ public class EffectDisplay2
   public EffectDisplay2(CharacterDataForSkills character)
   {
     _character=character;
-    _attackComputer=new SkillAttackComputer(_character);
+    _attackComputer=new SkillAttackComputer(character);
+    _statModsComputer=new StatModifiersComputer(character);
   }
 
   private float implementContrib(ImplementUsageType implementUsage, ItemInstance<?> item)
@@ -118,7 +121,7 @@ public class EffectDisplay2
   {
     float change=0;
     float qualifierValue=getQualifierValue(implementUsage,stat,damageQualifier);
-    float modifiers=_character.computeAdditiveModifiers(description.getModifiers());
+    float modifiers=_statModsComputer.computeAdditiveModifiers(description.getModifiers());
     float qualifierFactor=getQualifierFactor(modifiers,implementUsage,qualifierValue);
     LOGGER.debug("Qualifier factor: {}", Float.valueOf(qualifierFactor));
 
@@ -145,7 +148,7 @@ public class EffectDisplay2
 
       if (!initial)
       {
-        float duration=EffectDisplayUtils.getDuration(effect,_character);
+        float duration=EffectDisplayUtils.getDuration(effect,_statModsComputer);
         vps*=duration;
         LOGGER.debug("Interval implement contribution: {}", Float.valueOf(vps));
       }
@@ -303,8 +306,8 @@ public class EffectDisplay2
 
       EffectDuration duration=effect.getEffectDuration();
       int pulseCount=duration.getPulseCount();
-      pulseCount+=_character.computeAdditiveModifiers(duration.getPulseCountModifiers());
-      float interval=EffectDisplayUtils.getDuration(effect,_character);
+      pulseCount+=_statModsComputer.computeAdditiveModifiers(duration.getPulseCountModifiers());
+      float interval=EffectDisplayUtils.getDuration(effect,_statModsComputer);
       float totalDuration=interval*pulseCount;
       overTimeLine=buildFullChange(intervalMinInt,intervalMaxInt,stat,damageType);
       overTimeLine=overTimeLine+" every "+L10n.getString(interval,1,1)+" seconds";

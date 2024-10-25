@@ -166,6 +166,11 @@ public class StatUtils
    */
   public static List<String> getFullStatsForDisplay(StatsProvider statsProvider, int level)
   {
+    return getFullStatsForDisplay(statsProvider,new SimpleStatComputerContext(1,level));
+  }
+
+  public static List<String> getFullStatsForDisplay(StatsProvider statsProvider, StatComputerContext context)
+  {
     List<String> lines=new ArrayList<String>();
     int nbEntries=statsProvider.getEntriesCount();
     for(int i=0;i<nbEntries;i++)
@@ -174,7 +179,7 @@ public class StatUtils
       if (entry instanceof StatProvider)
       {
         StatProvider provider=(StatProvider)entry;
-        StatsSetElement element=statsProvider.getStat(provider,1,level);
+        StatsSetElement element=statsProvider.getStat(provider,context);
         if (element!=null)
         {
           String statDisplay=getStatDisplay(element);

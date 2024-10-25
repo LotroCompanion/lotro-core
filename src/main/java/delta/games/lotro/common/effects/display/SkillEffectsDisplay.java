@@ -23,6 +23,8 @@ import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.ImplementUsageType;
+import delta.games.lotro.common.stats.SimpleStatComputerContext;
+import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.utils.Proxy;
@@ -34,6 +36,7 @@ import delta.games.lotro.utils.Proxy;
 public class SkillEffectsDisplay
 {
   private CharacterDataForSkills _character;
+  private StatModifiersComputer _statModsComputer;
 
   /**
    * Constructor.
@@ -43,6 +46,7 @@ public class SkillEffectsDisplay
   public SkillEffectsDisplay(CharacterDataForSkills data, SkillDescription skill)
   {
     _character=data;
+    _statModsComputer=new StatModifiersComputer(data);
   }
 
   /**
@@ -121,7 +125,7 @@ public class SkillEffectsDisplay
       ApplyOverTimeEffect applyOverTimeEffect=(ApplyOverTimeEffect)effect;
       if (!applyOverTimeEffect.getAppliedEffects().isEmpty())
       {
-        float interval=EffectDisplayUtils.getDuration(applyOverTimeEffect,_character);
+        float interval=EffectDisplayUtils.getDuration(applyOverTimeEffect,_statModsComputer);
         String seconds=(interval>1.0f)?" seconds:":" second:";
         String line="Every "+L10n.getString(interval,1)+seconds;
         storage.add(line);
@@ -138,7 +142,9 @@ public class SkillEffectsDisplay
       if (provider!=null)
       {
         int level=_character.getLevel();
-        List<String> lines=StatUtils.getFullStatsForDisplay(provider,level);
+        SimpleStatComputerContext context=new SimpleStatComputerContext(level,level);
+        context.setStatValueProvider(_character);
+        List<String> lines=StatUtils.getFullStatsForDisplay(provider,context);
         storage.addAll(lines);
       }
       boolean expiresOutOfCombat=effect.getBaseFlag(EffectFlags.DURATION_COMBAT_ONLY);
@@ -147,7 +153,7 @@ public class SkillEffectsDisplay
         // TODO Sometimes "Expires if out of combat for a short amount of time."
         storage.add("Expires if out of combat for 9 seconds.");
       }
-      float duration=EffectDisplayUtils.getDuration(propModEffect,_character);
+      float duration=EffectDisplayUtils.getDuration(propModEffect,_statModsComputer);
       if (duration>0)
       {
         String line="Duration: "+L10n.getString(duration,1)+"s";
@@ -188,7 +194,7 @@ public class SkillEffectsDisplay
   private void showInduceCombatStateEffect(List<String> storage, InduceCombatStateEffect effect)
   {
     float duration=effect.getDuration();
-    duration+=_character.computeAdditiveModifiers(effect.getDurationModifiers());
+    duration+=_statModsComputer.computeAdditiveModifiers(effect.getDurationModifiers());
     CombatState state=effect.getCombatState();
     String stateStr="?";
     if (state!=null)
@@ -208,7 +214,7 @@ public class SkillEffectsDisplay
     }
     float probabilityValue=probability.getProbability();
     Integer modifier=probability.getModProperty();
-    probabilityValue+=_character.computeAdditiveModifier(modifier);
+    probabilityValue+=_statModsComputer.computeAdditiveModifier(modifier);
     return probabilityValue;
   }
 }

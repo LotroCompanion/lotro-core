@@ -6,12 +6,11 @@ Melee Skill
 Range: 4m
 Strengthens defences briefly.
 7 135 - 9 514 Beleriand (Main-hand) Damage
-2% Parry Chance
+4% Parry Chance
 2% Block Chance
 2,5% Partial Parry Chance
 -5% Armour Wear from Hits
 2,5% Partial Block Chance
-+${VALUE} to Tactical Mitigation
 Duration: 10s
 Restores 396 Power
 Cooldown: 3s

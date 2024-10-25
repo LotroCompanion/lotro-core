@@ -26,6 +26,7 @@ import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.enums.PipType;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillDisplayType;
+import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.pip.PipDescription;
 import delta.games.lotro.lore.pip.PipsManager;
@@ -43,6 +44,7 @@ public class SkillDisplay
   private SkillDetails _skillDetails;
   private SkillAttackComputer _attackComputer;
   private SkillEffectsDisplay _effectsDisplay;
+  private StatModifiersComputer _statModsComputer;
 
   /**
    * Constructor.
@@ -57,6 +59,7 @@ public class SkillDisplay
     _skillDetails=details;
     _attackComputer=new SkillAttackComputer(data);
     _effectsDisplay=new SkillEffectsDisplay(data,skill);
+    _statModsComputer=new StatModifiersComputer(data);
   }
 
   private int getAoEMaxTargets()
@@ -67,7 +70,7 @@ public class SkillDisplay
     {
       ret=maxTargets.intValue();
     }
-    float mod=_character.computeAdditiveModifiers(_skillDetails.getMaxTargetsMods());
+    float mod=_statModsComputer.computeAdditiveModifiers(_skillDetails.getMaxTargetsMods());
     ret+=Math.round(mod);
     return ret;
   }
@@ -90,7 +93,7 @@ public class SkillDisplay
       return 0.0f;
     }
     float range=geometry.getRange();
-    range+=_character.computeAdditiveModifiers(geometry.getMaxRangeMods());
+    range+=_statModsComputer.computeAdditiveModifiers(geometry.getMaxRangeMods());
 
     return range;
   }
@@ -180,7 +183,7 @@ public class SkillDisplay
       table.add("Radius: "+L10n.getString(radius,0)+"m");
     }
     // Induction
-    float inductionDuration=SkillDetailsUtils.getInductionDuration(_skillDetails,_character);
+    float inductionDuration=SkillDetailsUtils.getInductionDuration(_skillDetails,_statModsComputer);
     if (inductionDuration>0)
     {
       table.add("Induction: "+L10n.getString(inductionDuration,1)+"s");
@@ -251,7 +254,7 @@ public class SkillDisplay
     if (cooldown!=null)
     {
       float cooldownF=cooldown.floatValue();
-      cooldownF+=_character.computeAdditiveModifiers(_skillDetails.getCooldownMods());
+      cooldownF+=_statModsComputer.computeAdditiveModifiers(_skillDetails.getCooldownMods());
       if (cooldownF>0f)
       {
         table.add("Cooldown: "+Duration.getShortDurationString(cooldownF));
@@ -287,7 +290,7 @@ public class SkillDisplay
       skillActionDuration+=actionDurationContribution.floatValue();
     }
     LOGGER.debug("Skill duration (before induction): {}",Float.valueOf(skillActionDuration));
-    float inductionDuration=SkillDetailsUtils.getInductionDuration(_skillDetails,_character);
+    float inductionDuration=SkillDetailsUtils.getInductionDuration(_skillDetails,_statModsComputer);
     skillActionDuration+=inductionDuration;
     LOGGER.debug("Skill duration: {}",Float.valueOf(skillActionDuration));
     return skillActionDuration;
@@ -502,7 +505,7 @@ public class SkillDisplay
       return 0;
     }
     int ret=change.intValue();
-    float mods=_character.computeAdditiveModifiers(data.getChangeMods());
+    float mods=_statModsComputer.computeAdditiveModifiers(data.getChangeMods());
     return ret+(int)mods;
   }
 
@@ -514,7 +517,7 @@ public class SkillDisplay
       return -1;
     }
     int ret=min.intValue();
-    float mods=_character.computeAdditiveModifiers(data.getRequiredMinValueMods());
+    float mods=_statModsComputer.computeAdditiveModifiers(data.getRequiredMinValueMods());
     return ret+(int)mods;
   }
 
@@ -526,7 +529,7 @@ public class SkillDisplay
       return -1;
     }
     int ret=min.intValue();
-    float mods=_character.computeAdditiveModifiers(data.getRequiredMaxValueMods());
+    float mods=_statModsComputer.computeAdditiveModifiers(data.getRequiredMaxValueMods());
     return ret+(int)mods;
   }
 
@@ -538,7 +541,7 @@ public class SkillDisplay
       return 0;
     }
     int ret=change.intValue();
-    float mods=_character.computeAdditiveModifiers(data.getChangePerIntervalMods());
+    float mods=_statModsComputer.computeAdditiveModifiers(data.getChangePerIntervalMods());
     return ret+(int)mods;
   }
 
@@ -550,7 +553,7 @@ public class SkillDisplay
       return 0;
     }
     float ret=interval.floatValue();
-    float mods=_character.computeAdditiveModifiers(data.getSecondsPerPipChangeMods());
+    float mods=_statModsComputer.computeAdditiveModifiers(data.getSecondsPerPipChangeMods());
     return ret+mods;
   }
 

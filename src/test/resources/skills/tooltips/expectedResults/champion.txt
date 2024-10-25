@@ -164,6 +164,7 @@ Range: 5,2m
 Makes a full AoE attack.
 11 283 - 15 045 Beleriand (Main-hand) Damage
 -20% Attack Duration
+16 200 Critical Rating
 Duration: 30s
 Cost: 336 Power
 Cost: 4 Fervour
@@ -181,6 +182,8 @@ Makes a full AoE attack, which stuns your opponents.
 <rgb=#00FFDD>Mounted Combat Enemies: Stun replaced with a mount speed debuff</rgb>
 11 012 - 14 679 Beleriand (Main-hand) Damage
 3s Stun
+-2,2% Physical Mitigation (%)
+-2,2% Tactical Mitigation (%)
 Duration: 12s
 Cost: 404 Power
 Cost: 5 Fervour
@@ -280,6 +283,7 @@ Skill-Id: 1879111436
 Great Cleave
 Fast
 All AoE attacks cost 1 less Fervour Pip.
+5% Area Effect Attack Damage
 Duration: 40s
 Cost: 672 Power
 Requires at least 5 Fervour
@@ -317,6 +321,7 @@ Exchange of Blows
 Fast
 Melee Skill
 You reflect damage to your attacker when hit.
+20% Melee Damage
 Duration: 15s
 Cost: 404 Power
 Cost: 2 Fervour
@@ -331,6 +336,7 @@ Skill Type: Heal
 Heals the Champion for a percentage of their health over time.
 Every 2 seconds:
 Heals 0 Morale
+10% Melee Critical Chance
 Duration: 30s
 Cost: 672 Power
 Cooldown: 3m
