@@ -54,7 +54,7 @@ public class EffectDisplayUtils
     StringBuilder sb=new StringBuilder();
     for(ResistCategory category : categories)
     {
-      if (sb.length()>0) sb.append(",");
+      if (sb.length()>0) sb.append(", ");
       sb.append(category.getLabel());
     }
     return sb.toString();

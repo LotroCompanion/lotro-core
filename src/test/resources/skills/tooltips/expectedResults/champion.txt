@@ -275,6 +275,8 @@ You make a savage double attack that is difficult to parry or evade. The first a
 2 Attacks:
 5 607 - 7 476 Beleriand (Main-hand) Damage
 4 626 - 6 168 Beleriand (Main-hand) Damage
+Removes up to 1 Corruption effect from the target.
+Removes up to 1 Corruption effect from the target.
 Cost: 336 Power
 Cost: 2 Fervour
 Cooldown: 4s
@@ -345,6 +347,7 @@ Skill-Id: 1879186727
 Fear Nothing!
 Fast
 You feel the joy of battle coursing through your veins. You Fear Nothing!
+Removes up to 1 Disease, Wound, Fear, Poison effect with maximum strength of 155 from the target.
 Duration: 12s
 Cost: 202 Power
 Adds 2 to Fervour

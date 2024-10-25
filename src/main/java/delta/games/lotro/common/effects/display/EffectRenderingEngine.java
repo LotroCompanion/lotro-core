@@ -1,5 +1,6 @@
 package delta.games.lotro.common.effects.display;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.variables.VariableValueProvider;
@@ -17,6 +18,7 @@ public class EffectRenderingEngine
 {
   private EffectRenderingState _state;
   private EffectRenderingContext _context;
+  private boolean _doDescription;
 
   /**
    * Constructor.
@@ -26,6 +28,7 @@ public class EffectRenderingEngine
   {
     _context=new EffectRenderingContext(level);
     _state=new EffectRenderingState();
+    _doDescription=true;
   }
 
   /**
@@ -37,6 +40,7 @@ public class EffectRenderingEngine
   {
     _state=state;
     _context=context;
+    _doDescription=true;
   }
 
   /**
@@ -66,6 +70,15 @@ public class EffectRenderingEngine
     return _context.getLevel();
   }
 
+  /**
+   * Set the 'do description' flag.
+   * @param doDescription Flag to set.
+   */
+  public void setDoDescription(boolean doDescription)
+  {
+    _doDescription=doDescription;
+  }
+
   private void displaySpecifics(List<String> storage, Effect effect)
   {
     SingleEffectRenderersFactory f=new SingleEffectRenderersFactory();
@@ -85,20 +98,24 @@ public class EffectRenderingEngine
    */
   public void displayEffect(List<String> storage, Effect effect)
   {
+    List<String> childStorage=new ArrayList<String>();
     String descriptionOverride=effect.getDescriptionOverride();
     if (!descriptionOverride.isEmpty())
     {
       String text=resolveVariables(effect,descriptionOverride);
       text=TextSanitizer.sanitize(text);
-      storage.add(text);
+      childStorage.add(text);
     }
-    String description=effect.getDescription();
-    if (!description.isEmpty())
+    if (_doDescription)
     {
-      description=TextSanitizer.sanitize(description);
-      storage.add(description);
+      String description=effect.getDescription();
+      if (!description.isEmpty())
+      {
+        description=TextSanitizer.sanitize(description);
+        childStorage.add(description);
+      }
     }
-    displaySpecifics(storage,effect);
+    displaySpecifics(childStorage,effect);
     if (!_state.isDurationDisplayed())
     {
       EffectDuration effectDuration=effect.getEffectDuration();
@@ -107,15 +124,16 @@ public class EffectRenderingEngine
         Float duration=effectDuration.getDuration();
         if (duration!=null)
         {
-          if (!storage.isEmpty())
+          if (!childStorage.isEmpty())
           {
             String durationStr=Duration.getDurationString(duration.intValue());
-            storage.add("Duration: "+durationStr);
+            childStorage.add("Duration: "+durationStr);
             _state.setDurationDisplayed();
           }
         }
       }
     }
+    storage.addAll(childStorage);
   }
 
   private String resolveVariables(Effect effect, String input)

@@ -58,6 +58,10 @@ public class SkillEffectsDisplay
    */
   public void handleEffect(DamageQualifier damageQualifier, SkillEffectGenerator generator, Effect effect, List<String> storage)
   {
+    int level=_character.getLevel();
+    EffectRenderingEngine engine=new EffectRenderingEngine(level);
+    engine.setDoDescription(false);
+
     // Check probability
     float probabilityValue=getEffectApplicationProbability(effect);
     boolean applicable=(probabilityValue>0);
@@ -141,7 +145,6 @@ public class SkillEffectsDisplay
       StatsProvider provider=propModEffect.getStatsProvider();
       if (provider!=null)
       {
-        int level=_character.getLevel();
         SimpleStatComputerContext context=new SimpleStatComputerContext(level,level);
         context.setStatValueProvider(_character);
         List<String> lines=StatUtils.getFullStatsForDisplay(provider,context);
@@ -188,6 +191,10 @@ public class SkillEffectsDisplay
     else if (effect instanceof InduceCombatStateEffect)
     {
       showInduceCombatStateEffect(storage,(InduceCombatStateEffect)effect);
+    }
+    else
+    {
+      engine.displayEffect(storage,effect);
     }
   }
 

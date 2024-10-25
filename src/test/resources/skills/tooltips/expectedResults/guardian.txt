@@ -22,6 +22,7 @@ Melee Skill
 Range: 4m
 A quick stinging blow.
 5 173 - 6 898 Beleriand (Main-hand) Damage
+Removes up to 1 Corruption effect from the target.
 Cost: 16 Power
 Cooldown: 2,5s
 *****************************

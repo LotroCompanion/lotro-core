@@ -106,9 +106,9 @@ Range: 5,0m
 A low cut in front of you which briefly slows the movement speed of up to 3 enemies.
 2 Attacks:
 3 586 - 4 782 Beleriand (Main-hand) Damage
+1 012 - 1 349 Westernesse (Off-hand) Damage
 -50% Target Run Speed
 Duration: 10s
-1 012 - 1 349 Westernesse (Off-hand) Damage
 Cost: 127 Power
 Adds 3 to Focus
 Cooldown: 10s
@@ -180,9 +180,9 @@ Dazes the enemy with a pair of melee attacks while dual-wielding.
 <rgb=#00FFDD>Mounted Combat Enemies: Daze replaced with a debuff that reduces damage against dismounted players.</rgb>
 2 Attacks:
 1 978 - 2 638 Westernesse (Off-hand) Damage
+5 787 - 7 716 Beleriand (Main-hand) Damage
 5s Daze
 Removes 1 tier of up to 3 different Corruption effects from the target.
-5 787 - 7 716 Beleriand (Main-hand) Damage
 Cost: 127 Power
 Adds 3 to Focus
 Cooldown: 20s

@@ -14,6 +14,11 @@ public class DisplayByResistEffectRenderer extends AbstractSingleEffectRenderer 
   @Override
   public void render(List<String> storage, DispelByResistEffect effect)
   {
+    String description=effect.getDescription();
+    if (!description.isEmpty())
+    {
+      return;
+    }
     int count=effect.getMaxDispelCount();
     List<ResistCategory> categories=effect.getResistCategories();
     boolean useStrengthRestriction=effect.useStrengthRestriction();
@@ -26,9 +31,10 @@ public class DisplayByResistEffectRenderer extends AbstractSingleEffectRenderer 
       Integer strengthOffset=effect.getStrengthOffset();
       int delta=(strengthOffset!=null)?strengthOffset.intValue():4;
       int strength=getLevel()+delta;
-      String complement=" with a maximum strength of "+strength;
+      String complement=" with maximum strength of "+strength;
       label=label+complement;
     }
+    label+=" from the target.";
     storage.add(label);
   }
 }

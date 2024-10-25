@@ -337,6 +337,9 @@ public class SkillDisplay
         attackText=attackText+" Damage";
         ret.add(attackText);
       }
+    }
+    for(SkillAttack attack : attacks.getAttacks())
+    {
       doEffects(attack,ret);
     }
     return ret;

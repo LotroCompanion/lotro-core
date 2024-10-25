@@ -13,7 +13,6 @@ import delta.games.lotro.common.stats.WellKnownStat;
  */
 public class InstantVitalEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<InstantVitalEffect>
 {
-
   @Override
   public void render(List<String> storage, InstantVitalEffect effect)
   {
