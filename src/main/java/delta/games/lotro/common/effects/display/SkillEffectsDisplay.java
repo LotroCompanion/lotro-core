@@ -21,7 +21,6 @@ import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.ImplementUsageType;
-import delta.games.lotro.common.stats.SimpleStatComputerContext;
 import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
@@ -59,8 +58,21 @@ public class SkillEffectsDisplay
     int level=_character.getLevel();
     EffectRenderingEngine engine=new EffectRenderingEngine(level);
     engine.setDoDescription(false);
-    engine.getContext().setStatValueProvider(_character);
+    EffectRenderingContext context=engine.getContext();
+    context.setStatValueProvider(_character);
+    context.setDamageQualifier(damageQualifier);
+    context.setImplementUsage(generator.getImplementUsage());
+    handleEffect(engine,effect,storage);
+  }
 
+  /**
+   * Handle a skill effect.
+   * @param engine Engine.
+   * @param effect Effect.
+   * @param storage Storage for generated text.
+   */
+  public void handleEffect(EffectRenderingEngine engine, Effect effect, List<String> storage)
+  {
     // Check probability
     float probabilityValue=getEffectApplicationProbability(effect);
     boolean applicable=(probabilityValue>0);
@@ -85,7 +97,9 @@ public class SkillEffectsDisplay
     {
       BaseVitalEffect vitalEffect=(BaseVitalEffect)effect;
       EffectDisplay2 d2=new EffectDisplay2(_character);
-      ImplementUsageType implementUsage=generator.getImplementUsage();
+      EffectRenderingContext context=engine.getContext(); 
+      ImplementUsageType implementUsage=context.getImplementUsage();
+      DamageQualifier damageQualifier=context.getDamageQualifier();
       d2.getVitalEffectDisplay(implementUsage,vitalEffect,damageQualifier,storage);
     }
     else if (effect instanceof ComboEffect)
@@ -94,7 +108,7 @@ public class SkillEffectsDisplay
       Proxy<Effect> toExamine=comboEffect.getToExamine();
       if (toExamine!=null)
       {
-        handleEffect(damageQualifier,generator,toExamine.getObject(),storage);
+        handleEffect(engine,toExamine.getObject(),storage);
       }
     }
     else if (effect instanceof GenesisEffect)
@@ -105,7 +119,7 @@ public class SkillEffectsDisplay
       {
         for(EffectGenerator hotspotGenerator : hotspot.getEffects())
         {
-          handleEffect(damageQualifier,generator,hotspotGenerator.getEffect(),storage);
+          handleEffect(engine,hotspotGenerator.getEffect(),storage);
         }
       }
     }
@@ -119,7 +133,7 @@ public class SkillEffectsDisplay
         storage.add(line);
         for(EffectGenerator childGenerator : areaEffect.getEffects())
         {
-          handleEffect(damageQualifier,generator,childGenerator.getEffect(),storage);
+          handleEffect(engine,childGenerator.getEffect(),storage);
         }
       }
     }
@@ -134,7 +148,7 @@ public class SkillEffectsDisplay
         storage.add(line);
         for(EffectGenerator childGenerator : applyOverTimeEffect.getAppliedEffects())
         {
-          handleEffect(damageQualifier,generator,childGenerator.getEffect(),storage);
+          handleEffect(engine,childGenerator.getEffect(),storage);
         }
       }
     }
@@ -144,8 +158,7 @@ public class SkillEffectsDisplay
       StatsProvider provider=propModEffect.getStatsProvider();
       if (provider!=null)
       {
-        SimpleStatComputerContext context=new SimpleStatComputerContext(level,level);
-        context.setStatValueProvider(_character);
+        EffectRenderingContext context=engine.getContext(); 
         List<String> lines=StatUtils.getFullStatsForDisplay(provider,context);
         storage.addAll(lines);
       }
@@ -166,7 +179,7 @@ public class SkillEffectsDisplay
     {
       TieredEffect propModEffect=(TieredEffect)effect;
       EffectGenerator firstTier=propModEffect.getTiers().get(0);
-      handleEffect(damageQualifier,generator,firstTier.getEffect(),storage);
+      handleEffect(engine,firstTier.getEffect(),storage);
     }
     else if (effect instanceof InstantFellowshipEffect)
     {
@@ -184,7 +197,7 @@ public class SkillEffectsDisplay
       }
       for(EffectGenerator childEffect : fellowshipEffect.getEffects())
       {
-        handleEffect(damageQualifier,generator,childEffect.getEffect(),storage);
+        handleEffect(engine,childEffect.getEffect(),storage);
       }
     }
     else

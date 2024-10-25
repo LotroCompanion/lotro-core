@@ -11,6 +11,7 @@ import delta.games.lotro.common.effects.InstantFellowshipEffect;
  */
 public class InstantFellowshipEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<InstantFellowshipEffect>
 {
+  @Override
   public void render(List<String> storage, InstantFellowshipEffect effect)
   {
     Float range=effect.getRange();
