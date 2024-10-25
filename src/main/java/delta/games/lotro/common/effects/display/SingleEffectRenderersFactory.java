@@ -1,5 +1,6 @@
 package delta.games.lotro.common.effects.display;
 
+import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.GenesisEffect;
@@ -59,6 +60,10 @@ public class SingleEffectRenderersFactory
     else if (effect instanceof DispelByResistEffect)
     {
       return new DisplayByResistEffectRenderer();
+    }
+    else if (effect instanceof ComboEffect)
+    {
+      return new ComboEffectRenderer();
     }
     return new DefaultEffectRenderer();
   }

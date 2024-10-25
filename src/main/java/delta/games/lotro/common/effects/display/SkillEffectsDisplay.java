@@ -101,15 +101,6 @@ public class SkillEffectsDisplay
       DamageQualifier damageQualifier=context.getDamageQualifier();
       d2.getVitalEffectDisplay(implementUsage,vitalEffect,damageQualifier,storage);
     }
-    else if (effect instanceof ComboEffect)
-    {
-      ComboEffect comboEffect=(ComboEffect)effect;
-      Proxy<Effect> toExamine=comboEffect.getToExamine();
-      if (toExamine!=null)
-      {
-        handleEffect(engine,toExamine.getObject(),storage);
-      }
-    }
     else if (effect instanceof GenesisEffect)
     {
       GenesisEffect genesisEffect=(GenesisEffect)effect;
