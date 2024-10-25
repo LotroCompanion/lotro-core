@@ -1,5 +1,6 @@
 package delta.games.lotro.common.effects.display;
 
+import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect;
@@ -64,6 +65,10 @@ public class SingleEffectRenderersFactory
     else if (effect instanceof ComboEffect)
     {
       return new ComboEffectRenderer();
+    }
+    else if (effect instanceof AreaEffect)
+    {
+      return new AreaEffectRenderer();
     }
     return new DefaultEffectRenderer();
   }

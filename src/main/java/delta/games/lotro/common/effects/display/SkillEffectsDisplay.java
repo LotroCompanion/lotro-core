@@ -8,9 +8,7 @@ import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
-import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
-import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectFlags;
 import delta.games.lotro.common.effects.EffectGenerator;
@@ -23,7 +21,6 @@ import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.utils.Proxy;
 
 /**
  * Facilities to display skill effects.
@@ -110,20 +107,6 @@ public class SkillEffectsDisplay
         for(EffectGenerator hotspotGenerator : hotspot.getEffects())
         {
           handleEffect(engine,hotspotGenerator.getEffect(),storage);
-        }
-      }
-    }
-    else if (effect instanceof AreaEffect)
-    {
-      AreaEffect areaEffect=(AreaEffect)effect;
-      float range=areaEffect.getRange();
-      if (!areaEffect.getEffects().isEmpty())
-      {
-        String line="Effects applied to enemies within "+L10n.getString(range,0)+" metres:";
-        storage.add(line);
-        for(EffectGenerator childGenerator : areaEffect.getEffects())
-        {
-          handleEffect(engine,childGenerator.getEffect(),storage);
         }
       }
     }
