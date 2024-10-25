@@ -1,5 +1,6 @@
 package delta.games.lotro.common.effects.display;
 
+import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
@@ -69,6 +70,10 @@ public class SingleEffectRenderersFactory
     else if (effect instanceof AreaEffect)
     {
       return new AreaEffectRenderer();
+    }
+    else if (effect instanceof ApplyOverTimeEffect)
+    {
+      return new ApplyOverTimeEffectRenderer();
     }
     return new DefaultEffectRenderer();
   }

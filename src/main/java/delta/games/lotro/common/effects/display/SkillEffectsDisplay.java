@@ -7,7 +7,6 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.common.effects.ApplicationProbability;
-import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectFlags;
@@ -107,21 +106,6 @@ public class SkillEffectsDisplay
         for(EffectGenerator hotspotGenerator : hotspot.getEffects())
         {
           handleEffect(engine,hotspotGenerator.getEffect(),storage);
-        }
-      }
-    }
-    else if (effect instanceof ApplyOverTimeEffect)
-    {
-      ApplyOverTimeEffect applyOverTimeEffect=(ApplyOverTimeEffect)effect;
-      if (!applyOverTimeEffect.getAppliedEffects().isEmpty())
-      {
-        float interval=EffectDisplayUtils.getDuration(applyOverTimeEffect,_statModsComputer);
-        String seconds=(interval>1.0f)?" seconds:":" second:";
-        String line="Every "+L10n.getString(interval,1)+seconds;
-        storage.add(line);
-        for(EffectGenerator childGenerator : applyOverTimeEffect.getAppliedEffects())
-        {
-          handleEffect(engine,childGenerator.getEffect(),storage);
         }
       }
     }
