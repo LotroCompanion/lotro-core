@@ -13,6 +13,7 @@ public class InstantFellowshipEffect extends InstantEffect
   private boolean _applyToRaidGroups;
   private boolean _applyToPets;
   private boolean _applyToTarget;
+  private String _fellowshipStringOverride;
   private Float _range;
 
   /**
@@ -25,6 +26,7 @@ public class InstantFellowshipEffect extends InstantEffect
     _applyToRaidGroups=false;
     _applyToPets=true;
     _applyToTarget=true;
+    _fellowshipStringOverride=null;
     _range=null;
   }
 
@@ -98,6 +100,24 @@ public class InstantFellowshipEffect extends InstantEffect
   public void setAppliesToTarget(boolean applyToTarget)
   {
     _applyToTarget=applyToTarget;
+  }
+
+  /**
+   * Get the string override for the fellowship.
+   * @return an override or <code>null</code>.
+   */
+  public String getFellowshipStringOverride()
+  {
+    return _fellowshipStringOverride;
+  }
+
+  /**
+   * Set the string override for the fellowship.
+   * @param fellowshipStringOverride the override to set.
+   */
+  public void setFellowshipStringOverride(String fellowshipStringOverride)
+  {
+    _fellowshipStringOverride=fellowshipStringOverride;
   }
 
   /**

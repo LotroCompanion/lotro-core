@@ -184,6 +184,10 @@ public class EffectXMLConstants
    */
   public static final String FELLOWSHIP_EFFECT_APPLY_TARGET_ATTR="applyToTarget";
   /**
+   * Tag 'fellowshipEffect', attribute 'stringOverride'.
+   */
+  public static final String FELLOWSHIP_EFFECT_STRING_OVERRIDE_ATTR="stringOverride";
+  /**
    * Tag 'fellowshipEffect', attribute 'range'.
    */
   public static final String FELLOWSHIP_EFFECT_RANGE_ATTR="range";

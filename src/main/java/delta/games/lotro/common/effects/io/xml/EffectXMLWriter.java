@@ -393,6 +393,12 @@ public class EffectXMLWriter
     {
       attrs.addAttribute("","",EffectXMLConstants.FELLOWSHIP_EFFECT_APPLY_TARGET_ATTR,XmlWriter.CDATA,String.valueOf(target));
     }
+    // String override
+    String override=instantFellowshipEffect.getFellowshipStringOverride();
+    if (override!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.FELLOWSHIP_EFFECT_STRING_OVERRIDE_ATTR,XmlWriter.CDATA,override);
+    }
     // Range
     Float range=instantFellowshipEffect.getRange();
     if (range!=null)

@@ -327,6 +327,10 @@ public class EffectXMLParser
     // Apply to target
     boolean applyToTarget=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.FELLOWSHIP_EFFECT_APPLY_TARGET_ATTR,false);
     ret.setAppliesToTarget(applyToTarget);
+    // String override
+    String override=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.FELLOWSHIP_EFFECT_STRING_OVERRIDE_ATTR,"");
+    override=_labelsMgr.getLabel(override);
+    ret.setFellowshipStringOverride(override);
     // Range
     float range=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.FELLOWSHIP_EFFECT_RANGE_ATTR,-1);
     if (range>0)
