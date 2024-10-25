@@ -16,11 +16,9 @@ import delta.games.lotro.common.effects.EffectFlags;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
-import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.TieredEffect;
-import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.stats.SimpleStatComputerContext;
@@ -61,6 +59,7 @@ public class SkillEffectsDisplay
     int level=_character.getLevel();
     EffectRenderingEngine engine=new EffectRenderingEngine(level);
     engine.setDoDescription(false);
+    engine.getContext().setStatValueProvider(_character);
 
     // Check probability
     float probabilityValue=getEffectApplicationProbability(effect);
@@ -188,28 +187,10 @@ public class SkillEffectsDisplay
         handleEffect(damageQualifier,generator,childEffect.getEffect(),storage);
       }
     }
-    else if (effect instanceof InduceCombatStateEffect)
-    {
-      showInduceCombatStateEffect(storage,(InduceCombatStateEffect)effect);
-    }
     else
     {
       engine.displayEffect(storage,effect);
     }
-  }
-
-  private void showInduceCombatStateEffect(List<String> storage, InduceCombatStateEffect effect)
-  {
-    float duration=effect.getDuration();
-    duration+=_statModsComputer.computeAdditiveModifiers(effect.getDurationModifiers());
-    CombatState state=effect.getCombatState();
-    String stateStr="?";
-    if (state!=null)
-    {
-      stateStr=EffectDisplayUtils.getStateLabel(state);
-    }
-    String text=L10n.getString(duration,1)+"s "+stateStr;
-    storage.add(text);
   }
 
   private float getEffectApplicationProbability(Effect effect)

@@ -4,6 +4,8 @@ import java.util.List;
 
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.properties.ModPropertyList;
+import delta.games.lotro.common.stats.StatModifiersComputer;
 
 /**
  * Base class for effect renderers.
@@ -77,5 +79,20 @@ public class AbstractSingleEffectRenderer
   public void displayEffect(List<String> storage, Effect effect)
   {
     _engine.displayEffect(storage,effect);
+  }
+
+  /**
+   * Compute some additive modifiers.
+   * @param modifiers Modifiers to use.
+   * @return the computed value.
+   */
+  public float computeAdditiveModifiers(ModPropertyList modifiers)
+  {
+    StatModifiersComputer statModifiers=_engine.getContext().getStatModifiersComputer();
+    if (statModifiers!=null)
+    {
+      return statModifiers.computeAdditiveModifiers(modifiers);
+    }
+    return 0;
   }
 }

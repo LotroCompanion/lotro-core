@@ -1,5 +1,8 @@
 package delta.games.lotro.common.effects.display;
 
+import delta.games.lotro.common.stats.StatModifiersComputer;
+import delta.games.lotro.common.stats.StatValueProvider;
+
 /**
  * Context for effect rendering.
  * @author DAM
@@ -7,6 +10,7 @@ package delta.games.lotro.common.effects.display;
 public class EffectRenderingContext
 {
   private int _level;
+  private StatModifiersComputer _statModifiersComputer;
 
   /**
    * Constructor.
@@ -24,5 +28,30 @@ public class EffectRenderingContext
   public int getLevel()
   {
     return _level;
+  }
+
+  /**
+   * Set the stat value provider.
+   * @param statValueProvider Stat value provider to set.
+   */
+  public void setStatValueProvider(StatValueProvider statValueProvider)
+  {
+    if (statValueProvider!=null)
+    {
+      _statModifiersComputer=new StatModifiersComputer(statValueProvider);
+    }
+    else
+    {
+      _statModifiersComputer=null;
+    }
+  }
+
+  /**
+   * Get the stat modifiers computer.
+   * @return A stat modifiers computer or <code>null</code> if not set.
+   */
+  public StatModifiersComputer getStatModifiersComputer()
+  {
+    return _statModifiersComputer;
   }
 }
