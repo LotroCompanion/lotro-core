@@ -16,7 +16,6 @@ import delta.games.lotro.common.effects.EffectFlags;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
-import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
@@ -180,25 +179,6 @@ public class SkillEffectsDisplay
       TieredEffect propModEffect=(TieredEffect)effect;
       EffectGenerator firstTier=propModEffect.getTiers().get(0);
       handleEffect(engine,firstTier.getEffect(),storage);
-    }
-    else if (effect instanceof InstantFellowshipEffect)
-    {
-      InstantFellowshipEffect fellowshipEffect=(InstantFellowshipEffect)effect;
-      Float range=fellowshipEffect.getRange();
-      boolean toPets=fellowshipEffect.appliesToPets();
-      if (toPets)
-      {
-        String line="Effects applied to your animal companion";
-        if (range!=null)
-        {
-          line=line+" within "+L10n.getString(range.doubleValue(),0)+" metres:";
-        }
-        storage.add(line);
-      }
-      for(EffectGenerator childEffect : fellowshipEffect.getEffects())
-      {
-        handleEffect(engine,childEffect.getEffect(),storage);
-      }
     }
     else
     {
