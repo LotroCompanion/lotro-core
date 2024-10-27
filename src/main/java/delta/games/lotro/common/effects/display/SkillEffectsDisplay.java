@@ -10,11 +10,7 @@ import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectFlags;
-import delta.games.lotro.common.effects.EffectGenerator;
-import delta.games.lotro.common.effects.GenesisEffect;
-import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
-import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.stats.StatModifiersComputer;
@@ -96,18 +92,6 @@ public class SkillEffectsDisplay
       ImplementUsageType implementUsage=context.getImplementUsage();
       DamageQualifier damageQualifier=context.getDamageQualifier();
       d2.getVitalEffectDisplay(implementUsage,vitalEffect,damageQualifier,storage);
-    }
-    else if (effect instanceof GenesisEffect)
-    {
-      GenesisEffect genesisEffect=(GenesisEffect)effect;
-      Hotspot hotspot=genesisEffect.getHotspot();
-      if (hotspot!=null)
-      {
-        for(EffectGenerator hotspotGenerator : hotspot.getEffects())
-        {
-          handleEffect(engine,hotspotGenerator.getEffect(),storage);
-        }
-      }
     }
     else if (effect instanceof PropertyModificationEffect)
     {

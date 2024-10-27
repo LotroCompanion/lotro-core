@@ -111,8 +111,11 @@ public class EffectDisplayUtils
     {
       ret=intervalDuration.floatValue();
     }
-    ModPropertyList mods=effectDuration.getDurationModifiers();
-    ret+=statModsComputer.computeAdditiveModifiers(mods);
+    if (statModsComputer!=null)
+    {
+      ModPropertyList mods=effectDuration.getDurationModifiers();
+      ret+=statModsComputer.computeAdditiveModifiers(mods);
+    }
     return ret;
   }
 }
