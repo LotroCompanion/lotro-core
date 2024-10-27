@@ -2,20 +2,15 @@ package delta.games.lotro.common.effects.display;
 
 import java.util.List;
 
-import delta.common.utils.l10n.L10n;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.Effect;
-import delta.games.lotro.common.effects.EffectFlags;
-import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.stats.StatModifiersComputer;
-import delta.games.lotro.common.stats.StatUtils;
-import delta.games.lotro.common.stats.StatsProvider;
 
 /**
  * Facilities to display skill effects.
@@ -92,29 +87,6 @@ public class SkillEffectsDisplay
       ImplementUsageType implementUsage=context.getImplementUsage();
       DamageQualifier damageQualifier=context.getDamageQualifier();
       d2.getVitalEffectDisplay(implementUsage,vitalEffect,damageQualifier,storage);
-    }
-    else if (effect instanceof PropertyModificationEffect)
-    {
-      PropertyModificationEffect propModEffect=(PropertyModificationEffect)effect;
-      StatsProvider provider=propModEffect.getStatsProvider();
-      if (provider!=null)
-      {
-        EffectRenderingContext context=engine.getContext(); 
-        List<String> lines=StatUtils.getFullStatsForDisplay(provider,context);
-        storage.addAll(lines);
-      }
-      boolean expiresOutOfCombat=effect.getBaseFlag(EffectFlags.DURATION_COMBAT_ONLY);
-      if (expiresOutOfCombat)
-      {
-        // TODO Sometimes "Expires if out of combat for a short amount of time."
-        storage.add("Expires if out of combat for 9 seconds.");
-      }
-      float duration=EffectDisplayUtils.getDuration(propModEffect,_statModsComputer);
-      if (duration>0)
-      {
-        String line="Duration: "+L10n.getString(duration,1)+"s";
-        storage.add(line);
-      }
     }
     else
     {

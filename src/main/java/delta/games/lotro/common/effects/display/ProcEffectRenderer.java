@@ -13,9 +13,9 @@ import delta.games.lotro.common.enums.SkillType;
  */
 public class ProcEffectRenderer extends PropertyModificationEffectRenderer<ProcEffect>
 {
-  public void render(List<String> storage, ProcEffect effect)
+  @Override
+  protected void renderSpecifics(List<String> storage, ProcEffect effect)
   {
-    super.render(storage,effect);
     Float probability=effect.getProcProbability();
     List<SkillType> skillTypes=effect.getSkillTypes();
     List<EffectGenerator> procedEffects=effect.getProcedEffects();

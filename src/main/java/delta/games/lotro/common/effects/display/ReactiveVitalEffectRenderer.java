@@ -14,9 +14,9 @@ import delta.games.lotro.lore.items.DamageType;
  */
 public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRenderer<ReactiveVitalEffect>
 {
-  public void render(List<String> storage, ReactiveVitalEffect effect)
+  @Override
+  protected void renderSpecifics(List<String> storage, ReactiveVitalEffect effect)
   {
-    super.render(storage,effect);
     VitalChangeUtils utils=new VitalChangeUtils(getContext());
     // Defender
     ReactiveChange defender=effect.getDefenderReactiveChange();
