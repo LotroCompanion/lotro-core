@@ -5,7 +5,7 @@ import java.util.List;
 import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.WellKnownStat;
+import delta.games.lotro.lore.items.DamageType;
 
 /**
  * Renderer for 'InstantVitalEffect' effects.
@@ -23,37 +23,13 @@ public class InstantVitalEffectRenderer extends AbstractSingleEffectRenderer imp
     }
     VitalChangeUtils utils=new VitalChangeUtils(getContext());
     StatDescription stat=effect.getStat();
-    boolean isMorale=(stat==WellKnownStat.MORALE);
     boolean multiplicative=effect.isMultiplicative();
     if (!multiplicative)
     {
       int[] minMax=utils.getMinMaxValue(description);
-      if (minMax[0]==minMax[1])
-      {
-        if ((minMax[0]<0) && isMorale)
-        {
-          String text=(-minMax[0])+" Damage";
-          storage.add(text);
-        }
-        else
-        {
-          String text=(minMax[0])+" "+stat.getName();
-          storage.add(text);
-        }
-      }
-      else
-      {
-        if ((minMax[0]<0) && (minMax[1]<0) && isMorale)
-        {
-          String text=(-minMax[0])+" - "+(-minMax[1])+" Damage";
-          storage.add(text);
-        }
-        else
-        {
-          String text=(minMax[0])+" - "+(minMax[1])+" "+stat.getName();
-          storage.add(text);
-        }
-      }
+      DamageType damageType=effect.getDamageType();
+      String line=VitalChangeUtils.buildFullChange(minMax[0],minMax[1],stat,damageType);
+      storage.add(line);
     }
     else
     {

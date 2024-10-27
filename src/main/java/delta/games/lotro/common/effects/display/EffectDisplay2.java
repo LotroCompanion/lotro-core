@@ -231,55 +231,7 @@ public class EffectDisplay2
     int maxInt=Math.round(minMaxChange[1]);
 
     DamageType damageType=effect.getDamageType();
-    String ret=buildFullChange(minInt,maxInt,stat,damageType);
-    return ret;
-  }
-
-  private static String buildFullChange(int min, int max, StatDescription stat, DamageType damageType)
-  {
-    boolean negative=false;
-    if ((min<0) || (max<0))
-    {
-      negative=true;
-      min=Math.abs(min);
-      max=Math.abs(max);
-    }
-    String changeStr=buildChangeStr(min,max);
-    String fullChange="";
-    if (stat==WellKnownStat.MORALE)
-    {
-      if (negative)
-      {
-        String damageTypeStr="";
-        if (damageType!=null)
-        {
-          damageTypeStr=" "+damageType.getLabel();
-        }
-        fullChange=changeStr+damageTypeStr+" Damage";
-      }
-      else
-      {
-        fullChange="Heals "+changeStr+" Morale";
-      }
-    }
-    else if (stat==WellKnownStat.POWER)
-    {
-      fullChange=(negative?"Drains ":"Restores ")+changeStr+" Power";
-    }
-    return fullChange;
-  }
-
-  private static String buildChangeStr(int min, int max)
-  {
-    String ret="";
-    if (min==max)
-    {
-      ret=L10n.getString(min);
-    }
-    else
-    {
-      ret=L10n.getString(min)+" - "+L10n.getString(max);
-    }
+    String ret=VitalChangeUtils.buildFullChange(minInt,maxInt,stat,damageType);
     return ret;
   }
 
@@ -294,7 +246,7 @@ public class EffectDisplay2
       float[] initialMinMax=getVitalChange(implementUsage,stat,effect,initialChange,damageQualifier,true);
       int initialMinInt=Math.round(initialMinMax[0]);
       int initialMaxInt=Math.round(initialMinMax[1]);
-      initialLine=buildFullChange(initialMinInt,initialMaxInt,stat,damageType);
+      initialLine=VitalChangeUtils.buildFullChange(initialMinInt,initialMaxInt,stat,damageType);
     }
     String overTimeLine=null;
     VitalChangeDescription overTimeChange=effect.getOverTimeChangeDescription();
@@ -309,7 +261,7 @@ public class EffectDisplay2
       pulseCount+=_statModsComputer.computeAdditiveModifiers(duration.getPulseCountModifiers());
       float interval=EffectDisplayUtils.getDuration(effect,_statModsComputer);
       float totalDuration=interval*pulseCount;
-      overTimeLine=buildFullChange(intervalMinInt,intervalMaxInt,stat,damageType);
+      overTimeLine=VitalChangeUtils.buildFullChange(intervalMinInt,intervalMaxInt,stat,damageType);
       overTimeLine=overTimeLine+" every "+L10n.getString(interval,1,1)+" seconds";
       if (totalDuration>0)
       {
