@@ -12,6 +12,7 @@ import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
+import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 
 /**
@@ -74,6 +75,10 @@ public class SingleEffectRenderersFactory
     else if (effect instanceof ApplyOverTimeEffect)
     {
       return new ApplyOverTimeEffectRenderer();
+    }
+    else if (effect instanceof TieredEffect)
+    {
+      return new TieredEffectRenderer();
     }
     return new DefaultEffectRenderer();
   }

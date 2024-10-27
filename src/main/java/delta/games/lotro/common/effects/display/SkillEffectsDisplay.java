@@ -132,12 +132,6 @@ public class SkillEffectsDisplay
         storage.add(line);
       }
     }
-    else if (effect instanceof TieredEffect)
-    {
-      TieredEffect propModEffect=(TieredEffect)effect;
-      EffectGenerator firstTier=propModEffect.getTiers().get(0);
-      handleEffect(engine,firstTier.getEffect(),storage);
-    }
     else
     {
       engine.displayEffect(storage,effect);
