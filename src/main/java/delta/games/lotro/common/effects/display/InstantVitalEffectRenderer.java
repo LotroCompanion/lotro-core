@@ -21,39 +21,47 @@ public class InstantVitalEffectRenderer extends AbstractSingleEffectRenderer imp
     {
       return;
     }
-    VitalChangeUtils utils=new VitalChangeUtils(getContext());
     StatDescription stat=effect.getStat();
     boolean multiplicative=effect.isMultiplicative();
     if (!multiplicative)
     {
-      int[] minMax=utils.getMinMaxValue(description);
+      VitalEffectsUtils utils=new VitalEffectsUtils(getContext());
+      float[] minMax=utils.getMinMaxValue(stat,effect,description,true);
+      int initialMinInt=Math.round(minMax[0]);
+      int initialMaxInt=Math.round(minMax[1]);
       DamageType damageType=effect.getDamageType();
-      String line=VitalChangeUtils.buildFullChange(minMax[0],minMax[1],stat,damageType);
+      String line=VitalChangeUtils.buildFullChange(initialMinInt,initialMaxInt,stat,damageType);
       storage.add(line);
     }
     else
     {
-      Float value=utils.getValue(description);
-      if (value!=null)
+      handleMultiplicativeChange(storage,description,stat);
+    }
+  }
+
+  private void handleMultiplicativeChange(List<String> storage, VitalChangeDescription description, StatDescription stat)
+  {
+    VitalEffectsUtils utils=new VitalEffectsUtils(getContext());
+    Float value=utils.getValue(description);
+    if (value!=null)
+    {
+      float maxPercentageFloat=value.floatValue()*100;
+      int maxPercentage=(int)maxPercentageFloat;
+      Float variance=description.getVariance();
+      StringBuilder sb=new StringBuilder();
+      sb.append("Restores ");
+      if (variance!=null)
       {
-        float maxPercentageFloat=value.floatValue()*100;
-        int maxPercentage=(int)maxPercentageFloat;
-        Float variance=description.getVariance();
-        StringBuilder sb=new StringBuilder();
-        sb.append("Restores ");
-        if (variance!=null)
-        {
-          float minPercentageFloat=maxPercentageFloat*(1-variance.floatValue());
-          int minPercentage=(int)minPercentageFloat;
-          sb.append(minPercentage).append("% - ").append(maxPercentage).append('%');
-        }
-        else
-        {
-          sb.append(maxPercentage).append('%');
-        }
-        sb.append(" of maximum ").append(stat.getName());
-        storage.add(sb.toString());
+        float minPercentageFloat=maxPercentageFloat*(1-variance.floatValue());
+        int minPercentage=(int)minPercentageFloat;
+        sb.append(minPercentage).append("% - ").append(maxPercentage).append('%');
       }
+      else
+      {
+        sb.append(maxPercentage).append('%');
+      }
+      sb.append(" of maximum ").append(stat.getName());
+      storage.add(sb.toString());
     }
   }
 }

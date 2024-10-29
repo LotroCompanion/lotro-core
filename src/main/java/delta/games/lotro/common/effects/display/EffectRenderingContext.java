@@ -1,10 +1,12 @@
 package delta.games.lotro.common.effects.display;
 
+import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.stats.StatComputerContext;
 import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.common.stats.StatValueProvider;
+import delta.games.lotro.lore.items.ItemInstance;
 
 /**
  * Context for effect rendering.
@@ -13,6 +15,7 @@ import delta.games.lotro.common.stats.StatValueProvider;
 public class EffectRenderingContext implements StatComputerContext
 {
   private int _level;
+  private CharacterDataForSkills _character;
   private StatModifiersComputer _statModifiersComputer;
   private DamageQualifier _damageQualifier;
   private ImplementUsageType _implementUsage;
@@ -100,5 +103,37 @@ public class EffectRenderingContext implements StatComputerContext
   public void setImplementUsage(ImplementUsageType implementUsage)
   {
     _implementUsage=implementUsage;
+  }
+
+  /**
+   * Get the current character.
+   * @return A character or <code>null</code>.
+   */
+  public CharacterDataForSkills getCharacter()
+  {
+    return _character;
+  }
+
+  /**
+   * Set the current character.
+   * @param character Character to set.
+   */
+  public void setCharacter(CharacterDataForSkills character)
+  {
+    _character=character;
+  }
+
+  /**
+   * Get the item to use.
+   * @param implementUsage Implement usage.
+   * @return An item or <code>null/code>.
+   */
+  public ItemInstance<?> getImplement(ImplementUsageType implementUsage)
+  {
+    if (_character!=null)
+    {
+      return _character.getImplement(implementUsage);
+    }
+    return null;
   }
 }

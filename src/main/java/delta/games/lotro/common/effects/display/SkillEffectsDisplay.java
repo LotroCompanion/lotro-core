@@ -6,10 +6,8 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.common.effects.ApplicationProbability;
-import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.enums.DamageQualifier;
-import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.stats.StatModifiersComputer;
 
 /**
@@ -45,6 +43,7 @@ public class SkillEffectsDisplay
     EffectRenderingEngine engine=new EffectRenderingEngine(level);
     engine.setDoDescription(false);
     EffectRenderingContext context=engine.getContext();
+    context.setCharacter(_character);
     context.setStatValueProvider(_character);
     context.setDamageQualifier(damageQualifier);
     context.setImplementUsage(generator.getImplementUsage());
@@ -79,19 +78,7 @@ public class SkillEffectsDisplay
     {
       storage.add(description);
     }
-    if (effect instanceof BaseVitalEffect)
-    {
-      BaseVitalEffect vitalEffect=(BaseVitalEffect)effect;
-      EffectDisplay2 d2=new EffectDisplay2(_character);
-      EffectRenderingContext context=engine.getContext(); 
-      ImplementUsageType implementUsage=context.getImplementUsage();
-      DamageQualifier damageQualifier=context.getDamageQualifier();
-      d2.getVitalEffectDisplay(implementUsage,vitalEffect,damageQualifier,storage);
-    }
-    else
-    {
-      engine.displayEffect(storage,effect);
-    }
+    engine.displayEffect(storage,effect);
   }
 
   private float getEffectApplicationProbability(Effect effect)

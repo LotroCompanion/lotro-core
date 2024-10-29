@@ -17,7 +17,7 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
   @Override
   protected void renderSpecifics(List<String> storage, ReactiveVitalEffect effect)
   {
-    VitalChangeUtils utils=new VitalChangeUtils(getContext());
+    VitalEffectsUtils utils=new VitalEffectsUtils(getContext());
     // Defender
     ReactiveChange defender=effect.getDefenderReactiveChange();
     if (defender!=null)
