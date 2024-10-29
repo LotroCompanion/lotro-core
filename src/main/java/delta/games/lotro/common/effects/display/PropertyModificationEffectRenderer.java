@@ -1,5 +1,6 @@
 package delta.games.lotro.common.effects.display;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.Duration;
@@ -19,9 +20,14 @@ public class PropertyModificationEffectRenderer<T extends PropertyModificationEf
   @Override
   public void render(List<String> storage, T effect)
   {
-    renderStats(storage,effect);
-    renderSpecifics(storage,effect);
-    renderDuration(storage,effect);
+    List<String> childStorage=new ArrayList<String>();
+    renderStats(childStorage,effect);
+    renderSpecifics(childStorage,effect);
+    if (!childStorage.isEmpty())
+    {
+      renderDuration(childStorage,effect);
+    }
+    storage.addAll(childStorage);
   }
 
   private void renderStats(List<String> storage, T effect)
