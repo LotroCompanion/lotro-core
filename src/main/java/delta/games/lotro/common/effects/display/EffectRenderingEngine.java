@@ -6,8 +6,10 @@ import java.util.List;
 import delta.common.utils.variables.VariableValueProvider;
 import delta.common.utils.variables.VariablesResolver;
 import delta.games.lotro.common.Duration;
+import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectDuration;
+import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.utils.strings.TextSanitizer;
 
 /**
@@ -18,7 +20,6 @@ public class EffectRenderingEngine
 {
   private EffectRenderingState _state;
   private EffectRenderingContext _context;
-  private boolean _doDescription;
 
   /**
    * Constructor.
@@ -28,7 +29,6 @@ public class EffectRenderingEngine
   {
     _context=new EffectRenderingContext(level);
     _state=new EffectRenderingState();
-    _doDescription=true;
   }
 
   /**
@@ -40,7 +40,6 @@ public class EffectRenderingEngine
   {
     _state=state;
     _context=context;
-    _doDescription=true;
   }
 
   /**
@@ -70,15 +69,6 @@ public class EffectRenderingEngine
     return _context.getLevel();
   }
 
-  /**
-   * Set the 'do description' flag.
-   * @param doDescription Flag to set.
-   */
-  public void setDoDescription(boolean doDescription)
-  {
-    _doDescription=doDescription;
-  }
-
   private void displaySpecifics(List<String> storage, Effect effect)
   {
     SingleEffectRenderersFactory f=new SingleEffectRenderersFactory();
@@ -98,7 +88,25 @@ public class EffectRenderingEngine
    */
   public void displayEffect(List<String> storage, Effect effect)
   {
+    // Check probability
+    float probabilityValue=getEffectApplicationProbability(effect);
+    boolean applicable=(probabilityValue>0);
+    if (!applicable)
+    {
+      return;
+    }
+    /*
+    if (probabilityValue<1.0f)
+    {
+      int percentage=Math.round(probabilityValue*100);
+      String probabilityLine=percentage+"% chance to apply";
+      storage.add(probabilityLine);
+    }
+    */
+
     List<String> childStorage=new ArrayList<String>();
+
+    // Description override
     String descriptionOverride=effect.getDescriptionOverride();
     if (!descriptionOverride.isEmpty())
     {
@@ -106,16 +114,16 @@ public class EffectRenderingEngine
       text=TextSanitizer.sanitize(text);
       childStorage.add(text);
     }
-    if (_doDescription)
+    // Description
+    String description=effect.getDescription();
+    if (!description.isEmpty())
     {
-      String description=effect.getDescription();
-      if (!description.isEmpty())
-      {
-        description=TextSanitizer.sanitize(description);
-        childStorage.add(description);
-      }
+      description=TextSanitizer.sanitize(description);
+      childStorage.add(description);
     }
+    // Effect specifics
     displaySpecifics(childStorage,effect);
+    // Duration
     if (!_state.isDurationDisplayed())
     {
       EffectDuration effectDuration=effect.getEffectDuration();
@@ -133,7 +141,25 @@ public class EffectRenderingEngine
         }
       }
     }
+    // Fill storage
     storage.addAll(childStorage);
+  }
+
+  private float getEffectApplicationProbability(Effect effect)
+  {
+    ApplicationProbability probability=effect.getApplicationProbability();
+    if (probability==ApplicationProbability.ALWAYS)
+    {
+      return 1.0f;
+    }
+    float probabilityValue=probability.getProbability();
+    Integer modifier=probability.getModProperty();
+    StatModifiersComputer statModsComputer=getContext().getStatModifiersComputer();
+    if (statModsComputer!=null)
+    {
+      probabilityValue+=statModsComputer.computeAdditiveModifier(modifier);
+    }
+    return probabilityValue;
   }
 
   private String resolveVariables(Effect effect, String input)
