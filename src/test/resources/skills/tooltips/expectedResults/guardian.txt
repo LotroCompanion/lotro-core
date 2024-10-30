@@ -12,7 +12,7 @@ Strengthens defences briefly.
 -5% Armour Wear from Hits
 2,5% Partial Block Chance
 Duration: 10s
-Restores 396 Power
++396 Power
 Cooldown: 3s
 *****************************
 Skill-Id: 1879110113
@@ -77,6 +77,7 @@ Fellowship Manoeuvre chance increases with each use.
 +1% Random Conjunction Chance
 Duration: 15s
 Forced Attack
+Duration: 5s
 Cost: 96 Power
 Cooldown: 10s
 *****************************

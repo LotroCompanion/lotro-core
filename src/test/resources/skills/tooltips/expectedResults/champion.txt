@@ -6,6 +6,7 @@ Melee Skill
 Range: 30m
 Your taunting cry forces your target to face and attack you for a few seconds.
 Forced Attack
+Duration: 5s
 x-30% Damage
 Duration: 5s
 Cost: 202 Power
@@ -31,6 +32,7 @@ Immediate
 Your Fervour is instantly increased as well as some additional fervour over time.
 Every 3 seconds:
 Adds 1 Fervour Pip
+Duration: 3s
 Cost: 404 Power
 Adds 5 to Fervour
 Cooldown: 8,5s
@@ -56,7 +58,7 @@ Skill Type: Harmful, Blade
 Range: 5,0m
 A swift sweeping melee attack.
 8 663 - 11 551 Beleriand (Main-hand) Damage
-Restores 488 Power
++488 Power
 Adds 1 to Fervour
 Cooldown: 3s
 *****************************
@@ -70,8 +72,8 @@ Skill Type: Harmful, Blade
 Range: 5,2m
 Makes a full AoE attack, which causes medium damage-over-time.
 8 306 - 11 074 Beleriand (Main-hand) Damage
-787 Damage initially
-1 732 Damage every 2,0 seconds for 20 seconds
+787 Damage initially.
+1 732 Damage every 2,0 seconds for 20 seconds.
 Cost: 135 Power
 Adds 2 to Fervour
 Cooldown: 4s
@@ -220,6 +222,7 @@ Increases attack speed by 5%
 Duration: 30s
 Every 5 seconds:
 Adds 1 Fervour Pip
+Duration: 5s
 Cost: 269 Power
 Cooldown: 1m30s
 *****************************
@@ -302,8 +305,8 @@ Range: 15,2m
 Restores the power of your Fellows and increases your melee damage while slowing all enemies around you.
 Reduces target's Movement speed by 50%
 Duration: 12s
-Effects applied to your animal companion within 15 metres:
-Restores 360 - 400 Power
+Effects applied to the Fellowship within 15 metres:
++360 - 400 Power
 10% Melee Damage
 Duration: 12s
 Cost: 1 080 Power
@@ -314,7 +317,7 @@ Second Wind
 Fast
 Skill Type: Buff
 Consumes all current fervour and restores power. Amount of power restored is based off the amount of fervour consumed.
-Restores 600 Power
++600 Power
 Removes 5 from Fervour
 Cooldown: 25s
 *****************************
@@ -324,6 +327,8 @@ Fast
 Melee Skill
 You reflect damage to your attacker when hit.
 20% Melee Damage
+On any damage:
+Reflect 50% damage
 Duration: 15s
 Cost: 404 Power
 Cost: 2 Fervour
@@ -337,7 +342,8 @@ Resistance: Cry
 Skill Type: Heal
 Heals the Champion for a percentage of their health over time.
 Every 2 seconds:
-Heals 0 Morale
+Restores 3% of maximum Morale
+Duration: 2s
 10% Melee Critical Chance
 Duration: 30s
 Cost: 672 Power
@@ -348,7 +354,6 @@ Fear Nothing!
 Fast
 You feel the joy of battle coursing through your veins. You Fear Nothing!
 Removes up to 1 Disease, Wound, Fear, Poison effect with maximum strength of 155 from the target.
-Duration: 12s
 Cost: 202 Power
 Adds 2 to Fervour
 Cooldown: 15s
