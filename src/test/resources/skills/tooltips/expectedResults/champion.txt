@@ -47,6 +47,7 @@ There is a chance your opponent will be dazed by your combat prowess.
 3s Daze
 100% break chance on damage after 1s
 Cost: 429 Power
+Requires: Upper-cut Trait Equipped
 Cooldown: 3m
 *****************************
 Skill-Id: 1879212605

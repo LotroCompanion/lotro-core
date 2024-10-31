@@ -15,6 +15,8 @@ import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.Arc;
 import delta.games.lotro.character.skills.geometry.Shape;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.display.SkillEffectsDisplay;
@@ -30,6 +32,7 @@ import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.pip.PipDescription;
 import delta.games.lotro.lore.pip.PipsManager;
+import delta.games.lotro.utils.Proxy;
 
 /**
  * Compute a display of the details of a skill.
@@ -250,6 +253,9 @@ public class SkillDisplay
     {
       table.add("Toggle Skill");
     }
+    // Requirements
+    handleRequirements(table);
+    // Cooldown
     Float cooldown=_skillDetails.getCooldown();
     if (cooldown!=null)
     {
@@ -704,5 +710,21 @@ public class SkillDisplay
       handleTogglePip(pip,data,ret);
     }
     return ret;
+  }
+
+  private void handleRequirements(List<String> storage)
+  {
+    Proxy<TraitDescription> requiredTrait=_skill.getRequiredTrait();
+    if (requiredTrait==null)
+    {
+      return;
+    }
+    int traitID=requiredTrait.getId();
+    TraitDescription trait=TraitsManager.getInstance().getTrait(traitID);
+    if (trait!=null)
+    {
+      String text="Requires: "+trait.getName()+" Trait Equipped";
+      storage.add(text);
+    }
   }
 }
