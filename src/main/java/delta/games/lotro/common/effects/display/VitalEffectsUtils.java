@@ -234,6 +234,22 @@ public class VitalEffectsUtils
         LOGGER.debug("Tactical DPS qualifier value: {}",Float.valueOf(qualifierValue));
       }
     }
+    else if (implementUsage==ImplementUsageTypes.PRIMARY)
+    {
+      if (damageQualifier!=null)
+      {
+        qualifierValue=_attackComputer.getDamageQualifier(damageQualifier);
+        LOGGER.debug("Primary qualifier value: {}",Float.valueOf(qualifierValue));
+      }
+    }
+    else if (implementUsage==ImplementUsageTypes.RANGED)
+    {
+      if (damageQualifier!=null)
+      {
+        qualifierValue=_attackComputer.getDamageQualifier(damageQualifier);
+        LOGGER.debug("Ranged qualifier value: {}",Float.valueOf(qualifierValue));
+      }
+    }
     return qualifierValue;
   }
 
@@ -251,6 +267,18 @@ public class VitalEffectsUtils
     return factor;
   }
 
+  private DamageType getDamageType(BaseVitalEffect effect)
+  {
+    DamageType damageType=effect.getDamageType();
+    if (damageType!=null)
+    {
+      return damageType;
+    }
+    ImplementUsageType implementUsage=_context.getImplementUsage();
+    damageType=_attackComputer.getDamageType(implementUsage);
+    return damageType;
+  }
+
   /**
    * Get a string to display a vital over-time effect.
    * @param effect Effect.
@@ -259,7 +287,7 @@ public class VitalEffectsUtils
   public void getVitalOverTimeEffectDisplay(VitalOverTimeEffect effect, List<String> storage)
   {
     StatDescription stat=effect.getStat();
-    DamageType damageType=effect.getDamageType();
+    DamageType damageType=getDamageType(effect);
     String initialLine=null;
     VitalChangeDescription initialChange=effect.getInitialChangeDescription();
     if (initialChange!=null)

@@ -161,17 +161,17 @@ class SkillTooltipGenerationTest
       1879064072, // Champion's Challenge
       1879064060, // Wild Attack
       1879060547, // Battle Frenzy
-      1879073516, // Upper-cut => wrong, uses max damage progression
+      1879073516, // Upper-cut
       1879212605, // Swift Blade
-      1879111264, // Rend ; 11074.086 / 11074 OK
+      1879111264, // Rend
       1879064078, // Hamstring
       1879243824, // Horn of Champions
       1879064076, // Clobber
-      1879064065, // Brutal Strikes 1 weapon (double handed) ; #1 15886.874 / 15887 OK ; #2 12444.718 / 12445 OK ; #3 10326.468 / 10326 OK
-      1879064084, // Let Fly : 6946.133 / 6946 OK
-      1879064073, // Merciful Strike ; 11214.265 / 11214 OK
-      1879064067, // Blade Storm ; 1 weapon (double handed) ; 15044.505 / 15044 OK
-      1879064077, // Horn of Gondor ; 14679.4375 / 14680 OK
+      1879064065, // Brutal Strikes 1 weapon (double handed)
+      1879064084, // Let Fly
+      1879064073, // Merciful Strike
+      1879064067, // Blade Storm
+      1879064077, // Horn of Gondor
       // Page 2
       1879271239, // Fury of Blades
       1879059893, // Controlled Burn

@@ -48,7 +48,7 @@ Induction: 1,4s
 Range: 30m
 Your arrow can cause a wound that bleeds and slightly slows movement speed.
 5 377 - 7 166 Beleriand (Ranged) Damage
-1 470 Damage every 2,0 seconds for 12 seconds.
+3 806 Beleriand Damage every 2,0 seconds for 12 seconds.
 -10% Target Run Speed
 Duration: 20s
 Cost: 191 Power
@@ -79,7 +79,7 @@ Induction: 1,8s
 Range: 30m
 A shot that cannot be missed, parried, evaded, or blocked.
 22 883 - 30 511 Beleriand (Ranged) Damage
-1 812 Damage every 2,0 seconds for 10 seconds.
+4 691 Beleriand Damage every 2,0 seconds for 10 seconds.
 Cost: 191 Power
 Cooldown: 50s
 *****************************

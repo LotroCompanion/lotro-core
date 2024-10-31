@@ -61,20 +61,32 @@ public class SkillAttackComputer
       return damageType;
     }
     ImplementUsageType usesImpl=attack.getImplementUsageType();
-    if (usesImpl!=null)
-    {
-      ItemInstance<? extends Item> item=_character.getImplement(usesImpl);
-      if (item instanceof WeaponInstance<?>)
-      {
-        WeaponInstance<?> weapon=(WeaponInstance<?>)item;
-        damageType=weapon.getEffectiveDamageType();
-      }
-    }
+    damageType=getDamageType(usesImpl);
     if (damageType==null)
     {
       damageType=DamageTypes.COMMON;
     }
     return damageType;
+  }
+
+  /**
+   * Get the damage type from the implement usage.
+   * @param implementUsage Implement usage.
+   * @return A damage type or <code>null</code>.
+   */
+  public DamageType getDamageType(ImplementUsageType implementUsage)
+  {
+    DamageType ret=null;
+    if (implementUsage!=null)
+    {
+      ItemInstance<? extends Item> item=_character.getImplement(implementUsage);
+      if (item instanceof WeaponInstance<?>)
+      {
+        WeaponInstance<?> weapon=(WeaponInstance<?>)item;
+        ret=weapon.getEffectiveDamageType();
+      }
+    }
+    return ret;
   }
 
   /**
