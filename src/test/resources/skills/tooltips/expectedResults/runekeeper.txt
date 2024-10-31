@@ -11,6 +11,7 @@ Briefly dazes the foe.
 <rgb=#00FFDD>Mounted Combat Enemies: Daze replaced with a debuff that reduces damage against dismounted players.</rgb>
 2 776 - 3 966 Lightning Damage
 5s Daze
+100% break chance on damage after 1s
 Cost: 127 Power
 Attunes: 1 (steady)
 Cooldown: 20s
@@ -355,6 +356,7 @@ A thin armour of lightning covers your body. Melee attackers have a chance to be
 On any damage:
 30% chance to Reflect effect:
 5s Daze
+100% break chance on damage after 1s
 Duration: 20s
 Cost: 254 Power
 Attunes: 4 (steady)

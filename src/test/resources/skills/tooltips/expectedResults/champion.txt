@@ -45,6 +45,7 @@ You make a stiff punch at your enemy.
 28 324 Common Damage
 There is a chance your opponent will be dazed by your combat prowess.
 3s Daze
+100% break chance on damage after 1s
 Cost: 429 Power
 Cooldown: 3m
 *****************************

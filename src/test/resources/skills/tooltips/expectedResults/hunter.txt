@@ -66,6 +66,7 @@ A shot that strikes the enemy with fear.
 <rgb=#00FFDD>Mounted Combat Enemies: Fear replaced with attack speed debuff.</rgb>
 11 183 - 14 911 Beleriand (Ranged) Damage
 15s Fear
+100% break chance on damage after 1s
 Cost: 96 Power
 Adds 1 to Focus
 Cooldown: 30s
@@ -182,6 +183,7 @@ Dazes the enemy with a pair of melee attacks while dual-wielding.
 1 978 - 2 638 Westernesse (Off-hand) Damage
 5 787 - 7 716 Beleriand (Main-hand) Damage
 5s Daze
+100% break chance on damage after 1s
 Removes 1 tier of up to 3 different Corruption effects from the target.
 Cost: 127 Power
 Adds 3 to Focus
