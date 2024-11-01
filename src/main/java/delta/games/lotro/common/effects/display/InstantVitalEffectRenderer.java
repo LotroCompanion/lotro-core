@@ -27,6 +27,13 @@ public class InstantVitalEffectRenderer extends AbstractSingleEffectRenderer imp
     {
       VitalEffectsUtils utils=new VitalEffectsUtils(getContext());
       float[] minMax=utils.getMinMaxValue(stat,effect,description,true);
+      // Handle optional multiplier
+      Float multiplier=effect.getInitialChangeMultiplier();
+      if (multiplier!=null)
+      {
+        minMax[0]*=(1+multiplier.floatValue());
+        minMax[1]*=(1+multiplier.floatValue());
+      }
       int initialMinInt=Math.round(minMax[0]);
       int initialMaxInt=Math.round(minMax[1]);
       DamageType damageType=effect.getDamageType();

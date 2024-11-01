@@ -308,7 +308,7 @@ Restores the power of your Fellows and increases your melee damage while slowing
 Reduces target's Movement speed by 50%
 Duration: 12s
 Effects applied to the Fellowship within 15 metres:
-+360 - 400 Power
++720 - 800 Power
 10% Melee Damage
 Duration: 12s
 Cost: 1 080 Power
@@ -319,7 +319,7 @@ Second Wind
 Fast
 Skill Type: Buff
 Consumes all current fervour and restores power. Amount of power restored is based off the amount of fervour consumed.
-+600 Power
++1 440 Power
 Removes 5 from Fervour
 Cooldown: 25s
 *****************************
