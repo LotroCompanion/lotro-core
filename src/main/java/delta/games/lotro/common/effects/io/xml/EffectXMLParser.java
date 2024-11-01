@@ -355,6 +355,9 @@ public class EffectXMLParser
     // Multiplicative
     boolean multiplicative=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.INSTANT_VITAL_EFFECT_MULTIPLICATIVE_ATTR,false);
     ret.setMultiplicative(multiplicative);
+    // Initial Change Multiplier
+    Float initialChangeMultiplier=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.INSTANT_VITAL_EFFECT_MULTIPLIER_ATTR,null);
+    ret.setInitialChangeMultiplier(initialChangeMultiplier);
     Element vitalChangeTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants.VITAL_CHANGE_TAG);
     if (vitalChangeTag!=null)
     {

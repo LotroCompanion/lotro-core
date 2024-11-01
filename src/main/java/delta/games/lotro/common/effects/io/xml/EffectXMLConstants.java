@@ -208,6 +208,10 @@ public class EffectXMLConstants
    * Tag 'instantVitalEffect', attribute 'multiplicative'.
    */
   public static final String INSTANT_VITAL_EFFECT_MULTIPLICATIVE_ATTR="multiplicative";
+  /**
+   * Tag 'instantVitalEffect', attribute 'multiplier'.
+   */
+  public static final String INSTANT_VITAL_EFFECT_MULTIPLIER_ATTR="multiplier";
 
   /**
    * Tag 'vitalChange'.

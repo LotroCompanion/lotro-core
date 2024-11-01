@@ -416,6 +416,12 @@ public class EffectXMLWriter
     {
       attrs.addAttribute("","",EffectXMLConstants.INSTANT_VITAL_EFFECT_MULTIPLICATIVE_ATTR,XmlWriter.CDATA,String.valueOf(multiplicative));
     }
+    // Initial Change Multiplier
+    Float initialChangeMultipplier=instantVitalEffect.getInitialChangeMultiplier();
+    if (initialChangeMultipplier!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.INSTANT_VITAL_EFFECT_MULTIPLIER_ATTR,XmlWriter.CDATA,initialChangeMultipplier.toString());
+    }
   }
 
   private void writeProcEffectAttributes(AttributesImpl attrs, ProcEffect procEffect)

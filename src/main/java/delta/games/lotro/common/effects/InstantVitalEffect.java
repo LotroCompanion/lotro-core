@@ -8,6 +8,7 @@ public class InstantVitalEffect extends BaseVitalEffect
 {
   private boolean _multiplicative;
   private VitalChangeDescription _instantChange;
+  private Float _initialChangeMultiplier;
 
   /**
    * Constructor.
@@ -53,5 +54,23 @@ public class InstantVitalEffect extends BaseVitalEffect
   public void setInstantChangeDescription(VitalChangeDescription instantChange)
   {
     _instantChange=instantChange;
+  }
+
+  /**
+   * Get the initial change multiplier.
+   * @return A multiplier or <code>null</code>.
+   */
+  public Float getInitialChangeMultiplier()
+  {
+    return _initialChangeMultiplier;
+  }
+
+  /**
+   * Set the initial change multiplier.
+   * @param initialChangeMultiplier Value to set.
+   */
+  public void setInitialChangeMultiplier(Float initialChangeMultiplier)
+  {
+    _initialChangeMultiplier=initialChangeMultiplier;
   }
 }
