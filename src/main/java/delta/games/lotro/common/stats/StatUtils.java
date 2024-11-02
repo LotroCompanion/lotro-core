@@ -169,6 +169,12 @@ public class StatUtils
     return getFullStatsForDisplay(statsProvider,new SimpleStatComputerContext(1,level));
   }
 
+  /**
+   * Get a displayable view of stats.
+   * @param statsProvider Stats provider.
+   * @param context Stat computing context.
+   * @return A list of displayable strings.
+   */
   public static List<String> getFullStatsForDisplay(StatsProvider statsProvider, StatComputerContext context)
   {
     List<String> lines=new ArrayList<String>();
@@ -307,5 +313,39 @@ public class StatUtils
       statValue=statValue*60;
     }
     return statValue;
+  }
+
+  /**
+   * Get the value of a stat.
+   * @param level Level to use.
+   * @param tier Tier to use.
+   * @param tiersCount Tiers count.
+   * @param provider Stat provider.
+   * @return A value or <code>null</code>.
+   */
+  public static Float getStatValue(int level, int tier, int tiersCount, StatProvider provider)
+  {
+    Float value=null;
+    if (provider instanceof TieredScalableStatProvider)
+    {
+      value=provider.getStatValue(tier,level);
+    }
+    else if (provider instanceof ScalableStatProvider)
+    {
+      ScalableStatProvider scalableStatProvider=(ScalableStatProvider)provider;
+      if (tiersCount>1)
+      {
+        value=scalableStatProvider.getStatValue(1,tier);
+      }
+      else
+      {
+        value=scalableStatProvider.getStatValue(1,level);
+      }
+    }
+    else
+    {
+      value=provider.getStatValue(1,level);
+    }
+    return value;
   }
 }

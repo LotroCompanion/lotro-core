@@ -4,11 +4,10 @@ import delta.games.lotro.character.traits.EffectAtRank;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
-import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatProvider;
+import delta.games.lotro.common.stats.StatUtils;
 import delta.games.lotro.common.stats.StatsProvider;
-import delta.games.lotro.common.stats.TieredScalableStatProvider;
 
 /**
  * Stats computing utility methods.
@@ -41,7 +40,7 @@ public class StatsComputer
     BasicStatsSet stats=new BasicStatsSet();
     for(StatProvider provider : statsProvider.getStatProviders())
     {
-      Float value=getStatValue(level,tier,tiersCount,provider);
+      Float value=StatUtils.getStatValue(level,tier,tiersCount,provider);
       if (value!=null)
       {
         StatDescription stat=provider.getStat();
@@ -71,31 +70,5 @@ public class StatsComputer
       }
     }
     return stats;
-  }
-
-  private static Float getStatValue(int level, int tier, int tiersCount, StatProvider provider)
-  {
-    Float value=null;
-    if (provider instanceof TieredScalableStatProvider)
-    {
-      value=provider.getStatValue(tier,level);
-    }
-    else if (provider instanceof ScalableStatProvider)
-    {
-      ScalableStatProvider scalableStatProvider=(ScalableStatProvider)provider;
-      if (tiersCount>1)
-      {
-        value=scalableStatProvider.getStatValue(1,tier);
-      }
-      else
-      {
-        value=scalableStatProvider.getStatValue(1,level);
-      }
-    }
-    else
-    {
-      value=provider.getStatValue(1,level);
-    }
-    return value;
   }
 }
