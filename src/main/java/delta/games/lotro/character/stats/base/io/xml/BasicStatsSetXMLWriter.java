@@ -101,7 +101,7 @@ public class BasicStatsSetXMLWriter
         statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_NAME_ATTR,XmlWriter.CDATA,key);
         // Operator
         StatOperator operator=element.getOperator();
-        if (operator!=StatOperator.ADD)
+        if ((operator!=null) && (operator!=StatOperator.ADD))
         {
           statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_OPERATOR_ATTR,XmlWriter.CDATA,operator.name());
         }

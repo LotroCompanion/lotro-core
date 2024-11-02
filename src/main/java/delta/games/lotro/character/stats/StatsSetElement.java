@@ -151,7 +151,7 @@ public class StatsSetElement
     }
     else
     {
-      LOGGER.warn("Attempt to set a float value for stat: "+_stat.getKey()+": "+value);
+      LOGGER.info("Attempt to set a float value for stat: "+_stat.getKey()+": "+value);
       _value=Integer.valueOf(0);
     }
   }
@@ -179,8 +179,8 @@ public class StatsSetElement
     }
     else
     {
-      LOGGER.warn("Attempt to set an integer value for stat: "+_stat+": "+value);
-      _value=Integer.valueOf(0);
+      LOGGER.info("Attempt to set an integer value for stat: "+_stat+": "+value);
+      _value=Integer.valueOf(value);
     }
   }
 

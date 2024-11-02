@@ -11,6 +11,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLConstants;
 import delta.games.lotro.common.properties.io.ModPropertyListIO;
 import delta.games.lotro.common.stats.ConstantStatProvider;
+import delta.games.lotro.common.stats.GenericConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.SpecialEffect;
@@ -94,6 +95,16 @@ public class StatsProviderXMLWriter
       ConstantStatProvider constantProvider=(ConstantStatProvider)provider;
       float value=constantProvider.getValue();
       attrs.addAttribute("","",StatsProviderXMLConstants.STAT_CONSTANT_ATTR,XmlWriter.CDATA,String.valueOf(value));
+    }
+    // Generic constant?
+    else if (provider instanceof GenericConstantStatProvider)
+    {
+      GenericConstantStatProvider<?> constantProvider=(GenericConstantStatProvider<?>)provider;
+      String valueStr=constantProvider.asPersistentString();
+      if (valueStr!=null)
+      {
+        attrs.addAttribute("","",StatsProviderXMLConstants.STAT_VALUE_ATTR,XmlWriter.CDATA,valueStr);
+      }
     }
     // Scalable?
     else if (provider instanceof ScalableStatProvider)

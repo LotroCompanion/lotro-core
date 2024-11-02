@@ -25,6 +25,7 @@ import delta.games.lotro.common.money.MoneyTables;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.common.stats.ConstantStatProvider;
+import delta.games.lotro.common.stats.GenericConstantStatProvider;
 import delta.games.lotro.common.stats.RangedStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.SpecialEffect;
@@ -67,6 +68,7 @@ import delta.games.lotro.lore.items.weapons.WeaponSpeedsManager;
 import delta.games.lotro.utils.i18n.I18nFacade;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.maths.Progression;
+import delta.games.lotro.values.codec.ValueReader;
 
 /**
  * SAX parser for item files.
@@ -452,6 +454,7 @@ public final class ItemSaxParser extends DefaultHandler
 
   private StatProvider parseStatProvider(StatDescription stat, Attributes attributes)
   {
+    // Constant stat provider?
     String constantStr=attributes.getValue(StatsProviderXMLConstants.STAT_CONSTANT_ATTR);
     if (constantStr!=null)
     {
@@ -476,6 +479,15 @@ public final class ItemSaxParser extends DefaultHandler
     if (rangedStr!=null)
     {
       return parseRangedStatProvider(stat,rangedStr);
+    }
+    // Generic constant stat provider
+    String valueStr=attributes.getValue(StatsProviderXMLConstants.STAT_VALUE_ATTR);
+    if (valueStr!=null)
+    {
+      Object value=ValueReader.read(valueStr);
+      GenericConstantStatProvider<Object> genericConstantStatProvider=new GenericConstantStatProvider<Object>(stat);
+      genericConstantStatProvider.setRawValue(value);
+      return genericConstantStatProvider;
     }
     return null;
   }

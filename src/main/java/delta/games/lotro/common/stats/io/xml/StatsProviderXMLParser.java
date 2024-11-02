@@ -15,6 +15,7 @@ import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.properties.io.ModPropertyListIO;
 import delta.games.lotro.common.stats.ConstantStatProvider;
+import delta.games.lotro.common.stats.GenericConstantStatProvider;
 import delta.games.lotro.common.stats.ScalableStatProvider;
 import delta.games.lotro.common.stats.SpecialEffect;
 import delta.games.lotro.common.stats.StatDescription;
@@ -25,6 +26,7 @@ import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.TieredScalableStatProvider;
 import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 import delta.games.lotro.utils.maths.Progression;
+import delta.games.lotro.values.codec.ValueReader;
 
 /**
  * Parser for stats providers stored in XML.
@@ -168,6 +170,15 @@ public class StatsProviderXMLParser
         tier++;
       }
       return provider;
+    }
+    // Generic constant stat provider
+    String valueStr=DOMParsingTools.getStringAttribute(attrs,StatsProviderXMLConstants.STAT_VALUE_ATTR,null);
+    if (valueStr!=null)
+    {
+      Object value=ValueReader.read(valueStr);
+      GenericConstantStatProvider<Object> genericConstantStatProvider=new GenericConstantStatProvider<Object>(stat);
+      genericConstantStatProvider.setRawValue(value);
+      return genericConstantStatProvider;
     }
     return null;
   }

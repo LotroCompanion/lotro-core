@@ -253,6 +253,14 @@ public class StatsProvider
       ret.setDescriptionOverride(provider.getDescriptionOverride());
       return ret;
     }
+    String descriptionOverride=provider.getDescriptionOverride();
+    if ((descriptionOverride!=null) && (!StatUtils.NO_DESCRIPTION.equals(descriptionOverride)))
+    {
+      StatsSetElement ret=new StatsSetElement(stat,StatOperator.ADD);
+      ret.setValue(Integer.valueOf(0));
+      ret.setDescriptionOverride(provider.getDescriptionOverride());
+      return ret;
+    }
     return null;
   }
 

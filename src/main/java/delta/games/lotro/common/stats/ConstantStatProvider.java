@@ -4,10 +4,8 @@ package delta.games.lotro.common.stats;
  * Constant stat value provider.
  * @author DAM
  */
-public class ConstantStatProvider extends AbstractStatProvider
+public class ConstantStatProvider extends GenericConstantStatProvider<Float>
 {
-  private Float _value;
-
   /**
    * Constructor.
    * @param stat Targeted stat.
@@ -16,7 +14,7 @@ public class ConstantStatProvider extends AbstractStatProvider
   public ConstantStatProvider(StatDescription stat, float value)
   {
     super(stat);
-    _value=Float.valueOf(value);
+    setRawValue(Float.valueOf(value));
   }
 
   /**
@@ -26,6 +24,12 @@ public class ConstantStatProvider extends AbstractStatProvider
   public float getValue()
   {
     return _value.floatValue();
+  }
+
+  @Override
+  public String asPersistentString()
+  {
+    return _value.toString();
   }
 
   @Override
