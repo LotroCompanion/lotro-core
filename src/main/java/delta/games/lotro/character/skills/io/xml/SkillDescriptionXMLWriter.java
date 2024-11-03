@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.skills.SingleTypeSkillEffectsManager;
 import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.character.skills.TravelSkill;
 import delta.games.lotro.character.traits.TraitDescription;
@@ -122,7 +123,11 @@ public class SkillDescriptionXMLWriter
     SkillEffectsManager effectsMgr=skill.getEffects();
     if (effectsMgr!=null)
     {
-      SkillEffectsXmlIO.writeSkillEffects(hd,effectsMgr);
+      List<SingleTypeSkillEffectsManager> mgrs=effectsMgr.getAll();
+      if (!mgrs.isEmpty())
+      {
+        SkillEffectsXmlIO.writeSkillEffects(hd,effectsMgr);
+      }
     }
     hd.endElement("","",tagName);
   }

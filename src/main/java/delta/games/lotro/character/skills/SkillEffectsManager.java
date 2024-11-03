@@ -1,7 +1,9 @@
 package delta.games.lotro.character.skills;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Stores the effects for a skill.
@@ -9,49 +11,65 @@ import java.util.List;
  */
 public class SkillEffectsManager
 {
-  private List<SkillEffectGenerator> _effects;
+  private Map<SkillEffectType,SingleTypeSkillEffectsManager> _map;
 
   /**
    * Constructor.
    */
   public SkillEffectsManager()
   {
-    // Nothing!
+    _map=new EnumMap<SkillEffectType,SingleTypeSkillEffectsManager>(SkillEffectType.class);
   }
 
   /**
-   * Add an effect generator.
-   * @param generator Effect generator to add.
+   * Get all the managed effects.
+   * @return A possibly empty but never <code>null</code> list of effect generators.
    */
-  public void addEffect(SkillEffectGenerator generator)
+  public List<SkillEffectGenerator> getEffects()
   {
-    if (_effects==null)
+    List<SkillEffectGenerator> ret=new ArrayList<SkillEffectGenerator>();
+    for(SingleTypeSkillEffectsManager mgr : getAll())
     {
-      _effects=new ArrayList<SkillEffectGenerator>();
+      ret.addAll(mgr.getEffects());
     }
-    _effects.add(generator);
+    return ret;
   }
 
   /**
-   * Indicates if this manager has effects.
-   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   * Get all the effect managers.
+   * @return A possibly empty but never <code>null</code> list of effect manages.
    */
-  public boolean hasEffects()
+  public List<SingleTypeSkillEffectsManager> getAll()
   {
-    return (_effects!=null);
-  }
-
-  /**
-   * Get the managed effects.
-   * @return A array of effect generators, possibly empty but never <code>null</code>.
-   */
-  public SkillEffectGenerator[] getEffects()
-  {
-    if (_effects==null)
+    List<SingleTypeSkillEffectsManager> ret=new ArrayList<SingleTypeSkillEffectsManager>();
+    for(SkillEffectType type : SkillEffectType.values())
     {
-      return new SkillEffectGenerator[0];
+      SingleTypeSkillEffectsManager mgr=getEffects(type);
+      if (mgr!=null)
+      {
+        ret.add(mgr);
+      }
     }
-    SkillEffectGenerator[] ret=new SkillEffectGenerator[_effects.size()];
-    return _effects.toArray(ret);
+    return ret;
+  }
+
+  /**
+   * Set the effects managed for a type. 
+   * @param type Type to use.
+   * @param mgr Effects manager to set.
+   */
+  public void setEffects(SkillEffectType type, SingleTypeSkillEffectsManager mgr)
+  {
+    _map.put(type,mgr);
+  }
+
+  /**
+   * Get the effects manager for the given effect type.
+   * @param type Type to use.
+   * @return An effects manager or <code>null</code>.
+   */
+  public SingleTypeSkillEffectsManager getEffects(SkillEffectType type)
+  {
+    return _map.get(type);
   }
 }

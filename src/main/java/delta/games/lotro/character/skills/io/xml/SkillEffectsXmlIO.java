@@ -15,12 +15,14 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.SkillEffectType;
+import delta.games.lotro.character.skills.SingleTypeSkillEffectsManager;
 import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.properties.io.ModPropertyListIO;
 
 /**
  * XML I/O for effects integration in skills.
@@ -38,14 +40,45 @@ public class SkillEffectsXmlIO
    */
   public static void writeSkillEffects(TransformerHandler hd, SkillEffectsManager effectsMgr) throws SAXException
   {
-    SkillEffectGenerator[] effects=effectsMgr.getEffects();
-    if (effects.length>0)
+    List<SingleTypeSkillEffectsManager> mgrs=effectsMgr.getAll();
+    if (!mgrs.isEmpty())
     {
-      for(SkillEffectGenerator generator : effects)
+      for(SingleTypeSkillEffectsManager mgr : mgrs)
       {
-        writeEffectGenerator(hd,generator);
+        writeSkillEffects(hd,mgr);
       }
     }
+  }
+
+  private static void writeSkillEffects(TransformerHandler hd, SingleTypeSkillEffectsManager effectsMgr) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Type
+    SkillEffectType type=effectsMgr.getType();
+    if (type!=SkillEffectType.ATTACK)
+    {
+      attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECTS_MGR_TYPE_ATTR,XmlWriter.CDATA,type.name());
+    }
+    // Modifiers
+    String modifiersStr=ModPropertyListIO.asPersistentString(effectsMgr.getAdditiveModifiers());
+    if (!modifiersStr.isEmpty())
+    {
+      attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECTS_MGR_MODIFIERS_ATTR,XmlWriter.CDATA,modifiersStr);
+    }
+    // Override
+    Integer overridePropertyID=effectsMgr.getOverridePropertyID();
+    if (overridePropertyID!=null)
+    {
+      attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECTS_MGR_OVERRIDE_ATTR,XmlWriter.CDATA,overridePropertyID.toString());
+    }
+    hd.startElement("","",SkillEffectsXMLConstants.EFFECTS_MGR_TAG,attrs);
+    // Effects
+    List<SkillEffectGenerator> effects=effectsMgr.getEffects();
+    for(SkillEffectGenerator generator : effects)
+    {
+      writeEffectGenerator(hd,generator);
+    }
+    hd.endElement("","",SkillEffectsXMLConstants.EFFECTS_MGR_TAG);
   }
 
   private static void writeEffectGenerator(TransformerHandler hd, SkillEffectGenerator generator) throws SAXException
@@ -73,12 +106,6 @@ public class SkillEffectsXmlIO
     {
       attrs.addAttribute("","",SkillEffectsXMLConstants.EFFECT_DURATION_ATTR,XmlWriter.CDATA,duration.toString());
     }
-    // Type
-    SkillEffectType type=generator.getType();
-    if (type!=SkillEffectType.ATTACK)
-    {
-      attrs.addAttribute("","",SkillEffectsXMLConstants.SKILL_EFFECT_TYPE_ATTR,XmlWriter.CDATA,type.name());
-    }
     // Implement usage
     ImplementUsageType implementUsage=generator.getImplementUsage();
     if (implementUsage!=null)
@@ -96,13 +123,41 @@ public class SkillEffectsXmlIO
    */
   public static SkillEffectsManager readSkillEffects(Element parentTag)
   {
-    List<Element> effectTags=DOMParsingTools.getChildTagsByName(parentTag,SkillEffectsXMLConstants.EFFECT_TAG,false);
-    if (effectTags.isEmpty())
+    List<Element> effectsMgrTags=DOMParsingTools.getChildTagsByName(parentTag,SkillEffectsXMLConstants.EFFECTS_MGR_TAG,false);
+    if (effectsMgrTags.isEmpty())
     {
       return null;
     }
+    SkillEffectsManager ret=new SkillEffectsManager();
+    for(Element effectsMgrTag : effectsMgrTags)
+    {
+      SingleTypeSkillEffectsManager mgr=readSkillEffectsManager(effectsMgrTag);
+      ret.setEffects(mgr.getType(),mgr);
+    }
+    return ret;
+  }
+
+  private static SingleTypeSkillEffectsManager readSkillEffectsManager(Element parentTag)
+  {
     LotroEnum<ImplementUsageType> implementUsageEnum=LotroEnumsRegistry.getInstance().get(ImplementUsageType.class);
-    SkillEffectsManager mgr=new SkillEffectsManager();
+
+    NamedNodeMap mainAttrs=parentTag.getAttributes();
+    // Type
+    String typeStr=DOMParsingTools.getStringAttribute(mainAttrs,SkillEffectsXMLConstants.EFFECTS_MGR_TYPE_ATTR,null);
+    SkillEffectType type=SkillEffectType.ATTACK;
+    if (typeStr!=null)
+    {
+      type=SkillEffectType.valueOf(typeStr);
+    }
+    SingleTypeSkillEffectsManager mgr=new SingleTypeSkillEffectsManager(type);
+    // Modifiers
+    String modifiersStr=DOMParsingTools.getStringAttribute(mainAttrs,SkillEffectsXMLConstants.EFFECTS_MGR_MODIFIERS_ATTR,null);
+    mgr.setAdditiveModifiers(ModPropertyListIO.fromPersistedString(modifiersStr));
+    // Override
+    Integer overridePropertyID=DOMParsingTools.getIntegerAttribute(mainAttrs,SkillEffectsXMLConstants.EFFECTS_MGR_OVERRIDE_ATTR,null);
+    mgr.setOverridePropertyID(overridePropertyID);
+    // Effects
+    List<Element> effectTags=DOMParsingTools.getChildTagsByName(parentTag,SkillEffectsXMLConstants.EFFECT_TAG,false);
     for(Element effectTag : effectTags)
     {
       NamedNodeMap attrs=effectTag.getAttributes();
@@ -112,13 +167,6 @@ public class SkillEffectsXmlIO
       Float spellcraft=DOMParsingTools.getFloatAttribute(attrs,SkillEffectsXMLConstants.EFFECT_SPELLCRAFT_ATTR,null);
       // Duration
       Float duration=DOMParsingTools.getFloatAttribute(attrs,SkillEffectsXMLConstants.EFFECT_DURATION_ATTR,null);
-      // Type
-      String typeStr=DOMParsingTools.getStringAttribute(attrs,SkillEffectsXMLConstants.SKILL_EFFECT_TYPE_ATTR,null);
-      SkillEffectType type=SkillEffectType.ATTACK;
-      if (typeStr!=null)
-      {
-        type=SkillEffectType.valueOf(typeStr);
-      }
       // Implement usage
       ImplementUsageType implementUsage=null;
       Integer implementUsageCode=DOMParsingTools.getIntegerAttribute(attrs,SkillEffectsXMLConstants.SKILL_EFFECT_IMPLEMENT_ATTR,null);

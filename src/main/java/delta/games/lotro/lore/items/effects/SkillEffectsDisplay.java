@@ -29,15 +29,15 @@ public class SkillEffectsDisplay
     {
       return ret;
     }
-    SkillEffectGenerator[] effectGenerators=mgr.getEffects();
-    int nbEffects=effectGenerators.length;
+    List<SkillEffectGenerator> effectGenerators=mgr.getEffects();
+    int nbEffects=effectGenerators.size();
     if (nbEffects>0)
     {
       Set<Integer> usedEffectIds=new HashSet<Integer>();
       // Avoid using the same ID multiple times
       for(int i=nbEffects-1;i>=0;i--)
       {
-        SkillEffectGenerator effectGenerator=effectGenerators[i];
+        SkillEffectGenerator effectGenerator=effectGenerators.get(i);
         Integer effectId=Integer.valueOf(effectGenerator.getEffect().getIdentifier());
         if (!usedEffectIds.contains(effectId))
         {

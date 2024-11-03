@@ -7,10 +7,6 @@ package delta.games.lotro.character.skills;
 public enum SkillEffectType
 {
   /**
-   * Attack (default).
-   */
-  ATTACK,
-  /**
    * Attack (critical result).
    */
   ATTACK_CRITICAL,
@@ -23,6 +19,10 @@ public enum SkillEffectType
    */
   ATTACK_SUPERCRITICAL,
   /**
+   * Attack (default).
+   */
+  ATTACK,
+  /**
    * Applied to self on critical.
    */
   SELF_CRITICAL,
@@ -31,11 +31,11 @@ public enum SkillEffectType
    */
   TOGGLE,
   /**
-   * User skill effect.
-   */
-  USER,
-  /**
    * Toggle user skill effect.
    */
-  USER_TOGGLE
+  USER_TOGGLE,
+  /**
+   * User skill effect.
+   */
+  USER
 }
