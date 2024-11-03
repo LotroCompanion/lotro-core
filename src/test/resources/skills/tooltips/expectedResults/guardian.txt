@@ -11,6 +11,7 @@ Strengthens defences briefly.
 2,5% Partial Parry Chance
 -5% Armour Wear from Hits
 2,5% Partial Block Chance
++0 to Tactical Mitigation
 Duration: 10s
 +396 Power
 Cooldown: 3s
