@@ -17,6 +17,7 @@ import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
+import delta.games.lotro.common.effects.BubbleEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.CountDownEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
@@ -107,6 +108,7 @@ public class EffectXMLWriter
     if (effect instanceof InstantVitalEffect) return EffectXMLConstants.INSTANT_VITAL_EFFECT_TAG;
     if (effect instanceof ProcEffect) return EffectXMLConstants.PROC_TAG;
     if (effect instanceof ReactiveVitalEffect) return EffectXMLConstants.REACTIVE_VITAL_EFFECT_TAG;
+    if (effect instanceof BubbleEffect) return EffectXMLConstants.BUBBLE_EFFECT_TAG;
     if (effect instanceof CountDownEffect) return EffectXMLConstants.COUNTDOWN_EFFECT_TAG;
     if (effect instanceof PropertyModificationEffect) return EffectXMLConstants.PROPERTY_MOD_EFFECT_TAG;
     if (effect instanceof VitalOverTimeEffect) return EffectXMLConstants.VITAL_OVER_TIME_EFFECT_TAG;
@@ -256,6 +258,11 @@ public class EffectXMLWriter
     {
       ReactiveVitalEffect reactiveVitalEffect=(ReactiveVitalEffect)effect;
       writeReactiveVitalEffectAttributes(attrs,reactiveVitalEffect);
+    }
+    else if (effect instanceof BubbleEffect)
+    {
+      BubbleEffect bubbleEffect=(BubbleEffect)effect;
+      writeBubbleEffectAttributes(attrs,bubbleEffect);
     }
     else if (effect instanceof PropertyModificationEffect)
     {
@@ -882,6 +889,37 @@ public class EffectXMLWriter
     if (onRemovalEffect!=null)
     {
       writeEffectGenerator(hd,onRemovalEffect,EffectXMLConstants.ON_REMOVAL_TAG);
+    }
+  }
+
+  private void writeBubbleEffectAttributes(AttributesImpl attrs, BubbleEffect bubbleEffect)
+  {
+    // Vital
+    StatDescription vital=bubbleEffect.getVital();
+    attrs.addAttribute("","",EffectXMLConstants.BUBBLE_VITAL_ATTR,XmlWriter.CDATA,String.valueOf(vital.getKey()));
+    // Value
+    Float value=bubbleEffect.getValue();
+    if (value!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.BUBBLE_VALUE_ATTR,XmlWriter.CDATA,value.toString());
+    }
+    // Percentage
+    Float percentage=bubbleEffect.getPercentage();
+    if (percentage!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.BUBBLE_PERCENTAGE_ATTR,XmlWriter.CDATA,percentage.toString());
+    }
+    // Progression
+    Progression progression=bubbleEffect.getProgression();
+    if (progression!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.BUBBLE_PROGRESSION_ATTR,XmlWriter.CDATA,String.valueOf(progression.getIdentifier()));
+    }
+    // Modifiers
+    String modifiers=ModPropertyListIO.asPersistentString(bubbleEffect.getModifiers());
+    if (!modifiers.isEmpty())
+    {
+      attrs.addAttribute("","",EffectXMLConstants.BUBBLE_MODS_ATTR,XmlWriter.CDATA,modifiers);
     }
   }
 

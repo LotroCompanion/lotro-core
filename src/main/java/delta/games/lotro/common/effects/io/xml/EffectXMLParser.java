@@ -18,6 +18,7 @@ import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
+import delta.games.lotro.common.effects.BubbleEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.CountDownEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
@@ -180,6 +181,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.APPLY_OVER_TIME_EFFECT_TAG.equals(tagName))
     {
       ret=parseApplyOverTimeEffect(root);
+    }
+    else if (EffectXMLConstants.BUBBLE_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseBubbleEffect(root);
     }
     else
     {
@@ -668,6 +673,12 @@ public class EffectXMLParser
   private CountDownEffect parseCountDownEffect(Element root)
   {
     CountDownEffect ret=new CountDownEffect();
+    readCountDownEffect(root,ret);
+    return ret;
+  }
+
+  private void readCountDownEffect(Element root, CountDownEffect ret)
+  {
     // Stats
     readPropertyMod(root,ret);
     // 'on expire' effect generators
@@ -684,7 +695,6 @@ public class EffectXMLParser
       EffectGenerator onRemovalEffect=readEffectGenerator(onRemovalTag);
       ret.setOnRemovalEffect(onRemovalEffect);
     }
-    return ret;
   }
 
   private ApplyOverTimeEffect parseApplyOverTimeEffect(Element root)
@@ -704,6 +714,35 @@ public class EffectXMLParser
       EffectGenerator appliedEffect=readEffectGenerator(appliedTag);
       ret.addAppliedEffect(appliedEffect);
     }
+    return ret;
+  }
+
+  private BubbleEffect parseBubbleEffect(Element root)
+  {
+    BubbleEffect ret=new BubbleEffect();
+    readCountDownEffect(root,ret);
+    NamedNodeMap attrs=root.getAttributes();
+    // Vital
+    String statKey=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.BUBBLE_VITAL_ATTR,"");
+    StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
+    ret.setVital(stat);
+    // Value
+    Float value=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.BUBBLE_VALUE_ATTR,null);
+    ret.setValue(value);
+    // Percentage
+    Float percentage=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.BUBBLE_PERCENTAGE_ATTR,null);
+    ret.setPercentage(percentage);
+    // Progression
+    Integer progressionID=DOMParsingTools.getIntegerAttribute(attrs,EffectXMLConstants.BUBBLE_PROGRESSION_ATTR,null);
+    if (progressionID!=null)
+    {
+      Progression progression=ProgressionsManager.getInstance().getProgression(progressionID.intValue());
+      ret.setProgression(progression);
+    }
+    // Modifiers
+    String modifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.BUBBLE_MODS_ATTR,null);
+    ModPropertyList modifiers=ModPropertyListIO.fromPersistedString(modifiersStr);
+    ret.setModifiers(modifiers);
     return ret;
   }
 

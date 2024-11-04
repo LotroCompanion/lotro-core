@@ -430,6 +430,30 @@ public class EffectXMLConstants
    */
   public static final String ON_REMOVAL_TAG="onRemoval";
   /**
+   * Tag 'bubbleEffect'.
+   */
+  public static final String BUBBLE_EFFECT_TAG="bubbleEffect";
+  /**
+   * Tag 'bubbleEffect', attribute 'vital'.
+   */
+  public static final String BUBBLE_VITAL_ATTR="vital";
+  /**
+   * Tag 'bubbleEffect', attribute 'value'.
+   */
+  public static final String BUBBLE_VALUE_ATTR="value";
+  /**
+   * Tag 'bubbleEffect', attribute 'percentage'.
+   */
+  public static final String BUBBLE_PERCENTAGE_ATTR="percentage";
+  /**
+   * Tag 'bubbleEffect', attribute 'progression'.
+   */
+  public static final String BUBBLE_PROGRESSION_ATTR="progression";
+  /**
+   * Tag 'bubbleEffect', attribute 'modifiers'.
+   */
+  public static final String BUBBLE_MODS_ATTR="modifiers";
+  /**
    * Tag 'applyOverTimeEffect'.
    */
   public static final String APPLY_OVER_TIME_EFFECT_TAG="applyOverTimeEffect";
