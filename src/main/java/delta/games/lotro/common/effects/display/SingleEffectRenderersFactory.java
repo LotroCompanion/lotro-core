@@ -2,6 +2,7 @@ package delta.games.lotro.common.effects.display;
 
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
+import delta.games.lotro.common.effects.BubbleEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.Effect;
@@ -39,6 +40,10 @@ public class SingleEffectRenderersFactory
     else if (effect instanceof ReactiveVitalEffect)
     {
       return new ReactiveVitalEffectRenderer();
+    }
+    else if (effect instanceof BubbleEffect)
+    {
+      return new BubbleEffectRenderer();
     }
     else if (effect instanceof PropertyModificationEffect)
     {

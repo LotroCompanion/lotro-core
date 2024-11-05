@@ -358,6 +358,8 @@ On any damage:
 5s Daze
 100% break chance on damage after 1s
 Duration: 20s
+Applies a damage preventing bubble granting 16 114 temporary Morale.
+Duration: 20s
 Cost: 254 Power
 Attunes: 4 (steady)
 Cooldown: 3m
