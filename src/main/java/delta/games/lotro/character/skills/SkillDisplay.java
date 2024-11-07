@@ -15,6 +15,7 @@ import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.Arc;
 import delta.games.lotro.character.skills.geometry.Shape;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.character.skills.geometry.SkillPositionalData;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.Duration;
@@ -358,10 +359,48 @@ public class SkillDisplay
     {
       return;
     }
-    for(SkillEffectGenerator generator : effectsMgr.getEffects())
+    for(SkillEffectType type : SkillEffectType.values())
     {
-      handleEffect(attack.getDamageQualifier(),generator,generator.getEffect(),storage);
+      SingleTypeSkillEffectsManager typeEffectsMgr=effectsMgr.getEffects(type);
+      if (typeEffectsMgr!=null)
+      {
+        List<String> childStorage=new ArrayList<String>();
+        for(SkillEffectGenerator generator : typeEffectsMgr.getEffects())
+        {
+          handleEffect(attack.getDamageQualifier(),generator,generator.getEffect(),childStorage);
+        }
+        if (!childStorage.isEmpty())
+        {
+          String headerLine=getHeaderLine(type);
+          if (headerLine!=null)
+          {
+            storage.add(headerLine);
+          }
+          storage.addAll(childStorage);
+        }
+      }
     }
+  }
+
+  private String getHeaderLine(SkillEffectType type)
+  {
+    if (type==SkillEffectType.ATTACK_POSITIONAL)
+    {
+      SkillGeometry geometry=_skillDetails.getGeometry();
+      if (geometry!=null)
+      {
+        SkillPositionalData positionalData=geometry.getPositionalData();
+        if (positionalData!=null)
+        {
+          int heading=positionalData.getHeading();
+          if (heading==180)
+          {
+            return "When behind a target:";
+          }
+        }
+      }
+    }
+    return null;
   }
 
   private void doSkillEffects(List<String> storage)

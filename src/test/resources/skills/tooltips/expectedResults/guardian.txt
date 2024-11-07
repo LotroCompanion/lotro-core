@@ -139,6 +139,7 @@ An attack that impairs the target on a critical hit, or when attacking from behi
 Duration: 15s
 +15% Target Attack Duration
 Duration: 15s
+When behind a target:
 -25% Target Run Speed
 Duration: 15s
 +15% Target Attack Duration
