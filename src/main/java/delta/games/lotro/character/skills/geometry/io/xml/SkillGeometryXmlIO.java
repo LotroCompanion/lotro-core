@@ -13,6 +13,7 @@ import delta.games.lotro.character.skills.geometry.Arc;
 import delta.games.lotro.character.skills.geometry.Box;
 import delta.games.lotro.character.skills.geometry.Shape;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
+import delta.games.lotro.character.skills.geometry.SkillPositionalData;
 import delta.games.lotro.character.skills.geometry.Sphere;
 import delta.games.lotro.common.enums.AreaEffectAnchorType;
 import delta.games.lotro.common.enums.LotroEnum;
@@ -40,6 +41,21 @@ public class SkillGeometryXmlIO
     }
     AttributesImpl attrs=new AttributesImpl();
 
+    // Positional data
+    SkillPositionalData positionalData=data.getPositionalData();
+    if (positionalData!=null)
+    {
+      int heading=positionalData.getHeading();
+      if (heading!=0)
+      {
+        attrs.addAttribute("","",SkillGeometryXMLConstants.POSITIONAL_HEADING_ATTR,XmlWriter.CDATA,String.valueOf(heading));
+      }
+      int spread=positionalData.getSpread();
+      if (spread!=0)
+      {
+        attrs.addAttribute("","",SkillGeometryXMLConstants.POSITIONAL_SPREAD_ATTR,XmlWriter.CDATA,String.valueOf(spread));
+      }
+    }
     // Detection anchor
     AreaEffectAnchorType detectionAnchor=data.getDetectionAnchor();
     if (detectionAnchor!=null)
@@ -133,6 +149,16 @@ public class SkillGeometryXmlIO
     NamedNodeMap attrs=geometryTag.getAttributes();
 
     SkillGeometry ret=new SkillGeometry();
+    // Positional data
+    Integer heading=DOMParsingTools.getIntegerAttribute(attrs,SkillGeometryXMLConstants.POSITIONAL_HEADING_ATTR,null);
+    Integer spread=DOMParsingTools.getIntegerAttribute(attrs,SkillGeometryXMLConstants.POSITIONAL_SPREAD_ATTR,null);
+    if ((heading!=null) || (spread!=null))
+    {
+      SkillPositionalData positionalData=new SkillPositionalData();
+      positionalData.setHeading((heading!=null)?heading.intValue():0);
+      positionalData.setSpread((spread!=null)?spread.intValue():0);
+      ret.setPositionalData(positionalData);
+    }
     // Detection anchor
     Integer detectionAnchorCode=DOMParsingTools.getIntegerAttribute(attrs,SkillGeometryXMLConstants.DETECTION_ANCHOR_ATTR,null);
     if (detectionAnchorCode!=null)

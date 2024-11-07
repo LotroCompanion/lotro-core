@@ -5,7 +5,7 @@ import delta.games.lotro.common.properties.ModPropertyList;
 
 /**
  * Geometry for a skill.
- * @author dm
+ * @author DAM
  */
 public class SkillGeometry
 {
@@ -13,6 +13,10 @@ public class SkillGeometry
    * Shape (box, arc or sphere ; may be <code>null</code>).
    */
   private Shape _shape;
+  /**
+   * Positional data. May be <code>null</code>.
+   */
+  private SkillPositionalData _positionalData;
   /**
    * Anchor type (may be <code>null</code>).
    */
@@ -58,6 +62,24 @@ public class SkillGeometry
   public void setShape(Shape shape)
   {
     _shape=shape;
+  }
+
+  /**
+   * Get the positional data.
+   * @return the positional data (may be <code>null</code>).
+   */
+  public SkillPositionalData getPositionalData()
+  {
+    return _positionalData;
+  }
+
+  /**
+   * Set the positional data.
+   * @param positionalData the positional data to set.
+   */
+  public void setPositionalData(SkillPositionalData positionalData)
+  {
+    _positionalData=positionalData;
   }
 
   /**
@@ -180,7 +202,7 @@ public class SkillGeometry
    */
   public boolean hasValues()
   {
-    return ((_shape!=null) || (_detectionAnchor!=null) || (_minRange!=null) || (_maxRange!=null) || (_maxRangeMods!=null));
+    return ((_shape!=null) || (_positionalData!=null) || (_detectionAnchor!=null) || (_minRange!=null) || (_maxRange!=null) || (_maxRangeMods!=null));
   }
 
   @Override
@@ -190,6 +212,10 @@ public class SkillGeometry
     if (_shape!=null)
     {
       sb.append(" Shape=").append(_shape);
+    }
+    if (_positionalData!=null)
+    {
+      sb.append(" Positional data=").append(_positionalData);
     }
     if (_detectionAnchor!=null)
     {

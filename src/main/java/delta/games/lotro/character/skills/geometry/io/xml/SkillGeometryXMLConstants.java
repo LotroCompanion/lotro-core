@@ -11,6 +11,14 @@ public class SkillGeometryXMLConstants
    */
   public static final String GEOMETRY_TAG="geometry";
   /**
+   * Attribute 'positionalHeading'.
+   */
+  public static final String POSITIONAL_HEADING_ATTR="positionalHeading";
+  /**
+   * Attribute 'positionalSpread'.
+   */
+  public static final String POSITIONAL_SPREAD_ATTR="positionalSpread";
+  /**
    * Attribute 'detectionAnchor'.
    */
   public static final String DETECTION_ANCHOR_ATTR="detectionAnchor";
