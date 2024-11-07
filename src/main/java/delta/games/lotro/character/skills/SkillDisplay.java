@@ -231,13 +231,27 @@ public class SkillDisplay
     {
       table.add(description.replace("\n",EndOfLine.NATIVE_EOL));
     }
-    List<String> attacks=getAttacksLines();
-    table.addAll(attacks);
+    SkillAttacks attacks=_skillDetails.getAttacks();
+    if (attacks!=null)
+    {
+      List<String> attackLines=getAttacksLines();
+      table.addAll(attackLines);
+    }
+    // Attack effects (regular and positional) 
+    if (attacks!=null)
+    {
+      doRegularAttackEffects(attacks,table);
+    }
     // Effects
     doSkillEffects(table);
     // Cost
     List<String> costLines=getCostLines();
     table.addAll(costLines);
+    // Critical attack effects
+    if (attacks!=null)
+    {
+      doCriticalAttackEffects(attacks,table);
+    }
     // Gambit
     List<String> gambitLines=getGambitLines(_skillDetails.getGambitData());
     table.addAll(gambitLines);
@@ -345,41 +359,90 @@ public class SkillDisplay
         ret.add(attackText);
       }
     }
-    for(SkillAttack attack : attacks.getAttacks())
-    {
-      doEffects(attack,ret);
-    }
     return ret;
   }
 
-  private void doEffects(SkillAttack attack, List<String> storage)
+  private void doRegularAttackEffects(SkillAttacks attacks, List<String> storage)
+  {
+    for(SkillAttack attack : attacks.getAttacks())
+    {
+      doRegularAttackEffects(attack,storage);
+    }
+  }
+
+  private void doCriticalAttackEffects(SkillAttacks attacks, List<String> storage)
+  {
+    for(SkillAttack attack : attacks.getAttacks())
+    {
+      doCriticalAttackEffects(attack,storage);
+    }
+  }
+
+  private void doRegularAttackEffects(SkillAttack attack, List<String> storage)
   {
     SkillEffectsManager effectsMgr=attack.getEffects();
     if (effectsMgr==null)
     {
       return;
     }
-    for(SkillEffectType type : SkillEffectType.values())
+    List<String> effects=getAttackEffects(attack,effectsMgr,SkillEffectType.ATTACK);
+    storage.addAll(effects);
+    List<String> positionalEffects=getAttackEffects(attack,effectsMgr,SkillEffectType.ATTACK_POSITIONAL);
+    if (!positionalEffects.isEmpty())
     {
-      SingleTypeSkillEffectsManager typeEffectsMgr=effectsMgr.getEffects(type);
-      if (typeEffectsMgr!=null)
+      String headerLine=getHeaderLine(SkillEffectType.ATTACK_POSITIONAL);
+      if (headerLine!=null)
       {
-        List<String> childStorage=new ArrayList<String>();
-        for(SkillEffectGenerator generator : typeEffectsMgr.getEffects())
-        {
-          handleEffect(attack.getDamageQualifier(),generator,generator.getEffect(),childStorage);
-        }
-        if (!childStorage.isEmpty())
-        {
-          String headerLine=getHeaderLine(type);
-          if (headerLine!=null)
-          {
-            storage.add(headerLine);
-          }
-          storage.addAll(childStorage);
-        }
+        storage.add(headerLine);
+        storage.addAll(positionalEffects);
       }
     }
+  }
+
+  private void doCriticalAttackEffects(SkillAttack attack, List<String> storage)
+  {
+    SkillEffectsManager effectsMgr=attack.getEffects();
+    if (effectsMgr==null)
+    {
+      return;
+    }
+    List<String> criticalEffects=getAttackEffects(attack,effectsMgr,SkillEffectType.ATTACK_CRITICAL);
+    List<String> devastateEffects=getAttackEffects(attack,effectsMgr,SkillEffectType.ATTACK_SUPERCRITICAL);
+    if (criticalEffects.equals(devastateEffects))
+    {
+      if (!criticalEffects.isEmpty())
+      {
+        storage.add("Apply to target on Critical and Devastating Critical:");
+        storage.addAll(criticalEffects);
+      }
+    }
+    else
+    {
+      if (!criticalEffects.isEmpty())
+      {
+        storage.add("Apply to target on critical:");
+        storage.addAll(criticalEffects);
+      }
+      if (!devastateEffects.isEmpty())
+      {
+        storage.add("Apply to target on devastating critical:");
+        storage.addAll(devastateEffects);
+      }
+    }
+  }
+
+  private List<String> getAttackEffects(SkillAttack attack, SkillEffectsManager effectsMgr, SkillEffectType type)
+  {
+    List<String> childStorage=new ArrayList<String>();
+    SingleTypeSkillEffectsManager typeEffectsMgr=effectsMgr.getEffects(type);
+    if (typeEffectsMgr!=null)
+    {
+      for(SkillEffectGenerator generator : typeEffectsMgr.getEffects())
+      {
+        handleEffect(attack.getDamageQualifier(),generator,generator.getEffect(),childStorage);
+      }
+    }
+    return childStorage;
   }
 
   private String getHeaderLine(SkillEffectType type)

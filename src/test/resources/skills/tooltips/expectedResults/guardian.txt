@@ -135,18 +135,15 @@ Melee Skill
 Range: 4m
 An attack that impairs the target on a critical hit, or when attacking from behind.
 4 143 - 5 524 Beleriand (Main-hand) Damage
--25% Target Run Speed
-Duration: 15s
-+15% Target Attack Duration
-Duration: 15s
 When behind a target:
 -25% Target Run Speed
 Duration: 15s
 +15% Target Attack Duration
 Duration: 15s
+Cost: 32 Power
+Apply to target on Critical and Devastating Critical:
 -25% Target Run Speed
 Duration: 15s
 +15% Target Attack Duration
 Duration: 15s
-Cost: 32 Power
 Cooldown: 5s
