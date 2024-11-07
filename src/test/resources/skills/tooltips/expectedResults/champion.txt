@@ -74,8 +74,8 @@ Skill Type: Harmful, Blade
 Range: 5,2m
 Makes a full AoE attack, which causes medium damage-over-time.
 8 306 - 11 074 Beleriand (Main-hand) Damage
-2 012 Beleriand Damage initially.
-4 426 Beleriand Damage every 2,0 seconds for 20 seconds.
+2 213 Beleriand Damage initially.
+4 869 Beleriand Damage every 2,0 seconds for 20 seconds.
 Cost: 135 Power
 Adds 2 to Fervour
 Cooldown: 4s
@@ -166,7 +166,7 @@ Radius: 5m
 Skill Type: Harmful, Blade
 Range: 5,2m
 Makes a full AoE attack.
-11 283 - 15 045 Beleriand (Main-hand) Damage
+12 412 - 16 549 Beleriand (Main-hand) Damage
 -20% Attack Duration
 16 200 Critical Rating
 Duration: 30s
@@ -204,8 +204,8 @@ Deals AoE damage in front of the Champion.
 
 Damage is increased by 30% per pip consumed.
 2 Attacks:
-11 833 - 15 778 Beleriand (Main-hand) Damage
-9 096 - 12 128 Beleriand (Main-hand) Damage
+13 017 - 17 356 Beleriand (Main-hand) Damage
+10 006 - 13 341 Beleriand (Main-hand) Damage
 Cost: 471 Power
 Removes 5 from Fervour
 Cooldown: 20s
@@ -248,8 +248,8 @@ Makes a full AoE attack, inflicting heavy damage.
 
 This attack never misses on level opponents.
 2 Attacks:
-14 035 - 18 713 Beleriand (Main-hand) Damage
-10 617 - 14 155 Beleriand (Main-hand) Damage
+15 438 - 20 584 Beleriand (Main-hand) Damage
+11 678 - 15 571 Beleriand (Main-hand) Damage
 Cost: 269 Power
 Cost: 3 Fervour
 Cooldown: 10s

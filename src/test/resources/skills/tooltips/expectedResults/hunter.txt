@@ -8,7 +8,7 @@ Range: 30m
 Nock and loose an arrow quickly.
 
 Has a chance to generate additional Focus.
-2 779 - 3 705 Beleriand (Ranged) Damage
+2 918 - 3 890 Beleriand (Ranged) Damage
 +1 Bonus Focus
 Cost: 32 Power
 Adds 1 to Focus
@@ -21,9 +21,9 @@ Induction: 1,6s
 Range: 30m
 Loose three missiles in rapid succession.
 3 Attacks:
-6 642 - 8 856 Beleriand (Ranged) Damage
-5 536 - 7 382 Beleriand (Ranged) Damage
-4 190 - 5 586 Beleriand (Ranged) Damage
+6 974 - 9 299 Beleriand (Ranged) Damage
+5 055 - 6 740 Beleriand (Ranged) Damage
+3 825 - 5 100 Beleriand (Ranged) Damage
 Cost: 191 Power
 Adds 2 to Focus
 Cooldown: 10s
@@ -34,7 +34,7 @@ Immediate
 Ranged Skill
 Range: 30m
 A swift ranged attack that can interrupt an enemy's actions.
-10 799 - 14 399 Beleriand (Ranged) Damage
+11 339 - 15 119 Beleriand (Ranged) Damage
 Interrupts Inductions
 Cost: 95 Power
 Adds 3 to Focus
@@ -47,8 +47,8 @@ Ranged Skill
 Induction: 1,4s
 Range: 30m
 Your arrow can cause a wound that bleeds and slightly slows movement speed.
-5 377 - 7 166 Beleriand (Ranged) Damage
-3 806 Beleriand Damage every 2,0 seconds for 12 seconds.
+5 645 - 7 524 Beleriand (Ranged) Damage
+3 996 Beleriand Damage every 2,0 seconds for 12 seconds.
 -10% Target Run Speed
 Duration: 20s
 Cost: 191 Power
@@ -64,7 +64,7 @@ Range: 30m
 A shot that strikes the enemy with fear.
 
 <rgb=#00FFDD>Mounted Combat Enemies: Fear replaced with attack speed debuff.</rgb>
-11 183 - 14 911 Beleriand (Ranged) Damage
+11 742 - 15 656 Beleriand (Ranged) Damage
 15s Fear
 100% break chance on damage after 1s
 Cost: 96 Power
@@ -78,8 +78,8 @@ Ranged Skill
 Induction: 1,8s
 Range: 30m
 A shot that cannot be missed, parried, evaded, or blocked.
-22 883 - 30 511 Beleriand (Ranged) Damage
-4 691 Beleriand Damage every 2,0 seconds for 10 seconds.
+24 027 - 32 036 Beleriand (Ranged) Damage
+4 925 Beleriand Damage every 2,0 seconds for 10 seconds.
 Cost: 191 Power
 Cooldown: 50s
 *****************************
@@ -89,7 +89,7 @@ Fast
 Ranged Skill
 Range: 30m
 A damaging shot that pierces enemy mitigations.
-6 480 - 8 640 Beleriand (Ranged) Damage
+6 804 - 9 072 Beleriand (Ranged) Damage
 -3% Physical Mitigation (%)
 -3% Tactical Mitigation (%)
 Duration: 10s
@@ -106,8 +106,8 @@ Radius: 5m
 Range: 5,0m
 A low cut in front of you which briefly slows the movement speed of up to 3 enemies.
 2 Attacks:
-3 586 - 4 782 Beleriand (Main-hand) Damage
-1 012 - 1 349 Westernesse (Off-hand) Damage
+3 765 - 5 021 Beleriand (Main-hand) Damage
+924 - 1 232 Westernesse (Off-hand) Damage
 -50% Target Run Speed
 Duration: 10s
 Cost: 127 Power
@@ -120,7 +120,7 @@ Fast
 Ranged Skill
 Range: 30m
 A quick attack that deals more damage each time it is used.
-7 927 - 10 570 Beleriand (Ranged) Damage
+8 323 - 11 098 Beleriand (Ranged) Damage
 Increases Barrage Damage & Power Costs
 Duration: 6s
 Cost: 95 Power
@@ -136,8 +136,8 @@ A melee attack dealing additional damage if the enemy suffers from Barbed Arrow.
 
 Using this skill will stop the bleeding.
 2 Attacks:
-4 164 - 5 552 Beleriand (Main-hand) Damage
-1 184 - 1 579 Westernesse (Off-hand) Damage
+4 372 - 5 829 Beleriand (Main-hand) Damage
+1 081 - 1 442 Westernesse (Off-hand) Damage
 Cost: 127 Power
 Adds 2 to Focus
 Cooldown: 5s
@@ -149,7 +149,7 @@ Ranged Skill
 Skill Type: Heal
 Range: 30m
 A damaging shot that also restores the Hunter's Morale and removes Corruptions from the target.
-7 992 - 10 655 Beleriand (Ranged) Damage
+8 391 - 11 188 Beleriand (Ranged) Damage
 Removes 1 tier of up to 3 different Corruption effects from the target.
 Activates the Skill Exsanguinate
 Duration: 8s
@@ -166,7 +166,7 @@ Max Targets: 10
 Radius: 10m
 Range: 30m
 Rains arrows down upon your enemies, allowing you to hit multiple targets.
-9 172 - 12 230 Beleriand (Ranged) Damage
+9 631 - 12 841 Beleriand (Ranged) Damage
 Cost: 191 Power
 Cost: 5 Focus
 Cooldown: 12s
@@ -180,8 +180,8 @@ Dazes the enemy with a pair of melee attacks while dual-wielding.
 
 <rgb=#00FFDD>Mounted Combat Enemies: Daze replaced with a debuff that reduces damage against dismounted players.</rgb>
 2 Attacks:
-1 978 - 2 638 Westernesse (Off-hand) Damage
-5 787 - 7 716 Beleriand (Main-hand) Damage
+2 077 - 2 770 Westernesse (Off-hand) Damage
+6 077 - 8 102 Beleriand (Main-hand) Damage
 5s Daze
 100% break chance on damage after 1s
 Removes 1 tier of up to 3 different Corruption effects from the target.
@@ -197,7 +197,7 @@ Range: 30m
 A massively damaging shot that unlocks when the target is below 50% health.
 
 Critical hits deal bonus damage.
-14 039 - 18 719 Beleriand (Ranged) Damage
+14 741 - 19 655 Beleriand (Ranged) Damage
 Cost: 72 Power
 Cost: 6 Focus
 Cooldown: 20s
