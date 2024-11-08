@@ -2,9 +2,12 @@ package delta.games.lotro.character.skills.effects;
 
 import java.util.List;
 
+import delta.common.utils.NumericTools;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
+import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.traits.EffectAtRank;
 import delta.games.lotro.character.traits.TraitDescription;
@@ -25,18 +28,29 @@ import delta.games.lotro.values.StructValue;
  * Find properties that give effects.
  * @author DAM
  */
-public class EffectsFromTraitsComputer
+public class EffectsFromCharacterDataComputer
 {
   private EffectProperties _storage;
 
   /**
-   * Inspect the traits of a character to find properties that given effects.
+   * Inspect a character to find properties that give effects.
    * @param data Character data.
    * @return the loaded data.
    */
-  public EffectProperties inspectTraits(CharacterData data)
+  public EffectProperties inspect(CharacterData data)
   {
     _storage=new EffectProperties();
+    inspectTraits(data);
+    inspectBuffs(data);
+    return _storage;
+  }
+
+  /**
+   * Inspect the traits of a character to find properties that give effects.
+   * @param data Character data.
+   */
+  private void inspectTraits(CharacterData data)
+  {
     TraitTreeStatus status=data.getTraits().getTraitTreeStatus();
     TraitTree tree=status.getTraitTree();
     for(TraitDescription trait : tree.getAllTraits())
@@ -53,12 +67,10 @@ public class EffectsFromTraitsComputer
     {
       handleTrait(trait,1);
     }
-    return _storage;
   }
 
   private void handleTrait(TraitDescription trait, int traitRank)
   {
-    //System.out.println("trait: "+trait);
     for(EffectGenerator generator : trait.getEffectGenerators())
     {
       Effect effect=generator.getEffect();
@@ -75,9 +87,31 @@ public class EffectsFromTraitsComputer
     }
   }
 
+  /**
+   * Inspect the traits of a character to find properties that given effects.
+   * @param data Character data.
+   */
+  private void inspectBuffs(CharacterData data)
+  {
+    BuffsManager buffs=data.getBuffs();
+    for(int i=0;i<buffs.getBuffsCount();i++)
+    {
+      BuffInstance buff=buffs.getBuffAt(i);
+      String idStr=buff.getBuff().getId();
+      Integer id=NumericTools.parseInteger(idStr);
+      if (id!=null)
+      {
+        Effect effect=EffectsManager.getInstance().getEffectById(id.intValue());
+        if (effect!=null)
+        {
+          handleEffect(effect);
+        }
+      }
+    }
+  }
+
   private void handleEffect(Effect effect)
   {
-    //System.out.println("\tUsing effect: "+effect);
     if (effect instanceof PropertyModificationEffect)
     {
       PropertyModificationEffect propModEffect=(PropertyModificationEffect)effect;
@@ -128,7 +162,6 @@ public class EffectsFromTraitsComputer
       return;
     }
     Effect effect=EffectsManager.getInstance().getEffectById(skillEffectID);
-    //System.out.println("\t\t'"+stat.getName()+"' => "+effect);
     int propertyID=stat.getIdentifier();
     // Spellcraft
     Float spellcraft=null;

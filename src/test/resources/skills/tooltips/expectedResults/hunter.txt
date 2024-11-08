@@ -10,6 +10,7 @@ Nock and loose an arrow quickly.
 Has a chance to generate additional Focus.
 2 918 - 3 890 Beleriand (Ranged) Damage
 +1 Bonus Focus
+Precision Stance: +20% Quick Shot Critical Chance
 Cost: 32 Power
 Adds 1 to Focus
 *****************************

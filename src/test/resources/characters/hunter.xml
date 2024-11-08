@@ -570,5 +570,7 @@
 <slot index="3" traitId="1879073601" traitName="Dwarf Axe-damage Bonus"/>
 <slot index="4" traitId="1879073609" traitName="Endurance of Stone"/>
 </racialTraitsStatus>
-<buffs/>
+<buffs>
+<buff id="1879216259"/>
+</buffs>
 </character>
