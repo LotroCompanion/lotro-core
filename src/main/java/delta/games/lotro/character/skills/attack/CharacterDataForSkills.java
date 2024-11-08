@@ -32,6 +32,15 @@ public class CharacterDataForSkills implements StatValueProvider
   }
 
   /**
+   * Get the managed character data.
+   * @return the managed character data.
+   */
+  public CharacterData getCharacterData()
+  {
+    return _data;
+  }
+
+  /**
    * Get the class data.
    * @return the class data.
    */

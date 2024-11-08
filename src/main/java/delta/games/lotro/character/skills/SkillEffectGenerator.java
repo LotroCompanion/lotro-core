@@ -70,4 +70,10 @@ public class SkillEffectGenerator extends EffectGenerator
   {
     _implementUsage=implementUsage;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Type="+_type+", implement="+_implementUsage+", effect="+getEffect()+", spellcraft="+getSpellcraft();
+  }
 }

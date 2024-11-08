@@ -8,10 +8,13 @@ import org.slf4j.LoggerFactory;
 
 import delta.common.utils.l10n.L10n;
 import delta.common.utils.text.EndOfLine;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
+import delta.games.lotro.character.skills.effects.EffectProperties;
+import delta.games.lotro.character.skills.effects.EffectsFromTraitsComputer;
 import delta.games.lotro.character.skills.geometry.Arc;
 import delta.games.lotro.character.skills.geometry.Shape;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
@@ -29,6 +32,7 @@ import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.enums.PipType;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillDisplayType;
+import delta.games.lotro.common.properties.ModPropertyList;
 import delta.games.lotro.common.stats.StatModifiersComputer;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.pip.PipDescription;
@@ -48,7 +52,8 @@ public class SkillDisplay
   private SkillDetails _skillDetails;
   private SkillAttackComputer _attackComputer;
   private SkillEffectsDisplay _effectsDisplay;
-  private StatModifiersComputer _statModsComputer;
+  private StatModifiersComputer _statModsComputer; 
+  private EffectProperties _effectProperties;
 
   /**
    * Constructor.
@@ -64,6 +69,15 @@ public class SkillDisplay
     _attackComputer=new SkillAttackComputer(data);
     _effectsDisplay=new SkillEffectsDisplay(data,skill);
     _statModsComputer=new StatModifiersComputer(data);
+    _effectProperties=initEffectProperties();
+  }
+
+  private EffectProperties initEffectProperties()
+  {
+    CharacterData data=_character.getCharacterData();
+    EffectsFromTraitsComputer c=new EffectsFromTraitsComputer();
+    EffectProperties effectProperties=c.inspectTraits(data);
+    return effectProperties;
   }
 
   private int getAoEMaxTargets()
@@ -437,12 +451,45 @@ public class SkillDisplay
     SingleTypeSkillEffectsManager typeEffectsMgr=effectsMgr.getEffects(type);
     if (typeEffectsMgr!=null)
     {
-      for(SkillEffectGenerator generator : typeEffectsMgr.getEffects())
+      for(SkillEffectGenerator generator : getGenerators(typeEffectsMgr))
       {
         handleEffect(attack.getDamageQualifier(),generator,generator.getEffect(),childStorage);
       }
     }
     return childStorage;
+  }
+
+  private List<SkillEffectGenerator> getGenerators(SingleTypeSkillEffectsManager typeEffectsMgr)
+  {
+    List<SkillEffectGenerator> ret=new ArrayList<SkillEffectGenerator>();
+    ret.addAll(typeEffectsMgr.getEffects());
+    // Additive modifiers
+    ModPropertyList modifiers=typeEffectsMgr.getAdditiveModifiers();
+    if (modifiers!=null)
+    {
+      for(Integer propertyID : modifiers.getIDs())
+      {
+        List<SkillEffectGenerator> effects=_effectProperties.getEffectsForProperty(propertyID.intValue());
+        if (effects!=null)
+        {
+          System.out.println("Got additional effects from property: "+propertyID+" => "+effects);
+          ret.addAll(effects);
+        }
+      }
+    }
+    // Overrides
+    Integer propertyID=typeEffectsMgr.getOverridePropertyID();
+    if (propertyID!=null)
+    {
+      List<SkillEffectGenerator> effects=_effectProperties.getEffectsForProperty(propertyID.intValue());
+      if (effects!=null)
+      {
+        System.out.println("Got override effects from property: "+propertyID+" => "+effects);
+        ret.clear();
+        ret.addAll(effects);
+      }
+    }
+    return ret;
   }
 
   private String getHeaderLine(SkillEffectType type)
@@ -473,20 +520,29 @@ public class SkillDisplay
     {
       return;
     }
-    for(SkillEffectGenerator generator : effectsMgr.getEffects())
+    SkillEffectType[] types=new SkillEffectType[]{SkillEffectType.SELF_CRITICAL,
+        SkillEffectType.TOGGLE,SkillEffectType.USER_TOGGLE,SkillEffectType.USER
+    };
+    for(SkillEffectType type : types)
     {
-      SkillEffectType type=generator.getType();
-      if (type==SkillEffectType.USER_TOGGLE)
+      SingleTypeSkillEffectsManager typeEffectsMgr=effectsMgr.getEffects(type);
+      if (typeEffectsMgr!=null)
       {
-        storage.add("On Use:");
+        for(SkillEffectGenerator generator : getGenerators(typeEffectsMgr))
+        {
+          if (type==SkillEffectType.USER_TOGGLE)
+          {
+            storage.add("On Use:");
+          }
+          DamageQualifier damageQualifier=null;
+          ImplementUsageType implementUsage=generator.getImplementUsage();
+          if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
+          {
+            damageQualifier=DamageQualifiers.TACTICAL;
+          }
+          handleEffect(damageQualifier,generator,generator.getEffect(),storage);
+        }
       }
-      DamageQualifier damageQualifier=null;
-      ImplementUsageType implementUsage=generator.getImplementUsage();
-      if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
-      {
-        damageQualifier=DamageQualifiers.TACTICAL;
-      }
-      handleEffect(damageQualifier,generator,generator.getEffect(),storage);
     }
   }
 
