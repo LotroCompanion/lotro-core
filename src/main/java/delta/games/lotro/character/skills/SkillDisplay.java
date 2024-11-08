@@ -55,6 +55,11 @@ public class SkillDisplay
   private StatModifiersComputer _statModsComputer; 
   private EffectProperties _effectProperties;
 
+  private static final SkillEffectType[] TYPES=new SkillEffectType[]{
+      SkillEffectType.TOGGLE,SkillEffectType.USER_TOGGLE,SkillEffectType.USER
+  };
+  private static final SkillEffectType[] TYPES_CRITICAL=new SkillEffectType[]{SkillEffectType.SELF_CRITICAL};
+
   /**
    * Constructor.
    * @param data Access to character data related to skills.
@@ -257,21 +262,23 @@ public class SkillDisplay
       doRegularAttackEffects(attacks,table);
     }
     // Effects
-    doSkillEffects(table);
+    doSkillEffects(table,TYPES);
     // Cost
     List<String> costLines=getCostLines();
     table.addAll(costLines);
-    // Critical attack effects
-    if (attacks!=null)
-    {
-      doCriticalAttackEffects(attacks,table);
-    }
     // Gambit
     List<String> gambitLines=getGambitLines(_skillDetails.getGambitData());
     table.addAll(gambitLines);
     // PIP
     List<String> pipLines=getPIPLines(_skillDetails.getPIPData());
     table.addAll(pipLines);
+    // Effects (critical)
+    doSkillEffects(table,TYPES_CRITICAL);
+    // Critical attack effects
+    if (attacks!=null)
+    {
+      doCriticalAttackEffects(attacks,table);
+    }
     // Misc
     boolean isToggle=_skillDetails.getFlag(SkillFlags.IS_TOGGLE);
     if ((channelingDuration!=null) && (channelingDuration.floatValue()>0))
@@ -510,19 +517,25 @@ public class SkillDisplay
         }
       }
     }
+    if (type==SkillEffectType.USER_TOGGLE)
+    {
+      return "On Use:";
+    }
+    if (type==SkillEffectType.SELF_CRITICAL)
+    {
+      return "Applied to self on critical:";
+    }
+
     return null;
   }
 
-  private void doSkillEffects(List<String> storage)
+  private void doSkillEffects(List<String> storage, SkillEffectType[] types)
   {
     SkillEffectsManager effectsMgr=_skillDetails.getEffects();
     if (effectsMgr==null)
     {
       return;
     }
-    SkillEffectType[] types=new SkillEffectType[]{SkillEffectType.SELF_CRITICAL,
-        SkillEffectType.TOGGLE,SkillEffectType.USER_TOGGLE,SkillEffectType.USER
-    };
     for(SkillEffectType type : types)
     {
       SingleTypeSkillEffectsManager typeEffectsMgr=effectsMgr.getEffects(type);
@@ -530,17 +543,23 @@ public class SkillDisplay
       {
         for(SkillEffectGenerator generator : getGenerators(typeEffectsMgr))
         {
-          if (type==SkillEffectType.USER_TOGGLE)
-          {
-            storage.add("On Use:");
-          }
+          List<String> childStorage=new ArrayList<String>();
           DamageQualifier damageQualifier=null;
           ImplementUsageType implementUsage=generator.getImplementUsage();
           if (implementUsage==ImplementUsageTypes.TACTICAL_DPS)
           {
             damageQualifier=DamageQualifiers.TACTICAL;
           }
-          handleEffect(damageQualifier,generator,generator.getEffect(),storage);
+          handleEffect(damageQualifier,generator,generator.getEffect(),childStorage);
+          if (!childStorage.isEmpty())
+          {
+            String header=getHeaderLine(type);
+            if (header!=null)
+            {
+              storage.add(header);
+            }
+            storage.addAll(childStorage);
+          }
         }
       }
     }

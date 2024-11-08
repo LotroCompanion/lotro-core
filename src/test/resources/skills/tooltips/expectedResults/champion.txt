@@ -167,11 +167,12 @@ Skill Type: Harmful, Blade
 Range: 5,2m
 Makes a full AoE attack.
 12 412 - 16 549 Beleriand (Main-hand) Damage
+Cost: 336 Power
+Cost: 4 Fervour
+Applied to self on critical:
 -20% Attack Duration
 16 200 Critical Rating
 Duration: 30s
-Cost: 336 Power
-Cost: 4 Fervour
 Cooldown: 10s
 *****************************
 Skill-Id: 1879064077
@@ -222,6 +223,8 @@ Adds 1 Fervour Pip every 5 seconds.
 +10% to Melee Damage
 Increases attack speed by 5%
 Duration: 30s
+On application:
+Adds 1 Fervour Pip
 Every 5 seconds:
 Adds 1 Fervour Pip
 Duration: 30s

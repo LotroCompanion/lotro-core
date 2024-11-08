@@ -1,5 +1,6 @@
 package delta.games.lotro.common.effects.display;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.common.utils.l10n.L10n;
@@ -16,6 +17,22 @@ public class ApplyOverTimeEffectRenderer extends AbstractSingleEffectRenderer im
   @Override
   public void render(List<String> storage, ApplyOverTimeEffect applyOverTimeEffect)
   {
+    // Initially applied effects
+    List<EffectGenerator> initiallyAppliedEffects=applyOverTimeEffect.getInitiallyAppliedEffects();
+    if (!initiallyAppliedEffects.isEmpty())
+    {
+      List<String> childtorage=new ArrayList<String>();
+      for(EffectGenerator childGenerator : initiallyAppliedEffects)
+      {
+        displayEffect(childtorage,childGenerator.getEffect());
+      }
+      if (!childtorage.isEmpty())
+      {
+        storage.add("On application:");
+        storage.addAll(childtorage);
+      }
+    }
+    // Apply over time effects
     if (!applyOverTimeEffect.getAppliedEffects().isEmpty())
     {
       StatModifiersComputer statModsComputer=getContext().getStatModifiersComputer();
