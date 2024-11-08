@@ -118,4 +118,51 @@ public class EffectDisplayUtils
     }
     return ret;
   }
+
+  /**
+   * Get the total duration of an effect.
+   * @param effect Effect to use.
+   * @param statModsComputer Stat modifiers computer.
+   * @return A duration (seconds).
+   */
+  public static float getTotalDuration(Effect effect, StatModifiersComputer statModsComputer)
+  {
+    EffectDuration effectDuration=effect.getEffectDuration();
+    if (effectDuration==null)
+    {
+      return 0;
+    }
+    float interval=getDuration(effect,statModsComputer);
+    float totalDuration=interval;
+    int pulseCount=getPulseCount(effect,statModsComputer);
+    if (pulseCount>0)
+    {
+      totalDuration=interval*pulseCount;
+    }
+    return totalDuration;
+  }
+
+  /**
+   * Get the pulses count of an effect.
+   * @param effect Effect to use.
+   * @param statModsComputer Stat modifiers computer.
+   * @return A number of pulses.
+   */
+  public static int getPulseCount(Effect effect, StatModifiersComputer statModsComputer)
+  {
+    EffectDuration effectDuration=effect.getEffectDuration();
+    if (effectDuration==null)
+    {
+      return 0;
+    }
+    int pulseCount=effectDuration.getPulseCount();
+    if (pulseCount>0)
+    {
+      if (statModsComputer!=null)
+      {
+        pulseCount+=statModsComputer.computeAdditiveModifiers(effectDuration.getPulseCountModifiers());
+      }
+    }
+    return pulseCount;
+  }
 }

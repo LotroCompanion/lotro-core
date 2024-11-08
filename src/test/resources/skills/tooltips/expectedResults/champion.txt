@@ -30,9 +30,9 @@ Skill-Id: 1879060547
 Battle Frenzy
 Immediate
 Your Fervour is instantly increased as well as some additional fervour over time.
-Every 3 seconds:
+Every 1 second:
 Adds 1 Fervour Pip
-Duration: 3s
+Duration: 10s
 Cost: 404 Power
 Adds 5 to Fervour
 Cooldown: 8,5s
@@ -224,7 +224,7 @@ Increases attack speed by 5%
 Duration: 30s
 Every 5 seconds:
 Adds 1 Fervour Pip
-Duration: 5s
+Duration: 30s
 Cost: 269 Power
 Cooldown: 1m30s
 *****************************
@@ -345,7 +345,7 @@ Skill Type: Heal
 Heals the Champion for a percentage of their health over time.
 Every 2 seconds:
 Restores 3% of maximum Morale
-Duration: 2s
+Duration: 20s
 10% Melee Critical Chance
 Duration: 30s
 Cost: 672 Power

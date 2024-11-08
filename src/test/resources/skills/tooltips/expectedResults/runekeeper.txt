@@ -189,7 +189,7 @@ Range: 30m
 Fire damage-over-time that reduces threat.
 3 335 - 4 764 Fire Damage every 3,0 seconds for 21 seconds.
 Slightly decreases threat over time.
-Duration: 3s
+Duration: 15s
 Cost: 32 Power
 Attunes: 3 (battle)
 Cooldown: 5s
@@ -237,6 +237,10 @@ Targeted fire attack dealing damage to all enemies near the target, dealing +Dam
 Deals Damage to all enemies around Target
 Effects applied to enemies within 5 metres:
 10 338 - 14 768 Fire Damage
+Spreads current tier of Writ of Fire
+Effects applied to enemies within 5 metres:
+2 044 - 2 920 Fire Damage initially.
+2 966 - 4 238 Fire Damage every 3,0 seconds for 21 seconds.
 Returns to Neutral Attunement
 Cost: 254 Power
 Cooldown: 15s

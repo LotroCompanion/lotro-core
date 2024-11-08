@@ -520,7 +520,7 @@
 <tome stat="WILL" rank="2"/>
 <tome stat="FATE" rank="0"/>
 </tomes>
-<traitTreeStatus treeId="1879272224" branch="23" totalPoints="98"/>
+<traitTreeStatus treeId="1879272224" totalPoints="98"/>
 <racialTraitsStatus>
 <slot index="0" traitId="1879073525" traitName="Return to Bree"/>
 <slot index="1" traitId="1879073523" traitName="Man of the Fourth Age"/>

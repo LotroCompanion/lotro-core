@@ -10,7 +10,6 @@ import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.BaseVitalEffect;
-import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
@@ -305,19 +304,15 @@ public class VitalEffectsUtils
       int intervalMinInt=Math.round(intervalMinMax[0]);
       int intervalMaxInt=Math.round(intervalMinMax[1]);
 
-      EffectDuration duration=effect.getEffectDuration();
-      int pulseCount=duration.getPulseCount();
-      if (_statModsComputer!=null)
-      {
-        pulseCount+=_statModsComputer.computeAdditiveModifiers(duration.getPulseCountModifiers());
-      }
       float interval=EffectDisplayUtils.getDuration(effect,_statModsComputer);
-      float totalDuration=interval*pulseCount;
+      float totalDuration=EffectDisplayUtils.getTotalDuration(effect,_statModsComputer);
       overTimeLine=VitalChangeUtils.buildFullChange(intervalMinInt,intervalMaxInt,stat,damageType);
       overTimeLine=overTimeLine+" every "+L10n.getString(interval,1,1)+" seconds";
-      if (totalDuration>0)
+      int pulseCount=EffectDisplayUtils.getPulseCount(effect,_statModsComputer);
+      if (pulseCount>1)
       {
-        overTimeLine=overTimeLine+" for "+L10n.getString(Math.round(totalDuration))+" seconds";
+        String totalDurationStr=L10n.getString(Math.round(totalDuration));
+        overTimeLine=overTimeLine+" for "+totalDurationStr+" seconds";
       }
     }
     if (initialLine!=null)

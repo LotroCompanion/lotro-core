@@ -12,6 +12,8 @@ import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
+import delta.games.lotro.common.enums.ImplementUsageType;
+import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.stats.GenericConstantStatProvider;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatProvider;
@@ -128,8 +130,16 @@ public class EffectsFromTraitsComputer
     Effect effect=EffectsManager.getInstance().getEffectById(skillEffectID);
     //System.out.println("\t\t'"+stat.getName()+"' => "+effect);
     int propertyID=stat.getIdentifier();
+    // Spellcraft
     Float spellcraft=null;
     SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,null);
+    // Implement usage
+    Integer implementUsageCode=(Integer)structValue.getValue("Skill_EffectImplementUsage");
+    if ((implementUsageCode!=null) && (implementUsageCode.intValue()>0))
+    {
+      ImplementUsageType implementUsage=ImplementUsageTypes.getByCode(implementUsageCode.intValue());
+      generator.setImplementUsage(implementUsage);
+    }
     _storage.addEffectToProperty(propertyID,generator);
   }
 

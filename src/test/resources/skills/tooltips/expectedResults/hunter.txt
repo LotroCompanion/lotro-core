@@ -48,9 +48,9 @@ Induction: 1,4s
 Range: 30m
 Your arrow can cause a wound that bleeds and slightly slows movement speed.
 5 645 - 7 524 Beleriand (Ranged) Damage
-3 996 Beleriand Damage every 2,0 seconds for 12 seconds.
--10% Target Run Speed
+-40% Target Run Speed
 Duration: 20s
+3 996 Beleriand Damage every 2,0 seconds for 12 seconds.
 Cost: 191 Power
 Adds 1 to Focus
 Cooldown: 1,5s
@@ -80,6 +80,8 @@ Range: 30m
 A shot that cannot be missed, parried, evaded, or blocked.
 24 027 - 32 036 Beleriand (Ranged) Damage
 4 925 Beleriand Damage every 2,0 seconds for 10 seconds.
+If Target is Bleeding:
+2 983 - 3 728 Damage
 Cost: 191 Power
 Cooldown: 50s
 *****************************
@@ -110,6 +112,9 @@ A low cut in front of you which briefly slows the movement speed of up to 3 enem
 924 - 1 232 Westernesse (Off-hand) Damage
 -50% Target Run Speed
 Duration: 10s
+3s Root
+No Focus loss on movement.
+Duration: 4s
 Cost: 127 Power
 Adds 3 to Focus
 Cooldown: 10s
@@ -154,6 +159,9 @@ Removes 1 tier of up to 3 different Corruption effects from the target.
 Activates the Skill Exsanguinate
 Duration: 8s
 Restores 10% of maximum Morale
+Every 2 seconds:
+Restores 2% of maximum Morale
+Duration: 10s
 Cost: 143 Power
 Cost: 3 Focus
 Cooldown: 15s
@@ -198,6 +206,8 @@ A massively damaging shot that unlocks when the target is below 50% health.
 
 Critical hits deal bonus damage.
 14 741 - 19 655 Beleriand (Ranged) Damage
+If Target is Bleeding:
+2 983 - 3 728 Damage
 Cost: 72 Power
 Cost: 6 Focus
 Cooldown: 20s

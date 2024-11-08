@@ -129,15 +129,12 @@ public class EffectRenderingEngine
       EffectDuration effectDuration=effect.getEffectDuration();
       if (effectDuration!=null)
       {
-        Float duration=effectDuration.getDuration();
-        if (duration!=null)
+        if (!childStorage.isEmpty())
         {
-          if (!childStorage.isEmpty())
-          {
-            String durationStr=Duration.getDurationString(duration.intValue());
-            childStorage.add("Duration: "+durationStr);
-            _state.setDurationDisplayed();
-          }
+          float totalDuration=EffectDisplayUtils.getTotalDuration(effect,_context.getStatModifiersComputer());
+          String durationStr=Duration.getDurationString(Math.round(totalDuration));
+          childStorage.add("Duration: "+durationStr);
+          _state.setDurationDisplayed();
         }
       }
     }

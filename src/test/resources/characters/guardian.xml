@@ -538,7 +538,7 @@
 <tome stat="WILL" rank="0"/>
 <tome stat="FATE" rank="0"/>
 </tomes>
-<traitTreeStatus treeId="1879272221" branch="29" totalPoints="98"/>
+<traitTreeStatus treeId="1879272221" totalPoints="98"/>
 <racialTraitsStatus>
 <slot index="0" traitId="1879073605" traitName="Return to Thorin's Gate"/>
 <slot index="1" traitId="1879073613" traitName="Dwarf-endurance"/>
