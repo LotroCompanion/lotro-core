@@ -95,17 +95,14 @@ public class EffectRenderingEngine
     {
       return;
     }
-    /*
+    String probabilityLine=null;
     if (probabilityValue<1.0f)
     {
       int percentage=Math.round(probabilityValue*100);
-      String probabilityLine=percentage+"% chance to apply";
-      storage.add(probabilityLine);
+      probabilityLine=percentage+"% chance to apply:";
     }
-    */
 
     List<String> childStorage=new ArrayList<String>();
-
     // Description override
     String descriptionOverride=effect.getDescriptionOverride();
     if (!descriptionOverride.isEmpty())
@@ -120,6 +117,8 @@ public class EffectRenderingEngine
     {
       description=TextSanitizer.sanitize(description);
       childStorage.add(description);
+      // Assume that this description will remove the need for a probability line
+      probabilityLine=null;
     }
     // Effect specifics
     displaySpecifics(childStorage,effect);
@@ -139,7 +138,14 @@ public class EffectRenderingEngine
       }
     }
     // Fill storage
-    storage.addAll(childStorage);
+    if (!childStorage.isEmpty())
+    {
+      if (probabilityLine!=null)
+      {
+        storage.add(probabilityLine);
+      }
+      storage.addAll(childStorage);
+    }
   }
 
   private float getEffectApplicationProbability(Effect effect)

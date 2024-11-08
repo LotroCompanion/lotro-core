@@ -284,6 +284,7 @@ You make a savage double attack that is difficult to parry or evade. The first a
 5 607 - 7 476 Beleriand (Main-hand) Damage
 4 626 - 6 168 Beleriand (Main-hand) Damage
 Removes up to 1 Corruption effect from the target.
+50% chance to apply:
 Removes up to 1 Corruption effect from the target.
 Cost: 336 Power
 Cost: 2 Fervour
