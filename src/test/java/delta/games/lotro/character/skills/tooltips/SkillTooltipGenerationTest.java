@@ -50,7 +50,7 @@ class SkillTooltipGenerationTest
     for(int skillID : skillIDs)
     {
       allLines.add("*****************************");
-      List<String> lines= doSkill(skillID, data);
+      List<String> lines=doSkill(skillID, data);
       allLines.addAll(lines);
     }
     String name=characterFile.replace(".xml",".txt");
