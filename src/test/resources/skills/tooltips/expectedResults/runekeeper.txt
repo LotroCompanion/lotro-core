@@ -314,11 +314,11 @@ Induction: 1,8s
 Skill Type: Frost
 A flurry of chilling words unleashes a swirl of numbing cold on foes around you. An area around you is filled with a flurry of frost, and dealing damage over time.
 Duration: 15s
+945 - 1 350 Frost Damage initially.
+1 318 - 1 883 Frost Damage every 3,0 seconds.
 3% Incoming Melee Critical Chance
 3% Incoming Ranged Critical Chance
 3% Incoming Tactical Critical Chance
-+0 Morale initially.
-+0 Morale every 3,0 seconds.
 Cost: 191 Power
 Cooldown: 25s
 *****************************

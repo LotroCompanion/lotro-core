@@ -1,8 +1,11 @@
 package delta.games.lotro.common.effects.display;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import delta.games.lotro.common.Duration;
+import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
 
@@ -29,7 +32,9 @@ public class GenesisEffectRenderer extends AbstractSingleEffectRenderer implemen
     Hotspot hotspot=effect.getHotspot();
     if (hotspot!=null)
     {
-      showEffectGenerators(storage,hotspot.getEffects());
+      List<EffectGenerator> effects=new ArrayList<EffectGenerator>(hotspot.getEffects());
+      Collections.reverse(effects);
+      showEffectGenerators(storage,effects);
     }
   }
 }

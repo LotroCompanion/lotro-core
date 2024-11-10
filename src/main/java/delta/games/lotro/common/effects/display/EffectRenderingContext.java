@@ -29,6 +29,16 @@ public class EffectRenderingContext implements StatComputerContext
     _level=level;
   }
 
+  public EffectRenderingContext clone()
+  {
+    EffectRenderingContext ret=new EffectRenderingContext(_level);
+    ret._character=_character;
+    ret._statModifiersComputer=_statModifiersComputer;
+    ret._damageQualifier=_damageQualifier;
+    ret._implementUsage=_implementUsage;
+    return ret;
+  }
+
   @Override
   public int getTier()
   {
@@ -42,6 +52,11 @@ public class EffectRenderingContext implements StatComputerContext
   public int getLevel()
   {
     return _level;
+  }
+
+  public void setLevel(int level)
+  {
+    _level=level;
   }
 
   /**
