@@ -123,7 +123,6 @@ Briefly protects you, while damaging enemies who attack you.
 Restores 50% of maximum Morale
 On any damage:
 50% chance to Negate 85% damage
-On any damage:
 Reflect 1800 damage
 25% chance to Reflect effect:
 3s Stun

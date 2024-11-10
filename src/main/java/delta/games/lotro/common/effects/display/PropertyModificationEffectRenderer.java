@@ -22,12 +22,23 @@ public class PropertyModificationEffectRenderer<T extends PropertyModificationEf
   {
     List<String> childStorage=new ArrayList<String>();
     renderStats(childStorage,effect);
+    // I would naturally put this line before the stats, but it does not seem it is so in-game
+    String conditionLine=getConditionLine(effect);
+    if (conditionLine!=null)
+    {
+      childStorage.add(conditionLine);
+    }
     renderSpecifics(childStorage,effect);
     if (!childStorage.isEmpty())
     {
       renderDuration(childStorage,effect);
     }
     storage.addAll(childStorage);
+  }
+
+  protected String getConditionLine(T effect)
+  {
+    return null;
   }
 
   private void renderStats(List<String> storage, T effect)

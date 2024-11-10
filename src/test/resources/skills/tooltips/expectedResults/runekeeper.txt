@@ -140,6 +140,7 @@ Range: 30m
 Written words can have a chilling effect on their victim. Slows your foe, but damaging them will return their speed.
 5 532 - 7 903 Frost Damage
 -50% Run Speed
+(1 time) On any damage:
 Duration: 10s
 Cost: 64 Power
 Cooldown: 20s

@@ -14,6 +14,22 @@ import delta.games.lotro.lore.items.DamageType;
  */
 public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRenderer<ReactiveVitalEffect>
 {
+  protected String getConditionLine(ReactiveVitalEffect effect)
+  {
+    String onDamageLine=null;
+    List<DamageType> damageTypes=effect.getDamageTypes();
+    if (!damageTypes.isEmpty())
+    {
+      String damageTypesStr=EffectDisplayUtils.formatDamageType(damageTypes);
+      onDamageLine="On any "+damageTypesStr+"damage:";
+      if (effect.isRemoveOnProc())
+      {
+        onDamageLine="(1 time) "+onDamageLine;
+      }
+    }
+    return onDamageLine;
+  }
+
   @Override
   protected void renderSpecifics(List<String> storage, ReactiveVitalEffect effect)
   {
@@ -22,13 +38,6 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
     ReactiveChange defender=effect.getDefenderReactiveChange();
     if (defender!=null)
     {
-      List<DamageType> damageTypes=effect.getDamageTypes();
-      if (!damageTypes.isEmpty())
-      {
-        String damageTypesStr=EffectDisplayUtils.formatDamageType(damageTypes);
-        String text="On any "+damageTypesStr+"damage:";
-        storage.add(text);
-      }
       ReactiveVitalChange change=defender.getVitalChange();
       if (change!=null)
       {
@@ -86,13 +95,6 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
     ReactiveChange attacker=effect.getAttackerReactiveChange();
     if (attacker!=null)
     {
-      List<DamageType> damageTypes=effect.getDamageTypes();
-      if (!damageTypes.isEmpty())
-      {
-        String damageTypesStr=EffectDisplayUtils.formatDamageType(damageTypes);
-        String text="On any "+damageTypesStr+"damage:";
-        storage.add(text);
-      }
       ReactiveVitalChange change=attacker.getVitalChange();
       if (change!=null)
       {
