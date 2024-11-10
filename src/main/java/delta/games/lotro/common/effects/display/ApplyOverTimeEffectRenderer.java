@@ -35,14 +35,19 @@ public class ApplyOverTimeEffectRenderer extends AbstractSingleEffectRenderer im
     // Apply over time effects
     if (!applyOverTimeEffect.getAppliedEffects().isEmpty())
     {
-      StatModifiersComputer statModsComputer=getContext().getStatModifiersComputer();
-      float interval=EffectDisplayUtils.getDuration(applyOverTimeEffect,statModsComputer);
-      String seconds=(interval>1.0f)?" seconds:":" second:";
-      String line="Every "+L10n.getString(interval,1)+seconds;
-      storage.add(line);
+      List<String> childtorage=new ArrayList<String>();
       for(EffectGenerator childGenerator : applyOverTimeEffect.getAppliedEffects())
       {
-        displayEffect(storage,childGenerator.getEffect());
+        displayEffect(childtorage,childGenerator.getEffect());
+      }
+      if (!childtorage.isEmpty())
+      {
+        StatModifiersComputer statModsComputer=getContext().getStatModifiersComputer();
+        float interval=EffectDisplayUtils.getDuration(applyOverTimeEffect,statModsComputer);
+        String seconds=(interval>1.0f)?" seconds:":" second:";
+        String line="Every "+L10n.getString(interval,1)+seconds;
+        storage.add(line);
+        storage.addAll(childtorage);
       }
     }
   }

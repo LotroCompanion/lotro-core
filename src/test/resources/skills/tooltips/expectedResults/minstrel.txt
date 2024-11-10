@@ -154,8 +154,6 @@ Expires if out of combat for 9 seconds.
 +1% Incoming Healing
 +1% Outgoing Healing
 Expires if out of combat for 9 seconds.
-Every 1 second:
-Duration: 1s
 9% Outgoing Healing Effect Modifier
 6% Tactical Damage
 -15% Power Cost
@@ -354,7 +352,6 @@ Your Healing is temporarily unlocked for a single use on a friendly target.
 Duration: 10s
 Your Fellowship gains +10% Run Speed.
 Duration: 10s
-Every 1 second:
 Cost: 202 Power
 Cooldown: 30s
 *****************************
