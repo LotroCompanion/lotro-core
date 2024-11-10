@@ -13,6 +13,7 @@ import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
+import delta.games.lotro.common.effects.ReviveEffect;
 import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 
@@ -84,6 +85,10 @@ public class SingleEffectRenderersFactory
     else if (effect instanceof TieredEffect)
     {
       return new TieredEffectRenderer();
+    }
+    else if (effect instanceof ReviveEffect)
+    {
+      return new ReviveEffectRenderer();
     }
     return new DefaultEffectRenderer();
   }

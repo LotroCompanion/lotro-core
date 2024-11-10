@@ -484,6 +484,11 @@ Induction: 5,4s
 Skill Type: Heal
 Range: 25,2m
 Revives a defeated target, along with all Fellowship members nearby.
+Target revives with 50% Morale
+Target revives with 0% Power
+Effects to apply on revival:
+You have been recently revived.
+Duration: 30s
 Cost: 68 Power
 *****************************
 Skill-Id: 1879073486
@@ -504,5 +509,10 @@ Tactical Skill
 Skill Type: Heal
 Range: 30m
 Revives a defeated ally in combat, with their Health and Power mostly intact.
+Target revives with 80% Morale
+Target revives with 50% Power
+Effects to apply on revival:
+You have been recently revived.
+Duration: 30s
 Cost: 404 Power
 Cooldown: 12m30s
