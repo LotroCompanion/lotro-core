@@ -41,6 +41,7 @@ import delta.games.lotro.common.effects.TravelEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
+import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
@@ -457,6 +458,13 @@ public class EffectXMLWriter
     List<DamageType> damageTypes=reactiveVitalEffect.getDamageTypes();
     String damageTypesStr=serializeEnumList(damageTypes);
     attrs.addAttribute("","",EffectXMLConstants.REACTIVE_VITAL_DAMAGE_TYPES_ATTR,XmlWriter.CDATA,damageTypesStr);
+    // Damage qualifiers
+    List<DamageQualifier> damageQualifiers=reactiveVitalEffect.getDamageQualifiers();
+    if (!damageQualifiers.isEmpty())
+    {
+      String damageQualifiersStr=serializeEnumList(damageQualifiers);
+      attrs.addAttribute("","",EffectXMLConstants.REACTIVE_VITAL_DAMAGE_QUALIFIERS_ATTR,XmlWriter.CDATA,damageQualifiersStr);
+    }
     // Damage type override
     DamageType overrideDamageType=reactiveVitalEffect.getAttackerDamageTypeOverride();
     if (overrideDamageType!=null)

@@ -277,7 +277,11 @@ public class EffectXMLConstants
    */
   public static final String REACTIVE_VITAL_DAMAGE_TYPES_ATTR="damageTypes";
   /**
-   * Tag 'reactiveVitalEffect', attribute 'damageTypes'.
+   * Tag 'reactiveVitalEffect', attribute 'damageQualifiers'.
+   */
+  public static final String REACTIVE_VITAL_DAMAGE_QUALIFIERS_ATTR="damageQualifiers";
+  /**
+   * Tag 'reactiveVitalEffect', attribute 'damageTypeOverride'.
    */
   public static final String REACTIVE_VITAL_DAMAGE_TYPE_OVERRIDE_ATTR="damageTypeOverride";
   /**

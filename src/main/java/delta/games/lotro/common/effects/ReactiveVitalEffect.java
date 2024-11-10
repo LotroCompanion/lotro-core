@@ -3,6 +3,7 @@ package delta.games.lotro.common.effects;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.lore.items.DamageType;
 
 /**
@@ -13,6 +14,8 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
 {
   // Incoming damage types
   private List<DamageType> _damageTypes;
+  // Incoming damage types
+  private List<DamageQualifier> _damageQualifiers;
   // Damage type override: type of damage received by the attacker (reflect), if different from source damage type
   // Usually <code>null</code>.
   private DamageType _attackerDamageTypeOverride;
@@ -32,6 +35,7 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
   {
     super();
     _damageTypes=new ArrayList<DamageType>();
+    _damageQualifiers=new ArrayList<DamageQualifier>();
     _attackerDamageTypeOverride=null;
     _attacker=null;
     _defender=null;
@@ -54,6 +58,24 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
   public List<DamageType> getDamageTypes()
   {
     return _damageTypes;
+  }
+
+  /**
+   * Add a source damage qualifier.
+   * @param damageQualifier Damage qualifier.
+   */
+  public void addDamageQualifier(DamageQualifier damageQualifier)
+  {
+    _damageQualifiers.add(damageQualifier);
+  }
+
+  /**
+   * Get the source damage qualifiers.
+   * @return a list of damage qualifiers.
+   */
+  public List<DamageQualifier> getDamageQualifiers()
+  {
+    return _damageQualifiers;
   }
 
   /**
