@@ -6,6 +6,7 @@ import delta.games.lotro.common.effects.EffectAndProbability;
 import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
+import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.lore.items.DamageType;
 
 /**
@@ -16,12 +17,42 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
 {
   protected String getConditionLine(ReactiveVitalEffect effect)
   {
-    String onDamageLine=null;
     List<DamageType> damageTypes=effect.getDamageTypes();
+    String damageTypesStr=null;
     if (!damageTypes.isEmpty())
     {
-      String damageTypesStr=EffectDisplayUtils.formatDamageType(damageTypes);
-      onDamageLine="On any "+damageTypesStr+"damage:";
+      damageTypesStr=EffectDisplayUtils.formatDamageTypes(damageTypes);
+    }
+    String damageQualifiersStr=null;
+    List<DamageQualifier> damageQualifiers=effect.getDamageQualifiers();
+    if (!damageQualifiers.isEmpty())
+    {
+      damageQualifiersStr=EffectDisplayUtils.formatDamageQualifiers(damageQualifiers);
+    }
+    String onDamageLine=null;
+    if ((damageTypesStr!=null) || (damageQualifiersStr!=null))
+    {
+      String adjective="";
+      if (damageQualifiersStr!=null)
+      {
+        adjective=damageQualifiersStr;
+      }
+      if (damageTypesStr!=null)
+      {
+        boolean isAnyDamage=EffectDisplayUtils.isAnyDamageType(damageTypes);
+        if (isAnyDamage)
+        {
+          if (adjective.isEmpty())
+          {
+            adjective="any";
+          }
+        }
+        else
+        {
+          adjective=damageTypesStr+" "+adjective;
+        }
+      }
+      onDamageLine="On "+adjective+" damage:";
       if (effect.isRemoveOnProc())
       {
         onDamageLine="(1 time) "+onDamageLine;

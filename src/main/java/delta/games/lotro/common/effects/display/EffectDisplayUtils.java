@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.enums.CombatState;
+import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.properties.ModPropertyList;
@@ -24,23 +25,44 @@ public class EffectDisplayUtils
   private static final Logger LOGGER=LoggerFactory.getLogger(EffectDisplayUtils.class);
 
   /**
+   * Indicates if the given damage types list means "any" damage type.
+   * @param damageTypes List to use.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public static boolean isAnyDamageType(List<DamageType> damageTypes)
+  {
+    return ((damageTypes.size()==1) && (damageTypes.get(0)==DamageTypes.ALL));
+  }
+
+  /**
    * Format a list of damage types.
-   * @param damageTypes Input damge types.
+   * @param damageTypes Input damage types.
    * @return A displayable string.
    */
-  public static String formatDamageType(List<DamageType> damageTypes)
+  public static String formatDamageTypes(List<DamageType> damageTypes)
   {
-    if ((damageTypes.size()==1) && (damageTypes.get(0)==DamageTypes.ALL))
-    {
-      return "";
-    }
     StringBuilder sb=new StringBuilder();
     for(DamageType damageType : damageTypes)
     {
       if (sb.length()>0) sb.append(",");
       sb.append(damageType.getLabel());
     }
-    sb.append(' ');
+    return sb.toString();
+  }
+
+  /**
+   * Format a list of damage qualifiers.
+   * @param damageQualifiers Input damage qualifiers.
+   * @return A displayable string.
+   */
+  public static String formatDamageQualifiers(List<DamageQualifier> damageQualifiers)
+  {
+    StringBuilder sb=new StringBuilder();
+    for(DamageQualifier damageQualifier : damageQualifiers)
+    {
+      if (sb.length()>0) sb.append(",");
+      sb.append(damageQualifier.getLabel());
+    }
     return sb.toString();
   }
 

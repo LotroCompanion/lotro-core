@@ -54,6 +54,10 @@ public class EffectRenderingContext implements StatComputerContext
     return _level;
   }
 
+  /**
+   * Set the level to use.
+   * @param level Level to set.
+   */
   public void setLevel(int level)
   {
     _level=level;
