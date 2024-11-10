@@ -2,6 +2,7 @@ package delta.games.lotro.common.effects.display;
 
 import java.util.List;
 
+import delta.common.utils.l10n.L10n;
 import delta.games.lotro.common.effects.EffectAndProbability;
 import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
@@ -136,15 +137,21 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
         boolean multiplicative=change.isMultiplicative();
         if (!multiplicative)
         {
+          DamageType damageType=effect.getAttackerDamageTypeOverride();
+          String damageTypeStr="";
+          if (damageType!=null)
+          {
+            damageTypeStr=" "+damageType.getLabel();
+          }
           int damage=Math.round(Math.abs(safeValue));
           if (percentage!=100)
           {
-            String text=percentage+"% chance to Reflect "+damage+" damage";
+            String text=percentage+"% chance to Reflect "+L10n.getString(damage)+damageTypeStr+" damage";
             storage.add(text);
           }
           else
           {
-            String text="Reflect "+damage+" damage";
+            String text="Reflect "+L10n.getString(damage)+damageTypeStr+" damage";
             storage.add(text);
           }
         }
