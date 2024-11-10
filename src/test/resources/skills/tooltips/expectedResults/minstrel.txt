@@ -1,0 +1,508 @@
+*****************************
+Skill-Id: 1879217094
+Coda of Fury
+Fast
+Tactical Skill
+Resistance: Cry
+Range: 45m
+A Finishing Skill that deals enormous damage to the target and restores some of your power.
+
+<rgb=#00FFDD>Requires 3 ballad buffs present on the Minstrel.</rgb>
+
+<rgb=#FF7700>Removes all Ballads from the Minstrel.</rgb>
+23 589 - 33 698 Light Damage
++600 Power
+Effects applied to the Fellowship within 30 metres:
++1% Outgoing Damage
+Duration: 30s
+Cooldown: 1s
+*****************************
+Skill-Id: 1879064192
+Lesser Anthem III - Composure
+Fast
+Skill Type: Buff
+Anthem: Increases Resistances, Tactical Mitigation, and Shadow, Acid, and Fire Mitigation of all nearby fellowship or raid members.
+
+<rgb=#00FFDD>Requires 1 ballad buff present on the Minstrel.</rgb>
+Effects applied to the Fellowship within 30 metres:
+19 500 Resistance
+5 250 Tactical Mitigation
++3% Shadow, Acid, and Fire Mitigation
+Duration: 1m10s
+Cost: 135 Power
+Cooldown: 25s
+*****************************
+Skill-Id: 1879060863
+Greater Anthem II - War
+Fast
+Skill Type: Buff
+Anthem: Increases Ranged and Tactical Damage of all nearby fellowship or raid members.
+
+<rgb=#00FFDD>Requires 2 ballad buffs present on the Minstrel.</rgb>
+Effects applied to the Fellowship within 30 metres:
++48% Ranged Damage
++48% Tactical Damage
+Duration: 1m10s
+Cost: 135 Power
+Cooldown: 25s
+*****************************
+Skill-Id: 1879221564
+Major Ballad
+Fast
+Tactical Skill
+Resistance: Cry
+Skill Type: Buff
+Range: 35m
+Boosts healing capability and harms your foe.
+
+Ballads unlock Anthems and Codas.
+6 904 - 9 863 Light Damage
++3% Outgoing Healing
++1% Incoming Healing
++1% Tactical Damage
+Expires if out of combat for 9 seconds.
+-1s Cry and Call Cooldowns
++3% Tactical Damage
+Duration: 8s
+Cost: 30 Power
+Cooldown: 1s
+*****************************
+Skill-Id: 1879284233
+Dissonant Piercing Cry
+Immediate
+Tactical Skill
+Resistance: Cry
+Skill Type: Cry
+Range: 45m
+Your shout does light damage to your enemies and can interrupt their actions.
+11 550 - 16 499 Light Damage
+Interrupts Inductions
+33% chance to apply:
+2 683 - 3 832 Light Damage every 3,0 seconds for 15 seconds.
+Cost: 68 Power
+Cooldown: 10s
+*****************************
+Skill-Id: 1879064191
+Greater Anthem III - Prowess
+Fast
+Skill Type: Buff
+Anthem: Increases Melee Damage Attack Speed, and Orc-craft and Fell-wrought Mitigation of all nearby fellowship or raid members.
+
+<rgb=#00FFDD>Requires 2 ballad buffs present on the Minstrel.</rgb>
+Effects applied to the Fellowship within 30 metres:
++48% Melee Damage
+-5% Attack Duration
++5% Orc-craft and Fell-wrought Mitigation
+Duration: 1m10s
+Cost: 135 Power
+Cooldown: 25s
+*****************************
+Skill-Id: 1879052912
+Cry of the Wizards
+Fast
+Tactical Skill
+Max Targets: 11
+Radius: 10m
+Resistance: Cry
+Skill Type: Cry
+Range: 45m
+Call upon a powerful song to blast your enemies with an area-of-effect of light that will slow the creatures who are hit by it.
+16 264 - 23 234 Light Damage
+The targets' movement is slowed by 30%.
++20% Target Attack Duration
+Duration: 15s
+33% chance to apply:
+2 683 - 3 832 Light Damage every 3,0 seconds for 15 seconds.
+10% chance to apply:
+Your Healing is temporarily unlocked for a single use on a friendly target.
+Duration: 10s
+Cost: 471 Power
+Cooldown: 30s
+*****************************
+Skill-Id: 1879110224
+Call to Fate
+Fast
+Tactical Skill
+Resistance: Cry
+Skill Type: Call
+Range: 35m
+Requires Dissonance or Melody Stance.
+
+Deals Light damage to a single target, with a high Critical chance.
+16 060 - 22 944 Light Damage
+33% chance to apply:
+2 683 - 3 832 Light Damage every 3,0 seconds for 15 seconds.
+10% chance to apply:
+Your Healing is temporarily unlocked for a single use on a friendly target.
+Duration: 10s
+Cost: 336 Power
+Cooldown: 10s
+*****************************
+Skill-Id: 1879221557
+Improved Cry of the Chorus (Dissonance)
+Immediate
+This skill provides you with three damage ballad bonus effects allowing access to Anthems and Codas. It also breaks any silence effects on you and provides you with a short term immunity to silence.
++3% Tactical Damage
++1% Incoming Healing
++1% Outgoing Healing
+Expires if out of combat for 9 seconds.
++3% Tactical Damage
++1% Incoming Healing
++1% Outgoing Healing
+Expires if out of combat for 9 seconds.
++3% Tactical Damage
++1% Incoming Healing
++1% Outgoing Healing
+Expires if out of combat for 9 seconds.
+Every 1 second:
+Duration: 1s
+9% Outgoing Healing Effect Modifier
+6% Tactical Damage
+-15% Power Cost
+Duration: 10s
+Cost: 269 Power
+Cooldown: 48s
+*****************************
+Skill-Id: 1879452871
+Minor Ballad - Dissonance
+Fast
+Tactical Skill
+Resistance: Cry
+Skill Type: Buff
+Range: 35m
+Boosts Tactical damage and harms your foe.
+
+Ballads unlock Anthems and Codas.
+10 745 - 15 350 Light Damage
++3% Tactical Damage
++1% Incoming Healing
++1% Outgoing Healing
+Expires if out of combat for 9 seconds.
+-1s Cry and Call Cooldowns
++3% Tactical Damage
+Duration: 8s
+Cost: 30 Power
+Cooldown: 1s
+*****************************
+Skill-Id: 1879205049
+Lesser Anthem II - Dissonance
+Fast
+Skill Type: Buff
+Anthem: Greatly increases your Cry and Call Damage.
+
+Increases Light, Fire, Frost, and Lightning Damage of all nearby fellowship or raid members.
+
+<rgb=#00FFDD>Requires 1 ballad buff present on the Minstrel.</rgb>
+Effects applied to the Fellowship within 30 metres:
++5% Light, Fire, Frost, and Lightning Damage
+Duration: 1m10s
++20% Cry and Call Damage
+Duration: 1m10s
+Cost: 135 Power
+Cooldown: 25s
+*****************************
+Skill-Id: 1879182841
+Song of the Hammerhand
+Fast
+Skill Type: Buff
+A Song so potent that it provides you with a shield of morale that must be destroyed before you will begin losing morale again. The name comes from the adage that those who know this song were said to have been able to take a blow from Helm Hammerhand himself.
+
+Bubble strength is 35% of your Max Morale pool before other bonuses apply.
+-0% Incoming Damage
+Applies a damage preventing bubble granting 65 957 temporary Morale.
+Duration: 30s
+Damage will not set back Inductions
+Duration: 30s
+Cost: 412 Power
+Cooldown: 1m
+*****************************
+Skill-Id: 1879060868
+Cry of the Valar
+Fast
+Tactical Skill
+Max Targets: 8
+Radius: 5m
+Resistance: Cry
+Skill Type: Cry
+Range: 45m
+Call upon a song to blast your enemies with an area-of-effect of light. This attack will also remove a Corruption buff from the enemies you hit.
+15 038 - 21 483 Light Damage
+Removes up to 1 Corruption effect from the target.
+33% chance to apply:
+2 683 - 3 832 Light Damage every 3,0 seconds for 15 seconds.
+Cost: 336 Power
+Cooldown: 30s
+*****************************
+Skill-Id: 1879064190
+Perfect Ballad
+Fast
+Tactical Skill
+Resistance: Cry
+Skill Type: Buff
+Range: 35m
+Heals you and harms your foe.
+
+Ballads unlock Anthems and Codas.
+9 372 - 13 388 Light Damage
++3% Incoming Healing
++1% Tactical Damage
++1% Outgoing Healing
+Expires if out of combat for 9 seconds.
+-1s Cry and Call Cooldowns
++3% Tactical Damage
+Duration: 8s
+Cost: 30 Power
+Cooldown: 1s
+*****************************
+Skill-Id: 1879218616
+Raise My Spirit
+Fast
+Tactical Skill
+Induction: 1,1s
+Skill Type: Heal
+Quickly heals Morale (self-targetted).
++3 902 - 5 574 Morale
+Cost: 269 Power
+Cooldown: 1s
+*****************************
+Skill-Id: 1879094938
+Call of Oromë
+Fast
+Tactical Skill
+Max Targets: 12
+Radius: 5m
+Resistance: Cry
+Skill Type: Call
+Range: 35m
+Requires Dissonance Stance.
+
+Deals AoE Light damage and reduces Light damage resistance.
+16 261 - 23 230 Light Damage
+-2,5% Tactical Mitigation (%)
+Duration: 10s
+33% chance to apply:
+2 683 - 3 832 Light Damage every 3,0 seconds for 15 seconds.
+10% chance to apply:
+Your Healing is temporarily unlocked for a single use on a friendly target.
+Duration: 10s
+Cost: 135 Power
+Cooldown: 10s
+*****************************
+Skill-Id: 1879094942
+Gift of the Hammerhand
+Immediate
+Skill Type: Buff
+Range: 30m
+Grants a Morale bubble to a Fellowship member.
+
+Bubble strength is 20% of the target's Max Morale pool before other bonuses apply.
+-0% Incoming Damage
+Applies a damage preventing bubble granting 37 690 temporary Morale.
+Duration: 15s
+Cost: 672 Power
+Cooldown: 2m
+*****************************
+Skill-Id: 1879218619
+Bolster My Courage
+Fast
+Tactical Skill
+Induction: 2,1s
+Skill Type: Heal
+Significantly heals Morale (self-targetted).
++12 549 - 17 927 Morale
+Cost: 471 Power
+Cooldown: 3s
+*****************************
+Skill-Id: 1879094936
+Timeless Echoes of Battle
+Fast
+Tactical Skill
+Resistance: Cry
+Range: 35m
+This powerful chant recalls great deeds done in battle by the mighty Valar when the world was young, demoralizing your foes.
+
+<rgb=#00FFDD>This skill must target an enemy and is only usable in Dissonance.</rgb>
+-7 290 Target Song and Cry Resist Rating
+6 230 - 8 900 Light Damage every 3,0 seconds.
+Cost: 68 Power
+Cost: 1 Power Per Second
+Toggle Skill
+Cooldown: 2s
+*****************************
+Skill-Id: 1879094939
+Call of the Second Age
+Fast
+Tactical Skill
+Max Targets: 8
+Radius: 10m
+Resistance: Cry
+Skill Type: Call
+Range: 10,2m
+Deals a burst of AoE Light damage to nearby foes.
+
+Boosts movement speed of nearby allies.
+14 267 - 20 382 Light Damage
+3s Stun
+33% chance to apply:
+2 683 - 3 832 Light Damage every 3,0 seconds for 15 seconds.
+Effects applied to the Fellowship within 5 metres:
+Your Fellowship gains +10% Run Speed.
+Duration: 10s
+On application:
+10% chance to apply:
+Your Healing is temporarily unlocked for a single use on a friendly target.
+Duration: 10s
+Your Fellowship gains +10% Run Speed.
+Duration: 10s
+Every 1 second:
+Cost: 202 Power
+Cooldown: 30s
+*****************************
+Skill-Id: 1879218623
+Chord of My Salvation
+Immediate
+Tactical Skill
+Skill Type: Heal
+Instantly heals your Morale.
++8 326 - 11 894 Morale
+Cost: 941 Power
+Cooldown: 12s
+*****************************
+Skill-Id: 1879064186
+Dissonant Strike
+Fast
+Melee Skill
+Range: 4m
+A damaging melee attack that increases the potency of incoming healing.
+7 153 - 10 219 Light Damage
+10% Incoming Healing (%)
+Duration: 30s
+Cost: 68 Power
+Cooldown: 5s
+*****************************
+Skill-Id: 1879064203
+Story of Courage
+Fast
+Skill Type: Buff
+Removes one Poison, Fear, Disease, or Wound from nearby fellows.
+
+Protects against further Fears.
+Effects applied to the Fellowship within 15 metres:
+12 200 Fear Resist Rating
+Duration: 10s
+Effects applied to the Fellowship within 45 metres:
+Removes up to 1 Disease, Wound, Fear, Poison effect with maximum strength of 155 from the target.
+Cost: 202 Power
+Cooldown: 10s
+*****************************
+Skill-Id: 1879064194
+Invocation of Elbereth
+Fast
+Tactical Skill
+Resistance: Song
+Skill Type: Fear
+Range: 45m
+Calling upon the Valar can send certain evil foes fleeing in terror for a short time.
+
+<rgb=#00FFDD>Mounted Combat Enemies: Fear replaced with attack speed debuff.</rgb>
+15s Fear
+100% break chance on damage after 1s
+Cost: 269 Power
+Cooldown: 30s
+*****************************
+Skill-Id: 1879064208
+Still As Death
+Immediate
+Channel Duration: 10s
+You are talented at feigning death, causing enemies to ignore you completely.
+Cost: 135 Power
+Channelled Skill
+Cooldown: 2m30s
+*****************************
+Skill-Id: 1879218437
+Improved Song of Distraction
+Fast
+Tactical Skill
+Max Targets: 6
+Radius: 10m
+Induction: 1,7s
+Resistance: Song
+Range: 45m
+A song that can make an enemy, and up to two other enemies within ten metres of the first, become drowsy and not detect players until they are much closer than normal. This does not work against monsters already engaged in combat.
+Cost: 135 Power
+Cooldown: 3m
+*****************************
+Skill-Id: 1879073495
+Hobbit-silence
+Immediate
+Channel Duration: 30s
+You can lie prone in complete silence, causing enemies to ignore you.
+Cost: 1 648 Power
+Channelled Skill
+Requires: Hobbit-silence Trait Equipped
+Cooldown: 30m
+*****************************
+Skill-Id: 1879096322
+Irresistible Melody
+Radius: 10m
+Induction: 2,5s
+Range: 10,2m
+You perform a melody so irresistible that all Free Peoples who hear it cannot help but dance.
+Cost: 135 Power
+Cooldown: 2m30s
+*****************************
+Skill-Id: 1879286666
+Spirit of Freedom
+Fast
+Frees from any Combat State.
+Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
+Cost: 135 Power
+Cooldown: 1m
+*****************************
+Skill-Id: 1879096837
+Scribe Stance
+When you enter Scribe Stance, you change your Mentor skills into Scribe Manual skills, allowing you to create manuals to teach instruments. Scribing manuals is much more taxing than teaching in person, requires a Blank Mentor Manual, and will apply a 10 day cooldown to all Mentor skills.
+Cost: 336 Power
+Toggle Skill
+Cooldown: 15s
+*****************************
+Skill-Id: 1879099270
+Mentor: Bagpipes
+Induction: 2,5s
+Range: 25m
+You can instruct someone how to play the bagpipes.
+Cost: 5 769 Power
+Cooldown: 120h
+*****************************
+Skill-Id: 1879218436
+Improved Enlivening Grace
+Fast
+Tactical Skill
+Max Targets: 8
+Radius: 25m
+Induction: 5,4s
+Skill Type: Heal
+Range: 25,2m
+Revives a defeated target, along with all Fellowship members nearby.
+Cost: 68 Power
+*****************************
+Skill-Id: 1879073486
+Hobbit-resilience
+You can raise your Fellowship's Hope value through good old-fashioned hobbit-cheer. This does not stack with other Hope buffs.
+Adds a non-stacking Hope bonus to your Fellowship.
+Effects applied to the Fellowship within 20 metres:
+2 Hope
+Duration: 10m
+Cost: 1 648 Power
+Requires: Hobbit-resilience Trait Equipped
+Cooldown: 30m
+*****************************
+Skill-Id: 1879052881
+Rally!
+Fast
+Tactical Skill
+Skill Type: Heal
+Range: 30m
+Revives a defeated ally in combat, with their Health and Power mostly intact.
+Cost: 404 Power
+Cooldown: 12m30s

@@ -41,6 +41,7 @@ class SkillTooltipGenerationTest
     testLoremaster();
     testHunter();
     testChampion();
+    testMinstrel();
   }
 
   private void doTest(String characterFile, int[] skillIDs)
@@ -187,6 +188,50 @@ class SkillTooltipGenerationTest
       1879186727 // Fear Nothing!
     };
     doTest("champion.xml",skills);
+  }
+
+  private void testMinstrel()
+  {
+    int[] skills={
+      // Page 1
+      1879217094, // Coda of Fury
+      1879064192, // Lesser Anthem III - Composure (may be 1879449576)
+      1879060863, // Greater Anthem II - War (may be 1879449575)
+      1879221564, // Major Ballad
+      1879284233, // Dissonant Piercing Cry
+      1879064191, // Greater Anthem III - Prowess (may be 1879449577)
+      1879052912, // Cry of the Wizards
+      1879110224, // Call to Fate
+      1879221557, // Improved Cry of the Chorus (Dissonance)
+      1879452871, // Minor Ballad - Dissonance
+      // Page 2
+      1879205049, // Lesser Anthem II - Dissonance (may be 1879449574)
+      1879182841, // Song of the Hammerhand
+      1879060868, // Cry of the Valar
+      1879064190, // Perfect Ballad
+      1879218616, // Raise My Spirit
+      1879094938, // Call of Oromë
+      1879094942, // Gift of the Hammerhand
+      1879218619, // Bolster My Courage
+      1879094936, // Timeless Echoes of Battle
+      1879094939, // Call of the Second Age
+      1879218623, // Chord of My Salvation
+      1879064186, // Dissonant Strike
+      1879064203, // Story of Courage
+      1879064194, // Invocation of Elbereth
+      // Page 3
+      1879064208, // Still As Death
+      1879218437, // Improved Song of Distraction
+      1879073495, // Hobbit-silence
+      1879096322, // Irresistible Melody
+      1879286666, // Spirit of Freedom
+      1879096837, // Scribe Stance
+      1879099270, // Mentor: Bagpipes
+      1879218436, // Improved Enlivening Grace
+      1879073486, // Hobbit-resilience
+      1879052881 // Rally!
+    };
+    doTest("minstrel.xml",skills);
   }
 
   private List<String> doSkill(int id, CharacterData data)

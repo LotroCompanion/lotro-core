@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?><character version="1100" name="Meva" level="150" date="1731238351701">
+<characterSummary id="02080000002D4BF9" name="Meva" server="Landroval" account="glorfindel666" subscription="FPPW4D9YZ4XREC2LNRLFW73WC" class="Minstrel" race="hobbit" sex="FEMALE" level="150" surname="Funnyone" rank="0" nationalityCode="18" region="Fallohide" kinshipID="0C08000108047427" importDate="1731238347707"/>
+<stats>
+<stat name="MORALE" value="18844934"/>
+<stat name="POWER" value="824086"/>
+<stat name="ARMOUR" value="4319700"/>
+<stat name="MIGHT" value="140300"/>
+<stat name="AGILITY" value="136000"/>
+<stat name="VITALITY" value="2586400"/>
+<stat name="WILL" value="2241900"/>
+<stat name="FATE" value="414800"/>
+<stat name="CRITICAL_RATING" value="10386526"/>
+<stat name="CRITICAL_MELEE_PERCENTAGE" value="1906"/>
+<stat name="CRITICAL_RANGED_PERCENTAGE" value="1906"/>
+<stat name="CRITICAL_TACTICAL_PERCENTAGE" value="1906"/>
+<stat name="DEVASTATE_MELEE_PERCENTAGE" value="443"/>
+<stat name="DEVASTATE_RANGED_PERCENTAGE" value="443"/>
+<stat name="DEVASTATE_TACTICAL_PERCENTAGE" value="443"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE" value="2328"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE" value="2328"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE" value="2328"/>
+<stat name="FINESSE" value="4982898"/>
+<stat name="FINESSE_PERCENTAGE" value="2137"/>
+<stat name="PHYSICAL_MASTERY" value="937950"/>
+<stat name="MELEE_DAMAGE_PERCENTAGE" value="2725"/>
+<stat name="RANGED_DAMAGE_PERCENTAGE" value="2725"/>
+<stat name="TACTICAL_MASTERY" value="15134209"/>
+<stat name="TACTICAL_DAMAGE_PERCENTAGE" value="16600"/>
+<stat name="OUTGOING_HEALING" value="17628810"/>
+<stat name="OUTGOING_HEALING_PERCENTAGE" value="4273"/>
+<stat name="RESISTANCE" value="2561390"/>
+<stat name="RESISTANCE_PERCENTAGE" value="808"/>
+<stat name="CRITICAL_DEFENCE" value="1580347"/>
+<stat name="MELEE_CRITICAL_DEFENCE" value="1201"/>
+<stat name="RANGED_CRITICAL_DEFENCE" value="1201"/>
+<stat name="TACTICAL_CRITICAL_DEFENCE" value="1201"/>
+<stat name="INCOMING_HEALING_PERCENTAGE" value="0"/>
+<stat name="BLOCK" value="2863084"/>
+<stat name="BLOCK_PERCENTAGE" value="340"/>
+<stat name="PARTIAL_BLOCK_PERCENTAGE" value="378"/>
+<stat name="PARTIAL_BLOCK_MITIGATION_PERCENTAGE" value="529"/>
+<stat name="PARRY" value="300"/>
+<stat name="PARRY_PERCENTAGE" value="0"/>
+<stat name="PARTIAL_PARRY_PERCENTAGE" value="0"/>
+<stat name="PARTIAL_PARRY_MITIGATION_PERCENTAGE" value="0"/>
+<stat name="EVADE" value="4847164"/>
+<stat name="EVADE_PERCENTAGE" value="542"/>
+<stat name="PARTIAL_EVADE_PERCENTAGE" value="618"/>
+<stat name="PARTIAL_EVADE_MITIGATION_PERCENTAGE" value="865"/>
+<stat name="PHYSICAL_MITIGATION" value="6969600"/>
+<stat name="PHYSICAL_MITIGATION_PERCENTAGE" value="3101"/>
+<stat name="OCFW_MITIGATION" value="1271940"/>
+<stat name="OCFW_MITIGATION_PERCENTAGE" value="718"/>
+<stat name="TACTICAL_MITIGATION" value="5400120"/>
+<stat name="TACTICAL_MITIGATION_PERCENTAGE" value="3051"/>
+<stat name="FIRE_MITIGATION_PERCENTAGE" value="2551"/>
+<stat name="LIGHTNING_MITIGATION_PERCENTAGE" value="2551"/>
+<stat name="FROST_MITIGATION_PERCENTAGE" value="2551"/>
+<stat name="ACID_MITIGATION_PERCENTAGE" value="2551"/>
+<stat name="SHADOW_MITIGATION_PERCENTAGE" value="2651"/>
+<stat name="OCMR" value="22306080"/>
+<stat name="ICMR" value="1878308"/>
+<stat name="OCPR" value="1754160"/>
+<stat name="ICPR" value="24000"/>
+<stat name="LIGHT_OF_EARENDIL" value="8000"/>
+<stat name="RANGED_DEFENCE_PERCENTAGE" descriptionOverride="+10% Ranged Defence" value="-1000"/>
+<stat name="TACTICAL_CRITICAL_MULTIPLIER" value="500"/>
+<stat name="BALLAD_AND_CODA_DAMAGE_PERCENTAGE" descriptionOverride="+${PERCENTVALUE} Ballad Damage &#10;&#10;&lt;rgb=#FF7700&gt; All Heals become Self-only&lt;/rgb&gt;" value="5000"/>
+<stat name="ATTACK_DURATION_PERCENTAGE" value="-1000"/>
+<stat name="JEWELLER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Jeweller Critical Chance" value="2500"/>
+<stat name="COOK_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Cook Critical Chance" value="2500"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
+<stat name="PERCEIVED_THREAT" descriptionOverride="-" value="-5000"/>
+<stat name="Combat_WeaponDamageMultiplier_1HClub" value="500"/>
+<stat name="Resist_Additional_Resistance_Fear" value="100"/>
+<stat name="Skill_VitalCost_SerenadeOffenseMod" value="-1300"/>
+<stat name="Combat_WeaponDamageMultiplier_2HClub" value="500"/>
+<stat name="Skill_HealingMultiplier_Item" value="300"/>
+<stat name="Skill_Minstrel_Duration_Tier3Ballads" value="2500"/>
+<stat name="Skill_CriticalDamageMultiplier_Minstrel_Call" value="2000"/>
+<stat name="IA_Minstrel_Ballads_Tier2_Damage" value="5500"/>
+<stat name="IA_Minstrel_CalltoOrome_Damage" value="5500"/>
+<stat name="IA_Minstrel_RaisetheSpirit_Heal" value="3500"/>
+<stat name="IA_Minstrel_PiercingCry_Damage" value="5000"/>
+<stat name="IA_Minstrel_CalltoFate_CriticalMagnitude" value="3500"/>
+<stat name="IA_Minstrel_WarSpeech_Resistance" value="-500"/>
+<stat name="IA_Minstrel_BalladofWar_Buff" value="4500"/>
+<stat name="IA_Minstrel_Ballads_Tier1_Damage" value="5000"/>
+<stat name="Combat_SkillDamageMultiplier_Light" value="6000"/>
+<stat name="Skill_MaxRangeMod_MP_VenomousHaze" descriptionOverride="+5m Range to Ballads and Cries" value="500"/>
+<stat name="Effect_Self_Revive_Cooldown" descriptionOverride="Increases duration of Revived effect to 2 hours." value="540000"/>
+<stat name="Combat_TacticalDPS_Modifier" value="43714"/>
+<stat name="Combat_TacticalHPS_Modifier" value="43709"/>
+<stat name="Combat_OutgoingHeals_EffectMod" value="1000"/>
+<stat name="Skill_Minstrel_DamageMod_ImprovedEchoesofBattle" value="6000"/>
+<stat name="Skill_Minstrel_DamageMultiplier_WarspeechCalls" descriptionOverride="+${PERCENTVALUE} Cry and Call Damage" value="4000"/>
+<stat name="Skill_InductionDuration_Minstrel_RaisetheSpirit" value="-1000"/>
+<stat name="Skill_ApplicationMod_Minstrel_HealingUnlock" descriptionOverride="+${PERCENTVALUE} Chance for War-speech Calls and Cry of the Wizards to allow for use of Raise the Spirit, Chord of Salvation or the improved versions of these skills for 10 seconds" value="1000"/>
+<stat name="Skill_Minstrel_CriticalChance_Ballad" value="1900"/>
+<stat name="Trait_Minstrel_Healing_CriticalMod" value="2000"/>
+<stat name="Trait_Minstrel_Heros_Strike_Damage" descriptionOverride="+${PERCENTVALUE} Strike Damage" value="2000"/>
+<stat name="Trait_Minstrel_Ballad_Coda_Damage" value="2500"/>
+<stat name="Trait_Minstrel_Call_Orome_Damage" value="2500"/>
+<stat name="Trait_Minstrel_Healing_Critical_Chance" value="700"/>
+<stat name="Trait_Minstrel_Call_Orome_Targets" value="400"/>
+<stat name="Trait_Heals_Reset_CriesCalls_Application_Chance" value="5000"/>
+<stat name="Skill_Minstrel_SpecBonus_Resistance_Penetration" descriptionOverride="The chance to resist your Cries and Calls is reduced by 10%" value="-10"/>
+<stat name="Skill_Minstrel_CodaCashout_AppChance" value="-3000"/>
+<stat name="Skill_Minstrel_Emboldening_Finish" value="10000"/>
+<stat name="Skill_Minstrel_Hero_Strike_Heal" descriptionOverride="+${PERCENTVALUE} Strike Healing" value="3200"/>
+<stat name="Skill_Minstrel_PiercingCry_CritChance" value="3000"/>
+<stat name="Skill_Minstrel_IA_CryofChorus_Cooldown" value="-2700"/>
+<stat name="Skill_Minstrel_IA_ChordofSalvation_CritRating" value="500"/>
+<stat name="Skill_Minstrel_IA_CallofSecondAge_Damage" value="5000"/>
+<stat name="Skill_AreaEffect_Healing_CritMag" value="2000"/>
+<stat name="Skill_AreaEffect_Healing_CritChance" value="500"/>
+<stat name="Skill_AreaEffect_TargetCount" value="300"/>
+<stat name="Skill_OverTime_Healing_CritChance" value="450"/>
+<stat name="Skill_OverTime_Healing_CritMag" value="1800"/>
+<stat name="Skill_AreaEffect_Damage" value="2750"/>
+<stat name="Skill_OverTime_Healing" value="1600"/>
+<stat name="Trait_Minstrel_CallSecondAge_Stun_Duration" value="100"/>
+<stat name="Trait_Minstrel_CallSecondAge_Stun_AppChance" descriptionOverride="-" value="10000"/>
+</stats>
+<equipment>
+<equipmentSlot name="HEAD">
+<item key="1879464620" name="Cowl of Gondor's Vanguard" instanceId="030A000C21474D5C" boundTo="08FF00000005FA91">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WILL" value="43600"/>
+<stat name="VITALITY" value="91400"/>
+<stat name="TACTICAL_MASTERY" value="126490"/>
+<stat name="CRITICAL_RATING" value="197776"/>
+<stat name="ARMOUR" value="188200"/>
+</defautStats>
+<resultStats>
+<stat name="WILL" value="43600"/>
+<stat name="VITALITY" value="91400"/>
+<stat name="TACTICAL_MASTERY" value="126490"/>
+<stat name="CRITICAL_RATING" value="197776"/>
+<stat name="ARMOUR" value="188200"/>
+</resultStats>
+</stats>
+<essences/>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BREAST">
+<item key="1879475689" name="Salvaged Silk Robe" instanceId="030A000C261F1B57" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WILL" value="92800"/>
+<stat name="VITALITY" value="89900"/>
+<stat name="TACTICAL_MASTERY" value="408000"/>
+<stat name="PHYSICAL_MITIGATION" value="408000"/>
+<stat name="ARMOUR" value="849700"/>
+</defautStats>
+<resultStats>
+<stat name="WILL" value="92800"/>
+<stat name="VITALITY" value="89900"/>
+<stat name="TACTICAL_MASTERY" value="408000"/>
+<stat name="PHYSICAL_MITIGATION" value="408000"/>
+<stat name="ARMOUR" value="849700"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEGS">
+<item key="1879475639" name="Salvaged Silk Trousers" instanceId="030A000C2769663B" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WILL" value="95200"/>
+<stat name="VITALITY" value="92400"/>
+<stat name="TACTICAL_MASTERY" value="418571"/>
+<stat name="EVADE" value="756327"/>
+<stat name="ARMOUR" value="729300"/>
+</defautStats>
+<resultStats>
+<stat name="WILL" value="95200"/>
+<stat name="VITALITY" value="92400"/>
+<stat name="TACTICAL_MASTERY" value="418571"/>
+<stat name="EVADE" value="756327"/>
+<stat name="ARMOUR" value="729300"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="HANDS">
+<item key="1879475642" name="Salvaged Silk Gloves" instanceId="030A000C27DABA76" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WILL" value="96400"/>
+<stat name="VITALITY" value="93700"/>
+<stat name="CRITICAL_RATING" value="544959"/>
+<stat name="TACTICAL_MITIGATION" value="423857"/>
+<stat name="ARMOUR" value="425800"/>
+</defautStats>
+<resultStats>
+<stat name="WILL" value="96400"/>
+<stat name="VITALITY" value="93700"/>
+<stat name="CRITICAL_RATING" value="544959"/>
+<stat name="TACTICAL_MITIGATION" value="423857"/>
+<stat name="ARMOUR" value="425800"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="FEET">
+<item key="1879475625" name="Salavaged Silk Shoes" instanceId="030A000C2733245E" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WILL" value="94000"/>
+<stat name="VITALITY" value="91200"/>
+<stat name="CRITICAL_RATING" value="531367"/>
+<stat name="TACTICAL_MITIGATION" value="413286"/>
+<stat name="ARMOUR" value="344100"/>
+</defautStats>
+<resultStats>
+<stat name="WILL" value="94000"/>
+<stat name="VITALITY" value="91200"/>
+<stat name="CRITICAL_RATING" value="531367"/>
+<stat name="TACTICAL_MITIGATION" value="413286"/>
+<stat name="ARMOUR" value="344100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="SHOULDER">
+<item key="1879475661" name="Salvaged Silk Shoulder-pads" instanceId="030A000C27D7D629" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WILL" value="95200"/>
+<stat name="VITALITY" value="92400"/>
+<stat name="TACTICAL_MASTERY" value="418571"/>
+<stat name="EVADE" value="756327"/>
+<stat name="ARMOUR" value="225500"/>
+</defautStats>
+<resultStats>
+<stat name="WILL" value="95200"/>
+<stat name="VITALITY" value="92400"/>
+<stat name="TACTICAL_MASTERY" value="418571"/>
+<stat name="EVADE" value="756327"/>
+<stat name="ARMOUR" value="225500"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BACK">
+<item key="1879475632" name="Stitched Silk Cloak" instanceId="030A000C251A32CE" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WILL" value="90300"/>
+<stat name="VITALITY" value="87400"/>
+<stat name="CRITICAL_RATING" value="681306"/>
+<stat name="TACTICAL_MITIGATION" value="529306"/>
+<stat name="ARMOUR" value="728900"/>
+</defautStats>
+<resultStats>
+<stat name="WILL" value="90300"/>
+<stat name="VITALITY" value="87400"/>
+<stat name="CRITICAL_RATING" value="681306"/>
+<stat name="TACTICAL_MITIGATION" value="529306"/>
+<stat name="ARMOUR" value="728900"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_WRIST">
+<item key="1879440909" name="Slayer's Armlet" instanceId="030A000A87AFB75C" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WILL" value="79400"/>
+<stat name="VITALITY" value="57600"/>
+<stat name="TACTICAL_MASTERY" value="173755"/>
+<stat name="CRITICAL_RATING" value="163265"/>
+</defautStats>
+<resultStats>
+<stat name="WILL" value="79400"/>
+<stat name="VITALITY" value="57600"/>
+<stat name="TACTICAL_MASTERY" value="173755"/>
+<stat name="CRITICAL_RATING" value="163265"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_WRIST">
+<item key="1879475729" name="Lucky Shell Bracelet" instanceId="030A000C27A3D0C5" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="91200"/>
+<stat name="CRITICAL_RATING" value="531367"/>
+<stat name="FATE" value="51200"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="91200"/>
+<stat name="CRITICAL_RATING" value="531367"/>
+<stat name="FATE" value="51200"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471501" name="Humble Sea-farer's Essence of Will"/>
+<essence index="1" id="1879471488" name="Humble Sea-farer's Essence of Tactical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="NECK">
+<item key="1879475731" name="Lucky Shell Pendant" instanceId="030A000C27D7CFE2" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="122300"/>
+<stat name="CRITICAL_RATING" value="354245"/>
+<stat name="FINESSE" value="237000"/>
+<stat name="FATE" value="25600"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="122300"/>
+<stat name="CRITICAL_RATING" value="354245"/>
+<stat name="FINESSE" value="237000"/>
+<stat name="FATE" value="25600"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471501" name="Humble Sea-farer's Essence of Will"/>
+<essence index="1" id="1879471488" name="Humble Sea-farer's Essence of Tactical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_FINGER">
+<item key="1879475736" name="Shimmering Pearl Ring" instanceId="030A000C276FB50C" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="152600"/>
+<stat name="FINESSE" value="473163"/>
+<stat name="RESISTANCE" value="319490"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="152600"/>
+<stat name="FINESSE" value="473163"/>
+<stat name="RESISTANCE" value="319490"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471501" name="Humble Sea-farer's Essence of Will"/>
+<essence index="1" id="1879471645" name="Humble Sea-farer's Essence of Critical Rating"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_FINGER">
+<item key="1879475740" name="Flickering Tidal Ring" instanceId="030A000C214757B8" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="94600"/>
+<stat name="CRITICAL_RATING" value="557000"/>
+<stat name="EVADE" value="781000"/>
+<stat name="FATE" value="34200"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="94600"/>
+<stat name="CRITICAL_RATING" value="557000"/>
+<stat name="EVADE" value="781000"/>
+<stat name="FATE" value="34200"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_EAR">
+<item key="1879475735" name="Glowing Water Lurker Earring" instanceId="030A000C27D7EC96" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="158800"/>
+<stat name="CRITICAL_RATING" value="551755"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="158800"/>
+<stat name="CRITICAL_RATING" value="551755"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471501" name="Humble Sea-farer's Essence of Will"/>
+<essence index="1" id="1879471488" name="Humble Sea-farer's Essence of Tactical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_EAR">
+<item key="1879475727" name="Mysterious Tidal Creature Earring" instanceId="030A000C26F4FF20" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="150500"/>
+<stat name="TACTICAL_MITIGATION" value="408000"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="150500"/>
+<stat name="TACTICAL_MITIGATION" value="408000"/>
+</resultStats>
+</stats>
+<essences>
+<essence index="0" id="1879471501" name="Humble Sea-farer's Essence of Will"/>
+<essence index="1" id="1879471488" name="Humble Sea-farer's Essence of Tactical Mastery"/>
+</essences>
+</item>
+</equipmentSlot>
+<equipmentSlot name="POCKET">
+<item key="1879477422" name="Charming Parrot Coin" instanceId="030A000C24EEDAA6" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="114000"/>
+<stat name="CRITICAL_RATING" value="580755"/>
+<stat name="FINESSE" value="775592"/>
+<stat name="FATE" value="23800"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="114000"/>
+<stat name="CRITICAL_RATING" value="580755"/>
+<stat name="FINESSE" value="775592"/>
+<stat name="FATE" value="23800"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="MAIN_MELEE">
+<item key="1879424203" name="Minstrel's Club of Legends" level="520" minLevel="150" instanceId="030A0009FEDFC97B" boundTo="02080000002D4BF9" maxDamage="628.0046" dps="549.504">
+<legendary2>
+<socket index="0" traceryId="1879472010" traceryName="Heraldry of the Eagle" itemLevel="520"/>
+<socket index="1" traceryId="1879473137" traceryName="Area Effect Target Count" itemLevel="520"/>
+<socket index="2" traceryId="1879471864" traceryName="Area Effect Attack Damage" itemLevel="508"/>
+<socket index="3" traceryId="1879473143" traceryName="Anthem of War and Prowess Damage Buffs" itemLevel="500"/>
+<socket index="4" traceryId="1879471899" traceryName="Piercing Cry Damage" itemLevel="500"/>
+<socket index="5" traceryId="1879471784" traceryName="Call to Fate Critical Multiplier" itemLevel="500"/>
+<socket index="6" traceryId="1879472468" traceryName="Call of Oromë &amp; Eärendil Damage" itemLevel="500"/>
+<socket index="7" traceryId="1879472658" traceryName="Call of the Second Age Damage" itemLevel="500"/>
+<socket index="8" traceryId="1879472273" traceryName="Minor Ballad Damage" itemLevel="506"/>
+<socket index="9" traceryId="1879472055" traceryName="Ascendent Light" itemLevel="502"/>
+<socket index="10" traceryId="1879472832" traceryName="Ascendent Light" itemLevel="500"/>
+</legendary2>
+<stats mode="AUTO">
+<defautStats>
+<stat name="Combat_TacticalDPS_Modifier" value="43714"/>
+</defautStats>
+<resultStats>
+<stat name="Combat_TacticalDPS_Modifier" value="43714"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="OTHER_MELEE">
+<item key="1879478087" name="Pristine Resilient Umbari Shield" instanceId="030A000C259E8F2E" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WILL" value="94000"/>
+<stat name="VITALITY" value="106400"/>
+<stat name="BLOCK" value="621184"/>
+<stat name="TACTICAL_MASTERY" value="413286"/>
+<stat name="ARMOUR" value="828200"/>
+<stat name="RANGED_DEFENCE_PERCENTAGE" descriptionOverride="+10% Ranged Defence" value="-1000"/>
+<stat name="CRITICAL_DEFENCE" value="1189184"/>
+</defautStats>
+<resultStats>
+<stat name="WILL" value="94000"/>
+<stat name="VITALITY" value="106400"/>
+<stat name="BLOCK" value="621184"/>
+<stat name="TACTICAL_MASTERY" value="413286"/>
+<stat name="ARMOUR" value="828200"/>
+<stat name="RANGED_DEFENCE_PERCENTAGE" descriptionOverride="+10% Ranged Defence" value="-1000"/>
+<stat name="CRITICAL_DEFENCE" value="1189184"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RANGED">
+<item key="1879366527" name="Expedition Fiddle of Harmony" level="326" instanceId="030A000766CF74DB" crafterName="Glumlug" boundTo="02080000002D4BF9">
+<money gold="0" silver="10" copper="53"/>
+<stats mode="AUTO">
+<defautStats>
+<stat name="Skill_HealingMultiplier_Item" value="300"/>
+<stat name="BALLAD_AND_CODA_DAMAGE_PERCENTAGE" value="2500"/>
+<stat name="Skill_VitalCost_SerenadeOffenseMod" value="-1300"/>
+<stat name="MORALE" value="78735"/>
+<stat name="POWER" value="9286"/>
+</defautStats>
+<resultStats>
+<stat name="Skill_HealingMultiplier_Item" value="300"/>
+<stat name="BALLAD_AND_CODA_DAMAGE_PERCENTAGE" value="2500"/>
+<stat name="Skill_VitalCost_SerenadeOffenseMod" value="-1300"/>
+<stat name="MORALE" value="78735"/>
+<stat name="POWER" value="9286"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="TOOL">
+<item key="1879283857" name="Superior Tools of the Westemnet Tinker" instanceId="030800048EF2BAE2" crafterName="Kargarth" boundTo="02080000002D4BF9">
+<stats mode="AUTO">
+<defautStats>
+<stat name="JEWELLER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Jeweller Critical Chance" value="2500"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
+<stat name="COOK_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Cook Critical Chance" value="2500"/>
+</defautStats>
+<resultStats>
+<stat name="JEWELLER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Jeweller Critical Chance" value="2500"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-4s Prospector Mining Duration" value="-400"/>
+<stat name="COOK_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+25% Cook Critical Chance" value="2500"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="CLASS_ITEM">
+<item key="1879424486" name="Minstrel's Songbook" level="520" minLevel="150" instanceId="030A000A01661B2F" boundTo="02080000002D4BF9">
+<legendary2 name="Little Yellow Book">
+<socket index="0" traceryId="1879471860" traceryName="Heraldry of the Eagle" itemLevel="500"/>
+<socket index="1" traceryId="1879435506" traceryName="Area Effect Healing Criticals" itemLevel="450"/>
+<socket index="2" traceryId="1879472318" traceryName="Healing Over Time" itemLevel="500"/>
+<socket index="3" traceryId="1879472970" traceryName="Healing Over Time Criticals" itemLevel="500"/>
+<socket index="4" traceryId="1879426755" traceryName="Anthem of Composure Resistance &amp; Tactical Mitigation" itemLevel="400"/>
+<socket index="5" traceryId="1879472700" traceryName="Perfect Ballad Damage" itemLevel="500"/>
+<socket index="6" traceryId="1879472768" traceryName="Cry of the Chorus Cooldown" itemLevel="500"/>
+<socket index="7" traceryId="1879472572" traceryName="Target Resist Chance: Cries and Calls" itemLevel="500"/>
+<socket index="8" traceryId="1879472373" traceryName="Raise the Spirit Healing" itemLevel="500"/>
+<socket index="9" traceryId="1879436638" traceryName="Healing Skills Induction Time &amp; Critical Chance" itemLevel="450"/>
+<socket index="10" traceryId="1879471720" traceryName="Heroic Precision" itemLevel="500"/>
+<socket index="11" traceryId="1879428237" traceryName="Ascendent Light" itemLevel="400"/>
+</legendary2>
+<stats mode="AUTO">
+<defautStats>
+<stat name="Combat_TacticalHPS_Modifier" value="43709"/>
+</defautStats>
+<resultStats>
+<stat name="Combat_TacticalHPS_Modifier" value="43709"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BRIDLE">
+<item key="1879253165" name="Light Bridle of the Second Age" instanceId="03080004346C6C94" boundTo="02080000002D4BF9">
+<legendary imbued="false">
+<nonImbued level="60" upgrades="0" pointsSpent="648" pointsLeft="2">
+<defaultLegacy id="1879242523" rank="95"/>
+<tieredLegacy index="0" id="1879254466" rank="47"/>
+<tieredLegacy index="1" id="1879249911" rank="47"/>
+<tieredLegacy index="2" id="1879254406" rank="55"/>
+<tieredLegacy index="3" id="1879254446" rank="47"/>
+<tieredLegacy index="4" id="1879249806" rank="52"/>
+<tieredLegacy index="5" id="1879249756" rank="47"/>
+</nonImbued>
+<imbued/>
+</legendary>
+<stats mode="AUTO"/>
+</item>
+</equipmentSlot>
+</equipment>
+<virtues>
+<virtue id="CHARITY" rank="54"/>
+<virtue id="COMPASSION" rank="53"/>
+<virtue id="CONFIDENCE" rank="80" index="2"/>
+<virtue id="DETERMINATION" rank="53"/>
+<virtue id="DISCIPLINE" rank="53"/>
+<virtue id="EMPATHY" rank="54"/>
+<virtue id="FIDELITY" rank="55"/>
+<virtue id="FORTITUDE" rank="53"/>
+<virtue id="HONESTY" rank="79" index="3"/>
+<virtue id="HONOUR" rank="92" index="4"/>
+<virtue id="IDEALISM" rank="55"/>
+<virtue id="INNOCENCE" rank="55"/>
+<virtue id="JUSTICE" rank="50"/>
+<virtue id="LOYALTY" rank="54"/>
+<virtue id="MERCY" rank="39"/>
+<virtue id="PATIENCE" rank="53"/>
+<virtue id="TOLERANCE" rank="54"/>
+<virtue id="VALOUR" rank="54"/>
+<virtue id="WISDOM" rank="92" index="0"/>
+<virtue id="WIT" rank="83" index="1"/>
+<virtue id="ZEAL" rank="55"/>
+</virtues>
+<tomes>
+<tome stat="MIGHT" rank="0"/>
+<tome stat="AGILITY" rank="0"/>
+<tome stat="VITALITY" rank="0"/>
+<tome stat="WILL" rank="1"/>
+<tome stat="FATE" rank="0"/>
+</tomes>
+<traitTreeStatus treeId="1879272220" branch="24" cost="97" totalPoints="98">
+<trait id="1879270739" name="Poignant Phrases" rank="5"/>
+<trait id="1879270781" name="Strong Appeal" rank="5"/>
+<trait id="1879270741" name="Cacophonous Echoes" rank="3"/>
+<trait id="1879270742" name="The Fundamentals" rank="5"/>
+<trait id="1879270745" name="Enduring Morale" rank="5"/>
+<trait id="1879270750" name="Anthem of War" rank="1"/>
+<trait id="1879270751" name="Piercing Ballads" rank="5"/>
+<trait id="1879270756" name="Improved Coda of Fury" rank="3"/>
+<trait id="1879270760" name="Song of Arda" rank="5"/>
+<trait id="1879270763" name="Improved Call of Oromë" rank="2"/>
+<trait id="1879270765" name="Cry of the Wizards" rank="1"/>
+<trait id="1879270770" name="Call of Oromë" rank="1"/>
+<trait id="1879270774" name="Critical Strikes" rank="5"/>
+<trait id="1879270777" name="Discordant Cries" rank="5"/>
+<trait id="1879283654" name="Emboldening Finish" rank="3"/>
+<trait id="1879291404" name="Concussive Shout" rank="1"/>
+<trait id="1879314435" name="Echoes" rank="1"/>
+<trait id="1879450232" name="Fierce Cries" rank="1"/>
+<trait id="1879270752" name="Improved Strikes" rank="4"/>
+<trait id="1879270757" name="Tactical Mastery" rank="6"/>
+<trait id="1879270766" name="Songs of Woe" rank="4"/>
+<trait id="1879270773" name="Extended Anthems" rank="5"/>
+<trait id="1879270780" name="Anthem of Composure" rank="1"/>
+<trait id="1879272161" name="Of All Trades" rank="5"/>
+<trait id="1879449527" name="Anthem of Prowess" rank="1"/>
+<trait id="1879449531" name="Sharing a Story" rank="1"/>
+</traitTreeStatus>
+<racialTraitsStatus>
+<slot index="0" traitId="1879073475" traitName="Hobbit Club-damage Bonus"/>
+<slot index="1" traitId="1879073485" traitName="Hobbit-resilience"/>
+<slot index="2" traitId="1879073494" traitName="Hobbit-silence"/>
+<slot index="3" traitId="1879073479" traitName="Return to Michel Delving"/>
+<slot index="4" traitId="1879073477" traitName="Hobbit-stature"/>
+</racialTraitsStatus>
+<buffs>
+<buff id="1879095617" name="Dissonance"/>
+</buffs>
+</character>
