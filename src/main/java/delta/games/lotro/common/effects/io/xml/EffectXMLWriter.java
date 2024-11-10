@@ -36,6 +36,8 @@ import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
 import delta.games.lotro.common.effects.RecallEffect;
+import delta.games.lotro.common.effects.ReviveEffect;
+import delta.games.lotro.common.effects.ReviveVitalData;
 import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.effects.TravelEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
@@ -45,6 +47,7 @@ import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
+import delta.games.lotro.common.enums.VitalType;
 import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.common.math.LinearFunction;
@@ -119,6 +122,7 @@ public class EffectXMLWriter
     if (effect instanceof TieredEffect) return EffectXMLConstants.TIERED_EFFECT_TAG;
     if (effect instanceof AreaEffect) return EffectXMLConstants.AREA_EFFECT_TAG;
     if (effect instanceof ApplyOverTimeEffect) return EffectXMLConstants.APPLY_OVER_TIME_EFFECT_TAG;
+    if (effect instanceof ReviveEffect) return EffectXMLConstants.REVIVE_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -626,6 +630,11 @@ public class EffectXMLWriter
       AreaEffect areaEffect=(AreaEffect)effect;
       writeAreaEffectTags(hd,areaEffect);
     }
+    else if (effect instanceof ReviveEffect)
+    {
+      ReviveEffect reviveEffect=(ReviveEffect)effect;
+      writeReviveEffectTags(hd,reviveEffect);
+    }
   }
 
   private void writeGenesisTags(TransformerHandler hd, GenesisEffect genesis) throws SAXException
@@ -942,6 +951,32 @@ public class EffectXMLWriter
     for(EffectGenerator appliedEffect : applyOverTimeEffect.getAppliedEffects())
     {
       writeEffectGenerator(hd,appliedEffect,EffectXMLConstants.APPLIED_TAG);
+    }
+  }
+
+  private void writeReviveEffectTags(TransformerHandler hd, ReviveEffect reviveEffect) throws SAXException
+  {
+    for(ReviveVitalData vitalData : reviveEffect.getReviveVitalData())
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      // Vital
+      VitalType vital=vitalData.getVital();
+      attrs.addAttribute("","",EffectXMLConstants.REVIVE_VITAL_ATTR,XmlWriter.CDATA,String.valueOf(vital.getCode()));
+      // Percentage
+      float percentage=vitalData.getPercentage();
+      attrs.addAttribute("","",EffectXMLConstants.REVIVE_PERCENTAGE_ATTR,XmlWriter.CDATA,String.valueOf(percentage));
+      // Modifiers
+      String modifiersStr=ModPropertyListIO.asPersistentString(vitalData.getModifiers());
+      if (!modifiersStr.isEmpty())
+      {
+        attrs.addAttribute("","",EffectXMLConstants.REVIVE_MODIFIERS_ATTR,XmlWriter.CDATA,modifiersStr);
+      }
+      hd.startElement("","",EffectXMLConstants.REVIVE_VITAL_TAG,attrs);
+      hd.endElement("","",EffectXMLConstants.REVIVE_VITAL_TAG);
+    }
+    for(Proxy<Effect> proxy : reviveEffect.getReviveEffects())
+    {
+      writeEffectProxyTag(hd,EffectXMLConstants.EFFECT_TAG,proxy);
     }
   }
 

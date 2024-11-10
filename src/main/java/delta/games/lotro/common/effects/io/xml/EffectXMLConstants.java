@@ -471,6 +471,27 @@ public class EffectXMLConstants
   public static final String APPLIED_TAG="applied";
 
   /**
+   * Tag 'reviveEffect'.
+   */
+  public static final String REVIVE_EFFECT_TAG="reviveEffect";
+  /**
+   * Tag 'reviveVital'.
+   */
+  public static final String REVIVE_VITAL_TAG="reviveVital";
+  /**
+   * Tag 'reviveVital', attribute 'vital'.
+   */
+  public static final String REVIVE_VITAL_ATTR="vital";
+  /**
+   * Tag 'reviveVital', attribute 'percentage'.
+   */
+  public static final String REVIVE_PERCENTAGE_ATTR="percentage";
+  /**
+   * Tag 'reviveVital', attribute 'modifiers'.
+   */
+  public static final String REVIVE_MODIFIERS_ATTR="modifiers";
+
+  /**
    * Tag 'effect' (generator).
    */
   public static final String EFFECT_GENERATOR_TAG="effect";

@@ -37,15 +37,19 @@ import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
 import delta.games.lotro.common.effects.RecallEffect;
+import delta.games.lotro.common.effects.ReviveEffect;
+import delta.games.lotro.common.effects.ReviveVitalData;
 import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.effects.TravelEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
+import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
+import delta.games.lotro.common.enums.VitalType;
 import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
 import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
@@ -186,6 +190,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.BUBBLE_EFFECT_TAG.equals(tagName))
     {
       ret=parseBubbleEffect(root);
+    }
+    else if (EffectXMLConstants.REVIVE_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseReviveEffect(root);
     }
     else
     {
@@ -754,6 +762,34 @@ public class EffectXMLParser
     String modifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.BUBBLE_MODS_ATTR,null);
     ModPropertyList modifiers=ModPropertyListIO.fromPersistedString(modifiersStr);
     ret.setModifiers(modifiers);
+    return ret;
+  }
+
+  private ReviveEffect parseReviveEffect(Element root)
+  {
+    ReviveEffect ret=new ReviveEffect();
+    // Effects
+    List<Element> effectTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.EFFECT_TAG);
+    for(Element effectTag : effectTags)
+    {
+      Proxy<Effect> proxy=parseEffectProxy(effectTag);
+      ret.addReviveEffect(proxy);
+    }
+    // Vital data
+    LotroEnum<VitalType> vitalEnum=LotroEnumsRegistry.getInstance().get(VitalType.class);
+    List<Element> vitalTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.REVIVE_VITAL_TAG);
+    for(Element vitalTag : vitalTags)
+    {
+      NamedNodeMap attrs=vitalTag.getAttributes();
+      int vitalTypeCode=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.REVIVE_VITAL_ATTR,0);
+      VitalType vitalType=vitalEnum.getEntry(vitalTypeCode);
+      float percentage=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.REVIVE_PERCENTAGE_ATTR,0f);
+      String modifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.REVIVE_MODIFIERS_ATTR,null);
+      ModPropertyList modifiers=ModPropertyListIO.fromPersistedString(modifiersStr);
+      ReviveVitalData vital=new ReviveVitalData(vitalType,percentage);
+      vital.setModifiers(modifiers);
+      ret.addReviveVitalData(vital);
+    }
     return ret;
   }
 
