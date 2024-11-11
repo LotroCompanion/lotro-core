@@ -479,7 +479,7 @@ public class SkillDisplay
         List<SkillEffectGenerator> effects=_effectProperties.getEffectsForProperty(propertyID.intValue());
         if (effects!=null)
         {
-          System.out.println("Got additional effects from property: "+propertyID+" => "+effects);
+          LOGGER.debug("Got additional effects from property: {} => {}",propertyID,effects);
           ret.addAll(effects);
         }
       }
@@ -491,7 +491,7 @@ public class SkillDisplay
       List<SkillEffectGenerator> effects=_effectProperties.getEffectsForProperty(propertyID.intValue());
       if (effects!=null)
       {
-        //System.out.println("Got override effects from property: "+propertyID+" => "+effects);
+        LOGGER.debug("Got override effects from property: {} => {}",propertyID,effects);
         ret.clear();
         ret.addAll(effects);
       }
