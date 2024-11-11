@@ -40,8 +40,8 @@ Anthem: Increases Ranged and Tactical Damage of all nearby fellowship or raid me
 
 <rgb=#00FFDD>Requires 2 ballad buffs present on the Minstrel.</rgb>
 Effects applied to the Fellowship within 30 metres:
-+48% Ranged Damage
-+48% Tactical Damage
++4,35% Ranged Damage
++4,35% Tactical Damage
 Duration: 1m10s
 Cost: 135 Power
 Cooldown: 25s
@@ -90,7 +90,7 @@ Anthem: Increases Melee Damage Attack Speed, and Orc-craft and Fell-wrought Miti
 
 <rgb=#00FFDD>Requires 2 ballad buffs present on the Minstrel.</rgb>
 Effects applied to the Fellowship within 30 metres:
-+48% Melee Damage
++4,35% Melee Damage
 -5% Attack Duration
 +5% Orc-craft and Fell-wrought Mitigation
 Duration: 1m10s

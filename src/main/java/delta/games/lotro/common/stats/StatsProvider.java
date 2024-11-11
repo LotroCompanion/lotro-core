@@ -3,6 +3,9 @@ package delta.games.lotro.common.stats;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.StatsSetElement;
 import delta.games.lotro.common.properties.ModPropertyList;
@@ -13,6 +16,8 @@ import delta.games.lotro.common.properties.ModPropertyList;
  */
 public class StatsProvider
 {
+  private static final Logger LOGGER=LoggerFactory.getLogger(StatsProvider.class); 
+
   private List<StatsProviderEntry> _entries;
 
   /**
@@ -220,19 +225,7 @@ public class StatsProvider
     StatModifiersComputer modsComputer=context.getStatModifiersComputer();
     if ((mods!=null) && (modsComputer!=null))
     {
-      float modsValue=modsComputer.computeAdditiveModifiers(mods);
-      if (stat.isPercentage())
-      {
-        modsValue*=100;
-      }
-      if (value!=null)
-      {
-        value=Float.valueOf(value.floatValue()+modsValue);
-      }
-      else
-      {
-        value=Float.valueOf(modsValue);
-      }
+      value=applyModifiers(value,stat,mods,modsComputer);
     }
     if ((value!=null) && (Math.abs(value.floatValue())>0.001))
     {
@@ -262,6 +255,44 @@ public class StatsProvider
       return ret;
     }
     return null;
+  }
+
+  private Float applyModifiers(Float value, StatDescription stat, ModPropertyList mods, StatModifiersComputer modsComputer)
+  {
+    StatOperator operator=mods.getOperator();
+    if ((operator==StatOperator.ADD) || (operator==StatOperator.SUBSTRACT))
+    {
+      float modsValue=modsComputer.computeAdditiveModifiers(mods);
+      if (stat.isPercentage())
+      {
+        modsValue*=100;
+      }
+      if (operator==StatOperator.SUBSTRACT)
+      {
+        modsValue=-modsValue;
+      }
+      if (value!=null)
+      {
+        value=Float.valueOf(value.floatValue()+modsValue);
+      }
+      else
+      {
+        value=Float.valueOf(modsValue);
+      }
+    }
+    else if (operator==StatOperator.MULTIPLY)
+    {
+      if (value!=null)
+      {
+        float factor=modsComputer.computeMultiplicativeModifiers(mods);
+        value=Float.valueOf(value.floatValue()*factor);
+      }
+    }
+    else
+    {
+      LOGGER.warn("Unmanaged modifiers operator: "+operator);
+    }
+    return value;
   }
 
   /**
