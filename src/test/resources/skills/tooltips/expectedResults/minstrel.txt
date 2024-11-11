@@ -374,6 +374,7 @@ Melee Skill
 Range: 4m
 A damaging melee attack that increases the potency of incoming healing.
 7 153 - 10 219 Light Damage
+Removes up to 1 Corruption effect from the target.
 10% Incoming Healing (%)
 Duration: 30s
 Cost: 68 Power

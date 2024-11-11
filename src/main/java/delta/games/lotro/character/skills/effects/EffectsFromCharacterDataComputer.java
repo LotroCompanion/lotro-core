@@ -4,6 +4,7 @@ import java.util.List;
 
 import delta.common.utils.NumericTools;
 import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
@@ -51,6 +52,12 @@ public class EffectsFromCharacterDataComputer
    */
   private void inspectTraits(CharacterData data)
   {
+    inspectTraitTree(data);
+    inspectTraitsFromClass(data);
+  }
+
+  private void inspectTraitTree(CharacterData data)
+  {
     TraitTreeStatus status=data.getTraits().getTraitTreeStatus();
     TraitTree tree=status.getTraitTree();
     for(TraitDescription trait : tree.getAllTraits())
@@ -64,6 +71,21 @@ public class EffectsFromCharacterDataComputer
     // Handle unlocked traits
     List<TraitDescription> unlockedTraits=status.getUnlockedTraits();
     for(TraitDescription trait : unlockedTraits)
+    {
+      handleTrait(trait,1);
+    }
+  }
+
+  private void inspectTraitsFromClass(CharacterData data)
+  {
+    ClassDescription characterClass=data.getCharacterClass();
+    if (characterClass==null)
+    {
+      return;
+    }
+    int level=data.getLevel();
+    List<TraitDescription> traits=characterClass.getTraitsForLevel(level);
+    for(TraitDescription trait : traits)
     {
       handleTrait(trait,1);
     }
