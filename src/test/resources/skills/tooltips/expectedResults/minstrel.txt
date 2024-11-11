@@ -206,8 +206,8 @@ Skill Type: Buff
 A Song so potent that it provides you with a shield of morale that must be destroyed before you will begin losing morale again. The name comes from the adage that those who know this song were said to have been able to take a blow from Helm Hammerhand himself.
 
 Bubble strength is 35% of your Max Morale pool before other bonuses apply.
--0% Incoming Damage
 Applies a damage preventing bubble granting 65 957 temporary Morale.
+-0% Incoming Damage
 Duration: 30s
 Damage will not set back Inductions
 Duration: 30s
@@ -294,8 +294,8 @@ Range: 30m
 Grants a Morale bubble to a Fellowship member.
 
 Bubble strength is 20% of the target's Max Morale pool before other bonuses apply.
--0% Incoming Damage
 Applies a damage preventing bubble granting 37 690 temporary Morale.
+-0% Incoming Damage
 Duration: 15s
 Cost: 672 Power
 Cooldown: 2m

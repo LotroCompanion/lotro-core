@@ -16,7 +16,20 @@ import delta.games.lotro.lore.items.DamageType;
  */
 public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRenderer<ReactiveVitalEffect>
 {
-  protected String getConditionLine(ReactiveVitalEffect effect)
+  @Override
+  public void renderSpecifics(List<String> storage, ReactiveVitalEffect effect)
+  {
+    super.renderStats(storage,effect);
+    // I would naturally put this line before the stats, but it does not seem it is so in-game
+    String conditionLine=getConditionLine(effect);
+    if (conditionLine!=null)
+    {
+      storage.add(conditionLine);
+    }
+    renderChanges(storage,effect);
+  }
+
+  private String getConditionLine(ReactiveVitalEffect effect)
   {
     List<DamageType> damageTypes=effect.getDamageTypes();
     String damageTypesStr=null;
@@ -62,8 +75,7 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
     return onDamageLine;
   }
 
-  @Override
-  protected void renderSpecifics(List<String> storage, ReactiveVitalEffect effect)
+  private void renderChanges(List<String> storage, ReactiveVitalEffect effect)
   {
     VitalEffectsUtils utils=new VitalEffectsUtils(getContext());
     // Defender

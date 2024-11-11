@@ -37,6 +37,12 @@ public class BubbleEffectRenderer extends PropertyModificationEffectRenderer<Bub
   @Override
   protected void renderSpecifics(List<String> storage, BubbleEffect effect)
   {
+    renderBubble(storage,effect);
+    super.renderStats(storage,effect);
+  }
+
+  private void renderBubble(List<String> storage, BubbleEffect effect)
+  {
     Float value=null;
     // Stat
     StatDescription stat=effect.getVital();

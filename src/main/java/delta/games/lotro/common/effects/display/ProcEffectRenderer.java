@@ -16,6 +16,12 @@ public class ProcEffectRenderer extends PropertyModificationEffectRenderer<ProcE
   @Override
   protected void renderSpecifics(List<String> storage, ProcEffect effect)
   {
+    super.renderStats(storage,effect);
+    renderProc(storage,effect);
+  }
+
+  private void renderProc(List<String> storage, ProcEffect effect)
+  {
     Float probability=effect.getProcProbability();
     List<SkillType> skillTypes=effect.getSkillTypes();
     List<EffectGenerator> procedEffects=effect.getProcedEffects();
