@@ -222,6 +222,13 @@ public class Duration
   public static String getShortDurationString(float duration)
   {
     StringBuilder sb=new StringBuilder();
+    // Days
+    int days=(int)(duration/DAY);
+    if (days>0)
+    {
+      sb.append(days).append('d');
+    }
+    duration-=days*DAY;
     // Hours
     int hours=(int)(duration/HOUR);
     if (hours>0)

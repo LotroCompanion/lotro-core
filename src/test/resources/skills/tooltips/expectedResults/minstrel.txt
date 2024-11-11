@@ -473,7 +473,7 @@ Induction: 2,5s
 Range: 25m
 You can instruct someone how to play the bagpipes.
 Cost: 5 769 Power
-Cooldown: 120h
+Cooldown: 5d
 *****************************
 Skill-Id: 1879218436
 Improved Enlivening Grace
