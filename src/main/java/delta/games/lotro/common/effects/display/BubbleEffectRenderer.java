@@ -1,5 +1,6 @@
 package delta.games.lotro.common.effects.display;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import delta.common.utils.l10n.L10n;
 import delta.games.lotro.common.effects.BubbleEffect;
+import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.enums.VitalType;
 import delta.games.lotro.common.enums.VitalTypes;
 import delta.games.lotro.common.stats.StatDescription;
@@ -81,5 +83,26 @@ public class BubbleEffectRenderer extends PropertyModificationEffectRenderer<Bub
     if (stat==WellKnownStat.POWER) return VitalTypes.POWER;
     LOGGER.warn("Unsupported vital type: "+stat);
     return VitalTypes.MORALE;
+  }
+
+  @Override
+  protected void renderAfterDuration(List<String> storage, BubbleEffect effect)
+  {
+    renderEffectsOnExpiration(storage,effect);
+  }
+
+  private void renderEffectsOnExpiration(List<String> storage, BubbleEffect effect)
+  {
+    List<EffectGenerator> effects=effect.getOnExpireEffects();
+    if (!effects.isEmpty())
+    {
+      List<String> childStorage=new ArrayList<String>();
+      showEffectGenerators(childStorage,effects);
+      if (!childStorage.isEmpty())
+      {
+        storage.add("Applied on expiration:");
+        storage.addAll(childStorage);
+      }
+    }
   }
 }

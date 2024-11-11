@@ -209,6 +209,8 @@ Bubble strength is 35% of your Max Morale pool before other bonuses apply.
 Applies a damage preventing bubble granting 65 957 temporary Morale.
 -0% Incoming Damage
 Duration: 30s
+Applied on expiration:
++270 Power
 Damage will not set back Inductions
 Duration: 30s
 Cost: 412 Power

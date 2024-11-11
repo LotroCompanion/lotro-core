@@ -26,6 +26,7 @@ public class PropertyModificationEffectRenderer<T extends PropertyModificationEf
     {
       renderDuration(childStorage,effect);
     }
+    renderAfterDuration(childStorage,effect);
     storage.addAll(childStorage);
   }
 
@@ -66,5 +67,10 @@ public class PropertyModificationEffectRenderer<T extends PropertyModificationEf
       storage.add(line);
       getState().setDurationDisplayed();
     }
+  }
+
+  protected void renderAfterDuration(List<String> storage, T effect)
+  {
+    // Nothing!
   }
 }
