@@ -403,7 +403,8 @@ Calling upon the Valar can send certain evil foes fleeing in terror for a short 
 
 <rgb=#00FFDD>Mounted Combat Enemies: Fear replaced with attack speed debuff.</rgb>
 15s Fear
-100% break chance on damage after 1s
+100% break chance on harm after 1s
+3% break chance on damage after 1s
 Cost: 269 Power
 Cooldown: 30s
 *****************************

@@ -6,6 +6,7 @@ import delta.common.utils.l10n.L10n;
 import delta.games.lotro.common.Duration;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.enums.CombatState;
+import delta.games.lotro.common.enums.CombatStates;
 import delta.games.lotro.common.math.LinearFunction;
 import delta.games.lotro.common.stats.StatModifiersComputer;
 
@@ -38,8 +39,21 @@ public class InduceCombatStateEffectRenderer extends AbstractSingleEffectRendere
       {
         totalPeriod+=statModsComputer.computeAdditiveModifiers(effect.getGracePeriodModifiers());
       }
-      String gracePeriodText="100% break chance on damage after "+Duration.getShortDurationString(totalPeriod);
-      storage.add(gracePeriodText);
+      // TODO Use data from CombatStateControl
+      /* CombatState_StateData_ExitOnHarmfulSkillProbability: 1.0 => 100%
+        CombatState_StateData_ExitOnVitalLossProbability: 0.025 => 3% */
+      if (state==CombatStates.FEARED)
+      {
+        String line1="100% break chance on harm after "+Duration.getShortDurationString(totalPeriod);
+        storage.add(line1);
+        String line2="3% break chance on damage after "+Duration.getShortDurationString(totalPeriod);
+        storage.add(line2);
+      }
+      else
+      {
+        String gracePeriodText="100% break chance on damage after "+Duration.getShortDurationString(totalPeriod);
+        storage.add(gracePeriodText);
+      }
     }
   }
 

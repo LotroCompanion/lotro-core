@@ -67,7 +67,8 @@ A shot that strikes the enemy with fear.
 <rgb=#00FFDD>Mounted Combat Enemies: Fear replaced with attack speed debuff.</rgb>
 11 742 - 15 656 Beleriand (Ranged) Damage
 15s Fear
-100% break chance on damage after 1s
+100% break chance on harm after 1s
+3% break chance on damage after 1s
 Cost: 96 Power
 Adds 1 to Focus
 Cooldown: 30s
