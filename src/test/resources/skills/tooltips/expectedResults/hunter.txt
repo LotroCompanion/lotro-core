@@ -127,7 +127,7 @@ Fast
 Ranged Skill
 Range: 30m
 A quick attack that deals more damage each time it is used.
-8 323 - 11 098 Beleriand (Ranged) Damage
+7 099 - 9 466 Beleriand (Ranged) Damage
 Increases Barrage Damage & Power Costs
 Duration: 6s
 Cost: 95 Power
