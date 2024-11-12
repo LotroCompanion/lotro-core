@@ -13,6 +13,7 @@ public class VitalChangeUtils
 {
   /**
    * Build a full change line.
+   * @param overtime Indicates if this is for a "vital over time" effect or not.
    * @param min Minimum value.
    * @param max Maximum value.
    * @param stat Involved stat.
