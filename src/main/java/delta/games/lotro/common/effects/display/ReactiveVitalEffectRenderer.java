@@ -32,47 +32,31 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
   private String getConditionLine(ReactiveVitalEffect effect)
   {
     List<DamageType> damageTypes=effect.getDamageTypes();
-    String damageTypesStr=null;
-    if (!damageTypes.isEmpty())
-    {
-      damageTypesStr=EffectDisplayUtils.formatDamageTypes(damageTypes);
-    }
-    String damageQualifiersStr=null;
     List<DamageQualifier> damageQualifiers=effect.getDamageQualifiers();
+    String line=null;
     if (!damageQualifiers.isEmpty())
     {
-      damageQualifiersStr=EffectDisplayUtils.formatDamageQualifiers(damageQualifiers);
+      line="On "+EffectDisplayUtils.formatDamageQualifiers(damageQualifiers);
     }
-    String onDamageLine=null;
-    if ((damageTypesStr!=null) || (damageQualifiersStr!=null))
+    else if (!damageTypes.isEmpty())
     {
-      String adjective="";
-      if (damageQualifiersStr!=null)
+      boolean isAny=EffectDisplayUtils.isAnyDamageType(damageTypes);
+      line="On any";
+      if (!isAny)
       {
-        adjective=damageQualifiersStr;
+        line=line+" "+EffectDisplayUtils.formatDamageTypes(damageTypes);
       }
-      if (damageTypesStr!=null)
-      {
-        boolean isAnyDamage=EffectDisplayUtils.isAnyDamageType(damageTypes);
-        if (isAnyDamage)
-        {
-          if (adjective.isEmpty())
-          {
-            adjective="any";
-          }
-        }
-        else
-        {
-          adjective=damageTypesStr+" "+adjective;
-        }
-      }
-      onDamageLine="On "+adjective+" damage:";
+    }
+    if (line!=null)
+    {
+      String onDamageLine=line+" damage:";
       if (effect.isRemoveOnProc())
       {
         onDamageLine="(1 time) "+onDamageLine;
       }
+      return onDamageLine;
     }
-    return onDamageLine;
+    return null;
   }
 
   private void renderChanges(List<String> storage, ReactiveVitalEffect effect)
