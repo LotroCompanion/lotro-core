@@ -290,8 +290,8 @@ Induction: 1,8s
 Skill Type: Heal
 Range: 25m
 Hardships are forgotten and spirits are lifted by such writings. This heal over time stacks with itself. -1% Power cost per Healing Attunement.
-+2 928 - 4 183 Morale initially.
-+209 - 299 Morale every 2,0 seconds for 6 seconds.
+Heals 2 928 - 4 183 Morale initially.
+Heals 209 - 299 Morale every 2,0 seconds for 6 seconds.
 Cost: 96 Power
 Attunes: 2 (healing)
 Cooldown: 3s
@@ -329,8 +329,8 @@ Tactical Skill
 Skill Type: Heal
 Range: 25m
 Heals the target +2% per Healing attunement.
-+1 046 - 1 494 Morale initially.
-+366 - 523 Morale every 1,0 seconds for 12 seconds.
+Heals 1 046 - 1 494 Morale initially.
+Heals 366 - 523 Morale every 1,0 seconds for 12 seconds.
 Attunes: 1 (healing)
 Cooldown: 3s
 *****************************

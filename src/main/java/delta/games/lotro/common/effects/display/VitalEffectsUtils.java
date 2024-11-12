@@ -294,7 +294,7 @@ public class VitalEffectsUtils
       float[] initialMinMax=getMinMaxValue(stat,effect,initialChange,true);
       int initialMinInt=Math.round(initialMinMax[0]);
       int initialMaxInt=Math.round(initialMinMax[1]);
-      initialLine=VitalChangeUtils.buildFullChange(initialMinInt,initialMaxInt,stat,damageType);
+      initialLine=VitalChangeUtils.buildFullChange(true,initialMinInt,initialMaxInt,stat,damageType);
     }
     String overTimeLine=null;
     VitalChangeDescription overTimeChange=effect.getOverTimeChangeDescription();
@@ -306,7 +306,7 @@ public class VitalEffectsUtils
 
       float interval=EffectDisplayUtils.getDuration(effect,_statModsComputer);
       float totalDuration=EffectDisplayUtils.getTotalDuration(effect,_statModsComputer);
-      overTimeLine=VitalChangeUtils.buildFullChange(intervalMinInt,intervalMaxInt,stat,damageType);
+      overTimeLine=VitalChangeUtils.buildFullChange(true,intervalMinInt,intervalMaxInt,stat,damageType);
       overTimeLine=overTimeLine+" every "+L10n.getString(interval,1,1)+" seconds";
       int pulseCount=EffectDisplayUtils.getPulseCount(effect,_statModsComputer);
       if (pulseCount>1)

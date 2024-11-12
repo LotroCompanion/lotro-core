@@ -19,7 +19,7 @@ public class VitalChangeUtils
    * @param damageType Damage type (may be <code>null</code>).
    * @return A displayable line.
    */
-  public static String buildFullChange(int min, int max, StatDescription stat, DamageType damageType)
+  public static String buildFullChange(boolean overtime, int min, int max, StatDescription stat, DamageType damageType)
   {
     boolean negative=false;
     if ((min<0) || (max<0))
@@ -43,12 +43,21 @@ public class VitalChangeUtils
       }
       else
       {
-        fullChange="+"+changeStr+" Morale"; // TODO "+" or "Heals "!!
+        String prefix=(overtime?"Heals ":"+");
+        fullChange=prefix+changeStr+" Morale";
       }
     }
     else if (stat==WellKnownStat.POWER)
     {
-      fullChange=(negative?"Drains ":"+")+changeStr+" Power"; // TODO "+" or "Restores "!!
+      if (negative)
+      {
+        fullChange="Drains "+changeStr+" Power";
+      }
+      else
+      {
+        String prefix=(overtime?"Restores ":"+");
+        fullChange=prefix+changeStr+" Power";
+      }
     }
     return fullChange;
   }

@@ -81,7 +81,7 @@ Range: 30m
 Lightning wreaths your enemy while restoring your own power.
 6 189 - 6 877 Lightning Damage every 1,0 seconds.
 On Use:
-+589 - 654 Power every 1,0 seconds.
+Restores 589 - 654 Power every 1,0 seconds.
 Channelled Skill
 Cooldown: 45s
 *****************************

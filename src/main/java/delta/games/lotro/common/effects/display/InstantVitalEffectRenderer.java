@@ -37,7 +37,7 @@ public class InstantVitalEffectRenderer extends AbstractSingleEffectRenderer imp
       int initialMinInt=Math.round(minMax[0]);
       int initialMaxInt=Math.round(minMax[1]);
       DamageType damageType=effect.getDamageType();
-      String line=VitalChangeUtils.buildFullChange(initialMinInt,initialMaxInt,stat,damageType);
+      String line=VitalChangeUtils.buildFullChange(false,initialMinInt,initialMaxInt,stat,damageType);
       storage.add(line);
     }
     else
