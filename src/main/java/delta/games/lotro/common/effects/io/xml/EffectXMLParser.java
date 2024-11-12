@@ -342,8 +342,8 @@ public class EffectXMLParser
     boolean applyToTarget=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.FELLOWSHIP_EFFECT_APPLY_TARGET_ATTR,false);
     ret.setAppliesToTarget(applyToTarget);
     // String override
-    String override=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.FELLOWSHIP_EFFECT_STRING_OVERRIDE_ATTR,"");
-    override=_labelsMgr.getLabel(override);
+    String override=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.FELLOWSHIP_EFFECT_STRING_OVERRIDE_ATTR,null);
+    override=I18nRuntimeUtils.getLabel(_labelsMgr,override);
     ret.setFellowshipStringOverride(override);
     // Range
     float range=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.FELLOWSHIP_EFFECT_RANGE_ATTR,-1);
@@ -824,7 +824,15 @@ public class EffectXMLParser
     int id=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_ID_ATTR,0);
     effect.setId(id);
     // Name
-    String name=_labelsMgr.getLabel(String.valueOf(id));
+    String name;
+    if (_labelsMgr!=null)
+    {
+      name=_labelsMgr.getLabel(String.valueOf(id));
+    }
+    else
+    {
+      name=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_NAME_ATTR,"");
+    }
     effect.setName(name);
     // Description
     String description=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.EFFECT_DESCRIPTION_ATTR,"");
