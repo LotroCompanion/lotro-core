@@ -42,6 +42,7 @@ class SkillTooltipGenerationTest
     testHunter();
     testChampion();
     testMinstrel();
+    testCaptain();
   }
 
   private void doTest(String characterFile, int[] skillIDs)
@@ -232,6 +233,47 @@ class SkillTooltipGenerationTest
       1879052881 // Rally!
     };
     doTest("minstrel.xml",skills);
+  }
+
+  private void testCaptain()
+  {
+    int[] skills={
+      // Page 1
+      1879060327, // Battle-shout
+      1879060431, // Devastating Blow
+      1879064144, // Pressing Attack
+      1879389418, // Defensive Strike
+      1879053062, // Oathbreaker's Shame
+      1879458531, // Gallant Display
+      1879091728, // Withdraw
+      1879091730, // Time of Need
+      1879272830, // Improved Sure Strike
+      1879064143, // Noble Mark
+      1879060321, // Routing Cry
+      1879091726, // Kick
+      // Page 2
+      1879092634, // Blade of Elendil
+      1879060303, // Rallying Cry
+      1879064141, // Telling Mark
+      1879287459, // Cleanse Corruption
+      1879073537, // Strength of Morale
+      1879060250, // Call to Arms: Herald of Victory
+      1879113611, // Shadow's Lament
+      1879060377, // Muster Courage
+      1879064142, // Make Haste
+      1879215869, // Inspire (Blade-brother)
+      1879064145, // Words of Courage
+      1879073530, // Duty-bound
+      1879301903, // Improved Standard of War
+      1879279086, // Improved Motivating Speech
+      // Page 3
+      1879242893, // Inspiriting Call
+      1879060293, // Escape from Darkness
+      1879064154, // Command Respect
+      1879215871, // Blade-brother
+      1879234184, // Festive Azure Horse
+    };
+    doTest("captain.xml",skills);
   }
 
   private List<String> doSkill(int id, CharacterData data)

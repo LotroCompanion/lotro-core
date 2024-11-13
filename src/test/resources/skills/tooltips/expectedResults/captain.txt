@@ -1,0 +1,546 @@
+*****************************
+Skill-Id: 1879060327
+Battle-shout
+Fast
+Tactical Skill
+Resistance: Cry
+Skill Type: Light
+Range: 40m
+An attack that triggers a Battle-readied State, enabling you to deal more damage.
+4 435 - 5 914 Light (Main-hand) Damage
+Battle-readied
+40% Melee Damage
+40% Tactical Damage
+-10 Cleanse Corruption Cooldown
+Duration: 15s
+Cost: 16 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 15s
+*****************************
+Skill-Id: 1879060431
+Devastating Blow
+Fast
+Melee Skill
+Skill Type: Melee, Awareness
+Range: 4m
+A very damaging melee attack with increased critical damage.
+
+Requires Battle-readied State.
+
+Using this skill enables the Battle-hardened state, boosting healing and defences.
+
+Critical attacks deal greater damage and trigger a Defeat Response.
+13 702 - 18 269 Beleriand (Main-hand) Damage
+Battle-hardened
+38,5% Outgoing Healing (%)
+-15% Incoming Melee Damage
+-15% Incoming Ranged Damage
+-15% Incoming Tactical Damage
+15% Melee Skills Critical Damage
+Duration: 15s
+Cost: 82 Power
+Applied to self on critical:
+Enemy Defeat Response
+Duration: 15s
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 4s
+*****************************
+Skill-Id: 1879064144
+Pressing Attack
+Fast
+Melee Skill
+Max Targets: 5
+Radius: 5m
+Skill Type: Melee, Awareness
+Range: 5,0m
+An AoE double-strike inflicting moderate damage.
+
+Requires Battle-readied State.
+
+Using this skill enables the Battle-hardened state, boosting healing and defences.
+
+Critical hits trigger a Defeat Response.
+2 Attacks:
+4 359 - 5 811 Beleriand (Main-hand) Damage
+4 597 - 6 129 Beleriand (Main-hand) Damage
+Battle-hardened
+38,5% Outgoing Healing (%)
+-15% Incoming Melee Damage
+-15% Incoming Ranged Damage
+-15% Incoming Tactical Damage
+15% Melee Skills Critical Damage
+Duration: 15s
+Cost: 82 Power
+Applied to self on critical:
+Enemy Defeat Response
+Duration: 15s
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 4s
+*****************************
+Skill-Id: 1879389418
+Defensive Strike
+Fast
+Melee Skill
+Skill Type: Melee
+Range: 4m
+You attack defensively, entering a Battle-readied state.
+2 923 - 3 897 Beleriand (Main-hand) Damage
+Battle-readied
+40% Melee Damage
+40% Tactical Damage
+-10 Cleanse Corruption Cooldown
+Duration: 15s
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 15s
+*****************************
+Skill-Id: 1879053062
+Oathbreaker's Shame
+Fast
+Tactical Skill
+Skill Type: Debuff
+Range: 40m
+Increases the damage you and your companions deal to the foe.
+
+<rgb=#FF7700>This effect does not stack with other potent Incoming Damage effects.</rgb>
++35% Incoming Damage
+Duration: 15s
+Cost: 317 Power
+Cooldown: 3m
+*****************************
+Skill-Id: 1879458531
+Gallant Display
+Fast
+Melee Skill
+Max Targets: 5
+Radius: 5m
+Skill Type: Melee
+Range: 5,0m
+An attack that wounds enemies in front of you.
+
+This skill deals greater damage but costs more power with each subsequent use.
+2 Attacks:
+2 856 - 3 808 Beleriand (Main-hand) Damage
+4 080 - 5 440 Beleriand (Main-hand) Damage
+40% Gallant Display Power Cost
+40% Gallant Display Morale Cost
+30% Gallant Display Healing
+30% Gallant Display Damage
+Duration: 12s
+Cost: 162 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 5s
+*****************************
+Skill-Id: 1879091728
+Withdraw
+Fast
+Tactical Skill
+Skill Type: Buff
+Range: 0,2m
+Breaks the effects of Dazes, Stuns and Knockdowns.
+Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
+Cost: 96 Power
+Cooldown: 1m
+*****************************
+Skill-Id: 1879091730
+Time of Need
+Fast
+Skill Type: Buff
+You gain a surge of energy for a short time.
+
+Puts you in a Battle-readied State.
+
+Increases your damage output for a short time.
+Enemy Defeat Response
+Duration: 15s
+Battle-readied
+40% Melee Damage
+40% Tactical Damage
+-10 Cleanse Corruption Cooldown
+Duration: 15s
+-20% Attack Duration
+20% Melee Damage
+20% Tactical Damage
+20% Melee Skills Critical Damage
+Duration: 20s
++1 190 Power
+Cost: 3 778 Morale
+Cooldown: 2m
+*****************************
+Skill-Id: 1879272830
+Improved Sure Strike
+Fast
+Melee Skill
+Skill Type: Melee
+Range: 4m
+An attack that cannot be blocked or parried.
+
+Reduces the active cooldown of Battle-shout.
+5 010 - 6 680 Beleriand (Main-hand) Damage
+Your fellowship gains Relentless Attack when used while Battle-readied.
+Effects applied to the Fellowship when used while Battle-readied within 80 metres:
++5% Damage
++2% Critical Hit Chance
+-5% Attack Duration
+Duration: 45s
+-1s Battle-shout Cooldown
+Cost: 7 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 3s
+*****************************
+Skill-Id: 1879064143
+Noble Mark
+Fast
+Tactical Skill
+Skill Type: Debuff
+Range: 25m
+Mark an enemy, causing their strikes to empower you or your allies.
+
+You may only mark one target at a time.
+When this enemy strikes you,
+-3% Critical Hit Chance
+Restores 3% of maximum Morale
+x-5% Incoming Damage
+Duration: 5s
+Cost: 32 Power
+Toggle Skill
+Cooldown: 3s
+*****************************
+Skill-Id: 1879060321
+Routing Cry
+Fast
+Tactical Skill
+Max Targets: 5
+Radius: 7m
+Resistance: Cry
+Skill Type: Light, Awareness
+Range: 7,2m
+Deals Light damage to nearby foes.
+
+This skill is more potent when used with a Defeat Event.
+3 591 - 4 788 Light (Main-hand) Damage
+Cost: 159 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 15s
+*****************************
+Skill-Id: 1879091726
+Kick
+Immediate
+Melee Skill
+Skill Type: Melee
+Range: 4m
+A melee attack that interrupts enemy inductions.
+2 Attacks:
+1 461 - 1 948 Beleriand (Main-hand) Damage
+Interrupts Inductions
+Cost: 108 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 10s
+*****************************
+Skill-Id: 1879092634
+Blade of Elendil
+Fast
+Melee Skill
+Skill Type: Melee, Awareness
+Range: 4m
+An attack that does Light damage with an increased Critical chance.
+
+Requires Battle-hardened State.
+
+Fellows within range gain the Light of Elendil, enabling them to deal additional Light damage.
+
+This attack never misses and cannot be blocked, parried or evaded.
+6 892 - 9 190 Light (Main-hand) Damage
+-3% Physical Mitigation (%)
+-3% Tactical Mitigation (%)
+Duration: 15s
+Effects applied to the Fellowship within 20 metres:
+5% Light-type Damage
+3% Shadow Mitigation (%)
+5% Critical Defence (%)
+Duration: 10s
+Cost: 27 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 4s
+*****************************
+Skill-Id: 1879060303
+Rallying Cry
+Fast
+Tactical Skill
+Radius: 30m
+Skill Type: Heal, Captain Heal
+Range: 30,2m
+Boosts Morale of nearby Fellows.
+
+This skill is more potent when used with a Defeat Event.
+Heals 2 895 - 4 135 Morale initially.
+Heals 157 - 197 Morale every 3,0 seconds for 15 seconds.
+Cost: 444 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 15s
+*****************************
+Skill-Id: 1879064141
+Telling Mark
+Fast
+Tactical Skill
+Skill Type: Debuff
+Range: 40m
+Mark an enemy so that allies can do increased damage to it.
+
+You may only mark one target at a time.
++5% Incoming Damage
+Cost: 32 Power
+Toggle Skill
+Cooldown: 3s
+*****************************
+Skill-Id: 1879287459
+Cleanse Corruption
+Fast
+Melee Skill
+Range: 4m
+Removes corruptions from the target.
+2 117 - 2 823 Beleriand (Main-hand) Damage
+Removes up to 1 Corruption effect from the target.
+Cost: 135 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 15s
+*****************************
+Skill-Id: 1879073537
+Strength of Morale
+Fast
+In combat, the Race of Man is known for its unquenchable spirit.  This skill restores lost morale.
++63 630 Morale
+Cost: 1 379 Power
+Requires: Strength of Morale Trait Equipped
+Cooldown: 30m
+*****************************
+Skill-Id: 1879060250
+Call to Arms: Herald of Victory
+Fast
+Skill Type: Buff
+You enlist a Herald to carry your Banner of Victory into battle. This banner reduces power costs of those around it.
+Cost: 96 Power
+Cooldown: 2m
+*****************************
+Skill-Id: 1879113611
+Shadow's Lament
+Fast
+Melee Skill
+Skill Type: Melee
+Range: 4m
+An extremely powerful melee attack.
+17 736 - 23 648 Light (Main-hand) Damage
+4 825 - 6 893 Light Damage
+Cost: 108 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 15s
+*****************************
+Skill-Id: 1879060377
+Muster Courage
+Fast
+Radius: 30m
+Skill Type: Heal, Captain Heal
+Range: 30,2m
+Removes Poison, Disease, Wound or Fear effects from nearby allies.
+Removes up to 1 Disease, Wound, Fear, Poison effect with maximum strength of 145 from the target.
+10% Fear Resistance
+Duration: 30s
+Cost: 96 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 10s
+*****************************
+Skill-Id: 1879064142
+Make Haste
+Fast
+Radius: 30m
+Skill Type: Buff
+Range: 30,2m
+Increases the movement speed of the Fellowship.
+25% Run Speed
+Duration: 20s
+Cost: 96 Power
+Cooldown: 2m
+*****************************
+Skill-Id: 1879215869
+Inspire (Blade-brother)
+Fast
+Melee Skill
+Skill Type: Melee, Captain Heal
+Range: 4m
+A melee attack that restores a small amount of Power to your Blade-brother and increases their damage slightly.
+4 678 - 6 237 Beleriand (Main-hand) Damage
+Effects applied to your Blade-brother within 20 metres:
++5% Damage
+-3% All Skill Inductions
+-10% Attack Duration
+-5% Power Cost
+Duration: 18s
+Restores 281 Power initially.
+Restores 113 Power every 3,0 seconds for 18 seconds.
+Effects applied to the Fellowship within 20 metres:
++3% Damage
+Duration: 18s
+Restores 168 Power initially.
+Restores 57 Power every 3,0 seconds for 18 seconds.
++5% Damage
+-3% All Skill Inductions
+-10% Attack Duration
+-5% Power Cost
+Duration: 18s
+Restores 281 Power initially.
+Restores 113 Power every 3,0 seconds for 18 seconds.
+Cost: 54 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 15s
+*****************************
+Skill-Id: 1879064145
+Words of Courage
+Fast
+Tactical Skill
+Skill Type: Heal, Captain Heal
+Range: 25m
+Restores an ally's morale over time.
+Heals 3 951 Morale initially.
+Heals 1 422 Morale every 3,0 seconds for 15 seconds.
+Cost: 381 Power
+Applied to self on critical:
++6% Melee Damage
+Duration: 7s
+Cooldown: 5s
+*****************************
+Skill-Id: 1879073530
+Duty-bound
+You provide a bonus to your Fellowship's Morale.
+Adds a bonus to your fellowship's morale.
+Effects applied to the Fellowship within 20 metres:
++5% Morale
+Duration: 10m
+Cost: 230 Power
+Requires: Duty-bound Trait Equipped
+Cooldown: 30m
+*****************************
+Skill-Id: 1879301903
+Improved Standard of War
+Fast
+Melee Skill
+Radius: 7m
+Skill Type: Light, Buff
+Range: 40m
+Calls forth the Standard of War, dealing damage to enemies while enhancing the attacks of nearby allies.
+Duration: 15s
+Attacks apply a stacking Critical Hit chance buff.
+Expires if out of combat for 9 seconds.
++1% Critical Hit Chance
+Duration: 5s
+20% Melee Damage
+20% Ranged Damage
+20% Tactical Damage
+Expires if out of combat for 9 seconds.
+Cost: 159 Power
+Cooldown: 1m30s
+*****************************
+Skill-Id: 1879279086
+Improved Motivating Speech
+Fast
+Skill Type: Buff
+Boosts Morale of nearby allies and increases their stats.
+Effects applied to the Fellowship within 80 metres:
++10% Morale
+Duration: 20m
+240 Might
+303 Vitality
+240 Will
+198 Fate
+240 Agility
+Duration: 20m
+Cost: 32 Power
+Cooldown: 1m
+*****************************
+Skill-Id: 1879242893
+Inspiriting Call
+Fast
+Induction: 4s
+Skill Type: Heal
+Range: 25m
+Revives a defeated ally (non-combat).
+Target revives with 50% Morale
+Target revives with 40% Power
+Effects to apply on revival:
+You have been recently revived.
+Duration: 30s
+Cost: 159 Power
+Cooldown: 3s
+*****************************
+Skill-Id: 1879060293
+Escape from Darkness
+Fast
+Induction: 0,8s
+Skill Type: Heal
+Range: 25m
+Revives a defeated ally (in-combat).
+Target revives with 50% Morale
+Target revives with 25% Power
+Effects to apply on revival:
+You have been recently revived.
+Duration: 30s
+Cost: 507 Power
+Cooldown: 5m
+*****************************
+Skill-Id: 1879064154
+Command Respect
+Radius: 10m
+Range: 10,2m
+Your presence commands respect from those around you.
+Cooldown: 2m30s
+*****************************
+Skill-Id: 1879215871
+Blade-brother
+Fast
+Skill Type: Buff
+Range: 50m
+A toggle marking an ally as your Blade-brother, making them the target of some of your abilities.
+
+This skill will prevent the use of Stand Alone while active.
+3 630 Critical Defence
+3 470 Physical Mastery
+2 320 Tactical Mastery
+Toggle Skill
+Cooldown: 1s
+*****************************
+Skill-Id: 1879234184
+Festive Azure Horse
+Induction: 2s
+Speed: 62%
+Morale: 200
+Unable to evade.
+Unable to parry.
+Unable to block.
+Toggle Skill
+Requires: Riding Trait Equipped
