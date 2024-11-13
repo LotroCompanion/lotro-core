@@ -541,6 +541,7 @@ public class SkillDisplay
       SingleTypeSkillEffectsManager typeEffectsMgr=effectsMgr.getEffects(type);
       if (typeEffectsMgr!=null)
       {
+        LOGGER.debug("Display effects for type: {}", type);
         for(SkillEffectGenerator generator : getGenerators(typeEffectsMgr))
         {
           List<String> childStorage=new ArrayList<String>();

@@ -9,7 +9,7 @@
 		<!-- By default, encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
 		<!-- deny all events with a level below INFO, that is TRACE and DEBUG -->
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>INFO</level>
+			<level>DEBUG</level>
 		</filter>
 		<!-- simplified display in console -->
 		<encoder>
@@ -23,8 +23,10 @@
 	<!-- logger levels: TRACE, DEBUG, INFO, WARN, ERROR, ALL or OFF, INHERITED or NULL-->
 	<!-- Global -->
 	<logger name="delta.games.lotro"                               level="WARN"/>
-	<logger name="delta.games.lotro.common.effects"                level="DEBUG"/>
-	<logger name="delta.games.lotro.character.skills"              level="DEBUG"/>
+	<!-- <logger name="delta.games.lotro.common.effects"                level="DEBUG"/>
+	 -->
+	<logger name="delta.games.lotro.character.skills.SkillDisplay"              level="DEBUG"/>
+	<logger name="delta.games.lotro.common.effects.display.EffectRenderingEngine"              level="DEBUG"/>
 
 	<!-- ********************** COTS ****************** -->
 	<!-- logback himself -->

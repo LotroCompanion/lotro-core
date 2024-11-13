@@ -3,6 +3,9 @@ package delta.games.lotro.common.effects.display;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import delta.common.utils.variables.VariableValueProvider;
 import delta.common.utils.variables.VariablesResolver;
 import delta.games.lotro.common.Duration;
@@ -18,6 +21,8 @@ import delta.games.lotro.utils.strings.TextSanitizer;
  */
 public class EffectRenderingEngine
 {
+  private static final Logger LOGGER=LoggerFactory.getLogger(EffectRenderingEngine.class);
+
   private EffectRenderingState _state;
   private EffectRenderingContext _context;
 
@@ -88,11 +93,13 @@ public class EffectRenderingEngine
    */
   public void displayEffect(List<String> storage, Effect effect)
   {
+    LOGGER.debug("Display effect: {}", effect);
     // Check probability
     float probabilityValue=getEffectApplicationProbability(effect);
     boolean applicable=(probabilityValue>0);
     if (!applicable)
     {
+      LOGGER.debug("Not applicable!");
       return;
     }
     String probabilityLine=null;
@@ -100,6 +107,7 @@ public class EffectRenderingEngine
     {
       int percentage=Math.round(probabilityValue*100);
       probabilityLine=percentage+"% chance to apply:";
+      LOGGER.debug("Probability: {}", probabilityLine);
     }
 
     List<String> childStorage=new ArrayList<String>();
@@ -110,6 +118,7 @@ public class EffectRenderingEngine
       String text=resolveVariables(effect,descriptionOverride);
       text=TextSanitizer.sanitize(text);
       childStorage.add(text);
+      LOGGER.debug("Description override: [{}]", text);
     }
     // Description
     String description=effect.getDescription();
@@ -119,6 +128,7 @@ public class EffectRenderingEngine
       childStorage.add(description);
       // Assume that this description will remove the need for a probability line
       probabilityLine=null;
+      LOGGER.debug("Description: [{}]", description);
     }
     // Effect specifics
     displaySpecifics(childStorage,effect);
@@ -133,6 +143,7 @@ public class EffectRenderingEngine
           float totalDuration=EffectDisplayUtils.getTotalDuration(effect,_context.getStatModifiersComputer());
           String durationStr=Duration.getDurationString(Math.round(totalDuration));
           childStorage.add("Duration: "+durationStr);
+          LOGGER.debug("Duration: {}", durationStr);
           _state.setDurationDisplayed();
         }
       }
@@ -145,7 +156,15 @@ public class EffectRenderingEngine
         storage.add(probabilityLine);
       }
       storage.addAll(childStorage);
+      if (LOGGER.isDebugEnabled())
+      {
+        for(String line : childStorage)
+        {
+          LOGGER.debug("\tLine: {}", line);
+        }
+      }
     }
+    LOGGER.debug("END Display effect: {}", effect);
   }
 
   private float getEffectApplicationProbability(Effect effect)
