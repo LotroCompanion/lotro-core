@@ -9,7 +9,7 @@ import delta.games.lotro.common.effects.TieredEffect;
  * Renderer for 'TieredEffect' effects.
  * @author DAM
  */
-public class TieredEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<TieredEffect>
+public class TieredEffectRenderer extends AbstractSingleEffectRenderer<TieredEffect>
 {
   @Override
   public void render(List<String> storage, TieredEffect tieredEffect)

@@ -28,7 +28,7 @@ public class SingleEffectRenderersFactory
    * @param effect Effect to use.
    * @return A renderer.
    */
-  public SingleEffectRenderer<? extends Effect> buildRenderer(Effect effect)
+  public AbstractSingleEffectRenderer<? extends Effect> buildRenderer(Effect effect)
   {
     if (effect instanceof InstantVitalEffect)
     {

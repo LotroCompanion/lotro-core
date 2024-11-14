@@ -9,7 +9,7 @@ import delta.games.lotro.common.enums.ResistCategory;
  * Renderer for 'DispelByResistEffect' effects.
  * @author DAM
  */
-public class DisplayByResistEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<DispelByResistEffect>
+public class DisplayByResistEffectRenderer extends AbstractSingleEffectRenderer<DispelByResistEffect>
 {
   @Override
   public void render(List<String> storage, DispelByResistEffect effect)

@@ -13,7 +13,7 @@ import delta.games.lotro.utils.Proxy;
  * Renderer for 'ReviveEffect' effects.
  * @author DAM
  */
-public class ReviveEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<ReviveEffect>
+public class ReviveEffectRenderer extends AbstractSingleEffectRenderer<ReviveEffect>
 {
   @Override
   public void render(List<String> storage, ReviveEffect reviveEffect)

@@ -11,7 +11,7 @@ import delta.games.lotro.lore.items.DamageType;
  * Renderer for 'InstantVitalEffect' effects.
  * @author DAM
  */
-public class InstantVitalEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<InstantVitalEffect>
+public class InstantVitalEffectRenderer extends AbstractSingleEffectRenderer<InstantVitalEffect>
 {
   @Override
   public void render(List<String> storage, InstantVitalEffect effect)

@@ -10,7 +10,7 @@ import delta.games.lotro.utils.Proxy;
  * Renderer for 'ComboEffect' effects.
  * @author DAM
  */
-public class ComboEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<ComboEffect>
+public class ComboEffectRenderer extends AbstractSingleEffectRenderer<ComboEffect>
 {
   @Override
   public void render(List<String> storage, ComboEffect comboEffect)

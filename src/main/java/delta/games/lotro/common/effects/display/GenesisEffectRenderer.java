@@ -13,7 +13,7 @@ import delta.games.lotro.common.effects.Hotspot;
  * Renderer for 'GenesisEffect' effects.
  * @author DAM
  */
-public class GenesisEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<GenesisEffect>
+public class GenesisEffectRenderer extends AbstractSingleEffectRenderer<GenesisEffect>
 {
   public void render(List<String> storage, GenesisEffect effect)
   {

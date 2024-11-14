@@ -10,7 +10,7 @@ import delta.games.lotro.common.effects.InstantFellowshipEffect;
  * Renderer for 'InstantFellowshipEffect' effects.
  * @author DAM
  */
-public class InstantFellowshipEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<InstantFellowshipEffect>
+public class InstantFellowshipEffectRenderer extends AbstractSingleEffectRenderer<InstantFellowshipEffect>
 {
   @Override
   public void render(List<String> storage, InstantFellowshipEffect effect)

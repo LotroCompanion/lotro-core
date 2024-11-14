@@ -14,7 +14,7 @@ import delta.games.lotro.common.stats.StatModifiersComputer;
  * Renderer for 'InduceCombatStateEffect' effects.
  * @author DAM
  */
-public class InduceCombatStateEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<InduceCombatStateEffect>
+public class InduceCombatStateEffectRenderer extends AbstractSingleEffectRenderer<InduceCombatStateEffect>
 {
   @Override
   public void render(List<String> storage, InduceCombatStateEffect effect)

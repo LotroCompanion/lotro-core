@@ -15,7 +15,7 @@ import delta.games.lotro.common.stats.StatsProvider;
  * @author DAM
  * @param <T> Actual type of effect.
  */
-public class PropertyModificationEffectRenderer<T extends PropertyModificationEffect> extends AbstractSingleEffectRenderer implements SingleEffectRenderer<T>
+public class PropertyModificationEffectRenderer<T extends PropertyModificationEffect> extends AbstractSingleEffectRenderer<T>
 {
   @Override
   public void render(List<String> storage, T effect)

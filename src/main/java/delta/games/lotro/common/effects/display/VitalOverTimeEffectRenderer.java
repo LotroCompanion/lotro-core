@@ -8,7 +8,7 @@ import delta.games.lotro.common.effects.VitalOverTimeEffect;
  * Renderer for 'VitalOverTimeEffect' effects.
  * @author DAM
  */
-public class VitalOverTimeEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<VitalOverTimeEffect>
+public class VitalOverTimeEffectRenderer extends AbstractSingleEffectRenderer<VitalOverTimeEffect>
 {
   @Override
   public void render(List<String> storage, VitalOverTimeEffect effect)

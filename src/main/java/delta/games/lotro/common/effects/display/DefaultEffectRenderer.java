@@ -8,7 +8,7 @@ import delta.games.lotro.common.effects.Effect;
  * Default renderer.
  * @author DAM
  */
-public class DefaultEffectRenderer implements SingleEffectRenderer<Effect>
+public class DefaultEffectRenderer extends AbstractSingleEffectRenderer<Effect>
 {
   @Override
   public void render(List<String> storage, Effect effect)

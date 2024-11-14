@@ -12,7 +12,7 @@ import delta.games.lotro.common.stats.StatModifiersComputer;
  * Renderer for 'ApplyOverTimeEffect' effects.
  * @author DAM
  */
-public class ApplyOverTimeEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<ApplyOverTimeEffect>
+public class ApplyOverTimeEffectRenderer extends AbstractSingleEffectRenderer<ApplyOverTimeEffect>
 {
   @Override
   public void render(List<String> storage, ApplyOverTimeEffect applyOverTimeEffect)

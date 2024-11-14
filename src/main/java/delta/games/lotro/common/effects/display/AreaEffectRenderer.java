@@ -10,7 +10,7 @@ import delta.games.lotro.common.effects.EffectGenerator;
  * Renderer for 'AreaEffect' effects.
  * @author DAM
  */
-public class AreaEffectRenderer extends AbstractSingleEffectRenderer implements SingleEffectRenderer<AreaEffect>
+public class AreaEffectRenderer extends AbstractSingleEffectRenderer<AreaEffect>
 {
   @Override
   public void render(List<String> storage, AreaEffect areaEffect)

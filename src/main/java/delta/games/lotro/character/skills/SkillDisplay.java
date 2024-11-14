@@ -158,6 +158,7 @@ public class SkillDisplay
    */
   public List<String> getLines()
   {
+    LOGGER.debug("Skill display: {}",_skill);
     List<String> table=new ArrayList<String>();
     table.add("Skill-Id: "+_skill.getIdentifier());
     table.add(_skill.getName());
@@ -256,7 +257,7 @@ public class SkillDisplay
       List<String> attackLines=getAttacksLines();
       table.addAll(attackLines);
     }
-    // Attack effects (regular and positional) 
+    // Attack effects (regular and positional)
     if (attacks!=null)
     {
       doRegularAttackEffects(attacks,table);
@@ -458,6 +459,7 @@ public class SkillDisplay
     SingleTypeSkillEffectsManager typeEffectsMgr=effectsMgr.getEffects(type);
     if (typeEffectsMgr!=null)
     {
+      LOGGER.debug("Display attack effects for type: {}", type);
       for(SkillEffectGenerator generator : getGenerators(typeEffectsMgr))
       {
         handleEffect(attack.getDamageQualifier(),generator,generator.getEffect(),childStorage);
