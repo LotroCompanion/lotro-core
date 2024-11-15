@@ -42,16 +42,22 @@ public class InduceCombatStateEffectRenderer extends AbstractSingleEffectRendere
       // TODO Use data from CombatStateControl
       /* CombatState_StateData_ExitOnHarmfulSkillProbability: 1.0 => 100%
         CombatState_StateData_ExitOnVitalLossProbability: 0.025 => 3% */
+      String durationStr=Duration.getShortDurationString(totalPeriod);
+      String gracePeriodStr=durationStr;
+      if (!durationStr.isEmpty())
+      {
+        gracePeriodStr=" after "+durationStr;
+      }
       if (state==CombatStates.FEARED)
       {
-        String line1="100% break chance on harm after "+Duration.getShortDurationString(totalPeriod);
+        String line1="100% break chance on harm"+gracePeriodStr;
         storage.add(line1);
-        String line2="3% break chance on damage after "+Duration.getShortDurationString(totalPeriod);
+        String line2="3% break chance on damage"+gracePeriodStr;
         storage.add(line2);
       }
       else
       {
-        String gracePeriodText="100% break chance on damage after "+Duration.getShortDurationString(totalPeriod);
+        String gracePeriodText="100% break chance on damage"+gracePeriodStr;
         storage.add(gracePeriodText);
       }
     }

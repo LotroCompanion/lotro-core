@@ -350,7 +350,7 @@ Does not break Stealth.
 
 <rgb=#00FFDD>Mounted Combat Enemies: Daze replaced with a debuff that reduces damage against dismounted players.</rgb>
 30s Daze
-100% break chance on damage after 
+100% break chance on damage
 Cost: 96 Power
 Cooldown: 1m
 *****************************
