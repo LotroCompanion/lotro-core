@@ -33,7 +33,7 @@ Increases your melee damage and returns damage for every attack made against you
 Cannot Parry, Evade or Block
 20% Melee Damage
 On Melee Skill damage:
--100% chance to Reflect 30% damage
+Reflect 30% damage
 Duration: 16s
 Cost: 317 Power
 Cooldown: 1m30s
@@ -174,7 +174,7 @@ Does more damage if used from in Stealth.
 4 813 - 6 418 Beleriand (Main-hand) Damage
 Expires if out of combat for 9 seconds.
 (1 time) On Melee Skill,Ranged Skill,Tactical Skill damage:
--100% chance to Negate 50% damage
+Negate 50% damage
 Duration: 10s
 +20% Skill Crit Chance
 Duration: 10s
