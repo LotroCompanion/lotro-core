@@ -199,16 +199,17 @@ public class TraitDescriptionXMLParser
     for(Element skillTag : skillTags)
     {
       NamedNodeMap skillAttrs=skillTag.getAttributes();
+      int rank=DOMParsingTools.getIntAttribute(skillAttrs,TraitDescriptionXMLConstants.SKILL_RANK_ATTR,0);
       int skillId=DOMParsingTools.getIntAttribute(skillAttrs,TraitDescriptionXMLConstants.SKILL_ID_ATTR,0);
-      String skillName=DOMParsingTools.getStringAttribute(skillAttrs,TraitDescriptionXMLConstants.SKILL_NAME_ATTR,null);
       SkillsManager skillsMgr=SkillsManager.getInstance();
       SkillDescription skill=skillsMgr.getSkill(skillId);
       if (skill!=null)
       {
-        trait.addSkill(skill);
+        trait.addSkill(skill,rank);
       }
       else
       {
+        String skillName=DOMParsingTools.getStringAttribute(skillAttrs,TraitDescriptionXMLConstants.SKILL_NAME_ATTR,null);
         LOGGER.warn("Skill not found: ID="+skillId+", name="+skillName);
       }
     }

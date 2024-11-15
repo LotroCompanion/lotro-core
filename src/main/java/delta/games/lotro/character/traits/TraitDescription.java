@@ -99,7 +99,7 @@ public class TraitDescription implements Identifiable,Named
   /**
    * Skills.
    */
-  private List<SkillDescription> _skills;
+  private List<SkillAtRank> _skills;
   /**
    * Effects.
    */
@@ -130,7 +130,7 @@ public class TraitDescription implements Identifiable,Named
     _traitGroups=new ArrayList<TraitGroup>();
     _tooltip="";
     _cosmetic=false;
-    _skills=new ArrayList<SkillDescription>();
+    _skills=new ArrayList<SkillAtRank>();
     _effects=new ArrayList<EffectAtRank>();
     _effectGenerators=new ArrayList<EffectGenerator>();
     _prerequisites=null;
@@ -468,17 +468,18 @@ public class TraitDescription implements Identifiable,Named
   /**
    * Add a skill.
    * @param skill Skill to add.
+   * @param rank Rank.
    */
-  public void addSkill(SkillDescription skill)
+  public void addSkill(SkillDescription skill, int rank)
   {
-    _skills.add(skill);
+    _skills.add(new SkillAtRank(skill,rank));
   }
 
   /**
    * Get all the skills of this trait.
    * @return A list of skills.
    */
-  public List<SkillDescription> getSkills()
+  public List<SkillAtRank> getSkills()
   {
     return _skills;
   }

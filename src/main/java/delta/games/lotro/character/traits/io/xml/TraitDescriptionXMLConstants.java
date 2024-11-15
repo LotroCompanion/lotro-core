@@ -80,18 +80,6 @@ public class TraitDescriptionXMLConstants
    */
   public static final String TRAIT_COSMETIC_ATTR="cosmetic";
   /**
-   * Tag 'skill'.
-   */
-  public static final String TRAIT_SKILL_TAG="skill";
-  /**
-   * Tag 'skill', attribute 'id'.
-   */
-  public static final String SKILL_ID_ATTR="id";
-  /**
-   * Tag 'skill', attribute 'name'.
-   */
-  public static final String SKILL_NAME_ATTR="name";
-  /**
    * Tag 'effect'.
    */
   public static final String TRAIT_EFFECT_TAG="effect";
@@ -107,6 +95,22 @@ public class TraitDescriptionXMLConstants
    * Tag 'effect', attribute 'name'.
    */
   public static final String EFFECT_NAME_ATTR="name";
+  /**
+   * Tag 'skill'.
+   */
+  public static final String TRAIT_SKILL_TAG="skill";
+  /**
+   * Tag 'skill', attribute 'rank'.
+   */
+  public static final String SKILL_RANK_ATTR="rank";
+  /**
+   * Tag 'skill', attribute 'id'.
+   */
+  public static final String SKILL_ID_ATTR="id";
+  /**
+   * Tag 'skill', attribute 'name'.
+   */
+  public static final String SKILL_NAME_ATTR="name";
   /**
    * Tag 'effectGenerator'.
    */

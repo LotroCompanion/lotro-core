@@ -13,6 +13,7 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.traits.EffectAtRank;
+import delta.games.lotro.character.traits.SkillAtRank;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.prerequisites.AbstractTraitPrerequisite;
 import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisitesXMLWriter;
@@ -175,9 +176,17 @@ public class TraitDescriptionXMLWriter
       hd.endElement("","",TraitDescriptionXMLConstants.TRAIT_GROUP_TAG);
     }
     // Skills
-    for(SkillDescription skill : trait.getSkills())
+    for(SkillAtRank skillAtRank : trait.getSkills())
     {
       AttributesImpl skillAttrs=new AttributesImpl();
+      // Rank
+      int rank=skillAtRank.getRank();
+      if (rank>0)
+      {
+        skillAttrs.addAttribute("","",TraitDescriptionXMLConstants.SKILL_RANK_ATTR,XmlWriter.CDATA,String.valueOf(rank));
+      }
+      SkillDescription skill=skillAtRank.getSkill();
+      // ID
       int skillId=skill.getIdentifier();
       skillAttrs.addAttribute("","",TraitDescriptionXMLConstants.SKILL_ID_ATTR,XmlWriter.CDATA,String.valueOf(skillId));
       // Name
