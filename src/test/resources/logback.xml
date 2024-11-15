@@ -27,6 +27,7 @@
 	 -->
 	<logger name="delta.games.lotro.character.skills.SkillDisplay"              level="DEBUG"/>
 	<logger name="delta.games.lotro.common.effects.display.EffectRenderingEngine"              level="DEBUG"/>
+	<logger name="delta.games.lotro.common.effects.display"              level="DEBUG"/>
 
 	<!-- ********************** COTS ****************** -->
 	<!-- logback himself -->

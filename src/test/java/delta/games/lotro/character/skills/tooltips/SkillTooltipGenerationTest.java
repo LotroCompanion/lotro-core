@@ -43,6 +43,7 @@ class SkillTooltipGenerationTest
     testChampion();
     testMinstrel();
     testCaptain();
+    testBurglar();
   }
 
   private void doTest(String characterFile, int[] skillIDs)
@@ -274,6 +275,55 @@ class SkillTooltipGenerationTest
       1879234184, // Festive Azure Horse
     };
     doTest("captain.xml",skills);
+  }
+
+  private void testBurglar()
+  {
+    int[] skills={
+      // Page 1
+      1879112560, // Improved Feint Attack
+      1879102532, // Knives Out
+      1879052125, // Flashing Blades
+      1879064332, // Double-edged Strike
+      1879060961, // Aim
+      1879263587, // Coup De Grâce
+      1879061010, // Sneak
+      1879064329, // Cunning Attack
+      1879064337, // Reveal Weakness // Ambiguous
+      1879064330, // Provoke
+      1879064331, // Gambler's Advantage
+      1879245711, // Improved Addle
+      // Page 2
+      1879064328, // Surprise Strike
+      1879384439, // Throw Knife
+      1879064339, // Touch and Go
+      1879102534, // Practical Joke
+      1879064338, // Ready and Able
+      1879269660, // Stun Dust
+      1879060947, // Subtle Stab
+      1879064340, // Find Footing
+      1879064333, // Exploit Opening
+      1879073486, // Hobbit-resilience
+      1879176356, // Burglar's Antidote
+      1879212933, // Improved Riddle
+      1879287436, // Purge Corruption
+      1879064327, // Trip
+      1879073470, // Throw Stone
+      1879073491, // Hobbit-stealth
+      // Page 3
+      1879064342, // Burgle
+      1879136770, // Improved Hide in Plain Sight
+      1879064341, // Track Treasure
+      1879073480, // Return to the Shire
+      1879060981, // Diversion
+      1879102536, // Share The Fun
+      1879204157, // Safe Fall
+      1879102530, // Contact Pedlar
+      1879233861, // War-steed: Light
+      1879062906, // Track Wood
+      1879062867, // Track Mines
+    };
+    doTest("burglar.xml",skills);
   }
 
   private List<String> doSkill(int id, CharacterData data)
