@@ -198,7 +198,7 @@ Cooldown: 5s
 Skill-Id: 1879245711
 Improved Addle
 Immediate
-Tactical Skill, Ranged Skill
+Ranged Skill, Tactical Skill
 Resistance: Song
 Skill Type: Debuff
 Range: 20m

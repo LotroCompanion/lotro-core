@@ -172,16 +172,8 @@ public class SkillDisplay
       table.add("Immediate");
     }
     StringBuilder uses=new StringBuilder();
-    if (_skillDetails.getFlag(SkillFlags.USES_MAGIC))
-    {
-      uses.append("Tactical Skill");
-    }
     if (_skillDetails.getFlag(SkillFlags.USES_MELEE))
     {
-      if (uses.length()>0)
-      {
-        uses.append(", ");
-      }
       uses.append("Melee Skill");
     }
     if (_skillDetails.getFlag(SkillFlags.USES_RANGED))
@@ -191,6 +183,14 @@ public class SkillDisplay
         uses.append(", ");
       }
       uses.append("Ranged Skill");
+    }
+    if (_skillDetails.getFlag(SkillFlags.USES_MAGIC))
+    {
+      if (uses.length()>0)
+      {
+        uses.append(", ");
+      }
+      uses.append("Tactical Skill");
     }
     if (uses.length()>0)
     {
