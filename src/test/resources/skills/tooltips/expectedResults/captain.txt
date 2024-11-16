@@ -243,7 +243,6 @@ Melee Skill
 Skill Type: Melee
 Range: 4m
 A melee attack that interrupts enemy inductions.
-2 Attacks:
 1 461 - 1 948 Beleriand (Main-hand) Damage
 Interrupts Inductions
 Cost: 108 Power

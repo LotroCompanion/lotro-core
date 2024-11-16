@@ -347,11 +347,7 @@ public class SkillDisplay
     {
       return ret;
     }
-    int nbAttacks=attacks.getAttacks().size();
-    if (nbAttacks>1)
-    {
-      ret.add(nbAttacks+" Attacks:");
-    }
+    List<String> storage=new ArrayList<String>();
     float skillActionDuration=getActionDuration();
     for(SkillAttack attack : attacks.getAttacks())
     {
@@ -378,9 +374,14 @@ public class SkillDisplay
           attackText=attackText+" ("+implementText+")";
         }
         attackText=attackText+" Damage";
-        ret.add(attackText);
+        storage.add(attackText);
       }
     }
+    if (storage.size()>1)
+    {
+      ret.add(storage.size()+" Attacks:");
+    }
+    ret.addAll(storage);
     return ret;
   }
 

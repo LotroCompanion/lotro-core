@@ -205,7 +205,6 @@ Range: 20m
 Causes the enemy to fail skill attempts, and subsequent skill attempts will briefly take longer to execute.
 
 Target deals less tactical damage.
-2 Attacks:
 Interrupts Inductions
 +25% Skill Inductions
 -15% Tactical Damage
