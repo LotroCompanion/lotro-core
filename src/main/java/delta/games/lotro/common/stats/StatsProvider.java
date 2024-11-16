@@ -225,7 +225,7 @@ public class StatsProvider
     StatModifiersComputer modsComputer=context.getStatModifiersComputer();
     if ((mods!=null) && (modsComputer!=null))
     {
-      value=applyModifiers(value,stat,mods,modsComputer);
+      value=applyModifiers(value,operator,stat,mods,modsComputer);
     }
     if ((value!=null) && (Math.abs(value.floatValue())>0.001))
     {
@@ -239,7 +239,7 @@ public class StatsProvider
       }
       else
       {
-        statValue=Float.valueOf(floatValue);
+        statValue=value;
       }
       StatsSetElement ret=new StatsSetElement(stat,operator);
       ret.setValue(statValue);
@@ -257,30 +257,33 @@ public class StatsProvider
     return null;
   }
 
-  private Float applyModifiers(Float value, StatDescription stat, ModPropertyList mods, StatModifiersComputer modsComputer)
+  private Float applyModifiers(Float value, StatOperator operator, StatDescription stat, ModPropertyList mods, StatModifiersComputer modsComputer)
   {
-    StatOperator operator=mods.getOperator();
-    if ((operator==StatOperator.ADD) || (operator==StatOperator.SUBSTRACT))
+    StatOperator modOperator=mods.getOperator();
+    if ((modOperator==StatOperator.ADD) || (modOperator==StatOperator.SUBSTRACT))
     {
       float modsValue=modsComputer.computeAdditiveModifiers(mods);
-      if (stat.isPercentage())
+      if ((stat.isPercentage()) && (operator!=StatOperator.MULTIPLY))
       {
         modsValue*=100;
       }
-      if (operator==StatOperator.SUBSTRACT)
-      {
-        modsValue=-modsValue;
-      }
       if (value!=null)
       {
-        value=Float.valueOf(value.floatValue()+modsValue);
+        if (modOperator==StatOperator.SUBSTRACT)
+        {
+          value=Float.valueOf(value.floatValue()-modsValue);
+        }
+        else
+        {
+          value=Float.valueOf(value.floatValue()+modsValue);
+        }
       }
       else
       {
         value=Float.valueOf(modsValue);
       }
     }
-    else if (operator==StatOperator.MULTIPLY)
+    else if (modOperator==StatOperator.MULTIPLY)
     {
       if (value!=null)
       {
@@ -290,7 +293,7 @@ public class StatsProvider
     }
     else
     {
-      LOGGER.warn("Unmanaged modifiers operator: "+operator);
+      LOGGER.warn("Unmanaged modifiers operator: "+modOperator);
     }
     return value;
   }

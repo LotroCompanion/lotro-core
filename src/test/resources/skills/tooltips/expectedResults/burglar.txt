@@ -113,7 +113,7 @@ Skill Type: Buff
 Move about unseen while Sneaking.
 
 There is a chance enemies will detect you, especially when you move in front of them.
-25% Run Speed
++25% Run Speed
 47% Melee Damage
 +3 Stealth Detection
 100% Surprise Strike Critical Chance
@@ -461,7 +461,7 @@ Fast
 Skill Type: Buff
 Range: 5m
 Share Stealth with one ally while remaining within 5m of one another.
--55% Run Speed
+-5% Run Speed
 -2 Stealth Level
 Cost: 191 Power
 Toggle Skill

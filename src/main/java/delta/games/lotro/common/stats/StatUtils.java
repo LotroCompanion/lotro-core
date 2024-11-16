@@ -257,6 +257,11 @@ public class StatUtils
       prefix="-";
     }
     String valueStr=getStatDisplay(value,stat);
+    String absPercentValue=valueStr;
+    if (absPercentValue.startsWith("-"))
+    {
+      absPercentValue=absPercentValue.substring(1);
+    }
     //String rawValueStr=rawValue.toString();
     String descriptionOverride=element.getDescriptionOverride();
     if (descriptionOverride!=null)
@@ -266,7 +271,17 @@ public class StatUtils
         line=descriptionOverride;
         line=line.replace("{***}",valueStr);
         line=line.replace("${VALUE}",valueStr);
-        line=line.replace("${PERCENTVALUE}",valueStr);
+        line=line.replace("+${PERCENTVALUE}","+"+absPercentValue);
+        line=line.replace("-${PERCENTVALUE}","-"+absPercentValue);
+        int index=line.indexOf("${PERCENTVALUE}");
+        if (index==0)
+        {
+          line=line.replace("${PERCENTVALUE}",valueStr);
+        }
+        else if (index>0)
+        {
+          line=line.replace("${PERCENTVALUE}",absPercentValue);
+        }
         line=line.replace("${PROPERTY}",statName);
       }
     }
