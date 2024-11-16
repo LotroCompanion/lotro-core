@@ -11,6 +11,7 @@ import delta.games.lotro.character.BasicCharacterAttributes;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.races.RaceDescription;
+import delta.games.lotro.character.traits.SkillAtRank;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.utils.TraitAndLevel;
 import delta.games.lotro.common.Identifiable;
@@ -89,12 +90,12 @@ public class SkillsFinder
 
   private void handleRaceTrait(TraitDescription trait)
   {
-    List<SkillDescription> traitSkills=trait.getSkills();
-    for(SkillDescription traitSkill : traitSkills)
+    List<SkillAtRank> traitSkills=trait.getSkills();
+    for(SkillAtRank traitSkill : traitSkills)
     {
-      if (_filter.accept(traitSkill))
+      if (_filter.accept(traitSkill.getSkill()))
       {
-        addSkill(traitSkill);
+        addSkill(traitSkill.getSkill());
       }
     }
   }

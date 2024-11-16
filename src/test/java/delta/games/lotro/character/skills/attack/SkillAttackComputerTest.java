@@ -21,6 +21,7 @@ import delta.games.lotro.character.skills.SkillsDetailsManager;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traits.TraitsStatus;
+import delta.games.lotro.character.traits.SkillAtRank;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.IdentifiableComparator;
 
@@ -105,8 +106,11 @@ class SkillAttackComputerTest
       //Integer rank=traitTreeStatus.getRankForTrait(trait.getIdentifier());
       //if ((rank!=null) && (rank.intValue()>0))
       {
-        List<SkillDescription> traitSkills=trait.getSkills();
-        ret.addAll(traitSkills);
+        List<SkillAtRank> traitSkills=trait.getSkills();
+        for(SkillAtRank traitSkill : traitSkills)
+        {
+          ret.add(traitSkill.getSkill());
+        }
       }
     }
     Collections.sort(ret,new IdentifiableComparator<SkillDescription>());

@@ -7,6 +7,7 @@ import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
 import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.skills.SkillDescription;
+import delta.games.lotro.character.traits.SkillAtRank;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.Identifiable;
@@ -96,10 +97,10 @@ public class SkillReferencesBuilder
   {
     for(TraitDescription trait : TraitsManager.getInstance().getAll())
     {
-      List<SkillDescription> traitSkills=trait.getSkills();
-      for(SkillDescription traitSkill : traitSkills)
+      List<SkillAtRank> traitSkills=trait.getSkills();
+      for(SkillAtRank traitSkill : traitSkills)
       {
-        if (traitSkill.getIdentifier()==skillID)
+        if (traitSkill.getSkill().getIdentifier()==skillID)
         {
           _storage.add(new Reference<TraitDescription,SkillRole>(trait,SkillRole.GRANTED_BY_TRAIT));
         }
