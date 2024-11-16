@@ -6,6 +6,10 @@ import delta.common.utils.NumericTools;
 import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
+import delta.games.lotro.character.gear.CharacterGear;
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlotContents;
+import delta.games.lotro.character.gear.GearSlots;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
@@ -22,6 +26,10 @@ import delta.games.lotro.common.stats.GenericConstantStatProvider;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemInstance;
+import delta.games.lotro.lore.items.effects.ItemEffectsManager;
+import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
 import delta.games.lotro.values.ArrayValue;
 import delta.games.lotro.values.StructValue;
 
@@ -43,7 +51,39 @@ public class EffectsFromCharacterDataComputer
     _storage=new EffectProperties();
     inspectTraits(data);
     inspectBuffs(data);
+    inspectEquipment(data);
     return _storage;
+  }
+
+  private void inspectEquipment(CharacterData data)
+  {
+    CharacterGear gear=data.getEquipment();
+    // Iterate on slots
+    for(GearSlot slot : GearSlots.getSlotsForStatsComputation())
+    {
+      GearSlotContents slotContents=gear.getSlotContents(slot,false);
+      if (slotContents!=null)
+      {
+        ItemInstance<?> item=slotContents.getItem();
+        if (item!=null)
+        {
+          inspectItem(item.getReference());
+        }
+      }
+    }
+  }
+
+  private void inspectItem(Item item)
+  {
+    ItemEffectsManager mgr=item.getEffects();
+    if (mgr!=null)
+    {
+      EffectGenerator[] effects=mgr.getEffects(Type.ON_EQUIP);
+      for(EffectGenerator effect : effects)
+      {
+        handleEffect(effect.getEffect());
+      }
+    }
   }
 
   /**

@@ -313,6 +313,10 @@ Range: 4m
 Stun an enemy to enable a Fellowship Manoeuvre for your group.
 3 355 - 4 473 Beleriand (Main-hand) Damage
 5s Stun
+Other members of the fellowship temporarily share your bonus to Guile fellowship skills.
+Effects applied to the Fellowship within 20 metres:
++15% Fellowship Manoeuvre Damage from Guile
+Duration: 15s
 Cost: 222 Power
 Cooldown: 2m
 *****************************
