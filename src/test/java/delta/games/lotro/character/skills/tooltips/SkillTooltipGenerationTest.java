@@ -44,6 +44,7 @@ class SkillTooltipGenerationTest
     testMinstrel();
     testCaptain();
     testBurglar();
+    testBrawler();
   }
 
   private void doTest(String characterFile, int[] skillIDs)
@@ -324,6 +325,41 @@ class SkillTooltipGenerationTest
       1879062867, // Track Mines
     };
     doTest("burglar.xml",skills);
+  }
+
+  private void testBrawler()
+  {
+    int[] skills={
+      // Page 1
+      1879414771, // Get Serious
+      1879411771, // Helm's Hammer
+      1879411775, // Fulgurant Strike // Ambiguous
+      1879411780, // Helm-crusher
+      1879411773, // Shattering Fist
+      1879411393, // Low Strike
+      1879422473, // Pummel
+      1879411392, // Dextrous Hook
+      1879411792, // Quick Feint
+      1879411784, // Ignore Pain
+      1879411777, // Mighty Upheaval
+      1879411778, // Knee Strike
+      1879411779, // Backhand Clout
+      1879422296, // Fist of the Valar
+      1879492389, // Strike Towards the Sky
+      // Page 2
+      1879424426, // Joy of Battle - Damage
+      1879416151, // One for All
+      1879411788, // Weather Blows
+      1879440178, // Craggy Slug
+      1879411787, // Slip Free
+      1879423442, // Hurl Object
+      1879420864, // First Strike
+      1879411786, // Follow Me!
+      1879422227, // Aggressive Posture
+      1879424310, // Battle Fury
+      1879073596, // Head-butt
+    };
+    doTest("brawler.xml",skills);
   }
 
   private List<String> doSkill(int id, CharacterData data)

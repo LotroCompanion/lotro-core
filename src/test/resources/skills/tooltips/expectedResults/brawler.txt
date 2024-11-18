@@ -1,0 +1,375 @@
+*****************************
+Skill-Id: 1879414771
+Get Serious
+Fast
+Skill Type: Buff
+Regenerate Mettle and gain a damage buff
++15% damage
+Duration: 6s
+Cost: 25 Power
+Cooldown: 30s
+*****************************
+Skill-Id: 1879411771
+Helm's Hammer
+Fast
+Melee Skill
+Skill Type: Melee, Finisher, Quick
+Range: 4m
+Calling upon the spirit of Helm Hammerhand, you infuse your blow to admonish the enemy's corruption.
+
+Corruption Removal
+3 024 - 4 032 Beleriand (Main-hand) Damage
+Removes 1 tier of up to 3 different Corruption effects from the target.
+2,5% Melee Damage
+Duration: 20s
+Cost: 21 Power
+Cooldown: 15s
+*****************************
+Skill-Id: 1879411775
+Fulgurant Strike
+Immediate
+Melee Skill
+Skill Type: Melee, Finisher, Quick
+Range: 4m
+This strike catches the enemy unawares, leaving them breathless and interrupting complex skills and manoeuvres.
+
+Interrupts
+3 634 - 4 845 Beleriand (Main-hand) Damage
+Interrupts Inductions
+2,5% Melee Damage
+Duration: 20s
+Cost: 25 Power
+Cooldown: 22s
+*****************************
+Skill-Id: 1879411780
+Helm-crusher
+Fast
+Melee Skill
+Skill Type: Melee, Finisher, Quick
+Range: 4m
+A crushing head-butt that can stun an opponent into insensibility.
+
+Stuns
+2 575 - 3 433 Beleriand (Main-hand) Damage
+3s Stun
+2,5% Melee Damage
+Duration: 20s
+Cost: 25 Power
+Cost: 3 Mettle
+Cooldown: 30s
+*****************************
+Skill-Id: 1879411773
+Shattering Fist
+Fast
+Melee Skill
+Skill Type: Melee, Finisher, Balanced
+Range: 4m
+Drive a devastating fist into your enemy's armour, leaving it broken and ineffective.
+
+Reduces target armour
+2 520 - 3 360 Beleriand (Main-hand) Damage
+-3% Tactical Mitigation (%)
+-3% Physical Mitigation (%)
+Duration: 20s
+109 Finesse
+Duration: 20s
+Cost: 25 Power
+Cost: 3 Mettle
+Cooldown: 10s
+*****************************
+Skill-Id: 1879411393
+Low Strike
+Fast
+Melee Skill
+Skill Type: Melee, Set-Up
+Range: 4m
+A swift punch that generates Mettle.
+
+Low Set-up: If Low Strike is the most recent Set-up Attack used, the next damaging Mettle-spender will restore a substantial amount of Power.
+1 690 - 2 253 Beleriand (Main-hand) Damage
+Cost: 9 Power
+Adds 2 to Mettle
+Cooldown: 1s
+*****************************
+Skill-Id: 1879422473
+Pummel
+Fast
+Melee Skill
+Channel Duration: 3s
+Skill Type: Melee, Finisher, Balanced
+Range: 4m
+Unleash a flurry of blows.
+666 - 951 Beleriand Damage every 0,5 seconds.
+10% Pummel Damage
+Expires if out of combat for 9 seconds.
+109 Finesse
+Duration: 20s
+Cost: 30 Power
+Cost: 3 Mettle
+Channelled Skill
+Cooldown: 15s
+*****************************
+Skill-Id: 1879411392
+Dextrous Hook
+Fast
+Melee Skill
+Skill Type: Melee, Set-Up
+Range: 4m
+A quick hook that generates Mettle.
+
+Dextrous Set-up: If a Dextrous Hook is the most recent Set-up Attack used, the next Mettle Spender will deal 35% additional skill damage.
+1 690 - 2 253 Beleriand (Main-hand) Damage
+Dextrous Set-up:
+The next Spender attack deals additional damage
+
+Only the most recent Set-up Effect is active.
+35% Finisher Skill Damage
+Duration: 2s
+Cost: 9 Power
+Adds 2 to Mettle
+Cooldown: 1s
+*****************************
+Skill-Id: 1879411792
+Quick Feint
+Fast
+Skill Type: Buff
+A sudden feint leaves your enemy off-balance and grants you the Mettle to quickly finish them.
+10% Melee Damage
+Duration: 10s
+Cost: 17 Power
+Adds 3 to Mettle
+Cooldown: 40s
+*****************************
+Skill-Id: 1879411784
+Ignore Pain
+Fast
+Skill Type: Buff
+Unwilling to acknowledge even debilitating injuries, Brawlers often focus on developing the willpower to fight through normally insurmountable pain.
+
+Removes Fears, Diseases, Poisons, and Wounds from yourself.
+Removes up to 1 Disease, Wound, Fear, Poison effect with maximum strength of 105 from the target.
+Cost: 17 Power
+Cooldown: 20s
+*****************************
+Skill-Id: 1879411777
+Mighty Upheaval
+Fast
+Melee Skill
+Max Targets: 3
+Radius: 7m
+Skill Type: Melee, Finisher, Heavy
+Range: 7,2m
+You slam your gauntlets into the ground with incredible force, creating a shockwave to damage and possibly knock opponents down.
+1 589 - 2 118 Beleriand (Main-hand) Damage
+50% chance to apply:
+2s KnockedDown
+91 Critical Rating
+Duration: 20s
+Cost: 38 Power
+Cost: 3 Mettle
+Cooldown: 15s
+*****************************
+Skill-Id: 1879411778
+Knee Strike
+Fast
+Melee Skill
+Skill Type: Melee, Finisher, Quick
+Range: 4m
+You bring your knee up in a sudden strike.
+2 137 - 2 849 Beleriand (Main-hand) Damage
+-30% Target Run Speed
+Duration: 15s
+2,5% Melee Damage
+Duration: 20s
+Cost: 21 Power
+Cost: 3 Mettle
+Cooldown: 10s
+*****************************
+Skill-Id: 1879411779
+Backhand Clout
+Fast
+Melee Skill
+Max Targets: 3
+Radius: 7m
+Skill Type: Melee, Finisher, Quick
+Range: 7,0m
+A wide back-handed smash that may catch multiple enemies with its force.
+2 027 - 2 703 Beleriand (Main-hand) Damage
+2,5% Melee Damage
+Duration: 20s
+Cost: 30 Power
+Cost: 3 Mettle
+Cooldown: 5s
+*****************************
+Skill-Id: 1879422296
+Fist of the Valar
+Fast
+Melee Skill
+Skill Type: Melee, Finisher, Heavy
+Range: 4m
+Strike your foe with preternatural force.
+
+This skill consumes all your Mettle, but deals 15% bonus damage for each point of Mettle it consumes.
+This bonus damage stacks with Battle Flow.
+2 055 - 2 739 Beleriand (Main-hand) Damage
+91 Critical Rating
+Duration: 20s
+Cost: 38 Power
+Requires at least 3 Mettle
+Cooldown: 20s
+*****************************
+Skill-Id: 1879492389
+Strike Towards the Sky
+Fast
+Melee Skill
+Max Targets: 3
+Radius: 7m
+Skill Type: Melee, Finisher, Heavy
+Range: 7,0m
+A powerful uppercut.
+3 342 - 4 456 Beleriand (Main-hand) Damage
+91 Critical Rating
+Duration: 20s
+Cost: 30 Power
+Cost: 3 Mettle
+Cooldown: 10s
+*****************************
+Skill-Id: 1879424426
+Joy of Battle - Damage
+Fast
+Skill Type: Buff
+For a short duration, any strikes you make will build your fighting spirit, increasing your damage. Gain a stacking damage buff with each attack skill you use, up to a maximum of 10 stacks.
+
+Using one 'Joy of Battle' skill will trigger the cooldown for both 'Joy of Battle' skills.
+Gain a stacking damage buff with every attack you make, up to a maximum of 10 stacks.
+-20% Incoming Damage
+Expires if out of combat for 9 seconds.
+1% Melee Damage
+Duration: 20s
+Duration: 15s
+Cost: 30 Power
+Cost: 3 Mettle
+Cooldown: 3m
+*****************************
+Skill-Id: 1879416151
+One for All
+Fast
+Skill Type: Buff
+Standing with allies bolsters everyone's resolve.
+
+Reduces Incoming Damage by 10%. For each ally, the buff grants an additional 2% reduction, to a maximum of -20% based on the number of allies in your fellowship.
+Effects applied to the Fellowship within 15 metres:
+-10% Incoming Tactical Damage
+-10% Incoming Ranged Damage
+-10% Incoming Melee Damage
+Duration: 30s
+Cost: 34 Power
+Cooldown: 2m30s
+*****************************
+Skill-Id: 1879411788
+Weather Blows
+Fast
+Skill Type: Buff
+Enter a temporary state wherein you are nearly unassailable. Nearly.
+
+This effect will not stack with other incoming damage reduction effects.
+Reduces all incoming damage to 35%
+Additional Mettle improves reduction.
+Duration: 15s
+Cost: 25 Power
+Cooldown: 1m15s
+*****************************
+Skill-Id: 1879440178
+Craggy Slug
+Summons a rugged slug to keep you company.
+Toggle Skill
+Cooldown: 3s
+*****************************
+Skill-Id: 1879411787
+Slip Free
+Fast
+Skill Type: Buff
+Well versed in the grappler's tricks, Brawlers can quickly slip out of holds, traps, and other attempts to constrain them.
+
+Recover from being dazed, stunned, or knocked down.
+Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
+Cost: 9 Power
+Cooldown: 1m
+*****************************
+Skill-Id: 1879423442
+Hurl Object
+Fast
+Ranged Skill
+Skill Type: Harmful
+Range: 25m
+Hurl an object at your foe.
+2 372 - 3 163 Beleriand (Main-hand) Damage
+-30% Run Speed
+Duration: 8s
+Cost: 13 Power
+Cooldown: 3s
+*****************************
+Skill-Id: 1879420864
+First Strike
+Fast
+Melee Skill
+Skill Type: Melee, Finisher, Balanced
+Range: 4m
+A quick strike best used on hale adversaries.
+Target must have greater than 80% of their maximum health.
+3 491 - 4 655 Beleriand (Main-hand) Damage
+109 Finesse
+Duration: 20s
+Cost: 17 Power
+Cooldown: 8s
+*****************************
+Skill-Id: 1879411786
+Follow Me!
+Fast
+Skill Type: Buff
+Brawlers have been known to inspire foolhardy acts of bravery in their comrades - mostly by charging headlessly into a fray and dragging their allies along with them against their better judgement.
+
+Move Speed Buff
+Effects applied to the Fellowship within 15 metres:
+20% Run Speed
+Duration: 15s
+Cost: 30 Power
+Cooldown: 1m
+*****************************
+Skill-Id: 1879422227
+Aggressive Posture
+Fast
+Skill Type: Buff
+Adopt an aggressive posture, increasing offensive capability at the cost of defence.
+Only one Posture may be active at a time.
+7,5% Melee Damage
+-1 360 Physical Mitigation
+Toggle Skill
+Cooldown: 2s
+*****************************
+Skill-Id: 1879424310
+Battle Fury
+Fast
+Skill Type: Buff
+For a short duration, Battle Flow or Enhanced Battle Flow deals an additional 5% damage per Mettle.
+Increases the bonus from Battle Flow by 50% of its base value.
+This bonus stacks with Enhanced Battle flow.
+
+Adds 3 Mettle
+Duration: 20s
+Cost: 30 Power
+Cost: 1 Mettle
+Cooldown: 3m
+*****************************
+Skill-Id: 1879073596
+Head-butt
+Melee Skill
+Range: 2,5m
+Allows you to smash an enemy with your head for damage.
+5 131 Common Damage
+There is a chance your opponent will be dazed by your combat prowess.
+3s Daze
+100% break chance on damage after 1s
+Cost: 44 Power
+Requires: Head-butt Trait Equipped
+Cooldown: 3m
