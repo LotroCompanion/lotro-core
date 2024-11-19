@@ -76,7 +76,6 @@
 <stat name="Trait_Virtue_Rank_Wisdom" value="300"/>
 <stat name="Resist_Additional_Resistance_Poison" value="100"/>
 <stat name="Effect_Self_Revive_Cooldown" descriptionOverride="Increases duration of Revived effect to 2 hours." value="540000"/>
-<stat name="Trait_Beorning_PDFW_CooldownMod" value="-500"/>
 </stats>
 <equipment>
 <equipmentSlot name="HEAD">
@@ -455,7 +454,7 @@
 <tome stat="WILL" rank="0"/>
 <tome stat="FATE" rank="0"/>
 </tomes>
-<traitTreeStatus treeId="1879306750" branch="54" totalPoints="75"/>
+<traitTreeStatus treeId="1879306750" totalPoints="75"/>
 <racialTraitsStatus>
 <slot index="0"/>
 <slot index="1"/>

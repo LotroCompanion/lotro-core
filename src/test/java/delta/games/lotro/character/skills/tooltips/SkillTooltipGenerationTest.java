@@ -45,6 +45,7 @@ class SkillTooltipGenerationTest
     testCaptain();
     testBurglar();
     testBrawler();
+    testBeorning();
   }
 
   private void doTest(String characterFile, int[] skillIDs)
@@ -360,6 +361,31 @@ class SkillTooltipGenerationTest
       1879073596, // Head-butt
     };
     doTest("brawler.xml",skills);
+  }
+
+  private void testBeorning()
+  {
+    int[] skills={
+      // Page 1
+      1879449839, // Claw Swipe (Dual)
+      1879320183, // Slam (Dual)
+      1879320182, // Slash (Dual)
+      1879449837, // Bee Swarm (Dual)
+      1879319277, // Bear-form
+      1879383551, // Wanderlust
+      1879384934, // Man-form
+      1879449988, // Thrash - Tier 1 (Dual)
+      1879449846, // Vicious Claws (Dual)
+      1879311259, // Hearten
+      1879311262, // Cleanse
+      1879311261, // Shake Free
+      1879468376, // Ferocious Roar // Ambiguous: or 1879311260?
+      1879322036, // Bear Up
+      1879449831, // Nature's Vengeance (Dual)
+      1879311289, // Relentless Maul // Ambiguous
+      1879311258, // Rush
+    };
+    doTest("beorning.xml",skills);
   }
 
   private List<String> doSkill(int id, CharacterData data)

@@ -1,0 +1,210 @@
+*****************************
+Skill-Id: 1879449839
+Claw Swipe (Dual)
+Fast
+Melee Skill
+Max Targets: 5
+Radius: 5m
+Skill Type: Bear Form
+Range: 5,0m
+With your claws out, you swing across a group of enemies, lowering their offences for a brief moment.
+
+This debuff stacks up to 3 times.
+2 Attacks:
+69 - 91 Common (Main-hand) Damage
+46 - 62 Common (Off-hand) Damage
+-1% Melee Damage
+-1% Ranged Damage
+-1% Tactical Damage
+Duration: 12s
+Cost: 10 Wrath
+Cooldown: 3s
+*****************************
+Skill-Id: 1879320183
+Slam (Dual)
+Fast
+Melee Skill
+Skill Type: Man Form
+Range: 4m
+Bring down your weapon with great force upon your foe.
+2 Attacks:
+80 - 106 Common (Main-hand) Damage
+67 - 89 Common (Off-hand) Damage
+Adds 15 to Wrath
+Cooldown: 3s
+*****************************
+Skill-Id: 1879320182
+Slash (Dual)
+Fast
+Melee Skill
+Skill Type: Man Form
+Range: 4m
+A powerful swing that deals damage to your enemy.
+2 Attacks:
+58 - 78 Common (Main-hand) Damage
+32 - 42 Common (Off-hand) Damage
+Adds 5 to Wrath
+Cooldown: 1,5s
+*****************************
+Skill-Id: 1879449837
+Bee Swarm (Dual)
+Fast
+Melee Skill
+Resistance: Tactical
+Skill Type: Any Form
+Range: 20m
+Call forth a swarm of bees to attack your foe.
+151 - 201 Common (Main-hand) Damage
+30 - 43 Light Damage every 2,0 seconds for 12 seconds.
+-1% Physical Mitigation (%)
+Duration: 12s
+Cost: 10 Wrath
+Cooldown: 12s
+*****************************
+Skill-Id: 1879319277
+Bear-form
+Fast
+Skill Type: Any Form
+Beornings can assume the form of a bear in the midst of combat.
+322 Critical Defence
+Removes the Disarmed effect.
+Adds 1 Wrath point every 3 seconds
+Toggle Skill
+Cooldown: 2s
+*****************************
+Skill-Id: 1879383551
+Wanderlust
+Fast
+Skill Type: Any Form
+Beornings can assume the form of a bear to travel great distances through the wilderness.
++68% Peaceful Movement Speed
+Toggle Skill
+Cooldown: 2s
+*****************************
+Skill-Id: 1879384934
+Man-form
+Fast
+Skill Type: Any Form
+Beornings can resume the form of a Man in the midst of combat.
+Toggle Skill
+Cooldown: 2s
+*****************************
+Skill-Id: 1879449988
+Thrash - Tier 1 (Dual)
+Fast
+Melee Skill
+Skill Type: Bear Form
+Range: 4m
+You maul the enemy with your sharp claws. Subsequent attacks deal more damage.
+2 Attacks:
+65 - 87 Common (Main-hand) Damage
+37 - 49 Common (Off-hand) Damage
+Thrash now has increased Damage.
+Duration: 4s
+Adds 5 to Wrath
+Cooldown: 0,3s
+*****************************
+Skill-Id: 1879449846
+Vicious Claws (Dual)
+Immediate
+Melee Skill
+Skill Type: Any Form
+Range: 4m
+A savage attack that deals damage to your enemy, interrupting their action. Provides additional effects based on your specialization.
+2 Attacks:
+70 - 94 Common (Main-hand) Damage
+51 - 68 Common (Off-hand) Damage
+Cost: 10 Wrath
+Cooldown: 12s
+*****************************
+Skill-Id: 1879311259
+Hearten
+Fast
+Tactical Skill
+Skill Type: Heal, Man Form
+Range: 20m
+Words of encouragement help your allies through dark times.
+Heals 27 - 34 Morale initially.
+Heals 48 - 69 Morale every 2,0 seconds for 12 seconds.
+Cost: 10 Wrath
+Cooldown: 20s
+*****************************
+Skill-Id: 1879311262
+Cleanse
+Fast
+Skill Type: Any Form
+Range: 20m
+Your experience in the woods has taught you how to deal with evils that plague your allies.
+Removes up to 3 Disease, Wound, Fear, Poison effects with maximum strength of 110 from the target.
+Cooldown: 20s
+*****************************
+Skill-Id: 1879311261
+Shake Free
+Fast
+Skill Type: Any Form
+Allows you to break free of effects that cause you to lose control of your actions.
+Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
+Removes the Disarmed effect.
+Cooldown: 40s
+*****************************
+Skill-Id: 1879468376
+Ferocious Roar
+Fast
+Skill Type: Any Form
+Let out a battle cry, causing you to rapidly gain Wrath.
+Adds 5 to Wrath
+Cooldown: 30s
+*****************************
+Skill-Id: 1879322036
+Bear Up
+Fast
+Induction: 2,8s
+Skill Type: Any Form
+Range: 20m
+Even in the darkest times, you give your allies hope.
+Target revives with 50% Morale
+Target revives with 40% Power
+Effects to apply on revival:
+You have been recently revived.
+Duration: 30s
+Cooldown: 1s
+*****************************
+Skill-Id: 1879449831
+Nature's Vengeance (Dual)
+Fast
+Melee Skill
+Resistance: Tactical
+Skill Type: Any Form
+Range: 20m
+Your deep bond with Nature allows you to purge evil powers from even the darkest of hearts.
+103 - 137 Common (Main-hand) Damage
+Removes 1 tier of up to 3 different Corruption effects from the target.
+Cost: 5 Wrath
+Cooldown: 8s
+*****************************
+Skill-Id: 1879311289
+Relentless Maul
+Fast
+Melee Skill
+Channel Duration: 8,5s
+Skill Type: Bear Form
+You rear up and begin to thrash violently, dealing damage to all enemies in front of you.
+Every 1 second:
+Effects applied to enemies within 5 metres:
+38 - 42 Damage
+Duration: 1s
+On Use:
+You become immune to all combat states.
+Cost: 20 Wrath
+Channelled Skill
+Cooldown: 45s
+*****************************
+Skill-Id: 1879311258
+Rush
+Fast
+Skill Type: Any Form
+You erupt into a sprint, gaining ground quickly on your foes.
++40% Movement Speed
+Duration: 6s
+Cost: 5 Wrath
+Cooldown: 1m
