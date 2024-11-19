@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import delta.common.utils.l10n.L10n;
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.CharacterData;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttackComputer;
@@ -582,9 +584,22 @@ public class SkillDisplay
     if (costData!=null)
     {
       ret.addAll(getMoraleCost(costComputer,costData));
-      ret.addAll(getPowerCost(costComputer,costData));
+      if (doPower())
+      {
+        ret.addAll(getPowerCost(costComputer,costData));
+      }
     }
     return ret;
+  }
+
+  private boolean doPower()
+  {
+    ClassDescription characterClass=_character.getCharacterData().getCharacterClass();
+    if (WellKnownCharacterClassKeys.BEORNING.equals(characterClass.getKey()))
+    {
+      return false;
+    }
+    return true;
   }
 
   private List<String> getMoraleCost(SkillVitalCostComputer costComputer, SkillCostData costData)
