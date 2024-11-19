@@ -10,10 +10,11 @@ import delta.games.lotro.common.properties.ModPropertyList;
  */
 public class PipEffect extends InstantEffect
 {
-  private PipType _type; // From Effect_Pip_Type
-  private PipAdjustmentType _adjustmentType; // From Effect_Pip_AdjustmentType
-  private int _amount; // From Effect_Pip_AdjustmentAmount
-  private ModPropertyList _amountModifiers; // From Effect_Pip_AdjustmentAmount_AdditiveModifiers
+  private PipType _type;
+  private PipAdjustmentType _adjustmentType;
+  private boolean _reset;
+  private int _amount;
+  private ModPropertyList _amountModifiers;
 
   /**
    * Constructor.
@@ -57,6 +58,24 @@ public class PipEffect extends InstantEffect
   public void setAdjustmentType(PipAdjustmentType adjustmentType)
   {
     _adjustmentType=adjustmentType;
+  }
+
+  /**
+   * Indicates if PIP is reset or not.
+   * @return <code>true</code> to reset, <code>false</code> otherwise.
+   */
+  public boolean isReset()
+  {
+    return _reset;
+  }
+
+  /**
+   * Set the 'reset' flag.
+   * @param reset Value to set.
+   */
+  public void setReset(boolean reset)
+  {
+    _reset=reset;
   }
 
   /**

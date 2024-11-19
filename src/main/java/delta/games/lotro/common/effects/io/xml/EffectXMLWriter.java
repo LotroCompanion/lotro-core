@@ -30,6 +30,7 @@ import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
+import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.ReactiveChange;
@@ -45,6 +46,8 @@ import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.LotroEnumEntry;
+import delta.games.lotro.common.enums.PipAdjustmentType;
+import delta.games.lotro.common.enums.PipType;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.enums.VitalType;
@@ -123,6 +126,7 @@ public class EffectXMLWriter
     if (effect instanceof AreaEffect) return EffectXMLConstants.AREA_EFFECT_TAG;
     if (effect instanceof ApplyOverTimeEffect) return EffectXMLConstants.APPLY_OVER_TIME_EFFECT_TAG;
     if (effect instanceof ReviveEffect) return EffectXMLConstants.REVIVE_EFFECT_TAG;
+    if (effect instanceof PipEffect) return EffectXMLConstants.PIP_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -288,6 +292,11 @@ public class EffectXMLWriter
     {
       AreaEffect areaEffect=(AreaEffect)effect;
       writeAreaEffectAttributes(attrs,areaEffect);
+    }
+    else if (effect instanceof PipEffect)
+    {
+      PipEffect pipEffect=(PipEffect)effect;
+      writePipEffectAttributes(attrs,pipEffect);
     }
   }
 
@@ -553,6 +562,34 @@ public class EffectXMLWriter
     if (!maxTargetsMods.isEmpty())
     {
       attrs.addAttribute("","",EffectXMLConstants.AREA_EFFECT_MAX_TARGETS_MODS_ATTR,XmlWriter.CDATA,maxTargetsMods);
+    }
+  }
+
+  private void writePipEffectAttributes(AttributesImpl attrs, PipEffect pipEffect)
+  {
+    // Type
+    PipType type=pipEffect.getType();
+    attrs.addAttribute("","",EffectXMLConstants.PIP_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type.getCode()));
+    // Reset
+    boolean reset=pipEffect.isReset();
+    if (reset)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.PIP_RESET_ATTR,XmlWriter.CDATA,String.valueOf(reset));
+    }
+    else
+    {
+      // Adjustment type
+      PipAdjustmentType adjustmentType=pipEffect.getAdjustmentType();
+      attrs.addAttribute("","",EffectXMLConstants.PIP_ADJUSTMENT_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(adjustmentType.getCode()));
+      // Amount
+      int amount=pipEffect.getAmount();
+      attrs.addAttribute("","",EffectXMLConstants.PIP_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(amount));
+      // Amount modifiers
+      String amountModsStr=ModPropertyListIO.asPersistentString(pipEffect.getAmountModifiers());
+      if (!amountModsStr.isEmpty())
+      {
+        attrs.addAttribute("","",EffectXMLConstants.PIP_AMOUNT_MODIFIERS_ATTR,XmlWriter.CDATA,amountModsStr);
+      }
     }
   }
 

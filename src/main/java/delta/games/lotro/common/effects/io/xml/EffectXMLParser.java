@@ -31,6 +31,7 @@ import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
+import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.ReactiveChange;
@@ -47,6 +48,8 @@ import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.enums.PipAdjustmentType;
+import delta.games.lotro.common.enums.PipType;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
 import delta.games.lotro.common.enums.VitalType;
@@ -194,6 +197,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.REVIVE_EFFECT_TAG.equals(tagName))
     {
       ret=parseReviveEffect(root);
+    }
+    else if (EffectXMLConstants.PIP_EFFECT_TAG.equals(tagName))
+    {
+      ret=parsePipEffect(root);
     }
     else
     {
@@ -789,6 +796,35 @@ public class EffectXMLParser
       ReviveVitalData vital=new ReviveVitalData(vitalType,percentage);
       vital.setModifiers(modifiers);
       ret.addReviveVitalData(vital);
+    }
+    return ret;
+  }
+
+  private PipEffect parsePipEffect(Element root)
+  {
+    PipEffect ret=new PipEffect();
+    NamedNodeMap attrs=root.getAttributes();
+    // Pip type
+    LotroEnum<PipType> pipTypeEnum=LotroEnumsRegistry.getInstance().get(PipType.class);
+    int pipTypeCode=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.PIP_TYPE_ATTR,0);
+    PipType type=pipTypeEnum.getEntry(pipTypeCode);
+    ret.setType(type);
+    // Reset
+    boolean reset=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.PIP_RESET_ATTR,false);
+    if (!reset)
+    {
+      // Adjustment type
+      LotroEnum<PipAdjustmentType> pipAdjustmentTypeEnum=LotroEnumsRegistry.getInstance().get(PipAdjustmentType.class);
+      int pipAdjustmentTypeCode=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.PIP_ADJUSTMENT_TYPE_ATTR,0);
+      PipAdjustmentType adjustmentType=pipAdjustmentTypeEnum.getEntry(pipAdjustmentTypeCode);
+      ret.setAdjustmentType(adjustmentType);
+      // Amount
+      int amount=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.PIP_AMOUNT_ATTR,0);
+      ret.setAmount(amount);
+      // Amount modifiers
+      String modifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.PIP_AMOUNT_MODIFIERS_ATTR,null);
+      ModPropertyList modifiers=ModPropertyListIO.fromPersistedString(modifiersStr);
+      ret.setAmountModifiers(modifiers);
     }
     return ret;
   }

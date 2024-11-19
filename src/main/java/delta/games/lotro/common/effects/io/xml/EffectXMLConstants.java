@@ -492,6 +492,31 @@ public class EffectXMLConstants
   public static final String REVIVE_MODIFIERS_ATTR="modifiers";
 
   /**
+   * Tag 'pipEffect'.
+   */
+  public static final String PIP_EFFECT_TAG="pipEffect";
+  /**
+   * Tag 'pipEffect', attribute 'type'.
+   */
+  public static final String PIP_TYPE_ATTR="type";
+  /**
+   * Tag 'pipEffect', attribute 'adjustmentType'.
+   */
+  public static final String PIP_ADJUSTMENT_TYPE_ATTR="adjustmentType";
+  /**
+   * Tag 'pipEffect', attribute 'reset'.
+   */
+  public static final String PIP_RESET_ATTR="reset";
+  /**
+   * Tag 'pipEffect', attribute 'amount'.
+   */
+  public static final String PIP_AMOUNT_ATTR="amount";
+  /**
+   * Tag 'pipEffect', attribute 'amountMods'.
+   */
+  public static final String PIP_AMOUNT_MODIFIERS_ATTR="amountMods";
+
+  /**
    * Tag 'effect' (generator).
    */
   public static final String EFFECT_GENERATOR_TAG="effect";
