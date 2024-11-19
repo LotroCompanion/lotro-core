@@ -10,6 +10,7 @@ import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
+import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
@@ -89,6 +90,10 @@ public class SingleEffectRenderersFactory
     else if (effect instanceof ReviveEffect)
     {
       return new ReviveEffectRenderer();
+    }
+    else if (effect instanceof PipEffect)
+    {
+      return new PipEffectRenderer();
     }
     return new DefaultEffectRenderer();
   }

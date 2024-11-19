@@ -152,6 +152,9 @@ Ferocious Roar
 Fast
 Skill Type: Any Form
 Let out a battle cry, causing you to rapidly gain Wrath.
+Every 1 second:
++5 Wrath
+Duration: 5s
 Adds 5 to Wrath
 Cooldown: 30s
 *****************************
