@@ -20,8 +20,6 @@ Calling upon the spirit of Helm Hammerhand, you infuse your blow to admonish the
 Corruption Removal
 3 024 - 4 032 Beleriand (Main-hand) Damage
 Removes 1 tier of up to 3 different Corruption effects from the target.
-2,5% Melee Damage
-Duration: 20s
 Cost: 21 Power
 Cooldown: 15s
 *****************************
@@ -36,8 +34,6 @@ This strike catches the enemy unawares, leaving them breathless and interrupting
 Interrupts
 3 634 - 4 845 Beleriand (Main-hand) Damage
 Interrupts Inductions
-2,5% Melee Damage
-Duration: 20s
 Cost: 25 Power
 Cooldown: 22s
 *****************************
@@ -52,8 +48,6 @@ A crushing head-butt that can stun an opponent into insensibility.
 Stuns
 2 575 - 3 433 Beleriand (Main-hand) Damage
 3s Stun
-2,5% Melee Damage
-Duration: 20s
 Cost: 25 Power
 Cost: 3 Mettle
 Cooldown: 30s
@@ -70,8 +64,6 @@ Reduces target armour
 2 520 - 3 360 Beleriand (Main-hand) Damage
 -3% Tactical Mitigation (%)
 -3% Physical Mitigation (%)
-Duration: 20s
-109 Finesse
 Duration: 20s
 Cost: 25 Power
 Cost: 3 Mettle
@@ -102,8 +94,6 @@ Unleash a flurry of blows.
 666 - 951 Beleriand Damage every 0,5 seconds.
 10% Pummel Damage
 Expires if out of combat for 9 seconds.
-109 Finesse
-Duration: 20s
 Cost: 30 Power
 Cost: 3 Mettle
 Channelled Skill
@@ -163,8 +153,6 @@ You slam your gauntlets into the ground with incredible force, creating a shockw
 1 589 - 2 118 Beleriand (Main-hand) Damage
 50% chance to apply:
 2s KnockedDown
-91 Critical Rating
-Duration: 20s
 Cost: 38 Power
 Cost: 3 Mettle
 Cooldown: 15s
@@ -179,8 +167,6 @@ You bring your knee up in a sudden strike.
 2 137 - 2 849 Beleriand (Main-hand) Damage
 -30% Target Run Speed
 Duration: 15s
-2,5% Melee Damage
-Duration: 20s
 Cost: 21 Power
 Cost: 3 Mettle
 Cooldown: 10s
@@ -195,8 +181,6 @@ Skill Type: Melee, Finisher, Quick
 Range: 7,0m
 A wide back-handed smash that may catch multiple enemies with its force.
 2 027 - 2 703 Beleriand (Main-hand) Damage
-2,5% Melee Damage
-Duration: 20s
 Cost: 30 Power
 Cost: 3 Mettle
 Cooldown: 5s
@@ -212,8 +196,6 @@ Strike your foe with preternatural force.
 This skill consumes all your Mettle, but deals 15% bonus damage for each point of Mettle it consumes.
 This bonus damage stacks with Battle Flow.
 2 055 - 2 739 Beleriand (Main-hand) Damage
-91 Critical Rating
-Duration: 20s
 Cost: 38 Power
 Requires at least 3 Mettle
 Cooldown: 20s
@@ -228,8 +210,6 @@ Skill Type: Melee, Finisher, Heavy
 Range: 7,0m
 A powerful uppercut.
 3 342 - 4 456 Beleriand (Main-hand) Damage
-91 Critical Rating
-Duration: 20s
 Cost: 30 Power
 Cost: 3 Mettle
 Cooldown: 10s
@@ -244,8 +224,6 @@ Using one 'Joy of Battle' skill will trigger the cooldown for both 'Joy of Battl
 Gain a stacking damage buff with every attack you make, up to a maximum of 10 stacks.
 -20% Incoming Damage
 Expires if out of combat for 9 seconds.
-1% Melee Damage
-Duration: 20s
 Duration: 15s
 Cost: 30 Power
 Cost: 3 Mettle
@@ -318,8 +296,6 @@ Range: 4m
 A quick strike best used on hale adversaries.
 Target must have greater than 80% of their maximum health.
 3 491 - 4 655 Beleriand (Main-hand) Damage
-109 Finesse
-Duration: 20s
 Cost: 17 Power
 Cooldown: 8s
 *****************************

@@ -129,11 +129,6 @@ This skill deals greater damage but costs more power with each subsequent use.
 2 Attacks:
 2 856 - 3 808 Beleriand (Main-hand) Damage
 4 080 - 5 440 Beleriand (Main-hand) Damage
-40% Gallant Display Power Cost
-40% Gallant Display Morale Cost
-30% Gallant Display Healing
-30% Gallant Display Damage
-Duration: 12s
 Cost: 162 Power
 Applied to self on critical:
 +6% Melee Damage
@@ -457,8 +452,6 @@ Calls forth the Standard of War, dealing damage to enemies while enhancing the a
 Duration: 15s
 Attacks apply a stacking Critical Hit chance buff.
 Expires if out of combat for 9 seconds.
-+1% Critical Hit Chance
-Duration: 5s
 20% Melee Damage
 20% Ranged Damage
 20% Tactical Damage

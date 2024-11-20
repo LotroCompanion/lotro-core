@@ -14,7 +14,11 @@ public class TieredEffectRenderer extends AbstractSingleEffectRenderer<TieredEff
   @Override
   public void render(List<String> storage, TieredEffect tieredEffect)
   {
-    EffectGenerator firstTier=tieredEffect.getTiers().get(0);
-    displayEffect(storage,firstTier.getEffect());
+    boolean doIt=tieredEffect.isShowInExamination();
+    if (doIt)
+    {
+      EffectGenerator firstTier=tieredEffect.getTiers().get(0);
+      displayEffect(storage,firstTier.getEffect());
+    }
   }
 }

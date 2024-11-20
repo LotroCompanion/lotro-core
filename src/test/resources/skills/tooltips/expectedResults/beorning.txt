@@ -99,8 +99,6 @@ You maul the enemy with your sharp claws. Subsequent attacks deal more damage.
 2 Attacks:
 65 - 87 Common (Main-hand) Damage
 37 - 49 Common (Off-hand) Damage
-Thrash now has increased Damage.
-Duration: 4s
 Adds 5 to Wrath
 Cooldown: 0,3s
 *****************************

@@ -172,10 +172,6 @@ Deals slight damage and grants you the Provacateur buff, greatly reducing damage
 
 Does more damage if used from in Stealth.
 4 813 - 6 418 Beleriand (Main-hand) Damage
-Expires if out of combat for 9 seconds.
-(1 time) On Melee Skill,Ranged Skill,Tactical Skill damage:
-Negate 50% damage
-Duration: 10s
 +20% Skill Crit Chance
 Duration: 10s
 Cost: 32 Power
