@@ -11,7 +11,7 @@ public class TieredEffect extends InstantEffect
 {
   private List<EffectGenerator> _tiers;
   private EffectGenerator _finalTier;
-  // Effect_TierUp_ShowInExamination: 1
+  private boolean _showInExamination;
 
   /**
    * Constructor.
@@ -55,5 +55,23 @@ public class TieredEffect extends InstantEffect
   public void setFinalTier(EffectGenerator generator)
   {
     _finalTier=generator;
+  }
+
+  /**
+   * Indicates if this effect shall be displayed in tooltips.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean isShowInExamination()
+  {
+    return _showInExamination;
+  }
+
+  /**
+   * Set the 'show in examination' flag.
+   * @param showInExamination Value to set.
+   */
+  public void setShowInExamination(boolean showInExamination)
+  {
+    _showInExamination=showInExamination;
   }
 }

@@ -288,6 +288,11 @@ public class EffectXMLWriter
       VitalOverTimeEffect vitalOverTimeEffect=(VitalOverTimeEffect)effect;
       writeBaseVitalEffectAttributes(attrs,vitalOverTimeEffect);
     }
+    else if (effect instanceof TieredEffect)
+    {
+      TieredEffect tieredEffect=(TieredEffect)effect;
+      writeTieredEffectAttributes(attrs,tieredEffect);
+    }
     else if (effect instanceof AreaEffect)
     {
       AreaEffect areaEffect=(AreaEffect)effect;
@@ -531,6 +536,16 @@ public class EffectXMLWriter
     {
       String damageTypeStr=String.valueOf(damageType.getCode());
       attrs.addAttribute("","",EffectXMLConstants.BASE_VITAL_EFFECT_DAMAGE_TYPE_ATTR,XmlWriter.CDATA,damageTypeStr);
+    }
+  }
+
+  private void writeTieredEffectAttributes(AttributesImpl attrs, TieredEffect tieredEffect)
+  {
+    // Show in Examination
+    boolean showInExamination=tieredEffect.isShowInExamination();
+    if (showInExamination)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.TIERED_SHOW_IN_EXAMINATION_ATTR,XmlWriter.CDATA,String.valueOf(showInExamination));
     }
   }
 

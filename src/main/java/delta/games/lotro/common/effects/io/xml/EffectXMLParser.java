@@ -663,6 +663,9 @@ public class EffectXMLParser
       EffectGenerator finalTierEffect=readEffectGenerator(finalTierTag);
       ret.setFinalTier(finalTierEffect);
     }
+    // Show in Examination
+    boolean showInExamination=DOMParsingTools.getBooleanAttribute(root.getAttributes(),EffectXMLConstants.TIERED_SHOW_IN_EXAMINATION_ATTR,false);
+    ret.setShowInExamination(showInExamination);
     return ret;
   }
 

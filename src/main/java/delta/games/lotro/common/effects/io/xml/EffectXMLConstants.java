@@ -390,6 +390,10 @@ public class EffectXMLConstants
    */
   public static final String TIERED_EFFECT_TAG="tieredEffect";
   /**
+   * Tag 'tieredEffect', attribute 'showInExamination'.
+   */
+  public static final String TIERED_SHOW_IN_EXAMINATION_ATTR="showInExamination";
+  /**
    * Tag 'tierUp'.
    */
   public static final String TIERED_TIER_UP_TAG="tierUp";
