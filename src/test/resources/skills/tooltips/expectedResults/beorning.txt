@@ -114,6 +114,7 @@ A savage attack that deals damage to your enemy, interrupting their action. Prov
 2 Attacks:
 70 - 94 Common (Main-hand) Damage
 51 - 68 Common (Off-hand) Damage
+Interrupts Inductions
 Cost: 10 Wrath
 Cooldown: 12s
 *****************************

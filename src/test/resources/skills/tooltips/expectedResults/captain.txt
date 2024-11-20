@@ -453,6 +453,7 @@ Radius: 7m
 Skill Type: Light, Buff
 Range: 40m
 Calls forth the Standard of War, dealing damage to enemies while enhancing the attacks of nearby allies.
+6 978 Light Damage
 Duration: 15s
 Attacks apply a stacking Critical Hit chance buff.
 Expires if out of combat for 9 seconds.
