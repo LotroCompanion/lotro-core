@@ -57,7 +57,7 @@ The potency of Rune-keepers' writings is not hindered by repetition. This skill 
 7 415 - 10 593 Lightning Damage
 Cost: 16 Power
 Attunes: 1 (battle)
-Cooldown: 0,2s
+Cooldown: 0,3s
 *****************************
 Skill-Id: 1879272269
 Fulgurite Rune-stone

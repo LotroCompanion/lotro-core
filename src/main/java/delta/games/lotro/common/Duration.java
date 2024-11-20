@@ -246,7 +246,7 @@ public class Duration
     float seconds=duration-minutes*MINUTE;
     if (seconds>0)
     {
-      sb.append(L10n.getString(seconds,1)).append('s');
+      sb.append(L10n.getString(seconds+0.0001,1)).append('s'); // To round .x5 to higher .y (e.g 0.25->0.3)
     }
     return sb.toString();
   }
