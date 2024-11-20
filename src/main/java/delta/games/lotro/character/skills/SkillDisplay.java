@@ -216,7 +216,8 @@ public class SkillDisplay
     }
     // Channeling duration
     Float channelingDuration=_skillDetails.getChannelingDuration();
-    if ((channelingDuration!=null) && (channelingDuration.floatValue()>0))
+    boolean channeled=_skillDetails.isChanneled();
+    if (channeled)
     {
       table.add("Channel Duration: "+L10n.getString(channelingDuration.floatValue(),1)+"s");
     }
@@ -284,7 +285,7 @@ public class SkillDisplay
     }
     // Misc
     boolean isToggle=_skillDetails.getFlag(SkillFlags.IS_TOGGLE);
-    if ((channelingDuration!=null) && (channelingDuration.floatValue()>0))
+    if (channeled)
     {
       table.add("Channelled Skill");
     }
@@ -573,7 +574,8 @@ public class SkillDisplay
 
   private void handleEffect(DamageQualifier damageQualifier, SkillEffectGenerator generator, Effect effect, List<String> storage)
   {
-    _effectsDisplay.handleEffect(damageQualifier,generator,effect,storage);
+    boolean channeled=_skillDetails.isChanneled();
+    _effectsDisplay.handleEffect(damageQualifier,generator,effect,channeled,storage);
   }
 
   private List<String> getCostLines()

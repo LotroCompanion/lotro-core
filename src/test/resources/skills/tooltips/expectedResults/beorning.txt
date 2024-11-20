@@ -195,7 +195,6 @@ You rear up and begin to thrash violently, dealing damage to all enemies in fron
 Every 1 second:
 Effects applied to enemies within 5 metres:
 38 - 42 Damage
-Duration: 1s
 On Use:
 You become immune to all combat states.
 Cost: 20 Wrath

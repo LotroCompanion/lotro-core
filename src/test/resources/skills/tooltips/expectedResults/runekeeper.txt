@@ -85,7 +85,6 @@ This skill consumes 1 attunement per second.
 Requires Battle Attunement.
 Every 1 second:
 17 882 - 19 869 Fire Damage
-Duration: 1s
 Cost: 254 Power
 Cost: 96 Power Per Second
 Channelled Skill

@@ -31,13 +31,19 @@ public class SkillEffectsDisplay
    * @param damageQualifier Damage qualifier.
    * @param generator Effect generator.
    * @param effect Effect.
+   * @param channeled Channeled skill or not.
    * @param storage Storage for generated text.
    */
-  public void handleEffect(DamageQualifier damageQualifier, SkillEffectGenerator generator, Effect effect, List<String> storage)
+  public void handleEffect(DamageQualifier damageQualifier, SkillEffectGenerator generator, Effect effect, boolean channeled, List<String> storage)
   {
     int level=_character.getLevel();
     EffectRenderingEngine engine=new EffectRenderingEngine(level);
     EffectRenderingContext context=engine.getContext();
+    EffectRenderingState state=engine.getState();
+    if (channeled)
+    {
+      state.setDurationDisplayed();
+    }
     context.setCharacter(_character);
     context.setStatValueProvider(_character);
     context.setDamageQualifier(damageQualifier);

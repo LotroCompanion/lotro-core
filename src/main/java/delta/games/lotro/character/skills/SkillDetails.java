@@ -159,6 +159,15 @@ public class SkillDetails implements Identifiable,Named
   }
 
   /**
+   * Indicates if this is a channeled skill or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isChanneled()
+  {
+    return ((_channelingDuration!=null) && (_channelingDuration.floatValue()>0));
+  }
+
+  /**
    * Get the skill cooldown.
    * @return A cooldown (seconds) or <code>null</code>.
    */
