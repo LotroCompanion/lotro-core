@@ -46,6 +46,7 @@ class SkillTooltipGenerationTest
     testBurglar();
     testBrawler();
     testBeorning();
+    testWarden();
   }
 
   private void doTest(String characterFile, int[] skillIDs)
@@ -386,6 +387,33 @@ class SkillTooltipGenerationTest
       1879311258, // Rush
     };
     doTest("beorning.xml",skills);
+  }
+
+  private void testWarden()
+  {
+    int[] skills={
+      // Page 1
+      1879140874, // Recovery
+      1879140873, // Quick Recovery
+      1879231253, // Quick Toss
+      1879457563, // The Way of the Spear
+      1879132211, // Hampering Javelin
+      1879109316, // Ambush
+      1879231254, // Behind the Shield
+      1879231250, // Warden's Aim
+      1879115212, // Forced March
+      1879132256, // Careful Step
+      1879138134, // Gambit Default
+      1879228140, // Battle Preparation
+      1879287380, // First Aid
+      1879286677, // Steadfast
+      1879368191, // Shield-slam
+      1879270299, // In the Fray - Stance
+      1879270300, // Assailment - Stance
+      1879132056, // Muster in Esteldín
+      1879132038, // Muster in Ost Guruth
+    };
+    doTest("warden.xml",skills);
   }
 
   private List<String> doSkill(int id, CharacterData data)

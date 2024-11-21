@@ -1,0 +1,206 @@
+*****************************
+Skill-Id: 1879140874
+Recovery
+Fast
+Even Wardens can make mistakes.
+
+This skill resets the Gambit Panel.
+Cost: 1 Power
+Clears All Gambits
+Cooldown: 2s
+*****************************
+Skill-Id: 1879140873
+Quick Recovery
+Fast
+Allows Gambit change mid-stroke.
+
+This skill removes the last Gambit from the Gambit Panel.
+Cost: 1 Power
+Clears 1 Gambit
+Cooldown: 0,1s
+*****************************
+Skill-Id: 1879231253
+Quick Toss
+Fast
+Ranged Skill
+Skill Type: Builder
+Range: 30m
+A fast ranged toss.
+25 - 33 Common (Ranged) Damage
+Cost: 1 Power
+Adds: Javelin
+Cooldown: 0,5s
+*****************************
+Skill-Id: 1879457563
+The Way of the Spear
+Fast
+Skill Type: Buff
+Wardens know that the surest path to victory is relying on the basics.
+
+This skill changes to match the type of the last gambit used.
+
+The Way of the Spear will consume all your Advanced Technique to improve your initial hit damage for a brief time.
++0% Gambit Initial Hit Damage
+Duration: 10s
+Cost: 3 Power
+Cooldown: 10s
+*****************************
+Skill-Id: 1879132211
+Hampering Javelin
+Fast
+Ranged Skill
+Range: 30m
+Javelins can pierce body parts or equipment and slow the target until the javelin can be removed.
+24 - 32 Common (Ranged) Damage
+-30% Target Run Speed
+Duration: 20s
+Cost: 2 Power
+Cooldown: 20s
+*****************************
+Skill-Id: 1879109316
+Ambush
+Fast
+Ranged Skill
+Induction: 1,5s
+Range: 30m
+When given time to prepare, a Warden can deliver a powerful opening volley.
+
+<rgb=#00FFDD>Mounted Combat Enemies: Knockout replaced with a mount turn rate debuff</rgb>
+35 - 47 Common (Ranged) Damage
+5s KnockedOut
+50% Run Speed
+Duration: 5s
+Cost: 3 Power
+Cooldown: 30s
+*****************************
+Skill-Id: 1879231254
+Behind the Shield
+Fast
+Ranged Skill
+Skill Type: Builder
+Range: 30m
+A quick throw from behind a shield.
+22 - 29 Common (Ranged) Damage
+Cost: 1 Power
+Adds: Shield
+Cooldown: 0,5s
+*****************************
+Skill-Id: 1879231250
+Warden's Aim
+Fast
+Ranged Skill
+Resistance: Cry
+Skill Type: Builder
+Range: 30m
+A well-aimed javelin throw.
+24 - 32 Common (Ranged) Damage
+Cost: 1 Power
+Adds: Fist
+Cooldown: 0,5s
+*****************************
+Skill-Id: 1879115212
+Forced March
+Fast
+Boosts non-combat movement speed.
+38% Out of Combat Run Speed
+Cost: 1 Power
+Toggle Skill
+Cooldown: 1,5s
+*****************************
+Skill-Id: 1879132256
+Careful Step
+Fast
+Induction: 1,9s
+Move in stealth briefly.
+
+Facilitates ability to Ambush.
+-50% Run Speed
+Duration: 20s
+Cost: 1 Power
+Cooldown: 3m
+*****************************
+Skill-Id: 1879138134
+Gambit Default
+Fast
+Melee Skill
+Range: 30m
+This skill updates to the correct Gambit as icons are added to the Gambit display.
+
+If no Gambit matches the current display, this skill will do a minor melee attack and clear the display.
+2 Common (Main-hand) Damage
+Requires: an active Gambit
+Clears All Gambits
+Cooldown: 0,1s
+*****************************
+Skill-Id: 1879228140
+Battle Preparation
+Fast
+Allows the Warden to build Gambits before starting a fight.
+You are preparing for battle.
+Duration: 15s
+*****************************
+Skill-Id: 1879287380
+First Aid
+Fast
+Skill Type: Heal
+Some basic curative knowledge allows you to remove a single poison, disease, wound, or fear from yourself.
+Removes up to 1 Disease, Wound, Fear, Poison effect with maximum strength of 40 from the target.
+Cost: 2 Power
+Cooldown: 5s
+*****************************
+Skill-Id: 1879286677
+Steadfast
+Fast
+This will free you from any Combat State.
+Shake off Dazes, Stuns, Roots, and Fellowship Manoeuvre Stuns. Recover from being Knocked Down but not from Dread and Full Immobilize.
+Cost: 1 Power
+Cooldown: 1m
+*****************************
+Skill-Id: 1879368191
+Shield-slam
+Immediate
+Melee Skill
+Range: 4m
+Slams your shield into the foe, interrupting inductions.
+10 - 13 Common (Main-hand) Damage
+Interrupts Inductions
+Cost: 1 Power
+Cooldown: 20s
+*****************************
+Skill-Id: 1879270299
+In the Fray - Stance
+Fast
+Skill Type: Stance
+Adjusts stance to deal with enemies in melee combat.
+(Only one Stance may be active at a time.)
+Enter your melee combat stance.
+-10% Attack Duration
+Toggle Skill
+Cooldown: 1s
+*****************************
+Skill-Id: 1879270300
+Assailment - Stance
+Fast
+Skill Type: Stance
+Adjusts stance to attack from afar.
+
+All Spear generating gambits and gambit masteries now generate a Javelin icon.
+
+All spear gambits now require a javelin instead of a spear, and several gambits become ranged.
+
+(Only one Stance may be active at a time.)
+Enter your ranged combat stance.
+Toggle Skill
+Cooldown: 1s
+*****************************
+Skill-Id: 1879132056
+Muster in Esteldín
+Induction: 9,7s
+Allows the Warden to travel to Esteldín in the North Downs.
+Cost: 3 Power
+*****************************
+Skill-Id: 1879132038
+Muster in Ost Guruth
+Induction: 9,7s
+Allows the Warden to travel to Ost Guruth in the Lone-lands.
+Cost: 3 Power
