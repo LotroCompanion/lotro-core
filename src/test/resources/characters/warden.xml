@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?><character version="1100" name="Tahldeth" level="35" date="1732174882942">
+<characterSummary id="02080000002DC978" name="Tahldeth" server="Landroval" account="glorfindel666" subscription="FPPW4D9YZ4XREC2LNRLFW73WC" class="Warden" race="elf" sex="FEMALE" level="35" rank="0" nationalityCode="11" region="Mirkwood" kinshipID="0C08000108047427" importDate="1732174877238"/>
+<stats>
+<stat name="MORALE" value="58070"/>
+<stat name="POWER" value="6500"/>
+<stat name="ARMOUR" value="16700"/>
+<stat name="MIGHT" value="2900"/>
+<stat name="AGILITY" value="5600"/>
+<stat name="VITALITY" value="6500"/>
+<stat name="WILL" value="400"/>
+<stat name="FATE" value="3200"/>
+<stat name="CRITICAL_RATING" value="15576"/>
+<stat name="CRITICAL_MELEE_PERCENTAGE" value="502"/>
+<stat name="CRITICAL_RANGED_PERCENTAGE" value="502"/>
+<stat name="CRITICAL_TACTICAL_PERCENTAGE" value="502"/>
+<stat name="DEVASTATE_MELEE_PERCENTAGE" value="153"/>
+<stat name="DEVASTATE_RANGED_PERCENTAGE" value="153"/>
+<stat name="DEVASTATE_TACTICAL_PERCENTAGE" value="153"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_MELEE_PERCENTAGE" value="778"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_RANGED_PERCENTAGE" value="778"/>
+<stat name="CRIT_DEVASTATE_MAGNITUDE_TACTICAL_PERCENTAGE" value="778"/>
+<stat name="FINESSE" value="7938"/>
+<stat name="FINESSE_PERCENTAGE" value="779"/>
+<stat name="PHYSICAL_MASTERY" value="30792"/>
+<stat name="MELEE_DAMAGE_PERCENTAGE" value="7447"/>
+<stat name="RANGED_DAMAGE_PERCENTAGE" value="7447"/>
+<stat name="TACTICAL_MASTERY" value="1150"/>
+<stat name="TACTICAL_DAMAGE_PERCENTAGE" value="316"/>
+<stat name="OUTGOING_HEALING" value="24150"/>
+<stat name="OUTGOING_HEALING_PERCENTAGE" value="1448"/>
+<stat name="RESISTANCE" value="400"/>
+<stat name="RESISTANCE_PERCENTAGE" value="28"/>
+<stat name="CRITICAL_DEFENCE" value="10971"/>
+<stat name="MELEE_CRITICAL_DEFENCE" value="1689"/>
+<stat name="RANGED_CRITICAL_DEFENCE" value="1689"/>
+<stat name="TACTICAL_CRITICAL_DEFENCE" value="1689"/>
+<stat name="INCOMING_HEALING_PERCENTAGE" value="0"/>
+<stat name="BLOCK" value="14100"/>
+<stat name="BLOCK_PERCENTAGE" value="346"/>
+<stat name="PARTIAL_BLOCK_PERCENTAGE" value="395"/>
+<stat name="PARTIAL_BLOCK_MITIGATION_PERCENTAGE" value="553"/>
+<stat name="PARRY" value="5900"/>
+<stat name="PARRY_PERCENTAGE" value="153"/>
+<stat name="PARTIAL_PARRY_PERCENTAGE" value="171"/>
+<stat name="PARTIAL_PARRY_MITIGATION_PERCENTAGE" value="239"/>
+<stat name="EVADE" value="100"/>
+<stat name="EVADE_PERCENTAGE" value="3"/>
+<stat name="PARTIAL_EVADE_PERCENTAGE" value="3"/>
+<stat name="PARTIAL_EVADE_MITIGATION_PERCENTAGE" value="4"/>
+<stat name="PHYSICAL_MITIGATION" value="22900"/>
+<stat name="PHYSICAL_MITIGATION_PERCENTAGE" value="2399"/>
+<stat name="OCFW_MITIGATION" value="3340"/>
+<stat name="OCFW_MITIGATION_PERCENTAGE" value="405"/>
+<stat name="TACTICAL_MITIGATION" value="11153"/>
+<stat name="TACTICAL_MITIGATION_PERCENTAGE" value="1273"/>
+<stat name="FIRE_MITIGATION_PERCENTAGE" value="1273"/>
+<stat name="LIGHTNING_MITIGATION_PERCENTAGE" value="1273"/>
+<stat name="FROST_MITIGATION_PERCENTAGE" value="1273"/>
+<stat name="ACID_MITIGATION_PERCENTAGE" value="1273"/>
+<stat name="SHADOW_MITIGATION_PERCENTAGE" value="1273"/>
+<stat name="OCMR" value="60924"/>
+<stat name="ICMR" value="16380"/>
+<stat name="OCPR" value="25440"/>
+<stat name="ICPR" value="28794"/>
+<stat name="RANGED_DEFENCE_PERCENTAGE" descriptionOverride="+10% Ranged Defence" value="-1000"/>
+<stat name="ATTACK_DURATION_PERCENTAGE" value="-1000"/>
+<stat name="JEWELLER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Jeweller Critical Chance" value="2000"/>
+<stat name="COOK_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Cook Critical Chance" value="2000"/>
+<stat name="SCHOLAR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Scholar Critical Chance" value="2000"/>
+<stat name="TAILOR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Tailor Critical Chance" value="2000"/>
+<stat name="METALSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Metalsmith Critical Chance" value="2000"/>
+<stat name="WEAPONSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Weaponsmith Critical Chance" value="2000"/>
+<stat name="WOODWORKER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Woodworker Critical Chance" value="2000"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-3s Prospector Mining Duration" value="-300"/>
+<stat name="FARMER_MINING_DURATION" descriptionOverride="-3s Farmer Harvesting Duration" value="-300"/>
+<stat name="FORESTER_CHOPPING_DURATION" descriptionOverride="-3s Forester Chopping Duration" value="-300"/>
+<stat name="SCHOLAR_RESEARCHING_DURATION" descriptionOverride="-3s Scholar Researching Duration" value="-300"/>
+<stat name="PERCEIVED_THREAT" descriptionOverride="-" value="-5000"/>
+<stat name="ALL_SKILL_INDUCTION" value="-300"/>
+<stat name="Skill_AutoAttack_BlockChance" descriptionOverride="-" value="-500"/>
+<stat name="Combat_WeaponDamageMultiplier_1HClub" value="600"/>
+<stat name="Trait_Virtue_Rank_Determination" value="100"/>
+<stat name="Combat_WeaponDamageMultiplier_1HSword" value="600"/>
+<stat name="XP_AwardMultiplier" descriptionOverride="+${PERCENTVALUE} Experience Gain on Monster Kills and Crafting" value="2500"/>
+<stat name="Resist_Additional_Resistance_Disease" value="100"/>
+<stat name="Resist_Additional_Resistance_Poison" value="100"/>
+<stat name="Trait_Virtue_Rank_Discipline" value="300"/>
+<stat name="Skill_DaggerAutoAttackCriticalHitChance" descriptionOverride="Wield: 1% Auto-attack Critical Hit Chance" value="100"/>
+<stat name="Combat_WeaponDamageMultiplier_Spear" value="1100"/>
+<stat name="Gambit_GambitIconCountMax" descriptionOverride="The ability to execute Gambits with 4 icons" value="400"/>
+<stat name="Skill_ToHitBonus_Warden_Swords" value="300"/>
+<stat name="Skill_ProcRate_Warden_SpearDot" descriptionOverride="The inherent bleed damage from Spears happens much more often." value="400"/>
+<stat name="Skill_Duration_Warden_ClubDebuff" descriptionOverride="The duration of the inherent club attack speed debuff is increased by ${VALUE} seconds" value="800"/>
+<stat name="Skill_DamageMultiplier_Warden_SpearDot" descriptionOverride="Damage from intrinsic spear bleeds is multiplied by ${VALUE}." value="100000"/>
+<stat name="Skill_ProcRate_Warden_ClubDebuff" descriptionOverride="The inherent attack speed debuff from Clubs happens much more often." value="200"/>
+<stat name="Effect_Self_Revive_Cooldown" descriptionOverride="Increases duration of Revived effect to 1 hour." value="180000"/>
+<stat name="Trait_BonusDoTDamage_TerribleVisage" value="500"/>
+<stat name="Skill_Warden_PersevereHeal" descriptionOverride="-" value="-6500"/>
+<stat name="Skill_Warden_MoraleTapDamage" descriptionOverride="-" value="-2500"/>
+</stats>
+<equipment>
+<equipmentSlot name="HEAD">
+<item key="1879151267" name="Flared Metal Helm" instanceId="03080003EB0D5F03" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="ARMOUR" value="700"/>
+</defautStats>
+<resultStats>
+<stat name="ARMOUR" value="700"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BREAST">
+<item key="1879152062" name="Mended Dwarf-make Leather Tunic" instanceId="03080003EB145117" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="ARMOUR" value="2400"/>
+</defautStats>
+<resultStats>
+<stat name="ARMOUR" value="2400"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEGS">
+<item key="1879152060" name="Mended Dwarf-make Leather Trousers" instanceId="03080003EB16DDB3" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="ARMOUR" value="2000"/>
+</defautStats>
+<resultStats>
+<stat name="ARMOUR" value="2000"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="HANDS">
+<item key="1879152059" name="Mended Dwarf-make Leather Gloves" instanceId="03080003EB145149" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="ARMOUR" value="1200"/>
+</defautStats>
+<resultStats>
+<stat name="ARMOUR" value="1200"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="FEET">
+<item key="1879152055" name="Mended Dwarf-make Leather Shoes" instanceId="03080003EB14F590" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="ARMOUR" value="1000"/>
+</defautStats>
+<resultStats>
+<stat name="ARMOUR" value="1000"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="SHOULDER">
+<item key="1879152057" name="Mended Leather Shoulderpads" instanceId="03080003EB152531" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="ARMOUR" value="700"/>
+</defautStats>
+<resultStats>
+<stat name="ARMOUR" value="700"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="BACK">
+<item key="1879151307" name="Woven Cloak" instanceId="03080003EB14F68C" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="100"/>
+<stat name="ARMOUR" value="1600"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="100"/>
+<stat name="ARMOUR" value="1600"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_WRIST">
+<item key="1879226225" name="Bracelet of the Hart" instanceId="0308000416A11BE0" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="700"/>
+<stat name="VITALITY" value="800"/>
+<stat name="AGILITY" value="1100"/>
+<stat name="CRITICAL_RATING" value="2488"/>
+<stat name="Trait_Virtue_Rank_Discipline" value="100"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="700"/>
+<stat name="VITALITY" value="800"/>
+<stat name="AGILITY" value="1100"/>
+<stat name="CRITICAL_RATING" value="2488"/>
+<stat name="Trait_Virtue_Rank_Discipline" value="100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_WRIST">
+<item key="1879226185" name="Gemmed Bracelet of the Rabbit" instanceId="03080004048787BA" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="1400"/>
+<stat name="VITALITY" value="900"/>
+<stat name="ICPR" value="4794"/>
+<stat name="MORALE" value="2240"/>
+<stat name="Trait_Virtue_Rank_Determination" value="100"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="1400"/>
+<stat name="VITALITY" value="900"/>
+<stat name="ICPR" value="4794"/>
+<stat name="MORALE" value="2240"/>
+<stat name="Trait_Virtue_Rank_Determination" value="100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_FINGER">
+<item key="1879226109" name="Tarnished Ring of the Hart" instanceId="0308000457A85F11" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="400"/>
+<stat name="VITALITY" value="300"/>
+<stat name="AGILITY" value="400"/>
+<stat name="PHYSICAL_MASTERY" value="963"/>
+<stat name="Trait_Virtue_Rank_Discipline" value="100"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="400"/>
+<stat name="VITALITY" value="300"/>
+<stat name="AGILITY" value="400"/>
+<stat name="PHYSICAL_MASTERY" value="963"/>
+<stat name="Trait_Virtue_Rank_Discipline" value="100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RIGHT_FINGER">
+<item key="1879151458" name="Copper Band" instanceId="03080003EB16E278" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="100"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="LEFT_EAR">
+<item key="1879226142" name="Earring of the Hart" instanceId="030A0007012F656E" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="MIGHT" value="1000"/>
+<stat name="VITALITY" value="600"/>
+<stat name="AGILITY" value="500"/>
+<stat name="CRITICAL_RATING" value="2488"/>
+<stat name="PHYSICAL_MASTERY" value="2620"/>
+<stat name="Trait_Virtue_Rank_Discipline" value="100"/>
+</defautStats>
+<resultStats>
+<stat name="MIGHT" value="1000"/>
+<stat name="VITALITY" value="600"/>
+<stat name="AGILITY" value="500"/>
+<stat name="CRITICAL_RATING" value="2488"/>
+<stat name="PHYSICAL_MASTERY" value="2620"/>
+<stat name="Trait_Virtue_Rank_Discipline" value="100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="POCKET">
+<item key="1879276086" name="Token of the Hornburg" instanceId="03080003EB145078" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="FATE" value="1100"/>
+<stat name="VITALITY" value="400"/>
+<stat name="FINESSE" value="3188"/>
+<stat name="TACTICAL_MITIGATION" value="1613"/>
+<stat name="XP_AwardMultiplier" descriptionOverride="+${PERCENTVALUE} Experience Gain on Monster Kills and Crafting" value="2500"/>
+</defautStats>
+<resultStats>
+<stat name="FATE" value="1100"/>
+<stat name="VITALITY" value="400"/>
+<stat name="FINESSE" value="3188"/>
+<stat name="TACTICAL_MITIGATION" value="1613"/>
+<stat name="XP_AwardMultiplier" descriptionOverride="+${PERCENTVALUE} Experience Gain on Monster Kills and Crafting" value="2500"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="MAIN_MELEE">
+<item key="1879225895" name="Weakened Dagger of the Nimble" instanceId="0308000457A85EED" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="AGILITY" value="400"/>
+<stat name="CRITICAL_RATING" value="650"/>
+<stat name="PHYSICAL_MASTERY" value="600"/>
+<stat name="Skill_DaggerAutoAttackCriticalHitChance" descriptionOverride="Wield: 1% Auto-attack Critical Hit Chance" value="100"/>
+</defautStats>
+<resultStats>
+<stat name="AGILITY" value="400"/>
+<stat name="CRITICAL_RATING" value="650"/>
+<stat name="PHYSICAL_MASTERY" value="600"/>
+<stat name="Skill_DaggerAutoAttackCriticalHitChance" descriptionOverride="Wield: 1% Auto-attack Critical Hit Chance" value="100"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="OTHER_MELEE">
+<item key="1879147896" name="Shield of the Southern March" instanceId="030A000873923ACC" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="VITALITY" value="100"/>
+<stat name="MIGHT" value="100"/>
+<stat name="ARMOUR" value="7100"/>
+<stat name="RANGED_DEFENCE_PERCENTAGE" descriptionOverride="+10% Ranged Defence" value="-1000"/>
+<stat name="CRITICAL_DEFENCE" value="6071"/>
+</defautStats>
+<resultStats>
+<stat name="VITALITY" value="100"/>
+<stat name="MIGHT" value="100"/>
+<stat name="ARMOUR" value="7100"/>
+<stat name="RANGED_DEFENCE_PERCENTAGE" descriptionOverride="+10% Ranged Defence" value="-1000"/>
+<stat name="CRITICAL_DEFENCE" value="6071"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="RANGED">
+<item key="1879225991" name="Crafted Javelin of Seeking" instanceId="030800041DE09146" boundTo="02080000002DC978">
+<stats mode="AUTO">
+<defautStats>
+<stat name="ALL_SKILL_INDUCTION" value="-300"/>
+<stat name="PHYSICAL_MASTERY" value="2460"/>
+<stat name="Skill_AutoAttack_BlockChance" descriptionOverride="-" value="-500"/>
+</defautStats>
+<resultStats>
+<stat name="ALL_SKILL_INDUCTION" value="-300"/>
+<stat name="PHYSICAL_MASTERY" value="2460"/>
+<stat name="Skill_AutoAttack_BlockChance" descriptionOverride="-" value="-500"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+<equipmentSlot name="TOOL">
+<item key="1879257276" name="Universal Toolkit" durability="38" instanceId="03080003CF293262" boundTo="08FF00000005FA91">
+<stats mode="AUTO">
+<defautStats>
+<stat name="WEAPONSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Weaponsmith Critical Chance" value="2000"/>
+<stat name="WOODWORKER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Woodworker Critical Chance" value="2000"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-3s Prospector Mining Duration" value="-300"/>
+<stat name="TAILOR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Tailor Critical Chance" value="2000"/>
+<stat name="COOK_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Cook Critical Chance" value="2000"/>
+<stat name="SCHOLAR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Scholar Critical Chance" value="2000"/>
+<stat name="JEWELLER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Jeweller Critical Chance" value="2000"/>
+<stat name="FARMER_MINING_DURATION" descriptionOverride="-3s Farmer Harvesting Duration" value="-300"/>
+<stat name="FORESTER_CHOPPING_DURATION" descriptionOverride="-3s Forester Chopping Duration" value="-300"/>
+<stat name="METALSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Metalsmith Critical Chance" value="2000"/>
+<stat name="SCHOLAR_RESEARCHING_DURATION" descriptionOverride="-3s Scholar Researching Duration" value="-300"/>
+</defautStats>
+<resultStats>
+<stat name="WEAPONSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Weaponsmith Critical Chance" value="2000"/>
+<stat name="WOODWORKER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Woodworker Critical Chance" value="2000"/>
+<stat name="PROSPECTOR_MINING_DURATION" descriptionOverride="-3s Prospector Mining Duration" value="-300"/>
+<stat name="TAILOR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Tailor Critical Chance" value="2000"/>
+<stat name="COOK_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Cook Critical Chance" value="2000"/>
+<stat name="SCHOLAR_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Scholar Critical Chance" value="2000"/>
+<stat name="JEWELLER_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Jeweller Critical Chance" value="2000"/>
+<stat name="FARMER_MINING_DURATION" descriptionOverride="-3s Farmer Harvesting Duration" value="-300"/>
+<stat name="FORESTER_CHOPPING_DURATION" descriptionOverride="-3s Forester Chopping Duration" value="-300"/>
+<stat name="METALSMITH_CRIT_CHANCE_PERCENTAGE" descriptionOverride="+20% Metalsmith Critical Chance" value="2000"/>
+<stat name="SCHOLAR_RESEARCHING_DURATION" descriptionOverride="-3s Scholar Researching Duration" value="-300"/>
+</resultStats>
+</stats>
+</item>
+</equipmentSlot>
+</equipment>
+<virtues>
+<virtue id="CHARITY" rank="0"/>
+<virtue id="COMPASSION" rank="0"/>
+<virtue id="CONFIDENCE" rank="0"/>
+<virtue id="DETERMINATION" rank="0"/>
+<virtue id="DISCIPLINE" rank="0"/>
+<virtue id="EMPATHY" rank="0"/>
+<virtue id="FIDELITY" rank="0"/>
+<virtue id="FORTITUDE" rank="0"/>
+<virtue id="HONESTY" rank="0"/>
+<virtue id="HONOUR" rank="0"/>
+<virtue id="IDEALISM" rank="0"/>
+<virtue id="INNOCENCE" rank="0"/>
+<virtue id="JUSTICE" rank="0"/>
+<virtue id="LOYALTY" rank="0"/>
+<virtue id="MERCY" rank="0"/>
+<virtue id="PATIENCE" rank="0"/>
+<virtue id="TOLERANCE" rank="0"/>
+<virtue id="VALOUR" rank="0"/>
+<virtue id="WISDOM" rank="0"/>
+<virtue id="WIT" rank="0"/>
+<virtue id="ZEAL" rank="0"/>
+</virtues>
+<tomes>
+<tome stat="MIGHT" rank="0"/>
+<tome stat="AGILITY" rank="0"/>
+<tome stat="VITALITY" rank="0"/>
+<tome stat="WILL" rank="0"/>
+<tome stat="FATE" rank="0"/>
+</tomes>
+<traitTreeStatus treeId="1879272149" branch="36" totalPoints="27"/>
+<racialTraitsStatus>
+<slot index="0"/>
+<slot index="1"/>
+<slot index="2"/>
+<slot index="3"/>
+</racialTraitsStatus>
+<buffs/>
+</character>
