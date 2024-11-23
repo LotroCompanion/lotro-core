@@ -595,7 +595,10 @@ public class EffectXMLWriter
     {
       // Adjustment type
       PipAdjustmentType adjustmentType=pipEffect.getAdjustmentType();
-      attrs.addAttribute("","",EffectXMLConstants.PIP_ADJUSTMENT_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(adjustmentType.getCode()));
+      if (adjustmentType!=null)
+      {
+        attrs.addAttribute("","",EffectXMLConstants.PIP_ADJUSTMENT_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(adjustmentType.getCode()));
+      }
       // Amount
       int amount=pipEffect.getAmount();
       attrs.addAttribute("","",EffectXMLConstants.PIP_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(amount));

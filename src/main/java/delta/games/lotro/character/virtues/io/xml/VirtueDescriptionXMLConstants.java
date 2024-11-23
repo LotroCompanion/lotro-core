@@ -32,6 +32,10 @@ public class VirtueDescriptionXMLConstants
    */
   public static final String VIRTUE_MAX_RANK_PROGRESSION_ATTR="maxRankProgression";
   /**
+   * Tag 'virtue', attribute 'passivesEffect'.
+   */
+  public static final String VIRTUE_PASSIVES_EFFECT_ATTR="passivesEffect";
+  /**
    * Tag 'virtue', attribute 'rankStatKey'.
    */
   public static final String VIRTUE_RANK_STAT_KEY_ATTR="rankStatKey";
@@ -57,8 +61,4 @@ public class VirtueDescriptionXMLConstants
    * Tag 'activeStats'.
    */
   public static final String ACTIVE_STATS_TAG="activeStats";
-  /**
-   * Tag 'passiveStats'.
-   */
-  public static final String PASSIVE_STATS_TAG="passiveStats";
 }

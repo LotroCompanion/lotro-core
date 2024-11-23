@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import delta.games.lotro.character.traits.TraitDescription;
+import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -16,7 +17,7 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class VirtueDescription extends TraitDescription
 {
-  private StatsProvider _passives;
+  private PropertyModificationEffect _passives;
   private Progression _maxRankForCharacterLevel;
   private String _rankStatKey;
   private String _xpPropertyName;
@@ -27,7 +28,6 @@ public class VirtueDescription extends TraitDescription
    */
   public VirtueDescription()
   {
-    _passives=new StatsProvider();
     _maxRankForCharacterLevel=null;
     _rankStatKey=null;
     _xpPropertyName=null;
@@ -49,21 +49,30 @@ public class VirtueDescription extends TraitDescription
   }
 
   /**
-   * Get the stats provider for passives.
-   * @return the stats provider for passives.
+   * Get the passives effect.
+   * @return An effect.
    */
-  public StatsProvider getPassiveStatsProvider()
+  public PropertyModificationEffect getPassivesEffect()
   {
     return _passives;
   }
 
   /**
-   * Set the stats provider for passives.
-   * @param stats Provider to set.
+   * Set the passives effect.
+   * @param passives Effect to set.
    */
-  public void setPassiveStatsProvider(StatsProvider stats)
+  public void setPassivesEffect(PropertyModificationEffect passives)
   {
-    _passives=stats;
+    _passives=passives;
+  }
+
+  /**
+   * Get the stats provider for passives.
+   * @return the stats provider for passives.
+   */
+  public StatsProvider getPassiveStatsProvider()
+  {
+    return (_passives!=null)?_passives.getStatsProvider():null;
   }
 
   /**

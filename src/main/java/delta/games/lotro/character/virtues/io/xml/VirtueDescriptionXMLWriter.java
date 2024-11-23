@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -81,16 +82,18 @@ public class VirtueDescriptionXMLWriter
       int progressionId=progression.getIdentifier();
       attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_MAX_RANK_PROGRESSION_ATTR,XmlWriter.CDATA,String.valueOf(progressionId));
     }
-
+    // Passives
+    PropertyModificationEffect passivesEffect=virtue.getPassivesEffect();
+    if (passivesEffect!=null)
+    {
+      int passivesEffectId=passivesEffect.getIdentifier();
+      attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_PASSIVES_EFFECT_ATTR,XmlWriter.CDATA,String.valueOf(passivesEffectId));
+    }
     hd.startElement("","",VirtueDescriptionXMLConstants.VIRTUE_TAG,attrs);
     // Active stats
     hd.startElement("","",VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG,new AttributesImpl());
     StatsProviderXMLWriter.writeXml(hd,virtue.getStatsProvider());
     hd.endElement("","",VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG);
-    // Passive stats
-    hd.startElement("","",VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG,new AttributesImpl());
-    StatsProviderXMLWriter.writeXml(hd,virtue.getPassiveStatsProvider());
-    hd.endElement("","",VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG);
     // XP table
     List<Integer> tiers=virtue.getTiers();
     for(Integer tier : tiers)

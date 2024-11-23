@@ -14,6 +14,9 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.EffectsManager;
+import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.progression.ProgressionsManager;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
 import delta.games.lotro.utils.i18n.I18nFacade;
@@ -104,8 +107,12 @@ public class VirtueDescriptionXMLParser
     Element activeStatsTag=DOMParsingTools.getChildTagByName(root,VirtueDescriptionXMLConstants.ACTIVE_STATS_TAG);
     StatsProviderXMLParser.parseStatsProvider(activeStatsTag,virtue.getStatsProvider(),_i18n);
     // Passive stats
-    Element passiveStatsTag=DOMParsingTools.getChildTagByName(root,VirtueDescriptionXMLConstants.PASSIVE_STATS_TAG);
-    StatsProviderXMLParser.parseStatsProvider(passiveStatsTag,virtue.getPassiveStatsProvider(),null);
+    Integer passivesEffectId=DOMParsingTools.getIntegerAttribute(attrs,VirtueDescriptionXMLConstants.VIRTUE_PASSIVES_EFFECT_ATTR,null);
+    if (passivesEffectId!=null)
+    {
+      Effect passivesEffect=EffectsManager.getInstance().getEffectById(passivesEffectId.intValue());
+      virtue.setPassivesEffect((PropertyModificationEffect)passivesEffect);
+    }
     // XP table
     List<Element> xpTags=DOMParsingTools.getChildTagsByName(root,VirtueDescriptionXMLConstants.XP_TAG);
     for(Element xpTag : xpTags)
