@@ -16,6 +16,7 @@ import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
+import delta.games.lotro.common.effects.AuraEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.BubbleEffect;
 import delta.games.lotro.common.effects.ComboEffect;
@@ -45,6 +46,7 @@ import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
+import delta.games.lotro.common.enums.EffectAuraType;
 import delta.games.lotro.common.enums.LotroEnumEntry;
 import delta.games.lotro.common.enums.PipAdjustmentType;
 import delta.games.lotro.common.enums.PipType;
@@ -127,6 +129,7 @@ public class EffectXMLWriter
     if (effect instanceof ApplyOverTimeEffect) return EffectXMLConstants.APPLY_OVER_TIME_EFFECT_TAG;
     if (effect instanceof ReviveEffect) return EffectXMLConstants.REVIVE_EFFECT_TAG;
     if (effect instanceof PipEffect) return EffectXMLConstants.PIP_EFFECT_TAG;
+    if (effect instanceof AuraEffect) return EffectXMLConstants.AURA_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -302,6 +305,11 @@ public class EffectXMLWriter
     {
       PipEffect pipEffect=(PipEffect)effect;
       writePipEffectAttributes(attrs,pipEffect);
+    }
+    else if (effect instanceof AuraEffect)
+    {
+      AuraEffect auraEffect=(AuraEffect)effect;
+      writeAuraEffectAttributes(attrs,auraEffect);
     }
   }
 
@@ -611,6 +619,19 @@ public class EffectXMLWriter
     }
   }
 
+  private void writeAuraEffectAttributes(AttributesImpl attrs, AuraEffect auraEffect)
+  {
+    // Type
+    EffectAuraType type=auraEffect.getType();
+    attrs.addAttribute("","",EffectXMLConstants.AURA_EFFECT_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type.getCode()));
+    // Should affect caster
+    boolean shouldAffectCaster=auraEffect.shouldAffectCaster();
+    if (!shouldAffectCaster)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.AURA_SHOULD_AFFECT_CASTER_ATTR,XmlWriter.CDATA,String.valueOf(shouldAffectCaster));
+    }
+  }
+
   private void writeChildTags(TransformerHandler hd, Effect effect) throws SAXException
   {
     if (effect instanceof GenesisEffect)
@@ -689,6 +710,11 @@ public class EffectXMLWriter
     {
       ReviveEffect reviveEffect=(ReviveEffect)effect;
       writeReviveEffectTags(hd,reviveEffect);
+    }
+    else if (effect instanceof AuraEffect)
+    {
+      AuraEffect auraEffect=(AuraEffect)effect;
+      writeAuraEffectTags(hd,auraEffect);
     }
   }
 
@@ -1032,6 +1058,14 @@ public class EffectXMLWriter
     for(Proxy<Effect> proxy : reviveEffect.getReviveEffects())
     {
       writeEffectProxyTag(hd,EffectXMLConstants.EFFECT_TAG,proxy);
+    }
+  }
+
+  private void writeAuraEffectTags(TransformerHandler hd, AuraEffect auraEffect) throws SAXException
+  {
+    for(EffectGenerator generator : auraEffect.getAppliedEffects())
+    {
+      writeEffectGenerator(hd,generator);
     }
   }
 

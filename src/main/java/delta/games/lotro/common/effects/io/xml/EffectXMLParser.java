@@ -17,6 +17,7 @@ import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
 import delta.games.lotro.common.effects.AreaEffect;
+import delta.games.lotro.common.effects.AuraEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.BubbleEffect;
 import delta.games.lotro.common.effects.ComboEffect;
@@ -46,6 +47,7 @@ import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
+import delta.games.lotro.common.enums.EffectAuraType;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.PipAdjustmentType;
@@ -201,6 +203,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.PIP_EFFECT_TAG.equals(tagName))
     {
       ret=parsePipEffect(root);
+    }
+    else if (EffectXMLConstants.AURA_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseAuraEffect(root);
     }
     else
     {
@@ -828,6 +834,28 @@ public class EffectXMLParser
       String modifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.PIP_AMOUNT_MODIFIERS_ATTR,null);
       ModPropertyList modifiers=ModPropertyListIO.fromPersistedString(modifiersStr);
       ret.setAmountModifiers(modifiers);
+    }
+    return ret;
+  }
+
+  private AuraEffect parseAuraEffect(Element root)
+  {
+    AuraEffect ret=new AuraEffect();
+    NamedNodeMap attrs=root.getAttributes();
+    // Aura type
+    LotroEnum<EffectAuraType> typeEnum=LotroEnumsRegistry.getInstance().get(EffectAuraType.class);
+    int typeCode=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.AURA_EFFECT_TYPE_ATTR,0);
+    EffectAuraType type=typeEnum.getEntry(typeCode);
+    ret.setType(type);
+    // Should affect caster
+    boolean shouldAffectCaster=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.AURA_SHOULD_AFFECT_CASTER_ATTR,true);
+    ret.setShouldAffectCaster(shouldAffectCaster);
+    // Generators
+    List<Element> generatorTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.EFFECT_GENERATOR_TAG);
+    for(Element generatorTag : generatorTags)
+    {
+      EffectGenerator generator=readEffectGenerator(generatorTag);
+      ret.addAppliedEffect(generator);
     }
     return ret;
   }

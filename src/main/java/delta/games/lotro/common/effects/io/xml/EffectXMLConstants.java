@@ -521,6 +521,19 @@ public class EffectXMLConstants
   public static final String PIP_AMOUNT_MODIFIERS_ATTR="amountMods";
 
   /**
+   * Tag 'auraEffect'.
+   */
+  public static final String AURA_EFFECT_TAG="auraEffect";
+  /**
+   * Tag 'auraEffect', attribute 'type'.
+   */
+  public static final String AURA_EFFECT_TYPE_ATTR="type";
+  /**
+   * Tag 'auraEffect', attribute 'shouldAffectCaster'.
+   */
+  public static final String AURA_SHOULD_AFFECT_CASTER_ATTR="shouldAffectCaster";
+
+  /**
    * Tag 'effect' (generator).
    */
   public static final String EFFECT_GENERATOR_TAG="effect";
