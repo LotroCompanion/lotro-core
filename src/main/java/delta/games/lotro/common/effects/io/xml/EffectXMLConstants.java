@@ -532,6 +532,14 @@ public class EffectXMLConstants
    * Tag 'auraEffect', attribute 'shouldAffectCaster'.
    */
   public static final String AURA_SHOULD_AFFECT_CASTER_ATTR="shouldAffectCaster";
+  /**
+   * Tag 'dispelEffect'.
+   */
+  public static final String DISPEL_EFFECT_TAG="dispelEffect";
+  /**
+   * Tag 'dispelEffect', attribute 'dispelCasters'.
+   */
+  public static final String DISPEL_EFFECT_DISPEL_CASTERS_ATTR="dispelCasters";
 
   /**
    * Tag 'effect' (generator).

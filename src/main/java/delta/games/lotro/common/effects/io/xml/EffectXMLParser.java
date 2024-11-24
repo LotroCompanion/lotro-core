@@ -23,6 +23,7 @@ import delta.games.lotro.common.effects.BubbleEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.CountDownEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
+import delta.games.lotro.common.effects.DispelEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectAndProbability;
 import delta.games.lotro.common.effects.EffectDuration;
@@ -207,6 +208,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.AURA_EFFECT_TAG.equals(tagName))
     {
       ret=parseAuraEffect(root);
+    }
+    else if (EffectXMLConstants.DISPEL_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseDispelEffect(root);
     }
     else
     {
@@ -856,6 +861,23 @@ public class EffectXMLParser
     {
       EffectGenerator generator=readEffectGenerator(generatorTag);
       ret.addAppliedEffect(generator);
+    }
+    return ret;
+  }
+
+  private DispelEffect parseDispelEffect(Element root)
+  {
+    DispelEffect ret=new DispelEffect();
+    NamedNodeMap attrs=root.getAttributes();
+    // Dispel casters?
+    boolean dispelCasters=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.DISPEL_EFFECT_DISPEL_CASTERS_ATTR,false);
+    ret.setDispelCasters(dispelCasters);
+    // Effects
+    List<Element> effectTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.EFFECT_TAG);
+    for(Element effectTag : effectTags)
+    {
+      Proxy<Effect> proxy=parseEffectProxy(effectTag);
+      ret.addEffect(proxy);
     }
     return ret;
   }

@@ -22,6 +22,7 @@ import delta.games.lotro.common.effects.BubbleEffect;
 import delta.games.lotro.common.effects.ComboEffect;
 import delta.games.lotro.common.effects.CountDownEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
+import delta.games.lotro.common.effects.DispelEffect;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectAndProbability;
 import delta.games.lotro.common.effects.EffectDuration;
@@ -130,6 +131,7 @@ public class EffectXMLWriter
     if (effect instanceof ReviveEffect) return EffectXMLConstants.REVIVE_EFFECT_TAG;
     if (effect instanceof PipEffect) return EffectXMLConstants.PIP_EFFECT_TAG;
     if (effect instanceof AuraEffect) return EffectXMLConstants.AURA_EFFECT_TAG;
+    if (effect instanceof DispelEffect) return EffectXMLConstants.DISPEL_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -310,6 +312,11 @@ public class EffectXMLWriter
     {
       AuraEffect auraEffect=(AuraEffect)effect;
       writeAuraEffectAttributes(attrs,auraEffect);
+    }
+    else if (effect instanceof DispelEffect)
+    {
+      DispelEffect dispelEffect=(DispelEffect)effect;
+      writeDispelEffectAttributes(attrs,dispelEffect);
     }
   }
 
@@ -632,6 +639,16 @@ public class EffectXMLWriter
     }
   }
 
+  private void writeDispelEffectAttributes(AttributesImpl attrs, DispelEffect dispelEffect)
+  {
+    // Dispel casters
+    boolean dispelCasters=dispelEffect.isDispelCasters();
+    if (dispelCasters)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.DISPEL_EFFECT_DISPEL_CASTERS_ATTR,XmlWriter.CDATA,String.valueOf(dispelCasters));
+    }
+  }
+
   private void writeChildTags(TransformerHandler hd, Effect effect) throws SAXException
   {
     if (effect instanceof GenesisEffect)
@@ -715,6 +732,11 @@ public class EffectXMLWriter
     {
       AuraEffect auraEffect=(AuraEffect)effect;
       writeAuraEffectTags(hd,auraEffect);
+    }
+    else if (effect instanceof DispelEffect)
+    {
+      DispelEffect dispelEffect=(DispelEffect)effect;
+      writeDispelEffectTags(hd,dispelEffect);
     }
   }
 
@@ -1066,6 +1088,14 @@ public class EffectXMLWriter
     for(EffectGenerator generator : auraEffect.getAppliedEffects())
     {
       writeEffectGenerator(hd,generator);
+    }
+  }
+
+  private void writeDispelEffectTags(TransformerHandler hd, DispelEffect dispelEffect) throws SAXException
+  {
+    for(Proxy<Effect> proxy : dispelEffect.getEffects())
+    {
+      writeEffectProxyTag(hd,EffectXMLConstants.EFFECT_TAG,proxy);
     }
   }
 
