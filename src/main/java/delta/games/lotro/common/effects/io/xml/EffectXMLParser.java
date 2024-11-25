@@ -36,6 +36,8 @@ import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
+import delta.games.lotro.common.effects.RandomEffect;
+import delta.games.lotro.common.effects.RandomEffectGenerator;
 import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
@@ -212,6 +214,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.DISPEL_EFFECT_TAG.equals(tagName))
     {
       ret=parseDispelEffect(root);
+    }
+    else if (EffectXMLConstants.RANDOM_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseRandomEffect(root);
     }
     else
     {
@@ -882,6 +888,25 @@ public class EffectXMLParser
     return ret;
   }
 
+  private RandomEffect parseRandomEffect(Element root)
+  {
+    RandomEffect ret=new RandomEffect();
+    List<Element> effectTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.EFFECT_TAG);
+    for(Element effectTag : effectTags)
+    {
+      NamedNodeMap attrs=effectTag.getAttributes();
+      RandomEffectGenerator generator=new RandomEffectGenerator();
+      readEffectGenerator(attrs,generator);
+      // Weight
+      float weight=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_WEIGHT_ATTR,0);
+      generator.setWeight(weight);
+      // To caster
+      boolean toCaster=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_TO_CASTER_ATTR,false);
+      generator.setToCaster(toCaster); 
+    }
+    return ret;
+  }
+
   private Proxy<Effect> parseEffectProxy(Element root, String tagName)
   {
     Element tag=DOMParsingTools.getChildTagByName(root,tagName);
@@ -987,18 +1012,27 @@ public class EffectXMLParser
   private EffectGenerator readEffectGenerator(Element generatorTag)
   {
     NamedNodeMap attrs=generatorTag.getAttributes();
+    EffectGenerator ret=new EffectGenerator();
+    readEffectGenerator(attrs,ret);
+    return ret;
+  }
+
+  private void readEffectGenerator(NamedNodeMap attrs, EffectGenerator generator)
+  {
+    _toUpdate.add(generator);
+    // Effect
+    Effect effect=new Effect();
     int effectId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_ID_ATTR,0);
+    effect.setId(effectId);
+    generator.setEffect(effect);
+    // Spellcraft
     float spellcraftValue=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_SPELLCRAFT_ATTR,-1);
     Float spellcraft=null;
     if (spellcraftValue>0)
     {
       spellcraft=Float.valueOf(spellcraftValue);
     }
-    Effect effect=new Effect();
-    effect.setId(effectId);
-    EffectGenerator ret=new EffectGenerator(effect,spellcraft);
-    _toUpdate.add(ret);
-    return ret;
+    generator.setSpellcraft(spellcraft);
   }
 
   private void readPropertyMod(Element root, PropertyModificationEffect effect)

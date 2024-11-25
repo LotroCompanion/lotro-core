@@ -540,6 +540,18 @@ public class EffectXMLConstants
    * Tag 'dispelEffect', attribute 'dispelCasters'.
    */
   public static final String DISPEL_EFFECT_DISPEL_CASTERS_ATTR="dispelCasters";
+  /**
+   * Tag 'randomEffect'.
+   */
+  public static final String RANDOM_EFFECT_TAG="randomEffect";
+  /**
+   * Tag 'effect' (generator), attribute 'weight'.
+   */
+  public static final String EFFECT_GENERATOR_WEIGHT_ATTR="weight";
+  /**
+   * Tag 'effect' (generator), attribute 'doCaster'.
+   */
+  public static final String EFFECT_GENERATOR_TO_CASTER_ATTR="doCaster";
 
   /**
    * Tag 'effect' (generator).

@@ -10,6 +10,15 @@ public class EffectGenerator
   private Float _spellcraft;
 
   /**
+   * Default constructor.
+   */
+  public EffectGenerator()
+  {
+    _effect=null;
+    _spellcraft=null;
+  }
+
+  /**
    * Constructor.
    * @param effect Effect.
    * @param spellcraft Spellcraft value.
@@ -45,5 +54,14 @@ public class EffectGenerator
   public Float getSpellcraft()
   {
     return _spellcraft;
+  }
+
+  /**
+   * Set the spellcraft.
+   * @param spellcraft Spellcraft to set.
+   */
+  public void setSpellcraft(Float spellcraft)
+  {
+    _spellcraft=spellcraft;
   }
 }

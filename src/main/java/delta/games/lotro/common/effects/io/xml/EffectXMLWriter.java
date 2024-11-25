@@ -35,6 +35,8 @@ import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
+import delta.games.lotro.common.effects.RandomEffect;
+import delta.games.lotro.common.effects.RandomEffectGenerator;
 import delta.games.lotro.common.effects.ReactiveChange;
 import delta.games.lotro.common.effects.ReactiveVitalChange;
 import delta.games.lotro.common.effects.ReactiveVitalEffect;
@@ -132,6 +134,7 @@ public class EffectXMLWriter
     if (effect instanceof PipEffect) return EffectXMLConstants.PIP_EFFECT_TAG;
     if (effect instanceof AuraEffect) return EffectXMLConstants.AURA_EFFECT_TAG;
     if (effect instanceof DispelEffect) return EffectXMLConstants.DISPEL_EFFECT_TAG;
+    if (effect instanceof RandomEffect) return EffectXMLConstants.RANDOM_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -738,6 +741,11 @@ public class EffectXMLWriter
       DispelEffect dispelEffect=(DispelEffect)effect;
       writeDispelEffectTags(hd,dispelEffect);
     }
+    else if (effect instanceof RandomEffect)
+    {
+      RandomEffect randomEffect=(RandomEffect)effect;
+      writeRandomEffectTags(hd,randomEffect);
+    }
   }
 
   private void writeGenesisTags(TransformerHandler hd, GenesisEffect genesis) throws SAXException
@@ -1099,6 +1107,26 @@ public class EffectXMLWriter
     }
   }
 
+  private void writeRandomEffectTags(TransformerHandler hd, RandomEffect randomEffect) throws SAXException
+  {
+    for(RandomEffectGenerator generator : randomEffect.getEffects())
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      writeEffectGeneratorAttrs(attrs,generator);
+      // Weight
+      float weight=generator.getWeight();
+      attrs.addAttribute("","",EffectXMLConstants.EFFECT_GENERATOR_WEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(weight));
+      // To caster
+      boolean toCaster=generator.isToCaster();
+      if (toCaster)
+      {
+        attrs.addAttribute("","",EffectXMLConstants.EFFECT_GENERATOR_TO_CASTER_ATTR,XmlWriter.CDATA,String.valueOf(toCaster));
+      }
+      hd.startElement("","",EffectXMLConstants.EFFECT_TAG,attrs);
+      hd.endElement("","",EffectXMLConstants.EFFECT_TAG);
+    }
+  }
+
   private void writeEffectProxyTag(TransformerHandler hd, String tagName, Proxy<Effect> proxy) throws SAXException
   {
     if (proxy==null)
@@ -1132,6 +1160,13 @@ public class EffectXMLWriter
   public static void writeEffectGenerator(TransformerHandler hd, EffectGenerator generator, String tag) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
+    writeEffectGeneratorAttrs(attrs,generator);
+    hd.startElement("","",tag,attrs);
+    hd.endElement("","",tag);
+  }
+
+  private static void writeEffectGeneratorAttrs(AttributesImpl attrs, EffectGenerator generator)
+  {
     Effect effect=generator.getEffect();
     int id=effect.getIdentifier();
     attrs.addAttribute("","",EffectXMLConstants.EFFECT_GENERATOR_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
@@ -1145,8 +1180,6 @@ public class EffectXMLWriter
     {
       attrs.addAttribute("","",EffectXMLConstants.EFFECT_GENERATOR_SPELLCRAFT_ATTR,XmlWriter.CDATA,String.valueOf(spellcraft.floatValue()));
     }
-    hd.startElement("","",tag,attrs);
-    hd.endElement("","",tag);
   }
 
   private <T extends LotroEnumEntry> String serializeEnumList(List<T> enumList)
