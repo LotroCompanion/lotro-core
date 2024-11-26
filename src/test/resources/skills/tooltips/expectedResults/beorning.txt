@@ -55,7 +55,7 @@ Skill Type: Any Form
 Range: 20m
 Call forth a swarm of bees to attack your foe.
 151 - 201 Common (Main-hand) Damage
-30 - 43 Light Damage every 2,0 seconds for 12 seconds.
+44 - 63 Light Damage every 2,0 seconds for 12 seconds.
 -1% Physical Mitigation (%)
 Duration: 12s
 Cost: 10 Wrath
@@ -193,7 +193,7 @@ Skill Type: Bear Form
 You rear up and begin to thrash violently, dealing damage to all enemies in front of you.
 Every 1 second:
 Effects applied to enemies within 5 metres:
-38 - 42 Damage
+55 - 61 Damage
 On Use:
 You become immune to all combat states.
 Cost: 20 Wrath
