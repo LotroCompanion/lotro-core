@@ -319,6 +319,10 @@ public class DataFiles
    */
   public static final String ENUMS_DIR="enumsDir";
   /**
+   * Key for the enums directory file.
+   */
+  public static final String ENUMS_DIRECTORY_FILE="enumsDirectory";
+  /**
    * Billing groups file.
    */
   public static final String BILLING_GROUPS="billingGroups";
