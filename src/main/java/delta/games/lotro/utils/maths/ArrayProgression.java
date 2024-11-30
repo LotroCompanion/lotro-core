@@ -3,6 +3,8 @@ package delta.games.lotro.utils.maths;
 import java.util.function.Function;
 
 import delta.common.utils.NumericTools;
+import delta.games.lotro.values.codec.ValueReader;
+import delta.games.lotro.values.codec.ValueWriter;
 
 /**
  * Progression that uses predefined Y values for all supported X values.
@@ -10,14 +12,15 @@ import delta.common.utils.NumericTools;
  */
 public class ArrayProgression extends AbstractProgression implements Progression
 {
-  private static final Function<String,Number> PARSE_INT=NumericTools::parseInteger;
-  private static final Function<String,Number> PARSE_LONG=NumericTools::parseLong;
-  private static final Function<String,Number> PARSE_FLOAT=NumericTools::parseFloat;
+  private static final Function<String,Object> PARSE_INT=NumericTools::parseInteger;
+  private static final Function<String,Object> PARSE_LONG=NumericTools::parseLong;
+  private static final Function<String,Object> PARSE_FLOAT=NumericTools::parseFloat;
+  private static final Function<String,Object> PARSE_OTHER=ValueReader::read;
 
   private String _valueType;
   private int _minX;
-  private Number[] _yValues;
-  private Function<String,Number> _parsingFunction;
+  private Object[] _yValues;
+  private Function<String,Object> _parsingFunction;
 
   /**
    * Constructor.
@@ -32,7 +35,7 @@ public class ArrayProgression extends AbstractProgression implements Progression
     _valueType=valueType;
     _parsingFunction=getParseFunction(valueType);
     _minX=minX;
-    _yValues=new Number[size];
+    _yValues=new Object[size];
   }
 
   /**
@@ -67,7 +70,7 @@ public class ArrayProgression extends AbstractProgression implements Progression
    * @param index Point index, starting at 0.
    * @return A Y value.
    */
-  public Number getY(int index)
+  public Object getY(int index)
   {
     return _yValues[index];
   }
@@ -77,7 +80,7 @@ public class ArrayProgression extends AbstractProgression implements Progression
    * @param x X value to set.
    * @param y Y value to set.
    */
-  public void set(int x, Number y)
+  public void set(int x, Object y)
   {
     _yValues[x-_minX]=y;
   }
@@ -89,6 +92,21 @@ public class ArrayProgression extends AbstractProgression implements Progression
    * @throws IllegalArgumentException if x is below minX.
    */
   public Number getRawValue(int x)
+  {
+    Object value=getObjectValue(x);
+    if (value instanceof Number)
+    {
+      return (Number)value;
+    }
+    return null;
+  }
+
+  /**
+   * Get a raw Y value for a given X value. 
+   * @param x X value.
+   * @return A Y value (may not be a Number) or <code>null</code> if not supported.
+   */
+  public Object getObjectValue(int x)
   {
     int index=x-_minX;
     if (index<0)
@@ -105,23 +123,27 @@ public class ArrayProgression extends AbstractProgression implements Progression
   @Override
   public Float getValue(int x)
   {
-    Number value=getRawValue(x);
+    Object value=getObjectValue(x);
     if (value!=null)
     {
       if (value instanceof Float)
       {
         return (Float)value;
       }
-      return Float.valueOf(value.floatValue());
+      else if (value instanceof Number)
+      {
+        return Float.valueOf(((Number)value).floatValue());
+      }
     }
     return null;
   }
 
-  private static Function<String,Number> getParseFunction(String type)
+  private static Function<String,Object> getParseFunction(String type)
   {
     if (ArrayProgressionConstants.FLOAT.equals(type)) return PARSE_FLOAT;
     if (ArrayProgressionConstants.INTEGER.equals(type)) return PARSE_INT;
     if (ArrayProgressionConstants.LONG.equals(type)) return PARSE_LONG;
+    if (ArrayProgressionConstants.OTHER.equals(type)) return PARSE_OTHER;
     return null;
   }
 
@@ -130,9 +152,27 @@ public class ArrayProgression extends AbstractProgression implements Progression
    * @param valueStr Value to parse.
    * @return the parsed Number value.
    */
-  public Number parseValue(String valueStr)
+  public Object parseValue(String valueStr)
   {
     return _parsingFunction.apply(valueStr);
+  }
+
+  /**
+   * Get the persistence string for the given value.
+   * @param value Value to use.
+   * @return A persistene string (<code>null</code> if value is <code>null</code>).
+   */
+  public static String writeValue(Object value)
+  {
+    if (value==null)
+    {
+      return null;
+    }
+    if (value instanceof Number)
+    {
+      return value.toString();
+    }
+    return ValueWriter.write(value);
   }
 
   @Override

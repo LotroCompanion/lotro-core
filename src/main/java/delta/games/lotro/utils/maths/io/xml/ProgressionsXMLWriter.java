@@ -73,7 +73,7 @@ public class ProgressionsXMLWriter
    * @param progression Data to save.
    * @throws SAXException If an error occurs.
    */
-  private static void writeArrayProgression(TransformerHandler hd, final ArrayProgression progression) throws SAXException
+  private static void writeArrayProgression(TransformerHandler hd, ArrayProgression progression) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     int identifier=progression.getIdentifier();
@@ -94,13 +94,13 @@ public class ProgressionsXMLWriter
       attrs.addAttribute("","",ProgressionsXMLConstants.TYPE_ATTR,XmlWriter.CDATA,type);
     }
     hd.startElement("","",ProgressionsXMLConstants.ARRAY_PROGRESSION_TAG,attrs);
-    Number previousValue=progression.getY(0);
+    Object previousValue=progression.getY(0);
     int startX=minX;
     int endX=startX;
     for(int i=1;i<nbPoints;i++)
     {
       int x=minX+i;
-      Number y=progression.getY(i);
+      Object y=progression.getY(i);
       if (!Objects.equals(previousValue,y))
       {
         writeArrayProgressionItem(hd,endX-startX,previousValue);
@@ -113,14 +113,18 @@ public class ProgressionsXMLWriter
     hd.endElement("","",ProgressionsXMLConstants.ARRAY_PROGRESSION_TAG);
   }
 
-  private static void writeArrayProgressionItem(TransformerHandler hd, int count, Number value) throws SAXException
+  private static void writeArrayProgressionItem(TransformerHandler hd, int count, Object value) throws SAXException
   {
     AttributesImpl pointAttrs=new AttributesImpl();
     if (count>0)
     {
       pointAttrs.addAttribute("","",ProgressionsXMLConstants.COUNT_ATTR,XmlWriter.CDATA,String.valueOf(count+1));
     }
-    pointAttrs.addAttribute("","",ProgressionsXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(value));
+    String valueStr=ArrayProgression.writeValue(value);
+    if (valueStr!=null)
+    {
+      pointAttrs.addAttribute("","",ProgressionsXMLConstants.Y_ATTR,XmlWriter.CDATA,valueStr);
+    }
     hd.startElement("","",ProgressionsXMLConstants.POINT_TAG,pointAttrs);
     hd.endElement("","",ProgressionsXMLConstants.POINT_TAG);
   }

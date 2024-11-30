@@ -18,4 +18,8 @@ public class ArrayProgressionConstants
    * Long value type.
    */
   public static final String LONG="LONG";
+  /**
+   * Other value type.
+   */
+  public static final String OTHER="OTHER";
 }

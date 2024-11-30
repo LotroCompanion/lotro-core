@@ -105,7 +105,7 @@ public final class ProgressionSaxParser extends DefaultHandler
       else if (_arrayProgression!=null)
       {
         String yStr=attributes.getValue(ProgressionsXMLConstants.Y_ATTR);
-        Number y=_arrayProgression.parseValue(yStr);
+        Object y=_arrayProgression.parseValue(yStr);
         int count=SAXParsingTools.getIntAttribute(attributes,ProgressionsXMLConstants.COUNT_ATTR,1);
         for(int i=0;i<count;i++)
         {
