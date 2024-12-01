@@ -921,8 +921,12 @@ public class SkillDisplay
     TraitDescription trait=TraitsManager.getInstance().getTrait(traitID);
     if (trait!=null)
     {
-      String text="Requires: "+trait.getName()+" Trait Equipped";
-      storage.add(text);
+      boolean persistent=trait.isPersistent();
+      if (!persistent)
+      {
+        String text="Requires: "+trait.getName()+" Trait Equipped";
+        storage.add(text);
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 package delta.games.lotro.character.traits;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import delta.games.lotro.character.skills.SkillDescription;
@@ -22,6 +23,10 @@ import delta.games.lotro.utils.maths.ArrayProgression;
  */
 public class TraitDescription implements Identifiable,Named
 {
+  private static final int[] PERSISTENT_TRAIT_NATURES=new int[] {1, 0x0D, 0x0E, 0x13, 0x14, 0x15, 0x17, 0x18,
+      0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21
+  };
+
   /**
    * Trait identifier.
    */
@@ -561,6 +566,17 @@ public class TraitDescription implements Identifiable,Named
       cost+=rankCost;
     }
     return cost;
+  }
+
+  /**
+   * Indicates if this trait is 'persistent' or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isPersistent()
+  {
+    int natureCode=_traitNature.getCode();
+    int index=Arrays.binarySearch(PERSISTENT_TRAIT_NATURES,natureCode);
+    return (index>=0);
   }
 
   @Override

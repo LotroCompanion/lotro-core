@@ -536,4 +536,3 @@ Unable to evade.
 Unable to parry.
 Unable to block.
 Toggle Skill
-Requires: Riding Trait Equipped

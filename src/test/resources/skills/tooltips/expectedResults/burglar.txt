@@ -103,7 +103,6 @@ Being attacked will not break you out of Stealth.
 20% Burglar Skills Critical Multiplier
 Duration: 3s
 Cost: 222 Power
-Requires: Coup de Grâce Trait Equipped
 Cooldown: 30s
 *****************************
 Skill-Id: 1879061010
@@ -498,14 +497,12 @@ The Courser is a lightly armoured War-steed. Fast and agile, the Courser provide
 2 160 War-steed Strength
 3 240 War-steed Agility
 Toggle Skill
-Requires: Riding Trait Equipped
 *****************************
 Skill-Id: 1879062906
 Track Wood
 When active, nearby tree branches are displayed on the radar.
 Wood Tracking
 Toggle Skill
-Requires: Track Wood Trait Equipped
 Cooldown: 2s
 *****************************
 Skill-Id: 1879062867
@@ -513,5 +510,4 @@ Track Mines
 When active, nearby ore deposits are displayed on the radar.
 Mine Tracking
 Toggle Skill
-Requires: Track Mines Trait Equipped
 Cooldown: 2s
