@@ -29,6 +29,11 @@ public class InduceCombatStateEffectRenderer extends AbstractSingleEffectRendere
     }
     String text=L10n.getString(duration,1)+"s "+stateStr;
     storage.add(text);
+    if ((state!=null) && (state.getCode()==9))
+    {
+      // ConjunctionStunned
+      storage.add("Starts Fellowship Manoeuvre");
+    }
     // Break-out
     Float gracePeriod=effect.getGracePeriod();
     if (gracePeriod!=null)
