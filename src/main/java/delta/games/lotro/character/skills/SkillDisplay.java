@@ -58,7 +58,7 @@ public class SkillDisplay
   private EffectProperties _effectProperties;
 
   private static final SkillEffectType[] TYPES=new SkillEffectType[]{
-      SkillEffectType.TOGGLE,SkillEffectType.USER_TOGGLE,SkillEffectType.USER
+      SkillEffectType.USER,SkillEffectType.TOGGLE,SkillEffectType.USER_TOGGLE
   };
   private static final SkillEffectType[] TYPES_CRITICAL=new SkillEffectType[]{SkillEffectType.SELF_CRITICAL};
 

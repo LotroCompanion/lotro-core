@@ -66,8 +66,8 @@ Bear-form
 Fast
 Skill Type: Any Form
 Beornings can assume the form of a bear in the midst of combat.
-322 Critical Defence
 Removes the Disarmed effect.
+322 Critical Defence
 Adds 1 Wrath point every 3 seconds
 Toggle Skill
 Cooldown: 2s

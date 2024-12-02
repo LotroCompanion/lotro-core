@@ -91,9 +91,9 @@ Channel Duration: 3s
 Skill Type: Melee, Finisher, Balanced
 Range: 4m
 Unleash a flurry of blows.
-666 - 951 Beleriand Damage every 0,5 seconds.
 10% Pummel Damage
 Expires if out of combat for 9 seconds.
+666 - 951 Beleriand Damage every 0,5 seconds.
 Cost: 30 Power
 Cost: 3 Mettle
 Channelled Skill
