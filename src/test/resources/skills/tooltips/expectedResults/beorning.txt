@@ -193,7 +193,7 @@ Skill Type: Bear Form
 You rear up and begin to thrash violently, dealing damage to all enemies in front of you.
 Every 1 second:
 Effects applied to enemies within 5 metres:
-55 - 61 Damage
+112 - 125 Damage
 On Use:
 You become immune to all combat states.
 Cost: 20 Wrath

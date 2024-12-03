@@ -13,6 +13,7 @@ import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
 import delta.games.lotro.common.enums.DamageQualifier;
+import delta.games.lotro.common.enums.DamageQualifiers;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.stats.StatDescription;
@@ -235,11 +236,12 @@ public class VitalEffectsUtils
     }
     else if (implementUsage==ImplementUsageTypes.PRIMARY)
     {
-      if (damageQualifier!=null)
+      if (damageQualifier==null)
       {
-        qualifierValue=_attackComputer.getDamageQualifier(damageQualifier);
-        LOGGER.debug("Primary qualifier value: {}",Float.valueOf(qualifierValue));
+        damageQualifier=DamageQualifiers.MELEE;
       }
+      qualifierValue=_attackComputer.getDamageQualifier(damageQualifier);
+      LOGGER.debug("Primary qualifier value: {}",Float.valueOf(qualifierValue));
     }
     else if (implementUsage==ImplementUsageTypes.RANGED)
     {
