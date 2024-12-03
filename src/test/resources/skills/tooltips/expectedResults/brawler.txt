@@ -18,7 +18,7 @@ Range: 4m
 Calling upon the spirit of Helm Hammerhand, you infuse your blow to admonish the enemy's corruption.
 
 Corruption Removal
-3 024 - 4 032 Beleriand (Main-hand) Damage
+1 542 - 2 057 Beleriand (Main-hand) Damage
 Removes 1 tier of up to 3 different Corruption effects from the target.
 Cost: 21 Power
 Cooldown: 15s
@@ -32,7 +32,7 @@ Range: 4m
 This strike catches the enemy unawares, leaving them breathless and interrupting complex skills and manoeuvres.
 
 Interrupts
-3 634 - 4 845 Beleriand (Main-hand) Damage
+1 853 - 2 471 Beleriand (Main-hand) Damage
 Interrupts Inductions
 Cost: 25 Power
 Cooldown: 22s
@@ -46,7 +46,7 @@ Range: 4m
 A crushing head-butt that can stun an opponent into insensibility.
 
 Stuns
-2 575 - 3 433 Beleriand (Main-hand) Damage
+1 313 - 1 751 Beleriand (Main-hand) Damage
 3s Stun
 Cost: 25 Power
 Cost: 3 Mettle
@@ -61,7 +61,7 @@ Range: 4m
 Drive a devastating fist into your enemy's armour, leaving it broken and ineffective.
 
 Reduces target armour
-2 520 - 3 360 Beleriand (Main-hand) Damage
+1 285 - 1 714 Beleriand (Main-hand) Damage
 -3% Tactical Mitigation (%)
 -3% Physical Mitigation (%)
 Duration: 20s
@@ -78,7 +78,7 @@ Range: 4m
 A swift punch that generates Mettle.
 
 Low Set-up: If Low Strike is the most recent Set-up Attack used, the next damaging Mettle-spender will restore a substantial amount of Power.
-1 690 - 2 253 Beleriand (Main-hand) Damage
+862 - 1 149 Beleriand (Main-hand) Damage
 Cost: 9 Power
 Adds 2 to Mettle
 Cooldown: 1s
@@ -108,7 +108,7 @@ Range: 4m
 A quick hook that generates Mettle.
 
 Dextrous Set-up: If a Dextrous Hook is the most recent Set-up Attack used, the next Mettle Spender will deal 35% additional skill damage.
-1 690 - 2 253 Beleriand (Main-hand) Damage
+862 - 1 149 Beleriand (Main-hand) Damage
 Dextrous Set-up:
 The next Spender attack deals additional damage
 
@@ -150,7 +150,7 @@ Radius: 7m
 Skill Type: Melee, Finisher, Heavy
 Range: 7,2m
 You slam your gauntlets into the ground with incredible force, creating a shockwave to damage and possibly knock opponents down.
-1 589 - 2 118 Beleriand (Main-hand) Damage
+810 - 1 080 Beleriand (Main-hand) Damage
 50% chance to apply:
 2s KnockedDown
 Cost: 38 Power
@@ -164,7 +164,7 @@ Melee Skill
 Skill Type: Melee, Finisher, Quick
 Range: 4m
 You bring your knee up in a sudden strike.
-2 137 - 2 849 Beleriand (Main-hand) Damage
+1 090 - 1 453 Beleriand (Main-hand) Damage
 -30% Target Run Speed
 Duration: 15s
 Cost: 21 Power
@@ -180,7 +180,7 @@ Radius: 7m
 Skill Type: Melee, Finisher, Quick
 Range: 7,0m
 A wide back-handed smash that may catch multiple enemies with its force.
-2 027 - 2 703 Beleriand (Main-hand) Damage
+1 034 - 1 378 Beleriand (Main-hand) Damage
 Cost: 30 Power
 Cost: 3 Mettle
 Cooldown: 5s
@@ -195,7 +195,7 @@ Strike your foe with preternatural force.
 
 This skill consumes all your Mettle, but deals 15% bonus damage for each point of Mettle it consumes.
 This bonus damage stacks with Battle Flow.
-2 055 - 2 739 Beleriand (Main-hand) Damage
+1 048 - 1 397 Beleriand (Main-hand) Damage
 Cost: 38 Power
 Requires at least 3 Mettle
 Cooldown: 20s
@@ -209,7 +209,7 @@ Radius: 7m
 Skill Type: Melee, Finisher, Heavy
 Range: 7,0m
 A powerful uppercut.
-3 342 - 4 456 Beleriand (Main-hand) Damage
+1 704 - 2 273 Beleriand (Main-hand) Damage
 Cost: 30 Power
 Cost: 3 Mettle
 Cooldown: 10s
@@ -295,7 +295,7 @@ Skill Type: Melee, Finisher, Balanced
 Range: 4m
 A quick strike best used on hale adversaries.
 Target must have greater than 80% of their maximum health.
-3 491 - 4 655 Beleriand (Main-hand) Damage
+1 781 - 2 374 Beleriand (Main-hand) Damage
 Cost: 17 Power
 Cooldown: 8s
 *****************************
@@ -342,7 +342,7 @@ Head-butt
 Melee Skill
 Range: 2,5m
 Allows you to smash an enemy with your head for damage.
-5 131 Common Damage
+2 617 Common Damage
 There is a chance your opponent will be dazed by your combat prowess.
 3s Daze
 100% break chance on damage after 1s

@@ -56,8 +56,19 @@ public class CharacterDataForSkills implements StatValueProvider
    */
   public float getStat(StatDescription stat)
   {
+    return getStat(stat,0.0f);
+  }
+
+  /**
+   * Get a stat value for this character.
+   * @param stat Stat to use.
+   * @param defaultValue Default value.
+   * @return the stat value.
+   */
+  public float getStat(StatDescription stat, float defaultValue)
+  {
     Number value=_data.getStats().getStat(stat);
-    return (value!=null)?value.floatValue():0.0f;
+    return (value!=null)?value.floatValue():defaultValue;
   }
 
   /**

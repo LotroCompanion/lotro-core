@@ -82,6 +82,7 @@
 <stat name="Skill_Brawler_Throw_Damage" value="5000"/>
 <stat name="Skill_Brawler_KillprocMettle" value="100"/>
 <stat name="Skill_Brawler_FulgarantStrike_Damage" value="3500"/>
+<stat name="Combat_DamageQualifier_Melee_Offense_DifficultyMod" value="51"/>
 </stats>
 <equipment>
 <equipmentSlot name="HEAD">

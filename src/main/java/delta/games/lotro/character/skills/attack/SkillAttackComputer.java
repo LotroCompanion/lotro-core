@@ -104,6 +104,8 @@ public class SkillAttackComputer
     RatingCurveId curveId=RatingCurveId.DAMAGE; // TODO Use a specific curve for tactical damage?
     StatDescription ratingStat=WellKnownStat.PHYSICAL_MASTERY;
     StatDescription percentageStat=WellKnownStat.MELEE_DAMAGE_PERCENTAGE;
+    StatsRegistry statsRegistry=StatsRegistry.getInstance();
+    StatDescription offenceDifficultyMod=statsRegistry.getByKey("Combat_DamageQualifier_Melee_Offense_DifficultyMod");
 
     float baseDamageQualifier=classData.getBaseDamageForQualifier(damageQualifier);
     if (damageQualifier==DamageQualifiers.MELEE)
@@ -114,15 +116,18 @@ public class SkillAttackComputer
     {
       ratingStat=WellKnownStat.TACTICAL_MASTERY;
       percentageStat=WellKnownStat.TACTICAL_DAMAGE_PERCENTAGE;
+      offenceDifficultyMod=statsRegistry.getByKey("Combat_DamageQualifier_Ranged_Offense_DifficultyMod");
     }
     else if (damageQualifier==DamageQualifiers.RANGED)
     {
       percentageStat=WellKnownStat.RANGED_DAMAGE_PERCENTAGE;
+      offenceDifficultyMod=statsRegistry.getByKey("Combat_DamageQualifier_Magic_Offense_DifficultyMod");
     }
-    return getQualifier(ratingStat,percentageStat,curveId,baseDamageQualifier);
+    return getQualifier(ratingStat,percentageStat,offenceDifficultyMod,curveId,baseDamageQualifier);
   }
 
-  private float getQualifier(StatDescription ratingStat, StatDescription percentageStat, RatingCurveId curveId, float baseDamageQualifier)
+  private float getQualifier(StatDescription ratingStat, StatDescription percentageStat, 
+      StatDescription offenceDifficultyMod, RatingCurveId curveId, float baseDamageQualifier)
   {
     float rating=_character.getStat(ratingStat);
     int characterLevel=_character.getLevel();
@@ -138,6 +143,11 @@ public class SkillAttackComputer
     float bonusPercentageMultiplier=(1+percentageBonus/100);
     LOGGER.debug("Bonus % x: {}",Float.valueOf(bonusPercentageMultiplier));
     damageQualifier*=bonusPercentageMultiplier;
+
+    // Difficulty modifier
+    float difficultyModifier=_character.getStat(offenceDifficultyMod,1.0f);
+    damageQualifier*=difficultyModifier;
+
     return damageQualifier;
   }
 
