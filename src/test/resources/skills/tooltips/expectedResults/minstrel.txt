@@ -345,13 +345,13 @@ Boosts movement speed of nearby allies.
 3s Stun
 33% chance to apply:
 2 683 - 3 832 Light Damage every 3,0 seconds for 15 seconds.
-Effects applied to the Fellowship within 5 metres:
-Your Fellowship gains +10% Run Speed.
-Duration: 10s
 On application:
 10% chance to apply:
 Your Healing is temporarily unlocked for a single use on a friendly target.
 Duration: 10s
+Your Fellowship gains +10% Run Speed.
+Duration: 10s
+Effects applied to the Fellowship within 5 metres:
 Your Fellowship gains +10% Run Speed.
 Duration: 10s
 Cost: 202 Power

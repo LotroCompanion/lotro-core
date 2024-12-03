@@ -17,6 +17,7 @@ import delta.games.lotro.character.skills.attack.SkillAttackComputer;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.effects.EffectProperties;
 import delta.games.lotro.character.skills.effects.EffectsFromCharacterDataComputer;
+import delta.games.lotro.character.skills.effects.EffectsSorter;
 import delta.games.lotro.character.skills.geometry.Arc;
 import delta.games.lotro.character.skills.geometry.Shape;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
@@ -502,6 +503,7 @@ public class SkillDisplay
         ret.addAll(effects);
       }
     }
+    EffectsSorter.sortGenerators(typeEffectsMgr,ret);
     return ret;
   }
 

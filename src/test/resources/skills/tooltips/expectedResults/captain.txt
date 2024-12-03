@@ -388,6 +388,13 @@ Skill Type: Melee, Captain Heal
 Range: 4m
 A melee attack that restores a small amount of Power to your Blade-brother and increases their damage slightly.
 4 678 - 6 237 Beleriand (Main-hand) Damage
++5% Damage
+-3% All Skill Inductions
+-10% Attack Duration
+-5% Power Cost
+Duration: 18s
+Restores 281 Power initially.
+Restores 113 Power every 3,0 seconds for 18 seconds.
 Effects applied to your Blade-brother within 20 metres:
 +5% Damage
 -3% All Skill Inductions
@@ -401,13 +408,6 @@ Effects applied to the Fellowship within 20 metres:
 Duration: 18s
 Restores 168 Power initially.
 Restores 57 Power every 3,0 seconds for 18 seconds.
-+5% Damage
--3% All Skill Inductions
--10% Attack Duration
--5% Power Cost
-Duration: 18s
-Restores 281 Power initially.
-Restores 113 Power every 3,0 seconds for 18 seconds.
 Cost: 54 Power
 Applied to self on critical:
 +6% Melee Damage

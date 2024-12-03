@@ -311,10 +311,10 @@ Range: 15,2m
 Restores the power of your Fellows and increases your melee damage while slowing all enemies around you.
 Reduces target's Movement speed by 50%
 Duration: 12s
-Effects applied to the Fellowship within 15 metres:
-+720 - 800 Power
 10% Melee Damage
 Duration: 12s
+Effects applied to the Fellowship within 15 metres:
++720 - 800 Power
 Cost: 1 080 Power
 Cooldown: 2m
 *****************************
