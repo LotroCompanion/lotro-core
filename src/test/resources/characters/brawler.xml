@@ -83,6 +83,8 @@
 <stat name="Skill_Brawler_KillprocMettle" value="100"/>
 <stat name="Skill_Brawler_FulgarantStrike_Damage" value="3500"/>
 <stat name="Combat_DamageQualifier_Melee_Offense_DifficultyMod" value="51"/>
+<stat name="Combat_DamageQualifier_Ranged_Offense_DifficultyMod" value="51"/>
+<stat name="Combat_DamageQualifier_Magic_Offense_DifficultyMod" value="51"/>
 </stats>
 <equipment>
 <equipmentSlot name="HEAD">

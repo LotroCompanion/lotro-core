@@ -281,7 +281,7 @@ Ranged Skill
 Skill Type: Harmful
 Range: 25m
 Hurl an object at your foe.
-2 372 - 3 163 Beleriand (Main-hand) Damage
+1 210 - 1 613 Beleriand (Main-hand) Damage
 -30% Run Speed
 Duration: 8s
 Cost: 13 Power
