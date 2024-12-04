@@ -69,8 +69,8 @@ public class TraitSlotsStatus
   {
     if (index>=_traitIDs.length)
     {
-      int[] newTraitIDs=new int[index];
-      System.arraycopy(_traitIDs,0,newTraitIDs,0,index);
+      int[] newTraitIDs=new int[index+1];
+      System.arraycopy(_traitIDs,0,newTraitIDs,0,_traitIDs.length);
       _traitIDs=newTraitIDs;
     }
     _traitIDs[index]=traitID;
