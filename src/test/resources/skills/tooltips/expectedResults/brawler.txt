@@ -145,10 +145,10 @@ Skill-Id: 1879411777
 Mighty Upheaval
 Fast
 Melee Skill
-Max Targets: 3
-Radius: 7m
+Max Targets: 5
+Radius: 10m
 Skill Type: Melee, Finisher, Heavy
-Range: 7,2m
+Range: 10,2m
 You slam your gauntlets into the ground with incredible force, creating a shockwave to damage and possibly knock opponents down.
 810 - 1 080 Beleriand (Main-hand) Damage
 50% chance to apply:

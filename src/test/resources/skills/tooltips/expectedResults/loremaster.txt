@@ -49,7 +49,7 @@ Range: 30m
 Tearing winds cause frost damage in a small radius.
 
 <rgb=#ff0091>When traited in Nature's Fury, this skill has a chance to spread Burning Embers to nearby foes.</rgb>
-2 461 - 3 076 Frost Damage
+3 076 - 3 845 Frost Damage
 Effects applied to enemies within 5 metres:
 3 980 Frost Damage
 Cost: 64 Power

@@ -217,10 +217,10 @@ Routing Cry
 Fast
 Tactical Skill
 Max Targets: 5
-Radius: 7m
+Radius: 10m
 Resistance: Cry
 Skill Type: Light, Awareness
-Range: 7,2m
+Range: 10,2m
 Deals Light damage to nearby foes.
 
 This skill is more potent when used with a Defeat Event.
