@@ -127,16 +127,16 @@ public class Munging
     }
     Integer min=null;
     Integer max=null;
-    if (levelsStr.length()>0)
+    if (!levelsStr.isEmpty())
     {
       index=levelsStr.indexOf('-');
       String minStr=levelsStr.substring(0,index);
-      if (minStr.length()>0)
+      if (!minStr.isEmpty())
       {
         min=NumericTools.parseInteger(minStr);
       }
       String maxStr=levelsStr.substring(index+1);
-      if (maxStr.length()>0)
+      if (!maxStr.isEmpty())
       {
         max=NumericTools.parseInteger(maxStr);
       }
@@ -147,7 +147,7 @@ public class Munging
       progression=ProgressionsManager.getInstance().getProgression(progressionId.intValue());
       if (progression==null)
       {
-        LOGGER.warn("Progression not found: "+progressionId);
+        LOGGER.warn("Progression not found: {}", progressionId);
       }
     }
     return new Munging(propertyName,min,max,progression);

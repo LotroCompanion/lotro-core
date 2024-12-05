@@ -278,7 +278,7 @@ public class ItemXMLWriter
     UsageRequirementsXMLWriter.write(itemAttrs,item.getUsageRequirements());
     // Description
     String description=item.getDescription();
-    if ((description!=null) && (description.length()>0))
+    if ((description!=null) && (!description.isEmpty()))
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }

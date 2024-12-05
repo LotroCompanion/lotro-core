@@ -88,7 +88,7 @@ public class ClassRequirement
   public static ClassRequirement fromString(String input)
   {
     ClassRequirement ret=null;
-    if ((input!=null) && (input.length()>0))
+    if ((input!=null) && (!input.isEmpty()))
     {
       ret=new ClassRequirement();
       String[] classStrs=input.split(SEPARATOR);

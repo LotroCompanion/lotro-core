@@ -85,7 +85,7 @@ public class LegendaryTitleXMLWriter
     }
     // Name
     String name=title.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       titleAttrs.addAttribute("","",LegendaryTitleXMLConstants.TITLE_NAME_ATTR,XmlWriter.CDATA,name);
     }

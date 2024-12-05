@@ -79,7 +79,7 @@ public class EmoteXMLWriter
     }
     // Command
     String command=emote.getCommand();
-    if (command.length()>0)
+    if (!command.isEmpty())
     {
       emoteAttrs.addAttribute("","",EmoteXMLConstants.EMOTE_COMMAND_ATTR,XmlWriter.CDATA,command);
     }

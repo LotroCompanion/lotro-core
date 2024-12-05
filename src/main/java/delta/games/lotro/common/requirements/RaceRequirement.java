@@ -77,7 +77,7 @@ public class RaceRequirement
   public static RaceRequirement fromString(String input)
   {
     RaceRequirement ret=null;
-    if ((input!=null) && (input.length()>0))
+    if ((input!=null) && (!input.isEmpty()))
     {
       ret=new RaceRequirement();
       String[] raceStrs=input.split(SEPARATOR);

@@ -4,26 +4,25 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import delta.games.lotro.character.skills.SingleTypeSkillEffectsManager;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
-import delta.games.lotro.character.skills.SkillEffectType;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 
 /**
- * @author dm
+ * Utility methods to sort effects.
+ * @author DAM
  */
 public class EffectsSorter
 {
-  public static void sortGenerators(SingleTypeSkillEffectsManager typeEffectsMgr, List<SkillEffectGenerator> effects)
+  /**
+   * Sort some generators.
+   * @param effects Effects to sort.
+   */
+  public static void sortGenerators(List<SkillEffectGenerator> effects)
   {
-    SkillEffectType type=typeEffectsMgr.getType();
-    //if (type==SkillEffectType.USER)
+    if (effects.size()>1)
     {
-      if (effects.size()>1)
-      {
-        Collections.sort(effects,buildComparator());
-      }
+      Collections.sort(effects,buildComparator());
     }
   }
 

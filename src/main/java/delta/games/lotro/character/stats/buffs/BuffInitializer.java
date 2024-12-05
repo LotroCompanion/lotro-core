@@ -112,7 +112,7 @@ public class BuffInitializer
       buff.setImpl(impl);
       registry.registerBuff(buff);
       String key=effectBuff.getKey();
-      if (key.length()>0)
+      if (!key.isEmpty())
       {
         registry.registerBuff(key,buff);
       }

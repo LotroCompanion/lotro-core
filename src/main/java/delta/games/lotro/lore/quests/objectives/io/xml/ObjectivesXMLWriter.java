@@ -101,25 +101,25 @@ public class ObjectivesXMLWriter
     attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
     // Text
     String text=objective.getDescription();
-    if (text.length()>0)
+    if (!text.isEmpty())
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_TEXT_ATTR,XmlWriter.CDATA,text);
     }
     // Lore override
     String loreOverride=objective.getLoreOverride();
-    if (loreOverride.length()>0)
+    if (!loreOverride.isEmpty())
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_LORE_OVERRIDE_ATTR,XmlWriter.CDATA,loreOverride);
     }
     // Progress override
     String progressOverride=objective.getProgressOverride();
-    if (progressOverride.length()>0)
+    if (!progressOverride.isEmpty())
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_PROGRESS_OVERRIDE_ATTR,XmlWriter.CDATA,progressOverride);
     }
     // Billboard override
     String billboardOverride=objective.getBillboardOverride();
-    if (billboardOverride.length()>0)
+    if (!billboardOverride.isEmpty())
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.OBJECTIVE_BILLBOARD_OVERRIDE_ATTR,XmlWriter.CDATA,billboardOverride);
     }
@@ -269,7 +269,7 @@ public class ObjectivesXMLWriter
     }
     // Lore Info
     String loreInfo=condition.getLoreInfo();
-    if ((loreInfo!=null) && (loreInfo.length()>0))
+    if ((loreInfo!=null) && (!loreInfo.isEmpty()))
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_LORE_INFO_ATTR,XmlWriter.CDATA,loreInfo);
     }

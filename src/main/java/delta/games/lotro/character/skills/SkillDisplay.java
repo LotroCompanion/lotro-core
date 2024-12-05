@@ -503,7 +503,7 @@ public class SkillDisplay
         ret.addAll(effects);
       }
     }
-    EffectsSorter.sortGenerators(typeEffectsMgr,ret);
+    EffectsSorter.sortGenerators(ret);
     return ret;
   }
 

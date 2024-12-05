@@ -65,7 +65,7 @@ public class CharacterXMLWriter
     return ret;
   }
 
-  private void write(TransformerHandler hd, CharacterData character) throws Exception
+  private void write(TransformerHandler hd, CharacterData character) throws SAXException
   {
     AttributesImpl characterAttrs=new AttributesImpl();
     // Version
@@ -76,13 +76,13 @@ public class CharacterXMLWriter
     CharacterSummaryXMLWriter.writeDataSummary(characterAttrs,dataSummary);
     // Short description
     String shortDescription=character.getShortDescription();
-    if ((shortDescription!=null) && (shortDescription.length()>0))
+    if ((shortDescription!=null) && (!shortDescription.isEmpty()))
     {
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SHORT_DESCRIPTION_ATTR,XmlWriter.CDATA,shortDescription);
     }
     // Description
     String description=character.getDescription();
-    if ((description!=null) && (description.length()>0))
+    if ((description!=null) && (!description.isEmpty()))
     {
       characterAttrs.addAttribute("","",CharacterXMLConstants.CHARACTER_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
@@ -133,7 +133,7 @@ public class CharacterXMLWriter
     hd.endElement("","",CharacterXMLConstants.CHARACTER_TAG);
   }
 
-  private void writeEquipment(TransformerHandler hd, CharacterGear equipment) throws Exception
+  private void writeEquipment(TransformerHandler hd, CharacterGear equipment) throws SAXException
   {
     AttributesImpl fieldAtts=new AttributesImpl();
     hd.startElement("","",CharacterXMLConstants.EQUIPMENT_TAG,fieldAtts);

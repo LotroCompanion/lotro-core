@@ -143,7 +143,7 @@ public class PrivateEncountersXMLWriter
     }
     // Description
     String description=privateEncounter.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",PrivateEncountersXMLConstants.DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
@@ -235,7 +235,7 @@ public class PrivateEncountersXMLWriter
     attrs.addAttribute("","",PrivateEncountersXMLConstants.QUEST_ID_ATTR,XmlWriter.CDATA,String.valueOf(questId));
     // Name
     String questName=quest.getName();
-    if ((questName!=null) && (questName.length()>0))
+    if ((questName!=null) && (!questName.isEmpty()))
     {
       attrs.addAttribute("","",PrivateEncountersXMLConstants.QUEST_NAME_ATTR,XmlWriter.CDATA,questName);
     }

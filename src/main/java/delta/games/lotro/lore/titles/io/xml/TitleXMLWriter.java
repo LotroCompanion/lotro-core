@@ -79,13 +79,13 @@ public class TitleXMLWriter
     }
     // Name
     String name=title.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       titleAttrs.addAttribute("","",TitleXMLConstants.TITLE_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Raw name
     String rawName=title.getRawName();
-    if (rawName.length()>0)
+    if (!rawName.isEmpty())
     {
       titleAttrs.addAttribute("","",TitleXMLConstants.TITLE_RAW_NAME_ATTR,XmlWriter.CDATA,rawName);
     }
@@ -97,7 +97,7 @@ public class TitleXMLWriter
     }
     // Category
     String category=title.getCategory();
-    if (category.length()>0)
+    if (!category.isEmpty())
     {
       titleAttrs.addAttribute("","",TitleXMLConstants.TITLE_CATEGORY_ATTR,XmlWriter.CDATA,category);
     }

@@ -81,7 +81,7 @@ public class CraftingXMLWriter
     attrs.addAttribute("","",CraftingXMLConstants.VOCATION_NAME_ATTR,XmlWriter.CDATA,name);
     // Description
     String description=vocation.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",CraftingXMLConstants.VOCATION_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(description));
     }
@@ -119,7 +119,7 @@ public class CraftingXMLWriter
     }
     // Description
     String description=profession.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(description));
     }
@@ -133,37 +133,37 @@ public class CraftingXMLWriter
     // Property names
     // - enabled?
     String enabledPropertyName=profession.getEnabledPropertyName();
-    if ((enabledPropertyName!=null) && (enabledPropertyName.length()>0))
+    if ((enabledPropertyName!=null) && (!enabledPropertyName.isEmpty()))
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_ENABLED_PROPERTY_ATTR,XmlWriter.CDATA,enabledPropertyName);
     }
     // Mastery level
     String masteryLevelPropertyName=profession.getMasteryLevelPropertyName();
-    if ((masteryLevelPropertyName!=null) && (masteryLevelPropertyName.length()>0))
+    if ((masteryLevelPropertyName!=null) && (!masteryLevelPropertyName.isEmpty()))
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_MASTERY_LEVEL_PROPERTY_ATTR,XmlWriter.CDATA,masteryLevelPropertyName);
     }
     // Mastery XP
     String masteryXpPropertyName=profession.getMasteryXpPropertyName();
-    if ((masteryXpPropertyName!=null) && (masteryXpPropertyName.length()>0))
+    if ((masteryXpPropertyName!=null) && (!masteryXpPropertyName.isEmpty()))
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_MASTERY_XP_PROPERTY_ATTR,XmlWriter.CDATA,masteryXpPropertyName);
     }
     // Proficiency level
     String proficiencyLevelPropertyName=profession.getProficiencyLevelPropertyName();
-    if ((proficiencyLevelPropertyName!=null) && (proficiencyLevelPropertyName.length()>0))
+    if ((proficiencyLevelPropertyName!=null) && (!proficiencyLevelPropertyName.isEmpty()))
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_PROFICIENCY_LEVEL_PROPERTY_ATTR,XmlWriter.CDATA,proficiencyLevelPropertyName);
     }
     // Proficiency XP
     String proficiencyXpPropertyName=profession.getProficiencyXpPropertyName();
-    if ((proficiencyXpPropertyName!=null) && (proficiencyXpPropertyName.length()>0))
+    if ((proficiencyXpPropertyName!=null) && (!proficiencyXpPropertyName.isEmpty()))
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_PROFICIENCY_XP_PROPERTY_ATTR,XmlWriter.CDATA,proficiencyXpPropertyName);
     }
     // Extra recipes
     String extraRecipesPropertyName=profession.getExtraRecipesPropertyName();
-    if ((extraRecipesPropertyName!=null) && (extraRecipesPropertyName.length()>0))
+    if ((extraRecipesPropertyName!=null) && (!extraRecipesPropertyName.isEmpty()))
     {
       attrs.addAttribute("","",CraftingXMLConstants.PROFESSION_EXTRA_RECIPES_PROPERTY_ATTR,XmlWriter.CDATA,extraRecipesPropertyName);
     }

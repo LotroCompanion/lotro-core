@@ -217,8 +217,8 @@ public class LegendarySystem
     }
     if (LOGGER.isDebugEnabled())
     {
-      LOGGER.debug("Ranks: "+ranks);
-      LOGGER.debug("Values: "+values);
+      LOGGER.debug("Ranks: {}",ranks);
+      LOGGER.debug("Values: {}",values);
     }
     return ranks;
   }

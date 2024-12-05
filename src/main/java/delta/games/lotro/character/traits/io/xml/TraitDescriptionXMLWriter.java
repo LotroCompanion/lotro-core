@@ -78,7 +78,7 @@ public class TraitDescriptionXMLWriter
     attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_IDENTIFIER_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Key
     String key=trait.getKey();
-    if (key.length()>0)
+    if (!key.isEmpty())
     {
       attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_KEY_ATTR,XmlWriter.CDATA,key);
     }
@@ -149,13 +149,13 @@ public class TraitDescriptionXMLWriter
     }
     // Tooltip
     String tooltip=trait.getTooltip();
-    if (tooltip.length()>0)
+    if (!tooltip.isEmpty())
     {
       attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_TOOLTIP_ATTR,XmlWriter.CDATA,tooltip);
     }
     // Description
     String description=trait.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",TraitDescriptionXMLConstants.TRAIT_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }

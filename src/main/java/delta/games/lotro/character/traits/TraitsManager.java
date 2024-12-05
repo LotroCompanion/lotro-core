@@ -82,7 +82,7 @@ public class TraitsManager
   {
     _cache.put(Integer.valueOf(trait.getIdentifier()),trait);
     String key=trait.getKey();
-    if (key.length()>0)
+    if (!key.isEmpty())
     {
       _mapByKey.put(key,trait);
     }
