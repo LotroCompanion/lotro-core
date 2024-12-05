@@ -33,7 +33,7 @@ public class DialogsXMLWriter
     SharedXMLUtils.writeInteractable(npc,dialogAttrs);
     // Text
     String text=dialog.getWhat();
-    if (text.length()>0)
+    if (!text.isEmpty())
     {
       dialogAttrs.addAttribute("","",QuestXMLConstants.TEXT_ATTR,XmlWriter.CDATA,text);
     }
@@ -61,7 +61,7 @@ public class DialogsXMLWriter
     // Text
     for(String text : comment.getWhats())
     {
-      if (text.length()>0)
+      if (!text.isEmpty())
       {
         AttributesImpl textAttrs=new AttributesImpl();
         textAttrs.addAttribute("","",QuestXMLConstants.TEXT_ATTR,XmlWriter.CDATA,text);

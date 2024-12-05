@@ -43,7 +43,7 @@ public class NumericUtils
       }
       return source;
     }
-    LOGGER.warn("Unmanaged number in ensurePositive: "+source);
+    LOGGER.warn("Unmanaged number in ensurePositive: {}",source);
     return source;
   }
 
@@ -69,7 +69,7 @@ public class NumericUtils
       float value=((Float)source).floatValue();
       return Float.valueOf(-value);
     }
-    LOGGER.warn("Unmanaged number in negate: "+source);
+    LOGGER.warn("Unmanaged number in negate: {}",source);
     return source;
   }
 
@@ -158,7 +158,7 @@ public class NumericUtils
     {
       return ((Float)n).floatValue()>0;
     }
-    LOGGER.warn("Unmanaged number in isStrictlyPositive: "+n);
+    LOGGER.warn("Unmanaged number in isStrictlyPositive: {}",n);
     return false;
   }
 
@@ -183,7 +183,7 @@ public class NumericUtils
       }
       return value<0?-1:1;
     }
-    LOGGER.warn("Unmanaged number in sign: "+n);
+    LOGGER.warn("Unmanaged number in sign: {}",n);
     return 0;
   }
 
@@ -204,7 +204,7 @@ public class NumericUtils
       float value=((Float)n).floatValue();
       return isZero(value);
     }
-    LOGGER.warn("Unmanaged number in isZero: "+n);
+    LOGGER.warn("Unmanaged number in isZero: {}",n);
     return true;
   }
 

@@ -78,7 +78,7 @@ public class RaceDescriptionXMLWriter
     attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_TALL_ATTR,XmlWriter.CDATA,String.valueOf(tall));
     // Description
     String description=raceDescription.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",RaceDescriptionXMLConstants.RACE_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }

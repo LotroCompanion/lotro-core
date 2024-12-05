@@ -49,7 +49,7 @@ public class TraitTreeSetupXMLWriter
     TraitTreeStatusXMLWriter.writeTreeAttributes(setup.getStatus(),setupAttrs);
     // Description
     String description=setup.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       setupAttrs.addAttribute("","",TraitTreeSetupXMLConstants.TRAIT_TREE_SETUP_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }

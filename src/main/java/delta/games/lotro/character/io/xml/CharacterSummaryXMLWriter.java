@@ -66,7 +66,7 @@ public class CharacterSummaryXMLWriter
     }
     // Region
     String region=summary.getRegion();
-    if (region.length()>0)
+    if (!region.isEmpty())
     {
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_REGION_ATTR,XmlWriter.CDATA,region);
     }
@@ -100,13 +100,13 @@ public class CharacterSummaryXMLWriter
     }
     // Name
     String name=summary.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Server
     String server=summary.getServer();
-    if (server.length()>0)
+    if (!server.isEmpty())
     {
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SERVER_ATTR,XmlWriter.CDATA,server);
     }
@@ -116,7 +116,7 @@ public class CharacterSummaryXMLWriter
     if (accountID!=null)
     {
       String accountName=accountID.getAccountName();
-      if (accountName.length()>0)
+      if (!accountName.isEmpty())
       {
         attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_ACCOUNT_NAME_ATTR,XmlWriter.CDATA,accountName);
       }
@@ -181,7 +181,7 @@ public class CharacterSummaryXMLWriter
     }
     // Name
     String name=characterReference.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_NAME_ATTR,XmlWriter.CDATA,name);
     }
@@ -206,7 +206,7 @@ public class CharacterSummaryXMLWriter
   {
     // Name
     String name=dataSummary.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_NAME_ATTR,XmlWriter.CDATA,name);
     }

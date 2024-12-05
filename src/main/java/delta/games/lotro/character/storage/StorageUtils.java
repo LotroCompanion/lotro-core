@@ -160,7 +160,7 @@ public class StorageUtils
   {
     List<StoredItem> items=new ArrayList<StoredItem>();
     StorageLocation location=new StorageLocation(owner,type,"Bags");
-    List<CountedItem<ItemInstance<? extends Item>>> bagItems=container.getAll();
+    List<CountedItem<ItemInstance<? extends Item>>> bagItems=container.getAllItemInstancesWithCount();
     for(CountedItem<ItemInstance<? extends Item>> bagItem : bagItems)
     {
       CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(bagItem.getManagedItem(),bagItem.getQuantity());

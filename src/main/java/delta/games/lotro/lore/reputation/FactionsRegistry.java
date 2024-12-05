@@ -74,7 +74,7 @@ public final class FactionsRegistry
   {
     // Category
     String category=faction.getCategory();
-    if (category.length()>0)
+    if (!category.isEmpty())
     {
       List<Faction> factionsForCategory=_factionsByCategory.get(category);
       if (factionsForCategory==null)

@@ -84,7 +84,7 @@ public class RecipeXMLWriter
     }
     // Name
     String name=recipe.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       recipeAttrs.addAttribute("","",RecipeXMLConstants.RECIPE_NAME_ATTR,XmlWriter.CDATA,name);
     }

@@ -222,7 +222,7 @@ public class PrivateEncounter implements Identifiable,Named
     sb.append(className).append(": ID=").append(_id);
     sb.append(", name=").append(_name);
     sb.append(", content layer=").append(_contentLayerId).append(EndOfLine.NATIVE_EOL);
-    if (_description.length()>0)
+    if (!_description.isEmpty())
     {
       sb.append("Description=").append(_description).append(EndOfLine.NATIVE_EOL);
     }

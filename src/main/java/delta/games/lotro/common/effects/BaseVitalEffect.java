@@ -18,7 +18,7 @@ public abstract class BaseVitalEffect extends Effect
   /**
    * Constructor.
    */
-  public BaseVitalEffect()
+  protected BaseVitalEffect()
   {
     _stat=WellKnownStat.MORALE;
     _damageType=null;

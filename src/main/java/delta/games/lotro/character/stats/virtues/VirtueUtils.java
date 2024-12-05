@@ -24,7 +24,7 @@ public class VirtueUtils
     if ((stats!=null) && (virtue!=null))
     {
       String statKey=virtue.getRankStatKey();
-      if ((statKey!=null) && (statKey.length()>0))
+      if ((statKey!=null) && (!statKey.isEmpty()))
       {
         StatDescription stat=StatsRegistry.getInstance().getByKey(statKey);
         if (stat!=null)

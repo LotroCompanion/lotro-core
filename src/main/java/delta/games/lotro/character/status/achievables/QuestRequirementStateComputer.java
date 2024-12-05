@@ -74,7 +74,7 @@ public class QuestRequirementStateComputer
       }
       return (operator==Operator.AND);
     }
-    LOGGER.error("Unmanaged quest requirement class: "+requirement);
+    LOGGER.error("Unmanaged quest requirement class: {}",requirement);
     return false;
   }
 
@@ -104,7 +104,7 @@ public class QuestRequirementStateComputer
     {
       return assessLess(achievableStatus,status);
     }
-    LOGGER.error("Unmanaged quest requirement operator: "+operator);
+    LOGGER.error("Unmanaged quest requirement operator: {}",operator);
     return false;
   }
 
@@ -121,7 +121,7 @@ public class QuestRequirementStateComputer
     }
     else if (status==QuestStatus.FAILED)
     {
-      LOGGER.warn("Unmanaged EQUAL status: "+status);
+      LOGGER.warn("Unmanaged EQUAL status: {}",status);
       return false;
     }
     int index=status.getObjectiveIndex();
@@ -146,7 +146,7 @@ public class QuestRequirementStateComputer
     }
     else if (status==QuestStatus.FAILED)
     {
-      LOGGER.warn("Unmanaged GREATER_OR_EQUAL status: "+status);
+      LOGGER.warn("Unmanaged GREATER_OR_EQUAL status: {}",status);
       return true;
     }
     int index=status.getObjectiveIndex();
@@ -176,7 +176,7 @@ public class QuestRequirementStateComputer
     }
     else if (status==QuestStatus.FAILED)
     {
-      LOGGER.warn("Unmanaged NOT_EQUAL status: "+status);
+      LOGGER.warn("Unmanaged NOT_EQUAL status: {}",status);
       return true;
     }
     int index=status.getObjectiveIndex();
@@ -216,7 +216,7 @@ public class QuestRequirementStateComputer
       }
       return (state==AchievableElementState.COMPLETED);
     }
-    LOGGER.warn("Unmanaged GREATER status: "+status);
+    LOGGER.warn("Unmanaged GREATER status: {}",status);
     return false;
   }
 
@@ -228,7 +228,7 @@ public class QuestRequirementStateComputer
       return (state==AchievableElementState.UNDEFINED);
     }
     // Not used
-    LOGGER.warn("Unmanaged LESS status: "+status);
+    LOGGER.warn("Unmanaged LESS status: {}",status);
     return false;
   }
 

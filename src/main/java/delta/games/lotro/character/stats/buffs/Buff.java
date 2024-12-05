@@ -173,7 +173,7 @@ public class Buff implements Named
     sb.append(": ").append(_label);
     sb.append(" (").append(_icon).append(')');
     sb.append(" ; type=").append(_type);
-    if ((_category!=null) && (_category.length()>0))
+    if ((_category!=null) && (!_category.isEmpty()))
     {
       sb.append(" ; category=").append(_category);
     }

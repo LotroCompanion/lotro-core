@@ -89,7 +89,7 @@ public class KinshipRosterXMLWriter
     }
     // Name
     String name=rank.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       rankAttrs.addAttribute("","",KinshipRosterXMLConstants.RANK_NAME_ATTR,XmlWriter.CDATA,name);
     }
@@ -134,7 +134,7 @@ public class KinshipRosterXMLWriter
     }
     // Notes
     String notes=member.getNotes();
-    if (notes.length()>0)
+    if (!notes.isEmpty())
     {
       memberAttrs.addAttribute("","",KinshipRosterXMLConstants.MEMBER_NOTES_ATTR,XmlWriter.CDATA,notes);
     }

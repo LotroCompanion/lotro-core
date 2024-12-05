@@ -29,7 +29,7 @@ public class EnumXMLUtils
    */
   public static <T extends LotroEnumEntry> List<T> readEnumEntriesList(String value, Class<T> enumEntryClass)
   {
-    if ((value==null) || (value.length()==0))
+    if ((value==null) || (value.isEmpty()))
     {
       return Collections.emptyList();
     }

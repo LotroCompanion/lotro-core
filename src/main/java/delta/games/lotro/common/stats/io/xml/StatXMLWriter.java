@@ -61,7 +61,7 @@ public class StatXMLWriter
     }
     // Name
     String name=description.getInternalName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       attrs.addAttribute("","",StatXMLConstants.STAT_INTERNAL_NAME_ATTR,XmlWriter.CDATA,name);
     }

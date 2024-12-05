@@ -100,7 +100,7 @@ public class SkillDescriptionXMLWriter
     }
     // Description
     String description=skill.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",SkillDescriptionXMLConstants.SKILL_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
@@ -204,7 +204,7 @@ public class SkillDescriptionXMLWriter
     }
     // Source Description
     String sourceDescription=mount.getSourceDescription();
-    if (sourceDescription.length()>0)
+    if (!sourceDescription.isEmpty())
     {
       attrs.addAttribute("","",MountXMLConstants.MOUNT_SOURCE_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(sourceDescription));
     }
@@ -240,7 +240,7 @@ public class SkillDescriptionXMLWriter
     attrs.addAttribute("","",CosmeticPetXMLConstants.PET_INITIAL_NAME_ATTR,XmlWriter.CDATA,initialName);
     // Source Description
     String sourceDescription=pet.getSourceDescription();
-    if (sourceDescription.length()>0)
+    if (!sourceDescription.isEmpty())
     {
       attrs.addAttribute("","",CosmeticPetXMLConstants.PET_SOURCE_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(sourceDescription));
     }

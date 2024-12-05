@@ -81,7 +81,7 @@ public class WalletXMLWriter
     }
     // Icon
     String icon=item.getIcon();
-    if ((icon!=null) && (icon.length()>0))
+    if ((icon!=null) && (!icon.isEmpty()))
     {
       itemAttrs.addAttribute("","",WalletXMLConstants.ITEM_ICON_ATTR,XmlWriter.CDATA,icon);
     }

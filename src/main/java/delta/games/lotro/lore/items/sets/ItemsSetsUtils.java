@@ -43,7 +43,7 @@ public class ItemsSetsUtils
       }
       else
       {
-        LOGGER.warn("No min level for item: "+item);
+        LOGGER.warn("No min level for item: {}",item);
       }
       Integer maxLevel=itemLevelRange.getMax();
       if (maxLevel!=null)
@@ -55,7 +55,7 @@ public class ItemsSetsUtils
       }
       else
       {
-        LOGGER.warn("No max level for item: "+item);
+        LOGGER.warn("No max level for item: {}",item);
       }
     }
     return new Range(min,max);
@@ -125,10 +125,7 @@ public class ItemsSetsUtils
       }
     }
     Range ret=new Range(minLevel,maxLevel);
-    if (LOGGER.isDebugEnabled())
-    {
-      LOGGER.debug("Character level range for "+item+": "+ret);
-    }
+    LOGGER.debug("Character level range for {}: {}",item,ret);
     return ret;
   }
 

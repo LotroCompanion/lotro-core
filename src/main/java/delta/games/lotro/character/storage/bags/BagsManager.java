@@ -97,21 +97,6 @@ public class BagsManager extends BaseStorage
     return ret;
   }
 
-  /**
-   * Get a list of all managed item instances.
-   * @return a list of item instances.
-   */
-  public List<CountedItem<ItemInstance<? extends Item>>> getAll()
-  {
-    List<CountedItem<ItemInstance<? extends Item>>> ret=new ArrayList<CountedItem<ItemInstance<? extends Item>>>();
-    for(Integer index : getIndexes())
-    {
-      CountedItem<ItemInstance<? extends Item>> countedItemInstance=getSlotContent(index.intValue());
-      ret.add(countedItemInstance);
-    }
-    return ret;
-  }
-
   @Override
   public int getUsed()
   {

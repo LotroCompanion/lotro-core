@@ -184,7 +184,7 @@ public class QuestXMLWriter extends AchievableXMLWriter
     }
     // Description
     String description=quest.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       questAttrs.addAttribute("","",AchievableXMLConstants.DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }

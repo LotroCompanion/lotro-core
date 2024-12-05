@@ -64,7 +64,7 @@ public class CarryAllInstanceXMLWriter
     }
     // Name
     String carryAllName=carryAll.getName();
-    if (carryAllName.length()>0)
+    if (!carryAllName.isEmpty())
     {
       attrs.addAttribute("","",CarryAllInstanceXMLConstants.CARRY_ALL_NAME_TAG,XmlWriter.CDATA,carryAllName);
     }

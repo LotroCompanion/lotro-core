@@ -79,7 +79,7 @@ public class StatsProviderXMLWriter
     }
     // Description override
     String descriptionOverride=provider.getDescriptionOverride();
-    if ((descriptionOverride!=null) && (descriptionOverride.length()>0))
+    if ((descriptionOverride!=null) && (!descriptionOverride.isEmpty()))
     {
       attrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,XmlWriter.CDATA,descriptionOverride);
     }

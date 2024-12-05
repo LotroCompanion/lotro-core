@@ -77,7 +77,7 @@ public class GenericMobLootSpec
     GenericMobLootEntry old=_levelEntries.put(key,entry);
     if (old!=null)
     {
-      LOGGER.warn("Override of a level entry: old="+old+", new="+entry);
+      LOGGER.warn("Override of a level entry: old={}, new={}",old,entry);
     }
   }
 

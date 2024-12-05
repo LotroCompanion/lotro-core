@@ -88,7 +88,7 @@ public class FriendsXMLWriter
     }
     // Notes
     String notes=friend.getNote();
-    if (notes.length()>0)
+    if (!notes.isEmpty())
     {
       friendAttrs.addAttribute("","",FriendsXMLConstants.FRIEND_NOTES_ATTR,XmlWriter.CDATA,notes);
     }

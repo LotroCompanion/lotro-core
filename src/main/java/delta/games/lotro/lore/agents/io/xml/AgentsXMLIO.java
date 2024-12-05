@@ -172,7 +172,7 @@ public class AgentsXMLIO
   {
     // Genus
     String genusCodes=SAXParsingTools.getStringAttribute(attrs,AgentsXMLConstants.GENUS_ATTR,null);
-    if ((genusCodes!=null) && (!genusCodes.isEmpty())
+    if ((genusCodes!=null) && (!genusCodes.isEmpty()))
     {
       LotroEnum<Genus> genusMgr=LotroEnumsRegistry.getInstance().get(Genus.class);
       List<Genus> genuses=new ArrayList<Genus>();

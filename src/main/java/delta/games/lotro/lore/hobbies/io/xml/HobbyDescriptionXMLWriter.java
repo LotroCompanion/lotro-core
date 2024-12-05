@@ -67,13 +67,13 @@ public class HobbyDescriptionXMLWriter
     attrs.addAttribute("","",HobbyDescriptionXMLConstants.HOBBY_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type));
     // Description
     String description=hobby.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",HobbyDescriptionXMLConstants.HOBBY_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
     // Trainer info
     String trainerInfo=hobby.getTrainerDisplayInfo();
-    if (trainerInfo.length()>0)
+    if (!trainerInfo.isEmpty())
     {
       attrs.addAttribute("","",HobbyDescriptionXMLConstants.HOBBY_TRAINER_INFO_ATTR,XmlWriter.CDATA,trainerInfo);
     }

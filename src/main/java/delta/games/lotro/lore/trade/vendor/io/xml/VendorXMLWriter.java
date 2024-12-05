@@ -91,7 +91,7 @@ public class VendorXMLWriter
     attrs.addAttribute("","",VendorXMLConstants.VENDOR_NAME_ATTR,XmlWriter.CDATA,name);
     // Title
     String title=npc.getTitle();
-    if (title.length()>0)
+    if (!title.isEmpty())
     {
       attrs.addAttribute("","",VendorXMLConstants.VENDOR_TITLE_ATTR,XmlWriter.CDATA,title);
     }

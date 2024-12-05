@@ -901,7 +901,7 @@ public class Item implements Interactable,ItemProvider
     }
     sb.append(EndOfLine.NATIVE_EOL);
     // Description
-    if ((_description!=null) && (_description.length()>0))
+    if ((_description!=null) && (!_description.isEmpty()))
     {
       sb.append(_description).append(EndOfLine.NATIVE_EOL);
     }

@@ -157,7 +157,7 @@ public class CharacterXMLParser
           // Item ID
           Integer itemId=null;
           String objectURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_OBJECT_URL_ATTR,"");
-          if (objectURL.length()>0)
+          if (!objectURL.isEmpty())
           {
             itemId=idFromURL(objectURL);
           }

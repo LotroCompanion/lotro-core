@@ -107,7 +107,7 @@ public class BasicStatsSetXMLWriter
         }
         // Description override
         String descriptionOverride=element.getDescriptionOverride();
-        if ((descriptionOverride!=null) && (descriptionOverride.length()>0))
+        if ((descriptionOverride!=null) && (!descriptionOverride.isEmpty()))
         {
           statAttrs.addAttribute("","",BasicStatsSetXMLConstants.STAT_DESCRIPTION_OVERRIDE_ATTR,XmlWriter.CDATA,descriptionOverride);
         }

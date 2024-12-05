@@ -101,7 +101,7 @@ public class CarryAllInstance
     String refName=_reference.getName();
     String instanceName=getName();
     String name=refName;
-    if (instanceName.length()>0)
+    if (!instanceName.isEmpty())
     {
       name=instanceName;
     }

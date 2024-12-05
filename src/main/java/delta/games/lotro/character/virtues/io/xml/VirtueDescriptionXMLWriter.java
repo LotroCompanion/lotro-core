@@ -56,7 +56,7 @@ public class VirtueDescriptionXMLWriter
     attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_IDENTIFIER_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Key
     String key=virtue.getKey();
-    if (key.length()>0)
+    if (!key.isEmpty())
     {
       attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_KEY_ATTR,XmlWriter.CDATA,key);
     }
@@ -71,7 +71,7 @@ public class VirtueDescriptionXMLWriter
     }
     // XP property
     String xpPropertyName=virtue.getXpPropertyName();
-    if ((xpPropertyName!=null) && (xpPropertyName.length()>0))
+    if ((xpPropertyName!=null) && (!xpPropertyName.isEmpty()))
     {
       attrs.addAttribute("","",VirtueDescriptionXMLConstants.VIRTUE_XP_PROPERTY_ATTR,XmlWriter.CDATA,xpPropertyName);
     }

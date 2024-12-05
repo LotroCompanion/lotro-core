@@ -151,7 +151,7 @@ public class EffectXMLWriter
     }
     // Description
     String description=effect.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",EffectXMLConstants.EFFECT_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
@@ -163,7 +163,7 @@ public class EffectXMLWriter
     }
     // Applied description
     String appliedDescription=effect.getAppliedDescription();
-    if (appliedDescription.length()>0)
+    if (!appliedDescription.isEmpty())
     {
       attrs.addAttribute("","",EffectXMLConstants.EFFECT_APPLIED_DESCRIPTION_ATTR,XmlWriter.CDATA,appliedDescription);
     }

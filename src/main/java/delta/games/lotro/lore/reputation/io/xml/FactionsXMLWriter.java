@@ -138,7 +138,7 @@ public class FactionsXMLWriter
     }
     // Description
     String description=faction.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       factionAttrs.addAttribute("","",FactionsXMLConstants.FACTION_DESCRIPTION_ATTR,CDATA,description);
     }

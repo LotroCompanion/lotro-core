@@ -46,7 +46,7 @@ public class VaultsXMLWriter
     return ret;
   }
 
-  private void writeVault(TransformerHandler hd, Vault vault) throws Exception
+  private void writeVault(TransformerHandler hd, Vault vault) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Used

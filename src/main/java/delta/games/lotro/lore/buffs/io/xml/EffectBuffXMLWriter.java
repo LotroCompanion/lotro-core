@@ -52,7 +52,7 @@ public class EffectBuffXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Key
     String key=buff.getKey();
-    if (key.length()>0)
+    if (!key.isEmpty())
     {
       attrs.addAttribute("","",EffectBuffXMLConstants.BUFF_KEY_ATTR,XmlWriter.CDATA,key);
     }

@@ -45,7 +45,7 @@ public class BuffsXMLWriter
         }
         // Name
         String label=buff.getLabel();
-        if ((label!=null) && (label.length()>0))
+        if ((label!=null) && (!label.isEmpty()))
         {
           attrs.addAttribute("","",BuffsXMLConstants.BUFF_NAME_ATTR,CDATA,label);
         }

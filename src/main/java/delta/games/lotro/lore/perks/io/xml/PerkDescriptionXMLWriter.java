@@ -58,7 +58,7 @@ public class PerkDescriptionXMLWriter
     attrs.addAttribute("","",PerkDescriptionXMLConstants.PERK_NAME_ATTR,XmlWriter.CDATA,name);
     // Description
     String description=perk.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",PerkDescriptionXMLConstants.PERK_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }

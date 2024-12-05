@@ -45,7 +45,7 @@ public class CarryAllsMigration
       }
       catch(Exception e)
       {
-        LOGGER.warn("Error during carry-all migration for character: "+toon);
+        LOGGER.warn("Error during carry-all migration for character: {}",toon);
       }
     }
   }

@@ -281,7 +281,7 @@ public class ObjectivesXMLWriter
     }
     // Progress override
     String progressOverride=condition.getProgressOverride();
-    if ((progressOverride!=null) && (progressOverride.length()>0))
+    if ((progressOverride!=null) && (!progressOverride.isEmpty()))
     {
       attrs.addAttribute("","",ObjectivesXMLConstants.CONDITION_PROGRESS_OVERRIDE_ATTR,XmlWriter.CDATA,progressOverride);
     }

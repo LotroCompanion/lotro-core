@@ -55,7 +55,7 @@ public class WebStoreItemsXMLWriter
     attrs.addAttribute("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Name
     String name=webStoreItem.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       attrs.addAttribute("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_NAME_ATTR,XmlWriter.CDATA,name);
     }
@@ -79,13 +79,13 @@ public class WebStoreItemsXMLWriter
     }
     // SKU
     String sku=webStoreItem.getSku();
-    if (sku.length()>0)
+    if (!sku.isEmpty())
     {
       attrs.addAttribute("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_SKU_ATTR,XmlWriter.CDATA,sku);
     }
     // Short name
     String shortName=webStoreItem.getShortName();
-    if (shortName.length()>0)
+    if (!shortName.isEmpty())
     {
       attrs.addAttribute("","",WebStoreItemsXMLConstants.WEB_STORE_ITEM_SHORT_NAME_ATTR,XmlWriter.CDATA,shortName);
     }
