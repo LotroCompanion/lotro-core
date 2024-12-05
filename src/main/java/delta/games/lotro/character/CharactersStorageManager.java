@@ -120,10 +120,7 @@ public class CharactersStorageManager
           if (summary!=null)
           {
             toons.add(toon);
-            if (LOGGER.isDebugEnabled())
-            {
-              LOGGER.debug("Loaded: "+summary);
-            }
+            LOGGER.debug("Loaded: {}",summary);
           }
         }
       }

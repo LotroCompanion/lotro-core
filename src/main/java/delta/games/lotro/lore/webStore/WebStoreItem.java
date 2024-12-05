@@ -160,7 +160,7 @@ public class WebStoreItem implements Identifiable,Named
     StringBuilder sb=new StringBuilder();
     sb.append("Web store item: ID=");
     sb.append(_id);
-    if (_name.length()>0)
+    if (!_name.isEmpty())
     {
       sb.append(", name=");
       sb.append(_name);
@@ -174,7 +174,7 @@ public class WebStoreItem implements Identifiable,Named
       sb.append(", billing token=");
       sb.append(_billingToken.getLabel());
     }
-    if (_sku.length()>0)
+    if (!_sku.isEmpty())
     {
       sb.append(", SKU=");
       sb.append(_sku);

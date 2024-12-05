@@ -263,7 +263,7 @@ public class CharacterStatsComputer
     {
       for(StatsContribution contrib : contribs)
       {
-        LOGGER.debug("\t"+contrib);
+        LOGGER.debug("\t{}",contrib);
       }
     }
   }
@@ -273,7 +273,7 @@ public class CharacterStatsComputer
     if (contrib!=null)
     {
       LOGGER.debug(theme);
-      LOGGER.debug("\t"+contrib);
+      LOGGER.debug("\t{}",contrib);
     }
   }
 

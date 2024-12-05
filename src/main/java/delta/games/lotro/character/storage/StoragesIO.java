@@ -46,7 +46,7 @@ public class StoragesIO
     Vault sharedVault=null;
     Account account=CharacterUtils.getAccount(character);
     String serverName=character.getServerName();
-    if ((account!=null) && (serverName.length()>0))
+    if ((account!=null) && (!serverName.isEmpty()))
     {
       sharedVault=VaultsIo.load(account,serverName);
     }
@@ -63,7 +63,7 @@ public class StoragesIO
     Wallet sharedWallet=null;
     Account account=CharacterUtils.getAccount(character);
     String serverName=character.getServerName();
-    if ((account!=null) && (serverName.length()>0))
+    if ((account!=null) && (!serverName.isEmpty()))
     {
       sharedWallet=WalletsIO.loadAccountSharedWallet(account,serverName);
     }

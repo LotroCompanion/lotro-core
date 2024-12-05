@@ -133,7 +133,7 @@ public class AgentsXMLIO
   {
     // Genus
     String genusCodes=DOMParsingTools.getStringAttribute(attrs,AgentsXMLConstants.GENUS_ATTR,null);
-    if ((genusCodes!=null) && (genusCodes.length()>0))
+    if ((genusCodes!=null) && (!genusCodes.isEmpty()))
     {
       LotroEnum<Genus> genusMgr=LotroEnumsRegistry.getInstance().get(Genus.class);
       List<Genus> genuses=new ArrayList<Genus>();
@@ -172,7 +172,7 @@ public class AgentsXMLIO
   {
     // Genus
     String genusCodes=SAXParsingTools.getStringAttribute(attrs,AgentsXMLConstants.GENUS_ATTR,null);
-    if ((genusCodes!=null) && (genusCodes.length()>0))
+    if ((genusCodes!=null) && (!genusCodes.isEmpty())
     {
       LotroEnum<Genus> genusMgr=LotroEnumsRegistry.getInstance().get(Genus.class);
       List<Genus> genuses=new ArrayList<Genus>();

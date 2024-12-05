@@ -29,7 +29,7 @@ public class LegendaryInstance2AttrsXMLWriter
     AttributesImpl legendaryAttrs=new AttributesImpl();
     // Name
     String legendaryName=legendaryData.getLegendaryName();
-    if (legendaryName.length()>0)
+    if (!legendaryName.isEmpty())
     {
       legendaryAttrs.addAttribute("","",LegendaryInstance2AttrsXMLConstants.LEGENDARY_NAME_ATTR,XmlWriter.CDATA,legendaryName);
     }

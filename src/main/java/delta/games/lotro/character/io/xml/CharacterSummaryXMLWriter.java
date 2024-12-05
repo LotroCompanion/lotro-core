@@ -122,7 +122,7 @@ public class CharacterSummaryXMLWriter
       }
       // - subscription key
       String subscriptionKey=accountID.getSubscriptionKey();
-      if (subscriptionKey.length()>0)
+      if (!subscriptionKey.isEmpty())
       {
         attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SUBSCRIPTION_KEY_ATTR,XmlWriter.CDATA,subscriptionKey);
       }
@@ -153,7 +153,7 @@ public class CharacterSummaryXMLWriter
     attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_LEVEL_ATTR,XmlWriter.CDATA,String.valueOf(level));
     // Surname
     String surname=summary.getSurname();
-    if (surname.length()>0)
+    if (!surname.isEmpty())
     {
       attrs.addAttribute("","",CharacterXMLConstants.CHARACTER_SURNAME_ATTR,XmlWriter.CDATA,surname);
     }

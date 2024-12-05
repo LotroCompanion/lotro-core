@@ -88,13 +88,13 @@ public class QuestXMLWriter extends AchievableXMLWriter
     }
     // Name
     String name=quest.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       questAttrs.addAttribute("","",AchievableXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Raw name
     String rawName=quest.getRawName();
-    if (rawName.length()>0)
+    if (!rawName.isEmpty())
     {
       questAttrs.addAttribute("","",AchievableXMLConstants.RAW_NAME_ATTR,XmlWriter.CDATA,rawName);
     }
@@ -116,7 +116,7 @@ public class QuestXMLWriter extends AchievableXMLWriter
     }
     // Quest arc
     String arc=quest.getQuestArc();
-    if (arc.length()>0)
+    if (!arc.isEmpty())
     {
       questAttrs.addAttribute("","",QuestXMLConstants.QUEST_ARC_ATTR,XmlWriter.CDATA,arc);
     }

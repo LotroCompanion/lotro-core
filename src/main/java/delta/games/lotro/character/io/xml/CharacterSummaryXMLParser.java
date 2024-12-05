@@ -65,7 +65,7 @@ public class CharacterSummaryXMLParser
     {
       // Region
       String region=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_REGION_ATTR,"");
-      if (region.length()>0)
+      if (!region.isEmpty())
       {
         NationalityDescription nationality=NationalitiesManager.getInstance().getNationalityDescriptionByName(region);
         summary.setNationality(nationality);
@@ -111,7 +111,7 @@ public class CharacterSummaryXMLParser
     summary.setRace(race);
     // Sex
     String sexKey=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.CHARACTER_SEX_ATTR,"");
-    if (sexKey.length()>0)
+    if (!sexKey.isEmpty())
     {
       LotroEnum<CharacterSex> genderEnum=LotroEnumsRegistry.getInstance().get(CharacterSex.class);
       CharacterSex sex=genderEnum.getByKey(sexKey); 

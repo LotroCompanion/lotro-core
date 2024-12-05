@@ -56,7 +56,7 @@ public class ProfessionRequirement extends SimpleProfessionRequirement
   public static ProfessionRequirement fromString(String input)
   {
     ProfessionRequirement ret=null;
-    if ((input!=null) && (input.length()>0))
+    if ((input!=null) && (!input.isEmpty()))
     {
       String[] parts=input.split(SEPARATOR);
       if (parts.length>=1)

@@ -269,15 +269,15 @@ public class Objective
     StringBuilder sb=new StringBuilder();
     sb.append("Objective #").append(_index);
     sb.append(": ").append(_description).append(EndOfLine.NATIVE_EOL);
-    if (_loreOverride.length()>0)
+    if (!_loreOverride.isEmpty())
     {
       sb.append("Lore override: ").append(_loreOverride).append(EndOfLine.NATIVE_EOL);
     }
-    if (_progressOverride.length()>0)
+    if (!_progressOverride.isEmpty())
     {
       sb.append("Progress override: ").append(_progressOverride).append(EndOfLine.NATIVE_EOL);
     }
-    if (_billboardOverride.length()>0)
+    if (!_billboardOverride.isEmpty())
     {
       sb.append("Billboard override: ").append(_billboardOverride).append(EndOfLine.NATIVE_EOL);
     }

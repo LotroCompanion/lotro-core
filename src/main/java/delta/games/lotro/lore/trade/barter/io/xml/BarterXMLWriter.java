@@ -96,7 +96,7 @@ public class BarterXMLWriter
     attrs.addAttribute("","",BarterXMLConstants.BARTERER_NAME,XmlWriter.CDATA,name);
     // Title
     String title=npc.getTitle();
-    if (title.length()>0)
+    if (!title.isEmpty())
     {
       attrs.addAttribute("","",BarterXMLConstants.BARTERER_TITLE,XmlWriter.CDATA,title);
     }

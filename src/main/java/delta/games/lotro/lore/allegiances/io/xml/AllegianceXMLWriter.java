@@ -73,7 +73,7 @@ public class AllegianceXMLWriter
     }
     // Name
     String name=allegiance.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       attrs.addAttribute("","",AllegianceXMLConstants.ALLEGIANCE_NAME_ATTR,XmlWriter.CDATA,name);
     }
@@ -107,7 +107,7 @@ public class AllegianceXMLWriter
     }
     // Description
     String description=allegiance.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",AllegianceXMLConstants.ALLEGIANCE_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }

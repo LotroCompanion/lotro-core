@@ -53,13 +53,13 @@ public class NationalityDescriptionXMLWriter
     attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
     // Name
     String name=nationalityDescription.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Description
     String description=nationalityDescription.getDescription();
-    if (description.length()>0)
+    if (!description.isEmpty())
     {
       attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
     }
@@ -68,13 +68,13 @@ public class NationalityDescriptionXMLWriter
     attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_ICON_ID_ATTR,XmlWriter.CDATA,String.valueOf(iconID));
     // Male guideline
     String maleGuideline=nationalityDescription.getNamingGuidelineMale();
-    if (maleGuideline.length()>0)
+    if (!maleGuideline.isEmpty())
     {
       attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_MALE_GUIDELINE_ATTR,XmlWriter.CDATA,maleGuideline);
     }
     // Female guideline
     String femaleGuideline=nationalityDescription.getNamingGuidelineFemale();
-    if (femaleGuideline.length()>0)
+    if (!femaleGuideline.isEmpty())
     {
       attrs.addAttribute("","",NationalityDescriptionXMLConstants.NATIONALITY_FEMALE_GUIDELINE_ATTR,XmlWriter.CDATA,femaleGuideline);
     }

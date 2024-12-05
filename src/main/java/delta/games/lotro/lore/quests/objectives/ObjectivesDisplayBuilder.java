@@ -88,7 +88,7 @@ public class ObjectivesDisplayBuilder
       _output.endParagraph(sb);
       String text=objective.getDescription();
       text=render(text);
-      if (text.length()>0)
+      if (!text.isEmpty())
       {
         _output.startParagraph(sb);
         _output.printText(sb,text);
@@ -387,7 +387,7 @@ public class ObjectivesDisplayBuilder
     if (landDivision!=null)
     {
       String landDivisionName=landDivision.getName();
-      if (ret.length()>0)
+      if (!ret.isEmpty())
       {
         ret=ret+"/"+landDivisionName;
       }
@@ -400,7 +400,7 @@ public class ObjectivesDisplayBuilder
     LandmarkDescription landmark=where.getLandmark();
     if (landmark!=null)
     {
-      if (ret.length()>0)
+      if (!ret.isEmpty())
       {
         ret=ret+"/"+landmark.getName();
       }
@@ -757,7 +757,7 @@ public class ObjectivesDisplayBuilder
   private static boolean hasProgressOverride(ObjectiveCondition condition)
   {
     String progressOverride=condition.getProgressOverride();
-    return ((progressOverride!=null) && (progressOverride.length()>0));
+    return ((progressOverride!=null) && (!progressOverride.isEmpty()));
   }
 
   private boolean printProgressOverrideWithCount(StringBuilder sb, ObjectiveCondition condition)
@@ -775,7 +775,7 @@ public class ObjectivesDisplayBuilder
   {
     int count=condition.getCount();
     String progressOverride=condition.getProgressOverride();
-    if ((progressOverride!=null) && (progressOverride.length()>0))
+    if ((progressOverride!=null) && (!progressOverride.isEmpty()))
     {
       if (progressOverride.contains(COUNT_PATTERN))
       {
@@ -797,7 +797,7 @@ public class ObjectivesDisplayBuilder
   private boolean printProgressOverride(StringBuilder sb, ObjectiveCondition condition)
   {
     String progressOverride=condition.getProgressOverride();
-    if ((progressOverride!=null) && (progressOverride.length()>0))
+    if ((progressOverride!=null) && (!progressOverride.isEmpty()))
     {
       progressOverride=getProgressOverrideWithCount(condition);
       _output.printText(sb,progressOverride);
@@ -809,7 +809,7 @@ public class ObjectivesDisplayBuilder
   private void printLoreInfo(StringBuilder sb, ObjectiveCondition condition)
   {
     String loreInfo=condition.getLoreInfo();
-    if ((loreInfo!=null) && (loreInfo.trim().length()>0))
+    if ((loreInfo!=null) && (!loreInfo.trim().isEmpty()))
     {
       loreInfo=render(loreInfo);
       _output.startParagraph(sb);

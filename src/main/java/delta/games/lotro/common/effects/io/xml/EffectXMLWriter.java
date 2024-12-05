@@ -157,7 +157,7 @@ public class EffectXMLWriter
     }
     // Description override
     String descriptionOverride=effect.getDescriptionOverride();
-    if (descriptionOverride.length()>0)
+    if (!descriptionOverride.isEmpty())
     {
       attrs.addAttribute("","",EffectXMLConstants.EFFECT_DESCRIPTION_OVERRIDE_ATTR,XmlWriter.CDATA,descriptionOverride);
     }

@@ -381,7 +381,7 @@ public class QuestDescription extends Achievable
     {
       sb.append("Scope: ").append(_scope).append(EndOfLine.NATIVE_EOL);
     }
-    if (_questArc.length()>0)
+    if (!_questArc.isEmpty())
     {
       sb.append("Arc: ").append(_questArc).append(EndOfLine.NATIVE_EOL);
     }

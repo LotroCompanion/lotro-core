@@ -51,13 +51,13 @@ public class AccountSummaryXMLWriter
   {
     // Account name
     String accountName=account.getName();
-    if (accountName.length()>0)
+    if (!accountName.isEmpty())
     {
       accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_NAME_ATTR,XmlWriter.CDATA,accountName);
     }
     // Subscription key
     String subscriptionKey=account.getSubscriptionKey();
-    if (subscriptionKey.length()>0)
+    if (!subscriptionKey.isEmpty())
     {
       accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_SUBSCRIPTION_KEY_ATTR,XmlWriter.CDATA,subscriptionKey);
     }
@@ -75,7 +75,7 @@ public class AccountSummaryXMLWriter
     }
     // User data
     String userData=account.getUserData();
-    if (userData.length()>0)
+    if (!userData.isEmpty())
     {
       accountAttrs.addAttribute("","",AccountXMLConstants.ACCOUNT_USER_DATA_ATTR,XmlWriter.CDATA,userData);
     }

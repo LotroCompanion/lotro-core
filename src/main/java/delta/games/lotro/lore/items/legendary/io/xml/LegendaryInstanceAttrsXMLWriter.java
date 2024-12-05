@@ -40,7 +40,7 @@ public class LegendaryInstanceAttrsXMLWriter
     AttributesImpl legendaryAttrs=new AttributesImpl();
     // Name
     String name=legendaryData.getLegendaryName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       legendaryAttrs.addAttribute("","",LegendaryInstanceAttrsXMLConstants.LEGENDARY_NAME_ATTR,XmlWriter.CDATA,name);
     }

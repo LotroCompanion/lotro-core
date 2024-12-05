@@ -71,7 +71,7 @@ public class AccountReference
   public String getDisplayName()
   {
     String ret=_accountName;
-    if (_subscriptionKey.length()>0)
+    if (!_subscriptionKey.isEmpty())
     {
       ret=ret+"/"+_subscriptionKey;
     }

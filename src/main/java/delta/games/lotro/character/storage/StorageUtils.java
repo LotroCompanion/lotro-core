@@ -196,7 +196,7 @@ public class StorageUtils
       if (chest!=null)
       {
         String chestName=chest.getName();
-        if (chestName.length()==0)
+        if (chestName.isEmpty())
         {
           chestName="#"+chestId;
         }

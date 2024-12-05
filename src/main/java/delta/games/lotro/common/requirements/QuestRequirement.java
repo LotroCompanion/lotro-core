@@ -101,7 +101,7 @@ public class QuestRequirement extends AbstractAchievableRequirement
   public static QuestRequirement fromString(String input)
   {
     QuestRequirement ret=null;
-    if ((input!=null) && (input.length()>0))
+    if ((input!=null) && (!input.isEmpty()))
     {
       String[] parts=input.split(SEPARATOR);
       if (parts.length==2)

@@ -70,7 +70,7 @@ public class NpcDescription extends AgentDescription
     {
       sb.append(" (").append(_gender.getLabel()).append(')');
     }
-    if (_title.length()>0)
+    if (!_title.isEmpty())
     {
       sb.append(" (").append(_title).append(')');
     }

@@ -84,7 +84,7 @@ public final class AccountsManager
     }
     Account ret=null;
     String subscriptionKey=id.getSubscriptionKey();
-    if (subscriptionKey.length()>0)
+    if (!subscriptionKey.isEmpty())
     {
       ret=getAccountBySubscriptionKey(subscriptionKey);
     }
@@ -93,7 +93,7 @@ public final class AccountsManager
       return ret;
     }
     String accountName=id.getAccountName();
-    if (accountName.length()>0)
+    if (!accountName.isEmpty())
     {
       ret=getAccountByAccountName(accountName);
     }

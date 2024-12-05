@@ -124,7 +124,7 @@ public class AchievableConditionStatusManager
     }
     else
     {
-      LOGGER.warn("Unmanaged achievable condition state: "+state);
+      LOGGER.warn("Unmanaged achievable condition state: {}",state);
     }
   }
 

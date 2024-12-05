@@ -61,13 +61,13 @@ public class KinshipSummaryXMLWriter
     kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_STATUS_DATE_ATTR,XmlWriter.CDATA,String.valueOf(statusDate));
     // Name
     String name=kinship.getName();
-    if (name.length()>0)
+    if (!name.isEmpty())
     {
       kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_NAME_ATTR,XmlWriter.CDATA,name);
     }
     // Server
     String server=kinship.getServerName();
-    if (server.length()>0)
+    if (!server.isEmpty())
     {
       kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_SERVER_ATTR,XmlWriter.CDATA,server);
     }
@@ -93,7 +93,7 @@ public class KinshipSummaryXMLWriter
     }
     // MOTD
     String motd=kinship.getMotd();
-    if (motd.length()>0)
+    if (!motd.isEmpty())
     {
       kinshipAttrs.addAttribute("","",KinshipXMLConstants.KINSHIP_MOTD_ATTR,XmlWriter.CDATA,motd);
     }
