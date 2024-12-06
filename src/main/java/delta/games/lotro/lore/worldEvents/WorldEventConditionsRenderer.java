@@ -21,11 +21,11 @@ public class WorldEventConditionsRenderer
   /**
    * Error label "Unmanaged operator".
    */
-  private static final String UNMANAGED_OPERATOR="Unmanaged operator: ";
+  private static final String UNMANAGED_OPERATOR="Unmanaged operator: {}";
   /**
    * Error label "Unmanaged value".
    */
-  private static final String UNMANAGED_VALUE="Unmanaged value: ";
+  private static final String UNMANAGED_VALUE="Unmanaged value: {}";
 
   /**
    * Render a simple world event condition.
@@ -158,7 +158,7 @@ public class WorldEventConditionsRenderer
     if (label!=null) return label;
     label=handleEventParts(we,operator,value);
     if (label!=null) return label;
-    LOGGER.debug("Unmanaged property: "+weProperty);
+    LOGGER.debug("Unmanaged property: {}",weProperty);
     return null;
   }
 
@@ -176,7 +176,7 @@ public class WorldEventConditionsRenderer
     }
     else
     {
-      LOGGER.debug("Unmanaged case: operator="+operator+", value="+value);
+      LOGGER.debug("Unmanaged case: operator={}, value={}",operator,value);
     }
     return null;
   }
@@ -189,7 +189,7 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.LESS_OR_EQUAL) operatorStr="=<";
     else
     {
-      LOGGER.debug(UNMANAGED_OPERATOR+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR,operator);
       return null;
     }
     return "Level cap"+operatorStr+value;
@@ -202,7 +202,7 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.GREATER_OR_EQUAL) operatorStr=">=";
     else
     {
-      LOGGER.debug(UNMANAGED_OPERATOR+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR,operator);
       return null;
     }
     String valueStr="Tier "+value;
@@ -216,7 +216,7 @@ public class WorldEventConditionsRenderer
     else if (operator==ComparisonOperator.GREATER_OR_EQUAL) operatorStr=">=";
     else
     {
-      LOGGER.debug(UNMANAGED_OPERATOR+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR,operator);
     }
     return "Instance level"+operatorStr+value;
   }
@@ -225,7 +225,7 @@ public class WorldEventConditionsRenderer
   {
     if (operator!=ComparisonOperator.EQUAL)
     {
-      LOGGER.debug(UNMANAGED_OPERATOR+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR,operator);
       return null;
     }
     return "Instance size is "+value;
@@ -239,11 +239,11 @@ public class WorldEventConditionsRenderer
       {
         return "In the period for initial completion of challenge mode of "+what;
       }
-      LOGGER.debug(UNMANAGED_VALUE+value);
+      LOGGER.debug(UNMANAGED_VALUE,value);
     }
     else
     {
-      LOGGER.debug(UNMANAGED_OPERATOR+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR,operator);
     }
     return null;
   }
@@ -401,7 +401,7 @@ public class WorldEventConditionsRenderer
         {
           return labelTrue;
         }
-        LOGGER.debug(UNMANAGED_VALUE+value);
+        LOGGER.debug(UNMANAGED_VALUE,value);
       }
       else if (value.intValue()==0)
       {
@@ -409,12 +409,12 @@ public class WorldEventConditionsRenderer
         {
           return labelFalse;
         }
-        LOGGER.debug(UNMANAGED_VALUE+value);
+        LOGGER.debug(UNMANAGED_VALUE,value);
       }
     }
     else
     {
-      LOGGER.debug(UNMANAGED_OPERATOR+operator);
+      LOGGER.debug(UNMANAGED_OPERATOR,operator);
     }
     return null;
   }
@@ -431,7 +431,7 @@ public class WorldEventConditionsRenderer
   {
     if (operator==ComparisonOperator.EQUAL) return "is";
     if (operator==ComparisonOperator.GREATER_OR_EQUAL) return ">=";
-    LOGGER.warn(UNMANAGED_OPERATOR+operator);
+    LOGGER.warn(UNMANAGED_OPERATOR,operator);
     return "?";
   }
 
@@ -459,7 +459,7 @@ public class WorldEventConditionsRenderer
     {
       return "Missions: "+which+": day "+value;
     }
-    LOGGER.debug(UNMANAGED_OPERATOR+operator);
+    LOGGER.debug(UNMANAGED_OPERATOR,operator);
     return null;
   }
 

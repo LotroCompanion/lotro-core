@@ -293,7 +293,7 @@ public class StatsProvider
     }
     else
     {
-      LOGGER.warn("Unmanaged modifiers operator: "+modOperator);
+      LOGGER.warn("Unmanaged modifiers operator: {}",modOperator);
     }
     return value;
   }

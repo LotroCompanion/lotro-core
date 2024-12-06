@@ -70,7 +70,7 @@ public class CharacterGearUpdater
       Integer itemLevel=_resolver.getEffectiveSpellcraft(reference);
       if (itemLevel!=null)
       {
-        LOGGER.info("Using spellcraft item level: "+itemLevel);
+        LOGGER.info("Using spellcraft item level: {}",itemLevel);
         item.setItemLevel(itemLevel);
       }
     }

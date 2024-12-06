@@ -33,7 +33,7 @@ public class ContextVariableValueProvider implements VariableValueProvider
     {
       return _context.get(variableName);
     }
-    LOGGER.warn("Unmanaged variable: "+variableName);
+    LOGGER.warn("Unmanaged variable: {}",variableName);
     // TODO Unmanaged: MAX, CURRENT, NOS
     return null;
   }

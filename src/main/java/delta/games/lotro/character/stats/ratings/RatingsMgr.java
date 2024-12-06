@@ -34,7 +34,7 @@ public class RatingsMgr
     RatingCurve curve=_curves.get(id);
     if (curve==null)
     {
-      LOGGER.warn("Curve not found: "+id);
+      LOGGER.warn("Curve not found: {}",id);
     }
     return curve;
   }

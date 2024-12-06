@@ -47,7 +47,7 @@ public class TraitTreeSetupsIO
       ret=parentFile.mkdirs();
       if (!ret)
       {
-        LOGGER.error("Cannot create directory ["+parentFile+"]!");
+        LOGGER.error("Cannot create directory [{}]!",parentFile);
       }
     }
     if (ret)

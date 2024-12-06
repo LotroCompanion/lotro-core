@@ -35,6 +35,8 @@ public class MainTestLegendarySystem
 {
   private static final Logger LOGGER=LoggerFactory.getLogger(MainTestLegendarySystem.class);
 
+  private Set<String> _done=new HashSet<String>();
+
   private void doIt()
   {
     //doItem(1879219224); // Reshaped Hunter's Crossbow of the First Age (75)
@@ -54,8 +56,6 @@ public class MainTestLegendarySystem
       }
     }
   }
-
-  private Set<String> done=new HashSet<String>();
 
   private void doItem(int itemId)
   {
@@ -99,11 +99,11 @@ public class MainTestLegendarySystem
     ItemQuality quality=item.getQuality();
     Integer itemLevel=item.getItemLevel();
     String key=characterClass.getKey()+"#"+slot+"#"+quality.getKey()+"#"+itemLevel;
-    if (done.contains(key))
+    if (_done.contains(key))
     {
       return;
     }
-    done.add(key);
+    _done.add(key);
     // 2) Other legacies
     NonImbuedLegaciesManager legaciesMgr=NonImbuedLegaciesManager.getInstance();
     List<TieredNonImbuedLegacy> legacies=legaciesMgr.getTieredLegacies(characterClass,slot);

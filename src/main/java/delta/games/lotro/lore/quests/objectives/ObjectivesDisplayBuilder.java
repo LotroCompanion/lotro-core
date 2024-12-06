@@ -723,7 +723,7 @@ public class ObjectivesDisplayBuilder
       }
       else
       {
-        LOGGER.warn("Missing data for condition: type="+type);
+        LOGGER.warn("Missing data for condition: type={}",type);
         /*
         IntegerHolder counter=_counters.get(type);
         if (counter==null)

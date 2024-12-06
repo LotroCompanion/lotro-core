@@ -194,7 +194,7 @@ public final class DerivedStatsContributionsMgr
     }
     else
     {
-      LOGGER.warn("Could not register factor: source="+primaryStat+", target="+contributedStat);
+      LOGGER.warn("Could not register factor: source={}, target={}",primaryStat,contributedStat);
     }
   }
 

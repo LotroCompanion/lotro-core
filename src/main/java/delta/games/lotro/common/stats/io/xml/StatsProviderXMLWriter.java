@@ -180,7 +180,7 @@ public class StatsProviderXMLWriter
       }
       else
       {
-        LOGGER.warn("A ranged stat provider does not use a ScalableStatProvider: "+statProvider);
+        LOGGER.warn("A ranged stat provider does not use a ScalableStatProvider: {}",statProvider);
       }
     }
     return sb.toString();

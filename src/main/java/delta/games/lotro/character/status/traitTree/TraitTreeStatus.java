@@ -279,7 +279,7 @@ public class TraitTreeStatus
     }
     else
     {
-      LOGGER.warn("Cell not found: "+cellId);
+      LOGGER.warn("Cell not found: {}",cellId);
     }
   }
 
@@ -359,7 +359,7 @@ public class TraitTreeStatus
     TraitTreeBranch branch=getBranchForCell(cellId);
     if (branch==null)
     {
-      LOGGER.warn("Branch not found for cell: "+cellId);
+      LOGGER.warn("Branch not found for cell: {}",cellId);
       return false;
     }
     int neededRanks=branch.getProgression().getSteps().get(row-2).intValue();
@@ -385,7 +385,7 @@ public class TraitTreeStatus
       TraitTreeCell depCell=getCellById(depCellId);
       if (depCell==null)
       {
-        LOGGER.warn("Dependent cell not found: "+depCellId);
+        LOGGER.warn("Dependent cell not found: {}",depCellId);
         continue;
       }
       TraitDescription trait=depCell.getTrait();

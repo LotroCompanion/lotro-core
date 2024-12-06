@@ -108,7 +108,6 @@ public class VitalEffectsUtils
     {
       if (noTHRClass)
       {
-        //nVPS = csm.CalcStat("CombatBaseTacHPSNoClass",aChar[CHAR_LEVEL]);
         vps=100; // TODO
       }
       else

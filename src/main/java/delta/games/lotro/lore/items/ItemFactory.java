@@ -223,7 +223,7 @@ public class ItemFactory
     }
     else
     {
-      LOGGER.warn("No imbued legacy associated to default legacy: "+defaultLegacy);
+      LOGGER.warn("No imbued legacy associated to default legacy: {}",defaultLegacy);
     }
   }
 }

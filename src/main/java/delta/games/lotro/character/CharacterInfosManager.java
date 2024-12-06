@@ -296,7 +296,7 @@ public class CharacterInfosManager
           boolean ok=oldInfoFile.delete();
           if (!ok)
           {
-            LOGGER.warn("Could not delete file: "+oldInfoFile);
+            LOGGER.warn("Could not delete file: {}",oldInfoFile);
           }
         }
       }

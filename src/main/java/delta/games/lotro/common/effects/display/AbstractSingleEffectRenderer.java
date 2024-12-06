@@ -165,7 +165,7 @@ public abstract class AbstractSingleEffectRenderer<T extends Effect>
       {
         childLevel=spellcraft.intValue();
       }
-      EffectRenderingContext newContext=getContext().clone();
+      EffectRenderingContext newContext=getContext().copy();
       newContext.setLevel(childLevel);
       EffectRenderingEngine engine=new EffectRenderingEngine(state,newContext);
       engine.displayEffect(storage,effectGenerator.getEffect());

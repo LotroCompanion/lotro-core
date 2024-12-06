@@ -84,7 +84,7 @@ public class SkirmishStatsXMLParser
     GroupSize groupSize=groupSizesMgr.getByKey(groupSizeKey);
     if (groupSize==null)
     {
-      LOGGER.warn("Unmanaged group size: "+groupSizeKey);
+      LOGGER.warn("Unmanaged group size: {}",groupSizeKey);
       return;
     }
     // Level
@@ -92,7 +92,7 @@ public class SkirmishStatsXMLParser
     SkirmishLevel level=parseLevel(levelStr);
     if (level==null)
     {
-      LOGGER.warn("Unmanaged level: "+levelStr);
+      LOGGER.warn("Unmanaged level: {}",levelStr);
       return;
     }
 

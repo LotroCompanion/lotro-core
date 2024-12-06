@@ -143,7 +143,7 @@ public class CharactersStorageManager
           boolean ok=serverDir.delete();
           if (!ok)
           {
-            LOGGER.warn("Could not delete server directory: "+serverDir);
+            LOGGER.warn("Could not delete server directory: {}",serverDir);
           }
         }
       }
@@ -165,7 +165,7 @@ public class CharactersStorageManager
           boolean ok=toonDir.renameTo(newDir);
           if (!ok)
           {
-            LOGGER.warn("Could not rename toon dir from "+toonDir+" to "+newDir);
+            LOGGER.warn("Could not rename toon dir from {} to {}",toonDir,newDir);
           }
         }
       }

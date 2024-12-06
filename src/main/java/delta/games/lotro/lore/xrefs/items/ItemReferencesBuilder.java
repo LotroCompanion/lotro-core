@@ -299,7 +299,7 @@ public class ItemReferencesBuilder
       }
       else
       {
-        LOGGER.debug("Item is null in condition "+condition+" of achievable "+context);
+        LOGGER.debug("Item is null in condition {} of achievable {}",condition,context);
       }
     }
     return false;

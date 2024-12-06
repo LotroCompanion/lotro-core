@@ -68,7 +68,7 @@ public class CharacterLogsManager
         boolean ok=toRemove.delete();
         if (!ok)
         {
-          LOGGER.warn("Cannot delete file ["+toRemove+"]!");
+          LOGGER.warn("Cannot delete file [{}]!",toRemove);
         }
       }
     }
@@ -137,7 +137,7 @@ public class CharacterLogsManager
       ret=parentFile.mkdirs();
       if (!ret)
       {
-        LOGGER.error("Cannot create directory ["+parentFile+"]!");
+        LOGGER.error("Cannot create directory [{}]!",parentFile);
       }
     }
     if (ret)

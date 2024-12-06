@@ -105,7 +105,7 @@ public class WarbandsStats
     WarbandDefinition warband=registry.getByName(warbandName);
     if (warband==null)
     {
-      LOGGER.warn("Unknown warband ["+warbandName+"]. Ignored.");
+      LOGGER.warn("Unknown warband [{}]. Ignored.",warbandName);
     }
     else
     {

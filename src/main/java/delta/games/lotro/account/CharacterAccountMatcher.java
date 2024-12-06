@@ -116,7 +116,7 @@ public class CharacterAccountMatcher
         Account oldAccount=_accountsBySubscription.put(subscription,account);
         if (oldAccount!=null)
         {
-          LOGGER.warn("Accounts with same subscription: "+subscription);
+          LOGGER.warn("Accounts with same subscription: {}",subscription);
         }
       }
     }

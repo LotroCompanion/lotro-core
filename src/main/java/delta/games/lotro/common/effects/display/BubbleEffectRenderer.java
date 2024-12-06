@@ -81,7 +81,7 @@ public class BubbleEffectRenderer extends PropertyModificationEffectRenderer<Bub
   {
     if (stat==WellKnownStat.MORALE) return VitalTypes.MORALE;
     if (stat==WellKnownStat.POWER) return VitalTypes.POWER;
-    LOGGER.warn("Unsupported vital type: "+stat);
+    LOGGER.warn("Unsupported vital type: {}",stat);
     return VitalTypes.MORALE;
   }
 

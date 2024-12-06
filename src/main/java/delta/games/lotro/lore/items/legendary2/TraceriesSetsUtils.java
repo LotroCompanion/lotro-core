@@ -56,7 +56,7 @@ public class TraceriesSetsUtils
       }
       else
       {
-        LOGGER.warn("No min level for tracery: "+tracery);
+        LOGGER.warn("No min level for tracery: {}",tracery);
       }
       Integer maxLevel=item.getMaxLevel();
       if (maxLevel!=null)
@@ -68,7 +68,7 @@ public class TraceriesSetsUtils
       }
       else
       {
-        LOGGER.warn("No max level for tracery: "+tracery);
+        LOGGER.warn("No max level for tracery: {}",tracery);
       }
     }
     return new int[]{min,max};

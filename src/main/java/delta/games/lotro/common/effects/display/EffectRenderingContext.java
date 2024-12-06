@@ -29,7 +29,11 @@ public class EffectRenderingContext implements StatComputerContext
     _level=level;
   }
 
-  public EffectRenderingContext clone()
+  /**
+   * Build a new context from this one.
+   * @return A new context.
+   */
+  public EffectRenderingContext copy()
   {
     EffectRenderingContext ret=new EffectRenderingContext(_level);
     ret._character=_character;

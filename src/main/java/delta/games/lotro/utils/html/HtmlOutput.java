@@ -185,7 +185,7 @@ public class HtmlOutput implements GenericOutput
     sb.append(">");
   }
 
-  private void endFontStyle(StringBuilder sb, FontStyle fontStyle)
+  private void endFontStyle(StringBuilder sb)
   {
     sb.append("</font>");
   }
@@ -222,7 +222,7 @@ public class HtmlOutput implements GenericOutput
     }
     else if (element instanceof FontStyle)
     {
-      endFontStyle(sb,(FontStyle)element);
+      endFontStyle(sb);
     }
   }
 }

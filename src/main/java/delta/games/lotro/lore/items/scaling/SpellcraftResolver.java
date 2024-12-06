@@ -99,7 +99,7 @@ public class SpellcraftResolver
     }
     else
     {
-      LOGGER.warn("Unmanaged spellcraft property: "+propertyName);
+      LOGGER.warn("Unmanaged spellcraft property: {}",propertyName);
     }
     if (LOGGER.isDebugEnabled())
     {

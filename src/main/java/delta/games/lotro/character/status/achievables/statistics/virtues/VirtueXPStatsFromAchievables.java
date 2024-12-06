@@ -46,7 +46,7 @@ public class VirtueXPStatsFromAchievables
     VirtueXPStatsFromAchievable old=_mapByAchievable.put(Integer.valueOf(achievable.getIdentifier()),entry);
     if (old!=null)
     {
-      LOGGER.warn("Using duplicate achievable: "+achievable);
+      LOGGER.warn("Using duplicate achievable: {}",achievable);
       _stats.remove(old);
     }
     _totalVirtueXP+=entry.getPoints();

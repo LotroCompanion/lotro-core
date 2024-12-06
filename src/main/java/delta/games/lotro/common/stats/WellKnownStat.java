@@ -321,7 +321,7 @@ public class WellKnownStat
     }
     else
     {
-      LOGGER.warn("Well-known stat not found! Key="+legacyKey);
+      LOGGER.warn("Well-known stat not found! Key={}",legacyKey);
     }
     return ret;
   }
