@@ -493,16 +493,16 @@ public class WorldEventConditionsRenderer
         {
           return "Instance level is player cap level";
         }
-        LOGGER.debug("Unmanaged operator for skirmish level/player cap property: "+operator);
+        LOGGER.debug("Unmanaged operator for skirmish level/player cap property: {}",operator);
       }
       else
       {
-        LOGGER.debug("Unmanaged skirmish level property: "+condition);
+        LOGGER.debug("Unmanaged skirmish level property: {}",condition);
       }
     }
     else
     {
-      LOGGER.debug("Unmanaged condition with complex value: "+condition);
+      LOGGER.debug("Unmanaged condition with complex value: {}",condition);
     }
     return null;
   }

@@ -72,10 +72,7 @@ public class BuffsManagerToTraitTreeStatus
       }
     }
 
-    if (LOGGER.isDebugEnabled())
-    {
-      LOGGER.debug("Loaded tree from buffs: "+status);
-    }
+    LOGGER.debug("Loaded tree from buffs: {}",status);
     return status;
   }
 
@@ -106,7 +103,7 @@ public class BuffsManagerToTraitTreeStatus
     }
     if (selectedBranch==null)
     {
-      LOGGER.info("Could not guess selected branch! Buffs="+buffs);
+      LOGGER.info("Could not guess selected branch! Buffs={}",buffs);
     }
     status.setSelectedBranch(selectedBranch);
   }

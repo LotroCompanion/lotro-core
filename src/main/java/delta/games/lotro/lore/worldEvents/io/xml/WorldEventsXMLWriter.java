@@ -75,7 +75,7 @@ public class WorldEventsXMLWriter
     }
     else
     {
-      LOGGER.warn("Unmanaged world event: "+worldEvent);
+      LOGGER.warn("Unmanaged world event: {}",worldEvent);
     }
   }
 
