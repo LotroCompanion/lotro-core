@@ -902,7 +902,9 @@ public class EffectXMLParser
       generator.setWeight(weight);
       // To caster
       boolean toCaster=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_TO_CASTER_ATTR,false);
-      generator.setToCaster(toCaster); 
+      generator.setToCaster(toCaster);
+
+      ret.addEffect(generator);
     }
     return ret;
   }
