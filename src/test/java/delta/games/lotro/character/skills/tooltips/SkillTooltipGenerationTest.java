@@ -12,7 +12,6 @@ import delta.games.lotro.character.io.xml.CharacterDataIO;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.SkillDisplay;
-import delta.games.lotro.character.skills.SkillsDetailsManager;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 
@@ -22,11 +21,6 @@ import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
  */
 class SkillTooltipGenerationTest
 {
-  private SkillDetails getSkillDetails(int id)
-  {
-    return SkillsDetailsManager.getInstance().getSkillDetails(id);
-  }
-
   private CharacterData getCharacterData(String filename)
   {
     File from=new File("src/test/resources/characters",filename);
@@ -418,9 +412,9 @@ class SkillTooltipGenerationTest
 
   private List<String> doSkill(int id, CharacterData data)
   {
-    SkillDetails details=getSkillDetails(id);
-    CharacterDataForSkills dataForSkills=new CharacterDataForSkills(data);
     SkillDescription skill=SkillsManager.getInstance().getSkill(id);
+    SkillDetails details=skill.getDetails();
+    CharacterDataForSkills dataForSkills=new CharacterDataForSkills(data);
     SkillDisplay d=new SkillDisplay(dataForSkills,skill,details);
     return d.getLines();
   }

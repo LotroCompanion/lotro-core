@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.skills.SkillDescription;
-import delta.games.lotro.character.skills.SkillEffectsManager;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemUtils;
@@ -82,11 +81,6 @@ public class ItemEffectsDisplay
   private void showSkill(List<String> storage, SkillToExecute skillToExecute)
   {
     SkillDescription skill=skillToExecute.getSkill();
-    SkillEffectsManager mgr=skill.getEffects();
-    if (mgr==null)
-    {
-      return;
-    }
     int level=_level;
     Integer skillLevel=skillToExecute.getLevel();
     if (skillLevel!=null)

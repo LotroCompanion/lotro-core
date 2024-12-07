@@ -31,7 +31,14 @@ public class DisplayEffectsUtils
     showEffect(storage,effect,level,skipRawStats);
   }
 
-  private static void showEffect(List<String> storage, Effect effect, int level, boolean skipRawStats)
+  /**
+   * Display an effect into the given storage.
+   * @param storage Storage.
+   * @param effect Effect.
+   * @param level Level to use.
+   * @param skipRawStats Skip stats at root effect or not.
+   */
+  public static void showEffect(List<String> storage, Effect effect, int level, boolean skipRawStats)
   {
     EffectRenderingEngine e=new EffectRenderingEngine(level);
     e.getState().skipRawStats(skipRawStats);

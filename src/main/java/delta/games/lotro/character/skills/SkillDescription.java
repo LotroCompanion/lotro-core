@@ -45,9 +45,9 @@ public class SkillDescription implements Identifiable,Named
    */
   private List<Effect> _requiredEffects;
   /**
-   * Effects.
+   * Details.
    */
-  private SkillEffectsManager _effects;
+  private SkillDetails _details;
 
   /**
    * Constructor.
@@ -62,6 +62,7 @@ public class SkillDescription implements Identifiable,Named
     _category=null;
     _requiredTrait=null;
     _requiredEffects=null;
+    _details=null;
   }
 
   /**
@@ -203,18 +204,18 @@ public class SkillDescription implements Identifiable,Named
    * Get the effects manager.
    * @return an effects manager or <code>null</code> if no effects.
    */
-  public SkillEffectsManager getEffects()
+  public SkillDetails getDetails()
   {
-    return _effects;
+    return _details;
   }
 
   /**
-   * Set the effects manager.
-   * @param effects Effects to set.
+   * Set the details.
+   * @param details Details to set.
    */
-  public void setEffects(SkillEffectsManager effects)
+  public void setDetails(SkillDetails details)
   {
-    _effects=effects;
+    _details=details;
   }
 
   @Override

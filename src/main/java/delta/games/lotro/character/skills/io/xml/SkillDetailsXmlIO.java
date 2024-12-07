@@ -1,7 +1,5 @@
 package delta.games.lotro.character.skills.io.xml;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.transform.sax.TransformerHandler;
@@ -58,12 +56,6 @@ public class SkillDetailsXmlIO
 
   private static void writeSkillDetailsAttributes(AttributesImpl attrs, SkillDetails data)
   {
-    // ID
-    int id=data.getIdentifier();
-    attrs.addAttribute("","","id",XmlWriter.CDATA,String.valueOf(id));
-    // Name
-    String name=data.getName();
-    attrs.addAttribute("","","name",XmlWriter.CDATA,name);
     // Action duration contribution
     Float actionDurationContribution=data.getActionDurationContribution();
     if (actionDurationContribution!=null)
@@ -169,27 +161,6 @@ public class SkillDetailsXmlIO
   }
 
   /**
-   * Parse the XML file.
-   * @param source Source file.
-   * @return Parsed details.
-   */
-  public static List<SkillDetails> parseXML(File source)
-  {
-    List<SkillDetails> ret=new ArrayList<SkillDetails>();
-    Element root=DOMParsingTools.parse(source);
-    if (root!=null)
-    {
-      List<Element> tags=DOMParsingTools.getChildTagsByName(root,SkillDetailsXMLConstants.DETAILS_TAG);
-      for(Element tag : tags)
-      {
-        SkillDetails details=readSkillDetails(tag);
-        ret.add(details);
-      }
-    }
-    return ret;
-  }
-
-  /**
    * Read skill details.
    * @param skillDetailsTag Tag to read.
    * @return A skill details.
@@ -198,12 +169,6 @@ public class SkillDetailsXmlIO
   {
     NamedNodeMap attrs=skillDetailsTag.getAttributes();
     SkillDetails ret=new SkillDetails();
-    // ID
-    int id=DOMParsingTools.getIntAttribute(attrs,"id",0);
-    ret.setId(id);
-    // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,"name",null);
-    ret.setName(name);
     // Action duration contribution
     Float actionDurationContribution=DOMParsingTools.getFloatAttribute(attrs,SkillDetailsXMLConstants.ACTION_DURATION_CONTRIBUTION_ATTR,null);
     ret.setActionDurationContribution(actionDurationContribution);

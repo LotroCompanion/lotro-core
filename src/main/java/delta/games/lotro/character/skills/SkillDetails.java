@@ -4,8 +4,6 @@ import java.util.List;
 
 import delta.games.lotro.character.skills.attack.SkillAttacks;
 import delta.games.lotro.character.skills.geometry.SkillGeometry;
-import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.Named;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillDisplayType;
 import delta.games.lotro.common.inductions.Induction;
@@ -15,10 +13,8 @@ import delta.games.lotro.common.properties.ModPropertyList;
  * Skill details.
  * @author DAM
  */
-public class SkillDetails implements Identifiable,Named
+public class SkillDetails
 {
-  private int _id;
-  private String _name;
   // Duration, induction, channeling
   private Float _actionDurationContribution;
   private Induction _induction;
@@ -66,42 +62,6 @@ public class SkillDetails implements Identifiable,Named
     _pipData=null;
     _gambitData=null;
     _attacks=null;
-  }
-
-  /**
-   * Get the skill identifier;
-   * @return an identifier.
-   */
-  public int getIdentifier()
-  {
-    return _id;
-  }
-
-  /**
-   * Set the skill identifier.
-   * @param id the identifier to set.
-   */
-  public void setId(int id)
-  {
-    _id=id;
-  }
-
-  /**
-   * Get the skill name.
-   * @return a name.
-   */
-  public String getName()
-  {
-    return _name;
-  }
-
-  /**
-   * Set the skill name.
-   * @param name the name to set.
-   */
-  public void setName(String name)
-  {
-    _name=name;
   }
 
   /**

@@ -7,7 +7,7 @@ import java.util.Set;
 
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
-import delta.games.lotro.character.skills.SkillEffectsManager;
+import delta.games.lotro.character.skills.SkillEffectsUtils;
 
 /**
  * Utilities to display skill effects.
@@ -24,12 +24,7 @@ public class SkillEffectsDisplay
   public static List<String> showSkill(SkillDescription skill, int level)
   {
     List<String> ret=new ArrayList<String>();
-    SkillEffectsManager mgr=skill.getEffects();
-    if (mgr==null)
-    {
-      return ret;
-    }
-    List<SkillEffectGenerator> effectGenerators=mgr.getEffects();
+    List<SkillEffectGenerator> effectGenerators=SkillEffectsUtils.getEffects(skill);
     int nbEffects=effectGenerators.size();
     if (nbEffects>0)
     {
