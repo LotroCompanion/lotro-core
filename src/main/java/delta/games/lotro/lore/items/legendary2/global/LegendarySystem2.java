@@ -2,12 +2,10 @@ package delta.games.lotro.lore.items.legendary2.global;
 
 import java.io.File;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.legendary2.global.io.xml.LegendaryData2XMLParser;
+import delta.games.lotro.utils.PerfUtils;
 import delta.games.lotro.utils.maths.Progression;
 
 /**
@@ -16,8 +14,6 @@ import delta.games.lotro.utils.maths.Progression;
  */
 public class LegendarySystem2
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(LegendarySystem2.class);
-
   private static LegendarySystem2 _instance=null;
 
   private LegendaryData2 _data;
@@ -45,7 +41,7 @@ public class LegendarySystem2
     _data=LegendaryData2XMLParser.parseLegendaryDataFile(inputFile);
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded legendary system (reloaded) in "+duration+"ms.");
+    PerfUtils.showLoadedLog("legendary system (reloaded)",duration);
   }
 
   /**

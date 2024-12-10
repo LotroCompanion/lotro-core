@@ -7,13 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.rewardsTrack.io.xml.RewardsTracksXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Rewards tracks manager.
@@ -21,8 +19,6 @@ import delta.games.lotro.lore.rewardsTrack.io.xml.RewardsTracksXMLParser;
  */
 public class RewardsTracksManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(RewardsTracksManager.class);
-
   private static RewardsTracksManager _instance=null;
 
   private Map<Integer,RewardsTrack> _tracks;
@@ -66,7 +62,7 @@ public class RewardsTracksManager
     long now2=System.currentTimeMillis();
     long duration=now2-now;
     int nbRewardsTracks=mgr.getAllRewardsTracks().size();
-    LOGGER.info("Loaded "+nbRewardsTracks+" rewards tracks in "+duration+"ms.");
+    PerfUtils.showLoadedLog(nbRewardsTracks,"rewards tracks",duration);
     return mgr;
   }
 

@@ -2,12 +2,10 @@ package delta.games.lotro.lore.parameters;
 
 import java.io.File;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.parameters.io.xml.GameXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Provides facilities related to the crafting system.
@@ -15,8 +13,6 @@ import delta.games.lotro.lore.parameters.io.xml.GameXMLParser;
  */
 public class Game
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(Game.class);
-
   private static Game _instance=null;
 
   private GameParameters _data;
@@ -44,7 +40,7 @@ public class Game
     _data=new GameXMLParser().parseGameData(inputFile);
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded game data in "+duration+"ms.");
+    PerfUtils.showLoadedLog("game data",duration);
   }
 
   /**

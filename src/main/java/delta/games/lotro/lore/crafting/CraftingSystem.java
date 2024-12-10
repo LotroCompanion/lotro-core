@@ -2,12 +2,10 @@ package delta.games.lotro.lore.crafting;
 
 import java.io.File;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.crafting.io.xml.CraftingXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Provides facilities related to the crafting system.
@@ -15,8 +13,6 @@ import delta.games.lotro.lore.crafting.io.xml.CraftingXMLParser;
  */
 public class CraftingSystem
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(CraftingSystem.class);
-
   private static CraftingSystem _instance=null;
 
   private CraftingData _data;
@@ -44,7 +40,7 @@ public class CraftingSystem
     _data=new CraftingXMLParser().parseCraftingSystem(inputFile);
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded crafting system data in "+duration+"ms.");
+    PerfUtils.showLoadedLog("crafting system data",duration);
   }
 
   /**

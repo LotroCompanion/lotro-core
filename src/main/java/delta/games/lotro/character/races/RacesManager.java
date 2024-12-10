@@ -6,13 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.races.io.xml.RaceDescriptionXMLParser;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for access to race descriptions.
@@ -20,8 +18,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class RacesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(RacesManager.class);
-
   private static RacesManager _instance=null;
 
   private HashMap<Integer,RaceDescription> _cacheByID;
@@ -87,7 +83,7 @@ public class RacesManager
     long now2=System.currentTimeMillis();
     long duration=now2-now;
     int nbRaces=_cacheByID.size();
-    LOGGER.info("Loaded "+nbRaces+" races in "+duration+"ms.");
+    PerfUtils.showLoadedLog(nbRaces,"races",duration);
   }
 
   /**

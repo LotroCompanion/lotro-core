@@ -8,9 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.enums.AllegianceGroup;
@@ -18,6 +15,7 @@ import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.allegiances.io.xml.AllegianceXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for allegiances access.
@@ -25,8 +23,6 @@ import delta.games.lotro.lore.allegiances.io.xml.AllegianceXMLParser;
  */
 public class AllegiancesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(AllegiancesManager.class);
-
   private static AllegiancesManager _instance=null;
 
   private HashMap<Integer,AllegianceDescription> _cache;
@@ -67,7 +63,7 @@ public class AllegiancesManager
     long now2=System.currentTimeMillis();
     long duration=now2-now;
     int nbAllegiances=mgr.getAll().size();
-    LOGGER.info("Loaded "+nbAllegiances+" allegiances in "+duration+"ms.");
+    PerfUtils.showLoadedLog(nbAllegiances,"allegiances",duration);
     return mgr;
   }
 

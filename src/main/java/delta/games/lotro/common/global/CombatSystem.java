@@ -2,13 +2,11 @@ package delta.games.lotro.common.global;
 
 import java.io.File;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.stats.ratings.RatingsMgr;
 import delta.games.lotro.common.global.io.xml.CombatDataXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Provides facilities related to the combat system.
@@ -16,8 +14,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class CombatSystem
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(CombatSystem.class);
-
   private static CombatSystem _instance=null;
 
   private CombatData _data;
@@ -45,7 +41,7 @@ public class CombatSystem
     _data=CombatDataXMLParser.parseCombatDataFile(inputFile);
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded combat system data in "+duration+"ms.");
+    PerfUtils.showLoadedLog("combat system data",duration);
   }
 
   /**

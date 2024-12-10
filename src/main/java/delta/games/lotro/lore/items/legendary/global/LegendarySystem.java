@@ -22,6 +22,7 @@ import delta.games.lotro.lore.items.legendary.non_imbued.DefaultNonImbuedLegacyI
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegaciesManager;
 import delta.games.lotro.lore.items.legendary.non_imbued.NonImbuedLegacyTier;
 import delta.games.lotro.lore.items.legendary.non_imbued.TieredNonImbuedLegacyInstance;
+import delta.games.lotro.utils.PerfUtils;
 import delta.games.lotro.utils.maths.ArrayProgression;
 import delta.games.lotro.utils.maths.Progression;
 
@@ -60,7 +61,7 @@ public class LegendarySystem
     _data=LegendaryDataXMLParser.parseLegendaryDataFile(inputFile);
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded legendary system in "+duration+"ms.");
+    PerfUtils.showLoadedLog("legendary system",duration);
   }
 
   /**

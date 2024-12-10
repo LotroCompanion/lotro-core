@@ -6,11 +6,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.classes.io.xml.ClassDescriptionXMLParser;
 import delta.games.lotro.common.comparators.NamedComparator;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for access to class descriptions.
@@ -19,8 +17,6 @@ import delta.games.lotro.common.comparators.NamedComparator;
  */
 public class SimpleClassesManager<T extends AbstractClassDescription>
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(SimpleClassesManager.class);
-
   private HashMap<String,T> _mapByKey;
   private HashMap<Integer,T> _mapByCode;
 
@@ -53,7 +49,7 @@ public class SimpleClassesManager<T extends AbstractClassDescription>
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_mapByKey.size()+" classes in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_mapByKey.size(),"classes",duration);
   }
 
   /**

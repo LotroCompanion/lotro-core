@@ -8,14 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
@@ -24,8 +22,6 @@ import delta.games.lotro.utils.i18n.I18nFacade;
  */
 public class EffectsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(EffectsManager.class);
-
   private static EffectsManager _instance=null;
   private Map<Integer,Effect> _effects;
 
@@ -58,7 +54,7 @@ public class EffectsManager
       }
       long now2=System.currentTimeMillis();
       long duration=now2-now;
-      LOGGER.info("Loaded "+ret._effects.size()+" effects in "+duration+"ms.");
+      PerfUtils.showLoadedLog(+ret._effects.size(),"effects",duration);
     }
     return ret;
   }

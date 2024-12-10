@@ -4,12 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.classes.traitTree.io.xml.TraitTreeXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for access to trait trees.
@@ -17,8 +15,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class TraitTreesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(TraitTreesManager.class);
-
   private static TraitTreesManager _instance=null;
 
   private HashMap<Integer,TraitTree> _cacheByID;
@@ -64,7 +60,7 @@ public class TraitTreesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cacheByID.size()+" trait trees in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cacheByID.size(),"trait trees",duration);
   }
 
   private void registerTraitTree(TraitTree traitTree)

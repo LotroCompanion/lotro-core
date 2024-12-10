@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 import delta.games.lotro.utils.maths.Progression;
 import delta.games.lotro.utils.maths.io.xml.ProgressionSaxParser;
 import delta.games.lotro.utils.maths.io.xml.ProgressionsXMLWriter;
@@ -78,7 +79,7 @@ public class ProgressionsManager
       }
       long now2=System.currentTimeMillis();
       long duration=now2-now;
-      LOGGER.info("Loaded "+_map.size()+" progressions from file "+from+" in "+duration+"ms.");
+      PerfUtils.showLoadedLog(_map.size(),"progressions from file "+from,duration);
     }
   }
 

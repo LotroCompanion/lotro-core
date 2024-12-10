@@ -5,12 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.classes.initialGear.io.xml.InitialGearXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for access to initial gear for all classes.
@@ -18,8 +16,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class InitialGearManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(InitialGearManager.class);
-
   private static InitialGearManager _instance=null;
 
   private Map<String,InitialGearDefinition> _gearMap;
@@ -62,7 +58,7 @@ public class InitialGearManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_gearMap.size()+" initial gear sets in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_gearMap.size(),"initial gear sets",duration);
   }
 
   /**

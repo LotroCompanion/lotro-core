@@ -6,13 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.deeds.io.xml.DeedsSaxParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for deeds access.
@@ -20,8 +18,6 @@ import delta.games.lotro.lore.deeds.io.xml.DeedsSaxParser;
  */
 public final class DeedsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(DeedsManager.class);
-
   private static DeedsManager _instance=new DeedsManager();
 
   private List<DeedDescription> _deeds;
@@ -70,7 +66,7 @@ public final class DeedsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+deeds.size()+" deeds in "+duration+"ms.");
+    PerfUtils.showLoadedLog(deeds.size(),"deeds",duration);
   }
 
   /**

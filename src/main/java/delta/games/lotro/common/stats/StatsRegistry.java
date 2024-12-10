@@ -7,12 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.stats.io.xml.StatXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Registry for all stats.
@@ -20,8 +18,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class StatsRegistry
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(StatsRegistry.class);
-
   private static StatsRegistry _instance=null;
 
   private List<StatDescription> _stats;
@@ -82,7 +78,7 @@ public class StatsRegistry
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+nbStats+" stats in "+duration+"ms.");
+    PerfUtils.showLoadedLog(nbStats,"stats",duration);
   }
 
   /**

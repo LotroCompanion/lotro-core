@@ -3,12 +3,10 @@ package delta.games.lotro.common.treasure;
 import java.io.File;
 import java.io.PrintStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.treasure.io.xml.TreasureXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 import delta.games.lotro.utils.Registry;
 
 /**
@@ -17,8 +15,6 @@ import delta.games.lotro.utils.Registry;
  */
 public class LootsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(LootsManager.class);
-
   private static LootsManager _instance;
 
   private Registry<LootTable> _tables;
@@ -56,7 +52,8 @@ public class LootsManager
     LootsManager lootsManager=parser.parseXML(lootsFile);
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded loot tables in "+duration+"ms.");
+    int count=lootsManager.getTablesCount();
+    PerfUtils.showLoadedLog(count,"loot tables",duration);
     return lootsManager;
   }
 
@@ -85,6 +82,11 @@ public class LootsManager
   public Registry<RelicsTreasureGroup> getRelicsTreasureGroups()
   {
     return _relicsTreasureGroups;
+  }
+
+  private int getTablesCount()
+  {
+    return _relicsLists.size()+_relicsTreasureGroups.size()+_tables.size();
   }
 
   /**

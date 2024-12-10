@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.text.EndOfLine;
@@ -25,6 +22,7 @@ import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.legendary.AbstractLegacy;
 import delta.games.lotro.lore.items.legendary.io.xml.LegacyXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
@@ -33,8 +31,6 @@ import delta.games.lotro.utils.i18n.I18nFacade;
  */
 public class NonImbuedLegaciesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(NonImbuedLegaciesManager.class);
-
   private static NonImbuedLegaciesManager _instance=null;
 
   private Map<StatDescription,TieredNonImbuedLegacy> _tieredLegacies;
@@ -86,7 +82,7 @@ public class NonImbuedLegaciesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+legacies.size()+" non-imbued legacies in "+duration+"ms.");
+    PerfUtils.showLoadedLog(legacies.size(),"non-imbued legacies",duration);
   }
 
   /**

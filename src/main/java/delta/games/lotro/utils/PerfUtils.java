@@ -19,6 +19,16 @@ public class PerfUtils
    */
   public static void showLoadedLog(int count, String name, long duration)
   {
-    LOGGER.info("Loaded {} {} in {}ms.", Integer.valueOf(count),name,Long.valueOf(duration));
+    LOGGER.info("Loaded {} {} in {}ms.",Integer.valueOf(count),name,Long.valueOf(duration));
+  }
+
+  /**
+   * Show a 'loaded' log (no count).
+   * @param name Objects name.
+   * @param duration Load duration.
+   */
+  public static void showLoadedLog(String name, long duration)
+  {
+    LOGGER.info("Loaded {} in {}ms.",name,Long.valueOf(duration));
   }
 }
