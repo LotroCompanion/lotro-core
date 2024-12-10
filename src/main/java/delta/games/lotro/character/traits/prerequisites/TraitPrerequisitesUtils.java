@@ -41,7 +41,7 @@ public class TraitPrerequisitesUtils
       }
       else
       {
-        LOGGER.warn("Could not resolve trait ID="+id);
+        LOGGER.warn("Could not resolve trait: {}",proxy);
       }
     }
   }

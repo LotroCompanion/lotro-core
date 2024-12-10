@@ -1,14 +1,11 @@
 package delta.games.lotro.lore.quests.objectives;
 
 import java.awt.geom.Point2D;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import delta.common.utils.misc.IntegerHolder;
 import delta.common.utils.variables.VariablesResolver;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Duration;
@@ -288,7 +285,7 @@ public class ObjectivesDisplayBuilder
     }
     else
     {
-      LOGGER.warn("Unmanaged condition: "+condition.getType());
+      LOGGER.warn("Unmanaged condition: {}",condition.getType());
     }
   }
 
@@ -699,16 +696,11 @@ public class ObjectivesDisplayBuilder
     }
     else
     {
-      LOGGER.warn("Could not resolve deed/quest ID="+proxy.getId()+", name="+proxy.getName());
+      LOGGER.warn("Could not resolve deed/quest: {}",proxy);
       sb.append("quest/deed "+proxy.getId()); // I18n
     }
     return sb.toString();
   }
-
-  /**
-   * Counters.
-   */
-  public static Map<ConditionType,IntegerHolder> _counters=new EnumMap<ConditionType,IntegerHolder>(ConditionType.class);
 
   private void handleDefaultCondition(StringBuilder sb, DefaultObjectiveCondition condition)
   {
@@ -724,15 +716,6 @@ public class ObjectivesDisplayBuilder
       else
       {
         LOGGER.warn("Missing data for condition: type={}",type);
-        /*
-        IntegerHolder counter=_counters.get(type);
-        if (counter==null)
-        {
-          counter=new IntegerHolder();
-          _counters.put(type,counter);
-        }
-        counter.increment();
-        */
       }
     }
   }

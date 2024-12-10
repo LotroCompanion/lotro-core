@@ -323,7 +323,7 @@ public class TreasureXMLParser
       }
       else
       {
-        LOGGER.warn("Relic not found: "+relicId);
+        LOGGER.warn("Relic not found: {}",Integer.valueOf(relicId));
       }
     }
     _lootMgr.getRelicsTreasureGroups().add(ret);

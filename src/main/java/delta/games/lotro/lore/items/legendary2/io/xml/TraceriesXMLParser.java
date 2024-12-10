@@ -58,7 +58,7 @@ public class TraceriesXMLParser
     Item item=ItemsManager.getInstance().getItem(itemId);
     if (item==null)
     {
-      LOGGER.warn("Unknown item for tracery: "+itemId);
+      LOGGER.warn("Unknown item for tracery: {}",Integer.valueOf(itemId));
       return null;
     }
     // Socket type

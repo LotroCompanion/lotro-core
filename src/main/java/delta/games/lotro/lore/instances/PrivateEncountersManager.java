@@ -71,7 +71,7 @@ public class PrivateEncountersManager
       PrivateEncounter old=_questToPE.put(key,privateEncounter);
       if (old!=null)
       {
-        LOGGER.warn("Several PE use the same parent quest: "+parentQuest.getId());
+        LOGGER.warn("Several PE use the same parent quest: {}",Integer.valueOf(parentQuest.getId()));
       }
     }
   }

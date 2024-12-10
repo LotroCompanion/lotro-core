@@ -60,7 +60,7 @@ public class HobbiesStatusXMLParser
     if (hobby==null)
     {
       // Unknown hobby!
-      LOGGER.warn("Unknown hobby: "+id);
+      LOGGER.warn("Unknown hobby: {}",Integer.valueOf(id));
       return;
     }
     HobbyStatus newStatus=status.get(hobby,true);

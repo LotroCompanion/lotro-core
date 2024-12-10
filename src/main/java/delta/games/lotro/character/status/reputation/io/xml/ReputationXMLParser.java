@@ -67,7 +67,7 @@ public class ReputationXMLParser
       }
       else
       {
-        LOGGER.warn("Could not find faction with ID="+factionId+" and key="+factionKey);
+        LOGGER.warn("Could not find faction with ID={} and key={}",Integer.valueOf(factionId),factionKey);
       }
     }
     return h;
@@ -123,7 +123,7 @@ public class ReputationXMLParser
       level=faction.getLevelByTier(tier);
       if (level==null)
       {
-        LOGGER.warn("Unknown faction tier ["+tier+"] for faction ["+faction.getName()+"]");
+        LOGGER.warn("Unknown faction tier [{}] for faction [{}]",Integer.valueOf(tier),faction.getName());
       }
     }
     if (level==null)
@@ -133,7 +133,7 @@ public class ReputationXMLParser
         level=faction.getLevelByKey(levelKey);
         if (level==null)
         {
-          LOGGER.warn("Unknown faction level key ["+levelKey+"] for faction ["+faction.getName()+"]");
+          LOGGER.warn("Unknown faction level key [{}] for faction [{}]",levelKey,faction.getName());
         }
       }
     }

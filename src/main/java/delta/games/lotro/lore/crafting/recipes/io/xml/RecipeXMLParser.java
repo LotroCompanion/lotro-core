@@ -239,12 +239,12 @@ public class RecipeXMLParser
   private Item parseItemRef(Element itemRef)
   {
     NamedNodeMap attrs=itemRef.getAttributes();
-    // Item id
+    // Item ID
     int id=DOMParsingTools.getIntAttribute(attrs,RecipeXMLConstants.RECIPE_ITEM_ID_ATTR,0);
     Item item=ItemsManager.getInstance().getItem(id);
     if (item==null)
     {
-      LOGGER.warn("Unknown item: "+item);
+      LOGGER.warn("Unknown item: id={}",Integer.valueOf(id));
     }
     return item;
   }
@@ -257,7 +257,7 @@ public class RecipeXMLParser
     Item item=ItemsManager.getInstance().getItem(id);
     if (item==null)
     {
-      LOGGER.warn("Unknown item: "+item);
+      LOGGER.warn("Unknown item: id={}",Integer.valueOf(id));
       return null;
     }
     // Count

@@ -60,7 +60,7 @@ public class SkillsStatusXMLParser
     if (skill==null)
     {
       // Unknown skill!
-      LOGGER.warn("Unknown skill: "+id);
+      LOGGER.warn("Unknown skill: {}",Integer.valueOf(id));
       return;
     }
     SkillStatus newStatus=status.get(skill,true);

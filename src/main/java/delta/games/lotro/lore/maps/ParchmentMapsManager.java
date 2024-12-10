@@ -111,7 +111,7 @@ public class ParchmentMapsManager
     }
     if (nbFinds>1)
     {
-      LOGGER.warn("Multiple maps for area: "+areaId);
+      LOGGER.warn("Multiple maps for area: {}",Integer.valueOf(areaId));
     }
     return ret;
   }

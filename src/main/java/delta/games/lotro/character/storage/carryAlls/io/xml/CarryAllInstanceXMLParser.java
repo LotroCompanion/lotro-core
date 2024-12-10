@@ -78,7 +78,7 @@ public class CarryAllInstanceXMLParser
       }
       else
       {
-        LOGGER.warn("Item not found: "+itemID);
+        LOGGER.warn("Item not found: {}",Integer.valueOf(itemID));
       }
     }
     return ret;

@@ -114,7 +114,7 @@ public class LegendarySystem
     DefaultNonImbuedLegacy legacy=legaciesMgr.getDefaultLegacy(mainLegacyId);
     if (legacy==null)
     {
-      LOGGER.warn("Main legacy not found. ID: "+mainLegacyId+" for item: "+item);
+      LOGGER.warn("Main legacy not found. ID: {} for item: {}",Integer.valueOf(mainLegacyId),item);
       return null;
     }
     StatProvider provider=legacy.getStatsProvider().getFirstStatProvider();
@@ -194,7 +194,7 @@ public class LegendarySystem
   {
     if (LOGGER.isDebugEnabled())
     {
-      LOGGER.debug("Values for progression: "+progression.getIdentifier()+": "+progression);
+      LOGGER.debug("Values for progression: {}: {}",Integer.valueOf(progression.getIdentifier()),progression);
     }
     List<Float> values=new ArrayList<Float>();
     List<Integer> ranks=new ArrayList<Integer>();

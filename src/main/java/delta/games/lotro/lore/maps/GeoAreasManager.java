@@ -231,7 +231,7 @@ public class GeoAreasManager
     {
       return area;
     }
-    LOGGER.warn("Land not found: "+landId);
+    LOGGER.warn("Land not found: {}",Integer.valueOf(landId));
     return null;
   }
   /**

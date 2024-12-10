@@ -125,7 +125,7 @@ public class MainTestLegendarySystem
         }
         else
         {
-          LOGGER.warn("No ranks defined for item instance: "+itemInstance+", tier: "+tier);
+          LOGGER.warn("No ranks defined for item instance: {}, tier: {}",itemInstance,tier);
         }
       }
     }

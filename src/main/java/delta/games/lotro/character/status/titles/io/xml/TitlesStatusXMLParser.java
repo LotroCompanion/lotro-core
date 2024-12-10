@@ -61,7 +61,7 @@ public class TitlesStatusXMLParser
     if (title==null)
     {
       // Unknown title!
-      LOGGER.warn("Unknown title: "+id);
+      LOGGER.warn("Unknown title: {}",Integer.valueOf(id));
       return;
     }
     TitleStatus newStatus=status.get(title,true);

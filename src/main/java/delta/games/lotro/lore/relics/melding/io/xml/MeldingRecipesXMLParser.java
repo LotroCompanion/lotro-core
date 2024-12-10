@@ -93,7 +93,7 @@ public class MeldingRecipesXMLParser
         }
         else
         {
-          LOGGER.warn("Relic not found: ID="+relicId);
+          LOGGER.warn("Relic not found: ID={}",Integer.valueOf(relicId));
         }
       }
     }
@@ -116,7 +116,7 @@ public class MeldingRecipesXMLParser
         }
         else
         {
-          LOGGER.warn("Relic not found: ID="+relicId);
+          LOGGER.warn("Relic not found: ID={}",Integer.valueOf(relicId));
         }
       }
       // Item ID
@@ -130,7 +130,7 @@ public class MeldingRecipesXMLParser
         }
         else
         {
-          LOGGER.warn("Item not found: ID="+itemId);
+          LOGGER.warn("Item not found: ID={}",Integer.valueOf(itemId));
         }
       }
     }
