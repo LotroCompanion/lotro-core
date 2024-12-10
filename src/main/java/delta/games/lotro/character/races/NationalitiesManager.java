@@ -4,12 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.races.io.xml.NationalityDescriptionXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for access to nationalities descriptions.
@@ -17,8 +15,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class NationalitiesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(NationalitiesManager.class);
-
   private static NationalitiesManager _instance=null;
 
   private HashMap<Integer,NationalityDescription> _cache;
@@ -63,7 +59,7 @@ public class NationalitiesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" nationalities in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"nationalities",duration);
   }
 
   private void register(NationalityDescription nationalityDescription)

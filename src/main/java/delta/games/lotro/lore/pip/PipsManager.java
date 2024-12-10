@@ -4,12 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.pip.io.xml.PipXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for pips access.
@@ -17,8 +15,6 @@ import delta.games.lotro.lore.pip.io.xml.PipXMLParser;
  */
 public class PipsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(PipsManager.class);
-
   private static PipsManager _instance=null;
 
   private HashMap<Integer,PipDescription> _cache;
@@ -65,7 +61,7 @@ public class PipsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded {} pips in {}ms.",Integer.valueOf(_cache.size()),Long.valueOf(duration));
+    PerfUtils.showLoadedLog(_cache.size(),"pips",duration);
   }
 
   /**

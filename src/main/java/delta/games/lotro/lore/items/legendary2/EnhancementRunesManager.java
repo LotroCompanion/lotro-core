@@ -4,12 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.legendary2.io.xml.EnhancementRunesXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Manager for all known enhancement runes.
@@ -17,8 +15,6 @@ import delta.games.lotro.lore.items.legendary2.io.xml.EnhancementRunesXMLParser;
  */
 public class EnhancementRunesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(EnhancementRunesManager.class);
-
   private static EnhancementRunesManager _instance=null;
 
   private HashMap<Integer,EnhancementRune> _cache;
@@ -61,7 +57,7 @@ public class EnhancementRunesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" enhancement runes in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"enhancement runes",duration);
   }
 
   /**

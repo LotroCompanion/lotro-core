@@ -4,12 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.inductions.io.xml.InductionXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for inductions access.
@@ -17,8 +15,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class InductionsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(InductionsManager.class);
-
   private static InductionsManager _instance=null;
 
   private HashMap<Integer,Induction> _cache;
@@ -65,7 +61,7 @@ public class InductionsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded {} inductions in {}ms.",Integer.valueOf(_cache.size()),Long.valueOf(duration));
+    PerfUtils.showLoadedLog(_cache.size(),"inductions",duration);
   }
 
   /**

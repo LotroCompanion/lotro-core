@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.enums.SocketType;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.legendary2.io.xml.TraceriesXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Manager for all known traceries.
@@ -19,8 +17,6 @@ import delta.games.lotro.lore.items.legendary2.io.xml.TraceriesXMLParser;
  */
 public class TraceriesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(TraceriesManager.class);
-
   private static TraceriesManager _instance=null;
 
   private HashMap<Integer,Tracery> _cache;
@@ -63,7 +59,7 @@ public class TraceriesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" traceries in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"traceries",duration);
   }
 
   /**

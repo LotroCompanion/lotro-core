@@ -4,10 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.utils.valueTables.io.xml.ValueTablesXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for value tables access.
@@ -15,8 +13,6 @@ import delta.games.lotro.common.utils.valueTables.io.xml.ValueTablesXMLParser;
  */
 public class ValueTablesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(ValueTablesManager.class);
-
   private HashMap<Integer,QualityBasedValuesTable> _cache;
 
   /**
@@ -42,7 +38,7 @@ public class ValueTablesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" tables in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"value tables",duration);
   }
 
   /**

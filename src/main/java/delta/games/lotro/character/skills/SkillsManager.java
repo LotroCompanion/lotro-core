@@ -6,14 +6,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.skills.io.xml.SkillDescriptionXMLParser;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.SkillCategory;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for access to skills.
@@ -21,8 +19,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class SkillsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(SkillsManager.class);
-
   private static SkillsManager _instance=null;
 
   private HashMap<Integer,SkillDescription> _cache;
@@ -70,7 +66,7 @@ public class SkillsManager
       }
       long now2=System.currentTimeMillis();
       long duration=now2-now;
-      LOGGER.info("Loaded "+_cache.size()+" skills in "+duration+"ms.");
+      PerfUtils.showLoadedLog(_cache.size(),"skills",duration);
     }
   }
 

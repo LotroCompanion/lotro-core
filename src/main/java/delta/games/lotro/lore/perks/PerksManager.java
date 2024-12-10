@@ -6,13 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.perks.io.xml.PerkDescriptionXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for access to perks.
@@ -20,8 +18,6 @@ import delta.games.lotro.lore.perks.io.xml.PerkDescriptionXMLParser;
  */
 public class PerksManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(PerksManager.class);
-
   private static PerksManager _instance=null;
 
   private HashMap<Integer,PerkDescription> _cache;
@@ -67,7 +63,7 @@ public class PerksManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" perks in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"perks",duration);
   }
 
   /**

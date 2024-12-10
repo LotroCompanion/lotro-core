@@ -6,9 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.common.utils.collections.filters.Filter;
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.character.classes.ClassDescription;
@@ -19,6 +16,7 @@ import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.legendary.imbued.ImbuedLegacy;
 import delta.games.lotro.lore.items.legendary.io.xml.LegacyXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
@@ -27,8 +25,6 @@ import delta.games.lotro.utils.i18n.I18nFacade;
  */
 public class LegaciesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(LegaciesManager.class);
-
   private static LegaciesManager _instance=null;
 
   private HashMap<Integer,ImbuedLegacy> _cache;
@@ -72,7 +68,7 @@ public class LegaciesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" legacies in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"legacies",duration);
   }
 
   /**

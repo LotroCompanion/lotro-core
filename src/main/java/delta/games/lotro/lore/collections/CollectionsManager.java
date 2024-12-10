@@ -8,15 +8,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.CollectionCategory;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.collections.io.xml.CollectionsXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for collections access.
@@ -24,8 +22,6 @@ import delta.games.lotro.lore.collections.io.xml.CollectionsXMLParser;
  */
 public class CollectionsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(CollectionsManager.class);
-
   private static CollectionsManager _instance=null;
 
   private HashMap<Integer,CollectionDescription> _cache;
@@ -68,7 +64,7 @@ public class CollectionsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" collections in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"collections",duration);
   }
 
   /**

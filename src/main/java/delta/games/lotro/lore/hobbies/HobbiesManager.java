@@ -6,13 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.hobbies.io.xml.HobbyDescriptionXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for access to hobbies.
@@ -20,8 +18,6 @@ import delta.games.lotro.lore.hobbies.io.xml.HobbyDescriptionXMLParser;
  */
 public class HobbiesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(HobbiesManager.class);
-
   private static HobbiesManager _instance=null;
 
   private HashMap<Integer,HobbyDescription> _cache;
@@ -67,7 +63,7 @@ public class HobbiesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" hobbies in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"hobbies",duration);
   }
 
   /**

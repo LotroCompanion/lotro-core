@@ -7,12 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.config.servers.io.xml.ServerXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for servers access.
@@ -20,8 +18,6 @@ import delta.games.lotro.config.servers.io.xml.ServerXMLParser;
  */
 public class ServersManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(ServersManager.class);
-
   private static ServersManager _instance=null;
 
   private List<ServerDescription> _cache;
@@ -71,7 +67,7 @@ public class ServersManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" servers in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"servers",duration);
   }
 
   /**

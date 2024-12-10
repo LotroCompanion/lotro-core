@@ -6,9 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
@@ -16,8 +13,9 @@ import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.legendary.passives.Passive;
 import delta.games.lotro.lore.items.legendary.passives.PassivesGroup;
 import delta.games.lotro.lore.items.legendary.passives.PassivesGroupsManager;
-import delta.games.lotro.lore.items.legendary.passives.io.xml.PassivesXMLParser;
 import delta.games.lotro.lore.items.legendary.passives.io.xml.PassivesGroupsXMLParser;
+import delta.games.lotro.lore.items.legendary.passives.io.xml.PassivesXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 import delta.games.lotro.utils.i18n.I18nFacade;
 
 /**
@@ -26,8 +24,6 @@ import delta.games.lotro.utils.i18n.I18nFacade;
  */
 public class PassivesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(PassivesManager.class);
-
   private static PassivesManager _instance=null;
 
   private HashMap<Integer,Passive> _cache;
@@ -81,7 +77,7 @@ public class PassivesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" passives in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"passives",duration);
   }
 
   /**
@@ -99,7 +95,7 @@ public class PassivesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded passives usage in "+duration+"ms.");
+    PerfUtils.showLoadedLog(groups.size(),"passives groups",duration);
   }
 
   /**

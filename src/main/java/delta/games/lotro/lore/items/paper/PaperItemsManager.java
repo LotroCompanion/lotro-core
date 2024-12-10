@@ -8,9 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.enums.PaperItemCategory;
@@ -18,6 +15,7 @@ import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.paper.io.xml.PaperItemsXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for paper items access.
@@ -25,8 +23,6 @@ import delta.games.lotro.lore.items.paper.io.xml.PaperItemsXMLParser;
  */
 public class PaperItemsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(PaperItemsManager.class);
-
   private static PaperItemsManager _instance=null;
 
   private HashMap<Integer,PaperItem> _cache;
@@ -73,7 +69,7 @@ public class PaperItemsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" paper items in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"paper items",duration);
   }
 
   /**

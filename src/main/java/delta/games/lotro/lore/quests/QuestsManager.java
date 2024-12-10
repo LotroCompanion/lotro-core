@@ -8,9 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
@@ -18,6 +15,7 @@ import delta.games.lotro.common.rewards.RewardsExplorer;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.quests.io.xml.QuestsSaxParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for quests access.
@@ -25,8 +23,6 @@ import delta.games.lotro.lore.quests.io.xml.QuestsSaxParser;
  */
 public final class QuestsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(QuestsManager.class);
-
   private static QuestsManager _instance=null;
 
   private HashMap<Integer,QuestDescription> _cache;
@@ -70,7 +66,7 @@ public final class QuestsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" quests in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"quests",duration);
   }
 
   /**

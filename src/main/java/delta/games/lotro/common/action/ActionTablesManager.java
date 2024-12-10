@@ -6,13 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.action.io.xml.ActionTablesXMLParser;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for action tables access.
@@ -20,8 +18,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class ActionTablesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(ActionTablesManager.class);
-
   private static ActionTablesManager _instance=null;
 
   private HashMap<Integer,ActionTable> _cache;
@@ -68,7 +64,7 @@ public class ActionTablesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" action tables in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"action tables",duration);
   }
 
   /**

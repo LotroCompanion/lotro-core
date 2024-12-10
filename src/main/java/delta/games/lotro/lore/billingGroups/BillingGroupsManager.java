@@ -6,13 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.billingGroups.io.xml.BillingGroupsXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for billing groups access.
@@ -20,8 +18,6 @@ import delta.games.lotro.lore.billingGroups.io.xml.BillingGroupsXMLParser;
  */
 public class BillingGroupsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(BillingGroupsManager.class);
-
   private static BillingGroupsManager _instance=null;
 
   private HashMap<Integer,BillingGroupDescription> _cache;
@@ -68,7 +64,7 @@ public class BillingGroupsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" billing groups in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"billing groups",duration);
   }
 
   /**

@@ -6,13 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.items.legendary.titles.io.xml.LegendaryTitleXMLParser;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for access to legendary titles.
@@ -20,8 +18,6 @@ import delta.games.lotro.lore.items.legendary.titles.io.xml.LegendaryTitleXMLPar
  */
 public class LegendaryTitlesManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(LegendaryTitlesManager.class);
-
   private static LegendaryTitlesManager _instance=null;
 
   private HashMap<Integer,LegendaryTitle> _cache;
@@ -64,7 +60,7 @@ public class LegendaryTitlesManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" legendary titles in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"legendary titles",duration);
   }
 
   /**

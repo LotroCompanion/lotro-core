@@ -5,12 +5,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for cosmetic pets access.
@@ -18,8 +16,6 @@ import delta.games.lotro.common.IdentifiableComparator;
  */
 public class CosmeticPetsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(CosmeticPetsManager.class);
-
   private static CosmeticPetsManager _instance=null;
 
   private HashMap<Integer,CosmeticPetDescription> _cache;
@@ -68,7 +64,7 @@ public class CosmeticPetsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" pets in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"pets",duration);
   }
 
   /**

@@ -8,9 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.skirmish.io.xml.SkirmishTraitsXMLParser;
 import delta.games.lotro.common.IdentifiableComparator;
@@ -18,6 +15,7 @@ import delta.games.lotro.common.enums.TraitNature;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Skirmish traits manager.
@@ -25,8 +23,6 @@ import delta.games.lotro.config.LotroCoreConfig;
  */
 public class SkirmishTraitsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(SkirmishTraitsManager.class);
-
   private static SkirmishTraitsManager _instance=null;
 
   private HashMap<Integer,TraitDescription> _cache;
@@ -73,7 +69,7 @@ public class SkirmishTraitsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" skirmish traits in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"skirmish traits",duration);
   }
 
   /**

@@ -7,15 +7,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.enums.MountType;
 import delta.games.lotro.common.enums.SkillCharacteristicSubCategory;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
+import delta.games.lotro.utils.PerfUtils;
 
 /**
  * Facade for mounts access.
@@ -23,8 +21,6 @@ import delta.games.lotro.common.enums.comparator.LotroEnumEntryNameComparator;
  */
 public class MountsManager
 {
-  private static final Logger LOGGER=LoggerFactory.getLogger(MountsManager.class);
-
   private static MountsManager _instance=null;
 
   private HashMap<Integer,MountDescription> _cache;
@@ -73,7 +69,7 @@ public class MountsManager
     }
     long now2=System.currentTimeMillis();
     long duration=now2-now;
-    LOGGER.info("Loaded "+_cache.size()+" mounts in "+duration+"ms.");
+    PerfUtils.showLoadedLog(_cache.size(),"mounts",duration);
   }
 
   /**
