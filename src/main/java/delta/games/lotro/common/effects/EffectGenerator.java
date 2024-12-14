@@ -64,4 +64,14 @@ public class EffectGenerator
   {
     _spellcraft=spellcraft;
   }
+
+  @Override
+  public String toString()
+  {
+    if (_spellcraft!=null)
+    {
+      return _effect+", spellcraft="+_spellcraft;
+    }
+    return _effect.toString();
+  }
 }
