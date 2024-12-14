@@ -28,6 +28,7 @@ import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectAndProbability;
 import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
@@ -1064,5 +1065,25 @@ public class EffectXMLParser
       proxy.setObject(effect);
       proxy.setName(effect.getName());
     }
+  }
+
+  /**
+   * Read an effect generator from the given tag.
+   * @param generatorTag Tag to read.
+   * @return the loaded generator.
+   */
+  public static EffectGenerator readEffectGeneratorFromTag(Element generatorTag)
+  {
+    NamedNodeMap attrs=generatorTag.getAttributes();
+    int effectId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_ID_ATTR,0);
+    float spellcraftValue=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_SPELLCRAFT_ATTR,-1);
+    Float spellcraft=null;
+    if (spellcraftValue>0)
+    {
+      spellcraft=Float.valueOf(spellcraftValue);
+    }
+    Effect effect=EffectsManager.getInstance().getEffectById(effectId);
+    EffectGenerator ret=new EffectGenerator(effect,spellcraft);
+    return ret;
   }
 }

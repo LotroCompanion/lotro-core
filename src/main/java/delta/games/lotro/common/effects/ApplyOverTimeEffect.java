@@ -18,8 +18,6 @@ public class ApplyOverTimeEffect extends Effect
    */
   private List<EffectGenerator> _appliedEffects;
 
-  // Effect_Duration_ConstantInterval: 1.0
-
   /**
    * Constructor.
    */

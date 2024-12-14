@@ -1,6 +1,10 @@
 package delta.games.lotro.lore.agents.npcs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.common.CharacterSex;
+import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.lore.agents.AgentDescription;
 
 /**
@@ -11,6 +15,7 @@ public class NpcDescription extends AgentDescription
 {
   private String _title;
   private CharacterSex _gender;
+  private List<EffectGenerator> _startupEffects;
 
   /**
    * Constructor.
@@ -22,6 +27,7 @@ public class NpcDescription extends AgentDescription
     super(id,name);
     _title="";
     _gender=null;
+    _startupEffects=new ArrayList<EffectGenerator>();
   }
 
   /**
@@ -59,6 +65,24 @@ public class NpcDescription extends AgentDescription
   public void setGender(CharacterSex gender)
   {
     _gender=gender;
+  }
+
+  /**
+   * Add a 'startup' effect.
+   * @param generator Effect generator.
+   */
+  public void addStartupEffect(EffectGenerator generator)
+  {
+    _startupEffects.add(generator);
+  }
+
+  /**
+   * Get the 'startup' effects.
+   * @return A list of effect generators.
+   */
+  public List<EffectGenerator> getStartupEffects()
+  {
+    return _startupEffects;
   }
 
   @Override

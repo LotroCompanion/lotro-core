@@ -9,6 +9,8 @@ import org.w3c.dom.NamedNodeMap;
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.CharacterSex;
+import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.agents.npcs.NPCsManager;
@@ -86,6 +88,13 @@ public class NPCsXMLParser
     String title=DOMParsingTools.getStringAttribute(attrs,NPCsXMLConstants.TITLE_ATTR,"");
     title=I18nRuntimeUtils.getLabel(_i18n,title);
     ret.setTitle(title);
+    // Effects
+    List<Element> startupEffectTags=DOMParsingTools.getChildTagsByName(npcTag,NPCsXMLConstants.STARTUP_EFFECT_TAG);
+    for(Element startupEffectTag : startupEffectTags)
+    {
+      EffectGenerator generator=EffectXMLParser.readEffectGeneratorFromTag(startupEffectTag);
+      ret.addStartupEffect(generator);
+    }
     return ret;
   }
 }

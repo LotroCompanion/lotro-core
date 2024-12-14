@@ -12,6 +12,8 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.CharacterSex;
+import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.io.xml.EffectXMLWriter;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 
 /**
@@ -88,6 +90,11 @@ public class NPCsXMLWriter
       attrs.addAttribute("","",NPCsXMLConstants.TITLE_ATTR,XmlWriter.CDATA,title);
     }
     hd.startElement("","",NPCsXMLConstants.NPC_TAG,attrs);
+    // Effects
+    for(EffectGenerator startupEffect : npc.getStartupEffects())
+    {
+      EffectXMLWriter.writeEffectGenerator(hd,startupEffect,NPCsXMLConstants.STARTUP_EFFECT_TAG);
+    }
     hd.endElement("","",NPCsXMLConstants.NPC_TAG);
   }
 }

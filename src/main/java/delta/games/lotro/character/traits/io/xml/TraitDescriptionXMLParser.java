@@ -20,7 +20,7 @@ import delta.games.lotro.character.traits.prerequisites.io.xml.TraitPrerequisite
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.EffectsManager;
-import delta.games.lotro.common.effects.io.xml.EffectXMLConstants;
+import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.SkillCategory;
@@ -221,7 +221,7 @@ public class TraitDescriptionXMLParser
     List<Element> effectGeneratorTags=DOMParsingTools.getChildTagsByName(root,TraitDescriptionXMLConstants.TRAIT_EFFECT_GENERATOR_TAG);
     for(Element effectGeneratorTag : effectGeneratorTags)
     {
-      EffectGenerator generator=readEffectGenerator(effectGeneratorTag);
+      EffectGenerator generator=EffectXMLParser.readEffectGeneratorFromTag(effectGeneratorTag);
       trait.addEffectGenerator(generator);
     }
     // - at rank
@@ -257,20 +257,5 @@ public class TraitDescriptionXMLParser
       AbstractTraitPrerequisite prerequisite=_prerequisitesParser.parsePrerequisite(prerequisitesTag);
       trait.setTraitPrerequisite(prerequisite);
     }
-  }
-
-  private EffectGenerator readEffectGenerator(Element generatorTag)
-  {
-    NamedNodeMap attrs=generatorTag.getAttributes();
-    int effectId=DOMParsingTools.getIntAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_ID_ATTR,0);
-    float spellcraftValue=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.EFFECT_GENERATOR_SPELLCRAFT_ATTR,-1);
-    Float spellcraft=null;
-    if (spellcraftValue>0)
-    {
-      spellcraft=Float.valueOf(spellcraftValue);
-    }
-    Effect effect=EffectsManager.getInstance().getEffectById(effectId);
-    EffectGenerator ret=new EffectGenerator(effect,spellcraft);
-    return ret;
   }
 }
