@@ -31,8 +31,4 @@ public class NPCsXMLConstants
    * Tag 'NPC', attribute 'title'.
    */
   public static final String TITLE_ATTR="title";
-  /**
-   * Tag 'startupEffect'.
-   */
-  public static final String STARTUP_EFFECT_TAG="startupEffect";
 }

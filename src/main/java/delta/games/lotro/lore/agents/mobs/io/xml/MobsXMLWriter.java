@@ -112,6 +112,8 @@ public class MobsXMLWriter
     {
       _actionTablesWriter.writeActionTablesUsage(hd,actionTables);
     }
+    // Effects
+    AgentsXMLIO.writeEffects(hd,mob);
     hd.endElement("","",MobsXMLConstants.MOB_TAG);
   }
 

@@ -3,15 +3,21 @@ package delta.games.lotro.lore.agents.io.xml;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.transform.sax.TransformerHandler;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.common.utils.xml.SAXParsingTools;
+import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.io.xml.EffectXMLParser;
+import delta.games.lotro.common.effects.io.xml.EffectXMLWriter;
 import delta.games.lotro.common.enums.AgentClass;
 import delta.games.lotro.common.enums.Alignment;
 import delta.games.lotro.common.enums.ClassificationFilter;
@@ -21,6 +27,7 @@ import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.Species;
 import delta.games.lotro.common.enums.SubSpecies;
 import delta.games.lotro.lore.agents.AgentClassification;
+import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 
 /**
@@ -83,6 +90,21 @@ public class AgentsXMLIO
     if (subSpecies!=null)
     {
       attrs.addAttribute("","",AgentsXMLConstants.SUBSPECIES_ATTR,XmlWriter.CDATA,String.valueOf(subSpecies.getCode()));
+    }
+  }
+
+  /**
+   * Write startup effects.
+   * @param hd Output.
+   * @param agent Agent to use.
+   * @throws SAXException If an error occurs.
+   */
+  public static void writeEffects(TransformerHandler hd, AgentDescription agent) throws SAXException
+  {
+    // Effects
+    for(EffectGenerator startupEffect : agent.getStartupEffects())
+    {
+      EffectXMLWriter.writeEffectGenerator(hd,startupEffect,AgentsXMLConstants.STARTUP_EFFECT_TAG);
     }
   }
 
@@ -199,6 +221,21 @@ public class AgentsXMLIO
       LotroEnum<SubSpecies> subSpeciesMgr=LotroEnumsRegistry.getInstance().get(SubSpecies.class);
       SubSpecies subSpecies=subSpeciesMgr.getEntry(subSpeciesCode);
       entityClassification.setSubSpecies(subSpecies);
+    }
+  }
+
+  /**
+   * Parse startup effects.
+   * @param agentTag Root tag.
+   * @param agent Agent for storage. 
+   */
+  public static void parseEffects(Element agentTag, AgentDescription agent)
+  {
+    List<Element> startupEffectTags=DOMParsingTools.getChildTagsByName(agentTag,AgentsXMLConstants.STARTUP_EFFECT_TAG);
+    for(Element startupEffectTag : startupEffectTags)
+    {
+      EffectGenerator generator=EffectXMLParser.readEffectGeneratorFromTag(startupEffectTag);
+      agent.addStartupEffect(generator);
     }
   }
 }

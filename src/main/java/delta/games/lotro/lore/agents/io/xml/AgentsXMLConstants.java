@@ -31,4 +31,8 @@ public class AgentsXMLConstants
    * Attribute 'subSpecies'.
    */
   public static final String SUBSPECIES_ATTR="subSpecies";
+  /**
+   * Tag 'startupEffect'.
+   */
+  public static final String STARTUP_EFFECT_TAG="startupEffect";
 }

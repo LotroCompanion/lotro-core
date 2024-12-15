@@ -1,6 +1,10 @@
 package delta.games.lotro.lore.agents;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.common.effects.EffectGenerator;
 
 /**
  * Base class for agents (mobs and NPCs).
@@ -10,6 +14,7 @@ public class AgentDescription implements Interactable
 {
   private int _identifier;
   private String _name;
+  private List<EffectGenerator> _startupEffects;
 
   /**
    * Constructor.
@@ -21,6 +26,7 @@ public class AgentDescription implements Interactable
     _identifier=id;
     if (name==null) name="";
     _name=name;
+    _startupEffects=new ArrayList<EffectGenerator>();
   }
 
   /**
@@ -39,5 +45,23 @@ public class AgentDescription implements Interactable
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Add a 'startup' effect.
+   * @param generator Effect generator.
+   */
+  public void addStartupEffect(EffectGenerator generator)
+  {
+    _startupEffects.add(generator);
+  }
+
+  /**
+   * Get the 'startup' effects.
+   * @return A list of effect generators.
+   */
+  public List<EffectGenerator> getStartupEffects()
+  {
+    return _startupEffects;
   }
 }

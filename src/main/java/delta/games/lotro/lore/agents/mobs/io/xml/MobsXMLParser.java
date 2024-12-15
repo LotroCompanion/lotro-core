@@ -99,6 +99,8 @@ public class MobsXMLParser
     // Action tables
     ActionTables tables=_actionTablesParser.parseTablesUsage(mobTag);
     ret.setActionTables(tables);
+    // Effects
+    AgentsXMLIO.parseEffects(mobTag,ret);
     return ret;
   }
 
