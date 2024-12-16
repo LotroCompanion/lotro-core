@@ -32,6 +32,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_NAME_ATTR="name";
   /**
+   * Tag 'item', attribute 'pluralName'.
+   */
+  public static final String ITEM_PLURAL_NAME_ATTR="pluralName";
+  /**
    * Tag 'item', attribute 'level'.
    */
   public static final String ITEM_LEVEL_ATTR="level";

@@ -45,6 +45,8 @@ public class Item implements Interactable,ItemProvider
   private EquipmentLocation _equipmentLocation;
   // Item name. Ex: "Jacket of the Impossible Shot"
   private String _name;
+  // Plural name
+  private String _pluralName;
   // Item class. Yields the category name.
   private ItemClass _itemClass;
   // Tier
@@ -267,6 +269,24 @@ public class Item implements Interactable,ItemProvider
   public void setName(String name)
   {
     _name=name;
+  }
+
+  /**
+   * Get the plural name of this item.
+   * @return a plural name or <code>null</code>.
+   */
+  public String getPluralName()
+  {
+    return _pluralName;
+  }
+
+  /**
+   * Set the plural name of this item.
+   * @param pluralName the plural name to set (may be <code>null</code>).
+   */
+  public void setPluralName(String pluralName)
+  {
+    _pluralName=pluralName;
   }
 
   /**

@@ -232,6 +232,10 @@ public final class ItemSaxParser extends DefaultHandler
       name=attributes.getValue(ItemXMLConstants.ITEM_NAME_ATTR);
     }
     _currentItem.setName(name);
+    // Plural name
+    String pluralName=attributes.getValue(ItemXMLConstants.ITEM_PLURAL_NAME_ATTR);
+    pluralName=I18nRuntimeUtils.getLabel(_i18n,pluralName);
+    _currentItem.setPluralName(pluralName);
     // Item level
     String itemLevel=attributes.getValue(ItemXMLConstants.ITEM_LEVEL_ATTR);
     if (itemLevel!=null)

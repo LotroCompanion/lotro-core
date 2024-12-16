@@ -191,6 +191,12 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_NAME_ATTR,XmlWriter.CDATA,name);
     }
+    // Plural name
+    String pluralName=item.getPluralName();
+    if (pluralName!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_PLURAL_NAME_ATTR,XmlWriter.CDATA,pluralName);
+    }
     // Icon
     String icon=item.getIcon();
     if (icon!=null)
