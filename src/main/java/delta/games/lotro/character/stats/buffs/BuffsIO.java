@@ -9,6 +9,8 @@ import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLConstants;
 import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLParser;
 import delta.games.lotro.character.stats.buffs.io.xml.RawBuffStorage;
+import delta.games.lotro.character.status.effects.BuffsManagerToEffectsManager;
+import delta.games.lotro.character.status.effects.CharacterEffectsManager;
 import delta.games.lotro.character.status.traitTree.BuffsManagerToTraitTreeStatus;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traits.TraitsStatus;
@@ -48,6 +50,9 @@ public class BuffsIO
       racialTraits=BuffsManagerToRacialTraitsStatus.initFromBuffs(c.getRace(),buffs);
       traitsStatus.setRacialTraitsStatus(racialTraits);
     }
+    // Effects
+    CharacterEffectsManager characterEffects=c.getEffects();
+    BuffsManagerToEffectsManager.fillFromBuffs(buffs,characterEffects);
     // Initialize other buffs
     initBuffs(buffs,c.getBuffs());
   }
