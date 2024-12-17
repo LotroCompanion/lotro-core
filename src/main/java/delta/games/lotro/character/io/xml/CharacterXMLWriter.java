@@ -23,6 +23,8 @@ import delta.games.lotro.character.stats.buffs.io.xml.BuffsXMLWriter;
 import delta.games.lotro.character.stats.tomes.StatTomesManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
+import delta.games.lotro.character.status.effects.CharacterEffectsManager;
+import delta.games.lotro.character.status.effects.io.xml.CharacterEffectsXMLIO;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLWriter;
 import delta.games.lotro.character.status.traits.TraitsStatus;
@@ -124,6 +126,9 @@ public class CharacterXMLWriter
     // - racial traits
     TraitSlotsStatus racialTraitsStatus=traitsStatus.getRacialTraitsStatus();
     SlottedTraitsStatusXMLWriter.writeSlotsStatus(hd,racialTraitsStatus,SlottedTraitsStatusXMLConstants.RACIAL_TRAITS_STATUS_TAG);
+    // Effects
+    CharacterEffectsManager effectsMgr=character.getEffects();
+    CharacterEffectsXMLIO.write(hd,effectsMgr);
     // Buffs
     BuffsManager buffs=character.getBuffs();
     BuffsXMLWriter.write(hd,buffs);

@@ -19,6 +19,8 @@ import delta.games.lotro.character.stats.base.io.xml.BasicStatsSetXMLParser;
 import delta.games.lotro.character.stats.buffs.BuffsIO;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
+import delta.games.lotro.character.status.effects.io.xml.CharacterEffectsXMLConstants;
+import delta.games.lotro.character.status.effects.io.xml.CharacterEffectsXMLIO;
 import delta.games.lotro.character.status.traitTree.TraitTreeStatus;
 import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLConstants;
 import delta.games.lotro.character.status.traitTree.io.xml.TraitTreeStatusXMLParser;
@@ -127,7 +129,10 @@ public class CharacterXMLParser
       SlottedTraitsStatusXMLParser.parseSlotsStatus(racialTraitsTag,slotsStatus);
       c.getTraits().setRacialTraitsStatus(slotsStatus);
     }
-    // Buffs & traits
+    // Effects
+    Element effectsTag=DOMParsingTools.getChildTagByName(root,CharacterEffectsXMLConstants.EFFECTS_TAG);
+    CharacterEffectsXMLIO.parse(effectsTag,c.getEffects());
+    // Buffs
     BuffsIO.loadBuffs(root,c);
     // Additional stats
     Element additionalStatsTag=DOMParsingTools.getChildTagByName(root,CharacterXMLConstants.ADDITIONAL_STATS_TAG);

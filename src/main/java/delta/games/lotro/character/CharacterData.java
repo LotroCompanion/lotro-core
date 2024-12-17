@@ -11,6 +11,7 @@ import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.buffs.BuffsManager;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
+import delta.games.lotro.character.status.effects.CharacterEffectsManager;
 import delta.games.lotro.character.status.traits.TraitsStatus;
 
 /**
@@ -29,6 +30,7 @@ public class CharacterData
   private VirtuesSet _virtues;
   private TomesSet _tomes;
   private BuffsManager _buffs;
+  private CharacterEffectsManager _effects;
   private TraitsStatus _traits;
   private BasicStatsSet _additionalStats;
 
@@ -47,6 +49,7 @@ public class CharacterData
     _virtues=new VirtuesSet();
     _tomes=new TomesSet();
     _buffs=new BuffsManager();
+    _effects=new CharacterEffectsManager();
     _traits=new TraitsStatus();
     _additionalStats=new BasicStatsSet();
   }
@@ -267,6 +270,15 @@ public class CharacterData
   }
 
   /**
+   * Get the effects.
+   * @return the effects.
+   */
+  public CharacterEffectsManager getEffects()
+  {
+    return _effects;
+  }
+
+  /**
    * Get the traits status.
    * @return the traits status.
    */
@@ -317,6 +329,7 @@ public class CharacterData
     sb.append("Virtues:").append(_virtues).append(EndOfLine.NATIVE_EOL);
     sb.append("Tomes:").append(_tomes).append(EndOfLine.NATIVE_EOL);
     sb.append("Buffs:").append(_buffs).append(EndOfLine.NATIVE_EOL);
+    sb.append("Effects:").append(_effects).append(EndOfLine.NATIVE_EOL);
     sb.append("Additional stats:").append(_additionalStats).append(EndOfLine.NATIVE_EOL);
     return sb.toString().trim();
   }
