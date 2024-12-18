@@ -27,6 +27,7 @@ import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectAndProbability;
 import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.EffectGenerator;
+import delta.games.lotro.common.effects.FlagEffect;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
@@ -135,6 +136,7 @@ public class EffectXMLWriter
     if (effect instanceof AuraEffect) return EffectXMLConstants.AURA_EFFECT_TAG;
     if (effect instanceof DispelEffect) return EffectXMLConstants.DISPEL_EFFECT_TAG;
     if (effect instanceof RandomEffect) return EffectXMLConstants.RANDOM_EFFECT_TAG;
+    if (effect instanceof FlagEffect) return EffectXMLConstants.FLAG_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 

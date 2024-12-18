@@ -552,6 +552,10 @@ public class EffectXMLConstants
    * Tag 'effect' (generator), attribute 'doCaster'.
    */
   public static final String EFFECT_GENERATOR_TO_CASTER_ATTR="doCaster";
+  /**
+   * Tag 'flagEffect'.
+   */
+  public static final String FLAG_EFFECT_TAG="flagEffect";
 
   /**
    * Tag 'effect' (generator).

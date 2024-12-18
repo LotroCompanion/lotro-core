@@ -29,6 +29,7 @@ import delta.games.lotro.common.effects.EffectAndProbability;
 import delta.games.lotro.common.effects.EffectDuration;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.EffectsManager;
+import delta.games.lotro.common.effects.FlagEffect;
 import delta.games.lotro.common.effects.GenesisEffect;
 import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
@@ -219,6 +220,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.RANDOM_EFFECT_TAG.equals(tagName))
     {
       ret=parseRandomEffect(root);
+    }
+    else if (EffectXMLConstants.FLAG_EFFECT_TAG.equals(tagName))
+    {
+      ret=new FlagEffect();
     }
     else
     {
