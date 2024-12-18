@@ -2,7 +2,6 @@ package delta.games.lotro.common.effects.display;
 
 import java.util.List;
 
-import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillEffectGenerator;
 import delta.games.lotro.character.skills.attack.CharacterDataForSkills;
 import delta.games.lotro.common.effects.Effect;
@@ -19,9 +18,8 @@ public class SkillEffectsDisplay
   /**
    * Constructor.
    * @param data Access to character data related to skills.
-   * @param skill Skill.
    */
-  public SkillEffectsDisplay(CharacterDataForSkills data, SkillDescription skill)
+  public SkillEffectsDisplay(CharacterDataForSkills data)
   {
     _character=data;
   }

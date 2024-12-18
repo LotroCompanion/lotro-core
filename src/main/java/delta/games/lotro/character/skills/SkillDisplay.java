@@ -75,7 +75,7 @@ public class SkillDisplay
     _skill=skill;
     _skillDetails=details;
     _attackComputer=new SkillAttackComputer(data);
-    _effectsDisplay=new SkillEffectsDisplay(data,skill);
+    _effectsDisplay=new SkillEffectsDisplay(data);
     _statModsComputer=new StatModifiersComputer(data);
     _effectProperties=initEffectProperties();
   }
