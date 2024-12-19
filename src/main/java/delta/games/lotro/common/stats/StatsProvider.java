@@ -197,6 +197,25 @@ public class StatsProvider
   }
 
   /**
+   * Compute stats for a given context.
+   * @param context Context to use.
+   * @return A set of stats.
+   */
+  public BasicStatsSet getStats(StatComputerContext context)
+  {
+    BasicStatsSet stats=new BasicStatsSet();
+    for(StatProvider provider : getStatProviders())
+    {
+      StatsSetElement element=getStat(provider,context);
+      if (element!=null)
+      {
+        stats.addStat(element);
+      }
+    }
+    return stats;
+  }
+
+  /**
    * Compute a single stat.
    * @param provider Stat provider.
    * @param tier Tier to use.

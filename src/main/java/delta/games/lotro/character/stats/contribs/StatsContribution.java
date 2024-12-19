@@ -4,8 +4,10 @@ import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.stats.BasicStatsSet;
 import delta.games.lotro.character.stats.buffs.Buff;
 import delta.games.lotro.character.stats.buffs.BuffInstance;
+import delta.games.lotro.character.status.effects.EffectInstance;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.virtues.VirtueDescription;
+import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
@@ -41,17 +43,18 @@ public class StatsContribution
    * Source identifier seed: piece of equipment.
    */
   public static final String EQUIPMENT="Equipment: ";
-  // ItemsSet:<setId>
   /**
    * Source identifier seed: items set.
    */
   public static final String ITEMS_SET="ItemsSet: ";
-  // TraceriesSet:<setId>
   /**
    * Source identifier seed: traceries set.
    */
   public static final String TRACERIES_SET="TraceriesSet: ";
-  // Buff:<buffId>
+  /**
+   * Source identifier seed: effect.
+   */
+  public static final String EFFECT_SEED="Effect: ";
   /**
    * Source identifier seed: buff.
    */
@@ -164,6 +167,20 @@ public class StatsContribution
     Buff buff=buffInstance.getBuff();
     String source=BUFF_SEED+buff.getId();
     String label="Buff '"+buff.getLabel()+"'";
+    return new StatsContribution(source,label,stats);
+  }
+
+  /**
+   * Build a stat contribution for an effect.
+   * @param effectInstance Source effect.
+   * @param stats Contributed stats.
+   * @return A stat contribution.
+   */
+  public static StatsContribution getEffectContrib(EffectInstance effectInstance, BasicStatsSet stats)
+  {
+    Effect effect=effectInstance.getEffect();
+    String source=EFFECT_SEED+effect.getIdentifier();
+    String label="Effect '"+effect.getName()+"'";
     return new StatsContribution(source,label,stats);
   }
 

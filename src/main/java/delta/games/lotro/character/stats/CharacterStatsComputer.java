@@ -27,6 +27,7 @@ import delta.games.lotro.character.stats.tomes.TomesContributionsMgr;
 import delta.games.lotro.character.stats.tomes.TomesSet;
 import delta.games.lotro.character.stats.virtues.VirtuesContributionsMgr;
 import delta.games.lotro.character.stats.virtues.VirtuesSet;
+import delta.games.lotro.character.status.effects.CharacterEffectsManager;
 import delta.games.lotro.common.global.CombatSystem;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatOperator;
@@ -139,6 +140,7 @@ public class CharacterStatsComputer
     allContribs.addAll(equipmentStats);
 
     int level=c.getLevel();
+
     // Buffs
     List<StatsContribution> buffContribs=c.getBuffs().getContributions(level);
     allContribs.addAll(buffContribs);
@@ -154,6 +156,11 @@ public class CharacterStatsComputer
     virtues.setContributingStats(total);
     List<StatsContribution> virtuesStats=virtuesMgr.getContributions(virtues,true,true);
     allContribs.addAll(virtuesStats);
+
+    // Effects
+    CharacterEffectsManager effectsMgr=c.getEffects();
+    List<StatsContribution> effectsContribs=CharacterEffectsStatsComputer.getContributions(effectsMgr,level,total);
+    allContribs.addAll(effectsContribs);
 
     // Misc
     StatsContribution additionalContrib=null;
@@ -211,14 +218,16 @@ public class CharacterStatsComputer
       showContribs("Stat tomes",tomeStatsContribs);
       showContribs("Equipment",equipmentStats);
       showContribs("Buffs",buffContribs);
+      showContribs("Traits",traitContribs);
       showContribs("Virtues",virtuesStats);
+      showContribs("Effects",effectsContribs);
       showContribs("Derivations",derivedStatContribs);
       showContrib("Misc",additionalContrib);
       showContribs("Hope/dread",hopeContribs);
       LOGGER.debug("Ratings");
-      LOGGER.debug("\t"+ratings);
+      LOGGER.debug("\t{}",ratings);
       LOGGER.debug("Total");
-      LOGGER.debug("\t"+total);
+      LOGGER.debug("\t{}",total);
     }
 
     if (_contribs!=null)
