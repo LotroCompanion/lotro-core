@@ -29,6 +29,18 @@ public class EffectInstance
   }
 
   /**
+   * Copy constructor.
+   * @param source Source.
+   */
+  public EffectInstance(EffectInstance source)
+  {
+    _effect=source._effect;
+    _spellcraft=source._spellcraft;
+    _castTime=source._castTime;
+    _casterID=source._casterID;
+  }
+
+  /**
    * Get the managed effect.
    * @return the managed effect.
    */

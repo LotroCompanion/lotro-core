@@ -37,6 +37,20 @@ public class CharacterEffectsManager
     return _effects;
   }
 
+  /**
+   * Set the contents of this object from a given source.
+   * @param source Source to copy.
+   */
+  public void copyFrom(CharacterEffectsManager source)
+  {
+    _effects.clear();
+    for(EffectInstance effectInstance : source._effects)
+    {
+      EffectInstance newEffectInstance=new EffectInstance(effectInstance);
+      addEffect(newEffectInstance);
+    }
+  }
+
   @Override
   public String toString()
   {
