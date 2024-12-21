@@ -5,6 +5,7 @@ import java.util.List;
 
 import delta.games.lotro.character.stats.contribs.StatsContribution;
 import delta.games.lotro.character.status.effects.CharacterEffectsManager;
+import delta.games.lotro.character.status.effects.CharacterEffectsPruner;
 import delta.games.lotro.character.status.effects.EffectInstance;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
@@ -29,6 +30,7 @@ public class CharacterEffectsStatsComputer
     SimpleStatComputerContext context=new SimpleStatComputerContext(1,level);
     context.setStatValueProvider(new BasicStatsSetStatValueProvider(referenceStats));
 
+    CharacterEffectsPruner pruner=new CharacterEffectsPruner();
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     for(EffectInstance effectInstance : characterEffects.getEffects())
     {
@@ -38,6 +40,11 @@ public class CharacterEffectsStatsComputer
         continue;
       }
       PropertyModificationEffect propertyModificationEffect=(PropertyModificationEffect)effect;
+      boolean useEffect=pruner.useEffect(effectInstance);
+      if (!useEffect)
+      {
+        continue;
+      }
       StatsProvider statsProvider=propertyModificationEffect.getStatsProvider();
       BasicStatsSet stats=statsProvider.getStats(context);
       if (stats.getStatsCount()>0)
