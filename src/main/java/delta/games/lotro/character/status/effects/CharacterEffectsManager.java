@@ -1,7 +1,10 @@
 package delta.games.lotro.character.status.effects;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import delta.games.lotro.common.IdentifiableComparator;
 
 /**
  * Manager for effects on a character.
@@ -34,7 +37,9 @@ public class CharacterEffectsManager
    */
   public List<EffectInstance> getEffects()
   {
-    return _effects;
+    List<EffectInstance> ret=new ArrayList<EffectInstance>(_effects);
+    Collections.sort(ret,new IdentifiableComparator<EffectInstance>());
+    return ret;
   }
 
   /**

@@ -2,6 +2,7 @@ package delta.games.lotro.character.status.effects;
 
 import java.util.Date;
 
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.id.InternalGameId;
 
@@ -9,7 +10,7 @@ import delta.games.lotro.common.id.InternalGameId;
  * Effect instance.
  * @author DAM
  */
-public class EffectInstance
+public class EffectInstance implements Identifiable
 {
   private Effect _effect;
   private Float _spellcraft;
@@ -38,6 +39,12 @@ public class EffectInstance
     _spellcraft=source._spellcraft;
     _castTime=source._castTime;
     _casterID=source._casterID;
+  }
+
+  @Override
+  public int getIdentifier()
+  {
+    return _effect.getIdentifier();
   }
 
   /**
