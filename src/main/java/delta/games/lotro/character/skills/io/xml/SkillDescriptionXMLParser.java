@@ -14,6 +14,9 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.SkillDetails;
 import delta.games.lotro.character.skills.TravelSkill;
+import delta.games.lotro.character.skills.combos.SkillCombos;
+import delta.games.lotro.character.skills.combos.SkillCombosUtils;
+import delta.games.lotro.character.skills.combos.io.xml.SkillCombosXmlIO;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectsManager;
@@ -85,6 +88,7 @@ public class SkillDescriptionXMLParser
         skills.add(skill);
       }
     }
+    SkillCombosUtils.resolveCombos(skills);
     return skills;
   }
 
@@ -115,7 +119,11 @@ public class SkillDescriptionXMLParser
     }
     if (ret!=null)
     {
+      // Requirements
       parseRequirements(root,ret);
+      // Combos
+      SkillCombos combos=SkillCombosXmlIO.readSkillCombos(root);
+      ret.setCombos(combos);
     }
     return ret;
   }

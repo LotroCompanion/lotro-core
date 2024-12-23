@@ -3,6 +3,7 @@ package delta.games.lotro.character.skills;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.character.skills.combos.SkillCombos;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
@@ -48,6 +49,10 @@ public class SkillDescription implements Identifiable,Named
    * Details.
    */
   private SkillDetails _details;
+  /**
+   * Combos.
+   */
+  private SkillCombos _combos;
 
   /**
    * Constructor.
@@ -63,6 +68,7 @@ public class SkillDescription implements Identifiable,Named
     _requiredTrait=null;
     _requiredEffects=null;
     _details=null;
+    _combos=null;
   }
 
   /**
@@ -201,8 +207,8 @@ public class SkillDescription implements Identifiable,Named
   }
 
   /**
-   * Get the effects manager.
-   * @return an effects manager or <code>null</code> if no effects.
+   * Get the details.
+   * @return the skill details or <code>null</code> if not set.
    */
   public SkillDetails getDetails()
   {
@@ -216,6 +222,24 @@ public class SkillDescription implements Identifiable,Named
   public void setDetails(SkillDetails details)
   {
     _details=details;
+  }
+
+  /**
+   * Get the combos.
+   * @return the skill combos or <code>null</code> if none.
+   */
+  public SkillCombos getCombos()
+  {
+    return _combos;
+  }
+
+  /**
+   * Set the skill combos.
+   * @param combos Combos to set.
+   */
+  public void setCombos(SkillCombos combos)
+  {
+    _combos=combos;
   }
 
   @Override

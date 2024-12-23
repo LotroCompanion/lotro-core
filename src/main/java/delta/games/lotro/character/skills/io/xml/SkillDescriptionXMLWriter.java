@@ -13,6 +13,8 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.TravelSkill;
+import delta.games.lotro.character.skills.combos.io.xml.SkillCombosXMLConstants;
+import delta.games.lotro.character.skills.combos.io.xml.SkillCombosXmlIO;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.enums.MountType;
@@ -117,6 +119,8 @@ public class SkillDescriptionXMLWriter
     }
     // Requirements
     writeSkillRequirements(hd,skill);
+    // Combos
+    SkillCombosXmlIO.writeSkillCombos(hd,skill.getCombos());
     // Details
     SkillDetailsXmlIO.writeSkillDetails(hd,skill.getDetails());
     hd.endElement("","",tagName);
