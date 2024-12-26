@@ -27,6 +27,15 @@ public class SimpleStatComputerContext implements StatComputerContext
     return _level;
   }
 
+  /**
+   * Set the level to use.
+   * @param level Level to use.
+   */
+  public void setLevel(int level)
+  {
+    _level=level;
+  }
+
   @Override
   public int getTier()
   {

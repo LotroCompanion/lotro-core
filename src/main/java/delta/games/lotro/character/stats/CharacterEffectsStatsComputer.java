@@ -45,6 +45,11 @@ public class CharacterEffectsStatsComputer
       {
         continue;
       }
+      Float spellcraft=effectInstance.getSpellcraft();
+      if (spellcraft!=null)
+      {
+        context.setLevel(spellcraft.intValue());
+      }
       StatsProvider statsProvider=propertyModificationEffect.getStatsProvider();
       BasicStatsSet stats=statsProvider.getStats(context);
       if (stats.getStatsCount()>0)
@@ -52,6 +57,7 @@ public class CharacterEffectsStatsComputer
         StatsContribution statsContrib=StatsContribution.getEffectContrib(effectInstance,stats);
         ret.add(statsContrib);
       }
+      context.setLevel(level);
     }
     return ret;
   }

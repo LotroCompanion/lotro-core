@@ -13,7 +13,6 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.character.skills.TravelSkill;
-import delta.games.lotro.character.skills.combos.io.xml.SkillCombosXMLConstants;
 import delta.games.lotro.character.skills.combos.io.xml.SkillCombosXmlIO;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.effects.Effect;
