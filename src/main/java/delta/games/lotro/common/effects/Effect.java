@@ -29,6 +29,7 @@ public class Effect implements Identifiable,Named
    */
   public Effect()
   {
+    _name="";
     _description="";
     _descriptionOverride="";
     _appliedDescription="";
@@ -54,7 +55,7 @@ public class Effect implements Identifiable,Named
 
   /**
    * Get the effect name.
-   * @return a name or <code>null</code>.
+   * @return a name (may be empty but not <code>null</code>).
    */
   public String getName()
   {
@@ -63,10 +64,14 @@ public class Effect implements Identifiable,Named
 
   /**
    * Set the effect name.
-   * @param name Name to set (may be <code>null</code>).
+   * @param name Name to set.
    */
   public void setName(String name)
   {
+    if (name==null)
+    {
+      name="";
+    }
     _name=name;
   }
 

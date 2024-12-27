@@ -147,7 +147,7 @@ public class EffectXMLWriter
     attrs.addAttribute("","",EffectXMLConstants.EFFECT_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Name
     String name=effect.getName();
-    if (name!=null)
+    if (!name.isEmpty())
     {
       attrs.addAttribute("","",EffectXMLConstants.EFFECT_NAME_ATTR,XmlWriter.CDATA,name);
     }
