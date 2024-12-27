@@ -19,6 +19,17 @@ public class EffectInstance implements Identifiable
 
   /**
    * Constructor.
+   */
+  public EffectInstance()
+  {
+    _effect=null;
+    _spellcraft=null;
+    _castTime=null;
+    _casterID=null;
+  }
+
+  /**
+   * Constructor.
    * @param effect Managed effect.
    */
   public EffectInstance(Effect effect)
@@ -34,6 +45,15 @@ public class EffectInstance implements Identifiable
    * @param source Source.
    */
   public EffectInstance(EffectInstance source)
+  {
+    copyFrom(source);
+  }
+
+  /**
+   * Copy data from the given source.
+   * @param source Source to copy.
+   */
+  public void copyFrom(EffectInstance source)
   {
     _effect=source._effect;
     _spellcraft=source._spellcraft;
@@ -54,6 +74,15 @@ public class EffectInstance implements Identifiable
   public Effect getEffect()
   {
     return _effect;
+  }
+
+  /**
+   * Set the effect.
+   * @param effect Effect to set.
+   */
+  public void setEffect(Effect effect)
+  {
+    _effect=effect;
   }
 
   /**
