@@ -23,6 +23,19 @@ public class CharacterEffectsManager
   }
 
   /**
+   * Copy constructor.
+   * @param source Source to copy.
+   */
+  public CharacterEffectsManager(CharacterEffectsManager source)
+  {
+    _effects=new ArrayList<EffectInstance>();
+    for(EffectInstance effect : source._effects)
+    {
+      _effects.add(new EffectInstance(effect));
+    }
+  }
+
+  /**
    * Add an effect instance.
    * @param effect Effect instance to add.
    */
@@ -40,6 +53,16 @@ public class CharacterEffectsManager
     List<EffectInstance> ret=new ArrayList<EffectInstance>(_effects);
     Collections.sort(ret,new IdentifiableComparator<EffectInstance>());
     return ret;
+  }
+
+  /**
+   * Set the managed effects.
+   * @param effects Effect to set.
+   */
+  public void setEffects(List<EffectInstance> effects)
+  {
+    _effects.clear();
+    _effects.addAll(effects);
   }
 
   /**
