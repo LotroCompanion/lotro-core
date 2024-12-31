@@ -54,7 +54,7 @@ public class EffectIDFilter implements Filter<Effect>
     _selectedEffects.clear();
     if (skill!=null)
     {
-      _selectedEffects.addAll(EffectUtils.getEffectsFromSkill(skill));
+      _selectedEffects.addAll(EffectUtils.getSelfEffectsFromSkill(skill));
       _isSet=true;
     }
     else

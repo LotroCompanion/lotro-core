@@ -1,10 +1,17 @@
 package delta.games.lotro.character.skills;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassSkill;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.skills.attack.SkillAttack;
 import delta.games.lotro.character.skills.attack.SkillAttacks;
+import delta.games.lotro.common.IdentifiableComparator;
 
 /**
  * Utility methods related to skills.
@@ -12,6 +19,8 @@ import delta.games.lotro.character.skills.attack.SkillAttacks;
  */
 public class SkillEffectsUtils
 {
+  private static SkillEffectType[] TYPES={SkillEffectType.SELF_CRITICAL,SkillEffectType.TOGGLE,SkillEffectType.USER_TOGGLE,SkillEffectType.USER};
+
   /**
    * Get the effects for a skill.
    * @param skill Skill to use.
@@ -38,8 +47,19 @@ public class SkillEffectsUtils
   {
     List<SkillEffectGenerator> ret=new ArrayList<SkillEffectGenerator>();
     ret.addAll(getAllAttackEffects(skill));
-    SkillEffectType[] types={SkillEffectType.SELF_CRITICAL,SkillEffectType.TOGGLE,SkillEffectType.USER_TOGGLE,SkillEffectType.USER};
-    for(SkillEffectType type : types)
+    ret.addAll(getSelfEffects(skill));
+    return ret;
+  }
+
+  /**
+   * Get all the 'self' effects for a skill.
+   * @param skill Skill to use.
+   * @return A list of effect generators.
+   */
+  public static List<SkillEffectGenerator> getSelfEffects(SkillDescription skill)
+  {
+    List<SkillEffectGenerator> ret=new ArrayList<SkillEffectGenerator>();
+    for(SkillEffectType type : TYPES)
     {
       ret.addAll(getEffects(skill,type));
     }
@@ -121,6 +141,26 @@ public class SkillEffectsUtils
         ret.addAll(effectsMgr.getEffects());
       }
     }
+    return ret;
+  }
+
+  /**
+   * Get all the skills for character classes.
+   * @return A list of skills, sorted by identifier.
+   */
+  public static List<SkillDescription> getSkillsForClasses()
+  {
+    Set<SkillDescription> set=new HashSet<SkillDescription>();
+    ClassesManager mgr=ClassesManager.getInstance();
+    for(ClassDescription cd : mgr.getAllCharacterClasses())
+    {
+      for(ClassSkill classSkill : cd.getSkills())
+      {
+        set.add(classSkill.getSkill());
+      }
+    }
+    List<SkillDescription> ret=new ArrayList<SkillDescription>(set);
+    Collections.sort(ret,new IdentifiableComparator<SkillDescription>());
     return ret;
   }
 }

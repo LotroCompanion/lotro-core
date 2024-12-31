@@ -32,6 +32,16 @@ public class EffectUtils
   }
 
   /**
+   * Get the effects for a skill.
+   * @param skill Skill to use.
+   * @return A set of effect identifiers.
+   */
+  public static Set<Integer> getSelfEffectsFromSkill(SkillDescription skill)
+  {
+    return buildFromGenerators(SkillEffectsUtils.getSelfEffects(skill));
+  }
+
+  /**
    * Get the attack effects for a skill.
    * @param skill Skill to use.
    * @return A set of effect identifiers.
