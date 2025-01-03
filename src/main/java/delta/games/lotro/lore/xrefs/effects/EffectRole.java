@@ -9,5 +9,9 @@ public enum EffectRole
   /**
    * Effect found as a child effect of another effect.
    */
-  PARENT_EFFECT
+  PARENT_EFFECT,
+  /**
+   * Effect used by a skill.
+   */
+  SKILL_USED_BY
 }
