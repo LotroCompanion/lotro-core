@@ -1,13 +1,15 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Random effect.
  * @author DAM
  */
-public class RandomEffect extends InstantEffect
+public class RandomEffect extends InstantEffect implements ParentEffect
 {
   private List<RandomEffectGenerator> _effects;
 
@@ -35,5 +37,16 @@ public class RandomEffect extends InstantEffect
   public List<RandomEffectGenerator> getEffects()
   {
     return _effects;
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(EffectGenerator generator : _effects)
+    {
+      ret.add(generator.getEffect());
+    }
+    return ret;
   }
 }

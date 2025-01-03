@@ -1,7 +1,9 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.games.lotro.utils.Proxy;
 
@@ -9,7 +11,7 @@ import delta.games.lotro.utils.Proxy;
  * Dispel effect.
  * @author DAM
  */
-public class DispelEffect extends InstantEffect
+public class DispelEffect extends InstantEffect implements ParentEffect
 {
   /*
 Effect_Dispel_ByEffectList: 
@@ -68,5 +70,16 @@ Effect_Dispel_DispelCasters: 0
   public void setDispelCasters(boolean dispelCasters)
   {
     _dispelCasters=dispelCasters;
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(Proxy<Effect> proxy : _effectsList)
+    {
+      ret.add(proxy.getObject());
+    }
+    return ret;
   }
 }

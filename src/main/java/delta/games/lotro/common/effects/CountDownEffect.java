@@ -1,13 +1,15 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Effect that triggers other effects on expiration and/or removal.
  * @author DAM
  */
-public class CountDownEffect extends PropertyModificationEffect
+public class CountDownEffect extends PropertyModificationEffect implements ParentEffect
 {
   /**
    * 'On expire' effects.
@@ -59,5 +61,16 @@ public class CountDownEffect extends PropertyModificationEffect
   public void setOnRemovalEffect(EffectGenerator generator)
   {
     _onRemoval=generator;
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(EffectGenerator generator : _onExpireEffects)
+    {
+      ret.add(generator.getEffect());
+    }
+    return ret;
   }
 }

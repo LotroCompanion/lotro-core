@@ -1,7 +1,9 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.games.lotro.utils.Proxy;
 
@@ -9,7 +11,7 @@ import delta.games.lotro.utils.Proxy;
  * Combo effect.
  * @author DAM
  */
-public class ComboEffect extends InstantEffect
+public class ComboEffect extends InstantEffect implements ParentEffect
 {
   private List<Proxy<Effect>> _presentList;
   private Proxy<Effect> _toAddIfNotPresent;
@@ -133,5 +135,39 @@ public class ComboEffect extends InstantEffect
   public void setToExamine(Proxy<Effect> effect)
   {
     _toExamine=effect;
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    if (_presentList!=null)
+    {
+      for(Proxy<Effect> proxy : _presentList)
+      {
+        ret.add(proxy.getObject());
+      }
+    }
+    if (_toAddIfNotPresent!=null)
+    {
+      ret.add(_toAddIfNotPresent.getObject());
+    }
+    if (_toAddIfPresent!=null)
+    {
+      ret.add(_toAddIfPresent.getObject());
+    }
+    if (_toGiveBackIfNotPresent!=null)
+    {
+      ret.add(_toGiveBackIfNotPresent.getObject());
+    }
+    if (_toGiveBackIfPresent!=null)
+    {
+      ret.add(_toGiveBackIfPresent.getObject());
+    }
+    if (_toExamine!=null)
+    {
+      ret.add(_toExamine.getObject());
+    }
+    return ret;
   }
 }

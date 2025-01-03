@@ -1,7 +1,9 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.games.lotro.common.properties.ModPropertyList;
 
@@ -9,7 +11,7 @@ import delta.games.lotro.common.properties.ModPropertyList;
  * Area effect.
  * @author DAM
  */
-public class AreaEffect extends InstantEffect
+public class AreaEffect extends InstantEffect implements ParentEffect
 {
   private List<EffectGenerator> _effects;
   private int _flags;
@@ -170,5 +172,16 @@ public class AreaEffect extends InstantEffect
   public void setMaxTargetsModifiers(ModPropertyList maxTargetsModifiers)
   {
     _maxTargetsModifiers=maxTargetsModifiers;
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(EffectGenerator generator : _effects)
+    {
+      ret.add(generator.getEffect());
+    }
+    return ret;
   }
 }

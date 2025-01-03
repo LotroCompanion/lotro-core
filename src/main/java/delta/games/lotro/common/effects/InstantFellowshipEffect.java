@@ -1,13 +1,15 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Instant fellowship effect.
  * @author DAM
  */
-public class InstantFellowshipEffect extends InstantEffect
+public class InstantFellowshipEffect extends InstantEffect implements ParentEffect
 {
   private List<EffectGenerator> _effects;
   private boolean _applyToRaidGroups;
@@ -136,5 +138,16 @@ public class InstantFellowshipEffect extends InstantEffect
   public void setRange(float range)
   {
     _range=Float.valueOf(range);
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(EffectGenerator generator : _effects)
+    {
+      ret.add(generator.getEffect());
+    }
+    return ret;
   }
 }

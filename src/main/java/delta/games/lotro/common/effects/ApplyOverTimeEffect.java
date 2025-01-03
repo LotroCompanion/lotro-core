@@ -1,13 +1,15 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Effect that periodically applies some other effects.
  * @author DAM
  */
-public class ApplyOverTimeEffect extends Effect
+public class ApplyOverTimeEffect extends Effect implements ParentEffect
 {
   /**
    * Initially applied effects.
@@ -62,5 +64,20 @@ public class ApplyOverTimeEffect extends Effect
   public List<EffectGenerator> getAppliedEffects()
   {
     return _appliedEffects;
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(EffectGenerator generator : _initiallyAppliedEffects)
+    {
+      ret.add(generator.getEffect());
+    }
+    for(EffectGenerator generator : _appliedEffects)
+    {
+      ret.add(generator.getEffect());
+    }
+    return ret;
   }
 }

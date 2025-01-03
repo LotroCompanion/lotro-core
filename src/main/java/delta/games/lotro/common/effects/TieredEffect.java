@@ -1,13 +1,15 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Tiered effect.
  * @author DAM
  */
-public class TieredEffect extends InstantEffect
+public class TieredEffect extends InstantEffect implements ParentEffect
 {
   private List<EffectGenerator> _tiers;
   private EffectGenerator _finalTier;
@@ -73,5 +75,20 @@ public class TieredEffect extends InstantEffect
   public void setShowInExamination(boolean showInExamination)
   {
     _showInExamination=showInExamination;
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(EffectGenerator generator : _tiers)
+    {
+      ret.add(generator.getEffect());
+    }
+    if (_finalTier!=null)
+    {
+      ret.add(_finalTier.getEffect());
+    }
+    return ret;
   }
 }

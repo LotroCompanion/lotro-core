@@ -1,7 +1,9 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.games.lotro.common.enums.SkillType;
 
@@ -9,7 +11,7 @@ import delta.games.lotro.common.enums.SkillType;
  * Effect that has a chance to trigger other effects.
  * @author DAM
  */
-public class ProcEffect extends PropertyModificationEffect
+public class ProcEffect extends PropertyModificationEffect implements ParentEffect
 {
   // Class 3686
   /**
@@ -124,5 +126,16 @@ public class ProcEffect extends PropertyModificationEffect
       return percent+"%";
     }
     return variableName;
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(EffectGenerator generator : _procedEffects)
+    {
+      ret.add(generator.getEffect());
+    }
+    return ret;
   }
 }

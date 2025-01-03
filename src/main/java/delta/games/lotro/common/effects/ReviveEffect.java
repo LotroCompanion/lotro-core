@@ -1,7 +1,9 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.games.lotro.utils.Proxy;
 
@@ -9,7 +11,7 @@ import delta.games.lotro.utils.Proxy;
  * Revive effect.
  * @author DAM
  */
-public class ReviveEffect extends InstantEffect
+public class ReviveEffect extends InstantEffect implements ParentEffect
 {
   private List<ReviveVitalData> _reviveVitals;
   private List<Proxy<Effect>> _reviveEffects;
@@ -58,5 +60,16 @@ public class ReviveEffect extends InstantEffect
   public List<Proxy<Effect>> getReviveEffects()
   {
     return _reviveEffects;
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(Proxy<Effect> proxy : _reviveEffects)
+    {
+      ret.add(proxy.getObject());
+    }
+    return ret;
   }
 }

@@ -1,7 +1,9 @@
 package delta.games.lotro.common.effects;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import delta.games.lotro.common.enums.EffectAuraType;
 
@@ -9,7 +11,7 @@ import delta.games.lotro.common.enums.EffectAuraType;
  * Aura effect.
  * @author DAM
  */
-public class AuraEffect extends Effect
+public class AuraEffect extends Effect implements ParentEffect
 {
   private EffectAuraType _type;
   private boolean _shouldAffectCaster;
@@ -77,5 +79,16 @@ public class AuraEffect extends Effect
   public void addAppliedEffect(EffectGenerator generator)
   {
     _appliedEffects.add(generator);
+  }
+
+  @Override
+  public Set<Effect> getChildEffects()
+  {
+    HashSet<Effect> ret=new HashSet<Effect>();
+    for(EffectGenerator generator : _appliedEffects)
+    {
+      ret.add(generator.getEffect());
+    }
+    return ret;
   }
 }
