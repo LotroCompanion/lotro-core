@@ -75,7 +75,6 @@ public class VirtuesSet
   {
     _contributingStats.clear();
     BasicStatsSet usefullStats=VirtueUtils.extractVirtueRankStats(stats);
-    _contributingStats.clear();
     _contributingStats.addStats(usefullStats);
   }
 
