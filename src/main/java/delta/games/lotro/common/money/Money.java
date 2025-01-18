@@ -43,6 +43,18 @@ public class Money
   }
 
   /**
+   * Build a money instance from a raw value.
+   * @param rawValue Raw value.
+   * @return the newly built Money instance.
+   */
+  public static Money fromRawValue(int rawValue)
+  {
+    Money ret=new Money();
+    ret.setRawValue(rawValue);
+    return ret;
+  }
+
+  /**
    * Indicates if this amount represents no money.
    * @return <code>true</code> if all coin amounts are zero, <code>false</code> otherwise.
    */
