@@ -4,7 +4,8 @@ import delta.games.lotro.common.enums.HouseType;
 import delta.games.lotro.common.money.Money;
 
 /**
- * @author dm
+ * Information about a single house type. 
+ * @author DAM
  */
 public class HouseTypeInfo
 {

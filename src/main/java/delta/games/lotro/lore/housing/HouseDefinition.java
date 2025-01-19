@@ -4,25 +4,36 @@ import java.util.List;
 
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.geo.ExtendedPosition;
 import delta.games.lotro.common.money.Money;
 
 /**
- * @author dm
+ * Definition of a house.
+ * @author DAM
  */
-public class HouseDefinition implements Identifiable
+public class HouseDefinition implements Identifiable,Named
 {
   private int _id;
-  private String _address; // House_Address (i18n)
-  private List<TraitDescription> _traits; // House_CharacteristicArray/House_Characteristic
-  private String _description; // House_Description (i18n)
-  private boolean _isPremium; // House_IsKinshipHouse
-  private boolean _isKinship; // House_IsPremiumHouse
-  private NeighborhoodTemplate _neigborhood; // House_NeighborhoodTemplate
-  private ExtendedPosition _position; // House_Telepad
-  private HouseTypeInfo _info; // derivated from House_Type
-  private Money _price; // derivated from HouseTypeInfo and House_ValueTier
+  private String _address;
+  private String _description;
+  private List<TraitDescription> _traits;
+  private boolean _isPremium;
+  private boolean _isKinship;
+  private int _neighborhoodTemplateID;
+  private ExtendedPosition _position;
+  private HouseTypeInfo _info;
+  private Money _price;
   private Money _upkeep;
+
+  /**
+   * Constructor.
+   * @param id Identifier.
+   */
+  public HouseDefinition(int id)
+  {
+    _id=id;
+  }
 
   @Override
   public int getIdentifier()
@@ -30,8 +41,15 @@ public class HouseDefinition implements Identifiable
     return _id;
   }
 
+  @Override
+  public String getName()
+  {
+    return _address;
+  }
+
   /**
-   * @return the address
+   * Get the house address
+   * @return a displayable address.
    */
   public String getAddress()
   {
@@ -39,7 +57,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @param address the address to set
+   * Set the house address.
+   * @param address the address to set.
    */
   public void setAddress(String address)
   {
@@ -47,23 +66,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @return the traits
-   */
-  public List<TraitDescription> getTraits()
-  {
-    return _traits;
-  }
-
-  /**
-   * @param traits the traits to set
-   */
-  public void setTraits(List<TraitDescription> traits)
-  {
-    _traits=traits;
-  }
-
-  /**
-   * @return the description
+   * Get the house description.
+   * @return a description.
    */
   public String getDescription()
   {
@@ -71,7 +75,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @param description the description to set
+   * Set the house description.
+   * @param description the description to set.
    */
   public void setDescription(String description)
   {
@@ -79,7 +84,26 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @return the isPremium
+   * Get the traits given to the house owner.
+   * @return a list of traits.
+   */
+  public List<TraitDescription> getTraits()
+  {
+    return _traits;
+  }
+
+  /**
+   * Set the traits.
+   * @param traits the traits to set.
+   */
+  public void setTraits(List<TraitDescription> traits)
+  {
+    _traits=traits;
+  }
+
+  /**
+   * Indicates if this is a premium house (solo or kinship).
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
   public boolean isPremium()
   {
@@ -87,7 +111,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @param isPremium the isPremium to set
+   * Set the 'premium' flag.
+   * @param isPremium Value to set.
    */
   public void setPremium(boolean isPremium)
   {
@@ -95,7 +120,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @return the isKinship
+   * Indicates if this is a kinship house (standard or premium).
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
    */
   public boolean isKinship()
   {
@@ -103,7 +129,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @param isKinship the isKinship to set
+   * Set the 'kinship' flag.
+   * @param isKinship Value to set.
    */
   public void setKinship(boolean isKinship)
   {
@@ -111,23 +138,26 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @return the neigborhood
+   * Get the neighborhood template ID.
+   * @return the neighborhood template ID.
    */
-  public NeighborhoodTemplate getNeigborhood()
+  public int getNeighborhoodTemplateID()
   {
-    return _neigborhood;
+    return _neighborhoodTemplateID;
   }
 
   /**
-   * @param neigborhood the neigborhood to set
+   * Set the neighborhood template ID.
+   * @param neighborhoodTemplateID the ID to set.
    */
-  public void setNeigborhood(NeighborhoodTemplate neigborhood)
+  public void setNeighborhoodTemplateID(int neighborhoodTemplateID)
   {
-    _neigborhood=neigborhood;
+    _neighborhoodTemplateID=neighborhoodTemplateID;
   }
 
   /**
-   * @return the position
+   * Get the position of the house entrance.
+   * @return A position.
    */
   public ExtendedPosition getPosition()
   {
@@ -135,7 +165,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @param position the position to set
+   * Set the position of the house entrance.
+   * @param position the position to set.
    */
   public void setPosition(ExtendedPosition position)
   {
@@ -143,7 +174,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @return the info
+   * Get the information about the house (house model).
+   * @return the house info.
    */
   public HouseTypeInfo getInfo()
   {
@@ -151,7 +183,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @param info the info to set
+   * Set the house information.
+   * @param info the information to set.
    */
   public void setInfo(HouseTypeInfo info)
   {
@@ -159,7 +192,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @return the price
+   * Get the price of this house.
+   * @return a price.
    */
   public Money getPrice()
   {
@@ -167,7 +201,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @param price the price to set
+   * Set the price of this house.
+   * @param price the price to set.
    */
   public void setPrice(Money price)
   {
@@ -175,7 +210,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @return the upkeep
+   * Set the upkeep for this house.
+   * @return the house upkeep.
    */
   public Money getUpkeep()
   {
@@ -183,7 +219,8 @@ public class HouseDefinition implements Identifiable
   }
 
   /**
-   * @param upkeep the upkeep to set
+   * Set the upkeep of this house.
+   * @param upkeep the upkeep to set.
    */
   public void setUpkeep(Money upkeep)
   {
