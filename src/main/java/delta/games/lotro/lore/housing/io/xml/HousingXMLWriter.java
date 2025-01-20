@@ -1,11 +1,15 @@
 package delta.games.lotro.lore.housing.io.xml;
 
+import java.io.File;
+
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
+import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.enums.HouseType;
 import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
@@ -13,6 +17,7 @@ import delta.games.lotro.common.money.Money;
 import delta.games.lotro.lore.geo.BlockReference;
 import delta.games.lotro.lore.housing.HouseDefinition;
 import delta.games.lotro.lore.housing.HouseTypeInfo;
+import delta.games.lotro.lore.housing.HousingManager;
 import delta.games.lotro.lore.housing.Neighborhood;
 import delta.games.lotro.lore.housing.NeighborhoodTemplate;
 import delta.games.lotro.lore.maps.landblocks.io.xml.LandblocksXMLConstants;
@@ -24,12 +29,59 @@ import delta.games.lotro.lore.maps.landblocks.io.xml.LandblocksXMLConstants;
 public class HousingXMLWriter
 {
   /**
+   * Write housing data to a XML file.
+   * @param toFile File to write to.
+   * @param mgr Data to save.
+   * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
+   */
+  public boolean writeHousingData(File toFile, final HousingManager mgr)
+  {
+    XmlFileWriterHelper helper=new XmlFileWriterHelper();
+    XmlWriter writer=new XmlWriter()
+    {
+      @Override
+      public void writeXml(TransformerHandler hd) throws Exception
+      {
+        writeHousingData(hd,mgr);
+      }
+    };
+    boolean ret=helper.write(toFile,EncodingNames.UTF_8,writer);
+    return ret;
+  }
+
+  private void writeHousingData(TransformerHandler hd, HousingManager mgr) throws SAXException
+  {
+    hd.startElement("","",HousingXMLConstants.HOUSING_TAG,new AttributesImpl());
+    // Infos
+    for(HouseTypeInfo info : mgr.getHouseInfos())
+    {
+      writeHouseInfo(hd,info);
+    }
+    // Houses
+    for(HouseDefinition house : mgr.getHouses())
+    {
+      writeHouse(hd,house);
+    }
+    // Neighborhood templates
+    for(NeighborhoodTemplate neighborhoodTemplate : mgr.getNeighborhoodTemplates())
+    {
+      writeNeighborhoodTemplate(hd,neighborhoodTemplate);
+    }
+    // Neighborhoods
+    for(Neighborhood neighborhood : mgr.getNeighborhoods())
+    {
+      writeNeighborhood(hd,neighborhood);
+    }
+    hd.endElement("","",HousingXMLConstants.HOUSING_TAG);
+  }
+
+  /**
    * Write a house.
    * @param hd Output.
    * @param house House to write.
    * @throws SAXException
    */
-  public void writeHouse(TransformerHandler hd, HouseDefinition house) throws SAXException
+  private void writeHouse(TransformerHandler hd, HouseDefinition house) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Identifier
@@ -88,7 +140,7 @@ public class HousingXMLWriter
    * @param neighborhood Neighborhood to write.
    * @throws SAXException
    */
-  public void writeNeighborhood(TransformerHandler hd, Neighborhood neighborhood) throws SAXException
+  private void writeNeighborhood(TransformerHandler hd, Neighborhood neighborhood) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Identifier
@@ -111,7 +163,7 @@ public class HousingXMLWriter
    * @param neighborhoodTemplate Neighborhood template to write.
    * @throws SAXException
    */
-  public void writeNeighborhoodTemplate(TransformerHandler hd, NeighborhoodTemplate neighborhoodTemplate) throws SAXException
+  private void writeNeighborhoodTemplate(TransformerHandler hd, NeighborhoodTemplate neighborhoodTemplate) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Identifier
@@ -151,7 +203,7 @@ public class HousingXMLWriter
    * @param houseInfo House info to write.
    * @throws SAXException
    */
-  public void writeHouseInfo(TransformerHandler hd, HouseTypeInfo houseInfo) throws SAXException
+  private void writeHouseInfo(TransformerHandler hd, HouseTypeInfo houseInfo) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     // Type

@@ -226,4 +226,32 @@ public class HouseDefinition implements Identifiable,Named
   {
     _upkeep=upkeep;
   }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    sb.append("House: ").append(_address);
+    if (_isPremium)
+    {
+      sb.append(" (premium)");
+    }
+    if (_isKinship)
+    {
+      sb.append(" (kinship)");
+    }
+    if (_info!=null)
+    {
+      sb.append(" (").append(_info.getHouseType()).append(')');
+    }
+    if (_price!=null)
+    {
+      sb.append(" ; price=").append(_price);
+    }
+    if (_price!=null)
+    {
+      sb.append(" ; upkeep=").append(_upkeep);
+    }
+    return sb.toString();
+  }
 }

@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.housing;
 
-import delta.common.utils.id.Identifiable;
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 
 /**

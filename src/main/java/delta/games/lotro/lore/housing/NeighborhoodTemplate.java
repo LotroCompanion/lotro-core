@@ -3,7 +3,7 @@ package delta.games.lotro.lore.housing;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.common.utils.id.Identifiable;
+import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
 import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.lore.geo.BlockReference;

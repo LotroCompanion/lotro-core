@@ -371,6 +371,10 @@ public class DataFiles
    */
   public static final String PIPS="pips";
   /**
+   * Housing file.
+   */
+  public static final String HOUSING="housing";
+  /**
    * Labels directory.
    */
   public static final String LABELS="labelsDir";
