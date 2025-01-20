@@ -5,7 +5,7 @@ import java.util.List;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
-import delta.games.lotro.common.geo.ExtendedPosition;
+import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.money.Money;
 
 /**
@@ -21,7 +21,7 @@ public class HouseDefinition implements Identifiable,Named
   private boolean _isPremium;
   private boolean _isKinship;
   private int _neighborhoodTemplateID;
-  private ExtendedPosition _position;
+  private Position _position;
   private HouseTypeInfo _info;
   private Money _price;
   private Money _upkeep;
@@ -159,7 +159,7 @@ public class HouseDefinition implements Identifiable,Named
    * Get the position of the house entrance.
    * @return A position.
    */
-  public ExtendedPosition getPosition()
+  public Position getPosition()
   {
     return _position;
   }
@@ -168,7 +168,7 @@ public class HouseDefinition implements Identifiable,Named
    * Set the position of the house entrance.
    * @param position the position to set.
    */
-  public void setPosition(ExtendedPosition position)
+  public void setPosition(Position position)
   {
     _position=position;
   }

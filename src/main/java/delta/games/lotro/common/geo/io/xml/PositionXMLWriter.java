@@ -59,6 +59,18 @@ public class PositionXMLWriter
    */
   public static void writePosition(TransformerHandler hd, Position position) throws SAXException
   {
+    writePosition(hd,position,PositionXMLConstants.POSITION);
+  }
+
+  /**
+   * Write a position in an XML document.
+   * @param hd Output stream.
+   * @param position Position to write.
+   * @param tagName Tag name.
+   * @throws SAXException If an error occurs.
+   */
+  public static void writePosition(TransformerHandler hd, Position position, String tagName) throws SAXException
+  {
     if (position==null)
     {
       return;
@@ -73,7 +85,7 @@ public class PositionXMLWriter
     // Latitude
     float latitude=position.getLatitude();
     positionAttrs.addAttribute("","",PositionXMLConstants.POSITION_LATITUDE_ATTR,XmlWriter.CDATA,String.valueOf(latitude));
-    hd.startElement("","",PositionXMLConstants.POSITION,positionAttrs);
-    hd.endElement("","",PositionXMLConstants.POSITION);
+    hd.startElement("","",tagName,positionAttrs);
+    hd.endElement("","",tagName);
   }
 }

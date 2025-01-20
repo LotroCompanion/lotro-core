@@ -5,7 +5,7 @@ import java.util.List;
 
 import delta.common.utils.id.Identifiable;
 import delta.games.lotro.common.Named;
-import delta.games.lotro.common.geo.ExtendedPosition;
+import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.lore.geo.BlockReference;
 
 /**
@@ -18,8 +18,8 @@ public class NeighborhoodTemplate implements Identifiable,Named
   private String _name;
   private List<Integer> _houses;
   private List<BlockReference> _blocks;
-  private ExtendedPosition _entrance;
-  private ExtendedPosition _boot;
+  private Position _entrance;
+  private Position _boot;
 
   /*
   NeighborhoodTemplate_BootPosition: house_hobbit_micheldelving_neighborhood_exit
@@ -104,7 +104,7 @@ public class NeighborhoodTemplate implements Identifiable,Named
    * Get the position of the entrance.
    * @return a position.
    */
-  public ExtendedPosition getEntrance()
+  public Position getEntrance()
   {
     return _entrance;
   }
@@ -113,7 +113,7 @@ public class NeighborhoodTemplate implements Identifiable,Named
    * Set the position of the entrance.
    * @param entrance the position to set.
    */
-  public void setEntrance(ExtendedPosition entrance)
+  public void setEntrance(Position entrance)
   {
     _entrance=entrance;
   }
@@ -122,7 +122,7 @@ public class NeighborhoodTemplate implements Identifiable,Named
    * Get the position of the player when he leaves the neighborhood.
    * @return A position.
    */
-  public ExtendedPosition getBoot()
+  public Position getBoot()
   {
     return _boot;
   }
@@ -131,7 +131,7 @@ public class NeighborhoodTemplate implements Identifiable,Named
    * Set the position of the player when he leaves the neighborhood.
    * @param boot the boot to set
    */
-  public void setBoot(ExtendedPosition boot)
+  public void setBoot(Position boot)
   {
     _boot=boot;
   }
