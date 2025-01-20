@@ -174,11 +174,18 @@ public class HousingXMLWriter
     attrs.addAttribute("","",HousingXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
     hd.startElement("","",HousingXMLConstants.NEIGHBORHOOD_TEMPLATE_TAG,attrs);
     // Houses
-    for(Integer houseID : neighborhoodTemplate.getHouses())
+    for(HouseDefinition house : neighborhoodTemplate.getHouses())
     {
       AttributesImpl houseAttrs=new AttributesImpl();
-      houseAttrs.addAttribute("","",HousingXMLConstants.IDENTIFIER_ATTR,XmlWriter.CDATA,houseID.toString());
-      // House name?
+      // - ID
+      int houseID=house.getIdentifier();
+      houseAttrs.addAttribute("","",HousingXMLConstants.IDENTIFIER_ATTR,XmlWriter.CDATA,String.valueOf(houseID));
+      // - address
+      String houseName=house.getAddress();
+      houseAttrs.addAttribute("","",HousingXMLConstants.ADDRESS_ATTR,XmlWriter.CDATA,houseName);
+      // - type
+      HouseType type=house.getHouseType();
+      houseAttrs.addAttribute("","",HousingXMLConstants.HOUSE_TYPE_ATTR,XmlWriter.CDATA,type.getLabel());
       hd.startElement("","",HousingXMLConstants.HOUSE_REF_TAG,houseAttrs);
       hd.endElement("","",HousingXMLConstants.HOUSE_REF_TAG);
     }

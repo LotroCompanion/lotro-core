@@ -1,12 +1,20 @@
 package delta.games.lotro.lore.housing;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import delta.common.utils.collections.CompoundComparator;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.enums.HouseType;
+import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
 import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.lore.geo.BlockReference;
+import delta.games.lotro.utils.DataProvider;
+import delta.games.lotro.utils.comparators.DelegatingComparator;
 
 /**
  * Neighborhood template.
@@ -16,7 +24,7 @@ public class NeighborhoodTemplate implements Identifiable,Named
 {
   private int _id;
   private String _name;
-  private List<Integer> _houses;
+  private List<HouseDefinition> _houses;
   private List<BlockReference> _blocks;
   private Position _entrance;
   private Position _boot;
@@ -39,7 +47,7 @@ public class NeighborhoodTemplate implements Identifiable,Named
   public NeighborhoodTemplate(int id)
   {
     _id=id;
-    _houses=new ArrayList<Integer>();
+    _houses=new ArrayList<HouseDefinition>();
     _blocks=new ArrayList<BlockReference>();
   }
 
@@ -66,20 +74,36 @@ public class NeighborhoodTemplate implements Identifiable,Named
 
   /**
    * Get the list of houses.
-   * @return a list of house identifiers.
+   * @return a list of houses.
    */
-  public List<Integer> getHouses()
+  public List<HouseDefinition> getHouses()
   {
-    return _houses;
+    List<HouseDefinition> ret=new ArrayList<HouseDefinition>(_houses);
+
+    DataProvider<HouseDefinition,HouseType> provider=new DataProvider<HouseDefinition,HouseType>()
+    {
+      @Override
+      public HouseType getData(HouseDefinition p)
+      {
+        return p.getHouseType();
+      }
+    };
+    List<Comparator<HouseDefinition>> list=new ArrayList<Comparator<HouseDefinition>>();
+    DelegatingComparator<HouseDefinition,HouseType> delegatingComparator=new DelegatingComparator<HouseDefinition,HouseType>(provider,new LotroEnumEntryCodeComparator<HouseType>());
+    list.add(delegatingComparator);
+    list.add(new IdentifiableComparator<HouseDefinition>());
+    CompoundComparator<HouseDefinition> cc=new CompoundComparator<HouseDefinition>(list);
+    Collections.sort(ret,cc);
+    return ret;
   }
 
   /**
    * Add a house.
-   * @param houseID House identifier.
+   * @param house House to add.
    */
-  public void addHouse(int houseID)
+  public void addHouse(HouseDefinition house)
   {
-    _houses.add(Integer.valueOf(houseID));
+    _houses.add(house);
   }
 
   /**

@@ -5,6 +5,7 @@ import java.util.List;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.common.Identifiable;
 import delta.games.lotro.common.Named;
+import delta.games.lotro.common.enums.HouseType;
 import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.money.Money;
 
@@ -171,6 +172,19 @@ public class HouseDefinition implements Identifiable,Named
   public void setPosition(Position position)
   {
     _position=position;
+  }
+
+  /**
+   * Get the house type. 
+   * @return the house type.
+   */
+  public HouseType getHouseType()
+  {
+    if (_info!=null)
+    {
+      return _info.getHouseType();
+    }
+    return null;
   }
 
   /**
