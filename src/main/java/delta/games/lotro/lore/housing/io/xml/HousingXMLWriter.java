@@ -108,8 +108,6 @@ public class HousingXMLWriter
     // Neighborhood template
     int neighborhoodTemplateID=house.getNeighborhoodTemplateID();
     attrs.addAttribute("","",HousingXMLConstants.NEIGHBORHODD_TEMPLATE_ID_ATTR,XmlWriter.CDATA,String.valueOf(neighborhoodTemplateID));
-    // Position
-    PositionXMLWriter.writePosition(hd,house.getPosition());
     // Tyoe
     HouseType type=house.getInfo().getHouseType();
     attrs.addAttribute("","",HousingXMLConstants.HOUSE_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type.getCode()));
@@ -120,6 +118,8 @@ public class HousingXMLWriter
     Money upkeep=house.getUpkeep();
     attrs.addAttribute("","",HousingXMLConstants.HOUSE_UPKEEP_ATTR,XmlWriter.CDATA,String.valueOf(upkeep.getInternalValue()));
     hd.startElement("","",HousingXMLConstants.HOUSE_TAG,attrs);
+    // Position
+    PositionXMLWriter.writePosition(hd,house.getPosition());
     // Traits
     for(TraitDescription trait : house.getTraits())
     {
