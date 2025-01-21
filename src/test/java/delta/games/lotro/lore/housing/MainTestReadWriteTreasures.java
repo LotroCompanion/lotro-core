@@ -1,4 +1,4 @@
-package delta.games.lotro.common.treasure.io;
+package delta.games.lotro.lore.housing;
 
 import java.io.File;
 
@@ -22,8 +22,7 @@ public class MainTestReadWriteTreasures
   {
     File in=LotroCoreConfig.getInstance().getFile(DataFiles.LOOTS);
     LootsManager lootMgr=new TreasureXMLParser().parseXML(in);
-    File to=LotroCoreConfig.getInstance().getFile(DataFiles.LOOTS);
-    File to2=new File(to.getParentFile(),"newLoot.xml");
-    TreasureXMLWriter.writeLootsFile(to2,lootMgr);
+    File to=new File(in.getParentFile(),"newLoot.xml");
+    TreasureXMLWriter.writeLootsFile(to,lootMgr);
   }
 }
