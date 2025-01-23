@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class AccountHousingData
 {
-  private List<HouseReference> _premiumHouses; 
+  private List<HouseReference> _premiumHouses;
   private HouseReference _classicHouse;
 
   /**
