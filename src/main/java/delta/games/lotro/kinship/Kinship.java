@@ -72,7 +72,7 @@ public class Kinship
 
   /**
    * Get the name of this kinship.
-   * @return a kinhip name.
+   * @return a kinship name.
    */
   public String getName()
   {

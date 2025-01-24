@@ -46,7 +46,7 @@ public class InternalGameId
   }
 
   /**
-   * Get a 'long' represenation of this identifier.
+   * Get a 'long' representation of this identifier.
    * @return a long value.
    */
   public long asLong()
