@@ -1,0 +1,105 @@
+package delta.games.lotro.character.status.housing.io.xml;
+
+/**
+ * Constants for tags and attribute names used in the
+ * XML persistence of housing data.
+ * @author DAM
+ */
+public class HousingXMLConstants
+{
+  /**
+   * Tag 'accountHouses'.
+   */
+  public static final String ACCOUNT_HOUSES_TAG="accountHouses";
+  /**
+   * Tag 'classicHouse'.
+   */
+  public static final String CLASSIC_HOUSE_TAG="classicHouse";
+  /**
+   * Tag 'premiumHouse'.
+   */
+  public static final String PREMIUM_HOUSE_TAG="premiumHouse";
+  /**
+   * Tag 'classHouse'/'premiumHouse', attribute 'ownerID'.
+   */
+  public static final String OWNER_ID_ATTR="ownerID";
+  /**
+   * Tag 'address'.
+   */
+  public static final String ADDRESS_TAG="address";
+  /**
+   * Tag 'address', attribute 'neighborHoodID'.
+   */
+  public static final String ADDRESS_NEIGHBORHOOD_ID_ATTR="neighborHoodID";
+  /**
+   * Tag 'address', attribute 'neighborHoodName'.
+   */
+  public static final String ADDRESS_NEIGHBORHOOD_NAME_ATTR="neighborHoodID";
+  /**
+   * Tag 'address', attribute 'houseID'.
+   */
+  public static final String ADDRESS_HOUSE_ID_ATTR="houseID";
+  /**
+   * Tag 'address', attribute 'houseName'.
+   */
+  public static final String ADDRESS_HOUSE_NAME_ATTR="houseName";
+
+  /**
+   * Tag 'houseContents'.
+   */
+  public static final String HOUSE_CONTENTS_TAG="houseContents";
+  /**
+   * Tag 'item'.
+   */
+  public static final String ITEM_TAG="item";
+  /**
+   * Misc tags, attribute 'identifier'.
+   */
+  public static final String IDENTIFIER_ATTR="id";
+  /**
+   * Misc tags, attribute 'name'.
+   */
+  public static final String NAME_ATTR="name";
+  /**
+   * Tag 'item', attribute 'entityID'.
+   */
+  public static final String ITEM_ENTITY_ID_ATTR="entityID";
+  /**
+   * Tag 'item', attribute 'hookID'.
+   */
+  public static final String ITEM_HOOK_ID_ATTR="hookID";
+  /**
+   * Tag 'item', attribute 'positionOffset'.
+   */
+  public static final String ITEM_POSITION_OFFSET_ATTR="positionOffset";
+  /**
+   * Tag 'item', attribute 'rotationOffset'.
+   */
+  public static final String ITEM_ROTATION_OFFSET_ATTR="rotationOffset";
+  /**
+   * Tag 'item', attribute 'hookRotation'.
+   */
+  public static final String ITEM_HOOK_ROTATION_ATTR="hookRotation";
+  /**
+   * Tag 'item', attribute 'boundTo'.
+   */
+  public static final String ITEM_BOUND_TO_ATTR="boundTo";
+
+  /**
+   * Tag 'position'.
+   */
+  public static final String POSITION_TAG="position";
+  /**
+   * Tag 'position', attribute 'x'.
+   */
+  public static final String X_ATTR="x";
+  /**
+   * Tag 'position', attribute 'y'.
+   */
+  public static final String Y_ATTR="y";
+  /**
+   * Tag 'position', attribute 'z'.
+   */
+  public static final String Z_ATTR="z";
+
+}

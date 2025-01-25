@@ -15,6 +15,7 @@ import delta.games.lotro.utils.comparators.DelegatingComparator;
  */
 public class HouseContents
 {
+  private HouseAddress _address;
   // Housing items
   private List<HousingItem> _items;
 
@@ -24,6 +25,24 @@ public class HouseContents
   public HouseContents()
   {
     _items=new ArrayList<HousingItem>();
+  }
+
+  /**
+   * Get the house address.
+   * @return an address or <code>null</code> if not set.
+   */
+  public HouseAddress getAddress()
+  {
+    return _address;
+  }
+
+  /**
+   * Set the house address.
+   * @param address Address to set.
+   */
+  public void setAddress(HouseAddress address)
+  {
+    _address=address;
   }
 
   /**

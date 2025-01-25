@@ -9,7 +9,7 @@ import delta.games.lotro.common.id.InternalGameId;
 public class HouseReference
 {
   private HouseAddress _address; 
-  private InternalGameId _owner; // From HousingSystem_AccountPremiumHouseOwner_IID
+  private InternalGameId _owner;
 
   /**
    * Constructor.
