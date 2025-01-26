@@ -2,10 +2,10 @@ package delta.games.lotro.character.status.housing.io.xml;
 
 /**
  * Constants for tags and attribute names used in the
- * XML persistence of housing data.
+ * XML persistence of housing status data.
  * @author DAM
  */
-public class HousingXMLConstants
+public class HousingStatusXMLConstants
 {
   /**
    * Tag 'accountHouses'.

@@ -58,19 +58,19 @@ public class HousingStatusXMLWriter
    */
   private void writeAccountHousingData(TransformerHandler hd, AccountHousingData data) throws SAXException
   {
-    hd.startElement("","",HousingXMLConstants.ACCOUNT_HOUSES_TAG,new AttributesImpl());
+    hd.startElement("","",HousingStatusXMLConstants.ACCOUNT_HOUSES_TAG,new AttributesImpl());
     // Classic house
     HouseReference classicHouse=data.getClassicHouse();
     if (classicHouse!=null)
     {
-      writeHouseReference(hd,classicHouse,HousingXMLConstants.CLASSIC_HOUSE_TAG);
+      writeHouseReference(hd,classicHouse,HousingStatusXMLConstants.CLASSIC_HOUSE_TAG);
     }
     // Premium houses
     for(HouseReference premimumHouse : data.getPremiumHouses())
     {
-      writeHouseReference(hd,premimumHouse,HousingXMLConstants.PREMIUM_HOUSE_TAG);
+      writeHouseReference(hd,premimumHouse,HousingStatusXMLConstants.PREMIUM_HOUSE_TAG);
     }
-    hd.endElement("","",HousingXMLConstants.ACCOUNT_HOUSES_TAG);
+    hd.endElement("","",HousingStatusXMLConstants.ACCOUNT_HOUSES_TAG);
   }
 
   /**
@@ -87,7 +87,7 @@ public class HousingStatusXMLWriter
     InternalGameId ownerID=houseRef.getOwner();
     if (ownerID!=null)
     {
-      attrs.addAttribute("","",HousingXMLConstants.OWNER_ID_ATTR,XmlWriter.CDATA,ownerID.asPersistedString());
+      attrs.addAttribute("","",HousingStatusXMLConstants.OWNER_ID_ATTR,XmlWriter.CDATA,ownerID.asPersistedString());
     }
     hd.startElement("","",tag,attrs);
     HouseAddress address=houseRef.getAddress();
@@ -129,21 +129,21 @@ public class HousingStatusXMLWriter
   {
     AttributesImpl houseAttrs=new AttributesImpl();
     writeHouseIdentifierAttributes(houseAttrs,house.getIdentifier());
-    hd.startElement("","",HousingXMLConstants.HOUSE_TAG,houseAttrs);
+    hd.startElement("","",HousingStatusXMLConstants.HOUSE_TAG,houseAttrs);
     // House items 
     List<HousingItem> items=house.getItems();
     for(HousingItem item : items)
     {
       writeHouseItem(hd,item);
     }
-    hd.endElement("","",HousingXMLConstants.HOUSE_TAG);
+    hd.endElement("","",HousingStatusXMLConstants.HOUSE_TAG);
   }
 
   private void writeHouseIdentifierAttributes(AttributesImpl attrs, HouseIdentifier houseIdentifier)
   {
     // Server
     String server=houseIdentifier.getServer();
-    attrs.addAttribute("","",HousingXMLConstants.HOUSE_SERVER_ATTR,XmlWriter.CDATA,server);
+    attrs.addAttribute("","",HousingStatusXMLConstants.HOUSE_SERVER_ATTR,XmlWriter.CDATA,server);
     writeAddressAttributes(attrs,houseIdentifier.getAddress());
   }
 
@@ -157,20 +157,20 @@ public class HousingStatusXMLWriter
   {
     AttributesImpl attrs=new AttributesImpl();
     writeAddressAttributes(attrs,address);
-    hd.startElement("","",HousingXMLConstants.ADDRESS_TAG,attrs);
-    hd.endElement("","",HousingXMLConstants.ADDRESS_TAG);
+    hd.startElement("","",HousingStatusXMLConstants.ADDRESS_TAG,attrs);
+    hd.endElement("","",HousingStatusXMLConstants.ADDRESS_TAG);
   }
 
   private static void writeAddressAttributes(AttributesImpl attrs, HouseAddress address)
   {
     // Neighborhood ID
     int neighborhoodID=address.getNeighborhoodID();
-    attrs.addAttribute("","",HousingXMLConstants.ADDRESS_NEIGHBORHOOD_ID_ATTR,XmlWriter.CDATA,String.valueOf(neighborhoodID));
+    attrs.addAttribute("","",HousingStatusXMLConstants.ADDRESS_NEIGHBORHOOD_ID_ATTR,XmlWriter.CDATA,String.valueOf(neighborhoodID));
     // Neighborhood name
     // TODO
     // House ID
     int houseID=address.getHouseID();
-    attrs.addAttribute("","",HousingXMLConstants.ADDRESS_HOUSE_ID_ATTR,XmlWriter.CDATA,String.valueOf(houseID));
+    attrs.addAttribute("","",HousingStatusXMLConstants.ADDRESS_HOUSE_ID_ATTR,XmlWriter.CDATA,String.valueOf(houseID));
     // House name
     // TODO
   }
@@ -186,7 +186,7 @@ public class HousingStatusXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Item ID
     int itemID=houseItem.getItemID();
-    attrs.addAttribute("","",HousingXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemID));
+    attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemID));
     // Name
     Item item=ItemsManager.getInstance().getItem(itemID);
     if (item!=null)
@@ -194,45 +194,45 @@ public class HousingStatusXMLWriter
       String itemName=item.getName();
       if (itemName!=null)
       {
-        attrs.addAttribute("","",HousingXMLConstants.NAME_ATTR,XmlWriter.CDATA,itemName);
+        attrs.addAttribute("","",HousingStatusXMLConstants.NAME_ATTR,XmlWriter.CDATA,itemName);
       }
     }
     // Entity ID
     InternalGameId entityID=houseItem.getEntityID();
     if (entityID!=null)
     {
-      attrs.addAttribute("","",HousingXMLConstants.ITEM_ENTITY_ID_ATTR,XmlWriter.CDATA,entityID.asPersistedString());
+      attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_ENTITY_ID_ATTR,XmlWriter.CDATA,entityID.asPersistedString());
     }
     // Hook ID
     HousingHookID hookID=houseItem.getHookID();
     if (hookID!=null)
     {
-      attrs.addAttribute("","",HousingXMLConstants.ITEM_HOOK_ID_ATTR,XmlWriter.CDATA,String.valueOf(hookID.getCode()));
+      attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_HOOK_ID_ATTR,XmlWriter.CDATA,String.valueOf(hookID.getCode()));
     }
     // Rotation offset
     float rotationOffset=houseItem.getRotationOffset();
-    attrs.addAttribute("","",HousingXMLConstants.ITEM_ROTATION_OFFSET_ATTR,XmlWriter.CDATA,String.valueOf(rotationOffset));
+    attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_ROTATION_OFFSET_ATTR,XmlWriter.CDATA,String.valueOf(rotationOffset));
     // Hook rotation
     float hookRotation=houseItem.getHookRotation();
-    attrs.addAttribute("","",HousingXMLConstants.ITEM_HOOK_ROTATION_ATTR,XmlWriter.CDATA,String.valueOf(hookRotation));
+    attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_HOOK_ROTATION_ATTR,XmlWriter.CDATA,String.valueOf(hookRotation));
     // Bound to
     InternalGameId boundTo=houseItem.getBoundTo();
     if (boundTo!=null)
     {
-      attrs.addAttribute("","",HousingXMLConstants.ITEM_BOUND_TO_ATTR,XmlWriter.CDATA,boundTo.asPersistedString());
+      attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_BOUND_TO_ATTR,XmlWriter.CDATA,boundTo.asPersistedString());
     }
-    hd.startElement("","",HousingXMLConstants.ITEM_TAG,attrs);
+    hd.startElement("","",HousingStatusXMLConstants.ITEM_TAG,attrs);
     // Position offset
     Vector3D positionOffset=houseItem.getPositionOffset();
     if (positionOffset!=null)
     {
       AttributesImpl positionAttrs=new AttributesImpl();
-      positionAttrs.addAttribute("","",HousingXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(positionOffset.getX()));
-      positionAttrs.addAttribute("","",HousingXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(positionOffset.getY()));
-      positionAttrs.addAttribute("","",HousingXMLConstants.Z_ATTR,XmlWriter.CDATA,String.valueOf(positionOffset.getZ()));
-      hd.startElement("","",HousingXMLConstants.POSITION_TAG,positionAttrs);
-      hd.endElement("","",HousingXMLConstants.POSITION_TAG);
+      positionAttrs.addAttribute("","",HousingStatusXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(positionOffset.getX()));
+      positionAttrs.addAttribute("","",HousingStatusXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(positionOffset.getY()));
+      positionAttrs.addAttribute("","",HousingStatusXMLConstants.Z_ATTR,XmlWriter.CDATA,String.valueOf(positionOffset.getZ()));
+      hd.startElement("","",HousingStatusXMLConstants.POSITION_TAG,positionAttrs);
+      hd.endElement("","",HousingStatusXMLConstants.POSITION_TAG);
     }
-    hd.endElement("","",HousingXMLConstants.ITEM_TAG);
+    hd.endElement("","",HousingStatusXMLConstants.ITEM_TAG);
   }
 }
