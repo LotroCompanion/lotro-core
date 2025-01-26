@@ -13,18 +13,21 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.math.geometry.Vector3D;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.status.housing.AccountHousingData;
+import delta.games.lotro.character.status.housing.House;
 import delta.games.lotro.character.status.housing.HouseAddress;
-import delta.games.lotro.character.status.housing.HouseContents;
+import delta.games.lotro.character.status.housing.HouseIdentifier;
 import delta.games.lotro.character.status.housing.HouseReference;
 import delta.games.lotro.character.status.housing.HousingItem;
 import delta.games.lotro.common.enums.HousingHookID;
 import delta.games.lotro.common.id.InternalGameId;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Writes housing data to XML files.
  * @author DAM
  */
-public class HousingXMLWriter
+public class HousingStatusXMLWriter
 {
   /**
    * Write account housing data to a XML file.
@@ -96,12 +99,12 @@ public class HousingXMLWriter
   }
 
   /**
-   * Write a house contents to a XML file.
+   * Write a house to a XML file.
    * @param toFile File to write to.
    * @param data Data to save.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean writeHouseContents(File toFile, final HouseContents data)
+  public boolean writeHouseContents(File toFile, final House data)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -109,7 +112,7 @@ public class HousingXMLWriter
       @Override
       public void writeXml(TransformerHandler hd) throws Exception
       {
-        writeHouseContents(hd,data);
+        writeHouse(hd,data);
       }
     };
     boolean ret=helper.write(toFile,EncodingNames.UTF_8,writer);
@@ -117,27 +120,31 @@ public class HousingXMLWriter
   }
 
   /**
-   * Write a house contents.
+   * Write a house.
    * @param hd Output.
-   * @param houseContents House contents to write.
+   * @param house House to write.
    * @throws SAXException
    */
-  private void writeHouseContents(TransformerHandler hd, HouseContents houseContents) throws SAXException
+  private void writeHouse(TransformerHandler hd, House house) throws SAXException
   {
-    hd.startElement("","",HousingXMLConstants.HOUSE_CONTENTS_TAG,new AttributesImpl());
-    // Address
-    HouseAddress address=houseContents.getAddress();
-    if (address!=null)
-    {
-      writeAddress(hd,address);
-    }
+    AttributesImpl houseAttrs=new AttributesImpl();
+    writeHouseIdentifierAttributes(houseAttrs,house.getIdentifier());
+    hd.startElement("","",HousingXMLConstants.HOUSE_TAG,houseAttrs);
     // House items 
-    List<HousingItem> items=houseContents.getItems();
+    List<HousingItem> items=house.getItems();
     for(HousingItem item : items)
     {
       writeHouseItem(hd,item);
     }
-    hd.endElement("","",HousingXMLConstants.HOUSE_CONTENTS_TAG);
+    hd.endElement("","",HousingXMLConstants.HOUSE_TAG);
+  }
+
+  private void writeHouseIdentifierAttributes(AttributesImpl attrs, HouseIdentifier houseIdentifier)
+  {
+    // Server
+    String server=houseIdentifier.getServer();
+    attrs.addAttribute("","",HousingXMLConstants.HOUSE_SERVER_ATTR,XmlWriter.CDATA,server);
+    writeAddressAttributes(attrs,houseIdentifier.getAddress());
   }
 
   /**
@@ -149,18 +156,23 @@ public class HousingXMLWriter
   private void writeAddress(TransformerHandler hd, HouseAddress address) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
+    writeAddressAttributes(attrs,address);
+    hd.startElement("","",HousingXMLConstants.ADDRESS_TAG,attrs);
+    hd.endElement("","",HousingXMLConstants.ADDRESS_TAG);
+  }
+
+  private void writeAddressAttributes(AttributesImpl attrs, HouseAddress address)
+  {
     // Neighborhood ID
     int neighborhoodID=address.getNeighborhoodID();
     attrs.addAttribute("","",HousingXMLConstants.ADDRESS_NEIGHBORHOOD_ID_ATTR,XmlWriter.CDATA,String.valueOf(neighborhoodID));
-    // neighborhood Name
+    // Neighborhood name
     // TODO
     // House ID
     int houseID=address.getHouseID();
     attrs.addAttribute("","",HousingXMLConstants.ADDRESS_HOUSE_ID_ATTR,XmlWriter.CDATA,String.valueOf(houseID));
-    // House Name
+    // House name
     // TODO
-    hd.startElement("","",HousingXMLConstants.ADDRESS_TAG,attrs);
-    hd.endElement("","",HousingXMLConstants.ADDRESS_TAG);
   }
 
   /**
@@ -174,9 +186,17 @@ public class HousingXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     // Item ID
     int itemID=houseItem.getItemID();
-    attrs.addAttribute("","",HousingXMLConstants.IDENTIFIER_ATTR,XmlWriter.CDATA,String.valueOf(itemID));
+    attrs.addAttribute("","",HousingXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemID));
     // Name
-    // TODO
+    Item item=ItemsManager.getInstance().getItem(itemID);
+    if (item!=null)
+    {
+      String itemName=item.getName();
+      if (itemName!=null)
+      {
+        attrs.addAttribute("","",HousingXMLConstants.NAME_ATTR,XmlWriter.CDATA,itemName);
+      }
+    }
     // Entity ID
     InternalGameId entityID=houseItem.getEntityID();
     if (entityID!=null)
@@ -187,7 +207,7 @@ public class HousingXMLWriter
     HousingHookID hookID=houseItem.getHookID();
     if (hookID!=null)
     {
-      attrs.addAttribute("","",HousingXMLConstants.ITEM_ENTITY_ID_ATTR,XmlWriter.CDATA,String.valueOf(hookID.getCode()));
+      attrs.addAttribute("","",HousingXMLConstants.ITEM_HOOK_ID_ATTR,XmlWriter.CDATA,String.valueOf(hookID.getCode()));
     }
     // Rotation offset
     float rotationOffset=houseItem.getRotationOffset();

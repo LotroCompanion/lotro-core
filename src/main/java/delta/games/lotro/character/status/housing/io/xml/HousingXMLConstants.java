@@ -32,9 +32,9 @@ public class HousingXMLConstants
    */
   public static final String ADDRESS_NEIGHBORHOOD_ID_ATTR="neighborHoodID";
   /**
-   * Tag 'address', attribute 'neighborHoodName'.
+   * Tag 'address', attribute 'neighborhoodName'.
    */
-  public static final String ADDRESS_NEIGHBORHOOD_NAME_ATTR="neighborHoodID";
+  public static final String ADDRESS_NEIGHBORHOOD_NAME_ATTR="neighborhoodName";
   /**
    * Tag 'address', attribute 'houseID'.
    */
@@ -45,17 +45,21 @@ public class HousingXMLConstants
   public static final String ADDRESS_HOUSE_NAME_ATTR="houseName";
 
   /**
-   * Tag 'houseContents'.
+   * Tag 'house'.
    */
-  public static final String HOUSE_CONTENTS_TAG="houseContents";
+  public static final String HOUSE_TAG="house";
+  /**
+   * Tag 'house', attribute 'server'.
+   */
+  public static final String HOUSE_SERVER_ATTR="server";
   /**
    * Tag 'item'.
    */
   public static final String ITEM_TAG="item";
   /**
-   * Misc tags, attribute 'identifier'.
+   * Tag 'item', attribute 'identifier'.
    */
-  public static final String IDENTIFIER_ATTR="id";
+  public static final String ITEM_ID_ATTR="id";
   /**
    * Misc tags, attribute 'name'.
    */
@@ -101,5 +105,4 @@ public class HousingXMLConstants
    * Tag 'position', attribute 'z'.
    */
   public static final String Z_ATTR="z";
-
 }

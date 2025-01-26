@@ -23,6 +23,8 @@ public class UserDataManager
   private File _kinshipsDir;
   // Trait tree setups
   private File _traitTreeSetupDir;
+  // Houses
+  private File _housesDir;
 
   /**
    * Get the sole instance of this class.
@@ -43,6 +45,7 @@ public class UserDataManager
     _accountsDir=new File(_userDataDir,"accounts");
     _kinshipsDir=new File(_userDataDir,"kinships");
     _traitTreeSetupDir=new File(_userDataDir,"traitTrees");
+    _housesDir=new File(_userDataDir,"houses");
   }
 
   private void initUserDataDir()
@@ -85,5 +88,14 @@ public class UserDataManager
   public File getTraitTreeSetupDir()
   {
     return _traitTreeSetupDir;
+  }
+
+  /**
+   * Get the root storage directory for houses.
+   * @return a directory.
+   */
+  public File getHousesDir()
+  {
+    return _housesDir;
   }
 }

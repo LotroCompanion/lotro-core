@@ -10,39 +10,40 @@ import delta.games.lotro.utils.DataProvider;
 import delta.games.lotro.utils.comparators.DelegatingComparator;
 
 /**
- * Contents of a house.
+ * House.
  * @author DAM
  */
-public class HouseContents
+public class House
 {
-  private HouseAddress _address;
+  private HouseIdentifier _identifier;
   // Housing items
   private List<HousingItem> _items;
 
   /**
    * Constructor.
+   * @param houseID House identifier.
    */
-  public HouseContents()
+  public House(HouseIdentifier houseID)
   {
+    _identifier=houseID;
     _items=new ArrayList<HousingItem>();
   }
 
   /**
-   * Get the house address.
-   * @return an address or <code>null</code> if not set.
+   * Get the house identifier.
+   * @return an identifier or <code>null</code> if not set.
    */
-  public HouseAddress getAddress()
+  public HouseIdentifier getIdentifier()
   {
-    return _address;
+    return _identifier;
   }
 
   /**
-   * Set the house address.
-   * @param address Address to set.
+   * Remove all items.
    */
-  public void setAddress(HouseAddress address)
+  public void clear()
   {
-    _address=address;
+    _items.clear();
   }
 
   /**
