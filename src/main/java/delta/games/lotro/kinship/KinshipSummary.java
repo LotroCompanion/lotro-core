@@ -1,5 +1,6 @@
 package delta.games.lotro.kinship;
 
+import delta.games.lotro.character.status.housing.HouseAddress;
 import delta.games.lotro.common.id.InternalGameId;
 
 /**
@@ -14,6 +15,7 @@ public class KinshipSummary
   private String _serverName;
   private InternalGameId _leaderID;
   private InternalGameId _founderID;
+  private HouseAddress _address;
   private Long _creationDate;
   private String _motd;
 
@@ -27,6 +29,7 @@ public class KinshipSummary
     _serverName="";
     _leaderID=null;
     _founderID=null;
+    _address=null;
     _creationDate=null;
     _motd="";
   }
@@ -129,6 +132,23 @@ public class KinshipSummary
     _leaderID=leaderID;
   }
 
+  /**
+   * Get the address of the kinship house.
+   * @return an address or <code>null</code> if not set.
+   */
+  public HouseAddress getAddress()
+  {
+    return _address;
+  }
+
+  /**
+   * Set the address of the kinship house.
+   * @param address Address to set.
+   */
+  public void setAddress(HouseAddress address)
+  {
+    _address=address;
+  }
 
   /**
    * Get the founder identifier.

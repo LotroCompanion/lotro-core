@@ -8,6 +8,8 @@ import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
+import delta.games.lotro.character.status.housing.HouseAddress;
+import delta.games.lotro.character.status.housing.io.xml.HousingStatusXMLWriter;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.kinship.KinshipSummary;
 
@@ -34,6 +36,12 @@ public class KinshipSummaryXMLWriter
         AttributesImpl kinshipAttrs=new AttributesImpl();
         write(kinshipAttrs,summary);
         hd.startElement("","",KinshipXMLConstants.KINSHIP_TAG,kinshipAttrs);
+        // Address
+        HouseAddress address=summary.getAddress();
+        if (address!=null)
+        {
+          HousingStatusXMLWriter.writeAddress(hd,address);
+        }
         hd.endElement("","",KinshipXMLConstants.KINSHIP_TAG);
       }
     };

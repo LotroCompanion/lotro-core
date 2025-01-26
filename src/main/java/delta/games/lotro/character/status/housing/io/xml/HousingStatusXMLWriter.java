@@ -153,7 +153,7 @@ public class HousingStatusXMLWriter
    * @param address Address to write.
    * @throws SAXException
    */
-  private void writeAddress(TransformerHandler hd, HouseAddress address) throws SAXException
+  public static void writeAddress(TransformerHandler hd, HouseAddress address) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
     writeAddressAttributes(attrs,address);
@@ -161,7 +161,7 @@ public class HousingStatusXMLWriter
     hd.endElement("","",HousingXMLConstants.ADDRESS_TAG);
   }
 
-  private void writeAddressAttributes(AttributesImpl attrs, HouseAddress address)
+  private static void writeAddressAttributes(AttributesImpl attrs, HouseAddress address)
   {
     // Neighborhood ID
     int neighborhoodID=address.getNeighborhoodID();
