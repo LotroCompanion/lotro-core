@@ -11,6 +11,8 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.status.housing.AccountHousingData;
 import delta.games.lotro.character.status.housing.House;
 import delta.games.lotro.character.status.housing.HouseAddress;
+import delta.games.lotro.character.status.housing.HouseContents;
+import delta.games.lotro.character.status.housing.HouseContentsType;
 import delta.games.lotro.character.status.housing.HouseIdentifier;
 import delta.games.lotro.character.status.housing.HouseReference;
 import delta.games.lotro.character.status.housing.HousingItem;
@@ -113,8 +115,26 @@ public class HousingStatusXMLParser
     HouseAddress address=new HouseAddress(neighborhoodID,houseID);
     HouseIdentifier id=new HouseIdentifier(server,address);
     House ret=new House(id);
+    // Interior
+    Element interiorTag=DOMParsingTools.getChildTagByName(root,HousingStatusXMLConstants.INTERIOR_TAG);
+    HouseContents interior=parseContents(interiorTag,HouseContentsType.INTERIOR);
+    ret.setInterior(interior);
+    // Exterior
+    Element exteriorTag=DOMParsingTools.getChildTagByName(root,HousingStatusXMLConstants.EXTERIOR_TAG);
+    HouseContents exterior=parseContents(exteriorTag,HouseContentsType.EXTERIOR);
+    ret.setExterior(exterior);
+    return ret;
+  }
+
+  private HouseContents parseContents(Element tag, HouseContentsType type)
+  {
+    if (tag==null)
+    {
+      return null;
+    }
+    HouseContents ret=new HouseContents(type);
     // Contents
-    List<Element> itemTags=DOMParsingTools.getChildTagsByName(root,HousingStatusXMLConstants.ITEM_TAG);
+    List<Element> itemTags=DOMParsingTools.getChildTagsByName(tag,HousingStatusXMLConstants.ITEM_TAG);
     for(Element itemTag : itemTags)
     {
       HousingItem item=parseHousingItem(itemTag);

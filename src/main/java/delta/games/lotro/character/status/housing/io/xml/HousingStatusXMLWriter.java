@@ -15,6 +15,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.status.housing.AccountHousingData;
 import delta.games.lotro.character.status.housing.House;
 import delta.games.lotro.character.status.housing.HouseAddress;
+import delta.games.lotro.character.status.housing.HouseContents;
 import delta.games.lotro.character.status.housing.HouseIdentifier;
 import delta.games.lotro.character.status.housing.HouseReference;
 import delta.games.lotro.character.status.housing.HousingItem;
@@ -130,13 +131,29 @@ public class HousingStatusXMLWriter
     AttributesImpl houseAttrs=new AttributesImpl();
     writeHouseIdentifierAttributes(houseAttrs,house.getIdentifier());
     hd.startElement("","",HousingStatusXMLConstants.HOUSE_TAG,houseAttrs);
+    // Interior
+    HouseContents interior=house.getInterior();
+    writeContents(hd,interior,HousingStatusXMLConstants.INTERIOR_TAG);
+    // Interior
+    HouseContents exterior=house.getExterior();
+    writeContents(hd,exterior,HousingStatusXMLConstants.EXTERIOR_TAG);
+    hd.endElement("","",HousingStatusXMLConstants.HOUSE_TAG);
+  }
+
+  private void writeContents(TransformerHandler hd, HouseContents contents, String tag) throws SAXException
+  {
+    if (contents==null)
+    {
+      return;
+    }
+    hd.startElement("","",tag,new AttributesImpl());
     // House items 
-    List<HousingItem> items=house.getItems();
+    List<HousingItem> items=contents.getItems();
     for(HousingItem item : items)
     {
       writeHouseItem(hd,item);
     }
-    hd.endElement("","",HousingStatusXMLConstants.HOUSE_TAG);
+    hd.endElement("","",tag);
   }
 
   private void writeHouseIdentifierAttributes(AttributesImpl attrs, HouseIdentifier houseIdentifier)

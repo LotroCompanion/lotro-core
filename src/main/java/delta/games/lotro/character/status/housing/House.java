@@ -1,14 +1,5 @@
 package delta.games.lotro.character.status.housing;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import delta.games.lotro.common.id.InternalGameId;
-import delta.games.lotro.common.id.InternalGameIdComparator;
-import delta.games.lotro.utils.DataProvider;
-import delta.games.lotro.utils.comparators.DelegatingComparator;
-
 /**
  * House.
  * @author DAM
@@ -16,8 +7,8 @@ import delta.games.lotro.utils.comparators.DelegatingComparator;
 public class House
 {
   private HouseIdentifier _identifier;
-  // Housing items
-  private List<HousingItem> _items;
+  private HouseContents _interior;
+  private HouseContents _exterior;
 
   /**
    * Constructor.
@@ -26,7 +17,6 @@ public class House
   public House(HouseIdentifier houseID)
   {
     _identifier=houseID;
-    _items=new ArrayList<HousingItem>();
   }
 
   /**
@@ -39,39 +29,38 @@ public class House
   }
 
   /**
-   * Remove all items.
+   * Get the contents of the interior.
+   * @return A contents (may be <code>null</code> if not assessed).
    */
-  public void clear()
+  public HouseContents getInterior()
   {
-    _items.clear();
+    return _interior;
   }
 
   /**
-   * Add an item.
-   * @param item Item to add.
+   * Set the interior contents.
+   * @param interior the contents to set.
    */
-  public void addItem(HousingItem item)
+  public void setInterior(HouseContents interior)
   {
-    _items.add(item);
+    _interior=interior;
   }
 
   /**
-   * Get the managed items.
-   * @return A list of managed items, sorted by entity ID.
+   * Get the contents of the exterior.
+   * @return A contents (may be <code>null</code> if not assessed).
    */
-  public List<HousingItem> getItems()
+  public HouseContents getExterior()
   {
-    List<HousingItem> ret=new ArrayList<HousingItem>(_items);
-    DataProvider<HousingItem,InternalGameId> provider=new DataProvider<HousingItem,InternalGameId>()
-    {
-      @Override
-      public InternalGameId getData(HousingItem item)
-      {
-        return item.getEntityID();
-      }
-    };
-    DelegatingComparator<HousingItem,InternalGameId> delegatingComparator=new DelegatingComparator<HousingItem,InternalGameId>(provider,new InternalGameIdComparator());
-    Collections.sort(ret,delegatingComparator);
-    return ret;
+    return _exterior;
+  }
+
+  /**
+   * Set the exterior contents.
+   * @param exterior the contents to set.
+   */
+  public void setExterior(HouseContents exterior)
+  {
+    _exterior=exterior;
   }
 }

@@ -53,6 +53,14 @@ public class HousingStatusXMLConstants
    */
   public static final String HOUSE_SERVER_ATTR="server";
   /**
+   * Tag 'interior'.
+   */
+  public static final String INTERIOR_TAG="interior";
+  /**
+   * Tag 'exterior'.
+   */
+  public static final String EXTERIOR_TAG="exterior";
+  /**
    * Tag 'item'.
    */
   public static final String ITEM_TAG="item";
