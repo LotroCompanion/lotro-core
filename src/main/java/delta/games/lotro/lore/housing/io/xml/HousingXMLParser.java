@@ -254,6 +254,7 @@ public class HousingXMLParser
     {
       ret.setTemplate(template);
     }
+    else
     {
       LOGGER.warn("Template not found: {}",Integer.valueOf(neighborhoodTemplateID));
     }

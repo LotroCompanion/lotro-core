@@ -7,6 +7,7 @@ import delta.games.lotro.character.status.housing.AccountHousingData;
 import delta.games.lotro.character.status.housing.House;
 import delta.games.lotro.character.status.housing.HouseAddress;
 import delta.games.lotro.character.status.housing.HouseIdentifier;
+import delta.games.lotro.character.status.housing.io.xml.HousingStatusXMLParser;
 import delta.games.lotro.character.status.housing.io.xml.HousingStatusXMLWriter;
 import delta.games.lotro.data.UserDataManager;
 
@@ -29,6 +30,22 @@ public class HousingStatusIO
     HousingStatusXMLWriter writer=new HousingStatusXMLWriter();
     boolean ok=writer.writeAccountHousingData(toFile,data);
     return ok;
+  }
+
+  /**
+   * Load a house.
+   * @param id House identifier.
+   * @return the loaded house or <code>null</code> if not found.
+   */
+  public static House loadHouse(HouseIdentifier id)
+  {
+    File file=getHouseFile(id);
+    if (file.exists())
+    {
+      HousingStatusXMLParser parser=new HousingStatusXMLParser();
+      return parser.parseHouseFile(file);
+    }
+    return null;
   }
 
   /**

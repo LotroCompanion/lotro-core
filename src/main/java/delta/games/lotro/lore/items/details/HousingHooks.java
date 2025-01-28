@@ -32,7 +32,7 @@ public class HousingHooks extends ItemDetail
 
   /**
    * Get all hook categories.
-   * @return A list of hooko categories.
+   * @return A list of hook categories.
    */
   public List<HousingHookCategory> getHookCategories()
   {
