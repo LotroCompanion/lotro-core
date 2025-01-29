@@ -6,6 +6,7 @@ import java.util.List;
 
 import delta.games.lotro.common.enums.HousingHookID;
 import delta.games.lotro.common.enums.comparator.LotroEnumEntryCodeComparator;
+import delta.games.lotro.common.status.StatusMetadata;
 import delta.games.lotro.utils.DataProvider;
 import delta.games.lotro.utils.comparators.DelegatingComparator;
 
@@ -15,7 +16,10 @@ import delta.games.lotro.utils.comparators.DelegatingComparator;
  */
 public class HouseContents
 {
+  // Type
   private HouseContentsType _contentsType;
+  // Status
+  private StatusMetadata _statusMetadata;
   // Housing items
   private List<HousingItem> _items;
 
@@ -26,6 +30,7 @@ public class HouseContents
   public HouseContents(HouseContentsType contentsType)
   {
     _contentsType=contentsType;
+    _statusMetadata=new StatusMetadata();
     _items=new ArrayList<HousingItem>();
   }
 
@@ -36,6 +41,15 @@ public class HouseContents
   public HouseContentsType getContentsType()
   {
     return _contentsType;
+  }
+
+  /**
+   * Get the status metadata.
+   * @return the status metadata.
+   */
+  public StatusMetadata getStatusMetadata()
+  {
+    return _statusMetadata;
   }
 
   /**

@@ -23,6 +23,7 @@ import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
 import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 import delta.games.lotro.common.id.InternalGameId;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 
 /**
  * Parser for housing status data stored in XML.
@@ -136,6 +137,8 @@ public class HousingStatusXMLParser
       return null;
     }
     HouseContents ret=new HouseContents(type);
+    // Status
+    StatusMetadataIO.parseStatusMetadata(tag,ret.getStatusMetadata());
     // Contents
     List<Element> itemTags=DOMParsingTools.getChildTagsByName(tag,HousingStatusXMLConstants.ITEM_TAG);
     for(Element itemTag : itemTags)

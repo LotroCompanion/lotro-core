@@ -23,6 +23,7 @@ import delta.games.lotro.common.enums.HousingHookID;
 import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.common.id.InternalGameId;
+import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 
@@ -149,6 +150,8 @@ public class HousingStatusXMLWriter
       return;
     }
     hd.startElement("","",tag,new AttributesImpl());
+    // Status
+    StatusMetadataIO.writeStatusMetadata(hd,contents.getStatusMetadata());
     // House items 
     List<HousingItem> items=contents.getItems();
     for(HousingItem item : items)
