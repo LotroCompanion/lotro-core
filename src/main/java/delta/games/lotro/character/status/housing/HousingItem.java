@@ -2,6 +2,7 @@ package delta.games.lotro.character.status.housing;
 
 import delta.common.utils.math.geometry.Vector3D;
 import delta.games.lotro.common.enums.HousingHookID;
+import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.id.InternalGameId;
 
 /**
@@ -11,7 +12,7 @@ import delta.games.lotro.common.id.InternalGameId;
 public class HousingItem
 {
   private int _itemID;
-  private InternalGameId _entityID;
+  private Position _position;
   private HousingHookID _hookID;
   private Vector3D _positionOffset;
   private float _rotationOffset;
@@ -21,13 +22,13 @@ public class HousingItem
   /**
    * Constructor.
    * @param itemID Item identifier.
-   * @param entityID Entity ID.
+   * @param position Position.
    * @param hookID Hook ID.
    */
-  public HousingItem(int itemID, InternalGameId entityID, HousingHookID hookID)
+  public HousingItem(int itemID, Position position, HousingHookID hookID)
   {
     _itemID=itemID;
-    _entityID=entityID;
+    _position=position;
     _hookID=hookID;
     _positionOffset=new Vector3D();
   }
@@ -42,12 +43,12 @@ public class HousingItem
   }
 
   /**
-   * Get the entity identifier.
-   * @return the entity identifier.
+   * Get the position.
+   * @return the position.
    */
-  public InternalGameId getEntityID()
+  public Position getPosition()
   {
-    return _entityID;
+    return _position;
   }
 
   /**
@@ -140,8 +141,8 @@ public class HousingItem
     StringBuilder sb=new StringBuilder();
     sb.append("Housing item:");
     sb.append(" item ID=").append(_itemID);
-    sb.append(", entity ID=").append(_entityID.asDisplayableString());
     sb.append(", hook ID=").append(_hookID);
+    sb.append(", position=").append(_position);
     sb.append(", position offset=").append(_positionOffset);
     if (Math.abs(_rotationOffset)>0.001)
     {

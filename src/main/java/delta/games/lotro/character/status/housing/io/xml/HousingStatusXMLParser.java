@@ -19,6 +19,9 @@ import delta.games.lotro.character.status.housing.HousingItem;
 import delta.games.lotro.common.enums.HousingHookID;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.common.geo.Position;
+import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
+import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 import delta.games.lotro.common.id.InternalGameId;
 
 /**
@@ -148,13 +151,17 @@ public class HousingStatusXMLParser
     NamedNodeMap attrs=itemTag.getAttributes();
     // Item ID
     int itemID=DOMParsingTools.getIntAttribute(attrs,HousingStatusXMLConstants.ITEM_ID_ATTR,0);
-    // Entity ID
-    String entityIDStr=DOMParsingTools.getStringAttribute(attrs,HousingStatusXMLConstants.ITEM_ENTITY_ID_ATTR,"");
-    InternalGameId entityID=InternalGameId.fromString(entityIDStr);
     // HooK ID
     int hookIDCode=DOMParsingTools.getIntAttribute(attrs,HousingStatusXMLConstants.ITEM_HOOK_ID_ATTR,0);
     HousingHookID hookID=_hookIDEnum.getEntry(hookIDCode);
-    HousingItem ret=new HousingItem(itemID,entityID,hookID);
+    // Position
+    Position position=null;
+    Element positionTag=DOMParsingTools.getChildTagByName(itemTag,PositionXMLConstants.POSITION);
+    if (positionTag!=null)
+    {
+      position=PositionXMLParser.parseSimplePosition(positionTag);
+    }
+    HousingItem ret=new HousingItem(itemID,position,hookID);
     // Rotation offset
     float rotationOffset=DOMParsingTools.getFloatAttribute(attrs,HousingStatusXMLConstants.ITEM_ROTATION_OFFSET_ATTR,0);
     ret.setRotationOffset(rotationOffset);
@@ -162,10 +169,10 @@ public class HousingStatusXMLParser
     float hookRotation=DOMParsingTools.getFloatAttribute(attrs,HousingStatusXMLConstants.ITEM_HOOK_ROTATION_ATTR,0);
     ret.setHookRotation(hookRotation);
     // Position offset
-    Element positionTag=DOMParsingTools.getChildTagByName(itemTag,HousingStatusXMLConstants.POSITION_TAG);
+    Element positionOffsetTag=DOMParsingTools.getChildTagByName(itemTag,HousingStatusXMLConstants.POSITION_OFFSET_TAG);
     if (positionTag!=null)
     {
-      NamedNodeMap posAttrs=positionTag.getAttributes();
+      NamedNodeMap posAttrs=positionOffsetTag.getAttributes();
       float x=DOMParsingTools.getFloatAttribute(posAttrs,HousingStatusXMLConstants.X_ATTR,0);
       float y=DOMParsingTools.getFloatAttribute(posAttrs,HousingStatusXMLConstants.Y_ATTR,0);
       float z=DOMParsingTools.getFloatAttribute(posAttrs,HousingStatusXMLConstants.Z_ATTR,0);

@@ -73,17 +73,9 @@ public class HousingStatusXMLConstants
    */
   public static final String NAME_ATTR="name";
   /**
-   * Tag 'item', attribute 'entityID'.
-   */
-  public static final String ITEM_ENTITY_ID_ATTR="entityID";
-  /**
    * Tag 'item', attribute 'hookID'.
    */
   public static final String ITEM_HOOK_ID_ATTR="hookID";
-  /**
-   * Tag 'item', attribute 'positionOffset'.
-   */
-  public static final String ITEM_POSITION_OFFSET_ATTR="positionOffset";
   /**
    * Tag 'item', attribute 'rotationOffset'.
    */
@@ -98,19 +90,19 @@ public class HousingStatusXMLConstants
   public static final String ITEM_BOUND_TO_ATTR="boundTo";
 
   /**
-   * Tag 'position'.
+   * Tag 'positionOffset'.
    */
-  public static final String POSITION_TAG="position";
+  public static final String POSITION_OFFSET_TAG="positionOffset";
   /**
-   * Tag 'position', attribute 'x'.
+   * Tag 'positionOffset', attribute 'x'.
    */
   public static final String X_ATTR="x";
   /**
-   * Tag 'position', attribute 'y'.
+   * Tag 'positionOffset', attribute 'y'.
    */
   public static final String Y_ATTR="y";
   /**
-   * Tag 'position', attribute 'z'.
+   * Tag 'positionOffset', attribute 'z'.
    */
   public static final String Z_ATTR="z";
 }

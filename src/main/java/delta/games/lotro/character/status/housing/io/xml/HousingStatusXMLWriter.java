@@ -20,6 +20,8 @@ import delta.games.lotro.character.status.housing.HouseIdentifier;
 import delta.games.lotro.character.status.housing.HouseReference;
 import delta.games.lotro.character.status.housing.HousingItem;
 import delta.games.lotro.common.enums.HousingHookID;
+import delta.games.lotro.common.geo.Position;
+import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
@@ -214,12 +216,6 @@ public class HousingStatusXMLWriter
         attrs.addAttribute("","",HousingStatusXMLConstants.NAME_ATTR,XmlWriter.CDATA,itemName);
       }
     }
-    // Entity ID
-    InternalGameId entityID=houseItem.getEntityID();
-    if (entityID!=null)
-    {
-      attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_ENTITY_ID_ATTR,XmlWriter.CDATA,entityID.asPersistedString());
-    }
     // Hook ID
     HousingHookID hookID=houseItem.getHookID();
     if (hookID!=null)
@@ -239,6 +235,9 @@ public class HousingStatusXMLWriter
       attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_BOUND_TO_ATTR,XmlWriter.CDATA,boundTo.asPersistedString());
     }
     hd.startElement("","",HousingStatusXMLConstants.ITEM_TAG,attrs);
+    // Position
+    Position position=houseItem.getPosition();
+    PositionXMLWriter.writePosition(hd,position);
     // Position offset
     Vector3D positionOffset=houseItem.getPositionOffset();
     if (positionOffset!=null)
@@ -247,8 +246,8 @@ public class HousingStatusXMLWriter
       positionAttrs.addAttribute("","",HousingStatusXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(positionOffset.getX()));
       positionAttrs.addAttribute("","",HousingStatusXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(positionOffset.getY()));
       positionAttrs.addAttribute("","",HousingStatusXMLConstants.Z_ATTR,XmlWriter.CDATA,String.valueOf(positionOffset.getZ()));
-      hd.startElement("","",HousingStatusXMLConstants.POSITION_TAG,positionAttrs);
-      hd.endElement("","",HousingStatusXMLConstants.POSITION_TAG);
+      hd.startElement("","",HousingStatusXMLConstants.POSITION_OFFSET_TAG,positionAttrs);
+      hd.endElement("","",HousingStatusXMLConstants.POSITION_OFFSET_TAG);
     }
     hd.endElement("","",HousingStatusXMLConstants.ITEM_TAG);
   }
