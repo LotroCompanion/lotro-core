@@ -173,7 +173,7 @@ public class HousingStatusXMLParser
     ret.setHookRotation(hookRotation);
     // Position offset
     Element positionOffsetTag=DOMParsingTools.getChildTagByName(itemTag,HousingStatusXMLConstants.POSITION_OFFSET_TAG);
-    if (positionTag!=null)
+    if (positionOffsetTag!=null)
     {
       NamedNodeMap posAttrs=positionOffsetTag.getAttributes();
       float x=DOMParsingTools.getFloatAttribute(posAttrs,HousingStatusXMLConstants.X_ATTR,0);
@@ -182,6 +182,13 @@ public class HousingStatusXMLParser
       Vector3D positionOffset=new Vector3D();
       positionOffset.set(x,y,z);
       ret.setPositionOffset(positionOffset);
+    }
+    // Binding
+    String bindingStr=DOMParsingTools.getStringAttribute(attrs,HousingStatusXMLConstants.ITEM_BOUND_TO_ATTR,null);
+    if (bindingStr!=null)
+    {
+      InternalGameId boundTo=InternalGameId.fromString(bindingStr);
+      ret.setBoundTo(boundTo);
     }
     return ret;
   }
