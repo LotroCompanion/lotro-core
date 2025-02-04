@@ -18,6 +18,24 @@ import delta.games.lotro.data.UserDataManager;
 public class HousingStatusIO
 {
   /**
+   * Load the housing data for an account/server. 
+   * @param accountServer Account/server.
+   * @return the loaded data or <code>null</code> if none.
+   */
+  public static AccountHousingData loadAccountHousingData(AccountOnServer accountServer)
+  {
+    AccountHousingData ret=null;
+    File rootDir=accountServer.getRootDir();
+    File toFile=getAccountHousingFile(rootDir);
+    if (toFile.exists())
+    {
+      HousingStatusXMLParser parser=new HousingStatusXMLParser();
+      ret=parser.parseAccountHousingData(toFile);
+    }
+    return ret;
+  }
+
+  /**
    * Save an account/server-wide housing data.
    * @param accountServer Account/server.
    * @param data Data to write.
