@@ -52,7 +52,7 @@ public class KinshipMemberFilter implements Filter<KinshipMember>
 
   /**
    * Get the filter on character summary.
-   * @return a deed name filter.
+   * @return a character summary filter.
    */
   public CharacterSummaryFilter getSummaryFilter()
   {
