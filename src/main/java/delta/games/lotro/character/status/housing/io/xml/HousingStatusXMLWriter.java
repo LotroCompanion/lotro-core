@@ -25,7 +25,6 @@ import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Writes housing data to XML files.
@@ -206,13 +205,13 @@ public class HousingStatusXMLWriter
   private void writeHouseItem(TransformerHandler hd, HousingItem houseItem) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
-    // Item ID
-    int itemID=houseItem.getItemID();
-    attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemID));
-    // Name
-    Item item=ItemsManager.getInstance().getItem(itemID);
+    // Item
+    Item item=houseItem.getItem();
     if (item!=null)
     {
+      int itemID=item.getIdentifier();
+      attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_ID_ATTR,XmlWriter.CDATA,String.valueOf(itemID));
+      // Name
       String itemName=item.getName();
       if (itemName!=null)
       {

@@ -3,6 +3,8 @@ package delta.games.lotro.character.status.housing.io.xml;
 import java.io.File;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -24,6 +26,8 @@ import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
 import delta.games.lotro.common.geo.io.xml.PositionXMLParser;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
+import delta.games.lotro.lore.items.Item;
+import delta.games.lotro.lore.items.ItemsManager;
 
 /**
  * Parser for housing status data stored in XML.
@@ -31,6 +35,8 @@ import delta.games.lotro.common.status.io.xml.StatusMetadataIO;
  */
 public class HousingStatusXMLParser
 {
+  private static final Logger LOGGER=LoggerFactory.getLogger(HousingStatusXMLParser.class);
+
   private LotroEnum<HousingHookID> _hookIDEnum;
 
   /**
@@ -144,7 +150,10 @@ public class HousingStatusXMLParser
     for(Element itemTag : itemTags)
     {
       HousingItem item=parseHousingItem(itemTag);
-      ret.addItem(item);
+      if (item!=null)
+      {
+        ret.addItem(item);
+      }
     }
     return ret;
   }
@@ -154,6 +163,12 @@ public class HousingStatusXMLParser
     NamedNodeMap attrs=itemTag.getAttributes();
     // Item ID
     int itemID=DOMParsingTools.getIntAttribute(attrs,HousingStatusXMLConstants.ITEM_ID_ATTR,0);
+    Item item=ItemsManager.getInstance().getItem(itemID);
+    if (item==null)
+    {
+      LOGGER.warn("Item not found => ignored item ID={}",Integer.valueOf(itemID));
+      return null;
+    }
     // HooK ID
     int hookIDCode=DOMParsingTools.getIntAttribute(attrs,HousingStatusXMLConstants.ITEM_HOOK_ID_ATTR,0);
     HousingHookID hookID=_hookIDEnum.getEntry(hookIDCode);
@@ -164,7 +179,7 @@ public class HousingStatusXMLParser
     {
       position=PositionXMLParser.parseSimplePosition(positionTag);
     }
-    HousingItem ret=new HousingItem(itemID,position,hookID);
+    HousingItem ret=new HousingItem(item,position,hookID);
     // Rotation offset
     float rotationOffset=DOMParsingTools.getFloatAttribute(attrs,HousingStatusXMLConstants.ITEM_ROTATION_OFFSET_ATTR,0);
     ret.setRotationOffset(rotationOffset);
