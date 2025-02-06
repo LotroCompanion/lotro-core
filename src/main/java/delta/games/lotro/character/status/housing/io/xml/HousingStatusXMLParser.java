@@ -143,6 +143,9 @@ public class HousingStatusXMLParser
       return null;
     }
     HouseContents ret=new HouseContents(type);
+    // Location
+    int zoneID=DOMParsingTools.getIntAttribute(tag.getAttributes(),HousingStatusXMLConstants.ZONE_ID_ATTR,0);
+    ret.setZoneID(zoneID);
     // Status
     StatusMetadataIO.parseStatusMetadata(tag,ret.getStatusMetadata());
     // Contents

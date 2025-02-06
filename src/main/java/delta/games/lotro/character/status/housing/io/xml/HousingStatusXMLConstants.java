@@ -61,6 +61,10 @@ public class HousingStatusXMLConstants
    */
   public static final String EXTERIOR_TAG="exterior";
   /**
+   * Tag 'interior/exterior', attribute 'zoneID'.
+   */
+  public static final String ZONE_ID_ATTR="zoneID";
+  /**
    * Tag 'item'.
    */
   public static final String ITEM_TAG="item";

@@ -75,7 +75,7 @@ public class HousingStatusIO
   {
     File toFile=getHouseFile(house.getIdentifier());
     HousingStatusXMLWriter writer=new HousingStatusXMLWriter();
-    boolean ok=writer.writeHouseContents(toFile,house);
+    boolean ok=writer.writeHouse(toFile,house);
     return ok;
   }
 

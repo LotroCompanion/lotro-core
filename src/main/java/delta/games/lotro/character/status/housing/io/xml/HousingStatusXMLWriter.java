@@ -107,7 +107,7 @@ public class HousingStatusXMLWriter
    * @param data Data to save.
    * @return <code>true</code> if it succeeds, <code>false</code> otherwise.
    */
-  public boolean writeHouseContents(File toFile, final House data)
+  public boolean writeHouse(File toFile, final House data)
   {
     XmlFileWriterHelper helper=new XmlFileWriterHelper();
     XmlWriter writer=new XmlWriter()
@@ -148,7 +148,11 @@ public class HousingStatusXMLWriter
     {
       return;
     }
-    hd.startElement("","",tag,new AttributesImpl());
+    // Location
+    AttributesImpl attrs=new AttributesImpl();
+    int zoneID=contents.getZoneID();
+    attrs.addAttribute("","",HousingStatusXMLConstants.ZONE_ID_ATTR,XmlWriter.CDATA,String.valueOf(zoneID));
+    hd.startElement("","",tag,attrs);
     // Status
     StatusMetadataIO.writeStatusMetadata(hd,contents.getStatusMetadata());
     // House items 

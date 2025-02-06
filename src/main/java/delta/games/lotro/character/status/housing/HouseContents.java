@@ -18,6 +18,8 @@ public class HouseContents
 {
   // Type
   private HouseContentsType _contentsType;
+  // Location (dungeon or area)
+  private int _zoneID;
   // Status
   private StatusMetadata _statusMetadata;
   // Housing items
@@ -30,6 +32,7 @@ public class HouseContents
   public HouseContents(HouseContentsType contentsType)
   {
     _contentsType=contentsType;
+    _zoneID=0;
     _statusMetadata=new StatusMetadata();
     _items=new ArrayList<HousingItem>();
   }
@@ -50,6 +53,24 @@ public class HouseContents
   public StatusMetadata getStatusMetadata()
   {
     return _statusMetadata;
+  }
+
+  /**
+   * Get the zone identifier.
+   * @return a zone identifier.
+   */
+  public int getZoneID()
+  {
+    return _zoneID;
+  }
+
+  /**
+   * Set the zone identifier.
+   * @param zoneID Zone identifier.
+   */
+  public void setZoneID(int zoneID)
+  {
+    _zoneID=zoneID;
   }
 
   /**
