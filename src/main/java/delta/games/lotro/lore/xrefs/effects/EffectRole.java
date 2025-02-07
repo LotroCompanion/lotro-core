@@ -13,5 +13,9 @@ public enum EffectRole
   /**
    * Effect used by a skill.
    */
-  SKILL_USED_BY
+  SKILL_USED_BY,
+  /**
+   * Effect used by a trait.
+   */
+  TRAIT_USED_BY
 }
