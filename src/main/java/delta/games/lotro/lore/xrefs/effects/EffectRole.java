@@ -17,5 +17,9 @@ public enum EffectRole
   /**
    * Effect used by a trait.
    */
-  TRAIT_USED_BY
+  TRAIT_USED_BY,
+  /**
+   * Effect used by a mob.
+   */
+  MOB_USED_BY
 }

@@ -14,6 +14,8 @@ import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.effects.ParentEffect;
+import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.mobs.MobsManager;
 import delta.games.lotro.lore.xrefs.Reference;
 
 /**
@@ -45,6 +47,7 @@ public class EffectReferencesBuilder
     findInEffects(mainEffect);
     findInSkills(mainEffect);
     findInTraits(mainEffect);
+    findInMobs(mainEffect);
     List<Reference<?,EffectRole>> ret=new ArrayList<Reference<?,EffectRole>>(_storage);
     _storage.clear();
     return ret;
@@ -61,6 +64,7 @@ public class EffectReferencesBuilder
         if (pe.getChildEffects().contains(mainEffect))
         {
           _storage.add(new Reference<Effect,EffectRole>(e,EffectRole.PARENT_EFFECT));
+          return;
         }
       }
     }
@@ -85,6 +89,7 @@ public class EffectReferencesBuilder
         if (effect==generator.getEffect())
         {
           _storage.add(new Reference<SkillDescription,EffectRole>(skill,EffectRole.SKILL_USED_BY));
+          return;
         }
       }
     }
@@ -128,6 +133,31 @@ public class EffectReferencesBuilder
     if (gotIt)
     {
       _storage.add(new Reference<TraitDescription,EffectRole>(trait,EffectRole.TRAIT_USED_BY));
+    }
+  }
+
+  private void findInMobs(Effect mainEffect)
+  {
+    MobsManager mobsMgr=MobsManager.getInstance();
+    for(MobDescription mob : mobsMgr.getMobs())
+    {
+      inspectMob(mob,mainEffect);
+    }
+  }
+
+  private void inspectMob(MobDescription mob, Effect effect)
+  {
+    List<EffectGenerator> generators=mob.getStartupEffects();
+    if (!generators.isEmpty())
+    {
+      for(EffectGenerator generator : generators)
+      {
+        if (effect==generator.getEffect())
+        {
+          _storage.add(new Reference<MobDescription,EffectRole>(mob,EffectRole.MOB_USED_BY));
+          return;
+        }
+      }
     }
   }
 }
