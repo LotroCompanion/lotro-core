@@ -1,5 +1,7 @@
 package delta.games.lotro.character.status.housing;
 
+import java.util.Objects;
+
 /**
  * House identifier: server+address.
  * @author DAM
@@ -36,6 +38,22 @@ public class HouseIdentifier
   public HouseAddress getAddress()
   {
     return _address;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash(_address,_server);
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (this==obj) return true;
+    if (obj==null) return false;
+    if (getClass()!=obj.getClass()) return false;
+    HouseIdentifier other=(HouseIdentifier)obj;
+    return Objects.equals(_address,other._address)&&Objects.equals(_server,other._server);
   }
 
   @Override

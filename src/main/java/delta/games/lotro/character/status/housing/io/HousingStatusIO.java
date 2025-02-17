@@ -2,6 +2,10 @@ package delta.games.lotro.character.status.housing.io;
 
 import java.io.File;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import delta.common.utils.NumericTools;
 import delta.games.lotro.account.AccountOnServer;
 import delta.games.lotro.character.status.housing.AccountHousingData;
 import delta.games.lotro.character.status.housing.House;
@@ -17,6 +21,8 @@ import delta.games.lotro.data.UserDataManager;
  */
 public class HousingStatusIO
 {
+  private static final Logger LOGGER=LoggerFactory.getLogger(HousingStatusIO.class);
+
   /**
    * Load the housing data for an account/server. 
    * @param accountServer Account/server.
@@ -92,6 +98,35 @@ public class HousingStatusIO
   {
     File housingFile=new File(rootDir,"housing.xml");
     return housingFile;
+  }
+
+  /**
+   * Build a house identifier from a file path.
+   * @param file Input file path.
+   * @return A house identifier or <code>null</code> if not recognized.
+   */
+  public static HouseIdentifier buildHouseIdentifierFromFile(File file)
+  {
+    String filename=file.getName();
+    String[] parts=filename.split("-");
+    if (parts.length!=3)
+    {
+      LOGGER.warn("Bad house file name: {}",filename);
+      return null;
+    }
+    String houseIDStr=parts[2];
+    if (!houseIDStr.endsWith(".xml"))
+    {
+      LOGGER.warn("Bad house file name: {}. Expected the xml extension.",filename);
+    }
+    houseIDStr=houseIDStr.substring(0,houseIDStr.length()-4);
+    int neighborhoodID=NumericTools.parseInt(parts[1],0);
+    int houseID=NumericTools.parseInt(houseIDStr,0);
+    File parentDir=file.getParentFile();
+    String server=parentDir.getName();
+    HouseAddress address=new HouseAddress(neighborhoodID,houseID);
+    HouseIdentifier id=new HouseIdentifier(server,address); 
+    return id;
   }
 
   /**

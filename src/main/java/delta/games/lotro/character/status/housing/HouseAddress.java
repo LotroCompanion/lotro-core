@@ -37,4 +37,30 @@ public class HouseAddress
   {
     return _houseID;
   }
+
+  @Override
+  public int hashCode()
+  {
+    return 31*_houseID+_neighborhoodID;
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (this==obj) return true;
+    if (obj==null) return false;
+    if (getClass()!=obj.getClass()) return false;
+    HouseAddress other=(HouseAddress)obj;
+    return _houseID==other._houseID&&_neighborhoodID==other._neighborhoodID;
+  }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder("(house id=");
+    sb.append(_houseID);
+    sb.append(", neighborhood id=");
+    sb.append(_neighborhoodID);
+    return sb.toString();
+  }
 }
