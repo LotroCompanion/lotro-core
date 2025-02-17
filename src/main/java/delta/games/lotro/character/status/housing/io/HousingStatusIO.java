@@ -31,6 +31,10 @@ public class HousingStatusIO
     {
       HousingStatusXMLParser parser=new HousingStatusXMLParser();
       ret=parser.parseAccountHousingData(toFile);
+      if (ret!=null)
+      {
+        ret.setServer(accountServer.getServerName());
+      }
     }
     return ret;
   }

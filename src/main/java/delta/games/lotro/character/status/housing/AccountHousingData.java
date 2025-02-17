@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class AccountHousingData
 {
+  private String _server;
   private List<HouseReference> _premiumHouses;
   private HouseReference _classicHouse;
 
@@ -17,8 +18,27 @@ public class AccountHousingData
    */
   public AccountHousingData()
   {
+    _server=null;
     _premiumHouses=new ArrayList<HouseReference>();
     _classicHouse=null;
+  }
+
+  /**
+   * Get the server name.
+   * @return a server name.
+   */
+  public String getServer()
+  {
+    return _server;
+  }
+
+  /**
+   * Set the server name.
+   * @param server Name to set.
+   */
+  public void setServer(String server)
+  {
+    _server=server;
   }
 
   /**
