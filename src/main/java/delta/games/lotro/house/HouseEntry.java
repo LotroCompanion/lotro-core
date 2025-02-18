@@ -3,6 +3,7 @@ package delta.games.lotro.house;
 import delta.games.lotro.character.status.housing.House;
 import delta.games.lotro.character.status.housing.HouseAddress;
 import delta.games.lotro.character.status.housing.HouseIdentifier;
+import delta.games.lotro.character.status.housing.io.HousingStatusIO;
 import delta.games.lotro.common.enums.HouseType;
 import delta.games.lotro.lore.housing.HouseDefinition;
 import delta.games.lotro.lore.housing.HousingManager;
@@ -121,5 +122,25 @@ public class HouseEntry
   public void setHouse(House house)
   {
     _house=house;
+  }
+
+  /**
+   * Get a displayable name for this house.
+   * @return A displayable name.
+   */
+  public String getDisplayName()
+  {
+    return _address+"@"+_neighborhood+" ("+_server+")";
+  }
+
+  /**
+   * Load the house contents if it is not already loaded.
+   */
+  public void ensureLoaded()
+  {
+    if (_house==null)
+    {
+      _house=HousingStatusIO.loadHouse(_id);
+    }
   }
 }
