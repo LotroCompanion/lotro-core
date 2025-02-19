@@ -1,51 +1,52 @@
 package delta.games.lotro.character.status.housing.filter;
 
+import java.util.Objects;
+
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.status.housing.HousingItem;
-import delta.games.lotro.common.enums.HousingHookID;
 
 /**
- * Filter for housing items using their hook ID.
+ * Filter for housing items using their hook.
  * @author DAM
  */
 public class HousingItemHookFilter implements Filter<HousingItem>
 {
-  private HousingHookID _hookID;
+  private String _hook;
 
   /**
    * Constructor.
-   * @param hookID Hook to select (may be <code>null</code>).
+   * @param hook Hook to select (may be <code>null</code>).
    */
-  public HousingItemHookFilter(HousingHookID hookID)
+  public HousingItemHookFilter(String hook)
   {
-    _hookID=hookID;
+    _hook=hook;
   }
 
   /**
-   * Get the hook ID to use.
-   * @return A hook ID or <code>null</code>.
+   * Get the hook to use.
+   * @return A hook or <code>null</code>.
    */
-  public HousingHookID getHookID()
+  public String getHook()
   {
-    return _hookID;
+    return _hook;
   }
 
   /**
-   * Set the hook ID to select.
-   * @param hookID Hook ID to use, may be <code>null</code>.
+   * Set the hook to select.
+   * @param hook Hook to use, may be <code>null</code>.
    */
-  public void setHookID(HousingHookID hookID)
+  public void setHook(String hook)
   {
-    _hookID=hookID;
+    _hook=hook;
   }
 
   @Override
   public boolean accept(HousingItem item)
   {
-    if (_hookID==null)
+    if (_hook==null)
     {
       return true;
     }
-    return item.getHookID()==_hookID;
+    return Objects.equals(item.getHookID().getLabel(),_hook);
   }
 }
