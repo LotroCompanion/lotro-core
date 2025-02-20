@@ -52,6 +52,7 @@ public class EffectsFromCharacterDataComputer
     inspectTraits(data);
     inspectBuffs(data);
     inspectEquipment(data);
+    // TODO inspect the character effects manager?
     return _storage;
   }
 
