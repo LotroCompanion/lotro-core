@@ -6,6 +6,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.status.housing.HouseAddress;
+import delta.games.lotro.character.status.housing.io.xml.HousingStatusXMLParser;
 import delta.games.lotro.common.id.InternalGameId;
 import delta.games.lotro.kinship.KinshipSummary;
 
@@ -79,6 +81,9 @@ public class KinshipSummaryXMLParser
     // MOTD
     String motd=DOMParsingTools.getStringAttribute(attrs,KinshipXMLConstants.KINSHIP_MOTD_ATTR,"");
     summary.setMotd(motd);
+    // Address
+    HouseAddress address=HousingStatusXMLParser.parseHouseAddress(root);
+    summary.setAddress(address);
     return summary;
   }
 }

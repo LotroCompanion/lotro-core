@@ -90,8 +90,23 @@ public class HousingStatusXMLParser
     {
       owner=InternalGameId.fromString(ownerIDStr);
     }
+    HouseAddress address=parseHouseAddress(tag);
+    if ((owner!=null) && (address!=null))
+    {
+      return new HouseReference(address,owner);
+    }
+    return null;
+  }
+
+  /**
+   * Read a house address.
+   * @param parentTag Parent tag.
+   * @return A house address or <code>null</code> if not found.
+   */
+  public static HouseAddress parseHouseAddress(Element parentTag)
+  {
     HouseAddress address=null;
-    Element addressTag=DOMParsingTools.getChildTagByName(tag,HousingStatusXMLConstants.ADDRESS_TAG);
+    Element addressTag=DOMParsingTools.getChildTagByName(parentTag,HousingStatusXMLConstants.ADDRESS_TAG);
     if (addressTag!=null)
     {
       NamedNodeMap attrs=addressTag.getAttributes();
@@ -99,11 +114,7 @@ public class HousingStatusXMLParser
       int houseID=DOMParsingTools.getIntAttribute(attrs,HousingStatusXMLConstants.ADDRESS_HOUSE_ID_ATTR,0);
       address=new HouseAddress(neighborhoodID,houseID);
     }
-    if ((owner!=null) && (address!=null))
-    {
-      return new HouseReference(address,owner);
-    }
-    return null;
+    return address;
   }
 
   /**
