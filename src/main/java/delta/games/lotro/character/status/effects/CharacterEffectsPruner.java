@@ -132,7 +132,7 @@ public class CharacterEffectsPruner
     for(EffectAtRank effectAtRank : trait.getEffects())
     {
       int traitRank=effectAtRank.getRank();
-      if (traitRank==rank)
+      if (traitRank<=rank)
       {
         Effect effect=effectAtRank.getEffect();
         effects.add(effect);
