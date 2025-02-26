@@ -79,6 +79,14 @@ public class CharacterEffectsManager
     }
   }
 
+  /**
+   * Remove all effects.
+   */
+  public void clear()
+  {
+    _effects.clear();
+  }
+
   @Override
   public String toString()
   {

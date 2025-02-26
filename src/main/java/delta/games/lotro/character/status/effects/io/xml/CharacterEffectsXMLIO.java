@@ -91,6 +91,7 @@ public class CharacterEffectsXMLIO
     {
       return;
     }
+    effectsMgr.clear();
     List<Element> effectTags=DOMParsingTools.getChildTagsByName(root,CharacterEffectsXMLConstants.EFFECT_TAG,false);
     for(Element effectTag : effectTags)
     {

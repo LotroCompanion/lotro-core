@@ -316,6 +316,7 @@ public class CharacterData
     getAdditionalStats().clear();
     _traits.clear();
     getBuffs().clear();
+    getEffects().clear();
   }
 
   @Override
