@@ -12,6 +12,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.common.effects.AIPetEffect;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
@@ -65,6 +66,7 @@ import delta.games.lotro.common.properties.io.ModPropertyListIO;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLWriter;
+import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.maths.Progression;
@@ -137,6 +139,7 @@ public class EffectXMLWriter
     if (effect instanceof DispelEffect) return EffectXMLConstants.DISPEL_EFFECT_TAG;
     if (effect instanceof RandomEffect) return EffectXMLConstants.RANDOM_EFFECT_TAG;
     if (effect instanceof FlagEffect) return EffectXMLConstants.FLAG_EFFECT_TAG;
+    if (effect instanceof AIPetEffect) return EffectXMLConstants.AI_PET_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -748,6 +751,11 @@ public class EffectXMLWriter
       RandomEffect randomEffect=(RandomEffect)effect;
       writeRandomEffectTags(hd,randomEffect);
     }
+    else if (effect instanceof AIPetEffect)
+    {
+      AIPetEffect aiPetEffect=(AIPetEffect)effect;
+      writeAIPetEffectTags(hd,aiPetEffect);
+    }
   }
 
   private void writeGenesisTags(TransformerHandler hd, GenesisEffect genesis) throws SAXException
@@ -1129,6 +1137,28 @@ public class EffectXMLWriter
     }
   }
 
+  private void writeAIPetEffectTags(TransformerHandler hd, AIPetEffect aiPetEffect) throws SAXException
+  {
+    // Summoned agent
+    Proxy<AgentDescription> agentProxy=aiPetEffect.getAgent();
+    if (agentProxy!=null)
+    {
+      AttributesImpl attrs=new AttributesImpl();
+      int id=agentProxy.getId();
+      attrs.addAttribute("","",EffectXMLConstants.SUMMONED_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      String name=agentProxy.getName();
+      attrs.addAttribute("","",EffectXMLConstants.SUMMONED_NAME_ATTR,XmlWriter.CDATA,name);
+      hd.startElement("","",EffectXMLConstants.SUMMONED_TAG,attrs);
+      hd.endElement("","",EffectXMLConstants.SUMMONED_TAG);
+    }
+    // Startup effects
+    for(EffectGenerator generator : aiPetEffect.getStartupEffects())
+    {
+      writeEffectGenerator(hd,generator);
+    }
+  }
+
+  
   private void writeEffectProxyTag(TransformerHandler hd, String tagName, Proxy<Effect> proxy) throws SAXException
   {
     if (proxy==null)

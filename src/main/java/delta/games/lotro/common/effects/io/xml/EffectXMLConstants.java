@@ -556,6 +556,10 @@ public class EffectXMLConstants
    * Tag 'flagEffect'.
    */
   public static final String FLAG_EFFECT_TAG="flagEffect";
+  /**
+   * Tag 'aiPetEffect'.
+   */
+  public static final String AI_PET_EFFECT_TAG="aiPetEffect";
 
   /**
    * Tag 'effect' (generator).

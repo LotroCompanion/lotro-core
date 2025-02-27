@@ -13,6 +13,7 @@ import delta.common.utils.NumericTools;
 import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.Interactable;
+import delta.games.lotro.common.effects.AIPetEffect;
 import delta.games.lotro.common.effects.AbstractVitalChange;
 import delta.games.lotro.common.effects.ApplicationProbability;
 import delta.games.lotro.common.effects.ApplyOverTimeEffect;
@@ -71,6 +72,7 @@ import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.common.stats.StatsRegistry;
 import delta.games.lotro.common.stats.io.xml.StatsProviderXMLParser;
+import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.utils.Proxy;
 import delta.games.lotro.utils.enums.EnumXMLUtils;
@@ -224,6 +226,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.FLAG_EFFECT_TAG.equals(tagName))
     {
       ret=new FlagEffect();
+    }
+    else if (EffectXMLConstants.AI_PET_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseAIPetEffect(root);
     }
     else
     {
@@ -911,6 +917,33 @@ public class EffectXMLParser
       generator.setToCaster(toCaster);
 
       ret.addEffect(generator);
+    }
+    return ret;
+  }
+
+  private AIPetEffect parseAIPetEffect(Element root)
+  {
+    AIPetEffect ret=new AIPetEffect();
+    // Summoned
+    Element summonedTag=DOMParsingTools.getChildTagByName(root,EffectXMLConstants.SUMMONED_TAG);
+    if (summonedTag!=null)
+    {
+      NamedNodeMap summonedAttrs=summonedTag.getAttributes();
+      // Identifier
+      int id=DOMParsingTools.getIntAttribute(summonedAttrs,EffectXMLConstants.SUMMONED_ID_ATTR,0);
+      // Name
+      String name=DOMParsingTools.getStringAttribute(summonedAttrs,EffectXMLConstants.SUMMONED_NAME_ATTR,null);
+      Proxy<AgentDescription> agent=new Proxy<AgentDescription>();
+      agent.setId(id);
+      agent.setName(name);
+      ret.setAgent(agent);
+    }
+    // Startup effects
+    List<Element> generatorTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.EFFECT_GENERATOR_TAG);
+    for(Element generatorTag : generatorTags)
+    {
+      EffectGenerator generator=readEffectGenerator(generatorTag);
+      ret.addStartupEffect(generator);
     }
     return ret;
   }
