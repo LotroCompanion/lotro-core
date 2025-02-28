@@ -57,8 +57,9 @@ public final class HousesManager
   /**
    * Add/update a house.
    * @param house House.
+   * @return <code>true</code> if ok, <code>false</code> otherwise.
    */
-  public void addOrUpdateHouse(House house)
+  public boolean addOrUpdateHouse(House house)
   {
     HouseEntry entry=_houses.get(house.getIdentifier());
     HouseEventType eventType;
@@ -80,6 +81,7 @@ public final class HousesManager
       HouseEvent event=new HouseEvent(eventType,entry);
       EventsManager.invokeEvent(event);
     }
+    return ok;
   }
 
   /**
