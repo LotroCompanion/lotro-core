@@ -15,6 +15,7 @@ import delta.games.lotro.account.AccountUtils;
 import delta.games.lotro.account.AccountsManager;
 import delta.games.lotro.account.events.AccountEvent;
 import delta.games.lotro.account.events.AccountEventType;
+import delta.games.lotro.character.BaseCharacterSummary;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
 import delta.games.lotro.character.events.CharacterEvent;
@@ -224,19 +225,31 @@ public class BindingsManager
    * @param currentCharacter Current character (for context adaptation).
    * @return A displayable string.
    */
-  public String getDisplayableBindingInfo(InternalGameId id, CharacterFile currentCharacter)
+  public String getDisplayableBindingInfo(InternalGameId id, BaseCharacterSummary currentCharacter)
+  {
+    String bindingInfo=getSimpleBindingInfo(id,currentCharacter);
+    return "Bound to "+bindingInfo;
+  }
+
+  /**
+   * Get the simple binding info for a given id.
+   * @param id ID to render.
+   * @param currentCharacter Current character (for context adaptation).
+   * @return A binding string (character name, account name or character's account).
+   */
+  public String getSimpleBindingInfo(InternalGameId id, BaseCharacterSummary currentCharacter)
   {
     BindingInfo info=_knownBindings.get(id);
     if (info==null)
     {
-      return "Bound to ?";
+      return "(unknown)";
     }
     CharacterFile boundToCharacter=info.getCharacter();
     if (boundToCharacter!=null)
     {
       // Bound to a character
       String name=boundToCharacter.getName();
-      return "Bound to "+name;
+      return name;
     }
     AccountOnServer account=info.getAccount();
     if (account!=null)
@@ -259,7 +272,7 @@ public class BindingsManager
           }
         }
       }
-      return "Bound to "+bindingStr;
+      return bindingStr;
     }
     return "?";
   }
