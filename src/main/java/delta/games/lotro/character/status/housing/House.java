@@ -9,6 +9,7 @@ public class House
   private HouseIdentifier _identifier;
   private HouseContents _interior;
   private HouseContents _exterior;
+  private String _note;
 
   /**
    * Constructor.
@@ -17,6 +18,7 @@ public class House
   public House(HouseIdentifier houseID)
   {
     _identifier=houseID;
+    _note="";
   }
 
   /**
@@ -62,5 +64,27 @@ public class House
   public void setExterior(HouseContents exterior)
   {
     _exterior=exterior;
+  }
+
+  /**
+   * Get the note.
+   * @return A note or an empty string (never <code>null</code>).
+   */
+  public String getNote()
+  {
+    return _note;
+  }
+
+  /**
+   * Set the note.
+   * @param note Note to set.
+   */
+  public void setNote(String note)
+  {
+    if (note==null)
+    {
+      note="";
+    }
+    _note=note; 
   }
 }

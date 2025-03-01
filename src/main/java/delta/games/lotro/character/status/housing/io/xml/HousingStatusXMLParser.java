@@ -130,12 +130,16 @@ public class HousingStatusXMLParser
       return null;
     }
     NamedNodeMap attrs=root.getAttributes();
+    // ID
     String server=DOMParsingTools.getStringAttribute(attrs,HousingStatusXMLConstants.HOUSE_SERVER_ATTR,"");
     int neighborhoodID=DOMParsingTools.getIntAttribute(attrs,HousingStatusXMLConstants.ADDRESS_NEIGHBORHOOD_ID_ATTR,0);
     int houseID=DOMParsingTools.getIntAttribute(attrs,HousingStatusXMLConstants.ADDRESS_HOUSE_ID_ATTR,0);
     HouseAddress address=new HouseAddress(neighborhoodID,houseID);
     HouseIdentifier id=new HouseIdentifier(server,address);
     House ret=new House(id);
+    // Notes
+    String note=DOMParsingTools.getStringAttribute(attrs,HousingStatusXMLConstants.HOUSE_NOTE_ATTR,"");
+    ret.setNote(note);
     // Interior
     Element interiorTag=DOMParsingTools.getChildTagByName(root,HousingStatusXMLConstants.INTERIOR_TAG);
     HouseContents interior=parseContents(interiorTag,HouseContentsType.INTERIOR);

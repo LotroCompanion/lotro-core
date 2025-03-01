@@ -132,6 +132,13 @@ public class HousingStatusXMLWriter
   {
     AttributesImpl houseAttrs=new AttributesImpl();
     writeHouseIdentifierAttributes(houseAttrs,house.getIdentifier());
+    // Note
+    String note=house.getNote();
+    if (!note.isEmpty())
+    {
+      houseAttrs.addAttribute("","",HousingStatusXMLConstants.HOUSE_NOTE_ATTR,XmlWriter.CDATA,note);
+    }
+
     hd.startElement("","",HousingStatusXMLConstants.HOUSE_TAG,houseAttrs);
     // Interior
     HouseContents interior=house.getInterior();
