@@ -501,16 +501,16 @@ public class ObjectivesDisplayBuilder
         {
           sb.append(" x").append(count);
         }
-        Integer maxPerDay=condition.getMaxPerDay();
-        if (maxPerDay!=null)
-        {
-          sb.append(" (max ").append(maxPerDay).append("/day)"); // I18n
-        }
       }
       else
       {
         sb.append("No skill and no progress override");
       }
+    }
+    Integer maxPerDay=condition.getMaxPerDay();
+    if (maxPerDay!=null)
+    {
+      sb.append(" (max ").append(maxPerDay).append("/day)"); // I18n
     }
   }
 
