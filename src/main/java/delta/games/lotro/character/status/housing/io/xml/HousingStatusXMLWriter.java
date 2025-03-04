@@ -69,9 +69,9 @@ public class HousingStatusXMLWriter
       writeHouseReference(hd,classicHouse,HousingStatusXMLConstants.CLASSIC_HOUSE_TAG);
     }
     // Premium houses
-    for(HouseReference premimumHouse : data.getPremiumHouses())
+    for(HouseReference premiumHouse : data.getPremiumHouses())
     {
-      writeHouseReference(hd,premimumHouse,HousingStatusXMLConstants.PREMIUM_HOUSE_TAG);
+      writeHouseReference(hd,premiumHouse,HousingStatusXMLConstants.PREMIUM_HOUSE_TAG);
     }
     hd.endElement("","",HousingStatusXMLConstants.ACCOUNT_HOUSES_TAG);
   }
