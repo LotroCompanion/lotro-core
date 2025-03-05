@@ -143,7 +143,7 @@ public class HousingStatusXMLWriter
     // Interior
     HouseContents interior=house.getInterior();
     writeContents(hd,interior,HousingStatusXMLConstants.INTERIOR_TAG);
-    // Interior
+    // Exterior
     HouseContents exterior=house.getExterior();
     writeContents(hd,exterior,HousingStatusXMLConstants.EXTERIOR_TAG);
     hd.endElement("","",HousingStatusXMLConstants.HOUSE_TAG);
