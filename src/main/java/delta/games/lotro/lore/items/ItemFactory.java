@@ -198,7 +198,7 @@ public class ItemFactory
     DefaultNonImbuedLegacy defaultLegacy=NonImbuedLegaciesManager.getInstance().getDefaultLegacy(mainLegacyId);
     if (defaultLegacy==null)
     {
-      LOGGER.warn("Could not find default legacy: "+mainLegacyId);
+      LOGGER.warn("Could not find default legacy: {}",Integer.valueOf(mainLegacyId));
       return;
     }
     LegendaryInstance legendaryInstance=(LegendaryInstance)itemInstance;

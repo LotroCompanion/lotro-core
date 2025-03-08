@@ -91,7 +91,7 @@ public class BasicStatsSetXMLWriter
         String valueStr=NumericUtils.toPersistenceString(value);
         if (valueStr==null)
         {
-          LOGGER.warn("Could not persist stat: "+element+" (valueStr is null)");
+          LOGGER.warn("Could not persist stat: {} (valueStr is null)",element);
           continue;
         }
         AttributesImpl statAttrs=new AttributesImpl();

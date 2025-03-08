@@ -81,7 +81,7 @@ public class ItemSpellcraft
       progression=ProgressionsManager.getInstance().getProgression(progressionId.intValue());
       if (progression==null)
       {
-        LOGGER.warn("Progression not found: "+progressionId);
+        LOGGER.warn("Progression not found: {}",progressionId);
       }
     }
     return new ItemSpellcraft(propertyName,progression);

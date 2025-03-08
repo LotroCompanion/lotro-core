@@ -170,7 +170,7 @@ public class BasicStatsSet
       if (!Objects.equals(currentDescriptionOverride,newDescriptionOverride))
       {
         StatDescription stat=elementToSet.getStat();
-        LOGGER.warn("Set stat ("+stat.getName()+") will replace description: before=["+currentDescriptionOverride+"], after=["+newDescriptionOverride+"]!");
+        LOGGER.warn("Set stat ({}) will replace description: before=[{}], after=[{}]!",stat.getName(),currentDescriptionOverride,newDescriptionOverride);
       }
       existing.setValue(elementToSet.getValue());
       existing.setDescriptionOverride(newDescriptionOverride);
@@ -253,7 +253,7 @@ public class BasicStatsSet
       }
       if ((operator!=StatOperator.ADD) && (operator!=StatOperator.SUBSTRACT))
       {
-        LOGGER.warn("Adding stat "+elementToAdd.getStat()+" with operator "+operator);
+        LOGGER.warn("Adding stat {} with operator {}",elementToAdd.getStat(),operator);
       }
       existing.setDescriptionOverride(elementToAdd.getDescriptionOverride());
       existing.setValue(newValue);

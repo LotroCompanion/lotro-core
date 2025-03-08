@@ -46,7 +46,7 @@ public class EnumXMLUtils
       }
       else
       {
-        LOGGER.warn("null entry: code="+code+" for class: "+enumEntryClass);
+        LOGGER.warn("null entry: code={} for class: {}",codeStr,enumEntryClass);
       }
     }
     return ret;

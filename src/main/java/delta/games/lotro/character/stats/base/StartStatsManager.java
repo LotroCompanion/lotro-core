@@ -79,7 +79,7 @@ public class StartStatsManager
     BasicStatsSet ret=mapForClass.get(Integer.valueOf(level));
     if (ret==null)
     {
-      LOGGER.warn("Could not find start stats for class="+characterClass+", level="+level);
+      LOGGER.warn("Could not find start stats for class={}, level={}",characterClass,Integer.valueOf(level));
       ret=new BasicStatsSet();
     }
     return ret;

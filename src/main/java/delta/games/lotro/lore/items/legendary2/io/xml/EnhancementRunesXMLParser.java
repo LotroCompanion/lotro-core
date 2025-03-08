@@ -54,7 +54,7 @@ public class EnhancementRunesXMLParser
     Item item=ItemsManager.getInstance().getItem(itemId);
     if (item==null)
     {
-      LOGGER.warn("Unknown item for enhancement rune: "+itemId);
+      LOGGER.warn("Unknown item for enhancement rune: {}",Integer.valueOf(itemId));
       return null;
     }
     // Min item level

@@ -184,7 +184,7 @@ public class Landblock
       {
         if (LOGGER.isDebugEnabled())
         {
-          LOGGER.debug("No dungeon for cell: "+cell+" in landblock: "+_id);
+          LOGGER.debug("No dungeon for cell: {} in landblock: {}",Integer.valueOf(cell),_id);
         }
       }
     }

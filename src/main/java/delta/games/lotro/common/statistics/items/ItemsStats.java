@@ -43,7 +43,7 @@ public class ItemsStats
     Item item=ItemsManager.getInstance().getItem(itemId);
     if (item==null)
     {
-      LOGGER.warn("Item not found: "+itemId);
+      LOGGER.warn("Item not found: {}",Integer.valueOf(itemId));
       return false;
     }
     Integer itemIdInteger=Integer.valueOf(itemId);

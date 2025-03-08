@@ -84,7 +84,7 @@ public class AchievableProgressUtils
     {
       if (nbObjectivesWithCount>1)
       {
-        LOGGER.warn("Found deed with several counted objectives: "+deed.getIdentifier());
+        LOGGER.warn("Found deed with several counted objectives:  {}",Integer.valueOf(deed.getIdentifier()));
       }
       return totalCount;
     }

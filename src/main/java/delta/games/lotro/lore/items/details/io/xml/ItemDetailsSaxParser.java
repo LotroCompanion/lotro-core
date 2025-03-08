@@ -142,7 +142,7 @@ public class ItemDetailsSaxParser
     }
     else
     {
-      LOGGER.warn("Could not find faction with ID: "+factionID);
+      LOGGER.warn("Could not find faction with ID: {}",Integer.valueOf(factionID));
     }
   }
 

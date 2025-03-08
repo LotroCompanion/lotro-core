@@ -474,7 +474,7 @@ public final class ItemSaxParser extends DefaultHandler
       Progression progression=ProgressionsManager.getInstance().getProgression(progressionId);
       if (progression==null)
       {
-        LOGGER.warn("Progression not found: "+progressionId);
+        LOGGER.warn("Progression not found: {}",Integer.valueOf(progressionId));
       }
       return new ScalableStatProvider(stat,progression);
     }
@@ -524,7 +524,7 @@ public final class ItemSaxParser extends DefaultHandler
         }
         else
         {
-          LOGGER.warn("Progression not found: "+progressionId);
+          LOGGER.warn("Progression not found: {}",Integer.valueOf(progressionId));
         }
       }
     }

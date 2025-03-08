@@ -73,7 +73,7 @@ public class ConsumableXMLParser
     Item item=ItemsManager.getInstance().getItem(id);
     if (item==null)
     {
-      LOGGER.warn("Cannot find item with ID="+id+". Ignoring consumable.");
+      LOGGER.warn("Cannot find item with ID={}. Ignoring consumable.",Integer.valueOf(id));
       return null;
     }
     Consumable consumable=new Consumable(item);

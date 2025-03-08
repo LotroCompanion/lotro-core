@@ -45,7 +45,7 @@ public class LegendaryInstance2AttrsXMLParser
         SocketEntryInstance entry=sockets.getEntry(index);
         if (entry==null)
         {
-          LOGGER.warn("No entry at index: "+index);
+          LOGGER.warn("No entry at index: {}",Integer.valueOf(index));
           continue;
         }
         int traceryID=DOMParsingTools.getIntAttribute(socketAttrs,LegendaryInstance2AttrsXMLConstants.SOCKET_TRACERY_ID_ATTR,0);
@@ -58,7 +58,7 @@ public class LegendaryInstance2AttrsXMLParser
         }
         else
         {
-          LOGGER.warn("Tracery not found: "+traceryID);
+          LOGGER.warn("Tracery not found: {}",Integer.valueOf(traceryID));
         }
       }
     }

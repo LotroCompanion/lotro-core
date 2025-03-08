@@ -81,7 +81,7 @@ public class DeedsStatusFromCharacterLog
     DeedDescription ret=deedsMgr.getDeed(id);
     if (ret==null)
     {
-      LOGGER.warn("Fail to get deed with id="+id+", label="+label);
+      LOGGER.warn("Fail to get deed with id={}, label={}",Integer.valueOf(id),label);
     }
     return ret;
   }

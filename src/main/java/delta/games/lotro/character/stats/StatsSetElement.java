@@ -146,12 +146,12 @@ public class StatsSetElement
     else if ((type==StatType.BITFIELD) || (type==StatType.DID))
     {
       // TODO Better support for DIDs and bitfields!
-      LOGGER.info("Set float value of type: "+type+" "+_stat.getKey()+" => "+value);
+      LOGGER.info("Set float value of type: {} {} => {}",type,_stat.getKey(),Float.valueOf(value));
       _value=Float.valueOf(value);
     }
     else
     {
-      LOGGER.info("Attempt to set a float value for stat: "+_stat.getKey()+": "+value);
+      LOGGER.info("Attempt to set a float value for stat: {}: {}",_stat.getKey(),Float.valueOf(value));
       _value=Integer.valueOf(0);
     }
   }
@@ -174,13 +174,13 @@ public class StatsSetElement
     else if ((type==StatType.BITFIELD) || (type==StatType.DID))
     {
       // TODO Better support for DIDs bitfields!
-      LOGGER.info("Set integer value of type: "+type+" "+_stat.getKey()+" => "+value);
+      LOGGER.info("Set integer value of type: {} {} => {}",type,_stat.getKey(),Integer.valueOf(value));
       _value=Integer.valueOf(value);
     }
     else
     {
-      LOGGER.info("Attempt to set an integer value for stat: "+_stat+": "+value);
       _value=Integer.valueOf(value);
+      LOGGER.info("Attempt to set an integer value for stat: {}: {}",_stat,_value);
     }
   }
 

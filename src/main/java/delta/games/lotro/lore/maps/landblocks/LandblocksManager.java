@@ -114,7 +114,7 @@ public class LandblocksManager
     }
     else
     {
-      LOGGER.warn("No parent data for: "+position);
+      LOGGER.warn("No parent data for: {}",position);
     }
     return ret;
   }

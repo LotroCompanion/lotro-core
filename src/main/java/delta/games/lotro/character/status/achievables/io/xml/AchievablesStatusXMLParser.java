@@ -137,7 +137,7 @@ public class AchievablesStatusXMLParser
       AchievableObjectiveStatus objectiveStatus=status.getObjectiveStatus(objectiveIndex);
       if (objectiveStatus==null)
       {
-        LOGGER.warn("Objective not found: achievable ID="+status.getAchievableId()+" - index="+objectiveIndex);
+        LOGGER.warn("Objective not found: achievable ID={} - index={}",Integer.valueOf(status.getAchievableId()),Integer.valueOf(objectiveIndex));
         continue;
       }
       // State
@@ -165,7 +165,8 @@ public class AchievablesStatusXMLParser
       ObjectiveConditionStatus conditionStatus=objectiveStatus.getConditionStatus(conditionIndex);
       if (conditionStatus==null)
       {
-        LOGGER.warn("Condition not found: objective index="+objectiveStatus.getObjective().getIndex()+" - condition index="+conditionIndex);
+        LOGGER.warn("Condition not found: objective index={} - condition index={}",Integer.valueOf(objectiveStatus.getObjective().getIndex()),
+            Integer.valueOf(conditionIndex));
         continue;
       }
       // State

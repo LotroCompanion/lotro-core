@@ -60,7 +60,7 @@ public class EmotesStatusXMLParser
     if (emote==null)
     {
       // Unknown emote!
-      LOGGER.warn("Unknown emote: "+id);
+      LOGGER.warn("Unknown emote: {}",Integer.valueOf(id));
       return;
     }
     EmoteStatus newStatus=status.get(emote,true);

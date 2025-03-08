@@ -140,7 +140,7 @@ public class LotroEnum<T extends LotroEnumEntry> implements Identifiable,Named
     }
     catch(Exception e)
     {
-      LOGGER.warn("Could not build an instance of "+_entryImplClass);
+      LOGGER.warn("Could not build an instance of {}",_entryImplClass);
     }
     return ret;
   }

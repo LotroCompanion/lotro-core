@@ -47,7 +47,7 @@ public class InteractableUtils
     {
       return item;
     }
-    LOGGER.warn("Interactable not found: ID="+id);
+    LOGGER.warn("Interactable not found: ID={}",Integer.valueOf(id));
     return null;
   }
 }

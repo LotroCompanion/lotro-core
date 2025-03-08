@@ -138,7 +138,7 @@ public class LegendaryInstanceAttrsXMLParser
           }
           else
           {
-            LOGGER.warn("Default non-imbued legacy not found: "+id);
+            LOGGER.warn("Default non-imbued legacy not found: {}",Integer.valueOf(id));
           }
         }
         // Default legacy rank
@@ -172,7 +172,7 @@ public class LegendaryInstanceAttrsXMLParser
           }
           else
           {
-            LOGGER.warn("Tiered non-imbued legacy not found: "+id);
+            LOGGER.warn("Tiered non-imbued legacy not found: {}",Integer.valueOf(id));
           }
         }
         else
@@ -226,7 +226,7 @@ public class LegendaryInstanceAttrsXMLParser
           }
           else
           {
-            LOGGER.warn("Imbued legacy not found: "+id);
+            LOGGER.warn("Imbued legacy not found: {}",Integer.valueOf(id));
           }
         }
         currentIndex++;

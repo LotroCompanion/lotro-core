@@ -69,7 +69,7 @@ public class LotroEnumsRegistry
     LotroEnum<T> ret=new EnumXMLParser<T>().parseXML(enumFile,implClass);
     if (ret!=null)
     {
-      LOGGER.debug("Loaded enum: "+implClass.getName());
+      LOGGER.debug("Loaded enum: {}",implClass.getName());
     }
     return ret;
   }

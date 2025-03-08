@@ -60,7 +60,7 @@ public class RewardsTracksStatusXMLParser
     if (rewardsTrack==null)
     {
       // Unknown rewards track!
-      LOGGER.warn("Unknown rewards track: "+id);
+      LOGGER.warn("Unknown rewards track: {}",Integer.valueOf(id));
       return;
     }
     RewardsTrackStatus newStatus=status.getStatus(rewardsTrack,true);
