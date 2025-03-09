@@ -249,7 +249,8 @@ public class Item implements Interactable,ItemProvider
    * Set the equipment location.
    * @param equipmentLocation Location to set.
    */
-  public void setEquipmentLocation(EquipmentLocation equipmentLocation) {
+  public void setEquipmentLocation(EquipmentLocation equipmentLocation)
+  {
     _equipmentLocation=equipmentLocation;
   }
 

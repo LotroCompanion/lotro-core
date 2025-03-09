@@ -375,6 +375,10 @@ public class DataFiles
    */
   public static final String HOUSING="housing";
   /**
+   * Baubles.
+   */
+  public static final String BAUBLES="baubles";
+  /**
    * Labels directory.
    */
   public static final String LABELS="labelsDir";
