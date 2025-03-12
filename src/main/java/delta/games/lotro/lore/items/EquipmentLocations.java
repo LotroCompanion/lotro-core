@@ -36,21 +36,45 @@ public class EquipmentLocations
   public static final EquipmentLocation FEET=EquipmentLocation.getByKey("FEET");
 
   /**
-   * Ear.
+   * Ear (any).
    */
   public static final EquipmentLocation EAR=EquipmentLocation.getByKey("EAR");
+  /**
+   * Ear (left only).
+   */
+  public static final EquipmentLocation LEFT_EAR=EquipmentLocation.getByKey("LEFT_EAR");
+  /**
+   * Ear (right only).
+   */
+  public static final EquipmentLocation RIGHT_EAR=EquipmentLocation.getByKey("RIGHT_EAR");
   /**
    * Neck.
    */
   public static final EquipmentLocation NECK=EquipmentLocation.getByKey("NECK");
   /**
-   * Wrist.
+   * Wrist (any).
    */
   public static final EquipmentLocation WRIST=EquipmentLocation.getByKey("WRIST");
   /**
-   * Finger.
+   * Wrist (left only).
+   */
+  public static final EquipmentLocation LEFT_WRIST=EquipmentLocation.getByKey("LEFT_WRIST");
+  /**
+   * Wrist (right only).
+   */
+  public static final EquipmentLocation RIGHT_WRIST=EquipmentLocation.getByKey("RIGHT_WRIST");
+  /**
+   * Finger (any).
    */
   public static final EquipmentLocation FINGER=EquipmentLocation.getByKey("FINGER");
+  /**
+   * Finger (left only).
+   */
+  public static final EquipmentLocation LEFT_FINGER=EquipmentLocation.getByKey("LEFT_FINGER");
+  /**
+   * Finger (right only).
+   */
+  public static final EquipmentLocation RIGHT_FINGER=EquipmentLocation.getByKey("RIGHT_FINGER");
   /**
    * Pocket.
    */
@@ -64,6 +88,10 @@ public class EquipmentLocations
    * Shield or off-hand.
    */
   public static final EquipmentLocation OFF_HAND=EquipmentLocation.getByKey("OFF_HAND");
+  /**
+   * Either hand (main hand or off hand).
+   */
+  public static final EquipmentLocation EITHER_HAND=EquipmentLocation.getByKey("EITHER_HAND");
   /**
    * Ranged Weapon.
    */
@@ -81,15 +109,7 @@ public class EquipmentLocations
    */
   public static final EquipmentLocation BRIDLE=EquipmentLocation.getByKey("BRIDLE");
   /**
-   * Main-hand aura.
+   * Aura (any).
    */
-  public static final EquipmentLocation MAIN_HAND_AURA=EquipmentLocation.getByKey("MAIN_HAND_AURA");
-  /**
-   * Off-hand aura.
-   */
-  public static final EquipmentLocation OFF_HAND_AURA=EquipmentLocation.getByKey("OFF_HAND_AURA");
-  /**
-   * Ranged aura.
-   */
-  public static final EquipmentLocation RANGED_AURA=EquipmentLocation.getByKey("RANGED_AURA");
+  public static final EquipmentLocation AURA=EquipmentLocation.getByKey("AURA");
 }
