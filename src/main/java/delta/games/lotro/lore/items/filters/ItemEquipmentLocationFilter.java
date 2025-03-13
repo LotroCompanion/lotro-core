@@ -1,117 +1,58 @@
 package delta.games.lotro.lore.items.filters;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import delta.games.lotro.lore.items.EquipmentLocation;
 import delta.games.lotro.lore.items.Item;
 
 /**
- * Filter items that can go in a given equipment location.
+ * Filter items that use a given equipment location.
  * @author DAM
  */
 public class ItemEquipmentLocationFilter implements ItemFilter
 {
-  private Set<EquipmentLocation> _locations;
+  private EquipmentLocation _location;
 
   /**
-   * Constructor (accepts all locations, including "no location").
+   * Constructor (accepts all locations, including "none").
    */
   public ItemEquipmentLocationFilter()
   {
-    _locations=new HashSet<EquipmentLocation>();
-    selectAll();
+    _location=null;
   }
 
   /**
    * Constructor.
-   * @param locations Locations to select.
+   * @param location Location to select.
    */
-  public ItemEquipmentLocationFilter(Set<EquipmentLocation> locations)
+  public ItemEquipmentLocationFilter(EquipmentLocation location)
   {
-    _locations=locations;
+    _location=location;
   }
 
   /**
-   * Select all locations.
+   * Get the selected location.
+   * @return A location (may be <code>null</code> to ignore this filter.
    */
-  public void selectAll()
+  public EquipmentLocation getLocation()
   {
-    _locations.clear();
-    _locations.add(null);
-    for(EquipmentLocation location : EquipmentLocation.getAll())
-    {
-      _locations.add(location);
-    }
+    return _location;
   }
 
   /**
-   * Get the selected locations.
-   * @return A possibly empty but never <code>null</code> set of location.
+   * Set the location to select.
+   * @param location Location to select.
    */
-  public Set<EquipmentLocation> getSelectedLocations()
+  public void setLocation(EquipmentLocation location)
   {
-    return _locations;
-  }
-
-  /**
-   * Set the locations to select.
-   * @param locations Locations to select.
-   */
-  public void setLocations(Set<EquipmentLocation> locations)
-  {
-    _locations=locations;
+    _location=location;
   }
 
   @Override
   public boolean accept(Item item)
   {
-    return _locations.contains(item.getEquipmentLocation());
-  }
-
-  /**
-   * Get the state of this filter as a list of strings.
-   * @return A list of strings.
-   */
-  public List<String> asString()
-  {
-    List<String> ret=new ArrayList<String>();
-    for(EquipmentLocation location : _locations)
+    if (_location==null)
     {
-      if (location!=null)
-      {
-        ret.add(location.getKey());
-      }
-      else
-      {
-        ret.add("null");
-      }
+      return true;
     }
-    Collections.sort(ret);
-    return ret;
-  }
-
-  /**
-   * Set the state of this filter from the given list of string.
-   * @param input Input list.
-   */
-  public void loadFromString(List<String> input)
-  {
-    Set<EquipmentLocation> locations=new HashSet<EquipmentLocation>();
-    for(String locationKey : input)
-    {
-      if ("null".equals(locationKey))
-      {
-        locations.add(null);
-      }
-      else
-      {
-        locations.add(EquipmentLocation.getByKey(locationKey));
-      }
-    }
-    setLocations(locations);
+    return _location==item.getEquipmentLocation();
   }
 }

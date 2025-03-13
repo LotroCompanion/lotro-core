@@ -23,6 +23,7 @@ import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.DamageType;
 import delta.games.lotro.lore.items.EquipmentLocation;
+import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemBinding;
 import delta.games.lotro.lore.items.ItemCategory;
@@ -219,7 +220,7 @@ public class ItemXMLWriter
     ItemCategory category=item.getCategory();
     // Slot
     EquipmentLocation slot=item.getEquipmentLocation();
-    if (slot!=null)
+    if (slot!=EquipmentLocations.NONE)
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SLOT_ATTR,XmlWriter.CDATA,String.valueOf(slot.getKey()));
     }

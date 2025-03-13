@@ -3,9 +3,7 @@ package delta.games.lotro.lore.items.filters;
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlotUtils;
 import delta.games.lotro.lore.items.EquipmentLocation;
-import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.Weapon;
 
 /**
  * Filter items that can go in a given slot.
@@ -65,14 +63,6 @@ public class ItemSlotFilter implements ItemFilter
     if (_location==location)
     {
       return true;
-    }
-    if (_location==EquipmentLocations.OFF_HAND)
-    {
-      // If off-hand, allow main hand weapons
-      if (item instanceof Weapon)
-      {
-        return location==EquipmentLocations.MAIN_HAND;
-      }
     }
     return false;
   }

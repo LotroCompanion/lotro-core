@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
@@ -55,12 +56,12 @@ public class ItemsManager
 
   /**
    * Get items that fit a location.
-   * @param location Targeted location.
+   * @param slot Targeted slot.
    * @return A list of items.
    */
-  public List<Item> getItems(EquipmentLocation location)
+  public List<Item> getItems(GearSlot slot)
   {
-    List<Item> items=_sorter.getItems(location);
+    List<Item> items=_sorter.getItems(slot);
     Collections.sort(items,new ItemNameComparator());
     return items;
   }

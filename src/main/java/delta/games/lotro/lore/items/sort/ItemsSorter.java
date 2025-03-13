@@ -5,10 +5,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlotUtils;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.items.EquipmentLocation;
-import delta.games.lotro.lore.items.EquipmentLocations;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.items.Weapon;
 
 /**
  * Sort items.
@@ -16,35 +17,29 @@ import delta.games.lotro.lore.items.Weapon;
  */
 public class ItemsSorter
 {
-  private static final String WEAPON="weapon";
-
-  private HashMap<String,List<Item>> _items;
+  private HashMap<GearSlot,List<Item>> _items;
 
   /**
    * Constructor.
    */
   public ItemsSorter()
   {
-    _items=new HashMap<String,List<Item>>();
-    for(EquipmentLocation slot : EquipmentLocation.getAll())
+    _items=new HashMap<GearSlot,List<Item>>();
+    for(GearSlot slot : LotroEnumsRegistry.getInstance().get(GearSlot.class).getAll())
     {
-      _items.put(slot.getKey(),new ArrayList<Item>());
+      _items.put(slot,new ArrayList<Item>());
     }
   }
 
   /**
-   * Get items that fit a location.
-   * @param location Targeted location.
+   * Get items that fit a slot.
+   * @param slot Targeted slot.
    * @return A list of items.
    */
-  public List<Item> getItems(EquipmentLocation location)
+  public List<Item> getItems(GearSlot slot)
   {
     List<Item> ret=new ArrayList<Item>();
-    ret.addAll(_items.get(location.getKey()));
-    if (location==EquipmentLocations.OFF_HAND)
-    {
-      ret.addAll(_items.get(WEAPON));
-    }
+    ret.addAll(_items.get(slot));
     return ret;
   }
 
@@ -54,24 +49,21 @@ public class ItemsSorter
    */
   public void sortItems(Collection<Item> items)
   {
-    List<Item> weapons=new ArrayList<Item>();
-
     for(Item item : items)
     {
       EquipmentLocation location=item.getEquipmentLocation();
       if (location!=null)
       {
-        List<Item> list=_items.get(location.getKey());
-        list.add(item);
-        if (item instanceof Weapon)
+        GearSlot[] slots=GearSlotUtils.getSlots(location);
+        if (slots!=null)
         {
-          if (location==EquipmentLocations.MAIN_HAND)
+          for(GearSlot slot : slots)
           {
-            weapons.add(item);
+            List<Item> list=_items.get(slot);
+            list.add(item);
           }
         }
       }
     }
-    _items.put(WEAPON,weapons);
   }
 }

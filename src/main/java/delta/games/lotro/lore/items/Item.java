@@ -99,7 +99,7 @@ public class Item implements Interactable,ItemProvider
     _identifier=0;
     _icon=null;
     _setKey=null;
-    _equipmentLocation=null;
+    _equipmentLocation=EquipmentLocations.NONE;
     _name="";
     _itemClass=null;
     _binding=null;
@@ -238,7 +238,7 @@ public class Item implements Interactable,ItemProvider
 
   /**
    * Get equipment location.
-   * @return an equipment location. 
+   * @return an equipment location (never <code>null</code>).
    */
   public EquipmentLocation getEquipmentLocation()
   {
@@ -251,7 +251,10 @@ public class Item implements Interactable,ItemProvider
    */
   public void setEquipmentLocation(EquipmentLocation equipmentLocation)
   {
-    _equipmentLocation=equipmentLocation;
+    if (equipmentLocation!=null)
+    {
+      _equipmentLocation=equipmentLocation;
+    }
   }
 
   /**

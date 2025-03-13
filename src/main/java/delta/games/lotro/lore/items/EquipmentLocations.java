@@ -7,6 +7,10 @@ package delta.games.lotro.lore.items;
 public class EquipmentLocations
 {
   /**
+   * None.
+   */
+  public static final EquipmentLocation NONE=EquipmentLocation.getByKey("NONE");
+  /**
    * Head.
    */
   public static final EquipmentLocation HEAD=EquipmentLocation.getByKey("HEAD");
