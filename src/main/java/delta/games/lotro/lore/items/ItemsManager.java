@@ -67,6 +67,15 @@ public class ItemsManager
   }
 
   /**
+   * Get the items sorter.
+   * @return the items sorter.
+   */
+  public ItemsSorter getSorter()
+  {
+    return _sorter;
+  }
+
+  /**
    * Load all items.
    */
   private void loadAllItems()
