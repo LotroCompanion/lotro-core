@@ -1156,6 +1156,11 @@ public class EffectXMLWriter
     {
       writeEffectGenerator(hd,generator);
     }
+    // 'Apply to master' effects
+    for(EffectGenerator generator : aiPetEffect.getApplyToMasterEffects())
+    {
+      writeEffectGenerator(hd,generator,EffectXMLConstants.APPLY_TO_MASTER_EFFECT_GENERATOR_TAG);
+    }
   }
 
   

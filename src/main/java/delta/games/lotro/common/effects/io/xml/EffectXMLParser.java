@@ -945,6 +945,13 @@ public class EffectXMLParser
       EffectGenerator generator=readEffectGenerator(generatorTag);
       ret.addStartupEffect(generator);
     }
+    // 'Apply to master' effects
+    List<Element> applyToMasterEffectTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.APPLY_TO_MASTER_EFFECT_GENERATOR_TAG);
+    for(Element generatorTag : applyToMasterEffectTags)
+    {
+      EffectGenerator generator=readEffectGenerator(generatorTag);
+      ret.addApplyToMasterEffect(generator);
+    }
     return ret;
   }
 

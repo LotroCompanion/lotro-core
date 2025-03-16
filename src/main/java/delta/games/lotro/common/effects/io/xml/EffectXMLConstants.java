@@ -560,6 +560,10 @@ public class EffectXMLConstants
    * Tag 'aiPetEffect'.
    */
   public static final String AI_PET_EFFECT_TAG="aiPetEffect";
+  /**
+   * Tag 'applyToMasterEffect' (generator).
+   */
+  public static final String APPLY_TO_MASTER_EFFECT_GENERATOR_TAG="applyToMasterEffect";
 
   /**
    * Tag 'effect' (generator).

@@ -17,6 +17,7 @@ public class AIPetEffect extends InstantEffect implements ParentEffect
   // - NPC or Mob
   private Proxy<AgentDescription> _agent;
   private List<EffectGenerator> _startupEffects;
+  private List<EffectGenerator> _applyToMasterEffects;
 
   /**
    * Constructor.
@@ -26,6 +27,7 @@ public class AIPetEffect extends InstantEffect implements ParentEffect
     super();
     _agent=null;
     _startupEffects=new ArrayList<EffectGenerator>();
+    _applyToMasterEffects=new ArrayList<EffectGenerator>();
   }
 
   /**
@@ -64,13 +66,41 @@ public class AIPetEffect extends InstantEffect implements ParentEffect
     return _startupEffects;
   }
 
+  /**
+   * Add a 'apply to master' effect.
+   * @param generator Effect generator.
+   */
+  public void addApplyToMasterEffect(EffectGenerator generator)
+  {
+    _applyToMasterEffects.add(generator);
+  }
+
+  /**
+   * Get the 'apply to master' effects.
+   * @return A list of effect generators.
+   */
+  public List<EffectGenerator> getApplyToMasterEffects()
+  {
+    return _applyToMasterEffects;
+  }
+
   @Override
   public Set<Effect> getChildEffects()
   {
     HashSet<Effect> ret=new HashSet<Effect>();
-    for(EffectGenerator generator : _startupEffects)
+    if (!_startupEffects.isEmpty())
     {
-      ret.add(generator.getEffect());
+      for(EffectGenerator generator : _startupEffects)
+      {
+        ret.add(generator.getEffect());
+      }
+    }
+    if (!_applyToMasterEffects.isEmpty())
+    {
+      for(EffectGenerator generator : _applyToMasterEffects)
+      {
+        ret.add(generator.getEffect());
+      }
     }
     return ret;
   }
