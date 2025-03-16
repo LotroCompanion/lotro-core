@@ -22,15 +22,12 @@ import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.enums.ImplementUsageType;
 import delta.games.lotro.common.enums.ImplementUsageTypes;
-import delta.games.lotro.common.stats.GenericConstantStatProvider;
 import delta.games.lotro.common.stats.StatDescription;
-import delta.games.lotro.common.stats.StatProvider;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
-import delta.games.lotro.values.ArrayValue;
 import delta.games.lotro.values.StructValue;
 
 /**
@@ -40,6 +37,7 @@ import delta.games.lotro.values.StructValue;
 public class EffectsFromCharacterDataComputer
 {
   private EffectProperties _storage;
+  private StatsProviderStructValuesVisitor _visitor;
 
   /**
    * Inspect a character to find properties that give effects.
@@ -49,6 +47,7 @@ public class EffectsFromCharacterDataComputer
   public EffectProperties inspect(CharacterData data)
   {
     _storage=new EffectProperties();
+    _visitor=new StatsProviderStructValuesVisitor(this::handleSkillEffect);
     inspectTraits(data);
     inspectBuffs(data);
     inspectEquipment(data);
@@ -134,6 +133,7 @@ public class EffectsFromCharacterDataComputer
 
   private void handleTrait(TraitDescription trait, int traitRank)
   {
+    // TODO Handle raw stats (they can provide props that contain effects)
     for(EffectGenerator generator : trait.getEffectGenerators())
     {
       Effect effect=generator.getEffect();
@@ -179,52 +179,18 @@ public class EffectsFromCharacterDataComputer
     {
       PropertyModificationEffect propModEffect=(PropertyModificationEffect)effect;
       StatsProvider statsProvider=propModEffect.getStatsProvider();
-      if (statsProvider!=null)
-      {
-        for(StatProvider statProvider : statsProvider.getStatProviders())
-        {
-          if (statProvider instanceof GenericConstantStatProvider)
-          {
-            @SuppressWarnings("unchecked")
-            GenericConstantStatProvider<Object> genericProvider=(GenericConstantStatProvider<Object>)statProvider;
-            handlePropertyValue(genericProvider.getStat(),genericProvider.getRawValue());
-          }
-        }
-      }
+      _visitor.inspectStatsProvider(statsProvider);
     }
   }
 
-  private void handlePropertyValue(StatDescription stat, Object value)
+  private Void handleSkillEffect(StatDescription stat, StructValue structValue)
   {
-    if (value instanceof ArrayValue)
+    Integer skillEffectID=(Integer)structValue.getValue("Skill_Effect");
+    if ((skillEffectID==null) || (skillEffectID.intValue()==0))
     {
-      ArrayValue arrayValue=(ArrayValue)value;
-      int size=arrayValue.getSize();
-      for(int i=0;i<size;i++)
-      {
-        Object childValue=arrayValue.getValueAt(i);
-        handlePropertyValue(stat,childValue);
-      }
+      return null;
     }
-    if (value instanceof StructValue)
-    {
-      StructValue structValue=(StructValue)value;
-      Object skillEffectID=structValue.getValue("Skill_Effect");
-      if (skillEffectID!=null)
-      {
-        handleStruct(stat,structValue);
-      }
-    }
-  }
-
-  private void handleStruct(StatDescription stat, StructValue structValue)
-  {
-    int skillEffectID=((Integer)structValue.getValue("Skill_Effect")).intValue();
-    if (skillEffectID==0)
-    {
-      return;
-    }
-    Effect effect=EffectsManager.getInstance().getEffectById(skillEffectID);
+    Effect effect=EffectsManager.getInstance().getEffectById(skillEffectID.intValue());
     int propertyID=stat.getIdentifier();
     // Spellcraft
     Float spellcraft=null;
@@ -237,6 +203,6 @@ public class EffectsFromCharacterDataComputer
       generator.setImplementUsage(implementUsage);
     }
     _storage.addEffectToProperty(propertyID,generator);
+    return null;
   }
-
 }
