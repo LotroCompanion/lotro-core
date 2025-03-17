@@ -11,6 +11,7 @@ public class ClassProficiencies
 {
   private TypedClassProficiencies<WeaponType> _weaponProficiencies;
   private TypedClassProficiencies<ArmourType> _armourProficiencies;
+  private Integer _minLevelForDualWield;
   private ArmourType _armourTypeForMitigations;
 
   /**
@@ -20,6 +21,7 @@ public class ClassProficiencies
   {
     _weaponProficiencies=new TypedClassProficiencies<WeaponType>();
     _armourProficiencies=new TypedClassProficiencies<ArmourType>();
+    _minLevelForDualWield=null;
     _armourTypeForMitigations=null;
   }
 
@@ -57,5 +59,23 @@ public class ClassProficiencies
   public void setArmourTypeForMitigations(ArmourType armourTypeForMitigations)
   {
     _armourTypeForMitigations=armourTypeForMitigations;
+  }
+
+  /**
+   * Get the minimum character level to allow dual-wield.
+   * @return An integer value or <code>null</code> if it is never allowed.
+   */
+  public Integer getMinLevelForDualWield()
+  {
+    return _minLevelForDualWield;
+  }
+
+  /**
+   * Set the minimum level for dual-wield.
+   * @param minLevelForDualWield Level to set (<code>null</code> to forbid dual-wield).
+   */
+  public void setMinLevelForDualWield(Integer minLevelForDualWield)
+  {
+    _minLevelForDualWield=minLevelForDualWield;
   }
 }

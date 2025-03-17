@@ -16,6 +16,10 @@ public class ClassProficienciesXMLConstants
    */
   public static final String PROFICIENCIES_ARMOUR_TYPE_ATTR="armourTypeForMitigations";
   /**
+   * Tag 'proficiencies', attribute 'minLevelForDualWield'.
+   */
+  public static final String MIN_LEVEL_FOR_DUAL_WIELD_ATTR="minLevelForDualWield";
+  /**
    * Tag 'weaponProficiency'.
    */
   public static final String WEAPON_PROFICIENCY_TAG="weapon";

@@ -33,6 +33,12 @@ public class ClassProficienciesXMLWriter
     {
       attrs.addAttribute("","",ClassProficienciesXMLConstants.PROFICIENCIES_ARMOUR_TYPE_ATTR,XmlWriter.CDATA,type.getKey());
     }
+    // Minimum level for dual-wield
+    Integer minLevelForDualWield=proficiencies.getMinLevelForDualWield();
+    if (minLevelForDualWield!=null)
+    {
+      attrs.addAttribute("","",ClassProficienciesXMLConstants.MIN_LEVEL_FOR_DUAL_WIELD_ATTR,XmlWriter.CDATA,minLevelForDualWield.toString());
+    }
     hd.startElement("","",ClassProficienciesXMLConstants.PROFICIENCIES_TAG,attrs);
     // Weapon proficiencies
     TypedClassProficiencies<WeaponType> weaponProficiencies=proficiencies.getWeaponProficiencies();

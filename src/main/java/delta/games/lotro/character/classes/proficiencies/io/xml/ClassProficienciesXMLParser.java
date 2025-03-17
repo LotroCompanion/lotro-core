@@ -32,6 +32,9 @@ public class ClassProficienciesXMLParser
       String typeStr=DOMParsingTools.getStringAttribute(attrs,ClassProficienciesXMLConstants.PROFICIENCIES_ARMOUR_TYPE_ATTR,"");
       ArmourType type=ArmourType.getArmourTypeByKey(typeStr);
       proficiencies.setArmourTypeForMitigations(type);
+      // Dual-wield
+      Integer minLevelForDualWield=DOMParsingTools.getIntegerAttribute(attrs,ClassProficienciesXMLConstants.MIN_LEVEL_FOR_DUAL_WIELD_ATTR,null);
+      proficiencies.setMinLevelForDualWield(minLevelForDualWield);
       // Weapon proficiencies
       parseWeaponProficiencies(proficienciesTag,proficiencies.getWeaponProficiencies());
       // Armour proficiencies

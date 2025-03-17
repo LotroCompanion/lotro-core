@@ -87,7 +87,7 @@ public class DatEnumsUtils
   /**
    * Get the equipment slots from a slot bitfield.
    * @param slotCode Input code.
-   * @return A opossibly empty but never <code>null</code> list of equipment slots.
+   * @return A possibly empty but never <code>null</code> list of equipment slots.
    */
   public static List<GearSlot> getEquipmentSlots(long slotCode)
   {
