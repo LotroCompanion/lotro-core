@@ -5,6 +5,7 @@ import java.util.Set;
 
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
+import delta.games.lotro.character.classes.proficiencies.ClassProficiencies;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.WeaponType;
 
@@ -45,28 +46,13 @@ public class CharacterProficiencies
    */
   public boolean isDualWielding(ClassDescription characterClass, int level)
   {
-    // See trait: 1879064092 Dual Wielding
-    /*
-Mod_Array: 
-  #1: Mod_Entry 
-    Inventory_AllowSecondaryWeapon: 1
-    Mod_DescriptionOverride: 
-    Mod_Modified: 268439425 (Inventory_AllowSecondaryWeapon)
-    Mod_Op: 5 (Set)
-     */
-    String classKey=characterClass.getKey();
-    if ((WellKnownCharacterClassKeys.CHAMPION.equals(classKey)) ||
-        (WellKnownCharacterClassKeys.BEORNING.equals(classKey)) ||
-        (WellKnownCharacterClassKeys.BURGLAR.equals(classKey)) ||
-        (WellKnownCharacterClassKeys.HUNTER.equals(classKey)))
+    ClassProficiencies proficiencies=characterClass.getProficiencies();
+    Integer minLevel=proficiencies.getMinLevelForDualWield();
+    if (minLevel==null)
     {
-      return true;
+      return false;
     }
-    if ((WellKnownCharacterClassKeys.LORE_MASTER.equals(classKey)) && (level>=40))
-    {
-      return true;
-    }
-    return false;
+    return (minLevel.intValue()<=level);
   }
 
   /**
