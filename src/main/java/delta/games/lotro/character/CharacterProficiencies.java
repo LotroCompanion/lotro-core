@@ -44,7 +44,7 @@ public class CharacterProficiencies
    * @param level Level.
    * @return <code>true</code> if dual wield is allowed, <code>false</code> otherwise.
    */
-  public boolean isDualWielding(ClassDescription characterClass, int level)
+  public static boolean isDualWielding(ClassDescription characterClass, int level)
   {
     ClassProficiencies proficiencies=characterClass.getProficiencies();
     Integer minLevel=proficiencies.getMinLevelForDualWield();

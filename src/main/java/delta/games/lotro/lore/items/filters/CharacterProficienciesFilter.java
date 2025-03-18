@@ -5,6 +5,8 @@ import java.util.Set;
 import delta.common.utils.collections.filters.Filter;
 import delta.games.lotro.character.CharacterProficiencies;
 import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.gear.GearSlot;
+import delta.games.lotro.character.gear.GearSlots;
 import delta.games.lotro.lore.items.Armour;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.Item;
@@ -20,6 +22,8 @@ public class CharacterProficienciesFilter implements Filter<Item>
   private boolean _enabled;
   private Set<WeaponType> _weaponTypes;
   private Set<ArmourType> _armourTypes;
+  private boolean _dualWield;
+  private GearSlot _slot;
 
   /**
    * Constructor.
@@ -31,6 +35,8 @@ public class CharacterProficienciesFilter implements Filter<Item>
     _weaponTypes=CharacterProficiencies.getWeaponProficiencies(characterClass,level);
     _armourTypes=CharacterProficiencies.getArmourProficiencies(characterClass,level);
     _enabled=true;
+    _dualWield=CharacterProficiencies.isDualWielding(characterClass,level);
+    _slot=null;
   }
 
   /**
@@ -51,6 +57,16 @@ public class CharacterProficienciesFilter implements Filter<Item>
     _enabled=enabled;
   }
 
+  /**
+   * Set the slot to use.
+   * @param slot Slot to use (may be <code>null</code>).
+   */
+  public void setSlot(GearSlot slot)
+  {
+    _slot=slot;
+  }
+
+  @Override
   public boolean accept(Item item)
   {
     if (!_enabled)
@@ -60,6 +76,13 @@ public class CharacterProficienciesFilter implements Filter<Item>
     if (item instanceof Weapon)
     {
       Weapon weapon=(Weapon)item;
+      if (_slot==GearSlots.OTHER_MELEE)
+      {
+        if (!_dualWield)
+        {
+          return false;
+        }
+      }
       WeaponType weaponType=weapon.getWeaponType();
       return ((weaponType==null) || (_weaponTypes.contains(weaponType)));
     }
