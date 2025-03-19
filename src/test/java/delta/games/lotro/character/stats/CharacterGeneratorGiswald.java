@@ -27,7 +27,7 @@ import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemSturdinesses;
 import delta.games.lotro.lore.items.Weapon;
 import delta.games.lotro.lore.items.WeaponInstance;
-import delta.games.lotro.lore.items.WeaponTypes;
+import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegaciesManager;
@@ -61,6 +61,7 @@ import delta.games.lotro.lore.items.legendary.titles.LegendaryTitlesManager;
  */
 public class CharacterGeneratorGiswald
 {
+  private static final WeaponType ONE_HANDED_SWORD=WeaponType.getWeaponTypeByKey("ONE_HANDED_SWORD");
   private CharacterGenerationTools _tools;
   private ClassDescription _champion;
 
@@ -550,7 +551,7 @@ public class CharacterGeneratorGiswald
     weapon.setEquipmentLocation(EquipmentLocations.HAND);
     weapon.setQuality(ItemQualities.LEGENDARY);
     // Weapon specifics
-    weapon.setWeaponType(WeaponTypes.ONE_HANDED_SWORD);
+    weapon.setWeaponType(ONE_HANDED_SWORD);
     weapon.setDPS(255);
     weapon.setMinDamage(363);
     weapon.setMaxDamage(606);

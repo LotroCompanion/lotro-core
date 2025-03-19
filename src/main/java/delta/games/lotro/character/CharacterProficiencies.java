@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import delta.games.lotro.character.classes.ClassDescription;
-import delta.games.lotro.character.classes.WellKnownCharacterClassKeys;
 import delta.games.lotro.character.classes.proficiencies.ClassProficiencies;
 import delta.games.lotro.lore.items.ArmourType;
 import delta.games.lotro.lore.items.WeaponType;

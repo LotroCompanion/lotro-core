@@ -19,7 +19,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemSturdinesses;
-import delta.games.lotro.lore.items.WeaponTypes;
+import delta.games.lotro.lore.items.WeaponType;
 import delta.games.lotro.lore.items.essences.Essence;
 import delta.games.lotro.lore.items.essences.EssencesSet;
 import delta.games.lotro.lore.items.legendary.LegendaryInstanceAttrs;
@@ -38,6 +38,7 @@ import delta.games.lotro.lore.items.legendary.titles.LegendaryTitle;
  */
 public class CharacterGeneratorMeva
 {
+  private static final WeaponType ONE_HANDED_CLUB=WeaponType.getWeaponTypeByKey("ONE_HANDED_CLUB");
   private CharacterGenerationTools _tools;
   private ClassDescription _minstrel;
 
@@ -298,7 +299,7 @@ public class CharacterGeneratorMeva
     weapon.setEquipmentLocation(EquipmentLocations.HAND);
     weapon.setQuality(ItemQualities.LEGENDARY);
     // Weapon specifics
-    weapon.setWeaponType(WeaponTypes.ONE_HANDED_CLUB);
+    weapon.setWeaponType(ONE_HANDED_CLUB);
     weapon.setDPS(242.1f);
     weapon.setMinDamage(345);
     weapon.setMaxDamage(575);
