@@ -38,6 +38,7 @@ import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
+import delta.games.lotro.common.effects.ProcEffectGenerator;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.RandomEffect;
 import delta.games.lotro.common.effects.RandomEffectGenerator;
@@ -486,7 +487,12 @@ public class EffectXMLParser
     List<Element> generatorTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.EFFECT_GENERATOR_TAG);
     for(Element generatorTag : generatorTags)
     {
-      EffectGenerator generator=readEffectGenerator(generatorTag);
+      NamedNodeMap generatorAttrs=generatorTag.getAttributes();
+      ProcEffectGenerator generator=new ProcEffectGenerator();
+      readEffectGenerator(generatorAttrs,generator);
+      // On target
+      boolean onTarget=DOMParsingTools.getBooleanAttribute(generatorAttrs,EffectXMLConstants.PROC_TARGET_ATTR,false);
+      generator.setOnTarget(onTarget);
       ret.addProcedEffect(generator);
     }
     // Cooldown

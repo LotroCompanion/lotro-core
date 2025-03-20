@@ -25,7 +25,7 @@ public class ProcEffect extends PropertyModificationEffect implements ParentEffe
   /**
    * Triggered effects.
    */
-  private List<EffectGenerator> _procedEffects;
+  private List<ProcEffectGenerator> _procedEffects;
   /**
    * Minimum time between triggers (s).
    */
@@ -39,7 +39,7 @@ public class ProcEffect extends PropertyModificationEffect implements ParentEffe
     super();
     _skillTypes=new ArrayList<SkillType>();
     _procProbability=null;
-    _procedEffects=new ArrayList<EffectGenerator>();
+    _procedEffects=new ArrayList<ProcEffectGenerator>();
     _cooldown=null;
   }
 
@@ -84,7 +84,7 @@ public class ProcEffect extends PropertyModificationEffect implements ParentEffe
    * Add a triggered effect.
    * @param generator Effect generator.
    */
-  public void addProcedEffect(EffectGenerator generator)
+  public void addProcedEffect(ProcEffectGenerator generator)
   {
     _procedEffects.add(generator);
   }
@@ -93,7 +93,7 @@ public class ProcEffect extends PropertyModificationEffect implements ParentEffe
    * Get the triggered effects.
    * @return A list of effect generators.
    */
-  public List<EffectGenerator> getProcedEffects()
+  public List<ProcEffectGenerator> getProcedEffects()
   {
     return _procedEffects;
   }

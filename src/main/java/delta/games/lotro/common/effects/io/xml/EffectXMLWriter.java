@@ -36,6 +36,7 @@ import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
+import delta.games.lotro.common.effects.ProcEffectGenerator;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
 import delta.games.lotro.common.effects.RandomEffect;
 import delta.games.lotro.common.effects.RandomEffectGenerator;
@@ -879,10 +880,24 @@ public class EffectXMLWriter
   private void writeProcEffectTags(TransformerHandler hd, ProcEffect procEffect) throws SAXException
   {
     writePropertyModificationEffectTags(hd,procEffect);
-    for(EffectGenerator effectGenerator : procEffect.getProcedEffects())
+    for(ProcEffectGenerator effectGenerator : procEffect.getProcedEffects())
     {
-      writeEffectGenerator(hd,effectGenerator);
+      writeProcEffectTag(hd,effectGenerator);
     }
+  }
+
+  private void writeProcEffectTag(TransformerHandler hd, ProcEffectGenerator generator) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    writeEffectGeneratorAttrs(attrs,generator);
+    // User/target
+    boolean target=generator.isOnTarget();
+    if (target)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.PROC_TARGET_ATTR,XmlWriter.CDATA,String.valueOf(target));
+    }
+    hd.startElement("","",EffectXMLConstants.EFFECT_GENERATOR_TAG,attrs);
+    hd.endElement("","",EffectXMLConstants.EFFECT_GENERATOR_TAG);
   }
 
   private void writeReactiveVitalEffectTags(TransformerHandler hd, ReactiveVitalEffect reactiveVitalEffect) throws SAXException

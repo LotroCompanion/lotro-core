@@ -267,6 +267,10 @@ public class EffectXMLConstants
    * Tag 'procEffect', attribute 'cooldown'.
    */
   public static final String PROC_COOLDOWN_ATTR="cooldown";
+  /**
+   * Proc effect generator tags, attribute 'target' (true=target/false=user).
+   */
+  public static final String PROC_TARGET_ATTR="target";
 
   /**
    * Tag 'reactiveVitalEffect'.

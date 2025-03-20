@@ -152,7 +152,7 @@ public abstract class AbstractSingleEffectRenderer<T extends Effect>
     return _engine.getContext();
   }
 
-  protected void showEffectGenerators(List<String> storage, List<EffectGenerator> effects)
+  protected void showEffectGenerators(List<String> storage, List<? extends EffectGenerator> effects)
   {
     EffectRenderingState state=getState();
     boolean isRootEffectBackup=state.isRootEffect();

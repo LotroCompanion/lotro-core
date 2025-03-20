@@ -3,8 +3,8 @@ package delta.games.lotro.common.effects.display;
 import java.util.ArrayList;
 import java.util.List;
 
-import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.ProcEffect;
+import delta.games.lotro.common.effects.ProcEffectGenerator;
 import delta.games.lotro.common.enums.SkillType;
 
 /**
@@ -24,7 +24,7 @@ public class ProcEffectRenderer extends PropertyModificationEffectRenderer<ProcE
   {
     Float probability=effect.getProcProbability();
     List<SkillType> skillTypes=effect.getSkillTypes();
-    List<EffectGenerator> procedEffects=effect.getProcedEffects();
+    List<ProcEffectGenerator> procedEffects=effect.getProcedEffects();
     List<String> childStorage=new ArrayList<String>();
     showEffectGenerators(childStorage,procedEffects);
     String descriptionOverride=effect.getDescriptionOverride();
