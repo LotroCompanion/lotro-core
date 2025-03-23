@@ -34,9 +34,9 @@ public class BaublesXMLWriter
       public void writeXml(TransformerHandler hd) throws Exception
       {
         hd.startElement("","",BaublesXMLConstants.BAUBLES_TAG,new AttributesImpl());
-        for(SkillDescription collection : baubles)
+        for(SkillDescription bauble : baubles)
         {
-          writeBauble(hd,collection);
+          writeBauble(hd,bauble);
         }
         hd.endElement("","",BaublesXMLConstants.BAUBLES_TAG);
       }
