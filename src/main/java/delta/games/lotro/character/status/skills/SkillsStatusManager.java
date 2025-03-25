@@ -25,14 +25,6 @@ public class SkillsStatusManager
   }
 
   /**
-   * Clear data.
-   */
-  public void clear()
-  {
-    _status.clear();
-  }
-
-  /**
    * Get the status of a skill.
    * @param skill Targeted skill.
    * @param createIfNecessary Indicates if the status shall be created if it
