@@ -68,6 +68,14 @@ public class EffectsManager
   }
 
   /**
+   * Remove all effects.
+   */
+  public void clear()
+  {
+    _effects.clear();
+  }
+
+  /**
    * Add an effect.
    * @param effect Effect to add.
    */
