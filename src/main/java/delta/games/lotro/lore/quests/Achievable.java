@@ -438,6 +438,6 @@ public abstract class Achievable implements Identifiable,Named
   @Override
   public String toString()
   {
-    return _name;
+    return _identifier+": "+_name;
   }
 }
