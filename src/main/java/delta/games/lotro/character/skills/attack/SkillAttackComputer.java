@@ -165,6 +165,10 @@ public class SkillAttackComputer
    */
   public float getHealingQualifier()
   {
+    if (_character==null)
+    {
+      return 1;
+    }
     float fullPercentage=_character.getStat(WellKnownStat.OUTGOING_HEALING_PERCENTAGE);
     float ratingPercentageMultiplier=1+fullPercentage/100;
     return ratingPercentageMultiplier;
