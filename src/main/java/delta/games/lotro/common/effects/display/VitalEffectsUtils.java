@@ -145,6 +145,14 @@ public class VitalEffectsUtils
    */
   public float[] getMinMaxValue(StatDescription stat, BaseVitalEffect effect, VitalChangeDescription description, boolean initial)
   {
+    // Special case for constant change
+    Float maxValue=description.getMaxValue();
+    Float minValue=description.getMinValue();
+    if ((minValue!=null) && (maxValue!=null))
+    {
+      return new float[]{minValue.floatValue(),maxValue.floatValue()};
+    }
+    // Standard case
     float maxChange=getMaxVitalChange(stat,effect,description,initial);
     float minChange=maxChange;
     Float variance=description.getVariance();
