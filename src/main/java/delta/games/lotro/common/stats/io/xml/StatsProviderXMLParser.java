@@ -149,7 +149,7 @@ public class StatsProviderXMLParser
       Progression progression=ProgressionsManager.getInstance().getProgression(progressionId);
       if (progression==null)
       {
-        LOGGER.warn("Progression not found: "+progressionId);
+        LOGGER.warn("Progression not found: {}",Integer.valueOf(progressionId));
       }
       ScalableStatProvider provider=new ScalableStatProvider(stat,progression);
       return provider;

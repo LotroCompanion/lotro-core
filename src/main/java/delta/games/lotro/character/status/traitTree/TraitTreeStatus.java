@@ -366,7 +366,7 @@ public class TraitTreeStatus
     int gotRanks=getRanksForRows(branch,row-1);
     if (LOGGER.isDebugEnabled())
     {
-      LOGGER.debug("Cell "+cellId+" got ranks: "+gotRanks+", needed: "+neededRanks);
+      LOGGER.debug("Cell {} got ranks: {}, needed: {}",cellId,Integer.valueOf(gotRanks),Integer.valueOf(neededRanks));
     }
     return gotRanks>=neededRanks;
   }

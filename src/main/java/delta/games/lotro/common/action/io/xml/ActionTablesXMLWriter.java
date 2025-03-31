@@ -155,10 +155,6 @@ public class ActionTablesXMLWriter
 
   private String persistAIHints(List<AIHint> hints)
   {
-    if (hints==null)
-    {
-      return null;
-    }
     StringBuilder sb=new StringBuilder();
     for(AIHint hint : hints)
     {

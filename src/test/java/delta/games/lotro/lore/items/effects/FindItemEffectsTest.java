@@ -21,7 +21,7 @@ import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
  * Test/tool to find item effects and have some statistics about them.
  * @author DAM
  */
-public class FindItemEffectsTest
+class FindItemEffectsTest
 {
   private ValueSetStatistics _stats;
 

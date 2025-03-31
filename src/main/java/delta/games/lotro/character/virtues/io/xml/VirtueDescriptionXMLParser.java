@@ -97,7 +97,7 @@ public class VirtueDescriptionXMLParser
       virtue.setMaxRankForCharacterLevelProgression(maxRankProgression);
       if (maxRankProgression==null)
       {
-        LOGGER.warn("Could not load progression "+maxRankProgressionId+" for virtue: "+key);
+        LOGGER.warn("Could not load progression {} for virtue: {}",Integer.valueOf(maxRankProgressionId),key);
       }
     }
     // Description

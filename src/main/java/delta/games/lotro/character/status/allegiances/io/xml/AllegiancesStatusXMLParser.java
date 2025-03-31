@@ -70,7 +70,7 @@ public class AllegiancesStatusXMLParser
     if (allegiance==null)
     {
       // Unknown allegiance!
-      LOGGER.warn("Unknown allegiance: "+id);
+      LOGGER.warn("Unknown allegiance: {}",Integer.valueOf(id));
       return;
     }
     AllegianceStatus newStatus=status.get(allegiance,true);

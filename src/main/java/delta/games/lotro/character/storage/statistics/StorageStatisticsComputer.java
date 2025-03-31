@@ -117,7 +117,7 @@ public class StorageStatisticsComputer
           int count=counted.getQuantity();
           if (LOGGER.isDebugEnabled())
           {
-            LOGGER.debug("Got "+count+" of "+item+" - "+itemXP.getAmount()+" XP");
+            LOGGER.debug("Got {} of {} - {} XP",Integer.valueOf(count),item,Integer.valueOf(itemXP.getAmount()));
           }
           totalXP+=(count*itemXP.getAmount());
         }

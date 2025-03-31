@@ -120,7 +120,7 @@ public class RecipesSharing
           if (!known)
           {
             Item recipeItem=recipeToShare.getItem();
-            System.out.println("User "+user.getName()+" would use Item "+recipeItem+" for recipe: "+recipe.getName());
+            System.out.println("User "+user.getName()+" would use Item "+recipeItem+" for recipe: "+recipe.getName()); // NOSONAR
           }
         }
       }

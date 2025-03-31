@@ -184,7 +184,7 @@ public class SkillEffectsXmlIO
       }
       else
       {
-        LOGGER.warn("Unknown effect: id="+id);
+        LOGGER.warn("Unknown effect: id={}",Integer.valueOf(id));
       }
     }
     return mgr;

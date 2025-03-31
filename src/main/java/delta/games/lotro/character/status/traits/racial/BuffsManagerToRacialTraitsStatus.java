@@ -82,7 +82,7 @@ public class BuffsManagerToRacialTraitsStatus
 
     if (LOGGER.isDebugEnabled())
     {
-      LOGGER.debug("Loaded racial traits status from buffs: "+status);
+      LOGGER.debug("Loaded racial traits status from buffs: {}",status);
     }
     return status;
   }

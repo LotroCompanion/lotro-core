@@ -63,10 +63,7 @@ public class SpellcraftResolver
       Float value=progression.getValue(spellcraft.intValue());
       spellcraft=(value!=null)?Integer.valueOf(value.intValue()):null;
     }
-    if (LOGGER.isDebugEnabled())
-    {
-      LOGGER.debug("Resolved spellcraft "+spellcraftSpec+" to "+spellcraft);
-    }
+    LOGGER.debug("Resolved spellcraft {} to {}",spellcraftSpec,spellcraft);
     return spellcraft;
   }
 
@@ -103,7 +100,7 @@ public class SpellcraftResolver
     }
     if (LOGGER.isDebugEnabled())
     {
-      LOGGER.debug("Resolved spellcraft property "+propertyName+" to "+ret);
+      LOGGER.debug("Resolved spellcraft property {} to {}",propertyName,ret);
     }
     return ret;
   }

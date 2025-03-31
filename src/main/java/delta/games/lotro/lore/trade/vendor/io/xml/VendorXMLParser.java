@@ -67,7 +67,7 @@ public class VendorXMLParser
     NpcDescription npc=NPCsManager.getInstance().getNPCById(id);
     if (npc==null)
     {
-      LOGGER.warn("NPC not found: ID="+id);
+      LOGGER.warn("NPC not found: ID={}",Integer.valueOf(id));
       return null;
     }
     VendorNpc ret=new VendorNpc(npc);

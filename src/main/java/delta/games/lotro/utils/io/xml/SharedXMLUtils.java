@@ -44,7 +44,7 @@ public class SharedXMLUtils
       Item item=ItemsManager.getInstance().getItem(id);
       if (item==null)
       {
-        LOGGER.warn("Could not find item with ID: "+id);
+        LOGGER.warn("Could not find item with ID: {}",Integer.valueOf(id));
       }
       return item;
     }

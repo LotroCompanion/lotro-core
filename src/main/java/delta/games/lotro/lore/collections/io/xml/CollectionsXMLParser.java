@@ -97,7 +97,7 @@ public class CollectionsXMLParser
       }
       else
       {
-        LOGGER.warn("Collectable not found: "+elementID);
+        LOGGER.warn("Collectable not found: {}",Integer.valueOf(elementID));
       }
     }
     // Rewards

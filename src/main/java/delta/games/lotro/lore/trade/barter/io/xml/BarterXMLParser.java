@@ -86,7 +86,7 @@ public class BarterXMLParser
     NpcDescription npc=NPCsManager.getInstance().getNPCById(id);
     if (npc==null)
     {
-      LOGGER.warn("NPC not found: ID="+id);
+      LOGGER.warn("NPC not found: ID={}",Integer.valueOf(id));
       return null;
     }
     BarterNpc ret=new BarterNpc(npc);

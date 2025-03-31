@@ -63,7 +63,7 @@ public class AnchorsStatusXMLParser
     if (type==null)
     {
       // Unknown type!
-      LOGGER.warn("Unknown type: "+typeCode);
+      LOGGER.warn("Unknown type: {}",Integer.valueOf(typeCode));
       return;
     }
     AnchorStatus newStatus=status.get(type,true);

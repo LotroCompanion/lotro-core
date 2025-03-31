@@ -123,7 +123,7 @@ public class ProgressionsManager
   public boolean writeToFile(File toFile)
   {
     int nbProgressions=_map.size();
-    LOGGER.info("Writing "+nbProgressions+" progressions to: "+toFile);
+    LOGGER.info("Writing {} progressions to: {}",Integer.valueOf(nbProgressions),toFile);
     List<Progression> progressions=new ArrayList<Progression>(_map.values());
     Collections.sort(progressions,new IdentifiableComparator<Progression>());
     return ProgressionsXMLWriter.write(toFile,progressions);

@@ -208,7 +208,7 @@ public class AchievableProxiesResolver
       }
       else
       {
-        LOGGER.warn("Could not find achievable with ID="+id);
+        LOGGER.warn("Could not find achievable with ID={}",Integer.valueOf(id));
       }
     }
   }

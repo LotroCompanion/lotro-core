@@ -19,7 +19,7 @@ import delta.games.lotro.common.IdentifiableComparator;
  */
 public class SkillEffectsUtils
 {
-  private static SkillEffectType[] TYPES={SkillEffectType.SELF_CRITICAL,SkillEffectType.TOGGLE,SkillEffectType.USER_TOGGLE,SkillEffectType.USER};
+  private static final SkillEffectType[] TYPES={SkillEffectType.SELF_CRITICAL,SkillEffectType.TOGGLE,SkillEffectType.USER_TOGGLE,SkillEffectType.USER};
 
   /**
    * Get the effects for a skill.

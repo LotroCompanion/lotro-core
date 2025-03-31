@@ -1,5 +1,7 @@
 package delta.games.lotro.character.status.traits.shared;
 
+import java.util.Arrays;
+
 /**
  * Status of slotted traits.
  * @author DAM
@@ -74,5 +76,11 @@ public class TraitSlotsStatus
       _traitIDs=newTraitIDs;
     }
     _traitIDs[index]=traitID;
+  }
+
+  @Override
+  public String toString()
+  {
+    return Arrays.toString(_traitIDs);
   }
 }

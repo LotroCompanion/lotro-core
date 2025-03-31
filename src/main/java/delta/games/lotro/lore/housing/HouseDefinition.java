@@ -54,7 +54,7 @@ public class HouseDefinition implements Identifiable,Named
    */
   public String getAddress()
   {
-    return _address;
+    return getName();
   }
 
   /**

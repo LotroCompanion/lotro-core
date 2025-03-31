@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  */
 class ItemsSetEffectsTest
 {
-  private static int[] TEST_SET_IDS={
+  private static final int[] TEST_SET_IDS={
       1879150692, // Protector's Reproach (Max Level: 69)
       1879301149, // Eighth Captain's Jewellery of Deeping Coomb&#10;(Max Level: 68)
   };

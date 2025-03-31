@@ -19,7 +19,7 @@ import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
  */
 class ItemEffectsTest
 {
-  private static int[] TEST_ITEM_IDS= {
+  private static final int[] TEST_ITEM_IDS= {
       1879150044, // Lothlórien Protector's Locket
       1879049652, // Lesser Celebrant Salve
       1879049653, // Roast Pork

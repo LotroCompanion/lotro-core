@@ -42,7 +42,7 @@ public class StatModifiersComputer
       float statValue=getStatValue(id.intValue());
       ret+=statValue;
     }
-    LOGGER.debug("\tTotal: {}",Float.valueOf(ret));
+    LOGGER.debug("\tTotal additive modifiers: {}",Float.valueOf(ret));
     return ret;
   }
 
@@ -59,7 +59,7 @@ public class StatModifiersComputer
     }
     LOGGER.debug("Computing additive modifier: {}",modifier);
     float ret=getStatValue(modifier.intValue());
-    LOGGER.debug("\tTotal: {}",Float.valueOf(ret));
+    LOGGER.debug("\tTotal additive modifier: {}",Float.valueOf(ret));
     return ret;
   }
 
@@ -103,7 +103,7 @@ public class StatModifiersComputer
       LOGGER.debug("\tStat {} => {}",stat.getPersistenceKey(),Float.valueOf(statValue));
       ret*=(1+statValue);
     }
-    LOGGER.debug("\tTotal: {}",Float.valueOf(ret));
+    LOGGER.debug("\tTotal multiplicative modifiers: {}",Float.valueOf(ret));
     return ret;
   }
 }

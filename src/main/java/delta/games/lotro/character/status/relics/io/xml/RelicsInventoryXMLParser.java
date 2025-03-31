@@ -56,7 +56,7 @@ public class RelicsInventoryXMLParser
     Relic relic=relicsMgr.getById(relicId);
     if (relic==null)
     {
-      LOGGER.warn("Relic not found: "+relicId);
+      LOGGER.warn("Relic not found: {}",Integer.valueOf(relicId));
       return;
     }
     int relicCount=DOMParsingTools.getIntAttribute(attrs,RelicsInventoryXMLConstants.RELIC_COUNT_ATTR,0);

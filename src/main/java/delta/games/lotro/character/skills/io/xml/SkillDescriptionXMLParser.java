@@ -79,13 +79,16 @@ public class SkillDescriptionXMLParser
       for(Element skillTag : skillTags)
       {
         SkillDescription skill=parseSkillTag(skillTag);
-        Element detailsTag=DOMParsingTools.getChildTagByName(skillTag,SkillDetailsXMLConstants.DETAILS_TAG);
-        if (detailsTag!=null)
+        if (skill!=null)
         {
-          SkillDetails details=SkillDetailsXmlIO.readSkillDetails(detailsTag);
-          skill.setDetails(details);
+          Element detailsTag=DOMParsingTools.getChildTagByName(skillTag,SkillDetailsXMLConstants.DETAILS_TAG);
+          if (detailsTag!=null)
+          {
+            SkillDetails details=SkillDetailsXmlIO.readSkillDetails(detailsTag);
+            skill.setDetails(details);
+          }
+          skills.add(skill);
         }
-        skills.add(skill);
       }
     }
     SkillCombosUtils.resolveCombos(skills);

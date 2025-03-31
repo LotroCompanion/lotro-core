@@ -114,7 +114,7 @@ public class QuestRequirement extends AbstractAchievableRequirement
         }
         catch(Exception e)
         {
-          LOGGER.warn("Unsupported quest status: "+parts[1]);
+          LOGGER.warn("Unsupported quest status: {}",parts[1]);
         }
         if ((questId!=0) && (status!=null))
         {
