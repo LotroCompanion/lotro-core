@@ -1,5 +1,8 @@
 package delta.games.lotro.character.cosmetics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.gear.GearSlots;
 
@@ -10,22 +13,26 @@ import delta.games.lotro.character.gear.GearSlots;
 public class OutfitsConstants
 {
   /**
-   * Slots used for outfits.
+   * Get the slots used for outfits.
+   * @return a list of slots.
    */
-  public static final GearSlot[] OUTFIT_SLOTS={
-      GearSlots.HEAD,
-      GearSlots.SHOULDER,
-      GearSlots.BREAST,
-      GearSlots.BACK,
-      GearSlots.HANDS,
-      GearSlots.LEGS,
-      GearSlots.FEET,
-      GearSlots.MAIN_MELEE,
-      GearSlots.OTHER_MELEE,
-      GearSlots.RANGED,
-      GearSlots.CLASS_ITEM,
-      GearSlots.MAIN_HAND_AURA,
-      GearSlots.OFF_HAND_AURA,
-      GearSlots.RANGED_AURA
-  };
+  public static List<GearSlot> getAll()
+  {
+    List<GearSlot> ret=new ArrayList<GearSlot>();
+    ret.add(GearSlots.HEAD);
+    ret.add(GearSlots.SHOULDER);
+    ret.add(GearSlots.BREAST);
+    ret.add(GearSlots.BACK);
+    ret.add(GearSlots.HANDS);
+    ret.add(GearSlots.LEGS);
+    ret.add(GearSlots.FEET);
+    ret.add(GearSlots.MAIN_MELEE);
+    ret.add(GearSlots.OTHER_MELEE);
+    ret.add(GearSlots.RANGED);
+    ret.add(GearSlots.CLASS_ITEM);
+    ret.add(GearSlots.MAIN_HAND_AURA);
+    ret.add(GearSlots.OFF_HAND_AURA);
+    ret.add(GearSlots.RANGED_AURA);
+    return ret;
+  }
 }

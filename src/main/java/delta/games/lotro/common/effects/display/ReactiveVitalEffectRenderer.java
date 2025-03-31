@@ -16,6 +16,8 @@ import delta.games.lotro.lore.items.DamageType;
  */
 public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRenderer<ReactiveVitalEffect>
 {
+  private static final String CHANCE_TO="% chance to ";
+
   @Override
   public void renderSpecifics(List<String> storage, ReactiveVitalEffect effect)
   {
@@ -63,123 +65,113 @@ public class ReactiveVitalEffectRenderer extends PropertyModificationEffectRende
   {
     VitalEffectsUtils utils=new VitalEffectsUtils(getContext());
     // Defender
+    renderDefender(storage,utils,effect);
+    // Attacker
+    renderAttacker(storage,utils,effect);
+  }
+
+  private void renderDefender(List<String> storage, VitalEffectsUtils utils, ReactiveVitalEffect effect)
+  {
     ReactiveChange defender=effect.getDefenderReactiveChange();
-    if (defender!=null)
+    if (defender==null)
     {
-      ReactiveVitalChange change=defender.getVitalChange();
-      if (change!=null)
+      return;
+    }
+    ReactiveVitalChange change=defender.getVitalChange();
+    if (change!=null)
+    {
+      Float value=utils.getValue(change);
+      float probability=change.getProbability();
+      boolean multiplicative=change.isMultiplicative();
+      int percentage=(int)(probability*100);
+      String negated;
+      if (multiplicative)
       {
-        Float value=utils.getValue(change);
-        float probability=change.getProbability();
-        boolean multiplicative=change.isMultiplicative();
-        int percentage=(int)(probability*100);
-        if (!multiplicative)
-        {
-          int damage=(value!=null)?((int)value.floatValue()):0;
-          if (percentage!=100)
-          {
-            String text=percentage+"% chance to Negate "+damage+" damage";
-            storage.add(text);
-          }
-          else
-          {
-            // Never?
-            String text="Negate "+damage+" damage";
-            storage.add(text);
-          }
-        }
-        else
-        {
-          int percentageDamage=(value!=null)?((int)(value.floatValue()*100)):0;
-          if (percentage!=100)
-          {
-            // Never?
-            String text=percentage+"% chance to Negate "+percentageDamage+"% damage";
-            storage.add(text);
-          }
-          else
-          {
-            // Negate X% damage
-            String text="Negate "+percentageDamage+"% damage";
-            storage.add(text);
-          }
-        }
+        int percentageDamage=(value!=null)?((int)(value.floatValue()*100)):0;
+        negated=percentageDamage+"%";
       }
-      EffectAndProbability defenderEffect=defender.getEffect();
-      if (defenderEffect!=null)
+      else
       {
-        float effectProbability=defenderEffect.getProbability();
-        int effectPercentage=(int)(effectProbability*100);
-        String text=effectPercentage+"% chance to Receive effect:";
+        int damage=(value!=null)?((int)value.floatValue()):0;
+        negated=String.valueOf(damage);
+      }
+      String text="Negate "+negated+" damage";
+      if (percentage!=100)
+      {
+        text=percentage+CHANCE_TO+text;
+      }
+      storage.add(text);
+    }
+    EffectAndProbability defenderEffect=defender.getEffect();
+    if (defenderEffect!=null)
+    {
+      float effectProbability=defenderEffect.getProbability();
+      int effectPercentage=(int)(effectProbability*100);
+      String text=effectPercentage+"% chance to Receive effect:";
+      storage.add(text);
+      EffectRenderingState state=getState();
+      boolean isRootEffectBackup=state.isRootEffect();
+      state.setRootEffect(false);
+      displayEffect(storage,defenderEffect.getEffect());
+      state.setRootEffect(isRootEffectBackup);
+    }
+  }
+
+  private void renderAttacker(List<String> storage, VitalEffectsUtils utils, ReactiveVitalEffect effect)
+  {
+    ReactiveChange attacker=effect.getAttackerReactiveChange();
+    if (attacker==null)
+    {
+      return;
+    }
+    ReactiveVitalChange change=attacker.getVitalChange();
+    if (change!=null)
+    {
+      Float value=utils.getValue(change);
+      float probability=change.getProbability();
+      int percentage=(int)(probability*100);
+      float safeValue=(value!=null)?value.floatValue():0;
+      boolean multiplicative=change.isMultiplicative();
+      if (!multiplicative)
+      {
+        DamageType damageType=effect.getAttackerDamageTypeOverride();
+        String damageTypeStr="";
+        if (damageType!=null)
+        {
+          damageTypeStr=" "+damageType.getLabel();
+        }
+        int damage=Math.round(Math.abs(safeValue));
+        String text="Reflect "+L10n.getString(damage)+damageTypeStr+" damage";
+        if (percentage!=100)
+        {
+          text=percentage+CHANCE_TO+text;
+        }
         storage.add(text);
-        EffectRenderingState state=getState();
-        boolean isRootEffectBackup=state.isRootEffect();
-        state.setRootEffect(false);
-        displayEffect(storage,defenderEffect.getEffect());
-        state.setRootEffect(isRootEffectBackup);
+      }
+      else
+      {
+        // Never multiplicative?
+        int percentageDamage=(int)(safeValue*100);
+        String text="Reflect "+percentageDamage+"% damage";
+        if (percentage!=100)
+        {
+          text=percentage+CHANCE_TO+text;
+        }
+        storage.add(text);
       }
     }
-    // Attacker
-    ReactiveChange attacker=effect.getAttackerReactiveChange();
-    if (attacker!=null)
+    EffectAndProbability attackerEffect=attacker.getEffect();
+    if (attackerEffect!=null)
     {
-      ReactiveVitalChange change=attacker.getVitalChange();
-      if (change!=null)
-      {
-        Float value=utils.getValue(change);
-        float probability=change.getProbability();
-        int percentage=(int)(probability*100);
-        float safeValue=(value!=null)?value.floatValue():0;
-        boolean multiplicative=change.isMultiplicative();
-        if (!multiplicative)
-        {
-          DamageType damageType=effect.getAttackerDamageTypeOverride();
-          String damageTypeStr="";
-          if (damageType!=null)
-          {
-            damageTypeStr=" "+damageType.getLabel();
-          }
-          int damage=Math.round(Math.abs(safeValue));
-          if (percentage!=100)
-          {
-            String text=percentage+"% chance to Reflect "+L10n.getString(damage)+damageTypeStr+" damage";
-            storage.add(text);
-          }
-          else
-          {
-            String text="Reflect "+L10n.getString(damage)+damageTypeStr+" damage";
-            storage.add(text);
-          }
-        }
-        else
-        {
-          // Never multiplicative?
-          int percentageDamage=(int)(safeValue*100);
-          if (percentage!=100)
-          {
-            String text=percentage+"% chance to Reflect "+percentageDamage+"% damage";
-            storage.add(text);
-          }
-          else
-          {
-            String text="Reflect "+percentageDamage+"% damage";
-            storage.add(text);
-          }
-        }
-      }
-      EffectAndProbability attackerEffect=attacker.getEffect();
-      if (attackerEffect!=null)
-      {
-        float effectProbability=attackerEffect.getProbability();
-        int effectPercentage=(int)(effectProbability*100);
-        String text=effectPercentage+"% chance to Reflect effect:";
-        storage.add(text);
-        EffectRenderingState state=getState();
-        boolean isRootEffectBackup=state.isRootEffect();
-        state.setRootEffect(false);
-        displayEffect(storage,attackerEffect.getEffect());
-        state.setRootEffect(isRootEffectBackup);
-      }
+      float effectProbability=attackerEffect.getProbability();
+      int effectPercentage=(int)(effectProbability*100);
+      String text=effectPercentage+"% chance to Reflect effect:";
+      storage.add(text);
+      EffectRenderingState state=getState();
+      boolean isRootEffectBackup=state.isRootEffect();
+      state.setRootEffect(false);
+      displayEffect(storage,attackerEffect.getEffect());
+      state.setRootEffect(isRootEffectBackup);
     }
   }
 }

@@ -14,6 +14,7 @@ import delta.games.lotro.character.stats.StatsSetElement;
  */
 public class StatUtils
 {
+  private static final String PERCENTVALUE="${PERCENTVALUE}";
   /**
    * Special value for "no description".
    */
@@ -238,7 +239,6 @@ public class StatUtils
     StatDescription stat=element.getStat();
     String statName=stat.getName();
     Number value=element.getValue();
-    //Number rawValue=value;
     String prefix="";
     if (element.getOperator()==StatOperator.MULTIPLY)
     {
@@ -262,7 +262,6 @@ public class StatUtils
     {
       absPercentValue=absPercentValue.substring(1);
     }
-    //String rawValueStr=rawValue.toString();
     String descriptionOverride=element.getDescriptionOverride();
     if (descriptionOverride!=null)
     {
@@ -273,14 +272,14 @@ public class StatUtils
         line=line.replace("${VALUE}",valueStr);
         line=line.replace("+${PERCENTVALUE}","+"+absPercentValue);
         line=line.replace("-${PERCENTVALUE}","-"+absPercentValue);
-        int index=line.indexOf("${PERCENTVALUE}");
+        int index=line.indexOf(PERCENTVALUE);
         if (index==0)
         {
-          line=line.replace("${PERCENTVALUE}",valueStr);
+          line=line.replace(PERCENTVALUE,valueStr);
         }
         else if (index>0)
         {
-          line=line.replace("${PERCENTVALUE}",absPercentValue);
+          line=line.replace(PERCENTVALUE,absPercentValue);
         }
         line=line.replace("${PROPERTY}",statName);
       }

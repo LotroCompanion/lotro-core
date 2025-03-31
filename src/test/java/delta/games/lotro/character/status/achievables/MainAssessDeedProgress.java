@@ -72,11 +72,11 @@ public class MainAssessDeedProgress
     {
       if (nbConditions!=nbFactionLevelCondition)
       {
-        LOGGER.warn("Faction Deed: "+deed.getName()+" => "+nbFactionLevelCondition+"/"+nbConditions);
+        LOGGER.warn("Faction Deed: {} => {}/{}",deed.getName(),Integer.valueOf(nbFactionLevelCondition),Integer.valueOf(nbConditions));
       }
       else
       {
-        LOGGER.debug("Faction Deed: "+deed.getName());
+        LOGGER.debug("Faction Deed: {}",deed.getName());
         return true;
       }
     }

@@ -70,7 +70,7 @@ public class OutfitsXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     attrs.addAttribute("","",OutfitsXMLConstants.OUTFIT_INDEX_ATTR,XmlWriter.CDATA,String.valueOf(index));
     hd.startElement("","",OutfitsXMLConstants.OUTFIT_TAG,attrs);
-    for(GearSlot slot : OutfitsConstants.OUTFIT_SLOTS)
+    for(GearSlot slot : OutfitsConstants.getAll())
     {
       boolean visible=outfit.isSlotVisible(slot);
       OutfitElement element=outfit.getSlot(slot);

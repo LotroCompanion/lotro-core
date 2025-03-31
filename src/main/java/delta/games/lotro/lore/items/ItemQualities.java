@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.items;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Well-known item qualities.
  * @author DAM
@@ -28,7 +31,17 @@ public class ItemQualities
   public static final ItemQuality LEGENDARY=ItemQuality.fromCode("LEGENDARY");
 
   /**
-   * All qualities.
+   * Get all qualities.
+   * @return a list of qualities.
    */
-  public static final ItemQuality[] ALL={ COMMON, UNCOMMON, RARE, INCOMPARABLE, LEGENDARY };
+  public static List<ItemQuality> getAll()
+  {
+    List<ItemQuality> ret=new ArrayList<ItemQuality>();
+    ret.add(COMMON);
+    ret.add(UNCOMMON);
+    ret.add(RARE);
+    ret.add(INCOMPARABLE);
+    ret.add(LEGENDARY);
+    return ret;
+  }
 }

@@ -59,7 +59,7 @@ public class LegendaryDataXMLWriter
     attrs.addAttribute("","",LegendaryDataXMLConstants.MAX_MAIN_LEGACY_RANK_ATTR,XmlWriter.CDATA,String.valueOf(maxMainLegacyRank));
     // Quality-based data
     hd.startElement("","",LegendaryDataXMLConstants.LEGENDARY_TAG,attrs);
-    for(ItemQuality quality : ItemQualities.ALL)
+    for(ItemQuality quality : ItemQualities.getAll())
     {
       QualityBasedData qualityData=data.getQualityData(quality,false);
       if (qualityData!=null)

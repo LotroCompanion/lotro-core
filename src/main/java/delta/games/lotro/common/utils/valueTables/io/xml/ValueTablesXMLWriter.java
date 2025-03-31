@@ -70,7 +70,7 @@ public class ValueTablesXMLWriter
     attrs.addAttribute("","",ValueTablesXMLConstants.VALUE_TABLE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     hd.startElement("","",ValueTablesXMLConstants.VALUE_TABLE_TAG,attrs);
     // Quality factors
-    for(ItemQuality quality : ItemQualities.ALL)
+    for(ItemQuality quality : ItemQualities.getAll())
     {
       Float factor=valueTable.getQualityFactor(quality);
       if (factor!=null)

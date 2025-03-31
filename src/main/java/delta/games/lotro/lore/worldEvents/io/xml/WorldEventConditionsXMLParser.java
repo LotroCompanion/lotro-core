@@ -91,7 +91,7 @@ public class WorldEventConditionsXMLParser
       }
       else
       {
-        LOGGER.warn("Could not load condition from tag: "+childTag.getNodeName());
+        LOGGER.warn("Could not load condition from tag: {}",childTag.getNodeName());
       }
     }
     return ret;

@@ -395,7 +395,8 @@ public class TraitTreeStatus
       {
         if (LOGGER.isDebugEnabled())
         {
-          LOGGER.debug("Cell "+cellId+": dependency not met on trait "+trait+": ranks="+ranks+", requires: "+dependency.getRank());
+          LOGGER.debug("Cell {}: dependency not met on trait {}: ranks={}, requires: {}",
+              cellId,trait,Integer.valueOf(ranks),Integer.valueOf(dependency.getRank()));
         }
         return false;
       }

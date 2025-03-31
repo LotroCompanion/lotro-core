@@ -21,7 +21,8 @@ import delta.games.lotro.lore.items.sets.ItemsSetsManager;
 import delta.games.lotro.lore.items.sets.SetBonus;
 
 /**
- * @author dmorcellet
+ * Find modifiers for effects.
+ * @author DAM
  */
 public class MainFindModifiers
 {

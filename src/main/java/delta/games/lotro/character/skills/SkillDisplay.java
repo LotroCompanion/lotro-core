@@ -50,6 +50,10 @@ public class SkillDisplay
 {
   private static final Logger LOGGER=LoggerFactory.getLogger(SkillDisplay.class);
 
+  private static final String REQUIRES="Requires: ";
+  private static final String COST="Cost: ";
+  private static final String ATTUNES="Attunes: ";
+
   private CharacterDataForSkills _character;
   private SkillDescription _skill;
   private SkillDetails _skillDetails;
@@ -615,7 +619,7 @@ public class SkillDisplay
       int moraleCostInt=Math.round(moraleCost.floatValue());
       if (moraleCostInt>0)
       {
-        ret.add("Cost: "+L10n.getString(moraleCostInt)+" Morale");
+        ret.add(COST+L10n.getString(moraleCostInt)+" Morale");
       }
     }
     return ret;
@@ -631,14 +635,14 @@ public class SkillDisplay
       int powerCostInt=Math.round(powerCost.floatValue());
       if (powerCostInt>0)
       {
-        ret.add("Cost: "+L10n.getString(powerCostInt)+" Power");
+        ret.add(COST+L10n.getString(powerCostInt)+" Power");
       }
     }
     // Interval power cost
     Float togglePowerCost=costComputer.getVitalCost(costData.getPowerCostPerSecond());
     if (togglePowerCost!=null)
     {
-      ret.add("Cost: "+L10n.getString(togglePowerCost.floatValue(),0)+" Power Per Second");
+      ret.add(COST+L10n.getString(togglePowerCost.floatValue(),0)+" Power Per Second");
     }
     return ret;
   }
@@ -675,7 +679,7 @@ public class SkillDisplay
       else
       {
         String gambitText=getGambitText(required);
-        ret.add("Requires: "+gambitText);
+        ret.add(REQUIRES+gambitText);
       }
     }
     // Actions
@@ -779,15 +783,15 @@ public class SkillDisplay
     // Change
     if (change<0)
     {
-      ret.add("Attunes: "+(-change)+" ("+left+")");
+      ret.add(ATTUNES+(-change)+" ("+left+")");
     }
     else if (change>0)
     {
-      ret.add("Attunes: "+(change)+" ("+right+")");
+      ret.add(ATTUNES+(change)+" ("+right+")");
     }
     if ((towardHomeInt!=null) && (towardHomeInt.intValue()>0))
     {
-      ret.add("Attunes: "+towardHomeInt+" ("+center+")");
+      ret.add(ATTUNES+towardHomeInt+" ("+center+")");
     }
     // Requirements
     if ((requiredMin!=-1) && (requiredMinOffset==0))
@@ -797,7 +801,7 @@ public class SkillDisplay
     else if ((requiredMin!=-1) && (requiredMinOffset>0) && (requiredMinOffset!=-change))
     {
       // if a minimum positive offset from home is required, but the change from there doesn't make pips return exactly to home (is not a "cost")
-      ret.add("Requires: "+requiredMinOffset+" ("+right+")");
+      ret.add(REQUIRES+requiredMinOffset+" ("+right+")");
     }
     else if ((requiredMax!=-1) && (requiredMaxOffset==0))
     {
@@ -806,7 +810,7 @@ public class SkillDisplay
     else if ((requiredMax!=-1) && (requiredMaxOffset<0) && (requiredMaxOffset!=-change))
     {
       // if a minimum negative offset from home is required, but the change from there doesn't make pips return exactly to home (is not a "cost")
-      ret.add("Requires: "+(-requiredMaxOffset)+" ("+left+")");
+      ret.add(REQUIRES+(-requiredMaxOffset)+" ("+left+")");
     }
     return ret;
   }
@@ -836,7 +840,7 @@ public class SkillDisplay
       if (requiredMinOffset+change==0)
       {
         // "cost" when all pips are consumed from minimum required starting point (back to home)
-        ret.add("Cost: "+(-change)+" "+pipName);
+        ret.add(COST+(-change)+" "+pipName);
       }
       else
       {
@@ -926,7 +930,7 @@ public class SkillDisplay
       boolean persistent=trait.isPersistent();
       if (!persistent)
       {
-        String text="Requires: "+trait.getName()+" Trait Equipped";
+        String text=REQUIRES+trait.getName()+" Trait Equipped";
         storage.add(text);
       }
     }

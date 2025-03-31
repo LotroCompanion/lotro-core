@@ -1,12 +1,10 @@
 package delta.games.lotro.lore.items.comparators;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 import delta.games.lotro.lore.items.ItemQualities;
 import delta.games.lotro.lore.items.ItemQuality;
-
 /**
  * Comparator for item qualities.
  * @author DAM
@@ -20,7 +18,7 @@ public class ItemQualityComparator implements Comparator<ItemQuality>
    */
   public ItemQualityComparator()
   {
-    _orderedQualities=Arrays.asList(ItemQualities.ALL);
+    _orderedQualities=ItemQualities.getAll();
   }
 
   public int compare(ItemQuality quality1, ItemQuality quality2)
