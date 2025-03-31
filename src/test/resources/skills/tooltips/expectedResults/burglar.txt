@@ -6,7 +6,7 @@ Melee Skill
 Skill Type: Melee, Critical Hit Chain
 Range: 4m
 A quick feint attack misdirects your foe, briefly allowing your next attack to act as though you are attacking from stealth.
-6 887 - 9 182 Beleriand (Main-hand) Damage
+7 403 - 9 871 Beleriand (Main-hand) Damage
 Your feint allows you to act as though you've entered Stealth for a short time
 47% Melee Damage
 100% Surprise Strike Critical Chance
@@ -29,7 +29,7 @@ Range: 5,2m
 Foregoing defence, you move your blades quicker than lightning.
 
 Increases your melee damage and returns damage for every attack made against you, but you cannot Parry, Evade, or Block while concentrating on counter-attacks.
-5 707 - 7 610 Beleriand (Main-hand) Damage
+6 136 - 8 181 Beleriand (Main-hand) Damage
 Cannot Parry, Evade or Block
 20% Melee Damage
 On Melee Skill damage:
@@ -50,8 +50,8 @@ After using Double-edged Strike, make a pair of powerful attacks against your en
 
 <rgb=#FFFF00> Dual-wielding required.</rgb>
 2 Attacks:
-5 653 - 7 537 Beleriand (Main-hand) Damage
-3 432 - 4 575 Beleriand (Off-hand) Damage
+6 077 - 8 103 Beleriand (Main-hand) Damage
+3 690 - 4 918 Beleriand (Off-hand) Damage
 Cost: 191 Power
 Cooldown: 5s
 *****************************
@@ -67,8 +67,8 @@ A Critical hit enables the Burglar to strike with both weapons.
 
 <rgb=#FFFF00>Dual-wielding required.</rgb>
 2 Attacks:
-4 680 - 6 241 Beleriand (Main-hand) Damage
-2 523 - 3 363 Beleriand (Off-hand) Damage
+5 031 - 6 709 Beleriand (Main-hand) Damage
+2 712 - 3 615 Beleriand (Off-hand) Damage
 Cost: 127 Power
 Cooldown: 5s
 *****************************
@@ -94,9 +94,9 @@ Skill Type: Melee
 Range: 4m
 A powerful triple attack that deals massive damage and shocks your target, allowing you to temporarily enter Stealth.
 3 Attacks:
-5 736 - 7 647 Beleriand (Main-hand) Damage
-3 010 - 4 012 Beleriand (Off-hand) Damage
-4 290 - 5 719 Beleriand (Main-hand) Damage
+6 166 - 8 221 Beleriand (Main-hand) Damage
+3 235 - 4 313 Beleriand (Off-hand) Damage
+4 612 - 6 148 Beleriand (Main-hand) Damage
 Enter Stealth for a short time
 100% Surprise Strike Critical Chance
 Being attacked will not break you out of Stealth.
@@ -130,16 +130,16 @@ Range: 4m
 Deals damage even after the initial strike.
 
 The bleed deals more damage while Stealthed.
-3 288 - 4 384 Beleriand (Main-hand) Damage
-853 Beleriand Damage every 2,0 seconds for 8 seconds.
+3 535 - 4 713 Beleriand (Main-hand) Damage
+917 Beleriand Damage every 2,0 seconds for 8 seconds.
 -3% Physical Mitigation (%)
 -3% Tactical Mitigation (%)
 Duration: 20s
 Cost: 64 Power
 Apply to target on critical:
-1 461 Beleriand Damage every 2,0 seconds for 8 seconds.
+1 571 Beleriand Damage every 2,0 seconds for 8 seconds.
 Apply to target on devastating critical:
-2 070 Beleriand Damage every 2,0 seconds for 8 seconds.
+2 225 Beleriand Damage every 2,0 seconds for 8 seconds.
 Cooldown: 6s
 *****************************
 Skill-Id: 1879064337
@@ -170,7 +170,7 @@ Range: 15m
 Deals slight damage and grants you the Provacateur buff, greatly reducing damage from the next hit you take and improves your crit chance by 20% on your next attack.
 
 Does more damage if used from in Stealth.
-4 813 - 6 418 Beleriand (Main-hand) Damage
+5 174 - 6 899 Beleriand (Main-hand) Damage
 +20% Skill Crit Chance
 Duration: 10s
 Cost: 32 Power
@@ -185,8 +185,8 @@ Range: 4m
 A Critical hit enables the Burglar to strike, applying a tiering bleed to the target.
 
 Deals extra damage when attacking from behind.
-3 599 - 4 799 Beleriand (Main-hand) Damage
-512 Beleriand Damage every 2,0 seconds for 20 seconds.
+3 869 - 5 159 Beleriand (Main-hand) Damage
+550 Beleriand Damage every 2,0 seconds for 20 seconds.
 Cost: 64 Power
 Cooldown: 5s
 *****************************
@@ -216,7 +216,7 @@ Range: 4m
 Strike the enemy, dealing more damage from behind or when Stealthed.
 
 Critical hits with Surprise Strike are more damaging than most skills.
-5 557 - 7 410 Beleriand (Main-hand) Damage
+5 974 - 7 966 Beleriand (Main-hand) Damage
 Cost: 64 Power
 Cooldown: 10s
 *****************************
@@ -226,7 +226,7 @@ Fast
 Ranged Skill
 Range: 30m
 Throw a knife.
-1 169 - 1 559 Beleriand (Main-hand) Damage
+1 257 - 1 676 Beleriand (Main-hand) Damage
 Cost: 32 Power
 Cooldown: 4s
 *****************************
@@ -284,7 +284,7 @@ Melee Skill
 Skill Type: Melee
 Range: 4m
 A quick, sharp attack against your foe.
-2 861 - 3 815 Beleriand (Main-hand) Damage
+3 076 - 4 101 Beleriand (Main-hand) Damage
 +376 - 396 Power
 Cooldown: 2,5s
 *****************************
@@ -306,7 +306,7 @@ Melee Skill
 Skill Type: Melee
 Range: 4m
 Stun an enemy to enable a Fellowship Manoeuvre for your group.
-3 355 - 4 473 Beleriand (Main-hand) Damage
+3 606 - 4 808 Beleriand (Main-hand) Damage
 5s Stun
 Starts Fellowship Manoeuvre
 Other members of the fellowship temporarily share your bonus to Guile fellowship skills.
@@ -360,7 +360,7 @@ Melee Skill
 Skill Type: Melee, Critical Hit Chain
 Range: 4m
 Burglars can purge the corruptions from their foes.
-1 414 - 1 885 Beleriand (Main-hand) Damage
+1 520 - 2 027 Beleriand (Main-hand) Damage
 Removes up to 1 Corruption effect from the target.
 Cost: 159 Power
 Cooldown: 5s
@@ -372,7 +372,7 @@ Melee Skill
 Skill Type: Melee, Stealth
 Range: 4m
 While Stealthed, stun an enemy to enable a Fellowship Manoeuvre for your group.
-4 670 - 6 226 Beleriand (Main-hand) Damage
+5 020 - 6 693 Beleriand (Main-hand) Damage
 5s Stun
 Starts Fellowship Manoeuvre
 Cost: 254 Power
