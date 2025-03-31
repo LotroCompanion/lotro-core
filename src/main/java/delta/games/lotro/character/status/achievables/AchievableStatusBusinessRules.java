@@ -119,26 +119,32 @@ public class AchievableStatusBusinessRules
       // Additional rules for completed state
       if (newState==AchievableElementState.COMPLETED)
       {
-        // Conditions are completed
-        for(ObjectiveConditionStatus conditionStatus : status.getConditionStatuses())
-        {
-          setConditionState(AchievableElementState.COMPLETED,conditionStatus);
-        }
-        // Next objective (if any) is at least underway
-        AchievableObjectiveStatus nextStatus=status.getParentStatus().getNextStatus(status);
-        if (nextStatus!=null)
-        {
-          if (nextStatus.getState()==AchievableElementState.UNDEFINED)
-          {
-            setObjectiveState(AchievableElementState.UNDERWAY,nextStatus);
-          }
-        }
-        // If all brothers are completed, then the parent objective is completed
-        if (parentStatus.areObjectivesCompleted())
-        {
-          setAchievableState(AchievableElementState.COMPLETED,parentStatus);
-        }
+        handleCompleted(status);
       }
+    }
+  }
+
+  private static void handleCompleted(AchievableObjectiveStatus status)
+  {
+    AchievableStatus parentStatus=status.getParentStatus();
+    // Conditions are completed
+    for(ObjectiveConditionStatus conditionStatus : status.getConditionStatuses())
+    {
+      setConditionState(AchievableElementState.COMPLETED,conditionStatus);
+    }
+    // Next objective (if any) is at least underway
+    AchievableObjectiveStatus nextStatus=status.getParentStatus().getNextStatus(status);
+    if (nextStatus!=null)
+    {
+      if (nextStatus.getState()==AchievableElementState.UNDEFINED)
+      {
+        setObjectiveState(AchievableElementState.UNDERWAY,nextStatus);
+      }
+    }
+    // If all brothers are completed, then the parent objective is completed
+    if (parentStatus.areObjectivesCompleted())
+    {
+      setAchievableState(AchievableElementState.COMPLETED,parentStatus);
     }
   }
 

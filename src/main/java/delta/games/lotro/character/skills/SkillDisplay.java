@@ -169,7 +169,70 @@ public class SkillDisplay
     List<String> table=new ArrayList<String>();
     table.add("Skill-Id: "+_skill.getIdentifier());
     table.add(_skill.getName());
+    addSummaryLines(table);
+    String description=_skill.getDescription();
+    if (!description.isEmpty())
+    {
+      table.add(description.replace("\n",EndOfLine.NATIVE_EOL));
+    }
+    SkillAttacks attacks=_skillDetails.getAttacks();
+    if (attacks!=null)
+    {
+      List<String> attackLines=getAttacksLines();
+      table.addAll(attackLines);
+    }
+    // Attack effects (regular and positional)
+    if (attacks!=null)
+    {
+      doRegularAttackEffects(attacks,table);
+    }
+    // Effects
+    doSkillEffects(table,TYPES);
+    // Cost
+    List<String> costLines=getCostLines();
+    table.addAll(costLines);
+    // Gambit
+    List<String> gambitLines=getGambitLines(_skillDetails.getGambitData());
+    table.addAll(gambitLines);
+    // PIP
+    List<String> pipLines=getPIPLines(_skillDetails.getPIPData());
+    table.addAll(pipLines);
+    // Effects (critical)
+    doSkillEffects(table,TYPES_CRITICAL);
+    // Critical attack effects
+    if (attacks!=null)
+    {
+      doCriticalAttackEffects(attacks,table);
+    }
+    // Misc
+    boolean isToggle=_skillDetails.getFlag(SkillFlags.IS_TOGGLE);
+    boolean channeled=_skillDetails.isChanneled();
+    if (channeled)
+    {
+      table.add("Channelled Skill");
+    }
+    else if (isToggle)
+    {
+      table.add("Toggle Skill");
+    }
+    // Requirements
+    handleRequirements(table);
+    // Cooldown
+    Float cooldown=_skillDetails.getCooldown();
+    if (cooldown!=null)
+    {
+      float cooldownF=cooldown.floatValue();
+      cooldownF+=_statModsComputer.computeAdditiveModifiers(_skillDetails.getCooldownMods());
+      if (cooldownF>0f)
+      {
+        table.add("Cooldown: "+Duration.getShortDurationString(cooldownF));
+      }
+    }
+    return table;
+  }
 
+  private void addSummaryLines(List<String> table)
+  {
     if (_skillDetails.getFlag(SkillFlags.FAST))
     {
       table.add("Fast");
@@ -233,6 +296,21 @@ public class SkillDisplay
       table.add("Resistance: "+resistCategory.getLabel());
     }
     // Skill types
+    String displayTypes=getSkillTypes();
+    if (!displayTypes.isEmpty())
+    {
+      table.add("Skill Type: "+displayTypes);
+    }
+    // Range
+    String range=getRangeDisplay();
+    if (!range.isEmpty())
+    {
+      table.add("Range: "+range+"m");
+    }
+  }
+
+  private String getSkillTypes()
+  {
     List<SkillDisplayType> displayTypes=_skillDetails.getDisplayTypes();
     if ((displayTypes!=null) && (!displayTypes.isEmpty()))
     {
@@ -245,73 +323,9 @@ public class SkillDisplay
         }
         types.append(displayType.getLabel());
       }
-      table.add("Skill Type: "+types.toString());
+      return types.toString();
     }
-    // Range
-    // TODO Display range on right of the first line
-    String range=getRangeDisplay();
-    if (!range.isEmpty())
-    {
-      table.add("Range: "+range+"m");
-    }
-    String description=_skill.getDescription();
-    if (!description.isEmpty())
-    {
-      table.add(description.replace("\n",EndOfLine.NATIVE_EOL));
-    }
-    SkillAttacks attacks=_skillDetails.getAttacks();
-    if (attacks!=null)
-    {
-      List<String> attackLines=getAttacksLines();
-      table.addAll(attackLines);
-    }
-    // Attack effects (regular and positional)
-    if (attacks!=null)
-    {
-      doRegularAttackEffects(attacks,table);
-    }
-    // Effects
-    doSkillEffects(table,TYPES);
-    // Cost
-    List<String> costLines=getCostLines();
-    table.addAll(costLines);
-    // Gambit
-    List<String> gambitLines=getGambitLines(_skillDetails.getGambitData());
-    table.addAll(gambitLines);
-    // PIP
-    List<String> pipLines=getPIPLines(_skillDetails.getPIPData());
-    table.addAll(pipLines);
-    // Effects (critical)
-    doSkillEffects(table,TYPES_CRITICAL);
-    // Critical attack effects
-    if (attacks!=null)
-    {
-      doCriticalAttackEffects(attacks,table);
-    }
-    // Misc
-    boolean isToggle=_skillDetails.getFlag(SkillFlags.IS_TOGGLE);
-    if (channeled)
-    {
-      table.add("Channelled Skill");
-    }
-    else if (isToggle)
-    {
-      table.add("Toggle Skill");
-    }
-    // Requirements
-    handleRequirements(table);
-    // Cooldown
-    Float cooldown=_skillDetails.getCooldown();
-    if (cooldown!=null)
-    {
-      float cooldownF=cooldown.floatValue();
-      cooldownF+=_statModsComputer.computeAdditiveModifiers(_skillDetails.getCooldownMods());
-      if (cooldownF>0f)
-      {
-        table.add("Cooldown: "+Duration.getShortDurationString(cooldownF));
-      }
-    }
-    return table;
+    return "";
   }
 
   private String getAttackImplementText(ImplementUsageType implementUsageType)

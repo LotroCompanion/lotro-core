@@ -152,49 +152,55 @@ public class CharacterXMLParser
       List<Element> slotTags=DOMParsingTools.getChildTagsByName(equipmentTag,CharacterXMLConstants.SLOT_TAG);
       for(Element slotTag : slotTags)
       {
-        NamedNodeMap attrs=slotTag.getAttributes();
-        // Slot name
-        String name=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_NAME_ATTR,"");
-        GearSlot slot=GearSlot.getByKey(name);
-        if (slot!=null)
-        {
-          GearSlotContents slotContents=equipment.getSlotContents(slot,true);
-          // Item ID
-          Integer itemId=null;
-          String objectURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_OBJECT_URL_ATTR,"");
-          if (!objectURL.isEmpty())
-          {
-            itemId=idFromURL(objectURL);
-          }
-          int itemIdInt=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.SLOT_ITEM_ID_ATTR,-1);
-          if (itemIdInt!=-1)
-          {
-            itemId=Integer.valueOf(itemIdInt);
-          }
-          if (itemId!=null)
-          {
-            ItemsManager itemsManager=ItemsManager.getInstance();
-            Item itemRef=itemsManager.getItem(itemId.intValue());
-            if (itemRef!=null)
-            {
-              ItemInstance<? extends Item> itemInstance=ItemFactory.buildInstance(itemRef);
-              slotContents.setItem(itemInstance);
-            }
-          }
-          // Embedded item
-          ItemInstanceXMLParser itemParser=new ItemInstanceXMLParser();
-          Element itemTag=DOMParsingTools.getChildTagByName(slotTag,ItemXMLConstants.ITEM_TAG);
-          if (itemTag!=null)
-          {
-            ItemInstance<? extends Item> item=itemParser.parseItemInstance(itemTag);
-            if (item!=null)
-            {
-              slotContents.setItem(item);
-            }
-          }
-        }
+        handleSlotTag(equipment,slotTag);
       }
       equipment.setWearer(c.getSummary());
+    }
+  }
+
+  private void handleSlotTag(CharacterGear equipment, Element slotTag)
+  {
+    NamedNodeMap attrs=slotTag.getAttributes();
+    // Slot name
+    String name=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_NAME_ATTR,"");
+    GearSlot slot=GearSlot.getByKey(name);
+    if (slot==null)
+    {
+      return;
+    }
+    GearSlotContents slotContents=equipment.getSlotContents(slot,true);
+    // Item ID
+    Integer itemId=null;
+    String objectURL=DOMParsingTools.getStringAttribute(attrs,CharacterXMLConstants.SLOT_OBJECT_URL_ATTR,"");
+    if (!objectURL.isEmpty())
+    {
+      itemId=idFromURL(objectURL);
+    }
+    int itemIdInt=DOMParsingTools.getIntAttribute(attrs,CharacterXMLConstants.SLOT_ITEM_ID_ATTR,-1);
+    if (itemIdInt!=-1)
+    {
+      itemId=Integer.valueOf(itemIdInt);
+    }
+    if (itemId!=null)
+    {
+      ItemsManager itemsManager=ItemsManager.getInstance();
+      Item itemRef=itemsManager.getItem(itemId.intValue());
+      if (itemRef!=null)
+      {
+        ItemInstance<? extends Item> itemInstance=ItemFactory.buildInstance(itemRef);
+        slotContents.setItem(itemInstance);
+      }
+    }
+    // Embedded item
+    Element itemTag=DOMParsingTools.getChildTagByName(slotTag,ItemXMLConstants.ITEM_TAG);
+    if (itemTag!=null)
+    {
+      ItemInstanceXMLParser itemParser=new ItemInstanceXMLParser();
+      ItemInstance<? extends Item> item=itemParser.parseItemInstance(itemTag);
+      if (item!=null)
+      {
+        slotContents.setItem(item);
+      }
     }
   }
 
