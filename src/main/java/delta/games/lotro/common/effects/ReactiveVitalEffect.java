@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.enums.DamageQualifier;
+import delta.games.lotro.common.enums.VitalType;
 import delta.games.lotro.lore.items.DamageType;
 
 /**
@@ -26,7 +27,7 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
   // Indicates if the effect is removed once it is triggered
   private boolean _removeOnProc;
   // Vital types? Always health/morale?
-  //private List<StatDescription> _vitalTypes;
+  private List<VitalType> _vitalTypes;
 
   /**
    * Constructor.
@@ -40,6 +41,7 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
     _attacker=null;
     _defender=null;
     _removeOnProc=false;
+    _vitalTypes=new ArrayList<VitalType>();
   }
 
   /**
@@ -148,5 +150,23 @@ public class ReactiveVitalEffect extends PropertyModificationEffect
   public boolean isRemoveOnProc()
   {
     return _removeOnProc;
+  }
+
+  /**
+   * Add a vital type.
+   * @param vitalType Vital type.
+   */
+  public void addVitalType(VitalType vitalType)
+  {
+    _vitalTypes.add(vitalType);
+  }
+
+  /**
+   * Get the vital types.
+   * @return a list of vital types.
+   */
+  public List<VitalType> getVitalTypes()
+  {
+    return _vitalTypes;
   }
 }

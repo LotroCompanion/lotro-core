@@ -520,6 +520,13 @@ public class EffectXMLWriter
     {
       attrs.addAttribute("","",EffectXMLConstants.REACTIVE_VITAL_REMOVE_ON_PROC_ATTR,XmlWriter.CDATA,String.valueOf(removeOnProc));
     }
+    // Vital types
+    List<VitalType> vitalTypes=reactiveVitalEffect.getVitalTypes();
+    if (!vitalTypes.isEmpty())
+    {
+      String vitalTypesStr=serializeEnumList(vitalTypes);
+      attrs.addAttribute("","",EffectXMLConstants.REACTIVE_VITAL_VITAL_TYPES_ATTR,XmlWriter.CDATA,vitalTypesStr);
+    }
   }
 
   private void writePropertyModificationEffectAttributes(AttributesImpl attrs, PropertyModificationEffect propertyModificationEffect) // NOSONAR

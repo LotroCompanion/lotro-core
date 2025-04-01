@@ -293,6 +293,10 @@ public class EffectXMLConstants
    */
   public static final String REACTIVE_VITAL_REMOVE_ON_PROC_ATTR="removeOnProc";
   /**
+   * Tag 'reactiveVitalEffect', attribute 'vitalTypes'.
+   */
+  public static final String REACTIVE_VITAL_VITAL_TYPES_ATTR="vitalTypes";
+  /**
    * Tag 'attacker'.
    */
   public static final String ATTACKER_TAG="attacker";

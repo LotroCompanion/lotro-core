@@ -544,6 +544,16 @@ public class EffectXMLParser
     // Remove on proc
     boolean removeOnProc=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.REACTIVE_VITAL_REMOVE_ON_PROC_ATTR,false);
     ret.setRemoveOnProc(removeOnProc);
+    // Vital types
+    String vitalTypesStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.REACTIVE_VITAL_VITAL_TYPES_ATTR,null);
+    List<VitalType> vitalTypes=EnumXMLUtils.readEnumEntriesList(vitalTypesStr,VitalType.class);
+    if (!vitalTypes.isEmpty())
+    {
+      for(VitalType vitalType : vitalTypes)
+      {
+        ret.addVitalType(vitalType);
+      }
+    }
     return ret;
   }
 
