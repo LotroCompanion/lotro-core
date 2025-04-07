@@ -286,6 +286,12 @@ public class WorldEventConditionsRenderer
     if ("WE_Bingo_Boffin_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"Ballad of Bingo Boffin: active");
     if ("we_rohanpreorder_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Riders of Rohan legendary expansion: owned");
     if ("WE_Treasure_Bugan_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"Treasure Bugans event: active");
+    if ("we_crafting_thorinshall_pc_event_boolean".equals(weProperty)) return handleBooleanCondition(operator,value,"Hard Tack of Thorin's Hall Craft Event: active");
+
+    // See also:
+    // we_crafting_thorinshall_pc_event_recruiting
+    // we_crafting_thorinshall_pc_event_tracker
+
     // PVP
     if ("World_MPControl_Ettenmoors_WestTower".equals(weProperty)) return handleBooleanCondition(operator,value,"Ettenmoors: creeps control Lugazag","Ettenmoors: freeps control Lugazag");
     if ("World_MPControl_Ettenmoors_EastTower".equals(weProperty)) return handleBooleanCondition(operator,value,"Ettenmoors: creeps control Tirith Rhaw","Ettenmoors: freeps control Tirith Rhaw");
@@ -304,33 +310,30 @@ public class WorldEventConditionsRenderer
     if ("WE_Annuminas_Camp1_Control".equals(weProperty)) return handleBooleanCondition(operator,value,"Annuminas: freeps control Gwaelband");
     if ("WE_Annuminas_Camp2_Control".equals(weProperty)) return handleBooleanCondition(operator,value,"Annuminas: freeps control Clorhir");
     if ("WE_Annuminas_Camp3_Control".equals(weProperty)) return handleBooleanCondition(operator,value,"Annuminas: freeps control Tirband","Annuminas: Angmar holds Tirband");
+
+    // Ignored
+    // 21 WE_Minas_Tirith_Active
+    // 21 WE_Minas_Tirith_Current_Week
+    // 8 WE_Elderslade_Missions_Active
+
+    // TODO 42 Unmanaged property: ze_skirmish_player_groupsizechoice => requirement on the size of the group
     return null;
 
     /*
-    // WE_Minas_Tirith_Active Should be FALSE until we are ready to begin the Ballad of Bingo Boffin event. EQUAL 1
-    // WE_Minas_Tirith_Current_Week : Controls the current week of the Minas Tirith After Battle quest chain. 1-7
-    // we_rohan_west_endgame_bestowal
-    // WE_Gondor_West_Endgame_Unlock_1
-    // WE_Gondor_West_Endgame_Unlock_2
-    // WE_Elderslade_Missions_Active
      Ignore: Unmanaged property: ze_skirmish_controlpoint_*
-     42 Unmanaged property: ze_skirmish_player_groupsizechoice
      21 Unmanaged property: we_monsterplay_invasion_forochel
      21 Unmanaged property: we_monsterplay_invasion_eregion
      21 Unmanaged property: we_monsterplay_invasion_angmar
-     21 Unmanaged property: WE_Minas_Tirith_Current_Week
-     21 Unmanaged property: WE_Minas_Tirith_Active
      16 Unmanaged property: we_liveops_strangehappenings_phase
      13 Unmanaged property: we_anniversary_promotion_vendors
      11 Unmanaged property: WE_dwarfholds_endgame_optional_objective
      10 Unmanaged property: ze_skirmish_optional_1_complete
      10 Unmanaged property: we_rohan_west_endgame_bestowal
       9 Unmanaged property: World_MPControl_Ettenmoors_Mine
-      9 Unmanaged property: WE_Gondor_West_Endgame_Unlock_2
-      9 Unmanaged property: WE_Gondor_West_Endgame_Unlock_1
       8 Unmanaged property: ze_skirmish_optional_1
       8 Unmanaged property: we_int_daily_quest_normal_moria
-      8 Unmanaged property: WE_Elderslade_Missions_Active
+      1 Unmanaged property: WE_Gondor_West_Endgame_Unlock_2
+      1 Unmanaged property: WE_Gondor_West_Endgame_Unlock_1
      */
   }
 
