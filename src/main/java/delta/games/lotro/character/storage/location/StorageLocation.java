@@ -120,6 +120,10 @@ public class StorageLocation
     else if (_type==LocationType.CARRY_ALL)
     {
       ret="Carry-all";
+      if (!_chestName.isEmpty())
+      {
+        ret=ret+" ("+_chestName+")";
+      }
     }
     if (prefix!=null)
     {

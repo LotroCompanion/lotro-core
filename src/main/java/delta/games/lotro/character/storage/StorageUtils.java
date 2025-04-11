@@ -243,7 +243,7 @@ public class StorageUtils
 
   private static List<StoredItem> getItemsInCarryAll(Owner owner, CarryAllInstance carryAll)
   {
-    StorageLocation location=new StorageLocation(owner,LocationType.CARRY_ALL,null);
+    StorageLocation location=new StorageLocation(owner,LocationType.CARRY_ALL,carryAll.getName());
     List<StoredItem> items=new ArrayList<StoredItem>();
     List<CountedItem<Item>> carryAllItems=carryAll.getItems();
     for(CountedItem<Item> item : carryAllItems)
