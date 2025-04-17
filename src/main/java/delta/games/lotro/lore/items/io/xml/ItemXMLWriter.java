@@ -180,12 +180,6 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_KEY_ATTR,XmlWriter.CDATA,String.valueOf(id));
     }
-    // Set identifier
-    String setIdentifier=item.getSetKey();
-    if (setIdentifier!=null)
-    {
-      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SET_ID_ATTR,XmlWriter.CDATA,setIdentifier);
-    }
     // Name
     String name=item.getName();
     if (name!=null)

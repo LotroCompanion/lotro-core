@@ -37,8 +37,6 @@ public class Item implements Interactable,ItemProvider
   private int _identifier;
   // Icon name: iconID-backgroundIconID
   private String _icon;
-  // Items set identifier (may be null)
-  private String _setKey;
   // Associated set (may be null)
   private ItemsSet _set;
   // Slot
@@ -98,7 +96,6 @@ public class Item implements Interactable,ItemProvider
     super();
     _identifier=0;
     _icon=null;
-    _setKey=null;
     _equipmentLocation=EquipmentLocations.NONE;
     _name="";
     _itemClass=null;
@@ -198,24 +195,6 @@ public class Item implements Interactable,ItemProvider
       ret=NumericTools.parseInt(iconStr,0);
     }
     return ret;
-  }
-
-  /**
-   * Set the key of the set this item belongs to.
-   * @param setKey the set key to set (<code>null</code> if item belongs to no set).
-   */
-  public void setSetKey(String setKey)
-  {
-    _setKey=setKey;
-  }
-
-  /**
-   * Get the identifier of the set this item belongs to.
-   * @return a items set identifier or <code>null</code>.
-   */
-  public String getSetKey()
-  {
-    return _setKey;
   }
 
   /**

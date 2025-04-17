@@ -24,11 +24,7 @@ public class ItemXMLConstants
    */
   public static final String ITEM_ICON_ATTR="icon";
   /**
-   * Tag 'item', attribute 'setId'.
-   */
-  public static final String ITEM_SET_ID_ATTR="setId";
-  /**
-   * Tag 'item', attribute 'name'.
+  * Tag 'item', attribute 'name'.
    */
   public static final String ITEM_NAME_ATTR="name";
   /**
