@@ -64,6 +64,23 @@ public class BirdsManager
   }
 
   /**
+   * Get a bird using its type code.
+   * @param typeCode Type code.
+   * @return A bird or <code>null</code> if not found.
+   */
+  public BirdDescription getByTypeCode(int typeCode)
+  {
+    for(BirdDescription bird : _cache.values())
+    {
+      if (bird.getTypeCode()==typeCode)
+      {
+        return bird;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get a list of all birds, sorted by identifier.
    * @return A list of birds.
    */

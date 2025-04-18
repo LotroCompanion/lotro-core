@@ -31,7 +31,7 @@ public class BirdsStatusManager
   /**
    * Get the status of a bird.
    * @param birdID Bird identifier.
-   * @return <code>true</code> if i is known, <code>false</code> otherwise.
+   * @return <code>true</code> if it is known, <code>false</code> otherwise.
    */
   public boolean isKnown(int birdID)
   {
@@ -41,7 +41,7 @@ public class BirdsStatusManager
 
   /**
    * Get all managed statuses.
-   * @return A list of statuses, ordered by skill ID.
+   * @return A list of statuses, ordered by bird type code.
    */
   public Set<Integer> getKnownBirds()
   {
