@@ -44,6 +44,10 @@ public class ItemXMLConstants
    */
   public static final String ITEM_SLOT_ATTR="slot";
   /**
+   * Tag 'item', attribute 'precludedSlots'.
+   */
+  public static final String ITEM_PRECLUDED_SLOTS_ATTR="precludedSlots";
+  /**
    * Tag 'item', attribute 'category'.
    */
   public static final String ITEM_CATEGORY_ATTR="category";

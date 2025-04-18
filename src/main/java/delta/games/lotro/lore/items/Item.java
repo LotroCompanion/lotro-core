@@ -39,8 +39,9 @@ public class Item implements Interactable,ItemProvider
   private String _icon;
   // Associated set (may be null)
   private ItemsSet _set;
-  // Slot
+  // Slots
   private EquipmentLocation _equipmentLocation;
+  private EquipmentLocation _precludedSlots;
   // Item name. Ex: "Jacket of the Impossible Shot"
   private String _name;
   // Plural name
@@ -234,6 +235,24 @@ public class Item implements Interactable,ItemProvider
     {
       _equipmentLocation=equipmentLocation;
     }
+  }
+
+  /**
+   * Get the precluded slots.
+   * @return an equipment location (or <code>null</code>).
+   */
+  public EquipmentLocation getPrecludedSlots()
+  {
+    return _precludedSlots; 
+  }
+
+  /**
+   * Set the precluded slots.
+   * @param precludedSlots Slots to set.
+   */
+  public void setPrecludedSlots(EquipmentLocation precludedSlots)
+  {
+    _precludedSlots=precludedSlots;
   }
 
   /**

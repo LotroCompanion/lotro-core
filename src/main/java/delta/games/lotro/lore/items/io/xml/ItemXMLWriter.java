@@ -218,6 +218,12 @@ public class ItemXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_SLOT_ATTR,XmlWriter.CDATA,String.valueOf(slot.getKey()));
     }
+    // Precluded lots
+    EquipmentLocation precludedSlots=item.getPrecludedSlots();
+    if (precludedSlots!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_PRECLUDED_SLOTS_ATTR,XmlWriter.CDATA,String.valueOf(precludedSlots.getKey()));
+    }
     // Category
     if (category!=null)
     {

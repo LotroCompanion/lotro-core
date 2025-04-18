@@ -252,6 +252,13 @@ public final class ItemSaxParser extends DefaultHandler
       EquipmentLocation slot=EquipmentLocation.getByKey(slotStr);
       _currentItem.setEquipmentLocation(slot);
     }
+    // Precluded slots
+    String precludedSlotsStr=attributes.getValue(ItemXMLConstants.ITEM_PRECLUDED_SLOTS_ATTR);
+    if (precludedSlotsStr!=null)
+    {
+      EquipmentLocation slot=EquipmentLocation.getByKey(slotStr);
+      _currentItem.setPrecludedSlots(slot);
+    }
     // Item class
     String itemClassCodeStr=attributes.getValue(ItemXMLConstants.ITEM_CLASS_ATTR);
     if (itemClassCodeStr!=null)
