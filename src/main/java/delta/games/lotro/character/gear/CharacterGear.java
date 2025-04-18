@@ -1,7 +1,9 @@
 package delta.games.lotro.character.gear;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.character.BasicCharacterAttributes;
@@ -98,6 +100,30 @@ public class CharacterGear
         item.setWearer(wearer);
       }
     }
+  }
+
+  /**
+   * Get the equipped slots.
+   * @return A set of slots.
+   */
+  public Set<GearSlot> getEquippedSlots()
+  {
+    Set<GearSlot> ret=new HashSet<GearSlot>();
+    for(GearSlot slot : GearSlot.getAll())
+    {
+      GearSlotContents slotContents=getSlotContents(slot,false);
+      if (slotContents==null)
+      {
+        continue;
+      }
+      ItemInstance<?> itemInstance=slotContents.getItem();
+      if (itemInstance==null)
+      {
+        continue;
+      }
+      ret.add(slot);
+    }
+    return ret;
   }
 
   @Override
