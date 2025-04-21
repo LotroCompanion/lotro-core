@@ -1,22 +1,28 @@
 package delta.games.lotro.character.status.collections.birds;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import delta.games.lotro.lore.collections.birds.BirdDescription;
+import delta.games.lotro.lore.collections.birds.BirdsManager;
 
 /**
- * Storage for known-birds status data for a single character.
+ * Storage for known birds status data for a single character.
  * @author DAM
  */
 public class BirdsStatusManager
 {
-  private Set<Integer> _knownBirds;
+  private Map<Integer,BirdStatus> _status;
 
   /**
    * Constructor.
    */
   public BirdsStatusManager()
   {
-    _knownBirds=new HashSet<Integer>();
+    _status=new HashMap<Integer,BirdStatus>();
   }
 
   /**
@@ -25,7 +31,31 @@ public class BirdsStatusManager
    */
   public void setKnown(int birdID)
   {
-    _knownBirds.add(Integer.valueOf(birdID));
+    BirdDescription bird=BirdsManager.getInstance().getBird(birdID);
+    if (bird!=null)
+    {
+      BirdStatus status=get(bird,true);
+      status.setKnown(true);
+    }
+  }
+
+  /**
+   * Get the status of a bird.
+   * @param bird Targeted bird.
+   * @param createIfNecessary Indicates if the status shall be created if it
+   * does not exist.
+   * @return A bird status or <code>null</code>.
+   */
+  public BirdStatus get(BirdDescription bird, boolean createIfNecessary)
+  {
+    Integer key=Integer.valueOf(bird.getIdentifier());
+    BirdStatus ret=_status.get(key);
+    if ((ret==null) && (createIfNecessary))
+    {
+      ret=new BirdStatus(bird);
+      _status.put(key,ret);
+    }
+    return ret;
   }
 
   /**
@@ -36,15 +66,23 @@ public class BirdsStatusManager
   public boolean isKnown(int birdID)
   {
     Integer key=Integer.valueOf(birdID);
-    return _knownBirds.contains(key);
+    BirdStatus status=_status.get(key);
+    return ((status!=null) && (status.isKnown()));
   }
 
   /**
    * Get all managed statuses.
-   * @return A list of statuses, ordered by bird type code.
+   * @return A list of statuses, ordered by bird ID.
    */
-  public Set<Integer> getKnownBirds()
+  public List<BirdStatus> getAll()
   {
-    return new HashSet<Integer>(_knownBirds);
+    List<Integer> ids=new ArrayList<Integer>(_status.keySet());
+    Collections.sort(ids);
+    List<BirdStatus> ret=new ArrayList<BirdStatus>();
+    for(Integer id : ids)
+    {
+      ret.add(_status.get(id));
+    }
+    return ret;
   }
 }

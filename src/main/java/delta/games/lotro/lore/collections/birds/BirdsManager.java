@@ -64,6 +64,16 @@ public class BirdsManager
   }
 
   /**
+   * Get a bird using its identifier.
+   * @param birdID Bird identifier.
+   * @return A bird or <code>null</code> if not found.
+   */
+  public BirdDescription getBird(int birdID)
+  {
+    return _cache.get(Integer.valueOf(birdID));
+  }
+
+  /**
    * Get a bird using its type code.
    * @param typeCode Type code.
    * @return A bird or <code>null</code> if not found.
@@ -86,9 +96,9 @@ public class BirdsManager
    */
   public List<BirdDescription> getAll()
   {
-    ArrayList<BirdDescription> collections=new ArrayList<BirdDescription>();
-    collections.addAll(_cache.values());
-    Collections.sort(collections,new IdentifiableComparator<BirdDescription>());
-    return collections;
+    ArrayList<BirdDescription> ret=new ArrayList<BirdDescription>();
+    ret.addAll(_cache.values());
+    Collections.sort(ret,new IdentifiableComparator<BirdDescription>());
+    return ret;
   }
 }
