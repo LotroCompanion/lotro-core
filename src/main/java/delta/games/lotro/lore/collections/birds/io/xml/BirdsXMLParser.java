@@ -9,10 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.lore.collections.birds.BirdDescription;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 /**
  * Parser for the birds stored in XML.
  * @author DAM
@@ -20,6 +23,16 @@ import delta.games.lotro.lore.items.ItemsManager;
 public class BirdsXMLParser
 {
   private static final Logger LOGGER=LoggerFactory.getLogger(BirdsXMLParser.class);
+
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public BirdsXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("birds");
+  }
 
   /**
    * Parse the birds from an XML file.
@@ -70,6 +83,7 @@ public class BirdsXMLParser
     ret.setTypeCode(typeCode);
     // Elvish name
     String elvishName=DOMParsingTools.getStringAttribute(attrs,BirdsXMLConstants.ELVISH_NAME_ATTR,"");
+    elvishName=I18nRuntimeUtils.getLabel(_i18n,elvishName);
     ret.setElvishName(elvishName);
     // Icon ID
     int iconID=DOMParsingTools.getIntAttribute(attrs,BirdsXMLConstants.ICON_ID_ATTR,0);
