@@ -128,6 +128,23 @@ public class TraitsManager
   }
 
   /**
+   * Get a trait using its tier/rank property.
+   * @param tierPropertyName Property name.
+   * @return A trait or <code>null</code> if not found.
+   */
+  public TraitDescription getTraitForTierProperty(String tierPropertyName)
+  {
+    for(TraitDescription trait : _cache.values())
+    {
+      if (tierPropertyName.equals(trait.getTierPropertyName()))
+      {
+        return trait;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Get a trait using its key.
    * @param key Trait key.
    * @return A trait description or <code>null</code> if not found.
