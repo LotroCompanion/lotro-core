@@ -45,8 +45,9 @@ public class BaseStatsManager
   {
     List<StatsContribution> ret=new ArrayList<StatsContribution>();
     BasicStatsSet baseStats=_startStatsManager.getStats(characterClass,level);
-    baseStats.addStats(_toAdd);
-    ret.add(StatsContribution.getBodyContrib(baseStats));
+    BasicStatsSet bodyStats=new BasicStatsSet(baseStats);
+    bodyStats.addStats(_toAdd);
+    ret.add(StatsContribution.getBodyContrib(bodyStats));
     List<StatsContribution> raceContribs=getRaceTraitsContrib(race,level);
     ret.addAll(raceContribs);
     List<StatsContribution> classContribs=getClassTraitsContrib(characterClass,level);
