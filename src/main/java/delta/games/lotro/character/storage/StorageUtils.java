@@ -218,6 +218,7 @@ public class StorageUtils
   private static List<StoredItem> getItemsInCarryAlls(CarryAllsManager mgr, List<StoredItem> items)
   {
     List<StoredItem> ret=new ArrayList<StoredItem>();
+    CarryAllNaming naming=new CarryAllNaming();
     for(StoredItem storedItem : items)
     {
       CountedItem<ItemProvider> countedItem=storedItem.getItem();
@@ -231,8 +232,9 @@ public class StorageUtils
           CarryAllInstance carryAll=mgr.getCarryAll(itemInstance.getInstanceId());
           if (carryAll!=null)
           {
+            String label=naming.getCarryAllName(carryAll);
             Owner owner=storedItem.getOwner();
-            List<StoredItem> carryAllItems=getItemsInCarryAll(owner,carryAll);
+            List<StoredItem> carryAllItems=getItemsInCarryAll(owner,carryAll,label);
             ret.addAll(carryAllItems);
           }
         }
@@ -241,9 +243,9 @@ public class StorageUtils
     return ret;
   }
 
-  private static List<StoredItem> getItemsInCarryAll(Owner owner, CarryAllInstance carryAll)
+  private static List<StoredItem> getItemsInCarryAll(Owner owner, CarryAllInstance carryAll, String label)
   {
-    StorageLocation location=new StorageLocation(owner,LocationType.CARRY_ALL,carryAll.getName());
+    StorageLocation location=new StorageLocation(owner,LocationType.CARRY_ALL,label);
     List<StoredItem> items=new ArrayList<StoredItem>();
     List<CountedItem<Item>> carryAllItems=carryAll.getItems();
     for(CountedItem<Item> item : carryAllItems)
