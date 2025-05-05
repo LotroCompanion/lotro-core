@@ -9,6 +9,11 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
+import delta.games.lotro.character.classes.initialGear.InitialGearDefinition;
+import delta.games.lotro.character.classes.initialGear.InitialGearElement;
+import delta.games.lotro.character.classes.initialGear.InitialGearManager;
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RewardElement;
@@ -97,6 +102,7 @@ public class ItemReferencesBuilder
     findInMeldingRecipes(itemId);
     findSameCosmetics(itemId);
     findInWebStoreItems(itemId);
+    findInInitialGear(itemId);
     List<Reference<?,ItemRole>> ret=new ArrayList<Reference<?,ItemRole>>(_storage);
     _storage.clear();
     return ret;
@@ -485,6 +491,25 @@ public class ItemReferencesBuilder
       if (webStoreItemId==itemId)
       {
         _storage.add(new Reference<WebStoreItem,ItemRole>(webStoreItem,ItemRole.WEB_STORE_ITEM));
+      }
+    }
+  }
+
+  private void findInInitialGear(int itemId)
+  {
+    InitialGearManager mgr=InitialGearManager.getInstance();
+    ClassesManager classesMgr=ClassesManager.getInstance();
+    for(ClassDescription c : classesMgr.getAllCharacterClasses())
+    {
+      InitialGearDefinition initialGear=mgr.getByKey(c.getKey());
+      for(InitialGearElement element : initialGear.getElements())
+      {
+        Item gearItem=element.getItem();
+        int gearItemId=gearItem.getIdentifier();
+        if (gearItemId==itemId)
+        {
+          _storage.add(new Reference<ClassDescription,ItemRole>(c,ItemRole.INITIAL_GEAR_FOR_CLASS));
+        }
       }
     }
   }

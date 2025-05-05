@@ -69,5 +69,9 @@ public enum ItemRole
   /**
    * Item comes from a web store item.
    */
-  WEB_STORE_ITEM
+  WEB_STORE_ITEM,
+  /**
+   * Initial gear for a character class.
+   */
+  INITIAL_GEAR_FOR_CLASS
 }
