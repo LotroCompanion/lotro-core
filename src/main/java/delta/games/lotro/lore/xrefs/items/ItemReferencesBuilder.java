@@ -508,7 +508,7 @@ public class ItemReferencesBuilder
         int gearItemId=gearItem.getIdentifier();
         if (gearItemId==itemId)
         {
-          _storage.add(new Reference<ClassDescription,ItemRole>(c,ItemRole.INITIAL_GEAR_FOR_CLASS));
+          _storage.add(new Reference<InitialGearElement,ItemRole>(element,ItemRole.INITIAL_GEAR_FOR_CLASS));
         }
       }
     }

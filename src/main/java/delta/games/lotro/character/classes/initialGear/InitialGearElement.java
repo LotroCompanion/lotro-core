@@ -1,5 +1,6 @@
 package delta.games.lotro.character.classes.initialGear;
 
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.lore.items.Item;
 
@@ -10,15 +11,20 @@ import delta.games.lotro.lore.items.Item;
 public class InitialGearElement
 {
   private Item _item;
+  private ClassDescription _class;
   private RaceDescription _requiredRace;
 
   /**
    * Constructor.
+   * @param item Item.
+   * @param classDecription Class. 
+   * @param race Race (may be <code>null</code>).
    */
-  public InitialGearElement()
+  public InitialGearElement(Item item, ClassDescription classDecription, RaceDescription race)
   {
-    _item=null;
-    _requiredRace=null;
+    _item=item;
+    _class=classDecription;
+    _requiredRace=race;
   }
 
   /**
@@ -31,12 +37,12 @@ public class InitialGearElement
   }
 
   /**
-   * Set the item.
-   * @param item Item to set.
+   * Get the description of the managed class.
+   * @return A class description.
    */
-  public void setItem(Item item)
+  public ClassDescription getClassDescription()
   {
-    _item=item;
+    return _class;
   }
 
   /**
@@ -46,14 +52,5 @@ public class InitialGearElement
   public RaceDescription getRequiredRace()
   {
     return _requiredRace;
-  }
-
-  /**
-   * Set the required race for this element.
-   * @param race A race or <code>null</code> if no race requirement.
-   */
-  public void setRequiredRace(RaceDescription race)
-  {
-    _requiredRace=race;
   }
 }

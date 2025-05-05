@@ -3,6 +3,7 @@ package delta.games.lotro.character.classes.initialGear;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
 import delta.games.lotro.lore.items.Item;
 
@@ -12,17 +13,26 @@ import delta.games.lotro.lore.items.Item;
  */
 public class InitialGearDefinition
 {
-  private String _classKey;
+  private ClassDescription _class;
   private List<InitialGearElement> _elements;
 
   /**
    * Constructor.
-   * @param classKey Key of the managed class.
+   * @param classDescription Managed class.
    */
-  public InitialGearDefinition(String classKey)
+  public InitialGearDefinition(ClassDescription classDescription)
   {
-    _classKey=classKey;
+    _class=classDescription;
     _elements=new ArrayList<InitialGearElement>();
+  }
+
+  /**
+   * Get the description of the managed class.
+   * @return A class description.
+   */
+  public ClassDescription getClassDescription()
+  {
+    return _class;
   }
 
   /**
@@ -31,7 +41,7 @@ public class InitialGearDefinition
    */
   public String getClassKey()
   {
-    return _classKey;
+    return _class.getKey();
   }
 
   /**

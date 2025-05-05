@@ -8,6 +8,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
+import delta.games.lotro.character.classes.ClassDescription;
+import delta.games.lotro.character.classes.ClassesManager;
 import delta.games.lotro.character.classes.initialGear.InitialGearDefinition;
 import delta.games.lotro.character.classes.initialGear.InitialGearElement;
 import delta.games.lotro.character.races.RaceDescription;
@@ -50,24 +52,23 @@ public class InitialGearXMLParser
   private static InitialGearDefinition parseInitialGearDefinition(Element root)
   {
     String key=DOMParsingTools.getStringAttribute(root.getAttributes(),InitialGearXMLConstants.CLASS_KEY_ATTR,"");
-    InitialGearDefinition initialGear=new InitialGearDefinition(key);
+    ClassDescription characterClass=ClassesManager.getInstance().getCharacterClassByKey(key);
+    InitialGearDefinition initialGear=new InitialGearDefinition(characterClass);
     List<Element> gearTags=DOMParsingTools.getChildTagsByName(root,InitialGearXMLConstants.ITEM_TAG);
     for(Element gearTag : gearTags)
     {
       NamedNodeMap gearAttrs=gearTag.getAttributes();
-      InitialGearElement element=new InitialGearElement();
       // Item ID
       int itemId=DOMParsingTools.getIntAttribute(gearAttrs,InitialGearXMLConstants.ITEM_ID_ATTR,0);
       Item item=ItemsManager.getInstance().getItem(itemId);
-      element.setItem(item);
       // Race
       RaceDescription requiredRace=null;
       String raceKey=DOMParsingTools.getStringAttribute(gearAttrs,InitialGearXMLConstants.ITEM_RACE_ATTR,null);
       if (raceKey!=null)
       {
         requiredRace=RacesManager.getInstance().getByKey(raceKey);
-        element.setRequiredRace(requiredRace);
       }
+      InitialGearElement element=new InitialGearElement(item,characterClass,requiredRace);
       initialGear.addGearElement(element);
     }
     return initialGear;
