@@ -16,6 +16,10 @@ public class StorageLocation
   public enum LocationType
   {
     /**
+     * GEAR.
+     */
+    GEAR,
+    /**
      * Bag.
      */
     BAG,
@@ -100,6 +104,10 @@ public class StorageLocation
     if (_type==LocationType.VAULT)
     {
       ret="Vault: Chest "+_chestName;
+    }
+    else if (_type==LocationType.GEAR)
+    {
+      ret="Equipment";
     }
     else if (_type==LocationType.BAG)
     {

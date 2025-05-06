@@ -7,6 +7,8 @@ import delta.games.lotro.account.Account;
 import delta.games.lotro.account.AccountOnServer;
 import delta.games.lotro.account.AccountUtils;
 import delta.games.lotro.character.CharacterFile;
+import delta.games.lotro.character.gear.CharacterGear;
+import delta.games.lotro.character.gear.GearSlot;
 import delta.games.lotro.character.storage.bags.BagsManager;
 import delta.games.lotro.character.storage.carryAlls.CarryAllInstance;
 import delta.games.lotro.character.storage.carryAlls.CarryAllsManager;
@@ -27,6 +29,7 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemProvider;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
+import delta.games.lotro.character.CharacterData;
 
 /**
  * Utility methods for storage management.
@@ -50,6 +53,16 @@ public class StorageUtils
     String characterName=toon.getName();
     CharacterOwner owner=new CharacterOwner(accountServer,characterName);
 
+    // Current gear
+    {
+      CharacterData data=toon.getInfosManager().getCurrentData();
+      if (data!=null)
+      {
+        CharacterGear gear=data.getEquipment();
+        List<StoredItem> storedItems=getAllItems(owner,gear);
+        items.addAll(storedItems);
+      }
+    }
     // Own bags
     {
       BagsManager bags=characterStorage.getBags();
@@ -115,6 +128,16 @@ public class StorageUtils
       CharacterOwner owner=new CharacterOwner(accountServer,characterName);
   
       CharacterStorage characterStorage=StoragesIO.loadCharacterStorage(character);
+      // Current gear
+      {
+        CharacterData data=character.getInfosManager().getCurrentData();
+        if (data!=null)
+        {
+          CharacterGear gear=data.getEquipment();
+          List<StoredItem> storedItems=getAllItems(owner,gear);
+          items.addAll(storedItems);
+        }
+      }
       // Own bags
       {
         BagsManager container=characterStorage.getBags();
@@ -153,6 +176,25 @@ public class StorageUtils
     }
     CarryAllsManager mgr=new CarryAllsManager(account,serverName);
     items.addAll(getItemsInCarryAlls(mgr,items));
+    return items;
+  }
+
+  private static List<StoredItem> getAllItems(Owner owner, CharacterGear gear)
+  {
+    List<StoredItem> items=new ArrayList<StoredItem>();
+    StorageLocation location=new StorageLocation(owner,LocationType.GEAR,null);
+    for(GearSlot slot : GearSlot.getAll())
+    {
+      ItemInstance<? extends Item> itemInstance=gear.getItemForSlot(slot);
+      if (itemInstance!=null)
+      {
+        CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(itemInstance,1);
+        StoredItem storedItem=new StoredItem(countedItem);
+        storedItem.setOwner(owner);
+        storedItem.setLocation(location);
+        items.add(storedItem);
+      }
+    }
     return items;
   }
 
