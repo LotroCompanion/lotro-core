@@ -198,7 +198,7 @@ public class Relic implements Identifiable,Named
    */
   public void setRequiredLevel(Integer requiredLevel)
   {
-    _requirements.setMinLevel(requiredLevel);
+    _requirements.setLevelRange(requiredLevel,null);
   }
 
   /**

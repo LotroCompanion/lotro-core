@@ -9,7 +9,7 @@ import delta.games.lotro.lore.reputation.FactionsRegistry;
  * Faction requirement.
  * @author DAM
  */
-public class FactionRequirement
+public class FactionRequirement implements Requirement
 {
   private static final String SEPARATOR=";";
   private Faction _faction;

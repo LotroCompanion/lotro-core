@@ -179,7 +179,7 @@ public abstract class Achievable implements Identifiable,Named
    */
   public void setMinimumLevel(Integer minimumLevel)
   {
-    _requirement.setMinLevel(minimumLevel);
+    _requirement.setLevelRange(minimumLevel,_requirement.getMaxLevel());
   }
 
   /**

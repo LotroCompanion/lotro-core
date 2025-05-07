@@ -10,7 +10,7 @@ import delta.games.lotro.character.classes.ClassesManager;
  * Class requirement.
  * @author DAM
  */
-public class ClassRequirement
+public class ClassRequirement implements Requirement
 {
   private static final String SEPARATOR=";";
   private List<AbstractClassDescription> _allowedClasses;

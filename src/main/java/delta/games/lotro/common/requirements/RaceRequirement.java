@@ -10,7 +10,7 @@ import delta.games.lotro.character.races.RacesManager;
  * Race requirement.
  * @author DAM
  */
-public class RaceRequirement
+public class RaceRequirement implements Requirement
 {
   private static final String SEPARATOR=";";
   private List<RaceDescription> _allowedRaces;

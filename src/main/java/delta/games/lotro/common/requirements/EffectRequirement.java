@@ -6,7 +6,7 @@ import delta.games.lotro.common.effects.Effect;
  * Effect requirement.
  * @author DAM
  */
-public class EffectRequirement
+public class EffectRequirement implements Requirement
 {
   private Effect _effect;
 

@@ -8,7 +8,7 @@ import delta.games.lotro.character.traits.TraitsManager;
  * Trait requirement.
  * @author DAM
  */
-public class TraitRequirement
+public class TraitRequirement implements Requirement
 {
   private TraitDescription _trait;
 

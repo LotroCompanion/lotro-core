@@ -6,7 +6,7 @@ import delta.games.lotro.lore.crafting.Profession;
  * Profession requirement.
  * @author DAM
  */
-public class SimpleProfessionRequirement
+public class SimpleProfessionRequirement implements Requirement
 {
   private Profession _profession;
 

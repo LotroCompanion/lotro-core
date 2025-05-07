@@ -6,6 +6,7 @@ import org.xml.sax.Attributes;
 
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.DOMParsingTools;
+import delta.common.utils.xml.SAXParsingTools;
 import delta.games.lotro.character.traits.TraitDescription;
 import delta.games.lotro.character.traits.TraitsManager;
 import delta.games.lotro.common.effects.Effect;
@@ -34,18 +35,10 @@ public class UsageRequirementsXMLParser
   public static void parseRequirements(UsageRequirement requirements, Element tag)
   {
     NamedNodeMap attrs=tag.getAttributes();
-    // Minimum level
-    int minimumLevel=DOMParsingTools.getIntAttribute(attrs,UsageRequirementXMLConstants.MIN_LEVEL_ATTR,-1);
-    if (minimumLevel!=-1)
-    {
-      requirements.setMinLevel(Integer.valueOf(minimumLevel));
-    }
-    // Maximum level
-    int maximumLevel=DOMParsingTools.getIntAttribute(attrs,UsageRequirementXMLConstants.MAX_LEVEL_ATTR,-1);
-    if (maximumLevel!=-1)
-    {
-      requirements.setMaxLevel(Integer.valueOf(maximumLevel));
-    }
+    // Level
+    Integer minimumLevel=DOMParsingTools.getIntegerAttribute(attrs,UsageRequirementXMLConstants.MIN_LEVEL_ATTR,null);
+    Integer maximumLevel=DOMParsingTools.getIntegerAttribute(attrs,UsageRequirementXMLConstants.MAX_LEVEL_ATTR,null);
+    requirements.setLevelRange(minimumLevel,maximumLevel);
     // Required classes
     String requiredClasses=DOMParsingTools.getStringAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_CLASS_ATTR,null);
     ClassRequirement classRequirement=ClassRequirement.fromString(requiredClasses);
@@ -75,18 +68,10 @@ public class UsageRequirementsXMLParser
    */
   public static void parseRequirements(UsageRequirement requirements, Attributes attributes)
   {
-    // Minimum level
-    String minimumLevelStr=attributes.getValue(UsageRequirementXMLConstants.MIN_LEVEL_ATTR);
-    if (minimumLevelStr!=null)
-    {
-      requirements.setMinLevel(NumericTools.parseInteger(minimumLevelStr));
-    }
-    // Maximum level
-    String maximumLevelStr=attributes.getValue(UsageRequirementXMLConstants.MAX_LEVEL_ATTR);
-    if (maximumLevelStr!=null)
-    {
-      requirements.setMaxLevel(NumericTools.parseInteger(maximumLevelStr));
-    }
+    // Level range
+    Integer minLevel=SAXParsingTools.getIntegerAttribute(attributes,UsageRequirementXMLConstants.MIN_LEVEL_ATTR,null);
+    Integer maxLevel=SAXParsingTools.getIntegerAttribute(attributes,UsageRequirementXMLConstants.MAX_LEVEL_ATTR,null);
+    requirements.setLevelRange(minLevel,maxLevel);
     // Required classes
     String requiredClasses=attributes.getValue(UsageRequirementXMLConstants.REQUIRED_CLASS_ATTR);
     ClassRequirement classRequirements=ClassRequirement.fromString(requiredClasses);

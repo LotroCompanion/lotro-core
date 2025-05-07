@@ -14,10 +14,8 @@ import delta.games.lotro.common.effects.Effect;
  */
 public class UsageRequirement
 {
-  // Minimum level (may be null)
-  private Integer _minLevel;
-  // Maximum level (may be null)
-  private Integer _maxLevel;
+  // Level requirement
+  private LevelRangeRequirement _levelRequirement;
   // Class requirement
   private ClassRequirement _classRequirement;
   // Race requirement
@@ -40,8 +38,7 @@ public class UsageRequirement
    */
   public UsageRequirement()
   {
-    _minLevel=null;
-    _maxLevel=null;
+    _levelRequirement=null;
     _classRequirement=null;
     _raceRequirement=null;
     _factionRequirement=null;
@@ -57,16 +54,7 @@ public class UsageRequirement
    */
   public Integer getMinLevel()
   {
-    return _minLevel;
-  }
-
-  /**
-   * Set the minimum level requirement.
-   * @param minLevel minimum level to set, may be <code>null</code>.
-   */
-  public void setMinLevel(Integer minLevel)
-  {
-    _minLevel=minLevel;
+    return (_levelRequirement!=null)?_levelRequirement.getMinLevel():null;
   }
 
   /**
@@ -75,16 +63,33 @@ public class UsageRequirement
    */
   public Integer getMaxLevel()
   {
-    return _maxLevel;
+    return (_levelRequirement!=null)?_levelRequirement.getMaxLevel():null;
   }
 
   /**
-   * Set the maximum level requirement.
-   * @param maxLevel maximum level to set, may be <code>null</code>.
+   * Get the level requirement.
+   * @return A level requirement or <code>null</code>.
    */
-  public void setMaxLevel(Integer maxLevel)
+  public LevelRangeRequirement getLevelRequirement()
   {
-    _maxLevel=maxLevel;
+    return _levelRequirement;
+  }
+
+  /**
+   * Set the level range requirement.
+   * @param minLevel Minimum level (may be <code>null</code>).
+   * @param maxLevel Maximum level (may be <code>null</code>).
+   */
+  public void setLevelRange(Integer minLevel, Integer maxLevel)
+  {
+    if ((minLevel!=null) || (maxLevel!=null))
+    {
+      _levelRequirement=new LevelRangeRequirement(minLevel,maxLevel);
+    }
+    else
+    {
+      _levelRequirement=null;
+    }
   }
 
   /**
@@ -311,13 +316,18 @@ public class UsageRequirement
    */
   public boolean accepts(int level, ClassDescription characterClass, RaceDescription race)
   {
-    if ((_minLevel!=null) && (level<_minLevel.intValue()))
+    if (_levelRequirement!=null)
     {
-      return false;
-    }
-    if ((_maxLevel!=null) && (level>_maxLevel.intValue()))
-    {
-      return false;
+      Integer minLevel=_levelRequirement.getMinLevel();
+      if ((minLevel!=null) && (level<minLevel.intValue()))
+      {
+        return false;
+      }
+      Integer maxLevel=_levelRequirement.getMaxLevel();
+      if ((maxLevel!=null) && (level>maxLevel.intValue()))
+      {
+        return false;
+      }
     }
     if (_classRequirement!=null)
     {
@@ -342,7 +352,7 @@ public class UsageRequirement
    */
   public boolean isEmpty()
   {
-    return ((_minLevel==null) && (_maxLevel==null) && (_classRequirement==null) &&
+    return ((_levelRequirement==null) && (_classRequirement==null) &&
         (_raceRequirement==null) && (_factionRequirement==null) && (_questRequirement==null) &&
         (_professionRequirement==null) && (_gloryRankRequirement==null) &&
         (_effectRequirement==null));
@@ -352,13 +362,15 @@ public class UsageRequirement
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    if (_minLevel!=null)
+    Integer minLevel=getMinLevel();
+    if (minLevel!=null)
     {
-      sb.append("Min level=").append(_minLevel);
+      sb.append("Min level=").append(minLevel);
     }
-    if (_maxLevel!=null)
+    Integer maxLevel=getMaxLevel();
+    if (maxLevel!=null)
     {
-      sb.append(" Max level=").append(_maxLevel);
+      sb.append(" Max level=").append(maxLevel);
     }
     if (_classRequirement!=null)
     {

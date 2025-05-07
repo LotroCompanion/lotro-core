@@ -520,7 +520,17 @@ public class Item implements Interactable,ItemProvider
    */
   public void setMinLevel(Integer minLevel)
   {
-    _requirements.setMinLevel(minLevel);
+    _requirements.setLevelRange(minLevel,getMaxLevel());
+  }
+
+  /**
+   * Set the level range requirement.
+   * @param minLevel Minimum level (may be <code>null</code>).
+   * @param maxLevel Maximum level (may be <code>null</code>).
+   */
+  public void setLevelRange(Integer minLevel, Integer maxLevel)
+  {
+    _requirements.setLevelRange(minLevel,maxLevel);
   }
 
   /**
@@ -530,16 +540,6 @@ public class Item implements Interactable,ItemProvider
   public Integer getMaxLevel()
   {
     return _requirements.getMaxLevel();
-  }
-
-  /**
-   * Set the maximum level to use this item.
-   * @param maxLevel the maximum level as an integer value,
-   * or <code>null</code> for no restriction.
-   */
-  public void setMaxLevel(Integer maxLevel)
-  {
-    _requirements.setMaxLevel(maxLevel);
   }
 
   /**

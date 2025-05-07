@@ -4,7 +4,7 @@ package delta.games.lotro.common.requirements;
  * Glory rank requirement.
  * @author DAM
  */
-public class GloryRankRequirement
+public class GloryRankRequirement implements Requirement
 {
   private int _rank;
 
