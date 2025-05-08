@@ -111,30 +111,6 @@ public class UsageRequirement
   }
 
   /**
-   * Add an allowed class.
-   * @param characterClass Class to add.
-   */
-  public void addAllowedClass(AbstractClassDescription characterClass)
-  {
-    if (_classRequirement==null)
-    {
-      _classRequirement=new ClassRequirement();
-    }
-    _classRequirement.addAllowedClass(characterClass);
-  }
-
-  /**
-   * Remove class requirement.
-   */
-  public void removeClassRequirement()
-  {
-    if (_classRequirement!=null)
-    {
-      _classRequirement.removeAll();
-    }
-  }
-
-  /**
    * Get the required class for this deed.
    * @return a character class or <code>null</code>.
    */
@@ -149,6 +125,22 @@ public class UsageRequirement
       }
     }
     return null;
+  }
+
+  /**
+   * Set the required class.
+   * @param characterClass a character class or <code>null</code> for no restriction.
+   */
+  public void setRequiredClass(ClassDescription characterClass)
+  {
+    if (characterClass!=null)
+    {
+      _classRequirement=new ClassRequirement(characterClass);
+    }
+    else
+    {
+      _classRequirement=null;
+    }
   }
 
   /**
@@ -170,19 +162,6 @@ public class UsageRequirement
   }
 
   /**
-   * Add an allowed race.
-   * @param race Race to add.
-   */
-  public void addAllowedRace(RaceDescription race)
-  {
-    if (_raceRequirement==null)
-    {
-      _raceRequirement=new RaceRequirement();
-    }
-    _raceRequirement.addAllowedRace(race);
-  }
-
-  /**
    * Get the required race for this deed.
    * @return a race or <code>null</code>.
    */
@@ -197,6 +176,22 @@ public class UsageRequirement
       }
     }
     return null;
+  }
+
+  /**
+   * Set the required race.
+   * @param race the race to set (or <code>null</code>).
+   */
+  public void setRequiredRace(RaceDescription race)
+  {
+    if (race!=null)
+    {
+      _raceRequirement=new RaceRequirement(race);
+    }
+    else
+    {
+      _raceRequirement=null;
+    }
   }
 
   /**

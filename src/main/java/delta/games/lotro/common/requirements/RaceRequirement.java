@@ -17,19 +17,31 @@ public class RaceRequirement implements Requirement
 
   /**
    * Constructor.
+   * @param race Single race.
    */
-  public RaceRequirement()
+  public RaceRequirement(RaceDescription race)
   {
     _allowedRaces=new ArrayList<RaceDescription>();
+    if (race!=null)
+    {
+      _allowedRaces.add(race);
+    }
   }
 
   /**
-   * Add an allowed race.
-   * @param race Race to add.
+   * Constructor.
+   * @param races Allowed races.
    */
-  public void addAllowedRace(RaceDescription race)
+  public RaceRequirement(List<RaceDescription> races)
   {
-    _allowedRaces.add(race);
+    _allowedRaces=new ArrayList<RaceDescription>();
+    for(RaceDescription race : races)
+    {
+      if (race!=null)
+      {
+        _allowedRaces.add(race);
+      }
+    }
   }
 
   /**
@@ -79,17 +91,18 @@ public class RaceRequirement implements Requirement
     RaceRequirement ret=null;
     if ((input!=null) && (!input.isEmpty()))
     {
-      ret=new RaceRequirement();
       String[] raceStrs=input.split(SEPARATOR);
       RacesManager mgr=RacesManager.getInstance();
+      List<RaceDescription> races=new ArrayList<RaceDescription>();
       for(String raceStr : raceStrs)
       {
         RaceDescription race=mgr.getByKey(raceStr);
         if (race!=null)
         {
-          ret.addAllowedRace(race);
+          races.add(race);
         }
       }
+      ret=new RaceRequirement(races);
     }
     return ret;
   }

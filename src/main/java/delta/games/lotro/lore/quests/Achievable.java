@@ -188,7 +188,7 @@ public abstract class Achievable implements Identifiable,Named
    */
   public void setRequiredRace(RaceDescription race)
   {
-    _requirement.addAllowedRace(race);
+    _requirement.setRequiredRace(race);
   }
 
   /**
@@ -197,8 +197,7 @@ public abstract class Achievable implements Identifiable,Named
    */
   public void setRequiredClass(ClassDescription characterClass)
   {
-    _requirement.removeClassRequirement();
-    _requirement.addAllowedClass(characterClass);
+    _requirement.setRequiredClass(characterClass);
   }
 
   /**

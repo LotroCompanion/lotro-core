@@ -17,21 +17,30 @@ public class ClassRequirement implements Requirement
 
   /**
    * Constructor.
+   * @param characterClass Single class.
    */
-  public ClassRequirement()
+  public ClassRequirement(AbstractClassDescription characterClass)
   {
     _allowedClasses=new ArrayList<AbstractClassDescription>();
+    if (characterClass!=null)
+    {
+      _allowedClasses.add(characterClass);
+    }
   }
 
   /**
-   * Add an allowed character class.
-   * @param characterClass Character class to add.
+   * Constructor.
+   * @param classes Allowed classes.
    */
-  public void addAllowedClass(AbstractClassDescription characterClass)
+  public ClassRequirement(List<AbstractClassDescription> classes)
   {
-    if (!_allowedClasses.contains(characterClass))
+    _allowedClasses=new ArrayList<AbstractClassDescription>();
+    for(AbstractClassDescription characterClass : classes)
     {
-      _allowedClasses.add(characterClass);
+      if (characterClass!=null)
+      {
+        _allowedClasses.add(characterClass);
+      }
     }
   }
 
@@ -42,14 +51,6 @@ public class ClassRequirement implements Requirement
   public List<AbstractClassDescription> getAllowedClasses()
   {
     return _allowedClasses;
-  }
-
-  /**
-   * Remove all allowed classes.
-   */
-  public void removeAll()
-  {
-    _allowedClasses.clear();
   }
 
   /**
@@ -90,17 +91,18 @@ public class ClassRequirement implements Requirement
     ClassRequirement ret=null;
     if ((input!=null) && (!input.isEmpty()))
     {
-      ret=new ClassRequirement();
       String[] classStrs=input.split(SEPARATOR);
       ClassesManager classesMgr=ClassesManager.getInstance();
+      List<AbstractClassDescription> classes=new ArrayList<AbstractClassDescription>();
       for(String classStr : classStrs)
       {
         AbstractClassDescription abstractClass=classesMgr.getClassByKey(classStr);
         if (abstractClass!=null)
         {
-          ret.addAllowedClass(abstractClass);
+          classes.add(abstractClass);
         }
       }
+      ret=new ClassRequirement(classes);
     }
     return ret;
   }

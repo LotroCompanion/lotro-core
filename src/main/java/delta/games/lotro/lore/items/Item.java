@@ -610,10 +610,7 @@ public class Item implements Interactable,ItemProvider
    */
   public void setRequiredClass(ClassDescription characterClass)
   {
-    if (characterClass!=null)
-    {
-      _requirements.addAllowedClass(characterClass);
-    }
+    _requirements.setRequiredClass(characterClass);
   }
 
   /**
