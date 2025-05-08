@@ -5,6 +5,7 @@ import delta.games.lotro.character.virtues.VirtueDescription;
 import delta.games.lotro.character.virtues.VirtuesManager;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsRegistry;
+import delta.games.lotro.lore.parameters.Game;
 
 /**
  * Utility methods related to virtues.
@@ -12,6 +13,20 @@ import delta.games.lotro.common.stats.StatsRegistry;
  */
 public class VirtueUtils
 {
+  /**
+   * Get the maximum rank for a virtue.
+   * @param virtue Virtue.
+   * @param characterLevel Character level.
+   * @return A rank.
+   */
+  public static int getMaxRank(VirtueDescription virtue, int characterLevel)
+  {
+    int globalMaxRank=Game.getParameters().getMaxVirtueRank();
+    int maxRank=virtue.getMaxRank(characterLevel);
+    int rankToUse=Math.min(maxRank,globalMaxRank);
+    return rankToUse;
+  }
+
   /**
    * Get the bonus rank for a virtue.
    * @param stats Buffs to get virtue rank stats.
