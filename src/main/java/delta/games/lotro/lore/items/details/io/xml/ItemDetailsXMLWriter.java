@@ -122,6 +122,12 @@ public class ItemDetailsXMLWriter
     // Amount
     int amount=virtueXP.getAmount();
     attrs.addAttribute("","",ItemDetailsXMLConstants.VIRTUE_XP_AMOUNT_ATTR,XmlWriter.CDATA,String.valueOf(amount));
+    // Bonus?
+    boolean bonus=virtueXP.isBonus();
+    if (bonus)
+    {
+      attrs.addAttribute("","",ItemDetailsXMLConstants.VIRTUE_XP_BONUS_ATTR,XmlWriter.CDATA,String.valueOf(bonus));
+    }
     hd.startElement("","",ItemDetailsXMLConstants.VIRTUE_XP_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.ITEM_XP_TAG);
   }

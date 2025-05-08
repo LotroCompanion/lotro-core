@@ -12,6 +12,7 @@ public class StorageStatistics
 {
   private long _totalItemXP;
   private long _totalVirtueXP;
+  private long _totalBonusVirtueXP;
   private StorageReputationStats _reputationStats;
   private ItemsStats _itemStats;
   private Money _totalValue;
@@ -23,6 +24,7 @@ public class StorageStatistics
   {
     _totalItemXP=0;
     _totalVirtueXP=0;
+    _totalBonusVirtueXP=0;
     _reputationStats=new StorageReputationStats();
     _itemStats=new ItemsStats();
     _totalValue=new Money();
@@ -62,6 +64,24 @@ public class StorageStatistics
   public void setTotalVirtueXP(long totalVirtueXP)
   {
     _totalVirtueXP=totalVirtueXP;
+  }
+
+  /**
+   * Get the total bonus virtue XP.
+   * @return the total bonus virtue XP.
+   */
+  public long getTotalBonusVirtueXP()
+  {
+    return _totalBonusVirtueXP;
+  }
+
+  /**
+   * Set the total bonus virtue XP.
+   * @param totalBonusVirtueXP the value to set.
+   */
+  public void setTotalBonusVirtueXP(long totalBonusVirtueXP)
+  {
+    _totalBonusVirtueXP=totalBonusVirtueXP;
   }
 
   /**

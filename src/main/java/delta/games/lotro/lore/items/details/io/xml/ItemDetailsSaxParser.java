@@ -87,9 +87,10 @@ public class ItemDetailsSaxParser
     else if (ItemDetailsXMLConstants.VIRTUE_XP_TAG.equals(qualifiedName))
     {
       // Amount
-      String amountStr=attributes.getValue(ItemDetailsXMLConstants.VIRTUE_XP_AMOUNT_ATTR);
-      int amount=NumericTools.parseInt(amountStr,-1);
-      VirtueXP virtueXP=new VirtueXP(amount);
+      int amount=SAXParsingTools.getIntAttribute(attributes,ItemDetailsXMLConstants.VIRTUE_XP_AMOUNT_ATTR,0);
+      // Bonus?
+      boolean bonus=SAXParsingTools.getBooleanAttribute(attributes,ItemDetailsXMLConstants.VIRTUE_XP_BONUS_ATTR,false);
+      VirtueXP virtueXP=new VirtueXP(amount,bonus);
       Item.addDetail(item,virtueXP);
       return true;
     }

@@ -7,14 +7,17 @@ package delta.games.lotro.lore.items.details;
 public class VirtueXP extends ItemDetail
 {
   private int _amount;
+  private boolean _bonus;
 
   /**
    * Constructor.
    * @param amount Virtue XP amount.
+   * @param bonus Bonus or raw XP.
    */
-  public VirtueXP(int amount)
+  public VirtueXP(int amount, boolean bonus)
   {
     _amount=amount;
+    _bonus=bonus;
   }
 
   /**
@@ -24,5 +27,14 @@ public class VirtueXP extends ItemDetail
   public int getAmount()
   {
     return _amount;
+  }
+
+  /**
+   * Indicates if this is 'bonus' XP or raw XP.
+   * @return <code>true</code> for bonus XP, <code>false</code> for raw XP.
+   */
+  public boolean isBonus()
+  {
+    return _bonus;
   }
 }

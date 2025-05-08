@@ -42,8 +42,7 @@ public class StorageStatisticsComputer
     long totalItemXP=computeTotalItemXP(items);
     results.setTotalItemXP(totalItemXP);
     // Virtue XP
-    long totalVirtueXP=computeTotalVirtueXP(items);
-    results.setTotalVirtueXP(totalVirtueXP);
+    handleVirtueXP(items,results);
     // Reputation
     computeReputationStats(items,results.getReputationStats());
     // Disenchantment results
@@ -126,9 +125,10 @@ public class StorageStatisticsComputer
     return totalXP;
   }
 
-  private long computeTotalVirtueXP(List<StoredItem> items)
+  private void handleVirtueXP(List<StoredItem> items, StorageStatistics results)
   {
     long totalXP=0;
+    long totalBonusXP=0;
     for(StoredItem storedItem : items)
     {
       CountedItem<ItemProvider> counted=storedItem.getItem();
@@ -141,11 +141,21 @@ public class StorageStatisticsComputer
         {
           VirtueXP virtueXP=virtueXPs.get(0);
           int count=counted.getQuantity();
-          totalXP+=(count*virtueXP.getAmount());
+          int amount=virtueXP.getAmount();
+          boolean bonus=virtueXP.isBonus();
+          if (bonus)
+          {
+            totalBonusXP+=(count*amount);
+          }
+          else
+          {
+            totalXP+=(count*amount);
+          }
         }
       }
     }
-    return totalXP;
+    results.setTotalVirtueXP(totalXP);
+    results.setTotalBonusVirtueXP(totalBonusXP);
   }
 
   private Money computeTotalValue(List<StoredItem> items)

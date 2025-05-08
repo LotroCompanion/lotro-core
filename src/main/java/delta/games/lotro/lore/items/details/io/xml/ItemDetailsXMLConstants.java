@@ -36,6 +36,10 @@ public class ItemDetailsXMLConstants
    */
   public static final String VIRTUE_XP_AMOUNT_ATTR="amount";
   /**
+   * Tag 'virtueXP', attribute 'bonus'.
+   */
+  public static final String VIRTUE_XP_BONUS_ATTR="bonus";
+  /**
    * Tag 'reputation'.
    */
   public static final String REPUTATION_TAG="reputation";
