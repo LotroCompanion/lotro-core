@@ -25,4 +25,10 @@ public class LevelCapRequirement implements Requirement
   {
     return _levelCap;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Level cap "+_levelCap;
+  }
 }

@@ -25,4 +25,10 @@ public class DifficultyRequirement implements Requirement
   {
     return _difficulty;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Difficulty "+_difficulty;
+  }
 }

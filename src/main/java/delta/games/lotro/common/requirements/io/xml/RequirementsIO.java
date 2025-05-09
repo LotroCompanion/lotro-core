@@ -8,9 +8,11 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.games.lotro.common.requirements.ClassRequirement;
+import delta.games.lotro.common.requirements.DifficultyRequirement;
 import delta.games.lotro.common.requirements.EffectRequirement;
 import delta.games.lotro.common.requirements.FactionRequirement;
 import delta.games.lotro.common.requirements.GloryRankRequirement;
+import delta.games.lotro.common.requirements.LevelCapRequirement;
 import delta.games.lotro.common.requirements.LevelRangeRequirement;
 import delta.games.lotro.common.requirements.ProfessionRequirement;
 import delta.games.lotro.common.requirements.QuestRequirement;
@@ -62,6 +64,12 @@ public class RequirementsIO
     // Trait requirement
     _readers.put(TraitRequirement.class,new TraitRequirementXMLIO());
     _writers.put(TraitRequirement.class,new TraitRequirementXMLIO());
+    // Difficulty requirement
+    _readers.put(DifficultyRequirement.class,new DifficultyRequirementXMLIO());
+    _writers.put(DifficultyRequirement.class,new DifficultyRequirementXMLIO());
+    // Level cap requirement
+    _readers.put(LevelCapRequirement.class,new LevelCapRequirementXMLIO());
+    _writers.put(LevelCapRequirement.class,new LevelCapRequirementXMLIO());
   }
 
   private <T extends Requirement> RequirementSAXWriter<?> getWriter(Class<T> requirementClass)

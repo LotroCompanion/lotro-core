@@ -30,6 +30,8 @@ public class UsageRequirement extends Requirements
     ret.add(GloryRankRequirement.class);
     ret.add(EffectRequirement.class);
     ret.add(TraitRequirement.class);
+    ret.add(DifficultyRequirement.class);
+    ret.add(LevelCapRequirement.class);
     return ret;
   }
 

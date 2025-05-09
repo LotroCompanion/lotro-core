@@ -46,4 +46,12 @@ public class UsageRequirementXMLConstants
    * Attribute 'required trait'.
    */
   public static final String REQUIRED_TRAIT_ATTR="requiredTrait";
+  /**
+   * Attribute 'required difficulty'.
+   */
+  public static final String REQUIRED_DIFFICULTY_ATTR="requiredDifficulty";
+  /**
+   * Attribute 'required level cap'.
+   */
+  public static final String REQUIRED_LEVEL_CAP_ATTR="requiredLevelCap";
 }
