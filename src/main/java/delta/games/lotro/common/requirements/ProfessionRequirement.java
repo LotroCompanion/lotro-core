@@ -88,7 +88,7 @@ public class ProfessionRequirement extends SimpleProfessionRequirement
       if (_tier!=null)
       {
         String tierName=_tier.getLabel();
-        ret=ret+":"+tierName;
+        ret="Profession="+ret+":"+tierName;
       }
       return ret;
     }

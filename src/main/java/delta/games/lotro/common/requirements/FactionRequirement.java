@@ -91,7 +91,7 @@ public class FactionRequirement implements Requirement
       if (level!=null)
       {
         String tierName=level.getName();
-        return _faction.getName()+":"+tierName;
+        return "Faction="+_faction.getName()+":"+tierName;
       }
     }
     return "";

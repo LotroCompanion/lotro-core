@@ -1,51 +1,44 @@
 package delta.games.lotro.common.requirements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.races.RaceDescription;
-import delta.games.lotro.character.traits.TraitDescription;
-import delta.games.lotro.common.effects.Effect;
 
 /**
- * Usage requirement (for quests, deeds, items and relics).
+ * Usage requirement (for quests, deeds, items, relics...).
  * @author DAM
  */
-public class UsageRequirement
+public class UsageRequirement extends Requirements
 {
-  // Level requirement
-  private LevelRangeRequirement _levelRequirement;
-  // Class requirement
-  private ClassRequirement _classRequirement;
-  // Race requirement
-  private RaceRequirement _raceRequirement;
-  // Faction requirement
-  private FactionRequirement _factionRequirement;
-  // Quest requirement
-  private QuestRequirement _questRequirement;
-  // Profession requirement
-  private ProfessionRequirement _professionRequirement;
-  // Glory rank requirement
-  private GloryRankRequirement _gloryRankRequirement;
-  // Effect requirement
-  private EffectRequirement _effectRequirement;
-  // Trait requirement
-  private TraitRequirement _traitRequirement;
+  /**
+   * Get the managed requirement classes, ordered.
+   */
+  public static final List<Class<? extends Requirement>> REQUIREMENT_CLASSES=buildRequirementClasses();
+
+  private static List<Class<? extends Requirement>> buildRequirementClasses()
+  {
+    List<Class<? extends Requirement>> ret=new ArrayList<Class<? extends Requirement>>();
+    ret.add(LevelRangeRequirement.class);
+    ret.add(ClassRequirement.class);
+    ret.add(RaceRequirement.class);
+    ret.add(FactionRequirement.class);
+    ret.add(QuestRequirement.class);
+    ret.add(ProfessionRequirement.class);
+    ret.add(GloryRankRequirement.class);
+    ret.add(EffectRequirement.class);
+    ret.add(TraitRequirement.class);
+    return ret;
+  }
 
   /**
    * Constructor.
    */
   public UsageRequirement()
   {
-    _levelRequirement=null;
-    _classRequirement=null;
-    _raceRequirement=null;
-    _factionRequirement=null;
-    _professionRequirement=null;
-    _gloryRankRequirement=null;
-    _effectRequirement=null;
-    _traitRequirement=null;
+    super();
   }
 
   /**
@@ -54,7 +47,8 @@ public class UsageRequirement
    */
   public Integer getMinLevel()
   {
-    return (_levelRequirement!=null)?_levelRequirement.getMinLevel():null;
+    LevelRangeRequirement levelRequirement=getRequirement(LevelRangeRequirement.class);
+    return (levelRequirement!=null)?levelRequirement.getMinLevel():null;
   }
 
   /**
@@ -63,7 +57,8 @@ public class UsageRequirement
    */
   public Integer getMaxLevel()
   {
-    return (_levelRequirement!=null)?_levelRequirement.getMaxLevel():null;
+    LevelRangeRequirement levelRequirement=getRequirement(LevelRangeRequirement.class);
+    return (levelRequirement!=null)?levelRequirement.getMaxLevel():null;
   }
 
   /**
@@ -72,7 +67,7 @@ public class UsageRequirement
    */
   public LevelRangeRequirement getLevelRequirement()
   {
-    return _levelRequirement;
+    return getRequirement(LevelRangeRequirement.class);
   }
 
   /**
@@ -82,14 +77,12 @@ public class UsageRequirement
    */
   public void setLevelRange(Integer minLevel, Integer maxLevel)
   {
+    LevelRangeRequirement levelRequirement=null;
     if ((minLevel!=null) || (maxLevel!=null))
     {
-      _levelRequirement=new LevelRangeRequirement(minLevel,maxLevel);
+      levelRequirement=new LevelRangeRequirement(minLevel,maxLevel);
     }
-    else
-    {
-      _levelRequirement=null;
-    }
+    setRequirement(LevelRangeRequirement.class,levelRequirement);
   }
 
   /**
@@ -98,7 +91,7 @@ public class UsageRequirement
    */
   public ClassRequirement getClassRequirement()
   {
-    return _classRequirement;
+    return getRequirement(ClassRequirement.class);
   }
 
   /**
@@ -107,7 +100,7 @@ public class UsageRequirement
    */
   public void setClassRequirement(ClassRequirement classRequirement)
   {
-    _classRequirement=classRequirement;
+    setRequirement(ClassRequirement.class,classRequirement);
   }
 
   /**
@@ -116,9 +109,10 @@ public class UsageRequirement
    */
   public AbstractClassDescription getRequiredClass()
   {
-    if (_classRequirement!=null)
+    ClassRequirement classRequirement=getClassRequirement();
+    if (classRequirement!=null)
     {
-      List<AbstractClassDescription> classes=_classRequirement.getAllowedClasses();
+      List<AbstractClassDescription> classes=classRequirement.getAllowedClasses();
       if (!classes.isEmpty())
       {
         return classes.get(0);
@@ -133,14 +127,12 @@ public class UsageRequirement
    */
   public void setRequiredClass(ClassDescription characterClass)
   {
+    ClassRequirement classRequirement=null;
     if (characterClass!=null)
     {
-      _classRequirement=new ClassRequirement(characterClass);
+      classRequirement=new ClassRequirement(characterClass);
     }
-    else
-    {
-      _classRequirement=null;
-    }
+    setClassRequirement(classRequirement);
   }
 
   /**
@@ -149,7 +141,7 @@ public class UsageRequirement
    */
   public RaceRequirement getRaceRequirement()
   {
-    return _raceRequirement;
+    return getRequirement(RaceRequirement.class);
   }
 
   /**
@@ -158,7 +150,7 @@ public class UsageRequirement
    */
   public void setRaceRequirement(RaceRequirement raceRequirement)
   {
-    _raceRequirement=raceRequirement;
+    setRequirement(RaceRequirement.class,raceRequirement);
   }
 
   /**
@@ -167,9 +159,10 @@ public class UsageRequirement
    */
   public RaceDescription getRequiredRace()
   {
-    if (_raceRequirement!=null)
+    RaceRequirement raceRequirement=getRaceRequirement();
+    if (raceRequirement!=null)
     {
-      List<RaceDescription> races=_raceRequirement.getAllowedRaces();
+      List<RaceDescription> races=raceRequirement.getAllowedRaces();
       if (!races.isEmpty())
       {
         return races.get(0);
@@ -184,14 +177,12 @@ public class UsageRequirement
    */
   public void setRequiredRace(RaceDescription race)
   {
+    RaceRequirement raceRequirement=null;
     if (race!=null)
     {
-      _raceRequirement=new RaceRequirement(race);
+      raceRequirement=new RaceRequirement(race);
     }
-    else
-    {
-      _raceRequirement=null;
-    }
+    setRaceRequirement(raceRequirement);
   }
 
   /**
@@ -200,7 +191,7 @@ public class UsageRequirement
    */
   public FactionRequirement getFactionRequirement()
   {
-    return _factionRequirement;
+    return getRequirement(FactionRequirement.class);
   }
 
   /**
@@ -209,7 +200,7 @@ public class UsageRequirement
    */
   public void setFactionRequirement(FactionRequirement factionRequirement)
   {
-    _factionRequirement=factionRequirement;
+    setRequirement(FactionRequirement.class,factionRequirement);
   }
 
   /**
@@ -218,7 +209,7 @@ public class UsageRequirement
    */
   public QuestRequirement getQuestRequirement()
   {
-    return _questRequirement;
+    return getRequirement(QuestRequirement.class);
   }
 
   /**
@@ -227,7 +218,7 @@ public class UsageRequirement
    */
   public void setQuestRequirement(QuestRequirement questRequirement)
   {
-    _questRequirement=questRequirement;
+    setRequirement(QuestRequirement.class,questRequirement);
   }
 
   /**
@@ -236,7 +227,7 @@ public class UsageRequirement
    */
   public ProfessionRequirement getProfessionRequirement()
   {
-    return _professionRequirement;
+    return getRequirement(ProfessionRequirement.class);
   }
 
   /**
@@ -245,7 +236,7 @@ public class UsageRequirement
    */
   public void setProfessionRequirement(ProfessionRequirement professionRequirement)
   {
-    _professionRequirement=professionRequirement;
+    setRequirement(ProfessionRequirement.class,professionRequirement);
   }
 
   /**
@@ -254,7 +245,7 @@ public class UsageRequirement
    */
   public GloryRankRequirement getGloryRankRequirement()
   {
-    return _gloryRankRequirement;
+    return getRequirement(GloryRankRequirement.class);
   }
 
   /**
@@ -263,7 +254,7 @@ public class UsageRequirement
    */
   public void setGloryRankRequirement(GloryRankRequirement gloryRankRequirement)
   {
-    _gloryRankRequirement=gloryRankRequirement;
+    setRequirement(GloryRankRequirement.class,gloryRankRequirement);
   }
 
   /**
@@ -272,7 +263,7 @@ public class UsageRequirement
    */
   public EffectRequirement getEffectRequirement()
   {
-    return _effectRequirement;
+    return getRequirement(EffectRequirement.class);
   }
 
   /**
@@ -281,7 +272,7 @@ public class UsageRequirement
    */
   public void setEffectRequirement(EffectRequirement effectRequirement)
   {
-    _effectRequirement=effectRequirement;
+    setRequirement(EffectRequirement.class,effectRequirement);
   }
 
   /**
@@ -290,7 +281,7 @@ public class UsageRequirement
    */
   public TraitRequirement getTraitRequirement()
   {
-    return _traitRequirement;
+    return getRequirement(TraitRequirement.class);
   }
 
   /**
@@ -299,7 +290,7 @@ public class UsageRequirement
    */
   public void setTraitRequirement(TraitRequirement traitRequirement)
   {
-    _traitRequirement=traitRequirement;
+    setRequirement(TraitRequirement.class,traitRequirement);
   }
 
   /**
@@ -311,29 +302,32 @@ public class UsageRequirement
    */
   public boolean accepts(int level, ClassDescription characterClass, RaceDescription race)
   {
-    if (_levelRequirement!=null)
+    LevelRangeRequirement levelRequirement=getLevelRequirement();
+    if (levelRequirement!=null)
     {
-      Integer minLevel=_levelRequirement.getMinLevel();
+      Integer minLevel=levelRequirement.getMinLevel();
       if ((minLevel!=null) && (level<minLevel.intValue()))
       {
         return false;
       }
-      Integer maxLevel=_levelRequirement.getMaxLevel();
+      Integer maxLevel=levelRequirement.getMaxLevel();
       if ((maxLevel!=null) && (level>maxLevel.intValue()))
       {
         return false;
       }
     }
-    if (_classRequirement!=null)
+    ClassRequirement classRequirement=getClassRequirement();
+    if (classRequirement!=null)
     {
-      if (!_classRequirement.accept(characterClass))
+      if (!classRequirement.accept(characterClass))
       {
         return false;
       }
     }
-    if (_raceRequirement!=null)
+    RaceRequirement raceRequirement=getRaceRequirement();
+    if (raceRequirement!=null)
     {
-      if (!_raceRequirement.accept(race))
+      if (!raceRequirement.accept(race))
       {
         return false;
       }
@@ -341,65 +335,17 @@ public class UsageRequirement
     return true;
   }
 
-  /**
-   * Indicates if this requirement is empty or not.
-   * @return <code>true</code> if it is, <code>false</code> otherwise.
-   */
-  public boolean isEmpty()
-  {
-    return ((_levelRequirement==null) && (_classRequirement==null) &&
-        (_raceRequirement==null) && (_factionRequirement==null) && (_questRequirement==null) &&
-        (_professionRequirement==null) && (_gloryRankRequirement==null) &&
-        (_effectRequirement==null));
-  }
-
   @Override
   public String toString()
   {
     StringBuilder sb=new StringBuilder();
-    Integer minLevel=getMinLevel();
-    if (minLevel!=null)
+    for(Class<? extends Requirement> requirementClass : REQUIREMENT_CLASSES)
     {
-      sb.append("Min level=").append(minLevel);
-    }
-    Integer maxLevel=getMaxLevel();
-    if (maxLevel!=null)
-    {
-      sb.append(" Max level=").append(maxLevel);
-    }
-    if (_classRequirement!=null)
-    {
-      sb.append(" Class=").append(_classRequirement);
-    }
-    if (_raceRequirement!=null)
-    {
-      sb.append(" Race=").append(_raceRequirement);
-    }
-    if (_factionRequirement!=null)
-    {
-      sb.append(" Faction=").append(_factionRequirement);
-    }
-    if (_questRequirement!=null)
-    {
-      sb.append(" Quest=").append(_questRequirement);
-    }
-    if (_professionRequirement!=null)
-    {
-      sb.append(" Profession=").append(_professionRequirement);
-    }
-    if (_gloryRankRequirement!=null)
-    {
-      sb.append(" Glory Rank>=").append(_gloryRankRequirement.getRank());
-    }
-    if (_effectRequirement!=null)
-    {
-      Effect effect=_effectRequirement.getEffect();
-      sb.append(" Effect=").append(effect.getName());
-    }
-    if (_traitRequirement!=null)
-    {
-      TraitDescription trait=_traitRequirement.getTrait();
-      sb.append(" Trait=").append(trait.getName());
+      Requirement requirement=getRequirement(requirementClass);
+      if (requirement!=null)
+      {
+        sb.append(' ').append(requirement);
+      }
     }
     return sb.toString().trim();
   }

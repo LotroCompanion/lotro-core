@@ -27,4 +27,14 @@ public class EffectRequirement implements Requirement
   {
     return _effect;
   }
+
+  @Override
+  public String toString()
+  {
+    if (_effect!=null)
+    {
+      return "Effect "+_effect.getName();
+    }
+    return "";
+  }
 }

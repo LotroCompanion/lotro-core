@@ -110,6 +110,6 @@ public class ClassRequirement implements Requirement
   @Override
   public String toString()
   {
-    return _allowedClasses.toString();
+    return "Class="+_allowedClasses.toString();
   }
 }

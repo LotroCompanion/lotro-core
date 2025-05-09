@@ -57,7 +57,7 @@ public class TraitRequirement implements Requirement
   {
     if (_trait!=null)
     {
-      return _trait.toString();
+      return "Trait "+_trait.getName();
     }
     return "";
   }

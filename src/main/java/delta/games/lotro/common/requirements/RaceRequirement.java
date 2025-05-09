@@ -110,6 +110,6 @@ public class RaceRequirement implements Requirement
   @Override
   public String toString()
   {
-    return _allowedRaces.toString();
+    return "Race="+_allowedRaces.toString();
   }
 }

@@ -33,4 +33,10 @@ public class GloryRankRequirement implements Requirement
   {
     _rank=rank;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Glory rank>="+_rank;
+  }
 }

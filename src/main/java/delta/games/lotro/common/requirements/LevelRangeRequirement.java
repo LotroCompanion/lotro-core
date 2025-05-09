@@ -48,4 +48,19 @@ public class LevelRangeRequirement implements Requirement
   {
     return ((_minLevel==null) && (_maxLevel==null));
   }
+
+  @Override
+  public String toString()
+  {
+    StringBuilder sb=new StringBuilder();
+    if (_minLevel!=null)
+    {
+      sb.append("Min level=").append(_minLevel);
+    }
+    if (_maxLevel!=null)
+    {
+      sb.append(" Max level=").append(_maxLevel);
+    }
+    return sb.toString().trim();
+  }
 }
