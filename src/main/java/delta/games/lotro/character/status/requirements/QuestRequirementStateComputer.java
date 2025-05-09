@@ -1,9 +1,13 @@
-package delta.games.lotro.character.status.achievables;
+package delta.games.lotro.character.status.requirements;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import delta.common.utils.collections.filters.Operator;
+import delta.games.lotro.character.status.achievables.AchievableElementState;
+import delta.games.lotro.character.status.achievables.AchievableObjectiveStatus;
+import delta.games.lotro.character.status.achievables.AchievableStatus;
+import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.CompoundQuestRequirement;
 import delta.games.lotro.common.requirements.QuestRequirement;

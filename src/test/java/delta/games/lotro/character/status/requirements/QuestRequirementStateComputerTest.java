@@ -1,4 +1,4 @@
-package delta.games.lotro.character.status.achievables;
+package delta.games.lotro.character.status.requirements;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.CharactersManager;
+import delta.games.lotro.character.status.achievables.AchievablesStatusManager;
 import delta.games.lotro.character.status.achievables.io.DeedsStatusIo;
 import delta.games.lotro.character.status.achievables.io.QuestsStatusIo;
 import delta.games.lotro.common.requirements.AbstractAchievableRequirement;

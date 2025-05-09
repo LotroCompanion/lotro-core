@@ -6,7 +6,7 @@ import delta.games.lotro.lore.crafting.Profession;
  * Profession requirement.
  * @author DAM
  */
-public class SimpleProfessionRequirement implements Requirement
+public abstract class SimpleProfessionRequirement implements Requirement
 {
   private Profession _profession;
 
@@ -14,7 +14,7 @@ public class SimpleProfessionRequirement implements Requirement
    * Constructor.
    * @param profession Profession.
    */
-  public SimpleProfessionRequirement(Profession profession)
+  protected SimpleProfessionRequirement(Profession profession)
   {
     _profession=profession;
   }
