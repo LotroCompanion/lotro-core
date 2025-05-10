@@ -20,6 +20,7 @@ import delta.games.lotro.common.requirements.RaceRequirement;
 import delta.games.lotro.common.requirements.Requirement;
 import delta.games.lotro.common.requirements.Requirements;
 import delta.games.lotro.common.requirements.TraitRequirement;
+import delta.games.lotro.common.requirements.WorldEventRequirement;
 
 /**
  * I/O facilities for requirements.
@@ -70,6 +71,9 @@ public class RequirementsIO
     // Level cap requirement
     _readers.put(LevelCapRequirement.class,new LevelCapRequirementXMLIO());
     _writers.put(LevelCapRequirement.class,new LevelCapRequirementXMLIO());
+    // World event requirement
+    _readers.put(WorldEventRequirement.class,new WorldEventRequirementXMLIO());
+    _writers.put(WorldEventRequirement.class,new WorldEventRequirementXMLIO());
   }
 
   private <T extends Requirement> RequirementSAXWriter<?> getWriter(Class<T> requirementClass)

@@ -27,4 +27,10 @@ public class WorldEventRequirement implements Requirement
   {
     return _condition;
   }
+
+  @Override
+  public String toString()
+  {
+    return "World event: "+_condition;
+  }
 }

@@ -32,6 +32,7 @@ public class UsageRequirement extends Requirements
     ret.add(TraitRequirement.class);
     ret.add(DifficultyRequirement.class);
     ret.add(LevelCapRequirement.class);
+    ret.add(WorldEventRequirement.class);
     return ret;
   }
 

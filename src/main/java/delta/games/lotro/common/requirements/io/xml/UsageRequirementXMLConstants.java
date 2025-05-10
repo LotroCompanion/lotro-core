@@ -54,4 +54,8 @@ public class UsageRequirementXMLConstants
    * Attribute 'required level cap'.
    */
   public static final String REQUIRED_LEVEL_CAP_ATTR="requiredLevelCap";
+  /**
+   * Attribute 'required world event'.
+   */
+  public static final String REQUIRED_WORLD_EVENT_ATTR="requiredWorldEvent";
 }
