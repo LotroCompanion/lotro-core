@@ -53,7 +53,7 @@ public class TraitTreesManager
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File traitTreesFile=cfg.getFile(DataFiles.TRAIT_TREES);
     long now=System.currentTimeMillis();
-    List<TraitTree> traitTrees=TraitTreeXMLParser.parseTraitTreesFile(traitTreesFile);
+    List<TraitTree> traitTrees=new TraitTreeXMLParser().parseTraitTreesFile(traitTreesFile);
     for(TraitTree traitTree : traitTrees)
     {
       registerTraitTree(traitTree);

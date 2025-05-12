@@ -85,6 +85,12 @@ public class TraitTreeXMLWriter
     // Name
     String name=branch.getName();
     branchAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_BRANCH_NAME_ATTR,XmlWriter.CDATA,name);
+    // Description
+    String description=branch.getDescription();
+    if (!description.isEmpty())
+    {
+      branchAttrs.addAttribute("","",TraitTreeXMLConstants.TRAIT_TREE_BRANCH_DESCRIPTION_ATTR,XmlWriter.CDATA,description);
+    }
     // Main trait ID
     TraitDescription mainTrait=branch.getMainTrait();
     if (mainTrait!=null)

@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
 import delta.games.lotro.character.classes.traitTree.TraitTreeBranch;
@@ -19,6 +20,8 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.TraitTreeBranchType;
 import delta.games.lotro.common.enums.TraitTreeType;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for trait trees stored in XML.
@@ -26,12 +29,22 @@ import delta.games.lotro.common.enums.TraitTreeType;
  */
 public class TraitTreeXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public TraitTreeXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("traitTrees");
+  }
+
   /**
    * Parse a trait trees XML file.
    * @param source Source file.
    * @return List of parsed trait trees.
    */
-  public static List<TraitTree> parseTraitTreesFile(File source)
+  public List<TraitTree> parseTraitTreesFile(File source)
   {
     List<TraitTree> descriptions=new ArrayList<TraitTree>();
     Element root=DOMParsingTools.parse(source);
@@ -47,7 +60,7 @@ public class TraitTreeXMLParser
     return descriptions;
   }
 
-  private static TraitTree parseTraitTree(Element root)
+  private TraitTree parseTraitTree(Element root)
   {
     NamedNodeMap mainAttrs=root.getAttributes();
     // ID
@@ -68,6 +81,10 @@ public class TraitTreeXMLParser
       TraitTreeBranchType branchType=enumBranchType.getEntry(branchCode);
       TraitTreeBranch branch=new TraitTreeBranch(branchType);
       tree.addBranch(branch);
+      // Description
+      String description=DOMParsingTools.getStringAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_DESCRIPTION_ATTR,"");
+      description=I18nRuntimeUtils.getLabel(_i18n,description);
+      branch.setDescription(description);
       // Main trait
       int mainTraitId=DOMParsingTools.getIntAttribute(branchAttrs,TraitTreeXMLConstants.TRAIT_TREE_BRANCH_TRAIT_ATTR,0);
       TraitDescription mainTrait=traitsMgr.getTrait(mainTraitId);

@@ -40,7 +40,11 @@ public class TraitTreeXMLConstants
    */
   public static final String TRAIT_TREE_BRANCH_NAME_ATTR="name";
   /**
-   * Tag 'traitTreeBranch', attribute 'name'.
+   * Tag 'traitTreeBranch', attribute 'description'.
+   */
+  public static final String TRAIT_TREE_BRANCH_DESCRIPTION_ATTR="description";
+  /**
+   * Tag 'traitTreeBranch', attribute 'mainTraitId'.
    */
   public static final String TRAIT_TREE_BRANCH_TRAIT_ATTR="mainTraitId";
   /**

@@ -17,6 +17,7 @@ import delta.games.lotro.common.enums.TraitTreeBranchType;
 public class TraitTreeBranch
 {
   private TraitTreeBranchType _type;
+  private String _description;
   private TraitDescription _trait;
   private TraitTreeProgression _progression;
   private Map<String,TraitTreeCell> _cells;
@@ -29,6 +30,7 @@ public class TraitTreeBranch
   public TraitTreeBranch(TraitTreeBranchType type)
   {
     _type=type;
+    _description="";
     _trait=null;
     _cells=new HashMap<String,TraitTreeCell>();
     _progression=new TraitTreeProgression();
@@ -42,6 +44,24 @@ public class TraitTreeBranch
   public TraitTreeBranchType getType()
   {
     return _type;
+  }
+
+  /**
+   * Get the branch description.
+   * @return the branch description.
+   */
+  public String getDescription()
+  {
+    return _description;
+  }
+
+  /**
+   * Set the branch description.
+   * @param description Description to set.
+   */
+  public void setDescription(String description)
+  {
+    _description=description;
   }
 
   /**
