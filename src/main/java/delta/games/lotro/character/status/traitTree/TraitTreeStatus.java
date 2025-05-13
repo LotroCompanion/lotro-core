@@ -25,6 +25,7 @@ public class TraitTreeStatus
 {
   private static final Logger LOGGER=LoggerFactory.getLogger(TraitTreeStatus.class);
 
+  private static final int MAX_RANKS=10; // Assume max 10 ranks
   private TraitTree _tree;
   private TraitTreeBranch _selectedBranch;
   private Map<Integer,IntegerHolder> _treeRanks;
@@ -195,6 +196,16 @@ public class TraitTreeStatus
   }
 
   /**
+   * Get the number of ranks for the given branch.
+   * @param branch Branch to use.
+   * @return A number of ranks.
+   */
+  public int getRanksForBranch(TraitTreeBranch branch)
+  {
+    return getRanksForRows(branch,MAX_RANKS);
+  }
+
+  /**
    * Get the cost of the given first rows of the specified branch.
    * @param branch Branch to use.
    * @param rows Rows to use.
@@ -310,7 +321,7 @@ public class TraitTreeStatus
     int total=0;
     for(TraitTreeBranch branch : _tree.getBranches())
     {
-      float cost=getCostForRows(branch,10); // Assume max 10 ranks
+      float cost=getCostForRows(branch,MAX_RANKS);
       int factor=2;
       if (branch==_selectedBranch)
       {
