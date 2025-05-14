@@ -64,7 +64,6 @@ public class EffectReferencesBuilder
         if (pe.getChildEffects().contains(mainEffect))
         {
           _storage.add(new Reference<Effect,EffectRole>(e,EffectRole.PARENT_EFFECT));
-          return;
         }
       }
     }
