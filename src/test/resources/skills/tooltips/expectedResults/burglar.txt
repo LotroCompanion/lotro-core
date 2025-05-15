@@ -30,7 +30,7 @@ Foregoing defence, you move your blades quicker than lightning.
 
 Increases your melee damage and returns damage for every attack made against you, but you cannot Parry, Evade, or Block while concentrating on counter-attacks.
 6 136 - 8 181 Beleriand (Main-hand) Damage
-Cannot Parry, Evade or Block
+Cannot Parry, Evade, or Block
 20% Melee Damage
 On Melee Skill damage:
 Reflect 30% damage
