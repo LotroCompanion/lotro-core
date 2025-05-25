@@ -125,22 +125,7 @@ public class StatsProviderXMLWriter
     else if (provider instanceof TieredScalableStatProvider)
     {
       TieredScalableStatProvider tieredStatProvider=(TieredScalableStatProvider)provider;
-      int nbTiers=tieredStatProvider.getNumberOfTiers();
-      StringBuilder sb=new StringBuilder();
-      for(int i=1;i<=nbTiers;i++)
-      {
-        Progression progression=tieredStatProvider.getProgression(i);
-        if (progression!=null)
-        {
-          if (sb.length()>0) sb.append(";");
-          sb.append(progression.getIdentifier());
-        }
-        else
-        {
-          LOGGER.warn("Progression not found for a tiered scalable stats provider!");
-        }
-      }
-      attrs.addAttribute("","",StatsProviderXMLConstants.STAT_TIERED_SCALING_ATTR,XmlWriter.CDATA,sb.toString());
+      writeTieredScalableStatProvider(tieredStatProvider,attrs);
     }
     // Ranged?
     else if (provider instanceof RangedStatProvider)
@@ -150,6 +135,26 @@ public class StatsProviderXMLWriter
     }
     hd.startElement("","",StatsProviderXMLConstants.STAT_TAG,attrs);
     hd.endElement("","",StatsProviderXMLConstants.STAT_TAG);
+  }
+
+  private static void writeTieredScalableStatProvider(TieredScalableStatProvider tieredStatProvider, AttributesImpl attrs)
+  {
+    int nbTiers=tieredStatProvider.getNumberOfTiers();
+    StringBuilder sb=new StringBuilder();
+    for(int i=1;i<=nbTiers;i++)
+    {
+      Progression progression=tieredStatProvider.getProgression(i);
+      if (progression!=null)
+      {
+        if (sb.length()>0) sb.append(";");
+        sb.append(progression.getIdentifier());
+      }
+      else
+      {
+        LOGGER.warn("Progression not found for a tiered scalable stats provider!");
+      }
+    }
+    attrs.addAttribute("","",StatsProviderXMLConstants.STAT_TIERED_SCALING_ATTR,XmlWriter.CDATA,sb.toString());
   }
 
   private static String buildRangedStatProviderDefinition(RangedStatProvider provider)
