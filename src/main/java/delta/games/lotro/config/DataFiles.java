@@ -379,6 +379,10 @@ public class DataFiles
    */
   public static final String BIRDS="birds";
   /**
+   * Travels web.
+   */
+  public static final String TRAVELS_WEB="travelsWeb";
+  /**
    * Labels directory.
    */
   public static final String LABELS="labelsDir";

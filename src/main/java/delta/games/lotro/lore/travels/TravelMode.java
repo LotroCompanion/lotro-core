@@ -29,7 +29,11 @@ public enum TravelMode
   /**
    * Boar.
    */
-  BOAR("Boar");
+  BOAR("Boar"),
+  /**
+   * Other.
+   */
+  OTHER("Other");
 
   private String _label;
 

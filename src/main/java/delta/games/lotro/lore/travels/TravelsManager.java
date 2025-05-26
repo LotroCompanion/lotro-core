@@ -16,6 +16,7 @@ public class TravelsManager
 {
   private Map<Integer,TravelNode> _nodes;
   private Map<Integer,TravelDestination> _destinations;
+  private Map<Integer,TravelRoute> _routes;
 
   /**
    * Constructor.
@@ -24,6 +25,7 @@ public class TravelsManager
   {
     _nodes=new HashMap<Integer,TravelNode>();
     _destinations=new HashMap<Integer,TravelDestination>();
+    _routes=new HashMap<Integer,TravelRoute>();
   }
 
   /**
@@ -34,6 +36,17 @@ public class TravelsManager
   public TravelDestination getDestination(int destinationId)
   {
     return _destinations.get(Integer.valueOf(destinationId));
+  }
+
+  /**
+   * Get all the known destinations.
+   * @return A list of destinations, sorted by destination identifier.
+   */
+  public List<TravelDestination> getDestinations()
+  {
+    List<TravelDestination> destinations=new ArrayList<TravelDestination>(_destinations.values());
+    Collections.sort(destinations,new IdentifiableComparator<TravelDestination>());
+    return destinations;
   }
 
   /**
@@ -75,5 +88,36 @@ public class TravelsManager
   {
     Integer key=Integer.valueOf(node.getIdentifier());
     _nodes.put(key,node);
+  }
+
+  /**
+   * Get a route using its identifier.
+   * @param routeID Route identifier.
+   * @return A route or <code>null</code> if not found.
+   */
+  public TravelRoute getRoute(int routeID)
+  {
+    return _routes.get(Integer.valueOf(routeID));
+  }
+
+  /**
+   * Get all the known routes.
+   * @return A list of routes, sorted by route identifier.
+   */
+  public List<TravelRoute> getRoutes()
+  {
+    List<TravelRoute> routes=new ArrayList<TravelRoute>(_routes.values());
+    Collections.sort(routes,new IdentifiableComparator<TravelRoute>());
+    return routes;
+  }
+
+  /**
+   * Add a route.
+   * @param route Route to add.
+   */
+  public void addRoute(TravelRoute route)
+  {
+    Integer key=Integer.valueOf(route.getIdentifier());
+    _routes.put(key,route);
   }
 }
