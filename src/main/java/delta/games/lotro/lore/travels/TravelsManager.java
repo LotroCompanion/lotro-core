@@ -6,7 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.lore.worldEvents.WorldEventConditionsRenderer;
 
 /**
  * Travels manager.
@@ -14,6 +18,8 @@ import delta.games.lotro.common.IdentifiableComparator;
  */
 public class TravelsManager
 {
+  private static final Logger LOGGER=LoggerFactory.getLogger(TravelsManager.class);
+
   private Map<Integer,TravelNode> _nodes;
   private Map<Integer,TravelDestination> _destinations;
   private Map<Integer,TravelRoute> _routes;
@@ -118,6 +124,10 @@ public class TravelsManager
   public void addRoute(TravelRoute route)
   {
     Integer key=Integer.valueOf(route.getIdentifier());
-    _routes.put(key,route);
+    TravelRoute oldRoute=_routes.put(key,route);
+    if (oldRoute!=null)
+    {
+      LOGGER.warn("Overwriting a route!");
+    }
   }
 }

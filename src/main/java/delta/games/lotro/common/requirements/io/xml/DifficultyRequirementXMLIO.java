@@ -19,14 +19,22 @@ public class DifficultyRequirementXMLIO implements RequirementSAXWriter<Difficul
   public DifficultyRequirement readSAX(Attributes attributes)
   {
     int difficulty=SAXParsingTools.getIntAttribute(attributes,UsageRequirementXMLConstants.REQUIRED_DIFFICULTY_ATTR,0);
-    return new DifficultyRequirement(difficulty);
+    if (difficulty>0)
+    {
+      return new DifficultyRequirement(difficulty);
+    }
+    return null;
   }
 
   @Override
   public DifficultyRequirement readDOM(NamedNodeMap attrs)
   {
     int difficulty=DOMParsingTools.getIntAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_DIFFICULTY_ATTR,0);
-    return new DifficultyRequirement(difficulty);
+    if (difficulty>0)
+    {
+      return new DifficultyRequirement(difficulty);
+    }
+    return null;
   }
 
   @Override

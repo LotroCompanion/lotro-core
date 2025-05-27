@@ -3,7 +3,7 @@ package delta.games.lotro.common.requirements.io.xml;
 import org.w3c.dom.Element;
 import org.xml.sax.Attributes;
 
-import delta.games.lotro.common.requirements.UsageRequirement;
+import delta.games.lotro.common.requirements.Requirements;
 
 /**
  * Read usage requirements from XML documents.
@@ -18,7 +18,7 @@ public class UsageRequirementsXMLParser
    * @param requirements Storage for loaded data.
    * @param tag Tag to use.
    */
-  public static void parseRequirements(UsageRequirement requirements, Element tag)
+  public static void parseRequirements(Requirements requirements, Element tag)
   {
     IO.readRequirements(tag.getAttributes(),requirements);
   }
@@ -28,7 +28,7 @@ public class UsageRequirementsXMLParser
    * @param requirements Storage for loaded data.
    * @param attributes Input data.
    */
-  public static void parseRequirements(UsageRequirement requirements, Attributes attributes)
+  public static void parseRequirements(Requirements requirements, Attributes attributes)
   {
     IO.readRequirements(attributes,requirements);
   }

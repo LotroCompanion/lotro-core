@@ -19,14 +19,22 @@ public class LevelCapRequirementXMLIO implements RequirementSAXWriter<LevelCapRe
   public LevelCapRequirement readSAX(Attributes attributes)
   {
     int levelCap=SAXParsingTools.getIntAttribute(attributes,UsageRequirementXMLConstants.REQUIRED_LEVEL_CAP_ATTR,0);
-    return new LevelCapRequirement(levelCap);
+    if (levelCap>0)
+    {
+      return new LevelCapRequirement(levelCap);
+    }
+    return null;
   }
 
   @Override
   public LevelCapRequirement readDOM(NamedNodeMap attrs)
   {
     int levelCap=DOMParsingTools.getIntAttribute(attrs,UsageRequirementXMLConstants.REQUIRED_LEVEL_CAP_ATTR,0);
-    return new LevelCapRequirement(levelCap);
+    if (levelCap>0)
+    {
+      return new LevelCapRequirement(levelCap);
+    }
+    return null;
   }
 
   @Override
