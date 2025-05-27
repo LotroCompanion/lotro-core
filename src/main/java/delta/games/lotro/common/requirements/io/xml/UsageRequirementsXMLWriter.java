@@ -3,6 +3,7 @@ package delta.games.lotro.common.requirements.io.xml;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.games.lotro.common.requirements.Requirement;
+import delta.games.lotro.common.requirements.Requirements;
 import delta.games.lotro.common.requirements.UsageRequirement;
 
 /**
@@ -18,7 +19,7 @@ public class UsageRequirementsXMLWriter
    * @param attrs Storage for needed XML attributes.
    * @param requirements Requirements to store.
    */
-  public static void write(AttributesImpl attrs, UsageRequirement requirements)
+  public static void write(AttributesImpl attrs, Requirements requirements)
   {
     for(Class<? extends Requirement> requirementClass : UsageRequirement.REQUIREMENT_CLASSES)
     {

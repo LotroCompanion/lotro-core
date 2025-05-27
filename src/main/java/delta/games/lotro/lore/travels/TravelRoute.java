@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.Identifiable;
-import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
-import delta.games.lotro.common.requirements.UsageRequirement;
+import delta.games.lotro.common.Named;
+import delta.games.lotro.common.requirements.LevelRangeRequirement;
+import delta.games.lotro.common.requirements.QuestRequirement;
+import delta.games.lotro.common.requirements.Requirements;
 
 /**
  * Travel route.
  * @author DAM
  */
-public class TravelRoute implements Identifiable
+public class TravelRoute implements Identifiable,Named
 {
   private int _id;
   private String _name;
   private TravelDestination _destination;
-  private List<String> _routeActions;
+  private List<TravelRouteAction> _routeActions;
   private TravelMode _mode;
-  // Requirements
-  private AbstractAchievableRequirement _questRequirement;
-  private UsageRequirement _usageRequirements;
+  private Requirements _requirements;
 
   /**
    * Constructor.
@@ -35,8 +35,8 @@ public class TravelRoute implements Identifiable
     _name=name;
     _mode=mode;
     _destination=destination;
-    _routeActions=new ArrayList<String>();
-    _usageRequirements=new UsageRequirement();
+    _routeActions=new ArrayList<TravelRouteAction>();
+    _requirements=new Requirements();
   }
 
   @Override
@@ -67,7 +67,7 @@ public class TravelRoute implements Identifiable
    * Get the route actions.
    * @return the route actions.
    */
-  public List<String> getRouteActions()
+  public List<TravelRouteAction> getRouteActions()
   {
     return _routeActions;
   }
@@ -76,7 +76,7 @@ public class TravelRoute implements Identifiable
    * Add a route action.
    * @param routeAction Action to add.
    */
-  public void addRouteAction(String routeAction)
+  public void addRouteAction(TravelRouteAction routeAction)
   {
     _routeActions.add(routeAction);
   }
@@ -96,39 +96,35 @@ public class TravelRoute implements Identifiable
    */
   public Integer getMinLevel()
   {
-    return _usageRequirements.getMinLevel();
+    LevelRangeRequirement requirement=_requirements.getRequirement(LevelRangeRequirement.class);
+    if (requirement!=null)
+    {
+      return requirement.getMinLevel();
+    }
+    return null;
   }
 
   /**
    * Get the quests/deeds requirement.
    * @return A requirement or <code>null</code>.
    */
-  public AbstractAchievableRequirement getQuestRequirement()
+  public QuestRequirement getQuestRequirement()
   {
-    return _questRequirement;
+    return _requirements.getRequirement(QuestRequirement.class);
   }
 
   /**
-   * Set the quests/deeds requirement.
-   * @param questRequirement Requirement to use.
+   * Get the requirements.
+   * @return the requirements (that may be empty).
    */
-  public void setQuestRequirement(AbstractAchievableRequirement questRequirement)
+  public Requirements getRequirements()
   {
-    _questRequirement=questRequirement;
-  }
-
-  /**
-   * Get the usage requirement.
-   * @return A usage requirement (that may be empty).
-   */
-  public UsageRequirement getUsageRequirement()
-  {
-    return _usageRequirements;
+    return _requirements;
   }
 
   @Override
   public String toString()
   {
-    return "Route: ID="+_id+", name="+_name+", to="+_destination+", requirements="+_usageRequirements;
+    return "Route: ID="+_id+", name="+_name+", to="+_destination+", requirements="+_requirements;
   }
 }

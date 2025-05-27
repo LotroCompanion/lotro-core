@@ -67,4 +67,10 @@ public class Requirements
   {
     return (T)_requirements.get(requirementClass);
   }
+
+  @Override
+  public String toString()
+  {
+    return _requirements.values().toString();
+  }
 }

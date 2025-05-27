@@ -15,10 +15,12 @@ import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.money.Money;
+import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.lore.travels.TravelDestination;
 import delta.games.lotro.lore.travels.TravelMode;
 import delta.games.lotro.lore.travels.TravelNode;
 import delta.games.lotro.lore.travels.TravelRoute;
+import delta.games.lotro.lore.travels.TravelRouteAction;
 import delta.games.lotro.lore.travels.TravelRouteInstance;
 import delta.games.lotro.lore.travels.TravelsManager;
 
@@ -120,9 +122,42 @@ public class TravelsWebXMLWriter
     // Mode
     TravelMode mode=route.getMode();
     attrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_MODE_ATTR,XmlWriter.CDATA,mode.name());
-    // TODO Requirements
+    UsageRequirementsXMLWriter.write(attrs,route.getRequirements());
     hd.startElement("","",TravelsWebXMLConstants.ROUTE_TAG,attrs);
-    // TODO Route actions
+    // Route actions
+    for(TravelRouteAction action : route.getRouteActions())
+    {
+      AttributesImpl actionAttrs=new AttributesImpl();
+      // In-game identifier
+      int actionID=action.getIdentifier();
+      actionAttrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_ACTION_ID_ATTR,XmlWriter.CDATA,String.valueOf(actionID));
+      // Head name
+      String headName=action.getHeadname();
+      if (headName!=null)
+      {
+        actionAttrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_ACTION_HEADNAME_ATTR,XmlWriter.CDATA,headName);
+      }
+      // Delay
+      Float hopDelay=action.getDelay();
+      if (hopDelay!=null)
+      {
+        actionAttrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_ACTION_DELAY_ATTR,XmlWriter.CDATA,hopDelay.toString());
+      }
+      // Scene ID
+      Integer sceneID=action.getSceneID();
+      if (sceneID!=null)
+      {
+        actionAttrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_ACTION_SCENE_ID_ATTR,XmlWriter.CDATA,sceneID.toString());
+      }
+      // Location
+      String location=action.getLocation();
+      if (location!=null)
+      {
+        actionAttrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_ACTION_LOCATION_ATTR,XmlWriter.CDATA,location);
+      }
+      hd.startElement("","",TravelsWebXMLConstants.ROUTE_ACTION_TAG,actionAttrs);
+      hd.endElement("","",TravelsWebXMLConstants.ROUTE_ACTION_TAG);
+    }
     hd.endElement("","",TravelsWebXMLConstants.ROUTE_TAG);
   }
 

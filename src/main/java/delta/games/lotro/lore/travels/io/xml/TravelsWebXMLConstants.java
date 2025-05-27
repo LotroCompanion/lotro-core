@@ -53,6 +53,14 @@ public class TravelsWebXMLConstants
    */
   public static final String ROUTE_ACTION_TAG="routeAction";
   /**
+   * Tag 'routeAction', attribute 'id'.
+   */
+  public static final String ROUTE_ACTION_ID_ATTR="id";
+  /**
+   * Tag 'routeAction', attribute 'headName'.
+   */
+  public static final String ROUTE_ACTION_HEADNAME_ATTR="headName";
+  /**
    * Tag 'routeAction', attribute 'location'.
    */
   public static final String ROUTE_ACTION_LOCATION_ATTR="location";
@@ -60,6 +68,10 @@ public class TravelsWebXMLConstants
    * Tag 'routeAction', attribute 'delay'.
    */
   public static final String ROUTE_ACTION_DELAY_ATTR="delay";
+  /**
+   * Tag 'routeAction', attribute 'sceneID'.
+   */
+  public static final String ROUTE_ACTION_SCENE_ID_ATTR="sceneID";
 
   /**
    * Tag 'node'.
