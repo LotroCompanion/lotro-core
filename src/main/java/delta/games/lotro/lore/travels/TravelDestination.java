@@ -1,12 +1,13 @@
 package delta.games.lotro.lore.travels;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Travel destination.
  * @author DAM
  */
-public class TravelDestination implements Identifiable
+public class TravelDestination implements Identifiable,Named
 {
   private int _id;
   private String _name;

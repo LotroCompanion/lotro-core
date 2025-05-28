@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
-import delta.games.lotro.lore.worldEvents.WorldEventConditionsRenderer;
 
 /**
  * Travels manager.
