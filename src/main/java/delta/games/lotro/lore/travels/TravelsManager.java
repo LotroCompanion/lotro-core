@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.travels;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import delta.games.lotro.common.IdentifiableComparator;
+import delta.games.lotro.config.DataFiles;
+import delta.games.lotro.config.LotroCoreConfig;
+import delta.games.lotro.lore.travels.io.xml.TravelsWebXMLParser;
 
 /**
  * Travels manager.
@@ -19,9 +23,25 @@ public class TravelsManager
 {
   private static final Logger LOGGER=LoggerFactory.getLogger(TravelsManager.class);
 
+  private static TravelsManager _instance=null;
+
   private Map<Integer,TravelNode> _nodes;
   private Map<Integer,TravelDestination> _destinations;
   private Map<Integer,TravelRoute> _routes;
+
+  /**
+   * Get the sole instance of this class.
+   * @return the sole instance of this class.
+   */
+  public static TravelsManager getInstance()
+  {
+    if (_instance==null)
+    {
+      File from=LotroCoreConfig.getInstance().getFile(DataFiles.TRAVELS_WEB);
+      _instance=new TravelsWebXMLParser().parseXML(from);
+    }
+    return _instance;
+  }
 
   /**
    * Constructor.

@@ -219,6 +219,10 @@ public class DataFiles
    */
   public static final String VENDORS="vendors";
   /**
+   * Travel NPCs.
+   */
+  public static final String TRAVEL_NPCS="travelNPCs";
+  /**
    * Value tables.
    */
   public static final String VALUE_TABLES="valueTables";

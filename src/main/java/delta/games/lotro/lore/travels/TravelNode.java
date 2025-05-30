@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 
 /**
  * Travel node.
@@ -19,7 +20,7 @@ import delta.games.lotro.common.Identifiable;
  * </ul>
  * @author DAM
  */
-public class TravelNode implements Identifiable
+public class TravelNode implements Identifiable,Named
 {
   private int _id;
   private TravelDestination _mainLocation;
@@ -114,6 +115,6 @@ public class TravelNode implements Identifiable
   @Override
   public String toString()
   {
-    return "Travel node: ID="+_id;
+    return "ID="+_id+", name="+getName();
   }
 }
