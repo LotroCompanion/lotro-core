@@ -121,13 +121,18 @@ public class TravelsWebXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,TravelsWebXMLConstants.NODE_ID_ATTR,0);
     TravelNode ret=new TravelNode(id);
-    // Location
+    // Main location
+    Element mainLocationTag=DOMParsingTools.getChildTagByName(root,TravelsWebXMLConstants.MAIN_LOCATION_TAG);
+    if (mainLocationTag!=null)
+    {
+      TravelDestination mainLocation=loadLocation(mainLocationTag,mgr);
+      ret.setMainLocation(mainLocation);
+    }
+    // Locations
     List<Element> locationTags=DOMParsingTools.getChildTagsByName(root,TravelsWebXMLConstants.LOCATION_TAG);
     for(Element locationTag : locationTags)
     {
-      NamedNodeMap locationAttrs=locationTag.getAttributes();
-      int destinationID=DOMParsingTools.getIntAttribute(locationAttrs,TravelsWebXMLConstants.LOCATION_ID_ATTR,0);
-      TravelDestination destination=mgr.getDestination(destinationID);
+      TravelDestination destination=loadLocation(locationTag,mgr);
       ret.addLocation(destination);
     }
     // Route instances
@@ -144,5 +149,13 @@ public class TravelsWebXMLParser
       ret.addRoute(routeInstance);
     }
     return ret;
+  }
+
+  private TravelDestination loadLocation(Element locationTag, TravelsManager mgr)
+  {
+    NamedNodeMap locationAttrs=locationTag.getAttributes();
+    int destinationID=DOMParsingTools.getIntAttribute(locationAttrs,TravelsWebXMLConstants.LOCATION_ID_ATTR,0);
+    TravelDestination destination=mgr.getDestination(destinationID);
+    return destination;
   }
 }

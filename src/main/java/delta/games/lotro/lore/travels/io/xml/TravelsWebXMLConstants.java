@@ -82,6 +82,10 @@ public class TravelsWebXMLConstants
    */
   public static final String NODE_ID_ATTR="id";
   /**
+   * Tag 'mainLocation'.
+   */
+  public static final String MAIN_LOCATION_TAG="mainLocation";
+  /**
    * Tag 'location'.
    */
   public static final String LOCATION_TAG="location";

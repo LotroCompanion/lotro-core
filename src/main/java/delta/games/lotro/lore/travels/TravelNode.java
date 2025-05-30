@@ -22,6 +22,7 @@ import delta.games.lotro.common.Identifiable;
 public class TravelNode implements Identifiable
 {
   private int _id;
+  private TravelDestination _mainLocation;
   private List<TravelDestination> _locations;
   private List<TravelRouteInstance> _routes;
 
@@ -32,6 +33,7 @@ public class TravelNode implements Identifiable
   public TravelNode(int id)
   {
     _id=id;
+    _mainLocation=null;
     _locations=new ArrayList<TravelDestination>();
     _routes=new ArrayList<TravelRouteInstance>();
   }
@@ -53,6 +55,24 @@ public class TravelNode implements Identifiable
       return _locations.get(0).getName();
     }
     return "???";
+  }
+
+  /**
+   * Get the main location.
+   * @return the main location.
+   */
+  public TravelDestination getMainLocation()
+  {
+    return _mainLocation;
+  }
+
+  /**
+   * Set the main location.
+   * @param mainLocation the main location to set.
+   */
+  public void setMainLocation(TravelDestination mainLocation)
+  {
+    _mainLocation=mainLocation;
   }
 
   /**

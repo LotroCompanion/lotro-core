@@ -170,17 +170,10 @@ public class TravelsWebXMLWriter
     attrs.addAttribute("","",TravelsWebXMLConstants.NODE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     hd.startElement("","",TravelsWebXMLConstants.NODE_TAG,attrs);
     // Locations
+    writeLocation(hd,TravelsWebXMLConstants.MAIN_LOCATION_TAG,node.getMainLocation());
     for(TravelDestination location : node.getLocations())
     {
-      AttributesImpl locationAttrs=new AttributesImpl();
-      // ID
-      int locationID=location.getIdentifier();
-      locationAttrs.addAttribute("","",TravelsWebXMLConstants.LOCATION_ID_ATTR,XmlWriter.CDATA,String.valueOf(locationID));
-      // Name
-      String locationName=location.getName();
-      locationAttrs.addAttribute("","",TravelsWebXMLConstants.LOCATION_NAME_ATTR,XmlWriter.CDATA,locationName);
-      hd.startElement("","",TravelsWebXMLConstants.LOCATION_TAG,locationAttrs);
-      hd.endElement("","",TravelsWebXMLConstants.LOCATION_TAG);
+      writeLocation(hd,TravelsWebXMLConstants.LOCATION_TAG,location);
     }
     // Routes
     for(TravelRouteInstance routeInstance : node.getRoutes())
@@ -201,5 +194,22 @@ public class TravelsWebXMLWriter
       hd.endElement("","",TravelsWebXMLConstants.NODE_ROUTE_TAG);
     }
     hd.endElement("","",TravelsWebXMLConstants.NODE_TAG);
+  }
+
+  private void writeLocation(TransformerHandler hd, String tag, TravelDestination location) throws SAXException
+  {
+    if (location==null)
+    {
+      return;
+    }
+    AttributesImpl locationAttrs=new AttributesImpl();
+    // ID
+    int locationID=location.getIdentifier();
+    locationAttrs.addAttribute("","",TravelsWebXMLConstants.LOCATION_ID_ATTR,XmlWriter.CDATA,String.valueOf(locationID));
+    // Name
+    String locationName=location.getName();
+    locationAttrs.addAttribute("","",TravelsWebXMLConstants.LOCATION_NAME_ATTR,XmlWriter.CDATA,locationName);
+    hd.startElement("","",tag,locationAttrs);
+    hd.endElement("","",tag);
   }
 }
