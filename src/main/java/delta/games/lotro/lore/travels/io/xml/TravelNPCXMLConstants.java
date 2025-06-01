@@ -35,6 +35,18 @@ public class TravelNPCXMLConstants
    */
   public static final String TRAVEL_NPC_MUST_BE_DISCOVERED="mustBeDiscovered";
   /**
+   * Tag 'uiPosition'.
+   */
+  public static final String UI_POSITION_TAG="uiPosition";
+  /**
+   * Tag 'uiPosition', attribute 'x'.
+   */
+  public static final String X_ATTR="x";
+  /**
+   * Tag 'uiPosition', attribute 'y'.
+   */
+  public static final String Y_ATTR="y";
+  /**
    * Tag 'discount'.
    */
   public static final String DISCOUNT_TAG="discount";

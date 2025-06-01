@@ -1,5 +1,6 @@
 package delta.games.lotro.lore.travels.io.xml;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,15 @@ public class TravelNPCXMLParser
     Element positionTag=DOMParsingTools.getChildTagByName(root,PositionXMLConstants.POSITION);
     ExtendedPosition position=PositionXMLParser.parsePosition(positionTag);
     ret.setPosition(position);
+    // UI Position
+    Element uiPositionTag=DOMParsingTools.getChildTagByName(root,TravelNPCXMLConstants.UI_POSITION_TAG);
+    if (uiPositionTag!=null)
+    {
+      NamedNodeMap positionAttrs=uiPositionTag.getAttributes();
+      int x=DOMParsingTools.getIntAttribute(positionAttrs,TravelNPCXMLConstants.X_ATTR,0);
+      int y=DOMParsingTools.getIntAttribute(positionAttrs,TravelNPCXMLConstants.Y_ATTR,0);
+      ret.setUIPosition(new Dimension(x,y));
+    }
     // Discounts
     List<Element> discountTags=DOMParsingTools.getChildTagsByName(root,TravelNPCXMLConstants.DISCOUNT_TAG);
     for(Element discountTag : discountTags)
