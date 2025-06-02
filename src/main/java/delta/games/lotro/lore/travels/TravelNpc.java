@@ -6,6 +6,7 @@ import java.util.List;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.Identifiable;
+import delta.games.lotro.common.Named;
 import delta.games.lotro.common.geo.ExtendedPosition;
 import delta.games.lotro.lore.agents.npcs.NpcDescription;
 
@@ -13,7 +14,7 @@ import delta.games.lotro.lore.agents.npcs.NpcDescription;
  * Travel data for a NPC.
  * @author DAM
  */
-public class TravelNpc implements Identifiable
+public class TravelNpc implements Identifiable,Named
 {
   // Parent NPC
   private NpcDescription _npc;
@@ -46,6 +47,12 @@ public class TravelNpc implements Identifiable
   public int getIdentifier()
   {
     return _npc.getIdentifier();
+  }
+
+  @Override
+  public String getName()
+  {
+    return _npc.getName();
   }
 
   /**
@@ -189,5 +196,11 @@ public class TravelNpc implements Identifiable
     sb.append(", discounts=").append(_discounts);
     sb.append(EndOfLine.NATIVE_EOL);
     return sb.toString().trim();
+  }
+
+  @Override
+  public String toString()
+  {
+    return _npc.toString();
   }
 }

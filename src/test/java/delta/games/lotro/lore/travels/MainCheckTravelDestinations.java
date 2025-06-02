@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.travels.io.xml;
+package delta.games.lotro.lore.travels;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,9 +10,7 @@ import java.util.Set;
 import delta.games.lotro.common.comparators.NamedComparator;
 import delta.games.lotro.config.DataFiles;
 import delta.games.lotro.config.LotroCoreConfig;
-import delta.games.lotro.lore.travels.TravelDestination;
-import delta.games.lotro.lore.travels.TravelNode;
-import delta.games.lotro.lore.travels.TravelsManager;
+import delta.games.lotro.lore.travels.io.xml.TravelsWebXMLParser;
 
 /**
  * Check travel destinations.
