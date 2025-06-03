@@ -63,4 +63,8 @@ public class CharacterDetailsXMLConstants
    * Tag 'characterDetails', attribute 'lastLogoutDate'.
    */
   public static final String LAST_LOGOUT_DATE_ATTR="lastLogoutDate";
+  /**
+   * Tag 'characterDetails', attribute 'noPurchaseRequired'.
+   */
+  public static final String NO_PURCHASE_REQUIRED_ATTR="noPurchaseRequired";
 }

@@ -58,6 +58,12 @@ public class CharacterDetailsXMLWriter
     {
       detailsAttrs.addAttribute("","",CharacterDetailsXMLConstants.LAST_LOGOUT_DATE_ATTR,XmlWriter.CDATA,lastLogoutDate.toString());
     }
+    // No purchase required
+    Boolean noPurchaseRequired=details.getNoPurchaseRequired();
+    if (noPurchaseRequired!=null)
+    {
+      detailsAttrs.addAttribute("","",CharacterDetailsXMLConstants.NO_PURCHASE_REQUIRED_ATTR,XmlWriter.CDATA,noPurchaseRequired.toString());
+    }
     hd.startElement("","",CharacterDetailsXMLConstants.CHARACTER_DETAILS_TAG,detailsAttrs);
     // XP
     AttributesImpl xpAttrs=new AttributesImpl();

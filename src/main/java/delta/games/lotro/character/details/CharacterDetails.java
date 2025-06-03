@@ -21,6 +21,7 @@ public class CharacterDetails
   private Integer _currentVocationId;
   private Money _money;
   private Long _lastLogoutDate;
+  private Boolean _noPurchaseRequired;
 
   /**
    * Constructor.
@@ -36,6 +37,7 @@ public class CharacterDetails
     _currentVocationId=null;
     _money=new Money();
     _lastLogoutDate=null;
+    _noPurchaseRequired=null;
   }
 
   /**
@@ -189,6 +191,24 @@ public class CharacterDetails
   public void setLastLogoutDate(Long lastLogoutDate)
   {
     _lastLogoutDate=lastLogoutDate;
+  }
+
+  /**
+   * Get the 'no purchase required' flag for this character.
+   * @return a flag value or <code>null</code>.
+   */
+  public Boolean getNoPurchaseRequired()
+  {
+    return _noPurchaseRequired;
+  }
+
+  /**
+   * Set the flag 'noPurchaseRequired' for this character.
+   * @param noPurchaseRequired the value to set (may be <code>null</code> if not known.
+   */
+  public void setNoPurchaseRequired(Boolean noPurchaseRequired)
+  {
+    _noPurchaseRequired=noPurchaseRequired;
   }
 
   @Override

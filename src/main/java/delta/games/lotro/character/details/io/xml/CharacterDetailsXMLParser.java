@@ -54,6 +54,9 @@ public class CharacterDetailsXMLParser
     long date=DOMParsingTools.getLongAttribute(attrs,CharacterDetailsXMLConstants.LAST_LOGOUT_DATE_ATTR,0);
     Long lastLogoutDate=(date!=0)?Long.valueOf(date):null;
     details.setLastLogoutDate(lastLogoutDate);
+    // 'No Purchase Required'
+    Boolean noPurchaseRequired=DOMParsingTools.getBooleanAttribute(attrs,CharacterDetailsXMLConstants.NO_PURCHASE_REQUIRED_ATTR,null);
+    details.setNoPurchaseRequired(noPurchaseRequired);
 
     // XP
     Element xpTag=DOMParsingTools.getChildTagByName(root,CharacterDetailsXMLConstants.XP_TAG);
