@@ -42,7 +42,11 @@ public class StorageLocation
     /**
      * Carry-all.
      */
-    CARRY_ALL
+    CARRY_ALL,
+    /**
+     * Wardrobe.
+     */
+    WARDROBE
   }
   private Owner _owner;
   private LocationType _type;
@@ -132,6 +136,10 @@ public class StorageLocation
       {
         ret=ret+" ("+_chestName+")";
       }
+    }
+    else if (_type==LocationType.WARDROBE)
+    {
+      return "Wardrobe";
     }
     if (prefix!=null)
     {

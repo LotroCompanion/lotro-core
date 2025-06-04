@@ -6,6 +6,7 @@ import java.util.List;
 import delta.games.lotro.account.Account;
 import delta.games.lotro.account.AccountOnServer;
 import delta.games.lotro.account.AccountUtils;
+import delta.games.lotro.character.CharacterData;
 import delta.games.lotro.character.CharacterFile;
 import delta.games.lotro.character.gear.CharacterGear;
 import delta.games.lotro.character.gear.GearSlot;
@@ -20,6 +21,9 @@ import delta.games.lotro.character.storage.vaults.Vault;
 import delta.games.lotro.character.storage.vaults.io.VaultsIo;
 import delta.games.lotro.character.storage.wallet.Wallet;
 import delta.games.lotro.character.storage.wallet.io.xml.WalletsIO;
+import delta.games.lotro.character.storage.wardrobe.Wardrobe;
+import delta.games.lotro.character.storage.wardrobe.WardrobeItem;
+import delta.games.lotro.character.storage.wardrobe.io.xml.WardrobeIO;
 import delta.games.lotro.common.owner.AccountOwner;
 import delta.games.lotro.common.owner.AccountServerOwner;
 import delta.games.lotro.common.owner.CharacterOwner;
@@ -29,7 +33,6 @@ import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.ItemProvider;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
-import delta.games.lotro.character.CharacterData;
 
 /**
  * Utility methods for storage management.
@@ -171,6 +174,13 @@ public class StorageUtils
       if (sharedWallet!=null)
       {
         List<StoredItem> storedItems=getAllItems(accountServer,sharedWallet,LocationType.SHARED_WALLET);
+        items.addAll(storedItems);
+      }
+      // Wardrobe
+      Wardrobe wardrobe=WardrobeIO.loadWardrobe(accountOnServer);
+      if (wardrobe!=null)
+      {
+        List<StoredItem> storedItems=getWardrobeItems(accountServer,wardrobe);
         items.addAll(storedItems);
       }
     }
@@ -323,5 +333,20 @@ public class StorageUtils
       }
     }
     return ret;
+  }
+
+  private static List<StoredItem> getWardrobeItems(Owner owner, Wardrobe wardrobe)
+  {
+    StorageLocation location=new StorageLocation(owner,LocationType.WARDROBE,null);
+    List<StoredItem> items=new ArrayList<StoredItem>();
+    for(WardrobeItem walletItem : wardrobe.getAll())
+    {
+      CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(walletItem.getItem(),1);
+      StoredItem storedItem=new StoredItem(countedItem);
+      storedItem.setOwner(owner);
+      storedItem.setLocation(location);
+      items.add(storedItem);
+    }
+    return items;
   }
 }
