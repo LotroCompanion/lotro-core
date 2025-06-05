@@ -19,6 +19,11 @@ import delta.games.lotro.common.rewards.ItemReward;
 import delta.games.lotro.common.rewards.RewardElement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.common.rewards.SelectableRewardElement;
+import delta.games.lotro.common.treasure.TreasureList;
+import delta.games.lotro.common.treasure.TrophyList;
+import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.mobs.MobLoot;
+import delta.games.lotro.lore.agents.mobs.MobsManager;
 import delta.games.lotro.lore.crafting.recipes.CraftingResult;
 import delta.games.lotro.lore.crafting.recipes.Ingredient;
 import delta.games.lotro.lore.crafting.recipes.Recipe;
@@ -99,6 +104,7 @@ public class ItemReferencesBuilder
     findInVendors(itemId);
     findInSets(itemId);
     findInContainers(itemId);
+    findInMobDrops(itemId);
     findInMeldingRecipes(itemId);
     findSameCosmetics(itemId);
     findInWebStoreItems(itemId);
@@ -434,6 +440,63 @@ public class ItemReferencesBuilder
         }
       }
     }
+  }
+
+  private void findInMobDrops(int itemId)
+  {
+    MobsManager mobsMgr=MobsManager.getInstance();
+    for(MobDescription mob : mobsMgr.getMobs())
+    {
+      MobLoot loot=mob.getLoot();
+      if (loot!=null)
+      {
+        if (findItemInMobDrops(loot,itemId))
+        {
+          _storage.add(new Reference<MobDescription,ItemRole>(mob,ItemRole.MOB_DROP));
+        }
+      }
+    }
+  }
+
+  private boolean findItemInMobDrops(MobLoot loot, int itemId)
+  {
+    // Trophy list
+    TrophyList trophyList=loot.getTrophyListOverride();
+    if (trophyList!=null)
+    {
+      if (trophyList.contains(itemId))
+      {
+        return true;
+      }
+    }
+    // Barter trophy
+    TrophyList barterTrophy=loot.getBarterTrophy();
+    if (barterTrophy!=null)
+    {
+      if (barterTrophy.contains(itemId))
+      {
+        return true;
+      }
+    }
+    // Reputation trophy
+    TrophyList reputationTrophy=loot.getReputationTrophy();
+    if (reputationTrophy!=null)
+    {
+      if (reputationTrophy.contains(itemId))
+      {
+        return true;
+      }
+    }
+    // Treasure list
+    TreasureList treasureList=loot.getTreasureListOverride();
+    if (treasureList!=null)
+    {
+      if (treasureList.contains(itemId))
+      {
+        return true;
+      }
+    }
+    return false;
   }
 
   private void findInMeldingRecipes(int itemId)

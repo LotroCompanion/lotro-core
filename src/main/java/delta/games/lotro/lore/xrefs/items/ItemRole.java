@@ -73,5 +73,9 @@ public enum ItemRole
   /**
    * Initial gear for a character class.
    */
-  INITIAL_GEAR_FOR_CLASS
+  INITIAL_GEAR_FOR_CLASS,
+  /**
+   * Mob drop.
+   */
+  MOB_DROP
 }
