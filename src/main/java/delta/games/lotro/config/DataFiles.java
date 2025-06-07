@@ -387,6 +387,10 @@ public class DataFiles
    */
   public static final String TRAVELS_WEB="travelsWeb";
   /**
+   * Travels map.
+   */
+  public static final String TRAVELS_MAP="travelsMap";
+  /**
    * Labels directory.
    */
   public static final String LABELS="labelsDir";
