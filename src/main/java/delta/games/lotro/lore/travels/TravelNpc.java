@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.travels;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class TravelNpc implements Identifiable,Named
   // Parent NPC
   private NpcDescription _npc;
   private ExtendedPosition _position;
-  private Dimension _uiPosition;
   private List<Integer> _discounts;
   private float _sellFactor;
   private TravelNode _node;
@@ -33,7 +31,6 @@ public class TravelNpc implements Identifiable,Named
   {
     _npc=npc;
     _position=null;
-    _uiPosition=null;
     _discounts=new ArrayList<Integer>();
     _sellFactor=1;
     _node=null;
@@ -80,24 +77,6 @@ public class TravelNpc implements Identifiable,Named
   public void setPosition(ExtendedPosition position)
   {
     _position=position;
-  }
-
-  /**
-   * Get the UI position.
-   * @return the UI position.
-   */
-  public Dimension getUIPosition()
-  {
-    return _uiPosition;
-  }
-
-  /**
-   * Set the UI position.
-   * @param uiPosition the UI position to set.
-   */
-  public void setUIPosition(Dimension uiPosition)
-  {
-    _uiPosition=uiPosition;
   }
 
   /**

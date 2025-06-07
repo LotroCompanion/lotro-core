@@ -1,7 +1,5 @@
 package delta.games.lotro.lore.travels;
 
-import java.awt.Dimension;
-
 import delta.common.utils.statistics.ValueSetStatistics;
 import delta.games.lotro.common.geo.ExtendedPosition;
 
@@ -23,7 +21,6 @@ public class MainCheckTravelNPCs
   {
     ValueSetStatistics nodeStats=new ValueSetStatistics();
     ValueSetStatistics positionStats=new ValueSetStatistics();
-    ValueSetStatistics uiPositionStats=new ValueSetStatistics();
     ValueSetStatistics mustBeDiscoveredStats=new ValueSetStatistics();
     for(TravelNpc npc : mgr.getAll())
     {
@@ -31,8 +28,6 @@ public class MainCheckTravelNPCs
       nodeStats.addValue((node!=null)?1:0);
       ExtendedPosition position=npc.getPosition();
       positionStats.addValue((position!=null)?1:0);
-      Dimension uiPosition=npc.getUIPosition();
-      uiPositionStats.addValue((uiPosition!=null)?1:0);
       boolean mustBeDiscovered=npc.isMustBeDiscovered();
       mustBeDiscoveredStats.addValue(mustBeDiscovered?1:0);
     }
@@ -40,8 +35,6 @@ public class MainCheckTravelNPCs
     System.out.println(nodeStats.dumpByValue().trim());
     System.out.println("With position:");
     System.out.println(positionStats.dumpByValue().trim());
-    System.out.println("With UI position:");
-    System.out.println(uiPositionStats.dumpByValue().trim());
     System.out.println("Must be discovered:");
     System.out.println(mustBeDiscoveredStats.dumpByValue().trim());
   }
@@ -56,15 +49,6 @@ public class MainCheckTravelNPCs
     {
       ExtendedPosition position=npc.getPosition();
       if (position==null)
-      {
-        System.out.println("\t"+npc);
-      }
-    }
-    System.out.println("NPCs with no UI position:");
-    for(TravelNpc npc : mgr.getAll())
-    {
-      Dimension uiPosition=npc.getUIPosition();
-      if (uiPosition==null)
       {
         System.out.println("\t"+npc);
       }

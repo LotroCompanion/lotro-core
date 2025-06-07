@@ -1,6 +1,5 @@
 package delta.games.lotro.lore.travels.io.xml;
 
-import java.awt.Dimension;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
@@ -83,16 +82,6 @@ public class TravelNPCXMLWriter
     hd.startElement("","",TravelNPCXMLConstants.TRAVEL_NPC_TAG,attrs);
     // Position
     PositionXMLWriter.writePosition(hd,travelNPC.getPosition());
-    // UI Position
-    Dimension uiPosition=travelNPC.getUIPosition();
-    if (uiPosition!=null)
-    {
-      AttributesImpl positionAttrs=new AttributesImpl();
-      positionAttrs.addAttribute("","",TravelNPCXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(uiPosition.width));
-      positionAttrs.addAttribute("","",TravelNPCXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(uiPosition.height));
-      hd.startElement("","",TravelNPCXMLConstants.UI_POSITION_TAG,positionAttrs);
-      hd.endElement("","",TravelNPCXMLConstants.UI_POSITION_TAG);
-    }
     // Discounts
     for(Integer discountId : travelNPC.getDiscounts())
     {
