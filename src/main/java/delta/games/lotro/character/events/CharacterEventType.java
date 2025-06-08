@@ -105,5 +105,9 @@ public enum CharacterEventType
   /**
    * PVP status updated.
    */
-  PVP_STATUS_UPDATED
+  PVP_STATUS_UPDATED,
+  /**
+   * Discovered destinations.
+   */
+  DISCOVERED_DESTINATIONS_UPDATED
 }
