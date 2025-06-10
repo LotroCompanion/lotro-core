@@ -67,6 +67,11 @@ public class TravelNPCXMLParser
     int nodeID=DOMParsingTools.getIntAttribute(attrs,TravelNPCXMLConstants.TRAVEL_NPC_NODE_ID,0);
     TravelsManager travelsMgr=TravelsManager.getInstance();
     TravelNode node=travelsMgr.getNode(nodeID);
+    if (node==null)
+    {
+      LOGGER.warn("Node not found: {}",Integer.valueOf(nodeID));
+      return null;
+    }
     ret.setNode(node);
     // Sell factor
     float sellFactor=DOMParsingTools.getFloatAttribute(attrs,TravelNPCXMLConstants.TRAVEL_NPC_SELL_FACTOR,1);
