@@ -7,9 +7,9 @@ package delta.games.lotro.character.status.travels.io.xml;
 public class DiscoveredDestinationsXMLConstants
 {
   /**
-   * Tag 'dicoveredDestinations'.
+   * Tag 'discoveredDestinations'.
    */
-  public static final String DISCOVERED_DESTINATIONS_TAG="dicoveredDestinations";
+  public static final String DISCOVERED_DESTINATIONS_TAG="discoveredDestinations";
   /**
    * Tag 'destination'.
    */
