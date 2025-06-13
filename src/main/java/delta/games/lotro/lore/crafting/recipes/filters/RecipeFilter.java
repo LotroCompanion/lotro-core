@@ -25,6 +25,7 @@ public class RecipeFilter implements Filter<Recipe>
   private RecipeSingleUseFilter _singleUseFilter;
   private RecipeHasCooldownFilter _hasCooldownFilter;
   private RecipeIsGuildFilter _isGuildFilter;
+  private RecipeUseIngredientPackFilter _useIngredientPackFilter;
 
   /**
    * Constructor.
@@ -59,6 +60,9 @@ public class RecipeFilter implements Filter<Recipe>
     // Guild
     _isGuildFilter=new RecipeIsGuildFilter(null);
     filters.add(_isGuildFilter);
+    // Use ingredient pack
+    _useIngredientPackFilter=new RecipeUseIngredientPackFilter(null);
+    filters.add(_useIngredientPackFilter);
     _filter=new CompoundFilter<Recipe>(Operator.AND,filters);
   }
 
@@ -141,6 +145,15 @@ public class RecipeFilter implements Filter<Recipe>
   public RecipeIsGuildFilter getGuildFilter()
   {
     return _isGuildFilter;
+  }
+
+  /**
+   * Get the filter on 'use ingredient pack'.
+   * @return a recipe filter on 'use ingredient pack'.
+   */
+  public RecipeUseIngredientPackFilter getUseIngredientPackFilter()
+  {
+    return _useIngredientPackFilter;
   }
 
   @Override
