@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.travels.map;
 
-import java.awt.Dimension;
+import java.awt.Rectangle;
 
 /**
  * Label on the travels map.
@@ -8,7 +8,7 @@ import java.awt.Dimension;
  */
 public class TravelsMapLabel
 {
-  private Dimension _uiPosition;
+  private Rectangle _uiPosition;
   private String _text;
 
   /**
@@ -16,7 +16,7 @@ public class TravelsMapLabel
    * @param uiPosition UI position.
    * @param text Text.
    */
-  public TravelsMapLabel(Dimension uiPosition, String text)
+  public TravelsMapLabel(Rectangle uiPosition, String text)
   {
     _uiPosition=uiPosition;
     _text=text;
@@ -26,7 +26,7 @@ public class TravelsMapLabel
    * Get the UI position.
    * @return the UI position.
    */
-  public Dimension getUIPosition()
+  public Rectangle getUIPosition()
   {
     return _uiPosition;
   }

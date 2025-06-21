@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.travels.map.io.xml;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.io.File;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class TravelsMapXMLParser
     String text=DOMParsingTools.getStringAttribute(attrs,TravelsMapXMLConstants.LABEL_TEXT_ATTR,"");
     text=I18nRuntimeUtils.getLabel(_i18n,text);
     // Position
-    Dimension uiPosition=parseUIPosition(root);
+    Rectangle uiPosition=parseUIRectangle(root);
     TravelsMapLabel ret=new TravelsMapLabel(uiPosition,text);
     return ret;
   }
@@ -113,6 +114,21 @@ public class TravelsMapXMLParser
       int x=DOMParsingTools.getIntAttribute(positionAttrs,TravelsMapXMLConstants.X_ATTR,0);
       int y=DOMParsingTools.getIntAttribute(positionAttrs,TravelsMapXMLConstants.Y_ATTR,0);
       return new Dimension(x,y);
+    }
+    return null;
+  }
+
+  private Rectangle parseUIRectangle(Element parentTag)
+  {
+    Element uiPositionTag=DOMParsingTools.getChildTagByName(parentTag,TravelsMapXMLConstants.UI_POSITION_TAG);
+    if (uiPositionTag!=null)
+    {
+      NamedNodeMap positionAttrs=uiPositionTag.getAttributes();
+      int x=DOMParsingTools.getIntAttribute(positionAttrs,TravelsMapXMLConstants.X_ATTR,0);
+      int y=DOMParsingTools.getIntAttribute(positionAttrs,TravelsMapXMLConstants.Y_ATTR,0);
+      int width=DOMParsingTools.getIntAttribute(positionAttrs,TravelsMapXMLConstants.WIDTH_ATTR,0);
+      int height=DOMParsingTools.getIntAttribute(positionAttrs,TravelsMapXMLConstants.HEIGHT_ATTR,0);
+      return new Rectangle(x,y,width,height);
     }
     return null;
   }

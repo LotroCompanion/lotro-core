@@ -46,4 +46,12 @@ public class TravelsMapXMLConstants
    * Tag 'uiPosition', attribute 'y'.
    */
   public static final String Y_ATTR="y";
+  /**
+   * Tag 'uiPosition', attribute 'width'.
+   */
+  public static final String WIDTH_ATTR="width";
+  /**
+   * Tag 'uiPosition', attribute 'height'.
+   */
+  public static final String HEIGHT_ATTR="height";
 }

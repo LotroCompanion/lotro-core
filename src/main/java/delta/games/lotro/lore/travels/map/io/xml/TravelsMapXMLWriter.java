@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.travels.map.io.xml;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.io.File;
 
 import javax.xml.transform.sax.TransformerHandler;
@@ -66,7 +67,7 @@ public class TravelsMapXMLWriter
     attrs.addAttribute("","",TravelsMapXMLConstants.LABEL_TEXT_ATTR,XmlWriter.CDATA,text);
     hd.startElement("","",TravelsMapXMLConstants.LABEL_TAG,attrs);
     // UI Position
-    Dimension uiPosition=label.getUIPosition();
+    Rectangle uiPosition=label.getUIPosition();
     writePosition(hd,uiPosition);
     hd.endElement("","",TravelsMapXMLConstants.LABEL_TAG);
   }
@@ -100,6 +101,20 @@ public class TravelsMapXMLWriter
       AttributesImpl positionAttrs=new AttributesImpl();
       positionAttrs.addAttribute("","",TravelsMapXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(uiPosition.width));
       positionAttrs.addAttribute("","",TravelsMapXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(uiPosition.height));
+      hd.startElement("","",TravelsMapXMLConstants.UI_POSITION_TAG,positionAttrs);
+      hd.endElement("","",TravelsMapXMLConstants.UI_POSITION_TAG);
+    }
+  }
+
+  private static void writePosition(TransformerHandler hd, Rectangle uiPosition) throws SAXException
+  {
+    if (uiPosition!=null)
+    {
+      AttributesImpl positionAttrs=new AttributesImpl();
+      positionAttrs.addAttribute("","",TravelsMapXMLConstants.X_ATTR,XmlWriter.CDATA,String.valueOf(uiPosition.x));
+      positionAttrs.addAttribute("","",TravelsMapXMLConstants.Y_ATTR,XmlWriter.CDATA,String.valueOf(uiPosition.y));
+      positionAttrs.addAttribute("","",TravelsMapXMLConstants.WIDTH_ATTR,XmlWriter.CDATA,String.valueOf(uiPosition.width));
+      positionAttrs.addAttribute("","",TravelsMapXMLConstants.HEIGHT_ATTR,XmlWriter.CDATA,String.valueOf(uiPosition.height));
       hd.startElement("","",TravelsMapXMLConstants.UI_POSITION_TAG,positionAttrs);
       hd.endElement("","",TravelsMapXMLConstants.UI_POSITION_TAG);
     }
