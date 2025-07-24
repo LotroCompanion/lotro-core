@@ -51,7 +51,10 @@ class SkillTooltipGenerationTest
     {
       allLines.add("*****************************");
       List<String> lines=doSkill(skillID, data);
-      allLines.addAll(lines);
+      if (lines!=null)
+      {
+        allLines.addAll(lines);
+      }
     }
     String name=characterFile.replace(".xml",".txt");
     File toDir=new File("src/test/resources/skills/tooltips/expectedResults");
@@ -413,6 +416,10 @@ class SkillTooltipGenerationTest
   private List<String> doSkill(int id, CharacterData data)
   {
     SkillDescription skill=SkillsManager.getInstance().getSkill(id);
+    if (skill==null)
+    {
+      return null;
+    }
     SkillDetails details=skill.getDetails();
     CharacterDataForSkills dataForSkills=new CharacterDataForSkills(data);
     SkillDisplay d=new SkillDisplay(dataForSkills,skill,details);

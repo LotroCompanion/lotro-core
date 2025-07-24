@@ -10,7 +10,6 @@ Nock and loose an arrow quickly.
 Has a chance to generate additional Focus.
 3 151 - 4 202 Beleriand (Ranged) Damage
 +1 Bonus Focus
-Cost: 32 Power
 Adds 1 to Focus
 *****************************
 Skill-Id: 1879135202
@@ -18,13 +17,16 @@ Improved Swift Bow
 Fast
 Ranged Skill
 Induction: 1,6s
+Skill Type: Focus Builder
 Range: 30m
 Loose three missiles in rapid succession.
 3 Attacks:
-7 672 - 10 229 Beleriand (Ranged) Damage
-5 560 - 7 414 Beleriand (Ranged) Damage
-4 131 - 5 508 Beleriand (Ranged) Damage
-Cost: 191 Power
+9 206 - 12 274 Beleriand (Ranged) Damage
+6 672 - 8 897 Beleriand (Ranged) Damage
+4 958 - 6 610 Beleriand (Ranged) Damage
+Activates the Skill Exsanguinate
+Duration: 8s
+Cost: 48 Power
 Adds 2 to Focus
 Cooldown: 10s
 *****************************
@@ -34,10 +36,9 @@ Immediate
 Ranged Skill
 Range: 30m
 A swift ranged attack that can interrupt an enemy's actions.
-12 247 - 16 329 Beleriand (Ranged) Damage
+5 068 - 6 757 Beleriand (Ranged) Damage
 Interrupts Inductions
-Cost: 95 Power
-Adds 3 to Focus
+Cost: 64 Power
 Cooldown: 18s
 *****************************
 Skill-Id: 1879064371
@@ -45,13 +46,14 @@ Barbed Arrow
 Fast
 Ranged Skill
 Induction: 1,4s
+Skill Type: Focus Builder
 Range: 30m
-Your arrow can cause a wound that bleeds and slightly slows movement speed.
-6 097 - 8 126 Beleriand (Ranged) Damage
--40% Target Run Speed
-Duration: 20s
-4 316 Beleriand Damage every 2,0 seconds for 12 seconds.
-Cost: 191 Power
+Your arrow can cause a wound that bleeds.
+7 012 - 9 345 Beleriand (Ranged) Damage
+5 078 Beleriand Damage every 2,0 seconds for 12 seconds.
+Activates the Skill Exsanguinate
+Duration: 8s
+Cost: 32 Power
 Adds 1 to Focus
 Cooldown: 1,5s
 *****************************
@@ -60,15 +62,16 @@ Bard's Arrow
 Fast
 Ranged Skill
 Induction: 1,4s
+Skill Type: Focus Builder
 Range: 30m
 A shot that strikes the enemy with fear.
-
-<rgb=#00FFDD>Mounted Combat Enemies: Fear replaced with attack speed debuff.</rgb>
-12 682 - 16 909 Beleriand (Ranged) Damage
+12 078 - 16 104 Beleriand (Ranged) Damage
 15s Fear
 100% break chance on harm after 1s
 3% break chance on damage after 1s
-Cost: 96 Power
+Activates the Skill Exsanguinate
+Duration: 8s
+Cost: 254 Power
 Adds 1 to Focus
 Cooldown: 30s
 *****************************
@@ -77,13 +80,15 @@ Heart Seeker
 Fast
 Ranged Skill
 Induction: 1,8s
+Skill Type: Focus Builder
 Range: 30m
 A shot that cannot be missed, parried, evaded, or blocked.
-25 949 - 34 599 Beleriand (Ranged) Damage
-5 319 Beleriand Damage every 2,0 seconds for 10 seconds.
-If Target is Bleeding:
-2 983 - 3 728 Damage
-Cost: 191 Power
+40 894 - 54 526 Beleriand (Ranged) Damage
+5 540 Beleriand Damage every 1,0 seconds for 10 seconds.
+Activates the Skill Exsanguinate
+Duration: 8s
+Cost: 159 Power
+Adds 5 to Focus
 Cooldown: 50s
 *****************************
 Skill-Id: 1879218255
@@ -92,13 +97,13 @@ Fast
 Ranged Skill
 Range: 30m
 A damaging shot that pierces enemy mitigations.
-7 824 - 10 432 Beleriand (Ranged) Damage
+9 780 - 13 040 Beleriand (Ranged) Damage
 -3% Physical Mitigation (%)
 -3% Tactical Mitigation (%)
 Duration: 10s
 Cost: 119 Power
 Cost: 3 Focus
-Cooldown: 1s
+Cooldown: 0,5s
 *****************************
 Skill-Id: 1879073389
 Low Cut
@@ -107,16 +112,19 @@ Melee Skill
 Max Targets: 5
 Radius: 5m
 Range: 5,0m
-A low cut in front of you which briefly slows the movement speed of up to 3 enemies.
+A low cut in front of you which briefly slows the movement speed of multiple enemies.
 2 Attacks:
-4 067 - 5 422 Beleriand (Main-hand) Damage
-998 - 1 330 Westernesse (Off-hand) Damage
+9 882 - 13 176 Beleriand (Main-hand) Damage
+1 293 - 1 724 Westernesse (Off-hand) Damage
 -50% Target Run Speed
 Duration: 10s
+1 214 Beleriand Damage every 2,0 seconds for 10 seconds.
 3s Root
+Activates the Skill Exsanguinate
+Duration: 8s
 No Focus loss on movement.
 Duration: 4s
-Cost: 127 Power
+Cost: 64 Power
 Adds 3 to Focus
 Cooldown: 10s
 *****************************
@@ -124,14 +132,15 @@ Skill-Id: 1879270510
 Barrage
 Fast
 Ranged Skill
+Skill Type: Focus Spender
 Range: 30m
 A quick attack that deals more damage each time it is used.
-7 667 - 10 223 Beleriand (Ranged) Damage
+8 249 - 10 999 Beleriand (Ranged) Damage
 Increases Barrage Damage & Power Costs
 Duration: 6s
-Cost: 95 Power
+Cost: 24 Power
 Cost: 3 Focus
-Cooldown: 2s
+Cooldown: 0,1s
 *****************************
 Skill-Id: 1879073393
 Scourging Blow
@@ -142,28 +151,29 @@ A melee attack dealing additional damage if the enemy suffers from Barbed Arrow.
 
 Using this skill will stop the bleeding.
 2 Attacks:
-4 722 - 6 296 Beleriand (Main-hand) Damage
-1 168 - 1 557 Westernesse (Off-hand) Damage
-Cost: 127 Power
+10 182 - 13 575 Beleriand (Main-hand) Damage
+1 679 - 2 239 Westernesse (Off-hand) Damage
+Activates the Skill Exsanguinate
+Duration: 8s
+Cost: 96 Power
 Adds 2 to Focus
-Cooldown: 5s
+Cooldown: 10s
 *****************************
 Skill-Id: 1879186701
 Blood Arrow
 Fast
 Ranged Skill
-Skill Type: Heal
+Skill Type: Focus Spender
 Range: 30m
-A damaging shot that also restores the Hunter's Morale and removes Corruptions from the target.
-9 062 - 12 083 Beleriand (Ranged) Damage
-Removes 1 tier of up to 3 different Corruption effects from the target.
+A damaging shot that also restores the Hunter's Morale.
+9 975 - 13 300 Beleriand (Ranged) Damage
 Activates the Skill Exsanguinate
 Duration: 8s
 Restores 10% of maximum Morale
 Every 2 seconds:
 Restores 2% of maximum Morale
 Duration: 10s
-Cost: 143 Power
+Cost: 333 Power
 Cost: 3 Focus
 Cooldown: 15s
 *****************************
@@ -173,12 +183,13 @@ Fast
 Ranged Skill
 Max Targets: 10
 Radius: 10m
+Skill Type: Focus Spender
 Range: 30m
 Rains arrows down upon your enemies, allowing you to hit multiple targets.
-11 075 - 14 767 Beleriand (Ranged) Damage
-Cost: 191 Power
+10 189 - 13 586 Beleriand (Ranged) Damage
+Cost: 72 Power
 Cost: 5 Focus
-Cooldown: 12s
+Cooldown: 6s
 *****************************
 Skill-Id: 1879186712
 Improved Dazing Blow
@@ -207,8 +218,8 @@ A massively damaging shot that unlocks when the target is below 50% health.
 
 Critical hits deal bonus damage.
 15 921 - 21 227 Beleriand (Ranged) Damage
-If Target is Bleeding:
-2 983 - 3 728 Damage
+If the target is bleeding
+18 181 Damage
 Cost: 72 Power
 Cost: 6 Focus
 Cooldown: 20s
