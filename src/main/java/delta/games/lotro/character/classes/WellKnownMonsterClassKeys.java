@@ -30,4 +30,8 @@ public class WellKnownMonsterClassKeys
    * Stalker.
    */
   public static final String STALKER="Stalker";
+  /**
+   * Sorceress.
+   */
+  public static final String SORCERESS="Sorceress";
 }
