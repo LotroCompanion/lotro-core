@@ -80,8 +80,12 @@ public class TravelsWebXMLParser
     // Name
     String name=DOMParsingTools.getStringAttribute(attrs,TravelsWebXMLConstants.ROUTE_NAME_ATTR,"");
     // Mode
+    TravelMode mode=null;
     String modeStr=DOMParsingTools.getStringAttribute(attrs,TravelsWebXMLConstants.ROUTE_MODE_ATTR,null);
-    TravelMode mode=TravelMode.valueOf(modeStr);
+    if (modeStr!=null)
+    {
+      mode=TravelMode.valueOf(modeStr);
+    }
     // Destination
     int destinationID=DOMParsingTools.getIntAttribute(attrs,TravelsWebXMLConstants.ROUTE_DESTINATION_ID_ATTR,0);
     TravelDestination destination=mgr.getDestination(destinationID);

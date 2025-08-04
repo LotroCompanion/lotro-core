@@ -111,7 +111,10 @@ public class TravelsWebXMLWriter
     attrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
     // Name
     String name=route.getName();
-    attrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_NAME_ATTR,XmlWriter.CDATA,name);
+    if (name!=null)
+    {
+      attrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_NAME_ATTR,XmlWriter.CDATA,name);
+    }
     // Destination
     TravelDestination destination=route.getDestination();
     if (destination!=null)
@@ -121,7 +124,10 @@ public class TravelsWebXMLWriter
     }
     // Mode
     TravelMode mode=route.getMode();
-    attrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_MODE_ATTR,XmlWriter.CDATA,mode.name());
+    if (mode!=null)
+    {
+      attrs.addAttribute("","",TravelsWebXMLConstants.ROUTE_MODE_ATTR,XmlWriter.CDATA,mode.name());
+    }
     UsageRequirementsXMLWriter.write(attrs,route.getRequirements());
     hd.startElement("","",TravelsWebXMLConstants.ROUTE_TAG,attrs);
     // Route actions
@@ -185,7 +191,10 @@ public class TravelsWebXMLWriter
       routeAttrs.addAttribute("","",TravelsWebXMLConstants.NODE_ROUTE_ID_ATTR,XmlWriter.CDATA,String.valueOf(routeID));
       // Name
       String routeName=route.getName();
-      routeAttrs.addAttribute("","",TravelsWebXMLConstants.NODE_ROUTE_NAME_ATTR,XmlWriter.CDATA,routeName);
+      if (routeName!=null)
+      {
+        routeAttrs.addAttribute("","",TravelsWebXMLConstants.NODE_ROUTE_NAME_ATTR,XmlWriter.CDATA,routeName);
+      }
       // Cost
       Money money=routeInstance.getCost();
       int value=money.getInternalValue();
