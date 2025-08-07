@@ -572,6 +572,38 @@ public class EffectXMLConstants
    * Tag 'applyToMasterEffect' (generator).
    */
   public static final String APPLY_TO_MASTER_EFFECT_GENERATOR_TAG="applyToMasterEffect";
+  /**
+   * Tag 'cooldownEffect'.
+   */
+  public static final String COOLDOWN_EFFECT_TAG="cooldownEffect";
+  /**
+   * Tag 'cooldownEffect', attribute "durationModifiers".
+   */
+  public static final String COOLDOWN_EFFECT_DURATION_MODIFIERS_ATTR="durationModifiers";
+  /**
+   * Tag 'skill' (from cooldown effect).
+   */
+  public static final String SKILL_TAG="skill";
+  /**
+   * Tag 'skill', attribute 'id'.
+   */
+  public static final String SKILL_ID_ATTR="id";
+  /**
+   * Tag 'skill', attribute 'name'.
+   */
+  public static final String SKILL_NAME_ATTR="name";
+  /**
+   * Tag 'cooldownChannel' (from cooldown effect).
+   */
+  public static final String COOLDOWN_CHANNEL_TAG="cooldownChannel";
+  /**
+   * Tag 'cooldownChannel', attribute 'code'.
+   */
+  public static final String COOLDOWN_CHANNEL_CODE_ATTR="code";
+  /**
+   * Tag 'cooldownChannel', attribute 'name'.
+   */
+  public static final String COOLDOWN_CHANNEL_NAME_ATTR="name";
 
   /**
    * Tag 'effect' (generator).

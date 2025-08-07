@@ -11,6 +11,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.common.utils.text.EncodingNames;
+import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.effects.AIPetEffect;
 import delta.games.lotro.common.effects.AbstractVitalChange;
@@ -21,6 +22,7 @@ import delta.games.lotro.common.effects.AuraEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.BubbleEffect;
 import delta.games.lotro.common.effects.ComboEffect;
+import delta.games.lotro.common.effects.CooldownEffect;
 import delta.games.lotro.common.effects.CountDownEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.DispelEffect;
@@ -50,6 +52,7 @@ import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.effects.TravelEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
+import delta.games.lotro.common.enums.AICooldownChannel;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.EffectAuraType;
@@ -141,6 +144,7 @@ public class EffectXMLWriter
     if (effect instanceof RandomEffect) return EffectXMLConstants.RANDOM_EFFECT_TAG;
     if (effect instanceof FlagEffect) return EffectXMLConstants.FLAG_EFFECT_TAG;
     if (effect instanceof AIPetEffect) return EffectXMLConstants.AI_PET_EFFECT_TAG;
+    if (effect instanceof CooldownEffect) return EffectXMLConstants.COOLDOWN_EFFECT_TAG;
     return EffectXMLConstants.EFFECT_TAG;
   }
 
@@ -326,6 +330,11 @@ public class EffectXMLWriter
     {
       DispelEffect dispelEffect=(DispelEffect)effect;
       writeDispelEffectAttributes(attrs,dispelEffect);
+    }
+    else if (effect instanceof CooldownEffect)
+    {
+      CooldownEffect cooldownEffect=(CooldownEffect)effect;
+      writeCooldownEffectAttributes(attrs,cooldownEffect);
     }
   }
 
@@ -665,6 +674,17 @@ public class EffectXMLWriter
     }
   }
 
+  private void writeCooldownEffectAttributes(AttributesImpl attrs, CooldownEffect cooldownEffect)
+  {
+    // Duration modifiers
+    ModPropertyList modifiers=cooldownEffect.getDurationModifiers();
+    String modifiersStr=ModPropertyListIO.asPersistentString(modifiers);
+    if (!modifiersStr.isEmpty())
+    {
+      attrs.addAttribute("","",EffectXMLConstants.COOLDOWN_EFFECT_DURATION_MODIFIERS_ATTR,XmlWriter.CDATA,modifiersStr);
+    }
+  }
+
   private void writeChildTags(TransformerHandler hd, Effect effect) throws SAXException
   {
     if (effect instanceof GenesisEffect)
@@ -763,6 +783,11 @@ public class EffectXMLWriter
     {
       AIPetEffect aiPetEffect=(AIPetEffect)effect;
       writeAIPetEffectTags(hd,aiPetEffect);
+    }
+    else if (effect instanceof CooldownEffect)
+    {
+      CooldownEffect cooldownEffect=(CooldownEffect)effect;
+      writeCooldownEffectTags(hd,cooldownEffect);
     }
   }
 
@@ -1185,7 +1210,47 @@ public class EffectXMLWriter
     }
   }
 
-  
+  private void writeCooldownEffectTags(TransformerHandler hd, CooldownEffect cooldownEffect) throws SAXException
+  {
+    // Skills
+    for(Proxy<SkillDescription> skillProxy : cooldownEffect.getSkills())
+    {
+      writeSkillProxyTag(hd,skillProxy);
+    }
+    // Cooldown channels
+    for(AICooldownChannel cooldownChannel : cooldownEffect.getCooldownChannels())
+    {
+      int code=cooldownChannel.getCode();
+      AttributesImpl attrs=new AttributesImpl();
+      attrs.addAttribute("","",EffectXMLConstants.COOLDOWN_CHANNEL_CODE_ATTR,XmlWriter.CDATA,String.valueOf(code));
+      String name=cooldownChannel.getLabel();
+      if (name!=null)
+      {
+        attrs.addAttribute("","",EffectXMLConstants.COOLDOWN_CHANNEL_NAME_ATTR,XmlWriter.CDATA,name);
+      }
+      hd.startElement("","",EffectXMLConstants.COOLDOWN_CHANNEL_TAG,attrs);
+      hd.endElement("","",EffectXMLConstants.COOLDOWN_CHANNEL_TAG);
+    }
+  }
+
+  private void writeSkillProxyTag(TransformerHandler hd, Proxy<SkillDescription> proxy) throws SAXException
+  {
+    if (proxy==null)
+    {
+      return;
+    }
+    int id=proxy.getId();
+    AttributesImpl attrs=new AttributesImpl();
+    attrs.addAttribute("","",EffectXMLConstants.SKILL_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+    String name=proxy.getName();
+    if (name!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.SKILL_NAME_ATTR,XmlWriter.CDATA,name);
+    }
+    hd.startElement("","",EffectXMLConstants.SKILL_TAG,attrs);
+    hd.endElement("","",EffectXMLConstants.SKILL_TAG);
+  }
+
   private void writeEffectProxyTag(TransformerHandler hd, String tagName, Proxy<Effect> proxy) throws SAXException
   {
     if (proxy==null)

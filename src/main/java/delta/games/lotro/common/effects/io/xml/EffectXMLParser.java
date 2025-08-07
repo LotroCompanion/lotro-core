@@ -22,6 +22,7 @@ import delta.games.lotro.common.effects.AuraEffect;
 import delta.games.lotro.common.effects.BaseVitalEffect;
 import delta.games.lotro.common.effects.BubbleEffect;
 import delta.games.lotro.common.effects.ComboEffect;
+import delta.games.lotro.common.effects.CooldownEffect;
 import delta.games.lotro.common.effects.CountDownEffect;
 import delta.games.lotro.common.effects.DispelByResistEffect;
 import delta.games.lotro.common.effects.DispelEffect;
@@ -52,6 +53,7 @@ import delta.games.lotro.common.effects.TieredEffect;
 import delta.games.lotro.common.effects.TravelEffect;
 import delta.games.lotro.common.effects.VitalChangeDescription;
 import delta.games.lotro.common.effects.VitalOverTimeEffect;
+import delta.games.lotro.common.enums.AICooldownChannel;
 import delta.games.lotro.common.enums.CombatState;
 import delta.games.lotro.common.enums.DamageQualifier;
 import delta.games.lotro.common.enums.EffectAuraType;
@@ -87,6 +89,7 @@ import delta.games.lotro.utils.maths.Progression;
 public class EffectXMLParser
 {
   private SingleLocaleLabelsManager _labelsMgr;
+  private LotroEnum<AICooldownChannel> _cooldownChannelsEnum;
   private List<EffectGenerator> _toUpdate;
   private List<EffectAndProbability> _toUpdate2;
   private List<Proxy<Effect>> _toUpdate3;
@@ -99,6 +102,7 @@ public class EffectXMLParser
   public EffectXMLParser(SingleLocaleLabelsManager labelsMgr)
   {
     _labelsMgr=labelsMgr;
+    _cooldownChannelsEnum=LotroEnumsRegistry.getInstance().get(AICooldownChannel.class);
     _toUpdate=new ArrayList<EffectGenerator>();
     _toUpdate2=new ArrayList<EffectAndProbability>();
     _loadedEffects=new HashMap<Integer,Effect>();
@@ -231,6 +235,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.AI_PET_EFFECT_TAG.equals(tagName))
     {
       ret=parseAIPetEffect(root);
+    }
+    else if (EffectXMLConstants.COOLDOWN_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseCooldownEffect(root);
     }
     else
     {
@@ -967,6 +975,34 @@ public class EffectXMLParser
     {
       EffectGenerator generator=readEffectGenerator(generatorTag);
       ret.addApplyToMasterEffect(generator);
+    }
+    return ret;
+  }
+
+  private CooldownEffect parseCooldownEffect(Element root)
+  {
+    CooldownEffect ret=new CooldownEffect();
+    // Duration modifiers
+    NamedNodeMap attrs=root.getAttributes();
+    String durationModifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.COOLDOWN_EFFECT_DURATION_MODIFIERS_ATTR,null);
+    ModPropertyList durationModifiers=ModPropertyListIO.fromPersistedString(durationModifiersStr);
+    ret.setDurationModifiers(durationModifiers);
+    // Skills
+    List<Element> skillTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.SKILL_TAG);
+    for(Element skillTag : skillTags)
+    {
+      NamedNodeMap skillAttrs=skillTag.getAttributes();
+      int skillID=DOMParsingTools.getIntAttribute(skillAttrs,EffectXMLConstants.SKILL_ID_ATTR,0);
+      ret.addSkill(skillID);
+    }
+    // Cooldown channels
+    List<Element> cooldownChannelTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.COOLDOWN_CHANNEL_TAG);
+    for(Element cooldownChannelTag : cooldownChannelTags)
+    {
+      NamedNodeMap cooldownChannelAttrs=cooldownChannelTag.getAttributes();
+      int code=DOMParsingTools.getIntAttribute(cooldownChannelAttrs,EffectXMLConstants.COOLDOWN_CHANNEL_CODE_ATTR,0);
+      AICooldownChannel cooldownChannel=_cooldownChannelsEnum.getEntry(code);
+      ret.addCooldownChannel(cooldownChannel);
     }
     return ret;
   }
