@@ -16,6 +16,7 @@ public class CooldownEffect extends InstantEffect
 {
   private List<Proxy<SkillDescription>> _skills;
   private List<AICooldownChannel> _channels;
+  private float _baseModifier;
   private ModPropertyList _durationModifiers;
 
   /**
@@ -64,6 +65,24 @@ public class CooldownEffect extends InstantEffect
   public void addCooldownChannel(AICooldownChannel cooldownChannel)
   {
     _channels.add(cooldownChannel);
+  }
+
+  /**
+   * Get the base modifier.
+   * @return a duration (seconds).
+   */
+  public float getBaseModifier()
+  {
+    return _baseModifier;
+  }
+
+  /**
+   * Set the base modifier.
+   * @param baseModifier Duration to set (seconds).
+   */
+  public void setBaseModifier(float baseModifier)
+  {
+    _baseModifier=baseModifier;
   }
 
   /**

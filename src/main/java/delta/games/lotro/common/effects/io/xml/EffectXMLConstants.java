@@ -577,6 +577,10 @@ public class EffectXMLConstants
    */
   public static final String COOLDOWN_EFFECT_TAG="cooldownEffect";
   /**
+   * Tag 'cooldownEffect', attribute "baseModifier".
+   */
+  public static final String COOLDOWN_EFFECT_BASE_MODIFIER_ATTR="baseModifier";
+  /**
    * Tag 'cooldownEffect', attribute "durationModifiers".
    */
   public static final String COOLDOWN_EFFECT_DURATION_MODIFIERS_ATTR="durationModifiers";

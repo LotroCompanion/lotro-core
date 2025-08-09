@@ -982,8 +982,12 @@ public class EffectXMLParser
   private CooldownEffect parseCooldownEffect(Element root)
   {
     CooldownEffect ret=new CooldownEffect();
-    // Duration modifiers
     NamedNodeMap attrs=root.getAttributes();
+    // Duration modifiers
+    // - base
+    float baseModifier=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.COOLDOWN_EFFECT_BASE_MODIFIER_ATTR,0);
+    ret.setBaseModifier(baseModifier);
+    // - additional modifiers
     String durationModifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.COOLDOWN_EFFECT_DURATION_MODIFIERS_ATTR,null);
     ModPropertyList durationModifiers=ModPropertyListIO.fromPersistedString(durationModifiersStr);
     ret.setDurationModifiers(durationModifiers);

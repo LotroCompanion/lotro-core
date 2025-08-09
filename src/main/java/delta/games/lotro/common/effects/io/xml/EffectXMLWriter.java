@@ -677,6 +677,10 @@ public class EffectXMLWriter
   private void writeCooldownEffectAttributes(AttributesImpl attrs, CooldownEffect cooldownEffect)
   {
     // Duration modifiers
+    // - base
+    float baseModifier=cooldownEffect.getBaseModifier();
+    attrs.addAttribute("","",EffectXMLConstants.COOLDOWN_EFFECT_BASE_MODIFIER_ATTR,XmlWriter.CDATA,String.valueOf(baseModifier));
+    // - additional modifiers
     ModPropertyList modifiers=cooldownEffect.getDurationModifiers();
     String modifiersStr=ModPropertyListIO.asPersistentString(modifiers);
     if (!modifiersStr.isEmpty())
