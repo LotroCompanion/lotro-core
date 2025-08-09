@@ -37,6 +37,7 @@ import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
+import delta.games.lotro.common.effects.KillProcEffect;
 import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.ProcEffectGenerator;
@@ -63,6 +64,7 @@ import delta.games.lotro.common.enums.PipAdjustmentType;
 import delta.games.lotro.common.enums.PipType;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
+import delta.games.lotro.common.enums.SubSpecies;
 import delta.games.lotro.common.enums.VitalType;
 import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.geo.io.xml.PositionXMLConstants;
@@ -90,6 +92,7 @@ public class EffectXMLParser
 {
   private SingleLocaleLabelsManager _labelsMgr;
   private LotroEnum<AICooldownChannel> _cooldownChannelsEnum;
+  private LotroEnum<SubSpecies> _speciesEnum;
   private List<EffectGenerator> _toUpdate;
   private List<EffectAndProbability> _toUpdate2;
   private List<Proxy<Effect>> _toUpdate3;
@@ -103,6 +106,7 @@ public class EffectXMLParser
   {
     _labelsMgr=labelsMgr;
     _cooldownChannelsEnum=LotroEnumsRegistry.getInstance().get(AICooldownChannel.class);
+    _speciesEnum=LotroEnumsRegistry.getInstance().get(SubSpecies.class);
     _toUpdate=new ArrayList<EffectGenerator>();
     _toUpdate2=new ArrayList<EffectAndProbability>();
     _loadedEffects=new HashMap<Integer,Effect>();
@@ -239,6 +243,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.COOLDOWN_EFFECT_TAG.equals(tagName))
     {
       ret=parseCooldownEffect(root);
+    }
+    else if (EffectXMLConstants.KILL_PROC_EFFECT_TAG.equals(tagName))
+    {
+      ret=parseKillProcEffect(root);
     }
     else
     {
@@ -1007,6 +1015,57 @@ public class EffectXMLParser
       int code=DOMParsingTools.getIntAttribute(cooldownChannelAttrs,EffectXMLConstants.COOLDOWN_CHANNEL_CODE_ATTR,0);
       AICooldownChannel cooldownChannel=_cooldownChannelsEnum.getEntry(code);
       ret.addCooldownChannel(cooldownChannel);
+    }
+    return ret;
+  }
+
+  private KillProcEffect parseKillProcEffect(Element root)
+  {
+    KillProcEffect ret=new KillProcEffect();
+    readPropertyMod(root,ret);
+    // Caster effects
+    List<Element> casterEffectTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.CASTER_GENERATOR_TAG);
+    for(Element casterEffectTag : casterEffectTags)
+    {
+      EffectGenerator generator=readEffectGenerator(casterEffectTag);
+      ret.addCasterEffect(generator);
+    }
+    // User effects
+    List<Element> userEffectTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.USER_GENERATOR_TAG);
+    for(Element userEffectTag : userEffectTags)
+    {
+      EffectGenerator generator=readEffectGenerator(userEffectTag);
+      ret.addUserEffect(generator);
+    }
+    NamedNodeMap attrs=root.getAttributes();
+    // Cooldown
+    // - base
+    float cooldown=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.KILL_PROC_EFFECT_COOLDOWN_ATTR,0);
+    ret.setCooldown(cooldown);
+    // - modifiers
+    String cooldownModifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.KILL_PROC_EFFECT_COOLDOWN_MODIFIERS_ATTR,null);
+    ModPropertyList cooldownModifiers=ModPropertyListIO.fromPersistedString(cooldownModifiersStr);
+    ret.setCooldownModifiers(cooldownModifiers);
+    // Proc probability
+    // - base
+    float procProbability=DOMParsingTools.getFloatAttribute(attrs,EffectXMLConstants.KILL_PROC_EFFECT_PROBABILITY_ATTR,0);
+    ret.setProbability(procProbability);
+    // - modifiers
+    String procProbabilityModifiersStr=DOMParsingTools.getStringAttribute(attrs,EffectXMLConstants.KILL_PROC_EFFECT_PROBABILITY_MODIFIERS_ATTR,null);
+    ModPropertyList procProbabilityModifiers=ModPropertyListIO.fromPersistedString(procProbabilityModifiersStr);
+    ret.setProbabilityModifiers(procProbabilityModifiers);
+    // Requires kill shot
+    boolean requiresKillShot=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.KILL_PROC_EFFECT_REQUIRES_KILL_SHOT_ATTR,false);
+    ret.setRequiresKillShot(requiresKillShot);
+    // On self killed
+    boolean onSelfKilled=DOMParsingTools.getBooleanAttribute(attrs,EffectXMLConstants.KILL_PROC_EFFECT_ON_SELF_KILLED_ATTR,false);
+    ret.setOnSelfKilled(onSelfKilled);
+    // Required target species
+    Integer speciesCode=DOMParsingTools.getIntegerAttribute(attrs,EffectXMLConstants.KILL_PROC_EFFECT_REQUIRED_SPECIES_ATTR,null);
+    if (speciesCode!=null)
+    {
+      SubSpecies species=_speciesEnum.getEntry(speciesCode.intValue());
+      ret.setTargetRequiredSpecies(species);
     }
     return ret;
   }

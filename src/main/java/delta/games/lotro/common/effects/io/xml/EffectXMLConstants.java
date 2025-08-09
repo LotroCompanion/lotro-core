@@ -610,6 +610,47 @@ public class EffectXMLConstants
   public static final String COOLDOWN_CHANNEL_NAME_ATTR="name";
 
   /**
+   * Tag 'killProcEffect'.
+   */
+  public static final String KILL_PROC_EFFECT_TAG="killProcEffect";
+  /**
+   * Tag 'casterEffect' (generator) used in tag 'killProcEffect'.
+   */
+  public static final String CASTER_GENERATOR_TAG="casterEffect";
+  /**
+   * Tag 'userEffect' (generator) used in tag 'killProcEffect'.
+   */
+  public static final String USER_GENERATOR_TAG="userEffect";
+  /**
+   * Tag 'killProcEffect', attribute "cooldown".
+   */
+  public static final String KILL_PROC_EFFECT_COOLDOWN_ATTR="cooldown";
+  /**
+   * Tag 'killProcEffect', attribute "cooldownModifiers".
+   */
+  public static final String KILL_PROC_EFFECT_COOLDOWN_MODIFIERS_ATTR="cooldownModifiers";
+  /**
+   * Tag 'killProcEffect', attribute "probability".
+   */
+  public static final String KILL_PROC_EFFECT_PROBABILITY_ATTR="procProbability";
+  /**
+   * Tag 'killProcEffect', attribute "cooldownModifiers".
+   */
+  public static final String KILL_PROC_EFFECT_PROBABILITY_MODIFIERS_ATTR="procProbabilityModifiers";
+  /**
+   * Tag 'killProcEffect', attribute "requiresKillShot".
+   */
+  public static final String KILL_PROC_EFFECT_REQUIRES_KILL_SHOT_ATTR="requiresKillShot";
+  /**
+   * Tag 'killProcEffect', attribute "onSelfKilled".
+   */
+  public static final String KILL_PROC_EFFECT_ON_SELF_KILLED_ATTR="onSelfKilled";
+  /**
+   * Tag 'killProcEffect', attribute "targetRequiredSpecies".
+   */
+  public static final String KILL_PROC_EFFECT_REQUIRED_SPECIES_ATTR="targetRequiredSpecies";
+
+  /**
    * Tag 'effect' (generator).
    */
   public static final String EFFECT_GENERATOR_TAG="effect";

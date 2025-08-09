@@ -36,6 +36,7 @@ import delta.games.lotro.common.effects.Hotspot;
 import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
+import delta.games.lotro.common.effects.KillProcEffect;
 import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.ProcEffectGenerator;
@@ -61,6 +62,7 @@ import delta.games.lotro.common.enums.PipAdjustmentType;
 import delta.games.lotro.common.enums.PipType;
 import delta.games.lotro.common.enums.ResistCategory;
 import delta.games.lotro.common.enums.SkillType;
+import delta.games.lotro.common.enums.SubSpecies;
 import delta.games.lotro.common.enums.VitalType;
 import delta.games.lotro.common.geo.Position;
 import delta.games.lotro.common.geo.io.xml.PositionXMLWriter;
@@ -129,6 +131,7 @@ public class EffectXMLWriter
     if (effect instanceof ReactiveVitalEffect) return EffectXMLConstants.REACTIVE_VITAL_EFFECT_TAG;
     if (effect instanceof BubbleEffect) return EffectXMLConstants.BUBBLE_EFFECT_TAG;
     if (effect instanceof CountDownEffect) return EffectXMLConstants.COUNTDOWN_EFFECT_TAG;
+    if (effect instanceof KillProcEffect) return EffectXMLConstants.KILL_PROC_EFFECT_TAG;
     if (effect instanceof PropertyModificationEffect) return EffectXMLConstants.PROPERTY_MOD_EFFECT_TAG;
     if (effect instanceof VitalOverTimeEffect) return EffectXMLConstants.VITAL_OVER_TIME_EFFECT_TAG;
     if (effect instanceof RecallEffect) return EffectXMLConstants.RECALL_EFFECT_TAG;
@@ -335,6 +338,11 @@ public class EffectXMLWriter
     {
       CooldownEffect cooldownEffect=(CooldownEffect)effect;
       writeCooldownEffectAttributes(attrs,cooldownEffect);
+    }
+    else if (effect instanceof KillProcEffect)
+    {
+      KillProcEffect killProcEffect=(KillProcEffect)effect;
+      writeKillProcEffectAttributes(attrs,killProcEffect);
     }
   }
 
@@ -689,6 +697,50 @@ public class EffectXMLWriter
     }
   }
 
+  private void writeKillProcEffectAttributes(AttributesImpl attrs, KillProcEffect killProcEffect)
+  {
+    // Cooldown
+    // - base
+    float cooldown=killProcEffect.getCooldown();
+    attrs.addAttribute("","",EffectXMLConstants.KILL_PROC_EFFECT_COOLDOWN_ATTR,XmlWriter.CDATA,String.valueOf(cooldown));
+    // - modifiers
+    ModPropertyList modifiers=killProcEffect.getCooldownModifiers();
+    String modifiersStr=ModPropertyListIO.asPersistentString(modifiers);
+    if (!modifiersStr.isEmpty())
+    {
+      attrs.addAttribute("","",EffectXMLConstants.KILL_PROC_EFFECT_COOLDOWN_MODIFIERS_ATTR,XmlWriter.CDATA,modifiersStr);
+    }
+    // Proc probability
+    // - base
+    float procProbability=killProcEffect.getProbability();
+    attrs.addAttribute("","",EffectXMLConstants.KILL_PROC_EFFECT_PROBABILITY_ATTR,XmlWriter.CDATA,String.valueOf(procProbability));
+    // - modifiers
+    ModPropertyList procProbabilityModifiers=killProcEffect.getProbabilityModifiers();
+    String procProbabilityModifiersStr=ModPropertyListIO.asPersistentString(procProbabilityModifiers);
+    if (!procProbabilityModifiersStr.isEmpty())
+    {
+      attrs.addAttribute("","",EffectXMLConstants.KILL_PROC_EFFECT_PROBABILITY_MODIFIERS_ATTR,XmlWriter.CDATA,procProbabilityModifiersStr);
+    }
+    // Requires kill shot
+    boolean requiresKillShot=killProcEffect.isRequiresKillShot();
+    if (requiresKillShot)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.KILL_PROC_EFFECT_REQUIRES_KILL_SHOT_ATTR,XmlWriter.CDATA,String.valueOf(requiresKillShot));
+    }
+    // On self killed
+    boolean onSelfKilled=killProcEffect.isOnSelfKilled();
+    if (onSelfKilled)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.KILL_PROC_EFFECT_ON_SELF_KILLED_ATTR,XmlWriter.CDATA,String.valueOf(onSelfKilled));
+    }
+    // Required target species
+    SubSpecies species=killProcEffect.getTargetRequiredSpecies();
+    if (species!=null)
+    {
+      attrs.addAttribute("","",EffectXMLConstants.KILL_PROC_EFFECT_REQUIRED_SPECIES_ATTR,XmlWriter.CDATA,String.valueOf(species.getCode()));
+    }
+  }
+
   private void writeChildTags(TransformerHandler hd, Effect effect) throws SAXException
   {
     if (effect instanceof GenesisEffect)
@@ -727,6 +779,11 @@ public class EffectXMLWriter
     {
       ApplyOverTimeEffect applyOverTimeEffect=(ApplyOverTimeEffect)effect;
       writeApplyOverTimeEffectTags(hd,applyOverTimeEffect);
+    }
+    else if (effect instanceof KillProcEffect)
+    {
+      KillProcEffect killProcEffect=(KillProcEffect)effect;
+      writeKillProcEffectTags(hd,killProcEffect);
     }
     else if (effect instanceof PropertyModificationEffect)
     {
@@ -1234,6 +1291,22 @@ public class EffectXMLWriter
       }
       hd.startElement("","",EffectXMLConstants.COOLDOWN_CHANNEL_TAG,attrs);
       hd.endElement("","",EffectXMLConstants.COOLDOWN_CHANNEL_TAG);
+    }
+  }
+
+  private void writeKillProcEffectTags(TransformerHandler hd, KillProcEffect killProcEffect) throws SAXException
+  {
+    // Stats
+    writePropertyModificationEffectTags(hd,killProcEffect);
+    // 'caster' effects
+    for(EffectGenerator casterEffect : killProcEffect.getCasterEffects())
+    {
+      writeEffectGenerator(hd,casterEffect,EffectXMLConstants.CASTER_GENERATOR_TAG);
+    }
+    // 'user' effects
+    for(EffectGenerator userEffect : killProcEffect.getUserEffects())
+    {
+      writeEffectGenerator(hd,userEffect,EffectXMLConstants.USER_GENERATOR_TAG);
     }
   }
 
