@@ -12,6 +12,7 @@ import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
+import delta.games.lotro.character.classes.ClassVirtue;
 import delta.games.lotro.character.classes.MonsterClassDescription;
 import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLParser;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
@@ -127,7 +128,38 @@ public class ClassDescriptionXMLParser
       // Proficiencies
       ClassProficienciesXMLParser.parseClassProficiencies(root,description.getProficiencies());
     }
+    // Virtues
+    if (isMonsterClass)
+    {
+      parseVirtues(root,monsterClass);
+    }
     // Traits
+    parseTraits(root,ret);
+    // Skills
+    parseSkills(root,ret);
+    return ret;
+  }
+
+  private void parseVirtues(Element root, MonsterClassDescription ret)
+  {
+    List<Element> classVirtueTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.CLASS_VIRTUE_TAG);
+    for(Element classVirtueTag : classVirtueTags)
+    {
+      NamedNodeMap attrs=classVirtueTag.getAttributes();
+      // Id
+      int traitId=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_VIRTUE_ID_ATTR,0);
+      TraitDescription trait=TraitsManager.getInstance().getTrait(traitId);
+      // Start rank
+      int startRank=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_VIRTUE_START_RANK_ATTR,0);
+      // Max rank
+      int maxRank=DOMParsingTools.getIntAttribute(attrs,ClassDescriptionXMLConstants.CLASS_VIRTUE_MAX_RANK_ATTR,0);
+      ClassVirtue classVirtue=new ClassVirtue(startRank,maxRank,trait);
+      ret.addVirtue(classVirtue);
+    }
+  }
+
+  private void parseTraits(Element root, AbstractClassDescription ret)
+  {
     List<Element> classTraitTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.CLASS_TRAIT_TAG);
     for(Element classTraitTag : classTraitTags)
     {
@@ -140,7 +172,10 @@ public class ClassDescriptionXMLParser
       TraitAndLevel classTrait=new TraitAndLevel(minLevel,trait);
       ret.addTrait(classTrait);
     }
-    // Skills
+  }
+
+  private void parseSkills(Element root, AbstractClassDescription ret)
+  {
     List<Element> classSkillTags=DOMParsingTools.getChildTagsByName(root,ClassDescriptionXMLConstants.CLASS_SKILL_TAG);
     for(Element classSkillTag : classSkillTags)
     {
@@ -153,6 +188,5 @@ public class ClassDescriptionXMLParser
       ClassSkill classSkill=new ClassSkill(minLevel,skill);
       ret.addSkill(classSkill);
     }
-    return ret;
   }
 }

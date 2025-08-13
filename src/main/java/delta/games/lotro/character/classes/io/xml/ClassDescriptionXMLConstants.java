@@ -95,4 +95,24 @@ public class ClassDescriptionXMLConstants
    * Tag 'classSkill', attribute 'skillName'.
    */
   public static final String CLASS_SKILL_NAME_ATTR="skillName";
+  /**
+   * Tag 'classVirtue'.
+   */
+  public static final String CLASS_VIRTUE_TAG="classVirtue";
+  /**
+   * Tag 'classVirtue', attribute 'id'.
+   */
+  public static final String CLASS_VIRTUE_ID_ATTR="id";
+  /**
+   * Tag 'classVirtue', attribute 'name'.
+   */
+  public static final String CLASS_VIRTUE_NAME_ATTR="name";
+  /**
+   * Tag 'classVirtue', attribute 'startRank'.
+   */
+  public static final String CLASS_VIRTUE_START_RANK_ATTR="startRank";
+  /**
+   * Tag 'classVirtue', attribute 'maxRank'.
+   */
+  public static final String CLASS_VIRTUE_MAX_RANK_ATTR="maxRank";
 }

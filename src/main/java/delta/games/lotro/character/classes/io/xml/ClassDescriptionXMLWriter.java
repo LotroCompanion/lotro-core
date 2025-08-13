@@ -14,6 +14,7 @@ import delta.common.utils.text.EncodingNames;
 import delta.games.lotro.character.classes.AbstractClassDescription;
 import delta.games.lotro.character.classes.ClassDescription;
 import delta.games.lotro.character.classes.ClassSkill;
+import delta.games.lotro.character.classes.ClassVirtue;
 import delta.games.lotro.character.classes.MonsterClassDescription;
 import delta.games.lotro.character.classes.proficiencies.io.xml.ClassProficienciesXMLWriter;
 import delta.games.lotro.character.classes.traitTree.TraitTree;
@@ -147,6 +148,30 @@ public class ClassDescriptionXMLWriter
     }
   }
 
+  private static void writeVirtues(TransformerHandler hd, MonsterClassDescription description) throws SAXException
+  {
+    List<ClassVirtue> virtues=description.getVirtues();
+    for(ClassVirtue classVirtue : virtues)
+    {
+      AttributesImpl virtueAttrs=new AttributesImpl();
+      // Virtue identifier
+      TraitDescription trait=classVirtue.getTrait();
+      int id=trait.getIdentifier();
+      virtueAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_VIRTUE_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
+      // Virtue name
+      String name=trait.getName();
+      virtueAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_VIRTUE_NAME_ATTR,XmlWriter.CDATA,name);
+      // Start rank
+      int startRank=classVirtue.getStartRank();
+      virtueAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_VIRTUE_START_RANK_ATTR,XmlWriter.CDATA,String.valueOf(startRank));
+      // Max rank
+      int maxRank=classVirtue.getMaxRank();
+      virtueAttrs.addAttribute("","",ClassDescriptionXMLConstants.CLASS_VIRTUE_MAX_RANK_ATTR,XmlWriter.CDATA,String.valueOf(maxRank));
+      hd.startElement("","",ClassDescriptionXMLConstants.CLASS_VIRTUE_TAG,virtueAttrs);
+      hd.endElement("","",ClassDescriptionXMLConstants.CLASS_VIRTUE_TAG);
+    }
+  }
+
   private static void writeCharacterClassDescription(TransformerHandler hd, ClassDescription description) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
@@ -179,6 +204,8 @@ public class ClassDescriptionXMLWriter
     AttributesImpl attrs=new AttributesImpl();
     writeSharedAttributes(attrs,description);
     hd.startElement("","",ClassDescriptionXMLConstants.MONSTER_CLASS_TAG,attrs);
+    // Virtues
+    writeVirtues(hd,description);
     // Traits
     writeTraits(hd,description);
     // Skills
