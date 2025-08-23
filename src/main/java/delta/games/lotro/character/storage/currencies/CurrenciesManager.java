@@ -94,6 +94,15 @@ public class CurrenciesManager
   }
 
   /**
+   * Get the currencies summary.
+   * @return the currencies summary.
+   */
+  public CurrenciesSummary getSummary()
+  {
+    return _summary;
+  }
+
+  /**
    * Get the history of a currency.
    * @param currency Currency to use.
    * @return An history.
