@@ -67,6 +67,6 @@ public class TraitEvent
     }
     sb.append(" from ");
     sb.append(_achievable.getName());
-    return _trait;
+    return sb.toString();
   }
 }

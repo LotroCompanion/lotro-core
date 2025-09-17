@@ -67,6 +67,6 @@ public class TitleEvent
     }
     sb.append(" from ");
     sb.append(_achievable.getName());
-    return _title;
+    return sb.toString();
   }
 }

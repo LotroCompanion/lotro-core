@@ -67,6 +67,6 @@ public class EmoteEvent
     }
     sb.append(" from ");
     sb.append(_achievable.getName());
-    return _emote;
+    return sb.toString();
   }
 }
