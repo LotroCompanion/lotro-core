@@ -370,6 +370,10 @@ public class EffectXMLConstants
    */
   public static final String COMBO_EFFECT_TAG="comboEffect";
   /**
+   * Tag 'persistentComboEffect'.
+   */
+  public static final String PERSISTENT_COMBO_EFFECT_TAG="persistentComboEffect";
+  /**
    * Tag 'present'.
    */
   public static final String COMBO_PRESENT_EFFECT_TAG="present";
@@ -377,6 +381,10 @@ public class EffectXMLConstants
    * Tag 'toAddIfNotPresent'.
    */
   public static final String COMBO_TO_ADD_IF_NOT_PRESENT_TAG="toAddIfNotPresent";
+  /**
+   * Tag 'toAddIfAbsent'.
+   */
+  public static final String COMBO_TO_ADD_IF_ABSENT_TAG="toAddIfAbsent";
   /**
    * Tag 'toAddIfPresent'.
    */

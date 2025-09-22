@@ -37,6 +37,7 @@ import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.KillProcEffect;
+import delta.games.lotro.common.effects.PersistentComboEffect;
 import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.ProcEffectGenerator;
@@ -137,6 +138,7 @@ public class EffectXMLWriter
     if (effect instanceof RecallEffect) return EffectXMLConstants.RECALL_EFFECT_TAG;
     if (effect instanceof TravelEffect) return EffectXMLConstants.TRAVEL_EFFECT_TAG;
     if (effect instanceof ComboEffect) return EffectXMLConstants.COMBO_EFFECT_TAG;
+    if (effect instanceof PersistentComboEffect) return EffectXMLConstants.PERSISTENT_COMBO_EFFECT_TAG;
     if (effect instanceof TieredEffect) return EffectXMLConstants.TIERED_EFFECT_TAG;
     if (effect instanceof AreaEffect) return EffectXMLConstants.AREA_EFFECT_TAG;
     if (effect instanceof ApplyOverTimeEffect) return EffectXMLConstants.APPLY_OVER_TIME_EFFECT_TAG;
@@ -810,6 +812,11 @@ public class EffectXMLWriter
       ComboEffect comboEffect=(ComboEffect)effect;
       writeComboEffectTags(hd,comboEffect);
     }
+    else if (effect instanceof PersistentComboEffect)
+    {
+      PersistentComboEffect persistentComboEffect=(PersistentComboEffect)effect;
+      writePersistentComboEffectTags(hd,persistentComboEffect);
+    }
     else if (effect instanceof TieredEffect)
     {
       TieredEffect tieredEffect=(TieredEffect)effect;
@@ -1098,6 +1105,25 @@ public class EffectXMLWriter
     writeEffectProxyTag(hd,EffectXMLConstants.COMBO_TO_GIVE_BACK_IF_NOT_PRESENT_TAG,comboEffect.getToGiveBackIfNotPresent());
     writeEffectProxyTag(hd,EffectXMLConstants.COMBO_TO_GIVE_BACK_IF_PRESENT_TAG,comboEffect.getToGiveBackIfPresent());
     writeEffectProxyTag(hd,EffectXMLConstants.COMBO_TO_EXAMINE_TAG,comboEffect.getToExamine());
+  }
+
+  private void writePersistentComboEffectTags(TransformerHandler hd, PersistentComboEffect comboEffect) throws SAXException
+  {
+    writeEffectProxyTags(hd,EffectXMLConstants.COMBO_PRESENT_EFFECT_TAG,comboEffect.getPresentEffects());
+    writeEffectProxyTags(hd,EffectXMLConstants.COMBO_TO_ADD_IF_NOT_PRESENT_TAG,comboEffect.getToAddIfAbsent());
+    writeEffectProxyTags(hd,EffectXMLConstants.COMBO_TO_ADD_IF_PRESENT_TAG,comboEffect.getToAddIfPresent());
+    writeEffectProxyTag(hd,EffectXMLConstants.COMBO_TO_EXAMINE_TAG,comboEffect.getToExamine());
+  }
+
+  private void writeEffectProxyTags(TransformerHandler hd, String tagName, List<Proxy<Effect>> effects) throws SAXException
+  {
+    if (!effects.isEmpty())
+    {
+      for(Proxy<Effect> proxy : effects)
+      {
+        writeEffectProxyTag(hd,tagName,proxy);
+      }
+    }
   }
 
   private void writeTieredEffectTags(TransformerHandler hd, TieredEffect tieredEffect) throws SAXException

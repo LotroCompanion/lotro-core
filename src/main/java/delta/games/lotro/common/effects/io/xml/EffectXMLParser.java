@@ -38,6 +38,7 @@ import delta.games.lotro.common.effects.InduceCombatStateEffect;
 import delta.games.lotro.common.effects.InstantFellowshipEffect;
 import delta.games.lotro.common.effects.InstantVitalEffect;
 import delta.games.lotro.common.effects.KillProcEffect;
+import delta.games.lotro.common.effects.PersistentComboEffect;
 import delta.games.lotro.common.effects.PipEffect;
 import delta.games.lotro.common.effects.ProcEffect;
 import delta.games.lotro.common.effects.ProcEffectGenerator;
@@ -191,6 +192,10 @@ public class EffectXMLParser
     else if (EffectXMLConstants.COMBO_EFFECT_TAG.equals(tagName))
     {
       ret=parseComboEffect(root);
+    }
+    else if (EffectXMLConstants.PERSISTENT_COMBO_EFFECT_TAG.equals(tagName))
+    {
+      ret=parsePersistentComboEffect(root);
     }
     else if (EffectXMLConstants.TIERED_EFFECT_TAG.equals(tagName))
     {
@@ -705,6 +710,31 @@ public class EffectXMLParser
     ret.setToAddIfPresent(parseEffectProxy(root,EffectXMLConstants.COMBO_TO_ADD_IF_PRESENT_TAG));
     ret.setToGiveBackIfNotPresent(parseEffectProxy(root,EffectXMLConstants.COMBO_TO_GIVE_BACK_IF_NOT_PRESENT_TAG));
     ret.setToGiveBackIfPresent(parseEffectProxy(root,EffectXMLConstants.COMBO_TO_GIVE_BACK_IF_PRESENT_TAG));
+    ret.setToExamine(parseEffectProxy(root,EffectXMLConstants.COMBO_TO_EXAMINE_TAG));
+    return ret;
+  }
+
+  private PersistentComboEffect parsePersistentComboEffect(Element root)
+  {
+    PersistentComboEffect ret=new PersistentComboEffect();
+    List<Element> presentTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.COMBO_PRESENT_EFFECT_TAG);
+    for(Element presentTag : presentTags)
+    {
+      Proxy<Effect> proxy=parseEffectProxy(presentTag);
+      ret.addPresentEffect(proxy);
+    }
+    List<Element> toAddIfAbsentTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.COMBO_TO_ADD_IF_ABSENT_TAG);
+    for(Element toAddIfAbsentTag : toAddIfAbsentTags)
+    {
+      Proxy<Effect> proxy=parseEffectProxy(toAddIfAbsentTag);
+      ret.addToAddIfAbsent(proxy);
+    }
+    List<Element> toAddIfPresentTags=DOMParsingTools.getChildTagsByName(root,EffectXMLConstants.COMBO_TO_ADD_IF_PRESENT_TAG);
+    for(Element toAddIfPresentTag : toAddIfPresentTags)
+    {
+      Proxy<Effect> proxy=parseEffectProxy(toAddIfPresentTag);
+      ret.addToAddIfPresent(proxy);
+    }
     ret.setToExamine(parseEffectProxy(root,EffectXMLConstants.COMBO_TO_EXAMINE_TAG));
     return ret;
   }
