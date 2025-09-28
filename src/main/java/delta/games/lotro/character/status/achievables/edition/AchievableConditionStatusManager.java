@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import delta.games.lotro.character.status.achievables.AchievableElementState;
 import delta.games.lotro.character.status.achievables.AchievableStatusBusinessRules;
 import delta.games.lotro.character.status.achievables.ObjectiveConditionStatus;
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
+import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 
 /**
@@ -22,15 +24,21 @@ public class AchievableConditionStatusManager
 {
   private static final Logger LOGGER=LoggerFactory.getLogger(AchievableConditionStatusManager.class);
 
+  private Achievable _achievable;
+  private Objective _objective;
   private ObjectiveConditionStatus _status;
   private List<AchievableStatusGeoItem> _items;
 
   /**
    * Constructor.
+   * @param achievable Parent achievable.
+   * @param objective Parent objective.
    * @param status Condition status to manage.
    */
-  public AchievableConditionStatusManager(ObjectiveConditionStatus status)
+  public AchievableConditionStatusManager(Achievable achievable, Objective objective, ObjectiveConditionStatus status)
   {
+    _achievable=achievable;
+    _objective=objective;
     _status=status;
     buildItems();
     updateItemsFromStatus();
@@ -52,7 +60,7 @@ public class AchievableConditionStatusManager
     List<AchievableGeoPoint> points=condition.getPoints();
     for(AchievableGeoPoint point : points)
     {
-      AchievableStatusGeoItem item=new AchievableStatusGeoItem(condition,point);
+      AchievableStatusGeoItem item=new AchievableStatusGeoItem(_achievable,_objective,condition,point);
       _items.add(item);
     }
   }

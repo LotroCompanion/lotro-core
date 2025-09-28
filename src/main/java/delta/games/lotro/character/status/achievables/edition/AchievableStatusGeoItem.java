@@ -1,6 +1,8 @@
 package delta.games.lotro.character.status.achievables.edition;
 
+import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
+import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 
 /**
@@ -9,19 +11,43 @@ import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
  */
 public class AchievableStatusGeoItem
 {
+  private Achievable _achievable;
+  private Objective _objective;
   private ObjectiveCondition _condition;
   private AchievableGeoPoint _point;
   private boolean _completed;
 
   /**
    * Constructor.
+   * @param achievable Parent achievable.
+   * @param objective Parent objective.
    * @param condition Parent condition.
    * @param point Point to use.
    */
-  public AchievableStatusGeoItem(ObjectiveCondition condition, AchievableGeoPoint point)
+  public AchievableStatusGeoItem(Achievable achievable, Objective objective, ObjectiveCondition condition, AchievableGeoPoint point)
   {
+    _achievable=achievable;
+    _objective=objective;
     _condition=condition;
     _point=point;
+  }
+
+  /**
+   * Get the parent achievable.
+   * @return the parent achievable
+   */
+  public Achievable getAchievable()
+  {
+    return _achievable;
+  }
+
+  /**
+   * Get the parent objective.
+   * @return the parent objective
+   */
+  public Objective getObjective()
+  {
+    return _objective;
   }
 
   /**
