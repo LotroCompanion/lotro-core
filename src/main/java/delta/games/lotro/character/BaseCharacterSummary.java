@@ -151,7 +151,7 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
   {
     String name=getName();
     String surname=getSurname();
-    if (surname!=null && surname.length()>0)
+    if (surname!=null && !surname.isEmpty())
     {
       name+=" "+surname;
     }
