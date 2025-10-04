@@ -144,6 +144,21 @@ public class BaseCharacterSummary extends CharacterReference implements BasicCha
   }
 
   /**
+   * Get the Full Name ("Name Surname" or "Name" if no Surname).
+   * @return Full Name.
+   */
+  public String getFullName()
+  {
+    String name=getName();
+    String surname=getSurname();
+    if (surname!=null && surname.length()>0)
+    {
+      name+=" "+surname;
+    }
+    return name;
+  }
+
+  /**
    * Get the PVP rank.
    * @return a rank or <code>null</code> not set/known.
    */
