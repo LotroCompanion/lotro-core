@@ -72,7 +72,10 @@ public class PipXMLWriter
     attrs.addAttribute("","",PipXMLConstants.PIP_TYPE_ATTR,XmlWriter.CDATA,String.valueOf(type));
     // Name
     String name=pip.getName();
-    attrs.addAttribute("","",PipXMLConstants.PIP_NAME_ATTR,XmlWriter.CDATA,name);
+    if (name!=null)
+    {
+      attrs.addAttribute("","",PipXMLConstants.PIP_NAME_ATTR,XmlWriter.CDATA,name);
+    }
     // Min
     int min=pip.getMin();
     attrs.addAttribute("","",PipXMLConstants.PIP_MIN_ATTR,XmlWriter.CDATA,String.valueOf(min));
