@@ -33,7 +33,7 @@ public class ConsumableXMLParser
    */
   public ConsumableXMLParser()
   {
-    _i18n=I18nFacade.getLabelsMgr("consumables");
+    _i18n=I18nFacade.getLabelsMgr("effects");
   }
 
   /**
