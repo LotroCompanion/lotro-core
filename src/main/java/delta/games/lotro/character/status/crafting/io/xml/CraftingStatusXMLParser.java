@@ -93,8 +93,11 @@ public class CraftingStatusXMLParser
           if (levelTier!=null)
           {
             CraftingLevelStatus levelStatus=professionStatus.getLevelStatus(levelTier.intValue());
-            parseCraftingLevelTier(levelTag,CraftingStatusXMLConstants.PROFICIENCY_TAG,levelStatus.getProficiency());
-            parseCraftingLevelTier(levelTag,CraftingStatusXMLConstants.MASTERY_TAG,levelStatus.getMastery());
+            if (levelStatus!=null)
+            {
+              parseCraftingLevelTier(levelTag,CraftingStatusXMLConstants.PROFICIENCY_TAG,levelStatus.getProficiency());
+              parseCraftingLevelTier(levelTag,CraftingStatusXMLConstants.MASTERY_TAG,levelStatus.getMastery());
+            }
           }
         }
         // Known recipes

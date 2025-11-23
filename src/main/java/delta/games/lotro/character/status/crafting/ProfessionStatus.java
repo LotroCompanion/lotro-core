@@ -122,7 +122,11 @@ public class ProfessionStatus
    */
   public CraftingLevelStatus getLevelStatus(int level)
   {
-    return _status.get(level);
+    if ((level>=0) && (level<_status.size()))
+    {
+      return _status.get(level);
+    }
+    return null;
   }
 
   /**
@@ -132,7 +136,7 @@ public class ProfessionStatus
    */
   public CraftingLevelStatus getLevelStatus(CraftingLevel level)
   {
-    return _status.get(level.getTier());
+    return (level!=null)?getLevelStatus(level.getTier()):null;
   }
 
   /**
