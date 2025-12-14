@@ -42,6 +42,9 @@ public class AvailableLabelsBuilder
     // French
     LabelsEntry fr=new LabelsEntry("fr","fr","Français");
     cfg.registerEntry(fr);
+    // Deutsch
+    LabelsEntry ge=new LabelsEntry("de","de","Deutsch");
+    cfg.registerEntry(ge);
     return cfg;
   }
 }
