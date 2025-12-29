@@ -16,6 +16,7 @@ import delta.games.lotro.common.enums.Genus;
 import delta.games.lotro.common.enums.HousingHookCategory;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
+import delta.games.lotro.config.LotroCoreConfig;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.items.Item;
@@ -47,7 +48,11 @@ public class ItemDetailsSaxParser
    */
   public ItemDetailsSaxParser()
   {
-    _allegianceGroupEnum=LotroEnumsRegistry.getInstance().get(AllegianceGroup.class);
+    boolean live=LotroCoreConfig.isLive();
+    if (live)
+    {
+      _allegianceGroupEnum=LotroEnumsRegistry.getInstance().get(AllegianceGroup.class);
+    }
   }
 
   /**
