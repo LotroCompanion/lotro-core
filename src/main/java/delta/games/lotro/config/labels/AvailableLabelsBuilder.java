@@ -1,5 +1,7 @@
 package delta.games.lotro.config.labels;
 
+import delta.games.lotro.config.LotroCoreConfig;
+
 /**
  * Builds available labels.
  * @author DAM
@@ -13,7 +15,6 @@ public class AvailableLabelsBuilder
   public static AvailableLabelsDefinition buildDataLabelsConfiguration()
   {
     AvailableLabelsDefinition cfg=new AvailableLabelsDefinition();
-    // 
     // English
     LabelsEntry en=new LabelsEntry("en","en","English");
     cfg.registerEntry(en,true);
@@ -26,6 +27,13 @@ public class AvailableLabelsBuilder
     // Russian
     LabelsEntry ru=new LabelsEntry("ru","ru","Русский");
     cfg.registerEntry(ru);
+    boolean isLive=LotroCoreConfig.isLive();
+    if (!isLive)
+    {
+      // Chinese
+      LabelsEntry zh=new LabelsEntry("zh","zh","中國人");
+      cfg.registerEntry(zh);
+    }
     return cfg;
   }
 
