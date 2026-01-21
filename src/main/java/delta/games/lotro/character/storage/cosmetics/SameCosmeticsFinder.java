@@ -43,12 +43,15 @@ public class SameCosmeticsFinder
     List<CosmeticItemsGroup> ret=new ArrayList<CosmeticItemsGroup>();
     List<Integer> cosmeticIDs=new ArrayList<Integer>(groups.keySet());
     Collections.sort(cosmeticIDs);
+    int groupID=1;
     for(Integer cosmeticID : cosmeticIDs)
     {
       CosmeticItemsGroup group=groups.get(cosmeticID);
       if (group.getItems().size()>1)
       {
         ret.add(group);
+        group.setGroupID(groupID);
+        groupID++;
       }
     }
     return ret;

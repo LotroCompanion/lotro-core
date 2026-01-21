@@ -11,6 +11,7 @@ import delta.games.lotro.character.storage.StoredItem;
  */
 public class CosmeticItemsGroup
 {
+  private int _groupID;
   private int _cosmeticID;
   private List<StoredItem> _items;
 
@@ -22,6 +23,24 @@ public class CosmeticItemsGroup
   {
     _cosmeticID=cosmeticID;
     _items=new ArrayList<StoredItem>();
+  }
+
+  /**
+   * Get the identifier of this group.
+   * @return An identifier.
+   */
+  public int getGroupID()
+  {
+    return _groupID;
+  }
+
+  /**
+   * Set the identifier of this group.
+   * @param groupID Index to set.
+   */
+  public void setGroupID(int groupID)
+  {
+    _groupID=groupID;
   }
 
   /**
