@@ -31,6 +31,10 @@ public enum TravelMode
    */
   BOAR("Boar"),
   /**
+   * Oryx.
+   */
+  ORYX("Oryx"),
+  /**
    * Other.
    */
   OTHER("Other");
