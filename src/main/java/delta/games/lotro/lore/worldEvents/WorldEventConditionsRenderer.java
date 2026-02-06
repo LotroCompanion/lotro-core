@@ -131,6 +131,22 @@ public class WorldEventConditionsRenderer
     {
       return handleInstanceChallengePeriod(operator,value,"the Gundabad raid");
     }
+    if ("WE_U46_Weekly_Region_Quest_Status".equals(weProperty))
+    {
+      return handleU46Weeklies(operator,value);
+    }
+    if ("WE_U46_Multi_Region_Quest_Status".equals(weProperty))
+    {
+      return handleU46Dailies(operator,value);
+    }
+    if ("WE_Integer_U42_Ikorban_Mission_Config".equals(weProperty))
+    {
+      return handleU42Missions(operator,value);
+    }
+    if (weProperty.startsWith("WE_TestServer_"))
+    {
+      return "Bullroarer only"; // TODO More precise otherwise "BR only or/and BR only" sometimes
+    }
     if (("WE_Event_DurinsDay_Counter".equals(weProperty))
         || ("WE_vales_anduin_instance_tier_gate".equals(weProperty))
         || ("WE_Vales_Anduin_Shades_Swamp_Active".equals(weProperty))
@@ -147,6 +163,9 @@ public class WorldEventConditionsRenderer
         || ("WE_Integer_Azanulbizar_Raid_Tier_Gate".equals(weProperty))
         || ("WE_gundabad_3man_instance_tier_gate".equals(weProperty))
         || ("WE_gundabad_6man_instance_tier_gate".equals(weProperty))
+        || ("WE_Elderslade_Missions_Active").equals(weProperty) // always 1
+        || ("WE_u40_umbar_catacombs_kindred_tales_current_week").equals(weProperty) // 1-8 but should be always 8 now
+        // WE_U46_Region_Quest_Status always 1?
         )
     {
       // Ignore
@@ -248,6 +267,42 @@ public class WorldEventConditionsRenderer
     return null;
   }
 
+  private String handleU46Weeklies(ComparisonOperator operator, Integer value)
+  {
+    if (operator==ComparisonOperator.EQUAL)
+    {
+      return "Restoring Mûr Ghala weeklies: week "+value;
+    }
+    LOGGER.error(UNMANAGED_OPERATOR,operator);
+    return null;
+  }
+
+  private String handleU46Dailies(ComparisonOperator operator, Integer value)
+  {
+    if (operator==ComparisonOperator.EQUAL)
+    {
+      return "Restoring Mûr Ghala dailies: day "+value;
+    }
+    if (operator==ComparisonOperator.LESS)
+    {
+      int maxDay=value.intValue()-1;
+      return "Restoring Mûr Ghala dailies: day 1-"+maxDay;
+    }
+    LOGGER.error(UNMANAGED_OPERATOR,operator);
+    return null;
+  }
+
+  private String handleU42Missions(ComparisonOperator operator, Integer value)
+  {
+    if (operator==ComparisonOperator.EQUAL)
+    {
+      return "Missions: Valley of Ikorbân: set "+value;
+    }
+    LOGGER.error(UNMANAGED_OPERATOR,operator);
+    return null;
+  }
+
+  
   private String handleEventParts(WorldEvent we, ComparisonOperator operator, Integer value)
   {
     String weProperty=we.getPropertyName();
@@ -287,6 +342,7 @@ public class WorldEventConditionsRenderer
     if ("we_rohanpreorder_active".equals(weProperty)) return handleBooleanCondition(operator,value,"Riders of Rohan legendary expansion: owned");
     if ("WE_Treasure_Bugan_Active".equals(weProperty)) return handleBooleanCondition(operator,value,"Treasure Bugans event: active");
     if ("we_crafting_thorinshall_pc_event_boolean".equals(weProperty)) return handleBooleanCondition(operator,value,"Hard Tack of Thorin's Hall Craft Event: active");
+    if ("WE_april_fools".equals(weProperty)) return handleBooleanCondition(operator,value,"April fools: active");
 
     // See also:
     // we_crafting_thorinshall_pc_event_recruiting
@@ -443,7 +499,7 @@ public class WorldEventConditionsRenderer
     String weProperty=we.getPropertyName();
     if ("WE_Integer_Elderslade_Mission_Config".equals(weProperty))
     {
-      return handleMissionDay(operator,value,"War of the Three Peaks"); // 1-10
+      return handleMissionDay(operator,value,"War of the Three Peaks"); // 1-7
     }
     if ("WE_Integer_Gundabad_Mission_Config".equals(weProperty))
     {
@@ -451,7 +507,7 @@ public class WorldEventConditionsRenderer
     }
     if ("WE_Integer_U34_BTS_Mission_Config".equals(weProperty))
     {
-      return handleMissionDay(operator,value,"Before the Shadow"); // 1-3
+      return handleMissionDay(operator,value,"Before the Shadow"); // 1-9
     }
     return null;
   }
