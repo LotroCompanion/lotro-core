@@ -138,6 +138,10 @@ public class TraitTreeStatus
    */
   private int getRanksForRow(TraitTreeBranch branch, int row)
   {
+    if (branch==null)
+    {
+      return 0;
+    }
     int totalRanks=0;
     String seed=String.valueOf(row)+"_";
     for(String cellId : branch.getCells())
