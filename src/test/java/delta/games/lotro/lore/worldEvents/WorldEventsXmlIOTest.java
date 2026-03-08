@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.worldEvents;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 import java.util.List;
 
@@ -22,9 +25,11 @@ class WorldEventsXmlIOTest
   void testWorldEventsLoading()
   {
     List<WorldEvent> worldEvents=WorldEventsManager.getInstance().getAll();
+    assertNotNull(worldEvents);
     WorldEventsXMLWriter writer=new WorldEventsXMLWriter();
     File to=new File("worldEvents.xml");
-    writer.write(to,worldEvents,EncodingNames.UTF_8);
+    boolean ok=writer.write(to,worldEvents,EncodingNames.UTF_8);
+    assertTrue(ok);
     // Compare file worldEvents.xml with the one loaded by the manager
   }
 }

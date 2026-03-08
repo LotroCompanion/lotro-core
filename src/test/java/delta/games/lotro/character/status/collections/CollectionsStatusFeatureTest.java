@@ -1,5 +1,7 @@
 package delta.games.lotro.character.status.collections;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
 import delta.games.lotro.character.CharacterFile;
@@ -19,9 +21,12 @@ class CollectionsStatusFeatureTest
   {
     for(CharacterFile toon : CharactersManager.getInstance().getAllToons())
     {
+      assertNotNull(toon);
       CollectionsStatusManager mgr=new CollectionsStatusBuilder().build(toon,null);
+      assertNotNull(mgr);
       for(CollectionStatus collectionStatus : mgr.getAll())
       {
+        assertNotNull(collectionStatus);
         if (collectionStatus.getCompletedCount()>0)
         {
           String characterName=toon.getName();

@@ -78,11 +78,8 @@ public class LinearFunction
     {
       return Float.valueOf(_minY);
     }
-    if (x>_maxX)
-    {
-      return Float.valueOf(_maxY);
-    }
-    return null;
+    // x>_maxX
+    return Float.valueOf(_maxY);
   }
 
   @Override

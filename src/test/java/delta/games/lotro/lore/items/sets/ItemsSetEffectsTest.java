@@ -25,6 +25,7 @@ class ItemsSetEffectsTest
   {
     for(ItemsSet set : ItemsSetsManager.getInstance().getAll())
     {
+      assertNotNull(set);
       showSet(set);
     }
   }

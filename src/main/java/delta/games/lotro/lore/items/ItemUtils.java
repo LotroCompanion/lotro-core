@@ -195,8 +195,7 @@ public class ItemUtils
     }
     Integer offsetInt=item.getItemLevelOffset();
     int offset=(offsetInt!=null)?offsetInt.intValue():0;
-    int itemLevel=(itemLevelInt!=null)?itemLevelInt.intValue():0;
-    int effectiveItemLevel=itemLevel+offset;
+    int effectiveItemLevel=itemLevelInt.intValue()+offset;
     return effectiveItemLevel;
   }
 

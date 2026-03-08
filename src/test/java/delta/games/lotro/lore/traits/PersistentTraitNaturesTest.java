@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.traits;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
 import delta.games.lotro.common.enums.LotroEnum;
@@ -22,6 +24,7 @@ class PersistentTraitNaturesTest
     for(int code : traitNatures)
     {
       TraitNature tn=enumTN.getEntry(code);
+      assertNotNull(tn);
       System.out.println(tn);
     }
   }

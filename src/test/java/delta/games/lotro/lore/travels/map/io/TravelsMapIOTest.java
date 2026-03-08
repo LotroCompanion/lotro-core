@@ -1,5 +1,8 @@
 package delta.games.lotro.lore.travels.map.io;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 
 import org.junit.jupiter.api.Test;
@@ -22,8 +25,10 @@ class TravelsMapIOTest
   void testReadWrite()
   {
     TravelsMap map=TravelsMapIO.loadTravelsMap();
+    assertNotNull(map);
     File file=LotroCoreConfig.getInstance().getFile(DataFiles.TRAVELS_MAP);
     File newFile=new File(file.getParentFile(),file.getName()+".new.xml");
-    TravelsMapXMLWriter.writeTravelsMapFile(newFile,map);
+    boolean ok=TravelsMapXMLWriter.writeTravelsMapFile(newFile,map);
+    assertTrue(ok);
   }
 }

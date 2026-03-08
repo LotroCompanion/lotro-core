@@ -1,5 +1,7 @@
 package delta.games.lotro.lore.quests;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 import java.util.List;
 
@@ -28,7 +30,8 @@ class QuestsSaxParserTest
     }
     QuestXMLWriter writer=new QuestXMLWriter();
     File to=new File("quests.xml");
-    writer.writeQuests(to,quests,EncodingNames.UTF_8);
+    boolean ok=writer.writeQuests(to,quests,EncodingNames.UTF_8);
+    assertTrue(ok);
     // Compare file quests.xml with the one loaded by the managed
   }
 }
