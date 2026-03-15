@@ -13,7 +13,11 @@ import delta.games.lotro.common.action.ActionTableEntry;
 import delta.games.lotro.common.action.ActionTables;
 import delta.games.lotro.common.action.ActionTablesEntry;
 import delta.games.lotro.common.effects.Effect;
+import delta.games.lotro.common.effects.EffectsManager;
+import delta.games.lotro.common.enums.ImplementUsageType;
+import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.values.StructValue;
 
 /**
  * Utility methods about effects.
@@ -88,5 +92,35 @@ public class EffectUtils
       }
     }
     return ret;
+  }
+
+  /**
+   * Decode an effect generator from a generic struct value.
+   * @param structValue Input struct.
+   * @return A effect generator or <code>null</code> if no such generator found.
+   */
+  public static SkillEffectGenerator decodeEffect(StructValue structValue)
+  {
+    Integer skillEffectID=(Integer)structValue.getValue("Skill_Effect");
+    if ((skillEffectID==null) || (skillEffectID.intValue()==0))
+    {
+      return null;
+    }
+    Effect effect=EffectsManager.getInstance().getEffectById(skillEffectID.intValue());
+    if (effect==null)
+    {
+      return null;
+    }
+    // Spellcraft
+    Float spellcraft=null;
+    SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,null);
+    // Implement usage
+    Integer implementUsageCode=(Integer)structValue.getValue("Skill_EffectImplementUsage");
+    if ((implementUsageCode!=null) && (implementUsageCode.intValue()>0))
+    {
+      ImplementUsageType implementUsage=ImplementUsageTypes.getByCode(implementUsageCode.intValue());
+      generator.setImplementUsage(implementUsage);
+    }
+    return generator;
   }
 }

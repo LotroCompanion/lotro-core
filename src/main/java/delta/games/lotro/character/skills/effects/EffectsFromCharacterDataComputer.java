@@ -20,14 +20,13 @@ import delta.games.lotro.common.effects.Effect;
 import delta.games.lotro.common.effects.EffectGenerator;
 import delta.games.lotro.common.effects.EffectsManager;
 import delta.games.lotro.common.effects.PropertyModificationEffect;
-import delta.games.lotro.common.enums.ImplementUsageType;
-import delta.games.lotro.common.enums.ImplementUsageTypes;
 import delta.games.lotro.common.stats.StatDescription;
 import delta.games.lotro.common.stats.StatsProvider;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager;
 import delta.games.lotro.lore.items.effects.ItemEffectsManager.Type;
+import delta.games.lotro.lore.utils.EffectUtils;
 import delta.games.lotro.values.StructValue;
 
 /**
@@ -185,24 +184,12 @@ public class EffectsFromCharacterDataComputer
 
   private Void handleSkillEffect(StatDescription stat, StructValue structValue)
   {
-    Integer skillEffectID=(Integer)structValue.getValue("Skill_Effect");
-    if ((skillEffectID==null) || (skillEffectID.intValue()==0))
+    SkillEffectGenerator generator=EffectUtils.decodeEffect(structValue);
+    if (generator!=null)
     {
-      return null;
+      int propertyID=stat.getIdentifier();
+      _storage.addEffectToProperty(propertyID,generator);
     }
-    Effect effect=EffectsManager.getInstance().getEffectById(skillEffectID.intValue());
-    int propertyID=stat.getIdentifier();
-    // Spellcraft
-    Float spellcraft=null;
-    SkillEffectGenerator generator=new SkillEffectGenerator(effect,spellcraft,null);
-    // Implement usage
-    Integer implementUsageCode=(Integer)structValue.getValue("Skill_EffectImplementUsage");
-    if ((implementUsageCode!=null) && (implementUsageCode.intValue()>0))
-    {
-      ImplementUsageType implementUsage=ImplementUsageTypes.getByCode(implementUsageCode.intValue());
-      generator.setImplementUsage(implementUsage);
-    }
-    _storage.addEffectToProperty(propertyID,generator);
     return null;
   }
 }
