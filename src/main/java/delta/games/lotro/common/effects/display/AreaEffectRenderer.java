@@ -18,7 +18,7 @@ public class AreaEffectRenderer extends AbstractSingleEffectRenderer<AreaEffect>
     float range=areaEffect.getRange();
     if (!areaEffect.getEffects().isEmpty())
     {
-      String line="Effects applied to enemies within "+L10n.getString(range,0)+" metres:";
+      String line="Effects applied to enemies within "+L10n.getString(range,0)+" metres:"; // TODO enemies/friends
       storage.add(line);
       for(EffectGenerator childGenerator : areaEffect.getEffects())
       {
