@@ -33,7 +33,7 @@ public class VitalChangeUtils
     String fullChange="";
     if (stat==WellKnownStat.MORALE)
     {
-      if (negative)
+      if ((negative) || (damageType!=null))
       {
         String damageTypeStr="";
         if (damageType!=null)
