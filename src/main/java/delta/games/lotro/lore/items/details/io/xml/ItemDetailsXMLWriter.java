@@ -17,6 +17,7 @@ import delta.games.lotro.lore.items.details.AllegiancePoints;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.HousingHooks;
+import delta.games.lotro.lore.items.details.ItemDecay;
 import delta.games.lotro.lore.items.details.ItemDetail;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
@@ -90,6 +91,10 @@ public class ItemDetailsXMLWriter
     else if (item instanceof AllegiancePoints)
     {
       writeAllegiancePoints(hd,(AllegiancePoints)item);
+    }
+    else if (item instanceof ItemDecay)
+    {
+      writeDecayDetails(hd,(ItemDecay)item);
     }
   }
 
@@ -238,5 +243,14 @@ public class ItemDetailsXMLWriter
     attrs.addAttribute("","",ItemDetailsXMLConstants.HOUSING_HOOKS_CATEGORIES_ATTR,XmlWriter.CDATA,sb.toString());
     hd.startElement("","",ItemDetailsXMLConstants.HOUSING_HOOKS_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.HOUSING_HOOKS_TAG);
+  }
+
+  private void writeDecayDetails(TransformerHandler hd, ItemDecay decay) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Duration
+    attrs.addAttribute("","",ItemDetailsXMLConstants.DECAY_DURATION_ATTR,XmlWriter.CDATA,String.valueOf(decay.getDuration()));
+    hd.startElement("","",ItemDetailsXMLConstants.DECAY_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.DECAY_TAG);
   }
 }

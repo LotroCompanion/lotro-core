@@ -119,4 +119,12 @@ public class ItemDetailsXMLConstants
    * Tag 'housingHooks', attribute 'genus'.
    */
   public static final String HOUSING_HOOKS_CATEGORIES_ATTR="categories";
+  /**
+   * Tag 'decay'.
+   */
+  public static final String DECAY_TAG="decay";
+  /**
+   * Tag 'decay', attribute 'duration'.
+   */
+  public static final String DECAY_DURATION_ATTR="duration";
 }

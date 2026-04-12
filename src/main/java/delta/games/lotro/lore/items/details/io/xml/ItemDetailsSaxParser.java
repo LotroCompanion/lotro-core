@@ -24,6 +24,7 @@ import delta.games.lotro.lore.items.details.AllegiancePoints;
 import delta.games.lotro.lore.items.details.GrantType;
 import delta.games.lotro.lore.items.details.GrantedElement;
 import delta.games.lotro.lore.items.details.HousingHooks;
+import delta.games.lotro.lore.items.details.ItemDecay;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemUsageCooldown;
 import delta.games.lotro.lore.items.details.ItemXP;
@@ -127,6 +128,11 @@ public class ItemDetailsSaxParser
     else if (ItemDetailsXMLConstants.HOUSING_HOOKS_TAG.equals(qualifiedName))
     {
       handleHousingHook(item,attributes);
+      return true;
+    }
+    else if (ItemDetailsXMLConstants.DECAY_TAG.equals(qualifiedName))
+    {
+      handleDecay(item,attributes);
       return true;
     }
     return false;
@@ -234,6 +240,15 @@ public class ItemDetailsSaxParser
         info.addCategory(category);
       }
     }
+    Item.addDetail(item,info);
+  }
+
+  private void handleDecay(Item item, Attributes attributes)
+  {
+    // Duration value
+    String durationStr=attributes.getValue(ItemDetailsXMLConstants.DECAY_DURATION_ATTR);
+    float duration=NumericTools.parseFloat(durationStr,-1);
+    ItemDecay info=new ItemDecay(duration);
     Item.addDetail(item,info);
   }
 
