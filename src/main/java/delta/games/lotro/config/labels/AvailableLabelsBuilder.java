@@ -21,7 +21,7 @@ public class AvailableLabelsBuilder
     // French
     LabelsEntry fr=new LabelsEntry("fr","fr","Français");
     cfg.registerEntry(fr);
-    // German
+    // Deutsch
     LabelsEntry de=new LabelsEntry("de","de","Deutsch");
     cfg.registerEntry(de);
     // Russian
@@ -51,8 +51,11 @@ public class AvailableLabelsBuilder
     LabelsEntry fr=new LabelsEntry("fr","fr","Français");
     cfg.registerEntry(fr);
     // Deutsch
-    LabelsEntry ge=new LabelsEntry("de","de","Deutsch");
-    cfg.registerEntry(ge);
+    LabelsEntry de=new LabelsEntry("de","de","Deutsch");
+    cfg.registerEntry(de);
+    // Russian
+    LabelsEntry ru=new LabelsEntry("ru","ru","Русский");
+    cfg.registerEntry(ru);
     return cfg;
   }
 }
