@@ -52,6 +52,8 @@ public class ItemInstance<T extends Item> implements ItemProvider
   private InternalGameId _boundTo;
   // Properties
   private HashMap<String,String> _properties;
+  // Decay data
+  private Long _decayBeginTime;
 
   /**
    * Constructor.
@@ -73,6 +75,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
     _color=null;
     _boundTo=null;
     _properties=new HashMap<String,String>();
+    _decayBeginTime=null;
   }
 
   /**
@@ -525,6 +528,24 @@ public class ItemInstance<T extends Item> implements ItemProvider
   }
 
   /**
+   * Get the decay begin time.
+   * @return A timestamp or <code>null</code>.
+   */
+  public Long getDecayBeginTime()
+  {
+    return _decayBeginTime;
+  }
+
+  /**
+   * Set the decay begin time.
+   * @param decayBeginTime Timestamp to set (may be <code>null</code>).
+   */
+  public void setDecayBeginTime(Long decayBeginTime)
+  {
+    _decayBeginTime=decayBeginTime;
+  }
+
+  /**
    * Copy item instance data from a source.
    * @param itemInstance Source item instance.
    */
@@ -574,6 +595,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
       _boundTo=null;
     }
     _properties=new HashMap<String,String>(itemInstance._properties);
+    _decayBeginTime=itemInstance._decayBeginTime;
   }
 
   /**

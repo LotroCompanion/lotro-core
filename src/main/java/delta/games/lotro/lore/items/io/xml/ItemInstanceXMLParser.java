@@ -151,7 +151,9 @@ public class ItemInstanceXMLParser
     {
       itemInstance.setTime(Long.valueOf(time));
     }
-
+    // Decay data
+    Long decayBeginTime=DOMParsingTools.getLongAttribute(attrs,ItemXMLConstants.ITEM_DECAY_BEGIN_TIME_ATTR,null);
+    itemInstance.setDecayBeginTime(decayBeginTime);
     // Weapon specifics
     if (itemInstance instanceof WeaponInstance)
     {

@@ -114,6 +114,12 @@ public class ItemInstanceXMLWriter
     {
       itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_TIME_ATTR,XmlWriter.CDATA,time.toString());
     }
+    // Decay data
+    Long decayBeginTime=instance.getDecayBeginTime();
+    if (decayBeginTime!=null)
+    {
+      itemAttrs.addAttribute("","",ItemXMLConstants.ITEM_DECAY_BEGIN_TIME_ATTR,XmlWriter.CDATA,decayBeginTime.toString());
+    }
     // Weapon specifics
     writeWeaponSpecifics(itemAttrs,instance);
     hd.startElement("","",ItemXMLConstants.ITEM_TAG,itemAttrs);

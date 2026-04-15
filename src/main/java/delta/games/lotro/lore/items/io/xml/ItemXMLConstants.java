@@ -131,6 +131,10 @@ public class ItemXMLConstants
    * Tag 'item', attribute 'time'.
    */
   public static final String ITEM_TIME_ATTR="time";
+  /**
+   * Tag 'item', attribute 'decayBeginTime'.
+   */
+  public static final String ITEM_DECAY_BEGIN_TIME_ATTR="decayBeginTime";
 
   // Armour
   /**
