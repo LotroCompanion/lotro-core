@@ -84,6 +84,16 @@ public class Currencies
     Currency inGameTime=new Currency(CurrencyKeys.IN_GAME_TIME,"In-game Time",Scope.CHARACTER,"In-game Time");
     inGameTime.setSemantics(CurrencySemantics.DURATION);
     registerCurrency(inGameTime);
+    // Counts
+    // - quests
+    Currency questsCount=new Currency(CurrencyKeys.QUESTS_COUNT,"Quests",Scope.CHARACTER,"Counts");
+    registerCurrency(questsCount);
+    // - deeds
+    Currency deedsCount=new Currency(CurrencyKeys.DEEDS_COUNT,"Deeds",Scope.CHARACTER,"Counts");
+    registerCurrency(deedsCount);
+    // - titles
+    Currency titlesCount=new Currency(CurrencyKeys.TITLES_COUNT,"Titles",Scope.CHARACTER,"Counts");
+    registerCurrency(titlesCount);
   }
 
   private void setupCurrencyLegacy(Currency currency, String key)

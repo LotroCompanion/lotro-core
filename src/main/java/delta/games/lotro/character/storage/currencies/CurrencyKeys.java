@@ -38,4 +38,17 @@ public class CurrencyKeys
    * Seals.
    */
   public static final String SEALS="seals";
+
+  /**
+   * Quests count.
+   */
+  public static final String QUESTS_COUNT="quests";
+  /**
+   * Deeds count.
+   */
+  public static final String DEEDS_COUNT="deeds";
+  /**
+   * Titles count.
+   */
+  public static final String TITLES_COUNT="titles";
 }

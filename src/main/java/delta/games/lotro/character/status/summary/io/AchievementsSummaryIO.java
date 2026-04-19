@@ -15,6 +15,8 @@ import delta.games.lotro.character.status.summary.io.xml.AchievementsSummaryXMLP
 import delta.games.lotro.character.status.summary.io.xml.AchievementsSummaryXMLWriter;
 import delta.games.lotro.character.status.titles.TitlesStatusManager;
 import delta.games.lotro.character.status.titles.io.TitlesStatusIo;
+import delta.games.lotro.character.storage.currencies.CurrenciesManager;
+import delta.games.lotro.character.storage.currencies.CurrencyKeys;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.quests.AchievablesUtils;
 import delta.games.lotro.lore.quests.QuestDescription;
@@ -128,6 +130,8 @@ public class AchievementsSummaryIO
     int deedsCount=deedsStatusMgr.getTotalCompletionsCount(deeds);
     ret.setDeedsCount(Integer.valueOf(deedsCount));
     save(character,ret);
+    // Update count history
+    updateCountHistory(character,CurrencyKeys.DEEDS_COUNT,deedsCount);
     return ret;
   }
 
@@ -148,6 +152,8 @@ public class AchievementsSummaryIO
     int questsCount=questsStatusMgr.getTotalCompletionsCount(quests);
     ret.setQuestsCount(Integer.valueOf(questsCount));
     save(character,ret);
+    // Update count history
+    updateCountHistory(character,CurrencyKeys.QUESTS_COUNT,questsCount);
     return ret;
   }
 
@@ -164,9 +170,18 @@ public class AchievementsSummaryIO
     {
       ret=new AchievementsSummary();
     }
-    int titles=titlesStatusMgr.getTitlesCount();
-    ret.setTitlesCount(Integer.valueOf(titles));
+    int titlesCount=titlesStatusMgr.getTitlesCount();
+    ret.setTitlesCount(Integer.valueOf(titlesCount));
     save(character,ret);
+    // Update count history
+    updateCountHistory(character,CurrencyKeys.TITLES_COUNT,titlesCount);
     return ret;
+  }
+
+  private static void updateCountHistory(CharacterFile character, String key, int count)
+  {
+    CurrenciesManager mgr=new CurrenciesManager(character);
+    mgr.updateCurrency(key,count,true);
+    mgr.save();
   }
 }
