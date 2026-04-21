@@ -24,6 +24,9 @@ public class AvailableLabelsBuilder
     // Deutsch
     LabelsEntry de=new LabelsEntry("de","de","Deutsch");
     cfg.registerEntry(de);
+    // Spanish
+    LabelsEntry es=new LabelsEntry("es","es","Español");
+    cfg.registerEntry(es);
     // Russian
     LabelsEntry ru=new LabelsEntry("ru","ru","Русский");
     cfg.registerEntry(ru);
