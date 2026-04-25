@@ -14,6 +14,7 @@ public class AvailableLabelsBuilder
    */
   public static AvailableLabelsDefinition buildDataLabelsConfiguration()
   {
+    boolean isLive=LotroCoreConfig.isLive();
     AvailableLabelsDefinition cfg=new AvailableLabelsDefinition();
     // English
     LabelsEntry en=new LabelsEntry("en","en","English");
@@ -25,12 +26,14 @@ public class AvailableLabelsBuilder
     LabelsEntry de=new LabelsEntry("de","de","Deutsch");
     cfg.registerEntry(de);
     // Spanish
-    LabelsEntry es=new LabelsEntry("es","es","Español");
-    cfg.registerEntry(es);
+    if (isLive)
+    {
+      LabelsEntry es=new LabelsEntry("es","es","Español");
+      cfg.registerEntry(es);
+    }
     // Russian
     LabelsEntry ru=new LabelsEntry("ru","ru","Русский");
     cfg.registerEntry(ru);
-    boolean isLive=LotroCoreConfig.isLive();
     if (!isLive)
     {
       // Chinese
