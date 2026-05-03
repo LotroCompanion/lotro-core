@@ -44,7 +44,10 @@ public class TitlesStatusIo
     {
       TitlesStatusXMLParser parser=new TitlesStatusXMLParser();
       status=parser.parseXML(fromFile);
-      status.markObsoleteTitles();
+      if (status!=null)
+      {
+        status.markObsoleteTitles();
+      }
     }
     return status;
   }
