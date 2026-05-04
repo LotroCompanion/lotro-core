@@ -15,6 +15,7 @@ public class AgentDescription implements Interactable
   private int _identifier;
   private String _name;
   private List<EffectGenerator> _startupEffects;
+  private List<EffectGenerator> _initEffects;
 
   /**
    * Constructor.
@@ -27,6 +28,7 @@ public class AgentDescription implements Interactable
     if (name==null) name="";
     _name=name;
     _startupEffects=new ArrayList<EffectGenerator>();
+    _initEffects=new ArrayList<EffectGenerator>();
   }
 
   /**
@@ -63,5 +65,23 @@ public class AgentDescription implements Interactable
   public List<EffectGenerator> getStartupEffects()
   {
     return _startupEffects;
+  }
+
+  /**
+   * Add a 'init' effect.
+   * @param generator Effect generator.
+   */
+  public void addInitEffect(EffectGenerator generator)
+  {
+    _initEffects.add(generator);
+  }
+
+  /**
+   * Get the 'init' effects.
+   * @return A list of effect generators.
+   */
+  public List<EffectGenerator> getInitEffects()
+  {
+    return _initEffects;
   }
 }

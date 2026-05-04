@@ -32,6 +32,10 @@ public class AgentsXMLConstants
    */
   public static final String SUBSPECIES_ATTR="subSpecies";
   /**
+   * Tag 'initEffect'.
+   */
+  public static final String INIT_EFFECT_TAG="initEffect";
+  /**
    * Tag 'startupEffect'.
    */
   public static final String STARTUP_EFFECT_TAG="startupEffect";

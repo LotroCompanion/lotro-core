@@ -101,7 +101,12 @@ public class AgentsXMLIO
    */
   public static void writeEffects(TransformerHandler hd, AgentDescription agent) throws SAXException
   {
-    // Effects
+    // Init effects
+    for(EffectGenerator initEffect : agent.getInitEffects())
+    {
+      EffectXMLWriter.writeEffectGenerator(hd,initEffect,AgentsXMLConstants.INIT_EFFECT_TAG);
+    }
+    // Startup effects
     for(EffectGenerator startupEffect : agent.getStartupEffects())
     {
       EffectXMLWriter.writeEffectGenerator(hd,startupEffect,AgentsXMLConstants.STARTUP_EFFECT_TAG);
@@ -231,6 +236,14 @@ public class AgentsXMLIO
    */
   public static void parseEffects(Element agentTag, AgentDescription agent)
   {
+    // Init effects
+    List<Element> initEffectTags=DOMParsingTools.getChildTagsByName(agentTag,AgentsXMLConstants.INIT_EFFECT_TAG);
+    for(Element initEffectTag : initEffectTags)
+    {
+      EffectGenerator generator=EffectXMLParser.readEffectGeneratorFromTag(initEffectTag);
+      agent.addInitEffect(generator);
+    }
+    // Startup effects
     List<Element> startupEffectTags=DOMParsingTools.getChildTagsByName(agentTag,AgentsXMLConstants.STARTUP_EFFECT_TAG);
     for(Element startupEffectTag : startupEffectTags)
     {

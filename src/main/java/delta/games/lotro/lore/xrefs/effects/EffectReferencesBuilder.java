@@ -146,10 +146,22 @@ public class EffectReferencesBuilder
 
   private void inspectMob(MobDescription mob, Effect effect)
   {
-    List<EffectGenerator> generators=mob.getStartupEffects();
-    if (!generators.isEmpty())
+    List<EffectGenerator> initEffects=mob.getInitEffects();
+    if (!initEffects.isEmpty())
     {
-      for(EffectGenerator generator : generators)
+      for(EffectGenerator generator : initEffects)
+      {
+        if (effect==generator.getEffect())
+        {
+          _storage.add(new Reference<MobDescription,EffectRole>(mob,EffectRole.MOB_USED_BY));
+          return;
+        }
+      }
+    }
+    List<EffectGenerator> startupEffects=mob.getStartupEffects();
+    if (!startupEffects.isEmpty())
+    {
+      for(EffectGenerator generator : startupEffects)
       {
         if (effect==generator.getEffect())
         {
