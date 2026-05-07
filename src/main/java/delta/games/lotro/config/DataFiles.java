@@ -391,6 +391,10 @@ public class DataFiles
    */
   public static final String TRAVELS_MAP="travelsMap";
   /**
+   * Portrait frames file.
+   */
+  public static final String PORTRAIT_FRAMES="portraitFrames";
+  /**
    * Labels directory.
    */
   public static final String LABELS="labelsDir";
