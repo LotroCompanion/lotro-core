@@ -23,6 +23,7 @@ import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemUsageCooldown;
 import delta.games.lotro.lore.items.details.ItemXP;
+import delta.games.lotro.lore.items.details.ProvidesPortraitFrame;
 import delta.games.lotro.lore.items.details.SkillToExecute;
 import delta.games.lotro.lore.items.details.VirtueXP;
 import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
@@ -95,6 +96,10 @@ public class ItemDetailsXMLWriter
     else if (item instanceof ItemDecay)
     {
       writeDecayDetails(hd,(ItemDecay)item);
+    }
+    else if (item instanceof ProvidesPortraitFrame)
+    {
+      writeProvidesPortraitFrame(hd,(ProvidesPortraitFrame)item);
     }
   }
 
@@ -252,5 +257,14 @@ public class ItemDetailsXMLWriter
     attrs.addAttribute("","",ItemDetailsXMLConstants.DECAY_DURATION_ATTR,XmlWriter.CDATA,String.valueOf(decay.getDuration()));
     hd.startElement("","",ItemDetailsXMLConstants.DECAY_TAG,attrs);
     hd.endElement("","",ItemDetailsXMLConstants.DECAY_TAG);
+  }
+
+  private void writeProvidesPortraitFrame(TransformerHandler hd, ProvidesPortraitFrame provider) throws SAXException
+  {
+    AttributesImpl attrs=new AttributesImpl();
+    // Code
+    attrs.addAttribute("","",ItemDetailsXMLConstants.PROVIDES_PORTRAIT_FRAME_CODE_ATTR,XmlWriter.CDATA,String.valueOf(provider.getPortraitFrame().getCode()));
+    hd.startElement("","",ItemDetailsXMLConstants.PROVIDES_PORTRAIT_FRAME_TAG,attrs);
+    hd.endElement("","",ItemDetailsXMLConstants.PROVIDES_PORTRAIT_FRAME_TAG);
   }
 }

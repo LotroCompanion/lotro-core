@@ -116,9 +116,17 @@ public class ItemDetailsXMLConstants
    */
   public static final String HOUSING_HOOKS_TAG="housingHooks";
   /**
-   * Tag 'housingHooks', attribute 'genus'.
+   * Tag 'housingHooks', attribute 'categories'.
    */
   public static final String HOUSING_HOOKS_CATEGORIES_ATTR="categories";
+  /**
+   * Tag 'providesPortraitFrame'.
+   */
+  public static final String PROVIDES_PORTRAIT_FRAME_TAG="providesPortraitFrame";
+  /**
+   * Tag 'providesPortraitFrame', attribute 'code'.
+   */
+  public static final String PROVIDES_PORTRAIT_FRAME_CODE_ATTR="code";
   /**
    * Tag 'decay'.
    */

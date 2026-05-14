@@ -28,9 +28,12 @@ import delta.games.lotro.lore.items.details.ItemDecay;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemUsageCooldown;
 import delta.games.lotro.lore.items.details.ItemXP;
+import delta.games.lotro.lore.items.details.ProvidesPortraitFrame;
 import delta.games.lotro.lore.items.details.SkillToExecute;
 import delta.games.lotro.lore.items.details.VirtueXP;
 import delta.games.lotro.lore.items.details.WeaponSlayerInfo;
+import delta.games.lotro.lore.portraitFrames.PortraitFrameDescription;
+import delta.games.lotro.lore.portraitFrames.PortraitFramesManager;
 import delta.games.lotro.lore.reputation.Faction;
 import delta.games.lotro.lore.reputation.FactionsRegistry;
 
@@ -133,6 +136,11 @@ public class ItemDetailsSaxParser
     else if (ItemDetailsXMLConstants.DECAY_TAG.equals(qualifiedName))
     {
       handleDecay(item,attributes);
+      return true;
+    }
+    else if (ItemDetailsXMLConstants.PROVIDES_PORTRAIT_FRAME_TAG.equals(qualifiedName))
+    {
+      handleProvidesPortraitFrame(item,attributes);
       return true;
     }
     return false;
@@ -250,6 +258,18 @@ public class ItemDetailsSaxParser
     float duration=NumericTools.parseFloat(durationStr,-1);
     ItemDecay info=new ItemDecay(duration);
     Item.addDetail(item,info);
+  }
+
+  private void handleProvidesPortraitFrame(Item item, Attributes attributes)
+  {
+    int code=SAXParsingTools.getIntAttribute(attributes,ItemDetailsXMLConstants.PROVIDES_PORTRAIT_FRAME_CODE_ATTR,-1);
+    PortraitFramesManager mgr=PortraitFramesManager.getInstance();
+    PortraitFrameDescription portraitFrame=mgr.getPortraitFrameByCode(code);
+    if (portraitFrame!=null)
+    {
+      ProvidesPortraitFrame provider=new ProvidesPortraitFrame(portraitFrame);
+      Item.addDetail(item,provider);
+    }
   }
 
   private GrantedElement<?> buildGrantedElement(int id, GrantType type)
