@@ -152,6 +152,43 @@ public class AgentsXMLIO
   }
 
   /**
+   * Parse classification data from the given SAX attributes.
+   * @param classification Storage for parsed data.
+   * @param attrs Input attributes.
+   */
+  public static void parseClassification(AgentClassification classification, Attributes attrs)
+  {
+    LotroEnumsRegistry registry=LotroEnumsRegistry.getInstance();
+    // Alignment
+    int alignmentCode=SAXParsingTools.getIntAttribute(attrs,AgentsXMLConstants.ALIGNMENT_ATTR,0);
+    if (alignmentCode!=0)
+    {
+      LotroEnum<Alignment> alignmentMgr=registry.get(Alignment.class);
+      Alignment alignment=alignmentMgr.getEntry(alignmentCode);
+      classification.setAlignment(alignment);
+    }
+    // Agent class
+    int agentClassCode=SAXParsingTools.getIntAttribute(attrs,AgentsXMLConstants.CLASS_ATTR,0);
+    if (agentClassCode!=0)
+    {
+      LotroEnum<AgentClass> agentClassMgr=registry.get(AgentClass.class);
+      AgentClass agentClass=agentClassMgr.getEntry(agentClassCode);
+      classification.setAgentClass(agentClass);
+    }
+    // Class filter
+    int classFilterCode=SAXParsingTools.getIntAttribute(attrs,AgentsXMLConstants.CLASS_FILTER_ATTR,0);
+    if (classFilterCode!=0)
+    {
+      LotroEnum<ClassificationFilter> classFilterMgr=registry.get(ClassificationFilter.class);
+      ClassificationFilter classFilter=classFilterMgr.getEntry(classFilterCode);
+      classification.setClassificationFilter(classFilter);
+    }
+    // Entity classification
+    EntityClassification entityClassification=classification.getEntityClassification();
+    parseEntityClassification(entityClassification,attrs);
+  }
+
+  /**
    * Parse entity classification data.
    * @param entityClassification Storage.
    * @param attrs Attributes to read from.

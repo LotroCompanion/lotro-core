@@ -1,4 +1,4 @@
-package delta.games.lotro.lore.quests.objectives;
+package delta.games.lotro.lore.agents.mobs;
 
 import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;

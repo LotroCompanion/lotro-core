@@ -15,6 +15,8 @@ import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.geo.PositionUtils;
 import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
+import delta.games.lotro.lore.agents.mobs.MobLocation;
+import delta.games.lotro.lore.agents.mobs.MobSelection;
 import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;

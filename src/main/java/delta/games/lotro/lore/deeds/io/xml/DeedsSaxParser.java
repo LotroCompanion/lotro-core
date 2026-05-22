@@ -26,6 +26,8 @@ import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.io.xml.AchievableSaxParser;
 import delta.games.lotro.lore.quests.io.xml.AchievableXMLConstants;
+import delta.games.lotro.lore.quests.loots.io.xml.AchievableLootXMLConstants;
+import delta.games.lotro.lore.quests.loots.io.xml.AchievableLootSaxXMLParser;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectiveCondition;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
@@ -48,6 +50,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
   private RewardsSaxXMLParser _rewards;
   private QuestsRequirementsSaxParser _requirements;
   private WorldEventConditionsSaxParser _worldEventConditions;
+  private AchievableLootSaxXMLParser _lootParser;
   private SingleLocaleLabelsManager _i18n;
   private LotroEnum<DeedCategory> _categoryEnum;
   private LotroEnum<DeedType> _typeEnum;
@@ -68,6 +71,8 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
     _requirements.setParent(this);
     _worldEventConditions=new WorldEventConditionsSaxParser();
     _worldEventConditions.setParent(this);
+    _lootParser=new AchievableLootSaxXMLParser();
+    _lootParser.setParent(this);
     _categoryEnum=LotroEnumsRegistry.getInstance().get(DeedCategory.class);
     _typeEnum=LotroEnumsRegistry.getInstance().get(DeedType.class);
   }
@@ -169,16 +174,20 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
     }
     // Requirements
     else if ((QuestsRequirementsXMLConstants.PREREQUISITE_TAG.equals(tagName))
-        ||(QuestsRequirementsXMLConstants.COMPOUND_PREREQUISITE_TAG.equals(tagName)))
+        || (QuestsRequirementsXMLConstants.COMPOUND_PREREQUISITE_TAG.equals(tagName)))
     {
       return _requirements;
     }
     else if ((WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_TAG.equals(tagName))
-        ||(WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG.equals(tagName)))
+        || (WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG.equals(tagName)))
     {
       return _worldEventConditions;
     }
-
+    else if (AchievableLootXMLConstants.LOOT_TAG.equals(tagName))
+    {
+      _lootParser.initLoot(_currentItem,attrs);
+      return _lootParser;
+    }
     return this;
   }
 

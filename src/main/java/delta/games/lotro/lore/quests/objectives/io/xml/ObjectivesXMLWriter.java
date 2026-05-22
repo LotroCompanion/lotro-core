@@ -10,17 +10,18 @@ import org.xml.sax.helpers.AttributesImpl;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Interactable;
-import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.mobs.MobLocation;
+import delta.games.lotro.lore.agents.mobs.MobSelection;
+import delta.games.lotro.lore.agents.mobs.io.xml.MobLocationXMLIO;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
-import delta.games.lotro.lore.maps.LandDivision;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.geo.io.xml.AchievableGeoDataXMLWriter;
@@ -42,8 +43,6 @@ import delta.games.lotro.lore.quests.objectives.ItemTalkCondition;
 import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
-import delta.games.lotro.lore.quests.objectives.MobLocation;
-import delta.games.lotro.lore.quests.objectives.MobSelection;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.NpcCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
@@ -368,39 +367,7 @@ public class ObjectivesXMLWriter
       AttributesImpl selectionAttrs=new AttributesImpl();
       // Where
       MobLocation where=selection.getWhere();
-      if (where!=null)
-      {
-        // Mob division
-        MobDivision mobDivision=where.getMobDivision();
-        if (mobDivision!=null)
-        {
-          int mobDivisionCode=mobDivision.getCode();
-          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_MOB_DIVISION_ATTR,XmlWriter.CDATA,String.valueOf(mobDivisionCode));
-        }
-        // Land division
-        LandDivision landDivision=where.getLandDivision();
-        if (landDivision!=null)
-        {
-          // ID
-          int id=landDivision.getIdentifier();
-          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LAND_ID_ATTR,XmlWriter.CDATA,String.valueOf(id));
-          // Name
-          String name=landDivision.getName();
-          if (name!=null)
-          {
-            selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LAND_NAME_ATTR,XmlWriter.CDATA,name);
-          }
-        }
-        // Landmark
-        LandmarkDescription landmark=where.getLandmark();
-        if (landmark!=null)
-        {
-          int landmarkId=landmark.getIdentifier();
-          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_ID_ATTR,XmlWriter.CDATA,String.valueOf(landmarkId));
-          String landmarkName=landmark.getName();
-          selectionAttrs.addAttribute("","",ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_NAME_ATTR,XmlWriter.CDATA,landmarkName);
-        }
-      }
+      MobLocationXMLIO.writeMobLocation(selectionAttrs,where);
       // What
       EntityClassification what=selection.getWhat();
       if (what!=null)

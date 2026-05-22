@@ -1,7 +1,7 @@
 package delta.games.lotro.lore.quests.loots;
 
 import delta.games.lotro.lore.agents.AgentClassification;
-import delta.games.lotro.lore.quests.objectives.MobLocation;
+import delta.games.lotro.lore.agents.mobs.MobLocation;
 
 /**
  * Monster specification for achievable loot data.

@@ -17,6 +17,7 @@ import delta.games.lotro.lore.deeds.DeedDescription;
 import delta.games.lotro.lore.deeds.DeedType;
 import delta.games.lotro.lore.quests.io.xml.AchievableXMLConstants;
 import delta.games.lotro.lore.quests.io.xml.AchievableXMLWriter;
+import delta.games.lotro.lore.quests.loots.io.xml.AchievableLootXMLWriter;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
 import delta.games.lotro.lore.webStore.WebStoreItem;
 
@@ -130,9 +131,10 @@ public class DeedXMLWriter extends AchievableXMLWriter
     writeWorldEventsRequirement(hd,deed);
     // Maps
     writeMaps(hd,deed);
-
     // Rewards
     RewardsXMLWriter.write(hd,deed.getRewards());
+    // Loots
+    AchievableLootXMLWriter.writeLoots(hd,deed.getLoots());
     hd.endElement("","",DeedXMLConstants.DEED_TAG);
   }
 }

@@ -24,6 +24,7 @@ import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.dialogs.QuestCompletionComment;
+import delta.games.lotro.lore.quests.loots.io.xml.AchievableLootXMLWriter;
 import delta.games.lotro.lore.quests.objectives.io.xml.DialogsXMLWriter;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLWriter;
 import delta.games.lotro.lore.webStore.WebStoreItem;
@@ -216,7 +217,10 @@ public class QuestXMLWriter extends AchievableXMLWriter
     // Next quest
     Proxy<Achievable> nextQuest=quest.getNextQuest();
     writeAchievableProxy(hd,nextQuest,QuestXMLConstants.NEXT_QUEST_TAG);
+    // Rewards
     RewardsXMLWriter.write(hd,quest.getRewards());
+    // Loots
+    AchievableLootXMLWriter.writeLoots(hd,quest.getLoots());
     hd.endElement("","",QuestXMLConstants.QUEST_TAG);
   }
 }

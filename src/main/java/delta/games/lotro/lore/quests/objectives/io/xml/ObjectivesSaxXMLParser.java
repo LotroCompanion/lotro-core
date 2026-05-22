@@ -10,22 +10,22 @@ import delta.games.lotro.character.skills.SkillsManager;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
-import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.lore.agents.AgentDescription;
 import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.mobs.MobLocation;
+import delta.games.lotro.lore.agents.mobs.MobSelection;
 import delta.games.lotro.lore.agents.mobs.MobsManager;
+import delta.games.lotro.lore.agents.mobs.io.xml.MobLocationXMLIO;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
 import delta.games.lotro.lore.geo.landmarks.LandmarksManager;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
-import delta.games.lotro.lore.maps.GeoAreasManager;
-import delta.games.lotro.lore.maps.LandDivision;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
 import delta.games.lotro.lore.quests.geo.AchievableGeoPoint;
@@ -48,8 +48,6 @@ import delta.games.lotro.lore.quests.objectives.ItemTalkCondition;
 import delta.games.lotro.lore.quests.objectives.ItemUsedCondition;
 import delta.games.lotro.lore.quests.objectives.LandmarkDetectionCondition;
 import delta.games.lotro.lore.quests.objectives.LevelCondition;
-import delta.games.lotro.lore.quests.objectives.MobLocation;
-import delta.games.lotro.lore.quests.objectives.MobSelection;
 import delta.games.lotro.lore.quests.objectives.MonsterDiedCondition;
 import delta.games.lotro.lore.quests.objectives.NpcCondition;
 import delta.games.lotro.lore.quests.objectives.NpcTalkCondition;
@@ -79,7 +77,6 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   private boolean _useGlobalFailureConditions;
   private CompoundQuestEvent _compoundEvent;
   private SingleLocaleLabelsManager _i18n;
-  private LotroEnum<MobDivision> _mobDivisionEnum;
   private LotroEnum<QuestCategory> _questCategoryEnum;
   private LotroEnum<QuestScope> _questScopeEnum;
 
@@ -90,7 +87,6 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   public ObjectivesSaxXMLParser(SingleLocaleLabelsManager i18n)
   {
     _i18n=i18n;
-    _mobDivisionEnum=LotroEnumsRegistry.getInstance().get(MobDivision.class);
     _questCategoryEnum=LotroEnumsRegistry.getInstance().get(QuestCategory.class);
     _questScopeEnum=LotroEnumsRegistry.getInstance().get(QuestScope.class);
   }
@@ -376,32 +372,8 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
   {
     MobSelection selection=new MobSelection();
     // Where
-    // - mob division
-    MobDivision mobDivision=null;
-    int mobDivisionCode=SAXParsingTools.getIntAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_MOB_DIVISION_ATTR,-1);
-    if (mobDivisionCode>0)
-    {
-      mobDivision=_mobDivisionEnum.getEntry(mobDivisionCode);
-    }
-    // - land division
-    LandDivision land=null;
-    int whereId=SAXParsingTools.getIntAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_LAND_ID_ATTR,0);
-    if (whereId!=0)
-    {
-      land=GeoAreasManager.getInstance().getLandById(whereId);
-    }
-    // - landmark
-    LandmarkDescription landmark=null;
-    int landmarkId=SAXParsingTools.getIntAttribute(selectionAttrs,ObjectivesXMLConstants.MONSTER_SELECTION_LANDMARK_ID_ATTR,0);
-    if (landmarkId!=0)
-    {
-      landmark=LandmarksManager.getInstance().getLandmarkById(landmarkId);
-    }
-    if ((mobDivision!=null) || (land!=null) || (landmark!=null))
-    {
-      MobLocation location=new MobLocation(mobDivision,land,landmark);
-      selection.setWhere(location);
-    }
+    MobLocation location=MobLocationXMLIO.parseMobLocation(selectionAttrs);
+    selection.setWhere(location);
     // What
     EntityClassification what=new EntityClassification();
     AgentsXMLIO.parseEntityClassification(what,selectionAttrs);

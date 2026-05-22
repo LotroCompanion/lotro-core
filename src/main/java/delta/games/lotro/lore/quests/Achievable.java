@@ -13,6 +13,7 @@ import delta.games.lotro.common.requirements.AbstractAchievableRequirement;
 import delta.games.lotro.common.requirements.UsageRequirement;
 import delta.games.lotro.common.rewards.Rewards;
 import delta.games.lotro.lore.maps.MapDescription;
+import delta.games.lotro.lore.quests.loots.AchievableLoots;
 import delta.games.lotro.lore.quests.objectives.Objective;
 import delta.games.lotro.lore.quests.objectives.ObjectivesManager;
 import delta.games.lotro.lore.webStore.WebStoreItem;
@@ -82,6 +83,10 @@ public abstract class Achievable implements Identifiable,Named
    * Web store item.
    */
   private WebStoreItem _webStoreItem;
+  /**
+   * Loots.
+   */
+  private AchievableLoots _loots;
 
   /**
    * Constructor.
@@ -100,6 +105,7 @@ public abstract class Achievable implements Identifiable,Named
     _questRequirement=null;
     _maps=new ArrayList<MapDescription>();
     _webStoreItem=null;
+    _loots=null;
   }
 
   /**
@@ -372,7 +378,24 @@ public abstract class Achievable implements Identifiable,Named
     _webStoreItem=webStoreItem;
   }
 
-  
+  /**
+   * Get the associated loots, if any.
+   * @return Some loots or <code>null</code>.
+   */
+  public AchievableLoots getLoots()
+  {
+    return _loots;
+  }
+
+  /**
+   * Set the associated loots.
+   * @param loots Loots to set.
+   */
+  public void setLoots(AchievableLoots loots)
+  {
+    _loots=loots;
+  }
+
   /**
    * Dump the contents of this achievable as a string.
    * @return A readable string.

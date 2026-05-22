@@ -29,6 +29,8 @@ import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
+import delta.games.lotro.lore.quests.loots.io.xml.AchievableLootXMLConstants;
+import delta.games.lotro.lore.quests.loots.io.xml.AchievableLootSaxXMLParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.DialogsSaxParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesSaxXMLParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLConstants;
@@ -51,6 +53,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
   private QuestsRequirementsSaxParser _requirements;
   private DialogsSaxParser _dialogs;
   private WorldEventConditionsSaxParser _worldEventConditions;
+  private AchievableLootSaxXMLParser _lootParser;
   private SingleLocaleLabelsManager _i18n;
   private LotroEnum<QuestCategory> _categoryEnum;
   private LotroEnum<QuestScope> _scopeEnum;
@@ -73,6 +76,8 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
     _dialogs.setParent(this);
     _worldEventConditions=new WorldEventConditionsSaxParser();
     _worldEventConditions.setParent(this);
+    _lootParser=new AchievableLootSaxXMLParser();
+    _lootParser.setParent(this);
     _categoryEnum=LotroEnumsRegistry.getInstance().get(QuestCategory.class);
     _scopeEnum=LotroEnumsRegistry.getInstance().get(QuestScope.class);
   }
@@ -198,7 +203,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
     }
     // Requirements
     else if ((QuestsRequirementsXMLConstants.PREREQUISITE_TAG.equals(tagName))
-        ||(QuestsRequirementsXMLConstants.COMPOUND_PREREQUISITE_TAG.equals(tagName)))
+        || (QuestsRequirementsXMLConstants.COMPOUND_PREREQUISITE_TAG.equals(tagName)))
     {
       return _requirements;
     }
@@ -209,11 +214,15 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
       return _dialogs;
     }
     else if ((WorldEventConditionsXMLConstants.WORLD_EVENT_CONDITION_TAG.equals(tagName))
-        ||(WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG.equals(tagName)))
+        || (WorldEventConditionsXMLConstants.COMPOUND_WORLD_EVENT_CONDITION_TAG.equals(tagName)))
     {
       return _worldEventConditions;
     }
-
+    else if (AchievableLootXMLConstants.LOOT_TAG.equals(tagName))
+    {
+      _lootParser.initLoot(_currentItem,attrs);
+      return _lootParser;
+    }
     return this;
   }
 
