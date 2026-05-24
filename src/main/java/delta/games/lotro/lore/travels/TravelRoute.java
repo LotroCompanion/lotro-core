@@ -16,6 +16,7 @@ import delta.games.lotro.common.requirements.Requirements;
 public class TravelRoute implements Identifiable,Named
 {
   private int _id;
+  // May be null. In this case, name if found from the destination.
   private String _name;
   private TravelDestination _destination;
   private List<TravelRouteAction> _routeActions;
@@ -47,11 +48,24 @@ public class TravelRoute implements Identifiable,Named
 
   /**
    * Get the name of this route.
-   * @return a route name.
+   * @return a route name (may be <code>null</code>).
    */
   public String getName()
   {
     return _name;
+  }
+
+  /**
+   * Get the name of this route, for display.
+   * @return A displayable name.
+   */
+  public String getDisplayName()
+  {
+    if (_name!=null)
+    {
+      return _name;
+    }
+    return _destination.getName();
   }
 
   /**

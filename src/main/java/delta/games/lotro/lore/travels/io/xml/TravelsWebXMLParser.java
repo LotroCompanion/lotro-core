@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
+import delta.common.utils.i18n.SingleLocaleLabelsManager;
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLParser;
 import delta.games.lotro.lore.travels.TravelDestination;
@@ -15,6 +16,8 @@ import delta.games.lotro.lore.travels.TravelRoute;
 import delta.games.lotro.lore.travels.TravelRouteAction;
 import delta.games.lotro.lore.travels.TravelRouteInstance;
 import delta.games.lotro.lore.travels.TravelsManager;
+import delta.games.lotro.utils.i18n.I18nFacade;
+import delta.games.lotro.utils.i18n.I18nRuntimeUtils;
 
 /**
  * Parser for the travels web stored in XML.
@@ -22,6 +25,16 @@ import delta.games.lotro.lore.travels.TravelsManager;
  */
 public class TravelsWebXMLParser
 {
+  private SingleLocaleLabelsManager _i18n;
+
+  /**
+   * Constructor.
+   */
+  public TravelsWebXMLParser()
+  {
+    _i18n=I18nFacade.getLabelsMgr("travelsWeb");
+  }
+
   /**
    * Parse the XML file.
    * @param source Source file.
@@ -65,7 +78,7 @@ public class TravelsWebXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,TravelsWebXMLConstants.DESTINATION_ID_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,TravelsWebXMLConstants.DESTINATION_NAME_ATTR,"");
+    String name=I18nRuntimeUtils.getLabel(_i18n,id);
     // Swift?
     boolean swift=DOMParsingTools.getBooleanAttribute(attrs,TravelsWebXMLConstants.DESTINATION_SWIFT_ATTR,false);
     TravelDestination ret=new TravelDestination(id,name,swift);
@@ -78,7 +91,7 @@ public class TravelsWebXMLParser
     // Identifier
     int id=DOMParsingTools.getIntAttribute(attrs,TravelsWebXMLConstants.ROUTE_ID_ATTR,0);
     // Name
-    String name=DOMParsingTools.getStringAttribute(attrs,TravelsWebXMLConstants.ROUTE_NAME_ATTR,"");
+    String name=I18nRuntimeUtils.getLabel(_i18n,id);
     // Mode
     TravelMode mode=null;
     String modeStr=DOMParsingTools.getStringAttribute(attrs,TravelsWebXMLConstants.ROUTE_MODE_ATTR,null);
