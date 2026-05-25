@@ -12,8 +12,8 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.enums.QuestScope;
+import delta.games.lotro.lore.agents.AgentClassification;
 import delta.games.lotro.lore.agents.AgentDescription;
-import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
 import delta.games.lotro.lore.agents.mobs.MobLocation;
@@ -369,10 +369,10 @@ public class ObjectivesXMLWriter
       MobLocation where=selection.getWhere();
       MobLocationXMLIO.writeMobLocation(selectionAttrs,where);
       // What
-      EntityClassification what=selection.getWhat();
+      AgentClassification what=selection.getWhat();
       if (what!=null)
       {
-        AgentsXMLIO.writeEntityClassification(selectionAttrs,what);
+        AgentsXMLIO.writeClassification(selectionAttrs,what);
       }
       hd.startElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG,selectionAttrs);
       hd.endElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG);

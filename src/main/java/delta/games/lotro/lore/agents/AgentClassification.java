@@ -89,6 +89,40 @@ public class AgentClassification
     return _classification;
   }
 
+  /**
+   * Get a displayable label for this object.
+   * @return a displayable label.
+   */
+  public String getLabel()
+  {
+    StringBuilder sb=new StringBuilder();
+    String entityClassificationLabel=_classification.getLabel();
+    sb.append(entityClassificationLabel);
+    // Class
+    if (_agentClass!=null)
+    {
+      if (sb.length()>0)
+      {
+        sb.append(' ');
+      }
+      sb.append("(").append(_agentClass.getLabel()).append(')');
+    }
+    // Alignment
+    if (_alignment!=null)
+    {
+      if (sb.length()>0)
+      {
+        sb.append(' ');
+      }
+      sb.append("(").append(_alignment.getLabel()).append(')');
+    }
+    if (sb.length()==0)
+    {
+      sb.append('?');
+    }
+    return sb.toString();
+  }
+
   @Override
   public String toString()
   {

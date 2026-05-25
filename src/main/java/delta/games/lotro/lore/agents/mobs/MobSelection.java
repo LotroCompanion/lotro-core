@@ -1,6 +1,6 @@
 package delta.games.lotro.lore.agents.mobs;
 
-import delta.games.lotro.lore.agents.EntityClassification;
+import delta.games.lotro.lore.agents.AgentClassification;
 
 /**
  * Mob selection.
@@ -9,7 +9,7 @@ import delta.games.lotro.lore.agents.EntityClassification;
 public class MobSelection
 {
   private MobLocation _where;
-  private EntityClassification _what;
+  private AgentClassification _what;
 
   /**
    * Get the location of mobs.
@@ -30,19 +30,19 @@ public class MobSelection
   }
 
   /**
-   * Get the mob kind.
-   * @return a mob kind description (genus/species/subspecies).
+   * Get the mob classification.
+   * @return a mob classification (class/alignment ; genus/species/subspecies).
    */
-  public EntityClassification getWhat()
+  public AgentClassification getWhat()
   {
     return _what;
   }
 
   /**
-   * Set the mob kind.
-   * @param what the mob kind to set.
+   * Set the mob classification.
+   * @param what the mob classification to set.
    */
-  public void setWhat(EntityClassification what)
+  public void setWhat(AgentClassification what)
   {
     _what=what;
   }

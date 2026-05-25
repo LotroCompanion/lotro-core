@@ -12,8 +12,8 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.enums.QuestScope;
+import delta.games.lotro.lore.agents.AgentClassification;
 import delta.games.lotro.lore.agents.AgentDescription;
-import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
 import delta.games.lotro.lore.agents.mobs.MobLocation;
@@ -375,8 +375,8 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     MobLocation location=MobLocationXMLIO.parseMobLocation(selectionAttrs);
     selection.setWhere(location);
     // What
-    EntityClassification what=new EntityClassification();
-    AgentsXMLIO.parseEntityClassification(what,selectionAttrs);
+    AgentClassification what=new AgentClassification();
+    AgentsXMLIO.parseClassification(what,selectionAttrs);
     selection.setWhat(what);
     return selection;
   }

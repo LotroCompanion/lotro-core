@@ -13,8 +13,8 @@ import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.MobDivision;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.geo.PositionUtils;
+import delta.games.lotro.lore.agents.AgentClassification;
 import delta.games.lotro.lore.agents.AgentDescription;
-import delta.games.lotro.lore.agents.EntityClassification;
 import delta.games.lotro.lore.agents.mobs.MobLocation;
 import delta.games.lotro.lore.agents.mobs.MobSelection;
 import delta.games.lotro.lore.deeds.DeedDescription;
@@ -347,7 +347,7 @@ public class ObjectivesDisplayBuilder
           int index=0;
           for(MobSelection mobSelection : mobSelections)
           {
-            EntityClassification what=mobSelection.getWhat();
+            AgentClassification what=mobSelection.getWhat();
             MobLocation where=mobSelection.getWhere();
             String whatStr=(what!=null)?what.getLabel():"Mob"; // I18n
             if (index>0)

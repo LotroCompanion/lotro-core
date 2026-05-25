@@ -166,7 +166,7 @@ public class EntityClassification
     {
       return getGenusLabel();
     }
-    return "?";
+    return "";
   }
 
   @Override
