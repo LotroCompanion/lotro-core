@@ -12,6 +12,17 @@ public class MobSelection
   private AgentClassification _what;
 
   /**
+   * Constructor.
+   * @param where Mob location.
+   * @param what Mob classification.
+   */
+  public MobSelection(MobLocation where, AgentClassification what)
+  {
+    _where=where;
+    _what=what;
+  }
+
+  /**
    * Get the location of mobs.
    * @return a location string (internal game code).
    */
@@ -21,30 +32,12 @@ public class MobSelection
   }
 
   /**
-   * Set the location of mob.
-   * @param where the location to set.
-   */
-  public void setWhere(MobLocation where)
-  {
-    _where=where;
-  }
-
-  /**
    * Get the mob classification.
    * @return a mob classification (class/alignment ; genus/species/subspecies).
    */
   public AgentClassification getWhat()
   {
     return _what;
-  }
-
-  /**
-   * Set the mob classification.
-   * @param what the mob classification to set.
-   */
-  public void setWhat(AgentClassification what)
-  {
-    _what=what;
   }
 
   @Override

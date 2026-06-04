@@ -12,13 +12,10 @@ import delta.games.lotro.character.skills.SkillDescription;
 import delta.games.lotro.common.Interactable;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.enums.QuestScope;
-import delta.games.lotro.lore.agents.AgentClassification;
 import delta.games.lotro.lore.agents.AgentDescription;
-import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
-import delta.games.lotro.lore.agents.mobs.MobLocation;
 import delta.games.lotro.lore.agents.mobs.MobSelection;
-import delta.games.lotro.lore.agents.mobs.io.xml.MobLocationXMLIO;
+import delta.games.lotro.lore.agents.mobs.io.xml.MobSelectionXMLIO;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
 import delta.games.lotro.lore.items.Item;
@@ -364,18 +361,7 @@ public class ObjectivesXMLWriter
     // Selections
     for(MobSelection selection : condition.getMobSelections())
     {
-      AttributesImpl selectionAttrs=new AttributesImpl();
-      // Where
-      MobLocation where=selection.getWhere();
-      MobLocationXMLIO.writeMobLocation(selectionAttrs,where);
-      // What
-      AgentClassification what=selection.getWhat();
-      if (what!=null)
-      {
-        AgentsXMLIO.writeClassification(selectionAttrs,what);
-      }
-      hd.startElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG,selectionAttrs);
-      hd.endElement("","",ObjectivesXMLConstants.MONSTER_SELECTION_TAG);
+      MobSelectionXMLIO.writeMobSelection(ObjectivesXMLConstants.MONSTER_SELECTION_TAG,hd,selection);
     }
     AchievableGeoDataXMLWriter.writeObjectiveConditionGeoData(hd,condition);
     hd.endElement("","",ObjectivesXMLConstants.MONSTER_DIED_TAG);

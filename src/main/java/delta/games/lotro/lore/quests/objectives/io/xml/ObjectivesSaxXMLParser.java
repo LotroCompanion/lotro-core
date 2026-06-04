@@ -12,14 +12,11 @@ import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.enums.QuestScope;
-import delta.games.lotro.lore.agents.AgentClassification;
 import delta.games.lotro.lore.agents.AgentDescription;
-import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
-import delta.games.lotro.lore.agents.mobs.MobLocation;
 import delta.games.lotro.lore.agents.mobs.MobSelection;
 import delta.games.lotro.lore.agents.mobs.MobsManager;
-import delta.games.lotro.lore.agents.mobs.io.xml.MobLocationXMLIO;
+import delta.games.lotro.lore.agents.mobs.io.xml.MobSelectionXMLIO;
 import delta.games.lotro.lore.emotes.EmoteDescription;
 import delta.games.lotro.lore.emotes.EmotesManager;
 import delta.games.lotro.lore.geo.landmarks.LandmarkDescription;
@@ -119,7 +116,7 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
     else if (ObjectivesXMLConstants.MONSTER_SELECTION_TAG.equals(tagName))
     {
       // Mob selections
-      MobSelection mobSelection=parseMobSelection(attrs);
+      MobSelection mobSelection=MobSelectionXMLIO.parseMobSelection(attrs);
       ((MonsterDiedCondition)_condition).getMobSelections().add(mobSelection);
     }
     else if (AchievableGeoDataXMLConstants.POINT_TAG.equals(tagName))
@@ -366,19 +363,6 @@ public class ObjectivesSaxXMLParser extends SAXParserValve<Void>
       condition.setMob(mob);
     }
     return condition;
-  }
-
-  private MobSelection parseMobSelection(Attributes selectionAttrs)
-  {
-    MobSelection selection=new MobSelection();
-    // Where
-    MobLocation location=MobLocationXMLIO.parseMobLocation(selectionAttrs);
-    selection.setWhere(location);
-    // What
-    AgentClassification what=new AgentClassification();
-    AgentsXMLIO.parseClassification(what,selectionAttrs);
-    selection.setWhat(what);
-    return selection;
   }
 
   private static LandmarkDetectionCondition parseLandmarkDetectionCondition(Attributes attrs)

@@ -5,17 +5,14 @@ import org.xml.sax.Attributes;
 import delta.common.utils.NumericTools;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserValve;
-import delta.games.lotro.lore.agents.AgentClassification;
-import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
-import delta.games.lotro.lore.agents.mobs.MobLocation;
+import delta.games.lotro.lore.agents.mobs.MobSelection;
 import delta.games.lotro.lore.agents.mobs.MobsManager;
-import delta.games.lotro.lore.agents.mobs.io.xml.MobLocationXMLIO;
+import delta.games.lotro.lore.agents.mobs.io.xml.MobSelectionXMLIO;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemsManager;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.loots.AchievableLoot;
-import delta.games.lotro.lore.quests.loots.AchievableLootMonsterSpec;
 import delta.games.lotro.lore.quests.loots.AchievableLoots;
 
 /**
@@ -64,15 +61,6 @@ public class AchievableLootSaxXMLParser extends SAXParserValve<AchievableLoot>
     }
   }
 
-  private AchievableLootMonsterSpec parseMobSpec(Attributes attrs)
-  {
-    MobLocation location=MobLocationXMLIO.parseMobLocation(attrs);
-    AgentClassification classification=new AgentClassification();
-    AgentsXMLIO.parseClassification(classification,attrs);
-    AchievableLootMonsterSpec spec=new AchievableLootMonsterSpec(location,classification);
-    return spec;
-  }
-
   @Override
   public SAXParserValve<?> handleStartTag(String tagName, Attributes attrs)
   {
@@ -84,12 +72,12 @@ public class AchievableLootSaxXMLParser extends SAXParserValve<AchievableLoot>
     }
     else if (AchievableLootXMLConstants.MONSTER_SPEC_TAG.equals(tagName))
     {
-      AchievableLootMonsterSpec mobSpec=parseMobSpec(attrs);
+      MobSelection mobSpec=MobSelectionXMLIO.parseMobSelection(attrs);
       _loot.addMonsterSpec(mobSpec);
     }
     else if (AchievableLootXMLConstants.EXCLUDED_MONSTER_SPEC_TAG.equals(tagName))
     {
-      AchievableLootMonsterSpec mobSpec=parseMobSpec(attrs);
+      MobSelection mobSpec=MobSelectionXMLIO.parseMobSelection(attrs);
       _loot.addMonsterSpec(mobSpec);
     }
     return this;

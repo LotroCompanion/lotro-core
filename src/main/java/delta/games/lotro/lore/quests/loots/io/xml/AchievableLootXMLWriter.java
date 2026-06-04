@@ -8,14 +8,11 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import delta.common.utils.io.xml.XmlWriter;
-import delta.games.lotro.lore.agents.AgentClassification;
-import delta.games.lotro.lore.agents.io.xml.AgentsXMLIO;
 import delta.games.lotro.lore.agents.mobs.MobDescription;
-import delta.games.lotro.lore.agents.mobs.MobLocation;
-import delta.games.lotro.lore.agents.mobs.io.xml.MobLocationXMLIO;
+import delta.games.lotro.lore.agents.mobs.MobSelection;
+import delta.games.lotro.lore.agents.mobs.io.xml.MobSelectionXMLIO;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.quests.loots.AchievableLoot;
-import delta.games.lotro.lore.quests.loots.AchievableLootMonsterSpec;
 import delta.games.lotro.lore.quests.loots.AchievableLoots;
 
 /**
@@ -67,21 +64,21 @@ public class AchievableLootXMLWriter
       writeMobReference(hd,mob);
     }
     // Monster specs
-    List<AchievableLootMonsterSpec> monsterSpecs=loot.getMonsterSpecs();
+    List<MobSelection> monsterSpecs=loot.getMonsterSpecs();
     if (monsterSpecs!=null)
     {
-      for(AchievableLootMonsterSpec monsterSpec : monsterSpecs)
+      for(MobSelection monsterSpec : monsterSpecs)
       {
-        writeAchievableLootMonsterSpec(AchievableLootXMLConstants.MONSTER_SPEC_TAG,hd,monsterSpec);
+        MobSelectionXMLIO.writeMobSelection(AchievableLootXMLConstants.MONSTER_SPEC_TAG,hd,monsterSpec);
       }
     }
     // Excluded monster specs
-    List<AchievableLootMonsterSpec> excludedMonsterSpecs=loot.getExcludedMonsterSpecs();
+    List<MobSelection> excludedMonsterSpecs=loot.getExcludedMonsterSpecs();
     if (excludedMonsterSpecs!=null)
     {
-      for(AchievableLootMonsterSpec excludedMonsterSpec : excludedMonsterSpecs)
+      for(MobSelection excludedMonsterSpec : excludedMonsterSpecs)
       {
-        writeAchievableLootMonsterSpec(AchievableLootXMLConstants.EXCLUDED_MONSTER_SPEC_TAG,hd,excludedMonsterSpec);
+        MobSelectionXMLIO.writeMobSelection(AchievableLootXMLConstants.EXCLUDED_MONSTER_SPEC_TAG,hd,excludedMonsterSpec);
       }
     }
     hd.endElement("","",AchievableLootXMLConstants.LOOT_TAG);
@@ -98,17 +95,6 @@ public class AchievableLootXMLWriter
     attrs.addAttribute("","",AchievableLootXMLConstants.NAME_ATTR,XmlWriter.CDATA,name);
     hd.startElement("","",AchievableLootXMLConstants.MOB_TAG,attrs);
     hd.endElement("","",AchievableLootXMLConstants.MOB_TAG);
-  }
-
-  private static void writeAchievableLootMonsterSpec(String tag, TransformerHandler hd, AchievableLootMonsterSpec spec) throws SAXException
-  {
-    AttributesImpl attrs=new AttributesImpl();
-    MobLocation location=spec.getLocation();
-    MobLocationXMLIO.writeMobLocation(attrs,location);
-    AgentClassification classification=spec.getClassification();
-    AgentsXMLIO.writeClassification(attrs,classification);
-    hd.startElement("","",tag,attrs);
-    hd.endElement("","",tag);
   }
 
   private static String asPersistentString(int[] values)

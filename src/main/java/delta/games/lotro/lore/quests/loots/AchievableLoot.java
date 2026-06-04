@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delta.games.lotro.lore.agents.mobs.MobDescription;
+import delta.games.lotro.lore.agents.mobs.MobSelection;
 import delta.games.lotro.lore.items.Item;
 
 /**
@@ -17,8 +18,8 @@ public class AchievableLoot
   // Single mob
   private MobDescription _mob;
   // Or mob specs
-  private List<AchievableLootMonsterSpec> _monsterSpecs;
-  private List<AchievableLootMonsterSpec> _excludedMonsterSpecs;
+  private List<MobSelection> _monsterSpecs;
+  private List<MobSelection> _excludedMonsterSpecs;
 
   /**
    * Constructor.
@@ -81,7 +82,7 @@ public class AchievableLoot
    * Get the monster specifications.
    * @return A non-empty list of such specifications, or <code>null</code>
    */
-  public List<AchievableLootMonsterSpec> getMonsterSpecs()
+  public List<MobSelection> getMonsterSpecs()
   {
     return _monsterSpecs;
   }
@@ -90,11 +91,11 @@ public class AchievableLoot
    * Add a monster specification.
    * @param monsterSpec Specification to add.
    */
-  public void addMonsterSpec(AchievableLootMonsterSpec monsterSpec)
+  public void addMonsterSpec(MobSelection monsterSpec)
   {
     if (_monsterSpecs==null)
     {
-      _monsterSpecs=new ArrayList<AchievableLootMonsterSpec>();
+      _monsterSpecs=new ArrayList<MobSelection>();
     }
     _monsterSpecs.add(monsterSpec);
   }
@@ -103,7 +104,7 @@ public class AchievableLoot
    * Get the monster specifications to exclude.
    * @return A non-empty list of such specifications, or <code>null</code>
    */
-  public List<AchievableLootMonsterSpec> getExcludedMonsterSpecs()
+  public List<MobSelection> getExcludedMonsterSpecs()
   {
     return _excludedMonsterSpecs;
   }
@@ -112,11 +113,11 @@ public class AchievableLoot
    * Add a monster specification to exclude.
    * @param excludedMonsterSpec Specification to add.
    */
-  public void addExcludedMonsterSpec(AchievableLootMonsterSpec excludedMonsterSpec)
+  public void addExcludedMonsterSpec(MobSelection excludedMonsterSpec)
   {
     if (_excludedMonsterSpecs==null)
     {
-      _excludedMonsterSpecs=new ArrayList<AchievableLootMonsterSpec>();
+      _excludedMonsterSpecs=new ArrayList<MobSelection>();
     }
     _excludedMonsterSpecs.add(excludedMonsterSpec);
   }
