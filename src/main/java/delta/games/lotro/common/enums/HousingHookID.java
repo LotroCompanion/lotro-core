@@ -1,7 +1,7 @@
 package delta.games.lotro.common.enums;
 
 /**
- * House type.
+ * Housing hook ID.
  * @author DAM
  */
 public class HousingHookID extends LotroEnumEntry
