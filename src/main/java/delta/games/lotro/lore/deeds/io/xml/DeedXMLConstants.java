@@ -24,6 +24,10 @@ public class DeedXMLConstants
    */
   public static final String CATEGORY_ATTR="category";
   /**
+   * Tag 'deed', attribute 'uiFilter'.
+   */
+  public static final String UI_FILTER_ATTR="uiFilter";
+  /**
    * Tag 'deed', attribute 'type'.
    */
   public static final String DEED_TYPE_ATTR="type";

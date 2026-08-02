@@ -11,6 +11,7 @@ import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.SAXParserEngine;
 import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.common.enums.DeedCategory;
+import delta.games.lotro.common.enums.DeedUIFilter;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.requirements.io.xml.QuestsRequirementsSaxParser;
@@ -53,6 +54,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
   private AchievableLootSaxXMLParser _lootParser;
   private SingleLocaleLabelsManager _i18n;
   private LotroEnum<DeedCategory> _categoryEnum;
+  private LotroEnum<DeedUIFilter> _uiFilterEnum;
   private LotroEnum<DeedType> _typeEnum;
 
   /**
@@ -74,6 +76,7 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
     _lootParser=new AchievableLootSaxXMLParser();
     _lootParser.setParent(this);
     _categoryEnum=LotroEnumsRegistry.getInstance().get(DeedCategory.class);
+    _uiFilterEnum=LotroEnumsRegistry.getInstance().get(DeedUIFilter.class);
     _typeEnum=LotroEnumsRegistry.getInstance().get(DeedType.class);
   }
 
@@ -133,6 +136,14 @@ public final class DeedsSaxParser extends SAXParserValve<List<DeedDescription>>
         category=_categoryEnum.getEntry(categoryCode);
       }
       deed.setCategory(category);
+      // UI Filter
+      int uiFilterCode=SAXParsingTools.getIntAttribute(attrs,DeedXMLConstants.UI_FILTER_ATTR,0);
+      DeedUIFilter uiFilter=null;
+      if (uiFilterCode>0)
+      {
+        uiFilter=_uiFilterEnum.getEntry(uiFilterCode);
+      }
+      deed.setUIFilter(uiFilter);
       // Key
       String key=SAXParsingTools.getStringAttribute(attrs,DeedXMLConstants.DEED_KEY_ATTR,null);
       deed.setKey(key);

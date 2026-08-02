@@ -11,6 +11,7 @@ import delta.common.utils.io.xml.XmlFileWriterHelper;
 import delta.common.utils.io.xml.XmlWriter;
 import delta.games.lotro.common.ChallengeLevel;
 import delta.games.lotro.common.enums.DeedCategory;
+import delta.games.lotro.common.enums.DeedUIFilter;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
 import delta.games.lotro.common.rewards.io.xml.RewardsXMLWriter;
 import delta.games.lotro.lore.deeds.DeedDescription;
@@ -93,6 +94,13 @@ public class DeedXMLWriter extends AchievableXMLWriter
     {
       int categoryCode=category.getCode();
       deedAttrs.addAttribute("","",DeedXMLConstants.CATEGORY_ATTR,XmlWriter.CDATA,String.valueOf(categoryCode));
+    }
+    // UI filter
+    DeedUIFilter uiFilter=deed.getUIFilter();
+    if (uiFilter!=null)
+    {
+      int uiFilterCode=uiFilter.getCode();
+      deedAttrs.addAttribute("","",DeedXMLConstants.UI_FILTER_ATTR,XmlWriter.CDATA,String.valueOf(uiFilterCode));
     }
     // Challenge level
     ChallengeLevel challengeLevel=deed.getChallengeLevel();

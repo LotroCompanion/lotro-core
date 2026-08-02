@@ -2,6 +2,7 @@ package delta.games.lotro.lore.deeds;
 
 import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.enums.DeedCategory;
+import delta.games.lotro.common.enums.DeedUIFilter;
 import delta.games.lotro.lore.quests.Achievable;
 
 /**
@@ -22,6 +23,10 @@ public class DeedDescription extends Achievable
    * Deed category.
    */
   private DeedCategory _category;
+  /**
+   * UI Filter.
+   */
+  private DeedUIFilter _uiFilter;
 
   /**
    * Constructor.
@@ -31,6 +36,7 @@ public class DeedDescription extends Achievable
     super();
     _key=null;
     _type=null;
+    _uiFilter=null;
   }
 
   /**
@@ -98,6 +104,24 @@ public class DeedDescription extends Achievable
   }
 
   /**
+   * Get the UI filter of this deed.
+   * @return the UI filter of this deed.
+   */
+  public DeedUIFilter getUIFilter()
+  {
+    return _uiFilter;
+  }
+
+  /**
+   * Set the UI filter of this deed. 
+   * @param uiFilter the UI filter to set.
+   */
+  public void setUIFilter(DeedUIFilter uiFilter)
+  {
+    _uiFilter=uiFilter;
+  }
+
+  /**
    * Dump the contents of this deed as a string.
    * @return A readable string.
    */
@@ -121,6 +145,12 @@ public class DeedDescription extends Achievable
     {
       sb.append(" (");
       sb.append(_category);
+      sb.append(')');
+    }
+    if (_uiFilter!=null)
+    {
+      sb.append(" (");
+      sb.append(_uiFilter);
       sb.append(')');
     }
     sb.append(EndOfLine.NATIVE_EOL);
