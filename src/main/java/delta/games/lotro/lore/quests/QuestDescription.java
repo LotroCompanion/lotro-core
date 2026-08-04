@@ -7,6 +7,7 @@ import delta.common.utils.text.EndOfLine;
 import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.Sizes;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
@@ -67,7 +68,7 @@ public class QuestDescription extends Achievable
     super();
     _scope=null;
     _questArc="";
-    _size=Size.SOLO;
+    _size=Sizes.SOLO;
     _repeatability=Repeatability.NOT_REPEATABLE;
     _lockType=null;
     _instanced=false;
@@ -341,7 +342,7 @@ public class QuestDescription extends Achievable
   {
     StringBuilder sb=new StringBuilder();
     super.dumpFirstLine(sb);
-    if (_size!=Size.SOLO)
+    if (_size!=Sizes.SOLO)
     {
       sb.append(" (");
       sb.append(_size);

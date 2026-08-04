@@ -8,6 +8,8 @@ import org.w3c.dom.NamedNodeMap;
 
 import delta.common.utils.xml.DOMParsingTools;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.enums.LotroEnum;
+import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.lore.warbands.WarbandDefinition;
 import delta.games.lotro.lore.warbands.WarbandsRegistry;
 
@@ -37,6 +39,7 @@ public class WarbandsRegistryXMLParser
   {
     WarbandsRegistry registry=new WarbandsRegistry();
 
+    LotroEnum<Size> sizeEnum=LotroEnumsRegistry.getInstance().get(Size.class);
     // Warbands
     List<Element> warbandTags=DOMParsingTools.getChildTagsByName(root,WarbandsRegistryXMLConstants.WARBAND_TAG);
     if (warbandTags!=null)
@@ -55,7 +58,7 @@ public class WarbandsRegistryXMLParser
         String sizeStr=DOMParsingTools.getStringAttribute(attrs,WarbandsRegistryXMLConstants.WARBAND_SIZE_ATTR,null);
         if (sizeStr!=null)
         {
-          size=Size.valueOf(sizeStr);
+          size=sizeEnum.getByKey(sizeStr);
         }
         WarbandDefinition warband=new WarbandDefinition();
         warband.setName(name);

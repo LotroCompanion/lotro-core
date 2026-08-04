@@ -16,6 +16,7 @@ import delta.games.lotro.common.IdentifiableComparator;
 import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.Sizes;
 import delta.games.lotro.common.enums.QuestCategory;
 import delta.games.lotro.common.enums.QuestScope;
 import delta.games.lotro.common.requirements.io.xml.UsageRequirementsXMLWriter;
@@ -123,9 +124,9 @@ public class QuestXMLWriter extends AchievableXMLWriter
     }
     // Size
     Size size=quest.getSize();
-    if (size!=Size.SOLO)
+    if (size!=Sizes.SOLO)
     {
-      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SIZE_ATTR,XmlWriter.CDATA,size.name());
+      questAttrs.addAttribute("","",QuestXMLConstants.QUEST_SIZE_ATTR,XmlWriter.CDATA,size.getKey());
     }
     // Repeatable
     Repeatability repeatability=quest.getRepeatability();

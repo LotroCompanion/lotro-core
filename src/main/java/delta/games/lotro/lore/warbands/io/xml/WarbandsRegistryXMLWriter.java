@@ -81,7 +81,7 @@ public class WarbandsRegistryXMLWriter
       Size size=warband.getSize();
       if (size!=null)
       {
-        attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_SIZE_ATTR,XmlWriter.CDATA,size.name());
+        attrs.addAttribute("","",WarbandsRegistryXMLConstants.WARBAND_SIZE_ATTR,XmlWriter.CDATA,size.getKey());
       }
       hd.startElement("","",WarbandsRegistryXMLConstants.WARBAND_TAG,attrs);
       hd.endElement("","",WarbandsRegistryXMLConstants.WARBAND_TAG);

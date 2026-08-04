@@ -1,6 +1,7 @@
 package delta.games.lotro.lore.warbands;
 
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.Sizes;
 
 /**
  * Definition of a warband.
@@ -29,7 +30,7 @@ public class WarbandDefinition
     _morale=null;
     _region="";
     _description="";
-    _size=Size.SOLO;
+    _size=Sizes.SOLO;
   }
 
   /**

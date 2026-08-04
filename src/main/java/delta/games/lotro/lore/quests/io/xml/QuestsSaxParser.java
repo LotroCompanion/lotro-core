@@ -13,6 +13,7 @@ import delta.common.utils.xml.sax.SAXParserValve;
 import delta.games.lotro.common.LockType;
 import delta.games.lotro.common.Repeatability;
 import delta.games.lotro.common.Size;
+import delta.games.lotro.common.Sizes;
 import delta.games.lotro.common.enums.LotroEnum;
 import delta.games.lotro.common.enums.LotroEnumsRegistry;
 import delta.games.lotro.common.enums.QuestCategory;
@@ -29,8 +30,8 @@ import delta.games.lotro.lore.maps.io.xml.MapDescriptionXMLParser;
 import delta.games.lotro.lore.quests.Achievable;
 import delta.games.lotro.lore.quests.QuestDescription;
 import delta.games.lotro.lore.quests.dialogs.DialogElement;
-import delta.games.lotro.lore.quests.loots.io.xml.AchievableLootXMLConstants;
 import delta.games.lotro.lore.quests.loots.io.xml.AchievableLootSaxXMLParser;
+import delta.games.lotro.lore.quests.loots.io.xml.AchievableLootXMLConstants;
 import delta.games.lotro.lore.quests.objectives.io.xml.DialogsSaxParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesSaxXMLParser;
 import delta.games.lotro.lore.quests.objectives.io.xml.ObjectivesXMLConstants;
@@ -57,6 +58,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
   private SingleLocaleLabelsManager _i18n;
   private LotroEnum<QuestCategory> _categoryEnum;
   private LotroEnum<QuestScope> _scopeEnum;
+  private LotroEnum<Size> _sizeEnum;
 
   /**
    * Constructor.
@@ -80,6 +82,7 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
     _lootParser.setParent(this);
     _categoryEnum=LotroEnumsRegistry.getInstance().get(QuestCategory.class);
     _scopeEnum=LotroEnumsRegistry.getInstance().get(QuestScope.class);
+    _sizeEnum=LotroEnumsRegistry.getInstance().get(Size.class);
   }
 
   /**
@@ -127,10 +130,10 @@ public final class QuestsSaxParser extends SAXParserValve<List<QuestDescription>
       q.setQuestArc(arc);
       // Size
       String sizeStr=SAXParsingTools.getStringAttribute(attrs,QuestXMLConstants.QUEST_SIZE_ATTR,null);
-      Size size=Size.SOLO;
+      Size size=Sizes.SOLO;
       if (sizeStr!=null)
       {
-        size=Size.valueOf(sizeStr);
+        size=_sizeEnum.getByKey(sizeStr);
       }
       q.setSize(size);
       // Repeatable

@@ -1,37 +1,16 @@
 package delta.games.lotro.common;
 
+import delta.games.lotro.common.enums.LotroEnumEntry;
+
 /**
  * Quest size.
  * @author DAM
  */
-public enum Size
+public final class Size extends LotroEnumEntry
 {
-  /**
-   * Solo quest.
-   */
-  SOLO("Solo"),
-  /**
-   * Small fellowship quest.
-   */
-  SMALL_FELLOWSHIP("Small fellowship"),
-  /**
-   * Fellowship quest.
-   */
-  FELLOWSHIP("Fellowship"),
-  /**
-   * Raid quest.
-   */
-  RAID("Raid");
-
-  private String _label;
-  private Size(String label)
-  {
-    _label=label;
-  }
-
   @Override
   public String toString()
   {
-    return _label;
+    return getLabel();
   }
 }
