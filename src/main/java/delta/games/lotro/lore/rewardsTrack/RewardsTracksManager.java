@@ -52,17 +52,20 @@ public class RewardsTracksManager
   {
     LotroCoreConfig cfg=LotroCoreConfig.getInstance();
     File rewardsTracksFile=cfg.getFile(DataFiles.REWARDS_TRACKS);
-    long now=System.currentTimeMillis();
     RewardsTracksManager mgr=new RewardsTracksManager();
-    List<RewardsTrack> rewardsTracks=new RewardsTracksXMLParser().parseXML(rewardsTracksFile);
-    for(RewardsTrack rewardsTrack : rewardsTracks)
+    if (rewardsTracksFile.exists())
     {
-      mgr.registerRewardsTrack(rewardsTrack);
+      long now=System.currentTimeMillis();
+      List<RewardsTrack> rewardsTracks=new RewardsTracksXMLParser().parseXML(rewardsTracksFile);
+      for(RewardsTrack rewardsTrack : rewardsTracks)
+      {
+        mgr.registerRewardsTrack(rewardsTrack);
+      }
+      long now2=System.currentTimeMillis();
+      long duration=now2-now;
+      int nbRewardsTracks=mgr.getAllRewardsTracks().size();
+      PerfUtils.showLoadedLog(nbRewardsTracks,"rewards tracks",duration);
     }
-    long now2=System.currentTimeMillis();
-    long duration=now2-now;
-    int nbRewardsTracks=mgr.getAllRewardsTracks().size();
-    PerfUtils.showLoadedLog(nbRewardsTracks,"rewards tracks",duration);
     return mgr;
   }
 
