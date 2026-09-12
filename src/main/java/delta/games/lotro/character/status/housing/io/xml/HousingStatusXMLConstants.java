@@ -77,6 +77,10 @@ public class HousingStatusXMLConstants
    */
   public static final String ITEM_ID_ATTR="id";
   /**
+   * Tag 'item', attribute 'instanceID'.
+   */
+  public static final String ITEM_IID_ATTR="instanceID";
+  /**
    * Misc tags, attribute 'name'.
    */
   public static final String NAME_ATTR="name";

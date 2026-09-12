@@ -179,6 +179,13 @@ public class HousingStatusXMLParser
   private HousingItem parseHousingItem(Element itemTag)
   {
     NamedNodeMap attrs=itemTag.getAttributes();
+    // Item instance ID
+    InternalGameId iid=null;
+    String iidStr=DOMParsingTools.getStringAttribute(attrs,HousingStatusXMLConstants.ITEM_IID_ATTR,null);
+    if (iidStr!=null)
+    {
+      iid=InternalGameId.fromString(iidStr);
+    }
     // Item ID
     int itemID=DOMParsingTools.getIntAttribute(attrs,HousingStatusXMLConstants.ITEM_ID_ATTR,0);
     Item item=ItemsManager.getInstance().getItem(itemID);
@@ -197,7 +204,7 @@ public class HousingStatusXMLParser
     {
       position=PositionXMLParser.parseSimplePosition(positionTag);
     }
-    HousingItem ret=new HousingItem(item,position,hookID);
+    HousingItem ret=new HousingItem(iid,item,position,hookID);
     // Rotation offset
     float rotationOffset=DOMParsingTools.getFloatAttribute(attrs,HousingStatusXMLConstants.ITEM_ROTATION_OFFSET_ATTR,0);
     ret.setRotationOffset(rotationOffset);

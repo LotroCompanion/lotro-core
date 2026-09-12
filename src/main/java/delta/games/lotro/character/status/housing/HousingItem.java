@@ -12,6 +12,7 @@ import delta.games.lotro.lore.items.Item;
  */
 public class HousingItem
 {
+  private InternalGameId _itemIID;
   private Item _item;
   private Position _position;
   private HousingHookID _hookID;
@@ -22,16 +23,27 @@ public class HousingItem
 
   /**
    * Constructor.
+   * @param itemIID Item instance ID.
    * @param item Item.
    * @param position Position.
    * @param hookID Hook ID.
    */
-  public HousingItem(Item item, Position position, HousingHookID hookID)
+  public HousingItem(InternalGameId itemIID, Item item, Position position, HousingHookID hookID)
   {
+    _itemIID=itemIID;
     _item=item;
     _position=position;
     _hookID=hookID;
     _positionOffset=new Vector3D();
+  }
+
+  /**
+   * Get the item instance ID.
+   * @return An item instance ID or <code>null</code> if not set.
+   */
+  public InternalGameId getIID()
+  {
+    return _itemIID;
   }
 
   /**

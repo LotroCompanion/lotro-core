@@ -216,6 +216,12 @@ public class HousingStatusXMLWriter
   private void writeHouseItem(TransformerHandler hd, HousingItem houseItem) throws SAXException
   {
     AttributesImpl attrs=new AttributesImpl();
+    // IID
+    InternalGameId iid=houseItem.getIID();
+    if (iid!=null)
+    {
+      attrs.addAttribute("","",HousingStatusXMLConstants.ITEM_IID_ATTR,XmlWriter.CDATA,iid.asPersistedString());
+    }
     // Item
     Item item=houseItem.getItem();
     if (item!=null)
