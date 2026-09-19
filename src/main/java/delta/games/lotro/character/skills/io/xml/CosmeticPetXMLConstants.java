@@ -19,4 +19,8 @@ public class CosmeticPetXMLConstants
    * Tag 'pet', attribute 'sourceDescription'.
    */
   public static final String PET_SOURCE_DESCRIPTION_ATTR="sourceDescription";
+  /**
+   * Tag 'pet', attribute 'hidden'.
+   */
+  public static final String PET_HIDDEN_ATTR="hidden";
 }

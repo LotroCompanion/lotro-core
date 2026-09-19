@@ -218,6 +218,9 @@ public class SkillDescriptionXMLParser
     String sourceDescription=DOMParsingTools.getStringAttribute(attrs,CosmeticPetXMLConstants.PET_SOURCE_DESCRIPTION_ATTR,"");
     sourceDescription=I18nRuntimeUtils.getLabel(_i18n,sourceDescription);
     ret.setSourceDescription(sourceDescription);
+    // Hidden
+    boolean hidden=DOMParsingTools.getBooleanAttribute(attrs,CosmeticPetXMLConstants.PET_HIDDEN_ATTR,false);
+    ret.setHidden(hidden);
     // Entity classification
     EntityClassification classification=ret.getClassification();
     AgentsXMLIO.parseEntityClassification(classification,attrs);

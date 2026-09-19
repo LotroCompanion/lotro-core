@@ -237,6 +237,12 @@ public class SkillDescriptionXMLWriter
     {
       attrs.addAttribute("","",CosmeticPetXMLConstants.PET_SOURCE_DESCRIPTION_ATTR,XmlWriter.CDATA,String.valueOf(sourceDescription));
     }
+    // Hidden
+    boolean isHidden=pet.isHidden();
+    if (isHidden)
+    {
+      attrs.addAttribute("","",CosmeticPetXMLConstants.PET_HIDDEN_ATTR,XmlWriter.CDATA,Boolean.toString(isHidden));
+    }
     // Entity Classification
     AgentsXMLIO.writeEntityClassification(attrs,pet.getClassification());
   }

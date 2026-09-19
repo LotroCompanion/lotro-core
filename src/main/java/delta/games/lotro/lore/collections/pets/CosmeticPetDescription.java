@@ -13,6 +13,7 @@ public class CosmeticPetDescription extends SkillDescription implements Collecta
   private String _initialName;
   private String _sourceDescription;
   private EntityClassification _classification;
+  private boolean _hidden;
   // We could add:
   // - Alignment
   // - Class (always melee)
@@ -26,6 +27,7 @@ public class CosmeticPetDescription extends SkillDescription implements Collecta
     _initialName="";
     _sourceDescription="";
     _classification=new EntityClassification();
+    _hidden=false;
   }
 
   /**
@@ -73,6 +75,24 @@ public class CosmeticPetDescription extends SkillDescription implements Collecta
     return _classification;
   }
 
+  /**
+   * Indicates if this pet is hidden or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isHidden()
+  {
+    return _hidden;
+  }
+
+  /**
+   * Set the 'hidden' flag.
+   * @param hidden Value to set.
+   */
+  public void setHidden(boolean hidden)
+  {
+    _hidden=hidden;
+  }
+
   @Override
   public String toString()
   {
@@ -82,6 +102,7 @@ public class CosmeticPetDescription extends SkillDescription implements Collecta
     sb.append(", initial name=").append(_initialName);
     sb.append(", description=").append(getDescription());
     sb.append(", source description=").append(_sourceDescription);
+    sb.append(", hidden=").append(_hidden);
     sb.append(", iconID=").append(getIconId());
     sb.append(", classification=").append(_classification);
     return sb.toString();
