@@ -3,7 +3,7 @@ package delta.games.lotro.common;
 import java.util.Comparator;
 
 /**
- * Comparator for repeatabilites.
+ * Comparator for repeatabilities.
  * @author DAM
  */
 public class RepeatabilityComparator implements Comparator<Repeatability>

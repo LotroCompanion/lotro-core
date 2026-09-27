@@ -11,7 +11,7 @@ import delta.games.lotro.utils.PerfUtils;
 import delta.games.lotro.utils.Registry;
 
 /**
- * Dienchantment manager.
+ * Disenchantment manager.
  * @author DAM
  */
 public class DisenchantmentManager

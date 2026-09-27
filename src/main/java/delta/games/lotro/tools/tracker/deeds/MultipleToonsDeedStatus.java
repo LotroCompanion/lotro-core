@@ -6,7 +6,8 @@ import delta.games.lotro.character.status.achievables.io.DeedsStatusIo;
 import delta.games.lotro.character.utils.MultipleToonsStats;
 
 /**
- * @author dm
+ * Deed status for several characters.
+ * @author DAM
  */
 public class MultipleToonsDeedStatus extends MultipleToonsStats<AchievablesStatusManager>
 {
