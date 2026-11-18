@@ -20,7 +20,7 @@ import delta.games.lotro.lore.items.essences.EssencesSet;
  * @param <T> Type of the reference item.
  * @author DAM
  */
-public class ItemInstance<T extends Item> implements ItemProvider
+public class ItemInstance<T extends Item> implements BaseItem
 {
   // Wearer
   private BasicCharacterAttributes _wearer;
@@ -294,10 +294,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
     _itemLevel=itemLevel;
   }
 
-  /**
-   * Get the effective item level.
-   * @return an item level or <code>null</code>.
-   */
+  @Override
   public Integer getEffectiveItemLevel()
   {
     if (_itemLevel!=null)
@@ -405,10 +402,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
     _value=value;
   }
 
-  /**
-   * Get the effective value.
-   * @return a value or <code>null</code>.
-   */
+  @Override
   public Money getEffectiveValue()
   {
     if (_value!=null)
@@ -626,6 +620,7 @@ public class ItemInstance<T extends Item> implements ItemProvider
    * </ul>
    * @return some stats.
    */
+  @Override
   public BasicStatsSet getStats()
   {
     BasicStatsSet ret=new BasicStatsSet();

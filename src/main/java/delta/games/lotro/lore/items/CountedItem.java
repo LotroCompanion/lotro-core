@@ -108,10 +108,7 @@ public class CountedItem<T extends ItemProvider> implements Named,ItemProvider,I
     return null;
   }
 
-  /**
-   * Get the managed item.
-   * @return an item.
-   */
+  @Override
   public Item getItem()
   {
     if (_item!=null)

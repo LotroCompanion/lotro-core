@@ -28,10 +28,10 @@ import delta.games.lotro.common.owner.AccountOwner;
 import delta.games.lotro.common.owner.AccountServerOwner;
 import delta.games.lotro.common.owner.CharacterOwner;
 import delta.games.lotro.common.owner.Owner;
+import delta.games.lotro.lore.items.BaseItem;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.ItemProvider;
 import delta.games.lotro.lore.items.carryalls.CarryAll;
 
 /**
@@ -198,7 +198,7 @@ public class StorageUtils
       ItemInstance<? extends Item> itemInstance=gear.getItemForSlot(slot);
       if (itemInstance!=null)
       {
-        CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(itemInstance,1);
+        CountedItem<BaseItem> countedItem=new CountedItem<BaseItem>(itemInstance,1);
         StoredItem storedItem=new StoredItem(countedItem);
         storedItem.setOwner(owner);
         storedItem.setLocation(location);
@@ -215,7 +215,7 @@ public class StorageUtils
     List<CountedItem<ItemInstance<? extends Item>>> bagItems=container.getAllItemInstancesWithCount();
     for(CountedItem<ItemInstance<? extends Item>> bagItem : bagItems)
     {
-      CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(bagItem.getManagedItem(),bagItem.getQuantity());
+      CountedItem<BaseItem> countedItem=new CountedItem<BaseItem>(bagItem.getManagedItem(),bagItem.getQuantity());
       StoredItem storedItem=new StoredItem(countedItem);
       storedItem.setOwner(owner);
       storedItem.setLocation(location);
@@ -230,7 +230,7 @@ public class StorageUtils
     List<StoredItem> items=new ArrayList<StoredItem>();
     for(CountedItem<Item> walletItem : container.getAllItemsSortedByID())
     {
-      CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(walletItem.getManagedItem(),walletItem.getQuantity());
+      CountedItem<BaseItem> countedItem=new CountedItem<BaseItem>(walletItem.getManagedItem(),walletItem.getQuantity());
       StoredItem storedItem=new StoredItem(countedItem);
       storedItem.setOwner(owner);
       storedItem.setLocation(location);
@@ -256,7 +256,7 @@ public class StorageUtils
         List<CountedItem<ItemInstance<? extends Item>>> chestItems=chest.getAllItemInstances();
         for(CountedItem<ItemInstance<? extends Item>> chestItem : chestItems)
         {
-          CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(chestItem.getManagedItem(),chestItem.getQuantity());
+          CountedItem<BaseItem> countedItem=new CountedItem<BaseItem>(chestItem.getManagedItem(),chestItem.getQuantity());
           StoredItem storedItem=new StoredItem(countedItem);
           storedItem.setOwner(owner);
           storedItem.setLocation(location);
@@ -273,8 +273,8 @@ public class StorageUtils
     CarryAllNaming naming=new CarryAllNaming();
     for(StoredItem storedItem : items)
     {
-      CountedItem<ItemProvider> countedItem=storedItem.getItem();
-      ItemProvider itemProvider=countedItem.getManagedItem();
+      CountedItem<BaseItem> countedItem=storedItem.getItem();
+      BaseItem itemProvider=countedItem.getManagedItem();
       if (itemProvider instanceof ItemInstance<?>)
       {
         Item item=itemProvider.getItem();
@@ -302,7 +302,7 @@ public class StorageUtils
     List<CountedItem<Item>> carryAllItems=carryAll.getItems();
     for(CountedItem<Item> item : carryAllItems)
     {
-      CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(item.getManagedItem(),item.getQuantity());
+      CountedItem<BaseItem> countedItem=new CountedItem<BaseItem>(item.getManagedItem(),item.getQuantity());
       StoredItem storedItem=new StoredItem(countedItem);
       storedItem.setOwner(owner);
       storedItem.setLocation(location);
@@ -341,7 +341,7 @@ public class StorageUtils
     List<StoredItem> items=new ArrayList<StoredItem>();
     for(WardrobeItem walletItem : wardrobe.getAll())
     {
-      CountedItem<ItemProvider> countedItem=new CountedItem<ItemProvider>(walletItem.getItem(),1);
+      CountedItem<BaseItem> countedItem=new CountedItem<BaseItem>(walletItem.getItem(),1);
       StoredItem storedItem=new StoredItem(countedItem);
       storedItem.setOwner(owner);
       storedItem.setLocation(location);

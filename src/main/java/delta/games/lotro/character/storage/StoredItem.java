@@ -2,8 +2,8 @@ package delta.games.lotro.character.storage;
 
 import delta.games.lotro.character.storage.location.StorageLocation;
 import delta.games.lotro.common.owner.Owner;
+import delta.games.lotro.lore.items.BaseItem;
 import delta.games.lotro.lore.items.CountedItem;
-import delta.games.lotro.lore.items.ItemProvider;
 
 /**
  * Stored item.
@@ -13,13 +13,13 @@ public class StoredItem
 {
   private StorageLocation _location;
   private Owner _owner;
-  private CountedItem<ItemProvider> _item;
+  private CountedItem<BaseItem> _item;
 
   /**
    * Constructor.
    * @param item Wrapped item.
    */
-  public StoredItem(CountedItem<ItemProvider> item)
+  public StoredItem(CountedItem<BaseItem> item)
   {
     _item=item;
   }
@@ -64,7 +64,7 @@ public class StoredItem
    * Get the managed item.
    * @return the managed item.
    */
-  public CountedItem<ItemProvider> getItem()
+  public CountedItem<BaseItem> getItem()
   {
     return _item;
   }

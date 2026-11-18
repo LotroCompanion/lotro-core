@@ -29,7 +29,7 @@ import delta.games.lotro.lore.items.sets.ItemsSet;
  * Item description.
  * @author DAM
  */
-public class Item implements Interactable,ItemProvider
+public class Item implements Interactable,BaseItem
 {
   private static final Logger LOGGER=LoggerFactory.getLogger(Item.class);
 
@@ -399,10 +399,7 @@ public class Item implements Interactable,ItemProvider
     _unique=unique;
   }
 
-  /**
-   * Get the item stats.
-   * @return a set of stats.
-   */
+  @Override
   public BasicStatsSet getStats()
   {
     return _stats;
@@ -560,6 +557,12 @@ public class Item implements Interactable,ItemProvider
     _itemLevel=itemLevel;
   }
 
+  @Override
+  public Integer getEffectiveItemLevel()
+  {
+    return _itemLevel;
+  }
+
   /**
    * Get the item level offset.
    * @return a level offset value or <code>null</code>.
@@ -648,6 +651,12 @@ public class Item implements Interactable,ItemProvider
   public QualityBasedValuesTable getValueTable()
   {
     return _value;
+  }
+
+  @Override
+  public Money getEffectiveValue()
+  {
+    return getValueAsMoney();
   }
 
   /**

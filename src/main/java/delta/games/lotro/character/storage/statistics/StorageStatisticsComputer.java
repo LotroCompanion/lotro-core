@@ -10,12 +10,12 @@ import delta.games.lotro.character.storage.statistics.reputation.StorageFactionS
 import delta.games.lotro.character.storage.statistics.reputation.StorageReputationStats;
 import delta.games.lotro.common.money.Money;
 import delta.games.lotro.common.statistics.items.ItemsStats;
+import delta.games.lotro.lore.items.BaseItem;
 import delta.games.lotro.lore.items.CountedItem;
 import delta.games.lotro.lore.items.DisenchantmentManager;
 import delta.games.lotro.lore.items.DisenchantmentResult;
 import delta.games.lotro.lore.items.Item;
 import delta.games.lotro.lore.items.ItemInstance;
-import delta.games.lotro.lore.items.ItemProvider;
 import delta.games.lotro.lore.items.details.ItemDetailsManager;
 import delta.games.lotro.lore.items.details.ItemReputation;
 import delta.games.lotro.lore.items.details.ItemXP;
@@ -57,7 +57,7 @@ public class StorageStatisticsComputer
     results.reset();
     for(StoredItem storedItem : items)
     {
-      CountedItem<ItemProvider> counted=storedItem.getItem();
+      CountedItem<BaseItem> counted=storedItem.getItem();
       Item item=counted.getItem();
       ItemDetailsManager details=item.getDetails();
       if (details!=null)
@@ -82,7 +82,7 @@ public class StorageStatisticsComputer
     results.reset();
     for(StoredItem storedItem : items)
     {
-      CountedItem<ItemProvider> counted=storedItem.getItem();
+      CountedItem<BaseItem> counted=storedItem.getItem();
       Item item=counted.getItem();
       int quantity=counted.getQuantity();
       DisenchantmentResult result=registry.getItem(item.getIdentifier());
@@ -104,7 +104,7 @@ public class StorageStatisticsComputer
     long totalXP=0;
     for(StoredItem storedItem : items)
     {
-      CountedItem<ItemProvider> counted=storedItem.getItem();
+      CountedItem<BaseItem> counted=storedItem.getItem();
       Item item=counted.getItem();
       ItemDetailsManager details=item.getDetails();
       if (details!=null)
@@ -131,7 +131,7 @@ public class StorageStatisticsComputer
     long totalBonusXP=0;
     for(StoredItem storedItem : items)
     {
-      CountedItem<ItemProvider> counted=storedItem.getItem();
+      CountedItem<BaseItem> counted=storedItem.getItem();
       Item item=counted.getItem();
       ItemDetailsManager details=item.getDetails();
       if (details!=null)
@@ -163,9 +163,9 @@ public class StorageStatisticsComputer
     int totalRawValue=0;
     for(StoredItem storedItem : items)
     {
-      CountedItem<ItemProvider> counted=storedItem.getItem();
+      CountedItem<BaseItem> counted=storedItem.getItem();
       int itemRawValue=0;
-      ItemProvider itemProvider=counted.getManagedItem();
+      BaseItem itemProvider=counted.getManagedItem();
       if (itemProvider instanceof ItemInstance)
       {
         ItemInstance<?> itemInstance=(ItemInstance<?>)itemProvider;
